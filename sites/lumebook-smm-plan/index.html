@@ -13,97 +13,103 @@
 :root{
   --ink:#0B0518; --ink-1:#130827; --ink-2:#1D1039; --ink-3:#291852; --ink-line:rgba(230,183,98,.12);
   --gold:#E6B762; --gold-2:#C9954A; --gold-soft:#F3D9A1;
-  --cream:#F8F0E1; --cream-mute:#B8AF9E; --cream-dim:#736D62;
+  --cream:#F8F0E1; --cream-mute:#B8AF9E; --cream-dim:#8A8376;
   --rose:#E88BA8; --danger:#E86B7A; --success:#6BD196;
   --fg-1:var(--cream); --fg-2:var(--cream-mute); --fg-3:var(--cream-dim);
   --bg-page:var(--ink); --bg-surface:var(--ink-1); --bg-elevated:var(--ink-2);
   --border-hairline:var(--ink-line); --border-strong:rgba(248,240,225,.14);
   --font-display:"Varela Round","Heebo",system-ui,sans-serif;
   --font-body:"Heebo","Varela Round",system-ui,sans-serif;
-  --fs-h1:1.6rem; --fs-h2:1.4rem; --fs-h3:1.08rem; --fs-body:1rem; --fs-small:.92rem; --fs-xs:.78rem;
-  --lh-body:1.65; --tracking-caps:.14em;
-  --r-sm:.625rem; --r-md:1rem; --r-lg:1.5rem; --r-pill:999px;
-  --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem; --sp-6:1.5rem; --sp-8:2rem;
-  --shadow-card:0 12px 32px -12px rgba(0,0,0,.6);
+  --fs-h2:1.45rem; --fs-h3:1.05rem; --fs-body:1rem; --fs-small:.93rem; --fs-xs:.78rem;
+  --lh-body:1.7;
+  --r-sm:.625rem; --r-md:1rem; --r-lg:1.25rem; --r-pill:999px;
+  --sp-1:.25rem; --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem; --sp-5:1.25rem; --sp-6:1.5rem; --sp-8:2rem;
+  --shadow-glow:0 18px 60px -24px rgba(230,183,98,.35);
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg-page);color:var(--fg-1);font-family:var(--font-body);font-size:var(--fs-body);line-height:var(--lh-body);padding-inline:16px;padding-block:env(safe-area-inset-top,0px) 64px}
-.wrap{max-width:960px;margin:0 auto}
+body{margin:0;background:var(--bg-page);color:var(--fg-1);font-family:var(--font-body);font-size:var(--fs-body);line-height:var(--lh-body);
+  background-image:radial-gradient(900px 420px at 85% -8%,rgba(105,62,170,.28),transparent 65%);background-repeat:no-repeat;
+  padding-inline:16px;padding-block:env(safe-area-inset-top,0px) 72px}
+.wrap{max-width:920px;margin:0 auto}
 a{color:var(--gold)}
-h1,h2,h3{font-family:var(--font-display);font-weight:400;line-height:1.25;margin:0;text-wrap:balance}
-h1{font-size:var(--fs-h1)}
-h2{font-size:var(--fs-h2);margin-bottom:var(--sp-4)}
-h3{font-size:var(--fs-h3);margin-bottom:var(--sp-2);color:var(--gold-soft)}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;margin:0;text-wrap:balance}
 p{margin:0 0 var(--sp-3)}
-.muted{color:var(--fg-2)}
 .small{font-size:var(--fs-small)}
-.note{font-size:var(--fs-small);color:var(--fg-3);margin-top:var(--sp-3)}
+.muted{color:var(--fg-2)}
+.note{font-size:var(--fs-small);color:var(--fg-3);margin:var(--sp-3) 0 0}
 
 /* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-inline:-16px;padding:12px 16px;background:rgba(11,5,24,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-hairline)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap}
-.top .meta{font-size:var(--fs-xs);color:var(--fg-3)}
-.top nav{display:flex;gap:4px;flex-wrap:wrap}
-.top nav a{font-size:var(--fs-small);color:var(--fg-2);text-decoration:none;padding:4px 10px;border-radius:var(--r-pill);border:1px solid transparent}
-.top nav a:hover,.top nav a:focus-visible{color:var(--cream);border-color:var(--border-strong);outline:none}
+.top{padding-block:40px 28px;border-bottom:1px solid var(--border-hairline)}
+.top h1{display:grid;gap:4px;line-height:1.15}
+.top .wordmark{font-size:2rem;color:var(--gold);letter-spacing:-.01em}
+.top .doc-title{font-size:1rem;color:var(--fg-2)}
 
-section{padding-top:48px;scroll-margin-top:88px}
-@media (max-width:760px){.top{position:static}section{scroll-margin-top:16px}}
-.card{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-lg);padding:var(--sp-6);min-width:0}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-3)}
-.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-3)}
-@media (max-width:760px){.grid2,.grid3{grid-template-columns:minmax(0,1fr)}}
-ul.list{margin:0;padding-inline-start:20px;display:grid;gap:6px}
+/* sections */
+section{padding-top:56px}
+h2{font-size:var(--fs-h2);line-height:1.25;margin-bottom:var(--sp-5);display:flex;align-items:center;gap:var(--sp-3)}
+h2::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+h3{font-size:var(--fs-h3);line-height:1.3;color:var(--gold-soft);margin-bottom:var(--sp-3)}
+
+.card{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-lg);padding:var(--sp-5) var(--sp-6);min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-4);align-items:start}
+.grid2>:only-child{grid-column:1/-1}
+@media (max-width:760px){.grid2{grid-template-columns:minmax(0,1fr)}}
+
+/* lists */
+ul.list{margin:0;padding-inline-start:1.2rem;display:grid;gap:var(--sp-2)}
+ul.list li{text-wrap:pretty}
 ul.list li::marker{color:var(--gold)}
-
-/* frame */
-dl.frame{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-3);margin:0}
-@media (max-width:760px){dl.frame{grid-template-columns:repeat(2,minmax(0,1fr))}}
-dl.frame div{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4)}
-dl.frame dt{font-size:var(--fs-xs);color:var(--gold);letter-spacing:.04em}
-dl.frame dd{margin:2px 0 0}
+li:empty,tr:empty,.tasks li:empty{display:none}
 
 /* tables */
 .tbl{overflow-x:auto;border:1px solid var(--border-hairline);border-radius:var(--r-lg);background:var(--bg-surface)}
-table{border-collapse:collapse;width:100%;min-width:560px;font-size:var(--fs-small)}
-th,td{text-align:right;padding:11px 16px;border-bottom:1px solid var(--border-hairline);vertical-align:top}
-th{font-weight:400;font-size:var(--fs-xs);color:var(--fg-3)}
+table{border-collapse:collapse;width:100%;font-size:var(--fs-small)}
+table:has(th:nth-child(4)){min-width:600px}
+th,td{text-align:right;padding:13px 18px;border-bottom:1px solid var(--border-hairline);vertical-align:top}
+th{font-weight:400;font-size:var(--fs-xs);color:var(--fg-3);background:rgba(248,240,225,.025);white-space:nowrap}
+td:first-child{color:var(--cream);white-space:nowrap}
+table:not(:has(th:nth-child(3))) td:first-child{width:24%}
+td:not(:first-child){color:var(--fg-2)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--gold-soft);unicode-bidi:plaintext}
 tr:last-child td{border-bottom:0}
-td.num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--gold-soft)}
+tbody tr:hover td{background:rgba(230,183,98,.035)}
+td b{font-weight:500}
+@media (max-width:640px){td:first-child{white-space:normal}}
 
 /* october */
-.progress{display:flex;align-items:center;gap:var(--sp-3);margin:0 0 var(--sp-4);font-size:var(--fs-small);color:var(--fg-2)}
-.progress .track{flex:1;height:6px;border-radius:var(--r-pill);background:var(--ink-3);overflow:hidden}
-.progress .fill{height:100%;width:0;background:var(--gold);transition:width .3s ease}
 .weeks{display:grid;gap:var(--sp-3)}
-.week{display:grid;grid-template-columns:130px minmax(0,1fr);gap:var(--sp-6)}
-@media (max-width:640px){.week{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}}
-.week .when b{display:block;font-family:var(--font-display);font-weight:400;font-size:1.15rem}
-.week .when span{font-size:var(--fs-small);color:var(--fg-2)}
-.tasks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.tasks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
-.tasks input{appearance:none;flex:none;width:18px;height:18px;margin-top:3px;border-radius:5px;border:1.5px solid var(--gold-2);background:transparent;cursor:pointer;display:grid;place-content:center}
+.week{display:grid;grid-template-columns:120px minmax(0,1fr);gap:var(--sp-6)}
+@media (max-width:640px){.week{grid-template-columns:minmax(0,1fr);gap:var(--sp-2)}}
+.week .when{display:grid;gap:2px;align-content:start;padding-inline-end:var(--sp-4);border-inline-end:1px solid var(--border-hairline)}
+@media (max-width:640px){.week .when{border-inline-end:0;padding-inline-end:0;grid-auto-flow:column;justify-content:start;align-items:baseline;gap:var(--sp-3)}}
+.week .when b{font-family:var(--font-display);font-weight:400;font-size:1.1rem;color:var(--gold-soft)}
+.week .when span{font-size:var(--fs-small);color:var(--fg-3)}
+.tasks{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-3);align-content:start}
+.tasks li{display:grid;gap:var(--sp-3)}
+.tasks label{display:flex;gap:var(--sp-3);align-items:flex-start;cursor:pointer;line-height:1.5;text-wrap:pretty}
+.tasks input{appearance:none;flex:none;width:18px;height:18px;margin:3px 0 0;border-radius:5px;border:1.5px solid var(--gold-2);background:transparent;cursor:pointer;display:grid;place-content:center;transition:background .15s,border-color .15s}
+.tasks input:hover{border-color:var(--gold)}
 .tasks input:checked{background:var(--gold);border-color:var(--gold)}
 .tasks input:checked::after{content:"";width:9px;height:5px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(-45deg) translate(1px,-1px)}
 .tasks input:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
 .tasks input:checked + span{color:var(--fg-3);text-decoration:line-through}
-.targets{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--sp-3);margin-top:var(--sp-4)}
-@media (max-width:760px){.targets{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.targets div{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4)}
-.targets .n{display:block;font-size:1.5rem;color:var(--gold);font-variant-numeric:tabular-nums}
-.targets .l{font-size:var(--fs-small);color:var(--fg-2);line-height:1.35}
+
+.targets{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--sp-3);margin-top:var(--sp-3)}
+.targets>div{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-md);padding:var(--sp-4);display:grid;gap:2px;align-content:start}
+.targets .n{font-family:var(--font-display);font-size:1.6rem;line-height:1.2;color:var(--gold);font-variant-numeric:tabular-nums}
+.targets .l{font-size:var(--fs-small);color:var(--fg-2);line-height:1.4}
+#october>h3{margin:var(--sp-8) 0 0}
 
 /* roadmap */
-.road{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-3)}
-@media (max-width:860px){.road{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.road{grid-template-columns:minmax(0,1fr)}}
-.road .card{padding:var(--sp-4)}
-.road .d{font-size:var(--fs-xs);color:var(--gold)}
-.road ul{margin:var(--sp-2) 0 0;padding-inline-start:18px;font-size:var(--fs-small);color:var(--fg-2);display:grid;gap:4px}
+.road{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--sp-3)}
+.road .card{padding:var(--sp-5)}
+.road .d{display:block;font-size:var(--fs-xs);color:var(--gold);letter-spacing:.04em;margin-bottom:var(--sp-1)}
+.road ul{margin:0;padding-inline-start:1.1rem;font-size:var(--fs-small);color:var(--fg-2);display:grid;gap:var(--sp-2)}
+.road ul li::marker{color:var(--gold-2)}
+.road .peak{border-color:rgba(230,183,98,.5);box-shadow:var(--shadow-glow)}
 
-footer{margin-top:64px;padding-top:var(--sp-4);border-top:1px solid var(--border-hairline);font-size:var(--fs-xs);color:var(--fg-3)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
@@ -111,99 +117,66 @@ footer{margin-top:64px;padding-top:var(--sp-4);border-top:1px solid var(--border
 
 <header class="top">
   <div class="wrap">
-    <div>
-      <h1>לומיבוק<br><span style="font-size: 1.25rem;">תוכנית סושיאל ותוכן</span></h1>
-    </div>
-    <nav aria-label="ניווט">
-      <a href="#scope">אחריות</a>
-      <a href="#guidelines">הנחיות</a>
-      <a href="#content">תוכן</a>
-      <a href="#creators">יוצרים</a>
-      <a href="#october">אוקטובר</a>
-      <a href="#roadmap">עד דצמבר</a>
-      <a href="#kpis">מדדים</a>
-    </nav>
+    <h1><span class="wordmark">לומיבוק</span><span class="doc-title">תוכנית סושיאל ותוכן</span></h1>
   </div>
 </header>
 
 <main class="wrap">
 
-  <section id="frame">
-    <dl class="frame">
-      <div><dt>מטרה</dt><dd>הגדלת כמות הזמנות שמגיעות מהסושיאל</dd></div>
-      <div><dt>תקציב</dt><dd>אפס שקלים. תשלום ליוצרים בספרים</dd></div>
-      <div><dt>צוות</dt><dd>אני. מול יוסי</dd></div>
-      <div><dt>נתוני בסיס</dt><dd>אין עדיין. אוקטובר מודד</dd></div>
-    </dl>
-  </section>
-
   <section id="scope">
     <h2>תחומי האחריות שלי</h2>
     <div class="tbl"><table>
       <tbody><tr><th>תחום</th><th>מה כולל</th></tr>
-      <tr><td>הנחיות שיווק</td><td>הגדרה ואכיפה של קול, ויזואל, בטיחות ילדים, טענות וגילוי נאות</td></tr>
-      <tr><td>תוכן</td><td>תמהיל, קצב פרסום, נושא חודשי, קריאה לפעולה</td></tr>
-      <tr><td>יוצרים</td><td>איתור, פנייה, שליחת ספרים, מעקב קודים ותוצאות</td></tr>
-      <tr><td>תוכן גולשים</td><td>איסוף סרטוני לקוחות ושיתוף בהסכמה</td></tr>
-      <tr><td>קהילה</td><td>תגובות, הודעות, קבוצות הורים, שיתופי פעולה</td></tr>
-      <tr><td>מדידה ודיווח</td><td>מעקב קישורים, דוח שבועי, סקירת בסיס וקביעת יעדים</td></tr>
+      <tr><td>הנחיות<br></td><td>הגדרת הקול השיווקי, דיוק הויז'ואל</td></tr>
+      <tr><td>תוכן</td><td>רעיונות, צילום, עריכה, להעלות</td></tr>
+      <tr><td>יוצרים</td><td>איתור, פנייה, שיתופי פעולה, מעקב ותוצאות</td></tr>
+      <tr><td>תוכן גולשים</td><td>איסוף והעלאת סרטוני לקוחות</td></tr>
+      <tr><td>קהילה</td><td>לכתוב תגובות בפוסטים, לשלוח הודעות, לחפש קבוצות רלוונטיות</td></tr>
+      <tr><td>מדידה ודיווח</td><td>מעקב קישורים, דוחות שבועיים</td></tr>
     </tbody></table></div>
   </section>
 
   <section id="wedge">
-    <h2>הבידול: הזווית ההתפתחותית</h2>
+    <h2>בידול: הזווית ההתפתחותית</h2>
     <div class="card">
       <ul class="list">
-        <li>כל תוכן מחובר לרגע התפתחותי של הילד ולספר שמתאים לו.</li>
-        <li>נושא התפתחותי אחד בכל חודש, בכל הערוצים.</li>
-        <li>סרטון הסבר אחד על השיטה, נעוץ בפרופיל.</li>
-        <li>איש מקצוע אחד בחודש שמציג את הסיפור מול המצלמה.</li>
-        <li>עדויות הורים מתמקדות ברגע של הילד, לא בספר.</li>
-        <li>שפה: "עוזר", "תומך". אף פעם לא "מרפא", "פותר" או "מוכח".</li>
+        <li>התוכן מחובר לרגע התפתחותי של הילד</li>
+        <li>סרטוני הסבר על התפתחות הילד</li>
+        <li>שיתוף פעולה עם אנשי מקצוע מהתחום</li>
+        <li>עדויות של הורים</li>
       </ul>
     </div>
   </section>
 
   <section id="guidelines">
     <h2>הנחיות שיווק</h2>
-    <p class="muted small">פוסט, סטורי, כיתוב או בריף ליוצר שלא עומד בהנחיות לא עולה.</p>
     <div class="grid2">
       <div class="card">
         <h3>קול</h3>
         <ul class="list small">
-          <li>בגובה העיניים של הילד, חם ומעשי.</li>
-          <li>עברית מדוברת, משפטים קצרים.</li>
-          <li>מדברים עם ההורה על הילד, לא אל ההורה.</li>
-          <li>בלי אשמה, בלי הבטחות טיפוליות, בלי להזכיר מתחרים.</li>
+          <li>בגובה העיניים, חם ומשמעותי</li>
+          
+          <li>מדברים על הילד, לא אל ההורה</li>
+          <li>בלי הבטחות טיפוליות</li>
         </ul>
       </div>
       <div class="card">
-        <h3>ויזואל</h3>
+        <h3>ויז'ואל</h3>
         <ul class="list small">
-          <li>פנים של ילד אמיתי בשתי השניות הראשונות.</li>
-          <li>הספר האמיתי בידיים אמיתיות. סצנות AI מסומנות.</li>
-          <li>כתוביות צרובות בכל וידאו.</li>
-          <li>חתימה קבועה בסוף כל ריל: כרטיס סיום, מעבר וצליל זהים.</li>
-          <li>השם "לומיבוק" מופיע במלואו בכל תוכן.</li>
+          <li>פנים אמיתיות של ילדים</li>
+          <li>ספר פיזי</li>
+          <li>כתוביות חובה (מעלה retention)</li>
+          <li>צליל למותג (מחזק את ההקשר של אנשים למותג)</li>
         </ul>
       </div>
       <div class="card">
         <h3>בטיחות ילדים והסכמה</h3>
         <ul class="list small">
-          <li>שיתוף רק עם הסכמה כתובה של ההורה, שנשמרת בצילום מסך.</li>
-          <li>שם פרטי בלבד. בלי גן, בית ספר, מיקום או מדים.</li>
-          <li>שימוש בילד במודעה דורש הסכמה נפרדת.</li>
-          <li>הסרה תוך 24 שעות מכל בקשה.</li>
-          <li>אף פעם לא אמבטיה, חוסר לבוש או רגע רפואי.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>טענות וגילוי נאות</h3>
-        <ul class="list small">
-          <li>יוצר שקיבל ספר מסמן את התוכן כפרסומת, לפי הנחיות הרשות להגנת הצרכן (<a href="https://www.ynet.co.il/economy/article/SyzEMeG0w">ynet</a>).</li>
-          <li>נתונים על מספר לקוחות ודירוגים רק אחרי אישור של יוסי.</li>
-          <li>טווח גילאים אחד בכל מקום.</li>
-          <li>מחירים נבדקים באתר ביום הפרסום.</li>
+          <li>שיתוף רק עם הסכמה כתובה של ההורה, שנשמרת בצילום מסך</li>
+          <li>להשתמש רק בשם פרטי בלבד</li>
+          
+          
+          <li>בלי צילומי אמבטיה או בלי לבוש</li>
         </ul>
       </div>
     </div>
@@ -212,28 +185,20 @@ footer{margin-top:64px;padding-top:var(--sp-4);border-top:1px solid var(--border
   <section id="content">
     <h2>מערך התוכן</h2>
     <div class="tbl"><table>
-      <tbody><tr><th>עמודת תוכן</th><th>חלק</th><th>הגדרה</th></tr>
-      <tr><td>רגע התפתחותי ← ספר</td><td class="num">40%</td><td>הרגע ההתפתחותי, מה קשה לילד, והספר ככלי לרגע הזה</td></tr>
-      <tr><td>חשיפת הספר</td><td class="num">30%</td><td>הרגע שבו הילד רואה את עצמו בספר</td></tr>
-      <tr><td>הוכחה ותהליך</td><td class="num">20%</td><td>איך יוצרים ספר, איך נראה ספר מודפס, ביקורות אמיתיות</td></tr>
-      <tr><td>מתנות ועונתיות</td><td class="num">10%</td><td>ימי הולדת, סבים וסבתות, חגים</td></tr>
+      <tbody><tr><th>עמודת תוכן</th><th>הגדרה</th></tr>
+      <tr><td>רגע התפתחותי ← ספר</td><td>הרגע ההתפתחותי, מה הקושי של הילד, והספר ככלי</td></tr>
+      <tr><td>חשיפת הספר</td><td>הרגע שבו הילד רואה את עצמו בספר</td></tr>
+      <tr><td>הוכחה ותהליך</td><td>איך יוצרים ספר, איך נראה ספר מודפס, ביקורות אמיתיות</td></tr>
+      <tr><td>מתנות ועונתיות</td><td>ימי הולדת, סבים וסבתות, חגים וימים מיוחדים</td></tr>
     </tbody></table></div>
-    <div class="grid2" style="margin-top:var(--sp-3)">
+    <div class="grid2" style="margin-top:var(--sp-4)">
       <div class="card">
         <h3>קצב שבועי</h3>
         <ul class="list small">
-          <li>4 ריילס באינסטגרם, מועלים גם לטיקטוק ולפייסבוק.</li>
-          <li>סטוריז 5 ימים בשבוע.</li>
-          <li>קרוסלה אחת.</li>
-          <li>3 פוסטים נעוצים והיילייטס מעודכנים.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>קריאה לפעולה</h3>
-        <ul class="list small">
-          <li>קריאה לפעולה אחת בכל תוכן: תצוגה מקדימה בחינם.</li>
-          <li>כל קישור עם תיוג מעקב.</li>
-          <li>תגובה עם בקשה לקישור מקבלת קישור בהודעה פרטית.</li>
+          <li>5-6 רילס באינסטגרם שאני אעלה גם לטיקטוק ולפייסבוק</li>
+          <li>סטוריז 5 ימים בשבוע</li>
+          <li>1-2 קרוסלות</li>
+          <li>עדכון היילייטס</li>
         </ul>
       </div>
     </div>
@@ -243,11 +208,11 @@ footer{margin-top:64px;padding-top:var(--sp-4);border-top:1px solid var(--border
     <h2>תוכנית יוצרים (בתמורה לספרים)</h2>
     <div class="tbl"><table>
       <tbody><tr><th>רכיב</th><th>הגדרה</th></tr>
-      <tr><td>מי</td><td>יוצרים-הורים בישראל, 2k–50k עוקבים, ילדים בגילאי היעד, מעורבות אמיתית. שכבה שנייה: אנשי מקצוע בהתפתחות הילד וגננות</td></tr>
-      <tr><td>מה מקבלים</td><td>ספר אישי במתנה. עמלה לכל הזמנה בקוד אישי, אם יוסי יאשר</td></tr>
-      <tr><td>מה מבקשים</td><td>ריל אחד ו-2–3 סטוריז עם קישור, סימון פרסומת, אישור לשיתוף. אין התחייבות לפרסם</td></tr>
-      <tr><td>היקף</td><td>40 פניות בשבוע. כל יוצר נרשם בגיליון: תאריך, קוד, קישור לפוסט, קליקים, הזמנות</td></tr>
-      <tr><td>המשך או עצירה</td><td>אחרי 30 יום: 2 הזמנות או יותר הופכות את היוצר לשגריר. בלי תוכן ובלי הזמנות, עוצרים</td></tr>
+      <tr><td>מי</td><td>יוצרים: הורים בישראל, 2k–50k עוקבים, ילדים בגילאי 1-10. אופציות משנה: אנשי מקצוע מהתחום וגננות</td></tr>
+      <tr><td>מה מקבלים</td><td>ספר אישי במתנה. עמלה לכל הזמנה בקוד אישי&nbsp; (באישור יוסי)</td></tr>
+      <tr><td>מה מבקשים</td><td>ריל אחד ו-2–3 סטוריז עם קישור + אישור לשיתוף. בלי התחייבות לפרסם אותם בחזרה</td></tr>
+      <tr><td>אנקדוטה</td><td>צריך ליצור טופס הרשמה שיהיה אקסל מסודר</td></tr>
+      <tr><td>המשך</td><td>אופציה להפוך ל"שגריר"</td></tr>
     </tbody></table></div>
   </section>
 
@@ -257,10 +222,9 @@ footer{margin-top:64px;padding-top:var(--sp-4);border-top:1px solid var(--border
         <h2>תוכן גולשים</h2>
         <div class="card">
           <ul class="list small">
-            <li>בקשה מכל רוכש לצלם את הרגע הראשון עם הספר ולתייג אותנו.</li>
-            <li>פנייה חד-פעמית ללקוחות עבר: סרטונים וביקורות.</li>
-            <li>היילייט לקוחות מתעדכן כל שבוע.</li>
-            <li>כל שיתוף מחייב הסכמה.</li>
+            <li>בקשה מכל רוכש לצלם את הרגע הראשון עם הספר ולתייג אותנו</li>
+            <li>פנייה תקופתית ללקוחות עבר</li>
+            <li>היילייט לקוחות מתעדכן</li>
           </ul>
         </div>
       </div>
@@ -268,10 +232,10 @@ footer{margin-top:64px;padding-top:var(--sp-4);border-top:1px solid var(--border
         <h2>קהילה</h2>
         <div class="card">
           <ul class="list small">
-            <li>מענה לכל תגובה והודעה באותו יום עבודה.</li>
-            <li>קבוצות הורים בפייסבוק: מענה ענייני, בלי קישורים שלא נתבקשו.</li>
-            <li>הגרלה משותפת עם יוצר פעם בחודש.</li>
-            <li>שאלה שחוזרת 3 פעמים בהודעות הופכת לתוכן.</li>
+            <li>מענה לכל תגובה והודעה באותו יום</li>
+            <li>מענה לקבוצות הורים בפייסבוק</li>
+            <li>הגרלה משותפת עם יוצר פעם בחודש (באישור יוסי)</li>
+            <li>שאלות שחוזרות הרבה פעמים הופכות לתוכן</li>
           </ul>
         </div>
       </div>
@@ -279,142 +243,125 @@ footer{margin-top:64px;padding-top:var(--sp-4);border-top:1px solid var(--border
   </section>
 
   <section id="october">
-    <h2>אוקטובר, שבוע אחר שבוע</h2>
-    <div class="progress"><span id="prog-label">0 מתוך 0</span><div class="track"><div class="fill" id="prog-fill"></div></div></div>
+    <h2>אוקטובר</h2>
     <div class="weeks">
       <div class="card week">
-        <div class="when"><b>שבוע 1</b><span><bdi dir="ltr">4–8.10</bdi> · הקמה</span></div>
+        <div class="when"><b>שבוע 1</b><span>.</span></div>
         <ul class="tasks">
-          <li><label><input type="checkbox" id="t1"><span>מוסכמת תיוג קישורים (UTM) וקישורים במעקב בביו ובסטוריז</span></label></li>
-          <li><label><input type="checkbox" id="t2"><span>גיליון מעקב יוצרים</span></label></li>
-          <li><label><input type="checkbox" id="t3"><span>ביו, 3 פוסטים נעוצים, היילייטס</span></label></li>
-          <li><label><input type="checkbox" id="t4"><span>סגירת ההנחיות והצגתן ליוסי</span></label></li>
-          <li><label><input type="checkbox" id="t5"><span>בחירת הנושא ההתפתחותי לאוקטובר</span></label></li>
-          <li><label><input type="checkbox" id="t6"><span>סרטון הסבר על השיטה, נעוץ</span></label></li>
-          <li><label><input type="checkbox" id="t7"><span>40 פניות ליוצרים</span></label></li>
+          <li><label><input type="checkbox" id="t1"><span>UTM</span></label></li>
+          <li><label><input type="checkbox" id="t2"><span>טופס הרשמה שמחובר לאקסל מעקב UGC</span></label></li>
+          <li><label><input type="checkbox" id="t3"><span>ביו והיילייטס</span></label></li>
+          <li></li>
+          <li><label><input type="checkbox" id="t5"><span>יצירת מערכת תוכן ראשונית + דוגמאות</span></label></li>
+          <li></li>
+          <li><label><input type="checkbox" id="t7"><span>פניות ליוצרי UGC (אפשר לנסות לבנות כלי אוטומטי)</span></label></li>
         </ul>
       </div>
       <div class="card week">
-        <div class="when"><b>שבוע 2</b><span><bdi dir="ltr">11–15.10</bdi> · תמהיל חדש</span></div>
+        <div class="when"><b>שבוע 2</b><span>.</span></div>
         <ul class="tasks">
-          <li><label><input type="checkbox" id="t8"><span>4 ריילס לפי התמהיל החדש</span></label></li>
-          <li><label><input type="checkbox" id="t9"><span>הזמנת ספרים ליוצרים שאישרו</span></label></li>
-          <li><label><input type="checkbox" id="t10"><span>ניסוח הודעה לרוכשים והודעה ללקוחות עבר, והעברה ליוסי</span></label></li>
-          <li><label><input type="checkbox" id="t11"><span>תחילת מענה בקבוצות הורים, 2 ביום</span></label></li>
-          <li><label><input type="checkbox" id="t12"><span>40 פניות ליוצרים</span></label></li>
+          <li><label><input type="checkbox" id="t8"><span>5-6 רילס לפי מערכת התוכן</span></label><label><input type="checkbox"><span>1-2 קרוסלות</span></label></li>
+          <li></li>
+          <li><label><input type="checkbox" id="t10"><span>הודעות לרוכשים</span></label></li>
+          <li><label><input type="checkbox" id="t11"><span>מענה בקבוצות הורים</span></label></li>
+          <li><label><input type="checkbox" id="t12"><span>פניות ליוצרי UGC</span></label></li>
         </ul>
       </div>
       <div class="card week">
-        <div class="when"><b>שבוע 3</b><span><bdi dir="ltr">18–22.10</bdi> · הוכחות ראשונות</span></div>
+        <div class="when"><b>שבוע 3</b><span>.</span></div>
         <ul class="tasks">
-          <li><label><input type="checkbox" id="t13"><span>פרסום ושיתוף תוכן היוצרים הראשון, בהסכמה</span></label></li>
-          <li><label><input type="checkbox" id="t14"><span>בחירת הנושא לנובמבר וגיוס איש מקצוע</span></label></li>
-          <li><label><input type="checkbox" id="t15"><span>רשימת 15 יוצרים לחנוכה</span></label></li>
-          <li><label><input type="checkbox" id="t16"><span>הגרלה משותפת ראשונה</span></label></li>
-          <li><label><input type="checkbox" id="t17"><span>40 פניות ליוצרים</span></label></li>
+          <li><label><input type="checkbox" id="t13"><span>פרסום ושיתוף תוכן UGC</span></label></li>
+          <li><label><input type="checkbox" id="t14"><span>גיוס איש מקצוע לשיתוף פעולה</span></label></li>
+          <li><label><input type="checkbox" id="t15"><span>גיוס UGC לקראת חנוכה</span></label></li>
+          <li><label><input type="checkbox" id="t16"><span>הגרלה ראשונה</span></label><label><input type="checkbox"><span>מענה בקבוצות הורים</span></label>
+<label><input type="checkbox"><span>רילס לפי מערכת התוכן</span></label>
+<label><input type="checkbox"><span>קרוסלות</span></label></li>
+          <li></li>
         </ul>
       </div>
       <div class="card week">
-        <div class="when"><b>שבוע 4</b><span><bdi dir="ltr">25–31.10</bdi> · נתוני בסיס</span></div>
+        <div class="when"><b>שבוע 4</b><span>.</span></div>
         <ul class="tasks">
-          <li><label><input type="checkbox" id="t18"><span>שליחת ספרים ליוצרי חנוכה, הגעה עד 10.11</span></label></li>
-          <li><label><input type="checkbox" id="t19"><span>סקירת בסיס: הזמנות, תצוגות מקדימות, קליקים וצפיות לפי מקור</span></label></li>
-          <li><label><input type="checkbox" id="t20"><span>קביעת יעדים אמיתיים לנובמבר–דצמבר</span></label></li>
-          <li><label><input type="checkbox" id="t21"><span>ביטול עמודת התוכן החלשה והעברת המקום לחזקה</span></label></li>
-          <li><label><input type="checkbox" id="t22"><span>40 פניות ליוצרים</span></label></li>
+          <li><label><input type="checkbox" id="t18"><span>תקשורת עם הUGC לקמפיין חנוכה + הספרים</span></label></li>
+          <li><label><input type="checkbox" id="t19"><span>אנליטיקה ראשונית</span></label></li>
+          <li><label><input type="checkbox" id="t20"><span>קביעת יעדים לנובמבר-דצמבר</span></label><label><input type="checkbox"><span>עדכון מערכת תוכן</span></label>
+<label><input type="checkbox"><span>רילס</span></label>
+<label><input type="checkbox"><span>קרוסלות</span></label>
+<label><input type="checkbox"><span>מענה בקבוצות הורים</span></label></li>
+          <li></li>
+          <li></li>
         </ul>
       </div>
     </div>
-    <h3 style="margin-top:var(--sp-6)">יעדי אוקטובר</h3>
+    <h3>יעדי אוקטובר</h3>
     <div class="targets">
-      <div><span class="n">16</span><span class="l">ריילס</span></div>
-      <div><span class="n">160</span><span class="l">פניות ליוצרים</span></div>
+      <div><span class="n">18</span><span class="l">רילס</span></div>
+      <div><span class="n">כמה שיותר</span><span class="l">פניות ליוצרים</span></div>
       <div><span class="n">10</span><span class="l">ספרים ליוצרים</span></div>
       <div><span class="n">10</span><span class="l">סרטוני לקוחות בהסכמה</span></div>
-      <div><span class="n">31.10</span><span class="l">נתוני בסיס כתובים</span></div>
+      <div><span class="n">31.10</span><span class="l">אנלטיקה ראשונית</span></div>
     </div>
   </section>
 
   <section id="roadmap">
     <h2>עד סוף דצמבר</h2>
     <div class="road">
-      <div class="card"><span class="d"><bdi dir="ltr">4–31.10</bdi></span><h3>מדידה ושינוי כיוון</h3><ul>
-        <li>מעקב פעיל ותמהיל חדש</li><li>10+ ספרים ליוצרים</li><li>נתוני בסיס ב-31.10</li></ul></div>
-      <div class="card"><span class="d"><bdi dir="ltr">1–24.11</bdi></span><h3>הגדלת מה שעובד</h3><ul>
-        <li>הכפלת 2 הפורמטים המובילים</li><li>ספרי יוצרים לחנוכה עד 10.11</li><li>תוכן חנוכה מ-10.11</li><li>ספירה לאחור עד המועד האחרון להזמנה</li></ul></div>
-      <div class="card"><span class="d"><bdi dir="ltr">25.11–12.12</bdi></span><h3>חנוכה</h3><ul>
-        <li>חנוכה: <bdi dir="ltr">4–12.12</bdi></li><li>אחרי המועד האחרון למשלוח: דגש על העותק הדיגיטלי</li><li>שיתוף סרטוני לקוחות</li></ul></div>
+      <div class="card"><span class="d"><bdi dir="ltr">1–24.11</bdi></span><h3>להגדיל את מה שעובד</h3><ul>
+        <li>למצוא פורמטים המובילים</li><li>ספרי יוצרים לחנוכה עד 10.11</li><li>תוכן חנוכה מ-10.11</li><li>ספירה לאחור עד חנוכה</li></ul></div>
+      <div class="card peak"><span class="d"><bdi dir="ltr">25.11–12.12</bdi></span><h3>חנוכה</h3><ul>
+        <li>חנוכה: <bdi dir="ltr">4–12.12</bdi></li><li>שיתוף סרטוני לקוחות</li></ul></div>
       <div class="card"><span class="d"><bdi dir="ltr">13–31.12</bdi></span><h3>איסוף וסיכום</h3><ul>
-        <li>איסוף סרטוני חנוכה בהסכמה</li><li>סקירה רבעונית מול המדדים</li><li>תוכנית לרבעון 1</li></ul></div>
+        <li>איסוף נתוני ביצועים של החג</li>
+        <li>שיפור אסטרטגיית תוכן והמשך עבודה</li><li>סקירה רבעונית</li><li>תוכנית לרבעון הבא</li></ul></div>
     </div>
-    <p class="note">תאריכי החגים לפי <a href="https://www.hebcal.com/holidays/2026-2027">hebcal.com</a>. מועד אחרון להזמנה לחנוכה: 22.11, לפי "עד 7 ימי עסקים" באתר, עם מרווח. טעון אישור של יוסי.</p>
   </section>
 
   <section id="kpis">
     <h2>מדדים</h2>
     <div class="tbl"><table>
       <tbody><tr><th>מדד</th><th>מקור</th><th>אוקטובר</th><th>יעד דצמבר</th></tr>
-      <tr><td><b>הזמנות מיוחסות לסושיאל</b> (מדד מרכזי)</td><td>קודי יוצרים, קישורים במעקב, שאלה בקופה</td><td>בסיס</td><td class="num">פי 3</td></tr>
-      <tr><td>תצוגות מקדימות שהתחילו מסושיאל</td><td>אנליטיקס באתר</td><td>בסיס</td><td class="num">פי 3</td></tr>
-      <tr><td>צפיות ממוצעות לריל</td><td>Instagram Insights</td><td>בסיס</td><td class="num">1,000+</td></tr>
-      <tr><td>שיתופים ושמירות ל-1,000 חשיפות</td><td>Instagram Insights</td><td>בסיס</td><td class="num">+50%</td></tr>
-      <tr><td>עמודה התפתחותית מול שאר העמודות</td><td>Instagram Insights</td><td>בסיס</td><td>מובילה</td></tr>
-      <tr><td>קליקים על קישורים</td><td>Insights וקישורים במעקב</td><td>בסיס</td><td class="num">פי 3</td></tr>
-      <tr><td>הזמנות לכל ספר שנשלח ליוצר</td><td>קודי יוצרים</td><td>מדידה</td><td class="num">1.0+</td></tr>
-      <tr><td>סרטוני לקוחות</td><td>גיליון</td><td class="num">10</td><td class="num">25 בחודש</td></tr>
-      <tr><td>עוקבים באינסטגרם</td><td>Instagram</td><td class="num">911</td><td class="num">2,000</td></tr>
+      <tr><td><b>הזמנות מיוחסות לסושיאל</b></td><td>UTM, קישורים עם מעקב, שאלה בקופה</td><td>X</td><td class="num">פי 3</td></tr>
+      <tr><td>תצוגות מקדימות שהתחילו מסושיאל</td><td>אנליטיקס באתר</td><td>X</td><td class="num">פי 3</td></tr>
+      <tr><td>צפיות ממוצעות לריל</td><td>Instagram Insights</td><td>X</td><td class="num">5-10K</td></tr>
+      <tr><td>שיתופים ושמירות ל-1,000 חשיפות</td><td>Instagram Insights</td><td>X</td><td class="num">+50%</td></tr>
+      <tr></tr>
+      <tr><td>קליקים על קישורים</td><td>Insights וקישורים במעקב</td><td>X</td><td class="num">פי 3</td></tr>
+      <tr><td>הזמנות על כל ספר שנשלח ליוצר</td><td>קודי יוצרים</td><td>X</td><td class="num">5-10</td></tr>
+      <tr><td>סרטוני לקוחות</td><td>אקסל</td><td class="num">10</td><td class="num">25 בחודש</td></tr>
+      <tr><td>עוקבים באינסטגרם</td><td>Instagram</td><td class="num">911</td><td class="num">3-4K</td></tr>
     </tbody></table></div>
-    <p class="note">היעדים לדצמבר זמניים ויוחלפו ביעדים אמיתיים בסקירת הבסיס ב-31.10. כל פורמט מקבל 3 ניסיונות לפני החלטה.</p>
+    <p class="note">היעדים לדצמבר זמניים ויוחלפו ביעדים ריאליסטיים יותר ב-31.10</p>
   </section>
 
   <section id="rhythm">
     <div class="grid2">
       <div>
-        <h2>שגרה שבועית</h2>
-        <div class="tbl"><table style="min-width:0">
-          <tbody><tr><th>מתי</th><th>מה</th><th>זמן</th></tr>
-          <tr><td>ראשון</td><td>דוח שבועי ותכנון ריילס</td><td class="num">1.5 ש׳</td></tr>
-          <tr><td>שני</td><td>הפקת 2 ריילס</td><td class="num">3 ש׳</td></tr>
-          <tr><td>רביעי</td><td>הפקת 2 ריילס וקרוסלה</td><td class="num">3 ש׳</td></tr>
-          <tr><td>א׳–ה׳</td><td>קהילה</td><td class="num">30 דק׳</td></tr>
-          <tr><td>א׳–ה׳</td><td>יוצרים</td><td class="num">45 דק׳</td></tr>
-          <tr><td>א׳–ה׳</td><td>סטוריז</td><td class="num">15 דק׳</td></tr>
-        </tbody></table></div>
-        <p class="note">כ-15 שעות בשבוע. אם אין זמן, הקרוסלה יורדת ראשונה.</p>
-      </div>
-      <div>
-        <h2>תלוי ביוסי</h2>
+        <h2>לוודא עם יוסי</h2>
         <div class="card">
           <ul class="list small">
-            <li>מי כתב ובדק את הסיפורים, כבסיס לזווית ההתפתחותית.</li>
-            <li>מכסת ספרים ליוצרים ועלות לספר.</li>
-            <li>קודי הנחה ליוצרים ושאלת "איך הגעת אלינו" בקופה.</li>
-            <li>אישור נתוני לקוחות ודירוג, וטווח גילאים אחד.</li>
-            <li>אישור המועד האחרון להזמנה לחנוכה.</li>
+            <li>מה צריך להיות ההסכם מול היוצרי UGC</li>
+            <li>קודי הנחה ליוצרים ולהוסיף שאלה של "איך הגעת אלינו" בקופה</li>
+            <li>טווח גילאים אחד (כתוב כל מיני טווחים באתר)</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
-
-  <footer>לומיבוק · תוכנית סושיאל ותוכן, רבעון רביעי 2026</footer>
 </main>
 
 <script>
 (function(){
   var boxes=[].slice.call(document.querySelectorAll('.tasks input[type=checkbox]'));
-  var KEY='lumebook-smm-oct-he';
+  var KEY='lumebook-smm-oct-he-v2';
   var saved={};
   try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){}
-  boxes.forEach(function(b){if(saved[b.id])b.checked=true;b.addEventListener('change',update)});
-  function update(){
-    var done=boxes.filter(function(b){return b.checked}).length;
-    document.getElementById('prog-label').textContent=done+' מתוך '+boxes.length;
-    document.getElementById('prog-fill').style.width=(boxes.length?done/boxes.length*100:0)+'%';
-    var o={};boxes.forEach(function(b){if(b.checked)o[b.id]=1});
-    try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
-  }
-  update();
+  boxes.forEach(function(b,i){
+    if(saved[i])b.checked=true;
+    b.addEventListener('change',function(){
+      var o={};boxes.forEach(function(x,j){if(x.checked)o[j]=1});
+      try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+    });
+  });
 })();
 </script>
 </body>
