@@ -1,12 +1,11 @@
-# Lumebook · Social & Content Plan
+# Lumebook
+## Social & Content Plan
 
 English mirror of `index.html` (the Hebrew site). Same sections, same order. Update this file with every change to the Hebrew text.
 
-Q4 2026 · Updated 1 Oct 2026
-
 | Goal | Budget | Team | Baseline data |
 |---|---|---|---|
-| B2C orders traceable to social | Zero shekels. Creators are paid in books | Me, working with Yossi | None yet. October measures |
+| Grow the number of orders that come from social | Zero shekels. Creators are paid in books | Me, working with Yossi | None yet. October measures |
 
 ## My responsibilities
 
