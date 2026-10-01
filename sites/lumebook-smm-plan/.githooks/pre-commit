@@ -1,0 +1,9 @@
+#!/bin/sh
+# Keep the English mirror in sync: index.html (Hebrew) and content.en.md must change together.
+staged=$(git diff --cached --name-only)
+if echo "$staged" | grep -qx 'index.html' && ! echo "$staged" | grep -qx 'content.en.md'; then
+  echo "pre-commit: index.html changed but content.en.md did not."
+  echo "Update the English mirror (content.en.md) to match the Hebrew text, then commit again."
+  echo "(Style-only change? Commit with --no-verify.)"
+  exit 1
+fi
