@@ -54,6 +54,23 @@ English mirror of `index.html` (the Hebrew site). Same sections, same order. Upd
 - 1–2 carousels
 - Highlights update
 
+## Videos that worked
+
+8 examples from Israel and abroad, by content pillar, and what we can take from each one. (On the site each video plays in place, via TikTok's embed player.)
+
+| Pillar | Video | Numbers | Why it works | For us |
+|---|---|---|---|---|
+| Creators | A dad makes up a story; MeBook turns it into a book (@lironofir) | 229K views on the original video | A week later MeBook turned the story into a book and posted an Instagram collab with him: 86.5K, 22× their usual ([their version](https://www.instagram.com/reel/Db79B6COOSN/)) | A barter brief for a parent creator: his real moment with the kid, and the book as the follow-up |
+| Creators | Surprise, "that's me!", discount code (@babyalison31) | 77.2K views | A ready-made structure for a brief: surprise, the girl recognises herself, a personal code at the end | A brief template + a personal code for the creator (with Yossi's approval) |
+| Book reveal | POV: the nephew's reaction (@wonderwraps.com) | 163K views, 144× usual | 7 seconds; the viewer is the person giving the gift | A POV of an aunt or grandma at Hanukkah, from customers |
+| Developmental moment → book | A funeral for the pacifier (@lookitskateeee) | 2.6M views, on an account whose median is 870 | A goodbye ritual with humour; the idea carried itself | "Bye bye pacifier" as part of the goodbye ritual, UGC from customers |
+| Professionals | Speech therapist: "Put your picture in a book" (@learntotalkwithme) | 36.2K views, 32× usual | An expert with the product in hand the whole time; it feels like advice, not an ad | The model for a collaboration with a professional |
+| Gifts & seasonal | An aunt looks for a grade 1 gift (@mebook.ai) | 31.2K views | Gift-giver + milestone in one line | "Hello Grade 1", and at Hanukkah "what do you get the nephew who has everything?" |
+| Gan teachers | A Rosh Hashana gift for the gan teacher (@linoyabutbul1) | 410K views, 82× usual | DIY with a reveal at the end, and a date everyone is searching for | "A gift for the gan for Hanukkah" for parent committees |
+| Gifts & seasonal | 8 nights of Hanukkah gifts (@melissametrano) | 380K views, Dec 2023 | "Night 1": the girls open a gift, then a surprise for the parents. A series of 8 = 8 reasons to come back | "8 nights, 8 heroes": customers or creators film the book being opened on one of the nights |
+
+Public views as of 2.10.2026. "N× usual" = relative to the median views of the same account's recent videos.
+
 ## Creator program (paid in books)
 
 | Component | Definition |

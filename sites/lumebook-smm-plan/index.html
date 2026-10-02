@@ -110,6 +110,28 @@ td b{font-weight:500}
 .road ul li::marker{color:var(--gold-2)}
 .road .peak{border-color:rgba(230,183,98,.5);box-shadow:var(--shadow-glow)}
 
+/* example videos: TikTok's official embed player, horizontal swipe on phones */
+.vids{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-4);align-items:start}
+@media (max-width:860px){.vids{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.vids{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:78%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--sp-2)}.vid{scroll-snap-align:start}}
+.vid{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-lg);overflow:hidden;display:grid;min-width:0}
+.vid .frame{position:relative;aspect-ratio:9/16;background:#000}
+.vid iframe{display:block;width:100%;height:100%;border:0}
+/* poster until tapped: players load only on demand, so they don't pull the page while reading */
+.vid .play{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:pointer;display:grid;place-items:center;
+  background:radial-gradient(120% 70% at 50% 30%,var(--ink-3),var(--ink-1)) center/cover no-repeat}
+.vid .play svg{width:58px;height:58px;padding:16px 14px 16px 18px;border-radius:50%;fill:var(--ink);background:var(--gold);box-shadow:0 8px 30px rgba(0,0,0,.45);transition:transform .15s}
+.vid .play:hover svg{transform:scale(1.08)}
+.vid .play:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
+.vid .play .pf{position:absolute;top:10px;inset-inline-start:10px;font-size:var(--fs-xs);color:var(--cream);background:rgba(11,5,24,.6);border-radius:var(--r-pill);padding:3px 9px}
+.vid .body{padding:var(--sp-4);display:grid;gap:var(--sp-2);font-size:var(--fs-small);line-height:1.5}
+.vid .tag{font-size:var(--fs-xs);color:var(--gold);letter-spacing:.02em}
+.vid h3{font-size:1rem;color:var(--cream);margin:0}
+.vid .meta{font-size:var(--fs-xs);color:var(--fg-3)}
+.vid .meta bdi{color:var(--gold-soft)}
+.vid p{margin:0;color:var(--fg-2)}
+.vid p b{font-weight:500;color:var(--gold)}
+
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
@@ -202,6 +224,94 @@ td b{font-weight:500}
         </ul>
       </div>
     </div>
+  </section>
+
+  <section id="examples">
+    <h2>סרטונים שעבדו</h2>
+    <p class="muted small">8 דוגמאות מישראל ומחו״ל לפי מערך התוכן, ומה אפשר לקחת מכל אחת אלינו</p>
+    <div class="vids">
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7670603837136325896?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@lironofir/video/7670603837136325896" data-title="לירון אופיר ממציא סיפור לבן שלו"><button class="play" type="button" aria-label="לנגן: לירון אופיר ממציא סיפור לבן שלו"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">יוצרים</span>
+          <h3>אבא ממציא סיפור, MeBook הופכים אותו לספר</h3>
+          <span class="meta"><bdi dir="ltr">@lironofir</bdi> · <bdi dir="ltr">229K</bdi> צפיות לסרטון המקורי</span>
+          <p>שבוע אחרי, MeBook הפכו את הסיפור לספר ופרסמו collab איתו באינסטגרם: <bdi dir="ltr">86.5K</bdi>, פי 22 מהרגיל שלהם (<a href="https://www.instagram.com/reel/Db79B6COOSN/" target="_blank" rel="noopener">הגרסה שלהם</a>)</p>
+          <p><b>אצלנו:</b> בריף בארטר להורה-יוצר: רגע אמיתי שלו עם הילד, והספר כהמשך</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7517299113197587718?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@babyalison31/video/7517299113197587718" data-title="Wonder Wraps: הפתעה וקוד הנחה"><button class="play" type="button" aria-label="לנגן: Wonder Wraps: הפתעה וקוד הנחה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">יוצרים</span>
+          <h3>הפתעה, ״זה אני!״, קוד הנחה</h3>
+          <span class="meta"><bdi dir="ltr">@babyalison31</bdi> · <bdi dir="ltr">77.2K</bdi> צפיות</span>
+          <p>מבנה מוכן לבריף: הפתעה, הילדה מזהה את עצמה, קוד אישי בסוף</p>
+          <p><b>אצלנו:</b> תבנית לבריף + קוד אישי ליוצר (באישור יוסי)</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7478352764188282134?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@wonderwraps.com/video/7478352764188282134" data-title="Wonder Wraps: התגובה של האחיין"><button class="play" type="button" aria-label="לנגן: Wonder Wraps: התגובה של האחיין"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">חשיפת הספר</span>
+          <h3>POV: התגובה של האחיין</h3>
+          <span class="meta"><bdi dir="ltr">@wonderwraps.com</bdi> · <bdi dir="ltr">163K</bdi> צפיות, פי 144 מהרגיל</span>
+          <p>7 שניות, הצופה הוא מי שנותן את המתנה</p>
+          <p><b>אצלנו:</b> POV של דודה או סבתא בחנוכה, מלקוחות</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7568232703116545288?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@lookitskateeee/video/7568232703116545288" data-title="הלוויה למוצץ"><button class="play" type="button" aria-label="לנגן: הלוויה למוצץ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">רגע התפתחותי ← ספר</span>
+          <h3>הלוויה למוצץ</h3>
+          <span class="meta"><bdi dir="ltr">@lookitskateeee</bdi> · <bdi dir="ltr">2.6M</bdi> צפיות, בחשבון שהחציון שלו 870</span>
+          <p>טקס פרידה עם הומור, הרעיון סחב לבד</p>
+          <p><b>אצלנו:</b> ״ביי ביי מוצץ״ כחלק מטקס הפרידה, UGC מלקוחות</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7650173364480314637?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@learntotalkwithme/video/7650173364480314637" data-title="קלינאית תקשורת: תמונה בספר"><button class="play" type="button" aria-label="לנגן: קלינאית תקשורת: תמונה בספר"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">אנשי מקצוע</span>
+          <h3>קלינאית: ״שימו את התמונה שלכם בספר״</h3>
+          <span class="meta"><bdi dir="ltr">@learntotalkwithme</bdi> · <bdi dir="ltr">36.2K</bdi> צפיות, פי 32 מהרגיל</span>
+          <p>מומחית עם המוצר ביד כל הזמן, מרגיש כמו עצה ולא פרסומת</p>
+          <p><b>אצלנו:</b> המודל לשיתוף פעולה עם איש מקצוע</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7545096813838093574?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@mebook.ai/video/7545096813838093574" data-title="MeBook: דודה מחפשת מתנה לכיתה א׳"><button class="play" type="button" aria-label="לנגן: MeBook: דודה מחפשת מתנה לכיתה א׳"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">מתנות ועונתיות</span>
+          <h3>דודה מחפשת מתנה לכיתה א׳</h3>
+          <span class="meta"><bdi dir="ltr">@mebook.ai</bdi> · <bdi dir="ltr">31.2K</bdi> צפיות</span>
+          <p>נותנת מתנה + אבן דרך בשורה אחת</p>
+          <p><b>אצלנו:</b> ״שלום כיתה א׳״, ובחנוכה ״מה מביאים לאחיין שיש לו הכל?״</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7551351429231938823?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@linoyabutbul1/video/7551351429231938823" data-title="מתנה לגננת לראש השנה"><button class="play" type="button" aria-label="לנגן: מתנה לגננת לראש השנה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">גננות</span>
+          <h3>מתנה לגננת לראש השנה</h3>
+          <span class="meta"><bdi dir="ltr">@linoyabutbul1</bdi> · <bdi dir="ltr">410K</bdi> צפיות, פי 82 מהרגיל</span>
+          <p>DIY עם reveal בסוף, ומועד שכולם מחפשים</p>
+          <p><b>אצלנו:</b> ״מתנה לגן לחנוכה״ לועדי הורים</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7310332715738484010?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@melissametrano/video/7310332715738484010" data-title="8 לילות של מתנות חנוכה"><button class="play" type="button" aria-label="לנגן: 8 לילות של מתנות חנוכה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">מתנות ועונתיות</span>
+          <h3>8 לילות של מתנות חנוכה</h3>
+          <span class="meta"><bdi dir="ltr">@melissametrano</bdi> · <bdi dir="ltr">380K</bdi> צפיות, דצמ׳ 2023</span>
+          <p>״לילה 1״: הבנות פותחות מתנה, ואז הפתעה להורים. סדרה של 8 = 8 סיבות לחזור</p>
+          <p><b>אצלנו:</b> ״8 לילות, 8 גיבורים״: לקוחות או יוצרים מצלמים את פתיחת הספר באחד הלילות</p>
+        </div>
+      </article>
+    </div>
+    <p class="note">צפיות ציבוריות מ-2.10.2026. ״פי X״ = ביחס לחציון הצפיות בסרטונים האחרונים של אותו חשבון</p>
   </section>
 
   <section id="creators">
@@ -360,6 +470,25 @@ td b{font-weight:500}
     b.addEventListener('change',function(){
       var o={};boxes.forEach(function(x,j){if(x.checked)o[j]=1});
       try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+    });
+  });
+})();
+
+// example videos: TikTok poster from TikTok's own oEmbed; the player itself loads only when tapped
+(function(){
+  [].slice.call(document.querySelectorAll('.vid .frame[data-src]')).forEach(function(f){
+    var btn=f.querySelector('.play');
+    if(f.dataset.oembed && window.fetch){
+      fetch('https://www.tiktok.com/oembed?url='+encodeURIComponent(f.dataset.oembed))
+        .then(function(r){return r.ok?r.json():null})
+        .then(function(j){if(j&&j.thumbnail_url)btn.style.backgroundImage='url("'+j.thumbnail_url+'")'})
+        .catch(function(){});
+    }
+    btn.addEventListener('click',function(){
+      var ifr=document.createElement('iframe');
+      ifr.src=f.dataset.src; ifr.title=f.dataset.title||'';
+      ifr.allow='autoplay; encrypted-media; fullscreen; picture-in-picture'; ifr.allowFullscreen=true;
+      f.replaceChildren(ifr);
     });
   });
 })();
