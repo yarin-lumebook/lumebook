@@ -9,7 +9,7 @@ runs read-only with no live connections.
 Output: dashboard/site/lumebook-dashboard/index.html (deploy that folder with
 `npx vercel deploy --prod --yes`).
 """
-import glob, json, os
+import glob, json, os, shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
@@ -48,6 +48,7 @@ def main():
     os.makedirs(SITE, exist_ok=True)
     with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as f:
         f.write(doc)
+    shutil.copytree(os.path.join(HERE, "img"), os.path.join(SITE, "img"), dirs_exist_ok=True)
     with open(os.path.join(SITE, "vercel.json"), "w", encoding="utf-8") as f:
         json.dump({"headers": [{"source": "/(.*)", "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]}]}, f, indent=2)
     print(f"built site/lumebook-dashboard/index.html · {len(doc)//1024} KB · {len(history)} history days · tracker {'yes' if tracker else 'empty'}")

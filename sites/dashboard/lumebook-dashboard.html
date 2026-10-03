@@ -56,7 +56,10 @@ bdi.ltr{direction:ltr;unicode-bidi:isolate}
 /* header */
 .top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-block:28px 18px}
 .brand{display:grid;gap:2px}
-.brand .wm{font-family:var(--font-display);font-size:var(--fs-h1);color:var(--accent-ink);line-height:1.1}
+.brand .wm{display:flex;align-items:center;gap:14px;font-family:var(--font-display);font-size:var(--fs-h1);color:var(--accent-ink);line-height:1.1}
+.brand .wm img{height:64px;width:auto;max-width:100%;display:block}
+.brand .wm span{padding-inline-start:14px;border-inline-start:1px solid var(--border-strong)}
+@media (max-width:620px){.brand .wm img{height:48px}}
 .brand .sub{color:var(--fg-2);font-size:var(--fs-small)}
 .fresh{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .head-side{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -115,7 +118,7 @@ section{margin-top:28px}
 .kpi{display:grid;gap:6px;align-content:start}
 .kpi .lab{font-size:var(--fs-xs);color:var(--fg-3);letter-spacing:.02em}
 .kpi .val{font-size:var(--fs-num);line-height:1.1;font-variant-numeric:tabular-nums;color:var(--fg-1)}
-.kpi .val small{font-size:.9rem;color:var(--fg-2);margin-inline-start:12px}
+.kpi .val small{font-size:.9rem;color:var(--fg-2);margin-inline-start:12px;unicode-bidi:isolate}
 .kpi .foot{font-size:var(--fs-xs);color:var(--fg-2)}
 .bar{height:6px;border-radius:3px;background:var(--track);overflow:hidden}
 .bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
@@ -210,7 +213,7 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--border-hairli
 <div class="app" dir="rtl" lang="he">
   <header class="top">
     <div class="brand">
-      <span class="wm">לומיבוק · לוח</span>
+      <span class="wm"><img src="img/logo.png" alt="LumeBook" width="640" height="186"><span>לוח</span></span>
       <span class="sub">כל הפרויקט במקום אחד: תוכנית, יוצרים, שגרירים, מתחרים</span>
     </div>
     <div class="head-side">
