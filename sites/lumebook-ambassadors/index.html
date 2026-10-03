@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תוכנית השגרירים של Lumebook</title>
+<meta name="description" content="תוכנית השגרירים של Lumebook: ספר מותאם אישית במתנה, קישור אישי לעוקבים ו-20% עמלה על כל הזמנה דרכו.">
+<!-- link previews (WhatsApp, Facebook, X) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lumebook">
+<meta property="og:locale" content="he_IL">
+<meta property="og:url" content="https://lumebook-ambassadors.vercel.app/">
+<meta property="og:title" content="תוכנית השגרירים של Lumebook">
+<meta property="og:description" content="ספר במתנה • קישור אישי • 20% עמלה. ליוצרי תוכן הורים.">
+<meta property="og:image" content="https://lumebook-ambassadors.vercel.app/img/og-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="תוכנית השגרירים של Lumebook: ספר במתנה, קישור אישי, 20% עמלה">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lumebook-ambassadors.vercel.app/img/og-preview.jpg">
+<meta name="theme-color" content="#0B0518">
+<link rel="icon" href="img/logo_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&amp;display=swap">
+<style>
+:root{
+  /* lumebook.com palette */
+  --ink:#0B0518; --ink-1:#130827; --ink-2:#1D1039; --ink-3:#291852;
+  --gold:#E6B762; --gold-2:#C9954A; --gold-soft:#F3D9A1; --cream:#F8F0E1;
+  /* semantic, Apple-style label / fill / separator levels */
+  --label:var(--cream);
+  --label-2:rgba(248,240,225,.66);
+  --label-3:rgba(248,240,225,.42);
+  --fill:rgba(248,240,225,.06);
+  --fill-2:rgba(248,240,225,.1);
+  --separator:rgba(248,240,225,.11);
+  --material:rgba(25,13,48,.72);
+  --tint:var(--gold);
+  --on-tint:var(--ink);
+  --success:#5FCF8E; --danger:#FF6B6B;
+  --grid:rgba(230,183,98,.075);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Hebrew","Heebo",system-ui,sans-serif;
+  --font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Hebrew","Heebo",system-ui,sans-serif;
+  /* 8pt spacing */
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem; --s6:3rem; --s8:4rem; --s12:6rem;
+  --r-row:.75rem; --r-card:1.25rem; --r-pill:980px;
+  --wrap:61.25rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--label); font-family:var(--font); font-size:1.0625rem; line-height:1.47; letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased; background-color:var(--ink);
+  background-image:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(230,183,98,.13), transparent 70%),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:auto, 48px 48px, 48px 48px;
+  background-position:center top, 0 0, 0 0;
+}
+img{max-width:100%; display:block}
+a{color:var(--tint)}
+:focus-visible{outline:3px solid rgba(230,183,98,.7); outline-offset:2px; border-radius:8px}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 1rem}
+
+/* nav bar: translucent material */
+.nav{position:sticky; top:0; z-index:10; background:rgba(11,5,24,.72); -webkit-backdrop-filter:saturate(180%) blur(20px); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--separator)}
+.nav .wrap{display:flex; align-items:center; justify-content:space-between; height:3.25rem}
+.nav .brand{display:flex; align-items:center; gap:.5rem; color:var(--label); text-decoration:none; font-weight:600; font-size:1rem}
+.nav .brand img{width:1.75rem; height:1.75rem; border-radius:.45rem; background:var(--cream)}
+.nav .brand small{color:var(--label-3); font-weight:400; font-size:.875rem}
+.nav .links{display:flex; align-items:center; gap:1rem}
+.nav .links a{white-space:nowrap}
+.nav .links a:not(.cta){font-size:.875rem; color:var(--label-2); text-decoration:none}
+@media (max-width:479px){.nav .brand small{display:none}}
+.nav .links a:not(.cta):hover{color:var(--label)}
+.nav .cta{font-size:.8125rem; font-weight:600; color:var(--on-tint); background:var(--tint); text-decoration:none; padding:.35rem .9rem; border-radius:var(--r-pill)}
+
+/* hero */
+.hero{text-align:center; padding:var(--s8) 1rem var(--s4)}
+.eyebrow{font-size:1.0625rem; font-weight:600; color:var(--tint); margin:0 0 .75rem}
+h1{font-family:var(--font-display); font-weight:800; font-size:clamp(2.5rem,8.4vw,4.75rem); line-height:1.05; letter-spacing:-.025em; margin:0 auto var(--s2); max-width:14ch}
+.lede{font-size:clamp(1.1875rem,2.6vw,1.5rem); line-height:1.38; color:var(--label-2); max-width:36rem; margin:0 auto var(--s4)}
+.actions{display:flex; gap:var(--s3); align-items:center; justify-content:center; flex-wrap:wrap}
+.btn{display:inline-flex; align-items:center; justify-content:center; min-height:2.75rem; font:inherit; font-size:1.0625rem; font-weight:600; letter-spacing:-.01em;
+  background:var(--tint); color:var(--on-tint); border:0; border-radius:var(--r-pill); padding:.7rem 1.6rem; text-decoration:none; cursor:pointer; transition:background .2s, transform .2s}
+.btn:hover{background:var(--gold-soft)}
+.btn:active{transform:scale(.98)}
+.link{color:var(--tint); text-decoration:none; font-size:1.0625rem}
+.link:hover{text-decoration:underline}
+.link::after{content:" ‹"}
+
+/* covers: fanned like books dealt onto a table */
+.covers{position:relative; height:clamp(15rem,58vw,24rem); max-width:30rem; margin:var(--s6) auto 0}
+.cover{position:absolute; top:50%; left:50%; width:52%; aspect-ratio:1; margin:0}
+.cover img{width:100%; height:100%; object-fit:cover; border-radius:.35rem .9rem .9rem .35rem; box-shadow:0 30px 60px -20px rgba(0,0,0,.75), 0 0 0 1px rgba(248,240,225,.08)}
+.cover:nth-child(1){transform:translate(-50%,-50%) translateX(-46%) rotate(-9deg); z-index:1}
+.cover:nth-child(2){transform:translate(-50%,-50%) translateX(46%) rotate(8deg); z-index:1}
+.cover:nth-child(3){transform:translate(-50%,-54%) rotate(-1deg); z-index:2}
+.tags{display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin:var(--s3) 0 0; padding:0; list-style:none}
+.tags li{font-size:.8125rem; color:var(--label-2); background:var(--fill); border:1px solid var(--separator); padding:.25rem .75rem; border-radius:var(--r-pill)}
+@media (prefers-reduced-motion:no-preference){
+  .cover{animation:deal .9s cubic-bezier(.2,.8,.2,1) both}
+  .cover:nth-child(1){animation-delay:.15s}
+  .cover:nth-child(2){animation-delay:.3s}
+  .cover:nth-child(3){animation-delay:.45s}
+  @keyframes deal{from{opacity:0; translate:0 2.5rem; rotate:0deg}}
+}
+
+/* sections */
+.section{padding-top:var(--s12); scroll-margin-top:3.25rem}
+.head{text-align:center; margin-bottom:var(--s4)}
+h2{font-family:var(--font-display); font-weight:700; font-size:clamp(1.75rem,4.6vw,2.5rem); line-height:1.1; letter-spacing:-.02em; margin:0 0 .5rem}
+.head p{color:var(--label-2); margin:0; font-size:1.1875rem}
+
+.cards{display:grid; gap:var(--s2); grid-template-columns:1fr; list-style:none; padding:0; margin:0}
+.card{background:var(--material); -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); border:1px solid var(--separator); border-radius:var(--r-card); padding:var(--s3)}
+.card h3{margin:0 0 .25rem; font-size:1.3125rem; font-weight:700; letter-spacing:-.015em}
+.card h3 .num{color:var(--tint)}
+.card p{margin:0; color:var(--label-2)}
+
+.steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr; counter-reset:step}
+.steps li{counter-increment:step; display:flex; gap:var(--s2); align-items:flex-start; padding:var(--s2) 0; border-top:1px solid var(--separator)}
+.steps li::before{content:counter(step); flex:none; width:2rem; height:2rem; border-radius:50%; display:grid; place-items:center; font-weight:700; font-size:.9375rem; color:var(--on-tint); background:var(--tint)}
+.steps b{display:block; font-weight:600}
+.steps span{color:var(--label-2); font-size:.9375rem}
+
+/* form: grouped inset list */
+.apply{padding-bottom:var(--s12)}
+.panel{max-width:36rem; margin:0 auto}
+/* light container: the form switches to Apple's light-mode label/fill levels */
+.panel{
+  --label:#1D1039; --label-2:rgba(29,16,57,.68); --label-3:rgba(29,16,57,.48);
+  --fill:rgba(29,16,57,.05); --fill-2:rgba(29,16,57,.08); --separator:rgba(29,16,57,.12);
+  --material:#FFFFFF; --seg-on:#FFFFFF; --success:#23955A; --danger:#D93A3A;
+  color:var(--label); background:#F8F0E1; border-radius:1.75rem; padding:var(--s6) 1.25rem var(--s4);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.75), 0 0 0 1px rgba(248,240,225,.25);
+}
+.panel .group, .panel .card{-webkit-backdrop-filter:none; backdrop-filter:none}
+.panel .submit{background:#1D1039; color:#F8F0E1}
+.panel .submit:hover{background:#291852}
+.panel .badge.wait{color:var(--label-2)}
+@media (min-width:734px){.panel{padding:var(--s6) var(--s6) var(--s4)}}
+.req{text-align:center; color:var(--label-2); font-size:.9375rem; margin:0 0 var(--s4)}
+.req b{color:var(--label); font-weight:600}
+.group-title{font-size:.8125rem; color:var(--label-3); margin:0 1rem .4rem; font-weight:500}
+.group{background:var(--material); -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); border:1px solid var(--separator); border-radius:var(--r-row); overflow:hidden; margin:0 0 var(--s3)}
+.group-foot{font-size:.8125rem; color:var(--label-3); margin:-1rem 1rem var(--s3); line-height:1.45}
+.row{position:relative; display:flex; align-items:center; gap:var(--s2); min-height:2.95rem; padding:.35rem 1rem}
+.row + .row::before, .terms + .row::before{content:""; position:absolute; top:0; left:0; right:1rem; border-top:1px solid var(--separator)}
+.row > label, .row > .lbl{flex:none; width:7.5rem; font-size:1.0625rem}
+.row input[type=text], .row input[type=tel], .row input[type=email]{
+  flex:1; min-width:0; font:inherit; color:var(--label); background:transparent; border:0; padding:.55rem 0; outline:none}
+.row input::placeholder{color:var(--label-3)}
+.row.stack{display:block; padding:.8rem 1rem}
+.row.stack .lbl{display:block; width:auto; margin-bottom:.6rem}
+.ltr{direction:ltr; text-align:right}
+.row .err{display:none; flex:none; font-size:.75rem; color:var(--danger)}
+.row.invalid .err{display:block}
+.row.invalid > label, .row.invalid > .lbl{color:var(--danger)}
+.row.stack.invalid .err{margin-top:.5rem}
+
+/* segmented control */
+.seg{display:grid; grid-template-columns:1fr 1fr; background:var(--fill-2); border-radius:.6rem; padding:2px}
+.seg label{position:relative; text-align:center; font-size:.9375rem; font-weight:500; padding:.45rem .5rem; border-radius:.5rem; cursor:pointer; color:var(--label-2); transition:color .2s, background .2s}
+.seg input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.seg label:has(input:checked){background:var(--seg-on,var(--ink-3)); color:var(--label); box-shadow:0 3px 8px rgba(0,0,0,.12), 0 0 0 .5px rgba(29,16,57,.08)}
+.seg label:has(input:focus-visible){outline:3px solid rgba(230,183,98,.7); outline-offset:1px}
+
+/* chips */
+.chips{display:flex; flex-wrap:wrap; gap:.5rem}
+.chip{position:relative}
+.chip input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.chip span{display:inline-block; font-size:.9375rem; padding:.35rem .85rem; border-radius:var(--r-pill); background:var(--fill-2); color:var(--label); transition:background .15s, color .15s; user-select:none}
+.chip input:checked + span{background:var(--tint); color:var(--on-tint)}
+.chip input:focus-visible + span{outline:3px solid rgba(230,183,98,.7); outline-offset:2px}
+#otherText{margin-top:.6rem; width:100%; font:inherit; color:var(--label); background:var(--fill); border:0; border-radius:.5rem; padding:.5rem .75rem; outline:none}
+#otherText[hidden]{display:none}
+
+/* switch */
+.switch{position:relative; flex:none; width:3.2rem; height:1.95rem; margin-inline-start:auto}
+.switch input{position:absolute; inset:0; opacity:0; margin:0; cursor:pointer; z-index:1}
+.switch i{position:absolute; inset:0; border-radius:var(--r-pill); background:var(--fill-2); transition:background .2s}
+.switch i::after{content:""; position:absolute; top:2px; right:2px; width:calc(1.95rem - 4px); height:calc(1.95rem - 4px); border-radius:50%; background:#fff; box-shadow:0 3px 8px rgba(0,0,0,.3); transition:transform .25s cubic-bezier(.3,.7,.4,1)}
+.switch input:checked + i{background:var(--success)}
+.switch input:checked + i::after{transform:translateX(calc(1.95rem - 3.2rem))}
+.switch input:focus-visible + i{outline:3px solid rgba(230,183,98,.7); outline-offset:2px}
+.terms{margin:0; padding:.85rem 2.1rem .85rem 1rem; font-size:.875rem; color:var(--label-2); line-height:1.55}
+
+.submit{width:100%; min-height:3.2rem; border-radius:.85rem}
+.submit[disabled]{opacity:.55; cursor:progress}
+.formerr{color:var(--danger); text-align:center; font-size:.875rem; min-height:1.3em; margin:.75rem 0 0}
+
+/* results */
+.result[hidden]{display:none}
+.result{text-align:center}
+.badge{width:4rem; height:4rem; margin:0 auto var(--s2); border-radius:50%; display:grid; place-items:center; background:rgba(95,207,142,.14); color:var(--success)}
+.badge.wait{background:var(--fill-2); color:var(--label-2)}
+.badge svg{width:2rem; height:2rem}
+.result > p{color:var(--label-2); margin:0 auto var(--s4); max-width:28rem}
+
+footer{border-top:1px solid var(--separator); padding:var(--s3) 0 var(--s4); font-size:.8125rem; color:var(--label-3)}
+footer .wrap{display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; justify-content:space-between}
+footer a{color:var(--label-2); text-decoration:none}
+footer a:hover{color:var(--label); text-decoration:underline}
+
+@media (min-width:734px){
+  .cards{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:repeat(5,1fr); gap:var(--s3)}
+  .steps li{flex-direction:column; gap:.75rem}
+}
+
+/* ---------- light-purple form container ---------- */
+@property --spin{syntax:"<angle>"; inherits:false; initial-value:0deg}
+.panel{
+  --label:#2A1458; --label-2:rgba(42,20,88,.7); --label-3:rgba(42,20,88,.5);
+  --fill:rgba(91,46,200,.06); --fill-2:rgba(91,46,200,.1); --separator:rgba(91,46,200,.14);
+  --violet:#7C4DFF; --violet-2:#A77BFF; --pink:#FF8FC7;
+  position:relative; isolation:isolate;
+  background:linear-gradient(160deg,#F4EEFF 0%,#E7DAFF 48%,#F6E9FF 100%);
+  box-shadow:0 40px 100px -30px rgba(124,77,255,.55), 0 0 0 1px rgba(255,255,255,.5);
+}
+.panel::before{ /* spinning gradient ring */
+  content:""; position:absolute; inset:-2px; z-index:-1; border-radius:calc(1.75rem + 2px); padding:2px;
+  background:conic-gradient(from var(--spin), var(--gold), var(--pink), var(--violet), var(--violet-2), var(--gold));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude;
+}
+.panel::after{ /* soft glow behind */
+  content:""; position:absolute; inset:10% 8%; z-index:-2; border-radius:50%;
+  background:radial-gradient(closest-side, rgba(167,123,255,.55), transparent); filter:blur(40px);
+}
+.panel .group{background:#fff; border-color:rgba(124,77,255,.14)}
+.panel .chip input:checked + span{background:var(--violet); color:#fff}
+.panel .submit{background:linear-gradient(100deg,#6A35F0,#9D63FF 55%,#C470F5); color:#fff; position:relative; overflow:hidden; box-shadow:0 14px 30px -12px rgba(124,77,255,.75)}
+.panel .submit:hover{background:linear-gradient(100deg,#5B27E6,#8F52FF 55%,#B862F0)}
+.panel .switch input:checked + i{background:var(--violet)}
+.panel .req b{color:#5B2BD6}
+.panel .badge{background:rgba(124,77,255,.14); color:var(--violet)}
+
+/* ---------- motion (all of it switches off with reduced motion) ---------- */
+.aurora{position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden}
+.aurora i{position:absolute; width:46vmax; height:46vmax; border-radius:50%; filter:blur(70px); opacity:.35}
+.aurora i:nth-child(1){background:#7C4DFF; top:-18vmax; right:-12vmax}
+.aurora i:nth-child(2){background:#E6B762; top:30vh; left:-20vmax; opacity:.18}
+.aurora i:nth-child(3){background:#FF8FC7; bottom:-22vmax; right:10vw; opacity:.16}
+.sparkle{position:absolute; pointer-events:none; width:6px; height:6px; border-radius:50%; background:var(--gold-soft); box-shadow:0 0 12px 3px rgba(243,217,161,.7); opacity:0}
+
+@media (prefers-reduced-motion:no-preference){
+  body{animation:gridDrift 40s linear infinite}
+  @keyframes gridDrift{to{background-position:center top, 0 48px, 48px 0}}
+  .aurora i:nth-child(1){animation:blob1 18s ease-in-out infinite alternate}
+  .aurora i:nth-child(2){animation:blob2 22s ease-in-out infinite alternate}
+  .aurora i:nth-child(3){animation:blob3 26s ease-in-out infinite alternate}
+  @keyframes blob1{to{transform:translate(-14vw,18vh) scale(1.2)}}
+  @keyframes blob2{to{transform:translate(18vw,-10vh) scale(.85)}}
+  @keyframes blob3{to{transform:translate(-20vw,-16vh) scale(1.15)}}
+
+  .nav{animation:dropIn .7s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes dropIn{from{transform:translateY(-100%)}}
+  .nav .cta{animation:pulse 2.4s ease-in-out 1.5s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(230,183,98,.55)} 50%{box-shadow:0 0 0 8px rgba(230,183,98,0)}}
+
+  .eyebrow{animation:fadeUp .7s .1s cubic-bezier(.2,.8,.2,1) both}
+  h1{
+    background:linear-gradient(100deg,var(--cream) 0 40%,var(--gold-soft) 48%,#fff 50%,var(--gold-soft) 52%,var(--cream) 60% 100%);
+    background-size:250% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:blurIn 1.1s .2s cubic-bezier(.2,.8,.2,1) both, shine 5s 1.6s ease-in-out infinite;
+  }
+  @keyframes blurIn{from{opacity:0; filter:blur(14px); transform:translateY(24px) scale(.97); letter-spacing:.04em}}
+  @keyframes shine{0%{background-position:100% 0} 60%,100%{background-position:-50% 0}}
+  .lede{animation:fadeUp .8s .55s cubic-bezier(.2,.8,.2,1) both}
+  .actions{animation:fadeUp .8s .75s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(22px)}}
+
+  .btn{position:relative; overflow:hidden}
+  .actions .btn::after, .panel .submit::after{
+    content:""; position:absolute; inset:0; transform:translateX(120%) skewX(-20deg);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent); animation:sweep 3.2s 2s ease-in-out infinite}
+  @keyframes sweep{0%{transform:translateX(120%) skewX(-20deg)} 35%,100%{transform:translateX(-120%) skewX(-20deg)}}
+
+  .cover img{animation:float 6s ease-in-out infinite}
+  .cover:nth-child(1) img{animation-delay:-1s} .cover:nth-child(2) img{animation-delay:-3s; animation-duration:7s}
+  @keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}}
+  .covers{transition:transform .25s ease-out; transform-style:preserve-3d}
+
+  .tags li{animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}
+  .tags li:nth-child(1){animation-delay:1.05s} .tags li:nth-child(2){animation-delay:1.15s}
+  .tags li:nth-child(3){animation-delay:1.25s} .tags li:nth-child(4){animation-delay:1.35s}
+  @keyframes pop{from{opacity:0; transform:scale(.6)}}
+
+  .reveal{opacity:0; transform:translateY(40px) scale(.98); transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); transition-delay:var(--d,0s)}
+  .reveal.in{opacity:1; transform:none}
+  .card{transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, opacity .8s cubic-bezier(.2,.8,.2,1)}
+  .card.in:hover{transform:translateY(-6px); box-shadow:0 22px 50px -20px rgba(230,183,98,.45)}
+  .steps li.in::before{animation:pop .55s cubic-bezier(.3,1.6,.5,1) calc(var(--d,0s) + .15s) both}
+
+  .panel::before{animation:spin 6s linear infinite}
+  @keyframes spin{to{--spin:360deg}}
+  .panel::after{animation:breathe 4s ease-in-out infinite}
+  @keyframes breathe{50%{opacity:.6; transform:scale(1.08)}}
+  .panel .group{transition:transform .25s, box-shadow .25s}
+  .panel .group:focus-within{transform:scale(1.015); box-shadow:0 12px 30px -14px rgba(124,77,255,.55)}
+
+  .result:not([hidden]) .badge{animation:pop .6s cubic-bezier(.3,1.6,.5,1) both}
+  .result:not([hidden]) .badge path{stroke-dasharray:30; stroke-dashoffset:30; animation:draw .5s .35s ease-out forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .result:not([hidden]) h2, .result:not([hidden]) > p{animation:fadeUp .6s cubic-bezier(.2,.8,.2,1) both}
+  .result:not([hidden]) h2{animation-delay:.15s} .result:not([hidden]) > p{animation-delay:.25s}
+  .sparkle{animation:twinkle 2.6s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:0; transform:scale(.3)} 50%{opacity:1; transform:scale(1)}}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="ראשי">
+  <div class="wrap">
+    <a class="brand" href="https://lumebook.com/IL/he"><img src="img/logo_square.png" alt="" width="28" height="28">Lumebook<small>תוכנית השגרירים</small></a>
+    <div class="links">
+      <a href="creators/">מרכז היוצרים</a>
+      <a class="cta" href="#apply">הצטרפות</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <p class="eyebrow">ליוצרי תוכן</p>
+    <h1>תוכנית השגרירים של Lumebook</h1>
+    <p class="lede">צלמו את הרגע שהילדים פוגשים את עצמם בספר. קבלו ספר במתנה, קישור אישי לעוקבים ו-20% על כל הזמנה דרכו.</p>
+    <div class="actions">
+      <a class="btn" href="#apply">להצטרפות</a>
+      <a class="link" href="#how">איך זה עובד</a>
+    </div>
+    <div class="covers" aria-hidden="true">
+      <figure class="cover"><img src="img/B41_girl.avif" alt="" width="640" height="640"></figure>
+      <figure class="cover"><img src="img/B2_boy.avif" alt="" width="1024" height="1024"></figure>
+      <figure class="cover"><img src="img/B10_girl.avif" alt="" width="800" height="800" fetchpriority="high"></figure>
+    </div>
+    <ul class="tags" aria-label="ספרים לרגעים כמו">
+      <li>שלום כיתה א׳</li><li>אח חדש</li><li>גמילה ממוצץ</li><li>ועוד</li>
+    </ul>
+  </header>
+
+  <section class="wrap section" aria-labelledby="perks-h">
+    <div class="head">
+      <h1 id="perks-h">מה מקבלים?</h1>
+      <p>לכל מי שמצטרפים לתוכנית</p>
+    </div>
+    <ul class="cards">
+      <li class="card" style="color: var(--gold) !important; border-color: var(--gold) !important; background-color: var(--ink-3) !important;"><h3><span class="num">20%</span> עמלה</h3><p style="color: var(--gold-soft) !important;">על כל הזמנה שנעשית דרך הקישור שלכם</p></li>
+      <li class="card" style="border-color: var(--gold-soft) !important;"><h3>ספר במתנה</h3><p>ספר מודפס עם הפנים והשם של הילדים שלכם</p></li>
+      <li class="card"><h3>קישור אישי</h3><p>העוקבים שלכם מזמינים דרכו בהנחה</p></li>
+      <li class="card"><h3>שיתוף ב-<bdi dir="ltr">@lumebookai</bdi></h3><p>התוכן שלכם אצלנו, עם קרדיט</p></li>
+    </ul>
+  </section>
+
+  <section class="wrap section" id="how" aria-labelledby="how-h">
+    <div class="head">
+      <h1 id="how-h">איך זה עובד?</h1>
+      <p>מהטופס ועד העמלה הראשונה</p>
+    </div>
+    <ol class="steps">
+      <li><div><b>ממלאים את הטופס</b><span>לוקח בערך דקה</span></div></li>
+      <li><div><b>מקבלים קישור אישי מיד</b><span>על המסך ובמייל</span></div></li>
+      <li><div><b>מתאמים ספר במתנה</b><span>נחזור אליכם בוואטסאפ</span></div></li>
+      <li><div><b>מצלמים ומשתפים</b><span>רילס או טיקטוק עם הקישור ותיוג <bdi dir="ltr">@lumebookai</bdi></span></div></li>
+      <li><div><b>מקבלים 20%</b><span>על כל הזמנה דרך הקישור</span></div></li>
+    </ol>
+  </section>
+
+  <section class="wrap section apply" id="apply" aria-labelledby="apply-h">
+    <div class="panel">
+      <form id="f" novalidate>
+        <div class="head">
+          <h2 id="apply-h">הצטרפות לתוכנית</h2>
+          <p>הקישור האישי לשימוש בסושיאל<br>מופיע מיד בסיום</p>
+        </div>
+
+        <p class="group-title" id="g1">פרטים</p>
+        <div class="group" role="group" aria-labelledby="g1">
+          <div class="row" data-key="name">
+            <label for="name">שם מלא</label>
+            <input id="name" type="text" autocomplete="name" placeholder="שם פרטי ומשפחה">
+            <span class="err">חסר</span>
+          </div>
+          <div class="row" data-key="phone">
+            <label for="phone">וואטסאפ</label>
+            <input id="phone" type="tel" class="ltr" inputmode="tel" autocomplete="tel" placeholder="050-1234567">
+            <span class="err">לא תקין</span>
+          </div>
+          <div class="row" data-key="email">
+            <label for="email">מייל</label>
+            <input id="email" type="email" class="ltr" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="name@example.com">
+            <span class="err">לא תקין</span>
+          </div>
+        </div>
+
+        <p class="group-title" id="g2">אינסטגרם / טיקטוק</p>
+        <div class="group" role="group" aria-labelledby="g2">
+          <div class="row" data-key="social">
+            <label for="social">פרופיל</label>
+            <input id="social" type="text" class="ltr" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="@username">
+            <span class="err">חסר</span>
+          </div>
+          <div class="row stack" data-key="followers">
+            <span class="lbl" id="followers-l">כמה עוקבים יש לכם?</span>
+            <div class="seg" role="radiogroup" aria-labelledby="followers-l">
+              <label><input type="radio" name="followers" value="פחות מ-1,000">פחות מ-1,000</label>
+              <label><input type="radio" name="followers" value="1,000 ומעלה">1,000 ומעלה</label>
+            </div>
+            <span class="err">צריך לבחור</span>
+          </div>
+        </div>
+
+        <p class="group-title" id="g3">מה מתקרב אצלכם בחודשים הקרובים? (לא חובה)</p>
+        <div class="group" role="group" aria-labelledby="g3">
+          <div class="row stack">
+            <div class="chips" id="milestones"></div>
+            <input id="otherText" type="text" aria-label="מה עוד מתקרב" placeholder="מה מתקרב?" hidden>
+          </div>
+        </div>
+        <p class="group-foot">עוזר לנו להתאים לכם ספר</p>
+
+        <p class="group-title" id="g4">אישור</p>
+        <div class="group" role="group" aria-labelledby="g4">
+          <ul class="terms">
+            <li>אני מעל גיל 18 וההורה או האפוטרופוס של הילדים שמופיעים בתוכן</li>
+            <li>לומיבוק יכולה לשתף את התוכן בערוצים שלה, עם קרדיט</li>
+            <li>התוכן יסומן כשיתוף פעולה (למשל "קיבלתי במתנה") ויתויג <bdi dir="ltr">@lumebookai</bdi></li>
+            <li>שימוש בתוכן בפרסום ממומן – רק באישור נפרד</li>
+            <li>אפשר לבקש הסרה בכל שלב בוואטסאפ</li>
+          </ul>
+          <div class="row" data-key="consent">
+            <span class="lbl" id="consent-l">מאשרים</span>
+            <span class="err">צריך לאשר</span>
+            <span class="switch"><input id="consent" type="checkbox" role="switch" aria-labelledby="consent-l"><i></i></span>
+          </div>
+        </div>
+
+        <button class="btn submit" type="submit" id="send">הצטרפות לתוכנית</button>
+        <p class="formerr" id="formerr" role="alert"></p>
+      </form>
+
+
+      <!-- under 1,000 : no link -->
+      <div class="result" id="waitlist" hidden tabindex="-1">
+        <div class="badge wait"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+        <h2>תודה שנרשמתם</h2>
+        <p>התוכנית פתוחה כרגע ליוצרים עם 1,000 עוקבים ומעלה, ולכן לא נוצר קישור. שמרנו את הפרטים שלכם, וכשתעברו את ה-1,000 מוזמנים להירשם שוב.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>שאלות? <a href="https://wa.me/972559800791">כתבו לנו בוואטסאפ</a></span>
+    <span><a href="https://lumebook.com/IL/he">lumebook.com</a> · <a href="https://www.instagram.com/lumebookai/"><bdi dir="ltr">@lumebookai</bdi></a></span>
+  </div>
+</footer>
+
+<script>
+// Mockup (2026-10-03): creators with 1,000+ followers go to creators/, which shows their personal link and a
+// "confirmation email sent" note. No email is sent and the link isn't tracked yet; that comes after Yossi approves.
+// The link travels to creators/ in this browser's localStorage, never in the URL.
+const LINK_BASE = 'https://lumebook.com/IL/he?ref=';
+const STORE_KEY = 'lumebook-creator';
+
+// Answers post into the Google Form "יוצרי תוכן × לומיבוק" (→ its responses Sheet).
+// Entry IDs read from the live form on 2026-10-03; if a question is edited in Google Forms, re-check them.
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSculYe4LpG8WUFNDXCVDiP-BPaSbuqx0h7_dGcyU0owmxIxAg/formResponse';
+const ENTRY = {
+  name: 'entry.52027722',
+  phone: 'entry.1854787106',
+  email: 'entry.953595965',
+  social: 'entry.1780197518',
+  followers: 'entry.682493135',
+  milestone: 'entry.554607727',
+  consent: 'entry.1998305533',
+};
+const OVER_1K = '1,000 ומעלה';
+const MILESTONES = ["כניסה לגן / לכיתה א'", 'אח/ות בדרך', 'גמילה מטיטולים', 'גמילה ממוצץ', 'פחד או קושי (חושך, פרידה...)', 'יום הולדת', 'חג (חנוכה...)', 'כלום מיוחד'];
+const OTHER = '__other_option__';
+const PHONE_RE = /^[0-9+\-\s()]{9,16}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+const $ = id => document.getElementById(id);
+const form = $('f');
+const val = id => $(id).value.trim();
+const checked = name => [...form.querySelectorAll(`input[name=${name}]:checked`)].map(i => i.value);
+
+$('milestones').innerHTML = [...MILESTONES, OTHER].map(v =>
+  `<label class="chip"><input type="checkbox" name="milestone" value="${v.replace(/"/g, '&quot;')}"><span>${v === OTHER ? 'אחר' : v}</span></label>`
+).join('');
+form.querySelector(`input[value="${OTHER}"]`).addEventListener('change', e => {
+  $('otherText').hidden = !e.target.checked;
+  if (e.target.checked) $('otherText').focus();
+});
+
+const RULES = {
+  name: () => val('name'),
+  phone: () => PHONE_RE.test(val('phone')),
+  email: () => EMAIL_RE.test(val('email')),
+  social: () => val('social'),
+  followers: () => checked('followers').length,
+  consent: () => $('consent').checked,
+};
+function validate() {
+  let first = null;
+  form.querySelectorAll('[data-key]').forEach(row => {
+    const ok = RULES[row.dataset.key]();
+    row.classList.toggle('invalid', !ok);
+    if (!ok && !first) first = row;
+  });
+  if (first) first.querySelector('input').focus();
+  return !first;
+}
+['input', 'change'].forEach(type => form.addEventListener(type, e => {
+  const row = e.target.closest('[data-key]');
+  if (row && row.classList.contains('invalid') && RULES[row.dataset.key]()) row.classList.remove('invalid');
+}));
+
+// @handle or profile URL → link slug
+function slugFrom(social) {
+  let s = social.split(/[\s,]+/)[0].replace(/^https?:\/\/(www\.)?(instagram\.com|tiktok\.com)\/@?/i, '').replace(/^@/, '');
+  s = s.split(/[/?#]/)[0].toLowerCase().replace(/[^a-z0-9._]/g, '');
+  return s || 'amb' + Math.floor(1000 + Math.random() * 9000);
+}
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  $('formerr').textContent = '';
+  if (!validate()) return;
+
+  const followers = checked('followers')[0];
+  const body = new URLSearchParams();
+  body.append(ENTRY.name, val('name'));
+  body.append(ENTRY.phone, val('phone'));
+  body.append(ENTRY.email, val('email'));
+  body.append(ENTRY.social, val('social'));
+  body.append(ENTRY.followers, followers);
+  const ms = checked('milestone');
+  ms.forEach(v => body.append(ENTRY.milestone, v));
+  if (ms.includes(OTHER)) body.append(ENTRY.milestone + '.other_option_response', val('otherText'));
+  body.append(ENTRY.consent, 'מאשרים');
+
+  const btn = $('send');
+  btn.disabled = true; btn.textContent = 'שולחים…';
+  try {
+    // Google doesn't let the page read its reply, so a completed request counts as saved.
+    await fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body });
+  } catch (err) {
+    $('formerr').textContent = 'השליחה לא עברה. בדקו את החיבור לאינטרנט ונסו שוב.';
+    btn.disabled = false; btn.textContent = 'הצטרפות לתוכנית';
+    return;
+  }
+
+  if (followers === OVER_1K) {
+    const creator = { name: val('name').split(/\s+/)[0], email: val('email'), link: LINK_BASE + slugFrom(val('social')) };
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(creator)); } catch (_) { /* creators/ then shows the page without the link box */ }
+    location.href = 'creators/?welcome';
+    return;
+  }
+  form.hidden = true;
+  $('waitlist').hidden = false;
+  $('apply').scrollIntoView({ block: 'start' });
+  $('waitlist').focus({ preventScroll: true });
+});
+
+// ---------- motion ----------
+const MOTION = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (MOTION) {
+  // drifting colour blobs behind everything
+  const aurora = document.createElement('div');
+  aurora.className = 'aurora'; aurora.setAttribute('aria-hidden', 'true');
+  aurora.innerHTML = '<i></i><i></i><i></i>';
+  document.body.prepend(aurora);
+
+  // scroll reveals, staggered within each group
+  const groups = [['.head'], ['.cards .card'], ['.steps li'], ['.panel']];
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+  }), { threshold: .15 });
+  groups.forEach(([sel]) => document.querySelectorAll(sel).forEach((el, i) => {
+    el.classList.add('reveal'); el.style.setProperty('--d', (i * 0.12) + 's'); io.observe(el);
+  }));
+
+  // count the 20% up when it scrolls into view
+  document.querySelectorAll('.num').forEach(el => {
+    const target = parseInt(el.textContent, 10); if (!target) return;
+    const run = new IntersectionObserver(([en]) => {
+      if (!en.isIntersecting) return; run.disconnect();
+      const t0 = performance.now();
+      const tick = now => { const p = Math.min(1, (now - t0) / 1100); el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + '%'; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    }, { threshold: .6 });
+    run.observe(el);
+  });
+
+  // covers tilt toward the pointer
+  const covers = document.querySelector('.covers');
+  if (covers && matchMedia('(hover: hover)').matches) {
+    covers.addEventListener('pointermove', e => {
+      const r = covers.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      covers.style.transform = `perspective(900px) rotateY(${x * 14}deg) rotateX(${-y * 10}deg)`;
+    });
+    covers.addEventListener('pointerleave', () => { covers.style.transform = ''; });
+  }
+
+  // twinkles around the covers
+  const hero = document.querySelector('.covers');
+  if (hero) for (let i = 0; i < 9; i++) {
+    const s = document.createElement('span'); s.className = 'sparkle'; s.setAttribute('aria-hidden', 'true');
+    s.style.left = (Math.random() * 100) + '%'; s.style.top = (Math.random() * 100) + '%';
+    s.style.animationDelay = (Math.random() * 2.6) + 's'; s.style.zIndex = 3;
+    hero.appendChild(s);
+  }
+}
+
+</script>
+</body>
+</html>
