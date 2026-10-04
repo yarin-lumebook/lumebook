@@ -42,7 +42,7 @@ function addFollowersItem(form) {
 function addMilestoneItem(form) {
   return form.addCheckboxItem()
     .setTitle(MILESTONE_TITLE)
-    .setHelpText('לא חובה – עוזר לנו להתאים לכם ספר')
+    .setHelpText('לא חובה, עוזר לנו להתאים לכם ספר')
     .setChoiceValues([
       "כניסה לגן / לכיתה א'",
       'אח/ות בדרך',
@@ -102,11 +102,11 @@ function updateLumebookCreatorFormV2() {
 }
 
 function createLumebookCreatorForm() {
-  const form = FormApp.create('יוצרי תוכן × לומיבוק');
+  const form = FormApp.create('יוצרי תוכן × לומבוק');
 
   form.setDescription([
     'מצלמים את הילדים ומשתפים? בואו ליצור איתנו.',
-    'בלומיבוק הילדים שלכם הופכים לגיבורי הסיפור – ספר מאויר עם הפנים והשם שלהם.',
+    'בלומבוק הילדים שלכם הופכים לגיבורי הסיפור: ספר מאויר עם הפנים והשם שלהם.',
     '',
     'מה מקבלים:',
     '• ספר מותאם אישית במתנה',
@@ -118,7 +118,7 @@ function createLumebookCreatorForm() {
     '• רילס / טיקטוק של הרגע שהילדים פוגשים את עצמם בספר',
     '• תיוג @lumebookai וסימון שיתוף פעולה',
     '',
-    'ממלאים פה, ואם יש התאמה – נחזור אליכם בוואטסאפ',
+    'ממלאים פה, ואם יש התאמה, נחזור אליכם בוואטסאפ',
   ].join('\n'));
 
   form.setConfirmationMessage('תודה! קיבלנו 💛 אם יש התאמה נחזור אליכם בוואטסאפ');
@@ -159,16 +159,16 @@ function createLumebookCreatorForm() {
     .setTitle('אישור')
     .setHelpText([
       '• אני מעל גיל 18 וההורה או האפוטרופוס של הילדים שמופיעים בתוכן',
-      '• לומיבוק יכולה לשתף את התוכן בערוצים שלה, עם קרדיט',
+      '• לומבוק יכולה לשתף את התוכן בערוצים שלה, עם קרדיט',
       '• התוכן יסומן כשיתוף פעולה (למשל "קיבלתי במתנה") ויתויג @lumebookai',
-      '• שימוש בתוכן בפרסום ממומן – רק באישור נפרד',
+      '• שימוש בתוכן בפרסום ממומן: רק באישור נפרד',
       '• אפשר לבקש הסרה בכל שלב בוואטסאפ',
     ].join('\n'))
     .setChoiceValues(['מאשרים'])
     .setRequired(true);
 
   // Responses → new Sheet
-  const sheet = SpreadsheetApp.create('יוצרי תוכן × לומיבוק (תגובות)');
+  const sheet = SpreadsheetApp.create('יוצרי תוכן × לומבוק (תגובות)');
   form.setDestination(FormApp.DestinationType.SPREADSHEET, sheet.getId());
 
   // Move into the shared marketing folder if we can
