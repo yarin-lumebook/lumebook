@@ -264,7 +264,7 @@ pre.msg{white-space:pre-wrap;word-break:break-word;background:var(--fill);border
 .side-ft{margin-top:auto;padding:.9rem .65rem .2rem;font-size:.75rem;color:var(--label-3);display:flex;align-items:center;gap:.45rem}
 .side-ft .dot{margin:0}
 .dot{display:inline-block;width:.55rem;height:.55rem;border-radius:50%;flex:none;background:var(--c,var(--label-3));margin:0 .275rem}
-.st-new{--c:#B8AFC7}.st-sent{--c:var(--lb-violet-2)}.st-replied{--c:#2F7FD9}.st-yes{--c:var(--success)}.st-code{--c:var(--lb-gold-2)}.st-posted{--c:#C2408F}.st-declined{--c:#D99595}.st-due{--c:var(--warning)}.st-all{--c:var(--lb-ink-2)}
+.st-new{--c:#B8AFC7}.st-sent{--c:var(--lb-violet-2)}.st-replied{--c:#2F7FD9}.st-yes{--c:var(--success)}.st-noreply{--c:#9AA0B4}.st-process{--c:#E08A1E}.st-code{--c:var(--lb-gold-2)}.st-posted{--c:#C2408F}.st-declined{--c:#D99595}.st-due{--c:var(--warning)}.st-all{--c:var(--lb-ink-2)}
 .main{min-width:0;display:flex;flex-direction:column}
 .topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bar-bg);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--separator);display:flex;align-items:center;gap:.75rem;min-height:3.25rem;padding-inline:1.5rem}
 .crumbs{display:flex;align-items:center;gap:.45rem;min-width:0;font-size:.9375rem;color:var(--label-3)}
@@ -392,11 +392,11 @@ a.kpi:hover{text-decoration:none;box-shadow:0 1px 2px rgba(29,16,57,.04),0 0 0 2
   <h2>Overview</h2>
   <div class="kpis" id="kpis"></div>
   <div class="ovcard"><div class="ovh"><h3>Pipeline</h3><a href="#c-all">All creators</a></div><div class="pipe" id="pipe"></div><div class="legend" id="legend"></div></div>
-  <div class="ovcard"><div class="ovh"><h3>Message styles</h3></div><div class="tbl" style="box-shadow:none"><table style="min-width:0"><thead><tr><th>Style</th><th class="r">Sent</th><th class="r">Replies</th><th class="r">Reply rate</th><th class="r">Said yes</th></tr></thead><tbody id="styBody"></tbody></table></div><p class="note">Counts every creator marked as sent, by the style you sent. Creators marked before styles existed count as Warm. With small numbers, treat a gap as a hint, not proof.</p></div>
+  <div class="ovcard"><div class="ovh"><h3>Message styles</h3></div><div class="tbl" style="box-shadow:none"><table style="min-width:0"><thead><tr><th>Style</th><th class="r">Sent</th><th class="r">Replies</th><th class="r">Reply rate</th><th class="r">In process or posted</th></tr></thead><tbody id="styBody"></tbody></table></div><p class="note">Counts every creator marked as sent, by the style you sent. Creators marked before styles existed count as Warm. With small numbers, treat a gap as a hint, not proof.</p></div>
   <div class="panels">
     <div class="ovcard"><div class="ovh"><h3>Follow-ups due <span class="cnt" id="ovDueN"></span></h3><a href="#c-due">See all</a></div><ul class="mini" id="ovDue"></ul></div>
     <div class="ovcard"><div class="ovh"><h3>Next to contact <span class="cnt" id="ovNextN"></span></h3><a href="#v-top">Top scores</a></div><ul class="mini" id="ovNext"></ul></div>
-    <div class="ovcard"><div class="ovh"><h3>Said yes, next steps <span class="cnt" id="ovWaitN"></span></h3><a href="#c-yes">See all</a></div><ul class="mini" id="ovWait"></ul></div>
+    <div class="ovcard"><div class="ovh"><h3>In process, next steps <span class="cnt" id="ovWaitN"></span></h3><a href="#c-process">See all</a></div><ul class="mini" id="ovWait"></ul></div>
   </div>
   <div class="ovcard about">
   <span class="eyebrow">Creator research · verified 3 Oct 2026</span>
@@ -551,16 +551,17 @@ const ICON={
 };
 
 // ---------- views engine: search, faceted filters, multi-level sort, grouping (Creators and Database share it) ----------
-const ST=[["new","Not contacted"],["sent","Message sent"],["yes","Said yes"],["declined","Declined"],["posted","Posted"]];
-const STL=Object.fromEntries(ST);
-const ST_I=Object.fromEntries(ST.map((s,i)=>[s[0],i]));
+const ST=[["new","Not contacted"],["sent","Message sent"],["noreply","No reply"],["process","In process"],["declined","Declined"],["posted","Posted"]];
+const STD=ST.slice(); STD.splice(2,0,["due","Follow-up due"]);
+const STL=Object.fromEntries(STD);
+const ST_I=Object.fromEntries(STD.map((s,i)=>[s[0],i]));
 // filled in by the outreach tool once its saved state loads
-const HOOK={ss:()=>null,st:()=>"new",due:()=>null,edited:()=>false,at:()=>0,on:()=>"",note:()=>"",saveView:null};
+const HOOK={bk:()=>"new",ss:()=>null,st:()=>"new",due:()=>null,edited:()=>false,at:()=>0,on:()=>"",note:()=>"",saveView:null};
 const chOf=c=>c.phone?"WhatsApp":c.email?"Email":"Instagram DM";
 const dayDiff=d=>{ if(!d) return null; const t=new Date(d+"T00:00:00").getTime(); return isNaN(t)?null:Math.floor((Date.now()-t)/864e5) };
 const rng=(l,a,b,g)=>({v:l,l,t:c=>{ const x=g(c); return x!=null&&x>=a&&x<b }});
 const FACETS={
-  status:{l:"Outreach status",vals:ST.map(([v,l])=>({v,l,t:c=>HOOK.st(c.h)===v}))},
+  status:{l:"Outreach status",vals:STD.map(([v,l])=>({v,l,t:c=>HOOK.bk(c)===v}))},
   ch:{l:"First channel",vals:["WhatsApp","Email","Instagram DM"].map(v=>({v,l:v,t:c=>chOf(c)===v}))},
   flag:{l:"Must have",all:true,vals:[{v:"email",l:"Email address",t:c=>!!c.email},{v:"phone",l:"Phone or WhatsApp",t:c=>!!c.phone},{v:"due",l:"Follow-up due",t:c=>HOOK.due(c)!=null},{v:"edited",l:"Messages I edited",t:c=>HOOK.edited(c)},{v:"conflict",l:"Brand conflict flag",t:c=>/COMPETITOR|Adjacent|Unclear/i.test(c.conflict||"")}]},
   score:{l:"Score",vals:[["80 and up",80,Infinity],["70 to 79",70,80],["60 to 69",60,70],["Under 60",-Infinity,60]].map(([l,a,b])=>rng(l,a,b,c=>c.score))},
@@ -574,7 +575,7 @@ const FACETS={
 const SORTF={
   score:{l:"Score",d:-1,v:c=>c.score}, f:{l:"Followers",d:-1,v:c=>c.f}, med:{l:"Median views",d:-1,v:c=>c.med},
   last:{l:"Latest reel",d:-1,v:c=>c.last||null}, added:{l:"Date added",d:-1,v:c=>c.ai},
-  status:{l:"Outreach status",d:1,v:c=>ST_I[HOOK.st(c.h)]}, activity:{l:"Last activity",d:-1,v:c=>HOOK.at(c.h)||null},
+  status:{l:"Outreach status",d:1,v:c=>ST_I[HOOK.bk(c)]}, activity:{l:"Last activity",d:-1,v:c=>HOOK.at(c.h)||null},
   sent:{l:"Sent date",d:-1,v:c=>HOOK.on(c.h)||null}, due:{l:"Days since sent (follow-ups)",d:-1,v:c=>HOOK.due(c)},
   name:{l:"Name",d:1,v:c=>c.name||c.n||null}, h:{l:"Handle",d:1,v:c=>c.h}, arch:{l:"Archetype",d:1,v:c=>c.arch},
   prac:{l:"Practicality",d:1,v:c=>c.prac||null}, conflict:{l:"Brand conflict",d:1,v:c=>c.conflict||null}
@@ -586,7 +587,7 @@ const cmpVal=(x,y)=>typeof x==="number"&&typeof y==="number"?x-y:coll.compare(St
 const cmpBy=levels=>(a,b)=>{ for(const [k,d] of levels){ const f=SORTF[k]; if(!f) continue; const x=f.v(a), y=f.v(b); if(x==null&&y==null) continue; if(x==null) return 1; if(y==null) return -1; const r=cmpVal(x,y); if(r) return r*d } return 0 };
 const GROUPS={
   none:{l:"None"},
-  status:{l:"Status",v:c=>HOOK.st(c.h),lab:v=>STL[v],ord:v=>ST_I[v]},
+  status:{l:"Status",v:c=>HOOK.bk(c),lab:v=>STL[v],ord:v=>ST_I[v]},
   ch:{l:"First channel",v:chOf,lab:v=>v,ord:v=>["WhatsApp","Email","Instagram DM"].indexOf(v)},
   arch:{l:"Archetype",v:c=>c.arch,lab:v=>v,ord:v=>v},
   f:{l:"Follower band",v:c=>{const x=FACETS.f.vals.findIndex(b=>b.t(c)); return x<0?9:x},lab:v=>FACETS.f.vals[v]?FACETS.f.vals[v].l:"Unknown",ord:v=>v}
@@ -712,7 +713,7 @@ function dbRender(){
   const st=UI.vs.database, rows=runView(C,st);
   TBD.sync(rows.length);
   document.querySelector("#t tbody").innerHTML=rows.map(c=>{
-    const s=HOOK.st(c.h);
+    const s=HOOK.bk(c);
     const row=`<tr class="row" data-h="${esc(c.h)}" tabindex="0" aria-expanded="${open===c.h}">
       <td class="r num"><b>${c.score}</b></td>
       <td><a href="${url(c)}" target="_blank" rel="noopener">@${esc(c.h)}</a>${c.plat!=="Instagram"?` <span class="chip">${c.plat}</span>`:""}<div class="he note" dir="auto">${esc(c.name)}</div></td>
@@ -768,18 +769,22 @@ document.getElementById("queries").innerHTML=["Similar-accounts graph from 76 ve
 
 /* outreach-tool */
 (function(){
-const ST=[["new","Not contacted"],["sent","Message sent"],["yes","Said yes"],["declined","Declined"],["posted","Posted"]];
-const STL=Object.fromEntries(ST);
+const ST=[["new","Not contacted"],["sent","Message sent"],["noreply","No reply"],["process","In process"],["declined","Declined"],["posted","Posted"]];
 let VOICE={rules:[],ex:[],prev:null,n:0}; let OD={}, SET={sender:"",preview:""}, dbh=null, dirty={}, shown=30, pendingRender=false;
 const today=()=>{const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 const daysSince=d=>{ if(!d) return null; const t=new Date(d+"T00:00:00").getTime(); return isNaN(t)?null:Math.floor((Date.now()-t)/864e5) };
 const pv=s=>esc(s).replace(/@lumebookai/g,'<bdi dir="ltr">@lumebookai</bdi>');
 const get=h=>OD[h]||{};
-const LEGS={replied:"sent",code:"yes",due:"sent"};
+const LEGS={replied:"process",yes:"process",code:"process",due:"sent"};
+const DUE_MS=24*36e5, DECL_MS=7*864e5;   // Message sent becomes Follow-up due after 24 hours, Follow-up due becomes No reply after a week
 const rawSt=h=>get(h).s||"new";
 const stOf=h=>LEGS[rawSt(h)]||rawSt(h);
-const hasReplied=c=>["yes","posted","declined"].includes(stOf(c.h))||rawSt(c.h)==="replied";
-const dueOf=c=>{const o=get(c.h), raw=o.s||"new"; if((raw!=="sent"&&raw!=="due")||o.fu) return null; const d=daysSince(o.on); if(raw==="due") return Math.max(d||0,0); return d!==null&&d>=5?d:null};
+const hasReplied=c=>["process","posted","declined"].includes(stOf(c.h));
+const sentMs=o=>{ if(o.sat) return o.sat; if(!o.on) return null; const x=new Date(o.on+"T00:00:00").getTime(); return isNaN(x)?null:x };
+const dueStart=c=>{ const o=get(c.h), raw=o.s||"new"; if(raw==="due") return o.dat||o.at||Date.now(); if(raw!=="sent") return null; const s=sentMs(o); return s==null?null:s+DUE_MS };
+const bkOf=c=>{ const raw=rawSt(c.h); if(raw!=="sent"&&raw!=="due") return stOf(c.h); const d=dueStart(c); if(d==null) return "sent"; const n=Date.now(); return n>=d+DECL_MS?"noreply":n>=d?"due":"sent" };
+const dueOf=c=>bkOf(c)==="due"?Math.max(0,Math.floor((Date.now()-dueStart(c))/864e5)):null;
+const declIn=c=>Math.max(0,Math.ceil((dueStart(c)+DECL_MS-Date.now())/864e5));
 const chOf=c=>c.phone?"WhatsApp":c.email?"Email":"Instagram DM";
 const signer=()=>SET.sender||"ירין";
 const who=c=>get(c.h).name||c.n;
@@ -835,9 +840,9 @@ function patchLater(h,p){ OD[h]={...get(h),...p}; dirty[h]=(dirty[h]||0)+1; clea
 function saveSettings(){ if(!dbh){ lsSave(); return } dbh.doc("settings/main").set(SET).catch(()=>note("Couldn't save settings.")) }
 
 // ---------- render ----------
-function contactBase(){ const s=ROUTE.status; return s==="all"?C.slice():s==="due"?C.filter(c=>dueOf(c)!==null):C.filter(c=>stOf(c.h)===s) }
+function contactBase(){ const s=ROUTE.status; return s==="all"?C.slice():s==="due"?C.filter(c=>dueOf(c)!==null):C.filter(c=>HOOK.bk(c)===s) }
 function stats(){
-  const cnt={all:C.length,due:C.filter(c=>dueOf(c)!==null).length}; C.forEach(c=>{const s=stOf(c.h); cnt[s]=(cnt[s]||0)+1});
+  const cnt={all:C.length}; C.forEach(c=>{const s=HOOK.bk(c); cnt[s]=(cnt[s]||0)+1}); cnt.due=cnt.due||0;
   document.getElementById("sstats").innerHTML=STATUS_NAV.map(([k,l])=>'<button type="button" data-st="'+k+'" class="'+(k==="due"?"due":"")+'" aria-pressed="'+(ROUTE.page==="contacts"&&ROUTE.status===k?"true":"false")+'">'+l+'<b>'+(cnt[k]||0)+'</b></button>').join("");
 }
 function copyBtn(act,label){ return '<button type="button" class="btn" data-act="'+act+'">'+label+'</button>' }
@@ -852,13 +857,13 @@ function card(c){
   if(wa) acts+='<a class="btn" href="'+wa+'" target="_blank" rel="noopener">WhatsApp ↗</a>';
   if(c.email) acts+=copyBtn("em","Copy email")+(ml?'<a class="btn" href="'+ml+'">Email ↗</a>':'');
   if(s==="new") acts+='<button type="button" class="btn ok" data-act="sent">Mark sent</button>';
-  if(due!==null) acts+=copyBtn("fu","Copy follow-up")+'<button type="button" class="btn ok" data-act="fusent">Follow-up sent</button><span class="dchip '+(due>=8?"late":"")+'">Follow-up due · day '+due+'</span>';
-  else if(s==="sent"&&o.fu) acts+='<span class="note">Follow-up sent '+esc(o.fu)+'</span>';
-  if(s==="sent"||s==="yes") acts+=(c.email?copyBtn("of","Copy offer email"):"")+copyBtn("d2","Copy terms message");
-  const dd=ST.slice(); dd.splice(2,0,["due","Follow-up due"]); const cur=due!==null?"due":s;
+  if(due!==null){ const left=declIn(c); acts+=copyBtn("fu","Copy follow-up")+'<button type="button" class="btn ok" data-act="fusent">Follow-up sent</button>'+'<span class="dchip '+(left<=2?"late":"")+'">Follow-up due · No reply in '+left+' day'+(left===1?"":"s")+'</span>' }
+  else if(s==="noreply"&&o.fu) acts+='<span class="note">Follow-up sent '+esc(o.fu)+'</span>';
+  if(s==="sent"||s==="process") acts+=(c.email?copyBtn("of","Copy offer email"):"")+copyBtn("d2","Copy terms message");
+  const dd=STD; const cur=HOOK.bk(c);
   const opts=dd.map(([k,l])=>'<option value="'+k+'"'+(k===cur?" selected":"")+'>'+l+'</option>').join("");
   const contact=(c.email?'<div class="note">Email: <span class="num">'+esc(c.email)+'</span></div>':'')+(c.phone?'<div class="note">Phone / WhatsApp: <span class="num">'+esc(c.phone)+'</span></div>':'')+(c.csrc?'<div class="note">Contact found on: '+esc(c.csrc)+'</div>':'');
-  return '<article class="oc '+(s==="declined"||s==="posted"?"done":"")+'" data-h="'+esc(c.h)+'">'
+  return '<article class="oc '+(s==="declined"||s==="posted"||s==="noreply"?"done":"")+'" data-h="'+esc(c.h)+'">'
    +'<div class="ohd"><div class="oid"><a class="hn" href="'+prof+'" target="_blank" rel="noopener">@'+esc(c.h)+'</a> <span class="he" dir="auto">'+esc(c.name)+'</span>'
    +'<div class="omet"><span>'+k(c.f)+' followers</span><span>'+k(c.med)+' median views</span><span>last reel '+esc(c.last||"n/a")+'</span><span>added '+esc(addedLabel(c))+'</span>'+(o.on?'<span>sent '+esc(o.on)+' · '+STY_NAME[ssOf(c)]+'</span>':'')+'</div><div class="chips" style="margin-top:6px">'+chips+'</div></div>'
    +'<select class="st" data-f="s" aria-label="Status for '+esc(c.h)+'">'+opts+'</select></div>'
@@ -905,7 +910,7 @@ function fx(el,cls){ if(!el) return; el.classList.remove("is-ok","is-err"); void
 const cardEl=h=>document.querySelector('.oc[data-h="'+CSS.escape(h)+'"]');
 const flashCard=h=>{ const e=cardEl(h); if(e) fx(e,"is-flash") };
 const stLabel=s=>s==="due"?"Follow-up due":(ST.find(x=>x[0]===s)||[0,s])[1];
-const moved=h=>cardEl(h)?"":" It moved to the “"+stLabel(dueOf(byH[h])!==null?"due":stOf(h))+"” list.";
+const moved=h=>cardEl(h)?"":" It moved to the “"+stLabel(HOOK.bk(byH[h]))+"” list.";
 let toastT;
 function toast(msg,o){
   o=o||{}; const el=document.getElementById("toast"); clearTimeout(toastT);
@@ -937,8 +942,8 @@ document.getElementById("olist").addEventListener("click",e=>{
   else if(act==="learn") learn(c,card.querySelector("[data-msgbox]").dataset.t,b);
   else if(act==="resetmsg"){ const ta=card.querySelector("[data-msgbox]"); patch(c.h,{[xk(c,ta.dataset.t)]:"",[axk(c,ta.dataset.t)]:0}); ta.value=defMsg(c,ta.dataset.t); syncBar(card,c); fx(ta,"is-flash"); toast("Back to the suggested message.") }
   else if(act==="style"){ const s=+b.dataset.s; if(s!==sty(c)){ patch(c.h,{sty:s}); render(); toast("Messages for @"+c.h+" now use the "+STY_NAME[s]+" style.") } }
-  else if(act==="sent"){ patch(c.h,{s:"sent",on:get(c.h).on||today(),ssent:sty(c)}); render(); flashCard(c.h); toast("@"+c.h+" marked as sent. Follow-up reminder in 5 days."+moved(c.h)) }
-  else if(act==="fusent"){ patch(c.h,{fu:today(),s:rawSt(c.h)==="due"?"sent":rawSt(c.h)}); render(); flashCard(c.h); toast("Follow-up marked as sent.") }
+  else if(act==="sent"){ patch(c.h,{s:"sent",on:today(),sat:Date.now(),fu:"",ssent:sty(c)}); render(); flashCard(c.h); toast("@"+c.h+" marked as sent. It becomes Follow-up due after 24 hours, then No reply after a week."+moved(c.h)) }
+  else if(act==="fusent"){ patch(c.h,{s:"noreply",fu:today()}); render(); flashCard(c.h); toast("Follow-up sent. @"+c.h+" moved to No reply.") }
   else if(act==="tab"){
     setTab(card,c,b.dataset.t);
   }
@@ -946,8 +951,12 @@ document.getElementById("olist").addEventListener("click",e=>{
 document.getElementById("olist").addEventListener("change",e=>{
   const f=e.target.dataset&&e.target.dataset.f; if(!f) return;
   const h=e.target.closest(".oc").dataset.h;
-  if(f==="s"){ const s=e.target.value, p={s}; if((s==="sent"||s==="due")&&!get(h).on) p.on=today(); if(s==="due") p.fu=""; if(s==="sent"&&dueOf(byH[h])!==null) p.fu=today(); if(s!=="new"&&!get(h).ssent) p.ssent=sty(byH[h]); patch(h,p); render(); flashCard(h); toast("Status saved: "+stLabel(s)+"."+moved(h)) }
-  else if(f==="on"){ patch(h,{on:e.target.value}); render(); flashCard(h); toast("Sent date saved.") }
+  if(f==="s"){ const s=e.target.value, p={s}, o0=get(h);
+    if(s==="sent"){ p.on=today(); p.sat=Date.now(); p.fu="" }                 // choosing Message sent restarts the 24 hour clock
+    if(s==="due"){ p.dat=Date.now(); p.fu=""; if(!o0.on){ p.on=today(); p.sat=Date.now() } }
+    if(s!=="new"&&!o0.ssent) p.ssent=sty(byH[h]);
+    patch(h,p); render(); flashCard(h); toast("Status saved: "+stLabel(s)+"."+moved(h)) }
+  else if(f==="on"){ patch(h,{on:e.target.value,sat:""}); render(); flashCard(h); toast("Sent date saved.") }
 });
 function syncBar(card,c){
   const ta=card.querySelector("[data-msgbox]"), on=edited(c,ta.dataset.t), chip=card.querySelector("[data-edited]");
@@ -1121,11 +1130,11 @@ document.getElementById("vclear").addEventListener("click",e=>{
 
 // ---------- navigation: sidebar, pages, overview, saved views ----------
 window.toast=toast; window.fx=fx;
-HOOK.st=stOf; HOOK.ss=c=>stOf(c.h)==="new"?null:ssOf(c); HOOK.due=dueOf; HOOK.at=h=>get(h).at||0; HOOK.on=h=>get(h).on||""; HOOK.note=h=>get(h).note||"";
+HOOK.st=stOf; HOOK.bk=bkOf; HOOK.ss=c=>stOf(c.h)==="new"?null:ssOf(c); HOOK.due=dueOf; HOOK.at=h=>get(h).at||0; HOOK.on=h=>get(h).on||""; HOOK.note=h=>get(h).note||"";
 HOOK.edited=c=>["dm","em","of","fu","d2"].some(t=>manual(c,t));
 const PAGES={overview:["Outreach","Overview"],contacts:["Outreach","Creators"],database:["Research","Database"],archetypes:["Research","Archetype map"],messages:["Settings","Messages and voice"],method:["Settings","Method and limits"]};
-const LEGACY={"c-replied":"c-sent","c-code":"c-yes",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview"};
-const STATUS_NAV=[["all","All creators"],["new","Not contacted"],["sent","Message sent"],["due","Follow-up due"],["yes","Said yes"],["declined","Declined"],["posted","Posted"]];
+const LEGACY={"c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview"};
+const STATUS_NAV=[["all","All creators"],["new","Not contacted"],["sent","Message sent"],["due","Follow-up due"],["noreply","No reply"],["process","In process"],["declined","Declined"],["posted","Posted"]];
 const statusName=s=>(STATUS_NAV.find(x=>x[0]===s)||[0,"Creators"])[1];
 const PRESETS=[
   {id:"top",name:"Top scores to contact",status:"new",state:{q:"",f:{score:["80 and up"]},sort:[["score",-1]],group:"none"}},
@@ -1145,7 +1154,7 @@ function navViews(){
 }
 function markNav(){ document.querySelectorAll("#side [data-route]").forEach(a=>{ if(a.dataset.route===ROUTE.key) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current") }) }
 function navCounts(){
-  const cnt={all:C.length,due:0}; C.forEach(c=>{ const s=stOf(c.h); cnt[s]=(cnt[s]||0)+1; if(dueOf(c)!==null) cnt.due++ });
+  const cnt={all:C.length,due:0}; C.forEach(c=>{ const s=HOOK.bk(c); cnt[s]=(cnt[s]||0)+1 });
   document.querySelectorAll("#side [data-cnt]").forEach(b=>{ const n=cnt[b.dataset.cnt]||0; b.textContent=n||""; b.classList.toggle("warn",b.dataset.cnt==="due"&&n>0) });
   return cnt;
 }
@@ -1162,7 +1171,7 @@ document.getElementById("navViews").addEventListener("click",e=>{
 });
 function parseRoute(h){
   h=String(h||"").replace(/^#/,""); h=LEGACY[h]||h;
-  if(/^c-(all|due|new|sent|yes|posted|declined)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
+  if(/^c-(all|due|new|sent|noreply|process|posted|declined)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
   if(/^v-[\w.~-]+$/.test(h)){ const v=allViews().find(x=>x.id===h.slice(2)); if(v) return {page:"contacts",status:LEGS[v.status]||v.status,view:v,key:h} }
   if(PAGES[h]) return {page:h,key:h};
   return null;
@@ -1201,27 +1210,27 @@ document.addEventListener("keydown",e=>{
 // overview
 function renderOverview(){
   const cnt=navCounts(), total=C.length, n=s=>cnt[s]||0;
-  const contacted=total-n("new"), replies=C.filter(hasReplied).length, yes=n("yes")+n("posted");
+  const contacted=total-n("new"), replies=C.filter(hasReplied).length;
   const tile=(key,l,v,s,cls)=>'<a class="kpi'+(cls?" "+cls:"")+'" href="#'+key+'"><span class="l">'+l+'</span><span class="v">'+v+'</span><span class="s">'+s+'</span></a>';
   document.getElementById("kpis").innerHTML=
      tile("c-sent","Contacted",contacted,"of "+total+" creators")
     +tile("c-sent","Replies",replies,contacted?Math.round(replies/contacted*100)+"% of those contacted":"Nobody contacted yet")
-    +tile("c-yes","Said yes",yes,"including those who posted")
+    +tile("c-process","In process",n("process"),"talking with them now")
     +tile("c-posted","Posted",n("posted"),"content is live")
-    +tile("c-due","Follow-ups due",cnt.due,"5 or more days, no reply yet",cnt.due?"warn":"");
+    +tile("c-due","Follow-ups due",cnt.due,"24 hours or more since sending, no reply",cnt.due?"warn":"");
   const SS={1:{n:0,r:0,y:0},2:{n:0,r:0,y:0}};
-  C.forEach(c=>{ const s=stOf(c.h); if(s==="new") return; const x=SS[ssOf(c)]; x.n++; if(hasReplied(c)) x.r++; if(["yes","posted"].includes(s)) x.y++ });
+  C.forEach(c=>{ const s=stOf(c.h); if(s==="new") return; const x=SS[ssOf(c)]; x.n++; if(hasReplied(c)) x.r++; if(["process","posted"].includes(s)) x.y++ });
   document.getElementById("styBody").innerHTML=[1,2].map(s=>'<tr><td><b>'+STY_NAME[s]+'</b></td><td class="r num">'+SS[s].n+'</td><td class="r num">'+SS[s].r+'</td><td class="r num">'+(SS[s].n?Math.round(SS[s].r/SS[s].n*100)+"%":"n/a")+'</td><td class="r num">'+SS[s].y+'</td></tr>').join("");
-  document.getElementById("pipe").innerHTML=ST.filter(([s])=>n(s)).map(([s,l])=>'<a class="st-'+s+'" href="#c-'+s+'" style="flex:'+n(s)+'" title="'+esc(l)+': '+n(s)+'" aria-label="'+esc(l)+': '+n(s)+'"></a>').join("");
-  document.getElementById("legend").innerHTML=ST.map(([s,l])=>'<a href="#c-'+s+'"><span class="dot st-'+s+'"></span>'+esc(l)+'<b>'+n(s)+'</b></a>').join("");
-  const li=(c,meta,key)=>'<li><span class="dot st-'+stOf(c.h)+'"></span><span class="who"><button type="button" class="go" data-open="'+esc(c.h)+'" data-key="'+key+'">@'+esc(c.h)+'</button><span class="meta">'+meta+'</span></span></li>';
+  document.getElementById("pipe").innerHTML=STD.filter(([s])=>n(s)).map(([s,l])=>'<a class="st-'+s+'" href="#c-'+s+'" style="flex:'+n(s)+'" title="'+esc(l)+': '+n(s)+'" aria-label="'+esc(l)+': '+n(s)+'"></a>').join("");
+  document.getElementById("legend").innerHTML=STD.map(([s,l])=>'<a href="#c-'+s+'"><span class="dot st-'+s+'"></span>'+esc(l)+'<b>'+n(s)+'</b></a>').join("");
+  const li=(c,meta,key)=>'<li><span class="dot st-'+HOOK.bk(c)+'"></span><span class="who"><button type="button" class="go" data-open="'+esc(c.h)+'" data-key="'+key+'">@'+esc(c.h)+'</button><span class="meta">'+meta+'</span></span></li>';
   const due=C.filter(c=>dueOf(c)!==null).sort((a,b)=>dueOf(b)-dueOf(a));
   const next=C.filter(c=>stOf(c.h)==="new").sort(cmpBy([["score",-1]]));
-  const wait=C.filter(c=>stOf(c.h)==="yes").sort((a,b)=>(get(b.h).at||0)-(get(a.h).at||0));
+  const wait=C.filter(c=>stOf(c.h)==="process").sort((a,b)=>(get(b.h).at||0)-(get(a.h).at||0));
   const list=(id,rows,meta,key,emptyTxt)=>{ document.getElementById(id).innerHTML=rows.slice(0,5).map(c=>li(c,meta(c),key)).join("")||'<li class="empty-li">'+emptyTxt+'</li>' };
   list("ovDue",due,c=>"Sent "+esc(get(c.h).on||"")+" · day "+dueOf(c),"c-due","No follow-ups due. Nice.");
   list("ovNext",next,c=>esc(c.name||c.n)+" · "+chOf(c)+" · score "+c.score,"c-new","Everyone has been contacted.");
-  list("ovWait",wait,c=>"Said yes"+(get(c.h).note?" · "+esc(get(c.h).note).slice(0,40):""),"c-yes","Nobody has said yes yet.");
+  list("ovWait",wait,c=>"In process"+(get(c.h).note?" · "+esc(get(c.h).note).slice(0,40):""),"c-process","Nobody is in process yet.");
   document.getElementById("ovDueN").textContent=due.length; document.getElementById("ovNextN").textContent=next.length; document.getElementById("ovWaitN").textContent=wait.length;
 }
 document.querySelector('[data-page="overview"]').addEventListener("click",e=>{ const b=e.target.closest("[data-open]"); if(b) window.openCreator(b.dataset.open,b.dataset.key) });
@@ -1232,6 +1241,7 @@ const TBC=toolbar(document.getElementById("tb-c"),"contacts",{ph:"Search handle,
 
 // ---------- start ----------
 lsLoad(); fillSettings(); fillVoice(); navViews(); route();
+let SIG=C.map(HOOK.bk).join(""); setInterval(()=>{ const sig=C.map(HOOK.bk).join(""); if(sig!==SIG){ SIG=sig; render() } },60000);
 const sync=(on,txt)=>{ document.getElementById("syncDot").style.setProperty("--c",on?"var(--success)":"var(--warning)"); document.getElementById("syncTxt").textContent=txt };
 sync(false,"Saved in this browser only");
 (async()=>{
