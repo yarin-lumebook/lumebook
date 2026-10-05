@@ -396,7 +396,7 @@ a.kpi:hover{text-decoration:none;box-shadow:0 1px 2px rgba(29,16,57,.04),0 0 0 2
   <div class="panels">
     <div class="ovcard"><div class="ovh"><h3>Follow-ups due <span class="cnt" id="ovDueN"></span></h3><a href="#c-due">See all</a></div><ul class="mini" id="ovDue"></ul></div>
     <div class="ovcard"><div class="ovh"><h3>Next to contact <span class="cnt" id="ovNextN"></span></h3><a href="#v-top">Top scores</a></div><ul class="mini" id="ovNext"></ul></div>
-    <div class="ovcard"><div class="ovh"><h3>Waiting on you <span class="cnt" id="ovWaitN"></span></h3><a href="#c-replied">See replies</a></div><ul class="mini" id="ovWait"></ul></div>
+    <div class="ovcard"><div class="ovh"><h3>Said yes, next steps <span class="cnt" id="ovWaitN"></span></h3><a href="#c-yes">See all</a></div><ul class="mini" id="ovWait"></ul></div>
   </div>
   <div class="ovcard about">
   <span class="eyebrow">Creator research · verified 3 Oct 2026</span>
@@ -551,7 +551,7 @@ const ICON={
 };
 
 // ---------- views engine: search, faceted filters, multi-level sort, grouping (Creators and Database share it) ----------
-const ST=[["new","Not contacted"],["sent","Message sent"],["replied","Replied"],["yes","Said yes"],["code","Code issued"],["posted","Posted"],["declined","Declined"]];
+const ST=[["new","Not contacted"],["sent","Message sent"],["yes","Said yes"],["declined","Declined"],["posted","Posted"]];
 const STL=Object.fromEntries(ST);
 const ST_I=Object.fromEntries(ST.map((s,i)=>[s[0],i]));
 // filled in by the outreach tool once its saved state loads
@@ -768,15 +768,18 @@ document.getElementById("queries").innerHTML=["Similar-accounts graph from 76 ve
 
 /* outreach-tool */
 (function(){
-const ST=[["new","Not contacted"],["sent","Message sent"],["replied","Replied"],["yes","Said yes"],["code","Code issued"],["posted","Posted"],["declined","Declined"]];
+const ST=[["new","Not contacted"],["sent","Message sent"],["yes","Said yes"],["declined","Declined"],["posted","Posted"]];
 const STL=Object.fromEntries(ST);
 let VOICE={rules:[],ex:[],prev:null,n:0}; let OD={}, SET={sender:"",preview:""}, dbh=null, dirty={}, shown=30, pendingRender=false;
 const today=()=>{const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 const daysSince=d=>{ if(!d) return null; const t=new Date(d+"T00:00:00").getTime(); return isNaN(t)?null:Math.floor((Date.now()-t)/864e5) };
 const pv=s=>esc(s).replace(/@lumebookai/g,'<bdi dir="ltr">@lumebookai</bdi>');
 const get=h=>OD[h]||{};
-const stOf=h=>get(h).s||"new";
-const dueOf=c=>{const o=get(c.h); if((o.s||"new")!=="sent"||o.fu) return null; const d=daysSince(o.on); return d!==null&&d>=5?d:null};
+const LEGS={replied:"sent",code:"yes",due:"sent"};
+const rawSt=h=>get(h).s||"new";
+const stOf=h=>LEGS[rawSt(h)]||rawSt(h);
+const hasReplied=c=>["yes","posted","declined"].includes(stOf(c.h))||rawSt(c.h)==="replied";
+const dueOf=c=>{const o=get(c.h), raw=o.s||"new"; if((raw!=="sent"&&raw!=="due")||o.fu) return null; const d=daysSince(o.on); if(raw==="due") return Math.max(d||0,0); return d!==null&&d>=5?d:null};
 const chOf=c=>c.phone?"WhatsApp":c.email?"Email":"Instagram DM";
 const signer=()=>SET.sender||"ירין";
 const who=c=>get(c.h).name||c.n;
@@ -851,8 +854,9 @@ function card(c){
   if(s==="new") acts+='<button type="button" class="btn ok" data-act="sent">Mark sent</button>';
   if(due!==null) acts+=copyBtn("fu","Copy follow-up")+'<button type="button" class="btn ok" data-act="fusent">Follow-up sent</button><span class="dchip '+(due>=8?"late":"")+'">Follow-up due · day '+due+'</span>';
   else if(s==="sent"&&o.fu) acts+='<span class="note">Follow-up sent '+esc(o.fu)+'</span>';
-  if(s==="replied"||s==="yes") acts+=(c.email?copyBtn("of","Copy offer email"):"")+copyBtn("d2","Copy terms message");
-  const opts=ST.map(([k,l])=>'<option value="'+k+'"'+(k===s?" selected":"")+'>'+l+'</option>').join("");
+  if(s==="sent"||s==="yes") acts+=(c.email?copyBtn("of","Copy offer email"):"")+copyBtn("d2","Copy terms message");
+  const dd=ST.slice(); dd.splice(2,0,["due","Follow-up due"]); const cur=due!==null?"due":s;
+  const opts=dd.map(([k,l])=>'<option value="'+k+'"'+(k===cur?" selected":"")+'>'+l+'</option>').join("");
   const contact=(c.email?'<div class="note">Email: <span class="num">'+esc(c.email)+'</span></div>':'')+(c.phone?'<div class="note">Phone / WhatsApp: <span class="num">'+esc(c.phone)+'</span></div>':'')+(c.csrc?'<div class="note">Contact found on: '+esc(c.csrc)+'</div>':'');
   return '<article class="oc '+(s==="declined"||s==="posted"?"done":"")+'" data-h="'+esc(c.h)+'">'
    +'<div class="ohd"><div class="oid"><a class="hn" href="'+prof+'" target="_blank" rel="noopener">@'+esc(c.h)+'</a> <span class="he" dir="auto">'+esc(c.name)+'</span>'
@@ -866,7 +870,7 @@ function card(c){
    +'<p class="note" style="margin:6px 0 0">Edit the text above, then copy it. Your edits are saved for this creator. “Save and learn my voice” also rewrites this creator\'s other messages to match your edit, and adjusts the suggested messages for everyone else to sound more like you. On screen @lumebookai may look reversed; the copied text is correct.</p>'
    +'<div class="ogrid"><label>Name in greeting<input data-f="name" dir="rtl" value="'+esc(o.name||"")+'" placeholder="'+esc(c.n)+'"></label>'
    +'<label>Personal line (replaces “אהבתי את …”)<textarea data-f="line" dir="rtl" rows="2" placeholder="'+esc(c.l)+'">'+esc(o.line||"")+'</textarea></label>'
-   +'<label>Promo code<input data-f="code" dir="ltr" value="'+esc(o.code||"")+'" placeholder="e.g. NOY20"></label>'
+   +'<label>Personal link<input data-f="code" dir="ltr" value="'+esc(o.code||"")+'" placeholder="https://…"></label>'
    +'<label>Sent on<input type="date" data-f="on" value="'+esc(o.on||"")+'"></label>'
    +'<label style="grid-column:1/-1">Notes<textarea data-f="note" rows="2" placeholder="Reply, deal, address for the book…">'+esc(o.note||"")+'</textarea></label></div>'
    +'<div style="margin-top:8px">'+contact+'</div></details></article>';
@@ -900,8 +904,8 @@ const FXT=new WeakMap();
 function fx(el,cls){ if(!el) return; el.classList.remove("is-ok","is-err"); void el.offsetWidth; el.classList.add(cls); clearTimeout(FXT.get(el)); FXT.set(el,setTimeout(()=>el.classList.remove(cls),1300)) }
 const cardEl=h=>document.querySelector('.oc[data-h="'+CSS.escape(h)+'"]');
 const flashCard=h=>{ const e=cardEl(h); if(e) fx(e,"is-flash") };
-const stLabel=s=>(ST.find(x=>x[0]===s)||[0,s])[1];
-const moved=h=>cardEl(h)?"":" It moved to the “"+stLabel(stOf(h))+"” list.";
+const stLabel=s=>s==="due"?"Follow-up due":(ST.find(x=>x[0]===s)||[0,s])[1];
+const moved=h=>cardEl(h)?"":" It moved to the “"+stLabel(dueOf(byH[h])!==null?"due":stOf(h))+"” list.";
 let toastT;
 function toast(msg,o){
   o=o||{}; const el=document.getElementById("toast"); clearTimeout(toastT);
@@ -934,7 +938,7 @@ document.getElementById("olist").addEventListener("click",e=>{
   else if(act==="resetmsg"){ const ta=card.querySelector("[data-msgbox]"); patch(c.h,{[xk(c,ta.dataset.t)]:"",[axk(c,ta.dataset.t)]:0}); ta.value=defMsg(c,ta.dataset.t); syncBar(card,c); fx(ta,"is-flash"); toast("Back to the suggested message.") }
   else if(act==="style"){ const s=+b.dataset.s; if(s!==sty(c)){ patch(c.h,{sty:s}); render(); toast("Messages for @"+c.h+" now use the "+STY_NAME[s]+" style.") } }
   else if(act==="sent"){ patch(c.h,{s:"sent",on:get(c.h).on||today(),ssent:sty(c)}); render(); flashCard(c.h); toast("@"+c.h+" marked as sent. Follow-up reminder in 5 days."+moved(c.h)) }
-  else if(act==="fusent"){ patch(c.h,{fu:today()}); render(); flashCard(c.h); toast("Follow-up marked as sent.") }
+  else if(act==="fusent"){ patch(c.h,{fu:today(),s:rawSt(c.h)==="due"?"sent":rawSt(c.h)}); render(); flashCard(c.h); toast("Follow-up marked as sent.") }
   else if(act==="tab"){
     setTab(card,c,b.dataset.t);
   }
@@ -942,7 +946,7 @@ document.getElementById("olist").addEventListener("click",e=>{
 document.getElementById("olist").addEventListener("change",e=>{
   const f=e.target.dataset&&e.target.dataset.f; if(!f) return;
   const h=e.target.closest(".oc").dataset.h;
-  if(f==="s"){ const s=e.target.value, p={s}; if(s==="sent"&&!get(h).on) p.on=today(); if(s!=="new"&&!get(h).ssent) p.ssent=sty(byH[h]); patch(h,p); render(); flashCard(h); toast("Status saved: "+stLabel(s)+"."+moved(h)) }
+  if(f==="s"){ const s=e.target.value, p={s}; if((s==="sent"||s==="due")&&!get(h).on) p.on=today(); if(s==="due") p.fu=""; if(s==="sent"&&dueOf(byH[h])!==null) p.fu=today(); if(s!=="new"&&!get(h).ssent) p.ssent=sty(byH[h]); patch(h,p); render(); flashCard(h); toast("Status saved: "+stLabel(s)+"."+moved(h)) }
   else if(f==="on"){ patch(h,{on:e.target.value}); render(); flashCard(h); toast("Sent date saved.") }
 });
 function syncBar(card,c){
@@ -1120,8 +1124,8 @@ window.toast=toast; window.fx=fx;
 HOOK.st=stOf; HOOK.ss=c=>stOf(c.h)==="new"?null:ssOf(c); HOOK.due=dueOf; HOOK.at=h=>get(h).at||0; HOOK.on=h=>get(h).on||""; HOOK.note=h=>get(h).note||"";
 HOOK.edited=c=>["dm","em","of","fu","d2"].some(t=>manual(c,t));
 const PAGES={overview:["Outreach","Overview"],contacts:["Outreach","Creators"],database:["Research","Database"],archetypes:["Research","Archetype map"],messages:["Settings","Messages and voice"],method:["Settings","Method and limits"]};
-const LEGACY={send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview"};
-const STATUS_NAV=[["new","Not contacted"],["due","Follow-up due"],["sent","Message sent"],["replied","Replied"],["yes","Said yes"],["code","Code issued"],["posted","Posted"],["declined","Declined"],["all","All creators"]];
+const LEGACY={"c-replied":"c-sent","c-code":"c-yes",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview"};
+const STATUS_NAV=[["all","All creators"],["new","Not contacted"],["sent","Message sent"],["due","Follow-up due"],["yes","Said yes"],["declined","Declined"],["posted","Posted"]];
 const statusName=s=>(STATUS_NAV.find(x=>x[0]===s)||[0,"Creators"])[1];
 const PRESETS=[
   {id:"top",name:"Top scores to contact",status:"new",state:{q:"",f:{score:["80 and up"]},sort:[["score",-1]],group:"none"}},
@@ -1158,8 +1162,8 @@ document.getElementById("navViews").addEventListener("click",e=>{
 });
 function parseRoute(h){
   h=String(h||"").replace(/^#/,""); h=LEGACY[h]||h;
-  if(/^c-(all|due|new|sent|replied|yes|code|posted|declined)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
-  if(/^v-[\w.~-]+$/.test(h)){ const v=allViews().find(x=>x.id===h.slice(2)); if(v) return {page:"contacts",status:v.status,view:v,key:h} }
+  if(/^c-(all|due|new|sent|yes|posted|declined)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
+  if(/^v-[\w.~-]+$/.test(h)){ const v=allViews().find(x=>x.id===h.slice(2)); if(v) return {page:"contacts",status:LEGS[v.status]||v.status,view:v,key:h} }
   if(PAGES[h]) return {page:h,key:h};
   return null;
 }
@@ -1197,27 +1201,27 @@ document.addEventListener("keydown",e=>{
 // overview
 function renderOverview(){
   const cnt=navCounts(), total=C.length, n=s=>cnt[s]||0;
-  const contacted=total-n("new"), replies=n("replied")+n("yes")+n("code")+n("posted")+n("declined"), yes=n("yes")+n("code")+n("posted");
+  const contacted=total-n("new"), replies=C.filter(hasReplied).length, yes=n("yes")+n("posted");
   const tile=(key,l,v,s,cls)=>'<a class="kpi'+(cls?" "+cls:"")+'" href="#'+key+'"><span class="l">'+l+'</span><span class="v">'+v+'</span><span class="s">'+s+'</span></a>';
   document.getElementById("kpis").innerHTML=
      tile("c-sent","Contacted",contacted,"of "+total+" creators")
-    +tile("c-replied","Replies",replies,contacted?Math.round(replies/contacted*100)+"% of those contacted":"Nobody contacted yet")
-    +tile("c-yes","Said yes",yes,"including code issued and posted")
+    +tile("c-sent","Replies",replies,contacted?Math.round(replies/contacted*100)+"% of those contacted":"Nobody contacted yet")
+    +tile("c-yes","Said yes",yes,"including those who posted")
     +tile("c-posted","Posted",n("posted"),"content is live")
     +tile("c-due","Follow-ups due",cnt.due,"5 or more days, no reply yet",cnt.due?"warn":"");
   const SS={1:{n:0,r:0,y:0},2:{n:0,r:0,y:0}};
-  C.forEach(c=>{ const s=stOf(c.h); if(s==="new") return; const x=SS[ssOf(c)]; x.n++; if(["replied","yes","code","posted","declined"].includes(s)) x.r++; if(["yes","code","posted"].includes(s)) x.y++ });
+  C.forEach(c=>{ const s=stOf(c.h); if(s==="new") return; const x=SS[ssOf(c)]; x.n++; if(hasReplied(c)) x.r++; if(["yes","posted"].includes(s)) x.y++ });
   document.getElementById("styBody").innerHTML=[1,2].map(s=>'<tr><td><b>'+STY_NAME[s]+'</b></td><td class="r num">'+SS[s].n+'</td><td class="r num">'+SS[s].r+'</td><td class="r num">'+(SS[s].n?Math.round(SS[s].r/SS[s].n*100)+"%":"n/a")+'</td><td class="r num">'+SS[s].y+'</td></tr>').join("");
   document.getElementById("pipe").innerHTML=ST.filter(([s])=>n(s)).map(([s,l])=>'<a class="st-'+s+'" href="#c-'+s+'" style="flex:'+n(s)+'" title="'+esc(l)+': '+n(s)+'" aria-label="'+esc(l)+': '+n(s)+'"></a>').join("");
   document.getElementById("legend").innerHTML=ST.map(([s,l])=>'<a href="#c-'+s+'"><span class="dot st-'+s+'"></span>'+esc(l)+'<b>'+n(s)+'</b></a>').join("");
   const li=(c,meta,key)=>'<li><span class="dot st-'+stOf(c.h)+'"></span><span class="who"><button type="button" class="go" data-open="'+esc(c.h)+'" data-key="'+key+'">@'+esc(c.h)+'</button><span class="meta">'+meta+'</span></span></li>';
   const due=C.filter(c=>dueOf(c)!==null).sort((a,b)=>dueOf(b)-dueOf(a));
   const next=C.filter(c=>stOf(c.h)==="new").sort(cmpBy([["score",-1]]));
-  const wait=C.filter(c=>["replied","yes"].includes(stOf(c.h))).sort((a,b)=>(get(b.h).at||0)-(get(a.h).at||0));
+  const wait=C.filter(c=>stOf(c.h)==="yes").sort((a,b)=>(get(b.h).at||0)-(get(a.h).at||0));
   const list=(id,rows,meta,key,emptyTxt)=>{ document.getElementById(id).innerHTML=rows.slice(0,5).map(c=>li(c,meta(c),key)).join("")||'<li class="empty-li">'+emptyTxt+'</li>' };
   list("ovDue",due,c=>"Sent "+esc(get(c.h).on||"")+" · day "+dueOf(c),"c-due","No follow-ups due. Nice.");
   list("ovNext",next,c=>esc(c.name||c.n)+" · "+chOf(c)+" · score "+c.score,"c-new","Everyone has been contacted.");
-  list("ovWait",wait,c=>STL[stOf(c.h)]+(get(c.h).note?" · "+esc(get(c.h).note).slice(0,40):""),"c-replied","Nobody is waiting on you.");
+  list("ovWait",wait,c=>"Said yes"+(get(c.h).note?" · "+esc(get(c.h).note).slice(0,40):""),"c-yes","Nobody has said yes yet.");
   document.getElementById("ovDueN").textContent=due.length; document.getElementById("ovNextN").textContent=next.length; document.getElementById("ovWaitN").textContent=wait.length;
 }
 document.querySelector('[data-page="overview"]').addEventListener("click",e=>{ const b=e.target.closest("[data-open]"); if(b) window.openCreator(b.dataset.open,b.dataset.key) });
