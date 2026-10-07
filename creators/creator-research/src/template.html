@@ -97,6 +97,7 @@ section > .eyebrow + h2{margin-top:-.5rem}
 .concept::before{content:"Content concept";display:block;font-size:.75rem;font-weight:600;color:var(--accent-ink);margin-bottom:.15rem}
 .chips{display:flex;flex-wrap:wrap;gap:.375rem}
 .chip{font-size:.8125rem;border-radius:var(--r-pill);padding:.15rem .65rem;background:var(--fill);color:var(--label-2);white-space:nowrap}
+.chip.kd{background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
 .chip.arch,.chip.ch{background:var(--tint-soft);color:var(--tint);font-weight:600}
 .flag{font-size:.875rem;color:var(--warning)}
 .flag.bad{color:var(--danger);font-weight:600}
@@ -423,7 +424,7 @@ a.kpi:hover{text-decoration:none;box-shadow:0 1px 2px rgba(29,16,57,.04),0 0 0 2
   <div class="tbwrap" id="tb-db"></div>
   <div class="tbl"><table id="t">
     <thead><tr>
-      <th data-k="score" class="r">Score</th><th data-k="h">Creator</th><th data-k="status">Status</th><th data-k="arch">Archetype</th>
+      <th data-k="score" class="r">Score</th><th data-k="h">Creator</th><th data-k="status">Status</th><th data-k="arch">Archetype</th><th data-k="kids">Kids</th>
       <th data-k="f" class="r">Followers</th><th data-k="med" class="r">Median views</th><th data-k="last">Last reel</th>
       <th data-k="added">Added</th><th data-k="prac">Practicality (est.)</th><th data-k="conflict">Brand conflict</th>
     </tr></thead><tbody></tbody></table></div>
@@ -448,6 +449,7 @@ a.kpi:hover{text-decoration:none;box-shadow:0 1px 2px rgba(29,16,57,.04),0 0 0 2
 <section class="page" data-page="messages" hidden>
   <p class="eyebrow">Settings</p>
   <h2>Messages and voice</h2>
+  <details><summary>Hebrew grammar rules the messages follow</summary><ul class="tight note" style="margin:0 0 .5rem"><li><b>ה (the)</b> only for something specific and known: הילד, הספר, העמוד. Not for general statements: ספרי ילדים, ילדים אוהבים.</li><li><b>ל, ב, כ swallow the ה:</b> לילד, בגן, לתוכן (never להילד, בהגן). <b>מ, עם, של, על, את keep it:</b> מהגן, עם הספר, של הילד.</li><li><b>Construct chains</b> (סמיכות): the article goes on the last noun only: מנהל הסושיאל, ספר הילדים.</li><li><b>את</b> only before a definite object: אהבתי את התוכן.</li><li><b>Adjectives agree</b> and take ה too: הילד הקטן. Names and LumeBook never take it.</li><li>Your own typed edits are never changed. The rules apply to the suggested messages and to what the voice learning writes.</li></ul></details>
   <div class="ovcard">    <div class="sset">
       <label>Your name in the message<input id="sname" placeholder="ירין" dir="rtl"></label>
       <label>Sample book preview link (used in the “after yes” message)<input id="sprev" placeholder="https://…" dir="ltr"></label>
@@ -555,7 +557,43 @@ const STD=ST.slice(); STD.splice(2,0,["due","Follow-up due"]);
 const STL=Object.fromEntries(STD);
 const ST_I=Object.fromEntries(STD.map((s,i)=>[s[0],i]));
 // filled in by the outreach tool once its saved state loads
-const HOOK={bk:()=>"new",ss:()=>null,st:()=>"new",due:()=>null,edited:()=>false,at:()=>0,on:()=>"",note:()=>"",saveView:null};
+const HOOK={ko:()=>null,bk:()=>"new",ss:()=>null,st:()=>"new",due:()=>null,edited:()=>false,at:()=>0,on:()=>"",note:()=>"",saveView:null};
+const knum=v=>{ if(v===undefined||v===null||v==="") return null; const x=parseInt(v,10); return isNaN(x)||x<0?null:x };
+function kidsOf(c){ const o=HOOK.ko(c.h)||{}, edited=["kn","kb","kg"].some(k=>knum(o[k])!==null), base=c.kids||{};
+  let n=edited?knum(o.kn):knum(base.n), b=edited?knum(o.kb):knum(base.b), g=edited?knum(o.kg):knum(base.g);
+  if(n==null&&(b!=null||g!=null)) n=(b||0)+(g||0);
+  return {n,b,g,edited,note:edited?"":(base.note||""),src:edited?"edited by you":(base.src||"")} }
+function kidsTxt(c){ const k=kidsOf(c);
+  if(k.n==null&&k.b==null&&k.g==null) return k.note;
+  const p=[]; if(k.b) p.push(k.b+(k.b===1?" boy":" boys")); if(k.g) p.push(k.g+(k.g===1?" girl":" girls"));
+  const rest=(k.n||0)-(k.b||0)-(k.g||0);
+  if(rest>0) p.push(rest+(p.length?" other":"")+(rest===1?" kid":" kids")); else if(!p.length&&k.n) p.push(k.n+(k.n===1?" kid":" kids"));
+  return p.join(", ")+(k.note&&!k.edited?" ("+k.note+")":"") }
+// Hebrew grammar for "the child": singular or plural, masculine or feminine, from the kids data (default stays masculine singular)
+function kidsForm(c){ const k=kidsOf(c), b=k.b||0, g=k.g||0; let n=k.n; if(n==null&&(b||g)) n=b+g;
+  if(n==null||n<1) return null;
+  if(n===1) return {p:0,f:(g===1&&b===0)?1:0};
+  return {p:1,f:(g>=n&&b===0)?1:0} }
+const KB="(?<![\\u05D0-\\u05EA])", KE="(?![\\u05D0-\\u05EA])";
+const KW={child:["הילד","הילדה","הילדים","הילדות"],is:["הוא","היא","הם","הן"],hero:["הגיבור","הגיבורה","הגיבורים","הגיבורות"],ahero:["כגיבור","כגיבורה","כגיבורים","כגיבורות"],to:["לילד","לילדה","לילדים","לילדות"],poss:["שלו","שלה","שלהם","שלהן"]};
+function kidsG(s,c){ const f=kidsForm(c); if(!f||(!f.p&&!f.f)) return s; const i=f.p*2+f.f, w=k=>KW[k][i];
+  return s.replace(new RegExp(KB+"הילד הוא הגיבור"+KE,"g"),w("child")+" "+w("is")+" "+w("hero"))
+   .replace(new RegExp("עם הילד כגיבור"+KE,"g"),"עם "+w("child")+" "+w("ahero"))
+   .replace(new RegExp("(הפנים|השם|הספר|התמונה) שלו"+KE,"g"),(m,x)=>x+" "+w("poss"))
+   .replace(new RegExp(KB+"הילד"+KE,"g"),w("child"))
+   .replace(new RegExp(KB+"לילד"+KE,"g"),w("to")) }
+function kidsGeneric(s,c){ const f=kidsForm(c); if(!f||(!f.p&&!f.f)) return s; const i=f.p*2+f.f, w=k=>KW[k][i];
+  return s.replace(new RegExp(KB+w("child")+" "+w("is")+" "+w("hero")+KE,"g"),"הילד הוא הגיבור")
+   .replace(new RegExp("עם "+w("child")+" "+w("ahero")+KE,"g"),"עם הילד כגיבור")
+   .replace(new RegExp("(הפנים|השם|הספר|התמונה) "+w("poss")+KE,"g"),(m,x)=>x+" שלו")
+   .replace(new RegExp(KB+w("child")+KE,"g"),"הילד")
+   .replace(new RegExp(KB+w("to")+KE,"g"),"לילד") }
+const kidsFormLabel=c=>{ const f=kidsForm(c); if(!f) return "הילד / שלו (default, kids not known)"; const i=f.p*2+f.f; return KW.child[i]+" / "+KW.poss[i]+(i===0?" (default)":"") };
+// Hebrew definite article (ה) rules. ל, ב and כ absorb the article (לילד, בגן, לתוכן); מ, עם, של, על and את keep it.
+const HEROOT=new Set(["הומור","הצעה","הצצה","הפעלה","הפעלות","התפתחות","התנהגות","הורות","הכנה","הסבר","הרגל","הוראה","הנקה","הרגעה","הצלחה","הנאה","היגיון","היסטוריה","הרצאה","הדרכה","הזדמנות","הערכה","היכרות","הפתעה","התמדה","התאמה","הגשמה","הבנה","הקשבה","הגדרה","הפסקה","הפרדה","הפעלה"]);
+const dropH=v=>{ v=String(v||""); if(v[0]!=="ה") return v; const w=v.split(/[\s,.:;!?]/)[0]; return HEROOT.has(w)?v:v.slice(1) };
+const HEN="ילד|ילדה|ילדים|ילדות|ספר|ספרים|קהל|עמוד|תוכן|בית|משפחה|משפחות|קוד|רווח|הורים|הורה|סרטון|רגע|רגעים";   // not גן: להגן means to protect
+const hebArt=s=>String(s).replace(new RegExp("(^|[^\\u05D0-\\u05EA])([\\u05DC\\u05D1\\u05DB])\\u05D4("+HEN+")(?![\\u05D0-\\u05EA])","g"),"$1$2$3");
 const chOf=c=>c.phone?"WhatsApp":c.email?"Email":"Instagram DM";
 const dayDiff=d=>{ if(!d) return null; const t=new Date(d+"T00:00:00").getTime(); return isNaN(t)?null:Math.floor((Date.now()-t)/864e5) };
 const rng=(l,a,b,g)=>({v:l,l,t:c=>{ const x=g(c); return x!=null&&x>=a&&x<b }});
@@ -569,6 +607,7 @@ const FACETS={
   last:{l:"Latest reel",vals:[["Last 14 days",0,15],["15 to 30 days ago",15,31],["31 to 90 days ago",31,91],["Over 90 days ago",91,Infinity]].map(([l,a,b])=>rng(l,a,b,c=>dayDiff(c.last))).concat([{v:"unknown",l:"Unknown",t:c=>dayDiff(c.last)==null}])},
   style:{l:"Style sent",vals:[{v:"1",l:"Warm",t:c=>HOOK.ss(c)===1},{v:"2",l:"Short",t:c=>HOOK.ss(c)===2}]},
   batch:{l:"Research pass",vals:[{v:"1",l:"First pass",t:c=>c.batch===1},{v:"2",l:"Second pass",t:c=>c.batch===2}]},
+  kids:{l:"Kids",vals:[{v:"unk",l:"Not checked yet",t:c=>kidsOf(c).n==null&&kidsOf(c).b==null&&kidsOf(c).g==null},{v:"1",l:"1 kid",t:c=>kidsOf(c).n===1},{v:"2",l:"2 kids",t:c=>kidsOf(c).n===2},{v:"3",l:"3 kids",t:c=>kidsOf(c).n===3},{v:"4",l:"4 or more",t:c=>(kidsOf(c).n||0)>=4},{v:"girl",l:"Has a girl",t:c=>(kidsOf(c).g||0)>0},{v:"boy",l:"Has a boy",t:c=>(kidsOf(c).b||0)>0}]},
   arch:{l:"Archetype",vals:[...new Set(C.map(c=>c.arch))].sort().map(v=>({v,l:v,t:c=>c.arch===v}))}
 };
 const SORTF={
@@ -577,7 +616,7 @@ const SORTF={
   status:{l:"Outreach status",d:1,v:c=>ST_I[HOOK.bk(c)]}, activity:{l:"Last activity",d:-1,v:c=>HOOK.at(c.h)||null},
   sent:{l:"Sent date",d:-1,v:c=>HOOK.on(c.h)||null}, due:{l:"Days since sent (follow-ups)",d:-1,v:c=>HOOK.due(c)},
   name:{l:"Name",d:1,v:c=>c.name||c.n||null}, h:{l:"Handle",d:1,v:c=>c.h}, arch:{l:"Archetype",d:1,v:c=>c.arch},
-  prac:{l:"Practicality",d:1,v:c=>c.prac||null}, conflict:{l:"Brand conflict",d:1,v:c=>c.conflict||null}
+  prac:{l:"Practicality",d:1,v:c=>c.prac||null}, kids:{l:"Number of kids",d:-1,v:c=>kidsOf(c).n}, conflict:{l:"Brand conflict",d:1,v:c=>c.conflict||null}
 };
 const DIRL={status:["Pipeline order","Reverse order"],name:["A to Z","Z to A"],h:["A to Z","Z to A"],arch:["A to Z","Z to A"],prac:["A to Z","Z to A"],conflict:["A to Z","Z to A"],last:["Oldest first","Newest first"],added:["Oldest first","Newest first"],activity:["Oldest first","Newest first"],sent:["Oldest first","Newest first"]};
 const dirLabel=(k,d)=>(DIRL[k]||["Low to high","High to low"])[d>0?0:1];
@@ -591,7 +630,7 @@ const GROUPS={
   arch:{l:"Archetype",v:c=>c.arch,lab:v=>v,ord:v=>v},
   f:{l:"Follower band",v:c=>{const x=FACETS.f.vals.findIndex(b=>b.t(c)); return x<0?9:x},lab:v=>FACETS.f.vals[v]?FACETS.f.vals[v].l:"Unknown",ord:v=>v}
 };
-const searchText=c=>[c.h,c.name,c.n,c.role,c.topics,c.arch,c.email,HOOK.note(c.h)].join(" ").toLowerCase();
+const searchText=c=>[c.h,c.name,c.n,c.role,c.topics,c.arch,c.email,kidsTxt(c),HOOK.note(c.h)].join(" ").toLowerCase();
 function matches(c,st,skip){
   if(st.q){ const t=searchText(c); if(!st.q.toLowerCase().split(/\s+/).filter(Boolean).every(w=>t.includes(w))) return false }
   for(const k in st.f){
@@ -707,7 +746,7 @@ function toolbar(el,key,o){
 
 // ---------- database page ----------
 let open=null;
-const TBD=toolbar(document.getElementById("tb-db"),"database",{ph:"Search handle, name, role, topic…",facets:["status","style","ch","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF),base:()=>C,onChange:()=>dbRender()});
+const TBD=toolbar(document.getElementById("tb-db"),"database",{ph:"Search handle, name, role, topic…",facets:["status","style","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF),base:()=>C,onChange:()=>dbRender()});
 function dbRender(){
   const st=UI.vs.database, rows=runView(C,st);
   TBD.sync(rows.length);
@@ -717,13 +756,13 @@ function dbRender(){
       <td class="r num"><b>${c.score}</b></td>
       <td><a href="${url(c)}" target="_blank" rel="noopener">@${esc(c.h)}</a>${c.plat!=="Instagram"?` <span class="chip">${c.plat}</span>`:""}<div class="he note" dir="auto">${esc(c.name)}</div></td>
       <td><span class="dot st-${s}"></span>${esc(STL[s])}</td>
-      <td>${esc(c.arch)}</td><td class="r num">${k(c.f)}</td><td class="r num">${k(c.med)}</td><td class="num">${esc(c.last||"—")}</td>
+      <td>${esc(c.arch)}</td><td>${kidsTxt(c)?esc(kidsTxt(c)):'<span class="note">Not checked</span>'}</td><td class="r num">${k(c.f)}</td><td class="r num">${k(c.med)}</td><td class="num">${esc(c.last||"—")}</td>
       <td class="num">${esc(addedLabel(c))}</td><td>${esc(c.prac)}</td><td class="${conflictCls(c.conflict)}">${esc(c.conflict)}</td></tr>`;
     if(open!==c.h) return row;
-    return row+`<tr class="det"><td colspan="10"><div class="detgrid">
+    return row+`<tr class="det"><td colspan="11"><div class="detgrid">
       <dl class="kv">
         <dt>Role</dt><dd>${esc(c.role)}</dd><dt>Location</dt><dd>${esc(c.loc||"Not stated")}</dd>
-        <dt>Child ages</dt><dd>${esc(c.ages)}</dd><dt>Topics</dt><dd>${esc(c.topics)}</dd>
+        <dt>Kids</dt><dd>${kidsTxt(c)?esc(kidsTxt(c)):"Not checked yet"}</dd><dt>Child ages</dt><dd>${esc(c.ages)}</dd><dt>Topics</dt><dd>${esc(c.topics)}</dd>
         <dt>UGC roles</dt><dd>${(c.roles||[]).map(esc).join(" · ")}</dd>
         <dt>Concept</dt><dd>${esc(c.concept)}</dd><dt>Risks</dt><dd>${esc(c.risk)}</dd>
         <dt>First channel</dt><dd>${chOf(c)}</dd>${c.email?`<dt>Email</dt><dd class="num">${esc(c.email)}</dd>`:''}${c.phone?`<dt>Phone / WhatsApp</dt><dd class="num">${esc(c.phone)}</dd>`:''}<dt>Other links</dt><dd>${esc(c.contact)}</dd>${c.csrc?`<dt>Contact found on</dt><dd>${esc(c.csrc)}</dd>`:''}<dt>Evidence</dt><dd><a href="${url(c)}" target="_blank" rel="noopener">${url(c)}</a> (bio and reels read 3 Oct 2026)</dd>
@@ -731,7 +770,7 @@ function dbRender(){
       </dl>
       <div class="bars">${c.s.map((v,i)=>`<div class="b"><span>${SN[i]}</span><span class="t"><i style="width:${v*20}%"></i></span><span class="num">${v}</span></div>`).join("")}</div>
     </div></td></tr>`;
-  }).join("")||'<tr><td colspan="10"><div class="empty" style="box-shadow:none"><b>No creators match.</b><button type="button" class="btn" data-dbclear>Clear search and filters</button></div></td></tr>';
+  }).join("")||'<tr><td colspan="11"><div class="empty" style="box-shadow:none"><b>No creators match.</b><button type="button" class="btn" data-dbclear>Clear search and filters</button></div></td></tr>';
   const s=st.sort||[];
   document.querySelectorAll("#t th[data-k]").forEach(th=>{ const i=s.findIndex(l=>l[0]===th.dataset.k);
     th.setAttribute("aria-sort",i===0?(s[0][1]>0?"ascending":"descending"):"none");
@@ -801,7 +840,7 @@ const DEF={
  d2_b:"מעולה 🙌 בקצרה: ספר במתנה, קוד אישי ו-20% מכל מכירה דרכו. החלוקה בין הרווח שלך להנחה לקהל בידיים שלך, ומבקשים סרטון של הילד עם הספר.\nדוגמה לספר: {preview}. מה דעתך?",
  of_b:"הצעה לשיתוף פעולה עם LumeBook: ספר במתנה ו-20% מכל מכירה\n\nהיי {name},\n\nתודה על העניין! ההצעה בקצרה:\n\n• ספר ילדים אישי במתנה, עם השם והפנים של הילד\n• קוד אישי לקהל שלך\n• 20% מכל מכירה דרכו, והחלוקה בין הרווח שלך להנחה לקהל בידיים שלך\n• בתמורה, סרטון (רילס או טיקטוק) של הילד עם הספר, עם תיוג של \u200E@lumebookai\n\nכתבו לי מייל בחזרה עם מספר הטלפון ונתקדם להכנת הספר.\n\n{sender}\nLumeBook"};
 const tpl=k=>(SET.tpl&&typeof SET.tpl[k]==="string")?SET.tpl[k]:DEF[k];
-const fill=(s,c)=>brand(s).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]");
+const fill=(s,c)=>hebArt(kidsG(brand(s),c).replace(/([\u05DC\u05D1\u05DB])-?\{line\}/g,(m,p)=>p+dropH(lineOf(c))).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]"));
 // Offer email: the user's own wording, kept verbatim (no brand rewrite); only {name} is filled in
 const OFFER="\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d4\u05e9\u05d2\u05e8\u05d9\u05e8\u05d9\u05dd \u05e9\u05dc \u05dc\u05d5\u05de\u05d1\u05d5\u05e7: \u05e1\u05e4\u05e8 \u05d1\u05de\u05ea\u05e0\u05d4 + \u05e2\u05d3 20% \u05de\u05db\u05dc \u05de\u05db\u05d9\u05e8\u05d4\n\n\u05d4\u05d9\u05d9 {name},\n\n\u05d7\u05e9\u05d1\u05e0\u05d5 \u05e2\u05dc \u05e9\u05d9\u05ea\u05d5\u05e3 \u05d4\u05e4\u05e2\u05d5\u05dc\u05d4 \u05d4\u05d6\u05d4 \u05db\u05d9 \u05d4\u05ea\u05d5\u05db\u05df \u05e9\u05dc\u05da \u05de\u05e8\u05d2\u05d9\u05e9 \u05d8\u05d1\u05e2\u05d9, \u05de\u05e9\u05e4\u05d7\u05ea\u05d9 \u05d5\u05e0\u05d2\u05d9\u05e9 , \u05d1\u05d3\u05d9\u05d5\u05e7 \u05d4\u05e1\u05d5\u05d2 \u05e9\u05d9\u05db\u05d5\u05dc \u05dc\u05d4\u05e4\u05d5\u05da \u05d0\u05ea \u05d4\u05e8\u05d2\u05e2 \u05e9\u05d1\u05d5 \u05d9\u05dc\u05d3 \u05e4\u05d5\u05d2\u05e9 \u05d0\u05ea \u05e2\u05e6\u05de\u05d5 \u05d1\u05ea\u05d5\u05da \u05e1\u05e4\u05e8 \u05dc\u05ea\u05d5\u05db\u05df \u05e9\u05e7\u05d4\u05dc \u05d1\u05d0\u05de\u05ea \u05de\u05ea\u05d7\u05d1\u05e8 \u05d0\u05dc\u05d9\u05d5\n\n\u05d4\u05d4\u05e6\u05e2\u05d4 \u05e9\u05dc\u05e0\u05d5 \u05e4\u05e9\u05d5\u05d8\u05d4:\n\n\u05d0\u05e0\u05d7\u05e0\u05d5 \u05d9\u05d5\u05e6\u05e8\u05d9\u05dd \u05dc\u05d9\u05dc\u05d3 \u05e1\u05e4\u05e8 \u05de\u05d5\u05d3\u05e4\u05e1 \u05d5\u05d0\u05d9\u05e9\u05d9 \u05d1\u05de\u05ea\u05e0\u05d4, \u05e2\u05dd \u05d4\u05e9\u05dd \u05d5\u05d4\u05e4\u05e0\u05d9\u05dd \u05e9\u05dc\u05d5. \u05dc\u05d0\u05d7\u05e8 \u05e7\u05d1\u05dc\u05ea \u05d4\u05e1\u05e4\u05e8, \u05d9\u05d5\u05e6\u05e8\u05d9\u05dd \u05e8\u05d9\u05dc\u05e1 \u05d0\u05d5 \u05d8\u05d9\u05e7\u05d8\u05d5\u05e7 \u05e9\u05de\u05e6\u05d9\u05d2 \u05d0\u05ea \u05d7\u05d5\u05d5\u05d9\u05d9\u05ea \u05d4\u05e7\u05e8\u05d9\u05d0\u05d4 \u05d0\u05d5 \u05d0\u05ea \u05e8\u05d2\u05e2 \u05d4\u05d7\u05e9\u05d9\u05e4\u05d4 \u05dc\u05e1\u05e4\u05e8\n\n\u05d5\u05d4\u05d7\u05dc\u05e7 \u05d4\u05db\u05d9 \u05d8\u05d5\u05d1, \u05d6\u05d4 \u05dc\u05d0 \u05de\u05e1\u05ea\u05d9\u05d9\u05dd \u05d1\u05f4\u05e1\u05e4\u05e8 \u05ea\u05de\u05d5\u05e8\u05ea \u05e4\u05d5\u05e1\u05d8\u05f4\n\n\u05d0\u05ea\u05dd \u05de\u05e7\u05d1\u05dc\u05d9\u05dd \u05d2\u05dd:\n\n\u2022 \u05e2\u05d3 20% \u05e2\u05de\u05dc\u05d4 \u05e2\u05dc \u05db\u05dc \u05d4\u05d6\u05de\u05e0\u05d4 \u05e9\u05de\u05ea\u05d1\u05e6\u05e2\u05ea \u05d3\u05e8\u05db\u05db\u05dd\n\u2022 \u05d4\u05d8\u05d1\u05d4 \u05d9\u05d9\u05d7\u05d5\u05d3\u05d9\u05ea \u05dc\u05e7\u05d4\u05dc \u05e9\u05dc\u05db\u05dd\n\u2022 \u05d0\u05e4\u05e9\u05e8\u05d5\u05ea \u05dc\u05d4\u05de\u05e9\u05d9\u05da \u05dc\u05d4\u05e8\u05d5\u05d5\u05d9\u05d7 \u05de\u05db\u05dc \u05e8\u05db\u05d9\u05e9\u05d4 \u05e9\u05de\u05d2\u05d9\u05e2\u05d4 \u05de\u05d4\u05ea\u05d5\u05db\u05df \u05e9\u05dc\u05db\u05dd\n\u2022 \u05e9\u05d9\u05ea\u05d5\u05e3 \u05d4\u05ea\u05d5\u05db\u05df \u05d1\u05e2\u05de\u05d5\u05d3 \u05e9\u05dc \u200e@lumebookai, \u05e2\u05dd \u05e7\u05e8\u05d3\u05d9\u05d8 \u05d5\u05ea\u05d9\u05d5\u05d2 \u05de\u05dc\u05d0\u05d9\u05dd\n\n\u05db\u05dc\u05d5\u05de\u05e8, \u05e1\u05e8\u05d8\u05d5\u05df \u05d0\u05d7\u05d3 \u05d9\u05db\u05d5\u05dc \u05d2\u05dd \u05dc\u05d9\u05e6\u05d5\u05e8 \u05e8\u05d2\u05e2 \u05de\u05e9\u05e4\u05d7\u05ea\u05d9 \u05de\u05e8\u05d2\u05e9, \u05d2\u05dd \u05dc\u05ea\u05ea \u05e2\u05e8\u05da \u05dc\u05e7\u05d4\u05dc \u05e9\u05dc\u05db\u05dd \u05d5\u05d2\u05dd \u05dc\u05d4\u05e4\u05d5\u05da \u05dc\u05de\u05e7\u05d5\u05e8 \u05d4\u05db\u05e0\u05e1\u05d4.\n\n\u05d0\u05d9\u05da \u05d6\u05d4 \u05e2\u05d5\u05d1\u05d3?\n\n1. \u05d0\u05e0\u05d7\u05e0\u05d5 \u05de\u05ea\u05d0\u05de\u05d9\u05dd \u05d0\u05d9\u05ea\u05db\u05dd \u05d0\u05ea \u05e9\u05dc\u05d9\u05d7\u05ea \u05d4\u05e1\u05e4\u05e8 \u05d1\u05de\u05ea\u05e0\u05d4\n2. \u05dc\u05d0\u05d7\u05e8 \u05e7\u05d1\u05dc\u05ea \u05d4\u05e1\u05e4\u05e8, \u05de\u05e2\u05dc\u05d9\u05dd \u05e8\u05d9\u05dc\u05e1 \u05d0\u05d5 \u05d8\u05d9\u05e7\u05d8\u05d5\u05e7 \u05e2\u05dd \u05d4\u05e7\u05d9\u05e9\u05d5\u05e8 \u05d5\u05e2\u05dd \u05ea\u05d9\u05d5\u05d2 \u05e9\u05dc \u200e@lumebookai\n3. \u05de\u05e7\u05d1\u05dc\u05d9\u05dd \u05e2\u05d3 20% \u05de\u05db\u05dc \u05d4\u05d6\u05de\u05e0\u05d4 \u05e9\u05de\u05ea\u05d1\u05e6\u05e2\u05ea \u05d3\u05e8\u05da \u05d4\u05e7\u05d9\u05e9\u05d5\u05e8\n\n\u05db\u05ea\u05d1\u05d5 \u05dc\u05d9 \u05de\u05d9\u05d9\u05dc \u05d1\u05d7\u05d6\u05e8\u05d4 \u05e2\u05dd \u05de\u05e1 \u05d4\u05d8\u05dc\u05e4\u05d5\u05df \u05e9\u05dc\u05db\u05dd \u05d5\u05e0\u05ea\u05e7\u05d3\u05dd \u05dc\u05d4\u05db\u05e0\u05ea \u05d4\u05e1\u05e4\u05e8!\n\n\u05db\u05d1\u05e8 \u05de\u05d7\u05db\u05d9\u05dd \u05dc\u05e8\u05d0\u05d5\u05ea \u05d0\u05ea \u05d4\u05e8\u05d2\u05e2 \u05e9\u05dc \u05d4\u05d9\u05dc\u05d3 \u05e2\u05dd \u05d4\u05e1\u05e4\u05e8 \u05e9\u05dc\u05d5!\n\u05d9\u05e8\u05d9\u05df\n\u200e@lumebookai";
 const STY_NAME={1:"Warm",2:"Short"};
@@ -811,7 +850,7 @@ const SK=(k,s)=>s===2?k+"_b":k;
 const xkS=(s,t)=>"x_"+t+(s===2?"_2":""), axkS=(s,t)=>"ax_"+t+(s===2?"_2":"");
 const xk=(c,t)=>xkS(sty(c),t), axk=(c,t)=>axkS(sty(c),t);
 const defMsg=(c,t)=>{ const s=sty(c);
-  return t==="of"?(s===2?fill(tpl("of_b"),c):OFFER.replace(/\{name\}/g,()=>who(c))):t==="dm"?fill(tpl(SK("dm",s)),c):t==="em"?(fill(tpl(SK("es",s)),c)+"\n\n"+fill(tpl(SK("eb",s)),c)):t==="fu"?fill(tpl(SK("fu",s)),c):fill(tpl(SK("d2",s)),c) };
+  return t==="of"?(s===2?fill(tpl("of_b"),c):kidsG(OFFER,c).replace(/\{name\}/g,()=>who(c))):t==="dm"?fill(tpl(SK("dm",s)),c):t==="em"?(fill(tpl(SK("es",s)),c)+"\n\n"+fill(tpl(SK("eb",s)),c)):t==="fu"?fill(tpl(SK("fu",s)),c):fill(tpl(SK("d2",s)),c) };
 const edited=(c,t)=>{const x=get(c.h)[xk(c,t)]; return typeof x==="string"&&x!==""};
 const msgOf=(c,t)=>edited(c,t)?((t==="of"&&sty(c)===1)?get(c.h)[xk(c,t)]:brand(get(c.h)[xk(c,t)])):defMsg(c,t);
 const auto=(c,t)=>edited(c,t)&&get(c.h)[axk(c,t)]===1;
@@ -851,7 +890,7 @@ function card(c){
   const o=get(c.h), s=stOf(c.h), due=dueOf(c), prof="https://www.instagram.com/"+c.h+"/";
   const wa=waLink(c,msgOf(c,"dm")), ml=mailLink(c), ch=chOf(c);
   const ssw='<div class="mtabs stysw" role="group" aria-label="Message style">'+[1,2].map(s=>'<button type="button" class="btn" data-act="style" data-s="'+s+'" aria-pressed="'+(sty(c)===s?"true":"false")+'">'+STY_NAME[s]+'</button>').join("")+'</div>';
-  const chips='<span class="chip ch">'+esc(ch)+'</span>'+(c.own?'':'<span class="chip" title="Generic line by category: swap it for something specific if you can">generic line</span>');
+  const kt=kidsTxt(c), chips='<span class="chip ch">'+esc(ch)+'</span><span class="chip'+(kt?' kd':'')+'" title="'+(kt?'Number of kids and their genders, from their public profile':'Not checked yet. Add it in the details below')+'">Kids: '+esc(kt||"not checked")+'</span>'+(c.own?'':'<span class="chip" title="Generic line by category: swap it for something specific if you can">generic line</span>');
   let acts='<a class="btn pri" href="'+prof+'" target="_blank" rel="noopener">Open profile ↗</a>'+ssw+copyBtn("dm","Copy message");
   if(wa) acts+='<a class="btn" href="'+wa+'" target="_blank" rel="noopener">WhatsApp ↗</a>';
   if(c.email) acts+=copyBtn("em","Copy email")+(ml?'<a class="btn" href="'+ml+'">Email ↗</a>':'');
@@ -874,6 +913,10 @@ function card(c){
    +'<p class="note" style="margin:6px 0 0">Edit the text above, then copy it. Your edits are saved for this creator. “Save and learn my voice” also rewrites this creator\'s other messages to match your edit, and adjusts the suggested messages for everyone else to sound more like you. On screen @lumebookai may look reversed; the copied text is correct.</p>'
    +'<div class="ogrid"><label>Name in greeting<input data-f="name" dir="rtl" value="'+esc(o.name||"")+'" placeholder="'+esc(c.n)+'"></label>'
    +'<label>Personal line (replaces “אהבתי את …”)<textarea data-f="line" dir="rtl" rows="2" placeholder="'+esc(c.l)+'">'+esc(o.line||"")+'</textarea></label>'
+   +'<label>Kids in total<input type="number" min="0" inputmode="numeric" data-f="kn" dir="ltr" value="'+esc(o.kn??"")+'" placeholder="'+esc(c.kids&&c.kids.n!=null?c.kids.n:"")+'"></label>'
+   +'<label>Boys<input type="number" min="0" inputmode="numeric" data-f="kb" dir="ltr" value="'+esc(o.kb??"")+'" placeholder="'+esc(c.kids&&c.kids.b!=null?c.kids.b:"")+'"></label>'
+   +'<label>Girls<input type="number" min="0" inputmode="numeric" data-f="kg" dir="ltr" value="'+esc(o.kg??"")+'" placeholder="'+esc(c.kids&&c.kids.g!=null?c.kids.g:"")+'"></label>'
+   +'<p class="note" style="grid-column:1/-1;margin:-.25rem 0 0">'+(kidsOf(c).edited?'Kids as you entered them.':c.kids&&c.kids.src?'Kids from their public bio ('+esc(c.kids.src)+'). Type here to correct it.':'Not checked yet. Add what their profile shows publicly, and leave it empty if they do not share it.')+' Messages say: <bdi dir="rtl">'+esc(kidsFormLabel(c))+'</bdi>.</p>'
    +'<label>Personal link<input data-f="code" dir="ltr" value="'+esc(o.code||"")+'" placeholder="https://…"></label>'
    +'<label>Sent on<input type="date" data-f="on" value="'+esc(o.on||"")+'"></label>'
    +'<label style="grid-column:1/-1">Notes<textarea data-f="note" rows="2" placeholder="Reply, deal, address for the book…">'+esc(o.note||"")+'</textarea></label></div>'
@@ -955,6 +998,7 @@ document.getElementById("olist").addEventListener("change",e=>{
     if(s==="due"){ p.dat=Date.now(); p.fu=""; if(!o0.on){ p.on=today(); p.sat=Date.now() } }
     if(s!=="new"&&!o0.ssent) p.ssent=sty(byH[h]);
     patch(h,p); render(); flashCard(h); toast("Status saved: "+stLabel(s)+"."+moved(h)) }
+  else if(f==="kn"||f==="kb"||f==="kg"){ patch(h,{[f]:e.target.value}); render() }
   else if(f==="on"){ patch(h,{on:e.target.value,sat:""}); render(); flashCard(h); toast("Sent date saved.") }
 });
 function syncBar(card,c){
@@ -1025,7 +1069,7 @@ function undoLearn(){
   VOICE.prev=null; writeVoice(); fillSettings(); fillVoice(); render(); if(pv.c&&pv.c.h) flashCard(pv.c.h); vnote("Last learning undone. The messages are back to how they were."); toast("Undone. The messages are back to how they were.");
 }
 const TNAME={dm:"first Instagram message",em:"email (subject line, blank line, body)",fu:"follow-up message",d2:"message after the creator says yes (terms)",of:"offer email (subject line, blank line, body) with the full offer"};
-const RULES="Never use em dashes or en dashes. Write the brand name only in Latin letters as LumeBook (capital L and B), never in Hebrew letters; after a Hebrew prefix letter add a hyphen, for example ב-LumeBook. Keep the offer facts unchanged (free book for the child, personal discount code for the audience, 20% of each sale that the creator can split between their own earnings and an audience discount) unless the owner's edit changed them. Do not invent claims, numbers or promises. Write Hebrew.";
+const RULES="Never use em dashes or en dashes. Write the brand name only in Latin letters as LumeBook (capital L and B), never in Hebrew letters; after a Hebrew prefix letter add a hyphen, for example ב-LumeBook. Keep the offer facts unchanged (free book for the child, personal discount code for the audience, 20% of each sale that the creator can split between their own earnings and an audience discount) unless the owner's edit changed them. Do not invent claims, numbers or promises. Keep the wording about the child (the child, the girls, the book of theirs) in the same singular or plural and masculine or feminine form as in the text you are given. Hebrew grammar: use the definite article ה only for a specific known noun (the child, the book, the page), never for general statements (ספרי ילדים, ילדים אוהבים). The prepositions ל, ב and כ absorb the article (לילד, בגן, לתוכן, never להילד or בהגן); מ, עם, של, על and את keep it (מהגן, עם הספר, של הילד). In a construct chain only the last noun takes it (מנהל הסושיאל, ספר הילדים, never המנהל הסושיאל). Use את only before a definite object. Adjectives agree with their noun and take the article too (הילד הקטן). Names and LumeBook never take an article. If a template puts ל, ב or כ directly before {line}, keep it attached with no hyphen; the app removes the article. Write Hebrew.";
 function adaptCreator(sample,c,t,before,after,targets,S){
   const base={}; targets.forEach(k=>base[k]=defMsg(c,k));
   const input="The owner of a small brand (LumeBook) is writing outreach messages to one Instagram creator, @"+c.h+". They just edited the "+TNAME[t]+" for this creator.\n\n"
@@ -1055,7 +1099,7 @@ function anon(s,c){
   pairs.forEach(([v,ph])=>{ s=s.split(v).join(ph) }); return s;
 }
 function learnTemplates(sample,c,t,before,after,S){
-  const ex=[...(VOICE.ex||[]),{t,s:S,before:anon(before,c),after:anon(after,c),h:c.h,nm:[who(c),c.n]}].slice(-24);
+  const ex=[...(VOICE.ex||[]),{t,s:S,before:anon(kidsGeneric(before,c),c),after:anon(kidsGeneric(after,c),c),h:c.h,nm:[who(c),c.n]}].slice(-24);
   const pex=ex.filter(e=>(e.s||1)===S).slice(-12);
   const cur={}; VKEYS.forEach(k=>cur[k]=tpl(SK(k,S)));
   const input="You adapt outreach message templates for a small brand (LumeBook) so they sound like the owner, learned from the owner's edits.\n\n"
@@ -1068,7 +1112,7 @@ function learnTemplates(sample,c,t,before,after,S){
   return sample.json(input,{cache:false}).then(out=>{
     const T=out&&out.templates, rules=out&&out.rules;
     if(!T||!Array.isArray(rules)||VKEYS.some(k=>typeof T[k]!=="string"||!T[k].trim())) throw new Error("shape");
-    const nt={}; VKEYS.forEach(k=>nt[k]=cleanTxt(T[k]));
+    const nt={}; VKEYS.forEach(k=>nt[k]=hebArt(kidsGeneric(cleanTxt(T[k]),c)));
     for(const k in NEED){ if(NEED[k].some(p=>cur[k].includes(p)&&!nt[k].includes(p))) throw new Error("placeholder") }
     const bad=[lineOf(c),c.m]; ex.forEach(e=>{ (e.nm||[]).forEach(n=>bad.push(n)); if(e.h){ bad.push(e.h); bad.push("@"+e.h) } });
     VKEYS.forEach(k=>{ if(bad.some(w=>w&&w!==c.m&&hasWord(nt[k],w)&&!hasWord(cur[k],w))) nt[k]=cur[k] });
@@ -1129,7 +1173,7 @@ document.getElementById("vclear").addEventListener("click",e=>{
 
 // ---------- navigation: sidebar, pages, overview, saved views ----------
 window.toast=toast; window.fx=fx;
-HOOK.st=stOf; HOOK.bk=bkOf; HOOK.ss=c=>stOf(c.h)==="new"?null:ssOf(c); HOOK.due=dueOf; HOOK.at=h=>get(h).at||0; HOOK.on=h=>get(h).on||""; HOOK.note=h=>get(h).note||"";
+HOOK.ko=h=>get(h); HOOK.st=stOf; HOOK.bk=bkOf; HOOK.ss=c=>stOf(c.h)==="new"?null:ssOf(c); HOOK.due=dueOf; HOOK.at=h=>get(h).at||0; HOOK.on=h=>get(h).on||""; HOOK.note=h=>get(h).note||"";
 HOOK.edited=c=>["dm","em","of","fu","d2"].some(t=>manual(c,t));
 const PAGES={overview:["Outreach","Overview"],contacts:["Outreach","Creators"],database:["Research","Database"],archetypes:["Research","Archetype map"],messages:["Settings","Messages and voice"],method:["Settings","Method and limits"]};
 const LEGACY={"c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview"};
@@ -1236,7 +1280,7 @@ document.querySelector('[data-page="overview"]').addEventListener("click",e=>{ c
 // mobile status chips
 document.getElementById("sstats").addEventListener("click",e=>{ const b=e.target.closest("button[data-st]"); if(b) navigate("c-"+(b.dataset.st||"all")) });
 document.getElementById("olist").addEventListener("click",e=>{ if(e.target.closest("[data-clearlist]")){ UI.vs.contacts.q=""; UI.vs.contacts.f={}; uiSave(); shown=30; render() } },true);
-const TBC=toolbar(document.getElementById("tb-c"),"contacts",{ph:"Search handle, name, notes…",facets:["style","ch","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF).filter(k=>!["prac","conflict"].includes(k)),group:true,save:true,base:()=>contactBase(),onChange:()=>{ shown=30; render() }});
+const TBC=toolbar(document.getElementById("tb-c"),"contacts",{ph:"Search handle, name, notes…",facets:["style","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF).filter(k=>!["prac","conflict"].includes(k)),group:true,save:true,base:()=>contactBase(),onChange:()=>{ shown=30; render() }});
 
 // ---------- start ----------
 lsLoad(); fillSettings(); fillVoice(); navViews(); route();

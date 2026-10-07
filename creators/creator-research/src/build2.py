@@ -6,6 +6,9 @@ CT=json.load(open(P('contacts.json')))
 for c in C:
     k=CT.get(c['h'],{}); c['email']=', '.join(k.get('email',[])); c['phone']=', '.join(k.get('phone',[])); c['csrc']='; '.join(k.get('src',[]))
 exec(open(P('enrich.py')).read()); enrich(C)
+KIDS=json.load(open(P('kids.json')))
+for c in C:
+    if c['h'] in KIDS: c['kids']=KIDS[c['h']]
 for i,c in enumerate(C):
     c['ai']=i; c['added']='2026-10-03'; c['batch']=2 if str(c.get('extra','')).startswith('pass2') else 1
 for c in C:
