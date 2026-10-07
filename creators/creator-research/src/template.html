@@ -97,6 +97,8 @@ section > .eyebrow + h2{margin-top:-.5rem}
 .concept::before{content:"Content concept";display:block;font-size:.75rem;font-weight:600;color:var(--accent-ink);margin-bottom:.15rem}
 .chips{display:flex;flex-wrap:wrap;gap:.375rem}
 .chip{font-size:.8125rem;border-radius:var(--r-pill);padding:.15rem .65rem;background:var(--fill);color:var(--label-2);white-space:nowrap}
+.hechk:empty{display:none}
+.hechk{font-size:.875rem;background:var(--accent-soft);border-radius:var(--r-row);padding:.5rem .75rem;margin-top:.5rem;display:flex;flex-wrap:wrap;gap:.35rem .5rem;align-items:center}
 .chip.kd{background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
 .chip.arch,.chip.ch{background:var(--tint-soft);color:var(--tint);font-weight:600}
 .flag{font-size:.875rem;color:var(--warning)}
@@ -561,34 +563,43 @@ const HOOK={ko:()=>null,bk:()=>"new",ss:()=>null,st:()=>"new",due:()=>null,edite
 const knum=v=>{ if(v===undefined||v===null||v==="") return null; const x=parseInt(v,10); return isNaN(x)||x<0?null:x };
 function kidsOf(c){ const o=HOOK.ko(c.h)||{}, edited=["kn","kb","kg"].some(k=>knum(o[k])!==null), base=c.kids||{};
   let n=edited?knum(o.kn):knum(base.n), b=edited?knum(o.kb):knum(base.b), g=edited?knum(o.kg):knum(base.g);
+  const ov=String(o.kname||"").split(/\s*[,\u060C]\s*/).map(x=>x.trim()).filter(Boolean), names=ov.length?ov:(Array.isArray(base.names)?base.names:[]);
   if(n==null&&(b!=null||g!=null)) n=(b||0)+(g||0);
-  return {n,b,g,edited,note:edited?"":(base.note||""),src:edited?"edited by you":(base.src||"")} }
+  if(names.length&&(n==null||n<names.length)) n=names.length;
+  return {n,b,g,names,edited,note:edited?"":(base.note||""),src:edited?"edited by you":(base.src||"")} }
 function kidsTxt(c){ const k=kidsOf(c);
-  if(k.n==null&&k.b==null&&k.g==null) return k.note;
+  if(k.n==null&&k.b==null&&k.g==null&&!k.names.length) return k.note;
   const p=[]; if(k.b) p.push(k.b+(k.b===1?" boy":" boys")); if(k.g) p.push(k.g+(k.g===1?" girl":" girls"));
   const rest=(k.n||0)-(k.b||0)-(k.g||0);
   if(rest>0) p.push(rest+(p.length?" other":"")+(rest===1?" kid":" kids")); else if(!p.length&&k.n) p.push(k.n+(k.n===1?" kid":" kids"));
-  return p.join(", ")+(k.note&&!k.edited?" ("+k.note+")":"") }
+  return p.join(", ")+(k.names.length?" ("+k.names.join(", ")+")":"")+(k.note&&!k.edited?" ("+k.note+")":"") }
 // Hebrew grammar for "the child": singular or plural, masculine or feminine, from the kids data (default stays masculine singular)
 function kidsForm(c){ const k=kidsOf(c), b=k.b||0, g=k.g||0; let n=k.n; if(n==null&&(b||g)) n=b+g;
   if(n==null||n<1) return null;
-  if(n===1) return {p:0,f:(g===1&&b===0)?1:0};
+  if(n===1) return {p:0,f:(g===1&&b===0)?1:0,known:g===1||b===1};
   return {p:1,f:(g>=n&&b===0)?1:0} }
 const KB="(?<![\\u05D0-\\u05EA])", KE="(?![\\u05D0-\\u05EA])";
 const KW={child:["הילד","הילדה","הילדים","הילדות"],is:["הוא","היא","הם","הן"],hero:["הגיבור","הגיבורה","הגיבורים","הגיבורות"],ahero:["כגיבור","כגיבורה","כגיבורים","כגיבורות"],to:["לילד","לילדה","לילדים","לילדות"],poss:["שלו","שלה","שלהם","שלהן"]};
-function kidsG(s,c){ const f=kidsForm(c); if(!f||(!f.p&&!f.f)) return s; const i=f.p*2+f.f, w=k=>KW[k][i];
-  return s.replace(new RegExp(KB+"הילד הוא הגיבור"+KE,"g"),w("child")+" "+w("is")+" "+w("hero"))
-   .replace(new RegExp("עם הילד כגיבור"+KE,"g"),"עם "+w("child")+" "+w("ahero"))
-   .replace(new RegExp("(הפנים|השם|הספר|התמונה) שלו"+KE,"g"),(m,x)=>x+" "+w("poss"))
-   .replace(new RegExp(KB+"הילד"+KE,"g"),w("child"))
-   .replace(new RegExp(KB+"לילד"+KE,"g"),w("to")) }
-function kidsGeneric(s,c){ const f=kidsForm(c); if(!f||(!f.p&&!f.f)) return s; const i=f.p*2+f.f, w=k=>KW[k][i];
-  return s.replace(new RegExp(KB+w("child")+" "+w("is")+" "+w("hero")+KE,"g"),"הילד הוא הגיבור")
+const namesJoin=a=>a.length<2?(a[0]||""):a.length===2?a[0]+" ו"+a[1]:a.slice(0,-1).join(", ")+" ו"+a[a.length-1];
+function kidsG(s,c){ const f=kidsForm(c), names=kidsOf(c).names; if(!f&&!names.length) return s;
+  const F=f||{p:0,f:0,known:false}; if(!names.length&&!F.p&&!F.f) return s;
+  const i=F.p*2+F.f, w=k=>KW[k][i], N=names.length?namesJoin(names):"";
+  const poss=N?((F.p||F.known)?w("poss"):""):w("poss");
+  let r=String(s).replace(new RegExp(KB+"הילד הוא הגיבור"+KE,"g"),"\u0001H").replace(new RegExp("עם הילד כגיבור"+KE,"g"),"\u0001A")
+   .replace(new RegExp("(הפנים|השם|הספר|התמונה) שלו"+KE,"g"),(m,x)=>x+(poss?" "+poss:""));
+  r=N?r.replace(new RegExp("של הילד"+KE,"g"),"של "+N).replace(new RegExp(KB+"לילד"+KE,"g"),"ל"+N).replace(new RegExp(KB+"הילד"+KE,"g"),N)
+     :r.replace(new RegExp(KB+"הילד"+KE,"g"),w("child")).replace(new RegExp(KB+"לילד"+KE,"g"),w("to"));
+  return r.replace(/\u0001H/g,w("child")+" "+w("is")+" "+w("hero")).replace(/\u0001A/g,"עם "+w("child")+" "+w("ahero")) }
+function kidsGeneric(s,c){ const f=kidsForm(c), names=kidsOf(c).names; let r=String(s);
+  if(names.length){ const N=namesJoin(names); r=r.split("של "+N).join("של הילד").split("ל"+N).join("לילד").split(N).join("הילד") }
+  if(!f||(!f.p&&!f.f)) return r; const i=f.p*2+f.f, w=k=>KW[k][i];
+  return r.replace(new RegExp(KB+w("child")+" "+w("is")+" "+w("hero")+KE,"g"),"הילד הוא הגיבור")
    .replace(new RegExp("עם "+w("child")+" "+w("ahero")+KE,"g"),"עם הילד כגיבור")
    .replace(new RegExp("(הפנים|השם|הספר|התמונה) "+w("poss")+KE,"g"),(m,x)=>x+" שלו")
    .replace(new RegExp(KB+w("child")+KE,"g"),"הילד")
    .replace(new RegExp(KB+w("to")+KE,"g"),"לילד") }
-const kidsFormLabel=c=>{ const f=kidsForm(c); if(!f) return "הילד / שלו (default, kids not known)"; const i=f.p*2+f.f; return KW.child[i]+" / "+KW.poss[i]+(i===0?" (default)":"") };
+const kidsFormLabel=c=>{ const f=kidsForm(c), names=kidsOf(c).names; if(names.length){ const poss=(f&&(f.p||f.known))?KW.poss[f.p*2+f.f]:"no possessive"; return namesJoin(names)+" / "+poss }
+  if(!f) return "הילד / שלו (default, kids not known)"; const i=f.p*2+f.f; return KW.child[i]+" / "+KW.poss[i]+(i===0?" (default)":"") };
 // Hebrew definite article (ה) rules. ל, ב and כ absorb the article (לילד, בגן, לתוכן); מ, עם, של, על and את keep it.
 const HEROOT=new Set(["הומור","הצעה","הצצה","הפעלה","הפעלות","התפתחות","התנהגות","הורות","הכנה","הסבר","הרגל","הוראה","הנקה","הרגעה","הצלחה","הנאה","היגיון","היסטוריה","הרצאה","הדרכה","הזדמנות","הערכה","היכרות","הפתעה","התמדה","התאמה","הגשמה","הבנה","הקשבה","הגדרה","הפסקה","הפרדה","הפעלה"]);
 const dropH=v=>{ v=String(v||""); if(v[0]!=="ה") return v; const w=v.split(/[\s,.:;!?]/)[0]; return HEROOT.has(w)?v:v.slice(1) };
@@ -828,19 +839,22 @@ const signer=()=>SET.sender||"ירין";
 const who=c=>get(c.h).name||c.n;
 const lineOf=c=>get(c.h).line||c.l;
 const DEF={
- dm:"היי {name} 😁\nעברתי על העמוד, אהבתי את {line}.\nאני {sender}, מנהל הסושיאל של @lumebookai. אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור, לרגעים כמו {moment}.\nיש לי הצעה לתוכנית השגרירים שלנו: ספר מתנה לילד, קוד הנחה לקהל שלך, ועמלה על כל מכירה דרכו. מתאים שאשלח פרטים?",
+ dm:"היי {name} 😁\nעברתי על העמוד, אהבתי את {line}.\nאני {sender}, מנהל הסושיאל של @lumebookai. אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור, לרגעים כמו {moment}.\nיש לי הצעה לתוכנית השגרירים שלנו: ספר מתנה לילד, קישור אישי עם הנחה לקהל שלך, ועמלה על כל מכירה דרכו. מתאים שאשלח פרטים?",
  es:"שיתוף פעולה עם LumeBook: ספר ילדים עם הילד כגיבור",
- eb:"היי {name},\n\nעברתי על העמוד שלך ואהבתי את {line}.\n\nאנחנו ב-LumeBook (@lumebookai) יוצרים ספרי ילדים בהתאמה אישית: הילד הוא הגיבור, עם התמונה והשם שלו, לרגעים כמו {moment}.\n\nההצעה לתוכנית השגרירים: ספר במתנה לילד, וקוד אישי עם 20% מכל מכירה שמתבצעת דרכו. החלוקה בידיים שלך: הכול לרווח שלך, או חלק כהנחה לקהל (למשל 10% לך ו-10% הנחה להם). בלי חובה לתוכן קבוע.\n\nאשמח לשלוח פרטים ודוגמה, או לתאם שיחה קצרה. מתאים?\n\n{sender}\nLumeBook",
+ eb:"היי {name},\n\nעברתי על העמוד שלך ואהבתי את {line}.\n\nאנחנו ב-LumeBook (@lumebookai) יוצרים ספרי ילדים בהתאמה אישית: הילד הוא הגיבור, עם התמונה והשם שלו, לרגעים כמו {moment}.\n\nההצעה לתוכנית השגרירים: ספר במתנה לילד, וקישור אישי עם 20% מכל מכירה שמתבצעת דרכו. החלוקה בידיים שלך: הכול לרווח שלך, או חלק כהנחה לקהל (למשל 10% לך ו-10% הנחה להם). בלי חובה לתוכן קבוע.\n\nאשמח לשלוח פרטים ודוגמה, או לתאם שיחה קצרה. מתאים?\n\n{sender}\nLumeBook",
  fu:"היי {name}, רק מוודא שההודעה לא הלכה לאיבוד 🙂 אם לא מתאים כרגע, הכול טוב.",
- d2:"מעולה 🙌 ככה זה עובד: ספר מתנה לילד, וקוד אישי עם 20% מכל מכירה דרכו.\nאפשר להחליט איך לחלק את ה-20%: הכול לרווח שלך, או חלק כהנחה לקהל (למשל 10% לך ו-10% הנחה להם). בלי חובה לתוכן קבוע.\nדוגמה לספר כזה: {preview}. אשמח לשמוע מה דעתך.",
- dm_b:"היי {name} 😁\nעברתי על העמוד שלך, אהבתי את {line}.\nאני {sender} מ-@lumebookai, אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור.\nמציע לך ספר במתנה, קוד הנחה לקהל ועמלה על כל מכירה דרכו, בתמורה לסרטון של הילד עם הספר. מתאים שאשלח פרטים?",
+ d2:"מעולה 🙌 ככה זה עובד: ספר מתנה לילד, וקישור אישי עם 20% מכל מכירה דרכו.\nאפשר להחליט איך לחלק את ה-20%: הכול לרווח שלך, או חלק כהנחה לקהל (למשל 10% לך ו-10% הנחה להם). בלי חובה לתוכן קבוע.\nדוגמה לספר כזה: {preview}. אשמח לשמוע מה דעתך.",
+ dm_b:"היי {name} 😁\nעברתי על העמוד שלך, אהבתי את {line}.\nאני {sender} מ-@lumebookai, אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור.\nמציע לך ספר במתנה, קישור אישי עם הנחה לקהל ועמלה על כל מכירה דרכו, בתמורה לסרטון של הילד עם הספר. מתאים שאשלח פרטים?",
  es_b:"ספר במתנה ו-20% מכל מכירה: שיתוף פעולה עם LumeBook",
- eb_b:"היי {name},\n\nעברתי על העמוד שלך ואהבתי את {line}.\n\nאני {sender} מ-LumeBook, אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור.\n\nההצעה: ספר במתנה, וקוד אישי עם 20% מכל מכירה דרכו. החלוקה בין הרווח שלך להנחה לקהל בידיים שלך. בתמורה אנחנו מבקשים סרטון של הילד עם הספר.\n\nמתאים שאשלח פרטים?\n\n{sender}\nLumeBook",
+ eb_b:"היי {name},\n\nעברתי על העמוד שלך ואהבתי את {line}.\n\nאני {sender} מ-LumeBook, אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור.\n\nההצעה: ספר במתנה, וקישור אישי עם 20% מכל מכירה דרכו. החלוקה בין הרווח שלך להנחה לקהל בידיים שלך. בתמורה אנחנו מבקשים סרטון של הילד עם הספר.\n\nמתאים שאשלח פרטים?\n\n{sender}\nLumeBook",
  fu_b:"היי {name}, רק מזכיר את ההצעה לספר במתנה. אם זה לא מתאים, הכול טוב 🙂",
- d2_b:"מעולה 🙌 בקצרה: ספר במתנה, קוד אישי ו-20% מכל מכירה דרכו. החלוקה בין הרווח שלך להנחה לקהל בידיים שלך, ומבקשים סרטון של הילד עם הספר.\nדוגמה לספר: {preview}. מה דעתך?",
- of_b:"הצעה לשיתוף פעולה עם LumeBook: ספר במתנה ו-20% מכל מכירה\n\nהיי {name},\n\nתודה על העניין! ההצעה בקצרה:\n\n• ספר ילדים אישי במתנה, עם השם והפנים של הילד\n• קוד אישי לקהל שלך\n• 20% מכל מכירה דרכו, והחלוקה בין הרווח שלך להנחה לקהל בידיים שלך\n• בתמורה, סרטון (רילס או טיקטוק) של הילד עם הספר, עם תיוג של \u200E@lumebookai\n\nכתבו לי מייל בחזרה עם מספר הטלפון ונתקדם להכנת הספר.\n\n{sender}\nLumeBook"};
+ d2_b:"מעולה 🙌 בקצרה: ספר במתנה, קישור אישי ו-20% מכל מכירה דרכו. החלוקה בין הרווח שלך להנחה לקהל בידיים שלך, ומבקשים סרטון של הילד עם הספר.\nדוגמה לספר: {preview}. מה דעתך?",
+ of_b:"הצעה לשיתוף פעולה עם LumeBook: ספר במתנה ו-20% מכל מכירה\n\nהיי {name},\n\nתודה על העניין! ההצעה בקצרה:\n\n• ספר ילדים אישי במתנה, עם השם והפנים של הילד\n• קישור אישי עם הנחה לקהל שלך\n• 20% מכל מכירה דרכו, והחלוקה בין הרווח שלך להנחה לקהל בידיים שלך\n• בתמורה, סרטון (רילס או טיקטוק) של הילד עם הספר, עם תיוג של \u200E@lumebookai\n\nכתבו לי מייל בחזרה עם מספר הטלפון ונתקדם להכנת הספר.\n\n{sender}\nLumeBook"};
 const tpl=k=>(SET.tpl&&typeof SET.tpl[k]==="string")?SET.tpl[k]:DEF[k];
-const fill=(s,c)=>hebArt(kidsG(brand(s),c).replace(/([\u05DC\u05D1\u05DB])-?\{line\}/g,(m,p)=>p+dropH(lineOf(c))).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]"));
+// A list of examples after {moment} must not repeat what {moment} already says (כמו {moment}, אח חדש, כניסה לגן ועוד)
+const MOMDUP=/\{moment\}((?:, [^,.\n!?]+)+?) ועוד/g;
+const momDedupe=(ex,c)=>{ const have=String(c.m||"").split(/\s*[\/,]\s*/).map(x=>x.trim()).filter(Boolean); const keep=ex.split(", ").filter(Boolean).filter(x=>!have.includes(x.trim())); return "{moment}"+keep.map(x=>", "+x).join("")+" ועוד" };
+const fill=(s,c)=>heTidy(hebArt(kidsG(brand(s),c).replace(MOMDUP,(m,ex)=>momDedupe(ex,c)).replace(/([\u05DC\u05D1\u05DB])-?\{line\}/g,(m,p)=>p+dropH(lineOf(c))).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]")));
 // Offer email: the user's own wording, kept verbatim (no brand rewrite); only {name} is filled in
 const OFFER="\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d4\u05e9\u05d2\u05e8\u05d9\u05e8\u05d9\u05dd \u05e9\u05dc \u05dc\u05d5\u05de\u05d1\u05d5\u05e7: \u05e1\u05e4\u05e8 \u05d1\u05de\u05ea\u05e0\u05d4 + \u05e2\u05d3 20% \u05de\u05db\u05dc \u05de\u05db\u05d9\u05e8\u05d4\n\n\u05d4\u05d9\u05d9 {name},\n\n\u05d7\u05e9\u05d1\u05e0\u05d5 \u05e2\u05dc \u05e9\u05d9\u05ea\u05d5\u05e3 \u05d4\u05e4\u05e2\u05d5\u05dc\u05d4 \u05d4\u05d6\u05d4 \u05db\u05d9 \u05d4\u05ea\u05d5\u05db\u05df \u05e9\u05dc\u05da \u05de\u05e8\u05d2\u05d9\u05e9 \u05d8\u05d1\u05e2\u05d9, \u05de\u05e9\u05e4\u05d7\u05ea\u05d9 \u05d5\u05e0\u05d2\u05d9\u05e9 , \u05d1\u05d3\u05d9\u05d5\u05e7 \u05d4\u05e1\u05d5\u05d2 \u05e9\u05d9\u05db\u05d5\u05dc \u05dc\u05d4\u05e4\u05d5\u05da \u05d0\u05ea \u05d4\u05e8\u05d2\u05e2 \u05e9\u05d1\u05d5 \u05d9\u05dc\u05d3 \u05e4\u05d5\u05d2\u05e9 \u05d0\u05ea \u05e2\u05e6\u05de\u05d5 \u05d1\u05ea\u05d5\u05da \u05e1\u05e4\u05e8 \u05dc\u05ea\u05d5\u05db\u05df \u05e9\u05e7\u05d4\u05dc \u05d1\u05d0\u05de\u05ea \u05de\u05ea\u05d7\u05d1\u05e8 \u05d0\u05dc\u05d9\u05d5\n\n\u05d4\u05d4\u05e6\u05e2\u05d4 \u05e9\u05dc\u05e0\u05d5 \u05e4\u05e9\u05d5\u05d8\u05d4:\n\n\u05d0\u05e0\u05d7\u05e0\u05d5 \u05d9\u05d5\u05e6\u05e8\u05d9\u05dd \u05dc\u05d9\u05dc\u05d3 \u05e1\u05e4\u05e8 \u05de\u05d5\u05d3\u05e4\u05e1 \u05d5\u05d0\u05d9\u05e9\u05d9 \u05d1\u05de\u05ea\u05e0\u05d4, \u05e2\u05dd \u05d4\u05e9\u05dd \u05d5\u05d4\u05e4\u05e0\u05d9\u05dd \u05e9\u05dc\u05d5. \u05dc\u05d0\u05d7\u05e8 \u05e7\u05d1\u05dc\u05ea \u05d4\u05e1\u05e4\u05e8, \u05d9\u05d5\u05e6\u05e8\u05d9\u05dd \u05e8\u05d9\u05dc\u05e1 \u05d0\u05d5 \u05d8\u05d9\u05e7\u05d8\u05d5\u05e7 \u05e9\u05de\u05e6\u05d9\u05d2 \u05d0\u05ea \u05d7\u05d5\u05d5\u05d9\u05d9\u05ea \u05d4\u05e7\u05e8\u05d9\u05d0\u05d4 \u05d0\u05d5 \u05d0\u05ea \u05e8\u05d2\u05e2 \u05d4\u05d7\u05e9\u05d9\u05e4\u05d4 \u05dc\u05e1\u05e4\u05e8\n\n\u05d5\u05d4\u05d7\u05dc\u05e7 \u05d4\u05db\u05d9 \u05d8\u05d5\u05d1, \u05d6\u05d4 \u05dc\u05d0 \u05de\u05e1\u05ea\u05d9\u05d9\u05dd \u05d1\u05f4\u05e1\u05e4\u05e8 \u05ea\u05de\u05d5\u05e8\u05ea \u05e4\u05d5\u05e1\u05d8\u05f4\n\n\u05d0\u05ea\u05dd \u05de\u05e7\u05d1\u05dc\u05d9\u05dd \u05d2\u05dd:\n\n\u2022 \u05e2\u05d3 20% \u05e2\u05de\u05dc\u05d4 \u05e2\u05dc \u05db\u05dc \u05d4\u05d6\u05de\u05e0\u05d4 \u05e9\u05de\u05ea\u05d1\u05e6\u05e2\u05ea \u05d3\u05e8\u05db\u05db\u05dd\n\u2022 \u05d4\u05d8\u05d1\u05d4 \u05d9\u05d9\u05d7\u05d5\u05d3\u05d9\u05ea \u05dc\u05e7\u05d4\u05dc \u05e9\u05dc\u05db\u05dd\n\u2022 \u05d0\u05e4\u05e9\u05e8\u05d5\u05ea \u05dc\u05d4\u05de\u05e9\u05d9\u05da \u05dc\u05d4\u05e8\u05d5\u05d5\u05d9\u05d7 \u05de\u05db\u05dc \u05e8\u05db\u05d9\u05e9\u05d4 \u05e9\u05de\u05d2\u05d9\u05e2\u05d4 \u05de\u05d4\u05ea\u05d5\u05db\u05df \u05e9\u05dc\u05db\u05dd\n\u2022 \u05e9\u05d9\u05ea\u05d5\u05e3 \u05d4\u05ea\u05d5\u05db\u05df \u05d1\u05e2\u05de\u05d5\u05d3 \u05e9\u05dc \u200e@lumebookai, \u05e2\u05dd \u05e7\u05e8\u05d3\u05d9\u05d8 \u05d5\u05ea\u05d9\u05d5\u05d2 \u05de\u05dc\u05d0\u05d9\u05dd\n\n\u05db\u05dc\u05d5\u05de\u05e8, \u05e1\u05e8\u05d8\u05d5\u05df \u05d0\u05d7\u05d3 \u05d9\u05db\u05d5\u05dc \u05d2\u05dd \u05dc\u05d9\u05e6\u05d5\u05e8 \u05e8\u05d2\u05e2 \u05de\u05e9\u05e4\u05d7\u05ea\u05d9 \u05de\u05e8\u05d2\u05e9, \u05d2\u05dd \u05dc\u05ea\u05ea \u05e2\u05e8\u05da \u05dc\u05e7\u05d4\u05dc \u05e9\u05dc\u05db\u05dd \u05d5\u05d2\u05dd \u05dc\u05d4\u05e4\u05d5\u05da \u05dc\u05de\u05e7\u05d5\u05e8 \u05d4\u05db\u05e0\u05e1\u05d4.\n\n\u05d0\u05d9\u05da \u05d6\u05d4 \u05e2\u05d5\u05d1\u05d3?\n\n1. \u05d0\u05e0\u05d7\u05e0\u05d5 \u05de\u05ea\u05d0\u05de\u05d9\u05dd \u05d0\u05d9\u05ea\u05db\u05dd \u05d0\u05ea \u05e9\u05dc\u05d9\u05d7\u05ea \u05d4\u05e1\u05e4\u05e8 \u05d1\u05de\u05ea\u05e0\u05d4\n2. \u05dc\u05d0\u05d7\u05e8 \u05e7\u05d1\u05dc\u05ea \u05d4\u05e1\u05e4\u05e8, \u05de\u05e2\u05dc\u05d9\u05dd \u05e8\u05d9\u05dc\u05e1 \u05d0\u05d5 \u05d8\u05d9\u05e7\u05d8\u05d5\u05e7 \u05e2\u05dd \u05d4\u05e7\u05d9\u05e9\u05d5\u05e8 \u05d5\u05e2\u05dd \u05ea\u05d9\u05d5\u05d2 \u05e9\u05dc \u200e@lumebookai\n3. \u05de\u05e7\u05d1\u05dc\u05d9\u05dd \u05e2\u05d3 20% \u05de\u05db\u05dc \u05d4\u05d6\u05de\u05e0\u05d4 \u05e9\u05de\u05ea\u05d1\u05e6\u05e2\u05ea \u05d3\u05e8\u05da \u05d4\u05e7\u05d9\u05e9\u05d5\u05e8\n\n\u05db\u05ea\u05d1\u05d5 \u05dc\u05d9 \u05de\u05d9\u05d9\u05dc \u05d1\u05d7\u05d6\u05e8\u05d4 \u05e2\u05dd \u05de\u05e1 \u05d4\u05d8\u05dc\u05e4\u05d5\u05df \u05e9\u05dc\u05db\u05dd \u05d5\u05e0\u05ea\u05e7\u05d3\u05dd \u05dc\u05d4\u05db\u05e0\u05ea \u05d4\u05e1\u05e4\u05e8!\n\n\u05db\u05d1\u05e8 \u05de\u05d7\u05db\u05d9\u05dd \u05dc\u05e8\u05d0\u05d5\u05ea \u05d0\u05ea \u05d4\u05e8\u05d2\u05e2 \u05e9\u05dc \u05d4\u05d9\u05dc\u05d3 \u05e2\u05dd \u05d4\u05e1\u05e4\u05e8 \u05e9\u05dc\u05d5!\n\u05d9\u05e8\u05d9\u05df\n\u200e@lumebookai";
 const STY_NAME={1:"Warm",2:"Short"};
@@ -910,13 +924,15 @@ function card(c){
    +'<div class="mtabs" role="group" aria-label="Message type"><button type="button" class="btn" data-act="tab" data-t="dm" aria-pressed="true">First message</button>'+(c.email?'<button type="button" class="btn" data-act="tab" data-t="em" aria-pressed="false">Email</button><button type="button" class="btn" data-act="tab" data-t="of" aria-pressed="false">Offer email</button>':'')+'<button type="button" class="btn" data-act="tab" data-t="fu" aria-pressed="false">Follow-up</button><button type="button" class="btn" data-act="tab" data-t="d2" aria-pressed="false">After “yes”</button></div>'
    +'<textarea class="msgbox" data-msgbox data-t="dm" dir="rtl" rows="9" aria-label="Message text, editable">'+esc(msgOf(c,"dm"))+'</textarea>'
    +'<div class="msgbar">'+learnBtn(c)+'<button type="button" class="btn" data-act="copybox">Copy this text</button><button type="button" class="btn" data-act="resetmsg"'+(edited(c,"dm")?'':' hidden')+'>Reset to template</button><span class="dchip" data-edited'+(edited(c,"dm")?'':' hidden')+'>'+chipTxt(c,"dm")+'</span></div>'
+   +'<div class="hechk" data-hecheck>'+heBoxHtml(msgOf(c,"dm"),c,"dm")+'</div>'
    +'<p class="note" style="margin:6px 0 0">Edit the text above, then copy it. Your edits are saved for this creator. “Save and learn my voice” also rewrites this creator\'s other messages to match your edit, and adjusts the suggested messages for everyone else to sound more like you. On screen @lumebookai may look reversed; the copied text is correct.</p>'
    +'<div class="ogrid"><label>Name in greeting<input data-f="name" dir="rtl" value="'+esc(o.name||"")+'" placeholder="'+esc(c.n)+'"></label>'
    +'<label>Personal line (replaces “אהבתי את …”)<textarea data-f="line" dir="rtl" rows="2" placeholder="'+esc(c.l)+'">'+esc(o.line||"")+'</textarea></label>'
    +'<label>Kids in total<input type="number" min="0" inputmode="numeric" data-f="kn" dir="ltr" value="'+esc(o.kn??"")+'" placeholder="'+esc(c.kids&&c.kids.n!=null?c.kids.n:"")+'"></label>'
+   +'<label>Kids\' names, separated by commas<input data-f="kname" dir="rtl" value="'+esc(o.kname||"")+'" placeholder="'+esc((c.kids&&c.kids.names||[]).join(", "))+'"></label>'
    +'<label>Boys<input type="number" min="0" inputmode="numeric" data-f="kb" dir="ltr" value="'+esc(o.kb??"")+'" placeholder="'+esc(c.kids&&c.kids.b!=null?c.kids.b:"")+'"></label>'
    +'<label>Girls<input type="number" min="0" inputmode="numeric" data-f="kg" dir="ltr" value="'+esc(o.kg??"")+'" placeholder="'+esc(c.kids&&c.kids.g!=null?c.kids.g:"")+'"></label>'
-   +'<p class="note" style="grid-column:1/-1;margin:-.25rem 0 0">'+(kidsOf(c).edited?'Kids as you entered them.':c.kids&&c.kids.src?'Kids from their public bio ('+esc(c.kids.src)+'). Type here to correct it.':'Not checked yet. Add what their profile shows publicly, and leave it empty if they do not share it.')+' Messages say: <bdi dir="rtl">'+esc(kidsFormLabel(c))+'</bdi>.</p>'
+   +'<p class="note" style="grid-column:1/-1;margin:-.25rem 0 0">'+(kidsOf(c).edited?'Kids as you entered them.':c.kids&&c.kids.src?'Kids from their public bio ('+esc(c.kids.src)+'). Type here to correct it.':'Not checked yet. Add what their profile shows publicly (counts, genders, names), and leave it empty if they do not share it.')+' Messages say: <bdi dir="rtl">'+esc(kidsFormLabel(c))+'</bdi>.</p>'
    +'<label>Personal link<input data-f="code" dir="ltr" value="'+esc(o.code||"")+'" placeholder="https://…"></label>'
    +'<label>Sent on<input type="date" data-f="on" value="'+esc(o.on||"")+'"></label>'
    +'<label style="grid-column:1/-1">Notes<textarea data-f="note" rows="2" placeholder="Reply, deal, address for the book…">'+esc(o.note||"")+'</textarea></label></div>'
@@ -980,6 +996,7 @@ document.getElementById("olist").addEventListener("click",e=>{
   else if(act==="fu") copyText(b,msgOf(c,"fu"));
   else if(act==="d2") copyText(b,msgOf(c,"d2"));
   else if(act==="of") copyText(b,msgOf(c,"of"));
+  else if(act==="hefix"){ const ta=card.querySelector("[data-msgbox]"), tt=ta.dataset.t, f=heFix(ta.value,{skipBrand:tt==="of"&&sty(c)===1}); if(f!==ta.value){ ta.value=f; ta.dispatchEvent(new Event("input",{bubbles:true})); fx(ta,"is-flash"); toast("Hebrew fixes applied. You can still edit the text.") } }
   else if(act==="copybox") copyText(b,card.querySelector("[data-msgbox]").value);
   else if(act==="learn") learn(c,card.querySelector("[data-msgbox]").dataset.t,b);
   else if(act==="resetmsg"){ const ta=card.querySelector("[data-msgbox]"); patch(c.h,{[xk(c,ta.dataset.t)]:"",[axk(c,ta.dataset.t)]:0}); ta.value=defMsg(c,ta.dataset.t); syncBar(card,c); fx(ta,"is-flash"); toast("Back to the suggested message.") }
@@ -998,12 +1015,13 @@ document.getElementById("olist").addEventListener("change",e=>{
     if(s==="due"){ p.dat=Date.now(); p.fu=""; if(!o0.on){ p.on=today(); p.sat=Date.now() } }
     if(s!=="new"&&!o0.ssent) p.ssent=sty(byH[h]);
     patch(h,p); render(); flashCard(h); toast("Status saved: "+stLabel(s)+"."+moved(h)) }
-  else if(f==="kn"||f==="kb"||f==="kg"){ patch(h,{[f]:e.target.value}); render() }
+  else if(f==="kn"||f==="kb"||f==="kg"||f==="kname"){ patch(h,{[f]:e.target.value}); render() }
   else if(f==="on"){ patch(h,{on:e.target.value,sat:""}); render(); flashCard(h); toast("Sent date saved.") }
 });
 function syncBar(card,c){
   const ta=card.querySelector("[data-msgbox]"), on=edited(c,ta.dataset.t), chip=card.querySelector("[data-edited]");
   chip.hidden=!on; chip.textContent=chipTxt(c,ta.dataset.t); card.querySelector('[data-act="resetmsg"]').hidden=!on;
+  const hb=card.querySelector("[data-hecheck]"); if(hb) hb.innerHTML=heBoxHtml(ta.value,c,ta.dataset.t);
 }
 function setTab(card,c,t){
   const b=card.querySelector('[data-act="tab"][data-t="'+t+'"]'); if(!b) return;
@@ -1049,6 +1067,35 @@ const NEED={dm:["{name}","{line}","{moment}","{sender}"],eb:["{name}","{line}","
 const BRAND=/(^|[^\u0590-\u05FF])([\u05D5\u05D1\u05DC\u05DE\u05D4\u05E9\u05DB]{0,2})\u05DC\u05D5\u05DE\u05D9?\u05D1\u05D5\u05E7/g;
 const brand=s=>String(s).replace(BRAND,(m,a,pre)=>a+(pre?pre+"-":"")+"LumeBook");
 const cleanTxt=s=>brand(String(s).replace(/\s*[\u2013\u2014]\s*/g,", "));
+
+// ---------- Hebrew check (see src/hebrew-rules.md) ----------
+const HP="\\u05D0-\\u05EA";
+const RX={
+  spBefore:new RegExp("([" + HP + "A-Za-z0-9%)]) +([,.;:!?])(?=\\s|$)","g"),
+  spAfter:new RegExp("([,;:!?])(?=[" + HP + "])","g"),
+  spaces:/[^\S\n]{2,}|[^\S\n]+$/gm,
+  dash:/[\u2013\u2014]/g,
+  prefLatin:new RegExp("([" + HP + "])(?=[A-Za-z]{2,})","g"),
+  pct:/(\d) +%/g
+};
+const heTidy=s=>String(s).replace(RX.spBefore,"$1$2").replace(RX.spAfter,"$1 ").replace(RX.spBefore,"$1$2").replace(RX.pct,"$1%").replace(RX.prefLatin,"$1-").replace(/[^\S\n]{2,}/g," ").replace(/[^\S\n]+$/gm,"");
+function heIssues(s,o){ o=o||{}; s=String(s); const L=[], add=(msg,fix)=>L.push({msg,fix});
+  const has=(rx)=>{ rx.lastIndex=0; const r=rx.test(s); rx.lastIndex=0; return r };
+  if(has(RX.spBefore)) add("space before punctuation, e.g. ונגיש ,",true);
+  if(has(RX.spAfter)) add("no space after punctuation",true);
+  if(has(RX.spaces)) add("double or trailing spaces",true);
+  if(has(RX.pct)) add("space before %",true);
+  if(has(RX.dash)) add("long dash",true);
+  if(s.includes("קוד")) add("mentions a code: the offer is a personal link that carries the discount",true);
+  if(!o.skipBrand&&new RegExp(BRAND.source).test(s)) add("brand in Hebrew letters, should be LumeBook",true);
+  if(has(RX.prefLatin)) add("prefix before Latin text needs a hyphen, e.g. ב-LumeBook",true);
+  if(hebArt(s)!==s) add("ה after ל, ב or כ, e.g. להילד should be לילד",true);
+  const cnt=(c)=>(s.match(new RegExp("\\"+c,"g"))||[]).length;
+  if(cnt("(")!==cnt(")")) add("brackets not closed",false);
+  return L }
+const codeFix=s=>String(s).replace(/קוד הנחה לקהל שלך/g,"קישור אישי עם הנחה לקהל שלך").replace(/קוד אישי לקהל שלך/g,"קישור אישי עם הנחה לקהל שלך").replace(/קוד הנחה לקהל/g,"קישור אישי עם הנחה לקהל").replace(/קוד אישי/g,"קישור אישי");
+const heFix=(s,o)=>{ o=o||{}; let x=heTidy(codeFix(s).replace(RX.dash,", ").replace(/,\s+,/g,",")); if(!o.skipBrand) x=brand(x); return hebArt(x) };
+const heBoxHtml=(s,c,t)=>{ const L=heIssues(s,{skipBrand:t==="of"&&sty(c)===1}); if(!L.length) return ""; return '<b>Hebrew check:</b> '+L.map(x=>esc(x.msg)).join(" · ")+(L.some(x=>x.fix)?' <button type="button" class="btn" data-act="hefix">Fix</button>':'') };
 let vnoteT, learning=false, vSaveT;
 function vnote(msg,undo){
   const n=document.getElementById("vnote"); clearTimeout(vnoteT);
@@ -1069,7 +1116,7 @@ function undoLearn(){
   VOICE.prev=null; writeVoice(); fillSettings(); fillVoice(); render(); if(pv.c&&pv.c.h) flashCard(pv.c.h); vnote("Last learning undone. The messages are back to how they were."); toast("Undone. The messages are back to how they were.");
 }
 const TNAME={dm:"first Instagram message",em:"email (subject line, blank line, body)",fu:"follow-up message",d2:"message after the creator says yes (terms)",of:"offer email (subject line, blank line, body) with the full offer"};
-const RULES="Never use em dashes or en dashes. Write the brand name only in Latin letters as LumeBook (capital L and B), never in Hebrew letters; after a Hebrew prefix letter add a hyphen, for example ב-LumeBook. Keep the offer facts unchanged (free book for the child, personal discount code for the audience, 20% of each sale that the creator can split between their own earnings and an audience discount) unless the owner's edit changed them. Do not invent claims, numbers or promises. Keep the wording about the child (the child, the girls, the book of theirs) in the same singular or plural and masculine or feminine form as in the text you are given. Hebrew grammar: use the definite article ה only for a specific known noun (the child, the book, the page), never for general statements (ספרי ילדים, ילדים אוהבים). The prepositions ל, ב and כ absorb the article (לילד, בגן, לתוכן, never להילד or בהגן); מ, עם, של, על and את keep it (מהגן, עם הספר, של הילד). In a construct chain only the last noun takes it (מנהל הסושיאל, ספר הילדים, never המנהל הסושיאל). Use את only before a definite object. Adjectives agree with their noun and take the article too (הילד הקטן). Names and LumeBook never take an article. If a template puts ל, ב or כ directly before {line}, keep it attached with no hyphen; the app removes the article. Write Hebrew.";
+const RULES="Never use em dashes or en dashes. Write the brand name only in Latin letters as LumeBook (capital L and B), never in Hebrew letters; after a Hebrew prefix letter add a hyphen, for example ב-LumeBook. Keep the offer facts unchanged (free book for the child, personal link that carries the audience discount. There is no discount code, never write קוד, 20% of each sale that the creator can split between their own earnings and an audience discount) unless the owner's edit changed them. Do not invent claims, numbers or promises. Never repeat an example that {moment} already contains (for example after כמו {moment} do not list the same moments again). Keep the wording about the child (the child, the girls, the book of theirs) in the same singular or plural and masculine or feminine form as in the text you are given. Hebrew grammar: use the definite article ה only for a specific known noun (the child, the book, the page), never for general statements (ספרי ילדים, ילדים אוהבים). The prepositions ל, ב and כ absorb the article (לילד, בגן, לתוכן, never להילד or בהגן); מ, עם, של, על and את keep it (מהגן, עם הספר, של הילד). In a construct chain only the last noun takes it (מנהל הסושיאל, ספר הילדים, never המנהל הסושיאל). Use את only before a definite object. Adjectives agree with their noun and take the article too (הילד הקטן). Names and LumeBook never take an article. If a template puts ל, ב or כ directly before {line}, keep it attached with no hyphen; the app removes the article. Write Hebrew.";
 function adaptCreator(sample,c,t,before,after,targets,S){
   const base={}; targets.forEach(k=>base[k]=defMsg(c,k));
   const input="The owner of a small brand (LumeBook) is writing outreach messages to one Instagram creator, @"+c.h+". They just edited the "+TNAME[t]+" for this creator.\n\n"
