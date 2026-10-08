@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+"""Build the static (Vercel) copy of the Lumebook dashboard.
+
+Embeds dashboard/out/snapshot.json plus the artifact database exports
+(dashboard/out/db/history/*.json, dashboard/out/db/tracker/state.json, written by
+ArtifactData list with out_dir) into dashboard/lumebook-dashboard.html, which then
+runs read-only with no live connections.
+
+Output: dashboard/site/lumebook-dashboard/index.html (deploy that folder with
+`npx vercel deploy --prod --yes`).
+"""
+import glob, json, os, shutil
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out")
+SITE = os.path.join(HERE, "site", "lumebook-dashboard")
+
+
+def load(p, default=None):
+    try:
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return default
+
+
+def main():
+    snap = load(os.path.join(OUT, "snapshot.json"))
+    if not snap:
+        raise SystemExit("no dashboard/out/snapshot.json; run refresh.py first")
+    history = [h for h in (load(p) for p in sorted(glob.glob(os.path.join(OUT, "db", "history", "*.json")))) if h]
+    today = load(os.path.join(OUT, "history.json"))
+    if today and not any(h.get("date") == today.get("date") for h in history):
+        history.append(today)
+    history.sort(key=lambda h: h.get("date", ""))
+    tracker = load(os.path.join(OUT, "db", "tracker", "state.json"), {})
+
+    page = open(os.path.join(HERE, "lumebook-dashboard.html"), encoding="utf-8").read()
+    head, body = page.split('<div class="app"', 1)
+    data = json.dumps({"snap": snap, "history": history, "tracker": tracker}, ensure_ascii=False).replace("</", "<\\/")
+    doc = (
+        '<!doctype html><html lang="he"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
+        '<meta name="robots" content="noindex, nofollow">'
+        + head + f"<script>window.__DASH__={data};</script></head><body>"
+        + '<div class="app"' + body + "</body></html>"
+    )
+    os.makedirs(SITE, exist_ok=True)
+    with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as f:
+        f.write(doc)
+    shutil.copytree(os.path.join(HERE, "img"), os.path.join(SITE, "img"), dirs_exist_ok=True)
+    with open(os.path.join(SITE, "vercel.json"), "w", encoding="utf-8") as f:
+        json.dump({"headers": [{"source": "/(.*)", "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]}]}, f, indent=2)
+    print(f"built site/lumebook-dashboard/index.html · {len(doc)//1024} KB · {len(history)} history days · tracker {'yes' if tracker else 'empty'}")
+
+
+if __name__ == "__main__":
+    main()

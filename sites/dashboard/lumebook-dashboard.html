@@ -1,0 +1,736 @@
+<title>לוח לומיבוק</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Varela+Round&amp;display=swap">
+<style>
+/* Layout: one RTL column of operator bands. Timeline strip on top, then KPI row, attention list, October work, creators, signups, competitors, assets.
+   Tokens: lumebook.com's palette (ink, gold, cream). Light by default (user's choice); the page's own toggle sets data-lb="dark". */
+:root{
+  /* light (default) */
+  --bg-page:#FAF6EE; --bg-surface:#FFFFFF; --bg-elevated:#F3ECDF;
+  --fg-1:#1D1039; --fg-2:#5C5470; --fg-3:#857D93;
+  --border-hairline:rgba(29,16,57,.10); --border-strong:rgba(29,16,57,.17);
+  --accent:#C9954A; --accent-bar:#D2A157; --accent-ink:#8A5A14; --link:#8A5A14; --link-line:rgba(138,90,20,.35);
+  --accent-line:rgba(201,149,74,.6); --accent-glow:rgba(201,149,74,.28); --area:rgba(201,149,74,.16); --page-glow:rgba(230,183,98,.22);
+  --wash:rgba(29,16,57,.028); --track:rgba(29,16,57,.07); --grid:rgba(29,16,57,.09);
+  --danger:#C8414F; --success:#2E9E62; --warn:#C76A1F; --info:#4A68C2; --rose:#B0446B; --live-ring:rgba(46,158,98,.5);
+  --sev-crit-bg:rgba(200,65,79,.10); --sev-crit-fg:#A3303D; --sev-warn-bg:rgba(199,106,31,.12); --sev-warn-fg:#94490C;
+  --sev-info-bg:rgba(74,104,194,.10); --sev-info-fg:#34509E; --sev-ok-bg:rgba(46,158,98,.12); --sev-ok-fg:#1F7A49;
+  --tag-barter-line:rgba(201,149,74,.55); --tag-hold-line:rgba(176,68,107,.4);
+  --tick:#FFFFFF; --strike:rgba(92,84,112,.45);
+  --seq-1:#E9E2F1; --seq-2:#D2C4DF; --seq-3:#D2B596; --seq-4:#C9954A; --seq-5:#A87425; --seq-6:#76500F;
+  --font-display:"Varela Round","Heebo",system-ui,sans-serif;
+  --font-body:"Heebo","Varela Round",system-ui,sans-serif;
+  --fs-h1:1.6rem; --fs-h2:1.2rem; --fs-body:.95rem; --fs-small:.86rem; --fs-xs:.74rem; --fs-num:1.9rem;
+  --r-sm:.5rem; --r-md:.85rem; --r-lg:1.1rem; --r-pill:999px;
+  color-scheme:light;
+}
+:root[data-lb="dark"]{
+  --bg-page:#0B0518; --bg-surface:#130827; --bg-elevated:#1D1039;
+  --fg-1:#F8F0E1; --fg-2:#B8AF9E; --fg-3:#8A8376;
+  --border-hairline:rgba(230,183,98,.12); --border-strong:rgba(248,240,225,.14);
+  --accent:#E6B762; --accent-bar:#C9954A; --accent-ink:#F3D9A1; --link:#E6B762; --link-line:rgba(230,183,98,.35);
+  --accent-line:rgba(230,183,98,.55); --accent-glow:rgba(230,183,98,.45); --area:rgba(230,183,98,.12); --page-glow:rgba(105,62,170,.26);
+  --wash:rgba(248,240,225,.025); --track:rgba(248,240,225,.07); --grid:rgba(248,240,225,.08);
+  --danger:#E86B7A; --success:#6BD196; --warn:#F09A5A; --info:#9DB4F0; --rose:#E88BA8; --live-ring:rgba(107,209,150,.55);
+  --sev-crit-bg:rgba(232,107,122,.16); --sev-crit-fg:#F4A3AD; --sev-warn-bg:rgba(240,154,90,.16); --sev-warn-fg:#F6BE93;
+  --sev-info-bg:rgba(157,180,240,.14); --sev-info-fg:#C3D1F6; --sev-ok-bg:rgba(107,209,150,.14); --sev-ok-fg:#A6E6C0;
+  --tag-barter-line:rgba(230,183,98,.4); --tag-hold-line:rgba(232,139,168,.4);
+  --tick:#0B0518; --strike:rgba(184,175,158,.4);
+  --seq-1:#3B2D55; --seq-2:#5A4366; --seq-3:#86655F; --seq-4:#B38650; --seq-5:#D8A75A; --seq-6:#F3D9A1;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-page);color:var(--fg-1);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.55;
+  background-image:radial-gradient(900px 380px at 90% -10%,var(--page-glow),transparent 65%);background-repeat:no-repeat;
+  padding-inline:16px;padding-block:0 64px}
+.app{max-width:1120px;margin:0 auto}
+a{color:var(--link);text-decoration-color:var(--link-line);text-underline-offset:3px}
+a:hover{text-decoration-color:var(--link)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;margin:0;text-wrap:balance}
+.num,.tab{font-variant-numeric:tabular-nums}
+bdi.ltr{direction:ltr;unicode-bidi:isolate}
+.muted{color:var(--fg-2)} .dim{color:var(--fg-3)} .xs{font-size:var(--fs-xs)} .sm{font-size:var(--fs-small)}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-block:28px 18px}
+.brand{display:grid;gap:2px}
+.brand .wm{display:flex;align-items:center;gap:14px;font-family:var(--font-display);font-size:var(--fs-h1);color:var(--accent-ink);line-height:1.1}
+.brand .wm img{height:64px;width:auto;max-width:100%;display:block}
+.brand .wm span{padding-inline-start:14px;border-inline-start:1px solid var(--border-strong)}
+@media (max-width:620px){.brand .wm img{height:48px}}
+.brand .sub{color:var(--fg-2);font-size:var(--fs-small)}
+.fresh{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.head-side{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border-strong);border-radius:var(--r-pill);padding:3px 10px;font-size:var(--fs-xs);color:var(--fg-2);white-space:nowrap;background:var(--wash)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--fg-3);flex:none}
+.dot.ok{background:var(--success)} .dot.warn{background:var(--warn)} .dot.bad{background:var(--danger)}
+.dot.live{background:var(--success);box-shadow:0 0 0 0 var(--live-ring);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--live-ring)}70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.dot.live{animation:none}}
+
+/* quick links */
+.quick{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.quick a{display:grid;gap:2px;padding:10px 14px;border-radius:var(--r-md);background:var(--bg-elevated);border:1px solid var(--border-hairline);text-decoration:none;min-width:0;transition:border-color .15s}
+.quick a:hover{border-color:var(--accent-line)}
+.quick b{font-weight:500;color:var(--accent-ink);font-size:var(--fs-small)}
+.quick b::after{content:" ↖";color:var(--fg-3);font-weight:400}
+.quick span{font-size:var(--fs-xs);color:var(--fg-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:900px){.quick{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:620px){.quick{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* timeline */
+.timeline{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-lg);padding:16px 18px 14px}
+.tl-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:baseline;margin-bottom:12px}
+.tl-head h2{font-size:var(--fs-h2)}
+.tl-track{position:relative;height:62px;margin-inline:2px}
+.tl-phase{position:absolute;top:22px;height:14px;border-radius:4px;background:var(--seq-1)}
+.tl-phase.oct{background:var(--seq-2)} .tl-phase.grow{background:var(--seq-3)} .tl-phase.peak{background:var(--accent)} .tl-phase.wrap{background:var(--seq-2)}
+.tl-phase span{position:absolute;top:18px;inset-inline-start:0;font-size:var(--fs-xs);color:var(--fg-2);white-space:nowrap}
+.tl-mark{position:absolute;top:16px;width:2px;height:26px;background:var(--fg-2);transform:translateX(50%)}
+.tl-mark.unconf{background:repeating-linear-gradient(var(--fg-2) 0 3px,transparent 3px 6px)}
+.tl-today{position:absolute;top:0;bottom:6px;width:2px;background:var(--accent-ink);transform:translateX(50%)}
+.tl-today b{position:absolute;top:-2px;inset-inline-start:6px;font-weight:500;font-size:var(--fs-xs);color:var(--accent-ink);white-space:nowrap}
+.tl-months{display:flex;justify-content:space-between;font-size:var(--fs-xs);color:var(--fg-3);margin-top:2px}
+.dates{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:12px}
+.date{display:grid;gap:2px;padding:8px 12px;border-radius:var(--r-sm);background:var(--wash);min-width:0}
+.date .r{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.date .d{font-variant-numeric:tabular-nums;color:var(--accent-ink);white-space:nowrap}
+.date .l{font-size:var(--fs-small);min-width:0}
+.date .c{font-size:var(--fs-xs);color:var(--fg-3);white-space:nowrap}
+.date.past{opacity:.45}
+
+/* sections */
+section{margin-top:28px}
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;margin-bottom:12px}
+.sh h2{font-size:var(--fs-h2);display:flex;align-items:center;gap:10px}
+.sh h2::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+.panel{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-lg);padding:16px 18px;min-width:0}
+.grid{display:grid;gap:12px}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:900px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.g4,.g3,.g2{grid-template-columns:minmax(0,1fr)}}
+
+/* KPI tiles */
+.kpi{display:grid;gap:6px;align-content:start}
+.kpi .lab{font-size:var(--fs-xs);color:var(--fg-3);letter-spacing:.02em}
+.kpi .val{font-size:var(--fs-num);line-height:1.1;font-variant-numeric:tabular-nums;color:var(--fg-1)}
+.kpi .val small{font-size:.9rem;color:var(--fg-2);margin-inline-start:12px;unicode-bidi:isolate}
+.kpi .foot{font-size:var(--fs-xs);color:var(--fg-2)}
+.bar{height:6px;border-radius:3px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+svg.spark{width:100%;height:44px;display:block;overflow:visible}
+
+/* attention */
+.alerts{display:grid;gap:6px}
+.alert{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 12px;border-radius:var(--r-sm);background:var(--wash);border-inline-start:3px solid var(--fg-3)}
+.alert.crit{border-color:var(--danger)} .alert.warn{border-color:var(--warn)} .alert.info{border-color:var(--info)} .alert.ok{border-color:var(--success)}
+.sev{font-size:var(--fs-xs);border-radius:var(--r-pill);padding:1px 8px;white-space:nowrap}
+.crit .sev{background:var(--sev-crit-bg);color:var(--sev-crit-fg)} .warn .sev{background:var(--sev-warn-bg);color:var(--sev-warn-fg)}
+.info .sev{background:var(--sev-info-bg);color:var(--sev-info-fg)} .ok .sev{background:var(--sev-ok-bg);color:var(--sev-ok-fg)}
+.alert .t{font-size:var(--fs-small);min-width:0}
+.alert a{font-size:var(--fs-xs);white-space:nowrap}
+
+/* weeks */
+.week{display:grid;gap:8px;align-content:start}
+.week.now{border-color:var(--accent-line);box-shadow:0 14px 50px -26px var(--accent-glow)}
+.week h3{font-size:1rem;color:var(--accent-ink);display:flex;justify-content:space-between;gap:8px}
+.week h3 span{font-family:var(--font-body);font-size:var(--fs-xs);color:var(--fg-3)}
+.task{display:flex;gap:9px;align-items:flex-start;font-size:var(--fs-small);cursor:pointer;padding:3px 0}
+.task input{appearance:none;flex:none;width:17px;height:17px;margin:2px 0 0;border:1.5px solid var(--border-strong);border-radius:5px;display:grid;place-content:center;cursor:pointer;background:transparent}
+.task input::after{content:"";width:9px;height:5px;border:2px solid var(--tick);border-top:0;border-inline-end:0;transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+.task input:checked{background:var(--accent);border-color:var(--accent)}
+.task input:checked::after{opacity:1}
+.task input:disabled{cursor:default}
+.task input:checked+span{color:var(--fg-3);text-decoration:line-through;text-decoration-color:var(--strike)}
+.counters{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:12px}
+.counter{display:grid;gap:6px;padding:12px 14px;border-radius:var(--r-md);background:var(--bg-surface);border:1px solid var(--border-hairline)}
+.counter .row{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.counter .n{font-size:1.5rem;font-variant-numeric:tabular-nums}
+.counter .n small{font-size:.85rem;color:var(--fg-3)}
+.step{display:flex;gap:4px}
+.step button{width:28px;height:28px;border-radius:8px;border:1px solid var(--border-strong);background:var(--bg-elevated);color:var(--fg-1);font:inherit;cursor:pointer;line-height:1}
+.step button:hover{border-color:var(--accent)}
+.step button:disabled{opacity:.35;cursor:default}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--border-hairline);border-radius:var(--r-lg);background:var(--bg-surface)}
+table{border-collapse:collapse;width:100%;font-size:var(--fs-small)}
+th,td{text-align:right;padding:9px 12px;border-bottom:1px solid var(--border-hairline);vertical-align:middle}
+th{font-weight:400;font-size:var(--fs-xs);color:var(--fg-3);white-space:nowrap;background:var(--wash)}
+tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap;unicode-bidi:plaintext;text-align:right}
+td .who{display:grid;gap:1px}
+td .who a{white-space:nowrap}
+tr.test td{opacity:.5}
+.ctbl{min-width:860px}
+.stbl{min-width:560px}
+select{font:inherit;font-size:var(--fs-small);color:var(--fg-1);background:var(--bg-elevated);border:1px solid var(--border-strong);border-radius:8px;padding:4px 8px;max-width:100%}
+.tag{display:inline-block;font-size:var(--fs-xs);border-radius:var(--r-pill);padding:1px 8px;border:1px solid var(--border-strong);color:var(--fg-2);white-space:nowrap}
+.tag.barter{border-color:var(--tag-barter-line);color:var(--accent-ink)}
+.tag.hold{border-color:var(--tag-hold-line);color:var(--rose)}
+.delta{font-size:var(--fs-xs);margin-inline-start:4px}
+.delta.up{color:var(--success)} .delta.down{color:var(--danger)}
+
+/* stage bar */
+.stages{display:flex;height:14px;border-radius:5px;overflow:hidden;gap:2px;background:var(--bg-page)}
+.stages i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:var(--fs-xs);color:var(--fg-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend b{width:10px;height:10px;border-radius:3px;display:inline-block;font-weight:400}
+
+/* horizontal bars */
+.hbars{display:grid;gap:7px}
+.hb{display:grid;grid-template-columns:minmax(90px,38%) minmax(0,1fr) 34px;gap:10px;align-items:center;font-size:var(--fs-small)}
+.hb .track{height:10px;background:var(--track);border-radius:3px}
+.hb .track i{display:block;height:100%;background:var(--accent-bar);border-radius:3px}
+.hb .v{font-variant-numeric:tabular-nums;color:var(--fg-2);font-size:var(--fs-xs)}
+.hb:hover .track i{background:var(--accent)}
+
+.stat{display:grid;gap:2px}
+.stat .v{font-size:1.4rem;font-variant-numeric:tabular-nums}
+.stat .l{font-size:var(--fs-xs);color:var(--fg-2)}
+
+.list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.list li{display:grid;gap:2px;min-width:0}
+.list .meta{font-size:var(--fs-xs);color:var(--fg-3)}
+
+.asset{display:grid;gap:4px;align-content:start}
+.asset .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.asset b{font-weight:500}
+
+.empty{padding:18px;border:1px dashed var(--border-strong);border-radius:var(--r-md);color:var(--fg-2);font-size:var(--fs-small)}
+.note{font-size:var(--fs-xs);color:var(--fg-3);margin-top:8px}
+.toggle{font:inherit;font-size:var(--fs-xs);color:var(--fg-2);background:none;border:1px solid var(--border-strong);border-radius:var(--r-pill);padding:3px 10px;cursor:pointer}
+.toggle[aria-pressed="true"]{color:var(--accent-ink);border-color:var(--accent-line)}
+footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--border-hairline);font-size:var(--fs-xs);color:var(--fg-3);display:grid;gap:4px}
+</style>
+<script>try{if(localStorage.getItem("lb-theme")==="dark")document.documentElement.dataset.lb="dark"}catch(e){}</script>
+
+<div class="app" dir="rtl" lang="he">
+  <header class="top">
+    <div class="brand">
+      <span class="wm"><img src="img/logo.png" alt="LumeBook" width="640" height="186"><span>לוח</span></span>
+      <span class="sub">כל הפרויקט במקום אחד: תוכנית, יוצרים, שגרירים, מתחרים</span>
+    </div>
+    <div class="head-side">
+      <div class="fresh" id="fresh"><span class="chip"><span class="dot"></span>טוען נתונים…</span></div>
+      <button class="toggle" id="theme-toggle" type="button" aria-pressed="false">מצב כהה</button>
+    </div>
+  </header>
+
+  <nav class="quick" aria-label="קישורים מהירים">
+    <a href="https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB" target="_blank" rel="noopener"><b>מחקר יוצרים</b><span>204 יוצרים · שורטליסט · ברטר</span></a>
+    <a href="https://lumebook-ambassadors.vercel.app" target="_blank" rel="noopener"><b>אתר השגרירים</b><span><bdi class="ltr">lumebook-ambassadors.vercel.app</bdi></span></a>
+    <a href="https://lumebook-ambassadors.vercel.app/creators/" target="_blank" rel="noopener"><b>מרכז היוצרים</b><span>מה שיוצרים רואים אחרי הרשמה</span></a>
+    <a href="https://claude.ai/artifact/2aQamEfoJhb1Cix9CgZ1rY" target="_blank" rel="noopener"><b>ניתוח מתחרים</b><span>147 פריטים · MeBook ועוד 3</span></a>
+    <a href="https://drive.google.com/drive/folders/1awITcQFWfsQqpbL8Lupikw12b6y4EWvB" target="_blank" rel="noopener"><b>תיקיית הדרייב</b><span>"שיווק" · Google Drive</span></a>
+  </nav>
+
+  <div class="timeline" id="timeline"></div>
+
+  <section>
+    <div class="grid g4" id="kpis"></div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>דורש תשומת לב</h2><span class="xs dim" id="alerts-count"></span></div>
+    <div class="alerts" id="alerts"><div class="empty">הרשימה תתמלא כשהנתונים ייטענו.</div></div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>אוקטובר</h2><span class="xs dim" id="plan-meta"></span></div>
+    <div class="grid g4" id="weeks"></div>
+    <div class="counters" id="counters"></div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>יוצרים</h2><span class="xs dim" id="cr-meta"></span></div>
+    <div class="grid g3" id="cr-stats" style="margin-bottom:12px"></div>
+    <div class="panel" id="stage-panel" style="margin-bottom:12px"></div>
+    <div class="tbl" id="cr-table"></div>
+    <p class="note">עוקבים "עכשיו" מתוך תצוגת הקישור של אינסטגרם, מתעדכן כל בוקר. מעל 10K אינסטגרם מעגל (11K), אז השינוי שם גס.</p>
+  </section>
+
+  <section>
+    <div class="sh"><h2>הרשמות לתוכנית השגרירים</h2><span class="fresh" id="su-meta"></span></div>
+    <div class="grid g3" id="su-stats" style="margin-bottom:12px"></div>
+    <div id="su-table"></div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>מתחרים</h2><span class="xs dim" id="co-meta"></span></div>
+    <div class="grid g2">
+      <div class="panel" id="co-social"></div>
+      <div class="panel" id="co-pillars"></div>
+    </div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="panel" id="co-gaps"></div>
+      <div class="panel" id="co-outliers"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>מדדים</h2><span class="xs dim">מתוך תוכנית הסושיאל</span></div>
+    <div class="tbl" id="kpi-table"></div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>אתרים, קבצים וקישורים</h2></div>
+    <div class="grid g4" id="assets"></div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="panel" id="links"></div>
+      <div class="panel" id="recent"></div>
+    </div>
+  </section>
+
+  <footer id="foot">
+    <span>הנתונים מתרעננים כל בוקר בסביבות 08:15 (משימה מתוזמנת באפליקציית Claude, רצה כשהאפליקציה פתוחה, או מיד כשפותחים אותה). ההרשמות נקראות ישירות מהגיליון בכל פתיחה.</span>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const SHEET_ID = "1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI";
+  const DRIVE = "Google Drive";
+  const STAGES = ["לא פנינו", "נשלחה פנייה", "ענו", "ספר בהכנה", "ספר נשלח", "פורסם"];
+  const STAGE_COLORS = ["var(--seq-1)", "var(--seq-2)", "var(--seq-3)", "var(--seq-4)", "var(--seq-5)", "var(--seq-6)"];
+  const COUNTERS = [
+    { key: "reels", label: "רילס", target: 18 },
+    { key: "outreach", label: "פניות ליוצרים", target: null },
+    { key: "books", label: "ספרים ליוצרים", target: 10 },
+    { key: "customer_videos", label: "סרטוני לקוחות בהסכמה", target: 10 },
+  ];
+  const TEST_NAME = /בדיקה|test|Yarin Bruner/i; // the owner's own test submissions
+
+  const S = { snap: null, snapErr: null, history: [], tracker: { tasks: {}, creators: {}, counts: {} }, trackerExists: false,
+              dbReady: false, dbMissing: false, canWrite: true, live: null, liveState: "idle", liveErr: null, liveAt: null, showTests: false };
+
+  // ---------- helpers ----------
+  const $ = (id) => document.getElementById(id);
+  const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const fmt = (n) => n == null ? "–" : n >= 10000 ? (n / 1000).toFixed(n >= 100000 ? 0 : 1).replace(/\.0$/, "") + "K" : Number(n).toLocaleString("en-US");
+  const DAY = 864e5;
+  const today = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
+  const parseISODate = (s) => { const [y, m, d] = s.slice(0, 10).split("-").map(Number); return new Date(y, m - 1, d); };
+  const dm = (d) => `${d.getDate()}.${d.getMonth() + 1}`;
+  const ago = (iso) => {
+    if (!iso) return "";
+    const ms = Date.now() - new Date(iso).getTime(), h = ms / 36e5;
+    if (h < 1) return `לפני ${Math.max(1, Math.round(ms / 6e4))} דק׳`;
+    if (h < 24) return `לפני ${Math.round(h)} שע׳`;
+    return `לפני ${Math.round(h / 24)} ימים`;
+  };
+  const when = (iso) => { if (!iso) return "–"; const d = new Date(iso); return `${dm(d)} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
+  const hash = (s) => { let h = 5381; for (const c of s) h = ((h << 5) + h + c.codePointAt(0)) >>> 0; return "k" + h.toString(36); };
+  const ltr = (s) => `<bdi class="ltr">${esc(s)}</bdi>`;
+
+  // ---------- signup sheet parsing (Drive connector returns a markdown table) ----------
+  function parseSheet(payload) {
+    let text = typeof payload === "string" ? payload : payload?.fileContent ?? "";
+    if (typeof payload === "string") { try { text = JSON.parse(payload).fileContent ?? payload; } catch {} }
+    const block = text.split("### Sheet Name: Form Responses 1").pop().split("### Table Columns")[0];
+    let rows = block.split("\n").filter((l) => l.trim().startsWith("|"))
+      .map((l) => l.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim().replace(/\\_/g, "_")));
+    rows = rows.filter((r) => !r.every((c) => /^:?-*:?$/.test(c)));
+    const hi = rows.findIndex((r) => r.includes("Timestamp"));
+    if (hi < 0) return { total: 0, tests: 0, rows: [], band_1k_plus: 0, band_under_1k: 0 };
+    const H = rows[hi], col = (n) => H.findIndex((h) => h.includes(n));
+    const ix = { ts: col("Timestamp"), name: col("שם"), handle: col("אינסטגרם"), band: col("עוקבים"), ms: col("מתקרב") };
+    const out = rows.slice(hi + 1).map((r) => {
+      const g = (i) => (i >= 0 && i < r.length ? r[i] : "");
+      return { ts: g(ix.ts), name: g(ix.name), handle: g(ix.handle), band: g(ix.band), milestone: g(ix.ms), test: TEST_NAME.test(g(ix.name) + " " + g(ix.handle)) };
+    });
+    const real = out.filter((x) => !x.test);
+    return { total: real.length, tests: out.length - real.length, rows: out.slice(-25),
+             band_1k_plus: real.filter((x) => x.band.includes("ומעלה")).length,
+             band_under_1k: real.filter((x) => x.band.includes("פחות")).length,
+             header_has_old_columns: H.some((h) => h === "טיקטוק" || h === "גילאי הילדים") };
+  }
+  const tsDate = (ts) => { const m = /^(\d+)\/(\d+)\/(\d{4})\s+(\d+):(\d+)/.exec(ts || ""); return m ? new Date(+m[3], +m[1] - 1, +m[2], +m[4], +m[5]) : null; };
+
+  // ---------- render ----------
+  function render() {
+    renderFresh(); renderTimeline(); renderKpis(); renderAlerts(); renderPlan(); renderCreators();
+    renderSignups(); renderCompetitors(); renderKpiTable(); renderAssets();
+  }
+
+  function renderFresh() {
+    const s = S.snap, bits = [];
+    if (S.dbMissing) bits.push(`<span class="chip"><span class="dot bad"></span>פתחו את הדף ב-claude.ai כדי לראות נתונים</span>`);
+    else if (!S.dbReady) bits.push(`<span class="chip"><span class="dot"></span>טוען נתונים…</span>`);
+    else if (!s) bits.push(`<span class="chip"><span class="dot warn"></span>עוד לא רץ רענון ראשון</span>`);
+    else {
+      const stale = Date.now() - new Date(s.generated_at).getTime() > 36 * 36e5;
+      bits.push(`<span class="chip" title="${esc(s.generated_at)}"><span class="dot ${stale ? "warn" : "ok"}"></span>רענון: ${esc(when(s.generated_at))} · ${esc(ago(s.generated_at))}</span>`);
+      if (window.__DASH__) bits.push(`<span class="chip">קריאה בלבד</span>`);
+    }
+    if (S.liveState === "ok") bits.push(`<span class="chip"><span class="dot live"></span>הרשמות חי</span>`);
+    $("fresh").innerHTML = bits.join("");
+  }
+
+  function renderTimeline() {
+    const start = new Date(2026, 9, 1), end = new Date(2026, 11, 31), span = (end - start) / DAY;
+    const pos = (d) => Math.min(100, Math.max(0, ((d - start) / DAY) / span * 100));
+    const phases = [
+      { a: new Date(2026, 9, 1), b: new Date(2026, 9, 31), name: "מדידה", cls: "oct" },
+      { a: new Date(2026, 10, 1), b: new Date(2026, 10, 24), name: "להגדיל את מה שעובד", cls: "grow" },
+      { a: new Date(2026, 10, 25), b: new Date(2026, 11, 12), name: "חנוכה", cls: "peak" },
+      { a: new Date(2026, 11, 13), b: new Date(2026, 11, 31), name: "איסוף וסיכום", cls: "wrap" },
+    ];
+    const t = today();
+    const dates = (S.snap?.key_dates || [
+      { date: "2026-10-31", label: "אנליטיקה ראשונית + יעדים חדשים" }, { date: "2026-11-10", label: "ספרי יוצרים לחנוכה" },
+      { date: "2026-11-22", label: "דדליין הזמנות לחנוכה", unconfirmed: true }, { date: "2026-12-04", label: "חנוכה מתחיל" },
+    ]);
+    const next = dates.find((d) => parseISODate(d.date) >= t);
+    const nextDays = next ? Math.round((parseISODate(next.date) - t) / DAY) : null;
+    const inRange = t >= start && t <= end;
+    $("timeline").innerHTML = `
+      <div class="tl-head"><h2>רבעון 4 · ${esc(dm(t))}</h2>
+        <span class="sm muted">${next ? `הבא: ${esc(next.label)} ${nextDays === 0 ? "היום" : `בעוד <b class="num">${nextDays}</b> ימים`}` : "הרבעון הסתיים"}</span></div>
+      <div class="tl-track" role="img" aria-label="ציר זמן אוקטובר עד דצמבר">
+        ${phases.map((p) => `<div class="tl-phase ${p.cls}" style="inset-inline-start:${pos(p.a)}%;width:calc(${pos(p.b) - pos(p.a)}% - 2px)"><span>${esc(p.name)}</span></div>`).join("")}
+        ${dates.map((d) => `<div class="tl-mark ${d.unconfirmed ? "unconf" : ""}" style="inset-inline-start:${pos(parseISODate(d.date))}%" title="${esc(dm(parseISODate(d.date)) + " " + d.label)}"></div>`).join("")}
+        ${inRange ? `<div class="tl-today" style="inset-inline-start:${pos(t)}%"><b>היום</b></div>` : ""}
+      </div>
+      <div class="tl-months"><span>אוקטובר</span><span>נובמבר</span><span>דצמבר</span></div>
+      <div class="dates">${dates.map((d) => {
+        const dd = parseISODate(d.date), n = Math.round((dd - t) / DAY);
+        return `<div class="date ${n < 0 ? "past" : ""}"><div class="r"><span class="d">${esc(dm(dd))}</span><span class="c">${n < 0 ? "עבר" : n === 0 ? "היום" : `${n} ימים`}</span></div><span class="l">${esc(d.label)}${d.unconfirmed ? ' <span class="dim xs">(לא מאושר)</span>' : ""}</span></div>`;
+      }).join("")}</div>`;
+  }
+
+  function spark(points, key) {
+    const pts = points.filter((p) => typeof p[key] === "number");
+    if (pts.length < 2) return `<div class="xs dim">${pts.length ? "נקודה ראשונה נשמרה. הגרף יתמלא עם הרענונים היומיים" : ""}</div>`;
+    const W = 240, H = 44, P = 4, vals = pts.map((p) => p[key]);
+    let lo = Math.min(...vals), hi = Math.max(...vals); if (hi === lo) { hi += 1; lo -= 1; }
+    // time runs right→left, same direction as the quarter timeline above
+    const x = (i) => W - P - i * (W - 2 * P) / (pts.length - 1), y = (v) => H - P - (v - lo) / (hi - lo) * (H - 2 * P);
+    const d = pts.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(p[key]).toFixed(1)}`).join("");
+    const last = pts.length - 1;
+    return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" dir="ltr" aria-label="מגמה">
+      <line x1="${P}" x2="${W - P}" y1="${H - P}" y2="${H - P}" stroke="var(--grid)"/>
+      <path d="${d}L${x(last)},${H - P}L${x(0)},${H - P}Z" fill="var(--area)"/>
+      <path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="${x(last)}" cy="${y(pts[last][key])}" r="3.5" fill="var(--accent)" stroke="var(--bg-surface)" stroke-width="2"/></svg>
+      <div class="xs dim">מ-${esc(dm(parseISODate(pts[0].date)))} עד ${esc(dm(parseISODate(pts[last].date)))} · ${pts.length} ימים</div>`;
+  }
+
+  function signupsData() { return S.live || S.snap?.signups || null; }
+
+  function renderKpis() {
+    const s = S.snap;
+    if (!s) { $("kpis").innerHTML = ["עוקבים @lumebookai", "MeBook", "הרשמות לשגרירים", "מאגר יוצרים"].map((l) => `<div class="panel kpi"><span class="lab">${l}</span><span class="val dim">–</span></div>`).join(""); return; }
+    const ig = s.social?.lumebookai?.followers, mb = s.social?.["mebook.ai"]?.followers;
+    const first = S.history.find((h) => typeof h.ig_lumebookai === "number");
+    const delta = ig != null && first ? ig - first.ig_lumebookai : null;
+    const su = signupsData();
+    const c = s.creators;
+    const barter = c.tracked.filter((x) => x.group === "barter").length;
+    $("kpis").innerHTML = `
+      <div class="panel kpi"><span class="lab">עוקבים @lumebookai</span>
+        <span class="val">${fmt(ig)}${delta ? `<small class="delta ${delta > 0 ? "up" : "down"}">${ltr((delta > 0 ? "+" : "") + delta)} מאז ${esc(dm(parseISODate(first.date)))}</small>` : ""}</span>
+        <div class="bar" title="יעד דצמבר 3-4K"><i style="width:${ig ? Math.min(100, ig / 3000 * 100) : 0}%"></i></div>
+        <span class="foot">יעד דצמבר 3-4K · ${s.social?.lumebookai?.posts ?? "–"} פוסטים</span>
+        ${spark(S.history, "ig_lumebookai")}</div>
+      <div class="panel kpi"><span class="lab">MeBook @mebook.ai</span>
+        <span class="val">${ltr((s.social?.["mebook.ai"]?.followers_exact ? "" : "~") + fmt(mb))}${ig && mb ? `<small>פי ${Math.round(mb / ig)} מאיתנו</small>` : ""}</span>
+        <span class="foot">רילס: חציון ~${fmt(s.baselines.mebook_reels_median.value)} צפיות מולנו ${s.baselines.lumebook_reels_median.value} (${esc(dm(parseISODate(s.baselines.lumebook_reels_median.date)))})</span>
+        ${spark(S.history, "ig_mebook")}</div>
+      <div class="panel kpi"><span class="lab">הרשמות לשגרירים</span>
+        <span class="val">${su ? su.total : "–"}${su && su.tests ? `<small>(ועוד ${su.tests} בדיקות)</small>` : ""}</span>
+        <span class="foot">${su ? `1,000+ עוקבים: ${su.band_1k_plus} · פחות: ${su.band_under_1k}` : "מחכה לגיליון"}</span>
+        ${spark(S.history, "signups")}</div>
+      <div class="panel kpi"><span class="lab">מאגר יוצרים</span>
+        <span class="val">${c.total}<small>${c.shortlist} בשורטליסט</small></span>
+        <span class="foot">${barter} בסבב ברטר ראשון · ${c.with_direct_contact_hint} עם פרטי קשר מעבר ל-DM</span></div>`;
+  }
+
+  function currentWeekIndex() {
+    const t = today();
+    if (t.getMonth() !== 9 || t.getFullYear() !== 2026) return t < new Date(2026, 9, 1) ? 0 : -1;
+    return Math.min(3, Math.floor((t.getDate() - 1) / 7));
+  }
+
+  function alerts() {
+    const s = S.snap, out = [];
+    if (!s) return out;
+    if (Date.now() - new Date(s.generated_at).getTime() > 36 * 36e5)
+      out.push({ sev: "warn", tag: "רענון", text: `הנתונים לא התרעננו מאז ${when(s.generated_at)}. צריך לפתוח את אפליקציית Claude כדי שהמשימה המתוזמנת תרוץ` });
+    for (const site of s.sites) if (site.status && site.status !== 200 || site.error)
+      out.push({ sev: "crit", tag: "אתר", text: `${site.label} מחזיר ${site.status || "שגיאה"}`, href: site.url });
+    const wi = currentWeekIndex();
+    if (wi >= 0 && s.plan.weeks[wi]) {
+      const w = s.plan.weeks[wi], open = w.tasks.filter((t) => !S.tracker.tasks[hash(w.name + "|" + t)]);
+      if (open.length) out.push({ sev: "info", tag: w.name, text: `${open.length} משימות פתוחות: ${open.slice(0, 3).join(" · ")}${open.length > 3 ? "…" : ""}` });
+    }
+    for (let i = 0; i < wi; i++) {
+      const w = s.plan.weeks[i], open = w.tasks.filter((t) => !S.tracker.tasks[hash(w.name + "|" + t)]);
+      if (open.length) out.push({ sev: "warn", tag: w.name, text: `נשארו ${open.length} משימות משבוע שעבר` });
+    }
+    if (s.ambassadors.placeholders.length)
+      out.push({ sev: "warn", tag: "יוסי", text: `${s.ambassadors.placeholders.length} פרטים במרכז היוצרים מסומנים "יעודכן בקרוב" (זמן הגעה, הנחה, עמלה, תשלום)`, href: "https://lumebook-ambassadors.vercel.app/creators/" });
+    if (s.ambassadors.demo_mode) out.push({ sev: "info", tag: "שגרירים", text: "דף השגרירים עדיין במצב דמו (DEMO=true)" });
+    s.plan.yossi.forEach((y) => out.push({ sev: "info", tag: "לוודא עם יוסי", text: y }));
+    const cut = s.key_dates.find((d) => d.unconfirmed);
+    if (cut) out.push({ sev: "info", tag: "לוודא עם יוסי", text: `${cut.label} ${dm(parseISODate(cut.date))} עוד לא מאושר מול התפעול` });
+    const su = signupsData();
+    if (su?.tests) out.push({ sev: "info", tag: "גיליון", text: `${su.tests} שורות בדיקה בגיליון ההרשמות למחוק`, href: s.links.sheet });
+    if (su?.header_has_old_columns) out.push({ sev: "info", tag: "גיליון", text: "עמודות ישנות ריקות בגיליון (טיקטוק, גילאי הילדים)", href: s.links.sheet });
+    if (s.plan.uncommitted) out.push({ sev: "info", tag: "תוכנית", text: "יש שינויים בתוכנית הסושיאל שלא נשמרו ב-git" });
+    const drift = s.creators.tracked.filter((c) => c.followers_exact && c.followers_now && c.followers_at_research && Math.abs(c.followers_now / c.followers_at_research - 1) > .15);
+    if (drift.length) out.push({ sev: "info", tag: "יוצרים", text: `שינוי חד בעוקבים: ${drift.map((c) => "@" + c.handle).join(", ")}` });
+    const missing = s.creators.tracked.filter((c) => c.live_error);
+    if (missing.length) out.push({ sev: "warn", tag: "יוצרים", text: `לא נמצא פרופיל: ${missing.map((c) => "@" + c.handle).join(", ")}` });
+    if (s.creators.competitor_conflicts.length) out.push({ sev: "info", tag: "יוצרים", text: `מופיעים אצל MeBook: ${s.creators.competitor_conflicts.join(", ")}` });
+    return out;
+  }
+
+  function renderAlerts() {
+    const list = alerts(), order = { crit: 0, warn: 1, info: 2, ok: 3 };
+    list.sort((a, b) => order[a.sev] - order[b.sev]);
+    const label = { crit: "דחוף", warn: "שימו לב", info: "פתוח", ok: "תקין" };
+    $("alerts-count").textContent = list.length ? `${list.length} פריטים` : "";
+    $("alerts").innerHTML = !S.snap ? `<div class="empty">הרשימה תתמלא אחרי הרענון הראשון.</div>`
+      : list.length ? list.map((a) => `<div class="alert ${a.sev}"><span class="sev">${label[a.sev]} · ${esc(a.tag)}</span><span class="t">${esc(a.text)}</span>${a.href ? `<a href="${esc(a.href)}" target="_blank" rel="noopener">פתיחה</a>` : "<span></span>"}</div>`).join("")
+      : `<div class="alert ok"><span class="sev">תקין</span><span class="t">אין כרגע פריטים פתוחים</span><span></span></div>`;
+  }
+
+  function renderPlan() {
+    const s = S.snap;
+    if (!s) { $("weeks").innerHTML = `<div class="empty" style="grid-column:1/-1">המשימות נמשכות מתוכנית הסושיאל בכל רענון.</div>`; $("counters").innerHTML = ""; return; }
+    const wi = currentWeekIndex(), dis = S.canWrite ? "" : "disabled";
+    $("plan-meta").innerHTML = `עודכן בתוכנית ${esc(ago(s.plan.last_commit?.at || s.plan.modified))} · <a href="https://lumebook-smm-plan.vercel.app" target="_blank" rel="noopener">לאתר</a>`;
+    $("weeks").innerHTML = s.plan.weeks.map((w, i) => {
+      const done = w.tasks.filter((t) => S.tracker.tasks[hash(w.name + "|" + t)]).length;
+      return `<div class="panel week ${i === wi ? "now" : ""}"><h3>${esc(w.name)}${i === wi ? " · עכשיו" : ""}<span class="num">${done}/${w.tasks.length}</span></h3>
+        ${w.tasks.map((t) => { const k = hash(w.name + "|" + t); return `<label class="task"><input type="checkbox" id="t-${k}" data-task="${k}" ${S.tracker.tasks[k] ? "checked" : ""} ${dis}><span>${esc(t)}</span></label>`; }).join("")}</div>`;
+    }).join("");
+    $("counters").innerHTML = COUNTERS.map((c) => {
+      const v = S.tracker.counts[c.key] || 0;
+      return `<div class="counter"><div class="row"><span class="sm muted">${esc(c.label)}</span>
+          <div class="step"><button type="button" data-count="${c.key}" data-d="-1" aria-label="פחות" ${dis || (v ? "" : "disabled")}>−</button><button type="button" data-count="${c.key}" data-d="1" aria-label="עוד" ${dis}>+</button></div></div>
+        <span class="n">${v}${c.target ? `<small> / ${c.target}</small>` : ""}</span>
+        ${c.target ? `<div class="bar"><i style="width:${Math.min(100, v / c.target * 100)}%"></i></div>` : `<span class="xs dim">כמה שיותר</span>`}</div>`;
+    }).join("");
+  }
+
+  function renderCreators() {
+    const s = S.snap;
+    if (!s) { $("cr-table").innerHTML = `<div class="empty">טבלת היוצרים תופיע אחרי הרענון הראשון.</div>`; return; }
+    const c = s.creators;
+    $("cr-meta").innerHTML = `נבדק ${esc(c.checked_on.split("-").reverse().slice(0, 2).map(Number).join("."))} · <a href="https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB" target="_blank" rel="noopener">מפת יוצרים</a>`;
+    const maxBand = Math.max(...c.bands.map((b) => b[1]));
+    $("cr-stats").innerHTML = `
+      <div class="panel"><div class="sm muted" style="margin-bottom:8px">לפי גודל קהל</div><div class="hbars">${c.bands.map(([b, n]) => `<div class="hb" title="${n} יוצרים"><span>${ltr(b)}</span><span class="track"><i style="width:${n / maxBand * 100}%"></i></span><span class="v">${n}</span></div>`).join("")}</div></div>
+      <div class="panel"><div class="sm muted" style="margin-bottom:8px">סוגים מובילים</div><div class="hbars">${c.archetypes.slice(0, 5).map(([a, n]) => `<div class="hb" title="${n} יוצרים"><span>${esc(a)}</span><span class="track"><i style="width:${n / c.archetypes[0][1] * 100}%"></i></span><span class="v">${n}</span></div>`).join("")}</div></div>
+      <div class="panel grid" style="grid-template-columns:1fr 1fr;align-content:start">
+        <div class="stat"><span class="v">${c.total}</span><span class="l">במאגר</span></div>
+        <div class="stat"><span class="v">${c.tracked.length}</span><span class="l">במעקב</span></div>
+        <div class="stat"><span class="v">${c.tracked.filter((x) => x.group === "barter").length}</span><span class="l">סבב ברטר ראשון</span></div>
+        <div class="stat"><span class="v">${c.tracked.filter((x) => x.group === "paid_hold").length}</span><span class="l">ממתינים לאישור יוסי (בתשלום)</span></div></div>`;
+    const counts = STAGES.map((_, i) => c.tracked.filter((x) => (S.tracker.creators[x.handle] ?? 0) === i).length);
+    $("stage-panel").innerHTML = `<div class="sh" style="margin-bottom:8px"><span class="sm">מצב הפניות</span><span class="xs dim">${counts.slice(4).reduce((a, b) => a + b, 0)} ספרים יצאו · ${counts[5]} פורסמו</span></div>
+      <div class="stages" dir="rtl">${counts.map((n, i) => n ? `<i style="flex:${n};background:${STAGE_COLORS[i]}" title="${STAGES[i]}: ${n}"></i>` : "").join("")}</div>
+      <div class="legend">${STAGES.map((st, i) => `<span><b style="background:${STAGE_COLORS[i]}"></b>${st} <span class="num">${counts[i]}</span></span>`).join("")}</div>`;
+    const grp = { barter: '<span class="tag barter">ברטר</span>', paid_hold: '<span class="tag hold">בתשלום · יוסי</span>', shortlist: '<span class="tag">שורטליסט</span>' };
+    $("cr-table").innerHTML = `<table class="ctbl"><thead><tr><th>יוצר/ת</th><th>קבוצה</th><th>סוג</th><th>עוקבים עכשיו</th><th>חציון צפיות</th><th>רילס אחרון</th><th>קשר</th><th>מצב</th></tr></thead><tbody>
+      ${c.tracked.map((x) => {
+        const now = x.followers_now, d = now && x.followers_at_research ? now - x.followers_at_research : 0;
+        const showD = x.followers_exact && Math.abs(d) >= 10;
+        const st = S.tracker.creators[x.handle] ?? 0;
+        return `<tr><td><div class="who"><a href="${esc(x.url)}" target="_blank" rel="noopener">${ltr("@" + x.handle)}</a><span class="xs dim">${esc(x.name)}</span></div></td>
+          <td>${grp[x.group]}</td><td class="sm muted">${esc(x.archetype)}</td>
+          <td class="n">${x.live_error ? '<span class="dim">לא נמצא</span>' : fmt(now ?? x.followers_at_research)}${showD ? `<span class="delta ${d > 0 ? "up" : "down"}">${ltr((d > 0 ? "+" : "") + d)}</span>` : ""}</td>
+          <td class="n">${fmt(x.median_views)}</td><td class="n">${esc((x.last_reel || "").split("-").reverse().slice(0, 2).map(Number).join("."))}</td>
+          <td class="xs muted">${esc(x.contact)}</td>
+          <td><select id="st-${esc(x.handle)}" data-creator="${esc(x.handle)}" aria-label="מצב עבור ${esc(x.handle)}" ${S.canWrite ? "" : "disabled"}>${STAGES.map((n, i) => `<option value="${i}" ${i === st ? "selected" : ""}>${n}</option>`).join("")}</select></td></tr>`;
+      }).join("")}</tbody></table>`;
+  }
+
+  function renderSignups() {
+    const su = signupsData(), s = S.snap;
+    const src = S.live ? `<span class="chip"><span class="dot live"></span>חי מהגיליון · ${esc(S.liveAt ? ago(S.liveAt) : "עכשיו")}</span>`
+      : S.liveState === "loading" ? `<span class="chip"><span class="dot"></span>קורא מהגיליון…</span>`
+      : S.liveErr ? `<span class="chip" title="${esc(S.liveErr)}"><span class="dot warn"></span>${esc(liveErrText(S.liveErr))}</span>` : "";
+    const fromSnap = !S.live && s?.signups ? `<span class="chip">מהרענון האחרון</span>` : "";
+    $("su-meta").innerHTML = src + fromSnap + (s ? ` <a class="xs" href="${esc(s.links.sheet)}" target="_blank" rel="noopener">לגיליון</a>` : "");
+    if (!su) { $("su-stats").innerHTML = ""; $("su-table").innerHTML = `<div class="empty">ההרשמות נקראות מגיליון התגובות של הטופס דרך Google Drive. אחרי שתאשרו את החיבור הן יופיעו כאן.</div>`; return; }
+    const lastReal = [...su.rows].reverse().find((r) => !r.test);
+    $("su-stats").innerHTML = `
+      <div class="panel stat"><span class="v">${su.total}</span><span class="l">הרשמות אמיתיות</span></div>
+      <div class="panel stat"><span class="v">${su.band_1k_plus}<span class="sm muted"> / ${su.band_under_1k}</span></span><span class="l">1,000+ עוקבים / פחות</span></div>
+      <div class="panel stat"><span class="v sm" style="font-size:1.1rem">${lastReal ? esc(lastReal.name) : "עוד אין"}</span><span class="l">${lastReal ? "הרשמה אחרונה · " + esc(fmtTs(lastReal.ts)) : "הרשמה ראשונה תופיע כאן"}</span></div>`;
+    const rows = su.rows.filter((r) => S.showTests || !r.test).slice().reverse();
+    $("su-table").innerHTML = `<div style="display:flex;justify-content:flex-end;margin-bottom:8px">${su.tests ? `<button class="toggle" id="toggle-tests" type="button" aria-pressed="${S.showTests}">${S.showTests ? "להסתיר" : "להציג"} ${su.tests} שורות בדיקה</button>` : ""}</div>
+      ${rows.length ? `<div class="tbl"><table class="stbl"><thead><tr><th>מתי</th><th>שם</th><th>אינסטגרם / טיקטוק</th><th>עוקבים</th><th>מה מתקרב</th></tr></thead><tbody>
+      ${rows.map((r) => `<tr class="${r.test ? "test" : ""}"><td class="n">${esc(fmtTs(r.ts))}</td><td>${esc(r.name)}${r.test ? ' <span class="tag">בדיקה</span>' : ""}</td><td>${ltr(r.handle)}</td><td class="sm">${esc(r.band || "–")}</td><td class="sm muted">${esc(r.milestone || "")}</td></tr>`).join("")}
+      </tbody></table></div>` : `<div class="empty">עוד אין הרשמות אמיתיות. קישור לטופס: <a href="https://lumebook-ambassadors.vercel.app" target="_blank" rel="noopener">lumebook-ambassadors.vercel.app</a></div>`}`;
+  }
+  const fmtTs = (ts) => { const d = tsDate(ts); return d ? `${dm(d)} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}` : ts; };
+  function liveErrText(code) {
+    return ({ needs_reauth: "צריך לחבר מחדש את Google Drive בהגדרות claude.ai", server_not_connected: "צריך להוסיף את Google Drive בהגדרות claude.ai",
+      selection_required: "צריך לבחור חשבון Google Drive", not_in_manifest: "החיבור ל-Drive לא אושר לדף הזה", blocked_by_policy: "Drive חסום בארגון",
+      server_unavailable: "Drive לא זמין כרגע", tool_error: "הגיליון לא נקרא" }[code]) || "אין חיבור חי לגיליון";
+  }
+
+  function renderCompetitors() {
+    const s = S.snap;
+    if (!s) { $("co-social").innerHTML = `<div class="empty">נתוני המתחרים יופיעו אחרי הרענון הראשון.</div>`; return; }
+    const co = s.competitors, b = s.baselines;
+    $("co-meta").innerHTML = `${co.total} פריטי תוכן · <a href="https://claude.ai/artifact/2aQamEfoJhb1Cix9CgZ1rY" target="_blank" rel="noopener">הניתוח המלא</a>`;
+    $("co-social").innerHTML = `<div class="sm muted" style="margin-bottom:10px">MeBook מולנו באינסטגרם</div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px">
+        <div class="stat"><span class="v">${fmt(s.social?.["mebook.ai"]?.followers)}</span><span class="l">עוקבים MeBook</span></div>
+        <div class="stat"><span class="v">${fmt(s.social?.lumebookai?.followers)}</span><span class="l">עוקבים לומיבוק</span></div>
+        <div class="stat"><span class="v">${s.social?.["mebook.ai"]?.posts ?? "–"}</span><span class="l">פוסטים MeBook</span></div>
+        <div class="stat"><span class="v">${s.social?.lumebookai?.posts ?? "–"}</span><span class="l">פוסטים לומיבוק</span></div>
+        <div class="stat"><span class="v">${fmt(b.mebook_collab_peak.value)}</span><span class="l">שיא collab של MeBook (פי 22 מהרגיל)</span></div>
+        <div class="stat"><span class="v">${fmt(b.lumebook_reels_median.value)}</span><span class="l">חציון צפיות ברילס שלנו (${esc(dm(parseISODate(b.lumebook_reels_median.date)))})</span></div>
+      </div>`;
+    const pil = { product_demo: "הדגמת מוצר", customer_story: "סיפור לקוח", reveal_reaction: "חשיפה ותגובה", product_range: "קטלוג", gift_occasion: "מתנה ואירוע",
+      behind_scenes: "מאחורי הקלעים", social_proof: "הוכחה חברתית", entertainment: "בידור", offer_promo: "מבצע", problem_awareness: "בעיה של הילד",
+      parenting_education: "טיפים להורים", community_ugc_repost: "שיתוף UGC", comparison_objection: "השוואה והתנגדויות", brand_mission: "ערכי מותג" };
+    const mx = co.pillars[0]?.[1] || 1;
+    $("co-pillars").innerHTML = `<div class="sm muted" style="margin-bottom:10px">על מה המתחרים מעלים (נושא מרכזי)</div>
+      <div class="hbars">${co.pillars.slice(0, 8).map(([p, n]) => `<div class="hb" title="${n} מתוך ${co.total}"><span>${esc(pil[p] || p)}</span><span class="track"><i style="width:${n / mx * 100}%"></i></span><span class="v">${n}</span></div>`).join("")}</div>
+      <p class="note">${co.by_competitor.map(([n, k]) => `${esc(n)} ${k}`).join(" · ")} · ${co.by_source.paid || 0} מודעות</p>`;
+    $("co-gaps").innerHTML = `<div class="sm muted" style="margin-bottom:10px">פערים שאף אחד לא סוגר</div>
+      <div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+        <div class="stat"><span class="v">${co.expert_endorsement}<span class="sm dim"> / ${co.total}</span></span><span class="l">עם המלצת איש מקצוע</span></div>
+        <div class="stat"><span class="v">${co.photo_transform}<span class="sm dim"> / ${co.total}</span></span><span class="l">תמונה ליד האיור</span></div>
+        <div class="stat"><span class="v">${co.real_reaction}<span class="sm dim"> / ${co.total}</span></span><span class="l">תגובה אמיתית של ילד</span></div></div>
+      <p class="note">${co.funnel.map(([f, n]) => `${esc({ awareness: "מודעות", consideration: "שקילה", conversion: "המרה", retention: "שימור" }[f] || f)} ${n}`).join(" · ")}</p>`;
+    $("co-outliers").innerHTML = `<div class="sm muted" style="margin-bottom:10px">הכי חריגים (פי כמה מהחציון של החשבון)</div>
+      <ul class="list">${co.outliers.slice(0, 5).map((o) => `<li><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.competitor)} · ${esc(o.platform)} · פי ${Math.round(o.outlier)}</a><span class="meta">${fmt(o.views)} צפיות · ${esc(o.date || "")} · ${esc(o.summary.slice(0, 110))}…</span></li>`).join("")}</ul>`;
+  }
+
+  function renderKpiTable() {
+    const s = S.snap;
+    if (!s) { $("kpi-table").innerHTML = `<div class="empty" style="border:0">טבלת המדדים נמשכת מתוכנית הסושיאל.</div>`; return; }
+    const live = { "עוקבים באינסטגרם": fmt(s.social?.lumebookai?.followers), "סרטוני לקוחות": S.tracker.counts.customer_videos ?? 0 };
+    $("kpi-table").innerHTML = `<table class="stbl"><thead><tr><th>מדד</th><th>מקור</th><th>אוקטובר</th><th>עכשיו</th><th>יעד דצמבר</th></tr></thead><tbody>
+      ${s.plan.kpis.map((k) => `<tr><td>${esc(k.name)}</td><td class="xs muted">${esc(k.source)}</td><td class="n">${esc(k.oct)}</td><td class="n">${live[k.name] != null ? `<b style="font-weight:500;color:var(--accent-ink)">${esc(live[k.name])}</b>` : '<span class="dim">–</span>'}</td><td class="n">${esc(k.dec)}</td></tr>`).join("")}
+      </tbody></table>`;
+  }
+
+  function renderAssets() {
+    const s = S.snap;
+    if (!s) { $("assets").innerHTML = `<div class="empty" style="grid-column:1/-1">רשימת האתרים והקבצים תופיע אחרי הרענון הראשון.</div>`; return; }
+    $("assets").innerHTML = s.sites.map((x) => {
+      const ok = x.status === 200;
+      return `<div class="panel asset"><div class="row"><b>${esc(x.label)}</b><span class="chip"><span class="dot ${ok ? "ok" : "bad"}"></span>${ok ? "באוויר" : esc(x.status || "שגיאה")}</span></div>
+        <a class="xs" href="${esc(x.url)}" target="_blank" rel="noopener">${ltr(x.url.replace(/^https:\/\//, ""))}</a>
+        <span class="xs dim">${x.modified ? "נערך " + esc(ago(x.modified)) : ""}${x.ms ? ` · ${x.ms}ms` : ""}</span></div>`;
+    }).join("") + s.artifacts.map((a) => `<div class="panel asset"><div class="row"><b>${esc(a.label)}</b><span class="tag">ארטיפקט</span></div>
+        <a class="xs" href="${esc(a.url)}" target="_blank" rel="noopener">פתיחה</a><span class="xs dim">${esc(dm(parseISODate(a.date)))}${a.modified ? " · מקור נערך " + esc(ago(a.modified)) : ""}</span></div>`).join("");
+    const L = s.links;
+    $("links").innerHTML = `<div class="sm muted" style="margin-bottom:10px">קישורים</div><ul class="list">
+      <li><a href="${esc(L.form)}" target="_blank" rel="noopener">טופס יוצרי תוכן (Google Form)</a></li>
+      <li><a href="${esc(L.sheet)}" target="_blank" rel="noopener">גיליון ההרשמות</a></li>
+      <li><a href="${esc(L.drive)}" target="_blank" rel="noopener">תיקיית "שיווק" בדרייב</a></li>
+      <li><a href="${esc(L.tracker)}" target="_blank" rel="noopener">Creator Outreach Tracker v2 (ישן)</a><span class="meta">חלק מהמספרים שם כבר לא מעודכנים</span></li>
+      <li><a href="${esc(L.repo)}" target="_blank" rel="noopener">ריפו תוכנית הסושיאל</a></li></ul>`;
+    $("recent").innerHTML = `<div class="sm muted" style="margin-bottom:10px">נערך לאחרונה בתיקיית הפרויקט · ${s.files.count} קבצים</div>
+      <ul class="list">${s.files.recent.slice(0, 7).map((f) => `<li><span class="sm">${ltr(f.path)}</span><span class="meta">${esc(ago(f.modified))} · ${Math.max(1, Math.round(f.size / 1024))}KB</span></li>`).join("")}</ul>`;
+  }
+
+  // ---------- writes (tracker/state, one write at a time) ----------
+  let db = null, chain = Promise.resolve();
+  function writeTracker(patch) {
+    if (!db || !S.canWrite) return;
+    // optimistic local merge
+    for (const [k, v] of Object.entries(patch)) S.tracker[k] = { ...(S.tracker[k] || {}), ...v };
+    render();
+    chain = chain.then(async () => {
+      const ref = db.doc("tracker/state");
+      try {
+        if (S.trackerExists) await ref.update(patch);
+        else { await ref.set({ tasks: {}, creators: {}, counts: {}, ...S.tracker }); S.trackerExists = true; }
+      } catch (e) {
+        if (e?.code === "invalid_argument" && !S.trackerExists) { S.canWrite = false; render(); }
+        else if (e?.code === "invalid_argument") { try { await ref.set({ tasks: {}, creators: {}, counts: {}, ...S.tracker }); } catch { S.canWrite = false; render(); } }
+      }
+    });
+  }
+
+  document.addEventListener("change", (e) => {
+    const t = e.target;
+    if (t.dataset.task) writeTracker({ tasks: { [t.dataset.task]: t.checked } });
+    if (t.dataset.creator) writeTracker({ creators: { [t.dataset.creator]: Number(t.value) } });
+  });
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.count) {
+      const k = b.dataset.count, v = Math.max(0, (S.tracker.counts[k] || 0) + Number(b.dataset.d));
+      writeTracker({ counts: { [k]: v } });
+    }
+    if (b.id === "toggle-tests") { S.showTests = !S.showTests; renderSignups(); }
+    if (b.id === "theme-toggle") {
+      const dark = document.documentElement.dataset.lb !== "dark";
+      if (dark) document.documentElement.dataset.lb = "dark"; else delete document.documentElement.dataset.lb;
+      try { localStorage.setItem("lb-theme", dark ? "dark" : "light"); } catch {}
+      syncThemeButton();
+    }
+  });
+
+  function syncThemeButton() {
+    const dark = document.documentElement.dataset.lb === "dark", b = $("theme-toggle");
+    b.textContent = dark ? "מצב בהיר" : "מצב כהה"; b.setAttribute("aria-pressed", String(dark));
+  }
+  syncThemeButton();
+
+  // ---------- boot ----------
+  // Static copy (Vercel): data is embedded at build time, read-only, no live connections
+  const STATIC = window.__DASH__ || null;
+  if (STATIC) {
+    Object.assign(S, { snap: STATIC.snap, history: STATIC.history || [], dbReady: true, canWrite: false, trackerExists: true });
+    if (STATIC.tracker) S.tracker = { tasks: { ...(STATIC.tracker.tasks || {}) }, creators: { ...(STATIC.tracker.creators || {}) }, counts: { ...(STATIC.tracker.counts || {}) } };
+    $("foot").innerHTML = `<span>עותק לקריאה בלבד, נבנה מחדש כל בוקר אחרי הרענון. לסימון משימות, עדכון יוצרים והרשמות חיות: <a href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">הלוח ב-Claude</a>.</span>`;
+    render();
+    return;
+  }
+  render();
+
+  (async () => {
+    const user = await window.claude?.use?.("user");
+    if (user) { try { const w = await user.can("data.write"); if (w === false) { S.canWrite = false; render(); } } catch {} }
+  })();
+
+  (async () => {
+    db = await window.claude?.use?.("db");
+    if (!db) { S.dbMissing = true; S.canWrite = false; render(); return; }
+    db.doc("snapshot/latest").onSnapshot((snap) => { S.dbReady = true; S.snap = snap.exists ? snap.data() : null; render(); },
+      (e) => { S.dbReady = true; S.snapErr = e?.code; render(); });
+    db.collection("history").orderBy("date").limit(400).onSnapshot((q) => { S.history = q.docs.map((d) => d.data()); render(); }, () => {});
+    db.doc("tracker/state").onSnapshot((snap) => {
+      S.trackerExists = snap.exists;
+      if (snap.exists) { const d = snap.data(); S.tracker = { tasks: { ...(d.tasks || {}) }, creators: { ...(d.creators || {}) }, counts: { ...(d.counts || {}) } }; }
+      render();
+    }, () => {});
+  })();
+
+  (async () => {
+    const mcp = await window.claude?.use?.("mcp");
+    if (!mcp) return;
+    S.liveState = "loading"; renderSignups();
+    mcp.watchTool(DRIVE, "read_file_content", { fileId: SHEET_ID }, (ev) => {
+      if (ev.type === "data") {
+        try { S.live = parseSheet(ev.result.payload ?? ev.result.content?.[0]?.text); S.liveState = "ok"; S.liveErr = null; S.liveAt = ev.result.cache?.storedAt ? new Date(ev.result.cache.storedAt).toISOString() : new Date().toISOString(); }
+        catch { S.liveState = "error"; S.liveErr = "tool_error"; }
+      } else {
+        const code = ev.error?.code;
+        S.liveErr = code; S.liveState = "error";
+        if (["needs_reauth", "server_not_connected", "blocked_by_policy", "approval_required", "not_in_manifest", "selection_required"].includes(code)) S.live = null;
+      }
+      render();
+    }, { refetchInterval: 120000, cache: { staleTime: 60000 } });
+  })();
+})();
+</script>
