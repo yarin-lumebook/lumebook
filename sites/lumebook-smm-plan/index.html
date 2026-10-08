@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>לומיבוק · תוכנית סושיאל</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Varela+Round&amp;display=swap">
+<style>
+/* Design tokens from lumebook.com (:root in the store's stylesheet). Single dark look, same as the store. */
+:root{
+  --ink:#0B0518; --ink-1:#130827; --ink-2:#1D1039; --ink-3:#291852; --ink-line:rgba(230,183,98,.12);
+  --gold:#E6B762; --gold-2:#C9954A; --gold-soft:#F3D9A1;
+  --cream:#F8F0E1; --cream-mute:#B8AF9E; --cream-dim:#8A8376;
+  --rose:#E88BA8; --danger:#E86B7A; --success:#6BD196;
+  --fg-1:var(--cream); --fg-2:var(--cream-mute); --fg-3:var(--cream-dim);
+  --bg-page:var(--ink); --bg-surface:var(--ink-1); --bg-elevated:var(--ink-2);
+  --border-hairline:var(--ink-line); --border-strong:rgba(248,240,225,.14);
+  --font-display:"Varela Round","Heebo",system-ui,sans-serif;
+  --font-body:"Heebo","Varela Round",system-ui,sans-serif;
+  --fs-h2:1.45rem; --fs-h3:1.05rem; --fs-body:1rem; --fs-small:.93rem; --fs-xs:.78rem;
+  --lh-body:1.7;
+  --r-sm:.625rem; --r-md:1rem; --r-lg:1.25rem; --r-pill:999px;
+  --sp-1:.25rem; --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem; --sp-5:1.25rem; --sp-6:1.5rem; --sp-8:2rem;
+  --shadow-glow:0 18px 60px -24px rgba(230,183,98,.35);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg-page);color:var(--fg-1);font-family:var(--font-body);font-size:var(--fs-body);line-height:var(--lh-body);
+  background-image:radial-gradient(900px 420px at 85% -8%,rgba(105,62,170,.28),transparent 65%);background-repeat:no-repeat;
+  padding-inline:16px;padding-block:env(safe-area-inset-top,0px) 72px}
+.wrap{max-width:920px;margin:0 auto}
+a{color:var(--gold)}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;margin:0;text-wrap:balance}
+p{margin:0 0 var(--sp-3)}
+.small{font-size:var(--fs-small)}
+.muted{color:var(--fg-2)}
+.note{font-size:var(--fs-small);color:var(--fg-3);margin:var(--sp-3) 0 0}
+
+/* header */
+.top{padding-block:40px 28px;border-bottom:1px solid var(--border-hairline)}
+.top h1{display:grid;gap:4px;line-height:1.15}
+.top .wordmark{font-size:2rem;color:var(--gold);letter-spacing:-.01em}
+.top .doc-title{font-size:1rem;color:var(--fg-2)}
+
+/* sections */
+section{padding-top:56px}
+h2{font-size:var(--fs-h2);line-height:1.25;margin-bottom:var(--sp-5);display:flex;align-items:center;gap:var(--sp-3)}
+h2::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+h3{font-size:var(--fs-h3);line-height:1.3;color:var(--gold-soft);margin-bottom:var(--sp-3)}
+
+.card{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-lg);padding:var(--sp-5) var(--sp-6);min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-4);align-items:start}
+.grid2>:only-child{grid-column:1/-1}
+@media (max-width:760px){.grid2{grid-template-columns:minmax(0,1fr)}}
+
+/* lists */
+ul.list{margin:0;padding-inline-start:1.2rem;display:grid;gap:var(--sp-2)}
+ul.list li{text-wrap:pretty}
+ul.list li::marker{color:var(--gold)}
+li:empty,tr:empty,.tasks li:empty{display:none}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--border-hairline);border-radius:var(--r-lg);background:var(--bg-surface)}
+table{border-collapse:collapse;width:100%;font-size:var(--fs-small)}
+table:has(th:nth-child(4)){min-width:600px}
+th,td{text-align:right;padding:13px 18px;border-bottom:1px solid var(--border-hairline);vertical-align:top}
+th{font-weight:400;font-size:var(--fs-xs);color:var(--fg-3);background:rgba(248,240,225,.025);white-space:nowrap}
+td:first-child{color:var(--cream);white-space:nowrap}
+table:not(:has(th:nth-child(3))) td:first-child{width:24%}
+td:not(:first-child){color:var(--fg-2)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--gold-soft);unicode-bidi:plaintext}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:rgba(230,183,98,.035)}
+td b{font-weight:500}
+@media (max-width:640px){td:first-child{white-space:normal}}
+
+/* october */
+.weeks{display:grid;gap:var(--sp-3)}
+.week{display:grid;grid-template-columns:120px minmax(0,1fr);gap:var(--sp-6)}
+@media (max-width:640px){.week{grid-template-columns:minmax(0,1fr);gap:var(--sp-2)}}
+.week .when{display:grid;gap:2px;align-content:start;padding-inline-end:var(--sp-4);border-inline-end:1px solid var(--border-hairline)}
+@media (max-width:640px){.week .when{border-inline-end:0;padding-inline-end:0;grid-auto-flow:column;justify-content:start;align-items:baseline;gap:var(--sp-3)}}
+.week .when b{font-family:var(--font-display);font-weight:400;font-size:1.1rem;color:var(--gold-soft)}
+.week .when span{font-size:var(--fs-small);color:var(--fg-3)}
+.tasks{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-3);align-content:start}
+.tasks li{display:grid;gap:var(--sp-3)}
+.tasks label{display:flex;gap:var(--sp-3);align-items:flex-start;cursor:pointer;line-height:1.5;text-wrap:pretty}
+.tasks input{appearance:none;flex:none;width:18px;height:18px;margin:3px 0 0;border-radius:5px;border:1.5px solid var(--gold-2);background:transparent;cursor:pointer;display:grid;place-content:center;transition:background .15s,border-color .15s}
+.tasks input:hover{border-color:var(--gold)}
+.tasks input:checked{background:var(--gold);border-color:var(--gold)}
+.tasks input:checked::after{content:"";width:9px;height:5px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(-45deg) translate(1px,-1px)}
+.tasks input:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
+.tasks input:checked + span{color:var(--fg-3);text-decoration:line-through}
+
+.targets{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--sp-3);margin-top:var(--sp-3)}
+.targets>div{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-md);padding:var(--sp-4);display:grid;gap:2px;align-content:start}
+.targets .n{font-family:var(--font-display);font-size:1.6rem;line-height:1.2;color:var(--gold);font-variant-numeric:tabular-nums}
+.targets .l{font-size:var(--fs-small);color:var(--fg-2);line-height:1.4}
+#october>h3{margin:var(--sp-8) 0 0}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--sp-3)}
+.road .card{padding:var(--sp-5)}
+.road .d{display:block;font-size:var(--fs-xs);color:var(--gold);letter-spacing:.04em;margin-bottom:var(--sp-1)}
+.road ul{margin:0;padding-inline-start:1.1rem;font-size:var(--fs-small);color:var(--fg-2);display:grid;gap:var(--sp-2)}
+.road ul li::marker{color:var(--gold-2)}
+.road .peak{border-color:rgba(230,183,98,.5);box-shadow:var(--shadow-glow)}
+
+/* example videos: TikTok's official embed player, horizontal swipe on phones */
+.vids{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-4);align-items:start}
+@media (max-width:860px){.vids{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.vids{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:78%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--sp-2)}.vid{scroll-snap-align:start}}
+.vid{background:var(--bg-surface);border:1px solid var(--border-hairline);border-radius:var(--r-lg);overflow:hidden;display:grid;min-width:0}
+.vid .frame{position:relative;aspect-ratio:9/16;background:#000}
+.vid iframe{display:block;width:100%;height:100%;border:0}
+/* poster until tapped: players load only on demand, so they don't pull the page while reading */
+.vid .play{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:pointer;display:grid;place-items:center;
+  background:radial-gradient(120% 70% at 50% 30%,var(--ink-3),var(--ink-1)) center/cover no-repeat}
+.vid .play svg{width:58px;height:58px;padding:16px 14px 16px 18px;border-radius:50%;fill:var(--ink);background:var(--gold);box-shadow:0 8px 30px rgba(0,0,0,.45);transition:transform .15s}
+.vid .play:hover svg{transform:scale(1.08)}
+.vid .play:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
+.vid .play .pf{position:absolute;top:10px;inset-inline-start:10px;font-size:var(--fs-xs);color:var(--cream);background:rgba(11,5,24,.6);border-radius:var(--r-pill);padding:3px 9px}
+.vid .body{padding:var(--sp-4);display:grid;gap:var(--sp-2);font-size:var(--fs-small);line-height:1.5}
+.vid .tag{font-size:var(--fs-xs);color:var(--gold);letter-spacing:.02em}
+.vid h3{font-size:1rem;color:var(--cream);margin:0}
+.vid .meta{font-size:var(--fs-xs);color:var(--fg-3)}
+.vid .meta bdi{color:var(--gold-soft)}
+.vid p{margin:0;color:var(--fg-2)}
+.vid p b{font-weight:500;color:var(--gold)}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <h1><span class="wordmark">לומיבוק</span><span class="doc-title">תוכנית סושיאל ותוכן</span></h1>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="scope">
+    <h2>תחומי האחריות שלי</h2>
+    <div class="tbl"><table>
+      <tbody><tr><th>תחום</th><th>מה כולל</th></tr>
+      <tr><td>הנחיות<br></td><td>הגדרת הקול השיווקי, דיוק הויז'ואל</td></tr>
+      <tr><td>תוכן</td><td>רעיונות, צילום, עריכה, להעלות</td></tr>
+      <tr><td>יוצרים</td><td>איתור, פנייה, שיתופי פעולה, מעקב ותוצאות</td></tr>
+      <tr><td>תוכן גולשים</td><td>איסוף והעלאת סרטוני לקוחות</td></tr>
+      <tr><td>קהילה</td><td>לכתוב תגובות בפוסטים, לשלוח הודעות, לחפש קבוצות רלוונטיות</td></tr>
+      <tr><td>מדידה ודיווח</td><td>מעקב קישורים, דוחות שבועיים</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section id="wedge">
+    <h2>בידול: הזווית ההתפתחותית</h2>
+    <div class="card">
+      <ul class="list">
+        <li>התוכן מחובר לרגע התפתחותי של הילד</li>
+        <li>סרטוני הסבר על התפתחות הילד</li>
+        <li>שיתוף פעולה עם אנשי מקצוע מהתחום</li>
+        <li>עדויות של הורים</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="guidelines">
+    <h2>הנחיות שיווק</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>קול</h3>
+        <ul class="list small">
+          <li>בגובה העיניים, חם ומשמעותי</li>
+          
+          <li>מדברים על הילד, לא אל ההורה</li>
+          <li>בלי הבטחות טיפוליות</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>ויז'ואל</h3>
+        <ul class="list small">
+          <li>פנים אמיתיות של ילדים</li>
+          <li>ספר פיזי</li>
+          <li>כתוביות חובה (מעלה retention)</li>
+          <li>צליל למותג (מחזק את ההקשר של אנשים למותג)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>בטיחות ילדים והסכמה</h3>
+        <ul class="list small">
+          <li>שיתוף רק עם הסכמה כתובה של ההורה, שנשמרת בצילום מסך</li>
+          <li>להשתמש רק בשם פרטי בלבד</li>
+          
+          
+          <li>בלי צילומי אמבטיה או בלי לבוש</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="content">
+    <h2>מערך התוכן</h2>
+    <div class="tbl"><table>
+      <tbody><tr><th>עמודת תוכן</th><th>הגדרה</th></tr>
+      <tr><td>רגע התפתחותי ← ספר</td><td>הרגע ההתפתחותי, מה הקושי של הילד, והספר ככלי</td></tr>
+      <tr><td>חשיפת הספר</td><td>הרגע שבו הילד רואה את עצמו בספר</td></tr>
+      <tr><td>הוכחה ותהליך</td><td>איך יוצרים ספר, איך נראה ספר מודפס, ביקורות אמיתיות</td></tr>
+      <tr><td>מתנות ועונתיות</td><td>ימי הולדת, סבים וסבתות, חגים וימים מיוחדים</td></tr>
+    </tbody></table></div>
+    <div class="grid2" style="margin-top:var(--sp-4)">
+      <div class="card">
+        <h3>קצב שבועי</h3>
+        <ul class="list small">
+          <li>5-6 רילס באינסטגרם שאני אעלה גם לטיקטוק ולפייסבוק</li>
+          <li>סטוריז 5 ימים בשבוע</li>
+          <li>1-2 קרוסלות</li>
+          <li>עדכון היילייטס</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="examples">
+    <h2>סרטונים שעבדו</h2>
+    <p class="muted small">8 דוגמאות מישראל וחו"ל ומה אפשר לקחת מכל אחד אלינו</p>
+    <div class="vids">
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7670603837136325896?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@lironofir/video/7670603837136325896" data-title="לירון אופיר ממציא סיפור לבן שלו"><button class="play" type="button" aria-label="לנגן: לירון אופיר ממציא סיפור לבן שלו"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">יוצרים</span>
+          <h3>אבא ממציא סיפור, MeBook הופכים אותו לספר</h3>
+          <span class="meta"><bdi dir="ltr">@lironofir</bdi> · <bdi dir="ltr">229K</bdi> צפיות לסרטון המקורי</span>
+          <p>שבוע אחרי, MeBook הפכו את הסיפור לספר ופרסמו collab איתו באינסטגרם: <bdi dir="ltr">86.5K</bdi>, פי 22 מהרגיל שלהם (<a href="https://www.instagram.com/reel/Db79B6COOSN/" target="_blank" rel="noopener">הגרסה שלהם</a>)</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7517299113197587718?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@babyalison31/video/7517299113197587718" data-title="Wonder Wraps: הפתעה וקוד הנחה"><button class="play" type="button" aria-label="לנגן: Wonder Wraps: הפתעה וקוד הנחה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">יוצרים</span>
+          <h3>הפתעה, ״זה אני!״, קוד הנחה</h3>
+          <span class="meta"><bdi dir="ltr">@babyalison31</bdi> · <bdi dir="ltr">77.2K</bdi> צפיות</span>
+          <p>מבנה מוכן לבריף: הפתעה, הילדה מזהה את עצמה, קוד אישי בסוף</p>
+          <p><b>אצלנו:</b> תבנית לבריף + קוד אישי ליוצר<br></p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7478352764188282134?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@wonderwraps.com/video/7478352764188282134" data-title="Wonder Wraps: התגובה של האחיין"><button class="play" type="button" aria-label="לנגן: Wonder Wraps: התגובה של האחיין"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">חשיפת הספר</span>
+          <h3>POV: התגובה של האחיין</h3>
+          <span class="meta"><bdi dir="ltr">@wonderwraps.com</bdi> · <bdi dir="ltr">163K</bdi> צפיות, פי 144 מהרגיל</span>
+          <p>7 שניות, הצופה הוא מי שנותן את המתנה</p>
+          <p><b>אצלנו:</b> POV של דודה או סבתא ביום הולדת/חג</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7568232703116545288?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@lookitskateeee/video/7568232703116545288" data-title="הלוויה למוצץ"><button class="play" type="button" aria-label="לנגן: הלוויה למוצץ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">רגע התפתחותי ← ספר</span>
+          <h3>הלוויה למוצץ</h3>
+          <span class="meta"><bdi dir="ltr">@lookitskateeee</bdi> · <bdi dir="ltr">2.6M</bdi> צפיות, בחשבון שהחציון שלו 870</span>
+          <p>טקס פרידה עם הומור, הרעיון סחב לבד</p>
+          <p><b>אצלנו:</b> ״ביי ביי מוצץ״ כחלק מטקס הפרידה, UGC מלקוחות</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7650173364480314637?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@learntotalkwithme/video/7650173364480314637" data-title="קלינאית תקשורת: תמונה בספר"><button class="play" type="button" aria-label="לנגן: קלינאית תקשורת: תמונה בספר"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">אנשי מקצוע</span>
+          <h3>קלינאית: ״שימו את התמונה שלכם בספר״</h3>
+          <span class="meta"><bdi dir="ltr">@learntotalkwithme</bdi> · <bdi dir="ltr">36.2K</bdi> צפיות, פי 32 מהרגיל</span>
+          <p>מומחית עם המוצר ביד כל הזמן, מרגיש כמו עצה ולא פרסומת</p>
+          <p><b>אצלנו:</b> המודל לשיתוף פעולה עם איש מקצוע</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7545096813838093574?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@mebook.ai/video/7545096813838093574" data-title="MeBook: דודה מחפשת מתנה לכיתה א׳"><button class="play" type="button" aria-label="לנגן: MeBook: דודה מחפשת מתנה לכיתה א׳"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">מתנות ועונתיות</span>
+          <h3>דודה מחפשת מתנה לכיתה א׳</h3>
+          <span class="meta"><bdi dir="ltr">@mebook.ai</bdi> · <bdi dir="ltr">31.2K</bdi> צפיות</span>
+          <p>נותנת מתנה + אבן דרך בשורה אחת</p>
+          <p><b>אצלנו:</b> ״שלום כיתה א׳״, ובחגים ״מה מביאים לאחיין שיש לו הכל?״</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7551351429231938823?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@linoyabutbul1/video/7551351429231938823" data-title="מתנה לגננת לראש השנה"><button class="play" type="button" aria-label="לנגן: מתנה לגננת לראש השנה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">גננות</span>
+          <h3>מתנה לגננת לראש השנה</h3>
+          <span class="meta"><bdi dir="ltr">@linoyabutbul1</bdi> · <bdi dir="ltr">410K</bdi> צפיות, פי 82 מהרגיל</span>
+          <p>DIY עם reveal בסוף, ומועד שכולם מחפשים</p>
+          <p><b>אצלנו:</b> ״מתנה לגן לחג״ לועדי הורים</p>
+        </div>
+      </article>
+      <article class="vid">
+        <div class="frame" data-src="https://www.tiktok.com/player/v1/7310332715738484010?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@melissametrano/video/7310332715738484010" data-title="8 לילות של מתנות חנוכה"><button class="play" type="button" aria-label="לנגן: 8 לילות של מתנות חנוכה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
+        <div class="body">
+          <span class="tag">מתנות ועונתיות</span>
+          <h3>8 לילות של מתנות חנוכה</h3>
+          <span class="meta"><bdi dir="ltr">@melissametrano</bdi> · <bdi dir="ltr">380K</bdi> צפיות, דצמ׳ 2023</span>
+          <p>״לילה 1״: הבנות פותחות מתנה, ואז הפתעה להורים. סדרה של 8 = 8 סיבות לחזור</p>
+          <p><b>אצלנו:</b> ״8 לילות, 8 גיבורים״: לקוחות או יוצרים מצלמים את פתיחת הספר באחד הלילות</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="creators">
+    <h2>תוכנית יוצרים (בתמורה לספרים)</h2>
+    <div class="tbl"><table>
+      <tbody><tr><th>רכיב</th><th>הגדרה</th></tr>
+      <tr><td>מי</td><td>יוצרים: הורים בישראל, 2k–50k עוקבים, ילדים בגילאי 1-10. אופציות משנה: אנשי מקצוע מהתחום וגננות</td></tr>
+      <tr><td>מה מקבלים</td><td>ספר אישי במתנה. עמלה לכל הזמנה בקוד אישי&nbsp; (באישור יוסי)</td></tr>
+      <tr><td>מה מבקשים</td><td>ריל אחד ו-2–3 סטוריז עם קישור + אישור לשיתוף. בלי התחייבות לפרסם אותם בחזרה</td></tr>
+      <tr><td>אנקדוטה</td><td>צריך ליצור טופס הרשמה שיהיה אקסל מסודר</td></tr>
+      <tr><td>המשך</td><td>אופציה להפוך ל"שגריר"</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section id="ugc">
+    <div class="grid2">
+      <div>
+        <h2>תוכן גולשים</h2>
+        <div class="card">
+          <ul class="list small">
+            <li>בקשה מכל רוכש לצלם את הרגע הראשון עם הספר ולתייג אותנו</li>
+            <li>פנייה תקופתית ללקוחות עבר</li>
+            <li>היילייט לקוחות מתעדכן</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <h2>קהילה</h2>
+        <div class="card">
+          <ul class="list small">
+            <li>מענה לכל תגובה והודעה באותו יום</li>
+            <li>מענה לקבוצות הורים בפייסבוק</li>
+            <li>הגרלה משותפת עם יוצר פעם בחודש (באישור יוסי)</li>
+            <li>שאלות שחוזרות הרבה פעמים הופכות לתוכן</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="october">
+    <h2>אוקטובר</h2>
+    <div class="weeks">
+      <div class="card week">
+        <div class="when"><b>שבוע 1</b><span>.</span></div>
+        <ul class="tasks">
+          <li><label><input type="checkbox" id="t1"><span>UTM</span></label></li>
+          <li><label><input type="checkbox" id="t2"><span>טופס הרשמה שמחובר לאקסל מעקב UGC</span></label></li>
+          <li><label><input type="checkbox" id="t3"><span>ביו והיילייטס</span></label></li>
+          <li></li>
+          <li><label><input type="checkbox" id="t5"><span>יצירת מערכת תוכן ראשונית + דוגמאות</span></label></li>
+          <li></li>
+          <li><label><input type="checkbox" id="t7"><span>פניות ליוצרי UGC (אפשר לנסות לבנות כלי אוטומטי)</span></label></li>
+        </ul>
+      </div>
+      <div class="card week">
+        <div class="when"><b>שבוע 2</b><span>.</span></div>
+        <ul class="tasks">
+          <li><label><input type="checkbox" id="t8"><span>5-6 רילס לפי מערכת התוכן</span></label><label><input type="checkbox"><span>1-2 קרוסלות</span></label></li>
+          <li></li>
+          <li><label><input type="checkbox" id="t10"><span>הודעות לרוכשים</span></label></li>
+          <li><label><input type="checkbox" id="t11"><span>מענה בקבוצות הורים</span></label></li>
+          <li><label><input type="checkbox" id="t12"><span>פניות ליוצרי UGC</span></label></li>
+        </ul>
+      </div>
+      <div class="card week">
+        <div class="when"><b>שבוע 3</b><span>.</span></div>
+        <ul class="tasks">
+          <li><label><input type="checkbox" id="t13"><span>פרסום ושיתוף תוכן UGC</span></label></li>
+          <li><label><input type="checkbox" id="t14"><span>גיוס איש מקצוע לשיתוף פעולה</span></label></li>
+          <li><label><input type="checkbox" id="t15"><span>גיוס UGC לקראת חנוכה</span></label></li>
+          <li><label><input type="checkbox" id="t16"><span>הגרלה ראשונה</span></label><label><input type="checkbox"><span>מענה בקבוצות הורים</span></label>
+<label><input type="checkbox"><span>רילס לפי מערכת התוכן</span></label>
+<label><input type="checkbox"><span>קרוסלות</span></label></li>
+          <li></li>
+        </ul>
+      </div>
+      <div class="card week">
+        <div class="when"><b>שבוע 4</b><span>.</span></div>
+        <ul class="tasks">
+          <li><label><input type="checkbox" id="t18"><span>תקשורת עם הUGC לקמפיין חנוכה + הספרים</span></label></li>
+          <li><label><input type="checkbox" id="t19"><span>אנליטיקה ראשונית</span></label></li>
+          <li><label><input type="checkbox" id="t20"><span>קביעת יעדים לנובמבר-דצמבר</span></label><label><input type="checkbox"><span>עדכון מערכת תוכן</span></label>
+<label><input type="checkbox"><span>רילס</span></label>
+<label><input type="checkbox"><span>קרוסלות</span></label>
+<label><input type="checkbox"><span>מענה בקבוצות הורים</span></label></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+    <h3>יעדי אוקטובר</h3>
+    <div class="targets">
+      <div><span class="n">18</span><span class="l">רילס</span></div>
+      <div><span class="n">כמה שיותר</span><span class="l">פניות ליוצרים</span></div>
+      <div><span class="n">10</span><span class="l">ספרים ליוצרים</span></div>
+      <div><span class="n">10</span><span class="l">סרטוני לקוחות בהסכמה</span></div>
+      <div><span class="n">31.10</span><span class="l">אנלטיקה ראשונית</span></div>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <h2>עד סוף דצמבר</h2>
+    <div class="road">
+      <div class="card"><span class="d"><bdi dir="ltr">1–24.11</bdi></span><h3>להגדיל את מה שעובד</h3><ul>
+        <li>למצוא פורמטים המובילים</li><li>ספרי יוצרים לחנוכה עד 10.11</li><li>תוכן חנוכה מ-10.11</li><li>ספירה לאחור עד חנוכה</li></ul></div>
+      <div class="card peak"><span class="d"><bdi dir="ltr">25.11–12.12</bdi></span><h3>חנוכה</h3><ul>
+        <li>חנוכה: <bdi dir="ltr">4–12.12</bdi></li><li>שיתוף סרטוני לקוחות</li></ul></div>
+      <div class="card"><span class="d"><bdi dir="ltr">13–31.12</bdi></span><h3>איסוף וסיכום</h3><ul>
+        <li>איסוף נתוני ביצועים של החג</li>
+        <li>שיפור אסטרטגיית תוכן והמשך עבודה</li><li>סקירה רבעונית</li><li>תוכנית לרבעון הבא</li></ul></div>
+    </div>
+  </section>
+
+  <section id="kpis">
+    <h2>מדדים</h2>
+    <div class="tbl"><table>
+      <tbody><tr><th>מדד</th><th>מקור</th><th>אוקטובר</th><th>יעד דצמבר</th></tr>
+      <tr><td><b>הזמנות מיוחסות לסושיאל</b></td><td>UTM, קישורים עם מעקב, שאלה בקופה</td><td>X</td><td class="num">פי 3</td></tr>
+      <tr><td>תצוגות מקדימות שהתחילו מסושיאל</td><td>אנליטיקס באתר</td><td>X</td><td class="num">פי 3</td></tr>
+      <tr><td>צפיות ממוצעות לריל</td><td>Instagram Insights</td><td>X</td><td class="num">5-10K</td></tr>
+      <tr><td>שיתופים ושמירות ל-1,000 חשיפות</td><td>Instagram Insights</td><td>X</td><td class="num">+50%</td></tr>
+      <tr></tr>
+      <tr><td>קליקים על קישורים</td><td>Insights וקישורים במעקב</td><td>X</td><td class="num">פי 3</td></tr>
+      <tr><td>הזמנות על כל ספר שנשלח ליוצר</td><td>קודי יוצרים</td><td>X</td><td class="num">5-10</td></tr>
+      <tr><td>סרטוני לקוחות</td><td>אקסל</td><td class="num">10</td><td class="num">25 בחודש</td></tr>
+      <tr><td>עוקבים באינסטגרם</td><td>Instagram</td><td class="num">911</td><td class="num">3-4K</td></tr>
+    </tbody></table></div>
+    <p class="note">היעדים לדצמבר זמניים ויוחלפו ביעדים ריאליסטיים יותר ב-31.10</p>
+  </section>
+
+  <section id="rhythm">
+    <div class="grid2">
+      <div>
+        <h2>לוודא עם יוסי</h2>
+        <div class="card">
+          <ul class="list small">
+            <li>מה צריך להיות ההסכם מול היוצרי UGC</li>
+            <li>קודי הנחה ליוצרים ולהוסיף שאלה של "איך הגעת אלינו" בקופה</li>
+            <li>טווח גילאים אחד (כתוב כל מיני טווחים באתר)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('.tasks input[type=checkbox]'));
+  var KEY='lumebook-smm-oct-he-v2';
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){}
+  boxes.forEach(function(b,i){
+    if(saved[i])b.checked=true;
+    b.addEventListener('change',function(){
+      var o={};boxes.forEach(function(x,j){if(x.checked)o[j]=1});
+      try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+    });
+  });
+})();
+
+// example videos: TikTok poster from TikTok's own oEmbed; the player itself loads only when tapped
+(function(){
+  [].slice.call(document.querySelectorAll('.vid .frame[data-src]')).forEach(function(f){
+    var btn=f.querySelector('.play');
+    if(f.dataset.oembed && window.fetch){
+      fetch('https://www.tiktok.com/oembed?url='+encodeURIComponent(f.dataset.oembed))
+        .then(function(r){return r.ok?r.json():null})
+        .then(function(j){if(j&&j.thumbnail_url)btn.style.backgroundImage='url("'+j.thumbnail_url+'")'})
+        .catch(function(){});
+    }
+    btn.addEventListener('click',function(){
+      var ifr=document.createElement('iframe');
+      ifr.src=f.dataset.src; ifr.title=f.dataset.title||'';
+      ifr.allow='autoplay; encrypted-media; fullscreen; picture-in-picture'; ifr.allowFullscreen=true;
+      f.replaceChildren(ifr);
+    });
+  });
+})();
+</script>
+</body>
+</html>
