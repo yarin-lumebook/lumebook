@@ -1,0 +1,170 @@
+# LumeBook nightly carousel pipeline
+
+Every night at 22:00 Claude prepares six complete Hebrew carousel options on one topic for the next morning. Nothing is generated or paid for until Yarin picks one option and approves the cost.
+
+```
+22:00 nightly run (free)            morning (Yarin)              after approval (paid)
+topic + research + 6 options  ──▶   review.html: read, edit,   ──▶  8 images on fal.ai, visual QA,
+validated, review.html/md           choose e.g. kid-2               Hebrew overlay, 1080x1350 PNGs, ZIP
+```
+
+The Claude side is the project skill `.claude/skills/lumebook-carousel` (both modes) plus the voice skill `.claude/skills/lumebook-hebrew-voice`. This README is the manual for people.
+
+## Folder map
+
+```
+carousel/carousel-pipeline/
+  README.md               this manual
+  pack.schema.json        structure of a nightly pack (2 directions x 3 options x 7 slides)
+  reco.schema.json        structure of the daily games and books carousels (recommendations.md has the rules)
+  recommendations.md      the games and books format: stage, Israeli popularity evidence, slides, images, rotation
+  reco-history.json       which stages, skills, products and hook structures the games and books carousels used
+  topic-bank.md           topics with ids, season months, code word ideas, books to check
+  hook-bank.md            hook formulas with evidence labels and review dates, formula cards, the hook slate method,
+                          rotation rules, slide 2 moves and per-slide re-hook moves
+  hook-results.json       LumeBook's own results per published carousel (the only route to "lumebook_validated")
+  research/               hook-strategy-2026-10-08.md (the research behind the bank) and notes/
+  names.md                Israeli girl and boy names the carousels may use
+  pillars.md              the two content pillars (kid, expert): colours, fonts, slide layout, photo direction
+  history.json            what ran when: topic, hook families, code words, hooks, selected option
+  voice-profile.md        voice rules, calibration status, where samples go
+  drafts/DATE/            pack.json, review.html, review.md (+ versions/vN/ backups of reruns),
+                          games-carousel.json, books-carousel.json, reco-assets/, games/ and books/ (rendered slides)
+  approved/DATE-OPTION/   one production run: approved.json, jobs.json, state.json, APPROVAL.md,
+                          generated-assets/, real-assets/, final/
+  scripts/                all the tools (standard library Python, plus Google Chrome for rendering)
+  assets/                 fonts (Heebo, Assistant, Rubik, SIL OFL) and the logo (off by default on slides)
+  tests/                  unit tests and the valid pack fixture
+  voice-eval-workspace/   skill-creator evaluation of the voice skill (benchmark + review.html)
+```
+
+DATE is the morning the pack is for. A run at 22:00 on the 7th writes `drafts/<the 8th>/`.
+
+## 1 · The nightly run
+
+Scheduled task `lumebook-nightly-carousel` in Claude Desktop (Code, Routines), daily at 22:00 local time (Asia/Jerusalem), working folder `/Users/yarinbruner/Claude/Projects/Lumebook`.
+
+- Claude Desktop must be open and the Mac awake at 22:00. If the app is closed, the run starts the next time it opens; a run after midnight and before 06:00 still targets the same morning
+- It never calls fal.ai or anything paid
+- When it finishes, the session ends with the path to `review.html`
+
+What it does: `nightly.py start` (folder, backup, rotation context) → choose a topic → check product facts on lumebook.com → read sources → write the hook slate (12 scored candidates) → write the six options in `pack.json` → `nightly.py finish` (validate, review files, history). If validation fails it rewrites the failing lines and tries again.
+
+Run it by hand any time:
+
+```bash
+python3 carousel/carousel-pipeline/scripts/nightly.py start
+```
+
+then ask Claude: "use the lumebook-carousel skill in nightly review mode".
+
+Every run also writes two extra carousels: 3 games and 3 books for one developmental stage, each popular in Israel with Israel-specific evidence, a real product image in the middle of each recommendation slide and LumeBook named once on slide 6. Each has its own page (`games.html`, `books.html`), one tab away from `review.html`, with the sources, popularity evidence, availability and image rights in dropdowns, and editable there. No image generation, no paid call, nothing posted. Rules: `recommendations.md`. Check them by hand:
+
+```bash
+python3 carousel/carousel-pipeline/scripts/nightly.py finish-reco carousel/carousel-pipeline/drafts/DATE
+```
+
+## 2 · Morning review and selection
+
+Open `drafts/DATE/review.html` (or `review.md` anywhere Markdown renders).
+
+A light page with two sections: the child talks (kid-1 to kid-3) and the evidence based take (expert-1 to expert-3). Each option is one card:
+
+- the header: option id, title, the child (name, girl or boy, talks to mom or both parents), the hook formula and its score, the code word
+- one row with the angle, who it is for and why it may convert
+- the seven slides side by side (they scroll sideways on a phone), each with its role, word count and why it pulls to the next slide
+- the caption and the single CTA side by side
+- two dropdowns: "טענות ומקורות" (every claim, its source and the verbatim quote) and "תיאורי תמונות ועוגן הדמויות" (each slide's text next to its image brief and the exact prompt)
+
+The topic reason and the live-site product facts sit in dropdowns too. The chip at the top says whether the voice is calibrated (it counts your rewrites, see section 7).
+
+**Edit and save from the page.** Start the editor:
+
+```bash
+python3 carousel/carousel-pipeline/scripts/review_server.py
+```
+
+and open http://localhost:8777 (or start `carousel-review-editor` from Claude Desktop's preview). Click any headline, body line, caption, CTA or option title and type; Enter adds a line. "שמירה" or Cmd+S saves into `pack.json` (the previous version is copied to `versions/vN/` first), rebuilds the page, and lists anything that breaks a rule in Hebrew next to the field, for example "פסיק בשורה 1". Edits are saved even when something still needs fixing, so nothing typed is lost; a pack with errors cannot go to production until it is fixed. Changing the CTA also updates the last slide, the caption's last line and the code word. Every saved change to slide text or the caption is also logged as before and after for the voice skill to learn from (section 7). Opened as a plain file, the page is read only and says how to start the editor.
+
+Nothing is chosen automatically. Tell Claude, for example: `produce kid-2 from the 2026-10-08 pack` (edits welcome: "change slide 3 to ...").
+
+## 3 · Approval
+
+Claude runs `prepare_fal_jobs.py`, which freezes the option and writes `approved/DATE-OPTION/APPROVAL.md` without any network call. Claude then shows:
+
+- the frozen copy
+- 8 images: 1 character and style reference (`openai/gpt-image-2.5/flare/text-to-image`) + 7 slide scenes edited from it (`openai/gpt-image-2.5/flare/edit`)
+- quality high, 1024 x 1280 (4:5), final export 1080 x 1350
+- estimated cost about $0.48, estimated maximum about $1.43 if every image needed two replacements (fal prices this model by tokens; the estimate comes from the fal pricing table checked 2026-10-07)
+- what is regenerated on QA failure: only that image, at most twice
+
+Generation starts only after a clear yes. The approved amount becomes `--max-usd` and the runner refuses to pass it.
+
+## 4 · Image generation and QA
+
+1. Reference image first. Claude inspects it at full size and records `qa character-reference pass|fail`
+2. Then the 7 slides. Each is inspected for the same child and parent, hands and faces, accidental letters, a clean text zone, product accuracy and continuity
+3. Failed slides only are replaced, with a fix note added to the prompt. After two failed replacements of one image, Claude stops and asks
+
+Details and commands: `approved/DATE-OPTION/README.md` and `.claude/skills/lumebook-carousel/references/production.md`.
+
+The fal key lives only in the shell environment (`~/.zshrc`), so Claude runs the generator through `zsh -ic`. It is never written to a file or a log.
+
+## 5 · Final export
+
+```bash
+python3 carousel/carousel-pipeline/scripts/compose_slides.py carousel/carousel-pipeline/approved/DATE-OPTION
+```
+
+Output in `final/`: `slides.html` (editable source), `01.png` to `08.png` (1080 x 1350), `contact-sheet.png`, `rtl-check.png` (every line mixing Hebrew with digits or Latin, large), `caption.txt`, `sources.md`, `alt-text.txt` and `DATE-OPTION.zip`. The Hebrew is HTML text on top of the images; the image model never draws letters.
+
+The carousel never names the brand: no logo and no product card by default. `--brand-mark` adds the logo and `--preview-card` adds an unbranded `real-assets/preview.png` on slide 7, if ever wanted.
+
+To test the layout without paid images: add `--placeholders` (writes to `final-placeholders/`).
+
+When posting: set the comment automation for the code word in Meta Business Suite, paste the alt text.
+
+## 6 · Hard rules the validator enforces
+
+On everything a parent reads (slide text, caption, CTA, code word):
+
+- no em dash, period or comma (nor their lookalikes); the error names the field, line, column and character, and nothing is deleted automatically
+- one thought per line (12 words max), hook 8 words in the main line and 12 on the slide, 25 per slide, 18 on the CTA slide, and lines short enough to fit the slide (30 characters per headline line, 42 per body line)
+- no brand name (לומבוק, LumeBook) and no catalogue book title: only the last slide suggests a personalised story where the child is the hero
+- no diagnosis or jargon words, no guarantees, no "every child", no second CTA
+- the CTA keeps the brief's idea (כתבו "X" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור) and appears word for word on slide 8 and as the caption's last line
+
+Arc (Yarin's brief), 7 slides: 1 hook from the hook bank, 2 second hook, 3 what is behind the feeling or problem, 4 and 5 two solutions, 6 the resolution (nothing that prepares a sale), 7 a short suggestion to help the child with a personalised story where they are the hero, then the CTA. Every option is about one named Israeli girl or boy and talks to mom or both parents, never dad; the CTA follows (כתבי for mom, כתבו for both parents). Every slide before the last records its pull, the solutions and the story map to sources, and each option's hook names its formula, the question it opens, where it is answered, and a score of at least 9 of 12 (`hook-bank.md`).
+
+Hooks (since 8 Oct 2026, schema_version 3): before the six options the pack holds a private hook slate of 6 kid and 6 expert candidates (different formulas, 3+ families and 3+ mechanisms per direction), each scored 0 to 2 on ten criteria with four honesty checks; a failing candidate is never used. The six options must use 4+ mechanisms, 4+ sentence shapes, 3+ slide 2 moves and 2+ awareness stages, with no two near-identical openings. Slide 2 must not lean on slide 1. A hook that states a fact about children needs a sourced claim on slide 1 or 2. A trend formula past its review date is blocked. The system never picks a winner. `python3 carousel/carousel-pipeline/scripts/nightly.py hooks` shows each formula's evidence and status. Older version 2 packs still validate with the earlier rules.
+
+Structure: exactly kid + expert, 3 options each, 7 slides each with the fixed roles, a named child from `names.md` per option (each different), talking to mom or both parents and never dad, a different hook formula per option, unique ids, a source for every option, a sourced fact in every expert option, a live-site product fact behind the slide 7 hint, product facts checked within 2 days, no topic from the last 14 packs, no code word from the last 14 days, a hook family at most twice per pack and blocked after two selections in 7 days, and an honest voice status.
+
+```bash
+python3 carousel/carousel-pipeline/scripts/validate_pack.py carousel/carousel-pipeline/drafts/DATE/pack.json
+python3 -m unittest discover -s carousel/carousel-pipeline/tests -v
+```
+
+## 7 · Voice
+
+`voice-profile.md` and `.claude/skills/lumebook-hebrew-voice/`. Status today: fallback (`python3 carousel/carousel-pipeline/scripts/nightly.py voice` shows the live count).
+
+The voice learns from your edits. Every save on the review page logs each changed line, before and after, to `.claude/skills/lumebook-hebrew-voice/examples/edits.jsonl`, and every nightly run reads the latest 30 before writing (what you cut, add, split and soften). A rewrite where at least half of the words are yours counts as one of the 15 samples needed to call the voice calibrated; small tweaks and line-break changes count as style signals only. You can also add samples directly: one real message or caption per file in `.claude/skills/lumebook-hebrew-voice/examples/approved/` (template in that folder's README).
+
+The voice skill was built and evaluated with Anthropic's skill-creator: 3 test prompts with and without the skill, graded by the same lint (`voice-eval-workspace/iteration-1/benchmark.md` and `review.html`): 100% vs 40% on the hard rules.
+
+## 8 · Recovering from failure
+
+| What happened | What to do |
+|---|---|
+| No review in the morning | Check Claude Desktop, Code, Routines, lumebook-nightly-carousel, Runs. Usually the Mac slept or the app was closed. Run it now from the Routines page or by hand (section 1) |
+| The run stopped on a permission prompt | Open the run, approve "always allow" for the listed command, run again |
+| `finish` keeps failing | Read the errors; each names a field and character. Fix the lines in `pack.json`, run `nightly.py finish` again |
+| A rerun for the same morning | Safe. The earlier pack moves to `drafts/DATE/versions/vN/` and history keeps one entry per date |
+| Two packs on the same topic | Delete nothing. `nightly.py topics` shows what is eligible; the validator blocks topics from the last 14 packs |
+| fal call failed mid-run | Rerun the same `fal_generate.py ... run` command. Finished images are skipped |
+| Over budget | The runner stops before passing `--max-usd`. Ask for a new cap before continuing |
+| Same slide failed twice | The runner refuses. Decide: accept, change the scene brief, or drop the image |
+| Copy changed after freezing | `prepare_fal_jobs.py ... --refreeze` archives the old run to `versions/vN/` |
+| Text overflows or RTL looks wrong | `compose_slides.py` exits 1 and lists the line; shorten or split it, rerun |
+| fal endpoints or prices changed | Refresh `scripts/fal_endpoints.json` from the fal model pages or the fal MCP `get_model_schema` and `get_pricing` |

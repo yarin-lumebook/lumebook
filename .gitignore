@@ -1,0 +1,53 @@
+# LumeBook monorepo. Raw media stays on disk only (re-downloadable or regenerated); code, data, docs and built pages are tracked.
+
+# OS and tools
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/
+.vercel/
+.site-editor/
+_preview-test.html
+uploads/.tmp*
+
+# generated state and outputs
+.lumebook/
+sites/dashboard/out/
+sites/dashboard/site/
+**/sheet.md
+*.log
+
+# raw research media
+research/kids-brand-content-research/videos/
+research/kids-brand-content-research/analysis/**/*.jpg
+research/kids-brand-content-research/analysis/**/*.wav
+research/carousel-research/slides/
+research/carousel-research/img/
+research/carousel-research/img2/
+research/competitor-content-analysis/**/*.mp4
+
+# fal trial: keep the source and notes, not the generated images
+carousel/fal-carousel-trial/generated-assets/
+carousel/fal-carousel-trial/clean-text/
+carousel/fal-carousel-trial/model-compare/
+carousel/fal-carousel-trial/slides/
+carousel/fal-carousel-trial/flare-carousel/
+carousel/fal-carousel-trial/*.png
+carousel/references/
+
+# paid carousel production runs: final images and zips stay on disk
+carousel/carousel-pipeline/approved/**/*.png
+carousel/carousel-pipeline/approved/**/*.jpg
+carousel/carousel-pipeline/approved/**/*.zip
+carousel/carousel-pipeline/approved/**/versions/
+
+*.zip
+*.mp4
+*.mov
+carousel/fal-carousel-trial/source/legacy-illustrated/slides-illustrated/
+shared/design/_ds_artifact/
+.venv/
+
+# machine-local Claude settings
+.claude/settings.local.json
+.claude/scheduled_tasks.lock

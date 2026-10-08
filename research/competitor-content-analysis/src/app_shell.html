@@ -1,0 +1,314 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumebook Competitor Teardown</title>
+<meta name="description" content="147 competitor videos and ads (MeBook, Hooray Heroes, Wonderbly, Yoto), coded and linked, 3 Oct 2026">
+__LBHEAD__
+<style>
+/* ---------- teardown page rules (LumeBook design tokens only; shared/design/lumebook.css does the rest) ---------- */
+[hidden]{display:none!important}
+section.page{scroll-margin-top:7rem}
+/* chrome: brand, crumbs, two-row sticky bar */
+.lb-topbar .lb-brand{padding-inline:0;min-width:0;flex:0 1 auto}
+.lb-topbar .lb-brand img{width:1.75rem;height:1.75rem;border-radius:var(--r-xs);flex:none}
+.lb-topbar .lb-brand b{font-size:1.0625rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.lb-topbar .lb-brand > span{min-width:0}
+.tb-crumbs{display:flex;align-items:center;gap:var(--sp-1);min-width:0;font-size:var(--fs-footnote);color:var(--text-3);padding-inline-start:var(--sp-3);border-inline-start:1px solid var(--line)}
+.tb-crumbs b{color:var(--text-2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-crumbs svg{width:.75rem;height:.75rem;flex:none}
+.tb-hint{font-size:var(--fs-footnote);color:var(--text-3);white-space:nowrap}
+.tb-hq{flex:none}
+.lb-topbar-in.tb-nav{min-height:0;padding-block:0 var(--sp-2)}
+.lb-toc a{display:inline-flex;align-items:center;gap:var(--sp-2);padding-inline:.6rem}
+.lb-toc .lb-count{min-width:1.25rem;height:1.25rem}
+@media (max-width:1100px){.tb-hint{display:none}}
+@media (max-width:760px){.tb-crumbs{display:none}}
+@media (max-width:640px){
+  .lb-topbar-in{gap:var(--sp-2)}
+  .lb-topbar .lb-brand b{font-size:var(--fs-callout)}
+  .lb-topbar .lb-theme-label{display:none}
+  .lb-topbar [data-lb-theme-toggle]{width:1.875rem;padding:0}
+  .tb-hq{padding-inline:var(--sp-2)}
+}
+/* content */
+.page-head{display:grid;gap:var(--sp-3)}
+.sub{max-width:48rem;color:var(--text-2)}
+.he{direction:rtl;unicode-bidi:isolate}
+.facts{gap:var(--sp-2)}
+.facts .lb-chip b{color:var(--text);font-weight:600}
+.verdict-card{gap:var(--sp-2)}
+.verdict-card b{font-family:var(--font-display);font-weight:400;font-size:var(--fs-headline);line-height:1.3}
+.verdict-card p{font-size:var(--fs-callout)}
+.lb-card h3{font-size:var(--fs-headline)}
+ol.findings{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-3);counter-reset:f}
+ol.findings > li{counter-increment:f;grid-template-columns:2.25rem minmax(0,1fr);gap:var(--sp-2) var(--sp-4)}
+ol.findings > li::before{content:counter(f);grid-row:1 / span 3;width:2.25rem;height:2.25rem;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.ev{font-size:var(--fs-callout);color:var(--text-2);line-height:1.5}
+.so{font-size:var(--fs-callout)}
+.so > b{color:var(--accent-ink)}
+.tags{margin-top:var(--sp-2);gap:var(--sp-1)}
+.pillar{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:var(--sp-5)}
+.pillar > div:first-child{display:grid;gap:var(--sp-2);align-content:start;min-width:0}
+.pillar .lb-chip{justify-self:start}
+@media (max-width:760px){.pillar{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}}
+ul.tight,ol.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
+.lb-card ul.tight{font-size:var(--fs-callout)}
+.sys-card{gap:var(--sp-2)}
+.sys-card .lb-stat-label{margin-top:var(--sp-2)}
+.sys-card .lb-hbar{grid-template-columns:minmax(5rem,42%) minmax(0,1fr) 1.75rem;font-size:var(--fs-footnote)}
+.sys-card .lb-kv{grid-template-columns:7.5rem minmax(0,1fr);margin-top:var(--sp-2)}
+@media (max-width:640px){.sys-card .lb-kv{grid-template-columns:6rem minmax(0,1fr)}}
+.bucket ul{margin:0;padding-inline-start:1.1rem;display:grid;gap:var(--sp-1);font-size:var(--fs-callout)}
+/* disclosure cards (test backlog) */
+details.lb-card{padding-block:var(--sp-1)}
+details.lb-card:not([open]){gap:0}
+details.lb-card[open]{padding-bottom:var(--sp-4)}
+details > summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2);min-height:2.75rem;font-weight:600;font-size:var(--fs-body)}
+details > summary::-webkit-details-marker{display:none}
+details > summary::after{content:"";margin-inline-start:auto;width:.5rem;height:.5rem;border-inline-end:2px solid var(--text-3);border-bottom:2px solid var(--text-3);transform:rotate(45deg);transition:transform .2s;flex:none}
+details[open] > summary::after{transform:rotate(-135deg)}
+/* tables */
+.lb-table.mid{min-width:640px}
+.lb-table.wide{min-width:900px}
+.lb-table.top td{vertical-align:top}
+.lb-table td.num .lb-dim{font-size:var(--fs-footnote)}
+.db-wrap{max-height:78vh;overflow:auto}
+#db tr.row{cursor:pointer}
+#db td{vertical-align:top}
+#db td:first-child,#db td:nth-child(3){white-space:nowrap}
+#db tr.row td:nth-child(11){min-width:18rem}
+#db tr.det td,#db tbody tr.det:hover td{background:var(--surface-2);padding:var(--sp-4)}
+.star{color:var(--accent-ink);font-weight:700}
+.hi{font-weight:700;color:var(--accent-ink)}
+.db-search{flex:1 1 16rem}
+.tb-count{margin-inline-start:auto;white-space:nowrap}
+.lb-prose h3{margin-top:var(--sp-3)}
+</style>
+
+<header class="lb-topbar">
+<div class="lb-topbar-in">
+<a class="lb-brand" href="#overview"><img src="__LOGO__" alt="LumeBook" width="28" height="28"><span><b>Competitor Teardown</b></span></a>
+<div class="tb-crumbs"><span id="crumbG">Answer</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5l5.5 5.5-5.5 5.5"/></svg><b id="crumbT">Overview</b></div>
+<span class="lb-spacer"></span>
+<span class="tb-hint">MeBook · Hooray Heroes · Wonderbly · Yoto</span>
+<a class="lb-btn ghost sm tb-hq" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">LumeBook HQ</a>
+__THEME__
+</div>
+<div class="lb-topbar-in tb-nav">
+<nav class="lb-toc" aria-label="Sections">
+<a class="nav-i" href="#overview">Overview</a>
+<a class="nav-i" href="#findings">10 findings</a>
+<a class="nav-i" href="#system">Content system <span class="lb-count">5</span></a>
+<a class="nav-i" href="#tests">Test backlog <span class="lb-count">7</span></a>
+<a class="nav-i" href="#competitors">Competitors <span class="lb-count">4</span></a>
+<a class="nav-i" href="#patterns">Patterns</a>
+<a class="nav-i" href="#voice">Customer voice</a>
+<a class="nav-i" href="#gaps">Gaps</a>
+<a class="nav-i" href="#database">Database <span class="lb-count">147</span></a>
+<a class="nav-i" href="#method">Method and limits</a>
+</nav>
+</div>
+</header>
+
+<main class="lb-page" id="main">
+
+<section class="page lb-section" id="overview" data-g="Answer" data-t="Overview">
+<div class="page-head">
+<p class="lb-eyebrow">Competitor content research · 3 Oct 2026</p>
+<h1>What competitors post, and what Lumebook should test first</h1>
+<p class="lb-lede">147 videos and ads, each downloaded, transcribed from its audio, watched frame by frame and coded to one taxonomy, plus 1,274 unique comments read as customer research.</p>
+<div class="lb-row facts"><span class="lb-chip outline"><b>43</b> MeBook</span><span class="lb-chip outline"><b>31</b> Hooray Heroes</span><span class="lb-chip outline"><b>36</b> Wonderbly</span><span class="lb-chip outline"><b>37</b> Yoto</span><span class="lb-chip outline"><b>52</b> Meta ads</span><span class="lb-chip">Public data only, engagement is not sales</span></div>
+</div>
+<div class="lb-grid cols-4">
+<a class="lb-card" href="#findings"><div class="lb-stat"><span class="lb-stat-label">MeBook reels posted by creators</span><span class="lb-stat-value">11/12</span><span class="lb-stat-foot">6 with a personal code or DM keyword</span></div></a>
+<a class="lb-card" href="#findings"><div class="lb-stat"><span class="lb-stat-label">MeBook ads selling a milestone</span><span class="lb-stat-value">10/25</span><span class="lb-stat-foot">potty, pacifier, sibling, gan</span></div></a>
+<a class="lb-card" href="#gaps"><div class="lb-stat"><span class="lb-stat-label">Pieces using an expert</span><span class="lb-stat-value">0/147</span><span class="lb-stat-foot">open lane for Lumebook</span></div></a>
+<a class="lb-card" href="#gaps"><div class="lb-stat"><span class="lb-stat-label">Pieces proving likeness</span><span class="lb-stat-value">10/147</span><span class="lb-stat-foot">real photo next to the page</span></div></a>
+</div>
+<div class="lb-card">
+<div class="lb-card-head"><h3>The short answer</h3><a class="lb-xs" href="#system">Content system</a></div>
+__ANSWER__
+</div>
+<div class="lb-grid" style="--min:13rem">__VERDICT__</div>
+<div class="lb-card">
+<div class="lb-card-head"><h3>Test first</h3><a class="lb-xs" href="#tests">All 7 tests</a></div>
+<ul class="lb-list">
+<li><b>T1 · Milestone reveals by barter creators with codes</b><span class="lb-meta">6 milestone vs 4 generic reveals · from 6 Oct · preview starts per 1K views</span></li>
+<li><b>T2 · "Same face" side-by-side series</b><span class="lb-meta">8 side-by-side vs 4 standard reveals · from 13 Oct · 3s hold rate</span></li>
+<li><b>T3 · Weekly Hebrew FAQ answer</b><span class="lb-meta">6 answers replacing 6 tip posts · from 6 Oct · link clicks</span></li>
+</ul>
+</div>
+</section>
+
+<section class="page lb-section" id="findings" data-g="Answer" data-t="10 findings" hidden>
+<div class="page-head">
+<h2>The 10 most important findings</h2>
+<p class="sub">Ordered by likely business impact, confidence and ease of acting. <span class="lb-chip success">high</span> seen across several pieces · <span class="lb-chip accent">medium</span> thin or indirect evidence · <span class="lb-chip warning">hypothesis</span> plausible, unproven.</p>
+</div>
+<ol class="findings">
+__FINDINGS__
+</ol>
+</section>
+
+<section class="page lb-section" id="system" data-g="Plan" data-t="Content system" hidden>
+<div class="page-head">
+<h2>Proposed Lumebook content system</h2>
+<p class="sub">Five pillars, one CTA. Shares are of organic Reels (aim for 4 to 5 a week once creator content flows). Personas: <b>P1</b> parent of a 2 to 6 year old facing a change (new sibling, gan, potty, fears); <b>P2</b> gifter (grandparent, aunt) before Hanukkah; <b>P3</b> gannenet or educator (also the B2B buyer).</p>
+</div>
+<div class="lb-stack">
+__PILLARS__
+</div>
+<div class="lb-card"><h3>CTA framework</h3>
+<ul class="tight">
+<li><b>One action:</b> "צרו תצוגה מקדימה בחינם" (free preview), with a UTM link per pillar and per creator. The free preview is the lowest-friction ask Lumebook has (product brief).</li>
+<li><b>DM keyword</b> for Reels: "תגיבו ספר ונשלח קישור". MeBook creators run this exact mechanic (<a href="https://www.instagram.com/mebook.ai/reel/DbydNecM1GW/" target="_blank" rel="noopener">DbydNecM1GW</a>, <a href="https://www.instagram.com/mebook.ai/reel/DVlyDocjXU4/" target="_blank" rel="noopener">DVlyDocjXU4</a>). Each comment is a lead and pushes reach.</li>
+<li><b>Personal creator codes</b> on every barter piece, the only clean attribution on ₪0. MeBook uses TALLY10, Atias40, mayah and Adib; Wonderbly fans post ambassador codes like 15BTESS in comments.</li>
+<li><b>Gifter variant</b> from 1 Nov: same CTA plus the Hanukkah order cutoff (still to confirm with Yossi, per the playbook).</li>
+</ul></div>
+<div class="lb-card"><h3>Distribution, repurposing, organic vs paid</h3>
+<ul class="tight">
+<li><b>Instagram Reels</b> as home, posted as <b>collabs</b> (the creator posts, Lumebook co-authors). That is how 11 of MeBook's latest 12 reels appear on its grid.</li>
+<li><b>TikTok</b> as a cheap test: Hooray Heroes stopped posting in Nov 2025 and Wonderbly in Oct 2025; MeBook has 2 TikToks and 56 followers, yet one got 31.2K views. No active Hebrew competitor showed up in this sample (not checked across the whole market).</li>
+<li><b>Facebook:</b> cross-post the Reels; gifters (P2) are likelier to see them there. That is an assumption, not measured here.</li>
+<li><b>Repurpose</b> every creator reveal into a collab reel, a 9 second likeness cut for Stories, the FAQ answer it triggers and, if budget ever exists, a whitelisted ad. MeBook already runs one creator reel as its #3 ad.</li>
+<li><b>Paid:</b> out of scope at ₪0. With a budget, boost only creator pieces above 2× the account median that also drove code uses.</li>
+</ul></div>
+</section>
+
+<section class="page lb-section" id="tests" data-g="Plan" data-t="Test backlog" hidden>
+<div class="page-head">
+<h2>Prioritised experiment backlog</h2>
+<p class="sub">Testing window 6 Oct to 22 Nov 2026 (Hanukkah cutoff per the Q4 playbook). There is no historical baseline, so thresholds are relative to Lumebook's own October average. Log every piece from day one: views, saves, shares, profile visits, link clicks, DM keywords, code uses, preview starts (UTM).</p>
+</div>
+<div class="lb-stack">
+__TESTS__
+</div>
+</section>
+
+<section class="page lb-section" id="competitors" data-g="Research" data-t="Competitors" hidden>
+<div class="page-head">
+<h2>Competitor systems</h2>
+<p class="sub"><b>Direct:</b> MeBook (IL, AI photo books), Hooray Heroes and Wonderbly (international, avatar-built, human-illustrated). <b>Adjacent, best-in-class content:</b> Yoto (screen-free kids' audio, same parent customer). The other Israeli AI-book brands found (Lullaby.ink 40 IG followers, Booqli 972) are at Lumebook's own size. This is not a ranking.</p>
+</div>
+<div class="lb-grid cols-2">
+__SYSTEMS__
+</div>
+</section>
+
+<section class="page lb-section" id="patterns" data-g="Research" data-t="Patterns" hidden>
+<div class="page-head">
+<h2>Cross-competitor patterns</h2>
+</div>
+<div class="lb-prose">
+<h3>Repeatable vs one-off</h3>
+<p class="sub">Outlier index = views ÷ the account's median (IG: the 12-reel grid; TikTok: its last 60 videos). Routine content sits near 1×. The big numbers all come from pieces outside the routine.</p>
+</div>
+<div class="lb-table-wrap"><table class="lb-table mid top">
+<thead><tr><th>Piece</th><th class="num">Views</th><th class="num">× median</th><th>What it is</th><th>Read</th></tr></thead>
+<tbody>
+__OUTLIERS__
+</tbody></table></div>
+<div class="lb-prose">
+<p><b>What repeats</b> (2+ brands): behind-the-scenes of the craft (Hooray Heroes artist and print house; Wonderbly's creative director and illustrators, 4 pieces, median 1.5×); launch announcements (Yoto 7, median 1.4×); tutorials and FAQ answers (Yoto only, up to 7×). <b>What doesn't travel:</b> the 86.6K MeBook reel came from an established creator's own story (Liron Ofir, about 366K per TikTok per our 2 Oct research), not a format MeBook can repeat at will.</p>
+<h3>Recurring patterns by count</h3>
+</div>
+<div class="lb-table-wrap"><table class="lb-table mid">
+<thead><tr><th>Pattern</th><th class="num">MeBook</th><th class="num">Hooray H.</th><th class="num">Wonderbly</th><th class="num">Yoto</th><th class="num">Organic median ×</th></tr></thead>
+<tbody>
+__PATTERNTABLE__
+</tbody></table></div>
+<div class="lb-prose">
+<h3>Copying, not proof</h3>
+<p>All three book brands lean on the same three moves: a real family's first look, a parent testimonial, and a page flip-through to music. Convergence is not evidence these work. They are cheap to make and look like the category. Organic versions sit near 1× median; for ads we only see that Meta keeps serving them (MeBook's #1, #3 and #4 by impressions are reveals and milestone testimonials), not what they return. Treat "everyone does it" as the entry ticket.</p>
+<h3>Recurring proof, CTAs, personas</h3>
+<ul class="tight">
+<li><b>Proof:</b> product close-up (79 of 147), customer testimonial (46), real child reaction (44), creator endorsement (15), photo next to illustration (10: 6 MeBook, 4 Hooray Heroes pets), expert endorsement (<b>0</b>).</li>
+<li><b>CTAs:</b> personal codes (MeBook 6 of 12 reels; Yoto creator ads such as Harley10); comment-keyword DM funnels (MeBook, Yoto); link in bio elsewhere. Book brands' ads mostly aim at consideration (MeBook 17 of 25, Wonderbly 13 of 17), not hard offers.</li>
+<li><b>Personas:</b> parent of 3 to 8 everywhere; gifters in Wonderbly (14 pieces) and in MeBook's #1 ad ("הנכד או האחיין שלך"); parents facing a change in MeBook (13 pieces).</li>
+</ul>
+</div>
+</section>
+
+<section class="page lb-section" id="voice" data-g="Research" data-t="Customer voice" hidden>
+<div class="page-head">
+<h2>Customer voice</h2>
+<p class="sub">1,274 unique comments: 48 IG posts (top ~60 each, read in your logged-in session) and 44 TikToks. Meta ads have no public comments. I read the Hebrew myself and checked the English by keyword. Files: <code>comments_mebook_hebrew.md</code>, <code>comments_english.md</code>.</p>
+</div>
+__VOICE__
+</section>
+
+<section class="page lb-section" id="gaps" data-g="Research" data-t="Gaps" hidden>
+<div class="page-head">
+<h2>Gap analysis</h2>
+<p class="sub">Gold outline = where Lumebook should play (buckets 3 and 4).</p>
+</div>
+<div class="lb-grid">
+__GAPS__
+</div>
+</section>
+
+<section class="page lb-section" id="database" data-g="Research" data-t="Database" hidden>
+<div class="page-head">
+<h2>Database</h2>
+<p class="sub">All 147 pieces. Click a row for the summary, hook, why-it-worked hypothesis and Lumebook test idea. ✓ = checked by me against frames. Also saved as <code>research/competitor-content-analysis/competitor_content_db.csv</code>.</p>
+</div>
+<div class="lb-toolbar">
+<label class="lb-search db-search" for="fq"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input class="lb-input" id="fq" type="search" placeholder="Search hook, summary, account" autocomplete="off"></label>
+<select class="lb-select" id="fc" aria-label="Brand"><option value="">All brands</option></select>
+<select class="lb-select" id="fp" aria-label="Channel"><option value="">All channels</option></select>
+<select class="lb-select" id="fpat" aria-label="Pattern"><option value="">All patterns</option></select>
+<span class="tb-count lb-dim lb-xs" id="count"></span>
+</div>
+<div class="lb-table-wrap db-wrap"><table class="lb-table wide" id="db">
+<thead><tr><th>Brand</th><th>Channel</th><th>Date</th><th class="num">Views</th><th class="num">× med</th><th class="num">Ad rank</th><th>Pattern</th><th>Pillar</th><th>Funnel</th><th>Creator</th><th>Hook</th><th>Link</th></tr></thead>
+<tbody></tbody></table></div>
+</section>
+
+<section class="page lb-section" id="method" data-g="About" data-t="Method and limits" hidden>
+<div class="page-head">
+<h2>Method, schema and limits</h2>
+</div>
+__METHOD__
+<p class="lb-footer">Built 3 Oct 2026 from public posts, read-only Instagram reads in your session, TikTok's public comment endpoint and the Meta Ad Library. Transcripts: local Whisper (Hebrew large-v3-turbo, English small.en), first 60 seconds per video. Numbers drift, re-check before quoting.</p>
+</section>
+<footer class="lb-footer">Researched 3 Oct 2026 · 147 pieces</footer>
+
+</main>
+
+<script>
+const DATA=__DATA__;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=n=>n==null?'':n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e4?Math.round(n/1e3)+'K':n>=1e3?(n/1e3).toFixed(1)+'K':String(n);
+const isHe=s=>/[֐-׿]/.test(s||'');
+/* router: one page at a time */
+const pages=$$('section.page');
+function route(){
+  const id=(location.hash||'#overview').slice(1);
+  const pg=pages.find(p=>p.id===id)||pages[0];
+  pages.forEach(p=>p.hidden=p!==pg);
+  $$('.nav-i').forEach(a=>{const on=a.getAttribute('href')==='#'+pg.id;on?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current');a.classList.toggle('is-active',on);if(on){const t=a.closest('.lb-toc');if(t&&(a.offsetLeft<t.scrollLeft||a.offsetLeft+a.offsetWidth>t.scrollLeft+t.clientWidth))t.scrollLeft=a.offsetLeft-24}});
+  $('#crumbG').textContent=pg.dataset.g;$('#crumbT').textContent=pg.dataset.t;
+  document.title=pg.id==='overview'?'Lumebook Competitor Teardown':pg.dataset.t+' · Lumebook Competitor Teardown';
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange',route);
+/* database */
+function opts(id,key){const v=[...new Set(DATA.map(d=>d[key]).filter(Boolean))].sort();$(id).insertAdjacentHTML('beforeend',v.map(x=>`<option>${esc(x)}</option>`).join(''))}
+opts('#fc','c');opts('#fp','p');opts('#fpat','pat');
+function render(){
+  const c=$('#fc').value,p=$('#fp').value,pat=$('#fpat').value,q=$('#fq').value.toLowerCase();
+  const rows=DATA.filter(d=>(!c||d.c===c)&&(!p||d.p===p)&&(!pat||d.pat===pat)&&(!q||[d.hook,d.sum,d.ap,d.pat,d.pil,d.ms].join(' ').toLowerCase().includes(q)))
+    .sort((a,b)=>(b.oi||0)-(a.oi||0)||(a.ar||999)-(b.ar||999));
+  $('#count').textContent=rows.length+' of '+DATA.length;
+  $('#db tbody').innerHTML=rows.map((d,i)=>`<tr class="row" data-i="${i}" tabindex="0"><td>${esc(d.c)}${d.ver?' <span class="star">✓</span>':''}</td><td><span class="lb-chip ${d.p==='Meta ad'?'accent':'tint'}">${esc(d.p)}</span></td><td class="lb-num">${esc(d.d)}</td><td class="num">${fmt(d.v)}</td><td class="num ${d.oi>=3?'hi':''}">${d.oi?d.oi.toFixed(1):''}</td><td class="num">${d.ar?('#'+d.ar):''}</td><td>${esc(d.pat)}</td><td>${esc(d.pil)}</td><td>${esc(d.fun)}</td><td>${esc(d.cr)}</td><td class="${isHe(d.hook)?'he':''}" style="max-width:320px;${isHe(d.hook)?'text-align:right':''}">${esc(d.hook.slice(0,140))}</td><td><a href="${esc(d.u)}" target="_blank" rel="noopener">Open</a></td></tr>`).join('');
+  window.__rows=rows;
+}
+function toggle(tr){const n=tr.nextElementSibling;if(n&&n.classList.contains('det')){n.remove();return}
+  const d=window.__rows[+tr.dataset.i];
+  const m=[['Posted by / ad page',d.ap],['Likes · comments',[d.l,d.cm].filter(x=>x!=null).join(' · ')],['Ad days active',d.da],['Format',d.fmt],['Hook type',d.ht],['Angle',d.ang],['Proof',d.prf],['Persona',d.per],['Pain',d.pain],['Aspiration',d.asp],['Use case',d.ms],['CTA',d.cta],['Summary',d.sum],['Why it may work',d.why],['Lumebook test',d.test]].filter(x=>x[1]!=null&&x[1]!=='');
+  tr.insertAdjacentHTML('afterend',`<tr class="det"><td colspan="12"><dl class="lb-kv">${m.map(([k,v])=>`<dt>${k}</dt><dd class="${isHe(String(v))?'he':''}" style="${isHe(String(v))?'text-align:right':''}">${esc(v)}</dd>`).join('')}</dl></td></tr>`)}
+$('#db tbody').addEventListener('click',e=>{const tr=e.target.closest('tr.row');if(!tr||e.target.closest('a'))return;toggle(tr)});
+$('#db tbody').addEventListener('keydown',e=>{if(e.key==='Enter'){const tr=e.target.closest('tr.row');if(tr)toggle(tr)}});
+['#fc','#fp','#fpat'].forEach(s=>$(s).addEventListener('change',render));$('#fq').addEventListener('input',render);
+render();route();
+</script>

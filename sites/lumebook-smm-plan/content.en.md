@@ -61,7 +61,7 @@ English mirror of `index.html` (the Hebrew site). Same sections, same order. Upd
 | Pillar | Video | Numbers | Why it works | For us |
 |---|---|---|---|---|
 | Creators | A dad makes up a story; MeBook turns it into a book (@lironofir) | 229K views on the original video | A week later MeBook turned the story into a book and posted an Instagram collab with him: 86.5K, 22× their usual ([their version](https://www.instagram.com/reel/Db79B6COOSN/)) |  |
-| Creators | Surprise, "that's me!", discount code (@babyalison31) | 77.2K views | A ready-made structure for a brief: surprise, the girl recognises herself, a personal code at the end | A brief template + a personal code for the creator |
+| Creators | Surprise, "that's me!", discount at the end (@babyalison31) | 77.2K views | A ready-made structure for a brief: surprise, the girl recognises herself, a discount at the end | A brief template + a personal link for the creator with an audience discount |
 | Book reveal | POV: the nephew's reaction (@wonderwraps.com) | 163K views, 144× usual | 7 seconds; the viewer is the person giving the gift | A POV of an aunt or grandma on a birthday/holiday |
 | Developmental moment → book | A funeral for the pacifier (@lookitskateeee) | 2.6M views, on an account whose median is 870 | A goodbye ritual with humour; the idea carried itself | "Bye bye pacifier" as part of the goodbye ritual, UGC from customers |
 | Professionals | Speech therapist: "Put your picture in a book" (@learntotalkwithme) | 36.2K views, 32× usual | An expert with the product in hand the whole time; it feels like advice, not an ad | The model for a collaboration with a professional |
@@ -74,7 +74,7 @@ English mirror of `index.html` (the Hebrew site). Same sections, same order. Upd
 | Component | Definition |
 |---|---|
 | Who | Creators: parents in Israel, 2k–50k followers, kids aged 1–10. Secondary options: professionals from the field and gan teachers |
-| What they get | A free personalised book. A commission per order on a personal code (with Yossi's approval) |
+| What they get | A free personalised book. A commission per order through a personal link with an audience discount (with Yossi's approval) |
 | What we ask | One reel and 2–3 stories with a link, plus permission to share. No obligation to post them back |
 | Anecdote | Need to create a sign-up form that becomes an organised Excel sheet |
 | Continuation | Option to become an "ambassador" |
@@ -146,7 +146,7 @@ English mirror of `index.html` (the Hebrew site). Same sections, same order. Upd
 | Average views per reel | Instagram Insights | X | 5–10K |
 | Shares and saves per 1,000 impressions | Instagram Insights | X | +50% |
 | Link clicks | Insights and tracked links | X | 3× |
-| Orders per book sent to a creator | Creator codes | X | 5–10 |
+| Orders per book sent to a creator | Creators' personal links | X | 5–10 |
 | Customer videos | Excel | 10 | 25 a month |
 | Instagram followers | Instagram | 911 | 3–4K |
 
@@ -154,5 +154,5 @@ The December targets are temporary and will be replaced with more realistic targ
 
 ## To verify with Yossi
 - What the agreement with the UGC creators should be
-- Discount codes for creators, and adding a "how did you find us" question at checkout
+- A personal link with an audience discount for each creator, and adding a "how did you find us" question at checkout
 - One age range (the site lists various ranges)

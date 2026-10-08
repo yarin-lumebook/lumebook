@@ -1,6 +1,9 @@
-import json, csv, os
+import json, csv, os, sys
 HERE=os.path.dirname(os.path.abspath(__file__))
 P=lambda f: os.path.join(HERE,f)
+# LumeBook design system (shared/design): stylesheet, fonts, theme script and logo are inlined, the page is a single-file artifact
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))),"shared","design"))
+import design
 C=json.load(open(P('C_all.json')))
 CT=json.load(open(P('contacts.json')))
 for c in C:
@@ -70,6 +73,8 @@ for a,b in R:
     assert a in h, a[:60]; h=h.replace(a,b)
 J=lambda x: json.dumps(x,ensure_ascii=False)
 for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q}.items(): h=h.replace(k,J(v))
+for k,v in {"<!--LB:HEAD-->":design.head(),"<!--LB:THEME-TOGGLE-->":design.theme_toggle("Dark mode","Light mode"),"__LB_LOGO__":design.logo_data_uri()}.items():
+    assert h.count(k)==1, k; h=h.replace(k,v)
 # NO_EM: the user never wants em dashes
 h=h.replace(' \u2014 ',', ').replace('"\u2014"','"n/a"').replace("'\u2014'","'n/a'").replace('\u2014','-').replace(' \u2013 ',', ').replace('\u2013','-')
 OUT=os.path.dirname(HERE)

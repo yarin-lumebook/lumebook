@@ -1,0 +1,168 @@
+{
+  "_about": "Sample nightly hook slate for topic gan-separation (morning separation at gan after the holidays), written 2026-10-08 to verify the hook strategy. k1 to k3 and e1 to e3 are the six options in valid_pack.json. Used by tests and by build_v3_fixture in test_pipeline.py.",
+  "used": {
+    "kid-1": {"slate_id": "k1", "mechanism": "perspective_shift", "slide2_move": "name_trigger"},
+    "kid-2": {"slate_id": "k2", "mechanism": "recognition", "slide2_move": "zoom_in"},
+    "kid-3": {"slate_id": "k3", "mechanism": "honest_curiosity", "slide2_move": "name_trigger"},
+    "expert-1": {"slate_id": "e1", "mechanism": "reframe", "slide2_move": "contrast"},
+    "expert-2": {"slate_id": "e2", "mechanism": "practical_utility", "slide2_move": "first_answer"},
+    "expert-3": {"slate_id": "e3", "mechanism": "recognition", "slide2_move": "other_side"}
+  },
+  "hook_slate": {
+    "kid": [
+      {
+        "id": "k1", "formula": "child-not-because", "family": "child_pov",
+        "hook": "אני לא בוכה בגלל הגן\nאני בוכה כי את הולכת",
+        "slide2": "אחרי החגים שוב קשה לי בשער\nבספטמבר כבר נכנסתי לבד\nועכשיו אני שוב נצמד",
+        "slide2_move": "name_trigger", "mechanism": "perspective_shift", "awareness_stage": "problem_aware",
+        "gap": "If he is not crying because of the gan, why is he crying?",
+        "payoff_slide": 3, "answer": "Slide 3: in his words, the hard part is the moment mom leaves and not knowing when she is back.",
+        "factual_claim": true,
+        "score": {"stopping_power": 2, "specificity": 2, "parent_relevance": 2, "honest_curiosity": 2, "emotional_truth": 2, "swipe_promise": 2, "usefulness": 1, "topic_fit": 2, "lumebook_fit": 2, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "kid-1",
+        "note": "Slide 2 says the clinging can come back after a break: mapped to src-cmi-absence and src-rcn-settling in the option's claims."
+      },
+      {
+        "id": "k2", "formula": "child-body-moment", "family": "moment",
+        "hook": "כבר במדרגות של הגן\nאני מרגישה את זה בבטן",
+        "slide2": "כל בוקר הפרידה אחרת\nפעם נשארים הרבה ופעם הולכים מהר\nואני לא יודעת מה יהיה היום",
+        "slide2_move": "zoom_in", "mechanism": "recognition", "awareness_stage": "problem_aware",
+        "gap": "What does she feel on the stairs, and what would help?",
+        "payoff_slide": 3, "answer": "Slide 3: the feeling comes from not knowing how today's goodbye will go; slides 4 and 5 make it predictable.",
+        "factual_claim": false,
+        "score": {"stopping_power": 2, "specificity": 2, "parent_relevance": 2, "honest_curiosity": 1, "emotional_truth": 2, "swipe_promise": 1, "usefulness": 1, "topic_fit": 2, "lumebook_fit": 2, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "kid-2"
+      },
+      {
+        "id": "k3", "formula": "child-question", "family": "child_quote",
+        "hook": "״מתי אתם באים לקחת אותי?״\nאני שואל את זה כל בוקר",
+        "slide2": "השאלה הזאת חזרה אחרי החגים\nכי ״אחר כך״ זה המון זמן\nבשביל מישהו בן שלוש",
+        "slide2_move": "name_trigger", "mechanism": "honest_curiosity", "awareness_stage": "problem_aware",
+        "gap": "Why does he ask this every morning, and what answer helps?",
+        "payoff_slide": 3, "answer": "Slide 3: a 3 year old cannot picture 'later'; slides 4 and 5 give an answer tied to the gan day.",
+        "factual_claim": true,
+        "score": {"stopping_power": 2, "specificity": 2, "parent_relevance": 2, "honest_curiosity": 2, "emotional_truth": 2, "swipe_promise": 2, "usefulness": 2, "topic_fit": 2, "lumebook_fit": 2, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "kid-3"
+      },
+      {
+        "id": "k4", "formula": "child-letter", "family": "child_pov",
+        "hook": "אמא\nרציתי להגיד לך משהו על השער",
+        "slide2": "בספטמבר נכנסתי לבד\nאחרי החגים שכחתי איך עושים את זה",
+        "slide2_move": "scene_restart", "mechanism": "perspective_shift", "awareness_stage": "problem_aware",
+        "gap": "What does the child want to tell mom about the gate?",
+        "payoff_slide": 3, "answer": "Slide 3: he needs to know exactly when she comes back.",
+        "factual_claim": true,
+        "score": {"stopping_power": 1, "specificity": 1, "parent_relevance": 2, "honest_curiosity": 2, "emotional_truth": 2, "swipe_promise": 2, "usefulness": 1, "topic_fit": 2, "lumebook_fit": 2, "freshness": 0},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "",
+        "note": "Passes (15) but nearly repeats the 8 Oct child-letter hook ״אמא / רציתי להגיד לך משהו על הבקרים״, so freshness 0 and not used."
+      },
+      {
+        "id": "k5", "formula": "moment-time", "family": "moment",
+        "hook": "7:50\nהגננת כבר פותחת את השער ואני עוד באוטו",
+        "slide2": "בכל צעד מהאוטו לשער\nאני מחזיק לך את היד יותר חזק",
+        "slide2_move": "zoom_in", "mechanism": "recognition", "awareness_stage": "problem_aware",
+        "gap": "Why does he slow down on the way in, and what helps the walk to the gate?",
+        "payoff_slide": 3, "answer": "Slide 3: the walk is the countdown to the goodbye; a fixed goodbye ritual makes it shorter.",
+        "factual_claim": false,
+        "score": {"stopping_power": 2, "specificity": 2, "parent_relevance": 2, "honest_curiosity": 1, "emotional_truth": 2, "swipe_promise": 1, "usefulness": 1, "topic_fit": 2, "lumebook_fit": 2, "freshness": 1},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "",
+        "note": "Passes (16). Not used: the moment family is already used by k2, and k2 and k5 share the same mechanism."
+      },
+      {
+        "id": "k6", "formula": "through-the-ages", "family": "story",
+        "hook": "אני בן 3\nואחרי החגים השער שוב גדול עליי",
+        "slide2": "אני בן 4\nומנופף לך מהחלון בלי לבכות",
+        "slide2_move": "same_template", "mechanism": "narrative_tension", "awareness_stage": "unaware",
+        "gap": "How does the goodbye change as he grows?",
+        "payoff_slide": 6, "answer": "Slide 6 would show him at 4, waving.",
+        "factual_claim": true,
+        "score": {"stopping_power": 2, "specificity": 2, "parent_relevance": 2, "honest_curiosity": 1, "emotional_truth": 1, "swipe_promise": 2, "usefulness": 0, "topic_fit": 2, "lumebook_fit": 2, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": true, "unfulfilled_promise": true, "blames_parent": false},
+        "used_by": "",
+        "note": "Fails: slide 2 promises that by 4 he waves without crying. No source says when this stops, and the carousel cannot deliver that promise."
+      }
+    ],
+    "expert": [
+      {
+        "id": "e1", "formula": "reversal", "family": "reframe",
+        "hook": "עוד חמש דקות בשער\nבדרך כלל רק מאריכות את הבכי",
+        "slide2": "פרידה קצרה היא לא פרידה קרה\nאחרי החגים זה נשמע הפוך\nאבל ביי קצר וחם עוזר לעבור את זה",
+        "slide2_move": "contrast", "mechanism": "reframe", "awareness_stage": "solution_aware",
+        "gap": "Why would staying a few more minutes make it harder?",
+        "payoff_slide": 3, "answer": "Slide 3 (sourced, AAP and Child Mind Institute): a long goodbye stretches the hard moment; a short warm one ends it.",
+        "factual_claim": true,
+        "score": {"stopping_power": 2, "specificity": 2, "parent_relevance": 2, "honest_curiosity": 2, "emotional_truth": 1, "swipe_promise": 2, "usefulness": 2, "topic_fit": 2, "lumebook_fit": 1, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "expert-1"
+      },
+      {
+        "id": "e2", "formula": "practical-question", "family": "practical_question",
+        "hook": "איך מסבירים לבן 3 מתי חוזרים?\nבלי שעון ובלי ״עוד מעט״",
+        "slide2": "״עוד מעט אני חוזרת״\nלא אומר לו הרבה\nבשבילו עוד מעט זה גם עכשיו וגם מחר",
+        "slide2_move": "first_answer", "mechanism": "practical_utility", "awareness_stage": "solution_aware",
+        "gap": "What do you say instead of a clock time or 'soon'?",
+        "payoff_slide": 4, "answer": "Slides 4 and 5: tie the return to an event in his day (after the nap) and say it the same way every morning.",
+        "factual_claim": true,
+        "score": {"stopping_power": 1, "specificity": 2, "parent_relevance": 2, "honest_curiosity": 2, "emotional_truth": 1, "swipe_promise": 2, "usefulness": 2, "topic_fit": 2, "lumebook_fit": 2, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "expert-2"
+      },
+      {
+        "id": "e3", "formula": "sentence-we-all-say", "family": "sentences_we_say",
+        "hook": "״אין ממה לפחד מאמי״\nכולנו אומרות את זה בשער הגן",
+        "slide2": "בשבילה הפחד בשער אמיתי לגמרי\nאז לפני שמרגיעים\nכדאי קודם להגיד שרואים",
+        "slide2_move": "other_side", "mechanism": "recognition", "awareness_stage": "problem_aware",
+        "gap": "If 'nothing to be scared of' doesn't calm her, what does?",
+        "payoff_slide": 3, "answer": "Slide 3 (sourced): naming the feeling first; slides 4 and 5 give the words.",
+        "factual_claim": true,
+        "score": {"stopping_power": 2, "specificity": 2, "parent_relevance": 2, "honest_curiosity": 2, "emotional_truth": 2, "swipe_promise": 2, "usefulness": 2, "topic_fit": 2, "lumebook_fit": 1, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "expert-3"
+      },
+      {
+        "id": "e4", "formula": "just-so-you-know", "family": "normalising",
+        "hook": "רק שתדעי\nבכי בשער אחרי חופש ארוך זה מוכר",
+        "slide2": "רק שתדעי\nגם ילדה שכבר נכנסה לבד יכולה להיצמד שוב",
+        "slide2_move": "same_template", "mechanism": "reassurance", "awareness_stage": "problem_aware",
+        "gap": "Is it normal that she is clinging again, and what helps?",
+        "payoff_slide": 3, "answer": "Slide 3 (needs src-cmi-absence or src-rcn-settling): returns after a break often bring the clinging back for a while.",
+        "factual_claim": true,
+        "score": {"stopping_power": 2, "specificity": 1, "parent_relevance": 2, "honest_curiosity": 1, "emotional_truth": 2, "swipe_promise": 1, "usefulness": 1, "topic_fit": 2, "lumebook_fit": 1, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "",
+        "note": "Passes (15). Not used: reassurance without a concrete step is weaker than e1 to e3 for tonight."
+      },
+      {
+        "id": "e5", "formula": "analogy-scene", "family": "analogy",
+        "hook": "דמייני יום ראשון בעבודה חדשה\nואין לך מושג מתי נגמר היום",
+        "slide2": "בוקר בגן אחרי החגים\nמרגיש בערך ככה בגיל שלוש",
+        "slide2_move": "scene_restart", "mechanism": "perspective_shift", "awareness_stage": "unaware",
+        "gap": "What does that have to do with my child at the gan gate?",
+        "payoff_slide": 3, "answer": "Slide 3: not knowing when the day ends is the hard part; slides 4 and 5 give him an anchor.",
+        "factual_claim": false,
+        "score": {"stopping_power": 2, "specificity": 1, "parent_relevance": 2, "honest_curiosity": 2, "emotional_truth": 2, "swipe_promise": 2, "usefulness": 1, "topic_fit": 2, "lumebook_fit": 1, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "",
+        "note": "Passes (17). A real alternative to e2; not used because e2 gives the same insight with a direct practical answer."
+      },
+      {
+        "id": "e6", "formula": "parent-confession", "family": "normalising",
+        "hook": "״לפעמים אני מקנאה באמהות שהפרידה שלהן קלה״\nומותר להרגיש את זה",
+        "slide2": "בכי בשער הוא לא ציון על האמא\nהוא חלק מהפרידה של הילדה",
+        "slide2_move": "first_answer", "mechanism": "reassurance", "awareness_stage": "problem_aware",
+        "gap": "Is it ok to feel that, and what can I do with it?",
+        "payoff_slide": 3, "answer": "Slide 3 (needs a source that separation crying is common): it is about the goodbye, not about her.",
+        "factual_claim": true,
+        "score": {"stopping_power": 2, "specificity": 1, "parent_relevance": 2, "honest_curiosity": 2, "emotional_truth": 2, "swipe_promise": 1, "usefulness": 1, "topic_fit": 2, "lumebook_fit": 1, "freshness": 2},
+        "fail_checks": {"clickbait": false, "unsupported_claim": false, "unfulfilled_promise": false, "blames_parent": false},
+        "used_by": "",
+        "note": "Passes (16). Strong for tired mothers; would need a source on slide 2 before use."
+      }
+    ]
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "_about": "Component registry for the LumeBook project. tools/lumebook.py reads it to find what changed, what that change affects (feeds), what it can rebuild by itself (build.auto) and what needs a person or Claude (publish). Paths are relative to this folder. Add a component here whenever a new workstream starts.",
+  "version": 1,
+  "facts": "shared/facts.json",
+  "state": ".lumebook/state.json",
+  "status": ".lumebook/status.json",
+  "components": {
+    "facts": {
+      "name": "Shared facts (links, offer, dates, creator lists)",
+      "path": "shared",
+      "kind": "data",
+      "watch": [
+        "shared/facts.json"
+      ],
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "Read by the dashboard. check compares the offer wording and brand spelling against the sites and form."
+    },
+    "brand": {
+      "name": "Brand assets (logos, mascot, fonts, backgrounds)",
+      "path": "shared/brand",
+      "kind": "assets",
+      "watch": [
+        "shared/brand/**/*"
+      ],
+      "copies": [
+        {
+          "from": "shared/brand/logo_square.png",
+          "to": "sites/lumebook-ambassadors/img/logo_square.png"
+        },
+        {
+          "from": "shared/brand/logo_square.png",
+          "to": "carousel/carousel-pipeline/assets/brand/logo_square.png"
+        },
+        {
+          "from": "shared/brand/logo_wide.png",
+          "to": "sites/dashboard/img/logo.png"
+        },
+        {
+          "from": "shared/brand/fonts/Heebo-Black.ttf",
+          "to": "carousel/carousel-pipeline/assets/fonts/Heebo-Black.ttf"
+        },
+        {
+          "from": "shared/brand/fonts/Rubik-VariableFont_wght.ttf",
+          "to": "carousel/carousel-pipeline/assets/fonts/Rubik-VariableFont_wght.ttf"
+        },
+        {
+          "from": "shared/brand/fonts/Assistant-VariableFont_wght.ttf",
+          "to": "carousel/carousel-pipeline/assets/fonts/Assistant-VariableFont_wght.ttf"
+        }
+      ],
+      "feeds": [
+        "ambassadors",
+        "carousel-pipeline",
+        "dashboard"
+      ],
+      "notes": "Canonical copies live here. Sites and the pipeline need their own physical copy (deploy folders, served fonts); `lumebook.py sync` refreshes them, check reports drift."
+    },
+    "design": {
+      "name": "LumeBook design system (tokens + lb- components)",
+      "path": "shared/design",
+      "kind": "assets",
+      "watch": [
+        "shared/design/lumebook.css",
+        "shared/design/design.py"
+      ],
+      "copies": [
+        {
+          "from": "shared/design/lumebook.css",
+          "to": "sites/lumebook-smm-plan/lumebook.css"
+        },
+        {
+          "from": "shared/design/lumebook.css",
+          "to": "sites/dashboard/design/lumebook.css"
+        }
+      ],
+      "feeds": [
+        "smm-plan",
+        "creator-map",
+        "competitor-teardown",
+        "kids-lab",
+        "carousel-research",
+        "carousel-playbook",
+        "carousel-pipeline",
+        "dashboard"
+      ],
+      "notes": "Every internal page inlines lumebook.css at build (design.py). The SMM plan has no build, so it links a synced copy. Not used by the ambassadors site.",
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/RjUuSdYDwaJe4HWyEErNmF",
+        "file": "shared/design/lumebook.css"
+      }
+    },
+    "product-docs": {
+      "name": "Product brief, Q4 strategy, carousel playbook (Hebrew), UGC research",
+      "path": "docs",
+      "kind": "docs",
+      "watch": [
+        "docs/lumebook-product-brief.md",
+        "docs/lumebook-instagram-carousel-playbook-he.md",
+        "docs/lumebook-ugc-ambassador-research.md"
+      ],
+      "feeds": [
+        "carousel-playbook",
+        "carousel-pipeline"
+      ],
+      "notes": "The nightly carousel skill reads the brief and playbook sections 4.2, 5, 7, 8 every night."
+    },
+    "strategy": {
+      "name": "Q4 social strategy page",
+      "path": "docs",
+      "kind": "page",
+      "watch": [
+        "docs/lumebook-social-strategy.html"
+      ],
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/BALURpPXY8psXxCNvb6jH6",
+        "file": "docs/lumebook-social-strategy.html"
+      },
+      "feeds": []
+    },
+    "smm-plan": {
+      "name": "SMM plan site",
+      "path": "sites/lumebook-smm-plan",
+      "kind": "site",
+      "watch": [
+        "sites/lumebook-smm-plan/index.html",
+        "sites/lumebook-smm-plan/content.en.md"
+      ],
+      "publish": {
+        "type": "via",
+        "url": "https://lumebook-dashboard.vercel.app/plan/",
+        "note": "ships inside the dashboard site at /plan/ (its own Vercel project was retired 8 Oct 2026)"
+      },
+      "rules": [
+        "Every Hebrew change in index.html is mirrored in content.en.md in the same commit (root .githooks/pre-commit).",
+        "Links lumebook.css, a synced copy of shared/design/lumebook.css (no build step; edited in the site editor)."
+      ],
+      "feeds": [
+        "dashboard"
+      ]
+    },
+    "signup-form": {
+      "name": "Creator signup Google Form (Apps Script source)",
+      "path": "creators",
+      "kind": "form",
+      "watch": [
+        "creators/lumebook-ugc-form.gs",
+        "sites/lumebook-ambassadors/apps-script-form.gs"
+      ],
+      "publish": {
+        "type": "manual",
+        "url": "https://docs.google.com/forms/d/1Iupo4um1A65aWE_-paWCpbeOeD3ZkIKYhPxN-T_NtS8/edit",
+        "note": "re-run the script in Apps Script or edit the Form"
+      },
+      "rules": [
+        "If a question changes, re-read the entry IDs (FB_PUBLIC_LOAD_DATA_) and update sites/lumebook-ambassadors/index.html."
+      ],
+      "feeds": [
+        "ambassadors",
+        "dashboard"
+      ]
+    },
+    "ambassadors": {
+      "name": "Ambassadors landing page + creators hub",
+      "path": "sites/lumebook-ambassadors",
+      "kind": "site",
+      "watch": [
+        "sites/lumebook-ambassadors/index.html",
+        "sites/lumebook-ambassadors/creators/index.html"
+      ],
+      "publish": {
+        "type": "vercel",
+        "url": "https://lumebook-ambassadors.vercel.app",
+        "dir": "sites/lumebook-ambassadors",
+        "note": "python3 tools/lumebook.py deploy ambassadors (public site for creators; not on the design system)"
+      },
+      "feeds": [
+        "dashboard"
+      ],
+      "on_upstream_change": "if a form question changed, re-read the Google Form entry IDs and update index.html"
+    },
+    "creator-map": {
+      "name": "Creator map (204 creators, outreach CRM)",
+      "path": "creators/creator-research",
+      "kind": "page",
+      "watch": [
+        "creators/creator-research/src/template.html",
+        "creators/creator-research/src/build2.py",
+        "creators/creator-research/src/enrich.py",
+        "creators/creator-research/src/*.json",
+        "creators/creator-research/creators-200-2026-10-03.csv"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build2.py"
+        ],
+        "cwd": "creators/creator-research",
+        "outputs": [
+          "creators/creator-research/lumebook-creator-map.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB",
+        "file": "creators/creator-research/lumebook-creator-map.html",
+        "repo": true
+      },
+      "rules": [
+        "Never edit the built HTML; edit src/template.html and data."
+      ],
+      "feeds": [
+        "dashboard"
+      ]
+    },
+    "competitor-teardown": {
+      "name": "Competitor content teardown (147 pieces)",
+      "path": "research/competitor-content-analysis",
+      "kind": "page",
+      "watch": [
+        "research/competitor-content-analysis/src/db.json",
+        "research/competitor-content-analysis/src/app_shell.html",
+        "research/competitor-content-analysis/src/fill_report.py",
+        "research/competitor-content-analysis/competitor_content_db.json"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "fill_report.py"
+        ],
+        "cwd": "research/competitor-content-analysis/src",
+        "outputs": [
+          "research/competitor-content-analysis/lumebook-competitor-content.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/2aQamEfoJhb1Cix9CgZ1rY",
+        "file": "research/competitor-content-analysis/lumebook-competitor-content.html"
+      },
+      "feeds": [
+        "dashboard"
+      ]
+    },
+    "kids-lab": {
+      "name": "Kids content lab (64 shorts)",
+      "path": "research/kids-brand-content-research",
+      "kind": "page",
+      "watch": [
+        "research/kids-brand-content-research/src/*",
+        "research/kids-brand-content-research/analysis/*/meta.json",
+        "research/kids-brand-content-research/analysis/*/breakdown.json"
+      ],
+      "build": {
+        "cmd": [
+          "~/.claude/skills/watch-video/.venv/bin/python",
+          "src/build.py"
+        ],
+        "cwd": "research/kids-brand-content-research",
+        "outputs": [
+          "research/kids-brand-content-research/lumebook-kids-content-lab.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/TbgbaGssUYjCe9onoWYPWe",
+        "file": "research/kids-brand-content-research/lumebook-kids-content-lab.html"
+      },
+      "notes": "videos/ (706 MB) and analysis frames are raw research media; re-downloadable with the dl_*.sh scripts.",
+      "feeds": []
+    },
+    "carousel-research": {
+      "name": "Carousel research v2 (752 accounts)",
+      "path": "research/carousel-research",
+      "kind": "page",
+      "watch": [
+        "research/carousel-research/page_template.html",
+        "research/carousel-research/build_page.py",
+        "research/carousel-research/captions.json",
+        "research/carousel-research/il_finalists.csv"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "build_page.py"
+        ],
+        "cwd": "research/carousel-research",
+        "outputs": [
+          "research/carousel-research/lumebook-carousel-research.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/Rkt3DeuC86z23WcAbR7VHW",
+        "file": "research/carousel-research/lumebook-carousel-research.html"
+      },
+      "feeds": [
+        "carousel-pipeline"
+      ],
+      "notes": "The pipeline's list of code words taken by competitors (carousel_lib.py) comes from this page; update it by hand."
+    },
+    "carousel-playbook": {
+      "name": "Carousel playbook page",
+      "path": "research/carousel-playbook-research",
+      "kind": "page",
+      "watch": [
+        "docs/lumebook-instagram-carousel-playbook-he.md",
+        "research/carousel-playbook-research/*.md",
+        "research/carousel-playbook-research/build_page.py",
+        "research/carousel-playbook-research/page.css",
+        "research/carousel-playbook-research/page.js"
+      ],
+      "build": {
+        "cmd": [
+          "../../.venv/bin/python",
+          "build_page.py"
+        ],
+        "cwd": "research/carousel-playbook-research",
+        "outputs": [
+          "research/carousel-playbook-research/lumebook-carousel-playbook.html"
+        ],
+        "auto": true,
+        "note": "Uses the project venv (.venv, gitignored) for the markdown package: python3 -m venv .venv && .venv/bin/pip install markdown"
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/VaSz99vry8bMncpV4WVHM7",
+        "file": "research/carousel-playbook-research/lumebook-carousel-playbook.html"
+      },
+      "feeds": [
+        "carousel-pipeline"
+      ],
+      "notes": "Hook families in carousel/carousel-pipeline/hook-bank.md follow playbook section 7; update the bank by hand."
+    },
+    "fal-trial": {
+      "name": "fal.ai carousel trial (frozen reference)",
+      "path": "carousel/fal-carousel-trial",
+      "kind": "archive",
+      "watch": [],
+      "feeds": [],
+      "notes": "Source of the slide layout the pipeline copies (source/flare_carousel.py). Not rebuilt."
+    },
+    "carousel-pipeline": {
+      "name": "Nightly carousel pipeline",
+      "path": "carousel/carousel-pipeline",
+      "kind": "pipeline",
+      "watch": [
+        "carousel/carousel-pipeline/history.json",
+        "carousel/carousel-pipeline/hook-bank.md",
+        "carousel/carousel-pipeline/topic-bank.md",
+        "carousel/carousel-pipeline/names.md",
+        "carousel/carousel-pipeline/scripts/*.py"
+      ],
+      "schedule": "lumebook-nightly-carousel, 22:00 daily (Claude app must be open)",
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "Self-contained: scripts find their own folder. Skills: .claude/skills/lumebook-carousel, .claude/skills/lumebook-hebrew-voice.",
+      "on_upstream_change": "check whether hook-bank.md (playbook section 7), the competitor code words in scripts/carousel_lib.py (carousel research) or topic-bank.md need updating"
+    },
+    "dashboard": {
+      "name": "Project dashboard",
+      "path": "sites/dashboard",
+      "kind": "dashboard",
+      "watch": [
+        "sites/dashboard/lumebook-dashboard.html",
+        "sites/dashboard/refresh.py",
+        "sites/dashboard/build_site.py"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "build_site.py"
+        ],
+        "cwd": "sites/dashboard",
+        "outputs": [
+          "sites/dashboard/site/lumebook-dashboard/index.html"
+        ],
+        "auto": false,
+        "note": "The 08:14 scheduled task runs refresh.py (Instagram + signup Sheet), pushes the artifact database, builds and deploys."
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ",
+        "file": "sites/dashboard/lumebook-dashboard.html"
+      },
+      "schedule": "lumebook-dashboard-refresh, 08:14 daily",
+      "feeds": [],
+      "deploy": {
+        "type": "vercel",
+        "url": "https://lumebook-dashboard.vercel.app",
+        "dir": "sites/dashboard/site/lumebook-dashboard",
+        "note": "the 08:14 task builds and deploys it; includes the plan at /plan/"
+      }
+    }
+  }
+}

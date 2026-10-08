@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "Output is JSON with every requested key",
+      "passed": true,
+      "evidence": "keys: ['caption', 'cta']"
+    },
+    {
+      "text": "No em dash, period or comma in any audience field",
+      "passed": false,
+      "evidence": "ERROR caption line 1 col 6: forbidden period '.' (U+002E) in «המוצץ. נושא שכל הורה מגיע אליו מתישהו.»; ERROR caption line 1 col 38: forbidden period '.' (U+002E) in «המוצץ. נושא שכל הורה מגיע אליו מתישהו.»; ERROR caption line 3 col 35: forbidden comma ',' (U+002C) in «אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי,»; ERROR caption line 3 col 45: forbidden period '.' (U+002E) in «אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי,»; ERROR caption line 3 col 66: forbidden comma ',' (U+002C) in «אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי,»; ERROR caption line 3 col 80: forbidden comma ',' (U+002C) in «אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי,»"
+    },
+    {
+      "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+      "passed": true,
+      "evidence": "none found"
+    },
+    {
+      "text": "CTA keeps the brief's idea with the code word מוצץ and has no second CTA",
+      "passed": false,
+      "evidence": "ERROR cta: line 1 has 16 words; keep one short thought per line (max 12) in «רוצים ספר שבו הילד שלכם הוא הגיבור שנפרד מהמוצץ? תכתבו \"מוצץ\" בתגובות ואשלח לכם »"
+    },
+    {
+      "text": "Caption ends with the exact CTA and adds no other CTA",
+      "passed": false,
+      "evidence": "last line: ואם אחרי יומיים יש נסיגה, לא התחלתם מאפס. ממשיכים.; extra CTA lines: []"
+    },
+    {
+      "text": "Every line has at most 12 words (one thought per line)",
+      "passed": false,
+      "evidence": "caption: אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי, ויהיה רגע שתרצו פשוט להחזיר אותו. גם זה בסדר.; caption: 1. לבחור יחד יום פרידה ולסמן אותו על הלוח, שזה לא ינחת עליו בהפתעה; caption: 2. לתת למוצץ \"ללכת\" למקום שהילד בוחר: לתינוק חדש, לפיית המוצצים, לקופסה מיוחדת בארון; caption: 3. להכניס משהו אחר לשעת השינה במקומו: בובה, שיר קבוע, סיפור שחוזר כל ערב"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 4,
+    "total": 6,
+    "pass_rate": 0.333
+  }
+}

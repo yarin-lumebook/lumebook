@@ -1,0 +1,399 @@
+{
+  "metadata": {
+    "skill_name": "lumebook-hebrew-voice",
+    "skill_path": "/Users/yarinbruner/Claude/Projects/Lumebook/.claude/skills/lumebook-hebrew-voice",
+    "executor_model": "claude-opus-5-5",
+    "analyzer_model": "claude-opus-5-5 (deterministic grader: evals/grade.py)",
+    "timestamp": "2026-10-07T11:04:02Z",
+    "evals_run": [
+      1,
+      2,
+      3
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "time_seconds": 186.1,
+        "tokens": 88363,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output is JSON with every requested key",
+          "passed": true,
+          "evidence": "keys: ['caption', 'cta', 'hook', 'second_hook', 'slide3']"
+        },
+        {
+          "text": "No em dash, period or comma in any audience field",
+          "passed": true,
+          "evidence": "none found"
+        },
+        {
+          "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+          "passed": true,
+          "evidence": "none found"
+        },
+        {
+          "text": "CTA keeps the brief's idea with the code word מים and has no second CTA",
+          "passed": true,
+          "evidence": "כתבו מים בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור"
+        },
+        {
+          "text": "Caption ends with the exact CTA and adds no other CTA",
+          "passed": true,
+          "evidence": "last line: כתבו מים בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור; extra CTA lines: []"
+        },
+        {
+          "text": "Every line has at most 12 words (one thought per line)",
+          "passed": true,
+          "evidence": "all lines short"
+        },
+        {
+          "text": "hook: main line up to 8 words and up to 12 words in total",
+          "passed": true,
+          "evidence": "main 5 words, total 9"
+        },
+        {
+          "text": "second_hook: main line up to 8 words and up to 12 words in total",
+          "passed": true,
+          "evidence": "main 3 words, total 9"
+        },
+        {
+          "text": "Kid slides are in the child's first person",
+          "passed": true,
+          "evidence": "2 of 3 fields use first person"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 214.8,
+        "tokens": 93696,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output is JSON with every requested key",
+          "passed": true,
+          "evidence": "keys: ['caption', 'cta', 'hook', 'slide3', 'slide4', 'slide5']"
+        },
+        {
+          "text": "No em dash, period or comma in any audience field",
+          "passed": true,
+          "evidence": "none found"
+        },
+        {
+          "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+          "passed": true,
+          "evidence": "none found"
+        },
+        {
+          "text": "CTA keeps the brief's idea with the code word פרידה and has no second CTA",
+          "passed": true,
+          "evidence": "כתבו פרידה בתגובות\nוקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור"
+        },
+        {
+          "text": "Caption ends with the exact CTA and adds no other CTA",
+          "passed": true,
+          "evidence": "last line: כתבו פרידה בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור; extra CTA lines: []"
+        },
+        {
+          "text": "Every line has at most 12 words (one thought per line)",
+          "passed": true,
+          "evidence": "all lines short"
+        },
+        {
+          "text": "hook: main line up to 8 words and up to 12 words in total",
+          "passed": true,
+          "evidence": "main 5 words, total 10"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 116.4,
+        "tokens": 82561,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output is JSON with every requested key",
+          "passed": true,
+          "evidence": "keys: ['caption', 'cta']"
+        },
+        {
+          "text": "No em dash, period or comma in any audience field",
+          "passed": true,
+          "evidence": "none found"
+        },
+        {
+          "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+          "passed": true,
+          "evidence": "none found"
+        },
+        {
+          "text": "CTA keeps the brief's idea with the code word מוצץ and has no second CTA",
+          "passed": true,
+          "evidence": "כתבו מוצץ בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור"
+        },
+        {
+          "text": "Caption ends with the exact CTA and adds no other CTA",
+          "passed": true,
+          "evidence": "last line: כתבו מוצץ בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור; extra CTA lines: []"
+        },
+        {
+          "text": "Every line has at most 12 words (one thought per line)",
+          "passed": true,
+          "evidence": "all lines short"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.444,
+        "passed": 4,
+        "failed": 5,
+        "total": 9,
+        "time_seconds": 42.3,
+        "tokens": 60744,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output is JSON with every requested key",
+          "passed": true,
+          "evidence": "keys: ['caption', 'cta', 'hook', 'second_hook', 'slide3']"
+        },
+        {
+          "text": "No em dash, period or comma in any audience field",
+          "passed": false,
+          "evidence": "ERROR hook line 1 col 4: forbidden comma ',' (U+002C) in «אמא, אבא, אני צריך להגיד לכם משהו: אני לא באמת צמא.»; ERROR hook line 1 col 9: forbidden comma ',' (U+002C) in «אמא, אבא, אני צריך להגיד לכם משהו: אני לא באמת צמא.»; ERROR hook line 1 col 51: forbidden period '.' (U+002E) in «אמא, אבא, אני צריך להגיד לכם משהו: אני לא באמת צמא.»; ERROR second_hook line 1 col 7: forbidden comma ',' (U+002C) in «כל ערב, שתי דקות אחרי לילה טוב, אני קורא לכם: \"אפשר עוד כוס מים?\" אני אגלה לכם ס»; ERROR second_hook line 1 col 31: forbidden comma ',' (U+002C) in «כל ערב, שתי דקות אחרי לילה טוב, אני קורא לכם: \"אפשר עוד כוס מים?\" אני אגלה לכם ס»; ERROR second_hook line 1 col 105: forbidden period '.' (U+002E) in «כל ערב, שתי דקות אחרי לילה טוב, אני קורא לכם: \"אפשר עוד כוס מים?\" אני אגלה לכם ס»"
+        },
+        {
+          "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+          "passed": true,
+          "evidence": "none found"
+        },
+        {
+          "text": "CTA keeps the brief's idea with the code word מים and has no second CTA",
+          "passed": true,
+          "evidence": "כתבו \"מים\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור 💧"
+        },
+        {
+          "text": "Caption ends with the exact CTA and adds no other CTA",
+          "passed": false,
+          "evidence": "last line: כתבו מים בתגובות ונשלח לכם קישור 👇; extra CTA lines: []"
+        },
+        {
+          "text": "Every line has at most 12 words (one thought per line)",
+          "passed": false,
+          "evidence": "second_hook: כל ערב, שתי דקות אחרי לילה טוב, אני קורא לכם: \"אפשר עוד כוס מים?\" אני אגלה לכם סוד: זה בכלל לא בגלל המים.; slide3: כשאתם סוגרים את הדלת, החדר נהיה חשוך והבית נהיה שקט מדי. אני עוד לא יודע איך להיפרד מכם עד הבוקר. אז אני מבקש מים. ככה אתם חוזרים לעוד רגע אחד, ואני בודק שאתם עדיין פה.; caption: הרבה פעמים זה בכלל לא צימאון. זה עוד דקה איתכם לפני שנפרדים עד הבוקר.; caption: בלומבוק אנחנו יוצרים ספר אישי שבו הילד שלכם הוא הגיבור, עם השם והפנים שלו."
+        },
+        {
+          "text": "hook: main line up to 8 words and up to 12 words in total",
+          "passed": false,
+          "evidence": "main 11 words, total 11"
+        },
+        {
+          "text": "second_hook: main line up to 8 words and up to 12 words in total",
+          "passed": false,
+          "evidence": "main 23 words, total 23"
+        },
+        {
+          "text": "Kid slides are in the child's first person",
+          "passed": true,
+          "evidence": "3 of 3 fields use first person"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.429,
+        "passed": 3,
+        "failed": 4,
+        "total": 7,
+        "time_seconds": 51.7,
+        "tokens": 61779,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output is JSON with every requested key",
+          "passed": true,
+          "evidence": "keys: ['caption', 'cta', 'hook', 'slide3', 'slide4', 'slide5']"
+        },
+        {
+          "text": "No em dash, period or comma in any audience field",
+          "passed": false,
+          "evidence": "ERROR slide3 line 2 col 14: forbidden comma ',' (U+002C) in «הוא נצמד לרגל, אתם מתכופפים לעוד חיבוק, \"רק עוד דקה\".»; ERROR slide3 line 2 col 39: forbidden comma ',' (U+002C) in «הוא נצמד לרגל, אתם מתכופפים לעוד חיבוק, \"רק עוד דקה\".»; ERROR slide3 line 2 col 53: forbidden period '.' (U+002E) in «הוא נצמד לרגל, אתם מתכופפים לעוד חיבוק, \"רק עוד דקה\".»; ERROR slide3 line 3 col 28: forbidden period '.' (U+002E) in «ובסוף יוצאים מהגן עם לב כבד.»; ERROR slide4 line 2 col 18: forbidden period '.' (U+002E) in «פרידה קצרה ומתוקה. כשמתעכבים, גם המעבר לגן מתארך.»; ERROR slide4 line 2 col 29: forbidden comma ',' (U+002C) in «פרידה קצרה ומתוקה. כשמתעכבים, גם המעבר לגן מתארך.»"
+        },
+        {
+          "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+          "passed": true,
+          "evidence": "none found"
+        },
+        {
+          "text": "CTA keeps the brief's idea with the code word פרידה and has no second CTA",
+          "passed": true,
+          "evidence": "כתבו פרידה בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור"
+        },
+        {
+          "text": "Caption ends with the exact CTA and adds no other CTA",
+          "passed": false,
+          "evidence": "last line: #פרידה_בגן #גן #הורות #לומבוק; extra CTA lines: ['שמרו את הפוסט לבוקר של מחר.']"
+        },
+        {
+          "text": "Every line has at most 12 words (one thought per line)",
+          "passed": false,
+          "evidence": "hook: בוכה בפרידה בגן ואתם נשארים עוד רגע? זה בדיוק מה שמאריך את הפרידה; slide5: 2. משפט אחד שאומר מתי חוזרים, לפי סדר היום בגן: \"אני אבוא אחרי המנוחה ולפני ארוחת אחר הצהריים\"; caption: ההמלצה של האקדמיה האמריקאית לרפואת ילדים: פרידה קצרה ומתוקה, כי כשמתעכבים גם המעבר מתארך.; caption: ובמקום \"עוד מעט\", להגיד לילד מתי בדיוק חוזרים, במילים שהוא מבין. למשל: \"אני אבוא אחרי המנוחה ולפני ארוחת אחר הצהריים\"."
+        },
+        {
+          "text": "hook: main line up to 8 words and up to 12 words in total",
+          "passed": false,
+          "evidence": "main 13 words, total 13"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.333,
+        "passed": 2,
+        "failed": 4,
+        "total": 6,
+        "time_seconds": 30.0,
+        "tokens": 59514,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output is JSON with every requested key",
+          "passed": true,
+          "evidence": "keys: ['caption', 'cta']"
+        },
+        {
+          "text": "No em dash, period or comma in any audience field",
+          "passed": false,
+          "evidence": "ERROR caption line 1 col 6: forbidden period '.' (U+002E) in «המוצץ. נושא שכל הורה מגיע אליו מתישהו.»; ERROR caption line 1 col 38: forbidden period '.' (U+002E) in «המוצץ. נושא שכל הורה מגיע אליו מתישהו.»; ERROR caption line 3 col 35: forbidden comma ',' (U+002C) in «אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי,»; ERROR caption line 3 col 45: forbidden period '.' (U+002E) in «אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי,»; ERROR caption line 3 col 66: forbidden comma ',' (U+002C) in «אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי,»; ERROR caption line 3 col 80: forbidden comma ',' (U+002C) in «אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי,»"
+        },
+        {
+          "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+          "passed": true,
+          "evidence": "none found"
+        },
+        {
+          "text": "CTA keeps the brief's idea with the code word מוצץ and has no second CTA",
+          "passed": false,
+          "evidence": "ERROR cta: line 1 has 16 words; keep one short thought per line (max 12) in «רוצים ספר שבו הילד שלכם הוא הגיבור שנפרד מהמוצץ? תכתבו \"מוצץ\" בתגובות ואשלח לכם »"
+        },
+        {
+          "text": "Caption ends with the exact CTA and adds no other CTA",
+          "passed": false,
+          "evidence": "last line: ואם אחרי יומיים יש נסיגה, לא התחלתם מאפס. ממשיכים.; extra CTA lines: []"
+        },
+        {
+          "text": "Every line has at most 12 words (one thought per line)",
+          "passed": false,
+          "evidence": "caption: אצל רוב הילדים זה לא נגמר בערב אחד, וזה בסדר. יהיו כמה לילות קשים, אולי קצת בכי, ויהיה רגע שתרצו פשוט להחזיר אותו. גם זה בסדר.; caption: 1. לבחור יחד יום פרידה ולסמן אותו על הלוח, שזה לא ינחת עליו בהפתעה; caption: 2. לתת למוצץ \"ללכת\" למקום שהילד בוחר: לתינוק חדש, לפיית המוצצים, לקופסה מיוחדת בארון; caption: 3. להכניס משהו אחר לשעת השינה במקומו: בובה, שיר קבוע, סיפור שחוזר כל ערב"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 172.4333,
+        "stddev": 50.6036,
+        "min": 116.4,
+        "max": 214.8
+      },
+      "tokens": {
+        "mean": 88206.6667,
+        "stddev": 5569.1459,
+        "min": 82561,
+        "max": 93696
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.402,
+        "stddev": 0.0602,
+        "min": 0.333,
+        "max": 0.444
+      },
+      "time_seconds": {
+        "mean": 41.3333,
+        "stddev": 10.8822,
+        "min": 30.0,
+        "max": 51.7
+      },
+      "tokens": {
+        "mean": 60679.0,
+        "stddev": 1133.8981,
+        "min": 59514,
+        "max": 61779
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.60",
+      "time_seconds": "+131.1",
+      "tokens": "+27528"
+    }
+  },
+  "notes": [
+    "One run per configuration, so the ± values are spread across the 3 evals, not run-to-run variance.",
+    "The JSON-shape assertion passes in both configurations and does not discriminate; every rule assertion does.",
+    "Baseline failures are the hard rules: commas and periods in 3 of 3 runs, hooks over 8 words, a second CTA ('שמרו את הפוסט') and hashtags after the CTA.",
+    "With the skill each run took about 4x longer (it reads references and runs the lint loop). Acceptable for one nightly run.",
+    "Qualitative: with-skill runs still added unsourced generalisations when no source was given (eval 1 'הרבה פעמים זה פחות קשור לצמא', eval 3 'יש ילדים שנפרדים תוך יומיים ויש כאלה שצריכים כמה שבועיים'). The lint cannot catch this; SKILL.md now tells the writer not to add facts the input did not contain."
+  ]
+}

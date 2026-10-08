@@ -1,0 +1,1904 @@
+{
+  "schema_version": 2,
+  "date": "2026-10-08",
+  "generated_at": "2026-10-07T14:01:59+03:00",
+  "topic": {
+    "id": "gan-separation",
+    "title_he": "פרידה בבוקר בגן אחרי החגים",
+    "reason": "הגנים חזרו ביום ראשון 4.10 אחרי חופשת סוכות (חוזר משרד החינוך 0363: ״הלימודים יתחדשו ביום ראשון, כ\"ג בתשרי תשפ\"ז, 4 באוקטובר 2026״). בגני משרד החינוך זה היה בערך שבועיים בבית (20.9 עד 3.10), אז ביום חמישי של השבוע הראשון הורים רואים שוב בכי בפרידה. הנושא לא היה בשימוש (ההיסטוריה ריקה). רגישות: 5.10 היה יום הזיכרון הלאומי לאירועי 7 באוקטובר, והחבילה נכתבה ב-7.10, לכן הטון עדין ובלי מילים של פחד. מעונות לגילאי 0 עד 3 עובדים לפי לוח אחר, לכן הטקסט אומר ״אחרי החגים״ ולא מספר ימים."
+  },
+  "voice": {
+    "status": "fallback",
+    "approved_samples": 0,
+    "note": "נכתב בקול ברירת המחדל המתועד ב-.claude/skills/lumebook-hebrew-voice. עדיין לא מכויל לירין: 0 מתוך 15 דוגמאות מאושרות."
+  },
+  "product_facts": [
+    {
+      "id": "site-preview",
+      "fact": "Creating the book and the preview are free; parents pay only if they love it",
+      "quote": "יצירת הספר והתצוגה המקדימה בחינם — משלמים רק אם אהבתם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-07"
+    },
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-07"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-07"
+    }
+  ],
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "אני לא בוכה בגלל הגן",
+          "angle": "הילד אומר לאמא שהבכי בשער לא קשור לגן. אחרי ההפסקה הארוכה הוא פשוט לא יודע מתי היא חוזרת. הצורך שמאחורי ההיצמדות הוא לדעת מה יהיה, וההורה יוצא עם משפט אחד למחר בבוקר.",
+          "target_parent": "אמהות לבן 3 עד 5 בגן עירוני, שבספטמבר נכנס לבד והשבוע, אחרי החגים, שוב בוכה בפרידה.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-not-because",
+            "gap": "If he is not crying because of the gan, why is he crying?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            }
+          },
+          "code_word": "לב",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "נועם",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short curly dark-brown hair, olive skin, warm brown eyes and a small gap between his front teeth; slim, about 105 cm tall.",
+            "parent": "His mother, early thirties, light-brown skin, dark hair in a loose low bun, a few freckles, natural no-makeup look, calm and a little tired in a real way.",
+            "wardrobe": "Boy: plum-violet zip hoodie over a cream T-shirt, navy trousers, white sneakers, a small mustard-yellow backpack. Mother: oatmeal linen shirt with rolled sleeves, faded blue jeans, a thin gold ring."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אני לא בוכה בגלל הגן",
+              "body": "אני בוכה כי את הולכת",
+              "image": {
+                "beat": "he holds on, she is about to go",
+                "action": "At the open gate the boy holds his mother's hand with both of his and leans his cheek against her arm; she bends slightly toward him, unhurried.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Child eye level, medium shot from the side, 35mm look.",
+                "lighting": "Early morning sun low from the left, soft warm shadows.",
+                "wardrobe_objects": "His backpack slipping off one shoulder; her car keys in her free hand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "If not the gan, then why? Slides 2 and 3 answer."
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "אחרי החגים שוב קשה לי בשער",
+              "body": "בספטמבר כבר נכנסתי לבד\nועכשיו אני שוב נצמד",
+              "image": {
+                "beat": "the September confidence is gone for now",
+                "action": "The boy stands just inside the gate holding one bar, looking back over his shoulder toward the street, uncertain but not crying.",
+                "setting": "The same kindergarten seen from inside the yard: sandbox and a plastic slide softly blurred behind him.",
+                "camera": "Low angle from inside the yard, medium-wide shot.",
+                "lighting": "Morning sun backlighting his curls.",
+                "wardrobe_objects": "Backpack on both shoulders, one shoelace untied.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "What changed since September? Slide 3 says what his clinging really asks."
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "אני לא עושה לך דווקא",
+              "body": "כשאני נתלה עלייך בשער\nאני בעצם שואל מתי את חוזרת",
+              "image": {
+                "beat": "clinging is a question, not defiance",
+                "action": "Close-up of the boy's small hand gripping a fold of his mother's jeans at the knee while her hand rests gently on top of his.",
+                "setting": "The kindergarten gate, background fully out of focus.",
+                "camera": "Close-up at child height, shallow depth of field.",
+                "lighting": "Warm morning light.",
+                "wardrobe_objects": "Her thin gold ring and his hoodie cuff visible.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft out-of-focus cream wall"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "Names his question; slide 4 gives the answer he needs."
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "תגידי לי מתי את חוזרת",
+              "body": "״נועם אחרי האוכל והמנוחה אני כאן״\nועוד משהו קטן לפני שאת הולכת",
+              "image": {
+                "beat": "a promise in words he understands",
+                "action": "The mother kneels at his eye level and speaks simply while he watches her face closely and listens; her hand is on his shoulder.",
+                "setting": "Just outside the kindergarten gate.",
+                "camera": "Eye-level two-shot, medium close-up.",
+                "lighting": "Gentle morning sun.",
+                "wardrobe_objects": "Keys clipped to her jeans, his backpack straps.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "'One more small thing before you go' promises slide 5."
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "נשיקה על כף היד",
+              "body": "שאני סוגר חזק עד הצהריים\nואז ביי קצר בלי להתגנב",
+              "image": {
+                "beat": "a kiss to hold, then a short goodbye",
+                "action": "Close-up: the mother kisses the centre of the boy's open palm and he curls his fingers closed as if holding the kiss.",
+                "setting": "The kindergarten gate.",
+                "camera": "Close-up at hand height, shallow depth of field.",
+                "lighting": "Soft morning light.",
+                "wardrobe_objects": "His hoodie cuff, her gold ring.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft out-of-focus cream wall"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "'Until noon' leads to the noon pickup on slide 6."
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "וכשאת באה אחרי המנוחה",
+              "body": "אני רץ אלייך\nכי ידעתי שתבואי",
+              "image": {
+                "beat": "the promise kept",
+                "action": "At pickup the boy runs out of the gate into his mother's arms as she kneels to catch him, both laughing.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Eye level, medium-wide shot.",
+                "lighting": "Golden afternoon light.",
+                "wardrobe_objects": "His backpack bouncing, her bag on the ground.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale afternoon sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "The story closes; slide 7 offers one more way to help him."
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם בסיפור אישי",
+              "body": "כתבי לב בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "In bed the boy leans on his mother's arm while she reads; he points at the page, delighted to recognise himself.",
+                "setting": "A child's bedroom in the evening.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Plum pyjamas, an old grey plush rabbit. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "הבכי בשער הגן הוא לפעמים בכלל לא על הגן\nאחרי הפסקה ארוכה זה מוכר שהפרידה שוב קשה\nעוזר להגיד לו מתי את חוזרת במילים שהוא מבין\n״אחרי האוכל והמנוחה״ ולא ״בשלוש״\nונשיקה על כף היד להחזיק עד הצהריים\nובערב אפשר להמשיך את השיחה עם סיפור שבו הוא הגיבור\nכתבי לב בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי לב בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "How to Ease Your Child's Separation Anxiety",
+              "publisher": "American Academy of Pediatrics, HealthyChildren.org (Wendy Sue Swanson, MD, FAAP; updated 5/11/2026)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/Pages/Soothing-Your-Childs-Separation-Anxiety.aspx",
+              "accessed": "2026-10-07",
+              "quote": "keep the goodbye short and sweet. If you linger, the transition time does too. So will the anxiety. ... provide specifics that your child understands. If you know you'll be back by 3 p.m., tell it to your child on their terms; for example, say, \"I'll be back after nap time and before afternoon snack.\" ... our children stop crying within minutes of our leave-taking",
+              "supports": "Short goodbyes; lingering lengthens the transition; tell the child when you return in terms tied to the day; children often stop crying within minutes of the parent leaving."
+            },
+            {
+              "id": "src-cmi-absence",
+              "title": "When a Child Shows Separation Anxiety",
+              "publisher": "Child Mind Institute (Rachel Busman, PsyD; updated 26 Sep 2025)",
+              "url": "https://childmind.org/article/after-being-home-sick-for-four-days-my-daughter-who-loved-school-now-cries-when-i-leave-her-what-can-i-do/",
+              "accessed": "2026-10-07",
+              "quote": "If a child is sick and misses school for 4 days, it's not uncommon that going back to school is causing her some stress. ... It sounds as if her absence interrupted a healthy adjustment to school",
+              "supports": "After time away a child who had settled may find going back stressful again; it is not uncommon. (The article is about an illness absence; we apply it to a holiday break as an analogy.)"
+            },
+            {
+              "id": "src-rcn-sep",
+              "title": "What is separation anxiety in babies & children?",
+              "publisher": "Raising Children Network (Australia; updated 31-03-2025)",
+              "url": "https://raisingchildren.net.au/preschoolers/health-daily-care/preschoolers-mental-health-concerns/separation-anxiety",
+              "accessed": "2026-10-07",
+              "quote": "Separation anxiety is a common part of children's development. ... Read books or make up stories with your child about separation fears. ... Leaving without saying goodbye can make things worse.",
+              "supports": "Separation distress is a common part of development; reading books or making up stories about separation fears is a recommended way to talk about them; sneaking out can make it worse."
+            },
+            {
+              "id": "src-rcn-settling",
+              "title": "What to do if your child isn't settling in at child care",
+              "publisher": "Raising Children Network (Australia; updated 10-04-2025)",
+              "url": "https://raisingchildren.net.au/grown-ups/work-child-care/planning-starting-child-care/your-child-isn-t-settling",
+              "accessed": "2026-10-07",
+              "quote": "some children settle at first and then get upset later, when the novelty of the new environment has worn off. ... most children stop crying shortly after their parents leave ... Let your child know that you or another familiar grown-up will be back for pick-up at a particular time or after an event that your child understands, like sleep or snack time. ... Acknowledge your child's feelings, give your child words to express their feelings, and comfort your child. ... Always say goodbye, even if your child looks busy and happy",
+              "supports": "Settling can be followed by upset later; most children stop crying shortly after the parent leaves; tie pick-up to an event the child understands; acknowledge and name feelings; always say goodbye."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Separation Anxiety",
+              "publisher": "Zero To Three (modified 2023-06-22)",
+              "url": "https://www.zerotothree.org/resource/separation-anxiety/",
+              "accessed": "2026-10-07",
+              "quote": "Don't leave without saying goodbye. Sneaking away makes a child worry that you might leave at any time ... Have a routine for leaving the house to go to child care.",
+              "supports": "Say goodbye instead of sneaking away; keep a predictable goodbye routine."
+            },
+            {
+              "id": "src-ztt-palm",
+              "title": "What Comes Next: Back to Child Care Following Shelter-in-Place",
+              "publisher": "Zero To Three (2020, modified 2023)",
+              "url": "https://www.zerotothree.org/resource/what-comes-next-back-to-child-care-following-shelter-in-place/",
+              "accessed": "2026-10-07",
+              "quote": "you can give your child a kiss on the palm to “hold” all day long. ... Read books about child care.",
+              "supports": "A kiss on the palm the child can hold all day as a goodbye ritual; reading books about child care. (Written for returning after lockdown; we use the ritual, not the context.)"
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אחרי החגים שוב קשה לי בשער",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi-absence",
+                "src-rcn-settling"
+              ],
+              "supports": "Upset can come back after time away or after settling at first (illness absence and settling articles, applied to the holiday break)."
+            },
+            {
+              "slide": 3,
+              "wording_he": "אני בעצם שואל מתי את חוזרת",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "Imagined child voice, grounded in AAP's advice to tell the child when you return."
+            },
+            {
+              "slide": 4,
+              "wording_he": "״נועם אחרי האוכל והמנוחה אני כאן״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-rcn-settling"
+              ],
+              "supports": "Tell the return time as an event the child understands (after nap and snack)."
+            },
+            {
+              "slide": 5,
+              "wording_he": "נשיקה על כף היד ואז ביי קצר בלי להתגנב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt-palm",
+                "src-ztt",
+                "src-aap"
+              ],
+              "supports": "A kiss on the palm to hold all day; don't sneak away; keep the goodbye short."
+            },
+            {
+              "slide": 6,
+              "wording_he": "אני רץ אלייך כי ידעתי שתבואי",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-rcn-settling"
+              ],
+              "supports": "Imagined child voice closing the story; rests on keeping the promised pickup time."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור לו גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-sep"
+              ],
+              "supports": "Raising Children Network recommends reading books or making up stories with the child about separation fears. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child is in every illustration (live site FAQ). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "הפתיח הוא משפט אמין של ילד שמסגר מחדש את הבכי ב-10 מילים, ועוצר בדיוק את ההורה שראה דמעות השבוע. הערך המעשי (משפט אחד למחר) מגיע בשקופית 5, לפני המוצר. הלב על כף היד בסיפור עונה על אותו צורך (לדעת שחוזרים), אז שקופית 7 מרגישה כמו המשך טבעי, ומילת הקוד לב חוזרת על הדימוי."
+        },
+        {
+          "id": "kid-2",
+          "title": "כבר במדרגות אני מרגישה את זה",
+          "angle": "הילדה מדברת עם אמא על הבוקר עצמו: כשהפרידה שונה כל יום, אין לה איך להתכונן. מה שהיא צריכה זה אותו ביי קצר כל בוקר, והפוסט נותן טקס מוחשי (חיבוק אחד ונשיקה על כף היד).",
+          "target_parent": "אמהות לבת 4 עד 5 שעושות את הפיזור בגן, ומאז החגים נשארות כל בוקר קצת יותר ולא בטוחות אם להישאר או ללכת.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "moment",
+          "hook": {
+            "formula": "child-body-moment",
+            "gap": "What does she feel on the stairs, and what would help?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 1,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            }
+          },
+          "code_word": "בוקר",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "מאיה",
+          "character_anchor": {
+            "child": "A 5-year-old Israeli girl with long straight black hair in two low braids, light olive skin, dark eyes and round cheeks; about 110 cm tall.",
+            "parent": "Her mother, mid thirties, shoulder-length dark wavy hair, brown skin, thin black-framed glasses, gentle and slightly rushed.",
+            "wardrobe": "Girl: mustard-gold cardigan over a cream dress with tiny violet flowers, white socks, violet sandals, a small plum backpack. Mother: navy T-shirt under an open grey cotton overshirt, khaki trousers, a canvas bag."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "כבר במדרגות של הגן",
+              "body": "אני מרגישה את זה בבטן",
+              "image": {
+                "beat": "the feeling starts before the door",
+                "action": "On the outdoor staircase up to the kindergarten the girl stops on a step holding the rail, her other hand pressed to her tummy, looking up at the door; her mother one step below holds her backpack.",
+                "setting": "A concrete staircase with a painted rail and potted geraniums at an Israeli residential-building kindergarten.",
+                "camera": "Low angle from the bottom of the stairs, medium-wide shot.",
+                "lighting": "Bright morning sun with soft shadows.",
+                "wardrobe_objects": "Plum backpack in her mother's hand, the girl's cardigan buttoned wrong by one button.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "What is the feeling, and why? Swipe."
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "כל בוקר הפרידה אחרת",
+              "body": "פעם נשארים הרבה ופעם הולכים מהר\nואני לא יודעת מה יהיה היום",
+              "image": {
+                "beat": "not knowing what kind of goodbye it will be",
+                "action": "At the kindergarten door the mother stands half-turned between staying and leaving while the girl holds the hem of her overshirt and searches her face.",
+                "setting": "The kindergarten entrance hall: cubbies with coats, a low bench.",
+                "camera": "Eye-level medium shot from inside the entrance hall.",
+                "lighting": "Daylight from the open door behind them.",
+                "wardrobe_objects": "Her braids, the overshirt hem in her fist.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "Not knowing what today brings; slide 3 says what she needs instead."
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "אני לא תינוקת",
+              "body": "אני צריכה שהפרידה תהיה אותו דבר כל בוקר\nואז אני יודעת מה בא אחרי",
+              "image": {
+                "beat": "relief when the goodbye is predictable",
+                "action": "On the doorstep of the kindergarten the girl rises on tiptoe into her mother's hug; her face shows relief rather than sadness.",
+                "setting": "The kindergarten doorway, interior softly blurred.",
+                "camera": "Medium close-up at the mother's shoulder height.",
+                "lighting": "Warm morning light from the side.",
+                "wardrobe_objects": "Her plum backpack already on, her mother's glasses pushed up.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "So what is 'the same goodbye'? Slide 4 invents it."
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "בואי נמציא לנו ביי קבוע",
+              "body": "חיבוק אחד\nנשיקה על כף היד\nשאני סוגרת חזק עד הצהריים",
+              "image": {
+                "beat": "a ritual she can hold",
+                "action": "Close-up: the mother kisses the centre of the girl's open palm and she curls her fingers closed as if holding the kiss.",
+                "setting": "The kindergarten doorway.",
+                "camera": "Close-up at hand height, shallow depth of field.",
+                "lighting": "Soft warm morning light.",
+                "wardrobe_objects": "Her cardigan cuff.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft out-of-focus cream wall"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "The ritual ends; what Mom does next is slide 5."
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ואז את הולכת באמת",
+              "body": "בלי לחזור לבדוק מהחלון\nכי כשאת חוזרת אני מתחילה מהתחלה",
+              "image": {
+                "beat": "letting the goodbye end",
+                "action": "The mother walks away along the path without looking back; behind her, softly blurred, the girl turns toward the yard holding her closed fist.",
+                "setting": "The kindergarten path with a low fence and bougainvillea.",
+                "camera": "Medium-wide shot from behind the mother.",
+                "lighting": "Clear morning light.",
+                "wardrobe_objects": "Her grey overshirt and canvas bag, the girl's plum backpack in the background.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "Leaving for real; slide 6 shows the midday return."
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ובצהריים את בשער",
+              "body": "״מאיה אני כאן״\nבדיוק כמו שאמרת\nואני כבר יודעת למה לחכות מחר",
+              "image": {
+                "beat": "the promise kept",
+                "action": "At midday the mother stands at the gate; the girl spots her and runs over, braids flying, and is lifted into a hug.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Eye level, medium-wide shot.",
+                "lighting": "Warm midday light.",
+                "wardrobe_objects": "Her plum backpack, her mother's sunglasses pushed up.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale midday sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "The story closes; slide 7 offers one more way to practise the morning."
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "ואפשר לתרגל את הבוקר\nבסיפור אישי",
+              "body": "כתבי בוקר בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "Evening on the sofa: the mother reads aloud with the girl tucked under her arm, pointing at the page with a big grin.",
+                "setting": "A child's bedroom in the evening.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Pyjamas, a soft cream blanket. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "הפרידה בגן אחרי החגים מתחילה עוד במדרגות\nפרידה קבועה וקצרה עוזרת לה לדעת מה בא אחרי\nחיבוק אחד ונשיקה על כף היד\nולא חוזרים לבדוק מהחלון\nובערב סיפור על ילדה שגם קשה לה בבוקר\nכתבי בוקר בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי בוקר בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "How to Ease Your Child's Separation Anxiety",
+              "publisher": "American Academy of Pediatrics, HealthyChildren.org (Wendy Sue Swanson, MD, FAAP; updated 5/11/2026)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/Pages/Soothing-Your-Childs-Separation-Anxiety.aspx",
+              "accessed": "2026-10-07",
+              "quote": "keep the goodbye short and sweet. If you linger, the transition time does too. So will the anxiety. ... provide specifics that your child understands. If you know you'll be back by 3 p.m., tell it to your child on their terms; for example, say, \"I'll be back after nap time and before afternoon snack.\" ... our children stop crying within minutes of our leave-taking",
+              "supports": "Short goodbyes; lingering lengthens the transition; tell the child when you return in terms tied to the day; children often stop crying within minutes of the parent leaving."
+            },
+            {
+              "id": "src-cmi-clingy",
+              "title": "How to Separate From Clingy Kids",
+              "publisher": "Child Mind Institute (updated 20 Nov 2024)",
+              "url": "https://childmind.org/article/separation-issues-in-young-children/",
+              "accessed": "2026-10-07",
+              "quote": "Try to keep the moment of separation as brief as possible. Dragging it out tends to make it more difficult. ... Having a caretaker leave can feel genuinely scary to kids, so you don't want to downplay that.",
+              "supports": "Brief separations; dragging it out tends to make it harder; the fear is real to the child, so do not downplay it."
+            },
+            {
+              "id": "src-rcn-sep",
+              "title": "What is separation anxiety in babies & children?",
+              "publisher": "Raising Children Network (Australia; updated 31-03-2025)",
+              "url": "https://raisingchildren.net.au/preschoolers/health-daily-care/preschoolers-mental-health-concerns/separation-anxiety",
+              "accessed": "2026-10-07",
+              "quote": "Separation anxiety is a common part of children's development. ... Read books or make up stories with your child about separation fears. ... Leaving without saying goodbye can make things worse.",
+              "supports": "Separation distress is a common part of development; reading books or making up stories about separation fears is a recommended way to talk about them; sneaking out can make it worse."
+            },
+            {
+              "id": "src-rcn-settling",
+              "title": "What to do if your child isn't settling in at child care",
+              "publisher": "Raising Children Network (Australia; updated 10-04-2025)",
+              "url": "https://raisingchildren.net.au/grown-ups/work-child-care/planning-starting-child-care/your-child-isn-t-settling",
+              "accessed": "2026-10-07",
+              "quote": "some children settle at first and then get upset later, when the novelty of the new environment has worn off. ... most children stop crying shortly after their parents leave ... Let your child know that you or another familiar grown-up will be back for pick-up at a particular time or after an event that your child understands, like sleep or snack time. ... Acknowledge your child's feelings, give your child words to express their feelings, and comfort your child. ... Always say goodbye, even if your child looks busy and happy",
+              "supports": "Settling can be followed by upset later; most children stop crying shortly after the parent leaves; tie pick-up to an event the child understands; acknowledge and name feelings; always say goodbye."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Separation Anxiety",
+              "publisher": "Zero To Three (modified 2023-06-22)",
+              "url": "https://www.zerotothree.org/resource/separation-anxiety/",
+              "accessed": "2026-10-07",
+              "quote": "Don't leave without saying goodbye. Sneaking away makes a child worry that you might leave at any time ... Have a routine for leaving the house to go to child care.",
+              "supports": "Say goodbye instead of sneaking away; keep a predictable goodbye routine."
+            },
+            {
+              "id": "src-ztt-palm",
+              "title": "What Comes Next: Back to Child Care Following Shelter-in-Place",
+              "publisher": "Zero To Three (2020, modified 2023)",
+              "url": "https://www.zerotothree.org/resource/what-comes-next-back-to-child-care-following-shelter-in-place/",
+              "accessed": "2026-10-07",
+              "quote": "you can give your child a kiss on the palm to “hold” all day long. ... Read books about child care.",
+              "supports": "A kiss on the palm the child can hold all day as a goodbye ritual; reading books about child care. (Written for returning after lockdown; we use the ritual, not the context.)"
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "פעם נשארים הרבה ופעם הולכים מהר",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "Imagined child voice describing an inconsistent goodbye; no factual claim."
+            },
+            {
+              "slide": 3,
+              "wording_he": "פרידה שהיא אותו דבר כל בוקר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "Keep a routine for leaving for child care."
+            },
+            {
+              "slide": 4,
+              "wording_he": "נשיקה על כף היד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt-palm",
+                "src-ztt"
+              ],
+              "supports": "A kiss on the palm the child can hold all day, as a fixed goodbye routine."
+            },
+            {
+              "slide": 5,
+              "wording_he": "בלי לחזור לבדוק מהחלון",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi-clingy",
+                "src-aap"
+              ],
+              "supports": "Keep the separation brief; dragging it out or lingering tends to make it harder."
+            },
+            {
+              "slide": 6,
+              "wording_he": "בדיוק כמו שאמרת",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-rcn-settling"
+              ],
+              "supports": "Imagined child voice closing the story; rests on keeping the promised pickup time."
+            },
+            {
+              "slide": 7,
+              "wording_he": "ואפשר לתרגל את הבוקר בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-sep"
+              ],
+              "supports": "Raising Children Network recommends reading books or making up stories with the child about separation fears. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child is in every illustration (live site FAQ). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "רגע פיזי ספציפי (המדרגות, הבטן) הוא הפתיח הכי מזוהה לאמא שעושה את הפיזור. הטקס בשקופית 4 קונקרטי מספיק לנסות מחר, והסגירה בצהריים (״מאיה אני כאן״) נותנת סוף טוב לפני ההצעה לסיפור אישי."
+        },
+        {
+          "id": "kid-3",
+          "title": "״מתי אתם באים לקחת אותי?״",
+          "angle": "שאלה של ילד בן 3 שחוזרת כל בוקר. הילד מסביר ש״אחר כך״ לא אומר לו כלום, שהוא מחזיק חזק יותר כשנשארים, ושהוא נרגע די מהר אחרי שההורים יוצאים, החלק שהם לא רואים. הרגעה בלי אשמה, ואז משפט אחד להגיד.",
+          "target_parent": "שני ההורים של בן 2.5 עד 3.5 בשנה ראשונה או שנייה בגן, ששומעים ״מתי אתם באים?״ כל בוקר ומרגישים רע ללכת מהבכי.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_quote",
+          "hook": {
+            "formula": "child-question",
+            "gap": "Why does he ask this every morning, and what answer helps?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            }
+          },
+          "code_word": "גן",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "איתי",
+          "character_anchor": {
+            "child": "A 3-year-old Israeli boy with straight light-brown hair in a short bowl cut, fair skin with rosy cheeks and hazel eyes; small and sturdy, about 95 cm tall.",
+            "parent": "His parents: a mother in her late twenties with shoulder-length wavy auburn hair and a soft round face, and a father in his early thirties with short black curly hair and a dark-olive complexion.",
+            "wardrobe": "Boy: cream knitted sweater with one plum stripe, olive-green trousers, small grey sneakers, a tiny water bottle on a strap. Mother: dusty-violet sweatshirt and black trousers. Father: white T-shirt and dark jeans."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״מתי אתם באים לקחת אותי?״",
+              "body": "אני שואל את זה כל בוקר",
+              "image": {
+                "beat": "the question at the door",
+                "action": "The boy sits on a small bench inside the kindergarten entrance with the water bottle in his lap, looking up toward the door with a serious questioning face.",
+                "setting": "A warm kindergarten entrance hall with low coat hooks and a play rug visible beyond.",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Soft daylight from a high window.",
+                "wardrobe_objects": "The tiny water bottle strap across his sweater.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "Why every morning? The next slides answer."
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "השאלה הזאת חזרה אחרי החגים",
+              "body": "כי ״אחר כך״ זה המון זמן\nבשביל מישהו בן שלוש",
+              "image": {
+                "beat": "time feels huge to a small child",
+                "action": "The boy sits on the floor of the play corner building with big foam blocks, but his eyes are on the door.",
+                "setting": "A kindergarten play corner with foam blocks and a low shelf, other children only as blurred shapes.",
+                "camera": "Low angle at floor level, medium-wide shot.",
+                "lighting": "Calm indoor daylight.",
+                "wardrobe_objects": "Foam blocks in muted cream and violet.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              },
+              "pull": {
+                "type": "contrast",
+                "note": "'Later' is a lot of time when you are three; slide 3 shows the part parents never see."
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "אחרי שאתם יוצאים אני נרגע",
+              "body": "בדרך כלל עוד לפני שאתם באוטו\nאת זה אתם לא רואים",
+              "image": {
+                "beat": "the calm the parents never see",
+                "action": "A few minutes after the goodbye the boy, cheeks still a little pink, kneels at a sand table and starts to smile at a toy digger.",
+                "setting": "The kindergarten yard with a shaded sand table.",
+                "camera": "Medium shot at child height.",
+                "lighting": "Dappled morning shade under a pergola.",
+                "wardrobe_objects": "A small yellow toy digger, sand on his sleeves.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "If he calms down soon after, what helps before they go? Slide 4."
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "תגידו לי מתי במילים שלי",
+              "body": "״איתי אחרי המנוחה אנחנו באים״\nוגם תבואו אז באמת",
+              "image": {
+                "beat": "a promise he can track",
+                "action": "The mother kneels at his eye level holding both his hands and speaks simply; the father crouches beside them, nodding.",
+                "setting": "Just inside the kindergarten gate.",
+                "camera": "Eye-level medium close-up.",
+                "lighting": "Gentle morning sun.",
+                "wardrobe_objects": "The water bottle, the mother's violet sweatshirt sleeves.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "The promise given; slide 5 is the goodbye itself."
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ביי אחד ואתם הולכים",
+              "body": "גם אם אני עוד בוכה\nביי ארוך רק מותח את זה",
+              "image": {
+                "beat": "a short goodbye even with tears",
+                "action": "At the gate the parents give one hug and walk out together; the boy, teary but steady, is led toward the yard by a caregiver's hand, only the adult's hand visible.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Child eye level, medium-wide shot.",
+                "lighting": "Morning sun, soft shadows.",
+                "wardrobe_objects": "The water bottle, the caregiver's hand only.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "The short goodbye; slide 6 shows the return."
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ואחרי המנוחה אתם באמת באים",
+              "body": "אני רץ לשער\nו״אחר כך״ כבר לא נשמע לי כל כך רחוק",
+              "image": {
+                "beat": "later finally means something",
+                "action": "After rest time the boy runs to the gate where both parents wait, arms open.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Eye level, medium-wide shot.",
+                "lighting": "Warm afternoon light.",
+                "wardrobe_objects": "The water bottle bouncing on its strap.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale afternoon sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "The story closes; slide 7 offers one more way to help."
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "סיפור אישי על הבוקר שלו",
+              "body": "כתבו גן בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "Evening: both parents sit on the edge of his bed with a picture book open, the boy between them pointing at the page and beaming.",
+                "setting": "A child's bedroom in the evening.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Pyjamas with a plum stripe, a plush bear. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "״מתי אתם באים?״ חוזרת עכשיו אחרי החגים\nבשביל ילד בן שלוש ״אחר כך״ זה המון זמן\nעוזר להגיד מתי באים במילים שלו\n״אחרי המנוחה״ ולא ״בארבע״\nואצל הרבה ילדים הבכי נרגע זמן קצר אחרי שיוצאים\nובערב סיפור על ילד שמחכה בגן יכול לפתוח שיחה\nכתבו גן בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו גן בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "How to Ease Your Child's Separation Anxiety",
+              "publisher": "American Academy of Pediatrics, HealthyChildren.org (Wendy Sue Swanson, MD, FAAP; updated 5/11/2026)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/Pages/Soothing-Your-Childs-Separation-Anxiety.aspx",
+              "accessed": "2026-10-07",
+              "quote": "keep the goodbye short and sweet. If you linger, the transition time does too. So will the anxiety. ... provide specifics that your child understands. If you know you'll be back by 3 p.m., tell it to your child on their terms; for example, say, \"I'll be back after nap time and before afternoon snack.\" ... our children stop crying within minutes of our leave-taking",
+              "supports": "Short goodbyes; lingering lengthens the transition; tell the child when you return in terms tied to the day; children often stop crying within minutes of the parent leaving."
+            },
+            {
+              "id": "src-cmi-absence",
+              "title": "When a Child Shows Separation Anxiety",
+              "publisher": "Child Mind Institute (Rachel Busman, PsyD; updated 26 Sep 2025)",
+              "url": "https://childmind.org/article/after-being-home-sick-for-four-days-my-daughter-who-loved-school-now-cries-when-i-leave-her-what-can-i-do/",
+              "accessed": "2026-10-07",
+              "quote": "If a child is sick and misses school for 4 days, it's not uncommon that going back to school is causing her some stress. ... It sounds as if her absence interrupted a healthy adjustment to school",
+              "supports": "After time away a child who had settled may find going back stressful again; it is not uncommon. (The article is about an illness absence; we apply it to a holiday break as an analogy.)"
+            },
+            {
+              "id": "src-rcn-sep",
+              "title": "What is separation anxiety in babies & children?",
+              "publisher": "Raising Children Network (Australia; updated 31-03-2025)",
+              "url": "https://raisingchildren.net.au/preschoolers/health-daily-care/preschoolers-mental-health-concerns/separation-anxiety",
+              "accessed": "2026-10-07",
+              "quote": "Separation anxiety is a common part of children's development. ... Read books or make up stories with your child about separation fears. ... Leaving without saying goodbye can make things worse.",
+              "supports": "Separation distress is a common part of development; reading books or making up stories about separation fears is a recommended way to talk about them; sneaking out can make it worse."
+            },
+            {
+              "id": "src-rcn-settling",
+              "title": "What to do if your child isn't settling in at child care",
+              "publisher": "Raising Children Network (Australia; updated 10-04-2025)",
+              "url": "https://raisingchildren.net.au/grown-ups/work-child-care/planning-starting-child-care/your-child-isn-t-settling",
+              "accessed": "2026-10-07",
+              "quote": "some children settle at first and then get upset later, when the novelty of the new environment has worn off. ... most children stop crying shortly after their parents leave ... Let your child know that you or another familiar grown-up will be back for pick-up at a particular time or after an event that your child understands, like sleep or snack time. ... Acknowledge your child's feelings, give your child words to express their feelings, and comfort your child. ... Always say goodbye, even if your child looks busy and happy",
+              "supports": "Settling can be followed by upset later; most children stop crying shortly after the parent leaves; tie pick-up to an event the child understands; acknowledge and name feelings; always say goodbye."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "השאלה הזאת חזרה אחרי החגים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi-absence"
+              ],
+              "supports": "After time away a settled child may find going back stressful again (illness absence, applied to the holiday break)."
+            },
+            {
+              "slide": 3,
+              "wording_he": "אחרי שאתם יוצאים אני נרגע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-rcn-settling"
+              ],
+              "supports": "Children often stop crying within minutes of the parent leaving; most stop shortly after."
+            },
+            {
+              "slide": 4,
+              "wording_he": "״איתי אחרי המנוחה אנחנו באים״ וגם תבואו אז באמת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-rcn-settling"
+              ],
+              "supports": "Tell the child when you will be back in terms tied to the day (after nap), and be there."
+            },
+            {
+              "slide": 5,
+              "wording_he": "ביי ארוך רק מותח את זה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "If you linger, the transition time does too."
+            },
+            {
+              "slide": 6,
+              "wording_he": "ו״אחר כך״ כבר לא נשמע לי רחוק",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "Imagined child voice closing the story; no factual claim."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי על הבוקר שלו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-sep"
+              ],
+              "supports": "Raising Children Network recommends reading books or making up stories with the child about separation fears. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child is in every illustration (live site FAQ). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "ציטוט של ילד הוא הפתיח הכי שתיף בסט, והוא מסנן להורים לגילאי 2 עד 4. שקופית 4 מורידה אשמה עם עובדה עם מקור (רוב הילדים נרגעים זמן קצר אחרי), וזה בונה אמון לפני המוצר. הפנייה לשני ההורים ברבים תואמת את האתר ומתאימה לכל משפחה."
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "label_he": "גישה מקצועית מבוססת מקורות",
+      "versions": [
+        {
+          "id": "expert-1",
+          "title": "עוד חמש דקות בשער",
+          "angle": "הפוך ממה שמרגיש נכון, ומבוסס מקורות: להישאר עוד קצת בשער מרגיש חם, אבל בדרך כלל מאריך את הבכי. ביי קצר וחם ותשובה ברורה למתי חוזרים, לפי האקדמיה האמריקאית לרפואת ילדים ו-Child Mind Institute, וההרגעה שהרבה ילדים נרגעים תוך דקות.",
+          "target_parent": "אמהות לבת 3 עד 5 שמאז שהגן נפתח נשארות כל בוקר ״עוד חמש דקות״ ויוצאות מאוחר ועם אשמה.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "reversal",
+            "gap": "Why would staying a few more minutes make it harder?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            }
+          },
+          "code_word": "פרידה",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "תמר",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with short black curly hair held back by a violet headband, dark-brown skin and big dark eyes; about 103 cm tall.",
+            "parent": "Her mother, mid thirties, long dark-brown hair in a ponytail, olive skin, small silver hoop earrings, a warm steady expression.",
+            "wardrobe": "Girl: cream sweatshirt with a small plain plum heart patch, mustard corduroy overalls, white sneakers. Mother: violet knit cardigan over a white T-shirt, dark jeans, a canvas tote bag."
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "עוד חמש דקות בשער",
+              "body": "בדרך כלל רק מאריכות את הבכי",
+              "image": {
+                "beat": "the lingering goodbye",
+                "action": "At the gate the mother stays crouched, still holding both of the girl's hands; the girl's lip trembles and she leans in, neither of them moving.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Eye level, medium shot from the side.",
+                "lighting": "Morning sun, slightly hazy.",
+                "wardrobe_objects": "The tote bag slipping off the mother's shoulder, the girl's headband.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "contrast",
+                "note": "Contradicts what most mothers do this week; the reader wants to know why."
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "פרידה קצרה היא לא פרידה קרה",
+              "body": "אחרי החגים זה נשמע הפוך\nאבל ביי קצר וחם עוזר לעבור את זה",
+              "image": {
+                "beat": "warm and quick at once",
+                "action": "The mother gives a warm, quick hug at the gate, already half rising, both of them with eyes closed for a moment.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Medium close-up at the mother's shoulder height.",
+                "lighting": "Soft morning light.",
+                "wardrobe_objects": "Cardigan sleeves around the girl, the heart patch visible.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "Short is not cold; slide 3 explains."
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "הבכי בשער הוא לא כל הסיפור",
+              "body": "לפי האקדמיה האמריקאית לרפואת ילדים\nהרבה ילדים נרגעים דקות אחרי שההורה יוצא",
+              "image": {
+                "beat": "the calm after",
+                "action": "A few minutes later inside the gan the girl sits calmly at a small table with crayons, beginning to draw simple shapes.",
+                "setting": "A kindergarten activity corner with a low table and crayon pots.",
+                "camera": "Medium shot slightly above child height.",
+                "lighting": "Calm indoor daylight.",
+                "wardrobe_objects": "Paper with simple coloured shapes only, crayons in cream and violet pots.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "Leads into the first thing to try tomorrow on slide 4."
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "דבר ראשון: מתי את חוזרת",
+              "body": "במילים שלה ולא בשעון\n״תמר אחרי המנוחה אני באה״",
+              "image": {
+                "beat": "a clear return time",
+                "action": "The mother crouches at eye level, softly explaining; the girl listens with her eyes on her mother's face.",
+                "setting": "The kindergarten gate.",
+                "camera": "Eye-level medium close-up.",
+                "lighting": "Soft morning light.",
+                "wardrobe_objects": "The violet cardigan, the girl's headband.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "numbered",
+                "note": "'First thing' promises a second on slide 5."
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "דבר שני: לצאת באמת",
+              "body": "ביי אחד בלי להתגנב\nובלי לחזור לבדוק מהחלון\nגם אם היא עוד בוכה",
+              "image": {
+                "beat": "leaving for real",
+                "action": "The mother waves once from the gate and walks away along the street, calm; in the soft-focus background the girl turns toward the yard.",
+                "setting": "A quiet street outside the kindergarten with ficus trees.",
+                "camera": "Medium-wide shot from the street.",
+                "lighting": "Morning sun through the trees.",
+                "wardrobe_objects": "The canvas tote bag on her shoulder.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "numbered",
+                "note": "Second thing done; slide 6 sums it up."
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "בסוף זה שני דברים",
+              "body": "תשובה ברורה למתי\nויציאה אמיתית\nורוב הילדים מתרגלים שוב לאט",
+              "image": {
+                "beat": "the whole morning in one breath",
+                "action": "At midday the girl sits on the low wall by the gate with her backpack, calm and swinging her legs, looking out for her mother.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Medium shot at child height.",
+                "lighting": "Warm midday light.",
+                "wardrobe_objects": "The heart patch, the mustard overalls.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale midday sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "The summary closes; slide 7 offers one more way to help her."
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "ועוד דרך לעזור לה: סיפור אישי",
+              "body": "כתבי פרידה בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "Evening on the bedroom floor: the mother holds a picture book open while the girl touches the page and smiles at what she sees.",
+                "setting": "A child's bedroom in the evening.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Pyjamas with small gold moons. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "להישאר עוד קצת בשער נראה כמו הדבר החם לעשות\nאבל פרידה ארוכה בדרך כלל מאריכה גם את הבכי\nביי קצר וחם ותשובה ברורה למתי את חוזרת\nוהרבה ילדים נרגעים דקות אחרי שההורה יוצא\nובערב סיפור על ילדה שנפרדת בגן עוזר לדבר על הבוקר\nכתבי פרידה בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי פרידה בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "How to Ease Your Child's Separation Anxiety",
+              "publisher": "American Academy of Pediatrics, HealthyChildren.org (Wendy Sue Swanson, MD, FAAP; updated 5/11/2026)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/Pages/Soothing-Your-Childs-Separation-Anxiety.aspx",
+              "accessed": "2026-10-07",
+              "quote": "keep the goodbye short and sweet. If you linger, the transition time does too. So will the anxiety. ... provide specifics that your child understands. If you know you'll be back by 3 p.m., tell it to your child on their terms; for example, say, \"I'll be back after nap time and before afternoon snack.\" ... our children stop crying within minutes of our leave-taking",
+              "supports": "Short goodbyes; lingering lengthens the transition; tell the child when you return in terms tied to the day; children often stop crying within minutes of the parent leaving."
+            },
+            {
+              "id": "src-cmi-clingy",
+              "title": "How to Separate From Clingy Kids",
+              "publisher": "Child Mind Institute (updated 20 Nov 2024)",
+              "url": "https://childmind.org/article/separation-issues-in-young-children/",
+              "accessed": "2026-10-07",
+              "quote": "Try to keep the moment of separation as brief as possible. Dragging it out tends to make it more difficult. ... Having a caretaker leave can feel genuinely scary to kids, so you don't want to downplay that.",
+              "supports": "Brief separations; dragging it out tends to make it harder; the fear is real to the child, so do not downplay it."
+            },
+            {
+              "id": "src-rcn-sep",
+              "title": "What is separation anxiety in babies & children?",
+              "publisher": "Raising Children Network (Australia; updated 31-03-2025)",
+              "url": "https://raisingchildren.net.au/preschoolers/health-daily-care/preschoolers-mental-health-concerns/separation-anxiety",
+              "accessed": "2026-10-07",
+              "quote": "Separation anxiety is a common part of children's development. ... Read books or make up stories with your child about separation fears. ... Leaving without saying goodbye can make things worse.",
+              "supports": "Separation distress is a common part of development; reading books or making up stories about separation fears is a recommended way to talk about them; sneaking out can make it worse."
+            },
+            {
+              "id": "src-rcn-settling",
+              "title": "What to do if your child isn't settling in at child care",
+              "publisher": "Raising Children Network (Australia; updated 10-04-2025)",
+              "url": "https://raisingchildren.net.au/grown-ups/work-child-care/planning-starting-child-care/your-child-isn-t-settling",
+              "accessed": "2026-10-07",
+              "quote": "some children settle at first and then get upset later, when the novelty of the new environment has worn off. ... most children stop crying shortly after their parents leave ... Let your child know that you or another familiar grown-up will be back for pick-up at a particular time or after an event that your child understands, like sleep or snack time. ... Acknowledge your child's feelings, give your child words to express their feelings, and comfort your child. ... Always say goodbye, even if your child looks busy and happy",
+              "supports": "Settling can be followed by upset later; most children stop crying shortly after the parent leaves; tie pick-up to an event the child understands; acknowledge and name feelings; always say goodbye."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Separation Anxiety",
+              "publisher": "Zero To Three (modified 2023-06-22)",
+              "url": "https://www.zerotothree.org/resource/separation-anxiety/",
+              "accessed": "2026-10-07",
+              "quote": "Don't leave without saying goodbye. Sneaking away makes a child worry that you might leave at any time ... Have a routine for leaving the house to go to child care.",
+              "supports": "Say goodbye instead of sneaking away; keep a predictable goodbye routine."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "עוד חמש דקות בשער בדרך כלל רק מאריכות את הבכי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-cmi-clingy"
+              ],
+              "supports": "If you linger, the transition time does too; dragging it out tends to make it more difficult."
+            },
+            {
+              "slide": 2,
+              "wording_he": "ביי קצר וחם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "Keep the goodbye short and sweet."
+            },
+            {
+              "slide": 3,
+              "wording_he": "הרבה ילדים נרגעים דקות אחרי שההורה יוצא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: our children stop crying within minutes of our leave-taking."
+            },
+            {
+              "slide": 4,
+              "wording_he": "מתי את חוזרת במילים שלה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-rcn-settling"
+              ],
+              "supports": "Tell the return time in terms the child understands."
+            },
+            {
+              "slide": 5,
+              "wording_he": "ביי בלי להתגנב ובלי לחזור לבדוק",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt",
+                "src-cmi-clingy",
+                "src-aap"
+              ],
+              "supports": "Don't sneak away; keep the separation brief, dragging it out makes it harder."
+            },
+            {
+              "slide": 6,
+              "wording_he": "ורוב הילדים מתרגלים שוב לאט",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-settling"
+              ],
+              "supports": "Most children settle in well eventually."
+            },
+            {
+              "slide": 7,
+              "wording_he": "ועוד דרך לעזור לה: סיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-sep"
+              ],
+              "supports": "Raising Children Network recommends reading books or making up stories with the child about separation fears. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child is in every illustration (live site FAQ). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח של שינוי תפיסה שסותר את מה שרוב ההורים עושים השבוע, עם ייחוס לאקדמיה האמריקאית לרפואת ילדים על השקופית עצמה, מביא שמירות ואמון. שקופית 4 מורידה אשמה עם עובדה עם מקור. ההורה יוצא עם תוכנית של שלושה צעדים לפני שהמוצר מופיע, ושקופית המוצר ממשיכה את רעיון הלב על כף היד."
+        },
+        {
+          "id": "expert-2",
+          "title": "איך מסבירים לבן 3 מתי חוזרים",
+          "angle": "מדריך מעשי: ״עוד מעט״ ושעות לא אומרים הרבה לילד בן 3. קושרים את החזרה לאירוע ביום שלו (אחרי המנוחה), אומרים את זה באותו אופן כל בוקר, ואז באמת באים בזמן הזה. לפי האקדמיה האמריקאית לרפואת ילדים ו-Raising Children Network.",
+          "target_parent": "אמהות לבן 2.5 עד 3.5 ששומעות ״ואחרי זה? ואחרי זה?״ כל בוקר ורוצות משפט אחד שעובד יותר טוב מ״עוד מעט אני חוזרת״.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "practical_question",
+          "hook": {
+            "formula": "practical-question",
+            "gap": "What do you say instead of a clock time or 'soon'?",
+            "payoff_slide": 4,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            }
+          },
+          "code_word": "מנוחה",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "יונתן",
+          "character_anchor": {
+            "child": "A 3-year-old Israeli boy with short straight black hair, light-brown skin, big brown eyes and chubby cheeks; about 96 cm tall.",
+            "parent": "His mother, around forty, short dark hair with a few grey streaks, light olive skin, reading glasses pushed up on her head, relaxed smile lines.",
+            "wardrobe": "Boy: plum long-sleeve T-shirt with a cream collar, beige trousers, velcro sneakers, a small backpack shaped like a rabbit. Mother: cream cable-knit sweater, olive trousers, a leather crossbody bag."
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "איך מסבירים לבן 3 מתי חוזרים?",
+              "body": "בלי שעון ובלי ״עוד מעט״",
+              "image": {
+                "beat": "the question parents ask themselves",
+                "action": "At the gate the boy looks up at his mother mid-question, tugging her hand; she listens with full attention.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Morning sun from the left.",
+                "wardrobe_objects": "The rabbit backpack, her crossbody bag.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "The how-to question is answered on slides 3 to 5."
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "״עוד מעט אני חוזרת״\nלא אומר לו הרבה",
+              "body": "בשבילו עוד מעט זה גם עכשיו וגם מחר",
+              "image": {
+                "beat": "a phrase that means nothing to him",
+                "action": "The mother waves gently at the gate while the boy, on the other side, looks confused and holds the bars.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Eye level from the yard side, medium shot.",
+                "lighting": "Soft morning light.",
+                "wardrobe_objects": "The gate bars between them, the rabbit backpack.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "If 'soon' means nothing, what does? Slide 3."
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "״בארבע״ עוד לא אומר לו הרבה",
+              "body": "מה שהוא מבין זה הרגעים של היום שלו\nאחרי האוכל או אחרי המנוחה",
+              "image": {
+                "beat": "his day has landmarks",
+                "action": "At a low kindergarten table the boy eats lunch calmly with other children softly blurred beside him; a teacher's hand sets down a plate.",
+                "setting": "A kindergarten lunch corner with small chairs and cream tablecloths.",
+                "camera": "Medium shot at child height.",
+                "lighting": "Calm midday indoor light.",
+                "wardrobe_objects": "A small plate, a cup, his plum sleeve.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "So what do you actually say? Slide 4 gives the sentence."
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "המשפט למחר בבוקר",
+              "body": "״יונתן אחרי המנוחה אני באה לקחת אותך״\nואז באמת לבוא אחרי המנוחה",
+              "image": {
+                "beat": "the sentence and the promise kept",
+                "action": "At the gate the mother crouches and says the sentence; the boy listens, holding the strap of his rabbit backpack.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Eye-level two-shot, medium close-up.",
+                "lighting": "Morning sun, soft.",
+                "wardrobe_objects": "The rabbit backpack, her cream sweater.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "One sentence once; slide 5 says what makes it work."
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ואותו משפט כל בוקר",
+              "body": "כשהמשפט חוזר על עצמו\nהוא כבר יודע מה בא אחרי\nגם בלי לשאול",
+              "image": {
+                "beat": "the same words every morning",
+                "action": "At the gate the mother crouches and says the same sentence while the boy mouths along with her, smiling.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Eye-level two-shot, medium close-up.",
+                "lighting": "Morning sun, soft.",
+                "wardrobe_objects": "The rabbit backpack, her cream sweater.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "Repetition; slide 6 shows where it can lead."
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ואולי כבר מחר בבוקר",
+              "body": "הוא יגיד את המשפט לפניכם\n״אחרי המנוחה את באה״",
+              "image": {
+                "beat": "the sentence becomes his",
+                "action": "On the walk to kindergarten the boy says something with a proud grin while his mother laughs, holding his hand.",
+                "setting": "A quiet residential street with ficus trees.",
+                "camera": "Medium-wide tracking shot from the front.",
+                "lighting": "Early morning sun.",
+                "wardrobe_objects": "The rabbit backpack, her reading glasses on her head.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "The story closes; slide 7 offers one more way to help."
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "סיפור אישי על היום שלו בגן",
+              "body": "כתבו מנוחה בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "At home on the rug the boy and his mother look through a picture book together, his finger following the page, delighted.",
+                "setting": "A child's bedroom in the evening.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "The rabbit backpack beside them. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "״עוד מעט אני חוזרת״ נשמע ברור רק לנו\nילד בן 3 מבין יותר טוב רגעים מהיום שלו\n״אחרי המנוחה אני באה״\nואז לבוא באמת אחרי המנוחה\nובבית סיפור על יום בגן עוזר לראות מה בא אחרי מה\nכתבו מנוחה בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו מנוחה בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "How to Ease Your Child's Separation Anxiety",
+              "publisher": "American Academy of Pediatrics, HealthyChildren.org (Wendy Sue Swanson, MD, FAAP; updated 5/11/2026)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/Pages/Soothing-Your-Childs-Separation-Anxiety.aspx",
+              "accessed": "2026-10-07",
+              "quote": "keep the goodbye short and sweet. If you linger, the transition time does too. So will the anxiety. ... provide specifics that your child understands. If you know you'll be back by 3 p.m., tell it to your child on their terms; for example, say, \"I'll be back after nap time and before afternoon snack.\" ... our children stop crying within minutes of our leave-taking",
+              "supports": "Short goodbyes; lingering lengthens the transition; tell the child when you return in terms tied to the day; children often stop crying within minutes of the parent leaving."
+            },
+            {
+              "id": "src-rcn-sep",
+              "title": "What is separation anxiety in babies & children?",
+              "publisher": "Raising Children Network (Australia; updated 31-03-2025)",
+              "url": "https://raisingchildren.net.au/preschoolers/health-daily-care/preschoolers-mental-health-concerns/separation-anxiety",
+              "accessed": "2026-10-07",
+              "quote": "Separation anxiety is a common part of children's development. ... Read books or make up stories with your child about separation fears. ... Leaving without saying goodbye can make things worse.",
+              "supports": "Separation distress is a common part of development; reading books or making up stories about separation fears is a recommended way to talk about them; sneaking out can make it worse."
+            },
+            {
+              "id": "src-rcn-settling",
+              "title": "What to do if your child isn't settling in at child care",
+              "publisher": "Raising Children Network (Australia; updated 10-04-2025)",
+              "url": "https://raisingchildren.net.au/grown-ups/work-child-care/planning-starting-child-care/your-child-isn-t-settling",
+              "accessed": "2026-10-07",
+              "quote": "some children settle at first and then get upset later, when the novelty of the new environment has worn off. ... most children stop crying shortly after their parents leave ... Let your child know that you or another familiar grown-up will be back for pick-up at a particular time or after an event that your child understands, like sleep or snack time. ... Acknowledge your child's feelings, give your child words to express their feelings, and comfort your child. ... Always say goodbye, even if your child looks busy and happy",
+              "supports": "Settling can be followed by upset later; most children stop crying shortly after the parent leaves; tie pick-up to an event the child understands; acknowledge and name feelings; always say goodbye."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Separation Anxiety",
+              "publisher": "Zero To Three (modified 2023-06-22)",
+              "url": "https://www.zerotothree.org/resource/separation-anxiety/",
+              "accessed": "2026-10-07",
+              "quote": "Don't leave without saying goodbye. Sneaking away makes a child worry that you might leave at any time ... Have a routine for leaving the house to go to child care.",
+              "supports": "Say goodbye instead of sneaking away; keep a predictable goodbye routine."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "״עוד מעט״ לא אומר לו הרבה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: provide specifics that your child understands, on their terms."
+            },
+            {
+              "slide": 3,
+              "wording_he": "מה שהוא מבין זה הרגעים של היום שלו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-rcn-settling"
+              ],
+              "supports": "Tie the return to an event the child understands, like sleep or snack time."
+            },
+            {
+              "slide": 4,
+              "wording_he": "״יונתן אחרי המנוחה אני באה לקחת אותך״ ואז באמת לבוא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-rcn-settling"
+              ],
+              "supports": "Tell the return time as an event in the child's day, and then be there."
+            },
+            {
+              "slide": 5,
+              "wording_he": "אותו משפט כל בוקר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "Have a routine for leaving the house to go to child care."
+            },
+            {
+              "slide": 6,
+              "wording_he": "ואולי כבר מחר הוא יגיד את המשפט לפניכם",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "An illustrative closing moment framed as a possibility, not a promised outcome."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי על היום שלו בגן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-sep"
+              ],
+              "supports": "Raising Children Network recommends reading books or making up stories with the child about separation fears. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child is in every illustration (live site FAQ). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח של שאלה מעשית מסנן הורים שמחפשים פתרון עכשיו ומבטיח משפט אחד שאפשר להשתמש בו, וזה טריגר חזק לשמירה. המשפט בשקופית 5 מוחשי מספיק כדי לנסות מחר. מילת הקוד מנוחה היא המשפט עצמו, אז לכתוב אותה בתגובות מרגיש טבעי."
+        },
+        {
+          "id": "expert-3",
+          "title": "״אין ממה לפחד מאמי״",
+          "angle": "המשפט שכולנו אומרים בשער. המקורות אומרים שהפחד אמיתי בשביל הילדה ולא כדאי להקטין אותו: קודם לתת לו שם, ואז ביי קצר עם משהו להחזיק (נשיקה על כף היד). הטקס הזה מוביל ישר לסיפור עם הלב על כף היד.",
+          "target_parent": "אמהות לבת 3 עד 5 שתופסות את עצמן אומרות ״אין ממה לפחד״ כל בוקר ורוצות משפט טוב יותר.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "sentences_we_say",
+          "hook": {
+            "formula": "sentence-we-all-say",
+            "gap": "If 'nothing to be scared of' doesn't calm her, what does?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            }
+          },
+          "code_word": "לב",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "שירה",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with springy black curls in a high puff, dark-brown skin and bright dark eyes; about 104 cm tall.",
+            "parent": "Her mother, early thirties, Ethiopian-Israeli, dark skin, short natural hair, small gold stud earrings, a gentle direct gaze.",
+            "wardrobe": "Girl: violet light jacket over a cream striped T-shirt, a denim skirt, yellow sneakers. Mother: mustard-gold wool scarf, cream turtleneck, black trousers."
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״אין ממה לפחד מאמי״",
+              "body": "כולנו אומרות את זה בשער הגן",
+              "image": {
+                "beat": "the automatic reassurance",
+                "action": "At the gate the mother bends to the teary girl, mid-sentence, one hand on her back; the girl looks down.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Eye level, medium shot from the side.",
+                "lighting": "Morning sun, soft.",
+                "wardrobe_objects": "The mustard scarf, the violet jacket zipped to the chin.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "We all say it; does it work? The next slides answer."
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "בשבילה הפחד בשער אמיתי לגמרי",
+              "body": "אז לפני שמרגיעים\nכדאי קודם להגיד שרואים",
+              "image": {
+                "beat": "her fear is real",
+                "action": "Close-up of the girl's face looking up, eyes glassy and serious, not dramatic.",
+                "setting": "The gate, background out of focus.",
+                "camera": "Close-up slightly above her eye level.",
+                "lighting": "Soft diffused morning light.",
+                "wardrobe_objects": "Curls catching the light, jacket collar.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft out-of-focus cream wall"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "'First say you see it' is unpacked on slides 3 and 4."
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "״אין ממה״ בדרך כלל לא מרגיע",
+              "body": "כי בשבילה יש ממה\nמה שכן עוזר זה לשמוע שרואים אותה",
+              "image": {
+                "beat": "being reassured versus being seen",
+                "action": "Close-up of the girl's hand gripping the mustard scarf tighter while her mother, out of focus, is mid-sentence.",
+                "setting": "The kindergarten gate, background out of focus.",
+                "camera": "Close-up at hand height, shallow depth of field.",
+                "lighting": "Soft diffused morning light.",
+                "wardrobe_objects": "The mustard scarf, the violet jacket cuff.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft out-of-focus cream wall"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "So what do you say instead? Slide 4."
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "המשפט לשער",
+              "body": "״שירה אני רואה שקשה לך להיפרד היום״\nזה מספיק\nלא צריך לשכנע אותה שזה כיף",
+              "image": {
+                "beat": "being seen",
+                "action": "The mother kneels at eye level holding both of the girl's hands, nodding; the girl's shoulders drop a little.",
+                "setting": "Just outside the kindergarten gate.",
+                "camera": "Eye-level two-shot, medium close-up.",
+                "lighting": "Warm morning light.",
+                "wardrobe_objects": "Gold stud earrings, the violet jacket.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale morning sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "Words first, then something to hold on slide 5."
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ומשהו קטן להחזיק עד הצהריים",
+              "body": "נשיקה על כף היד שהיא סוגרת חזק\nואז ביי קצר גם אם היא עוד בוכה",
+              "image": {
+                "beat": "a ritual to hold, then a short goodbye",
+                "action": "Close-up: the mother kisses the centre of the girl's palm and the girl closes her fist tight.",
+                "setting": "The kindergarten gate.",
+                "camera": "Close-up at hand height, shallow depth of field.",
+                "lighting": "Soft morning light.",
+                "wardrobe_objects": "The mustard scarf at the edge of frame.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft out-of-focus cream wall"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "Slide 6 puts it together."
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "בסוף זה מה שהיא צריכה",
+              "body": "לשמוע שרואים אותה\nלהחזיק משהו קטן\nולדעת שבצהריים את שם",
+              "image": {
+                "beat": "everything she needs in one line",
+                "action": "At midday the girl opens her fist at the gate as her mother arrives, showing her palm with a proud smile.",
+                "setting": "A neighbourhood Israeli municipal kindergarten entrance in the morning: a low painted metal gate, bougainvillea over the fence, pergola shadows on paving stones; other children appear only as soft blurred shapes far behind.",
+                "camera": "Eye-level medium close-up.",
+                "lighting": "Warm midday light.",
+                "wardrobe_objects": "The open palm, the violet jacket.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale midday sky above the kindergarten fence"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "The summary closes; slide 7 offers one more way to keep it going."
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "ואפשר להמשיך את זה בסיפור אישי",
+              "body": "כתבי לב בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "In bed in the evening mother and girl look at an open picture book; the girl holds her palm, with a small violet heart drawn on it, next to the page and grins.",
+                "setting": "A child's bedroom in the evening.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Pyjamas with tiny gold stars. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "״אין ממה לפחד״ יוצא לכולנו אוטומטית בבוקר\nאבל בשבילה הפחד בשער אמיתי\nקודם להגיד שרואים ״קשה לך להיפרד היום״\nואז ביי קצר עם נשיקה על כף היד להחזיק עד הצהריים\nובערב סיפור על ילדה עם לב על כף היד\nכתבי לב בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי לב בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "How to Ease Your Child's Separation Anxiety",
+              "publisher": "American Academy of Pediatrics, HealthyChildren.org (Wendy Sue Swanson, MD, FAAP; updated 5/11/2026)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/Pages/Soothing-Your-Childs-Separation-Anxiety.aspx",
+              "accessed": "2026-10-07",
+              "quote": "keep the goodbye short and sweet. If you linger, the transition time does too. So will the anxiety. ... provide specifics that your child understands. If you know you'll be back by 3 p.m., tell it to your child on their terms; for example, say, \"I'll be back after nap time and before afternoon snack.\" ... our children stop crying within minutes of our leave-taking",
+              "supports": "Short goodbyes; lingering lengthens the transition; tell the child when you return in terms tied to the day; children often stop crying within minutes of the parent leaving."
+            },
+            {
+              "id": "src-cmi-clingy",
+              "title": "How to Separate From Clingy Kids",
+              "publisher": "Child Mind Institute (updated 20 Nov 2024)",
+              "url": "https://childmind.org/article/separation-issues-in-young-children/",
+              "accessed": "2026-10-07",
+              "quote": "Try to keep the moment of separation as brief as possible. Dragging it out tends to make it more difficult. ... Having a caretaker leave can feel genuinely scary to kids, so you don't want to downplay that.",
+              "supports": "Brief separations; dragging it out tends to make it harder; the fear is real to the child, so do not downplay it."
+            },
+            {
+              "id": "src-rcn-sep",
+              "title": "What is separation anxiety in babies & children?",
+              "publisher": "Raising Children Network (Australia; updated 31-03-2025)",
+              "url": "https://raisingchildren.net.au/preschoolers/health-daily-care/preschoolers-mental-health-concerns/separation-anxiety",
+              "accessed": "2026-10-07",
+              "quote": "Separation anxiety is a common part of children's development. ... Read books or make up stories with your child about separation fears. ... Leaving without saying goodbye can make things worse.",
+              "supports": "Separation distress is a common part of development; reading books or making up stories about separation fears is a recommended way to talk about them; sneaking out can make it worse."
+            },
+            {
+              "id": "src-rcn-settling",
+              "title": "What to do if your child isn't settling in at child care",
+              "publisher": "Raising Children Network (Australia; updated 10-04-2025)",
+              "url": "https://raisingchildren.net.au/grown-ups/work-child-care/planning-starting-child-care/your-child-isn-t-settling",
+              "accessed": "2026-10-07",
+              "quote": "some children settle at first and then get upset later, when the novelty of the new environment has worn off. ... most children stop crying shortly after their parents leave ... Let your child know that you or another familiar grown-up will be back for pick-up at a particular time or after an event that your child understands, like sleep or snack time. ... Acknowledge your child's feelings, give your child words to express their feelings, and comfort your child. ... Always say goodbye, even if your child looks busy and happy",
+              "supports": "Settling can be followed by upset later; most children stop crying shortly after the parent leaves; tie pick-up to an event the child understands; acknowledge and name feelings; always say goodbye."
+            },
+            {
+              "id": "src-ztt-palm",
+              "title": "What Comes Next: Back to Child Care Following Shelter-in-Place",
+              "publisher": "Zero To Three (2020, modified 2023)",
+              "url": "https://www.zerotothree.org/resource/what-comes-next-back-to-child-care-following-shelter-in-place/",
+              "accessed": "2026-10-07",
+              "quote": "you can give your child a kiss on the palm to “hold” all day long. ... Read books about child care.",
+              "supports": "A kiss on the palm the child can hold all day as a goodbye ritual; reading books about child care. (Written for returning after lockdown; we use the ritual, not the context.)"
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "בשבילה הפחד בשער אמיתי לגמרי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi-clingy"
+              ],
+              "supports": "A caretaker leaving can feel genuinely scary to kids, so you don't want to downplay that."
+            },
+            {
+              "slide": 3,
+              "wording_he": "מה שכן עוזר זה לשמוע שרואים אותה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-settling",
+                "src-cmi-clingy"
+              ],
+              "supports": "Acknowledge the child's feelings; don't downplay the fear."
+            },
+            {
+              "slide": 4,
+              "wording_he": "״שירה אני רואה שקשה לך להיפרד היום״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-settling"
+              ],
+              "supports": "Acknowledge your child's feelings and give them words for them."
+            },
+            {
+              "slide": 5,
+              "wording_he": "נשיקה על כף היד ואז ביי קצר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt-palm",
+                "src-aap"
+              ],
+              "supports": "A kiss on the palm to hold all day; keep the goodbye short."
+            },
+            {
+              "slide": 6,
+              "wording_he": "ולדעת שבצהריים את שם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-settling"
+              ],
+              "supports": "Let the child know you will be back after an event they understand."
+            },
+            {
+              "slide": 7,
+              "wording_he": "ואפשר להמשיך את זה בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn-sep"
+              ],
+              "supports": "Raising Children Network recommends reading books or making up stories with the child about separation fears. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child is in every illustration (live site FAQ). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "״משפטים שכולנו אומרים״ הוא פתיח עם הרבה חשיפה שמשתמש ב״כולנו״ במקום להאשים. הוא נותן משפט חלופי שאפשר להגיד כבר באותו בוקר. שקופיות 5 ו-6 בונות את טקס כף היד, כך שסיפור שבו הבת היא הגיבורה מרגיש כמו ההמשך הברור, בלי להזכיר מותג או שם של ספר. הקישור ב-DM יכול להוביל לספר על פרידה בגן."
+        }
+      ]
+    }
+  ]
+}

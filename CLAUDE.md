@@ -1,0 +1,62 @@
+# LumeBook project
+
+Social media work for LumeBook (personalised kids' books, Israel). Solo SMM: Yarin. Hebrew audience copy, RTL.
+
+## Layout (since 8 Oct 2026)
+
+| Folder | What is there |
+|---|---|
+| `lumebook.json` | Component registry: every workstream, what it watches, how it builds, where it is published, what it feeds |
+| `tools/lumebook.py` | Keeps components in step (see below) |
+| `shared/facts.json` | Facts several components repeat: artifact and site URLs, Form/Sheet IDs, creator offer, key dates, barter list, baselines |
+| `shared/brand/` | Canonical logos, mascot, fonts, carousel backgrounds, link-preview image |
+| `docs/` | Product brief, Q4 strategy page, Hebrew carousel playbook, UGC research, Hebrew voice tool note |
+| `prompts/` | The master prompts each workstream was built from (historical; paths updated to this layout) |
+| `shared/design/` | The LumeBook design system: `lumebook.css` (tokens + `lb-` components), `design.py` (build helpers), `build_ds_artifact.py` (regenerates the Design System artifact) |
+| `sites/` | `dashboard` (the all-in-one internal dashboard; artifact + lumebook-dashboard.vercel.app, which also serves the plan at /plan/), `lumebook-smm-plan` (the plan page, edited in the site editor), `lumebook-ambassadors` (public site for creators, NOT on the design system) |
+| `creators/` | `creator-research` (creator map) and the signup Form's Apps Script |
+| `research/` | Competitor teardown, kids content lab (1.1 GB of raw video and frames, keep), carousel research, carousel playbook page |
+| `carousel/` | `carousel-pipeline` (nightly, 22:00), `fal-carousel-trial` (frozen reference), `references/` |
+
+One git repo for everything: github.com/yarinbruner/lumebook (private, since 8 Oct 2026; the four old repos are archived and their history is inside). Raw media is ignored (see `.gitignore`). The root `.githooks/pre-commit` enforces the SMM plan's English mirror and blocks Sheet exports.
+
+Front door: the dashboard (https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ; read-only copy https://lumebook-dashboard.vercel.app). Design System reference: https://claude.ai/artifact/RjUuSdYDwaJe4HWyEErNmF.
+
+Project skills: `.claude/skills/lumebook-carousel`, `.claude/skills/lumebook-hebrew-voice`. `.agents/skills/*` are symlinks to them; edit only `.claude/skills`.
+
+## How components stay connected
+
+```
+python3 tools/lumebook.py status     # what changed, what it affects, open to-dos, consistency warnings
+python3 tools/lumebook.py ripple     # same + rebuild safe local pages, sync brand copies, queue the rest
+python3 tools/lumebook.py check      # registry, brand copies, offer wording, לומיבוק, em dashes, old paths
+python3 tools/lumebook.py ack ID --published   # after republishing an artifact
+python3 tools/lumebook.py map        # the dependency graph
+python3 tools/lumebook.py build ID   # run one component's build
+python3 tools/lumebook.py deploy ID  # Vercel deploy (ambassadors, dashboard)
+python3 tools/lumebook.py serve      # one local server for the whole folder: http://localhost:8780/
+```
+
+- The 08:14 dashboard task runs `ripple` first, so the dashboard's "סנכרון בין הרכיבים" panel shows what is waiting.
+- After changing a component, run `ripple`. After republishing an artifact, run `ack <id> --published`.
+- A new workstream gets an entry in `lumebook.json` (and in `shared/facts.json` if it has a URL). Use paths relative to this folder.
+- A fact that more than one component uses goes in `shared/facts.json`, not in a script constant.
+- A new brand file goes in `shared/brand/`; if a site or the pipeline needs a physical copy, add it to `brand.copies` and run `sync`.
+- `.lumebook/` is generated state (hashes, to-dos, log). Don't edit by hand.
+
+## Design system
+
+- Every internal page uses `shared/design/lumebook.css`: builds inline it with `design.head()`; the SMM plan and the dashboard link synced copies (`design.copies`, kept equal by `sync`). Change the CSS, then `ripple` rebuilds the pages and lists artifacts to republish; regenerate the Design System artifact with `build_ds_artifact.py`.
+- Style page-specific rules with tokens only (`--bg --surface --text --tint --accent ...`), use `lb-` components first, keep both themes and 390px phone width working, Hebrew pages RTL.
+- Not for the ambassadors site (Yarin: it is for the ambassadors and stays as it is) or for the carousel slide designs (the kid/expert pillar looks are audience content).
+
+## Rules that apply everywhere
+
+- No em dashes in anything written for the user or audience. Brand: LumeBook / לומבוק, never לומיבוק.
+- Creator offer: personal link with an audience discount, never "קוד הנחה" or "קוד אישי" (see `shared/facts.json` offer).
+- Don't mention AI in audience copy.
+- Hebrew grammar: `creators/creator-research/src/hebrew-rules.md`.
+- Never edit built HTML (creator map, research pages); edit the sources and rebuild.
+- `sites/lumebook-smm-plan`: mirror every Hebrew change in `content.en.md` in the same commit.
+- Commit or push only when Yarin asks. Repos use the GitHub no-reply email.
+- Preview servers: `.claude/launch.json`. If Yarin has a page open in the site editor, ask before writing that file.

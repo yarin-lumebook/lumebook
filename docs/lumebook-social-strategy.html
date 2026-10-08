@@ -1,0 +1,476 @@
+<title>Lumebook Social Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a working playbook, sticky contents rail on wide screens, one reading column, tables and phase strip where order matters */
+:root{
+  --paper:#F6F7FB; --sheet:#FFFFFF; --ink:#1A2140; --muted:#5A6283; --line:#DDE1EE;
+  --lume:#B57A00; --lume-soft:#FFF3D6; --night:#26306B; --night-soft:#E8EBFA;
+  --good:#1F7A4D; --warn:#A35A00; --bad:#B3261E;
+  --display:"Rubik",system-ui,sans-serif; --body:"Assistant",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1328; --sheet:#171C38; --ink:#E9ECF8; --muted:#A3AACB; --line:#2C3358;
+  --lume:#F2C14E; --lume-soft:#3A2F12; --night:#AEB8FF; --night-soft:#232A55;
+  --good:#6FD39C; --warn:#F2B25C; --bad:#FF8A80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1328; --sheet:#171C38; --ink:#E9ECF8; --muted:#A3AACB; --line:#2C3358;
+  --lume:#F2C14E; --lume-soft:#3A2F12; --night:#AEB8FF; --night-soft:#232A55;
+  --good:#6FD39C; --warn:#F2B25C; --bad:#FF8A80; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}nav.toc{display:none}}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;padding-top:40px;font-size:14px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:4px 0 4px 12px;border-left:2px solid var(--line)}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--ink);border-left-color:var(--lume);outline:none}
+main{min-width:0;max-width:780px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(34px,5vw,48px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:28px;font-weight:600;margin-bottom:16px}
+h3{font-size:19px;font-weight:600;margin:28px 0 8px}
+p{margin:0 0 14px}
+section{padding-top:56px;scroll-margin-top:16px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--lume)}
+header.hero{padding-top:48px;display:grid;gap:16px}
+.thesis{font-size:21px;line-height:1.5;color:var(--ink);max-width:62ch}
+.thesis b{background:linear-gradient(transparent 60%,var(--lume-soft) 60%)}
+.meta{font-size:14px;color:var(--muted)}
+.he{font-family:var(--body);direction:rtl;unicode-bidi:isolate}
+blockquote.he{margin:10px 0;padding:12px 16px;background:var(--sheet);border:1px solid var(--line);border-radius:8px;text-align:right}
+.src{font-size:13px;color:var(--muted)}
+a{color:var(--night)}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:2px 8px;border-radius:999px;vertical-align:2px}
+.tag.fact{background:var(--night-soft);color:var(--night)}
+.tag.assume{background:var(--lume-soft);color:var(--lume)}
+.tag.ask{background:transparent;border:1px solid var(--bad);color:var(--bad)}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:8px 0 18px}
+.fact-box{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:4px;align-content:start}
+.fact-box .n{font-family:var(--display);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+.fact-box .l{font-size:14px;color:var(--muted);line-height:1.4}
+
+.engines{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+@media (max-width:640px){.engines{grid-template-columns:minmax(0,1fr)}}
+.engine{border-top:3px solid var(--night);padding:12px 0 0}
+.engine h3{margin:0 0 6px}
+.engine p{font-size:15px;color:var(--muted);margin:0}
+
+.tbl{overflow-x:auto;margin:10px 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--sheet)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:560px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--paper)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td .he{display:block;text-align:right}
+
+ul.rules{padding-left:20px;margin:0 0 14px}
+ul.rules li{margin-bottom:6px}
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 18px}
+@media (max-width:640px){.dodont{grid-template-columns:minmax(0,1fr)}}
+.dodont>div{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.dodont h4{margin:0 0 8px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.dodont .do h4{color:var(--good)} .dodont .dont h4{color:var(--bad)}
+.dodont ul{margin:0;padding-left:18px;font-size:15px}
+
+.phases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:12px 0 18px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--sheet)}
+@media (max-width:760px){.phases{grid-template-columns:minmax(0,1fr)}}
+.phase{padding:16px;border-right:1px solid var(--line);display:grid;gap:6px;align-content:start;min-width:0}
+.phase:last-child{border-right:0}
+@media (max-width:760px){.phase{border-right:0;border-bottom:1px solid var(--line)}.phase:last-child{border-bottom:0}}
+.phase .d{font-family:var(--mono);font-size:12px;color:var(--lume)}
+.phase h3{margin:0;font-size:17px}
+.phase ul{margin:0;padding-left:18px;font-size:14px;line-height:1.5}
+.phase.peak{background:var(--lume-soft)}
+
+.callout{background:var(--night-soft);border-radius:10px;padding:14px 18px;margin:12px 0 18px}
+.callout p:last-child{margin:0}
+
+/* calculator */
+.calc{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px}
+@media (max-width:700px){.calc{grid-template-columns:minmax(0,1fr)}}
+.inputs{display:grid;gap:10px}
+.inp{display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:10px;align-items:center;font-size:14px}
+.inp label{color:var(--muted);line-height:1.3}
+.inp input{width:100%;font:500 15px var(--mono);padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);text-align:right}
+.inp input:focus-visible{outline:2px solid var(--lume);outline-offset:1px}
+.grp{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--lume);margin-top:6px}
+.out{display:grid;gap:2px;align-content:start}
+.out .row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+.out .row span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.out .big{padding:14px 0 6px;border:0}
+.out .big span:first-child{font-family:var(--display);font-weight:600;font-size:18px}
+.out .big span:last-child{font-family:var(--display);font-size:34px;font-weight:700;color:var(--lume)}
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin:4px 0 2px}
+.bar i{display:block;height:100%;background:var(--night)}
+button.reset{justify-self:start;font:500 13px var(--body);padding:6px 12px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+button.reset:hover,button.reset:focus-visible{color:var(--ink);border-color:var(--ink)}
+
+ol.checks{padding-left:22px}
+ol.checks li{margin-bottom:8px}
+.sources li{font-size:14px;margin-bottom:6px;word-break:break-word}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="#start">Where we start</a>
+  <a href="#strategy">Strategy on a page</a>
+  <a href="#guidelines">Marketing guidelines</a>
+  <a href="#content">Content system</a>
+  <a href="#creators">Creator program</a>
+  <a href="#ugc">Customer reveal loop</a>
+  <a href="#community">Community</a>
+  <a href="#roadmap">90-day roadmap</a>
+  <a href="#kpis">KPIs</a>
+  <a href="#model">Order model</a>
+  <a href="#asks">Founder asks</a>
+  <a href="#rhythm">Weekly rhythm</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<main>
+<header class="hero">
+  <span class="eyebrow">Lumebook · Social &amp; content strategy · Q4 2026</span>
+  <h1>Make the child's face the ad.</h1>
+  <p class="thesis">Right now our feed reads like a parenting magazine. It gets almost no engagement and sells nothing. For the next 90 days, three things change. <b>The child's reaction becomes the content.</b> <b>Parent creators become the distribution</b>, paid in books. <b>"See your free preview" becomes the call to action</b> on every post.</p>
+  <p class="meta">v1 · 1 Oct 2026 · Owner: SMM lead · Constraints: ₪0 cash budget (barter only), one-person team, no baseline data yet.<br>
+  Labels: <span class="tag fact">fact</span> = we read it in a named source · <span class="tag assume">assumption</span> = our working guess, to be replaced by real data · <span class="tag ask">needs founder</span> = a decision outside social.</p>
+</header>
+
+<section id="start">
+  <span class="eyebrow">01 · Diagnosis</span>
+  <h2>Where we start</h2>
+  <div class="facts">
+    <div class="fact-box"><span class="n">911 / 541</span><span class="l">Instagram / Facebook followers on 1 Oct 2026 <span class="tag fact">fact</span></span></div>
+    <div class="fact-box"><span class="n">0–2</span><span class="l">likes per post on our own recent posts. About 8 of the last 12 were parenting tips that don't mention the book <span class="tag fact">fact</span></span></div>
+    <div class="fact-box"><span class="n">56 / 56</span><span class="l">likes and comments on the best post we found: a parent creator's reel about their child's birthday book <span class="tag fact">fact</span></span></div>
+    <div class="fact-box"><span class="n">₪149</span><span class="l">our delivered price: ₪119 book + ₪30 home shipping, softcover, up to 7 business days <span class="tag fact">fact</span></span></div>
+  </div>
+  <p><b>What this tells us.</b> One creator reel got roughly 25 times the engagement of our typical post. Our own tips are useful, but people don't connect them to a product, so they don't sell. The demand signal sits in creators and in reactions, not in advice. <span class="src">(Product brief, socials section.)</span></p>
+  <h3>The competitor problem</h3>
+  <p>MeBook (מיבוק) sells the same product: a photo-based AI book with milestone stories. Their homepage lists a <b>₪139 hardcover</b>, 10–14 business days, and "over 65,000 satisfied customers", and they post as @mebook.ai on Instagram, Facebook and TikTok <span class="tag fact">fact</span> <span class="src">(mebook.ai, read 1 Oct 2026; the same page also mentions free shipping over ₪299, so check their real delivered price before comparing publicly)</span>. Press coverage from Aug 2025 put them at 25,000+ books sold <span class="src">(mako.co.il)</span>.</p>
+  <p>Two consequences. First, <b>we are not the cheaper option once shipping is added</b>, so we can't compete on price. Second, <b>the names sound almost the same</b> (מיבוק and לומיבוק). If our content doesn't carry clearly recognisable brand cues, part of our reach may go to them <span class="tag assume">assumption</span>.</p>
+  <p><b>Correction (you checked MeBook's site yourself, 1 Oct 2026).</b> I first listed a free preview, an instant digital copy, a developmental "social stories" angle and a religious-observant line as our edges. MeBook has all four, so they are parity, not differentiators <span class="tag fact">fact: verified by SMM lead</span>.</p>
+  <div class="tbl"><table>
+    <tr><th>Feature</th><th>Lumebook</th><th>MeBook</th><th>Treat as</th></tr>
+    <tr><td>Free preview, pay only if you like it</td><td>Yes</td><td>Yes</td><td>Parity</td></tr>
+    <tr><td>Digital copy in minutes</td><td>Yes, included free with the printed book</td><td>Yes. Their homepage also lists a standalone PDF at ₪40</td><td>Parity (the "included free" part may be a small edge, check their bundle)</td></tr>
+    <tr><td>Developmental "social stories" angle</td><td>Yes</td><td>Yes</td><td>Parity</td></tr>
+    <tr><td>Religious-observant line</td><td>"Shomrei Masoret" category</td><td>Yes</td><td>Parity. Compare catalog depth before claiming more</td></tr>
+    <tr><td>Delivery speed</td><td>Up to 7 business days (home)</td><td>10–14 business days <span class="src">(mebook.ai homepage)</span></td><td>Real, but we are softcover vs their hardcover</td></tr>
+    <tr><td>Scale claim</td><td>30,000+ children <span class="tag ask">unconfirmed</span></td><td>65,000+ customers <span class="src">(their homepage)</span></td><td>They lead</td></tr>
+  </table></div>
+  <p><b>Decision: the developmental angle is our wedge.</b> MeBook also lists milestone stories, but a topic list is not a point of view. We will own the idea that <i>the book is a tool for a specific moment in a child's development</i> (a new sibling, leaving the pacifier, starting gan), explained in the social-stories way the site is already built on. That is what a parent remembers, and it is what our parenting-tip content was already doing without a product bridge. Delivery speed is a supporting point, not the headline. <span class="tag assume">assumption: MeBook's pages I read don't frame it explicitly. Re-check their content monthly.</span></p>
+  <p><b>The condition.</b> We can only own this if it is provable. See "Developmental wedge" under Content, and the new founder asks: who reviewed the stories, and what the social-stories method says on the site is based on.</p>
+</section>
+
+<section id="strategy">
+  <span class="eyebrow">02 · Strategy</span>
+  <h2>Strategy on a page</h2>
+  <div class="tbl"><table>
+    <tr><th>Element</th><th>Decision</th></tr>
+    <tr><td>Goal (90 days)</td><td>Grow <b>paid B2C orders that we can trace to social</b>. Every other metric only matters if it moves this one.</td></tr>
+    <tr><td>Primary audience</td><td>Israeli parents of 2–8 year olds facing a milestone: a new sibling, giving up the pacifier, starting gan or grade 1, a birthday <span class="tag assume">assumption: the site gives 4 different age ranges</span></td></tr>
+    <tr><td>Secondary audience</td><td>Gift-givers, especially grandparents (a gift page already exists for them) and guests at birthdays and Hanukkah</td></tr>
+    <tr><td>Positioning line</td><td><span class="he">הספר שעוזר לילד שלכם לעבור את הרגע הגדול – סיפור חברתי שבו הוא הגיבור. רואים תצוגה מקדימה בחינם.</span></td></tr>
+    <tr><td>The one CTA</td><td><span class="he">צרו תצוגה מקדימה בחינם</span>, a free preview, not "buy now". It's the lowest-commitment step. MeBook offers one too, so it is a conversion tool for us, not a differentiator.</td></tr>
+    <tr><td>Primary channel</td><td>Instagram Reels and Stories. Facebook copies them automatically. TikTok gets the same reels as a test (MeBook is already there).</td></tr>
+  </table></div>
+  <h3>Three engines</h3>
+  <div class="engines">
+    <div class="engine"><h3>Creators</h3><p>Parent creators get a free book and post the moment their child sees it. Their audience, our product. This is where reach comes from.</p></div>
+    <div class="engine"><h3>Customer reveals</h3><p>Every buyer gets one ask: film the first look. This is proof, plus an endless supply of reels at zero cost.</p></div>
+    <div class="engine"><h3>Content that sells</h3><p>Milestone tips that end with the book as the tool. Keep the parenting value and add a clear bridge to the product.</p></div>
+  </div>
+</section>
+
+<section id="guidelines">
+  <span class="eyebrow">03 · Guidelines</span>
+  <h2>Marketing guidelines</h2>
+  <p>These rules apply to every post, story, reply, creator brief and caption. If a piece breaks one, it doesn't go out.</p>
+
+  <h3>Voice</h3>
+  <p>At the child's eye level, warm and practical. Keep the #הורותבגובההעיניים spirit. Spoken Hebrew, short sentences. We talk to the parent about their child, never at the parent.</p>
+  <div class="dodont">
+    <div class="do"><h4>Do</h4><ul>
+      <li class="he">ספר שעוזר לדבר על האח החדש</li>
+      <li class="he">דרך עדינה להיפרד מהמוצץ</li>
+      <li>One idea per post, with a concrete moment ("the first night without the pacifier")</li>
+      <li>Say "helps" and "a gentle way to"</li>
+    </ul></div>
+    <div class="dont"><h4>Don't</h4><ul>
+      <li class="he">ספר שפותר קנאת אחים</li>
+      <li>Clinical or outcome promises ("cures fears", "proven to build confidence")</li>
+      <li>Guilt ("still giving them screens?")</li>
+      <li>Naming or mocking competitors</li>
+    </ul></div>
+  </div>
+
+  <h3>Visual rules</h3>
+  <ul class="rules">
+    <li><b>Show a real face in the first 2 seconds.</b> Use the child's reaction or the book opening to their face. Don't open on a logo.</li>
+    <li><b>Show the real book in real hands.</b> Use AI mock-ups only to show the preview step, and label AI scenes the way we already do.</li>
+    <li><b>Burned-in captions on every video.</b> Most people scroll with sound off.</li>
+    <li><b>A recognisable signature, because of the name clash.</b> Use the same 1-second end card (לומיבוק logo + <span class="he">תצוגה מקדימה בחינם</span>), the same page-flip transition and the same short sound on every reel. Write the name in full every time, never just "the book".</li>
+  </ul>
+
+  <h3>Children's safety and consent (non-negotiable)</h3>
+  <ul class="rules">
+    <li>We only repost a child with the parent's <b>written</b> consent in DM, and we save a screenshot of it.</li>
+    <li>First names only. No gan or school names, no location tags, no uniforms with logos, no house numbers in frame.</li>
+    <li>A customer's child never appears in an ad or a boosted post without <b>separate</b> explicit consent for that use.</li>
+    <li>We take content down within 24 hours of any request, with no questions asked.</li>
+    <li>No bath, bedtime-undressed or medical-moment footage, ever. We hide or delete inappropriate comments on child content immediately.</li>
+  </ul>
+
+  <h3>Claims and disclosure</h3>
+  <ul class="rules">
+    <li><b>Creators must label sponsored posts.</b> Israel's Consumer Protection Authority treats free products as compensation, so a free book means the post is advertising and must say so clearly <span class="tag fact">fact</span> <span class="src">(ynet coverage of the guidelines)</span>. Put this in every brief.</li>
+    <li>We only use the site's "30,000+ children" and "4.9 on Google" numbers after a founder confirms the source <span class="tag ask">needs founder</span>.</li>
+    <li>Use one age range everywhere. The site currently gives four (1–10, 2–8, 2–10, 3–8) <span class="tag ask">needs founder</span>.</li>
+    <li>Check prices against the live site on the day you post. Never post a price from memory.</li>
+  </ul>
+</section>
+
+<section id="content">
+  <span class="eyebrow">04 · Content</span>
+  <h2>Content system</h2>
+  <div class="tbl"><table>
+    <tr><th>Pillar</th><th>Share</th><th>What it is</th><th>Example hook</th></tr>
+    <tr><td><b>The reveal</b></td><td class="num">30%</td><td>A child sees themselves in the book for the first time. Sources: creators, customers, our own seed books.</td><td><span class="he">הוא עוד לא יודע שהוא הגיבור של הספר הזה</span></td></tr>
+    <tr><td><b>Developmental moment → book</b></td><td class="num">40%</td><td>Our wedge. Name the milestone, explain what is hard for the child, give the tip, then show how the story works as a tool for that exact moment.</td><td><span class="he">איך מספרים לילד בן 3 שמגיע אח קטן?</span></td></tr>
+    <tr><td><b>Proof &amp; process</b></td><td class="num">20%</td><td>A screen recording of name, age and photo turning into a preview. A flip-through. Explaining "pay only if you love it". Real reviews.</td><td><span class="he">שם. גיל. תמונה. וזה מה שקורה אחר כך</span></td></tr>
+    <tr><td><b>Gift &amp; season</b></td><td class="num">10%</td><td>Birthdays, grandparents, and Hanukkah from November onward.</td><td><span class="he">המתנה היחידה לחנוכה שבה הוא הגיבור</span></td></tr>
+  </table></div>
+  <h3>Cadence a one-person team can sustain</h3>
+  <ul class="rules">
+    <li><b>4 reels a week</b> on Instagram, cross-posted to TikTok and Facebook. Reuse the best creator video as our own reel, with their permission.</li>
+    <li><b>Stories 5 days a week</b> (3–5 frames): a reveal repost, a poll, and a link sticker to the free preview with UTM.</li>
+    <li><b>1 carousel a week</b>: a milestone guide that ends on the matching book.</li>
+    <li><b>Pin 3 posts</b>: the best reveal, how the free preview works, and the best review. Rename the highlights to how it works / reveals / Hanukkah / reviews.</li>
+  </ul>
+  <h3>Developmental wedge</h3>
+  <ul class="rules">
+    <li><b>One milestone per month, all channels.</b> Oct: new sibling. Nov: starting gan / grade 1 adjustment. Dec: Hanukkah gifts framed as "a story for the moment they're in". Every reel, carousel and story that month points to the matching book. Our site already has the sibling and first-day-of-gan guides, so reuse them as source material <span class="src">(product brief, blog section)</span>.</li>
+    <li><b>Explain the method in 20 seconds, once, and pin it.</b> "Why a story about <i>them</i> helps": a child rehearses the situation safely before it happens. Use plain words and the founders' own description of social stories, not clinical language.</li>
+    <li><b>Get one professional on the record.</b> An OT, speech therapist, child psychologist or gan teacher who reads the story for a milestone and appears in a reel. Offer a book and a credit. This is also our second creator tier.</li>
+    <li><b>Parent proof is about the moment, not the book.</b> Ask buyers: "What was hard before? What changed after the story?" Use only with consent, and never promise an outcome.</li>
+    <li><b>Language limits.</b> "Helps", "supports", "a gentle way to". Never "treats", "fixes" or "proven". Any statistic or study named in a post needs a link in the caption.</li>
+  </ul>
+  <h3>CTA rule</h3>
+  <p>Every post ends with exactly one CTA, either <span class="he">"לתצוגה מקדימה בחינם – קישור בביו"</span> or <span class="he">"כתבו 'ספר' בתגובות ואשלח לכם קישור"</span>. With the comment version, answer every comment by DM with the UTM link. Comments also tell the algorithm the post is worth showing.</p>
+  <div class="callout"><p><b>Don't throw away the parenting tips.</b> Turn them into Milestone → book posts. A tip with no bridge to the product is a free service to parents, not marketing.</p></div>
+</section>
+
+<section id="creators">
+  <span class="eyebrow">05 · Distribution</span>
+  <h2>Creator program, paid in books</h2>
+  <div class="tbl"><table>
+    <tr><th>Part</th><th>Spec</th></tr>
+    <tr><td>Who</td><td>Israeli parent creators with <b>2k–50k followers</b> and kids aged 2–8, whose comments come from real parents, not emoji spam. Second tier: gan teachers, speech therapists and OTs, who give milestone stories credibility.</td></tr>
+    <tr><td>What they get</td><td>A free personalised book. Ideally also a commission per order on their own code, which costs us only when a sale happens <span class="tag ask">needs founder: amount</span>.</td></tr>
+    <tr><td>What we ask</td><td>One reveal reel and 2–3 stories with the link, a sponsored-post label, and permission to repost. We don't require a post, but we follow up kindly.</td></tr>
+    <tr><td>Volume</td><td>40 DMs a week → about 4 creators a week activated <span class="tag assume">assumption: ~10% acceptance</span>. Track every one in a sheet: handle, date, code, post link, clicks, orders.</td></tr>
+    <tr><td>Keep / cut</td><td>After 30 days: a creator with 2 or more orders becomes an ambassador (gets a book every quarter plus commission). A creator with 0 orders and no content: thank them and stop.</td></tr>
+  </table></div>
+  <h3>First DM (adjust each time, and always mention a specific post of theirs)</h3>
+  <blockquote class="he">היי [שם], אני ירין מלומיבוק. אנחנו יוצרים ספרי ילדים שבהם הילד הוא הגיבור – עם השם והפנים שלו. ראיתי את [הפוסט על…] וממש התחברתי. נשמח לשלוח ל[שם הילד/ה] ספר במתנה, בלי התחייבות. אם תאהב/י – נשמח לסרטון של הרגע שהוא/היא רואה את הספר בפעם הראשונה (עם סימון פרסומת, כמובן). לשלוח קישור?</blockquote>
+  <p><b>Hanukkah timing:</b> creators need to receive their books by <b>10 Nov</b>, so that reveals go live between 15 Nov and 3 Dec, before the order cutoff (see the roadmap).</p>
+</section>
+
+<section id="ugc">
+  <span class="eyebrow">06 · Proof</span>
+  <h2>Customer reveal loop</h2>
+  <ul class="rules">
+    <li><b>Message after purchase</b> (WhatsApp or email, whichever ops can send): <span class="he">"צלמו את הרגע שהם רואים את הספר בפעם הראשונה ותייגו @lumebookai"</span>. Reward: we feature them, plus a monthly draw for a free book <span class="tag ask">needs founder</span>.</li>
+    <li><b>A card in the box</b> with the same ask and a QR code to our Instagram, if Bookpod can add inserts <span class="tag ask">needs founder</span>.</li>
+    <li><b>Past customers.</b> Send one message to previous buyers asking for reveal videos and Google reviews. This is the biggest free stock of proof we have.</li>
+    <li>Refresh the existing "לקוחות משתפים" highlight every week. Get consent before every repost (see the guidelines).</li>
+  </ul>
+</section>
+
+<section id="community">
+  <span class="eyebrow">07 · Community</span>
+  <h2>Community</h2>
+  <ul class="rules">
+    <li><b>Answer every comment and DM the same working day.</b> DMs are where hesitant parents ask "is it really free to preview?"</li>
+    <li><b>Parent Facebook groups</b>: contribute real answers on milestone threads (pacifier, siblings, gan adjustment). Never drop links unprompted. Offer group admins a free-book giveaway in exchange for a sanctioned post.</li>
+    <li><b>One collab giveaway a month</b> with a creator: a free book, posted as a joint Instagram collab post so it reaches both audiences.</li>
+    <li><b>Answer common questions in public.</b> When the same DM question comes up 3 or more times, it becomes a reel.</li>
+  </ul>
+</section>
+
+<section id="roadmap">
+  <span class="eyebrow">08 · Timeline</span>
+  <h2>90-day roadmap</h2>
+  <div class="phases">
+    <div class="phase"><span class="d">4 – 31 Oct</span><h3>Measure &amp; pivot</h3><ul>
+      <li>Week 1: set up tracking (see KPIs), fix the bio, pins and highlights</li>
+      <li>New content mix goes live</li>
+      <li>40 creator DMs a week, 10+ books seeded</li>
+      <li>Message past customers for reveals</li>
+      <li>31 Oct: baseline review, replace assumptions with real targets</li>
+    </ul></div>
+    <div class="phase"><span class="d">1 – 24 Nov</span><h3>Scale winners</h3><ul>
+      <li>Double down on the 2 best hooks</li>
+      <li>Hanukkah creator books delivered by 10 Nov</li>
+      <li>Hanukkah content from 10 Nov</li>
+      <li>Countdown: "order by Sun 22 Nov for Hanukkah"</li>
+    </ul></div>
+    <div class="phase peak"><span class="d">25 Nov – 12 Dec</span><h3>Hanukkah</h3><ul>
+      <li>Hanukkah runs 4–12 Dec</li>
+      <li>After the cutoff, switch the angle: "the digital copy arrives in minutes, so the gift is ready tonight"</li>
+      <li>"8 nights, 8 heroes": reshare a customer reveal each night</li>
+    </ul></div>
+    <div class="phase"><span class="d">13 – 31 Dec</span><h3>Harvest &amp; reset</h3><ul>
+      <li>Collect Hanukkah reveals with consent</li>
+      <li>Quarter review against the KPIs</li>
+      <li>Q1 plan: birthdays all year, Tu BiShvat 22–23 Jan</li>
+    </ul></div>
+  </div>
+  <p class="src">Holiday dates from hebcal.com. Cutoff calculation: the site says home delivery takes up to 7 business days. Counting Sun–Thu business days, an order on Tue 24 Nov arrives by Thu 3 Dec, the day before Hanukkah. We advertise Sun 22 Nov to leave margin. <span class="tag ask">Confirm with ops whether the 7 days start at order or at print.</span></p>
+</section>
+
+<section id="kpis">
+  <span class="eyebrow">09 · Measurement</span>
+  <h2>KPIs</h2>
+  <p>We have no baseline, so October measures and November–December improve. Outcome targets are written as multiples of October's baseline. Input targets are absolute, because those are the numbers we control.</p>
+  <h3>Tracking setup, week 1</h3>
+  <ul class="rules">
+    <li><b>UTM on every link</b>: <code>utm_source=instagram|facebook|tiktok|creator</code>, <code>utm_medium=bio|story|dm|reel</code>, <code>utm_campaign=q4-reveal|hanukkah26|…</code>, and for creators <code>utm_content=[handle]</code>.</li>
+    <li><b>A unique discount code per creator</b>. The kindergarten page already has a code field. Check that B2C checkout has one too <span class="tag ask">needs founder</span>.</li>
+    <li><b>A "how did you hear about us?" question at checkout</b>, because word of mouth from a reel won't show up in UTMs <span class="tag ask">needs founder</span>.</li>
+    <li><b>A weekly export</b> of orders and previews started, split by source <span class="tag ask">needs founder</span>.</li>
+  </ul>
+  <div class="tbl"><table>
+    <tr><th>Level</th><th>KPI</th><th>Source</th><th>Oct</th><th>Dec target</th></tr>
+    <tr><td><b>North star</b></td><td><b>Orders traced to social</b> (codes + UTM + checkout answer)</td><td>Orders export</td><td>Baseline</td><td class="num"><b>3× Oct</b> <span class="tag assume">assumption</span></td></tr>
+    <tr><td>Leading</td><td>Free previews started from social</td><td>Site analytics with UTM</td><td>Baseline</td><td class="num">3× Oct</td></tr>
+    <tr><td>Watch</td><td>Preview → purchase %</td><td>Product</td><td>Baseline</td><td>Watch only (product's job)</td></tr>
+    <tr><td>Reach</td><td>Average views per reel</td><td>IG Insights</td><td>Baseline</td><td class="num">≥ 1,000 (above follower count)</td></tr>
+    <tr><td>Resonance</td><td>Shares + saves per 1,000 reach</td><td>IG Insights</td><td>Baseline</td><td>+50% vs Oct</td></tr>
+    <tr><td>Wedge</td><td>Shares + saves on milestone content vs other pillars</td><td>IG Insights</td><td>Baseline</td><td>Milestone pillar leads by Dec, else rethink</td></tr>
+    <tr><td>Intent</td><td>Link clicks (bio + story stickers + DM links)</td><td>IG Insights + UTM</td><td>Baseline</td><td class="num">3× Oct</td></tr>
+    <tr><td>Creators</td><td>Orders per seeded book</td><td>Code tracking</td><td>Measure</td><td class="num">≥ 1.0 (each book pays for itself)</td></tr>
+    <tr><td>Proof</td><td>Customer reveal videos received (with consent)</td><td>Sheet</td><td class="num">10</td><td class="num">25 / month</td></tr>
+    <tr><td>Audience</td><td>Instagram followers</td><td>IG</td><td class="num">911 → track</td><td class="num">2,000 <span class="tag assume">assumption</span></td></tr>
+    <tr><td><b>Inputs</b></td><td>Reels published · creator DMs · books seeded</td><td>Sheet</td><td class="num">16 · 160 · 10</td><td class="num">16 · 120 · 12 / month</td></tr>
+  </table></div>
+  <div class="callout"><p><b>Decision rules.</b> Give every hook three tries before judging it. On 31 Oct, cut the pillar with the fewest free previews per post and move its slots to the best one. A follower count with no orders is not a win.</p></div>
+</section>
+
+<section id="model">
+  <span class="eyebrow">10 · Model</span>
+  <h2>Order model</h2>
+  <p>These are <b>example inputs, not data</b>. They show how the funnel fits together. Replace each one with real numbers on 31 Oct and the targets will follow. Your inputs are saved in this browser only.</p>
+  <div class="calc">
+    <div class="inputs">
+      <span class="grp">Reach</span>
+      <div class="inp"><label for="c_posts">Creator posts per month</label><input id="c_posts" type="number" min="0" value="10"></div>
+      <div class="inp"><label for="c_views">Avg views per creator post</label><input id="c_views" type="number" min="0" value="3000"></div>
+      <div class="inp"><label for="o_posts">Our reels per month</label><input id="o_posts" type="number" min="0" value="16"></div>
+      <div class="inp"><label for="o_views">Avg views per our reel</label><input id="o_views" type="number" min="0" value="600"></div>
+      <span class="grp">Conversion</span>
+      <div class="inp"><label for="ctr">View → site click (%)</label><input id="ctr" type="number" min="0" step="0.1" value="1"></div>
+      <div class="inp"><label for="prev">Click → preview started (%)</label><input id="prev" type="number" min="0" step="1" value="40"></div>
+      <div class="inp"><label for="buy">Preview → purchase (%)</label><input id="buy" type="number" min="0" step="1" value="15"></div>
+      <span class="grp">Economics</span>
+      <div class="inp"><label for="aov">Revenue per order (₪)</label><input id="aov" type="number" min="0" value="119"></div>
+      <div class="inp"><label for="seeded">Books given to creators</label><input id="seeded" type="number" min="0" value="10"></div>
+      <div class="inp"><label for="cogs">Our cost per free book (₪), ask the founders</label><input id="cogs" type="number" min="0" value="45"></div>
+      <button class="reset" id="reset" type="button">Reset to examples</button>
+    </div>
+    <div class="out" aria-live="polite">
+      <div class="row"><span>Views</span><span id="r_views">–</span></div>
+      <div class="bar" aria-hidden="true"><i id="b_creator"></i></div>
+      <div class="src" id="r_split">–</div>
+      <div class="row"><span>Site clicks</span><span id="r_clicks">–</span></div>
+      <div class="row"><span>Free previews</span><span id="r_prev">–</span></div>
+      <div class="row big"><span>Orders / month</span><span id="r_orders">–</span></div>
+      <div class="row"><span>Revenue</span><span id="r_rev">–</span></div>
+      <div class="row"><span>Cost of free books</span><span id="r_cost">–</span></div>
+      <div class="row"><span>Orders whose revenue covers the free books</span><span id="r_break">–</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="asks">
+  <span class="eyebrow">11 · Dependencies</span>
+  <h2>What I need from the founders</h2>
+  <ol class="checks">
+    <li><b>The developmental evidence</b>: who wrote and reviewed the stories, whether a professional looked at them, and which sources the "social stories" claim rests on. Everything in the wedge depends on this <span class="tag ask">needs founder</span>.</li>
+    <li><b>One real difference from MeBook</b>, in a sentence, that we can prove on camera. Free preview, instant digital copy, social stories and a religious line are all matched.</li>
+    <li><b>A book allowance for barter</b>: e.g. 30 free books for the quarter, plus our real cost per book.</li>
+    <li><b>Discount codes per creator</b> and a creator commission amount (paid only on sales).</li>
+    <li><b>A "how did you hear about us?" question at checkout</b>, plus a weekly export of orders and previews by source.</li>
+    <li><b>Confirm the "30,000+ children" and "4.9 Google" numbers</b>, and pick one age range for the whole site.</li>
+    <li><b>A Hanukkah offer.</b> Our ₪30 shipping makes us more expensive than MeBook when delivered. Free shipping on 2+ books, for example, would give creators a reason to say "now". This isn't my call, but it is the biggest conversion lever I can see.</li>
+    <li>A post-purchase reveal message, a box insert if Bookpod allows it, and one message to past customers.</li>
+    <li>Confirm the Hanukkah cutoff date with ops. Also fix the blank shipping prices in the US FAQ.</li>
+  </ol>
+</section>
+
+<section id="rhythm">
+  <span class="eyebrow">12 · Operating rhythm</span>
+  <h2>Weekly rhythm for one person</h2>
+  <div class="tbl"><table>
+    <tr><th>When</th><th>Block</th><th>Time</th></tr>
+    <tr><td>Sunday</td><td>Scorecard: last week's numbers, top post, creator sheet. Plan this week's 4 reels.</td><td class="num">1.5 h</td></tr>
+    <tr><td>Monday</td><td>Batch: film and edit 2 reels, write captions</td><td class="num">3 h</td></tr>
+    <tr><td>Wednesday</td><td>Batch: 2 reels and the weekly carousel</td><td class="num">3 h</td></tr>
+    <tr><td>Daily (Sun–Thu)</td><td>Community: comments, DMs, 2 Facebook group answers</td><td class="num">30 min</td></tr>
+    <tr><td>Daily (Sun–Thu)</td><td>Creators: 8 new DMs, follow-ups, reposts with consent</td><td class="num">45 min</td></tr>
+    <tr><td>Daily (Sun–Thu)</td><td>Stories: 3–5 frames</td><td class="num">15 min</td></tr>
+  </table></div>
+  <p class="src">About 15 hours a week <span class="tag assume">assumption</span>. If it doesn't fit, cut the carousel first and protect creator outreach.</p>
+</section>
+
+<section id="sources">
+  <span class="eyebrow">Sources</span>
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li>Lumebook product brief, researched 1 Oct 2026 from lumebook.com, Instagram and Facebook: <code>docs/lumebook-product-brief.md</code></li>
+    <li>MeBook homepage, read 1 Oct 2026: <a href="https://mebook.ai/">mebook.ai</a></li>
+    <li>MeBook, 25,000+ books sold (Aug 2025): <a href="https://www.mako.co.il/nexter-news/Article-20837e8e29cb891027.htm">mako.co.il</a></li>
+    <li>MeBook profile (Sept 2025): <a href="https://www.ynet.co.il/digital/technology/article/bjhoegvneg">ynet.co.il</a></li>
+    <li>Consumer Protection Authority influencer guidelines: <a href="https://www.ynet.co.il/economy/article/SyzEMeG0w">ynet.co.il</a></li>
+    <li>Holiday dates 5787: <a href="https://www.hebcal.com/holidays/2026-2027">hebcal.com</a></li>
+  </ul>
+</section>
+</main>
+</div>
+
+<script>
+(function(){
+  var ids=["c_posts","c_views","o_posts","o_views","ctr","prev","buy","aov","seeded","cogs"];
+  var defaults={};
+  ids.forEach(function(id){defaults[id]=document.getElementById(id).value});
+  var KEY="lumebook-model-v1";
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||"null");if(saved){ids.forEach(function(id){if(saved[id]!=null)document.getElementById(id).value=saved[id]})}}catch(e){}
+  var fmt=new Intl.NumberFormat("en-US",{maximumFractionDigits:0});
+  function v(id){var n=parseFloat(document.getElementById(id).value);return isFinite(n)&&n>=0?n:0}
+  function set(id,t){document.getElementById(id).textContent=t}
+  function calc(){
+    var cv=v("c_posts")*v("c_views"), ov=v("o_posts")*v("o_views"), views=cv+ov;
+    var clicks=views*v("ctr")/100, prev=clicks*v("prev")/100, orders=prev*v("buy")/100;
+    var rev=orders*v("aov"), cost=v("seeded")*v("cogs");
+    set("r_views",fmt.format(views));
+    var share=views?cv/views:0;
+    document.getElementById("b_creator").style.width=(share*100).toFixed(1)+"%";
+    set("r_split",views?Math.round(share*100)+"% of views from creators, "+Math.round((1-share)*100)+"% from our reels":"No views yet");
+    set("r_clicks",fmt.format(clicks));
+    set("r_prev",fmt.format(prev));
+    set("r_orders",orders<10?orders.toFixed(1):fmt.format(orders));
+    set("r_rev","₪"+fmt.format(rev));
+    set("r_cost","₪"+fmt.format(cost));
+    set("r_break",v("aov")?(cost/v("aov")).toFixed(1)+" orders":"–");
+    try{var o={};ids.forEach(function(id){o[id]=document.getElementById(id).value});localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+  }
+  ids.forEach(function(id){document.getElementById(id).addEventListener("input",calc)});
+  document.getElementById("reset").addEventListener("click",function(){ids.forEach(function(id){document.getElementById(id).value=defaults[id]});calc()});
+  calc();
+})();
+</script>

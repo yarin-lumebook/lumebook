@@ -1,0 +1,26 @@
+{
+  "skill_name": "lumebook-hebrew-voice",
+  "evals": [
+    {
+      "id": 1,
+      "name": "kid-bedtime-water",
+      "prompt": "אנחנו מכינים קרוסלה ללומבוק על ילד בן 4 שמבקש עוד כוס מים כל ערב אחרי לילה טוב. תכתוב לי בקול של הילד שמדבר להורים: פתיח (hook), פתיח שני שעובד גם לבד (second_hook), ושקופית שמראה מה עומד מאחורי ההתנהגות (slide3). תוסיף כיתוב לפוסט (caption) וקריאה לפעולה (cta) עם מילת הקוד מים, ברוח: כתבו X בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור. Save the result as JSON with exactly these keys: hook, second_hook, slide3, caption, cta.",
+      "expected_output": "Natural spoken Hebrew in a 4-year-old's first person voice, line breaks instead of commas or periods, no em dash, hook main line up to 8 words, caption ending with the exact CTA, CTA keeps the brief's idea with the code word מים.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "expert-short-goodbye",
+      "prompt": "Write the expert-direction slides for a LumeBook Hebrew carousel about crying at kindergarten drop-off. Use only this source, do not add other facts: American Academy of Pediatrics, HealthyChildren.org, 'How to Ease Your Child's Separation Anxiety': \"keep the goodbye short and sweet. If you linger, the transition time does too.\" and \"provide specifics that your child understands ... 'I'll be back after nap time and before afternoon snack.'\" I need: hook, slide3 (recognition), slide4 (the sourced idea in plain Hebrew), slide5 (something the parent can try tomorrow), caption, and cta with the code word פרידה in the spirit of 'כתבו X בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור'. Save as JSON with exactly the keys hook, slide3, slide4, slide5, caption, cta.",
+      "expected_output": "Plain calm expert Hebrew, one sourced idea per slide, no invented doctor or psychologist, no guarantees, no forbidden punctuation, caption ending with the CTA.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "rewrite-guru-caption",
+      "prompt": "תשכתב את הכיתוב הזה כך שיישמע כמו בן אדם ולא כמו פרסומת, לאינסטגרם של לומבוק, עם מילת הקוד מוצץ: \"פרידה מהמוצץ היא שלב משמעותי במסע ההתפתחותי של ילדכם — וחשוב להכיל את הרגשות שעולים. הנה 3 טריקים מוכחים שיעזרו לכם לעבור את זה בלי דמעות! כל ילד יכול. הקישור בביו, ואל תשכחו לשמור את הפוסט.\" Save as JSON with exactly the keys caption and cta.",
+      "expected_output": "A short spoken caption with line breaks, no promises (מוכח, בלי דמעות), no universality (כל ילד), no therapist words (להכיל, מסע), one CTA only (no link in bio, no save), caption ending with the exact CTA containing מוצץ.",
+      "files": []
+    }
+  ]
+}

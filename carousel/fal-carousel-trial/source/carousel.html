@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>LumeBook carousel, new sibling</title>
+<style>
+@font-face{font-family:"Rubik";src:url("fonts/Rubik-VariableFont_wght.ttf") format("truetype");font-weight:300 900;font-display:block}
+@font-face{font-family:"Assistant";src:url("fonts/Assistant-VariableFont_wght.ttf") format("truetype");font-weight:200 800;font-display:block}
+
+/* Tokens: derived from the lumebook.com palette in sites/lumebook-ambassadors/index.html
+   (ink #0B0518 / #1D1039 / #291852, gold #E6B762 / #C9954A, cream #F8F0E1). */
+:root{
+  --paper:#F3EADC; --ink:#1D1039; --ink-2:#4B4062; --ink-3:#7A6F8C;
+  --gold:#B07C2E; --gold-2:#C9954A; --gold-3:#E6B762; --cream:#F8F0E1; --night:#0B0518;
+  --display:"Rubik",system-ui,sans-serif; --text:"Assistant",system-ui,sans-serif;
+  --W:1080px; --H:1350px; --m-x:92px; --m-top:84px; --m-bottom:92px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#d9d2c6}
+body{font-family:var(--text);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.deck{display:flex;flex-direction:column;gap:40px;align-items:center;padding:40px 0}
+body.single .deck{padding:0;gap:0}
+body.single .slide:not(.on){display:none}
+body.single{background:var(--paper)}
+
+.slide{position:relative;width:var(--W);height:var(--H);overflow:hidden;background:var(--paper);isolation:isolate}
+.slide > .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.slide > .grain{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:multiply;opacity:.22;background-image:url("images/paper-grain.png");background-size:540px 540px}
+.slide > .veil{position:absolute;inset:0;z-index:2;pointer-events:none}
+.slide > svg.thread{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:visible}
+.slide > .chrome,.slide > .copy,.slide > .foot{position:absolute;z-index:4}
+
+/* Beat colours: light slides 1-5, dark evening slides 6-7 */
+.slide.dark{--ink:#F8F0E1;--ink-2:#D9CFE6;--ink-3:#A89DBB;--gold:#E6B762;background:var(--night)}
+.slide.dark .grain{display:none}
+
+.chrome{top:var(--m-top);inset-inline:var(--m-x);display:flex;justify-content:space-between;align-items:center;color:var(--ink)}
+.wordmark{display:flex;align-items:center;gap:10px;direction:ltr;font-family:var(--display);font-weight:600;font-size:27px}
+.wordmark i{width:11px;height:11px;border-radius:50%;background:var(--gold-2);display:inline-block;box-shadow:0 0 0 5px rgba(201,149,74,.2)}
+.progress{direction:ltr;font-variant-numeric:tabular-nums;color:var(--ink-3);font-weight:700;font-size:24px;letter-spacing:.06em}
+.progress b{color:var(--ink);font-weight:800}
+
+/* Headlines: bigger and bolder (user request). No kickers. */
+.copy{inset-inline:var(--m-x);top:206px;text-align:right;display:flex;flex-direction:column;gap:26px}
+.h{font-family:var(--display);font-weight:700;color:var(--ink);letter-spacing:-.015em}
+.h-xl{font-size:92px;line-height:1.08}
+.h-l{font-size:84px;line-height:1.1}
+.h-m{font-size:70px;line-height:1.12}
+.em{color:var(--gold)}
+
+/* The recurring motif: one gold thread, thicker, with a bead at each knot */
+svg.thread path{fill:none;stroke:var(--gold);stroke-width:5.5;stroke-linecap:round;stroke-linejoin:round}
+svg.thread .bead{fill:var(--gold);stroke:none}
+svg.thread path.ribbon{fill:var(--gold);stroke:none}
+
+.foot{inset-inline:var(--m-x);bottom:var(--m-bottom);display:flex;justify-content:space-between;align-items:flex-end;font-size:24px;font-weight:700;color:var(--ink-2)}
+.pill{background:rgba(243,234,220,.92);color:var(--ink);padding:10px 22px;border-radius:999px;display:inline-flex;align-items:center;gap:14px}
+.swipe{font-weight:800;font-size:28px}
+.swipe svg{width:56px;height:20px}
+.ai{font-weight:600;font-size:22px}
+.handle{direction:ltr;font-weight:800}
+.dark .foot{color:var(--ink)}
+
+.cta{gap:12px;top:488px}
+.cta .act{font-family:var(--display);font-weight:700;font-size:50px;line-height:1.15;color:var(--ink)}
+.cta .act u{text-decoration:none;padding-bottom:8px;background:linear-gradient(transparent 90%,rgba(230,183,98,.9) 90%)}
+.cta .where{font-family:var(--text);font-weight:700;font-size:31px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+<!-- SLIDES_START -->
+<!-- Every slide: photo (fal.ai Nano Banana 2, placed by prep_art.py) > grain > veil > gold thread > type.
+     The thread leaves and enters every slide edge at y=148 so a swipe follows one unbroken line.
+     Slides 1-5 light, 6-7 dark (class="dark"). -->
+
+<section class="slide" data-n="1">
+  <img class="art" src="images/slide-01.jpg" alt=""><div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M100 148 C 300 148, 420 132, 580 140 S 880 160, 1080 148"/><circle class="bead" cx="100" cy="148" r="9"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>1</b>/7</span></div>
+  <div class="copy"><h1 class="h h-xl">עוד מעט נולד תינוק.<br>וגם הילד הגדול שלכם<br><span class="em">עומד להיוולד מחדש.</span></h1></div>
+  <div class="foot"><span class="pill ai">נוצר בעזרת AI</span><span class="pill swipe">החליקו <svg viewBox="0 0 56 20"><path d="M54 10H4M12 2 3 10l9 8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+</section>
+
+<section class="slide" data-n="2">
+  <img class="art" src="images/slide-02.jpg" alt=""><div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M0 148 C 220 148, 380 150, 470 150 C 540 150, 572 108, 540 94 C 506 80, 470 116, 520 142 C 580 172, 780 148, 1080 148"/><circle class="bead" cx="540" cy="150" r="9"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>2</b>/7</span></div>
+  <div class="copy"><h2 class="h h-l" style="font-size:78px">לפני שמבקשים ממנו<br>לשמוח, <span class="em">תנו מקום<br>לכל מה שהוא מרגיש.</span></h2></div>
+</section>
+
+<section class="slide" data-n="3">
+  <img class="art" src="images/slide-03.jpg" alt=""><div class="grain"></div>
+  <div class="veil" style="background:linear-gradient(180deg,rgba(243,234,220,.98) 0,rgba(243,234,220,.96) 30%,rgba(243,234,220,0) 46%)"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M360 148 C 460 148, 500 178, 600 178 S 760 148, 860 148"/><path d="M0 148 C 160 148, 280 148, 360 148 C 460 148, 500 118, 600 118 S 760 148, 860 148 L 1080 148"/><circle class="bead" cx="360" cy="148" r="9"/><circle class="bead" cx="860" cy="148" r="9"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>3</b>/7</span></div>
+  <div class="copy"><h2 class="h h-l">״מותר לך לאהוב אותו<br>וגם להתגעגע<br>למה שהיה.״</h2></div>
+</section>
+
+<section class="slide" data-n="4">
+  <img class="art" src="images/slide-04.jpg" alt=""><div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M0 148 L 470 148 C 510 148, 532 108, 512 96 C 490 84, 480 134, 540 148 C 600 162, 590 206, 568 194 C 548 182, 570 148, 610 148 L 1080 148"/><circle class="bead" cx="540" cy="148" r="9"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>4</b>/7</span></div>
+  <div class="copy"><h2 class="h h-xl">״יש דברים שיישארו<br>רק שלנו.״</h2></div>
+</section>
+
+<section class="slide" data-n="5">
+  <img class="art" src="images/slide-05.jpg" alt=""><div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M0 148 C 140 148, 220 190, 340 190 S 520 150, 640 148 L 1080 148"/><circle class="bead" cx="340" cy="190" r="9"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>5</b>/7</span></div>
+  <div class="copy"><h2 class="h h-xl">״אתה לא צריך<br>להיות גדול<br>כל הזמן.״</h2></div>
+</section>
+
+<section class="slide dark" data-n="6">
+  <img class="art" src="images/slide-06.jpg" alt="">
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M0 148 C 240 148, 330 116, 470 116 S 760 150, 1080 148"/><circle class="bead" cx="470" cy="116" r="9"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>6</b>/7</span></div>
+  <div class="copy"><h2 class="h h-l" style="font-size:76px">כשהוא פוגש את הרגע<br>בסיפור, הוא יכול<br>להתאמן עליו<br><span class="em">לפני שהוא מגיע.</span></h2></div>
+</section>
+
+<section class="slide dark" data-n="7">
+  <img class="art" src="images/slide-07.jpg" alt="">
+  <div class="veil" style="background:linear-gradient(0deg,rgba(11,5,24,.82) 0,rgba(11,5,24,0) 24%)"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M0 148 L 118 148 C 150 148, 160 160, 160 190 L 160 328 L 140 306 L 120 328 L 120 190 C 120 168, 134 148, 160 148"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>7</b>/7</span></div>
+  <div class="copy"><h2 class="h h-m">בסיפור הזה הוא לא מאבד<br>את המקום שלו.<br><span class="em">הוא מגלה תפקיד חדש.</span></h2></div>
+  <div class="copy cta"><span class="act"><u>צרו תצוגה מקדימה בחינם</u></span><span class="where">לספר ״אח חדש״ · הקישור בביו</span></div>
+  <div class="foot"><span class="ai">התמונות נוצרו בעזרת AI</span><span class="handle">@lumebookai</span></div>
+</section>
+<!-- SLIDES_END -->
+</main>
+<script>
+const p=new URLSearchParams(location.search), s=p.get("s");
+if(s){document.body.classList.add("single");const el=document.querySelector('.slide[data-n="'+s+'"]');if(el)el.classList.add("on");}
+</script>
+</body>
+</html>

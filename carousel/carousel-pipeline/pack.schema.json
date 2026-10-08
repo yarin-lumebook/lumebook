@@ -1,0 +1,900 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lumebook.local/carousel-pipeline/pack.schema.json",
+  "title": "LumeBook nightly carousel review pack",
+  "description": "Structure of carousel/carousel-pipeline/drafts/YYYY-MM-DD/pack.json. scripts/validate_pack.py checks this structure and adds the rules a schema cannot express. Arc (7 slides): hook, second hook, what is behind the feeling or problem, two solutions, the resolution, and the last slide suggests a personalised story where the child is the hero together with the CTA. Every option is about one named Israeli girl or boy and talks to mom or to both parents, never to dad. No brand or book title anywhere. Audience facing Hebrew is: slide headline and body, caption, cta, code_word.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "date",
+    "generated_at",
+    "topic",
+    "voice",
+    "product_facts",
+    "directions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "enum": [
+        2,
+        3
+      ],
+      "description": "3 since 8 Oct 2026: the pack carries a hook_slate and each option's hook records its slate candidate, mechanism and slide 2 move. Version 2 packs (before that) still validate with the older rules."
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "The morning this pack is for. Also the folder name."
+    },
+    "generated_at": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Local ISO timestamp of the run."
+    },
+    "topic": {
+      "type": "object",
+      "required": [
+        "id",
+        "title_he",
+        "reason"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "An id from topic-bank.md"
+        },
+        "title_he": {
+          "type": "string",
+          "minLength": 2
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Why this topic tonight. Internal, punctuation allowed."
+        }
+      }
+    },
+    "voice": {
+      "type": "object",
+      "required": [
+        "status",
+        "approved_samples",
+        "note"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "fallback",
+            "calibrated"
+          ]
+        },
+        "approved_samples": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "product_facts": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Product facts checked on the live site during this run. Claims of kind product_fact cite these ids.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "fact",
+          "quote",
+          "url",
+          "checked_at"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^site-[a-z0-9-]+$"
+          },
+          "fact": {
+            "type": "string",
+            "minLength": 5
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 3,
+            "description": "Verbatim text from the page."
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://lumebook\\.com/"
+          },
+          "checked_at": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        }
+      }
+    },
+    "directions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/$defs/direction"
+      }
+    },
+    "hook_slate": {
+      "$ref": "#/$defs/hook_slate"
+    }
+  },
+  "$defs": {
+    "direction": {
+      "type": "object",
+      "required": [
+        "id",
+        "label_he",
+        "versions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "enum": [
+            "kid",
+            "expert"
+          ]
+        },
+        "label_he": {
+          "type": "string",
+          "minLength": 2
+        },
+        "versions": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/version"
+          }
+        }
+      }
+    },
+    "version": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "angle",
+        "target_parent",
+        "awareness_stage",
+        "hook_family",
+        "hook",
+        "code_word",
+        "child_gender",
+        "addressee",
+        "child_name",
+        "character_anchor",
+        "slides",
+        "caption",
+        "cta",
+        "sources",
+        "claims",
+        "conversion_rationale"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(kid|expert)-[1-3]$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Internal title, Hebrew preferred."
+        },
+        "angle": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Strategic angle. Internal."
+        },
+        "target_parent": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Who exactly this is for. Internal."
+        },
+        "awareness_stage": {
+          "enum": [
+            "unaware",
+            "problem_aware",
+            "solution_aware",
+            "product_aware",
+            "most_aware"
+          ]
+        },
+        "hook_family": {
+          "enum": [
+            "moment",
+            "child_quote",
+            "child_pov",
+            "practical_question",
+            "reframe",
+            "sentences_we_say",
+            "parent_identity",
+            "gentle_outcome",
+            "story",
+            "surprising_statement",
+            "milestone",
+            "gift",
+            "objection",
+            "demo",
+            "normalising",
+            "analogy"
+          ]
+        },
+        "code_word": {
+          "type": "string",
+          "pattern": "^[א-ת]{2,10}$"
+        },
+        "child_gender": {
+          "enum": [
+            "boy",
+            "girl"
+          ],
+          "description": "One grammatical gender per carousel."
+        },
+        "character_anchor": {
+          "type": "object",
+          "required": [
+            "child",
+            "parent",
+            "wardrobe"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "child": {
+              "type": "string",
+              "minLength": 20
+            },
+            "parent": {
+              "type": "string",
+              "minLength": 20
+            },
+            "wardrobe": {
+              "type": "string",
+              "minLength": 10
+            }
+          }
+        },
+        "expert_frame": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "enum": [
+                "evidence_based_take",
+                "named_expert"
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "source_id": {
+              "type": "string"
+            }
+          }
+        },
+        "slides": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "$ref": "#/$defs/slide"
+          }
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 20
+        },
+        "cta": {
+          "type": "string",
+          "minLength": 10
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "claims": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/claim"
+          }
+        },
+        "conversion_rationale": {
+          "type": "string",
+          "minLength": 20
+        },
+        "hook": {
+          "type": "object",
+          "required": [
+            "formula",
+            "gap",
+            "payoff_slide",
+            "score"
+          ],
+          "additionalProperties": false,
+          "description": "Slide 1 is built from a formula in hook-bank.md and scored with the hook formula there.",
+          "properties": {
+            "formula": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]+$"
+            },
+            "gap": {
+              "type": "string",
+              "minLength": 8,
+              "description": "The question the hook opens. Internal."
+            },
+            "payoff_slide": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 6
+            },
+            "score": {
+              "type": "object",
+              "required": [
+                "specific",
+                "feeling",
+                "honest_gap",
+                "short_spoken",
+                "filters",
+                "not_an_ad"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "specific": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2
+                },
+                "feeling": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2
+                },
+                "honest_gap": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2
+                },
+                "short_spoken": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2
+                },
+                "filters": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2
+                },
+                "not_an_ad": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2
+                }
+              }
+            },
+            "slate_id": {
+              "type": "string",
+              "pattern": "^[ke][1-6]$",
+              "description": "The hook_slate candidate this option was built from (k1 to k6 for kid, e1 to e6 for expert). Required from schema_version 3."
+            },
+            "mechanism": {
+              "enum": [
+                "recognition",
+                "perspective_shift",
+                "honest_curiosity",
+                "reassurance",
+                "practical_utility",
+                "reframe",
+                "narrative_tension",
+                "anticipation",
+                "identity_filter"
+              ],
+              "description": "The hook's psychological job, one of the formula's mechanisms in hook-bank.md. Required from schema_version 3."
+            },
+            "slide2_move": {
+              "enum": [
+                "zoom_in",
+                "other_side",
+                "name_trigger",
+                "contrast",
+                "promise",
+                "first_answer",
+                "scene_restart",
+                "same_template"
+              ],
+              "description": "How slide 2 works as a standalone opening (hook-bank.md slide 2 moves). Required from schema_version 3."
+            }
+          }
+        },
+        "child_name": {
+          "type": "string",
+          "pattern": "^[א-ת]{2,8}$",
+          "description": "An Israeli first name from names.md, matching child_gender."
+        },
+        "addressee": {
+          "enum": [
+            "mom",
+            "parents"
+          ],
+          "description": "Who the copy talks to: mom (feminine singular) or both parents (plural). Never dad."
+        }
+      }
+    },
+    "slide": {
+      "type": "object",
+      "required": [
+        "number",
+        "role",
+        "headline",
+        "body",
+        "image"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
+        },
+        "role": {
+          "enum": [
+            "hook",
+            "second_hook",
+            "recognition",
+            "reframe",
+            "solution",
+            "resolution",
+            "story_cta"
+          ]
+        },
+        "headline": {
+          "type": "string",
+          "minLength": 2
+        },
+        "body": {
+          "type": "string",
+          "description": "May be empty. Lines separated by newlines."
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "pull": {
+          "type": "object",
+          "required": [
+            "type",
+            "note"
+          ],
+          "additionalProperties": false,
+          "description": "Slides 1 to 6: what pulls the reader to the next slide. Internal.",
+          "properties": {
+            "type": {
+              "enum": [
+                "question",
+                "open_loop",
+                "next_step",
+                "contrast",
+                "numbered"
+              ]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 5
+            }
+          }
+        }
+      }
+    },
+    "image": {
+      "type": "object",
+      "required": [
+        "beat",
+        "action",
+        "setting",
+        "camera",
+        "lighting",
+        "wardrobe_objects",
+        "text_zone"
+      ],
+      "additionalProperties": false,
+      "description": "English scene brief. scripts/carousel_lib.py compose_image_prompt() turns it into the exact model prompt (adds the character anchor, style, palette, text zone and no-text rules).",
+      "properties": {
+        "beat": {
+          "type": "string",
+          "minLength": 5
+        },
+        "action": {
+          "type": "string",
+          "minLength": 10
+        },
+        "setting": {
+          "type": "string",
+          "minLength": 5
+        },
+        "camera": {
+          "type": "string",
+          "minLength": 5
+        },
+        "lighting": {
+          "type": "string",
+          "minLength": 5
+        },
+        "wardrobe_objects": {
+          "type": "string",
+          "minLength": 5
+        },
+        "text_zone": {
+          "type": "object",
+          "required": [
+            "edge",
+            "percent",
+            "surface"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "edge": {
+              "enum": [
+                "top",
+                "bottom"
+              ]
+            },
+            "percent": {
+              "type": "integer",
+              "minimum": 30,
+              "maximum": 50
+            },
+            "surface": {
+              "type": "string",
+              "minLength": 5
+            }
+          }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "publisher",
+        "url",
+        "accessed",
+        "quote",
+        "supports"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^src-[a-z0-9-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 2
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "accessed": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Verbatim excerpt that was read."
+        },
+        "supports": {
+          "type": "string",
+          "minLength": 10,
+          "description": "What this source supports, in plain words."
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "required": [
+        "slide",
+        "wording_he",
+        "kind",
+        "source_ids",
+        "supports"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "slide": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
+        },
+        "wording_he": {
+          "type": "string",
+          "minLength": 2
+        },
+        "kind": {
+          "enum": [
+            "sourced_fact",
+            "product_fact",
+            "lumebook_wording"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supports": {
+          "type": "string",
+          "description": "What the cited source supports, or why this is only LumeBook wording."
+        }
+      }
+    },
+    "hook_slate": {
+      "type": "object",
+      "required": [
+        "kid",
+        "expert"
+      ],
+      "additionalProperties": false,
+      "description": "Private working slate written before the six options (hook-bank.md, Nightly hook slate). Internal, never shown to parents. Required from schema_version 3.",
+      "properties": {
+        "kid": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/slate_candidate"
+          }
+        },
+        "expert": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/slate_candidate"
+          }
+        }
+      }
+    },
+    "slate_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "formula",
+        "family",
+        "hook",
+        "slide2",
+        "slide2_move",
+        "mechanism",
+        "awareness_stage",
+        "gap",
+        "payoff_slide",
+        "answer",
+        "factual_claim",
+        "score",
+        "fail_checks",
+        "used_by"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[ke][1-6]$"
+        },
+        "formula": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "family": {
+          "enum": [
+            "moment",
+            "child_quote",
+            "child_pov",
+            "practical_question",
+            "reframe",
+            "sentences_we_say",
+            "parent_identity",
+            "gentle_outcome",
+            "story",
+            "surprising_statement",
+            "milestone",
+            "gift",
+            "objection",
+            "demo",
+            "normalising",
+            "analogy"
+          ]
+        },
+        "hook": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Slide 1 text as it would appear (headline lines, then body lines, separated by newlines). Audience Hebrew."
+        },
+        "slide2": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Slide 2 text. Must work as a first slide on its own. Audience Hebrew."
+        },
+        "slide2_move": {
+          "enum": [
+            "zoom_in",
+            "other_side",
+            "name_trigger",
+            "contrast",
+            "promise",
+            "first_answer",
+            "scene_restart",
+            "same_template"
+          ]
+        },
+        "mechanism": {
+          "enum": [
+            "recognition",
+            "perspective_shift",
+            "honest_curiosity",
+            "reassurance",
+            "practical_utility",
+            "reframe",
+            "narrative_tension",
+            "anticipation",
+            "identity_filter"
+          ]
+        },
+        "awareness_stage": {
+          "enum": [
+            "unaware",
+            "problem_aware",
+            "solution_aware",
+            "product_aware",
+            "most_aware"
+          ]
+        },
+        "gap": {
+          "type": "string",
+          "minLength": 8,
+          "description": "The exact question the hook opens. Internal."
+        },
+        "payoff_slide": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 6
+        },
+        "answer": {
+          "type": "string",
+          "minLength": 8,
+          "description": "How that slide closes the question, in one line. Internal."
+        },
+        "factual_claim": {
+          "type": "boolean",
+          "description": "True when slide 1 or 2 states something about children in general (a fact). The option must then map a sourced_fact claim to slide 1 or 2."
+        },
+        "score": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "stopping_power",
+            "specificity",
+            "parent_relevance",
+            "honest_curiosity",
+            "emotional_truth",
+            "swipe_promise",
+            "usefulness",
+            "topic_fit",
+            "lumebook_fit",
+            "freshness"
+          ],
+          "properties": {
+            "stopping_power": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "specificity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "parent_relevance": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "honest_curiosity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "emotional_truth": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "swipe_promise": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "usefulness": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "topic_fit": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "lumebook_fit": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "freshness": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            }
+          }
+        },
+        "fail_checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "clickbait",
+            "unsupported_claim",
+            "unfulfilled_promise",
+            "blames_parent"
+          ],
+          "properties": {
+            "clickbait": {
+              "type": "boolean"
+            },
+            "unsupported_claim": {
+              "type": "boolean"
+            },
+            "unfulfilled_promise": {
+              "type": "boolean"
+            },
+            "blames_parent": {
+              "type": "boolean"
+            }
+          },
+          "description": "Any true means the candidate fails and cannot be used."
+        },
+        "used_by": {
+          "type": "string",
+          "pattern": "^((kid|expert)-[1-3])?$",
+          "description": "The option built from this candidate, or empty. Never a ranking: the system does not pick a winner."
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "order": [
+    "character-reference",
+    "slide-01",
+    "slide-02",
+    "slide-03",
+    "slide-04",
+    "slide-05",
+    "slide-06",
+    "slide-07"
+  ],
+  "max_replacements_per_job": 2,
+  "jobs": {
+    "character-reference": {
+      "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Characters, identical on every slide: A 5-year-old Israeli girl with long curly light-brown hair in two low pigtails, freckles across her nose, fair olive skin; about 110 cm tall. Both parents: her mother, late thirties, dark straight hair in a ponytail, light-brown skin; her father, late thirties, short dark beard, glasses. Both calm and warm, dressed for work. Wardrobe: Girl: plum-violet long-sleeve dress with small cream dots, white leggings, pink sneakers, a cream backpack with a gold star. Mother: olive-green blouse, black trousers. Father: light-blue shirt with rolled sleeves, grey trousers.\n\nScene: a neutral character and style reference. The child and the parent sit together on a cream sofa in a quiet living room, both faces and all four hands clearly visible, relaxed and natural, full enough framing to establish clothing, proportions and hair.\n\nCamera: eye level, medium-wide shot, 50mm look. Lighting: soft window daylight from the right.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nPoint of view: the child's world. Camera at the child's eye level or lower, close and intimate, the parent often partly in frame (a hand, a knee, a shoulder), warm light with a soft violet cast.\n\nComposition: vertical 4:5. Reserve the top 35% of the frame as clean, quiet negative space (plain cream wall) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [],
+      "estimated_cost_usd": 0.055,
+      "purpose": "one character and style reference; every slide is an edit of it"
+    },
+    "slide-01": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 5-year-old Israeli girl with long curly light-brown hair in two low pigtails, freckles across her nose, fair olive skin; about 110 cm tall. Both parents: her mother, late thirties, dark straight hair in a ponytail, light-brown skin; her father, late thirties, short dark beard, glasses. Both calm and warm, dressed for work. Wardrobe: Girl: plum-violet long-sleeve dress with small cream dots, white leggings, pink sneakers, a cream backpack with a gold star. Mother: olive-green blouse, black trousers. Father: light-blue shirt with rolled sleeves, grey trousers.\n\nScene: Seen from inside the kindergarten, the two parents walk away from the gate in the soft background while the girl, in the foreground, watches them go. Setting: An Israeli municipal kindergarten yard in the morning: low painted gate, bougainvillea, a sand area with toy buckets.\n\nEmotional beat: the half of the morning parents never see\n\nCamera: From behind the girl at her height, parents small and soft in the distance. Lighting: Bright morning light, gentle shadows.\n\nWardrobe and objects in this scene: Her backpack still on, a toy bucket at her feet.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nPoint of view: the child's world. Camera at the child's eye level or lower, close and intimate, the parent often partly in frame (a hand, a knee, a shoulder), warm light with a soft violet cast.\n\nComposition: vertical 4:5. Reserve the top 40% of the frame as clean, quiet negative space (soft pale morning sky above the kindergarten fence) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "character-reference"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 1 · hook · the half of the morning parents never see",
+      "text_zone": {
+        "edge": "top",
+        "percent": 40,
+        "surface": "soft pale morning sky above the kindergarten fence"
+      }
+    },
+    "slide-02": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 5-year-old Israeli girl with long curly light-brown hair in two low pigtails, freckles across her nose, fair olive skin; about 110 cm tall. Both parents: her mother, late thirties, dark straight hair in a ponytail, light-brown skin; her father, late thirties, short dark beard, glasses. Both calm and warm, dressed for work. Wardrobe: Girl: plum-violet long-sleeve dress with small cream dots, white leggings, pink sneakers, a cream backpack with a gold star. Mother: olive-green blouse, black trousers. Father: light-blue shirt with rolled sleeves, grey trousers.\n\nScene: The two parents sit in a parked car outside the kindergarten, the mother looking back toward the gate through the window, the father's hand on her shoulder. Setting: A quiet Israeli street outside the kindergarten, the gate softly visible through the car window.\n\nEmotional beat: the parents carry the tears with them\n\nCamera: From the back seat, over their shoulders toward the windshield. Lighting: Morning light through the windshield.\n\nWardrobe and objects in this scene: Her work bag on her lap, coffee cup in the holder.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nPoint of view: the child's world. Camera at the child's eye level or lower, close and intimate, the parent often partly in frame (a hand, a knee, a shoulder), warm light with a soft violet cast.\n\nComposition: vertical 4:5. Reserve the top 40% of the frame as clean, quiet negative space (plain bright car roof lining) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "character-reference"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 2 · second_hook · the parents carry the tears with them",
+      "text_zone": {
+        "edge": "top",
+        "percent": 40,
+        "surface": "plain bright car roof lining"
+      }
+    },
+    "slide-03": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 5-year-old Israeli girl with long curly light-brown hair in two low pigtails, freckles across her nose, fair olive skin; about 110 cm tall. Both parents: her mother, late thirties, dark straight hair in a ponytail, light-brown skin; her father, late thirties, short dark beard, glasses. Both calm and warm, dressed for work. Wardrobe: Girl: plum-violet long-sleeve dress with small cream dots, white leggings, pink sneakers, a cream backpack with a gold star. Mother: olive-green blouse, black trousers. Father: light-blue shirt with rolled sleeves, grey trousers.\n\nScene: The girl, cheeks still a little pink from crying, kneels in the doll corner arranging a tiny tea set, absorbed. Setting: Inside the kindergarten: a cosy doll corner with a low wooden shelf and a small play kitchen.\n\nEmotional beat: a few minutes later she is playing\n\nCamera: Child height, medium shot. Lighting: Soft daylight from a side window.\n\nWardrobe and objects in this scene: Her backpack now on a hook in the background.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nPoint of view: the child's world. Camera at the child's eye level or lower, close and intimate, the parent often partly in frame (a hand, a knee, a shoulder), warm light with a soft violet cast.\n\nComposition: vertical 4:5. Reserve the top 40% of the frame as clean, quiet negative space (plain warm cream wall above the play kitchen) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "character-reference"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 3 · recognition · a few minutes later she is playing",
+      "text_zone": {
+        "edge": "top",
+        "percent": 40,
+        "surface": "plain warm cream wall above the play kitchen"
+      }
+    },
+    "slide-04": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 5-year-old Israeli girl with long curly light-brown hair in two low pigtails, freckles across her nose, fair olive skin; about 110 cm tall. Both parents: her mother, late thirties, dark straight hair in a ponytail, light-brown skin; her father, late thirties, short dark beard, glasses. Both calm and warm, dressed for work. Wardrobe: Girl: plum-violet long-sleeve dress with small cream dots, white leggings, pink sneakers, a cream backpack with a gold star. Mother: olive-green blouse, black trousers. Father: light-blue shirt with rolled sleeves, grey trousers.\n\nScene: Both parents crouch and hug the girl together at the gate in one warm squeeze. Setting: The kindergarten gate in the morning.\n\nEmotional beat: one hug, then go\n\nCamera: Eye level, medium shot. Lighting: Morning sun from the side.\n\nWardrobe and objects in this scene: Her cream backpack with the gold star.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nPoint of view: the child's world. Camera at the child's eye level or lower, close and intimate, the parent often partly in frame (a hand, a knee, a shoulder), warm light with a soft violet cast.\n\nComposition: vertical 4:5. Reserve the top 40% of the frame as clean, quiet negative space (soft pale morning sky above the kindergarten fence) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "character-reference"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 4 · solution · one hug, then go",
+      "text_zone": {
+        "edge": "top",
+        "percent": 40,
+        "surface": "soft pale morning sky above the kindergarten fence"
+      }
+    },
+    "slide-05": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 5-year-old Israeli girl with long curly light-brown hair in two low pigtails, freckles across her nose, fair olive skin; about 110 cm tall. Both parents: her mother, late thirties, dark straight hair in a ponytail, light-brown skin; her father, late thirties, short dark beard, glasses. Both calm and warm, dressed for work. Wardrobe: Girl: plum-violet long-sleeve dress with small cream dots, white leggings, pink sneakers, a cream backpack with a gold star. Mother: olive-green blouse, black trousers. Father: light-blue shirt with rolled sleeves, grey trousers.\n\nScene: The mother and the girl sing face to face, clapping a small rhythm, while the father smiles beside them. Setting: Just outside the kindergarten gate.\n\nEmotional beat: a tiny song that belongs to them\n\nCamera: Eye-level three-shot, medium close-up. Lighting: Warm morning light.\n\nWardrobe and objects in this scene: Bougainvillea petals on the paving.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nPoint of view: the child's world. Camera at the child's eye level or lower, close and intimate, the parent often partly in frame (a hand, a knee, a shoulder), warm light with a soft violet cast.\n\nComposition: vertical 4:5. Reserve the top 40% of the frame as clean, quiet negative space (soft pale morning sky above the kindergarten fence) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "character-reference"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 5 · solution · a tiny song that belongs to them",
+      "text_zone": {
+        "edge": "top",
+        "percent": 40,
+        "surface": "soft pale morning sky above the kindergarten fence"
+      }
+    },
+    "slide-06": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 5-year-old Israeli girl with long curly light-brown hair in two low pigtails, freckles across her nose, fair olive skin; about 110 cm tall. Both parents: her mother, late thirties, dark straight hair in a ponytail, light-brown skin; her father, late thirties, short dark beard, glasses. Both calm and warm, dressed for work. Wardrobe: Girl: plum-violet long-sleeve dress with small cream dots, white leggings, pink sneakers, a cream backpack with a gold star. Mother: olive-green blouse, black trousers. Father: light-blue shirt with rolled sleeves, grey trousers.\n\nScene: Walking home between her parents, the girl talks animatedly with both hands while they listen and laugh. Setting: A tree-lined Israeli neighbourhood sidewalk at midday.\n\nEmotional beat: the morning closes with a story of her day\n\nCamera: Front, slightly low, medium-wide shot. Lighting: Golden early afternoon light through the trees.\n\nWardrobe and objects in this scene: The father carries her backpack.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nPoint of view: the child's world. Camera at the child's eye level or lower, close and intimate, the parent often partly in frame (a hand, a knee, a shoulder), warm light with a soft violet cast.\n\nComposition: vertical 4:5. Reserve the top 40% of the frame as clean, quiet negative space (soft pale sky above the treetops) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "character-reference"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 6 · resolution · the morning closes with a story of her day",
+      "text_zone": {
+        "edge": "top",
+        "percent": 40,
+        "surface": "soft pale sky above the treetops"
+      }
+    },
+    "slide-07": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 5-year-old Israeli girl with long curly light-brown hair in two low pigtails, freckles across her nose, fair olive skin; about 110 cm tall. Both parents: her mother, late thirties, dark straight hair in a ponytail, light-brown skin; her father, late thirties, short dark beard, glasses. Both calm and warm, dressed for work. Wardrobe: Girl: plum-violet long-sleeve dress with small cream dots, white leggings, pink sneakers, a cream backpack with a gold star. Mother: olive-green blouse, black trousers. Father: light-blue shirt with rolled sleeves, grey trousers.\n\nScene: On the sofa the girl sits between her parents, holding an open picture book on her knees and pointing at herself in it. Setting: A living room in the evening.\n\nEmotional beat: an evening with her own story\n\nCamera: Medium shot, front, slightly above. Lighting: One warm lamp, deep violet shadows.\n\nWardrobe and objects in this scene: Plum pyjamas, a soft blanket. The open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nPoint of view: the child's world. Camera at the child's eye level or lower, close and intimate, the parent often partly in frame (a hand, a knee, a shoulder), warm light with a soft violet cast.\n\nComposition: vertical 4:5. Reserve the top 50% of the frame as clean, quiet negative space (deep plum shadow over a plain dark wall) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nIf a book, tablet or phone appears, it shows only a soft storybook illustration of this same child as the hero, with no words, letters, logos or interface. Nothing in the scene identifies a brand.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "character-reference"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 7 · story_cta · an evening with her own story",
+      "text_zone": {
+        "edge": "top",
+        "percent": 50,
+        "surface": "deep plum shadow over a plain dark wall"
+      }
+    }
+  }
+}

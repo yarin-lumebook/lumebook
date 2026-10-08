@@ -1,0 +1,773 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Niche Carousel Teardown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap">
+<script>(function(){var t="light";try{t=localStorage.getItem("lb-theme")||"light"}catch(e){}document.documentElement.setAttribute("data-theme",t)})();</script>
+<style>
+/* LumeBook design system · shared/design/lumebook.css
+   One stylesheet for every internal LumeBook page (HQ dashboard, plan, creator map, research pages, carousel review).
+   Builds inline this file; edit it here, then run `python3 tools/lumebook.py ripple` to rebuild every page that uses it.
+   Not used by the public ambassadors site.
+   Concept: Apple-style grouped surfaces on a warm cream ground, LumeBook ink for text, violet for anything you can
+   click, gold for brand emphasis. Hebrew first (RTL, logical properties), English pages work the same way.
+   Fonts (link in <head>): https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap
+   Theme: light on bare :root; dark under prefers-color-scheme (unless data-theme="light") and under data-theme="dark".
+   Pages set data-theme on <html> from the viewer's saved choice (theme.js), light by default. */
+
+:root {
+  /* brand (fixed in both themes) */
+  --lb-ink: #1D1039;
+  --lb-ink-deep: #0B0518;
+  --lb-gold: #E6B762;
+  --lb-gold-deep: #C9954A;
+  --lb-violet: #5B2BD6;
+  --lb-cream: #F8F0E1;
+
+  /* surfaces */
+  --bg: #FBF7F0;                 /* page ground, cream tinted */
+  --surface: #FFFFFF;            /* cards, grouped rows, tables */
+  --surface-2: #F5EFE4;          /* inset areas inside a card, sidebar */
+  --surface-sunk: #F1E9DB;       /* wells, code, track of bars */
+  --bar: rgba(251, 247, 240, .82); /* translucent sticky bars */
+  --overlay: rgba(11, 5, 24, .42);
+
+  /* text (ink at three strengths; all pass 4.5:1 on --bg and --surface) */
+  --text: #1D1039;
+  --text-2: #554C6B;
+  --text-3: #655C7A;
+  --text-on-tint: #FFFFFF;
+
+  /* fills and lines (ink at low alpha) */
+  --fill: rgba(29, 16, 57, .05);
+  --fill-2: rgba(29, 16, 57, .08);
+  --fill-3: rgba(29, 16, 57, .13);
+  --line: rgba(29, 16, 57, .12);
+  --line-strong: rgba(29, 16, 57, .22);
+
+  /* interactive: violet */
+  --tint: #5B2BD6;
+  --tint-hover: #4A1FBF;
+  --tint-soft: rgba(91, 43, 214, .09);
+  --focus: rgba(124, 77, 255, .5);
+
+  /* brand emphasis: gold */
+  --accent: #C9954A;
+  --accent-soft: #FBEBC9;
+  --accent-ink: #8A5A14;
+
+  /* semantic */
+  --success: #18703F; --success-soft: rgba(35, 149, 90, .12);
+  --warning: #A3520A; --warning-soft: rgba(232, 140, 40, .16);
+  --danger: #C2303A;  --danger-soft: rgba(217, 58, 58, .10);
+  --info: #3653B0;    --info-soft: rgba(74, 104, 194, .11);
+
+  /* carousel pillars */
+  --kid: #6D3FC9;  --kid-soft: rgba(109, 63, 201, .11);
+  --expert: #8A5A14; --expert-soft: rgba(201, 149, 74, .16);
+
+  /* data series (sequential, light to dark) */
+  --seq-1: #E9E2F1; --seq-2: #D2C4DF; --seq-3: #D2B596; --seq-4: #C9954A; --seq-5: #A87425; --seq-6: #76500F;
+
+  /* type */
+  --font: "Heebo", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Varela Round", "Heebo", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --fs-display: clamp(1.9rem, 4.2vw, 2.6rem);
+  --fs-title: 1.5rem;
+  --fs-headline: 1.125rem;
+  --fs-body: 1rem;
+  --fs-callout: .9375rem;
+  --fs-footnote: .8125rem;
+  --fs-caption: .75rem;
+  --fs-num: 1.875rem;
+
+  /* space (4pt base) */
+  --sp-1: .25rem; --sp-2: .5rem; --sp-3: .75rem; --sp-4: 1rem; --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 3rem;
+
+  /* radius */
+  --r-xs: .375rem; --r-sm: .5rem; --r-md: .75rem; --r-lg: 1.125rem; --r-pill: 999px;
+
+  /* elevation */
+  --shadow-1: 0 1px 2px rgba(29, 16, 57, .06);
+  --shadow-2: 0 8px 28px -12px rgba(29, 16, 57, .22);
+  --shadow-3: 0 24px 60px -20px rgba(29, 16, 57, .35);
+
+  --sidebar-w: 15.5rem;
+  --content-w: 76rem;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E0A1A; --surface: #171127; --surface-2: #1D1632; --surface-sunk: #120D20;
+    --bar: rgba(14, 10, 26, .8); --overlay: rgba(0, 0, 0, .55);
+    --text: #F5EFE4; --text-2: #C2B9CF; --text-3: #A39AB2; --text-on-tint: #0E0A1A;
+    --fill: rgba(245, 239, 228, .06); --fill-2: rgba(245, 239, 228, .09); --fill-3: rgba(245, 239, 228, .14);
+    --line: rgba(245, 239, 228, .12); --line-strong: rgba(245, 239, 228, .22);
+    --tint: #A48BFF; --tint-hover: #BBA6FF; --tint-soft: rgba(164, 139, 255, .14); --focus: rgba(164, 139, 255, .55);
+    --accent: #E6B762; --accent-soft: rgba(230, 183, 98, .15); --accent-ink: #F0CD8C;
+    --success: #6BD196; --success-soft: rgba(107, 209, 150, .14);
+    --warning: #F2A65E; --warning-soft: rgba(242, 166, 94, .15);
+    --danger: #F08791; --danger-soft: rgba(240, 135, 145, .14);
+    --info: #9DB4F0; --info-soft: rgba(157, 180, 240, .14);
+    --kid: #B79BFF; --kid-soft: rgba(183, 155, 255, .14);
+    --expert: #F0CD8C; --expert-soft: rgba(230, 183, 98, .15);
+    --seq-1: #3B2D55; --seq-2: #5A4366; --seq-3: #86655F; --seq-4: #B38650; --seq-5: #D8A75A; --seq-6: #F3D9A1;
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, .4); --shadow-2: 0 10px 30px -12px rgba(0, 0, 0, .6); --shadow-3: 0 24px 60px -20px rgba(0, 0, 0, .7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E0A1A; --surface: #171127; --surface-2: #1D1632; --surface-sunk: #120D20;
+  --bar: rgba(14, 10, 26, .8); --overlay: rgba(0, 0, 0, .55);
+  --text: #F5EFE4; --text-2: #C2B9CF; --text-3: #A39AB2; --text-on-tint: #0E0A1A;
+  --fill: rgba(245, 239, 228, .06); --fill-2: rgba(245, 239, 228, .09); --fill-3: rgba(245, 239, 228, .14);
+  --line: rgba(245, 239, 228, .12); --line-strong: rgba(245, 239, 228, .22);
+  --tint: #A48BFF; --tint-hover: #BBA6FF; --tint-soft: rgba(164, 139, 255, .14); --focus: rgba(164, 139, 255, .55);
+  --accent: #E6B762; --accent-soft: rgba(230, 183, 98, .15); --accent-ink: #F0CD8C;
+  --success: #6BD196; --success-soft: rgba(107, 209, 150, .14);
+  --warning: #F2A65E; --warning-soft: rgba(242, 166, 94, .15);
+  --danger: #F08791; --danger-soft: rgba(240, 135, 145, .14);
+  --info: #9DB4F0; --info-soft: rgba(157, 180, 240, .14);
+  --kid: #B79BFF; --kid-soft: rgba(183, 155, 255, .14);
+  --expert: #F0CD8C; --expert-soft: rgba(230, 183, 98, .15);
+  --seq-1: #3B2D55; --seq-2: #5A4366; --seq-3: #86655F; --seq-4: #B38650; --seq-5: #D8A75A; --seq-6: #F3D9A1;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, .4); --shadow-2: 0 10px 30px -12px rgba(0, 0, 0, .6); --shadow-3: 0 24px 60px -20px rgba(0, 0, 0, .7);
+  color-scheme: dark;
+}
+
+/* ---------- base ---------- */
+[hidden] { display: none !important; } /* hidden always wins over component display rules */
+[id] { scroll-margin-top: 4.5rem; } /* anchor jumps land below the sticky top bar */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: var(--fs-body); line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { margin: 0; color: var(--text); text-wrap: balance; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-display); line-height: 1.12; letter-spacing: -.01em; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-title); line-height: 1.2; }
+h3 { font-size: var(--fs-headline); font-weight: 700; line-height: 1.3; }
+h4 { font-size: var(--fs-callout); font-weight: 700; line-height: 1.35; }
+p { margin: 0; }
+a { color: var(--tint); text-decoration: none; }
+a:hover { color: var(--tint-hover); text-decoration: underline; text-underline-offset: 3px; }
+code, kbd, samp { font-family: var(--font-mono); font-size: .875em; background: var(--fill); padding: .05em .35em; border-radius: var(--r-xs); }
+pre { font-family: var(--font-mono); font-size: var(--fs-footnote); background: var(--surface-sunk); border-radius: var(--r-md); padding: var(--sp-4); overflow-x: auto; }
+hr { border: 0; border-top: 1px solid var(--line); margin: var(--sp-5) 0; }
+img, svg, video { max-width: 100%; }
+::selection { background: var(--tint-soft); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: var(--r-xs); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* ---------- text utilities ---------- */
+.lb-eyebrow { font-size: var(--fs-footnote); font-weight: 600; color: var(--accent-ink); letter-spacing: .02em; }
+.lb-lede { font-size: 1.125rem; line-height: 1.5; color: var(--text-2); max-width: 42rem; }
+.lb-muted { color: var(--text-2); }
+.lb-dim { color: var(--text-3); }
+.lb-small { font-size: var(--fs-callout); }
+.lb-xs { font-size: var(--fs-footnote); }
+.lb-num { font-variant-numeric: tabular-nums; }
+.lb-ltr { direction: ltr; unicode-bidi: isolate; }
+.lb-prose { max-width: 42rem; display: grid; gap: var(--sp-3); }
+.lb-prose ul, .lb-prose ol { margin: 0; padding-inline-start: 1.25rem; display: grid; gap: var(--sp-1); }
+.lb-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.lb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- layout ---------- */
+.lb-app { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: 100vh; }
+.lb-main { min-width: 0; display: flex; flex-direction: column; }
+.lb-page { width: 100%; max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); padding-block: var(--sp-5) var(--sp-7); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); align-content: start; }
+.lb-section { display: grid; gap: var(--sp-4); min-width: 0; }
+.lb-section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-2) var(--sp-4); }
+.lb-section-head .lb-meta { font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-grid { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min, 15rem)), 1fr)); }
+.lb-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.lb-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.lb-grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.lb-stack { display: grid; gap: var(--sp-3); align-content: start; min-width: 0; }
+.lb-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); min-width: 0; }
+.lb-row.between { justify-content: space-between; }
+.lb-spacer { flex: 1; }
+@media (max-width: 1000px) { .lb-grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lb-grid.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .lb-grid.cols-2, .lb-grid.cols-3, .lb-grid.cols-4 { grid-template-columns: minmax(0, 1fr); } .lb-page { padding-inline: var(--sp-4); } }
+
+/* ---------- sidebar navigation ---------- */
+.lb-sidebar {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2);
+  border-inline-end: 1px solid var(--line); padding: var(--sp-4) var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-4);
+}
+.lb-brand { display: flex; align-items: center; gap: var(--sp-2); padding-inline: var(--sp-2); color: var(--text); text-decoration: none; }
+.lb-brand:hover { text-decoration: none; color: var(--text); }
+.lb-brand img { height: 2rem; width: auto; }
+.lb-brand b { font-family: var(--font-display); font-weight: 400; font-size: 1.125rem; }
+.lb-brand small { display: block; font-size: var(--fs-caption); color: var(--text-3); }
+.lb-nav { display: grid; gap: 2px; }
+.lb-nav-label { font-size: var(--fs-caption); font-weight: 600; color: var(--text-3); padding: var(--sp-3) var(--sp-3) var(--sp-1); letter-spacing: .03em; }
+.lb-nav-item {
+  display: flex; align-items: center; gap: var(--sp-2); padding: .5rem var(--sp-3); border-radius: var(--r-sm);
+  color: var(--text); font-size: var(--fs-callout); font-weight: 500; text-decoration: none; cursor: pointer;
+  background: none; border: 0; font-family: inherit; text-align: start; width: 100%;
+}
+.lb-nav-item:hover { background: var(--fill); text-decoration: none; color: var(--text); }
+.lb-nav-item[aria-current="page"], .lb-nav-item.is-active { background: var(--surface); color: var(--tint); box-shadow: var(--shadow-1); }
+.lb-nav-item svg { width: 1.125rem; height: 1.125rem; flex: none; opacity: .8; }
+.lb-nav-item .lb-count { margin-inline-start: auto; }
+.lb-sidebar-foot { margin-top: auto; display: grid; gap: var(--sp-2); padding-inline: var(--sp-2); font-size: var(--fs-caption); color: var(--text-3); }
+
+/* sticky top bar (also the mobile header) */
+.lb-topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bar);
+  -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+.lb-topbar-in { max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); min-height: 3.5rem; display: flex; align-items: center; gap: var(--sp-3); }
+.lb-topbar h1 { font-size: 1.25rem; }
+.lb-menu-btn, .lb-btn.lb-menu-btn { display: none; }
+@media (max-width: 860px) {
+  .lb-app { grid-template-columns: minmax(0, 1fr); }
+  .lb-sidebar { position: fixed; inset-block: 0; inset-inline-start: 0; width: min(85vw, 18rem); z-index: 40; transform: translateX(100%); visibility: hidden; transition: transform .2s ease, visibility 0s linear .2s; }
+  [dir="ltr"] .lb-sidebar { transform: translateX(-100%); }
+  .lb-sidebar.is-open { transform: none; visibility: visible; box-shadow: var(--shadow-3); transition: transform .2s ease; }
+  .lb-menu-btn, .lb-btn.lb-menu-btn { display: inline-flex; }
+  .lb-topbar-in { padding-inline: var(--sp-4); }
+}
+.lb-scrim { position: fixed; inset: 0; background: var(--overlay); z-index: 35; }
+
+/* horizontal section nav (pages without a sidebar) */
+.lb-toc { display: flex; gap: var(--sp-1); overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.lb-toc::-webkit-scrollbar { display: none; }
+.lb-toc a { flex: none; padding: .35rem .75rem; border-radius: var(--r-pill); color: var(--text-2); font-size: var(--fs-callout); font-weight: 500; }
+.lb-toc a:hover { background: var(--fill); color: var(--text); text-decoration: none; }
+.lb-toc a[aria-current="true"], .lb-toc a[aria-current="page"], .lb-toc a.is-active { background: var(--tint-soft); color: var(--tint); }
+
+/* ---------- surfaces ---------- */
+.lb-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--sp-4) var(--sp-5); min-width: 0; display: grid; gap: var(--sp-3); align-content: start; }
+.lb-card.is-flush { padding: 0; overflow: hidden; }
+.lb-card.is-quiet { background: var(--surface-2); border-color: transparent; }
+.lb-card.is-raised { box-shadow: var(--shadow-2); }
+.lb-card.is-accent { border-color: var(--accent); box-shadow: 0 14px 40px -26px var(--accent); }
+a.lb-card { color: inherit; text-decoration: none; transition: border-color .15s, box-shadow .15s; }
+a.lb-card:hover { border-color: var(--tint); box-shadow: var(--shadow-2); text-decoration: none; color: inherit; }
+.lb-card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.lb-card-title { font-size: var(--fs-callout); font-weight: 600; color: var(--text-2); }
+
+/* Apple inset grouped list */
+.lb-group { background: var(--surface); border-radius: var(--r-md); border: 1px solid var(--line); overflow: hidden; }
+.lb-group > * + * { border-top: 1px solid var(--line); }
+.lb-group-row { display: flex; align-items: center; gap: var(--sp-3); padding: .75rem var(--sp-4); min-height: 3rem; color: inherit; }
+a.lb-group-row:hover { background: var(--fill); text-decoration: none; color: inherit; }
+.lb-group-row .lb-meta { margin-inline-start: auto; color: var(--text-3); font-size: var(--fs-footnote); }
+
+/* ---------- data display ---------- */
+.lb-stat { display: grid; gap: var(--sp-1); align-content: start; min-width: 0; }
+.lb-stat-label { font-size: var(--fs-footnote); color: var(--text-3); font-weight: 500; }
+.lb-stat-value { font-size: var(--fs-num); line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.lb-stat-value small { font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); margin-inline-start: var(--sp-2); }
+.lb-stat-foot { font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-delta { font-size: var(--fs-footnote); font-weight: 600; font-variant-numeric: tabular-nums; }
+.lb-delta.up { color: var(--success); } .lb-delta.down { color: var(--danger); }
+
+.lb-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.lb-table { width: 100%; border-collapse: collapse; font-size: var(--fs-callout); }
+.lb-table th, .lb-table td { text-align: start; padding: .6rem var(--sp-3); border-bottom: 1px solid var(--line); vertical-align: middle; }
+.lb-table th { font-weight: 500; font-size: var(--fs-footnote); color: var(--text-3); background: var(--surface-2); white-space: nowrap; position: sticky; top: 0; }
+.lb-table tr:last-child td { border-bottom: 0; }
+.lb-table tbody tr:hover td { background: var(--fill); }
+.lb-table td.num, .lb-table th.num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lb-table th[aria-sort] { cursor: pointer; }
+
+.lb-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.lb-list > li { display: grid; gap: 2px; min-width: 0; }
+.lb-list .lb-meta { font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--sp-2) var(--sp-4); font-size: var(--fs-callout); }
+.lb-kv dt { color: var(--text-3); } .lb-kv dd { margin: 0; }
+
+.lb-bar { height: .4rem; border-radius: var(--r-pill); background: var(--fill-2); overflow: hidden; }
+.lb-bar > i { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
+.lb-bar.is-tint > i { background: var(--tint); }
+.lb-hbars { display: grid; gap: var(--sp-2); }
+.lb-hbar { display: grid; grid-template-columns: minmax(5rem, 38%) minmax(0, 1fr) 2.5rem; gap: var(--sp-3); align-items: center; font-size: var(--fs-callout); }
+.lb-hbar .track { height: .625rem; background: var(--fill-2); border-radius: var(--r-xs); }
+.lb-hbar .track > i { display: block; height: 100%; background: var(--seq-4); border-radius: inherit; }
+.lb-hbar:hover .track > i { background: var(--accent-ink); }
+.lb-hbar .v { font-size: var(--fs-footnote); color: var(--text-2); font-variant-numeric: tabular-nums; text-align: end; }
+svg.lb-spark { width: 100%; height: 2.75rem; display: block; overflow: visible; }
+svg.lb-spark .grid { stroke: var(--line); }
+svg.lb-spark .area { fill: var(--accent-soft); }
+svg.lb-spark .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+svg.lb-spark .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+
+/* stacked status bar (pipeline stages) */
+.lb-stages { display: flex; height: .875rem; gap: 2px; border-radius: var(--r-xs); overflow: hidden; background: var(--fill); }
+.lb-stages > i { display: block; height: 100%; }
+.lb-legend { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-4); font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-legend > span { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.lb-legend b { width: .625rem; height: .625rem; border-radius: 3px; display: inline-block; }
+
+/* ---------- status ---------- */
+.lb-chip {
+  display: inline-flex; align-items: center; gap: .375rem; padding: .15rem .6rem; border-radius: var(--r-pill);
+  font-size: var(--fs-footnote); font-weight: 500; line-height: 1.5; white-space: nowrap;
+  background: var(--fill); color: var(--text-2);
+}
+.lb-chip.tint { background: var(--tint-soft); color: var(--tint); }
+.lb-chip.accent { background: var(--accent-soft); color: var(--accent-ink); }
+.lb-chip.success { background: var(--success-soft); color: var(--success); }
+.lb-chip.warning { background: var(--warning-soft); color: var(--warning); }
+.lb-chip.danger { background: var(--danger-soft); color: var(--danger); }
+.lb-chip.info { background: var(--info-soft); color: var(--info); }
+.lb-chip.kid { background: var(--kid-soft); color: var(--kid); }
+.lb-chip.expert { background: var(--expert-soft); color: var(--expert); }
+.lb-chip.outline { background: transparent; box-shadow: inset 0 0 0 1px var(--line-strong); }
+.lb-dot { width: .45rem; height: .45rem; border-radius: 50%; background: currentColor; flex: none; }
+.lb-dot.live { animation: lb-pulse 2.4s infinite; }
+@keyframes lb-pulse { 0% { box-shadow: 0 0 0 0 var(--success-soft); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.lb-count { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; padding-inline: .4rem; border-radius: var(--r-pill); background: var(--fill-2); color: var(--text-2); font-size: var(--fs-caption); font-weight: 600; font-variant-numeric: tabular-nums; }
+.lb-count.is-alert { background: var(--danger); color: var(--text-on-tint); }
+.lb-count.is-tint { background: var(--tint); color: var(--text-on-tint); }
+
+/* alert row: severity as a tinted pill + tinted ground */
+.lb-alerts { display: grid; gap: var(--sp-2); }
+.lb-alert { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; padding: .6rem var(--sp-3); border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-size: var(--fs-callout); }
+.lb-alert.crit { background: var(--danger-soft); border-color: transparent; }
+.lb-alert.warn { background: var(--warning-soft); border-color: transparent; }
+.lb-alert .lb-alert-text { min-width: 0; }
+.lb-alert a { font-size: var(--fs-footnote); white-space: nowrap; }
+
+/* ---------- controls ---------- */
+.lb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: 2.25rem; padding: 0 var(--sp-4); border-radius: var(--r-pill); border: 1px solid transparent;
+  font: inherit; font-size: var(--fs-callout); font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap;
+  background: var(--tint); color: var(--text-on-tint); transition: background .15s, border-color .15s;
+}
+.lb-btn:hover { background: var(--tint-hover); color: var(--text-on-tint); text-decoration: none; }
+.lb-btn.secondary { background: var(--surface); color: var(--text); border-color: var(--line-strong); }
+.lb-btn.secondary:hover { border-color: var(--tint); color: var(--tint); background: var(--surface); }
+.lb-btn.ghost { background: transparent; color: var(--tint); }
+.lb-btn.ghost:hover { background: var(--tint-soft); }
+.lb-btn.danger { background: var(--danger); }
+.lb-btn.sm { min-height: 1.875rem; padding: 0 var(--sp-3); font-size: var(--fs-footnote); }
+.lb-btn.icon { width: 2.25rem; padding: 0; }
+.lb-btn:disabled, .lb-btn[aria-disabled="true"] { opacity: .45; cursor: default; }
+.lb-btn svg { width: 1.1em; height: 1.1em; }
+@media (max-width: 560px) { [data-lb-theme-toggle] .lb-theme-label { display: none; } }
+
+.lb-segmented { display: inline-flex; padding: 2px; border-radius: var(--r-sm); background: var(--fill-2); gap: 2px; }
+.lb-segmented button { border: 0; background: transparent; font: inherit; font-size: var(--fs-footnote); font-weight: 500; color: var(--text-2); padding: .3rem .8rem; border-radius: calc(var(--r-sm) - 2px); cursor: pointer; }
+.lb-segmented button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
+
+.lb-input, .lb-select, .lb-textarea {
+  font: inherit; font-size: var(--fs-callout); color: var(--text); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: .45rem .7rem; min-height: 2.25rem; max-width: 100%;
+}
+.lb-textarea { min-height: 5rem; resize: vertical; width: 100%; line-height: 1.5; }
+.lb-input:focus, .lb-select:focus, .lb-textarea:focus { outline: none; border-color: var(--tint); box-shadow: 0 0 0 3px var(--tint-soft); }
+.lb-search { position: relative; display: flex; align-items: center; min-width: 0; }
+.lb-search .lb-input { width: 100%; padding-inline-start: 2.1rem; border-radius: var(--r-pill); background: var(--fill); border-color: transparent; }
+.lb-search svg { position: absolute; inset-inline-start: .7rem; width: 1rem; height: 1rem; color: var(--text-3); pointer-events: none; }
+.lb-field { display: grid; gap: var(--sp-1); font-size: var(--fs-footnote); color: var(--text-2); }
+
+.lb-check { display: flex; gap: .6rem; align-items: flex-start; font-size: var(--fs-callout); cursor: pointer; padding: 2px 0; }
+.lb-check input { appearance: none; flex: none; width: 1.125rem; height: 1.125rem; margin: .15rem 0 0; border: 1.5px solid var(--line-strong); border-radius: .35rem; display: grid; place-content: center; cursor: pointer; background: var(--surface); }
+.lb-check input::after { content: ""; width: .55rem; height: .3rem; border-style: solid; border-color: var(--text-on-tint); border-width: 0 0 2px 2px; /* physical sides: the tick must not mirror in RTL */ transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.lb-check input:checked { background: var(--tint); border-color: var(--tint); }
+.lb-check input:checked::after { opacity: 1; }
+.lb-check input:checked + span { color: var(--text-3); text-decoration: line-through; }
+.lb-check input:disabled { cursor: default; }
+
+.lb-switch { appearance: none; width: 2.6rem; height: 1.5rem; border-radius: var(--r-pill); background: var(--fill-3); position: relative; cursor: pointer; flex: none; transition: background .15s; }
+.lb-switch::after { content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #fff; box-shadow: var(--shadow-1); transition: inset-inline-start .15s; }
+.lb-switch:checked { background: var(--success); }
+.lb-switch:checked::after { inset-inline-start: calc(100% - 1.25rem - 2px); }
+
+.lb-tabs { display: flex; gap: var(--sp-1); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.lb-tabs button, .lb-tabs a { flex: none; border: 0; background: none; font: inherit; font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); padding: .55rem .9rem; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; }
+.lb-tabs [aria-selected="true"], .lb-tabs [aria-current="page"], .lb-tabs .is-active { color: var(--tint); border-bottom-color: var(--tint); }
+.lb-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+
+/* ---------- feedback ---------- */
+.lb-empty { padding: var(--sp-5); border: 1px dashed var(--line-strong); border-radius: var(--r-md); color: var(--text-2); font-size: var(--fs-callout); text-align: center; }
+.lb-note { font-size: var(--fs-footnote); color: var(--text-3); line-height: 1.5; }
+.lb-callout { display: grid; gap: var(--sp-1); padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md); background: var(--accent-soft); color: var(--text); font-size: var(--fs-callout); }
+.lb-callout.info { background: var(--info-soft); }
+.lb-toast { position: fixed; inset-block-end: calc(var(--sp-5) + env(safe-area-inset-bottom, 0px)); inset-inline-start: 50%; transform: translateX(-50%); z-index: 60; background: var(--lb-ink); color: #F5EFE4; padding: .6rem 1rem; border-radius: var(--r-pill); font-size: var(--fs-callout); box-shadow: var(--shadow-3); }
+[dir="rtl"] .lb-toast { transform: translateX(50%); }
+.lb-skeleton { background: linear-gradient(90deg, var(--fill) 25%, var(--fill-2) 50%, var(--fill) 75%); background-size: 200% 100%; animation: lb-shimmer 1.4s infinite; border-radius: var(--r-xs); min-height: 1em; }
+@keyframes lb-shimmer { to { background-position: -200% 0; } }
+
+/* ---------- overlays ---------- */
+.lb-drawer { position: fixed; inset-block: 0; inset-inline-end: 0; width: min(100%, 34rem); background: var(--surface); z-index: 50; box-shadow: var(--shadow-3); display: flex; flex-direction: column; overflow: hidden; }
+.lb-drawer-head { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--line); }
+.lb-drawer-body { padding: var(--sp-5); overflow-y: auto; display: grid; gap: var(--sp-4); align-content: start; }
+.lb-modal { position: fixed; inset: 0; display: grid; place-items: center; padding: var(--sp-4); z-index: 50; }
+.lb-modal > .lb-card { width: min(100%, 32rem); max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-3); }
+
+/* ---------- print-free page footer ---------- */
+.lb-footer { border-top: 1px solid var(--line); padding-top: var(--sp-4); font-size: var(--fs-footnote); color: var(--text-3); display: grid; gap: var(--sp-1); }
+
+</style>
+<style>
+/* Carousel research v2: page rules on top of the LumeBook design system (shared/design/lumebook.css, inlined above).
+   One reading column: summary, Israeli examples, global examples, templates for Lumebook, ranked tables, limits.
+   Design tokens only. */
+:root{--content-w:64rem}
+
+/* chrome */
+.lb-topbar .lb-brand{padding-inline:0;min-width:0;flex:none}
+.lb-topbar .lb-brand img{width:1.75rem;height:1.75rem;border-radius:var(--r-xs);flex:none}
+.lb-topbar .lb-brand b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-topbar .lb-toc{flex:0 1 auto}
+.lb-section{scroll-margin-top:4.5rem}
+
+/* reading measure */
+.intro{gap:var(--sp-4)}
+.lb-section > p,.intro > .lb-callout{max-width:42rem}
+
+/* summary */
+.stats{--min:10rem;gap:var(--sp-3)}
+.findings{--min:17rem}
+.finding b{font-size:var(--fs-headline);font-weight:700;line-height:1.3}
+.finding p{color:var(--text-2);font-size:var(--fs-callout)}
+
+/* example cards: slide strip on top, notes below */
+.card .strip{background:var(--surface-sunk);padding:var(--sp-3);overflow-x:auto;border-bottom:1px solid var(--line)}
+.card .strip img{display:block;height:13rem;width:auto;max-width:none;border-radius:var(--r-sm)}
+.card .body{padding:var(--sp-4) var(--sp-5) var(--sp-5);display:grid;gap:var(--sp-3);min-width:0}
+.card .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--sp-2) var(--sp-4)}
+.card .pills{gap:var(--sp-1)}
+.card .body p{color:var(--text-2);font-size:var(--fs-callout);max-width:42rem}
+.card .body p strong{color:var(--text)}
+.lb-chip{font-variant-numeric:tabular-nums}
+.sub{margin-top:var(--sp-2)}
+.src{overflow-wrap:anywhere}
+
+/* templates */
+.tmpl{--min:18rem}
+.tmpl ol{margin:0;padding-inline-start:1.2rem;color:var(--text-2);font-size:var(--fs-callout);display:grid;gap:var(--sp-1)}
+
+/* ranked tables */
+.lb-table{min-width:46rem;font-size:var(--fs-footnote)}
+.lb-table td{vertical-align:top}
+.lb-table td.cap{color:var(--text-2);max-width:26rem}
+.lb-section > h3{margin-top:var(--sp-3)}
+
+/* limits */
+ul.lim{margin:0;padding-inline-start:1.2rem;color:var(--text-2);display:grid;gap:var(--sp-2);max-width:42rem}
+ul.lim strong{color:var(--text)}
+
+@media (max-width:860px){
+  .lb-topbar-in{flex-wrap:wrap;row-gap:var(--sp-1);padding-top:var(--sp-2)}
+  .lb-topbar .lb-brand{flex:1 1 0}
+  .lb-topbar .lb-spacer{display:none}
+  .lb-topbar .lb-toc{order:10;flex-basis:100%;margin-inline:calc(-1 * var(--sp-3));padding-bottom:var(--sp-2)}
+  .lb-section{scroll-margin-top:7rem}
+}
+@media (max-width:520px){
+  .card .strip img{height:11rem}
+}
+</style>
+
+<header class="lb-topbar"><div class="lb-topbar-in">
+  <a class="lb-brand" href="#top"><img src="data:image/png;base64,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" alt="" width="28" height="28"><b>Carousel research</b></a>
+  <nav class="lb-toc" aria-label="Sections">
+    <a href="#method">Method</a><a href="#findings">Findings</a><a href="#israel">Israel</a><a href="#global">Global</a><a href="#templates">Templates</a><a href="#tables">Tables</a><a href="#limits">Limits</a>
+  </nav>
+  <span class="lb-spacer"></span>
+  <a class="lb-btn ghost sm" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">LumeBook HQ</a>
+  <button class="lb-btn secondary sm" type="button" data-lb-theme-toggle data-dark="Dark mode" data-light="Light mode" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="lb-theme-label">Dark mode</span></button><script>
+(function () {
+  function sync(btn) {
+    var dark = document.documentElement.getAttribute("data-theme") === "dark";
+    btn.setAttribute("aria-pressed", String(dark));
+    btn.title = dark ? btn.dataset.light : btn.dataset.dark;
+    btn.querySelector(".lb-theme-label") && (btn.querySelector(".lb-theme-label").textContent = btn.title);
+  }
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-lb-theme-toggle]");
+    if (!btn) return;
+    var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("lb-theme", next); } catch (err) {}
+    document.querySelectorAll("[data-lb-theme-toggle]").forEach(sync);
+  });
+  document.querySelectorAll("[data-lb-theme-toggle]").forEach(sync);
+})();
+</script>
+</div></header>
+
+<main class="lb-page" id="top">
+<header class="lb-section intro">
+  <span class="lb-eyebrow">LumeBook · Instagram carousel research · v2 · 6 Oct 2026</span>
+  <h1>Which carousels actually sell in the kids and parenting niche?</h1>
+  <p class="lb-lede">I swept the carousels of 460 Israeli and 292 English-language parenting, kids' book, toy and personalised-book accounts, ranked each one against its own account's median, and read the slides of the winners.</p>
+  <div class="lb-callout"><p><strong>Correction to v1.</strong> The first version covered six personalised-book brands only and called that "the niche". Those brands barely use carousels to sell. The real winners sit with parenting creators, and they are below.</p></div>
+</header>
+
+<section class="lb-section" id="method">
+  <h2>How this was measured</h2>
+  <div class="stats lb-grid">
+    <div class="stat lb-card lb-stat"><span class="lb-stat-value">460</span><span class="lb-stat-label">Israeli accounts swept</span></div>
+    <div class="stat lb-card lb-stat"><span class="lb-stat-value">3,980</span><span class="lb-stat-label">Israeli carousels ranked</span></div>
+    <div class="stat lb-card lb-stat"><span class="lb-stat-value">292</span><span class="lb-stat-label">global accounts swept</span></div>
+    <div class="stat lb-card lb-stat"><span class="lb-stat-value">3,643</span><span class="lb-stat-label">global carousels ranked</span></div>
+  </div>
+  <p>For each account I read its last 48 posts since April 2024 and took the median likes and comments. A carousel's score is its likes or comments divided by that median, so a 300-follower creator and a 300K brand compete fairly. Instagram never shows another account's sales, so I used the closest visible signal: <strong>carousels that end in "comment a word and I'll DM you"</strong>. Every comment on those is a person asking for a link, a guide or a price. Two Israeli posts go further and state sales or a purchase link outright.</p>
+</section>
+
+<section class="lb-section" id="findings">
+  <h2>What the evidence says</h2>
+  <div class="findings lb-grid">
+    <div class="finding lb-card"><b>The selling mechanism is the comment-word DM</b><p>At least 255 of the Israeli carousels (6%) end with "comment X and I'll send it", against at least 584 of the global ones (16%). Those posts pull comments at many times the account's normal rate, up to 295x on a small Israeli account and 47,769 comments on one global post.</p></div>
+    <div class="finding lb-card"><b>Reach and leads are different posts</b><p>Letters, life stories and reversal hooks get the reach (14K to 136K likes). Lists and how-tos that end in a comment word get the leads, often with modest likes. The best ones do both.</p></div>
+    <div class="finding lb-card"><b>Books sell through carousels in Hebrew</b><p>A book list for the move to municipal gan closes with "write the word ספר" and a coupon. A digital parenting book's carousel reports 230 buyers in 48 hours and 530 at close.</p></div>
+    <div class="finding lb-card"><b>AI illustration is not a barrier</b><p>One of the top Israeli lead carousels (1,751 likes, 1,771 comments) is drawn entirely with AI-style illustrated characters. Carousels also beat the same account's other posts in 149 of 259 Israeli accounts.</p></div>
+  </div>
+</section>
+
+<section class="lb-section" id="israel">
+  <h2>Israel: the best carousels</h2>
+  <span class="sub lb-eyebrow">Sell or capture leads</span>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/Das4fCQDTBf.jpg" alt="Selfie of a mother and daughter repeated on each slide with Hebrew text boxes telling a story"></div>
+    <div class="body">
+      <div class="head"><h3>1. danit_parenting_coaching: a story that ends in a sale</h3><div class="pills lb-row"><span class="lb-chip">15 slides</span><span class="lb-chip accent">23,367 likes · 92x median</span><span class="lb-chip">814 comments</span><span class="lb-chip">353 reposts</span><span class="lb-chip success">purchase link</span></div></div>
+      <p><strong>Structure:</strong> one selfie of mother and daughter on every slide, with the story told in white text boxes. Her almost-10-year-old came home late, broke their agreement, and lost the next outing. The last slide lands the lesson: ages 3 to 10 are the window for boundaries.</p>
+      <p><strong>How it sells:</strong> the caption tells readers to comment <span class="he" dir="rtl">"גבולות"</span> for a purchase link to her paid guide at a limited-time price. It is the biggest carousel in the Israeli pool and it asks for money.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/Das4fCQDTBf/">instagram.com/p/Das4fCQDTBf</a> · 12 Jul 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DdoeylHDeQQ.jpg" alt="A woman covering her face with Hebrew text slides, ending with a mockup of a digital book"></div>
+    <div class="body">
+      <div class="head"><h3>2. yaffa_michaela_zukerman: a book launch with sales numbers</h3><div class="pills lb-row"><span class="lb-chip">20 slides</span><span class="lb-chip">2,033 likes · 8.5x</span><span class="lb-chip accent">1,149 comments · 35x</span><span class="lb-chip success">530 buyers stated</span></div></div>
+      <p><strong>Structure:</strong> her own childhood story about a child-safety moment, then why she wrote a digital parenting book on the topic, then "230 families in the first 48 hours", then a comment word for the purchase link, three reader-message screenshots, and a final device mockup of the book.</p>
+      <p><strong>How it sells:</strong> slide 16 says to comment <span class="he" dir="rtl">"מוגנות"</span> for a purchase link by DM. The caption, written after sales closed, thanks 530 families. It is the only post I found in either pool that states a sales count.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DdoeylHDeQQ/">instagram.com/p/DdoeylHDeQQ</a> · 23 Sep 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DZphMo0CAUb.jpg" alt="Slides with Hebrew children's book covers, one per slide, recommended for starting municipal kindergarten"></div>
+    <div class="body">
+      <div class="head"><h3>3. tal_strul: five books for the move to municipal gan</h3><div class="pills lb-row"><span class="lb-chip">8 slides</span><span class="lb-chip">613 likes · 13x</span><span class="lb-chip accent">1,389 comments · 231x</span><span class="lb-chip success">coupon code</span></div></div>
+      <p><strong>Structure:</strong> cover with her daughter and the promise "5 recommended books", one slide on why books help with the transition, then one book per slide (cover, what it does for the child, a handwritten note), then a closing photo slide.</p>
+      <p><strong>How it sells:</strong> the last slide says to write the word <span class="he" dir="rtl">"ספר"</span> for links to every book plus a discount coupon. The caption adds "save it for when you need it, or send it to a friend". This is the closest existing template to a Lumebook post.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DZphMo0CAUb/">instagram.com/p/DZphMo0CAUb</a> · 16 Jun 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DboKFT-DWcc.jpg" alt="AI-style illustrated scenes of a mother talking with her young son, with Hebrew text"></div>
+    <div class="body">
+      <div class="head"><h3>4. avital.bashan: "instead of X, say Y" with illustrated characters</h3><div class="pills lb-row"><span class="lb-chip">10 slides</span><span class="lb-chip accent">1,751 likes · 21x</span><span class="lb-chip accent">1,771 comments · 66x</span></div></div>
+      <p><strong>Structure:</strong> every slide is an AI-style illustration of the same mother and son. Each one runs "when your child breaks a glass / refuses to kiss a relative / is scared: instead of saying X, you say Y, and you teach them Z".</p>
+      <p><strong>How it captures leads:</strong> the last slide offers a free tools document for anyone who comments <span class="he" dir="rtl">"כלים"</span>. High on both reach and leads, with illustrated characters doing the work a photo usually does.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DboKFT-DWcc/">instagram.com/p/DboKFT-DWcc</a> · 4 Aug 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DcIYOqZjZoQ.jpg" alt="Text-only slides in green and pink about loving siblings differently"></div>
+    <div class="body">
+      <div class="head"><h3>5. saraigatt: sibling jealousy, with a story as the gift</h3><div class="pills lb-row"><span class="lb-chip">10 slides</span><span class="lb-chip">315 likes</span><span class="lb-chip accent">1,388 comments · 4.4 per like</span></div></div>
+      <p><strong>Structure:</strong> plain text slides that open with "I don't love my children the same" and explain why loving them differently heads off jealousy and comparison.</p>
+      <p><strong>How it captures leads:</strong> the last slide says that since her kids were small she has told them a story she calls <span class="he" dir="rtl">"לב הקשת"</span>, and anyone who comments a heart gets it. A story is the lead magnet, on the sibling topic, and it drew more comments than likes.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DcIYOqZjZoQ/">instagram.com/p/DcIYOqZjZoQ</a> · 17 Aug 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/Da0n_qzACqS.jpg" alt="Illustrated bookshelves with Hebrew baby and toddler book covers, one shelf per age"></div>
+    <div class="body">
+      <div class="head"><h3>6. hilla_gover_slp: books by age, birth to 3</h3><div class="pills lb-row"><span class="lb-chip">7 slides</span><span class="lb-chip">617 likes</span><span class="lb-chip accent">878 comments · 15x</span></div></div>
+      <p><strong>Structure:</strong> one illustrated bookshelf per age (newborn, 4 months, 8 months, 1, 2, 3), each holding real Hebrew book covers. The last slide asks readers to comment for the full list.</p>
+      <p><strong>Why it matters:</strong> a speech therapist's book list works as a lead magnet, and it gives a ready age ladder a personalised book could slot into.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/Da0n_qzACqS/">instagram.com/p/Da0n_qzACqS</a> · 15 Jul 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DcOFta8DL1W.jpg" alt="Potty training slides: a toddler photo cover and dark green branded text slides"></div>
+    <div class="body">
+      <div class="head"><h3>7. larissaginatmethod: potty training</h3><div class="pills lb-row"><span class="lb-chip">12 slides</span><span class="lb-chip">301 likes</span><span class="lb-chip accent">1,169 comments · 16x</span></div></div>
+      <p><strong>Structure:</strong> a toddler photo with the hook "why start potty training before the resistance kicks in", then branded text cards in the style of a tweet, then the offer.</p>
+      <p><strong>How it captures leads:</strong> comment <span class="he" dir="rtl">"חיתול"</span> and she sends her five-step training by DM. She used the same comment-word move twice more in the following weeks (1,155 and 1,124 comments).</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DcOFta8DL1W/">instagram.com/p/DcOFta8DL1W</a> · 19 Aug 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/Dbp7SEEjnXh.jpg" alt="Minimal typographic Hebrew slides about a baby starting daycare"></div>
+    <div class="body">
+      <div class="head"><h3>8. suzi_gattegno: starting gan, from a small account</h3><div class="pills lb-row"><span class="lb-chip">8 slides</span><span class="lb-chip">48 likes</span><span class="lb-chip accent">590 comments · 295x</span></div></div>
+      <p><strong>Structure:</strong> calm typographic slides: "September is coming", "a new place, more fatigue", "the caregiver has 40 minutes", then the offer.</p>
+      <p><strong>How it captures leads:</strong> comment <span class="he" dir="rtl">"כניסה לגן"</span> for a free PDF on protecting sleep at gan entry. A sleep consultant with a median of 16 likes pulled 590 requests, so the funnel works without reach.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/Dbp7SEEjnXh/">instagram.com/p/Dbp7SEEjnXh</a> · 5 Aug 2026</span>
+    </div>
+  </article>
+
+  <span class="sub lb-eyebrow">Spread through shares</span>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/Dd1JpBCDLQe.jpg" alt="Black and white photo of a mother with a baby and older child, with a Hebrew letter in text"></div>
+    <div class="body">
+      <div class="head"><h3>9. natashagolan_: a letter to a mom about to have her second</h3><div class="pills lb-row"><span class="lb-chip">11 slides</span><span class="lb-chip accent">1,948 likes · 30x</span><span class="lb-chip">217 comments</span><span class="lb-chip">62 reposts</span></div></div>
+      <p><strong>Structure:</strong> one black-and-white photo of mother, baby and older child, with a letter that opens "Hey mom, you're about to give birth to your second child". It covers missing the old family of three and the firstborn's hard months.</p>
+      <p><strong>Why it matters:</strong> this is the new-sibling milestone Lumebook chose, told as a letter, and the caption asks readers to send it to a mom expecting her second. It has no offer, which leaves room for one.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/Dd1JpBCDLQe/">instagram.com/p/Dd1JpBCDLQe</a> · 28 Sep 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DdzLT8mnJXg.jpg" alt="Minimal Hebrew text slides telling one life through ages 5 to 46"></div>
+    <div class="body">
+      <div class="head"><h3>10. raising_creative_kids: one life told through ages</h3><div class="pills lb-row"><span class="lb-chip">11 slides</span><span class="lb-chip accent">14,074 likes · 122x</span><span class="lb-chip">409 comments</span><span class="lb-chip accent">565 reposts</span></div></div>
+      <p><strong>Structure:</strong> plain text slides, each headed with an age (5, 7, 10, 16, 25, 46), following one girl who keeps baking and failing. The last slide: in a home where a broken egg was just a broken egg, failure was never a reason to stop.</p>
+      <p><strong>Why it matters:</strong> the most reposted carousel in the Israeli pool, with no ask at all. The "through the ages" device suits a book where the child grows up as the hero.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DdzLT8mnJXg/">instagram.com/p/DdzLT8mnJXg</a> · 27 Sep 2026</span>
+    </div>
+  </article>
+</section>
+
+<section class="lb-section" id="global">
+  <h2>Global: the best carousels</h2>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DReSKEGCZEW.jpg" alt="Car selfie repeated on each slide with an English letter titled Dear partner"></div>
+    <div class="body">
+      <div class="head"><h3>1. therapyformums: "Dear partner"</h3><div class="pills lb-row"><span class="lb-chip">19 slides</span><span class="lb-chip accent">136,101 likes · 549x</span><span class="lb-chip accent">9,335 comments</span><span class="lb-chip">2,370 reposts</span></div></div>
+      <p><strong>Structure:</strong> one car selfie on every slide with a letter to a partner about the mental load. It uses the same single-photo letter template as danit in Israel.</p>
+      <p><strong>How it captures leads:</strong> comment SCRIPT for an 11-page free guide. Another of her carousels drew 16,571 comments with "comment LOAD".</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DReSKEGCZEW/">instagram.com/p/DReSKEGCZEW</a> · 25 Nov 2025</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DQIUIIpgbEv.jpg" alt="Gift guide cover slides: best toys by age, books to gift kids, art supplies"></div>
+    <div class="body">
+      <div class="head"><h3>2. busytoddler: the gift-guide carousel</h3><div class="pills lb-row"><span class="lb-chip">11 slides</span><span class="lb-chip">5,200 likes</span><span class="lb-chip accent">10,710 comments · 2x likes</span><span class="lb-chip success">shopping lists</span></div></div>
+      <p><strong>Structure:</strong> each slide is the cover of one gift guide (toys by age, games, art supplies, "30+ books to gift kids"). There's no detail on the slides; the detail is the lead magnet.</p>
+      <p><strong>How it sells:</strong> comment GUIDE for the toy lists, or use the link in her bio. A commerce carousel where comments run at twice the likes.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DQIUIIpgbEv/">instagram.com/p/DQIUIIpgbEv</a> · 22 Oct 2025</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DbQmeoom8_L.jpg" alt="A dietitian with lunch boxes, slides listing lunch box brands, last slide holding her own cookbook"></div>
+    <div class="body">
+      <div class="head"><h3>3. feedinglittles: lunch boxes, with codes</h3><div class="pills lb-row"><span class="lb-chip">14 slides</span><span class="lb-chip">5,868 likes</span><span class="lb-chip accent">12,449 comments</span><span class="lb-chip success">discount codes</span></div></div>
+      <p><strong>Structure:</strong> a dietitian's back-to-school guide: what to look for in a lunch box, her picks by age with brand names, then a final slide holding her own lunch cookbook.</p>
+      <p><strong>How it sells:</strong> comment LUNCH for links and discount codes. It sells partner products and her own book in one post.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DbQmeoom8_L/">instagram.com/p/DbQmeoom8_L</a> · 26 Jul 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DcV6rUQlive.jpg" alt="Family photo slides titled 8 unpopular parenting choices, last slide asking to comment RESET"></div>
+    <div class="body">
+      <div class="head"><h3>4. teransands: "8 unpopular parenting choices"</h3><div class="pills lb-row"><span class="lb-chip">10 slides</span><span class="lb-chip accent">13,763 likes · 7.6x</span><span class="lb-chip">3,674 comments</span><span class="lb-chip">204 reposts</span></div></div>
+      <p><strong>Structure:</strong> one family photo and headline per choice. Slide 5 is "we pay our kids to read books that shape who they'll become".</p>
+      <p><strong>How it sells:</strong> two asks in one post. The caption says comment "link" for that book, and the last slide says comment RESET to join the waitlist for her step-by-step parenting challenge.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DcV6rUQlive/">instagram.com/p/DcV6rUQlive</a> · 22 Aug 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DZDgG2ogewZ.jpg" alt="Slides with bold text boxes over a photo: Stop telling your child I love you, say this instead"></div>
+    <div class="body">
+      <div class="head"><h3>5. mommyandmishti: a contrarian hook</h3><div class="pills lb-row"><span class="lb-chip">17 slides</span><span class="lb-chip accent">45,575 likes · 495x</span><span class="lb-chip">692 comments</span><span class="lb-chip accent">2,330 reposts</span></div></div>
+      <p><strong>Structure:</strong> "Stop telling your child 'I love you'. Say this instead", then the brain-science reason (habituation), then the alternative phrases.</p>
+      <p><strong>Why it matters:</strong> pure reach. The asks are "share this with your partner" and "follow". It shows how far a reversal hook travels on a topic every parent cares about.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DZDgG2ogewZ/">instagram.com/p/DZDgG2ogewZ</a> · 1 Jun 2026</span>
+    </div>
+  </article>
+  
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/Da3tFf5ErDB.jpg" alt="Toddler gift picks: a birthday photo cover, a toy garage, a balance bike, outdoor activities"></div>
+    <div class="body">
+      <div class="head"><h3>6. letimomlife_: toddler gift picks</h3><div class="pills lb-row"><span class="lb-chip">20 slides</span><span class="lb-chip">17,037 likes · 6.3x</span><span class="lb-chip accent">24,158 comments</span><span class="lb-chip success">product links</span></div></div>
+      <p><strong>Structure:</strong> "Toddler gifts I'd choose all over again", then one product per slide in real use at home, each with a one-line reason.</p>
+      <p><strong>How it sells:</strong> follow and comment "play" for the links by DM. She repeats the format every few weeks with the word "shop" (13,924 comments on one run).</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/Da3tFf5ErDB/">instagram.com/p/Da3tFf5ErDB</a> · 16 Jul 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/Ddg5kxcGyjv.jpg" alt="A photo of an older child with a new baby, with English text about missing the older child"></div>
+    <div class="body">
+      <div class="head"><h3>7. thriveafterbabywithalex: missing your older child</h3><div class="pills lb-row"><span class="lb-chip">10 slides</span><span class="lb-chip accent">14,345 likes · 122x</span><span class="lb-chip">567 comments</span><span class="lb-chip accent">1,204 reposts</span></div></div>
+      <p><strong>Structure:</strong> one photo of the older child with the baby, and the text "No one warned me I might miss my older child after having another baby", then the small moments and the guilt, then a question to the reader.</p>
+      <p><strong>Why it matters:</strong> the new-sibling milestone again, this time as the top global sibling carousel. Same emotional angle as natashagolan_ in Israel, with twice the share rate.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/Ddg5kxcGyjv/">instagram.com/p/Ddg5kxcGyjv</a> · 20 Sep 2026</span>
+    </div>
+  </article>
+
+  <article class="card lb-card is-flush">
+    <div class="strip"><img src="img2/DZvB-A4lMfK.jpg" alt="Three red slides: Elmo asked, thousands responded, now there is a book"></div>
+    <div class="body">
+      <div class="head"><h3>8. Chronicle Books kids: a three-slide book launch</h3><div class="pills lb-row"><span class="lb-chip">3 slides</span><span class="lb-chip accent">15,400 likes · 167x</span><span class="lb-chip">169 comments</span><span class="lb-chip">329 reposts</span></div></div>
+      <p><strong>Structure:</strong> "Elmo asked" (a screenshot of the original post), "Thousands of you responded, and Elmo listened", "Now there is a book. Out October 27th".</p>
+      <p><strong>Why it matters:</strong> the best publisher book carousel in the pool, and it is three slides of story about where the book came from. The caption sends readers to pre-order.</p>
+      <span class="src lb-note"><a href="https://www.instagram.com/p/DZvB-A4lMfK/">instagram.com/p/DZvB-A4lMfK</a> · 18 Jun 2026</span>
+    </div>
+  </article>
+</section>
+
+<section class="lb-section" id="templates">
+  <h2>Three carousels to make for Lumebook</h2>
+  <p>These are my recommendations from the patterns above, not tested results. All three end in a comment word and a DM, which needs DM automation set up on the account. MeBook's creator reels already use "comment <span class="he" dir="rtl">ספר</span> for my discount code" (<a href="https://www.instagram.com/mebook.ai/reel/DbydNecM1GW/">example</a>), so each template uses a milestone word instead.</p>
+  <div class="tmpl lb-grid">
+    <div class="finding lb-card"><b>A. Milestone book list (tal_strul model)</b><ol><li>Cover: a real child with the hook <span class="he" dir="rtl">"5 ספרים שמכינים לאח או אחות חדשים"</span>.</li><li>Four published books, one per slide, with what each does for the child.</li><li>Slide 6: the book where your child is the big sibling (Lumebook).</li><li>Last slide: comment <span class="he" dir="rtl">"אח"</span> for links, a free preview and a code.</li></ol></div>
+    <div class="finding lb-card"><b>B. Letter to a mom (natashagolan and danit model)</b><ol><li>One photo on every slide, letter in text boxes: <span class="he" dir="rtl">"היי אמא, עוד רגע הבכור שלך הופך לאח גדול"</span>.</li><li>Five to eight slides of the honest feelings.</li><li>One slide on what helped: telling the firstborn a story where they are the hero.</li><li>Ask readers to send it to an expecting mom, and comment a word for the free preview.</li></ol></div>
+    <div class="finding lb-card"><b>C. "Instead of X, say Y", drawn (avital model)</b><ol><li>Illustrated scenes in Lumebook's own style of a child at gan drop-off.</li><li>Each slide: what parents usually say, what to say instead, what the child learns.</li><li>Last slide: comment <span class="he" dir="rtl">"גן"</span> for a short free story starring your child, sent as a preview link.</li></ol></div>
+  </div>
+</section>
+
+<section class="lb-section" id="tables">
+  <h2>Ranked tables</h2>
+  <p>Comment tables list the most-commented carousels whose caption or last slide asks for a comment word; giveaways are left out. Reach tables need at least 1,000 likes (Israel) or 3,000 (global) and are sorted by likes against the account's median.</p><h3>Israel: most comments on a comment-word carousel</h3><div class="lb-table-wrap"><table class="lb-table"><thead><tr><th class="num">#</th><th>Account</th><th>Post</th><th>Topic</th><th>Comment word</th><th class="num">Comments</th><th class="num">Likes</th><th class="num">Likes vs median</th><th class="num">Slides</th><th class="num">Date</th></tr></thead><tbody><tr><td class="num">1</td><td>hodayaohayon</td><td><a href="https://www.instagram.com/p/DUKhAwjjD-T/">DUKhAwjjD-T</a></td><td class="cap">Less sugar at home, fridge recipe sheet</td><td><span class="he" dir="rtl">אני</span></td><td class="num"><b>7,100</b></td><td class="num">2,425</td><td class="num">14.6x</td><td class="num">5</td><td class="num">2026-01-31</td></tr><tr><td class="num">2</td><td>hadas.shvat</td><td><a href="https://www.instagram.com/p/DbOS3GDCHNi/">DbOS3GDCHNi</a></td><td class="cap">Dopamine and boredom, book recommendation</td><td>comment for a summer booklet</td><td class="num"><b>2,361</b></td><td class="num">1,538</td><td class="num">8.1x</td><td class="num">13</td><td class="num">2026-07-25</td></tr><tr><td class="num">3</td><td>saraigatt</td><td><a href="https://www.instagram.com/p/DbFa3eJja3l/">DbFa3eJja3l</a></td><td class="cap">Mindfulness games list</td><td><span class="he" dir="rtl">תרגול</span></td><td class="num"><b>2,114</b></td><td class="num">294</td><td class="num">1.3x</td><td class="num">12</td><td class="num">2026-07-22</td></tr><tr><td class="num">4</td><td>avital.bashan</td><td><a href="https://www.instagram.com/p/DboKFT-DWcc/">DboKFT-DWcc</a></td><td class="cap">Instead of X say Y, illustrated</td><td><span class="he" dir="rtl">כלים</span></td><td class="num"><b>1,771</b></td><td class="num">1,751</td><td class="num">21.1x</td><td class="num">10</td><td class="num">2026-08-04</td></tr><tr><td class="num">5</td><td>hodayaohayon</td><td><a href="https://www.instagram.com/p/DR6TuX8jCjY/">DR6TuX8jCjY</a></td><td class="cap">Grandma&#x27;s winter remedies sheet</td><td><span class="he" dir="rtl">תרופות סבתא</span></td><td class="num"><b>1,659</b></td><td class="num">1,929</td><td class="num">11.6x</td><td class="num">7</td><td class="num">2025-12-06</td></tr><tr><td class="num">6</td><td>avital.bashan</td><td><a href="https://www.instagram.com/p/Dd67eRzjXYN/">Dd67eRzjXYN</a></td><td class="cap">Talking with kids about hard topics</td><td><span class="he" dir="rtl">קשר</span></td><td class="num"><b>1,653</b></td><td class="num">1,458</td><td class="num">17.6x</td><td class="num">10</td><td class="num">2026-09-30</td></tr><tr><td class="num">7</td><td>tal_strul</td><td><a href="https://www.instagram.com/p/DZphMo0CAUb/">DZphMo0CAUb</a></td><td class="cap">5 books for starting municipal gan</td><td><span class="he" dir="rtl">ספר + coupon</span></td><td class="num"><b>1,389</b></td><td class="num">613</td><td class="num">13.0x</td><td class="num">8</td><td class="num">2026-06-16</td></tr><tr><td class="num">8</td><td>saraigatt</td><td><a href="https://www.instagram.com/p/DcIYOqZjZoQ/">DcIYOqZjZoQ</a></td><td class="cap">Sibling jealousy, a story</td><td>❤️</td><td class="num"><b>1,388</b></td><td class="num">315</td><td class="num">1.4x</td><td class="num">10</td><td class="num">2026-08-17</td></tr><tr><td class="num">9</td><td>saraigatt</td><td><a href="https://www.instagram.com/p/DciF8FvjTS0/">DciF8FvjTS0</a></td><td class="cap">Building a bond, list</td><td><span class="he" dir="rtl">קשר</span></td><td class="num"><b>1,386</b></td><td class="num">452</td><td class="num">2.0x</td><td class="num">12</td><td class="num">2026-08-27</td></tr><tr><td class="num">10</td><td>dvir_atzmon_shatil</td><td><a href="https://www.instagram.com/p/DdwmmkEirdA/">DdwmmkEirdA</a></td><td class="cap">Positive language challenge</td><td><span class="he" dir="rtl">אתגר</span></td><td class="num"><b>1,358</b></td><td class="num">1,923</td><td class="num">41.8x</td><td class="num">16</td><td class="num">2026-09-26</td></tr><tr><td class="num">11</td><td>hodayaohayon</td><td><a href="https://www.instagram.com/p/DRoM-T4CPSj/">DRoM-T4CPSj</a></td><td class="cap">Stop saying &#x27;well done&#x27;</td><td><span class="he" dir="rtl">אני</span></td><td class="num"><b>1,239</b></td><td class="num">1,430</td><td class="num">8.6x</td><td class="num">8</td><td class="num">2025-11-29</td></tr><tr><td class="num">12</td><td>saraigatt</td><td><a href="https://www.instagram.com/p/DcWR6wFDfHA/">DcWR6wFDfHA</a></td><td class="cap">End-of-summer ideas file</td><td><span class="he" dir="rtl">קיץ</span></td><td class="num"><b>1,179</b></td><td class="num">237</td><td class="num">1.0x</td><td class="num">10</td><td class="num">2026-08-22</td></tr><tr><td class="num">13</td><td>larissaginatmethod</td><td><a href="https://www.instagram.com/p/DcOFta8DL1W/">DcOFta8DL1W</a></td><td class="cap">Potty training in 5 steps</td><td><span class="he" dir="rtl">חיתול</span></td><td class="num"><b>1,169</b></td><td class="num">301</td><td class="num">1.7x</td><td class="num">12</td><td class="num">2026-08-19</td></tr><tr><td class="num">14</td><td>hodayaohayon</td><td><a href="https://www.instagram.com/p/DbfEOAoCE_V/">DbfEOAoCE_V</a></td><td class="cap">Potty training phrases sheet</td><td><span class="he" dir="rtl">אני</span></td><td class="num"><b>1,167</b></td><td class="num">69</td><td class="num">0.4x</td><td class="num">4</td><td class="num">2026-08-01</td></tr><tr><td class="num">15</td><td>larissaginatmethod</td><td><a href="https://www.instagram.com/p/Dd0zNyHjiIb/">Dd0zNyHjiIb</a></td><td class="cap">Potty training, second run</td><td><span class="he" dir="rtl">חיתול</span></td><td class="num"><b>1,155</b></td><td class="num">229</td><td class="num">1.3x</td><td class="num">9</td><td class="num">2026-09-28</td></tr><tr><td class="num">16</td><td>yaffa_michaela_zukerman</td><td><a href="https://www.instagram.com/p/DdoeylHDeQQ/">DdoeylHDeQQ</a></td><td class="cap">Digital child-safety book launch</td><td><span class="he" dir="rtl">מוגנות (purchase)</span></td><td class="num"><b>1,149</b></td><td class="num">2,033</td><td class="num">8.5x</td><td class="num">20</td><td class="num">2026-09-23</td></tr></tbody></table></div><h3>Israel: biggest reach against the account median</h3><div class="lb-table-wrap"><table class="lb-table"><thead><tr><th class="num">#</th><th>Account</th><th>Post</th><th>Topic</th><th class="num">Likes</th><th class="num">Likes vs median</th><th class="num">Reposts</th><th class="num">Comments</th><th class="num">Slides</th><th class="num">Date</th></tr></thead><tbody><tr><td class="num">1</td><td>raising_creative_kids</td><td><a href="https://www.instagram.com/p/DdzLT8mnJXg/">DdzLT8mnJXg</a></td><td class="cap">One life through the ages, on failure</td><td class="num">14,074</td><td class="num"><b>122.4x</b></td><td class="num">565</td><td class="num">409</td><td class="num">11</td><td class="num">2026-09-27</td></tr><tr><td class="num">2</td><td>adar.motherhood</td><td><a href="https://www.instagram.com/p/DdYgdi7DMuK/">DdYgdi7DMuK</a></td><td class="cap">Watching my partner be a dad</td><td class="num">7,015</td><td class="num"><b>113.1x</b></td><td class="num">164</td><td class="num">116</td><td class="num">7</td><td class="num">2026-09-17</td></tr><tr><td class="num">3</td><td>danit_parenting_coaching</td><td><a href="https://www.instagram.com/p/Das4fCQDTBf/">Das4fCQDTBf</a></td><td class="cap">Holding a curfew boundary (sells a guide)</td><td class="num">23,367</td><td class="num"><b>92.4x</b></td><td class="num">353</td><td class="num">814</td><td class="num">15</td><td class="num">2026-07-12</td></tr><tr><td class="num">4</td><td>adar_dan1</td><td><a href="https://www.instagram.com/p/DSIhVdCjC6f/">DSIhVdCjC6f</a></td><td class="cap">Child refuses to say hello or hug</td><td class="num">1,381</td><td class="num"><b>92.1x</b></td><td class="num">59</td><td class="num">124</td><td class="num">7</td><td class="num">2025-12-11</td></tr><tr><td class="num">5</td><td>dvir_atzmon_shatil</td><td><a href="https://www.instagram.com/p/DbtSApoCrPJ/">DbtSApoCrPJ</a></td><td class="cap">Owning mistakes and saying sorry</td><td class="num">3,831</td><td class="num"><b>83.3x</b></td><td class="num">130</td><td class="num">175</td><td class="num">16</td><td class="num">2026-08-06</td></tr><tr><td class="num">6</td><td>edenmomlife</td><td><a href="https://www.instagram.com/p/DXCJLUSjDbS/">DXCJLUSjDbS</a></td><td class="cap">What he will remember from childhood</td><td class="num">2,589</td><td class="num"><b>58.8x</b></td><td class="num">111</td><td class="num">162</td><td class="num">9</td><td class="num">2026-04-12</td></tr><tr><td class="num">7</td><td>edenmomlife</td><td><a href="https://www.instagram.com/p/DUUo7XfjEXM/">DUUo7XfjEXM</a></td><td class="cap">Overwhelm and anger with a toddler</td><td class="num">2,249</td><td class="num"><b>51.1x</b></td><td class="num">74</td><td class="num">138</td><td class="num">8</td><td class="num">2026-02-04</td></tr><tr><td class="num">8</td><td>valerialauren</td><td><a href="https://www.instagram.com/p/DVk06eOjMFp/">DVk06eOjMFp</a></td><td class="cap">Don&#x27;t over-entertain a happy child</td><td class="num">4,385</td><td class="num"><b>42.2x</b></td><td class="num">84</td><td class="num">148</td><td class="num">10</td><td class="num">2026-03-07</td></tr><tr><td class="num">9</td><td>avital.bashan</td><td><a href="https://www.instagram.com/p/DbWKJfvDSN5/">DbWKJfvDSN5</a></td><td class="cap">Ranking childhood moments</td><td class="num">3,381</td><td class="num"><b>40.7x</b></td><td class="num">114</td><td class="num">326</td><td class="num">10</td><td class="num">2026-07-28</td></tr><tr><td class="num">10</td><td>natashagolan_</td><td><a href="https://www.instagram.com/p/Dd1JpBCDLQe/">Dd1JpBCDLQe</a></td><td class="cap">Letter before a second birth</td><td class="num">1,948</td><td class="num"><b>30.4x</b></td><td class="num">62</td><td class="num">217</td><td class="num">11</td><td class="num">2026-09-28</td></tr><tr><td class="num">11</td><td>galtamari1</td><td><a href="https://www.instagram.com/p/DRFcW60lwfo/">DRFcW60lwfo</a></td><td class="cap">Friendships as leaves, branches, roots</td><td class="num">32,840</td><td class="num"><b>20.7x</b></td><td class="num">964</td><td class="num">897</td><td class="num">11</td><td class="num">2025-11-15</td></tr><tr><td class="num">12</td><td>mama.on.point</td><td><a href="https://www.instagram.com/p/DTfo7UpiAMf/">DTfo7UpiAMf</a></td><td class="cap">What kids learn when we lose it</td><td class="num">7,492</td><td class="num"><b>16.4x</b></td><td class="num">134</td><td class="num">130</td><td class="num">15</td><td class="num">2026-01-14</td></tr></tbody></table></div><h3>Global: most comments on a comment-word carousel</h3><div class="lb-table-wrap"><table class="lb-table"><thead><tr><th class="num">#</th><th>Account</th><th>Post</th><th>Topic</th><th>Comment word</th><th class="num">Comments</th><th class="num">Likes</th><th class="num">Likes vs median</th><th class="num">Slides</th><th class="num">Date</th></tr></thead><tbody><tr><td class="num">1</td><td>teransands</td><td><a href="https://www.instagram.com/p/Dd_qyGlFhfC/">Dd_qyGlFhfC</a></td><td class="cap">Mental load at home, family challenge</td><td>RESET</td><td class="num"><b>47,769</b></td><td class="num">25,975</td><td class="num">14.3x</td><td class="num">11</td><td class="num">2026-10-02</td></tr><tr><td class="num">2</td><td>composerstudyclub</td><td><a href="https://www.instagram.com/p/DW4k5VoDFSt/">DW4k5VoDFSt</a></td><td class="cap">Kindergarten readiness through music</td><td>MUSIC</td><td class="num"><b>26,813</b></td><td class="num">33,903</td><td class="num">24.6x</td><td class="num">7</td><td class="num">2026-04-08</td></tr><tr><td class="num">3</td><td>letimomlife_</td><td><a href="https://www.instagram.com/p/Da3tFf5ErDB/">Da3tFf5ErDB</a></td><td class="cap">Toddler gift picks, links</td><td>play</td><td class="num"><b>24,158</b></td><td class="num">17,037</td><td class="num">6.3x</td><td class="num">20</td><td class="num">2026-07-16</td></tr><tr><td class="num">4</td><td>toddlerdietitiantiff</td><td><a href="https://www.instagram.com/p/DcOLCWODnF6/">DcOLCWODnF6</a></td><td class="cap">Snack prep recipes and product links</td><td>PREP</td><td class="num"><b>22,969</b></td><td class="num">9,888</td><td class="num">13.5x</td><td class="num">19</td><td class="num">2026-08-19</td></tr><tr><td class="num">5</td><td>therapyformums</td><td><a href="https://www.instagram.com/p/DZXJmKnCZ0Q/">DZXJmKnCZ0Q</a></td><td class="cap">Mental load, how I changed it</td><td>LOAD</td><td class="num"><b>16,571</b></td><td class="num">6,886</td><td class="num">27.8x</td><td class="num">16</td><td class="num">2026-06-09</td></tr><tr><td class="num">6</td><td>yummytoddlerfood</td><td><a href="https://www.instagram.com/p/DcqsJPwEX-B/">DcqsJPwEX-B</a></td><td class="cap">Easy fall breakfasts</td><td>LINKS</td><td class="num"><b>15,737</b></td><td class="num">10,059</td><td class="num">1.7x</td><td class="num">7</td><td class="num">2026-08-30</td></tr><tr><td class="num">7</td><td>biglittlefeelings</td><td><a href="https://www.instagram.com/p/DdSEMiKEpAE/">DdSEMiKEpAE</a></td><td class="cap">Mental load in 5 layers</td><td>SUB</td><td class="num"><b>14,624</b></td><td class="num">15,104</td><td class="num">4.1x</td><td class="num">6</td><td class="num">2026-09-14</td></tr><tr><td class="num">8</td><td>letimomlife_</td><td><a href="https://www.instagram.com/p/DcHk2C5j_Rd/">DcHk2C5j_Rd</a></td><td class="cap">Toddler favorites, links</td><td>shop</td><td class="num"><b>13,924</b></td><td class="num">4,063</td><td class="num">1.5x</td><td class="num">20</td><td class="num">2026-08-16</td></tr><tr><td class="num">9</td><td>yummytoddlerfood</td><td><a href="https://www.instagram.com/p/DdHBm-VkcFn/">DdHBm-VkcFn</a></td><td class="cap">Iron-rich snacks</td><td>LINKS</td><td class="num"><b>13,206</b></td><td class="num">7,248</td><td class="num">1.2x</td><td class="num">8</td><td class="num">2026-09-10</td></tr><tr><td class="num">10</td><td>katy_g_blog</td><td><a href="https://www.instagram.com/p/DU3xc7cDV4M/">DU3xc7cDV4M</a></td><td class="cap">Gen Alpha and overstimulation</td><td>START</td><td class="num"><b>12,963</b></td><td class="num">64,243</td><td class="num">210.6x</td><td class="num">12</td><td class="num">2026-02-17</td></tr><tr><td class="num">11</td><td>feedinglittles</td><td><a href="https://www.instagram.com/p/DbQmeoom8_L/">DbQmeoom8_L</a></td><td class="cap">Lunch boxes, links and codes</td><td>LUNCH</td><td class="num"><b>12,449</b></td><td class="num">5,868</td><td class="num">2.2x</td><td class="num">14</td><td class="num">2026-07-26</td></tr><tr><td class="num">12</td><td>thekinected_ot</td><td><a href="https://www.instagram.com/p/Dc36QaeEclb/">Dc36QaeEclb</a></td><td class="cap">Developmental movement routine</td><td>MOVE</td><td class="num"><b>11,476</b></td><td class="num">2,517</td><td class="num">0.9x</td><td class="num">8</td><td class="num">2026-09-04</td></tr></tbody></table></div><h3>Global: biggest reach against the account median</h3><div class="lb-table-wrap"><table class="lb-table"><thead><tr><th class="num">#</th><th>Account</th><th>Post</th><th>Topic</th><th class="num">Likes</th><th class="num">Likes vs median</th><th class="num">Reposts</th><th class="num">Comments</th><th class="num">Slides</th><th class="num">Date</th></tr></thead><tbody><tr><td class="num">1</td><td>therapyformums</td><td><a href="https://www.instagram.com/p/DReSKEGCZEW/">DReSKEGCZEW</a></td><td class="cap">Dear partner: the mental load</td><td class="num">136,101</td><td class="num"><b>548.8x</b></td><td class="num">2,370</td><td class="num">9,335</td><td class="num">19</td><td class="num">2025-11-25</td></tr><tr><td class="num">2</td><td>mommyandmishti</td><td><a href="https://www.instagram.com/p/DZDgG2ogewZ/">DZDgG2ogewZ</a></td><td class="cap">Stop saying &#x27;I love you&#x27;, say this</td><td class="num">45,575</td><td class="num"><b>495.4x</b></td><td class="num">2,330</td><td class="num">692</td><td class="num">17</td><td class="num">2026-06-01</td></tr><tr><td class="num">3</td><td>wearemorethanmoms</td><td><a href="https://www.instagram.com/p/DX7tn0VEs63/">DX7tn0VEs63</a></td><td class="cap">Asked dads what moms stopped doing</td><td class="num">214,293</td><td class="num"><b>412.9x</b></td><td class="num">8,369</td><td class="num">2,043</td><td class="num">8</td><td class="num">2026-05-04</td></tr><tr><td class="num">4</td><td>parentfocus</td><td><a href="https://www.instagram.com/p/DR8KFbnkY1C/">DR8KFbnkY1C</a></td><td class="cap">Tantrums: you don&#x27;t have to fix feelings</td><td class="num">19,900</td><td class="num"><b>361.8x</b></td><td class="num">493</td><td class="num">1,117</td><td class="num">13</td><td class="num">2025-12-06</td></tr><tr><td class="num">5</td><td>sleepwiseconsulting</td><td><a href="https://www.instagram.com/p/DTQt5GSAbcK/">DTQt5GSAbcK</a></td><td class="cap">Milk out of bedtime by 12 months</td><td class="num">7,396</td><td class="num"><b>336.2x</b></td><td class="num">171</td><td class="num">6,717</td><td class="num">5</td><td class="num">2026-01-08</td></tr><tr><td class="num">6</td><td>mommyandmishti</td><td><a href="https://www.instagram.com/p/DX1pEiSEstN/">DX1pEiSEstN</a></td><td class="cap">Why &#x27;shy&#x27; is a harmful label</td><td class="num">29,410</td><td class="num"><b>319.7x</b></td><td class="num">1,034</td><td class="num">262</td><td class="num">17</td><td class="num">2026-05-01</td></tr><tr><td class="num">7</td><td>smallstepsparenting</td><td><a href="https://www.instagram.com/p/DM8ppTPoAod/">DM8ppTPoAod</a></td><td class="cap">How to say sorry to a child</td><td class="num">11,551</td><td class="num"><b>235.7x</b></td><td class="num">194</td><td class="num">236</td><td class="num">7</td><td class="num">2025-08-04</td></tr><tr><td class="num">8</td><td>katy_g_blog</td><td><a href="https://www.instagram.com/p/DU3xc7cDV4M/">DU3xc7cDV4M</a></td><td class="cap">Gen Alpha and overstimulation</td><td class="num">64,243</td><td class="num"><b>210.6x</b></td><td class="num">5,666</td><td class="num">12,963</td><td class="num">12</td><td class="num">2026-02-17</td></tr><tr><td class="num">9</td><td>thriveafterbabywithalex</td><td><a href="https://www.instagram.com/p/DcBqyIxG_1f/">DcBqyIxG_1f</a></td><td class="cap">Postpartum is not just hormones</td><td class="num">20,750</td><td class="num"><b>175.8x</b></td><td class="num">1,138</td><td class="num">302</td><td class="num">12</td><td class="num">2026-08-14</td></tr><tr><td class="num">10</td><td>chroniclekidsbooks</td><td><a href="https://www.instagram.com/p/DZvB-A4lMfK/">DZvB-A4lMfK</a></td><td class="cap">Elmo picture book announcement</td><td class="num">15,400</td><td class="num"><b>167.4x</b></td><td class="num">329</td><td class="num">169</td><td class="num">3</td><td class="num">2026-06-18</td></tr><tr><td class="num">11</td><td>thriveafterbabywithalex</td><td><a href="https://www.instagram.com/p/Ddg5kxcGyjv/">Ddg5kxcGyjv</a></td><td class="cap">Missing your older child after a new baby</td><td class="num">14,345</td><td class="num"><b>121.6x</b></td><td class="num">1,204</td><td class="num">567</td><td class="num">10</td><td class="num">2026-09-20</td></tr><tr><td class="num">12</td><td>mother.ly</td><td><a href="https://www.instagram.com/p/DdCUJjHmPZ-/">DdCUJjHmPZ-</a></td><td class="cap">New picture book promo</td><td class="num">13,892</td><td class="num"><b>50.0x</b></td><td class="num">637</td><td class="num">45</td><td class="num">2</td><td class="num">2026-09-08</td></tr></tbody></table></div>
+</section>
+
+<section class="lb-section" id="limits">
+  <h2>What this cannot tell you</h2>
+  <ul class="lim">
+    <li><strong>No order data.</strong> Comments on a funnel post are requests, not purchases. Only the yaffa_michaela_zukerman carousel states a sales figure, and that is her own claim.</li>
+    <li><strong>The pool is wide, not complete.</strong> Accounts came from our 204-creator list, Hebrew and English Instagram search, and Instagram's similar-accounts lists. A big account outside those paths would be missing.</li>
+    <li><strong>48 posts per account, since April 2024.</strong> Older viral carousels are not in the ranking.</li>
+    <li><strong>Some numbers are shared.</strong> Collab posts appear under both accounts (I counted each post once). A few accounts hide likes, and those were skipped.</li>
+    <li><strong>Personalised-book brands barely place.</strong> Wonderbly's best carousel had 260 likes and Hooray Heroes' 79; MeBook posted none. The lesson for Lumebook comes from parenting creators, not from competitors.</li>
+  </ul>
+  <p class="src lb-note">Data: research/carousel-research/ in the Lumebook project folder (finalist CSVs, captions, slide images).</p>
+</section>
+</main>
+
+<script>
+/* section nav: mark the section in view */
+(function(){
+  var toc = document.querySelector('.lb-topbar .lb-toc');
+  if (!toc) return;
+  var links = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]'));
+  var secs = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  var current = null, ticking = false;
+  function update(){
+    ticking = false;
+    var line = document.querySelector('.lb-topbar').getBoundingClientRect().bottom + 24, cur = null;
+    secs.forEach(function(s, i){ if (s && s.getBoundingClientRect().top <= line) cur = i; });
+    if (cur === current) return;
+    current = cur;
+    links.forEach(function(a, i){ a.setAttribute('aria-current', i === cur ? 'true' : 'false'); });
+    var a = cur === null ? null : links[cur];
+    if (a && toc.scrollWidth > toc.clientWidth) toc.scrollTo({left: a.offsetLeft - toc.offsetLeft - 8, behavior: 'smooth'});
+  }
+  window.addEventListener('scroll', function(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }, {passive: true});
+  update();
+})();
+</script>

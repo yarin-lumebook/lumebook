@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Output is JSON with every requested key",
+      "passed": true,
+      "evidence": "keys: ['caption', 'cta', 'hook', 'second_hook', 'slide3']"
+    },
+    {
+      "text": "No em dash, period or comma in any audience field",
+      "passed": true,
+      "evidence": "none found"
+    },
+    {
+      "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+      "passed": true,
+      "evidence": "none found"
+    },
+    {
+      "text": "CTA keeps the brief's idea with the code word מים and has no second CTA",
+      "passed": true,
+      "evidence": "כתבו מים בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור"
+    },
+    {
+      "text": "Caption ends with the exact CTA and adds no other CTA",
+      "passed": true,
+      "evidence": "last line: כתבו מים בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור; extra CTA lines: []"
+    },
+    {
+      "text": "Every line has at most 12 words (one thought per line)",
+      "passed": true,
+      "evidence": "all lines short"
+    },
+    {
+      "text": "hook: main line up to 8 words and up to 12 words in total",
+      "passed": true,
+      "evidence": "main 5 words, total 9"
+    },
+    {
+      "text": "second_hook: main line up to 8 words and up to 12 words in total",
+      "passed": true,
+      "evidence": "main 3 words, total 9"
+    },
+    {
+      "text": "Kid slides are in the child's first person",
+      "passed": true,
+      "evidence": "2 of 3 fields use first person"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pass_rate": 1.0
+  }
+}

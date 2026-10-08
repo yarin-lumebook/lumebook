@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "text": "Output is JSON with every requested key",
+      "passed": true,
+      "evidence": "keys: ['caption', 'cta', 'hook', 'slide3', 'slide4', 'slide5']"
+    },
+    {
+      "text": "No em dash, period or comma in any audience field",
+      "passed": true,
+      "evidence": "none found"
+    },
+    {
+      "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+      "passed": true,
+      "evidence": "none found"
+    },
+    {
+      "text": "CTA keeps the brief's idea with the code word פרידה and has no second CTA",
+      "passed": true,
+      "evidence": "כתבו פרידה בתגובות\nוקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור"
+    },
+    {
+      "text": "Caption ends with the exact CTA and adds no other CTA",
+      "passed": true,
+      "evidence": "last line: כתבו פרידה בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור; extra CTA lines: []"
+    },
+    {
+      "text": "Every line has at most 12 words (one thought per line)",
+      "passed": true,
+      "evidence": "all lines short"
+    },
+    {
+      "text": "hook: main line up to 8 words and up to 12 words in total",
+      "passed": true,
+      "evidence": "main 5 words, total 10"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  }
+}

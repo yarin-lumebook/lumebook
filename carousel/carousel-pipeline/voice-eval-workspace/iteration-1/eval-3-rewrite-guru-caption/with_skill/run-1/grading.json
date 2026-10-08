@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "Output is JSON with every requested key",
+      "passed": true,
+      "evidence": "keys: ['caption', 'cta']"
+    },
+    {
+      "text": "No em dash, period or comma in any audience field",
+      "passed": true,
+      "evidence": "none found"
+    },
+    {
+      "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+      "passed": true,
+      "evidence": "none found"
+    },
+    {
+      "text": "CTA keeps the brief's idea with the code word מוצץ and has no second CTA",
+      "passed": true,
+      "evidence": "כתבו מוצץ בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור"
+    },
+    {
+      "text": "Caption ends with the exact CTA and adds no other CTA",
+      "passed": true,
+      "evidence": "last line: כתבו מוצץ בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור; extra CTA lines: []"
+    },
+    {
+      "text": "Every line has at most 12 words (one thought per line)",
+      "passed": true,
+      "evidence": "all lines short"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

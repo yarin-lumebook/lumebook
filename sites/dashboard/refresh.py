@@ -7,54 +7,44 @@ public Instagram follower counts, and optionally parses the signup Sheet
 (the Google Drive connector's text export, saved to a file by the caller).
 
 Usage:
-  python3 dashboard/refresh.py [--sheet-md PATH] [--skip-network]
+  python3 sites/dashboard/refresh.py [--sheet-md PATH] [--skip-network]
 
-Writes dashboard/out/snapshot.json and dashboard/out/history.json.
+Writes sites/dashboard/out/snapshot.json and sites/dashboard/out/history.json.
 Only standard library; safe to run any time.
 """
 import argparse, ast, csv, html, json, os, re, subprocess, time, urllib.request
 from collections import Counter
 from datetime import datetime, timezone, timedelta
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "dashboard", "out")
+HERE = os.path.dirname(os.path.abspath(__file__))
+# Project root = the nearest folder up that holds lumebook.json (the component registry)
+ROOT = HERE
+while not os.path.exists(os.path.join(ROOT, "lumebook.json")) and ROOT != os.path.dirname(ROOT):
+    ROOT = os.path.dirname(ROOT)
+OUT = os.path.join(HERE, "out")
 IL = timezone(timedelta(hours=3))  # Israel summer time; good enough for date stamps
 
-# Things only memory/conversation knows. Update here when they change.
-ARTIFACTS = [
-    {"key": "strategy", "label": "פלייבוק סושיאל Q4", "url": "https://claude.ai/artifact/BALURpPXY8psXxCNvb6jH6", "file": "lumebook-social-strategy.html", "date": "2026-10-01"},
-    {"key": "reels", "label": "35 סרטונים שעבדו (ליוסי)", "url": "https://claude.ai/artifact/UstDM1kr9jBpqfMPS2gZxP", "file": None, "date": "2026-10-02"},
-    {"key": "creators", "label": "מפת יוצרים · 204", "url": "https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB", "file": "creator-research/lumebook-creator-map.html", "date": "2026-10-03"},
-    {"key": "teardown", "label": "ניתוח תוכן מתחרים · 147", "url": "https://claude.ai/artifact/2aQamEfoJhb1Cix9CgZ1rY", "file": "competitor-content-analysis/competitor_content_db.json", "date": "2026-10-03"},
-]
-SITES = [
-    {"key": "smm", "label": "תוכנית סושיאל", "url": "https://lumebook-smm-plan.vercel.app", "dir": "lumebook-smm-plan"},
-    {"key": "amb", "label": "דף שגרירים", "url": "https://lumebook-ambassadors.vercel.app", "dir": "lumebook-ambassadors"},
-    {"key": "hub", "label": "מרכז היוצרים", "url": "https://lumebook-ambassadors.vercel.app/creators/", "dir": "lumebook-ambassadors/creators"},
-    {"key": "store", "label": "lumebook.com", "url": "https://lumebook.com/IL/he", "dir": None},
-]
-LINKS = {
-    "form": "https://docs.google.com/forms/d/e/1FAIpQLSculYe4LpG8WUFNDXCVDiP-BPaSbuqx0h7_dGcyU0owmxIxAg/viewform",
-    "sheet": "https://docs.google.com/spreadsheets/d/1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI/edit",
-    "drive": "https://drive.google.com/drive/folders/1awITcQFWfsQqpbL8Lupikw12b6y4EWvB",
-    "tracker": "https://docs.google.com/spreadsheets/d/1JU9y80sIQvzQ_Xt8lgKiJSb6MbKrbglKLMgap-3JNMk",
-    "repo": "https://github.com/yarinbruner/lumebook-smm-plan",
-}
-BARTER_BATCH = ["knafaim.ot_by_noy", "eden_spaiev", "yeladim_ktanim", "etti_haft", "ima.shir", "rotem__unger",
-                "daria_mansour1", "hadas.shvat", "saba.chiche", "bar.levi.adiel", "nataliegaash", "books_are_friends_slp"]
-PAID_HOLD = ["lital_magnezi", "ganotmor", "almaanddad"]
-KEY_DATES = [
-    {"date": "2026-10-31", "label": "אנליטיקה ראשונית + יעדים חדשים"},
-    {"date": "2026-11-10", "label": "ספרי יוצרים לחנוכה"},
-    {"date": "2026-11-22", "label": "דדליין הזמנות לחנוכה", "unconfirmed": True},
-    {"date": "2026-12-04", "label": "חנוכה מתחיל"},
-    {"date": "2026-12-12", "label": "סוף חנוכה"},
-    {"date": "2026-12-31", "label": "סקירה רבעונית"},
-]
-BASELINES = {"lumebook_reels_median": {"value": 48, "date": "2026-10-02"},
-             "mebook_reels_median": {"value": 4000, "date": "2026-10-02"},
-             "mebook_collab_peak": {"value": 86500, "date": "2026-10-02"}}
-TEST_NAME = re.compile(r"בדיקה|test|Yarin Bruner", re.I)  # the owner's own test submissions
+# Shared facts (links, artifact URLs, dates, creator lists) live in shared/facts.json; component paths in lumebook.json.
+REGISTRY = json.load(open(os.path.join(ROOT, "lumebook.json"), encoding="utf-8"))["components"]
+FACTS = json.load(open(os.path.join(ROOT, "shared", "facts.json"), encoding="utf-8"))
+
+
+def _src_file(component):
+    return REGISTRY.get(component or "", {}).get("publish", {}).get("file")
+
+
+ARTIFACTS = [{"key": a["key"], "label": a["label"], "url": a["url"], "file": _src_file(a.get("component")), "date": a["date"],
+              "summary": a.get("summary", ""), "kind": a.get("kind", ""), "component": a.get("component")}
+             for a in FACTS["artifacts"] if a["key"] != "dashboard"]
+SITES = [{"key": x["key"], "label": x["label"], "url": x["url"],
+          "dir": os.path.dirname(os.path.join(REGISTRY[x["component"]]["path"], x["page"])) if x.get("page") else None}
+         for x in FACTS["sites"] if x["key"] != "dash"]
+LINKS = {k: v for k, v in FACTS["links"].items() if k != "sheet_id"}
+BARTER_BATCH = FACTS["creators"]["barter_batch"]
+PAID_HOLD = FACTS["creators"]["paid_hold"]
+KEY_DATES = FACTS["key_dates"]
+BASELINES = FACTS["baselines"]
+TEST_NAME = re.compile(FACTS["test_name_pattern"], re.I)  # the owner's own test submissions
 
 
 def rel(p):
@@ -109,7 +99,7 @@ def ig_profile(handle):
 # ---------- sections ----------
 
 def plan_section():
-    src = open(rel("lumebook-smm-plan/index.html"), encoding="utf-8").read()
+    src = open(rel("sites/lumebook-smm-plan/index.html"), encoding="utf-8").read()
     weeks = []
     for wm in re.finditer(r'<div class="when"><b>([^<]+)</b>.*?<ul class="tasks">(.*?)</ul>', src, re.S):
         tasks = [text_of(t) for t in re.findall(r"<span>(.*?)</span>", wm.group(2), re.S)]
@@ -131,39 +121,39 @@ def plan_section():
                for d, h, ul in re.findall(r'<span class="d">(.*?)</span><h3>(.*?)</h3><ul>(.*?)</ul>', src, re.S)]
     last_commit = None
     try:
-        last_commit = subprocess.run(["git", "-C", rel("lumebook-smm-plan"), "log", "-1", "--format=%cI|%s"],
+        last_commit = subprocess.run(["git", "-C", ROOT, "log", "-1", "--format=%cI|%s", "--", "sites/lumebook-smm-plan"],
                                      capture_output=True, text=True, timeout=10).stdout.strip()
     except Exception:
         pass
     dirty = None
     try:
-        dirty = bool(subprocess.run(["git", "-C", rel("lumebook-smm-plan"), "status", "--porcelain"],
+        dirty = bool(subprocess.run(["git", "-C", ROOT, "status", "--porcelain", "--", "sites/lumebook-smm-plan"],
                                     capture_output=True, text=True, timeout=10).stdout.strip())
     except Exception:
         pass
     lc = last_commit.split("|", 1) if last_commit else [None, None]
     return {"weeks": weeks, "targets": targets, "kpis": kpis, "yossi": yossi, "roadmap": roadmap,
             "last_commit": {"at": lc[0], "msg": lc[1] if len(lc) > 1 else None}, "uncommitted": dirty,
-            "modified": mtime("lumebook-smm-plan/index.html")}
+            "modified": mtime("sites/lumebook-smm-plan/index.html")}
 
 
 def ambassadors_section():
-    hub = open(rel("lumebook-ambassadors/creators/index.html"), encoding="utf-8").read()
+    hub = open(rel("sites/lumebook-ambassadors/creators/index.html"), encoding="utf-8").read()
     placeholders = []
     for m in re.finditer(r'<li>([^<]*)<span class="soon">([^<]*)</span>', hub):
         placeholders.append((m.group(1).strip() + " " + m.group(2).strip()).strip())
     for m in re.finditer(r'<p>([^<]*)<span class="soon">([^<]*)</span>', hub):
         placeholders.append((m.group(1).strip() + " " + m.group(2).strip()).strip())
-    page = open(rel("lumebook-ambassadors/index.html"), encoding="utf-8").read()
+    page = open(rel("sites/lumebook-ambassadors/index.html"), encoding="utf-8").read()
     demo = bool(re.search(r"DEMO\s*=\s*true", page))
     entry_ids = sorted(set(re.findall(r"entry\.(\d+)", page)))
     return {"placeholders": sorted(set(placeholders)), "demo_mode": demo, "entry_ids": len(entry_ids),
-            "modified": max(filter(None, [mtime("lumebook-ambassadors/index.html"),
-                                          mtime("lumebook-ambassadors/creators/index.html")]))}
+            "modified": max(filter(None, [mtime("sites/lumebook-ambassadors/index.html"),
+                                          mtime("sites/lumebook-ambassadors/creators/index.html")]))}
 
 
 def creators_section(network):
-    rows = list(csv.DictReader(open(rel("creator-research/creators-200-2026-10-03.csv"), encoding="utf-8-sig")))
+    rows = list(csv.DictReader(open(rel("creators/creator-research/creators-200-2026-10-03.csv"), encoding="utf-8-sig")))
     num = lambda v: int(float(v)) if v not in ("", None) else None
     tracked_handles = []
     for r in rows:
@@ -203,12 +193,12 @@ def creators_section(network):
         "bands": [[b, bands.get(b, 0)] for b in ["1–5K", "5–10K", "10–25K", "25–50K"]],
         "competitor_conflicts": conflicts, "with_direct_contact_hint": has_contact,
         "tracked": tracked, "checked_on": rows[0]["checked_on"],
-        "modified": mtime("creator-research/creators-200-2026-10-03.csv"),
+        "modified": mtime("creators/creator-research/creators-200-2026-10-03.csv"),
     }
 
 
 def competitor_section():
-    rows = json.load(open(rel("competitor-content-analysis/competitor_content_db.json"), encoding="utf-8"))
+    rows = json.load(open(rel("research/competitor-content-analysis/competitor_content_db.json"), encoding="utf-8"))
     def coded(r):
         c = r.get("coded")
         if isinstance(c, dict):
@@ -242,7 +232,7 @@ def competitor_section():
         "expert_endorsement": proof.get("expert_endorsement", 0),
         "photo_transform": proof.get("photo_to_character_transform", 0),
         "real_reaction": proof.get("real_child_reaction", 0),
-        "outliers": outliers, "modified": mtime("competitor-content-analysis/competitor_content_db.json"),
+        "outliers": outliers, "modified": mtime("research/competitor-content-analysis/competitor_content_db.json"),
     }
 
 
@@ -295,8 +285,44 @@ def sites_section(network):
     return out
 
 
+def carousel_section():
+    """Nightly carousel pipeline: latest packs and approved production runs."""
+    base = os.path.join(ROOT, REGISTRY["carousel-pipeline"]["path"])
+    try:
+        packs = json.load(open(os.path.join(base, "history.json"), encoding="utf-8")).get("packs", [])
+    except (OSError, ValueError):
+        packs = []
+    approved_dir = os.path.join(base, "approved")
+    approved = sorted(d for d in os.listdir(approved_dir) if not d.startswith(".")) if os.path.isdir(approved_dir) else []
+    last = packs[-1] if packs else {}
+    recent = [{"date": x.get("date"), "topic": x.get("topic"), "options": len(x.get("options", [])),
+               "families": sorted(set(o.get("hook_family") for o in x.get("options", []) if o.get("hook_family")))}
+              for x in packs[-10:]][::-1]
+    return {"packs": len(packs), "last_date": last.get("date"), "last_topic": last.get("topic"), "recent": recent,
+            "last_options": [{"id": o.get("id"), "title": o.get("title"), "hook_family": o.get("hook_family"),
+                              "child_name": o.get("child_name"), "code_word": o.get("code_word")} for o in last.get("options", [])],
+            "approved": approved, "modified": mtime(os.path.join(REGISTRY["carousel-pipeline"]["path"], "history.json"))}
+
+
+def sync_section():
+    """What changed, what it affects and what is waiting, from tools/lumebook.py (read-only status run)."""
+    try:
+        r = subprocess.run(["python3", os.path.join(ROOT, "tools", "lumebook.py"), "status", "--json"],
+                           capture_output=True, text=True, timeout=120)
+        st = json.loads(r.stdout)
+    except Exception as e:
+        return {"error": str(e)[:120]}
+    return {"generated_at": st["generated_at"], "counts": st["counts"],
+            "pending": [{"component": x["component"], "action": x["action"]} for x in st["pending"]],
+            "warnings": [x["msg"] for x in st["checks"] if x["level"] in ("error", "warn")][:20],
+            "components": [{"id": c["id"], "name": c["name"], "kind": c["kind"], "path": c["path"], "changed_at": c["changed_at"],
+                            "behind": (c["publish"] or {}).get("behind"), "publish": (c["publish"] or {}).get("type"),
+                            "url": (c["publish"] or {}).get("url"), "schedule": c.get("schedule"),
+                            "feeds": REGISTRY.get(c["id"], {}).get("feeds", [])} for c in st["components"]]}
+
+
 def files_section():
-    skip = {".git", ".vercel", ".site-editor", "node_modules", "out", ".claude"}
+    skip = {".git", ".vercel", ".site-editor", "node_modules", "out", ".claude", ".agents", ".lumebook"}
     files = []
     for dp, dns, fns in os.walk(ROOT):
         dns[:] = [d for d in dns if d not in skip]
@@ -331,6 +357,7 @@ def main():
         "signups": sheet_section(a.sheet_md),
         "creators": creators_section(net), "competitors": competitor_section(),
         "sites": sites_section(net), "files": files_section(),
+        "carousel": carousel_section(), "sync": sync_section(),
         "artifacts": [dict(x, modified=mtime(x["file"]) if x["file"] else None) for x in ARTIFACTS],
         "links": LINKS, "key_dates": KEY_DATES,
     }

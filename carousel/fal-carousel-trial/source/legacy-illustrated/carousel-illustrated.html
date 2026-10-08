@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>LumeBook carousel, new sibling</title>
+<style>
+/* ---------- Fonts (OFL, bundled in ./fonts) ---------- */
+@font-face{font-family:"Rubik";src:url("fonts/Rubik-VariableFont_wght.ttf") format("truetype");font-weight:300 900;font-display:block}
+@font-face{font-family:"Assistant";src:url("fonts/Assistant-VariableFont_wght.ttf") format("truetype");font-weight:200 800;font-display:block}
+
+/* ---------- Design tokens ----------
+   Palette derived from sites/lumebook-ambassadors/index.html (lumebook.com palette):
+   ink #0B0518 / #1D1039 / #291852, gold #E6B762 / #C9954A / #F3D9A1, cream #F8F0E1. */
+:root{
+  --paper:#F3EADC;          /* warm cream paper, the shared ground of every slide */
+  --paper-veil:rgba(243,234,220,.86);
+  --ink:#1D1039;            /* brand ink-2: all primary type */
+  --ink-2:#4B4062;          /* supporting type */
+  --ink-3:#7A6F8C;          /* meta type */
+  --gold:#B07C2E;           /* thread + kickers on paper (darker than brand gold for contrast) */
+  --gold-2:#C9954A;         /* brand gold-2 */
+  --gold-3:#E6B762;         /* brand gold, highlights on ink */
+  --cream:#F8F0E1;
+
+  --display:"Rubik",system-ui,sans-serif;
+  --text:"Assistant",system-ui,sans-serif;
+
+  /* 1080x1350 canvas, Instagram-safe margins (4:5 post; grid preview crops ~34px each side) */
+  --W:1080px; --H:1350px;
+  --m-x:92px; --m-top:84px; --m-bottom:92px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#d9d2c6}
+body{font-family:var(--text);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+
+/* Overview mode (no ?s=) shows every slide in a column for editing */
+.deck{display:flex;flex-direction:column;gap:40px;align-items:center;padding:40px 0}
+body.single .deck{padding:0;gap:0}
+body.single .slide:not(.on){display:none}
+body.single{background:var(--paper)}
+
+.slide{position:relative;width:var(--W);height:var(--H);overflow:hidden;background:var(--paper);isolation:isolate}
+.slide > .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.slide > .grain{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:multiply;opacity:.55;
+  background-image:url("images/paper-grain.png");background-size:540px 540px}
+.slide > .veil{position:absolute;z-index:2;pointer-events:none}
+.slide > svg.thread{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:visible}
+.slide > .chrome, .slide > .copy, .slide > .foot{position:absolute;z-index:4}
+
+/* ---------- Chrome: wordmark + progress (identical on every slide) ---------- */
+.chrome{top:var(--m-top);inset-inline:var(--m-x);display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--text);font-weight:700;font-size:25px;letter-spacing:.01em;color:var(--ink)}
+.wordmark{display:flex;align-items:center;gap:10px;direction:ltr;font-family:var(--display);font-weight:600;font-size:27px;letter-spacing:-.005em}
+.wordmark i{width:11px;height:11px;border-radius:50%;background:var(--gold-2);display:inline-block;box-shadow:0 0 0 5px rgba(201,149,74,.18)}
+.progress{direction:ltr;font-variant-numeric:tabular-nums;color:var(--ink-3);font-weight:600;font-size:23px;letter-spacing:.06em}
+.progress b{color:var(--ink);font-weight:700}
+
+/* ---------- Copy blocks (RTL, right-aligned, one column) ---------- */
+.copy{inset-inline:var(--m-x);text-align:right;display:flex;flex-direction:column;gap:22px}
+.kicker{font-family:var(--text);font-weight:700;font-size:28px;letter-spacing:.015em;color:var(--gold)}
+.h-xl{font-family:var(--display);font-weight:600;font-size:80px;line-height:1.09;letter-spacing:-.012em}
+.h-l{font-family:var(--display);font-weight:500;font-size:66px;line-height:1.14;letter-spacing:-.01em}
+.h-q{font-family:var(--display);font-weight:500;font-size:74px;line-height:1.13;letter-spacing:-.012em}
+.em{color:var(--gold)}
+.body{font-family:var(--text);font-weight:500;font-size:34px;line-height:1.42;color:var(--ink-2)}
+.qmark{font-family:var(--display);font-weight:700;font-size:150px;line-height:.6;color:var(--gold-2);height:62px;margin-bottom:-4px}
+
+/* ---------- Footers ---------- */
+.foot{inset-inline:var(--m-x);bottom:var(--m-bottom);display:flex;justify-content:space-between;align-items:flex-end;font-size:24px;font-weight:600;color:var(--ink-3)}
+.swipe{display:flex;align-items:center;gap:14px;color:var(--ink);font-weight:700;font-size:27px}
+.swipe svg{width:56px;height:20px}
+.handle{direction:ltr;color:var(--ink-2);font-weight:700}
+.ai{font-weight:500;font-size:21px;color:var(--ink-3)}
+
+/* ---------- The recurring motif: one gold thread ---------- */
+svg.thread path{fill:none;stroke:var(--gold);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+svg.thread .end{fill:var(--gold)}
+svg.thread path.ribbon{fill:var(--gold-2);stroke:none}
+.h-m{font-family:var(--display);font-weight:500;font-size:58px;line-height:1.14;letter-spacing:-.01em}
+
+/* ---------- Slide 7: a page of the square 22x22 book ---------- */
+.book{position:absolute;z-index:3;left:290px;top:512px;width:500px;height:500px;margin:0;background:#fff;
+  box-shadow:0 1px 0 #e4d9c6, 0 3px 0 #efe6d6, 0 4px 0 #ddd1bd, 0 6px 0 #f1e9db, 0 22px 40px -12px rgba(29,16,57,.28)}
+.book::after{content:"";position:absolute;top:0;bottom:0;right:0;width:16px;background:linear-gradient(90deg,rgba(29,16,57,0),rgba(29,16,57,.10))}
+.book img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ---------- CTA (slide 7) ---------- */
+.cta{gap:8px}
+.cta .act{font-family:var(--display);font-weight:600;font-size:44px;line-height:1.15;color:var(--ink)}
+.cta .act u{text-decoration:none;background:linear-gradient(transparent 70%,rgba(201,149,74,.38) 70%)}
+.cta .where{font-family:var(--text);font-weight:600;font-size:30px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+<!-- SLIDES_START -->
+<!-- Every slide: art (fal.ai, prepped by prep_art.py) > paper grain > veil > gold thread > type.
+     The thread sits at y=148 on every edge, so it runs unbroken from one slide into the next. -->
+
+<!-- 1 · uncertainty -->
+<section class="slide" data-n="1">
+  <img class="art" src="images/slide-01.jpg" alt="">
+  <div class="grain"></div>
+  <div class="veil" style="left:0;bottom:0;width:520px;height:260px;background:radial-gradient(ellipse 100% 100% at 0% 100%,var(--paper-veil) 35%,rgba(243,234,220,0) 75%)"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><circle class="end" cx="100" cy="148" r="6"/><path d="M100 148 C 300 148, 420 134, 580 140 S 880 158, 1080 148"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>1</b>/7</span></div>
+  <div class="copy" style="top:214px">
+    <span class="kicker">אח קטן בדרך</span>
+    <h1 class="h-xl">עוד מעט נולד תינוק.<br>וגם הילד הגדול שלכם<br><span class="em">עומד להיוולד מחדש.</span></h1>
+  </div>
+  <div class="foot" style="justify-content:flex-end"><span class="swipe">החליקו <svg viewBox="0 0 56 20"><path d="M54 10H4M12 2 3 10l9 8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+</section>
+
+<!-- 2 · closeness -->
+<section class="slide" data-n="2">
+  <img class="art" src="images/slide-02.jpg" alt="">
+  <div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M0 148 C 220 148, 380 150, 470 150 C 540 150, 572 112, 540 98 C 506 84, 470 118, 520 142 C 580 170, 780 148, 1080 148"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>2</b>/7</span></div>
+  <div class="copy" style="top:214px">
+    <span class="kicker">לפני הכול</span>
+    <h2 class="h-l">לפני שמבקשים ממנו לשמוח,<br><span class="em">תנו מקום לכל מה שהוא מרגיש.</span></h2>
+  </div>
+</section>
+
+<!-- 3 · mixed feelings: the thread splits in two and rejoins -->
+<section class="slide" data-n="3">
+  <img class="art" src="images/slide-03.jpg" alt="">
+  <div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M360 148 C 460 148, 500 174, 600 174 S 760 148, 860 148"/><path d="M0 148 C 160 148, 280 148, 360 148 C 460 148, 500 122, 600 122 S 760 148, 860 148 L 1080 148"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>3</b>/7</span></div>
+  <div class="copy" style="top:214px">
+    <span class="kicker">מה אפשר להגיד לו</span>
+    <h2 class="h-q">״מותר לך לאהוב אותו<br>וגם להתגעגע למה שהיה.״</h2>
+  </div>
+</section>
+
+<!-- 4 · belonging: a small knot -->
+<section class="slide" data-n="4">
+  <img class="art" src="images/slide-04.jpg" alt="">
+  <div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M0 148 L 470 148 C 510 148, 532 112, 512 102 C 490 92, 480 136, 540 148 C 600 160, 590 204, 568 194 C 548 184, 570 148, 610 148 L 1080 148"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>4</b>/7</span></div>
+  <div class="copy" style="top:214px">
+    <span class="kicker">ועוד משפט ששווה להגיד</span>
+    <h2 class="h-q">״יש דברים שיישארו<br>רק שלנו.״</h2>
+  </div>
+</section>
+
+<!-- 5 · permission to stay small: the thread slackens -->
+<section class="slide" data-n="5">
+  <img class="art" src="images/slide-05.jpg" alt="">
+  <div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M0 148 C 140 148, 220 186, 340 186 S 520 150, 640 148 L 1080 148"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>5</b>/7</span></div>
+  <div class="copy" style="top:214px">
+    <span class="kicker">ואולי החשוב מכולם</span>
+    <h2 class="h-q">״אתה לא צריך להיות גדול<br>כל הזמן.״</h2>
+  </div>
+</section>
+
+<!-- 6 · the story world -->
+<section class="slide" data-n="6">
+  <img class="art" src="images/slide-06.jpg" alt="">
+  <div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path d="M0 148 C 240 148, 330 120, 470 120 S 760 150, 1080 148"/></svg>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>6</b>/7</span></div>
+  <div class="copy" style="top:214px">
+    <span class="kicker">למה דווקא סיפור</span>
+    <h2 class="h-l">כשהוא פוגש את הרגע בסיפור,<br>הוא יכול להתאמן עליו<br><span class="em">לפני שהוא מגיע.</span></h2>
+  </div>
+</section>
+
+<!-- 7 · new role + CTA: the thread becomes the book's ribbon bookmark -->
+<section class="slide" data-n="7">
+  <div class="grain"></div>
+  <svg class="thread" viewBox="0 0 1080 1350"><path class="ribbon" d="M336 1008 L 336 1084 L 346 1072 L 356 1084 L 356 1008 Z"/><path d="M0 148 C 120 148, 170 190, 180 280 S 196 470, 336 520"/></svg>
+  <figure class="book"><img src="images/slide-07-page.jpg" alt=""></figure>
+  <div class="chrome"><span class="wordmark"><i></i>LumeBook</span><span class="progress"><b>7</b>/7</span></div>
+  <div class="copy" style="top:214px">
+    <span class="kicker">הספר ״אח חדש״ · LumeBook</span>
+    <h2 class="h-m">בסיפור הזה הוא לא מאבד<br>את המקום שלו.<br><span class="em">הוא מגלה תפקיד חדש.</span></h2>
+  </div>
+  <div class="copy cta" style="top:1074px">
+    <span class="act"><u>צרו תצוגה מקדימה בחינם</u></span>
+    <span class="where">לספר ״אח חדש״, עם השם והתמונה שלו · הקישור בביו</span>
+  </div>
+  <div class="foot"><span class="ai">האיורים נוצרו בעזרת AI</span><span class="handle">@lumebookai</span></div>
+</section>
+<!-- SLIDES_END -->
+</main>
+<script>
+const p=new URLSearchParams(location.search), s=p.get("s");
+if(s){document.body.classList.add("single");const el=document.querySelector('.slide[data-n="'+s+'"]');if(el)el.classList.add("on");}
+</script>
+</body>
+</html>

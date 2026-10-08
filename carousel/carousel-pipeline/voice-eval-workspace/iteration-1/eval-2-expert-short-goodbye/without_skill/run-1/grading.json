@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "text": "Output is JSON with every requested key",
+      "passed": true,
+      "evidence": "keys: ['caption', 'cta', 'hook', 'slide3', 'slide4', 'slide5']"
+    },
+    {
+      "text": "No em dash, period or comma in any audience field",
+      "passed": false,
+      "evidence": "ERROR slide3 line 2 col 14: forbidden comma ',' (U+002C) in «הוא נצמד לרגל, אתם מתכופפים לעוד חיבוק, \"רק עוד דקה\".»; ERROR slide3 line 2 col 39: forbidden comma ',' (U+002C) in «הוא נצמד לרגל, אתם מתכופפים לעוד חיבוק, \"רק עוד דקה\".»; ERROR slide3 line 2 col 53: forbidden period '.' (U+002E) in «הוא נצמד לרגל, אתם מתכופפים לעוד חיבוק, \"רק עוד דקה\".»; ERROR slide3 line 3 col 28: forbidden period '.' (U+002E) in «ובסוף יוצאים מהגן עם לב כבד.»; ERROR slide4 line 2 col 18: forbidden period '.' (U+002E) in «פרידה קצרה ומתוקה. כשמתעכבים, גם המעבר לגן מתארך.»; ERROR slide4 line 2 col 29: forbidden comma ',' (U+002C) in «פרידה קצרה ומתוקה. כשמתעכבים, גם המעבר לגן מתארך.»"
+    },
+    {
+      "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+      "passed": true,
+      "evidence": "none found"
+    },
+    {
+      "text": "CTA keeps the brief's idea with the code word פרידה and has no second CTA",
+      "passed": true,
+      "evidence": "כתבו פרידה בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור"
+    },
+    {
+      "text": "Caption ends with the exact CTA and adds no other CTA",
+      "passed": false,
+      "evidence": "last line: #פרידה_בגן #גן #הורות #לומבוק; extra CTA lines: ['שמרו את הפוסט לבוקר של מחר.']"
+    },
+    {
+      "text": "Every line has at most 12 words (one thought per line)",
+      "passed": false,
+      "evidence": "hook: בוכה בפרידה בגן ואתם נשארים עוד רגע? זה בדיוק מה שמאריך את הפרידה; slide5: 2. משפט אחד שאומר מתי חוזרים, לפי סדר היום בגן: \"אני אבוא אחרי המנוחה ולפני ארוחת אחר הצהריים\"; caption: ההמלצה של האקדמיה האמריקאית לרפואת ילדים: פרידה קצרה ומתוקה, כי כשמתעכבים גם המעבר מתארך.; caption: ובמקום \"עוד מעט\", להגיד לילד מתי בדיוק חוזרים, במילים שהוא מבין. למשל: \"אני אבוא אחרי המנוחה ולפני ארוחת אחר הצהריים\"."
+    },
+    {
+      "text": "hook: main line up to 8 words and up to 12 words in total",
+      "passed": false,
+      "evidence": "main 13 words, total 13"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 4,
+    "total": 7,
+    "pass_rate": 0.429
+  }
+}

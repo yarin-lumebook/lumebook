@@ -1,0 +1,701 @@
+{
+ "models": {
+  "nb2": {
+   "endpoint": "fal-ai/nano-banana-2",
+   "est_cost_usd": 0.08,
+   "defaults": {
+    "aspect_ratio": "4:5",
+    "resolution": "1K",
+    "output_format": "png",
+    "num_images": 1,
+    "limit_generations": true
+   }
+  },
+  "nb2-edit": {
+   "endpoint": "fal-ai/nano-banana-2/edit",
+   "est_cost_usd": 0.08,
+   "defaults": {
+    "aspect_ratio": "4:5",
+    "resolution": "1K",
+    "output_format": "png",
+    "num_images": 1,
+    "limit_generations": true
+   }
+  },
+  "sd5": {
+   "endpoint": "bytedance/seedream/v5/pro/text-to-image",
+   "est_cost_usd": 0.0675,
+   "defaults": {
+    "image_size": {
+     "width": 1080,
+     "height": 1350
+    },
+    "output_format": "png",
+    "num_images": 1,
+    "enhance_prompt_mode": "standard"
+   }
+  },
+  "sd5-edit": {
+   "endpoint": "bytedance/seedream/v5/pro/edit",
+   "est_cost_usd": 0.0675,
+   "defaults": {
+    "image_size": {
+     "width": 1080,
+     "height": 1350
+    },
+    "output_format": "png",
+    "num_images": 1,
+    "enhance_prompt_mode": "standard"
+   }
+  },
+  "schnell": {
+   "endpoint": "fal-ai/flux/schnell",
+   "est_cost_usd": 0.003,
+   "defaults": {
+    "image_size": "portrait_4_3",
+    "num_inference_steps": 4,
+    "num_images": 1,
+    "output_format": "png",
+    "enable_safety_checker": true
+   }
+  },
+  "recraft": {
+   "endpoint": "recraft/v4.1/flash/text-to-image",
+   "est_cost_usd": 0.007,
+   "defaults": {
+    "image_size": "portrait_4_3"
+   }
+  },
+  "flux3": {
+   "endpoint": "blackforestlabs/flux-3/text-to-image",
+   "est_cost_usd": 0.024,
+   "defaults": {
+    "aspect_ratio": "4:5",
+    "resolution": "1k",
+    "output_format": "png"
+   }
+  },
+  "sd5flash": {
+   "endpoint": "bytedance/seedream/v5/flash/text-to-image",
+   "est_cost_usd": 0.027,
+   "defaults": {
+    "image_size": {
+     "width": 1080,
+     "height": 1350
+    },
+    "output_format": "png",
+    "num_images": 1
+   }
+  },
+  "gpt25": {
+   "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+   "est_cost_usd": 0.041,
+   "defaults": {
+    "image_size": "portrait_4_3",
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1
+   }
+  },
+  "gpt2": {
+   "endpoint": "openai/gpt-image-2",
+   "est_cost_usd": 0.042,
+   "defaults": {
+    "image_size": "portrait_4_3",
+    "quality": "medium",
+    "output_format": "png",
+    "num_images": 1
+   }
+  },
+  "ideogram": {
+   "endpoint": "ideogram/v4.5",
+   "est_cost_usd": 0.06,
+   "defaults": {
+    "image_size": "portrait_4_3",
+    "quality": "medium",
+    "num_images": 1,
+    "enable_prompt_expansion": false
+   }
+  },
+  "nbpro": {
+   "endpoint": "fal-ai/nano-banana-pro",
+   "est_cost_usd": 0.15,
+   "defaults": {
+    "aspect_ratio": "4:5",
+    "resolution": "1K",
+    "output_format": "png",
+    "num_images": 1,
+    "limit_generations": true
+   }
+  },
+  "gpt25sun": {
+   "endpoint": "openai/gpt-image-2.5/sunburst/text-to-image",
+   "est_cost_usd": 0.041,
+   "defaults": {
+    "image_size": "portrait_4_3",
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1
+   }
+  },
+  "gpt25edit": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "est_cost_usd": 0.045,
+   "defaults": {
+    "image_size": "portrait_4_3",
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1
+   }
+  }
+ },
+ "blocks": {
+  "STYLE_PAPER": "Editorial children's picture-book illustration in gouache and soft coloured pencil on warm off-white cotton paper. Visible paper tooth, dry-brush edges and fine pencil hatching; matte and hand-made, no digital gloss. Soft natural daylight from a window on the left, gentle lilac-grey shadows. Restrained palette: warm cream paper, deep plum-violet, muted ochre gold, dusty rose, pale oak wood, soft warm grey. Quiet, intimate, emotionally honest and understated, like a modern European picture book that adults linger over. Not cartoon, not anime, not 3D, not photographic, no airbrushed skin, no sparkles, no fantasy glow.",
+  "STYLE_NIGHT": "Editorial children's picture-book illustration in gouache on dark toned paper. A deep ink-violet night palette (near-black violet, plum, muted indigo) with a single warm light source: a small paper lamp standing on the floor that casts a soft golden pool of light. Visible brush texture and paper tooth; matte and hand-made, no digital gloss, no neon, no sparkles, no stars. Quiet, intimate, emotionally honest and understated, like a modern European picture book that adults linger over. Not cartoon, not anime, not 3D, not photographic, no airbrushed skin.",
+  "CHILD": "The child: a 4-year-old boy with short, slightly tousled dark-brown hair, warm olive skin, soft round cheeks, dark brown eyes, small straight eyebrows and a small nose. He wears a plum-violet knitted sweater with a cream rounded collar, loose oatmeal-beige trousers and grey wool socks.",
+  "SCENE_COVER": "Scene: the boy sits on the floorboards of a quiet bedroom with his knees pulled up, beside a small empty wooden bassinet made up with a folded cream blanket. One arm hugs a worn, floppy grey plush rabbit. He looks sideways up at the empty bassinet with an uncertain, thoughtful expression, lips pressed together, not crying. His face is in clear three-quarter view toward the viewer.",
+  "COMP_TOP_EMPTY_PAPER": "Composition for a vertical 4:5 slide: the boy and the bassinet sit in the lower half of the frame, slightly right of centre; the whole upper half is plain, empty cream paper with only the faintest wash of wall tone, kept clear for typography. A soft patch of afternoon light falls across the floor.",
+  "COMP_TOP_EMPTY_NIGHT": "Composition for a vertical 4:5 slide: the boy, the bassinet and the lamp sit in the lower half of the frame, slightly right of centre, inside the pool of lamplight; the whole upper half is calm, empty dark violet with only subtle paper texture, kept clear for typography.",
+  "NO_TEXT": "No text, no letters, no numbers, no logos, no watermark, no signature, no frame or border.",
+  "REF_LOCK": "Use the reference image as the character and style reference. Keep exactly the same boy: the same face, the same tousled dark-brown hair, the same warm olive skin and rosy cheeks, the same plum-violet knitted sweater with the cream rounded collar, the same oatmeal-beige trousers and grey wool socks. Keep exactly the same illustration technique: gouache and soft coloured pencil on warm off-white paper, the same fine pencil linework and paper tooth, the same restrained palette of cream, plum-violet, lilac-grey shadows and pale oak wood, the same soft daylight. Draw a completely new scene and camera angle; do not copy the reference layout.",
+  "MOTHER": "His mother appears only partly: dark hair in a loose low bun, a soft oatmeal linen shirt; her face is never shown (turned away, bowed and hidden by her hair, or out of frame).",
+  "COMP_TOP_EMPTY": "Composition for a vertical 4:5 slide: all figures and objects sit in the lower 55% of the frame; the upper 45% is plain, empty cream paper with only the faintest wash of wall tone, kept completely clear for typography.",
+  "SCENE_2": "Scene: the boy and his mother sit side by side on the floor of a quiet bedroom. He leans his head against her shoulder and she rests her arm around his shoulders, her head tilted toward his and turned away from the viewer. Beside them on the floor lies a small neat stack of folded tiny baby clothes with a little knitted baby hat on top: the new baby is coming. The boy's face is in clear three-quarter view: thoughtful and a little unsure, but held and calmer.",
+  "SCENE_3": "Scene: the same small wooden baby bed from the reference now holds a sleeping newborn swaddled in a cream blanket (only the swaddled bundle and a tiny sleeping face in profile are visible). The boy stands beside it on tiptoe with his chin resting on the bed's edge, looking at the baby with a mixed expression: tender and curious, and also a little wistful. Behind his back, his other hand still holds the worn grey plush rabbit by one ear.",
+  "SCENE_4": "Scene: a wide, quiet view from behind. The boy and his mother walk away from the viewer, hand in hand, along a simple path through a sparse park drawn with a few pencil trees and pale grass; just the two of them, no baby, no pram. His small hand is in hers; he looks up at her. Their backs are to the viewer. Calm, private, unhurried.",
+  "SCENE_5": "Scene: the boy is curled up in his mother's lap in a soft armchair, wrapped in a cream knitted baby blanket that is too small for him, like a much younger child. Her arms hold him close; her head is bowed over him so her face is hidden by her hair and out of view. The boy's eyes are half closed and his face is peaceful and safe. The worn grey plush rabbit is tucked under his chin.",
+  "SCENE_6": "Scene: a close view over the boy's shoulder as he sits on the floor with a large square picture book open on his lap. The open pages show a painted illustration, in the same style, of this same boy in his plum-violet sweater gently holding a newborn's tiny hand beside a small wooden baby bed. The book's pages contain illustration only, with no writing at all. His face is partly visible in three-quarter profile: absorbed, recognising himself, a small beginning of a smile.",
+  "SCENE_7": "Scene: the boy sits upright and proud on the floor next to the small wooden baby bed where the swaddled newborn sleeps, reading aloud from a large square softcover picture book held open in both hands, tilted toward the baby. A thin ochre-gold ribbon bookmark hangs from the book. His face is in clear three-quarter view: confident, gentle, a quiet smile. The grey plush rabbit sits beside him on the floor.",
+  "SCENE_2_REJECTED": "Scene: the boy sits on the floor leaning his head against his pregnant mother's side; she sits beside him on the floor with her arm wrapped around him and her rounded belly visible in profile. Her head is bowed toward him and turned away from the viewer. The boy's face is in clear three-quarter view: thoughtful and a little unsure, but held and calmer. Closeness, quiet, no smiles forced.",
+  "FIX_2": "Edit this illustration. Remove the pair of outstretched legs in beige trousers and grey socks that extend to the left from behind the boy in the lower-left of the image, and fill that area with the same plain pale floorboards and soft lilac shadow. The mother now sits with her legs folded beside her, hidden behind the boy. Keep everything else exactly the same: the boy, his face and expression, his sweater, his own legs and grey socks, the mother, her hands, the folded baby clothes, the illustration style, paper texture, colours, composition and framing.",
+  "STYLE_TEST_SCENE": "Scene: a 4-year-old boy with short tousled dark-brown hair, plum-violet sweater with a cream collar, leans on the edge of a small wooden baby bed where a swaddled newborn sleeps. His mother, dark hair in a low bun, in an oatmeal linen shirt, stands behind him with a hand on his shoulder, looking down at both children with a soft smile; her face is clearly visible. The upper 40% of the frame is plain empty space for typography. No text, no letters, no logos, no watermark.",
+  "style-1-3d-cartoon-blk": "Glossy Pixar-style 3D-rendered children's book cover illustration: rounded, big-eyed, expressive characters, saturated jewel colours, warm magical glow, soft rim light, rich purple and gold palette, polished and cinematic.",
+  "style-2-photoreal-blk": "Warm golden-hour photo-realistic portrait, soft cinematic backlight, shallow depth of field, glowing natural light, realistic skin and fabrics, intimate family moment.",
+  "style-3-painted-lumebook-blk": "Hand-painted gouache storybook illustration with a little more cartoon charm in the faces, richer saturated plum, ochre and rose, warm glow, brand violet and gold accents, soft paper texture.",
+  "style-4-mixed-blk": "A rounded, slightly stylised 3D-ish child character with large friendly eyes and soft clay-like shading, placed inside a soft painterly paper-textured room with muted watercolour walls and warm window light.",
+  "STYLE_PHOTO": "Warm golden-hour photo-realistic family portrait, soft cinematic backlight from a window, shallow depth of field, natural skin with visible pores and small imperfections, real fabric and wood textures, calm intimate documentary feel, muted warm palette of cream, plum and oak, no glossy retouching.",
+  "STYLE_PAINT_LB": "Hand-painted gouache and coloured-pencil storybook illustration with warm, charming, slightly rounded faces, richer saturated plum-violet, ochre gold and dusty rose, a soft golden glow of window light, visible paper texture and brush edges, brand violet and gold accents, calm and emotionally honest, not glossy, not 3D.",
+  "SCENE_STYLE_FINAL": "Scene: a 4-year-old boy with short tousled dark-brown hair, olive skin, plum-violet knitted sweater with a cream collar, leans his chin on the edge of a small wooden baby bed where a swaddled newborn sleeps. His mother, dark hair in a low bun, oatmeal linen shirt, stands behind him with one hand on his shoulder and looks down at both children with a soft, tender smile; her face is clearly visible and natural. The boy's expression is tender and a little wistful. Composition for a vertical 4:5 slide: figures and bed sit in the lower 55% of the frame; the upper 45% is plain, empty, softly lit wall with no objects, kept clear for typography. No text, no letters, no logos, no watermark.",
+  "P_REF": "Use the reference image as the character reference. Keep exactly the same boy (same face, short tousled dark-brown hair, olive skin, plum-violet knitted sweater with cream collar, oatmeal trousers) and the same mother (same face, dark hair in a low bun, oatmeal linen shirt). Keep the same photo-realistic style: natural skin with visible pores, soft natural light, real fabric textures, documentary feel, no retouching, no glossy skin. Photograph a completely new scene and camera angle.",
+  "P_DAY": "Composition for a vertical 4:5 slide: the people and objects sit in the lower 55% of the frame; the upper 45% is a plain, softly lit, empty warm-cream wall with no objects, no curtains and no lamps, kept clear for typography.",
+  "P_NIGHT": "Composition for a vertical 4:5 slide: the people and objects sit in the lower 55% of the frame; the upper 45% is a plain, empty, dark violet-blue wall in deep shadow with no objects, kept clear for typography. Dim evening light: deep violet-blue shadows with one small warm lamp as the only light source.",
+  "P_S1": "Scene: the boy, alone, sits on the wooden floor of a quiet bedroom with his knees pulled up, one hand on his cheek, looking sideways at a small empty wooden baby crib made up with a folded cream blanket. His expression is uncertain and thoughtful, lips pressed together, not crying. A worn grey plush rabbit rests in his lap. His face is in clear three-quarter view.",
+  "P_S2": "Scene: the boy and his mother sit side by side on the floor of a quiet bedroom. He leans his head on her shoulder and she holds him close with one arm, her cheek resting on his hair, eyes closed, tender. Her face is visible. Beside them lies a small neat stack of folded tiny baby clothes with a little knitted baby hat on top. The boy looks unsure but held.",
+  "P_S4": "Scene: the boy and his mother walk away along a sunlit park path hand in hand, photographed from behind and slightly to the side at child height; she glances down at him with a soft smile, her face visible in profile. Pale grass, a few trees in soft focus. No baby, no pram. Late-afternoon light.",
+  "P_S5": "Scene: the boy is curled up in his mother's lap in a soft armchair, wrapped in a small cream knitted baby blanket that is too small for him, like a much younger child. Her arms hold him close, her face is visible and gentle, looking down at him. His eyes are half closed and his face is peaceful and safe. The grey plush rabbit is tucked under his chin.",
+  "P_S6": "Scene: the boy sits on the floor in the lamplight with a large square picture book open on his lap, seen over his shoulder. The open pages show a painted storybook illustration of this same boy in a plum sweater gently holding a newborn's tiny hand beside a small crib. The pages contain illustration only and no writing at all. His face is visible in three-quarter profile: absorbed, recognising himself, a small beginning of a smile.",
+  "P_S7": "Scene: the boy sits upright and proud on the floor in the lamplight next to a small wooden crib where a swaddled newborn sleeps, reading aloud from a large square softcover picture book held open toward the baby; a thin ochre-gold ribbon bookmark hangs from the book. His face is in clear three-quarter view: confident, gentle, a quiet smile. The grey plush rabbit sits beside him.",
+  "STYLE_CGI": "Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Warm cream wall, plum-violet and oatmeal palette.",
+  "SCENE_CGI_5": "Scene: a 4-year-old boy with short tousled dark-brown hair, olive skin, plum-violet knitted sweater with a cream collar, curled up in his mother's lap in a soft cream armchair, wrapped in a small cream knitted baby blanket that is too small for him. His mother, dark hair in a low bun, oatmeal linen shirt, holds him close with her face visible, gentle and loving, looking down at him. His eyes are half closed, peaceful and safe. A worn grey plush rabbit is tucked under his chin. Composition for a vertical 4:5 image: the figures sit in the lower 55% of the frame; the upper 45% is a plain empty warm cream wall with nothing on it. No text, no letters, no logos, no watermark.",
+  "SCENE_CGI_5_NB2": "Scene: a 4-year-old boy (clearly a young child, not a toddler) with short tousled dark-brown hair, olive skin, plum-violet knitted sweater with a cream collar, curled up in his mother's lap in a soft cream armchair, wrapped in a small cream knitted baby blanket that is too small for him. His mother, with dark hair in a neat low bun at the back of her head, wearing an oatmeal linen shirt, holds him close; her face is visible, gentle and loving, looking down at him. His eyes are half closed, peaceful and safe. A worn grey plush rabbit is tucked under his chin. Composition for a vertical 4:5 image, wide framing: both figures and the armchair sit entirely in the lower 55% of the frame, with the mother's head no higher than 45% of the way down the image. The upper 45% of the frame is a plain, empty, softly lit warm cream wall with nothing on it. No text, no letters, no logos, no watermark.",
+  "CUTE_5": "Edit this image. Make both faces cuter, in the same 3D animated-film style: larger, rounder eyes with soft sparkly catch-lights; rounder, chubbier cheeks with a gentle rosy blush; smaller, softer noses and smaller chins; a small, content smile on both the mother and the boy. Make the boy look about 3 years old, with a slightly bigger head relative to his body and softer baby-like features. Keep everything else exactly the same: the composition and framing, the empty cream wall in the upper part of the image, the armchair, the plum-violet sweater with the cream collar, the mother's oatmeal linen shirt and neat low bun, the grey plush rabbit, the blanket, the hands, the lighting and the colours. No text, no letters, no logos, no watermark.",
+  "CUTE_FACES": "Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins, gentle content smiles on both faces; the boy looks about 3 to 4 years old with a slightly bigger head relative to his body.",
+  "F_REF": "Use the reference image as the character and style reference. Keep exactly the same two characters: the same little boy (same cute face, big round eyes, chubby rosy cheeks, tousled brown hair, plum-violet knitted sweater with a cream collar) and the same mother (same face and big warm eyes, dark-brown hair in a soft low bun, oatmeal linen shirt). Keep the same feature-film 3D animated style, the same soft warm lighting and the same cosy textures. Draw a completely new scene and camera angle; do not copy the reference layout.",
+  "F_DAY": "Composition for a vertical 4:5 image: the characters and objects sit in the lower 55% of the frame; the upper 45% is a plain, empty, softly lit warm cream wall with nothing on it, kept clear for typography. No text, no letters, no logos, no watermark.",
+  "F_NIGHT": "Composition for a vertical 4:5 image: the characters and objects sit in the lower 55% of the frame; the upper 45% is a plain, empty, dim violet-blue wall in soft shadow, kept clear for typography. Evening: deep violet-blue shadows, one small warm lamp as the only light. No text, no letters, no logos, no watermark.",
+  "F_DAY_SKY": "Composition for a vertical 4:5 image: the characters sit in the lower 55% of the frame; the upper 45% is kept clear for typography. No text, no letters, no logos, no watermark.",
+  "F_S1": "Scene: the boy alone sits on the wooden floor of a quiet nursery with his knees pulled up, chin resting on one hand, looking sideways at a small empty wooden crib made up with a folded cream blanket. He hugs the grey plush rabbit. His expression is uncertain and thoughtful, a small worried pout, not crying.",
+  "F_S2": "Scene: the boy and his mother sit side by side on the floor of a quiet bedroom. He leans his head on her shoulder and she holds him close with one arm, her cheek resting on his hair, eyes softly closed. Beside them lies a small neat stack of folded tiny baby clothes with a little knitted baby hat on top. The boy looks unsure but held.",
+  "F_S3": "Scene: the boy stands on tiptoe and rests his chin on the edge of a small wooden crib where a newborn baby sleeps swaddled in a cream blanket. His mother stands behind him with one hand on his shoulder, smiling softly down at both children. The boy looks tender and a little wistful. He holds the grey plush rabbit behind his back by one ear.",
+  "F_S4": "Scene: the boy and his mother walk away along a sunny park path, hand in hand, seen from behind and slightly to the side; she glances down at him with a soft smile, her face visible in profile, and he looks up at her. Soft golden afternoon light, a few rounded trees far in the background. No baby, no pram. The upper 45% is a plain, empty pale golden sky with no trees or clouds in it.",
+  "F_S6": "Scene: the boy sits on a rug in the lamplight with a large square picture book open on his lap, seen over his shoulder; his mother sits close beside him. The open pages show a painted storybook illustration of this same boy in his plum sweater gently holding a newborn's tiny hand beside a small crib. The pages contain illustration only, no writing at all. His face is visible in three-quarter profile: absorbed, recognising himself, a small beginning of a smile.",
+  "F_S7": "Scene: the boy sits upright and proud on the floor next to a small wooden crib where the swaddled newborn sleeps, reading aloud from a large square softcover picture book held open toward the baby; a thin ochre-gold ribbon bookmark hangs from the book. His face is in clear three-quarter view: confident, gentle, a big warm smile. The grey plush rabbit sits beside him."
+ },
+ "jobs": {
+  "cover-A-nb2": {
+   "model": "nb2",
+   "params": {
+    "seed": 4207
+   },
+   "prompt": [
+    "STYLE_PAPER",
+    "CHILD",
+    "SCENE_COVER",
+    "COMP_TOP_EMPTY_PAPER",
+    "NO_TEXT"
+   ]
+  },
+  "cover-A-sd5": {
+   "model": "sd5",
+   "params": {},
+   "prompt": [
+    "STYLE_PAPER",
+    "CHILD",
+    "SCENE_COVER",
+    "COMP_TOP_EMPTY_PAPER",
+    "NO_TEXT"
+   ]
+  },
+  "cover-B-nb2": {
+   "model": "nb2",
+   "params": {
+    "seed": 4207
+   },
+   "prompt": [
+    "STYLE_NIGHT",
+    "CHILD",
+    "SCENE_COVER",
+    "COMP_TOP_EMPTY_NIGHT",
+    "NO_TEXT"
+   ]
+  },
+  "cover-B-sd5": {
+   "model": "sd5",
+   "params": {},
+   "prompt": [
+    "STYLE_NIGHT",
+    "CHILD",
+    "SCENE_COVER",
+    "COMP_TOP_EMPTY_NIGHT",
+    "NO_TEXT"
+   ]
+  },
+  "s2": {
+   "model": "nb2-edit",
+   "refs": [
+    "cover-A-nb2"
+   ],
+   "params": {
+    "seed": 4212
+   },
+   "prompt": [
+    "REF_LOCK",
+    "CHILD",
+    "MOTHER",
+    "SCENE_2",
+    "COMP_TOP_EMPTY",
+    "NO_TEXT"
+   ]
+  },
+  "s3": {
+   "model": "nb2-edit",
+   "refs": [
+    "cover-A-nb2"
+   ],
+   "params": {
+    "seed": 4203
+   },
+   "prompt": [
+    "REF_LOCK",
+    "CHILD",
+    "SCENE_3",
+    "COMP_TOP_EMPTY",
+    "NO_TEXT"
+   ]
+  },
+  "s4": {
+   "model": "nb2-edit",
+   "refs": [
+    "cover-A-nb2"
+   ],
+   "params": {
+    "seed": 4204
+   },
+   "prompt": [
+    "REF_LOCK",
+    "CHILD",
+    "MOTHER",
+    "SCENE_4",
+    "COMP_TOP_EMPTY",
+    "NO_TEXT"
+   ]
+  },
+  "s5": {
+   "model": "nb2-edit",
+   "refs": [
+    "cover-A-nb2"
+   ],
+   "params": {
+    "seed": 4205
+   },
+   "prompt": [
+    "REF_LOCK",
+    "CHILD",
+    "MOTHER",
+    "SCENE_5",
+    "COMP_TOP_EMPTY",
+    "NO_TEXT"
+   ]
+  },
+  "s6": {
+   "model": "nb2-edit",
+   "refs": [
+    "cover-A-nb2"
+   ],
+   "params": {
+    "seed": 4206
+   },
+   "prompt": [
+    "REF_LOCK",
+    "CHILD",
+    "SCENE_6",
+    "COMP_TOP_EMPTY",
+    "NO_TEXT"
+   ]
+  },
+  "s7": {
+   "model": "nb2-edit",
+   "refs": [
+    "cover-A-nb2"
+   ],
+   "params": {
+    "seed": 4207
+   },
+   "prompt": [
+    "REF_LOCK",
+    "CHILD",
+    "SCENE_7",
+    "COMP_TOP_EMPTY",
+    "NO_TEXT"
+   ]
+  },
+  "s2-fix": {
+   "model": "nb2-edit",
+   "refs": [
+    "s2"
+   ],
+   "params": {
+    "seed": 4222
+   },
+   "prompt": [
+    "FIX_2",
+    "NO_TEXT"
+   ]
+  },
+  "style-1-3d-cartoon": {
+   "model": "schnell",
+   "params": {
+    "seed": 77
+   },
+   "prompt": [
+    "style-1-3d-cartoon-blk",
+    "STYLE_TEST_SCENE"
+   ]
+  },
+  "style-2-photoreal": {
+   "model": "schnell",
+   "params": {
+    "seed": 77
+   },
+   "prompt": [
+    "style-2-photoreal-blk",
+    "STYLE_TEST_SCENE"
+   ]
+  },
+  "style-3-painted-lumebook": {
+   "model": "schnell",
+   "params": {
+    "seed": 77
+   },
+   "prompt": [
+    "style-3-painted-lumebook-blk",
+    "STYLE_TEST_SCENE"
+   ]
+  },
+  "style-4-mixed": {
+   "model": "schnell",
+   "params": {
+    "seed": 77
+   },
+   "prompt": [
+    "style-4-mixed-blk",
+    "STYLE_TEST_SCENE"
+   ]
+  },
+  "style-2-nb2": {
+   "model": "nb2",
+   "params": {
+    "seed": 77
+   },
+   "prompt": [
+    "STYLE_PHOTO",
+    "SCENE_STYLE_FINAL"
+   ]
+  },
+  "style-3-nb2": {
+   "model": "nb2",
+   "params": {
+    "seed": 77
+   },
+   "prompt": [
+    "STYLE_PAINT_LB",
+    "SCENE_STYLE_FINAL"
+   ]
+  },
+  "p1": {
+   "model": "nb2-edit",
+   "refs": [
+    "style-2-nb2"
+   ],
+   "params": {
+    "seed": 5101
+   },
+   "prompt": [
+    "P_REF",
+    "P_S1",
+    "P_DAY",
+    "NO_TEXT"
+   ]
+  },
+  "p2": {
+   "model": "nb2-edit",
+   "refs": [
+    "style-2-nb2"
+   ],
+   "params": {
+    "seed": 5102
+   },
+   "prompt": [
+    "P_REF",
+    "P_S2",
+    "P_DAY",
+    "NO_TEXT"
+   ]
+  },
+  "p4": {
+   "model": "nb2-edit",
+   "refs": [
+    "style-2-nb2"
+   ],
+   "params": {
+    "seed": 5104
+   },
+   "prompt": [
+    "P_REF",
+    "P_S4",
+    "P_DAY",
+    "NO_TEXT"
+   ]
+  },
+  "p5": {
+   "model": "nb2-edit",
+   "refs": [
+    "style-2-nb2"
+   ],
+   "params": {
+    "seed": 5105
+   },
+   "prompt": [
+    "P_REF",
+    "P_S5",
+    "P_DAY",
+    "NO_TEXT"
+   ]
+  },
+  "p6": {
+   "model": "nb2-edit",
+   "refs": [
+    "style-2-nb2"
+   ],
+   "params": {
+    "seed": 5106
+   },
+   "prompt": [
+    "P_REF",
+    "P_S6",
+    "P_NIGHT",
+    "NO_TEXT"
+   ]
+  },
+  "p7": {
+   "model": "nb2-edit",
+   "refs": [
+    "style-2-nb2"
+   ],
+   "params": {
+    "seed": 5107
+   },
+   "prompt": [
+    "P_REF",
+    "P_S7",
+    "P_NIGHT",
+    "NO_TEXT"
+   ]
+  },
+  "cgi-5-schnell": {
+   "model": "schnell",
+   "params": {
+    "seed": 77
+   },
+   "prompt": [
+    "STYLE_CGI",
+    "SCENE_CGI_5"
+   ]
+  },
+  "cgi-5-nb2": {
+   "model": "nb2",
+   "params": {
+    "seed": 77
+   },
+   "prompt": [
+    "STYLE_CGI",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "cgi-5-cute": {
+   "model": "nb2-edit",
+   "refs": [
+    "cgi-5-nb2"
+   ],
+   "params": {
+    "seed": 78
+   },
+   "prompt": [
+    "CUTE_5"
+   ]
+  },
+  "cmp-recraft": {
+   "model": "recraft",
+   "params": {},
+   "prompt": [
+    "STYLE_CGI",
+    "CUTE_FACES",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "cmp-flux3": {
+   "model": "flux3",
+   "params": {},
+   "prompt": [
+    "STYLE_CGI",
+    "CUTE_FACES",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "cmp-sd5flash": {
+   "model": "sd5flash",
+   "params": {},
+   "prompt": [
+    "STYLE_CGI",
+    "CUTE_FACES",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "cmp-gpt25": {
+   "model": "gpt25",
+   "params": {},
+   "prompt": [
+    "STYLE_CGI",
+    "CUTE_FACES",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "cmp-gpt2": {
+   "model": "gpt2",
+   "params": {},
+   "prompt": [
+    "STYLE_CGI",
+    "CUTE_FACES",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "cmp-ideogram": {
+   "model": "ideogram",
+   "params": {},
+   "prompt": [
+    "STYLE_CGI",
+    "CUTE_FACES",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "cmp-sd5": {
+   "model": "sd5",
+   "params": {},
+   "prompt": [
+    "STYLE_CGI",
+    "CUTE_FACES",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "cmp-nbpro": {
+   "model": "nbpro",
+   "params": {},
+   "prompt": [
+    "STYLE_CGI",
+    "CUTE_FACES",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "cmp-gpt25sun": {
+   "model": "gpt25sun",
+   "params": {},
+   "prompt": [
+    "STYLE_CGI",
+    "CUTE_FACES",
+    "SCENE_CGI_5_NB2"
+   ]
+  },
+  "f1": {
+   "model": "gpt25edit",
+   "refs": [
+    "cmp-gpt25"
+   ],
+   "params": {},
+   "prompt": [
+    "F_REF",
+    "F_S1",
+    "F_DAY"
+   ]
+  },
+  "f2": {
+   "model": "gpt25edit",
+   "refs": [
+    "cmp-gpt25"
+   ],
+   "params": {},
+   "prompt": [
+    "F_REF",
+    "F_S2",
+    "F_DAY"
+   ]
+  },
+  "f3": {
+   "model": "gpt25edit",
+   "refs": [
+    "cmp-gpt25"
+   ],
+   "params": {},
+   "prompt": [
+    "F_REF",
+    "F_S3",
+    "F_DAY"
+   ]
+  },
+  "f4": {
+   "model": "gpt25edit",
+   "refs": [
+    "cmp-gpt25"
+   ],
+   "params": {},
+   "prompt": [
+    "F_REF",
+    "F_S4",
+    "F_DAY_SKY"
+   ]
+  },
+  "f6": {
+   "model": "gpt25edit",
+   "refs": [
+    "cmp-gpt25"
+   ],
+   "params": {},
+   "prompt": [
+    "F_REF",
+    "F_S6",
+    "F_NIGHT"
+   ]
+  },
+  "f7": {
+   "model": "gpt25edit",
+   "refs": [
+    "cmp-gpt25"
+   ],
+   "params": {},
+   "prompt": [
+    "F_REF",
+    "F_S7",
+    "F_NIGHT"
+   ]
+  }
+ }
+}

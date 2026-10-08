@@ -1,0 +1,1185 @@
+#!/usr/bin/env python3
+"""Shared rules and helpers for the LumeBook carousel pipeline.
+
+Everything that more than one script needs lives here so there is exactly one
+definition of the Hebrew hard rules, the slide structure, the image prompt
+assembly, the topic rotation and the voice calibration status.
+
+Standard library only, so the nightly run never depends on pip installs.
+"""
+
+import datetime as dt
+import json
+import re
+import struct
+import unicodedata
+import zlib
+from pathlib import Path
+
+PIPELINE = Path(__file__).resolve().parents[1]
+# Project root = the nearest folder up that holds lumebook.json (the component registry)
+ROOT = next((p for p in PIPELINE.parents if (p / "lumebook.json").exists()), PIPELINE.parents[1])
+DRAFTS = PIPELINE / "drafts"
+APPROVED = PIPELINE / "approved"
+HISTORY = PIPELINE / "history.json"
+TOPIC_BANK = PIPELINE / "topic-bank.md"
+HOOK_BANK = PIPELINE / "hook-bank.md"
+NAMES = PIPELINE / "names.md"
+SCHEMA = PIPELINE / "pack.schema.json"
+VOICE_PROFILE = PIPELINE / "voice-profile.md"
+VOICE_SKILL = ROOT / ".claude" / "skills" / "lumebook-hebrew-voice"
+APPROVED_EXAMPLES = VOICE_SKILL / "examples" / "approved"
+REJECTED_EXAMPLES = VOICE_SKILL / "examples" / "rejected"
+VOICE_EDITS = VOICE_SKILL / "examples" / "edits.jsonl"
+FAL_ENDPOINTS = PIPELINE / "scripts" / "fal_endpoints.json"
+CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+CALIBRATION_MIN_SAMPLES = 15
+TOPIC_COOLDOWN_PACKS = 14
+CODE_WORD_COOLDOWN_DAYS = 14
+HOOK_FAMILY_WINDOW_DAYS = 7
+HOOK_FAMILY_MAX_IN_WINDOW = 2
+NAME_COOLDOWN_PACKS = 7
+
+# ---------------------------------------------------------------------------
+# Structure
+# ---------------------------------------------------------------------------
+
+DIRECTIONS = ("kid", "expert")
+SLIDE_COUNT = 7
+# The arc (Yarin, 7 Oct 2026): every slide gives value and pulls to the next one. Hook, second hook, what is
+# behind the feeling or problem, two solutions, the resolution, and only the last slide suggests a personalised
+# story where the child is the hero, together with the comment CTA. Nothing before it prepares a sale.
+SLIDE_ROLES = {
+    1: ("hook",),
+    2: ("second_hook",),
+    3: ("recognition", "reframe"),
+    4: ("solution",),
+    5: ("solution",),
+    6: ("resolution",),
+    7: ("story_cta",),
+}
+HOOK_SLIDES = (1, 2)
+INSIGHT_SLIDES = (3,)
+SOLUTION_SLIDES = (4, 5)
+RESOLUTION_SLIDE = 6
+CTA_SLIDE = 7
+ROLE_LABELS_HE = {
+    "hook": "פתיח",
+    "second_hook": "פתיח שני",
+    "recognition": "הבעיה או הרגש",
+    "reframe": "מה עומד מאחורי זה",
+    "solution": "פתרון",
+    "resolution": "הסגירה",
+    "story_cta": "סיפור אישי וקריאה לפעולה",
+}
+# Words that prepare a sale. They belong only on the last slide.
+SALE_PREP_RE = re.compile(r"ספר\s+שבו|סיפור\s+אישי|ספר\s+אישי|גיבור|קישור|תצוגה\s+מקדימה|בתגובות")
+# What makes the reader swipe from this slide to the next (every slide before the last).
+PULL_TYPES = {
+    "question": "שאלה שהתשובה עליה בשקופית הבאה",
+    "open_loop": "משהו שנפתח ונסגר בשקופית הבאה",
+    "next_step": "הבטחה לצעד הבא",
+    "contrast": "ניגוד שמבקש הסבר",
+    "numbered": "רשימה שעוד לא נגמרה",
+}
+# Hook families follow section 7 of docs/lumebook-instagram-carousel-playbook-he.md
+HOOK_FAMILIES = {
+    "moment": "רגע מוכר",
+    "child_quote": "ציטוט של ילד",
+    "child_pov": "הילד מדבר בגוף ראשון",
+    "practical_question": "שאלה מעשית",
+    "reframe": "שינוי תפיסה",
+    "sentences_we_say": "משפטים שכולנו אומרים",
+    "parent_identity": "זהות הורית",
+    "gentle_outcome": "תוצאה רצויה עדינה",
+    "story": "סיפור",
+    "surprising_statement": "אמירה מפתיעה",
+    "milestone": "רגע התפתחותי",
+    "gift": "מתנה לאירוע",
+    "objection": "התנגדות",
+    "demo": "הדגמה",
+    # Added by the hook strategy research (carousel/carousel-pipeline/research/hook-strategy-2026-10-08.md)
+    "normalising": "נרמול שמוריד בושה",
+    "analogy": "משל מעולם המבוגרים",
+}
+AWARENESS_STAGES = ("unaware", "problem_aware", "solution_aware", "product_aware", "most_aware")
+AWARENESS_LABELS_HE = {
+    "unaware": "לא מודע",
+    "problem_aware": "מכיר את הבעיה",
+    "solution_aware": "מחפש פתרון",
+    "product_aware": "מכיר את המוצר",
+    "most_aware": "כמעט קונה",
+}
+CLAIM_KINDS = ("sourced_fact", "product_fact", "lumebook_wording")
+
+# ---------------------------------------------------------------------------
+# Hebrew hard rules
+# ---------------------------------------------------------------------------
+
+# Characters that must never appear in audience facing Hebrew.
+# The three named in the brief plus their common lookalikes, so a model cannot
+# slip past the rule with a near identical glyph.
+FORBIDDEN_CHARS = {
+    "—": "em dash",
+    "―": "horizontal bar (em dash lookalike)",
+    "⸺": "two-em dash",
+    "⸻": "three-em dash",
+    "–": "en dash (used as an em dash substitute; write עד for ranges)",
+    "﹘": "small em dash",
+    ".": "period",
+    "．": "fullwidth period",
+    "﹒": "small period",
+    "…": "ellipsis (three periods)",
+    ",": "comma",
+    "，": "fullwidth comma",
+    "﹐": "small comma",
+    "،": "Arabic comma",
+    "、": "ideographic comma",
+}
+
+HEBREW_RE = re.compile(r"[א-ת]")
+LATIN_RE = re.compile(r"[A-Za-z]")
+WORD_RE = re.compile(r"[\w֐-׿]", re.UNICODE)
+
+# Lexicon checks. ERROR entries fail the build, WARN entries are shown to the
+# reviewer. Matching is on whole Hebrew tokens or exact phrases so that normal
+# words are not caught by accident.
+LEXICON_ERRORS = [
+    # diagnosis and clinical jargon
+    (r"חרד(ה|ת|תי|תית|ות)\b", "diagnostic word חרדה (write חשש or קשה לו)"),
+    (r"\bהפרע(ה|ת|ות)\b", "diagnostic word הפרעה"),
+    (r"\bאבחנ|\bאבחון|\bמאובחנ", "diagnosis language"),
+    (r"\bטראומ", "clinical word טראומה"),
+    (r"\bויסות|\bרגולציה|\bדיסרגולציה", "jargon ויסות or רגולציה"),
+    (r"\bסימפטומ|\bתסמינ", "clinical word תסמין"),
+    (r"\bפתולוג", "clinical word פתולוגי"),
+    (r"\bקוגניטיב|\bנוירולוג|\bמערכת העצבים", "jargon"),
+    (r"\bטריגר", "jargon טריגר"),
+    # fake certainty and guarantees
+    (r"\bמוכח|\bהוכח", "fake certainty מוכח"),
+    (r"\bמובטח", "guarantee מובטח"),
+    (r"100\s*%|מאה אחוז", "fake certainty 100 percent"),
+    (r"בלי דמעות", "outcome promise בלי דמעות"),
+    (r"שבאמת עובד|תמיד עובד", "outcome promise"),
+    (r"\bיפתור|\bפותר את|\bהפתרון ל", "the book or tip fixes the problem"),
+    (r"\bייעלם|\bיעלים|\bיעלמו", "promise that a feeling will disappear"),
+    (r"\bמרפא|\bירפא|\bטיפולי", "treatment claim"),
+    # universality
+    (r"\bכל הילדים\b(?!\s+שונים)|\bכל ילד\b(?!\s+(?:שונה|אחר))|\bכל ילדה\b(?!\s+(?:שונה|אחרת))|\bכל הפעוטות\b|\bכל הקטנים\b", "claim that every child feels the same"),
+    # brand spelling
+    (r"לומיבוק", "brand misspelled (write לומבוק)"),
+]
+LEXICON_WARNINGS = [
+    (r"\bאשמ", "guilt word, check the line does not blame parents"),
+    (r"\bאתם עושים את זה לא נכון|\bטעות שכל|\bטעויות שכל", "guilt framing"),
+    (r"\bמסוכנ|\bסכנה|\bנזק|\bצלקת|\bיהרוס|\bהרסני", "scare word"),
+    (r"\bכל ההורים\b|\bכולם מרגישים", "generalisation"),
+    (r"\bמחקרים מוכיחים|\bמחקרים מראים|\bמומחים אומרים|\bמומחים ממליצים", "authority phrase, make sure a claim maps to a source"),
+    (r"\bתמיד\b|\bאף פעם\b|\bבחיים לא\b", "absolute word, check it is not fake certainty"),
+]
+# Python's \b treats a Hebrew prefix letter (ו ש ה ב ל מ כש) as part of the word, so "שמוכח" would
+# slip past \bמוכח. _heb() turns each leading \b into "no Hebrew letter before, optional prefix"
+# and each trailing \b into "no Hebrew letter after".
+_HEB_START = r"(?<![\u05D0-\u05EA])(?:וכש|כש|וה|שה|ו|ש|ה|ב|ל|מ)?"
+_HEB_END = r"(?![\u05D0-\u05EA])"
+
+
+def _heb(pattern):
+    pattern = re.sub(r"(^|\||\()\\b", lambda m: m.group(1) + _HEB_START, pattern)
+    return pattern.replace(r"\b", _HEB_END)
+
+
+LEXICON_ERRORS = [(_heb(p), why) for p, why in LEXICON_ERRORS]
+LEXICON_WARNINGS = [(_heb(p), why) for p, why in LEXICON_WARNINGS]
+
+# Hebrew attaches ו/ש/כש/ה to the word, so patterns allow those prefixes instead of using \b
+_P = r"(?<![\u05D0-\u05EA])(?:ו|ש|כש|וכש)?"
+SECOND_CTA_PATTERNS = [
+    (r"בביו|לינק|קישור בביו", "link in bio CTA"),
+    (_P + r"(?:שמרו|תשמרו)(?:\s+(?:את|לפעם|לערב|לרגע|לאחר|לבוקר|לפוסט|אצלכם)|\s*$)", "save CTA"),
+    (_P + r"(?:שתפו|תשתפו)\s+(?:את|עם)|" + _P + r"(?:שלחו|תשלחו)\s+(?:את זה|לחבר|לחברה|למישהו|לאמא|לאבא)", "share CTA"),
+    (_P + r"(?:תייגו|תתייגו)(?![\u05D0-\u05EA])", "tag CTA"),
+    (_P + r"(?:עקבו|תעקבו)(?![\u05D0-\u05EA])", "follow CTA"),
+    (_P + r"(?:הזמינו\s+(?:עכשיו|היום)|לחצו(?![\u05D0-\u05EA]))", "purchase or click CTA"),
+]
+AUTHORITY_TITLES = re.compile(r"ד״ר|ד\"ר|דר׳|דוקטור|פרופ׳|פרופ'|פרופסור")
+FIRST_PERSON_RE = re.compile(r"(?<![\u05D0-\u05EA])(ו|ש|כש|וכש)?(אני|לי|שלי|אותי|ממני|איתי|בשבילי|אליי|עליי|לנו|אנחנו)(?![\u05D0-\u05EA])")
+EMOJI_RE = re.compile("[\U0001F300-\U0001FAFF☀-➿]")
+
+LINE_MAX_WORDS = 12
+HOOK_MAIN_MAX_WORDS = 8
+HOOK_TOTAL_MAX_WORDS = 12
+SLIDE_MAX_WORDS = 25
+CTA_SLIDE_MAX_WORDS = 18
+CAPTION_MIN_LINES = 5
+# Width limits measured with compose_slides.py at the readable floors (headline 56px Heebo Black,
+# body 44px Assistant Bold, 888px text column): longer lines overflow the 1080px slide.
+HEADLINE_LINE_MAX_CHARS = 30
+BODY_LINE_MAX_CHARS = 42
+CAPTION_MAX_LINES = 8
+
+
+class Issue:
+    """One validation finding. level is ERROR or WARN."""
+
+    def __init__(self, level, path, message, char=None, line=None, col=None, excerpt=None):
+        self.level = level
+        self.path = path
+        self.message = message
+        self.char = char
+        self.line = line
+        self.col = col
+        self.excerpt = excerpt
+
+    def as_dict(self):
+        out = {"level": self.level, "path": self.path, "message": self.message}
+        if self.char is not None:
+            out["char"] = self.char
+            out["codepoint"] = f"U+{ord(self.char):04X}"
+        if self.line is not None:
+            out["line"] = self.line
+            out["col"] = self.col
+        if self.excerpt is not None:
+            out["excerpt"] = self.excerpt
+        return out
+
+    def __str__(self):
+        where = self.path
+        if self.line is not None:
+            where += f" line {self.line} col {self.col}"
+        text = f"{self.level} {where}: {self.message}"
+        if self.char is not None:
+            text += f" {self.char!r} (U+{ord(self.char):04X})"
+        if self.excerpt:
+            text += f" in «{self.excerpt}»"
+        return text
+
+
+def words(text):
+    """Count spoken words: whitespace separated tokens that contain a letter or digit."""
+    return [t for t in text.split() if WORD_RE.search(t)]
+
+
+def lines_of(text):
+    return [line.strip() for line in str(text).splitlines() if line.strip()]
+
+
+def collapse(text):
+    return " ".join(str(text).split())
+
+
+def forbidden_char_issues(path, text):
+    """Report every forbidden character with its exact line and column. Never edits the text."""
+    issues = []
+    for line_no, line in enumerate(str(text).splitlines() or [str(text)], start=1):
+        for col, ch in enumerate(line, start=1):
+            if ch in FORBIDDEN_CHARS:
+                issues.append(Issue(
+                    "ERROR", path, f"forbidden {FORBIDDEN_CHARS[ch]}",
+                    char=ch, line=line_no, col=col, excerpt=line.strip()[:80],
+                ))
+    return issues
+
+
+def lexicon_issues(path, text, allow_cta=False):
+    issues = []
+    flat = collapse(text)
+    for pattern, why in LEXICON_ERRORS:
+        m = re.search(pattern, flat)
+        if m:
+            issues.append(Issue("ERROR", path, f"{why}: «{m.group(0)}»"))
+    for pattern, why in LEXICON_WARNINGS:
+        m = re.search(pattern, flat)
+        if m:
+            issues.append(Issue("WARN", path, f"{why}: «{m.group(0)}»"))
+    if not allow_cta:
+        for line in lines_of(text):
+            for pattern, why in SECOND_CTA_PATTERNS:
+                m = re.search(pattern, line)
+                if m:
+                    issues.append(Issue("ERROR", path, f"second CTA ({why}): «{m.group(0)}»", excerpt=line[:80]))
+    return issues
+
+
+# Yarin, 8 Oct 2026: "never say its made with ai ever again, its super clear and ruins trust and engagement"
+AI_MENTION_RE = re.compile(r"(?<![A-Za-z])A\.?I(?![A-Za-z])|בינה\s+מלאכותית|נוצר[הו]?\s+(?:ב|על\s+ידי|בעזרת)\s*(?:AI|בינה)|\bai\b", re.I)
+
+
+def audience_text_issues(path, text, require_hebrew=True, allow_cta=False):
+    """All hard rules for one piece of audience facing Hebrew."""
+    issues = []
+    if not isinstance(text, str) or not text.strip():
+        return [Issue("ERROR", path, "must be a non empty string")]
+    if require_hebrew and not HEBREW_RE.search(text):
+        issues.append(Issue("ERROR", path, "must contain Hebrew"))
+    issues.extend(forbidden_char_issues(path, text))
+    issues.extend(lexicon_issues(path, text, allow_cta=allow_cta))
+    if AI_MENTION_RE.search(text):
+        issues.append(Issue("ERROR", path, "mentions AI; carousels never say the images or copy are AI made (Yarin, 8 Oct 2026)", excerpt=AI_MENTION_RE.search(text).group(0)))
+    for i, line in enumerate(lines_of(text), start=1):
+        n = len(words(line))
+        if n > LINE_MAX_WORDS:
+            issues.append(Issue("ERROR", path, f"line {i} has {n} words; keep one short thought per line (max {LINE_MAX_WORDS})", excerpt=line[:80]))
+        first_strong = next((c for c in line if unicodedata.bidirectional(c) in ("L", "R", "AL")), None)
+        if first_strong is not None and unicodedata.bidirectional(first_strong) == "L":
+            issues.append(Issue("WARN", path, f"line {i} starts with a Latin word; start lines with Hebrew so RTL punctuation stays in place", excerpt=line[:80]))
+    if LATIN_RE.search(text):
+        issues.append(Issue("WARN", path, "contains Latin letters; prefer Hebrew on slides and check RTL in the render"))
+    if len(EMOJI_RE.findall(text)) > 1:
+        issues.append(Issue("WARN", path, "more than one emoji"))
+    return issues
+
+
+CTA_REQUIRED = [
+    (r"כתב[וי]", "כתבו or כתבי"),
+    (r"בתגובות", "בתגובות"),
+    (r"קישור", "קישור"),
+    (r"ספר", "ספר"),
+    (r"גיבור", "הגיבור or הגיבורה"),
+]
+CTA_WRITE_RE = r"כתב[וי]"
+CTA_CODE_QUOTE = '"'   # the code word is always written inside these: כתבו "גן" בתגובות
+
+
+def quote_code_word(cta):
+    """כתבו גן / כתבו ״גן״ / כתבו 'גן' -> כתבו "גן". Used by the editor so a typed CTA always comes out right."""
+    return re.sub(CTA_WRITE_RE.join(["(", ")"]) + r"\s*[״\"׳'“”]?([\u05D0-\u05EA]{2,10})[״\"׳'“”]?(?=\s|$)",
+                  lambda m: f'{m.group(1)} "{m.group(2)}"', cta, count=1)
+# Who the copy talks to (Yarin, 7 Oct 2026): mom (feminine singular) or both parents (plural), never dad.
+ADDRESSEES = {"mom": "לאמא", "parents": "לשני ההורים"}
+CTA_FORMS = {
+    "mom": {"verb": "כתבי", "get": "וקבלי", "owner": "שלך"},
+    "parents": {"verb": "כתבו", "get": "וקבלו", "owner": "שלכם"},
+}
+# "אמא ואבא" is talking to both parents, which is allowed; only dad on his own is not (Yarin, 8 Oct 2026)
+PARENT_PAIR_RE = re.compile(r"(?<![\u05D0-\u05EA])(?:ו|ש|ל|כש)?(?:אמא\s+ואבא|אבא\s+ואמא)(?![\u05D0-\u05EA])")
+DAD_RE = re.compile(r"(?<![\u05D0-\u05EA])(?:ו|ש|ה|ל|ב|מ|כש)?(?:אבא|אבאל'ה)(?![\u05D0-\u05EA])|(?<![\u05D0-\u05EA])(?:ו)?אתה(?![\u05D0-\u05EA])|(?<![\u05D0-\u05EA])בוא\s+נ")
+MOM_ADDRESS_RE = re.compile(r"(?<![\u05D0-\u05EA])(?:ו|ש|כש)?(?:את|לך|שלך|אותך|איתך|עלייך|אלייך|בואי|תגידי|תקריאי|תני|כתבי)(?![\u05D0-\u05EA])")
+PARENTS_ADDRESS_RE = re.compile(r"(?<![\u05D0-\u05EA])(?:ו|ש|כש)?(?:אתם|לכם|שלכם|אתכם|איתכם|עליכם|לפניכם|אצלכם|בשבילכם|תגידו|תבואו|כתבו|בואו|נסו|תנו)(?![\u05D0-\u05EA])")
+
+
+def cta_issues(path, cta, code_word):
+    issues = audience_text_issues(path, cta, allow_cta=True)
+    flat = collapse(cta)
+    for pattern, label in CTA_REQUIRED:
+        if not re.search(pattern, flat):
+            issues.append(Issue("ERROR", path, f"CTA must keep the brief's idea and include «{label}»"))
+    # Yarin, 8 Oct 2026: the code word always sits inside quotation marks, כתבו "גן" בתגובות
+    if code_word and not re.search(CTA_WRITE_RE + r'\s*"' + re.escape(code_word) + r'"(\s|$)', flat):
+        issues.append(Issue("ERROR", path, f'CTA must read כתבו or כתבי "{code_word}" with the code word inside straight quotation marks, right after the verb'))
+    n = len(words(flat))
+    if n > CTA_SLIDE_MAX_WORDS:
+        issues.append(Issue("ERROR", path, f"CTA has {n} words (max {CTA_SLIDE_MAX_WORDS})"))
+    for pattern, why in SECOND_CTA_PATTERNS:
+        if re.search(pattern, flat):
+            issues.append(Issue("ERROR", path, f"CTA contains a second CTA ({why})"))
+    return issues
+
+
+# ---------------------------------------------------------------------------
+# Child names (carousel/carousel-pipeline/names.md)
+# ---------------------------------------------------------------------------
+
+def load_names(path=NAMES):
+    """{'boy': [...], 'girl': [...]} from the two tables in names.md."""
+    names = {"boy": [], "girl": []}
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) >= 2 and cells[0] in names:
+            names[cells[0]].extend(n.strip() for n in cells[1].split("·") if n.strip())
+    return names
+
+
+def audience_lines(version):
+    """All audience text of one option except the CTA slide body and caption's last line (fixed CTA wording)."""
+    out = []
+    for s in version.get("slides", []):
+        out.append(("slide", s.get("number"), "headline", s.get("headline", "")))
+        out.append(("slide", s.get("number"), "body", s.get("body", "")))
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Hook bank (carousel/carousel-pipeline/hook-bank.md)
+# ---------------------------------------------------------------------------
+
+HOOK_SCORE_KEYS = ("specific", "feeling", "honest_gap", "short_spoken", "filters", "not_an_ad")
+HOOK_MIN_SCORE = 9
+HOOK_RECENT_PACKS = 3
+HOOK_BANNED = [
+    (r"לא תאמינו", "clickbait"), (r"הסוד ש", "clickbait"), (r"חובה לראות", "clickbait"),
+    (r"האם ידעתם", "trivia opener"), (r"בואו נדבר על", "lecture opener"), (r"היום נדבר", "lecture opener"),
+    (r"כל מה שצריך לדעת", "generic opener"), (r"המדריך המלא", "generic opener"),
+    (r"אתם עושים את זה לא נכון", "guilt opener"), (r"הטעות שכל ההורים", "guilt opener"),
+    # Added 8 Oct 2026 (hook strategy research): shame, fear, fake urgency and "you are doing it wrong" openers
+    (r"לא תאמיני", "clickbait"), (r"חייב(?:ת|ים)? לדעת", "fake urgency"), (r"לפני שיהיה מאוחר", "fear and urgency"),
+    (r"מה שאף אחד לא (?:מספר|אומר)", "clickbait"), (r"(?<![א-ת])(?:ו)?תפסיק(?:י|ו)(?![א-ת])", "you are doing it wrong"),
+    (r"את עושה את זה לא נכון", "guilt opener"), (r"הורים טובים (?:לא|תמיד)", "shame opener"),
+    (r"(?<![א-ת])אם (?:את|אתם) לא(?![א-ת])", "conditional threat"),
+]
+HOOK_SPECIFIC_RE = re.compile(r"\d|[״\"?]|בוקר|ערב|לילה|שער|גן|מיטה|אמבטיה|ארוחה|מדרגות|אוטו|שבוע|חגים|גיל|אמא|אבא")
+
+# Evidence labels for hook formulas (hook strategy research, 8 Oct 2026). Kept separate on purpose:
+# "trendy", "frequently observed", "high performing" and "caused better performance" are different things.
+EVIDENCE_LABELS = {
+    "platform_supported": "current first-party Instagram or Meta guidance",
+    "external_performance_pattern": "repeated in several relevant posts with visible performance evidence",
+    "current_trend": "appearing repeatedly in recent content, not shown to cause performance",
+    "research_supported_mechanism": "credible behavioural, attention or communication research",
+    "lumebook_hypothesis": "a promising adaptation that still needs LumeBook testing",
+    "lumebook_validated": "supported by LumeBook's own results (hook-results.json)",
+}
+# The psychological job a hook does. Rotation spreads these across the six options.
+MECHANISMS = {
+    "recognition": "ההורה מזהה רגע מדויק מהבית שלו",
+    "perspective_shift": "רואים את הרגע מהצד של הילד",
+    "honest_curiosity": "שאלה אמיתית שהקרוסלה עונה עליה",
+    "reassurance": "נרמול שמוריד בושה או דאגה",
+    "practical_utility": "משהו לעשות מחר",
+    "reframe": "פירוש אחר להתנהגות מוכרת",
+    "narrative_tension": "סיפור שנעצר ברגע לא פתור",
+    "anticipation": "רגע התפתחותי או עונתי שמתקרב",
+    "identity_filter": "פונה בדיוק למי שנמצאת במצב הזה",
+}
+# The surface form of slide 1. Two options with the same shape read like rewrites of each other.
+SENTENCE_SHAPES = {
+    "address": "פנייה (אמא / אמא ואבא)",
+    "quote": "משפט במירכאות",
+    "time_place": "שעה או מקום ואז מה קורה",
+    "question": "שאלה",
+    "contrast_pair": "במקום X / Y",
+    "negation": "לא X / אלא Y",
+    "numbered": "מספר",
+    "identity_label": "לאמא של",
+    "statement": "אמירה",
+    "story_open": "פתיחה של סיפור",
+    "ages_sequence": "גיל אחרי גיל",
+    "just_so_you_know": "רק שתדעי",
+    "imagine": "דמייני ש",
+}
+# Slide 2 moves. Slide 2 must work as a first slide on its own (Instagram may re-show a carousel from slide 2).
+SLIDE2_MOVES = {
+    "zoom_in": "אותו רגע מקרוב יותר",
+    "other_side": "מעבר בין הצד של הילד לצד של ההורה",
+    "name_trigger": "מה הפעיל את זה עכשיו",
+    "contrast": "ניגוד שמבקש הסבר",
+    "promise": "מה מקבלים בהמשך",
+    "first_answer": "חצי תשובה שעומדת לבד",
+    "scene_restart": "הסצנה מסופרת מחדש במשפט אחד",
+    "same_template": "עוד מופע של אותה תבנית",
+}
+# Words that make slide 2 lean on slide 1. A slide 2 headline must not open with them.
+SLIDE2_LEANS_ON_SLIDE1_RE = re.compile(r"^(?:ואז|אז|אבל|כי|וגם|גם|ולכן|לכן|ואם|זה|זאת|ככה|הנה|ובגלל|ועוד|וזה|וזאת)(?![א-ת])")
+HOOK_RESULTS = PIPELINE / "hook-results.json"
+TREND_REVIEW_MAX_DAYS = 120  # a current_trend formula must be re-checked at least this often
+# Hypotheses, not findings: how many comparable LumeBook posts a formula needs before it may be called validated.
+VALIDATE_MIN_POSTS = 6
+VALIDATE_MIN_TOPICS = 3
+VALIDATE_MIN_REACH_PER_POST = 300
+
+# The nightly hook slate (hook-bank.md, "Nightly hook slate"): 6 kid and 6 expert candidates, scored 0-2.
+SLATE_SIZE = 6
+SLATE_SCORE_KEYS = (
+    "stopping_power", "specificity", "parent_relevance", "honest_curiosity", "emotional_truth",
+    "swipe_promise", "usefulness", "topic_fit", "lumebook_fit", "freshness",
+)
+SLATE_NO_ZERO = ("honest_curiosity", "emotional_truth", "topic_fit", "lumebook_fit")
+SLATE_MIN_SCORE = 14  # of 20; a LumeBook hypothesis, revisit when hook-results.json has data
+SLATE_FAIL_CHECKS = ("clickbait", "unsupported_claim", "unfulfilled_promise", "blames_parent")
+SLATE_MIN_FAMILIES = 3     # per direction, among the 6 candidates
+SLATE_MIN_MECHANISMS = 3   # per direction, among the 6 candidates
+PACK_MIN_MECHANISMS = 4    # across the 6 final options
+PACK_MIN_SHAPES = 4        # across the 6 final options
+PACK_MIN_SLIDE2_MOVES = 3  # across the 6 final options
+PACK_MIN_AWARENESS = 2     # across the 6 final options
+NEAR_DUPLICATE = 0.6       # word overlap (Jaccard) at which two hooks count as rewrites of each other
+_STOP_WORDS = {"את", "של", "על", "עם", "לא", "זה", "זאת", "אני", "הוא", "היא", "אתם", "לי", "לך", "כל", "גם", "רק", "עוד", "אז", "כי", "אבל", "מה", "איך"}
+
+
+def _bank_rows(path):
+    """(section heading, cells) for every table row whose first cell is a backticked id."""
+    section = ""
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        if line.startswith("## "):
+            section = line[3:].strip().lower()
+            continue
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        m = re.fullmatch(r"`([a-z0-9_-]+)`", cells[0]) if cells else None
+        if m:
+            yield section, m.group(1), cells
+
+
+def _plus_list(cell):
+    return [x.strip().strip("`") for x in cell.split("+") if x.strip()]
+
+
+def load_hook_bank(path=HOOK_BANK):
+    """Formulas table (| `id` | family | direction | formula | example | source |) merged with the
+    Evidence and rotation table (| `id` | evidence | mechanism | shape | slide2 | payoff | researched | review_by |)."""
+    rows, meta = {}, {}
+    for section, fid, cells in _bank_rows(path):
+        if section.startswith("formulas") and len(cells) >= 6:
+            rows[fid] = {"id": fid, "family": cells[1], "direction": cells[2], "formula": cells[3], "example": cells[4], "source": cells[5]}
+        elif section.startswith("evidence and rotation") and len(cells) >= 8:
+            meta[fid] = {
+                "evidence": _plus_list(cells[1]), "mechanisms": _plus_list(cells[2]), "shape": cells[3].strip("`"),
+                "slide2_moves": _plus_list(cells[4]), "payoff": cells[5], "researched": cells[6], "review_by": cells[7],
+            }
+    for fid, row in rows.items():
+        row.update(meta.get(fid, {"evidence": [], "mechanisms": [], "shape": "", "slide2_moves": [], "payoff": "", "researched": "", "review_by": ""}))
+        row["has_meta"] = fid in meta
+    return rows
+
+
+def bank_orphans(path=HOOK_BANK):
+    """Ids in the Evidence and rotation table that have no formula row."""
+    formulas = {fid for section, fid, cells in _bank_rows(path) if section.startswith("formulas")}
+    return sorted({fid for section, fid, cells in _bank_rows(path) if section.startswith("evidence and rotation")} - formulas)
+
+
+def formula_status(formula, today=None):
+    """current, review_due (past review_by) or expired (a current_trend past review_by: needs revalidation)."""
+    today = today or now_local().date()
+    try:
+        review_by = parse_date(formula.get("review_by", ""))
+    except ValueError:
+        return "review_due"
+    if today <= review_by:
+        return "current"
+    return "expired" if "current_trend" in formula.get("evidence", []) else "review_due"
+
+
+def load_hook_results(path=HOOK_RESULTS):
+    path = Path(path)
+    if not path.exists():
+        return {"posts": []}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def formula_observations(formula_id, results):
+    """LumeBook's own published posts that used this formula and have a 7-day read."""
+    posts = [p for p in results.get("posts", []) if p.get("hook_formula") == formula_id and isinstance(p.get("reach"), int)]
+    return {
+        "posts": len(posts),
+        "topics": len({p.get("topic_id") for p in posts}),
+        "enough_reach": sum(1 for p in posts if p["reach"] >= VALIDATE_MIN_REACH_PER_POST),
+        "promotion_note": next((p.get("promotion_note") for p in posts if p.get("promotion_note")), ""),
+    }
+
+
+def bank_issues(bank, results=None, orphans=None):
+    """Problems with hook-bank.md itself: missing evidence rows, unknown labels, a 'validated' label without data."""
+    issues = []
+    results = results if results is not None else load_hook_results()
+    for fid in (orphans if orphans is not None else bank_orphans()):
+        issues.append(Issue("ERROR", f"hook-bank/{fid}", "has an evidence row but no formula row"))
+    for fid, f in bank.items():
+        p = f"hook-bank/{fid}"
+        if f["family"] not in HOOK_FAMILIES:
+            issues.append(Issue("ERROR", p, f"unknown family {f['family']}"))
+        if f["direction"] not in ("kid", "expert", "both"):
+            issues.append(Issue("ERROR", p, f"direction must be kid, expert or both (got {f['direction']})"))
+        if not f.get("has_meta"):
+            issues.append(Issue("ERROR", p, "needs a row in the Evidence and rotation table"))
+            continue
+        for label in f["evidence"] or ["(none)"]:
+            if label not in EVIDENCE_LABELS:
+                issues.append(Issue("ERROR", p, f"unknown evidence label {label}"))
+        for m in f["mechanisms"] or ["(none)"]:
+            if m not in MECHANISMS:
+                issues.append(Issue("ERROR", p, f"unknown mechanism {m}"))
+        if f["shape"] not in SENTENCE_SHAPES:
+            issues.append(Issue("ERROR", p, f"unknown sentence shape {f['shape']}"))
+        for mv in f["slide2_moves"] or ["(none)"]:
+            if mv not in SLIDE2_MOVES:
+                issues.append(Issue("ERROR", p, f"unknown slide 2 move {mv}"))
+        try:
+            researched, review_by = parse_date(f["researched"]), parse_date(f["review_by"])
+            if "current_trend" in f["evidence"] and (review_by - researched).days > TREND_REVIEW_MAX_DAYS:
+                issues.append(Issue("ERROR", p, f"a current_trend formula must be re-checked within {TREND_REVIEW_MAX_DAYS} days of research"))
+        except ValueError:
+            issues.append(Issue("ERROR", p, "researched and review_by must be YYYY-MM-DD dates"))
+        if "lumebook_validated" in f["evidence"]:
+            obs = formula_observations(fid, results)
+            if obs["posts"] < VALIDATE_MIN_POSTS or obs["topics"] < VALIDATE_MIN_TOPICS or obs["enough_reach"] < VALIDATE_MIN_POSTS or not obs["promotion_note"]:
+                issues.append(Issue("ERROR", p, f"lumebook_validated needs LumeBook's own results in hook-results.json: at least {VALIDATE_MIN_POSTS} posts with {VALIDATE_MIN_REACH_PER_POST}+ reach across {VALIDATE_MIN_TOPICS} topics and a written promotion_note (has {obs['posts']} posts, {obs['topics']} topics)"))
+    return issues
+
+
+_NAME_SET = None
+
+
+def hook_words(text):
+    """Content words of a hook, for near-duplicate checks (names and small function words removed)."""
+    global _NAME_SET
+    if _NAME_SET is None:
+        _NAME_SET = {n for ns in load_names().values() for n in ns}
+    names = _NAME_SET
+    out = set()
+    for w in words(collapse(text).replace("״", " ").replace('"', " ").replace("?", " ")):
+        w = w.strip()
+        if not w or w in _STOP_WORDS or w in names:
+            continue
+        out.add(w)
+    return out
+
+
+def overlap(a, b):
+    wa, wb = hook_words(a), hook_words(b)
+    if not wa or not wb:
+        return 0.0
+    return len(wa & wb) / len(wa | wb)
+
+
+def hook_issues(path, version, direction_id, bank):
+    """The option's declared hook formula, gap, payoff slide and score, plus clickbait checks on slide 1."""
+    issues = []
+    hook = version.get("hook") or {}
+    formula = bank.get(hook.get("formula"))
+    if not formula:
+        return [Issue("ERROR", f"{path}/hook/formula", f"{hook.get('formula')!r} is not in hook-bank.md")]
+    if formula["family"] != version.get("hook_family"):
+        issues.append(Issue("ERROR", f"{path}/hook_family", f"formula {formula['id']} belongs to family {formula['family']}"))
+    if formula["direction"] not in ("both", direction_id):
+        issues.append(Issue("ERROR", f"{path}/hook/formula", f"{formula['id']} is a {formula['direction']} formula"))
+    score = hook.get("score") or {}
+    values = [score.get(k) for k in HOOK_SCORE_KEYS]
+    if any(not isinstance(v, int) or not 0 <= v <= 2 for v in values):
+        issues.append(Issue("ERROR", f"{path}/hook/score", f"score each of {', '.join(HOOK_SCORE_KEYS)} from 0 to 2"))
+    else:
+        total = sum(values)
+        if total < HOOK_MIN_SCORE or 0 in values:
+            weak = [k for k in HOOK_SCORE_KEYS if score.get(k) == 0]
+            issues.append(Issue("ERROR", f"{path}/hook/score", f"hook scores {total} of 12{' with 0 on ' + ', '.join(weak) if weak else ''}; rewrite it (needs {HOOK_MIN_SCORE}+ and no zero)"))
+    payoff = hook.get("payoff_slide")
+    if not isinstance(payoff, int) or not INSIGHT_SLIDES[0] <= payoff <= RESOLUTION_SLIDE:
+        issues.append(Issue("ERROR", f"{path}/hook/payoff_slide", f"say which slide ({INSIGHT_SLIDES[0]} to {RESOLUTION_SLIDE}) answers the hook"))
+    if len(str(hook.get("gap", "")).strip()) < 8:
+        issues.append(Issue("ERROR", f"{path}/hook/gap", "state the question the hook opens"))
+    slides = version.get("slides") or []
+    if slides:
+        text = collapse(slides[0].get("headline", "") + " " + slides[0].get("body", ""))
+        for pattern, why in HOOK_BANNED:
+            if re.search(pattern, text):
+                issues.append(Issue("ERROR", f"{path}/slide-1", f"banned hook opener ({why}): «{re.search(pattern, text).group(0)}»"))
+        if not HOOK_SPECIFIC_RE.search(text):
+            issues.append(Issue("WARN", f"{path}/slide-1", "hook has no specific moment, time, age, place or quote"))
+    return issues
+
+
+# Carousels never name the brand or a catalogue book (Yarin, 7 Oct 2026): slide 7 only hints that a book
+# where the child is the hero is one possible tool, and the comment CTA does the rest.
+BRAND_RE = re.compile(r"לומי?בוק|lume\s*-?\s*book", re.IGNORECASE)
+QUOTED_RE = re.compile(r"[״\"“”]([^״\"“”]{2,40})[״\"“”]")
+
+
+def catalogue_titles(bank=None):
+    """Book titles listed in topic-bank.md, plus their short form before ' של ' (the personalised cover drops the name)."""
+    bank = bank if bank is not None else load_topic_bank()
+    titles = set()
+    for t in bank:
+        for title in t.get("books", "").split("·"):
+            title = title.strip()
+            if not title or title.lower().startswith("check") or "(" in title:
+                continue
+            titles.add(title)
+            if " של " in title:
+                titles.add(title.split(" של ")[0].strip())
+    return titles
+
+
+def brand_issues(path, text, titles):
+    issues = []
+    m = BRAND_RE.search(text)
+    if m:
+        issues.append(Issue("ERROR", path, f"carousels never name the brand: «{m.group(0)}». Hint at a book where the child is the hero instead"))
+    for q in QUOTED_RE.findall(text):
+        if q.strip() in titles:
+            issues.append(Issue("ERROR", path, f"carousels never name a catalogue book: «{q.strip()}»"))
+    for title in titles:
+        msg = f"carousels never name a catalogue book: «{title}»"
+        if " של " in title and title in text and not any(i.message == msg for i in issues):
+            issues.append(Issue("ERROR", path, msg))
+    return issues
+
+
+# Code words taken by competitors. Source: research/carousel-research/lumebook-carousel-research.html
+# (artifact Rkt3DeuC86z23WcAbR7VHW, 6 Oct 2026): MeBook creator reels already say "comment ספר for my discount code".
+BLOCKED_CODE_WORDS = {"ספר": "MeBook creators already use the comment word ספר; pick a milestone word instead"}
+
+
+def code_word_issues(path, code_word):
+    if not isinstance(code_word, str) or not re.fullmatch(r"[א-ת]{2,10}", code_word or ""):
+        return [Issue("ERROR", path, "code word must be one short Hebrew word, 2 to 10 letters, no spaces or marks")]
+    if code_word in BLOCKED_CODE_WORDS:
+        return [Issue("ERROR", path, BLOCKED_CODE_WORDS[code_word])]
+    return []
+
+
+# ---------------------------------------------------------------------------
+# Image prompts
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# The two content pillars (the two directions of every pack). One identity each, used by the review
+# page, the final slide design and the photo direction. Full description: carousel/carousel-pipeline/pillars.md
+# ---------------------------------------------------------------------------
+
+PILLARS = {
+    "kid": {
+        "name_he": "הילד מספר",
+        "tagline_he": "הילד מדבר בגוף ראשון ומספר מה מרגיש לו",
+        "color": "#5B2BD6", "soft": "#F1EBFF", "card": "#F8F4FF", "deep": "#3B1D78",
+        "font": "Rubik", "symbol": "״",
+        "photo": ("Point of view: the child's world. Camera at the child's eye level or lower, close and intimate, "
+                  "the parent often partly in frame (a hand, a knee, a shoulder), warm light with a soft violet cast."),
+    },
+    "expert": {
+        "name_he": "גישה מקצועית",
+        "tagline_he": "עצה ברורה שאפשר לנסות מחר, וכל עצה נשענת על מקור",
+        "color": "#A8741F", "soft": "#F8EEDC", "card": "#FCF7EE", "deep": "#1D1039",
+        "font": "Heebo", "symbol": "✦",
+        "photo": ("Point of view: a calm observer. Camera at adult eye level, medium to wide, clean uncluttered composition "
+                  "with generous negative space, mother and child both in frame, natural daylight with a muted gold warmth."),
+    },
+}
+
+
+STYLE = (
+    # Yarin's chosen look (fal trial, 7 Oct 2026; a photo-real reference was rejected on 8 Oct): feature-film 3D animation
+    "Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, "
+    "gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, "
+    "rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft "
+    "noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never "
+    "a photograph. Lived-in Israeli apartment details."
+)
+PALETTE = (
+    "Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold "
+    "highlights (#C9954A). Low saturation, warm white balance."
+)
+AVOID = (
+    "Avoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses "
+    "and any uncanny or distorted hands or faces."
+)
+NO_TEXT = (
+    "No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in "
+    "the image, including on books, screens, clothing, toys and signs."
+)
+PRODUCT_CARD_ZONE = (
+    "If a book, tablet or phone appears, it shows only a soft storybook illustration of this same child as the hero, "
+    "with no words, letters, logos or interface. Nothing in the scene identifies a brand."
+)
+REFERENCE_LOCK = (
+    "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, "
+    "ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; "
+    "do not copy the reference layout."
+)
+IMAGE_FIELDS = ("beat", "action", "setting", "camera", "lighting", "wardrobe_objects")
+ANCHOR_FIELDS = ("child", "parent", "wardrobe")
+
+
+def text_zone_sentence(zone):
+    edge = zone.get("edge", "top")
+    percent = zone.get("percent", 40)
+    surface = zone.get("surface") or "plain evenly lit cream wall"
+    return (
+        f"Composition: vertical 4:5. Reserve the {edge} {percent}% of the frame as clean, quiet negative space "
+        f"({surface}) for editable Hebrew typography, and keep every face, hand and important object out of that zone."
+    )
+
+
+def compose_image_prompt(anchor, image, slide_number, for_edit=False, pillar=None):
+    """The exact English prompt the image model receives. Review pages show this same string.
+    pillar is 'kid' or 'expert' and adds that pillar's photo direction."""
+    parts = []
+    if for_edit:
+        parts.append(REFERENCE_LOCK)
+    parts.append(
+        "Characters, identical on every slide: "
+        f"{anchor['child'].strip()} {anchor['parent'].strip()} Wardrobe: {anchor['wardrobe'].strip()}"
+    )
+    parts.append(f"Scene: {image['action'].strip()} Setting: {image['setting'].strip()}")
+    parts.append(f"Emotional beat: {image['beat'].strip()}")
+    parts.append(f"Camera: {image['camera'].strip()} Lighting: {image['lighting'].strip()}")
+    parts.append(f"Wardrobe and objects in this scene: {image['wardrobe_objects'].strip()}")
+    parts.extend([STYLE, PALETTE, AVOID])
+    if pillar in PILLARS:
+        parts.append(PILLARS[pillar]["photo"])
+    parts.append(text_zone_sentence(image.get("text_zone", {})))
+    if slide_number == CTA_SLIDE:
+        parts.append(PRODUCT_CARD_ZONE)
+    parts.append(NO_TEXT)
+    return "\n\n".join(parts)
+
+
+def reference_prompt(anchor, pillar=None):
+    return "\n\n".join([
+        "Characters, identical on every slide: "
+        f"{anchor['child'].strip()} {anchor['parent'].strip()} Wardrobe: {anchor['wardrobe'].strip()}",
+        "Scene: a neutral character and style reference. The child and the parent sit together on a cream sofa in a "
+        "quiet living room, both faces and all four hands clearly visible, relaxed and natural, full enough framing "
+        "to establish clothing, proportions and hair.",
+        "Camera: eye level, medium-wide shot, 50mm look. Lighting: soft window daylight from the right.",
+        STYLE, PALETTE, AVOID,
+        PILLARS[pillar]["photo"] if pillar in PILLARS else "",
+        text_zone_sentence({"edge": "top", "percent": 35, "surface": "plain cream wall"}),
+        NO_TEXT,
+    ])
+
+
+# ---------------------------------------------------------------------------
+# Voice calibration status
+# ---------------------------------------------------------------------------
+
+def _profile_samples(text):
+    """Fenced ```text blocks under '## Writing samples' that are not the template."""
+    if "## Writing samples" not in text:
+        return []
+    section = text.split("## Writing samples", 1)[1]
+    blocks = re.findall(r"```text\n(.*?)```", section, re.S)
+    return [b for b in blocks if b.strip() and "Paste the exact message here" not in b]
+
+
+# Yarin's edits in the review page are Yarin's own writing. A rewrite where at least half of the words are new and
+# the result has at least 3 words counts as one calibration sample; small tweaks and line-break changes are kept
+# as style signals but do not count.
+EDIT_SAMPLE_MIN_WORDS = 3
+EDIT_SAMPLE_MIN_NEW_SHARE = 0.5
+
+
+def _bare_words(text):
+    return [re.sub(r"[^\w\u0590-\u05FF]", "", w) for w in words(collapse(text)) if re.sub(r"[^\w\u0590-\u05FF]", "", w)]
+
+
+def edit_kind(before, after):
+    """'rewrite' (counts as a voice sample), 'tweak', 'line_breaks' or 'none'."""
+    bw, aw = _bare_words(before), _bare_words(after)
+    if bw == aw:
+        return "line_breaks" if lines_of(before) != lines_of(after) else "none"
+    if not aw:
+        return "tweak"
+    seen = set(bw)
+    share = sum(1 for w in aw if w not in seen) / len(aw)
+    return "rewrite" if len(aw) >= EDIT_SAMPLE_MIN_WORDS and share >= EDIT_SAMPLE_MIN_NEW_SHARE else "tweak"
+
+
+def load_voice_edits(path=VOICE_EDITS):
+    path = Path(path)
+    if not path.exists():
+        return []
+    out = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            try:
+                out.append(json.loads(line))
+            except json.JSONDecodeError:
+                continue
+    return out
+
+
+def log_voice_edits(records, path=VOICE_EDITS):
+    if not records:
+        return 0
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as fh:
+        for r in records:
+            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+    return len(records)
+
+
+def recent_voice_edits(n=20, path=VOICE_EDITS):
+    """The latest edits worth learning from, newest last: rewrites, tweaks and line-break changes."""
+    keep = [e for e in load_voice_edits(path) if e.get("kind") in ("rewrite", "tweak", "line_breaks")]
+    return [{k: e.get(k) for k in ("at", "kind", "field", "role", "addressee", "before", "after")} for e in keep[-n:]]
+
+
+def voice_status(profile_path=VOICE_PROFILE, approved_dir=APPROVED_EXAMPLES, edits_path=VOICE_EDITS):
+    profile_samples = _profile_samples(Path(profile_path).read_text(encoding="utf-8")) if Path(profile_path).exists() else []
+    files = []
+    if Path(approved_dir).exists():
+        for p in sorted(Path(approved_dir).glob("*.md")):
+            if p.name.lower() == "readme.md":
+                continue
+            body = p.read_text(encoding="utf-8")
+            if HEBREW_RE.search(body):
+                files.append(p.name)
+    edits = load_voice_edits(edits_path)
+    rewrites = {collapse(e.get("after", "")) for e in edits if e.get("kind") == "rewrite"}
+    total = len(profile_samples) + len(files) + len(rewrites)
+    status = "calibrated" if total >= CALIBRATION_MIN_SAMPLES else "fallback"
+    return {
+        "status": status,
+        "approved_samples": total,
+        "required": CALIBRATION_MIN_SAMPLES,
+        "from_profile": len(profile_samples),
+        "from_examples_folder": len(files),
+        "from_review_edits": len(rewrites),
+        "review_edits_logged": len(edits),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Dates, topics and history
+# ---------------------------------------------------------------------------
+
+def now_local():
+    return dt.datetime.now().astimezone()
+
+
+def review_date_for(moment=None):
+    """The morning the pack is for. Runs from 06:00 onward prepare the next morning;
+    a late run after midnight (the computer was asleep at 22:00) still targets the same morning."""
+    moment = moment or now_local()
+    day = moment.date()
+    return day if moment.hour < 6 else day + dt.timedelta(days=1)
+
+
+def parse_date(value):
+    return dt.date.fromisoformat(value)
+
+
+def load_topic_bank(path=TOPIC_BANK):
+    """Rows of the markdown table whose first cell is a backticked id."""
+    topics = []
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        m = re.fullmatch(r"`([a-z0-9-]+)`", cells[0]) if cells else None
+        if not m or len(cells) < 5:
+            continue
+        months = [int(x) for x in re.findall(r"\d+", cells[3])] if cells[3] not in ("any", "") else []
+        topics.append({
+            "id": m.group(1),
+            "title_he": cells[1],
+            "title_en": cells[2],
+            "months": months,
+            "code_words": [w.strip() for w in cells[4].split("/") if w.strip()],
+            "books": cells[5] if len(cells) > 5 else "",
+        })
+    return topics
+
+
+def load_history(path=HISTORY):
+    path = Path(path)
+    if not path.exists():
+        return {"packs": []}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def previous_packs(history, date_str):
+    """Packs before date_str, newest first. A rerun for the same date ignores its own earlier entry."""
+    packs = [p for p in history.get("packs", []) if p.get("date") and p["date"] < date_str]
+    return sorted(packs, key=lambda p: p["date"], reverse=True)
+
+
+def rotation_context(history, date_str, bank=None):
+    bank = bank if bank is not None else load_topic_bank()
+    day = parse_date(date_str)
+    prev = previous_packs(history, date_str)
+    recent_topics = [p["topic_id"] for p in prev[:TOPIC_COOLDOWN_PACKS]]
+    code_cutoff = (day - dt.timedelta(days=CODE_WORD_COOLDOWN_DAYS)).isoformat()
+    recent_code_words = sorted({w for p in prev if p["date"] >= code_cutoff for w in p.get("code_words", [])})
+    fam_cutoff = (day - dt.timedelta(days=HOOK_FAMILY_WINDOW_DAYS)).isoformat()
+    window = [p for p in prev if p["date"] >= fam_cutoff]
+    selected_counts, candidate_counts = {}, {}
+    for p in window:
+        for o in p.get("options", []):
+            candidate_counts[o["hook_family"]] = candidate_counts.get(o["hook_family"], 0) + 1
+        for sel in p.get("selected", []):
+            fam = next((o["hook_family"] for o in p.get("options", []) if o["id"] == sel), None)
+            if fam:
+                selected_counts[fam] = selected_counts.get(fam, 0) + 1
+    blocked = sorted(f for f, n in selected_counts.items() if n >= HOOK_FAMILY_MAX_IN_WINDOW)
+    recent_hooks = [h for p in prev[:30] for h in p.get("hooks", [])]
+    recent_formulas = sorted({o.get("hook_formula") for p in prev[:HOOK_RECENT_PACKS] for o in p.get("options", []) if o.get("hook_formula")})
+    recent_window = [o for p in prev[:HOOK_RECENT_PACKS] for o in p.get("options", [])]
+
+    def _count(key):
+        out = {}
+        for o in recent_window:
+            if o.get(key):
+                out[o[key]] = out.get(o[key], 0) + 1
+        return out
+    recent_slide2 = [h for p in prev[:30] for h in p.get("slide2_hooks", [])]
+    selected_formulas_14 = sorted({o.get("hook_formula") for p in prev if p["date"] >= (day - dt.timedelta(days=14)).isoformat()
+                                   for o in p.get("options", []) if o["id"] in p.get("selected", []) and o.get("hook_formula")})
+    recent_names = sorted({o.get("child_name") for p in prev[:NAME_COOLDOWN_PACKS] for o in p.get("options", []) if o.get("child_name")})
+    last_used = {}
+    for p in prev:
+        last_used.setdefault(p["topic_id"], p["date"])
+    ranked = []
+    for t in bank:
+        eligible = t["id"] not in recent_topics
+        in_season = (not t["months"]) or (day.month in t["months"])
+        days_since = (day - parse_date(last_used[t["id"]])).days if t["id"] in last_used else None
+        ranked.append({
+            **t,
+            "eligible": eligible,
+            "in_season": in_season,
+            "last_used": last_used.get(t["id"]),
+            "days_since": days_since,
+            "free_code_words": [w for w in t["code_words"] if w not in recent_code_words],
+        })
+    ranked.sort(key=lambda t: (not t["eligible"], not (t["in_season"] and t["months"]), not t["in_season"], -(t["days_since"] or 10_000)))
+    return {
+        "date": date_str,
+        "recent_topic_ids": recent_topics,
+        "recent_code_words": recent_code_words,
+        "blocked_hook_families": blocked,
+        "hook_family_candidates_last_7_days": candidate_counts,
+        "hook_family_selected_last_7_days": selected_counts,
+        "recent_hooks": recent_hooks,
+        "recent_hook_formulas": recent_formulas,
+        "recent_mechanisms": _count("mechanism"),
+        "recent_shapes": _count("shape"),
+        "recent_slide2_moves": _count("slide2_move"),
+        "recent_awareness": _count("awareness_stage"),
+        "recent_slide2_hooks": recent_slide2,
+        "selected_formulas_last_14_days": selected_formulas_14,
+        "recent_child_names": recent_names,
+        "topics": ranked,
+    }
+
+
+def history_entry(pack, bank=None):
+    bank = bank if bank is not None else load_hook_bank()
+    options, code_words, hooks, slide2 = [], set(), [], []
+    for d in pack["directions"]:
+        for v in d["versions"]:
+            hook = v.get("hook") or {}
+            formula = bank.get(hook.get("formula"), {})
+            options.append({
+                "id": v["id"], "hook_family": v["hook_family"], "hook_formula": hook.get("formula"), "code_word": v["code_word"],
+                "child_name": v.get("child_name"), "title": v["title"],
+                # rotation fields (hook strategy research, 8 Oct 2026)
+                "mechanism": hook.get("mechanism") or (formula.get("mechanisms") or [None])[0],
+                "shape": formula.get("shape") or None,
+                "slide2_move": hook.get("slide2_move"),
+                "awareness_stage": v.get("awareness_stage"),
+            })
+            code_words.add(v["code_word"])
+            hooks.append(collapse(v["slides"][0]["headline"]))
+            if len(v["slides"]) > 1:
+                slide2.append(collapse(v["slides"][1]["headline"]))
+    return {
+        "date": pack["date"],
+        "generated_at": pack.get("generated_at"),
+        "topic_id": pack["topic"]["id"],
+        "topic": pack["topic"]["title_he"],
+        "hook_families": sorted({o["hook_family"] for o in options}),
+        "code_words": sorted(code_words),
+        "hooks": hooks,
+        "slide2_hooks": slide2,
+        "options": options,
+        "selected": [],
+    }
+
+
+def record_history(pack, path=HISTORY):
+    """Insert or replace this date's entry. Keeps an earlier selection if the pack is unchanged in options."""
+    history = load_history(path)
+    entry = history_entry(pack)
+    kept = [p for p in history.get("packs", []) if p.get("date") != pack["date"]]
+    old = next((p for p in history.get("packs", []) if p.get("date") == pack["date"]), None)
+    if old:
+        ids = {o["id"] for o in entry["options"]}
+        entry["selected"] = [s for s in old.get("selected", []) if s in ids and old.get("topic_id") == entry["topic_id"]]
+    kept.append(entry)
+    kept.sort(key=lambda p: p["date"])
+    history["packs"] = kept
+    write_json(path, history)
+    return entry
+
+
+def mark_selected(date_str, option_id, path=HISTORY):
+    history = load_history(path)
+    for p in history.get("packs", []):
+        if p.get("date") == date_str:
+            if option_id not in p.setdefault("selected", []):
+                p["selected"].append(option_id)
+            write_json(path, history)
+            return True
+    return False
+
+
+# ---------------------------------------------------------------------------
+# Files
+# ---------------------------------------------------------------------------
+
+def read_json(path):
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+def write_json(path, data):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp.replace(path)
+
+
+def backup_existing(folder, names=("pack.json", "review.html", "review.md")):
+    """Move an existing pack into versions/vN before a rerun overwrites it. Returns the backup folder or None."""
+    folder = Path(folder)
+    present = [folder / n for n in names if (folder / n).exists()]
+    if not present:
+        return None
+    versions = folder / "versions"
+    versions.mkdir(parents=True, exist_ok=True)
+    n = 1
+    while (versions / f"v{n}").exists():
+        n += 1
+    target = versions / f"v{n}"
+    target.mkdir()
+    for p in present:
+        p.replace(target / p.name)
+    return target
+
+
+def png_size(path):
+    with open(path, "rb") as fh:
+        head = fh.read(24)
+    if head[:8] != b"\x89PNG\r\n\x1a\n":
+        raise ValueError(f"{path} is not a PNG")
+    return struct.unpack(">II", head[16:24])
+
+
+def write_placeholder_png(path, width, height, label_rgb=(91, 43, 214), seed=0):
+    """A plain cream image with a soft violet block in the lower half, stdlib only.
+    Used to test the final renderer without paid images."""
+    cream = (243, 234, 220)
+    rows = []
+    block_top = int(height * 0.55)
+    left = int(width * (0.18 + 0.1 * (seed % 3)))
+    right = left + int(width * 0.45)
+    for y in range(height):
+        if y < block_top:
+            shade = int(8 * y / height)
+            row = bytes((cream[0] - shade, cream[1] - shade, cream[2] - shade)) * width
+        else:
+            row = bytearray(bytes(cream) * width)
+            row[left * 3:right * 3] = bytes(label_rgb) * (right - left)
+            row = bytes(row)
+        rows.append(b"\x00" + row)
+    raw = b"".join(rows)
+
+    def chunk(kind, data):
+        body = kind + data
+        return struct.pack(">I", len(data)) + body + struct.pack(">I", zlib.crc32(body) & 0xFFFFFFFF)
+
+    png = b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+    png += chunk(b"IDAT", zlib.compress(raw, 6)) + chunk(b"IEND", b"")
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    Path(path).write_bytes(png)
+    return Path(path)
+
+
+def esc(value):
+    return (str(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;"))

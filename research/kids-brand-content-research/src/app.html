@@ -1,0 +1,235 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumebook Kids Content Lab</title>
+<meta name="description" content="__DESC__">
+__LBHEAD__
+<style>
+__BASECSS__
+</style>
+
+<header class="lb-topbar">
+<div class="lb-topbar-in">
+<a class="lb-brand" href="#overview"><img src="__LOGO__" alt="LumeBook" width="28" height="28"><span><b>Kids Content Lab</b></span></a>
+<div class="tb-crumbs"><span id="crumbG">Answer</span><span id="crumbSep"></span><b id="crumbT">Overview</b></div>
+<span class="lb-spacer"></span>
+<span class="tb-hint">Press <kbd>/</kbd> to search</span>
+<a class="lb-btn ghost sm tb-hq" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">LumeBook HQ</a>
+__THEME__
+</div>
+<div class="lb-topbar-in tb-nav">
+<nav class="lb-toc" aria-label="Sections">
+<a class="nav-i" href="#overview">Overview</a>
+<a class="nav-i" href="#playbook">Formats you can make <span class="lb-count" id="cntFmt"></span></a>
+<a class="nav-i" href="#ai">AI-generated <span class="lb-count" data-cnt="ai"></span></a>
+<a class="nav-i" href="#library" data-also="solo israel intl saved">Library <span class="lb-count" data-cnt="all"></span></a>
+<a class="nav-i" href="#skip">What not to copy</a>
+<a class="nav-i" href="#method">Method and limits</a>
+</nav>
+</div>
+</header>
+
+<main class="lb-page" id="main">
+
+<section class="page lb-section" id="overview" data-g="Answer" data-t="Overview">
+<div class="page-head"><p class="lb-eyebrow">Kids brand short-form research · __STAMP__</p><h1>__H1__</h1><p class="lb-lede">__LEDE__</p></div>
+<div class="lb-grid cols-4" id="kpis"></div>
+<div class="lb-section"><div class="lb-section-head"><h2>What the watched videos teach</h2><a class="lb-xs" href="#playbook">Formats you can make</a></div><ol class="lessons" id="lessons"></ol></div>
+<div class="lb-section"><div class="lb-section-head"><h2>Brand and expert breakouts you could make alone</h2><a class="lb-xs" href="#solo">See all</a></div><div class="vgrid" id="ovTop"></div></div>
+<div class="lb-section"><div class="lb-section-head"><h2>AI-generated and faceless breakouts</h2><a class="lb-xs" href="#ai">See all</a></div><p class="lb-note">From a separate search. Mostly YouTube Shorts and TikTok entertainment accounts, so read these as format ideas, not sales proof.</p><div class="vgrid" id="ovAI"></div></div>
+</section>
+
+<section class="page lb-section" id="playbook" data-g="Answer" data-t="Formats you can make" hidden>
+<div class="page-head"><h2>Formats you can make alone</h2><p class="sub">Each format is backed by videos I watched in full. Steps assume a phone, CapCut or Canva, LumeBook's own book illustrations and, where noted, an AI image, video or voice tool. Tap an example to see its full breakdown.</p></div>
+<div class="lb-stack" id="fmts"></div>
+</section>
+
+<section class="page lb-section" id="lib" data-g="Library" data-t="All videos" hidden>
+<div class="page-head"><h2 id="libTitle">All videos</h2><p class="sub" id="libLede"></p></div>
+<nav class="lb-tabs lib-tabs" aria-label="Library views">
+<a class="nav-i" href="#library">All videos <span class="lb-count" data-cnt="all"></span></a>
+<a class="nav-i" href="#solo">Make it alone <span class="lb-count" data-cnt="solo"></span></a>
+<a class="nav-i" href="#israel">Israel <span class="lb-count" data-cnt="il"></span></a>
+<a class="nav-i" href="#intl">International <span class="lb-count" data-cnt="intl"></span></a>
+<a class="nav-i" href="#saved">Saved <span class="lb-count" data-cnt="saved"></span></a>
+</nav>
+<div class="tbwrap" id="tbwrap">
+ <div class="lb-toolbar">
+  <label class="lb-search lib-search" for="q"><span id="icSearch"></span><input class="lb-input" id="q" type="search" placeholder="Search hooks, accounts, ideas" autocomplete="off"><kbd aria-hidden="true">/</kbd></label>
+  <div class="lb-row">
+   <button type="button" class="lb-btn secondary" id="fBtn" aria-expanded="false" aria-haspopup="dialog"><span id="icFilter"></span>Filter<b class="lb-count is-tint" id="fN" hidden></b></button>
+   <select class="lb-select" id="sort" aria-label="Sort"><option value="ox">Sort: breakout (x usual views)</option><option value="views">Sort: views</option><option value="lr">Sort: like rate</option><option value="date">Sort: newest</option></select>
+  </div>
+  <span class="tb-count lb-dim lb-xs" id="count" aria-live="polite"></span>
+ </div>
+ <div class="lb-row tb-chips" id="chips" hidden></div>
+ <div class="lb-card is-raised pop" id="pop" role="dialog" aria-label="Filter videos" hidden></div>
+</div>
+<div class="vgrid" id="grid"></div>
+</section>
+
+<section class="page lb-section" id="video" data-g="Library" data-t="Video" hidden><div id="vbody" class="lb-stack"></div></section>
+
+<section class="page lb-section" id="skip" data-g="About" data-t="What not to copy" hidden>
+<div class="page-head"><h2>What not to copy</h2><p class="sub">Some breakouts look great but tell you little, because money or a big creator did the work, or because they need things you do not have.</p></div>
+<ol class="lessons" id="skipList"></ol>
+</section>
+
+<section class="page lb-section" id="method" data-g="About" data-t="Method and limits" hidden>
+<div class="lb-prose method">__METHOD__</div>
+</section>
+<footer class="lb-footer">Built __STAMP__ for LumeBook. Frames are small stills for study only; tap through to the original post to watch with sound.</footer>
+</main>
+<div id="toast" class="lb-toast" role="status" aria-live="polite"></div>
+
+<script>
+const V=__DATA__, SYN=__SYN__;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const k=n=>n==null?"n/a":n>=1e6?(n/1e6).toFixed(1).replace(/\.0$/,"")+"M":n>=1e4?Math.round(n/1e3)+"K":n>=1e3?(n/1e3).toFixed(1).replace(/\.0$/,"")+"K":String(n);
+const isHe=s=>/[֐-׿]/.test(s||"");
+const heAttr=s=>isHe(s)?' class="he" dir="auto"':' dir="auto"';
+const svg=p=>'<svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
+const ICON={star:svg('<path d="M10 2.8l2.2 4.5 5 .7-3.6 3.5.9 4.9L10 14.1l-4.5 2.3.9-4.9L2.8 8l5-.7z"/>'),
+ filter:svg('<path d="M3 4.5h14l-5.3 6.2v4.8l-3.4-1.6v-3.2z"/>'),
+ search:svg('<circle cx="8.5" cy="8.5" r="5.3"/><path d="M12.6 12.6l4.4 4.4"/>'),
+ chev:svg('<path d="M7.5 4.5l5.5 5.5-5.5 5.5"/>'),
+ ext:svg('<path d="M8 4H4.5v11.5H16V12M11 3.5h5.5V9M16.5 3.5L9 11"/>'),
+ left:svg('<path d="M12.5 4.5L7 10l5.5 5.5"/>')};
+$("#crumbSep").innerHTML=ICON.chev;$("#icSearch").innerHTML=ICON.search;$("#icFilter").innerHTML=ICON.filter;
+
+/* per-viewer saves (this browser only) */
+const LS="lume_lab_v1";let ME={saved:{},notes:{}};
+try{ME=Object.assign(ME,JSON.parse(localStorage.getItem(LS)||"{}"))}catch(e){}
+const persist=()=>{try{localStorage.setItem(LS,JSON.stringify(ME))}catch(e){}};
+function toast(m){const t=$("#toast");t.innerHTML='<span class="tk">✓</span><span>'+esc(m)+'</span>';t.classList.add("show");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("show"),2200)}
+
+/* labels */
+const L={
+ niche:{developmental_milestone:"Development and milestones",novelty:"Novelty",expert:"Expert",parent_child_daily:"Parent-child daily moments"},
+ route:{solo_shoot:"Shoot it alone",solo_ai:"Make it with AI",solo_edit_or_repost:"Edit or repost",needs_expert_or_kids:"Needs an expert or kids",not_replicable:"Not replicable"},
+ fmt:{pov_skit:"One-person skit",stitch_reaction:"Stitch or reaction",talking_head:"Talking head",text_on_broll:"Text over footage",hands_demo:"Hands-only demo",screen_recording:"Screen recording",animation:"Animation",repost_curation:"Repost with credit",creator_collab:"Creator collab",slideshow:"Slideshow",podcast_clip:"Podcast or interview clip",asmr:"ASMR",other:"Other"},
+ made:{brand_inhouse:"Brand in-house",creator_collab:"Creator collab",expert_self:"Expert's own account",repost_of_creator:"Repost of a creator",unclear:"Unclear"},
+ ctry:{IL:"Israel",intl:"International"},
+ src:{scan:"Brand and expert scan",ai:"AI and faceless search"},
+ paid:{no:"No paid signal",likely:"Likely paid boost",unclear:"Unclear"}
+};
+/* route verdict -> design-system chip colour */
+const RTC={solo_shoot:"success",solo_ai:"success",solo_edit_or_repost:"success",needs_expert_or_kids:"accent",not_replicable:""};
+const rtChip=r=>'<span class="lb-chip '+(RTC[r]||"")+' rt-'+r+'">'+esc(L.route[r]||r)+'</span>';
+const ctryChip=v=>'<span class="lb-chip ctry'+(v.ctry==="IL"?" tint":"")+'">'+(v.ctry==="IL"?"IL":"INTL")+'</span>';
+const SOLO=new Set(["solo_shoot","solo_ai","solo_edit_or_repost"]);
+const routeOf=v=>(v.b.solo_route||{}).verdict||"not_replicable";
+const paidOf=v=>{const p=String(v.b.paid_signal||"").toLowerCase();return p.startsWith("likely")?"likely":p.startsWith("no")?"no":"unclear"};
+const FACETS={
+ ctry:{l:"Country",get:v=>[v.ctry],lab:x=>L.ctry[x]},
+ src:{l:"Found through",get:v=>[v.src],lab:x=>L.src[x]},
+ niche:{l:"Niche",get:v=>v.b.niches||[],lab:x=>L.niche[x]||x},
+ route:{l:"How you could make it",get:v=>[routeOf(v)],lab:x=>L.route[x]||x},
+ fmt:{l:"Format",get:v=>[v.b.format||"other"],lab:x=>L.fmt[x]||x},
+ made:{l:"Made by",get:v=>[v.b.made_by||"unclear"],lab:x=>L.made[x]||x},
+ paid:{l:"Paid signal",get:v=>[paidOf(v)],lab:x=>L.paid[x]},
+ plat:{l:"Platform",get:v=>[v.plat],lab:x=>x}
+};
+const PRESET={library:{t:"All videos",lede:"Every video I watched, newest research first. Sorted by how far each one beat its account's usual views.",f:{}},
+ solo:{t:"Make it alone",lede:"Videos whose format you could reproduce by yourself: shot alone, edited from footage you are allowed to use, or generated with AI.",f:{route:["solo_shoot","solo_ai","solo_edit_or_repost"]}},
+ ai:{t:"AI-generated and faceless",lede:"Found in a separate search for content made with AI or without a face on camera, plus scanned videos you could make with AI.",f:{},ai:true},
+ israel:{t:"Israel",lede:"Israeli brands, experts and creators, in Hebrew.",f:{ctry:["IL"]}},
+ intl:{t:"International",lede:"Brands and experts outside Israel, mostly US.",f:{ctry:["intl"]}},
+ saved:{t:"Saved",lede:"Videos you starred. Saved in this browser only.",f:{},saved:true}};
+let S={q:"",f:{},sort:"ox",preset:"library"};let LIST=[];
+
+function card(v){const b=v.b,r=routeOf(v),on=!!ME.saved[v.id];
+ return '<a class="lb-card vc" href="#v-'+v.id+'">'
+ +'<img class="cov" src="'+(v.th[0]||{}).s+'" alt="" loading="lazy">'
+ +'<div class="bd"><div class="who">'+ctryChip(v)+'<b>@'+esc(v.acct)+'</b><span>· '+esc(v.plat)+'</span></div>'
+ +'<p class="one">'+esc(b.one_line)+'</p>'
+ +'<div class="metrics"><span><b>'+k(v.views)+'</b> views</span>'+(v.ox?'<span class="'+(v.ox>=10?"hot":"")+'"><b>'+v.ox+'x</b> usual</span>':'')+(v.lr!=null?'<span><b>'+v.lr+'%</b> like rate</span>':'')+(v.dur?'<span>'+Math.round(v.dur)+'s</span>':'')+'</div>'
+ +'<div class="chips">'+rtChip(r)+'<span class="lb-chip">'+esc(L.fmt[b.format]||b.format)+'</span>'+(v.src==="ai"?'<span class="lb-chip info">AI search</span>':'')+(paidOf(v)==="likely"?'<span class="lb-chip warning">Likely paid</span>':'')+'</div></div>'
+ +'<button type="button" class="lb-btn ghost icon starbtn" data-star="'+v.id+'" aria-pressed="'+on+'" aria-label="'+(on?"Remove from saved":"Save")+'">'+ICON.star+'</button></a>'}
+function matches(v,skip){
+ const P=PRESET[S.preset]||PRESET.library;
+ if(P.saved&&!ME.saved[v.id])return false;
+ if(P.ai&&!(v.src==="ai"||routeOf(v)==="solo_ai"||v.b.format==="animation"))return false;
+ const f=Object.assign({},P.f,S.f);
+ for(const key in f){if(key===skip)continue;const sel=f[key];if(sel&&sel.length&&!FACETS[key].get(v).some(x=>sel.includes(x)))return false}
+ if(S.q){const hay=[v.acct,v.owner,v.cap,v.b.one_line,JSON.stringify(v.b.hook),(v.b.lumebook_version||{}).hook_he,(v.b.lumebook_version||{}).concept,(v.b.solo_route||{}).how].join(" ").toLowerCase();if(!hay.includes(S.q.toLowerCase()))return false}
+ return true}
+function renderLib(){
+ const sorter={ox:(a,b)=>(b.ox||0)-(a.ox||0),views:(a,b)=>(b.views||0)-(a.views||0),lr:(a,b)=>(b.lr||0)-(a.lr||0),date:(a,b)=>String(b.date).localeCompare(String(a.date))}[S.sort];
+ LIST=V.filter(v=>matches(v)).sort(sorter);
+ $("#count").textContent=LIST.length+" of "+V.length;
+ $("#grid").innerHTML=LIST.length?LIST.map(card).join(""):'<div class="lb-empty"><b>No videos match</b><p class="lb-note">'+(S.preset==="saved"?"Tap the star on any video to save it here.":"Clear a filter or the search to see more.")+'</p></div>';
+ const n=Object.values(S.f).reduce((a,x)=>a+(x?x.length:0),0);$("#fN").hidden=!n;$("#fN").textContent=n;
+ const ch=[];for(const key in S.f)(S.f[key]||[]).forEach(x=>ch.push('<span class="lb-chip tint fchip"><span>'+esc(FACETS[key].l)+': <b>'+esc(FACETS[key].lab(x))+'</b></span><button type="button" data-rm="'+key+'|'+esc(x)+'" aria-label="Remove filter">×</button></span>'));
+ $("#chips").hidden=!ch.length;$("#chips").innerHTML=ch.join("")+(ch.length?'<button type="button" class="lb-btn ghost sm" data-clear>Clear all</button>':"");
+ if(!$("#pop").hidden)renderPop()}
+function renderPop(){
+ const P=PRESET[S.preset]||PRESET.library;
+ $("#pop").innerHTML='<h4>Filter</h4><div class="fgrid">'+Object.keys(FACETS).filter(key=>!(key in P.f)).map(key=>{const fc=FACETS[key];const base=V.filter(v=>matches(v,key));const vals=[...new Set(V.flatMap(fc.get))].sort();const sel=S.f[key]||[];
+  return '<fieldset><legend>'+esc(fc.l)+'</legend>'+vals.map(x=>{const n=base.filter(v=>fc.get(v).includes(x)).length;return '<label class="opt'+(n?"":" zero")+'"><input type="checkbox" data-f="'+key+'" value="'+esc(x)+'"'+(sel.includes(x)?" checked":"")+'><span>'+esc(fc.lab(x))+'</span><span class="n">'+n+'</span></label>'}).join("")+'</fieldset>'}).join("")+'</div><div class="pop-ft"><button type="button" class="lb-btn ghost sm" data-clear>Clear filters</button><button type="button" class="lb-btn sm" id="popDone">Done</button></div>'}
+$("#fBtn").addEventListener("click",()=>{const p=$("#pop");p.hidden=!p.hidden;$("#fBtn").setAttribute("aria-expanded",String(!p.hidden));if(!p.hidden)renderPop()});
+document.addEventListener("click",e=>{
+ const st=e.target.closest("[data-star]");if(st){e.preventDefault();e.stopPropagation();const id=st.dataset.star;if(ME.saved[id])delete ME.saved[id];else ME.saved[id]=1;persist();$$('[data-star="'+id+'"]').forEach(b=>{b.setAttribute("aria-pressed",String(!!ME.saved[id]));b.setAttribute("aria-label",ME.saved[id]?"Remove from saved":"Save")});counts();toast(ME.saved[id]?"Saved":"Removed from saved");if(S.preset==="saved"&&!$("#lib").hidden)renderLib();return}
+ const rm=e.target.closest("[data-rm]");if(rm){const [key,x]=rm.dataset.rm.split("|");S.f[key]=(S.f[key]||[]).filter(y=>y!==x);renderLib();return}
+ if(e.target.closest("[data-clear]")){S.f={};renderLib();return}
+ if(e.target.id==="popDone"){$("#pop").hidden=true;$("#fBtn").setAttribute("aria-expanded","false");return}
+ if(!$("#pop").hidden&&!e.target.closest("#pop")&&!e.target.closest("#fBtn")){$("#pop").hidden=true;$("#fBtn").setAttribute("aria-expanded","false")}});
+$("#pop").addEventListener("change",e=>{const c=e.target.closest("[data-f]");if(!c)return;const key=c.dataset.f;const s=new Set(S.f[key]||[]);c.checked?s.add(c.value):s.delete(c.value);S.f[key]=[...s];renderLib()});
+$("#q").addEventListener("input",e=>{S.q=e.target.value;renderLib()});
+$("#sort").addEventListener("change",e=>{S.sort=e.target.value;renderLib()});
+document.addEventListener("keydown",e=>{if(e.key==="/"&&!/input|textarea|select/i.test(document.activeElement.tagName)){e.preventDefault();if($("#lib").hidden)location.hash="#library";setTimeout(()=>$("#q").focus(),0)}});
+
+/* video page */
+function vpage(id){const v=V.find(x=>x.id===id);if(!v){$("#vbody").innerHTML='<div class="lb-empty"><b>Video not found</b><a href="#library">Back to all videos</a></div>';return}
+ const b=v.b,h=b.hook||{},sr=b.solo_route||{},lb=b.lumebook_version||{},r=routeOf(v),on=!!ME.saved[v.id];
+ const seq=(LIST.length?LIST:V),i=seq.findIndex(x=>x.id===id),prev=seq[i-1],next=seq[i+1];
+ $("#crumbT").textContent="@"+v.acct;
+ $("#vbody").innerHTML=
+ '<div class="pn"><a class="lb-btn secondary sm" href="#'+(S.preset||"library")+'">'+ICON.left+'Back to list</a><span class="lb-row">'+(prev?'<a class="lb-btn secondary sm" href="#v-'+prev.id+'">Previous</a>':'')+(next?'<a class="lb-btn secondary sm" href="#v-'+next.id+'">Next</a>':'')+'</span></div>'
+ +'<div class="vhead"><div class="who">'+ctryChip(v)+'<b>@'+esc(v.acct)+'</b>'+(v.owner&&v.owner!==v.acct?'<span>posted by @'+esc(v.owner)+'</span>':'')+'<span>· '+esc(v.plat)+(v.date?' · '+esc(v.date):'')+'</span></div>'
+ +'<h2>'+esc(b.one_line)+'</h2>'
+ +'<div class="metrics big"><span><b>'+k(v.views)+'</b> views</span>'+(v.ox?'<span class="'+(v.ox>=10?"hot":"")+'"><b>'+v.ox+'x</b> the account\'s usual '+k(v.med)+'</span>':'')+'<span><b>'+k(v.likes)+'</b> likes</span>'+(v.lr!=null?'<span><b>'+v.lr+'%</b> like rate</span>':'')+'<span><b>'+k(v.cmts)+'</b> comments</span>'+(v.dur?'<span><b>'+Math.round(v.dur)+'s</b> long</span>':'')+'</div>'
+ +'<div class="vact"><a class="lb-btn" href="'+esc(v.url)+'" target="_blank" rel="noopener">'+ICON.ext+'Watch on '+esc(v.plat)+'</a><button type="button" class="lb-btn secondary savebtn" data-star="'+v.id+'" aria-pressed="'+on+'">'+ICON.star+'<span>'+(on?"Saved":"Save")+'</span></button>'+rtChip(r)+'<span class="lb-chip">'+esc(L.fmt[b.format]||b.format)+'</span>'+(b.niches||[]).map(n=>'<span class="lb-chip">'+esc(L.niche[n]||n)+'</span>').join("")+(v.src==="ai"?'<span class="lb-chip info">AI search'+(v.aiHow?': '+esc(v.aiHow.replace(/_/g," ")):"")+'</span>':'')+(paidOf(v)==="likely"?'<span class="lb-chip warning">Likely paid boost</span>':'')+'</div></div>'
+ +'<div class="strip" aria-label="Frames">'+v.th.map(t=>'<figure><img src="'+t.s+'" alt="Frame at '+t.t+' seconds" loading="lazy"><figcaption>'+fmtT(t.t)+'</figcaption></figure>').join("")+'</div>'
+ +'<div class="vcols"><div class="lb-stack">'
+ +'<div class="lb-card blk"><h3>The hook</h3><div class="hookbox">'+(h.on_screen_text?'<div><p class="lab">On screen</p><p class="q" dir="auto">'+esc(h.on_screen_text)+'</p></div>':'')+(h.first_spoken_line?'<div><p class="lab">First words</p><p dir="auto">'+esc(h.first_spoken_line)+'</p></div>':'')+'<div><p class="lab">What you see</p><p>'+esc(h.visual)+'</p></div><div><p class="lab">Why it stops the scroll · '+esc((h.hook_type||"").replace(/_/g," "))+'</p><p>'+esc(h.why_it_stops_the_scroll)+'</p></div></div></div>'
+ +'<div class="lb-card blk"><h3>Beat by beat</h3><ol class="beats">'+(b.beats||[]).map(x=>'<li><div class="tc">'+fmtT(x.start)+'<b>'+esc(x.role||"")+'</b></div><div><p class="ob">'+esc(x.observed)+'</p>'+(x.spoken&&!/^no usable/i.test(x.spoken)?'<p class="sp" dir="auto">'+esc(x.spoken)+'</p>':'')+(x.on_screen_text&&!/^none\.?$/i.test(x.on_screen_text)?'<p class="os" dir="auto">'+esc(x.on_screen_text)+'</p>':'')+'</div></li>').join("")+'</ol><p class="lb-note"><b>Payoff:</b> '+esc(b.payoff)+'</p></div>'
+ +'</div><div class="lb-stack">'
+ +'<div class="lb-card blk"><h3>Why it worked</h3><ul class="tight">'+(b.why_it_worked||[]).map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul><div class="chips">'+(b.retention_devices||[]).map(x=>'<span class="lb-chip">'+esc(x.replace(/_/g," "))+'</span>').join("")+'</div><p class="lb-note"><b>Share or comment trigger:</b> '+esc(b.share_or_comment_trigger)+'</p><p class="lb-note"><b>Call to action:</b> '+esc(b.cta)+'</p></div>'
+ +'<div class="lb-card blk"><h3>Make it alone</h3><div class="chips">'+rtChip(r)+'<span class="lb-chip">Effort: '+esc(sr.effort||"n/a")+'</span></div><p>'+esc(sr.how)+'</p><p class="lb-note"><b>You would still need:</b> '+esc(sr.needs)+'</p></div>'
+ +'<div class="lb-card is-accent lbv"><p class="lab">LumeBook version · '+esc(lb.pillar||"")+'</p>'+(lb.hook_he?'<p class="hk he" dir="rtl">'+esc(lb.hook_he)+'</p>':'')+'<p>'+esc(lb.concept)+'</p></div>'
+ +'<div class="lb-card blk"><h3>My notes</h3><label class="lab" for="note-'+v.id+'">Your idea for this one (saved in this browser)</label><textarea class="lb-textarea" id="note-'+v.id+'" data-note="'+v.id+'" dir="auto" placeholder="What would you change for LumeBook?">'+esc(ME.notes[v.id]||"")+'</textarea></div>'
+ +'<details class="lb-card"><summary>Evidence and limits</summary><p class="lb-note">'+esc(b.evidence_notes)+'</p><p class="lb-note"><b>Paid signal:</b> '+esc(b.paid_signal)+'</p></details>'
+ +(v.cap?'<details class="lb-card"><summary>Original caption</summary><p class="lb-note" dir="auto" style="white-space:pre-wrap">'+esc(v.cap)+'</p></details>':'')
+ +'</div></div>'}
+const fmtT=t=>{t=+t||0;return Math.floor(t/60)+":"+String(Math.floor(t%60)).padStart(2,"0")};
+document.addEventListener("input",e=>{const n=e.target.closest("[data-note]");if(!n)return;ME.notes[n.dataset.note]=n.value;clearTimeout(persist.h);persist.h=setTimeout(persist,400)});
+
+/* overview, playbook, skip */
+function counts(){const c={all:V.length,solo:V.filter(v=>SOLO.has(routeOf(v))).length,il:V.filter(v=>v.ctry==="IL").length,intl:V.filter(v=>v.ctry==="intl").length,ai:V.filter(v=>v.src==="ai"||routeOf(v)==="solo_ai"||v.b.format==="animation").length,saved:Object.keys(ME.saved).filter(id=>V.some(v=>v.id===id)).length};$$("[data-cnt]").forEach(el=>el.textContent=c[el.dataset.cnt]||"");$("#cntFmt").textContent=SYN.formats.length;return c}
+const exLink=id=>{const v=V.find(x=>x.id===id);return v?'<a class="ex" href="#v-'+v.id+'"><img src="'+(v.th[0]||{}).s+'" alt="" loading="lazy"><b>'+k(v.views)+(v.ox?' · '+v.ox+'x':'')+'</b><span>@'+esc(v.acct)+'</span></a>':''};
+const chipLinks=ids=>'<div class="lb-row links">'+ids.map(id=>{const v=V.find(x=>x.id===id);return v?'<a class="lb-chip tint" href="#v-'+id+'">@'+esc(v.acct)+' · '+k(v.views)+'</a>':''}).join("")+'</div>';
+function overview(){const c=counts();
+ const solo=V.filter(v=>SOLO.has(routeOf(v)));
+ $("#kpis").innerHTML=[["Videos watched",c.all,c.il+" Israeli · "+c.intl+" international","#library"],["You could make alone",c.solo,"shoot, edit or generate","#solo"],["AI-generated or AI-able",c.ai,"incl. a separate AI search","#ai"],["Hebrew videos",c.il,"Israeli brands, experts and AI","#israel"]].map(([l,v,s,h])=>'<a class="lb-card" href="'+h+'"><div class="lb-stat"><span class="lb-stat-label">'+l+'</span><span class="lb-stat-value">'+v+'</span><span class="lb-stat-foot">'+s+'</span></div></a>').join("");
+ $("#lessons").innerHTML=SYN.lessons.map(x=>'<li class="lb-card"><h3>'+esc(x.title)+'</h3><p>'+esc(x.body)+'</p>'+chipLinks(x.ids||[])+'</li>').join("");
+ $("#ovTop").innerHTML=solo.filter(v=>v.src!=="ai"&&paidOf(v)!=="likely").sort((a,b)=>(b.ox||0)-(a.ox||0)).slice(0,6).map(card).join("");
+ $("#ovAI").innerHTML=V.filter(v=>v.src==="ai"&&SOLO.has(routeOf(v))).sort((a,b)=>(b.lr||0)*Math.log10(b.views||1)-(a.lr||0)*Math.log10(a.views||1)).slice(0,6).map(card).join("");
+ $("#fmts").innerHTML=SYN.formats.map(f=>'<article class="lb-card fmt" id="f-'+f.key+'"><div class="lb-stack"><div class="chips">'+rtChip(f.route)+'<span class="lb-chip">Effort: '+esc(f.effort)+'</span></div><h3>'+esc(f.name)+'</h3><p class="why">'+esc(f.why)+'</p><p class="lab">How to make it</p><ol class="steps">'+f.steps.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol></div><div class="lb-stack"><div class="lb-stack"><p class="lab">Watched examples</p><div class="exs">'+f.ids.map(exLink).join("")+'</div></div><div class="ideas"><p class="lab">LumeBook ideas</p>'+f.ideas.map(s=>'<p'+heAttr(s)+'>'+esc(s)+'</p>').join("")+'</div></div></article>').join("");
+ $("#skipList").innerHTML=SYN.skip.map(x=>'<li class="lb-card"><h3>'+esc(x.title)+'</h3><p>'+esc(x.body)+'</p>'+chipLinks(x.ids||[])+'</li>').join("")}
+
+/* router */
+const pages=$$("section.page");
+function route(){const hash=(location.hash||"#overview").slice(1);let pid=hash;
+ if(hash.startsWith("v-")){pid="video"}else if(PRESET[hash]){pid="lib";if(S.preset!==hash){S.preset=hash;S.f={}}}
+ const pg=pages.find(p=>p.id===pid)||pages[0];pages.forEach(p=>p.hidden=p!==pg);
+ const navKey=pid==="video"?S.preset:pid==="lib"?S.preset:pg.id;
+ $$(".nav-i").forEach(a=>{const on=[a.getAttribute("href").slice(1)].concat((a.dataset.also||"").split(" ")).includes(navKey);on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current");a.classList.toggle("is-active",on);if(on){const t=a.parentElement;if(t.offsetParent!==null&&(a.offsetLeft<t.scrollLeft||a.offsetLeft+a.offsetWidth>t.scrollLeft+t.clientWidth))t.scrollLeft=a.offsetLeft-24}});
+ $("#crumbG").textContent=pg.dataset.g;$("#crumbT").textContent=pid==="lib"?PRESET[S.preset].t:pg.dataset.t;
+ if(pid==="lib"){$("#libTitle").textContent=PRESET[S.preset].t;$("#libLede").textContent=PRESET[S.preset].lede;renderLib()}
+ if(pid==="video")vpage(hash.slice(2));
+ document.title=pid==="overview"?"Lumebook Kids Content Lab":$("#crumbT").textContent+" · Lumebook Kids Content Lab";
+ window.scrollTo(0,0)}
+addEventListener("hashchange",route);
+overview();route();
+</script>

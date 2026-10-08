@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Output is JSON with every requested key",
+      "passed": true,
+      "evidence": "keys: ['caption', 'cta', 'hook', 'second_hook', 'slide3']"
+    },
+    {
+      "text": "No em dash, period or comma in any audience field",
+      "passed": false,
+      "evidence": "ERROR hook line 1 col 4: forbidden comma ',' (U+002C) in «אמא, אבא, אני צריך להגיד לכם משהו: אני לא באמת צמא.»; ERROR hook line 1 col 9: forbidden comma ',' (U+002C) in «אמא, אבא, אני צריך להגיד לכם משהו: אני לא באמת צמא.»; ERROR hook line 1 col 51: forbidden period '.' (U+002E) in «אמא, אבא, אני צריך להגיד לכם משהו: אני לא באמת צמא.»; ERROR second_hook line 1 col 7: forbidden comma ',' (U+002C) in «כל ערב, שתי דקות אחרי לילה טוב, אני קורא לכם: \"אפשר עוד כוס מים?\" אני אגלה לכם ס»; ERROR second_hook line 1 col 31: forbidden comma ',' (U+002C) in «כל ערב, שתי דקות אחרי לילה טוב, אני קורא לכם: \"אפשר עוד כוס מים?\" אני אגלה לכם ס»; ERROR second_hook line 1 col 105: forbidden period '.' (U+002E) in «כל ערב, שתי דקות אחרי לילה טוב, אני קורא לכם: \"אפשר עוד כוס מים?\" אני אגלה לכם ס»"
+    },
+    {
+      "text": "No jargon, diagnosis, guarantee, universality or brand misspelling",
+      "passed": true,
+      "evidence": "none found"
+    },
+    {
+      "text": "CTA keeps the brief's idea with the code word מים and has no second CTA",
+      "passed": true,
+      "evidence": "כתבו \"מים\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור 💧"
+    },
+    {
+      "text": "Caption ends with the exact CTA and adds no other CTA",
+      "passed": false,
+      "evidence": "last line: כתבו מים בתגובות ונשלח לכם קישור 👇; extra CTA lines: []"
+    },
+    {
+      "text": "Every line has at most 12 words (one thought per line)",
+      "passed": false,
+      "evidence": "second_hook: כל ערב, שתי דקות אחרי לילה טוב, אני קורא לכם: \"אפשר עוד כוס מים?\" אני אגלה לכם סוד: זה בכלל לא בגלל המים.; slide3: כשאתם סוגרים את הדלת, החדר נהיה חשוך והבית נהיה שקט מדי. אני עוד לא יודע איך להיפרד מכם עד הבוקר. אז אני מבקש מים. ככה אתם חוזרים לעוד רגע אחד, ואני בודק שאתם עדיין פה.; caption: הרבה פעמים זה בכלל לא צימאון. זה עוד דקה איתכם לפני שנפרדים עד הבוקר.; caption: בלומבוק אנחנו יוצרים ספר אישי שבו הילד שלכם הוא הגיבור, עם השם והפנים שלו."
+    },
+    {
+      "text": "hook: main line up to 8 words and up to 12 words in total",
+      "passed": false,
+      "evidence": "main 11 words, total 11"
+    },
+    {
+      "text": "second_hook: main line up to 8 words and up to 12 words in total",
+      "passed": false,
+      "evidence": "main 23 words, total 23"
+    },
+    {
+      "text": "Kid slides are in the child's first person",
+      "passed": true,
+      "evidence": "3 of 3 fields use first person"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 5,
+    "total": 9,
+    "pass_rate": 0.444
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lumebook",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "/Users/yarinbruner/Claude/Projects/Lumebook/tools/lumebook.py",
+        "serve",
+        "--port",
+        "8780"
+      ],
+      "port": 8780
+    },
+    {
+      "name": "smm-plan-editor",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "/Users/yarinbruner/.claude/skills/site-editor/scripts/serve.py",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/sites/lumebook-smm-plan",
+        "--port",
+        "8765"
+      ],
+      "port": 8765
+    },
+    {
+      "name": "ambassadors-editor",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "/Users/yarinbruner/.claude/skills/site-editor/scripts/serve.py",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/sites/lumebook-ambassadors",
+        "--port",
+        "8768"
+      ],
+      "port": 8768
+    },
+    {
+      "name": "carousel-review-editor",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "/Users/yarinbruner/Claude/Projects/Lumebook/carousel/carousel-pipeline/scripts/review_server.py",
+        "--port",
+        "8777"
+      ],
+      "port": 8777
+    }
+  ]
+}
