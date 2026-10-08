@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מרכז היוצרים | Lumebook</title>
+<meta name="description" content="מרכז היוצרים של Lumebook: הקישור האישי, רעיונות לתוכן, כללים, עמלה, שאלות ותשובות ותמיכה.">
+<!-- link previews (WhatsApp, Facebook, X) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lumebook">
+<meta property="og:locale" content="he_IL">
+<meta property="og:url" content="https://lumebook-ambassadors.vercel.app/creators/">
+<meta property="og:title" content="מרכז היוצרים של Lumebook">
+<meta property="og:description" content="רעיונות לתוכן, כללים, עמלה ותמיכה לשגרירי Lumebook.">
+<meta property="og:image" content="https://lumebook-ambassadors.vercel.app/img/og-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="תוכנית השגרירים של Lumebook: ספר במתנה, קישור אישי, 20% עמלה">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lumebook-ambassadors.vercel.app/img/og-preview.jpg">
+<meta name="theme-color" content="#0B0518">
+<link rel="icon" href="../img/logo_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&amp;display=swap">
+<style>
+:root{
+  /* same tokens as the program page (../index.html) */
+  --ink:#0B0518; --ink-1:#130827; --ink-2:#1D1039; --ink-3:#291852;
+  --gold:#E6B762; --gold-2:#C9954A; --gold-soft:#F3D9A1; --cream:#F8F0E1;
+  --label:var(--cream);
+  --label-2:rgba(248,240,225,.66);
+  --label-3:rgba(248,240,225,.42);
+  --fill:rgba(248,240,225,.06);
+  --fill-2:rgba(248,240,225,.1);
+  --separator:rgba(248,240,225,.11);
+  --tint:var(--gold);
+  --on-tint:var(--ink);
+  --grid:rgba(230,183,98,.075);
+  --violet:#7C4DFF; --violet-2:#A77BFF; --pink:#FF8FC7;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Hebrew","Heebo",system-ui,sans-serif;
+  --font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Hebrew","Heebo",system-ui,sans-serif;
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem; --s6:3rem; --s8:4rem; --s12:6rem;
+  --r-row:.75rem; --r-card:1.25rem; --r-pill:980px;
+  --wrap:48rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--label); font-family:var(--font); font-size:1.0625rem; line-height:1.5; letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased; background-color:var(--ink);
+  background-image:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(124,77,255,.16), transparent 70%),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:auto, 48px 48px, 48px 48px;
+  background-position:center top, 0 0, 0 0;
+}
+a{color:var(--tint)}
+:focus-visible{outline:3px solid rgba(230,183,98,.7); outline-offset:2px; border-radius:8px}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 1rem}
+[hidden]{display:none !important}
+
+/* nav */
+.nav{position:sticky; top:0; z-index:10; background:rgba(11,5,24,.72); -webkit-backdrop-filter:saturate(180%) blur(20px); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--separator)}
+.nav .bar{display:flex; align-items:center; justify-content:space-between; height:3.25rem; max-width:61.25rem; margin:0 auto; padding:0 1rem}
+.nav .brand{display:flex; align-items:center; gap:.5rem; color:var(--label); text-decoration:none; font-weight:600; font-size:1rem}
+.nav .brand img{width:1.75rem; height:1.75rem; border-radius:.45rem; background:var(--cream)}
+.nav .brand small{color:var(--label-3); font-weight:400; font-size:.875rem}
+.nav .back{font-size:.875rem; color:var(--label-2); text-decoration:none}
+.nav .back:hover{color:var(--label)}
+
+/* header */
+.top{text-align:center; padding:var(--s6) 0 var(--s3)}
+.eyebrow{font-size:1rem; font-weight:600; color:var(--tint); margin:0 0 .5rem}
+h1{font-family:var(--font-display); font-weight:800; font-size:clamp(2.25rem,7vw,3.5rem); line-height:1.08; letter-spacing:-.025em; margin:0 0 .75rem}
+.lede{font-size:1.1875rem; color:var(--label-2); margin:0 auto; max-width:30rem}
+
+/* light-purple surfaces (same family as the signup form) */
+.light{
+  --label:#2A1458; --label-2:rgba(42,20,88,.72); --label-3:rgba(42,20,88,.52);
+  --fill:rgba(91,46,200,.06); --fill-2:rgba(91,46,200,.1); --separator:rgba(91,46,200,.14);
+  color:var(--label); background:linear-gradient(160deg,#F4EEFF 0%,#E7DAFF 50%,#F6E9FF 100%);
+  border-radius:1.5rem; box-shadow:0 30px 80px -30px rgba(124,77,255,.5), 0 0 0 1px rgba(255,255,255,.5);
+}
+
+/* welcome + personal link */
+.welcome{padding:var(--s4) 1.25rem var(--s3); text-align:center; margin:0 0 var(--s4); position:relative; isolation:isolate}
+.badge{width:3.5rem; height:3.5rem; margin:0 auto var(--s2); border-radius:50%; display:grid; place-items:center; background:rgba(124,77,255,.14); color:var(--violet)}
+.badge svg{width:1.75rem; height:1.75rem}
+.welcome h2{font-family:var(--font-display); font-size:clamp(1.5rem,4.6vw,2rem); line-height:1.15; letter-spacing:-.02em; margin:0 0 .4rem}
+.welcome > p{color:var(--label-2); margin:0 auto var(--s3); max-width:28rem}
+.welcome > p bdi{color:var(--label); font-weight:600}
+.linkbox{display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; padding:.6rem; padding-inline-end:1rem; background:#fff; border:1px solid rgba(124,77,255,.4); border-radius:var(--r-row); text-align:left}
+.linkbox code{flex:1 1 14rem; min-width:0; direction:ltr; font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:.9375rem; line-height:1.4; color:#2A1458; overflow-wrap:anywhere; padding:.2rem .4rem}
+.linkbox code b{color:#6A35F0}
+.linkbtns{display:flex; gap:.5rem; flex:1 0 auto}
+@media (min-width:480px){.linkbtns{flex:none}}
+.btn{display:inline-flex; align-items:center; justify-content:center; min-height:2.5rem; font:inherit; font-size:.9375rem; font-weight:600; border:0; border-radius:var(--r-pill); padding:.45rem 1.1rem; text-decoration:none; cursor:pointer; flex:1; transition:transform .2s, background .2s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--violet); color:#fff}
+.btn.primary:hover{background:#6A35F0}
+.btn.secondary{background:rgba(124,77,255,.12); color:#4B22C9}
+.btn.secondary:hover{background:rgba(124,77,255,.2)}
+.demo{font-size:.8125rem; color:var(--label-3); margin:var(--s2) 0 0}
+
+/* search + category chips */
+.tools{position:sticky; top:3.25rem; z-index:5; padding:.75rem 1rem .6rem; margin:0 -1rem var(--s3); background:rgba(11,5,24,.9); -webkit-backdrop-filter:saturate(180%) blur(20px); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--separator)}
+.search{position:relative}
+.search input{width:100%; font:inherit; color:var(--label); background:var(--fill-2); border:1px solid var(--separator); border-radius:var(--r-row); padding:.65rem 2.5rem .65rem .9rem; outline:none; transition:border-color .2s, background .2s}
+.search input:focus{border-color:rgba(167,123,255,.7); background:rgba(248,240,225,.13)}
+.search input::placeholder{color:var(--label-3)}
+.search svg{position:absolute; top:50%; right:.85rem; width:1.1rem; height:1.1rem; transform:translateY(-50%); color:var(--label-3); pointer-events:none}
+.cats{display:flex; gap:.5rem; overflow-x:auto; padding:.75rem 0 .1rem; scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cats a{flex:none; font-size:.875rem; color:var(--label-2); text-decoration:none; background:var(--fill); border:1px solid var(--separator); padding:.3rem .85rem; border-radius:var(--r-pill); transition:background .2s, color .2s}
+.cats a:hover{color:var(--label)}
+.cats a.on{background:var(--violet); border-color:var(--violet); color:#fff}
+
+/* categories */
+.cat{scroll-margin-top:9.5rem; margin:0 0 var(--s4)}
+.cat > h2{font-family:var(--font-display); font-size:1.5rem; letter-spacing:-.02em; margin:0 0 .25rem}
+.cat > p{color:var(--label-2); margin:0 0 var(--s2); font-size:1rem}
+.list{padding:.25rem 0; overflow:hidden}
+.item{border-top:1px solid var(--separator)}
+.item:first-child{border-top:0}
+.item summary{list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.95rem 1.25rem; font-weight:600}
+.item summary::-webkit-details-marker{display:none}
+.item summary::after{content:""; flex:none; width:.55rem; height:.55rem; border-left:2px solid var(--label-3); border-bottom:2px solid var(--label-3); transform:rotate(-45deg) translateY(-2px); transition:transform .25s}
+.item[open] summary::after{transform:rotate(135deg) translateY(-2px)}
+.item .body{padding:0 1.25rem 1.1rem; color:var(--label-2); font-size:1rem}
+.item .body ul{margin:0; padding:0 1.1rem 0 0}
+.item .body li{margin:.2rem 0}
+.item .body p{margin:0 0 .4rem}
+.item .body b{color:var(--label)}
+.soon{display:inline-block; font-size:.75rem; font-weight:600; color:#8A5A12; background:#FCEFD3; border-radius:var(--r-pill); padding:.05rem .55rem; margin-inline-start:.25rem; vertical-align:1px}
+.empty{text-align:center; color:var(--label-2); padding:var(--s4) 0}
+
+/* support */
+.support{padding:var(--s3) 1.25rem; display:grid; gap:.75rem}
+.support .btn{min-height:3rem; font-size:1rem; border-radius:.85rem}
+.support p{margin:0; color:var(--label-2); font-size:.9375rem; text-align:center}
+
+footer{border-top:1px solid var(--separator); margin-top:var(--s8); padding:var(--s3) 0 var(--s4); font-size:.8125rem; color:var(--label-3)}
+footer .wrap{display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; justify-content:space-between}
+footer a{color:var(--label-2); text-decoration:none}
+footer a:hover{color:var(--label); text-decoration:underline}
+
+/* motion (off with reduced motion) */
+.aurora{position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden}
+.aurora i{position:absolute; width:46vmax; height:46vmax; border-radius:50%; filter:blur(70px); opacity:.3}
+.aurora i:nth-child(1){background:#7C4DFF; top:-18vmax; right:-12vmax}
+.aurora i:nth-child(2){background:#E6B762; top:40vh; left:-22vmax; opacity:.14}
+.confetti{position:fixed; inset:0; pointer-events:none; z-index:50; overflow:hidden}
+.confetti i{position:absolute; top:-12px; width:9px; height:14px; border-radius:2px}
+@media (prefers-reduced-motion:no-preference){
+  body{animation:gridDrift 40s linear infinite}
+  @keyframes gridDrift{to{background-position:center top, 0 48px, 48px 0}}
+  .aurora i:nth-child(1){animation:blob1 18s ease-in-out infinite alternate}
+  .aurora i:nth-child(2){animation:blob2 22s ease-in-out infinite alternate}
+  @keyframes blob1{to{transform:translate(-14vw,18vh) scale(1.2)}}
+  @keyframes blob2{to{transform:translate(18vw,-10vh) scale(.85)}}
+  .top > *{animation:fadeUp .7s cubic-bezier(.2,.8,.2,1) both}
+  .top > :nth-child(2){animation-delay:.1s} .top > :nth-child(3){animation-delay:.2s}
+  .welcome{animation:fadeUp .8s .25s cubic-bezier(.2,.8,.2,1) both}
+  .welcome .badge{animation:pop .6s .45s cubic-bezier(.3,1.6,.5,1) both}
+  .welcome .badge path{stroke-dasharray:30; stroke-dashoffset:30; animation:draw .5s .8s ease-out forwards}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(22px)}}
+  @keyframes pop{from{opacity:0; transform:scale(.6)}}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .reveal{opacity:0; transform:translateY(30px); transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1; transform:none}
+  .item .body{animation:fadeUp .35s ease-out}
+  .confetti i{animation:fall var(--t,2.6s) cubic-bezier(.25,.6,.5,1) var(--d,0s) forwards}
+  @keyframes fall{to{transform:translate(var(--x,0),110vh) rotate(var(--r,720deg))}}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="ראשי">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../img/logo_square.png" alt="" width="28" height="28">Lumebook<small>מרכז היוצרים</small></a>
+    <a class="back" href="../">לעמוד התוכנית ‹</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="top">
+    <p class="eyebrow">תוכנית השגרירים</p>
+    <h1>מרכז היוצרים</h1>
+    <p class="lede">כל מה שצריך כדי לצלם, לשתף ולהרוויח, במקום אחד</p>
+  </header>
+
+  <!-- shown only to someone who just signed up in this browser (data from ../ in localStorage) -->
+  <section class="welcome light" id="welcome" hidden aria-labelledby="welcome-h" tabindex="-1">
+    <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h2 id="welcome-h">ברוכים הבאים לתוכנית<span id="wname"></span></h2>
+    <p id="wmail">זה הקישור האישי שלכם. כל הזמנה דרכו נרשמת על שמכם.</p>
+    <div class="linkbox">
+      <code id="mylink"></code>
+      <div class="linkbtns">
+        <button class="btn primary" type="button" id="copy">העתקה</button>
+        <button class="btn secondary" type="button" id="share" hidden>שיתוף</button>
+      </div>
+    </div>
+    <p class="demo" id="demoNote">גרסת הדגמה: המייל עדיין לא נשלח בפועל, והקישור עוד לא סופר הזמנות</p>
+  </section>
+
+  <div class="tools">
+    <label class="search">
+      <input id="q" type="search" placeholder="חיפוש: תיוג, עמלה, רעיון לרילס…" aria-label="חיפוש במרכז היוצרים" autocomplete="off">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+    </label>
+    <nav class="cats" aria-label="קטגוריות">
+      <a href="#start">מתחילים</a>
+      <a href="#ideas">רעיונות לתוכן</a>
+      <a href="#rules">כללים ותיוג</a>
+      <a href="#money">קישור ועמלה</a>
+      <a href="#faq">שאלות ותשובות</a>
+      <a href="#help">תמיכה</a>
+    </nav>
+  </div>
+
+  <section class="cat" id="start" aria-labelledby="start-h">
+    <h2 id="start-h">מתחילים</h2>
+    <p>מה קורה מרגע ההרשמה</p>
+    <div class="list light">
+      <details class="item" open>
+        <summary>מה קורה עכשיו?</summary>
+        <div class="body"><ul>
+          <li>שומרים את הקישור האישי (הוא גם במייל האישור)</li>
+          <li>נחזור אליכם בוואטסאפ לתיאום הספר במתנה</li>
+          <li>כשהספר מגיע, מצלמים את הרגע הראשון ומשתפים עם הקישור</li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>איזה ספר מקבלים?</summary>
+        <div class="body"><ul>
+          <li>בוחרים יחד בוואטסאפ, לפי מה שמתקרב אצלכם: גן, אח/ות בדרך, גמילה, יום הולדת, חג</li>
+          <li>הספר מאויר עם הפנים והשם של הילדים שלכם</li>
+          <li>זמן ההגעה <span class="soon">יעודכן בקרוב</span></li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>מה מבקשים מכם?</summary>
+        <div class="body"><ul>
+          <li>לפחות רילס או טיקטוק אחד של הרגע שהילדים פוגשים את עצמם בספר</li>
+          <li>תיוג <bdi dir="ltr">@lumebookai</bdi> וסימון שיתוף פעולה</li>
+          <li>הקישור האישי בביו או בסטורי</li>
+        </ul></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="cat" id="ideas" aria-labelledby="ideas-h">
+    <h2 id="ideas-h">רעיונות לתוכן</h2>
+    <p>מה לצלם, לפי מה שעובר עליכם</p>
+    <div class="list light">
+      <details class="item" open>
+        <summary>הרגע הראשון (הכי חזק)</summary>
+        <div class="body"><ul>
+          <li>נותנים את הספר בלי להגיד מה יש בפנים</li>
+          <li>המצלמה על הפנים של הילדים, לא על הספר</li>
+          <li>משאירים את הקול: התגובה היא התוכן</li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>כניסה לגן / לכיתה א'</summary>
+        <div class="body"><ul>
+          <li>קוראים יחד בערב שלפני היום הראשון</li>
+          <li>הספר בתיק, ליד הבקבוק והכריך</li>
+          <li>שאלה למצלמה: "מה הגיבור עושה בגן?"</li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>אח/ות בדרך או תינוק חדש</summary>
+        <div class="body"><ul>
+          <li>הגדולים מגלים שהם הגיבורים של הסיפור</li>
+          <li>הגדולים "מקריאים" לתינוק</li>
+          <li>לפני ואחרי: הספר בהיריון, והספר עם התינוק</li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>גמילה ממוצץ / מטיטולים</summary>
+        <div class="body"><ul>
+          <li>מתחילים את התהליך עם הספר, ומצלמים כמה ימים</li>
+          <li>הרגע שהילדים מספרים בעצמם מה קרה בסיפור</li>
+          <li>חוגגים את הסוף הטוב עם הספר ביד</li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>פחד או קושי (חושך, פרידה)</summary>
+        <div class="body"><ul>
+          <li>קריאה לפני השינה, עם האור הקטן</li>
+          <li>הספר נשאר ליד המיטה, מצלמים מתי חוזרים אליו</li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>יום הולדת וחגים</summary>
+        <div class="body"><ul>
+          <li>פתיחת המתנה מול המשפחה</li>
+          <li>ספר חנוכה ליד החנוכייה</li>
+          <li>סבא וסבתא מקריאים</li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>פורמטים וטיפים לצילום</summary>
+        <div class="body"><ul>
+          <li>אנבוקסינג קצר, קריאה לפני השינה, לפני ואחרי</li>
+          <li>קרוסלה: עמוד מהספר מול תמונה אמיתית</li>
+          <li>סטורי עם סקר: "מי הגיבור?"</li>
+          <li>אור טבעי ליד חלון, מצלמים לאורך, מוסיפים כתוביות</li>
+        </ul></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="cat" id="rules" aria-labelledby="rules-h">
+    <h2 id="rules-h">כללים ותיוג</h2>
+    <p>קצר, ברור, ושומר על הילדים</p>
+    <div class="list light">
+      <details class="item" open>
+        <summary>תיוג וסימון שיתוף פעולה</summary>
+        <div class="body"><ul>
+          <li>מתייגים <bdi dir="ltr">@lumebookai</bdi> בכל פוסט</li>
+          <li>מסמנים שיתוף פעולה, למשל "קיבלתי במתנה" או <bdi>#שיתוף_פעולה</bdi></li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>ילדים במצלמה</summary>
+        <div class="body"><ul>
+          <li>מצלמים רק את הילדים שלכם, או באישור ההורים</li>
+          <li>לא חייבים להראות פנים, אפשר מהגב, ידיים או רק הספר</li>
+          <li>לא משתפים פרטים מזהים: שם מלא, גן, כתובת</li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>מה אנחנו עושים עם התוכן שלכם</summary>
+        <div class="body"><ul>
+          <li>משתפים בערוצים של Lumebook, עם קרדיט</li>
+          <li>פרסום ממומן: רק באישור נפרד מכם</li>
+          <li>רוצים שנוריד? כותבים לנו בוואטסאפ, בכל שלב</li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>מה לא עושים</summary>
+        <div class="body"><ul>
+          <li>לא מבטיחים מבצעים או הנחות שלא קיבלתם מאיתנו</li>
+          <li>לא מפיצים את הקישור בקבוצות ספאם</li>
+        </ul></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="cat" id="money" aria-labelledby="money-h">
+    <h2 id="money-h">קישור ועמלה</h2>
+    <p>איך הקישור האישי עובד</p>
+    <div class="list light">
+      <details class="item" open>
+        <summary>איך הקישור עובד?</summary>
+        <div class="body"><ul>
+          <li>כל הזמנה שמגיעה דרך הקישור שלכם נרשמת על שמכם</li>
+          <li>העוקבים שלכם מזמינים דרכו בהנחה <span class="soon">גובה ההנחה יעודכן בקרוב</span></li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>כמה מרוויחים?</summary>
+        <div class="body"><ul>
+          <li>20% עמלה על כל הזמנה דרך הקישור</li>
+          <li>איך מחושב הסכום <span class="soon">יעודכן בקרוב</span></li>
+        </ul></div>
+      </details>
+      <details class="item">
+        <summary>מתי ואיך משלמים?</summary>
+        <div class="body"><p>מועדי התשלום ואופן התשלום <span class="soon">יעודכנו בקרוב</span></p></div>
+      </details>
+      <details class="item">
+        <summary>איך רואים כמה הזמנות היו?</summary>
+        <div class="body"><p>דוח הזמנות ליוצרים <span class="soon">בקרוב</span></p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="cat" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">שאלות ותשובות</h2>
+    <p>מה ששואלים אותנו הכי הרבה</p>
+    <div class="list light">
+      <details class="item">
+        <summary>חייבים להראות את הפנים של הילדים?</summary>
+        <div class="body"><p>לא. אפשר לצלם מהגב, רק ידיים או רק את הספר.</p></div>
+      </details>
+      <details class="item">
+        <summary>אפשר לשתף רק בסטורי?</summary>
+        <div class="body"><p>עדיף רילס או טיקטוק, כי הם נשארים בפרופיל. סטורי זה בונוס.</p></div>
+      </details>
+      <details class="item">
+        <summary>שכחתי את הקישור האישי</summary>
+        <div class="body"><p>הוא במייל האישור. לא מוצאים? כתבו לנו בוואטסאפ.</p></div>
+      </details>
+      <details class="item">
+        <summary>יש לי פחות מ-1,000 עוקבים</summary>
+        <div class="body"><p>כרגע התוכנית ליוצרים עם 1,000 עוקבים ומעלה. כשתעברו את ה-1,000, נרשמים שוב.</p></div>
+      </details>
+      <details class="item">
+        <summary>אפשר לבקש להוריד תוכן שפרסמתם?</summary>
+        <div class="body"><p>כן, בכל שלב. כותבים לנו בוואטסאפ.</p></div>
+      </details>
+      <details class="item">
+        <summary>מתי הספר מגיע?</summary>
+        <div class="body"><p>זמן ההגעה <span class="soon">יעודכן בקרוב</span></p></div>
+      </details>
+    </div>
+  </section>
+
+  <p class="empty" id="empty" hidden>לא מצאנו. <a href="#help">כתבו לנו</a> ונענה.</p>
+
+  <section class="cat" id="help" aria-labelledby="help-h">
+    <h2 id="help-h">תמיכה</h2>
+    <p>לא מצאתם תשובה? כתבו לנו</p>
+    <div class="support light">
+      <a class="btn primary" href="https://wa.me/972559800791">וואטסאפ</a>
+      <a class="btn secondary" href="mailto:support@lumebook.com">support@lumebook.com</a>
+      <p>כדאי לצרף את שם הפרופיל שלכם</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="../">תוכנית השגרירים</a>
+    <span><a href="https://lumebook.com/IL/he">lumebook.com</a> · <a href="https://www.instagram.com/lumebookai/"><bdi dir="ltr">@lumebookai</bdi></a></span>
+  </div>
+</footer>
+
+<script>
+// Mockup (2026-10-03): the signup page (../) stores {name, email, link} in this browser's localStorage and
+// redirects here with ?welcome. No email is sent yet; DEMO=false hides the demo note once it is.
+const DEMO = true;
+const STORE_KEY = 'lumebook-creator';
+const $ = id => document.getElementById(id);
+const MOTION = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ---------- welcome + personal link ----------
+let creator = null;
+try { creator = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch (_) {}
+if (creator && creator.link) {
+  const shown = creator.link.replace(/^https?:\/\//, '');
+  const cut = shown.indexOf('ref=') + 4;
+  $('mylink').append(shown.slice(0, cut), Object.assign(document.createElement('b'), { textContent: shown.slice(cut) }));
+  if (creator.name) $('wname').textContent = ', ' + creator.name;
+  if (creator.email) {
+    $('wmail').textContent = 'שלחנו מייל אישור עם הקישור אל ';
+    $('wmail').append(Object.assign(document.createElement('bdi'), { textContent: creator.email }), '. כל הזמנה דרכו נרשמת על שמכם.');
+  }
+  $('demoNote').hidden = !DEMO;
+  $('welcome').hidden = false;
+  if (navigator.share) $('share').hidden = false;
+  if (new URLSearchParams(location.search).has('welcome')) {
+    history.replaceState(null, '', location.pathname);
+    confetti();
+    $('welcome').focus({ preventScroll: true });
+  }
+}
+$('copy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(creator.link); } catch (_) {
+    const r = document.createRange(); r.selectNodeContents($('mylink')); getSelection().removeAllRanges(); getSelection().addRange(r);
+  }
+  $('copy').textContent = 'הועתק';
+  setTimeout(() => { $('copy').textContent = 'העתקה'; }, 1800);
+});
+$('share').addEventListener('click', () => {
+  navigator.share({ title: 'Lumebook', text: 'ספר ילדים עם הפנים והשם של הילדים שלכם', url: creator.link }).catch(() => {});
+});
+
+// ---------- search ----------
+const items = [...document.querySelectorAll('.item')];
+const cats = [...document.querySelectorAll('.cat')].filter(c => c.id !== 'help');
+$('q').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  items.forEach(it => {
+    // match the answer and its section title, so "עמלה" finds everything under קישור ועמלה
+    const text = (it.closest('.cat').querySelector('h2').textContent + ' ' + it.textContent).toLowerCase();
+    const hit = !q || text.includes(q);
+    it.hidden = !hit;
+    it.open = q ? hit : it.hasAttribute('data-was-open');
+  });
+  cats.forEach(c => { c.hidden = !c.querySelector('.item:not([hidden])'); });
+  $('empty').hidden = !q || cats.some(c => !c.hidden);
+});
+items.forEach(it => { if (it.open) it.setAttribute('data-was-open', ''); });
+
+// ---------- category chips follow the scroll ----------
+const chips = [...document.querySelectorAll('.cats a')];
+const spy = new IntersectionObserver(entries => entries.forEach(en => {
+  if (!en.isIntersecting) return;
+  chips.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id));
+  const on = chips.find(a => a.classList.contains('on'));
+  if (on) on.scrollIntoView({ block: 'nearest', inline: 'center', behavior: MOTION ? 'smooth' : 'auto' });
+}), { rootMargin: '-40% 0px -55% 0px' });
+document.querySelectorAll('.cat').forEach(c => spy.observe(c));
+
+// ---------- motion ----------
+if (MOTION) {
+  const aurora = document.createElement('div');
+  aurora.className = 'aurora'; aurora.setAttribute('aria-hidden', 'true');
+  aurora.innerHTML = '<i></i><i></i>';
+  document.body.prepend(aurora);
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+  }), { threshold: .1 });
+  document.querySelectorAll('.cat').forEach(el => { el.classList.add('reveal'); io.observe(el); });
+}
+
+function confetti() {
+  if (!MOTION) return;
+  const box = document.createElement('div'); box.className = 'confetti'; box.setAttribute('aria-hidden', 'true');
+  const colors = ['#E6B762', '#F3D9A1', '#7C4DFF', '#A77BFF', '#FF8FC7', '#F8F0E1'];
+  for (let i = 0; i < 90; i++) {
+    const c = document.createElement('i');
+    c.style.left = (Math.random() * 100) + 'vw';
+    c.style.background = colors[i % colors.length];
+    c.style.setProperty('--x', ((Math.random() - .5) * 30) + 'vw');
+    c.style.setProperty('--r', (360 + Math.random() * 1080) + 'deg');
+    c.style.setProperty('--t', (2 + Math.random() * 1.8) + 's');
+    c.style.setProperty('--d', (Math.random() * .5) + 's');
+    box.appendChild(c);
+  }
+  document.body.appendChild(box);
+  setTimeout(() => box.remove(), 4500);
+}
+</script>
+</body>
+</html>
