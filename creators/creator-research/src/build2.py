@@ -10,10 +10,16 @@ for c in C:
     k=CT.get(c['h'],{}); c['email']=', '.join(k.get('email',[])); c['phone']=', '.join(k.get('phone',[])); c['csrc']='; '.join(k.get('src',[]))
 exec(open(P('enrich.py')).read()); enrich(C)
 KIDS=json.load(open(P('kids.json')))
+# offer facts come from shared/facts.json, so the map's messages and checks use the same numbers as every other component
+FACTS=json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))),"shared","facts.json"),encoding="utf-8"))
+OF=FACTS["offer"]
+OFFER={"pct":OF["allocation_pct"],"ex":[OF["split_example"]["creator_earnings_pct"],OF["split_example"]["audience_discount_pct"]],"paid_ok":bool(OF.get("paid_budget_approved")),"paid_hold":FACTS["creators"].get("paid_hold",[])}
+assert sum(OFFER["ex"])==OFFER["pct"], "the split example must add up to the allocation"
 for c in C:
     if c['h'] in KIDS: c['kids']=KIDS[c['h']]
 for i,c in enumerate(C):
-    c['ai']=i; c['added']='2026-10-03'; c['batch']=2 if str(c.get('extra','')).startswith('pass2') else 1
+    p3=str(c.get('extra',''))=='pass3'
+    c['ai']=i; c['added']='2026-10-11' if p3 else '2026-10-03'; c['batch']=3 if p3 else 2 if str(c.get('extra','')).startswith('pass2') else 1; c['chk']='11 Oct 2026' if p3 else '3 Oct 2026'
 for c in C:
     if c['h']=='edenmomlife': c['arch']='Homeschool / alternative ed'
 O={
@@ -68,11 +74,11 @@ ARCH=[
 MIX=[[2,"Child-dev professionals","@knafaim.ot_by_noy · @eden_spaiev"],[2,"Kindergarten teachers","@yeladim_ktanim · @etti_haft"],[2,"Milestone specialists","@ima.shir (potty) · @nataliegaash (new sibling)"],[2,"Parents: a dad + twins","@rotem__unger · @daria_mansour1"],[1,"Screen-free / free play","@hadas.shvat"],[1,"Grandparent","@saba.chiche"],[1,"Book-writing SLPs","@books_are_friends_slp"],[1,"UGC producer (raw footage)","@bar.levi.adiel"]]
 Q=["Similar-accounts graph from 76 verified creators (Instagram suggestions)","גננת","הגננת","אמא גננת","קלינאית תקשורת","מרפאה בעיסוק","מדריכת הורים","גמילה מחיתולים","יוצרת תוכן הורות","אמא לתאומים","אבא במשרה מלאה","אבא של","אבא לבנות","אבא ובת","סבתא","סבא","סבא וסבתא","משפחתון","גן פרטי","גן ילדים","חינוך ביתי","מונטסורי בבית","בלי מסכים","פעילויות לילדים","פעילויות לגן","רעיונות לגן","יצירה עם ילדים","ספרי ילדים","ספרי ילדים המלצות","סופרת ילדים","ספרנית","מעודדת קריאה","הקראת סיפורים","שעת סיפור","סיפור לפני השינה","סיפור חברתי","מורה לכיתה א","מחנכת כיתה א","מורה לאנגלית לילדים","חוג מוזיקה לפעוטות","מפעילה ימי הולדת","צלמת ילדים","אמא לשלושה","אמא לארבעה","אמא לחמישה","אמא צעירה","אמא במשרה מלאה","טיולים עם ילדים","site:instagram.com / site:tiktok.com (agents)","Hebrew listicles: mako, ynet, 9instyle, Walla (agents)"]
 h=open(P('template.html')).read()
-R=[('I re-checked 58 of its handles', 'I re-checked 40 of its handles'), ('<li><b>Verification.</b>', "<li><b>Second pass (same day).</b> I crawled Instagram's similar-accounts data from 76 verified Hebrew creators (about 2,000 accounts), filtered them by name and bio line, then added more seeds and keyword searches for dads, grandparents, gan and book creators. About 190 more were checked one by one, and 134 passed.</li><li><b>Hebrew only.</b> At your request, Arabic- and Russian-language creators were removed.</li>\n      <li><b>Verification.</b>"), ('<li><b>Location.</b> Three Arabic-language creators are marked “Israel residence unverified”. Confirm before outreach.</li>', "<li><b>Scoring method differs by pass.</b> The 70 first-pass creators and 3 second-pass creators were rated by hand. The other 131 second-pass creators get stricter rule-based ratings from archetype, views-to-followers ratio, reel recency and size. Use the per-creator notes rather than small score gaps.</li><li><b>Language</b> is inferred from Hebrew names and bios; I didn't listen to audio. A few creators write bios in English.</li>")]
+R=[('I re-checked 58 of its handles', 'I re-checked 40 of its handles'), ('<li><b>Verification.</b>', "<li><b>Second pass (same day).</b> I crawled Instagram's similar-accounts data from 76 verified Hebrew creators (about 2,000 accounts), filtered them by name and bio line, then added more seeds and keyword searches for dads, grandparents, gan and book creators. About 190 more were checked one by one, and 134 passed.</li><li><b>Third pass (11 Oct 2026).</b> I took Instagram's similar-accounts lists from 117 creators already in the map, then from 74 of the new finds, and ran 48 Hebrew keyword searches: about 3,800 accounts in all. I opened the 446 most relevant ones, read followers, bio and the latest reels, and kept 100. Most of the ones I dropped were baby-sleep, birth, nutrition or shop accounts, or outside 1K to 50K followers. About 80 of the 100 are a clear fit; about 20 are borderline and say so in their risk note.</li><li><b>Hebrew only.</b> At your request, Arabic- and Russian-language creators were removed.</li>\n      <li><b>Verification.</b>"), ('<li><b>Location.</b> Three Arabic-language creators are marked “Israel residence unverified”. Confirm before outreach.</li>', "<li><b>Scoring method differs by pass.</b> The 70 first-pass creators and 3 second-pass creators were rated by hand. The other 131 second-pass creators and all 100 third-pass creators get stricter rule-based ratings from archetype, views-to-followers ratio, reel recency and size. Use the per-creator notes rather than small score gaps.</li><li><b>Language</b> is inferred from Hebrew names and bios; I didn't listen to audio. A few creators write bios in English.</li>")]
 for a,b in R:
     assert a in h, a[:60]; h=h.replace(a,b)
 J=lambda x: json.dumps(x,ensure_ascii=False)
-for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q}.items(): h=h.replace(k,J(v))
+for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER}.items(): h=h.replace(k,J(v))
 for k,v in {"<!--LB:HEAD-->":design.head(),"<!--LB:THEME-TOGGLE-->":design.theme_toggle("Dark mode","Light mode"),"__LB_LOGO__":design.logo_data_uri()}.items():
     assert h.count(k)==1, k; h=h.replace(k,v)
 # NO_EM: the user never wants em dashes

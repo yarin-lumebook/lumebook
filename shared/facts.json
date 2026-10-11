@@ -11,21 +11,34 @@
     "competitor_instagram": "mebook.ai"
   },
   "offer": {
-    "_source": "Yossi via Yarin, 2026-10-04; corrected 2026-10-07 (no discount code, personal link); 2026-10-08 commission is up to 25%",
+    "_source": "Yossi via Yarin, 2026-10-04; corrected 2026-10-07 (no discount code, personal link); 2026-10-08 the number is 25%; 2026-10-11 Yarin confirmed the split mechanics below",
     "commission_max_pct": 25,
-    "commission_wording_he": "עד 25% עמלה",
+    "allocation_pct": 25,
+    "allocation_rule": "One 25% allocation per sale through the creator's personal link. The creator decides how much of it is their earnings and how much is an audience discount. The discount is applied automatically through the link. It is never 25% earnings plus an extra discount.",
+    "split_example": {
+      "creator_earnings_pct": 15,
+      "audience_discount_pct": 10
+    },
+    "commission_wording_he": "25% מכל מכירה דרך הקישור האישי, לחלוקה בין הרווח של היוצר להנחה לקהל (למשל 15% ליוצר ו-10% הנחה)",
     "free_book": true,
-    "audience_discount_via": "personal link",
+    "audience_discount_via": "personal link, applied automatically",
     "wording_he": "קישור אישי עם הנחה לקהל",
     "banned_wording_he": [
       "קוד הנחה",
       "קוד אישי"
     ],
+    "collaboration_tracks": {
+      "gift": "Gifted + affiliate: a personalised book in exchange for one agreed video, plus the personal-link arrangement",
+      "ugc": "Paid UGC: a guaranteed fee for producing content. Posting on the creator's own account is a separate requirement",
+      "partner": "Paid creator partnership: a guaranteed fee for creating and publishing content to the creator's audience",
+      "default": "Every creator has a track. Until Yarin picks one the creator map picks: already contacted = gift; not contacted = ugc when the profile sells UGC, partner when the research estimate is a paid collaboration (or management contact, or the paid-hold list), otherwise gift"
+    },
+    "paid_budget_approved": false,
     "open_questions": [
-      "What the 20% applies to (price vs shipping)",
-      "Whether the creator's split can change later",
+      "How the sale value behind the 25% is calculated (price only, or shipping too)",
       "Payout method and timing",
-      "Whether checkout supports a link per creator"
+      "How the personal link and its automatic discount are tracked and attributed at checkout",
+      "Whether the creator can change their split later"
     ]
   },
   "artifacts": [
@@ -58,11 +71,11 @@
     },
     {
       "key": "creators",
-      "label": "מפת יוצרים · 204",
+      "label": "מפת יוצרים · 304",
       "url": "https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB",
       "component": "creator-map",
       "date": "2026-10-03",
-      "summary": "204 יוצרים ישראלים: מצב פניות, הודעות בשני סגנונות, מעקב",
+      "summary": "304 יוצרים ישראלים: מצב פניות, הודעות לפי מסלול, מעקב",
       "kind": "יוצרים"
     },
     {
@@ -109,6 +122,24 @@
       "date": "2026-10-08",
       "summary": "צבעים, טיפוגרפיה ורכיבים לכל הדפים הפנימיים",
       "kind": "עיצוב"
+    },
+    {
+      "key": "parent_communities",
+      "label": "מפת קהילות הורים · 353",
+      "url": "https://claude.ai/artifact/CGZrFUNmTUBmo2aa9vCr4A",
+      "component": "parent-communities",
+      "date": "2026-10-09",
+      "summary": "353 קבוצות הורים בפייסבוק ובוואטסאפ: מה מותר לפרסם, איפה לשאול את המנהלות, טופ 20",
+      "kind": "קהילות"
+    },
+    {
+      "key": "hook_studio",
+      "label": "Hook Studio · מכונת הקרוסלות",
+      "url": "https://claude.ai/artifact/CbdVHboropRXjsgVorDCkL",
+      "component": "hook-studio-page",
+      "date": "2026-10-11",
+      "summary": "החבילה הלילית, ההפקה, הכללים והפקודות של מכונת הקרוסלות",
+      "kind": "כלי"
     }
   ],
   "sites": [
@@ -118,20 +149,6 @@
       "url": "https://lumebook-dashboard.vercel.app/plan/",
       "component": "smm-plan",
       "page": "index.html"
-    },
-    {
-      "key": "amb",
-      "label": "דף שגרירים",
-      "url": "https://lumebook-ambassadors.vercel.app",
-      "component": "ambassadors",
-      "page": "index.html"
-    },
-    {
-      "key": "hub",
-      "label": "מרכז היוצרים",
-      "url": "https://lumebook-ambassadors.vercel.app/creators/",
-      "component": "ambassadors",
-      "page": "creators/index.html"
     },
     {
       "key": "dash",

@@ -13,6 +13,18 @@
       "port": 8780
     },
     {
+      "name": "creator-map-static",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8773",
+        "--directory",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/creators/creator-research"
+      ],
+      "port": 8773
+    },
+    {
       "name": "smm-plan-editor",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
@@ -38,11 +50,10 @@
       "name": "carousel-review-editor",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
-        "/Users/yarinbruner/Claude/Projects/Lumebook/carousel/carousel-pipeline/scripts/review_server.py",
-        "--port",
-        "8777"
+        "/Users/yarinbruner/Claude/Projects/Lumebook/carousel/carousel-pipeline/scripts/review_server.py"
       ],
-      "port": 8777
+      "port": 8777,
+      "autoPort": true
     }
   ]
 }

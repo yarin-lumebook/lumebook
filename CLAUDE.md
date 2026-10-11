@@ -13,10 +13,10 @@ Social media work for LumeBook (personalised kids' books, Israel). Solo SMM: Yar
 | `docs/` | Product brief, Q4 strategy page, Hebrew carousel playbook, UGC research, Hebrew voice tool note |
 | `prompts/` | The master prompts each workstream was built from (historical; paths updated to this layout) |
 | `shared/design/` | The LumeBook design system: `lumebook.css` (tokens + `lb-` components), `design.py` (build helpers), `build_ds_artifact.py` (regenerates the Design System artifact) |
-| `sites/` | `dashboard` (the all-in-one internal dashboard; artifact + lumebook-dashboard.vercel.app, which also serves the plan at /plan/), `lumebook-smm-plan` (the plan page, edited in the site editor), `lumebook-ambassadors` (public site for creators, NOT on the design system) |
+| `sites/` | `dashboard` (the all-in-one internal dashboard; artifact + lumebook-dashboard.vercel.app, which also serves the plan at /plan/), `lumebook-smm-plan` (the plan page, edited in the site editor), `lumebook-ambassadors` (retired 11 Oct 2026: Yarin no longer uses the Vercel ambassadors site; the folder is an archive, do not deploy or maintain it) |
 | `creators/` | `creator-research` (creator map) and the signup Form's Apps Script |
 | `research/` | Competitor teardown, kids content lab (1.1 GB of raw video and frames, keep), carousel research, carousel playbook page |
-| `carousel/` | `carousel-pipeline` (nightly, 22:00), `fal-carousel-trial` (frozen reference), `references/` |
+| `carousel/` | `carousel-pipeline` (Hook Studio: nightly at 22:00, hooks first, then content, then slide design), `fal-carousel-trial` (frozen reference), `references/` |
 
 One git repo for everything: github.com/yarinbruner/lumebook (private, since 8 Oct 2026; the four old repos are archived and their history is inside). Raw media is ignored (see `.gitignore`). The root `.githooks/pre-commit` enforces the SMM plan's English mirror and blocks Sheet exports.
 
@@ -33,7 +33,7 @@ python3 tools/lumebook.py check      # registry, brand copies, offer wording, ל
 python3 tools/lumebook.py ack ID --published   # after republishing an artifact
 python3 tools/lumebook.py map        # the dependency graph
 python3 tools/lumebook.py build ID   # run one component's build
-python3 tools/lumebook.py deploy ID  # Vercel deploy (ambassadors, dashboard)
+python3 tools/lumebook.py deploy ID  # Vercel deploy (dashboard)
 python3 tools/lumebook.py serve      # one local server for the whole folder: http://localhost:8780/
 ```
 
@@ -48,7 +48,7 @@ python3 tools/lumebook.py serve      # one local server for the whole folder: ht
 
 - Every internal page uses `shared/design/lumebook.css`: builds inline it with `design.head()`; the SMM plan and the dashboard link synced copies (`design.copies`, kept equal by `sync`). Change the CSS, then `ripple` rebuilds the pages and lists artifacts to republish; regenerate the Design System artifact with `build_ds_artifact.py`.
 - Style page-specific rules with tokens only (`--bg --surface --text --tint --accent ...`), use `lb-` components first, keep both themes and 390px phone width working, Hebrew pages RTL.
-- Not for the ambassadors site (Yarin: it is for the ambassadors and stays as it is) or for the carousel slide designs (the kid/expert pillar looks are audience content).
+- Not for the carousel slide designs (the kid/expert pillar looks are audience content). The retired ambassadors site keeps its own styling.
 
 ## Rules that apply everywhere
 

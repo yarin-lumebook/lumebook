@@ -13,9 +13,10 @@
         "shared/facts.json"
       ],
       "feeds": [
-        "dashboard"
+        "dashboard",
+        "creator-map"
       ],
-      "notes": "Read by the dashboard. check compares the offer wording and brand spelling against the sites and form."
+      "notes": "Read by the dashboard and by the creator map build (offer percentage, split example, paid-hold list). check compares the offer wording and brand spelling against the sites and form."
     },
     "brand": {
       "name": "Brand assets (logos, mascot, fonts, backgrounds)",
@@ -25,10 +26,6 @@
         "shared/brand/**/*"
       ],
       "copies": [
-        {
-          "from": "shared/brand/logo_square.png",
-          "to": "sites/lumebook-ambassadors/img/logo_square.png"
-        },
         {
           "from": "shared/brand/logo_square.png",
           "to": "carousel/carousel-pipeline/assets/brand/logo_square.png"
@@ -51,7 +48,6 @@
         }
       ],
       "feeds": [
-        "ambassadors",
         "carousel-pipeline",
         "dashboard"
       ],
@@ -83,7 +79,8 @@
         "carousel-research",
         "carousel-playbook",
         "carousel-pipeline",
-        "dashboard"
+        "dashboard",
+        "parent-communities"
       ],
       "notes": "Every internal page inlines lumebook.css at build (design.py). The SMM plan has no build, so it links a synced copy. Not used by the ambassadors site.",
       "publish": {
@@ -147,43 +144,29 @@
       "path": "creators",
       "kind": "form",
       "watch": [
-        "creators/lumebook-ugc-form.gs",
-        "sites/lumebook-ambassadors/apps-script-form.gs"
+        "creators/lumebook-ugc-form.gs"
       ],
       "publish": {
         "type": "manual",
         "url": "https://docs.google.com/forms/d/1Iupo4um1A65aWE_-paWCpbeOeD3ZkIKYhPxN-T_NtS8/edit",
         "note": "re-run the script in Apps Script or edit the Form"
       },
-      "rules": [
-        "If a question changes, re-read the entry IDs (FB_PUBLIC_LOAD_DATA_) and update sites/lumebook-ambassadors/index.html."
-      ],
+      "rules": [],
       "feeds": [
-        "ambassadors",
         "dashboard"
       ]
     },
     "ambassadors": {
-      "name": "Ambassadors landing page + creators hub",
+      "name": "Ambassadors landing page + creators hub (retired)",
       "path": "sites/lumebook-ambassadors",
       "kind": "site",
-      "watch": [
-        "sites/lumebook-ambassadors/index.html",
-        "sites/lumebook-ambassadors/creators/index.html"
-      ],
-      "publish": {
-        "type": "vercel",
-        "url": "https://lumebook-ambassadors.vercel.app",
-        "dir": "sites/lumebook-ambassadors",
-        "note": "python3 tools/lumebook.py deploy ambassadors (public site for creators; not on the design system)"
-      },
-      "feeds": [
-        "dashboard"
-      ],
-      "on_upstream_change": "if a form question changed, re-read the Google Form entry IDs and update index.html"
+      "retired": "2026-10-11",
+      "watch": [],
+      "feeds": [],
+      "notes": "Retired on 11 Oct 2026: Yarin no longer uses the Vercel ambassadors site. The folder is kept as an archive and is not deployed, synced or maintained. The old pages may still be online at https://lumebook-ambassadors.vercel.app until the Vercel project is removed."
     },
     "creator-map": {
-      "name": "Creator map (204 creators, outreach CRM)",
+      "name": "Creator map (304 creators, outreach CRM)",
       "path": "creators/creator-research",
       "kind": "page",
       "watch": [
@@ -348,7 +331,7 @@
       "notes": "Source of the slide layout the pipeline copies (source/flare_carousel.py). Not rebuilt."
     },
     "carousel-pipeline": {
-      "name": "Nightly carousel pipeline",
+      "name": "Hook Studio (nightly carousel pipeline)",
       "path": "carousel/carousel-pipeline",
       "kind": "pipeline",
       "watch": [
@@ -362,7 +345,7 @@
       "feeds": [
         "dashboard"
       ],
-      "notes": "Self-contained: scripts find their own folder. Skills: .claude/skills/lumebook-carousel, .claude/skills/lumebook-hebrew-voice.",
+      "notes": "Hooks first, then content, then slide design (10 Oct 2026). Self-contained: scripts find their own folder. Skills: .claude/skills/lumebook-carousel, .claude/skills/lumebook-hebrew-voice.",
       "on_upstream_change": "check whether hook-bank.md (playbook section 7), the competitor code words in scripts/carousel_lib.py (carousel research) or topic-bank.md need updating"
     },
     "dashboard": {
@@ -399,6 +382,66 @@
         "dir": "sites/dashboard/site/lumebook-dashboard",
         "note": "the 08:14 task builds and deploys it; includes the plan at /plan/"
       }
+    },
+    "parent-communities": {
+      "name": "Parent community map (353 FB/WA communities)",
+      "path": "research/parent-community",
+      "kind": "page",
+      "watch": [
+        "research/parent-community/data.json",
+        "research/parent-community/page_template.html",
+        "research/parent-community/build_page.py"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "build_page.py"
+        ],
+        "cwd": "research/parent-community",
+        "outputs": [
+          "research/parent-community/lumebook-parent-communities.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/CGZrFUNmTUBmo2aa9vCr4A",
+        "file": "research/parent-community/lumebook-parent-communities.html"
+      },
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "Free-book-for-content recruitment map, checked 2026-10-09. Write-up: research/parent-community-outreach.md (generated once, not rebuilt). 21 WhatsApp invites unverified (WhatsApp 429)."
+    },
+    "hook-studio-page": {
+      "name": "Hook Studio page (the carousel machine's front page)",
+      "path": "carousel/carousel-pipeline",
+      "kind": "page",
+      "watch": [
+        "carousel/carousel-pipeline/scripts/build_hook_studio_page.py",
+        "carousel/carousel-pipeline/history.json",
+        "carousel/carousel-pipeline/reco-history.json"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "scripts/build_hook_studio_page.py"
+        ],
+        "cwd": "carousel/carousel-pipeline",
+        "outputs": [
+          "carousel/carousel-pipeline/hook-studio.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/CbdVHboropRXjsgVorDCkL",
+        "file": "carousel/carousel-pipeline/hook-studio.html"
+      },
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "Built from the newest pack that has a games or books carousel (drafts/DATE/). Shows the night's pack, validation state, contact sheets, the two modes, the rules and the commands. Rebuild after each nightly run, then republish."
     }
   }
 }

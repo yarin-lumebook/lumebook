@@ -138,6 +138,9 @@ def plan_section():
 
 
 def ambassadors_section():
+    # The ambassadors site was retired on 11 Oct 2026 (lumebook.json marks it). A retired or missing site raises no alerts.
+    if REGISTRY.get("ambassadors", {}).get("retired") or not os.path.exists(rel("sites/lumebook-ambassadors/index.html")):
+        return {"placeholders": [], "demo_mode": False, "entry_ids": 0, "modified": None, "retired": True}
     hub = open(rel("sites/lumebook-ambassadors/creators/index.html"), encoding="utf-8").read()
     placeholders = []
     for m in re.finditer(r'<li>([^<]*)<span class="soon">([^<]*)</span>', hub):

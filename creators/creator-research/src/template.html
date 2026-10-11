@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lumebook Creator Map</title>
-<meta name="description" content="Israeli micro-creators (1K–50K) for Lumebook UGC, verified 3 Oct 2026">
+<meta name="description" content="Israeli micro-creators (1K–50K) for Lumebook UGC, verified 3 and 11 Oct 2026">
 <!--LB:HEAD-->
 <style>
 /* Creator map: page rules on top of the LumeBook design system (shared/design/lumebook.css, inlined above by build2.py).
@@ -152,7 +152,7 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .empty b{font-size:var(--fs-body);color:var(--text)}
 
 /* ---------- database table ---------- */
-#t{min-width:900px}
+#t{min-width:980px}
 #t td{vertical-align:top}
 #t th{cursor:pointer}
 #t th:hover{color:var(--text)}
@@ -197,10 +197,32 @@ details[open] summary{margin-bottom:var(--sp-2)}
 @media (max-width:860px){.sstats{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--sp-4));padding-inline:var(--sp-4)}.sstats::-webkit-scrollbar{display:none}.sstats button{flex:none}}
 .olist{display:grid;gap:var(--sp-3)}
 .oc.done{opacity:.72}
+.oc > *{min-width:0}   /* a wide row (the message tabs) scrolls inside the card and never widens it */
 .ohd{display:flex;gap:var(--sp-3);align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
 .oid{min-width:0;flex:1 1 16rem}
-.oid .hn{font-weight:700;font-size:var(--fs-headline);word-break:break-word;color:var(--text)}
-.oid .hn:hover{color:var(--tint)}
+.oid .hn{font-weight:700;font-size:var(--fs-headline);word-break:break-word;color:var(--tint);text-decoration:none}
+.oid .hn span{font-weight:500;font-size:.85em}
+.oid .hn:hover{text-decoration:underline;text-underline-offset:3px}
+.ocg{display:grid;grid-template-columns:minmax(0,16.5rem) minmax(0,1fr);gap:var(--sp-4) var(--sp-6);align-items:start}
+.oside{display:grid;gap:var(--sp-3);min-width:0;align-content:start}
+.oside .oid{display:grid;gap:.15rem;flex:none}
+.oside .oid .he{text-align:left}
+.oside .omet{margin-top:0;display:grid;gap:.1rem}
+.ofld{display:grid;gap:var(--sp-2)}
+.ofld label{display:grid;gap:.25rem;font-size:var(--fs-caption);font-weight:600;color:var(--text-3)}
+.ofld select.st{width:100%}
+.omsg{display:grid;gap:var(--sp-2);min-width:0;align-content:start;max-width:48rem}
+.omsg .msgbox,.omsg .mtabs{margin-top:0}
+.omsg .mtabs{justify-self:start}
+.omsg .msgbox{min-height:6.5rem;resize:vertical;overflow:auto}
+.omsg .oact{margin-top:var(--sp-1)}
+.oact .end{margin-inline-start:auto;display:inline-flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.oc > .odeal{margin-top:var(--sp-1)}
+@media (max-width:820px){
+  .ocg{grid-template-columns:minmax(0,1fr)}
+  .ofld{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .oact .end{margin-inline-start:0}
+}
 .oid .he{color:var(--text-2);font-size:var(--fs-callout)}
 .omet{font-size:var(--fs-footnote);color:var(--text-3);display:flex;gap:.2rem .9rem;flex-wrap:wrap;margin-top:.2rem;font-variant-numeric:tabular-nums}
 .chips{display:flex;flex-wrap:wrap;gap:var(--sp-1)}
@@ -222,12 +244,57 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .mtabs button{flex:none;min-height:2rem}
 .mtabs button:hover{color:var(--text)}
 .mtabs button[aria-pressed="true"]{font-weight:600}
-.oact .stysw{margin:0}
 .msgbox{margin-top:var(--sp-2);font-size:var(--fs-body);line-height:1.55;direction:rtl;text-align:right;padding:.85rem 1rem;border-radius:var(--r-md)}
 .msgbar{display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap;margin-top:var(--sp-2)}
 .hechk:empty{display:none}
 .hechk{font-size:var(--fs-callout);background:var(--accent-soft);color:var(--text);border-radius:var(--r-md);padding:var(--sp-2) var(--sp-3);margin-top:var(--sp-2);display:flex;flex-wrap:wrap;gap:.35rem .5rem;align-items:center}
 @media (max-width:640px){.oc{padding:var(--sp-4)}}
+/* track, deal row, reply (all on the creator card) */
+.osel{display:grid;gap:var(--sp-1);justify-items:end;max-width:100%}
+.sug{margin:var(--sp-2) 0 0;display:flex;flex-wrap:wrap;gap:.25rem .5rem;align-items:center}
+.sug b{color:var(--text);font-weight:600}
+.odeal{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-3);align-items:end;padding-top:var(--sp-3);border-top:1px solid var(--line)}
+.odeal label{display:grid;gap:.2rem;font-size:var(--fs-footnote);color:var(--text-2);font-weight:500;min-width:0;flex:0 1 12.5rem}
+.odeal label.grow{flex:1 1 15rem}
+.odeal label.wide{flex:1 1 17rem;max-width:26rem}
+.odeal label.chk{display:inline-flex;align-items:center;gap:.4rem;flex:none;min-height:2.25rem;cursor:pointer}
+.odeal label.chk input{accent-color:var(--tint);width:1rem;height:1rem;margin:0}
+.odeal .lb-input,.odeal .lb-select,.ogrid .lb-select,.expf .lb-select,.expf .lb-input,.expf .lb-textarea{width:100%;min-width:0}
+.odeal .acts{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.osec{margin:var(--sp-5) 0 0;font-size:var(--fs-callout);font-weight:600;color:var(--text);display:flex;flex-wrap:wrap;gap:.2rem .6rem;align-items:baseline}
+.osec small{font-weight:400;font-size:var(--fs-footnote);color:var(--text-3)}
+.osec a{font-size:var(--fs-footnote);font-weight:500}
+.ogrid .full{grid-column:1/-1}
+/* overview: funnel, reasons, tests, data update */
+.cmp{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.cmp::-webkit-scrollbar{display:none}
+.cmp button{flex:none}
+.fun{min-width:640px}
+.fun td.unk{color:var(--text-3)}
+.objrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--sp-1) var(--sp-3);align-items:center;font-size:var(--fs-callout);padding:var(--sp-2) 0;border-top:1px solid var(--line)}
+.objrow:first-child{border-top:0}
+.objrow .track{grid-column:1/-1;height:.375rem;background:var(--fill-2);border-radius:var(--r-xs);overflow:hidden}
+.objrow .track i{display:block;height:100%;background:var(--tint);border-radius:inherit}
+.objrow .v{font-size:var(--fs-footnote);color:var(--text-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.expi{display:grid;gap:var(--sp-2);padding:var(--sp-3) 0;border-top:1px solid var(--line)}
+.expi:first-child{border-top:0;padding-top:0}
+.expi h4{margin:0;font-size:var(--fs-body);display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.expf{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:var(--sp-3);margin-top:var(--sp-2)}
+.expf label{display:grid;gap:.3rem;font-size:var(--fs-footnote);color:var(--text-2);font-weight:500}
+.expf .full{grid-column:1/-1}
+.expnew{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:0}
+.expnew[open]{padding-bottom:0}
+.expnew summary{font-size:var(--fs-callout);color:var(--tint);font-weight:500;min-height:2.75rem}
+.mig{display:grid;gap:var(--sp-3)}
+.mig h3{margin:0;font-size:var(--fs-body)}
+.migi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3);display:grid;gap:var(--sp-2);min-width:0}
+.migi label{display:flex;gap:var(--sp-2);align-items:center;font-weight:600;font-size:var(--fs-callout);cursor:pointer}
+.migi label input{accent-color:var(--tint);width:1rem;height:1rem;margin:0;flex:none}
+.migd{display:grid;gap:.25rem;font-size:var(--fs-footnote);line-height:1.5;min-width:0}
+.migd div{direction:rtl;text-align:right;padding:.3rem .55rem;border-radius:var(--r-xs);overflow-wrap:anywhere;white-space:pre-wrap}
+.migd .was{background:var(--danger-soft)}
+.migd .now{background:var(--success-soft)}
+.migd span{font-size:var(--fs-caption);color:var(--text-3)}
 
 /* ---------- settings ---------- */
 .sset{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--sp-3)}
@@ -270,30 +337,42 @@ details[open] summary{margin-bottom:var(--sp-2)}
 <main id="main" class="lb-page">
 <div class="warnbox lb-callout" id="dbnote" hidden></div>
 <div class="warnbox lb-callout" id="vnote" hidden role="status" aria-live="polite"></div>
+<div class="warnbox lb-callout mig" id="mignote" hidden></div>
 <section class="page lb-section" data-page="overview" hidden>
   <p class="lb-eyebrow">Outreach</p>
   <h2>Overview</h2>
   <div class="kpis lb-grid" id="kpis"></div>
-  <div class="lb-card"><div class="lb-card-head"><h3>Pipeline</h3><a href="#c-all">All creators</a></div><div class="pipe lb-stages" id="pipe"></div><div class="legend" id="legend"></div></div>
-  <div class="lb-card"><div class="lb-card-head"><h3>Message styles</h3></div><div class="tbl lb-table-wrap"><table class="lb-table"><thead><tr><th>Style</th><th class="r">Sent</th><th class="r">Replies</th><th class="r">Reply rate</th><th class="r">In process or posted</th></tr></thead><tbody id="styBody"></tbody></table></div><p class="note">Counts every creator marked as sent, by the style you sent. Creators marked before styles existed count as Warm. With small numbers, treat a gap as a hint, not proof.</p></div>
   <div class="panels lb-grid">
+    <div class="lb-card"><div class="lb-card-head"><h3>In process, next steps <span class="cnt lb-count" id="ovWaitN"></span></h3><a href="#v-steps">See all</a></div><ul class="mini" id="ovWait"></ul></div>
     <div class="lb-card"><div class="lb-card-head"><h3>Follow-ups due <span class="cnt lb-count" id="ovDueN"></span></h3><a href="#c-due">See all</a></div><ul class="mini" id="ovDue"></ul></div>
     <div class="lb-card"><div class="lb-card-head"><h3>Next to contact <span class="cnt lb-count" id="ovNextN"></span></h3><a href="#v-top">Top scores</a></div><ul class="mini" id="ovNext"></ul></div>
-    <div class="lb-card"><div class="lb-card-head"><h3>In process, next steps <span class="cnt lb-count" id="ovWaitN"></span></h3><a href="#c-process">See all</a></div><ul class="mini" id="ovWait"></ul></div>
+  </div>
+  <div class="lb-card"><div class="lb-card-head"><h3>Pipeline</h3><a href="#c-all">All creators</a></div><div class="pipe lb-stages" id="pipe"></div><div class="legend" id="legend"></div></div>
+  <div class="lb-card"><div class="lb-card-head"><h3>From first message to published</h3></div>
+    <div class="lb-segmented cmp" id="cmpSw" role="group" aria-label="Compare by"></div>
+    <div class="tbl lb-table-wrap"><table class="lb-table fun"><thead><tr><th id="funH">Group</th><th class="r">Contacted</th><th class="r">Replied</th><th class="r">Expressed interest</th><th class="r">Terms agreed</th><th class="r">Content received</th><th class="r">Published</th><th class="r">Attributed sales</th></tr></thead><tbody id="funBody"></tbody></table></div>
+    <p class="note" id="funNote"></p></div>
+  <div class="panels lb-grid">
+    <div class="lb-card"><div class="lb-card-head"><h3>Reasons behind a no or a stall <span class="cnt lb-count" id="objN"></span></h3><a href="#c-declined">Declined</a></div><div id="objBars"></div><p class="note" id="objNote"></p></div>
+  </div>
+  <div class="lb-card"><div class="lb-card-head"><h3>Tests</h3></div>
+    <p class="note">A test changes one thing between two versions, inside one track and one channel, with creators assigned at random in matched pairs. It only prepares drafts and labels. Nothing is sent. Versions are compared at day 7 after each send, never before both groups get there.</p>
+    <div id="expList"></div>
+    <details class="expnew" id="expNew"><summary>Set up a test</summary><div id="expForm"></div></details>
   </div>
   <div class="lb-card about">
-  <span class="lb-eyebrow">Creator research · verified 3 Oct 2026</span>
+  <span class="lb-eyebrow">Creator research · verified 3 and 11 Oct 2026</span>
   <h3>Who Israeli parents already trust</h3>
-  <p class="lb-lede">204 Hebrew-language Israeli creators with roughly 1K–50K followers who could make credible, reusable Lumebook content. Each one was checked on their own Instagram (or TikTok) profile on 3 Oct 2026 for follower count, bio, the last 12 reels' views, and the date of their last reel.</p>
+  <p class="lb-lede">304 Hebrew-language Israeli creators with roughly 1K–50K followers who could make credible, reusable Lumebook content. Each one was checked on their own Instagram profile for follower count, bio, the last 12 reels' views, and the date of their last reel: 204 on 3 Oct 2026 and 100 more on 11 Oct 2026.</p>
   <div class="facts">
-    <span class="lb-chip outline"><b>204</b> in database</span><span class="lb-chip outline"><b>8</b> over-50K edge cases</span><span class="lb-chip outline"><b>~200</b> accounts screened</span><span class="lb-chip outline">Lumebook Q4 budget: <b>₪0 cash, books as barter</b></span>
+    <span class="lb-chip outline"><b>304</b> in database</span><span class="lb-chip outline"><b>100</b> added 11 Oct</span><span class="lb-chip outline"><b>8</b> over-50K edge cases</span><span class="lb-chip outline"><b>~200</b> accounts screened</span><span class="lb-chip outline">Lumebook Q4 budget: <b>₪0 cash, books as barter</b></span>
   </div>
 <div class="quick"><a class="lb-btn secondary" href="#database">Database</a><a class="lb-btn secondary" href="#method">Method and limits</a></div></div>
 </section>
 <section class="page lb-section" data-page="contacts" hidden>
   <p class="lb-eyebrow" id="cEyebrow">Creators</p>
   <h2 id="cTitle">Not contacted</h2>
-  <p class="lb-lede">Open the profile, copy the message, send it, then press “Mark sent”. Everything you change here saves automatically.</p>
+  <p class="lb-lede">The handle opens the profile. Copy the message, send it, then press “Mark sent”. Everything you change here saves automatically, and your edits teach the templates your voice.</p>
   <div class="sstats" id="sstats" role="group" aria-label="Status"></div>
   <div class="tbwrap" id="tb-c"></div>
   <div class="olist" id="olist"></div>
@@ -302,13 +381,13 @@ details[open] summary{margin-bottom:var(--sp-2)}
 <section class="page lb-section" data-page="database" hidden>
   <span class="lb-eyebrow">Output 1</span>
   <h2>Master creator database</h2>
-  <p class="lb-lede">Click a row for role, ages, UGC roles, the score breakdown, a tailored concept, risks and contact. “Median views” is the median of the 12 most recent reels in the profile's Reels grid, read 3 Oct 2026; pinned reels are included and can push it up.</p>
+  <p class="lb-lede">Click a row for role, ages, UGC roles, the score breakdown, a tailored concept, risks and contact. “Median views” is the median of the 12 most recent reels in the profile's Reels grid, read on 3 Oct 2026 (first two passes) or 11 Oct 2026 (third pass); pinned reels are included and can push it up.</p>
   <div class="tbwrap" id="tb-db"></div>
   <div class="tbl lb-table-wrap"><table id="t" class="lb-table">
     <thead><tr>
-      <th data-k="score" class="r">Score</th><th data-k="h">Creator</th><th data-k="status">Status</th><th data-k="arch">Archetype</th><th data-k="kids">Kids</th>
+      <th data-k="score" class="r">Score</th><th data-k="h">Creator</th><th data-k="status">Status</th><th data-k="track">Track</th><th data-k="arch">Archetype</th><th data-k="kids">Kids</th>
       <th data-k="f" class="r">Followers</th><th data-k="med" class="r">Median views</th><th data-k="last">Last reel</th>
-      <th data-k="added">Added</th><th data-k="prac">Practicality (est.)</th><th data-k="conflict">Brand conflict</th>
+      <th data-k="added">Added</th><th data-k="prac">Practicality (est., not verified)</th><th data-k="conflict">Brand conflict</th>
     </tr></thead><tbody></tbody></table></div>
   <details>
     <summary>Over-50K edge cases (kept separate)</summary>
@@ -336,28 +415,15 @@ details[open] summary{margin-bottom:var(--sp-2)}
       <label>Your name in the message<input class="lb-input" id="sname" placeholder="ירין" dir="rtl"></label>
       <label>Sample book preview link (used in the “after yes” message)<input class="lb-input" id="sprev" placeholder="https://…" dir="ltr"></label>
     </div>
-    <p class="note" style="margin-top:10px">Edit a template here and it changes for every creator whose message you haven't edited by hand. Placeholders: <b>{name}</b> greeting name, <b>{line}</b> personal line, <b>{moment}</b> potty training / starting gan / new sibling, <b>{sender}</b> your name, <b>{preview}</b> preview link.</p>
-    <h3 class="tplh">Style 1: Warm</h3>
-    <div class="tpls">
-      <label>First message<textarea class="lb-textarea" id="tdm" dir="rtl" rows="7"></textarea><button type="button" class="lb-btn secondary sm" data-treset="dm">Reset to default</button></label>
-      <label>Email subject<input class="lb-input" id="tes" dir="rtl"><button type="button" class="lb-btn secondary sm" data-treset="es">Reset to default</button></label>
-      <label>Email body<textarea class="lb-textarea" id="teb" dir="rtl" rows="12"></textarea><button type="button" class="lb-btn secondary sm" data-treset="eb">Reset to default</button></label>
-      <label>Follow-up<textarea class="lb-textarea" id="tfu" dir="rtl" rows="3"></textarea><button type="button" class="lb-btn secondary sm" data-treset="fu">Reset to default</button></label>
-      <label>After “yes” (terms)<textarea class="lb-textarea" id="td2" dir="rtl" rows="6"></textarea><button type="button" class="lb-btn secondary sm" data-treset="d2">Reset to default</button></label>
-    </div>
-    <h3 class="tplh">Style 2: Short</h3>
-    <div class="tpls">
-      <label>First message<textarea class="lb-textarea" id="tdm_b" dir="rtl" rows="6"></textarea><button type="button" class="lb-btn secondary sm" data-treset="dm_b">Reset to default</button></label>
-      <label>Email subject<input class="lb-input" id="tes_b" dir="rtl"><button type="button" class="lb-btn secondary sm" data-treset="es_b">Reset to default</button></label>
-      <label>Email body<textarea class="lb-textarea" id="teb_b" dir="rtl" rows="10"></textarea><button type="button" class="lb-btn secondary sm" data-treset="eb_b">Reset to default</button></label>
-      <label>Follow-up<textarea class="lb-textarea" id="tfu_b" dir="rtl" rows="3"></textarea><button type="button" class="lb-btn secondary sm" data-treset="fu_b">Reset to default</button></label>
-      <label>After “yes” (terms)<textarea class="lb-textarea" id="td2_b" dir="rtl" rows="5"></textarea><button type="button" class="lb-btn secondary sm" data-treset="d2_b">Reset to default</button></label>
-      <label>Offer email, subject then body<textarea class="lb-textarea" id="tof_b" dir="rtl" rows="12"></textarea><button type="button" class="lb-btn secondary sm" data-treset="of_b">Reset to default</button></label>
-    </div>
-    <p class="note">The Style 1 offer email is your own wording and is edited per creator, not here.</p>
+    <p class="note" style="margin-top:10px">Edit a template here and it changes for every creator on that track whose message you haven't edited by hand. Placeholders: <b>{name}</b> greeting name, <b>{line}</b> personal line, <b>{moment}</b> potty training / starting gan / new sibling, <b>{sender}</b> your name, <b>{preview}</b> book example link, <b>{deliverables}</b> what you ask for on a paid track, <b>{fee}</b> the quoted fee (filled in only once the budget is approved).</p>
+    <div class="lb-callout info" id="migdone" hidden style="margin-top:var(--sp-3)"></div>
+    <h3 class="tplh">Templates by track</h3>
+    <div class="msgbar"><div class="mtabs lb-segmented" id="tplTrk" role="group" aria-label="Collaboration track"></div></div>
+    <p class="note" id="tplFacts" style="margin-top:var(--sp-2)"></p>
+    <div class="tpls" id="tplEd"></div>
     <h3 style="margin-top:18px;font-size:16px">My voice (learned from your saved edits)</h3>
-    <p class="note">Each time you press “Save and learn my voice” on an edited message, Claude reads your edit and nudges these notes and the templates above a little closer to how you write. You can edit the notes by hand, one per line.</p>
-    <div class="tpls"><label>Voice notes<textarea class="lb-textarea" id="vrules" dir="auto" rows="6" placeholder="Nothing learned yet. Edit a message and press “Save and learn my voice”."></textarea></label></div>
+    <p class="note">Each time you change a message and leave its box, Claude reads your edit and nudges these notes and the templates above a little closer to how you write. It happens on its own, and the last learning can be undone below. You can edit the notes by hand, one per line.</p>
+    <div class="tpls"><label>Voice notes<textarea class="lb-textarea" id="vrules" dir="auto" rows="6" placeholder="Nothing learned yet. Edit a creator's message and it is learned when you leave the box."></textarea></label></div>
     <div class="msgbar"><span class="note num" id="vcount"></span><button type="button" class="lb-btn secondary" id="vundo" disabled>Undo last learning</button><button type="button" class="lb-btn secondary" id="vclear">Clear learned voice</button></div>
   </div>
 </section>
@@ -370,7 +436,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
       <li><b>Web search (6 parallel agents, ~120 searches).</b> Hebrew and Arabic queries plus <code>site:instagram.com</code> / <code>site:tiktok.com</code>, and Hebrew listicles (mako, ynet, 9instyle, Walla). Yield was low: about 120 leads, many of them shops, inactive or not Israeli.</li>
       <li><b>Instagram similar-accounts graph (14 seeds).</b> Profiles of a kindergarten teacher, SLP, OT, dad, Montessori, books, homeschool, potty-training and gan-consultant creators. Most of the final list came from here.</li>
       <li><b>Instagram account search (58 keywords).</b> Hebrew, Arabic, Russian and English terms. This filled the gaps web search couldn't: Arabic and Russian SLPs, twins moms, grandparents, home daycares, dads, homeschoolers.</li>
-      <li><b>Verification.</b> Every listed creator was opened read-only in a logged-in browser on 3 Oct 2026. I read follower count, bio and category, plus each of the last 12 reels' views and its post date (decoded from the reel ID). TikTok was read with yt-dlp (latest 15 videos). I also checked mebook.ai's Instagram “tagged” tab for competitor overlap.</li>
+      <li><b>Verification.</b> Every listed creator was opened read-only in a logged-in browser, on 3 Oct 2026 for the first two passes and on 11 Oct 2026 for the third. I read follower count, bio and category, plus each of the last 12 reels' views and its post date (decoded from the reel ID). TikTok was read with yt-dlp (latest 15 videos). I also checked mebook.ai's Instagram “tagged” tab for competitor overlap.</li>
     </ul>
   </details>
   <details>
@@ -390,7 +456,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
       <li><b>Collaboration practicality</b> is a category estimate. No rates were sought or invented.</li>
       <li><b>Location.</b> Three Arabic-language creators are marked “Israel residence unverified”. Confirm before outreach.</li>
       <li>Audience demographics (share of parents, cities) were not measured.</li>
-      <li><b>Contacts</b> are only ones each creator publishes themselves (Instagram bio or bio links, or their own Linktree or website). 75 of 204 have an email or phone; the rest are Instagram DM only. Instagram's web version doesn't show a business account's contact buttons, so some creators may have more. I didn't check which numbers are personal and which are business lines, so confirm before messaging, and send one short, personal message each.</li>
+      <li><b>Contacts</b> are only ones each creator publishes themselves (Instagram bio or bio links, or their own Linktree or website). 94 of 304 have an email or phone; the rest are Instagram DM only. Instagram's web version doesn't show a business account's contact buttons, so some creators may have more. I didn't check which numbers are personal and which are business lines, so confirm before messaging, and send one short, personal message each.</li>
     </ul>
   </details>
 </section>
@@ -438,8 +504,16 @@ const ST=[["new","Not contacted"],["sent","Message sent"],["noreply","No reply"]
 const STD=ST.slice(); STD.splice(2,0,["due","Follow-up due"]);
 const STL=Object.fromEntries(STD);
 const ST_I=Object.fromEntries(STD.map((s,i)=>[s[0],i]));
+// collaboration tracks, reasons behind a no or a stall, and steps inside In process (labels match shared/facts.json offer.collaboration_tracks)
+const TRACKS=[["gift","Gifted + affiliate"],["ugc","Paid UGC"],["partner","Paid partnership"]];
+const TRKL=Object.fromEntries(TRACKS), TRKC={gift:"accent",ugc:"info",partner:"tint"};
+const OBJ=[["nocomm","Does not accept commission-based work"],["lowcomm","Commission considered too low"],["guarantee","Wants guaranteed project payment"],["mismatch","Product or audience mismatch"],["timing","Timing or workload"],["privacy","Child visibility or privacy"],["other","Other"],["unknown","Unknown"]];
+const OBJL=Object.fromEntries(OBJ), OBJ_PAY=["nocomm","lowcomm","guarantee"];
+const STAGES=[["rates","Discussing offer or rates"],["agreed","Terms agreed"],["prep","Book preparation"],["booksent","Book sent"],["pending","Content pending"],["recv","Content received"]];
+const STGL=Object.fromEntries(STAGES), STG_I=Object.fromEntries(STAGES.map((s,i)=>[s[0],i]));
 // filled in by the outreach tool once its saved state loads
-const HOOK={ko:()=>null,bk:()=>"new",ss:()=>null,st:()=>"new",due:()=>null,edited:()=>false,at:()=>0,on:()=>"",note:()=>"",saveView:null};
+const HOOK={ko:()=>null,bk:()=>"new",ss:()=>null,st:()=>"new",due:()=>null,edited:()=>false,at:()=>0,on:()=>"",note:()=>"",saveView:null,
+  trk:()=>"",obj:()=>"",stage:()=>"",fit:()=>0,expv:()=>"",nad:()=>"",naDue:()=>false,offer:()=>false,fuOpen:()=>false,more:()=>""};
 const knum=v=>{ if(v===undefined||v===null||v==="") return null; const x=parseInt(v,10); return isNaN(x)||x<0?null:x };
 function kidsOf(c){ const o=HOOK.ko(c.h)||{}, edited=["kn","kb","kg"].some(k=>knum(o[k])!==null), base=c.kids||{};
   let n=edited?knum(o.kn):knum(base.n), b=edited?knum(o.kb):knum(base.b), g=edited?knum(o.kg):knum(base.g);
@@ -491,13 +565,16 @@ const rng=(l,a,b,g)=>({v:l,l,t:c=>{ const x=g(c); return x!=null&&x>=a&&x<b }});
 const FACETS={
   status:{l:"Outreach status",vals:STD.map(([v,l])=>({v,l,t:c=>HOOK.bk(c)===v}))},
   ch:{l:"First channel",vals:["WhatsApp","Email","Instagram DM"].map(v=>({v,l:v,t:c=>chOf(c)===v}))},
-  flag:{l:"Must have",all:true,vals:[{v:"email",l:"Email address",t:c=>!!c.email},{v:"phone",l:"Phone or WhatsApp",t:c=>!!c.phone},{v:"due",l:"Follow-up due",t:c=>HOOK.due(c)!=null},{v:"edited",l:"Messages I edited",t:c=>HOOK.edited(c)},{v:"conflict",l:"Brand conflict flag",t:c=>/COMPETITOR|Adjacent|Unclear/i.test(c.conflict||"")}]},
+  track:{l:"Track",vals:TRACKS.map(([v,l])=>({v,l,t:c=>HOOK.trk(c)===v}))},
+  stage:{l:"In process step",vals:STAGES.map(([v,l])=>({v,l,t:c=>HOOK.stage(c)===v})).concat([{v:"none",l:"No step set",t:c=>HOOK.bk(c)==="process"&&!HOOK.stage(c)}])},
+  obj:{l:"Reason (no or stall)",vals:OBJ.map(([v,l])=>({v,l,t:c=>HOOK.obj(c)===v}))},
+  test:{l:"Test version",vals:[{v:"A",l:"Version A",t:c=>HOOK.expv(c)==="A"},{v:"B",l:"Version B",t:c=>HOOK.expv(c)==="B"}]},
+  flag:{l:"Must have",all:true,vals:[{v:"email",l:"Email address",t:c=>!!c.email},{v:"phone",l:"Phone or WhatsApp",t:c=>!!c.phone},{v:"due",l:"Follow-up due",t:c=>HOOK.due(c)!=null},{v:"fuopen",l:"No reply, follow-up still possible",t:c=>HOOK.fuOpen(c)},{v:"na",l:"Next action due or overdue",t:c=>HOOK.naDue(c)},{v:"offer",l:"Offer wording to review",t:c=>HOOK.offer(c)},{v:"edited",l:"Messages I edited",t:c=>HOOK.edited(c)},{v:"conflict",l:"Brand conflict flag",t:c=>/COMPETITOR|Adjacent|Unclear/i.test(c.conflict||"")}]},
   score:{l:"Score",vals:[["80 and up",80,Infinity],["70 to 79",70,80],["60 to 69",60,70],["Under 60",-Infinity,60]].map(([l,a,b])=>rng(l,a,b,c=>c.score))},
   f:{l:"Followers",vals:[["Under 2K",0,2e3],["2K to 5K",2e3,5e3],["5K to 10K",5e3,1e4],["10K to 20K",1e4,2e4],["20K to 50K",2e4,5e4],["50K and up",5e4,Infinity]].map(([l,a,b])=>rng(l,a,b,c=>c.f))},
   med:{l:"Median reel views",vals:[["Under 1K",0,1e3],["1K to 5K",1e3,5e3],["5K to 20K",5e3,2e4],["20K and up",2e4,Infinity]].map(([l,a,b])=>rng(l,a,b,c=>c.med))},
   last:{l:"Latest reel",vals:[["Last 14 days",0,15],["15 to 30 days ago",15,31],["31 to 90 days ago",31,91],["Over 90 days ago",91,Infinity]].map(([l,a,b])=>rng(l,a,b,c=>dayDiff(c.last))).concat([{v:"unknown",l:"Unknown",t:c=>dayDiff(c.last)==null}])},
-  style:{l:"Style sent",vals:[{v:"1",l:"Warm",t:c=>HOOK.ss(c)===1},{v:"2",l:"Short",t:c=>HOOK.ss(c)===2}]},
-  batch:{l:"Research pass",vals:[{v:"1",l:"First pass",t:c=>c.batch===1},{v:"2",l:"Second pass",t:c=>c.batch===2}]},
+  batch:{l:"Research pass",vals:[{v:"1",l:"First pass",t:c=>c.batch===1},{v:"2",l:"Second pass",t:c=>c.batch===2},{v:"3",l:"Third pass (11 Oct)",t:c=>c.batch===3}]},
   kids:{l:"Kids",vals:[{v:"unk",l:"Not checked yet",t:c=>kidsOf(c).n==null&&kidsOf(c).b==null&&kidsOf(c).g==null},{v:"1",l:"1 kid",t:c=>kidsOf(c).n===1},{v:"2",l:"2 kids",t:c=>kidsOf(c).n===2},{v:"3",l:"3 kids",t:c=>kidsOf(c).n===3},{v:"4",l:"4 or more",t:c=>(kidsOf(c).n||0)>=4},{v:"girl",l:"Has a girl",t:c=>(kidsOf(c).g||0)>0},{v:"boy",l:"Has a boy",t:c=>(kidsOf(c).b||0)>0}]},
   arch:{l:"Archetype",vals:[...new Set(C.map(c=>c.arch))].sort().map(v=>({v,l:v,t:c=>c.arch===v}))}
 };
@@ -507,9 +584,10 @@ const SORTF={
   status:{l:"Outreach status",d:1,v:c=>ST_I[HOOK.bk(c)]}, activity:{l:"Last activity",d:-1,v:c=>HOOK.at(c.h)||null},
   sent:{l:"Sent date",d:-1,v:c=>HOOK.on(c.h)||null}, due:{l:"Days since sent (follow-ups)",d:-1,v:c=>HOOK.due(c)},
   name:{l:"Name",d:1,v:c=>c.name||c.n||null}, h:{l:"Handle",d:1,v:c=>c.h}, arch:{l:"Archetype",d:1,v:c=>c.arch},
+  nad:{l:"Next action date",d:1,v:c=>HOOK.nad(c.h)||null}, track:{l:"Track",d:1,v:c=>TRACKS.findIndex(t=>t[0]===HOOK.trk(c))}, stage:{l:"In process step",d:1,v:c=>HOOK.stage(c)?STG_I[HOOK.stage(c)]:null},
   prac:{l:"Practicality",d:1,v:c=>c.prac||null}, kids:{l:"Number of kids",d:-1,v:c=>kidsOf(c).n}, conflict:{l:"Brand conflict",d:1,v:c=>c.conflict||null}
 };
-const DIRL={status:["Pipeline order","Reverse order"],name:["A to Z","Z to A"],h:["A to Z","Z to A"],arch:["A to Z","Z to A"],prac:["A to Z","Z to A"],conflict:["A to Z","Z to A"],last:["Oldest first","Newest first"],added:["Oldest first","Newest first"],activity:["Oldest first","Newest first"],sent:["Oldest first","Newest first"]};
+const DIRL={nad:["Soonest first","Latest first"],track:["Track order","Reverse order"],stage:["First step first","Last step first"],status:["Pipeline order","Reverse order"],name:["A to Z","Z to A"],h:["A to Z","Z to A"],arch:["A to Z","Z to A"],prac:["A to Z","Z to A"],conflict:["A to Z","Z to A"],last:["Oldest first","Newest first"],added:["Oldest first","Newest first"],activity:["Oldest first","Newest first"],sent:["Oldest first","Newest first"]};
 const dirLabel=(k,d)=>(DIRL[k]||["Low to high","High to low"])[d>0?0:1];
 const coll=new Intl.Collator(["he","en"],{numeric:true,sensitivity:"base"});
 const cmpVal=(x,y)=>typeof x==="number"&&typeof y==="number"?x-y:coll.compare(String(x),String(y));
@@ -518,10 +596,13 @@ const GROUPS={
   none:{l:"None"},
   status:{l:"Status",v:c=>HOOK.bk(c),lab:v=>STL[v],ord:v=>ST_I[v]},
   ch:{l:"First channel",v:chOf,lab:v=>v,ord:v=>["WhatsApp","Email","Instagram DM"].indexOf(v)},
+  track:{l:"Track",v:c=>HOOK.trk(c),lab:v=>TRKL[v],ord:v=>TRACKS.findIndex(t=>t[0]===v)},
+  stage:{l:"In process step",v:c=>HOOK.stage(c)||"none",lab:v=>STGL[v]||"No step set",ord:v=>v==="none"?99:STG_I[v]},
+  obj:{l:"Reason",v:c=>HOOK.obj(c)||"none",lab:v=>OBJL[v]||"No reason recorded",ord:v=>v==="none"?99:OBJ.findIndex(o=>o[0]===v)},
   arch:{l:"Archetype",v:c=>c.arch,lab:v=>v,ord:v=>v},
   f:{l:"Follower band",v:c=>{const x=FACETS.f.vals.findIndex(b=>b.t(c)); return x<0?9:x},lab:v=>FACETS.f.vals[v]?FACETS.f.vals[v].l:"Unknown",ord:v=>v}
 };
-const searchText=c=>[c.h,c.name,c.n,c.role,c.topics,c.arch,c.email,kidsTxt(c),HOOK.note(c.h)].join(" ").toLowerCase();
+const searchText=c=>[c.h,c.name,c.n,c.role,c.topics,c.arch,c.email,kidsTxt(c),HOOK.note(c.h),HOOK.more(c)].join(" ").toLowerCase();
 function matches(c,st,skip){
   if(st.q){ const t=searchText(c); if(!st.q.toLowerCase().split(/\s+/).filter(Boolean).every(w=>t.includes(w))) return false }
   for(const k in st.f){
@@ -637,7 +718,7 @@ function toolbar(el,key,o){
 
 // ---------- database page ----------
 let open=null;
-const TBD=toolbar(document.getElementById("tb-db"),"database",{ph:"Search handle, name, role, topic…",facets:["status","style","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF),base:()=>C,onChange:()=>dbRender()});
+const TBD=toolbar(document.getElementById("tb-db"),"database",{ph:"Search handle, name, role, topic…",facets:["status","track","stage","obj","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF),base:()=>C,onChange:()=>dbRender()});
 function dbRender(){
   const st=UI.vs.database, rows=runView(C,st);
   TBD.sync(rows.length);
@@ -646,22 +727,23 @@ function dbRender(){
     const row=`<tr class="row" data-h="${esc(c.h)}" tabindex="0" aria-expanded="${open===c.h}">
       <td class="r num"><b>${c.score}</b></td>
       <td><a href="${url(c)}" target="_blank" rel="noopener">@${esc(c.h)}</a>${c.plat!=="Instagram"?` <span class="lb-chip">${c.plat}</span>`:""}<div class="he note" dir="auto">${esc(c.name)}</div></td>
-      <td><span class="dot st-${s}"></span>${esc(STL[s])}</td>
+      <td><span class="dot st-${s}"></span>${esc(STL[s])}${s==="process"&&HOOK.stage(c)?`<div class="note">${esc(STGL[HOOK.stage(c)])}</div>`:""}${HOOK.obj(c)&&(s==="declined"||s==="process")?`<div class="note">${esc(OBJL[HOOK.obj(c)])}</div>`:""}</td>
+      <td>${esc(TRKL[HOOK.trk(c)]||"")}</td>
       <td>${esc(c.arch)}</td><td>${kidsTxt(c)?esc(kidsTxt(c)):'<span class="note">Not checked</span>'}</td><td class="r num">${k(c.f)}</td><td class="r num">${k(c.med)}</td><td class="num">${esc(c.last||"—")}</td>
       <td class="num">${esc(addedLabel(c))}</td><td>${esc(c.prac)}</td><td class="${conflictCls(c.conflict)}">${esc(c.conflict)}</td></tr>`;
     if(open!==c.h) return row;
-    return row+`<tr class="det"><td colspan="11"><div class="detgrid">
+    return row+`<tr class="det"><td colspan="12"><div class="detgrid">
       <dl class="kv">
         <dt>Role</dt><dd>${esc(c.role)}</dd><dt>Location</dt><dd>${esc(c.loc||"Not stated")}</dd>
         <dt>Kids</dt><dd>${kidsTxt(c)?esc(kidsTxt(c)):"Not checked yet"}</dd><dt>Child ages</dt><dd>${esc(c.ages)}</dd><dt>Topics</dt><dd>${esc(c.topics)}</dd>
         <dt>UGC roles</dt><dd>${(c.roles||[]).map(esc).join(" · ")}</dd>
         <dt>Concept</dt><dd>${esc(c.concept)}</dd><dt>Risks</dt><dd>${esc(c.risk)}</dd>
-        <dt>First channel</dt><dd>${chOf(c)}</dd>${c.email?`<dt>Email</dt><dd class="num">${esc(c.email)}</dd>`:''}${c.phone?`<dt>Phone / WhatsApp</dt><dd class="num">${esc(c.phone)}</dd>`:''}<dt>Other links</dt><dd>${esc(c.contact)}</dd>${c.csrc?`<dt>Contact found on</dt><dd>${esc(c.csrc)}</dd>`:''}<dt>Evidence</dt><dd><a href="${url(c)}" target="_blank" rel="noopener">${url(c)}</a> (bio and reels read 3 Oct 2026)</dd>
+        <dt>First channel</dt><dd>${chOf(c)}</dd>${c.email?`<dt>Email</dt><dd class="num">${esc(c.email)}</dd>`:''}${c.phone?`<dt>Phone / WhatsApp</dt><dd class="num">${esc(c.phone)}</dd>`:''}<dt>Other links</dt><dd>${esc(c.contact)}</dd>${c.csrc?`<dt>Contact found on</dt><dd>${esc(c.csrc)}</dd>`:''}<dt>Evidence</dt><dd><a href="${url(c)}" target="_blank" rel="noopener">${url(c)}</a> (bio and reels read ${esc(c.chk||"3 Oct 2026")})</dd>
         <dt>Outreach</dt><dd><button type="button" class="lb-btn secondary sm" data-goc="${esc(c.h)}">Open in Creators</button></dd>
       </dl>
       <div class="lb-hbars">${c.s.map((v,i)=>`<div class="lb-hbar"><span>${SN[i]}</span><span class="track"><i style="width:${v*20}%"></i></span><span class="v">${v}</span></div>`).join("")}</div>
     </div></td></tr>`;
-  }).join("")||'<tr><td colspan="11"><div class="empty lb-empty"><b>No creators match.</b><button type="button" class="lb-btn secondary" data-dbclear>Clear search and filters</button></div></td></tr>';
+  }).join("")||'<tr><td colspan="12"><div class="empty lb-empty"><b>No creators match.</b><button type="button" class="lb-btn secondary" data-dbclear>Clear search and filters</button></div></td></tr>';
   const s=st.sort||[];
   document.querySelectorAll("#t th[data-k]").forEach(th=>{ const i=s.findIndex(l=>l[0]===th.dataset.k);
     th.setAttribute("aria-sort",i===0?(s[0][1]>0?"ascending":"descending"):"none");
@@ -705,48 +787,119 @@ const daysSince=d=>{ if(!d) return null; const t=new Date(d+"T00:00:00").getTime
 const pv=s=>esc(s).replace(/@lumebookai/g,'<bdi dir="ltr">@lumebookai</bdi>');
 const get=h=>OD[h]||{};
 const LEGS={replied:"process",yes:"process",code:"process",due:"sent"};
-const DUE_MS=24*36e5, DECL_MS=7*864e5;   // Message sent becomes Follow-up due after 24 hours, Follow-up due becomes No reply after a week
+// Offer facts come from shared/facts.json at build time, so the messages and the checks never carry their own copy of the numbers
+const OFFERF=__OFFER__, PCT=OFFERF.pct, EXC=OFFERF.ex[0], EXA=OFFERF.ex[1];
+// Follow-up timing. The first follow-up is due 4 days after the first message. An optional final one, only for creators you pick, is due 7 days after the first follow-up was really sent.
+const FU1_MS=4*864e5, FU2_MS=7*864e5;
 const rawSt=h=>get(h).s||"new";
 const stOf=h=>LEGS[rawSt(h)]||rawSt(h);
 const hasReplied=c=>["process","posted","declined"].includes(stOf(c.h));
-const sentMs=o=>{ if(o.sat) return o.sat; if(!o.on) return null; const x=new Date(o.on+"T00:00:00").getTime(); return isNaN(x)?null:x };
-const dueStart=c=>{ const o=get(c.h), raw=o.s||"new"; if(raw==="due") return o.dat||o.at||Date.now(); if(raw!=="sent") return null; const s=sentMs(o); return s==null?null:s+DUE_MS };
-const bkOf=c=>{ const raw=rawSt(c.h); if(raw!=="sent"&&raw!=="due") return stOf(c.h); const d=dueStart(c); if(d==null) return "sent"; const n=Date.now(); return n>=d+DECL_MS?"noreply":n>=d?"due":"sent" };
-const dueOf=c=>bkOf(c)==="due"?Math.max(0,Math.floor((Date.now()-dueStart(c))/864e5)):null;
-const declIn=c=>Math.max(0,Math.ceil((dueStart(c)+DECL_MS-Date.now())/864e5));
+const dms=d=>{ if(!d) return null; const x=new Date(d+"T00:00:00").getTime(); return isNaN(x)?null:x };
+const sentMs=o=>o.sat||dms(o.on);
+const fuMs=(o,n)=>n===2?(o.fu2at||dms(o.fu2)):(o.fuat||dms(o.fu));
+// Where a contacted creator stands in the follow-up sequence. Only a real send moves it on: a due date that passes is never counted as sent. A reply (In process, Declined, Posted) switches the sequence off.
+function seq(c){ const o=get(c.h), raw=rawSt(c.h), now=Date.now();
+  if(!["sent","due","noreply"].includes(raw)) return {k:"off"};
+  const s=sentMs(o), f1=fuMs(o,1), f2=fuMs(o,2);
+  if(f2!=null) return {k:"done",n:2,last:f2,lapse:f2+FU2_MS};
+  if(f1!=null){ if(!o.fu2w) return {k:"done",n:1,last:f1,lapse:f1+FU2_MS};
+    const d=raw==="due"?(o.dat||f1+FU2_MS):f1+FU2_MS; return now>=d?{k:"due",n:2,since:d}:{k:"wait",n:2,at:d,last:f1} }
+  if(raw==="due") return {k:"due",n:1,since:o.dat||o.at||now};
+  if(s==null) return {k:"nodate"};
+  const d=s+FU1_MS; return now>=d?{k:"due",n:1,since:d}:{k:"wait",n:1,at:d} }
+const bkOf=c=>{ const raw=rawSt(c.h); if(raw!=="sent"&&raw!=="due") return stOf(c.h); const q=seq(c); return q.k==="due"?"due":(q.k==="done"&&Date.now()>=q.lapse)?"noreply":"sent" };
+const dueOf=c=>bkOf(c)==="due"?Math.max(0,Math.floor((Date.now()-seq(c).since)/864e5)):null;
+// A creator in No reply never said no, so the follow-up that was not sent yet stays available
+const fuOpen=c=>{ if(bkOf(c)!=="noreply") return false; const q=seq(c); return q.k==="due"||q.k==="nodate"||(q.k==="done"&&q.n===1) };
+const dayLabel=ms=>{ const d=new Date(ms); return d.getDate()+" "+MON[d.getMonth()] };
+// ---------- tracks, reasons, steps ----------
+// Every creator has a track. Yarin's own choice wins; until he makes one the map picks:
+// already contacted = Gifted + affiliate, because that is the offer they were sent. Not contacted yet = from what the profile says and the research estimate of how they work:
+// a profile that sells UGC or content for businesses gets Paid UGC; a paid-collaboration estimate, management contact or the hold-for-paid list gets Paid partnership; everyone else gets Gifted + affiliate.
+// The estimate is a starting point only (nobody told us their terms), so the card marks an automatic pick and the Track menu changes it.
+const trkSet=c=>{ const t=get(c.h).trk; return t&&TRKL[t]?t:"" };
+function autoTrk(c){ if(stOf(c.h)!=="new") return "gift";
+  if(/UGC|content for businesses/i.test([c.role,c.topics,c.prac].join(" "))) return "ugc";
+  if(/paid micro|expensive/i.test(c.prac||"")||/management|agency/i.test(c.contact||"")||(OFFERF.paid_hold||[]).includes(c.h)) return "partner";
+  return "gift" }
+const trkOf=c=>trkSet(c)||autoTrk(c);
+const trkM=trkOf;
+const isPaid=c=>trkOf(c)==="ugc"||trkOf(c)==="partner";
+const PRE={gift:"",ugc:"u_",partner:"p_"};
+// a decline with no recorded reason reads as Unknown; nothing is guessed and no reply is never a reason
+const objOf=c=>{ const o=get(c.h), s=stOf(c.h); if(s!=="declined"&&s!=="process") return ""; return OBJL[o.obj]?o.obj:(s==="declined"?"unknown":"") };
+const stgOf=c=>stOf(c.h)==="process"&&STGL[get(c.h).stg]?get(c.h).stg:"";
+const naState=c=>{ const o=get(c.h); if(stOf(c.h)!=="process") return null; const t=dms(o.nad); if(t==null) return o.na?"undated":"none"; const d=Math.floor((t-dms(today()))/864e5); return d<0?"over":d===0?"today":"later" };
+const interested=c=>{ const o=get(c.h), s=stOf(c.h); return o.int===1||s==="posted"||(s==="process"&&["agreed","prep","booksent","pending","recv"].includes(o.stg)) };
+const agreed=c=>{ const s=stOf(c.h); return s==="posted"||(s==="process"&&["agreed","prep","booksent","pending","recv"].includes(get(c.h).stg)) };
+const gotContent=c=>stOf(c.h)==="posted"||stgOf(c)==="recv";
+const salesOf=c=>{ const v=get(c.h).sales; if(v===undefined||v===null||String(v).trim()==="") return null; const x=parseFloat(v); return isNaN(x)?null:x };
 const chOf=c=>c.phone?"WhatsApp":c.email?"Email":"Instagram DM";
+const CHS=["Instagram DM","WhatsApp","Email"], LASTCH={};
 const signer=()=>SET.sender||"ירין";
 const who=c=>get(c.h).name||c.n;
 const lineOf=c=>get(c.h).line||c.l;
+// Default templates. Keys: no prefix = Gifted + affiliate, u_ = Paid UGC, p_ = Paid partnership. The Short style was retired on 11 Oct 2026; its saved _b templates are left in settings, unused.
+// Types: dm first message, es and eb email, fu follow-up, f2 optional final follow-up, d2 reply to an interested creator, of offer details.
+// Templates saved in settings/main tpl win over these, so a change here never rewrites what Yarin saved.
+const SPLIT="את ה-"+PCT+"% מחלקים איך שנוח לך בין הרווח שלך להנחה לקהל (למשל "+EXC+"% לך ו-"+EXA+"% הנחה להם)";
 const DEF={
- dm:"היי {name} 😁\nעברתי על העמוד, אהבתי את {line}.\nאני {sender}, מנהל הסושיאל של @lumebookai. אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור, לרגעים כמו {moment}.\nיש לי הצעה לתוכנית השגרירים שלנו: ספר מתנה לילד, קישור אישי עם הנחה לקהל שלך, ועמלה על כל מכירה דרכו. מתאים שאשלח פרטים?",
+ dm:"היי {name} 😁\nעברתי על העמוד שלך והתחברתי מאוד ל{line}!\nאני {sender}, מנהל הסושיאל של @lumebookai. אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור, לרגעים כמו {moment}.\nאנחנו מציעים ספר אישי במתנה לילד, וקישור אישי עם הנחה לקהל שלך ורווח לך מכל מכירה דרכו. בתמורה אנחנו מבקשים סרטון אחד של הילד עם הספר שלו.\nמתאים שאשלח דוגמה לספר ואת הפרטים?",
  es:"שיתוף פעולה עם LumeBook: ספר ילדים עם הילד כגיבור",
- eb:"היי {name},\n\nעברתי על העמוד שלך ואהבתי את {line}.\n\nאנחנו ב-LumeBook (@lumebookai) יוצרים ספרי ילדים בהתאמה אישית: הילד הוא הגיבור, עם התמונה והשם שלו, לרגעים כמו {moment}.\n\nההצעה לתוכנית השגרירים: ספר במתנה לילד, וקישור אישי עם עד 25% מכל מכירה שמתבצעת דרכו. החלוקה בידיים שלך: הכול לרווח שלך, או חלק כהנחה לקהל (למשל 10% לך ו-10% הנחה להם). בלי חובה לתוכן קבוע.\n\nאשמח לשלוח פרטים ודוגמה, או לתאם שיחה קצרה. מתאים?\n\n{sender}\nLumeBook",
- fu:"היי {name}, רק מוודא שההודעה לא הלכה לאיבוד 🙂 אם לא מתאים כרגע, הכול טוב.",
- d2:"מעולה 🙌 ככה זה עובד: ספר מתנה לילד, וקישור אישי עם עד 25% מכל מכירה דרכו.\nאפשר להחליט איך לחלק את האחוזים: הכול לרווח שלך, או חלק כהנחה לקהל (למשל 10% לך ו-10% הנחה להם). בלי חובה לתוכן קבוע.\nדוגמה לספר כזה: {preview}. אשמח לשמוע מה דעתך.",
- dm_b:"היי {name} 😁\nעברתי על העמוד שלך, אהבתי את {line}.\nאני {sender} מ-@lumebookai, אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור.\nמציע לך ספר במתנה, קישור אישי עם הנחה לקהל ועמלה על כל מכירה דרכו, בתמורה לסרטון של הילד עם הספר. מתאים שאשלח פרטים?",
- es_b:"ספר במתנה ועד 25% מכל מכירה: שיתוף פעולה עם LumeBook",
- eb_b:"היי {name},\n\nעברתי על העמוד שלך ואהבתי את {line}.\n\nאני {sender} מ-LumeBook, אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור.\n\nההצעה: ספר במתנה, וקישור אישי עם עד 25% מכל מכירה דרכו. החלוקה בין הרווח שלך להנחה לקהל בידיים שלך. בתמורה אנחנו מבקשים סרטון של הילד עם הספר.\n\nמתאים שאשלח פרטים?\n\n{sender}\nLumeBook",
- fu_b:"היי {name}, רק מזכיר את ההצעה לספר במתנה. אם זה לא מתאים, הכול טוב 🙂",
- d2_b:"מעולה 🙌 בקצרה: ספר במתנה, קישור אישי ועד 25% מכל מכירה דרכו. החלוקה בין הרווח שלך להנחה לקהל בידיים שלך, ומבקשים סרטון של הילד עם הספר.\nדוגמה לספר: {preview}. מה דעתך?",
- of_b:"הצעה לשיתוף פעולה עם LumeBook: ספר במתנה ועד 25% מכל מכירה\n\nהיי {name},\n\nתודה על העניין! ההצעה בקצרה:\n\n• ספר ילדים אישי במתנה, עם השם והפנים של הילד\n• קישור אישי עם הנחה לקהל שלך\n• עד 25% מכל מכירה דרכו, והחלוקה בין הרווח שלך להנחה לקהל בידיים שלך\n• בתמורה, סרטון (רילס או טיקטוק) של הילד עם הספר, עם תיוג של \u200E@lumebookai\n\nכתבו לי מייל בחזרה עם מספר הטלפון ונתקדם להכנת הספר.\n\n{sender}\nLumeBook"};
-const tpl=k=>(SET.tpl&&typeof SET.tpl[k]==="string")?SET.tpl[k]:DEF[k];
+ eb:"היי {name},\n\nעברתי על העמוד שלך והתחברתי מאוד ל{line}.\n\nאני {sender}, מנהל הסושיאל של LumeBook (@lumebookai). אנחנו יוצרים ספרי ילדים בהתאמה אישית: הילד הוא הגיבור, עם התמונה והשם שלו, לרגעים כמו {moment}.\n\nההצעה שלנו: ספר אישי במתנה לילד, וקישור אישי עם "+PCT+"% מכל מכירה שמתבצעת דרכו. "+SPLIT+", וההנחה נכנסת אוטומטית דרך הקישור. בתמורה אנחנו מבקשים סרטון אחד של הילד עם הספר שלו.\n\nמתאים שאשלח דוגמה לספר ואת הפרטים?\n\n{sender}\nLumeBook",
+ fu:"היי {name} 🙂 חוזר לרגע להודעה שלי: פניתי אליך בזכות {line}, ונראה לי שספר שבו הילד הוא הגיבור יכול להשתלב אצלך טבעי.\nרוצה שאשלח דוגמה לספר כזה?",
+ f2:"היי {name}, הודעה אחרונה ממני בנושא 🙂 אם יתאים בהמשך ספר אישי לילד וסרטון אחד איתו, אני כאן. בהצלחה עם הכול!",
+ d2:"מעולה 🙌 הנה דוגמה לספר כזה: {preview}\nבקצרה: ספר אישי במתנה לילד, וקישור אישי עם "+PCT+"% מכל מכירה דרכו. "+SPLIT+". בתמורה אנחנו מבקשים סרטון אחד של הילד עם הספר שלו.\nמתאים לך? אם כן, אשלח מה שצריך כדי להכין את הספר.",
+ // Paid UGC: asks for rates and availability. It promises no payment and names no budget, and posting on the creator's own account is not assumed.
+ u_dm:"היי {name} 😁\nעברתי על העמוד שלך והתחברתי מאוד ל{line}!\nאני {sender}, מנהל הסושיאל של @lumebookai. אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור.\nאנחנו מחפשים יוצרים שיצלמו עבורנו סרטון UGC קצר עם הספר, לעמודים שלנו. אפשר לקבל מחירון לסרטון כזה ומה הזמינות שלך בשבועות הקרובים?",
+ u_es:"סרטון UGC ל-LumeBook: מחירון וזמינות",
+ u_eb:"היי {name},\n\nעברתי על העמוד שלך והתחברתי מאוד ל{line}.\n\nאני {sender}, מנהל הסושיאל של LumeBook (@lumebookai). אנחנו יוצרים ספרי ילדים בהתאמה אישית: הילד הוא הגיבור, עם התמונה והשם שלו.\n\nאנחנו מחפשים יוצרים שיצלמו עבורנו סרטון UGC קצר עם הספר, לעמודים שלנו. הסרטון לא חייב לעלות בעמוד שלך.\n\nאפשר לקבל מחירון לסרטון כזה ומה הזמינות שלך בשבועות הקרובים?\n\n{sender}\nLumeBook",
+ u_fu:"היי {name} 🙂 חוזר לרגע להודעה שלי: פניתי אליך בזכות {line}, ונראה לי שזה סגנון שמתאים לסרטון עם הספר שלנו.\nאפשר לקבל מחירון לסרטון UGC אחד?",
+ u_f2:"היי {name}, הודעה אחרונה ממני בנושא 🙂 אם יתאים בהמשך לצלם סרטון UGC עם ספר אישי לילד, אשמח לקבל מחירון. בהצלחה עם הכול!",
+ u_d2:"תודה 🙌 הנה דוגמה לספר: {preview}\nמה שאנחנו מחפשים: {deliverables}.\nאפשר לקבל הצעת מחיר לזה? אעביר אותה לאישור ואחזור אליך.",
+ u_of:"בריף לסרטון UGC עם LumeBook\n\nהיי {name},\n\nתודה על העניין! בקצרה:\n\n• מה מצלמים: {deliverables}\n• הספר: נכין ספר אישי לילד ונשלח אותו לפני הצילום\n• איפה זה עולה: בעמודים של LumeBook. פרסום בעמוד שלך לא כלול, אלא אם נסכם אחרת\n• תשלום: {fee}\n\nאם זה מתאים, אשלח מה שצריך כדי להכין את הספר.\n\n{sender}\nLumeBook",
+ // Paid partnership: asks for the rate for content the creator publishes to their own audience. Same limits: no promised payment, no budget.
+ p_dm:"היי {name} 😁\nעברתי על העמוד שלך והתחברתי מאוד ל{line}!\nאני {sender}, מנהל הסושיאל של @lumebookai. אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור, לרגעים כמו {moment}.\nאנחנו בודקים שיתוף פעולה עם רילס אחד בעמוד שלך, עם ספר אישי לילד. אפשר לקבל מחירון לרילס כזה ומה הזמינות שלך בשבועות הקרובים?",
+ p_es:"שיתוף פעולה עם LumeBook: מחירון וזמינות לרילס",
+ p_eb:"היי {name},\n\nעברתי על העמוד שלך והתחברתי מאוד ל{line}.\n\nאני {sender}, מנהל הסושיאל של LumeBook (@lumebookai). אנחנו יוצרים ספרי ילדים בהתאמה אישית: הילד הוא הגיבור, עם התמונה והשם שלו, לרגעים כמו {moment}.\n\nאנחנו בודקים שיתוף פעולה עם יוצרים: רילס אחד בעמוד שלך, עם ספר אישי לילד שנכין במיוחד.\n\nאפשר לקבל מחירון לרילס כזה ומה הזמינות שלך בשבועות הקרובים?\n\n{sender}\nLumeBook",
+ p_fu:"היי {name} 🙂 חוזר לרגע להודעה שלי: פניתי אליך בזכות {line}, ונראה לי שספר שבו הילד הוא הגיבור יכול להשתלב אצלך טבעי.\nאפשר לקבל מחירון לרילס אחד?",
+ p_f2:"היי {name}, הודעה אחרונה ממני בנושא 🙂 אם יתאים בהמשך רילס עם ספר אישי לילד, אשמח לקבל מחירון. בהצלחה עם הכול!",
+ p_d2:"תודה 🙌 הנה דוגמה לספר: {preview}\nמה שאנחנו מחפשים: {deliverables}.\nאפשר לקבל הצעת מחיר לזה? אעביר אותה לאישור ואחזור אליך.",
+ p_of:"שיתוף פעולה עם LumeBook: הפרטים\n\nהיי {name},\n\nתודה על העניין! בקצרה:\n\n• מה מפרסמים: {deliverables}\n• הספר: נכין ספר אישי לילד ונשלח אותו לפני הצילום\n• תשלום: {fee}\n\nאם זה מתאים, אשלח מה שצריך כדי להכין את הספר.\n\n{sender}\nLumeBook"};
+const defTpl=k=>DEF[k]!==undefined?DEF[k]:DEF[k.replace(/_b$/,"")];
+const tpl=k=>{ const T=SET.tpl||{}; if(typeof T[k]==="string") return T[k]; if(DEF[k]!==undefined) return DEF[k]; const b=k.replace(/_b$/,""); return typeof T[b]==="string"?T[b]:DEF[b] };
+// what a paid track asks for, until Yarin writes the deliverables for that creator
+const DLV={ugc:"סרטון אחד של עד דקה עם הילד והספר, שנוכל להעלות בעמודים שלנו",partner:"רילס אחד בעמוד שלך עם הילד והספר, עם תיוג של ‎@lumebookai"};
+const dlvOf=c=>{ const v=String(get(c.h).dlv||"").trim(); return v||kidsG(DLV[trkM(c)]||DLV.ugc,c) };
+const CUR={ILS:"₪",USD:"$",EUR:"€"};
+// the fee shows in a message only when a fee was quoted and the budget for it is approved; otherwise a visible bracket stops it from being sent as a promise
+const feeTxt=c=>{ const o=get(c.h), f=String(o.fee||"").trim(); return f&&o.bud==="ok"?f+" "+(CUR[o.cur]||CUR.ILS):"[סכום, רק אחרי אישור תקציב]" };
 // A list of examples after {moment} must not repeat what {moment} already says (כמו {moment}, אח חדש, כניסה לגן ועוד)
 const MOMDUP=/\{moment\}((?:, [^,.\n!?]+)+?) ועוד/g;
 const momDedupe=(ex,c)=>{ const have=String(c.m||"").split(/\s*[\/,]\s*/).map(x=>x.trim()).filter(Boolean); const keep=ex.split(", ").filter(Boolean).filter(x=>!have.includes(x.trim())); return "{moment}"+keep.map(x=>", "+x).join("")+" ועוד" };
-const fill=(s,c)=>heTidy(hebArt(kidsG(brand(s),c).replace(MOMDUP,(m,ex)=>momDedupe(ex,c)).replace(/([\u05DC\u05D1\u05DB])-?\{line\}/g,(m,p)=>p+dropH(lineOf(c))).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]")));
-// Offer email: the user's own wording, kept verbatim (no brand rewrite); only {name} is filled in
-const OFFER="\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d4\u05e9\u05d2\u05e8\u05d9\u05e8\u05d9\u05dd \u05e9\u05dc \u05dc\u05d5\u05de\u05d1\u05d5\u05e7: \u05e1\u05e4\u05e8 \u05d1\u05de\u05ea\u05e0\u05d4 + \u05e2\u05d3 25% \u05de\u05db\u05dc \u05de\u05db\u05d9\u05e8\u05d4\n\n\u05d4\u05d9\u05d9 {name},\n\n\u05d7\u05e9\u05d1\u05e0\u05d5 \u05e2\u05dc \u05e9\u05d9\u05ea\u05d5\u05e3 \u05d4\u05e4\u05e2\u05d5\u05dc\u05d4 \u05d4\u05d6\u05d4 \u05db\u05d9 \u05d4\u05ea\u05d5\u05db\u05df \u05e9\u05dc\u05da \u05de\u05e8\u05d2\u05d9\u05e9 \u05d8\u05d1\u05e2\u05d9, \u05de\u05e9\u05e4\u05d7\u05ea\u05d9 \u05d5\u05e0\u05d2\u05d9\u05e9 , \u05d1\u05d3\u05d9\u05d5\u05e7 \u05d4\u05e1\u05d5\u05d2 \u05e9\u05d9\u05db\u05d5\u05dc \u05dc\u05d4\u05e4\u05d5\u05da \u05d0\u05ea \u05d4\u05e8\u05d2\u05e2 \u05e9\u05d1\u05d5 \u05d9\u05dc\u05d3 \u05e4\u05d5\u05d2\u05e9 \u05d0\u05ea \u05e2\u05e6\u05de\u05d5 \u05d1\u05ea\u05d5\u05da \u05e1\u05e4\u05e8 \u05dc\u05ea\u05d5\u05db\u05df \u05e9\u05e7\u05d4\u05dc \u05d1\u05d0\u05de\u05ea \u05de\u05ea\u05d7\u05d1\u05e8 \u05d0\u05dc\u05d9\u05d5\n\n\u05d4\u05d4\u05e6\u05e2\u05d4 \u05e9\u05dc\u05e0\u05d5 \u05e4\u05e9\u05d5\u05d8\u05d4:\n\n\u05d0\u05e0\u05d7\u05e0\u05d5 \u05d9\u05d5\u05e6\u05e8\u05d9\u05dd \u05dc\u05d9\u05dc\u05d3 \u05e1\u05e4\u05e8 \u05de\u05d5\u05d3\u05e4\u05e1 \u05d5\u05d0\u05d9\u05e9\u05d9 \u05d1\u05de\u05ea\u05e0\u05d4, \u05e2\u05dd \u05d4\u05e9\u05dd \u05d5\u05d4\u05e4\u05e0\u05d9\u05dd \u05e9\u05dc\u05d5. \u05dc\u05d0\u05d7\u05e8 \u05e7\u05d1\u05dc\u05ea \u05d4\u05e1\u05e4\u05e8, \u05d9\u05d5\u05e6\u05e8\u05d9\u05dd \u05e8\u05d9\u05dc\u05e1 \u05d0\u05d5 \u05d8\u05d9\u05e7\u05d8\u05d5\u05e7 \u05e9\u05de\u05e6\u05d9\u05d2 \u05d0\u05ea \u05d7\u05d5\u05d5\u05d9\u05d9\u05ea \u05d4\u05e7\u05e8\u05d9\u05d0\u05d4 \u05d0\u05d5 \u05d0\u05ea \u05e8\u05d2\u05e2 \u05d4\u05d7\u05e9\u05d9\u05e4\u05d4 \u05dc\u05e1\u05e4\u05e8\n\n\u05d5\u05d4\u05d7\u05dc\u05e7 \u05d4\u05db\u05d9 \u05d8\u05d5\u05d1, \u05d6\u05d4 \u05dc\u05d0 \u05de\u05e1\u05ea\u05d9\u05d9\u05dd \u05d1\u05f4\u05e1\u05e4\u05e8 \u05ea\u05de\u05d5\u05e8\u05ea \u05e4\u05d5\u05e1\u05d8\u05f4\n\n\u05d0\u05ea\u05dd \u05de\u05e7\u05d1\u05dc\u05d9\u05dd \u05d2\u05dd:\n\n\u2022 \u05e2\u05d3 25% \u05e2\u05de\u05dc\u05d4 \u05e2\u05dc \u05db\u05dc \u05d4\u05d6\u05de\u05e0\u05d4 \u05e9\u05de\u05ea\u05d1\u05e6\u05e2\u05ea \u05d3\u05e8\u05db\u05db\u05dd\n\u2022 \u05d4\u05d8\u05d1\u05d4 \u05d9\u05d9\u05d7\u05d5\u05d3\u05d9\u05ea \u05dc\u05e7\u05d4\u05dc \u05e9\u05dc\u05db\u05dd\n\u2022 \u05d0\u05e4\u05e9\u05e8\u05d5\u05ea \u05dc\u05d4\u05de\u05e9\u05d9\u05da \u05dc\u05d4\u05e8\u05d5\u05d5\u05d9\u05d7 \u05de\u05db\u05dc \u05e8\u05db\u05d9\u05e9\u05d4 \u05e9\u05de\u05d2\u05d9\u05e2\u05d4 \u05de\u05d4\u05ea\u05d5\u05db\u05df \u05e9\u05dc\u05db\u05dd\n\u2022 \u05e9\u05d9\u05ea\u05d5\u05e3 \u05d4\u05ea\u05d5\u05db\u05df \u05d1\u05e2\u05de\u05d5\u05d3 \u05e9\u05dc \u200e@lumebookai, \u05e2\u05dd \u05e7\u05e8\u05d3\u05d9\u05d8 \u05d5\u05ea\u05d9\u05d5\u05d2 \u05de\u05dc\u05d0\u05d9\u05dd\n\n\u05db\u05dc\u05d5\u05de\u05e8, \u05e1\u05e8\u05d8\u05d5\u05df \u05d0\u05d7\u05d3 \u05d9\u05db\u05d5\u05dc \u05d2\u05dd \u05dc\u05d9\u05e6\u05d5\u05e8 \u05e8\u05d2\u05e2 \u05de\u05e9\u05e4\u05d7\u05ea\u05d9 \u05de\u05e8\u05d2\u05e9, \u05d2\u05dd \u05dc\u05ea\u05ea \u05e2\u05e8\u05da \u05dc\u05e7\u05d4\u05dc \u05e9\u05dc\u05db\u05dd \u05d5\u05d2\u05dd \u05dc\u05d4\u05e4\u05d5\u05da \u05dc\u05de\u05e7\u05d5\u05e8 \u05d4\u05db\u05e0\u05e1\u05d4.\n\n\u05d0\u05d9\u05da \u05d6\u05d4 \u05e2\u05d5\u05d1\u05d3?\n\n1. \u05d0\u05e0\u05d7\u05e0\u05d5 \u05de\u05ea\u05d0\u05de\u05d9\u05dd \u05d0\u05d9\u05ea\u05db\u05dd \u05d0\u05ea \u05e9\u05dc\u05d9\u05d7\u05ea \u05d4\u05e1\u05e4\u05e8 \u05d1\u05de\u05ea\u05e0\u05d4\n2. \u05dc\u05d0\u05d7\u05e8 \u05e7\u05d1\u05dc\u05ea \u05d4\u05e1\u05e4\u05e8, \u05de\u05e2\u05dc\u05d9\u05dd \u05e8\u05d9\u05dc\u05e1 \u05d0\u05d5 \u05d8\u05d9\u05e7\u05d8\u05d5\u05e7 \u05e2\u05dd \u05d4\u05e7\u05d9\u05e9\u05d5\u05e8 \u05d5\u05e2\u05dd \u05ea\u05d9\u05d5\u05d2 \u05e9\u05dc \u200e@lumebookai\n3. \u05de\u05e7\u05d1\u05dc\u05d9\u05dd \u05e2\u05d3 25% \u05de\u05db\u05dc \u05d4\u05d6\u05de\u05e0\u05d4 \u05e9\u05de\u05ea\u05d1\u05e6\u05e2\u05ea \u05d3\u05e8\u05da \u05d4\u05e7\u05d9\u05e9\u05d5\u05e8\n\n\u05db\u05ea\u05d1\u05d5 \u05dc\u05d9 \u05de\u05d9\u05d9\u05dc \u05d1\u05d7\u05d6\u05e8\u05d4 \u05e2\u05dd \u05de\u05e1 \u05d4\u05d8\u05dc\u05e4\u05d5\u05df \u05e9\u05dc\u05db\u05dd \u05d5\u05e0\u05ea\u05e7\u05d3\u05dd \u05dc\u05d4\u05db\u05e0\u05ea \u05d4\u05e1\u05e4\u05e8!\n\n\u05db\u05d1\u05e8 \u05de\u05d7\u05db\u05d9\u05dd \u05dc\u05e8\u05d0\u05d5\u05ea \u05d0\u05ea \u05d4\u05e8\u05d2\u05e2 \u05e9\u05dc \u05d4\u05d9\u05dc\u05d3 \u05e2\u05dd \u05d4\u05e1\u05e4\u05e8 \u05e9\u05dc\u05d5!\n\u05d9\u05e8\u05d9\u05df\n\u200e@lumebookai";
+const fill=(s,c)=>heTidy(hebArt(kidsG(brand(s),c).replace(MOMDUP,(m,ex)=>momDedupe(ex,c)).replace(/([לבכ])-?\{line\}/g,(m,p)=>p+dropH(lineOf(c))).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]").replace(/\{deliverables\}/g,()=>dlvOf(c)).replace(/\{fee\}/g,()=>feeTxt(c))));
+// Gifted offer details in the Warm style: Yarin's own wording, kept as written (no brand rewrite), only {name} is filled in.
+// 11 Oct 2026: the three lines about the percentage now say one allocation that the creator splits, as Yarin confirmed. Nothing else was touched.
+const OFFER="תוכנית השגרירים של לומבוק: ספר במתנה + קישור אישי עם "+PCT+"% מכל מכירה\n\nהיי {name},\n\nחשבנו על שיתוף הפעולה הזה כי התוכן שלך מרגיש טבעי, משפחתי ונגיש , בדיוק הסוג שיכול להפוך את הרגע שבו ילד פוגש את עצמו בתוך ספר לתוכן שקהל באמת מתחבר אליו\n\nההצעה שלנו פשוטה:\n\nאנחנו יוצרים לילד ספר מודפס ואישי במתנה, עם השם והפנים שלו. לאחר קבלת הספר, יוצרים רילס או טיקטוק שמציג את חוויית הקריאה או את רגע החשיפה לספר\n\nוהחלק הכי טוב, זה לא מסתיים ב״ספר תמורת פוסט״\n\nאתם מקבלים גם:\n\n• קישור אישי עם "+PCT+"% מכל הזמנה שמתבצעת דרכו\n• אתם מחליטים איך לחלק את ה-"+PCT+"% בין הרווח שלכם להנחה לקהל שלכם (למשל "+EXC+"% לכם ו-"+EXA+"% הנחה), וההנחה נכנסת אוטומטית דרך הקישור\n• אפשרות להמשיך להרוויח מכל רכישה שמגיעה מהתוכן שלכם\n• שיתוף התוכן בעמוד של ‎@lumebookai, עם קרדיט ותיוג מלאים\n\nכלומר, סרטון אחד יכול גם ליצור רגע משפחתי מרגש, גם לתת ערך לקהל שלכם וגם להפוך למקור הכנסה.\n\nאיך זה עובד?\n\n1. אנחנו מתאמים איתכם את שליחת הספר במתנה\n2. לאחר קבלת הספר, מעלים רילס או טיקטוק עם הקישור ועם תיוג של ‎@lumebookai\n3. מקבלים את החלק שבחרתם מתוך ה-"+PCT+"% על כל הזמנה שמתבצעת דרך הקישור\n\nכתבו לי מייל בחזרה עם מס הטלפון שלכם ונתקדם להכנת הספר!\n\nכבר מחכים לראות את הרגע של הילד עם הספר שלו!\nירין\n‎@lumebookai";
 const STY_NAME={1:"Warm",2:"Short"};
-const sty=c=>get(c.h).sty===2?2:1;
+const sty=c=>1;   // one style now. ssOf still reads which style a message was sent in, for the record
 const ssOf=c=>{ const o=get(c.h); return o.ssent===2||(o.ssent!==1&&o.sty===2)?2:1 };
 const SK=(k,s)=>s===2?k+"_b":k;
-const xkS=(s,t)=>"x_"+t+(s===2?"_2":""), axkS=(s,t)=>"ax_"+t+(s===2?"_2":"");
-const xk=(c,t)=>xkS(sty(c),t), axk=(c,t)=>axkS(sty(c),t);
-const defMsg=(c,t)=>{ const s=sty(c);
-  return t==="of"?(s===2?fill(tpl("of_b"),c):kidsG(OFFER,c).replace(/\{name\}/g,()=>who(c))):t==="dm"?fill(tpl(SK("dm",s)),c):t==="em"?(fill(tpl(SK("es",s)),c)+"\n\n"+fill(tpl(SK("eb",s)),c)):t==="fu"?fill(tpl(SK("fu",s)),c):fill(tpl(SK("d2",s)),c) };
+// template key and saved-edit key for one message. An edit is stored per track and per style, so a text written for one offer never shows up under another.
+const tkey=(c,t)=>PRE[trkM(c)]+SK(t,sty(c));
+const xkS=(s,t,T)=>"x_"+PRE[T||"gift"]+t+(s===2?"_2":""), axkS=(s,t,T)=>"a"+xkS(s,t,T);
+const xk=(c,t)=>xkS(sty(c),t,trkM(c)), axk=(c,t)=>axkS(sty(c),t,trkM(c));
+const MT=[["dm","First message"],["em","Email"],["fu","Follow-up"],["f2","Final follow-up"],["d2","Interested reply"],["of","Offer details"]];
+const ownOffer=(c,t)=>t==="of"&&trkM(c)==="gift"&&sty(c)===1;
+const exps=()=>Array.isArray(SET.exps)?SET.exps:[];
+const expOf=c=>{ const id=get(c.h).exp; return id?(exps().find(e=>e.id===id)||null):null };
+const defMsg=(c,t)=>{ const e=expOf(c);
+  if(ownOffer(c,t)) return kidsG(OFFER,c).replace(/\{name\}/g,()=>who(c));
+  if(t==="em") return fill(tpl(tkey(c,"es")),c)+"\n\n"+fill(tpl(tkey(c,"eb")),c);
+  if(t==="dm"&&e&&e.kind==="dm"&&e.b&&get(c.h).expv==="B") return fill(e.b,c);
+  return fill(tpl(tkey(c,t)),c) };
 const edited=(c,t)=>{const x=get(c.h)[xk(c,t)]; return typeof x==="string"&&x!==""};
-const msgOf=(c,t)=>edited(c,t)?((t==="of"&&sty(c)===1)?get(c.h)[xk(c,t)]:brand(get(c.h)[xk(c,t)])):defMsg(c,t);
+const msgOf=(c,t)=>edited(c,t)?(ownOffer(c,t)?get(c.h)[xk(c,t)]:brand(get(c.h)[xk(c,t)])):defMsg(c,t);
 const auto=(c,t)=>edited(c,t)&&get(c.h)[axk(c,t)]===1;
 const manual=(c,t)=>edited(c,t)&&!auto(c,t);
 const chipTxt=(c,t)=>auto(c,t)?"Adapted from your edit":"Edited";
@@ -778,66 +931,118 @@ function stats(){
   document.getElementById("sstats").innerHTML=STATUS_NAV.map(([k,l])=>'<button type="button" data-st="'+k+'" class="'+(k==="due"?"due":"")+'" aria-pressed="'+(ROUTE.page==="contacts"&&ROUTE.status===k?"true":"false")+'">'+l+'<b>'+(cnt[k]||0)+'</b></button>').join("");
 }
 function copyBtn(act,label){ return '<button type="button" class="lb-btn secondary" data-act="'+act+'">'+label+'</button>' }
-let LEARN_H=null;
-const learnBtn=c=>LEARN_H===c.h?'<button type="button" class="lb-btn is-busy" data-act="learn" disabled>Learning your voice…</button>':'<button type="button" class="lb-btn" data-act="learn">Save and learn my voice</button>';
+const sel=(f,opts,cur,aria,cls)=>'<select class="'+(cls||"lb-select")+'" data-f="'+f+'"'+(aria?' aria-label="'+esc(aria)+'"':'')+'>'+opts.map(([v,l])=>'<option value="'+esc(v)+'"'+(String(v)===String(cur||"")?" selected":"")+'>'+esc(l)+'</option>').join("")+'</select>';
+// follow-up controls for one card: what is due, what was really sent, and the optional final follow-up
+function fuUI(c){ const o=get(c.h), q=seq(c), bk=bkOf(c); let a="";
+  const btns=n=>'<button type="button" class="lb-btn ok" data-act="fusent">'+(n===2?"Final follow-up sent":"Follow-up sent")+'</button>';
+  if(bk==="due"){ const d=dueOf(c); a+=btns(q.n)+'<span class="lb-chip '+(d>=3?"danger":"warning")+'">'+(q.n===2?"Final follow-up":"Follow-up")+' due'+(d?' · '+d+' day'+(d===1?"":"s")+' overdue':' today')+'</span>' }
+  else if(bk==="noreply"&&(q.k==="due"||q.k==="nodate")) a+=btns(1)+'<span class="note">No follow-up was sent yet, so it is still open.</span>';
+  else if(q.k==="wait"&&q.n===1&&bk==="sent") a+='<span class="lb-chip outline">Follow-up due '+dayLabel(q.at)+'</span>';
+  else if(q.k==="wait"&&q.n===2) a+='<span class="lb-chip outline">Follow-up sent '+esc(o.fu||dayLabel(q.last))+' · final one due '+dayLabel(q.at)+'</span><button type="button" class="lb-btn ghost sm" data-act="fu2off">Cancel final follow-up</button>';
+  else if(q.k==="done"&&q.n===1) a+='<span class="lb-chip outline">Follow-up sent '+esc(o.fu||dayLabel(q.last))+'</span><button type="button" class="lb-btn ghost sm" data-act="fu2on" title="Adds one last follow-up for this creator, due 7 days after the first follow-up was sent">Plan a final follow-up</button>';
+  else if(q.k==="done"&&q.n===2) a+='<span class="lb-chip outline">Final follow-up sent '+esc(o.fu2||dayLabel(q.last))+' · sequence finished</span>';
+  else if(q.k==="nodate"&&bk==="sent") a+='<span class="note">No send date, so no follow-up is timed. Add “Sent on” in the details.</span>';
+  return a }
+// which message the box shows first: the one that is next for this creator. A tab Yarin picked stays until the creator moves on.
+const TABSEL={};
+const defTab=c=>{ const bk=bkOf(c), q=seq(c); return bk==="due"?(q.n===2?"f2":"fu"):(bk==="noreply"&&(q.k==="due"||q.k==="nodate"))?"fu":stOf(c.h)==="process"?"d2":"dm" };
+const tabOf=c=>{ const t=TABSEL[c.h]; return t&&MT.some(m=>m[0]===t)&&(t!=="em"||c.email)?t:defTab(c) };
 function card(c){
-  const o=get(c.h), s=stOf(c.h), due=dueOf(c), prof="https://www.instagram.com/"+c.h+"/";
-  const wa=waLink(c,msgOf(c,"dm")), ml=mailLink(c), ch=chOf(c);
-  const ssw='<div class="mtabs lb-segmented stysw" role="group" aria-label="Message style">'+[1,2].map(s=>'<button type="button" data-act="style" data-s="'+s+'" aria-pressed="'+(sty(c)===s?"true":"false")+'">'+STY_NAME[s]+'</button>').join("")+'</div>';
-  const kt=kidsTxt(c), chips='<span class="lb-chip tint">'+esc(ch)+'</span><span class="lb-chip'+(kt?' accent':'')+'" title="'+(kt?'Number of kids and their genders, from their public profile':'Not checked yet. Add it in the details below')+'">Kids: '+esc(kt||"not checked")+'</span>'+(c.own?'':'<span class="lb-chip" title="Generic line by category: swap it for something specific if you can">generic line</span>');
-  let acts='<a class="lb-btn" href="'+prof+'" target="_blank" rel="noopener">Open profile ↗</a>'+ssw+copyBtn("dm","Copy message");
-  if(wa) acts+='<a class="lb-btn secondary" href="'+wa+'" target="_blank" rel="noopener">WhatsApp ↗</a>';
-  if(c.email) acts+=copyBtn("em","Copy email")+(ml?'<a class="lb-btn secondary" href="'+ml+'">Email ↗</a>':'');
+  const o=get(c.h), s=stOf(c.h), cur=HOOK.bk(c), prof=url(c), T=trkOf(c), paid=isPaid(c), e=expOf(c), t0=tabOf(c);
+  const wa=waLink(c,msgOf(c,"dm")), ml=mailLink(c), ch=chOf(c), ob=objOf(c), sg=stgOf(c), na=naState(c);
+  const kt=kidsTxt(c);
+  const chips=(sg?'<span class="lb-chip info">'+esc(STGL[sg])+'</span>':'')
+   +(ob?'<span class="lb-chip wrap '+(s==="declined"?"danger":"warning")+'" title="'+(o.obj?"Reason you recorded":"No reason was recorded for this decline")+'">'+(s==="declined"?"Reason: ":"Holding it up: ")+esc(OBJL[ob])+'</span>':'')
+   +(na==="over"||na==="today"?'<span class="lb-chip '+(na==="over"?"danger":"warning")+'">Next action '+(na==="over"?"overdue":"today")+'</span>':'')
+   +'<span class="lb-chip tint">'+esc(o.chs&&s!=="new"?o.chs:ch)+'</span>'
+   +'<span class="lb-chip'+(kt?' accent':'')+'" title="'+(kt?'Number of kids and their genders, from their public profile':'Not checked yet. Add it in the details below')+'">Kids: '+esc(kt||"not checked")+'</span>'
+   +(e?'<span class="lb-chip outline" title="Draft label for a test. Nothing is sent by the test.">Test: '+esc(e.name)+' · '+esc(o.expv||"")+'</span>':'')
+   +(c.own?'':'<span class="lb-chip" title="Generic line by category: swap it for something specific from one of their videos">generic line</span>');
+  let acts="";
+  if(wa) acts+='<a class="lb-btn secondary" href="'+wa+'" target="_blank" rel="noopener" data-ch="WhatsApp">WhatsApp ↗</a>';
+  if(ml) acts+='<a class="lb-btn secondary" href="'+ml+'" data-ch="Email">Email ↗</a>';
   if(s==="new") acts+='<button type="button" class="lb-btn ok" data-act="sent">Mark sent</button>';
-  if(due!==null){ const left=declIn(c); acts+=copyBtn("fu","Copy follow-up")+'<button type="button" class="lb-btn ok" data-act="fusent">Follow-up sent</button>'+'<span class="lb-chip '+(left<=2?"danger":"warning")+'">Follow-up due · No reply in '+left+' day'+(left===1?"":"s")+'</span>' }
-  else if(s==="noreply"&&o.fu) acts+='<span class="note">Follow-up sent '+esc(o.fu)+'</span>';
-  if(s==="sent"||s==="process") acts+=(c.email?copyBtn("of","Copy offer email"):"")+copyBtn("d2","Copy terms message");
-  const dd=STD; const cur=HOOK.bk(c);
-  const opts=dd.map(([k,l])=>'<option value="'+k+'"'+(k===cur?" selected":"")+'>'+l+'</option>').join("");
+  acts+=fuUI(c);
+  // deal row: the step inside In process, the next action and its date, and the reason behind a no or a stall
+  let deal="";
+  if(s==="process") deal+='<label>Step'+sel("stg",[["","No step set"]].concat(STAGES),o.stg,"Step for "+c.h)+'</label>'
+    +'<label class="grow">Next action<input class="lb-input" data-f="na" dir="auto" value="'+esc(o.na||"")+'" placeholder="What happens next, and who does it"></label>'
+    +'<label>By<input class="lb-input" type="date" data-f="nad" value="'+esc(o.nad||"")+'"></label>'
+    +'<label class="chk" title="Tick only when they said so. Being in process is not proof of interest."><input type="checkbox" data-f="int"'+(o.int===1?" checked":"")+'>Said they are interested</label>';
+  if(s==="process"||s==="declined"){
+    deal+='<label class="wide">'+(s==="declined"?"Reason for the no":"What is holding it up")+sel("obj",[["",s==="declined"?"Unknown (not recorded)":"Nothing recorded"]].concat(OBJ.filter(x=>s!=="declined"||x[0]!=="unknown")),o.obj==="unknown"&&s==="declined"?"":o.obj,"Reason for "+c.h)+'</label>';
+    if(OBJ_PAY.includes(o.obj)&&!paid) deal+='<span class="acts">'+["ugc","partner"].map(t=>'<button type="button" class="lb-btn secondary sm" data-act="topaid" data-t="'+t+'">'+(s==="declined"?"Reopen as ":"Move to ")+esc(TRKL[t])+'</button>').join("")+'</span>';
+  }
+  const opts=STD.map(([k,l])=>'<option value="'+k+'"'+(k===cur?" selected":"")+'>'+l+'</option>').join("");
   const contact=(c.email?'<div class="note">Email: <span class="num">'+esc(c.email)+'</span></div>':'')+(c.phone?'<div class="note">Phone / WhatsApp: <span class="num">'+esc(c.phone)+'</span></div>':'')+(c.csrc?'<div class="note">Contact found on: '+esc(c.csrc)+'</div>':'');
-  return '<article class="oc lb-card '+(s==="declined"||s==="posted"||s==="noreply"?"done":"")+'" data-h="'+esc(c.h)+'">'
-   +'<div class="ohd"><div class="oid"><a class="hn" href="'+prof+'" target="_blank" rel="noopener">@'+esc(c.h)+'</a> <span class="he" dir="auto">'+esc(c.name)+'</span>'
-   +'<div class="omet"><span>'+k(c.f)+' followers</span><span>'+k(c.med)+' median views</span><span>last reel '+esc(c.last||"—")+'</span><span>added '+esc(addedLabel(c))+'</span>'+(o.on?'<span>sent '+esc(o.on)+' · '+STY_NAME[ssOf(c)]+'</span>':'')+'</div><div class="chips" style="margin-top:6px">'+chips+'</div></div>'
-   +'<select class="st" data-f="s" aria-label="Status for '+esc(c.h)+'">'+opts+'</select></div>'
-   +'<div class="oact">'+acts+'</div>'
-   +'<details class="odet"><summary>Message, contact &amp; notes</summary>'
-   +'<div class="mtabs lb-segmented" role="group" aria-label="Message type"><button type="button" data-act="tab" data-t="dm" aria-pressed="true">First message</button>'+(c.email?'<button type="button" data-act="tab" data-t="em" aria-pressed="false">Email</button><button type="button" data-act="tab" data-t="of" aria-pressed="false">Offer email</button>':'')+'<button type="button" data-act="tab" data-t="fu" aria-pressed="false">Follow-up</button><button type="button" data-act="tab" data-t="d2" aria-pressed="false">After “yes”</button></div>'
-   +'<textarea class="msgbox lb-textarea" data-msgbox data-t="dm" dir="rtl" rows="9" aria-label="Message text, editable">'+esc(msgOf(c,"dm"))+'</textarea>'
-   +'<div class="msgbar">'+learnBtn(c)+'<button type="button" class="lb-btn secondary" data-act="copybox">Copy this text</button><button type="button" class="lb-btn secondary" data-act="resetmsg"'+(edited(c,"dm")?'':' hidden')+'>Reset to template</button><span class="lb-chip warning" data-edited'+(edited(c,"dm")?'':' hidden')+'>'+chipTxt(c,"dm")+'</span></div>'
-   +'<div class="hechk" data-hecheck>'+heBoxHtml(msgOf(c,"dm"),c,"dm")+'</div>'
-   +'<p class="note" style="margin:6px 0 0">Edit the text above, then copy it. Your edits are saved for this creator. “Save and learn my voice” also rewrites this creator\'s other messages to match your edit, and adjusts the suggested messages for everyone else to sound more like you. On screen @lumebookai may look reversed; the copied text is correct.</p>'
+  const tabs=MT.filter(([t])=>t!=="em"||c.email).map(([t,l])=>'<button type="button" data-act="tab" data-t="'+t+'" aria-pressed="'+(t===t0?"true":"false")+'">'+l+'</button>').join("");
+  // paid tracks: quoted fee, currency, deliverables and where the budget stands. Nothing here approves money.
+  const paidF=paid?'<label>Quoted fee (what they asked)<input class="lb-input" data-f="fee" dir="ltr" inputmode="decimal" value="'+esc(o.fee||"")+'" placeholder="Not quoted yet"></label>'
+    +'<label>Currency'+sel("cur",[["ILS","₪ shekel"],["USD","$ dollar"],["EUR","€ euro"]],o.cur||"ILS","Currency for "+c.h)+'</label>'
+    +'<label>Budget approval'+sel("bud",[["","Not requested"],["asked","Waiting for Yossi"],["ok","Approved"],["no","Not approved"]],o.bud,"Budget approval for "+c.h)+'</label>'
+    +(T==="ugc"?'<label>Posting on their own account'+sel("post",[["","Not discussed"],["no","No, content only"],["yes","Yes, agreed as an extra"]],o.post,"Posting for "+c.h)+'</label>':'')
+    +'<label class="full">Deliverables (goes into the messages as {deliverables})<textarea class="lb-textarea" data-f="dlv" dir="rtl" rows="2" placeholder="'+esc(kidsG(DLV[T],c))+'">'+esc(o.dlv||"")+'</textarea></label>'
+    +'<p class="note full" style="margin:-.25rem 0 0">'+(o.bud==="ok"?"Budget marked approved for this creator. The fee now fills {fee} in the offer details.":"No budget is approved for this creator. The messages ask for rates and never promise a payment; {fee} stays a bracket until the budget is marked approved.")+'</p>':'';
+  // the first message as it went out: recorded at Mark sent, or for older Short sends the saved Short text
+  const sentTxt=o.msnap||(s!=="new"&&ssOf(c)===2&&typeof o.x_dm_2==="string"?o.x_dm_2:"");
+  return '<article class="oc lb-card '+(s==="declined"||s==="posted"||cur==="noreply"?"done":"")+'" data-h="'+esc(c.h)+'">'
+   +'<div class="ocg"><div class="oside">'
+   +'<div class="oid"><a class="hn" href="'+prof+'" target="_blank" rel="noopener" title="Open their profile in a new tab">@'+esc(c.h)+' <span aria-hidden="true">↗</span></a><span class="he" dir="auto">'+esc(c.name)+'</span></div>'
+   +'<div class="omet"><span>'+k(c.f)+' followers · '+k(c.med)+' median views</span><span>last reel '+esc(c.last||"n/a")+'</span>'+(o.on?'<span>sent '+esc(o.on)+(ssOf(c)===2?' · Short':'')+'</span>':'')+'</div>'
+   +'<div class="chips">'+chips+'</div>'
+   +'<div class="ofld"><label>Status<select class="st" data-f="s" aria-label="Status for '+esc(c.h)+'">'+opts+'</select></label>'
+   +'<label title="'+(trkSet(c)?"The track you chose. It decides which offer the messages make.":"Picked for you from the research estimate ("+esc(c.prac)+"). Choose another here.")+'">Track'+(trkSet(c)?'':' · picked for you')+sel("trk",TRACKS,T,"Collaboration track for "+c.h,"st")+'</label></div>'
+   +'</div>'
+   // the message box is always on the card, with one row of actions under it
+   +'<div class="omsg"><div class="mtabs lb-segmented" role="group" aria-label="Message type">'+tabs+'</div>'
+   +'<textarea class="msgbox lb-textarea" data-msgbox data-t="'+t0+'" dir="rtl" rows="5" aria-label="Message text, editable">'+esc(msgOf(c,t0))+'</textarea>'
+   +'<div class="hechk" data-hecheck>'+heBoxHtml(msgOf(c,t0),c,t0)+'</div>'
+   +'<div class="oact"><button type="button" class="lb-btn" data-act="copybox">Copy</button>'+acts
+   +'<span class="end"><span class="lb-chip warning" data-edited'+(edited(c,t0)?'':' hidden')+'>'+chipTxt(c,t0)+'</span><button type="button" class="lb-btn ghost sm" data-act="resetmsg"'+(edited(c,t0)?'':' hidden')+'>Reset to template</button></span></div>'
+   +'</div></div>'
+   +(deal?'<div class="odeal">'+deal+'</div>':'')
+   +'<details class="odet"><summary>Deal, reply &amp; notes</summary>'
+   +'<p class="note" style="margin:0">These are the '+esc(TRKL[T])+' messages. Your edits are saved for this creator and this track, and when you leave the box they teach the templates your voice. The offer itself never changes. On screen @lumebookai may look reversed; the copied text is correct.</p>'
+   +'<h4 class="osec">Offer and deal</h4>'
+   +'<div class="ogrid"><label>Personal link<input class="lb-input" data-f="code" dir="ltr" value="'+esc(o.code||"")+'" placeholder="https://…"></label>'
+   +(s!=="new"?'<label>Sent via'+sel("chs",[["","Not recorded"]].concat(CHS.map(x=>[x,x])),o.chs,"Channel used for "+c.h)+'</label>':'')
+   +'<label>Sent on<input class="lb-input" type="date" data-f="on" value="'+esc(o.on||"")+'"></label>'
+   +(gotContent(c)||o.code||salesOf(c)!==null?'<label>Sales through their link (leave empty if unknown)<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="sales" dir="ltr" value="'+esc(o.sales??"")+'" placeholder="No data"></label>':'')
+   +paidF+'</div>'
+   +(hasReplied(c)?'<h4 class="osec">Their reply</h4><div class="ogrid"><label class="full">In their words<textarea class="lb-textarea" data-f="objq" dir="auto" rows="2" placeholder="Paste what they wrote, as they wrote it">'+esc(o.objq||"")+'</textarea></label>'
+     +'<label class="full">Short note on the reason<input class="lb-input" data-f="objn" dir="auto" value="'+esc(o.objn||"")+'" placeholder="Optional"></label></div>':'')
+   +'<h4 class="osec">Greeting, kids and notes</h4>'
    +'<div class="ogrid"><label>Name in greeting<input class="lb-input" data-f="name" dir="rtl" value="'+esc(o.name||"")+'" placeholder="'+esc(c.n)+'"></label>'
    +'<label>Personal line (replaces “אהבתי את …”)<textarea class="lb-textarea" data-f="line" dir="rtl" rows="2" placeholder="'+esc(c.l)+'">'+esc(o.line||"")+'</textarea></label>'
    +'<label>Kids in total<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="kn" dir="ltr" value="'+esc(o.kn??"")+'" placeholder="'+esc(c.kids&&c.kids.n!=null?c.kids.n:"")+'"></label>'
    +'<label>Kids\' names, separated by commas<input class="lb-input" data-f="kname" dir="rtl" value="'+esc(o.kname||"")+'" placeholder="'+esc((c.kids&&c.kids.names||[]).join(", "))+'"></label>'
    +'<label>Boys<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="kb" dir="ltr" value="'+esc(o.kb??"")+'" placeholder="'+esc(c.kids&&c.kids.b!=null?c.kids.b:"")+'"></label>'
    +'<label>Girls<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="kg" dir="ltr" value="'+esc(o.kg??"")+'" placeholder="'+esc(c.kids&&c.kids.g!=null?c.kids.g:"")+'"></label>'
-   +'<p class="note" style="grid-column:1/-1;margin:-.25rem 0 0">'+(kidsOf(c).edited?'Kids as you entered them.':c.kids&&c.kids.src?'Kids from their public bio ('+esc(c.kids.src)+'). Type here to correct it.':'Not checked yet. Add what their profile shows publicly (counts, genders, names), and leave it empty if they do not share it.')+' Messages say: <bdi dir="rtl">'+esc(kidsFormLabel(c))+'</bdi>.</p>'
-   +'<label>Personal link<input class="lb-input" data-f="code" dir="ltr" value="'+esc(o.code||"")+'" placeholder="https://…"></label>'
-   +'<label>Sent on<input class="lb-input" type="date" data-f="on" value="'+esc(o.on||"")+'"></label>'
+   +'<p class="note" style="grid-column:1/-1;margin:-.25rem 0 0">Added '+esc(addedLabel(c))+'. '+(kidsOf(c).edited?'Kids as you entered them.':c.kids&&c.kids.src?'Kids from their public bio ('+esc(c.kids.src)+'). Type here to correct it.':'Not checked yet. Add what their profile shows publicly (counts, genders, names), and leave it empty if they do not share it.')+' Messages say: <bdi dir="rtl">'+esc(kidsFormLabel(c))+'</bdi>.</p>'
    +'<label style="grid-column:1/-1">Notes<textarea class="lb-textarea" data-f="note" rows="2" placeholder="Reply, deal, address for the book…">'+esc(o.note||"")+'</textarea></label></div>'
+   +(sentTxt?'<details class="odet" style="margin-top:var(--sp-3)"><summary>First message as sent'+(o.on?' on '+esc(o.on):'')+'</summary><p class="note" dir="rtl" style="white-space:pre-wrap;text-align:right;margin:0 0 var(--sp-3)">'+esc(sentTxt)+'</p></details>':'')
    +'<div style="margin-top:8px">'+contact+'</div></details></article>';
 }
 function render(){
   const ae=document.activeElement, list=document.getElementById("olist");
-  navCounts();
+  navCounts(); migRender();
   if(ROUTE.page==="overview") renderOverview();
   if(ROUTE.page==="database") dbRender();
   if(ROUTE.page!=="contacts") return;
-  if(ae&&list.contains(ae)&&/^(TEXTAREA|INPUT)$/.test(ae.tagName)){ pendingRender=true; stats(); return }
+  if(ae&&list.contains(ae)&&/^(TEXTAREA|INPUT)$/.test(ae.tagName)&&ae.type!=="checkbox"){ pendingRender=true; stats(); return }
   pendingRender=false; stats();
   const st=UI.vs.contacts, rows=runView(contactBase(),st), g=GROUPS[st.group];
   TBC.sync(rows.length);
   if(OPEN_H){ const i=rows.findIndex(c=>c.h===OPEN_H); if(i>=shown) shown=i+1 }
-  const openH=new Map([...list.querySelectorAll("details[open]")].map(d=>{const o=d.closest(".oc"); return [o&&o.dataset.h,o&&o.querySelector("[data-msgbox]").dataset.t]}));
-  if(OPEN_H&&!openH.has(OPEN_H)) openH.set(OPEN_H,"dm");
+  const openH=new Set([...list.querySelectorAll(".oc > details[open]")].map(d=>d.parentNode.dataset.h));
   const gc={}; if(g&&g.v) rows.forEach(c=>{ const v=g.v(c); gc[v]=(gc[v]||0)+1 });
   let html="", last={};
   rows.slice(0,shown).forEach(c=>{ if(g&&g.v){ const v=g.v(c); if(v!==last){ last=v; html+='<h3 class="grp">'+(st.group==="status"?'<span class="dot st-'+v+'"></span>':'')+esc(g.lab(v))+' <span class="n num">'+gc[v]+'</span></h3>' } } html+=card(c) });
   list.innerHTML=html||(activeCount(st)
     ?'<div class="empty lb-empty"><b>No creators match.</b><p class="note">Nothing in “'+esc(statusName(ROUTE.status))+'” matches your search or filters.</p><button type="button" class="lb-btn secondary" data-clearlist>Clear search and filters</button></div>'
     :'<div class="empty lb-empty"><b>Nobody here yet.</b><p class="note">No creator is in “'+esc(statusName(ROUTE.status))+'” right now.</p></div>');
-  list.querySelectorAll(".oc").forEach(el=>{ if(openH.has(el.dataset.h)){ el.querySelector("details").open=true; const tb=openH.get(el.dataset.h); if(tb&&tb!=="dm") setTab(el,byH[el.dataset.h],tb) } });
+  list.querySelectorAll(".oc").forEach(el=>{ if(openH.has(el.dataset.h)) el.querySelector("details").open=true });
+  fitAll();
   if(OPEN_H){ const el=cardEl(OPEN_H); OPEN_H=null; if(el){ el.scrollIntoView({block:"start"}); fx(el,"is-flash") } }
   const more=document.getElementById("smore"); more.hidden=rows.length<=shown;
 }
@@ -846,8 +1051,15 @@ function render(){
 const FXT=new WeakMap();
 function fx(el,cls){ if(!el) return; el.classList.remove("is-ok","is-err"); void el.offsetWidth; el.classList.add(cls); clearTimeout(FXT.get(el)); FXT.set(el,setTimeout(()=>el.classList.remove(cls),1300)) }
 const cardEl=h=>document.querySelector('.oc[data-h="'+CSS.escape(h)+'"]');
+const fitBox=ta=>{ if(!ta||!ta.offsetParent) return; ta.style.height="auto"; ta.style.height=Math.min(ta.scrollHeight+2,560)+"px" };
+// on a narrow screen the tab strip scrolls sideways: keep the open tab in sight
+const showTab=el=>{ const b=el.querySelector('[aria-pressed="true"]'); if(b&&el.scrollWidth>el.clientWidth) el.scrollLeft=Math.max(0,b.offsetLeft-el.offsetLeft-12) };
+const fitAll=()=>{ document.querySelectorAll("#olist [data-msgbox]").forEach(fitBox); document.querySelectorAll("#olist .omsg .mtabs").forEach(showTab) };
+let fitT; window.addEventListener("resize",()=>{ clearTimeout(fitT); fitT=setTimeout(fitAll,150) });
 const flashCard=h=>{ const e=cardEl(h); if(e) fx(e,"is-flash") };
 const stLabel=s=>s==="due"?"Follow-up due":(ST.find(x=>x[0]===s)||[0,s])[1];
+// put one creator's record back exactly as it was (Undo for the actions that move a creator)
+const restore=(h,prev)=>()=>{ OD[h]={...prev,at:Date.now()}; writeDoc(h); render(); flashCard(h); toast("Undone.") };
 const moved=h=>cardEl(h)?"":" It moved to the “"+stLabel(HOOK.bk(byH[h]))+"” list.";
 let toastT;
 function toast(msg,o){
@@ -870,54 +1082,70 @@ async function copyText(btn,text){
 const byH=Object.fromEntries(C.map(c=>[c.h,c]));
 document.getElementById("olist").addEventListener("click",e=>{
   const b=e.target.closest("[data-act]"); if(!b) return;
-  const card=b.closest(".oc"), c=byH[card.dataset.h], act=b.dataset.act;
-  if(act==="dm") copyText(b,msgOf(c,"dm"));
-  else if(act==="em") copyText(b,msgOf(c,"em"));
+  const card=b.closest(".oc"), c=byH[card.dataset.h], act=b.dataset.act, prev={...get(c.h)};
+  if(act==="em"){ LASTCH[c.h]="Email"; copyText(b,msgOf(c,"em")) }
   else if(act==="fu") copyText(b,msgOf(c,"fu"));
+  else if(act==="f2") copyText(b,msgOf(c,"f2"));
   else if(act==="d2") copyText(b,msgOf(c,"d2"));
   else if(act==="of") copyText(b,msgOf(c,"of"));
-  else if(act==="hefix"){ const ta=card.querySelector("[data-msgbox]"), tt=ta.dataset.t, f=heFix(ta.value,{skipBrand:tt==="of"&&sty(c)===1}); if(f!==ta.value){ ta.value=f; ta.dispatchEvent(new Event("input",{bubbles:true})); fx(ta,"is-flash"); toast("Hebrew fixes applied. You can still edit the text.") } }
-  else if(act==="copybox") copyText(b,card.querySelector("[data-msgbox]").value);
-  else if(act==="learn") learn(c,card.querySelector("[data-msgbox]").dataset.t,b);
+  else if(act==="hefix"){ const ta=card.querySelector("[data-msgbox]"), tt=ta.dataset.t, f=heFix(ta.value,{skipBrand:ownOffer(c,tt)}); if(f!==ta.value){ ta.value=f; ta.dispatchEvent(new Event("input",{bubbles:true})); fx(ta,"is-flash"); toast("Fixes applied. You can still edit the text.") } }
+  else if(act==="topaid"){ const was=stOf(c.h); delete TABSEL[c.h]; patch(c.h,{trk:b.dataset.t,s:"process",stg:prev.stg||"rates",rat:prev.rat||Date.now()}); render(); flashCard(c.h); toast((was==="declined"?"Reopened. ":"")+"@"+c.h+" is in process on the "+TRKL[b.dataset.t]+" track. Nothing is promised: the messages ask for rates."+moved(c.h),{undo:restore(c.h,prev)}) }
+  else if(act==="fu2on"){ patch(c.h,{fu2w:1,s:rawSt(c.h)==="noreply"?"sent":rawSt(c.h)}); render(); flashCard(c.h); toast("Final follow-up planned for @"+c.h+", 7 days after the first follow-up was sent."+moved(c.h),{undo:restore(c.h,prev)}) }
+  else if(act==="fu2off"){ patch(c.h,{fu2w:0}); render(); flashCard(c.h); toast("Final follow-up cancelled for @"+c.h+"."+moved(c.h),{undo:restore(c.h,prev)}) }
+  else if(act==="copybox"){ const ta=card.querySelector("[data-msgbox]"); if(ta.dataset.t==="em") LASTCH[c.h]="Email"; copyText(b,ta.value) }
   else if(act==="resetmsg"){ const ta=card.querySelector("[data-msgbox]"); patch(c.h,{[xk(c,ta.dataset.t)]:"",[axk(c,ta.dataset.t)]:0}); ta.value=defMsg(c,ta.dataset.t); syncBar(card,c); fx(ta,"is-flash"); toast("Back to the suggested message.") }
-  else if(act==="style"){ const s=+b.dataset.s; if(s!==sty(c)){ patch(c.h,{sty:s}); render(); toast("Messages for @"+c.h+" now use the "+STY_NAME[s]+" style.") } }
-  else if(act==="sent"){ patch(c.h,{s:"sent",on:today(),sat:Date.now(),fu:"",ssent:sty(c)}); render(); flashCard(c.h); toast("@"+c.h+" marked as sent. It becomes Follow-up due after 24 hours, then No reply after a week."+moved(c.h)) }
-  else if(act==="fusent"){ patch(c.h,{s:"noreply",fu:today()}); render(); flashCard(c.h); toast("Follow-up sent. @"+c.h+" moved to No reply.") }
+  else if(act==="sent"){ const ch=LASTCH[c.h]||chOf(c), mt=ch==="Email"?"em":"dm"; delete TABSEL[c.h];
+    // what went out is kept with the record: track, style, channel, whether the text was hand-edited, and the text itself
+    patch(c.h,{s:"sent",on:today(),sat:Date.now(),ssent:sty(c),trks:trkOf(c),chs:ch,mv:manual(c,mt)?1:0,msnap:msgOf(c,mt)}); render(); flashCard(c.h);
+    toast("@"+c.h+" marked as sent via "+ch+". The first follow-up is due in 4 days."+moved(c.h),{undo:restore(c.h,prev)}) }
+  else if(act==="fusent"){ const n=fuMs(prev,1)!=null?2:1, now=Date.now(); delete TABSEL[c.h];
+    // only this button records a follow-up as sent; the original send date and earlier follow-ups stay as they are
+    patch(c.h,{s:"sent",dat:"",...(n===2?{fu2:today(),fu2at:now}:{fu:today(),fuat:now}),fuh:[...(Array.isArray(prev.fuh)?prev.fuh:[]),{n,on:today(),at:now}]}); render(); flashCard(c.h);
+    toast((n===2?"Final follow-up":"Follow-up")+" recorded as sent to @"+c.h+". "+(n===2?"The sequence is finished.":"You can plan one final follow-up from the card.")+moved(c.h),{undo:restore(c.h,prev)}) }
   else if(act==="tab"){
     setTab(card,c,b.dataset.t);
   }
 });
 document.getElementById("olist").addEventListener("change",e=>{
+  if(e.target.matches&&e.target.matches("[data-msgbox]")){ const oc=e.target.closest(".oc"); if(oc) autoLearn(byH[oc.dataset.h],e.target.dataset.t); return }
   const f=e.target.dataset&&e.target.dataset.f; if(!f) return;
-  const h=e.target.closest(".oc").dataset.h;
-  if(f==="s"){ const s=e.target.value, p={s}, o0=get(h);
-    if(s==="sent"){ p.on=today(); p.sat=Date.now(); p.fu="" }                 // choosing Message sent restarts the 24 hour clock
-    if(s==="due"){ p.dat=Date.now(); p.fu=""; if(!o0.on){ p.on=today(); p.sat=Date.now() } }
-    if(s!=="new"&&!o0.ssent) p.ssent=sty(byH[h]);
-    patch(h,p); render(); flashCard(h); toast("Status saved: "+stLabel(s)+"."+moved(h)) }
+  const h=e.target.closest(".oc").dataset.h, c=byH[h];
+  if(f==="s"){ const s=e.target.value, p={s}, o0=get(h), prev={...o0}; delete TABSEL[h];
+    // a status change never rewrites the original send date or the follow-ups already sent
+    if((s==="sent"||s==="due")&&!o0.on&&!o0.sat){ p.on=today(); p.sat=Date.now() }
+    if(s==="due"){ p.dat=Date.now(); if(fuMs(o0,1)!=null) p.fu2w=1 }
+    if(s!=="new"&&!o0.ssent) p.ssent=sty(c);
+    if(["process","declined","posted"].includes(s)&&!o0.rat) p.rat=Date.now();
+    patch(h,p); render(); flashCard(h);
+    const shown=HOOK.bk(c);
+    toast("Status saved: "+stLabel(s)+"."+(s==="declined"?" The follow-ups stop. Add the reason on the card if you know it.":s==="sent"&&shown!=="sent"?" It shows as "+stLabel(shown)+" because of when the first message went out.":"")+moved(h),{undo:restore(h,prev)}) }
+  else if(f==="trk"){ const prev={...get(h)}; patch(h,{trk:e.target.value}); render(); flashCard(h); toast("Track saved: "+TRKL[e.target.value]+". The messages now make that offer.",{undo:restore(h,prev)}) }
+  else if(f==="int"){ patch(h,{int:e.target.checked?1:0}); render() }
+  else if(["stg","obj","bud","post","cur","chs","nad"].includes(f)){ patch(h,{[f]:e.target.value}); render(); if(f==="stg"||f==="obj") flashCard(h) }
   else if(f==="kn"||f==="kb"||f==="kg"||f==="kname"){ patch(h,{[f]:e.target.value}); render() }
   else if(f==="on"){ patch(h,{on:e.target.value,sat:""}); render(); flashCard(h); toast("Sent date saved.") }
 });
 function syncBar(card,c){
   const ta=card.querySelector("[data-msgbox]"), on=edited(c,ta.dataset.t), chip=card.querySelector("[data-edited]");
   chip.hidden=!on; chip.textContent=chipTxt(c,ta.dataset.t); card.querySelector('[data-act="resetmsg"]').hidden=!on;
-  const hb=card.querySelector("[data-hecheck]"); if(hb) hb.innerHTML=heBoxHtml(ta.value,c,ta.dataset.t);
+  const hb=card.querySelector("[data-hecheck]"); if(hb) hb.innerHTML=heBoxHtml(ta.value,c,ta.dataset.t); fitBox(ta);
 }
 function setTab(card,c,t){
   const b=card.querySelector('[data-act="tab"][data-t="'+t+'"]'); if(!b) return;
-  const ta=card.querySelector("[data-msgbox]"); ta.dataset.t=t; ta.value=msgOf(c,t);
+  const ta=card.querySelector("[data-msgbox]"); ta.dataset.t=t; ta.value=msgOf(c,t); TABSEL[c.h]=t; fitBox(ta);
   card.querySelectorAll('[data-act="tab"]').forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false")); syncBar(card,c);
 }
 document.getElementById("olist").addEventListener("input",e=>{
   const card=e.target.closest(".oc"); if(!card) return; const h=card.dataset.h, c=byH[h];
   if(e.target.matches("[data-msgbox]")){
     const t=e.target.dataset.t, v=e.target.value, same=(v===defMsg(c,t));
-    const p={[xk(c,t)]:same?"":v,[axk(c,t)]:0}; OD[h]={...get(h),...p}; patchLater(h,p); syncBar(card,c); return;
+    const p={[xk(c,t)]:same?"":v,[axk(c,t)]:0,["l"+xk(c,t)]:0}; OD[h]={...get(h),...p}; patchLater(h,p); syncBar(card,c); fitBox(e.target); return;
   }
-  const f=e.target.dataset&&e.target.dataset.f; if(!f||f==="s"||f==="on") return;
+  const f=e.target.dataset&&e.target.dataset.f; if(!f||e.target.tagName==="SELECT"||e.target.type==="checkbox"||e.target.type==="date") return;
   patchLater(h,{[f]:e.target.value});
-  if(f==="name"||f==="line"){ const ta=card.querySelector("[data-msgbox]"); if(ta&&!edited(c,ta.dataset.t)) ta.value=defMsg(c,ta.dataset.t) }
+  if(f==="name"||f==="line"||f==="dlv"||f==="fee"){ const ta=card.querySelector("[data-msgbox]"); if(ta&&!edited(c,ta.dataset.t)) ta.value=defMsg(c,ta.dataset.t) }
 });
+document.getElementById("olist").addEventListener("click",e=>{ const a=e.target.closest("a[data-ch]"); if(a){ const oc=a.closest(".oc"); if(oc) LASTCH[oc.dataset.h]=a.dataset.ch } });
 document.getElementById("olist").addEventListener("copy",e=>{
   const ta=e.target; if(!(ta&&ta.matches&&ta.matches("[data-msgbox]"))||!e.clipboardData) return;
   const s=ta.value.slice(ta.selectionStart,ta.selectionEnd); if(!s) return;
@@ -926,18 +1154,30 @@ document.getElementById("olist").addEventListener("copy",e=>{
 document.getElementById("olist").addEventListener("focusout",()=>{ setTimeout(()=>{ if(pendingRender) render() },50) });
 document.getElementById("smore").addEventListener("click",()=>{shown+=30; render()});
 const sname=document.getElementById("sname"), sprev=document.getElementById("sprev");
-const TK=[["dm","tdm"],["es","tes"],["eb","teb"],["fu","tfu"],["d2","td2"],["dm_b","tdm_b"],["es_b","tes_b"],["eb_b","teb_b"],["fu_b","tfu_b"],["d2_b","td2_b"],["of_b","tof_b"]];
 let setT; const saveLater=()=>{ clearTimeout(setT); setT=setTimeout(saveSettings,700) };
 const onSet=()=>{ SET.sender=sname.value.trim(); SET.preview=sprev.value.trim(); saveLater(); render() };
 sname.addEventListener("input",onSet); sprev.addEventListener("input",onSet);
-TK.forEach(([k,id])=>{
-  const el=document.getElementById(id);
-  el.addEventListener("input",()=>{ SET.tpl={...(SET.tpl||{})}; if(el.value===DEF[k]) delete SET.tpl[k]; else SET.tpl[k]=el.value; saveLater(); render() });
-  document.querySelector('[data-treset="'+k+'"]').addEventListener("click",e=>{ SET.tpl={...(SET.tpl||{})}; delete SET.tpl[k]; el.value=DEF[k]; saveLater(); render(); fx(e.currentTarget,"is-ok"); toast("Template reset to the default.") });
-});
+// template editor: one track and one style at a time
+const TPLF=[["dm","First message",7],["es","Email subject",0],["eb","Email body",11],["fu","Follow-up (adds something, no nudge)",3],["f2","Final follow-up (optional, only for creators you pick)",3],["d2","Interested reply (book example, terms in short, one next step)",6],["of","Offer details (title line, then body)",12]];
+const TFACT={
+  gift:"<b>Gifted + affiliate.</b> A personalised book in exchange for one agreed video, said in the first message. One "+PCT+"% per sale through the personal link: the creator splits it between their earnings and an audience discount (for example "+EXC+"% and "+EXA+"%), and the discount is applied automatically through the link. Never "+PCT+"% plus an extra discount, never a code.",
+  ugc:"<b>Paid UGC.</b> A fee for producing content. These messages ask for rates and availability. They do not promise a payment or name a budget, and posting on the creator's own account is a separate requirement that is never assumed. No budget is approved"+(OFFERF.paid_ok?" by default":"")+".",
+  partner:"<b>Paid partnership.</b> A fee for creating and publishing content to the creator's audience. These messages ask for rates and availability. They do not promise a payment or name a budget."};
+const TED={trk:"gift"}, tplEd=document.getElementById("tplEd");
+function renderTplEd(){
+  document.getElementById("tplTrk").innerHTML=TRACKS.filter(t=>t[0]).map(([v,l])=>'<button type="button" data-tt="'+v+'" aria-pressed="'+(TED.trk===v)+'">'+l+'</button>').join("");
+  document.getElementById("tplFacts").innerHTML=TFACT[TED.trk];
+  tplEd.innerHTML=TPLF.map(([t,l,rows])=>{ const key=PRE[TED.trk]+t;
+    if(t==="of"&&TED.trk==="gift") return '<p class="note">The offer details for the gifted track are your own wording. They are edited per creator, not here.</p>';
+    const v=esc(tpl(key)), own=SET.tpl&&typeof SET.tpl[key]==="string";
+    return '<label><span>'+l+(own?' <span class="lb-chip outline">saved or learned</span>':'')+'</span>'+(rows?'<textarea class="lb-textarea" data-tk="'+key+'" dir="rtl" rows="'+rows+'">'+v+'</textarea>':'<input class="lb-input" data-tk="'+key+'" dir="rtl" value="'+v+'">')+'<button type="button" class="lb-btn secondary sm" data-treset="'+key+'">Reset to default</button></label>' }).join("");
+}
+document.getElementById("tplTrk").addEventListener("click",e=>{ const b=e.target.closest("[data-tt]"); if(b){ TED.trk=b.dataset.tt; renderTplEd() } });
+tplEd.addEventListener("input",e=>{ const el=e.target, key=el.dataset&&el.dataset.tk; if(!key) return; SET.tpl={...(SET.tpl||{})}; if(el.value===defTpl(key)) delete SET.tpl[key]; else SET.tpl[key]=el.value; saveLater(); render() });
+tplEd.addEventListener("click",e=>{ const b=e.target.closest("[data-treset]"); if(!b) return; SET.tpl={...(SET.tpl||{})}; delete SET.tpl[b.dataset.treset]; saveLater(); renderTplEd(); render(); toast("Template reset to the default.") });
 function fillSettings(){
   if(document.activeElement!==sname) sname.value=SET.sender||""; if(document.activeElement!==sprev) sprev.value=SET.preview||"";
-  TK.forEach(([k,id])=>{ const el=document.getElementById(id); if(document.activeElement!==el) el.value=tpl(k) });
+  if(tplEd.contains(document.activeElement)) tplEd.querySelectorAll("[data-tk]").forEach(el=>{ if(el!==document.activeElement) el.value=tpl(el.dataset.tk) }); else renderTplEd();
 }
 
 
@@ -974,8 +1214,27 @@ function heIssues(s,o){ o=o||{}; s=String(s); const L=[], add=(msg,fix)=>L.push(
   if(cnt("(")!==cnt(")")) add("brackets not closed",false);
   return L }
 const codeFix=s=>String(s).replace(/קוד הנחה לקהל שלך/g,"קישור אישי עם הנחה לקהל שלך").replace(/קוד אישי לקהל שלך/g,"קישור אישי עם הנחה לקהל שלך").replace(/קוד הנחה לקהל/g,"קישור אישי עם הנחה לקהל").replace(/קוד אישי/g,"קישור אישי");
-const heFix=(s,o)=>{ o=o||{}; let x=heTidy(codeFix(s).replace(RX.dash,", ").replace(/,\s+,/g,",")); if(!o.skipBrand) x=brand(x); return hebArt(x) };
-const heBoxHtml=(s,c,t)=>{ const L=heIssues(s,{skipBrand:t==="of"&&sty(c)===1}); if(!L.length) return ""; return '<b>Hebrew check:</b> '+L.map(x=>esc(x.msg)).join(" · ")+(L.some(x=>x.fix)?' <button type="button" class="lb-btn secondary sm" data-act="hefix">Fix</button>':'') };
+// ---------- offer check: the commercial facts in a message (see shared/facts.json offer) ----------
+const OLDPCT=/(^|[^\d])20(\s?)%/g;
+// the only automatic fix: the old percentage and its old example. Everything else is flagged for review and never rewritten.
+const offerFix=s=>String(s).replace(OLDPCT,"$1"+PCT+"$2%").replace(/10% (לך|לכם|ליוצר|ליוצרת) ו-10%/g,EXC+"% $1 ו-"+EXA+"%");
+function offerIssues(s,c,t){ s=String(s); const L=[], add=(msg,fix)=>L.push({msg,fix}), paid=trkM(c)!=="gift";
+  if(offerFix(s)!==s) add("old percentage: the offer is one "+PCT+"% per sale that the creator splits",true);
+  if(!paid){
+    if(new RegExp("(^|[^\\d])"+PCT+"\\s?%").test(s)&&/הנחה|הטבה/.test(s)&&!/חלוק|לחלק|מחלק|מתוך/.test(s)) add("could read as "+PCT+"% for the creator plus an extra discount: say it is one "+PCT+"% that they split",false);
+    if((t==="dm"||t==="em")&&!/סרטון|רילס|טיקטוק/.test(s)) add("the first message should say we ask for one video in return",false);
+  } else {
+    if(/עמלה|\d\s?%/.test(s)) add("paid track: commission must not stand in for the fee",false);
+    if(get(c.h).bud!=="ok"&&/\d[\d,.]*\s?(₪|ש״ח|ש"ח|שקל)/.test(s)) add("names an amount, but no budget is approved for this creator",false);
+  }
+  return L }
+// saved texts that still carry old offer wording and may still be sent. What already went out is history and is left alone.
+const offerFlag=c=>{ const o=get(c.h), st=stOf(c.h); if(st==="declined"||st==="posted") return false;
+  return MT.some(([t])=>{ if(st!=="new"&&(t==="dm"||t==="em")) return false; if(t==="fu"&&fuMs(o,1)!=null) return false; if(t==="f2"&&fuMs(o,2)!=null) return false; if(!edited(c,t)) return false;
+    const s=o[xk(c,t)]; return s.includes("קוד")||offerIssues(s,c,t).length>0 }) };
+const heFix=(s,o)=>{ o=o||{}; let x=heTidy(offerFix(codeFix(s)).replace(RX.dash,", ").replace(/,\s+,/g,",")); if(!o.skipBrand) x=brand(x); return hebArt(x) };
+const heBoxHtml=(s,c,t)=>{ const L=heIssues(s,{skipBrand:ownOffer(c,t)}), O=offerIssues(s,c,t); if(!L.length&&!O.length) return "";
+  return (L.length?'<b>Hebrew check:</b> '+L.map(x=>esc(x.msg)).join(" · ")+' ':'')+(O.length?'<b>Offer check:</b> '+O.map(x=>esc(x.msg)).join(" · ")+' ':'')+(L.concat(O).some(x=>x.fix)?'<button type="button" class="lb-btn secondary sm" data-act="hefix">Fix</button>':'<span class="note">Review by hand.</span>') };
 let vnoteT, learning=false, vSaveT;
 function vnote(msg,undo){
   const n=document.getElementById("vnote"); clearTimeout(vnoteT);
@@ -995,16 +1254,24 @@ function undoLearn(){
   if(pv.c&&pv.c.h){ const cur=get(pv.c.h), v=pv.c.vals||{}, p={}; Object.keys(v).filter(k=>k.startsWith("x_")).forEach(k=>{ const t=k.slice(2); if(cur["ax_"+t]===1){ p[k]=v[k]; p["ax_"+t]=v["ax_"+t]||0 } }); patch(pv.c.h,p) }
   VOICE.prev=null; writeVoice(); fillSettings(); fillVoice(); render(); if(pv.c&&pv.c.h) flashCard(pv.c.h); vnote("Last learning undone. The messages are back to how they were."); toast("Undone. The messages are back to how they were.");
 }
-const TNAME={dm:"first Instagram message",em:"email (subject line, blank line, body)",fu:"follow-up message",d2:"message after the creator says yes (terms)",of:"offer email (subject line, blank line, body) with the full offer"};
-const RULES="Never use em dashes or en dashes. Write the brand name only in Latin letters as LumeBook (capital L and B), never in Hebrew letters; after a Hebrew prefix letter add a hyphen, for example ב-LumeBook. Keep the offer facts unchanged (free book for the child, personal link that carries the audience discount. There is no discount code, never write קוד, up to 25% of each sale that the creator can split between their own earnings and an audience discount) unless the owner's edit changed them. Do not invent claims, numbers or promises. Never repeat an example that {moment} already contains (for example after כמו {moment} do not list the same moments again). Keep the wording about the child (the child, the girls, the book of theirs) in the same singular or plural and masculine or feminine form as in the text you are given. Hebrew grammar: use the definite article ה only for a specific known noun (the child, the book, the page), never for general statements (ספרי ילדים, ילדים אוהבים). The prepositions ל, ב and כ absorb the article (לילד, בגן, לתוכן, never להילד or בהגן); מ, עם, של, על and את keep it (מהגן, עם הספר, של הילד). In a construct chain only the last noun takes it (מנהל הסושיאל, ספר הילדים, never המנהל הסושיאל). Use את only before a definite object. Adjectives agree with their noun and take the article too (הילד הקטן). Names and LumeBook never take an article. If a template puts ל, ב or כ directly before {line}, keep it attached with no hyphen; the app removes the article. Write Hebrew.";
+const TNAME={dm:"first Instagram message",em:"email (subject line, blank line, body)",fu:"follow-up message",f2:"final follow-up message",d2:"reply to a creator who showed interest (book example, terms in short, one next step)",of:"offer details (title line, blank line, body)"};
+const RULES_BASE="Never use em dashes or en dashes. Write the brand name only in Latin letters as LumeBook (capital L and B), never in Hebrew letters; after a Hebrew prefix letter add a hyphen, for example ב-LumeBook. Do not invent claims, numbers or promises. Never repeat an example that {moment} already contains (for example after כמו {moment} do not list the same moments again). Keep the wording about the child (the child, the girls, the book of theirs) in the same singular or plural and masculine or feminine form as in the text you are given. Hebrew grammar: use the definite article ה only for a specific known noun (the child, the book, the page), never for general statements (ספרי ילדים, ילדים אוהבים). The prepositions ל, ב and כ absorb the article (לילד, בגן, לתוכן, never להילד or בהגן); מ, עם, של, על and את keep it (מהגן, עם הספר, של הילד). In a construct chain only the last noun takes it (מנהל הסושיאל, ספר הילדים, never המנהל הסושיאל). Use את only before a definite object. Adjectives agree with their noun and take the article too (הילד הקטן). Names and LumeBook never take an article. If a template puts ל, ב or כ directly before {line}, keep it attached with no hyphen; the app removes the article. Write Hebrew.";
+// The commercial facts of each track. Voice learning changes how a message sounds, never what it offers, and never borrows an offer from another track.
+const FACTS={
+  gift:"Offer facts for this track, which must stay exactly as they are in the text you are given: a free personalised book for the child in exchange for one agreed video; a personal link (there is no discount code, never write קוד); one "+PCT+"% of each sale through that link, which the creator splits between their own earnings and an audience discount that is applied automatically through the link (for example "+EXC+"% and "+EXA+"%). Never write or imply "+PCT+"% earnings plus an extra discount. Never change a number. Never add a fee, a payment, a rate or a budget.",
+  ugc:"Offer facts for this track (paid UGC), which must stay exactly as they are in the text you are given: the message asks the creator for their rates and availability, or for a quote for the listed deliverables. Never promise a payment, never name an amount or a budget, never offer commission, a personal link or a free book as the payment, and keep the deliverables as written. Posting on the creator's own account is not part of the deal unless the text you are given says so.",
+  partner:"Offer facts for this track (paid partnership), which must stay exactly as they are in the text you are given: the message asks the creator for their rates and availability for content they publish to their own audience, or for a quote for the listed deliverables. Never promise a payment, never name an amount or a budget, never offer commission, a personal link or a free book as the payment, and keep the deliverables as written."};
+const RULES_FOR=T=>RULES_BASE+" "+FACTS[T];
+// The commercial facts found in a text: percentages, code, personal link, the video ask, the gift, any price talk, any earnings talk. A learned rewrite is kept only when this fingerprint is unchanged.
+const factSig=s=>{ s=String(s); return [(s.match(/\d{1,3}\s?%/g)||[]).map(x=>x.replace(/\s/g,"")).sort().join(","),/קוד/.test(s),/קישור אישי/.test(s),/סרטון|רילס/.test(s),/מתנה/.test(s),/מחירון|הצעת מחיר|תשלום|תעריף|₪|ש״ח|שקל/.test(s),/עמלה|רווח|רוויח/.test(s)].map(x=>x===true?1:x===false?0:x).join("|") };
 function adaptCreator(sample,c,t,before,after,targets,S){
-  const base={}; targets.forEach(k=>base[k]=defMsg(c,k));
+  const base={}, T=trkM(c), ownChange=factSig(before)!==factSig(after); targets.forEach(k=>base[k]=defMsg(c,k));
   const input="The owner of a small brand (LumeBook) is writing outreach messages to one Instagram creator, @"+c.h+". They just edited the "+TNAME[t]+" for this creator.\n\n"
    +"Before the edit:\n"+before+"\n\nAfter the edit:\n"+after+"\n\n"
    +"Here are this creator's other messages, still in their suggested form (JSON, key = message type: "+targets.map(k=>k+" = "+TNAME[k]).join("; ")+"):\n"+JSON.stringify(base)+"\n\n"
    +"Task: rewrite each of these other messages so it fits the edited one for this same creator. Carry over every change from the edit that applies: how the creator is named and greeted, anything personal about the creator or their content, facts the owner added or removed, tone, length, wording, emoji and sign-off. Keep each message's own purpose and keep the email as subject line, blank line, body. Do not repeat the edited message word for word, and keep the follow-up short.\n\n"
    +(S===2?"These messages use the 'Short' style: keep every message brief and direct, a few short lines with one clear ask. ":"These messages use the 'Warm' style: personal, friendly and complete. ")+"Keep the style of the messages you rewrite.\n\n"
-   +"Hard rules: "+RULES+"\n\n"
+   +"Hard rules: "+RULES_FOR(T)+(ownChange?" The owner changed a term in the edited message for this one creator; you may carry that same change into the other messages for this creator, and nothing beyond it.":"")+"\n\n"
    +"Return only JSON with exactly these keys: "+JSON.stringify(targets)+", each the full message text.";
   return sample.json(input,{cache:false}).then(out=>{
     const res={};
@@ -1012,6 +1279,7 @@ function adaptCreator(sample,c,t,before,after,targets,S){
       const v=out&&out[k]; if(typeof v!=="string"||!v.trim()) return;
       let s=fill(cleanTxt(v.trim()),c);
       if(k==="em"&&s.indexOf("\n\n")<0) return;
+      if(!ownChange&&factSig(s)!==factSig(base[k])) return;      // the rewrite touched the offer: keep the suggested text for this one
       res[k]=s;
     });
     if(!Object.keys(res).length) throw new Error("shape");
@@ -1026,15 +1294,17 @@ function anon(s,c){
   pairs.forEach(([v,ph])=>{ s=s.split(v).join(ph) }); return s;
 }
 function learnTemplates(sample,c,t,before,after,S){
-  const ex=[...(VOICE.ex||[]),{t,s:S,before:anon(kidsGeneric(before,c),c),after:anon(kidsGeneric(after,c),c),h:c.h,nm:[who(c),c.n]}].slice(-24);
-  const pex=ex.filter(e=>(e.s||1)===S).slice(-12);
-  const cur={}; VKEYS.forEach(k=>cur[k]=tpl(SK(k,S)));
+  const T=trkM(c);
+  const ex=[...(VOICE.ex||[]),{t,s:S,k:T,before:anon(kidsGeneric(before,c),c),after:anon(kidsGeneric(after,c),c),h:c.h,nm:[who(c),c.n]}].slice(-24);
+  // only edits made on the same track and style teach these templates, so one offer never leaks into another
+  const pex=ex.filter(e=>(e.s||1)===S&&(e.k||"gift")===T).slice(-12);
+  const cur={}; VKEYS.forEach(k=>cur[k]=tpl(PRE[T]+SK(k,S)));
   const input="You adapt outreach message templates for a small brand (LumeBook) so they sound like the owner, learned from the owner's edits.\n\n"
    +"Current voice notes (may be empty):\n"+JSON.stringify(VOICE.rules||[])+"\n\n"
    +"Current templates (Hebrew, with placeholders):\n"+JSON.stringify(cur)+"\n\n"
    +"Recent edits, oldest first. 'before' is what the templates produced, 'after' is what the owner changed it to. The last item is the edit just saved. Each edit was made for one specific creator; the creator's name, personal line and moment are already replaced with placeholders. Message type t: dm = first Instagram message, em = email (subject, blank line, body), fu = follow-up, d2 = message after a yes.\n"+JSON.stringify(pex.map(e=>({t:e.t,before:e.before,after:e.after})))+"\n\n"
-   +"Task: 1) Update the voice notes: short general rules about tone, length, phrasing, emoji, punctuation, how the owner greets, asks and closes. At most 12 rules. Add or change a rule only when the edits support it, and keep earlier rules unless the edits contradict them. 2) Rewrite all five templates (dm, es = email subject, eb = email body, fu, d2) so future suggestions sound more like the owner. Change gradually: apply what the newest edit clearly shows, apply older evidence more lightly, and keep wording the owner has not touched. "+(S===2?"These templates are the Short style: they must stay brief and direct, a few short lines with one clear ask. Never make them longer or warmer than they are now. ":"These templates are the Warm style: personal and friendly. ")+"Learn only style and general wording that would fit any creator. Anything the owner added that is about that one creator (names, nicknames, their children, their content, a post or reel they made, where they live, a shared memory, a personal compliment) is creator-specific: never put it, or a generic version of it, into any template. If an edit only changed creator-specific content, leave the templates as they are and keep the voice notes general.\n\n"
-   +"Hard rules: keep the placeholders {name} {line} {moment} {sender} {preview} exactly as written, wherever they appear now. "+RULES+"\n\n"
+   +"Task: 1) Update the voice notes: short general rules about tone, length, phrasing, emoji, punctuation, how the owner greets, asks and closes. Voice notes are about how the owner sounds only: never put offer terms, percentages, prices or deliverables in them. At most 12 rules. Add or change a rule only when the edits support it, and keep earlier rules unless the edits contradict them. 2) Rewrite all five templates (dm, es = email subject, eb = email body, fu, d2) so future suggestions sound more like the owner. Change gradually: apply what the newest edit clearly shows, apply older evidence more lightly, and keep wording the owner has not touched. "+(S===2?"These templates are the Short style: they must stay brief and direct, a few short lines with one clear ask. Never make them longer or warmer than they are now. ":"These templates are the Warm style: personal and friendly. ")+"Learn only style and general wording that would fit any creator. Anything the owner added that is about that one creator (names, nicknames, their children, their content, a post or reel they made, where they live, a shared memory, a personal compliment) is creator-specific: never put it, or a generic version of it, into any template. If an edit only changed creator-specific content, leave the templates as they are and keep the voice notes general.\n\n"
+   +"Hard rules: keep the placeholders {name} {line} {moment} {sender} {preview} {deliverables} {fee} exactly as written, wherever they appear now. If the owner's edit changed a term of the offer for that one creator, do not carry that change into the templates. "+RULES_FOR(T)+"\n\n"
    +'Return only JSON: {"rules":["..."],"templates":{"dm":"...","es":"...","eb":"...","fu":"...","d2":"..."},"summary":"one short English sentence on what changed"}';
   return sample.json(input,{cache:false}).then(out=>{
     const T=out&&out.templates, rules=out&&out.rules;
@@ -1043,49 +1313,54 @@ function learnTemplates(sample,c,t,before,after,S){
     for(const k in NEED){ if(NEED[k].some(p=>cur[k].includes(p)&&!nt[k].includes(p))) throw new Error("placeholder") }
     const bad=[lineOf(c),c.m]; ex.forEach(e=>{ (e.nm||[]).forEach(n=>bad.push(n)); if(e.h){ bad.push(e.h); bad.push("@"+e.h) } });
     VKEYS.forEach(k=>{ if(bad.some(w=>w&&w!==c.m&&hasWord(nt[k],w)&&!hasWord(cur[k],w))) nt[k]=cur[k] });
-    const rl=rules.map(cleanTxt).filter(r=>r&&!bad.some(w=>w&&hasWord(r,w)));
-    return {nt,rules:rl,ex,summary:out.summary};
+    // facts lock: a template whose commercial facts moved is left exactly as it was
+    let kept=0; VKEYS.forEach(k=>{ if(nt[k]!==cur[k]&&factSig(nt[k])!==factSig(cur[k])){ nt[k]=cur[k]; kept++ } });
+    const rl=rules.map(r=>offerFix(cleanTxt(r))).filter(r=>r&&!bad.some(w=>w&&hasWord(r,w)));
+    return {nt,rules:rl,ex,summary:out.summary,kept,T};
   });
 }
-async function learn(c,t,btn){
+// Voice learning runs by itself: when Yarin leaves a message box he changed, that edit is learned once. One edit at a time; the others wait their turn.
+const LQ=[];
+function autoLearn(c,t){ if(!c||!manual(c,t)||get(c.h)["l"+xk(c,t)]===1) return; if(!LQ.some(x=>x.h===c.h&&x.t===t)) LQ.push({h:c.h,t}); pumpLearn() }
+function pumpLearn(){ if(learning||!LQ.length) return; const x=LQ.shift(); learn(byH[x.h],x.t).catch(()=>{}).then(pumpLearn) }
+async function learn(c,t){
   if(learning) return;
-  const h=c.h, S=sty(c), after=get(h)[xkS(S,t)];
-  if(typeof after!=="string"||after===""||after===defMsg(c,t)||auto(c,t)){ fx(btn,"is-err"); toast("Nothing to save yet. Edit the message first.",{bad:true}); return }
+  const h=c.h, S=sty(c), T=trkM(c), lkey="l"+xkS(S,t,T), after=get(h)[xkS(S,t,T)];
+  if(typeof after!=="string"||after===""||after===defMsg(c,t)||auto(c,t)) return;
   patch(h,{});
   let sample=null;
   try{ sample=(window.claude&&window.claude.use)?await window.claude.use("sample"):null }catch(e){}
-  if(!sample){ fx(btn,"is-ok"); toast("Edit saved for this creator. Learning your voice needs this page open in Claude."); vnote("Your edit is saved for this creator. Learning your voice needs this page open in Claude, so the other messages stay as they are."); return }
-  learning=true; LEARN_H=h;
-  const lb=()=>{ const e=cardEl(h); return e&&e.querySelector('[data-act="learn"]') };
-  { const b=lb(); if(b) b.outerHTML=learnBtn(c) }
-  toast("Edit saved. Learning your voice…",{ms:60000});
+  if(!sample) return;                      // preview, or learning not available here: the edit itself is saved
+  learning=true;
+  toast("Edit saved. Learning your voice from it…",{ms:5000});
   const before=defMsg(c,t);
-  const targets=["dm",c.email?"em":null,"fu","d2"].filter(k=>k&&k!==t&&!manual(c,k));
-  const snap={}; targets.forEach(k=>{ const o=get(h); snap[xkS(S,k)]=o[xkS(S,k)]||""; snap[axkS(S,k)]=o[axkS(S,k)]||0 });
+  const targets=["dm",c.email?"em":null,"fu","f2","d2"].filter(k=>k&&k!==t&&!manual(c,k));
+  const snap={}; targets.forEach(k=>{ const o=get(h); snap[xkS(S,k,T)]=o[xkS(S,k,T)]||""; snap[axkS(S,k,T)]=o[axkS(S,k,T)]||0 });
   const prev={}; let cMsg="", tMsg="", okAny=false;
   const say=()=>vnote([cMsg,tMsg].filter(Boolean).join(" "),!!VOICE.prev&&VOICE.prev===prev);
   vnote(targets.length?"Saved. Rewriting this creator's other messages to match your edit…":"Saved. Your other messages for this creator are your own edits, so they stay as they are. Updating the templates for everyone else…");
   const pc=targets.length?adaptCreator(sample,c,t,before,after,targets,S).then(res=>{
-    const p={}; Object.keys(res).forEach(k=>{ p[xkS(S,k)]=res[k]; p[axkS(S,k)]=1 });
+    const p={}; Object.keys(res).forEach(k=>{ p[xkS(S,k,T)]=res[k]; p[axkS(S,k,T)]=1 });
     patch(h,p); prev.c={h,vals:snap}; VOICE.prev=prev; okAny=true; writeVoice(); fillVoice(); render(); flashCard(h);
     toast("Updated this creator's other messages to match. Now adjusting the templates…",{ms:60000});
-    const names=Object.keys(res).map(k=>({dm:"first message",em:"email",fu:"follow-up",d2:"after “yes”"})[k]);
+    const names=Object.keys(res).map(k=>({dm:"first message",em:"email",fu:"follow-up",f2:"final follow-up",d2:"interested reply"})[k]);
     cMsg="Updated this creator's "+names.join(", ")+" to match your edit."; if(!tMsg) tMsg="Now adjusting the templates for everyone else…"; say();
   }).catch(e=>{ cMsg=e&&e.code==="rate_limited"?"Too many requests, so this creator's other messages were not rewritten.":"Couldn't rewrite this creator's other messages, so they were left as they are."; say(); throw e }):Promise.resolve();
   const pt=learnTemplates(sample,c,t,before,after,S).then(r=>{
     prev.tpl=SET.tpl||{}; prev.rules=VOICE.rules||[];
     VOICE.rules=r.rules.map(cleanTxt).filter(Boolean).slice(0,12); VOICE.ex=r.ex; VOICE.n=(VOICE.n||0)+1; VOICE.prev=prev; okAny=true;
-    SET.tpl={...(SET.tpl||{})}; VKEYS.forEach(k=>{ const key=SK(k,S); if(r.nt[k]!==DEF[key]) SET.tpl[key]=r.nt[k]; else delete SET.tpl[key] });
+    SET.tpl={...(SET.tpl||{})}; VKEYS.forEach(k=>{ const key=PRE[T]+SK(k,S); if(r.nt[k]!==defTpl(key)) SET.tpl[key]=r.nt[k]; else delete SET.tpl[key] });
     saveSettings(); writeVoice(); fillSettings(); fillVoice(); render();
-    tMsg=(r.summary?cleanTxt(r.summary)+" ":"")+"Other creators' unedited messages now use the updated templates."; say();
+    tMsg=(r.summary?cleanTxt(r.summary)+" ":"")+"Unedited "+TRKL[T]+" messages now use the updated templates. Other tracks were not touched."+(r.kept?" "+r.kept+" template"+(r.kept===1?" was":"s were")+" left as before because the rewrite changed the offer.":""); say();
   }).catch(e=>{
     const code=e&&e.code;
     tMsg=code==="rate_limited"?"Too many requests right now, so the templates were not updated. Try again in a minute.":code==="not_granted"?"Learning was not allowed for this page, so only your edit is saved.":"Couldn't update the templates from that edit, so they were left unchanged."; say();
   });
   try{ await Promise.allSettled([pc,pt]) }finally{
-    learning=false; LEARN_H=null; say();
-    const b=lb(); if(b){ b.outerHTML=learnBtn(c); fx(lb(),okAny?"is-ok":"is-err") }
-    toast(okAny?"Saved and learned. "+[cMsg,tMsg].filter(Boolean).join(" "):"Your edit is saved, but learning failed. Try again in a minute.",{bad:!okAny,undo:(okAny&&VOICE.prev===prev)?undoLearn:null,ms:okAny?7000:4000});
+    learning=false; say();
+    // learned once: the same text is not learned again. A failed run is tried again the next time the box is changed.
+    if(okAny&&get(h)[xkS(S,t,T)]===after) patch(h,{[lkey]:1});
+    toast(okAny?"Learned from your edit. "+[cMsg,tMsg].filter(Boolean).join(" "):"Your edit is saved. Learning from it did not work this time.",{bad:!okAny,undo:(okAny&&VOICE.prev===prev)?undoLearn:null,ms:okAny?7000:4000});
   }
 }
 document.getElementById("vrules").addEventListener("input",e=>{ VOICE.rules=e.target.value.split("\n").map(s=>s.trim()).filter(Boolean); clearTimeout(vSaveT); vSaveT=setTimeout(writeVoice,700) });
@@ -1101,7 +1376,10 @@ document.getElementById("vclear").addEventListener("click",e=>{
 // ---------- navigation: sidebar, pages, overview, saved views ----------
 window.toast=toast; window.fx=fx;
 HOOK.ko=h=>get(h); HOOK.st=stOf; HOOK.bk=bkOf; HOOK.ss=c=>stOf(c.h)==="new"?null:ssOf(c); HOOK.due=dueOf; HOOK.at=h=>get(h).at||0; HOOK.on=h=>get(h).on||""; HOOK.note=h=>get(h).note||"";
-HOOK.edited=c=>["dm","em","of","fu","d2"].some(t=>manual(c,t));
+HOOK.edited=c=>MT.some(([t])=>manual(c,t));
+HOOK.trk=trkOf; HOOK.obj=objOf; HOOK.stage=stgOf; HOOK.expv=c=>expOf(c)?get(c.h).expv||"":""; HOOK.nad=h=>stOf(h)==="process"?get(h).nad||"":"";
+HOOK.naDue=c=>["over","today"].includes(naState(c)); HOOK.offer=offerFlag; HOOK.fuOpen=fuOpen;
+HOOK.more=c=>{ const o=get(c.h), e=expOf(c); return [o.na,o.objn,o.objq,e&&e.name,TRKL[trkOf(c)]].filter(Boolean).join(" ") };
 const PAGES={overview:["Outreach","Overview"],contacts:["Outreach","Creators"],database:["Research","Database"],archetypes:["Research","Archetype map"],messages:["Settings","Messages and voice"],method:["Settings","Method and limits"]};
 const LEGACY={"c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview"};
 const STATUS_NAV=[["all","All creators"],["new","Not contacted"],["sent","Message sent"],["due","Follow-up due"],["noreply","No reply"],["process","In process"],["declined","Declined"],["posted","Posted"]];
@@ -1110,7 +1388,11 @@ const PRESETS=[
   {id:"top",name:"Top scores to contact",status:"new",state:{q:"",f:{score:["80 and up"]},sort:[["score",-1]],group:"none"}},
   {id:"wa",name:"WhatsApp first",status:"new",state:{q:"",f:{ch:["WhatsApp"]},sort:[["score",-1]],group:"none"}},
   {id:"mail",name:"Has email",status:"all",state:{q:"",f:{flag:["email"]},sort:[["score",-1]],group:"status"}},
-  {id:"newest",name:"Newest added",status:"all",state:{q:"",f:{},sort:[["added",-1]],group:"none"}}
+  {id:"newest",name:"Newest added",status:"all",state:{q:"",f:{},sort:[["added",-1]],group:"none"}},
+  {id:"steps",name:"In process: next steps",status:"process",state:{q:"",f:{},sort:[["nad",1]],group:"stage"}},
+  {id:"pay",name:"Asked for payment",status:"all",state:{q:"",f:{obj:OBJ_PAY.slice()},sort:[["activity",-1]],group:"status"}},
+  {id:"paid",name:"Paid tracks",status:"all",state:{q:"",f:{track:["ugc","partner"]},sort:[["activity",-1]],group:"track"}},
+  {id:"wording",name:"Offer wording to review",status:"all",state:{q:"",f:{flag:["offer"]},sort:[["activity",-1]],group:"status"}}
 ];
 const allViews=()=>PRESETS.concat(Array.isArray(SET.views)?SET.views:[]);
 let ROUTE={page:"overview",status:"new",view:null,key:"overview"}, OPEN_H=null;
@@ -1178,36 +1460,178 @@ document.addEventListener("keydown",e=>{
     const tb=ROUTE.page==="contacts"?TBC:ROUTE.page==="database"?TBD:null; if(tb){ e.preventDefault(); tb.input.focus() } }
 });
 // overview
+const CMPS=[["all","All"],["track","By track"],["ch","By channel"],["ver","By message version"],["obj","By reason"]];
+const CMPH={all:"Group",track:"Track",ch:"Channel used",ver:"Message version",obj:"Reason"};
+const cmpKey={
+  all:()=>"All contacted",
+  track:c=>{ const o=get(c.h), t=trkOf(c)||(TRKL[o.trks]?o.trks:""); return t?TRKL[t]:"No track recorded" },
+  ch:c=>get(c.h).chs||"Channel not recorded",
+  ver:c=>{ const o=get(c.h), e=expOf(c); return STY_NAME[ssOf(c)]+(o.mv===1?" · hand-edited":o.mv===0?" · template":" · version not recorded")+(e?" · "+e.name+" "+(o.expv||""):"") },
+  obj:c=>hasReplied(c)?(objOf(c)?OBJL[objOf(c)]:"Replied, no reason recorded"):"No reply so far (not a reason)"
+};
+const CMPNOTE={all:"",track:" The track is the one the creator is on now, so a creator who moved to a paid track counts there. Creators contacted before tracks existed have none until you set one.",ch:" The channel is recorded from 11 Oct 2026 on; earlier sends show as not recorded and are not guessed.",ver:" A version is whether the text was the template or hand-edited at sending, plus a test label when there is one. Warm and Short are shown for the sends before 11 Oct 2026, when you chose the style by hand; Short is retired, so that split is a record and not a test.",obj:" No reply is its own row because silence is not a reason."};
+function funnel(rows){ const r={n:0,rep:0,int:0,intU:0,ag:0,con:0,pub:0,sN:0,sum:0};
+  rows.forEach(c=>{ r.n++; if(hasReplied(c)) r.rep++; if(interested(c)) r.int++; else if(stOf(c.h)==="process") r.intU++; if(agreed(c)) r.ag++; if(gotContent(c)) r.con++; if(stOf(c.h)==="posted") r.pub++; const s=salesOf(c); if(s!==null){ r.sN++; r.sum+=s } }); return r }
+function renderFunnel(){ const mode=CMPH[UI.cmp]?UI.cmp:"all", rows=C.filter(c=>stOf(c.h)!=="new"), G=new Map();
+  rows.forEach(c=>{ const g=cmpKey[mode](c); if(!G.has(g)) G.set(g,[]); G.get(g).push(c) });
+  document.getElementById("cmpSw").innerHTML=CMPS.map(([v,l])=>'<button type="button" data-cmp="'+v+'" aria-pressed="'+(v===mode)+'">'+l+'</button>').join("");
+  document.getElementById("funH").textContent=CMPH[mode];
+  const tr=(l,g,bold)=>{ const r=funnel(g); return '<tr><td>'+(bold?'<b>'+esc(l)+'</b>':esc(l))+'</td><td class="r num">'+r.n+'</td><td class="r num">'+r.rep+'</td><td class="r num">'+r.int+(r.intU?' <span class="note">('+r.intU+' not marked)</span>':'')+'</td><td class="r num">'+r.ag+'</td><td class="r num">'+r.con+'</td><td class="r num">'+r.pub+'</td><td class="r num'+(r.sN?'':' unk')+'">'+(r.sN?r.sum+' <span class="note">(from '+r.sN+')</span>':'No data')+'</td></tr>' };
+  const keys=[...G.keys()].sort((a,b)=>G.get(b).length-G.get(a).length||coll.compare(a,b));
+  document.getElementById("funBody").innerHTML=rows.length?((mode==="all"?"":keys.map(g=>tr(g,G.get(g))).join(""))+tr(mode==="all"?"All contacted":"Total",rows,true)):'<tr><td colspan="8" class="note">Nobody contacted yet.</td></tr>';
+  document.getElementById("funNote").textContent="Each number is a count of creators, read from what you record. Expressed interest counts only creators you ticked as interested or who reached Terms agreed; being in process is not counted as interest. Content received includes paid UGC that was delivered without a post. Sales say “No data” until a number is entered on a creator; an empty field is never read as zero."+CMPNOTE[mode]+(mode==="all"?"":" These groups are small and were not assigned at random, so a gap between them is a hint at most.");
+}
+function renderObj(){ const cnt={}, dec={}; let tot=0;
+  C.forEach(c=>{ const ob=objOf(c); if(!ob) return; tot++; cnt[ob]=(cnt[ob]||0)+1; if(stOf(c.h)==="declined") dec[ob]=(dec[ob]||0)+1 });
+  const max=Math.max(1,...Object.values(cnt)), silent=C.filter(c=>stOf(c.h)!=="new"&&!hasReplied(c)).length;
+  document.getElementById("objN").textContent=tot||"";
+  document.getElementById("objBars").innerHTML=OBJ.filter(([v])=>cnt[v]).sort((a,b)=>cnt[b[0]]-cnt[a[0]]).map(([v,l])=>{ const d=dec[v]||0, p=cnt[v]-d; return '<div class="objrow"><span>'+esc(l)+'</span><span class="v"><b>'+cnt[v]+'</b>'+(d&&p?' · '+d+' declined, '+p+' still talking':p?' · still talking':'')+'</span><span class="track"><i style="width:'+Math.round(cnt[v]/max*100)+'%"></i></span></div>' }).join("")||'<p class="note">No reason recorded yet.</p>';
+  document.getElementById("objNote").textContent="Unknown means no reason was recorded for a decline, so nothing is guessed. Set the reason on a Declined or In process card. "+silent+" contacted creator"+(silent===1?" has":"s have")+" not replied so far: that is tracked as No reply and follow-ups, never as a reason.";
+}
 function renderOverview(){
   const cnt=navCounts(), total=C.length, n=s=>cnt[s]||0;
   const contacted=total-n("new"), replies=C.filter(hasReplied).length;
+  const naDue=C.filter(c=>HOOK.naDue(c)).length, content=C.filter(gotContent).length;
   const tile=(key,l,v,s,cls)=>'<a class="kpi lb-card lb-stat'+(cls?" "+cls:"")+'" href="#'+key+'"><span class="lb-stat-label">'+l+'</span><span class="lb-stat-value">'+v+'</span><span class="lb-stat-foot">'+s+'</span></a>';
   document.getElementById("kpis").innerHTML=
      tile("c-sent","Contacted",contacted,"of "+total+" creators")
-    +tile("c-sent","Replies",replies,contacted?Math.round(replies/contacted*100)+"% of those contacted":"Nobody contacted yet")
-    +tile("c-process","In process",n("process"),"talking with them now")
-    +tile("c-posted","Posted",n("posted"),"content is live")
-    +tile("c-due","Follow-ups due",cnt.due,"24 hours or more since sending, no reply",cnt.due?"warn":"");
-  const SS={1:{n:0,r:0,y:0},2:{n:0,r:0,y:0}};
-  C.forEach(c=>{ const s=stOf(c.h); if(s==="new") return; const x=SS[ssOf(c)]; x.n++; if(hasReplied(c)) x.r++; if(["process","posted"].includes(s)) x.y++ });
-  document.getElementById("styBody").innerHTML=[1,2].map(s=>'<tr><td><b>'+STY_NAME[s]+'</b></td><td class="r num">'+SS[s].n+'</td><td class="r num">'+SS[s].r+'</td><td class="r num">'+(SS[s].n?Math.round(SS[s].r/SS[s].n*100)+"%":"n/a")+'</td><td class="r num">'+SS[s].y+'</td></tr>').join("");
+    +tile("c-all","Replied",replies,contacted?Math.round(replies/contacted*100)+"% so far, sends are days apart":"Nobody contacted yet")
+    +tile("v-steps","In process",n("process"),naDue?naDue+" next action"+(naDue===1?"":"s")+" due or overdue":"talking with them now",naDue?"warn":"")
+    +tile("c-due","Follow-ups due",cnt.due,"first one is due 4 days after sending",cnt.due?"warn":"")
+    +tile("c-process","Content received",content,n("posted")+" published");
   document.getElementById("pipe").innerHTML=STD.filter(([s])=>n(s)).map(([s,l])=>'<a class="st-'+s+'" href="#c-'+s+'" style="flex:'+n(s)+'" title="'+esc(l)+': '+n(s)+'" aria-label="'+esc(l)+': '+n(s)+'"></a>').join("");
   document.getElementById("legend").innerHTML=STD.map(([s,l])=>'<a href="#c-'+s+'"><span class="dot st-'+s+'"></span>'+esc(l)+'<b>'+n(s)+'</b></a>').join("");
   const li=(c,meta,key)=>'<li><span class="dot st-'+HOOK.bk(c)+'"></span><span class="who"><button type="button" class="go" data-open="'+esc(c.h)+'" data-key="'+key+'">@'+esc(c.h)+'</button><span class="meta">'+meta+'</span></span></li>';
   const due=C.filter(c=>dueOf(c)!==null).sort((a,b)=>dueOf(b)-dueOf(a));
   const next=C.filter(c=>stOf(c.h)==="new").sort(cmpBy([["score",-1]]));
-  const wait=C.filter(c=>stOf(c.h)==="process").sort((a,b)=>(get(b.h).at||0)-(get(a.h).at||0));
-  const list=(id,rows,meta,key,emptyTxt)=>{ document.getElementById(id).innerHTML=rows.slice(0,5).map(c=>li(c,meta(c),key)).join("")||'<li class="empty-li">'+emptyTxt+'</li>' };
-  list("ovDue",due,c=>"Sent "+esc(get(c.h).on||"")+" · day "+dueOf(c),"c-due","No follow-ups due. Nice.");
+  // in process: overdue and today first, then by date, then the ones with no next action at all
+  const NAO={over:0,today:1,later:2,undated:3,none:4};
+  const wait=C.filter(c=>stOf(c.h)==="process").sort((a,b)=>NAO[naState(a)]-NAO[naState(b)]||coll.compare(get(a.h).nad||"",get(b.h).nad||"")||(get(b.h).at||0)-(get(a.h).at||0));
+  const list=(id,rows,meta,key,emptyTxt)=>{ document.getElementById(id).innerHTML=rows.slice(0,6).map(c=>li(c,meta(c),key)).join("")||'<li class="empty-li">'+emptyTxt+'</li>' };
+  list("ovDue",due,c=>"Sent "+esc(get(c.h).on||"")+" · "+(seq(c).n===2?"final follow-up":"first follow-up")+(dueOf(c)?" · "+dueOf(c)+" day"+(dueOf(c)===1?"":"s")+" overdue":" · due today"),"c-due","No follow-ups due.");
   list("ovNext",next,c=>esc(c.name||c.n)+" · "+chOf(c)+" · score "+c.score,"c-new","Everyone has been contacted.");
-  list("ovWait",wait,c=>"In process"+(get(c.h).note?" · "+esc(get(c.h).note).slice(0,40):""),"c-process","Nobody is in process yet.");
+  list("ovWait",wait,c=>{ const o=get(c.h), st=naState(c); return esc(STGL[stgOf(c)]||"No step set")+" · "+(o.na?esc(String(o.na).slice(0,48)):"no next action yet")+(o.nad?" · by "+esc(o.nad)+(st==="over"?" (overdue)":st==="today"?" (today)":""):"") },"c-process","Nobody is in process yet.");
   document.getElementById("ovDueN").textContent=due.length; document.getElementById("ovNextN").textContent=next.length; document.getElementById("ovWaitN").textContent=wait.length;
+  renderFunnel(); renderObj(); renderExps();
 }
+document.getElementById("cmpSw").addEventListener("click",e=>{ const b=e.target.closest("[data-cmp]"); if(b){ UI.cmp=b.dataset.cmp; uiSave(); renderFunnel() } });
+
+// ---------- tests: two versions, one change, random matched pairs. Drafts and labels only: a test never sends anything. ----------
+const EXF={name:"",track:"gift",ch:"Instagram DM",kind:"dm",n:20,b:""};
+const EXW=FU2_MS;   // versions are compared 7 days after each creator's own send
+const shuffle=a=>{ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a };
+const expPool=f=>C.filter(c=>stOf(c.h)==="new"&&!expOf(c)&&chOf(c)===f.ch&&trkOf(c)===f.track&&!HOOK.edited(c)&&!/COMPETITOR/i.test(c.conflict||""));
+const expVer=(e,v)=>e.kind==="style"?(v==="A"?"Warm":"Short"):(v==="A"?"current first message":"your variant");
+function expStats(e){ const mk=()=>({n:0,sent:0,mat:0,rep:0,repU:0}), r={A:mk(),B:mk()}, now=Date.now();
+  C.forEach(c=>{ const o=get(c.h), x=o.exp===e.id?r[o.expv]:null; if(!x) return; x.n++; if(stOf(c.h)==="new") return; x.sent++;
+    const s=sentMs(o); if(s==null||now-s<EXW) return; x.mat++;
+    if(hasReplied(c)){ if(o.rat&&o.rat-s<=EXW) x.rep++; else if(!o.rat) x.repU++ } });
+  return r }
+function expVerdict(e,r){ const a=r.A, b=r.B;
+  if(!a.sent&&!b.sent) return "Drafts are ready. Nothing has been sent yet.";
+  if(a.mat<a.n||b.mat<b.n) return "Not comparable yet: "+a.mat+" of "+a.n+" in A and "+b.mat+" of "+b.n+" in B have reached day 7 after their send. Read the result only when both groups are complete.";
+  return "Both groups are complete at day 7: "+a.rep+" of "+a.n+" replied in A, "+b.rep+" of "+b.n+" in B. With "+a.n+" per version this is a small sample: a gap of a few replies can be chance, so treat it as a direction to test again, not as a result." }
+function renderExps(){
+  document.getElementById("expList").innerHTML=exps().map(e=>{ const r=expStats(e);
+    return '<div class="expi"><h4>'+esc(e.name)+' <span class="lb-chip outline">'+esc(TRKL[e.track])+'</span><span class="lb-chip outline">'+esc(e.ch)+'</span><span class="lb-chip outline">changes: '+(e.kind==="style"?"message style":"first message wording")+'</span></h4>'
+     +'<div class="tbl lb-table-wrap"><table class="lb-table"><thead><tr><th>Version</th><th class="r">Drafts</th><th class="r">Sent</th><th class="r">Reached day 7</th><th class="r">Replied by day 7</th></tr></thead><tbody>'
+     +["A","B"].map(v=>'<tr><td><b>'+v+'</b> · '+expVer(e,v)+'</td><td class="r num">'+r[v].n+'</td><td class="r num">'+r[v].sent+'</td><td class="r num">'+r[v].mat+'</td><td class="r num">'+(r[v].mat?r[v].rep+(r[v].repU?' <span class="note">(+'+r[v].repU+' with no reply time)</span>':''):'<span class="note">n/a</span>')+'</td></tr>').join("")
+     +'</tbody></table></div><p class="note">'+esc(expVerdict(e,r))+'</p>'
+     +'<div class="msgbar"><button type="button" class="lb-btn secondary sm" data-expopen="'+esc(e.id)+'">Open the drafts</button><button type="button" class="lb-btn ghost sm" data-expdel="'+esc(e.id)+'">Remove the labels from unsent drafts</button></div></div>' }).join("")||'<p class="note">No test yet.</p>';
+  const f=document.getElementById("expForm"); if(f.contains(document.activeElement)) expHint(); else expFormRender();
+}
+function expHint(){ const el=document.getElementById("expPoolN"); if(!el) return; const n=expPool(EXF).length, want=2*(+EXF.n||0);
+  el.textContent=n+" creator"+(n===1?"":"s")+" fit: not contacted, on the "+TRKL[EXF.track]+" track, first channel "+EXF.ch+", no hand-edited message, not in another test. "+(n>=want?"Enough for "+(want/2)+" per version.":"A test of "+(want/2)+" per version needs "+want+", so it would run with "+Math.floor(n/2)+" per version.") }
+function expFormRender(){ const f=EXF, o=(v,l,cur)=>'<option value="'+esc(v)+'"'+(v===cur?" selected":"")+'>'+esc(l)+'</option>';
+  document.getElementById("expForm").innerHTML='<div class="expf">'
+   +'<label>Test name<input class="lb-input" data-ex="name" maxlength="40" value="'+esc(f.name)+'" placeholder="e.g. Warm vs Short, DM"></label>'
+   +'<label>Track<select class="lb-select" data-ex="track">'+TRACKS.filter(t=>t[0]).map(([v,l])=>o(v,l,f.track)).join("")+'</select></label>'
+   +'<label>First channel<select class="lb-select" data-ex="ch">'+CHS.map(v=>o(v,v,f.ch)).join("")+'</select></label>'
+   +'<label>Creators per version<input class="lb-input" type="number" min="1" max="100" data-ex="n" value="'+esc(f.n)+'"></label>'
+   +'<label class="full">Version B of the first message. Version A is the current template. Change one thing and keep the offer as it is.<textarea class="lb-textarea" data-ex="b" dir="rtl" rows="7">'+esc(f.b||tpl(PRE[f.track]+"dm"))+'</textarea></label>'
+   +'<p class="note full" id="expPoolN" style="margin:0"></p>'
+   +'<div class="full"><button type="button" class="lb-btn" data-expgo>Assign at random (drafts only)</button></div></div>';
+  expHint();
+}
+function expAssign(btn){ const f=EXF, name=String(f.name).trim(), n0=Math.max(1,Math.min(100,parseInt(f.n,10)||20));
+  const bad=m=>{ fx(btn,"is-err"); toast(m,{bad:true}) };
+  if(!name) return bad("Give the test a name first.");
+  const base=tpl(PRE[f.track]+"dm"), b=String(f.b||base);
+  if(f.kind==="dm"&&b.trim()===base.trim()) return bad("Version B is the same as the current message. Change one thing in it.");
+  if(f.kind==="dm"&&factSig(b)!==factSig(base)) return bad("Version B changes the offer itself (a number, the link, the video ask or a price). A test changes the wording, not the offer.");
+  let pool=expPool(f); const n=Math.min(n0,Math.floor(pool.length/2)); if(n<1) return bad("Not enough creators fit this track and channel yet.");
+  // random draw, then pairs of similar size (follower count), and a coin decides who in each pair gets A
+  pool=shuffle(pool).slice(0,2*n).sort((x,y)=>(x.f||0)-(y.f||0));
+  const id="t"+Date.now().toString(36), prevDocs={}, prevExps=clone(exps());
+  for(let i=0;i<n;i++){ const pair=[pool[2*i],pool[2*i+1]]; if(Math.random()<.5) pair.reverse();
+    pair.forEach((c,j)=>{ prevDocs[c.h]={...get(c.h)}; patch(c.h,{exp:id,expv:j?"B":"A",trk:f.track}) }) }
+  SET.exps=[...exps(),{id,name,track:f.track,ch:f.ch,kind:f.kind,b:f.kind==="dm"?b:"",n,at:Date.now()}]; saveSettings();
+  EXF.name=""; EXF.b=""; document.getElementById("expNew").open=false; render(); fx(btn,"is-ok");
+  toast("Test “"+name+"” is ready: "+n+" drafts per version, assigned at random in matched pairs. Nothing was sent.",{ms:9000,undo:()=>{ Object.keys(prevDocs).forEach(h=>{ OD[h]={...prevDocs[h],at:Date.now()}; writeDoc(h) }); SET.exps=prevExps; saveSettings(); render(); toast("Test removed. The drafts are back as they were.") }});
+}
+document.getElementById("expForm").addEventListener("input",e=>{ const k=e.target.dataset&&e.target.dataset.ex; if(!k) return; EXF[k]=e.target.type==="checkbox"?e.target.checked:e.target.value; if(k==="track"){ EXF.b=""; expFormRender() } else expHint() });
+document.getElementById("expForm").addEventListener("click",e=>{ const b=e.target.closest("[data-expgo]"); if(b) expAssign(b) });
+document.getElementById("expList").addEventListener("click",e=>{
+  const o=e.target.closest("[data-expopen]"), d=e.target.closest("[data-expdel]");
+  if(o){ const x=exps().find(t=>t.id===o.dataset.expopen); if(!x) return; UI.vs.contacts={...clone(VS_DEF.contacts),q:"",f:{test:["A","B"]},sort:[["f",1]],group:"none"}; UI.vs.contacts.q=x.name; uiSave(); shown=30; navigate("c-all") }
+  if(d){ const x=exps().find(t=>t.id===d.dataset.expdel); if(!x) return; const prevDocs={}, prevExps=clone(exps()); let kept=0;
+    C.forEach(c=>{ const oo=get(c.h); if(oo.exp!==x.id) return; if(stOf(c.h)!=="new"){ kept++; return } prevDocs[c.h]={...oo}; patch(c.h,{exp:"",expv:""}) });
+    if(!kept){ SET.exps=exps().filter(t=>t.id!==x.id); saveSettings() }
+    render(); toast(kept?"Unsent drafts were unlabelled. “"+x.name+"” stays on the list because "+kept+" of its messages already went out.":"Test “"+x.name+"” removed. Nothing had been sent.",{undo:()=>{ Object.keys(prevDocs).forEach(h=>{ OD[h]={...prevDocs[h],at:Date.now()}; writeDoc(h) }); SET.exps=prevExps; saveSettings(); render(); toast("Test restored.") }}) }
+});
+
+// ---------- data update: saved templates that still carry the old offer wording ----------
+// Templates saved in settings/main win over the defaults in this file, so a new default never reaches them on its own.
+// This shows every field that would change, before and after, and writes nothing until Yarin presses Apply. Running it twice changes nothing more.
+const TPLN=key=>{ const T=key.startsWith("u_")?"ugc":key.startsWith("p_")?"partner":"gift", b=key.replace(/^(u_|p_)/,""), t=b.replace(/_b$/,""); return TRKL[T]+" · "+(/_b$/.test(b)?"Short":"Warm")+" · "+(({dm:"first message",es:"email subject",eb:"email body",fu:"follow-up",f2:"final follow-up",d2:"interested reply",of:"offer details"})[t]||t) };
+const ASK_RX=/אשמח לשלוח פרטים ודוגמה, או לתאם שיחה קצרה\./, ASK_TO="אשמח לשלוח דוגמה לספר ואת הפרטים.";
+const NUDGE_RX=/רק (מוודא שההודעה לא הלכה לאיבוד|מזכיר את ההצעה)/;
+const MIG={open:false,hide:false,all:false,sel:{}};
+function migPlan(){ const T=SET.tpl||{}, items=[];
+  Object.keys(T).sort().forEach(key=>{ const v=T[key]; if(typeof v!=="string"||/_b$/.test(key)) return; const f=offerFix(v);
+    if(f!==v) items.push({id:"pct:"+key,key,fn:"pct",must:true,label:"Old percentage · "+TPLN(key),before:v,after:f});
+    if(ASK_RX.test(f)) items.push({id:"ask:"+key,key,fn:"ask",must:false,label:"One next step instead of two · "+TPLN(key),before:f,after:f.replace(ASK_RX,ASK_TO)});
+    if(/^fu(_b)?$/.test(key)&&NUDGE_RX.test(f)) items.push({id:"fu:"+key,key,fn:"fu",must:false,label:"A follow-up that adds something · "+TPLN(key),before:f,after:defTpl(key)}) });
+  const R=VOICE.rules||[], RF=R.map(offerFix), ch=R.map((x,i)=>i).filter(i=>R[i]!==RF[i]);
+  if(ch.length) items.push({id:"voice",fn:"voice",must:true,label:"Old percentage · "+ch.length+" voice note"+(ch.length===1?"":"s"),before:ch.map(i=>R[i]).join("\n"),after:ch.map(i=>RF[i]).join("\n")});
+  return items }
+const migOn=i=>MIG.sel[i.id]!==undefined?MIG.sel[i.id]:i.must;
+function migRender(){ const el=document.getElementById("mignote"), items=migPlan(), must=items.filter(i=>i.must), m=SET.mig, done=document.getElementById("migdone");
+  // on Messages and voice: what was applied (with Undo), and the optional suggestions that are left
+  const opt=items.filter(i=>!i.must);
+  done.hidden=!(m&&m.bak)&&!(opt.length&&!must.length);
+  done.innerHTML=(m&&m.bak?'<span>Offer wording updated in '+m.n+' saved field'+(m.n===1?"":"s")+' on '+dayLabel(m.at)+'. <button type="button" class="lb-btn secondary sm" data-migundo>Undo that update</button></span>':'')+(opt.length&&!must.length?'<span>'+opt.length+' optional wording suggestion'+(opt.length===1?"":"s")+' for your saved templates. <button type="button" class="lb-btn secondary sm" data-migshow>Review</button></span>':'');
+  const show=(must.length&&!MIG.hide)||(MIG.all&&items.length);
+  el.hidden=!show; if(!show){ el.innerHTML=""; return }
+  const decl=C.filter(c=>stOf(c.h)==="declined"&&!get(c.h).obj).length, recs=Object.keys(OD).length;
+  const oldTxt=C.filter(c=>{ const o=get(c.h); return Object.keys(o).some(x=>x.startsWith("x_")&&typeof o[x]==="string"&&(o[x].includes("קוד")||offerFix(o[x])!==o[x])) }).length;
+  const diff=i=>{ const A=i.before.split("\n"), B=i.after.split("\n"); return '<div class="migd"><span>Now</span><div class="was">'+esc(A.filter(l=>!B.includes(l)).join("\n")||i.before)+'</div><span>After</span><div class="now">'+esc(B.filter(l=>!A.includes(l)).join("\n")||i.after)+'</div></div>' };
+  el.innerHTML='<h3>'+(must.length?must.length+' saved field'+(must.length===1?" still says":"s still say")+' 20%':'Optional wording suggestions')+'</h3>'
+   +'<p>'+(must.length?'Your saved templates and voice notes were written when the offer was 20%. The offer is one '+PCT+'% per sale through the personal link, split by the creator between their earnings and an audience discount (for example '+EXC+'% and '+EXA+'%). ':'')+'Nothing changes until you press Apply, and it can be undone.</p>'
+   +(MIG.open?items.map(i=>'<div class="migi"><label><input type="checkbox" data-migsel="'+esc(i.id)+'"'+(migOn(i)?" checked":"")+'>'+esc(i.label)+(i.must?'':' <span class="lb-chip outline">optional</span>')+'</label>'+diff(i)+'</div>').join("")
+     +'<div class="migi"><b>What stays exactly as it is</b><ul class="tight note" style="margin:0"><li>All '+recs+' outreach records: statuses, send dates, notes, personal links, kids info and every message you edited.</li><li>Your learned voice (only the percentage inside '+(items.some(i=>i.id==="voice")?"the listed":"no")+' voice notes changes) and your saved views.</li><li>'+oldTxt+' creator'+(oldTxt===1?" has":"s have")+' saved messages that say 20% or mention a code. They are the record of what was written, so they are not changed. Find the ones still to be sent with the saved view “Offer wording to review” and press Fix on each.</li><li>'+decl+' declined creator'+(decl===1?" has":"s have")+' no recorded reason. They show as Unknown and nothing is written for them.</li><li>Every creator gets a starting track picked by the map, which you can change on the card. Follow-up timing is counted from the original send time; no clock restarts.</li></ul></div>':'')
+   +'<div class="msgbar"><button type="button" class="lb-btn secondary" data-migopen>'+(MIG.open?"Hide the preview":"Preview the changes")+'</button><button type="button" class="lb-btn" data-migapply>Apply '+items.filter(migOn).length+' selected</button><button type="button" class="lb-btn ghost" data-mighide>Not now</button></div>';
+}
+function migApply(btn){ const items=migPlan().filter(migOn); if(!items.length){ fx(btn,"is-err"); toast("Nothing is selected.",{bad:true}); return }
+  const bak={tpl:clone(SET.tpl||{}),rules:clone(VOICE.rules||[])}, T={...(SET.tpl||{})}, by=fn=>items.filter(i=>i.fn===fn).map(i=>i.key);
+  [...new Set(items.filter(i=>i.key).map(i=>i.key))].forEach(key=>{ let v=T[key];
+    if(by("pct").includes(key)) v=offerFix(v); if(by("ask").includes(key)) v=v.replace(ASK_RX,ASK_TO); if(by("fu").includes(key)) v=defTpl(key);
+    if(v===defTpl(key)) delete T[key]; else T[key]=v });
+  SET.tpl=T; SET.mig={v:1,at:Date.now(),n:items.length,bak}; saveSettings();
+  if(items.some(i=>i.fn==="voice")){ VOICE.rules=(VOICE.rules||[]).map(offerFix); writeVoice() }
+  MIG.sel={}; MIG.open=false; MIG.all=false; fillSettings(); fillVoice(); render();
+  toast("Updated "+items.length+" saved field"+(items.length===1?"":"s")+". Outreach records were not touched.",{ms:9000,undo:migUndo});
+}
+function migUndo(){ const m=SET.mig; if(!m||!m.bak) return; SET.tpl=m.bak.tpl||{}; VOICE.rules=m.bak.rules||[]; SET.mig={v:0,at:Date.now(),undone:1}; saveSettings(); writeVoice(); MIG.hide=true; fillSettings(); fillVoice(); render(); toast("Update undone. Your saved templates and voice notes are back as they were.") }
+document.getElementById("mignote").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return;
+  if(b.hasAttribute("data-migopen")){ MIG.open=!MIG.open; migRender() } else if(b.hasAttribute("data-mighide")){ MIG.hide=true; MIG.all=false; migRender() } else if(b.hasAttribute("data-migapply")) migApply(b) });
+document.getElementById("mignote").addEventListener("change",e=>{ const k=e.target.dataset&&e.target.dataset.migsel; if(k){ MIG.sel[k]=e.target.checked; migRender() } });
+document.getElementById("migdone").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; if(b.hasAttribute("data-migundo")) migUndo(); else if(b.hasAttribute("data-migshow")){ MIG.all=true; MIG.open=true; MIG.hide=false; migRender(); document.getElementById("mignote").scrollIntoView({block:"start"}) } });
 document.querySelector('[data-page="overview"]').addEventListener("click",e=>{ const b=e.target.closest("[data-open]"); if(b) window.openCreator(b.dataset.open,b.dataset.key) });
 // mobile status chips
 document.getElementById("sstats").addEventListener("click",e=>{ const b=e.target.closest("button[data-st]"); if(b) navigate("c-"+(b.dataset.st||"all")) });
 document.getElementById("olist").addEventListener("click",e=>{ if(e.target.closest("[data-clearlist]")){ UI.vs.contacts.q=""; UI.vs.contacts.f={}; uiSave(); shown=30; render() } },true);
-const TBC=toolbar(document.getElementById("tb-c"),"contacts",{ph:"Search handle, name, notes…",facets:["style","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF).filter(k=>!["prac","conflict"].includes(k)),group:true,save:true,base:()=>contactBase(),onChange:()=>{ shown=30; render() }});
+const TBC=toolbar(document.getElementById("tb-c"),"contacts",{ph:"Search handle, name, notes…",facets:["track","stage","obj","test","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF).filter(k=>!["prac","conflict"].includes(k)),group:true,save:true,base:()=>contactBase(),onChange:()=>{ shown=30; render() }});
 
 // ---------- start ----------
 lsLoad(); fillSettings(); fillVoice(); navViews(); route();
