@@ -27,15 +27,15 @@ def block(selector_regex):
 light = block(r"^:root")
 if not light:
     light = dict(re.findall(r"--([a-z0-9-]+):\s*([^;]+);", CSS.split("@media")[0]))
-dark = block(r":root\[data-theme=\"dark\"\]")
+dark = {}   # light only since 14 Oct 2026: the stylesheet has no dark tokens
 
 COLOR_USAGE = {
-    "lb-ink": "Brand ink. Same in both themes; the toast ground.",
-    "lb-ink-deep": "Brand ink, deepest. Same in both themes.",
-    "lb-gold": "Brand gold. Same in both themes; never body text on light.",
-    "lb-gold-deep": "Brand gold, deeper. Same in both themes.",
-    "lb-violet": "Brand violet. Same in both themes.",
-    "lb-cream": "Brand cream. Same in both themes.",
+    "lb-ink": "Brand ink. the toast ground.",
+    "lb-ink-deep": "Brand ink, deepest.",
+    "lb-gold": "Brand gold. never body text on light.",
+    "lb-gold-deep": "Brand gold, deeper.",
+    "lb-violet": "Brand violet.",
+    "lb-cream": "Brand cream.",
     "bg": "Page ground (warm cream in light).",
     "surface": "Cards, grouped rows, tables, inputs.",
     "surface-2": "Sidebar, inset areas inside a card, table header row.",
@@ -45,7 +45,7 @@ COLOR_USAGE = {
     "text": "Primary text and headings. 4.5:1 or more on every surface.",
     "text-2": "Secondary text: descriptions, table cells that support a primary value.",
     "text-3": "Tertiary text: labels, captions, metadata.",
-    "text-on-tint": "Text on a solid tint button or count (white in light, ink in dark).",
+    "text-on-tint": "Text on a solid tint button or count.",
     "fill": "Quiet fill: hover rows, chips, search field, code.",
     "fill-2": "Tracks of bars, segmented control ground.",
     "fill-3": "Off state of a switch.",
@@ -66,7 +66,7 @@ COLOR_USAGE = {
     "expert": "Carousel pillar 'גישה מקצועית' (expert) text.", "expert-soft": "Expert pillar ground.",
 }
 for i in range(1, 7):
-    COLOR_USAGE[f"seq-{i}"] = f"Sequential data series step {i} of 6 (stages, bars), light to dark."
+    COLOR_USAGE[f"seq-{i}"] = f"Sequential data series step {i} of 6 (stages, bars), lightest to deepest."
 
 ORDER = ["lb-ink", "lb-ink-deep", "lb-gold", "lb-gold-deep", "lb-violet", "lb-cream",
          "bg", "surface", "surface-2", "surface-sunk", "bar", "overlay",
@@ -95,7 +95,7 @@ def tokens():
     t = {
         "name": "LumeBook", "version": 1,
         "meta": {"source": "shared/design/lumebook.css (LumeBook project repo)"},
-        "color": {"themes": [{"id": "light", "name": "Light"}, {"id": "dark", "name": "Dark"}], "tokens": colors},
+        "color": {"themes": [{"id": "light", "name": "Light"}], "tokens": colors},
         "type": {"fonts": [], "families": fam, "groups": [
             {"name": "Display", "family": "display", "styles": [
                 {"name": "display", "fontSize": "40px", "lineHeight": 1.12, "fontWeight": 400, "sample": "לוח לומבוק", "usage": "Page titles (h1). Varela Round, rounded and friendly like the books; once per page."},
@@ -119,7 +119,7 @@ def tokens():
         "radius": {"tokens": [{"name": n, "value": light[n].strip(), "usage": u} for n, u in
                               [("r-xs", "Code, bars, small marks."), ("r-sm", "Inputs, nav items, segmented control."),
                                ("r-md", "Grouped lists, tables, alerts, empty states."), ("r-lg", "Cards."), ("r-pill", "Buttons, chips, search.")]]},
-        "shadow": {"tokens": [{"name": n, "value": {"light": light[n].strip(), "dark": dark.get(n, light[n]).strip()}, "usage": u} for n, u in
+        "shadow": {"tokens": [{"name": n, "value": {"light": light[n].strip()}, "usage": u} for n, u in
                               [("shadow-1", "Active nav item, segmented thumb."), ("shadow-2", "Raised card, hovered link card."), ("shadow-3", "Drawers, modals, toasts, mobile sidebar.")]]},
     }
     return t
@@ -127,13 +127,13 @@ def tokens():
 
 README = """# LumeBook
 
-The design system for every internal LumeBook page: the project dashboard (לוח לומבוק), the SMM plan, the creator map, the research reports and the nightly carousel review. It is Hebrew first and right to left, light by default with a dark theme, and built for scanning operational data.
+The design system for every internal LumeBook page: the project dashboard (לוח לומבוק), the SMM plan, the creator map, the research reports and the nightly carousel review. It is Hebrew first and right to left, light only, and built for scanning operational data.
 
 It is **not** used by the public ambassadors site (lumebook-ambassadors.vercel.app), which keeps its own look for creators, or by the carousel slides themselves, whose two pillar looks are audience content.
 
 ## Where it lives
 
-- Source of truth: `shared/design/lumebook.css` in the LumeBook project repo. Every page build inlines it (`shared/design/design.py`: `design.head()`, `design.theme_toggle()`, `design.logo_data_uri()`). The SMM plan has no build, so it links a synced copy (`tools/lumebook.py sync`).
+- Source of truth: `shared/design/lumebook.css` in the LumeBook project repo. Every page build inlines it (`shared/design/design.py`: `design.head()`, `design.logo_data_uri()`). The SMM plan has no build, so it links a synced copy (`tools/lumebook.py sync`).
 - After any change: `python3 tools/lumebook.py ripple` rebuilds every page that uses it and lists the artifacts to republish.
 - This reference is generated from that file by `shared/design/build_ds_artifact.py`. Edit the CSS, not this page.
 
@@ -155,19 +155,19 @@ It is **not** used by the public ambassadors site (lumebook-ambassadors.vercel.a
 - **Carousel pillars.** `kid` (violet) for "הילד מספר", `expert` (gold) for "גישה מקצועית", matching the slide designs.
 - **Type.** Varela Round for page and section titles (rounded like the books), Heebo for everything else (Hebrew and Latin from one family), system mono for commands. Scale: display 40, title 24, headline 18, body 16, callout 15, footnote 13, caption 12.
 - **Space and shape.** 4pt spacing, pill buttons and chips, 18px card radius, 12px for tables and grouped lists.
-- **Themes.** Light on bare `:root`; dark under `[data-theme="dark"]` and the OS preference unless the viewer chose light. Pages start light (Yarin's choice) and remember the toggle in `localStorage` key `lb-theme`. Every text token passes 4.5:1 on every surface in both themes.
+- **Theme.** Light only (Yarin, 14 Oct 2026): there is no dark theme and no theme toggle. `design.head()` sets `data-theme="light"` before first paint. Every text token passes 4.5:1 on every surface.
 - **Motion.** Short (0.15s to 0.2s) color and slide transitions only; all motion stops under `prefers-reduced-motion`.
 
 ## Layout
 
 - App pages: `lb-app` (sidebar + main), `lb-sidebar` with `lb-nav-item`s grouped by `lb-nav-label`, a sticky `lb-topbar`, content in `lb-page` > `lb-section` blocks. Under 860px the sidebar becomes a drawer opened from `lb-menu-btn`.
-- Reading pages and reports: `lb-topbar` with logo, page name, an `lb-toc` section nav, the link back to the dashboard and the theme toggle; then `lb-page`.
+- Reading pages and reports: `lb-topbar` with logo, page name, an `lb-toc` section nav, and the link back to the dashboard; then `lb-page`.
 - Grids: `lb-grid` (auto-fit, set `--min`), or `cols-2/3/4` that step down to 2 then 1 column. Rows: `lb-row`, stacks: `lb-stack`.
 - Phone width (390px) never scrolls sideways; wide tables scroll inside `lb-table-wrap`.
 
 ## Iconography
 
-Inline SVG line icons on a 24 grid, `stroke="currentColor"`, stroke width 2, no fill, so they take the text color and theme. No emoji as UI markers. The LumeBook logo is the only image mark (Logos group).
+Inline SVG line icons on a 24 grid, `stroke="currentColor"`, stroke width 2, no fill, so they take the text color. No emoji as UI markers. The LumeBook logo is the only image mark (Logos group).
 
 ## Components
 

@@ -7,7 +7,7 @@ shared/design/lumebook.css restyles them all on the next `python3 tools/lumebook
     sys.path.insert(0, str(<project root> / "shared" / "design"))
     import design
     html = html.replace("<!--LB:HEAD-->", design.head())       # in <head> or at the top of an artifact page
-    html = html.replace("<!--LB:THEME-TOGGLE-->", design.theme_toggle())
+    html = html.replace("<!--LB:THEME-TOGGLE-->", design.theme_toggle())   # empty now: light only
 
 Standard library only.
 """
@@ -19,9 +19,10 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 
 FONTS_URL = "https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap"
 
-# Sets data-theme on <html> before first paint: the viewer's saved choice, light by default (Yarin's choice).
-THEME_BOOT = ('<script>(function(){var t="light";try{t=localStorage.getItem("lb-theme")||"light"}catch(e){}'
-              'document.documentElement.setAttribute("data-theme",t)})();</script>')
+# Light only (Yarin, 13-14 Oct 2026: "no need for dark mode", "only light mode"). Sets data-theme="light" before first paint
+# and forgets an old saved dark choice. The dark tokens stay in lumebook.css but never apply.
+THEME_BOOT = '<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>'
+
 
 THEME_JS = """<script>
 (function () {
@@ -61,7 +62,8 @@ def head(include_fonts=True):
 
 
 def theme_toggle(dark_label="מצב כהה", light_label="מצב בהיר"):
-    """A theme button plus its script. Put it once per page."""
+    """Kept so existing builds still run. Pages are light only, so there is no theme button any more."""
+    return ""
     icon = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
             '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>')
     return (f'<button class="lb-btn secondary sm" type="button" data-lb-theme-toggle data-dark="{dark_label}" '

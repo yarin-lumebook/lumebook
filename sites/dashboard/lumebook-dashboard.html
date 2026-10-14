@@ -2,7 +2,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap">
-<script>(function(){var t="light";try{t=localStorage.getItem("lb-theme")||"light"}catch(e){}document.documentElement.setAttribute("data-theme",t)})();</script>
+<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>
 <link rel="stylesheet" href="design/lumebook.css">
 <style>
 /* Layout: one app shell. Sidebar of views (overview first), sticky top bar with freshness, each view an lb-page.
@@ -79,7 +79,7 @@ tr.test td { opacity: .5; }
       <a class="lb-nav-item" href="#assets" data-view="assets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>אתרים וקבצים</a>
     </nav>
     <div class="lb-sidebar-foot">
-      <button class="lb-btn secondary sm" type="button" id="theme-toggle" aria-pressed="false">מצב כהה</button>
+      <button class="lb-btn secondary sm" type="button" id="theme-toggle" aria-pressed="false" hidden>מצב כהה</button>
       <span id="foot-note">הנתונים מתרעננים כל בוקר בסביבות 08:15</span>
     </div>
   </aside>

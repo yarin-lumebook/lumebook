@@ -47,7 +47,7 @@ python3 tools/lumebook.py serve      # one local server for the whole folder: ht
 ## Design system
 
 - Every internal page uses `shared/design/lumebook.css`: builds inline it with `design.head()`; the SMM plan and the dashboard link synced copies (`design.copies`, kept equal by `sync`). Change the CSS, then `ripple` rebuilds the pages and lists artifacts to republish; regenerate the Design System artifact with `build_ds_artifact.py`.
-- Style page-specific rules with tokens only (`--bg --surface --text --tint --accent ...`), use `lb-` components first, keep both themes and 390px phone width working, Hebrew pages RTL.
+- Style page-specific rules with tokens only (`--bg --surface --text --tint --accent ...`), use `lb-` components first, keep 390px phone width working, Hebrew pages RTL. Light mode only (Yarin, 14 Oct 2026): `design.py` forces the light theme and there is no theme toggle.
 - Not for the carousel slide designs (the kid/expert pillar looks are audience content). The retired ambassadors site keeps its own styling.
 
 ## Rules that apply everywhere

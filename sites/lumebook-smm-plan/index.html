@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&amp;family=Varela+Round&amp;display=swap">
-<script>(function(){var t="light";try{t=localStorage.getItem("lb-theme")||"light"}catch(e){}document.documentElement.setAttribute("data-theme",t)})();</script>
+<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>
 <link rel="stylesheet" href="lumebook.css">
 <style>
 /* Page rules on top of lumebook.css (a synced copy of shared/design/lumebook.css; never edit the copy).
@@ -121,7 +121,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
     <h1 class="plan-title"><span class="wordmark">לומבוק</span><span class="doc-title">תוכנית סושיאל ותוכן</span></h1>
     <nav class="lb-toc plan-toc"></nav>
     <a class="lb-btn ghost sm plan-hub" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">ללוח</a>
-    <button class="lb-btn secondary sm" type="button" data-lb-theme-toggle data-dark="מצב כהה" data-light="מצב בהיר" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="lb-theme-label">מצב כהה</span></button><script>
+    <button class="lb-btn secondary sm" type="button" data-lb-theme-toggle hidden data-dark="מצב כהה" data-light="מצב בהיר" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="lb-theme-label">מצב כהה</span></button><script>
 (function () {
   function sync(btn) {
     var dark = document.documentElement.getAttribute("data-theme") === "dark";

@@ -4,7 +4,7 @@ Status date: 11 Oct 2026 (evening). Outreach numbers were read from the map's da
 
 ## 1. What this is
 
-A verified list of 304 Hebrew-speaking Israeli creators (about 1K to 50K followers; 204 from 3 Oct, 100 added 11 Oct) who could make credible UGC for LumeBook, plus the outreach tool Yarin uses every day to contact them. The first goal was the research; the map became the main working tool.
+A verified list of 243 Hebrew-speaking Israeli creators (5K to 50K followers for anyone not yet contacted; 204 from 3 Oct, 100 added 11 Oct, 61 never-contacted under-5K creators removed 12 Oct) who could make credible UGC for LumeBook, plus the outreach tool Yarin uses every day to contact them. The first goal was the research; the map became the main working tool.
 
 - Published map (private artifact): https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB
 - Code: `creators/creator-research/` in the monorepo github.com/yarinbruner/lumebook (since 8 Oct; the old `lumebook-creator-map` repo is archived, history kept)
@@ -17,7 +17,7 @@ A verified list of 304 Hebrew-speaking Israeli creators (about 1K to 50K followe
 | No em dashes or en dashes in anything written for Yarin or the audience | CLAUDE.md, user |
 | Brand is LumeBook in messages (Hebrew לומבוק elsewhere), never לומיבוק | CLAUDE.md, user |
 | Offer: one 25% allocation per sale through the creator's personal link. The creator decides how much is their earnings and how much is an audience discount (for example 15% and 10%); the discount is applied automatically through the link. Never 25% plus an extra discount. Never "קוד הנחה" or "קוד אישי" | `shared/facts.json` offer, Yarin 11 Oct |
-| Three collaboration tracks: Gifted + affiliate, Paid UGC, Paid partnership. No paid budget is approved (`offer.paid_budget_approved` is false), so paid messages ask for rates and promise nothing | `shared/facts.json` offer, Yarin 11 Oct |
+| Commission only, nothing paid (Yarin, 12 Oct). Three tracks, all the same offer, different message angle: General, Professionals, Parents. The Paid UGC and Paid partnership tracks were removed | `shared/facts.json` offer, Yarin 12 Oct |
 | Hebrew only: Arabic and Russian creators were removed | user, 3 Oct |
 | Contacts are only ones the creator publishes (bio, bio links, own Linktree or site). Instagram is read only: no follows, no DMs from me | research method |
 | Kids: record how many, their genders and names, only from public information. Never infer gender from a name | user, 7 Oct |
@@ -270,3 +270,34 @@ python3 tools/lumebook.py ack creator-map --published   # after republishing the
 ```
 
 Preview with the launch config `creator-map-static` (port 8773, serves this folder; open `/lumebook-creator-map.html`). Publish the built file to the same artifact URL so the link stays. Saved views, statuses and templates live in the artifact's database, so a republish does not lose them.
+
+## 12 Oct 2026: commission only, Short is back
+- **Tracks:** General, Professionals, Parents. Same offer in all three (book for one agreed video, personal link, the 25% split); only the angle changes. Professionals is written for therapists, parent guides and teachers (the book as a tool for their work with families, an agreed video that does not have to be of a child, no medical claims). Parents is written parent to parent (read it together, a video of the child with the book).
+- **Auto pick:** already contacted = General; not contacted = Professionals for professional archetypes (child development, parent guides, gan, teachers, daycare, special education, books, community, screen-free), Parents for parent and family archetypes, otherwise General. On 12 Oct: 104 contacted General; of the 200 not contacted, 109 Professionals, 68 Parents, 23 General.
+- **Removed:** Paid UGC, Paid partnership, quoted fee, currency, budget approval, deliverables, the `{deliverables}` and `{fee}` placeholders, the "Move to a paid track" buttons, the Paid tracks saved view, `paid_budget_approved` in shared facts. The offer check now flags any price, rate or fee wording, because nothing is paid. The reasons "Wants guaranteed project payment" and "Commission considered too low" stay, since those are the answers creators give; the saved view "Asked for payment" lists them.
+- **Old records:** a creator saved with a paid track (`trk` ugc or partner) simply falls back to the automatic pick. Their old fee, budget and deliverables fields stay in the database, unused.
+- **Short style:** back. A Warm | Short switch sits next to the message tabs, Short templates exist per track (`pro_dm_b`, `par_dm_b` and so on), the settings editor has the Warm | Short switch, the Style filter is back, and a test can compare Warm with Short. Your saved Short templates (`dm_b`, `eb_b`, `d2_b`) are used for General again. Professionals and Parents are written from the default texts, not from your saved ones, until you edit them (the voice then learns per track).
+
+## 12 Oct 2026: Declined button on every card
+- Every card that is not already Declined has a red X on a light red circle (no text) at the far right of the action row. One press sets the status to Declined (with Undo), which stops the follow-ups; the reason can be added on the card afterwards. It does the same as choosing Declined in the status menu. A first version of this was built as a Trash page for declined creators; it was removed because Yarin meant this button.
+- The handle on every card and in the Database opens the creator's reels tab.
+
+## 12 Oct 2026: 5K followers or more
+- Yarin: "5k followers +, delete everyone else", then "from now on only 5k+ accounts". Rule: new creators need 5,000 or more followers (up to the 50K ceiling).
+- Removed from the map, CSV, contacts and kids data: the 61 creators under 5,000 followers who had never been contacted (no outreach record, or Not contacted), 28 of them from the third pass. The full records are kept in `src/research/removed-2026-10-12.json` and `merge3.py` will not add them back. They are listed on the Database page under "Checked and excluded".
+- Kept: the 48 creators under 5K who were already messaged (25 declined, 20 waiting, 2 in process, 1 follow-up due), because deleting them would erase live conversations and the history behind the funnel. Yarin chose this option; say if they should go too.
+- Now 243 creators (72 from the third pass), 81 with a published email or phone, 94 with kids info.
+- No live outreach records existed for the removed creators, so nothing was deleted from the artifact database.
+
+## 13 Oct 2026: Book sent and Content created statuses, coloured menus
+- Two new statuses between In process and Declined: **Book sent** (`book`) and **Content created** (`content`). They appear in the sidebar, the status menu, the filters, the pipeline and the Database. Both count as replied, interested and agreed; Content created counts as content received. Cards on them keep the next action, its date and the "what is holding it up" reason.
+- The In process steps are now only Discussing the offer, Terms agreed, Book preparation. A record saved with the old steps reads as the new status without being rewritten (Book sent or Content pending = Book sent, Content received = Content created).
+- The Status and Track menus on the card are no longer the browser's own dropdown: a design-system styled list with a colour dot per option, a tick on the current one, keyboard arrows and Escape.
+
+## 13 Oct 2026: no Posted, auto-decline after a month, light only
+- **Posted is removed.** Content created is the last status. An old record saved as Posted reads as Content created; the funnel's Published column is gone.
+- **In process for 30 days with no status change reads as Declined.** It is worked out from the dates (`sct`, the time of the last status change, or the reply time for older records) and never written, so choosing In process again restarts the clock. The card shows the chip "auto: a month in process". Book sent and Content created never expire.
+- **No dark mode on the map** (Yarin): the toggle is removed and the page is always light. Other pages keep theirs.
+
+## 14 Oct 2026: the whole project is light mode only
+- Yarin: "i want the entire project to only be in light mode from now on". The dark theme was removed from the design system itself (`shared/design/lumebook.css` has no dark tokens), `design.py` sets the light theme and has no toggle, and every published page was republished.
