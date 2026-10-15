@@ -1,0 +1,421 @@
+{
+  "pack": "lume/reference-pack-v1",
+  "created": "2026-10-11",
+  "character": "Lume, LumeBook's stylized 3D mascot, bare base design: golden-peach fur, cream muzzle/chest/belly, large round ears with pink interiors, large blue eyes, dark eyebrows, glossy pink-red nose, rosy cheeks, long dark whiskers, brown swept-up hair tuft, two small front teeth, big head, compact round body, short limbs, rounded paws, fluffy tail with a purple tip.",
+  "source_reference": "shared/brand/mascot_3d_transparent.png (untouched copy: 00_original_reference.png). Generation used ref_original_on_ivory.png, the same image flattened onto warm ivory so the transparent background is not read as black.",
+  "tool": "Higgsfield CLI (higgsfield generate create)",
+  "model": "nano_banana_flash (Nano Banana 2)",
+  "model_choice": "Master generated with both nano_banana_flash and seedream_v5_pro from the same prompt and reference (00_master_candidate_*.png). Nano Banana 2 kept the tail shape, cheek size and proportions closer to the original, so it was used for the whole pack.",
+  "settings": {
+    "resolution": "2k",
+    "full_body_aspect_ratio": "4:5 (1856x2304)",
+    "portrait_aspect_ratio": "1:1 (2048x2048)"
+  },
+  "command_template": "higgsfield generate create nano_banana_flash --prompt <prompt> --aspect_ratio <4:5|1:1> --resolution 2k --image-references <ref> [...] --wait --json  (see run.py)",
+  "reference_strategy": "Master: original only. Views: original + 00_master_front (+ ref_master_head_crop for portraits). Rear revisions add one approved rear view as a third reference to lock the reconstructed rear design (see image_references per generation). No view was generated from the preceding view in sequence.",
+  "tail_rule": "One tail, attached at the base of the spine at the centre of the lower back, sweeping toward his own left, purple tip.",
+  "final_selection": {
+    "01_front": "01_front.png",
+    "02_front_three_quarter_left": "02_front_three_quarter_left_v2.png",
+    "03_left_profile": "03_left_profile.png",
+    "04_rear_three_quarter_left": "04_rear_three_quarter_left_v2.png",
+    "05_back": "05_back_v3.png",
+    "06_rear_three_quarter_right": "06_rear_three_quarter_right_v2.png",
+    "07_right_profile": "07_right_profile.png",
+    "08_front_three_quarter_right": "08_front_three_quarter_right_v2.png",
+    "09_portrait_front": "09_portrait_front.png",
+    "10_portrait_three_quarter_left": "10_portrait_three_quarter_left.png",
+    "11_portrait_left_profile": "11_portrait_left_profile.png",
+    "12_portrait_right_profile": "12_portrait_right_profile_v4.png",
+    "13_portrait_three_quarter_right": "13_portrait_three_quarter_right.png"
+  },
+  "notes": [
+    "01_front.png is a copy of 00_master_front.png, which is a copy of 00_master_candidate_nanobanana2.png (same job).",
+    "02 v1, 04 v1, 06 v1 superseded: turned only about 15 to 20 degrees. 04 v1 also swept the tail to his right.",
+    "05 v1 superseded: style drift (plush-toy look, small head, darker background). 05 v2 fixed the style but swept the tail to his right; 05 v3 is v2 mirrored so the tail goes to his left.",
+    "08 v1 superseded: tail swung out behind him; with a left-sweeping tail it is hidden from this angle (v2).",
+    "12 v1, v2, v3 all came out seen from behind the profile with the ear too far back. 12 v4 is the left profile portrait (11) mirrored, not a separate generation.",
+    "final/ holds the 13 selected images under their canonical names."
+  ],
+  "generations": [
+    {
+      "file": "00_master_candidate_nanobanana2.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "c92b72fd-c7ed-4333-9cc0-949d1a1f97fc",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png"
+      ],
+      "prompt": "The exact same character as in the reference image: Lume, an original stylized 3D animated mascot, a small furry creature. Keep his design exactly as shown: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and three small lashes at the outer corner of each eye; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers on both sides; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs, rounded paws (each hand has a thumb and three stubby fingers, each foot has three big rounded toes); a fluffy tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same proportions.\n\nChange only the pose, camera and background. Straight-on front view: he stands upright facing the camera in a relaxed neutral stance, looking into the camera. Both arms hang relaxed, held slightly away from his body with the paws lowered beside his hips (not raised, not gesturing), paws open. Feet flat on the floor, slightly apart. Friendly happy expression with the same open smile that shows the two small front teeth and the pink tongue.\n\nHis tail is attached at the base of his spine, at the centre of his lower back, and sweeps out toward the RIGHT side of the image (his own left side), curling slightly upward, exactly as in the reference, with the purple tip.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera at the height of his chest, level, no wide-angle distortion. Full body in frame: both ears, the hair tuft, all whiskers, both paws, both feet and the whole tail are inside the frame with a margin of empty background on every side.\n\nBare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_201819_c92b72fd-c7ed-4333-9cc0-949d1a1f97fc.png",
+      "created": "2026-10-11T23:18:44"
+    },
+    {
+      "file": "00_master_candidate_seedream5pro.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "ef06cc7f-ede5-4294-933d-e517b0ffef12",
+      "settings": {
+        "aspect_ratio": "3:4",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png"
+      ],
+      "prompt": "The exact same character as in the reference image: Lume, an original stylized 3D animated mascot, a small furry creature. Keep his design exactly as shown: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and three small lashes at the outer corner of each eye; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers on both sides; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs, rounded paws (each hand has a thumb and three stubby fingers, each foot has three big rounded toes); a fluffy tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same proportions.\n\nChange only the pose, camera and background. Straight-on front view: he stands upright facing the camera in a relaxed neutral stance, looking into the camera. Both arms hang relaxed, held slightly away from his body with the paws lowered beside his hips (not raised, not gesturing), paws open. Feet flat on the floor, slightly apart. Friendly happy expression with the same open smile that shows the two small front teeth and the pink tongue.\n\nHis tail is attached at the base of his spine, at the centre of his lower back, and sweeps out toward the RIGHT side of the image (his own left side), curling slightly upward, exactly as in the reference, with the purple tip.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera at the height of his chest, level, no wide-angle distortion. Full body in frame: both ears, the hair tuft, all whiskers, both paws, both feet and the whole tail are inside the frame with a margin of empty background on every side.\n\nBare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_201819_ef06cc7f-ede5-4294-933d-e517b0ffef12.png",
+      "created": "2026-10-11T23:19:25"
+    },
+    {
+      "file": "07_right_profile.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "9c4f891d-1ed3-443b-94d9-a1bbc911cdfd",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: strict side profile of the whole body. His head, chest, belly and feet all point at the RIGHT edge of the image; the camera sees only his own right side. In profile he keeps his look: a large round head, a short rounded muzzle that protrudes gently forward with the glossy pink-red nose at its tip, a full rounded cheek with the rosy patch, whiskers fanning out from the muzzle, one large blue eye with its dark eyebrow, the open smile with the front teeth seen from the side, one large round ear standing up from the side of the head with its pink interior facing outward-forward, and the brown hair tuft sweeping up on top. Do not lengthen the snout. His round belly curves forward in silhouette; the near arm hangs relaxed at his side. Tail in this view: behind him on the LEFT side of the image, attached at the lower back and sweeping away from the camera toward his far side, so it is partly hidden behind his body with the purple tip visible.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202045_9c4f891d-1ed3-443b-94d9-a1bbc911cdfd.png",
+      "created": "2026-10-11T23:21:09"
+    },
+    {
+      "file": "03_left_profile.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "7364f0b0-c35f-45da-b926-e97356eb0f0a",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: strict side profile of the whole body. His head, chest, belly and feet all point at the LEFT edge of the image; the camera sees only his own left side. In profile he keeps his look: a large round head, a short rounded muzzle that protrudes gently forward with the glossy pink-red nose at its tip, a full rounded cheek with the rosy patch, whiskers fanning out from the muzzle, one large blue eye with its dark eyebrow, the open smile with the front teeth seen from the side, one large round ear standing up from the side of the head with its pink interior facing outward-forward, and the brown hair tuft sweeping up on top. Do not lengthen the snout. His round belly curves forward in silhouette; the near arm hangs relaxed at his side. Tail in this view: fully visible behind him on the RIGHT side of the image, attached at the lower back.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202045_7364f0b0-c35f-45da-b926-e97356eb0f0a.png",
+      "created": "2026-10-11T23:21:09"
+    },
+    {
+      "file": "04_rear_three_quarter_left.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "923a59fb-45b8-4795-82ae-b828b67737db",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: rear three-quarter view. He stands with his back to the camera, turned 45 degrees so that he faces away toward the far LEFT of the image. The camera sees his back and his own left side from behind: the back of his head, the back of both ears, a sliver of his left cheek with whiskers, his left arm. His face is mostly hidden. Rear design: his back, the back of his head and the backs of his ears are covered in the same plain golden-peach fur (the cream colour is only on the muzzle, chest and belly; the pink is only inside the ears, on the front). The brown hair tuft is seen from behind on top of the head. Tail in this view: fully visible, growing from the centre of his lower back and sweeping toward his left side, the side nearer the camera.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202045_923a59fb-45b8-4795-82ae-b828b67737db.png",
+      "created": "2026-10-11T23:21:10"
+    },
+    {
+      "file": "05_back.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "0dacd532-0980-481e-8981-cf35da98dd7b",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: straight from behind. He stands with his back squarely to the camera, facing directly away. No part of his face is visible; only the tips of the whiskers may show past the sides of the head. Rear design: his back, the back of his head and the backs of his ears are covered in the same plain golden-peach fur (the cream colour is only on the muzzle, chest and belly; the pink is only inside the ears, on the front). The brown hair tuft is seen from behind on top of the head. Tail in this view: fully visible, growing from the centre of his lower back and sweeping out toward the LEFT side of the image (his own left), curling slightly upward, with the purple tip.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202043_0dacd532-0980-481e-8981-cf35da98dd7b.png",
+      "created": "2026-10-11T23:21:11"
+    },
+    {
+      "file": "06_rear_three_quarter_right.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "8caaffdc-cc61-4ea6-8dee-35b9e8e93056",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: rear three-quarter view. He stands with his back to the camera, turned 45 degrees so that he faces away toward the far RIGHT of the image. The camera sees his back and his own right side from behind: the back of his head, the back of both ears, a sliver of his right cheek with whiskers, his right arm. His face is mostly hidden. Rear design: his back, the back of his head and the backs of his ears are covered in the same plain golden-peach fur (the cream colour is only on the muzzle, chest and belly; the pink is only inside the ears, on the front). The brown hair tuft is seen from behind on top of the head. Tail in this view: visible, growing from the centre of his lower back and sweeping away toward the LEFT side of the image (his own left side).\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202044_8caaffdc-cc61-4ea6-8dee-35b9e8e93056.png",
+      "created": "2026-10-11T23:21:12"
+    },
+    {
+      "file": "02_front_three_quarter_left.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "b0b83560-c768-477f-88c5-b5320ad8ce27",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the LEFT side of the image, so the camera sees his front and his own left side. His nose points toward the left edge of the frame and he looks straight ahead in the direction he is facing. Both eyes are visible, the far eye partly hidden by the muzzle. Tail in this view: fully visible behind him on the RIGHT side of the image, sweeping toward the camera.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202045_b0b83560-c768-477f-88c5-b5320ad8ce27.png",
+      "created": "2026-10-11T23:21:13"
+    },
+    {
+      "file": "08_front_three_quarter_right.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "7563a877-6dab-4167-a77d-360578adf5f8",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the RIGHT side of the image, so the camera sees his front and his own right side. His nose points toward the right edge of the frame and he looks straight ahead in the direction he is facing. Both eyes are visible, the far eye partly hidden by the muzzle. Tail in this view: it is on his far side, almost entirely hidden behind his body. Do not bring the tail around to the front or to the near side.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202044_7563a877-6dab-4167-a77d-360578adf5f8.png",
+      "created": "2026-10-11T23:21:14"
+    },
+    {
+      "file": "11_portrait_left_profile.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "f9f686f7-9ad8-4ddb-a63a-ebd92aa84435",
+      "settings": {
+        "aspect_ratio": "1:1",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is a close crop of his head from image 2). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nHEAD AND SHOULDERS PORTRAIT: framed from the upper chest up. Both complete ears, the whole hair tuft and the full length of the whiskers are inside the frame with a margin of empty background above and at the sides. Shoulders and upper chest visible at the bottom. Head upright, not tilted. His head fills about 60 percent of the frame height.\n\nVIEW: strict side profile of the whole body. His head, chest, belly and feet all point at the LEFT edge of the image; the camera sees only his own left side. In profile he keeps his look: a large round head, a short rounded muzzle that protrudes gently forward with the glossy pink-red nose at its tip, a full rounded cheek with the rosy patch, whiskers fanning out from the muzzle, one large blue eye with its dark eyebrow, the open smile with the front teeth seen from the side, one large round ear standing up from the side of the head with its pink interior facing outward-forward, and the brown hair tuft sweeping up on top. Do not lengthen the snout.\n\nThe tail is outside the frame.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202123_f9f686f7-9ad8-4ddb-a63a-ebd92aa84435.png",
+      "created": "2026-10-11T23:21:48"
+    },
+    {
+      "file": "09_portrait_front.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "47cf421c-fbeb-4eaf-8f24-fd12dcc2b43c",
+      "settings": {
+        "aspect_ratio": "1:1",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is a close crop of his head from image 2). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nHEAD AND SHOULDERS PORTRAIT: framed from the upper chest up. Both complete ears, the whole hair tuft and the full length of the whiskers are inside the frame with a margin of empty background above and at the sides. Shoulders and upper chest visible at the bottom. Head upright, not tilted. His head fills about 60 percent of the frame height.\n\nVIEW: straight-on front view, facing the camera, looking into the lens, both ears and both sets of whiskers symmetrical.\n\nThe tail is outside the frame.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202124_47cf421c-fbeb-4eaf-8f24-fd12dcc2b43c.png",
+      "created": "2026-10-11T23:21:50"
+    },
+    {
+      "file": "12_portrait_right_profile.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "f794b897-fe91-4587-a74f-5bf5f0d9aab6",
+      "settings": {
+        "aspect_ratio": "1:1",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is a close crop of his head from image 2). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nHEAD AND SHOULDERS PORTRAIT: framed from the upper chest up. Both complete ears, the whole hair tuft and the full length of the whiskers are inside the frame with a margin of empty background above and at the sides. Shoulders and upper chest visible at the bottom. Head upright, not tilted. His head fills about 60 percent of the frame height.\n\nVIEW: strict side profile of the whole body. His head, chest, belly and feet all point at the RIGHT edge of the image; the camera sees only his own right side. In profile he keeps his look: a large round head, a short rounded muzzle that protrudes gently forward with the glossy pink-red nose at its tip, a full rounded cheek with the rosy patch, whiskers fanning out from the muzzle, one large blue eye with its dark eyebrow, the open smile with the front teeth seen from the side, one large round ear standing up from the side of the head with its pink interior facing outward-forward, and the brown hair tuft sweeping up on top. Do not lengthen the snout.\n\nThe tail is outside the frame.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202123_f794b897-fe91-4587-a74f-5bf5f0d9aab6.png",
+      "created": "2026-10-11T23:21:51"
+    },
+    {
+      "file": "13_portrait_three_quarter_right.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "c2727eab-d505-4976-8667-44eb7af272a6",
+      "settings": {
+        "aspect_ratio": "1:1",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is a close crop of his head from image 2). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nHEAD AND SHOULDERS PORTRAIT: framed from the upper chest up. Both complete ears, the whole hair tuft and the full length of the whiskers are inside the frame with a margin of empty background above and at the sides. Shoulders and upper chest visible at the bottom. Head upright, not tilted. His head fills about 60 percent of the frame height.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the RIGHT side of the image, so the camera sees his front and his own right side. His nose points toward the right edge of the frame and he looks straight ahead in the direction he is facing. Both eyes are visible, the far eye partly hidden by the muzzle.\n\nThe tail is outside the frame.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202124_c2727eab-d505-4976-8667-44eb7af272a6.png",
+      "created": "2026-10-11T23:21:57"
+    },
+    {
+      "file": "10_portrait_three_quarter_left.png",
+      "version": 1,
+      "model": "nano_banana_flash",
+      "job_id": "c2d51b1e-3e73-4c79-aed6-1c8f8ddb709a",
+      "settings": {
+        "aspect_ratio": "1:1",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is a close crop of his head from image 2). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nHEAD AND SHOULDERS PORTRAIT: framed from the upper chest up. Both complete ears, the whole hair tuft and the full length of the whiskers are inside the frame with a margin of empty background above and at the sides. Shoulders and upper chest visible at the bottom. Head upright, not tilted. His head fills about 60 percent of the frame height.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the LEFT side of the image, so the camera sees his front and his own left side. His nose points toward the left edge of the frame and he looks straight ahead in the direction he is facing. Both eyes are visible, the far eye partly hidden by the muzzle.\n\nThe tail is outside the frame.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202122_c2d51b1e-3e73-4c79-aed6-1c8f8ddb709a.png",
+      "created": "2026-10-11T23:21:58"
+    },
+    {
+      "file": "02_front_three_quarter_left_v2.png",
+      "version": 2,
+      "model": "nano_banana_flash",
+      "job_id": "eff1aa1f-1d26-499c-a204-ec298439ae73",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the LEFT side of the image, so the camera sees his front and his own left side. His nose points toward the left edge of the frame and he looks straight ahead in the direction he is facing. Both eyes are visible, the far eye partly hidden by the muzzle. Tail in this view: fully visible behind him on the RIGHT side of the image, sweeping toward the camera. The turn must be clear: exactly halfway between a front view and a left side profile. His chest and belly point toward the lower-left corner of the image, his near (left) shoulder and arm are in front, his far arm is partly hidden behind his body, the far ear is partly hidden behind the head, and the far cheek and far whiskers are strongly foreshortened. This is not a front view.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202312_eff1aa1f-1d26-499c-a204-ec298439ae73.png",
+      "created": "2026-10-11T23:23:39"
+    },
+    {
+      "file": "05_back_v2.png",
+      "version": 2,
+      "model": "nano_banana_flash",
+      "job_id": "9f931b01-2d0e-4b6d-bb8a-46e129a40de9",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "06_rear_three_quarter_right.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is an approved rear three-quarter view of the same character that defines his rear design, fur and rendering style). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: straight from behind. He stands with his back squarely to the camera, facing directly away. No part of his face is visible; only the tips of the whiskers may show past the sides of the head. Rear design: his back, the back of his head and the backs of his ears are covered in the same plain golden-peach fur (the cream colour is only on the muzzle, chest and belly; the pink is only inside the ears, on the front). The brown hair tuft is seen from behind on top of the head. Tail in this view: fully visible, growing from the centre of his lower back and sweeping out toward the LEFT side of the image (his own left), curling slightly upward, with the purple tip.\n\nKeep exactly the same 3D animated-film rendering and long soft fluffy fur as the references, not a felt or plush toy. Keep the same big head, the same large round ears, the same compact round body and short legs as reference image 2; the body silhouette from behind matches the front silhouette of image 2. The tail is thick and fluffy with a saturated purple tip, as in the references.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202315_9f931b01-2d0e-4b6d-bb8a-46e129a40de9.png",
+      "created": "2026-10-11T23:23:40"
+    },
+    {
+      "file": "12_portrait_right_profile_v2.png",
+      "version": 2,
+      "model": "nano_banana_flash",
+      "job_id": "c0f86dcd-1512-4994-b976-5bb48784abc2",
+      "settings": {
+        "aspect_ratio": "1:1",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png",
+        "11_portrait_left_profile.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is a close crop of his head from image 2, image 4 is his approved LEFT profile portrait). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nHEAD AND SHOULDERS PORTRAIT: framed from the upper chest up. Both complete ears, the whole hair tuft and the full length of the whiskers are inside the frame with a margin of empty background above and at the sides. Shoulders and upper chest visible at the bottom. Head upright, not tilted. His head fills about 60 percent of the frame height.\n\nVIEW: strict side profile of the whole body. His head, chest, belly and feet all point at the RIGHT edge of the image; the camera sees only his own right side. In profile he keeps his look: a large round head, a short rounded muzzle that protrudes gently forward with the glossy pink-red nose at its tip, a full rounded cheek with the rosy patch, whiskers fanning out from the muzzle, one large blue eye with its dark eyebrow, the open smile with the front teeth seen from the side, one large round ear standing up from the side of the head with its pink interior facing outward-forward, and the brown hair tuft sweeping up on top. Do not lengthen the snout. The camera is exactly at his side, not behind him: this view is the mirror image of image 4, with the same head shape, the same short muzzle, the same cheek, the same ear position on top of the side of the head and the same hair tuft, only facing the RIGHT edge of the image instead of the left.\n\nThe tail is outside the frame.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202315_c0f86dcd-1512-4994-b976-5bb48784abc2.png",
+      "created": "2026-10-11T23:23:43"
+    },
+    {
+      "file": "04_rear_three_quarter_left_v2.png",
+      "version": 2,
+      "model": "nano_banana_flash",
+      "job_id": "2aa825ce-138f-437e-9d2c-f3a3b6a76c1c",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "06_rear_three_quarter_right.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is an approved rear three-quarter view of the same character that defines his rear design, fur and rendering style). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: rear three-quarter view. He stands with his back to the camera, turned 45 degrees so that he faces away toward the far LEFT of the image. The camera sees his back and his own left side from behind: the back of his head, the back of both ears, a sliver of his left cheek with whiskers, his left arm. His face is mostly hidden. Rear design: his back, the back of his head and the backs of his ears are covered in the same plain golden-peach fur (the cream colour is only on the muzzle, chest and belly; the pink is only inside the ears, on the front). The brown hair tuft is seen from behind on top of the head. The turn must be clear: exactly halfway between a straight back view and a left side profile, so the tip of his pink-red nose, the edge of his left eye and his left rosy cheek are just visible past the edge of his head on the LEFT side of the image. Tail in this view: growing from the centre of his lower back and sweeping toward his own left side, which is the side nearer the camera, so the tail comes forward toward the camera and toward the LEFT side of the image, with the purple tip near his left leg. The tail does not go to the right side of the image.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202359_2aa825ce-138f-437e-9d2c-f3a3b6a76c1c.png",
+      "created": "2026-10-11T23:24:24"
+    },
+    {
+      "file": "08_front_three_quarter_right_v2.png",
+      "version": 2,
+      "model": "nano_banana_flash",
+      "job_id": "33650b05-3346-40ec-85f6-a1ce95a63a6b",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the RIGHT side of the image, so the camera sees his front and his own right side. His nose points toward the right edge of the frame and he looks straight ahead in the direction he is facing. Both eyes are visible, the far eye partly hidden by the muzzle. Tail in this view: it is on his far side, almost entirely hidden behind his body. Do not bring the tail around to the front or to the near side. In this view the tail is completely hidden behind his body and is not visible at all: there is nothing purple in the image and nothing sticks out behind his back on the left side of the image.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202456_33650b05-3346-40ec-85f6-a1ce95a63a6b.png",
+      "created": "2026-10-11T23:25:24"
+    },
+    {
+      "file": "12_portrait_right_profile_v3.png",
+      "version": 3,
+      "model": "nano_banana_flash",
+      "job_id": "b5758a63-d09e-4ee4-8ca9-10acb49823a1",
+      "settings": {
+        "aspect_ratio": "1:1",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png",
+        "07_right_profile.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is a close crop of his head from image 2, image 4 is his approved full-body RIGHT profile). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nHEAD AND SHOULDERS PORTRAIT: framed from the upper chest up. Both complete ears, the whole hair tuft and the full length of the whiskers are inside the frame with a margin of empty background above and at the sides. Shoulders and upper chest visible at the bottom. Head upright, not tilted. His head fills about 55 percent of the frame height.\n\nVIEW: strict side profile of the whole body. His head, chest, belly and feet all point at the RIGHT edge of the image; the camera sees only his own right side. In profile he keeps his look: a large round head, a short rounded muzzle that protrudes gently forward with the glossy pink-red nose at its tip, a full rounded cheek with the rosy patch, whiskers fanning out from the muzzle, one large blue eye with its dark eyebrow, the open smile with the front teeth seen from the side, one large round ear standing up from the side of the head with its pink interior facing outward-forward, and the brown hair tuft sweeping up on top. Do not lengthen the snout. This is a close-up of exactly the view in image 4: the same camera position exactly at his side (not behind him), the same head shape, the same short muzzle, the same ear position, only framed closer as a head and shoulders portrait. The face takes up the right half of the head; the back of the head does not dominate the image.\n\nThe tail is outside the frame.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202557_b5758a63-d09e-4ee4-8ca9-10acb49823a1.png",
+      "created": "2026-10-11T23:26:25"
+    },
+    {
+      "file": "06_rear_three_quarter_right_v2.png",
+      "version": 2,
+      "model": "nano_banana_flash",
+      "job_id": "d7052198-8803-4d48-89f2-07240fac5b25",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "ref_original_on_ivory.png",
+        "00_master_front.png",
+        "04_rear_three_quarter_left_v2.png"
+      ],
+      "prompt": "The exact same character shown in the reference images: Lume, an original stylized 3D animated mascot, a small furry creature (image 1 is the original design, image 2 is the approved straight-on front view of the same character, image 3 is the approved rear three-quarter view from his other side, which defines his rear design, fur and rendering style). Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils, white highlights and small lashes at the outer corners; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with a round belly, short limbs and rounded paws with the same stubby fingers and toes as the references; a fluffy golden-peach tail with a purple tip. Same 3D animated-film rendering style, same colours, same soft detailed fur texture, same head-to-body proportions as the references. Friendly happy expression with the same open smile showing the two small front teeth.\n\nVIEW: rear three-quarter view. He stands with his back to the camera, turned 45 degrees so that he faces away toward the far RIGHT of the image. The camera sees his back and his own right side from behind: the back of his head, the back of both ears, a sliver of his right cheek with whiskers, his right arm. His face is mostly hidden. Rear design: his back, the back of his head and the backs of his ears are covered in the same plain golden-peach fur (the cream colour is only on the muzzle, chest and belly; the pink is only inside the ears, on the front). The brown hair tuft is seen from behind on top of the head. The turn must be clear: exactly halfway between a straight back view and a right side profile, so the tip of his pink-red nose, the edge of his right eye and his right rosy cheek are just visible past the edge of his head on the RIGHT side of the image. This view is the opposite side of image 3. Tail in this view: growing from the centre of his lower back and sweeping toward his own left side, which is the far side, so the tail points toward the LEFT side of the image and away from the camera.\n\nTail anatomy, identical in every view: one tail, attached at the base of his spine at the centre of his lower back, sweeping out toward his own LEFT side and curling slightly upward, golden-peach with a purple tip. Do not move the tail to another place on the body.\n\nFULL BODY at the same scale as reference image 2: he stands upright in a relaxed neutral stance, arms relaxed and held slightly away from his body with the paws lowered beside his hips, feet flat on the floor. The whole character is inside the frame with a margin of empty background on every side: ears, hair tuft, whiskers, paws, feet and any visible part of the tail.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera level at the height of his chest, no wide-angle distortion. Bare base design: no hat, no clothing, no book, no accessories. No props, no text, no logos, no watermark. Do not add new markings, stripes or spots. Do not change him into a different animal.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_202654_d7052198-8803-4d48-89f2-07240fac5b25.png",
+      "created": "2026-10-11T23:27:21"
+    },
+    {
+      "file": "05_back_v3.png",
+      "derived": true,
+      "method": "horizontal mirror of 05_back_v2.png (local, no generation)",
+      "source_job_id": "9f931b01-2d0e-4b6d-bb8a-46e129a40de9"
+    },
+    {
+      "file": "12_portrait_right_profile_v4.png",
+      "derived": true,
+      "method": "horizontal mirror of 11_portrait_left_profile.png (local, no generation)",
+      "source_job_id": "f9f686f7-9ad8-4ddb-a63a-ebd92aa84435"
+    }
+  ]
+}

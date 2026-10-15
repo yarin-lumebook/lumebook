@@ -1,0 +1,431 @@
+<meta charset="utf-8">
+<title>Parent Community Map</title>
+<!--LB:HEAD-->
+<style>
+/* Layout: one column page on the LumeBook design system. Summary first, then Top 20, the posting-week strip,
+   the filterable map with a detail drawer, coverage, gaps, drafts and method. Page rules use design tokens only. */
+:root {
+  --pri-a: var(--success); --pri-a-soft: var(--success-soft);
+  --pri-b: var(--info);    --pri-b-soft: var(--info-soft);
+  --pri-c: var(--warning); --pri-c-soft: var(--warning-soft);
+  --pri-r: var(--danger);  --pri-r-soft: var(--danger-soft);
+}
+.he { direction: rtl; unicode-bidi: isolate; text-align: start; }
+.hero { display: grid; gap: var(--sp-3); }
+.stats { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
+.stats .lb-card { padding: var(--sp-4); }
+.pri { display: inline-grid; place-items: center; min-width: 1.75rem; height: 1.5rem; padding-inline: .4rem; border-radius: var(--r-xs);
+  font-size: var(--fs-caption); font-weight: 700; font-variant-numeric: tabular-nums; }
+.pri.A { background: var(--pri-a-soft); color: var(--pri-a); }
+.pri.B { background: var(--pri-b-soft); color: var(--pri-b); }
+.pri.C { background: var(--pri-c-soft); color: var(--pri-c); }
+.pri.Reject { background: var(--pri-r-soft); color: var(--pri-r); }
+.pribar { display: flex; height: .75rem; border-radius: var(--r-xs); overflow: hidden; gap: 2px; background: var(--fill); }
+.pribar i { display: block; height: 100%; }
+.pribar .A { background: var(--pri-a); } .pribar .B { background: var(--pri-b); } .pribar .C { background: var(--pri-c); } .pribar .Reject { background: var(--pri-r); }
+.legend-dot { width: .625rem; height: .625rem; border-radius: 3px; display: inline-block; }
+
+/* Top 20 */
+.top { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); counter-reset: top; }
+.top li { counter-increment: top; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--sp-3); background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
+.top li::before { content: counter(top); font-family: var(--font-display); font-size: 1.375rem; color: var(--accent-ink); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.top .t-name { font-weight: 700; font-size: var(--fs-callout); line-height: 1.35; }
+.top .t-meta { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-2); align-items: center; font-size: var(--fs-footnote); color: var(--text-3); }
+.top p { font-size: var(--fs-footnote); color: var(--text-2); line-height: 1.5; }
+.top button { all: unset; cursor: pointer; display: grid; gap: var(--sp-1); min-width: 0; }
+.top button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: var(--r-xs); }
+.top button:hover .t-name { color: var(--tint); }
+
+/* posting week */
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--sp-2); }
+.day { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 2px; align-content: start; padding: var(--sp-3); border-radius: var(--r-md);
+  background: var(--surface); border: 1px solid var(--line); min-width: 0; }
+.day:hover { border-color: var(--tint); }
+.day[aria-pressed="true"] { border-color: var(--tint); box-shadow: 0 0 0 3px var(--tint-soft); }
+.day:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.day .d-he { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.1; }
+.day .d-en { font-size: var(--fs-caption); color: var(--text-3); }
+.day .d-n { font-size: var(--fs-headline); font-weight: 700; font-variant-numeric: tabular-nums; }
+.day .d-n small { font-size: var(--fs-caption); font-weight: 500; color: var(--text-3); }
+.day .lb-bar { margin-top: var(--sp-1); }
+@media (max-width: 640px) { .week { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* distance bands */
+.bands { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--sp-2); }
+.band { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 2px; align-content: start; padding: var(--sp-3); border-radius: var(--r-md);
+  background: var(--surface); border: 1px solid var(--line); min-width: 0; }
+.band:hover { border-color: var(--tint); }
+.band[aria-pressed="true"] { border-color: var(--tint); box-shadow: 0 0 0 3px var(--tint-soft); }
+.band:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.band .b-l { font-size: var(--fs-footnote); font-weight: 600; }
+.band .b-n { font-size: var(--fs-headline); font-weight: 700; font-variant-numeric: tabular-nums; }
+.band .b-n small { font-size: var(--fs-caption); font-weight: 500; color: var(--text-3); }
+.band .b-s { font-size: var(--fs-caption); color: var(--text-3); }
+@media (max-width: 860px) { .bands { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .bands { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.km { white-space: nowrap; }
+
+/* explorer */
+.filters { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3); align-items: end; }
+.filters .lb-search { flex: 1 1 16rem; }
+.filters .lb-field { flex: 0 1 auto; }
+.filters .lb-select { min-width: 9rem; }
+.map-wrap { max-height: 72vh; overflow: auto; }
+.map td { vertical-align: top; }
+.map tbody tr { cursor: pointer; }
+.map tbody tr:focus-visible td { background: var(--tint-soft); }
+.map .c-name { min-width: 14rem; max-width: 22rem; }
+.map .c-name b, .map .c-name a { display: block; font-weight: 600; line-height: 1.35; }
+.map .c-name span { font-size: var(--fs-caption); color: var(--text-3); }
+.map .c-pol { min-width: 16rem; max-width: 26rem; font-size: var(--fs-footnote); color: var(--text-2);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.map th button { all: unset; cursor: pointer; display: inline-flex; gap: .25rem; align-items: center; }
+.map th button:focus-visible { outline: 3px solid var(--focus); border-radius: var(--r-xs); }
+.map th button[aria-sort="descending"]::after { content: "↓"; }
+.map th button[aria-sort="ascending"]::after { content: "↑"; }
+.appr { white-space: nowrap; }
+.wa-flag { font-size: var(--fs-caption); }
+
+/* drawer detail */
+.lb-drawer .lb-kv dd { overflow-wrap: anywhere; }
+.lb-drawer .lb-kv { font-size: var(--fs-footnote); }
+.lb-drawer h3 { font-size: var(--fs-headline); }
+
+/* coverage */
+.cov { display: grid; gap: var(--sp-2); }
+.cov-row { display: grid; grid-template-columns: minmax(8rem, 16rem) minmax(0, 1fr) 4.5rem; gap: var(--sp-3); align-items: center; font-size: var(--fs-callout); }
+.cov-row .track { height: .625rem; background: var(--fill-2); border-radius: var(--r-xs); position: relative; overflow: hidden; }
+.cov-row .track i { position: absolute; inset-block: 0; inset-inline-start: 0; border-radius: inherit; }
+.cov-row .track i.all { background: var(--seq-2); }
+.cov-row .track i.use { background: var(--seq-4); }
+.cov-row .v { font-size: var(--fs-footnote); color: var(--text-2); font-variant-numeric: tabular-nums; text-align: end; white-space: nowrap; }
+@media (max-width: 560px) { .cov-row { grid-template-columns: minmax(0, 1fr) 4.5rem; } .cov-row .track { grid-column: 1 / -1; grid-row: 2; } }
+
+/* drafts */
+.drafts { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+.draft pre { all: unset; display: block; white-space: pre-wrap; font-family: var(--font); font-size: var(--fs-callout); line-height: 1.7;
+  background: var(--surface-2); border-radius: var(--r-md); padding: var(--sp-4); direction: rtl; text-align: start; }
+details > summary { cursor: pointer; font-weight: 600; }
+details[open] > summary { margin-bottom: var(--sp-3); }
+.gaps { display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+.gaps .lb-card { gap: var(--sp-2); }
+.gaps p { font-size: var(--fs-callout); color: var(--text-2); }
+</style>
+
+<header class="lb-topbar">
+  <div class="lb-topbar-in">
+    <h1>Parent Community Map</h1>
+    <span class="lb-spacer"></span>
+    <!--LB:THEME-TOGGLE-->
+  </div>
+</header>
+
+<main class="lb-page" dir="ltr">
+  <section class="hero">
+    <span class="lb-eyebrow">LumeBook · shooting day for social media, for a free book · re-ranked 14 Oct 2026</span>
+    <h2>Families near Ashkelon who will host a short shoot with their child and the book</h2>
+    <p class="lb-lede">Parent groups on Facebook, WhatsApp and forums, ranked closest to Ashkelon first because the visits go by public transport. Every Facebook group was opened on its About page on 9 Oct and graded from its own rules and activity box. Nothing was joined, posted or messaged.</p>
+    <nav class="lb-toc" aria-label="Sections">
+      <a href="#offer">The offer</a><a href="#near">Closest first</a><a href="#top20">Top 20</a><a href="#week">Posting week</a><a href="#map">All communities</a><a href="#coverage">Coverage</a><a href="#gaps">Gaps</a><a href="#drafts">Hebrew drafts</a><a href="#method">Method</a>
+    </nav>
+  </section>
+
+  <section class="lb-section" aria-label="Summary">
+    <div class="stats" id="stats"></div>
+    <div class="lb-card">
+      <div class="lb-card-head"><span class="lb-card-title">Priority mix</span><span class="lb-xs lb-dim" id="mixNote"></span></div>
+      <div class="pribar" id="pribar"></div>
+      <div class="lb-legend" id="prilegend"></div>
+    </div>
+  </section>
+
+  <section class="lb-section" id="offer">
+    <div class="lb-section-head"><h2>The offer</h2><span class="lb-meta he" id="offerHe"></span></div>
+    <div class="lb-card"><ul class="lb-prose lb-small" id="offerTerms"></ul></div>
+  </section>
+
+  <section class="lb-section" id="near">
+    <div class="lb-section-head"><h2>Closest first</h2><span class="lb-meta">Usable groups by straight-line distance from Ashkelon. Tap a band to filter the table.</span></div>
+    <div class="bands" id="bandStrip"></div>
+    <p class="lb-note" id="distNote"></p>
+  </section>
+
+  <section class="lb-section" id="top20">
+    <div class="lb-section-head"><h2>Top 20</h2><span class="lb-meta">Closest to Ashkelon first, then the strongest groups. Tap one for the full record.</span></div>
+    <ol class="top" id="topList"></ol>
+  </section>
+
+  <section class="lb-section" id="week">
+    <div class="lb-section-head"><h2>Posting week</h2><span class="lb-meta">Groups whose rules name a day for business or promo posts. Tap a day to filter the map.</span></div>
+    <div class="week" id="weekStrip"></div>
+    <p class="lb-note">Groups that allow posting any day are not shown here; filter the map by "Post directly" to see them.</p>
+  </section>
+
+  <section class="lb-section" id="map">
+    <div class="lb-section-head"><h2>All communities</h2><span class="lb-meta" id="count"></span></div>
+    <div class="filters">
+      <label class="lb-search" for="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input class="lb-input" id="q" type="search" placeholder="Search name, city, rule" aria-label="Search communities"></label>
+      <div class="lb-segmented" role="group" aria-label="Priority" id="priSeg">
+        <button type="button" data-p="usable" aria-pressed="true">Usable</button><button type="button" data-p="A" aria-pressed="false">A</button><button type="button" data-p="B" aria-pressed="false">B</button><button type="button" data-p="C" aria-pressed="false">C</button><button type="button" data-p="Reject" aria-pressed="false">Rejected</button><button type="button" data-p="all" aria-pressed="false">All</button>
+      </div>
+      <label class="lb-field" for="fApproach">Approach<select class="lb-select" id="fApproach"></select></label>
+      <label class="lb-field" for="fPlatform">Platform<select class="lb-select" id="fPlatform"></select></label>
+      <label class="lb-field" for="fSeg">Audience<select class="lb-select" id="fSeg"></select></label>
+      <label class="lb-field" for="fLang">Language<select class="lb-select" id="fLang"></select></label>
+      <label class="lb-field" for="fDay">Posting day<select class="lb-select" id="fDay"></select></label>
+      <label class="lb-field" for="fBand">Distance<select class="lb-select" id="fBand"></select></label>
+    </div>
+    <div class="lb-table-wrap map-wrap">
+      <table class="lb-table map">
+        <thead><tr>
+          <th><button type="button" data-sort="priority">Pri</button></th>
+          <th><button type="button" data-sort="name">Community</button></th>
+          <th><button type="button" data-sort="geo">Area</button></th>
+          <th class="num"><button type="button" data-sort="dist" aria-sort="ascending">From Ashkelon</button></th>
+          <th class="num"><button type="button" data-sort="members_n">Members</button></th>
+          <th class="num"><button type="button" data-sort="posts_month">Posts / month</button></th>
+          <th>Approach</th>
+          <th>Promo rule</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <p class="lb-note">Posts per month is Facebook's own Activity box on the About page, so compare groups with it rather than read it as an exact count. WhatsApp rows show the invite status instead.</p>
+  </section>
+
+  <section class="lb-section" id="coverage">
+    <div class="lb-section-head"><h2>Coverage by audience</h2><span class="lb-meta">Light bar: all found. Dark bar: usable (A, B, C). A community can count in several rows.</span></div>
+    <div class="lb-card"><div class="cov" id="cov"></div></div>
+  </section>
+
+  <section class="lb-section" id="gaps">
+    <div class="lb-section-head"><h2>Gaps</h2><span class="lb-meta">Where reliable communities were not found, and who could open the door</span></div>
+    <div class="gaps">
+      <div class="lb-card"><h3>Arabic-speaking families</h3><p>Facebook search for Nazareth and "أمهات الداخل" gave city buy-sell groups and pan-Arab pregnancy groups that describe themselves as "from all over the world". None is verifiably Israeli. Route: early-childhood departments of Arab local authorities and Arab-society parenting professionals with public pages.</p></div>
+      <div class="lb-card"><h3>Russian and English speakers</h3><p>A few groups each (Русскоговорящие мамы Израиля, МамыАшкелона, Мамочки Нетании, Our Modi'in, English Speakers Raanana), all with ad-day or admin-approval rules. Confirm which language editions of the book exist before posting in them.</p></div>
+      <div class="lb-card"><h3>Ashkelon on WhatsApp</h3><p>No Ashkelon parent WhatsApp group was found: the WhatsApp search found no WhatsApp links on the Ashkelon municipality site. Route: Ashkelon community centres and the city's early-childhood department.</p></div>
+      <div class="lb-card"><h3>WhatsApp</h3><p>Public invites live mostly on municipal and community-centre pages, and most are one-way update groups or channels. 21 invites could not be checked because WhatsApp rate-limited the checks. Route: ask the early-childhood centres to share the call.</p></div>
+      <div class="lb-card"><h3>Books and reading</h3><p>Parent-facing children's book groups are small (about 1.3K each). The big book groups are adult readers or second-hand sellers. Route: public libraries' children's programmes and the book-recommendation pages under Other routes.</p></div>
+      <div class="lb-card"><h3>Fathers</h3><p>The אבא פגום network is the only large one (136K group plus a 30.7K marketplace). The rest are small support groups.</p></div>
+      <div class="lb-card"><h3>Not searched</h3><p>Haredi, Druze and Bedouin family communities were not specifically searched. Jerusalem mothers groups are private with low visible activity.</p></div>
+    </div>
+  </section>
+
+  <section class="lb-section" id="drafts">
+    <div class="lb-section-head"><h2>Hebrew drafts</h2><span class="lb-meta">Fallback voice (2 of 15 approved samples). The form link is already in the posts.</span></div>
+    <div class="lb-callout"><b>Parent sign-up form: live since 15 Oct.</b><span>Parent name and phone, city, the child's first name, age and gender, days and times, and a guardian confirmation. The posts below link to it. The written filming consent (last card) is signed before each visit.</span></div>
+    <div class="lb-callout info"><b>Before each visit</b><span>Get the written consent signed (last card below), which names where the videos will appear. Book visits by city so one trip covers several families (a suggestion, not tested).</span></div>
+    <div class="drafts" id="draftCards"></div>
+  </section>
+
+  <section class="lb-section" id="method">
+    <div class="lb-section-head"><h2>Method and checks</h2></div>
+    <div class="lb-grid" style="--min: 20rem">
+      <div class="lb-card"><h3>How it was found</h3>
+        <ul class="lb-prose lb-small">
+          <li>Facebook group search in a logged-in browser, 50+ queries in Hebrew, English, Russian and Arabic by city and topic. About 620 raw hits, about 320 relevant. Best queries: "אמהות &lt;city&gt;" and "הורים &lt;city&gt;". Saturation showed when "אמהות טריות" gave 1 new group out of 16.</li>
+          <li>Each candidate's About page: privacy, members, activity box, admins, About text and rules from the admins (287 opened).</li>
+          <li>Re-ranked on 14 Oct 2026 for the social-media shooting-day offer: local groups over 80 km from Ashkelon and creator groups moved to C. Each record keeps its 9 Oct grade.</li>
+          <li>Municipal and community-centre sites crawled for WhatsApp invites; creator hubs, WhatsApp directories, Linktrees and ynet and Kipa group lists.</li>
+        </ul></div>
+      <div class="lb-card"><h3>What was checked</h3>
+        <ul class="lb-prose lb-small">
+          <li>Every Facebook URL rendered on 9 Oct 2026. WhatsApp invites checked until WhatsApp returned HTTP 429; unchecked ones say so.</li>
+          <li>Facts: members, activity, privacy, rules, invite status. Judgement: priority, approach, post angle.</li>
+          <li>No member lists opened, no private phone numbers or emails kept, no child data collected. Nothing joined, posted or messaged.</li>
+          <li>Every A row has an activity figure and a quoted rule or About line that allows posting.</li>
+        </ul></div>
+    </div>
+    <details class="lb-card"><summary id="otherSum">Other routes: pages, sites and organisations</summary>
+      <div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Pri</th><th>Type</th><th>Name</th><th>Reach seen</th><th>Why</th></tr></thead><tbody id="otherBody"></tbody></table></div>
+      <p class="lb-note">Not counted as communities. Facebook answers crawlers even for missing pages, so a working link there only means the page responded.</p>
+    </details>
+    <footer class="lb-footer"><span>Source: research/parent-community/data.json, built by build_page.py and build_md.py. Full write-up: research/parent-community-outreach.md.</span></footer>
+  </section>
+</main>
+
+<div class="lb-scrim" id="scrim" hidden></div>
+<aside class="lb-drawer" id="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="dTitle" dir="ltr">
+  <div class="lb-drawer-head"><span class="pri" id="dPri"></span><h3 id="dTitle" class="he" style="flex:1;min-width:0"></h3>
+    <button class="lb-btn secondary sm icon" type="button" id="dClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="lb-drawer-body" id="dBody"></div>
+</aside>
+<div class="lb-toast" id="toast" hidden></div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => n ? n.toLocaleString('en-US') : '';
+const ROWS = DATA.rows;
+const PORD = {A:0,B:1,C:2,Reject:3};
+const DAYS = [['Sunday','א׳','Sun'],['Monday','ב׳','Mon'],['Tuesday','ג׳','Tue'],['Wednesday','ד׳','Wed'],['Thursday','ה׳','Thu'],['Friday','ו׳','Fri'],['Saturday','ש׳','Sat']];
+const RU = {Sunday:'Воскресенье',Monday:'понедельник',Tuesday:'вторник',Wednesday:'сред',Thursday:'четверг',Friday:'пятниц',Saturday:'суббот'};
+ROWS.forEach(r => {
+  const t = (r.policy || '');
+  r.days = DAYS.map(d => d[0]).filter(d => new RegExp(d, 'i').test(t) || new RegExp(RU[d], 'i').test(t));
+  r.byId = r.id;
+});
+const byId = Object.fromEntries(ROWS.map(r => [r.id, r]));
+const usable = ROWS.filter(r => r.priority !== 'Reject');
+const isFB = r => r.platform.startsWith('Facebook');
+const isWA = r => r.platform.startsWith('WhatsApp');
+
+// summary
+(function () {
+  const cnt = p => ROWS.filter(r => r.priority === p).length;
+  const ap = a => usable.filter(r => r.approach === a).length;
+  const tiles = [
+    ['Communities', ROWS.length, `${ROWS.filter(isFB).length} Facebook · ${ROWS.filter(isWA).length} WhatsApp`],
+    ['Post directly', ap('Post directly'), 'rules allow it, often on a set day'],
+    ['Ask admin first', ap('Ask admin first'), 'admin route named or approval needed'],
+    ['Within 30 km', usable.filter(r => r.band <= 2).length, 'usable groups an easy trip from Ashkelon'],
+    ['Priority A', cnt('A'), 'active, posting allowed, direct evidence'],
+  ];
+  $('#stats').innerHTML = tiles.map(([l, v, f]) => `<div class="lb-card"><div class="lb-stat"><span class="lb-stat-label">${l}</span><span class="lb-stat-value">${v}</span><span class="lb-stat-foot">${f}</span></div></div>`).join('');
+  const P = ['A','B','C','Reject'], names = {A:'A · excellent fit',B:'B · admin or check needed',C:'C · broad, small or restrictive',Reject:'Rejected'};
+  $('#pribar').innerHTML = P.map(p => `<i class="${p}" style="flex:${cnt(p)}" title="${names[p]}: ${cnt(p)}"></i>`).join('');
+  $('#prilegend').innerHTML = P.map(p => `<span><b class="legend-dot" style="background:var(--pri-${p==='Reject'?'r':p.toLowerCase()})"></b>${names[p]} <span class="lb-num">${cnt(p)}</span></span>`).join('');
+  $('#mixNote').textContent = `${ROWS.length} total`;
+})();
+
+// offer
+$('#offerHe').textContent = DATA.offer.he;
+$('#offerTerms').innerHTML = DATA.offer.terms.map(t => `<li>${esc(t)}</li>`).join('');
+const km = r => r.dist_km == null ? 'national' : (r.dist_km === 0 ? 'in Ashkelon' : `${r.dist_km} km`);
+
+// distance bands
+const BANDS = [[1,'Ashkelon'],[2,'Under 30 km'],[3,'30 to 55 km'],[4,'55 to 80 km'],[5,'Over 80 km'],[6,'National']];
+let bandFilter = '';
+(function () {
+  $('#bandStrip').innerHTML = BANDS.map(([b, l]) => { const L = usable.filter(r => r.band === b);
+    const cities = [...new Set(L.map(r => r.geo.replace(/ \(.*\)$/, '')))].slice(0, 4).join(', ');
+    return `<button class="band" type="button" data-band="${b}" aria-pressed="false"><span class="b-l">${l}</span><span class="b-n">${L.length} <small>groups</small></span><span class="b-s">${esc(b === 6 ? 'members anywhere' : cities)}</span></button>`; }).join('');
+  $('#bandStrip').addEventListener('click', e => { const b = e.target.closest('.band'); if (!b) return;
+    bandFilter = bandFilter === b.dataset.band ? '' : b.dataset.band; $('#fBand').value = bandFilter; syncBands(); render();
+    if (bandFilter) document.getElementById('map').scrollIntoView({behavior: 'smooth'}); });
+  $('#distNote').textContent = DATA.offer.distance_method;
+})();
+function syncBands() { document.querySelectorAll('.band').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.band === bandFilter))); }
+
+// top 20
+$('#topList').innerHTML = DATA.top.map(t => { const r = byId[t.id]; return `<li><button type="button" data-open="${esc(r.id)}">
+  <span class="t-name he">${esc(r.name)}</span>
+  <span class="t-meta"><span class="pri ${r.priority}">${r.priority}</span><span class="lb-num">${esc(r.members)} members</span><span>· ${esc(r.geo)} · ${km(r)}</span><span class="lb-chip ${apChip(r.approach)}">${esc(r.approach)}</span></span>
+  <p>${esc(t.why)}</p></button></li>`; }).join('');
+function apChip(a) { return {'Post directly':'success','Ask admin first':'info','Paid post or formal partnership':'accent','Monitor':'outline','Do not use':'danger'}[a] || ''; }
+
+// posting week
+let dayFilter = '';
+(function () {
+  const counts = DAYS.map(d => usable.filter(r => r.days.includes(d[0])).length);
+  const max = Math.max(...counts, 1);
+  $('#weekStrip').innerHTML = DAYS.map((d, i) => `<button class="day" type="button" data-day="${d[0]}" aria-pressed="false">
+    <span class="d-he">${d[1]}</span><span class="d-en">${d[0]}</span><span class="d-n">${counts[i]} <small>groups</small></span>
+    <span class="lb-bar is-tint"><i style="width:${Math.round(counts[i] / max * 100)}%"></i></span></button>`).join('');
+  $('#weekStrip').addEventListener('click', e => {
+    const b = e.target.closest('.day'); if (!b) return;
+    dayFilter = dayFilter === b.dataset.day ? '' : b.dataset.day;
+    $('#fDay').value = dayFilter; syncDays(); render();
+    if (dayFilter) document.getElementById('map').scrollIntoView({behavior: 'smooth'});
+  });
+})();
+function syncDays() { document.querySelectorAll('.day').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.day === dayFilter))); }
+
+// filters
+function opts(sel, label, vals) { $(sel).innerHTML = `<option value="">${label}</option>` + vals.map(v => `<option>${esc(v)}</option>`).join(''); }
+opts('#fApproach', 'Any', ['Post directly','Ask admin first','Paid post or formal partnership','Monitor','Do not use']);
+opts('#fPlatform', 'Any', [...new Set(ROWS.map(r => r.platform))].sort());
+const SEGS = ['General parents','Local city or neighbourhood parents','Mothers','Fathers','Babies and toddlers','Preschool and primary-school parents',"Children's books and reading",'Special education or child development','Content creators and UGC','Product testing, deals and recommendations'];
+opts('#fSeg', 'Any', SEGS);
+opts('#fLang', 'Any', ['Hebrew','English','Russian','Arabic']);
+opts('#fDay', 'Any', DAYS.map(d => d[0]));
+$('#fBand').innerHTML = '<option value="">Any</option>' + BANDS.map(([b, l]) => `<option value="${b}">${l}</option>`).join('');
+$('#fBand').addEventListener('input', () => { bandFilter = $('#fBand').value; syncBands(); render(); });
+let pri = 'usable', sortKey = 'dist', sortDir = 1;
+$('#priSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; pri = b.dataset.p;
+  $('#priSeg').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); render(); });
+['#q','#fApproach','#fPlatform','#fSeg','#fLang'].forEach(s => $(s).addEventListener('input', render));
+$('#fDay').addEventListener('input', () => { dayFilter = $('#fDay').value; syncDays(); render(); });
+document.querySelectorAll('.map th button').forEach(b => b.addEventListener('click', () => {
+  const k = b.dataset.sort; if (sortKey === k) sortDir = -sortDir; else { sortKey = k; sortDir = (k === 'members_n' || k === 'posts_month') ? -1 : 1; }
+  document.querySelectorAll('.map th button').forEach(x => x.removeAttribute('aria-sort'));
+  b.setAttribute('aria-sort', sortDir === 1 ? 'ascending' : 'descending'); render(); }));
+
+function render() {
+  const q = $('#q').value.trim().toLowerCase(), fa = $('#fApproach').value, fp = $('#fPlatform').value, fs = $('#fSeg').value, fl = $('#fLang').value;
+  let L = ROWS.filter(r => (pri === 'all' || (pri === 'usable' ? r.priority !== 'Reject' : r.priority === pri))
+    && (!fa || r.approach === fa) && (!fp || r.platform === fp) && (!fs || (r.segments || []).includes(fs)) && (!fl || r.language === fl)
+    && (!dayFilter || r.days.includes(dayFilter)) && (!bandFilter || String(r.band) === bandFilter)
+    && (!q || [r.name, r.geo, r.policy, r.notes, r.platform].join(' ').toLowerCase().includes(q)));
+  const val = r => sortKey === 'priority' ? PORD[r.priority] * 1e9 - (r.posts_month || 0)
+    : sortKey === 'dist' ? r.band * 1e12 + (r.dist_km || 0) * 1e10 + PORD[r.priority] * 1e9 - (r.posts_month || 0)
+    : (r[sortKey] ?? '');
+  L.sort((a, b) => { const x = val(a), y = val(b); return (typeof x === 'number' ? x - y : String(x).localeCompare(String(y), 'he')) * sortDir; });
+  $('#count').textContent = `${L.length} of ${ROWS.length} shown`;
+  $('#tbody').innerHTML = L.length ? L.map(r => `<tr tabindex="0" data-open="${esc(r.id)}">
+    <td><span class="pri ${r.priority}">${r.priority === 'Reject' ? 'R' : r.priority}</span></td>
+    <td class="c-name">${/^https?:/.test(r.url || '') ? `<a class="he" href="${esc(r.url)}" target="_blank" rel="noopener" title="Open the community in a new tab">${esc(r.name)}</a>` : `<b class="he">${esc(r.name)}</b>`}<span>${esc(r.platform)} · ${esc(r.language)}${r.days.length ? ' · posts ' + r.days.map(d => d.slice(0, 3)).join('/') : ''}</span></td>
+    <td>${esc(r.geo)}</td>
+    <td class="num km">${km(r)}</td>
+    <td class="num">${r.members_n ? fmt(r.members_n) : esc(r.members === 'Unknown' ? '' : r.members)}</td>
+    <td class="num">${isWA(r) ? `<span class="lb-chip wa-flag ${r.wa_status === 'VALID' ? 'success' : r.wa_status === 'EXPIRED' ? 'danger' : 'warning'}">${r.wa_status === 'ERROR' ? 'unchecked' : (r.wa_status || '').toLowerCase()}</span>` : fmt(r.posts_month)}</td>
+    <td class="appr"><span class="lb-chip ${apChip(r.approach)}">${esc(r.approach)}</span></td>
+    <td><span class="c-pol">${esc(r.policy)}</span></td></tr>`).join('')
+    : `<tr><td colspan="8"><div class="lb-empty">No community matches these filters. Clear the search or pick "All".</div></td></tr>`;
+}
+render();
+
+// drawer
+let lastFocus = null;
+function openRow(id) {
+  const r = byId[id]; if (!r) return; lastFocus = document.activeElement;
+  $('#dPri').className = 'pri ' + r.priority; $('#dPri').textContent = r.priority;
+  $('#dTitle').textContent = r.name;
+  const link = u => u && /^https?:/.test(u) ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>` : esc(u || 'Unknown');
+  const F = [['Platform', r.platform], ['Link', link(r.url), 1], ['Language', r.language], ['Area', r.geo], ['Audience', (r.segments || []).join(', ')],
+    ['From Ashkelon', km(r) + (r.band_label ? ` (${r.band_label})` : '')], ['Members', r.members], ['Activity', r.activity], ['Latest activity', r.latest], ['Public or private', r.privacy], ['Promo rule', r.policy],
+    ['Admin approval', r.approval], ['Admin or contact route', r.contact], ['Collaboration evidence', r.collab], ['Approach', r.approach],
+    ['Post angle', r.angle], ['Confidence', r.confidence], ['Evidence', link(r.evidence), 1], ['Checked', r.checked], ['Notes', r.notes],
+    ...(r.offer_note ? [['Shooting-day change', `${r.offer_note}. Grade on 9 Oct: ${r.priority_v1}, ${r.approach_v1}.`]] : [])];
+  $('#dBody').innerHTML = `<dl class="lb-kv">${F.map(([k, v, raw]) => `<dt>${k}</dt><dd>${raw ? v : esc(v || 'Unknown')}</dd>`).join('')}</dl>`;
+  $('#drawer').hidden = false; $('#scrim').hidden = false; $('#dClose').focus();
+}
+function closeDrawer() { $('#drawer').hidden = true; $('#scrim').hidden = true; lastFocus && lastFocus.focus(); }
+document.addEventListener('click', e => { const t = e.target.closest('[data-open]'); if (t && !e.target.closest('a')) openRow(t.dataset.open); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !$('#drawer').hidden) closeDrawer();
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('tr[data-open]')) { e.preventDefault(); openRow(e.target.dataset.open); }
+});
+$('#dClose').addEventListener('click', closeDrawer); $('#scrim').addEventListener('click', closeDrawer);
+
+// coverage
+(function () {
+  const rows = SEGS.map(s => [s, usable.filter(r => (r.segments || []).includes(s)).length, ROWS.filter(r => (r.segments || []).includes(s)).length])
+    .concat([['Hebrew','Hebrew-speaking families'],['English','English-speaking families'],['Russian','Russian-speaking families'],['Arabic','Arabic-speaking families']]
+      .map(([l, n]) => [n, usable.filter(r => r.language === l).length, ROWS.filter(r => r.language === l).length]));
+  const max = Math.max(...rows.map(r => r[2]));
+  $('#cov').innerHTML = rows.map(([n, u, a]) => `<div class="cov-row"><span>${esc(n)}</span><span class="track"><i class="all" style="width:${a / max * 100}%"></i><i class="use" style="width:${u / max * 100}%"></i></span><span class="v">${u} / ${a}</span></div>`).join('');
+})();
+
+// drafts
+const DT = [['post_general','Post for a local parents group'],['post_short','Short post for business-day threads and local boards'],['dm_admin','Private message to a group admin'],['consent','Filming consent, signed before each visit (draft for a lawyer to read)']];
+$('#draftCards').innerHTML = DT.map(([k, t]) => `<div class="lb-card draft"><div class="lb-card-head"><h3>${t}</h3><button class="lb-btn secondary sm" type="button" data-copy="${k}">Copy</button></div><pre id="dr-${k}">${esc(DATA.drafts[k])}</pre></div>`).join('');
+let toastT;
+function toast(m) { const t = $('#toast'); t.textContent = m; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 1800); }
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-copy]'); if (!b) return;
+  const txt = DATA.drafts[b.dataset.copy];
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents(document.getElementById('dr-' + b.dataset.copy)); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('Text selected. Press Copy on your device.'); };
+  try { navigator.clipboard.writeText(txt).then(() => toast('Copied'), fallback); } catch (err) { fallback(); }
+});
+
+// other routes
+$('#otherSum').textContent = `Other routes: ${DATA.other.length} pages, sites and organisations`;
+$('#otherBody').innerHTML = DATA.other.slice().sort((a, b) => (PORD[a.suggested_priority] ?? 2) - (PORD[b.suggested_priority] ?? 2)).map(o => `<tr>
+  <td><span class="pri ${o.suggested_priority}">${o.suggested_priority === 'Reject' ? 'R' : esc(o.suggested_priority)}</span></td><td>${esc(o.platform)}</td>
+  <td class="c-name">${o.url && /^https?:/.test(o.url) ? `<a class="he" href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.name)}</a>` : `<span class="he">${esc(o.name)}</span>`}</td>
+  <td>${esc(o.members)}</td><td class="lb-xs">${esc(o.why)}</td></tr>`).join('');
+</script>

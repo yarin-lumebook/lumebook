@@ -245,7 +245,8 @@ details[open] summary{margin-bottom:var(--sp-2)}
 }
 .oid .he{color:var(--text-2);font-size:var(--fs-callout)}
 .omet{font-size:var(--fs-footnote);color:var(--text-3);display:flex;gap:.2rem .9rem;flex-wrap:wrap;margin-top:.2rem;font-variant-numeric:tabular-nums}
-.chips{display:flex;flex-wrap:wrap;gap:var(--sp-1)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--sp-1);min-width:0}
+.chips .lb-chip{max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .oc select.st{appearance:none;-webkit-appearance:none;font:inherit;font-weight:600;font-size:var(--fs-footnote);min-height:2.25rem;max-width:100%;padding:.35rem 2rem .35rem .85rem;border:1px solid var(--line-strong);border-radius:var(--r-pill);background-color:var(--surface);color:var(--text);cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--text-2) 50%),linear-gradient(135deg,var(--text-2) 50%,transparent 50%);background-position:calc(100% - 15px) 52%,calc(100% - 10px) 52%;background-size:5px 5px;background-repeat:no-repeat}
 .oc select.st:focus{outline:none;border-color:var(--tint);box-shadow:0 0 0 3px var(--tint-soft)}
 .oc .lb-input,.oc .lb-textarea{width:100%}
@@ -560,15 +561,15 @@ function kidsG(s,c){ const f=kidsForm(c), names=kidsOf(c).names; if(!f&&!names.l
   const F=f||{p:0,f:0,known:false}; if(!names.length&&!F.p&&!F.f) return s;
   const i=F.p*2+F.f, w=k=>KW[k][i], N=names.length?namesJoin(names):"";
   const poss=N?((F.p||F.known)?w("poss"):""):w("poss");
-  let r=String(s).replace(new RegExp(KB+"הילד הוא הגיבור"+KE,"g"),"\u0001H").replace(new RegExp("עם הילד כגיבור"+KE,"g"),"\u0001A")
+  let r=String(s).replace(new RegExp(KB+"הילד שלך הוא הגיבור"+KE,"g"),"\u0001Y").replace(new RegExp(KB+"הילד הוא הגיבור"+KE,"g"),"\u0001H").replace(new RegExp("עם הילד כגיבור"+KE,"g"),"\u0001A")
    .replace(new RegExp("(הפנים|השם|הספר|התמונה) שלו"+KE,"g"),(m,x)=>x+(poss?" "+poss:""));
   r=N?r.replace(new RegExp("של הילד"+KE,"g"),"של "+N).replace(new RegExp(KB+"לילד"+KE,"g"),"ל"+N).replace(new RegExp(KB+"הילד"+KE,"g"),N)
      :r.replace(new RegExp(KB+"הילד"+KE,"g"),w("child")).replace(new RegExp(KB+"לילד"+KE,"g"),w("to"));
-  return r.replace(/\u0001H/g,w("child")+" "+w("is")+" "+w("hero")).replace(/\u0001A/g,"עם "+w("child")+" "+w("ahero")) }
+  return r.replace(/\u0001Y/g,w("child")+" שלך "+w("is")+" "+w("hero")).replace(/\u0001H/g,w("child")+" "+w("is")+" "+w("hero")).replace(/\u0001A/g,"עם "+w("child")+" "+w("ahero")) }
 function kidsGeneric(s,c){ const f=kidsForm(c), names=kidsOf(c).names; let r=String(s);
   if(names.length){ const N=namesJoin(names); r=r.split("של "+N).join("של הילד").split("ל"+N).join("לילד").split(N).join("הילד") }
   if(!f||(!f.p&&!f.f)) return r; const i=f.p*2+f.f, w=k=>KW[k][i];
-  return r.replace(new RegExp(KB+w("child")+" "+w("is")+" "+w("hero")+KE,"g"),"הילד הוא הגיבור")
+  return r.replace(new RegExp(KB+w("child")+" שלך "+w("is")+" "+w("hero")+KE,"g"),"הילד שלך הוא הגיבור").replace(new RegExp(KB+w("child")+" "+w("is")+" "+w("hero")+KE,"g"),"הילד הוא הגיבור")
    .replace(new RegExp("עם "+w("child")+" "+w("ahero")+KE,"g"),"עם הילד כגיבור")
    .replace(new RegExp("(הפנים|השם|הספר|התמונה) "+w("poss")+KE,"g"),(m,x)=>x+" שלו")
    .replace(new RegExp(KB+w("child")+KE,"g"),"הילד")
@@ -577,6 +578,7 @@ const kidsFormLabel=c=>{ const f=kidsForm(c), names=kidsOf(c).names; if(names.le
   if(!f) return "הילד / שלו (default, kids not known)"; const i=f.p*2+f.f; return KW.child[i]+" / "+KW.poss[i]+(i===0?" (default)":"") };
 // Hebrew definite article (ה) rules. ל, ב and כ absorb the article (לילד, בגן, לתוכן); מ, עם, של, על and את keep it.
 const HEROOT=new Set(["הומור","הצעה","הצצה","הפעלה","הפעלות","התפתחות","התנהגות","הורות","הכנה","הסבר","הרגל","הוראה","הנקה","הרגעה","הצלחה","הנאה","היגיון","היסטוריה","הרצאה","הדרכה","הזדמנות","הערכה","היכרות","הפתעה","התמדה","התאמה","הגשמה","הבנה","הקשבה","הגדרה","הפסקה","הפרדה","הפעלה"]);
+const addH=v=>{ v=String(v||"").trim(); if(!v||v[0]==="ה"||!/^[\u05D0-\u05EA]/.test(v)) return v; return "ה"+v };
 const dropH=v=>{ v=String(v||""); if(v[0]!=="ה") return v; const w=v.split(/[\s,.:;!?]/)[0]; return HEROOT.has(w)?v:v.slice(1) };
 const HEN="ילד|ילדה|ילדים|ילדות|ספר|ספרים|קהל|עמוד|תוכן|בית|משפחה|משפחות|קוד|רווח|הורים|הורה|סרטון|רגע|רגעים";   // not גן: להגן means to protect
 const hebArt=s=>String(s).replace(new RegExp("(^|[^\\u05D0-\\u05EA])([\\u05DC\\u05D1\\u05DB])\\u05D4("+HEN+")(?![\\u05D0-\\u05EA])","g"),"$1$2$3");
@@ -822,7 +824,10 @@ const procSince=o=>o.sct||o.rat||o.at||null;
 const staleProc=h=>{ const o=get(h), r=LEGS[rawSt(h)]||rawSt(h), t=procSince(o); return r==="process"&&!OLDSTG[o.stg]&&t!=null&&Date.now()-t>=STALE_MS };
 const stOf=h=>{ const r=LEGS[rawSt(h)]||rawSt(h); return r!=="process"?r:OLDSTG[get(h).stg]?OLDSTG[get(h).stg]:staleProc(h)?"declined":r };
 const ACTIVE=["process","book","content"], inProc=s=>ACTIVE.includes(s);
-const hasReplied=c=>inProc(stOf(c.h))||["posted","declined"].includes(stOf(c.h));
+// Replied = a reply that keeps the conversation going (In process, Book sent, Content created). A decline is not counted as a reply (Yarin, 14 Oct 2026).
+const hasReplied=c=>inProc(stOf(c.h));
+// Answered = any answer, a no included: used for the reply box on the card and the reasons chart
+const answered=c=>hasReplied(c)||stOf(c.h)==="declined";
 const dms=d=>{ if(!d) return null; const x=new Date(d+"T00:00:00").getTime(); return isNaN(x)?null:x };
 const sentMs=o=>o.sat||dms(o.on);
 const fuMs=(o,n)=>n===2?(o.fu2at||dms(o.fu2)):(o.fuat||dms(o.fu));
@@ -876,7 +881,7 @@ const DEF={
  es:"שיתוף פעולה עם LumeBook: ספר ילדים עם הילד כגיבור",
  eb:"היי {name},\n\nעברתי על העמוד שלך והתחברתי מאוד ל{line}.\n\nאני {sender}, מנהל הסושיאל של LumeBook (@lumebookai). אנחנו יוצרים ספרי ילדים בהתאמה אישית: הילד הוא הגיבור, עם התמונה והשם שלו, לרגעים כמו {moment}.\n\nההצעה שלנו: ספר אישי במתנה לילד, וקישור אישי עם "+PCT+"% מכל מכירה שמתבצעת דרכו. "+SPLIT+", וההנחה נכנסת אוטומטית דרך הקישור. בתמורה אנחנו מבקשים סרטון אחד של הילד עם הספר שלו.\n\nמתאים שאשלח דוגמה לספר ואת הפרטים?\n\n{sender}\nLumeBook",
  fu:"היי {name} 🙂 חוזר לרגע להודעה שלי: פניתי אליך בזכות {line}, ונראה לי שספר שבו הילד הוא הגיבור יכול להשתלב אצלך טבעי.\nרוצה שאשלח דוגמה לספר כזה?",
- f2:"היי {name}, הודעה אחרונה ממני בנושא 🙂 אם יתאים בהמשך ספר אישי לילד וסרטון אחד איתו, אני כאן. בהצלחה עם הכול!",
+ f2:"היי {name}, הודעה אחרונה ממני בנושא 🙂 אם יתאים בהמשך ספר אישי לילד וסרטון אחד עם הספר, אני כאן. בהצלחה עם הכול!",
  d2:"מעולה 🙌 הנה דוגמה לספר כזה: {preview}\nבקצרה: ספר אישי במתנה לילד, וקישור אישי עם "+PCT+"% מכל מכירה דרכו. "+SPLIT+". בתמורה אנחנו מבקשים סרטון אחד של הילד עם הספר שלו.\nמתאים לך? אם כן, אשלח מה שצריך כדי להכין את הספר.",
   // Short style (one line about them, one about the offer, one question)
  dm_b:"היי {name} 😁\nעברתי על העמוד שלך, אהבתי את {line}.\nאני {sender} מ-@lumebookai, אנחנו יוצרים ספרי ילדים בהתאמה אישית שבהם הילד הוא הגיבור.\nאנחנו מציעים ספר במתנה וקישור אישי עם הנחה לקהל ורווח לך מכל מכירה, בתמורה לסרטון אחד של הילד עם הספר. מתאים שאשלח דוגמה ופרטים?",
@@ -888,7 +893,7 @@ const DEF={
 // Professionals and Parents are the General messages with the angle changed. Only wording moves: the offer (book, one video, personal link, the 25% split) stays word for word.
 const ANGLE={
   pro:{warm:", ונראה לי שזה כלי שיכול להשתלב יפה בעבודה שלך עם משפחות, ברגעים כמו {moment}.",short:"שבהם הילד הוא הגיבור, כלי שיכול להשתלב בעבודה שלך עם משפחות."},
-  par:{warm:", ונראה לי שיהיה לכם כיף לקרוא אותו יחד, ברגעים כמו {moment}.",short:"שבהם הילד הוא הגיבור, ונראה לי שיהיה לכם כיף לקרוא אותו יחד."}};
+  par:{warm:", ונראה לי שיהיה לכם כיף לקרוא ספר כזה יחד, ברגעים כמו {moment}.",short:"שבהם הילד הוא הגיבור, ונראה לי שיהיה לכם כיף לקרוא ספר כזה יחד."}};
 const VIDEO_RX=/סרטון( אחד)? של הילד עם הספר( שלו)?/g;
 const derive=(s,T)=>{ let x=String(s).replace(/, לרגעים כמו \{moment\}\./,ANGLE[T].warm).replace(/שבהם הילד הוא הגיבור\.(?=\s|$)/,ANGLE[T].short);
   if(T==="pro") x=x.replace(VIDEO_RX,"סרטון אחד שנסכם יחד, עם הספר בשימוש");   // a professional may have no child to film: the video is agreed together
@@ -900,7 +905,7 @@ const tpl=k=>{ const T=SET.tpl||{}; if(typeof T[k]==="string") return T[k]; if(D
 // A list of examples after {moment} must not repeat what {moment} already says (כמו {moment}, אח חדש, כניסה לגן ועוד)
 const MOMDUP=/\{moment\}((?:, [^,.\n!?]+)+?) ועוד/g;
 const momDedupe=(ex,c)=>{ const have=String(c.m||"").split(/\s*[\/,]\s*/).map(x=>x.trim()).filter(Boolean); const keep=ex.split(", ").filter(Boolean).filter(x=>!have.includes(x.trim())); return "{moment}"+keep.map(x=>", "+x).join("")+" ועוד" };
-const fill=(s,c)=>heTidy(hebArt(kidsG(brand(s),c).replace(MOMDUP,(m,ex)=>momDedupe(ex,c)).replace(/([לבכ])-?\{line\}/g,(m,p)=>p+dropH(lineOf(c))).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]")));
+const fill=(s,c)=>heTidy(hebArt(kidsG(brand(s),c).replace(MOMDUP,(m,ex)=>momDedupe(ex,c)).replace(/([לבכ])-?\{line\}/g,(m,p)=>p+dropH(lineOf(c))).replace(/(^|[\s(])(את|בזכות) \{line\}/g,(m,s0,p)=>s0+p+" "+addH(lineOf(c))).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]")));
 // Gifted offer details in the Warm style: Yarin's own wording, kept as written (no brand rewrite), only {name} is filled in.
 // 11 Oct 2026: the three lines about the percentage now say one allocation that the creator splits, as Yarin confirmed. Nothing else was touched.
 const OFFER="תוכנית השגרירים של לומבוק: ספר במתנה + קישור אישי עם "+PCT+"% מכל מכירה\n\nהיי {name},\n\nחשבנו על שיתוף הפעולה הזה כי התוכן שלך מרגיש טבעי, משפחתי ונגיש , בדיוק הסוג שיכול להפוך את הרגע שבו ילד פוגש את עצמו בתוך ספר לתוכן שקהל באמת מתחבר אליו\n\nההצעה שלנו פשוטה:\n\nאנחנו יוצרים לילד ספר מודפס ואישי במתנה, עם השם והפנים שלו. לאחר קבלת הספר, יוצרים רילס או טיקטוק שמציג את חוויית הקריאה או את רגע החשיפה לספר\n\nוהחלק הכי טוב, זה לא מסתיים ב״ספר תמורת פוסט״\n\nאתם מקבלים גם:\n\n• קישור אישי עם "+PCT+"% מכל הזמנה שמתבצעת דרכו\n• אתם מחליטים איך לחלק את ה-"+PCT+"% בין הרווח שלכם להנחה לקהל שלכם (למשל "+EXC+"% לכם ו-"+EXA+"% הנחה), וההנחה נכנסת אוטומטית דרך הקישור\n• אפשרות להמשיך להרוויח מכל רכישה שמגיעה מהתוכן שלכם\n• שיתוף התוכן בעמוד של ‎@lumebookai, עם קרדיט ותיוג מלאים\n\nכלומר, סרטון אחד יכול גם ליצור רגע משפחתי מרגש, גם לתת ערך לקהל שלכם וגם להפוך למקור הכנסה.\n\nאיך זה עובד?\n\n1. אנחנו מתאמים איתכם את שליחת הספר במתנה\n2. לאחר קבלת הספר, מעלים רילס או טיקטוק עם הקישור ועם תיוג של ‎@lumebookai\n3. מקבלים את החלק שבחרתם מתוך ה-"+PCT+"% על כל הזמנה שמתבצעת דרך הקישור\n\nכתבו לי מייל בחזרה עם מס הטלפון שלכם ונתקדם להכנת הספר!\n\nכבר מחכים לראות את הרגע של הילד עם הספר שלו!\nירין\n‎@lumebookai";
@@ -979,7 +984,7 @@ function card(c){
    +(na==="over"||na==="today"?'<span class="lb-chip '+(na==="over"?"danger":"warning")+'">Next action '+(na==="over"?"overdue":"today")+'</span>':'')
    +'<span class="lb-chip tint">'+esc(o.chs&&s!=="new"?o.chs:ch)+'</span>'
    +'<span class="lb-chip'+(kt?' accent':'')+'" title="'+(kt?'Number of kids and their genders, from their public profile':'Not checked yet. Add it in the details below')+'">Kids: '+esc(kt||"not checked")+'</span>'
-   +(e?'<span class="lb-chip outline" title="Draft label for a test. Nothing is sent by the test.">Test: '+esc(e.name)+' · '+esc(o.expv||"")+'</span>':'')
+   +(e?'<span class="lb-chip outline" title="'+esc("Test “"+e.name+"”, version "+(o.expv||"")+". A draft label: nothing is sent by the test.")+'">Test · '+esc(o.expv||"")+'</span>':'')
    +(c.own?'':'<span class="lb-chip" title="Generic line by category: swap it for something specific from one of their videos">generic line</span>');
   let acts="";
   if(wa) acts+='<a class="lb-btn secondary" href="'+wa+'" target="_blank" rel="noopener" data-ch="WhatsApp">WhatsApp ↗</a>';
@@ -1025,7 +1030,7 @@ function card(c){
    +'<label>Sent on<input class="lb-input" type="date" data-f="on" value="'+esc(o.on||"")+'"></label>'
    +(gotContent(c)||o.code||salesOf(c)!==null?'<label>Sales through their link (leave empty if unknown)<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="sales" dir="ltr" value="'+esc(o.sales??"")+'" placeholder="No data"></label>':'')
    +'</div>'
-   +(hasReplied(c)?'<h4 class="osec">Their reply</h4><div class="ogrid"><label class="full">In their words<textarea class="lb-textarea" data-f="objq" dir="auto" rows="2" placeholder="Paste what they wrote, as they wrote it">'+esc(o.objq||"")+'</textarea></label>'
+   +(answered(c)?'<h4 class="osec">Their reply</h4><div class="ogrid"><label class="full">In their words<textarea class="lb-textarea" data-f="objq" dir="auto" rows="2" placeholder="Paste what they wrote, as they wrote it">'+esc(o.objq||"")+'</textarea></label>'
      +'<label class="full">Short note on the reason<input class="lb-input" data-f="objn" dir="auto" value="'+esc(o.objn||"")+'" placeholder="Optional"></label></div>':'')
    +'<h4 class="osec">Greeting, kids and notes</h4>'
    +'<div class="ogrid"><label>Name in greeting<input class="lb-input" data-f="name" dir="rtl" value="'+esc(o.name||"")+'" placeholder="'+esc(c.n)+'"></label>'
@@ -1509,7 +1514,7 @@ const cmpKey={
   track:c=>{ const o=get(c.h), t=trkOf(c)||(TRKL[o.trks]?o.trks:""); return t?TRKL[t]:"No track recorded" },
   ch:c=>get(c.h).chs||"Channel not recorded",
   ver:c=>{ const o=get(c.h), e=expOf(c); return STY_NAME[ssOf(c)]+(o.mv===1?" · hand-edited":o.mv===0?" · template":" · version not recorded")+(e?" · "+e.name+" "+(o.expv||""):"") },
-  obj:c=>hasReplied(c)?(objOf(c)?OBJL[objOf(c)]:"Replied, no reason recorded"):"No reply so far (not a reason)"
+  obj:c=>answered(c)?(objOf(c)?OBJL[objOf(c)]:"Answered, no reason recorded"):"No reply so far (not a reason)"
 };
 const CMPNOTE={all:"",track:" The track is the one the creator is on now,. Creators contacted before tracks existed have none until you set one.",ch:" The channel is recorded from 11 Oct 2026 on; earlier sends show as not recorded and are not guessed.",ver:" A version is whether the text was the template or hand-edited at sending, plus a test label when there is one. Warm and Short are shown for the sends before 11 Oct 2026, when you chose the style by hand; Short is retired, so that split is a record and not a test.",obj:" No reply is its own row because silence is not a reason."};
 function funnel(rows){ const r={n:0,rep:0,int:0,intU:0,ag:0,con:0,pub:0,sN:0,sum:0};
@@ -1521,11 +1526,11 @@ function renderFunnel(){ const mode=CMPH[UI.cmp]?UI.cmp:"all", rows=C.filter(c=>
   const tr=(l,g,bold)=>{ const r=funnel(g); return '<tr><td>'+(bold?'<b>'+esc(l)+'</b>':esc(l))+'</td><td class="r num">'+r.n+'</td><td class="r num">'+r.rep+'</td><td class="r num">'+r.int+(r.intU?' <span class="note">('+r.intU+' not marked)</span>':'')+'</td><td class="r num">'+r.ag+'</td><td class="r num">'+r.con+'</td><td class="r num'+(r.sN?'':' unk')+'">'+(r.sN?r.sum+' <span class="note">(from '+r.sN+')</span>':'No data')+'</td></tr>' };
   const keys=[...G.keys()].sort((a,b)=>G.get(b).length-G.get(a).length||coll.compare(a,b));
   document.getElementById("funBody").innerHTML=rows.length?((mode==="all"?"":keys.map(g=>tr(g,G.get(g))).join(""))+tr(mode==="all"?"All contacted":"Total",rows,true)):'<tr><td colspan="7" class="note">Nobody contacted yet.</td></tr>';
-  document.getElementById("funNote").textContent="Each number is a count of creators, read from what you record. Expressed interest counts only creators you ticked as interested or who reached Terms agreed; being in process is not counted as interest. Content created counts creators with that status. Sales say “No data” until a number is entered on a creator; an empty field is never read as zero."+CMPNOTE[mode]+(mode==="all"?"":" These groups are small and were not assigned at random, so a gap between them is a hint at most.");
+  document.getElementById("funNote").textContent="Each number is a count of creators, read from what you record. Replied counts creators who replied and kept talking (In process, Book sent, Content created); a no is not counted as a reply. Expressed interest counts only creators you ticked as interested or who reached Terms agreed; being in process is not counted as interest. Content created counts creators with that status. Sales say “No data” until a number is entered on a creator; an empty field is never read as zero."+CMPNOTE[mode]+(mode==="all"?"":" These groups are small and were not assigned at random, so a gap between them is a hint at most.");
 }
 function renderObj(){ const cnt={}, dec={}; let tot=0;
   C.forEach(c=>{ const ob=objOf(c); if(!ob) return; tot++; cnt[ob]=(cnt[ob]||0)+1; if(stOf(c.h)==="declined") dec[ob]=(dec[ob]||0)+1 });
-  const max=Math.max(1,...Object.values(cnt)), silent=C.filter(c=>stOf(c.h)!=="new"&&!hasReplied(c)).length;
+  const max=Math.max(1,...Object.values(cnt)), silent=C.filter(c=>stOf(c.h)!=="new"&&!answered(c)).length;
   document.getElementById("objN").textContent=tot||"";
   document.getElementById("objBars").innerHTML=OBJ.filter(([v])=>cnt[v]).sort((a,b)=>cnt[b[0]]-cnt[a[0]]).map(([v,l])=>{ const d=dec[v]||0, p=cnt[v]-d; return '<div class="objrow"><span>'+esc(l)+'</span><span class="v"><b>'+cnt[v]+'</b>'+(d&&p?' · '+d+' declined, '+p+' still talking':p?' · still talking':'')+'</span><span class="track"><i style="width:'+Math.round(cnt[v]/max*100)+'%"></i></span></div>' }).join("")||'<p class="note">No reason recorded yet.</p>';
   document.getElementById("objNote").textContent="Unknown means no reason was recorded for a decline, so nothing is guessed. Set the reason on a Declined or In process card. "+silent+" contacted creator"+(silent===1?" has":"s have")+" not replied so far: that is tracked as No reply and follow-ups, never as a reason.";
@@ -1537,7 +1542,7 @@ function renderOverview(){
   const tile=(key,l,v,s,cls)=>'<a class="kpi lb-card lb-stat'+(cls?" "+cls:"")+'" href="#'+key+'"><span class="lb-stat-label">'+l+'</span><span class="lb-stat-value">'+v+'</span><span class="lb-stat-foot">'+s+'</span></a>';
   document.getElementById("kpis").innerHTML=
      tile("c-sent","Contacted",contacted,"of "+total+" creators")
-    +tile("c-all","Replied",replies,contacted?Math.round(replies/contacted*100)+"% so far, sends are days apart":"Nobody contacted yet")
+    +tile("c-process","Replied",replies,contacted?Math.round(replies/contacted*100)+"% of contacted, declines not counted":"Nobody contacted yet")
     +tile("v-steps","In process",n("process"),naDue?naDue+" next action"+(naDue===1?"":"s")+" due or overdue":"talking with them now",naDue?"warn":"")
     +tile("c-due","Follow-ups due",cnt.due,"first one is due 4 days after sending",cnt.due?"warn":"")
     +tile("c-content","Content created",content,n("book")+" with a book on the way");

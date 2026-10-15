@@ -1,5 +1,7 @@
 # Hook bank
 
+**Hook Studio order of work (Yarin, 10 Oct 2026): the hook comes first, then the content, then the slide design.** A carousel nobody stops on helps nobody, so the cover is written to be the loudest true thing the topic allows, and every rule below serves that. Three things stay fixed however loud it gets: the carousel answers what the cover opens, nothing untrue is said about children, and the parent is never shamed or scared.
+
 Every carousel option (7 slides, about one named Israeli girl or boy, talking to mom or both parents, never dad) picks one formula from this bank for slide 1, fills the slots for tonight's topic, and scores itself with the hook formula below. Since 8 Oct 2026 the nightly writer first builds a private **hook slate** of 12 candidates (6 kid, 6 expert), scores them, and only then writes the six options from passing candidates (section "Nightly hook slate").
 
 `scripts/validate_pack.py` checks: the formula exists and fits the direction and family, every formula has an evidence row, no formula is used twice in a pack, the 6-point hook score passes, a `current_trend` formula past its review date is not used, slide 2 does not lean on slide 1, and (schema_version 3) the slate and the diversity of the six. `nightly.py start` prints the bank with each formula's evidence and status, and what was used recently, so the writer rotates. `nightly.py hooks` prints the bank status on its own.
@@ -20,7 +22,7 @@ Research behind this file: `research/hook-strategy-2026-10-08.md` (evidence tabl
 |---|---|---|---|---|
 | ספציפי | `specific` | רגע, שעה, מקום, גיל או משפט אמיתי של ילד | נושא ברור בלי רגע | כללי ("טיפים לפרידה") |
 | נוגע | `feeling` | ההורה מרגיש את זה עכשיו | מעניין אבל רחוק | בלי רגש או בעיה |
-| פער כן | `honest_gap` | פותח שאלה שהקרוסלה באמת סוגרת, ואומרים באיזו שקופית | רמז לשאלה | קליקבייט, או שהתשובה לא בקרוסלה |
+| פער גדול שנסגר | `honest_gap` | פותח שאלה שחייבים לדעת את התשובה עליה, והקרוסלה סוגרת אותה בשקופית שצוינה | שאלה קטנה או רמז | אין שאלה, או שהתשובה לא בקרוסלה |
 | קצר ומדובר | `short_spoken` | עד 8 מילים, משפט שאומרים בקול | ארוך או קצת כתוב | נשמע כמו כותרת של מאמר |
 | מסנן | `filters` | ברור למי זה (גיל, רגע, תפקיד) | חלקית | מתאים לכולם |
 | לא פרסומת | `not_an_ad` | אין מוצר, מותג או הבטחה | נשמע קצת שיווקי | מכירה בשקופית הראשונה |
@@ -30,7 +32,9 @@ Research behind this file: `research/hook-strategy-2026-10-08.md` (evidence tabl
 - פער סקרנות עובד כשנותנים רמז ומבטיחים תשובה, ופוגע באמון כשהוא נהיה קליקבייט (psych.md, סעיף 1: Menon & Soman 2002, Molyneux & Coddington 2020)
 - נקודת המבט של הילד חוזרת בכמה מהקרוסלות הבולטות שנבדקו (market.md דפוס 5; research/hook-strategy-2026-10-08.md). זה דפוס שנצפה, לא הוכחה שזה עובד אצלנו
 
-אסור בפתיח ובשקופית 2 (הבדיקה נכשלת): ״לא תאמינו״, ״לא תאמיני״, ״הסוד ש״, ״חובה לראות״, ״האם ידעתם״, ״בואו נדבר על״, ״היום נדבר״, ״כל מה שצריך לדעת״, ״המדריך המלא״, ״אתם עושים את זה לא נכון״, ״את עושה את זה לא נכון״, ״הטעות שכל ההורים״, ״חייבת לדעת״, ״לפני שיהיה מאוחר״, ״מה שאף אחד לא מספר״, ״תפסיקי״ או ״תפסיקו״ (כפנייה להורה), ״הורים טובים לא״, ״אם את לא״, ״אם אתם לא״.
+אסור בפתיח ובשקופית 2 (הבדיקה נכשלת), כי זה חלש או פוגע בהורה: ״חובה לראות״, ״האם ידעתם״, ״בואו נדבר על״, ״היום נדבר״, ״כל מה שצריך לדעת״, ״המדריך המלא״, ״אתם עושים את זה לא נכון״, ״את עושה את זה לא נכון״, ״הטעות שכל ההורים״, ״לפני שיהיה מאוחר״, ״הורים טובים לא״, ״אם את לא״.
+
+מותר מ-10 באוקטובר 2026, רק כשהקרוסלה באמת סוגרת את השאלה: ״לא תאמיני״, ״הסוד של״, ״מה שלא מספרים לך״, ״חייבת לדעת״, ״תפסיקי״ על פעולה אחת (אף פעם לא על ההורה עצמו), ״הסיבה האמיתית״.
 
 </div>
 
@@ -75,6 +79,14 @@ No formula in this bank is `platform_supported` as a formula: we found no first-
 | `positive-edition` | milestone | both | ״[אזהרה שכולם אומרים להורים]״ / הגרסה הטובה | ״חכי חכי שתגיע לגיל שלוש״ / הגרסה הטובה | research S17 |
 | `parent-confession` | normalising | expert | ״[מחשבה שהורים מתביישים בה]״ / [משפט שמוריד בושה בלי עובדה] | ״אני מתגעגעת לגדול שלי״ / והוא יושב לידי על הספה | research S12, S13, S18 |
 | `analogy-scene` | analogy | expert | דמייני ש[מצב מקביל מעולם המבוגרים] / [הפרט שעושה את זה קשה] | דמייני שמישהו לוקח לך את הטלפון / בלי להגיד מתי תקבלי אותו | research S8 |
+| `two-faces` | reframe | both | [מקום א׳] [הילד במיטבו] / [מקום ב׳] [ההפך] | בכיתה מלאך / בבית הר געש | Hook Studio, 10 Oct 2026; untested |
+| `words-that-backfire` | sentences_we_say | both | [מספר] מילים / ש[מה הן עושות לרגע] | 3 מילים / שמפוצצות את הצהריים | Hook Studio, 10 Oct 2026; untested |
+| `stop-one-thing` | reframe | expert | תפסיקי [פעולה אחת] / [יש משהו שעובד יותר טוב] | תפסיקי לשאול ״איך היה?״ / יש שאלה שעובדת יותר טוב | Hook Studio, 10 Oct 2026; untested |
+| `child-dont` | child_pov | kid | אמא אל [פעולה] / [מתי] | אמא אל תשאלי אותי / איך היה היום | Hook Studio, 10 Oct 2026; untested |
+| `child-secret` | child_pov | kid | יש לי סוד / על [רגע יומיומי] | יש לי סוד / על הדרך הביתה מבית הספר | Hook Studio, 10 Oct 2026; untested |
+| `nobody-tells` | surprising_statement | expert | מה שלא מספרים לך / על [שלב או רגע] | מה שלא מספרים לך / על החודש הראשון בכיתה א׳ | Hook Studio, 10 Oct 2026; untested |
+| `real-reason` | reframe | expert | הסיבה האמיתית / ש[התנהגות] | הסיבה האמיתית / שהוא מתפרק דווקא עלייך | Hook Studio, 10 Oct 2026; untested |
+| `one-sentence-changes` | story | both | [שם] [התנהגות] כל [זמן] / ומשפט אחד משנה את [הרגע] | נועם בוכה כל בוקר בשער / ומשפט אחד משנה את הבוקר | Hook Studio, 10 Oct 2026; untested |
 
 ## Evidence and rotation
 
@@ -104,6 +116,14 @@ One row per formula. `evidence` lists every label that applies (joined with +). 
 | `positive-edition` | current_trend + lumebook_hypothesis | anticipation + reframe | quote | same_template + contrast | 3 | 2026-10-08 | 2027-01-08 |
 | `parent-confession` | external_performance_pattern + lumebook_hypothesis | reassurance | quote | first_answer + other_side | 3 | 2026-10-08 | 2027-04-08 |
 | `analogy-scene` | lumebook_hypothesis | perspective_shift + reframe | imagine | scene_restart + first_answer | 3 | 2026-10-08 | 2027-04-08 |
+| `two-faces` | lumebook_hypothesis | recognition + honest_curiosity | contrast_pair | name_trigger + other_side | 3 | 2026-10-10 | 2027-01-10 |
+| `words-that-backfire` | lumebook_hypothesis | honest_curiosity + practical_utility | numbered | first_answer + zoom_in | 3 | 2026-10-10 | 2027-01-10 |
+| `stop-one-thing` | lumebook_hypothesis | reframe + practical_utility | command | first_answer + contrast | 4 | 2026-10-10 | 2027-01-10 |
+| `child-dont` | lumebook_hypothesis | perspective_shift + honest_curiosity | command | other_side + first_answer | 3 | 2026-10-10 | 2027-01-10 |
+| `child-secret` | lumebook_hypothesis | honest_curiosity + perspective_shift | secret | zoom_in + scene_restart | 3 | 2026-10-10 | 2027-01-10 |
+| `nobody-tells` | lumebook_hypothesis | honest_curiosity + anticipation | secret | name_trigger + first_answer | 3 | 2026-10-10 | 2027-01-10 |
+| `real-reason` | lumebook_hypothesis | reframe + honest_curiosity | statement | first_answer + name_trigger | 3 | 2026-10-10 | 2027-01-10 |
+| `one-sentence-changes` | lumebook_hypothesis | narrative_tension + practical_utility | story_open | scene_restart + zoom_in | 4 | 2026-10-10 | 2027-01-10 |
 
 Research ids (S1 to S18, P and M ids) point to the tables in `research/hook-strategy-2026-10-08.md`.
 
@@ -174,7 +194,7 @@ Each card: Hebrew name, template, three examples (illustrative, written for this
 
 - תבנית: אמא ואבא / [מספר] דברים שיעזרו לי / לפני ש[רגע] (לאמא לבד: ״אמא / 2 דברים שיעזרו לי״)
 - דוגמאות: אמא ואבא / 2 דברים שיעזרו לי / לפני שאתם שמים אותי בגן · אמא / 2 דברים שיעזרו לי / בלילה הראשון בלי מוצץ · אמא ואבא / 2 דברים שיעזרו לי / כשהתינוק בוכה בלילה
-- שאלה שנפתחת: מה שני הדברים? נסגרת בשקופיות 4 ו-5 (דבר ראשון / דבר שני)
+- שאלה שנפתחת: מה הדברים? נסגרת בדוגמאות הממוספרות בשקופיות 2 עד 5
 - שקופית 2 (first_answer): ״הכי קשה לי הרגע של הדלת / שם אני צריך אתכם הכי הרבה״
 </div>
 
@@ -360,12 +380,104 @@ Each card: Hebrew name, template, three examples (illustrative, written for this
 
 - Intent: unaware parents; perspective-taking. Dr Becky's pilot analogy (S8) is the strongest single post in the sample (12.5x her median) but it is one post from a very large expert account, so this stays a hypothesis. Risk: the analogy must not make the child's feeling look silly or dramatic. Stale when: two analogies in 14 days.
 
+### Loud formulas (Hook Studio, 10 Oct 2026)
+
+Eight formulas built for stopping power. None is tested and none rests on outside evidence: each is a `lumebook_hypothesis` with a short review date (2027-01-10), to keep or drop once `hook-results.json` has numbers. Reach for these first when the topic allows; each card says what keeps it true.
+
+**`two-faces` · שני פרצופים**
+<div dir="rtl">
+
+- תבנית: [מקום א׳] [הילד במיטבו] / [מקום ב׳] [ההפך]
+- דוגמאות: בכיתה מלאך / בבית הר געש · אצל סבתא אוכל הכול / בבית רק פסטה · בגן נרדמת לבד / בבית שעה וחצי
+- שאלה שנפתחת: למה דווקא אצלי? נסגרת בשקופית 3
+- שקופית 2 (name_trigger): ״כל היום הוא מחזיק את עצמו / ואצלך הוא סוף סוף משחרר״ (מקור)
+</div>
+
+- Keeps it true: the "why" on slide 3 needs a source, and it lands as relief (he lets go where he feels safe), never as "you are the problem". The child is never given a name that sticks (no מפלצת, no ילד רע). Stale when: two contrast pairs in a pack.
+
+**`words-that-backfire` · מילים שמפוצצות**
+<div dir="rtl">
+
+- תבנית: [מספר] מילים / ש[מה הן עושות לרגע]
+- דוגמאות: 3 מילים / שמפוצצות את הצהריים · 2 מילים / שמאריכות כל פרידה בשער · 4 מילים / שמעירות אותה שוב בלילה
+- שאלה שנפתחת: איזה מילים? נסגרת בשקופית 2 או 3, והמשפט שבא במקומן בשקופית 4
+- שקופית 2 (first_answer): ״״איך היה היום?״ / כולנו שואלות את זה כבר בשער״
+</div>
+
+- Keeps it true: the number is the real word count of the sentence, the sentence is one "כולנו" say, and slide 4 gives the replacement. The verb describes the moment (מפוצצות את הצהריים), never damage to the child. Stale when: numbers open more than two options a night.
+
+**`stop-one-thing` · תפסיקי דבר אחד**
+<div dir="rtl">
+
+- תבנית: תפסיקי [פעולה אחת] / [יש משהו שעובד יותר טוב] (להורים: תפסיקו)
+- דוגמאות: תפסיקי לשאול ״איך היה?״ / יש שאלה שעובדת יותר טוב · תפסיקו להבטיח ״עוד חמש דקות״ / יש פרידה קצרה יותר · תפסיקי להגיד ״אין מפלצות״ / יש משפט שמרגיע יותר
+- שאלה שנפתחת: מה עובד יותר טוב? נסגרת בשקופית 4
+- שקופית 2 (first_answer): ״כולנו שואלות ״איך היה?״ / והתשובה תמיד ״בסדר״״
+</div>
+
+- Keeps it true: one action, never the parent ("תפסיקי להיות..." is out), slide 2 says "כולנו", and the replacement arrives by slide 4. No brain or damage claim. This is the one "stop" shape that is allowed; the research rejection (R1) was about shame and unbacked claims, and both stay out. Stale when: a command opens two packs in a week.
+
+**`child-dont` · אמא אל**
+<div dir="rtl">
+
+- תבנית: אמא אל [פעולה] / [מתי] (להורים: אמא ואבא אל)
+- דוגמאות: אמא אל תשאלי אותי / איך היה היום · אמא ואבא אל תכבו / עד שאני אומר · אמא אל תגידי לי / שאני כבר גדולה
+- שאלה שנפתחת: למה לא, ומה כן? נסגרת בשקופית 3, מה כן בשקופית 4
+- שקופית 2 (other_side): ״בשער את רוצה לשמוע הכול / ולי אין אפילו מילה אחת״
+</div>
+
+- Keeps it true: the child asks, never accuses; slide 3 gives the need in the child's words as a possibility. Imagined inner voice, never a real child. Stale when: "אמא" opens more than one option a night.
+
+**`child-secret` · יש לי סוד**
+<div dir="rtl">
+
+- תבנית: יש לי סוד / על [רגע יומיומי]
+- דוגמאות: יש לי סוד / על הדרך הביתה מבית הספר · יש לי סוד / על הרגע שמכבים את האור · יש לי סוד / על התינוק החדש
+- שאלה שנפתחת: מה הסוד? נסגרת בשקופית 3
+- שקופית 2 (zoom_in): ״כל היום חיכיתי לך / ודווקא אז אין לי כוח לדבר״
+</div>
+
+- Keeps it true: the cover names the everyday moment, so the secret can only be a feeling about that moment. Never hint that something happened to the child at gan, at school or with another adult; if a reader could fear that, rewrite. The secret is out by slide 3. Stale when: used twice in 14 days.
+
+**`nobody-tells` · מה שלא מספרים לך**
+<div dir="rtl">
+
+- תבנית: מה שלא מספרים לך / על [שלב או רגע] (להורים: לכם)
+- דוגמאות: מה שלא מספרים לך / על החודש הראשון בכיתה א׳ (מקור) · מה שלא מספרים לכם / על השבוע אחרי הגמילה (מקור) · מה שלא מספרים לך / על הגדול כשנולד תינוק (מקור)
+- שאלה שנפתחת: מה לא מספרים? נסגרת בשקופית 3 עם מקור
+- שקופית 2 (name_trigger): ״בכיתה הוא מחזיק את עצמו כל היום / והבית מקבל את מה שנשאר״ (מקור)
+</div>
+
+- Keeps it true: always `factual_claim`, and the thing "they don't tell you" is something a source says plainly. Reassuring or practical, never a hidden danger. Stale when: two "secret" shapes in a pack.
+
+**`real-reason` · הסיבה האמיתית**
+<div dir="rtl">
+
+- תבנית: הסיבה האמיתית / ש[התנהגות]
+- דוגמאות: הסיבה האמיתית / שהוא מתפרק דווקא עלייך (מקור) · הסיבה האמיתית / שהיא מבקשת עוד סיפור (מקור) · הסיבה האמיתית / שהוא חזר לבכות בשער (מקור)
+- שאלה שנפתחת: מה הסיבה? נסגרת בשקופית 3 עם מקור
+- שקופית 2 (first_answer): ״זאת לא חוצפה / וזה גם לא קשור אלייך״
+</div>
+
+- Keeps it true: always `factual_claim`. The cover is flat; the payoff slide carries the honest wording (הרבה פעמים, אצל הרבה ילדים) and the source. The reason is never the parent. Stale when: "הסיבה" opens two packs in a week.
+
+**`one-sentence-changes` · משפט אחד משנה**
+<div dir="rtl">
+
+- תבנית: [שם] [התנהגות] כל [זמן] / ומשפט אחד משנה את [הרגע]
+- דוגמאות: נועם בוכה כל בוקר בשער / ומשפט אחד משנה את הבוקר · שירה קמה חמש פעמים בלילה / ומשפט אחד משנה את הערב · איתי זורק את התיק כל צהריים / ושאלה אחת משנה את הדרך הביתה
+- שאלה שנפתחת: איזה משפט? נסגרת בשקופית 4 (המשפט עצמו במירכאות)
+- שקופית 2 (scene_restart): ״נועם בן 4 / והשער של הגן הוא החלק הכי קשה ביום״
+</div>
+
+- Keeps it true: a named LumeBook character in the present tense, never a "true story"; the sentence on slide 4 comes from a source; slide 6 shows a calmer moment, not a cure (the lexicon still blocks פותר and ייעלם). Stale when: two story openings in a pack.
+
 ## Notes per formula (guardrails)
 
 - `child-*` formulas are an imagined inner voice. Never present them as a real child or a testimonial
 - `reversal`, `surprising-reframe`, `just-so-you-know` and any example marked (מקור) must be backed by a source on slide 1 or 2 (claims, kind sourced_fact) and on the payoff slide. In the slate set `factual_claim: true`
 - `instead-of-say` gives the answer in the hook; the gap is *why*, and slide 3 must explain it
-- `child-numbered-ask`: only for options that talk to both parents ("אמא ואבא"; with mom alone write "אמא"). The number must match the solution slides (two: slides 4 and 5 open with דבר ראשון / דבר שני)
+- `child-numbered-ask`: only for options that talk to both parents ("אמא ואבא"; with mom alone write "אמא"). The number must match the numbered examples on slides 2 to 5 (since 14 Oct 2026 every option numbers its examples there, 1 or 2 per slide)
 - `numbered-small-things`: the number in the hook must match the solution slides that follow (two in a 7-slide carousel)
 - `through-the-ages` works for milestone topics (new sibling, first grade), each slide moving one age forward; keep the child as one consistent character
 - `parent-worry-quote` names a worry; never feed it (no "and you'll regret it")
@@ -399,6 +511,27 @@ Slide 2 must work as a first slide on its own: Instagram may re-show a carousel 
 
 Never cut a sentence in the middle to force a swipe (playbook 5.1).
 
+## Slide 1 is the thumbnail (Yarin, 10 Oct 2026)
+
+Yarin's rule: the first slide is "clickbaity" and always shows the child's face to the viewer with an exaggerated expression. Slide 1 works like a video thumbnail: one big face, one line that is hard to scroll past. It applies to the six kid and expert options of every pack written from 10 Oct 2026 17:00 on (not to the games and books carousels).
+
+**The words.** Go for the biggest honest gap the topic allows:
+
+- **Value first (Yarin, 11 Oct 2026: "i want the hooks to focus on what value is it going to provide").** The cover says what the viewer gets: a number of things to try ("2 דברים שיעזרו לי"), a sentence to say, a result in a moment ("בלי ריב על עוד סיפור"), or an answer ("מתי כן להתחיל"). The tease may stay as the opening line, but a cover with only a tease and no promise is rejected. Keep the how for the slides: slide 1 names the value and the count, the slides deliver it, and the number on the cover matches the things the carousel gives. A tip is not a hook, but a promise of value is
+- Use at least one stopper: a number ("2 דברים"), a real sentence in quotes, a contradiction ("בגן מלאך / בבית מתפרק"), a confession in the child's voice, or a precise moment (07:45 בשער)
+- Short and loud: the main line up to 8 words and readable at thumbnail size; cut every soft word (קצת, לפעמים, אולי) from slide 1
+- The carousel must pay it off. A hook the slides do not answer still fails (`unfulfilled_promise`), and so does a hook that says something untrue about children (`unsupported_claim`)
+- Write three wordings of every candidate, from calm to loud, and keep the loudest one that is still true. The calm one never goes on the cover
+- Loud openers are in since 10 Oct 2026 (the "Loud formulas" cards): "תפסיקי" about one action, "מה שלא מספרים לך", "הסיבה האמיתית", "יש לי סוד", "לא תאמיני". Still banned: shame, guilt, fear and threats aimed at the parent, and openers with no gap (the Hebrew list at the top). The one hard line is the payoff: `research/hook-strategy-2026-10-08.md` (P8) records that Instagram's Creators FAQ lists clickbait among content it may stop recommending, so a cover the slides do not answer is the risk, not a loud cover
+- The cover is set in very large type (the bold look, `pillars.md`): each headline line up to 18 characters, up to 3 lines, and one phrase of 1 to 3 whole words marked as `highlight` for the colour block. Pick the phrase that carries the punch ("הר געש", "3 מילים", "סוד"), not a filler word
+- Only the strongest candidates reach slide 1: the slate candidate behind an option must score 2 on `stopping_power`, `honest_curiosity` and `swipe_promise`, and from 11 Oct 2026 also on `usefulness` (the value is on the cover; validator ERROR otherwise; a cover with no value marker is flagged). `clickbait` in the fail checks now means only "a banned opener, or a gap the carousel does not close"; a big gap on its own is wanted
+
+**The picture.** The scripts add the cover line to the prompt (`COVER_FACE` in `carousel_lib.py`); the slide 1 brief must agree with it, and the validator checks that it does:
+
+- `action` says the child faces the viewer and looks straight into the camera, and names one big exaggerated expression that fits the hook (huge wide eyes and raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a giant grin)
+- `camera` is a close head-and-shoulders or waist-up shot with the face large in the frame. Never from behind, in profile, from the side or face down
+- A parent may be small or soft in the background; the text zone still needs a plain wall or sky
+
 ## Nightly hook slate
 
 Before writing the six options, the writer builds a private slate in `pack.json` under `hook_slate` (schema_version 3). It is internal: it never reaches parents and it never ranks the options for Yarin.
@@ -407,7 +540,7 @@ Before writing the six options, the writer builds a private slate in `pack.json`
 2. **For each candidate write**: the slide 1 text (`hook`), a slide 2 that works as a first slide (`slide2`) and its `slide2_move`, the `mechanism`, the awareness stage, the exact open question (`gap`), the `payoff_slide` and how it closes the question (`answer`), and `factual_claim` (true if slide 1 or 2 says something about children in general)
 3. **Score each candidate 0 to 2** on the ten criteria below, and answer the four fail checks honestly
 4. **A candidate fails** if any fail check is true, if it scores 0 on honest curiosity, emotional truth, topic fit or LumeBook fit, or if the total is under 14 of 20 (a LumeBook hypothesis, to revisit when results exist). A failed candidate stays in the slate with its scores; it is never used
-5. **Build three options per direction** from passing candidates (`used_by`: kid-1 to kid-3, expert-1 to expert-3), choosing for difference, not for the highest score: the six options together need at least 4 mechanisms (2 per direction), 4 sentence shapes, 3 slide 2 moves and 2 awareness stages, and no two openings that share most of their words. Each option's `hook` records `slate_id`, `mechanism` and `slide2_move`
+5. **Build three options per direction** from passing candidates (`used_by`: kid-1 to kid-3, expert-1 to expert-3), taking the loudest first (the highest `stopping_power` + `honest_curiosity` + `swipe_promise`) and swapping only as far as the difference rules need: the six options together need at least 4 mechanisms (2 per direction), 4 sentence shapes, 3 slide 2 moves and 2 awareness stages, and no two openings that share most of their words. Each option's `hook` records `slate_id`, `mechanism` and `slide2_move`
 6. **Never pick a winner.** The slate is a working tool. The review page shows six options; Yarin chooses
 
 | criterion | key | 2 | 1 | 0 |
@@ -418,12 +551,12 @@ Before writing the six options, the writer builds a private slate in `pack.json`
 | סקרנות כנה | `honest_curiosity` | opens a real question the carousel closes, on the named slide | a hint of a question | clickbait, or no question |
 | אמת רגשית | `emotional_truth` | how this moment really feels | a little polished | invented drama or manipulation |
 | הבטחה להחלקה | `swipe_promise` | clear why to swipe, and slide 2 delivers | vague | none |
-| שימושי | `usefulness` | leads to something to do or understand tomorrow | some value | none |
+| שימושי | `usefulness` | the cover itself says what the viewer gets: a number of things, a sentence to say, a result or an answer for tomorrow (**a cover candidate must score 2 here, Yarin 11 Oct 2026**) | the carousel is useful but the cover does not say so | none |
 | מתאים לנושא | `topic_fit` | exactly tonight's topic and season | related | off topic |
 | מתאים ללומבוק | `lumebook_fit` | a moment where a story with the child as the hero is a natural tool later | loosely | none (for example broad parent humour) |
 | טרי | `freshness` | new wording and formula against the last 3 packs | a formula used recently with new wording | repeats a recent hook |
 
-Fail checks (any true fails the candidate): `clickbait` (the gap is bigger than the answer, or a banned opener), `unsupported_claim` (a fact about children with no source we can cite), `unfulfilled_promise` (the carousel does not deliver what slide 1 or 2 promises), `blames_parent` (the parent is the cause, or "you are doing it wrong").
+Fail checks (any true fails the candidate): `clickbait` (a banned opener, or a gap the carousel does not close; since 10 Oct 2026 a big gap that the carousel does close is wanted, see "Slide 1 is the thumbnail"), `unsupported_claim` (a fact about children with no source we can cite), `unfulfilled_promise` (the carousel does not deliver what slide 1 or 2 promises), `blames_parent` (the parent is the cause, or "you are doing it wrong").
 
 ## Rotation rules
 
@@ -447,7 +580,7 @@ From the research (section 5 of the report). Each was seen in the sample; none f
 
 | style | example seen | why not |
 |---|---|---|
-| "Stop saying X" | "Stop telling your child 'I love you'" (R1) | you-are-doing-it-wrong, plus a brain claim the post cannot back |
+| "Stop saying X" with shame or a brain claim | "Stop telling your child 'I love you'" (R1) | you-are-doing-it-wrong, plus a brain claim the post cannot back. Since 10 Oct 2026 the plain version is allowed as `stop-one-thing`: one action, "כולנו" on slide 2, the replacement by slide 4 |
 | unpopular opinion | "8 unpopular parenting choices" (R2) | broad, opinion bait, no moment the book answers |
 | crowd or authority number | "We asked 40,000 moms" (R3) | LumeBook has no such data; would be invented |
 | reverse-psychology product | "Reasons NOT to buy" (R4) | sells on slide 1 |

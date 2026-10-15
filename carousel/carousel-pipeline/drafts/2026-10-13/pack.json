@@ -1,0 +1,2249 @@
+{
+ "schema_version": 3,
+ "date": "2026-10-13",
+ "generated_at": "2026-10-12T22:06:19+03:00",
+ "topic": {
+  "id": "new-sibling",
+  "title_he": "אח חדש והגדול שחוזר אחורה",
+  "reason": "הנושא הראשון ברשימה, והוא לא עלה באף חבילה עד היום. הוא מתאים לכל ימות השנה ולכן אין כאן טענת לוח שנה. יש עליו שלושה מקורות ברורים שנקראו בריצה הזאת (האקדמיה האמריקאית לרפואת ילדים, Child Mind Institute, Nemours KidsHealth), ובקטלוג יש ספרים בדיוק לרגע הזה (אח חדש, אחות חדשה), כך שהקישור בתגובות מוביל למשהו שמתאים. רגישות: לא כותבים על הריון או על גוף, רק על הגדול ועל מה שעוזר לו."
+ },
+ "voice": {
+  "status": "fallback",
+  "approved_samples": 10,
+  "note": "נכתב בקול ברירת המחדל המתועד ב-.claude/skills/lumebook-hebrew-voice ולפי העריכות האחרונות של ירין. עדיין לא מכויל: 10 מתוך 15 דוגמאות מאושרות."
+ },
+ "product_facts": [
+  {
+   "id": "site-preview",
+   "fact": "Creating the book and the preview are free; parents pay only if they love it",
+   "quote": "יצירת הספר והתצוגה המקדימה בחינם — משלמים רק אם אהבתם.",
+   "url": "https://lumebook.com/IL/he",
+   "checked_at": "2026-10-13"
+  },
+  {
+   "id": "site-star",
+   "fact": "The child's name appears in the text and the child stars in every illustration",
+   "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים.",
+   "url": "https://lumebook.com/IL/he",
+   "checked_at": "2026-10-13"
+  },
+  {
+   "id": "site-photo",
+   "fact": "Parents upload a photo of the child and add the name",
+   "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+   "url": "https://lumebook.com/IL/he",
+   "checked_at": "2026-10-13"
+  },
+  {
+   "id": "site-sibling-book",
+   "fact": "The catalogue has books for this exact moment: אח חדש (books/2) and אחות חדשה (books/7), about preparing for and accepting a new sibling. Internal only, for the DM link; never named on the slides",
+   "quote": "הספר מלווה את הילד בתהליך ההכנה והקבלה של אח חדש למשפחה, מעודד אחריות, אהבה וגאווה אחאית דרך סיפור מרגש.",
+   "url": "https://lumebook.com/IL/he/books",
+   "checked_at": "2026-10-13"
+  }
+ ],
+ "hook_slate": {
+  "kid": [
+   {
+    "id": "k1",
+    "formula": "child-dont",
+    "family": "child_pov",
+    "hook": "אמא אל תגידי לי\nשאני כבר גדולה\n2 דברים שכן עוזרים לי",
+    "slide2": "כשהתינוק על הידיים שלך\nאני רוצה להיות קטנה\nואז את אומרת לי\n״אביגיל את כבר גדולה״",
+    "slide2_move": "other_side",
+    "mechanism": "perspective_shift",
+    "awareness_stage": "problem_aware",
+    "gap": "Why should mom not tell her she is big already, and which 2 things help instead?",
+    "payoff_slide": 3,
+    "answer": "Slide 3: she wants to be held the way the baby is, so she asks for a bottle and talks like a baby. Slides 4 and 5: let her be little for a moment, and say it out loud when she does act big.",
+    "factual_claim": false,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 2,
+     "emotional_truth": 2,
+     "swipe_promise": 2,
+     "usefulness": 2,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 1
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "kid-1",
+    "note": "Wordings calm to loud: «כשאת אומרת לי שאני גדולה» / «אמא קשה לי לשמוע שאני כבר גדולה» / «אמא אל תגידי לי שאני כבר גדולה» (kept). Freshness 1: child-dont opened a pack on 10 Oct with other words."
+   },
+   {
+    "id": "k2",
+    "formula": "child-not-because",
+    "family": "child_pov",
+    "hook": "אני לא שונא\nאת התינוק\nאני מתגעגע אליכם\n2 דברים שיעזרו לי",
+    "slide2": "״תחזירו אותו כבר״\nככה זה יוצא לי מהפה\nאני מתכוון ״תחזרו אליי״",
+    "slide2_move": "first_answer",
+    "mechanism": "reframe",
+    "awareness_stage": "problem_aware",
+    "gap": "If he does not hate the baby, what is behind the angry words, and which 2 things help?",
+    "payoff_slide": 3,
+    "answer": "Slide 2 translates the angry sentence, slide 3 says in his words that he misses having his parents to himself. Slides 4 and 5: a few minutes a day only with him, and a sentence that allows the anger.",
+    "factual_claim": false,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 2,
+     "emotional_truth": 2,
+     "swipe_promise": 2,
+     "usefulness": 2,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 1
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "kid-2",
+    "note": "Wordings calm to loud: «קשה לי עם התינוק החדש» / «אני לא כועס על התינוק אני מתגעגע» / «אני לא שונא את התינוק אני מתגעגע אליכם» (kept). An imagined inner voice of one child, framed as a possibility in the caption."
+   },
+   {
+    "id": "k3",
+    "formula": "two-faces",
+    "family": "reframe",
+    "hook": "בגן אני הכי גדולה\nבבית שוב תינוקת\n2 דברים שעוזרים לי בבית",
+    "slide2": "מאז שהתינוק הגיע\nיש לי שוב פספוסים\nבגן אני הולכת לשירותים לבד\nובבית זה בורח לי",
+    "slide2_move": "name_trigger",
+    "mechanism": "recognition",
+    "awareness_stage": "problem_aware",
+    "gap": "Why is she big at gan and a baby again at home, and which 2 things help at home?",
+    "payoff_slide": 3,
+    "answer": "Slide 3 (AAP): at home she is checking that mom is still hers. Slides 4 and 5: a small job next to the baby, and her own baby pictures.",
+    "factual_claim": true,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 2,
+     "emotional_truth": 2,
+     "swipe_promise": 2,
+     "usefulness": 2,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 1
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "kid-3",
+    "note": "Wordings calm to loud: «בבית היא מתנהגת צעיר יותר» / «בגן גדולה ובבית קטנה» / «בגן אני הכי גדולה בבית שוב תינוקת» (kept). Accidents after a new baby are mapped to AAP and Child Mind Institute on slide 2. two-faces was used on 10 Oct with other words."
+   },
+   {
+    "id": "k4",
+    "formula": "child-question",
+    "family": "child_quote",
+    "hook": "״גם אני רוצה בקבוק״\nאני מבקש את זה כל ערב",
+    "slide2": "הבקבוק שלו נראה לי\nהכי טעים בעולם",
+    "slide2_move": "zoom_in",
+    "mechanism": "honest_curiosity",
+    "awareness_stage": "problem_aware",
+    "gap": "Why does he ask for a bottle every evening, and what do you answer?",
+    "payoff_slide": 3,
+    "answer": "Slide 3: it is the attention that comes with the bottle; slides 4 and 5 would give two answers.",
+    "factual_claim": false,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 2,
+     "emotional_truth": 2,
+     "swipe_promise": 1,
+     "usefulness": 1,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 2
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "",
+    "note": "Passes (18). Not used: the cover does not say what the viewer gets (usefulness 1), and expert-3 covers the same moment with the answer promised."
+   },
+   {
+    "id": "k5",
+    "formula": "moment-time",
+    "family": "moment",
+    "hook": "6:10 בבוקר\nהתינוק בוכה\nואני כבר ליד המיטה שלך",
+    "slide2": "אני רואה אותך מרימה אותו\nומחכה שתרימי גם אותי",
+    "slide2_move": "zoom_in",
+    "mechanism": "recognition",
+    "awareness_stage": "problem_aware",
+    "gap": "Why does she come to the bed the moment the baby cries, and what helps that morning?",
+    "payoff_slide": 3,
+    "answer": "Slide 3: she comes to check there is room for her too.",
+    "factual_claim": false,
+    "score": {
+     "stopping_power": 1,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 1,
+     "emotional_truth": 2,
+     "swipe_promise": 1,
+     "usefulness": 1,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 2
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "",
+    "note": "Passes (16). Not used: quieter than k1 to k3 and no value on the cover."
+   },
+   {
+    "id": "k6",
+    "formula": "through-the-ages",
+    "family": "story",
+    "hook": "אני בת 3\nואמא מביאה הביתה תינוק",
+    "slide2": "אני בת 4\nוהוא צוחק רק כשאני באה",
+    "slide2_move": "same_template",
+    "mechanism": "narrative_tension",
+    "awareness_stage": "unaware",
+    "gap": "How does it look a year later?",
+    "payoff_slide": 6,
+    "answer": "Slide 6 would show her at 4 with a baby who adores her.",
+    "factual_claim": true,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 1,
+     "emotional_truth": 1,
+     "swipe_promise": 1,
+     "usefulness": 0,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 2
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": true,
+     "unfulfilled_promise": true,
+     "blames_parent": false
+    },
+    "used_by": "",
+    "note": "Fails: slide 2 promises how the siblings will be a year on. No source says that, and the carousel cannot deliver it. No value on the cover either."
+   }
+  ],
+  "expert": [
+   {
+    "id": "e1",
+    "formula": "parent-confession",
+    "family": "normalising",
+    "hook": "״אני מתגעגעת\nלגדול שלי״\n2 דרכים לחזור אליו היום",
+    "slide2": "מותר להתגעגע אליו\nגם כשהוא יושב לידך על הספה\nואת עם התינוק על הידיים",
+    "slide2_move": "first_answer",
+    "mechanism": "reassurance",
+    "awareness_stage": "unaware",
+    "gap": "Is it ok to miss the older child, and which 2 ways bring them back together today?",
+    "payoff_slide": 4,
+    "answer": "Slide 2: it is allowed. Slide 3 (AAP): he is looking for her too. Slides 4 and 5: a small daily ritual only for the two of them, and inviting him to help.",
+    "factual_claim": false,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 2,
+     "emotional_truth": 2,
+     "swipe_promise": 2,
+     "usefulness": 2,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 2
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "expert-1",
+    "note": "Wordings calm to loud: «קשה לחלק את עצמך בין שניים» / «חסר לי הזמן עם הגדול» / «״אני מתגעגעת לגדול שלי״» (kept, in quotation marks as a thought, never as the account's own voice)."
+   },
+   {
+    "id": "e2",
+    "formula": "nobody-tells",
+    "family": "surprising_statement",
+    "hook": "מה שלא מספרים לכם\nעל הגדול\nכשנולד תינוק\n2 דברים שעוזרים לו",
+    "slide2": "תומר נגמל לפני חצי שנה\nהתינוק הגיע הביתה\nושוב יש פספוסים ובקשה לבקבוק",
+    "slide2_move": "name_trigger",
+    "mechanism": "honest_curiosity",
+    "awareness_stage": "unaware",
+    "gap": "What does nobody tell you about the older child when a baby is born, and which 2 things help him?",
+    "payoff_slide": 3,
+    "answer": "Slide 2 (AAP, Child Mind Institute): accidents and asking for a bottle can come back. Slide 3: it is normal and his way of checking he is still loved. Slides 4 and 5: words for the feeling, and praise when he acts big.",
+    "factual_claim": true,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 2,
+     "emotional_truth": 2,
+     "swipe_promise": 2,
+     "usefulness": 2,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 1
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "expert-2",
+    "note": "Wordings calm to loud: «הגדול אחרי שנולד תינוק» / «מה שכדאי לדעת על הגדול כשנולד תינוק» / «מה שלא מספרים לכם על הגדול כשנולד תינוק» (kept). The thing nobody tells is said plainly by AAP. Freshness 1: the same opener was used on 10 Oct for first grade."
+   },
+   {
+    "id": "e3",
+    "formula": "practical-question",
+    "family": "practical_question",
+    "hook": "מה עונים לבת 4\nשמבקשת בקבוק\nכמו התינוק?\n2 תשובות שעוזרות לה",
+    "slide2": "מיכל בת 4\nורוצה בקבוק כמו שלו\nזה מוכר אחרי שנולד תינוק\nויש שתי תשובות שעוזרות",
+    "slide2_move": "promise",
+    "mechanism": "practical_utility",
+    "awareness_stage": "solution_aware",
+    "gap": "What do you answer a 4 year old who asks for a bottle like the baby's?",
+    "payoff_slide": 4,
+    "answer": "Slides 4 and 5: yes to closeness instead of 'you are big', and a short time every day only with her. Slide 3 says what she is really asking for.",
+    "factual_claim": true,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 2,
+     "emotional_truth": 2,
+     "swipe_promise": 2,
+     "usefulness": 2,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 2
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "expert-3",
+    "note": "Wordings calm to loud: «כשהגדולה רוצה בקבוק» / «איך מגיבים לגדולה שמבקשת בקבוק?» / «מה עונים לבת 4 שמבקשת בקבוק כמו התינוק?» (kept). Slide 2 says it is common after a new baby: mapped to Child Mind Institute."
+   },
+   {
+    "id": "e4",
+    "formula": "surprising-reframe",
+    "family": "surprising_statement",
+    "hook": "פספוס אחרי התינוק\nלא אומר\nשהגמילה נכשלה",
+    "slide2": "שבוע אחרי שהתינוק הגיע\nהתחתונים שוב רטובים",
+    "slide2_move": "name_trigger",
+    "mechanism": "reassurance",
+    "awareness_stage": "problem_aware",
+    "gap": "If the toilet training did not fail, what do the accidents mean?",
+    "payoff_slide": 3,
+    "answer": "Slide 3 (AAP): normal after a new baby, and a way to check for love and attention.",
+    "factual_claim": true,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 2,
+     "emotional_truth": 2,
+     "swipe_promise": 1,
+     "usefulness": 1,
+     "topic_fit": 2,
+     "lumebook_fit": 1,
+     "freshness": 2
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "",
+    "note": "Passes (17). Not used: same family as e2, and the cover gives no value (usefulness 1)."
+   },
+   {
+    "id": "e5",
+    "formula": "numbered-small-things",
+    "family": "gentle_outcome",
+    "hook": "2 דברים קטנים\nלגדול בבית\nכשנולד תינוק",
+    "slide2": "אף אחד מהם לא דורש הרבה זמן\nהראשון לוקח כמה דקות ביום",
+    "slide2_move": "promise",
+    "mechanism": "practical_utility",
+    "awareness_stage": "solution_aware",
+    "gap": "What are the 2 small things?",
+    "payoff_slide": 4,
+    "answer": "Slides 4 and 5: a few minutes alone each day, and a small job next to the baby.",
+    "factual_claim": false,
+    "score": {
+     "stopping_power": 1,
+     "specificity": 1,
+     "parent_relevance": 2,
+     "honest_curiosity": 1,
+     "emotional_truth": 1,
+     "swipe_promise": 2,
+     "usefulness": 2,
+     "topic_fit": 2,
+     "lumebook_fit": 2,
+     "freshness": 2
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "",
+    "note": "Passes (16). Not used: the calm wording of what e1 to e3 say louder."
+   },
+   {
+    "id": "e6",
+    "formula": "instead-of-say",
+    "family": "sentences_we_say",
+    "hook": "במקום ״את כבר גדולה״\nנסו ״בואי שבי עליי״",
+    "slide2": "״את כבר גדולה״\nכולנו אומרים את זה עם תינוק על הידיים",
+    "slide2_move": "first_answer",
+    "mechanism": "practical_utility",
+    "awareness_stage": "solution_aware",
+    "gap": "Why does the second sentence work better?",
+    "payoff_slide": 3,
+    "answer": "Slide 3 (AAP): instead of telling them to act their age, give the attention they need.",
+    "factual_claim": true,
+    "score": {
+     "stopping_power": 2,
+     "specificity": 2,
+     "parent_relevance": 2,
+     "honest_curiosity": 1,
+     "emotional_truth": 2,
+     "swipe_promise": 1,
+     "usefulness": 2,
+     "topic_fit": 2,
+     "lumebook_fit": 1,
+     "freshness": 0
+    },
+    "fail_checks": {
+     "clickbait": false,
+     "unsupported_claim": false,
+     "unfulfilled_promise": false,
+     "blames_parent": false
+    },
+    "used_by": "",
+    "note": "Passes (15). Not used: «במקום» opened a carousel in the 12 Oct pack, and kid-1 already carries the same sentence from the child's side (freshness 0)."
+   }
+  ]
+ },
+ "directions": [
+  {
+   "id": "kid",
+   "label_he": "הילד מספר להורים",
+   "versions": [
+    {
+     "id": "kid-1",
+     "title": "אמא אל תגידי לי שאני כבר גדולה",
+     "angle": "אביגיל מבקשת מאמא לא להגיד לה שהיא כבר גדולה בדיוק ברגע שהתינוק על הידיים. היא מבקשת בקבוק ומדברת כמו תינוקת כי גם היא רוצה שיחזיקו אותה ככה. שני דברים עוזרים לה: רגע של קרבה כמו לקטנה, ומילה טובה כשהיא כן מתנהגת כמו גדולה.",
+     "target_parent": "אמהות לבת 3 עד 5 שהפכה לאחות גדולה בחודשים האחרונים ופתאום מבקשת בקבוק או מדברת כמו תינוקת.",
+     "awareness_stage": "problem_aware",
+     "hook_family": "child_pov",
+     "hook": {
+      "formula": "child-dont",
+      "gap": "Why should mom not tell her she is big already, and which 2 things help instead?",
+      "payoff_slide": 3,
+      "score": {
+       "specific": 2,
+       "feeling": 2,
+       "honest_gap": 2,
+       "short_spoken": 2,
+       "filters": 2,
+       "not_an_ad": 2
+      },
+      "slate_id": "k1",
+      "mechanism": "perspective_shift",
+      "slide2_move": "other_side"
+     },
+     "code_word": "לומי",
+     "child_gender": "girl",
+     "addressee": "mom",
+     "child_name": "אביגיל",
+     "examples_target": 4,
+     "character_anchor": {
+      "child": "A 4-year-old Israeli girl with curly dark-brown hair in two small buns, light olive skin, big hazel eyes and a few freckles on her nose; about 103 cm tall.",
+      "parent": "Her mother, mid thirties, wavy shoulder-length chestnut hair, light olive skin, warm tired eyes, a gentle natural look.",
+      "wardrobe": "Girl: lilac sweatshirt, grey leggings, striped socks. Mother: cream knit sweater, blue jeans."
+     },
+     "slides": [
+      {
+       "number": 1,
+       "role": "hook",
+       "headline": "אמא אל תגידי לי\nשאני כבר גדולה",
+       "body": "2 דברים שכן עוזרים לי",
+       "highlight": "כבר גדולה",
+       "pull": {
+        "type": "open_loop",
+        "note": "למה לא להגיד לה שהיא גדולה? שקופיות 2 ו-3 עונות"
+       },
+       "image": {
+        "beat": "a big sister who does not want to be big right now",
+        "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, hugging a plush rabbit with both arms; her mother is small and soft in the background on the sofa, holding a newborn wrapped in a pale yellow blanket.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "A grey plush rabbit in the girl's arms.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 45,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 2,
+       "role": "second_hook",
+       "headline": "כשהתינוק על הידיים שלך\nאני רוצה להיות קטנה",
+       "body": "ואז את אומרת לי\n״אביגיל את כבר גדולה״",
+       "highlight": "להיות קטנה",
+       "pull": {
+        "type": "open_loop",
+        "note": "למה זה קשה לה לשמוע? שקופית 3"
+       },
+       "image": {
+        "beat": "watching the baby being held",
+        "action": "The girl stands beside the sofa holding her plush rabbit and looks up at her mother, who sits holding the newborn wrapped in a pale yellow blanket and glances at the girl.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, medium shot, the mother partly in frame.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "The grey plush rabbit hangs from the girl's hand.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 3,
+       "role": "recognition",
+       "headline": "גם אני רוצה\nשתחזיקי אותי ככה",
+       "body": "אז אני מבקשת בקבוק\nומדברת כמו תינוקת",
+       "highlight": "שתחזיקי אותי",
+       "pull": {
+        "type": "next_step",
+        "note": "מה כן עוזר לה? הדבר הראשון בשקופית 4"
+       },
+       "image": {
+        "beat": "asking for the baby's things",
+        "action": "The girl sits on the rug holding an empty baby bottle in both hands and looks toward her mother with big hopeful eyes; her mother kneels beside her, listening.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close medium shot.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "One empty baby bottle in the girl's hands; the plush rabbit lies on the rug.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 4,
+       "role": "solution",
+       "headline": "תני לי להיות\nקטנה לרגע",
+       "body": "״אביגיל רוצה שאחזיק אותך\nכמו תינוקת לרגע?״",
+       "highlight": "קטנה לרגע",
+       "pull": {
+        "type": "next_step",
+        "note": "והדבר השני בשקופית הבאה"
+       },
+       "image": {
+        "beat": "being little for one minute",
+        "action": "The mother sits on the sofa with the girl snuggled in her arms like a much younger child; the girl smiles with closed eyes, and the newborn sleeps in a bassinet beside the sofa.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, medium close two-shot.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "A wicker bassinet with the pale yellow blanket next to the sofa.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 5,
+       "role": "solution",
+       "headline": "תגידי לי\nכשאני כן גדולה",
+       "body": "״ראיתי שהתלבשת לבד\nאיזה כיף לי איתך״",
+       "highlight": "כן גדולה",
+       "pull": {
+        "type": "open_loop",
+        "note": "ומה קורה אחרי כמה ימים כאלה? שקופית 6"
+       },
+       "image": {
+        "beat": "proud of a big-girl moment",
+        "action": "The girl stands tall and proud after pulling on her own sweatshirt, arms spread wide, while her mother crouches at her level and gives her a thumbs-up.",
+        "setting": "A child's bedroom with a plain cream wall and a low wooden dresser",
+        "camera": "Child eye level, medium shot.",
+        "lighting": "Soft morning light.",
+        "wardrobe_objects": "A small pile of folded clothes on the dresser.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 6,
+       "role": "resolution",
+       "headline": "ואז אני כבר לא צריכה\nלהיות תינוקת",
+       "body": "לא מיד\nאבל הבקבוק כבר פחות מעניין אותי",
+       "highlight": "לא צריכה",
+       "pull": {
+        "type": "contrast",
+        "note": "הסיפור נסגר ובשקופית 7 עוד דרך לעזור לה"
+       },
+       "image": {
+        "beat": "a big sister again, in her own time",
+        "action": "The girl sits on the rug next to the bassinet and gently shows her plush rabbit to the newborn inside, smiling; her mother watches from the sofa with a soft smile.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, medium shot.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "The grey plush rabbit in the girl's hand; the empty baby bottle forgotten on a side table.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 7,
+       "role": "story_cta",
+       "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+       "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+       "highlight": "בסיפור אישי",
+       "image": {
+        "beat": "a quiet evening with her own story",
+        "action": "In bed the girl leans on her mother while a picture book is read aloud; the girl points at the page, delighted to recognise herself.",
+        "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+        "camera": "Medium shot from beside the bed, slightly above.",
+        "lighting": "One warm bedside lamp, deep violet shadows.",
+        "wardrobe_objects": "Violet pyjamas, the grey plush rabbit. An open square picture book shows a soft storybook illustration of this same girl as the hero; the pages have no writing.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 50,
+         "surface": "deep plum shadow over a plain dark wall"
+        }
+       }
+      }
+     ],
+     "caption": "כשהתינוק על הידיים אביגיל רוצה להיות קטנה שוב\n״את כבר גדולה״ לא עוזר לה ברגע הזה\nאפשר להחזיק אותה רגע כמו כשהייתה תינוקת\nולהגיד לה בקול כשהיא עושה משהו של גדולים\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+     "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+     "sources": [
+      {
+       "id": "src-aap",
+       "title": "Preparing Your Older Child for a New Baby: How to Help Siblings Adjust",
+       "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 2/10/2026; adapted from Welcoming a New Sibling: How to Help Your Child Adjust, AAP 2020)",
+       "url": "https://www.healthychildren.org/English/ages-stages/prenatal/Pages/Preparing-Your-Family-for-a-New-Baby.aspx",
+       "accessed": "2026-10-13",
+       "quote": "Expect your child to regress a little. For example, your toilet-trained child might suddenly start having \"accidents,\" or they might want to take a bottle. This is normal and is your older child's way of making sure they still have your love and attention. Instead of telling them to act their age, let him have the attention they need. Praise them when they act more grown-up. Set aside special time for your child. ... Find ways to invite your child to help. ... Make an effort to spend some time alone with them each day. ... Read children's books about newborns and siblings with your child. ... Show your child their baby pictures. ... At this age, your child is still learning how to share with others and may feel like they need to compete for your attention.",
+       "supports": "After a new baby arrives an older child may regress (toilet accidents, wanting a bottle); AAP calls this normal and the child's way of making sure they still have the parents' love and attention. Advice: do not tell them to act their age, give the attention they need, praise grown-up behaviour, set aside special time alone each day, invite the child to help, read children's books about newborns and siblings. 'Show your child their baby pictures' and 'compete for your attention' are in the preschooler (2 to 4) section, listed before the baby arrives."
+      },
+      {
+       "id": "src-cmi",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Child Mind Institute (writer Juliann Garey; clinical experts Mandi Silverman, PsyD, MBA, and Kristin Carothers, PhD; last reviewed or updated on January 2, 2026)",
+       "url": "https://childmind.org/article/preparing-child-new-sibling/",
+       "accessed": "2026-10-13",
+       "quote": "Regression behaviors like wanting bottles are normal ways for children to seek attention and will pass with time. ... establish a ritual (even if it’s just a few minutes of playtime or reading) that each parent can do with them before the arrival of the new baby and that continues after the new sibling comes. ... Even the best-prepared kids may suddenly start acting younger, and seeking the kind of attention their new sibling gets. For example, your toilet-trained child might start having accidents or want to go back to wearing diapers or they might want to take a bottle. “It is totally normal for children to engage in regressive behaviors when a new baby arrives,” Dr. Carothers says. “It’s children’s way of making sure their parents are aware that they still need them and it helps them to get the attention they crave. ... To help them feel valued, it can be good to give older children developmentally appropriate jobs that make them feel special. It’s also good to praise the positive mature behaviors the child exhibits. ... Another child may be the one that brings over the burp cloth or maybe they stand on a step stool and help with diaper changes or they can hold the towel at bath time. ... Board books and picture books about new babies are a great thing to add to the usual bedtime ritual.",
+       "supports": "Regression after a new baby (accidents, diapers, a bottle) is normal, is a way to seek the attention the baby gets, and passes with time. Advice: a small daily ritual with each parent, small jobs that make the older child feel special (bringing the burp cloth, helping with diaper changes, holding the towel at bath time), praise for mature behaviour, and picture books about new babies in the bedtime ritual (said for ages 2 to 4). Read in the in-app browser (the site blocks scripted fetching)."
+      },
+      {
+       "id": "src-kh",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Nemours KidsHealth (reviewed by KidsHealth Medical Experts; no review date shown on the page)",
+       "url": "https://kidshealth.org/en/parents/sibling-prep.html",
+       "accessed": "2026-10-13",
+       "quote": "It's common for them to feel jealousy toward the newborn and to act out. ... Take advantage of chances for one-on-one time with older kids. Spend time together while the baby is sleeping and, if possible, set aside time each day for older kids to get one parent's undivided attention. Knowing that there's special time just for them may help ease any resentment or anger about the new baby. ... Encourage older kids to talk about their feelings about the new baby. If a child cannot express those feelings, don't be surprised if they test limits or revert to speaking in baby talk. If your child acts up, don't bend the rules, but understand what feelings may be motivating that behavior. It could be a sign that your child needs more one-on-one time with you",
+       "supports": "Jealousy and acting out toward a newborn are common. Advice: one-on-one time while the baby sleeps, a set time each day with one parent's full attention, encouraging the older child to talk about feelings about the baby; a child who cannot express them may test limits or go back to baby talk."
+      }
+     ],
+     "claims": [
+      {
+       "slide": 3,
+       "wording_he": "גם אני רוצה שתחזיקי אותי ככה אז אני מבקשת בקבוק ומדברת כמו תינוקת",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi",
+        "src-kh"
+       ],
+       "supports": "AAP: an older child might want to take a bottle, as a way of making sure they still have love and attention. Child Mind Institute: seeking the kind of attention their new sibling gets. KidsHealth: may revert to baby talk. The first-person wording is ours, an imagined inner voice of this one child."
+      },
+      {
+       "slide": 4,
+       "wording_he": "תני לי להיות קטנה לרגע",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap"
+       ],
+       "supports": "AAP: instead of telling them to act their age, let them have the attention they need. Holding her like a little one for a moment is our reading of that advice."
+      },
+      {
+       "slide": 5,
+       "wording_he": "תגידי לי כשאני כן גדולה",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: praise them when they act more grown-up. Child Mind Institute: praise the positive mature behaviors the child exhibits."
+      },
+      {
+       "slide": 6,
+       "wording_he": "לא מיד אבל הבקבוק כבר פחות מעניין אותי",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-cmi"
+       ],
+       "supports": "Child Mind Institute: regression behaviors like wanting bottles will pass with time. Told as this one child's story, with no timeline promised."
+      },
+      {
+       "slide": 7,
+       "wording_he": "אפשר לעזור גם בסיפור אישי",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: read children's books about newborns and siblings with your child. Child Mind Institute: picture books about new babies are a great thing to add to the usual bedtime ritual (said for ages 2 to 4). That the story is personalised, with the child as the hero, is our wording."
+      },
+      {
+       "slide": 7,
+       "wording_he": "סיפור אישי שבו הילדה היא הגיבורה",
+       "kind": "product_fact",
+       "source_ids": [
+        "site-star"
+       ],
+       "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-13). No brand or title on the slide."
+      }
+     ],
+     "conversion_rationale": "הפתיח הוא בקשה חזקה בקול של הילדה על משפט שכמעט כל אמא אומרת, עם הבטחה לשני דברים. שקופיות 4 ו-5 נותנות אותם עם משפט מוכן, ושקופית 7 ממשיכה את אותו רעיון: לתת לה מקום משלה."
+    },
+    {
+     "id": "kid-2",
+     "title": "אני לא שונא את התינוק אני מתגעגע אליכם",
+     "angle": "עומר אומר ״תחזירו אותו כבר״ ומתכוון ״תחזרו אליי״. הוא לא שונא את התינוק, הוא מתגעגע לזמן שההורים היו רק שלו. שני דברים עוזרים: כמה דקות ביום רק איתו, ומשפט שאומר לו שמותר לכעוס.",
+     "target_parent": "הורים לבן 3 עד 4 שאומר על התינוק החדש ״תחזירו אותו״ או ״אני לא אוהב אותו״.",
+     "awareness_stage": "problem_aware",
+     "hook_family": "child_pov",
+     "hook": {
+      "formula": "child-not-because",
+      "gap": "If he does not hate the baby, what is behind the angry words, and which 2 things help?",
+      "payoff_slide": 3,
+      "score": {
+       "specific": 2,
+       "feeling": 2,
+       "honest_gap": 2,
+       "short_spoken": 2,
+       "filters": 2,
+       "not_an_ad": 2
+      },
+      "slate_id": "k2",
+      "mechanism": "reframe",
+      "slide2_move": "first_answer"
+     },
+     "code_word": "לומי",
+     "child_gender": "boy",
+     "addressee": "parents",
+     "child_name": "עומר",
+     "examples_target": 5,
+     "character_anchor": {
+      "child": "A 3-year-old Israeli boy with straight sandy-brown hair in a bowl cut, fair skin, big grey-green eyes and round cheeks; about 96 cm tall.",
+      "parent": "His parents: his mother, early thirties, straight dark hair in a low ponytail, fair skin, kind eyes, and his father, mid thirties, short brown hair and light stubble; the mother is clearly present in every scene.",
+      "wardrobe": "Boy: mustard-yellow T-shirt with a small pocket, navy joggers, bare feet. Mother: sage-green linen shirt, light jeans. Father: grey T-shirt, dark trousers."
+     },
+     "slides": [
+      {
+       "number": 1,
+       "role": "hook",
+       "headline": "אני לא שונא\nאת התינוק\nאני מתגעגע אליכם",
+       "body": "2 דברים שיעזרו לי",
+       "highlight": "מתגעגע אליכם",
+       "pull": {
+        "type": "open_loop",
+        "note": "מה הוא באמת מתכוון כשהוא כועס על התינוק? שקופית 2"
+       },
+       "image": {
+        "beat": "missing mom and dad while they are right there",
+        "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, his lower lip pushed out, holding a small wooden toy car in one hand; his mother and father are small and soft in the background, bent over a bassinet.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "A small red wooden toy car in the boy's hand.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 45,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 2,
+       "role": "second_hook",
+       "headline": "״תחזירו אותו כבר״",
+       "body": "ככה זה יוצא לי מהפה\nאני מתכוון ״תחזרו אליי״",
+       "highlight": "תחזירו אותו",
+       "pull": {
+        "type": "open_loop",
+        "note": "למה הוא מרגיש ככה? שקופית 3"
+       },
+       "image": {
+        "beat": "angry words, a different meaning",
+        "action": "The boy stands with his arms crossed and a frown, looking up at his mother, who holds the newborn wrapped in a white blanket; his father crouches next to the boy, listening.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, medium shot, the parents partly in frame.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "The red toy car lies on the rug by the boy's feet.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 3,
+       "role": "recognition",
+       "headline": "פעם הייתם רק שלי",
+       "body": "עכשיו הידיים שלכם תפוסות\nואני מחכה שתתפנו",
+       "highlight": "רק שלי",
+       "pull": {
+        "type": "next_step",
+        "note": "מה יעזור לו לחכות פחות? הדבר הראשון בשקופית 4"
+       },
+       "image": {
+        "beat": "waiting on the side",
+        "action": "The boy sits alone on the rug rolling his toy car back and forth and looks over toward the sofa, where his mother feeds the newborn with a bottle and his father folds small clothes.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close on the boy, the parents soft behind him.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "The red toy car under the boy's hand; one baby bottle in the mother's hand.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 4,
+       "role": "solution",
+       "headline": "כמה דקות ביום\nרק אני ואתם",
+       "body": "״עומר התינוק ישן\nעכשיו אנחנו רק שלך״",
+       "highlight": "רק אני ואתם",
+       "pull": {
+        "type": "next_step",
+        "note": "והדבר השני בשקופית הבאה"
+       },
+       "image": {
+        "beat": "a few minutes that are only his",
+        "action": "The mother and father sit on the rug with the boy and race toy cars with him, all three laughing; the bassinet stands quiet in the far corner.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, medium shot of the three of them.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "The red toy car and two more small wooden cars on the rug.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 5,
+       "role": "solution",
+       "headline": "תגידו לי\nשמותר לי לכעוס",
+       "body": "״עומר מותר לך לכעוס עליו\nגם לנו חסר הזמן איתך״",
+       "highlight": "שמותר לי לכעוס",
+       "pull": {
+        "type": "open_loop",
+        "note": "ומה קורה אחרי כמה ימים כאלה? שקופית 6"
+       },
+       "image": {
+        "beat": "it is okay to be angry",
+        "action": "The mother kneels at the boy's eye level with open hands and speaks to him calmly; the boy's frown is starting to soften, and his father sits close behind him.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close two-shot of the mother and the boy.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "No toys in this scene.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 6,
+       "role": "resolution",
+       "headline": "ולאט לאט\nיש מקום גם לתינוק",
+       "body": "לא מיד\nאבל אני כבר מראה לו את האוטו שלי",
+       "highlight": "מקום גם לתינוק",
+       "pull": {
+        "type": "contrast",
+        "note": "הסיפור נסגר ובשקופית 7 עוד דרך לעזור לו"
+       },
+       "image": {
+        "beat": "room for the baby too",
+        "action": "The boy stands on tiptoe beside the bassinet and holds up his red toy car to show it to the newborn inside, with a small proud smile; his mother and father watch from the sofa.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, medium shot.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "The red toy car in the boy's raised hand.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 7,
+       "role": "story_cta",
+       "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+       "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+       "highlight": "בסיפור אישי",
+       "image": {
+        "beat": "a quiet evening with his own story",
+        "action": "In bed the boy leans on his mother and father while a picture book is read aloud; the boy points at the page, delighted to recognise himself.",
+        "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+        "camera": "Medium shot from beside the bed, slightly above.",
+        "lighting": "One warm bedside lamp, deep violet shadows.",
+        "wardrobe_objects": "Navy pyjamas. An open square picture book shows a soft storybook illustration of this same boy as the hero; the pages have no writing.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 50,
+         "surface": "deep plum shadow over a plain dark wall"
+        }
+       }
+      }
+     ],
+     "caption": "עומר לא שונא את התינוק הוא מתגעגע אליכם\nכשהוא אומר ״תחזירו אותו״ יכול להיות שהוא מתכוון ״תחזרו אליי״\nכמה דקות ביום רק איתו יכולות לעזור\nוגם להגיד לו שמותר לו לכעוס\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+     "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+     "sources": [
+      {
+       "id": "src-aap",
+       "title": "Preparing Your Older Child for a New Baby: How to Help Siblings Adjust",
+       "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 2/10/2026; adapted from Welcoming a New Sibling: How to Help Your Child Adjust, AAP 2020)",
+       "url": "https://www.healthychildren.org/English/ages-stages/prenatal/Pages/Preparing-Your-Family-for-a-New-Baby.aspx",
+       "accessed": "2026-10-13",
+       "quote": "Expect your child to regress a little. For example, your toilet-trained child might suddenly start having \"accidents,\" or they might want to take a bottle. This is normal and is your older child's way of making sure they still have your love and attention. Instead of telling them to act their age, let him have the attention they need. Praise them when they act more grown-up. Set aside special time for your child. ... Find ways to invite your child to help. ... Make an effort to spend some time alone with them each day. ... Read children's books about newborns and siblings with your child. ... Show your child their baby pictures. ... At this age, your child is still learning how to share with others and may feel like they need to compete for your attention.",
+       "supports": "After a new baby arrives an older child may regress (toilet accidents, wanting a bottle); AAP calls this normal and the child's way of making sure they still have the parents' love and attention. Advice: do not tell them to act their age, give the attention they need, praise grown-up behaviour, set aside special time alone each day, invite the child to help, read children's books about newborns and siblings. 'Show your child their baby pictures' and 'compete for your attention' are in the preschooler (2 to 4) section, listed before the baby arrives."
+      },
+      {
+       "id": "src-kh",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Nemours KidsHealth (reviewed by KidsHealth Medical Experts; no review date shown on the page)",
+       "url": "https://kidshealth.org/en/parents/sibling-prep.html",
+       "accessed": "2026-10-13",
+       "quote": "It's common for them to feel jealousy toward the newborn and to act out. ... Take advantage of chances for one-on-one time with older kids. Spend time together while the baby is sleeping and, if possible, set aside time each day for older kids to get one parent's undivided attention. Knowing that there's special time just for them may help ease any resentment or anger about the new baby. ... Encourage older kids to talk about their feelings about the new baby. If a child cannot express those feelings, don't be surprised if they test limits or revert to speaking in baby talk. If your child acts up, don't bend the rules, but understand what feelings may be motivating that behavior. It could be a sign that your child needs more one-on-one time with you",
+       "supports": "Jealousy and acting out toward a newborn are common. Advice: one-on-one time while the baby sleeps, a set time each day with one parent's full attention, encouraging the older child to talk about feelings about the baby; a child who cannot express them may test limits or go back to baby talk."
+      },
+      {
+       "id": "src-cmi",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Child Mind Institute (writer Juliann Garey; clinical experts Mandi Silverman, PsyD, MBA, and Kristin Carothers, PhD; last reviewed or updated on January 2, 2026)",
+       "url": "https://childmind.org/article/preparing-child-new-sibling/",
+       "accessed": "2026-10-13",
+       "quote": "Regression behaviors like wanting bottles are normal ways for children to seek attention and will pass with time. ... establish a ritual (even if it’s just a few minutes of playtime or reading) that each parent can do with them before the arrival of the new baby and that continues after the new sibling comes. ... Even the best-prepared kids may suddenly start acting younger, and seeking the kind of attention their new sibling gets. For example, your toilet-trained child might start having accidents or want to go back to wearing diapers or they might want to take a bottle. “It is totally normal for children to engage in regressive behaviors when a new baby arrives,” Dr. Carothers says. “It’s children’s way of making sure their parents are aware that they still need them and it helps them to get the attention they crave. ... To help them feel valued, it can be good to give older children developmentally appropriate jobs that make them feel special. It’s also good to praise the positive mature behaviors the child exhibits. ... Another child may be the one that brings over the burp cloth or maybe they stand on a step stool and help with diaper changes or they can hold the towel at bath time. ... Board books and picture books about new babies are a great thing to add to the usual bedtime ritual.",
+       "supports": "Regression after a new baby (accidents, diapers, a bottle) is normal, is a way to seek the attention the baby gets, and passes with time. Advice: a small daily ritual with each parent, small jobs that make the older child feel special (bringing the burp cloth, helping with diaper changes, holding the towel at bath time), praise for mature behaviour, and picture books about new babies in the bedtime ritual (said for ages 2 to 4). Read in the in-app browser (the site blocks scripted fetching)."
+      }
+     ],
+     "claims": [
+      {
+       "slide": 3,
+       "wording_he": "פעם הייתם רק שלי עכשיו הידיים שלכם תפוסות",
+       "kind": "lumebook_wording",
+       "source_ids": [
+        "src-aap",
+        "src-kh"
+       ],
+       "supports": "An imagined inner voice of this one child. It rests on AAP (a preschooler may feel they need to compete for the parents' attention) and KidsHealth (jealousy toward the newborn and acting out are common)."
+      },
+      {
+       "slide": 4,
+       "wording_he": "כמה דקות ביום רק אני ואתם ״התינוק ישן עכשיו אנחנו רק שלך״",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-kh"
+       ],
+       "supports": "AAP: make an effort to spend some time alone with them each day. KidsHealth: spend time together while the baby is sleeping; set aside time each day."
+      },
+      {
+       "slide": 5,
+       "wording_he": "תגידו לי שמותר לי לכעוס",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-kh"
+       ],
+       "supports": "KidsHealth: encourage older kids to talk about their feelings about the new baby, and understand what feelings may be motivating the behaviour (without bending the rules). The sentence to say is our wording."
+      },
+      {
+       "slide": 6,
+       "wording_he": "ולאט לאט יש מקום גם לתינוק",
+       "kind": "lumebook_wording",
+       "source_ids": [
+        "src-kh",
+        "src-cmi"
+       ],
+       "supports": "This one child's story, no timeline promised. Rests on KidsHealth (special time just for them may help ease resentment or anger about the new baby) and Child Mind Institute (the behaviours pass with time)."
+      },
+      {
+       "slide": 7,
+       "wording_he": "אפשר לעזור גם בסיפור אישי",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: read children's books about newborns and siblings with your child. Child Mind Institute: picture books about new babies are a great thing to add to the usual bedtime ritual (said for ages 2 to 4). That the story is personalised, with the child as the hero, is our wording."
+      },
+      {
+       "slide": 7,
+       "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
+       "kind": "product_fact",
+       "source_ids": [
+        "site-star"
+       ],
+       "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-13). No brand or title on the slide."
+      }
+     ],
+     "conversion_rationale": "הפתיח הופך משפט שמבהיל הורים (״אני שונא את התינוק״) להסבר שמרגיע ומבטיח שני דברים. שקופית 2 נותנת את התרגום (״תחזרו אליי״), 4 ו-5 נותנות משפטים מוכנים, ושקופית 7 מציעה עוד רגע שהוא רק שלו."
+    },
+    {
+     "id": "kid-3",
+     "title": "בגן אני הכי גדולה בבית שוב תינוקת",
+     "angle": "ליבי כבר הולכת לבד לשירותים בגן, ומאז שהתינוק הגיע יש לה שוב פספוסים בבית. היא לא עושה את זה בכוונה, היא בודקת שאמא עדיין שלה. שני דברים עוזרים: תפקיד קטן ליד התינוק, ותמונות שלה כתינוקת.",
+     "target_parent": "אמהות לבת 3 שנגמלה לפני כמה חודשים וחזרו לה פספוסים בבית אחרי שנולד תינוק.",
+     "awareness_stage": "problem_aware",
+     "hook_family": "reframe",
+     "hook": {
+      "formula": "two-faces",
+      "gap": "Why is she big at gan and a baby again at home, and which 2 things help at home?",
+      "payoff_slide": 3,
+      "score": {
+       "specific": 2,
+       "feeling": 2,
+       "honest_gap": 2,
+       "short_spoken": 2,
+       "filters": 2,
+       "not_an_ad": 2
+      },
+      "slate_id": "k3",
+      "mechanism": "recognition",
+      "slide2_move": "name_trigger"
+     },
+     "code_word": "לומי",
+     "child_gender": "girl",
+     "addressee": "mom",
+     "child_name": "ליבי",
+     "examples_target": 7,
+     "character_anchor": {
+      "child": "A 3-year-old Israeli girl with a light-brown bob and a short fringe, fair skin, rosy cheeks and big blue-grey eyes; about 95 cm tall.",
+      "parent": "Her mother, early thirties, short black hair, round glasses, light-brown skin, a calm patient expression.",
+      "wardrobe": "Girl: soft pink dungaree dress over a white long-sleeve top, yellow socks. Mother: plum-violet cardigan over a white T-shirt, dark jeans."
+     },
+     "slides": [
+      {
+       "number": 1,
+       "role": "hook",
+       "headline": "בגן אני הכי גדולה\nבבית שוב תינוקת",
+       "body": "2 דברים שעוזרים לי בבית",
+       "highlight": "שוב תינוקת",
+       "pull": {
+        "type": "open_loop",
+        "note": "למה דווקא בבית? שקופיות 2 ו-3 עונות"
+       },
+       "image": {
+        "beat": "big at gan, little at home",
+        "action": "The girl faces the viewer and looks straight into the camera with a giant cheeky grin and raised eyebrows, holding a pacifier up in one hand; her mother is small and soft in the background, holding a newborn wrapped in a mint-green blanket.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "One pacifier in the girl's raised hand.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 45,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 2,
+       "role": "second_hook",
+       "headline": "מאז שהתינוק הגיע\nיש לי שוב פספוסים",
+       "body": "בגן אני הולכת לשירותים לבד\nובבית זה בורח לי",
+       "highlight": "שוב פספוסים",
+       "pull": {
+        "type": "open_loop",
+        "note": "למה זה קורה רק בבית? שקופית 3"
+       },
+       "image": {
+        "beat": "an accident at home",
+        "action": "The girl stands in the hallway holding a fresh pair of folded leggings and looks up at her mother with a small embarrassed face; her mother crouches beside her with a kind smile.",
+        "setting": "The hallway of an Israeli apartment with a plain cream wall and a laundry basket",
+        "camera": "Child eye level, medium shot.",
+        "lighting": "Soft afternoon light.",
+        "wardrobe_objects": "Folded clean leggings in the girl's hands; a wicker laundry basket on the floor.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 3,
+       "role": "reframe",
+       "headline": "בבית אני בודקת\nשאת עדיין שלי",
+       "body": "אני לא עושה את זה בכוונה\nאני רוצה שתבואי גם אליי",
+       "highlight": "עדיין שלי",
+       "pull": {
+        "type": "next_step",
+        "note": "מה עוזר לה להרגיש את זה? הדבר הראשון בשקופית 4"
+       },
+       "image": {
+        "beat": "checking that mom is still hers",
+        "action": "The girl hugs her mother's arm and rests her cheek against it, looking up; the mother holds the newborn wrapped in the mint-green blanket on her other side and smiles down at the girl.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close medium shot.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "The mint-green baby blanket.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 4,
+       "role": "solution",
+       "headline": "תני לי תפקיד\nליד התינוק",
+       "body": "״ליבי את מביאה לי חיתול?״\nותגידי לי תודה",
+       "highlight": "תני לי תפקיד",
+       "pull": {
+        "type": "next_step",
+        "note": "והדבר השני בשקופית הבאה"
+       },
+       "image": {
+        "beat": "a real job next to the baby",
+        "action": "The girl proudly carries one clean folded diaper in both hands toward the changing table, where her mother stands beside the newborn and reaches out a hand to take it.",
+        "setting": "A nursery corner with a plain cream wall and a wooden changing table",
+        "camera": "Child eye level, medium shot.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "One clean folded diaper in the girl's hands.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 5,
+       "role": "solution",
+       "headline": "תראי לי תמונות\nשלי כתינוקת",
+       "body": "״ליבי גם אותך החזקתי ככה\nכל הזמן״",
+       "highlight": "שלי כתינוקת",
+       "pull": {
+        "type": "open_loop",
+        "note": "ומה קורה אחרי כמה ימים כאלה? שקופית 6"
+       },
+       "image": {
+        "beat": "she was held like that too",
+        "action": "The girl sits snuggled next to her mother on the sofa, and both look at an open photo album; the girl points at a page with wide happy eyes.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, medium close two-shot.",
+        "lighting": "Warm late-afternoon window light.",
+        "wardrobe_objects": "One open photo album on the mother's knees, its pages showing only soft blurred pictures of a baby, no writing.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 6,
+       "role": "resolution",
+       "headline": "ולאט לאט גם בבית\nאני שוב הגדולה",
+       "body": "לא מיד\nאבל יש פחות פספוסים",
+       "highlight": "שוב הגדולה",
+       "pull": {
+        "type": "contrast",
+        "note": "הסיפור נסגר ובשקופית 7 עוד דרך לעזור לה"
+       },
+       "image": {
+        "beat": "the big girl at home too",
+        "action": "The girl walks out of the bathroom doorway with her arms raised in a proud cheer, and her mother, holding the newborn, smiles at her from the hallway.",
+        "setting": "The hallway of an Israeli apartment with a plain cream wall and a laundry basket",
+        "camera": "Child eye level, medium shot.",
+        "lighting": "Soft afternoon light.",
+        "wardrobe_objects": "A small wooden step stool by the bathroom door.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 7,
+       "role": "story_cta",
+       "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+       "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+       "highlight": "בסיפור אישי",
+       "image": {
+        "beat": "a quiet evening with her own story",
+        "action": "In bed the girl leans on her mother while a picture book is read aloud; the girl points at the page, delighted to recognise herself.",
+        "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+        "camera": "Medium shot from beside the bed, slightly above.",
+        "lighting": "One warm bedside lamp, deep violet shadows.",
+        "wardrobe_objects": "Yellow pyjamas. An open square picture book shows a soft storybook illustration of this same girl as the hero; the pages have no writing.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 50,
+         "surface": "deep plum shadow over a plain dark wall"
+        }
+       }
+      }
+     ],
+     "caption": "בגן ליבי הכי גדולה ובבית היא שוב תינוקת\nמאז שהתינוק הגיע חזרו הפספוסים\nאפשר לתת לה תפקיד קטן ליד התינוק\nולהראות לה תמונות שלה כתינוקת\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+     "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+     "sources": [
+      {
+       "id": "src-aap",
+       "title": "Preparing Your Older Child for a New Baby: How to Help Siblings Adjust",
+       "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 2/10/2026; adapted from Welcoming a New Sibling: How to Help Your Child Adjust, AAP 2020)",
+       "url": "https://www.healthychildren.org/English/ages-stages/prenatal/Pages/Preparing-Your-Family-for-a-New-Baby.aspx",
+       "accessed": "2026-10-13",
+       "quote": "Expect your child to regress a little. For example, your toilet-trained child might suddenly start having \"accidents,\" or they might want to take a bottle. This is normal and is your older child's way of making sure they still have your love and attention. Instead of telling them to act their age, let him have the attention they need. Praise them when they act more grown-up. Set aside special time for your child. ... Find ways to invite your child to help. ... Make an effort to spend some time alone with them each day. ... Read children's books about newborns and siblings with your child. ... Show your child their baby pictures. ... At this age, your child is still learning how to share with others and may feel like they need to compete for your attention.",
+       "supports": "After a new baby arrives an older child may regress (toilet accidents, wanting a bottle); AAP calls this normal and the child's way of making sure they still have the parents' love and attention. Advice: do not tell them to act their age, give the attention they need, praise grown-up behaviour, set aside special time alone each day, invite the child to help, read children's books about newborns and siblings. 'Show your child their baby pictures' and 'compete for your attention' are in the preschooler (2 to 4) section, listed before the baby arrives."
+      },
+      {
+       "id": "src-cmi",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Child Mind Institute (writer Juliann Garey; clinical experts Mandi Silverman, PsyD, MBA, and Kristin Carothers, PhD; last reviewed or updated on January 2, 2026)",
+       "url": "https://childmind.org/article/preparing-child-new-sibling/",
+       "accessed": "2026-10-13",
+       "quote": "Regression behaviors like wanting bottles are normal ways for children to seek attention and will pass with time. ... establish a ritual (even if it’s just a few minutes of playtime or reading) that each parent can do with them before the arrival of the new baby and that continues after the new sibling comes. ... Even the best-prepared kids may suddenly start acting younger, and seeking the kind of attention their new sibling gets. For example, your toilet-trained child might start having accidents or want to go back to wearing diapers or they might want to take a bottle. “It is totally normal for children to engage in regressive behaviors when a new baby arrives,” Dr. Carothers says. “It’s children’s way of making sure their parents are aware that they still need them and it helps them to get the attention they crave. ... To help them feel valued, it can be good to give older children developmentally appropriate jobs that make them feel special. It’s also good to praise the positive mature behaviors the child exhibits. ... Another child may be the one that brings over the burp cloth or maybe they stand on a step stool and help with diaper changes or they can hold the towel at bath time. ... Board books and picture books about new babies are a great thing to add to the usual bedtime ritual.",
+       "supports": "Regression after a new baby (accidents, diapers, a bottle) is normal, is a way to seek the attention the baby gets, and passes with time. Advice: a small daily ritual with each parent, small jobs that make the older child feel special (bringing the burp cloth, helping with diaper changes, holding the towel at bath time), praise for mature behaviour, and picture books about new babies in the bedtime ritual (said for ages 2 to 4). Read in the in-app browser (the site blocks scripted fetching)."
+      }
+     ],
+     "claims": [
+      {
+       "slide": 2,
+       "wording_he": "מאז שהתינוק הגיע יש לי שוב פספוסים",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP and Child Mind Institute: a toilet-trained child might start having accidents after a new baby arrives. That it happens at home and not at gan is this one child's story, not a general claim."
+      },
+      {
+       "slide": 3,
+       "wording_he": "בבית אני בודקת שאת עדיין שלי",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: this is normal and is the older child's way of making sure they still have the parents' love and attention. Child Mind Institute: children's way of making sure their parents are aware that they still need them."
+      },
+      {
+       "slide": 4,
+       "wording_he": "תני לי תפקיד ליד התינוק",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: find ways to invite your child to help. Child Mind Institute: give older children developmentally appropriate jobs that make them feel special; a child may help with diaper changes."
+      },
+      {
+       "slide": 5,
+       "wording_he": "תראי לי תמונות שלי כתינוקת",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap"
+       ],
+       "supports": "AAP: remind your child about when they were a baby; show your child their baby pictures. AAP lists it for preschoolers before the baby arrives; we use it after the birth too."
+      },
+      {
+       "slide": 6,
+       "wording_he": "לא מיד אבל יש פחות פספוסים",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-cmi"
+       ],
+       "supports": "Child Mind Institute: regression behaviours are normal and will pass with time. Told as this one child's story, with no timeline promised."
+      },
+      {
+       "slide": 7,
+       "wording_he": "אפשר לעזור גם בסיפור אישי",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: read children's books about newborns and siblings with your child. Child Mind Institute: picture books about new babies are a great thing to add to the usual bedtime ritual (said for ages 2 to 4). That the story is personalised, with the child as the hero, is our wording."
+      },
+      {
+       "slide": 7,
+       "wording_he": "סיפור אישי שבו הילדה היא הגיבורה",
+       "kind": "product_fact",
+       "source_ids": [
+        "site-star"
+       ],
+       "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-13). No brand or title on the slide."
+      }
+     ],
+     "conversion_rationale": "הפתיח מתאר בשתי שורות את הפער שמבלבל אמהות (גדולה בגן, תינוקת בבית) ומבטיח שני דברים לבית. שקופית 3 מורידה את החשש שזה בכוונה, 4 ו-5 קלות לביצוע עוד היום, ושקופית 7 ממשיכה את הרעיון של תשומת לב שהיא רק שלה."
+    }
+   ]
+  },
+  {
+   "id": "expert",
+   "label_he": "גישה מקצועית מבוססת מקורות",
+   "versions": [
+    {
+     "id": "expert-1",
+     "title": "אני מתגעגעת לגדול שלי",
+     "angle": "מחשבה שהרבה אמהות מתביישות להגיד: מתגעגעת לגדול אחרי שנולד תינוק. גם הוא מחפש אותה, ולפי האקדמיה האמריקאית לרפואת ילדים בקשה לבקבוק היא הדרך שלו לבדוק שעדיין אוהבים אותו. שתי דרכים לחזור אליו: טקס קטן קבוע, ולהזמין אותו לעזור.",
+     "target_parent": "אמהות בשבועות הראשונים עם תינוק חדש שמרגישות שהתרחקו מהבן הגדול, בן 3 עד 5.",
+     "awareness_stage": "unaware",
+     "hook_family": "normalising",
+     "hook": {
+      "formula": "parent-confession",
+      "gap": "Is it ok to miss the older child, and which 2 ways bring them back together today?",
+      "payoff_slide": 4,
+      "score": {
+       "specific": 1,
+       "feeling": 2,
+       "honest_gap": 2,
+       "short_spoken": 2,
+       "filters": 2,
+       "not_an_ad": 2
+      },
+      "slate_id": "e1",
+      "mechanism": "reassurance",
+      "slide2_move": "first_answer"
+     },
+     "code_word": "לומי",
+     "child_gender": "boy",
+     "addressee": "mom",
+     "child_name": "איתי",
+     "examples_target": 4,
+     "character_anchor": {
+      "child": "A 4-year-old Israeli boy with black curly hair, warm brown skin, big dark eyes and long lashes; about 104 cm tall.",
+      "parent": "His mother, mid thirties, dark curly hair tied up in a loose bun, warm brown skin, small gold stud earrings, soft tired eyes.",
+      "wardrobe": "Boy: teal T-shirt with a white stripe, grey shorts, bare feet. Mother: oatmeal linen shirt, loose dark trousers."
+     },
+     "expert_frame": {
+      "type": "evidence_based_take"
+     },
+     "slides": [
+      {
+       "number": 1,
+       "role": "hook",
+       "headline": "״אני מתגעגעת\nלגדול שלי״",
+       "body": "2 דרכים לחזור אליו היום",
+       "highlight": "מתגעגעת",
+       "pull": {
+        "type": "open_loop",
+        "note": "האם מותר להרגיש את זה? שקופית 2"
+       },
+       "image": {
+        "beat": "the older boy waiting to be seen",
+        "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, his chin resting on the back of the sofa; his mother is small and soft in the background, holding a newborn wrapped in a light blue blanket.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "The light blue baby blanket in the background.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 45,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 2,
+       "role": "second_hook",
+       "headline": "מותר להתגעגע אליו",
+       "body": "גם כשהוא יושב לידך על הספה\nואת עם התינוק על הידיים",
+       "highlight": "מותר להתגעגע",
+       "pull": {
+        "type": "open_loop",
+        "note": "ומה עובר עליו באותו זמן? שקופית 3"
+       },
+       "image": {
+        "beat": "side by side and still far",
+        "action": "The mother sits on the sofa holding the newborn wrapped in the light blue blanket and looks tenderly at the boy, who sits beside her leafing through a picture-only sticker album.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium-wide shot, both in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "A sticker album with pictures only on the boy's knees.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 3,
+       "role": "reframe",
+       "headline": "גם איתי מחפש אותך",
+       "body": "הוא מבקש בקבוק או מוצץ\nזו הדרך שלו לבדוק שאת עדיין שלו",
+       "highlight": "מחפש אותך",
+       "pull": {
+        "type": "next_step",
+        "note": "איך חוזרים אליו? הדרך הראשונה בשקופית 4"
+       },
+       "image": {
+        "beat": "asking for the baby's things",
+        "action": "The boy stands in front of his mother and holds up an empty baby bottle with a questioning look; the mother, seated with the newborn asleep beside her in a bassinet, leans toward him.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium shot, both in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "One empty baby bottle in the boy's hand.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 4,
+       "role": "solution",
+       "headline": "קובעים טקס קטן\nרק לשניכם",
+       "body": "״איתי אחרי המקלחת\nזה הזמן שלי ושלך״",
+       "highlight": "טקס קטן",
+       "pull": {
+        "type": "next_step",
+        "note": "והדרך השנייה בשקופית הבאה"
+       },
+       "image": {
+        "beat": "a small ritual that is only theirs",
+        "action": "The mother and the boy, in pyjamas with damp hair, sit together on the rug and build a tower of wooden blocks, their heads close.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium-wide shot, both in frame.",
+        "lighting": "Warm early-evening lamp light.",
+        "wardrobe_objects": "A small tower of wooden blocks between them; the bassinet is not in this scene.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 5,
+       "role": "solution",
+       "headline": "מזמינים אותו לעזור",
+       "body": "להביא חיתול או לבחור בגד\nלהחזיק מגבת או לשיר לתינוק\n״איתי איזה בגד נבחר לתינוק?״",
+       "highlight": "לעזור",
+       "examples": [
+        "להביא חיתול",
+        "לבחור בגד",
+        "להחזיק מגבת",
+        "לשיר לתינוק"
+       ],
+       "pull": {
+        "type": "open_loop",
+        "note": "ומה משתנה אחרי כמה ימים? שקופית 6"
+       },
+       "image": {
+        "beat": "choosing the baby's outfit together",
+        "action": "The boy stands at an open drawer and proudly holds up one tiny striped baby outfit toward his mother, who smiles and nods, with the newborn resting against her shoulder.",
+        "setting": "A nursery corner with a plain cream wall and a low wooden dresser",
+        "camera": "Adult eye level, medium-wide shot, both in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "One tiny striped baby outfit in the boy's hands.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 6,
+       "role": "resolution",
+       "headline": "ולאט לאט הגדול שלך\nחוזר אלייך",
+       "body": "לא מיד\nאבל שוב יש רגע רק שלך ושלו כל יום",
+       "highlight": "חוזר אלייך",
+       "pull": {
+        "type": "contrast",
+        "note": "הסיפור נסגר ובשקופית 7 עוד דרך לעזור לו"
+       },
+       "image": {
+        "beat": "back together",
+        "action": "The boy runs across the living room into his mother's open arms, both laughing; the bassinet stands quietly by the sofa.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium-wide shot, both in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "The bassinet with the light blue blanket by the sofa.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 7,
+       "role": "story_cta",
+       "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+       "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+       "highlight": "בסיפור אישי",
+       "image": {
+        "beat": "a quiet evening with his own story",
+        "action": "In bed the boy leans on his mother while a picture book is read aloud; the boy points at the page, delighted to recognise himself.",
+        "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+        "camera": "Medium shot from beside the bed, slightly above.",
+        "lighting": "One warm bedside lamp, deep violet shadows.",
+        "wardrobe_objects": "Teal pyjamas. An open square picture book shows a soft storybook illustration of this same boy as the hero; the pages have no writing.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 50,
+         "surface": "deep plum shadow over a plain dark wall"
+        }
+       }
+      }
+     ],
+     "caption": "מותר להתגעגע לגדול גם כשהוא יושב לידך\nלפי האקדמיה האמריקאית לרפואת ילדים\nבקשה לבקבוק היא דרך לבדוק שעדיין אוהבים אותו\nטקס קטן רק לשניכם כל יום יכול לעזור\nוגם להזמין אותו לעזור עם התינוק\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+     "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+     "sources": [
+      {
+       "id": "src-aap",
+       "title": "Preparing Your Older Child for a New Baby: How to Help Siblings Adjust",
+       "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 2/10/2026; adapted from Welcoming a New Sibling: How to Help Your Child Adjust, AAP 2020)",
+       "url": "https://www.healthychildren.org/English/ages-stages/prenatal/Pages/Preparing-Your-Family-for-a-New-Baby.aspx",
+       "accessed": "2026-10-13",
+       "quote": "Expect your child to regress a little. For example, your toilet-trained child might suddenly start having \"accidents,\" or they might want to take a bottle. This is normal and is your older child's way of making sure they still have your love and attention. Instead of telling them to act their age, let him have the attention they need. Praise them when they act more grown-up. Set aside special time for your child. ... Find ways to invite your child to help. ... Make an effort to spend some time alone with them each day. ... Read children's books about newborns and siblings with your child. ... Show your child their baby pictures. ... At this age, your child is still learning how to share with others and may feel like they need to compete for your attention.",
+       "supports": "After a new baby arrives an older child may regress (toilet accidents, wanting a bottle); AAP calls this normal and the child's way of making sure they still have the parents' love and attention. Advice: do not tell them to act their age, give the attention they need, praise grown-up behaviour, set aside special time alone each day, invite the child to help, read children's books about newborns and siblings. 'Show your child their baby pictures' and 'compete for your attention' are in the preschooler (2 to 4) section, listed before the baby arrives."
+      },
+      {
+       "id": "src-cmi",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Child Mind Institute (writer Juliann Garey; clinical experts Mandi Silverman, PsyD, MBA, and Kristin Carothers, PhD; last reviewed or updated on January 2, 2026)",
+       "url": "https://childmind.org/article/preparing-child-new-sibling/",
+       "accessed": "2026-10-13",
+       "quote": "Regression behaviors like wanting bottles are normal ways for children to seek attention and will pass with time. ... establish a ritual (even if it’s just a few minutes of playtime or reading) that each parent can do with them before the arrival of the new baby and that continues after the new sibling comes. ... Even the best-prepared kids may suddenly start acting younger, and seeking the kind of attention their new sibling gets. For example, your toilet-trained child might start having accidents or want to go back to wearing diapers or they might want to take a bottle. “It is totally normal for children to engage in regressive behaviors when a new baby arrives,” Dr. Carothers says. “It’s children’s way of making sure their parents are aware that they still need them and it helps them to get the attention they crave. ... To help them feel valued, it can be good to give older children developmentally appropriate jobs that make them feel special. It’s also good to praise the positive mature behaviors the child exhibits. ... Another child may be the one that brings over the burp cloth or maybe they stand on a step stool and help with diaper changes or they can hold the towel at bath time. ... Board books and picture books about new babies are a great thing to add to the usual bedtime ritual.",
+       "supports": "Regression after a new baby (accidents, diapers, a bottle) is normal, is a way to seek the attention the baby gets, and passes with time. Advice: a small daily ritual with each parent, small jobs that make the older child feel special (bringing the burp cloth, helping with diaper changes, holding the towel at bath time), praise for mature behaviour, and picture books about new babies in the bedtime ritual (said for ages 2 to 4). Read in the in-app browser (the site blocks scripted fetching)."
+      }
+     ],
+     "claims": [
+      {
+       "slide": 3,
+       "wording_he": "הוא מבקש בקבוק או מוצץ זו הדרך שלו לבדוק שאת עדיין שלו",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: an older child might want to take a bottle; this is normal and is the child's way of making sure they still have love and attention. Child Mind Institute says the same about bottles and diapers. The pacifier is our example of the same kind of request; the sources name the bottle."
+      },
+      {
+       "slide": 4,
+       "wording_he": "קובעים טקס קטן רק לשניכם",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-cmi",
+        "src-aap"
+       ],
+       "supports": "Child Mind Institute: establish a ritual, even a few minutes of playtime or reading, that each parent can do with the child and that continues after the baby comes. AAP: spend some time alone with them each day."
+      },
+      {
+       "slide": 5,
+       "wording_he": "מזמינים אותו לעזור: להביא חיתול או לבחור בגד להחזיק מגבת או לשיר לתינוק",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: find ways to invite your child to help. Child Mind Institute: small jobs that make them feel special, such as bringing the burp cloth, helping with diaper changes or holding the towel at bath time, and helping pick out clothes. Singing to the baby is our example."
+      },
+      {
+       "slide": 6,
+       "wording_he": "לא מיד אבל שוב יש רגע רק שלך ושלו כל יום",
+       "kind": "lumebook_wording",
+       "source_ids": [
+        "src-cmi"
+       ],
+       "supports": "This one family's story, no promise. Rests on the daily ritual Child Mind Institute describes as 'something like a constant'."
+      },
+      {
+       "slide": 7,
+       "wording_he": "אפשר לעזור גם בסיפור אישי",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: read children's books about newborns and siblings with your child. Child Mind Institute: picture books about new babies are a great thing to add to the usual bedtime ritual (said for ages 2 to 4). That the story is personalised, with the child as the hero, is our wording."
+      },
+      {
+       "slide": 7,
+       "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
+       "kind": "product_fact",
+       "source_ids": [
+        "site-star"
+       ],
+       "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-13). No brand or title on the slide."
+      }
+     ],
+     "conversion_rationale": "הפתיח הוא מחשבה במירכאות שאמא לתינוק חדש מזהה מיד, עם הבטחה לשתי דרכים עוד היום. שקופית 3 מראה שגם הילד מחפש אותה, 4 ו-5 נותנות טקס ותפקיד, ושקופית 7 מציעה עוד רגע משותף לשניהם."
+    },
+    {
+     "id": "expert-2",
+     "title": "מה שלא מספרים לכם על הגדול כשנולד תינוק",
+     "angle": "מה שלא מספרים: גדול שנגמל יכול לחזור לפספוסים ולבקש בקבוק אחרי שנולד תינוק, ולפי האקדמיה האמריקאית לרפואת ילדים זה רגיל וזו הדרך שלו לבדוק שעדיין אוהבים אותו. שני דברים שעוזרים: לתת לו מילים למה שהוא מרגיש, ולהחמיא כשהוא מתנהג כמו גדול.",
+     "target_parent": "הורים לבן 3 שנגמל לא מזמן, עם תינוק חדש בבית או רגע לפני לידה.",
+     "awareness_stage": "unaware",
+     "hook_family": "surprising_statement",
+     "hook": {
+      "formula": "nobody-tells",
+      "gap": "What does nobody tell you about the older child when a baby is born, and which 2 things help him?",
+      "payoff_slide": 3,
+      "score": {
+       "specific": 1,
+       "feeling": 2,
+       "honest_gap": 2,
+       "short_spoken": 2,
+       "filters": 2,
+       "not_an_ad": 2
+      },
+      "slate_id": "e2",
+      "mechanism": "honest_curiosity",
+      "slide2_move": "name_trigger"
+     },
+     "code_word": "לומי",
+     "child_gender": "boy",
+     "addressee": "parents",
+     "child_name": "תומר",
+     "examples_target": 4,
+     "character_anchor": {
+      "child": "A 3-year-old Israeli boy with tousled strawberry-blond hair, fair skin, freckles across his nose and big light-brown eyes; about 97 cm tall.",
+      "parent": "His parents: his mother, early thirties, long auburn hair in a side braid, fair freckled skin, and his father, mid thirties, short dark hair and round glasses; the mother is clearly present in every scene.",
+      "wardrobe": "Boy: red-and-white striped long-sleeve shirt, denim dungarees, bare feet. Mother: mustard cardigan over a white top, jeans. Father: navy polo shirt, beige trousers."
+     },
+     "expert_frame": {
+      "type": "evidence_based_take"
+     },
+     "slides": [
+      {
+       "number": 1,
+       "role": "hook",
+       "headline": "מה שלא מספרים לכם\nעל הגדול\nכשנולד תינוק",
+       "body": "2 דברים שעוזרים לו",
+       "highlight": "שלא מספרים",
+       "pull": {
+        "type": "open_loop",
+        "note": "מה לא מספרים? שקופיות 2 ו-3 עונות"
+       },
+       "image": {
+        "beat": "the big brother nobody warned them about",
+        "action": "The boy faces the viewer and looks straight into the camera with an open-mouthed gasp and huge wide eyes, both hands on his cheeks; his mother and father are small and soft in the background, leaning over a bassinet.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "A wicker bassinet in the background.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 45,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 2,
+       "role": "second_hook",
+       "headline": "תומר נגמל לפני חצי שנה",
+       "body": "התינוק הגיע הביתה\nושוב יש פספוסים ובקשה לבקבוק",
+       "highlight": "נגמל",
+       "pull": {
+        "type": "open_loop",
+        "note": "למה זה חוזר דווקא עכשיו? שקופית 3"
+       },
+       "image": {
+        "beat": "it came back when the baby came home",
+        "action": "The boy stands in the hallway holding an empty baby bottle and looks up at his mother and father; the mother holds the newborn wrapped in a white blanket, and the father crouches down to the boy.",
+        "setting": "The hallway of an Israeli apartment with a plain cream wall",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "One empty baby bottle in the boy's hand.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 3,
+       "role": "reframe",
+       "headline": "הוא לא עושה דווקא\nהוא בודק שאתם שלו",
+       "body": "ככה הוא מוודא\nשעדיין רואים ואוהבים אותו",
+       "highlight": "בודק שאתם שלו",
+       "pull": {
+        "type": "next_step",
+        "note": "מה עוזר לו? הדבר הראשון בשקופית 4"
+       },
+       "image": {
+        "beat": "checking they are still his",
+        "action": "The boy squeezes in between his mother and father on the sofa and looks up at them; the mother puts an arm around him, and the newborn sleeps in the bassinet beside the sofa.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "The wicker bassinet beside the sofa.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 4,
+       "role": "solution",
+       "headline": "נותנים לו מילים\nלמה שהוא מרגיש",
+       "body": "״תומר קשה לחכות\nכשאנחנו עם התינוק נכון?״",
+       "highlight": "נותנים לו מילים",
+       "pull": {
+        "type": "next_step",
+        "note": "והדבר השני בשקופית הבאה"
+       },
+       "image": {
+        "beat": "words for the feeling",
+        "action": "The father sits on the rug at the boy's level and talks with him calmly while the boy nods with a serious little face; the mother sits close by on the sofa with the newborn.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "No toys in this scene.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 5,
+       "role": "solution",
+       "headline": "מחמיאים כשהוא\nמתנהג כמו גדול",
+       "body": "״תומר ראינו שנעלת נעליים לבד\nכל הכבוד״",
+       "highlight": "כמו גדול",
+       "pull": {
+        "type": "open_loop",
+        "note": "ומה קורה עם הזמן? שקופית 6"
+       },
+       "image": {
+        "beat": "noticed for being big",
+        "action": "The boy sits by the front door and proudly lifts one foot to show a sandal he fastened by himself; his mother claps and his father gives a thumbs-up.",
+        "setting": "The entrance of an Israeli apartment with a plain cream wall and a shoe rack",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Soft morning daylight.",
+        "wardrobe_objects": "Brown sandals on the boy's feet.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 6,
+       "role": "resolution",
+       "headline": "ולאט לאט תומר\nמבקש פחות בקבוק",
+       "body": "לא מיד\nאבל זה עובר עם הזמן",
+       "highlight": "פחות בקבוק",
+       "pull": {
+        "type": "contrast",
+        "note": "הסיפור נסגר ובשקופית 7 עוד דרך לעזור לו"
+       },
+       "image": {
+        "beat": "passing with time",
+        "action": "The boy drinks from his own cup at the kitchen table with a content smile, while his mother, holding the newborn, and his father sit with him.",
+        "setting": "An Israeli kitchen with a plain cream wall and a wooden table",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Soft morning daylight.",
+        "wardrobe_objects": "One blue plastic cup in the boy's hands.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 7,
+       "role": "story_cta",
+       "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+       "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+       "highlight": "בסיפור אישי",
+       "image": {
+        "beat": "a quiet evening with his own story",
+        "action": "In bed the boy leans on his mother and father while a picture book is read aloud; the boy points at the page, delighted to recognise himself.",
+        "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+        "camera": "Medium shot from beside the bed, slightly above.",
+        "lighting": "One warm bedside lamp, deep violet shadows.",
+        "wardrobe_objects": "Striped pyjamas. An open square picture book shows a soft storybook illustration of this same boy as the hero; the pages have no writing.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 50,
+         "surface": "deep plum shadow over a plain dark wall"
+        }
+       }
+      }
+     ],
+     "caption": "יש משהו שלא מספרים על הגדול כשנולד תינוק\nלפי האקדמיה האמריקאית לרפואת ילדים\nפספוסים ובקשה לבקבוק הם דרך לבדוק שעדיין אוהבים אותו\nאפשר לתת לו מילים למה שהוא מרגיש\nולהחמיא לו כשהוא מתנהג כמו גדול\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+     "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+     "sources": [
+      {
+       "id": "src-aap",
+       "title": "Preparing Your Older Child for a New Baby: How to Help Siblings Adjust",
+       "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 2/10/2026; adapted from Welcoming a New Sibling: How to Help Your Child Adjust, AAP 2020)",
+       "url": "https://www.healthychildren.org/English/ages-stages/prenatal/Pages/Preparing-Your-Family-for-a-New-Baby.aspx",
+       "accessed": "2026-10-13",
+       "quote": "Expect your child to regress a little. For example, your toilet-trained child might suddenly start having \"accidents,\" or they might want to take a bottle. This is normal and is your older child's way of making sure they still have your love and attention. Instead of telling them to act their age, let him have the attention they need. Praise them when they act more grown-up. Set aside special time for your child. ... Find ways to invite your child to help. ... Make an effort to spend some time alone with them each day. ... Read children's books about newborns and siblings with your child. ... Show your child their baby pictures. ... At this age, your child is still learning how to share with others and may feel like they need to compete for your attention.",
+       "supports": "After a new baby arrives an older child may regress (toilet accidents, wanting a bottle); AAP calls this normal and the child's way of making sure they still have the parents' love and attention. Advice: do not tell them to act their age, give the attention they need, praise grown-up behaviour, set aside special time alone each day, invite the child to help, read children's books about newborns and siblings. 'Show your child their baby pictures' and 'compete for your attention' are in the preschooler (2 to 4) section, listed before the baby arrives."
+      },
+      {
+       "id": "src-cmi",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Child Mind Institute (writer Juliann Garey; clinical experts Mandi Silverman, PsyD, MBA, and Kristin Carothers, PhD; last reviewed or updated on January 2, 2026)",
+       "url": "https://childmind.org/article/preparing-child-new-sibling/",
+       "accessed": "2026-10-13",
+       "quote": "Regression behaviors like wanting bottles are normal ways for children to seek attention and will pass with time. ... establish a ritual (even if it’s just a few minutes of playtime or reading) that each parent can do with them before the arrival of the new baby and that continues after the new sibling comes. ... Even the best-prepared kids may suddenly start acting younger, and seeking the kind of attention their new sibling gets. For example, your toilet-trained child might start having accidents or want to go back to wearing diapers or they might want to take a bottle. “It is totally normal for children to engage in regressive behaviors when a new baby arrives,” Dr. Carothers says. “It’s children’s way of making sure their parents are aware that they still need them and it helps them to get the attention they crave. ... To help them feel valued, it can be good to give older children developmentally appropriate jobs that make them feel special. It’s also good to praise the positive mature behaviors the child exhibits. ... Another child may be the one that brings over the burp cloth or maybe they stand on a step stool and help with diaper changes or they can hold the towel at bath time. ... Board books and picture books about new babies are a great thing to add to the usual bedtime ritual.",
+       "supports": "Regression after a new baby (accidents, diapers, a bottle) is normal, is a way to seek the attention the baby gets, and passes with time. Advice: a small daily ritual with each parent, small jobs that make the older child feel special (bringing the burp cloth, helping with diaper changes, holding the towel at bath time), praise for mature behaviour, and picture books about new babies in the bedtime ritual (said for ages 2 to 4). Read in the in-app browser (the site blocks scripted fetching)."
+      },
+      {
+       "id": "src-kh",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Nemours KidsHealth (reviewed by KidsHealth Medical Experts; no review date shown on the page)",
+       "url": "https://kidshealth.org/en/parents/sibling-prep.html",
+       "accessed": "2026-10-13",
+       "quote": "It's common for them to feel jealousy toward the newborn and to act out. ... Take advantage of chances for one-on-one time with older kids. Spend time together while the baby is sleeping and, if possible, set aside time each day for older kids to get one parent's undivided attention. Knowing that there's special time just for them may help ease any resentment or anger about the new baby. ... Encourage older kids to talk about their feelings about the new baby. If a child cannot express those feelings, don't be surprised if they test limits or revert to speaking in baby talk. If your child acts up, don't bend the rules, but understand what feelings may be motivating that behavior. It could be a sign that your child needs more one-on-one time with you",
+       "supports": "Jealousy and acting out toward a newborn are common. Advice: one-on-one time while the baby sleeps, a set time each day with one parent's full attention, encouraging the older child to talk about feelings about the baby; a child who cannot express them may test limits or go back to baby talk."
+      }
+     ],
+     "claims": [
+      {
+       "slide": 2,
+       "wording_he": "התינוק הגיע הביתה ושוב יש פספוסים ובקשה לבקבוק",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: your toilet-trained child might suddenly start having accidents, or they might want to take a bottle. Child Mind Institute says the same. This backs the cover's 'what nobody tells you'."
+      },
+      {
+       "slide": 3,
+       "wording_he": "הוא לא עושה דווקא הוא בודק שאתם שלו",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: this is normal and is your older child's way of making sure they still have your love and attention. Child Mind Institute: it is totally normal; children's way of making sure their parents are aware that they still need them."
+      },
+      {
+       "slide": 4,
+       "wording_he": "נותנים לו מילים למה שהוא מרגיש",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-kh"
+       ],
+       "supports": "KidsHealth: encourage older kids to talk about their feelings about the new baby; a child who cannot express them may test limits or revert to baby talk. The sentence to say is our wording."
+      },
+      {
+       "slide": 5,
+       "wording_he": "מחמיאים כשהוא מתנהג כמו גדול",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: praise them when they act more grown-up. Child Mind Institute: praise the positive mature behaviors the child exhibits."
+      },
+      {
+       "slide": 6,
+       "wording_he": "לא מיד אבל זה עובר עם הזמן",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-cmi"
+       ],
+       "supports": "Child Mind Institute: regression behaviors like wanting bottles are normal ways for children to seek attention and will pass with time. No timeline is given by the source or by us."
+      },
+      {
+       "slide": 7,
+       "wording_he": "אפשר לעזור גם בסיפור אישי",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: read children's books about newborns and siblings with your child. Child Mind Institute: picture books about new babies are a great thing to add to the usual bedtime ritual (said for ages 2 to 4). That the story is personalised, with the child as the hero, is our wording."
+      },
+      {
+       "slide": 7,
+       "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
+       "kind": "product_fact",
+       "source_ids": [
+        "site-star"
+       ],
+       "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-13). No brand or title on the slide."
+      }
+     ],
+     "conversion_rationale": "פתיח של ״מה שלא מספרים״ על רגע שהורים לא מצפים לו, עם הבטחה לשני דברים. שקופית 3 מרגיעה עם מקור, 4 ו-5 נותנות משפטים מוכנים, ושקופית 7 מגיעה כשההורה כבר קיבל ערך."
+    },
+    {
+     "id": "expert-3",
+     "title": "מה עונים לבת 4 שמבקשת בקבוק כמו התינוק",
+     "angle": "שאלה מעשית: בת 4 מבקשת בקבוק כמו התינוק. לפי Child Mind Institute זה רגיל ועובר עם הזמן, ולפי האקדמיה האמריקאית לרפואת ילדים עדיף לתת לה את תשומת הלב במקום להגיד לה להתנהג לפי הגיל. שתי תשובות: כן לקרבה, וזמן קצר כל יום רק איתה.",
+     "target_parent": "הורים לבת 4 עד 5 שמבקשת בקבוק או מוצץ מאז שנולד תינוק, ומחפשים מה לענות.",
+     "awareness_stage": "solution_aware",
+     "hook_family": "practical_question",
+     "hook": {
+      "formula": "practical-question",
+      "gap": "What do you answer a 4 year old who asks for a bottle like the baby's?",
+      "payoff_slide": 4,
+      "score": {
+       "specific": 2,
+       "feeling": 2,
+       "honest_gap": 2,
+       "short_spoken": 2,
+       "filters": 2,
+       "not_an_ad": 2
+      },
+      "slate_id": "e3",
+      "mechanism": "practical_utility",
+      "slide2_move": "promise"
+     },
+     "code_word": "לומי",
+     "child_gender": "girl",
+     "addressee": "parents",
+     "child_name": "מיכל",
+     "examples_target": 3,
+     "character_anchor": {
+      "child": "A 4-year-old Israeli girl with a long dark braid over one shoulder, olive skin, big brown eyes and a small beauty mark on her cheek; about 105 cm tall.",
+      "parent": "Her parents: her mother, mid thirties, shoulder-length black hair, olive skin, a warm open smile, and her father, late thirties, short greying hair and a trimmed beard; the mother is clearly present in every scene.",
+      "wardrobe": "Girl: sky-blue T-shirt dress with white dots, white leggings, bare feet. Mother: terracotta linen blouse, cream trousers. Father: olive-green T-shirt, jeans."
+     },
+     "expert_frame": {
+      "type": "evidence_based_take"
+     },
+     "slides": [
+      {
+       "number": 1,
+       "role": "hook",
+       "headline": "מה עונים לבת 4\nשמבקשת בקבוק\nכמו התינוק?",
+       "body": "2 תשובות שעוזרות לה",
+       "highlight": "שמבקשת בקבוק",
+       "pull": {
+        "type": "open_loop",
+        "note": "מה עונים לה? שקופית 2 מתחילה לענות"
+       },
+       "image": {
+        "beat": "a four year old with the baby's bottle",
+        "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout and huge pleading eyes, holding an empty baby bottle in both hands; her mother and father are small and soft in the background beside a bassinet.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "One empty baby bottle in the girl's hands.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 45,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 2,
+       "role": "second_hook",
+       "headline": "מיכל בת 4\nורוצה בקבוק כמו שלו",
+       "body": "זה מוכר אחרי שנולד תינוק\nויש שתי תשובות שעוזרות",
+       "highlight": "ורוצה בקבוק",
+       "pull": {
+        "type": "open_loop",
+        "note": "מה היא באמת מבקשת? שקופית 3"
+       },
+       "image": {
+        "beat": "asking for the same as the baby",
+        "action": "The girl stands at the kitchen counter pointing up at an empty baby bottle on the drying rack and looks back at her mother and father; the mother holds the newborn, and the father leans on the counter.",
+        "setting": "An Israeli kitchen with a plain cream wall and a wooden counter",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "One empty baby bottle on a drying rack.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 3,
+       "role": "reframe",
+       "headline": "היא לא רוצה חלב\nהיא רוצה אתכם",
+       "body": "ככה היא מוודאת\nשעדיין יש לה מקום אצלכם",
+       "highlight": "רוצה אתכם",
+       "pull": {
+        "type": "next_step",
+        "note": "אז מה עונים? התשובה הראשונה בשקופית 4"
+       },
+       "image": {
+        "beat": "she wants them, not the milk",
+        "action": "The girl wraps both arms around her mother's arm and leans in, looking up at her, while the father, holding the newborn, smiles at the two of them.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "The newborn wrapped in a cream blanket in the father's arms.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 4,
+       "role": "solution",
+       "headline": "אומרים כן לקרבה\nבמקום ״את גדולה״",
+       "body": "״מיכל בואי שבי עליי\nיש לי מקום גם בשבילך״",
+       "highlight": "כן לקרבה",
+       "pull": {
+        "type": "next_step",
+        "note": "והתשובה השנייה בשקופית הבאה"
+       },
+       "image": {
+        "beat": "yes to closeness",
+        "action": "The mother sits in an armchair and opens her arms as the girl climbs up to snuggle with her, both smiling; the father stands nearby rocking the newborn.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "A soft grey armchair.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 5,
+       "role": "solution",
+       "headline": "זמן קצר כל יום\nרק איתה",
+       "body": "״מיכל כשהתינוק נרדם\nיש לנו זמן רק איתך״",
+       "highlight": "רק איתה",
+       "pull": {
+        "type": "open_loop",
+        "note": "ומה קורה עם הבקבוק? שקופית 6"
+       },
+       "image": {
+        "beat": "a short time every day that is only hers",
+        "action": "The mother and father sit at a low table with the girl and draw with crayons together, the girl proudly holding up her drawing; the bassinet is quiet in the far corner.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "Crayons and sheets of paper with simple shapes only, no letters.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 6,
+       "role": "resolution",
+       "headline": "ולאט לאט הבקבוק\nחוזר להיות של התינוק",
+       "body": "לא מיד\nאבל היא מבקשת אותו פחות",
+       "highlight": "של התינוק",
+       "pull": {
+        "type": "contrast",
+        "note": "הסיפור נסגר ובשקופית 7 עוד דרך לעזור לה"
+       },
+       "image": {
+        "beat": "the bottle goes back to the baby",
+        "action": "The girl hands the baby bottle to her father, who feeds the newborn on the sofa, and she watches with a small proud smile while her mother sits beside her.",
+        "setting": "A lived-in Israeli living room with a plain cream wall, a grey sofa and a woven rug",
+        "camera": "Adult eye level, medium-wide shot, all in frame.",
+        "lighting": "Muted golden afternoon daylight.",
+        "wardrobe_objects": "One baby bottle passing from the girl's hand to the father's hand.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 40,
+         "surface": "plain warm cream wall"
+        }
+       }
+      },
+      {
+       "number": 7,
+       "role": "story_cta",
+       "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+       "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+       "highlight": "בסיפור אישי",
+       "image": {
+        "beat": "a quiet evening with her own story",
+        "action": "In bed the girl leans on her mother and father while a picture book is read aloud; the girl points at the page, delighted to recognise herself.",
+        "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+        "camera": "Medium shot from beside the bed, slightly above.",
+        "lighting": "One warm bedside lamp, deep violet shadows.",
+        "wardrobe_objects": "Sky-blue pyjamas. An open square picture book shows a soft storybook illustration of this same girl as the hero; the pages have no writing.",
+        "text_zone": {
+         "edge": "top",
+         "percent": 50,
+         "surface": "deep plum shadow over a plain dark wall"
+        }
+       }
+      }
+     ],
+     "caption": "מיכל בת 4 ופתאום רוצה בקבוק כמו התינוק\nלפי האקדמיה האמריקאית לרפואת ילדים זה רגיל אחרי שנולד תינוק\nאפשר להגיד כן לקרבה במקום ״את גדולה״\nולשמור לה זמן קצר כל יום רק איתה\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+     "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+     "sources": [
+      {
+       "id": "src-aap",
+       "title": "Preparing Your Older Child for a New Baby: How to Help Siblings Adjust",
+       "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 2/10/2026; adapted from Welcoming a New Sibling: How to Help Your Child Adjust, AAP 2020)",
+       "url": "https://www.healthychildren.org/English/ages-stages/prenatal/Pages/Preparing-Your-Family-for-a-New-Baby.aspx",
+       "accessed": "2026-10-13",
+       "quote": "Expect your child to regress a little. For example, your toilet-trained child might suddenly start having \"accidents,\" or they might want to take a bottle. This is normal and is your older child's way of making sure they still have your love and attention. Instead of telling them to act their age, let him have the attention they need. Praise them when they act more grown-up. Set aside special time for your child. ... Find ways to invite your child to help. ... Make an effort to spend some time alone with them each day. ... Read children's books about newborns and siblings with your child. ... Show your child their baby pictures. ... At this age, your child is still learning how to share with others and may feel like they need to compete for your attention.",
+       "supports": "After a new baby arrives an older child may regress (toilet accidents, wanting a bottle); AAP calls this normal and the child's way of making sure they still have the parents' love and attention. Advice: do not tell them to act their age, give the attention they need, praise grown-up behaviour, set aside special time alone each day, invite the child to help, read children's books about newborns and siblings. 'Show your child their baby pictures' and 'compete for your attention' are in the preschooler (2 to 4) section, listed before the baby arrives."
+      },
+      {
+       "id": "src-cmi",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Child Mind Institute (writer Juliann Garey; clinical experts Mandi Silverman, PsyD, MBA, and Kristin Carothers, PhD; last reviewed or updated on January 2, 2026)",
+       "url": "https://childmind.org/article/preparing-child-new-sibling/",
+       "accessed": "2026-10-13",
+       "quote": "Regression behaviors like wanting bottles are normal ways for children to seek attention and will pass with time. ... establish a ritual (even if it’s just a few minutes of playtime or reading) that each parent can do with them before the arrival of the new baby and that continues after the new sibling comes. ... Even the best-prepared kids may suddenly start acting younger, and seeking the kind of attention their new sibling gets. For example, your toilet-trained child might start having accidents or want to go back to wearing diapers or they might want to take a bottle. “It is totally normal for children to engage in regressive behaviors when a new baby arrives,” Dr. Carothers says. “It’s children’s way of making sure their parents are aware that they still need them and it helps them to get the attention they crave. ... To help them feel valued, it can be good to give older children developmentally appropriate jobs that make them feel special. It’s also good to praise the positive mature behaviors the child exhibits. ... Another child may be the one that brings over the burp cloth or maybe they stand on a step stool and help with diaper changes or they can hold the towel at bath time. ... Board books and picture books about new babies are a great thing to add to the usual bedtime ritual.",
+       "supports": "Regression after a new baby (accidents, diapers, a bottle) is normal, is a way to seek the attention the baby gets, and passes with time. Advice: a small daily ritual with each parent, small jobs that make the older child feel special (bringing the burp cloth, helping with diaper changes, holding the towel at bath time), praise for mature behaviour, and picture books about new babies in the bedtime ritual (said for ages 2 to 4). Read in the in-app browser (the site blocks scripted fetching)."
+      },
+      {
+       "id": "src-kh",
+       "title": "Preparing Your Child for a New Sibling",
+       "publisher": "Nemours KidsHealth (reviewed by KidsHealth Medical Experts; no review date shown on the page)",
+       "url": "https://kidshealth.org/en/parents/sibling-prep.html",
+       "accessed": "2026-10-13",
+       "quote": "It's common for them to feel jealousy toward the newborn and to act out. ... Take advantage of chances for one-on-one time with older kids. Spend time together while the baby is sleeping and, if possible, set aside time each day for older kids to get one parent's undivided attention. Knowing that there's special time just for them may help ease any resentment or anger about the new baby. ... Encourage older kids to talk about their feelings about the new baby. If a child cannot express those feelings, don't be surprised if they test limits or revert to speaking in baby talk. If your child acts up, don't bend the rules, but understand what feelings may be motivating that behavior. It could be a sign that your child needs more one-on-one time with you",
+       "supports": "Jealousy and acting out toward a newborn are common. Advice: one-on-one time while the baby sleeps, a set time each day with one parent's full attention, encouraging the older child to talk about feelings about the baby; a child who cannot express them may test limits or go back to baby talk."
+      }
+     ],
+     "claims": [
+      {
+       "slide": 2,
+       "wording_he": "זה מוכר אחרי שנולד תינוק",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-cmi",
+        "src-aap"
+       ],
+       "supports": "Child Mind Institute: it is totally normal for children to engage in regressive behaviors when a new baby arrives; they might want to take a bottle. AAP: this is normal."
+      },
+      {
+       "slide": 3,
+       "wording_he": "היא לא רוצה חלב היא רוצה אתכם ככה היא מוודאת שעדיין יש לה מקום אצלכם",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: the older child's way of making sure they still have your love and attention. Child Mind Institute: it helps them to get the attention they crave. 'Not the milk' is our plain wording of that."
+      },
+      {
+       "slide": 4,
+       "wording_he": "אומרים כן לקרבה במקום ״את גדולה״",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap"
+       ],
+       "supports": "AAP: instead of telling them to act their age, let them have the attention they need. The sources do not say whether to give the bottle itself, and neither do we."
+      },
+      {
+       "slide": 5,
+       "wording_he": "זמן קצר כל יום רק איתה ״כשהתינוק נרדם יש לנו זמן רק איתך״",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-kh"
+       ],
+       "supports": "AAP: make an effort to spend some time alone with them each day. KidsHealth: spend time together while the baby is sleeping; set aside time each day."
+      },
+      {
+       "slide": 6,
+       "wording_he": "לא מיד אבל היא מבקשת אותו פחות",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-cmi"
+       ],
+       "supports": "Child Mind Institute: regression behaviors like wanting bottles will pass with time. Told as this one child's story, no timeline promised."
+      },
+      {
+       "slide": 7,
+       "wording_he": "אפשר לעזור גם בסיפור אישי",
+       "kind": "sourced_fact",
+       "source_ids": [
+        "src-aap",
+        "src-cmi"
+       ],
+       "supports": "AAP: read children's books about newborns and siblings with your child. Child Mind Institute: picture books about new babies are a great thing to add to the usual bedtime ritual (said for ages 2 to 4). That the story is personalised, with the child as the hero, is our wording."
+      },
+      {
+       "slide": 7,
+       "wording_he": "סיפור אישי שבו הילדה היא הגיבורה",
+       "kind": "product_fact",
+       "source_ids": [
+        "site-star"
+       ],
+       "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-13). No brand or title on the slide."
+      }
+     ],
+     "conversion_rationale": "שאלה שהורים מקלידים בחיפוש, עם גיל ורגע מדויק והבטחה לשתי תשובות. שקופיות 4 ו-5 נותנות את שתיהן עם משפט מוכן, ושקופית 7 מגיעה אחרי שהשאלה נענתה."
+    }
+   ]
+  }
+ ]
+}

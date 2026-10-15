@@ -1,4 +1,6 @@
-# LumeBook nightly carousel pipeline
+# Hook Studio · the LumeBook nightly carousel pipeline
+
+Named Hook Studio on 10 Oct 2026. The work goes in this order: the hook (the loudest true cover the topic allows), the content (every slide worth the swipe on its own), the slide design (very large type, one highlighted phrase per slide). Sources and rotation are guardrails. The folder, the skill and the scheduled task keep their old names.
 
 Every night at 22:00 Claude prepares six complete Hebrew carousel options on one topic for the next morning. Nothing is generated or paid for until Yarin picks one option and approves the cost.
 
@@ -16,9 +18,9 @@ The Claude side is the project skill `.claude/skills/lumebook-carousel` (both mo
 carousel/carousel-pipeline/
   README.md               this manual
   pack.schema.json        structure of a nightly pack (2 directions x 3 options x 7 slides)
-  reco.schema.json        structure of the daily games and books carousels (recommendations.md has the rules)
-  recommendations.md      the games and books format: stage, Israeli popularity evidence, slides, images, rotation
-  reco-history.json       which stages, skills, products and hook structures the games and books carousels used
+  reco.schema.json        structure of the daily games and books carousel (recommendations.md has the rules)
+  recommendations.md      the games and books carousel: stage, Israeli popularity evidence, slides, images, rotation
+  reco-history.json       which stages, skills, products and hook structures the recommendation carousels used
   topic-bank.md           topics with ids, season months, code word ideas, books to check
   hook-bank.md            hook formulas with evidence labels and review dates, formula cards, the hook slate method,
                           rotation rules, slide 2 moves and per-slide re-hook moves
@@ -29,7 +31,8 @@ carousel/carousel-pipeline/
   history.json            what ran when: topic, hook families, code words, hooks, selected option
   voice-profile.md        voice rules, calibration status, where samples go
   drafts/DATE/            pack.json, review.html, review.md (+ versions/vN/ backups of reruns),
-                          games-carousel.json, books-carousel.json, reco-assets/, games/ and books/ (rendered slides)
+                          reco-carousel.json, reco.html, reco-assets/, reco/ (rendered slides); nights up to
+                          13 Oct 2026: games-carousel.json, books-carousel.json, games/ and books/
   approved/DATE-OPTION/   one production run: approved.json, jobs.json, state.json, APPROVAL.md,
                           generated-assets/, real-assets/, final/
   scripts/                all the tools (standard library Python, plus Google Chrome for rendering)
@@ -58,7 +61,7 @@ python3 carousel/carousel-pipeline/scripts/nightly.py start
 
 then ask Claude: "use the lumebook-carousel skill in nightly review mode".
 
-Every run also writes two extra carousels: 3 games and 3 books for one developmental stage, each popular in Israel with Israel-specific evidence, a real product image in the middle of each recommendation slide and LumeBook named once on slide 6. Each has its own page (`games.html`, `books.html`), one tab away from `review.html`, with the sources, popularity evidence, availability and image rights in dropdowns, and editable there. No image generation, no paid call, nothing posted. Rules: `recommendations.md`. Check them by hand:
+Every run also writes one extra carousel of games and books together (Yarin, 14 Oct 2026: "combine the book and games to one carousel. 10-20 slides", then "cap it to 7-9 books and games"): `reco-carousel.json`, a random 7 to 9 suggestions (the LumeBook book counts as one; 10 to 12 slides), at least 3 real games and at least 3 real books for the same one developmental stage, the games first and then the books, each popular in Israel with Israel-specific evidence, a real product image in the middle of each recommendation slide with a small משחק or ספר word above the title, plain dark plum Heebo text with no colour blocks except on the close slide (Yarin, 14 Oct 2026), and the LumeBook book as the second to last suggestion (its slide shows the cover of the catalogue book whose idea its line states, flat in a white card like the other books since 14 Oct 2026). It follows Hook Studio too: `X משחקים וספרים לגילאי A-B ש...` with a value ending, a `highlight` on slides 1 and 2, the bold look, and the wordings considered in `hook_alternatives`. It has its own page, `reco.html`, one tab away from `review.html` (the slides scroll sideways on a phone), with the sources, popularity evidence, availability and image rights in dropdowns, and editable there. No image generation, no paid call, nothing posted. Nights up to 13 Oct 2026 have two separate carousels instead (`games-carousel.json`, `books-carousel.json`, 3 to 7 suggestions each, pages `games.html` and `books.html`); they still validate and render. Rules: `recommendations.md`. Check it by hand:
 
 ```bash
 python3 carousel/carousel-pipeline/scripts/nightly.py finish-reco carousel/carousel-pipeline/drafts/DATE
@@ -74,6 +77,7 @@ A light page with two sections: the child talks (kid-1 to kid-3) and the evidenc
 - one row with the angle, who it is for and why it may convert
 - the seven slides side by side (they scroll sideways on a phone), each with its role, word count and why it pulls to the next slide
 - the caption and the single CTA side by side
+- under each slide, on packs written for the bold look, the highlighted phrase (click to change it)
 - two dropdowns: "טענות ומקורות" (every claim, its source and the verbatim quote) and "תיאורי תמונות ועוגן הדמויות" (each slide's text next to its image brief and the exact prompt)
 
 The topic reason and the live-site product facts sit in dropdowns too. The chip at the top says whether the voice is calibrated (it counts your rewrites, see section 7).
@@ -118,23 +122,30 @@ python3 carousel/carousel-pipeline/scripts/compose_slides.py carousel/carousel-p
 
 Output in `final/`: `slides.html` (editable source), `01.png` to `08.png` (1080 x 1350), `contact-sheet.png`, `rtl-check.png` (every line mixing Hebrew with digits or Latin, large), `caption.txt`, `sources.md`, `alt-text.txt` and `DATE-OPTION.zip`. The Hebrew is HTML text on top of the images; the image model never draws letters.
 
+Two looks. Bold (10 Oct 2026, the default for copy that has highlights): very large headline, the `highlight` phrase in a colour block, speech bubbles for quoted sentences, the comment line as a button. Classic (8 Oct 2026, automatic for older copy): the earlier, smaller layout. `--look bold` or `--look classic` forces one, and `--out NAME` writes to another folder so two looks can be compared side by side.
+
 The carousel never names the brand: no logo and no product card by default. `--brand-mark` adds the logo and `--preview-card` adds an unbranded `real-assets/preview.png` on slide 7, if ever wanted.
 
 To test the layout without paid images: add `--placeholders` (writes to `final-placeholders/`).
 
-When posting: set the comment automation for the code word in Meta Business Suite, paste the alt text.
+When posting: set the comment automation for the code word in Meta Business Suite (always לומי since 10 Oct 2026, one automation for every carousel), paste the alt text.
 
 ## 6 · Hard rules the validator enforces
 
 On everything a parent reads (slide text, caption, CTA, code word):
 
 - no em dash, period or comma (nor their lookalikes); the error names the field, line, column and character, and nothing is deleted automatically
-- one thought per line (12 words max), hook 8 words in the main line and 12 on the slide, 25 per slide, 18 on the CTA slide, and lines short enough to fit the slide (30 characters per headline line, 42 per body line)
+- one thought per line (12 words max), hook 8 words in the main line and 12 on the slide, 18 on the CTA slide
+- packs from 10 Oct 2026 22:00: every headline is a full thought of at least 3 words and never only an order word ("דבר ראשון"), so the seven headlines read alone tell the whole story (Yarin); the review page prints them in one line
+- the CTA word is always לומי (Yarin, 10 Oct 2026) in packs from the same time
+- packs from 10 Oct 2026 23:00: wherever a slide lists examples, the list (`examples` on the slide) has exactly the number drawn for the option, from 3 to 7 (`examples_per_option` in the start JSON, saved in `drafts/DATE/example-slots.json`, copied into `examples_target`); the slide count stays 7
+- packs from 10 Oct 2026 18:30 (the bold look): cover headline up to 3 lines of 18 characters, other headlines 2 lines of 22, body 3 lines of 34, up to 20 words on slides 2 to 6, and a `highlight` of 1 to 3 whole headline words on slides 1 to 6. Older packs: 25 words per slide, 30 characters per headline line, 42 per body line
+- hook openers: shame, guilt, fear and threats aimed at the parent are rejected, and so are openers with no gap (״חובה לראות״, ״האם ידעתם״). Loud openers that the carousel pays off are allowed since 10 Oct 2026 (״תפסיקי״ about one action, ״מה שלא מספרים לך״, ״הסיבה האמיתית״, ״לא תאמיני״)
 - no brand name (לומבוק, LumeBook) and no catalogue book title: only the last slide suggests a personalised story where the child is the hero
 - no diagnosis or jargon words, no guarantees, no "every child", no second CTA
 - the CTA keeps the brief's idea (כתבו "X" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור) and appears word for word on slide 8 and as the caption's last line
 
-Arc (Yarin's brief), 7 slides: 1 hook from the hook bank, 2 second hook, 3 what is behind the feeling or problem, 4 and 5 two solutions, 6 the resolution (nothing that prepares a sale), 7 a short suggestion to help the child with a personalised story where they are the hero, then the CTA. Every option is about one named Israeli girl or boy and talks to mom or both parents, never dad; the CTA follows (כתבי for mom, כתבו for both parents). Every slide before the last records its pull, the solutions and the story map to sources, and each option's hook names its formula, the question it opens, where it is answered, and a score of at least 9 of 12 (`hook-bank.md`).
+Arc (Yarin's brief, 10 slides since 14 Oct 2026): 1 hook from the hook bank, 2 explains the idea, 3 to 8 one or two numbered examples each (numbered 1, 2, 3... across the carousel, 6 to 9 in all, Yarin's choice), 9 the recap (nothing that prepares a sale), 10 a short suggestion to help the child with a personalised story where they are the hero, then the CTA. Every option is about one named Israeli girl or boy and talks to mom or both parents, never dad; the CTA follows (כתבי for mom, כתבו for both parents). Each option has ONE picture that depicts the idea, shown behind every slide (older packs: 7 slides, a picture per slide). Every slide before the last records its pull, the examples and the story map to sources, and each option's hook names its formula, the question it opens, where it is answered, and a score of at least 9 of 12 (`hook-bank.md`).
 
 Hooks (since 8 Oct 2026, schema_version 3): before the six options the pack holds a private hook slate of 6 kid and 6 expert candidates (different formulas, 3+ families and 3+ mechanisms per direction), each scored 0 to 2 on ten criteria with four honesty checks; a failing candidate is never used. The six options must use 4+ mechanisms, 4+ sentence shapes, 3+ slide 2 moves and 2+ awareness stages, with no two near-identical openings. Slide 2 must not lean on slide 1. A hook that states a fact about children needs a sourced claim on slide 1 or 2. A trend formula past its review date is blocked. The system never picks a winner. `python3 carousel/carousel-pipeline/scripts/nightly.py hooks` shows each formula's evidence and status. Older version 2 packs still validate with the earlier rules.
 

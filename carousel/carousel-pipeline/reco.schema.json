@@ -1,207 +1,740 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "LumeBook daily recommendation carousel (games-carousel.json or books-carousel.json)",
-  "description": "One 7-slide carousel that recommends 3 real games or 3 real books for one developmental stage, each popular or established in Israel, with a real product image centred on slides 3 to 5 and LumeBook named once on slide 6. Validated by scripts/reco_lib.py, rules in recommendations.md.",
+  "title": "LumeBook daily recommendation carousel (reco-carousel.json; older nights: games-carousel.json or books-carousel.json)",
+  "description": "One carousel for one developmental stage, each product popular or established in Israel, with a real product image centred on its slide and the LumeBook book as the second to last suggestion. Format mixed (every night from 14 Oct 2026, drafts/DATE/reco-carousel.json): 7 to 9 suggestions (the LumeBook book counts as one), at least 3 real games and at least 3 real books, games first then books, so 10 to 12 slides. Formats games and books (nights up to 13 Oct 2026, kept valid): 3 to 7 suggestions of one kind, 6 to 10 slides. Slides = suggestions + 3 (hook, frame, suggestions, close). Validated by scripts/reco_lib.py, rules in recommendations.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "format", "date", "generated_at", "title", "stage", "addressee", "hook_structure", "dev_sources", "product_facts", "products", "lumebook", "slides", "caption", "claims", "checks"],
+  "required": [
+    "schema_version",
+    "format",
+    "date",
+    "generated_at",
+    "title",
+    "stage",
+    "addressee",
+    "hook_structure",
+    "dev_sources",
+    "product_facts",
+    "products",
+    "lumebook",
+    "slides",
+    "caption",
+    "claims",
+    "checks"
+  ],
   "properties": {
-    "schema_version": {"const": 1},
-    "format": {"enum": ["games", "books"]},
-    "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
-    "generated_at": {"type": "string", "minLength": 10},
-    "title": {"type": "string", "minLength": 3},
-    "stage": {"$ref": "#/$defs/stage"},
-    "addressee": {"enum": ["mom", "parents"]},
-    "hook_structure": {"type": "string", "minLength": 3},
-    "dev_sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/dev_source"}},
-    "product_facts": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/product_fact"}},
-    "products": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/product"}},
-    "lumebook": {"$ref": "#/$defs/lumebook"},
-    "slides": {"type": "array", "minItems": 7, "maxItems": 7, "items": {"$ref": "#/$defs/slide"}},
-    "caption": {"type": "string", "minLength": 10},
-    "claims": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/claim"}},
-    "checks": {"$ref": "#/$defs/checks"},
-    "notes": {"type": "string"}
+    "schema_version": {
+      "const": 1
+    },
+    "format": {
+      "enum": [
+        "mixed",
+        "games",
+        "books"
+      ],
+      "description": "mixed: games and books in one carousel (the nightly format from 14 Oct 2026). games and books: the two separate carousels of earlier nights."
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "generated_at": {
+      "type": "string",
+      "minLength": 10
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3
+    },
+    "stage": {
+      "$ref": "#/$defs/stage"
+    },
+    "addressee": {
+      "enum": [
+        "mom",
+        "parents"
+      ]
+    },
+    "hook_structure": {
+      "type": "string",
+      "minLength": 3
+    },
+    "dev_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/dev_source"
+      }
+    },
+    "product_facts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/product_fact"
+      }
+    },
+    "products": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/product"
+      },
+      "description": "The real products, LumeBook not included: 2 to 6 for games or books, 6 to 8 for mixed (at least 3 with kind game and at least 3 with kind book)."
+    },
+    "lumebook": {
+      "$ref": "#/$defs/lumebook"
+    },
+    "slides": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 12,
+      "items": {
+        "$ref": "#/$defs/slide"
+      },
+      "description": "Suggestions + 3 slides: 6 to 10 for games or books, 10 to 12 for mixed."
+    },
+    "caption": {
+      "type": "string",
+      "minLength": 10
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "checks": {
+      "$ref": "#/$defs/checks"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "hook_alternatives": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The wordings of the hook that were considered, calm to loud, one per entry. The chosen one is slide 1. Shown on the review page so Yarin can swap."
+    }
   },
   "$defs": {
     "stage": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "age_min", "age_max", "age_label_he", "skill", "need", "age_caveat"],
+      "required": [
+        "id",
+        "age_min",
+        "age_max",
+        "age_label_he",
+        "skill",
+        "need",
+        "age_caveat"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
-        "age_min": {"type": "integer", "minimum": 0, "maximum": 12},
-        "age_max": {"type": "integer", "minimum": 0, "maximum": 12},
-        "age_label_he": {"type": "string", "minLength": 3},
-        "skill": {"type": "string", "minLength": 3},
-        "need": {"type": "string", "minLength": 10},
-        "age_caveat": {"type": "string", "minLength": 10}
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "age_min": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12
+        },
+        "age_max": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12
+        },
+        "age_label_he": {
+          "type": "string",
+          "minLength": 3
+        },
+        "skill": {
+          "type": "string",
+          "minLength": 3
+        },
+        "need": {
+          "type": "string",
+          "minLength": 10
+        },
+        "age_caveat": {
+          "type": "string",
+          "minLength": 10
+        }
       }
     },
     "dev_source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "publisher", "url", "accessed", "quote", "supports", "kind"],
+      "required": [
+        "id",
+        "title",
+        "publisher",
+        "url",
+        "accessed",
+        "quote",
+        "supports",
+        "kind"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^src-[a-z0-9-]+$"},
-        "title": {"type": "string", "minLength": 3},
-        "publisher": {"type": "string", "minLength": 2},
-        "url": {"type": "string", "pattern": "^https?://"},
-        "accessed": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
-        "quote": {"type": "string", "minLength": 10},
-        "supports": {"type": "string", "minLength": 10},
-        "kind": {"enum": ["official_guidance", "clinical_report", "peer_reviewed", "reputable_explainer"]}
+        "id": {
+          "type": "string",
+          "pattern": "^src-[a-z0-9-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 2
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "accessed": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 10
+        },
+        "supports": {
+          "type": "string",
+          "minLength": 10
+        },
+        "kind": {
+          "enum": [
+            "official_guidance",
+            "clinical_report",
+            "peer_reviewed",
+            "reputable_explainer"
+          ]
+        }
       }
     },
     "product_fact": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "fact", "quote", "url", "checked_at"],
+      "required": [
+        "id",
+        "fact",
+        "quote",
+        "url",
+        "checked_at"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^site-[a-z0-9-]+$"},
-        "fact": {"type": "string", "minLength": 5},
-        "quote": {"type": "string", "minLength": 3},
-        "url": {"type": "string", "pattern": "^https://lumebook\\.com/"},
-        "checked_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"}
+        "id": {
+          "type": "string",
+          "pattern": "^site-[a-z0-9-]+$"
+        },
+        "fact": {
+          "type": "string",
+          "minLength": 5
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 3
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://lumebook\\.com/"
+        },
+        "checked_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        }
       }
     },
     "image": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["file", "image_url", "page_url", "source_type", "width", "height", "accessed", "rights_status", "rights_note"],
+      "required": [
+        "file",
+        "image_url",
+        "page_url",
+        "source_type",
+        "width",
+        "height",
+        "accessed",
+        "rights_status",
+        "rights_note"
+      ],
       "properties": {
-        "file": {"type": "string", "minLength": 3},
-        "image_url": {"type": "string", "pattern": "^https?://"},
-        "page_url": {"type": "string", "pattern": "^https?://"},
-        "source_type": {"enum": ["publisher", "manufacturer", "official", "israeli_retailer", "sifriyat_pijama", "lumebook_site", "lumebook_repo"]},
-        "width": {"type": "integer", "minimum": 1},
-        "height": {"type": "integer", "minimum": 1},
-        "accessed": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
-        "rights_status": {"enum": ["owned", "cleared", "rights_unverified"]},
-        "rights_note": {"type": "string", "minLength": 5},
-        "trim_padding": {"type": "boolean"}
+        "file": {
+          "type": "string",
+          "minLength": 3
+        },
+        "image_url": {
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "page_url": {
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "source_type": {
+          "enum": [
+            "publisher",
+            "manufacturer",
+            "official",
+            "israeli_retailer",
+            "sifriyat_pijama",
+            "lumebook_site",
+            "lumebook_repo"
+          ]
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "accessed": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "rights_status": {
+          "enum": [
+            "owned",
+            "cleared",
+            "rights_unverified"
+          ]
+        },
+        "rights_note": {
+          "type": "string",
+          "minLength": 5
+        },
+        "trim_padding": {
+          "type": "boolean"
+        },
+        "depicts": {
+          "type": "string",
+          "description": "LumeBook slide only: what the cover shows and how that is the idea of the slide's line. Written after opening the picture."
+        }
       }
     },
     "official_age": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["text", "min", "source", "url", "quote"],
+      "required": [
+        "text",
+        "min",
+        "source",
+        "url",
+        "quote"
+      ],
       "properties": {
-        "text": {"type": "string", "minLength": 1},
-        "min": {"type": "integer", "minimum": 0, "maximum": 18},
-        "max": {"type": "integer", "minimum": 0, "maximum": 99},
-        "source": {"type": "string", "minLength": 2},
-        "url": {"type": "string", "pattern": "^https?://"},
-        "quote": {"type": "string", "minLength": 1}
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "min": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+        },
+        "source": {
+          "type": "string",
+          "minLength": 2
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "availability": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["retailer", "url", "status", "accessed", "quote"],
+      "required": [
+        "retailer",
+        "url",
+        "status",
+        "accessed",
+        "quote"
+      ],
       "properties": {
-        "retailer": {"type": "string", "minLength": 2},
-        "url": {"type": "string", "pattern": "^https?://"},
-        "status": {"enum": ["in_stock", "listed", "out_of_stock", "discontinued"]},
-        "accessed": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
-        "quote": {"type": "string", "minLength": 2},
-        "price_ils": {"type": "string"},
-        "israeli": {"type": "boolean"}
+        "retailer": {
+          "type": "string",
+          "minLength": 2
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "status": {
+          "enum": [
+            "in_stock",
+            "listed",
+            "out_of_stock",
+            "discontinued"
+          ]
+        },
+        "accessed": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 2
+        },
+        "price_ils": {
+          "type": "string"
+        },
+        "israeli": {
+          "type": "boolean"
+        }
       }
     },
     "signal": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "type", "description", "url", "quote", "accessed", "group"],
+      "required": [
+        "id",
+        "type",
+        "description",
+        "url",
+        "quote",
+        "accessed",
+        "group"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^pop-[a-z0-9-]+$"},
-        "type": {"enum": ["bestseller_list", "retailer_ranking", "sifriyat_pijama", "prominent_placement", "multi_retailer", "hebrew_edition_established_publisher", "credible_recommendation", "review_volume", "social_attention", "award_israel", "library"]},
-        "description": {"type": "string", "minLength": 5},
-        "url": {"type": "string", "pattern": "^https?://"},
-        "quote": {"type": "string", "minLength": 2},
-        "accessed": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
-        "group": {"type": "string", "minLength": 2},
-        "israel_specific": {"type": "boolean"},
-        "rank": {"type": "integer", "minimum": 1},
-        "out_of": {"type": "integer", "minimum": 1}
+        "id": {
+          "type": "string",
+          "pattern": "^pop-[a-z0-9-]+$"
+        },
+        "type": {
+          "enum": [
+            "bestseller_list",
+            "retailer_ranking",
+            "sifriyat_pijama",
+            "prominent_placement",
+            "multi_retailer",
+            "hebrew_edition_established_publisher",
+            "credible_recommendation",
+            "review_volume",
+            "social_attention",
+            "award_israel",
+            "library"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 5
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 2
+        },
+        "accessed": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "group": {
+          "type": "string",
+          "minLength": 2
+        },
+        "israel_specific": {
+          "type": "boolean"
+        },
+        "rank": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "out_of": {
+          "type": "integer",
+          "minimum": 1
+        }
       }
     },
     "product": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "kind", "type", "title_he", "title_original", "official_age", "availability", "popularity_label", "popularity_signals", "developmental_relevance", "dev_source_ids", "image", "confidence", "limitations"],
+      "required": [
+        "id",
+        "kind",
+        "type",
+        "title_he",
+        "title_original",
+        "official_age",
+        "availability",
+        "popularity_label",
+        "popularity_signals",
+        "developmental_relevance",
+        "dev_source_ids",
+        "image",
+        "confidence",
+        "limitations"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^(game|book)-[a-z0-9-]+$"},
-        "kind": {"enum": ["game", "book"]},
-        "type": {"type": "string", "minLength": 3},
-        "title_he": {"type": "string", "minLength": 2},
-        "title_original": {"type": "string", "minLength": 1},
-        "author": {"type": "string"},
-        "illustrator": {"type": "string"},
-        "translator": {"type": "string"},
-        "publisher": {"type": "string"},
-        "manufacturer": {"type": "string"},
-        "israeli_distributor": {"type": "string"},
-        "official_age": {"$ref": "#/$defs/official_age"},
-        "availability": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/availability"}},
-        "popularity_label": {"enum": ["popular_in_israel", "available_in_israel"]},
-        "popularity_signals": {"type": "array", "items": {"$ref": "#/$defs/signal"}},
-        "popularity_reasoning": {"type": "string"},
-        "developmental_relevance": {"type": "string", "minLength": 15},
-        "parent_tip_source": {"type": "string"},
-        "dev_source_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-        "image": {"$ref": "#/$defs/image"},
-        "confidence": {"enum": ["high", "medium", "low"]},
-        "limitations": {"type": "string", "minLength": 3},
-        "seasonal_reason": {"type": "string"}
+        "id": {
+          "type": "string",
+          "pattern": "^(game|book)-[a-z0-9-]+$"
+        },
+        "kind": {
+          "enum": [
+            "game",
+            "book"
+          ],
+          "description": "game or book. A mixed carousel shows every game first, then the books. Games need manufacturer, books need author and the Hebrew edition's publisher."
+        },
+        "type": {
+          "type": "string",
+          "minLength": 3
+        },
+        "title_he": {
+          "type": "string",
+          "minLength": 2
+        },
+        "title_original": {
+          "type": "string",
+          "minLength": 1
+        },
+        "author": {
+          "type": "string"
+        },
+        "illustrator": {
+          "type": "string"
+        },
+        "translator": {
+          "type": "string"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "israeli_distributor": {
+          "type": "string"
+        },
+        "official_age": {
+          "$ref": "#/$defs/official_age"
+        },
+        "availability": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/availability"
+          }
+        },
+        "popularity_label": {
+          "enum": [
+            "popular_in_israel",
+            "available_in_israel"
+          ]
+        },
+        "popularity_signals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/signal"
+          }
+        },
+        "popularity_reasoning": {
+          "type": "string"
+        },
+        "developmental_relevance": {
+          "type": "string",
+          "minLength": 15
+        },
+        "parent_tip_source": {
+          "type": "string"
+        },
+        "dev_source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "limitations": {
+          "type": "string",
+          "minLength": 3
+        },
+        "seasonal_reason": {
+          "type": "string"
+        }
       }
     },
     "lumebook": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["image", "connection"],
+      "required": [
+        "image",
+        "connection",
+        "title_he"
+      ],
       "properties": {
-        "image": {"$ref": "#/$defs/image"},
-        "catalogue_book": {"type": "string"},
-        "connection": {"type": "string", "minLength": 10}
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "title_he": {
+          "type": "string",
+          "minLength": 2
+        },
+        "age_min": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12
+        },
+        "age_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "catalogue_book": {
+          "type": "string"
+        },
+        "connection": {
+          "type": "string",
+          "minLength": 10
+        },
+        "catalogue_book_id": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The catalogue book whose cover is the slide picture (the number in lumebook.com/IL/he/books/<id> and in B<id>_boy.avif). Required with a cover picture."
+        }
       }
     },
     "slide": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["number", "role", "headline"],
+      "required": [
+        "number",
+        "role",
+        "headline"
+      ],
       "properties": {
-        "number": {"type": "integer", "minimum": 1, "maximum": 7},
-        "role": {"enum": ["hook", "frame", "recommendation", "lumebook", "close"]},
-        "headline": {"type": "string", "minLength": 1},
-        "body": {"type": "string"},
-        "product_id": {"type": "string"},
-        "age": {"type": "string"},
-        "why": {"type": "string"},
-        "how": {"type": "string"}
+        "number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "role": {
+          "enum": [
+            "hook",
+            "frame",
+            "recommendation",
+            "lumebook",
+            "close"
+          ]
+        },
+        "headline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "body": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "age": {
+          "type": "string"
+        },
+        "why": {
+          "type": "string"
+        },
+        "how": {
+          "type": "string"
+        },
+        "highlight": {
+          "type": "string",
+          "description": "1 to 3 whole words of the headline that get the colour block (bold look, carousels from 10 Oct 2026 18:30). Required on the hook and the frame slide of those carousels."
+        }
       }
     },
     "claim": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["slide", "wording_he", "kind", "source_ids", "supports"],
+      "required": [
+        "slide",
+        "wording_he",
+        "kind",
+        "source_ids",
+        "supports"
+      ],
       "properties": {
-        "slide": {"type": "integer", "minimum": 1, "maximum": 7},
-        "wording_he": {"type": "string", "minLength": 2},
-        "kind": {"enum": ["developmental", "popularity", "availability", "product_fact", "age", "lumebook_wording"]},
-        "source_ids": {"type": "array", "items": {"type": "string"}},
-        "supports": {"type": "string", "minLength": 5}
+        "slide": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "wording_he": {
+          "type": "string",
+          "minLength": 2
+        },
+        "kind": {
+          "enum": [
+            "developmental",
+            "popularity",
+            "availability",
+            "product_fact",
+            "age",
+            "lumebook_wording"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supports": {
+          "type": "string",
+          "minLength": 5
+        }
       }
     },
     "checks": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["paid_api_calls", "images_generated", "posted"],
+      "required": [
+        "paid_api_calls",
+        "images_generated",
+        "posted"
+      ],
       "properties": {
-        "paid_api_calls": {"type": "integer", "minimum": 0},
-        "images_generated": {"type": "integer", "minimum": 0},
-        "posted": {"type": "boolean"}
+        "paid_api_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "images_generated": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "posted": {
+          "type": "boolean"
+        }
       }
     }
   }

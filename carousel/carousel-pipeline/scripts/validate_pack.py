@@ -89,10 +89,10 @@ def person_issues(p, v, direction_id, names):
     if gender in names and name not in names[gender]:
         issues.append(lib.Issue("ERROR", f"{p}/child_name", f"{name!r} is not a {gender} name in names.md (add it there if it is a real Israeli name)"))
     slides = v.get("slides") or []
-    before_last = "\n".join(s.get("headline", "") + "\n" + s.get("body", "") for s in slides[:lib.CTA_SLIDE - 1])
+    before_last = "\n".join(s.get("headline", "") + "\n" + s.get("body", "") for s in slides[:lib.last_slide(v) - 1])
     if name and not re.search(rf"(?<![\u05D0-\u05EA])(?:ו|ש|ל|ה|כש)?{re.escape(name)}(?![\u05D0-\u05EA])", before_last):
         issues.append(lib.Issue("ERROR", f"{p}/child_name", f"the carousel is about {name}: use the name at least once before the last slide"))
-    every = before_last + "\n" + "\n".join(s.get("headline", "") + "\n" + s.get("body", "") for s in slides[lib.CTA_SLIDE - 1:]) + "\n" + v.get("caption", "")
+    every = before_last + "\n" + "\n".join(s.get("headline", "") + "\n" + s.get("body", "") for s in slides[lib.last_slide(v) - 1:]) + "\n" + v.get("caption", "")
     m = lib.DAD_RE.search(lib.PARENT_PAIR_RE.sub(" ", every) if addressee == "parents" else every)
     if m:
         issues.append(lib.Issue("ERROR", f"{p}", f"never talk to dad: «{m.group(0)}». Talk to mom (feminine singular) or both parents (plural)"))
@@ -129,12 +129,16 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
 
     code_word = v.get("code_word", "")
     issues.extend(lib.code_word_issues(f"{p}/code_word", code_word))
+    if lib.fixed_code_word_applies(pack) and code_word != lib.CTA_CODE_WORD:
+        issues.append(lib.Issue("ERROR", f"{p}/code_word", f"the CTA word is always «{lib.CTA_CODE_WORD}» (Yarin, 10 Oct 2026); got «{code_word}». Write it in the CTA, on the last slide and in the caption's last line"))
 
     slides = v.get("slides") or []
     numbers = [s.get("number") for s in slides]
-    if numbers != list(range(1, lib.SLIDE_COUNT + 1)):
-        issues.append(lib.Issue("ERROR", f"{p}/slides", f"slides must be numbered 1 to {lib.SLIDE_COUNT} in order (got {numbers})"))
-    if len(slides) != lib.SLIDE_COUNT:
+    CTA = lib.slide_count(pack)  # the last slide: 7 before 14 Oct 2026, 10 since
+    hook_slides = (1,) if CTA == lib.TEN_SLIDE_COUNT else lib.HOOK_SLIDES
+    if numbers != list(range(1, CTA + 1)):
+        issues.append(lib.Issue("ERROR", f"{p}/slides", f"slides must be numbered 1 to {CTA} in order (got {numbers})"))
+    if len(slides) != CTA:
         return issues  # structural error already reported by the schema
     first, last_insight = lib.INSIGHT_SLIDES[0], lib.INSIGHT_SLIDES[-1]
     middle = {s.get("role") for s in slides[first - 1:last_insight]}
@@ -142,7 +146,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
         issues.append(lib.Issue("ERROR", f"{p}/slides[{first}-{last_insight}]", f"slides {first} to {last_insight} must touch the feeling or problem (recognition) and what is behind it (reframe), at least one of each"))
     issues.extend(person_issues(p, v, direction_id, names))
     issues.extend(lib.hook_issues(p, v, direction_id, hook_bank))
-    for s in slides[:lib.CTA_SLIDE - 1]:
+    for s in slides[:CTA - 1]:
         pull = s.get("pull")
         sp = f"{p}/slide-{s.get('number')}/pull"
         if not isinstance(pull, dict) or pull.get("type") not in lib.PULL_TYPES or len(str(pull.get("note", "")).strip()) < 5:
@@ -153,20 +157,30 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.append(lib.Issue("ERROR", sp, "pull type question, but the slide has no question"))
         if pull["type"] == "numbered" and not re.search(r"\d|ראשון|שני|שלישי|אחרון", text):
             issues.append(lib.Issue("ERROR", sp, "pull type numbered, but the slide shows no number or order word"))
-    for s in slides[:lib.CTA_SLIDE - 1]:
+    for s in slides[:CTA - 1]:
         m = lib.SALE_PREP_RE.search(s.get("headline", "") + "\n" + s.get("body", ""))
         if m:
             issues.append(lib.Issue("ERROR", f"{p}/slide-{s.get('number')}", f"«{m.group(0)}» prepares a sale; the personalised story and the link belong only on the last slide"))
-    last_text = slides[lib.CTA_SLIDE - 1].get("headline", "") + "\n" + slides[lib.CTA_SLIDE - 1].get("body", "")
+    last_text = slides[CTA - 1].get("headline", "") + "\n" + slides[CTA - 1].get("body", "")
     if not re.search(r"סיפור", last_text) or not re.search(r"אישי", last_text):
-        issues.append(lib.Issue("ERROR", f"{p}/slide-{lib.CTA_SLIDE}", "the last slide must suggest helping the child with a personalised story (say סיפור and אישי) before the CTA"))
+        issues.append(lib.Issue("ERROR", f"{p}/slide-{CTA}", "the last slide must suggest helping the child with a personalised story (say סיפור and אישי) before the CTA"))
+    bold = lib.bold_rule_applies(pack)
+    numbered = lib.numbered_examples_apply(pack)
+    if lib.examples_rule_applies(pack):
+        tgt = v.get("examples_target")
+        low, high = (lib.NUMBERED_EXAMPLES_MIN, lib.NUMBERED_EXAMPLES_MAX) if numbered else (lib.EXAMPLES_MIN, lib.EXAMPLES_MAX)
+        if not isinstance(tgt, int) or not low <= tgt <= high:
+            issues.append(lib.Issue("ERROR", f"{p}/examples_target", f"copy this option's number ({low} to {high}) from `examples_per_option` in the start JSON into examples_target"))
+    if numbered:
+        issues.extend(lib.numbered_example_issues(p, v))
+    roles = lib.slide_roles(pack)
     for s in slides:
         n = s.get("number")
         sp = f"{p}/slide-{n}"
-        if n in lib.SLIDE_ROLES and s.get("role") not in lib.SLIDE_ROLES[n]:
-            issues.append(lib.Issue("ERROR", f"{sp}/role", f"slide {n} must be {' or '.join(lib.SLIDE_ROLES[n])}"))
+        if n in roles and s.get("role") not in roles[n]:
+            issues.append(lib.Issue("ERROR", f"{sp}/role", f"slide {n} must be {' or '.join(roles[n])}"))
         headline, body = s.get("headline", ""), s.get("body", "")
-        is_cta = n == lib.CTA_SLIDE
+        is_cta = n == CTA
         issues.extend(lib.audience_text_issues(f"{sp}/headline", headline, allow_cta=is_cta))
         issues.extend(lib.brand_issues(f"{sp}/headline", headline, titles))
         if body.strip():
@@ -174,29 +188,64 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.extend(lib.brand_issues(f"{sp}/body", body, titles))
         hw = len(lib.words(headline))
         total = hw + len(lib.words(body))
-        if n in lib.HOOK_SLIDES and hw > lib.HOOK_MAIN_MAX_WORDS:
+        if n in hook_slides and hw > lib.HOOK_MAIN_MAX_WORDS:
             issues.append(lib.Issue("ERROR", f"{sp}/headline", f"hook main line has {hw} words (max {lib.HOOK_MAIN_MAX_WORDS})"))
         if n == 1 and total > lib.HOOK_TOTAL_MAX_WORDS:
             issues.append(lib.Issue("ERROR", sp, f"hook slide has {total} words (max {lib.HOOK_TOTAL_MAX_WORDS})"))
-        elif n == lib.CTA_SLIDE and total > lib.CTA_SLIDE_MAX_WORDS:
+        elif n == CTA and total > lib.CTA_SLIDE_MAX_WORDS:
             issues.append(lib.Issue("ERROR", sp, f"CTA slide has {total} words (max {lib.CTA_SLIDE_MAX_WORDS})"))
-        elif 1 < n < lib.CTA_SLIDE and total > lib.SLIDE_MAX_WORDS:
-            issues.append(lib.Issue("ERROR", sp, f"slide has {total} words (max {lib.SLIDE_MAX_WORDS})"))
-        if len(lib.lines_of(headline)) > 3:
-            issues.append(lib.Issue("ERROR", f"{sp}/headline", "headline is longer than 3 lines"))
-        for field, text, limit in (("headline", headline, lib.HEADLINE_LINE_MAX_CHARS), ("body", body, lib.BODY_LINE_MAX_CHARS)):
+        elif 1 < n < CTA and total > (lib.BOLD_SLIDE_MAX_WORDS if bold else lib.SLIDE_MAX_WORDS):
+            issues.append(lib.Issue("ERROR", sp, f"slide has {total} words (max {lib.BOLD_SLIDE_MAX_WORDS if bold else lib.SLIDE_MAX_WORDS})"))
+        head_lines = (3 if n == 1 else lib.BOLD_HEADLINE_MAX_LINES) if bold else 3
+        if len(lib.lines_of(headline)) > head_lines:
+            issues.append(lib.Issue("ERROR", f"{sp}/headline", f"headline is longer than {head_lines} lines"))
+        head_chars, body_chars = lib.HEADLINE_LINE_MAX_CHARS, lib.BODY_LINE_MAX_CHARS
+        if bold:
+            head_chars = lib.COVER_HEADLINE_LINE_MAX_CHARS if n == 1 else lib.BOLD_HEADLINE_LINE_MAX_CHARS
+            body_chars = lib.BOLD_BODY_LINE_MAX_CHARS
+            if len(lib.lines_of(body)) > lib.BOLD_BODY_MAX_LINES:
+                issues.append(lib.Issue("ERROR", f"{sp}/body", f"body has {len(lib.lines_of(body))} lines (max {lib.BOLD_BODY_MAX_LINES}); the type is large, cut to the lines that earn the swipe"))
+            issues.extend(lib.highlight_issues(sp, s, last=CTA, required=not numbered))  # the clean look (14 Oct 2026) paints no highlight before the last slide
+            if n == 1:
+                soft = lib.SOFT_COVER_RE.search(headline + "\n" + body)
+                if soft:
+                    issues.append(lib.Issue("WARN", f"{sp}/headline", f"soft word on the cover: «{soft.group(0)}»; the cover states the tension flat out"))
+        if lib.headline_story_applies(pack):
+            issues.extend(lib.headline_story_issues(sp, s))
+        if not numbered:
+            issues.extend(lib.example_issues(sp, s, v, pack))
+        for field, text, limit in (("headline", headline, head_chars), ("body", body, body_chars)):
             for i, line in enumerate(lib.lines_of(text), start=1):
                 if len(line) > limit:
                     issues.append(lib.Issue("ERROR", f"{sp}/{field}", f"line {i} has {len(line)} characters and will not fit the slide at a readable size (max {limit}); break it into two lines", excerpt=line))
-        image = s.get("image") or {}
-        for field in lib.IMAGE_FIELDS:
-            val = image.get(field, "")
-            if lib.HEBREW_RE.search(str(val)):
-                issues.append(lib.Issue("ERROR", f"{sp}/image/{field}", "image briefs are written in English"))
-        if direction_id == "expert" and n < lib.CTA_SLIDE and lib.AUTHORITY_TITLES.search(headline + " " + body):
+        if not numbered:
+            image = s.get("image") or {}
+            if not image:
+                issues.append(lib.Issue("ERROR", f"{sp}/image", "every slide needs its image brief"))
+            for field in lib.IMAGE_FIELDS:
+                val = image.get(field, "")
+                if lib.HEBREW_RE.search(str(val)):
+                    issues.append(lib.Issue("ERROR", f"{sp}/image/{field}", "image briefs are written in English"))
+            if n == 1 and lib.cover_rule_applies(pack):
+                issues.extend(lib.cover_image_issues(sp, image))
+        elif s.get("image"):
+            issues.append(lib.Issue("ERROR", f"{sp}/image", "one picture for the whole carousel (Yarin, 14 Oct 2026): put the brief in the option's `image`, not on a slide"))
+        if direction_id == "expert" and n < CTA and lib.AUTHORITY_TITLES.search(headline + " " + body):
             frame = (v.get("expert_frame") or {}).get("type")
             if frame != "named_expert":
                 issues.append(lib.Issue("ERROR", sp, "academic title on a slide without a verified named expert (no authority theater)"))
+
+    if numbered:
+        image = v.get("image")
+        if not isinstance(image, dict):
+            issues.append(lib.Issue("ERROR", f"{p}/image", "one picture for the whole carousel (Yarin, 14 Oct 2026): the option needs `image`, the brief of the one picture that depicts the idea"))
+        else:
+            for field in lib.IMAGE_FIELDS:
+                if not str(image.get(field, "")).strip():
+                    issues.append(lib.Issue("ERROR", f"{p}/image/{field}", "the picture brief needs this field"))
+                elif lib.HEBREW_RE.search(str(image.get(field, ""))):
+                    issues.append(lib.Issue("ERROR", f"{p}/image/{field}", "image briefs are written in English"))
+            issues.extend(lib.cover_image_issues(f"{p}/image", image))
 
     headlines = [lib.collapse(s.get("headline", "")) for s in slides]
     if len(set(headlines)) != len(headlines):
@@ -221,12 +270,12 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     # CTA
     cta = v.get("cta", "")
     issues.extend(lib.cta_issues(f"{p}/cta", cta, code_word))
-    last = slides[lib.CTA_SLIDE - 1]
+    last = slides[CTA - 1]
     if lib.collapse(cta) not in lib.collapse(last.get("headline", "") + "\n" + last.get("body", "")):
-        issues.append(lib.Issue("ERROR", f"{p}/slide-{lib.CTA_SLIDE}", f"slide {lib.CTA_SLIDE} must contain the exact CTA text"))
-    for s in slides[:lib.CTA_SLIDE - 1]:
+        issues.append(lib.Issue("ERROR", f"{p}/slide-{CTA}", f"slide {CTA} must contain the exact CTA text"))
+    for s in slides[:CTA - 1]:
         if code_word and re.search(lib.CTA_WRITE_RE + rf"\s*[״\"]?{re.escape(code_word)}", s.get("headline", "") + " " + s.get("body", "")):
-            issues.append(lib.Issue("ERROR", f"{p}/slide-{s.get('number')}", f"the CTA appears before slide {lib.CTA_SLIDE}"))
+            issues.append(lib.Issue("ERROR", f"{p}/slide-{s.get('number')}", f"the CTA appears before slide {CTA}"))
 
     # Caption
     caption = v.get("caption", "")
@@ -283,16 +332,24 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
         if sid not in used and direction_id == "expert":
             issues.append(lib.Issue("WARN", f"{p}/sources/{sid}", "source is listed but no claim cites it"))
     sourced_slides = {c.get("slide") for c in claims if c.get("kind") == "sourced_fact"}
-    sol = set(lib.SOLUTION_SLIDES)
-    sol_label = ", ".join(map(str, lib.SOLUTION_SLIDES))
-    if not sourced_slides & sol:
-        issues.append(lib.Issue("ERROR", f"{p}/claims", f"the solution slides ({sol_label}) must give real value: map at least one of them to a sourced fact"))
-    if direction_id == "expert" and not sol <= sourced_slides:
-        issues.append(lib.Issue("ERROR", f"{p}/claims", f"expert options need a sourced fact on every solution slide ({sol_label})"))
-    if lib.CTA_SLIDE not in sourced_slides:
-        issues.append(lib.Issue("ERROR", f"{p}/claims", f"slide {lib.CTA_SLIDE} suggests a story: map it to a source that supports reading stories about this"))
-    if not any(c.get("kind") == "product_fact" and c.get("slide") == lib.CTA_SLIDE for c in claims):
-        issues.append(lib.Issue("ERROR", f"{p}/claims", f"slide {lib.CTA_SLIDE} must map the personalised story (the child as the hero) to a live-site product fact"))
+    if numbered:
+        value = set(lib.NUMBERED_VALUE_SLIDES)
+        value_label = f"{min(value)} to {max(value)}"
+        if not sourced_slides & value:
+            issues.append(lib.Issue("ERROR", f"{p}/claims", f"the examples and the whole idea (slides {value_label}) must give real value: map at least one of them to a sourced fact"))
+        if direction_id == "expert" and len(sourced_slides & value) < 2:
+            issues.append(lib.Issue("ERROR", f"{p}/claims", f"expert options need a sourced fact on at least two of slides {value_label}"))
+    else:
+        sol = set(lib.SOLUTION_SLIDES)
+        sol_label = ", ".join(map(str, lib.SOLUTION_SLIDES))
+        if not sourced_slides & sol:
+            issues.append(lib.Issue("ERROR", f"{p}/claims", f"the solution slides ({sol_label}) must give real value: map at least one of them to a sourced fact"))
+        if direction_id == "expert" and not sol <= sourced_slides:
+            issues.append(lib.Issue("ERROR", f"{p}/claims", f"expert options need a sourced fact on every solution slide ({sol_label})"))
+    if CTA not in sourced_slides:
+        issues.append(lib.Issue("ERROR", f"{p}/claims", f"slide {CTA} suggests a story: map it to a source that supports reading stories about this"))
+    if not any(c.get("kind") == "product_fact" and c.get("slide") == CTA for c in claims):
+        issues.append(lib.Issue("ERROR", f"{p}/claims", f"slide {CTA} must map the personalised story (the child as the hero) to a live-site product fact"))
 
     # Character anchor sanity
     anchor = v.get("character_anchor") or {}
@@ -462,6 +519,16 @@ def hook_strategy_issues(pack, bank, titles, today=None):
                 ours = hook.get(key)
                 if ours and c.get(key) != ours:
                     issues.append(lib.Issue("ERROR", f"{p}/hook/{key}", f"differs from slate candidate {c.get('id')} ({c.get(key)})"))
+            if lib.value_hook_applies(pack):
+                low = [k for k in lib.COVER_VALUE_MUST_BE_2 if (c.get("score") or {}).get(k) != 2]
+                if low:
+                    issues.append(lib.Issue("ERROR", f"{p}/hook/slate_id", f"the cover must say what the viewer gets (Yarin, 11 Oct 2026): candidate {c.get('id')} scores under 2 on {', '.join(low)}. Name the value on slide 1 (a number of things, a sentence to say, a result)"))
+                if slides and not lib.VALUE_MARKER_RE.search(lib.collapse(_slide_text(slides[0]))):
+                    issues.append(lib.Issue("WARN", f"{p}/slide-1", "the cover does not say what the viewer gets: add the number of things, the sentence or the result it promises"))
+            if lib.cover_rule_applies(pack):
+                weak = [k for k in lib.COVER_HOOK_MUST_BE_2 if (c.get("score") or {}).get(k) != 2]
+                if weak:
+                    issues.append(lib.Issue("ERROR", f"{p}/hook/slate_id", f"slide 1 is the thumbnail: candidate {c.get('id')} scores under 2 on {', '.join(weak)}. Use or write a stronger one"))
             if slides and lib.collapse(_slide_text(slides[0])) != lib.collapse(c.get("hook", "")):
                 issues.append(lib.Issue("WARN", f"{p}/slide-1", f"slide 1 no longer matches slate candidate {c.get('id')} (edited after the slate?)"))
             if c.get("factual_claim") and not any(cl.get("kind") == "sourced_fact" and cl.get("slide") in (1, 2) for cl in v.get("claims", [])):
@@ -577,7 +644,7 @@ def pack_issues(pack, history=None, bank=None, voice=None, today=None):
             issues.append(lib.Issue("ERROR", "pack/topic/id", f"{topic_id} was used in the previous {lib.TOPIC_COOLDOWN_PACKS} packs"))
         for d in directions:
             for v in d.get("versions", []):
-                if v.get("code_word") in ctx["recent_code_words"]:
+                if v.get("code_word") in ctx["recent_code_words"] and v.get("code_word") != lib.CTA_CODE_WORD and not lib.fixed_code_word_applies(pack):
                     issues.append(lib.Issue("ERROR", f"{d.get('id')}/{v.get('id')}/code_word", f"{v.get('code_word')} was used in the last {lib.CODE_WORD_COOLDOWN_DAYS} days"))
                 if v.get("hook_family") in ctx["blocked_hook_families"]:
                     issues.append(lib.Issue("ERROR", f"{d.get('id')}/{v.get('id')}/hook_family", f"{v.get('hook_family')} was already published twice in the last {lib.HOOK_FAMILY_WINDOW_DAYS} days"))
@@ -613,7 +680,7 @@ def main():
         print(f"INVALID {path}\n- ERROR pack: not valid JSON ({exc})")
         raise SystemExit(1)
     history = None if args.no_history else lib.load_history(args.history)
-    issues = pack_issues(pack, history=history)
+    issues = pack_issues(pack, history=history) + lib.example_target_issues(pack, path.resolve().parent)
     errors = [i for i in issues if i.level == "ERROR"]
     warns = [i for i in issues if i.level == "WARN"]
     if args.json:

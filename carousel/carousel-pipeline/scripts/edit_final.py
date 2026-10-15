@@ -91,8 +91,9 @@ def main():
     if lost:   # never happens for a words-only edit; if it does, say so instead of exporting a broken carousel
         raise SystemExit("these images need generating again after the refreeze: " + ", ".join(lost))
 
-    slides = sorted({e["slide"] for e in edits if e["slide"]} | ({lib.CTA_SLIDE} if any(e["field"] == "cta" for e in edits) else set()))
-    cmd = [sys.executable, str(SCRIPTS / "compose_slides.py"), str(run_dir)] + (["--slides", *map(str, slides)] if slides else ["--slides", str(lib.CTA_SLIDE)])
+    last = len(lib.read_json(run_dir / "approved.json")["option"]["slides"])
+    slides = sorted({e["slide"] for e in edits if e["slide"]} | ({last} if any(e["field"] == "cta" for e in edits) else set()))
+    cmd = [sys.executable, str(SCRIPTS / "compose_slides.py"), str(run_dir)] + (["--slides", *map(str, slides)] if slides else ["--slides", str(last)])
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode != 0:
         print(res.stdout[-2000:], res.stderr[-2000:])

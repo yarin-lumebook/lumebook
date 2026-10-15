@@ -54,6 +54,7 @@ SLIDE_CSS = """
 .p-kid{--p:#5B2BD6;--p-soft:#F1EBFF;--p-card:#F8F4FF;--p-deep:#3B1D78;--p-font:"Rubik";--p-cta:#3B1D78;--p-cta2:#5B2BD6}
 .p-expert{--p:#A8741F;--p-soft:#F8EEDC;--p-card:#FCF7EE;--p-deep:#1D1039;--p-font:"Heebo Slide";--p-cta:#1D1039;--p-cta2:#1D1039}
 .deck{--ink:#1D1039;--ink2:#4B4062;--muted:#7D7491;--line:#E7DFD2;--violet:#5B2BD6;--violet-soft:#F0EAFF;--cream:#FBF6EE;color-scheme:light;color:#1D1039;font-family:"Heebo Slide","Assistant",-apple-system,"SF Hebrew","Arial Hebrew",sans-serif;font-size:16px;line-height:1.55;font-weight:400;-webkit-font-smoothing:auto}
+.hstory{font-size:13px;line-height:1.7;color:#4B4062;margin:8px 2px 0}.hstory b{color:#1D1039;margin-inline-end:6px}
 .deck{display:grid;grid-template-columns:repeat(7,minmax(150px,1fr));gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x proximity}
 .deck .card{scroll-snap-align:start}
 .card{background:var(--p-card,var(--cream));border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;display:flex;flex-direction:column;gap:6px;min-height:200px;direction:rtl;text-align:right}
@@ -65,6 +66,8 @@ SLIDE_CSS = """
 .card .h{font-family:var(--p-font),"Heebo Slide",sans-serif;font-weight:800;font-size:17px;line-height:1.2;white-space:pre-line;color:var(--p-deep,var(--ink))}
 .card.cta .h{color:#F8F0E1}
 .card .b{font-size:14px;line-height:1.4;white-space:pre-line;color:var(--ink2)}
+.card .hlrow{margin-top:auto;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.card .hlrow .hl{background:var(--p,var(--violet));color:#fff;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;min-width:2em}
 .card.cta .b{color:#F8F0E1}
 .card .pull{margin-top:auto;font-size:11px;color:var(--p-deep,var(--violet));background:var(--p-soft,var(--violet-soft));border-radius:8px;padding:4px 7px;line-height:1.35}
 .card .wc{font-size:11px;color:var(--muted)}
@@ -98,7 +101,10 @@ nav.jump::-webkit-scrollbar{display:none}
 .rp-list{margin:0;padding-inline-start:1.1rem;display:grid;gap:var(--sp-1)}
 .top>.row h1{margin-inline-end:auto}
 .direction-head{padding:var(--sp-2) var(--sp-4)}
-.rv-tabs{margin-bottom:calc(-1 * var(--sp-3))}
+.rv-tabs{margin-bottom:calc(-1 * var(--sp-3));flex-wrap:wrap;row-gap:var(--sp-1)}
+.rv-days{margin-inline-start:auto;display:flex;gap:var(--sp-2);align-items:center;font-size:var(--fs-footnote)}
+.rv-days a{color:var(--text-3);text-decoration:none;padding:2px 8px;border-radius:999px}
+.rv-days a[aria-current]{background:var(--surface-2);color:var(--text);font-weight:700}
 .post .cta-box{align-self:start}
 nav.jump .label{flex:none;font-size:var(--fs-caption);font-weight:600;color:var(--text-3);margin-inline-end:var(--sp-1)}
 nav.jump a{flex:none;padding:.3rem .7rem;border-radius:var(--r-pill);color:var(--text);font-size:var(--fs-footnote);font-weight:600;white-space:nowrap}
@@ -204,7 +210,7 @@ CSS = design.css() + SLIDE_CSS + PAGE_CSS
 SCRIPT = r"""
 // ---- Editing: enabled only when the page is served by review_server.py ----
 const CHAR_HE = {',': 'פסיק', '.': 'נקודה', '—': 'מקף ארוך', '–': 'מקף', '…': 'שלוש נקודות', '，': 'פסיק', '―': 'מקף ארוך'};
-const FIELD_HE = {headline: 'כותרת', body: 'גוף', caption: 'כיתוב', cta: 'קריאה לפעולה', title: 'שם', code_word: 'מילת קוד', child_name: 'שם הילד', claims: 'מקורות', hook: 'פתיח'};
+const FIELD_HE = {headline: 'כותרת', body: 'גוף', caption: 'כיתוב', cta: 'קריאה לפעולה', title: 'שם', code_word: 'מילת קוד', child_name: 'שם הילד', claims: 'מקורות', hook: 'פתיח', highlight: 'הדגשה'};
 const EDIT = {orig: new Map()};
 function textOf(el) { return el.innerText.replace(/ /g, ' ').split('\n').map(x => x.trim()).filter(Boolean).join('\n'); }
 function changed() { const out = []; EDIT.orig.forEach((o, el) => { const now = textOf(el); if (now !== o) out.push({el, now}); }); return out; }
@@ -300,15 +306,19 @@ def html_card(direction, v, s):
     n = s["number"]
     sp = f'{direction}/{esc(v["id"])}/slide-{n}'
     edit = f'data-opt="{esc(v["id"])}" data-slide="{n}"'
-    is_last = n == lib.CTA_SLIDE
+    is_last = n == len(v["slides"])
     if is_last:
         body = f'<div class="b" data-path="{sp}/body" title="נגזר אוטומטית מהקריאה לפעולה">{esc(s.get("body", ""))}</div>'
     else:
         body = f'<div class="b" data-edit="body" {edit} data-path="{sp}/body">{esc(s.get("body", ""))}</div>'
+    mark = ""
+    if "highlight" in s:   # bold look: the words that get the colour block on the slide
+        mark = (f'<div class="hlrow"><span>הדגשה</span><b class="hl" data-edit="highlight" {edit} '
+                f'data-path="{sp}/highlight">{esc(s.get("highlight", ""))}</b></div>')
     return (f'<div class="card{" cta" if is_last else ""}" lang="he" dir="rtl" data-path="{sp}">'
             f'<div class="n"><span>{n}</span></div>'
             f'<div class="h" data-edit="headline" {edit} data-path="{sp}/headline">{esc(s["headline"])}</div>'
-            f'{body}</div>')
+            f'{body}{mark}</div>')
 
 
 def html_option(pack, direction, v):
@@ -324,6 +334,8 @@ def html_option(pack, direction, v):
                f'<span class="lb-chip accent">"{esc(v["code_word"])}"</span>'
                '</header>')
     out.append('<div class="deck">' + "".join(html_card(direction, v, s) for s in v["slides"]) + '</div>')
+    # What someone who reads only the headlines gets (Yarin, 10 Oct 2026): the story must survive without the bodies
+    out.append('<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> ' + " ← ".join(esc(" ".join(lib.lines_of(s["headline"]))) for s in v["slides"]) + '</p>')
     out.append('<div class="drops">')
     cap_lines = lib.lines_of(v["caption"])
     cap_body = cap_lines[:-1] if cap_lines and lib.collapse(cap_lines[-1]) == lib.collapse(v["cta"]) else cap_lines
@@ -359,7 +371,13 @@ def html_option(pack, direction, v):
     # Image descriptions: dropdown, each slide's copy next to its prompt
     anchor = v["character_anchor"]
     img_rows = []
-    for s in v["slides"]:
+    if lib.one_picture(v):   # one picture behind every slide (Yarin, 14 Oct 2026)
+        im = v["image"]
+        prompt = lib.compose_image_prompt(anchor, im, 1, pillar=direction, one_picture_prompt=True)
+        img_rows.append(f'<tr><td>1 עד {len(v["slides"])}</td><td>תמונה אחת לכל הקרוסלה</td>'
+                        f'<td class="en" dir="ltr" lang="en"><b>{esc(im["beat"])}</b><br>{esc(im["action"])}'
+                        f'<details><summary>Full prompt</summary><div class="prompt" dir="ltr">{esc(prompt)}</div></details></td></tr>')
+    for s in ([] if lib.one_picture(v) else v["slides"]):
         prompt = lib.compose_image_prompt(anchor, s["image"], s["number"], pillar=direction)
         img_rows.append(f'<tr><td>{s["number"]}</td><td style="white-space:pre-line">{esc(s["headline"])}</td>'
                         f'<td class="en" dir="ltr" lang="en"><b>{esc(s["image"]["beat"])}</b><br>{esc(s["image"]["action"])}'
@@ -385,7 +403,8 @@ def build_html(pack):
         nav.append(f'<span class="grp p-{esc(d["id"])}" title="{esc(pil.get("name_he", ""))}"><span class="dot"></span>{links}</span>')
         legend.append(f'<a class="p-{esc(d["id"])}" href="#dir-{esc(d["id"])}"><span class="sym">{esc(pil.get("symbol", ""))}</span>'
                       f'<b>{esc(pil.get("name_he", d["label_he"]))}</b><span>{esc(pil.get("tagline_he", ""))}</span></a>')
-    styles = (SLIDE_CSS + PAGE_CSS).replace("repeat(7,", "repeat(%d," % lib.SLIDE_COUNT)
+    count = max((len(v["slides"]) for d in pack["directions"] for v in d["versions"]), default=lib.SLIDE_COUNT)
+    styles = (SLIDE_CSS + PAGE_CSS).replace("repeat(7,", "repeat(%d," % count)
     # reco_render.inject_review adds its jump link to the first </nav> (keep nav.jump the only <nav>) and inserts its
     # section before the last "</div><script>" (the end of the page body below).
     parts = [
@@ -466,8 +485,12 @@ def build_md(pack):
                 md += [f"#### שקופית {s['number']} · {lib.ROLE_LABELS_HE.get(s['role'], s['role'])}", ""]
                 md += [f"**{line}**  " for line in lib.lines_of(s["headline"])]
                 md += [f"{line}  " for line in lib.lines_of(s.get("body", ""))]
-                md += ["", '<div dir="ltr" lang="en" style="direction:ltr;text-align:left">', "",
-                       f"*Image:* {s['image']['beat']}. {s['image']['action']}", "", "</div>", ""]
+                if not lib.one_picture(v):
+                    md += ["", '<div dir="ltr" lang="en" style="direction:ltr;text-align:left">', "",
+                           f"*Image:* {s['image']['beat']}. {s['image']['action']}", "", "</div>", ""]
+                else:
+                    md += [""]
+            md += ["**הכותרות בלבד:** " + " ← ".join(" ".join(lib.lines_of(s["headline"])) for s in v["slides"]), ""]
             md += ["**כיתוב לפוסט**", ""] + [f"{line}  " for line in lib.lines_of(v["caption"])] + [""]
             md += [f"**CTA:** {v['cta']}", "", "<details><summary>טענות ומקורות</summary>", "", "**מקורות**", ""]
             for src in v["sources"]:

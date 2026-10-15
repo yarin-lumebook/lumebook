@@ -1,0 +1,2172 @@
+{
+  "schema_version": 3,
+  "date": "2026-10-09",
+  "generated_at": "2026-10-08T11:31:59+03:00",
+  "topic": {
+    "id": "fear-of-dark",
+    "title_he": "פחד מחושך",
+    "reason": "הנושא הראשון ברשימה שעוד לא היה בשימוש, והוא בעונה לפי בנק הנושאים (אוקטובר עד פברואר). הוא לא נשען על תאריך בלוח השנה. בקטלוג יש ספר מתאים לקישור בהודעה (באנו חושך לגרש, ספר 14, נבדק היום באתר). רגישות (הנחה שלנו, לא נבדק): פחדים בלילה בישראל יכולים להתחבר גם לאזעקות ולממ״ד, ולכן הטקסט נשאר בחושך רגיל של חדר שינה ולא נוגע בזה. זו ריצת בדיקה של הסלייט מה-8.10 בצהריים, וריצת 22:00 תגבה אותה ל-versions."
+  },
+  "voice": {
+    "status": "fallback",
+    "approved_samples": 2,
+    "note": "קול ברירת מחדל: 2 מתוך 15 דוגמאות מאושרות. נכתב לפי הקול המתועד ולפי העריכות של ירין מה-8.10 (פחות הסתייגויות כמו ״הרבה פעמים״, משפטים שהורים אומרים במירכאות, סדר מילים מדובר)."
+  },
+  "product_facts": [
+    {
+      "id": "site-preview",
+      "fact": "Creating the book and the preview are free",
+      "quote": "יצירת הספר והתצוגה המקדימה בחינם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-08"
+    },
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-08"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-08"
+    }
+  ],
+  "hook_slate": {
+    "kid": [
+      {
+        "id": "k1",
+        "formula": "child-not-because",
+        "family": "child_pov",
+        "hook": "אני לא מפחדת מהחושך\nאני מפחדת להיות בו לבד",
+        "slide2": "את אומרת ״אין פה כלום״\nואני שומעת כל רעש בבית\nאחרי שאת יוצאת לסלון",
+        "slide2_move": "other_side",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "If she is not afraid of the dark, what is she afraid of?",
+        "payoff_slide": 3,
+        "answer": "Slide 3: being alone when mom leaves; slides 4 and 5 give something that stays with her and a gentler evening.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1"
+      },
+      {
+        "id": "k2",
+        "formula": "child-question",
+        "family": "child_quote",
+        "hook": "״אתם חוזרים לבדוק אותי?״\nאני שואל את זה כל לילה",
+        "slide2": "כשהדלת נסגרת\nהחדר נהיה פתאום שקט מדי\nואני מקשיב לכל רעש במסדרון",
+        "slide2_move": "zoom_in",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does he ask this every night, and what do you answer?",
+        "payoff_slide": 3,
+        "answer": "Slide 3: he needs to know they are near; slides 4 and 5: brief check-ins at 5, then 10, then 15 minutes (Seattle, Cincinnati).",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2"
+      },
+      {
+        "id": "k3",
+        "formula": "child-hidden-half",
+        "family": "child_pov",
+        "hook": "מה את לא רואה?\nאחרי שאת מכבה לי את האור",
+        "slide2": "המעיל על הכיסא\nנראה לי כמו מישהו שעומד",
+        "slide2_move": "zoom_in",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "What does she see after the light goes off?",
+        "payoff_slide": 3,
+        "answer": "Slide 3: in the dark ordinary things look like someone; slides 4 and 5 would give what helps.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passes (17). Not used: on 8 Oct Yarin replaced this formula's hook with his own, and k1 already covers the child's view."
+      },
+      {
+        "id": "k4",
+        "formula": "child-body-moment",
+        "family": "moment",
+        "hook": "כשהאור במסדרון נכבה\nאני מרגישה את זה בבטן",
+        "slide2": "מאז הסרט עם המכשפה\nכל צל בחדר נראה לי כמוה\nגם המעיל שעל הכיסא",
+        "slide2_move": "name_trigger",
+        "mechanism": "recognition",
+        "awareness_stage": "unaware",
+        "gap": "What happened suddenly, and what helps her?",
+        "payoff_slide": 3,
+        "answer": "Slide 3: the shadow is real in her head; slides 4 and 5: ask what scares her without dismissing, and calm screens in the evening.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3"
+      },
+      {
+        "id": "k5",
+        "formula": "moment-time",
+        "family": "moment",
+        "hook": "20:40\nואני קוראת לך בפעם החמישית",
+        "slide2": "כל פעם שאת באה\nהחושך נהיה קצת פחות גדול",
+        "slide2_move": "zoom_in",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does she keep calling, and what makes it fewer times?",
+        "payoff_slide": 3,
+        "answer": "Slide 3: she checks that mom is near; slides 4 and 5 would give check-ins she can count on.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passes (17). Not used: moment-time ran on 8 Oct, the moment family is taken by k4, and the check-in answer is k2's."
+      },
+      {
+        "id": "k6",
+        "formula": "through-the-ages",
+        "family": "story",
+        "hook": "אני בן 3\nורוצה שהדלת תישאר פתוחה",
+        "slide2": "אני בן 4\nומבקש רק פס אור קטן מהמסדרון",
+        "slide2_move": "same_template",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "unaware",
+        "gap": "How does his fear change as he grows?",
+        "payoff_slide": 6,
+        "answer": "Slide 6 would show him at 5 asleep with the door closed.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 0,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": true,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Fails: the age steps imply the fear shrinks on a schedule, and no source we read says when it does."
+      }
+    ],
+    "expert": [
+      {
+        "id": "e1",
+        "formula": "sentence-we-all-say",
+        "family": "sentences_we_say",
+        "hook": "״אין פה כלום מאמי לכי לישון״\nכולנו אומרות את זה ליד הדלת",
+        "slide2": "בשבילה הפחד אמיתי לגמרי\nגם כשאנחנו יודעות שאין שם כלום",
+        "slide2_move": "other_side",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "If 'there is nothing here' does not calm her, what does?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 (Seattle): the fear is real to her; slides 4 and 5 would give words that acknowledge it.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passes (18). Not used: e2 and expert-1 already carry the don't-dismiss answer, and k4 holds the recognition mechanism."
+      },
+      {
+        "id": "e2",
+        "formula": "practical-question",
+        "family": "practical_question",
+        "hook": "מה עונים לבת 4\nששואלת על מפלצות?\nבפעם השלישית באותו לילה",
+        "slide2": "ספריי נגד מפלצות נשמע חמוד\nאבל בבית החולים לילדים בסינסינטי\nממליצים לוותר עליו\nאז מה כן?",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "What do you answer instead of spray or 'there is no such thing'?",
+        "payoff_slide": 4,
+        "answer": "Slides 4 and 5 (Seattle, Cincinnati, MGH): show you understand without laughing or searching, then praise each brave step in the morning.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-2"
+      },
+      {
+        "id": "e3",
+        "formula": "reversal",
+        "family": "reframe",
+        "hook": "עוד ועוד מנורות בחדר\nלא בהכרח עוזרות לו להירדם",
+        "slide2": "אור קטן אחד מספיק\nילדים צריכים חושך כדי לישון טוב\nגם ילדים שמפחדים ממנו",
+        "slide2_move": "contrast",
+        "mechanism": "reframe",
+        "awareness_stage": "solution_aware",
+        "gap": "If more light does not help, what does?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 (Seattle): the fear is real; slides 4 and 5 (Colorado): one sentence that acknowledges it and one dim night light.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-1"
+      },
+      {
+        "id": "e4",
+        "formula": "just-so-you-know",
+        "family": "normalising",
+        "hook": "רק שתדעו\nפחד מחושך בגיל הגן\nזה מוכר מאוד",
+        "slide2": "רק שתדעו גם את זה\nפחד שנראה לנו קטן\nיכול להיות לו ממש גדול",
+        "slide2_move": "same_template",
+        "mechanism": "reassurance",
+        "awareness_stage": "problem_aware",
+        "gap": "Is it really normal, and what do we do with it?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 (Colorado): many children this age have nighttime fears; slides 4 and 5: make the dark a daytime game and walk him back calmly at night.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-3",
+        "note": "Passes at the pass mark (14). Used to test the new trend formula; reassurance first, two concrete steps follow."
+      },
+      {
+        "id": "e5",
+        "formula": "analogy-scene",
+        "family": "analogy",
+        "hook": "דמייני שמישהו סוגר לך את הדלת\nואת לא יודעת מתי הוא חוזר",
+        "slide2": "חדר חשוך עם דלת סגורה\nאולי מרגיש בערך ככה בגיל 4",
+        "slide2_move": "scene_restart",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "unaware",
+        "gap": "What does that have to do with my child's bedtime?",
+        "payoff_slide": 3,
+        "answer": "Slide 3: not knowing when the parent returns; slides 4 and 5 would give check-ins at set times.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passes (17). Not used: its answer is the same check-in method as kid-2."
+      },
+      {
+        "id": "e6",
+        "formula": "parent-confession",
+        "family": "normalising",
+        "hook": "״אין לי כוח לקום אליו עוד פעם״\nומותר להגיד את זה",
+        "slide2": "יש דרך לקום פחות\nושהוא עדיין ירגיש שאת קרובה",
+        "slide2_move": "first_answer",
+        "mechanism": "reassurance",
+        "awareness_stage": "problem_aware",
+        "gap": "Is it ok to feel that, and how do I get up less?",
+        "payoff_slide": 4,
+        "answer": "Slides 4 and 5 would give check-ins at growing intervals (Cincinnati).",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passes (18). Not used: same family as e4, and the check-in answer would repeat kid-2."
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "אני לא מפחדת מהחושך",
+          "angle": "הילדה מסבירה שהפחד הוא להיות לבד בחושך ולא החושך עצמו. שני דברים מהמקורות: חפץ מנחם שנשאר במיטה, ואור שיורד לאט לאורך הערב. בקטלוג: באנו חושך לגרש (לקישור בהודעה בלבד).",
+          "target_parent": "אמא לבת 4 שקוראת לה שוב ושוב אחרי שהיא יוצאת מהחדר.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-not-because",
+            "gap": "אם היא לא מפחדת מהחושך אז ממה?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 1,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k1",
+            "mechanism": "perspective_shift",
+            "slide2_move": "other_side"
+          },
+          "code_word": "חושך",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "תמר",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with curly light-brown hair in two small puffs, light olive skin, freckles across the nose, big brown eyes; about 102 cm tall.",
+            "parent": "Her mother, late thirties, warm tan skin, dark straight hair in a low bun, small round glasses, calm and a little tired in a real way.",
+            "wardrobe": "Girl: lilac pyjamas with tiny stars, bare feet, a worn grey plush bunny. Mother: oversized cream knit sweater, soft grey lounge trousers."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אני לא מפחדת מהחושך",
+              "body": "אני מפחדת להיות בו לבד",
+              "image": {
+                "beat": "alone in the dark room",
+                "action": "The girl sits up in bed hugging her knees, looking at the half-open door where the hallway light was.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot from the foot of the bed",
+                "lighting": "Dim blue night light from the window, a thin warm strip under the door.",
+                "wardrobe_objects": "Knitted blanket around her legs.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה כן עוזר לה? שקופיות 3 עד 5"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "את אומרת ״אין פה כלום״",
+              "body": "ואני שומעת כל רעש בבית\nאחרי שאת יוצאת לסלון",
+              "image": {
+                "beat": "every sound after mom leaves",
+                "action": "The mother stands in the doorway with one hand on the light switch, smiling; the girl peeks over the blanket.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot from the pillow toward the door",
+                "lighting": "Warm hallway light behind the mother, the room dim.",
+                "wardrobe_objects": "The door half open.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall beside the door frame"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "למה זה קורה דווקא כשאמא יוצאת? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "recognition",
+              "headline": "כשאת לידי החדר רגיל",
+              "body": "כשאת יוצאת הוא נהיה גדול\nואני צריכה משהו שנשאר איתי\nאבל מה?",
+              "image": {
+                "beat": "the room grows when she leaves",
+                "action": "The girl alone in bed, the room looks a little bigger and quieter around her; the mother is not in this scene.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot, wide enough to show the empty room",
+                "lighting": "Low blue night light, long soft shadows.",
+                "wardrobe_objects": "Toy shelf in shadow.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the shelf"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "מה נשאר איתה? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "דובי שישן איתי",
+              "body": "חבר קטן שנשאר במיטה\nגם כשאת כבר בסלון",
+              "image": {
+                "beat": "a friend who stays",
+                "action": "The mother tucks the grey plush bunny under the blanket next to the girl, who holds its ear.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot, close on the bed",
+                "lighting": "Warm bedside lamp.",
+                "wardrobe_objects": "The grey plush bunny.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall above the headboard"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו לפני שהאור נכבה"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ואור שיורד לאט",
+              "body": "קצת פחות אור בכל שלב של הערב\nאמבטיה פיג׳מה ואז מנורה קטנה\nככה החושך לא מגיע בבת אחת",
+              "image": {
+                "beat": "the light fades slowly",
+                "action": "The mother turns a small bedside lamp to its lowest setting while the girl watches from bed.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot",
+                "lighting": "One small amber lamp, the rest of the room soft and dim.",
+                "wardrobe_objects": "Small amber lamp on a wooden stool.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dim cream wall above the lamp"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה קורה כשהאור כבה? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "״לילה טוב תמר״",
+              "body": "והדובי מתחת לסנטר\nואני נרדמת לפני שאני שמה לב",
+              "image": {
+                "beat": "asleep before she notices",
+                "action": "The girl asleep with the bunny under her chin; the mother is not in this scene.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot, close on the pillow",
+                "lighting": "Only the small amber lamp, very soft.",
+                "wardrobe_objects": "The grey plush bunny.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark plum wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ובשקופית 7 עוד דרך לעזור לה"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם בסיפור אישי",
+              "body": "כתבי \"חושך\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "image": {
+                "beat": "her own story at bedtime",
+                "action": "The girl and her mother sit side by side on the bed looking at an open square picture book; the child laughs and points at the page.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "The open picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "לפעמים זה לא החושך עצמו אלא הרגע שאמא יוצאת מהחדר\nדובי אחד שנשאר איתה במיטה\nואור שיורד לאט לאורך הערב\nככה החושך לא מגיע בבת אחת\nובערב את יכולה לעזור לה גם בעזרת סיפור שבו היא הגיבורה\nכתבי \"חושך\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"חושך\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-sch",
+              "title": "Nighttime Fears",
+              "publisher": "Seattle Children's Hospital (clinical staff, updated 1 Jun 2026)",
+              "url": "https://www.seattlechildrens.org/pe/sleep-medicine/nighttime-fears/",
+              "accessed": "2026-10-08",
+              "quote": "It is normal for children to have nighttime fears, especially at bedtime, and most children have these at some point. ... Don't dismiss or make fun of them because fears that seem silly to an adult may be very real to a child. ... A nightlight is fine as long as it does not prevent your child from falling asleep. ... Read stories about children who are afraid and conquer their fears. ... briefly checking in on them in their bed and reassuring them in 5 minutes, and then every 10 minutes until they are asleep. ... Avoid scary TV shows, videos, or stories that may add to your child's fears. ... a security object (like a small stuffed animal) they can keep in bed with them may be beneficial.",
+              "supports": "Nighttime fears are normal; do not dismiss them; a nightlight is fine; read stories about children who conquer fears; brief check-ins at 5 then 10 minutes; avoid scary media; a security object in bed."
+            },
+            {
+              "id": "src-cco",
+              "title": "Helping Kids Overcome a Fear of the Dark",
+              "publisher": "Children's Hospital Colorado (Benjamin Mullin, PhD, 30 Jul 2025)",
+              "url": "https://www.childrenscolorado.org/just-ask-childrens/articles/fear-of-the-dark/",
+              "accessed": "2026-10-08",
+              "quote": "Nearly 75% of children ages 4 to 12 report having nighttime fears ... I know the dark feels scary sometimes, but I also know that you can do this ... kids need a dark environment to get adequate sleep ... one dim night light, if anything ... dimming the lights more as it reaches your child's bedtime ... Make the dark fun ... Gently guide your child back to bed ... Offer calm, confident support. ... things they've seen on TV, online or even the news",
+              "supports": "Nighttime fears are common at ages 4 to 12; a validating sentence; children need darkness to sleep, one dim night light at most; dim the lights through the evening; make the dark fun; calm confident return to bed; fears often come from things seen on screens."
+            },
+            {
+              "id": "src-mgh",
+              "title": "Fear of the Dark? 16 Ways to Help Your Child",
+              "publisher": "MGH Clay Center for Young Healthy Minds (Gene Beresin)",
+              "url": "https://mghclaycenter.org/parenting-concerns/fear-of-the-dark-16-ways-to-help-your-child",
+              "accessed": "2026-10-08",
+              "quote": "you can ask open ended questions like, 'What are you afraid of when you go to bed?' ... Use praise and reassurance as they develop the ability to go to sleep alone. ... Use Books and Movies About Nighttime Fears.",
+              "supports": "Ask open questions about what scares the child at bedtime; praise brave steps; use books about nighttime fears."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "אני לא מפחדת מהחושך אני מפחדת להיות בו לבד",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "An imagined inner voice of one child, not a claim about all children."
+            },
+            {
+              "slide": 4,
+              "wording_he": "דובי שישן איתי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch"
+              ],
+              "supports": "Seattle Children's: a security object such as a small stuffed animal kept in bed may be beneficial."
+            },
+            {
+              "slide": 5,
+              "wording_he": "קצת פחות אור בכל שלב של הערב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cco"
+              ],
+              "supports": "Children's Hospital Colorado: dim the lights more as bedtime approaches, as part of a calm consistent routine."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-mgh"
+              ],
+              "supports": "Seattle Children's: read stories about children who are afraid and conquer their fears; MGH Clay Center: books about nighttime fears. That the story is personalised is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילדה היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "The book behind the comment link: the child's name in the text and the child in every illustration (live site). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח שמזיז את הבעיה מהחושך לבדידות מרגיש מדויק לאמהות שקמות שוב ושוב. הפתרונות פשוטים להערב עצמו, ומילת הקוד היא הנושא."
+        },
+        {
+          "id": "kid-2",
+          "title": "״אתם חוזרים לבדוק אותי?״",
+          "angle": "השאלה שהילד שואל כל לילה, והתשובה מהמקורות: הצצות קצרות שהולכות ומתרחקות (5 ואז 10 ואז רבע שעה). בקטלוג: באנו חושך לגרש (לקישור בהודעה בלבד).",
+          "target_parent": "הורים לבן 4 שמבקש בכל ערב שיחזרו לבדוק אותו ולא נרדם עד שהם באים.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_quote",
+          "hook": {
+            "formula": "child-question",
+            "gap": "למה הוא שואל את זה כל לילה ומה עונים לו?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k2",
+            "mechanism": "honest_curiosity",
+            "slide2_move": "zoom_in"
+          },
+          "code_word": "פנס",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "איתי",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short dark curly hair, light olive skin, round cheeks and big dark eyes; about 105 cm tall.",
+            "parent": "His mother, mid thirties, light skin, long straight auburn hair loose, calm; and his father, mid thirties, tan skin, short black beard, both in the scenes where the copy says so.",
+            "wardrobe": "Boy: navy pyjamas with small moons, a knitted plum blanket. Mother: grey hoodie and jeans. Father: dark green T-shirt."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״אתם חוזרים לבדוק אותי?״",
+              "body": "אני שואל את זה כל לילה",
+              "image": {
+                "beat": "the nightly question",
+                "action": "The boy in bed holds the edge of the blanket and looks up at his mother standing at the door.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot from the pillow",
+                "lighting": "Warm hallway light at the door, the room dim.",
+                "wardrobe_objects": "Plum blanket pulled to his chin.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the door"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "למה הוא שואל? שקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "כשהדלת נסגרת",
+              "body": "החדר נהיה פתאום שקט מדי\nואני מקשיב לכל רעש במסדרון",
+              "image": {
+                "beat": "the quiet after the door",
+                "action": "The boy alone in bed, eyes open, listening toward the closed door; the parents are not in this scene.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot, close",
+                "lighting": "Thin line of warm light under the door, blue dark elsewhere.",
+                "wardrobe_objects": "Closed white door.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the door"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "מה הוא צריך לשמוע? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "recognition",
+              "headline": "אני לא מנסה לעבוד עליכם",
+              "body": "אני רק רוצה לדעת שאתם קרובים\nגם כשאני לא רואה אתכם\nאז מה תגידו לי?",
+              "image": {
+                "beat": "needing them near",
+                "action": "The boy hugs his knees in bed looking at the door; the parents are not in this scene.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot",
+                "lighting": "Soft blue night light.",
+                "wardrobe_objects": "Plum blanket.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "התשובה בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "״כן ועוד חמש דקות אני מציצה״",
+              "body": "ואז באמת לבוא\nרק להציץ ולהגיד ״לילה טוב איתי״",
+              "image": {
+                "beat": "the promised peek",
+                "action": "The mother leans in at the half-open door and smiles at the boy, one hand on the frame.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot from the bed toward the door",
+                "lighting": "Warm hallway light framing the mother.",
+                "wardrobe_objects": "The door half open.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall beside the door"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ומה קורה בהצצה הבאה? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ובכל פעם קצת יותר זמן",
+              "body": "חמש דקות ואז עשר ואז רבע שעה\nכל הצצה קצרה ושקטה",
+              "image": {
+                "beat": "each peek a little later",
+                "action": "The father peeks in quietly through the door gap; the boy, half asleep, sees him.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot",
+                "lighting": "Very soft hallway light.",
+                "wardrobe_objects": "The door slightly open.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the door"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה קורה בהצצה השלישית? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "בהצצה השלישית אני כבר ישן",
+              "body": "ואני יודע שתבואו גם מחר",
+              "image": {
+                "beat": "asleep, trusting",
+                "action": "The boy sleeps peacefully; the mother and father stand together at the door looking in.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot from the bed toward the door",
+                "lighting": "Soft warm light from the hallway.",
+                "wardrobe_objects": "Plum blanket.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall above the door"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ובשקופית 7 עוד דרך לעזור לו"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם בסיפור אישי",
+              "body": "כתבו \"פנס\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "image": {
+                "beat": "his own story at bedtime",
+                "action": "The boy, his mother and his father sit side by side on the bed looking at an open square picture book; the child laughs and points at the page.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "The open picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "כשהוא שואל אם תחזרו לבדוק הוא בעצם שואל אם אתם קרובים\nלהגיד מתי מציצים ולהגיע באמת\nחמש דקות ואז עשר ואז רבע שעה\nכל הצצה קצרה ושקטה\nובערב אתם יכולים לעזור לו גם בעזרת סיפור שבו הוא הגיבור\nכתבו \"פנס\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"פנס\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-sch",
+              "title": "Nighttime Fears",
+              "publisher": "Seattle Children's Hospital (clinical staff, updated 1 Jun 2026)",
+              "url": "https://www.seattlechildrens.org/pe/sleep-medicine/nighttime-fears/",
+              "accessed": "2026-10-08",
+              "quote": "It is normal for children to have nighttime fears, especially at bedtime, and most children have these at some point. ... Don't dismiss or make fun of them because fears that seem silly to an adult may be very real to a child. ... A nightlight is fine as long as it does not prevent your child from falling asleep. ... Read stories about children who are afraid and conquer their fears. ... briefly checking in on them in their bed and reassuring them in 5 minutes, and then every 10 minutes until they are asleep. ... Avoid scary TV shows, videos, or stories that may add to your child's fears. ... a security object (like a small stuffed animal) they can keep in bed with them may be beneficial.",
+              "supports": "Nighttime fears are normal; do not dismiss them; a nightlight is fine; read stories about children who conquer fears; brief check-ins at 5 then 10 minutes; avoid scary media; a security object in bed."
+            },
+            {
+              "id": "src-cin",
+              "title": "Bedtime Fears: Helping Overcome Them",
+              "publisher": "Cincinnati Children's (reviewed by Anne Leopard, Child Life Specialist, Sep 2021)",
+              "url": "https://www.cincinnatichildrens.org/health/b/bedtime-fears",
+              "accessed": "2026-10-08",
+              "quote": "It is normal for young children to have fears of the dark and going to bed at night. ... If he / she is afraid of monsters, don't get out the monster repellant spray or broom to sweep the monster away. ... Begin by briefly checking and reassuring in 5 minutes, then 10 minutes, then 15 minutes, then 20 minutes until your child is asleep.",
+              "supports": "Fear of the dark is normal in young children; skip monster spray and monster sweeping; check in at growing intervals (5, 10, 15, 20 minutes)."
+            },
+            {
+              "id": "src-mgh",
+              "title": "Fear of the Dark? 16 Ways to Help Your Child",
+              "publisher": "MGH Clay Center for Young Healthy Minds (Gene Beresin)",
+              "url": "https://mghclaycenter.org/parenting-concerns/fear-of-the-dark-16-ways-to-help-your-child",
+              "accessed": "2026-10-08",
+              "quote": "you can ask open ended questions like, 'What are you afraid of when you go to bed?' ... Use praise and reassurance as they develop the ability to go to sleep alone. ... Use Books and Movies About Nighttime Fears.",
+              "supports": "Ask open questions about what scares the child at bedtime; praise brave steps; use books about nighttime fears."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 3,
+              "wording_he": "אני רק רוצה לדעת שאתם קרובים",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "An imagined inner voice of one child."
+            },
+            {
+              "slide": 4,
+              "wording_he": "עוד חמש דקות אני מציצה ואז באמת לבוא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-cin"
+              ],
+              "supports": "Seattle Children's and Cincinnati Children's: brief check-ins starting after 5 minutes."
+            },
+            {
+              "slide": 5,
+              "wording_he": "חמש דקות ואז עשר ואז רבע שעה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cin"
+              ],
+              "supports": "Cincinnati Children's: check in at 5, then 10, then 15, then 20 minutes until the child is asleep."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור לו גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-mgh"
+              ],
+              "supports": "Seattle Children's: read stories about children who are afraid and conquer their fears; MGH Clay Center: books about nighttime fears. That the story is personalised is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "The book behind the comment link: the child's name in the text and the child in every illustration (live site). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "השאלה מוכרת לכל הורה שקם שוב ושוב בערב, והתשובה נותנת שיטה מדויקת להערב. ההורים יוצאים עם משפט וטבלת זמנים."
+        },
+        {
+          "id": "kid-3",
+          "title": "כשהאור במסדרון נכבה",
+          "angle": "פחד שהתחיל מסרט: הילדה רואה את המכשפה בכל צל. שני דברים מהמקורות: לשאול מה מפחיד בלי לזלזל, ובערב לבחור מסכים רגועים. בקטלוג: באנו חושך לגרש (לקישור בהודעה בלבד).",
+          "target_parent": "אמא לבת 5 שהתחילה לפחד פתאום, אחרי סרט או תוכנית.",
+          "awareness_stage": "unaware",
+          "hook_family": "moment",
+          "hook": {
+            "formula": "child-body-moment",
+            "gap": "מה קרה פתאום ומה עוזר לה?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 1,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k4",
+            "mechanism": "recognition",
+            "slide2_move": "name_trigger"
+          },
+          "code_word": "לילה",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "נטע",
+          "character_anchor": {
+            "child": "A 5-year-old Israeli girl with long straight black hair in a side braid, medium brown skin, dark eyes and a gap-toothed smile; about 110 cm tall.",
+            "parent": "Her mother, early forties, light olive skin, short wavy chestnut hair, a calm gentle face.",
+            "wardrobe": "Girl: mint-green long nightgown, a small knitted cardigan on a chair. Mother: plum long-sleeved T-shirt, black leggings."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "כשהאור במסדרון נכבה",
+              "body": "אני מרגישה את זה בבטן",
+              "image": {
+                "beat": "the hallway light goes off",
+                "action": "The girl in bed, blanket clutched at her tummy, watching the hallway light go out through the open door.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot from the bed",
+                "lighting": "Hallway light just switched off, the room in soft blue dark.",
+                "wardrobe_objects": "Blanket held to her tummy.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "מה קרה פתאום? שקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "מאז הסרט עם המכשפה",
+              "body": "כל צל בחדר נראה לי כמוה\nגם המעיל שעל הכיסא",
+              "image": {
+                "beat": "every shadow looks like her",
+                "action": "The girl stares at her cardigan hanging on a chair; its shadow on the wall is long and odd; the mother is not in this scene.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot, the chair and its shadow in frame",
+                "lighting": "Moonlight through the shutter slats.",
+                "wardrobe_objects": "The small knitted cardigan on a wooden chair.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the shadow"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה אמא אומרת? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "בראש שלי הצל זז",
+              "body": "גם כשאת אומרת שזה רק מעיל\nאז מה עוזר לי באמת?",
+              "image": {
+                "beat": "real in her head",
+                "action": "The mother sits on the bed edge pointing gently at the chair; the girl still looks unsure.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot",
+                "lighting": "Small bedside lamp just turned on.",
+                "wardrobe_objects": "The cardigan on the chair.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall above the headboard"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "שני דברים בשקופיות 4 ו-5"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "קודם תשאלי מה מפחיד אותי",
+              "body": "״נטע מה מפחיד אותך כשהאור נכבה?״\nולהקשיב בלי להגיד שזה שטויות",
+              "image": {
+                "beat": "asked and heard",
+                "action": "The mother lies beside the girl on top of the blanket, listening; the girl talks with her hands.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot, close two-shot",
+                "lighting": "Warm bedside lamp.",
+                "wardrobe_objects": "Pillows, the knitted blanket.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו שקורה עוד לפני המיטה"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ובערב בלי מכשפות",
+              "body": "סרטים ותוכניות רגועים לפני השינה\nומשהו מצחיק במקום",
+              "image": {
+                "beat": "a calm evening screen",
+                "action": "The girl and her mother on the living-room sofa laughing at something off screen; the screen is not visible.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot from beside the sofa",
+                "lighting": "Warm evening living-room light.",
+                "wardrobe_objects": "A soft throw blanket, a bowl of cut apple.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream living-room wall"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה קורה למעיל? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "המעיל חוזר להיות מעיל",
+              "body": "ואני נרדמת\nכשהאור הקטן ליד הדלת דולק",
+              "image": {
+                "beat": "just a coat again",
+                "action": "The girl asleep; the cardigan hangs on the chair, ordinary; a small night light glows by the door; the mother is not in this scene.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Child's eye level, close medium shot",
+                "lighting": "One small warm night light.",
+                "wardrobe_objects": "The cardigan on the chair.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark plum wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ובשקופית 7 עוד דרך לעזור לה"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם בסיפור אישי",
+              "body": "כתבי \"לילה\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "image": {
+                "beat": "her own story at bedtime",
+                "action": "The girl and her mother sit side by side on the bed looking at an open square picture book; the child laughs and points at the page.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "The open picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "לפעמים הפחד מהחושך מתחיל ממשהו שראו במסך\nקודם שואלים מה מפחיד אותה\nומקשיבים בלי להגיד שזה שטויות\nובערב בוחרים סרטים רגועים\nובלילה את יכולה לעזור לה גם בעזרת סיפור שבו היא הגיבורה\nכתבי \"לילה\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לילה\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-sch",
+              "title": "Nighttime Fears",
+              "publisher": "Seattle Children's Hospital (clinical staff, updated 1 Jun 2026)",
+              "url": "https://www.seattlechildrens.org/pe/sleep-medicine/nighttime-fears/",
+              "accessed": "2026-10-08",
+              "quote": "It is normal for children to have nighttime fears, especially at bedtime, and most children have these at some point. ... Don't dismiss or make fun of them because fears that seem silly to an adult may be very real to a child. ... A nightlight is fine as long as it does not prevent your child from falling asleep. ... Read stories about children who are afraid and conquer their fears. ... briefly checking in on them in their bed and reassuring them in 5 minutes, and then every 10 minutes until they are asleep. ... Avoid scary TV shows, videos, or stories that may add to your child's fears. ... a security object (like a small stuffed animal) they can keep in bed with them may be beneficial.",
+              "supports": "Nighttime fears are normal; do not dismiss them; a nightlight is fine; read stories about children who conquer fears; brief check-ins at 5 then 10 minutes; avoid scary media; a security object in bed."
+            },
+            {
+              "id": "src-cco",
+              "title": "Helping Kids Overcome a Fear of the Dark",
+              "publisher": "Children's Hospital Colorado (Benjamin Mullin, PhD, 30 Jul 2025)",
+              "url": "https://www.childrenscolorado.org/just-ask-childrens/articles/fear-of-the-dark/",
+              "accessed": "2026-10-08",
+              "quote": "Nearly 75% of children ages 4 to 12 report having nighttime fears ... I know the dark feels scary sometimes, but I also know that you can do this ... kids need a dark environment to get adequate sleep ... one dim night light, if anything ... dimming the lights more as it reaches your child's bedtime ... Make the dark fun ... Gently guide your child back to bed ... Offer calm, confident support. ... things they've seen on TV, online or even the news",
+              "supports": "Nighttime fears are common at ages 4 to 12; a validating sentence; children need darkness to sleep, one dim night light at most; dim the lights through the evening; make the dark fun; calm confident return to bed; fears often come from things seen on screens."
+            },
+            {
+              "id": "src-mgh",
+              "title": "Fear of the Dark? 16 Ways to Help Your Child",
+              "publisher": "MGH Clay Center for Young Healthy Minds (Gene Beresin)",
+              "url": "https://mghclaycenter.org/parenting-concerns/fear-of-the-dark-16-ways-to-help-your-child",
+              "accessed": "2026-10-08",
+              "quote": "you can ask open ended questions like, 'What are you afraid of when you go to bed?' ... Use praise and reassurance as they develop the ability to go to sleep alone. ... Use Books and Movies About Nighttime Fears.",
+              "supports": "Ask open questions about what scares the child at bedtime; praise brave steps; use books about nighttime fears."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "מאז הסרט עם המכשפה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cco"
+              ],
+              "supports": "Children's Hospital Colorado: when asked, children often point to things seen on TV or online. The witch film is this child's example."
+            },
+            {
+              "slide": 3,
+              "wording_he": "בראש שלי הצל זז גם כשאת אומרת שזה רק מעיל",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch"
+              ],
+              "supports": "Seattle Children's: fears that seem silly to an adult may be very real to a child."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לשאול מה מפחיד אותך כשהאור נכבה ולהקשיב בלי לזלזל",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-mgh",
+                "src-sch"
+              ],
+              "supports": "MGH Clay Center: ask open questions like what are you afraid of when you go to bed; Seattle Children's: do not dismiss or make fun."
+            },
+            {
+              "slide": 5,
+              "wording_he": "סרטים ותוכניות רגועים לפני השינה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch"
+              ],
+              "supports": "Seattle Children's: avoid scary TV shows, videos or stories that may add to the fears."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-mgh"
+              ],
+              "supports": "Seattle Children's: read stories about children who are afraid and conquer their fears; MGH Clay Center: books about nighttime fears. That the story is personalised is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילדה היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "The book behind the comment link: the child's name in the text and the child in every illustration (live site). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "רגע מאוד מוחשי (האור במסדרון) ופחד שהתחיל ממסך, מצב שהרבה הורים לא מחברים אליו. שני צעדים ברורים להערב."
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "label_he": "גישה מקצועית מבוססת מקורות",
+      "versions": [
+        {
+          "id": "expert-1",
+          "title": "עוד ועוד מנורות בחדר",
+          "angle": "ההרגל להדליק עוד אור מול מה שבתי החולים לילדים ממליצים: אור קטן ועמום אחד, ומשפט אחד שמכיר בפחד. בקטלוג: באנו חושך לגרש (לקישור בהודעה בלבד).",
+          "target_parent": "אמא לבן 3 שכבר משאירה כמה מנורות דולקות ועדיין הוא לא נרדם.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "reversal",
+            "gap": "אם עוד אור לא עוזר, אז מה כן?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e3",
+            "mechanism": "reframe",
+            "slide2_move": "contrast"
+          },
+          "code_word": "אור",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "אדם",
+          "character_anchor": {
+            "child": "A 3-year-old Israeli boy with wavy blond-brown hair, fair skin, rosy cheeks and grey-blue eyes; about 96 cm tall.",
+            "parent": "His mother, early thirties, olive skin, long dark wavy hair in a ponytail, steady and warm.",
+            "wardrobe": "Boy: yellow pyjamas with small trucks, a brown plush bear. Mother: soft blue denim shirt, cream trousers."
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "עוד ועוד מנורות בחדר",
+              "body": "לא בהכרח עוזרות לו להירדם",
+              "image": {
+                "beat": "a room full of lamps",
+                "action": "The boy sits awake in bed in a room lit by a ceiling light, a desk lamp and a string of fairy lights; the mother stands at the door unsure.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot from the doorway, both in frame",
+                "lighting": "Too much mixed light, bright and flat.",
+                "wardrobe_objects": "Fairy lights on the shelf, a desk lamp.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain cream wall above the shelf"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "אז כמה אור? שקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "אור קטן אחד מספיק",
+              "body": "ילדים צריכים חושך כדי לישון טוב\nגם ילדים שמפחדים ממנו",
+              "image": {
+                "beat": "one small light",
+                "action": "The same room with only one small dim night light near the floor; the boy lies down calmly.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot",
+                "lighting": "One dim warm night light, the rest dark.",
+                "wardrobe_objects": "A small round night light plugged in by the bed.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark plum wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה עם הפחד עצמו? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "הפחד אמיתי בשבילו",
+              "body": "גם כשאנחנו יודעות שאין שם כלום\nאז מה עושים איתו?",
+              "image": {
+                "beat": "real for him",
+                "action": "The mother kneels by the bed at the boy's level, listening, as he points at the dark corner.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot, both in frame",
+                "lighting": "Dim night light with warm glow on their faces.",
+                "wardrobe_objects": "Brown plush bear.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above them"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "משפט אחד בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "משפט אחד לפני כיבוי האור",
+              "body": "״אדם החושך מפחיד לפעמים\nואני בטוחה שתצליח״",
+              "image": {
+                "beat": "one sentence before lights out",
+                "action": "The mother sits on the bed, hand on the boy's chest, speaking calmly; he looks at her.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot",
+                "lighting": "Warm bedside lamp about to be turned off.",
+                "wardrobe_objects": "Brown plush bear tucked under his arm.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall above the headboard"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ואיזה אור משאירים? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ואור לילה קטן ועמום",
+              "body": "ליד המיטה ולא מעל הראש\nכזה שלא מפריע להירדם",
+              "image": {
+                "beat": "the right small light",
+                "action": "The mother plugs a small dim night light in near the floor by the bed.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot, the bed and the night light in frame",
+                "lighting": "One very dim warm glow.",
+                "wardrobe_objects": "Small round night light.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark plum wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה נשאר דולק בסוף? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "בחדר נשאר רק האור הקטן",
+              "body": "ואדם נרדם\nעם היד על הדובי",
+              "image": {
+                "beat": "only the small light",
+                "action": "The boy asleep holding the bear; the mother is not in this scene.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot",
+                "lighting": "Only the dim night light.",
+                "wardrobe_objects": "Brown plush bear.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark plum wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ובשקופית 7 עוד דרך לעזור לו"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם בסיפור אישי",
+              "body": "כתבי \"אור\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "image": {
+                "beat": "his own story at bedtime",
+                "action": "The boy and his mother sit side by side on the bed looking at an open square picture book; the child laughs and points at the page.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "The open picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "יותר אור בחדר לא תמיד עוזר להירדם\nבבית החולים לילדים בקולורדו ממליצים על אור קטן ועמום אחד\nולפני שמכבים משפט אחד שמכיר בפחד\n״החושך מפחיד לפעמים ואני בטוחה שתצליח״\nובערב את יכולה לעזור לו גם בעזרת סיפור שבו הוא הגיבור\nכתבי \"אור\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"אור\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-cco",
+              "title": "Helping Kids Overcome a Fear of the Dark",
+              "publisher": "Children's Hospital Colorado (Benjamin Mullin, PhD, 30 Jul 2025)",
+              "url": "https://www.childrenscolorado.org/just-ask-childrens/articles/fear-of-the-dark/",
+              "accessed": "2026-10-08",
+              "quote": "Nearly 75% of children ages 4 to 12 report having nighttime fears ... I know the dark feels scary sometimes, but I also know that you can do this ... kids need a dark environment to get adequate sleep ... one dim night light, if anything ... dimming the lights more as it reaches your child's bedtime ... Make the dark fun ... Gently guide your child back to bed ... Offer calm, confident support. ... things they've seen on TV, online or even the news",
+              "supports": "Nighttime fears are common at ages 4 to 12; a validating sentence; children need darkness to sleep, one dim night light at most; dim the lights through the evening; make the dark fun; calm confident return to bed; fears often come from things seen on screens."
+            },
+            {
+              "id": "src-sch",
+              "title": "Nighttime Fears",
+              "publisher": "Seattle Children's Hospital (clinical staff, updated 1 Jun 2026)",
+              "url": "https://www.seattlechildrens.org/pe/sleep-medicine/nighttime-fears/",
+              "accessed": "2026-10-08",
+              "quote": "It is normal for children to have nighttime fears, especially at bedtime, and most children have these at some point. ... Don't dismiss or make fun of them because fears that seem silly to an adult may be very real to a child. ... A nightlight is fine as long as it does not prevent your child from falling asleep. ... Read stories about children who are afraid and conquer their fears. ... briefly checking in on them in their bed and reassuring them in 5 minutes, and then every 10 minutes until they are asleep. ... Avoid scary TV shows, videos, or stories that may add to your child's fears. ... a security object (like a small stuffed animal) they can keep in bed with them may be beneficial.",
+              "supports": "Nighttime fears are normal; do not dismiss them; a nightlight is fine; read stories about children who conquer fears; brief check-ins at 5 then 10 minutes; avoid scary media; a security object in bed."
+            },
+            {
+              "id": "src-mgh",
+              "title": "Fear of the Dark? 16 Ways to Help Your Child",
+              "publisher": "MGH Clay Center for Young Healthy Minds (Gene Beresin)",
+              "url": "https://mghclaycenter.org/parenting-concerns/fear-of-the-dark-16-ways-to-help-your-child",
+              "accessed": "2026-10-08",
+              "quote": "you can ask open ended questions like, 'What are you afraid of when you go to bed?' ... Use praise and reassurance as they develop the ability to go to sleep alone. ... Use Books and Movies About Nighttime Fears.",
+              "supports": "Ask open questions about what scares the child at bedtime; praise brave steps; use books about nighttime fears."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "עוד ועוד מנורות בחדר לא בהכרח עוזרות לו להירדם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cco"
+              ],
+              "supports": "Children's Hospital Colorado: multiple nightlights or lights on all night do not help; kids need a dark environment to sleep."
+            },
+            {
+              "slide": 2,
+              "wording_he": "ילדים צריכים חושך כדי לישון טוב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cco"
+              ],
+              "supports": "Children's Hospital Colorado: kids need a dark environment to get adequate sleep; one dim night light, if anything."
+            },
+            {
+              "slide": 3,
+              "wording_he": "הפחד אמיתי בשבילו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch"
+              ],
+              "supports": "Seattle Children's: fears that seem silly to an adult may be very real to a child."
+            },
+            {
+              "slide": 4,
+              "wording_he": "החושך מפחיד לפעמים ואני בטוחה שתצליח",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cco"
+              ],
+              "supports": "Children's Hospital Colorado suggests: I know the dark feels scary sometimes, but I also know that you can do this."
+            },
+            {
+              "slide": 5,
+              "wording_he": "אור לילה קטן ועמום שלא מפריע להירדם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-cco"
+              ],
+              "supports": "Seattle Children's: a nightlight is fine if it does not prevent falling asleep; Colorado: one dim night light."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור לו גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-mgh"
+              ],
+              "supports": "Seattle Children's: read stories about children who are afraid and conquer their fears; MGH Clay Center: books about nighttime fears. That the story is personalised is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "The book behind the comment link: the child's name in the text and the child in every illustration (live site). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח שהופך הרגל נפוץ (עוד אור) מושך הורים שכבר ניסו. התשובה מגובה במקור ברור ונותנת משפט מוכן עם השם של הילד."
+        },
+        {
+          "id": "expert-2",
+          "title": "מה עונים לבת 4 ששואלת על מפלצות?",
+          "angle": "שאלה מעשית של הורים: מה עושים עם מפלצות. מהמקורות: לוותר על ספריי וחיפוש בארון, להראות שמבינים, ולחזק בבוקר כל צעד אמיץ. בקטלוג: באנו חושך לגרש (לקישור בהודעה בלבד).",
+          "target_parent": "הורים לבת 4 שמבקשת לבדוק בארון ומתחת למיטה כמה פעמים בלילה.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "practical_question",
+          "hook": {
+            "formula": "practical-question",
+            "gap": "מה עונים לה במקום ספריי או ״אין דבר כזה״?",
+            "payoff_slide": 4,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "e2",
+            "mechanism": "practical_utility",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "מפלצת",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "מאיה",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with a short dark-brown bob, light olive skin, dark eyes and thick eyebrows; about 103 cm tall.",
+            "parent": "Her mother, mid thirties, dark skin, short natural curls, warm smile; and her father, late thirties, light skin, short sandy hair, glasses.",
+            "wardrobe": "Girl: pink and grey striped pyjamas, a white plush rabbit with long ears. Mother: mustard sweater. Father: navy T-shirt."
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "מה עונים לבת 4\nששואלת על מפלצות?",
+              "body": "בפעם השלישית באותו לילה",
+              "image": {
+                "beat": "the third question tonight",
+                "action": "The girl sits up in bed pointing at the wardrobe; her mother stands by the bed, her father in the doorway.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot, all three in frame",
+                "lighting": "Dim bedroom with a warm hallway glow.",
+                "wardrobe_objects": "A white wardrobe slightly open.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark plum wall above the wardrobe"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "התשובה מתחילה בשקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "ספריי נגד מפלצות נשמע חמוד",
+              "body": "אבל בבית החולים לילדים בסינסינטי\nממליצים לוותר עליו\nאז מה כן?",
+              "image": {
+                "beat": "skip the spray",
+                "action": "The father puts a small plain spray bottle back on a high shelf; the girl watches from bed.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot",
+                "lighting": "Warm lamp light.",
+                "wardrobe_objects": "A small plain spray bottle with no label.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall above the shelf"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "מה כן? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "recognition",
+              "headline": "בשבילה המפלצת אמיתית",
+              "body": "פחד שנראה לנו קטן\nיכול להיות לה ממש גדול\nאז מה אומרים?",
+              "image": {
+                "beat": "real for her",
+                "action": "The girl hugs the white rabbit tightly, eyes on the dark gap under the bed; her mother sits beside her.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot, both in frame",
+                "lighting": "Dim warm night light.",
+                "wardrobe_objects": "White plush rabbit.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "שני דברים בשקופיות 4 ו-5"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "דבר ראשון מראים שמבינים",
+              "body": "״מאיה שמעתי שמפחיד אותך״\nבלי לצחוק ובלי לחפש מפלצות בארון",
+              "image": {
+                "beat": "showing they understand",
+                "action": "The mother sits on the bed facing the girl and holds her hands; the father leans on the door frame, calm.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot",
+                "lighting": "Warm bedside lamp.",
+                "wardrobe_objects": "White plush rabbit on her lap.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall above the headboard"
+                }
+              },
+              "pull": {
+                "type": "numbered",
+                "note": "ודבר שני בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "דבר שני מחזקים כל צעד",
+              "body": "בבוקר מילה אחת על מה שהצליח\n״נשארת במיטה עד שנרדמת״",
+              "image": {
+                "beat": "a word in the morning",
+                "action": "Morning at the kitchen table: the father says something to the girl, who beams over her bowl of cereal; the mother pours tea.",
+                "setting": "An Israeli kitchen in the morning with cream tiles and a window over the sink",
+                "camera": "Adult eye level, medium-wide shot, the three at the table",
+                "lighting": "Bright soft morning light from the window.",
+                "wardrobe_objects": "Cereal bowl, a cup of tea, cream kitchen tiles.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain cream kitchen wall above the window"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה קורה לארון? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "הארון חוזר להיות ארון",
+              "body": "ובבוקר מאיה מחכה לשמוע\nמה הצליח לה בלילה",
+              "image": {
+                "beat": "just a wardrobe again",
+                "action": "Evening again: the girl in bed calm, the wardrobe closed and ordinary; the parents are not in this scene.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot",
+                "lighting": "One dim night light.",
+                "wardrobe_objects": "White plush rabbit beside her.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark plum wall above the wardrobe"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ובשקופית 7 עוד דרך לעזור לה"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם בסיפור אישי",
+              "body": "כתבו \"מפלצת\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "image": {
+                "beat": "her own story at bedtime",
+                "action": "The girl, her mother and her father sit side by side on the bed looking at an open square picture book; the child laughs and points at the page.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "The open picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "כשהיא שואלת שוב ושוב על מפלצות לא צריך ספריי\nקודם מראים שמבינים את הפחד\nבלי לצחוק ובלי לחפש מפלצות בארון\nובבוקר מילה אחת על מה שהצליח\nובערב אתם יכולים לעזור לה גם בעזרת סיפור שבו היא הגיבורה\nכתבו \"מפלצת\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"מפלצת\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-cin",
+              "title": "Bedtime Fears: Helping Overcome Them",
+              "publisher": "Cincinnati Children's (reviewed by Anne Leopard, Child Life Specialist, Sep 2021)",
+              "url": "https://www.cincinnatichildrens.org/health/b/bedtime-fears",
+              "accessed": "2026-10-08",
+              "quote": "It is normal for young children to have fears of the dark and going to bed at night. ... If he / she is afraid of monsters, don't get out the monster repellant spray or broom to sweep the monster away. ... Begin by briefly checking and reassuring in 5 minutes, then 10 minutes, then 15 minutes, then 20 minutes until your child is asleep.",
+              "supports": "Fear of the dark is normal in young children; skip monster spray and monster sweeping; check in at growing intervals (5, 10, 15, 20 minutes)."
+            },
+            {
+              "id": "src-sch",
+              "title": "Nighttime Fears",
+              "publisher": "Seattle Children's Hospital (clinical staff, updated 1 Jun 2026)",
+              "url": "https://www.seattlechildrens.org/pe/sleep-medicine/nighttime-fears/",
+              "accessed": "2026-10-08",
+              "quote": "It is normal for children to have nighttime fears, especially at bedtime, and most children have these at some point. ... Don't dismiss or make fun of them because fears that seem silly to an adult may be very real to a child. ... A nightlight is fine as long as it does not prevent your child from falling asleep. ... Read stories about children who are afraid and conquer their fears. ... briefly checking in on them in their bed and reassuring them in 5 minutes, and then every 10 minutes until they are asleep. ... Avoid scary TV shows, videos, or stories that may add to your child's fears. ... a security object (like a small stuffed animal) they can keep in bed with them may be beneficial.",
+              "supports": "Nighttime fears are normal; do not dismiss them; a nightlight is fine; read stories about children who conquer fears; brief check-ins at 5 then 10 minutes; avoid scary media; a security object in bed."
+            },
+            {
+              "id": "src-mgh",
+              "title": "Fear of the Dark? 16 Ways to Help Your Child",
+              "publisher": "MGH Clay Center for Young Healthy Minds (Gene Beresin)",
+              "url": "https://mghclaycenter.org/parenting-concerns/fear-of-the-dark-16-ways-to-help-your-child",
+              "accessed": "2026-10-08",
+              "quote": "you can ask open ended questions like, 'What are you afraid of when you go to bed?' ... Use praise and reassurance as they develop the ability to go to sleep alone. ... Use Books and Movies About Nighttime Fears.",
+              "supports": "Ask open questions about what scares the child at bedtime; praise brave steps; use books about nighttime fears."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "בבית החולים לילדים בסינסינטי ממליצים לוותר על ספריי נגד מפלצות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cin"
+              ],
+              "supports": "Cincinnati Children's: if the child is afraid of monsters, don't get out the monster repellant spray or broom."
+            },
+            {
+              "slide": 3,
+              "wording_he": "פחד שנראה לנו קטן יכול להיות לה ממש גדול",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch"
+              ],
+              "supports": "Seattle Children's: fears that seem silly to an adult may be very real to a child."
+            },
+            {
+              "slide": 4,
+              "wording_he": "מראים שמבינים בלי לצחוק ובלי לחפש מפלצות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-cin"
+              ],
+              "supports": "Seattle Children's: don't dismiss or make fun; Cincinnati Children's: no spray or broom to sweep the monster away."
+            },
+            {
+              "slide": 5,
+              "wording_he": "בבוקר מילה אחת על מה שהצליח",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-mgh"
+              ],
+              "supports": "MGH Clay Center: use praise and reassurance as they develop the ability to go to sleep alone."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-mgh"
+              ],
+              "supports": "Seattle Children's: read stories about children who are afraid and conquer their fears; MGH Clay Center: books about nighttime fears. That the story is personalised is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילדה היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "The book behind the comment link: the child's name in the text and the child in every illustration (live site). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "שאלה שהורים באמת מחפשים לה תשובה, עם גיל ומצב מדויקים. התשובה מפתיעה (בלי ספריי) ומגובה, ושני הצעדים קלים לביצוע."
+        },
+        {
+          "id": "expert-3",
+          "title": "רק שתדעו",
+          "angle": "נרמול שמוריד דאגה: פחד מחושך מוכר בגיל הגן. שני דברים מהמקורות: ביום הופכים את החושך למשחק, ובלילה מחזירים למיטה ברוגע ובביטחון. בקטלוג: באנו חושך לגרש (לקישור בהודעה בלבד).",
+          "target_parent": "הורים לבן 5 שהתחיל לפחד מהחושך ושואלים את עצמם אם משהו לא בסדר.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "normalising",
+          "hook": {
+            "formula": "just-so-you-know",
+            "gap": "זה באמת נורמלי, ומה עושים עם זה?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 1,
+              "feeling": 2,
+              "honest_gap": 1,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "e4",
+            "mechanism": "reassurance",
+            "slide2_move": "same_template"
+          },
+          "code_word": "כוכב",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "עומר",
+          "character_anchor": {
+            "child": "A 5-year-old Israeli boy with straight black hair cut short, warm brown skin, dark eyes and long lashes; about 110 cm tall.",
+            "parent": "His mother, late thirties, light skin, long light-brown hair in a clip, relaxed; and his father, forties, olive skin, salt-and-pepper short hair.",
+            "wardrobe": "Boy: grey pyjamas with small stars, a red flashlight. Mother: white linen shirt. Father: plum sweatshirt."
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "רק שתדעו",
+              "body": "פחד מחושך בגיל הגן\nזה מוכר מאוד",
+              "image": {
+                "beat": "a common fear",
+                "action": "The boy stands at the edge of his dark bedroom doorway holding his mother's hand, not ready to go in.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot, both in frame from the hallway",
+                "lighting": "Warm hallway light, the bedroom dark beyond.",
+                "wardrobe_objects": "The open bedroom door.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream hallway wall above them"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה עוד כדאי לדעת? שקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "רק שתדעו גם את זה",
+              "body": "פחד שנראה לנו קטן\nיכול להיות לו ממש גדול",
+              "image": {
+                "beat": "small for us, big for him",
+                "action": "The parents sit on the boy's bed with him between them; he looks at the dark window seriously.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot, all three in frame",
+                "lighting": "Dim bedside lamp.",
+                "wardrobe_objects": "Red flashlight on the blanket.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה עושים? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "זה לא אומר שמשהו לא בסדר",
+              "body": "זה פחד שהרבה ילדים בגיל הזה מכירים\nאז איך עוזרים לו?",
+              "image": {
+                "beat": "nothing is wrong",
+                "action": "The mother strokes the boy's hair while the father tucks the blanket; everyone calm.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot",
+                "lighting": "Warm lamp light.",
+                "wardrobe_objects": "Knitted blanket.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall above the headboard"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "שני דברים בשקופיות 4 ו-5"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "ביום עושים מהחושך משחק",
+              "body": "פנס וחדר חשוך וחיפוש אוצר\nעומר מגלה שבחושך גם צוחקים",
+              "image": {
+                "beat": "the dark as a game",
+                "action": "Afternoon with the shutter closed: the boy shines the red flashlight under the table looking for a hidden toy while his father laughs beside him.",
+                "setting": "The family living room with the shutters closed in the afternoon",
+                "camera": "Adult eye level, medium-wide shot, both in frame",
+                "lighting": "Dark room lit only by the flashlight beam, playful.",
+                "wardrobe_objects": "Red flashlight, a small toy car hidden under the table.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark plum wall above the table"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ומה עושים בלילה? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ובלילה מחזירים למיטה ברוגע",
+              "body": "בלי ויכוח ובלי כעס\nקצר וחם ובטוחים שהוא יצליח",
+              "image": {
+                "beat": "back to bed, calmly",
+                "action": "Night: the mother walks the sleepy boy back to bed holding his hand, calm and unhurried.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot, in the doorway",
+                "lighting": "Dim hallway glow.",
+                "wardrobe_objects": "Grey star pyjamas.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark violet wall above the door"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה נשאר מהמשחק? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "הפנס ישן לידו על השידה",
+              "body": "ועומר מחכה למשחק של מחר",
+              "image": {
+                "beat": "waiting for tomorrow's game",
+                "action": "The boy asleep with a small smile; the red flashlight rests on the bedside table; the parents are not in this scene.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Adult eye level, medium-wide shot",
+                "lighting": "One dim night light.",
+                "wardrobe_objects": "Red flashlight on the bedside table.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain dark plum wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ובשקופית 7 עוד דרך לעזור לו"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם בסיפור אישי",
+              "body": "כתבו \"כוכב\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "image": {
+                "beat": "his own story at bedtime",
+                "action": "The boy, his mother and his father sit side by side on the bed looking at an open square picture book; the child laughs and points at the page.",
+                "setting": "A small Israeli child's bedroom in the evening: a low wooden bed with a knitted blanket, a toy shelf, a window with the rolling shutter half down",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "The open picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "פחד מחושך בגיל הגן הוא דבר מוכר\nביום הופכים את החושך למשחק עם פנס\nובלילה מחזירים למיטה ברוגע ובביטחון\nקצר וחם ובלי ויכוח\nובערב אתם יכולים לעזור לו גם בעזרת סיפור שבו הוא הגיבור\nכתבו \"כוכב\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"כוכב\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-sch",
+              "title": "Nighttime Fears",
+              "publisher": "Seattle Children's Hospital (clinical staff, updated 1 Jun 2026)",
+              "url": "https://www.seattlechildrens.org/pe/sleep-medicine/nighttime-fears/",
+              "accessed": "2026-10-08",
+              "quote": "It is normal for children to have nighttime fears, especially at bedtime, and most children have these at some point. ... Don't dismiss or make fun of them because fears that seem silly to an adult may be very real to a child. ... A nightlight is fine as long as it does not prevent your child from falling asleep. ... Read stories about children who are afraid and conquer their fears. ... briefly checking in on them in their bed and reassuring them in 5 minutes, and then every 10 minutes until they are asleep. ... Avoid scary TV shows, videos, or stories that may add to your child's fears. ... a security object (like a small stuffed animal) they can keep in bed with them may be beneficial.",
+              "supports": "Nighttime fears are normal; do not dismiss them; a nightlight is fine; read stories about children who conquer fears; brief check-ins at 5 then 10 minutes; avoid scary media; a security object in bed."
+            },
+            {
+              "id": "src-cin",
+              "title": "Bedtime Fears: Helping Overcome Them",
+              "publisher": "Cincinnati Children's (reviewed by Anne Leopard, Child Life Specialist, Sep 2021)",
+              "url": "https://www.cincinnatichildrens.org/health/b/bedtime-fears",
+              "accessed": "2026-10-08",
+              "quote": "It is normal for young children to have fears of the dark and going to bed at night. ... If he / she is afraid of monsters, don't get out the monster repellant spray or broom to sweep the monster away. ... Begin by briefly checking and reassuring in 5 minutes, then 10 minutes, then 15 minutes, then 20 minutes until your child is asleep.",
+              "supports": "Fear of the dark is normal in young children; skip monster spray and monster sweeping; check in at growing intervals (5, 10, 15, 20 minutes)."
+            },
+            {
+              "id": "src-cco",
+              "title": "Helping Kids Overcome a Fear of the Dark",
+              "publisher": "Children's Hospital Colorado (Benjamin Mullin, PhD, 30 Jul 2025)",
+              "url": "https://www.childrenscolorado.org/just-ask-childrens/articles/fear-of-the-dark/",
+              "accessed": "2026-10-08",
+              "quote": "Nearly 75% of children ages 4 to 12 report having nighttime fears ... I know the dark feels scary sometimes, but I also know that you can do this ... kids need a dark environment to get adequate sleep ... one dim night light, if anything ... dimming the lights more as it reaches your child's bedtime ... Make the dark fun ... Gently guide your child back to bed ... Offer calm, confident support. ... things they've seen on TV, online or even the news",
+              "supports": "Nighttime fears are common at ages 4 to 12; a validating sentence; children need darkness to sleep, one dim night light at most; dim the lights through the evening; make the dark fun; calm confident return to bed; fears often come from things seen on screens."
+            },
+            {
+              "id": "src-mgh",
+              "title": "Fear of the Dark? 16 Ways to Help Your Child",
+              "publisher": "MGH Clay Center for Young Healthy Minds (Gene Beresin)",
+              "url": "https://mghclaycenter.org/parenting-concerns/fear-of-the-dark-16-ways-to-help-your-child",
+              "accessed": "2026-10-08",
+              "quote": "you can ask open ended questions like, 'What are you afraid of when you go to bed?' ... Use praise and reassurance as they develop the ability to go to sleep alone. ... Use Books and Movies About Nighttime Fears.",
+              "supports": "Ask open questions about what scares the child at bedtime; praise brave steps; use books about nighttime fears."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "פחד מחושך בגיל הגן זה מוכר מאוד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-cin"
+              ],
+              "supports": "Seattle Children's: nighttime fears are normal and most children have them; Cincinnati Children's: normal for young children to fear the dark."
+            },
+            {
+              "slide": 2,
+              "wording_he": "פחד שנראה לנו קטן יכול להיות לו ממש גדול",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch"
+              ],
+              "supports": "Seattle Children's: fears that seem silly to an adult may be very real to a child."
+            },
+            {
+              "slide": 3,
+              "wording_he": "פחד שהרבה ילדים בגיל הזה מכירים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cco"
+              ],
+              "supports": "Children's Hospital Colorado: nearly 75% of children ages 4 to 12 report nighttime fears."
+            },
+            {
+              "slide": 4,
+              "wording_he": "ביום עושים מהחושך משחק",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cco"
+              ],
+              "supports": "Children's Hospital Colorado: make the dark fun; a lot of fun activities can happen in the dark. The flashlight treasure hunt is our example."
+            },
+            {
+              "slide": 5,
+              "wording_he": "בלילה מחזירים למיטה ברוגע ובביטחון",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cco"
+              ],
+              "supports": "Children's Hospital Colorado: gently guide the child back to bed; offer calm, confident support."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור לו גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sch",
+                "src-mgh"
+              ],
+              "supports": "Seattle Children's: read stories about children who are afraid and conquer their fears; MGH Clay Center: books about nighttime fears. That the story is personalised is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "The book behind the comment link: the child's name in the text and the child in every illustration (live site). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "הורים שחוששים שמשהו לא בסדר מקבלים קודם הרגעה מגובה, ואז שני צעדים ברורים. נשלח בקלות לבן או בת הזוג."
+        }
+      ]
+    }
+  ]
+}

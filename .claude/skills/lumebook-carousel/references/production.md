@@ -6,6 +6,10 @@ Only after Yarin names one option ("produce kid-2").
 
 Scripts live in `/Users/yarinbruner/Claude/Projects/Lumebook/carousel/carousel-pipeline/scripts/`.
 
+## One picture runs (packs from 14 Oct 2026)
+
+Ten slide options have one picture for the whole carousel, so `prepare_fal_jobs.py` writes a single job, `picture` (text-to-image, about a tenth of the old cost). Run it with `fal_generate.py RUN_DIR run picture --max-usd 0.5`, open `generated-assets/picture.png` at full size (child's face to the viewer with the expression, the idea readable, an empty text zone, hands, no letters, never photo-real), record `qa picture pass` or `replace picture --note "..."`, then `compose_slides.py RUN_DIR` puts the same picture behind all ten slides. Steps 3 to 5 below describe the older 7 slide runs (reference plus 7 edits).
+
 ## 1 · Freeze and prepare (free)
 
 ```bash
@@ -42,7 +46,7 @@ The slides run in parallel (`--workers 7` by default; fal queues anything over t
 
 ## 4 · Visual QA of the seven slides
 
-Inspect each `slide-0N.png` at full size: the same child and parent as the reference, hands, faces, anatomy, accidental words or letters, an empty text zone, who is in the scene versus what the copy says (no parents in a scene the copy says they left), duplicated props, continuity. Record `qa slide-0N pass` or `qa slide-0N fail --note "..."`.
+Slide 1 is the cover (Yarin, 10 Oct 2026): fail it unless the child's whole face is turned to the viewer, eyes to the camera, with a big exaggerated expression, large in the frame. Inspect each `slide-0N.png` at full size: the same child and parent as the reference, hands, faces, anatomy, accidental words or letters, an empty text zone, who is in the scene versus what the copy says (no parents in a scene the copy says they left), duplicated props, continuity. Record `qa slide-0N pass` or `qa slide-0N fail --note "..."`.
 
 Replace a failure only if it fits under the cap:
 
@@ -61,6 +65,10 @@ The carousel never names the brand or a book, so the last slide is the generated
 ```bash
 python3 carousel/carousel-pipeline/scripts/compose_slides.py RUN_DIR
 ```
+
+Since 14 Oct 2026 new runs export in the clean look (Yarin's reference slides): plain centred dark plum type on every slide but the last, no highlight blocks, bubbles or veil, a cream arrow; the last slide stays in the bold look. A run that was already exported keeps its look when re-exported. `--look bold` or `--look classic` forces an older look.
+
+The look follows the copy: options with `highlight` on their slides (packs from 10 Oct 2026 18:30) render in the bold look (very large headline, the highlighted phrase in a colour block, speech bubbles, the comment line as a button); older copy renders in the classic look. `--look bold` or `--look classic` forces one and `--out NAME` writes to another folder for a side by side check. In QA of a bold run also check that the colour block and the bubbles do not cover a face.
 
 It refuses to run until all seven slides passed QA. No logo and no product card by default (`--brand-mark` and `--preview-card` turn them on). It writes `final/slides.html` (editable), `final/01.png` to `08.png` at 1080 x 1350, `contact-sheet.png`, `rtl-check.png`, `rtl-report.json`, `caption.txt`, `sources.md`, `alt-text.txt` and the ZIP. It exits 1 if any text block is not RTL, overflows, or cannot fit at the readable floor (headline 56px, body 44px).
 
@@ -86,5 +94,5 @@ To change wording after export: edit `final/slides.html` or the frozen copy, the
 ## Posting reminders for Yarin (not automated)
 
 - Never mention AI anywhere: not on slides, in the caption, alt text or comments (Yarin, 8 Oct 2026). The validator blocks it in copy
-- Set the Meta Business Suite comment automation for the code word before posting
+- Set the Meta Business Suite comment automation for the code word before posting (it is always לומי since 10 Oct 2026, so one automation covers every carousel)
 - Paste `alt-text.txt` lines into each slide's alt text

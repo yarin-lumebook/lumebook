@@ -1,0 +1,26 @@
+# Sources · kid-3 · 2026-10-12
+
+- [Activity changes for kids: behaviour tips](https://raisingchildren.net.au/toddlers/behaviour/behaviour-management-tips-tools/activity-changes-behaviour-management) · Raising Children Network (Australia; last updated or reviewed 01-10-2024) · read 2026-10-11
+  - supports: Warn before a change; tie it to what comes next; take a natural break; no fake choices, real limited choices about other things; make it fun; disappointment is natural and can be named; role-play the change.
+  - quote: "Children can accept change better when they know it’s coming. ... Give your child some warning about activity changes that are coming up. For example, ‘Desi, you have 5 more minutes to play. Then it will be time to go home’, or ‘Desi, one more go on the slide and then we’re going home’. ... Avoid giving your child a choice about an activity change if there isn’t really a choice. For example, when you say, ‘Orla, would you like to pack up those toys now?’ you suggest a choice. Instead you could say, ‘Orla, please start packing up those toys now’. ... Link something your child doesn’t want to do with something that they like. For example, ‘First we clean up the toys, and then we have a snack’. ... Choose your timing. If you can, stop one thing and start another during a natural break in your child’s activity. ... Give your child a choice about things that are part of the activity change. For example, ‘Evan, we have to go in the car in a minute. You can take one toy with you. Which one will it be?’ ... Limit options. For example, let your child choose between 2 different t-shirts, but not all the t-shirts in the drawer. ... Try making activity change fun. For example, ‘Can you march like a soldier to the car?’ ... Point out good things your child can look forward to after the change. ... It’s natural for your child to be disappointed about having to stop an activity that they’re enjoying. ... ‘I know you feel frustrated that you didn’t have time to play another game’. ... Role-play changes in activities, and talk with your child about how they might go."
+- [How Can We Help Kids With Transitions?](https://childmind.org/article/how-can-we-help-kids-with-transitions/) · Child Mind Institute (Katherine Martinelli; last updated September 15, 2025) · read 2026-10-11
+  - supports: A time frame and countdown before a transition; get the child's attention first; role-play moving between activities; preview the day.
+  - quote: "give a time frame and description of what will happen along with countdowns ... make a connection with the child to ensure that you have their attention ... Dr. Rosenthal suggests doing a role-play in which you practice moving from activity to activity ... In the morning you might lay out what the day is going to look like."
+- [Preschool Prep: Helping Toddlers Prepare for Preschool](https://www.zerotothree.org/resource/preschool-prep-helping-toddlers-prepare-for-preschool/) · ZERO TO THREE (February 8, 2010) · read 2026-10-11
+  - supports: Reading books about an upcoming change and talking about how the characters feel. (Written for starting preschool; we apply the idea of a story as a way to talk about a hard change, as an analogy.)
+  - quote: "Talk about the story and how the characters are feeling."
+
+## Product facts (live site)
+
+- Creating the book and the preview are free; parents pay only if they love it · "יצירת הספר והתצוגה המקדימה בחינם — משלמים רק אם אהבתם" · https://lumebook.com/IL/he · checked 2026-10-11
+- The child's name appears in the text and the child stars in every illustration · "השם שלהם מופיע בטקסט והם מככבים בכל האיורים" · https://lumebook.com/IL/he · checked 2026-10-11
+- Parents upload a photo of the child and add the name · "העלו תמונה של ילדכם והוסיפו את השם" · https://lumebook.com/IL/he · checked 2026-10-11
+
+## Claims
+
+- slide 3 · sourced_fact · זה טבעי כשמפסיקים משהו כיפי · Raising Children Network: it is natural for a child to be disappointed about having to stop an activity they enjoy. · src-rcn
+- slide 3 · sourced_fact · אני צריכה שיכינו אותי לזה · Raising Children Network: children can accept change better when they know it is coming; give some warning about activity changes. · src-rcn
+- slide 4 · sourced_fact · ״ליה אני יודעת שזה מתסכל שהפרק נגמר באמצע״ · Name the feeling, as in I know you feel frustrated that you did not have time to play another game. · src-rcn
+- slide 5 · sourced_fact · ״ליה אחרי הארוחה והמקלחת תוכלי לסיים את הפרק״ · Point out good things to look forward to after the change, and link what comes first with something the child likes (first we clean up the toys, and then we have a snack). · src-rcn, src-cmi
+- slide 7 · sourced_fact · אפשר לעזור לה גם בסיפור אישי · Role-playing a hard change and talking about how the characters feel are both recommended; ZERO TO THREE's page is about starting preschool, so it is used as an analogy. That the story is personalised, with the child as the hero, is our wording. · src-rcn, src-ztt
+- slide 7 · product_fact · סיפור אישי שבו הילדה היא הגיבורה · The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-11). No brand or title on the slide. · site-star

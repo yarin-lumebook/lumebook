@@ -1,0 +1,392 @@
+{
+  "pilot": "podcast/lume-pilot-v1",
+  "created": "2026-10-12",
+  "goal": "Single locked talking shot of Lume in the left studio chair saying one Hebrew line, to test character consistency, Hebrew lip sync and comic performance before the full episode.",
+  "line": "קניתי בגללו ארבע מאות קילו תותים",
+  "deliverables": {
+    "final_video": "video/lume-pilot-v1-final-1920x1080.mp4 (1920x1080, H.264, 30 fps, 120 frames, 4.000 s; AAC 48 kHz stereo)",
+    "alternate_take": "video/alternates/lume-pilot-v1-alt-take2-1920x1080.mp4 (same specs; calmer head and paw movement)",
+    "master_still": "still/lume-left-seat-master-v1-1920x1080.png (native: still/lume-left-seat-master-v1-native-2688x1520.png)",
+    "dialogue_audio": "audio/lume-line-v1.wav (2.435 s, 48 kHz mono 16-bit)",
+    "dialogue_as_muxed": "audio/lume-line-v1-as-muxed-final-4s.wav (same line, 400 ms lead-in, padded to 4.0 s)"
+  },
+  "audio": {
+    "voice": "Custom Higgsfield voice 'Lume' (element id 3ddaf711-5084-4b6c-b8d3-315ea58668f8). Not regenerated.",
+    "source_take": "Higgsfield Eleven v4 job 1a34cb51-acea-4956-9d7f-bb26032beecc, 12 Oct 2026 08:44, stability 0.5, similarity 0.75; chosen by Yarin from the four takes in the Lume voice (copy: audio/source/0844_Lume_stab0.5_sim0.75_1a34cb51.mp3)",
+    "cut": "2.840 to 5.275 s of the 21.89 s take (cut_line.sh): sample-accurate trim, 15 ms fade in, 40 ms fade out, no other processing. Speech occupies 0.109 to 2.335 s of the cut.",
+    "wording_check": "ElevenLabs Scribe v2 (via fal) on the full take put the line at 2.96 to 5.20 s; on the cut it returned exactly the line and nothing else (fal requests 01a12fe3-8cbc-71e3-9530-7a620aedaf60 and 01a12ff3-56e6-7652-9af2-e0ed7157b325).",
+    "other_takes": "audio/candidates/line_B..D are the same line cut from the three Lume-voice settings tests (jobs ec7b2ab5, bbac653f, f4e5fb1d); not used."
+  },
+  "still": {
+    "selected": "still/candidates/still-v3-gpt25-a.png",
+    "model": "gpt_image_2_5 (GPT Image 2.5), aspect_ratio 16:9, resolution 2k, quality high, variant flare (default)",
+    "job_id": "a034b191-b397-4195-8d90-fc6f664796f8",
+    "prompt_file": "prompts/still-v3.txt",
+    "image_references_in_order": [
+      "media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png (plate, edited)",
+      "media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png (canonical mascot on ivory)",
+      "media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+      "media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+    ],
+    "master_1920x1080": "native 2688x1520 scaled to 1920x1086 (Lanczos), 3 px cropped top and bottom",
+    "rejected": {
+      "still-v1-a / still-v1-b (nano_banana_flash, prompts/still-v1.txt)": "off-model: oversized head, long muzzle, big nose, extra teeth; v1-a also lost the whiskers and shrank the chair",
+      "still-v2-* (prompts/still-v2.txt)": "on-model (except nano_banana_pro, which lost the fur) but Lume sat too low: microphone level with his nose instead of below his mouth",
+      "still-v3-gpt25-b": "microphone arm moved, scared rather than indignant",
+      "still-v3-nb2": "scowl too heavy, extra teeth, red blotch on the table",
+      "still-v3-nb21 (nano_banana_2_1)": "close second: plate kept pixel-exact, but Lume larger, paler fur, less mitten-like paws"
+    },
+    "known_deviation": "GPT Image 2.5 re-rendered the room instead of keeping the plate pixel-exact: layout, microphone and lighting match, the chair back sits slightly lower (qc/still__plate_vs_still.jpg)."
+  },
+  "video": {
+    "selected": "video/candidates/talk-v1-wan27.mp4",
+    "model": "wan2_7 (Wan 2.7), aspect_ratio 16:9, resolution 1080p, duration 4, start_image = master still 1920x1080, audio_references = audio/lume-line-v1-padded-4s.wav (line with 500 ms lead-in)",
+    "job_id": "e02dfd67-ac78-42e5-916c-2f59aa0a8960",
+    "prompt_file": "prompts/video-v1.txt",
+    "native_output": "1920x1080, H.264, 30 fps, 120 frames; its own audio track is the reference audio unchanged (waveform cross-correlation 0.999 at 0 ms)",
+    "alternate": {
+      "file": "video/candidates/talk-v2-wan27.mp4",
+      "job_id": "07e510b2-fd11-44f6-a059-5b435ef29b16",
+      "prompt_file": "prompts/video-v2.txt",
+      "note": "same settings, movement constrained in the prompt"
+    },
+    "rejected": {
+      "file": "video/candidates/talk-v1-seedance25.mp4",
+      "model": "seedance_2_5, mode omni_reference, 1080p, duration 4, bitrate_mode high, generate_audio true, same start image and audio reference",
+      "job_id": "a1e3d440-c320-4eb3-9e50-cdb1266d5d3f",
+      "reason": "Treated the audio as a style reference and re-voiced the line: its audio is a different recording (cross-correlation 0.11) running 0.70 to 3.69 s instead of 0.62 to 2.77 s, so its lip movement cannot match the real take. Picture quality and identity were fine."
+    }
+  },
+  "final_assembly": {
+    "tool": "mux_final.sh (ffmpeg): video stream copied without re-encoding; original line placed with a lead-in and encoded AAC 192 kb/s 48 kHz stereo",
+    "sync_correction": "Wan 2.7 moved the mouth about 100 ms ahead of the sound (take 1) and about 67 ms ahead (take 2). The line was therefore placed 100 ms earlier in the final (lead-in 400 ms) and 67 ms earlier in the alternate (lead-in 433 ms).",
+    "speech_in_final": "0.52 to 2.67 s of 4.00 s"
+  },
+  "checks": {
+    "method": "qc/inspect_video.py: ffprobe facts, waveform cross-correlation of the clip's audio against the dialogue file, per-frame nose tracking and mouth-opening measure against the audio envelope, background drift in four static regions; plus frame sheets viewed by Claude. Not listened to by ear.",
+    "final_audio_identity": "cross-correlation 1.000 at 0 ms against audio/lume-line-v1-as-muxed-final-4s.wav",
+    "final_mouth_vs_audio": "best alignment within one frame (mouth 33 ms ahead); mouth active 0.53 to 2.73 s, closed afterwards; closures land on the b of בגללו and ארבע and the m of מאות and תותים, rounded shapes on the o/u syllables, within about 2 frames (qc/final__mouth_per_frame_vs_words.jpg)",
+    "final_head_travel_px": "66 horizontal, 110 vertical (nose position, 1080p)",
+    "final_background": "camera locked; microphone, chair, shelves unchanged first to last frame (qc/final__first_vs_last_frame_diff.jpg); drift in static regions 1.4 to 3.6 of 255 on average"
+  },
+  "remaining_issues": [
+    "Raised paw shows a pink paw pad that is not in Lume's reference design (both takes).",
+    "Head dips about 110 px on ארבע מאות in the final: livelier than 'restrained'. The alternate take is calmer (29 x 72 px) but shows a row of lower teeth for about 6 frames and a red paw pad.",
+    "Lip shapes follow syllables to within about 2 frames, not frame-exact; the rounded mouth on לו overhangs by about 3 frames.",
+    "Mouth is already open in the first frame (inherited from the still) for 0.5 s before he speaks.",
+    "Still: room is a faithful re-render, not the pixel-exact plate; chair back slightly lower.",
+    "Voice performance itself was not judged by ear."
+  ],
+  "credits_note": "Higgsfield balance 982.58 before, 892.33 after: 90.25 credits for 10 stills and 3 videos (Seedance 2.5 take 48, each Wan 2.7 take 10, stills 2 to 2.75 each, plus cost-check uploads).",
+  "generations": [
+    {
+      "file": "still/candidates/still-v1-a.png",
+      "model": "nano_banana_flash",
+      "job_id": "88dfdb65-5486-48f0-b766-7476d0955a30",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: same camera position and framing, same purple velvet chair, same black microphone on its articulated arm in the same place, same oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, same colour grade.\n\nAdd Lume, the character shown in images 2, 3 and 4 (image 2 is his original design, image 3 his front portrait, image 4 his three-quarter portrait), seated in the purple chair. Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils and white highlights; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with short arms and rounded paws with stubby fingers; a fluffy golden-peach tail with a purple tip. Same stylized 3D animated-film rendering and soft detailed fur texture as the references, same head-to-body proportions.\n\nPose: he sits upright on the seat cushion, well forward in the chair, facing the table and leaning slightly toward it. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart. He is seen from the belly up above the table edge. His head is in front of the upper chair back, centred in the frame, with clear empty space above his hair tuft. His head is turned slightly toward the right side of the image and his eyes look off-frame to the right, at a co-host sitting across the table. The microphone stays exactly where it is, to the left of him, below and beside his mouth, not covering any part of his face. Only the purple tip of his tail shows, resting on the seat cushion beside his hip on the right side of the image.\n\nExpression: comically indignant, about to protest. Eyebrows pulled down and together, eyes wide, mouth slightly open showing the two small front teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Believable scale for a small mascot sitting in an armchair. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_113250_88dfdb65-5486-48f0-b766-7476d0955a30.png",
+      "created": "2026-10-12T14:34:09"
+    },
+    {
+      "file": "still/candidates/still-v1-b.png",
+      "model": "nano_banana_flash",
+      "job_id": "cbe606a9-4505-4909-b483-8fb6e071b295",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: same camera position and framing, same purple velvet chair, same black microphone on its articulated arm in the same place, same oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, same colour grade.\n\nAdd Lume, the character shown in images 2, 3 and 4 (image 2 is his original design, image 3 his front portrait, image 4 his three-quarter portrait), seated in the purple chair. Keep his design exactly: soft golden-peach fur; lighter cream muzzle, chest and belly; large round ears with pink interiors; large round blue eyes with big black pupils and white highlights; dark expressive eyebrows; glossy pink-red nose; rosy pink cheeks; long thin dark whiskers; a brown swept-up hair tuft on top of the head; two small upper front teeth; a large head on a compact rounded body with short arms and rounded paws with stubby fingers; a fluffy golden-peach tail with a purple tip. Same stylized 3D animated-film rendering and soft detailed fur texture as the references, same head-to-body proportions.\n\nPose: he sits upright on the seat cushion, well forward in the chair, facing the table and leaning slightly toward it. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart. He is seen from the belly up above the table edge. His head is in front of the upper chair back, centred in the frame, with clear empty space above his hair tuft. His head is turned slightly toward the right side of the image and his eyes look off-frame to the right, at a co-host sitting across the table. The microphone stays exactly where it is, to the left of him, below and beside his mouth, not covering any part of his face. Only the purple tip of his tail shows, resting on the seat cushion beside his hip on the right side of the image.\n\nExpression: comically indignant, about to protest. Eyebrows pulled down and together, eyes wide, mouth slightly open showing the two small front teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Believable scale for a small mascot sitting in an armchair. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_113250_cbe606a9-4505-4909-b483-8fb6e071b295.png",
+      "created": "2026-10-12T14:34:09"
+    },
+    {
+      "file": "still/candidates/still-v2-nb2.png",
+      "model": "nano_banana_flash",
+      "job_id": "0ee006ed-77d1-44fc-a354-5f68a2048c52",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v2.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place, the oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd Lume, the mascot shown in images 2, 3 and 4, seated in the purple chair. He must be the identical character, exactly on-model: a very wide, round head with full fluffy cheeks; a short, flat, cream muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises and white highlights; thin dark arched eyebrows; rosy pink cheeks; long thin dark whiskers; large round golden-peach ears with pink interiors; a small spiky brown hair tuft on top of the head; soft golden-peach fur with a cream chest and belly; short arms with rounded mitten-like paws and stubby fingers; a fluffy tail with a purple tip. Same stylized 3D animated-film rendering and soft fur as the references. Copy the face from image 3. Do not redesign it: do not lengthen the muzzle, do not enlarge the nose, the ears or the hair tuft, do not shrink the pupils.\n\nSize and placement: he is a small mascot and the chair is clearly bigger than he is. He sits on the seat cushion in the middle of the chair. His head, ears included, is narrower than the chair back, and the purple chair back is visible on both sides of him and behind his head. He is seen from the belly up above the table edge. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart.\n\nHis head faces almost straight toward the camera, turned only slightly toward the right side of the image, and his eyes glance off-frame to the right at a co-host sitting across the table. The microphone stays exactly where it is, to the left of him, below and beside his mouth, not covering any part of his face. The purple tip of his tail rests on the seat cushion beside his hip on the right side of the image.\n\nExpression: mildly indignant, about to object. The inner ends of the eyebrows are lowered a little, eyes wide, mouth slightly open in a small offended pout that shows only his two small upper front teeth and no other teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, his fur keeps its golden-peach colour, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_113610_0ee006ed-77d1-44fc-a354-5f68a2048c52.png",
+      "created": "2026-10-12T14:37:32"
+    },
+    {
+      "file": "still/candidates/still-v2-gpt25.png",
+      "model": "gpt_image_2_5",
+      "job_id": "309edd4b-215a-4e8c-9313-3868e840b48f",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v2.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place, the oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd Lume, the mascot shown in images 2, 3 and 4, seated in the purple chair. He must be the identical character, exactly on-model: a very wide, round head with full fluffy cheeks; a short, flat, cream muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises and white highlights; thin dark arched eyebrows; rosy pink cheeks; long thin dark whiskers; large round golden-peach ears with pink interiors; a small spiky brown hair tuft on top of the head; soft golden-peach fur with a cream chest and belly; short arms with rounded mitten-like paws and stubby fingers; a fluffy tail with a purple tip. Same stylized 3D animated-film rendering and soft fur as the references. Copy the face from image 3. Do not redesign it: do not lengthen the muzzle, do not enlarge the nose, the ears or the hair tuft, do not shrink the pupils.\n\nSize and placement: he is a small mascot and the chair is clearly bigger than he is. He sits on the seat cushion in the middle of the chair. His head, ears included, is narrower than the chair back, and the purple chair back is visible on both sides of him and behind his head. He is seen from the belly up above the table edge. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart.\n\nHis head faces almost straight toward the camera, turned only slightly toward the right side of the image, and his eyes glance off-frame to the right at a co-host sitting across the table. The microphone stays exactly where it is, to the left of him, below and beside his mouth, not covering any part of his face. The purple tip of his tail rests on the seat cushion beside his hip on the right side of the image.\n\nExpression: mildly indignant, about to object. The inner ends of the eyebrows are lowered a little, eyes wide, mouth slightly open in a small offended pout that shows only his two small upper front teeth and no other teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, his fur keeps its golden-peach colour, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_113609_309edd4b-215a-4e8c-9313-3868e840b48f.png",
+      "created": "2026-10-12T14:37:36"
+    },
+    {
+      "file": "still/candidates/still-v2-nbpro.png",
+      "model": "nano_banana_pro",
+      "job_id": "4f26391d-1b79-45fc-8a36-e26f113f099d",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v2.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place, the oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd Lume, the mascot shown in images 2, 3 and 4, seated in the purple chair. He must be the identical character, exactly on-model: a very wide, round head with full fluffy cheeks; a short, flat, cream muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises and white highlights; thin dark arched eyebrows; rosy pink cheeks; long thin dark whiskers; large round golden-peach ears with pink interiors; a small spiky brown hair tuft on top of the head; soft golden-peach fur with a cream chest and belly; short arms with rounded mitten-like paws and stubby fingers; a fluffy tail with a purple tip. Same stylized 3D animated-film rendering and soft fur as the references. Copy the face from image 3. Do not redesign it: do not lengthen the muzzle, do not enlarge the nose, the ears or the hair tuft, do not shrink the pupils.\n\nSize and placement: he is a small mascot and the chair is clearly bigger than he is. He sits on the seat cushion in the middle of the chair. His head, ears included, is narrower than the chair back, and the purple chair back is visible on both sides of him and behind his head. He is seen from the belly up above the table edge. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart.\n\nHis head faces almost straight toward the camera, turned only slightly toward the right side of the image, and his eyes glance off-frame to the right at a co-host sitting across the table. The microphone stays exactly where it is, to the left of him, below and beside his mouth, not covering any part of his face. The purple tip of his tail rests on the seat cushion beside his hip on the right side of the image.\n\nExpression: mildly indignant, about to object. The inner ends of the eyebrows are lowered a little, eyes wide, mouth slightly open in a small offended pout that shows only his two small upper front teeth and no other teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, his fur keeps its golden-peach colour, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_113614_4f26391d-1b79-45fc-8a36-e26f113f099d.png",
+      "created": "2026-10-12T14:37:57"
+    },
+    {
+      "file": "still/candidates/still-v2-nb21.png",
+      "model": "nano_banana_2_1",
+      "job_id": "7a5cc91b-c2e8-4f1c-89b0-ea6575ff0c34",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--thinking_level",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v2.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place, the oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd Lume, the mascot shown in images 2, 3 and 4, seated in the purple chair. He must be the identical character, exactly on-model: a very wide, round head with full fluffy cheeks; a short, flat, cream muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises and white highlights; thin dark arched eyebrows; rosy pink cheeks; long thin dark whiskers; large round golden-peach ears with pink interiors; a small spiky brown hair tuft on top of the head; soft golden-peach fur with a cream chest and belly; short arms with rounded mitten-like paws and stubby fingers; a fluffy tail with a purple tip. Same stylized 3D animated-film rendering and soft fur as the references. Copy the face from image 3. Do not redesign it: do not lengthen the muzzle, do not enlarge the nose, the ears or the hair tuft, do not shrink the pupils.\n\nSize and placement: he is a small mascot and the chair is clearly bigger than he is. He sits on the seat cushion in the middle of the chair. His head, ears included, is narrower than the chair back, and the purple chair back is visible on both sides of him and behind his head. He is seen from the belly up above the table edge. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart.\n\nHis head faces almost straight toward the camera, turned only slightly toward the right side of the image, and his eyes glance off-frame to the right at a co-host sitting across the table. The microphone stays exactly where it is, to the left of him, below and beside his mouth, not covering any part of his face. The purple tip of his tail rests on the seat cushion beside his hip on the right side of the image.\n\nExpression: mildly indignant, about to object. The inner ends of the eyebrows are lowered a little, eyes wide, mouth slightly open in a small offended pout that shows only his two small upper front teeth and no other teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, his fur keeps its golden-peach colour, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_113614_7a5cc91b-c2e8-4f1c-89b0-ea6575ff0c34.png",
+      "created": "2026-10-12T14:39:18"
+    },
+    {
+      "file": "still/candidates/still-v3-nb2.png",
+      "model": "nano_banana_flash",
+      "job_id": "f77ca544-fc93-4fb8-818d-28281e50e73b",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v3.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place, the oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd Lume, the mascot shown in images 2, 3 and 4, seated in the purple chair. He must be the identical character, exactly on-model: a very wide, round head with full fluffy cheeks; a short, flat, cream muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises and white highlights; thin dark arched eyebrows; rosy pink cheeks; long thin dark whiskers; large round golden-peach ears with pink interiors; a small spiky brown hair tuft on top of the head; soft golden-peach fur with a cream chest and belly; short arms with rounded mitten-like paws and stubby fingers; a fluffy tail with a purple tip. Same stylized 3D animated-film rendering and soft fur as the references. Copy the face from image 3. Do not redesign it: do not lengthen the muzzle, do not enlarge the nose, the ears or the hair tuft, do not shrink the pupils.\n\nSize and placement: he sits upright in the middle of the chair, sitting tall, visible from the waist up above the table edge. He is big enough that his whole head is above the top edge of the chair back: his chin is level with the top edge of the chair back, and his face, ears and hair tuft are framed against the bookshelf and the wall behind the chair, with clear space above the hair tuft. His shoulders and chest are in front of the chair back, and the purple chair is visible on both sides of his body. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart.\n\nHis head faces almost straight toward the camera, turned only slightly toward the right side of the image, and his eyes glance off-frame to the right at a co-host sitting across the table. His mouth is higher than the microphone: the microphone stays exactly where it is in image 1 and ends up below and to the left of his mouth, at the height of his chest, not covering any part of his face. The purple tip of his tail rests on the seat cushion beside his hip on the right side of the image.\n\nExpression: indignant and offended, about to object, not scared. The eyebrows are pulled down toward the nose in a frown, eyes wide, mouth slightly open in a small offended pout that shows only his two small upper front teeth and no other teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, his fur keeps its golden-peach colour, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_113909_f77ca544-fc93-4fb8-818d-28281e50e73b.png",
+      "created": "2026-10-12T14:41:10"
+    },
+    {
+      "file": "still/candidates/still-v3-gpt25-b.png",
+      "model": "gpt_image_2_5",
+      "job_id": "a17d9c82-9694-483f-8472-d55825087595",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v3.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place, the oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd Lume, the mascot shown in images 2, 3 and 4, seated in the purple chair. He must be the identical character, exactly on-model: a very wide, round head with full fluffy cheeks; a short, flat, cream muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises and white highlights; thin dark arched eyebrows; rosy pink cheeks; long thin dark whiskers; large round golden-peach ears with pink interiors; a small spiky brown hair tuft on top of the head; soft golden-peach fur with a cream chest and belly; short arms with rounded mitten-like paws and stubby fingers; a fluffy tail with a purple tip. Same stylized 3D animated-film rendering and soft fur as the references. Copy the face from image 3. Do not redesign it: do not lengthen the muzzle, do not enlarge the nose, the ears or the hair tuft, do not shrink the pupils.\n\nSize and placement: he sits upright in the middle of the chair, sitting tall, visible from the waist up above the table edge. He is big enough that his whole head is above the top edge of the chair back: his chin is level with the top edge of the chair back, and his face, ears and hair tuft are framed against the bookshelf and the wall behind the chair, with clear space above the hair tuft. His shoulders and chest are in front of the chair back, and the purple chair is visible on both sides of his body. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart.\n\nHis head faces almost straight toward the camera, turned only slightly toward the right side of the image, and his eyes glance off-frame to the right at a co-host sitting across the table. His mouth is higher than the microphone: the microphone stays exactly where it is in image 1 and ends up below and to the left of his mouth, at the height of his chest, not covering any part of his face. The purple tip of his tail rests on the seat cushion beside his hip on the right side of the image.\n\nExpression: indignant and offended, about to object, not scared. The eyebrows are pulled down toward the nose in a frown, eyes wide, mouth slightly open in a small offended pout that shows only his two small upper front teeth and no other teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, his fur keeps its golden-peach colour, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_113910_a17d9c82-9694-483f-8472-d55825087595.png",
+      "created": "2026-10-12T14:41:17"
+    },
+    {
+      "file": "still/candidates/still-v3-gpt25-a.png",
+      "model": "gpt_image_2_5",
+      "job_id": "a034b191-b397-4195-8d90-fc6f664796f8",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v3.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place, the oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd Lume, the mascot shown in images 2, 3 and 4, seated in the purple chair. He must be the identical character, exactly on-model: a very wide, round head with full fluffy cheeks; a short, flat, cream muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises and white highlights; thin dark arched eyebrows; rosy pink cheeks; long thin dark whiskers; large round golden-peach ears with pink interiors; a small spiky brown hair tuft on top of the head; soft golden-peach fur with a cream chest and belly; short arms with rounded mitten-like paws and stubby fingers; a fluffy tail with a purple tip. Same stylized 3D animated-film rendering and soft fur as the references. Copy the face from image 3. Do not redesign it: do not lengthen the muzzle, do not enlarge the nose, the ears or the hair tuft, do not shrink the pupils.\n\nSize and placement: he sits upright in the middle of the chair, sitting tall, visible from the waist up above the table edge. He is big enough that his whole head is above the top edge of the chair back: his chin is level with the top edge of the chair back, and his face, ears and hair tuft are framed against the bookshelf and the wall behind the chair, with clear space above the hair tuft. His shoulders and chest are in front of the chair back, and the purple chair is visible on both sides of his body. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart.\n\nHis head faces almost straight toward the camera, turned only slightly toward the right side of the image, and his eyes glance off-frame to the right at a co-host sitting across the table. His mouth is higher than the microphone: the microphone stays exactly where it is in image 1 and ends up below and to the left of his mouth, at the height of his chest, not covering any part of his face. The purple tip of his tail rests on the seat cushion beside his hip on the right side of the image.\n\nExpression: indignant and offended, about to object, not scared. The eyebrows are pulled down toward the nose in a frown, eyes wide, mouth slightly open in a small offended pout that shows only his two small upper front teeth and no other teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, his fur keeps its golden-peach colour, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_113912_a034b191-b397-4195-8d90-fc6f664796f8.png",
+      "created": "2026-10-12T14:41:18"
+    },
+    {
+      "file": "still/candidates/still-v3-nb21.png",
+      "model": "nano_banana_2_1",
+      "job_id": "4df81db3-3490-404c-ae0e-81ea7722a3f2",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--thinking_level",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/01-left-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/final/13_portrait_three_quarter_right.png"
+      ],
+      "prompt_file": "prompts/still-v3.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one character and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place, the oak table, bookshelf, plants, brass lamp, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd Lume, the mascot shown in images 2, 3 and 4, seated in the purple chair. He must be the identical character, exactly on-model: a very wide, round head with full fluffy cheeks; a short, flat, cream muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises and white highlights; thin dark arched eyebrows; rosy pink cheeks; long thin dark whiskers; large round golden-peach ears with pink interiors; a small spiky brown hair tuft on top of the head; soft golden-peach fur with a cream chest and belly; short arms with rounded mitten-like paws and stubby fingers; a fluffy tail with a purple tip. Same stylized 3D animated-film rendering and soft fur as the references. Copy the face from image 3. Do not redesign it: do not lengthen the muzzle, do not enlarge the nose, the ears or the hair tuft, do not shrink the pupils.\n\nSize and placement: he sits upright in the middle of the chair, sitting tall, visible from the waist up above the table edge. He is big enough that his whole head is above the top edge of the chair back: his chin is level with the top edge of the chair back, and his face, ears and hair tuft are framed against the bookshelf and the wall behind the chair, with clear space above the hair tuft. His shoulders and chest are in front of the chair back, and the purple chair is visible on both sides of his body. Both short arms reach forward and both paws rest flat on the near edge of the tabletop, relaxed, a little apart.\n\nHis head faces almost straight toward the camera, turned only slightly toward the right side of the image, and his eyes glance off-frame to the right at a co-host sitting across the table. His mouth is higher than the microphone: the microphone stays exactly where it is in image 1 and ends up below and to the left of his mouth, at the height of his chest, not covering any part of his face. The purple tip of his tail rests on the seat cushion beside his hip on the right side of the image.\n\nExpression: indignant and offended, about to object, not scared. The eyebrows are pulled down toward the nose in a frown, eyes wide, mouth slightly open in a small offended pout that shows only his two small upper front teeth and no other teeth.\n\nIntegrate him into the room: lit by the same warm amber light from the shelves with a soft purple rim light from the wall panel on the right, his fur keeps its golden-peach colour, soft contact shadows under his paws on the table and where his body meets the seat cushion and chair back, a faint warm reflection of his paws on the polished tabletop. Bare base design: no clothing, no headphones, no accessories. No other characters, nothing on the table, no text, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_114030_4df81db3-3490-404c-ae0e-81ea7722a3f2.png",
+      "created": "2026-10-12T14:42:45"
+    },
+    {
+      "file": "video/candidates/talk-v1-wan27.mp4",
+      "model": "wan2_7",
+      "job_id": "e02dfd67-ac78-42e5-916c-2f59aa0a8960",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/lume-line-v1-padded-4s.wav"
+      ],
+      "prompt_file": "prompts/video-v1.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, with exaggerated comic indignation. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.8 seconds, saying: \"קניתי בגללו ארבע מאות קילו תותים\".\n\nPerformance: he delivers the line with wide eyes and eyebrows that jump up and then furrow, leaning a little toward the co-host. He lifts one paw off the table and jabs it back down on the words \"ארבע מאות\", with a small outraged head shake. After the last word he shuts his mouth and holds a huffy, offended stare. Head and paw movement stay small and restrained; the face does the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_114408_e02dfd67-ac78-42e5-916c-2f59aa0a8960.mp4",
+      "created": "2026-10-12T14:47:00"
+    },
+    {
+      "file": "video/candidates/talk-v1-seedance25.mp4",
+      "model": "seedance_2_5",
+      "job_id": "a1e3d440-c320-4eb3-9e50-cdb1266d5d3f",
+      "flags": [
+        "--mode",
+        "omni_reference",
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--bitrate_mode",
+        "high",
+        "--generate_audio",
+        "true",
+        "--start-image",
+        "still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/lume-line-v1-padded-4s.wav"
+      ],
+      "prompt_file": "prompts/video-v1.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, with exaggerated comic indignation. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.8 seconds, saying: \"קניתי בגללו ארבע מאות קילו תותים\".\n\nPerformance: he delivers the line with wide eyes and eyebrows that jump up and then furrow, leaning a little toward the co-host. He lifts one paw off the table and jabs it back down on the words \"ארבע מאות\", with a small outraged head shake. After the last word he shuts his mouth and holds a huffy, offended stare. Head and paw movement stay small and restrained; the face does the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_114407_a1e3d440-c320-4eb3-9e50-cdb1266d5d3f.mp4",
+      "created": "2026-10-12T14:49:11"
+    },
+    {
+      "file": "video/candidates/talk-v2-wan27.mp4",
+      "model": "wan2_7",
+      "job_id": "07e510b2-fd11-44f6-a059-5b435ef29b16",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/lume-line-v1-padded-4s.wav"
+      ],
+      "prompt_file": "prompts/video-v2.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, with exaggerated comic indignation. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.8 seconds, saying: \"קניתי בגללו ארבע מאות קילו תותים\".\n\nPerformance: he delivers the line with wide eyes and eyebrows that jump up and then furrow, leaning a little toward the co-host. One paw lifts only slightly off the table, staying low and well below his chin with the back of the paw toward the camera, and taps back down on the words \"ארבע מאות\". His head stays at the same height in the frame: only slight tilts and one small outraged shake, no nodding or dipping. After the last word he shuts his mouth and holds a huffy, offended stare. Head and paw movement stay small and restrained; the face does the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_115023_07e510b2-fd11-44f6-a059-5b435ef29b16.mp4",
+      "created": "2026-10-12T14:51:18"
+    }
+  ]
+}

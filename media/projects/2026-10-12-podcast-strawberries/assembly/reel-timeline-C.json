@@ -1,0 +1,315 @@
+{
+  "fps": 30,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "note": "Edit C: short cut. Starts on קניתי בגללו ארבע מאות קילו תותים, then the toddler's correction, מה???, the doorbell, מי זה? and the spill. Leaves out Lume's first line, למה? and the whisper. Vertical fast cut of the episode, full screen. A segment plays `file` from `in` to `out` (seconds in that shot), cropped to a 9:16 window [x, y, width] of the 1920x1080 frame (height = width*16/9, so 607 is the widest) and scaled to 1080x1920; `speed` > 1 plays it faster. A narrower crop is a punch-in. A line starts at segment_start + (shot_time - in). Edit and run assemble_reel.py.",
+  "captions": {
+    "font": "/System/Library/Fonts/SFHebrew.ttf",
+    "fallback_font": "/System/Library/Fonts/SFNS.ttf",
+    "weight": "Bold",
+    "size": 108,
+    "baseline_y": 1130,
+    "color": "#FFFFFF",
+    "stroke": 4,
+    "stroke_color": "#000000",
+    "pre": 0.04,
+    "last_word_hold": 0.22
+  },
+  "segments": [
+    {
+      "id": "R4a",
+      "file": "shots/selected/S4-lume-line-retake.mp4",
+      "in": 0.4,
+      "out": 1.28,
+      "crop": [
+        760,
+        40,
+        520
+      ]
+    },
+    {
+      "id": "R4b",
+      "file": "shots/selected/S4-lume-line-retake.mp4",
+      "in": 1.28,
+      "out": 2.04,
+      "crop": [
+        705,
+        0,
+        607
+      ]
+    },
+    {
+      "id": "R4c",
+      "file": "shots/selected/S4-lume-line-retake.mp4",
+      "in": 2.04,
+      "out": 2.78,
+      "crop": [
+        705,
+        0,
+        607
+      ]
+    },
+    {
+      "id": "R5a",
+      "file": "shots/selected/S5-toddler-book.mp4",
+      "in": 1.3,
+      "out": 3.22,
+      "crop": [
+        727,
+        0,
+        607
+      ]
+    },
+    {
+      "id": "R5b",
+      "file": "shots/selected/S5-toddler-book.mp4",
+      "in": 3.48,
+      "out": 4.76,
+      "crop": [
+        770,
+        60,
+        540
+      ]
+    },
+    {
+      "id": "R6",
+      "file": "shots/selected/S6-lume-shock.mp4",
+      "in": 0.55,
+      "out": 1.3,
+      "crop": [
+        745,
+        30,
+        520
+      ]
+    },
+    {
+      "id": "R7",
+      "file": "shots/selected/S7-toddler-mi-ze.mp4",
+      "in": 0.85,
+      "out": 1.55,
+      "crop": [
+        745,
+        0,
+        607
+      ]
+    },
+    {
+      "id": "R9a",
+      "file": "shots/selected/S9-wide-truck-spill.mp4",
+      "in": 0.0,
+      "out": 0.4,
+      "crop": [
+        1100,
+        0,
+        607
+      ]
+    },
+    {
+      "id": "R9b",
+      "file": "shots/selected/S9-wide-truck-spill.mp4",
+      "in": 0.4,
+      "out": 3.5,
+      "crop": [
+        1100,
+        0,
+        607
+      ],
+      "speed": 1.6
+    },
+    {
+      "id": "R9c",
+      "file": "shots/selected/S9-wide-truck-spill.mp4",
+      "in": 3.5,
+      "out": 6.7,
+      "crop": [
+        690,
+        200,
+        495
+      ],
+      "speed": 1.6
+    }
+  ],
+  "lines": [
+    {
+      "id": "L2",
+      "file": "audio/lines/L2_lume_kaniti-biglalo.wav",
+      "segment": "R4a",
+      "shot_time": 0.4,
+      "gain_db": 0,
+      "words": [
+        [
+          "קניתי",
+          0.12,
+          0.44
+        ],
+        [
+          "בגללו",
+          0.48,
+          0.84
+        ],
+        [
+          "ארבע",
+          0.88,
+          1.28
+        ],
+        [
+          "מאות",
+          1.36,
+          1.6
+        ],
+        [
+          "קילו",
+          1.64,
+          1.86
+        ],
+        [
+          "תותים",
+          1.96,
+          2.36
+        ]
+      ]
+    },
+    {
+      "id": "T2a",
+      "file": "audio/lines/T2a_toddler_higata-lasof-shel-hasefer.wav",
+      "segment": "R5a",
+      "shot_time": 1.567,
+      "gain_db": 1.5,
+      "words": [
+        [
+          "הגעת",
+          0.1,
+          0.4
+        ],
+        [
+          "לסוף",
+          0.46,
+          0.82
+        ],
+        [
+          "של",
+          0.88,
+          0.98
+        ],
+        [
+          "הספר?",
+          1.0,
+          1.58
+        ]
+      ],
+      "caption_y": 1400
+    },
+    {
+      "id": "T2b",
+      "file": "audio/lines/T2b_toddler_hu-bichlal-lo-ohev-tut.wav",
+      "segment": "R5b",
+      "shot_time": 3.427,
+      "gain_db": 1.5,
+      "words": [
+        [
+          "הוא",
+          0.089,
+          0.169
+        ],
+        [
+          "בכלל",
+          0.209,
+          0.489
+        ],
+        [
+          "לא",
+          0.548,
+          0.609
+        ],
+        [
+          "אוהב",
+          0.649,
+          0.829
+        ],
+        [
+          "תות",
+          0.929,
+          1.269
+        ]
+      ],
+      "caption_y": 1400
+    },
+    {
+      "id": "L3",
+      "file": "audio/lines/L3_lume_ma.wav",
+      "segment": "R6",
+      "shot_time": 0.5,
+      "gain_db": 0,
+      "words": [
+        [
+          "מה???",
+          0.124,
+          0.344
+        ]
+      ]
+    },
+    {
+      "id": "T3",
+      "file": "audio/lines/T3_toddler_mi-ze.wav",
+      "segment": "R7",
+      "shot_time": 0.9,
+      "gain_db": 6.0,
+      "words": [
+        [
+          "מי",
+          0.16,
+          0.28
+        ],
+        [
+          "זה?",
+          0.36,
+          0.54
+        ]
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "id": "doorbell",
+      "file": "audio/sfx/doorbell.wav",
+      "anchor": "R6.start",
+      "offset": 0.34,
+      "gain_db": 8,
+      "fade_out": 0.25,
+      "trim": 0.6,
+      "tempo": 1.3
+    },
+    {
+      "id": "truck-beeps",
+      "file": "audio/sfx/toy-truck-reverse-beeps.wav",
+      "anchor": "R9a.start",
+      "offset": 0.0,
+      "trim": 0.7,
+      "gain_db": 6,
+      "fade_out": 0.2
+    },
+    {
+      "id": "rumble",
+      "file": "audio/sfx/strawberry-rumble-from-wide-shot.wav",
+      "anchor": "R9b.start",
+      "offset": 0.0,
+      "src_in": 0.4,
+      "tempo": 1.6,
+      "gain_db": -10,
+      "fade_out": 0.4
+    },
+    {
+      "id": "pour",
+      "file": "audio/sfx/strawberry-pour.wav",
+      "anchor": "R9b.start",
+      "offset": 0.375,
+      "tempo": 1.6,
+      "gain_db": -2,
+      "fade_out": 0.4
+    }
+  ],
+  "output": "final/strawberries-reel-C-short-1080x1920.mp4",
+  "name": "reel-C"
+}

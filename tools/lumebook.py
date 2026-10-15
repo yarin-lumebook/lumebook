@@ -226,8 +226,12 @@ OLD_NAMES = ["lumebook-smm-plan", "lumebook-ambassadors", "creator-research", "c
 OLD_REL = re.compile(r"(?<![\w/.\-~@:])(" + "|".join(map(re.escape, OLD_NAMES)) + r")/")
 OLD_ABS = re.compile(re.escape(ROOT) + r"/(" + "|".join(map(re.escape, OLD_NAMES + ["dashboard"])) + r")(?![\w-])")
 OLD_ROOT_DOCS = re.compile(r"(?<![\w/.\-~@:(])(lumebook-product-brief\.md|lumebook-instagram-carousel-playbook-he\.md|lumebook-social-strategy\.html)")
+# creative folders folded into media/projects/ on 14 Oct 2026 (see media/README.md)
+OLD_MEDIA = re.compile(r"(?<![\w\-.])(output/(?:lume|reel-character|boys-interviews|podcast|imagegen|stories|highlights|reels-2026)"
+                       r"|video/(?:fan-transition|text-pull-ben)|carousel/(?:fal-carousel-trial|references))(?![\w\-])")
 SCAN_SKIP = {".git", "node_modules", "videos", "analysis", "slides", "img", "img2", ".vercel", ".site-editor", "__pycache__",
-             "out", "site", "generated-assets", "discovery", ".lumebook", "versions", "voice-eval-workspace", "drafts", "approved"}
+             "out", "site", "generated-assets", "discovery", ".lumebook", "versions", "voice-eval-workspace", "drafts", "approved",
+             "_to-delete"}
 SCAN_EXT = {".py", ".sh", ".md", ".json", ".html", ".js", ".gs", ".css"}
 
 
@@ -297,7 +301,7 @@ def check():
                 for m in rx.finditer(line):
                     v = int(next(g for g in m.groups() if g))
                     if v != pct:
-                        add("warn", "copy", f"{rel}:{n} says {v}% commission; facts.json says up to {pct}%")
+                        add("warn", "copy", f"{rel}:{n} says {v}%; facts.json says one {pct}% allocation per sale")
 
     # old paths from before the 8 Oct 2026 reorganisation
     for f in scan_text_files():
@@ -312,6 +316,9 @@ def check():
             for m in rx.finditer(text):
                 n = text.count("\n", 0, m.start()) + 1
                 add("warn", "paths", f"{rel}:{n} old path '{m.group(0)}'")
+        for m in OLD_MEDIA.finditer(text if not (rel.startswith("media/") and rel.endswith("README.md")) else ""):  # READMEs there record where each job came from
+            n = text.count("\n", 0, m.start()) + 1
+            add("warn", "paths", f"{rel}:{n} '{m.group(0)}' moved into media/projects/ (14 Oct 2026, see media/README.md)")
         if not rel.startswith("docs/"):
             for m in OLD_ROOT_DOCS.finditer(text):
                 before = text[max(0, m.start() - 5):m.start()]

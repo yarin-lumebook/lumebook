@@ -1,0 +1,2235 @@
+{
+  "schema_version": 3,
+  "date": "2026-10-12",
+  "generated_at": "2026-10-10T22:20:17+03:00",
+  "topic": {
+    "id": "bedtime-stalling",
+    "title_he": "להתכונן לשינה: שגרת ערב ועוד כוס מים",
+    "reason": "ביקשת אצווה של כל האופציות על התכוננות לשינה. הנושא הקרוב ביותר בבנק הנושאים הוא ״עוד כוס מים לפני השינה״ (bedtime-stalling), והוא לא היה בשימוש ב-14 החבילות האחרונות. אין כאן עובדת לוח שנה. החבילה נכתבה לתיקיית 12.10 ולא ל-11.10: ב-11.10 מחכה החבילה על כיתה א׳, והריצה של 22:00 הערב הייתה קוברת את האצווה הזאת. שימו לב: דף ה-AAP על ״7 טיפים״ כתוב לפעוטות ואנחנו מיישמים אותו על גילאי 3 עד 5, ודף ה-NHS עבר את תאריך הבדיקה הבאה שלו (מרץ 2026)."
+  },
+  "voice": {
+    "status": "fallback",
+    "approved_samples": 3,
+    "note": "קול ברירת מחדל: 3 מתוך 15 דוגמאות מאושרות. נכתב לפי קול ברירת המחדל המתועד ולפי העריכות של ירין מ-8.10 ו-9.10 (קיצור, בלי ״הרבה פעמים״ בקול של הילד, מירכאות סביב משפט שאומרים, ״לחזק אותה בעזרת סיפור״). עדיין לא מכויל לירין."
+  },
+  "product_facts": [
+    {
+      "id": "site-preview",
+      "fact": "Creating the book and the preview are free; parents pay only if they love it",
+      "quote": "יצירת הספר והתצוגה המקדימה בחינם — משלמים רק אם אהבתם.",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים.",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "site-sleep-book",
+      "fact": "Catalogue books for the DM link (internal only, never named on slides): המסע לממלכת החלומות שלי (the catalogue page lists it as easing sleep fears; the visible description was cut off on the page) and ביי ביי שמיכי (separating from a security blanket). The home page FAQ also lists the topic פחדים בלילה.",
+      "quote": "המסע לממלכת החלומות שלי",
+      "url": "https://lumebook.com/IL/he/books",
+      "checked_at": "2026-10-10"
+    }
+  ],
+  "hook_slate": {
+    "kid": [
+      {
+        "id": "k1",
+        "formula": "child-numbered-ask",
+        "family": "child_pov",
+        "hook": "אמא\n2 דברים שיעזרו לי\nלא לבקש מים",
+        "slide2": "אני מבקשת מים\nכל ערב\nאבל אני לא צמאה\nבכלל",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "מה שני הדברים שיעזרו לנטע לא לבקש מים כל ערב?",
+        "payoff_slide": 4,
+        "answer": "שני דברים שיעזרו לה לא לבקש מים: מים ליד המיטה, וסיפור אחד ואז לילה טוב",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1"
+      },
+      {
+        "id": "k2",
+        "formula": "child-dont",
+        "family": "child_pov",
+        "hook": "אמא אל תחכי\nשאפהק\n3 דברים שיעזרו לי\nלהירדם",
+        "slide2": "כשאני מתחיל לפהק\nכבר מאוחר בשבילי\nזה סימן שהיינו צריכים\nלהתחיל קודם",
+        "slide2_move": "first_answer",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "solution_aware",
+        "gap": "מה שלושת הדברים שיעזרו לו להירדם, ומתי כן מתחילים?",
+        "payoff_slide": 3,
+        "answer": "מתי כן: 15 עד 20 דקות קודם, ומה עושים בחצי השעה לפני (האטה ובלי מסך)",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2"
+      },
+      {
+        "id": "k3",
+        "formula": "sentence-we-all-say",
+        "family": "sentences_we_say",
+        "hook": "״יאללה לישון!״\nמה אני שומעת\nבאמת?\n2 דברים שיעזרו לי יותר",
+        "slide2": "אני שומעת ״יאללה״\nולא יודעת מה בא\nביום אני יודעת מה בא אחרי\nבערב זה כל פעם אחרת",
+        "slide2_move": "other_side",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "מה הילדה שומעת באמת כשאומרים לה יאללה לישון, ומה שני הדברים שיעזרו לה יותר?",
+        "payoff_slide": 3,
+        "answer": "היא שומעת ״יאללה״ ולא יודעת מה בא: שגרה קבועה (שיניים ספר מיטה) ומשהו אהוב למיטה",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3"
+      },
+      {
+        "id": "k4",
+        "formula": "two-faces",
+        "family": "reframe",
+        "hook": "בגן נרדמת בשנייה\nבבית שעה שלמה",
+        "slide2": "ביום היא מחזיקה הכול\nובלילה סוף סוף משחררת",
+        "slide2_move": "name_trigger",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "למה דווקא בבית כל כך קשה לה להירדם?",
+        "payoff_slide": 3,
+        "answer": "היא משחררת ליד מי שבטוח לה",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 1,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: the answer to why it happens at home needs a source we did not read for sleep"
+      },
+      {
+        "id": "k5",
+        "formula": "words-that-backfire",
+        "family": "sentences_we_say",
+        "hook": "3 משפטים\nשכולנו אומרים בערב",
+        "slide2": "״עוד כוס מים?״ ו״די כבר״\nו״אמרתי לישון״",
+        "slide2_move": "first_answer",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "איזה משפטים ולמה הם לא עובדים?",
+        "payoff_slide": 4,
+        "answer": "המשפטים והחלופה שלהם",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": true,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Fails: no source we read says these sentences backfire"
+      },
+      {
+        "id": "k6",
+        "formula": "parent-identity",
+        "family": "parent_identity",
+        "hook": "לאמא של ילדה\nשמבקשת מים בשמונה",
+        "slide2": "היא שותה שלוש לגימות\nוחוזרת עוד פעם",
+        "slide2_move": "zoom_in",
+        "mechanism": "identity_filter",
+        "awareness_stage": "problem_aware",
+        "gap": "מה עובר עליה ומה עוזר?",
+        "payoff_slide": 3,
+        "answer": "היא רוצה עוד רגע, ומים ליד המיטה",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 1,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: parent voice, weaker stopping power than the child-voice covers"
+      }
+    ],
+    "expert": [
+      {
+        "id": "e1",
+        "formula": "stop-one-thing",
+        "family": "reframe",
+        "hook": "תפסיקו לשחק תופסת\nרגע לפני השינה\nבמקום זה 3 דברים שמרגיעים",
+        "slide2": "משחק פעיל לפני השינה\nמרגש אותו מכדי לישון\nכולנו רוצים עוד משחק אחד\nזה כיף ומקרב\nאבל לא ברגע האחרון",
+        "slide2_move": "first_answer",
+        "mechanism": "reframe",
+        "awareness_stage": "solution_aware",
+        "gap": "מה שלושת הדברים שמרגיעים במקום משחק פעיל ברגע האחרון?",
+        "payoff_slide": 4,
+        "answer": "משחק פעיל לא נאסר, מזיזים אותו, ובמקומו שקט (סיפור מוזיקה אמבטיה) ובלי מסך",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-1"
+      },
+      {
+        "id": "e2",
+        "formula": "practical-question",
+        "family": "practical_question",
+        "hook": "איך בונים שגרת\nשינה לילדה בת 4?\n4 צעדים פשוטים לכם",
+        "slide2": "השגרה מתחילה כחצי שעה\nלפני שהיא נרדמת\nלפי שירות הבריאות הבריטי\nלפני הזמן שבו היא בדרך כלל נרדמת",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "איך בונים שגרת שינה: מתי מתחילים, מה עושים בחצי השעה ומה כשהיא רעבה?",
+        "payoff_slide": 5,
+        "answer": "ארבעה צעדים: להתחיל כחצי שעה לפני, לא לחכות לפיהוק, אותה שעה כל ערב, קערת דגנים וחלב אם היא רעבה",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-2"
+      },
+      {
+        "id": "e3",
+        "formula": "one-sentence-changes",
+        "family": "story",
+        "hook": "אדם מבקש עוד סיפור\nכל ערב\nומשפט אחד סוגר את הערב",
+        "slide2": "אדם בן 4\nוהסיפור השלישי מתחיל\nהראשון נגמר\nהשני נגמר\nוהוא כבר מבקש שלישי",
+        "slide2_move": "scene_restart",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "problem_aware",
+        "gap": "איזה משפט אחד סוגר את הערב בלי ריב על עוד סיפור?",
+        "payoff_slide": 4,
+        "answer": "סיפור אחד ואז מכסים ואומרים לילה טוב, ואם קם מחזירים בהכי מעט עניין",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-3"
+      },
+      {
+        "id": "e4",
+        "formula": "parent-identity",
+        "family": "parent_identity",
+        "hook": "להורים של ילד\nשמבקש עוד חמש דקות",
+        "slide2": "חמש דקות הופכות לעשר\nועשר לחצי שעה",
+        "slide2_move": "zoom_in",
+        "mechanism": "identity_filter",
+        "awareness_stage": "problem_aware",
+        "gap": "איך סוגרים את הערב בלי ריב?",
+        "payoff_slide": 4,
+        "answer": "סיפור אחד ואז לילה טוב",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 1,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: close to expert-3 and quieter"
+      },
+      {
+        "id": "e5",
+        "formula": "parent-confession",
+        "family": "normalising",
+        "hook": "״אין לי כוח\nלעוד כוס מים״",
+        "slide2": "אמא עייפה בסוף היום\nומותר להגיד את זה",
+        "slide2_move": "first_answer",
+        "mechanism": "reassurance",
+        "awareness_stage": "problem_aware",
+        "gap": "ומה עושים כשאין כוח?",
+        "payoff_slide": 4,
+        "answer": "מסדרים את הצרכים לפני כדי שלא יהיה על מה להתווכח",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: reassurance without a payoff slide that carries a source"
+      },
+      {
+        "id": "e6",
+        "formula": "analogy-scene",
+        "family": "analogy",
+        "hook": "דמייני שמכבים לך\nאת הסרט באמצע",
+        "slide2": "היית רוצה לדעת\nמתי מכבים ומה אחרי",
+        "slide2_move": "scene_restart",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "unaware",
+        "gap": "איך זה קשור לילד שלא נרדם?",
+        "payoff_slide": 3,
+        "answer": "גם ילד רוצה לדעת מתי זה נגמר",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 1,
+          "parent_relevance": 1,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 1,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: the analogy would make the child's feeling look small"
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "אמא 2 דברים שיעזרו לי לא לבקש מים",
+          "angle": "הפתיח מבטיח ערך: 2 דברים שיעזרו לנטע לא לבקש מים. נטע מגלה מבפנים למה היא מבקשת מים כל ערב: היא לא צמאה, היא רוצה עוד רגע עם אמא. שני דברים שעוזרים: מים ליד המיטה לפני שהשגרה נגמרת, וסיפור אחד ואז לילה טוב.",
+          "target_parent": "אמהות לילדה בת 3 עד 5 שמבקשת מים, פיפי או עוד חיבוק בכל ערב אחרי הכיבוי.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-numbered-ask",
+            "gap": "מה שני הדברים שיעזרו לנטע לא לבקש מים כל ערב?",
+            "payoff_slide": 4,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k1",
+            "mechanism": "practical_utility",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "נטע",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with a short dark-brown bob and a small yellow hair clip, light olive skin, brown eyes and rosy cheeks; about 100 cm tall.",
+            "parent": "Her mother, mid thirties, dark wavy hair in a loose bun, light olive skin, a warm tired-kind face.",
+            "wardrobe": "Girl: soft pink pyjamas with a small yellow moon pattern (no words), bare feet. Mother: sage-green cotton cardigan over a cream top, light grey trousers."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא\n2 דברים שיעזרו לי\nלא לבקש מים",
+              "body": "",
+              "highlight": "2 דברים",
+              "image": {
+                "beat": "a secret about the water",
+                "action": "The girl faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, one finger pressed to her lips as if keeping a big secret, a small plastic cup of water held in her other hand; her mother is small and soft in the background by the bedroom doorway.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale cream wall, a low wooden bed with a violet blanket, a small bedside shelf with a lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+                "lighting": "Soft warm bedside lamp light with a violet cast.",
+                "wardrobe_objects": "The small plastic cup of water in the girl's hand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain pale cream bedroom wall above her head"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "מה שני הדברים? שקופיות 4 ו-5"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "אני מבקשת מים\nכל ערב",
+              "body": "אבל אני לא צמאה\nבכלל",
+              "highlight": "מבקשת מים",
+              "image": {
+                "beat": "asking for water again",
+                "action": "The girl sits up in bed holding her empty cup out toward her mother with a sweet pleading smile; the mother stands by the bed holding a small water jug, patient and amused.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale cream wall, a low wooden bed with a violet blanket, a small bedside shelf with a lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot from the foot of the bed.",
+                "lighting": "Soft warm bedside lamp light.",
+                "wardrobe_objects": "The empty cup in the girl's hands and a small jug in the mother's hands.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "אם לא צמאה אז למה? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "recognition",
+              "headline": "מה אני באמת רוצה\nעוד רגע איתך",
+              "body": "כל היום חיכיתי לך\nאז מה עוזר לי?",
+              "highlight": "עוד רגע איתך",
+              "image": {
+                "beat": "she wants a little more time with mom",
+                "action": "The girl leans her head against her mother's arm on the edge of the bed, the cup forgotten on the blanket, looking up at her with a tender sleepy smile; the mother looks down at her warmly.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale cream wall, a low wooden bed with a violet blanket, a small bedside shelf with a lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, close two-shot, soft depth of field.",
+                "lighting": "Warm lamp light with a soft violet cast.",
+                "wardrobe_objects": "The cup rests forgotten on the blanket.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream wall behind them"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "השאלה נענית בשקופיות 4 ו-5"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "דבר ראשון\nמים ליד המיטה",
+              "body": "לפני שאת יוצאת מהחדר\nככה אין לי סיבה לבקש",
+              "highlight": "מים ליד המיטה",
+              "image": {
+                "beat": "water is ready before bedtime",
+                "action": "The mother sets the cup of water on the low bedside shelf while the girl in pyjamas watches with a satisfied nod; the mother's other hand rests on the girl's back.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale cream wall, a low wooden bed with a violet blanket, a small bedside shelf with a lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot from the side.",
+                "lighting": "Warm lamp light.",
+                "wardrobe_objects": "The cup of water on the bedside shelf.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream wall above the shelf"
+                }
+              },
+              "pull": {
+                "type": "numbered",
+                "note": "ומה דבר שני? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "דבר שני\nסיפור אחד ואז לילה טוב",
+              "body": "״נטע סיפור אחד ואז חיבוק״\nאני יודעת מתי זה נגמר",
+              "highlight": "סיפור אחד",
+              "image": {
+                "beat": "one story then goodnight",
+                "action": "Mother and girl sit together against the pillows with one open picture book on their laps; the girl points at a picture and the mother's arm is around her shoulders.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale cream wall, a low wooden bed with a violet blanket, a small bedside shelf with a lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Medium close shot, slightly above.",
+                "lighting": "One warm lamp, soft glow.",
+                "wardrobe_objects": "One open picture book with soft pictures and no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream wall above the headboard"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ואיך זה נגמר? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "והכוס נשארת\nליד המיטה",
+              "body": "אני לוקחת את הדובי\nמחזיקה לך את היד\nואז עוצמת עיניים",
+              "highlight": "ליד המיטה",
+              "image": {
+                "beat": "calm, holding mom's hand",
+                "action": "The girl lies in bed with a soft plush teddy bear tucked under her chin, her eyes closing, one hand holding her mother's hand that rests on the blanket; the mother sits on the edge of the bed with a small smile.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale cream wall, a low wooden bed with a violet blanket, a small bedside shelf with a lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot from the foot of the bed.",
+                "lighting": "Dim warm lamp light, deep violet shadows.",
+                "wardrobe_objects": "The plush teddy bear under the girl's chin; the cup stays on the shelf, untouched.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו לפני הסוף"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "ואפשר לעזור לה\nגם בסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "On the child's bed the mother and the girl look at an open square picture book resting on their knees; the child points at the page, delighted to recognise themself.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale cream wall, a low wooden bed with a violet blanket, a small bedside shelf with a lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Medium shot from the side, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "שני דברים שיעזרו לנטע לא לבקש מים כל ערב\nהיא מבקשת מים כל ערב וממש לא צמאה\nמים ליד המיטה לפני שיוצאים מהחדר\nסיפור אחד ואז לילה טוב\nובערב אפשר לחזק אותה בעזרת סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-aap-trouble",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 10/8/2026",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Make bedtime the same time every night. ... This helps your child know what to expect and helps them establish healthy sleep patterns. ... Set up a quiet routine before bedtime ... Use this time to read them a story, put on quiet music, or give them a bath. ... It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Take care of child's needs before bedtime so they don't use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Let your child take a favorite thing to bed each night. ... Children this age often resist going to sleep",
+              "supports": "Same bedtime every night; a quiet pre-bed routine (story, quiet music, bath); active play can overexcite before sleep; take care of needs such as a drink of water before bedtime so they are not used as reasons to delay; a favourite thing to take to bed; young children often resist sleep. The page is written for toddlers; we apply it to ages 3 to 5 as a related situation."
+            },
+            {
+              "id": "src-nhs",
+              "title": "Sleep and young children",
+              "publisher": "NHS (nhs.uk); the page shows last reviewed 31 March 2023 and next review due 31 March 2026, a date that has passed, so it may have been updated since",
+              "url": "https://www.nhs.uk/conditions/baby/health/sleep-and-young-children/",
+              "accessed": "2026-10-10",
+              "quote": "calming, predictable bedtime routine that happens at the same time ... Start a \"winding down\" bedtime routine around 30 minutes before the time that your child usually falls asleep. ... For example, read only 1 story, then tuck your child in and say goodnight. ... If your child gets up, keep taking them back to bed again with as little fuss as possible. ... Do not let your child look at laptops, tablets or phones in the 30 to 60 minutes before bed ... If your child complains that they're hungry at night, try giving them a bowl of cereal and milk before bed",
+              "supports": "A calming predictable routine at the same time; start winding down about 30 minutes before usual sleep time; limit bedtime interaction (one story, then tuck in and say goodnight); take a child who gets up back to bed with little fuss; no laptops, tablets or phones 30 to 60 minutes before bed; a bowl of cereal and milk if hungry. Written for under 5s."
+            },
+            {
+              "id": "src-aap-bbb",
+              "title": "Brush, Book, Bed: How to Structure Your Child's Nighttime Routine",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 2/2/2024",
+              "url": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/Brush-Book-Bed.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Each night, help your children to brush their teeth. ... Read a favorite book (or two)! ... Get to bed at a regular time each night. ... Having a predictable nighttime routine can help your child understand and learn to expect what comes next. ... Do not wait for your child to start rubbing their eyes or yawning ... that's probably too late. Putting your child to bed even 15 to 20 minutes earlier can make a big difference ... Spending some time, even just 15 minutes each day, to read aloud together will help improve your child's language development and social-emotional skills.",
+              "supports": "Teeth, book, bed at a regular time; a predictable routine helps a child learn what comes next; yawning or rubbing eyes means it is probably too late; going to bed 15 to 20 minutes earlier can make a big difference; reading aloud together supports language and social-emotional skills."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "אני מבקשת מים כל ערב אבל אני לא צמאה בכלל",
+              "supports": "Imagined child voice for one girl; a possible reason behind a stalling request, not a claim about every child. Nothing here is a fact about children in general."
+            },
+            {
+              "slide": 3,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "מה אני באמת רוצה עוד רגע איתך",
+              "supports": "Imagined child voice; offered as one possible reading of a stalling request. The AAP page only lists what children may ask for (a drink of water, a light, the door open)."
+            },
+            {
+              "slide": 4,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-trouble"
+              ],
+              "wording_he": "קודם מים ליד המיטה לפני שיוצאים מהחדר",
+              "supports": "AAP: take care of the child's needs before bedtime so they don't use them as reasons to avoid going to sleep; a drink of water is named as one such request. Page written for toddlers, applied to ages 3 to 5."
+            },
+            {
+              "slide": 5,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "wording_he": "סיפור אחד ואז לילה טוב",
+              "supports": "NHS: set a limit on bedtime interaction, for example read only 1 story, then tuck your child in and say goodnight."
+            },
+            {
+              "slide": 6,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "והכוס נשארת ליד המיטה",
+              "supports": "Closes the story for one child; one possible evening, not a promised result."
+            },
+            {
+              "slide": 7,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "ואפשר לעזור גם בסיפור אישי",
+              "supports": "AAP Brush, Book, Bed: read a favorite book (or two) each night, and reading aloud together, even just 15 minutes each day, helps improve language development and social-emotional skills."
+            },
+            {
+              "slide": 7,
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, read 2026-10-10)."
+            }
+          ],
+          "conversion_rationale": "כל הורה שמכיר ״עוד כוס מים״ מזהה את הרגע, והקול של נטע מסביר אותו בלי להאשים: היא לא מתחכמת, היא רוצה עוד רגע. שני הצעדים קטנים ואפשר לנסות הערב. הסיפור בסוף הוא עוד רגע ביחד, ובקטלוג יש ספרים לנושא שינה לשיחה בהודעות (המסע לממלכת החלומות שלי, ביי ביי שמיכי)."
+        },
+        {
+          "id": "kid-2",
+          "title": "אמא אל תחכי שאפהק",
+          "angle": "הפתיח מבטיח ערך: 3 דברים שיעזרו להירדם (שקופיות 3 עד 5). יואב מבקש מאמא לא לחכות שהוא יפהק: ברגע שהוא מפהק כבר מאוחר מדי. שלושה צעדים עם מקור: להתחיל 15 עד 20 דקות קודם, להאט חצי שעה לפני, ובלי מסך חצי שעה עד שעה.",
+          "target_parent": "אמהות לילד שמתפרק או מתעורר מחדש בדיוק כשהן חושבות שהוא עייף.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-dont",
+            "gap": "מה שלושת הדברים שיעזרו לו להירדם, ומתי כן מתחילים?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k2",
+            "mechanism": "perspective_shift",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "יואב",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short curly dark hair, tan skin, big dark eyes and a small dimple on his left cheek; about 102 cm tall.",
+            "parent": "His mother, early thirties, straight chestnut hair to her shoulders, light tan skin, a gentle patient face.",
+            "wardrobe": "Boy: navy pyjamas with small white stars (no words), bare feet. Mother: oatmeal knit sweater, dark jeans."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא אל תחכי\nשאפהק",
+              "body": "3 דברים שיעזרו לי\nלהירדם",
+              "highlight": "אל תחכי",
+              "image": {
+                "beat": "don't wait for the yawn",
+                "action": "The boy faces the viewer and looks straight into the camera with a huge exaggerated open-mouthed yawn and wide watery eyes, one fist rubbing his eye; his mother is small and soft in the background holding a folded pyjama top.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale blue-grey wall, a low bed with a mustard blanket, a small rug, a wooden toy shelf, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+                "lighting": "Warm evening lamp light.",
+                "wardrobe_objects": "A folded pyjama top in the mother's hands.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain pale blue-grey wall above his head"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "מה שלושת הדברים? שקופיות 3 עד 5"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "כשאני מתחיל לפהק\nכבר מאוחר בשבילי",
+              "body": "זה סימן שהיינו צריכים\nלהתחיל קודם",
+              "highlight": "כבר מאוחר",
+              "image": {
+                "beat": "already too late",
+                "action": "The boy slumps on the rug with a drooping head and heavy eyelids while his mother stands holding his hand, watching him closely.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale blue-grey wall, a low bed with a mustard blanket, a small rug, a wooden toy shelf, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Soft evening light.",
+                "wardrobe_objects": "A small rug under the boy.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale blue-grey wall above them"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מתי מתחילים? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "מתי כן?\n15 עד 20 דקות קודם",
+              "body": "יכול לעשות הבדל גדול\nומה עוזר לי עד אז?",
+              "highlight": "15 עד 20",
+              "image": {
+                "beat": "starting earlier",
+                "action": "The mother and the boy walk hand in hand down the hallway toward the bedroom, the boy still bright-eyed and walking easily.",
+                "setting": "An Israeli apartment hallway with a plain pale cream wall, a wooden shoe bench and a bedroom doorway ahead with a lit lamp.",
+                "camera": "Medium shot at child eye level, from ahead of them.",
+                "lighting": "Warm early-evening light from a window.",
+                "wardrobe_objects": "Nothing beyond the anchor.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream hallway wall"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "השאלה נענית בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "חצי שעה לפני\nמתחילים להאט איתי",
+              "body": "אמבטיה או סיפור או שיר שקט\n״יואב עוד מעט ישן״",
+              "highlight": "מתחילים להאט",
+              "image": {
+                "beat": "slowing down",
+                "action": "The boy in pyjamas sits cross-legged on his bed listening to quiet music with his eyes half closed while his mother sits beside him swaying gently.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale blue-grey wall, a low bed with a mustard blanket, a small rug, a wooden toy shelf, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot from the side.",
+                "lighting": "Soft warm lamp light.",
+                "wardrobe_objects": "A small wooden speaker on the toy shelf.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale blue-grey wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד דבר אחד בחצי השעה הזאת"
+              },
+              "examples": [
+                "אמבטיה",
+                "סיפור",
+                "שיר שקט"
+              ]
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "בלי מסך\nחצי שעה עד שעה",
+              "body": "לפני שאני ישן\n״יואב המסך הולך לישון״",
+              "highlight": "בלי מסך",
+              "image": {
+                "beat": "the screen goes to sleep",
+                "action": "The mother holds a tablet with a dark switched-off screen against her chest while the boy waves goodnight to it with a sleepy grin; the boy is in pyjamas.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale blue-grey wall, a low bed with a mustard blanket, a small rug, a wooden toy shelf, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Soft warm lamp light.",
+                "wardrobe_objects": "One tablet with a dark switched-off screen in the mother's hands.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale blue-grey wall behind them"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ואיך זה נראה בסוף? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ועכשיו אני מפהק\nוכבר במיטה",
+              "body": "המסך כבוי\nאת קוראת לי סיפור\nוזה בדיוק בזמן",
+              "highlight": "וכבר במיטה",
+              "image": {
+                "beat": "yawning in bed",
+                "action": "The boy lies in bed yawning widely under his blanket while his mother sits beside him reading from an open picture book; he hugs a small cushion.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale blue-grey wall, a low bed with a mustard blanket, a small rug, a wooden toy shelf, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot from the foot of the bed.",
+                "lighting": "Dim warm lamp light.",
+                "wardrobe_objects": "An open picture book with pictures and no writing; a small cushion in the boy's arms.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale blue-grey wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו קטן לפני הסוף"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "ואפשר לעזור לו\nגם בסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "On the child's bed the mother and the boy look at an open square picture book resting on their knees; the child points at the page, delighted to recognise themself.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale blue-grey wall, a low bed with a mustard blanket, a small rug, a wooden toy shelf, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Medium shot from the side, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "אל תחכי עד שהוא יפהק\nלפי האקדמיה האמריקאית לרפואת ילדים\nכשהם מתחילים לפהק כנראה כבר מאוחר\nמתחילים להאט חצי שעה לפני\nומכבים מסכים חצי שעה עד שעה לפני\nובערב אפשר לחזק אותו בעזרת סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-aap-bbb",
+              "title": "Brush, Book, Bed: How to Structure Your Child's Nighttime Routine",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 2/2/2024",
+              "url": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/Brush-Book-Bed.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Each night, help your children to brush their teeth. ... Read a favorite book (or two)! ... Get to bed at a regular time each night. ... Having a predictable nighttime routine can help your child understand and learn to expect what comes next. ... Do not wait for your child to start rubbing their eyes or yawning ... that's probably too late. Putting your child to bed even 15 to 20 minutes earlier can make a big difference ... Spending some time, even just 15 minutes each day, to read aloud together will help improve your child's language development and social-emotional skills.",
+              "supports": "Teeth, book, bed at a regular time; a predictable routine helps a child learn what comes next; yawning or rubbing eyes means it is probably too late; going to bed 15 to 20 minutes earlier can make a big difference; reading aloud together supports language and social-emotional skills."
+            },
+            {
+              "id": "src-aap-trouble",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 10/8/2026",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Make bedtime the same time every night. ... This helps your child know what to expect and helps them establish healthy sleep patterns. ... Set up a quiet routine before bedtime ... Use this time to read them a story, put on quiet music, or give them a bath. ... It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Take care of child's needs before bedtime so they don't use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Let your child take a favorite thing to bed each night. ... Children this age often resist going to sleep",
+              "supports": "Same bedtime every night; a quiet pre-bed routine (story, quiet music, bath); active play can overexcite before sleep; take care of needs such as a drink of water before bedtime so they are not used as reasons to delay; a favourite thing to take to bed; young children often resist sleep. The page is written for toddlers; we apply it to ages 3 to 5 as a related situation."
+            },
+            {
+              "id": "src-nhs",
+              "title": "Sleep and young children",
+              "publisher": "NHS (nhs.uk); the page shows last reviewed 31 March 2023 and next review due 31 March 2026, a date that has passed, so it may have been updated since",
+              "url": "https://www.nhs.uk/conditions/baby/health/sleep-and-young-children/",
+              "accessed": "2026-10-10",
+              "quote": "calming, predictable bedtime routine that happens at the same time ... Start a \"winding down\" bedtime routine around 30 minutes before the time that your child usually falls asleep. ... For example, read only 1 story, then tuck your child in and say goodnight. ... If your child gets up, keep taking them back to bed again with as little fuss as possible. ... Do not let your child look at laptops, tablets or phones in the 30 to 60 minutes before bed ... If your child complains that they're hungry at night, try giving them a bowl of cereal and milk before bed",
+              "supports": "A calming predictable routine at the same time; start winding down about 30 minutes before usual sleep time; limit bedtime interaction (one story, then tuck in and say goodnight); take a child who gets up back to bed with little fuss; no laptops, tablets or phones 30 to 60 minutes before bed; a bowl of cereal and milk if hungry. Written for under 5s."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "כשאני מתחיל לפהק כבר מאוחר בשבילי",
+              "supports": "AAP: do not wait for your child to start rubbing their eyes or yawning, that's probably too late. Said by an imagined child voice; the claim itself is the AAP's."
+            },
+            {
+              "slide": 3,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "ללכת לישון 15 עד 20 דקות קודם יכול לעשות הבדל גדול",
+              "supports": "AAP: putting your child to bed even 15 to 20 minutes earlier can make a big difference."
+            },
+            {
+              "slide": 4,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs",
+                "src-aap-trouble"
+              ],
+              "wording_he": "חצי שעה לפני מתחילים להאט עם אמבטיה או סיפור או שיר שקט",
+              "supports": "NHS: start a winding-down routine around 30 minutes before the time your child usually falls asleep. AAP: use this time to read a story, put on quiet music or give a bath."
+            },
+            {
+              "slide": 5,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "wording_he": "בלי מסך חצי שעה עד שעה לפני השינה",
+              "supports": "NHS: do not let your child look at laptops, tablets or phones in the 30 to 60 minutes before bed."
+            },
+            {
+              "slide": 6,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "ועכשיו אני מפהק וכבר במיטה",
+              "supports": "Closes the story for one child; one possible evening, not a promised result."
+            },
+            {
+              "slide": 7,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "ואפשר לעזור גם בסיפור אישי",
+              "supports": "AAP Brush, Book, Bed: read a favorite book (or two) each night, and reading aloud together, even just 15 minutes each day, helps improve language development and social-emotional skills."
+            },
+            {
+              "slide": 7,
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, read 2026-10-10)."
+            }
+          ],
+          "conversion_rationale": "הפתיח הוא בקשה מהילד שאפשר לשמוע בקול, ויש לו תשובה מעשית ומקור מוצק: לא מחכים לפיהוק ומתחילים קודם. שלושה צעדים עם מקור, הכול ברור בלי לקרוא הרבה."
+        },
+        {
+          "id": "kid-3",
+          "title": "יאללה לישון: מה אני שומעת באמת",
+          "angle": "ליה מספרת איך ״יאללה לישון״ נשמע אצלה: היא לא יודעת מה בא עכשיו. שני דברים מהמקורות: אותו סדר בכל ערב (שיניים ספר מיטה) ומשהו אהוב שהולך איתה למיטה.",
+          "target_parent": "אמהות שאומרות ״יאללה לישון״ כל ערב ומרגישות שזה לא עובד.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "sentences_we_say",
+          "hook": {
+            "formula": "sentence-we-all-say",
+            "gap": "מה הילדה שומעת באמת כשאומרים לה יאללה לישון, ומה שני הדברים שיעזרו לה יותר?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 1,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k3",
+            "mechanism": "recognition",
+            "slide2_move": "other_side"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "ליה",
+          "character_anchor": {
+            "child": "A 5-year-old Israeli girl with long wavy light-brown hair in two loose braids, fair olive skin, green-brown eyes and a few freckles; about 108 cm tall.",
+            "parent": "Her mother, mid thirties, shoulder-length black curly hair, olive skin, a calm smiling face.",
+            "wardrobe": "Girl: lilac pyjamas with a small star pattern (no words), bare feet. Mother: dusty-blue linen shirt, cream trousers."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״יאללה לישון!״\nמה אני שומעת\nבאמת?",
+              "body": "2 דברים שיעזרו לי יותר",
+              "highlight": "מה אני שומעת",
+              "image": {
+                "beat": "hearing 'yalla' without knowing what comes next",
+                "action": "The girl faces the viewer and looks straight into the camera with an exaggerated puzzled face, huge wide eyes, eyebrows high and her mouth in a small round O, both hands raised palms up; her mother is small and soft in the background at the bedroom door.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale lilac wall, a bed with a white duvet, a low bookshelf with soft toys, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+                "lighting": "Soft warm bedside lamp light with a lilac cast.",
+                "wardrobe_objects": "Nothing beyond the anchor.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain pale lilac wall above her head"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "מה שני הדברים? שקופיות 4 ו-5"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "אני שומעת ״יאללה״\nולא יודעת מה בא",
+              "body": "ביום אני יודעת מה בא אחרי\nבערב זה כל פעם אחרת",
+              "highlight": "ולא יודעת",
+              "image": {
+                "beat": "not knowing what comes next",
+                "action": "The girl stands in the middle of the room in pyjamas hugging a plush bunny and looking around with a puzzled face while her mother waits in the doorway with a gentle smile.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale lilac wall, a bed with a white duvet, a low bookshelf with soft toys, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Warm evening lamp light.",
+                "wardrobe_objects": "A plush bunny in the girl's arms.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale lilac wall above them"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה יעזור לה לדעת? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "שגרה עוזרת לי\nלדעת מה בא אחרי",
+              "body": "אותו סדר בכל ערב\nואז אני לא צריכה לנחש\nאז מה הסדר?",
+              "highlight": "מה בא אחרי",
+              "image": {
+                "beat": "a clear order",
+                "action": "The girl brushes her teeth with a small pink toothbrush at a low bathroom sink while her mother stands beside her smiling.",
+                "setting": "A small Israeli bathroom with plain pale cream tiles and a low wooden stool.",
+                "camera": "Child eye level, medium shot from the side.",
+                "lighting": "Soft warm light.",
+                "wardrobe_objects": "One small pink toothbrush in the girl's hand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream tiled wall above the sink"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "השאלה נענית בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "דבר ראשון\nשיניים ספר מיטה",
+              "body": "אותו סדר בכל ערב\n״ליה שיניים ואז ספר״",
+              "highlight": "שיניים ספר מיטה",
+              "image": {
+                "beat": "teeth, book, bed",
+                "action": "The girl bares her clean teeth in a big proud grin to her mother, who sits beside her on the bed holding one open picture book.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale lilac wall, a bed with a white duvet, a low bookshelf with soft toys, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium close shot.",
+                "lighting": "One warm lamp, soft glow.",
+                "wardrobe_objects": "One open picture book with soft pictures and no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale lilac wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "numbered",
+                "note": "ומה דבר שני? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "דבר שני\nמשהו אהוב למיטה",
+              "body": "ארנב או שמיכה שלי\nשבא איתי כל ערב",
+              "highlight": "משהו אהוב",
+              "image": {
+                "beat": "a favourite thing goes to bed",
+                "action": "The girl tucks the plush bunny under her white duvet beside her pillow with her tongue between her teeth in concentration; her mother watches fondly from the edge of the bed.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale lilac wall, a bed with a white duvet, a low bookshelf with soft toys, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Warm lamp light.",
+                "wardrobe_objects": "The plush bunny being tucked under the duvet.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale lilac wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ואיך זה נגמר? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ובלילה אני מחבקת\nאת הארנב",
+              "body": "שיניים כבר היו\nספר כבר היה\nנשארה רק המיטה",
+              "highlight": "מחבקת",
+              "image": {
+                "beat": "settled",
+                "action": "The girl lies in bed hugging the plush bunny with her eyes closing, her mother's hand resting on the duvet; a small lamp glows on the shelf.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale lilac wall, a bed with a white duvet, a low bookshelf with soft toys, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot from the foot of the bed.",
+                "lighting": "Dim warm lamp light, deep violet shadows.",
+                "wardrobe_objects": "The plush bunny in the girl's arms.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale lilac wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד רגע לפני הסוף"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "ואפשר לעזור לה\nגם בסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "On the child's bed the mother and the girl look at an open square picture book resting on their knees; the child points at the page, delighted to recognise themself.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale lilac wall, a bed with a white duvet, a low bookshelf with soft toys, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Medium shot from the side, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "״יאללה לישון!״ כולנו אומרות את זה\nשגרה עוזרת לילדה לדעת מה בא אחרי\nשיניים ספר מיטה בכל ערב באותו סדר\nומשהו אהוב שהולך איתה למיטה\nובערב אפשר לחזק אותה בעזרת סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-aap-bbb",
+              "title": "Brush, Book, Bed: How to Structure Your Child's Nighttime Routine",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 2/2/2024",
+              "url": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/Brush-Book-Bed.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Each night, help your children to brush their teeth. ... Read a favorite book (or two)! ... Get to bed at a regular time each night. ... Having a predictable nighttime routine can help your child understand and learn to expect what comes next. ... Do not wait for your child to start rubbing their eyes or yawning ... that's probably too late. Putting your child to bed even 15 to 20 minutes earlier can make a big difference ... Spending some time, even just 15 minutes each day, to read aloud together will help improve your child's language development and social-emotional skills.",
+              "supports": "Teeth, book, bed at a regular time; a predictable routine helps a child learn what comes next; yawning or rubbing eyes means it is probably too late; going to bed 15 to 20 minutes earlier can make a big difference; reading aloud together supports language and social-emotional skills."
+            },
+            {
+              "id": "src-aap-trouble",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 10/8/2026",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Make bedtime the same time every night. ... This helps your child know what to expect and helps them establish healthy sleep patterns. ... Set up a quiet routine before bedtime ... Use this time to read them a story, put on quiet music, or give them a bath. ... It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Take care of child's needs before bedtime so they don't use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Let your child take a favorite thing to bed each night. ... Children this age often resist going to sleep",
+              "supports": "Same bedtime every night; a quiet pre-bed routine (story, quiet music, bath); active play can overexcite before sleep; take care of needs such as a drink of water before bedtime so they are not used as reasons to delay; a favourite thing to take to bed; young children often resist sleep. The page is written for toddlers; we apply it to ages 3 to 5 as a related situation."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "ביום אני יודעת מה בא אחרי ובערב זה כל פעם אחרת",
+              "supports": "Imagined child voice for one girl; the claim that a predictable routine helps a child know what comes next is mapped to slide 3."
+            },
+            {
+              "slide": 3,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "שגרה עוזרת לי לדעת מה בא אחרי",
+              "supports": "AAP: having a predictable nighttime routine can help your child understand and learn to expect what comes next."
+            },
+            {
+              "slide": 4,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "שיניים ספר מיטה באותו סדר בכל ערב",
+              "supports": "AAP Brush, Book, Bed: help your children brush their teeth, read a favorite book (or two), get to bed at a regular time each night."
+            },
+            {
+              "slide": 5,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-trouble"
+              ],
+              "wording_he": "משהו אהוב שבא איתי למיטה",
+              "supports": "AAP: let your child take a favorite thing to bed each night; it is OK to sleep with a teddy bear, special blanket or favorite toy at this age (the object must be safe, with no choking hazards). Page written for toddlers, applied to age 5 as a related situation."
+            },
+            {
+              "slide": 6,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "ובלילה אני מחבקת את הארנב",
+              "supports": "Closes the story for one child; one possible evening, not a promised result."
+            },
+            {
+              "slide": 7,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "ואפשר לעזור גם בסיפור אישי",
+              "supports": "AAP Brush, Book, Bed: read a favorite book (or two) each night, and reading aloud together, even just 15 minutes each day, helps improve language development and social-emotional skills."
+            },
+            {
+              "slide": 7,
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, read 2026-10-10)."
+            }
+          ],
+          "conversion_rationale": "״יאללה לישון״ הוא משפט שכל אמא אומרת, והפתיח מסתכל עליו מהצד של הילדה. הפתרון הוא סדר קבוע ומשהו אהוב, שני דברים שקל להתחיל מהם הערב."
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "label_he": "גישה מקצועית מבוססת מקורות",
+      "versions": [
+        {
+          "id": "expert-1",
+          "title": "תפסיקו לשחק תופסת רגע לפני השינה",
+          "angle": "לפי ה-AAP משחק פעיל לפני השינה יכול לרגש ילד מכדי לישון. לא אוסרים משחק, מזיזים אותו, ובמקומו שקט (סיפור, מוזיקה שקטה, אמבטיה) ובלי מסך חצי שעה עד שעה.",
+          "target_parent": "הורים שמשחקים עם הילד בשעה האחרונה ורואים שהוא לא נרגע.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "stop-one-thing",
+            "gap": "מה שלושת הדברים שמרגיעים במקום משחק פעיל ברגע האחרון?",
+            "payoff_slide": 4,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e1",
+            "mechanism": "reframe",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "רועי",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short straight black hair, olive skin, bright brown eyes and a cheeky smile; about 103 cm tall.",
+            "parent": "His parents: his mother, mid thirties, dark brown hair in a ponytail, olive skin, a warm face; his father, late thirties, short dark beard and round glasses, a kind face.",
+            "wardrobe": "Boy: mustard pyjamas with white stripes (no words). Mother: soft grey sweater, dark trousers. Father: navy knit sweater, jeans."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "תפסיקו לשחק תופסת\nרגע לפני השינה",
+              "body": "במקום זה 3 דברים שמרגיעים",
+              "highlight": "לשחק תופסת",
+              "image": {
+                "beat": "stop the chase game",
+                "action": "The boy faces the viewer and looks straight into the camera with a giant exaggerated grin, wide eyes and flushed cheeks, arms flung out as if he has just been running; his parents are small and soft in the background laughing.",
+                "setting": "A bright living room of an Israeli apartment with a plain pale warm-grey wall, a low sofa with a mustard throw, a soft rug and a tall window with a half-open shutter, light terrazzo-tile floor.",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+                "lighting": "Bright warm late-afternoon light.",
+                "wardrobe_objects": "Nothing beyond the anchor.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain pale warm-grey wall above his head"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "מה שלושת הדברים? שקופית 4"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "משחק פעיל לפני השינה\nמרגש אותו מכדי לישון",
+              "body": "כולנו רוצים עוד משחק אחד\nזה כיף ומקרב\nאבל לא ברגע האחרון",
+              "highlight": "מכדי לישון",
+              "image": {
+                "beat": "everyone wants one more game",
+                "action": "The boy runs across the rug toward his mother, who crouches with open arms, while his father laughs behind the sofa.",
+                "setting": "A bright living room of an Israeli apartment with a plain pale warm-grey wall, a low sofa with a mustard throw, a soft rug and a tall window with a half-open shutter, light terrazzo-tile floor.",
+                "camera": "Adult eye level, medium-wide shot.",
+                "lighting": "Warm evening light.",
+                "wardrobe_objects": "A soft rug on the floor.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale warm-grey wall above the sofa"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה עושים עם המשחק? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "המשחק לא הבעיה\nרק השעה שלו",
+              "body": "משחק פעיל עדיף מוקדם יותר\nאז מה כן עושים לפני?",
+              "highlight": "רק השעה שלו",
+              "image": {
+                "beat": "the game is not the problem",
+                "action": "The mother and father sit on the sofa watching the boy bounce on the cushions with messy hair, all of them smiling.",
+                "setting": "A bright living room of an Israeli apartment with a plain pale warm-grey wall, a low sofa with a mustard throw, a soft rug and a tall window with a half-open shutter, light terrazzo-tile floor.",
+                "camera": "Adult eye level, medium-wide shot.",
+                "lighting": "Warm evening light.",
+                "wardrobe_objects": "The mustard throw on the sofa.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale warm-grey wall above the sofa"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "השאלה נענית בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "במקום משחק\nסיפור או מוזיקה שקטה",
+              "body": "או אמבטיה לרועי\nשקט לפני השינה",
+              "highlight": "מוזיקה שקטה",
+              "image": {
+                "beat": "quiet instead",
+                "action": "The parents and the boy sit on the rug with one open picture book while quiet music plays; the boy leans against his father's arm and the mother turns the page.",
+                "setting": "A bright living room of an Israeli apartment with a plain pale warm-grey wall, a low sofa with a mustard throw, a soft rug and a tall window with a half-open shutter, light terrazzo-tile floor.",
+                "camera": "Adult eye level, medium shot.",
+                "lighting": "Soft warm lamp light.",
+                "wardrobe_objects": "One open picture book with pictures and no writing; a small wooden speaker on the floor.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale warm-grey wall behind them"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד דבר אחד לפני השינה"
+              },
+              "examples": [
+                "סיפור",
+                "מוזיקה שקטה",
+                "אמבטיה"
+              ]
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ובלי מסך\nחצי שעה עד שעה",
+              "body": "לפי שירות הבריאות הבריטי\nלא נותנים מסך לפני השינה",
+              "highlight": "ובלי מסך",
+              "image": {
+                "beat": "no screen",
+                "action": "The father switches off a tablet and puts it on a high shelf while the mother holds the boy's hand and the boy waves the tablet goodbye.",
+                "setting": "A bright living room of an Israeli apartment with a plain pale warm-grey wall, a low sofa with a mustard throw, a soft rug and a tall window with a half-open shutter, light terrazzo-tile floor.",
+                "camera": "Adult eye level, medium shot.",
+                "lighting": "Soft warm lamp light.",
+                "wardrobe_objects": "One tablet with a dark switched-off screen in the father's hand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale warm-grey wall above the shelf"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ואיך זה נראה בסוף? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ורועי עדיין מבקש\nעוד משחק",
+              "body": "אתם אומרים ״מחר בבוקר״\nוקוראים סיפור אחד",
+              "highlight": "עוד משחק",
+              "image": {
+                "beat": "one more game, tomorrow",
+                "action": "In the boy's bedroom the mother tucks him into bed with a picture book open in her hand while the father stands in the doorway with a finger on his lips, smiling; the boy has a drowsy smile.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale cream wall, a low bed with a mustard blanket, a bedside lamp.",
+                "camera": "Adult eye level, medium-wide shot.",
+                "lighting": "Dim warm lamp light.",
+                "wardrobe_objects": "One open picture book in the mother's hand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו לפני הסוף"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "ואפשר לעזור לו\nגם בסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "On the child's bed the mother, the father and the boy look at an open square picture book resting on their knees; the child points at the page, delighted to recognise themself.",
+                "setting": "A small child's bedroom in an Israeli apartment: a plain pale cream wall, a low bed with a mustard blanket, a bedside lamp.",
+                "camera": "Medium shot from the side, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "משחק תופסת ממש לפני השינה עדיף להחליף במשהו שקט\nלפי האקדמיה האמריקאית לרפואת ילדים\nמשחק פעיל לפני השינה יכול לרגש ילד מכדי לישון\nמה כן סיפור או מוזיקה שקטה או אמבטיה\nולפי שירות הבריאות הבריטי בלי מסך חצי שעה עד שעה לפני\nובערב אפשר להוסיף סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-aap-trouble",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 10/8/2026",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Make bedtime the same time every night. ... This helps your child know what to expect and helps them establish healthy sleep patterns. ... Set up a quiet routine before bedtime ... Use this time to read them a story, put on quiet music, or give them a bath. ... It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Take care of child's needs before bedtime so they don't use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Let your child take a favorite thing to bed each night. ... Children this age often resist going to sleep",
+              "supports": "Same bedtime every night; a quiet pre-bed routine (story, quiet music, bath); active play can overexcite before sleep; take care of needs such as a drink of water before bedtime so they are not used as reasons to delay; a favourite thing to take to bed; young children often resist sleep. The page is written for toddlers; we apply it to ages 3 to 5 as a related situation."
+            },
+            {
+              "id": "src-nhs",
+              "title": "Sleep and young children",
+              "publisher": "NHS (nhs.uk); the page shows last reviewed 31 March 2023 and next review due 31 March 2026, a date that has passed, so it may have been updated since",
+              "url": "https://www.nhs.uk/conditions/baby/health/sleep-and-young-children/",
+              "accessed": "2026-10-10",
+              "quote": "calming, predictable bedtime routine that happens at the same time ... Start a \"winding down\" bedtime routine around 30 minutes before the time that your child usually falls asleep. ... For example, read only 1 story, then tuck your child in and say goodnight. ... If your child gets up, keep taking them back to bed again with as little fuss as possible. ... Do not let your child look at laptops, tablets or phones in the 30 to 60 minutes before bed ... If your child complains that they're hungry at night, try giving them a bowl of cereal and milk before bed",
+              "supports": "A calming predictable routine at the same time; start winding down about 30 minutes before usual sleep time; limit bedtime interaction (one story, then tuck in and say goodnight); take a child who gets up back to bed with little fuss; no laptops, tablets or phones 30 to 60 minutes before bed; a bowl of cereal and milk if hungry. Written for under 5s."
+            },
+            {
+              "id": "src-aap-bbb",
+              "title": "Brush, Book, Bed: How to Structure Your Child's Nighttime Routine",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 2/2/2024",
+              "url": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/Brush-Book-Bed.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Each night, help your children to brush their teeth. ... Read a favorite book (or two)! ... Get to bed at a regular time each night. ... Having a predictable nighttime routine can help your child understand and learn to expect what comes next. ... Do not wait for your child to start rubbing their eyes or yawning ... that's probably too late. Putting your child to bed even 15 to 20 minutes earlier can make a big difference ... Spending some time, even just 15 minutes each day, to read aloud together will help improve your child's language development and social-emotional skills.",
+              "supports": "Teeth, book, bed at a regular time; a predictable routine helps a child learn what comes next; yawning or rubbing eyes means it is probably too late; going to bed 15 to 20 minutes earlier can make a big difference; reading aloud together supports language and social-emotional skills."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-trouble"
+              ],
+              "wording_he": "משחק פעיל לפני השינה מרגש אותו מכדי לישון",
+              "supports": "AAP: it may be tempting to play with your child before bed; however, active play may make your child too excited to sleep. Page written for toddlers, applied to age 4 as a related situation."
+            },
+            {
+              "slide": 3,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-trouble"
+              ],
+              "wording_he": "המשחק לא הבעיה רק השעה שלו",
+              "supports": "Same AAP sentence, which is about play before bed. The wording that active play is better earlier is LumeBook's reading of it, not an AAP statement."
+            },
+            {
+              "slide": 4,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-trouble"
+              ],
+              "wording_he": "במקום משחק סיפור או מוזיקה שקטה או אמבטיה",
+              "supports": "AAP: use this time to read them a story, put on quiet music, or give them a bath."
+            },
+            {
+              "slide": 5,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "wording_he": "לא נותנים מסך חצי שעה עד שעה לפני השינה",
+              "supports": "NHS: do not let your child look at laptops, tablets or phones in the 30 to 60 minutes before bed."
+            },
+            {
+              "slide": 6,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "ורועי עדיין מבקש עוד משחק",
+              "supports": "Closes the story for one child; one possible evening, not a promised result."
+            },
+            {
+              "slide": 7,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "ואפשר לעזור גם בסיפור אישי",
+              "supports": "AAP Brush, Book, Bed: read a favorite book (or two) each night, and reading aloud together, even just 15 minutes each day, helps improve language development and social-emotional skills."
+            },
+            {
+              "slide": 7,
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, read 2026-10-10)."
+            }
+          ],
+          "conversion_rationale": "הורים שמשחקים עם הילד בשעה האחרונה לא חושבים שזה בעיה. הפתיח עוצר אותם בלי להאשים, והשקופית השנייה אומרת ״כולנו״. התשובה (שקט ובלי מסך) מגובה ב-AAP וב-NHS.",
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-2",
+          "title": "איך בונים שגרת שינה לילדה בת 4",
+          "angle": "הפתיח מבטיח ערך: 4 צעדים לשגרת שינה. השגרה לא מתחילה במיטה: לפי ה-NHS מתחילים להאט כחצי שעה לפני שהילד נרדם, ולפי ה-AAP לא מחכים לפיהוק. שני צעדים: אותה שעה בכל ערב, ואם הוא רעב קערת דגנים וחלב.",
+          "target_parent": "הורים שמתחילים את שגרת השינה רק כשהילד כבר במיטה או כבר עייף מדי.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "practical_question",
+          "hook": {
+            "formula": "practical-question",
+            "gap": "איך בונים שגרת שינה: מתי מתחילים, מה עושים בחצי השעה ומה כשהיא רעבה?",
+            "payoff_slide": 5,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 1,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "e2",
+            "mechanism": "practical_utility",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "אגם",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with a curly dark-brown puff of hair, light brown skin, round cheeks and big brown eyes; about 100 cm tall.",
+            "parent": "Her parents: her mother, early thirties, black curly hair in a high bun, light brown skin, a gentle face; her father, mid thirties, short brown hair and a trimmed beard, a relaxed smile.",
+            "wardrobe": "Girl: peach pyjamas with small white clouds (no words). Mother: cream cotton shirt, olive trousers. Father: grey henley shirt, dark jeans."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "איך בונים שגרת\nשינה לילדה בת 4?",
+              "body": "4 צעדים פשוטים לכם",
+              "highlight": "בונים שגרת",
+              "image": {
+                "beat": "what nobody tells you",
+                "action": "The girl faces the viewer and looks straight into the camera with a dramatic open-mouthed gasp, huge wide eyes and both hands on her cheeks as if she has just learned a secret; her parents are small and soft in the background by the bedroom door.",
+                "setting": "A calm Israeli apartment: a child's bedroom with a plain pale peach wall, a low bed with a white duvet, a bedside shelf with a lamp, light terrazzo-tile floor.",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+                "lighting": "Soft warm bedside lamp light.",
+                "wardrobe_objects": "Nothing beyond the anchor.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain pale peach wall above her head"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "מה ארבעת הצעדים? שקופיות 2 עד 5"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "השגרה מתחילה כחצי שעה\nלפני שהיא נרדמת",
+              "body": "לפי שירות הבריאות הבריטי\nלפני הזמן שבו היא בדרך כלל נרדמת",
+              "highlight": "כחצי שעה",
+              "image": {
+                "beat": "the routine begins early",
+                "action": "The mother and the girl walk hand in hand down the hallway toward the bedroom while the father turns off the living-room light behind them.",
+                "setting": "An Israeli apartment hallway with a plain pale cream wall, a wooden bench and the bedroom doorway ahead with a lit lamp.",
+                "camera": "Adult eye level, medium-wide shot from ahead of them.",
+                "lighting": "Warm early-evening light from a window.",
+                "wardrobe_objects": "Nothing beyond the anchor.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream hallway wall"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ולמה לא מחכים לפיהוק? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "לא מחכים לפיהוק\nכנראה זה כבר מאוחר",
+              "body": "השכבה 15 עד 20 דקות קודם\nיכולה לעשות הבדל גדול",
+              "highlight": "לא מחכים לפיהוק",
+              "image": {
+                "beat": "do not wait for the yawn",
+                "action": "The girl sits wide awake and cheerful on her bed hugging a plush bunny while her mother sits beside her at ease and her father leans in the doorway smiling.",
+                "setting": "A calm Israeli apartment: a child's bedroom with a plain pale peach wall, a low bed with a white duvet, a bedside shelf with a lamp, light terrazzo-tile floor.",
+                "camera": "Adult eye level, medium shot.",
+                "lighting": "Warm early-evening light.",
+                "wardrobe_objects": "A plush bunny in the girl's arms.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale peach wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה עושים בחצי השעה? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "אותה שעה\nבכל ערב",
+              "body": "שעת השכבה קבועה עוזרת לה\nלדעת למה לצפות",
+              "highlight": "אותה שעה",
+              "image": {
+                "beat": "same time each night",
+                "action": "The girl brushes her teeth at a low bathroom sink standing on a small stool while her mother holds her curls back and her father waits at the door holding a pyjama top.",
+                "setting": "A small Israeli bathroom with plain pale cream tiles and a small wooden stool.",
+                "camera": "Adult eye level, medium shot.",
+                "lighting": "Soft warm light.",
+                "wardrobe_objects": "One small toothbrush in the girl's hand and a folded pyjama top in the father's hands.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream tiled wall above the sink"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד דבר לבקשות של הרגע האחרון"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ואם היא רעבה\nקערת דגנים וחלב",
+              "body": "כשהיא אומרת בערב שהיא רעבה\nמגישים לפני המיטה",
+              "highlight": "קערת דגנים וחלב",
+              "image": {
+                "beat": "hungry, a small bowl",
+                "action": "The girl sits at a small kitchen table in pyjamas eating a small bowl of cereal with milk while her father sits across from her and her mother pours milk into a glass.",
+                "setting": "A small Israeli kitchen with cream tiles, a plain pale wall and a small wooden table.",
+                "camera": "Adult eye level, medium shot.",
+                "lighting": "Warm evening kitchen light.",
+                "wardrobe_objects": "One small bowl of cereal with milk on the table.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale cream wall above the table"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ואיך זה נראה בסוף? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "החצי שעה עברה\nואגם מחבקת ארנב",
+              "body": "הדגנים נגמרו\nהשיניים נוקו\nוהכול רגוע",
+              "highlight": "מחבקת ארנב",
+              "image": {
+                "beat": "done and settled",
+                "action": "The girl lies in bed hugging the plush bunny, her mother tucking the duvet around her and her father kissing her forehead; the bowl is not in this scene.",
+                "setting": "A calm Israeli apartment: a child's bedroom with a plain pale peach wall, a low bed with a white duvet, a bedside shelf with a lamp, light terrazzo-tile floor.",
+                "camera": "Adult eye level, medium shot from the foot of the bed.",
+                "lighting": "Dim warm lamp light, deep violet shadows.",
+                "wardrobe_objects": "The plush bunny in the girl's arms.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale peach wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו לפני הסוף"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "ואפשר לעזור לה\nגם בסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "On the child's bed the mother, the father and the girl look at an open square picture book resting on their knees; the child points at the page, delighted to recognise themself.",
+                "setting": "A calm Israeli apartment: a child's bedroom with a plain pale peach wall, a low bed with a white duvet, a bedside shelf with a lamp, light terrazzo-tile floor.",
+                "camera": "Medium shot from the side, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "ארבעה צעדים לשגרת שינה לילדה בת 4\nלפי שירות הבריאות הבריטי מתחילים להאט כחצי שעה לפני\nולפי האקדמיה האמריקאית לרפואת ילדים לא מחכים לפיהוק\nשעת השכבה קבועה עוזרת לילד לדעת למה לצפות\nואם הוא רעב קערת דגנים וחלב לפני המיטה\nובערב אפשר להוסיף סיפור שבו הילדה הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-nhs",
+              "title": "Sleep and young children",
+              "publisher": "NHS (nhs.uk); the page shows last reviewed 31 March 2023 and next review due 31 March 2026, a date that has passed, so it may have been updated since",
+              "url": "https://www.nhs.uk/conditions/baby/health/sleep-and-young-children/",
+              "accessed": "2026-10-10",
+              "quote": "calming, predictable bedtime routine that happens at the same time ... Start a \"winding down\" bedtime routine around 30 minutes before the time that your child usually falls asleep. ... For example, read only 1 story, then tuck your child in and say goodnight. ... If your child gets up, keep taking them back to bed again with as little fuss as possible. ... Do not let your child look at laptops, tablets or phones in the 30 to 60 minutes before bed ... If your child complains that they're hungry at night, try giving them a bowl of cereal and milk before bed",
+              "supports": "A calming predictable routine at the same time; start winding down about 30 minutes before usual sleep time; limit bedtime interaction (one story, then tuck in and say goodnight); take a child who gets up back to bed with little fuss; no laptops, tablets or phones 30 to 60 minutes before bed; a bowl of cereal and milk if hungry. Written for under 5s."
+            },
+            {
+              "id": "src-aap-bbb",
+              "title": "Brush, Book, Bed: How to Structure Your Child's Nighttime Routine",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 2/2/2024",
+              "url": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/Brush-Book-Bed.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Each night, help your children to brush their teeth. ... Read a favorite book (or two)! ... Get to bed at a regular time each night. ... Having a predictable nighttime routine can help your child understand and learn to expect what comes next. ... Do not wait for your child to start rubbing their eyes or yawning ... that's probably too late. Putting your child to bed even 15 to 20 minutes earlier can make a big difference ... Spending some time, even just 15 minutes each day, to read aloud together will help improve your child's language development and social-emotional skills.",
+              "supports": "Teeth, book, bed at a regular time; a predictable routine helps a child learn what comes next; yawning or rubbing eyes means it is probably too late; going to bed 15 to 20 minutes earlier can make a big difference; reading aloud together supports language and social-emotional skills."
+            },
+            {
+              "id": "src-aap-trouble",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 10/8/2026",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Make bedtime the same time every night. ... This helps your child know what to expect and helps them establish healthy sleep patterns. ... Set up a quiet routine before bedtime ... Use this time to read them a story, put on quiet music, or give them a bath. ... It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Take care of child's needs before bedtime so they don't use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Let your child take a favorite thing to bed each night. ... Children this age often resist going to sleep",
+              "supports": "Same bedtime every night; a quiet pre-bed routine (story, quiet music, bath); active play can overexcite before sleep; take care of needs such as a drink of water before bedtime so they are not used as reasons to delay; a favourite thing to take to bed; young children often resist sleep. The page is written for toddlers; we apply it to ages 3 to 5 as a related situation."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "wording_he": "השגרה מתחילה כחצי שעה לפני שהיא נרדמת",
+              "supports": "NHS: start a winding-down bedtime routine around 30 minutes before the time that your child usually falls asleep."
+            },
+            {
+              "slide": 3,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "לא מחכים לפיהוק כנראה זה כבר מאוחר והשכבה 15 עד 20 דקות קודם יכולה לעשות הבדל גדול",
+              "supports": "AAP: do not wait for your child to start rubbing their eyes or yawning, that's probably too late; putting your child to bed even 15 to 20 minutes earlier can make a big difference."
+            },
+            {
+              "slide": 4,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-trouble",
+                "src-nhs"
+              ],
+              "wording_he": "שעת השכבה קבועה עוזרת לה לדעת למה לצפות",
+              "supports": "AAP: make bedtime the same time every night; this helps your child know what to expect and helps them establish healthy sleep patterns. NHS: a calming, predictable routine that happens at the same time."
+            },
+            {
+              "slide": 5,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "wording_he": "ואם היא רעבה קערת דגנים וחלב לפני המיטה",
+              "supports": "NHS: if your child complains that they're hungry at night, try giving them a bowl of cereal and milk before bed."
+            },
+            {
+              "slide": 6,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "החצי שעה עברה ואגם מחבקת ארנב",
+              "supports": "Closes the story for one child; one possible evening, not a promised result."
+            },
+            {
+              "slide": 7,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "ואפשר לעזור גם בסיפור אישי",
+              "supports": "AAP Brush, Book, Bed: read a favorite book (or two) each night, and reading aloud together, even just 15 minutes each day, helps improve language development and social-emotional skills."
+            },
+            {
+              "slide": 7,
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, read 2026-10-10)."
+            }
+          ],
+          "conversion_rationale": "ה״סוד״ הוא עובדה פשוטה: השגרה מתחילה חצי שעה לפני, לא במיטה. הפתיח הכי כללי מבין השישה, ולכן הציון שלו על ״ספציפי״ נמוך יותר.",
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-3",
+          "title": "אדם מבקש עוד סיפור כל ערב",
+          "angle": "אדם מבקש עוד סיפור כל ערב. ה-NHS נותן כלל פשוט: סיפור אחד ואז מכסים ואומרים לילה טוב, ואם הוא קם מחזירים אותו למיטה בהכי מעט עניין שאפשר.",
+          "target_parent": "אמהות לילד שמבקש עוד סיפור, עוד שיר או עוד חיבוק עד שהערב מתארך.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "story",
+          "hook": {
+            "formula": "one-sentence-changes",
+            "gap": "איזה משפט אחד סוגר את הערב בלי ריב על עוד סיפור?",
+            "payoff_slide": 4,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e3",
+            "mechanism": "narrative_tension",
+            "slide2_move": "scene_restart"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "אדם",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with sandy-blond tousled hair, fair skin, blue-grey eyes and a gap-toothed grin; about 101 cm tall.",
+            "parent": "His mother, mid thirties, auburn hair in a low braid, fair skin, freckles, a tired-kind face.",
+            "wardrobe": "Boy: sky-blue pyjamas with small white boats (no words), bare feet. Mother: soft terracotta cardigan over a white top, grey trousers."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אדם מבקש עוד סיפור\nכל ערב",
+              "body": "ומשפט אחד סוגר את הערב",
+              "highlight": "עוד סיפור",
+              "image": {
+                "beat": "one more story please",
+                "action": "The boy faces the viewer and looks straight into the camera with a huge exaggerated pleading face, wide eyes, raised eyebrows and a dramatic pout, holding up one picture book with both hands; his mother is small and soft in the background at the bed.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale sage-green wall, a low bed with an oatmeal blanket, a bedside shelf with a small lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+                "lighting": "Soft warm bedside lamp light.",
+                "wardrobe_objects": "One picture book held up by the boy.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain pale sage-green wall above his head"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "איזה משפט? שקופית 4"
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "אדם בן 4\nוהסיפור השלישי מתחיל",
+              "body": "הראשון נגמר\nהשני נגמר\nוהוא כבר מבקש שלישי",
+              "highlight": "השלישי",
+              "image": {
+                "beat": "the third story",
+                "action": "The boy sits up in bed with a small pile of three picture books in his lap, beaming, while his mother sits at the edge of the bed with a tired smile.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale sage-green wall, a low bed with an oatmeal blanket, a bedside shelf with a small lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Adult eye level, medium shot.",
+                "lighting": "Warm lamp light.",
+                "wardrobe_objects": "A pile of three picture books with pictures and no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale sage-green wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "open_loop",
+                "note": "ולמה זה קורה? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "הרבה ילדים קטנים\nמתנגדים לשינה",
+              "body": "זה מוכר מאוד\nאז איך סוגרים את הערב?",
+              "highlight": "מתנגדים לשינה",
+              "image": {
+                "beat": "children resist sleep",
+                "action": "The boy sits up in bed with his arms crossed and a little pout, his eyes shining, while his mother sits calmly beside him.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale sage-green wall, a low bed with an oatmeal blanket, a bedside shelf with a small lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium two-shot.",
+                "lighting": "Warm lamp light.",
+                "wardrobe_objects": "Nothing beyond the anchor.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale sage-green wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "question",
+                "note": "השאלה נענית בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "סיפור אחד\nואז לילה טוב",
+              "body": "קראי סיפור אחד וכסי אותו\n״אדם סיפור אחד ואז לילה טוב״",
+              "highlight": "סיפור אחד",
+              "image": {
+                "beat": "one story then goodnight",
+                "action": "The mother closes one picture book and tucks the blanket up to the boy's chin while the boy smiles drowsily.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale sage-green wall, a low bed with an oatmeal blanket, a bedside shelf with a small lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot from the side.",
+                "lighting": "Warm lamp light.",
+                "wardrobe_objects": "One closed picture book in the mother's hand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale sage-green wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ואם הוא קם? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "ואם הוא קם\nמחזירים בשקט",
+              "body": "מחזירים אותו למיטה שוב\nבהכי מעט עניין שאפשר",
+              "highlight": "מחזירים בשקט",
+              "image": {
+                "beat": "taking him back gently",
+                "action": "The boy stands in his bedroom doorway in pyjamas while his mother gently takes his hand to walk him back to bed, calm and unhurried.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale sage-green wall, a low bed with an oatmeal blanket, a bedside shelf with a small lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Adult eye level, medium-wide shot.",
+                "lighting": "Dim warm light from the bedside lamp.",
+                "wardrobe_objects": "Nothing beyond the anchor.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale sage-green wall above the doorway"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ואיך זה נגמר? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ואדם מבקש עוד\nסיפור אחד",
+              "body": "את מחייכת ואומרת\n״מחר בערב יש עוד סיפור״\nוהוא מחבק כרית",
+              "highlight": "סיפור אחד",
+              "image": {
+                "beat": "hugging the pillow",
+                "action": "The boy lies in bed hugging a pillow with his eyes half closed while his mother sits at the edge of the bed with her hand resting on his back, smiling.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale sage-green wall, a low bed with an oatmeal blanket, a bedside shelf with a small lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Child eye level, medium shot from the foot of the bed.",
+                "lighting": "Dim warm lamp light, deep violet shadows.",
+                "wardrobe_objects": "A pillow in the boy's arms.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain pale sage-green wall above the bed"
+                }
+              },
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו לפני הסוף"
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "ואפשר לעזור לו\nגם בסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "On the child's bed the mother and the boy look at an open square picture book resting on their knees; the child points at the page, delighted to recognise themself.",
+                "setting": "A child's bedroom in an Israeli apartment: a plain pale sage-green wall, a low bed with an oatmeal blanket, a bedside shelf with a small lamp, a rolled shutter half open, light terrazzo-tile floor.",
+                "camera": "Medium shot from the side, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "הערב מתארך כי אדם מבקש עוד סיפור\nהרבה ילדים קטנים מתנגדים לשינה\nלפי שירות הבריאות הבריטי סיפור אחד ואז מכסים ואומרים לילה טוב\nואם הוא קם מחזירים אותו למיטה בהכי מעט עניין\nובערב אפשר להוסיף סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-nhs",
+              "title": "Sleep and young children",
+              "publisher": "NHS (nhs.uk); the page shows last reviewed 31 March 2023 and next review due 31 March 2026, a date that has passed, so it may have been updated since",
+              "url": "https://www.nhs.uk/conditions/baby/health/sleep-and-young-children/",
+              "accessed": "2026-10-10",
+              "quote": "calming, predictable bedtime routine that happens at the same time ... Start a \"winding down\" bedtime routine around 30 minutes before the time that your child usually falls asleep. ... For example, read only 1 story, then tuck your child in and say goodnight. ... If your child gets up, keep taking them back to bed again with as little fuss as possible. ... Do not let your child look at laptops, tablets or phones in the 30 to 60 minutes before bed ... If your child complains that they're hungry at night, try giving them a bowl of cereal and milk before bed",
+              "supports": "A calming predictable routine at the same time; start winding down about 30 minutes before usual sleep time; limit bedtime interaction (one story, then tuck in and say goodnight); take a child who gets up back to bed with little fuss; no laptops, tablets or phones 30 to 60 minutes before bed; a bowl of cereal and milk if hungry. Written for under 5s."
+            },
+            {
+              "id": "src-aap-trouble",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 10/8/2026",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Make bedtime the same time every night. ... This helps your child know what to expect and helps them establish healthy sleep patterns. ... Set up a quiet routine before bedtime ... Use this time to read them a story, put on quiet music, or give them a bath. ... It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Take care of child's needs before bedtime so they don't use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Let your child take a favorite thing to bed each night. ... Children this age often resist going to sleep",
+              "supports": "Same bedtime every night; a quiet pre-bed routine (story, quiet music, bath); active play can overexcite before sleep; take care of needs such as a drink of water before bedtime so they are not used as reasons to delay; a favourite thing to take to bed; young children often resist sleep. The page is written for toddlers; we apply it to ages 3 to 5 as a related situation."
+            },
+            {
+              "id": "src-aap-bbb",
+              "title": "Brush, Book, Bed: How to Structure Your Child's Nighttime Routine",
+              "publisher": "HealthyChildren.org (American Academy of Pediatrics); the page shows Last Updated 2/2/2024",
+              "url": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/Brush-Book-Bed.aspx",
+              "accessed": "2026-10-10",
+              "quote": "Each night, help your children to brush their teeth. ... Read a favorite book (or two)! ... Get to bed at a regular time each night. ... Having a predictable nighttime routine can help your child understand and learn to expect what comes next. ... Do not wait for your child to start rubbing their eyes or yawning ... that's probably too late. Putting your child to bed even 15 to 20 minutes earlier can make a big difference ... Spending some time, even just 15 minutes each day, to read aloud together will help improve your child's language development and social-emotional skills.",
+              "supports": "Teeth, book, bed at a regular time; a predictable routine helps a child learn what comes next; yawning or rubbing eyes means it is probably too late; going to bed 15 to 20 minutes earlier can make a big difference; reading aloud together supports language and social-emotional skills."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "הראשון נגמר השני נגמר והוא כבר מבקש שלישי",
+              "supports": "Imagined scene for one boy; not a claim about children."
+            },
+            {
+              "slide": 3,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-trouble"
+              ],
+              "wording_he": "הרבה ילדים קטנים מתנגדים לשינה",
+              "supports": "AAP: children this age often resist going to sleep. Page written for toddlers, applied to age 4 as a related situation."
+            },
+            {
+              "slide": 4,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "wording_he": "קראי סיפור אחד וכסי אותו ואמרי לילה טוב",
+              "supports": "NHS: set a limit on bedtime interaction, for example read only 1 story, then tuck your child in and say goodnight."
+            },
+            {
+              "slide": 5,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "wording_he": "ואם הוא קם מחזירים אותו למיטה בהכי מעט עניין שאפשר",
+              "supports": "NHS: if your child gets up, keep taking them back to bed again with as little fuss as possible."
+            },
+            {
+              "slide": 6,
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "wording_he": "ואדם מבקש עוד סיפור אחד",
+              "supports": "Closes the story for one child; one possible evening, not a promised result."
+            },
+            {
+              "slide": 7,
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap-bbb"
+              ],
+              "wording_he": "ואפשר לעזור גם בסיפור אישי",
+              "supports": "AAP Brush, Book, Bed: read a favorite book (or two) each night, and reading aloud together, even just 15 minutes each day, helps improve language development and social-emotional skills."
+            },
+            {
+              "slide": 7,
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, read 2026-10-10)."
+            }
+          ],
+          "conversion_rationale": "סיפור שנסגר במשפט אחד הוא תמונה שאמהות מזהות, והכלל של ה-NHS פשוט מאוד: סיפור אחד ואז לילה טוב. ליד זה כלל לילד שקם מהמיטה.",
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        }
+      ]
+    }
+  ]
+}

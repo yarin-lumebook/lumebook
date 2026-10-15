@@ -21,6 +21,25 @@ English mirror of `index.html` (the Hebrew site). Same sections, same order. Upd
 - Collaboration with professionals from the field
 - Parent testimonials
 
+## Decisions from the data
+
+Based on the site's order and advertising data, 12.10
+
+- Topics by a moment in the child's life: birthday every week + a monthly theme (new brother or sister, saying goodbye to the pacifier, potty training)
+  - Why: These are the best-selling books, birthday first
+- One post a week for whoever gives the gift (grandma, aunt), as a one-month test
+  - Why: In the paid ads, many purchases come from women aged 55-64, probably grandmothers
+- Creators by moment and place, not by size: whoever is in such a moment right now, 2-3 creators of grandmother age, and creators from the leading cities. The book we send matches the moment
+  - Why: Reaching, through the creators, the people who already buy
+- Once a week: the printed book in hand, the price and the delivery time
+  - Why: Most people who make a book don't buy it, and many leave on the payment page
+- A daily log of what went out (post, a creator's video, group post) compared with orders by day, every Monday. A count of comments and messages for each post
+  - Why: The site doesn't yet save which link an order came from, so this is the way to see what social brings
+- Parent groups: start with Rishon LeZion, Tel Aviv, Ashkelon, Be'er Sheva, Petah Tikva, Holon and Netanya
+  - Why: The cities with the most orders
+- The week's strongest post goes up on Wednesday evening or Thursday
+  - Why: On Thursday and Friday a sale from the ads cost the least. Weak evidence, but it costs nothing to try
+
 ## Marketing guidelines
 
 ### Voice
@@ -156,3 +175,4 @@ The December targets are temporary and will be replaced with more realistic targ
 - What the agreement with the UGC creators should be
 - A personal link with an audience discount for each creator, and adding a "how did you find us" question at checkout
 - One age range (the site lists various ranges)
+- That the site saves which link each order came from, by 10.11 (before the creators' videos go up)

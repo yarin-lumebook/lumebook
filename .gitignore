@@ -1,10 +1,35 @@
 # LumeBook monorepo. Raw media stays on disk only (re-downloadable or regenerated); code, data, docs and built pages are tracked.
 
+# secrets: keys live in the shell (~/.zshrc) or the cloud environment, never in a file here; .env.example is the template
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*service-account*.json
+
 # OS and tools
 .DS_Store
+._*
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 __pycache__/
-*.pyc
+*.py[cod]
 node_modules/
+venv/
+dist/
+build/
+.cache/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+npm-debug.log*
 .vercel/
 .site-editor/
 _preview-test.html
@@ -26,14 +51,28 @@ research/carousel-research/img/
 research/carousel-research/img2/
 research/competitor-content-analysis/**/*.mp4
 
-# fal trial: keep the source and notes, not the generated images
-carousel/fal-carousel-trial/generated-assets/
-carousel/fal-carousel-trial/clean-text/
-carousel/fal-carousel-trial/model-compare/
-carousel/fal-carousel-trial/slides/
-carousel/fal-carousel-trial/flare-carousel/
-carousel/fal-carousel-trial/*.png
-carousel/references/
+# media/: one home for every creative file (14 Oct 2026). Pictures, video and audio stay on disk only
+# (big, and old projects go to the cloud); scripts, prompts, manifests and READMEs are tracked.
+media/**/*.png
+media/**/*.jpg
+media/**/*.jpeg
+media/**/*.webp
+media/**/*.gif
+media/**/*.pdf
+media/**/*.mp3
+media/**/*.m4a
+media/**/*.wav
+media/**/*.opus
+media/**/*.srt
+media/inbox/*
+!media/inbox/README.md
+
+# files we no longer need, waiting for Yarin to delete them (never tracked)
+_to-delete/
+
+# creator correspondence (private emails, DM recordings, terms drafts): one folder per handle, never tracked
+creators/correspondence/*/
+creators/correspondence/**/*.eml
 
 # paid carousel production runs: final images and zips stay on disk
 carousel/carousel-pipeline/approved/**/*.png
@@ -41,10 +80,15 @@ carousel/carousel-pipeline/approved/**/*.jpg
 carousel/carousel-pipeline/approved/**/*.zip
 carousel/carousel-pipeline/approved/**/versions/
 
+# nightly drafts: rendered slides and downloaded product images stay on disk (re-rendered by finish-reco)
+carousel/carousel-pipeline/drafts/**/*.png
+carousel/carousel-pipeline/drafts/**/*.jpg
+carousel/carousel-pipeline/drafts/**/*.webp
+
 *.zip
 *.mp4
 *.mov
-carousel/fal-carousel-trial/source/legacy-illustrated/slides-illustrated/
+media/projects/2026-10-06-fal-carousel-trial/source/legacy-illustrated/slides-illustrated/
 shared/design/_ds_artifact/
 .venv/
 

@@ -301,3 +301,6 @@ Preview with the launch config `creator-map-static` (port 8773, serves this fold
 
 ## 14 Oct 2026: the whole project is light mode only
 - Yarin: "i want the entire project to only be in light mode from now on". The dark theme was removed from the design system itself (`shared/design/lumebook.css` has no dark tokens), `design.py` sets the light theme and has no toggle, and every published page was republished.
+
+## 14 Oct 2026: a decline is not a reply
+- Replied (Overview tile, funnel, tests) now counts only creators who replied and kept talking: In process, Book sent, Content created. Declines are left out (Yarin). The card's "Their reply" box and the reasons chart still cover declines, since a no is still an answer.

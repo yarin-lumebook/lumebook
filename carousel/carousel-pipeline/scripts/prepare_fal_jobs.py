@@ -29,6 +29,7 @@ import validate_pack  # noqa: E402
 
 MAX_REPLACEMENTS = 2
 JOB_ORDER = ["character-reference"] + [f"slide-{n:02d}" for n in range(1, lib.SLIDE_COUNT + 1)]
+PICTURE_JOB = "picture"  # packs from 14 Oct 2026: one picture for the whole carousel
 
 
 def endpoint_config():
@@ -79,6 +80,17 @@ def build_jobs(pack, version, cfg):
     t2i = "openai/gpt-image-2.5/flare/text-to-image"
     edit = "openai/gpt-image-2.5/flare/edit"
     base = {"image_size": dict(cfg["generation_size"]), "quality": cfg["quality"], "output_format": "png", "num_images": 1}
+    if lib.one_picture(version):
+        # Yarin, 14 Oct 2026: one picture that depicts the idea for the whole carousel, shown behind every slide.
+        image = version["image"]
+        return {"order": [PICTURE_JOB], "max_replacements_per_job": MAX_REPLACEMENTS, "jobs": {PICTURE_JOB: {
+            "endpoint": t2i,
+            "input": {**base, "prompt": lib.compose_image_prompt(anchor, image, 1, pillar=pillar, one_picture_prompt=True)},
+            "refs": [],
+            "estimated_cost_usd": cfg["estimate_usd_per_image"][t2i],
+            "purpose": f"the one picture behind all {len(version['slides'])} slides · {image['beat']}",
+            "text_zone": image["text_zone"],
+        }}}
     jobs = {
         "character-reference": {
             "endpoint": t2i,
@@ -128,8 +140,11 @@ def approval_text(pack, direction, version, jobs, run_dir):
     lines += [
         "## Images",
         "",
-        f"- Images: **{len(jobs['jobs'])}** (1 character and style reference + {lib.SLIDE_COUNT} slide scenes edited from it)",
-        "- Endpoints: `openai/gpt-image-2.5/flare/text-to-image` (reference), `openai/gpt-image-2.5/flare/edit` (slides)",
+        (f"- Images: **1**, the one picture that depicts the idea, behind all {len(version['slides'])} slides (Yarin, 14 Oct 2026)"
+         if PICTURE_JOB in jobs["jobs"] else
+         f"- Images: **{len(jobs['jobs'])}** (1 character and style reference + {lib.SLIDE_COUNT} slide scenes edited from it)"),
+        ("- Endpoint: `openai/gpt-image-2.5/flare/text-to-image`" if PICTURE_JOB in jobs["jobs"] else
+         "- Endpoints: `openai/gpt-image-2.5/flare/text-to-image` (reference), `openai/gpt-image-2.5/flare/edit` (slides)"),
         "- Quality: `high` · generation size 1024 x 1280 (4:5) · final export 1080 x 1350",
         f"- Estimated cost: about **${base:.2f}** if every image passes QA first time",
         f"- Estimated maximum: **${maximum:.2f}** if every image needs the maximum {MAX_REPLACEMENTS} replacements (the runner refuses to spend past the approved amount)",
@@ -155,9 +170,34 @@ def approval_text(pack, direction, version, jobs, run_dir):
     return "\n".join(lines) + "\n"
 
 
-def readme_text(run_dir, maximum):
+def readme_text(run_dir, maximum, one=False, slides=7):
     gen = lib.PIPELINE / "scripts" / "fal_generate.py"
     comp = lib.PIPELINE / "scripts" / "compose_slides.py"
+    if one:
+        return f"""# Production run (one picture)
+
+The carousel has one picture that depicts the idea, shown behind all {slides} slides (Yarin, 14 Oct 2026). Generated files land in `generated-assets/`, rejected attempts in `generated-assets/rejected/`, the run log in `generated-assets/generation-log.jsonl`, the resume point in `state.json`. FAL_KEY is read from the environment only (`~/.zshrc`, so run through `zsh -ic`).
+
+## 1 · The picture
+
+```bash
+zsh -ic 'python3 {gen} {run_dir} run {PICTURE_JOB} --max-usd {maximum:.2f}'
+```
+
+Inspect `generated-assets/{PICTURE_JOB}.png` at full size (the child's face to the viewer, the idea readable, a clean text zone, hands, no letters), then `python3 {gen} {run_dir} qa {PICTURE_JOB} pass`, or replace it:
+
+```bash
+zsh -ic 'python3 {gen} {run_dir} replace {PICTURE_JOB} --note "what is wrong" --max-usd {maximum:.2f}'
+```
+
+## 2 · Final composition
+
+```bash
+python3 {comp} {run_dir}
+```
+
+Writes `final/slides.html`, `final/01.png` to `final/{slides:02d}.png` at 1080 x 1350, the contact sheet, the RTL check, caption, sources and the ZIP. Status: `python3 {gen} {run_dir} status`
+"""
     return f"""# Production run
 
 Generated files land in `generated-assets/`, rejected attempts in `generated-assets/rejected/`, the run log in `generated-assets/generation-log.jsonl` (endpoint, request id, seconds, estimated cost, never the key), and the resume point in `state.json`.
@@ -288,12 +328,12 @@ def main():
     state_path = run_dir / "state.json"
     kept = carry_over(backup, run_dir, jobs) if backup else {}
     if not state_path.exists():
-        fresh = {n: {"status": "pending", "attempts": 0, "replacements": 0, "qa": None, "notes": []} for n in JOB_ORDER}
+        fresh = {n: {"status": "pending", "attempts": 0, "replacements": 0, "qa": None, "notes": []} for n in jobs["order"]}
         fresh.update(kept)
         lib.write_json(state_path, {"jobs": fresh})
     base, maximum = cost_summary(jobs)
     (run_dir / "APPROVAL.md").write_text(approval_text(pack, direction, version, jobs, run_dir), encoding="utf-8")
-    (run_dir / "README.md").write_text(readme_text(run_dir, maximum), encoding="utf-8")
+    (run_dir / "README.md").write_text(readme_text(run_dir, maximum, one=PICTURE_JOB in jobs["jobs"], slides=len(version["slides"])), encoding="utf-8")
     if not args.no_history:
         lib.mark_selected(pack["date"], version["id"])
     print(json.dumps({

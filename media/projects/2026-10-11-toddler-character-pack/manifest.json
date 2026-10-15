@@ -1,0 +1,333 @@
+{
+  "pack": "reel-character/reference-pack-v1",
+  "created": "2026-10-11",
+  "character": "Photorealistic fictional toddler boy, about 3: very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his anatomical RIGHT ear, plain white crew-neck T-shirt, beige shorts, bare feet.",
+  "source_reference": "/Users/yarinbruner/.codex/generated_images/01a12c58-5d6d-72b3-9418-b94a937a5218/exec-c8b8a512-1018-4dcb-bb15-a73679263750.png (copied to 00_original_reference.png)",
+  "tool": "Higgsfield CLI (higgsfield generate create)",
+  "model": "seedream_v5_pro (Seedream 5.0 Pro)",
+  "settings": {
+    "resolution": "2k",
+    "full_body_aspect_ratio": "2:3 (1664x2496)",
+    "portrait_aspect_ratio": "3:4 (1760x2352)"
+  },
+  "command_template": "higgsfield generate create seedream_v5_pro --prompt <prompt> --aspect_ratio <2:3|3:4> --resolution 2k --image-references <ref> [...] --wait --json  (see run.py)",
+  "reference_strategy": "Master: original only. Full-body views: original + 00_master_front. Portraits: original + 00_master_front + ref_master_head_crop (a crop of the master). No view was generated from another view.",
+  "final_selection": {
+    "01_front": "01_front.png",
+    "02_front_three_quarter_left": "02_front_three_quarter_left.png",
+    "03_left_profile": "03_left_profile_v2.png",
+    "04_rear_three_quarter_left": "04_rear_three_quarter_left.png",
+    "05_back": "05_back.png",
+    "06_rear_three_quarter_right": "06_rear_three_quarter_right.png",
+    "07_right_profile": "07_right_profile_v2.png",
+    "08_front_three_quarter_right": "08_front_three_quarter_right.png",
+    "09_portrait_front": "09_portrait_front_v3.png",
+    "10_portrait_three_quarter_left": "10_portrait_three_quarter_left.png",
+    "11_portrait_left_profile": "11_portrait_left_profile.png",
+    "12_portrait_right_profile": "12_portrait_right_profile.png",
+    "13_portrait_three_quarter_right": "13_portrait_three_quarter_right.png"
+  },
+  "notes": [
+    "01_front.png is a copy of 00_master_front.png (same job).",
+    "03_left_profile.png and 07_right_profile.png (v1) are superseded: head in profile but torso and feet were three-quarter. v2 fixes the body.",
+    "09_portrait_front.png (v1) is superseded: seated and framed to the waist. v2 is correct but tighter than the other portraits; v3 matches the group and is the final.",
+    "final/ holds the 13 selected images under their canonical names."
+  ],
+  "generations": [
+    {
+      "file": "00_master_front.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "23c0c896-9032-4b55-8333-7befc86ed1b2",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png"
+      ],
+      "prompt": "Photorealistic full-body studio photograph of the exact same toddler boy shown in the reference image, about three years old. Keep his identity exactly: the same face, very full rounded cheeks, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade on the sides and back, the same hairline, the same toddler body proportions.\n\nChange only the pose and camera: he now stands facing the camera straight on, head upright and level (not tilted), shoulders square, relaxed standing pose with both arms hanging slightly away from his torso, hands relaxed and open, feet flat on the floor a little apart, toes pointing to the camera. Both ears visible. One small diamond stud earring in the ear on the LEFT side of the image (his own right ear); the other ear has no earring.\n\nPlain white crew-neck T-shirt, beige shorts, bare feet. Neutral, gently curious, quietly confident expression with a closed mouth and a very slight smile.\n\nWarm ivory seamless studio background, soft even studio lighting, soft contact shadow under the feet. Camera at the child's eye level, straight-on, 85mm lens look. Full body in frame from the top of the hair to the toes, centred, with a little space above the head and below the feet. Natural skin texture and fabric texture, real photograph. No props, no text, no logos, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200449_23c0c896-9032-4b55-8333-7befc86ed1b2.png",
+      "created": "2026-10-11T23:05:49"
+    },
+    {
+      "file": "07_right_profile.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "68fe3866-34e0-4edd-9e2c-2fd08481195e",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nVIEW: pure side profile. His whole body and head are turned 90 degrees so that his nose points at the RIGHT edge of the image and the camera sees only his own right side: one eye, the side of the glasses with the temple arm running to the ear, and his right ear with one small diamond stud in the lobe. In profile his cheek is still very full and round and bulges forward, with a small button nose, soft lips, a small soft chin and toddler fullness under the chin. Do not flatten the cheek, do not sharpen the nose or chin. The fade on the side of the head is clearly visible.\n\nFULL BODY, the same scale and framing as reference image 2: the whole child from the top of his hair to his toes, centred, a little space above the head and below the feet, soft contact shadow under the feet. Relaxed standing pose, arms hanging slightly away from the torso, hands relaxed and open with five natural fingers, feet flat on the floor.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200727_68fe3866-34e0-4edd-9e2c-2fd08481195e.png",
+      "created": "2026-10-11T23:08:19"
+    },
+    {
+      "file": "05_back.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "77958ae7-7377-4dd2-b54a-f7aa2aaefe76",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nVIEW: straight from behind. He stands with his back squarely to the camera, facing directly away. No part of his face is visible. The camera sees the back of his head: slicked-back dark brown hair on top, clean skin fade tapering to the nape of the neck, both ears from behind with the curved tips of the glasses temple arms hooked over them. The diamond stud is not visible from behind. Plain back of the white T-shirt with no tag or print, plain back of the beige shorts with a simple waistband and no patches, the backs of his legs and his heels.\n\nFULL BODY, the same scale and framing as reference image 2: the whole child from the top of his hair to his toes, centred, a little space above the head and below the feet, soft contact shadow under the feet. Relaxed standing pose, arms hanging slightly away from the torso, hands relaxed and open with five natural fingers, feet flat on the floor.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200730_77958ae7-7377-4dd2-b54a-f7aa2aaefe76.png",
+      "created": "2026-10-11T23:08:21"
+    },
+    {
+      "file": "08_front_three_quarter_right.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "37f55ff5-4e68-408d-b9c7-bd6482d68f39",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the RIGHT side of the image, so the camera sees his front and his own right side. His nose points toward the right edge of the frame and his eyes look straight ahead in the direction he is facing, not at the camera. The ear facing the camera is his right ear, with one small diamond stud in the lobe. His other ear is on the far side of his head, hidden from the camera.\n\nFULL BODY, the same scale and framing as reference image 2: the whole child from the top of his hair to his toes, centred, a little space above the head and below the feet, soft contact shadow under the feet. Relaxed standing pose, arms hanging slightly away from the torso, hands relaxed and open with five natural fingers, feet flat on the floor.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200730_37f55ff5-4e68-408d-b9c7-bd6482d68f39.png",
+      "created": "2026-10-11T23:08:25"
+    },
+    {
+      "file": "02_front_three_quarter_left.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "9d368348-9bb8-4c51-bf89-d72c38049bf8",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the LEFT side of the image, so the camera sees his front and his own left side. His nose points toward the left edge of the frame and his eyes look straight ahead in the direction he is facing, not at the camera. The ear facing the camera is his left ear and it has NO earring. The earring ear is on the far side of his head, hidden from the camera.\n\nFULL BODY, the same scale and framing as reference image 2: the whole child from the top of his hair to his toes, centred, a little space above the head and below the feet, soft contact shadow under the feet. Relaxed standing pose, arms hanging slightly away from the torso, hands relaxed and open with five natural fingers, feet flat on the floor.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200731_9d368348-9bb8-4c51-bf89-d72c38049bf8.png",
+      "created": "2026-10-11T23:08:25"
+    },
+    {
+      "file": "06_rear_three_quarter_right.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "34e4b55e-99ca-41cb-a7e7-12c40ffe9a85",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nVIEW: rear three-quarter view. He stands with his back to the camera, turned 45 degrees so that he faces away toward the far RIGHT of the image. The camera sees his back, the back of his head with the fade, and his own right side from behind: the back of his right ear with the edge of one small diamond stud just visible on the lobe, the right temple arm of the glasses, and only a small sliver of his full right cheek. His face is mostly hidden. Plain back of the white T-shirt, plain back of the beige shorts.\n\nFULL BODY, the same scale and framing as reference image 2: the whole child from the top of his hair to his toes, centred, a little space above the head and below the feet, soft contact shadow under the feet. Relaxed standing pose, arms hanging slightly away from the torso, hands relaxed and open with five natural fingers, feet flat on the floor.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200731_34e4b55e-99ca-41cb-a7e7-12c40ffe9a85.png",
+      "created": "2026-10-11T23:08:26"
+    },
+    {
+      "file": "12_portrait_right_profile.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "68398f58-a023-40b3-b89d-6c12a10e1c11",
+      "settings": {
+        "aspect_ratio": "3:4",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child, image 3 is a close crop of his head from image 2). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nHEAD AND SHOULDERS PORTRAIT: framed from mid-chest up, the entire hairstyle inside the frame with space above it, shoulders inside the frame, head centred, head upright and level, not tilted.\n\nVIEW: pure side profile. His whole body and head are turned 90 degrees so that his nose points at the RIGHT edge of the image and the camera sees only his own right side: one eye, the side of the glasses with the temple arm running to the ear, and his right ear with one small diamond stud in the lobe. In profile his cheek is still very full and round and bulges forward, with a small button nose, soft lips, a small soft chin and toddler fullness under the chin. Do not flatten the cheek, do not sharpen the nose or chin. The fade on the side of the head is clearly visible.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200729_68398f58-a023-40b3-b89d-6c12a10e1c11.png",
+      "created": "2026-10-11T23:08:30"
+    },
+    {
+      "file": "03_left_profile.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "e761fe74-ae77-47e7-9614-d497361c9dc6",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nVIEW: pure side profile. His whole body and head are turned 90 degrees so that his nose points at the LEFT edge of the image and the camera sees only his own left side: one eye, the side of the glasses with the temple arm running to the ear, and his left ear, which has NO earring. In profile his cheek is still very full and round and bulges forward, with a small button nose, soft lips, a small soft chin and toddler fullness under the chin. Do not flatten the cheek, do not sharpen the nose or chin. The fade on the side of the head is clearly visible.\n\nFULL BODY, the same scale and framing as reference image 2: the whole child from the top of his hair to his toes, centred, a little space above the head and below the feet, soft contact shadow under the feet. Relaxed standing pose, arms hanging slightly away from the torso, hands relaxed and open with five natural fingers, feet flat on the floor.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200730_e761fe74-ae77-47e7-9614-d497361c9dc6.png",
+      "created": "2026-10-11T23:08:30"
+    },
+    {
+      "file": "11_portrait_left_profile.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "94668477-ccd9-43cd-9471-41dbf22d4d3d",
+      "settings": {
+        "aspect_ratio": "3:4",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child, image 3 is a close crop of his head from image 2). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nHEAD AND SHOULDERS PORTRAIT: framed from mid-chest up, the entire hairstyle inside the frame with space above it, shoulders inside the frame, head centred, head upright and level, not tilted.\n\nVIEW: pure side profile. His whole body and head are turned 90 degrees so that his nose points at the LEFT edge of the image and the camera sees only his own left side: one eye, the side of the glasses with the temple arm running to the ear, and his left ear, which has NO earring. In profile his cheek is still very full and round and bulges forward, with a small button nose, soft lips, a small soft chin and toddler fullness under the chin. Do not flatten the cheek, do not sharpen the nose or chin. The fade on the side of the head is clearly visible.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200730_94668477-ccd9-43cd-9471-41dbf22d4d3d.png",
+      "created": "2026-10-11T23:08:31"
+    },
+    {
+      "file": "04_rear_three_quarter_left.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "5009b7d3-f4d9-4f04-b38b-b7d66e1b8461",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nVIEW: rear three-quarter view. He stands with his back to the camera, turned 45 degrees so that he faces away toward the far LEFT of the image. The camera sees his back, the back of his head with the fade, and his own left side from behind: the back of his left ear (NO earring), the left temple arm of the glasses, and only a small sliver of his full left cheek. His face is mostly hidden. Plain back of the white T-shirt, plain back of the beige shorts.\n\nFULL BODY, the same scale and framing as reference image 2: the whole child from the top of his hair to his toes, centred, a little space above the head and below the feet, soft contact shadow under the feet. Relaxed standing pose, arms hanging slightly away from the torso, hands relaxed and open with five natural fingers, feet flat on the floor.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200846_5009b7d3-f4d9-4f04-b38b-b7d66e1b8461.png",
+      "created": "2026-10-11T23:09:41"
+    },
+    {
+      "file": "10_portrait_three_quarter_left.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "a1b8bde1-b024-41d1-b205-2bed8a32ad43",
+      "settings": {
+        "aspect_ratio": "3:4",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child, image 3 is a close crop of his head from image 2). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nHEAD AND SHOULDERS PORTRAIT: framed from mid-chest up, the entire hairstyle inside the frame with space above it, shoulders inside the frame, head centred, head upright and level, not tilted.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the LEFT side of the image, so the camera sees his front and his own left side. His nose points toward the left edge of the frame and his eyes look straight ahead in the direction he is facing, not at the camera. The ear facing the camera is his left ear and it has NO earring. The earring ear is on the far side of his head, hidden from the camera.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200847_a1b8bde1-b024-41d1-b205-2bed8a32ad43.png",
+      "created": "2026-10-11T23:09:42"
+    },
+    {
+      "file": "09_portrait_front.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "2586cbad-6544-4ea9-bdd9-9ed522de592c",
+      "settings": {
+        "aspect_ratio": "3:4",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child, image 3 is a close crop of his head from image 2). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nHEAD AND SHOULDERS PORTRAIT: framed from mid-chest up, the entire hairstyle inside the frame with space above it, shoulders inside the frame, head centred, head upright and level, not tilted.\n\nVIEW: straight-on front view, facing the camera, looking into the lens. Both ears visible. One small diamond stud in the ear on the LEFT side of the image (his own right ear). The other ear has no earring.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200847_2586cbad-6544-4ea9-bdd9-9ed522de592c.png",
+      "created": "2026-10-11T23:09:48"
+    },
+    {
+      "file": "13_portrait_three_quarter_right.png",
+      "version": 1,
+      "model": "seedream_v5_pro",
+      "job_id": "cc33da66-6e21-4f0e-8f24-3caf3880145f",
+      "settings": {
+        "aspect_ratio": "3:4",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child, image 3 is a close crop of his head from image 2). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nHEAD AND SHOULDERS PORTRAIT: framed from mid-chest up, the entire hairstyle inside the frame with space above it, shoulders inside the frame, head centred, head upright and level, not tilted.\n\nVIEW: front three-quarter view. His whole body and head are turned together 45 degrees toward the RIGHT side of the image, so the camera sees his front and his own right side. His nose points toward the right edge of the frame and his eyes look straight ahead in the direction he is facing, not at the camera. The ear facing the camera is his right ear, with one small diamond stud in the lobe. His other ear is on the far side of his head, hidden from the camera.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_200847_cc33da66-6e21-4f0e-8f24-3caf3880145f.png",
+      "created": "2026-10-11T23:09:50"
+    },
+    {
+      "file": "09_portrait_front_v2.png",
+      "version": 2,
+      "model": "seedream_v5_pro",
+      "job_id": "675319d5-f5cd-49af-9df4-c73f4b915d2f",
+      "settings": {
+        "aspect_ratio": "3:4",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child, image 3 is a close crop of his head from image 2). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nHEAD AND SHOULDERS PORTRAIT: framed from mid-chest up, the entire hairstyle inside the frame with space above it, shoulders inside the frame, head centred, head upright and level, not tilted.\n\nHe is STANDING upright, not sitting or crouching, shoulders square to the camera. Tight crop: the bottom edge of the frame cuts across his upper chest just below the T-shirt sleeves. Only his head, neck, both shoulders and upper chest are in the frame. No forearms, no hands, no shorts, no legs. His head fills about 45 percent of the frame height.\n\nVIEW: straight-on front view, facing the camera, looking into the lens. Both ears visible. One small diamond stud in the ear on the LEFT side of the image (his own right ear). The other ear has no earring.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_201055_675319d5-f5cd-49af-9df4-c73f4b915d2f.png",
+      "created": "2026-10-11T23:11:47"
+    },
+    {
+      "file": "03_left_profile_v2.png",
+      "version": 2,
+      "model": "seedream_v5_pro",
+      "job_id": "64374085-fa39-46b9-99e7-230070eec2d5",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nVIEW: pure side profile. His whole body and head are turned 90 degrees so that his nose points at the LEFT edge of the image and the camera sees only his own left side: one eye, the side of the glasses with the temple arm running to the ear, and his left ear, which has NO earring. In profile his cheek is still very full and round and bulges forward, with a small button nose, soft lips, a small soft chin and toddler fullness under the chin. Do not flatten the cheek, do not sharpen the nose or chin. The fade on the side of the head is clearly visible.\n\nThe WHOLE BODY is in strict side profile, not only the head: his chest, belly, hips, knees and both feet all point at the LEFT edge of the image, exactly the same direction as his nose. The camera sees the side seam of the T-shirt and of the shorts and the side of one leg, with the far leg almost fully hidden behind the near leg. Both feet are seen from the side with toes pointing LEFT, no foot pointing at the camera. The near arm hangs relaxed at his side; the far arm is hidden behind the torso. His toddler belly curves gently forward in silhouette.\n\nFULL BODY, the same scale and framing as reference image 2: the whole child from the top of his hair to his toes, centred, a little space above the head and below the feet, soft contact shadow under the feet. Relaxed standing pose, arms hanging slightly away from the torso, hands relaxed and open with five natural fingers, feet flat on the floor.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_201054_64374085-fa39-46b9-99e7-230070eec2d5.png",
+      "created": "2026-10-11T23:11:52"
+    },
+    {
+      "file": "07_right_profile_v2.png",
+      "version": 2,
+      "model": "seedream_v5_pro",
+      "job_id": "a28f44a6-b845-4e7d-a43b-8ad0d99e0c52",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nVIEW: pure side profile. His whole body and head are turned 90 degrees so that his nose points at the RIGHT edge of the image and the camera sees only his own right side: one eye, the side of the glasses with the temple arm running to the ear, and his right ear with one small diamond stud in the lobe. In profile his cheek is still very full and round and bulges forward, with a small button nose, soft lips, a small soft chin and toddler fullness under the chin. Do not flatten the cheek, do not sharpen the nose or chin. The fade on the side of the head is clearly visible.\n\nThe WHOLE BODY is in strict side profile, not only the head: his chest, belly, hips, knees and both feet all point at the RIGHT edge of the image, exactly the same direction as his nose. The camera sees the side seam of the T-shirt and of the shorts and the side of one leg, with the far leg almost fully hidden behind the near leg. Both feet are seen from the side with toes pointing RIGHT, no foot pointing at the camera. The near arm hangs relaxed at his side; the far arm is hidden behind the torso. His toddler belly curves gently forward in silhouette.\n\nFULL BODY, the same scale and framing as reference image 2: the whole child from the top of his hair to his toes, centred, a little space above the head and below the feet, soft contact shadow under the feet. Relaxed standing pose, arms hanging slightly away from the torso, hands relaxed and open with five natural fingers, feet flat on the floor.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_201054_a28f44a6-b845-4e7d-a43b-8ad0d99e0c52.png",
+      "created": "2026-10-11T23:11:58"
+    },
+    {
+      "file": "09_portrait_front_v3.png",
+      "version": 3,
+      "model": "seedream_v5_pro",
+      "job_id": "179c3c90-6608-457f-b789-2c232a54c9a0",
+      "settings": {
+        "aspect_ratio": "3:4",
+        "resolution": "2k"
+      },
+      "image_references": [
+        "00_original_reference.png",
+        "00_master_front.png",
+        "ref_master_head_crop.png"
+      ],
+      "prompt": "Photorealistic studio photograph of the exact same toddler boy shown in the reference images (image 1 is the original photo, image 2 is the approved straight-on front view of the same child, image 3 is a close crop of his head from image 2). He is about three years old. Keep his identity exactly: the same face, very full rounded cheeks, small button nose, soft round chin, warm olive skin, brown eyes, the same round dark tortoiseshell glasses with clear lenses, the same dark brown hair slicked back on top with a clean skin fade around the sides and back, the same hairline, the same toddler head-to-body proportions. Same outfit: plain white crew-neck T-shirt, beige shorts with rolled hems, bare feet.\n\nHEAD AND SHOULDERS PORTRAIT: framed from mid-chest up, the entire hairstyle inside the frame with space above it, shoulders inside the frame, head centred, head upright and level, not tilted.\n\nHe is STANDING upright, not sitting or crouching, shoulders square to the camera. Tight crop: the bottom edge of the frame cuts across his upper chest just below the T-shirt sleeves. Only his head, neck, both shoulders and upper chest are in the frame. No forearms, no hands, no shorts, no legs. His head fills about 36 percent of the frame height, with clear empty background above the hair and beside both shoulders, and the full width of both T-shirt sleeves inside the frame.\n\nVIEW: straight-on front view, facing the camera, looking into the lens. Both ears visible. One small diamond stud in the ear on the LEFT side of the image (his own right ear). The other ear has no earring.\n\nWarm ivory seamless studio background, soft even studio lighting. Camera at the child's eye level, level horizon, 85mm lens look, no wide-angle distortion. Neutral, gently curious, quietly confident expression, mouth closed. Natural skin texture and fabric texture, a real photograph. No props, no text, no logos, no labels, no watermark. Not a cartoon, no enlarged eyes, no plastic skin, no adult facial proportions.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261011_201225_179c3c90-6608-457f-b789-2c232a54c9a0.png",
+      "created": "2026-10-11T23:13:23"
+    }
+  ]
+}

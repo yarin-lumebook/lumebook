@@ -53,6 +53,10 @@ ul.list li{text-wrap:pretty}
 ul.list li::marker,.road ul li::marker{color:var(--accent)}
 li:empty,tr:empty,.tasks li:empty{display:none}
 
+/* decisions: each item is the decision, then a quieter reason line */
+.decisions{gap:var(--sp-3)}
+.decisions .why{display:block;margin-top:2px;font-size:var(--fs-footnote);color:var(--text-3)}
+
 /* tables: first column is the label, the rest is quieter */
 .lb-table td:first-child{font-weight:500;white-space:nowrap}
 .lb-table td:not(:first-child){color:var(--text-2)}
@@ -166,6 +170,24 @@ li:empty,tr:empty,.tasks li:empty{display:none}
         <li>סרטוני הסבר על התפתחות הילד</li>
         <li>שיתוף פעולה עם אנשי מקצוע מהתחום</li>
         <li>עדויות של הורים</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="decisions">
+    <div class="lb-section-head">
+      <h2>החלטות מהנתונים</h2>
+      <p class="lb-meta">לפי נתוני ההזמנות והפרסום באתר, 12.10</p>
+    </div>
+    <div class="lb-card">
+      <ul class="list decisions">
+        <li>נושאים לפי רגע בחיי הילד: יום הולדת כל שבוע + נושא חודשי (אח או אחות חדשים, פרידה מהמוצץ, גמילה מטיטולים)<span class="why">למה: אלה הספרים שנמכרים הכי הרבה, יום הולדת ראשון</span></li>
+        <li>פוסט בשבוע למי שנותן את המתנה (סבתא, דודה), כבדיקה של חודש<span class="why">למה: בפרסום הממומן הרבה רכישות מגיעות מנשים בגילאי 55-64, כנראה סבתות</span></li>
+        <li>יוצרים לפי רגע ומקום ולא לפי גודל: מי שנמצא עכשיו ברגע כזה, 2-3 יוצרות בגיל של סבתא, ויוצרים מהערים המובילות. הספר שנשלח מתאים לרגע<span class="why">למה: להגיע דרך היוצרים למי שכבר קונה</span></li>
+        <li>פעם בשבוע: הספר המודפס ביד, המחיר וזמן ההגעה<span class="why">למה: רוב מי שיוצר ספר לא קונה אותו, והרבה עוזבים בעמוד התשלום</span></li>
+        <li>יומן יומי של מה שעלה (פוסט, סרטון של יוצר, פוסט בקבוצה) והשוואה להזמנות לפי יום, כל יום שני. ספירה של תגובות והודעות לכל פוסט<span class="why">למה: האתר עדיין לא שומר מאיזה קישור הגיעה הזמנה, אז זו הדרך לראות מה הסושיאל מביא</span></li>
+        <li>קבוצות הורים: להתחיל מראשון לציון, תל אביב, אשקלון, באר שבע, פתח תקווה, חולון ונתניה<span class="why">למה: הערים עם הכי הרבה הזמנות</span></li>
+        <li>הפוסט החזק של השבוע עולה ברביעי בערב או בחמישי<span class="why">למה: בחמישי ובשישי מכירה מהפרסום עלתה הכי פחות. ראיה חלשה, אבל לא עולה כלום לנסות</span></li>
       </ul>
     </div>
   </section>
@@ -452,6 +474,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
             <li>מה צריך להיות ההסכם מול היוצרי UGC</li>
             <li>קישור אישי לכל יוצר עם הנחה לקהל, ולהוסיף שאלה של "איך הגעת אלינו" בקופה</li>
             <li>טווח גילאים אחד (כתוב כל מיני טווחים באתר)</li>
+            <li>שהאתר ישמור מאיזה קישור הגיעה כל הזמנה, עד 10.11 (לפני שסרטוני היוצרים עולים)</li>
           </ul>
         </div>
       </div>

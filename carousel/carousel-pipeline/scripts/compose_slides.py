@@ -50,7 +50,7 @@ CSS = """
 html,body{direction:rtl}
 body{background:#d9d2c6;text-align:center}
 body.single .slide:not(.on){display:none}
-/* The layout of the approved fal trial carousel (carousel/fal-carousel-trial/source/flare_carousel.py, 7 Oct 2026):
+/* The layout of the approved fal trial carousel (media/projects/2026-10-06-fal-carousel-trial/source/flare_carousel.py, 7 Oct 2026):
    centred Heebo Black straight on the picture's plain wall, a soft veil, no boxes; the art is pushed down
    (the plain top strip mirrored) until the characters start at least 60px under the text. */
 .slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:#F3EADC;--ink:#1D1039;--veil:243,234,220;direction:rtl;text-align:center}
@@ -74,6 +74,33 @@ body.single .slide:not(.on){display:none}
 .card{position:absolute;left:72px;bottom:150px;width:400px;height:500px;transform:rotate(-2deg);border-radius:18px;overflow:hidden;background:#fff;border:10px solid #fff;box-shadow:0 18px 40px rgba(11,5,24,.28)}
 .card img{width:100%;height:100%;object-fit:cover;border-radius:8px}
 pre#rtl-report{display:none}
+/* The bold look (Hook Studio, 10 Oct 2026): type first. Much larger headline on short lines, one highlighted
+   phrase per slide in the pillar colour, body in Rubik for a clear step down, spoken sentences as bubbles,
+   the comment line of the last slide as a button. --look classic keeps the layout above untouched. */
+@font-face{font-family:"Rubik";src:url("{rubik}") format("truetype");font-weight:300 900;font-display:block}
+.pillar-kid{--hl:#5B2BD6;--hl-ink:#FFF7E8}
+.pillar-expert{--hl:#F6C445;--hl-ink:#1D1039}
+.look-bold .copy{left:64px;right:64px}
+.look-bold .copy.top{top:108px}
+.look-bold .veil.top{background:linear-gradient(180deg,rgba(var(--veil),.94) 0,rgba(var(--veil),.8) 24%,rgba(var(--veil),0) 48%)}
+.look-bold .h{line-height:1.13;letter-spacing:-.02em;text-shadow:0 0 26px rgba(var(--veil),.95),0 0 8px rgba(var(--veil),.85)}
+.look-bold .b{font-family:"Rubik",sans-serif;font-weight:600;line-height:1.26;margin-top:28px;opacity:1;text-shadow:0 0 18px rgba(var(--veil),.95),0 0 6px rgba(var(--veil),.8)}
+.look-bold .hl{display:inline-block;background:var(--hl);color:var(--hl-ink);padding:0 .2em .05em;border-radius:.15em;transform:rotate(-1.6deg);text-shadow:none;box-shadow:0 10px 24px rgba(11,5,24,.24)}
+.look-bold .ln:has(.hl){margin:.07em 0}
+.look-bold .q{display:inline-block;background:#FFFDF8;color:#1D1039;border-radius:.5em;padding:.04em .42em .08em;margin:.1em 0;text-shadow:none;box-shadow:0 6px 16px rgba(11,5,24,.2)}
+.look-bold .btn{display:inline-block;background:#F6C445;color:#1D1039;border-radius:.4em;padding:.06em .5em .1em;margin-bottom:.16em;font-weight:800;text-shadow:none;box-shadow:0 10px 26px rgba(0,0,0,.4)}
+.look-bold .arrow{width:96px;height:96px;bottom:52px;background:var(--hl)}
+.look-bold .arrow path{stroke:var(--hl-ink);stroke-width:6}
+/* The clean look (Yarin, 14 Oct 2026: "from now on design the text of the carousels like these except the cta
+   slide"): every slide but the last is plain centred type on the wall. Headline in Heebo Black, solid dark plum;
+   the body a step down in a lighter plum; no highlight block, no bubbles, no veil or glow; a cream round arrow.
+   The last slide keeps the bold look exactly (it also carries .look-bold). */
+.look-clean .slide:not(.cta) .veil{display:none}
+.look-clean .slide:not(.cta) .h{color:var(--ink);line-height:1.1;text-shadow:none}
+.look-clean .slide:not(.cta) .b{font-family:"Heebo",sans-serif;font-weight:900;color:#43345F;line-height:1.22;margin-top:30px;text-shadow:none}
+.look-clean .slide.dark:not(.cta) .b{color:var(--ink);opacity:.86}
+.look-clean .slide:not(.cta) .arrow{width:88px;height:88px;bottom:56px;background:#F8F0E1}
+.look-clean .slide:not(.cta) .arrow path{stroke:#1D1039;stroke-width:5}
 """
 
 JS = """
@@ -87,7 +114,7 @@ function fitSlide(s) {
   // the slide is reported as overflow and the copy has to be shortened instead of printed too small.
   const c = s.querySelector('.copy'); const h = c.querySelector('.h'); const b = c.querySelector('.b');
   const maxH = Number(c.dataset.maxh);
-  const HMIN = 56, BMIN = 40;
+  const HMIN = Number(c.dataset.hmin || 56), BMIN = Number(c.dataset.bmin || 40);
   const wide = el => [...el.querySelectorAll('.ln')].some(l => l.scrollWidth > l.clientWidth + 1);
   let hs = Number(h.dataset.max); h.style.fontSize = hs + 'px';
   while (wide(h) && hs > HMIN) { hs -= 2; h.style.fontSize = hs + 'px'; }
@@ -155,7 +182,7 @@ function layoutSlide(s) {
   if (!s.classList.contains('dark') && c.classList.contains('top') && topLuma(px, Math.round(px.h * .3)) < 105) s.classList.add('dark');
   fitSlide(s);
   if (!c.classList.contains('top')) { s.dataset.push = 0; return; }
-  const need = c.offsetTop + c.scrollHeight + 60;          // keep at least 60px of clear wall under the text
+  const need = c.offsetTop + c.scrollHeight + (document.body.classList.contains('look-bold') ? 44 : 60);          // keep at least 60px of clear wall under the text
   const top = subjectTop(px);
   let dy = Math.max(0, Math.ceil((need - top) / 10) * 10);
   dy = Math.min(dy, 300);                                    // beyond ~300px the mirrored wall starts copying heads
@@ -164,7 +191,7 @@ function layoutSlide(s) {
     const mir = s.querySelector('.mirror'); mir.style.height = dy + 'px';
     mir.querySelector('img').style.top = (dy - 1350) + 'px';
   }
-  s.dataset.push = dy; s.dataset.subjectTop = top + dy; s.dataset.textBottom = need - 60;
+  s.dataset.push = dy; s.dataset.subjectTop = top + dy; s.dataset.textBottom = c.offsetTop + c.scrollHeight;
   if (top + dy < need) c.dataset.clear = 'tight';
 }
 async function ready() {
@@ -195,54 +222,100 @@ def rel(target, base):
     return Path(os.path.relpath(target, base)).as_posix()
 
 
-def lines_html(text):
+LATIN_RUN = re.compile(r"([A-Za-z][A-Za-z0-9 .'&-]*[A-Za-z0-9]|[A-Za-z])")
+SPOKEN_RE = re.compile(r"([״\"“][^״\"“”]{6,}[״\"”])")
+LOOKS = ("clean", "bold", "classic")
+# Type sizes per look: (headline max, headline floor, body max, body floor) for the cover, a regular slide, the last slide
+SIZES = {
+    "classic": {"cover": (96, 56, 50, 40), "slide": (96, 56, 50, 40), "cta": (84, 56, 50, 40)},
+    "bold": {"cover": (156, 84, 80, 52), "slide": (118, 72, 56, 42), "cta": (92, 64, 58, 42)},
+    "clean": {"cover": (128, 80, 60, 44), "slide": (112, 72, 54, 42), "cta": (92, 64, 58, 42)},
+}
+
+
+def _safe(piece):
+    # isolate Latin runs so bidi never moves neighbouring punctuation
+    # split the raw text first, then escape each piece, so entities like &quot; are never split
+    parts = LATIN_RUN.split(piece)
+    return "".join(f'<bdi dir="ltr">{esc(p)}</bdi>' if i % 2 else esc(p) for i, p in enumerate(parts))
+
+
+def lines_html(text, highlight=None, bubbles=False, button=None):
+    """One <span class="ln"> per line. Bold look only: `highlight` (a phrase of the text) gets the colour block
+    once, `bubbles` wraps spoken sentences in quotation marks, `button` is the line set as the comment button."""
     out = []
+    highlight = (highlight or "").strip()
     for line in lib.lines_of(text):
-        # isolate Latin runs so bidi never moves neighbouring punctuation
-        # split the raw text first, then escape each piece, so entities like &quot; are never split
-        parts = re.split(r"([A-Za-z][A-Za-z0-9 .'&-]*[A-Za-z0-9]|[A-Za-z])", line)
-        safe = "".join(f'<bdi dir="ltr">{esc(p)}</bdi>' if i % 2 else esc(p) for i, p in enumerate(parts))
+        if button and line.strip() == button.strip():
+            out.append(f'<span class="ln"><span class="btn">{_safe(line)}</span></span>')
+            continue
+        if highlight and highlight in line:
+            before, after = line.split(highlight, 1)
+            safe = f'{_safe(before)}<span class="hl">{_safe(highlight)}</span>{_safe(after)}'
+            highlight = ""
+        elif bubbles:
+            safe = "".join(f'<span class="q">{_safe(p)}</span>' if i % 2 else _safe(p) for i, p in enumerate(SPOKEN_RE.split(line)))
+        else:
+            safe = _safe(line)
         out.append(f'<span class="ln">{safe}</span>')
     return "".join(out)
 
 
-def build_html(frozen, images, out_dir, preview, brand_mark=False):
+def slide_highlight(slide):
+    """The phrase that gets the colour block: the slide's own `highlight` when it is still in the headline,
+    otherwise the last headline line on the cover and nothing elsewhere."""
+    head = slide.get("headline", "")
+    want = str(slide.get("highlight") or "").strip()
+    if want and any(want in line for line in lib.lines_of(head)):
+        return want
+    if slide.get("number") == 1:
+        lines = lib.lines_of(head)
+        return lines[-1].strip() if lines else ""
+    return ""
+
+
+def build_html(frozen, images, out_dir, preview, brand_mark=False, look="bold"):
     v = frozen["option"]
     css = (CSS.replace("{heebo}", rel(FONTS / "Heebo-Black.ttf", out_dir))
-              .replace("{assistant}", rel(FONTS / "Assistant-VariableFont_wght.ttf", out_dir)))
+              .replace("{assistant}", rel(FONTS / "Assistant-VariableFont_wght.ttf", out_dir))
+              .replace("{rubik}", rel(FONTS / "Rubik-VariableFont_wght.ttf", out_dir)))
+    bold = look in ("bold", "clean")
+    clean = look == "clean"
     pillar = frozen.get("direction") if frozen.get("direction") in lib.PILLARS else "expert"
     sections = []
     for s in v["slides"]:
         n = s["number"]
-        zone = s["image"]["text_zone"]
+        zone = lib.slide_image(v, s)["text_zone"]
         edge, pct = zone["edge"], zone["percent"]
-        dark = n == lib.CTA_SLIDE
+        last = len(v["slides"])
+        dark = n == last
         if dark:
             edge = "top"
-        max_h = int(H * pct / 100) - (150 if edge == "top" else 180) + 60
-        head_max = 84 if n == lib.CTA_SLIDE else 96
+        max_h = int(H * pct / 100) - ((108 if bold else 150) if edge == "top" else 180) + 60
+        head_max, head_min, body_max, body_min = SIZES[look]["cta" if n == last else "cover" if n == 1 else "slide"]
         body = s.get("body", "").strip()
+        button = next((ln for ln in lib.lines_of(body) if re.search(r"[\"״]", ln)), None) if bold and n == last else None
         src = rel(images[n], out_dir)
-        parts = [f'<section class="slide{" dark" if dark else ""}" data-n="{n}">',
+        parts = [f'<section class="slide{" dark" if dark else ""}{" cta" if n == last else ""}" data-n="{n}">',
                  f'<div class="mirror"><img src="{src}" alt=""></div>',
                  f'<img class="art" src="{src}" alt="">',
                  f'<div class="veil {edge}"></div>',
-                 f'<div class="copy {edge}" data-maxh="{max_h}">',
-                 f'<div class="h" data-max="{head_max}">{lines_html(s["headline"])}</div>']
+                 f'<div class="copy {edge}" data-maxh="{max_h}" data-hmin="{head_min}" data-bmin="{body_min}">',
+                 f'<div class="h" data-max="{head_max}">{lines_html(s["headline"], highlight=slide_highlight(s) if bold and (n == last or not clean) else None)}</div>']
         if body:
-            parts.append(f'<div class="b" data-max="50">{lines_html(body)}</div>')
+            parts.append(f'<div class="b" data-max="{body_max}">{lines_html(body, bubbles=bold and not button and (n == last or not clean), button=button)}</div>')
         parts.append('</div>')
         if brand_mark:
             parts.append(f'<img class="mark" src="{rel(LOGO, out_dir)}" alt="">')
-        if n == lib.CTA_SLIDE and preview:
+        if n == last and preview:
             parts.append(f'<div class="card"><img src="{rel(preview, out_dir)}" alt=""></div>')
-        if n < lib.CTA_SLIDE:
+        if n < last:
             parts.append(ARROW)
         parts.append('</section>')
         sections.append("".join(parts))
     return ('<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">'
             f'<title>{esc(frozen["date"])} {esc(v["id"])}</title><style>{css}</style></head>'
-            f'<body dir="rtl" class="pillar-{pillar}">{"".join(sections)}<pre id="rtl-report"></pre><script>{JS}</script></body></html>')
+            f'<body dir="rtl" class="pillar-{pillar} look-{'bold look-clean' if clean else look}">{"".join(sections)}<pre id="rtl-report"></pre><script>{JS}</script></body></html>')
 
 
 def chrome(args, timeout=60):
@@ -322,7 +395,8 @@ def rtl_sheet(report, out_dir):
                 rows.append((s["n"], b["text"]))
     if not rows:
         rows = [(0, "אין שורות שמערבבות עברית עם ספרות או אותיות לטיניות")]
-    css = CSS.replace("{heebo}", rel(FONTS / "Heebo-Black.ttf", out_dir)).replace("{assistant}", rel(FONTS / "Assistant-VariableFont_wght.ttf", out_dir))
+    css = (CSS.replace("{heebo}", rel(FONTS / "Heebo-Black.ttf", out_dir)).replace("{assistant}", rel(FONTS / "Assistant-VariableFont_wght.ttf", out_dir))
+              .replace("{rubik}", rel(FONTS / "Rubik-VariableFont_wght.ttf", out_dir)))
     items = "".join(
         f'<div style="padding:22px 0;border-bottom:2px solid #E6DCCB"><div style="font:700 24px Assistant;color:#7A7090">שקופית {n}</div>'
         f'<div style="font:900 64px Heebo;color:#1D1039;direction:rtl;text-align:right">{lines_html(t)}</div>'
@@ -375,6 +449,16 @@ def find_preview(run_dir):
     return None
 
 
+def previous_look(html_path):
+    """A run already exported keeps its look when it is re-exported (edit_final.py); new runs get the clean look."""
+    if not html_path.exists():
+        return None
+    m = re.search(r'<body[^>]*class="[^"]*look-(clean|bold|classic)', html_path.read_text(encoding="utf-8"))
+    if not m:
+        return None
+    return "clean" if "look-clean" in html_path.read_text(encoding="utf-8")[:200000] else m.group(1)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("run_dir")
@@ -382,12 +466,16 @@ def main():
     ap.add_argument("--slides", nargs="*", type=int, help="only re-export these slide numbers")
     ap.add_argument("--preview-card", action="store_true", help="place real-assets/preview.png as a card on the last slide (must not show the brand)")
     ap.add_argument("--brand-mark", action="store_true", help="add the small logo to every slide (off: carousels do not name the brand)")
+    ap.add_argument("--look", choices=LOOKS, help="clean (default for new runs since 14 Oct 2026): plain centred type, no highlight block or bubbles, the last slide as in bold. bold: large type, a highlighted phrase, bubbles and a comment button (default for copy written with highlights, "
+                    "packs from 10 Oct 2026 18:30). classic: the 8 Oct layout (default for older copy, whose lines are too long for the large type)")
+    ap.add_argument("--out", help="write to RUN_DIR/NAME instead of final/ (to compare looks without touching the export)")
     args = ap.parse_args()
 
     run_dir = Path(args.run_dir).resolve()
     frozen = lib.read_json(run_dir / "approved.json")
     v = frozen["option"]
-    out_dir = run_dir / ("final-placeholders" if args.placeholders else "final")
+    out_dir = run_dir / (args.out or ("final-placeholders" if args.placeholders else "final"))
+    look = args.look or previous_look(out_dir / "slides.html") or ("clean" if any(s.get("highlight") for s in v["slides"]) else "classic")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     images = {}
@@ -397,11 +485,13 @@ def main():
             images[s["number"]] = lib.write_placeholder_png(ph / f"slide-{s['number']:02d}.png", 1024, 1280, seed=s["number"])
     else:
         state = lib.read_json(run_dir / "state.json")["jobs"]
-        missing = [f"slide-{s['number']:02d}" for s in v["slides"] if state.get(f"slide-{s['number']:02d}", {}).get("qa") != "pass"]
+        # One picture behind every slide (packs from 14 Oct 2026), or one picture per slide before that
+        job_of = {s["number"]: "picture" if lib.one_picture(v) else f"slide-{s['number']:02d}" for s in v["slides"]}
+        missing = sorted({j for j in job_of.values() if state.get(j, {}).get("qa") != "pass"})
         if missing:
             raise SystemExit("These images have not passed visual QA yet: " + ", ".join(missing))
-        for s in v["slides"]:
-            images[s["number"]] = run_dir / "generated-assets" / f"slide-{s['number']:02d}.png"
+        for n, j in job_of.items():
+            images[n] = run_dir / "generated-assets" / f"{j}.png"
     preview = None
     if args.preview_card:
         preview = find_preview(run_dir)
@@ -409,7 +499,7 @@ def main():
             raise SystemExit(f"--preview-card needs an image at {run_dir / 'real-assets' / 'preview.png'}")
 
     html_path = out_dir / "slides.html"
-    html_path.write_text(build_html(frozen, images, out_dir, preview, brand_mark=args.brand_mark), encoding="utf-8")
+    html_path.write_text(build_html(frozen, images, out_dir, preview, brand_mark=args.brand_mark, look=look), encoding="utf-8")
     report, problems = rtl_report(html_path)
     (out_dir / "rtl-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
@@ -437,7 +527,7 @@ def main():
         else:
             z.writestr("generation-log.jsonl", "")
     result = {"out_dir": str(out_dir), "slides": [str(out_dir / f"{n:02d}.png") for n in range(1, count + 1)],
-              "zip": str(zip_path), "rtl_problems": problems, "placeholders": args.placeholders,
+              "zip": str(zip_path), "look": look, "rtl_problems": problems, "placeholders": args.placeholders,
               "preview": str(preview) if preview else None}
     print(json.dumps(result, ensure_ascii=False, indent=2))
     if problems:

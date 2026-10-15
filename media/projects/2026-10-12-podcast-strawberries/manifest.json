@@ -1,0 +1,2054 @@
+{
+  "episode": "podcast/strawberries-episode-v1",
+  "created": "2026-10-12",
+  "continues": "media/projects/2026-10-12-podcast-lume-pilot (manifest.json there)",
+  "deliverables": {
+    "clean_master": "final/strawberries-episode-v1-clean-1920x1080.mp4 (1920x1080, H.264 CRF 15, 30 fps, 762 frames, 25.400 s; AAC 256 kb/s 48 kHz stereo)",
+    "subtitled": "final/strawberries-episode-v1-subtitled-he-1920x1080.mp4 (same picture and sound, Hebrew subtitles burned in) + final/strawberries-episode-v1-he.srt",
+    "dialogue_track": "audio/dialogue-track-v1.wav (all lines, timed, nothing else)",
+    "sfx_track": "audio/sfx-track-v1.wav",
+    "mix": "audio/mix-v1.wav",
+    "lines": "audio/lines/ (one file per speaking turn; T2 also as its two halves)",
+    "sfx": "audio/sfx/",
+    "scene_masters": "stills/*-master-v1-1920x1080.png (+ native 2688x1520)",
+    "shots": "shots/selected/ (S1..S9, native model output with reference audio)",
+    "assembly_project": "assembly/timeline.json (edit) + assembly/assemble.py (run with a Python that has Pillow) -> rebuilds every audio track and both MP4s; assembly/resolved-timeline.json lists the times used",
+    "reel": "final/strawberries-reel-v1-1080x1920.mp4 (1080x1920, 30 fps, 542 frames, 18.067 s): full-screen fast cut, hook at the top, one word at a time captions. Edit assembly/reel-timeline.json, run assembly/assemble_reel.py.",
+    "reel_clean": "final/strawberries-reel-v1-clean-1080x1920.mp4 (same 18.067 s cut and sound as the reel, no hook and no captions; built with assemble_reel.py --no-text). Requested by Yarin after seeing the text version.",
+    "reel_v2_captions": "final/strawberries-reel-v2-captions-1080x1920.mp4 (1080x1920, 30 fps, 450 frames, 15.000 s): tighter cut, word captions only, no hook. Timeline assembly/reel-timeline-v2.json; build with assemble_reel.py reel-timeline-v2.json.",
+    "reel_B": "final/strawberries-reel-B-cold-open-1080x1920.mp4 (15.37 s). Timeline assembly/reel-timeline-B.json.",
+    "reel_C": "final/strawberries-reel-C-short-1080x1920.mp4 (11.33 s). Timeline assembly/reel-timeline-C.json."
+  },
+  "script_as_built": [
+    {
+      "t": [
+        [
+          1.727,
+          3.267
+        ]
+      ],
+      "speaker": "Lume",
+      "text": "אני רוצה לדבר עם האריה הזה",
+      "file": "audio/lines/L1_lume_ani-rotze-ledaber.wav"
+    },
+    {
+      "t": [
+        [
+          4.004,
+          4.554
+        ]
+      ],
+      "speaker": "Toddler",
+      "text": "למה?",
+      "file": "audio/lines/T1_toddler_lama.wav"
+    },
+    {
+      "t": [
+        [
+          5.177,
+          7.402
+        ]
+      ],
+      "speaker": "Lume",
+      "text": "קניתי בגללו ארבע מאות קילו תותים",
+      "file": "audio/lines/L2_lume_kaniti-biglalo.wav"
+    },
+    {
+      "t": [
+        [
+          8.977,
+          10.467
+        ],
+        [
+          10.817,
+          11.997
+        ]
+      ],
+      "speaker": "Toddler",
+      "text": [
+        "הגעת לסוף של הספר?",
+        "הוא בכלל לא אוהב תות"
+      ],
+      "file": "audio/lines/T2_toddler_turn-spliced.wav"
+    },
+    {
+      "t": [
+        [
+          12.677,
+          12.927
+        ]
+      ],
+      "speaker": "Lume",
+      "text": "מה???",
+      "file": "audio/lines/L3_lume_ma.wav"
+    },
+    {
+      "t": [
+        [
+          14.91,
+          15.36
+        ]
+      ],
+      "speaker": "Toddler",
+      "text": "מי זה?",
+      "file": "audio/lines/T3_toddler_mi-ze.wav"
+    },
+    {
+      "t": [
+        [
+          16.143,
+          17.293
+        ]
+      ],
+      "speaker": "Lume",
+      "text": "תגיד להם שאני לא כאן",
+      "file": "audio/lines/L4_lume_tagid-lahem.wav"
+    }
+  ],
+  "timeline": [
+    {
+      "shot": "S1",
+      "start": 0.0,
+      "end": 1.6,
+      "source_in": 1.5,
+      "what": "two-shot, cover beside the microphones",
+      "file": "shots/selected/S1-opening-two-shot.mp4"
+    },
+    {
+      "shot": "S2",
+      "start": 1.6,
+      "end": 3.7,
+      "source_in": 0.5333333333333333,
+      "what": "Lume, angry",
+      "file": "shots/selected/S2-lume-angry.mp4"
+    },
+    {
+      "shot": "S3",
+      "start": 3.7,
+      "end": 4.9667,
+      "source_in": 0.3333333333333333,
+      "what": "toddler, curious",
+      "file": "shots/selected/S3-toddler-lama.mp4"
+    },
+    {
+      "shot": "S4",
+      "start": 4.9667,
+      "end": 7.7667,
+      "source_in": 0.3,
+      "what": "Lume, indignant (retake of the pilot shot, paws on the table)",
+      "file": "shots/selected/S4-lume-line-retake.mp4"
+    },
+    {
+      "shot": "S5",
+      "start": 7.7667,
+      "end": 12.4667,
+      "source_in": 0.4666666666666667,
+      "what": "toddler flips to the end, corrects",
+      "file": "shots/selected/S5-toddler-book.mp4"
+    },
+    {
+      "shot": "S6",
+      "start": 12.4667,
+      "end": 14.3667,
+      "source_in": 0.4,
+      "what": "Lume, shocked, freeze; doorbell",
+      "file": "shots/selected/S6-lume-shock.mp4"
+    },
+    {
+      "shot": "S7",
+      "start": 14.3667,
+      "end": 15.9,
+      "source_in": 0.4666666666666667,
+      "what": "toddler turns to the door",
+      "file": "shots/selected/S7-toddler-mi-ze.mp4"
+    },
+    {
+      "shot": "S8",
+      "start": 15.9,
+      "end": 18.7,
+      "source_in": 0.26666666666666666,
+      "what": "Lume whispers, ducks",
+      "file": "shots/selected/S8-lume-whisper-duck.mp4"
+    },
+    {
+      "shot": "S9",
+      "start": 18.7,
+      "end": 25.4,
+      "source_in": 0.0,
+      "what": "wide: open door, toy truck, strawberries",
+      "file": "shots/selected/S9-wide-truck-spill.mp4"
+    }
+  ],
+  "sfx_timing": [
+    {
+      "id": "doorbell",
+      "start": 13.533,
+      "len": 1.5,
+      "gain_db": 8,
+      "file": "audio/sfx/doorbell.wav"
+    },
+    {
+      "id": "truck-beeps",
+      "start": 18.767,
+      "len": 1.3,
+      "gain_db": 6,
+      "file": "audio/sfx/toy-truck-reverse-beeps.wav"
+    },
+    {
+      "id": "rumble",
+      "start": 18.767,
+      "len": 6.7,
+      "gain_db": -10,
+      "file": "audio/sfx/strawberry-rumble-from-wide-shot.wav"
+    },
+    {
+      "id": "pour",
+      "start": 19.767,
+      "len": 5.7,
+      "gain_db": -2,
+      "file": "audio/sfx/strawberry-pour.wav"
+    }
+  ],
+  "subtitle_cues": [
+    {
+      "text": "אני רוצה לדבר עם האריה הזה",
+      "start": 1.677,
+      "end": 3.567
+    },
+    {
+      "text": "למה?",
+      "start": 3.954,
+      "end": 4.854
+    },
+    {
+      "text": "קניתי בגללו ארבע מאות קילו תותים",
+      "start": 5.127,
+      "end": 7.702
+    },
+    {
+      "text": "הגעת לסוף של הספר?",
+      "start": 8.927,
+      "end": 10.707
+    },
+    {
+      "text": "הוא בכלל לא אוהב תות",
+      "start": 10.767,
+      "end": 12.297
+    },
+    {
+      "text": "מה???",
+      "start": 12.627,
+      "end": 13.227
+    },
+    {
+      "text": "מי זה?",
+      "start": 14.86,
+      "end": 15.66
+    },
+    {
+      "text": "תגיד להם שאני לא כאן",
+      "start": 16.093,
+      "end": 17.593
+    }
+  ],
+  "voices": {
+    "Lume": "custom Higgsfield voice 'Lume' (element 3ddaf711-5084-4b6c-b8d3-315ea58668f8). All four Lume lines are cut from the take approved in the pilot, Eleven v4 job 1a34cb51-acea-4956-9d7f-bb26032beecc (stability 0.5, similarity 0.75): L1 0.836-2.685 s, L2 2.840-5.275 s (the pilot file), L3 9.596-10.156 s, L4 18.187-19.650 s. Nothing regenerated.",
+    "Toddler": "custom Higgsfield voice 'Ben' (element 4b9918cd-9b07-4288-9af8-e0873fc84a82), named by Yarin on 12 Oct 2026. 'הוא בכלל לא אוהב תות' is cut from the existing Ben take, Eleven v4 job 4ab64cac-a30d-4180-b70b-838846404c0c (7.571-9.040 s). The three lines that existed nowhere were generated with the same voice and that take's settings (stability 0.5, similarity 0.75): 'הגעת לסוף של הספר?' and 'מי זה?' from job 1da394d5-86f1-4eff-8dcc-02ebe78cee21 (0.74-2.55 s and 4.26-4.985 s), 'למה?' from job aa17310b-2341-44f3-a5cb-91839f94bb32 (job 48edcaa7-3c4e-4c1c-a1b6-ae8bb082ada1 is an unused second take).",
+    "processing": "cut_line.sh: sample-accurate trim, 15 ms fade in, 40 ms fade out. In the mix: gain only (T1 +1 dB, T2 +1.5 dB, T3 +6 dB) and a shared limiter at -1 dBFS that never engaged (peak -3.9 dBFS).",
+    "T2_note": "The toddler's two-sentence turn is a splice: new take for the first sentence, existing take for the second, 50 ms apart plus their own tails. audio/lines/alt_T2_toddler_continuous-new-take.wav is the same turn in one unspliced new take."
+  },
+  "sfx": {
+    "doorbell": "seed_audio job 54752230-6b13-4daf-aa01-612e044c3bc9",
+    "toy-truck-reverse-beeps": "seed_audio job 02973006-5af8-453f-8aad-c53d8e06d3fe (first 1.3 s used)",
+    "strawberry-pour": "seed_audio job a53b2bae-97f1-453a-b827-ba3624d4214e (jobs 8d98368a-4ab2-4c12-8ca4-934cf08adcc5 and mirelo 0edfc7fe-38e0-437a-a985-ab98e09f4be4 rejected: creak/door-like, and sparse clicks)",
+    "strawberry-rumble-from-wide-shot": "the audio track Wan 2.7 generated with the wide shot (job d348016e-7109-48ea-b276-22af1cd8f0a4); it is in sync with the picture, mixed 8 dB under the pour"
+  },
+  "book_cover": {
+    "source": "references/book-cover-supplied.webp, the image Yarin attached (941x846). references/book-cover-clean.png is that image cropped by 5 px, with the white bottom-right corner of the scan filled by cloning cover texture from 130 px to its left (about 6,600 px).",
+    "method": "GPT Image 2.5 drew the book from the reference but rewrote the text and repainted the lion, so in every scene master the cover was replaced with the supplied image (qc/overlay_cover.py: four hand-picked corners, perspective warp, shading taken from the model's own render). The video model then animates from those stills.",
+    "corners_native_px": {
+      "toddler-seated": "507,697,1024,689,1023,1259,507,1263",
+      "toddler-book": "1108,728,1752,742,1745,1232,1150,1232 (fingers kept: 1095,930,1200,1095)",
+      "wide-two-hosts": "1230,643,1473,642,1473,940,1232,941",
+      "wide-door-start": "1557,669,1752,664,1750,869,1559,876",
+      "wide-door-spill": "1557,668,1752,664,1751,870,1559,877"
+    },
+    "interior": "No interior artwork was supplied, so none is shown: the reading shot was regenerated until the only inside surface visible is a blank white page."
+  },
+  "stills": {
+    "model": "gpt_image_2_5, aspect_ratio 16:9, resolution 2k, quality high (the pilot's winning still route)",
+    "toddler-seated-master-v1": {
+      "from": "stills/candidates/toddler-seated-v1-a.png",
+      "job": "000b264a-ecd9-4468-89e7-7c10d98d8edd",
+      "prompt": "prompts/still-toddler-seated-v1.txt",
+      "retouch": "cover replaced; earring removed from his left ear (the pack puts the stud in his right ear only)"
+    },
+    "toddler-book-master-v1": {
+      "from": "stills/candidates/toddler-book-v2-a.png",
+      "job": "c0682f91-5ae9-4043-bfc3-13b7e6251338",
+      "prompt": "prompts/still-toddler-book-v2.txt",
+      "retouch": "cover replaced",
+      "rejected": "v1 a/b showed an invented back cover / invented inside pages"
+    },
+    "wide-two-hosts-master-v1": {
+      "from": "stills/candidates/wide-two-hosts-v1-b.png",
+      "job": "875fe56a-ac93-4995-aea5-dcd268912098",
+      "prompt": "prompts/still-wide-two-hosts-v1.txt",
+      "retouch": "cover replaced",
+      "opening-two-shot-master-v1": "1920x1080 crop of it (360,250 of the native frame) used for S1"
+    },
+    "wide-door-start-master-v1": {
+      "from": "stills/candidates/wide-door-a-v1-a.png",
+      "job": "fa376904-2227-4d70-aef5-834feccd97d7",
+      "prompt": "prompts/still-wide-door-a-v1.txt",
+      "retouch": "cover replaced"
+    },
+    "wide-door-spill-master-v1": {
+      "from": "stills/candidates/wide-door-spill-v1-a.png",
+      "job": "240417d0-2ecb-4519-9676-ea15c8f7d769",
+      "prompt": "prompts/still-wide-door-spill-v1.txt",
+      "reference": "wide-door-start master",
+      "retouch": "cover replaced"
+    },
+    "lume_master": "pilot: media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png (unchanged)"
+  },
+  "shots": {
+    "model": "wan2_7 (Wan 2.7), 16:9, 1080p, start_image = scene master, audio_references = the line padded with a lead-in (audio/gen/). The pilot's route; Seedance 2.5 was not used again because the pilot showed it re-voices the line.",
+    "S1": {
+      "file": "shots/candidates/S1-opening-v1.mp4",
+      "job": "58db5435-e3da-4e80-8a06-c9f85672d9d1",
+      "prompt": "prompts/shot-S1-opening-two-shot.txt",
+      "duration": 4,
+      "audio_ref": null,
+      "used": "1.50-3.10 s (silent; its generated audio is not used)"
+    },
+    "S2": {
+      "file": "shots/candidates/S2-lume-angry-v6.mp4",
+      "job": "cdcd63d2-74ba-45b4-8b5d-802f70aa70aa",
+      "prompt": "prompts/shot-S2-lume-angry-v6.txt",
+      "audio_ref": "audio/gen/S2_L1_pad4.wav (lead-in 500 ms)",
+      "mouth_lead_ms": -50,
+      "rejected": {
+        "v2": "lower teeth worse, head travel 116 px",
+        "v3": "eyes closed for much of the line, tracker lost the face",
+        "v4": "full rows of upper and lower teeth"
+      }
+    },
+    "S3": {
+      "file": "shots/candidates/S3-toddler-lama-v2.mp4",
+      "job": "f166e4fc-0d66-471b-a805-040d38cd0a39",
+      "prompt": "prompts/shot-S3-toddler-lama-v2.txt",
+      "audio_ref": "audio/gen/S3_T1_pad4.wav (600 ms)",
+      "mouth_lead_ms": 33
+    },
+    "S4": {
+      "file": "shots/candidates/S4-lume-kaniti-v3.mp4",
+      "job": "b2561730-09c4-4083-90be-8f3ce1a42bd4",
+      "prompt": "prompts/shot-S4-lume-kaniti-v3.txt",
+      "audio_ref": "pilot audio/lume-line-v1-padded-4s.wav (500 ms)",
+      "mouth_lead_ms": 100,
+      "previous": "pilot shot e02dfd67-ac78-42e5-916c-2f59aa0a8960 (pink paw pad), kept as shots/selected/S4-lume-pilot-line.mp4"
+    },
+    "S5": {
+      "file": "shots/candidates/S5-toddler-book-v2-b.mp4",
+      "job": "7d363cc0-bca6-4331-94d9-7dc0b5aef7ab",
+      "prompt": "prompts/shot-S5-toddler-book-v2.txt",
+      "duration": 6,
+      "audio_ref": "audio/gen/S5_T2_pad6_lead1600.wav (1600 ms)",
+      "mouth_lead_ms": 33,
+      "rejected": {
+        "v1": "a turned page showed invented blue artwork",
+        "v2-a": "printed text visible on the turning page, head turned away at the end"
+      }
+    },
+    "S6": {
+      "file": "shots/candidates/S6-lume-shock-v2.mp4",
+      "job": "3e3c4b06-2475-4233-9e61-5b7668fa4462",
+      "prompt": "prompts/shot-S6-lume-shock-v2.txt",
+      "audio_ref": "audio/gen/S6_L3_pad4.wav (500 ms)",
+      "rejected": {
+        "v1": "fang-like lower corner teeth"
+      }
+    },
+    "S7": {
+      "file": "shots/candidates/S7-toddler-mi-ze-v1.mp4",
+      "job": "5a9e2476-02ac-405a-91be-5ef5dd3cec74",
+      "prompt": "prompts/shot-S7-toddler-mi-ze.txt",
+      "audio_ref": "audio/gen/S7_T3_pad4.wav (900 ms)"
+    },
+    "S8": {
+      "file": "shots/candidates/S8-lume-whisper-v2.mp4",
+      "job": "92e3630b-1cab-4c41-be2f-ea46c9f70147",
+      "prompt": "prompts/shot-S8-lume-whisper-duck-v2.txt",
+      "audio_ref": "audio/gen/S8_L4_pad4.wav (400 ms)",
+      "rejected": {
+        "v1": "raised paw showed pink paw pads"
+      }
+    },
+    "S9": {
+      "file": "shots/candidates/S9-wide-spill-v1-b.mp4",
+      "job": "d348016e-7109-48ea-b276-22af1cd8f0a4",
+      "prompt": "prompts/shot-S9-wide-truck-spill.txt",
+      "duration": 8,
+      "start_image": "wide-door-start master",
+      "end_image": "wide-door-spill master",
+      "used": "0-6.70 s",
+      "alternate": "S9-wide-spill-v1-a.mp4 (job f188111f-c097-4c6f-a5f1-8e123f94b10f), same settings, equally usable"
+    }
+  },
+  "assembly": {
+    "cuts": "hard cuts only, counted in whole frames",
+    "sync": "each line is re-laid from its own file at lead-in minus the measured mouth lead, as in the pilot",
+    "subtitles": "Rubik 600, 60 px, white with a dark outline, baseline y=1012, one cue per sentence, drawn as PNG overlays (this ffmpeg build has no subtitle filter). Pillow here has no bidi shaping library, so the pure-Hebrew strings are drawn in visual order; the .srt holds them in logical order.",
+    "no": "music, intro card, outro, narration, dialogue after the spill"
+  },
+  "checks": {
+    "visual_by_claude": [
+      "40-frame overview of the subtitled export (qc/final__overview-40-frames-subtitled.jpg)",
+      "the frame before and after each of the 8 cuts (qc/final__frames-around-every-cut.jpg)",
+      "one frame per subtitle cue with a zoom on the text (qc/final__subtitle-frames.jpg): reads right to left, punctuation at the left end, below the faces and the book",
+      "key faces (qc/final__key-faces.jpg)",
+      "per-frame mouth sheets of every Lume shot and face strips of the toddler shots",
+      "16 frames of the wide shot (qc/S9__wide-spill-frames.jpg): door already open with the boy beside it at the first frame, truck is a plastic toy with wheels on the floor, bed tips, book and microphones do not move"
+    ],
+    "automated_audio": [
+      "every line found in the export's own audio at its planned time (+5 ms encoder delay) with a same-recording score of 0.988 to 0.993 against its line file (qc/final_audio_checks.py)",
+      "ElevenLabs Scribe v2 on the export's audio returned exactly the eight sentences of the script in order, alternating two speakers, nothing after the spill",
+      "each generated shot's own audio matched its reference audio at 0.999 to 1.000: Wan did not replace any voice",
+      "peak -3.9 dBFS, no clipping",
+      "the same tagger labelled the doorbell file 'doorbell ringing'; it labelled the spill sounds 'rustling', 'thunder rumbling' and, for the mixed wide-shot effects, 'car beeping'"
+    ],
+    "automated_lip_sync": {
+      "Lume shots in the export (mouth-opening vs speech envelope)": {
+        "S2": "0 ms (retake)",
+        "S4": "weak reading on the retake; closures read by eye, about 100 ms lead compensated",
+        "S6": "+33 ms",
+        "S8": "0 ms, weak correlation (whisper and ducking)"
+      },
+      "toddler shots": "no tracker for a real face; mouth-region motion gave a usable estimate only for S3 (mouth 67 ms early, compensated). S5 and S7 are placed from weak estimates and checked by eye on frame strips: the mouth opens inside each word span."
+    },
+    "not_done": "Nobody listened. Voice likeness between the old and new Ben lines, whether Lume's last line sounds like a whisper, the balance of the effects, and whether the spill sounds like fruit were not judged by ear."
+  },
+  "remaining_issues": [
+    "S6: Lume's eyebrows stay slightly furrowed on מה???; the shock reads from the eyes and mouth. Not retaken (cap reached).",
+    "S5: while he flips, a blank white page stands above the cover for about a second; small print on the cover goes soft in motion. Not retaken (cap reached).",
+    "S2: his mouth stays slightly open after the line instead of shutting; he drifts about 60 px left during it.",
+    "S4 retake: lip sync set by eye from closures, the automated reading was weak.",
+    "Wide shot: the boy and the book are small; the strawberries cover more floor than the truck could hold (kept as the gag).",
+    "The toddler's turn is a splice of a new and an old take of the same voice; an unspliced alternative is in audio/lines/.",
+    "Reel: 9:16 crops enlarge the picture about 1.8x, clip the outer edge of Lume's ears, and drop the book from the toddler's two short shots; the truck and Lume under the table are shown in two separate crops instead of one frame.",
+    "Reel text: font is a stand-in (see reel.text_style); platform interface overlap unchecked.",
+    "Nothing was judged by ear: voice match, whisper, effect balance, whether the spill sounds like fruit.",
+    "The cover's bottom-right corner is reconstructed (the supplied scan was white there)."
+  ],
+  "credits": "Higgsfield: 892.33 before the episode, 655.20 after the first cut (237.13), 605.20 after the capped retakes (50.00). Total 287.13. fal: ElevenLabs Scribe v2 transcriptions only.",
+  "retakes_under_50_credit_cap": {
+    "cap": "Yarin, 12 Oct 2026: at most 50 more Higgsfield credits; then keep the best take and list the issue. Spent exactly 50 (655.20 -> 605.20) on five Wan 2.7 retakes at 10 each. No Higgsfield spend after that; the reel is editing only.",
+    "S2": {
+      "now": "shots/candidates/S2-lume-angry-v6.mp4",
+      "job": "cdcd63d2-74ba-45b4-8b5d-802f70aa70aa",
+      "prompt": "prompts/shot-S2-lume-angry-v6.txt",
+      "result": "only the two upper front teeth in every frame, paws on the table, faces the camera; mouth runs about 50 ms late (compensated, sync_comp -0.05)",
+      "also_tried": {
+        "v5-a (c1eed816-be8a-4f37-b40c-52a261e0bc56)": "clean teeth but he turns toward the microphone, away from the co-host",
+        "v5-b (3ad85807-646a-4d9a-8bfa-c43a05a58f75)": "two tiny lower corner teeth in about 15 frames"
+      },
+      "what_changed": "prompt describes indignation instead of anger; every take that said angry / scowl bared lower teeth"
+    },
+    "S3": {
+      "now": "shots/candidates/S3-toddler-lama-v2.mp4",
+      "job": "f166e4fc-0d66-471b-a805-040d38cd0a39",
+      "prompt": "prompts/shot-S3-toddler-lama-v2.txt",
+      "result": "eyes open through the word, mouth opens inside it"
+    },
+    "S4": {
+      "now": "shots/candidates/S4-lume-kaniti-v3.mp4 (shots/selected/S4-lume-line-retake.mp4)",
+      "job": "b2561730-09c4-4083-90be-8f3ce1a42bd4",
+      "prompt": "prompts/shot-S4-lume-kaniti-v3.txt",
+      "result": "replaces the pilot shot: paws stay on the table (no paw pad), two upper teeth only; lip closures land about 100 ms early (compensated). The automated estimate for this take is weak (correlation 0.26 to 0.45), so its sync rests on the bilabial closures read from the frame sheet."
+    },
+    "not_retaken": "S6 (eyebrows slightly furrowed) and S5 (blank page above the cover): no credits left under the cap."
+  },
+  "reel": {
+    "requested": "Yarin, 12 Oct 2026: fast-paced reel, one word at a time captions, hook burned in at the top; then: Instagram default font, white, not bold, video fills the screen.",
+    "format": "1080x1920, every shot cropped to a 9:16 window of the 16:9 frame (607 px wide at most, so about 1.8x enlargement) and punched in on ארבע מאות, האריה הזה, מה??? and the second book sentence",
+    "pace": "18.07 s against 25.40 s: pauses trimmed to the speech, 0.18 s jump cut between the toddler's two sentences, the duck at 1.6x and the truck and spill at 1.5x, ending on Lume under the table",
+    "hook": {
+      "text": [
+        "קנה 400 קילו תותים",
+        "בגלל ספר ילדים"
+      ],
+      "voice": "fallback voice (10 of 15 approved samples, so not calibrated to Yarin yet); passes voice_lint.py",
+      "alternatives_linted": [
+        "הוא לא קרא את הספר עד הסוף",
+        "ככה זה כשלא קוראים עד הסוף"
+      ]
+    },
+    "text_style": "Regular weight, white, soft drop shadow, no outline. Font: Apple's SF Hebrew (/System/Library/Fonts/SFHebrew.ttf) with SF for digits and question marks. No Instagram font file is installed on this Mac; SF Hebrew is my stand-in for the look of text typed in the Instagram app on an iPhone, which I did not verify.",
+    "placement": "hook baselines y=250 and 336; captions baseline y=1630, just under the book. Whether Instagram's own interface covers either zone was not checked.",
+    "captions": [
+      {
+        "text": "אני",
+        "start": 0.667,
+        "end": 0.827
+      },
+      {
+        "text": "רוצה",
+        "start": 0.847,
+        "end": 1.067
+      },
+      {
+        "text": "לדבר",
+        "start": 1.087,
+        "end": 1.427
+      },
+      {
+        "text": "עם",
+        "start": 1.447,
+        "end": 1.547
+      },
+      {
+        "text": "האריה",
+        "start": 1.567,
+        "end": 1.887
+      },
+      {
+        "text": "הזה",
+        "start": 1.907,
+        "end": 2.52
+      },
+      {
+        "text": "למה?",
+        "start": 2.54,
+        "end": 3.16
+      },
+      {
+        "text": "קניתי",
+        "start": 3.213,
+        "end": 3.553
+      },
+      {
+        "text": "בגללו",
+        "start": 3.573,
+        "end": 3.953
+      },
+      {
+        "text": "ארבע",
+        "start": 3.973,
+        "end": 4.433
+      },
+      {
+        "text": "מאות",
+        "start": 4.453,
+        "end": 4.713
+      },
+      {
+        "text": "קילו",
+        "start": 4.733,
+        "end": 5.033
+      },
+      {
+        "text": "תותים",
+        "start": 5.053,
+        "end": 5.773
+      },
+      {
+        "text": "הגעת",
+        "start": 6.36,
+        "end": 6.7
+      },
+      {
+        "text": "לסוף",
+        "start": 6.72,
+        "end": 7.12
+      },
+      {
+        "text": "של",
+        "start": 7.14,
+        "end": 7.24
+      },
+      {
+        "text": "הספר?",
+        "start": 7.26,
+        "end": 8.023
+      },
+      {
+        "text": "הוא",
+        "start": 8.043,
+        "end": 8.143
+      },
+      {
+        "text": "בכלל",
+        "start": 8.163,
+        "end": 8.482
+      },
+      {
+        "text": "לא",
+        "start": 8.502,
+        "end": 8.583
+      },
+      {
+        "text": "אוהב",
+        "start": 8.603,
+        "end": 8.863
+      },
+      {
+        "text": "תות",
+        "start": 8.883,
+        "end": 9.464
+      },
+      {
+        "text": "מה???",
+        "start": 9.484,
+        "end": 10.024
+      },
+      {
+        "text": "מי",
+        "start": 10.72,
+        "end": 10.9
+      },
+      {
+        "text": "זה?",
+        "start": 10.92,
+        "end": 11.353
+      },
+      {
+        "text": "תגיד",
+        "start": 11.373,
+        "end": 11.633
+      },
+      {
+        "text": "להם",
+        "start": 11.653,
+        "end": 11.853
+      },
+      {
+        "text": "שאני",
+        "start": 11.873,
+        "end": 12.113
+      },
+      {
+        "text": "לא",
+        "start": 12.133,
+        "end": 12.313
+      },
+      {
+        "text": "כאן",
+        "start": 12.333,
+        "end": 12.873
+      }
+    ],
+    "segments": [
+      {
+        "id": "R1",
+        "file": "shots/selected/S1-opening-two-shot.mp4",
+        "in": 2.2,
+        "out": 2.8,
+        "crop": [
+          840,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 0.0,
+        "end": 0.6
+      },
+      {
+        "id": "R2a",
+        "file": "shots/selected/S2-lume-angry.mp4",
+        "in": 0.5666666666666667,
+        "out": 1.57,
+        "crop": [
+          670,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 0.6,
+        "end": 1.6
+      },
+      {
+        "id": "R2b",
+        "file": "shots/selected/S2-lume-angry.mp4",
+        "in": 1.5666666666666667,
+        "out": 2.32,
+        "crop": [
+          650,
+          40,
+          520
+        ],
+        "speed": 1.0,
+        "start": 1.6,
+        "end": 2.3333
+      },
+      {
+        "id": "R3",
+        "file": "shots/selected/S3-toddler-lama.mp4",
+        "in": 0.5,
+        "out": 1.32,
+        "crop": [
+          745,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 2.3333,
+        "end": 3.1667
+      },
+      {
+        "id": "R4a",
+        "file": "shots/selected/S4-lume-line-retake.mp4",
+        "in": 0.43333333333333335,
+        "out": 1.28,
+        "crop": [
+          705,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 3.1667,
+        "end": 4.0
+      },
+      {
+        "id": "R4b",
+        "file": "shots/selected/S4-lume-line-retake.mp4",
+        "in": 1.2666666666666666,
+        "out": 2.04,
+        "crop": [
+          775,
+          50,
+          500
+        ],
+        "speed": 1.0,
+        "start": 4.0,
+        "end": 4.7667
+      },
+      {
+        "id": "R4c",
+        "file": "shots/selected/S4-lume-line-retake.mp4",
+        "in": 2.033333333333333,
+        "out": 2.88,
+        "crop": [
+          705,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 4.7667,
+        "end": 5.6
+      },
+      {
+        "id": "R5a",
+        "file": "shots/selected/S5-toddler-book.mp4",
+        "in": 0.8666666666666667,
+        "out": 3.28,
+        "crop": [
+          727,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 5.6,
+        "end": 8.0333
+      },
+      {
+        "id": "R5b",
+        "file": "shots/selected/S5-toddler-book.mp4",
+        "in": 3.466666666666667,
+        "out": 4.86,
+        "crop": [
+          770,
+          120,
+          540
+        ],
+        "speed": 1.0,
+        "start": 8.0333,
+        "end": 9.4333
+      },
+      {
+        "id": "R6",
+        "file": "shots/selected/S6-lume-shock.mp4",
+        "in": 0.5333333333333333,
+        "out": 1.5,
+        "crop": [
+          745,
+          30,
+          520
+        ],
+        "speed": 1.0,
+        "start": 9.4333,
+        "end": 10.4
+      },
+      {
+        "id": "R7",
+        "file": "shots/selected/S7-toddler-mi-ze.mp4",
+        "in": 0.7,
+        "out": 1.62,
+        "crop": [
+          745,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 10.4,
+        "end": 11.3333
+      },
+      {
+        "id": "R8a",
+        "file": "shots/selected/S8-lume-whisper-duck.mp4",
+        "in": 0.43333333333333335,
+        "out": 1.8,
+        "crop": [
+          700,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 11.3333,
+        "end": 12.7
+      },
+      {
+        "id": "R8b",
+        "file": "shots/selected/S8-lume-whisper-duck.mp4",
+        "in": 1.8,
+        "out": 2.95,
+        "crop": [
+          700,
+          0,
+          607
+        ],
+        "speed": 1.6,
+        "start": 12.7,
+        "end": 13.4333
+      },
+      {
+        "id": "R9a",
+        "file": "shots/selected/S9-wide-truck-spill.mp4",
+        "in": 0.0,
+        "out": 0.5,
+        "crop": [
+          1100,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 13.4333,
+        "end": 13.9333
+      },
+      {
+        "id": "R9b",
+        "file": "shots/selected/S9-wide-truck-spill.mp4",
+        "in": 0.5,
+        "out": 3.5,
+        "crop": [
+          1100,
+          0,
+          607
+        ],
+        "speed": 1.5,
+        "start": 13.9333,
+        "end": 15.9333
+      },
+      {
+        "id": "R9c",
+        "file": "shots/selected/S9-wide-truck-spill.mp4",
+        "in": 3.5,
+        "out": 6.7,
+        "crop": [
+          690,
+          200,
+          495
+        ],
+        "speed": 1.5,
+        "start": 15.9333,
+        "end": 18.0667
+      }
+    ],
+    "checks": [
+      "frame at every word caption viewed (qc/reel__frames-per-word.jpg): right word, right to left, digits and question marks render, clear of faces; the hook sits over Lume's hair tuft in his close-ups",
+      "each line found in the reel's audio at its planned time; same-recording score 0.986 to 0.993, except מה??? at 0.815 because the doorbell starts 60 ms after the word inside the same window",
+      "Scribe transcription of the reel audio: the eight sentences, in order, nothing else",
+      "doorbell moved to 9.80-10.70 s after it was found ringing over מי זה? (score 0.78 before, 0.99 after)",
+      "not listened to",
+      "clean version: 16 frames viewed (qc/reel-clean__frames.jpg), no text anywhere; same audio test results as the text version"
+    ]
+  },
+  "reel_v2": {
+    "requested": "Yarin, 12 Oct 2026: faster, pauses cut more, 15 seconds, captions back, centred, bold with a thin black border.",
+    "length": "15.000 s (v1 18.067 s): opening 0.37 s, page flip before the toddler speaks cut from 0.83 s to 0.38 s, the freeze after מה??? to 0.4 s, gaps between lines down to 0.07 to 0.3 s, duck and spill at 2x. No line is shortened or sped up.",
+    "captions": "SF Hebrew Bold (SF Bold for question marks), 108 px, white, 4 px black border, no shadow, one word at a time. Baseline y=1130: the middle of the screen is Lume's mouth in his close-ups, so the words sit just under his chin. On the two book lines they sit at y=1400, over the lower part of the cover, so the title stays readable.",
+    "doorbell": "shortened to 0.6 s at 1.3x so it ends as מי זה? starts",
+    "checks": [
+      "frame at every word viewed (qc/reel-v2__frames-per-word.jpg)",
+      "Scribe transcription of the reel audio: the eight sentences in order, nothing else",
+      "each line found at its planned time; same-recording scores 0.92 to 0.99 (lower than v1 because neighbouring lines' tails now fall inside each other's windows; the speech itself does not overlap, closest gap 0.07 s)",
+      "not listened to",
+      "effects positions measured by loudness over time (qc/audio_profile.py), added after the fault above"
+    ],
+    "segments": [
+      {
+        "id": "R1",
+        "in": 2.3,
+        "out": 2.67,
+        "crop": [
+          840,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 0.0,
+        "end": 0.3667
+      },
+      {
+        "id": "R2a",
+        "in": 0.6,
+        "out": 1.57,
+        "crop": [
+          670,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 0.3667,
+        "end": 1.3333
+      },
+      {
+        "id": "R2b",
+        "in": 1.5666666666666667,
+        "out": 2.24,
+        "crop": [
+          650,
+          40,
+          520
+        ],
+        "speed": 1.0,
+        "start": 1.3333,
+        "end": 2.0
+      },
+      {
+        "id": "R3",
+        "in": 0.6,
+        "out": 1.24,
+        "crop": [
+          745,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 2.0,
+        "end": 2.6333
+      },
+      {
+        "id": "R4a",
+        "in": 0.4666666666666667,
+        "out": 1.28,
+        "crop": [
+          705,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 2.6333,
+        "end": 3.4333
+      },
+      {
+        "id": "R4b",
+        "in": 1.2666666666666666,
+        "out": 2.04,
+        "crop": [
+          775,
+          50,
+          500
+        ],
+        "speed": 1.0,
+        "start": 3.4333,
+        "end": 4.2
+      },
+      {
+        "id": "R4c",
+        "in": 2.033333333333333,
+        "out": 2.78,
+        "crop": [
+          705,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 4.2,
+        "end": 4.9333
+      },
+      {
+        "id": "R5a",
+        "in": 1.3,
+        "out": 3.22,
+        "crop": [
+          727,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 4.9333,
+        "end": 6.8667
+      },
+      {
+        "id": "R5b",
+        "in": 3.466666666666667,
+        "out": 4.76,
+        "crop": [
+          770,
+          60,
+          540
+        ],
+        "speed": 1.0,
+        "start": 6.8667,
+        "end": 8.1333
+      },
+      {
+        "id": "R6",
+        "in": 0.5333333333333333,
+        "out": 1.3,
+        "crop": [
+          745,
+          30,
+          520
+        ],
+        "speed": 1.0,
+        "start": 8.1333,
+        "end": 8.8667
+      },
+      {
+        "id": "R7",
+        "in": 0.8666666666666667,
+        "out": 1.55,
+        "crop": [
+          745,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 8.8667,
+        "end": 9.5667
+      },
+      {
+        "id": "R8a",
+        "in": 0.4666666666666667,
+        "out": 1.74,
+        "crop": [
+          700,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 9.5667,
+        "end": 10.8667
+      },
+      {
+        "id": "R8b",
+        "in": 1.7333333333333334,
+        "out": 2.95,
+        "crop": [
+          700,
+          0,
+          607
+        ],
+        "speed": 2.0,
+        "start": 10.8667,
+        "end": 11.4667
+      },
+      {
+        "id": "R9a",
+        "in": 0.0,
+        "out": 0.4,
+        "crop": [
+          1100,
+          0,
+          607
+        ],
+        "speed": 1.0,
+        "start": 11.4667,
+        "end": 11.8667
+      },
+      {
+        "id": "R9b",
+        "in": 0.4,
+        "out": 3.5,
+        "crop": [
+          1100,
+          0,
+          607
+        ],
+        "speed": 2.0,
+        "start": 11.8667,
+        "end": 13.4
+      },
+      {
+        "id": "R9c",
+        "in": 3.5,
+        "out": 6.7,
+        "crop": [
+          690,
+          200,
+          495
+        ],
+        "speed": 2.0,
+        "start": 13.4,
+        "end": 15.0
+      }
+    ],
+    "captions_cues": [
+      {
+        "text": "אני",
+        "start": 0.401,
+        "end": 0.561,
+        "y": 1130
+      },
+      {
+        "text": "רוצה",
+        "start": 0.581,
+        "end": 0.801,
+        "y": 1130
+      },
+      {
+        "text": "לדבר",
+        "start": 0.821,
+        "end": 1.161,
+        "y": 1130
+      },
+      {
+        "text": "עם",
+        "start": 1.181,
+        "end": 1.281,
+        "y": 1130
+      },
+      {
+        "text": "האריה",
+        "start": 1.301,
+        "end": 1.621,
+        "y": 1130
+      },
+      {
+        "text": "הזה",
+        "start": 1.641,
+        "end": 2.087,
+        "y": 1130
+      },
+      {
+        "text": "למה?",
+        "start": 2.107,
+        "end": 2.627,
+        "y": 1130
+      },
+      {
+        "text": "קניתי",
+        "start": 2.647,
+        "end": 2.987,
+        "y": 1130
+      },
+      {
+        "text": "בגללו",
+        "start": 3.007,
+        "end": 3.387,
+        "y": 1130
+      },
+      {
+        "text": "ארבע",
+        "start": 3.407,
+        "end": 3.867,
+        "y": 1130
+      },
+      {
+        "text": "מאות",
+        "start": 3.887,
+        "end": 4.147,
+        "y": 1130
+      },
+      {
+        "text": "קילו",
+        "start": 4.167,
+        "end": 4.467,
+        "y": 1130
+      },
+      {
+        "text": "תותים",
+        "start": 4.487,
+        "end": 5.147,
+        "y": 1130
+      },
+      {
+        "text": "הגעת",
+        "start": 5.26,
+        "end": 5.6,
+        "y": 1400
+      },
+      {
+        "text": "לסוף",
+        "start": 5.62,
+        "end": 6.02,
+        "y": 1400
+      },
+      {
+        "text": "של",
+        "start": 6.04,
+        "end": 6.14,
+        "y": 1400
+      },
+      {
+        "text": "הספר?",
+        "start": 6.16,
+        "end": 6.856,
+        "y": 1400
+      },
+      {
+        "text": "הוא",
+        "start": 6.876,
+        "end": 6.976,
+        "y": 1400
+      },
+      {
+        "text": "בכלל",
+        "start": 6.996,
+        "end": 7.315,
+        "y": 1400
+      },
+      {
+        "text": "לא",
+        "start": 7.335,
+        "end": 7.416,
+        "y": 1400
+      },
+      {
+        "text": "אוהב",
+        "start": 7.436,
+        "end": 7.696,
+        "y": 1400
+      },
+      {
+        "text": "תות",
+        "start": 7.716,
+        "end": 8.164,
+        "y": 1400
+      },
+      {
+        "text": "מה???",
+        "start": 8.184,
+        "end": 8.664,
+        "y": 1130
+      },
+      {
+        "text": "מי",
+        "start": 9.02,
+        "end": 9.2,
+        "y": 1130
+      },
+      {
+        "text": "זה?",
+        "start": 9.22,
+        "end": 9.553,
+        "y": 1130
+      },
+      {
+        "text": "תגיד",
+        "start": 9.573,
+        "end": 9.833,
+        "y": 1130
+      },
+      {
+        "text": "להם",
+        "start": 9.853,
+        "end": 10.053,
+        "y": 1130
+      },
+      {
+        "text": "שאני",
+        "start": 10.073,
+        "end": 10.313,
+        "y": 1130
+      },
+      {
+        "text": "לא",
+        "start": 10.333,
+        "end": 10.513,
+        "y": 1130
+      },
+      {
+        "text": "כאן",
+        "start": 10.533,
+        "end": 11.013,
+        "y": 1130
+      }
+    ],
+    "sfx_fault_fixed": "First render of reel v2 had every effect 8.47 s early: doorbell at 0.0 s, truck and spill sounds at 3.0 to 6.5 s under the dialogue, and silence over the truck shot. Yarin heard it; my checks had only tested the spoken lines. Cause: the doorbell was the first effect and was speed-changed in the same filter chain as its delay, which made ffmpeg drop the leading silence of the whole effects track. Fixed in assemble_reel.py (each sound is rendered alone first, then only delayed and summed) with a guard that stops the build if a track is short or starts at the wrong time. Measured after the fix with qc/audio_profile.py: doorbell 8.5 to 9.0 s, truck beeps from 11.5 s, spill 11.9 to 15.0 s, nothing before 8.25 s. Reel v1 and the 16:9 episode were measured the same way and were not affected."
+  },
+  "trial_edits": {
+    "requested": "Yarin, 12 Oct 2026: two more edits, different enough from each other to post as trial reels with different captions.",
+    "A": "reel v2 (15.00 s): starts on the book and Lume's first line, whole script, ends on the spill.",
+    "B": "cold open: 0.75 s flash of the strawberries pouring (alternate take of the wide shot, job f188111f-c097-4c6f-a5f1-8e123f94b10f), then the whole script with a different framing rhythm (no punch-in on Lume's first line or on מה???, punch-in on קילו תותים, book shot held in one framing), ending on the alternate take of the spill.",
+    "C": "short: starts directly on קניתי בגללו ארבע מאות קילו תותים, then the toddler's correction, מה???, doorbell, מי זה?, spill at 1.6x. Leaves out Lume's first line, למה? and the whisper line.",
+    "captions": "same on-screen style in all three (bold white, thin black border, one word at a time). No hook text.",
+    "what_differs": "first frame and first two seconds, length (15.0 / 15.4 / 11.3 s), which lines are in, framing per shot, and in B the wide-shot footage itself. The voices and most close-up footage are shared.",
+    "unknown": "How Instagram decides that two reels are the same content was not researched; these are structurally different edits, not a guarantee of separate reach.",
+    "checks": [
+      "frames at every word viewed for B and C (qc/reel-B__frames-per-word.jpg, qc/reel-C__frames-per-word.jpg)",
+      "lines found at planned times in both; effects positions measured with qc/audio_profile.py (B: spill flash 0 to 0.75 s, doorbell 8.8 s, truck 11.8 s on; C: doorbell 5.8 s, truck 6.9 s on)",
+      "the builder caught nothing; one manual fix: C first started its opening line 70 ms late against the lips, corrected and guarded",
+      "not listened to"
+    ]
+  },
+  "generations": [
+    {
+      "file": "stills/candidates/toddler-seated-v1-a.png",
+      "model": "gpt_image_2_5",
+      "job_id": "000b264a-ecd9-4468-89e7-7c10d98d8edd",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/02-right-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/10_portrait_three_quarter_left.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-toddler-seated-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one child and one book and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place on the right, the oak table, the door, bookshelf, plants, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt (images 2, 3 and 4), seated in the purple chair. He is the identical child and stays fully photorealistic: real photographed skin, hair and fabric, never a cartoon or a doll.\n\nSize and placement: he sits upright in the middle of the chair on a seat cushion, visible from the waist up above the table edge. His whole head is above the top edge of the chair back, framed against the wall and door behind the chair, with clear space above his hair. His head is about one third as wide as the chair. Both forearms rest on the near edge of the tabletop, small hands relaxed, five fingers each. The microphone stays exactly where it is and ends up below and to the right of his mouth, not covering any part of his face.\n\nHis head is turned slightly toward the left side of the image and he looks off-frame to the left at his co-host across the table, with a serious, curious expression, mouth closed.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. It stands upright by itself on the table to the left of the boy, well clear of his arms, on the far half of the tabletop, its front cover facing the camera almost square-on. The book is about as tall as the boy's head and neck. Nothing else on the table.\n\nLighting: the same warm amber light with a soft purple rim; soft contact shadows under his arms and under the book; faint reflections on the polished tabletop. No other people or characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_120544_000b264a-ecd9-4468-89e7-7c10d98d8edd.png",
+      "created": "2026-10-12T15:06:21"
+    },
+    {
+      "file": "stills/candidates/wide-two-hosts-v1-a.png",
+      "model": "gpt_image_2_5",
+      "job_id": "2a6a7bff-19fd-48df-b5dc-08b89bf98bc9",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/studio-bg-16x9-1920x1080-v1.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-wide-two-hosts-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio wide shot, by adding two seated hosts and one book and changing nothing else. Keep image 1 exactly as it is: camera position and framing, both purple chairs, both black microphones on their arms, the oak table, rug, door, shelves, plants, purple wall panels, warm amber lighting with the purple glow, the same colour grade.\n\nLeft chair: Lume, the stylized 3D animated furry mascot from images 2 and 3 (image 2 shows how he sits in this studio, image 3 is his design). Keep his design exactly: soft golden-peach fur; cream muzzle, chest and belly; a very wide round head with full fluffy cheeks; a short flat muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises; thin dark eyebrows; rosy pink cheeks; long thin dark whiskers; large round ears with pink interiors; a small spiky brown hair tuft; two small upper front teeth; short arms with rounded mitten-like paws; a fluffy tail with a purple tip. Same stylized animated-film rendering and soft fur as the references. He sits tall in the left chair as in image 2: his whole head above the top edge of the chair back, visible from the waist up above the table, both paws resting on the near edge of the table, his microphone below and beside his mouth. He glares down at the book with an angry frown, mouth closed.\n\nRight chair: the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt (images 4 and 5). He stays fully photorealistic, a real photographed child. He sits upright on a seat cushion, visible from the waist up above the table, his head above the top edge of the chair back, forearms resting on the table, five fingers on each hand. He is clearly smaller than Lume: his head is about half as wide as Lume's head. He looks at Lume, serious and curious, mouth closed. His microphone is below and beside his mouth, not covering his face.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. It stands upright by itself on the table between the two microphones, a little nearer the boy, its front cover facing the camera square-on, not hiding either host. It is about as tall as the boy's head and neck. Nothing else on the table.\n\nLume remains a stylized animated character and the boy remains a real child; both are lit by the same warm room light, with soft contact shadows on the chairs and table. No other characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_120542_2a6a7bff-19fd-48df-b5dc-08b89bf98bc9.png",
+      "created": "2026-10-12T15:06:21"
+    },
+    {
+      "file": "stills/candidates/wide-two-hosts-v1-b.png",
+      "model": "gpt_image_2_5",
+      "job_id": "875fe56a-ac93-4995-aea5-dcd268912098",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/studio-bg-16x9-1920x1080-v1.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-wide-two-hosts-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio wide shot, by adding two seated hosts and one book and changing nothing else. Keep image 1 exactly as it is: camera position and framing, both purple chairs, both black microphones on their arms, the oak table, rug, door, shelves, plants, purple wall panels, warm amber lighting with the purple glow, the same colour grade.\n\nLeft chair: Lume, the stylized 3D animated furry mascot from images 2 and 3 (image 2 shows how he sits in this studio, image 3 is his design). Keep his design exactly: soft golden-peach fur; cream muzzle, chest and belly; a very wide round head with full fluffy cheeks; a short flat muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises; thin dark eyebrows; rosy pink cheeks; long thin dark whiskers; large round ears with pink interiors; a small spiky brown hair tuft; two small upper front teeth; short arms with rounded mitten-like paws; a fluffy tail with a purple tip. Same stylized animated-film rendering and soft fur as the references. He sits tall in the left chair as in image 2: his whole head above the top edge of the chair back, visible from the waist up above the table, both paws resting on the near edge of the table, his microphone below and beside his mouth. He glares down at the book with an angry frown, mouth closed.\n\nRight chair: the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt (images 4 and 5). He stays fully photorealistic, a real photographed child. He sits upright on a seat cushion, visible from the waist up above the table, his head above the top edge of the chair back, forearms resting on the table, five fingers on each hand. He is clearly smaller than Lume: his head is about half as wide as Lume's head. He looks at Lume, serious and curious, mouth closed. His microphone is below and beside his mouth, not covering his face.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. It stands upright by itself on the table between the two microphones, a little nearer the boy, its front cover facing the camera square-on, not hiding either host. It is about as tall as the boy's head and neck. Nothing else on the table.\n\nLume remains a stylized animated character and the boy remains a real child; both are lit by the same warm room light, with soft contact shadows on the chairs and table. No other characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_120546_875fe56a-ac93-4995-aea5-dcd268912098.png",
+      "created": "2026-10-12T15:06:23"
+    },
+    {
+      "file": "stills/candidates/toddler-book-v1-a.png",
+      "model": "gpt_image_2_5",
+      "job_id": "ac90c624-d400-4e60-aef0-4b5d76163245",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/02-right-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/10_portrait_three_quarter_left.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-toddler-book-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one child holding one book and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place on the right, the oak table, the door, bookshelf, plants, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt (images 2, 3 and 4), seated in the purple chair. He is the identical child and stays fully photorealistic: real photographed skin, hair and fabric, never a cartoon or a doll.\n\nSize and placement: he sits upright in the middle of the chair on a seat cushion, visible from the waist up above the table edge. His whole head is above the top edge of the chair back, framed against the wall and door behind the chair, with clear space above his hair. His head is about one third as wide as the chair. The microphone stays exactly where it is, below and to the right of his mouth, not covering any part of his face.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. He holds it open in both small hands in front of his chest, its bottom edge resting on the table, reading the last pages. The pages face him and the camera cannot see inside the book at all. The camera sees only the outside: the front cover, held in his right hand on the left side of the image, faces the camera and is fully visible and unobstructed except for his fingertips at its edge; the back half of the book is turned away from the camera, seen edge-on behind the front half. The book is about as tall as his head and neck and does not hide his face: his whole face is visible above it. He looks down into the book, serious and focused, mouth closed. Nothing else on the table.\n\nLighting: the same warm amber light with a soft purple rim; soft contact shadow under the book; faint reflections on the polished tabletop. No other people or characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_120547_ac90c624-d400-4e60-aef0-4b5d76163245.png",
+      "created": "2026-10-12T15:06:24"
+    },
+    {
+      "file": "stills/candidates/wide-door-a-v1-a.png",
+      "model": "gpt_image_2_5",
+      "job_id": "fa376904-2227-4d70-aef5-834feccd97d7",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/03-diagonal-wide-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/06_rear_three_quarter_right.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-wide-door-a-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio seen from a diagonal wide angle, and change only what is described. Keep the camera position and framing, both purple chairs, the oak table, both microphones, shelves, plants, rug, purple wall panels, lighting and colour grade exactly as in image 1.\n\nThe door: the cream door at the back is now wide open. It has swung inward about 100 degrees on its right-hand hinges, so the doorway is completely clear and shows a plain bright cream hallway.\n\nThe truck: a giant plastic TOY dump truck is reversing into the studio through the doorway, rear first. Its rear end has just come through and stands on the studio floor inside the room. It is unmistakably a child's toy, not a real vehicle: chunky moulded glossy plastic with thick rounded edges, a bright yellow tipper bed on a red chassis, oversized black plastic wheels with yellow hubs, visible mould seams, no licence plate, no driver. It is comically huge: the tipper bed fills almost the whole width of the doorway and its top edge is higher than the boy's head. The bed is level, not yet tipped, heaped high with fresh red strawberries, the tailgate closed. Both rear wheels sit firmly on the floor with contact shadows. The front of the truck is still out in the hallway.\n\nThe boy: the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt, beige shorts, bare feet (images 2 and 3), photorealistic, stands on the studio floor beside the free edge of the open door, to the right of the doorway, one hand still up on the door handle. He is seen from behind in three-quarter view, looking up at the truck, calm and curious. He is small: about half the height of the doorway.\n\nLume: the stylized 3D animated furry mascot from images 4 and 5 (soft golden-peach fur; cream muzzle, chest and belly; a very wide round head with full fluffy cheeks; a short flat muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises; thin dark eyebrows; rosy pink cheeks; long thin dark whiskers; large round ears with pink interiors; a small spiky brown hair tuft; two small upper front teeth; short arms with rounded mitten-like paws; a fluffy tail with a purple tip) is hiding under the table: crouched on the rug behind the table, only his head, ears and wide worried eyes showing below the tabletop between the table legs, peeking toward the door.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. It stands upright by itself on the table near the right-hand microphone. Nothing else on the table. Both chairs are empty.\n\nPhotorealistic room and child, stylized animated mascot, all lit by the same warm room light with soft contact shadows. No other characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_120545_fa376904-2227-4d70-aef5-834feccd97d7.png",
+      "created": "2026-10-12T15:06:25"
+    },
+    {
+      "file": "stills/candidates/wide-door-a-v1-b.png",
+      "model": "gpt_image_2_5",
+      "job_id": "aa6e513b-f274-48a6-9f2f-2c06ed533ca6",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/03-diagonal-wide-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/06_rear_three_quarter_right.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-lume-character-pack/ref_original_on_ivory.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-wide-door-a-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio seen from a diagonal wide angle, and change only what is described. Keep the camera position and framing, both purple chairs, the oak table, both microphones, shelves, plants, rug, purple wall panels, lighting and colour grade exactly as in image 1.\n\nThe door: the cream door at the back is now wide open. It has swung inward about 100 degrees on its right-hand hinges, so the doorway is completely clear and shows a plain bright cream hallway.\n\nThe truck: a giant plastic TOY dump truck is reversing into the studio through the doorway, rear first. Its rear end has just come through and stands on the studio floor inside the room. It is unmistakably a child's toy, not a real vehicle: chunky moulded glossy plastic with thick rounded edges, a bright yellow tipper bed on a red chassis, oversized black plastic wheels with yellow hubs, visible mould seams, no licence plate, no driver. It is comically huge: the tipper bed fills almost the whole width of the doorway and its top edge is higher than the boy's head. The bed is level, not yet tipped, heaped high with fresh red strawberries, the tailgate closed. Both rear wheels sit firmly on the floor with contact shadows. The front of the truck is still out in the hallway.\n\nThe boy: the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt, beige shorts, bare feet (images 2 and 3), photorealistic, stands on the studio floor beside the free edge of the open door, to the right of the doorway, one hand still up on the door handle. He is seen from behind in three-quarter view, looking up at the truck, calm and curious. He is small: about half the height of the doorway.\n\nLume: the stylized 3D animated furry mascot from images 4 and 5 (soft golden-peach fur; cream muzzle, chest and belly; a very wide round head with full fluffy cheeks; a short flat muzzle; a small glossy pink-red nose; very large round eyes with big black pupils ringed by blue irises; thin dark eyebrows; rosy pink cheeks; long thin dark whiskers; large round ears with pink interiors; a small spiky brown hair tuft; two small upper front teeth; short arms with rounded mitten-like paws; a fluffy tail with a purple tip) is hiding under the table: crouched on the rug behind the table, only his head, ears and wide worried eyes showing below the tabletop between the table legs, peeking toward the door.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. It stands upright by itself on the table near the right-hand microphone. Nothing else on the table. Both chairs are empty.\n\nPhotorealistic room and child, stylized animated mascot, all lit by the same warm room light with soft contact shadows. No other characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_120546_aa6e513b-f274-48a6-9f2f-2c06ed533ca6.png",
+      "created": "2026-10-12T15:06:26"
+    },
+    {
+      "file": "stills/candidates/toddler-seated-v1-b.png",
+      "model": "gpt_image_2_5",
+      "job_id": "842416ba-c9a2-4168-bc46-7752b51cf08d",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/02-right-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/10_portrait_three_quarter_left.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-toddler-seated-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one child and one book and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place on the right, the oak table, the door, bookshelf, plants, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt (images 2, 3 and 4), seated in the purple chair. He is the identical child and stays fully photorealistic: real photographed skin, hair and fabric, never a cartoon or a doll.\n\nSize and placement: he sits upright in the middle of the chair on a seat cushion, visible from the waist up above the table edge. His whole head is above the top edge of the chair back, framed against the wall and door behind the chair, with clear space above his hair. His head is about one third as wide as the chair. Both forearms rest on the near edge of the tabletop, small hands relaxed, five fingers each. The microphone stays exactly where it is and ends up below and to the right of his mouth, not covering any part of his face.\n\nHis head is turned slightly toward the left side of the image and he looks off-frame to the left at his co-host across the table, with a serious, curious expression, mouth closed.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. It stands upright by itself on the table to the left of the boy, well clear of his arms, on the far half of the tabletop, its front cover facing the camera almost square-on. The book is about as tall as the boy's head and neck. Nothing else on the table.\n\nLighting: the same warm amber light with a soft purple rim; soft contact shadows under his arms and under the book; faint reflections on the polished tabletop. No other people or characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_120546_842416ba-c9a2-4168-bc46-7752b51cf08d.png",
+      "created": "2026-10-12T15:06:26"
+    },
+    {
+      "file": "stills/candidates/toddler-book-v1-b.png",
+      "model": "gpt_image_2_5",
+      "job_id": "5a8711bf-3d28-4a5c-80b1-eb57297972ca",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/02-right-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/10_portrait_three_quarter_left.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-toddler-book-v1.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one child holding one book and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place on the right, the oak table, the door, bookshelf, plants, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt (images 2, 3 and 4), seated in the purple chair. He is the identical child and stays fully photorealistic: real photographed skin, hair and fabric, never a cartoon or a doll.\n\nSize and placement: he sits upright in the middle of the chair on a seat cushion, visible from the waist up above the table edge. His whole head is above the top edge of the chair back, framed against the wall and door behind the chair, with clear space above his hair. His head is about one third as wide as the chair. The microphone stays exactly where it is, below and to the right of his mouth, not covering any part of his face.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. He holds it open in both small hands in front of his chest, its bottom edge resting on the table, reading the last pages. The pages face him and the camera cannot see inside the book at all. The camera sees only the outside: the front cover, held in his right hand on the left side of the image, faces the camera and is fully visible and unobstructed except for his fingertips at its edge; the back half of the book is turned away from the camera, seen edge-on behind the front half. The book is about as tall as his head and neck and does not hide his face: his whole face is visible above it. He looks down into the book, serious and focused, mouth closed. Nothing else on the table.\n\nLighting: the same warm amber light with a soft purple rim; soft contact shadow under the book; faint reflections on the polished tabletop. No other people or characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_120547_5a8711bf-3d28-4a5c-80b1-eb57297972ca.png",
+      "created": "2026-10-12T15:06:27"
+    },
+    {
+      "file": "stills/candidates/toddler-book-v2-a.png",
+      "model": "gpt_image_2_5",
+      "job_id": "c0682f91-5ae9-4043-bfc3-13b7e6251338",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/02-right-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/10_portrait_three_quarter_left.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-toddler-book-v2.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one child holding one book and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place on the right, the oak table, the door, bookshelf, plants, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt (images 2, 3 and 4), seated in the purple chair. He is the identical child and stays fully photorealistic: real photographed skin, hair and fabric, never a cartoon or a doll.\n\nSize and placement: he sits upright in the middle of the chair on a seat cushion, visible from the waist up above the table edge. His whole head is above the top edge of the chair back, framed against the wall and door behind the chair, with clear space above his hair. His head is about one third as wide as the chair. The microphone stays exactly where it is, below and to the right of his mouth, not covering any part of his face.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. He holds it upright in front of his chest with its bottom edge resting on the table, opened only a little, in a narrow V, and peeks down into it at the last pages. The front cover faces the camera squarely and is the ONLY part of the outside of the book that the camera sees. The back half of the book is folded away behind the front cover, pointing away from the camera toward his chest, completely hidden by the front cover: no second cover, no back cover and no spine artwork is visible. The camera never sees the inside pages; at most a thin line of white page edges shows above the top of the cover. His right hand holds the left edge of the front cover with only the fingertips showing; his left hand reaches into the book from behind. The top of the book is below his chin: his whole face is visible above it. He looks down into the book, serious and focused, mouth closed. His right ear, on the left side of the image, has one small diamond stud; his left ear has no earring. Nothing else on the table.\n\nLighting: the same warm amber light with a soft purple rim; soft contact shadow under the book; faint reflections on the polished tabletop. No other people or characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121145_c0682f91-5ae9-4043-bfc3-13b7e6251338.png",
+      "created": "2026-10-12T15:12:22"
+    },
+    {
+      "file": "stills/candidates/toddler-book-v2-b.png",
+      "model": "gpt_image_2_5",
+      "job_id": "9a310c21-b95c-459b-9046-105c4f9f5493",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-studio-set/angles-v1/02-right-seat-closeup-1920x1080.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/09_portrait_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/10_portrait_three_quarter_left.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-11-toddler-character-pack/final/01_front.png",
+        "--image-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-strawberries/references/book-cover-clean.png"
+      ],
+      "prompt_file": "prompts/still-toddler-book-v2.txt",
+      "prompt": "Edit image 1, the empty podcast studio close-up, by adding one child holding one book and changing nothing else. Keep image 1 exactly as it is: the same camera position and framing, the purple velvet chair at the same size and in the same place, the black microphone on its articulated arm in the same place on the right, the oak table, the door, bookshelf, plants, purple wall panels, warm amber lighting with the purple accent glow, the same colour grade.\n\nAdd the toddler boy shown in the reference photos: about 3 years old, very full round cheeks, warm olive skin, brown eyes, round dark tortoiseshell glasses with clear lenses, dark brown hair slicked back on top with a clean fade, one small diamond stud in his right ear, plain white crew-neck T-shirt (images 2, 3 and 4), seated in the purple chair. He is the identical child and stays fully photorealistic: real photographed skin, hair and fabric, never a cartoon or a doll.\n\nSize and placement: he sits upright in the middle of the chair on a seat cushion, visible from the waist up above the table edge. His whole head is above the top edge of the chair back, framed against the wall and door behind the chair, with clear space above his hair. His head is about one third as wide as the chair. The microphone stays exactly where it is, below and to the right of his mouth, not covering any part of his face.\n\nThe book: a square hardcover children's picture book whose front cover is exactly the last reference image: red, covered with strawberries, a white title panel with a red and green border in the upper half, and a painted lion in the lower right. He holds it upright in front of his chest with its bottom edge resting on the table, opened only a little, in a narrow V, and peeks down into it at the last pages. The front cover faces the camera squarely and is the ONLY part of the outside of the book that the camera sees. The back half of the book is folded away behind the front cover, pointing away from the camera toward his chest, completely hidden by the front cover: no second cover, no back cover and no spine artwork is visible. The camera never sees the inside pages; at most a thin line of white page edges shows above the top of the cover. His right hand holds the left edge of the front cover with only the fingertips showing; his left hand reaches into the book from behind. The top of the book is below his chin: his whole face is visible above it. He looks down into the book, serious and focused, mouth closed. His right ear, on the left side of the image, has one small diamond stud; his left ear has no earring. Nothing else on the table.\n\nLighting: the same warm amber light with a soft purple rim; soft contact shadow under the book; faint reflections on the polished tabletop. No other people or characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121147_9a310c21-b95c-459b-9046-105c4f9f5493.png",
+      "created": "2026-10-12T15:12:23"
+    },
+    {
+      "file": "stills/candidates/wide-door-spill-v1-b.png",
+      "model": "gpt_image_2_5",
+      "job_id": "d570746e-c250-480b-89f9-65b4a35370dd",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "stills/wide-door-start-master-v1-native-2688x1520.png"
+      ],
+      "prompt_file": "prompts/still-wide-door-spill-v1.txt",
+      "prompt": "Edit image 1 and change only what is described. Keep the camera position and framing, the room, the open door, both empty chairs, the table, both microphones, the picture book standing on the table, shelves, plants, rug, wall panels, lighting and colour grade exactly as in image 1. The toy truck stays the same toy in the same place: same chunky yellow tipper bed, red chassis, black wheels with yellow hubs, wheels on the floor.\n\nThe truck has tipped its load: its yellow tipper bed is now tilted up steeply, hinged at the rear, its front edge raised high toward the top of the doorway, and it is almost empty. The strawberries have poured out of the back onto the studio floor: a huge heap of fresh red strawberries slopes down from the truck and spreads across the wooden floor, over the rug and around the table legs, reaching the foreground. A few last strawberries are still tumbling down from the bed.\n\nThe same toddler boy stands in the same place beside the open door, now shin-deep in strawberries, looking down at them, calm and curious, holding one strawberry in his hand.\n\nLume, the same furry mascot, is still hiding under the table in the same place, now surrounded by strawberries up to his chin, eyes wide in horror, with one strawberry sitting on top of his head.\n\nNo other characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121824_d570746e-c250-480b-89f9-65b4a35370dd.png",
+      "created": "2026-10-12T15:18:58"
+    },
+    {
+      "file": "stills/candidates/wide-door-spill-v1-a.png",
+      "model": "gpt_image_2_5",
+      "job_id": "240417d0-2ecb-4519-9676-ea15c8f7d769",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "2k",
+        "--quality",
+        "high",
+        "--image-references",
+        "stills/wide-door-start-master-v1-native-2688x1520.png"
+      ],
+      "prompt_file": "prompts/still-wide-door-spill-v1.txt",
+      "prompt": "Edit image 1 and change only what is described. Keep the camera position and framing, the room, the open door, both empty chairs, the table, both microphones, the picture book standing on the table, shelves, plants, rug, wall panels, lighting and colour grade exactly as in image 1. The toy truck stays the same toy in the same place: same chunky yellow tipper bed, red chassis, black wheels with yellow hubs, wheels on the floor.\n\nThe truck has tipped its load: its yellow tipper bed is now tilted up steeply, hinged at the rear, its front edge raised high toward the top of the doorway, and it is almost empty. The strawberries have poured out of the back onto the studio floor: a huge heap of fresh red strawberries slopes down from the truck and spreads across the wooden floor, over the rug and around the table legs, reaching the foreground. A few last strawberries are still tumbling down from the bed.\n\nThe same toddler boy stands in the same place beside the open door, now shin-deep in strawberries, looking down at them, calm and curious, holding one strawberry in his hand.\n\nLume, the same furry mascot, is still hiding under the table in the same place, now surrounded by strawberries up to his chin, eyes wide in horror, with one strawberry sitting on top of his head.\n\nNo other characters, no text other than the book cover, no logo, no watermark.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121824_240417d0-2ecb-4519-9676-ea15c8f7d769.png",
+      "created": "2026-10-12T15:19:00"
+    },
+    {
+      "file": "shots/candidates/S8-lume-whisper-v1.mp4",
+      "model": "wan2_7",
+      "job_id": "83e5dcfc-5082-4b28-9be6-95c96f635b6e",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S8_L4_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S8-lume-whisper-duck.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, whispers one Hebrew sentence to his co-host off-screen to the right, nervously. His speech is exactly the reference audio and his lips are synced to it: he starts at 0.5 seconds and finishes at 1.7 seconds, saying: \"תגיד להם שאני לא כאן\".\n\nPerformance: panicked and sneaky. He leans toward the co-host, raises one paw beside his mouth like a secret, the back of the paw toward the camera, and whispers the line with worried eyebrows and darting eyes. Right after the last word he closes his mouth and sinks straight down in his chair behind the table, slowly, until only his eyes, ears and hair tuft are still showing above the tabletop at the end of the shot.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, hair tuft and tail. Only his two small upper front teeth ever show, never lower teeth. His paws are plain fur with no paw pads. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121824_83e5dcfc-5082-4b28-9be6-95c96f635b6e.mp4",
+      "created": "2026-10-12T15:19:13"
+    },
+    {
+      "file": "shots/candidates/S5-toddler-book-v1.mp4",
+      "model": "wan2_7",
+      "job_id": "c3d52487-2a33-4cd5-843a-d079f3b4e48a",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "6",
+        "--start-image",
+        "stills/toddler-book-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S5_T2_pad6.wav"
+      ],
+      "prompt_file": "prompts/shot-S5-toddler-book.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nThe toddler boy seated at the podcast table holds a picture book upright on the table. For the first second he looks down into the book and turns one page inside it with his hidden hand. Then he looks up at his co-host off-screen to the left and says two short Hebrew sentences, matter-of-fact and serious. His speech is exactly the reference audio and his lips are synced to it: from 1.2 to 2.7 seconds \"הגעת לסוף של הספר?\", a short pause, then from 3.1 to 4.2 seconds \"הוא בכלל לא אוהב תות\". After the last word he closes his mouth and gives a tiny shrug, still looking at the co-host.\n\nThe book stays upright in the same place the whole time, its front cover facing the camera. The cover artwork stays exactly as in the first frame, sharp and unchanged, and the camera never sees the inside of the book.\n\nHe stays a photorealistic real child, identical to the first frame: same face, round glasses, hair, white T-shirt, five fingers on each hand. The microphone, chair, door, table, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121824_c3d52487-2a33-4cd5-843a-d079f3b4e48a.mp4",
+      "created": "2026-10-12T15:19:22"
+    },
+    {
+      "file": "shots/candidates/S7-toddler-mi-ze-v1.mp4",
+      "model": "wan2_7",
+      "job_id": "5a9e2476-02ac-405a-91be-5ef5dd3cec74",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "stills/toddler-seated-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S7_T3_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S7-toddler-mi-ze.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nA doorbell has just rung. The toddler boy seated at the podcast table turns his head toward the door behind him, on the left side of the image, keeping his face in three-quarter view toward the camera, and asks two short Hebrew words, calm and curious. His speech is exactly the reference audio and his lips are synced to it: from 1.0 to 1.5 seconds: \"מי זה?\". Then he keeps looking toward the door with his mouth closed. His hands stay on the table.\n\nHe stays a photorealistic real child, identical to the first frame: same face, round glasses, hair, white T-shirt, five fingers on each hand. The microphone, chair, door, table, plants and lighting stay completely still and unchanged. The picture book standing on the table does not move and its cover stays exactly as in the first frame.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121825_5a9e2476-02ac-405a-91be-5ef5dd3cec74.mp4",
+      "created": "2026-10-12T15:19:23"
+    },
+    {
+      "file": "shots/candidates/S2-lume-angry-v1.mp4",
+      "model": "wan2_7",
+      "job_id": "e696349a-06fe-4e02-a683-aa311fb80e51",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S2_L1_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S2-lume-angry.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, angrily. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.1 seconds, saying: \"אני רוצה לדבר עם האריה הזה\".\n\nPerformance: angry and fuming. He scowls with lowered eyebrows and jabs one paw toward the table off-screen to the right on the last two words; the paw stays low, below his chin. After the last word he shuts his mouth and glares. Head and paw movement stay small and restrained; the face does the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, hair tuft and tail. Only his two small upper front teeth ever show, never lower teeth. His paws are plain fur with no paw pads. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121825_e696349a-06fe-4e02-a683-aa311fb80e51.mp4",
+      "created": "2026-10-12T15:19:23"
+    },
+    {
+      "file": "shots/candidates/S3-toddler-lama-v1.mp4",
+      "model": "wan2_7",
+      "job_id": "140b6ff1-22d6-4bea-a16f-e1d7bffbf296",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "stills/toddler-seated-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S3_T1_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S3-toddler-lama.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nThe toddler boy seated at the podcast table asks one short Hebrew word to his co-host off-screen to the left, calm and curious. His speech is exactly the reference audio and his lips are synced to it: one word from 0.7 to 1.2 seconds: \"למה?\".\n\nPerformance: serious and curious. He tilts his head slightly and raises his eyebrows a little as he asks, then waits with his mouth closed, blinks once and keeps looking at the co-host. His hands stay resting on the table.\n\nHe stays a photorealistic real child, identical to the first frame: same face, round glasses, hair, white T-shirt, five fingers on each hand. The microphone, chair, door, table, plants and lighting stay completely still and unchanged. The picture book standing on the table does not move and its cover stays exactly as in the first frame.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121824_140b6ff1-22d6-4bea-a16f-e1d7bffbf296.mp4",
+      "created": "2026-10-12T15:19:25"
+    },
+    {
+      "file": "shots/candidates/S1-opening-v1.mp4",
+      "model": "wan2_7",
+      "job_id": "58db5435-e3da-4e80-8a06-c9f85672d9d1",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "stills/opening-two-shot-master-v1-1920x1080.png"
+      ],
+      "prompt_file": "prompts/shot-S1-opening-two-shot.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nA podcast studio two-shot. Nobody speaks: both mouths stay closed the whole time.\n\nLume, the stylized furry mascot on the left, glares down at the picture book standing on the table, fuming: his eyebrows are lowered, one ear twitches, his chest rises in an angry huff and one paw taps the table once. The toddler boy on the right calmly looks from Lume to the book and back to Lume, and blinks.\n\nThe picture book stands perfectly still in the middle of the table and its cover stays exactly as in the first frame, sharp and unchanged. Lume stays exactly on-model as in the first frame and remains a stylized animated character; the boy stays a photorealistic real child, identical to the first frame. Both microphones, the chairs, table, shelves, door, plants and lighting stay completely still and unchanged.\n\nSilent scene: no speech, no music.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121824_58db5435-e3da-4e80-8a06-c9f85672d9d1.mp4",
+      "created": "2026-10-12T15:19:25"
+    },
+    {
+      "file": "shots/candidates/S6-lume-shock-v1.mp4",
+      "model": "wan2_7",
+      "job_id": "668a18aa-e2b4-425f-bc76-179811d213bd",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S6_L3_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S6-lume-shock.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, blurts out one short shocked Hebrew word to his co-host off-screen to the right. His speech is exactly the reference audio and his lips are synced to it: one word from 0.6 to 0.9 seconds: \"מה\".\n\nPerformance: pure shock. His eyes pop wide open, his eyebrows fly up, his ears stand straight and he jerks back slightly as he blurts the word. Then he freezes completely still, mouth hanging slightly open, eyes wide, staring at the co-host without blinking for the rest of the shot. Both paws stay on the table.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, hair tuft and tail. Only his two small upper front teeth ever show, never lower teeth. His paws are plain fur with no paw pads. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_121825_668a18aa-e2b4-425f-bc76-179811d213bd.mp4",
+      "created": "2026-10-12T15:19:32"
+    },
+    {
+      "file": "shots/candidates/S2-lume-angry-v2.mp4",
+      "model": "wan2_7",
+      "job_id": "5bae8ac8-a005-47be-ace8-c6685aa71ed1",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S2_L1_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S2-lume-angry-v2.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, angrily. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.1 seconds, saying: \"אני רוצה לדבר עם האריה הזה\".\n\nPerformance: angry and fuming. He scowls with lowered eyebrows and jabs one paw toward the table off-screen to the right on the last two words; the paw stays low, below his chin. After the last word he shuts his mouth and glares. Head and paw movement stay small and restrained; the face does the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, hair tuft and tail. His mouth has exactly two teeth, the two small upper front teeth; his lower jaw is smooth and toothless, showing only the dark inside of the mouth and the pink tongue. His paws are plain fur with no paw pads. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_122128_5bae8ac8-a005-47be-ace8-c6685aa71ed1.mp4",
+      "created": "2026-10-12T15:22:11"
+    },
+    {
+      "file": "shots/candidates/S5-toddler-book-v2-b.mp4",
+      "model": "wan2_7",
+      "job_id": "7d363cc0-bca6-4331-94d9-7dc0b5aef7ab",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "6",
+        "--start-image",
+        "stills/toddler-book-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S5_T2_pad6_lead1600.wav"
+      ],
+      "prompt_file": "prompts/shot-S5-toddler-book-v2.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nThe toddler boy seated at the podcast table holds a picture book upright on the table. For the first one and a half seconds he looks down into the book and thumbs through its last pages with his hidden hand: the camera sees only the thin white edges of the pages moving slightly along the top of the book. No page ever rises above the cover or turns toward the camera. Then he looks up at his co-host off-screen to the left and says two short Hebrew sentences, matter-of-fact and serious. His speech is exactly the reference audio and his lips are synced to it: from 1.7 to 3.2 seconds \"הגעת לסוף של הספר?\", a short pause, then from 3.6 to 4.7 seconds \"הוא בכלל לא אוהב תות\". Before 1.7 seconds his mouth stays closed. After the last word he closes his mouth and gives a tiny shrug, still looking at the co-host.\n\nThe book stays upright in the same place the whole time, its front cover facing the camera. The cover artwork stays exactly as in the first frame, sharp and unchanged, and the camera never sees the inside of the book: no inside page, picture or coloured paper is ever visible, only the outside of the front cover and the white page edges.\n\nHe stays a photorealistic real child, identical to the first frame: same face, round glasses, hair, white T-shirt, five fingers on each hand. The microphone, chair, door, table, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_122129_7d363cc0-bca6-4331-94d9-7dc0b5aef7ab.mp4",
+      "created": "2026-10-12T15:22:29"
+    },
+    {
+      "file": "shots/candidates/S5-toddler-book-v2-a.mp4",
+      "model": "wan2_7",
+      "job_id": "82643300-22d3-4f5c-857a-1f19e4b3da1d",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "6",
+        "--start-image",
+        "stills/toddler-book-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S5_T2_pad6_lead1600.wav"
+      ],
+      "prompt_file": "prompts/shot-S5-toddler-book-v2.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nThe toddler boy seated at the podcast table holds a picture book upright on the table. For the first one and a half seconds he looks down into the book and thumbs through its last pages with his hidden hand: the camera sees only the thin white edges of the pages moving slightly along the top of the book. No page ever rises above the cover or turns toward the camera. Then he looks up at his co-host off-screen to the left and says two short Hebrew sentences, matter-of-fact and serious. His speech is exactly the reference audio and his lips are synced to it: from 1.7 to 3.2 seconds \"הגעת לסוף של הספר?\", a short pause, then from 3.6 to 4.7 seconds \"הוא בכלל לא אוהב תות\". Before 1.7 seconds his mouth stays closed. After the last word he closes his mouth and gives a tiny shrug, still looking at the co-host.\n\nThe book stays upright in the same place the whole time, its front cover facing the camera. The cover artwork stays exactly as in the first frame, sharp and unchanged, and the camera never sees the inside of the book: no inside page, picture or coloured paper is ever visible, only the outside of the front cover and the white page edges.\n\nHe stays a photorealistic real child, identical to the first frame: same face, round glasses, hair, white T-shirt, five fingers on each hand. The microphone, chair, door, table, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_122128_82643300-22d3-4f5c-857a-1f19e4b3da1d.mp4",
+      "created": "2026-10-12T15:22:47"
+    },
+    {
+      "file": "shots/candidates/S8-lume-whisper-v2.mp4",
+      "model": "wan2_7",
+      "job_id": "92e3630b-1cab-4c41-be2f-ea46c9f70147",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S8_L4_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S8-lume-whisper-duck-v2.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, whispers one Hebrew sentence to his co-host off-screen to the right, nervously. His speech is exactly the reference audio and his lips are synced to it: he starts at 0.5 seconds and finishes at 1.7 seconds, saying: \"תגיד להם שאני לא כאן\".\n\nPerformance: panicked and sneaky. Both paws stay flat on the table the whole time and are never raised. He leans toward the co-host, hunches his shoulders and whispers the line out of the side of his mouth with worried eyebrows and darting eyes. Right after the last word he closes his mouth and sinks straight down in his chair behind the table, slowly, his paws sliding off the table edge, until only his eyes, ears and hair tuft are still showing above the tabletop at the end of the shot.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, hair tuft and tail. Only his two small upper front teeth ever show, never lower teeth. His paws are plain fur with no paw pads. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_122215_92e3630b-1cab-4c41-be2f-ea46c9f70147.mp4",
+      "created": "2026-10-12T15:23:10"
+    },
+    {
+      "file": "shots/candidates/S9-wide-spill-v1-b.mp4",
+      "model": "wan2_7",
+      "job_id": "d348016e-7109-48ea-b276-22af1cd8f0a4",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "8",
+        "--start-image",
+        "stills/wide-door-start-master-v1-1920x1080.png",
+        "--end-image",
+        "stills/wide-door-spill-master-v1-1920x1080.png"
+      ],
+      "prompt_file": "prompts/shot-S9-wide-truck-spill.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts. Nobody speaks.\n\nFor the first second nothing moves except the giant plastic toy dump truck, which rolls backward a little further into the room through the open doorway with a light toy wobble and stops. Then its yellow tipper bed tilts up steeply, hinged at the rear, and the whole load of strawberries slides out in one big avalanche: a wave of red strawberries pours onto the wooden floor and spreads across the room, over the rug and around the table legs toward the camera, bouncing and rolling, until the floor is covered. The last few strawberries tumble out of the raised, empty bed.\n\nThe toddler boy beside the open door calmly watches the strawberries pour past his legs, then looks down and picks one up. Lume, the furry mascot hiding under the table, watches in horror as the strawberries pile up around him to his chin; one strawberry lands on top of his head.\n\nThe truck stays a chunky plastic toy with all its wheels on the floor. The picture book and both microphones on the table do not move, and the book cover stays exactly as in the first frame. The room, chairs, shelves, plants, door and lighting stay unchanged. The boy stays a photorealistic real child and Lume stays a stylized animated character.\n\nNo speech, no music.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_122320_d348016e-7109-48ea-b276-22af1cd8f0a4.mp4",
+      "created": "2026-10-12T15:24:45"
+    },
+    {
+      "file": "shots/candidates/S6-lume-shock-v2.mp4",
+      "model": "wan2_7",
+      "job_id": "3e3c4b06-2475-4233-9e61-5b7668fa4462",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S6_L3_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S6-lume-shock-v2.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, blurts out one short shocked Hebrew word to his co-host off-screen to the right. His speech is exactly the reference audio and his lips are synced to it: one word from 0.6 to 0.9 seconds: \"מה\".\n\nPerformance: pure shock. His eyebrows fly up high, his eyes pop wide open, his ears stand straight and he jerks back slightly as his mouth drops open into a small round O to blurt the word. Then he freezes completely still, his mouth a small round O, eyebrows high, eyes wide, staring at the co-host without blinking for the rest of the shot. Both paws stay resting on the table.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_122405_3e3c4b06-2475-4233-9e61-5b7668fa4462.mp4",
+      "created": "2026-10-12T15:25:00"
+    },
+    {
+      "file": "shots/candidates/S9-wide-spill-v1-a.mp4",
+      "model": "wan2_7",
+      "job_id": "f188111f-c097-4c6f-a5f1-8e123f94b10f",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "8",
+        "--start-image",
+        "stills/wide-door-start-master-v1-1920x1080.png",
+        "--end-image",
+        "stills/wide-door-spill-master-v1-1920x1080.png"
+      ],
+      "prompt_file": "prompts/shot-S9-wide-truck-spill.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts. Nobody speaks.\n\nFor the first second nothing moves except the giant plastic toy dump truck, which rolls backward a little further into the room through the open doorway with a light toy wobble and stops. Then its yellow tipper bed tilts up steeply, hinged at the rear, and the whole load of strawberries slides out in one big avalanche: a wave of red strawberries pours onto the wooden floor and spreads across the room, over the rug and around the table legs toward the camera, bouncing and rolling, until the floor is covered. The last few strawberries tumble out of the raised, empty bed.\n\nThe toddler boy beside the open door calmly watches the strawberries pour past his legs, then looks down and picks one up. Lume, the furry mascot hiding under the table, watches in horror as the strawberries pile up around him to his chin; one strawberry lands on top of his head.\n\nThe truck stays a chunky plastic toy with all its wheels on the floor. The picture book and both microphones on the table do not move, and the book cover stays exactly as in the first frame. The room, chairs, shelves, plants, door and lighting stay unchanged. The boy stays a photorealistic real child and Lume stays a stylized animated character.\n\nNo speech, no music.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_122320_f188111f-c097-4c6f-a5f1-8e123f94b10f.mp4",
+      "created": "2026-10-12T15:25:17"
+    },
+    {
+      "file": "shots/candidates/S2-lume-angry-v3.mp4",
+      "model": "wan2_7",
+      "job_id": "f859f0d4-0eb0-4787-90ad-d1a3c797e610",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S2_L1_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S2-lume-angry-v3.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, grumpily. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.1 seconds, saying: \"אני רוצה לדבר עם האריה הזה\".\n\nPerformance: grumpy and fuming. He scowls with lowered eyebrows and leans forward a little as he speaks through a small pouting mouth with his lips pushed forward; his mouth makes small rounded shapes and never opens wide. Both paws stay resting on the table. After the last word he shuts his mouth and glares. Head movement stays small and restrained; the eyebrows do the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_122406_f859f0d4-0eb0-4787-90ad-d1a3c797e610.mp4",
+      "created": "2026-10-12T15:25:22"
+    },
+    {
+      "file": "shots/candidates/S2-lume-angry-v4.mp4",
+      "model": "wan2_7",
+      "job_id": "75d322f1-a8f7-4c98-ac07-0fd89c68124a",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S2_L1_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S2-lume-angry-v4.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, angrily. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.1 seconds, saying: \"אני רוצה לדבר עם האריה הזה\".\n\nPerformance: angry and fuming. He scowls with lowered eyebrows and taps one paw on the table on the last two words; the paw stays low on the tabletop. After the last word he shuts his mouth and glares. Head and paw movement stay small and restrained; the face does the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_122728_75d322f1-a8f7-4c98-ac07-0fd89c68124a.mp4",
+      "created": "2026-10-12T15:28:20"
+    },
+    {
+      "file": "shots/candidates/S3-toddler-lama-v2.mp4",
+      "model": "wan2_7",
+      "job_id": "f166e4fc-0d66-471b-a805-040d38cd0a39",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "stills/toddler-seated-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S3_T1_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S3-toddler-lama-v2.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nThe toddler boy seated at the podcast table asks one short Hebrew word to his co-host off-screen to the left, calm and curious. His speech is exactly the reference audio and his lips are synced to it: one word from 0.7 to 1.2 seconds: \"למה?\".\n\nPerformance: serious and curious, wide awake. His eyes stay open and fixed on the co-host the whole time he speaks. He tilts his head slightly and raises his eyebrows a little as he asks, with a small natural mouth movement, then waits with his mouth closed and keeps looking at the co-host. His hands stay resting on the table.\n\nHe stays a photorealistic real child, identical to the first frame: same face, round glasses, hair, white T-shirt, five fingers on each hand. The microphone, chair, door, table, plants and lighting stay completely still and unchanged. The picture book standing on the table does not move and its cover stays exactly as in the first frame.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_124427_f166e4fc-0d66-471b-a805-040d38cd0a39.mp4",
+      "created": "2026-10-12T15:45:55"
+    },
+    {
+      "file": "shots/candidates/S4-lume-kaniti-v3.mp4",
+      "model": "wan2_7",
+      "job_id": "b2561730-09c4-4083-90be-8f3ce1a42bd4",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/audio/lume-line-v1-padded-4s.wav"
+      ],
+      "prompt_file": "prompts/shot-S4-lume-kaniti-v3.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, says one Hebrew sentence to his co-host off-screen to the right, with exaggerated comic indignation. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.8 seconds, saying: \"קניתי בגללו ארבע מאות קילו תותים\".\n\nPerformance: he delivers the line with wide eyes and eyebrows that jump up and then furrow, leaning a little toward the co-host, with one small outraged head shake on the words \"ארבע מאות\". His head stays at the same height in the frame. His mouth moves the way it looks in the first frame: soft rounded open shapes showing the dark inside of the mouth, the pink tongue and the two small upper front teeth. Both paws stay resting flat on the table the whole time. After the last word he shuts his mouth and holds a huffy, offended stare. Movement stays small and restrained; the face does the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_124426_b2561730-09c4-4083-90be-8f3ce1a42bd4.mp4",
+      "created": "2026-10-12T15:46:02"
+    },
+    {
+      "file": "shots/candidates/S2-lume-angry-v5-b.mp4",
+      "model": "wan2_7",
+      "job_id": "3ad85807-646a-4d9a-8bfa-c43a05a58f75",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S2_L1_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S2-lume-angry-v5.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, with exaggerated comic indignation. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.1 seconds, saying: \"אני רוצה לדבר עם האריה הזה\".\n\nPerformance: offended and worked up, complaining. His eyebrows pull down toward his nose and he leans a little toward the co-host as he talks. His mouth moves the way it looks in the first frame: soft rounded open shapes showing the dark inside of the mouth, the pink tongue and the two small upper front teeth. Both paws stay resting flat on the table the whole time. After the last word he shuts his mouth and stares, huffy and offended. Head movement stays small and restrained; the eyebrows do the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_124426_3ad85807-646a-4d9a-8bfa-c43a05a58f75.mp4",
+      "created": "2026-10-12T15:46:05"
+    },
+    {
+      "file": "shots/candidates/S2-lume-angry-v5-a.mp4",
+      "model": "wan2_7",
+      "job_id": "c1eed816-be8a-4f37-b40c-52a261e0bc56",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S2_L1_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S2-lume-angry-v5.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, with exaggerated comic indignation. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.1 seconds, saying: \"אני רוצה לדבר עם האריה הזה\".\n\nPerformance: offended and worked up, complaining. His eyebrows pull down toward his nose and he leans a little toward the co-host as he talks. His mouth moves the way it looks in the first frame: soft rounded open shapes showing the dark inside of the mouth, the pink tongue and the two small upper front teeth. Both paws stay resting flat on the table the whole time. After the last word he shuts his mouth and stares, huffy and offended. Head movement stays small and restrained; the eyebrows do the acting.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_124430_c1eed816-be8a-4f37-b40c-52a261e0bc56.mp4",
+      "created": "2026-10-12T15:46:09"
+    },
+    {
+      "file": "shots/candidates/S2-lume-angry-v6.mp4",
+      "model": "wan2_7",
+      "job_id": "cdcd63d2-74ba-45b4-8b5d-802f70aa70aa",
+      "flags": [
+        "--aspect_ratio",
+        "16:9",
+        "--resolution",
+        "1080p",
+        "--duration",
+        "4",
+        "--start-image",
+        "/Users/yarinbruner/Claude/Projects/Lumebook/media/projects/2026-10-12-podcast-lume-pilot/still/lume-left-seat-master-v1-1920x1080.png",
+        "--audio-references",
+        "audio/gen/S2_L1_pad4.wav"
+      ],
+      "prompt_file": "prompts/shot-S2-lume-angry-v6.txt",
+      "prompt": "Single continuous shot, locked-off tripod camera: no camera movement, no zoom, no cuts.\n\nLume, the furry mascot seated at the podcast table, speaks one Hebrew sentence to his co-host off-screen to the right, with exaggerated comic indignation. His speech is exactly the reference audio and his lips are synced to it: he starts speaking at 0.6 seconds and finishes at 2.1 seconds, saying: \"אני רוצה לדבר עם האריה הזה\".\n\nPerformance: offended and worked up, complaining. In the first half second he closes his mouth and frowns. Then he says the line: his eyebrows pull down toward his nose while his head keeps facing the camera and stays in the same place in the frame, with only a slight forward nod on the last word. His eyes look off-screen to the right at the co-host. His mouth makes soft rounded open shapes showing the dark inside of the mouth, the pink tongue and the two small upper front teeth. Both paws stay resting flat on the table the whole time. After the last word he shuts his mouth firmly and stares, huffy and offended.\n\nHe stays exactly on-model as in the first frame: same fur, ears, eyes, eyebrows, nose, whiskers, two small upper front teeth, hair tuft and tail. The microphone, chair, table, shelves, plants and lighting stay completely still and unchanged.\n\nAudio: only his voice from the reference audio. No music, no sound effects, no other voices.",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KVTyofAjT8NMSEQ8aVEI6YuWHx/hf_20261012_124854_cdcd63d2-74ba-45b4-8b5d-802f70aa70aa.mp4",
+      "created": "2026-10-12T15:49:45"
+    }
+  ]
+}

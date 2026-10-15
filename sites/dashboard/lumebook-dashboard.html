@@ -401,7 +401,7 @@ tr.test td { opacity: .5; }
       <line class="grid" x1="${P}" x2="${W - P}" y1="${H - P}" y2="${H - P}"/>
       <path class="area" d="${d}L${x(last)},${H - P}L${x(0)},${H - P}Z"/><path class="line" d="${d}"/>
       <circle class="dot" cx="${x(last)}" cy="${y(pts[last][key])}" r="3.5"/></svg>
-      <div class="lb-note">מ-${esc(dm(parseISODate(pts[0].date)))} עד ${esc(dm(parseISODate(pts[last].date)))} · ${pts.length} ימים</div>`;
+      <div class="lb-note">מ-${esc(dm(parseISODate(pts[0].date)))} עד ${esc(dm(parseISODate(pts[last].date)))} · ${pts.length} מדידות</div>`;
   }
 
   function renderKpis() {
@@ -417,7 +417,7 @@ tr.test td { opacity: .5; }
     $("kpis").innerHTML = `
       <div class="lb-card lb-stat"><span class="lb-stat-label">עוקבים <bdi class="lb-ltr">@lumebookai</bdi></span>
         <span class="lb-stat-value">${fmt(shown)}${delta ? `<small class="lb-delta ${delta > 0 ? "up" : "down"}">${ltr((delta > 0 ? "+" : "") + delta)}</small>` : ""}</span>
-        ${ig == null && igp.error ? `<span class="lb-chip warning">אינסטגרם לא החזיר את הפרופיל היום${lastKnown ? ` · נתון מ-${esc(dm(parseISODate(lastKnown.date)))}` : ""}</span>` : ""}
+        ${ig == null && igp.error ? `<span class="lb-chip warning wrap"><span class="lb-dot"></span>הפרופיל לא נטען היום${lastKnown ? `, מוצג נתון מ-${esc(dm(parseISODate(lastKnown.date)))}` : ""}</span>` : ""}
         <div class="lb-bar" title="יעד דצמבר 3-4K"><i style="width:${shown ? Math.min(100, shown / 3000 * 100) : 0}%"></i></div>
         <span class="lb-stat-foot">יעד דצמבר 3-4K${igp.posts ? ` · ${igp.posts} פוסטים` : ""}</span>
         ${spark(S.history, "ig_lumebookai")}</div>

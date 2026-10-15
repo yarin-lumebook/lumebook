@@ -1,0 +1,29 @@
+{
+  "order": [
+    "picture"
+  ],
+  "max_replacements_per_job": 2,
+  "jobs": {
+    "picture": {
+      "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Characters, identical on every slide: A 4-year-old Israeli boy with sandy-blond straight hair, light freckles across his nose, green eyes and a round face; about 103 cm tall. His mother, early thirties, light-brown skin, long dark hair in a loose braid, natural no-makeup look, and his father, mid-thirties, short dark curly hair and a trimmed beard; both calm and a little tired in a real way. Wardrobe: Boy: forest-green hoodie over a cream T-shirt, grey joggers, bare feet at home. Mother: oatmeal knit cardigan, faded blue jeans, a thin gold ring. Father: charcoal T-shirt and dark jeans.\n\nScene: The boy faces the viewer and looks straight into the camera with raised eyebrows and an open-mouthed puzzled gasp; a few wooden blocks lie toppled on the rug beside him, and his parents sit small and soft in the background on the sofa. Setting: A cosy Israeli living room with a woven rug on cream floor tiles; a plain cream wall behind. A soft blurred friend sits far in the background.\n\nCover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.\n\nEmotional beat: a real question after the tower fell, wide-eyed\n\nCamera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Soft warm window light from the right.\n\nWardrobe and objects in this scene: A few toppled wooden blocks on the rug.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.\n\nComposition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain warm cream wall) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [],
+      "estimated_cost_usd": 0.055,
+      "purpose": "the one picture behind all 10 slides · a real question after the tower fell, wide-eyed",
+      "text_zone": {
+        "edge": "top",
+        "percent": 45,
+        "surface": "plain warm cream wall"
+      }
+    }
+  }
+}

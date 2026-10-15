@@ -84,49 +84,48 @@
     },
     {
       "date": "2026-10-09",
-      "generated_at": "2026-10-08T11:31:59+03:00",
+      "generated_at": "2026-10-08T22:06:50+03:00",
       "topic_id": "fear-of-dark",
       "topic": "פחד מחושך",
       "hook_families": [
+        "analogy",
         "child_pov",
         "child_quote",
-        "moment",
         "normalising",
-        "practical_question",
-        "reframe"
+        "practical_question"
       ],
       "code_words": [
         "אור",
+        "דלת",
         "חושך",
-        "כוכב",
         "לילה",
         "מפלצת",
         "פנס"
       ],
       "hooks": [
-        "אני לא מפחדת מהחושך",
-        "״אתם חוזרים לבדוק אותי?״",
-        "כשהאור במסדרון נכבה",
-        "עוד ועוד מנורות בחדר",
-        "מה עונים לבת 4 ששואלת על מפלצות?",
-        "רק שתדעו"
+        "אני לא קוראת לך בגלל המים",
+        "אמא ואבא 2 דברים שיעזרו לי בלילה",
+        "״את משאירה את הדלת פתוחה?״",
+        "דמייני שאת ישנה בבית לא מוכר",
+        "רק שתדעו פחד מהחושך בגיל 4",
+        "מה אומרים לבן 5 שבטוח שיש מפלצת בארון?"
       ],
       "slide2_hooks": [
-        "את אומרת ״אין פה כלום״",
-        "כשהדלת נסגרת",
-        "מאז הסרט עם המכשפה",
-        "אור קטן אחד מספיק",
-        "ספריי נגד מפלצות נשמע חמוד",
-        "רק שתדעו גם את זה"
+        "את סוגרת את הדלת בשקט",
+        "הכי קשה לי הרגע שהאור נכבה",
+        "פס האור מהמסדרון על הרצפה",
+        "שירה בת 4 במיטה",
+        "רק שתדעו הרבה ילדים מפחדים בלילה",
+        "״אין שם כלום״ לא תמיד מרגיע"
       ],
       "options": [
         {
           "id": "kid-1",
           "hook_family": "child_pov",
           "hook_formula": "child-not-because",
-          "code_word": "חושך",
-          "child_name": "תמר",
-          "title": "אני לא מפחדת מהחושך",
+          "code_word": "לילה",
+          "child_name": "טליה",
+          "title": "אני לא קוראת לך בגלל המים",
           "mechanism": "perspective_shift",
           "shape": "negation",
           "slide2_move": "other_side",
@@ -134,37 +133,468 @@
         },
         {
           "id": "kid-2",
+          "hook_family": "child_pov",
+          "hook_formula": "child-numbered-ask",
+          "code_word": "אור",
+          "child_name": "יונתן",
+          "title": "אמא ואבא 2 דברים שיעזרו לי בלילה",
+          "mechanism": "practical_utility",
+          "shape": "numbered",
+          "slide2_move": "first_answer",
+          "awareness_stage": "solution_aware"
+        },
+        {
+          "id": "kid-3",
           "hook_family": "child_quote",
           "hook_formula": "child-question",
-          "code_word": "פנס",
-          "child_name": "איתי",
-          "title": "״אתם חוזרים לבדוק אותי?״",
+          "code_word": "דלת",
+          "child_name": "מעיין",
+          "title": "״את משאירה את הדלת פתוחה?״",
           "mechanism": "honest_curiosity",
           "shape": "quote",
           "slide2_move": "zoom_in",
           "awareness_stage": "problem_aware"
         },
         {
+          "id": "expert-1",
+          "hook_family": "analogy",
+          "hook_formula": "analogy-scene",
+          "code_word": "חושך",
+          "child_name": "שירה",
+          "title": "דמייני שאת ישנה בבית לא מוכר",
+          "mechanism": "reframe",
+          "shape": "imagine",
+          "slide2_move": "scene_restart",
+          "awareness_stage": "unaware"
+        },
+        {
+          "id": "expert-2",
+          "hook_family": "normalising",
+          "hook_formula": "just-so-you-know",
+          "code_word": "פנס",
+          "child_name": "נדב",
+          "title": "רק שתדעו פחד מהחושך בגיל 4",
+          "mechanism": "reassurance",
+          "shape": "just_so_you_know",
+          "slide2_move": "same_template",
+          "awareness_stage": "problem_aware"
+        },
+        {
+          "id": "expert-3",
+          "hook_family": "practical_question",
+          "hook_formula": "practical-question",
+          "code_word": "מפלצת",
+          "child_name": "איתן",
+          "title": "מה אומרים לבן 5 שבטוח שיש מפלצת בארון?",
+          "mechanism": "practical_utility",
+          "shape": "question",
+          "slide2_move": "first_answer",
+          "awareness_stage": "solution_aware"
+        }
+      ],
+      "selected": []
+    },
+    {
+      "date": "2026-10-11",
+      "generated_at": "2026-10-10T22:07:16+03:00",
+      "topic_id": "first-grade-decompression",
+      "topic": "פריקה אחרי יום בכיתה א׳",
+      "hook_families": [
+        "child_pov",
+        "normalising",
+        "reframe",
+        "surprising_statement"
+      ],
+      "code_words": [
+        "לומי"
+      ],
+      "hooks": [
+        "אמא אל תשאלי אותי איך היה היום",
+        "בכיתה הוא מלאך בבית הר געש",
+        "יש לי סוד על הרגע שאני נכנסת הביתה",
+        "תפסיקי להגיד ״קודם שיעורים״ ברגע שהוא נכנס",
+        "מה שלא מספרים לך על תחילת כיתה א׳",
+        "״הוא מחייך לכולם חוץ מאיתנו״"
+      ],
+      "slide2_hooks": [
+        "בדלת את רוצה לשמוע הכול",
+        "נועם מחזיק את עצמו כל היום בכיתה",
+        "כל היום חיכיתי לך",
+        "כולנו אומרות ״קודם שיעורים״ וגמרנו",
+        "אלה מחזיקה את עצמה כל היום בכיתה",
+        "דניאל לא אוהב אתכם פחות"
+      ],
+      "options": [
+        {
+          "id": "kid-1",
+          "hook_family": "child_pov",
+          "hook_formula": "child-dont",
+          "code_word": "לומי",
+          "child_name": "מאיה",
+          "title": "אמא אל תשאלי אותי איך היה היום",
+          "mechanism": "perspective_shift",
+          "shape": "command",
+          "slide2_move": "other_side",
+          "awareness_stage": "problem_aware"
+        },
+        {
+          "id": "kid-2",
+          "hook_family": "reframe",
+          "hook_formula": "two-faces",
+          "code_word": "לומי",
+          "child_name": "נועם",
+          "title": "בכיתה מלאך בבית הר געש",
+          "mechanism": "recognition",
+          "shape": "contrast_pair",
+          "slide2_move": "name_trigger",
+          "awareness_stage": "unaware"
+        },
+        {
+          "id": "kid-3",
+          "hook_family": "child_pov",
+          "hook_formula": "child-secret",
+          "code_word": "לומי",
+          "child_name": "תמר",
+          "title": "יש לי סוד על הרגע שאני נכנסת הביתה",
+          "mechanism": "honest_curiosity",
+          "shape": "secret",
+          "slide2_move": "zoom_in",
+          "awareness_stage": "problem_aware"
+        },
+        {
+          "id": "expert-1",
+          "hook_family": "reframe",
+          "hook_formula": "stop-one-thing",
+          "code_word": "לומי",
+          "child_name": "רועי",
+          "title": "תפסיקי להגיד קודם שיעורים",
+          "mechanism": "reframe",
+          "shape": "command",
+          "slide2_move": "first_answer",
+          "awareness_stage": "solution_aware"
+        },
+        {
+          "id": "expert-2",
+          "hook_family": "surprising_statement",
+          "hook_formula": "nobody-tells",
+          "code_word": "לומי",
+          "child_name": "אלה",
+          "title": "מה שלא מספרים לך על תחילת כיתה א׳",
+          "mechanism": "anticipation",
+          "shape": "secret",
+          "slide2_move": "name_trigger",
+          "awareness_stage": "unaware"
+        },
+        {
+          "id": "expert-3",
+          "hook_family": "normalising",
+          "hook_formula": "parent-confession",
+          "code_word": "לומי",
+          "child_name": "דניאל",
+          "title": "הוא מחייך לכולם חוץ מאיתנו",
+          "mechanism": "reassurance",
+          "shape": "quote",
+          "slide2_move": "first_answer",
+          "awareness_stage": "problem_aware"
+        }
+      ],
+      "selected": [
+        "kid-2"
+      ]
+    },
+    {
+      "date": "2026-10-12",
+      "generated_at": "2026-10-11T22:07:15+03:00",
+      "topic_id": "transitions",
+      "topic": "מסרב לעבור מפעילות לפעילות",
+      "hook_families": [
+        "child_pov",
+        "moment",
+        "reframe",
+        "sentences_we_say",
+        "story"
+      ],
+      "code_words": [
+        "לומי"
+      ],
+      "hooks": [
+        "מה שאת לא שומעת כשאת אומרת ״יאללה״",
+        "נטע לא עוזבת משפט אחד משנה את זה",
+        "את מכבה את המסך באמצע והיא מתפוצצת",
+        "3 מילים שמזמינות ״לא״ כשמסדרים",
+        "הסיבה האמיתית שהוא לא מפסיק לשחק",
+        "במקום ״יאללה״ נסי ״קודם מסדרים ואז חטיף״"
+      ],
+      "slide2_hooks": [
+        "אני באמצע מגדל גבוה",
+        "נטע בת 4 ליד המגלשה",
+        "הפרק היה בדיוק בקטע הכי טוב",
+        "״רוצה לסדר עכשיו?״",
+        "הוא לא מתעלם מכם",
+        "״יאללה״ הוא רק סוף"
+      ],
+      "options": [
+        {
+          "id": "kid-1",
+          "hook_family": "child_pov",
+          "hook_formula": "child-hidden-half",
+          "code_word": "לומי",
+          "child_name": "אדם",
+          "title": "מה שאת לא שומעת כשאת אומרת יאללה",
+          "mechanism": "perspective_shift",
+          "shape": "statement",
+          "slide2_move": "zoom_in",
+          "awareness_stage": "problem_aware"
+        },
+        {
+          "id": "kid-2",
+          "hook_family": "story",
+          "hook_formula": "one-sentence-changes",
+          "code_word": "לומי",
+          "child_name": "נטע",
+          "title": "משפט אחד משנה את היציאה מהפארק",
+          "mechanism": "narrative_tension",
+          "shape": "story_open",
+          "slide2_move": "scene_restart",
+          "awareness_stage": "problem_aware"
+        },
+        {
           "id": "kid-3",
           "hook_family": "moment",
           "hook_formula": "child-body-moment",
-          "code_word": "לילה",
-          "child_name": "נטע",
-          "title": "כשהאור במסדרון נכבה",
+          "code_word": "לומי",
+          "child_name": "ליה",
+          "title": "המסך נכבה באמצע",
           "mechanism": "recognition",
           "shape": "time_place",
           "slide2_move": "name_trigger",
+          "awareness_stage": "solution_aware"
+        },
+        {
+          "id": "expert-1",
+          "hook_family": "sentences_we_say",
+          "hook_formula": "words-that-backfire",
+          "code_word": "לומי",
+          "child_name": "רוני",
+          "title": "3 מילים שמזמינות ״לא״",
+          "mechanism": "honest_curiosity",
+          "shape": "numbered",
+          "slide2_move": "first_answer",
+          "awareness_stage": "unaware"
+        },
+        {
+          "id": "expert-2",
+          "hook_family": "reframe",
+          "hook_formula": "real-reason",
+          "code_word": "לומי",
+          "child_name": "גיא",
+          "title": "הסיבה האמיתית שהוא לא מפסיק",
+          "mechanism": "reframe",
+          "shape": "statement",
+          "slide2_move": "name_trigger",
+          "awareness_stage": "problem_aware"
+        },
+        {
+          "id": "expert-3",
+          "hook_family": "sentences_we_say",
+          "hook_formula": "instead-of-say",
+          "code_word": "לומי",
+          "child_name": "עלמה",
+          "title": "במקום יאללה",
+          "mechanism": "practical_utility",
+          "shape": "contrast_pair",
+          "slide2_move": "contrast",
+          "awareness_stage": "solution_aware"
+        }
+      ],
+      "selected": [
+        "kid-3"
+      ]
+    },
+    {
+      "date": "2026-10-13",
+      "generated_at": "2026-10-12T22:06:19+03:00",
+      "topic_id": "new-sibling",
+      "topic": "אח חדש והגדול שחוזר אחורה",
+      "hook_families": [
+        "child_pov",
+        "normalising",
+        "practical_question",
+        "reframe",
+        "surprising_statement"
+      ],
+      "code_words": [
+        "לומי"
+      ],
+      "hooks": [
+        "אמא אל תגידי לי שאני כבר גדולה",
+        "אני לא שונא את התינוק אני מתגעגע אליכם",
+        "בגן אני הכי גדולה בבית שוב תינוקת",
+        "״אני מתגעגעת לגדול שלי״",
+        "מה שלא מספרים לכם על הגדול כשנולד תינוק",
+        "מה עונים לבת 4 שמבקשת בקבוק כמו התינוק?"
+      ],
+      "slide2_hooks": [
+        "כשהתינוק על הידיים שלך אני רוצה להיות קטנה",
+        "״תחזירו אותו כבר״",
+        "מאז שהתינוק הגיע יש לי שוב פספוסים",
+        "מותר להתגעגע אליו",
+        "תומר נגמל לפני חצי שנה",
+        "מיכל בת 4 ורוצה בקבוק כמו שלו"
+      ],
+      "options": [
+        {
+          "id": "kid-1",
+          "hook_family": "child_pov",
+          "hook_formula": "child-dont",
+          "code_word": "לומי",
+          "child_name": "אביגיל",
+          "title": "אמא אל תגידי לי שאני כבר גדולה",
+          "mechanism": "perspective_shift",
+          "shape": "command",
+          "slide2_move": "other_side",
+          "awareness_stage": "problem_aware"
+        },
+        {
+          "id": "kid-2",
+          "hook_family": "child_pov",
+          "hook_formula": "child-not-because",
+          "code_word": "לומי",
+          "child_name": "עומר",
+          "title": "אני לא שונא את התינוק אני מתגעגע אליכם",
+          "mechanism": "reframe",
+          "shape": "negation",
+          "slide2_move": "first_answer",
+          "awareness_stage": "problem_aware"
+        },
+        {
+          "id": "kid-3",
+          "hook_family": "reframe",
+          "hook_formula": "two-faces",
+          "code_word": "לומי",
+          "child_name": "ליבי",
+          "title": "בגן אני הכי גדולה בבית שוב תינוקת",
+          "mechanism": "recognition",
+          "shape": "contrast_pair",
+          "slide2_move": "name_trigger",
+          "awareness_stage": "problem_aware"
+        },
+        {
+          "id": "expert-1",
+          "hook_family": "normalising",
+          "hook_formula": "parent-confession",
+          "code_word": "לומי",
+          "child_name": "איתי",
+          "title": "אני מתגעגעת לגדול שלי",
+          "mechanism": "reassurance",
+          "shape": "quote",
+          "slide2_move": "first_answer",
+          "awareness_stage": "unaware"
+        },
+        {
+          "id": "expert-2",
+          "hook_family": "surprising_statement",
+          "hook_formula": "nobody-tells",
+          "code_word": "לומי",
+          "child_name": "תומר",
+          "title": "מה שלא מספרים לכם על הגדול כשנולד תינוק",
+          "mechanism": "honest_curiosity",
+          "shape": "secret",
+          "slide2_move": "name_trigger",
+          "awareness_stage": "unaware"
+        },
+        {
+          "id": "expert-3",
+          "hook_family": "practical_question",
+          "hook_formula": "practical-question",
+          "code_word": "לומי",
+          "child_name": "מיכל",
+          "title": "מה עונים לבת 4 שמבקשת בקבוק כמו התינוק",
+          "mechanism": "practical_utility",
+          "shape": "question",
+          "slide2_move": "promise",
+          "awareness_stage": "solution_aware"
+        }
+      ],
+      "selected": []
+    },
+    {
+      "date": "2026-10-14",
+      "generated_at": "2026-10-14T11:04:40+03:00",
+      "topic_id": "sorry-on-command",
+      "topic": "קשה לו להגיד סליחה",
+      "hook_families": [
+        "child_pov",
+        "objection",
+        "practical_question",
+        "reframe",
+        "sentences_we_say"
+      ],
+      "code_words": [
+        "לומי"
+      ],
+      "hooks": [
+        "אמא ואבא לסליחה אמיתית אני צריכה 9 דברים",
+        "תפסיקו להגיד לי ״תבקש סליחה״",
+        "מה שאת לא שומעת אחרי ״תגידי סליחה״",
+        "תפסיקו להגיד ״תגיד סליחה״ 8 דברים במקומה",
+        "איך עוזרים לבת 4 להתנצל באמת? 8 צעדים",
+        "״אם לא נכריח אותו להתנצל הוא לא ילמד״"
+      ],
+      "slide2_hooks": [
+        "סליחה בלי להבין לא מלמדת אותי",
+        "אני אומר סליחה מהר כדי לחזור לשחק",
+        "כולם מסתכלים ואני נעצרת",
+        "סליחה בכוח לא בהכרח מלמדת מה השני מרגיש",
+        "מלמדים להגיד ״סליחה״ בלי ללמד על מה",
+        "אם הוא לא מבין למה ״סליחה״ לא מלמדת"
+      ],
+      "options": [
+        {
+          "id": "kid-1",
+          "hook_family": "child_pov",
+          "hook_formula": "child-numbered-ask",
+          "code_word": "לומי",
+          "child_name": "שקד",
+          "title": "אמא ואבא לסליחה אמיתית אני צריכה 9 דברים",
+          "mechanism": "practical_utility",
+          "shape": "numbered",
+          "slide2_move": "first_answer",
+          "awareness_stage": "solution_aware"
+        },
+        {
+          "id": "kid-2",
+          "hook_family": "sentences_we_say",
+          "hook_formula": "sentence-we-all-say",
+          "code_word": "לומי",
+          "child_name": "אלון",
+          "title": "6 דברים במקום ״תבקש סליחה״",
+          "mechanism": "reframe",
+          "shape": "quote",
+          "slide2_move": "other_side",
+          "awareness_stage": "problem_aware"
+        },
+        {
+          "id": "kid-3",
+          "hook_family": "child_pov",
+          "hook_formula": "child-hidden-half",
+          "code_word": "לומי",
+          "child_name": "עדי",
+          "title": "7 דברים שעוזרים לה להגיד סליחה",
+          "mechanism": "perspective_shift",
+          "shape": "statement",
+          "slide2_move": "other_side",
           "awareness_stage": "unaware"
         },
         {
           "id": "expert-1",
           "hook_family": "reframe",
-          "hook_formula": "reversal",
-          "code_word": "אור",
-          "child_name": "אדם",
-          "title": "עוד ועוד מנורות בחדר",
+          "hook_formula": "stop-one-thing",
+          "code_word": "לומי",
+          "child_name": "יואב",
+          "title": "תפסיקו להגיד תגיד סליחה, 8 דברים במקומה",
           "mechanism": "reframe",
-          "shape": "statement",
+          "shape": "command",
           "slide2_move": "contrast",
           "awareness_stage": "solution_aware"
         },
@@ -172,9 +602,9 @@
           "id": "expert-2",
           "hook_family": "practical_question",
           "hook_formula": "practical-question",
-          "code_word": "מפלצת",
-          "child_name": "מאיה",
-          "title": "מה עונים לבת 4 ששואלת על מפלצות?",
+          "code_word": "לומי",
+          "child_name": "אגם",
+          "title": "איך עוזרים לבת 4 להגיד סליחה באמת: 8 צעדים",
           "mechanism": "practical_utility",
           "shape": "question",
           "slide2_move": "first_answer",
@@ -182,18 +612,20 @@
         },
         {
           "id": "expert-3",
-          "hook_family": "normalising",
-          "hook_formula": "just-so-you-know",
-          "code_word": "כוכב",
-          "child_name": "עומר",
-          "title": "רק שתדעו",
+          "hook_family": "objection",
+          "hook_formula": "parent-worry-quote",
+          "code_word": "לומי",
+          "child_name": "רון",
+          "title": "9 דרכים ללמד סליחה בלי לכפות",
           "mechanism": "reassurance",
-          "shape": "just_so_you_know",
-          "slide2_move": "same_template",
+          "shape": "quote",
+          "slide2_move": "first_answer",
           "awareness_stage": "problem_aware"
         }
       ],
-      "selected": []
+      "selected": [
+        "kid-2"
+      ]
     }
   ]
 }

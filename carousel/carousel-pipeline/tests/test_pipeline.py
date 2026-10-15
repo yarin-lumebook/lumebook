@@ -11,6 +11,7 @@ import copy
 import hashlib
 import io
 import json
+import re
 import os
 import shutil
 import socket
@@ -33,6 +34,7 @@ import carousel_lib as lib  # noqa: E402
 import compose_slides  # noqa: E402
 import create_review  # noqa: E402
 import prepare_fal_jobs  # noqa: E402
+import review_server  # noqa: E402
 import validate_pack  # noqa: E402
 import voice_lint  # noqa: E402
 
@@ -304,7 +306,7 @@ class ValidatorHardRules(unittest.TestCase):
 
     def test_banned_hook_openers(self):
         pack = load()
-        version(pack, "expert-1")["slides"][0]["headline"] = "לא תאמינו מה קורה בשער"
+        version(pack, "expert-1")["slides"][0]["headline"] = "חובה לראות מה קורה בשער"
         self.assertTrue(any("banned hook opener" in e.message for e in errors(pack)))
 
     def test_each_option_uses_its_own_formula(self):
@@ -462,6 +464,67 @@ def messages(pack, **kw):
     return [e.message for e in errors(pack, **kw)]
 
 
+COVER_OK = {"action": "The girl faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, "
+                       "both hands gripping her backpack straps; her mother is small and soft in the background at the gate.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame."}
+
+
+def cover_pack():
+    """A schema 3 pack written after the slide 1 thumbnail rule (and before the bold look's shorter lines),
+    with a cover brief on every option."""
+    pack = load_v3()
+    pack["generated_at"] = "2026-10-10T17:30:00+03:00"
+    for f in pack["product_facts"]:
+        f["checked_at"] = "2026-10-11"
+    for d in pack["directions"]:
+        for v in d["versions"]:
+            v["slides"][0]["image"].update(COVER_OK)
+            for key in lib.COVER_HOOK_MUST_BE_2:
+                candidate(pack, v["hook"]["slate_id"])["score"][key] = 2
+    return pack
+
+
+class CoverSlide(unittest.TestCase):
+    """Yarin, 10 Oct 2026: slide 1 is clickbaity and always shows the child's face to the viewer, exaggerated."""
+
+    def test_prompt_adds_the_cover_line_only_on_slide_1(self):
+        v = version(load(), "kid-1")
+        first = lib.compose_image_prompt(v["character_anchor"], v["slides"][0]["image"], 1, pillar="kid")
+        third = lib.compose_image_prompt(v["character_anchor"], v["slides"][2]["image"], 3, pillar="kid")
+        self.assertIn(lib.COVER_FACE, first)
+        self.assertIn("FACES THE VIEWER", first)
+        self.assertIn("exaggerated", first)
+        self.assertNotIn("exaggerated sadness or tears", first)   # the usual avoid line would fight the expression
+        self.assertNotIn(lib.PILLARS["kid"]["photo"], first)       # the cover has its own framing
+        self.assertNotIn(lib.COVER_FACE, third)
+        self.assertIn(lib.PILLARS["kid"]["photo"], third)
+        edit = lib.compose_image_prompt(v["character_anchor"], v["slides"][0]["image"], 1, for_edit=True, pillar="expert")
+        self.assertIn(lib.COVER_FACE, edit)
+
+    def test_new_packs_need_a_face_to_camera_cover(self):
+        self.assertEqual(errors(cover_pack()), [])
+        pack = cover_pack()
+        img = version(pack, "kid-2")["slides"][0]["image"]
+        img["action"] = "Seen from inside the kindergarten, the parents walk away while the girl watches them go."
+        img["camera"] = "From behind the girl at her height."
+        msgs = messages(pack)
+        self.assertTrue(any("faces the viewer" in m for m in msgs))
+        self.assertTrue(any("from behind" in m.lower() for m in msgs))
+        pack = cover_pack()
+        version(pack, "expert-1")["slides"][0]["image"]["action"] = "The girl faces the viewer and looks into the camera, calm, by the gate."
+        self.assertTrue(any("exaggerated expression" in m for m in messages(pack)))
+
+    def test_packs_written_before_the_rule_still_validate(self):
+        self.assertEqual(errors(load_v3()), [])   # generated 7 Oct, slide 1 briefs from before the rule
+        self.assertFalse(lib.cover_rule_applies(load()))
+
+    def test_only_the_strongest_hook_candidates_reach_slide_1(self):
+        pack = cover_pack()
+        cid = version(pack, "kid-1")["hook"]["slate_id"]
+        candidate(pack, cid)["score"]["stopping_power"] = 1
+        self.assertTrue(any("slide 1 is the thumbnail" in m and "stopping_power" in m for m in messages(pack)))
+
+
 class HookStrategy(unittest.TestCase):
     """Hook bank evidence, the nightly hook slate and the diversity rules (hook strategy research, 8 Oct 2026)."""
 
@@ -594,7 +657,7 @@ class HookStrategy(unittest.TestCase):
             ("e4", "slide2", "רק שתדעי, זה מוכר", "forbidden comma"),
             ("e5", "hook", "ספר שבו הילד שלך הוא הגיבור", "hooks never sell"),
             ("e4", "hook", "רק שתדעי\nלפני שיהיה מאוחר", "banned hook wording"),
-            ("e6", "hook", "תפסיקי להגיד לו את זה", "banned hook wording"),
+            ("e6", "hook", "את עושה את זה לא נכון", "banned hook wording"),
             ("k5", "slide2", "אבל בשער אני מחזיק חזק", "leans on slide 1"),
             ("k4", "hook", "אמא\nאבא שוכח אותי בגן", "never talk to dad"),
             ("e5", "hook", "דמייני שמחר בבוקר בעבודה חדשה לגמרי אין לך אף מושג", "hook main line"),
@@ -997,6 +1060,279 @@ class Editor(unittest.TestCase):
 
 
 @unittest.skipUnless(Path(lib.CHROME).exists(), "Google Chrome is needed for the renderer test")
+class BoldLook(unittest.TestCase):
+    """The bold look (10 Oct 2026): short lines for very large type and one highlighted phrase per slide."""
+
+    def test_rule_starts_after_the_cover_rule(self):
+        self.assertFalse(lib.bold_rule_applies(cover_pack()))
+        self.assertTrue(lib.bold_rule_applies({"generated_at": "2026-10-10T22:05:00+03:00"}))
+
+    def test_highlight_is_whole_words_from_one_headline_line(self):
+        slide = {"number": 3, "headline": "קשה לי בעיקר\nברגע שאתם הולכים", "highlight": "ברגע שאתם הולכים"}
+        self.assertEqual(lib.highlight_issues("p", slide), [])
+        for bad, why in (("", "name the 1 to 3 words"), ("רגע שאתם", "cuts a word"), ("בעיקר ברגע", "not in the headline"),
+                         ("קשה לי בעיקר", None)):
+            msgs = [i.message for i in lib.highlight_issues("p", {**slide, "highlight": bad})]
+            if why:
+                self.assertTrue(any(why in m for m in msgs), (bad, msgs))
+            else:
+                self.assertEqual(msgs, [])
+        long = {"number": 2, "headline": "אחת שתיים שלוש ארבע", "highlight": "אחת שתיים שלוש ארבע"}
+        self.assertTrue(any("max 3" in i.message for i in lib.highlight_issues("p", long)))
+        self.assertEqual(lib.highlight_issues("p", {"number": lib.CTA_SLIDE, "headline": "סיפור אישי"}), [])
+
+    def test_new_packs_get_the_short_line_limits(self):
+        pack = cover_pack()
+        pack["generated_at"] = "2026-10-10T22:05:00+03:00"
+        msgs = messages(pack)
+        self.assertTrue(any("highlight" in m for m in msgs))
+        v = version(pack, "kid-1")
+        v["slides"][0]["headline"] = "כותרת ארוכה מדי לשער של קרוסלה"
+        self.assertTrue(any(f"max {lib.COVER_HEADLINE_LINE_MAX_CHARS}" in m for m in messages(pack)))
+
+    def test_renderer_marks_the_phrase_the_bubble_and_the_button(self):
+        html = compose_slides.lines_html("2 דברים שיעזרו לי", highlight="2 דברים")
+        self.assertIn('<span class="hl">2 דברים</span>', html)
+        self.assertIn('<span class="q">', compose_slides.lines_html("ואז ״נועה ביי נתראה בצהריים״", bubbles=True))
+        self.assertNotIn('class="q"', compose_slides.lines_html('כתבו "גן" בתגובות', bubbles=True))
+        self.assertIn('class="btn"', compose_slides.lines_html('כתבו "גן" בתגובות\nוקבלו קישור', button='כתבו "גן" בתגובות'))
+        self.assertEqual(compose_slides.slide_highlight({"number": 1, "headline": "אמא ואבא\n2 דברים"}), "2 דברים")
+        self.assertEqual(compose_slides.slide_highlight({"number": 4, "headline": "דבר ראשון"}), "")
+
+    def test_loud_openers_are_allowed_and_shame_is_not(self):
+        text = "תפסיקי לשאול ״איך היה?״ מה שלא מספרים לך הסוד של הבוקר לא תאמיני חייבת לדעת"
+        self.assertFalse(any(re.search(p, text) for p, _ in lib.HOOK_BANNED))
+        for bad in ("את עושה את זה לא נכון", "הורים טובים לא צועקים", "לפני שיהיה מאוחר", "הטעות שכל ההורים עושים"):
+            self.assertTrue(any(re.search(p, bad) for p, _ in lib.HOOK_BANNED), bad)
+
+
+class FixedCodeWord(unittest.TestCase):
+    """Yarin, 10 Oct 2026: the CTA word is always לומי, with no rotation."""
+
+    def pack(self, word):
+        pack = cover_pack()
+        pack["generated_at"] = "2026-10-10T22:30:00+03:00"
+        for d in pack["directions"]:
+            for v in d["versions"]:
+                old = v["code_word"]
+                v["code_word"] = word
+                v["cta"] = v["cta"].replace(f'"{old}"', f'"{word}"')
+                v["slides"][-1]["body"] = review_server.cta_slide_lines(v["cta"])
+                lines = v["caption"].splitlines()
+                lines[-1] = v["cta"]
+                v["caption"] = "\n".join(lines)
+        return pack
+
+    def test_constant_and_cutoff(self):
+        self.assertEqual(lib.CTA_CODE_WORD, "לומי")
+        self.assertFalse(lib.fixed_code_word_applies({"generated_at": "2026-10-10T21:59:00+03:00"}))
+        self.assertTrue(lib.fixed_code_word_applies({"generated_at": "2026-10-10T22:00:00+03:00"}))
+
+    def test_new_packs_accept_only_the_fixed_word(self):
+        self.assertFalse(any("the CTA word is always" in m for m in messages(self.pack("לומי"))))
+        self.assertTrue(any("the CTA word is always" in m for m in messages(self.pack("גן"))))
+
+    def test_the_word_is_not_rotated_out(self):
+        pack = self.pack("לומי")
+        history = {"packs": [{"date": "2026-10-09", "topic_id": "x", "code_words": ["לומי"], "options": []}]}
+        issues = validate_pack.pack_issues(pack, history=history)
+        self.assertFalse(any("was used in the last" in str(i) and "code_word" in str(i) for i in issues))
+
+    def test_old_packs_keep_their_words(self):
+        self.assertFalse(any("the CTA word is always" in m for m in messages(load_v3())))
+
+    def test_brand_check_does_not_treat_it_as_the_brand(self):
+        self.assertFalse(lib.BRAND_RE.search('כתבי "לומי" בתגובות'))
+        self.assertEqual(lib.code_word_issues("code_word", "לומי"), [])
+
+
+class HeadlineStory(unittest.TestCase):
+    """Yarin, 10 Oct 2026: every headline tells its part of the story on its own."""
+
+    def test_order_words_and_fragments_are_refused(self):
+        for head in ("דבר ראשון", "דבר שני", "ועוד דבר קטן", "ואז", "קודם"):
+            self.assertTrue(lib.headline_story_issues("p", {"headline": head}), head)
+        self.assertTrue(lib.headline_story_issues("p", {"headline": "מים ליד"}))
+
+    def test_full_thoughts_pass(self):
+        for head in ("דבר ראשון\nשיניים ספר מיטה", "קודם מים ליד המיטה", "ובלי מסך\nחצי שעה עד שעה", "ואם היא רעבה\nקערת דגנים וחלב"):
+            self.assertEqual(lib.headline_story_issues("p", {"headline": head}), [], head)
+
+    def test_rule_applies_to_new_packs_only(self):
+        pack = cover_pack()
+        version(pack, "kid-1")["slides"][3]["headline"] = "דבר ראשון"
+        self.assertFalse(any("only an order word" in m for m in messages(pack)))
+        pack["generated_at"] = "2026-10-10T22:30:00+03:00"
+        self.assertTrue(any("only an order word" in m for m in messages(pack)))
+
+    def test_review_page_shows_the_headlines_alone(self):
+        import create_review
+        pack = cover_pack()
+        html = create_review.build_html(pack)
+        self.assertIn("הכותרות בלבד", html)
+        self.assertIn(" ← ", html)
+
+
+class ExamplesRule(unittest.TestCase):
+    """Yarin, 10 Oct 2026: wherever a slide lists examples there are 3 to 7 of them."""
+
+    SLIDE = {"headline": "במקום משחק\nסיפור או מוזיקה שקטה", "body": "או אמבטיה לרועי\nשקט לפני השינה"}
+
+    def issues(self, items, version=None):
+        return [str(i) for i in lib.example_issues("p", dict(self.SLIDE, examples=items), version, {})]
+
+    def test_three_to_seven_items_pass(self):
+        self.assertEqual(self.issues(["סיפור", "מוזיקה שקטה", "אמבטיה"]), [])
+        self.assertTrue(any("3 to 7" in m for m in self.issues(["סיפור", "אמבטיה"])))
+        slide = dict(self.SLIDE, body=self.SLIDE["body"] + " " + " ".join(f"פריט{k}" for k in range(1, 6)))
+        many = ["סיפור", "מוזיקה שקטה", "אמבטיה"] + [f"פריט{k}" for k in range(1, 6)]
+        self.assertTrue(any("3 to 7" in str(i) for i in lib.example_issues("p", dict(slide, examples=many), None, {})))
+
+    def test_items_must_be_on_the_slide_and_different(self):
+        self.assertTrue(any("does not appear on the slide" in m for m in self.issues(["סיפור", "אמבטיה", "שיר"])))
+        self.assertTrue(any("different from each other" in m for m in self.issues(["סיפור", "סיפור", "אמבטיה"])))
+
+    def test_no_list_no_check(self):
+        self.assertEqual(lib.example_issues("p", self.SLIDE, None, {}), [])
+
+    def test_the_options_draw_is_enforced(self):
+        self.assertTrue(any("draw for this option is 4" in m for m in self.issues(["סיפור", "מוזיקה שקטה", "אמבטיה"], {"examples_target": 4})))
+        self.assertEqual(self.issues(["סיפור", "מוזיקה שקטה", "אמבטיה"], {"examples_target": 3}), [])
+
+    def test_the_draw_is_saved_and_in_range(self):
+        folder = Path(tempfile.mkdtemp())
+        slots = lib.draw_example_slots(folder)
+        self.assertEqual(set(slots), set(lib.OPTION_IDS))
+        self.assertTrue(all(lib.NUMBERED_EXAMPLES_MIN <= n <= lib.NUMBERED_EXAMPLES_MAX for n in slots.values()))
+        self.assertEqual(lib.draw_example_slots(folder), slots)
+
+    def test_new_packs_need_the_target_and_it_must_match_the_draw(self):
+        pack = cover_pack()
+        pack["generated_at"] = "2026-10-11T00:30:00+03:00"
+        self.assertTrue(any("examples_target" in m for m in messages(pack)))
+        folder = Path(tempfile.mkdtemp())
+        slots = lib.draw_example_slots(folder)
+        for d in pack["directions"]:
+            for v in d["versions"]:
+                v["examples_target"] = slots[v["id"]]
+        self.assertEqual(lib.example_target_issues(pack, folder), [])
+        version(pack, "kid-1")["examples_target"] = slots["kid-1"] % 5 + 3 if slots["kid-1"] % 5 + 3 != slots["kid-1"] else 3 if slots["kid-1"] != 3 else 4
+        self.assertTrue(lib.example_target_issues(pack, folder))
+
+    def test_old_packs_need_nothing(self):
+        self.assertFalse(any("examples_target" in m for m in messages(cover_pack())))
+
+
+class TenSlides(unittest.TestCase):
+    """Yarin, 14 Oct 2026: 10 slides (1 hook, 2 explains, 3 to 8 show 1 or 2 numbered examples each, 9 recaps,
+    10 story and CTA) and one picture for the whole carousel."""
+
+    def fixture(self):
+        f = json.loads((HERE / "fixtures" / "ten_slide_option.json").read_text(encoding="utf-8"))
+        return {"generated_at": f["generated_at"]}, f["version"], set(f["product_ids"])
+
+    def errs(self, v=None):
+        pack, v0, ids = self.fixture()
+        return [str(i) for i in validate_pack.version_issues("kid", v or v0, pack, ids) if i.level == "ERROR"]
+
+    def test_the_fixture_option_passes(self):
+        self.assertEqual(self.errs(), [])
+
+    def test_seven_slides_are_rejected_in_new_packs(self):
+        _, v, _ = self.fixture()
+        v["slides"] = v["slides"][:7]
+        self.assertTrue(any("numbered 1 to 10" in m for m in self.errs(v)))
+
+    def test_one_picture_on_the_option_not_on_slides(self):
+        _, v, _ = self.fixture()
+        image = v.pop("image")
+        self.assertTrue(any("one picture for the whole carousel" in m for m in self.errs(v)))
+        v["image"] = image
+        v["slides"][4]["image"] = image
+        self.assertTrue(any("not on a slide" in m for m in self.errs(v)))
+
+    def test_roles(self):
+        _, v, _ = self.fixture()
+        v["slides"][1]["role"] = "example"
+        self.assertTrue(any("slide 2 must be explain" in m for m in self.errs(v)))
+        _, v, _ = self.fixture()
+        v["slides"][8]["role"] = "resolution"
+        self.assertTrue(any("slide 9 must be recap" in m for m in self.errs(v)))
+
+    def test_one_or_two_examples_per_slide(self):
+        _, v, _ = self.fixture()
+        v["slides"][3]["examples"] = []
+        self.assertTrue(any("1 or 2 numbered examples" in m for m in self.errs(v)))
+
+    def test_numbers_run_across_the_carousel(self):
+        _, v, _ = self.fixture()
+        v["slides"][3]["headline"] = v["slides"][3]["headline"].replace("2 ", "1 ", 1)
+        self.assertTrue(any("example 2" in m for m in self.errs(v)))
+
+    def test_explain_and_recap_list_no_examples(self):
+        _, v, _ = self.fixture()
+        v["slides"][8]["examples"] = ["לחכות"]
+        self.assertTrue(any("slide 9 recaps" in m for m in self.errs(v)))
+
+    def test_total_matches_the_draw_and_the_cover(self):
+        _, v, _ = self.fixture()
+        v["examples_target"] = 7
+        self.assertTrue(any("draw for this option is 7" in m for m in self.errs(v)))
+        _, v, _ = self.fixture()
+        v["slides"][0]["headline"] = v["slides"][0]["headline"].replace("6", "5")
+        self.assertTrue(any("cover promises 5" in str(i) for i in lib.numbered_example_issues("p", v)))
+
+    def test_a_whole_ten_slide_pack_passes_schema_and_rules(self):
+        """The nightly run validates the schema as well as the rules: claims on slides 8 to 10 must be accepted."""
+        pack = load_v3()
+        fx = json.loads((HERE / "fixtures" / "ten_slide_option.json").read_text(encoding="utf-8"))
+        pack["generated_at"] = fx["generated_at"]
+        for d in pack["directions"]:
+            for i, v in enumerate(d["versions"]):
+                nv = copy.deepcopy(fx["version"])
+                nv["id"] = v["id"]
+                if d["id"] == "expert":
+                    nv["expert_frame"] = {"type": "evidence_based_take"}
+                d["versions"][i] = nv
+        schema_errors = [m for m in messages(pack) if "must be at most" in m or "is not one of" in m or "is a required" in m or "Additional properties" in m]
+        self.assertEqual(schema_errors, [])
+
+    def test_layout_switches_at_the_cutoff(self):
+        self.assertEqual(lib.slide_roles({"generated_at": "2026-10-13T22:07:20+03:00"}), lib.SLIDE_ROLES)
+        self.assertEqual(lib.slide_count({"generated_at": "2026-10-14T22:00:00+03:00"}), 10)
+        self.assertEqual(lib.slide_roles({"generated_at": "2026-10-14T22:00:00+03:00"})[9], ("recap",))
+
+
+class ValueFirst(unittest.TestCase):
+    """Yarin, 11 Oct 2026: the cover says what value the viewer gets."""
+
+    def test_value_rule_applies_from_the_cutoff(self):
+        self.assertFalse(lib.value_hook_applies({"generated_at": "2026-10-10T23:59:00+03:00"}))
+        self.assertTrue(lib.value_hook_applies({"generated_at": "2026-10-11T00:01:00+03:00"}))
+
+    def test_a_cover_candidate_must_score_2_on_usefulness(self):
+        pack = cover_pack()
+        pack["generated_at"] = "2026-10-11T01:00:00+03:00"
+        for d in pack["directions"]:
+            for v in d["versions"]:
+                candidate(pack, v["hook"]["slate_id"])["score"]["usefulness"] = 2
+        self.assertFalse(any("must say what the viewer gets" in m for m in messages(pack)))
+        candidate(pack, version(pack, "kid-1")["hook"]["slate_id"])["score"]["usefulness"] = 1
+        self.assertTrue(any("must say what the viewer gets" in m for m in messages(pack)))
+
+    def test_an_older_pack_is_not_held_to_it(self):
+        pack = cover_pack()
+        cand = candidate(pack, version(pack, "kid-1")["hook"]["slate_id"])
+        cand["score"]["usefulness"] = 1
+        self.assertFalse(any("must say what the viewer gets" in m for m in messages(pack)))
+
+    def test_value_markers(self):
+        for yes in ("אמא\n2 דברים שיעזרו לי", "משפט אחד סוגר את הערב", "איך מתחילים שגרת שינה", "במקום ״אין ממה לפחד״"):
+            self.assertTrue(lib.VALUE_MARKER_RE.search(yes), yes)
+        for no in ("בכיתה מלאך בבית הר געש", "יש לי סוד"):
+            self.assertFalse(lib.VALUE_MARKER_RE.search(no), no)
+
+
 class Renderer(unittest.TestCase):
     def test_compose_with_placeholders(self):
         out = Path(tempfile.mkdtemp())
@@ -1075,7 +1411,21 @@ class Renderer(unittest.TestCase):
             html = compose_slides.build_html(frozen, images, out, None)
             self.assertNotIn('class="who"', html)
             self.assertNotIn('class="count"', html)
-            self.assertEqual(html.count('<section class="slide dark"'), 1)
+            self.assertEqual(html.count('<section class="slide dark cta"'), 1)
+
+    def test_clean_look_paints_only_the_last_slide(self):
+        """Yarin, 14 Oct 2026: plain type on every slide but the CTA slide, which stays as it was."""
+        f = json.loads((HERE / "fixtures" / "ten_slide_option.json").read_text(encoding="utf-8"))
+        frozen = {"date": "2026-10-15", "direction": "kid", "option": f["version"]}
+        out = Path(tempfile.mkdtemp())
+        images = {s["number"]: out / "x.png" for s in frozen["option"]["slides"]}
+        html = compose_slides.build_html(frozen, images, out, None, look="clean")
+        self.assertIn("look-bold look-clean", html)
+        sections = html.split("<section")[1:]
+        self.assertEqual(len(sections), 10)
+        self.assertTrue(all('class="hl"' not in sec and 'class="q"' not in sec for sec in sections[:-1]))
+        self.assertIn('class="hl"', sections[-1])
+        self.assertIn('class="btn"', sections[-1])
 
 
 if __name__ == "__main__":

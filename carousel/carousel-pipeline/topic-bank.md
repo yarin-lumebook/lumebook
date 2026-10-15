@@ -8,7 +8,7 @@ One topic per nightly pack, so the six candidates compare voice and angle rather
 
 - Add a row to add a topic. The id is lowercase with hyphens and must stay stable once used (history refers to it).
 - `months` is a list of month numbers when the topic is most timely, or `any`.
-- `code words` are ideas for the comment keyword, separated by `/`. One short Hebrew word each. A code word cannot be reused within 14 days. Never use ספר: MeBook's creators already ask for "comment ספר" (carousel research v2, `research/carousel-research/lumebook-carousel-research.html`), so pick a milestone word.
+- `code words` are old ideas for the comment keyword, kept for reference only: since 10 Oct 2026 the CTA word is always `לומי` (Yarin) and the rotation is off. Never use ספר: MeBook's creators already ask for "comment ספר" (carousel research v2, `research/carousel-research/lumebook-carousel-research.html`), so pick a milestone word.
 - `books` are catalogue titles that may fit. Always check the exact title and story on the live site during the run; never invent a title or a feature.
 
 ## Topics

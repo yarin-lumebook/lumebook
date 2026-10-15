@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://lumebook.local/carousel-pipeline/pack.schema.json",
   "title": "LumeBook nightly carousel review pack",
-  "description": "Structure of carousel/carousel-pipeline/drafts/YYYY-MM-DD/pack.json. scripts/validate_pack.py checks this structure and adds the rules a schema cannot express. Arc (7 slides): hook, second hook, what is behind the feeling or problem, two solutions, the resolution, and the last slide suggests a personalised story where the child is the hero together with the CTA. Every option is about one named Israeli girl or boy and talks to mom or to both parents, never to dad. No brand or book title anywhere. Audience facing Hebrew is: slide headline and body, caption, cta, code_word.",
+  "description": "Structure of carousel/carousel-pipeline/drafts/YYYY-MM-DD/pack.json. scripts/validate_pack.py checks this structure and adds the rules a schema cannot express. Arc (packs from 2026-10-14 10:00, 10 slides and one picture per option): hook, 2 explains the idea, 3 to 8 show 1 or 2 numbered examples each, 9 recaps, and the last slide suggests a personalised story where the child is the hero together with the CTA. Every option is about one named Israeli girl or boy and talks to mom or to both parents, never to dad. No brand or book title anywhere. Audience facing Hebrew is: slide headline and body, caption, cta, code_word.",
   "type": "object",
   "required": [
     "schema_version",
@@ -292,10 +292,11 @@
         "slides": {
           "type": "array",
           "minItems": 7,
-          "maxItems": 7,
+          "maxItems": 10,
           "items": {
             "$ref": "#/$defs/slide"
-          }
+          },
+          "description": "7 slides in packs before 2026-10-14 10:00, 10 slides since (Yarin, 14 Oct 2026)."
         },
         "caption": {
           "type": "string",
@@ -345,8 +346,8 @@
             },
             "payoff_slide": {
               "type": "integer",
-              "minimum": 3,
-              "maximum": 6
+              "minimum": 2,
+              "maximum": 9
             },
             "score": {
               "type": "object",
@@ -437,6 +438,16 @@
             "parents"
           ],
           "description": "Who the copy talks to: mom (feminine singular) or both parents (plural). Never dad."
+        },
+        "examples_target": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 9,
+          "description": "6 to 9 in packs from 2026-10-14 10:00 (3 to 7 before). This option's number of examples from tonight's draw (nightly.py start, examples_per_option)."
+        },
+        "image": {
+          "$ref": "#/$defs/image",
+          "description": "Packs from 2026-10-14 10:00: the ONE picture for the whole carousel, depicting the idea; it is also the cover (child facing the viewer), shown behind every slide. Slides then carry no image of their own."
         }
       }
     },
@@ -446,15 +457,14 @@
         "number",
         "role",
         "headline",
-        "body",
-        "image"
+        "body"
       ],
       "additionalProperties": false,
       "properties": {
         "number": {
           "type": "integer",
           "minimum": 1,
-          "maximum": 7
+          "maximum": 10
         },
         "role": {
           "enum": [
@@ -464,6 +474,9 @@
             "reframe",
             "solution",
             "resolution",
+            "example",
+            "explain",
+            "recap",
             "story_cta"
           ]
         },
@@ -475,8 +488,13 @@
           "type": "string",
           "description": "May be empty. Lines separated by newlines."
         },
+        "highlight": {
+          "type": "string",
+          "description": "The 1 to 3 whole words of the headline that get the colour block on the slide (bold look, packs from 10 Oct 2026 18:30). Required on slides 1 to 6 of those packs."
+        },
         "image": {
-          "$ref": "#/$defs/image"
+          "$ref": "#/$defs/image",
+          "description": "Packs before 2026-10-14 10:00 only: this slide's own picture (required there)."
         },
         "pull": {
           "type": "object",
@@ -501,6 +519,13 @@
               "minLength": 5
             }
           }
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Packs from 2026-10-14 10:00: slides 3 to 8 each list their 1 or 2 numbered examples, each written on the slide right after its number (numbered 1, 2, 3... across the carousel); the total is the option's examples_target and the other slides list none (Yarin, 14 Oct 2026). Older packs: only when the slide lists examples, 3 to 7 items, exactly the option's examples_target (Yarin, 10 Oct 2026)."
         }
       }
     },
@@ -629,7 +654,7 @@
         "slide": {
           "type": "integer",
           "minimum": 1,
-          "maximum": 7
+          "maximum": 10
         },
         "wording_he": {
           "type": "string",
@@ -781,8 +806,8 @@
         },
         "payoff_slide": {
           "type": "integer",
-          "minimum": 3,
-          "maximum": 6
+          "minimum": 2,
+          "maximum": 9
         },
         "answer": {
           "type": "string",

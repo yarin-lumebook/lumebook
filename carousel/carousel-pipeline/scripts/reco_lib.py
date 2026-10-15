@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
-"""Rules, rotation and validation for the two daily recommendation carousels.
+"""Rules, rotation and validation for the daily recommendation carousel.
 
-Every nightly run adds two complete 7-slide carousels next to the kid and expert pack:
+Every nightly run adds one complete games-and-books carousel next to the kid and expert pack (Yarin, 14 Oct 2026:
+"combine the book and games to one carousel. 10-20 slides"):
 
-    drafts/DATE/games-carousel.json    3 real games for one developmental stage
-    drafts/DATE/books-carousel.json    3 real books for one developmental stage
+    drafts/DATE/reco-carousel.json     format "mixed": 7 to 9 suggestions for one developmental stage, at least 3 real
+                                       games and at least 3 real books (games first) + the LumeBook book, 10 to 12 slides
+
+Nights up to 13 Oct 2026 have two separate carousels instead, which stay valid and renderable:
+
+    drafts/DATE/games-carousel.json    format "games": 3 to 7 suggestions (real games + the LumeBook book)
+    drafts/DATE/books-carousel.json    format "books": 3 to 7 suggestions (real books + the LumeBook book)
 
 Each product must be popular or clearly established in Israel (Israel-specific evidence, never inferred from
 international popularity), each recommendation slide centres a real product image from an authoritative source,
-and LumeBook is named once, on slide 6. No image generation, no paid API, nothing is posted.
+and LumeBook is named once, as the second to last suggestion, in the same format as the others. No image generation, no paid API, nothing is posted.
 
-    python3 carousel/carousel-pipeline/scripts/reco_lib.py PATH/games-carousel.json        # validate one file
-    python3 carousel/carousel-pipeline/scripts/reco_lib.py PATH/books-carousel.json --json
+    python3 carousel/carousel-pipeline/scripts/reco_lib.py PATH/reco-carousel.json         # validate one file
+    python3 carousel/carousel-pipeline/scripts/reco_lib.py PATH/games-carousel.json --json
 
 The Hebrew hard rules (punctuation, jargon, guarantees, never dad, never AI) come from carousel_lib so there is
 one definition of the voice rules. Format rules: carousel/carousel-pipeline/recommendations.md.
@@ -31,17 +37,66 @@ import carousel_lib as lib  # noqa: E402
 
 SCHEMA = lib.PIPELINE / "reco.schema.json"
 HISTORY = lib.PIPELINE / "reco-history.json"
-FORMATS = ("games", "books")
-FILES = {"games": "games-carousel.json", "books": "books-carousel.json"}
+MIXED = "mixed"
+LEGACY_FORMATS = ("games", "books")      # the two separate carousels of the nights up to 13 Oct 2026
+FORMATS = (MIXED,) + LEGACY_FORMATS      # every format the validator, the renderer and the review pages know
+NIGHTLY_FORMATS = (MIXED,)               # what nightly.py start draws and finish-reco expects (from 14 Oct 2026)
+FILES = {MIXED: "reco-carousel.json", "games": "games-carousel.json", "books": "books-carousel.json"}
+OUT_DIRS = {MIXED: "reco", "games": "games", "books": "books"}  # drafts/DATE/<dir>/: slides.html, 01.png..., contact sheet
 ASSETS_DIR = "reco-assets"  # product and LumeBook images, inside drafts/DATE/
-FORMAT_HE = {"games": "משחקים", "books": "ספרים"}
+FORMAT_HE = {MIXED: "משחקים וספרים", "games": "משחקים", "books": "ספרים"}
 KIND_OF = {"games": "game", "books": "book"}
+KIND_HE = {"game": "משחק", "book": "ספר"}
 
-SLIDE_COUNT = 7
-SLIDE_ROLES = {1: "hook", 2: "frame", 3: "recommendation", 4: "recommendation", 5: "recommendation", 6: "lumebook", 7: "close"}
-REC_SLIDES = (3, 4, 5)
-LUMEBOOK_SLIDE = 6
-CLOSE_SLIDE = 7
+# Every night draws how many suggestions the carousel has, and the LumeBook book counts as one of them (Yarin, 8 Oct 2026).
+# The carousel is hook, frame, N suggestions, close: N + 3 slides. Mixed (Yarin, 14 Oct 2026): 7 to 9, so 10 to 12 slides,
+# with at least 3 games and at least 3 books. The old games and books carousels: 3 to 7, so 6 to 10 slides.
+OPTIONS_MIN, OPTIONS_MAX = 3, 7                  # games and books (older nights)
+MIXED_OPTIONS_MIN, MIXED_OPTIONS_MAX = 7, 9      # mixed (Yarin, 14 Oct 2026: "cap it to 7-9 books and games")
+SIZES = {MIXED: (MIXED_OPTIONS_MIN, MIXED_OPTIONS_MAX), "games": (OPTIONS_MIN, OPTIONS_MAX), "books": (OPTIONS_MIN, OPTIONS_MAX)}
+MIXED_MIN_PER_KIND = 3                           # a mixed carousel has at least 3 games and at least 3 books
+SLOTS_FILE = "reco-slots.json"  # drafts/DATE/: tonight's draw, kept so a rerun builds the same size
+
+
+def size_range(fmt):
+    return SIZES.get(fmt, (OPTIONS_MIN, OPTIONS_MAX))
+
+
+def layout(n_options):
+    """Slide roles for a carousel with n_options suggestions (the LumeBook book included). The LumeBook book is the
+    second to last suggestion, offered casually like one of the options (Yarin, 8 Oct 2026)."""
+    n_options = int(n_options)
+    lumebook = n_options + 1
+    roles = {1: "hook", 2: "frame"}
+    for n in range(3, n_options + 3):
+        roles[n] = "lumebook" if n == lumebook else "recommendation"
+    close = n_options + 3
+    roles[close] = "close"
+    return {"options": n_options, "total": close, "roles": roles, "lumebook_slide": lumebook, "close_slide": close,
+            "rec_slides": tuple(n for n, r in roles.items() if r == "recommendation")}
+
+
+def draw_slots(folder, formats=NIGHTLY_FORMATS, rng=None):
+    """Tonight's random sizes {format: n} (mixed: 7..9). The first call for a date draws and saves them to
+    reco-slots.json, later calls (a rerun) read the same numbers back, so one night never changes size by itself."""
+    import random
+    path = Path(folder) / SLOTS_FILE
+    saved = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    rng = rng or random.SystemRandom()
+    changed = False
+    for f in formats:
+        lo, hi = size_range(f)
+        if not isinstance(saved.get(f), int) or not lo <= saved[f] <= hi:
+            saved[f] = rng.randint(lo, hi)
+            changed = True
+    if changed:
+        saved["drawn_at"] = lib.now_local().isoformat(timespec="seconds")
+        lib.write_json(path, saved)
+    return {f: saved[f] for f in formats}
+# The LumeBook slide (Yarin, 8 Oct 2026): "ספר של LumeBook" / "סיפור מותאם אישית עם תמונה של הילד שלכם שבו... X",
+# next to a 3D book from lumebook.com with the real child photo in a small circle (the site's hero renders).
+LUMEBOOK_BODY_RE = re.compile(r"מותאם\s+אישית")
+LUMEBOOK_PHOTO_RE = re.compile(r"תמונה|תמונת|תמונות")
 ROLE_LABELS_HE = {"hook": "פתיח", "frame": "מה מתרגלים בגיל הזה", "recommendation": "המלצה", "lumebook": "לומבוק", "close": "סיכום"}
 
 PRODUCT_COOLDOWN_DAYS = 30      # the brief: no product twice within 30 days unless a seasonal reason is documented
@@ -68,17 +123,37 @@ SKILLS = {
     "early_numeracy": {"he": "חשבון ראשוני", "keywords_he": r"לספור|סופר|מספר|כמה|יותר|פחות|\d"},
 }
 
-# Slide 1 structures, rotated so the two daily carousels do not open the same way every day.
-HOOK_STRUCTURES = {
-    "age_need_list": "גיל + מה מתרגלים + כמה המלצות (3 משחקים לגיל 4 שמתרגלים תור)",
-    "moment_question": "רגע מוכר + שאלה (הוא בוכה כשהוא מפסיד?)",
-    "skill_reveal": "מה הילד באמת מתרגל כשהוא עושה X",
-    "parent_quote": "משפט שהורים אומרים במירכאות",
-    "shelf_check": "מה כדאי שיהיה על המדף בגיל הזה",
-    "gift_list": "רשימה למתנה לגיל מסוים",
-    "observation": "משהו קטן ששמים לב אליו בבית",
-    "myth_vs_fact": "מה שחושבים לעומת מה שקורה",
+# Slide 1 is always one sentence (Yarin, 9 Oct 2026):
+#   mixed: "X משחקים וספרים לגילאי A-B ש(במה הם עוזרים)" (14 Oct 2026; the ages since Yarin's "add what ages are
+#          they suitable for", same day, as on his reference slide "4 משחקי קופסא לגילאי 5-6 שעוזרים לילדים לשים לב")
+#   games: "X משחקי קופסא ש(במה הם עוזרים)"    books: "X ספרי ילדים ש(במה הם עוזרים)"   (older nights)
+# The X is the number of suggestions, the LumeBook book included. Older nights: no ages in the hook (Yarin, 9 Oct 2026).
+HOOK_STRUCTURES = {"count_ages_skill": "X משחקים וספרים לגילאי A-B ש(במה הם עוזרים); older nights X משחקי קופסא / X ספרי ילדים ש..."}
+HOOK_TEMPLATE_RE = {
+    MIXED: re.compile(r"^(\d+)\s+משחקים\s+וספרים\s+(?:לגילאי\s+(\d+)\s*-\s*(\d+)|לגיל\s+(\d+))\s+ש[א-ת]+(?:\s+\S+)*$"),
+    "games": re.compile(r"^(\d+)\s+משחקי\s+קופסא\s+ש[א-ת]+(?:\s+\S+)*$"),
+    "books": re.compile(r"^(\d+)\s+ספרי\s+ילדים\s+ש[א-ת]+(?:\s+\S+)*$"),
 }
+HOOK_TEMPLATE_HE = {MIXED: "X משחקים וספרים לגילאי A-B ש...", "games": "X משחקי קופסא ש...", "books": "X ספרי ילדים ש..."}
+# Hook Studio (Yarin, 10 Oct 2026: click baity hooks, content and slide design for every carousel). The sentence
+# stays Yarin's; the ending and the type get louder. Carousels written from this moment name the phrase that gets the
+# colour block (`highlight`) on the hook and the frame slide and record the wordings they weighed (`hook_alternatives`).
+REQUIRE_HIGHLIGHT_ROLES = ("hook", "frame")
+
+
+def bold_applies(car):
+    return lib.bold_rule_applies(car)
+
+
+HOOK_AGE_RE = re.compile(r"גיל|לגילאי|בני\s+\d|בנות\s+\d|\d+\s*-\s*\d+")  # Yarin, 9 Oct 2026: no ages in the hook
+# Always plural (Yarin, 9 Oct 2026). Left out on purpose: ספרי (also 'books of', as in ספרי ילדים) and אותו/אותה
+# (also 'the same'). Always plural (Yarin, 9 Oct 2026): talk to both parents and about children in the plural. Text inside quotes
+# (a sentence a parent says to a child, a character's name or line) is exempt.
+SINGULAR_CHILD_RE = re.compile(r"(?<![א-ת])(?:ו|ש|כש|ל|ה|ב|מ|כ)*(?:ילד|ילדה)(?![א-ת])")
+SINGULAR_YOU_RE = re.compile(r"(?<![א-ת])(?:ו|ש|כש)?(?:שלך|לך|אותך|איתך|בשבילך|עלייך|אלייך)(?![א-ת])")
+FEM_COMMAND_RE = re.compile(r"(?<![א-ת])(?:ו)?(?:שאלי|עצרי|תני|שמרי|נסי|בואי|תגידי|תקריאי|כתבי|חפשי|קראי|שימי|התחילי|אפשרי|בקשי|שלחי|תשמרי|תספרי|הזמיני|שחקי|הסבירי)(?![א-ת])")
+SINGULAR_PRONOUN_RE = re.compile(r"(?<![א-ת])(?:ו|ש|כש)?(?:הוא|היא|לו|לה|שלו|שלה)(?![א-ת])")
+QUOTED_RE = re.compile(r"״[^״]*״|\"[^\"]*\"|“[^”]*”")
 
 # Israel-specific popularity evidence. One strong signal is enough for popular_in_israel; otherwise two
 # independent signals (different `group`) are needed. Stocked locally only = available_in_israel.
@@ -101,6 +176,35 @@ PUBLISHABLE_RIGHTS = {"owned", "cleared"}
 # Where product and cover images may come from. Never a search engine, a pin board or an image generator.
 PRODUCT_IMAGE_SOURCES = {"publisher", "manufacturer", "official", "israeli_retailer", "sifriyat_pijama"}
 LUMEBOOK_IMAGE_SOURCES = {"lumebook_site", "lumebook_repo"}
+# Yarin, 10 Oct 2026: "i want the lumebook image to depict the idea of the caption". The picture on the LumeBook slide is the
+# cover of the catalogue book whose idea the slide's line states (lumebook.com/book_covers/<boy|girl>/B<id>_<boy|girl>.avif,
+# LumeBook's own art), not a homepage hero render. Required in carousels generated from LUMEBOOK_COVER_FROM; older ones keep the hero.
+LUMEBOOK_COVER_RE = re.compile(r"^https://lumebook\.com/book_covers/(boy|girl)/B(\d+)_(boy|girl)\.avif$")
+LUMEBOOK_COVER_FROM = "2026-10-10T22:00"
+
+
+def cover_rule_applies(car):
+    return str((car or {}).get("generated_at", ""))[:16] >= LUMEBOOK_COVER_FROM
+
+
+def lumebook_cover_issues(P, car):
+    lb = car.get("lumebook") or {}
+    img = lb.get("image") or {}
+    m = LUMEBOOK_COVER_RE.match(str(img.get("image_url", "")))
+    if not m:
+        if cover_rule_applies(car):
+            return [issue("ERROR", f"{P}/lumebook/image/image_url", "the LumeBook picture is the cover of the catalogue book whose idea the slide's line states: https://lumebook.com/book_covers/boy/B<id>_boy.avif or .../girl/B<id>_girl.avif (Yarin, 10 Oct 2026), not a homepage render", "lumebook")]
+        return []
+    issues = []
+    if m.group(1) != m.group(3):
+        issues.append(issue("ERROR", f"{P}/lumebook/image/image_url", "the folder and the file name must agree (boy/B<id>_boy, girl/B<id>_girl)", "lumebook"))
+    if lb.get("catalogue_book_id") != int(m.group(2)):
+        issues.append(issue("ERROR", f"{P}/lumebook/catalogue_book_id", f"the cover is book {int(m.group(2))}; catalogue_book_id says {lb.get('catalogue_book_id')}", "lumebook"))
+    if not str(lb.get("catalogue_book", "")).strip():
+        issues.append(issue("ERROR", f"{P}/lumebook/catalogue_book", "name the catalogue book the cover belongs to", "lumebook"))
+    if len(str(img.get("depicts", "")).strip()) < 20:
+        issues.append(issue("ERROR", f"{P}/lumebook/image/depicts", "open the cover and say in `depicts` what it shows and how that is the idea of the slide's line (the picture must depict it)", "lumebook"))
+    return issues
 BLOCKED_IMAGE_HOSTS = re.compile(r"(^|\.)(google\.|gstatic\.com|googleusercontent\.com|bing\.com|pinterest\.|pinimg\.com|fal\.media|fal\.ai|fal\.run|"
                                  r"oaiusercontent\.com|openai\.com|midjourney\.com|replicate\.delivery|stability\.ai|lexica\.art|ideogram\.ai)")
 IMAGE_MAGIC = {b"\x89PNG": "png", b"\xff\xd8\xff": "jpg", b"RIFF": "webp", b"GIF8": "gif"}
@@ -146,6 +250,7 @@ HOW_MAX_WORDS = 16
 REC_LINES_MAX = 2
 LUMEBOOK_MAX_WORDS = 30
 CLOSE_MAX_WORDS = 25
+CLOSE_LINE_MAX_CHARS = 40
 CAPTION_MIN_LINES, CAPTION_MAX_LINES = 3, 8
 
 FLAG_HE = {
@@ -215,7 +320,7 @@ def carousel_path(folder, fmt):
 
 
 def present(folder):
-    """{format: path} for the recommendation carousels that exist in a draft folder."""
+    """{format: path} for the recommendation carousels that exist in a draft folder (mixed, or the older games and books)."""
     return {f: carousel_path(folder, f) for f in FORMATS if carousel_path(folder, f).exists()}
 
 
@@ -232,13 +337,25 @@ def previous(history, date_str, fmt=None):
     return sorted(out, key=lambda c: c["date"], reverse=True)
 
 
+def rotation_pool(history, date_str, fmt):
+    """The earlier carousels a format rotates away from, newest first. The mixed carousel replaced both the games and the
+    books carousel, so it rotates against every earlier entry (mixed, games and books); games and books keep their own."""
+    return previous(history, date_str, None if fmt == MIXED else fmt)
+
+
+def last_runs(prev, runs):
+    """The entries of the last `runs` nights (two carousels on one older night count as one night)."""
+    dates = sorted({c["date"] for c in prev}, reverse=True)[:runs]
+    return [c for c in prev if c["date"] in dates]
+
+
 def history_entry(car):
     return {
         "date": car["date"], "format": car["format"], "generated_at": car.get("generated_at"),
         "stage_id": car["stage"]["id"], "skill": car["stage"]["skill"],
         "age_min": car["stage"]["age_min"], "age_max": car["stage"]["age_max"],
         "hook_structure": car["hook_structure"], "hook": lib.collapse(car["slides"][0]["headline"]),
-        "products": [{k: p.get(k, "") for k in ("id", "title_he", "author", "publisher", "manufacturer", "type")} for p in car["products"]],
+        "products": [{k: p.get(k, "") for k in ("id", "kind", "title_he", "author", "publisher", "manufacturer", "type")} for p in car["products"]],
         "popularity": {p["id"]: p["popularity_label"] for p in car["products"]},
     }
 
@@ -255,23 +372,25 @@ def record_history(car, path=HISTORY):
     return entry
 
 
-def rotation_context(history, date_str):
-    """What tonight's games and books carousels should rotate away from."""
+def rotation_context(history, date_str, formats=FORMATS):
+    """What tonight's carousel should rotate away from. Products: every format within 30 days. Skills, stages, ages, hooks
+    and makers: per format, where mixed looks at mixed, games and books entries alike (rotation_pool)."""
     day = lib.parse_date(date_str)
     out = {"product_cooldown_days": PRODUCT_COOLDOWN_DAYS}
     cutoff = (day - dt.timedelta(days=PRODUCT_COOLDOWN_DAYS)).isoformat()
     recent_all = [c for c in previous(history, date_str) if c["date"] >= cutoff]
     out["blocked_products"] = sorted({f"{p['id']} · {p['title_he']}" for c in recent_all for p in c.get("products", [])})
-    for fmt in FORMATS:
-        prev = previous(history, date_str, fmt)
+    for fmt in formats:
+        prev = rotation_pool(history, date_str, fmt)
         maker_cut = (day - dt.timedelta(days=MAKER_WARN_DAYS)).isoformat()
         stage_cut = (day - dt.timedelta(days=STAGE_COOLDOWN_DAYS)).isoformat()
         out[fmt] = {
-            "blocked_skills": sorted({c["skill"] for c in prev[:SKILL_COOLDOWN_RUNS]}),
+            "blocked_skills": sorted({c["skill"] for c in last_runs(prev, SKILL_COOLDOWN_RUNS)}),
             "blocked_stage_ids": sorted({c["stage_id"] for c in prev if c["date"] >= stage_cut}),
             "last_age_range": [prev[0]["age_min"], prev[0]["age_max"]] if prev else None,
             "last_hook_structure": prev[0]["hook_structure"] if prev else None,
             "recent_hooks": [c.get("hook") for c in prev[:14]],
+            "recent_titles": sorted({p.get("title_he", "") for c in prev[:30] for p in c.get("products", []) if p.get("title_he")}),
             "recent_makers_warn": sorted({x for c in prev if c["date"] >= maker_cut for p in c.get("products", [])
                                           for x in (p.get("author"), p.get("publisher"), p.get("manufacturer")) if x}),
         }
@@ -281,7 +400,7 @@ def rotation_context(history, date_str):
 def backup_existing(folder, target=None):
     """Move earlier recommendation files for this date into versions/vN (the same vN as the pack backup when given)."""
     folder = Path(folder)
-    names = [FILES[f] for f in FORMATS] + list(FORMATS)
+    names = [FILES[f] for f in FORMATS] + sorted(set(OUT_DIRS.values()))
     there = [folder / n for n in names if (folder / n).exists()]
     if not there:
         return None
@@ -313,7 +432,10 @@ def _mask_title(text, title):
 def text_issues(path, text, allow_cta=False, title=None):
     issues = []
     checked = _mask_title(text, title) if title else text
+    brand_only_latin = not lib.LATIN_RE.search(lib.BRAND_RE.sub("", checked))
     for i in lib.audience_text_issues(path, checked, allow_cta=allow_cta):
+        if brand_only_latin and i.message.startswith("contains Latin letters"):
+            continue  # "ספר של LumeBook" is Yarin's own wording; the renderer isolates the Latin run
         issues.append(i)
     for pattern, why in RECO_CLAIM_ERRORS:
         m = re.search(pattern, lib.collapse(checked))
@@ -489,6 +611,11 @@ def carousel_issues(car, folder, history=None, today=None):
     kinds = {p.get("kind") for p in products.values()}
     if fmt in KIND_OF and kinds != {KIND_OF[fmt]}:
         issues.append(issue("ERROR", f"{P}/products", f"a {fmt} carousel recommends only {KIND_OF[fmt]}s", "structure"))
+    if fmt == MIXED:
+        kind_list = [p.get("kind") for p in car.get("products", [])]
+        for kind in ("game", "book"):
+            if kind_list.count(kind) < MIXED_MIN_PER_KIND:
+                issues.append(issue("ERROR", f"{P}/products", f"a games and books carousel has at least {MIXED_MIN_PER_KIND} {kind}s (it has {kind_list.count(kind)})", "structure"))
     types = [p.get("type") for p in products.values()]
     if len(set(types)) != len(types):
         issues.append(issue("ERROR", f"{P}/products", "two products share a type; rotate across different kinds of play or reading", "repeat"))
@@ -500,9 +627,9 @@ def carousel_issues(car, folder, history=None, today=None):
         issues.append(issue("ERROR", f"{P}/products", "duplicate product ids", "repeat"))
     for pid, p in products.items():
         pp = f"{P}/products/{pid}"
-        if fmt == "books" and not (p.get("author") and p.get("publisher")):
+        if p.get("kind") == "book" and not (p.get("author") and p.get("publisher")):
             issues.append(issue("ERROR", pp, "books need the author and the Hebrew edition's publisher", "structure"))
-        if fmt == "games" and not p.get("manufacturer"):
+        if p.get("kind") == "game" and not p.get("manufacturer"):
             issues.append(issue("ERROR", pp, "games need the manufacturer", "structure"))
         issues.extend(age_issues(pp, p, stage))
         issues.extend(availability_issues(pp, p, gen_date))
@@ -514,16 +641,30 @@ def carousel_issues(car, folder, history=None, today=None):
         if p.get("confidence") == "low":
             issues.append(issue("WARN", pp, "low confidence: say why in limitations or replace it", "claim"))
 
+    # Size: mixed 7 to 9 suggestions, games and books 3 to 7, the LumeBook book counted as one, and tonight's draw when there is one
+    n_options = len(car.get("products", [])) + 1
+    lo_n, hi_n = size_range(fmt)
+    if not lo_n <= n_options <= hi_n:
+        issues.append(issue("ERROR", f"{P}/products", f"{n_options} suggestions including the LumeBook book; the carousel has {lo_n} to {hi_n} ({lo_n + 3} to {hi_n + 3} slides)", "structure"))
+        return issues
+    L = layout(n_options)
+    REC_SLIDES, LUMEBOOK_SLIDE, CLOSE_SLIDE = L["rec_slides"], L["lumebook_slide"], L["close_slide"]
+    slots_path = folder / SLOTS_FILE
+    if slots_path.exists():
+        drawn = json.loads(slots_path.read_text(encoding="utf-8")).get(fmt)
+        if isinstance(drawn, int) and drawn != n_options:
+            issues.append(issue("ERROR", f"{P}/products", f"tonight's random draw for {fmt} is {drawn} suggestions (the LumeBook book counts as one); this carousel has {n_options}", "structure"))
+
     # Slides
     slides = car.get("slides", [])
     numbers = [s.get("number") for s in slides]
-    if numbers != list(range(1, SLIDE_COUNT + 1)):
-        issues.append(issue("ERROR", f"{P}/slides", f"exactly {SLIDE_COUNT} slides numbered 1 to {SLIDE_COUNT} (got {numbers})", "structure"))
+    if numbers != list(range(1, L["total"] + 1)):
+        issues.append(issue("ERROR", f"{P}/slides", f"{n_options} suggestions need exactly {L['total']} slides numbered 1 to {L['total']} (hook, frame, {n_options} suggestions, close; got {numbers})", "structure"))
         return issues
     for s in slides:
         n = s["number"]
-        if s.get("role") != SLIDE_ROLES[n]:
-            issues.append(issue("ERROR", f"{P}/slide-{n}/role", f"slide {n} must be {SLIDE_ROLES[n]}", "structure"))
+        if s.get("role") != L["roles"][n]:
+            issues.append(issue("ERROR", f"{P}/slide-{n}/role", f"slide {n} must be {L['roles'][n]}", "structure"))
     addressee = car.get("addressee")
     every = []
     brand_hits = {}
@@ -537,12 +678,12 @@ def carousel_issues(car, folder, history=None, today=None):
         if n in REC_SLIDES:
             fields += [("age", s.get("age", "")), ("why", s.get("why", "")), ("how", s.get("how", ""))]
             if s.get("body", "").strip():
-                issues.append(issue("ERROR", f"{sp}/body", "recommendation slides use headline, age, why and how (no body)", "structure"))
+                issues.append(issue("ERROR", f"{sp}/body", "suggestion slides use headline, age, why and how (no body)", "structure"))
         else:
             fields.append(("body", s.get("body", "")))
             for extra in ("product_id", "age", "why", "how"):
                 if s.get(extra):
-                    issues.append(issue("ERROR", f"{sp}/{extra}", f"only slides 3 to 5 have {extra}", "structure"))
+                    issues.append(issue("ERROR", f"{sp}/{extra}", f"only the suggestion slides have {extra}", "structure"))
         for field, text in fields:
             if field == "body" and not text.strip():
                 continue
@@ -556,11 +697,20 @@ def carousel_issues(car, folder, history=None, today=None):
                 continue
             issues.extend(text_issues(f"{sp}/{field}", text, allow_cta=(n == CLOSE_SLIDE), title=title if field == "headline" else None))
             limit = lib.BODY_LINE_MAX_CHARS if field != "headline" else lib.HEADLINE_LINE_MAX_CHARS
+            if field == "headline" and s["role"] == "close":
+                limit = CLOSE_LINE_MAX_CHARS  # the close slide shrinks its headline to 44px, so a longer line still fits
             for li, line in enumerate(lib.lines_of(text), start=1):
                 if field == "headline" and title and norm_title(line) in norm_title(title):
                     continue  # the product name itself is fitted by the renderer
                 if len(line) > limit:
                     issues.append(issue("ERROR", f"{sp}/{field}", f"line {li} has {len(line)} characters (max {limit}); break it", "voice", excerpt=line))
+        hl = str(s.get("highlight") or "").strip()
+        if hl and s["role"] not in ("hook", "frame", "close"):
+            issues.append(issue("ERROR", f"{sp}/highlight", "only the hook, the frame and the close slide have a highlight (a product title is never marked)", "structure"))
+        elif hl or (bold_applies(car) and s["role"] in REQUIRE_HIGHLIGHT_ROLES):
+            head = re.sub(r"^\s*\d+\s+", "", s.get("headline", "")) if s["role"] == "hook" else s.get("headline", "")
+            for i in lib.highlight_issues(sp, {"number": n, "headline": head, "highlight": hl}):
+                issues.append(issue(i.level, i.path, i.message, "voice"))
         words = sum(len(lib.words(t)) for _, t in fields if _ != "age")
         if n == 1:
             hw = len(lib.words(lib.lines_of(s.get("headline", ""))[0] if lib.lines_of(s.get("headline", "")) else ""))
@@ -572,12 +722,36 @@ def carousel_issues(car, folder, history=None, today=None):
             for pattern, why in lib.HOOK_BANNED:
                 if re.search(pattern, text):
                     issues.append(issue("ERROR", sp, f"banned hook opener ({why})", "voice"))
+            m = HOOK_TEMPLATE_RE.get(fmt, re.compile("$^")).match(text)
+            if s.get("body", "").strip():
+                issues.append(issue("ERROR", f"{sp}/body", "the hook is one sentence in the headline (break it into lines there); no body", "structure"))
+            if fmt != MIXED and HOOK_AGE_RE.search(text):
+                issues.append(issue("ERROR", sp, f"no ages in the hook (Yarin, 9 Oct 2026): «{HOOK_AGE_RE.search(text).group(0)}»", "structure"))
+            if not m:
+                issues.append(issue("ERROR", sp, f"the hook is always «{HOOK_TEMPLATE_HE.get(fmt)}» (Yarin, 9 Oct 2026{'; the ages since 14 Oct 2026' if fmt == MIXED else ''})", "structure"))
+            else:
+                if fmt == MIXED:
+                    lo, hi = (int(m.group(2)), int(m.group(3))) if m.group(2) else (int(m.group(4)), int(m.group(4)))
+                    want = (stage.get("age_min"), stage.get("age_max"))
+                    if (lo, hi) != want:
+                        say = f"לגיל {want[0]}" if want[0] == want[1] else f"לגילאי {want[0]}-{want[1]}"
+                        issues.append(issue("ERROR", sp, f"the hook says the ages {lo}-{hi}; the carousel's stage is {want[0]} to {want[1]}: write «{say}» (Yarin, 14 Oct 2026: \"add what ages are they suitable for\")", "structure"))
+                if int(m.group(1)) != n_options:
+                    issues.append(issue("ERROR", sp, f"the hook says {m.group(1)}; this carousel has {n_options} suggestions (the LumeBook book counts as one)", "structure"))
             skill_re = SKILLS.get(stage.get("skill"), {}).get("keywords_he")
+            if lib.value_hook_applies(car) and not re.search(r"שיעזר|שעוזר|עוזרים|מתרגלים|לתרגל|שמלמד|מלמדים|שמאפשר", text):
+                issues.append(issue("WARN", sp, "the hook says what the value is: end with שיעזרו להם ... or שמתרגלים ... and the concrete thing (Yarin, 11 Oct 2026)", "voice"))
+            if bold_applies(car):
+                alts = car.get("hook_alternatives") or []
+                if len(alts) < 2:
+                    issues.append(issue("WARN", f"{P}/hook_alternatives", "write 3 wordings of the hook, calm to loud, keep the loudest one the developmental source supports, and list them in hook_alternatives", "voice"))
+                for ai, alt in enumerate(alts):
+                    issues.extend(text_issues(f"{P}/hook_alternatives[{ai}]", alt))
             if not AGE_IN_TEXT_RE.search(text) and not (skill_re and re.search(skill_re, text)):
                 issues.append(issue("ERROR", sp, "the hook names the age range, the stage or the need", "structure"))
         elif n == 2 and words > FRAME_MAX_WORDS:
             issues.append(issue("ERROR", sp, f"slide has {words} words (max {FRAME_MAX_WORDS})", "voice"))
-        elif n in REC_SLIDES:
+        if n in REC_SLIDES:
             for field, limit in (("why", WHY_MAX_WORDS), ("how", HOW_MAX_WORDS)):
                 text = s.get(field, "")
                 if not text.strip():
@@ -589,6 +763,7 @@ def carousel_issues(car, folder, history=None, today=None):
                     issues.append(issue("ERROR", f"{sp}/{field}", f"at most {REC_LINES_MAX} lines", "voice"))
             if s.get("why", "").strip() and not ACTIVITY_RE.search(s["why"]):
                 issues.append(issue("ERROR", f"{sp}/why", "name the actual activity the child does (waits for a turn, matches, retells, predicts, builds, sorts, plans)", "claim"))
+        if n in REC_SLIDES:
             pid = s.get("product_id")
             p = products.get(pid)
             if not p:
@@ -606,21 +781,22 @@ def carousel_issues(car, folder, history=None, today=None):
                     elif not any(c.get("kind") == "popularity" and c.get("slide") == n for c in car.get("claims", [])):
                         issues.append(issue("ERROR", sp, "a popularity wording needs a popularity claim citing the product's Israeli signals", "popularity"))
         elif n == LUMEBOOK_SLIDE:
+            text = lib.collapse(" ".join(t for _, t in fields))
             if words > LUMEBOOK_MAX_WORDS:
                 issues.append(issue("ERROR", sp, f"slide has {words} words (max {LUMEBOOK_MAX_WORDS})", "voice"))
-            text = lib.collapse(s.get("headline", "") + " " + s.get("body", ""))
+            if not LUMEBOOK_BODY_RE.search(s.get("body", "")) or not LUMEBOOK_PHOTO_RE.search(s.get("body", "")):
+                issues.append(issue("ERROR", f"{sp}/body", "the LumeBook line reads סיפור מותאם אישית עם תמונה של הילד שלכם שבו... (Yarin's format)", "lumebook"))
             m = SALES_RE.search(text)
             if m:
-                issues.append(issue("ERROR", sp, f"«{m.group(0)}» is sales talk; slide 6 stays editorial and relaxed (no urgency, discounts, prices or free offers)", "lumebook"))
+                issues.append(issue("ERROR", sp, f"«{m.group(0)}» is sales talk; the LumeBook slide stays editorial and relaxed (no urgency, discounts, prices or free offers)", "lumebook"))
             m = GUARANTEE_RE.search(text)
             if m:
                 issues.append(issue("ERROR", sp, f"«{m.group(0)}» promises a result; personalisation never guarantees development", "lumebook"))
-            skill_re = SKILLS.get(stage.get("skill"), {}).get("keywords_he")
-            if skill_re and not re.search(skill_re, text):
-                issues.append(issue("WARN", sp, "slide 6 should connect LumeBook to the same developmental need as the carousel", "lumebook"))
             if not any(c.get("kind") == "product_fact" and c.get("slide") == n for c in car.get("claims", [])):
-                issues.append(issue("ERROR", sp, "map what slide 6 says about LumeBook to a live-site product fact (site-...)", "lumebook"))
+                issues.append(issue("ERROR", sp, "map what the LumeBook slide says to a live-site product fact (site-...)", "lumebook"))
         elif n == CLOSE_SLIDE:
+            if s.get("body", "").strip():
+                issues.append(issue("ERROR", f"{sp}/body", "the last slide is only the save and comment lines, in the headline (Yarin, 9 Oct 2026); no summary or body", "structure"))
             if words > CLOSE_MAX_WORDS:
                 issues.append(issue("ERROR", sp, f"slide has {words} words (max {CLOSE_MAX_WORDS})", "voice"))
             text = lib.collapse(s.get("headline", "") + " " + s.get("body", ""))
@@ -629,20 +805,25 @@ def carousel_issues(car, folder, history=None, today=None):
                 issues.append(issue("ERROR", sp, f"«{m.group(0)}» turns the close into a sales slide; keep it a useful summary", "lumebook"))
             if not CLOSE_PROMPT_RE.search(text):
                 issues.append(issue("ERROR", sp, "end with a light save, share or comment prompt", "structure"))
+    if fmt == MIXED:
+        order = [products[pid].get("kind") for pid in used_products if pid in products]
+        if "book" in order and "game" in order[order.index("book"):]:
+            issues.append(issue("ERROR", f"{P}/slides", "group the suggestions: every game first, then the books (the LumeBook book stays second to last)", "structure"))
     if sorted(used_products) != sorted(products):
-        issues.append(issue("ERROR", f"{P}/slides", "slides 3 to 5 must show each of the 3 products exactly once", "structure"))
+        issues.append(issue("ERROR", f"{P}/slides", f"the product slides ({', '.join(map(str, REC_SLIDES))}) must show each of the {len(products)} products exactly once", "structure"))
     if len(set(used_products)) != len(used_products):
         issues.append(issue("ERROR", f"{P}/slides", "a product appears on two slides", "repeat"))
 
-    # LumeBook: once, on slide 6, with an approved asset
+    # LumeBook: once, on its slide, with an approved asset
     if brand_hits.get(LUMEBOOK_SLIDE, 0) != 1:
-        issues.append(issue("ERROR", f"{P}/slide-{LUMEBOOK_SLIDE}", "slide 6 names LumeBook (לומבוק) exactly once", "lumebook"))
+        issues.append(issue("ERROR", f"{P}/slide-{LUMEBOOK_SLIDE}", f"slide {LUMEBOOK_SLIDE} names LumeBook (לומבוק) exactly once", "lumebook"))
     for n in brand_hits:
         if n != LUMEBOOK_SLIDE:
-            issues.append(issue("ERROR", f"{P}/slide-{n}", "LumeBook appears only on slide 6", "lumebook"))
+            issues.append(issue("ERROR", f"{P}/slide-{n}", f"LumeBook appears only on slide {LUMEBOOK_SLIDE}", "lumebook"))
     if lib.BRAND_RE.search(car.get("caption", "")):
-        issues.append(issue("ERROR", f"{P}/caption", "LumeBook is mentioned once, on slide 6, not in the caption", "lumebook"))
+        issues.append(issue("ERROR", f"{P}/caption", f"LumeBook is mentioned once, on slide {LUMEBOOK_SLIDE}, not in the caption", "lumebook"))
     issues.extend(image_issues(f"{P}/lumebook/image", (car.get("lumebook") or {}).get("image"), folder, LUMEBOOK_IMAGE_SOURCES, product=False))
+    issues.extend(lumebook_cover_issues(P, car))
 
     # Who it talks to: mom or both parents, never dad
     caption = car.get("caption", "")
@@ -653,8 +834,21 @@ def carousel_issues(car, folder, history=None, today=None):
     m = MALE_COMMAND_RE.search(all_text)
     if m:
         issues.append(issue("ERROR", P, f"«{m.group(0)}» talks to a father (masculine singular); write to mom (תני, שאלי) or both parents (תנו, שאלו)", "voice"))
-    if addressee == "mom" and lib.PARENTS_ADDRESS_RE.search(all_text):
-        issues.append(issue("WARN", f"{P}/addressee", f"addressee is mom but a line talks to both parents: «{lib.PARENTS_ADDRESS_RE.search(all_text).group(0)}»", "voice"))
+    if addressee != "parents":
+        issues.append(issue("ERROR", f"{P}/addressee", "these carousels always talk to both parents, in the plural (Yarin, 9 Oct 2026)", "voice"))
+    unquoted = QUOTED_RE.sub(" ", all_text)
+    for title in titles.values():
+        unquoted = unquoted.replace(title, " ")
+    for rx, why, level in ((SINGULAR_CHILD_RE, "talks about one child; write about children in the plural (הילדים, ילדים)", "ERROR"),
+                           (SINGULAR_YOU_RE, "talks to one parent; write to both parents in the plural (לכם, שלכם)", "ERROR"),
+                           (FEM_COMMAND_RE, "a feminine singular command; write to both parents in the plural (שאלו, עצרו, תנו)", "ERROR"),
+                           (SINGULAR_PRONOUN_RE, "a singular pronoun; if it means the child, write in the plural (הם, להם, שלהם)", "WARN")):
+        m = rx.search(unquoted)
+        if m:
+            issues.append(issue(level, P, f"«{m.group(0)}» {why}", "voice"))
+    m = re.search(r"יש שמגיעים לזה קודם", all_text)
+    if m:  # Yarin, 9 Oct 2026: never use this line again
+        issues.append(issue("ERROR", P, "drop «יש שמגיעים לזה קודם ויש שאחר כך» (Yarin, 9 Oct 2026); say ages are approximate another way (בסביבות גיל X)", "voice"))
     opening = "\n".join(s.get("headline", "") + "\n" + s.get("body", "") for s in slides[:2])
     if not AGE_HEDGE_RE.search(opening + "\n" + caption):
         issues.append(issue("ERROR", f"{P}/slide-2", "say that ages are approximate (בערך, יש ילדים ש..., בקצב של כל ילד): never treat an age boundary as exact", "claim"))
@@ -697,6 +891,8 @@ def carousel_issues(car, folder, history=None, today=None):
         elif kind in ("availability", "age") and not ids:
             issues.append(issue("ERROR", cp, f"an {kind} claim cites the product id it is about", "claim"))
     claimed = {(c.get("slide"), c.get("kind")) for c in claims}
+    if (1, "developmental") not in claimed:
+        issues.append(issue("ERROR", f"{P}/claims", "the hook says what the products help with: map slide 1 to a developmental source", "dev_source"))
     if (2, "developmental") not in claimed:
         issues.append(issue("ERROR", f"{P}/claims", "slide 2 explains what children practise at this stage: map it to a developmental source", "dev_source"))
     for n in REC_SLIDES:
@@ -722,17 +918,15 @@ def rotation_issues(car, history):
                 if q.get("id") == p.get("id") or norm_title(q.get("title_he", "")) == norm_title(p.get("title_he", "")):
                     level = "WARN" if p.get("seasonal_reason") else "ERROR"
                     issues.append(issue(level, f"{P}/products/{p.get('id')}", f"recommended on {c['date']}; no product twice within {PRODUCT_COOLDOWN_DAYS} days{' (seasonal reason given)' if level == 'WARN' else ' unless a seasonal reason is documented'}", "repeat"))
-    prev = previous(history, date_str, fmt)
+    prev = rotation_pool(history, date_str, fmt)
     stage = car.get("stage", {})
-    if stage.get("skill") in {c["skill"] for c in prev[:SKILL_COOLDOWN_RUNS]}:
-        issues.append(issue("ERROR", f"{P}/stage/skill", f"{stage.get('skill')} was one of the last {SKILL_COOLDOWN_RUNS} {fmt} carousels; rotate the skill", "repeat"))
+    if stage.get("skill") in {c["skill"] for c in last_runs(prev, SKILL_COOLDOWN_RUNS)}:
+        issues.append(issue("ERROR", f"{P}/stage/skill", f"{stage.get('skill')} was one of the last {SKILL_COOLDOWN_RUNS} {'recommendation' if fmt == MIXED else fmt} carousels; rotate the skill", "repeat"))
     stage_cut = (day - dt.timedelta(days=STAGE_COOLDOWN_DAYS)).isoformat()
     if stage.get("id") in {c["stage_id"] for c in prev if c["date"] >= stage_cut}:
         issues.append(issue("ERROR", f"{P}/stage/id", f"stage {stage.get('id')} ran in the last {STAGE_COOLDOWN_DAYS} days", "repeat"))
     if prev and [prev[0]["age_min"], prev[0]["age_max"]] == [stage.get("age_min"), stage.get("age_max")]:
         issues.append(issue("WARN", f"{P}/stage", "same age range as the previous carousel of this format; rotate ages when another fits", "repeat"))
-    if prev and prev[0].get("hook_structure") == car.get("hook_structure"):
-        issues.append(issue("ERROR", f"{P}/hook_structure", f"{car.get('hook_structure')} opened the previous {fmt} carousel; use another structure", "repeat"))
     hook = lib.collapse(car["slides"][0].get("headline", "")) if car.get("slides") else ""
     if hook and any(hook == c.get("hook") for c in prev[:30]):
         issues.append(issue("ERROR", f"{P}/slide-1", "this hook was used before", "repeat"))
@@ -763,19 +957,41 @@ def validate_file(path, history=None):
     return car, issues, status(issues, car)
 
 
+def recent_edits(n=40, path=None):
+    """Yarin's edits to the recommendation carousels (mixed, games, books) on the review page, newest last. The nightly run reads them
+    before writing and writes the way the "after" lines sound (what was cut, added, shortened, how lines split)."""
+    edits = lib.load_voice_edits(path) if path else lib.load_voice_edits()
+    keep = [e for e in edits if e.get("direction") in FORMATS and e.get("before") != e.get("after")]
+    return [{k: e.get(k) for k in ("at", "direction", "slide", "role", "field", "kind", "before", "after")} for e in keep[-n:]]
+
+
 def start_context(date_str, folder, history=None):
-    """Printed by nightly.py start under "recommendations"."""
+    """Printed by nightly.py start under "recommendations": one combined games and books carousel (14 Oct 2026)."""
     history = history if history is not None else load_history()
+    slots = draw_slots(folder)
+    n = slots[MIXED]
     return {
-        "write_games_to": str(Path(folder) / FILES["games"]),
-        "write_books_to": str(Path(folder) / FILES["books"]),
+        "write_to": str(Path(folder) / FILES[MIXED]),
+        "format": MIXED,
         "images_go_to": str(Path(folder) / ASSETS_DIR),
         "rules": "carousel/carousel-pipeline/recommendations.md",
-        "example": "carousel/carousel-pipeline/tests/fixtures/reco/games-carousel.json",
+        "example": "carousel/carousel-pipeline/tests/fixtures/reco/reco-carousel.json",
         "skills": {k: v["he"] for k, v in SKILLS.items()},
         "hook_structures": HOOK_STRUCTURES,
-        "rotation": rotation_context(history, date_str),
-        "slides": {str(k): v for k, v in SLIDE_ROLES.items()},
+        "hook_template": HOOK_TEMPLATE_HE[MIXED],
+        "recent_edits_learn_from_these": recent_edits(),
+        "learn_rule": "Yarin edited these lines on the review pages (reco.html, and games.html and books.html on older nights). Read every pair before writing and write tonight's copy the way the after lines sound, per role and field. Never bring back what Yarin removed and do not copy the lines.",
+        "rotation": rotation_context(history, date_str, NIGHTLY_FORMATS),
+        "suggestions": {
+            "rule": (f"one carousel of games and books for one developmental stage and theme, with a random number of suggestions from {MIXED_OPTIONS_MIN} to {MIXED_OPTIONS_MAX}; "
+                     f"the LumeBook book counts as one of them, so products = suggestions - 1, with at least {MIXED_MIN_PER_KIND} games and at least {MIXED_MIN_PER_KIND} books "
+                     "(each product records kind game or book; games need manufacturer, books need author and the Hebrew edition's publisher). "
+                     "Slides = suggestions + 3: hook, frame, the games, then the books, with the LumeBook book as the second to last suggestion (between the last two books), close. "
+                     f"The hook is «{HOOK_TEMPLATE_HE[MIXED]}»: X is the number of suggestions, the LumeBook book included, and A-B the stage's ages (age_min-age_max; «לגיל A» when they are equal), as on Yarin's reference «4 משחקי קופסא לגילאי 5-6 שעוזרים לילדים לשים לב»."),
+            "tonight": n,
+            "products_tonight": n - 1,
+            "slides_tonight": {str(k): v for k, v in layout(n)["roles"].items()},
+        },
         "finish_with": f"python3 {lib.PIPELINE / 'scripts' / 'nightly.py'} finish-reco {folder}",
     }
 

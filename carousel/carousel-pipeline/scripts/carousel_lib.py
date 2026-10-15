@@ -72,6 +72,9 @@ ROLE_LABELS_HE = {
     "solution": "פתרון",
     "resolution": "הסגירה",
     "story_cta": "סיפור אישי וקריאה לפעולה",
+    "explain": "ההסבר",
+    "example": "דוגמאות ממוספרות",
+    "recap": "סיכום",
 }
 # Words that prepare a sale. They belong only on the last slide.
 SALE_PREP_RE = re.compile(r"ספר\s+שבו|סיפור\s+אישי|ספר\s+אישי|גיבור|קישור|תצוגה\s+מקדימה|בתגובות")
@@ -217,6 +220,217 @@ CAPTION_MIN_LINES = 5
 # body 44px Assistant Bold, 888px text column): longer lines overflow the 1080px slide.
 HEADLINE_LINE_MAX_CHARS = 30
 BODY_LINE_MAX_CHARS = 42
+# The bold look (compose_slides.py --look bold, the default since 10 Oct 2026): type first, so lines are short.
+# Measured the same way at the bold floors (cover headline 84px, headline 72px, body 42px Rubik, 952px column).
+# Applies to packs written from BOLD_RULE_FROM on; older packs keep the limits above.
+BOLD_RULE_FROM = "2026-10-10T18:30"
+COVER_HEADLINE_LINE_MAX_CHARS = 18
+BOLD_HEADLINE_LINE_MAX_CHARS = 22
+BOLD_BODY_LINE_MAX_CHARS = 34
+BOLD_HEADLINE_MAX_LINES = 2   # the cover may use 3
+BOLD_BODY_MAX_LINES = 3
+BOLD_SLIDE_MAX_WORDS = 20
+HIGHLIGHT_MAX_WORDS = 3
+# Words that take the edge off a cover. A warning: a hedge a claim really needs moves to the payoff slide.
+SOFT_COVER_RE = re.compile(r"(?<![א-ת])(?:קצת|אולי|לפעמים|בערך|כנראה|די)(?![א-ת])")
+
+
+def bold_rule_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= BOLD_RULE_FROM
+
+
+# Yarin, 10 Oct 2026: "i need the headlines of each slide to tell a story even if the viewer doesnt read the rest in each
+# slide". Someone who reads only the seven headlines, in order, must get the whole carousel: the moment, the feeling,
+# what is behind it, the two things to try (each headline NAMES the thing), how it ends, the offer. The body adds detail,
+# proof and the sentence to say, never the thing itself. Applies to packs generated from HEADLINE_STORY_FROM on.
+HEADLINE_STORY_FROM = "2026-10-10T22:00"
+HEADLINE_MIN_WORDS = 3
+HEADLINE_ORDER_ONLY_RE = re.compile(r"^(?:ו)?(?:דבר\s+(?:ראשון|שני|שלישי)|עוד\s+דבר(?:\s+קטן)?|קודם|אחר\s+כך|ואז|ועכשיו|בסוף)$")
+
+
+def headline_story_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= HEADLINE_STORY_FROM
+
+
+def headline_story_issues(path, slide):
+    head = collapse(slide.get("headline", ""))
+    if HEADLINE_ORDER_ONLY_RE.match(head):
+        return [Issue("ERROR", f"{path}/headline", f"«{head}» is only an order word: the headline must name the thing itself, because some people read only the headlines (Yarin, 10 Oct 2026)")]
+    n = len(words(head))
+    if n < HEADLINE_MIN_WORDS:
+        return [Issue("ERROR", f"{path}/headline", f"headline has {n} words: it must be a full thought that carries the story on its own (at least {HEADLINE_MIN_WORDS}), because some people read only the headlines (Yarin, 10 Oct 2026)")]
+    return []
+
+
+# Yarin, 10 Oct 2026: "in the kid stories and expert carousels when you give examples i want them to be between 3-7".
+# The slide count stays 7. Wherever a slide lists examples (a story or music or a bath), the slide records them in
+# `examples` and the list has 3 to 7 items; each option gets its own random number from the nightly draw
+# (`examples_target`, saved in drafts/DATE/example-slots.json, like the games and books suggestion counts).
+EXAMPLES_MIN, EXAMPLES_MAX = 3, 7
+EXAMPLES_FROM = "2026-10-10T23:00"
+EXAMPLE_SLOTS_FILE = "example-slots.json"
+OPTION_IDS = ("kid-1", "kid-2", "kid-3", "expert-1", "expert-2", "expert-3")
+
+
+def examples_rule_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= EXAMPLES_FROM
+
+
+def draw_example_slots(folder, rng=None):
+    """{option id: 6..9} (since the 10 slide layout, 14 Oct 2026; 3..7 before). The first call for a date draws and saves them, so a rerun keeps the same numbers."""
+    import random
+    path = Path(folder) / EXAMPLE_SLOTS_FILE
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))["slots"]
+    rng = rng or random.SystemRandom()
+    slots = {oid: rng.randint(NUMBERED_EXAMPLES_MIN, NUMBERED_EXAMPLES_MAX) for oid in OPTION_IDS}
+    path.write_text(json.dumps({"drawn_at": now_local().isoformat(timespec="seconds"), "slots": slots}, indent=2) + "\n", encoding="utf-8")
+    return slots
+
+
+def example_issues(path, slide, version, pack):
+    """The `examples` list of one slide: 3 to 7 distinct items that really appear on the slide, matching the option's draw."""
+    items = slide.get("examples")
+    if items is None:
+        return []
+    issues = []
+    n = len(items)
+    if not EXAMPLES_MIN <= n <= EXAMPLES_MAX:
+        issues.append(Issue("ERROR", f"{path}/examples", f"a list of examples has {EXAMPLES_MIN} to {EXAMPLES_MAX} items (Yarin, 10 Oct 2026); this one has {n}"))
+    if len({collapse(x) for x in items}) != n:
+        issues.append(Issue("ERROR", f"{path}/examples", "the examples must be different from each other"))
+    shown = collapse(slide.get("headline", "") + " " + slide.get("body", ""))
+    for x in items:
+        if collapse(x) not in shown:
+            issues.append(Issue("ERROR", f"{path}/examples", f"«{x}» is listed as an example but does not appear on the slide; list only what the slide shows"))
+    target = (version or {}).get("examples_target")
+    if target is not None and n != target:
+        issues.append(Issue("ERROR", f"{path}/examples", f"tonight's draw for this option is {target} examples; this list has {n}"))
+    return issues
+
+
+# Yarin, 14 Oct 2026, two messages: "every slide from the second one should show one-two examples, numbering them,
+# and second to last explain the idea as a whole", then "one picture that depicts the idea for the entire carousel,
+# also make them 10 slides, 2nd slide explaining, second to last recap". Packs from TEN_SLIDE_FROM have 10 slides:
+# 1 hook, 2 explains the idea, 3 to 8 show 1 or 2 examples each, numbered 1, 2, 3... across the carousel (the digit
+# written right before the example), 9 recaps, 10 the personalised story and CTA. Six slides of 1 or 2, 6 to 9 examples in all
+# (Yarin: "lets do 6-9"). Each option has ONE picture (`image` on the option) used behind every slide.
+TEN_SLIDE_FROM = "2026-10-14T10:00"
+NUMBERED_EXAMPLES_FROM = TEN_SLIDE_FROM
+TEN_SLIDE_COUNT = 10
+NUMBERED_EXAMPLE_SLIDES = (3, 4, 5, 6, 7, 8)
+EXAMPLES_PER_SLIDE_MIN, EXAMPLES_PER_SLIDE_MAX = 1, 2
+NUMBERED_EXAMPLES_MIN, NUMBERED_EXAMPLES_MAX = 6, 9  # Yarin, 14 Oct 2026: "lets do 6-9"
+EXPLAIN_SLIDE = 2
+RECAP_SLIDE = 9
+NUMBERED_SLIDE_ROLES = {
+    1: ("hook",),
+    2: ("explain",),
+    **{n: ("example",) for n in NUMBERED_EXAMPLE_SLIDES},
+    9: ("recap",),
+    10: ("story_cta",),
+}
+# Slides that give the value and so need a sourced fact (kid: one of them, expert: two of them).
+NUMBERED_VALUE_SLIDES = (2, 3, 4, 5, 6, 7, 8, 9)
+
+
+def numbered_examples_apply(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= TEN_SLIDE_FROM
+
+
+def slide_roles(pack):
+    return NUMBERED_SLIDE_ROLES if numbered_examples_apply(pack) else SLIDE_ROLES
+
+
+def slide_count(pack):
+    return TEN_SLIDE_COUNT if numbered_examples_apply(pack) else SLIDE_COUNT
+
+
+def last_slide(version):
+    """The CTA slide: the last one (7 in older packs, 10 since 14 Oct 2026)."""
+    return len((version or {}).get("slides") or []) or SLIDE_COUNT
+
+
+def one_picture(version):
+    """True when the option has one picture for the whole carousel (packs from 14 Oct 2026)."""
+    return isinstance((version or {}).get("image"), dict)
+
+
+def slide_image(version, slide):
+    """The image brief behind a slide: the option's one picture, or the slide's own brief in older packs."""
+    return version["image"] if one_picture(version) else slide["image"]
+
+
+def numbered_example_issues(path, version):
+    """Slides 3 to 8: 1 or 2 examples each, numbered in one run from 1, each number written right before its example
+    on the slide; the other slides list none; the total is the option's draw."""
+    issues = []
+    slides = {s.get("number"): s for s in version.get("slides") or []}
+    k = 0
+    for n in sorted(slides):
+        s = slides[n]
+        sp = f"{path}/slide-{n}/examples"
+        items = s.get("examples")
+        if n not in NUMBERED_EXAMPLE_SLIDES:
+            if items:
+                issues.append(Issue("ERROR", sp, "only slides 3 to 8 show numbered examples (slide 2 explains, slide 9 recaps)"))
+            continue
+        items = items or []
+        if not EXAMPLES_PER_SLIDE_MIN <= len(items) <= EXAMPLES_PER_SLIDE_MAX:
+            issues.append(Issue("ERROR", sp, f"every slide from 3 to 8 shows 1 or 2 numbered examples (Yarin, 14 Oct 2026); this one lists {len(items)}"))
+        shown = collapse(s.get("headline", "") + " " + s.get("body", ""))
+        for x in items:
+            k += 1
+            if not re.search(rf"(?<!\d){k}\s+{re.escape(collapse(x))}", shown):
+                issues.append(Issue("ERROR", sp, f"example {k} «{x}» must appear on the slide with its number right before it: «{k} {collapse(x)}»"))
+    all_items = [collapse(x) for n in NUMBERED_EXAMPLE_SLIDES for x in (slides.get(n) or {}).get("examples") or []]
+    if len(set(all_items)) != len(all_items):
+        issues.append(Issue("ERROR", f"{path}/examples", "the examples must be different from each other"))
+    target = version.get("examples_target")
+    if isinstance(target, int) and k != target:
+        issues.append(Issue("ERROR", f"{path}/examples", f"tonight's draw for this option is {target} examples across slides 3 to 8; the slides number {k}"))
+    cover = slides.get(1) or {}
+    promised = re.findall(r"(?<!\d)([1-9]|1[0-2])(?!\d)", cover.get("headline", ""))
+    if k and promised and str(k) not in promised:
+        issues.append(Issue("WARN", f"{path}/slide-1", f"the cover promises {', '.join(promised)} but the slides number {k} examples"))
+    return issues
+
+
+def example_target_issues(pack, folder):
+    """Cross-check the options' examples_target against the saved draw (only when the pack applies the rule)."""
+    if not examples_rule_applies(pack):
+        return []
+    f = Path(folder) / EXAMPLE_SLOTS_FILE
+    if not f.exists():
+        return []
+    slots = json.loads(f.read_text(encoding="utf-8"))["slots"]
+    out = []
+    for d in pack.get("directions", []):
+        for v in d.get("versions", []):
+            if v.get("id") in slots and v.get("examples_target") != slots[v["id"]]:
+                out.append(Issue("ERROR", f"{d.get('id')}/{v.get('id')}/examples_target", f"tonight's draw for {v['id']} is {slots[v['id']]}; the pack says {v.get('examples_target')}"))
+    return out
+
+
+def highlight_issues(path, slide, last=CTA_SLIDE, required=True):
+    """Every slide but the last names the one phrase that gets the colour block: whole words taken from the headline."""
+    head = slide.get("headline", "")
+    hl = str(slide.get("highlight") or "").strip()
+    if not hl:
+        if slide.get("number") == last or not required:
+            return []
+        return [Issue("ERROR", f"{path}/highlight", "name the 1 to 3 words of the headline that get the colour block (highlight)")]
+    line = next((ln for ln in lines_of(head) if hl in ln), None)
+    if line is None:
+        return [Issue("ERROR", f"{path}/highlight", f"«{hl}» is not in the headline (it must sit on one line, word for word)")]
+    issues = []
+    i = line.index(hl)
+    before, after = line[:i], line[i + len(hl):]
+    if (before and HEBREW_RE.match(before[-1])) or (after and HEBREW_RE.match(after[0])):
+        issues.append(Issue("ERROR", f"{path}/highlight", f"«{hl}» cuts a word in the middle; highlight whole words (with their prefix letter)"))
+    if len(words(hl)) > HIGHLIGHT_MAX_WORDS:
+        issues.append(Issue("ERROR", f"{path}/highlight", f"highlight has {len(words(hl))} words (max {HIGHLIGHT_MAX_WORDS}); the block marks the punch, not the line"))
+    return issues
 CAPTION_MAX_LINES = 8
 
 
@@ -409,18 +623,21 @@ def audience_lines(version):
 HOOK_SCORE_KEYS = ("specific", "feeling", "honest_gap", "short_spoken", "filters", "not_an_ad")
 HOOK_MIN_SCORE = 9
 HOOK_RECENT_PACKS = 3
+# Hook Studio (Yarin, 10 Oct 2026: "focus heavily on clickbaity hooks"): curiosity openers are wanted when the
+# carousel pays them off, so «לא תאמינו», «הסוד ש», «חייבת לדעת», «מה שאף אחד לא מספר» and «תפסיקי» (about an
+# action, with the replacement in the carousel) are no longer banned. What stays banned is what is weak (lecture
+# and generic openers, hype with no gap) or what hurts the parent (shame, guilt, fear, threats).
 HOOK_BANNED = [
-    (r"לא תאמינו", "clickbait"), (r"הסוד ש", "clickbait"), (r"חובה לראות", "clickbait"),
+    (r"חובה לראות", "hype with no gap"),
     (r"האם ידעתם", "trivia opener"), (r"בואו נדבר על", "lecture opener"), (r"היום נדבר", "lecture opener"),
     (r"כל מה שצריך לדעת", "generic opener"), (r"המדריך המלא", "generic opener"),
     (r"אתם עושים את זה לא נכון", "guilt opener"), (r"הטעות שכל ההורים", "guilt opener"),
     # Added 8 Oct 2026 (hook strategy research): shame, fear, fake urgency and "you are doing it wrong" openers
-    (r"לא תאמיני", "clickbait"), (r"חייב(?:ת|ים)? לדעת", "fake urgency"), (r"לפני שיהיה מאוחר", "fear and urgency"),
-    (r"מה שאף אחד לא (?:מספר|אומר)", "clickbait"), (r"(?<![א-ת])(?:ו)?תפסיק(?:י|ו)(?![א-ת])", "you are doing it wrong"),
+    (r"לפני שיהיה מאוחר", "fear and urgency"),
     (r"את עושה את זה לא נכון", "guilt opener"), (r"הורים טובים (?:לא|תמיד)", "shame opener"),
     (r"(?<![א-ת])אם (?:את|אתם) לא(?![א-ת])", "conditional threat"),
 ]
-HOOK_SPECIFIC_RE = re.compile(r"\d|[״\"?]|בוקר|ערב|לילה|שער|גן|מיטה|אמבטיה|ארוחה|מדרגות|אוטו|שבוע|חגים|גיל|אמא|אבא")
+HOOK_SPECIFIC_RE = re.compile(r"\d|[״\"?]|בוקר|צהריים|ערב|לילה|שער|גן|כיתה|בית|שינה|מים|סיפור|מיטה|אמבטיה|ארוחה|מדרגות|אוטו|שבוע|חגים|גיל|אמא|אבא")
 
 # Evidence labels for hook formulas (hook strategy research, 8 Oct 2026). Kept separate on purpose:
 # "trendy", "frequently observed", "high performing" and "caused better performance" are different things.
@@ -459,6 +676,8 @@ SENTENCE_SHAPES = {
     "ages_sequence": "גיל אחרי גיל",
     "just_so_you_know": "רק שתדעי",
     "imagine": "דמייני ש",
+    "command": "ציווי על פעולה אחת (אל / תפסיקי)",
+    "secret": "סוד או משהו שלא מספרים",
 }
 # Slide 2 moves. Slide 2 must work as a first slide on its own (Instagram may re-show a carousel from slide 2).
 SLIDE2_MOVES = {
@@ -657,8 +876,9 @@ def hook_issues(path, version, direction_id, bank):
             weak = [k for k in HOOK_SCORE_KEYS if score.get(k) == 0]
             issues.append(Issue("ERROR", f"{path}/hook/score", f"hook scores {total} of 12{' with 0 on ' + ', '.join(weak) if weak else ''}; rewrite it (needs {HOOK_MIN_SCORE}+ and no zero)"))
     payoff = hook.get("payoff_slide")
-    if not isinstance(payoff, int) or not INSIGHT_SLIDES[0] <= payoff <= RESOLUTION_SLIDE:
-        issues.append(Issue("ERROR", f"{path}/hook/payoff_slide", f"say which slide ({INSIGHT_SLIDES[0]} to {RESOLUTION_SLIDE}) answers the hook"))
+    low, high = (EXPLAIN_SLIDE, RECAP_SLIDE) if len(version.get("slides") or []) == TEN_SLIDE_COUNT else (INSIGHT_SLIDES[0], RESOLUTION_SLIDE)
+    if not isinstance(payoff, int) or not low <= payoff <= high:
+        issues.append(Issue("ERROR", f"{path}/hook/payoff_slide", f"say which slide ({low} to {high}) answers the hook"))
     if len(str(hook.get("gap", "")).strip()) < 8:
         issues.append(Issue("ERROR", f"{path}/hook/gap", "state the question the hook opens"))
     slides = version.get("slides") or []
@@ -710,6 +930,16 @@ def brand_issues(path, text, titles):
 
 # Code words taken by competitors. Source: research/carousel-research/lumebook-carousel-research.html
 # (artifact Rkt3DeuC86z23WcAbR7VHW, 6 Oct 2026): MeBook creator reels already say "comment ספר for my discount code".
+# Yarin, 10 Oct 2026: "i want the cta word to always be לומי". One fixed comment word for every kid and expert option, so
+# the 14 day rotation of code words ends for packs generated from FIXED_CODE_WORD_FROM on (older packs keep the old rule).
+CTA_CODE_WORD = "לומי"
+FIXED_CODE_WORD_FROM = "2026-10-10T22:00"
+
+
+def fixed_code_word_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= FIXED_CODE_WORD_FROM
+
+
 BLOCKED_CODE_WORDS = {"ספר": "MeBook creators already use the comment word ספר; pick a milestone word instead"}
 
 
@@ -779,6 +1009,67 @@ REFERENCE_LOCK = (
     "ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; "
     "do not copy the reference layout."
 )
+# Slide 1 is the thumbnail (Yarin, 10 Oct 2026): "clickbaity and always have the child's face facing the viewer
+# with an exaggerated expression". Applies to packs written from COVER_RULE_FROM on; older packs still validate.
+COVER_RULE_FROM = "2026-10-10T17:00"
+COVER_FACE = (
+    "Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and "
+    "shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, "
+    "instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a "
+    "dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is "
+    "visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only "
+    "small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt."
+)
+COVER_AVOID = (
+    "Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in "
+    "the expression, the way an animated film exaggerates, never in broken anatomy."
+)
+COVER_FACE_RE = re.compile(
+    r"fac(?:es|ing)\s+(?:the\s+)?(?:viewer|camera|lens)"
+    r"|look(?:s|ing)?\s+(?:straight\s+|directly\s+|right\s+)?(?:at|into|to)\s+(?:the\s+)?(?:viewer|camera|lens)"
+    r"|eyes?\s+(?:straight\s+)?(?:to|on|into|at)\s+(?:the\s+)?(?:camera|viewer|lens)", re.I)
+COVER_EXPRESSION_RE = re.compile(
+    r"exaggerat|wide[- ]eyed|wide eyes|huge eyes|raised eyebrows|open[- ]mouth|gasp|jaw|pout|puffed cheeks|giant grin|"
+    r"big grin|scrunched|shock|stunned|dramatic", re.I)
+COVER_BLOCK_RE = re.compile(
+    r"from behind|behind (?:the|her|his) (?:shoulder|back|head)|back to (?:the )?(?:camera|viewer)|back view|"
+    r"over[- ]the[- ]shoulder|silhouette|in profile|profile (?:view|shot)|side view|from the side|face down|"
+    r"face (?:hidden|covered|buried)|hides? (?:her|his) face", re.I)
+
+
+def cover_rule_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= COVER_RULE_FROM
+
+
+def cover_image_issues(path, image):
+    """Slide 1's picture: the child's face to the viewer with a big readable expression."""
+    issues = []
+    where = " ".join(str(image.get(k, "")) for k in ("action", "camera"))
+    if not COVER_FACE_RE.search(where):
+        issues.append(Issue("ERROR", f"{path}/image/action", "slide 1 is the thumbnail: say that the child faces the viewer and looks straight into the camera"))
+    m = COVER_BLOCK_RE.search(where)
+    if m:
+        issues.append(Issue("ERROR", f"{path}/image/camera", f"slide 1 shows the child's whole face to the viewer, not «{m.group(0)}»"))
+    if not COVER_EXPRESSION_RE.search(where + " " + str(image.get("beat", ""))):
+        issues.append(Issue("ERROR", f"{path}/image/action", "slide 1 needs one big exaggerated expression: name it (wide eyes and raised eyebrows, dramatic pout, open-mouthed gasp...)"))
+    return issues
+
+
+# Slide 1's words: only the strongest candidates. Used slate candidates must score 2 on each of these.
+COVER_HOOK_MUST_BE_2 = ("stopping_power", "honest_curiosity", "swipe_promise")
+
+# Yarin, 11 Oct 2026: "i want the hooks to focus on what value is it going to provide". The cover says what the viewer gets
+# (a number of things to try, a sentence to say, a result, an answer), not only a tease. Used slate candidates score 2 on
+# `usefulness` (the cover itself promises something to do or understand tomorrow), and a cover with no value marker is flagged.
+VALUE_HOOK_FROM = "2026-10-11T00:00"
+COVER_VALUE_MUST_BE_2 = ("usefulness",)
+VALUE_MARKER_RE = re.compile(r"\d|שיעזר|עוזר|מעזר|איך\b|משפט|שאלה אחת|במקום|מה (?:עושים|אומרים|כן)|דבר(?:ים)?\b|טיפ|דרך|סדר|צעד|רעיון|כלי|מתי כן|סוגר|מרגיע|מרדים")
+
+
+def value_hook_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= VALUE_HOOK_FROM
+
+
 IMAGE_FIELDS = ("beat", "action", "setting", "camera", "lighting", "wardrobe_objects")
 ANCHOR_FIELDS = ("child", "parent", "wardrobe")
 
@@ -793,9 +1084,10 @@ def text_zone_sentence(zone):
     )
 
 
-def compose_image_prompt(anchor, image, slide_number, for_edit=False, pillar=None):
+def compose_image_prompt(anchor, image, slide_number, for_edit=False, pillar=None, one_picture_prompt=False):
     """The exact English prompt the image model receives. Review pages show this same string.
-    pillar is 'kid' or 'expert' and adds that pillar's photo direction."""
+    pillar is 'kid' or 'expert' and adds that pillar's photo direction. one_picture_prompt: the option's single
+    picture (packs from 14 Oct 2026), written as the cover (slide_number 1) and shown behind every slide."""
     parts = []
     if for_edit:
         parts.append(REFERENCE_LOCK)
@@ -804,14 +1096,16 @@ def compose_image_prompt(anchor, image, slide_number, for_edit=False, pillar=Non
         f"{anchor['child'].strip()} {anchor['parent'].strip()} Wardrobe: {anchor['wardrobe'].strip()}"
     )
     parts.append(f"Scene: {image['action'].strip()} Setting: {image['setting'].strip()}")
+    if slide_number == 1:
+        parts.append(COVER_FACE)
     parts.append(f"Emotional beat: {image['beat'].strip()}")
     parts.append(f"Camera: {image['camera'].strip()} Lighting: {image['lighting'].strip()}")
     parts.append(f"Wardrobe and objects in this scene: {image['wardrobe_objects'].strip()}")
-    parts.extend([STYLE, PALETTE, AVOID])
-    if pillar in PILLARS:
+    parts.extend([STYLE, PALETTE, COVER_AVOID if slide_number == 1 else AVOID])
+    if pillar in PILLARS and slide_number != 1:   # the cover has its own framing
         parts.append(PILLARS[pillar]["photo"])
     parts.append(text_zone_sentence(image.get("text_zone", {})))
-    if slide_number == CTA_SLIDE:
+    if slide_number == CTA_SLIDE and not one_picture_prompt:
         parts.append(PRODUCT_CARD_ZONE)
     parts.append(NO_TEXT)
     return "\n\n".join(parts)
@@ -896,7 +1190,7 @@ def log_voice_edits(records, path=VOICE_EDITS):
 def recent_voice_edits(n=20, path=VOICE_EDITS):
     """The latest edits worth learning from, newest last: rewrites, tweaks and line-break changes."""
     keep = [e for e in load_voice_edits(path) if e.get("kind") in ("rewrite", "tweak", "line_breaks")]
-    return [{k: e.get(k) for k in ("at", "kind", "field", "role", "addressee", "before", "after")} for e in keep[-n:]]
+    return [{k: e.get(k) for k in ("at", "direction", "kind", "field", "role", "addressee", "before", "after")} for e in keep[-n:]]
 
 
 def voice_status(profile_path=VOICE_PROFILE, approved_dir=APPROVED_EXAMPLES, edits_path=VOICE_EDITS):

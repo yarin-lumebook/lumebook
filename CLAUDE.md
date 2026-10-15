@@ -10,13 +10,15 @@ Social media work for LumeBook (personalised kids' books, Israel). Solo SMM: Yar
 | `tools/lumebook.py` | Keeps components in step (see below) |
 | `shared/facts.json` | Facts several components repeat: artifact and site URLs, Form/Sheet IDs, creator offer, key dates, barter list, baselines |
 | `shared/brand/` | Canonical logos, mascot, fonts, carousel backgrounds, link-preview image |
-| `docs/` | Product brief, Q4 strategy page, Hebrew carousel playbook, UGC research, Hebrew voice tool note |
+| `docs/` | Product brief, Q4 strategy page, Hebrew carousel playbook, UGC research, Hebrew voice tool note, sales data and social decisions of 12 Oct 2026 (internal figures, keep them off the public plan page) |
 | `prompts/` | The master prompts each workstream was built from (historical; paths updated to this layout) |
 | `shared/design/` | The LumeBook design system: `lumebook.css` (tokens + `lb-` components), `design.py` (build helpers), `build_ds_artifact.py` (regenerates the Design System artifact) |
 | `sites/` | `dashboard` (the all-in-one internal dashboard; artifact + lumebook-dashboard.vercel.app, which also serves the plan at /plan/), `lumebook-smm-plan` (the plan page, edited in the site editor), `lumebook-ambassadors` (retired 11 Oct 2026: Yarin no longer uses the Vercel ambassadors site; the folder is an archive, do not deploy or maintain it) |
-| `creators/` | `creator-research` (creator map) and the signup Form's Apps Script |
+| `creators/` | `creator-research` (creator map), the signup Form's Apps Script, `correspondence/` (creator emails and DM recordings, one folder per handle, not in git) |
 | `research/` | Competitor teardown, kids content lab (1.1 GB of raw video and frames, keep), carousel research, carousel playbook page |
-| `carousel/` | `carousel-pipeline` (Hook Studio: nightly at 22:00, hooks first, then content, then slide design), `fal-carousel-trial` (frozen reference), `references/` |
+| `carousel/` | `carousel-pipeline` (Hook Studio: nightly at 22:00, hooks first, then content, then slide design; its drafts and paid `approved/` runs stay inside it) |
+| `media/` | Every creative file (images, video, audio) since 14 Oct 2026: `projects/YYYY-MM-DD-slug/` one folder per job (reels, podcasts, character packs, stories, highlights, trend recreations, the frozen fal trial), `inbox/` for unsorted files. Index, rules and the cloud-archive steps: `media/README.md` |
+| `_to-delete/` | Files the project no longer needs, under their original path, listed in its README. Yarin empties it; not in git |
 
 One git repo for everything: github.com/yarinbruner/lumebook (private, since 8 Oct 2026; the four old repos are archived and their history is inside). Raw media is ignored (see `.gitignore`). The root `.githooks/pre-commit` enforces the SMM plan's English mirror and blocks Sheet exports.
 
@@ -57,6 +59,8 @@ python3 tools/lumebook.py serve      # one local server for the whole folder: ht
 - Don't mention AI in audience copy.
 - Hebrew grammar: `creators/creator-research/src/hebrew-rules.md`.
 - Never edit built HTML (creator map, research pages); edit the sources and rebuild.
+- New images, videos and audio go in `media/projects/<start date>-<slug>/` (or `media/inbox/` until sorted), never in a new top-level folder; one copy per file. `output/` and `video/` were folded into `media/` on 14 Oct 2026.
+- Never delete project files: move them to `_to-delete/` under their original path and add a line to `_to-delete/README.md`.
 - `sites/lumebook-smm-plan`: mirror every Hebrew change in `content.en.md` in the same commit.
 - Commit or push only when Yarin asks. Repos use the GitHub no-reply email.
 - Preview servers: `.claude/launch.json`. If Yarin has a page open in the site editor, ask before writing that file.

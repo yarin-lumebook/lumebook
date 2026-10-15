@@ -28,7 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import carousel_lib as lib  # noqa: E402
 import create_review  # noqa: E402
-import reco_lib  # noqa: E402  (daily games and books carousels)
+import reco_lib  # noqa: E402  (the daily games and books carousel)
 import validate_pack  # noqa: E402
 
 
@@ -58,7 +58,11 @@ def cmd_start(args):
             for t in eligible[:6]
         ],
         "blocked_topic_ids": ctx["recent_topic_ids"],
-        "blocked_code_words": ctx["recent_code_words"],
+        "examples_per_option": lib.draw_example_slots(folder),
+        "examples_note": f"10 slides and numbered examples (Yarin, 14 Oct 2026): copy the option's number ({lib.NUMBERED_EXAMPLES_MIN} to {lib.NUMBERED_EXAMPLES_MAX}) into `examples_target`. Slide 2 explains the idea. Slides 3 to 8 each show 1 or 2 examples, numbered 1, 2, 3... across the carousel, the number written right before the example on the slide (\"1 חיבוק של 3 שניות\"), each slide listing them in `examples`; the total is the draw and the cover's number matches it. Slide 9 recaps with no new example. Slide 10 is the story and CTA. ONE picture per option: the brief goes in the option's `image` (it depicts the idea, is the cover, and sits behind every slide); slides have no image",
+        "cta_code_word": lib.CTA_CODE_WORD,
+        "cta_code_word_note": f"the CTA word is always «{lib.CTA_CODE_WORD}» in all six options (Yarin, 10 Oct 2026); no rotation, no topic code words",
+        "blocked_code_words": [],
         "blocked_hook_families": ctx["blocked_hook_families"],
         "hook_family_use_last_7_days": ctx["hook_family_candidates_last_7_days"],
         "recent_hooks_do_not_repeat": ctx["recent_hooks"],
@@ -69,15 +73,15 @@ def cmd_start(args):
         "child_names": lib.load_names(),
         "recent_child_names_rotate_away_from": ctx["recent_child_names"],
         "addressees": {"mom": "feminine singular (את, כתבי)", "parents": "plural (אתם, כתבו)", "never": "dad"},
-        "cta_forms": {
+        "cta_forms": {k: v.replace("X", lib.CTA_CODE_WORD) for k, v in {
             "mom_boy": "כתבי \"X\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
             "mom_girl": "כתבי \"X\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
             "parents_boy": "כתבו \"X\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
             "parents_girl": "כתבו \"X\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
-        },
-        "slide_roles": {str(k): list(v) for k, v in lib.SLIDE_ROLES.items()},
+        }.items()},
+        "slide_roles": {str(k): list(v) for k, v in lib.NUMBERED_SLIDE_ROLES.items()},
         "rules": {
-            "slides": lib.SLIDE_COUNT,
+            "slides": lib.TEN_SLIDE_COUNT,
             "hook_main_max_words": lib.HOOK_MAIN_MAX_WORDS,
             "hook_total_max_words": lib.HOOK_TOTAL_MAX_WORDS,
             "slide_max_words": lib.SLIDE_MAX_WORDS,
@@ -86,7 +90,7 @@ def cmd_start(args):
             "caption_lines": [lib.CAPTION_MIN_LINES, lib.CAPTION_MAX_LINES],
             "max_options_per_hook_family": lib.HOOK_FAMILY_MAX_IN_WINDOW,
         },
-        # The two extra daily carousels (games and books for one developmental stage): recommendations.md
+        # The extra daily carousel (games and books together for one developmental stage, 10 to 12 slides): recommendations.md
         "recommendations": reco_lib.start_context(date, folder),
     }
     print(json.dumps(out, ensure_ascii=False, indent=2))
@@ -116,6 +120,17 @@ def hook_context(ctx, date):
         "mechanisms": lib.MECHANISMS,
         "sentence_shapes": lib.SENTENCE_SHAPES,
         "slide2_moves": lib.SLIDE2_MOVES,
+        # Hook Studio priorities (Yarin, 10 Oct 2026): the hook first, then the content, then the slide design.
+        "priorities_in_order": ["the loudest true cover the topic allows", "every slide is worth the swipe on its own", "copy cut to fit very large type"],
+        "bold_look_rules": {
+            "applies_from": lib.BOLD_RULE_FROM,
+            "cover_headline": {"max_lines": 3, "max_chars_per_line": lib.COVER_HEADLINE_LINE_MAX_CHARS},
+            "headline_slides_2_to_7": {"max_lines": lib.BOLD_HEADLINE_MAX_LINES, "max_chars_per_line": lib.BOLD_HEADLINE_LINE_MAX_CHARS},
+            "body": {"max_lines": lib.BOLD_BODY_MAX_LINES, "max_chars_per_line": lib.BOLD_BODY_LINE_MAX_CHARS},
+            "max_words_slides_2_to_6": lib.BOLD_SLIDE_MAX_WORDS,
+            "highlight": f"every slide before the last names 1 to {lib.HIGHLIGHT_MAX_WORDS} whole words of its headline (on one line) for the colour block",
+            "spoken_sentences": "a sentence to say goes in quotation marks in the body; the slide shows it as a speech bubble",
+        },
         "hook_slate_rules": {
             "per_direction": lib.SLATE_SIZE,
             "score_keys_0_to_2": list(lib.SLATE_SCORE_KEYS),
@@ -160,7 +175,7 @@ def finish_schema_issues(pack):
 def cmd_finish(args):
     path = Path(args.pack).resolve()
     pack = lib.read_json(path)
-    issues = finish_schema_issues(pack) + validate_pack.pack_issues(pack, history=lib.load_history())
+    issues = finish_schema_issues(pack) + validate_pack.pack_issues(pack, history=lib.load_history()) + lib.example_target_issues(pack, path.parent)
     errors = [i for i in issues if i.level == "ERROR"]
     warns = [i for i in issues if i.level == "WARN"]
     if errors:
@@ -186,7 +201,8 @@ def cmd_finish(args):
 
 
 def cmd_finish_reco(args):
-    """Validate games-carousel.json and books-carousel.json, render their slides, rebuild the review page, record history."""
+    """Validate reco-carousel.json (games and books together), render its slides, rebuild the review page, record history.
+    An older night's folder with games-carousel.json and books-carousel.json is finished the same way."""
     import reco_render
     folder = Path(args.folder).resolve()
     if folder.name.endswith(".json"):
@@ -194,7 +210,9 @@ def cmd_finish_reco(args):
     have = reco_lib.present(folder)
     history = reco_lib.load_history()
     failed = False
-    for fmt in reco_lib.FORMATS:
+    legacy = [f for f in reco_lib.LEGACY_FORMATS if f in have]
+    expected = legacy if legacy and reco_lib.MIXED not in have else list(reco_lib.NIGHTLY_FORMATS)
+    for fmt in expected:
         if fmt not in have:
             print(f"MISSING {folder / reco_lib.FILES[fmt]}")
             failed = True
@@ -202,7 +220,7 @@ def cmd_finish_reco(args):
         car, issues, st = reco_lib.validate_file(have[fmt], history=history)
         problems = [] if args.no_png else reco_render.render(have[fmt])[1]
         errors = [i for i in issues if i.level == "ERROR"]
-        print(f"{'VALID' if st['valid'] and not problems else 'INVALID'} {fmt}: {car['stage']['age_label_he']} · {car['stage']['skill']} · "
+        print(f"{'VALID' if st['valid'] and not problems else 'INVALID'} {fmt}: {len(car.get('slides', []))} slides · {car['stage']['age_label_he']} · {car['stage']['skill']} · "
               f"publish-ready {'yes' if st['publish_ready'] else 'no'}{'' if st['rights_clear'] else ' (rights_unverified images)'}")
         for i in errors:
             print(f"- [{getattr(i, 'flag', '')}] {i}")
@@ -254,7 +272,7 @@ def main():
     t.set_defaults(func=cmd_topics)
     v = sub.add_parser("voice")
     v.set_defaults(func=cmd_voice)
-    fr = sub.add_parser("finish-reco", help="validate and render the games and books carousels in a draft folder")
+    fr = sub.add_parser("finish-reco", help="validate and render the games and books carousel (reco-carousel.json) in a draft folder")
     fr.add_argument("folder", help="drafts/DATE (or a carousel file inside it)")
     fr.add_argument("--no-png", action="store_true", help="skip the Chrome export (tests)")
     fr.set_defaults(func=cmd_finish_reco)

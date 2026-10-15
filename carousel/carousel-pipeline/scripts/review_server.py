@@ -19,6 +19,7 @@ Listens on 127.0.0.1 only. Writes only under carousel/carousel-pipeline/drafts/.
 """
 
 import argparse
+import os
 import json
 import re
 import shutil
@@ -32,7 +33,7 @@ import create_review  # noqa: E402
 import validate_pack  # noqa: E402
 
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-FIELDS = {"headline", "body", "caption", "cta", "title"}
+FIELDS = {"headline", "body", "highlight", "caption", "cta", "title"}
 
 
 def clean(text):
@@ -56,11 +57,11 @@ def apply_edits(pack, edits):
             raise ValueError(f"unknown option or field: {e.get('option')} {field}")
         value = clean(e.get("value", ""))
         change = {"option": v["id"], "field": field, "slide": None}
-        if field in ("headline", "body"):
+        if field in ("headline", "body", "highlight"):
             n = e.get("slide")
             if not isinstance(n, int) or not 1 <= n <= len(v["slides"]):
                 raise ValueError(f"bad slide number {n}")
-            if field == "body" and n == lib.CTA_SLIDE:
+            if field == "body" and n == len(v["slides"]):
                 raise ValueError("the last slide's body is the CTA; edit the CTA instead")
             before = v["slides"][n - 1].get(field, "")
             if before != value:
@@ -85,7 +86,7 @@ def apply_edits(pack, edits):
                 v["cta"] = new_cta
                 cap = [l for l in lib.lines_of(v["caption"]) if lib.collapse(l) not in (lib.collapse(old), new_cta)]
                 v["caption"] = "\n".join(cap + [new_cta])
-                v["slides"][lib.CTA_SLIDE - 1]["body"] = cta_slide_lines(new_cta)
+                v["slides"][-1]["body"] = cta_slide_lines(new_cta)
                 m = re.search(lib.CTA_WRITE_RE + r"\s*[״\"׳']?([\u05D0-\u05EA]+)", new_cta)
                 if m:
                     v["code_word"] = m.group(1)
@@ -213,7 +214,7 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 def _save_reco(self):
-    """Edits to the games or books carousel (reco_render.save): back up, apply, validate, re-render, rebuild the page."""
+    """Edits to the games and books carousel, or an older games or books one (reco_render.save): back up, apply, validate, re-render, rebuild the page."""
     import reco_render
     try:
         length = int(self.headers.get("Content-Length", 0))
@@ -236,7 +237,7 @@ def newest_date():
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--date", help="pack date YYYY-MM-DD (default: newest)")
-    ap.add_argument("--port", type=int, default=8777)
+    ap.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8777)))
     args = ap.parse_args()
     date = args.date or newest_date()
     if not date:

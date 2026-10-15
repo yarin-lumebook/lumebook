@@ -1,0 +1,471 @@
+{
+  "schema_version": 1,
+  "format": "games",
+  "date": "2026-10-09",
+  "generated_at": "2026-10-08T22:06:50+03:00",
+  "title": "4 משחקי קופסא שעוזרים לילדים לשים לב",
+  "stage": {
+    "id": "attention-5-6",
+    "age_min": 5,
+    "age_max": 6,
+    "age_label_he": "גיל 5 עד 6",
+    "skill": "attention_self_regulation",
+    "need": "Paying attention for a few minutes, watching for the right moment and holding back until it comes, and searching a picture carefully. CDC lists 'Pays attention for 5 to 10 minutes during activities' by 5 years and suggests card games and I Spy for memory and attention; Harvard's 5 to 7 sheet says fast-response games challenge attention and inhibition.",
+    "age_caveat": "Milestones describe what most children (75% or more) do by an age, not a deadline, and Harvard notes children this age take to rule games 'with widely varying levels of interest and skill'. Slide 2 says בסביבות גיל 5; the caption repeats that some children focus longer and some need short rounds."
+  },
+  "addressee": "parents",
+  "hook_structure": "count_ages_skill",
+  "dev_sources": [
+    {
+      "id": "src-cdc-5y",
+      "title": "Milestones by 5 Years",
+      "publisher": "CDC, Learn the Signs. Act Early.",
+      "url": "https://www.cdc.gov/act-early/milestones/5-years.html",
+      "accessed": "2026-10-08",
+      "quote": "Pays attention for 5 to 10 minutes during activities. For example, during story time or making arts and crafts (screen time does not count) / Play games that help with memory and attention. For example, play card games, Tic Tac Toe, I Spy, or Hot and Cold. / Developmental milestones are things most children (75% or more) can do by a certain age.",
+      "supports": "Slide 2: paying attention for 5 to 10 minutes during an activity is a listed cognitive milestone by 5 years. CDC's own tip is to play games that help with memory and attention (card games, I Spy), which backs the frame and the spot-the-difference and card-game picks. Caveat: CDC milestones are what 75% or more of children do by that age, so the slide says בסביבות and adds that some get there earlier and some later. CDC's pages stop at 5 years; nothing here is specific to 6.",
+      "kind": "official_guidance"
+    },
+    {
+      "id": "src-harvard-ef-5to7",
+      "title": "Executive Function Activities for 5- to 7-year-olds",
+      "publisher": "Center on the Developing Child at Harvard University",
+      "url": "https://developingchild.harvard.edu/wp-content/uploads/2024/10/Executive-Function-Activities-for-5-to-7-year-olds.pdf",
+      "accessed": "2026-10-08",
+      "quote": "At this age, children start to enjoy games that have rules, but do so with widely varying levels of interest and skill. / Games that require fast responses and monitoring are also great for challenging attention and inhibition. Snap and Slapjack are card games that fall into this category. / Others require selective responses and test inhibition, such as the Magic Word Game, in which children wait for a “magic word” to start an action. / puzzle and brain teaser books that include mazes, simple word finds, matching games, etc., exercise attention and problem-solving skills / I Spy and the books derived from this game require children to think about categorization and use selective attention in searching for the correct type of object. / Logic and reasoning games, in which rules about what is possible need to be applied to solve puzzles, start to become interesting and provide great working memory and cognitive flexibility challenges.",
+      "supports": "Fast-response and monitoring games (Snap-type card games) challenge attention and inhibition: backs יוסף המעופף (watch, wait, react) and סלמון שמח (listen for a match, react fast). Puzzle books with matching and I Spy-type searching exercise attention: backs מצא את 7 ההבדלים. 'Widely varying levels of interest and skill' backs the honest age hedge. Caveats: the sheet is for 5 to 7, so it fits this stage; it names Snap, Slapjack, I Spy and puzzle books, not these specific products, so the link from the product to the skill is our reading of the mechanics. Read from the PDF text (extracted locally with PDFKit) on 2026-10-08. Logic and reasoning puzzles (its examples are ThinkFun's Traffic Jam and Chocolate Fix) back קוד הצבע, a SmartGames logic puzzle.",
+      "kind": "reputable_explainer"
+    },
+    {
+      "id": "src-hc-milestones-4to5",
+      "title": "Developmental Milestones: 4 to 5 Year Olds",
+      "publisher": "HealthyChildren.org (American Academy of Pediatrics)",
+      "url": "https://www.healthychildren.org/English/ages-stages/preschool/Pages/Developmental-Milestones-4-to-5-Year-Olds.aspx",
+      "accessed": "2026-10-08",
+      "quote": "More likely to agree to rules",
+      "supports": "AAP's 4 to 5 social milestone 'More likely to agree to rules' backs short rule games at the start of this stage. Caveat: the same page lists being unable to concentrate on one activity for more than five minutes under signs of possible delay; we do NOT use that on slides (no diagnostic framing). Only general backing.",
+      "kind": "official_guidance"
+    }
+  ],
+  "product_facts": [
+    {
+      "id": "site-personal",
+      "fact": "Books are personalised with the child's name and photo",
+      "quote": "ספר ילדים בהתאמה אישית עם השם והתמונה של הילד",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-08"
+    },
+    {
+      "id": "site-hero",
+      "fact": "The child's name is in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים.",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-08"
+    },
+    {
+      "id": "site-firstday",
+      "fact": "Catalogue book 'היום הראשון בבית הספר' (ages 4-7): starting school and discovering that listening is a superpower; paying attention and being attentive help the child make friends and even solve riddles",
+      "quote": "סיפור מעודד על להתחיל בבית הספר ולגלות את כוח העל של ההקשבה. הילד/ה לומד/ת ששימת לב, שאילת שאלות מחושבות והיות קשוב/ה עוזרים להם לעשות חברים חדשים, לזכות בהכרה ואפילו לפתור חידות. / טווח גילאים 4-7 שנים",
+      "url": "https://lumebook.com/IL/he/books/51",
+      "checked_at": "2026-10-08"
+    }
+  ],
+  "products": [
+    {
+      "id": "game-color-code",
+      "kind": "game",
+      "type": "logic_puzzle_solo",
+      "title_he": "קוד הצבע",
+      "title_original": "Colour Code by SmartGames (SmartGames logo and code SG090 on the Fox Mind page and box)",
+      "manufacturer": "SmartGames (Hebrew edition פוקסמיינד, Fox Mind Israel)",
+      "israeli_distributor": "פוקסמיינד (Fox Mind Israel), Hebrew edition; Toys R Us vendor field FOXMIND",
+      "official_age": {
+        "text": "5+ (Fox Mind page and box: גיל 5+; Toys R Us text 'מתאים לגילאי 5+', its age field says 4-6)",
+        "min": 5,
+        "source": "Fox Mind Israel (Hebrew edition publisher) product page and box",
+        "url": "https://foxmind.co.il/product/color-code/",
+        "quote": "1+ משתתפים גילאי 5+ 15 דקות"
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/%D7%A7%D7%95%D7%93-%D7%94%D7%A6%D7%91%D7%A2-%D7%9E%D7%A9%D7%97%D7%A7-%D7%97%D7%99%D7%93%D7%95%D7%AA-%D7%A4%D7%95%D7%A7%D7%A1%D7%9E%D7%99%D7%99%D7%A0%D7%93",
+          "status": "in_stock",
+          "accessed": "2026-10-08",
+          "quote": "נותרו רק 2 יחידות במלאי!",
+          "price_ils": "109.90"
+        },
+        {
+          "retailer": "Fox Mind Israel (publisher product page)",
+          "url": "https://foxmind.co.il/product/color-code/",
+          "status": "listed",
+          "accessed": "2026-10-08",
+          "quote": "קוד הצבע 🎨 100 חידות. כמה שכבות קדימה תצליחו לחשוב? | פוקסמיינד"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-colorcode-tru",
+          "type": "retailer_ranking",
+          "description": "Position 21 of 447 in the Toys R Us Israel board-games collection sorted by 'הנמכרים ביותר' (page 1; 21/447 = 4.7%, top 10 percent). Same full-list read on 2026-10-08 as the other two games. Shopify sales sort with an undisclosed window, not a published chart.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר / 447 מוצרים",
+          "accessed": "2026-10-08",
+          "group": "toysrus-ranking",
+          "rank": 21,
+          "out_of": 447
+        },
+        {
+          "id": "pop-colorcode-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Hebrew edition by Fox Mind Israel, an established Israeli game publisher (Fox Mind logo on the Hebrew box).",
+          "url": "https://foxmind.co.il/product/color-code/",
+          "quote": "קוד הצבע 🎨 100 חידות. כמה שכבות קדימה תצליחו לחשוב? | פוקסמיינד",
+          "accessed": "2026-10-08",
+          "group": "publisher"
+        }
+      ],
+      "popularity_reasoning": "One strong Israel-specific signal: 21st of 447 board games at Toys R Us Israel by the store's best-selling sort (top 5 percent), plus the Hebrew edition from Fox Mind.",
+      "developmental_relevance": "The child picks a puzzle card and has to find which transparent tiles, stacked in the right order and direction, make exactly that picture. Fox Mind's own text asks the player to pay attention to shapes, colours and orientation ('שימו לב לשילוב הצורות, הצבעים וכיוון ההנחה של כל אריח'). Harvard lists puzzle books and logic puzzles as exercising attention, working memory and flexibility at 5 to 7. It is a calm, one-player puzzle, a different kind of attention from the two fast games.",
+      "parent_tip_source": "From the official rules: puzzles run from easy to very hard (100 challenges) and solutions are at the back of the booklet ('ניתן לבדוק את הפתרון גם בסוף חוברת החידות'). Our tip: start with the easiest ones and let the child check the answer.",
+      "dev_source_ids": [
+        "src-harvard-ef-5to7",
+        "src-cdc-5y"
+      ],
+      "image": {
+        "file": "reco-assets/game-colorcode.jpg",
+        "image_url": "https://foxmind.co.il/wp-content/uploads/2024/11/color-code2024.jpg",
+        "page_url": "https://foxmind.co.il/product/color-code/",
+        "source_type": "publisher",
+        "width": 1200,
+        "height": 1200,
+        "accessed": "2026-10-08",
+        "rights_status": "rights_unverified",
+        "rights_note": "Fox Mind's og:image for the product page: 3D packshot of the Hebrew box on white. No press kit or media licence seen on the page."
+      },
+      "confidence": "high",
+      "limitations": "Mostly a solo puzzle (1+ players), so it is played alongside the child rather than against. Toys R Us shows 2 units left; only Toys R Us checked for stock today. Fox Mind made two products in the last games carousel, so the maker warning remains; it was the only top-10-percent game for this age not by Hakubia or Kodkod (the other Fox Mind option, דאבל at 30, is out of stock at Toys R Us and overlaps with the two visual and speed games)."
+    },
+    {
+      "id": "game-7-differences",
+      "kind": "game",
+      "type": "spot_the_difference",
+      "title_he": "50 - מצא את 7 ההבדלים",
+      "title_original": "Hebrew original from the הפרה הסגולה (Purple Cow) line by הקובייה; no foreign title",
+      "manufacturer": "הקובייה (Hakubia)",
+      "israeli_distributor": "הקובייה משחקים בע\"מ, הפרה הסגולה line; barcode 7290018133057",
+      "official_age": {
+        "text": "5+ (Toys R Us Israel text: 'מתאים לגילאי 5 ומעלה'; box: 5-99)",
+        "min": 5,
+        "max": 99,
+        "source": "Toys R Us Israel product page (brand Hakubia) and the box in the product photo",
+        "url": "https://toysrus.co.il/products/50-%D7%9E%D7%A6%D7%90-%D7%90%D7%AA-7-%D7%94%D7%94%D7%91%D7%93%D7%9C%D7%99%D7%9D",
+        "quote": "מתאים לגילאי 5 ומעלה, מושלם למשחק בבית או בנסיעות"
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/50-%D7%9E%D7%A6%D7%90-%D7%90%D7%AA-7-%D7%94%D7%94%D7%91%D7%93%D7%9C%D7%99%D7%9D",
+          "status": "out_of_stock",
+          "accessed": "2026-10-08",
+          "quote": "אזל המלאי",
+          "price_ils": "19.90"
+        },
+        {
+          "retailer": "בית הצעצוע ToyHouse",
+          "url": "https://www.toyhouse.co.il/product.asp?Pid=530133&Cat2Cat1ID=38&Cat2ID=0&lang=he",
+          "status": "in_stock",
+          "accessed": "2026-10-08",
+          "quote": "7290018133057",
+          "price_ils": "19.90 (page Hebrew came back garbled in the fetch; barcode 7290018133057, price 19.90 ILS and an in-stock flag were readable)"
+        },
+        {
+          "retailer": "Zap search (aggregator, ToyHouse offer)",
+          "url": "https://www.zap.co.il/search.aspx?keyword=%D7%9E%D7%A6%D7%90%20%D7%90%D7%AA%207%20%D7%94%D7%94%D7%91%D7%93%D7%9C%D7%99%D7%9D",
+          "status": "listed",
+          "accessed": "2026-10-08",
+          "quote": "50 חידות - מצא את 7 ההבדלים בכל בדף",
+          "price_ils": "35 incl. shipping"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-7diff-tru",
+          "type": "retailer_ranking",
+          "description": "Position 36 of 447 in the Toys R Us Israel board-games collection sorted by 'הנמכרים ביותר' (page 1; 36/447 = 8.1%, inside the top 10 percent). Shopify sales sort with an undisclosed window, not a published chart; it currently shows as sold out at Toys R Us, which may itself reflect recent sales.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר / 447 מוצרים",
+          "accessed": "2026-10-08",
+          "group": "toysrus-ranking",
+          "rank": 36,
+          "out_of": 447
+        },
+        {
+          "id": "pop-7diff-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Part of Hakubia's '50' card-pack series, listed in the Hakubia catalogue under 'משחקי הפרה הסגולה'. Hakubia (הקובייה) is the Israeli publisher of Catan, Dixit and Codenames in Hebrew. Hakubia (הקובייה משחקים בע\"מ) is an Israeli publisher; its site is on .com, hence israel_specific.",
+          "url": "https://www.hakubia.com/catalog/50-games/",
+          "quote": "50 – אתגרים, חשיבה ויצירה",
+          "accessed": "2026-10-08",
+          "group": "publisher",
+          "israel_specific": true
+        }
+      ],
+      "popularity_reasoning": "One strong Israel-specific signal (36th of 447 board games at Toys R Us Israel, top 10 percent) plus an established Israeli publisher. A cheap pocket card pack (19.90 ILS), so the sales rank partly reflects price.",
+      "developmental_relevance": "Each card shows two nearly identical drawings and the child searches for what changed, detail by detail. Harvard lists puzzle books with matching games and I Spy-style searching as exercising attention and selective attention; CDC suggests I Spy-type games for memory and attention at 5. It can be played alone or together, so it also suits a quiet few minutes.",
+      "parent_tip_source": "Your suggestion: search together and whoever finds a difference points at it instead of shouting it, so everyone keeps looking.",
+      "dev_source_ids": [
+        "src-harvard-ef-5to7",
+        "src-cdc-5y"
+      ],
+      "image": {
+        "file": "reco-assets/game-7diff.jpg",
+        "image_url": "https://toysrus.co.il/cdn/shop/files/90688_1.jpg?v=1782654179&width=1946",
+        "page_url": "https://toysrus.co.il/products/50-%D7%9E%D7%A6%D7%90-%D7%90%D7%AA-7-%D7%94%D7%94%D7%91%D7%93%D7%9C%D7%99%D7%9D",
+        "source_type": "israeli_retailer",
+        "width": 709,
+        "height": 709,
+        "accessed": "2026-10-08",
+        "rights_status": "rights_unverified",
+        "rights_note": "Toys R Us Israel product photo: flat front of the Hebrew tin (הפרה הסגולה logo, 5-99 age icon) on white. No press or licence terms seen."
+      },
+      "confidence": "medium",
+      "limitations": "Sold out at Toys R Us Israel today; in stock at ToyHouse, but that page's Hebrew was garbled in the fetch (barcode, price and the in-stock flag were readable) and a direct curl was blocked by the store's firewall. Hakubia's catalogue page for the 50 series has no age; age is from the Toys R Us text and the box icon. Zap lists ToyHouse's item as '50 חידות' (puzzles), so it may be closer to a card pack of puzzles than a competitive game. Same publisher as סלמון שמח (validator warning)."
+    },
+    {
+      "id": "game-happy-salmon",
+      "kind": "game",
+      "type": "party_speed_cards",
+      "title_he": "סלמון שמח",
+      "title_original": "Happy Salmon (image file name on the Hakubia page; the Hebrew box says 'מהיוצרים של חתולים מתפוצצים')",
+      "manufacturer": "הקובייה (Hakubia)",
+      "israeli_distributor": "הקובייה משחקים בע\"מ (Hakubia), barcode 7290018445372",
+      "official_age": {
+        "text": "6+ (Hakubia catalogue page and box)",
+        "min": 6,
+        "source": "Hakubia (Hebrew edition publisher) catalogue page",
+        "url": "https://www.hakubia.com/catalog/%D7%A1%D7%9C%D7%9E%D7%95%D7%9F-%D7%A9%D7%9E%D7%97/",
+        "quote": "משתתפים: 3-8 זמן משחק: 90 שניות גילאים: 6+"
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/%D7%A1%D7%9C%D7%9E%D7%95%D7%9F-%D7%A9%D7%9E%D7%97",
+          "status": "in_stock",
+          "accessed": "2026-10-08",
+          "quote": "נותרו רק 3 יחידות במלאי!",
+          "price_ils": "69.90"
+        },
+        {
+          "retailer": "Hakubia (publisher catalogue page)",
+          "url": "https://www.hakubia.com/catalog/%D7%A1%D7%9C%D7%9E%D7%95%D7%9F-%D7%A9%D7%9E%D7%97/",
+          "status": "listed",
+          "accessed": "2026-10-08",
+          "quote": "עכשיו בחנויות"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-salmon-tru",
+          "type": "retailer_ranking",
+          "description": "Position 22 of 447 in the Toys R Us Israel board-games collection sorted by 'הנמכרים ביותר' (page 1; 22/447 = 4.9%, top 10 percent). Shopify sales sort with an undisclosed window, not a published chart.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר / 447 מוצרים",
+          "accessed": "2026-10-08",
+          "group": "toysrus-ranking",
+          "rank": 22,
+          "out_of": 447
+        },
+        {
+          "id": "pop-salmon-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Hebrew edition by Hakubia, listed among the publisher's new games on its catalogue page. Hakubia (הקובייה משחקים בע\"מ) is an Israeli publisher; its site is on .com, hence israel_specific.",
+          "url": "https://www.hakubia.com/catalog/%D7%A1%D7%9C%D7%9E%D7%95%D7%9F-%D7%A9%D7%9E%D7%97/",
+          "quote": "סלמון שמח הוא משחק קלפים מבית היוצר של חתולים מתפוצצים",
+          "accessed": "2026-10-08",
+          "group": "publisher",
+          "israel_specific": true
+        }
+      ],
+      "popularity_reasoning": "Strongest of the three: 22nd of 447 board games at Toys R Us Israel by the store's best-selling sort (top 5 percent), plus the Hebrew edition from Hakubia.",
+      "developmental_relevance": "There are no turns: everyone calls out the action on their top card at once and has to pick out who is calling the same action, then do it together and discard. That is listening and watching for a match while ignoring the noise, the 'fast responses and monitoring' that Harvard says challenge attention and inhibition (its examples are Snap and Slapjack). Officially 6+, so it sits at the top of this stage.",
+      "parent_tip_source": "Your suggestion (not in the official rules): for a first game use only the cards of 2 actions, then add the others in the next round.",
+      "dev_source_ids": [
+        "src-harvard-ef-5to7",
+        "src-cdc-5y"
+      ],
+      "image": {
+        "file": "reco-assets/game-salmon.png",
+        "image_url": "https://www.hakubia.com/wp-content/uploads/2025/11/Happy-Salmon-L.png",
+        "page_url": "https://www.hakubia.com/catalog/%D7%A1%D7%9C%D7%9E%D7%95%D7%9F-%D7%A9%D7%9E%D7%97/",
+        "source_type": "publisher",
+        "width": 2000,
+        "height": 2000,
+        "accessed": "2026-10-08",
+        "rights_status": "rights_unverified",
+        "rights_note": "Hakubia's own 3D packshot of the Hebrew box (transparent PNG), the page's og:image. The page offers 'לחץ כאן להורדת התמונה באיכות גבוהה', which suggests press use, but no licence or terms are stated, so it stays unverified."
+      },
+      "confidence": "medium",
+      "limitations": "Official age 6+ is the top of the stage; a younger 5-year-old may find the noise and speed too much, which the slide's tip addresses. It is a loud party game, not a calm attention game. Only Toys R Us confirms stock today (3 units). International designer and publisher not verified on a page I opened. Same Israeli publisher as מצא את 7 ההבדלים (validator warning)."
+    }
+  ],
+  "lumebook": {
+    "image": {
+      "file": "reco-assets/lumebook-hero-series3.png",
+      "image_url": "https://lumebook.com/hero/series3-transparent-768.avif",
+      "page_url": "https://lumebook.com/IL/he",
+      "source_type": "lumebook_site",
+      "width": 768,
+      "height": 768,
+      "accessed": "2026-10-08",
+      "rights_status": "owned",
+      "rights_note": "LumeBook's own homepage hero render (לביא והמחלצים): 3D book with the child's photo in a circle; AVIF converted to PNG without changes"
+    },
+    "catalogue_book": "היום הראשון בבית הספר (גילאי 4-7)",
+    "title_he": "היום הראשון בבית הספר",
+    "connection": "Second to last of 4 suggestions (3 games and the LumeBook book), in Yarin's format: ספר של LumeBook / סיפור מותאם אישית עם תמונה של הילדים שלכם שבו... The image is the homepage 3D book with the real photo of the child it was made from; the story line follows the carousel's topic (paying attention), taken from the catalogue book היום הראשון בבית הספר, not the pictured book."
+  },
+  "slides": [
+    {
+      "number": 1,
+      "role": "hook",
+      "headline": "4 משחקי קופסא\nשעוזרים לילדים\nלשים לב",
+      "body": ""
+    },
+    {
+      "number": 2,
+      "role": "frame",
+      "headline": "בסביבות גיל 5 הרבה ילדים\nמתרכזים 5 עד 10 דקות",
+      "body": "מה שעוזר בגיל הזה\nמשחק קצר שצריך בו לשים לב ולהגיב מהר"
+    },
+    {
+      "number": 3,
+      "role": "recommendation",
+      "product_id": "game-color-code",
+      "headline": "קוד הצבע",
+      "age": "מגיל 5",
+      "why": "מחפשים אילו אריחים שקופים\nיוצרים בדיוק את הציור שבחידה",
+      "how": "התחילו מהחידות הקלות\nוהפתרון מחכה בסוף החוברת"
+    },
+    {
+      "number": 4,
+      "role": "recommendation",
+      "product_id": "game-7-differences",
+      "headline": "50 - מצא את 7 ההבדלים",
+      "age": "מגיל 5",
+      "why": "מחפשים מה השתנה בין שני ציורים\nפרט אחרי פרט",
+      "how": "חפשו ביחד ומי שמוצא מצביע\nבלי לצעוק את התשובה"
+    },
+    {
+      "number": 5,
+      "role": "lumebook",
+      "headline": "ספר של LumeBook",
+      "body": "סיפור מותאם אישית עם תמונה\nשל הילדים שלכם שבו הם מגלים\nשלהקשיב זה כוח על"
+    },
+    {
+      "number": 6,
+      "role": "recommendation",
+      "product_id": "game-happy-salmon",
+      "headline": "סלמון שמח",
+      "age": "מגיל 6",
+      "why": "כולם צועקים בבת אחת\nומחפשים מי צועק את אותה תנועה",
+      "how": "בהתחלה שחקו רק עם 2 תנועות\nובסיבוב הבא הוסיפו עוד"
+    },
+    {
+      "number": 7,
+      "role": "close",
+      "headline": "שמרו לערב המשחקים הבא\nואיזה משחק עובד אצלכם?\nספרו בתגובות",
+      "body": ""
+    }
+  ],
+  "caption": "משחקים לערב משפחתי שבו הילדים מתרגלים לשים לב\nחידת האריחים השקופים: מחפשים מה יוצר את הציור\nמצא את 7 ההבדלים: מחפשים פרט אחרי פרט\nסלמון שמח: כולם צועקים ומחפשים זוג\nיש ילדים שמתרכזים הרבה זמן ויש שצריכים סיבובים קצרים\nבאיזה משחק הילדים נשארים הכי הרבה זמן?",
+  "claims": [
+    {
+      "slide": 1,
+      "wording_he": "משחקי קופסא שעוזרים לילדים לשים לב",
+      "kind": "developmental",
+      "source_ids": [
+        "src-harvard-ef-5to7",
+        "src-cdc-5y"
+      ],
+      "supports": "Harvard: puzzle books with matching games and I Spy-type searching exercise attention and selective attention; CDC 5 years: play games that help with memory and attention (I Spy). Worded as practice (מתרגל), not as a result."
+    },
+    {
+      "slide": 2,
+      "wording_he": "בסביבות גיל 5 הרבה ילדים מתרכזים 5 עד 10 דקות",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y"
+      ],
+      "supports": "CDC 5-year cognitive milestone: 'Pays attention for 5 to 10 minutes during activities'; milestones are what 75% or more of children do by that age, hence הרבה ילדים and בסביבות."
+    },
+    {
+      "slide": 2,
+      "wording_he": "משחק קצר שצריך בו לשים לב ולהגיב מהר",
+      "kind": "developmental",
+      "source_ids": [
+        "src-harvard-ef-5to7",
+        "src-cdc-5y"
+      ],
+      "supports": "Harvard: children this age take to rule games 'with widely varying levels of interest and skill'; games that require fast responses and monitoring challenge attention and inhibition. 'Short' is our reading of CDC's 5 to 10 minute span."
+    },
+    {
+      "slide": 3,
+      "wording_he": "מחפשים אילו אריחים שקופים יוצרים בדיוק את הציור שבחידה",
+      "kind": "developmental",
+      "source_ids": [
+        "src-harvard-ef-5to7",
+        "src-cdc-5y"
+      ],
+      "supports": "Harvard 5 to 7: puzzle books and matching exercise attention; logic puzzles give working memory and flexibility challenges. CDC 5 years: games for memory and attention. The mechanic and the 'שימו לב' instruction are from Fox Mind's page."
+    },
+    {
+      "slide": 4,
+      "wording_he": "מחפשים מה השתנה בין שני ציורים פרט אחרי פרט",
+      "kind": "developmental",
+      "source_ids": [
+        "src-harvard-ef-5to7",
+        "src-cdc-5y"
+      ],
+      "supports": "Harvard: puzzle books with matching games exercise attention; I Spy-type searching uses selective attention. CDC 5 years: games for memory and attention such as I Spy."
+    },
+    {
+      "slide": 6,
+      "wording_he": "כולם צועקים בבת אחת ומחפשים מי צועק את אותה תנועה",
+      "kind": "developmental",
+      "source_ids": [
+        "src-harvard-ef-5to7",
+        "src-cdc-5y"
+      ],
+      "supports": "Harvard: fast-response card games that need monitoring (Snap, Slapjack) challenge attention and inhibition; CDC 5 years: card games for memory and attention. The no-turns mechanic is from Hakubia's page ('אין תורות! כולם משחקים בו-זמנית')."
+    },
+    {
+      "slide": 5,
+      "wording_he": "סיפור מותאם אישית עם תמונה של הילדים שלכם",
+      "kind": "product_fact",
+      "source_ids": [
+        "site-personal",
+        "site-hero"
+      ],
+      "supports": "Live site, 2026-10-08: personalised with the child's name and photo; the child is the hero of the story."
+    },
+    {
+      "slide": 5,
+      "wording_he": "שבו הם מגלים שלהקשיב זה כוח על",
+      "kind": "product_fact",
+      "source_ids": [
+        "site-firstday"
+      ],
+      "supports": "Catalogue book היום הראשון בבית הספר (lumebook.com, 2026-10-08): the child discovers the superpower of listening. Ties the LumeBook line to the carousel's topic (paying attention); the pictured homepage book is only the example of the format."
+    }
+  ],
+  "checks": {
+    "paid_api_calls": 0,
+    "images_generated": 0,
+    "posted": false
+  },
+  "notes": "Ranking source: Toys R Us Israel board-games collection, sort 'הנמכרים ביותר', all 11 pages (40 per page) downloaded and parsed on 2026-10-08 at about 22:17 IDT; header count 447, 440 unique products parsed. Ranks: קוד הצבע 21, סלמון שמח 22, מצא את 7 ההבדלים 36. Rejected: משוך בגזר and עץ הקופים (30-day cooldown), Fox Mind titles (Dobble 30, קוד הצבע 21; at most one of Kodkod or Fox Mind), מי אני ומה שמי (second Kodkod), memory games for Bluey and Stitch (ranks 78 and 55, outside the top 10 percent; Bluey sold out), Kodkod snakes and ladders (sold out). The /collections/games listing started returning a bot-check page after the first requests, so it was not used. Hakubia appears twice (warning): no non-Kodkod, non-Fox Mind top-10-percent game for this age was left. Slide order follows the validator as changed on 8 Oct 2026 at 22:23 (LumeBook book on slide 5 as one more suggestion, the third game on slide 6), not slide 6 as in recommendations.md. Stage 5 to 6 rotates away from last games carousel's 4 to 5. Replaced יוסף המעופף (Kodkod, rank 41) after finish-reco failed: its only image is 390x390 (Toys R Us Shopify original; no Kodkod page). The old game-yosef.jpg is left unused in reco-assets. The caption describes קוד הצבע without its name because the validator reads the word קוד in a caption as sales talk (discount code)."
+}

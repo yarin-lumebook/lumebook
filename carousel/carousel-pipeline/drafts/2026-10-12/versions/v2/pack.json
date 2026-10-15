@@ -1,0 +1,2175 @@
+{
+  "schema_version": 3,
+  "date": "2026-10-12",
+  "generated_at": "2026-10-11T22:07:15+03:00",
+  "topic": {
+    "id": "transitions",
+    "title_he": "מסרב לעבור מפעילות לפעילות",
+    "reason": "הנושא לא עלה ב-14 החבילות האחרונות, והוא רגע יומיומי בכל בית: יציאה מהפארק, סידור צעצועים, כיבוי מסך. יש עליו מקורות ברורים שנקראו הערב (Raising Children Network, Child Mind Institute, Mount Sinai), כך שאפשר להבטיח שני דברים לעשות מחר. בלי טענת לוח שנה: הטקסט לא נשען על תאריך."
+  },
+  "voice": {
+    "status": "fallback",
+    "approved_samples": 7,
+    "note": "נכתב בקול ברירת המחדל המתועד ב-.claude/skills/lumebook-hebrew-voice ובעריכות האחרונות של ירין. עדיין לא מכויל: 7 מתוך 15 דוגמאות מאושרות."
+  },
+  "product_facts": [
+    {
+      "id": "site-preview",
+      "fact": "Creating the book and the preview are free; parents pay only if they love it",
+      "quote": "יצירת הספר והתצוגה המקדימה בחינם — משלמים רק אם אהבתם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-11"
+    },
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-11"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-11"
+    }
+  ],
+  "hook_slate": {
+    "kid": [
+      {
+        "id": "k1",
+        "formula": "child-hidden-half",
+        "family": "child_pov",
+        "hook": "מה שאת לא שומעת\nכשאת אומרת ״יאללה״\n2 משפטים שיעזרו לי לעצור",
+        "slide2": "אני באמצע מגדל גבוה\nעוד קוביה אחת והוא גמור\nואת כבר אומרת ״יאללה״",
+        "slide2_move": "zoom_in",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "What does he hear and feel when she says yalla, and which two sentences help him stop?",
+        "payoff_slide": 3,
+        "answer": "Slide 3: stopping in the middle is hard and he does not know how long is left; slides 4 and 5 give the two sentences.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1",
+        "note": "Wordings from calm to loud: 'מה שקורה לי כשאת אומרת יאללה' / 'מה שאת לא שומעת כשאת אומרת יאללה' / 'מה שאת לא שומעת כשאת אומרת יאללה ו-2 משפטים שיעזרו לי'. Kept the loudest that the carousel pays off."
+      },
+      {
+        "id": "k2",
+        "formula": "one-sentence-changes",
+        "family": "story",
+        "hook": "ליה לא עוזבת\nמשפט אחד\nמשנה את זה\nהיציאה מהפארק בלי ריב",
+        "slide2": "ליה בת 4 ליד המגלשה\nאתם אומרים ״הולכים״\nוהיא רק התחילה סיבוב",
+        "slide2_move": "scene_restart",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "problem_aware",
+        "gap": "Which one sentence changes the exit from the park?",
+        "payoff_slide": 4,
+        "answer": "Slide 4 gives the sentence in quotation marks: one more turn on the slide and then we go.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2",
+        "note": "Wordings: 'ליה לא רוצה לעזוב את הפארק' / 'ליה לא עוזבת ומשפט אחד משנה את זה' / with the value line 'היציאה מהפארק בלי ריב'."
+      },
+      {
+        "id": "k3",
+        "formula": "child-body-moment",
+        "family": "moment",
+        "hook": "המסך נכבה באמצע\nואני מתפוצץ\n2 דברים שיעזרו לי לסיים",
+        "slide2": "הפרק היה בדיוק\nבקטע הכי טוב\nוהמסך נהיה שחור\nלפני שידעתי מה קרה",
+        "slide2_move": "name_trigger",
+        "mechanism": "recognition",
+        "awareness_stage": "solution_aware",
+        "gap": "Why does he explode when the screen goes off, and which two things help him finish?",
+        "payoff_slide": 3,
+        "answer": "Slide 3: he is disappointed that something fun ends, which is natural; slides 4 and 5 give two things to say.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3",
+        "note": "Wordings: 'המסך נכבה ואני מרגיש את זה בגוף' / 'המסך נכבה באמצע ואני מתפוצץ' / the same with '2 דברים שיעזרו לי לסיים'."
+      },
+      {
+        "id": "k4",
+        "formula": "child-dont",
+        "family": "child_pov",
+        "hook": "אמא אל תגידי ״יאללה״\nבלי להגיד לי קודם",
+        "slide2": "אני באמצע משהו חשוב\nולא יודע מה בא אחרי",
+        "slide2_move": "other_side",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "What does she say first instead?",
+        "payoff_slide": 4,
+        "answer": "Slide 4: the warning with the name of what he is doing.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": ""
+      },
+      {
+        "id": "k5",
+        "formula": "two-faces",
+        "family": "reframe",
+        "hook": "בגן יוצא בשמחה\nבבית מסרב לצאת",
+        "slide2": "כל היום הוא מחזיק את עצמו\nובבית הוא סוף סוף משחרר",
+        "slide2_move": "name_trigger",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does he leave gladly at gan and refuse at home?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 would need a source for the reason; none read tonight.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 1,
+          "usefulness": 0,
+          "topic_fit": 1,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": true,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Dropped: no source read tonight for why it differs at home."
+      },
+      {
+        "id": "k6",
+        "formula": "through-the-ages",
+        "family": "story",
+        "hook": "יואב בגיל 3\nלא עוזב את הפארק",
+        "slide2": "יואב בגיל 5\nכבר מבקש עוד 5 דקות",
+        "slide2_move": "same_template",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "problem_aware",
+        "gap": "What changes as he grows?",
+        "payoff_slide": 6,
+        "answer": "Slide 6 would show the next age.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 1,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 1,
+          "usefulness": 0,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Fails on total; pulls against the 7-slide arc."
+      }
+    ],
+    "expert": [
+      {
+        "id": "e1",
+        "formula": "words-that-backfire",
+        "family": "sentences_we_say",
+        "hook": "3 מילים\nשמזמינות ״לא״\nכשמסדרים\nוהמשפט שבא במקומן",
+        "slide2": "״רוצה לסדר עכשיו?״\nכולנו שואלות ככה ברוך\nוהתשובה כבר מחכה",
+        "slide2_move": "first_answer",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "unaware",
+        "gap": "Which 3 words invite a no, and what is said instead?",
+        "payoff_slide": 4,
+        "answer": "Slide 2 shows the 3 words; slide 4 gives the sentence that replaces them (sourced: Raising Children Network).",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-1",
+        "note": "Wordings: '3 מילים שהופכות סידור לריב' / '3 מילים שמזמינות לא' / '3 מילים שמזמינות לא כשמסדרים'. The calm one overclaims, the loud one is the real logic of a question that has no real choice."
+      },
+      {
+        "id": "e2",
+        "formula": "real-reason",
+        "family": "reframe",
+        "hook": "הסיבה האמיתית\nשהוא לא מפסיק\nלשחק\n2 דברים שעוזרים לו לעצור",
+        "slide2": "הוא לא מתעלם מכם\nקשה לו לעבור מדבר לדבר\nגם כשהוא שומע אתכם",
+        "slide2_move": "name_trigger",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "What is the real reason he does not stop playing?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 (Mount Sinai): the ability to switch between things is still developing at this age.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-2",
+        "note": "Wordings: 'למה הוא לא מפסיק לשחק' / 'הסיבה שהוא לא מפסיק לשחק' / 'הסיבה האמיתית שהוא לא מפסיק לשחק'."
+      },
+      {
+        "id": "e3",
+        "formula": "instead-of-say",
+        "family": "sentences_we_say",
+        "hook": "במקום ״יאללה״\nנסי ״קודם מסדרים\nואז חטיף״\nולמה זה עובד יותר",
+        "slide2": "״יאללה״ הוא רק סוף\nכולנו אומרות אותו ליד הדלת\nוהוא אומר רק מה נגמר",
+        "slide2_move": "contrast",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "Why does linking the end to what comes next work better than yalla?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 (Raising Children Network): link what the child does not want to do with something they like.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-3",
+        "note": "Wordings: 'נסי להגיד מה בא אחרי' / 'במקום יאללה נסי קודם מסדרים' / the chosen one with the sentence in quotes."
+      },
+      {
+        "id": "e4",
+        "formula": "stop-one-thing",
+        "family": "reframe",
+        "hook": "תפסיקי להגיד ״יאללה״\nיש משפט שעובד יותר טוב",
+        "slide2": "כולנו אומרות ״יאללה״\nוהתשובה היא ״עוד רגע״",
+        "slide2_move": "first_answer",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "Which sentence works better?",
+        "payoff_slide": 4,
+        "answer": "Slide 4 gives the sentence.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": ""
+      },
+      {
+        "id": "e5",
+        "formula": "parent-confession",
+        "family": "normalising",
+        "hook": "״אין לי כוח לעוד ויכוח על מסך״\nומותר להגיד את זה",
+        "slide2": "להתעייף מזה לא אומר שאת אמא גרועה\nזה אומר שזה קשה",
+        "slide2_move": "first_answer",
+        "mechanism": "reassurance",
+        "awareness_stage": "problem_aware",
+        "gap": "Is it okay to be tired of this?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 would reassure with a source.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 0,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Fails on total and lumebook_fit: reassurance without a tool to hand."
+      },
+      {
+        "id": "e6",
+        "formula": "practical-question",
+        "family": "practical_question",
+        "hook": "איך מסבירים לבת 3\nשהפארק נגמר?",
+        "slide2": "״עוד מעט״ לא אומר לה הרבה\nבגיל שלוש זה גם עכשיו וגם מחר",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "How do you explain that the park is ending?",
+        "payoff_slide": 4,
+        "answer": "Slides 4 and 5 give two things to say.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": ""
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "מה שאת לא שומעת כשאת אומרת יאללה",
+          "angle": "הילד אומר לאמא מה קורה אצלו ברגע שהיא מפסיקה לו באמצע משחק. הוא לא מתעלם, קשה לו לעצור באמצע, ושני משפטים קצרים של אמא עוזרים לו: אזהרה עם הדבר שהוא עושה, ובחירה בצעצוע אחד לקחת.",
+          "target_parent": "אמהות לבן 3 עד 5 שכל יציאה מהבית או מהפארק הופכת לריב על ״עוד רגע״.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-hidden-half",
+            "gap": "What does he hear and feel when she says yalla, and which two sentences help him stop?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k1",
+            "mechanism": "perspective_shift",
+            "slide2_move": "zoom_in"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "אדם",
+          "examples_target": 6,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short wavy brown hair, olive skin, big brown eyes and a small dimple in his left cheek; slim, about 105 cm tall.",
+            "parent": "His mother, early thirties, light-brown skin, dark hair in a loose low bun, natural no-makeup look, calm and a little tired in a real way.",
+            "wardrobe": "Boy: mustard-yellow hoodie over a cream T-shirt, navy shorts, white sneakers. Mother: sage-green linen shirt with rolled sleeves, faded blue jeans, a thin gold ring."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "מה שאת לא שומעת\nכשאת אומרת ״יאללה״",
+              "body": "2 משפטים שיעזרו לי לעצור",
+              "highlight": "לא שומעת",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה הוא שומע כשהיא אומרת יאללה? שקופיות 2 ו-3 עונות"
+              },
+              "image": {
+                "beat": "the shock of the word yalla",
+                "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, one hand pressed to his chest holding a wooden block; his mother is small and soft in the background.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+                "lighting": "Warm afternoon window light.",
+                "wardrobe_objects": "A half-built tower of wooden blocks beside him on the rug.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "אני באמצע מגדל גבוה",
+              "body": "עוד קוביה אחת והוא גמור\nואת כבר אומרת ״יאללה״",
+              "highlight": "מגדל גבוה",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה קורה לי בפנים ברגע הזה? שקופית 3"
+              },
+              "image": {
+                "beat": "one block from finished",
+                "action": "The boy kneels in front of a tall tower of wooden blocks and carefully places the last block on top, his tongue between his teeth; his mother stands in the far doorway, soft and out of focus.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, medium shot from the side.",
+                "lighting": "Warm afternoon window light.",
+                "wardrobe_objects": "The wooden tower reaches his shoulder.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "אני לא מתעלם ממך",
+              "body": "קשה לי לעצור באמצע\nואני לא יודע כמה זמן נשאר",
+              "highlight": "לא מתעלם",
+              "pull": {
+                "type": "next_step",
+                "note": "מה אני צריך ממך? שקופית 4"
+              },
+              "image": {
+                "beat": "stopping in the middle is hard",
+                "action": "Close-up of the boy's small hands holding a block over the tower, fingers tense, as his mother's hand rests gently on his shoulder.",
+                "setting": "The same living room, background fully out of focus.",
+                "camera": "Close-up at child height, shallow depth of field.",
+                "lighting": "Warm afternoon window light.",
+                "wardrobe_objects": "The mother's thin gold ring and the sleeve of his hoodie are visible.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "תגידי לי עוד 5 דקות",
+              "body": "״אדם עוד 5 דקות וגומרים את המגדל״\nואז הולכים",
+              "highlight": "עוד 5 דקות",
+              "pull": {
+                "type": "next_step",
+                "note": "המשפט השני בשקופית הבאה"
+              },
+              "image": {
+                "beat": "a warning that names what I am doing",
+                "action": "The mother crouches beside the boy at his eye level, holds up one open hand to show five fingers and speaks calmly while he looks at her and listens.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Eye-level two-shot, medium close-up.",
+                "lighting": "Warm afternoon window light.",
+                "wardrobe_objects": "The tower stands between them.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "אני לוקח צעצוע אחד",
+              "body": "״אדם צעצוע אחד לוקחים לאוטו״\n״איזה בוחרים?״",
+              "highlight": "צעצוע אחד",
+              "pull": {
+                "type": "next_step",
+                "note": "מה קורה כשיוצאים באמת? שקופית 6"
+              },
+              "image": {
+                "beat": "a real choice about the way out",
+                "action": "The boy holds a small red toy car up to his mother while two other toys wait on the rug, and she smiles at him.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Warm afternoon window light.",
+                "wardrobe_objects": "One small red toy car in his hand, a plush rabbit and a toy train on the rug.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ואז אני באמת הולך",
+              "body": "לא תמיד ישר\nאבל קשה לי פחות",
+              "highlight": "באמת הולך",
+              "pull": {
+                "type": "contrast",
+                "note": "הסצנה נסגרת, ובשקופית 7 עוד דרך לעזור לו"
+              },
+              "image": {
+                "beat": "walking out with a small treasure",
+                "action": "The boy walks toward the front door holding the toy car, his mother's hand in his, the block tower still standing behind them.",
+                "setting": "The hallway of an Israeli apartment with a plain wall and a shoe rack.",
+                "camera": "Eye-level medium-wide shot from behind the two of them, their faces turned slightly toward each other.",
+                "lighting": "Soft afternoon light.",
+                "wardrobe_objects": "The red toy car in his hand, a canvas tote on her shoulder.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "In bed the boy leans on his mother while a picture book is read aloud; the boy points at the page, delighted to recognise himself.",
+                "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Navy pyjamas, a grey plush rabbit. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "כשאת אומרת ״יאללה״ הוא עוד באמצע מגדל\nקשה לו לעצור באמצע והוא לא מתעלם ממך\nאפשר להגיד לו ״אדם עוד 5 דקות וגומרים את המגדל״\nולתת לו לבחור צעצוע אחד לקחת לאוטו\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-sinai",
+              "title": "The Work of Transitions",
+              "publisher": "Mount Sinai Parenting Center (July 2, 2025)",
+              "url": "https://parenting.mountsinai.org/tip-of-the-week/the-work-of-transitions",
+              "accessed": "2026-10-11",
+              "quote": "are still immature, making it harder to switch focus between activities ... suggest a timer (sand timers work best) to help young children know how long they have left ... is more effective than yelling from the other room! ... transitions like the morning or bedtime routine can be made into a simple visual chart",
+              "supports": "Young children's executive function skills are still immature, which makes switching focus harder; a sand timer shows how much time is left; getting close and making eye contact works better than calling from another room."
+            },
+            {
+              "id": "src-rcn",
+              "title": "Activity changes for kids: behaviour tips",
+              "publisher": "Raising Children Network (Australia; last updated or reviewed 01-10-2024)",
+              "url": "https://raisingchildren.net.au/toddlers/behaviour/behaviour-management-tips-tools/activity-changes-behaviour-management",
+              "accessed": "2026-10-11",
+              "quote": "Children can accept change better when they know it’s coming. ... Give your child some warning about activity changes that are coming up. For example, ‘Desi, you have 5 more minutes to play. Then it will be time to go home’, or ‘Desi, one more go on the slide and then we’re going home’. ... Avoid giving your child a choice about an activity change if there isn’t really a choice. For example, when you say, ‘Orla, would you like to pack up those toys now?’ you suggest a choice. Instead you could say, ‘Orla, please start packing up those toys now’. ... Link something your child doesn’t want to do with something that they like. For example, ‘First we clean up the toys, and then we have a snack’. ... Choose your timing. If you can, stop one thing and start another during a natural break in your child’s activity. ... Give your child a choice about things that are part of the activity change. For example, ‘Evan, we have to go in the car in a minute. You can take one toy with you. Which one will it be?’ ... Limit options. For example, let your child choose between 2 different t-shirts, but not all the t-shirts in the drawer. ... Try making activity change fun. For example, ‘Can you march like a soldier to the car?’ ... Point out good things your child can look forward to after the change. ... It’s natural for your child to be disappointed about having to stop an activity that they’re enjoying. ... ‘I know you feel frustrated that you didn’t have time to play another game’. ... Role-play changes in activities, and talk with your child about how they might go.",
+              "supports": "Warn before a change; tie it to what comes next; take a natural break; no fake choices, real limited choices about other things; make it fun; disappointment is natural and can be named; role-play the change."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Preschool Prep: Helping Toddlers Prepare for Preschool",
+              "publisher": "ZERO TO THREE (February 8, 2010)",
+              "url": "https://www.zerotothree.org/resource/preschool-prep-helping-toddlers-prepare-for-preschool/",
+              "accessed": "2026-10-11",
+              "quote": "Talk about the story and how the characters are feeling.",
+              "supports": "Reading books about an upcoming change and talking about how the characters feel. (Written for starting preschool; we apply the idea of a story as a way to talk about a hard change, as an analogy.)"
+            }
+          ],
+          "claims": [
+            {
+              "slide": 3,
+              "wording_he": "קשה לי לעצור באמצע ואני לא יודע כמה זמן נשאר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sinai"
+              ],
+              "supports": "Young children's ability to switch focus is still immature (Mount Sinai); the child's first-person wording is ours."
+            },
+            {
+              "slide": 4,
+              "wording_he": "״אדם עוד 5 דקות וגומרים את המגדל״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn",
+                "src-sinai"
+              ],
+              "supports": "Warn before the change and name what happens next, as in the Raising Children Network example of 5 more minutes to play."
+            },
+            {
+              "slide": 5,
+              "wording_he": "״אדם צעצוע אחד לוקחים לאוטו״ ״איזה בוחרים?״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Give a choice about things that are part of the change, such as taking one toy with you."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn",
+                "src-ztt"
+              ],
+              "supports": "Role-playing a hard change and talking about how the characters feel are both recommended; ZERO TO THREE's page is about starting preschool, so it is used as an analogy. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-11). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "הפתיח מבטיח שני משפטים ומראה את הרגע מהצד של הילד, אז אמא שראתה את זה היום עוצרת. שקופיות 4 ו-5 נותנות את שני המשפטים לפני המוצר, ושקופית 7 ממשיכה את אותו רעיון של לתת לו מקום באמצע."
+        },
+        {
+          "id": "kid-2",
+          "title": "משפט אחד משנה את היציאה מהפארק",
+          "angle": "סיפור קצר על ליה בת 4 שלא רוצה לעזוב את הפארק. משפט אחד עם עוד סיבוב ואז הולכים הופך את היציאה, ומשחק קטן בדרך לאוטו מחזיק אותה.",
+          "target_parent": "הורים לילדה בת 3 עד 5 שכל יציאה מהפארק או מהחצר היא ויכוח.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "story",
+          "hook": {
+            "formula": "one-sentence-changes",
+            "gap": "Which one sentence changes the exit from the park?",
+            "payoff_slide": 4,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k2",
+            "mechanism": "narrative_tension",
+            "slide2_move": "scene_restart"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "ליה",
+          "examples_target": 3,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with two curly dark pigtails tied with violet bands, light-brown skin, big hazel eyes and a gap in her front teeth; about 102 cm tall.",
+            "parent": "Her parents: her mother, early thirties, long wavy brown hair in a clip, olive skin, calm eyes, and her father, mid thirties, short dark beard, relaxed posture; the mother is clearly present in every scene.",
+            "wardrobe": "Girl: plum-violet raincoat over a cream sweater, mustard leggings, white sneakers. Mother: oatmeal cardigan, blue jeans. Father: grey T-shirt, dark trousers."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "ליה לא עוזבת\nמשפט אחד\nמשנה את זה",
+              "body": "היציאה מהפארק בלי ריב",
+              "highlight": "משפט אחד",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה המשפט? הוא בשקופית 4"
+              },
+              "image": {
+                "beat": "refusing to leave the slide",
+                "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, both hands gripping the slide rail; her parents are small and soft in the background.",
+                "setting": "A neighbourhood Israeli playground with a slide and a pergola, a plain sky above.",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+                "lighting": "Late afternoon golden light.",
+                "wardrobe_objects": "The red slide rail in her hands.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "soft pale afternoon sky above the playground"
+                }
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "ליה בת 4 ליד המגלשה",
+              "body": "אתם אומרים ״הולכים״\nוהיא רק התחילה סיבוב",
+              "highlight": "ליה בת 4",
+              "pull": {
+                "type": "open_loop",
+                "note": "למה ״הולכים״ לא עובד עליה? שקופית 3"
+              },
+              "image": {
+                "beat": "just started a turn",
+                "action": "The girl stands at the bottom of the slide with one foot on the first step, looking up at the top with a big grin, while her parents wait a few steps behind her.",
+                "setting": "The same playground.",
+                "camera": "Low angle at child height, medium-wide shot.",
+                "lighting": "Late afternoon golden light.",
+                "wardrobe_objects": "Her raincoat hood hanging down her back.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale afternoon sky above the playground"
+                }
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "היא לא יודעת\nמתי זה נגמר",
+              "body": "הרבה ילדים מקבלים שינוי\nיותר בקלות כשהם יודעים שהוא בא",
+              "highlight": "לא יודעת",
+              "pull": {
+                "type": "next_step",
+                "note": "מה אומרים לה? שקופית 4"
+              },
+              "image": {
+                "beat": "not knowing when it ends",
+                "action": "Close-up of the girl looking up at her mother with a questioning face, her hand still on the slide rail.",
+                "setting": "The playground, background out of focus.",
+                "camera": "Close-up at child height, shallow depth of field.",
+                "lighting": "Late afternoon golden light.",
+                "wardrobe_objects": "Her violet pigtail bands.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft out-of-focus pale sky"
+                }
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "עוד סיבוב אחד\nואז הולכים",
+              "body": "״ליה עוד סיבוב אחד במגלשה\nואז הולכים הביתה״",
+              "highlight": "עוד סיבוב אחד",
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד דבר שמוציא אותה מהפארק, בשקופית הבאה"
+              },
+              "image": {
+                "beat": "a clear end she can hold",
+                "action": "The mother crouches at the bottom of the slide at the girl's eye level, raising one finger to show one more turn, and the girl nods with a serious face.",
+                "setting": "The playground.",
+                "camera": "Eye-level two-shot, medium close-up.",
+                "lighting": "Late afternoon golden light.",
+                "wardrobe_objects": "The mother's raised finger.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale afternoon sky above the playground"
+                }
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "צועדים לאוטו\nכמו חיילים",
+              "body": "״ליה אפשר לצעוד לאוטו כמו חיילים?״\nמשחק קטן וכולם זזים",
+              "highlight": "צועדים לאוטו",
+              "pull": {
+                "type": "next_step",
+                "note": "ומה קורה כשמגיעים לאוטו? שקופית 6"
+              },
+              "image": {
+                "beat": "the way out becomes a game",
+                "action": "The girl marches along the path with her knees high and her arms swinging, laughing, with her mother and father marching a step behind her.",
+                "setting": "A paved path leaving the playground, a plain wall of the park fence.",
+                "camera": "Child eye level, medium shot from the front, slightly low.",
+                "lighting": "Late afternoon golden light.",
+                "wardrobe_objects": "Her parents' hands swinging in rhythm.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream park wall"
+                }
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ובסוף היא באמת הולכת",
+              "body": "לא בכל פעם בלי תלונה\nאבל ההליכה הביתה קלה יותר",
+              "highlight": "באמת הולכת",
+              "pull": {
+                "type": "contrast",
+                "note": "הסצנה נסגרת, ובשקופית 7 עוד דרך לעזור לה"
+              },
+              "image": {
+                "beat": "home without a fight",
+                "action": "The girl sits in the back seat of the car, buckled in, looking out of the window with a calm tired smile.",
+                "setting": "The inside of a family car with a plain headrest wall behind her.",
+                "camera": "Medium shot from the side seat.",
+                "lighting": "Soft golden light through the window.",
+                "wardrobe_objects": "Her raincoat folded on her lap.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "soft pale sky through the car window"
+                }
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "In bed the girl leans on her mother and father while a picture book is read aloud; the girl points at the page, delighted to recognise herself.",
+                "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Plum pyjamas, a soft grey plush elephant. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "ליה לא רוצה לעזוב את הפארק\nואתם יודעים איך זה נגמר\nמשפט אחד עם עוד סיבוב ואז הולכים נותן לה סוף שהיא מבינה\nומשחק צעידה לאוטו מחזיק אותה בדרך\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-rcn",
+              "title": "Activity changes for kids: behaviour tips",
+              "publisher": "Raising Children Network (Australia; last updated or reviewed 01-10-2024)",
+              "url": "https://raisingchildren.net.au/toddlers/behaviour/behaviour-management-tips-tools/activity-changes-behaviour-management",
+              "accessed": "2026-10-11",
+              "quote": "Children can accept change better when they know it’s coming. ... Give your child some warning about activity changes that are coming up. For example, ‘Desi, you have 5 more minutes to play. Then it will be time to go home’, or ‘Desi, one more go on the slide and then we’re going home’. ... Avoid giving your child a choice about an activity change if there isn’t really a choice. For example, when you say, ‘Orla, would you like to pack up those toys now?’ you suggest a choice. Instead you could say, ‘Orla, please start packing up those toys now’. ... Link something your child doesn’t want to do with something that they like. For example, ‘First we clean up the toys, and then we have a snack’. ... Choose your timing. If you can, stop one thing and start another during a natural break in your child’s activity. ... Give your child a choice about things that are part of the activity change. For example, ‘Evan, we have to go in the car in a minute. You can take one toy with you. Which one will it be?’ ... Limit options. For example, let your child choose between 2 different t-shirts, but not all the t-shirts in the drawer. ... Try making activity change fun. For example, ‘Can you march like a soldier to the car?’ ... Point out good things your child can look forward to after the change. ... It’s natural for your child to be disappointed about having to stop an activity that they’re enjoying. ... ‘I know you feel frustrated that you didn’t have time to play another game’. ... Role-play changes in activities, and talk with your child about how they might go.",
+              "supports": "Warn before a change; tie it to what comes next; take a natural break; no fake choices, real limited choices about other things; make it fun; disappointment is natural and can be named; role-play the change."
+            },
+            {
+              "id": "src-pakeys",
+              "title": "Handling Transitions",
+              "publisher": "The Pennsylvania Key (April 19, 2026)",
+              "url": "https://www.pakeys.org/handling-transitions/",
+              "accessed": "2026-10-11",
+              "quote": "You can finish playing your game and then it will be time for bed.",
+              "supports": "Tell children before a change is coming and let them finish what they are doing."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Preschool Prep: Helping Toddlers Prepare for Preschool",
+              "publisher": "ZERO TO THREE (February 8, 2010)",
+              "url": "https://www.zerotothree.org/resource/preschool-prep-helping-toddlers-prepare-for-preschool/",
+              "accessed": "2026-10-11",
+              "quote": "Talk about the story and how the characters are feeling.",
+              "supports": "Reading books about an upcoming change and talking about how the characters feel. (Written for starting preschool; we apply the idea of a story as a way to talk about a hard change, as an analogy.)"
+            }
+          ],
+          "claims": [
+            {
+              "slide": 3,
+              "wording_he": "הרבה ילדים מקבלים שינוי יותר בקלות כשהם יודעים שהוא בא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Raising Children Network: children can accept change better when they know it is coming."
+            },
+            {
+              "slide": 4,
+              "wording_he": "״ליה עוד סיבוב אחד במגלשה ואז הולכים הביתה״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn",
+                "src-pakeys"
+              ],
+              "supports": "Warn with a clear end, as in the example one more go on the slide and then we are going home."
+            },
+            {
+              "slide": 5,
+              "wording_he": "״ליה אפשר לצעוד לאוטו כמו חיילים?״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Try making the activity change fun, for example marching like a soldier to the car."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn",
+                "src-ztt"
+              ],
+              "supports": "Role-playing a hard change and talking about how the characters feel are both recommended; ZERO TO THREE's page is about starting preschool, so it is used as an analogy. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-11). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח של סיפור קצר ומשפט שחסר בו, שאומר כבר על הכריכה מה מקבלים: המשפט שמוציא מהפארק. שקופית 4 נותנת אותו מיד, וכך שקופית 7 מרגישה כהמשך."
+        },
+        {
+          "id": "kid-3",
+          "title": "המסך נכבה באמצע",
+          "angle": "הילד מתאר מה קורה לו כשמכבים לו מסך באמצע פרק: אכזבה גדולה. שני דברים עוזרים לו לסיים: שהוריו יגידו שהם מבינים, ושיגידו לו מה מחכה אחרי.",
+          "target_parent": "הורים לבן 4 עד 6 שכיבוי מסך הופך לפיצוץ.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "moment",
+          "hook": {
+            "formula": "child-body-moment",
+            "gap": "Why does he explode when the screen goes off, and which two things help him finish?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k3",
+            "mechanism": "recognition",
+            "slide2_move": "name_trigger"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "יואב",
+          "examples_target": 4,
+          "character_anchor": {
+            "child": "A 5-year-old Israeli boy with short straight black hair, light olive skin, dark eyes and a few freckles; about 110 cm tall.",
+            "parent": "His parents: his mother, mid thirties, shoulder-length dark hair, round glasses, and his father, late thirties, short brown hair, soft smile; the mother is clearly present in every scene.",
+            "wardrobe": "Boy: plum-violet pyjama top with a plain cream collar, grey sweatpants, bare feet. Mother: cream knit sweater, dark jeans. Father: navy T-shirt, grey trousers."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "המסך נכבה באמצע\nואני מתפוצץ",
+              "body": "2 דברים שיעזרו לי לסיים",
+              "highlight": "ואני מתפוצץ",
+              "pull": {
+                "type": "open_loop",
+                "note": "למה זה כל כך קשה לי? שקופית 3"
+              },
+              "image": {
+                "beat": "the screen just went dark",
+                "action": "The boy faces the viewer and looks straight into the camera with an open-mouthed gasp and wide eyes, both fists clenched at his chest; his parents are small and soft in the background.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+                "lighting": "Evening lamp light with a cool glow on one side.",
+                "wardrobe_objects": "A dark tablet screen lying on the sofa beside him.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "הפרק היה בדיוק\nבקטע הכי טוב",
+              "body": "והמסך נהיה שחור\nלפני שידעתי מה קרה",
+              "highlight": "הכי טוב",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה קורה לי ברגע הזה? שקופית 3"
+              },
+              "image": {
+                "beat": "cut off at the best part",
+                "action": "The boy sits on the sofa leaning toward a dark screen, his mouth half open, frozen in the middle of a laugh.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, medium shot from the side.",
+                "lighting": "Evening lamp light.",
+                "wardrobe_objects": "The dark tablet in front of him, a cushion in his lap.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 3,
+              "role": "recognition",
+              "headline": "אני מאוכזב שזה נגמר",
+              "body": "זה טבעי כשמפסיקים משהו כיפי\nאני צריך שיגידו לי את זה",
+              "highlight": "מאוכזב",
+              "pull": {
+                "type": "next_step",
+                "note": "מה לומר לי? שקופית 4"
+              },
+              "image": {
+                "beat": "natural disappointment",
+                "action": "Close-up of the boy's face, lower lip pushed out, eyes wet but not crying, while his mother's hand rests on his shoulder.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Close-up at child height, shallow depth of field.",
+                "lighting": "Soft evening lamp light.",
+                "wardrobe_objects": "The mother's sleeve and hand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "תגידו שאתם מבינים",
+              "body": "״יואב מתסכל שהפרק נגמר באמצע״\nורק אחר כך מכבים",
+              "highlight": "מבינים",
+              "pull": {
+                "type": "next_step",
+                "note": "הדבר השני בשקופית הבאה"
+              },
+              "image": {
+                "beat": "being understood first",
+                "action": "The mother sits beside the boy and looks at him warmly, speaking softly, while the father sits on his other side with a hand on his back.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Eye-level three-shot, medium close-up.",
+                "lighting": "Soft evening lamp light.",
+                "wardrobe_objects": "The dark tablet set face down on the table.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "תגידו מה מחכה אחרי",
+              "body": "״יואב אחרי המסך יש לנו\nזמן לשחק בקוביות״",
+              "highlight": "מה מחכה",
+              "pull": {
+                "type": "next_step",
+                "note": "איך זה נגמר? שקופית 6"
+              },
+              "image": {
+                "beat": "something to look forward to",
+                "action": "The father kneels on the rug and tips a box of wooden blocks out in front of the boy, who looks at them with growing interest.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Warm evening lamp light.",
+                "wardrobe_objects": "A box of plain wooden blocks.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "והמסך כבוי בלי מלחמה",
+              "body": "לא תמיד ישר\nאבל זה נגמר רגוע יותר",
+              "highlight": "בלי מלחמה",
+              "pull": {
+                "type": "contrast",
+                "note": "הסצנה נסגרת, ובשקופית 7 עוד דרך לעזור לו"
+              },
+              "image": {
+                "beat": "calm after the screen",
+                "action": "The boy kneels on the rug between his parents building a small block tower together, calm and focused.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Eye-level medium-wide shot.",
+                "lighting": "Warm evening lamp light.",
+                "wardrobe_objects": "A small tower of wooden blocks.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "In bed the boy leans on his mother and father while a picture book is read aloud; the boy points at the page, delighted to recognise himself.",
+                "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Plum pyjamas, a soft grey plush bear. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "המסך נכבה באמצע פרק והוא מתפוצץ\nהוא מאוכזב שזה נגמר וזה טבעי כשמפסיקים משהו כיפי\nעוזר להגיד לו שאתם מבינים לפני שמכבים\nועוד עוזר להגיד לו מה מחכה אחרי\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-rcn",
+              "title": "Activity changes for kids: behaviour tips",
+              "publisher": "Raising Children Network (Australia; last updated or reviewed 01-10-2024)",
+              "url": "https://raisingchildren.net.au/toddlers/behaviour/behaviour-management-tips-tools/activity-changes-behaviour-management",
+              "accessed": "2026-10-11",
+              "quote": "Children can accept change better when they know it’s coming. ... Give your child some warning about activity changes that are coming up. For example, ‘Desi, you have 5 more minutes to play. Then it will be time to go home’, or ‘Desi, one more go on the slide and then we’re going home’. ... Avoid giving your child a choice about an activity change if there isn’t really a choice. For example, when you say, ‘Orla, would you like to pack up those toys now?’ you suggest a choice. Instead you could say, ‘Orla, please start packing up those toys now’. ... Link something your child doesn’t want to do with something that they like. For example, ‘First we clean up the toys, and then we have a snack’. ... Choose your timing. If you can, stop one thing and start another during a natural break in your child’s activity. ... Give your child a choice about things that are part of the activity change. For example, ‘Evan, we have to go in the car in a minute. You can take one toy with you. Which one will it be?’ ... Limit options. For example, let your child choose between 2 different t-shirts, but not all the t-shirts in the drawer. ... Try making activity change fun. For example, ‘Can you march like a soldier to the car?’ ... Point out good things your child can look forward to after the change. ... It’s natural for your child to be disappointed about having to stop an activity that they’re enjoying. ... ‘I know you feel frustrated that you didn’t have time to play another game’. ... Role-play changes in activities, and talk with your child about how they might go.",
+              "supports": "Warn before a change; tie it to what comes next; take a natural break; no fake choices, real limited choices about other things; make it fun; disappointment is natural and can be named; role-play the change."
+            },
+            {
+              "id": "src-cmi",
+              "title": "How Can We Help Kids With Transitions?",
+              "publisher": "Child Mind Institute (Katherine Martinelli; last updated September 15, 2025)",
+              "url": "https://childmind.org/article/how-can-we-help-kids-with-transitions/",
+              "accessed": "2026-10-11",
+              "quote": "give a time frame and description of what will happen along with countdowns ... make a connection with the child to ensure that you have their attention ... Dr. Rosenthal suggests doing a role-play in which you practice moving from activity to activity ... In the morning you might lay out what the day is going to look like.",
+              "supports": "A time frame and countdown before a transition; get the child's attention first; role-play moving between activities; preview the day."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Preschool Prep: Helping Toddlers Prepare for Preschool",
+              "publisher": "ZERO TO THREE (February 8, 2010)",
+              "url": "https://www.zerotothree.org/resource/preschool-prep-helping-toddlers-prepare-for-preschool/",
+              "accessed": "2026-10-11",
+              "quote": "Talk about the story and how the characters are feeling.",
+              "supports": "Reading books about an upcoming change and talking about how the characters feel. (Written for starting preschool; we apply the idea of a story as a way to talk about a hard change, as an analogy.)"
+            }
+          ],
+          "claims": [
+            {
+              "slide": 3,
+              "wording_he": "זה טבעי כשמפסיקים משהו כיפי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Raising Children Network: it is natural for a child to be disappointed about having to stop an activity they enjoy."
+            },
+            {
+              "slide": 4,
+              "wording_he": "״יואב מתסכל שהפרק נגמר באמצע״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Name the feeling, as in I know you feel frustrated that you did not have time to play another game."
+            },
+            {
+              "slide": 5,
+              "wording_he": "״יואב אחרי המסך יש לנו זמן לשחק בקוביות״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn",
+                "src-cmi"
+              ],
+              "supports": "Point out good things to look forward to after the change; describe what will happen next."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn",
+                "src-ztt"
+              ],
+              "supports": "Role-playing a hard change and talking about how the characters feel are both recommended; ZERO TO THREE's page is about starting preschool, so it is used as an analogy. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-11). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח מבטיח שני דברים ומתאר את הרגע מבפנים. שקופיות 4 ו-5 נותנות את שניהם, ושקופית 7 ממשיכה לעוד דרך לדבר על האכזבה."
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "label_he": "גישה מקצועית מבוססת מקורות",
+      "versions": [
+        {
+          "id": "expert-1",
+          "title": "3 מילים שמזמינות ״לא״",
+          "angle": "שאלה בלי ברירה אמיתית (״רוצה לסדר עכשיו?״) מזמינה את התשובה ״לא״. לפי Raising Children Network עדיף להגיד מה קורה, ולהשאיר בחירה אמיתית על דבר אחר.",
+          "target_parent": "אמהות לבת 2 עד 4 שמסדרות צעצועים או יוצאות מהבית ומקבלות ״לא״.",
+          "awareness_stage": "unaware",
+          "hook_family": "sentences_we_say",
+          "hook": {
+            "formula": "words-that-backfire",
+            "gap": "Which 3 words invite a no, and what is said instead?",
+            "payoff_slide": 4,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e1",
+            "mechanism": "honest_curiosity",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "רוני",
+          "examples_target": 5,
+          "character_anchor": {
+            "child": "A 3-year-old Israeli girl with a short dark bob, olive skin, round brown eyes and rosy cheeks; about 98 cm tall.",
+            "parent": "Her mother, early thirties, long dark ponytail, light-brown skin, small silver hoop earrings, a warm steady expression.",
+            "wardrobe": "Girl: mustard cotton dress over a cream long-sleeve top, white sneakers. Mother: violet knit cardigan over a white T-shirt, dark jeans."
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "3 מילים\nשמזמינות ״לא״\nכשמסדרים",
+              "body": "והמשפט שבא במקומן",
+              "highlight": "3 מילים",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה שלוש המילים? שקופית 2"
+              },
+              "image": {
+                "beat": "the word no is coming",
+                "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout, puffed cheeks and folded arms; her mother is small and soft in the background.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "A scatter of wooden animal toys on the rug around her.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "״רוצה לסדר עכשיו?״",
+              "body": "כולנו שואלות ככה ברוך\nוהתשובה כבר מחכה",
+              "highlight": "רוצה לסדר",
+              "pull": {
+                "type": "open_loop",
+                "note": "למה זה מזמין לא ומה אומרים במקום? שקופית 3"
+              },
+              "image": {
+                "beat": "the polite question",
+                "action": "The mother stands with a gentle smile and one hand open toward the toys while the girl looks up at her with narrowed eyes.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, medium shot from the side.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "Wooden animal toys on the rug.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "זו שאלה\nוהיא יכולה לענות ״לא״",
+              "body": "כשאין באמת ברירה\nעדיף להגיד מה קורה",
+              "highlight": "יכולה לענות",
+              "pull": {
+                "type": "next_step",
+                "note": "מה אומרים? שקופית 4"
+              },
+              "image": {
+                "beat": "a question has two answers",
+                "action": "Close-up of the girl shaking her head no while the mother's hand holds a wooden toy cow in the foreground.",
+                "setting": "The living room, background out of focus.",
+                "camera": "Close-up at child height, shallow depth of field.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "A wooden toy cow in the mother's hand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "אומרים מה קורה\nבמקום לשאול",
+              "body": "״רוני בבקשה את מתחילה לסדר\nאת הצעצועים״",
+              "highlight": "מה קורה",
+              "pull": {
+                "type": "next_step",
+                "note": "הדבר השני בשקופית הבאה"
+              },
+              "image": {
+                "beat": "a clear calm sentence",
+                "action": "The mother crouches at the girl's eye level and speaks calmly and warmly while the girl looks at the toy basket.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Eye-level two-shot, medium close-up.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "An empty wicker toy basket on the rug.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "בחירה אמיתית\nעל משהו אחר",
+              "body": "״רוני אילו נעליים לובשים\nהכחולות או הוורודות?״",
+              "highlight": "בחירה אמיתית",
+              "pull": {
+                "type": "next_step",
+                "note": "ומה יוצא מזה? שקופית 6"
+              },
+              "image": {
+                "beat": "a real limited choice",
+                "action": "The mother holds up a blue sneaker in one hand and a pink sneaker in the other, and the girl points at one of them with a serious face.",
+                "setting": "The entrance hall of an Israeli apartment with a plain wall.",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Warm daylight from the doorway.",
+                "wardrobe_objects": "Exactly two sneakers, one blue and one pink, held up by the mother.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "והצעצועים חוזרים לארגז",
+              "body": "לא תמיד בלי תלונה\nאבל פחות ויכוח על כל סידור",
+              "highlight": "חוזרים לארגז",
+              "pull": {
+                "type": "contrast",
+                "note": "הסצנה נסגרת, ובשקופית 7 עוד דרך לעזור לה"
+              },
+              "image": {
+                "beat": "toys back in the basket",
+                "action": "The girl drops a wooden toy into the wicker basket while her mother smiles beside her, the rug now nearly clear.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Eye-level medium-wide shot.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "The wicker basket, filled with wooden toys.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "In bed the girl leans on her mother while a picture book is read aloud; the girl points at the page, delighted to recognise herself.",
+                "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Cream pyjamas, a soft grey plush rabbit. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "שלוש מילים שמזמינות ״לא״ כשמסדרים\n״רוצה לסדר עכשיו?״ נשמע כמו בחירה אבל אין בחירה\nלפי Raising Children Network אפשר להגיד ״רוני בבקשה את מתחילה לסדר״\nולהשאיר בחירה אמיתית על דבר אחר כמו נעליים\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-rcn",
+              "title": "Activity changes for kids: behaviour tips",
+              "publisher": "Raising Children Network (Australia; last updated or reviewed 01-10-2024)",
+              "url": "https://raisingchildren.net.au/toddlers/behaviour/behaviour-management-tips-tools/activity-changes-behaviour-management",
+              "accessed": "2026-10-11",
+              "quote": "Children can accept change better when they know it’s coming. ... Give your child some warning about activity changes that are coming up. For example, ‘Desi, you have 5 more minutes to play. Then it will be time to go home’, or ‘Desi, one more go on the slide and then we’re going home’. ... Avoid giving your child a choice about an activity change if there isn’t really a choice. For example, when you say, ‘Orla, would you like to pack up those toys now?’ you suggest a choice. Instead you could say, ‘Orla, please start packing up those toys now’. ... Link something your child doesn’t want to do with something that they like. For example, ‘First we clean up the toys, and then we have a snack’. ... Choose your timing. If you can, stop one thing and start another during a natural break in your child’s activity. ... Give your child a choice about things that are part of the activity change. For example, ‘Evan, we have to go in the car in a minute. You can take one toy with you. Which one will it be?’ ... Limit options. For example, let your child choose between 2 different t-shirts, but not all the t-shirts in the drawer. ... Try making activity change fun. For example, ‘Can you march like a soldier to the car?’ ... Point out good things your child can look forward to after the change. ... It’s natural for your child to be disappointed about having to stop an activity that they’re enjoying. ... ‘I know you feel frustrated that you didn’t have time to play another game’. ... Role-play changes in activities, and talk with your child about how they might go.",
+              "supports": "Warn before a change; tie it to what comes next; take a natural break; no fake choices, real limited choices about other things; make it fun; disappointment is natural and can be named; role-play the change."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Preschool Prep: Helping Toddlers Prepare for Preschool",
+              "publisher": "ZERO TO THREE (February 8, 2010)",
+              "url": "https://www.zerotothree.org/resource/preschool-prep-helping-toddlers-prepare-for-preschool/",
+              "accessed": "2026-10-11",
+              "quote": "Talk about the story and how the characters are feeling.",
+              "supports": "Reading books about an upcoming change and talking about how the characters feel. (Written for starting preschool; we apply the idea of a story as a way to talk about a hard change, as an analogy.)"
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "3 מילים שמזמינות ״לא״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Raising Children Network: asking would you like to pack up those toys now suggests a choice, so avoid a choice about a change when there is no real choice."
+            },
+            {
+              "slide": 3,
+              "wording_he": "כשאין באמת ברירה עדיף להגיד מה קורה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Avoid giving a choice if there is not really a choice; say please start packing up now."
+            },
+            {
+              "slide": 4,
+              "wording_he": "״רוני בבקשה את מתחילה לסדר את הצעצועים״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "The recommended phrasing: please start packing up those toys now."
+            },
+            {
+              "slide": 5,
+              "wording_he": "״רוני אילו נעליים לובשים הכחולות או הוורודות?״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Limit options: a choice between 2 items, about things that are part of the change."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn",
+                "src-ztt"
+              ],
+              "supports": "Role-playing a hard change and talking about how the characters feel are both recommended; ZERO TO THREE's page is about starting preschool, so it is used as an analogy. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-11). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח עם מספר ומשפט אמיתי שכולן אומרות, שמבטיח משפט חלופי. שקופיות 4 ו-5 נותנות אותו ובחירה אמיתית, כך שההורה יוצא עם שני צעדים לפני שקופית 7."
+        },
+        {
+          "id": "expert-2",
+          "title": "הסיבה האמיתית שהוא לא מפסיק",
+          "angle": "לפי Mount Sinai היכולת של ילדים קטנים לעבור מדבר לדבר עוד לא בשלה, ולכן הם צריכים עזרה מבחוץ: שעון חול שרואים בו כמה נשאר, ואמירה מקרוב ובקשר עין.",
+          "target_parent": "הורים לבן 3 עד 5 שחושבים שהוא מתעלם מהם כשהם קוראים לו לעצור.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "real-reason",
+            "gap": "What is the real reason he does not stop, and what are the 2 things that help?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e2",
+            "mechanism": "reframe",
+            "slide2_move": "name_trigger"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "גיא",
+          "examples_target": 3,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short curly light-brown hair, fair skin, hazel eyes and a few freckles; about 104 cm tall.",
+            "parent": "His parents: his mother, early thirties, auburn hair in a braid, and his father, mid thirties, short dark hair and stubble; the mother is clearly present in every scene.",
+            "wardrobe": "Boy: sage-green T-shirt, denim shorts, white sneakers. Mother: cream linen shirt, blue jeans. Father: grey T-shirt, khaki trousers."
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "הסיבה האמיתית\nשהוא לא מפסיק\nלשחק",
+              "body": "2 דברים שעוזרים לו לעצור",
+              "highlight": "הסיבה האמיתית",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה הסיבה? שקופית 3"
+              },
+              "image": {
+                "beat": "deep in play",
+                "action": "The boy faces the viewer and looks straight into the camera with a jaw-dropped stare and wide eyes, a toy truck raised in one hand; his parents are small and soft in the background.",
+                "setting": "A bright Israeli living room with a cream wall and a play mat.",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "A yellow toy truck in his hand, a road mat behind him.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "הוא לא מתעלם מכם",
+              "body": "קשה לו לעבור מדבר לדבר\nגם כשהוא שומע אתכם",
+              "highlight": "לא מתעלם",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה קורה לו בפנים? שקופית 3"
+              },
+              "image": {
+                "beat": "he hears but cannot switch",
+                "action": "The boy keeps rolling a toy truck along the mat while glancing up at his parents standing in the doorway, one hand still on the truck.",
+                "setting": "The living room with a play mat.",
+                "camera": "Child eye level, medium shot from the side.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "The yellow toy truck.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "היכולת לעבור מדבר לדבר\nעוד מתפתחת בגיל הזה",
+              "body": "ולכן עוזר לתת לו כלי מבחוץ",
+              "highlight": "עוד מתפתחת",
+              "pull": {
+                "type": "next_step",
+                "note": "איזה כלי? שקופית 4"
+              },
+              "image": {
+                "beat": "still developing",
+                "action": "Close-up of the boy's face, thoughtful, looking at his truck while his mother's hand rests lightly on his shoulder.",
+                "setting": "The living room, background out of focus.",
+                "camera": "Close-up at child height, shallow depth of field.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "The mother's hand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "שעון חול\nשרואים בו כמה נשאר",
+              "body": "״גיא כשהחול נגמר מסיימים״\nמניחים אותו מולו על הרצפה",
+              "highlight": "שעון חול",
+              "pull": {
+                "type": "next_step",
+                "note": "הדבר השני בשקופית הבאה"
+              },
+              "image": {
+                "beat": "seeing the time left",
+                "action": "The father sets a small sand timer on the floor in front of the boy, and the boy watches the falling sand with fascination.",
+                "setting": "The living room play mat.",
+                "camera": "Child eye level, medium close-up.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "One small sand timer with violet sand.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "מתקרבים ומסתכלים\nלו בעיניים",
+              "body": "״גיא עוד דקה ומסיימים״\nקרוב אליו ולא מהחדר השני",
+              "highlight": "לו בעיניים",
+              "pull": {
+                "type": "next_step",
+                "note": "ומה זה עושה בסוף? שקופית 6"
+              },
+              "image": {
+                "beat": "close and eye to eye",
+                "action": "The mother crouches right next to the boy, her face at his eye level, speaking quietly while he looks at her.",
+                "setting": "The living room play mat.",
+                "camera": "Eye-level two-shot, medium close-up.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "The yellow toy truck between them.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ועוד דקה הוא מסיים",
+              "body": "לפעמים צריך לחזור על זה\nאבל זה מתחיל להיות מוכר",
+              "highlight": "הוא מסיים",
+              "pull": {
+                "type": "contrast",
+                "note": "הסצנה נסגרת, ובשקופית 7 עוד דרך לעזור לו"
+              },
+              "image": {
+                "beat": "putting the truck away",
+                "action": "The boy places the toy truck in a box with both hands while his parents watch from behind, smiling.",
+                "setting": "The living room play mat.",
+                "camera": "Eye-level medium-wide shot.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "A wooden toy box.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "In bed the boy leans on his mother and father while a picture book is read aloud; the boy points at the page, delighted to recognise himself.",
+                "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Plum pyjamas, a soft grey plush bear. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "הסיבה שהוא לא מפסיק לשחק היא לא שהוא מתעלם ממכם\nלפי Mount Sinai היכולת לעבור מדבר לדבר עוד לא בשלה בגיל הזה\nשעון חול עוזר לו לראות כמה זמן נשאר\nוכשמתקרבים ואומרים עוד דקה ומסיימים זה עובד יותר ממה שקוראים מהחדר השני\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-sinai",
+              "title": "The Work of Transitions",
+              "publisher": "Mount Sinai Parenting Center (July 2, 2025)",
+              "url": "https://parenting.mountsinai.org/tip-of-the-week/the-work-of-transitions",
+              "accessed": "2026-10-11",
+              "quote": "are still immature, making it harder to switch focus between activities ... suggest a timer (sand timers work best) to help young children know how long they have left ... is more effective than yelling from the other room! ... transitions like the morning or bedtime routine can be made into a simple visual chart",
+              "supports": "Young children's executive function skills are still immature, which makes switching focus harder; a sand timer shows how much time is left; getting close and making eye contact works better than calling from another room."
+            },
+            {
+              "id": "src-rcn",
+              "title": "Activity changes for kids: behaviour tips",
+              "publisher": "Raising Children Network (Australia; last updated or reviewed 01-10-2024)",
+              "url": "https://raisingchildren.net.au/toddlers/behaviour/behaviour-management-tips-tools/activity-changes-behaviour-management",
+              "accessed": "2026-10-11",
+              "quote": "Children can accept change better when they know it’s coming. ... Give your child some warning about activity changes that are coming up. For example, ‘Desi, you have 5 more minutes to play. Then it will be time to go home’, or ‘Desi, one more go on the slide and then we’re going home’. ... Avoid giving your child a choice about an activity change if there isn’t really a choice. For example, when you say, ‘Orla, would you like to pack up those toys now?’ you suggest a choice. Instead you could say, ‘Orla, please start packing up those toys now’. ... Link something your child doesn’t want to do with something that they like. For example, ‘First we clean up the toys, and then we have a snack’. ... Choose your timing. If you can, stop one thing and start another during a natural break in your child’s activity. ... Give your child a choice about things that are part of the activity change. For example, ‘Evan, we have to go in the car in a minute. You can take one toy with you. Which one will it be?’ ... Limit options. For example, let your child choose between 2 different t-shirts, but not all the t-shirts in the drawer. ... Try making activity change fun. For example, ‘Can you march like a soldier to the car?’ ... Point out good things your child can look forward to after the change. ... It’s natural for your child to be disappointed about having to stop an activity that they’re enjoying. ... ‘I know you feel frustrated that you didn’t have time to play another game’. ... Role-play changes in activities, and talk with your child about how they might go.",
+              "supports": "Warn before a change; tie it to what comes next; take a natural break; no fake choices, real limited choices about other things; make it fun; disappointment is natural and can be named; role-play the change."
+            },
+            {
+              "id": "src-cmi",
+              "title": "How Can We Help Kids With Transitions?",
+              "publisher": "Child Mind Institute (Katherine Martinelli; last updated September 15, 2025)",
+              "url": "https://childmind.org/article/how-can-we-help-kids-with-transitions/",
+              "accessed": "2026-10-11",
+              "quote": "give a time frame and description of what will happen along with countdowns ... make a connection with the child to ensure that you have their attention ... Dr. Rosenthal suggests doing a role-play in which you practice moving from activity to activity ... In the morning you might lay out what the day is going to look like.",
+              "supports": "A time frame and countdown before a transition; get the child's attention first; role-play moving between activities; preview the day."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Preschool Prep: Helping Toddlers Prepare for Preschool",
+              "publisher": "ZERO TO THREE (February 8, 2010)",
+              "url": "https://www.zerotothree.org/resource/preschool-prep-helping-toddlers-prepare-for-preschool/",
+              "accessed": "2026-10-11",
+              "quote": "Talk about the story and how the characters are feeling.",
+              "supports": "Reading books about an upcoming change and talking about how the characters feel. (Written for starting preschool; we apply the idea of a story as a way to talk about a hard change, as an analogy.)"
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "קשה לו לעבור מדבר לדבר גם כשהוא שומע אתכם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sinai"
+              ],
+              "supports": "Mount Sinai: young children's executive function skills are still immature, making it harder to switch focus between activities."
+            },
+            {
+              "slide": 3,
+              "wording_he": "היכולת לעבור מדבר לדבר עוד מתפתחת בגיל הזה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sinai",
+                "src-rcn"
+              ],
+              "supports": "Mount Sinai on immature executive function; Raising Children Network on self-regulation that children learn as they grow."
+            },
+            {
+              "slide": 4,
+              "wording_he": "שעון חול שרואים בו כמה נשאר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sinai"
+              ],
+              "supports": "Mount Sinai: suggest a timer (sand timers work best) so young children know how long they have left."
+            },
+            {
+              "slide": 5,
+              "wording_he": "מתקרבים ומסתכלים לו בעיניים ולא מהחדר השני",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-sinai",
+                "src-cmi"
+              ],
+              "supports": "Mount Sinai: getting close and making eye contact is more effective than yelling from the other room; Child Mind Institute: get the child's attention first."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn",
+                "src-ztt"
+              ],
+              "supports": "Role-playing a hard change and talking about how the characters feel are both recommended; ZERO TO THREE's page is about starting preschool, so it is used as an analogy. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-11). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "הפתיח מציע סיבה אמיתית ומבטיח שני דברים, ושקופית 3 סוגרת אותו עם מקור. שני הכלים מגיעים לפני שקופית 7."
+        },
+        {
+          "id": "expert-3",
+          "title": "במקום יאללה",
+          "angle": "יאללה אומר מה נגמר ולא מה בא אחרי. לפי Raising Children Network עדיף לחכות לרגע טבעי ולקשור את מה שלא רוצים למה שאוהבים: קודם מסדרים ואז חטיף.",
+          "target_parent": "אמהות לבת 2 עד 4 שאומרות ״יאללה״ ליד הדלת ומקבלות התנגדות.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "sentences_we_say",
+          "hook": {
+            "formula": "instead-of-say",
+            "gap": "Why does the sentence that links the end to what comes next work better than yalla?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e3",
+            "mechanism": "practical_utility",
+            "slide2_move": "contrast"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "עלמה",
+          "examples_target": 3,
+          "character_anchor": {
+            "child": "A 3-year-old Israeli girl with long wavy light-brown hair, fair skin, green eyes and a button nose; about 97 cm tall.",
+            "parent": "Her mother, late twenties, short dark hair, olive skin, a gentle smile, a small gold nose stud.",
+            "wardrobe": "Girl: sage-green sweatshirt, mustard leggings, white sneakers. Mother: oatmeal sweater, faded blue jeans."
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "במקום ״יאללה״\nנסי ״קודם מסדרים\nואז חטיף״",
+              "body": "ולמה זה עובד יותר",
+              "highlight": "קודם מסדרים",
+              "pull": {
+                "type": "open_loop",
+                "note": "למה זה עובד יותר? שקופית 3"
+              },
+              "image": {
+                "beat": "a puzzle still on the floor",
+                "action": "The girl faces the viewer and looks straight into the camera with a giant grin and wide bright eyes, holding up a puzzle piece; her mother is small and soft in the background.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, close head-and-shoulders shot, the face large in the frame.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "A half-finished wooden puzzle on the rug in front of her.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 45,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 2,
+              "role": "second_hook",
+              "headline": "״יאללה״ הוא רק סוף",
+              "body": "כולנו אומרות אותו ליד הדלת\nוהוא אומר רק מה נגמר",
+              "highlight": "רק סוף",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה חסר בו? שקופית 3"
+              },
+              "image": {
+                "beat": "the end without a next step",
+                "action": "The mother stands by the front door with her bag and says a word, while the girl stays on the rug with a puzzle piece, looking up.",
+                "setting": "An Israeli apartment entrance hall seen from the living room.",
+                "camera": "Child eye level, medium-wide shot.",
+                "lighting": "Warm daylight from the doorway.",
+                "wardrobe_objects": "The mother's tote bag, the half-finished puzzle.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 3,
+              "role": "reframe",
+              "headline": "״יאללה״ לא אומר\nמה בא אחרי",
+              "body": "כשיש משהו כיפי בהמשך\nקל יותר להפסיק את הנוכחי",
+              "highlight": "מה בא אחרי",
+              "pull": {
+                "type": "next_step",
+                "note": "מתי אומרים את זה? שקופית 4"
+              },
+              "image": {
+                "beat": "what comes after",
+                "action": "Close-up of the girl looking at a plate of sliced fruit on the table, her puzzle piece forgotten in her hand.",
+                "setting": "The kitchen table, background out of focus.",
+                "camera": "Close-up at child height, shallow depth of field.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "A small plate of sliced pear.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 4,
+              "role": "solution",
+              "headline": "מחכים לסוף הפאזל",
+              "body": "אם אפשר לחכות עד שהיא מסיימת\nואז אומרים ״עלמה סיימת״",
+              "highlight": "לסוף הפאזל",
+              "pull": {
+                "type": "next_step",
+                "note": "הדבר השני בשקופית הבאה"
+              },
+              "image": {
+                "beat": "a natural break",
+                "action": "The girl presses the last puzzle piece into place, beaming, while her mother watches quietly from the sofa.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Child eye level, medium shot.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "The completed wooden puzzle.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 5,
+              "role": "solution",
+              "headline": "קודם מסדרים ואז חטיף",
+              "body": "״עלמה קודם מסדרים\nואז חטיף״",
+              "highlight": "מסדרים ואז חטיף",
+              "pull": {
+                "type": "next_step",
+                "note": "ואיך זה נראה בסוף? שקופית 6"
+              },
+              "image": {
+                "beat": "first this then that",
+                "action": "The mother crouches beside the girl and says the sentence while the girl lifts puzzle pieces into a cloth bag.",
+                "setting": "A cozy Israeli living room with a cream wall, a low wooden shelf and a rug",
+                "camera": "Eye-level two-shot, medium close-up.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "A small cloth bag for the puzzle pieces.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 6,
+              "role": "resolution",
+              "headline": "ועכשיו יש מה לחכות לו",
+              "body": "הסידור נגמר\nוהחטיף כבר על השולחן",
+              "highlight": "מה לחכות לו",
+              "pull": {
+                "type": "contrast",
+                "note": "הסצנה נסגרת, ובשקופית 7 עוד דרך לעזור לה"
+              },
+              "image": {
+                "beat": "the snack is waiting",
+                "action": "The girl sits at the kitchen table with a small bowl of sliced pear, happy, while her mother pours water.",
+                "setting": "An Israeli kitchen with cream tiles and a plain wall.",
+                "camera": "Eye-level medium shot.",
+                "lighting": "Warm daylight from a window.",
+                "wardrobe_objects": "A small bowl of sliced pear and a glass of water.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 40,
+                  "surface": "plain warm cream wall"
+                }
+              }
+            },
+            {
+              "number": 7,
+              "role": "story_cta",
+              "headline": "אפשר לעזור גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "highlight": "בסיפור אישי",
+              "image": {
+                "beat": "a quiet evening with their own story",
+                "action": "In bed the girl leans on her mother while a picture book is read aloud; the girl points at the page, delighted to recognise herself.",
+                "setting": "A child's bedroom in the evening with a plain wall behind the bed.",
+                "camera": "Medium shot from beside the bed, slightly above.",
+                "lighting": "One warm lamp, deep violet shadows.",
+                "wardrobe_objects": "Cream pyjamas, a soft grey plush bunny. An open square picture book shows a soft storybook illustration of this same child as the hero; the pages have no writing.",
+                "text_zone": {
+                  "edge": "top",
+                  "percent": 50,
+                  "surface": "deep plum shadow over a plain dark wall"
+                }
+              }
+            }
+          ],
+          "caption": "במקום ״יאללה״ אפשר להגיד ״קודם מסדרים ואז חטיף״\n״יאללה״ אומר רק מה נגמר ולא מה בא אחרי\nלפי Raising Children Network אפשר לקשור את מה שלא רוצים למה שאוהבים\nואם אפשר לחכות לרגע טבעי כמו סוף הפאזל\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-rcn",
+              "title": "Activity changes for kids: behaviour tips",
+              "publisher": "Raising Children Network (Australia; last updated or reviewed 01-10-2024)",
+              "url": "https://raisingchildren.net.au/toddlers/behaviour/behaviour-management-tips-tools/activity-changes-behaviour-management",
+              "accessed": "2026-10-11",
+              "quote": "Children can accept change better when they know it’s coming. ... Give your child some warning about activity changes that are coming up. For example, ‘Desi, you have 5 more minutes to play. Then it will be time to go home’, or ‘Desi, one more go on the slide and then we’re going home’. ... Avoid giving your child a choice about an activity change if there isn’t really a choice. For example, when you say, ‘Orla, would you like to pack up those toys now?’ you suggest a choice. Instead you could say, ‘Orla, please start packing up those toys now’. ... Link something your child doesn’t want to do with something that they like. For example, ‘First we clean up the toys, and then we have a snack’. ... Choose your timing. If you can, stop one thing and start another during a natural break in your child’s activity. ... Give your child a choice about things that are part of the activity change. For example, ‘Evan, we have to go in the car in a minute. You can take one toy with you. Which one will it be?’ ... Limit options. For example, let your child choose between 2 different t-shirts, but not all the t-shirts in the drawer. ... Try making activity change fun. For example, ‘Can you march like a soldier to the car?’ ... Point out good things your child can look forward to after the change. ... It’s natural for your child to be disappointed about having to stop an activity that they’re enjoying. ... ‘I know you feel frustrated that you didn’t have time to play another game’. ... Role-play changes in activities, and talk with your child about how they might go.",
+              "supports": "Warn before a change; tie it to what comes next; take a natural break; no fake choices, real limited choices about other things; make it fun; disappointment is natural and can be named; role-play the change."
+            },
+            {
+              "id": "src-ztt",
+              "title": "Preschool Prep: Helping Toddlers Prepare for Preschool",
+              "publisher": "ZERO TO THREE (February 8, 2010)",
+              "url": "https://www.zerotothree.org/resource/preschool-prep-helping-toddlers-prepare-for-preschool/",
+              "accessed": "2026-10-11",
+              "quote": "Talk about the story and how the characters are feeling.",
+              "supports": "Reading books about an upcoming change and talking about how the characters feel. (Written for starting preschool; we apply the idea of a story as a way to talk about a hard change, as an analogy.)"
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "״יאללה״ הוא רק סוף",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Our wording for the idea in Raising Children Network that a change goes better when the child knows what comes next."
+            },
+            {
+              "slide": 3,
+              "wording_he": "כשיש משהו כיפי בהמשך קל יותר להפסיק את הנוכחי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Link something your child does not want to do with something they like; point out good things to look forward to after the change."
+            },
+            {
+              "slide": 4,
+              "wording_he": "מחכים לסוף הפאזל",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "Choose your timing: stop one thing and start another during a natural break, for example wait until your child has finished their puzzle."
+            },
+            {
+              "slide": 5,
+              "wording_he": "״עלמה קודם מסדרים ואז חטיף״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn"
+              ],
+              "supports": "The example first we clean up the toys and then we have a snack."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-rcn",
+                "src-ztt"
+              ],
+              "supports": "Role-playing a hard change and talking about how the characters feel are both recommended; ZERO TO THREE's page is about starting preschool, so it is used as an analogy. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 7,
+              "wording_he": "סיפור אישי שבו הילד הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The book behind the comment link: the child's name is in the text and the child stars in every illustration (live site, 2026-10-11). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח של במקום X נסי Y שנותן כבר על הכריכה את המשפט, והשקופיות מסבירות למה ומתי להגיד אותו. שקופית 7 ממשיכה את הרעיון של דבר כיפי שמחכה."
+        }
+      ]
+    }
+  ]
+}

@@ -39,6 +39,10 @@
           "to": "carousel/carousel-pipeline/assets/fonts/Heebo-Black.ttf"
         },
         {
+          "from": "shared/brand/fonts/Heebo-Bold.ttf",
+          "to": "carousel/carousel-pipeline/assets/fonts/Heebo-Bold.ttf"
+        },
+        {
           "from": "shared/brand/fonts/Rubik-VariableFont_wght.ttf",
           "to": "carousel/carousel-pipeline/assets/fonts/Rubik-VariableFont_wght.ttf"
         },
@@ -89,6 +93,16 @@
         "file": "shared/design/lumebook.css"
       }
     },
+    "media": {
+      "name": "Creative media (one folder per job: reels, podcasts, character packs, stories, trend recreations)",
+      "path": "media",
+      "kind": "assets",
+      "watch": [
+        "media/README.md"
+      ],
+      "feeds": [],
+      "notes": "Since 14 Oct 2026 every image, video and audio file LumeBook makes or collects lives in media/projects/YYYY-MM-DD-slug/ (output/ and video/ were folded in; media/inbox/ holds unsorted files). The index and the cloud-archive steps are in media/README.md. Media files are not in git. Exceptions: shared/brand (canonical brand files), the carousel pipeline's drafts and approved runs, research downloads."
+    },
     "product-docs": {
       "name": "Product brief, Q4 strategy, carousel playbook (Hebrew), UGC research",
       "path": "docs",
@@ -103,6 +117,17 @@
         "carousel-pipeline"
       ],
       "notes": "The nightly carousel skill reads the brief and playbook sections 4.2, 5, 7, 8 every night."
+    },
+    "brand-marketing-system": {
+      "name": "Brand and marketing system (internal working draft)",
+      "path": "docs",
+      "kind": "docs",
+      "watch": [
+        "docs/lumebook-brand-marketing-system.md",
+        ".claude/brand-voice-guidelines.md"
+      ],
+      "feeds": [],
+      "notes": "Draft ICP, personas, emotional territory, positioning, proof, messaging, conversion and research plan. Hypotheses are not approved public claims. Hebrew voice rules remain in .claude/skills/lumebook-hebrew-voice. No automatic publishing or pipeline propagation."
     },
     "strategy": {
       "name": "Q4 social strategy page",
@@ -199,6 +224,110 @@
       "feeds": [
         "dashboard"
       ]
+    },
+    "creator-content-conversion": {
+      "name": "Creator content and purchase intent (round 1: 41 creators; round 2: 134 creators, 1,456 posts, 22,428 comments)",
+      "path": "research/creator-content-conversion",
+      "kind": "page",
+      "watch": [
+        "research/creator-content-conversion/report.md",
+        "research/creator-content-conversion/evidence.md",
+        "research/creator-content-conversion/methodology.md",
+        "research/creator-content-conversion/posts.csv",
+        "research/creator-content-conversion/creators.csv",
+        "research/creator-content-conversion/src/*",
+        "research/creator-content-conversion/round2/*"
+      ],
+      "feeds": [],
+      "notes": "report.html is built from report.md content, evidence.md, methodology.md and the CSVs by src/build_page.py (local only, not published: it holds sales figures). Informs creator choice (creator-map) and the four-week tests in the SMM plan. Internal: holds sales figures from docs/lumebook-sales-data-decisions-2026-10-12.md, keep it off public pages. Raw media and raw comments (with usernames) stay out of the repo; src/ has the collection and analysis scripts.",
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build_page.py"
+        ],
+        "cwd": "research/creator-content-conversion",
+        "outputs": [
+          "research/creator-content-conversion/report.html"
+        ],
+        "auto": true
+      }
+    },
+    "israeli-product-reels": {
+      "name": "Israeli creator product Reels: filming research and playbook (41 verified Reels, 34 creators, 8 deep dives)",
+      "path": "research/israeli-product-reels",
+      "kind": "docs",
+      "watch": [
+        "research/israeli-product-reels/README.md",
+        "research/israeli-product-reels/playbook.md",
+        "research/israeli-product-reels/breakdowns.md",
+        "research/israeli-product-reels/source-index.md",
+        "research/israeli-product-reels/sources.csv",
+        "research/israeli-product-reels/src/*"
+      ],
+      "feeds": [],
+      "notes": "15 Oct 2026. How to film LumeBook product Reels with a phone, from 41 watched Israeli creator Reels: seven approaches, five concepts with linted Hebrew scripts (fallback voice, comment word לומי) and a 60-90 minute first shoot. source-index.md and sources.csv are built by src/build_index.py from src/review.json, src/coded/ and the 15 Oct Instagram counts. Product facts in the scripts were read on lumebook.com on 15 Oct (src/product-facts-2026-10-15.md); re-check price and delivery before posting. Cites internal figures from docs/lumebook-sales-data-decisions-2026-10-12.md, so keep it off public pages. Media (other creators' videos, frames, transcripts) in media/projects/2026-10-15-israeli-product-reels/, not in git and not for re-hosting."
+    },
+    "creator-brief": {
+      "name": "Creator Reel brief page (Hebrew, for barter creators)",
+      "path": "research/israeli-product-reels/creator-brief.md",
+      "kind": "page",
+      "watch": [
+        "research/israeli-product-reels/creator-brief.md",
+        "research/israeli-product-reels/src/build_creator_brief.py",
+        "research/israeli-product-reels/src/lint_creator_brief.py"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build_creator_brief.py"
+        ],
+        "cwd": "research/israeli-product-reels",
+        "outputs": [
+          "research/israeli-product-reels/creator-brief.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/T9DJuNSzHoQ2WNHzceZq8L",
+        "file": "research/israeli-product-reels/creator-brief.html"
+      },
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "15 Oct 2026. Source: the Hebrew part of creator-brief.md (the English notes on top are for Yarin and stay off the page). Lint first: python3 research/israeli-product-reels/src/lint_creator_brief.py (brief + the page's own UI Hebrew, voice_lint with CTA and code word לומי). Facts checked on lumebook.com on 15 Oct; re-check price and delivery before sending. The artifact is private until Yarin shares it."
+    },
+    "reels-research-page": {
+      "name": "Product Reels Playbook page (the full Israeli product Reels research, for Yarin)",
+      "path": "research/israeli-product-reels/reels-research.html",
+      "kind": "page",
+      "watch": [
+        "research/israeli-product-reels/README.md",
+        "research/israeli-product-reels/playbook.md",
+        "research/israeli-product-reels/breakdowns.md",
+        "research/israeli-product-reels/source-index.md",
+        "research/israeli-product-reels/src/build_research_page.py"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build_research_page.py"
+        ],
+        "cwd": "research/israeli-product-reels",
+        "outputs": [
+          "research/israeli-product-reels/reels-research.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/A8ytoWta3FoFHJX9tvjHUJ",
+        "file": "research/israeli-product-reels/reels-research.html"
+      },
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "15 Oct 2026. One page with every section of the research: overview, findings, seven approaches, fixes, five concepts with Hebrew scripts, first shoot, phone set-up, logging, eight deep dives with the annotated frame strips embedded (from media/projects/2026-10-15-israeli-product-reels/annotated/, about 3.9 MB), sources and limits. Built from the markdown; never edit the HTML. Private artifact; it quotes internal figures from the 12 Oct sales note, so do not share it outside LumeBook."
     },
     "competitor-teardown": {
       "name": "Competitor content teardown (147 pieces)",
@@ -324,11 +453,11 @@
     },
     "fal-trial": {
       "name": "fal.ai carousel trial (frozen reference)",
-      "path": "carousel/fal-carousel-trial",
+      "path": "media/projects/2026-10-06-fal-carousel-trial",
       "kind": "archive",
       "watch": [],
       "feeds": [],
-      "notes": "Source of the slide layout the pipeline copies (source/flare_carousel.py). Not rebuilt."
+      "notes": "Source of the slide layout the pipeline copies (source/flare_carousel.py). Not rebuilt. Moved into media/projects on 14 Oct 2026 (it was under carousel/)."
     },
     "carousel-pipeline": {
       "name": "Hook Studio (nightly carousel pipeline)",
@@ -384,13 +513,14 @@
       }
     },
     "parent-communities": {
-      "name": "Parent community map (353 FB/WA communities)",
+      "name": "Parent community map (361 FB/WA communities, closest to Ashkelon first)",
       "path": "research/parent-community",
       "kind": "page",
       "watch": [
+        "research/parent-community/build_md.py",
+        "research/parent-community/build_page.py",
         "research/parent-community/data.json",
-        "research/parent-community/page_template.html",
-        "research/parent-community/build_page.py"
+        "research/parent-community/page_template.html"
       ],
       "build": {
         "cmd": [
@@ -399,7 +529,8 @@
         ],
         "cwd": "research/parent-community",
         "outputs": [
-          "research/parent-community/lumebook-parent-communities.html"
+          "research/parent-community/lumebook-parent-communities.html",
+          "research/parent-community-outreach.md"
         ],
         "auto": true
       },
@@ -411,7 +542,7 @@
       "feeds": [
         "dashboard"
       ],
-      "notes": "Free-book-for-content recruitment map, checked 2026-10-09. Write-up: research/parent-community-outreach.md (generated once, not rebuilt). 21 WhatsApp invites unverified (WhatsApp 429)."
+      "notes": "Shooting day for social media, for a free book (shared/facts.json parent_shoot_offer), re-ranked 2026-10-14 by distance from Ashkelon. build_page.py also writes research/parent-community-outreach.md. 21 WhatsApp invites unverified (WhatsApp 429)."
     },
     "hook-studio-page": {
       "name": "Hook Studio page (the carousel machine's front page)",
@@ -441,7 +572,7 @@
       "feeds": [
         "dashboard"
       ],
-      "notes": "Built from the newest pack that has a games or books carousel (drafts/DATE/). Shows the night's pack, validation state, contact sheets, the two modes, the rules and the commands. Rebuild after each nightly run, then republish."
+      "notes": "Built from the newest pack that has a games and books carousel (drafts/DATE/reco-carousel.json; older nights games-carousel.json and books-carousel.json). Shows the night's pack, validation state, contact sheets, the two modes, the rules and the commands. Rebuild after each nightly run, then republish."
     }
   }
 }

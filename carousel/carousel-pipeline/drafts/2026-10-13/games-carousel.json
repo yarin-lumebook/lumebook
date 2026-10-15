@@ -1,0 +1,885 @@
+{
+  "schema_version": 1,
+  "format": "games",
+  "date": "2026-10-13",
+  "generated_at": "2026-10-12T22:06:19+03:00",
+  "title": "7 משחקי קופסא שיעזרו להם לספור ולזהות מספרים",
+  "stage": {
+    "id": "early-numeracy-5-6",
+    "age_min": 5,
+    "age_max": 6,
+    "age_label_he": "גיל 5 עד 6",
+    "skill": "early_numeracy",
+    "need": "Counting and recognising written numbers. CDC lists 'Counts to 10' and 'Names some numbers between 1 and 5 when you point to them' among the 5 year milestones. Board and card games with dice, numbered squares, number cards and play money give that counting a reason: Ramani and Siegler (2008) found that about an hour on a linear number board game raised preschoolers' counting and numeral identification.",
+    "age_caveat": "Milestones describe what most children do by an age, not a deadline. Some 5 year olds count well past 10 and some need more time; the caption says יש ילדים ש... and each game carries its official age (two of the six are 6+, the top of the range)."
+  },
+  "addressee": "parents",
+  "hook_structure": "count_ages_skill",
+  "hook_alternatives": [
+    "7 משחקי קופסא\nשיעזרו להם\nלספור ולזהות מספרים",
+    "7 משחקי קופסא\nשמתרגלים עם הילדים\nלספור צעדים ונקודות",
+    "7 משחקי קופסא\nשעוזרים לילדים\nלהכיר את המספרים"
+  ],
+  "dev_sources": [
+    {
+      "id": "src-cdc-5y",
+      "kind": "official_guidance",
+      "title": "Milestones by 5 Years",
+      "publisher": "CDC, Learn the Signs. Act Early.",
+      "url": "https://www.cdc.gov/act-early/milestones/5-years.html",
+      "accessed": "2026-10-13",
+      "quote": "Counts to 10 / Names some numbers between 1 and 5 when you point to them / Teach your child to follow rules in games. For example, play simple board games, card games, or Simon Says.",
+      "supports": "5 year cognitive milestones (counts to 10; names some numbers between 1 and 5) and the tip to play simple board games and card games. Read today through a page fetch (the CDC site blocks plain curl); the three sentences are quoted as returned, joined with ' / '. The page has no tip about counting games, so the link between games and counting rests on the second source."
+    },
+    {
+      "id": "src-ramani-siegler-2008",
+      "kind": "peer_reviewed",
+      "title": "Promoting broad and stable improvements in low-income children's numerical knowledge through playing number board games",
+      "publisher": "Ramani & Siegler, Child Development 2008;79(2):375-94, doi:10.1111/j.1467-8624.2007.01131.x (PubMed, NIH)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18366429/",
+      "accessed": "2026-10-13",
+      "quote": "playing such a game for roughly 1 hr increased low-income preschoolers' (mean age = 5.4 years) proficiency on 4 diverse numerical tasks: numerical magnitude comparison, number line estimation, counting, and numeral identification. / Classmates who played an identical game, except for the squares varying in color rather than number, did not improve on any measure.",
+      "supports": "Peer reviewed, preschoolers with a mean age of 5.4: about an hour on a linear number board game raised counting, numeral identification and magnitude comparison, and a colour version of the same game did not. Limits: low-income preschoolers, a 1 to 10 linear board, and only the abstract was read (PubMed's own page returned a cookie notice, so the abstract text came from NCBI's abstract service for PMID 18366429). It supports 'number board games give counting practice', not a result from any product here; the slides say practise or help, never a promised outcome."
+    }
+  ],
+  "product_facts": [
+    {
+      "id": "site-personal",
+      "fact": "Books are personalised with the child's name and photo",
+      "quote": "העלו תמונה של הילד והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he/books/86",
+      "checked_at": "2026-10-13"
+    },
+    {
+      "id": "site-hero",
+      "fact": "The child is the hero of the story",
+      "quote": "הילד שלכם הוא גיבור הסיפור - חוויה אישית ומעצימה",
+      "url": "https://lumebook.com/IL/he/books/86",
+      "checked_at": "2026-10-13"
+    },
+    {
+      "id": "site-hanukkah",
+      "fact": "Catalogue book 86 'החנוכה של {{child_name}}' (shown on the site as 'החנוכה שלי', ages 3-10, category holidays): the child is the lead in a Hanukkah story of eight evenings, prepares the hanukkiah and lights one more candle each evening",
+      "quote": "במסע של שמונה ערבים מכינים את החנוכייה, מגלים איפה מעמידים אותה ולמה הַשַּׁמָּשׁ עומד לבד, מדליקים נר ועוד נר / טווח גילאים 3-10 שנים",
+      "url": "https://lumebook.com/IL/he/books/86",
+      "checked_at": "2026-10-13"
+    },
+    {
+      "id": "site-hanukkah-count",
+      "fact": "In the story text of book 86 (page 5) the child counts the candles: one on the first evening, one more each evening up to eight",
+      "quote": "בערב השני שני נרות, בערב השלישי שלושה, וכך מוסיפים עוד נר בכל ערב, עד שמונה נרות בערב השמיני. / {{child_name}} סופר ושר:",
+      "url": "https://lumebook.com/api/book/86",
+      "checked_at": "2026-10-13"
+    }
+  ],
+  "products": [
+    {
+      "id": "game-monopoly-tzair",
+      "kind": "game",
+      "type": "money_board_game",
+      "title_he": "מונופול צעיר",
+      "title_original": "Monopoly Junior, amusement park edition (Parker / Monopoly brand); Kodkod Hebrew edition 'מונופול צעיר'",
+      "manufacturer": "קודקוד",
+      "israeli_distributor": "קודקוד (Kodkod), which describes itself as the official maker of the Monopoly brand in Hebrew; catalogue number 441",
+      "official_age": {
+        "text": "5 to 8 printed on the box ('גיל: 5-8 שנים', read in Kodkod's own packshot on the product page). The page's text field files it under the age groups 4-5 and 6-8; Toys R Us and Center Toys both write 5 and up / 5-8",
+        "min": 5,
+        "max": 8,
+        "source": "Kodkod (Israeli publisher) product page: the age printed on the box in the product image",
+        "url": "https://www.kodkod.co.il/product/%D7%9E%D7%95%D7%A0%D7%95%D7%A4%D7%95%D7%9C-%D7%A6%D7%A2%D7%99%D7%A8",
+        "quote": "גיל: 5-8 שנים"
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/%D7%9E%D7%95%D7%A0%D7%95%D7%A4%D7%95%D7%9C-%D7%A6%D7%A2%D7%99%D7%A8",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "נותרו רק 7 יחידות במלאי!",
+          "price_ils": "129.90"
+        },
+        {
+          "retailer": "עמיגו (Amigo)",
+          "url": "https://www.amigo.co.il/product/%D7%9E%D7%95%D7%A0%D7%95%D7%A4%D7%95%D7%9C-%D7%A6%D7%A2%D7%99%D7%A8-2005/",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "קיים במלאי",
+          "price_ils": "119.00"
+        },
+        {
+          "retailer": "מרכז הצעצועים (Center Toys)",
+          "url": "https://centertoys.co.il/product/%D7%9E%D7%95%D7%A0%D7%95%D7%A4%D7%95%D7%9C-%D7%A6%D7%A2%D7%99%D7%A8-%D7%A7%D7%95%D7%93%D7%A7%D7%95%D7%93/",
+          "status": "listed",
+          "accessed": "2026-10-13",
+          "quote": "קנה עכשיו",
+          "price_ils": "98.00"
+        },
+        {
+          "retailer": "קודקוד (publisher shop)",
+          "url": "https://www.kodkod.co.il/product/%D7%9E%D7%95%D7%A0%D7%95%D7%A4%D7%95%D7%9C-%D7%A6%D7%A2%D7%99%D7%A8",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "In stock",
+          "price_ils": "144"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-mono-tru",
+          "type": "retailer_ranking",
+          "description": "Displayed position in the Toys R Us Israel board-games collection sorted by the store's own 'הנמכרים ביותר' option (sales sort, undisclosed time window, not a published chart), 463 products, all 12 full pages plus the last page read on 2026-10-13. The store shows in-stock products first inside each page of 40, so the position is exact to the page and approximate inside it. Position 55 of 463: outside the top 20 and the top 10 percent, so supporting, not strong.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר",
+          "accessed": "2026-10-13",
+          "group": "toysrus-ranking",
+          "rank": 55,
+          "out_of": 463
+        },
+        {
+          "id": "pop-mono-shops",
+          "type": "multi_retailer",
+          "description": "Sold by several independent Israeli retailers besides the publisher: Toys R Us Israel, Amigo, Center Toys (pages opened 2026-10-13).",
+          "url": "https://www.amigo.co.il/product/%D7%9E%D7%95%D7%A0%D7%95%D7%A4%D7%95%D7%9C-%D7%A6%D7%A2%D7%99%D7%A8-2005/",
+          "quote": "קודקוד - מונופול צעיר - גרסת הלונה פארק",
+          "accessed": "2026-10-13",
+          "group": "retailers"
+        },
+        {
+          "id": "pop-mono-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Hebrew edition by Kodkod, an established Israeli games publisher; its Monopoly category page states it is the official maker of the brand in Hebrew.",
+          "url": "https://www.kodkod.co.il/items~16~3.htm",
+          "quote": "קודקוד - היצרנית הרשמית של המותג מונופול בעברית",
+          "accessed": "2026-10-13",
+          "group": "publisher"
+        }
+      ],
+      "popularity_reasoning": "No strong signal (55th of 463 is close to but outside the top 10 percent). Three supporting signals from three groups: the Toys R Us sales sort, three independent Israeli retailers, and the established Israeli publisher of the Hebrew edition. popular_in_israel through the two-signal route.",
+      "developmental_relevance": "Children move along the board, pay and collect entry fees in notes worth 1 to 5 (Kodkod: 'הערכים הכספיים נעים בין 1-5 ₪ - ערכים המותאמים לילדים הצעירים'), so every turn has small amounts to count out. Counting to 10 and naming numbers 1 to 5 are CDC 5 year milestones.",
+      "parent_tip_source": "Our suggestion, from the publisher's description (players pay entry fees in small notes): let the children be the bank and count each payment aloud.",
+      "dev_source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "image": {
+        "file": "reco-assets/game-monopoly-tzair.jpg",
+        "image_url": "https://www.kodkod.co.il/images/itempics/004415.jpg",
+        "page_url": "https://www.kodkod.co.il/product/%D7%9E%D7%95%D7%A0%D7%95%D7%A4%D7%95%D7%9C-%D7%A6%D7%A2%D7%99%D7%A8",
+        "source_type": "publisher",
+        "width": 1539,
+        "height": 1539,
+        "accessed": "2026-10-13",
+        "rights_status": "rights_unverified",
+        "rights_note": "Kodkod's own packshot of the Hebrew box (og:image of the product page). No press kit or media licence seen on the page."
+      },
+      "confidence": "medium",
+      "limitations": "Popularity rests on supporting signals only; the ranking is the store's internal best-selling sort and positions inside a page are approximate. Age sources differ slightly: box 5-8, Kodkod's text field 4-5 and 6-8, Toys R Us description 5 and up while its spec field shows '2-4 שנים' (looks like a template value). The box figure is used. The developmental sources are about counting and number board games in general, not about this product. Kodkod's site blocks plain curl; it was read with browser headers."
+    },
+    {
+      "id": "game-rummikub-rishon",
+      "kind": "game",
+      "type": "number_tile_sequences",
+      "title_he": "רומיקוב ראשון שלי",
+      "title_original": "My First Rummikub (Rummikub brand); Kodkod Hebrew edition, box reads 'Rummikub ראשון שלי'",
+      "manufacturer": "קודקוד",
+      "israeli_distributor": "קודקוד (Kodkod), catalogue number 99; the page lists the brand as Rummikub",
+      "official_age": {
+        "text": "From 5 on the Kodkod product page ('לילדים מגיל 5 ומעלה'); the same page also files it under the age groups 4-5 and 6-8",
+        "min": 5,
+        "source": "Kodkod (Israeli publisher) product page",
+        "url": "https://www.kodkod.co.il/product/%D7%A8%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%91-%D7%A8%D7%90%D7%A9%D7%95%D7%9F-%D7%A9%D7%9C%D7%99",
+        "quote": "משחק רומיקוב בגרסה יחודית לשחקנים צעירים לילדים מגיל 5 ומעלה"
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/%D7%A8%D7%9E%D7%99%D7%A7%D7%95%D7%91-%D7%A8%D7%90%D7%A9%D7%95%D7%9F-%D7%A9%D7%9C%D7%99",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "נותרו רק 6 יחידות במלאי!",
+          "price_ils": "79.90"
+        },
+        {
+          "retailer": "מרכז הצעצועים (Center Toys)",
+          "url": "https://centertoys.co.il/product/%D7%A8%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%91-%D7%A8%D7%90%D7%A9%D7%95%D7%9F-%D7%A9%D7%9C%D7%99/",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "במלאי",
+          "price_ils": "69.90"
+        },
+        {
+          "retailer": "קודקוד (publisher shop)",
+          "url": "https://www.kodkod.co.il/product/%D7%A8%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%91-%D7%A8%D7%90%D7%A9%D7%95%D7%9F-%D7%A9%D7%9C%D7%99",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "In stock",
+          "price_ils": "88"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-rummi-tru",
+          "type": "retailer_ranking",
+          "description": "Displayed position in the Toys R Us Israel board-games collection sorted by the store's own 'הנמכרים ביותר' option (sales sort, undisclosed time window, not a published chart), 463 products, all 12 full pages plus the last page read on 2026-10-13. The store shows in-stock products first inside each page of 40, so the position is exact to the page and approximate inside it. Position 143 of 463: supporting, not strong.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר",
+          "accessed": "2026-10-13",
+          "group": "toysrus-ranking",
+          "rank": 143,
+          "out_of": 463
+        },
+        {
+          "id": "pop-rummi-shops",
+          "type": "multi_retailer",
+          "description": "Sold by independent Israeli retailers besides the publisher: Toys R Us Israel and Center Toys (pages opened 2026-10-13). Only two shops were opened.",
+          "url": "https://centertoys.co.il/product/%D7%A8%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%91-%D7%A8%D7%90%D7%A9%D7%95%D7%9F-%D7%A9%D7%9C%D7%99/",
+          "quote": "רמיקוב ראשון שלי – האהוב בגרסת ילדים",
+          "accessed": "2026-10-13",
+          "group": "retailers"
+        },
+        {
+          "id": "pop-rummi-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Published in Israel by Kodkod, an established Israeli games publisher with its own Rummikub category ('משחקי רומיקוב').",
+          "url": "https://www.kodkod.co.il/product/%D7%A8%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%91-%D7%A8%D7%90%D7%A9%D7%95%D7%9F-%D7%A9%D7%9C%D7%99",
+          "quote": "משחק רומיקוב בגרסה יחודית לשחקנים צעירים לילדים מגיל 5 ומעלה",
+          "accessed": "2026-10-13",
+          "group": "publisher"
+        }
+      ],
+      "popularity_reasoning": "No strong signal (143rd of 463). Supporting signals from three groups: the Toys R Us sales sort, two independent Israeli retailers and the established Israeli publisher. A weaker popular_in_israel, through the two-signal route.",
+      "developmental_relevance": "Number tiles are combined into runs or groups (Center Toys: 'שילב אותם ברצפים או בקבוצות'), so children practise reading numerals and putting them in order. Naming numbers and counting are CDC 5 year milestones.",
+      "parent_tip_source": "Our suggestion, from how runs are built in the game: ask which number comes next before the tile is placed.",
+      "dev_source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "image": {
+        "file": "reco-assets/game-rummikub-rishon.jpg",
+        "image_url": "https://www.kodkod.co.il/images/itempics/99.jpg",
+        "page_url": "https://www.kodkod.co.il/product/%D7%A8%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%91-%D7%A8%D7%90%D7%A9%D7%95%D7%9F-%D7%A9%D7%9C%D7%99",
+        "source_type": "publisher",
+        "width": 785,
+        "height": 785,
+        "accessed": "2026-10-13",
+        "rights_status": "rights_unverified",
+        "rights_note": "Kodkod's own packshot of the box (og:image of the product page). No press kit or media licence seen on the page."
+      },
+      "confidence": "medium",
+      "limitations": "Popularity rests on supporting signals only. Kodkod's page has no rules text; the description of runs and groups comes from the Center Toys page. Spelling differs by source: Kodkod and Center Toys write רומיקוב, Toys R Us writes רמיקוב; the publisher's spelling is used. Toys R Us's spec field shows '2-4 שנים' (looks like a template value). The manufacturer behind the Rummikub brand was not verified today, so the Israeli publisher is recorded."
+    },
+    {
+      "id": "game-ludo-snakes",
+      "kind": "game",
+      "type": "dice_race_number_track",
+      "title_he": "לודו נחשים וסולמות",
+      "title_original": "Ludo and Snakes and Ladders, two classic race games on a double sided board (Kodkod)",
+      "manufacturer": "קודקוד",
+      "israeli_distributor": "קודקוד (Kodkod), catalogue number 1462",
+      "official_age": {
+        "text": "4-99 printed on the box (read in Kodkod's own packshot on the product page). The page's text field files it under the age groups 6-8 and 8-9, so the two official figures differ",
+        "min": 4,
+        "source": "Kodkod (Israeli publisher) product page: the age printed on the box in the product image",
+        "url": "https://www.kodkod.co.il/product/%D7%9C%D7%95%D7%93%D7%95-%D7%A0%D7%97%D7%A9%D7%99%D7%9D-%D7%95%D7%A1%D7%95%D7%9C%D7%9E%D7%95%D7%AA",
+        "quote": "4-99"
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/%D7%9C%D7%95%D7%93%D7%95-%D7%A0%D7%97%D7%A9%D7%99%D7%9D-%D7%95%D7%A1%D7%95%D7%9C%D7%9E%D7%95%D7%AA",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "נותרו רק 7 יחידות במלאי!",
+          "price_ils": "59.90"
+        },
+        {
+          "retailer": "מרכז הצעצועים (Center Toys)",
+          "url": "https://centertoys.co.il/product/%D7%A0%D7%97%D7%A9%D7%99%D7%9D-%D7%95%D7%A1%D7%95%D7%9C%D7%9E%D7%95%D7%AA-%D7%9C%D7%95%D7%93%D7%95-%D7%A7%D7%95%D7%93%D7%A7%D7%95%D7%93/",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "במלאי",
+          "price_ils": "49.00"
+        },
+        {
+          "retailer": "קודקוד (publisher shop)",
+          "url": "https://www.kodkod.co.il/product/%D7%9C%D7%95%D7%93%D7%95-%D7%A0%D7%97%D7%A9%D7%99%D7%9D-%D7%95%D7%A1%D7%95%D7%9C%D7%9E%D7%95%D7%AA",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "In stock",
+          "price_ils": "68"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-ludo-tru",
+          "type": "retailer_ranking",
+          "description": "Displayed position in the Toys R Us Israel board-games collection sorted by the store's own 'הנמכרים ביותר' option (sales sort, undisclosed time window, not a published chart), 463 products, all 12 full pages plus the last page read on 2026-10-13. The store shows in-stock products first inside each page of 40, so the position is exact to the page and approximate inside it. Position 261 of 463: a modest rank, supporting only.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר",
+          "accessed": "2026-10-13",
+          "group": "toysrus-ranking",
+          "rank": 261,
+          "out_of": 463
+        },
+        {
+          "id": "pop-ludo-shops",
+          "type": "multi_retailer",
+          "description": "Sold by independent Israeli retailers besides the publisher: Toys R Us Israel and Center Toys (pages opened 2026-10-13). Only two shops were opened.",
+          "url": "https://centertoys.co.il/product/%D7%A0%D7%97%D7%A9%D7%99%D7%9D-%D7%95%D7%A1%D7%95%D7%9C%D7%9E%D7%95%D7%AA-%D7%9C%D7%95%D7%93%D7%95-%D7%A7%D7%95%D7%93%D7%A7%D7%95%D7%93/",
+          "quote": "לודו נחשים וסולמות מבית קודקוד – 2 משחקי מרוץ קלאסיים",
+          "accessed": "2026-10-13",
+          "group": "retailers"
+        },
+        {
+          "id": "pop-ludo-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Made and published by Kodkod, an established Israeli games publisher (the page lists the maker as קודקוד).",
+          "url": "https://www.kodkod.co.il/product/%D7%9C%D7%95%D7%93%D7%95-%D7%A0%D7%97%D7%A9%D7%99%D7%9D-%D7%95%D7%A1%D7%95%D7%9C%D7%9E%D7%95%D7%AA",
+          "quote": "2 משחקי מרוץ קקלאסיים לכל המשפחה",
+          "accessed": "2026-10-13",
+          "group": "publisher"
+        }
+      ],
+      "popularity_reasoning": "No strong signal (261st of 463 is a modest rank). Supporting signals from three groups: the Toys R Us sales sort, two independent Israeli retailers and the established Israeli publisher. The weakest popular_in_israel of the six; swap it if a better number-track game turns up.",
+      "developmental_relevance": "Snakes and Ladders is a numbered track from 1 to 100: children roll, count each step and land on a numbered square (Kodkod: 'הראשון שהגיע למשבצת 100 במספר מדוייק של צעדים'). Ramani and Siegler (2008) found that about an hour of play on a linear number board game raised preschoolers' counting and numeral identification; their game ran 1 to 10 in a straight line, so this board is the same kind of activity, not the same game.",
+      "parent_tip_source": "Our suggestion, not taken from a source: count each step aloud and name the square landed on, so the counting on the numbered track is said out loud.",
+      "dev_source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "image": {
+        "file": "reco-assets/game-ludo-snakes.jpg",
+        "image_url": "https://www.kodkod.co.il/images/itempics/1462.jpg",
+        "page_url": "https://www.kodkod.co.il/product/%D7%9C%D7%95%D7%93%D7%95-%D7%A0%D7%97%D7%A9%D7%99%D7%9D-%D7%95%D7%A1%D7%95%D7%9C%D7%9E%D7%95%D7%AA",
+        "source_type": "publisher",
+        "width": 780,
+        "height": 780,
+        "accessed": "2026-10-13",
+        "rights_status": "rights_unverified",
+        "rights_note": "Kodkod's own packshot of the box (og:image of the product page). No press kit or media licence seen on the page."
+      },
+      "confidence": "medium",
+      "limitations": "Popularity rests on supporting signals only and the rank is modest. Two official ages: 4-99 on the box, 6-8 and 8-9 in the page's text field (Toys R Us repeats the text field); the box figure is used on the slide. The study used a 1 to 10 linear board with low-income preschoolers, and only the abstract was read (through the NCBI abstract service), so the slide says practise and nothing more. The Ludo side of the board is not what the slide describes."
+    },
+    {
+      "id": "game-triomino-junior",
+      "kind": "game",
+      "type": "triangular_number_domino",
+      "title_he": "טריומינו ג'וניור",
+      "title_original": "Triominos Junior; Fox Mind Hebrew edition 'טריומינו ג'וניור, דומינו משולשים הראשון שלי'",
+      "manufacturer": "פוקסמיינד (Fox Mind)",
+      "israeli_distributor": "פוקסמיינד (Fox Mind Israel), catalogue number 2719",
+      "official_age": {
+        "text": "4+ on the Fox Mind product page and on the box",
+        "min": 4,
+        "source": "Fox Mind Israel (publisher) product page",
+        "url": "https://foxmind.co.il/product/triomino-junior/",
+        "quote": "גילאי | 4+"
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/%D7%98%D7%A8%D7%99%D7%95%D7%9E%D7%99%D7%A0%D7%95-%D7%92%D7%95%D7%A0%D7%99%D7%95%D7%A8",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "נותרו רק 2 יחידות במלאי!",
+          "price_ils": "69.90"
+        },
+        {
+          "retailer": "עמיגו (Amigo)",
+          "url": "https://www.amigo.co.il/product/%D7%98%D7%A8%D7%99%D7%95%D7%9E%D7%99%D7%A0%D7%95-%D7%92%D7%95%D7%A0%D7%99%D7%95%D7%A8/",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "קיים במלאי",
+          "price_ils": "59.90"
+        },
+        {
+          "retailer": "Fox Mind Israel (publisher site)",
+          "url": "https://foxmind.co.il/product/triomino-junior/",
+          "status": "listed",
+          "accessed": "2026-10-13",
+          "quote": "טריומינו ג'וניור | דומינו משולשים הראשון שלי",
+          "price_ils": ""
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-trio-tru",
+          "type": "retailer_ranking",
+          "description": "Displayed position in the Toys R Us Israel board-games collection sorted by the store's own 'הנמכרים ביותר' option (sales sort, undisclosed time window, not a published chart), 463 products, all 12 full pages plus the last page read on 2026-10-13. The store shows in-stock products first inside each page of 40, so the position is exact to the page and approximate inside it. Position 370 of 463: a low rank, supporting only.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר",
+          "accessed": "2026-10-13",
+          "group": "toysrus-ranking",
+          "rank": 370,
+          "out_of": 463
+        },
+        {
+          "id": "pop-trio-shops",
+          "type": "multi_retailer",
+          "description": "Sold by independent Israeli retailers besides the publisher: Toys R Us Israel and Amigo (pages opened 2026-10-13). Center Toys' search did not return it.",
+          "url": "https://www.amigo.co.il/product/%D7%98%D7%A8%D7%99%D7%95%D7%9E%D7%99%D7%A0%D7%95-%D7%92%D7%95%D7%A0%D7%99%D7%95%D7%A8/",
+          "quote": "משחק טריומינו ג'וניור",
+          "accessed": "2026-10-13",
+          "group": "retailers"
+        },
+        {
+          "id": "pop-trio-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Hebrew edition published by Fox Mind Israel, an established Israeli games publisher.",
+          "url": "https://foxmind.co.il/product/triomino-junior/",
+          "quote": "משחק לצעירים המבוסס על משחק הדומינו הקלאסי ומותאם לשחקנים מגיל 4",
+          "accessed": "2026-10-13",
+          "group": "publisher"
+        }
+      ],
+      "popularity_reasoning": "No strong signal, and 370th of 463 is a low rank. It passes only through two supporting groups (two independent Israeli retailers and an established Israeli publisher's Hebrew edition). The thinnest evidence tonight together with the Ludo board: an honest reading is 'established and sold in Israel', not a best seller.",
+      "developmental_relevance": "Children join triangular tiles by matching the numbers and colours on their sides. Fox Mind lists the skill as telling apart and matching digits and colours ('המשחק מקנה יכולת הבחנה והתאמה של צבעים וספרות'). Naming numbers 1 to 5 is a CDC 5 year milestone, and the tiles carry the digits 1 to 5.",
+      "parent_tip_source": "Our suggestion, from the publisher's rules (a tile is placed so its numbers match the neighbouring tile): ask which number the children are looking for before they place a tile.",
+      "dev_source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "image": {
+        "file": "reco-assets/game-triomino-junior.jpg",
+        "image_url": "https://foxmind.co.il/wp-content/uploads/2025/06/TRIOMINO-JUNIOR.jpg",
+        "page_url": "https://foxmind.co.il/product/triomino-junior/",
+        "source_type": "publisher",
+        "width": 1200,
+        "height": 1200,
+        "accessed": "2026-10-13",
+        "rights_status": "rights_unverified",
+        "rights_note": "Fox Mind Israel's own packshot (og:image, Hebrew triangular box with the 4+ line). No press kit or media licence seen on the page."
+      },
+      "confidence": "medium",
+      "limitations": "Popularity is the weakest kind: a low rank in the store's sales sort and only two retailers opened. Amigo's page names both Fox Mind and Kodkod in its description; the Fox Mind page and box are followed. Second Fox Mind product tonight. That the tiles show 1 to 5 was read from the packshot, not from a rules text."
+    },
+    {
+      "id": "game-taki",
+      "kind": "game",
+      "type": "number_colour_shedding_cards",
+      "title_he": "טאקי",
+      "title_original": "Taki / Super Taki (Shafir Games, המשחקים של חיים שפיר)",
+      "manufacturer": "המשחקים של חיים שפיר (Shafir Games)",
+      "israeli_distributor": "המשחקים של חיים שפיר (Shafir Games), an Israeli publisher; barcode 7290003694570 on the Center Toys page",
+      "official_age": {
+        "text": "6+ on the Shafir Games page for the game (20 minutes, 2-10 players, 6+) and on the box",
+        "min": 6,
+        "source": "Shafir Games (Israeli publisher) game page",
+        "url": "https://www.shafirgames.com/ourgames/taki",
+        "quote": "20 דק' | 2-10 | 6+"
+      },
+      "availability": [
+        {
+          "retailer": "עמיגו (Amigo)",
+          "url": "https://www.amigo.co.il/product/%D7%98%D7%90%D7%A7%D7%99-%D7%A1%D7%95%D7%A4%D7%A8-taki/",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "קיים במלאי",
+          "price_ils": "43.00"
+        },
+        {
+          "retailer": "מרכז הצעצועים (Center Toys)",
+          "url": "https://centertoys.co.il/product/%D7%98%D7%90%D7%A7%D7%99-%D7%9E%D7%A9%D7%97%D7%A7%D7%99-%D7%A9%D7%A4%D7%99%D7%A8/",
+          "status": "listed",
+          "accessed": "2026-10-13",
+          "quote": "קנה עכשיו",
+          "price_ils": "45.00"
+        },
+        {
+          "retailer": "Toys R Us Israel (tin international edition, 'טאקי פח בינלאומי')",
+          "url": "https://toysrus.co.il/products/%D7%98%D7%90%D7%A7%D7%99-%D7%A4%D7%97-%D7%91%D7%99%D7%A0%D7%9C%D7%90%D7%95%D7%9E%D7%99",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "נותרו רק 9 יחידות במלאי!",
+          "price_ils": "69.90"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-taki-tru",
+          "type": "retailer_ranking",
+          "description": "Displayed position in the Toys R Us Israel board-games collection sorted by the store's own 'הנמכרים ביותר' option (sales sort, undisclosed time window, not a published chart), 463 products, all 12 full pages plus the last page read on 2026-10-13. The store shows in-stock products first inside each page of 40, so the position is exact to the page and approximate inside it. Position 144 of 463 for the tin international edition ('טאקי פח בינלאומי'), the only plain Taki in that collection; the standard box was not in the collection. Supporting, not strong.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר",
+          "accessed": "2026-10-13",
+          "group": "toysrus-ranking",
+          "rank": 144,
+          "out_of": 463
+        },
+        {
+          "id": "pop-taki-shops",
+          "type": "multi_retailer",
+          "description": "Sold by several independent Israeli retailers: Amigo, Center Toys and Toys R Us Israel (tin edition); pages opened 2026-10-13.",
+          "url": "https://www.amigo.co.il/product/%D7%98%D7%90%D7%A7%D7%99-%D7%A1%D7%95%D7%A4%D7%A8-taki/",
+          "quote": "משחק הקלפים שכולם מכירים מתאים לגילאי 6 ומעלה",
+          "accessed": "2026-10-13",
+          "group": "retailers"
+        },
+        {
+          "id": "pop-taki-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "An original Israeli game by Shafir Games, an established Israeli publisher with its own page, rules, FAQ and app links for it.",
+          "url": "https://www.shafirgames.com/ourgames/taki",
+          "quote": "טאקי | המשחקים של חיים שפיר",
+          "accessed": "2026-10-13",
+          "group": "publisher",
+          "israel_specific": true
+        }
+      ],
+      "popularity_reasoning": "No strong signal by the rule (144th of 463, and that is a different edition). Supporting signals from three groups: the Toys R Us sales sort, three independent Israeli retailers and the established Israeli publisher. popular_in_israel through the two-signal route.",
+      "developmental_relevance": "On each turn a card is played that matches the top card by number or colour, so children keep reading the numerals on the cards. Naming numbers is a CDC 5 year milestone, and CDC suggests simple card games for teaching rules in games.",
+      "parent_tip_source": "Our suggestion, from the matching rule of the game: the children say aloud the number on each card they put down.",
+      "dev_source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "image": {
+        "file": "reco-assets/game-taki.png",
+        "image_url": "https://static.wixstatic.com/media/2ede53_edc2a7db7b2748c299b8136ea64f2cfc~mv2.png",
+        "page_url": "https://www.shafirgames.com/ourgames/taki",
+        "source_type": "publisher",
+        "width": 1050,
+        "height": 1200,
+        "accessed": "2026-10-13",
+        "rights_status": "rights_unverified",
+        "rights_note": "Shafir Games' own packshot (og:image of its Taki page, Super Taki box with 6+, transparent background). No press kit or media licence seen on the page."
+      },
+      "confidence": "medium",
+      "limitations": "The ranking belongs to the tin international edition, not the box in the picture. Official minimum age is 6, the top of this carousel's range, so the slide says מגיל 6. Toys R Us shows '8+' in its spec field for the tin edition; the publisher's 6+ is used. The game matches by number or colour, so it practises reading numerals, not counting; the slide says only that. The number-or-colour rule is common knowledge of the game and was not quoted from the publisher's rules text today."
+    },
+    {
+      "id": "game-ratatat-cat",
+      "kind": "game",
+      "type": "memory_low_sum_cards",
+      "title_he": "חתחתול",
+      "title_original": "Rat-a-Tat Cat (Gamewright); Fox Mind Hebrew edition 'חתחתול, כי עכברים לא באים בחשבון'",
+      "manufacturer": "פוקסמיינד (Fox Mind)",
+      "israeli_distributor": "פוקסמיינד (Fox Mind Israel), catalogue number 204",
+      "official_age": {
+        "text": "6+ on the Fox Mind product page and on the box",
+        "min": 6,
+        "source": "Fox Mind Israel (publisher) product page",
+        "url": "https://foxmind.co.il/product/rat-a-tat-cat/",
+        "quote": "גילאי | 6+"
+      },
+      "availability": [
+        {
+          "retailer": "עמיגו (Amigo)",
+          "url": "https://www.amigo.co.il/product/%D7%97%D7%AA%D7%97%D7%AA%D7%95%D7%9C/",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "קיים במלאי",
+          "price_ils": "44.90"
+        },
+        {
+          "retailer": "מרכז הצעצועים (Center Toys)",
+          "url": "https://centertoys.co.il/product/%D7%97%D7%AA%D7%97%D7%AA%D7%95%D7%9C/",
+          "status": "listed",
+          "accessed": "2026-10-13",
+          "quote": "קנה עכשיו",
+          "price_ils": "43.90"
+        },
+        {
+          "retailer": "Toys R Us Israel (card box)",
+          "url": "https://toysrus.co.il/products/%D7%9E%D7%A9%D7%97%D7%A7-%D7%A7%D7%9C%D7%A4%D7%99%D7%9D-%D7%97%D7%AA%D7%97%D7%AA%D7%95%D7%9C-%D7%A4%D7%95%D7%A7%D7%A1%D7%9E%D7%99%D7%99%D7%A0%D7%93",
+          "status": "out_of_stock",
+          "accessed": "2026-10-13",
+          "quote": "אזל המלאי",
+          "price_ils": "49.90"
+        },
+        {
+          "retailer": "Toys R Us Israel (tin edition, 'חתחתול קופסת פח')",
+          "url": "https://toysrus.co.il/products/%D7%97%D7%AA%D7%97%D7%AA%D7%95%D7%9C-%D7%A7%D7%95%D7%A4%D7%A1%D7%AA-%D7%A4%D7%97",
+          "status": "in_stock",
+          "accessed": "2026-10-13",
+          "quote": "נותרו רק 4 יחידות במלאי!",
+          "price_ils": ""
+        },
+        {
+          "retailer": "Fox Mind Israel (publisher site)",
+          "url": "https://foxmind.co.il/product/rat-a-tat-cat/",
+          "status": "listed",
+          "accessed": "2026-10-13",
+          "quote": "חתחתול | כי עכברים לא באים בחשבון",
+          "price_ils": ""
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-rat-tru",
+          "type": "retailer_ranking",
+          "description": "Displayed position in the Toys R Us Israel board-games collection sorted by the store's own 'הנמכרים ביותר' option (sales sort, undisclosed time window, not a published chart), 463 products, all 12 full pages plus the last page read on 2026-10-13. The store shows in-stock products first inside each page of 40, so the position is exact to the page and approximate inside it. Position 73 of 463 for the card box, which was out of stock at the store today (out-of-stock products are shown last inside a page, so its sales position inside page 2 may be higher). The tin edition sits at 265. Supporting, not strong.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר",
+          "accessed": "2026-10-13",
+          "group": "toysrus-ranking",
+          "rank": 73,
+          "out_of": 463
+        },
+        {
+          "id": "pop-rat-shops",
+          "type": "multi_retailer",
+          "description": "Sold by several independent Israeli retailers besides the publisher: Amigo, Center Toys and Toys R Us Israel (tin edition in stock, card box sold out); pages opened 2026-10-13.",
+          "url": "https://www.amigo.co.il/product/%D7%97%D7%AA%D7%97%D7%AA%D7%95%D7%9C/",
+          "quote": "חתחתול - משחק זכרון, חשיבה ומזל מבית פוקסמיינד",
+          "accessed": "2026-10-13",
+          "group": "retailers"
+        },
+        {
+          "id": "pop-rat-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Hebrew edition published by Fox Mind Israel, an established Israeli games publisher, with three editions on sale (card box, tin, and a board game spin-off).",
+          "url": "https://foxmind.co.il/product/rat-a-tat-cat/",
+          "quote": "משחק המשלב זכרון ומזל עם מעט חשבון והרבה כיף!",
+          "accessed": "2026-10-13",
+          "group": "publisher"
+        }
+      ],
+      "popularity_reasoning": "No strong signal (73rd of 463 is outside the top 10 percent). Supporting signals from three groups: the Toys R Us sales sort, three independent Israeli retailers and the established Israeli publisher's Hebrew edition. popular_in_israel through the two-signal route.",
+      "developmental_relevance": "Players keep four face-down number cards, try to remember them and swap high cards for low ones so their total is the lowest (Fox Mind: 'כדי שסכום הקלפים שברשותכם יהיה נמוך ככל האפשר'; skills listed: 'פיתוח שליטה במספרים, מיומנות זיכרון'). Comparing which number is bigger is one of the tasks that improved in Ramani and Siegler (2008); adding four cards is a step beyond the CDC 5 year milestones, which fits the game's 6+.",
+      "parent_tip_source": "Our suggestion, from the publisher's rules (at the end of a round the cards are revealed and summed): ask who got the smallest total.",
+      "dev_source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "image": {
+        "file": "reco-assets/game-ratatat.jpg",
+        "image_url": "https://foxmind.co.il/wp-content/uploads/2021/08/RATATAT-3.jpg",
+        "page_url": "https://foxmind.co.il/product/rat-a-tat-cat/",
+        "source_type": "publisher",
+        "width": 1200,
+        "height": 1200,
+        "accessed": "2026-10-13",
+        "rights_status": "rights_unverified",
+        "rights_note": "Fox Mind Israel's own packshot (og:image, Hebrew box with the 6+ badge). No press kit or media licence seen on the page."
+      },
+      "confidence": "medium",
+      "limitations": "Popularity rests on supporting signals only; the ranked card box was sold out at Toys R Us today (in stock at Amigo, listed at Center Toys). Official minimum age is 6, the top of this carousel's range, and summing four cards is harder than counting to 10, so it suits the older end. Toys R Us shows '8+' in its spec field; the publisher's 6+ is used. Second Fox Mind product tonight."
+    }
+  ],
+  "lumebook": {
+    "image": {
+      "file": "reco-assets/lumebook-book-86-boy.png",
+      "image_url": "https://lumebook.com/book_covers/boy/B86_boy.avif",
+      "page_url": "https://lumebook.com/IL/he/books/86",
+      "source_type": "lumebook_site",
+      "width": 800,
+      "height": 800,
+      "accessed": "2026-10-13",
+      "rights_status": "owned",
+      "rights_note": "LumeBook's own cover art (boy variant) of catalogue book 86, AVIF converted to PNG with sips without changes. The girl variant was also downloaded and checked (reco-assets/lumebook-book-86-girl.png).",
+      "depicts": "A child in a blue sweater sits at a table and looks at a golden hanukkiah with all eight candles and the taller shamash lit, a cat beside him, a plate of sufganiyot, a small oil jug and a night view of Jerusalem through the window: the idea of the line, lighting the hanukkiah and counting its candles. The cover shows the full eighth evening, not the adding of one candle, so the line names the hanukkiah and the counting. The only lettering is the letter ש on the mezuzah, clean and correct."
+    },
+    "catalogue_book_id": 86,
+    "catalogue_book": "החנוכה של {{child_name}}",
+    "title_he": "החנוכה של {{child_name}}",
+    "connection": "Second to last of 7 suggestions (6 games and the LumeBook book), in Yarin's format: ספר של LumeBook / סיפור מותאם אישית עם תמונות של הילדים שלכם שבו... The catalogue has no counting book for this age (the counting book, 28, is for ages 1-2), so the line comes from book 86 (ages 3-10), where the child counts the Hanukkah candles, one more each evening up to eight; the cover shows the child at the lit hanukkiah."
+  },
+  "slides": [
+    {
+      "number": 1,
+      "role": "hook",
+      "headline": "7 משחקי קופסא\nשיעזרו להם\nלספור ולזהות מספרים",
+      "body": "",
+      "highlight": "לספור ולזהות מספרים"
+    },
+    {
+      "number": 2,
+      "role": "frame",
+      "headline": "בגיל 5\nהרבה ילדים כבר\nסופרים עד 10",
+      "body": "משחקים עם קובייה קלפים ומספרים\nמאפשרים להם לתרגל את זה",
+      "highlight": "סופרים עד 10"
+    },
+    {
+      "number": 3,
+      "role": "recommendation",
+      "product_id": "game-monopoly-tzair",
+      "headline": "מונופול צעיר",
+      "age": "מגיל 5",
+      "why": "מתרגלים לספור שטרות קטנים ולשלם",
+      "how": "תנו להם להיות הקופה\nולספור בקול כל תשלום"
+    },
+    {
+      "number": 4,
+      "role": "recommendation",
+      "product_id": "game-rummikub-rishon",
+      "headline": "רומיקוב ראשון שלי",
+      "age": "מגיל 5",
+      "why": "מתרגלים לסדר מספרים ברצף",
+      "how": "לפני שמניחים אריח תשאלו\n״איזה מספר בא עכשיו?״"
+    },
+    {
+      "number": 5,
+      "role": "recommendation",
+      "product_id": "game-ludo-snakes",
+      "headline": "לודו נחשים וסולמות",
+      "age": "מגיל 4",
+      "why": "מתרגלים לספור צעדים על לוח ממוספר",
+      "how": "תנו להם לספור בקול כל צעד\nולהגיד על איזה מספר נחתו"
+    },
+    {
+      "number": 6,
+      "role": "recommendation",
+      "product_id": "game-triomino-junior",
+      "headline": "טריומינו ג'וניור",
+      "age": "מגיל 4",
+      "why": "מתרגלים לזהות ספרות ולהתאים ביניהן",
+      "how": "לפני כל אריח תשאלו\n״איזה מספר אתם מחפשים?״"
+    },
+    {
+      "number": 7,
+      "role": "recommendation",
+      "product_id": "game-taki",
+      "headline": "טאקי",
+      "age": "מגיל 6",
+      "why": "מתרגלים לזהות את המספר שעל כל קלף",
+      "how": "תנו להם להגיד בקול\nאת המספר שהם מניחים"
+    },
+    {
+      "number": 8,
+      "role": "lumebook",
+      "headline": "ספר של LumeBook",
+      "body": "סיפור מותאם אישית עם תמונות\nשל הילדים שלכם שבו הם סופרים\nעוד נר בחנוכייה בכל ערב"
+    },
+    {
+      "number": 9,
+      "role": "recommendation",
+      "product_id": "game-ratatat-cat",
+      "headline": "חתחתול",
+      "age": "מגיל 6",
+      "why": "מתרגלים לזכור מספרים ולחבר אותם",
+      "how": "בסוף כל סיבוב תשאלו\n״למי יצא הסכום הכי קטן?״"
+    },
+    {
+      "number": 10,
+      "role": "close",
+      "headline": "תשמרו בשביל רעיונות למשחק הבא\nעד כמה הילדים שלכם כבר סופרים?\nספרו בתגובות",
+      "body": ""
+    }
+  ],
+  "caption": "משחקים שבהם הילדים מתרגלים לספור ולזהות מספרים\nיש ילדים שכבר סופרים עד 10 ויש שצריכים עוד זמן\nעד כמה הילדים שלכם סופרים?",
+  "claims": [
+    {
+      "slide": 1,
+      "wording_he": "משחקי קופסא שיעזרו להם לספור ולזהות מספרים",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "supports": "Ramani and Siegler 2008: about an hour on a number board game raised preschoolers' counting and numeral identification (mean age 5.4); CDC 5 years: counts to 10, names some numbers. 'Can help' only: the study used one linear 1 to 10 board game, not these products."
+    },
+    {
+      "slide": 2,
+      "wording_he": "בגיל 5 הרבה ילדים כבר סופרים עד 10",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y"
+      ],
+      "supports": "CDC 5 year cognitive milestone: 'Counts to 10' (a milestone most children reach by that age; the caption says some need more time)."
+    },
+    {
+      "slide": 2,
+      "wording_he": "משחקים עם קובייה קלפים ומספרים מאפשרים להם לתרגל את זה",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "supports": "Ramani and Siegler 2008: playing a number board game gave counting practice that showed on four numerical tasks; CDC suggests simple board games and card games at this age. Written as an opportunity to practise, not a result."
+    },
+    {
+      "slide": 3,
+      "wording_he": "מתרגלים לספור שטרות קטנים ולשלם",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "supports": "Kodkod's page: money values of 1 to 5 suited to young children; players pay and collect. Counting small amounts is practice of the CDC 5 year counting milestone; our reading, not a tested effect of this game."
+    },
+    {
+      "slide": 4,
+      "wording_he": "מתרגלים לסדר מספרים ברצף",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "supports": "The game is built on runs of consecutive number tiles (Center Toys page: runs or groups). Ordering numerals draws on naming numbers (CDC 5 years) and numeral identification (Ramani and Siegler); our reading."
+    },
+    {
+      "slide": 5,
+      "wording_he": "מתרגלים לספור צעדים על לוח ממוספר",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "supports": "Kodkod: reach square 100 with an exact number of steps. The closest product tonight to the number board game in Ramani and Siegler 2008 (theirs was linear, 1 to 10)."
+    },
+    {
+      "slide": 6,
+      "wording_he": "מתרגלים לזהות ספרות ולהתאים ביניהן",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "supports": "Fox Mind's page: the game gives practice in telling apart and matching colours and digits. Naming numbers 1 to 5 is a CDC 5 year milestone."
+    },
+    {
+      "slide": 7,
+      "wording_he": "מתרגלים לזהות את המספר שעל כל קלף",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "supports": "Cards are matched by number or colour, so the numeral on each card is read every turn. CDC 5 years: names some numbers; suggests simple card games. Reading numerals only, no counting claim."
+    },
+    {
+      "slide": 9,
+      "wording_he": "מתרגלים לזכור מספרים ולחבר אותם",
+      "kind": "developmental",
+      "source_ids": [
+        "src-cdc-5y",
+        "src-ramani-siegler-2008"
+      ],
+      "supports": "Fox Mind's page: a game of memory and luck with a little arithmetic, the lowest total wins; skills listed include command of numbers and memory. Magnitude comparison is one of the tasks in Ramani and Siegler 2008. Adding is beyond the 5 year milestones, in line with the game's 6+."
+    },
+    {
+      "slide": 8,
+      "wording_he": "סיפור מותאם אישית עם תמונות של הילדים שלכם",
+      "kind": "product_fact",
+      "source_ids": [
+        "site-personal",
+        "site-hero"
+      ],
+      "supports": "Live site, 2026-10-13: the order flow asks to upload the child's photo and add the name; the child is the hero."
+    },
+    {
+      "slide": 8,
+      "wording_he": "שבו הם סופרים עוד נר בחנוכייה בכל ערב",
+      "kind": "product_fact",
+      "source_ids": [
+        "site-hanukkah",
+        "site-hanukkah-count"
+      ],
+      "supports": "Catalogue book 86 (lumebook.com, 2026-10-13): eight evenings, a candle and another candle; in the story text the child counts as one more candle is added each evening up to eight."
+    }
+  ],
+  "checks": {
+    "paid_api_calls": 0,
+    "images_generated": 0,
+    "posted": false
+  },
+  "notes": "Games research on 2026-10-13 (the run was drawn on 2026-10-12 at 22:06 and the reading happened after midnight, so every accessed date is 2026-10-13, the real day the pages were read). Stage: early_numeracy, ages 5 to 6 (blocked skills and stage ids avoided; same age range as the previous games carousel, a warning). Chosen over memory, language and fine motor because six different kinds of number play were found in Israeli shops and CDC plus a peer reviewed study support it. Toys R Us Israel best-selling sort read in full (463 products, 12 pages of 40 and a last page; the store lists in-stock products first inside each page, so positions are exact to the page only). None of the six is in the top 20 or top 10 percent, so every popular_in_israel label rests on supporting signals from different groups; Triomino Junior (370) and the Ludo board (261) are the thinnest. Makers repeat: three Kodkod products and two Fox Mind products, both also used in the last 14 days (reviewer warnings); Israeli number games for this age are mostly from these two publishers. Rejected: מונופול ג'וניור (same kind as מונופול צעיר, and Kodkod's own Monopoly page lists צעיר), בינגו בורר הקסם (453rd, Kodkod again), ליגרטו ג'וניור (matches colours and pictures, not numbers), שלוף 7 and שיגעון 49 (no official age found, older players), דומינו (out of stock at Toys R Us). Kids and Dragons returned 'too many requests' so it was not used; Amigo's search failed for two terms. LumeBook: the catalogue's counting book (28) is for ages 1-2, so book 86 (Hanukkah, ages 3-10) was used because its story has the child counting candles; it is a holiday book about two months before Hanukkah, which Yarin may want to swap. The book's site page mentions the technology used to make the pictures; nothing of that is in the copy."
+}
