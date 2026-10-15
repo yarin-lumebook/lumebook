@@ -5,8 +5,12 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 - **Built from:** `playbook.md` approach A "Story with a turn" and section 3 "Weaker choices", `breakdowns.md` deep dive 1 ([@shoham_novik × LumeBook](https://www.instagram.com/reel/DTugYwmDNKa/)), product facts in `src/product-facts-2026-10-15.md`, the creator offer in `shared/facts.json`.
 - **Your edits (15 Oct, site editor) are in:** no hero intro, no "honest close" step, no price worry, no do-not rules on explaining the illustrations or on codes, no checklist, plus your rewrites. Small follow-on fixes: "שבעה חלקים" became "שישה חלקים", the CTA moved to 29-32 s so the times stay continuous, "משפטים אמיתיים" (plural), the disclosure quote closed and spelled LumeBook, and 24 pages as you confirmed (lumebook.com/IL/he said 24 on 15 Oct).
 - **Added on 15 Oct at your request:** creators send their raw footage to yarin@lumebook.com, a full worked example (a pacifier Reel, beat by beat), and the page redesign (Heebo only, icons, phone-screen layouts, a caption preview).
+- **Brand spelling on this page only (Yarin, 15 Oct 2026):** the brief and its messages page say לומיבוק, the way the store spells it. The rest of the project keeps לומבוק (CLAUDE.md, `shared/facts.json`); `src/lint_creator_brief.py` waives the lint's brand-spelling check for this file and nothing else.
+- **Messages page (15 Oct, Yarin: "תוסיף דף מסרים"):** the second part below, the key messages creators should get across, each with an example line. Facts only from `src/product-facts-2026-10-15.md` (the free preview, the child on the cover and in 10 pictures, the catalogue topics, the family-conversation framing the site uses, print plus digital copy, the dedication page, ages 2 to 8). No price, since you took the price worry out of the brief.
 - **Hebrew voice:** the LumeBook Hebrew voice skill in its fallback voice (12 of the 15 approved samples it needs). Creators are addressed in the plural and the example lines are first person past tense, so nothing assumes the creator's gender (`creators/creator-research/src/hebrew-rules.md`). Every Hebrew block passes `voice_lint.py`: `python3 research/israeli-product-reels/src/lint_creator_brief.py` (`--text` prints the Hebrew as plain lines for a DM).
 - **Page:** https://claude.ai/artifact/T9DJuNSzHoQ2WNHzceZq8L (private until you share it), built from the Hebrew part by `src/build_creator_brief.py`. Render hints in the Hebrew part are HTML comments, invisible in the Markdown: `<!--icon:NAME-->` on a heading, step or item, `<!--as:ticks-->` on a paragraph (first line is a label, the rest a tick list), `<!--visual:screens|topic|email-->` as its own block. After editing the Hebrew: lint, `python3 tools/lumebook.py build creator-brief`, republish the HTML, then `python3 tools/lumebook.py ack creator-brief --published`.
+- **Look (15 Oct, Yarin):** LumeBook's colours, Apple-style layout, Heebo only. Light by default with a dark/light toggle in the top bar (each viewer's choice is kept in their own browser). The dark option exists on this page only; the project rule is still light mode everywhere else.
+- **Example Reel on the page (15 Oct, Yarin: "add the reel example baked in the site"):** @shoham_novik's collab Reel plays in a phone frame (`<!--visual:reel-->`). Web copies: `media/projects/2026-10-15-israeli-product-reels/web/shoham-reel.mp4` (540p H.264, 6.3 MB, made with ffmpeg from the 15 Oct download) and `shoham-reel-poster.jpg`; the build copies them into `sites/lumebook-creator-brief/media/`. Raw media is not in git. Shoham agreed to LumeBook using her Reel (Yarin, 15 Oct 2026), so it is on the public site too; the other downloaded Reels stay internal. When republishing the artifact, pass `files` for `media/shoham-reel.mp4` and `media/shoham-reel-poster.jpg`, or the player is empty there.
 - **Public site (for creators):** https://lumebook-creator-brief.vercel.app (its own Vercel project, `noindex`), the same page as a full document in `sites/lumebook-creator-brief/`, written by the same build. After a rebuild: `python3 tools/lumebook.py deploy creator-brief`.
 
 ## How the brief maps to the research
@@ -44,6 +48,8 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 הפחד מהגמילה בשורה הראשונה<br>
 והספר על המסך כבר בשנייה הראשונה<br>
 [לצפייה בסרטון](https://www.instagram.com/reel/DTugYwmDNKa/)
+
+<!--visual:reel-->
 
 <!--as:ticks-->מה נוסיף אצלכם<br>
 קריאה לפעולה על המסך בסוף<br>
@@ -212,7 +218,7 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 > אז הכנו לה ספר שבו היא הגיבורה<br>
 > והיא ביקשה לקרוא אותו שוב ושוב<br>
 > בקישור שלי יש 10% הנחה<br>
-> שיתוף פעולה עם לומבוק<br>
+> שיתוף פעולה עם לומיבוק<br>
 > קיבלתי את הספר במתנה<br>
 > ועל הזמנות דרך הקישור שלי מגיעה לי עמלה<br>
 > כתבו "לומי" בתגובות ואשלח לכם קישור לספר שבו הילד שלכם הוא הגיבור
@@ -252,5 +258,66 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 - <!--icon:quote-->בלי משפטי פרסומת<br>
   משפטים אמיתיים ואותנטיים
+
+</div>
+
+## The messages page (send this part too)
+
+<div dir="rtl" lang="he" data-page="messages">
+
+### דף מסרים
+
+המסרים שחשוב לנו שיעברו<br>
+במילים שלכם ובטון שלכם<br>
+לא צריך להגיד את כולם
+
+### <!--icon:star--> המסר המרכזי
+
+<!--as:lead-->ספר אישי שבו הילד שלכם הוא הגיבור<br>
+עם התמונה שלו על הכריכה ובתוך הסיפור
+
+### <!--icon:message--> מה כדאי להגיד
+
+- <!--as:message--><!--icon:user-->**הילד הוא הגיבור**<br>
+  התמונה שלו על הכריכה ועוד 10 תמונות בפנים<br>
+  והשם שלו בתוך הסיפור<br>
+  ״והנה היא בתוך הסיפור עם השם שלה״
+
+- <!--as:message--><!--icon:eye-->**רואים לפני שמשלמים**<br>
+  יצירת הספר והתצוגה המקדימה בחינם<br>
+  ומשלמים רק אם אהבתם<br>
+  ״ראינו את הספר לפני שהחלטנו״
+
+- <!--as:message--><!--icon:book-->**סיפור לרגע שאתם בתוכו**<br>
+  יש סיפורים לגמילה ממוצץ ומחיתולים<br>
+  לאח חדש או לאחות חדשה<br>
+  וליום הולדת<br>
+  ״חיפשנו משהו לפרידה מהמוצץ״
+
+- <!--as:message--><!--icon:message-->**דרך לדבר על זה בבית**<br>
+  ספר שיכול לפתוח שיחה<br>
+  על מה שקורה אצלכם עכשיו<br>
+  ״קראנו אותו כל ערב ודיברנו על המוצץ״
+
+- <!--as:message--><!--icon:package-->**ספר מודפס ועותק דיגיטלי**<br>
+  כריכה רכה ו-24 עמודים בצבע<br>
+  ועותק דיגיטלי מגיע במייל אחרי כמה דקות<br>
+  ״העותק הדיגיטלי הגיע עוד לפני הספר״
+
+- <!--as:message--><!--icon:quote-->**הקדשה אישית**<br>
+  עמוד הקדשה מודפס<br>
+  או מקום לכתוב ביד<br>
+  ״כתבתי לה הקדשה בכתב יד״
+
+- <!--as:message--><!--icon:users-->**לגילאי 2 עד 8**<br>
+  כך כתוב באתר
+
+### <!--icon:x--> מה לא אומרים
+
+- <!--icon:alert-->לא מבטיחים תוצאה<br>
+  מספרים מה קרה אצלכם
+
+- <!--icon:users-->מדברים רק על הילד שלכם<br>
+  ולא על ילדים בכלל
 
 </div>

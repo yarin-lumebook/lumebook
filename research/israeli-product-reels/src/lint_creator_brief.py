@@ -27,7 +27,11 @@ LINT = ROOT / "carousel/carousel-pipeline/scripts/voice_lint.py"
 CODE_WORD = "לומי"
 PLACEHOLDER = "הכתובת"
 
-DIV_RE = re.compile(r'<div dir="rtl" lang="he"(?: data-lint="(\w+)")?>(.*?)</div>', re.S)
+DIV_RE = re.compile(r'<div dir="rtl" lang="he"((?:\s+data-[\w-]+="[^"]*")*)>(.*?)</div>', re.S)
+ATTR_RE = re.compile(r'data-([\w-]+)="([^"]*)"')
+# Yarin, 15 Oct 2026: this brief (and only this brief) spells the brand לומיבוק, as the store does.
+# The lint's brand-spelling rule still guards every other file; here the name is swapped before linting.
+BRAND_HERE, BRAND_RULE = "לומיבוק", "לומבוק"
 
 
 def clean(block, for_lint=True):
@@ -67,7 +71,8 @@ def blocks(content):
 def fields(for_lint=True):
     md = BRIEF.read_text(encoding="utf-8")
     result, n = {}, 0
-    for kind, content in DIV_RE.findall(md):
+    for attrs, content in DIV_RE.findall(md):
+        kind = dict(ATTR_RE.findall(attrs)).get("lint")
         if kind in ("cta", "caption"):
             result[kind] = clean(content, for_lint)
             continue
@@ -83,6 +88,7 @@ def main():
     f = fields()
     from build_creator_brief import UI  # the Hebrew the page adds around the brief
     f.update({f"ui_{k}": v.format(n=7, t=36) for k, v in UI.items()})  # templates linted with sample numbers
+    f = {k: v.replace(BRAND_HERE, BRAND_RULE) for k, v in f.items()}    # page-only brand spelling, see above
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(f, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     if "--text" in sys.argv:
