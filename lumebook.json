@@ -49,11 +49,16 @@
         {
           "from": "shared/brand/fonts/Assistant-VariableFont_wght.ttf",
           "to": "carousel/carousel-pipeline/assets/fonts/Assistant-VariableFont_wght.ttf"
+        },
+        {
+          "from": "shared/brand/creator-brief-preview-v2.jpg",
+          "to": "sites/lumebook-creator-brief/img/creator-brief-preview-v2.jpg"
         }
       ],
       "feeds": [
         "carousel-pipeline",
-        "dashboard"
+        "dashboard",
+        "creator-brief"
       ],
       "notes": "Canonical copies live here. Sites and the pipeline need their own physical copy (deploy folders, served fonts); `lumebook.py sync` refreshes them, check reports drift."
     },

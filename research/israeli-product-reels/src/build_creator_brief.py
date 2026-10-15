@@ -25,6 +25,7 @@ copy button. Render hints are HTML comments: <!--icon:NAME--> (ICONS below), <!-
 Standard library only.
 """
 import html
+import json
 import re
 import shutil
 import sys
@@ -40,6 +41,9 @@ from lint_creator_brief import ATTR_RE, BRIEF, DIV_RE, blocks  # noqa: E402
 OUT = HERE.parent / "creator-brief.html"
 SITE = ROOT / "sites" / "lumebook-creator-brief" / "index.html"  # standalone copy for Vercel
 TITLE = "בריף הרילס של לומיבוק"
+SITE_URL = json.loads((ROOT / "lumebook.json").read_text(encoding="utf-8"))["components"]["creator-brief"]["deploy"]["url"].rstrip("/") + "/"
+PREVIEW = ROOT / "shared" / "brand" / "creator-brief-preview-v2.jpg"
+PREVIEW_PATH = "img/creator-brief-preview-v2.jpg"
 FONTS = "https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap"
 PAGES = ("brief", "messages")
 # Runs before the first paint: right-to-left Hebrew, then the mode. Light is the default (Yarin, 15 Oct 2026: "make light
@@ -881,6 +885,10 @@ def render_page(name, sections, ctx, prefix):
 
 
 def build():
+    # Share crawlers need a public raster URL, not an embedded data URI.
+    # Keep this copy in the normal build so a later rebuild preserves previews.
+    if not PREVIEW.is_file():
+        raise FileNotFoundError(f"Missing share card: {PREVIEW}")
     md = BRIEF.read_text(encoding="utf-8")
     pages = parse()
     brief = pages["brief"]
@@ -938,10 +946,30 @@ def build():
     cut = page.index('<header class="lb-topbar"')
     head = page[:cut].replace("<title>", (
         '<meta name="robots" content="noindex">\n'
+        f'<meta name="description" content="{html.escape(UI["og_description"], quote=True)}">\n'
+        f'<link rel="canonical" href="{SITE_URL}">\n'
+        '<meta property="og:type" content="website">\n'
+        '<meta property="og:site_name" content="LumeBook">\n'
+        f'<meta property="og:url" content="{SITE_URL}">\n'
         f'<meta property="og:title" content="{TITLE}">\n'
         f'<meta property="og:description" content="{UI["og_description"]}">\n'
-        '<meta property="og:locale" content="he_IL">\n<title>'), 1)
+        '<meta property="og:locale" content="he_IL">\n'
+        f'<meta property="og:image" content="{SITE_URL}{PREVIEW_PATH}">\n'
+        f'<meta property="og:image:secure_url" content="{SITE_URL}{PREVIEW_PATH}">\n'
+        '<meta property="og:image:type" content="image/jpeg">\n'
+        '<meta property="og:image:width" content="1200">\n'
+        '<meta property="og:image:height" content="630">\n'
+        f'<meta property="og:image:alt" content="{TITLE}">\n'
+        '<meta name="twitter:card" content="summary_large_image">\n'
+        f'<meta name="twitter:title" content="{TITLE}">\n'
+        f'<meta name="twitter:description" content="{UI["og_description"]}">\n'
+        f'<meta name="twitter:image" content="{SITE_URL}{PREVIEW_PATH}">\n'
+        f'<meta name="twitter:image:alt" content="{TITLE}">\n<title>'), 1)
     SITE.parent.mkdir(parents=True, exist_ok=True)
+    preview_dst = SITE.parent / PREVIEW_PATH
+    preview_dst.parent.mkdir(parents=True, exist_ok=True)
+    if not preview_dst.exists() or preview_dst.read_bytes() != PREVIEW.read_bytes():
+        shutil.copy2(PREVIEW, preview_dst)
     for rel in REEL.values():  # the Reel's web files sit next to the Vercel page
         src, dst = REEL_DIR / Path(rel).name, SITE.parent / rel
         if src.exists() and (not dst.exists() or dst.read_bytes() != src.read_bytes()):
