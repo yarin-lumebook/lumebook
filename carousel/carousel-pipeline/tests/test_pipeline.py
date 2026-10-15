@@ -1059,7 +1059,7 @@ class Editor(unittest.TestCase):
             server.server_close()
 
 
-@unittest.skipUnless(Path(lib.CHROME).exists(), "Google Chrome is needed for the renderer test")
+@unittest.skipUnless(lib.CHROME, "Google Chrome is needed for the renderer test")
 class BoldLook(unittest.TestCase):
     """The bold look (10 Oct 2026): short lines for very large type and one highlighted phrase per slide."""
 
@@ -1426,6 +1426,42 @@ class Renderer(unittest.TestCase):
         self.assertTrue(all('class="hl"' not in sec and 'class="q"' not in sec for sec in sections[:-1]))
         self.assertIn('class="hl"', sections[-1])
         self.assertIn('class="btn"', sections[-1])
+
+
+class ChromeLookup(unittest.TestCase):
+    """find_chrome: CHROME_PATH, then the Mac app, then Chromium on PATH (Claude Code on the web)."""
+
+    def setUp(self):
+        self.bin = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.bin, True)
+        self.fake = self.bin / "chromium"
+        self.fake.write_text("#!/bin/sh\n")
+        self.fake.chmod(0o755)
+
+    def find(self, env, mac):
+        with mock.patch.dict(os.environ, env), mock.patch.object(lib, "CHROME_MAC", mac):
+            if "CHROME_PATH" not in env:
+                os.environ.pop("CHROME_PATH", None)
+            return lib.find_chrome()
+
+    def test_linux_finds_chromium_on_path(self):
+        self.assertEqual(self.find({"PATH": str(self.bin)}, "/nowhere/Chrome"), str(self.fake))
+
+    def test_mac_app_comes_before_path(self):
+        mac = self.bin / "Google Chrome"
+        mac.write_text("")
+        self.assertEqual(self.find({"PATH": str(self.bin)}, str(mac)), str(mac))
+
+    def test_chrome_path_wins_and_is_not_second_guessed(self):
+        self.assertEqual(self.find({"CHROME_PATH": str(self.fake), "PATH": ""}, "/nowhere/Chrome"), str(self.fake))
+        self.assertEqual(self.find({"CHROME_PATH": "chromium", "PATH": str(self.bin)}, "/nowhere/Chrome"), str(self.fake))
+        self.assertIsNone(self.find({"CHROME_PATH": "/nowhere/chrome", "PATH": str(self.bin)}, "/nowhere/Chrome"))
+
+    def test_none_when_nothing_is_installed(self):
+        self.assertIsNone(self.find({"PATH": str(self.bin / "empty")}, "/nowhere/Chrome"))
+        with mock.patch.object(lib, "CHROME", None), self.assertRaises(SystemExit) as err:
+            compose_slides.chrome([])
+        self.assertIn("CHROME_PATH", str(err.exception))
 
 
 if __name__ == "__main__":

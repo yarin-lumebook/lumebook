@@ -20,7 +20,7 @@ Writes to RUN_DIR/final/ (or RUN_DIR/final-placeholders/ with --placeholders):
 Carousels do not name the brand: no logo and no product card by default. --brand-mark adds the logo,
 --preview-card adds real-assets/preview.png as a card on the last slide (only if it shows no brand name).
 
-Needs Google Chrome. Standard library only.
+Needs Google Chrome or Chromium (carousel_lib.find_chrome). Standard library only.
 """
 
 import argparse
@@ -319,12 +319,17 @@ def build_html(frozen, images, out_dir, preview, brand_mark=False, look="bold"):
 
 
 def chrome(args, timeout=60):
-    if not Path(lib.CHROME).exists():
-        raise SystemExit(f"Google Chrome not found at {lib.CHROME}")
+    if not lib.CHROME:
+        if os.environ.get("CHROME_PATH", "").strip():
+            raise SystemExit(f"CHROME_PATH={os.environ['CHROME_PATH']} is not an executable Chrome or Chromium")
+        raise SystemExit(f"Google Chrome not found: looked for {lib.CHROME_MAC} and {', '.join(lib.CHROME_LINUX)} on PATH. "
+                         "Install Chromium or set CHROME_PATH (README, Running in the cloud).")
     profile = tempfile.mkdtemp(prefix="lumebook-chrome-")
     base = [lib.CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--mute-audio", "--no-first-run",
             f"--user-data-dir={profile}", "--force-device-scale-factor=1", "--allow-file-access-from-files",
             "--virtual-time-budget=8000"]
+    if sys.platform != "darwin":  # for Linux containers that run as root or have a small /dev/shm
+        base += ["--no-sandbox", "--disable-dev-shm-usage"]
     return base + args, profile
 
 

@@ -704,7 +704,7 @@ class Render(Base):
         n_products = len(self.car()["products"])
         self.assertEqual(html.count('class="main'), min(3, n_products) + n_products + 1)  # the hook fan, the products, the LumeBook book
 
-    @unittest.skipUnless(Path(lib.CHROME).exists(), "needs Google Chrome")
+    @unittest.skipUnless(lib.CHROME, "needs Google Chrome")
     def test_chrome_export_passes_the_layout_checks(self):
         out_dir, problems = reco_render.render(self.folder / rl.FILES["books"])
         self.assertEqual(problems, [])
@@ -991,7 +991,7 @@ class Mixed(Base):
         self.assertEqual(fan, ["game", "book", "game"])  # the hook shows both kinds
         self.assertEqual(html.count(ARROW_MARK), 11)  # every slide but the last has the arrow
 
-    @unittest.skipUnless(Path(lib.CHROME).exists(), "needs Google Chrome")
+    @unittest.skipUnless(lib.CHROME, "needs Google Chrome")
     def test_chrome_export_of_twelve_slides(self):
         out_dir, problems = reco_render.render(self.folder / rl.FILES[rl.MIXED])
         self.assertEqual(problems, [])

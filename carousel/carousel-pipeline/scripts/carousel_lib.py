@@ -10,7 +10,9 @@ Standard library only, so the nightly run never depends on pip installs.
 
 import datetime as dt
 import json
+import os
 import re
+import shutil
 import struct
 import unicodedata
 import zlib
@@ -32,7 +34,25 @@ APPROVED_EXAMPLES = VOICE_SKILL / "examples" / "approved"
 REJECTED_EXAMPLES = VOICE_SKILL / "examples" / "rejected"
 VOICE_EDITS = VOICE_SKILL / "examples" / "edits.jsonl"
 FAL_ENDPOINTS = PIPELINE / "scripts" / "fal_endpoints.json"
-CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+CHROME_MAC = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+CHROME_LINUX = ("google-chrome", "google-chrome-stable", "chromium", "chromium-browser")
+
+
+def find_chrome():
+    """The Chrome or Chromium that renders the slides, or None.
+
+    CHROME_PATH wins when it is set (a full path or a command name); then the Mac app; then the first
+    Linux name on PATH, so Claude Code on the web renders too (README, Running in the cloud).
+    """
+    env = os.environ.get("CHROME_PATH", "").strip()
+    if env:
+        return shutil.which(env)
+    if Path(CHROME_MAC).exists():
+        return CHROME_MAC
+    return next(filter(None, map(shutil.which, CHROME_LINUX)), None)
+
+
+CHROME = find_chrome()
 
 CALIBRATION_MIN_SAMPLES = 15
 TOPIC_COOLDOWN_PACKS = 14

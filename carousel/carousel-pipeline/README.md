@@ -179,3 +179,25 @@ The voice skill was built and evaluated with Anthropic's skill-creator: 3 test p
 | Copy changed after freezing | `prepare_fal_jobs.py ... --refreeze` archives the old run to `versions/vN/` |
 | Text overflows or RTL looks wrong | `compose_slides.py` exits 1 and lists the line; shorten or split it, rerun |
 | fal endpoints or prices changed | Refresh `scripts/fal_endpoints.json` from the fal model pages or the fal MCP `get_model_schema` and `get_pricing` |
+
+## 9 · Running in the cloud
+
+The slide PNGs (`compose_slides.py` for production runs, `reco_render.py` for the games and books carousel) need a headless Chrome. `carousel_lib.find_chrome()` looks in this order: `CHROME_PATH` if set, the Mac app, then `google-chrome`, `google-chrome-stable`, `chromium`, `chromium-browser` on PATH. Off the Mac the renderer adds `--no-sandbox --disable-dev-shm-usage`. Everything else in the pipeline runs without Chrome; the render tests skip when none is found.
+
+On a Linux box (Claude Code on the web), once per environment. Debian:
+
+```bash
+apt-get update && apt-get install -y chromium
+```
+
+If apt has no `chromium` package, or only a snap wrapper (Ubuntu), install Google Chrome instead:
+
+```bash
+curl -fsSLo /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt-get install -y /tmp/chrome.deb
+```
+
+Prefix `sudo` when not root. If Chrome sits somewhere unusual, set `CHROME_PATH` (see `.env.example`).
+
+Fonts: nothing to install. The slides load Heebo, Assistant and Rubik with `@font-face` from `assets/fonts/` (copies of `shared/brand/fonts/`, kept equal by `lumebook.py sync`), and those `.ttf` files are in git. Optional safety net for an emoji or symbol in copy: `apt-get install -y fonts-noto-core fonts-noto-color-emoji`.
+
+Check it works: `python3 -m unittest discover carousel/carousel-pipeline/tests` should run the `test_chrome_export_*` and `BoldLook` tests instead of skipping them.
