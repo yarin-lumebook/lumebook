@@ -283,7 +283,8 @@
         ],
         "cwd": "research/israeli-product-reels",
         "outputs": [
-          "research/israeli-product-reels/creator-brief.html"
+          "research/israeli-product-reels/creator-brief.html",
+          "sites/lumebook-creator-brief/index.html"
         ],
         "auto": true
       },
@@ -291,6 +292,11 @@
         "type": "artifact",
         "url": "https://claude.ai/artifact/T9DJuNSzHoQ2WNHzceZq8L",
         "file": "research/israeli-product-reels/creator-brief.html"
+      },
+      "deploy": {
+        "type": "vercel",
+        "dir": "sites/lumebook-creator-brief",
+        "url": "https://lumebook-creator-brief.vercel.app"
       },
       "feeds": [
         "dashboard"

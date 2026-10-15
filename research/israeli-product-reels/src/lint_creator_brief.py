@@ -7,7 +7,7 @@
 Every <div dir="rtl"> block in the brief is split into fields the way it renders: one field per
 paragraph, list item or heading, <br> as a line break. The div marked data-lint="cta" is the CTA and
 data-lint="caption" the caption template (its last line must equal the CTA). Markdown syntax is
-removed first. Handles and URLs in backticks or links are swapped for a Hebrew placeholder, because
+removed first, render hints (<!--icon:...--> and the like) too. Handles and URLs in backticks or links are swapped for a Hebrew placeholder, because
 the dot in @lumebook.il is not punctuation. The page's own Hebrew (UI in build_creator_brief.py) is
 linted too. The fields are written to src/scripts/creator-brief.json
 and linted with carousel/carousel-pipeline/scripts/voice_lint.py. Nothing in the brief is edited.
@@ -31,6 +31,7 @@ DIV_RE = re.compile(r'<div dir="rtl" lang="he"(?: data-lint="(\w+)")?>(.*?)</div
 
 
 def clean(block, for_lint=True):
+    block = re.sub(r"<!--.*?-->", "", block)                    # render hints (icon, as, visual)
     if for_lint:
         text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", block)   # [text](url) -> text
         text = re.sub(r"`[^`]+`", PLACEHOLDER, text)              # `@handle` -> placeholder
