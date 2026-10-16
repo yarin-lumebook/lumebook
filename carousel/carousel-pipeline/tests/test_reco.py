@@ -48,6 +48,8 @@ class Base(unittest.TestCase):
         self.folder.mkdir(parents=True)
         self.history_path = self.tmp / "reco-history.json"
         for fmt in rl.FORMATS:
+            if fmt == rl.MIXED2:  # only a weekly batch pack has the second one (test_batch.py)
+                continue
             car = load(fmt)
             (self.folder / rl.FILES[fmt]).write_text(json.dumps(car, ensure_ascii=False), encoding="utf-8")
             imgs = [p["image"] for p in car["products"]] + [car["lumebook"]["image"]]
@@ -145,7 +147,7 @@ class Base(unittest.TestCase):
 class FixtureAndStructure(Base):
     def test_both_fixtures_are_valid(self):
         for fmt in rl.FORMATS:
-            issues = self.check(self.car(fmt), history={"carousels": []})
+            issues = self.check(load(fmt) if fmt == rl.MIXED2 else self.car(fmt), history={"carousels": []})
             self.assertEqual(errors(issues), [], f"{fmt}:\n{messages(issues)}")
 
     def test_rights_unverified_is_valid_but_not_publish_ready(self):

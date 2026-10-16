@@ -42,6 +42,7 @@ BACKGROUNDS[rl.MIXED] = BACKGROUNDS["games"]
 # slide, which stays exactly as it was.
 CREAM = ("250,246,239", "244,237,226")
 ACCENTS[rl.MIXED] = ACCENTS["games"]
+BACKGROUNDS[rl.MIXED2], ACCENTS[rl.MIXED2] = BACKGROUNDS[rl.MIXED], ACCENTS[rl.MIXED]
 KIND_ACCENT = {"game": ACCENTS["games"][0], "book": ACCENTS["books"][0]}
 
 SLIDE_CSS = """
@@ -232,7 +233,7 @@ def lines_html(text, highlight=None):
 
 def is_plain(car):
     """The plain text look (14 Oct 2026) is the look of the combined games and books carousel, the nightly format from then on."""
-    return car.get("format") == rl.MIXED
+    return car.get("format") in rl.MIXED_FORMATS
 
 
 def is_bold(car):
@@ -251,7 +252,7 @@ def slide_html(car, s, out_dir, folder, index):
     bold = is_bold(car)
     plain = is_plain(car) and role != "close"  # the close slide keeps today's look
     hl = (s.get("highlight") or "").strip() if bold and not plain else None
-    bg = CREAM if car["format"] == rl.MIXED and role != "close" else BACKGROUNDS[car["format"]]
+    bg = CREAM if car["format"] in rl.MIXED_FORMATS and role != "close" else BACKGROUNDS[car["format"]]
     parts = [f'<section class="slide{" dark" if dark else ""}" data-n="{n}" data-role="{role}" data-format="{car["format"]}" style="--accent:{accent};--soft:{soft};--deep:{deep};--bg:{bg[0]};--bg2:{bg[1]}"><div class="glow"></div>']
     if role == "hook" and plain:
         # The number inside the sentence, one big Heebo Black headline (Yarin, 14 Oct 2026)
@@ -284,7 +285,7 @@ def slide_html(car, s, out_dir, folder, index):
                      + (f'<div data-f="body" class="sub fit" data-max="52" data-min="38" style="margin-top:64px">{lines_html(s["body"])}</div>' if s.get("body", "").strip() else "") + '</div>')
     elif role == "recommendation":
         kind = products[s["product_id"]].get("kind")
-        if car["format"] == rl.MIXED and kind in rl.KIND_HE:
+        if car["format"] in rl.MIXED_FORMATS and kind in rl.KIND_HE:
             # a small tag above the title in the empty top band: games and books share one carousel (14 Oct 2026)
             parts.append(f'<div class="kind" data-kind="{kind}" style="--kind:{KIND_ACCENT[kind]}">{esc(rl.KIND_HE[kind])}</div>')
         parts.append(f'<div class="block" data-where="title" style="top:110px" data-maxh="220"><div data-f="headline" class="h fit" data-max="84" data-min="52">{lines_html(s["headline"])}</div>'
@@ -334,7 +335,7 @@ def slide_html(car, s, out_dir, folder, index):
 def fan_products(car):
     """The up to three covers fanned out on the hook. A mixed carousel shows both kinds: a game, a book, a game."""
     products = car["products"]
-    if car.get("format") != rl.MIXED:
+    if car.get("format") not in rl.MIXED_FORMATS:
         return products[:3]
     games = [p for p in products if p.get("kind") == "game"]
     books = [p for p in products if p.get("kind") == "book"]
@@ -424,8 +425,8 @@ def render(car_path, png=True):
 # Review pages: reco.html (and games.html, books.html on older nights) next to review.html, one tab bar across them
 # ---------------------------------------------------------------------------
 
-PAGES = {rl.MIXED: "reco.html", "games": "games.html", "books": "books.html"}
-TAB_LABELS = {"pack": "קרוסלות", rl.MIXED: "משחקים וספרים", "games": "משחקים", "books": "ספרים"}
+PAGES = {rl.MIXED: "reco.html", rl.MIXED2: "reco-2.html", "games": "games.html", "books": "books.html"}
+TAB_LABELS = {"pack": "קרוסלות", rl.MIXED: "משחקים וספרים", rl.MIXED2: "משחקים וספרים 2", "games": "משחקים", "books": "ספרים"}
 
 REVIEW_CSS = """
 .rv-tabs{margin-bottom:calc(-1 * var(--sp-3))}
@@ -542,15 +543,27 @@ def tabs_html(folder, active):
         if rl.carousel_path(folder, f).exists():
             items.append((f, PAGES[f], TAB_LABELS[f]))
             continue
-        if f in rl.LEGACY_FORMATS or (f == rl.MIXED and has_legacy):
+        if f in rl.LEGACY_FORMATS or f == rl.MIXED2 or (f == rl.MIXED and has_legacy):
             continue
         other = next((d for d in dates if d != folder.name and rl.carousel_path(folder.parent / d, f).exists()), None)
         if other:
             items.append((f, f"../{other}/{PAGES[f]}", f"{TAB_LABELS[f]} · {short(other)}"))
     links = "".join(f'<a href="{href}"{" aria-selected=\"true\"" if key == active else ""}>{esc(label)}</a>' for key, href, label in items)
+    return f'<nav class="lb-tabs rv-tabs" aria-label="עמודים">{links}{days_html(folder)}</nav>'
+
+
+def days_html(folder):
+    """The row of dates in the tab bar. review_server.py redraws it on every page load, so a night brought down from
+    the cloud shows on the older pages too."""
+    folder = Path(folder)
+    dates = sorted((d.name for d in folder.parent.iterdir() if d.is_dir() and re.fullmatch(r"\d{4}-\d{2}-\d{2}", d.name)), reverse=True)
+    short = lambda d: f"{int(d[8:10])}.{int(d[5:7])}"
     days = "".join(f'<a href="../{d}/review.html"{" aria-current=\"page\"" if d == folder.name else ""}>{short(d)}</a>'
                    for d in dates if (folder.parent / d / "review.html").exists() or d == folder.name)
-    return f'<nav class="lb-tabs rv-tabs" aria-label="עמודים">{links}<span class="rv-days" aria-label="תאריכים">{days}</span></nav>'
+    import batch  # a pack of a weekly batch links back to the pool page (served by review_server.py)
+    plan, slot = batch.plan_for_date(folder.name)
+    pool = f'<a href="/pool/{plan["id"]}">מאגר השבוע · {slot["n"]}</a>' if plan else ""
+    return f'<span class="rv-days" aria-label="תאריכים">{pool}{days}</span>'
 
 
 def _status_chips(st, car):
@@ -655,7 +668,7 @@ def reco_page(folder, fmt, history=None):
 
 
 def _kind_counts(car):
-    if car.get("format") != rl.MIXED:
+    if car.get("format") not in rl.MIXED_FORMATS:
         return ""
     kinds = [p.get("kind") for p in car["products"]]
     return f' · {kinds.count("game")} משחקים · {kinds.count("book")} ספרים'

@@ -56,6 +56,8 @@ CHROME = find_chrome()
 
 CALIBRATION_MIN_SAMPLES = 15
 TOPIC_COOLDOWN_PACKS = 14
+EVENT_TOPIC_PREFIX = "event-"   # an Israeli event pack's topic id (topic-bank.md "Israeli events", Yarin 16 Oct 2026)
+EVENT_PAST_DAYS, EVENT_AHEAD_DAYS = 3, 21  # the event happens between 3 days before and 21 days after the pack date
 CODE_WORD_COOLDOWN_DAYS = 14
 HOOK_FAMILY_WINDOW_DAYS = 7
 HOOK_FAMILY_MAX_IN_WINDOW = 2
@@ -1256,6 +1258,10 @@ def review_date_for(moment=None):
 
 def parse_date(value):
     return dt.date.fromisoformat(value)
+
+
+def is_event_topic(topic_id):
+    return str(topic_id or "").startswith(EVENT_TOPIC_PREFIX)
 
 
 def load_topic_bank(path=TOPIC_BANK):

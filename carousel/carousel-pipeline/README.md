@@ -43,7 +43,18 @@ carousel/carousel-pipeline/
 
 DATE is the morning the pack is for. A run at 22:00 on the 7th writes `drafts/<the 8th>/`.
 
-## 1 · The nightly run
+## 0 · The weekly batch (since 16 Oct 2026)
+
+Yarin, 16 Oct 2026: "lets move to a weekly batch, 14 games and books carousels, 42 kid and expert, every thursday night", "one pool for the week, dont repeat the same topic twice", about 10 to 20 percent on things that happen in Israel, and in the games and books carousels "mix their order instead of games and then books".
+
+- **When:** the cloud routine "Hook Studio weekly batch (cloud)" runs every Thursday at 19:00 UTC (22:00 Israel summer time, 21:00 winter) and follows `cloud-weekly-prompt.md`. Its environment needs network access set to Full (section 9)
+- **What:** `nightly.py week-plan` plans 7 packs on 7 different topics, each a normal `drafts/DATE` folder with the six kid and expert options and two games and books carousels (`reco-carousel.json`, `reco-carousel-2.json`, format `mixed2` for the second): 42 options and 14 carousels. The dates are only keys, in a row after the newest night; the plan is `drafts/batches/ID.json` (ID = its first date)
+- **Israeli events:** slot 1 is the event pack (topic-bank.md "Israeli events"): one holiday, special day, or hard or exciting moment in Israel within two weeks, sourced that day, topic id `event-...` with `topic.event`; its two carousels record the same event. That is 6 of 42 options and 2 of 14 carousels, about 14 percent. No event that fits: the slot uses its fallback topic
+- **No repeats:** six topics come from the bank (none of the last 14 packs; the bank has 30 rows since 16 Oct 2026, enough for 7 a week), the 14 carousels get skills spread so none repeats within four packs, and `nightly.py batch-check ID` rejects a topic or a product used twice in the batch
+- **Delivery:** the run pushes `batch/ID` after every pack, so a run that stops halfway still delivers. Opening Hook Studio pulls the new packs (section 9) and opens the pool page, `/pool/ID`: every topic with its six options and two carousels, no days. Each pack page links back to it ("מאגר השבוע")
+- **Order in the games and books carousels:** mixed, never 3 of the same kind in a row (carousels made before 16 Oct 2026 keep every game first)
+
+## 1 · The nightly run (up to 15 Oct 2026)
 
 Scheduled task `lumebook-nightly-carousel` in Claude Desktop (Code, Routines), daily at 22:00 local time (Asia/Jerusalem), working folder `/Users/yarinbruner/Claude/Projects/Lumebook`.
 
@@ -61,7 +72,7 @@ python3 carousel/carousel-pipeline/scripts/nightly.py start
 
 then ask Claude: "use the lumebook-carousel skill in nightly review mode".
 
-Every run also writes one extra carousel of games and books together (Yarin, 14 Oct 2026: "combine the book and games to one carousel. 10-20 slides", then "cap it to 7-9 books and games"): `reco-carousel.json`, a random 7 to 9 suggestions (the LumeBook book counts as one; 10 to 12 slides), at least 3 real games and at least 3 real books for the same one developmental stage, the games first and then the books, each popular in Israel with Israel-specific evidence, a real product image in the middle of each recommendation slide with a small משחק or ספר word above the title, plain dark plum Heebo text with no colour blocks except on the close slide (Yarin, 14 Oct 2026), and the LumeBook book as the second to last suggestion (its slide shows the cover of the catalogue book whose idea its line states, flat in a white card like the other books since 14 Oct 2026). It follows Hook Studio too: `X משחקים וספרים לגילאי A-B ש...` with a value ending, a `highlight` on slides 1 and 2, the bold look, and the wordings considered in `hook_alternatives`. It has its own page, `reco.html`, one tab away from `review.html` (the slides scroll sideways on a phone), with the sources, popularity evidence, availability and image rights in dropdowns, and editable there. No image generation, no paid call, nothing posted. Nights up to 13 Oct 2026 have two separate carousels instead (`games-carousel.json`, `books-carousel.json`, 3 to 7 suggestions each, pages `games.html` and `books.html`); they still validate and render. Rules: `recommendations.md`. Check it by hand:
+Every run also writes one extra carousel of games and books together (Yarin, 14 Oct 2026: "combine the book and games to one carousel. 10-20 slides", then "cap it to 7-9 books and games"): `reco-carousel.json`, a random 7 to 9 suggestions (the LumeBook book counts as one; 10 to 12 slides), at least 3 real games and at least 3 real books for the same one developmental stage, games and books mixed in order (since 16 Oct 2026, never 3 of the same kind in a row), each popular in Israel with Israel-specific evidence, a real product image in the middle of each recommendation slide with a small משחק or ספר word above the title, plain dark plum Heebo text with no colour blocks except on the close slide (Yarin, 14 Oct 2026), and the LumeBook book as the second to last suggestion (its slide shows the cover of the catalogue book whose idea its line states, flat in a white card like the other books since 14 Oct 2026). It follows Hook Studio too: `X משחקים וספרים לגילאי A-B ש...` with a value ending, a `highlight` on slides 1 and 2, the bold look, and the wordings considered in `hook_alternatives`. It has its own page, `reco.html`, one tab away from `review.html` (the slides scroll sideways on a phone), with the sources, popularity evidence, availability and image rights in dropdowns, and editable there. No image generation, no paid call, nothing posted. Nights up to 13 Oct 2026 have two separate carousels instead (`games-carousel.json`, `books-carousel.json`, 3 to 7 suggestions each, pages `games.html` and `books.html`); they still validate and render. Rules: `recommendations.md`. Check it by hand:
 
 ```bash
 python3 carousel/carousel-pipeline/scripts/nightly.py finish-reco carousel/carousel-pipeline/drafts/DATE
@@ -201,3 +212,11 @@ Prefix `sudo` when not root. If Chrome sits somewhere unusual, set `CHROME_PATH`
 Fonts: nothing to install. The slides load Heebo, Assistant and Rubik with `@font-face` from `assets/fonts/` (copies of `shared/brand/fonts/`, kept equal by `lumebook.py sync`), and those `.ttf` files are in git. Optional safety net for an emoji or symbol in copy: `apt-get install -y fonts-noto-core fonts-noto-color-emoji`.
 
 Check it works: `python3 -m unittest discover carousel/carousel-pipeline/tests` should run the `test_chrome_export_*` and `BoldLook` tests instead of skipping them.
+
+### Seeing the cloud packs on the Mac
+
+The weekly routine pushes each batch to `batch/ID` (section 0); the older nightly routine pushed each night to `nightly/DATE` (`nightly/DATE-2` when that date already had one). Its cloud environment needs network access set to Full; on the default (Trusted) setting it cannot read lumebook.com or the sources and stops without a pack (what happened on 15 Oct 2026).
+
+Opening Hook Studio (`review_server.py`, or the `carousel-review-editor` preview) brings them down by itself: it runs `scripts/cloud_sync.py` first, which fetches the `batch/*` and `nightly/*` branches, copies the batch plans and each new `drafts/DATE` folder (product images and slide PNGs included) with `git archive`, adds the night to `history.json` and `reco-history.json`, and notes the branch and commit in `drafts/DATE/cloud-source.json`. A folder that already exists here is never overwritten, because it may hold your edits; a newer cloud version is only reported (`cloud_sync.py --force DATE` takes it). The row of dates on every page is redrawn on each load, so the new night shows on the older pages too. Offline it says so and opens what is already here; `--no-cloud` skips the check. To pull without opening the editor: `python3 carousel/carousel-pipeline/scripts/cloud_sync.py`.
+
+The cloud run starts from `main`, so `week-plan` first merges the history the earlier cloud runs left on their branches; rotation knows every cloud night even when nothing was pushed to `main`.

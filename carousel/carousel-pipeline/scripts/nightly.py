@@ -6,6 +6,8 @@
     python3 carousel/carousel-pipeline/scripts/nightly.py topics [--date D]
     python3 carousel/carousel-pipeline/scripts/nightly.py voice
     python3 carousel/carousel-pipeline/scripts/nightly.py hooks [--date D]   # hook bank evidence and status
+    python3 carousel/carousel-pipeline/scripts/nightly.py week-plan          # plan the weekly batch (16 Oct 2026)
+    python3 carousel/carousel-pipeline/scripts/nightly.py batch-check ID     # check a weekly batch
 
 start
     Works out the review date (the next morning; a run after midnight and before 06:00
@@ -26,6 +28,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import batch  # noqa: E402  (the weekly batch, 16 Oct 2026)
 import carousel_lib as lib  # noqa: E402
 import create_review  # noqa: E402
 import reco_lib  # noqa: E402  (the daily games and books carousel)
@@ -93,7 +96,32 @@ def cmd_start(args):
         # The extra daily carousel (games and books together for one developmental stage, 10 to 12 slides): recommendations.md
         "recommendations": reco_lib.start_context(date, folder),
     }
+    plan, slot = batch.plan_for_date(date)
+    if plan:
+        out.update(batch_start_context(plan, slot, date, folder, eligible))
     print(json.dumps(out, ensure_ascii=False, indent=2))
+
+
+def batch_start_context(plan, slot, date, folder, eligible):
+    """A pack of the weekly batch: its assigned topic (or the event slot), and two games and books carousels."""
+    others = [{"n": s["n"], "topic_id": s.get("topic_id"), "topic_he": s.get("topic_he")} for s in plan["slots"] if s["n"] != slot["n"]]
+    if slot["kind"] == "event":
+        topic = {"event_slot": True,
+                 "rule": ("this pack is the batch's Israeli event pack (topic-bank.md \"Israeli events\", Yarin 16 Oct 2026): find ONE thing that happens "
+                          f"in Israel between {plan['event_window'][0]} and {plan['event_window'][1]} (a holiday, a special day, or a hard or exciting moment "
+                          "the country is living through), confirm its date in a source you read today, and write the pack on it: topic.id event-<slug>, "
+                          "topic.title_he, topic.reason, topic.event {name_he, date, kind, tone, post_by, source, and talk_source for a hard moment}. "
+                          f"If nothing fits, use the fallback topic {slot['fallback_topic_id']} ({slot['fallback_topic_he']}) and say why in topic.reason."),
+                 "fallback_topic_id": slot["fallback_topic_id"]}
+    else:
+        topic = {"event_slot": False, "topic_id": slot["topic_id"], "topic_he": slot["topic_he"],
+                 "rule": "use exactly this topic (the weekly plan gives every pack a different one); ignore topic_shortlist"}
+    reco = {r["format"]: r for r in slot["reco"]}
+    return {
+        "batch": {"id": plan["id"], "slot": slot["n"], "of": len(plan["slots"]), "other_slots": others, **topic},
+        "recommendations": reco_lib.start_context(date, folder, fmt=reco_lib.MIXED, formats=reco_lib.BATCH_FORMATS, assigned=reco.get(reco_lib.MIXED)),
+        "recommendations_2": reco_lib.start_context(date, folder, fmt=reco_lib.MIXED2, formats=reco_lib.BATCH_FORMATS, assigned=reco.get(reco_lib.MIXED2)),
+    }
 
 
 def hook_context(ctx, date):
@@ -208,11 +236,14 @@ def cmd_finish_reco(args):
     if folder.name.endswith(".json"):
         folder = folder.parent
     have = reco_lib.present(folder)
-    history = reco_lib.load_history()
     failed = False
     legacy = [f for f in reco_lib.LEGACY_FORMATS if f in have]
     expected = legacy if legacy and reco_lib.MIXED not in have else list(reco_lib.NIGHTLY_FORMATS)
+    drawn = lib.read_json(folder / reco_lib.SLOTS_FILE) if (folder / reco_lib.SLOTS_FILE).exists() else {}
+    if reco_lib.MIXED2 in have or reco_lib.MIXED2 in drawn or batch.plan_for_date(folder.name)[0]:
+        expected = list(reco_lib.BATCH_FORMATS)
     for fmt in expected:
+        history = reco_lib.load_history()  # again for each, so the second carousel sees the first one just recorded
         if fmt not in have:
             print(f"MISSING {folder / reco_lib.FILES[fmt]}")
             failed = True
@@ -243,6 +274,22 @@ def cmd_finish_reco(args):
     if failed:
         print("Fix the listed lines or evidence (never delete punctuation, never invent evidence) and run finish-reco again.")
         raise SystemExit(1)
+
+
+def cmd_week_plan(args):
+    plan = batch.make_plan(merge=not args.no_fetch)
+    print(json.dumps(plan, ensure_ascii=False, indent=2))
+
+
+def cmd_batch_check(args):
+    batch.record_all(args.id)
+    errors, warns = batch.check(args.id)
+    for w in warns:
+        print(f"WARN {w}")
+    for e in errors:
+        print(f"ERROR {e}")
+    print(("VALID" if not errors else "INVALID") + f" batch {args.id}")
+    raise SystemExit(1 if errors else 0)
 
 
 def cmd_topics(args):
@@ -279,6 +326,12 @@ def main():
     hk = sub.add_parser("hooks")
     hk.add_argument("--date", help="judge review dates as of this day YYYY-MM-DD")
     hk.set_defaults(func=cmd_hooks)
+    wp = sub.add_parser("week-plan", help="plan the next weekly batch: 7 packs, 7 topics (one an Israeli event), 14 games and books carousels")
+    wp.add_argument("--no-fetch", action="store_true", help="do not merge history from the cloud branches first")
+    wp.set_defaults(func=cmd_week_plan)
+    bc = sub.add_parser("batch-check", help="duplicates and gaps across a weekly batch")
+    bc.add_argument("id", help="the batch id (its first date)")
+    bc.set_defaults(func=cmd_batch_check)
     args = ap.parse_args()
     args.func(args)
 

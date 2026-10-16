@@ -5,7 +5,7 @@ Every nightly run adds one complete games-and-books carousel next to the kid and
 "combine the book and games to one carousel. 10-20 slides"):
 
     drafts/DATE/reco-carousel.json     format "mixed": 7 to 9 suggestions for one developmental stage, at least 3 real
-                                       games and at least 3 real books (games first) + the LumeBook book, 10 to 12 slides
+                                       games and at least 3 real books (mixed in order since 16 Oct 2026) + the LumeBook book, 10 to 12 slides
 
 Nights up to 13 Oct 2026 have two separate carousels instead, which stay valid and renderable:
 
@@ -26,6 +26,7 @@ Standard library only.
 
 import argparse
 import datetime as dt
+import itertools
 import json
 import re
 import sys
@@ -38,13 +39,16 @@ import carousel_lib as lib  # noqa: E402
 SCHEMA = lib.PIPELINE / "reco.schema.json"
 HISTORY = lib.PIPELINE / "reco-history.json"
 MIXED = "mixed"
+MIXED2 = "mixed2"                        # the second games and books carousel of a weekly batch pack (16 Oct 2026), same rules
+MIXED_FORMATS = (MIXED, MIXED2)
 LEGACY_FORMATS = ("games", "books")      # the two separate carousels of the nights up to 13 Oct 2026
-FORMATS = (MIXED,) + LEGACY_FORMATS      # every format the validator, the renderer and the review pages know
+FORMATS = MIXED_FORMATS + LEGACY_FORMATS # every format the validator, the renderer and the review pages know
 NIGHTLY_FORMATS = (MIXED,)               # what nightly.py start draws and finish-reco expects (from 14 Oct 2026)
-FILES = {MIXED: "reco-carousel.json", "games": "games-carousel.json", "books": "books-carousel.json"}
-OUT_DIRS = {MIXED: "reco", "games": "games", "books": "books"}  # drafts/DATE/<dir>/: slides.html, 01.png..., contact sheet
-ASSETS_DIR = "reco-assets"  # product and LumeBook images, inside drafts/DATE/
-FORMAT_HE = {MIXED: "משחקים וספרים", "games": "משחקים", "books": "ספרים"}
+BATCH_FORMATS = MIXED_FORMATS            # a pack of the weekly batch has two (Yarin, 16 Oct 2026: 14 a week for 7 packs)
+FILES = {MIXED: "reco-carousel.json", MIXED2: "reco-carousel-2.json", "games": "games-carousel.json", "books": "books-carousel.json"}
+OUT_DIRS = {MIXED: "reco", MIXED2: "reco-2", "games": "games", "books": "books"}  # drafts/DATE/<dir>/: slides.html, 01.png..., contact sheet
+ASSETS_DIR = "reco-assets"  # product and LumeBook images, inside drafts/DATE/ (both mixed carousels share it)
+FORMAT_HE = {MIXED: "משחקים וספרים", MIXED2: "משחקים וספרים 2", "games": "משחקים", "books": "ספרים"}
 KIND_OF = {"games": "game", "books": "book"}
 KIND_HE = {"game": "משחק", "book": "ספר"}
 
@@ -53,7 +57,7 @@ KIND_HE = {"game": "משחק", "book": "ספר"}
 # with at least 3 games and at least 3 books. The old games and books carousels: 3 to 7, so 6 to 10 slides.
 OPTIONS_MIN, OPTIONS_MAX = 3, 7                  # games and books (older nights)
 MIXED_OPTIONS_MIN, MIXED_OPTIONS_MAX = 7, 9      # mixed (Yarin, 14 Oct 2026: "cap it to 7-9 books and games")
-SIZES = {MIXED: (MIXED_OPTIONS_MIN, MIXED_OPTIONS_MAX), "games": (OPTIONS_MIN, OPTIONS_MAX), "books": (OPTIONS_MIN, OPTIONS_MAX)}
+SIZES = {MIXED: (MIXED_OPTIONS_MIN, MIXED_OPTIONS_MAX), MIXED2: (MIXED_OPTIONS_MIN, MIXED_OPTIONS_MAX), "games": (OPTIONS_MIN, OPTIONS_MAX), "books": (OPTIONS_MIN, OPTIONS_MAX)}
 MIXED_MIN_PER_KIND = 3                           # a mixed carousel has at least 3 games and at least 3 books
 SLOTS_FILE = "reco-slots.json"  # drafts/DATE/: tonight's draw, kept so a rerun builds the same size
 
@@ -134,7 +138,9 @@ HOOK_TEMPLATE_RE = {
     "games": re.compile(r"^(\d+)\s+משחקי\s+קופסא\s+ש[א-ת]+(?:\s+\S+)*$"),
     "books": re.compile(r"^(\d+)\s+ספרי\s+ילדים\s+ש[א-ת]+(?:\s+\S+)*$"),
 }
+HOOK_TEMPLATE_RE[MIXED2] = HOOK_TEMPLATE_RE[MIXED]
 HOOK_TEMPLATE_HE = {MIXED: "X משחקים וספרים לגילאי A-B ש...", "games": "X משחקי קופסא ש...", "books": "X ספרי ילדים ש..."}
+HOOK_TEMPLATE_HE[MIXED2] = HOOK_TEMPLATE_HE[MIXED]
 # Hook Studio (Yarin, 10 Oct 2026: click baity hooks, content and slide design for every carousel). The sentence
 # stays Yarin's; the ending and the type get louder. Carousels written from this moment name the phrase that gets the
 # colour block (`highlight`) on the hook and the frame slide and record the wordings they weighed (`hook_alternatives`).
@@ -181,6 +187,14 @@ LUMEBOOK_IMAGE_SOURCES = {"lumebook_site", "lumebook_repo"}
 # LumeBook's own art), not a homepage hero render. Required in carousels generated from LUMEBOOK_COVER_FROM; older ones keep the hero.
 LUMEBOOK_COVER_RE = re.compile(r"^https://lumebook\.com/book_covers/(boy|girl)/B(\d+)_(boy|girl)\.avif$")
 LUMEBOOK_COVER_FROM = "2026-10-10T22:00"
+# The games and the books are mixed on carousels generated from MIXED_ORDER_FROM (Yarin, 16 Oct 2026: "in the book and
+# games i want it to mix their order instead of games and then books"); older ones keep every game first, then the books.
+MIXED_ORDER_FROM = "2026-10-16T12:00"
+MIXED_ORDER_MAX_RUN = 2
+
+
+def mixed_order_applies(car):
+    return str((car or {}).get("generated_at", ""))[:16] >= MIXED_ORDER_FROM
 
 
 def cover_rule_applies(car):
@@ -331,16 +345,21 @@ def load_history(path=HISTORY):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def previous(history, date_str, fmt=None):
-    """Earlier carousels, newest first. A rerun for the same date and format ignores its own earlier entry."""
-    out = [c for c in history.get("carousels", []) if c.get("date") and c["date"] < date_str and (fmt is None or c.get("format") == fmt)]
+def previous(history, date_str, fmt=None, sibling_of=None):
+    """Earlier carousels, newest first. A rerun for the same date and format ignores its own earlier entry.
+    sibling_of: a mixed format; the other mixed carousel of the same date counts as earlier too (a batch pack has two)."""
+    def earlier(c):
+        if c["date"] < date_str:
+            return True
+        return sibling_of in MIXED_FORMATS and c["date"] == date_str and c.get("format") in MIXED_FORMATS and c.get("format") != sibling_of
+    out = [c for c in history.get("carousels", []) if c.get("date") and earlier(c) and (fmt is None or c.get("format") == fmt)]
     return sorted(out, key=lambda c: c["date"], reverse=True)
 
 
 def rotation_pool(history, date_str, fmt):
     """The earlier carousels a format rotates away from, newest first. The mixed carousel replaced both the games and the
     books carousel, so it rotates against every earlier entry (mixed, games and books); games and books keep their own."""
-    return previous(history, date_str, None if fmt == MIXED else fmt)
+    return previous(history, date_str, None if fmt in MIXED_FORMATS else fmt, sibling_of=fmt)
 
 
 def last_runs(prev, runs):
@@ -611,7 +630,7 @@ def carousel_issues(car, folder, history=None, today=None):
     kinds = {p.get("kind") for p in products.values()}
     if fmt in KIND_OF and kinds != {KIND_OF[fmt]}:
         issues.append(issue("ERROR", f"{P}/products", f"a {fmt} carousel recommends only {KIND_OF[fmt]}s", "structure"))
-    if fmt == MIXED:
+    if fmt in MIXED_FORMATS:
         kind_list = [p.get("kind") for p in car.get("products", [])]
         for kind in ("game", "book"):
             if kind_list.count(kind) < MIXED_MIN_PER_KIND:
@@ -725,12 +744,12 @@ def carousel_issues(car, folder, history=None, today=None):
             m = HOOK_TEMPLATE_RE.get(fmt, re.compile("$^")).match(text)
             if s.get("body", "").strip():
                 issues.append(issue("ERROR", f"{sp}/body", "the hook is one sentence in the headline (break it into lines there); no body", "structure"))
-            if fmt != MIXED and HOOK_AGE_RE.search(text):
+            if fmt not in MIXED_FORMATS and HOOK_AGE_RE.search(text):
                 issues.append(issue("ERROR", sp, f"no ages in the hook (Yarin, 9 Oct 2026): «{HOOK_AGE_RE.search(text).group(0)}»", "structure"))
             if not m:
-                issues.append(issue("ERROR", sp, f"the hook is always «{HOOK_TEMPLATE_HE.get(fmt)}» (Yarin, 9 Oct 2026{'; the ages since 14 Oct 2026' if fmt == MIXED else ''})", "structure"))
+                issues.append(issue("ERROR", sp, f"the hook is always «{HOOK_TEMPLATE_HE.get(fmt)}» (Yarin, 9 Oct 2026{'; the ages since 14 Oct 2026' if fmt in MIXED_FORMATS else ''})", "structure"))
             else:
-                if fmt == MIXED:
+                if fmt in MIXED_FORMATS:
                     lo, hi = (int(m.group(2)), int(m.group(3))) if m.group(2) else (int(m.group(4)), int(m.group(4)))
                     want = (stage.get("age_min"), stage.get("age_max"))
                     if (lo, hi) != want:
@@ -805,9 +824,13 @@ def carousel_issues(car, folder, history=None, today=None):
                 issues.append(issue("ERROR", sp, f"«{m.group(0)}» turns the close into a sales slide; keep it a useful summary", "lumebook"))
             if not CLOSE_PROMPT_RE.search(text):
                 issues.append(issue("ERROR", sp, "end with a light save, share or comment prompt", "structure"))
-    if fmt == MIXED:
+    if fmt in MIXED_FORMATS:
         order = [products[pid].get("kind") for pid in used_products if pid in products]
-        if "book" in order and "game" in order[order.index("book"):]:
+        if mixed_order_applies(car):
+            runs = [len(list(g)) for _, g in itertools.groupby(order)]
+            if runs and max(runs) > MIXED_ORDER_MAX_RUN:
+                issues.append(issue("ERROR", f"{P}/slides", f"mix the games and the books (Yarin, 16 Oct 2026: \"mix their order instead of games and then books\"): never {MIXED_ORDER_MAX_RUN + 1} of the same kind in a row; alternate where the counts allow (the LumeBook book stays second to last)", "structure"))
+        elif "book" in order and "game" in order[order.index("book"):]:
             issues.append(issue("ERROR", f"{P}/slides", "group the suggestions: every game first, then the books (the LumeBook book stays second to last)", "structure"))
     if sorted(used_products) != sorted(products):
         issues.append(issue("ERROR", f"{P}/slides", f"the product slides ({', '.join(map(str, REC_SLIDES))}) must show each of the {len(products)} products exactly once", "structure"))
@@ -911,7 +934,7 @@ def rotation_issues(car, history):
     day = lib.parse_date(date_str)
     P = fmt
     cutoff = (day - dt.timedelta(days=PRODUCT_COOLDOWN_DAYS)).isoformat()
-    recent = [c for c in previous(history, date_str) if c["date"] >= cutoff]
+    recent = [c for c in previous(history, date_str, sibling_of=fmt) if c["date"] >= cutoff]
     for p in car.get("products", []):
         for c in recent:
             for q in c.get("products", []):
@@ -921,7 +944,7 @@ def rotation_issues(car, history):
     prev = rotation_pool(history, date_str, fmt)
     stage = car.get("stage", {})
     if stage.get("skill") in {c["skill"] for c in last_runs(prev, SKILL_COOLDOWN_RUNS)}:
-        issues.append(issue("ERROR", f"{P}/stage/skill", f"{stage.get('skill')} was one of the last {SKILL_COOLDOWN_RUNS} {'recommendation' if fmt == MIXED else fmt} carousels; rotate the skill", "repeat"))
+        issues.append(issue("ERROR", f"{P}/stage/skill", f"{stage.get('skill')} was one of the last {SKILL_COOLDOWN_RUNS} {'recommendation' if fmt in MIXED_FORMATS else fmt} carousels; rotate the skill", "repeat"))
     stage_cut = (day - dt.timedelta(days=STAGE_COOLDOWN_DAYS)).isoformat()
     if stage.get("id") in {c["stage_id"] for c in prev if c["date"] >= stage_cut}:
         issues.append(issue("ERROR", f"{P}/stage/id", f"stage {stage.get('id')} ran in the last {STAGE_COOLDOWN_DAYS} days", "repeat"))
@@ -965,28 +988,36 @@ def recent_edits(n=40, path=None):
     return [{k: e.get(k) for k in ("at", "direction", "slide", "role", "field", "kind", "before", "after")} for e in keep[-n:]]
 
 
-def start_context(date_str, folder, history=None):
-    """Printed by nightly.py start under "recommendations": one combined games and books carousel (14 Oct 2026)."""
+def start_context(date_str, folder, history=None, fmt=MIXED, formats=NIGHTLY_FORMATS, assigned=None):
+    """Printed by nightly.py start under "recommendations": one combined games and books carousel (14 Oct 2026).
+    A weekly batch pack has two (formats BATCH_FORMATS): the second is printed under "recommendations_2" with fmt MIXED2,
+    and `assigned` carries the plan's skill and event flag for it."""
     history = history if history is not None else load_history()
-    slots = draw_slots(folder)
-    n = slots[MIXED]
+    slots = draw_slots(folder, formats)
+    n = slots[fmt]
+    extra = {}
+    if assigned:
+        extra["assigned"] = {**assigned, "rule": "use this skill (the weekly plan spreads the 14 carousels so none repeats within four packs); "
+                             "the two carousels of one pack use different age ranges and never share a product"
+                             + ("; this carousel belongs to the Israeli event pack: pick games and books that fit the event and record the pack's `event`" if assigned.get("event") else "")}
     return {
-        "write_to": str(Path(folder) / FILES[MIXED]),
-        "format": MIXED,
+        **extra,
+        "write_to": str(Path(folder) / FILES[fmt]),
+        "format": fmt,
         "images_go_to": str(Path(folder) / ASSETS_DIR),
         "rules": "carousel/carousel-pipeline/recommendations.md",
         "example": "carousel/carousel-pipeline/tests/fixtures/reco/reco-carousel.json",
         "skills": {k: v["he"] for k, v in SKILLS.items()},
         "hook_structures": HOOK_STRUCTURES,
-        "hook_template": HOOK_TEMPLATE_HE[MIXED],
+        "hook_template": HOOK_TEMPLATE_HE[fmt],
         "recent_edits_learn_from_these": recent_edits(),
         "learn_rule": "Yarin edited these lines on the review pages (reco.html, and games.html and books.html on older nights). Read every pair before writing and write tonight's copy the way the after lines sound, per role and field. Never bring back what Yarin removed and do not copy the lines.",
-        "rotation": rotation_context(history, date_str, NIGHTLY_FORMATS),
+        "rotation": rotation_context(history, date_str, (fmt,)),
         "suggestions": {
             "rule": (f"one carousel of games and books for one developmental stage and theme, with a random number of suggestions from {MIXED_OPTIONS_MIN} to {MIXED_OPTIONS_MAX}; "
                      f"the LumeBook book counts as one of them, so products = suggestions - 1, with at least {MIXED_MIN_PER_KIND} games and at least {MIXED_MIN_PER_KIND} books "
                      "(each product records kind game or book; games need manufacturer, books need author and the Hebrew edition's publisher). "
-                     "Slides = suggestions + 3: hook, frame, the games, then the books, with the LumeBook book as the second to last suggestion (between the last two books), close. "
+                     "Slides = suggestions + 3: hook, frame, the games and the books MIXED (never 3 of the same kind in a row, alternate where the counts allow; Yarin 16 Oct 2026), with the LumeBook book as the second to last suggestion, close. "
                      f"The hook is «{HOOK_TEMPLATE_HE[MIXED]}»: X is the number of suggestions, the LumeBook book included, and A-B the stage's ages (age_min-age_max; «לגיל A» when they are equal), as on Yarin's reference «4 משחקי קופסא לגילאי 5-6 שעוזרים לילדים לשים לב»."),
             "tonight": n,
             "products_tonight": n - 1,

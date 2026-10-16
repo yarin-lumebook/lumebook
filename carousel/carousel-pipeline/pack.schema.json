@@ -54,6 +54,10 @@
           "type": "string",
           "minLength": 10,
           "description": "Why this topic tonight. Internal, punctuation allowed."
+        },
+        "event": {
+          "$ref": "#/$defs/event",
+          "description": "Only for an Israeli event pack (topic id event-...; topic-bank.md \"Israeli events\", Yarin 16 Oct 2026)."
         }
       }
     },
@@ -918,6 +922,110 @@
         },
         "note": {
           "type": "string"
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name_he",
+        "date",
+        "kind",
+        "tone",
+        "source"
+      ],
+      "properties": {
+        "name_he": {
+          "type": "string",
+          "minLength": 2,
+          "description": "The event as Israelis call it (חנוכה, יום המשפחה)."
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "The day it happens (the first day for a holiday), from the source."
+        },
+        "end_date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "kind": {
+          "enum": [
+            "holiday",
+            "special_day",
+            "news"
+          ]
+        },
+        "tone": {
+          "enum": [
+            "hard",
+            "exciting",
+            "calm"
+          ]
+        },
+        "post_by": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "The last good day to post it."
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "url",
+            "publisher",
+            "quote",
+            "accessed"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "publisher": {
+              "type": "string",
+              "minLength": 2
+            },
+            "quote": {
+              "type": "string",
+              "minLength": 5,
+              "description": "Verbatim, says the date or the event."
+            },
+            "accessed": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            }
+          }
+        },
+        "talk_source": {
+          "type": "object",
+          "description": "Hard moments: the official guidance on talking with children that the slides follow.",
+          "additionalProperties": false,
+          "required": [
+            "url",
+            "publisher",
+            "quote",
+            "accessed"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "publisher": {
+              "type": "string",
+              "minLength": 2
+            },
+            "quote": {
+              "type": "string",
+              "minLength": 5
+            },
+            "accessed": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            }
+          }
         }
       }
     }

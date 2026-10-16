@@ -572,6 +572,31 @@ def hook_strategy_issues(pack, bank, titles, today=None):
     return issues
 
 
+def event_issues(pack, event):
+    """An Israeli event pack (topic-bank.md "Israeli events", Yarin 16 Oct 2026): the event is sourced and timely."""
+    issues = []
+    if not event:
+        return [lib.Issue("ERROR", "pack/topic/event", "an event- topic records topic.event (name, date, kind, tone and a source read today)")]
+    run = str(pack.get("generated_at", ""))[:10]
+    try:
+        gap = (lib.parse_date(event["date"]) - lib.parse_date(pack["date"])).days
+        if not -lib.EVENT_PAST_DAYS <= gap <= lib.EVENT_AHEAD_DAYS:
+            issues.append(lib.Issue("ERROR", "pack/topic/event/date", f"the event is {gap} days from the pack date; an event pack covers something {lib.EVENT_PAST_DAYS} days back to {lib.EVENT_AHEAD_DAYS} days ahead"))
+    except (KeyError, ValueError):
+        pass
+    for key in ("source", "talk_source"):
+        src = event.get(key)
+        try:
+            stale = src and run and abs((lib.parse_date(run) - lib.parse_date(src["accessed"])).days) > 3
+        except (KeyError, ValueError):
+            stale = False
+        if stale:
+            issues.append(lib.Issue("ERROR", f"pack/topic/event/{key}/accessed", "read the source again: it must be read within 3 days of the run"))
+    if event.get("tone") == "hard" and not event.get("talk_source"):
+        issues.append(lib.Issue("ERROR", "pack/topic/event/talk_source", "a hard moment follows official guidance on talking with children (Ministry of Education psychological service, Ministry of Health, NATAL, ERAN): record it in talk_source"))
+    return issues
+
+
 def pack_issues(pack, history=None, bank=None, voice=None, today=None):
     root = lib.read_json(lib.SCHEMA)
     issues = schema_issues(pack, root, root)
@@ -591,8 +616,13 @@ def pack_issues(pack, history=None, bank=None, voice=None, today=None):
     # Topic
     bank = bank if bank is not None else lib.load_topic_bank()
     topic_id = pack.get("topic", {}).get("id")
-    if topic_id not in {t["id"] for t in bank}:
+    event = pack.get("topic", {}).get("event")
+    if lib.is_event_topic(topic_id):
+        issues.extend(event_issues(pack, event))
+    elif topic_id not in {t["id"] for t in bank}:
         issues.append(lib.Issue("ERROR", "pack/topic/id", f"{topic_id} is not in topic-bank.md"))
+    elif event:
+        issues.append(lib.Issue("ERROR", "pack/topic/event", "only an Israeli event pack (topic id event-...) records an event"))
 
     # Product facts must be fresh
     product_ids = set()

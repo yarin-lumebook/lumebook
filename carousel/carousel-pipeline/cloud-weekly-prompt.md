@@ -1,0 +1,27 @@
+WEEKLY BATCH, CLOUD RUN (Yarin, 16 Oct 2026: "lets move to a weekly batch, 14 games and books carousels, 42 kid and expert, every thursday night", "one pool for the week, dont repeat the same topic twice", about 10 to 20 percent on things that happen in Israel, "mix their order instead of games and then books").
+
+You run unattended in a cloud clone of github.com/yarinbruner/lumebook, not on Yarin's Mac. Use paths relative to the repo root, never ask a question, never post, message or publish anything, never call fal.ai or any paid service.
+
+What you make: 7 packs on 7 different topics, each a normal drafts/DATE folder with the six kid and expert options (pack.json) and TWO games and books carousels (reco-carousel.json and reco-carousel-2.json). That is 42 options and 14 carousels. Slot 1 is the Israeli event pack (topic-bank.md "Israeli events"): 6 of 42 options and 2 of 14 carousels, about 14 percent. The dates are only keys; Yarin sees the batch as one pool.
+
+## 0 · Set up (you, the coordinator)
+
+1. Chrome for the slide PNGs: `python3 -c "import sys; sys.path.insert(0,'carousel/carousel-pipeline/scripts'); import carousel_lib as l; print(l.CHROME)"`. If it prints None: `apt-get update && apt-get install -y chromium` (sudo when not root; README section 9 has the Google Chrome fallback).
+2. Plan the week: `python3 carousel/carousel-pipeline/scripts/nightly.py week-plan`. It merges the history the earlier cloud runs pushed to their branches, then prints the plan (also written to carousel/carousel-pipeline/drafts/batches/<id>.json): the batch id, 7 slots with date, topic (slot 1: the event slot with its fallback topic) and the two carousels' skills. If it stops because too few topics are free, stop and say so.
+3. Create the branch `batch/<id>` (if it exists on origin, `batch/<id>-2`), then `git add carousel/carousel-pipeline/drafts/batches/<id>.json carousel/carousel-pipeline/history.json carousel/carousel-pipeline/reco-history.json`, commit "Weekly batch <id>: plan" with the GitHub no-reply email, and push that branch. Never push to main, never open a pull request.
+
+## 1 · Build the slots
+
+Run the 7 slots as subagents, at most 3 at a time, slot 1 in the first wave. Give each subagent this brief (fill in N and DATE):
+
+> Build slot N of the LumeBook weekly batch, date DATE. Read carousel/carousel-pipeline/cloud-nightly-prompt.md: its CLOUD RUN NOTES for Chrome, network and skills (ignore its Delivery and branch notes), then follow it from "Build tomorrow morning's LumeBook carousel review pack" to step 6b, with these overrides: (a) step 1 is `python3 carousel/carousel-pipeline/scripts/nightly.py start --date DATE`; its `batch` block gives your topic: use exactly `batch.topic_id`, or, when `batch.event_slot` is true, follow `batch.rule` to find one thing that happens in Israel in the event window and write the pack on it (topic-bank.md "Israeli events": confirm the date in a source you read today; a hard moment follows official guidance on talking with children and records it in talk_source; no politics, no graphic detail, no fear or blame aimed at the parent). (b) Write TWO games and books carousels: `recommendations.write_to` and `recommendations_2.write_to`, each with its own drawn size, its `assigned.skill`, a different age range from the other, and no product in common with the other or with the other slots' carousels already in reco-history.json; on the event slot both record the pack's `event` and pick games and books that fit it. Mix games and books in order (never 3 of the same kind in a row). (c) `nightly.py finish-reco carousel/carousel-pipeline/drafts/DATE` checks both. (d) Do not commit, push or touch other slots' folders. Report: topic, the six option ids with child name and slide 1 hook, both carousels (size, ages, skill, games and books by title, VALID), and anything you could not do.
+
+When a slot reports both `finish` and `finish-reco` VALID, commit it on the batch branch: `git add carousel/carousel-pipeline/drafts/DATE carousel/carousel-pipeline/history.json carousel/carousel-pipeline/reco-history.json` and `git add -f carousel/carousel-pipeline/drafts/DATE/reco-assets carousel/carousel-pipeline/drafts/DATE/reco carousel/carousel-pipeline/drafts/DATE/reco-2` (the images and slide PNGs are git-ignored but Yarin needs them), commit "Weekly batch <id>: slot N (<topic>)" and push. Push after every slot, so a run that stops halfway still delivers what is done. A slot that fails twice: note it and go on.
+
+## 2 · Check the batch
+
+`python3 carousel/carousel-pipeline/scripts/nightly.py batch-check <id>` re-records the history and lists problems across the batch: a repeated topic, a product in two carousels, a missing file, a skill off the plan, no event pack. Fix every ERROR in the later slot (swap the product for another real, Israel-popular one with fresh evidence, then run finish-reco on that folder again), commit and push. Run batch-check until it prints VALID.
+
+## 3 · Final message, short
+
+Batch id and branch; per slot: date, topic (the event slot: event name, date, tone, source), the six options (id, child, slide 1 hook) and the two carousels (size, ages, skill, VALID, publish-ready); batch-check result; the voice status. If something blocked the run, name the exact step and command that failed.

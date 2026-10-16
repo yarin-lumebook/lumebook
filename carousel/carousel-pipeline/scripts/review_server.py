@@ -3,6 +3,11 @@
 
     python3 carousel/carousel-pipeline/scripts/review_server.py              # newest pack
     python3 carousel/carousel-pipeline/scripts/review_server.py --date 2026-10-08 --port 8777
+    python3 carousel/carousel-pipeline/scripts/review_server.py --no-cloud  # skip the GitHub check
+
+On start it first brings down any cloud night that is not here yet (cloud_sync.py: the nightly/DATE branches the cloud
+routine pushes), so the newest page may be one the cloud made overnight. The row of dates on every page is redrawn
+on each load, so older pages list the new nights too.
 
 Open the printed address. Every slide headline and body, the caption, the CTA and the option title
 become editable in place. "שמירה" (or Cmd+S) sends the changes here, and this server:
@@ -28,12 +33,16 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import batch  # noqa: E402
 import carousel_lib as lib  # noqa: E402
+import cloud_sync  # noqa: E402
 import create_review  # noqa: E402
 import validate_pack  # noqa: E402
 
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 FIELDS = {"headline", "body", "highlight", "caption", "cta", "title"}
+DAY_PAGE_RE = re.compile(r"^/drafts/\d{4}-\d{2}-\d{2}/[\w-]+\.html$")
+DAYS_RE = re.compile(r'<span class="rv-days" aria-label="תאריכים">.*?</span>', re.S)
 
 
 def clean(text):
@@ -176,14 +185,38 @@ class Handler(SimpleHTTPRequestHandler):
         if self.path.startswith("/api/ping"):
             return self.send_json({"ok": True})
         if self.path in ("/", ""):
+            plan = None if self.server.pinned_date else batch.newest_batch_with_content()
             self.send_response(302)
-            self.send_header("Location", f"/drafts/{self.server.default_date}/review.html")
+            self.send_header("Location", f"/pool/{plan['id']}" if plan else f"/drafts/{self.server.default_date}/review.html")
             self.end_headers()
             return
+        m = re.match(r"^/pool/(\d{4}-\d{2}-\d{2})/?$", self.path.split("?")[0])
+        if m:
+            page = batch.pool_page(m.group(1))
+            return self.send_html(page) if page else self.send_error(404)
         # drafts for the review pages, assets/fonts for the pillar typefaces; nothing else in the pipeline folder is served
         if not self.path.startswith(("/drafts/", "/assets/fonts/")) or ".." in self.path:
             return self.send_error(404)
+        if DAY_PAGE_RE.match(self.path.split("?")[0]):
+            return self.send_page()
         return super().do_GET()
+
+    def send_page(self):
+        """A review or carousel page with today's row of dates, so nights added since it was built show too."""
+        import reco_render
+        path = Path(self.translate_path(self.path))
+        if not path.is_file():
+            return self.send_error(404)
+        html = DAYS_RE.sub(lambda _: reco_render.days_html(path.parent), path.read_text(encoding="utf-8"), count=1)
+        return self.send_html(html)
+
+    def send_html(self, html):
+        body = html.encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
 
     def end_headers(self):
         if self.path.endswith((".html", ".md")):
@@ -238,13 +271,19 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--date", help="pack date YYYY-MM-DD (default: newest)")
     ap.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8777)))
+    ap.add_argument("--no-cloud", action="store_true", help="do not check GitHub for cloud nights")
     args = ap.parse_args()
+    if not args.no_cloud:
+        cloud_sync.sync(log=lambda m: print(m, flush=True))
     date = args.date or newest_date()
     if not date:
         raise SystemExit("no packs in carousel/carousel-pipeline/drafts yet")
     server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
     server.default_date = date
-    print(f"Review editor: http://localhost:{args.port}/drafts/{date}/review.html  (Ctrl+C to stop)", flush=True)
+    server.pinned_date = bool(args.date)
+    plan = None if args.date else batch.newest_batch_with_content()
+    where = f"pool/{plan['id']}" if plan else f"drafts/{date}/review.html"
+    print(f"Review editor: http://localhost:{args.port}/{where}  (Ctrl+C to stop)", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

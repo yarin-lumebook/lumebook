@@ -1,6 +1,6 @@
 # Topic bank
 
-One topic per nightly pack, so the six candidates compare voice and angle rather than six unrelated ideas.
+One topic per pack, so the six candidates compare voice and angle rather than six unrelated ideas. Since 16 Oct 2026 the packs come as a weekly batch: 7 packs on 7 different topics, one of them an Israeli event (see "Israeli events").
 
 `scripts/nightly.py start` reads the table below, checks `history.json` and prints the topics ranked for tonight: eligible first (not used in the previous 14 packs), then in season for the review month, then the longest since last use. The validator rejects a pack whose topic id is not in this table or was used in the previous 14 packs.
 
@@ -31,6 +31,38 @@ One topic per nightly pack, so the six candidates compare voice and angle rather
 | `birthday-expectations` | יום הולדת שלא הולך לפי התוכנית | birthday expectations | any | הולדת / עוגה | check catalogue (birthdays category) |
 | `left-out` | הרגיש שלא שיתפו אותו | feeling left out | any | חבר / לבד | חברים צבעוניים |
 | `grandparents-gifts` | סבא וסבתא שואלים מה לקנות | grandparents as gift buyers | 11, 12 | סבתא / נכדים / מתנה | check gifts page |
+| `picky-eating` | אוכל רק פסטה ואורז | picky eating | any | צלחת / ארוחה | check catalogue |
+| `screen-time-end` | בכי כשנגמר המסך | meltdown when screen time ends | any | מסך / טאבלט | check catalogue |
+| `bad-dream` | מתעורר מחלום רע | waking from a bad dream | any | חלום / לילה | check catalogue |
+| `making-friends` | קשה לו להתחבר לילדים חדשים | making new friends | any | חבר / גן | חברים צבעוניים |
+| `losing-games` | לא מסוגל להפסיד במשחק | not coping with losing a game | any | משחק / ניצחון | check catalogue |
+| `whining` | מדבר בקול בכייני | whining | any | קול / בקשה | check catalogue |
+| `doctor-visit` | פחד מרופא ומזריקה | fear of the doctor and shots | any | רופא / זריקה | check catalogue |
+| `haircut-fear` | בוכה בתספורת | crying at haircuts | any | תספורת / שיער | check catalogue |
+| `morning-dressing` | לא מתלבש בבוקר | morning dressing battles | any | בגדים / בוקר | check catalogue |
+| `sharing-toys` | לא רוצה לתת לאף אחד את הצעצוע | not wanting to share toys | any | צעצוע / תור | check catalogue |
+| `moving-home` | עוברים דירה | moving home | any | דירה / חדר | check catalogue |
+| `public-tantrum` | התפרצות באמצע הסופר | tantrums in public | any | סופר / התפרצות | check catalogue |
+| `own-bed` | עובר למיטה של ההורים בלילה | coming into the parents' bed at night | any | מיטה / לילה | check catalogue |
+| `toothbrushing` | מלחמה על צחצוח שיניים | toothbrushing battles | any | שיניים / מברשת | check catalogue |
+
+## Israeli events (weekly batch, Yarin 16 Oct 2026)
+
+"I need the carousels to have social and event context about things that happen in Israel like holidays or special days, hard or exciting. I don't want all carousels to be about them, let's say about 10%-20% of the weekly batch."
+
+Every weekly batch has one event pack (6 of 42 options) and its two games and books carousels (2 of 14), all about one thing that happens in Israel in the two weeks after the batch is made: a holiday, a special day, or a hard or exciting moment the whole country is talking about. That is about 14 percent; everything else uses the topics above. The event pack does not use a row of this table: its topic id is `event-` plus a short English slug (`event-hanukkah-2026`), and `topic.event` records the name, the date, the kind, the tone and a source read that day. If nothing fits the window, the slot falls back to the plan's regular topic and the reason says so.
+
+Where to look (always confirm the date in a source you read that day, never from memory):
+
+- Holidays and the Hebrew calendar: hebcal.com, the Ministry of Education school calendar on gov.il
+- Special days: יום המשפחה, יום הזיכרון ליצחק רבין, ט״ו בשבט, הסיגד, the first day of school, the last day of school, the summer break, the first rain
+- Hard or exciting moments: a national news event that families with young children are living through (an escalation, sirens, evacuations, a disaster; a big sports win, a national celebration). Read Israeli news (ynet, Kan, Haaretz, Mako) and an official source for how to talk with children (the Ministry of Education psychological service, the Ministry of Health, NATAL or ERAN for hard moments)
+
+How to write it:
+
+- Hard moments: what children may feel and what parents can say and do, from the official guidance. No graphic detail, no politics, no fear or blame aimed at the parent, nothing the child did wrong. Never a joke or a sales angle on a hard day; the story offer on slide 10 stays gentle
+- Exciting moments and holidays: the child's view of the day, rituals the family can do, a feeling to name
+- The two games and books carousels of the event pack pick games and books that fit the event (a holiday's books, games for a long break at home), still for one developmental stage, and record the same `event`
 
 ## Selection rules
 
