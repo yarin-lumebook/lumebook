@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
+<title>קרוסלות לבוקר 2026-10-17</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap">
+<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>
+<style>
+/* LumeBook design system · shared/design/lumebook.css
+   One stylesheet for every internal LumeBook page (HQ dashboard, plan, creator map, research pages, carousel review).
+   Builds inline this file; edit it here, then run `python3 tools/lumebook.py ripple` to rebuild every page that uses it.
+   Not used by the public ambassadors site.
+   Concept: Apple-style grouped surfaces on a warm cream ground, LumeBook ink for text, violet for anything you can
+   click, gold for brand emphasis. Hebrew first (RTL, logical properties), English pages work the same way.
+   Fonts (link in <head>): https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap
+   Theme: light only (Yarin, 14 Oct 2026: the whole project is light mode only). There are no dark tokens and no theme toggle. */
+
+:root {
+  /* brand */
+  --lb-ink: #1D1039;
+  --lb-ink-deep: #0B0518;
+  --lb-gold: #E6B762;
+  --lb-gold-deep: #C9954A;
+  --lb-violet: #5B2BD6;
+  --lb-cream: #F8F0E1;
+
+  /* surfaces */
+  --bg: #FBF7F0;                 /* page ground, cream tinted */
+  --surface: #FFFFFF;            /* cards, grouped rows, tables */
+  --surface-2: #F5EFE4;          /* inset areas inside a card, sidebar */
+  --surface-sunk: #F1E9DB;       /* wells, code, track of bars */
+  --bar: rgba(251, 247, 240, .82); /* translucent sticky bars */
+  --overlay: rgba(11, 5, 24, .42);
+
+  /* text (ink at three strengths; all pass 4.5:1 on --bg and --surface) */
+  --text: #1D1039;
+  --text-2: #554C6B;
+  --text-3: #655C7A;
+  --text-on-tint: #FFFFFF;
+
+  /* fills and lines (ink at low alpha) */
+  --fill: rgba(29, 16, 57, .05);
+  --fill-2: rgba(29, 16, 57, .08);
+  --fill-3: rgba(29, 16, 57, .13);
+  --line: rgba(29, 16, 57, .12);
+  --line-strong: rgba(29, 16, 57, .22);
+
+  /* interactive: violet */
+  --tint: #5B2BD6;
+  --tint-hover: #4A1FBF;
+  --tint-soft: rgba(91, 43, 214, .09);
+  --focus: rgba(124, 77, 255, .5);
+
+  /* brand emphasis: gold */
+  --accent: #C9954A;
+  --accent-soft: #FBEBC9;
+  --accent-ink: #8A5A14;
+
+  /* semantic */
+  --success: #18703F; --success-soft: rgba(35, 149, 90, .12);
+  --warning: #A3520A; --warning-soft: rgba(232, 140, 40, .16);
+  --danger: #C2303A;  --danger-soft: rgba(217, 58, 58, .10);
+  --info: #3653B0;    --info-soft: rgba(74, 104, 194, .11);
+
+  /* carousel pillars */
+  --kid: #6D3FC9;  --kid-soft: rgba(109, 63, 201, .11);
+  --expert: #8A5A14; --expert-soft: rgba(201, 149, 74, .16);
+
+  /* data series (sequential, light to dark) */
+  --seq-1: #E9E2F1; --seq-2: #D2C4DF; --seq-3: #D2B596; --seq-4: #C9954A; --seq-5: #A87425; --seq-6: #76500F;
+
+  /* type */
+  --font: "Heebo", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Varela Round", "Heebo", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --fs-display: clamp(1.9rem, 4.2vw, 2.6rem);
+  --fs-title: 1.5rem;
+  --fs-headline: 1.125rem;
+  --fs-body: 1rem;
+  --fs-callout: .9375rem;
+  --fs-footnote: .8125rem;
+  --fs-caption: .75rem;
+  --fs-num: 1.875rem;
+
+  /* space (4pt base) */
+  --sp-1: .25rem; --sp-2: .5rem; --sp-3: .75rem; --sp-4: 1rem; --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 3rem;
+
+  /* radius */
+  --r-xs: .375rem; --r-sm: .5rem; --r-md: .75rem; --r-lg: 1.125rem; --r-pill: 999px;
+
+  /* elevation */
+  --shadow-1: 0 1px 2px rgba(29, 16, 57, .06);
+  --shadow-2: 0 8px 28px -12px rgba(29, 16, 57, .22);
+  --shadow-3: 0 24px 60px -20px rgba(29, 16, 57, .35);
+
+  --sidebar-w: 15.5rem;
+  --content-w: 76rem;
+  color-scheme: light;
+}
+
+
+/* ---------- base ---------- */
+[hidden] { display: none !important; } /* hidden always wins over component display rules */
+[id] { scroll-margin-top: 4.5rem; } /* anchor jumps land below the sticky top bar */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: var(--fs-body); line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { margin: 0; color: var(--text); text-wrap: balance; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-display); line-height: 1.12; letter-spacing: -.01em; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-title); line-height: 1.2; }
+h3 { font-size: var(--fs-headline); font-weight: 700; line-height: 1.3; }
+h4 { font-size: var(--fs-callout); font-weight: 700; line-height: 1.35; }
+p { margin: 0; }
+a { color: var(--tint); text-decoration: none; }
+a:hover { color: var(--tint-hover); text-decoration: underline; text-underline-offset: 3px; }
+code, kbd, samp { font-family: var(--font-mono); font-size: .875em; background: var(--fill); padding: .05em .35em; border-radius: var(--r-xs); }
+pre { font-family: var(--font-mono); font-size: var(--fs-footnote); background: var(--surface-sunk); border-radius: var(--r-md); padding: var(--sp-4); overflow-x: auto; }
+hr { border: 0; border-top: 1px solid var(--line); margin: var(--sp-5) 0; }
+img, svg, video { max-width: 100%; }
+::selection { background: var(--tint-soft); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: var(--r-xs); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* ---------- text utilities ---------- */
+.lb-eyebrow { font-size: var(--fs-footnote); font-weight: 600; color: var(--accent-ink); letter-spacing: .02em; }
+.lb-lede { font-size: 1.125rem; line-height: 1.5; color: var(--text-2); max-width: 42rem; }
+.lb-muted { color: var(--text-2); }
+.lb-dim { color: var(--text-3); }
+.lb-small { font-size: var(--fs-callout); }
+.lb-xs { font-size: var(--fs-footnote); }
+.lb-num { font-variant-numeric: tabular-nums; }
+.lb-ltr { direction: ltr; unicode-bidi: isolate; }
+.lb-prose { max-width: 42rem; display: grid; gap: var(--sp-3); }
+.lb-prose ul, .lb-prose ol { margin: 0; padding-inline-start: 1.25rem; display: grid; gap: var(--sp-1); }
+.lb-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.lb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- layout ---------- */
+.lb-app { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: 100vh; }
+.lb-main { min-width: 0; display: flex; flex-direction: column; }
+.lb-page { width: 100%; max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); padding-block: var(--sp-5) var(--sp-7); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); align-content: start; }
+.lb-section { display: grid; gap: var(--sp-4); min-width: 0; }
+.lb-section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-2) var(--sp-4); }
+.lb-section-head .lb-meta { font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-grid { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min, 15rem)), 1fr)); }
+.lb-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.lb-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.lb-grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.lb-stack { display: grid; gap: var(--sp-3); align-content: start; min-width: 0; }
+.lb-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); min-width: 0; }
+.lb-row.between { justify-content: space-between; }
+.lb-spacer { flex: 1; }
+@media (max-width: 1000px) { .lb-grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lb-grid.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .lb-grid.cols-2, .lb-grid.cols-3, .lb-grid.cols-4 { grid-template-columns: minmax(0, 1fr); } .lb-page { padding-inline: var(--sp-4); } }
+
+/* ---------- sidebar navigation ---------- */
+.lb-sidebar {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2);
+  border-inline-end: 1px solid var(--line); padding: var(--sp-4) var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-4);
+}
+.lb-brand { display: flex; align-items: center; gap: var(--sp-2); padding-inline: var(--sp-2); color: var(--text); text-decoration: none; }
+.lb-brand:hover { text-decoration: none; color: var(--text); }
+.lb-brand img { height: 2rem; width: auto; }
+.lb-brand b { font-family: var(--font-display); font-weight: 400; font-size: 1.125rem; }
+.lb-brand small { display: block; font-size: var(--fs-caption); color: var(--text-3); }
+.lb-nav { display: grid; gap: 2px; }
+.lb-nav-label { font-size: var(--fs-caption); font-weight: 600; color: var(--text-3); padding: var(--sp-3) var(--sp-3) var(--sp-1); letter-spacing: .03em; }
+.lb-nav-item {
+  display: flex; align-items: center; gap: var(--sp-2); padding: .5rem var(--sp-3); border-radius: var(--r-sm);
+  color: var(--text); font-size: var(--fs-callout); font-weight: 500; text-decoration: none; cursor: pointer;
+  background: none; border: 0; font-family: inherit; text-align: start; width: 100%;
+}
+.lb-nav-item:hover { background: var(--fill); text-decoration: none; color: var(--text); }
+.lb-nav-item[aria-current="page"], .lb-nav-item.is-active { background: var(--surface); color: var(--tint); box-shadow: var(--shadow-1); }
+.lb-nav-item svg { width: 1.125rem; height: 1.125rem; flex: none; opacity: .8; }
+.lb-nav-item .lb-count { margin-inline-start: auto; }
+.lb-sidebar-foot { margin-top: auto; display: grid; gap: var(--sp-2); padding-inline: var(--sp-2); font-size: var(--fs-caption); color: var(--text-3); }
+
+/* sticky top bar (also the mobile header) */
+.lb-topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bar);
+  -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+.lb-topbar-in { max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); min-height: 3.5rem; display: flex; align-items: center; gap: var(--sp-3); }
+.lb-topbar h1 { font-size: 1.25rem; }
+.lb-menu-btn, .lb-btn.lb-menu-btn { display: none; }
+@media (max-width: 860px) {
+  .lb-app { grid-template-columns: minmax(0, 1fr); }
+  .lb-sidebar { position: fixed; inset-block: 0; inset-inline-start: 0; width: min(85vw, 18rem); z-index: 40; transform: translateX(100%); visibility: hidden; transition: transform .2s ease, visibility 0s linear .2s; }
+  [dir="ltr"] .lb-sidebar { transform: translateX(-100%); }
+  .lb-sidebar.is-open { transform: none; visibility: visible; box-shadow: var(--shadow-3); transition: transform .2s ease; }
+  .lb-menu-btn, .lb-btn.lb-menu-btn { display: inline-flex; }
+  .lb-topbar-in { padding-inline: var(--sp-4); }
+}
+.lb-scrim { position: fixed; inset: 0; background: var(--overlay); z-index: 35; }
+
+/* horizontal section nav (pages without a sidebar) */
+.lb-toc { display: flex; gap: var(--sp-1); overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.lb-toc::-webkit-scrollbar { display: none; }
+.lb-toc a { flex: none; padding: .35rem .75rem; border-radius: var(--r-pill); color: var(--text-2); font-size: var(--fs-callout); font-weight: 500; }
+.lb-toc a:hover { background: var(--fill); color: var(--text); text-decoration: none; }
+.lb-toc a[aria-current="true"], .lb-toc a[aria-current="page"], .lb-toc a.is-active { background: var(--tint-soft); color: var(--tint); }
+
+/* ---------- surfaces ---------- */
+.lb-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--sp-4) var(--sp-5); min-width: 0; display: grid; gap: var(--sp-3); align-content: start; }
+.lb-card.is-flush { padding: 0; overflow: hidden; }
+.lb-card.is-quiet { background: var(--surface-2); border-color: transparent; }
+.lb-card.is-raised { box-shadow: var(--shadow-2); }
+.lb-card.is-accent { border-color: var(--accent); box-shadow: 0 14px 40px -26px var(--accent); }
+a.lb-card { color: inherit; text-decoration: none; transition: border-color .15s, box-shadow .15s; }
+a.lb-card:hover { border-color: var(--tint); box-shadow: var(--shadow-2); text-decoration: none; color: inherit; }
+.lb-card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.lb-card-title { font-size: var(--fs-callout); font-weight: 600; color: var(--text-2); }
+
+/* Apple inset grouped list */
+.lb-group { background: var(--surface); border-radius: var(--r-md); border: 1px solid var(--line); overflow: hidden; }
+.lb-group > * + * { border-top: 1px solid var(--line); }
+.lb-group-row { display: flex; align-items: center; gap: var(--sp-3); padding: .75rem var(--sp-4); min-height: 3rem; color: inherit; }
+a.lb-group-row:hover { background: var(--fill); text-decoration: none; color: inherit; }
+.lb-group-row .lb-meta { margin-inline-start: auto; color: var(--text-3); font-size: var(--fs-footnote); }
+
+/* ---------- data display ---------- */
+.lb-stat { display: grid; gap: var(--sp-1); align-content: start; min-width: 0; }
+.lb-stat > * { min-width: 0; max-width: 100%; } /* long content wraps instead of widening the card */
+.lb-stat-label { font-size: var(--fs-footnote); color: var(--text-3); font-weight: 500; }
+.lb-stat-value { font-size: var(--fs-num); line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.lb-stat-value small { font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); margin-inline-start: var(--sp-2); }
+.lb-stat-foot { font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-delta { font-size: var(--fs-footnote); font-weight: 600; font-variant-numeric: tabular-nums; }
+.lb-delta.up { color: var(--success); } .lb-delta.down { color: var(--danger); }
+
+.lb-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.lb-table { width: 100%; border-collapse: collapse; font-size: var(--fs-callout); }
+.lb-table th, .lb-table td { text-align: start; padding: .6rem var(--sp-3); border-bottom: 1px solid var(--line); vertical-align: middle; }
+.lb-table th { font-weight: 500; font-size: var(--fs-footnote); color: var(--text-3); background: var(--surface-2); white-space: nowrap; position: sticky; top: 0; }
+.lb-table tr:last-child td { border-bottom: 0; }
+.lb-table tbody tr:hover td { background: var(--fill); }
+.lb-table td.num, .lb-table th.num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lb-table th[aria-sort] { cursor: pointer; }
+
+.lb-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.lb-list > li { display: grid; gap: 2px; min-width: 0; }
+.lb-list .lb-meta { font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--sp-2) var(--sp-4); font-size: var(--fs-callout); }
+.lb-kv dt { color: var(--text-3); } .lb-kv dd { margin: 0; }
+
+.lb-bar { height: .4rem; border-radius: var(--r-pill); background: var(--fill-2); overflow: hidden; }
+.lb-bar > i { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
+.lb-bar.is-tint > i { background: var(--tint); }
+.lb-hbars { display: grid; gap: var(--sp-2); }
+.lb-hbar { display: grid; grid-template-columns: minmax(5rem, 38%) minmax(0, 1fr) 2.5rem; gap: var(--sp-3); align-items: center; font-size: var(--fs-callout); }
+.lb-hbar .track { height: .625rem; background: var(--fill-2); border-radius: var(--r-xs); }
+.lb-hbar .track > i { display: block; height: 100%; background: var(--seq-4); border-radius: inherit; }
+.lb-hbar:hover .track > i { background: var(--accent-ink); }
+.lb-hbar .v { font-size: var(--fs-footnote); color: var(--text-2); font-variant-numeric: tabular-nums; text-align: end; }
+svg.lb-spark { width: 100%; height: 2.75rem; display: block; overflow: visible; }
+svg.lb-spark .grid { stroke: var(--line); }
+svg.lb-spark .area { fill: var(--accent-soft); }
+svg.lb-spark .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+svg.lb-spark .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+
+/* stacked status bar (pipeline stages) */
+.lb-stages { display: flex; height: .875rem; gap: 2px; border-radius: var(--r-xs); overflow: hidden; background: var(--fill); }
+.lb-stages > i { display: block; height: 100%; }
+.lb-legend { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-4); font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-legend > span { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.lb-legend b { width: .625rem; height: .625rem; border-radius: 3px; display: inline-block; }
+
+/* ---------- status ---------- */
+.lb-chip {
+  display: inline-flex; align-items: center; gap: .375rem; padding: .15rem .6rem; border-radius: var(--r-pill);
+  font-size: var(--fs-footnote); font-weight: 500; line-height: 1.5; white-space: nowrap;
+  background: var(--fill); color: var(--text-2);
+}
+.lb-chip.tint { background: var(--tint-soft); color: var(--tint); }
+.lb-chip.accent { background: var(--accent-soft); color: var(--accent-ink); }
+.lb-chip.success { background: var(--success-soft); color: var(--success); }
+.lb-chip.warning { background: var(--warning-soft); color: var(--warning); }
+.lb-chip.danger { background: var(--danger-soft); color: var(--danger); }
+.lb-chip.info { background: var(--info-soft); color: var(--info); }
+.lb-chip.kid { background: var(--kid-soft); color: var(--kid); }
+.lb-chip.expert { background: var(--expert-soft); color: var(--expert); }
+.lb-chip.outline { background: transparent; box-shadow: inset 0 0 0 1px var(--line-strong); }
+.lb-chip.wrap { white-space: normal; line-height: 1.35; padding-block: .3rem; border-radius: var(--r-sm); justify-self: start; } /* a sentence-length status */
+.lb-dot { width: .45rem; height: .45rem; border-radius: 50%; background: currentColor; flex: none; }
+.lb-dot.live { animation: lb-pulse 2.4s infinite; }
+@keyframes lb-pulse { 0% { box-shadow: 0 0 0 0 var(--success-soft); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.lb-count { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; padding-inline: .4rem; border-radius: var(--r-pill); background: var(--fill-2); color: var(--text-2); font-size: var(--fs-caption); font-weight: 600; font-variant-numeric: tabular-nums; }
+.lb-count.is-alert { background: var(--danger); color: var(--text-on-tint); }
+.lb-count.is-tint { background: var(--tint); color: var(--text-on-tint); }
+
+/* alert row: severity as a tinted pill + tinted ground */
+.lb-alerts { display: grid; gap: var(--sp-2); }
+.lb-alert { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; padding: .6rem var(--sp-3); border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-size: var(--fs-callout); }
+.lb-alert.crit { background: var(--danger-soft); border-color: transparent; }
+.lb-alert.warn { background: var(--warning-soft); border-color: transparent; }
+.lb-alert .lb-alert-text { min-width: 0; }
+.lb-alert a { font-size: var(--fs-footnote); white-space: nowrap; }
+
+/* ---------- controls ---------- */
+.lb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: 2.25rem; padding: 0 var(--sp-4); border-radius: var(--r-pill); border: 1px solid transparent;
+  font: inherit; font-size: var(--fs-callout); font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap;
+  background: var(--tint); color: var(--text-on-tint); transition: background .15s, border-color .15s;
+}
+.lb-btn:hover { background: var(--tint-hover); color: var(--text-on-tint); text-decoration: none; }
+.lb-btn.secondary { background: var(--surface); color: var(--text); border-color: var(--line-strong); }
+.lb-btn.secondary:hover { border-color: var(--tint); color: var(--tint); background: var(--surface); }
+.lb-btn.ghost { background: transparent; color: var(--tint); }
+.lb-btn.ghost:hover { background: var(--tint-soft); }
+.lb-btn.danger { background: var(--danger); }
+.lb-btn.sm { min-height: 1.875rem; padding: 0 var(--sp-3); font-size: var(--fs-footnote); }
+.lb-btn.icon { width: 2.25rem; padding: 0; }
+.lb-btn:disabled, .lb-btn[aria-disabled="true"] { opacity: .45; cursor: default; }
+.lb-btn svg { width: 1.1em; height: 1.1em; }
+@media (max-width: 560px) { [data-lb-theme-toggle] .lb-theme-label { display: none; } }
+
+.lb-segmented { display: inline-flex; padding: 2px; border-radius: var(--r-sm); background: var(--fill-2); gap: 2px; }
+.lb-segmented button { border: 0; background: transparent; font: inherit; font-size: var(--fs-footnote); font-weight: 500; color: var(--text-2); padding: .3rem .8rem; border-radius: calc(var(--r-sm) - 2px); cursor: pointer; }
+.lb-segmented button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
+
+.lb-input, .lb-select, .lb-textarea {
+  font: inherit; font-size: var(--fs-callout); color: var(--text); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: .45rem .7rem; min-height: 2.25rem; max-width: 100%;
+}
+.lb-textarea { min-height: 5rem; resize: vertical; width: 100%; line-height: 1.5; }
+.lb-input:focus, .lb-select:focus, .lb-textarea:focus { outline: none; border-color: var(--tint); box-shadow: 0 0 0 3px var(--tint-soft); }
+.lb-search { position: relative; display: flex; align-items: center; min-width: 0; }
+.lb-search .lb-input { width: 100%; padding-inline-start: 2.1rem; border-radius: var(--r-pill); background: var(--fill); border-color: transparent; }
+.lb-search svg { position: absolute; inset-inline-start: .7rem; width: 1rem; height: 1rem; color: var(--text-3); pointer-events: none; }
+.lb-field { display: grid; gap: var(--sp-1); font-size: var(--fs-footnote); color: var(--text-2); }
+
+.lb-check { display: flex; gap: .6rem; align-items: flex-start; font-size: var(--fs-callout); cursor: pointer; padding: 2px 0; }
+.lb-check input { appearance: none; flex: none; width: 1.125rem; height: 1.125rem; margin: .15rem 0 0; border: 1.5px solid var(--line-strong); border-radius: .35rem; display: grid; place-content: center; cursor: pointer; background: var(--surface); }
+.lb-check input::after { content: ""; width: .55rem; height: .3rem; border-style: solid; border-color: var(--text-on-tint); border-width: 0 0 2px 2px; /* physical sides: the tick must not mirror in RTL */ transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.lb-check input:checked { background: var(--tint); border-color: var(--tint); }
+.lb-check input:checked::after { opacity: 1; }
+.lb-check input:checked + span { color: var(--text-3); text-decoration: line-through; }
+.lb-check input:disabled { cursor: default; }
+
+.lb-switch { appearance: none; width: 2.6rem; height: 1.5rem; border-radius: var(--r-pill); background: var(--fill-3); position: relative; cursor: pointer; flex: none; transition: background .15s; }
+.lb-switch::after { content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #fff; box-shadow: var(--shadow-1); transition: inset-inline-start .15s; }
+.lb-switch:checked { background: var(--success); }
+.lb-switch:checked::after { inset-inline-start: calc(100% - 1.25rem - 2px); }
+
+.lb-tabs { display: flex; gap: var(--sp-1); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.lb-tabs button, .lb-tabs a { flex: none; border: 0; background: none; font: inherit; font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); padding: .55rem .9rem; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; }
+.lb-tabs [aria-selected="true"], .lb-tabs [aria-current="page"], .lb-tabs .is-active { color: var(--tint); border-bottom-color: var(--tint); }
+.lb-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+
+/* ---------- feedback ---------- */
+.lb-empty { padding: var(--sp-5); border: 1px dashed var(--line-strong); border-radius: var(--r-md); color: var(--text-2); font-size: var(--fs-callout); text-align: center; }
+.lb-note { font-size: var(--fs-footnote); color: var(--text-3); line-height: 1.5; }
+.lb-callout { display: grid; gap: var(--sp-1); padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md); background: var(--accent-soft); color: var(--text); font-size: var(--fs-callout); }
+.lb-callout.info { background: var(--info-soft); }
+.lb-toast { position: fixed; inset-block-end: calc(var(--sp-5) + env(safe-area-inset-bottom, 0px)); inset-inline-start: 50%; transform: translateX(-50%); z-index: 60; background: var(--lb-ink); color: #F5EFE4; padding: .6rem 1rem; border-radius: var(--r-pill); font-size: var(--fs-callout); box-shadow: var(--shadow-3); }
+[dir="rtl"] .lb-toast { transform: translateX(50%); }
+.lb-skeleton { background: linear-gradient(90deg, var(--fill) 25%, var(--fill-2) 50%, var(--fill) 75%); background-size: 200% 100%; animation: lb-shimmer 1.4s infinite; border-radius: var(--r-xs); min-height: 1em; }
+@keyframes lb-shimmer { to { background-position: -200% 0; } }
+
+/* ---------- overlays ---------- */
+.lb-drawer { position: fixed; inset-block: 0; inset-inline-end: 0; width: min(100%, 34rem); background: var(--surface); z-index: 50; box-shadow: var(--shadow-3); display: flex; flex-direction: column; overflow: hidden; }
+.lb-drawer-head { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--line); }
+.lb-drawer-body { padding: var(--sp-5); overflow-y: auto; display: grid; gap: var(--sp-4); align-content: start; }
+.lb-modal { position: fixed; inset: 0; display: grid; place-items: center; padding: var(--sp-4); z-index: 50; }
+.lb-modal > .lb-card { width: min(100%, 32rem); max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-3); }
+
+/* ---------- print-free page footer ---------- */
+.lb-footer { border-top: 1px solid var(--line); padding-top: var(--sp-4); font-size: var(--fs-footnote); color: var(--text-3); display: grid; gap: var(--sp-1); }
+
+</style>
+<style>
+@font-face{font-family:"Rubik";src:url("../../assets/fonts/Rubik-VariableFont_wght.ttf") format("truetype");font-weight:300 900}
+@font-face{font-family:"Heebo Slide";src:url("../../assets/fonts/Heebo-Black.ttf") format("truetype");font-weight:900}
+.p-kid{--p:#5B2BD6;--p-soft:#F1EBFF;--p-card:#F8F4FF;--p-deep:#3B1D78;--p-font:"Rubik";--p-cta:#3B1D78;--p-cta2:#5B2BD6}
+.p-expert{--p:#A8741F;--p-soft:#F8EEDC;--p-card:#FCF7EE;--p-deep:#1D1039;--p-font:"Heebo Slide";--p-cta:#1D1039;--p-cta2:#1D1039}
+.deck{--ink:#1D1039;--ink2:#4B4062;--muted:#7D7491;--line:#E7DFD2;--violet:#5B2BD6;--violet-soft:#F0EAFF;--cream:#FBF6EE;color-scheme:light;color:#1D1039;font-family:"Heebo Slide","Assistant",-apple-system,"SF Hebrew","Arial Hebrew",sans-serif;font-size:16px;line-height:1.55;font-weight:400;-webkit-font-smoothing:auto}
+.hstory{font-size:13px;line-height:1.7;color:#4B4062;margin:8px 2px 0}.hstory b{color:#1D1039;margin-inline-end:6px}
+.deck{display:grid;grid-template-columns:repeat(10,minmax(150px,1fr));gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x proximity}
+.deck .card{scroll-snap-align:start}
+.card{background:var(--p-card,var(--cream));border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;display:flex;flex-direction:column;gap:6px;min-height:200px;direction:rtl;text-align:right}
+.card.cta{background:linear-gradient(160deg,var(--p-cta2),var(--p-cta));color:#F8F0E1;border-color:var(--p-cta)}
+.p-kid .card:not(.cta){border-radius:18px 18px 18px 4px;border-color:#E3D8FB}
+.p-expert .card:not(.cta) .h::before{content:"";display:block;width:28px;height:3px;border-radius:2px;background:var(--p);margin-bottom:6px}
+.card .n{font-size:11px;font-weight:700;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.card.cta .n{color:#C9BFE0}
+.card .h{font-family:var(--p-font),"Heebo Slide",sans-serif;font-weight:800;font-size:17px;line-height:1.2;white-space:pre-line;color:var(--p-deep,var(--ink))}
+.card.cta .h{color:#F8F0E1}
+.card .b{font-size:14px;line-height:1.4;white-space:pre-line;color:var(--ink2)}
+.card .hlrow{margin-top:auto;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.card .hlrow .hl{background:var(--p,var(--violet));color:#fff;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;min-width:2em}
+.card.cta .b{color:#F8F0E1}
+.card .pull{margin-top:auto;font-size:11px;color:var(--p-deep,var(--violet));background:var(--p-soft,var(--violet-soft));border-radius:8px;padding:4px 7px;line-height:1.35}
+.card .wc{font-size:11px;color:var(--muted)}
+.b:empty{display:none}
+body.editing .deck [data-edit]{outline:1.5px dashed rgba(91,43,214,.45);outline-offset:3px;border-radius:6px}
+body.editing .deck [data-edit]:focus{outline:2px solid var(--violet);background:rgba(240,234,255,.6)}
+body.editing .deck .card.cta [data-edit]:focus{background:rgba(255,255,255,.08)}
+body.editing .card .b:empty{display:block}
+body.editing .card .b[data-edit]:empty::before{content:"שורות גוף (לא חובה)";opacity:.45}
+@media (max-width:760px){.deck{grid-template-columns:repeat(10,150px)}}
+
+:root{--card:var(--surface);--soft:var(--surface-2);--ink:var(--text);--ink2:var(--text-2);--muted:var(--text-3);--violet:var(--tint);--violet-soft:var(--tint-soft);--gold:var(--accent);--gold-soft:var(--accent-soft);--cream:var(--surface-2);--ok:var(--success);--bad:var(--danger);--content-w:79.25rem;--rv-sticky:4.75rem}
+[hidden]{display:none !important}
+body{direction:rtl;text-align:right}
+body.editing{--rv-sticky:7.75rem}
+[id]{scroll-margin-top:var(--rv-sticky)}
+.wrap{width:100%;max-width:var(--content-w);margin-inline:auto;padding:var(--sp-5) var(--sp-5) var(--sp-7);display:grid;gap:var(--sp-6)}
+.lb-page,.wrap{grid-template-columns:minmax(0,1fr)}
+.rv-topbar .lb-topbar-in{gap:var(--sp-3)}
+.rv-logo{width:28px;height:28px;border-radius:var(--r-xs);flex:none;display:block}
+.rv-name{font-family:var(--font-display);font-weight:400;font-size:1.125rem;white-space:nowrap;color:var(--text)}
+nav.jump{display:flex;align-items:center;gap:var(--sp-1);overflow-x:auto;scrollbar-width:none;min-width:0;flex:0 1 auto;padding-block:var(--sp-2)}
+nav.jump::-webkit-scrollbar{display:none}
+.drops{display:grid;gap:var(--sp-2)}
+.drops>details.more{margin-top:0}
+.rp-list{margin:0;padding-inline-start:1.1rem;display:grid;gap:var(--sp-1)}
+.top>.row h1{margin-inline-end:auto}
+.direction-head{padding:var(--sp-2) var(--sp-4)}
+.rv-tabs{margin-bottom:calc(-1 * var(--sp-3));flex-wrap:wrap;row-gap:var(--sp-1)}
+.rv-days{margin-inline-start:auto;display:flex;gap:var(--sp-2);align-items:center;font-size:var(--fs-footnote)}
+.rv-days a{color:var(--text-3);text-decoration:none;padding:2px 8px;border-radius:999px}
+.rv-days a[aria-current]{background:var(--surface-2);color:var(--text);font-weight:700}
+.post .cta-box{align-self:start}
+nav.jump .label{flex:none;font-size:var(--fs-caption);font-weight:600;color:var(--text-3);margin-inline-end:var(--sp-1)}
+nav.jump a{flex:none;padding:.3rem .7rem;border-radius:var(--r-pill);color:var(--text);font-size:var(--fs-footnote);font-weight:600;white-space:nowrap}
+nav.jump a:hover{background:var(--fill-2);color:var(--text);text-decoration:none}
+nav.jump a span{color:var(--text-3);font-weight:400}
+nav.jump .grp{flex:none;display:flex;align-items:center;gap:2px;padding:2px;border-radius:var(--r-pill);background:var(--pill-soft,var(--fill))}
+nav.jump .grp a:hover{background:var(--surface)}
+nav.jump .grp .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--pill,var(--text-3));margin-inline:var(--sp-2) var(--sp-1);flex:none}
+.editbar{max-width:var(--content-w);margin-inline:auto;padding:var(--sp-2) var(--sp-5);display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);border-top:1px solid var(--line)}
+.editbar .msg{flex:1 1 12rem;min-width:0;font-size:var(--fs-footnote);color:var(--text-2)}
+@media (max-width:860px){
+  :root{--rv-sticky:6rem}
+  body.editing{--rv-sticky:11rem}
+  .rv-topbar .lb-topbar-in{flex-wrap:wrap;row-gap:0;padding-top:var(--sp-2)}
+  .rv-topbar nav.jump{order:5;flex-basis:100%;padding-block:0 var(--sp-2)}
+  .editbar{padding-inline:var(--sp-4)}
+}
+@media (max-width:420px){.rv-topbar .lb-theme-label{display:none}}
+.p-kid{--pill:var(--kid);--pill-soft:var(--kid-soft)}
+.p-expert{--pill:var(--expert);--pill-soft:var(--expert-soft)}
+.top{display:grid;gap:var(--sp-3);min-width:0}
+.lead{color:var(--text-2);max-width:80ch;font-size:var(--fs-callout)}
+.row{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.chip{display:inline-flex;align-items:center;gap:.375rem;padding:.15rem .6rem;border-radius:var(--r-pill);font-size:var(--fs-footnote);font-weight:500;line-height:1.5;white-space:nowrap;background:var(--fill);color:var(--text-2)}
+.chip.violet{background:var(--tint-soft);color:var(--tint)}
+.chip.gold{background:var(--accent-soft);color:var(--accent-ink)}
+.chip.warn{background:var(--warning-soft);color:var(--warning)}
+.chip.ok{background:var(--success-soft);color:var(--success)}
+.oid{font-family:var(--font-mono);direction:ltr;unicode-bidi:isolate;font-weight:700;background:var(--p,var(--text));color:var(--lb-cream);border-radius:var(--r-xs);padding:.1rem .55rem;font-size:var(--fs-footnote)}
+.rv-id{font-family:var(--font-mono);font-weight:700;direction:ltr;unicode-bidi:isolate}
+.steps{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin:0;padding:0;list-style:none}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:var(--sp-1) var(--sp-3);font-size:var(--fs-footnote);color:var(--text-2)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:var(--sp-3)}
+.legend a{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);background:var(--pill-soft,var(--surface-2));color:var(--text);font-size:var(--fs-callout);text-decoration:none}
+.legend a:hover{color:var(--text);text-decoration:none;box-shadow:inset 0 0 0 1px var(--pill,var(--line-strong))}
+.legend a b{color:var(--pill,var(--text));font-weight:700;white-space:nowrap}
+.legend a>span:not(.sym){color:var(--text-2)}
+.sym{display:inline-grid;place-items:center;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--p,var(--text));color:var(--lb-cream);font-weight:800;font-size:1rem;line-height:1;flex:none}
+.p-kid .sym,.p-expert .sym{background:var(--pill);color:var(--text-on-tint)}
+.direction{gap:var(--sp-5)}
+.direction-head{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-lg);background:var(--pill-soft,var(--surface-2));border-inline-start:4px solid var(--pill,var(--text))}
+.direction-head>div{flex:1 1 14rem;min-width:0}
+.direction-head .sym{width:2.25rem;height:2.25rem;font-size:1.25rem}
+.direction-head h2{color:var(--text)}
+.direction-head p{color:var(--text-2);font-size:var(--fs-callout)}
+.direction-head .count{flex:none}
+.option{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--pill,var(--line-strong));border-radius:var(--r-lg);padding:var(--sp-4) var(--sp-5);display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-3);min-width:0;box-shadow:var(--shadow-1)}
+.option>*{margin:0}
+.opt-head{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.opt-head h3{margin-inline-end:auto;color:var(--text)}
+.strategy{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14.5rem),1fr));gap:var(--sp-3)}
+.strategy>div{background:var(--surface-2);border-radius:var(--r-md);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-callout);color:var(--text-2)}
+.strategy b{display:block;font-size:var(--fs-footnote);font-weight:600;color:var(--text-3);margin-bottom:2px}
+h4{margin:0 0 var(--sp-1);font-size:var(--fs-footnote);font-weight:600;color:var(--text-3)}
+.post{display:grid;grid-template-columns:2fr 1fr;gap:var(--sp-3)}
+.caption{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);white-space:pre-line;font-size:var(--fs-callout)}
+.cap-cta{margin-top:var(--sp-2);color:var(--text-3)}
+.cta-box{background:var(--pill-soft,var(--surface-2));color:var(--text);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);font-weight:600;font-size:var(--fs-callout);display:flex;flex-direction:column;gap:var(--sp-2)}
+.cta-box .code{align-self:flex-start}
+details.more{margin-top:var(--sp-3);border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);min-width:0}
+details.more>summary{cursor:pointer;min-height:2.75rem;padding:var(--sp-2) var(--sp-4);font-weight:600;font-size:var(--fs-callout);color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3)}
+details.more>summary:hover{color:var(--tint)}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::after{content:"";flex:none;width:.5rem;height:.5rem;border-right:2px solid var(--text-3);border-bottom:2px solid var(--text-3);transform:translateY(-2px) rotate(45deg);transition:transform .15s}
+details.more[open]>summary::after{transform:translateY(2px) rotate(-135deg)}
+details.more>.inner{padding:0 var(--sp-4) var(--sp-4);overflow-wrap:anywhere}
+.wrap>details.more,.lb-page>details.more,.top>details.more{margin-top:0}
+table{width:100%;border-collapse:collapse;font-size:var(--fs-footnote)}
+th,td{border-bottom:1px solid var(--line);padding:var(--sp-2);vertical-align:top;text-align:right;overflow-wrap:anywhere}
+th{color:var(--text-3);font-size:var(--fs-caption);font-weight:500;background:var(--surface-2);overflow-wrap:normal}
+tbody tr:last-child td{border-bottom:0}
+td.en,.en{direction:ltr;text-align:left}
+.kind{font-size:var(--fs-caption);font-weight:600;white-space:nowrap}
+.kind.sourced_fact{color:var(--success)}.kind.product_fact{color:var(--tint)}.kind.lumebook_wording{color:var(--text-3)}
+blockquote{overflow-wrap:anywhere;margin:var(--sp-1) 0 var(--sp-2);padding:var(--sp-2) var(--sp-3);border-inline-start:3px solid var(--accent);border-radius:var(--r-xs);background:var(--surface-2);color:var(--text-2);direction:ltr;text-align:left;font-size:var(--fs-caption)}
+.src{font-size:var(--fs-footnote);margin:var(--sp-2) 0 0}
+.anchor{direction:ltr;text-align:left;white-space:pre-wrap;font-family:var(--font-mono);font-size:var(--fs-caption);background:var(--surface-sunk);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);margin:0 0 var(--sp-2)}
+.prompt{direction:ltr;text-align:left;white-space:pre-wrap;font-family:var(--font-mono);font-size:.6875rem;line-height:1.45;color:var(--text-2)}
+.result{border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);border:1px solid var(--line);background:var(--surface);font-size:var(--fs-callout)}
+.result.ok{background:var(--success-soft);border-color:transparent}
+.result.bad{background:var(--danger-soft);border-color:transparent}
+.result ul{margin:var(--sp-2) 0 0;padding-inline-start:1.25rem;display:grid;gap:var(--sp-1)}
+.result a{cursor:pointer}
+.edit-note{font-size:var(--fs-footnote);color:var(--text-3);line-height:1.5;margin:0}
+.edit-note code{direction:ltr;unicode-bidi:isolate}
+body.editing [data-edit]{outline:1.5px dashed var(--focus);outline-offset:3px;border-radius:var(--r-xs);cursor:text;min-height:1.2em}
+body.editing [data-edit]:focus{outline:2px solid var(--tint);background:var(--tint-soft)}
+.has-error{outline:2.5px solid var(--danger) !important;outline-offset:3px}
+.lb-page>.reco-wrap{margin-top:0}
+.reco .opt-head h3{color:var(--text)}
+body .reco .oid{background:var(--p-deep,var(--lb-ink)) !important}
+body .reco .chip.bad{background:var(--danger-soft);color:var(--danger)}
+body .reco .flags li.w{color:var(--warning)}
+body.editing .reco [data-reco]{outline-color:var(--focus)}
+body.editing .reco [data-reco]:focus{outline-color:var(--tint);background:var(--tint-soft)}
+@media (max-width:760px){.post{grid-template-columns:1fr}table{table-layout:fixed}th{overflow-wrap:anywhere}.kind{white-space:normal}}
+@media (max-width:640px){.option{padding:var(--sp-3) var(--sp-4)}.wrap{padding-inline:var(--sp-4)}}
+</style></head>
+<body dir="rtl" data-date="2026-10-17">
+<header class="lb-topbar rv-topbar"><div class="lb-topbar-in">
+<img class="rv-logo" src="data:image/png;base64,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" alt="LumeBook" width="28" height="28">
+<b class="rv-name">2026-10-17</b>
+<nav class="jump"><span class="grp p-kid" title="הילד מספר"><span class="dot"></span><a href="#kid-1">kid-1 <span>הילה</span></a><a href="#kid-2">kid-2 <span>אופק</span></a><a href="#kid-3">kid-3 <span>אלמה</span></a></span><span class="grp p-expert" title="גישה מקצועית"><span class="dot"></span><a href="#expert-1">expert-1 <span>עוז</span></a><a href="#expert-2">expert-2 <span>אור</span></a><a href="#expert-3">expert-3 <span>ליאור</span></a></span></nav>
+<span class="lb-spacer"></span>
+<a class="lb-btn ghost sm" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">ללוח</a>
+
+</div>
+<div class="editbar" id="editbar" hidden><span class="lb-chip tint"><span class="lb-dot"></span><b>מצב עריכה</b></span><span class="msg" id="edit-msg">לוחצים על טקסט ומשנים. אנטר מוסיף שורה.</span><button class="save lb-btn sm" type="button">שמירה (⌘S)</button><button class="undo lb-btn secondary sm" type="button">ביטול</button></div>
+</header>
+<div class="lb-page"><nav class="lb-tabs rv-tabs" aria-label="עמודים"><a href="review.html" aria-selected="true">קרוסלות</a><a href="reco.html">משחקים וספרים</a><span class="rv-days" aria-label="תאריכים"><a href="../2026-10-17/review.html" aria-current="page">17.10</a><a href="../2026-10-15/review.html">15.10</a><a href="../2026-10-14/review.html">14.10</a><a href="../2026-10-13/review.html">13.10</a><a href="../2026-10-12/review.html">12.10</a><a href="../2026-10-11/review.html">11.10</a><a href="../2026-10-09/review.html">9.10</a><a href="../2026-10-08/review.html">8.10</a></span></nav>
+<header class="top">
+<div class="row"><h1>רוצה את אותו סיפור שוב ושוב</h1><span class="lb-chip warning" title="קול ברירת מחדל">קול 12/15</span></div>
+<details class="more"><summary>על הנושא</summary><div class="inner"><p class="lead" dir="auto">הנושא לא בשימוש בשבועות האחרונים, שייך לשגרת הערב של הורים לילדים בני 2 עד 5 בכל חודש בשנה, ויש לו מחקר ברור (בעיקר על פעוטות וגיל 3) שאפשר לצטט היום. הוא מתאים ללומבוק כי הוא פותח בטבעיות את הרעיון של סיפור אישי שהילד רוצה לשמוע שוב. אין בטענה עובדה על לוח שנה.</p><div class="legend"><a class="p-kid" href="#dir-kid"><span class="sym">״</span><b>הילד מספר</b><span>הילד מדבר בגוף ראשון ומספר מה מרגיש לו</span></a><a class="p-expert" href="#dir-expert"><span class="sym">✦</span><b>גישה מקצועית</b><span>עצה ברורה שאפשר לנסות מחר, וכל עצה נשענת על מקור</span></a></div></div></details>
+<p class="edit-note" id="edit-note" hidden>לעריכה: <code>python3 carousel/carousel-pipeline/scripts/review_server.py</code></p>
+</header>
+<div class="result" id="save-result" hidden></div>
+<section class="direction p-kid lb-section" id="dir-kid"><div class="direction-head"><span class="sym">״</span><div><h2>הילד מספר</h2></div></div>
+<article class="option p-kid" id="kid-1">
+<header class="opt-head"><span class="lb-chip kid rv-id">kid-1</span><h3 data-edit="title" data-opt="kid-1" data-path="kid/kid-1/title">שוב את הסיפור? 7 סיבות</h3><span class="lb-chip">הילה</span><span class="lb-chip accent">"לומי"</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="1" data-path="kid/kid-1/slide-1/headline">״שוב את הסיפור?״
+כן שוב
+7 סיבות שלי</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="1" data-path="kid/kid-1/slide-1/body"></div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="2" data-path="kid/kid-1/slide-2/headline">אני לא תקועה
+אני לומדת</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="2" data-path="kid/kid-1/slide-2/body">הסיפור נשאר לי בראש
+כשאת קוראת אותו שוב</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="3" data-path="kid/kid-1/slide-3/headline">1 אני יודעת מה יבוא</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="3" data-path="kid/kid-1/slide-3/body">וזה נותן לי שקט
+״הילה מה יבוא עכשיו?״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="4" data-path="kid/kid-1/slide-4/headline">2 אני מחכה לחלק האהוב</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="4" data-path="kid/kid-1/slide-4/body">בכל פעם אני צוחקת באותו מקום
+תצחקי איתי</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="5" data-path="kid/kid-1/slide-5/headline">3 אני מוצאת עוד פרט</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="5" data-path="kid/kid-1/slide-5/body">בכל פעם יש משהו חדש בתמונה
+״הילה מה חדש פה?״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="6" data-path="kid/kid-1/slide-6/headline">4 מילה חדשה נשארת אצלי</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="6" data-path="kid/kid-1/slide-6/body">אחרי כמה פעמים אני אומרת אותה
+תגידי אותה לאט</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="7" data-path="kid/kid-1/slide-7/headline">5 אני אומרת איתך</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="7" data-path="kid/kid-1/slide-7/body">תשאירי לי את המילה האחרונה
+בכל משפט</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="8" data-path="kid/kid-1/slide-8/headline">6 אני כבר קוראת
+7 אני נרגעת לפני שינה</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="8" data-path="kid/kid-1/slide-8/body">״הילה תספרי לי את זה?״
+ואחרי זה שקט</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="9" data-path="kid/kid-1/slide-9/headline">7 סיבות ורעיון אחד
+שוב לא אומר אותו דבר</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="9" data-path="kid/kid-1/slide-9/body">שקט וחיוך ופרטים ומילים
+כל זה בעוד פעם אחת</div></div><div class="card cta" lang="he" dir="rtl" data-path="kid/kid-1/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="10" data-path="kid/kid-1/slide-10/headline">אפשר לעזור לה גם
+בסיפור אישי</div><div class="b" data-path="kid/kid-1/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">כתבי &quot;לומי&quot; בתגובות
+וקבלי קישור ליצירת ספר
+שבו הילדה שלך היא הגיבורה</div><div class="hlrow"><span>הדגשה</span><b class="hl" data-edit="highlight" data-opt="kid-1" data-slide="10" data-path="kid/kid-1/slide-10/highlight">בסיפור אישי</b></div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> ״שוב את הסיפור?״ כן שוב 7 סיבות שלי ← אני לא תקועה אני לומדת ← 1 אני יודעת מה יבוא ← 2 אני מחכה לחלק האהוב ← 3 אני מוצאת עוד פרט ← 4 מילה חדשה נשארת אצלי ← 5 אני אומרת איתך ← 6 אני כבר קוראת 7 אני נרגעת לפני שינה ← 7 סיבות ורעיון אחד שוב לא אומר אותו דבר ← אפשר לעזור לה גם בסיפור אישי</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="kid/kid-1/caption"><div data-edit="caption" data-opt="kid-1">שוב את הסיפור? יש לזה 7 סיבות
+היא יודעת מה יבוא ונרגעת
+היא מחכה לחלק האהוב ומוצאת פרט חדש בתמונה
+מילה חדשה נשארת אצלה אחרי כמה קריאות
+והיא מרגישה שהיא כבר יודעת לקרוא
+הערב תעצרי לפני המילה האחרונה ותשאירי אותה לה</div><div class="cap-cta">כתבי &quot;לומי&quot; בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה</div></div><div class="cta-box" data-path="kid/kid-1/code_word"><div data-edit="cta" data-opt="kid-1" data-path="kid/kid-1/cta">כתבי &quot;לומי&quot; בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>הילה · בת · מדברת לאמא</dd><dt>זווית</dt><dd dir="auto">הילדה מסבירה בגוף ראשון שבעה דברים שקורים לה בכל קריאה חוזרת של אותו סיפור.</dd><dt>למי</dt><dd dir="auto">אמא לילדה בת 3 שמבקשת כל ערב את אותו סיפור ומתחילה להתעייף ממנו. · מכיר את הבעיה</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">המספר 7 והציטוט של הילדה עוצרים, והשקופיות נותנות סיבות שאמא יכולה לזהות הערב באותה קריאה.</dd><dt>פתיח</dt><dd>child-question · 11/12 · Why does she ask for the same story again, and what is she getting out of it?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · הסיבה הראשונה בשקופית 3</li><li>2 · מה קורה לי בכל קריאה? שקופית 3</li><li>3 · הסיבה השנייה בשקופית 4</li><li>4 · הסיבה השלישית בשקופית 5</li><li>5 · הסיבה הרביעית בשקופית 6</li><li>6 · הסיבה החמישית בשקופית 7</li><li>7 · עוד שתי סיבות בשקופית 8</li><li>8 · הכול ביחד בשקופית 9</li><li>9 · ובסוף עוד דרך לעזור לה</li></ul></dd></dl></div></details>
+<details class="more" data-path="kid/kid-1/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>אני לא תקועה אני לומדת</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Repetition increases opportunities for information to be encoded (University of Wollongong release). Toddler and preschool studies, applied to a 3-year-old as an analogy.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>3</td><td>אני יודעת מה יבוא וזה נותן לי שקט</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Imagined child voice; rests on the expert quote that routines give children a dependable framework that helps them feel secure. That a repeated story is such a routine is our reading.<br><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a></td></tr><tr><td>6</td><td>מילה חדשה נשארת אצלי אחרי כמה פעמים</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">3-year-olds learned new words better from one story heard three times than from three different stories (Horst et al. 2011, as summarised by LoBue).<br><a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a></td></tr><tr><td>8</td><td>אני כבר קוראת</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Imagined child voice; Rowe says children gain confidence as understanders and eventually as readers.<br><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a></td></tr><tr><td>10</td><td>אפשר לעזור לה גם בסיפור אישי</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Repeated readings of the same storybook help children learn new words. That the story is personalised, with the child as the hero, is our wording.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>10</td><td>ספר שבו הילדה שלך היא הגיבורה</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">The child's name appears in the text and she stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a> · University of Wollongong (media release, 2 Nov 2018) · נקרא 2026-10-16<blockquote dir="ltr" lang="en">A preference for familiarity, rather than novelty, is commonly reported at young ages. ... Repetition aids learning complex information by increasing opportunities for the information to be encoded. ... Being read the same story four times rather than two times improved 1.5- and two-year olds’ accuracy. ... Repeated readings of the same storybook also help children learn novel words. ... Younger children take longer to learn new information than older children, and they also forget it faster.</blockquote></p><p class="src"><a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a> · Psychology Today, The Baby Scientist (Vanessa LoBue, Ph.D., Rutgers University-Newark), 10 Jul 2019 · נקרא 2026-10-16<blockquote dir="ltr" lang="en">An early developing preference for the familiar is actually quite common in infancy and early childhood. ... children learned new words better when they heard them in one story repeated three times than when the same words appeared across three different stories (3-year-olds; Horst, Parsons, &amp; Bryan, 2011). ... babies who were read a storybook four times imitated the demonstrated actions more than babies read it twice (18 to 24 months; Simcock &amp; DeLoache, 2008). ... this extra practice might be just what children need to learn new things.</blockquote></p><p class="src"><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a> · Popular Science (Sarah Lindenfeld Hall), 11 Jun 2025, quoting developmental psychologist Aliza Pressman and Vanderbilt professor Deborah Wells Rowe · נקרא 2026-10-16<blockquote dir="ltr" lang="en">Young children thrive on structure. ... routines give kids a dependable framework that helps them feel more secure, confident, and in control (Pressman). ... Whenever a kid is seeking comfort and control and safety (Pressman). ... They're gaining confidence in themselves as understanders and, eventually, as readers (Rowe).</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 3-year-old Israeli girl with short wavy chestnut hair, olive skin, big dark-brown eyes and rosy cheeks; about 95 cm tall.
+Parent: Her mother, early thirties, tanned skin, dark hair in a loose bun, kind brown eyes, warm and a little tired in a real way.
+Wardrobe: Girl: pale-green cotton pyjamas with a plain collar. Mother: oatmeal knit cardigan over a cream tee.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>delight at the favourite part</b><br>The girl faces the viewer and looks straight into the camera with a giant grin and huge wide eyes, holding a closed picture book with a plain pastel cover in front of her with both hands; her mother is small and soft in the background sitting on the bed.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 3-year-old Israeli girl with short wavy chestnut hair, olive skin, big dark-brown eyes and rosy cheeks; about 95 cm tall. Her mother, early thirties, tanned skin, dark hair in a loose bun, kind brown eyes, warm and a little tired in a real way. Wardrobe: Girl: pale-green cotton pyjamas with a plain collar. Mother: oatmeal knit cardigan over a cream tee.
+
+Scene: The girl faces the viewer and looks straight into the camera with a giant grin and huge wide eyes, holding a closed picture book with a plain pastel cover in front of her with both hands; her mother is small and soft in the background sitting on the bed. Setting: A cosy Israeli child's bedroom at bedtime: a low wooden bed with a linen duvet, a small rug, a bedside table with a lamp low in the frame.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: delight at the favourite part
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Warm evening bedside glow.
+
+Wardrobe and objects in this scene: A closed picture book with a plain pastel cover, held by the girl.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain warm cream wall) for editable Hebrew typography, and keep every face, hand and important object out of that zone.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+<article class="option p-kid" id="kid-2">
+<header class="opt-head"><span class="lb-chip kid rv-id">kid-2</span><h3 data-edit="title" data-opt="kid-2" data-path="kid/kid-2/title">יש לי סוד על הסיפור של הערב</h3><span class="lb-chip">אופק</span><span class="lb-chip accent">"לומי"</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="1" data-path="kid/kid-2/slide-1/headline">יש לי סוד
+על הסיפור של הערב</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="1" data-path="kid/kid-2/slide-1/body">6 משפטים שיעזרו לכם</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="2" data-path="kid/kid-2/slide-2/headline">הסוד שלי
+אני רוצה לשחק בו</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="2" data-path="kid/kid-2/slide-2/body">לא רק לשמוע אותו שוב
+גם לעשות משהו בתוכו</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="3" data-path="kid/kid-2/slide-3/headline">1 לשאול מה יקרה עכשיו</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="3" data-path="kid/kid-2/slide-3/body">״אופק מה יקרה עכשיו?״
+וחכו לתשובה שלי</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="4" data-path="kid/kid-2/slide-4/headline">2 לעצור לפני המילה</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="4" data-path="kid/kid-2/slide-4/body">תפסיקו באמצע המשפט
+ואני אסיים אותו</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="5" data-path="kid/kid-2/slide-5/headline">3 לשאול מה חדש בתמונה</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="5" data-path="kid/kid-2/slide-5/body">״אופק מצאת משהו שלא ראינו?״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="6" data-path="kid/kid-2/slide-6/headline">4 לשאול איזה חלק אהוב</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="6" data-path="kid/kid-2/slide-6/body">״איזה חלק הכי אהוב עליך?״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="7" data-path="kid/kid-2/slide-7/headline">5 לבקש שאספר לכם</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="7" data-path="kid/kid-2/slide-7/body">״אופק תספר לנו את זה?״
+גם אם אני משנה קצת</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="8" data-path="kid/kid-2/slide-8/headline">6 מה הדמות מרגישה</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="8" data-path="kid/kid-2/slide-8/body">״איך הדמות מרגישה עכשיו?״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="9" data-path="kid/kid-2/slide-9/headline">6 משפטים ורעיון אחד
+אני חלק מהסיפור</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="9" data-path="kid/kid-2/slide-9/body">שואלים עוצרים ומחכים
+ואני כבר לא רק שומע</div></div><div class="card cta" lang="he" dir="rtl" data-path="kid/kid-2/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="10" data-path="kid/kid-2/slide-10/headline">אפשר לעזור לו גם
+בסיפור אישי</div><div class="b" data-path="kid/kid-2/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">כתבו &quot;לומי&quot; בתגובות
+וקבלו קישור ליצירת ספר
+שבו הילד שלכם הוא הגיבור</div><div class="hlrow"><span>הדגשה</span><b class="hl" data-edit="highlight" data-opt="kid-2" data-slide="10" data-path="kid/kid-2/slide-10/highlight">בסיפור אישי</b></div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> יש לי סוד על הסיפור של הערב ← הסוד שלי אני רוצה לשחק בו ← 1 לשאול מה יקרה עכשיו ← 2 לעצור לפני המילה ← 3 לשאול מה חדש בתמונה ← 4 לשאול איזה חלק אהוב ← 5 לבקש שאספר לכם ← 6 מה הדמות מרגישה ← 6 משפטים ורעיון אחד אני חלק מהסיפור ← אפשר לעזור לו גם בסיפור אישי</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="kid/kid-2/caption"><div data-edit="caption" data-opt="kid-2">סוד קטן שאופק רוצה שתדעו על הקריאה של הערב
+בפעם הבאה שאתם קוראים אותו שוב
+שאלו מה יקרה עכשיו ועצרו לפני המילה האחרונה
+שאלו מה חדש בתמונה ואיזה חלק הכי אהוב
+תנו לאופק לספר לכם ושאלו איך הדמות מרגישה
+ככה הוא כבר לא רק שומע אלא חלק מהסיפור</div><div class="cap-cta">כתבו &quot;לומי&quot; בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור</div></div><div class="cta-box" data-path="kid/kid-2/code_word"><div data-edit="cta" data-opt="kid-2" data-path="kid/kid-2/cta">כתבו &quot;לומי&quot; בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>אופק · בן · מדבר לשני ההורים</dd><dt>זווית</dt><dd dir="auto">הילד מגלה להורים שישה משפטים שהופכים קריאה חוזרת למשחק שהוא משתתף בו.</dd><dt>למי</dt><dd dir="auto">הורים לילד בן 4 שקוראים לו את אותו סיפור שוב ושוב ומחפשים משהו לעשות בזמן הקריאה. · מחפש פתרון</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">סוד של ילד פותח את הקרוסלה, והשישה משפטים הם דברים שאפשר להגיד הערב מיד.</dd><dt>פתיח</dt><dd>child-secret · 11/12 · What is the secret about the evening story, and which six sentences does it unlock?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · הסוד בשקופית 2</li><li>2 · איך משחקים בו? שקופית 3</li><li>3 · המשפט השני בשקופית 4</li><li>4 · המשפט השלישי בשקופית 5</li><li>5 · המשפט הרביעי בשקופית 6</li><li>6 · המשפט החמישי בשקופית 7</li><li>7 · האחרון בשקופית 8</li><li>8 · הכול ביחד בשקופית 9</li><li>9 · ובסוף עוד דרך לעזור לו</li></ul></dd></dl></div></details>
+<details class="more" data-path="kid/kid-2/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>לא רק לשמוע אותו שוב גם לעשות משהו בתוכו</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Imagined child voice; rests on Rowe: children gain confidence as understanders when they know a story. The idea of taking part is our wording.<br><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a></td></tr><tr><td>8</td><td>שאלות באמצע הקריאה</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our practical suggestions; they rest on the expert idea that familiarity builds confidence as an understander. No research is claimed for the specific questions.<br><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a></td></tr><tr><td>9</td><td>ואני כבר לא רק שומע</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Rowe: children gain confidence in themselves as understanders and eventually as readers. The child voice and the idea of taking part are ours; no result is promised.<br><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a></td></tr><tr><td>10</td><td>אפשר לעזור לו גם בסיפור אישי</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Repeated readings of the same storybook help children learn new words. That the story is personalised, with the child as the hero, is our wording.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>10</td><td>ספר שבו הילד שלכם הוא הגיבור</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">The child's name appears in the text and he stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a> · University of Wollongong (media release, 2 Nov 2018) · נקרא 2026-10-16<blockquote dir="ltr" lang="en">A preference for familiarity, rather than novelty, is commonly reported at young ages. ... Repetition aids learning complex information by increasing opportunities for the information to be encoded. ... Being read the same story four times rather than two times improved 1.5- and two-year olds’ accuracy. ... Repeated readings of the same storybook also help children learn novel words. ... Younger children take longer to learn new information than older children, and they also forget it faster.</blockquote></p><p class="src"><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a> · Popular Science (Sarah Lindenfeld Hall), 11 Jun 2025, quoting developmental psychologist Aliza Pressman and Vanderbilt professor Deborah Wells Rowe · נקרא 2026-10-16<blockquote dir="ltr" lang="en">Young children thrive on structure. ... routines give kids a dependable framework that helps them feel more secure, confident, and in control (Pressman). ... Whenever a kid is seeking comfort and control and safety (Pressman). ... They're gaining confidence in themselves as understanders and, eventually, as readers (Rowe).</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 4-year-old Israeli boy with short dark curly hair, light olive skin, big brown eyes and a small gap between his front teeth; about 103 cm tall.
+Parent: His mother, early thirties, dark wavy hair in a ponytail, warm brown eyes, and his father, mid-thirties, short dark hair and light stubble; both relaxed and a little tired in a real way.
+Wardrobe: Boy: mustard-yellow cotton T-shirt and grey shorts. Mother: sage-green linen shirt. Father: navy T-shirt.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>a secret about to be told</b><br>The boy faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, one finger lifted to his lips as if sharing a secret, a closed picture book on his lap; his parents are small and soft in the background on the sofa.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 4-year-old Israeli boy with short dark curly hair, light olive skin, big brown eyes and a small gap between his front teeth; about 103 cm tall. His mother, early thirties, dark wavy hair in a ponytail, warm brown eyes, and his father, mid-thirties, short dark hair and light stubble; both relaxed and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and grey shorts. Mother: sage-green linen shirt. Father: navy T-shirt.
+
+Scene: The boy faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, one finger lifted to his lips as if sharing a secret, a closed picture book on his lap; his parents are small and soft in the background on the sofa. Setting: An Israeli living room in the evening: a grey sofa with a knitted throw, a wooden bookshelf low in the frame.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: a secret about to be told
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Warm evening lamp light.
+
+Wardrobe and objects in this scene: A closed picture book with a plain pastel cover, on the boy's lap.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain pale cream wall above the sofa) for editable Hebrew typography, and keep every face, hand and important object out of that zone.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+<article class="option p-kid" id="kid-3">
+<header class="opt-head"><span class="lb-chip kid rv-id">kid-3</span><h3 data-edit="title" data-opt="kid-3" data-path="kid/kid-3/title">20:05 אותו ספר בפעם השלושים</h3><span class="lb-chip">אלמה</span><span class="lb-chip accent">"לומי"</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="1" data-path="kid/kid-3/slide-1/headline">20:05
+אותו ספר
+בפעם השלושים</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="1" data-path="kid/kid-3/slide-1/body">7 דברים שהופכים אותו לחדש</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="2" data-path="kid/kid-3/slide-2/headline">אני לא רוצה ספר חדש
+אני רוצה אותו אחרת</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="2" data-path="kid/kid-3/slide-2/body">תשני בו משהו קטן
+ואני אתלהב כאילו הוא חדש</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="3" data-path="kid/kid-3/slide-3/headline">1 קול אחר לכל דמות</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="3" data-path="kid/kid-3/slide-3/body">קול עבה לדוב וצייצני לציפור
+אני אצחק לפני שהם מדברים</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="4" data-path="kid/kid-3/slide-4/headline">2 לקרוא מתחת לשמיכה</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="4" data-path="kid/kid-3/slide-4/body">אותו ספר במקום אחר
+ואני כבר מתרגשת</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="5" data-path="kid/kid-3/slide-5/headline">3 לספור משהו בכל עמוד</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="5" data-path="kid/kid-3/slide-5/body">״אלמה כמה כוכבים יש פה?״
+אני סופרת איתך</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="6" data-path="kid/kid-3/slide-6/headline">4 לשחק עמוד אחד</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="6" data-path="kid/kid-3/slide-6/body">קפצי כמו הארנב
+ואני אקפוץ איתך</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="7" data-path="kid/kid-3/slide-7/headline">5 לצייר את החלק האהוב</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="7" data-path="kid/kid-3/slide-7/body">אחרי הסיפור שלוש דקות עם טוש
+ואני מציירת את החלק שלי</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="8" data-path="kid/kid-3/slide-8/headline">6 להחליף תפקידים
+7 שני ספרים בערב</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="8" data-path="kid/kid-3/slide-8/body">את מקשיבה ואני מקריאה
+ואת בוחרת אחד ואני אחד</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="9" data-path="kid/kid-3/slide-9/headline">7 דברים ורעיון אחד
+לא חדש אלא אחר</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="9" data-path="kid/kid-3/slide-9/body">קול מקום משחק וציור
+והסיפור כבר לא אותו סיפור</div></div><div class="card cta" lang="he" dir="rtl" data-path="kid/kid-3/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="10" data-path="kid/kid-3/slide-10/headline">אפשר לעזור לה גם
+בסיפור אישי</div><div class="b" data-path="kid/kid-3/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">כתבי &quot;לומי&quot; בתגובות
+וקבלי קישור ליצירת ספר
+שבו הילדה שלך היא הגיבורה</div><div class="hlrow"><span>הדגשה</span><b class="hl" data-edit="highlight" data-opt="kid-3" data-slide="10" data-path="kid/kid-3/slide-10/highlight">בסיפור אישי</b></div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> 20:05 אותו ספר בפעם השלושים ← אני לא רוצה ספר חדש אני רוצה אותו אחרת ← 1 קול אחר לכל דמות ← 2 לקרוא מתחת לשמיכה ← 3 לספור משהו בכל עמוד ← 4 לשחק עמוד אחד ← 5 לצייר את החלק האהוב ← 6 להחליף תפקידים 7 שני ספרים בערב ← 7 דברים ורעיון אחד לא חדש אלא אחר ← אפשר לעזור לה גם בסיפור אישי</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="kid/kid-3/caption"><div data-edit="caption" data-opt="kid-3">הערב השלושים עם אותו ספר ויש מה לעשות
+קול אחר לכל דמות
+קריאה מתחת לשמיכה וספירה של משהו בכל עמוד
+משחק של עמוד אחד וציור של החלק האהוב
+והיא מקריאה לך וגם בוחרת ספר שני
+ככה זה נשאר אותו ספר אבל כבר לא אותו ערב</div><div class="cap-cta">כתבי &quot;לומי&quot; בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה</div></div><div class="cta-box" data-path="kid/kid-3/code_word"><div data-edit="cta" data-opt="kid-3" data-path="kid/kid-3/cta">כתבי &quot;לומי&quot; בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>אלמה · בת · מדברת לאמא</dd><dt>זווית</dt><dd dir="auto">הילדה מבקשת שבעה שינויים קטנים שהופכים את אותו ספר לערב אחר.</dd><dt>למי</dt><dd dir="auto">אמא לילדה בת 3 שהספר כבר משעמם אותה והיא מחפשת דרכים לשנות בלי לקנות ספר חדש. · מכיר את הבעיה</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">שעה מדויקת ומספר שמבטיח שינוי מיידי, וכל דבר ברשימה אפשר לעשות הערב בלי לקנות כלום.</dd><dt>פתיח</dt><dd>moment-time · 10/12 · What seven small changes make the same book feel new tonight?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · הדבר הראשון בשקופית 3</li><li>2 · מה משנים? שקופית 3</li><li>3 · הדבר השני בשקופית 4</li><li>4 · הדבר השלישי בשקופית 5</li><li>5 · הדבר הרביעי בשקופית 6</li><li>6 · הדבר החמישי בשקופית 7</li><li>7 · עוד שניים בשקופית 8</li><li>8 · הכול ביחד בשקופית 9</li><li>9 · ובסוף עוד דרך לעזור לה</li></ul></dd></dl></div></details>
+<details class="more" data-path="kid/kid-3/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>אני לא רוצה ספר חדש אני רוצה אותו אחרת</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Imagined child voice; rests on the finding that young children often prefer the familiar over the novel.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>3</td><td>קול אחר לכל דמות</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Scholastic tip: read in funny accents.<br><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a></td></tr><tr><td>8</td><td>להחליף תפקידים והורה בוחר אחד וילד בוחר אחד</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Scholastic tips: parent reads a new book while the child reads the old favorite; at bedtime read two books, the parent chooses one and the child the other.<br><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a></td></tr><tr><td>4</td><td>אותו ספר במקום אחר זה כבר הרפתקה</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our idea, in the spirit of the practical tips to vary the reading; no research is claimed.<br><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a></td></tr><tr><td>9</td><td>הסיפור כבר לא אותו סיפור</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our wording; no promise of a result.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>10</td><td>אפשר לעזור לה גם בסיפור אישי</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Repeated readings of the same storybook help children learn new words. That the story is personalised, with the child as the hero, is our wording.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>10</td><td>ספר שבו הילדה שלך היא הגיבורה</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">The child's name appears in the text and she stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a> · Scholastic Parents (Allison McDonald), 26 Feb 2015 · נקרא 2026-10-16<blockquote dir="ltr" lang="en">Read in funny accents. ... Explain to your toddler that the book wants to hear a new story. ... Find books with the same character or by the same author and illustrator. ... Read two books at bedtime. Parent chooses one, child chooses the other. ... You read a new book and have them read you their old favorite. ... Realize that in 20 years, this book will be one that you associate with your children and cherish.</blockquote></p><p class="src"><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a> · Popular Science (Sarah Lindenfeld Hall), 11 Jun 2025, quoting developmental psychologist Aliza Pressman and Vanderbilt professor Deborah Wells Rowe · נקרא 2026-10-16<blockquote dir="ltr" lang="en">Young children thrive on structure. ... routines give kids a dependable framework that helps them feel more secure, confident, and in control (Pressman). ... Whenever a kid is seeking comfort and control and safety (Pressman). ... They're gaining confidence in themselves as understanders and, eventually, as readers (Rowe).</blockquote></p><p class="src"><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a> · University of Wollongong (media release, 2 Nov 2018) · נקרא 2026-10-16<blockquote dir="ltr" lang="en">A preference for familiarity, rather than novelty, is commonly reported at young ages. ... Repetition aids learning complex information by increasing opportunities for the information to be encoded. ... Being read the same story four times rather than two times improved 1.5- and two-year olds’ accuracy. ... Repeated readings of the same storybook also help children learn novel words. ... Younger children take longer to learn new information than older children, and they also forget it faster.</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 3-year-old Israeli girl with long straight light-brown hair in a half ponytail, fair skin with a few freckles, big green eyes; about 96 cm tall.
+Parent: Her mother, mid-thirties, shoulder-length brown wavy hair, round gold-rimmed glasses, kind eyes, warm and a little tired in a real way.
+Wardrobe: Girl: soft lilac cotton pyjamas. Mother: grey knit sweater and jeans.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>a dramatic pout at yet another reading of the same book</b><br>The girl faces the viewer and looks straight into the camera with a dramatic pout, puffed cheeks and huge wide eyes, a closed picture book with a plain pastel cover held up in front of her with both hands; her mother is small and soft in the background beside the bed.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 3-year-old Israeli girl with long straight light-brown hair in a half ponytail, fair skin with a few freckles, big green eyes; about 96 cm tall. Her mother, mid-thirties, shoulder-length brown wavy hair, round gold-rimmed glasses, kind eyes, warm and a little tired in a real way. Wardrobe: Girl: soft lilac cotton pyjamas. Mother: grey knit sweater and jeans.
+
+Scene: The girl faces the viewer and looks straight into the camera with a dramatic pout, puffed cheeks and huge wide eyes, a closed picture book with a plain pastel cover held up in front of her with both hands; her mother is small and soft in the background beside the bed. Setting: An Israeli child's bedroom at night: a low bed with a linen duvet and a small rug, a bedside lamp low in the frame.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: a dramatic pout at yet another reading of the same book
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Soft warm bedside light.
+
+Wardrobe and objects in this scene: A closed picture book with a plain pastel cover, held by the girl.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain warm cream wall) for editable Hebrew typography, and keep every face, hand and important object out of that zone.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+</section>
+<section class="direction p-expert lb-section" id="dir-expert"><div class="direction-head"><span class="sym">✦</span><div><h2>גישה מקצועית</h2></div></div>
+<article class="option p-expert" id="expert-1">
+<header class="opt-head"><span class="lb-chip expert rv-id">expert-1</span><h3 data-edit="title" data-opt="expert-1" data-path="expert/expert-1/title">אותו סיפור כל ערב: 7 דברים שכדאי לדעת</h3><span class="lb-chip">עוז</span><span class="lb-chip accent">"לומי"</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="expert/expert-1/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="1" data-path="expert/expert-1/slide-1/headline">אותו סיפור כל ערב
+לא אומר שהוא תקוע</div><div class="b" data-edit="body" data-opt="expert-1" data-slide="1" data-path="expert/expert-1/slide-1/body">7 דברים שכדאי לדעת</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-1/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="2" data-path="expert/expert-1/slide-2/headline">ילדים צעירים
+מעדיפים את המוכר</div><div class="b" data-edit="body" data-opt="expert-1" data-slide="2" data-path="expert/expert-1/slide-2/body">זה נפוץ בגילאים האלה
+ובמחקר יש לזה הסבר</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-1/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="3" data-path="expert/expert-1/slide-3/headline">1 חזרה עוזרת לזכור</div><div class="b" data-edit="body" data-opt="expert-1" data-slide="3" data-path="expert/expert-1/slide-3/body">הקריאה השנייה היא לא בזבוז
+היא עוד הזדמנות ללמוד</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-1/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="4" data-path="expert/expert-1/slide-4/headline">2 ארבע קריאות עדיפות</div><div class="b" data-edit="body" data-opt="expert-1" data-slide="4" data-path="expert/expert-1/slide-4/body">פעוטות שקראו להם סיפור 4 פעמים
+חיקו פעולות טוב יותר</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-1/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="5" data-path="expert/expert-1/slide-5/headline">3 מילים חדשות נתפסות</div><div class="b" data-edit="body" data-opt="expert-1" data-slide="5" data-path="expert/expert-1/slide-5/body">בגיל 3 מילים נלמדו טוב יותר
+מסיפור שנקרא 3 פעמים</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-1/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="6" data-path="expert/expert-1/slide-6/headline">4 ילדים צעירים שוכחים</div><div class="b" data-edit="body" data-opt="expert-1" data-slide="6" data-path="expert/expert-1/slide-6/body">לכן עוד קריאה
+היא לא מיותרת</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-1/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="7" data-path="expert/expert-1/slide-7/headline">5 שגרה נותנת ביטחון</div><div class="b" data-edit="body" data-opt="expert-1" data-slide="7" data-path="expert/expert-1/slide-7/body">סיפור קבוע הוא חלק מהשגרה
+והוא יודע מה בא</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-1/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="8" data-path="expert/expert-1/slide-8/headline">6 הידיעה בונה ביטחון
+7 מחר בוחרים מילה אחת</div><div class="b" data-edit="body" data-opt="expert-1" data-slide="8" data-path="expert/expert-1/slide-8/body">הוא מבין את הסיפור
+״עוז זאת מילה חדשה״</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-1/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="9" data-path="expert/expert-1/slide-9/headline">7 דברים ורעיון אחד
+חזרה היא דרך ללמוד</div><div class="b" data-edit="body" data-opt="expert-1" data-slide="9" data-path="expert/expert-1/slide-9/body">זיכרון מילים וביטחון ושגרה
+אין סיבה למהר לספר חדש</div></div><div class="card cta" lang="he" dir="rtl" data-path="expert/expert-1/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="expert-1" data-slide="10" data-path="expert/expert-1/slide-10/headline">אפשר לעזור לו גם
+בסיפור אישי</div><div class="b" data-path="expert/expert-1/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">כתבי &quot;לומי&quot; בתגובות
+וקבלי קישור ליצירת ספר
+שבו הילד שלך הוא הגיבור</div><div class="hlrow"><span>הדגשה</span><b class="hl" data-edit="highlight" data-opt="expert-1" data-slide="10" data-path="expert/expert-1/slide-10/highlight">בסיפור אישי</b></div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> אותו סיפור כל ערב לא אומר שהוא תקוע ← ילדים צעירים מעדיפים את המוכר ← 1 חזרה עוזרת לזכור ← 2 ארבע קריאות עדיפות ← 3 מילים חדשות נתפסות ← 4 ילדים צעירים שוכחים ← 5 שגרה נותנת ביטחון ← 6 הידיעה בונה ביטחון 7 מחר בוחרים מילה אחת ← 7 דברים ורעיון אחד חזרה היא דרך ללמוד ← אפשר לעזור לו גם בסיפור אישי</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="expert/expert-1/caption"><div data-edit="caption" data-opt="expert-1">ילד שמבקש כל ערב את אותו סיפור לא בהכרח תקוע
+ילדים צעירים מעדיפים את המוכר וזה נפוץ
+קריאה חוזרת נותנת עוד הזדמנות לזכור ולהכיר מילים
+שגרה נותנת תחושת ביטחון והידיעה בונה ביטחון עצמי
+ומחר אפשר לבחור מילה אחת חדשה מהספר</div><div class="cap-cta">כתבי &quot;לומי&quot; בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור</div></div><div class="cta-box" data-path="expert/expert-1/code_word"><div data-edit="cta" data-opt="expert-1" data-path="expert/expert-1/cta">כתבי &quot;לומי&quot; בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>עוז · בן · מדבר לאמא</dd><dt>זווית</dt><dd dir="auto">שבעה ממצאים מהמחקר על למה ילדים צעירים רוצים אותו סיפור שוב, ומה אפשר לעשות עם זה מחר.</dd><dt>למי</dt><dd dir="auto">אמא לילד בן 3 שמבקש כל ערב את אותו סיפור ודואגת שהוא תקוע. · מכיר את הבעיה</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">הכותרת מורידה דאגה ומבטיחה שבעה דברים, וכל אחד נשען על מחקר שנקרא היום.</dd><dt>פתיח</dt><dd>surprising-reframe · 10/12 · If the same story every evening does not mean he is stuck, what does it mean?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · ההסבר מתחיל בשקופית 2</li><li>2 · שבעה דברים מתחילים בשקופית 3</li><li>3 · הדבר השני בשקופית 4</li><li>4 · הדבר השלישי בשקופית 5</li><li>5 · הדבר הרביעי בשקופית 6</li><li>6 · הדבר החמישי בשקופית 7</li><li>7 · עוד שניים בשקופית 8</li><li>8 · הכול ביחד בשקופית 9</li><li>9 · ובסוף עוד דרך לעזור לו</li></ul></dd></dl></div></details>
+<details class="more" data-path="expert/expert-1/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>ילדים צעירים מעדיפים את המוכר וזה נפוץ</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">University of Wollongong: a preference for familiarity rather than novelty is commonly reported at young ages; LoBue: an early preference for the familiar is quite common in infancy and early childhood.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a> · <a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a></td></tr><tr><td>3</td><td>חזרה עוזרת לזכור</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Repetition aids learning complex information by increasing opportunities for the information to be encoded.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>4</td><td>פעוטות שקראו להם סיפור ארבע פעמים חיקו פעולות טוב יותר</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Being read the same story four times rather than two improved 1.5 and 2-year-olds' accuracy (UOW); babies read a storybook four times imitated the demonstrated actions more than those read it twice (LoBue, Simcock &amp; DeLoache 2008).<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a> · <a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a></td></tr><tr><td>5</td><td>בגיל 3 מילים נלמדו טוב יותר מסיפור שנקרא שלוש פעמים</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">3-year-olds learned new words better from one story repeated three times than from three different stories (Horst, Parsons &amp; Bryan 2011).<br><a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a></td></tr><tr><td>6</td><td>ילדים צעירים שוכחים מהר ולכן עוד קריאה היא לא מיותרת</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Younger children take longer to learn new information than older children and forget it faster; the 'so another reading is not redundant' step is our wording.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>7</td><td>שגרה נותנת ביטחון</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pressman: routines give kids a dependable framework that helps them feel more secure, confident and in control. That a repeated story is part of a routine is our reading.<br><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a></td></tr><tr><td>8</td><td>הידיעה בונה ביטחון</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Rowe: children gain confidence in themselves as understanders and eventually as readers.<br><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a></td></tr><tr><td>8</td><td>מחר בוחרים מילה אחת</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our practical step; it rests on the finding that new words are learned better from a repeated story.<br><a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a></td></tr><tr><td>10</td><td>אפשר לעזור לו גם בסיפור אישי</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Repeated readings of the same storybook help children learn new words. That the story is personalised, with the child as the hero, is our wording.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>10</td><td>ספר שבו הילד שלך הוא הגיבור</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">The child's name appears in the text and he stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a> · University of Wollongong (media release, 2 Nov 2018) · נקרא 2026-10-16<blockquote dir="ltr" lang="en">A preference for familiarity, rather than novelty, is commonly reported at young ages. ... Repetition aids learning complex information by increasing opportunities for the information to be encoded. ... Being read the same story four times rather than two times improved 1.5- and two-year olds’ accuracy. ... Repeated readings of the same storybook also help children learn novel words. ... Younger children take longer to learn new information than older children, and they also forget it faster.</blockquote></p><p class="src"><a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a> · Psychology Today, The Baby Scientist (Vanessa LoBue, Ph.D., Rutgers University-Newark), 10 Jul 2019 · נקרא 2026-10-16<blockquote dir="ltr" lang="en">An early developing preference for the familiar is actually quite common in infancy and early childhood. ... children learned new words better when they heard them in one story repeated three times than when the same words appeared across three different stories (3-year-olds; Horst, Parsons, &amp; Bryan, 2011). ... babies who were read a storybook four times imitated the demonstrated actions more than babies read it twice (18 to 24 months; Simcock &amp; DeLoache, 2008). ... this extra practice might be just what children need to learn new things.</blockquote></p><p class="src"><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a> · Popular Science (Sarah Lindenfeld Hall), 11 Jun 2025, quoting developmental psychologist Aliza Pressman and Vanderbilt professor Deborah Wells Rowe · נקרא 2026-10-16<blockquote dir="ltr" lang="en">Young children thrive on structure. ... routines give kids a dependable framework that helps them feel more secure, confident, and in control (Pressman). ... Whenever a kid is seeking comfort and control and safety (Pressman). ... They're gaining confidence in themselves as understanders and, eventually, as readers (Rowe).</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 3-year-old Israeli boy with short straight black hair, tan skin, dark eyes and a round face; about 96 cm tall.
+Parent: His mother, early thirties, long dark hair in a low braid, warm brown eyes, calm and a little tired in a real way.
+Wardrobe: Boy: dark-blue cotton pyjamas with a plain collar. Mother: terracotta linen shirt.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>curious surprise at a familiar book</b><br>The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, both hands holding a closed picture book with a plain pastel cover; his mother is small and soft in the background on the edge of the bed.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 3-year-old Israeli boy with short straight black hair, tan skin, dark eyes and a round face; about 96 cm tall. His mother, early thirties, long dark hair in a low braid, warm brown eyes, calm and a little tired in a real way. Wardrobe: Boy: dark-blue cotton pyjamas with a plain collar. Mother: terracotta linen shirt.
+
+Scene: The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, both hands holding a closed picture book with a plain pastel cover; his mother is small and soft in the background on the edge of the bed. Setting: A calm Israeli child's bedroom in the evening: a low wooden bed with a linen duvet, a soft rug, a bedside lamp low in the frame.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: curious surprise at a familiar book
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Warm evening lamp light.
+
+Wardrobe and objects in this scene: A closed picture book with a plain pastel cover, held by the boy.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain warm cream wall) for editable Hebrew typography, and keep every face, hand and important object out of that zone.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+<article class="option p-expert" id="expert-2">
+<header class="opt-head"><span class="lb-chip expert rv-id">expert-2</span><h3 data-edit="title" data-opt="expert-2" data-path="expert/expert-2/title">איך עוזרים לבת 4 ללמוד מילה מאותו סיפור</h3><span class="lb-chip">אור</span><span class="lb-chip accent">"לומי"</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="expert/expert-2/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="1" data-path="expert/expert-2/slide-1/headline">איך עוזרים לילדה
+ללמוד מילה
+מאותו סיפור?</div><div class="b" data-edit="body" data-opt="expert-2" data-slide="1" data-path="expert/expert-2/slide-1/body">7 צעדים פשוטים</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-2/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="2" data-path="expert/expert-2/slide-2/headline">מילה חדשה צריכה
+כמה פגישות</div><div class="b" data-edit="body" data-opt="expert-2" data-slide="2" data-path="expert/expert-2/slide-2/body">ילדים בני 3 למדו אותה טוב יותר
+כשהסיפור חזר שלוש פעמים</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-2/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="3" data-path="expert/expert-2/slide-3/headline">1 בוחרים מילה אחת</div><div class="b" data-edit="body" data-opt="expert-2" data-slide="3" data-path="expert/expert-2/slide-3/body">בחרו מילה אחת
+למשל ״מתגנב״</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-2/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="4" data-path="expert/expert-2/slide-4/headline">2 קוראים בלי להסביר</div><div class="b" data-edit="body" data-opt="expert-2" data-slide="4" data-path="expert/expert-2/slide-4/body">קודם נהנים מהסיפור
+המילה תחכה</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-2/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="5" data-path="expert/expert-2/slide-5/headline">3 מצביעים על התמונה</div><div class="b" data-edit="body" data-opt="expert-2" data-slide="5" data-path="expert/expert-2/slide-5/body">כשמגיעים למילה
+מצביעים ואומרים אותה לאט</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-2/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="6" data-path="expert/expert-2/slide-6/headline">4 מסבירים במשפט קצר</div><div class="b" data-edit="body" data-opt="expert-2" data-slide="6" data-path="expert/expert-2/slide-6/body">״מתגנב זה ללכת בשקט
+שלא ישמעו אותנו״</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-2/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="7" data-path="expert/expert-2/slide-7/headline">5 מבקשים ממנה להגיד</div><div class="b" data-edit="body" data-opt="expert-2" data-slide="7" data-path="expert/expert-2/slide-7/body">״אור תגידי איתי מתגנב״</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-2/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="8" data-path="expert/expert-2/slide-8/headline">6 משחקים את המילה
+7 מחכים שתגיד אותה</div><div class="b" data-edit="body" data-opt="expert-2" data-slide="8" data-path="expert/expert-2/slide-8/body">מתגנבים למטבח
+ובפעם הבאה היא תגיד לבד</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-2/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="9" data-path="expert/expert-2/slide-9/headline">7 צעדים ומילה אחת
+שחוזרת בכל קריאה</div><div class="b" data-edit="body" data-opt="expert-2" data-slide="9" data-path="expert/expert-2/slide-9/body">בוחרים מצביעים מסבירים ומשחקים
+והמילה נשארת</div></div><div class="card cta" lang="he" dir="rtl" data-path="expert/expert-2/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="expert-2" data-slide="10" data-path="expert/expert-2/slide-10/headline">אפשר לעזור לה גם
+בסיפור אישי</div><div class="b" data-path="expert/expert-2/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">כתבו &quot;לומי&quot; בתגובות
+וקבלו קישור ליצירת ספר
+שבו הילדה שלכם היא הגיבורה</div><div class="hlrow"><span>הדגשה</span><b class="hl" data-edit="highlight" data-opt="expert-2" data-slide="10" data-path="expert/expert-2/slide-10/highlight">בסיפור אישי</b></div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> איך עוזרים לילדה ללמוד מילה מאותו סיפור? ← מילה חדשה צריכה כמה פגישות ← 1 בוחרים מילה אחת ← 2 קוראים בלי להסביר ← 3 מצביעים על התמונה ← 4 מסבירים במשפט קצר ← 5 מבקשים ממנה להגיד ← 6 משחקים את המילה 7 מחכים שתגיד אותה ← 7 צעדים ומילה אחת שחוזרת בכל קריאה ← אפשר לעזור לה גם בסיפור אישי</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="expert/expert-2/caption"><div data-edit="caption" data-opt="expert-2">איך עוזרים לילדה בת ארבע להכיר מילה חדשה מספר שהיא אוהבת?
+בוחרים מילה אחת מהספר
+קוראים כרגיל ואז מצביעים על התמונה
+מסבירים במשפט קצר ומבקשים שתגיד
+ומשחקים את המילה עד שהיא חוזרת בסיפור
+ילדים בני 3 למדו מילים טוב יותר מסיפור שחזר שלוש פעמים</div><div class="cap-cta">כתבו &quot;לומי&quot; בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה</div></div><div class="cta-box" data-path="expert/expert-2/code_word"><div data-edit="cta" data-opt="expert-2" data-path="expert/expert-2/cta">כתבו &quot;לומי&quot; בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>אור · בת · מדברת לשני ההורים</dd><dt>זווית</dt><dd dir="auto">שבעה צעדים פשוטים שהופכים אותו ספר להזדמנות ללמוד מילה אחת חדשה.</dd><dt>למי</dt><dd dir="auto">הורים לילדה בת 4 שקוראים לה אותו ספר שוב ושוב ורוצים לנצל את זה להרחבת אוצר מילים. · מחפש פתרון</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">שאלה מעשית עם מספר צעדים, והצעדים מתחילים בדבר אחד קטן שאפשר לעשות הערב.</dd><dt>פתיח</dt><dd>practical-question · 11/12 · How can the same story teach a new word, and in which seven steps?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · הצעד הראשון בשקופית 3</li><li>2 · שבעה צעדים מתחילים בשקופית 3</li><li>3 · הצעד השני בשקופית 4</li><li>4 · הצעד השלישי בשקופית 5</li><li>5 · הצעד הרביעי בשקופית 6</li><li>6 · הצעד החמישי בשקופית 7</li><li>7 · עוד שניים בשקופית 8</li><li>8 · הכול ביחד בשקופית 9</li><li>9 · ובסוף עוד דרך לעזור לה</li></ul></dd></dl></div></details>
+<details class="more" data-path="expert/expert-2/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>ילדים בני 3 למדו מילים טוב יותר מסיפור שחזר שלוש פעמים</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">3-year-olds learned new words better from one story repeated three times than from three different stories (Horst, Parsons &amp; Bryan 2011, as summarised by LoBue).<br><a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a></td></tr><tr><td>3</td><td>בוחרים מילה אחת מהספר</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our practical step; rests on the finding that new words are learned better from a repeated story. The seven steps are our suggestion, not a tested programme.<br><a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a></td></tr><tr><td>6</td><td>מסבירים במשפט קצר</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our practical step and our example sentence; no research is claimed for this wording.<br><a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a></td></tr><tr><td>9</td><td>קריאות חוזרות של אותו ספר עוזרות ללמוד מילים חדשות</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Repeated readings of the same storybook also help children learn novel words (University of Wollongong release).<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>10</td><td>אפשר לעזור לה גם בסיפור אישי</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Repeated readings of the same storybook help children learn new words. That the story is personalised, with the child as the hero, is our wording.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>10</td><td>ספר שבו הילדה שלכם היא הגיבורה</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">The child's name appears in the text and she stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.psychologytoday.com/us/blog/the-baby-scientist/201907/why-children-like-repetition-and-how-it-helps-them-learn" target="_blank" rel="noopener">Why Children Like Repetition, and How It Helps Them Learn</a> · Psychology Today, The Baby Scientist (Vanessa LoBue, Ph.D., Rutgers University-Newark), 10 Jul 2019 · נקרא 2026-10-16<blockquote dir="ltr" lang="en">An early developing preference for the familiar is actually quite common in infancy and early childhood. ... children learned new words better when they heard them in one story repeated three times than when the same words appeared across three different stories (3-year-olds; Horst, Parsons, &amp; Bryan, 2011). ... babies who were read a storybook four times imitated the demonstrated actions more than babies read it twice (18 to 24 months; Simcock &amp; DeLoache, 2008). ... this extra practice might be just what children need to learn new things.</blockquote></p><p class="src"><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a> · University of Wollongong (media release, 2 Nov 2018) · נקרא 2026-10-16<blockquote dir="ltr" lang="en">A preference for familiarity, rather than novelty, is commonly reported at young ages. ... Repetition aids learning complex information by increasing opportunities for the information to be encoded. ... Being read the same story four times rather than two times improved 1.5- and two-year olds’ accuracy. ... Repeated readings of the same storybook also help children learn novel words. ... Younger children take longer to learn new information than older children, and they also forget it faster.</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 4-year-old Israeli girl with two short dark braids, olive skin, big dark eyes and a gap-toothed smile; about 102 cm tall.
+Parent: Her mother, early thirties, curly dark hair in a clip, kind brown eyes, and her father, mid-thirties, short dark hair and a trimmed beard; both warm and a little tired in a real way.
+Wardrobe: Girl: coral cotton dress over a white tee. Mother: denim shirt. Father: grey T-shirt.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>amazed at a new word</b><br>The girl faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, one hand pointing at an open picture book whose pages show only colourful pictures; her parents are small and soft in the background on the sofa.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 4-year-old Israeli girl with two short dark braids, olive skin, big dark eyes and a gap-toothed smile; about 102 cm tall. Her mother, early thirties, curly dark hair in a clip, kind brown eyes, and her father, mid-thirties, short dark hair and a trimmed beard; both warm and a little tired in a real way. Wardrobe: Girl: coral cotton dress over a white tee. Mother: denim shirt. Father: grey T-shirt.
+
+Scene: The girl faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, one hand pointing at an open picture book whose pages show only colourful pictures; her parents are small and soft in the background on the sofa. Setting: An Israeli living room corner in the afternoon: a grey sofa with a knitted throw, a low wooden shelf low in the frame.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: amazed at a new word
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Soft afternoon daylight.
+
+Wardrobe and objects in this scene: An open picture book with pictures only and no letters, held on the girl's lap.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain pale cream wall above the sofa) for editable Hebrew typography, and keep every face, hand and important object out of that zone.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+<article class="option p-expert" id="expert-3">
+<header class="opt-head"><span class="lb-chip expert rv-id">expert-3</span><h3 data-edit="title" data-opt="expert-3" data-path="expert/expert-3/title">לא עוד פעם את הספר הזה: 8 דרכים</h3><span class="lb-chip">ליאור</span><span class="lb-chip accent">"לומי"</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="expert/expert-3/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="1" data-path="expert/expert-3/slide-1/headline">״לא עוד פעם
+את הספר הזה״</div><div class="b" data-edit="body" data-opt="expert-3" data-slide="1" data-path="expert/expert-3/slide-1/body">8 דרכים לעבור אותו</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-3/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="2" data-path="expert/expert-3/slide-2/headline">אפשר להתעייף מהספר
+והילד עדיין צריך אותו</div><div class="b" data-edit="body" data-opt="expert-3" data-slide="2" data-path="expert/expert-3/slide-2/body">לו הוא מוכר ובטוח
+לך מותר לשנות קצת</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-3/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="3" data-path="expert/expert-3/slide-3/headline">1 קולות מצחיקים</div><div class="b" data-edit="body" data-opt="expert-3" data-slide="3" data-path="expert/expert-3/slide-3/body">קול של דוב וקול של עכבר
+גם את תצחקי</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-3/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="4" data-path="expert/expert-3/slide-4/headline">2 הספר רוצה סיפור חדש</div><div class="b" data-edit="body" data-opt="expert-3" data-slide="4" data-path="expert/expert-3/slide-4/body">״ליאור הספר עייף
+הוא רוצה לשמוע סיפור חדש״</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-3/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="5" data-path="expert/expert-3/slide-5/headline">3 ספר חדש באותה דמות
+4 שני ספרים לערב</div><div class="b" data-edit="body" data-opt="expert-3" data-slide="5" data-path="expert/expert-3/slide-5/body">אותה דמות או אותו מאייר
+את בוחרת אחד והוא אחד</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-3/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="6" data-path="expert/expert-3/slide-6/headline">5 הוא מקריא לך</div><div class="b" data-edit="body" data-opt="expert-3" data-slide="6" data-path="expert/expert-3/slide-6/body">את קוראת ספר חדש
+והוא מקריא לך את האהוב עליו</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-3/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="7" data-path="expert/expert-3/slide-7/headline">6 קובעים עוד קריאה אחת
+7 מחפשים פרט חדש</div><div class="b" data-edit="body" data-opt="expert-3" data-slide="7" data-path="expert/expert-3/slide-7/body">״ליאור עוד פעם אחת ואז ישנים״
+פרט שלא ראית בפעם הקודמת</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-3/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="8" data-path="expert/expert-3/slide-8/headline">8 זוכרים שזה זמן קצר</div><div class="b" data-edit="body" data-opt="expert-3" data-slide="8" data-path="expert/expert-3/slide-8/body">בעוד 20 שנה זה יהיה הספר
+שאת זוכרת עם חיוך</div></div><div class="card" lang="he" dir="rtl" data-path="expert/expert-3/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="9" data-path="expert/expert-3/slide-9/headline">8 דרכים ורעיון אחד
+משנים לך ולא לו</div><div class="b" data-edit="body" data-opt="expert-3" data-slide="9" data-path="expert/expert-3/slide-9/body">הוא מקבל את אותו ספר
+ואת מקבלת קצת אוויר</div></div><div class="card cta" lang="he" dir="rtl" data-path="expert/expert-3/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="expert-3" data-slide="10" data-path="expert/expert-3/slide-10/headline">אפשר לעזור לו גם
+בסיפור אישי</div><div class="b" data-path="expert/expert-3/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">כתבי &quot;לומי&quot; בתגובות
+וקבלי קישור ליצירת ספר
+שבו הילד שלך הוא הגיבור</div><div class="hlrow"><span>הדגשה</span><b class="hl" data-edit="highlight" data-opt="expert-3" data-slide="10" data-path="expert/expert-3/slide-10/highlight">בסיפור אישי</b></div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> ״לא עוד פעם את הספר הזה״ ← אפשר להתעייף מהספר והילד עדיין צריך אותו ← 1 קולות מצחיקים ← 2 הספר רוצה סיפור חדש ← 3 ספר חדש באותה דמות 4 שני ספרים לערב ← 5 הוא מקריא לך ← 6 קובעים עוד קריאה אחת 7 מחפשים פרט חדש ← 8 זוכרים שזה זמן קצר ← 8 דרכים ורעיון אחד משנים לך ולא לו ← אפשר לעזור לו גם בסיפור אישי</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="expert/expert-3/caption"><div data-edit="caption" data-opt="expert-3">כשהספר הזה כבר יוצא לך מהאוזניים
+אפשר להתעייף מהספר והילד עדיין צריך אותו
+קולות מצחיקים וספר שני לערב
+ספר חדש עם אותה דמות והחלפת תפקידים
+קובעים מראש עוד קריאה אחת ואז ישנים
+ומחפשים פרט חדש בתמונה כדי לא להשתעמם</div><div class="cap-cta">כתבי &quot;לומי&quot; בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור</div></div><div class="cta-box" data-path="expert/expert-3/code_word"><div data-edit="cta" data-opt="expert-3" data-path="expert/expert-3/cta">כתבי &quot;לומי&quot; בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>ליאור · בן · מדבר לאמא</dd><dt>זווית</dt><dd dir="auto">שמונה דרכים לעבור קריאה חוזרת של אותו ספר בלי להשתגע, חלקן מתוך טיפים מעשיים של הורים ומחנכים.</dd><dt>למי</dt><dd dir="auto">אמא לילד בן 5 שמבקש אותו ספר ושמתעייפת ממנו ומרגישה אשמה על זה. · מכיר את הבעיה</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">ציטוט שאמהות אומרות בלב, ואחריו שמונה דרכים שמורידות עומס מההורה בלי להאשים אף אחד.</dd><dt>פתיח</dt><dd>parent-confession · 10/12 · What can a tired mother do on the hundredth reading of the same book?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · הדרך הראשונה בשקופית 3</li><li>2 · שמונה דרכים מתחילות בשקופית 3</li><li>3 · הדרך השנייה בשקופית 4</li><li>4 · הדרך השלישית בשקופית 5</li><li>5 · הדרך החמישית בשקופית 6</li><li>6 · עוד שניים בשקופית 7</li><li>7 · האחרונה בשקופית 8</li><li>8 · הכול ביחד בשקופית 9</li><li>9 · ובסוף עוד דרך לעזור לו</li></ul></dd></dl></div></details>
+<details class="more" data-path="expert/expert-3/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>לילד הספר מוכר ובטוח</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Experts quoted: routines give kids a dependable framework that helps them feel secure; a child seeking comfort, control and safety finds it in the familiar. That a repeated book is part of a routine is our reading.<br><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a></td></tr><tr><td>3</td><td>קוראים בקולות מצחיקים</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Scholastic tip: read in funny accents.<br><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a></td></tr><tr><td>4</td><td>הספר רוצה לשמוע סיפור חדש</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Scholastic tip: explain to your toddler that the book wants to hear a new story. Written for a toddler; the sentence is ours.<br><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a></td></tr><tr><td>5</td><td>ספר חדש באותה דמות ושני ספרים לערב</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Scholastic tips: find books with the same character or by the same author and illustrator; read two books at bedtime, the parent chooses one and the child the other.<br><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a></td></tr><tr><td>6</td><td>הוא מקריא לך את האהוב עליו</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Scholastic tip: you read a new book and have them read you their old favorite.<br><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a></td></tr><tr><td>7</td><td>קובעים עוד קריאה אחת ומחפשים פרט חדש</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our practical steps; no research is claimed for them.<br><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a></td></tr><tr><td>8</td><td>בעוד 20 שנה זה יהיה הספר שאת זוכרת עם חיוך</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Scholastic: realize that in 20 years, this book will be one that you associate with your children and cherish. The 'smile' wording is ours.<br><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a></td></tr><tr><td>10</td><td>אפשר לעזור לו גם בסיפור אישי</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Repeated readings of the same storybook help children learn new words. That the story is personalised, with the child as the hero, is our wording.<br><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a></td></tr><tr><td>10</td><td>ספר שבו הילד שלך הוא הגיבור</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">The child's name appears in the text and he stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.scholastic.com/parents/books-and-reading/raise-a-reader-blog/how-to-deal-reading-same-book-100-times.html" target="_blank" rel="noopener">How to Deal With Reading the Same Book 100 Times</a> · Scholastic Parents (Allison McDonald), 26 Feb 2015 · נקרא 2026-10-16<blockquote dir="ltr" lang="en">Read in funny accents. ... Explain to your toddler that the book wants to hear a new story. ... Find books with the same character or by the same author and illustrator. ... Read two books at bedtime. Parent chooses one, child chooses the other. ... You read a new book and have them read you their old favorite. ... Realize that in 20 years, this book will be one that you associate with your children and cherish.</blockquote></p><p class="src"><a href="https://www.popsci.com/health/why-do-kids-love-reading-the-same-book-over-and-over/" target="_blank" rel="noopener">Why do kids love reading the same book over and over?</a> · Popular Science (Sarah Lindenfeld Hall), 11 Jun 2025, quoting developmental psychologist Aliza Pressman and Vanderbilt professor Deborah Wells Rowe · נקרא 2026-10-16<blockquote dir="ltr" lang="en">Young children thrive on structure. ... routines give kids a dependable framework that helps them feel more secure, confident, and in control (Pressman). ... Whenever a kid is seeking comfort and control and safety (Pressman). ... They're gaining confidence in themselves as understanders and, eventually, as readers (Rowe).</blockquote></p><p class="src"><a href="https://www.uow.edu.au/media/2018/theres-a-reason-your-child-wants-to-read-the-same-book-over-and-over-again.php" target="_blank" rel="noopener">There's a reason your child wants to read the same book over and over again</a> · University of Wollongong (media release, 2 Nov 2018) · נקרא 2026-10-16<blockquote dir="ltr" lang="en">A preference for familiarity, rather than novelty, is commonly reported at young ages. ... Repetition aids learning complex information by increasing opportunities for the information to be encoded. ... Being read the same story four times rather than two times improved 1.5- and two-year olds’ accuracy. ... Repeated readings of the same storybook also help children learn novel words. ... Younger children take longer to learn new information than older children, and they also forget it faster.</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 5-year-old Israeli boy with light-brown straight hair parted on the side, fair skin, hazel eyes; about 110 cm tall.
+Parent: His mother, mid-thirties, blonde hair in a messy bun, tired kind blue eyes, a small smile.
+Wardrobe: Boy: striped cotton pyjama top and soft grey pants. Mother: oversized cream sweater.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>a big grin at the hundredth reading</b><br>The boy faces the viewer and looks straight into the camera with a giant grin and raised eyebrows, holding a well-worn closed picture book with a plain pastel cover up to the camera with both hands; his tired mother is small and soft in the background, smiling, on the sofa.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 5-year-old Israeli boy with light-brown straight hair parted on the side, fair skin, hazel eyes; about 110 cm tall. His mother, mid-thirties, blonde hair in a messy bun, tired kind blue eyes, a small smile. Wardrobe: Boy: striped cotton pyjama top and soft grey pants. Mother: oversized cream sweater.
+
+Scene: The boy faces the viewer and looks straight into the camera with a giant grin and raised eyebrows, holding a well-worn closed picture book with a plain pastel cover up to the camera with both hands; his tired mother is small and soft in the background, smiling, on the sofa. Setting: An Israeli living room in the evening: a grey sofa with a knitted throw, a low bookshelf low in the frame.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: a big grin at the hundredth reading
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Warm evening lamp light.
+
+Wardrobe and objects in this scene: A well-worn closed picture book with a plain pastel cover, held by the boy.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain pale cream wall above the sofa) for editable Hebrew typography, and keep every face, hand and important object out of that zone.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+</section>
+<details class="more facts"><summary>עובדות מהאתר</summary><div class="inner"><table><thead><tr><th>מזהה</th><th>עובדה</th><th>ציטוט מהאתר</th></tr></thead><tbody><tr><td class="en" dir="ltr">site-preview</td><td dir="auto">A free preview comes before paying</td><td><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">3. רואים תצוגה מקדימה בחינם.</a> · 2026-10-16</td></tr><tr><td class="en" dir="ltr">site-photo</td><td dir="auto">A parent uploads a photo of the child and adds the name</td><td><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">העלו תמונה של ילדכם והוסיפו את השם</a> · 2026-10-16</td></tr><tr><td class="en" dir="ltr">site-star</td><td dir="auto">The child's name appears in the text and the child stars in every illustration</td><td><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">בהחלט - השם שלהם מופיע בטקסט והם מככבים בכל האיורים.</a> · 2026-10-16</td></tr></tbody></table></div></details>
+</div><script>
+// ---- Editing: enabled only when the page is served by review_server.py ----
+const CHAR_HE = {',': 'פסיק', '.': 'נקודה', '—': 'מקף ארוך', '–': 'מקף', '…': 'שלוש נקודות', '，': 'פסיק', '―': 'מקף ארוך'};
+const FIELD_HE = {headline: 'כותרת', body: 'גוף', caption: 'כיתוב', cta: 'קריאה לפעולה', title: 'שם', code_word: 'מילת קוד', child_name: 'שם הילד', claims: 'מקורות', hook: 'פתיח', highlight: 'הדגשה'};
+const EDIT = {orig: new Map()};
+function textOf(el) { return el.innerText.replace(/ /g, ' ').split('\n').map(x => x.trim()).filter(Boolean).join('\n'); }
+function changed() { const out = []; EDIT.orig.forEach((o, el) => { const now = textOf(el); if (now !== o) out.push({el, now}); }); return out; }
+function setMsg(t) { document.getElementById('edit-msg').textContent = t; }
+function labelFor(path) {
+  const parts = path.split('/'); let where = parts[1] || '';
+  const slide = (path.match(/slide-(\d+)/) || [])[1]; if (slide) where += ' · שקופית ' + slide;
+  const field = parts[parts.length - 1]; if (FIELD_HE[field]) where += ' · ' + FIELD_HE[field];
+  return where;
+}
+function heMessage(i) {
+  if (i.char) return (CHAR_HE[i.char] || 'סימן אסור') + ' בשורה ' + i.line + ' (צריך לשכתב את השורה, לא רק למחוק)';
+  return i.message;
+}
+function targetFor(path) {
+  return document.querySelector('[data-path="' + path + '"]') || document.querySelector('[data-path="' + path.split('/').slice(0, 3).join('/') + '"]') || document.getElementById(path.split('/')[1]);
+}
+function showResult(res) {
+  const box = document.getElementById('save-result'); box.hidden = false;
+  if (res.error) { box.className = 'result bad'; box.textContent = 'השמירה נכשלה: ' + res.error; return; }
+  const errs = res.errors || [];
+  box.className = 'result ' + (errs.length ? 'bad' : 'ok');
+  let html = res.changed ? ('נשמר (' + res.changed + ' שדות). ') : '';
+  html += errs.length ? ('יש ' + errs.length + ' דברים לתקן לפני שאפשר להפיק:') : 'הכול תקין ומוכן להפקה.';
+  if (res.voice_logged) html += ' <span class="edit-note">השינויים נשמרו ללמידת הקול (' + res.voice_samples + ' מתוך ' + res.voice_required + ' דוגמאות לכיול).</span>';
+  const ul = document.createElement('ul');
+  errs.forEach(i => {
+    const li = document.createElement('li'); const a = document.createElement('a');
+    a.textContent = labelFor(i.path) + ': ' + heMessage(i);
+    const t = targetFor(i.path);
+    if (t) {
+      t.classList.add('has-error');
+      a.onclick = () => { const d = t.closest('details'); if (d) d.open = true; t.scrollIntoView({behavior: 'smooth', block: 'center'}); };
+    }
+    li.appendChild(a); ul.appendChild(li);
+  });
+  box.innerHTML = html; if (errs.length) box.appendChild(ul);
+}
+async function saveEdits() {
+  const ch = changed();
+  if (!ch.length) { setMsg('אין שינויים לשמור'); return; }
+  setMsg('שומר...');
+  const edits = ch.map(({el, now}) => ({option: el.dataset.opt, field: el.dataset.edit, slide: el.dataset.slide ? Number(el.dataset.slide) : null, value: now}));
+  let res;
+  try {
+    const r = await fetch('/api/save', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({date: document.body.dataset.date, edits})});
+    res = await r.json();
+  } catch (e) { setMsg('השמירה נכשלה: העורך לא רץ?'); return; }
+  try { sessionStorage.setItem('lumebook-save-result', JSON.stringify(res)); } catch (e) {}
+  EDIT.orig.clear();
+  location.reload();
+}
+async function enableEditing() {
+  try { const r = await fetch('/api/ping', {cache: 'no-store'}); if (!r.ok) throw new Error(); }
+  catch (e) { return; }  // read only when opened as a file; no hint text (Yarin wants the page minimal)
+  document.body.classList.add('editing');
+  document.querySelectorAll('[data-edit]').forEach(el => {
+    try { el.contentEditable = 'plaintext-only'; } catch (e) { el.contentEditable = 'true'; }
+    if (el.contentEditable !== 'plaintext-only') el.contentEditable = 'true';
+    EDIT.orig.set(el, textOf(el));
+  });
+  document.getElementById('editbar').hidden = false;
+  document.querySelector('#editbar .save').onclick = saveEdits;
+  document.querySelector('#editbar .undo').onclick = () => { if (!changed().length || confirm('לבטל את השינויים שלא נשמרו?')) { EDIT.orig.clear(); location.reload(); } };
+  document.addEventListener('input', e => { if (e.target.closest('[data-edit]')) setMsg(changed().length + ' שדות שונו, עוד לא נשמרו'); });
+  document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); saveEdits(); } });
+  window.addEventListener('beforeunload', e => { if (changed().length) { e.preventDefault(); e.returnValue = ''; } });
+  let stored = null; try { stored = sessionStorage.getItem('lumebook-save-result'); sessionStorage.removeItem('lumebook-save-result'); } catch (e) {}
+  if (stored) showResult(JSON.parse(stored));
+}
+enableEditing();
+</script></body></html>
