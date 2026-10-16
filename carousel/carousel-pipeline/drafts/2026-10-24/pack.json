@@ -1,0 +1,2264 @@
+{
+  "schema_version": 3,
+  "date": "2026-10-24",
+  "generated_at": "2026-10-16T09:52:25+00:00",
+  "topic": {
+    "id": "bedtime-stalling",
+    "title_he": "עוד כוס מים לפני השינה",
+    "reason": "הנושא נקבע לפי התוכנית השבועית של 16 באוקטובר 2026: כל חבילה על נושא אחר. בקשות ברגע האחרון לפני השינה (מים, שירותים, עוד סיפור) הן רגע מוכר בכל ערב של השנה ולכן אין כאן טענה על לוח שנה. בקטלוג יש ספר שמתאים להמשך (המסע לממלכת החלומות שלי, גילאי 2 עד 7, על שינה) ולכן סיפור אישי בסוף הוא המשך טבעי."
+  },
+  "voice": {
+    "status": "fallback",
+    "approved_samples": 12,
+    "note": "קול ברירת מחדל: 12 מתוך 15 דוגמאות. הכתיבה לפי שינויי העריכה האחרונים של ירין, ועדיין לא קול מכויל."
+  },
+  "product_facts": [
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-book-9",
+      "fact": "Catalogue book 9 (ages 2 to 7), internal only: a magical journey that eases a child's sleep fears and turns the bed into a source of adventure",
+      "quote": "הספר מיטת החלומות מפיג את פחדי השינה של הילד באמצעות מסע קסום והרפתקאות לילה, הופך את המיטה ממקום מאיים למקור של הרפתקאות ופלאים",
+      "url": "https://lumebook.com/IL/he/books/9",
+      "checked_at": "2026-10-16"
+    }
+  ],
+  "hook_slate": {
+    "kid": [
+      {
+        "id": "k1",
+        "formula": "child-letter",
+        "family": "child_pov",
+        "hook": "אמא\nרציתי להגיד לך\n6 דברים בלילה",
+        "slide2": "לפעמים עוד כוס מים\nהיא עוד פעם שאת באה",
+        "slide2_move": "scene_restart",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What are the six things the girl wants to tell her mother?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the six, numbered.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1",
+        "note": "Slide 2 rests on the AAP line that children's main goal is to get the parent to appear."
+      },
+      {
+        "id": "k2",
+        "formula": "child-hidden-half",
+        "family": "child_pov",
+        "hook": "מה שלא רואים\nאחרי ״לילה טוב״\n8 דברים",
+        "slide2": "אחרי ״לילה טוב״ אני\nעדיין מקשיב לצעדים",
+        "slide2_move": "zoom_in",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "What happens after goodnight and what helps?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the eight.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2"
+      },
+      {
+        "id": "k3",
+        "formula": "child-question",
+        "family": "child_quote",
+        "hook": "״עוד כוס מים?״\n9 דברים שיעזרו לי",
+        "slide2": "ברגע שהדלת נסגרת\nאני רוצה שתבואו",
+        "slide2_move": "name_trigger",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "solution_aware",
+        "gap": "Why does she keep asking and what helps her stay in bed?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the nine.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3"
+      },
+      {
+        "id": "k4",
+        "formula": "one-sentence-changes",
+        "family": "story",
+        "hook": "יואב מבקש עוד מים\nכל ערב בשבע וחצי\n7 דברים משנים",
+        "slide2": "בשבע וחצי הוא כבר\nבמיטה ועדיין בא",
+        "slide2_move": "scene_restart",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "problem_aware",
+        "gap": "Which seven things change the evening?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give them.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 1,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Third person, closer to the expert voice; kept as a spare."
+      },
+      {
+        "id": "k5",
+        "formula": "words-that-backfire",
+        "family": "sentences_we_say",
+        "hook": "3 משפטים\nשמאריכים את הערב\nואיך להחליף אותם",
+        "slide2": "״עוד חמש דקות״ פותחת\nעוד שיחה",
+        "slide2_move": "first_answer",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "Which three sentences stretch the evening?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 5.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 1,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": true,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "No source says which sentences stretch the evening: scores 1 on honest curiosity and usefulness, kept as an unused spare. The unsupported claim fail check is true."
+      },
+      {
+        "id": "k6",
+        "formula": "parent-identity",
+        "family": "parent_identity",
+        "hook": "לאמא של ילד\nשבשבע וחצי מבקש\nעוד כוס מים",
+        "slide2": "הכוס הרביעית כבר\nלא צמא",
+        "slide2_move": "zoom_in",
+        "mechanism": "identity_filter",
+        "awareness_stage": "problem_aware",
+        "gap": "What is the mother of a child asking for the fourth cup told?",
+        "payoff_slide": 3,
+        "answer": "Slide 3.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Spare, no value promise on the cover: scores 1 on usefulness."
+      }
+    ],
+    "expert": [
+      {
+        "id": "e1",
+        "formula": "real-reason",
+        "family": "reframe",
+        "hook": "הסיבה האמיתית\nשהוא מבקש עוד מים\n8 דברים",
+        "slide2": "לפי האקדמיה האמריקאית\nהם רוצים שתופיעי",
+        "slide2_move": "first_answer",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "What is the real reason he asks for more water?",
+        "payoff_slide": 2,
+        "answer": "Slide 2 names the AAP line; slides 3 to 8 give eight things.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-1",
+        "note": "Needs a source on slide 1 or 2: AAP."
+      },
+      {
+        "id": "e2",
+        "formula": "numbered-small-things",
+        "family": "gentle_outcome",
+        "hook": "8 דברים קטנים\nלפני שמכבים אור\nלגילאי 3-6",
+        "slide2": "שמונה דברים שמתחילים\nכבר שעה לפני האור",
+        "slide2_move": "promise",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "Which eight small things come before the light goes out?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give them.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-2"
+      },
+      {
+        "id": "e3",
+        "formula": "stop-one-thing",
+        "family": "reframe",
+        "hook": "תפסיקו להיכנס\nכשהוא קורא\n8 דברים שעובדים",
+        "slide2": "לא נכנסים כל פעם\nאבל כן כשהוא מפחד",
+        "slide2_move": "contrast",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "If not going in every time, what works better?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the eight.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-3",
+        "note": "The command is about one action, never about the parent; slide 2 gives the honest exception."
+      },
+      {
+        "id": "e4",
+        "formula": "practical-question",
+        "family": "practical_question",
+        "hook": "איך עוצרים ״עוד כוס מים״\nלפני השינה?\n8 דברים",
+        "slide2": "מתחילים בדברים\nשלפני האור",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "How do you end the water requests?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Spare: the cover is long and close to expert-2."
+      },
+      {
+        "id": "e5",
+        "formula": "nobody-tells",
+        "family": "surprising_statement",
+        "hook": "מה שלא מספרים לך\nעל הבקשה הרביעית\nלפני השינה",
+        "slide2": "הבקשה הרביעית\nכבר לא צמא",
+        "slide2_move": "name_trigger",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "What is not told about the fourth request?",
+        "payoff_slide": 3,
+        "answer": "Slide 3.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Spare: no number or sentence on the cover (usefulness 1)."
+      },
+      {
+        "id": "e6",
+        "formula": "instead-of-say",
+        "family": "sentences_we_say",
+        "hook": "במקום ״עוד פעם אחת״\nנסו להכין מראש\n8 דברים",
+        "slide2": "הכול מתחיל\nלפני האור",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "What to do instead of giving one more?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Spare: no source supports a sentence to say."
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "אמא רציתי להגיד לך 6 דברים לפני שמכבים אור",
+          "angle": "אגם כותבת לאמא מכתב קצר: שישה דברים קטנים שיעזרו לה לא לבקש עוד כוס מים, מסיפור שקט ועד זמן לנסות לבד.",
+          "target_parent": "אמא לילדה בת 4 עד 5 שמבקשת עוד כוס מים בכל ערב אחרי ״לילה טוב״.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-letter",
+            "gap": "What are the six things a girl wants to tell her mother before the light goes out?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k1",
+            "mechanism": "recognition",
+            "slide2_move": "scene_restart"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "אגם",
+          "examples_target": 6,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with straight dark-brown hair to her shoulders and a fringe, light olive skin, big dark brown eyes and a small gap between her front teeth; about 104 cm tall.",
+            "parent": "Her mother, early thirties, light-brown skin, dark hair in a loose bun, warm brown eyes; warm and a little tired in a real way.",
+            "wardrobe": "Girl: pale mint pyjamas with small white stars. Mother: oatmeal knit cardigan and grey sweatpants."
+          },
+          "image": {
+            "beat": "wide-eyed in bed, caught thinking of one more thing",
+            "action": "The girl sits up in bed under a blanket, faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, holding a small empty plastic cup in both hands; her mother is small and soft in the doorway behind her, a hand on the door frame.",
+            "setting": "A child's bedroom in an Israeli flat at bedtime: a low wooden bed with a patterned quilt, a small night lamp glowing on a shelf, the door ajar to a warm hallway.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm soft glow from a night lamp, dim and cosy.",
+            "wardrobe_objects": "A small empty plastic cup held by the girl, a plush bear beside her on the pillow.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale lilac bedroom wall"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא\nרציתי להגיד לך\n6 דברים בלילה",
+              "body": "",
+              "pull": {
+                "type": "numbered",
+                "note": "ששת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "לפעמים עוד כוס מים\nהיא עוד פעם שאת באה",
+              "body": "שישה דברים קטנים לפני האור\nיעזרו לי לא לחכות לזה",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה עוזר לי? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 תקראי לי סיפור שקט",
+              "body": "סיפור או שיר רגוע לפני האור\nלא משחק רועש לפני השינה",
+              "examples": [
+                "תקראי לי סיפור שקט"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השני בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 אותה שעה בכל ערב",
+              "body": "״אגם בשבע וחצי נכנסים למיטה״\nככה אני יודעת מה מגיע",
+              "examples": [
+                "אותה שעה בכל ערב"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השלישי בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 כוס מים לפני המיטה",
+              "body": "תני לי לשתות לפני שמכבים אור\nואז אין לי סיבה לקרוא לך",
+              "examples": [
+                "כוס מים לפני המיטה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר הרביעי בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "4 הדובי שלי איתי במיטה",
+              "body": "תשאירי לי את הדובי או את השמיכה\nלידי כשאת יוצאת",
+              "examples": [
+                "הדובי שלי איתי במיטה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר החמישי בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "5 אור קטן ודלת פתוחה",
+              "body": "אם אני מפחדת מהחושך\nתשאירי מנורת לילה או דלת פתוחה",
+              "examples": [
+                "אור קטן ודלת פתוחה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "6 תני לי לנסות לבד",
+              "body": "כשאני קוראת תחכי כמה דקות\nואם אני מפחדת תיכנסי להרגיע",
+              "examples": [
+                "תני לי לנסות לבד"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "שישה דברים קטנים\nלפני שמכבים אור",
+              "body": "סיפור · שעה · מים\nדובי · אור · זמן לנסות לבד",
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו קטן בשקופית האחרונה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "6 דברים שאגם רוצה להגיד לך לפני שמכבים אור\nסיפור שקט ושעה קבועה בכל ערב\nכוס מים ודובי לפני שנכנסות למיטה\nאור קטן או דלת פתוחה אם היא מפחדת\nלפעמים עוד כוס מים היא עוד פעם שאת באה\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (adapted from Sleeping Well: Tips for Parents of Babies and Young Children, © 2022 AAP)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-16",
+              "quote": "to help your child understand that it will soon be time to go to sleep. Use this time to read them a story, put on quiet music, or give them a bath. It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Make bedtime the same time every night. This helps your child know what to expect and helps them establish healthy sleep patterns. ... Let your child take a favorite thing to bed each night. ... Take care of child’s needs before bedtime so they don’t use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Do not let your child sleep in the same bed with you. This can make it harder for them to fall asleep when they are alone. ... If they are safe and well, there is no need to go into their room while they sort out how to get themselves back to sleep. ... Keep in mind that children's main goal is to get you to appear. So if you appear for any reason, even just for \"checking,\" they will expect you to come each time they call out.",
+              "supports": "Wind-down before bed (a story, quiet music, a bath; no active play), the same bedtime every night, a favourite object, meeting needs such as water, a light or an open door before bedtime, not sharing the parents' bed, not going back in when the child is safe and well, and that appearing for any reason (even checking) teaches the child to expect it. The page is about toddlers; we apply it to preschoolers. Fragments read through a page fetch, joined with ' ... '."
+            },
+            {
+              "id": "src-kh",
+              "title": "Sleep and Your Preschooler",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD; date reviewed June 2020)",
+              "url": "https://kidshealth.org/en/parents/sleep-preschool.html",
+              "accessed": "2026-10-16",
+              "quote": "Preschoolers need about 10 to 13 hours of sleep each day, including naps. Set regular bedtimes, wake-up times, and nap times for your child. If your child no longer takes naps, schedule some quiet time during the day. ... Having a regular bedtime routine and a quiet, comfortable bedroom can help your child sleep well. A relaxing routine may include going to the bathroom, changing into pajamas, brushing teeth, and reading a book. Turn off all screens at least 1 hour before bedtime ... Let your child choose a special toy or blanket to sleep with. Turn on a nightlight if your child is afraid of the dark. Do not lie with your child until they fall asleep ... Make sure your child gets plenty of exercise during the day. ... It’s common for kids this age to not want to go to bed ... If your child is afraid or gets very upset, go in and offer comfort. After comforting and returning your child to bed, say that it's time to go to sleep. Keep your visit short. If your child cries when you leave, wait a few minutes before going back in the room. If your child gets out of bed, calmly take them back to bed.",
+              "supports": "10 to 13 hours of sleep, regular times, quiet time without a nap, a routine of bathroom, pajamas, teeth and a book, a quiet comfortable room, screens off an hour before, a special toy or blanket, a nightlight for fear of the dark, daytime exercise, that it is common not to want to go to bed, and the steps for calls and getting out of bed (wait a few minutes, comfort if afraid, short visit, say it is time to sleep, calmly take back to bed). Fragments read through a page fetch, joined with ' ... '."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "רציתי להגיד לך 6 דברים לפני שמכבים אור",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "HealthyChildren.org (AAP) and KidsHealth give the bedtime practices the six items rest on; the child's voice is imagined."
+            },
+            {
+              "slide": 2,
+              "wording_he": "לפעמים עוד כוס מים היא עוד פעם שאת באה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "HealthyChildren.org (AAP): 'children's main goal is to get you to appear' (said about calls at night). We phrase it as a possibility with לפעמים."
+            },
+            {
+              "slide": 3,
+              "wording_he": "סיפור או שיר רגוע לפני האור ולא משחק רועש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: read a story, put on quiet music or give a bath; active play may make a child too excited to sleep."
+            },
+            {
+              "slide": 4,
+              "wording_he": "אותה שעה בכל ערב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: make bedtime the same time every night; KidsHealth: set regular bedtimes."
+            },
+            {
+              "slide": 5,
+              "wording_he": "מים לפני שמכבים אור",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: take care of needs before bedtime so they are not reasons to avoid sleep, such as a drink of water."
+            },
+            {
+              "slide": 6,
+              "wording_he": "הדובי או השמיכה לידי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: let the child take a favourite thing to bed; KidsHealth: let the child choose a special toy or blanket."
+            },
+            {
+              "slide": 7,
+              "wording_he": "מנורת לילה או דלת פתוחה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: a light left on or the door left slightly open; KidsHealth: a nightlight if the child is afraid of the dark."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לחכות כמה דקות ולהיכנס להרגיע אם היא מפחדת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: wait a few minutes before going back in; if the child is afraid or very upset, go in and offer comfort. AAP: children need the time and opportunity to find out how to go back to sleep on their own."
+            },
+            {
+              "slide": 9,
+              "wording_he": "סיפור · שעה · מים · דובי · אור · זמן לנסות לבד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "A recap of the six items above, each with its source."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "HealthyChildren.org (AAP): a wind-down before bed can include reading the child a story. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "מספר וערך על הכריכה (6 דברים) ומכתב קצר מילדה שכל אמא מכירה. השקופיות נותנות דברים קטנים שאפשר לעשות כבר הערב, ולכן הסיפור האישי בסוף הוא עוד כלי לערב רגוע."
+        },
+        {
+          "id": "kid-2",
+          "title": "מה שאתם לא רואים אחרי לילה טוב",
+          "angle": "יונתן מספר מה קורה אצלו אחרי שהדלת נסגרת ונותן להורים שמונה דברים קטנים לעשות לפני האור.",
+          "target_parent": "הורים לבן 4 עד 5 שקורא להם שוב ושוב אחרי שהם יצאו מהחדר.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-hidden-half",
+            "gap": "What happens after the parents say goodnight, and what helps the boy settle?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k2",
+            "mechanism": "perspective_shift",
+            "slide2_move": "zoom_in"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "יונתן",
+          "examples_target": 8,
+          "character_anchor": {
+            "child": "A 5-year-old Israeli boy with short curly dark hair, light brown skin, round dark eyes and a small birthmark on his left cheek; about 108 cm tall.",
+            "parent": "His mother, early thirties, tanned skin, long dark wavy hair, kind green eyes, and his father, mid-thirties, short brown hair and glasses; both warm and a little tired in a real way.",
+            "wardrobe": "Boy: faded blue pyjamas with small rockets. Mother: cream sweater and jeans. Father: dark grey T-shirt and sweatpants."
+          },
+          "image": {
+            "beat": "wide-eyed and listening under the blanket",
+            "action": "The boy lies in bed with the blanket pulled up to his chin, faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows; his parents are small and soft in the lit hallway behind him, walking away from the open door.",
+            "setting": "A child's bedroom in an Israeli flat at night: a bed with a rocket-pattern quilt, a night lamp on a shelf, the door open to a warm hallway.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Dim warm glow from a night lamp and the hallway light.",
+            "wardrobe_objects": "A small brown plush bear tucked under the boy's arm.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale lilac bedroom wall"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "מה שלא רואים\nאחרי ״לילה טוב״\n8 דברים",
+              "body": "",
+              "pull": {
+                "type": "numbered",
+                "note": "שמונת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "אחרי ״לילה טוב״ אני\nעדיין מקשיב לצעדים",
+              "body": "שמונה דברים קטנים יעזרו לי\nלהירגע בלי שתבואו שוב",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה עוזר לי? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 סיפור או שיר שקט\n2 בלי משחק רועש בערב",
+              "body": "״יונתן אחרי הארוחה רק שקט״\nמשחק רועש מעיר אותי",
+              "examples": [
+                "סיפור או שיר שקט",
+                "בלי משחק רועש בערב"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדברים השלישי והרביעי בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 אותה שעה בכל ערב\n4 בלי מסך שעה לפני",
+              "body": "״יונתן בשבע וחצי ישנים״\nככה אני יודע מה מגיע",
+              "examples": [
+                "אותה שעה בכל ערב",
+                "בלי מסך שעה לפני"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר החמישי בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 אמבטיה ואז פיג׳מה",
+              "body": "שירותים ושיניים וספר\nבאותו סדר בכל ערב",
+              "examples": [
+                "אמבטיה ואז פיג׳מה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השישי בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 מים לפני שמכבים אור",
+              "body": "תנו לי לשתות ולהתפנות מראש\nאז אין לי סיבה לקרוא לכם",
+              "examples": [
+                "מים לפני שמכבים אור"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השביעי בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 דובי ואור קטן בחדר",
+              "body": "תשאירו לי את הדובי\nומנורת לילה אם אני מפחד",
+              "examples": [
+                "דובי ואור קטן בחדר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 דלת פתוחה קצת",
+              "body": "אם אני רוצה דלת פתוחה קצת\nתפתחו אותה לפני שיוצאים",
+              "examples": [
+                "דלת פתוחה קצת"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "שמונה דברים קטנים\nשקט שעה ומים לפני",
+              "body": "סיפור שקט · בלי מסך · אותו סדר\nדובי אור קטן ודלת פתוחה",
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו קטן בשקופית האחרונה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "מה שלא רואים אחרי ״לילה טוב״ ו-8 דברים שיעזרו ליונתן\nסיפור שקט בלי משחק רועש ובלי מסך שעה לפני\nאותה שעה ואותו סדר בכל ערב\nמים ושירותים לפני שמכבים אור\nדובי אור קטן ודלת פתוחה קצת\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (adapted from Sleeping Well: Tips for Parents of Babies and Young Children, © 2022 AAP)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-16",
+              "quote": "to help your child understand that it will soon be time to go to sleep. Use this time to read them a story, put on quiet music, or give them a bath. It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Make bedtime the same time every night. This helps your child know what to expect and helps them establish healthy sleep patterns. ... Let your child take a favorite thing to bed each night. ... Take care of child’s needs before bedtime so they don’t use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Do not let your child sleep in the same bed with you. This can make it harder for them to fall asleep when they are alone. ... If they are safe and well, there is no need to go into their room while they sort out how to get themselves back to sleep. ... Keep in mind that children's main goal is to get you to appear. So if you appear for any reason, even just for \"checking,\" they will expect you to come each time they call out.",
+              "supports": "Wind-down before bed (a story, quiet music, a bath; no active play), the same bedtime every night, a favourite object, meeting needs such as water, a light or an open door before bedtime, not sharing the parents' bed, not going back in when the child is safe and well, and that appearing for any reason (even checking) teaches the child to expect it. The page is about toddlers; we apply it to preschoolers. Fragments read through a page fetch, joined with ' ... '."
+            },
+            {
+              "id": "src-kh",
+              "title": "Sleep and Your Preschooler",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD; date reviewed June 2020)",
+              "url": "https://kidshealth.org/en/parents/sleep-preschool.html",
+              "accessed": "2026-10-16",
+              "quote": "Preschoolers need about 10 to 13 hours of sleep each day, including naps. Set regular bedtimes, wake-up times, and nap times for your child. If your child no longer takes naps, schedule some quiet time during the day. ... Having a regular bedtime routine and a quiet, comfortable bedroom can help your child sleep well. A relaxing routine may include going to the bathroom, changing into pajamas, brushing teeth, and reading a book. Turn off all screens at least 1 hour before bedtime ... Let your child choose a special toy or blanket to sleep with. Turn on a nightlight if your child is afraid of the dark. Do not lie with your child until they fall asleep ... Make sure your child gets plenty of exercise during the day. ... It’s common for kids this age to not want to go to bed ... If your child is afraid or gets very upset, go in and offer comfort. After comforting and returning your child to bed, say that it's time to go to sleep. Keep your visit short. If your child cries when you leave, wait a few minutes before going back in the room. If your child gets out of bed, calmly take them back to bed.",
+              "supports": "10 to 13 hours of sleep, regular times, quiet time without a nap, a routine of bathroom, pajamas, teeth and a book, a quiet comfortable room, screens off an hour before, a special toy or blanket, a nightlight for fear of the dark, daytime exercise, that it is common not to want to go to bed, and the steps for calls and getting out of bed (wait a few minutes, comfort if afraid, short visit, say it is time to sleep, calmly take back to bed). Fragments read through a page fetch, joined with ' ... '."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "אחרי ״לילה טוב״ יש 8 דברים שיעזרו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP and KidsHealth give the bedtime practices the eight items rest on; the child's inner voice is imagined."
+            },
+            {
+              "slide": 2,
+              "wording_he": "אחרי ״לילה טוב״ אני עדיין מקשיב לצעדים",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "Imagined inner voice of one boy, a possibility and not a statement about children; it rests on the AAP line that children's main goal is to get the parent to appear (src-aap)."
+            },
+            {
+              "slide": 3,
+              "wording_he": "סיפור או שיר שקט ובלי משחק רועש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: read a story, put on quiet music or give a bath; active play may make a child too excited to sleep."
+            },
+            {
+              "slide": 4,
+              "wording_he": "אותה שעה בכל ערב ובלי מסך שעה לפני",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: make bedtime the same time every night; KidsHealth: turn off all screens at least 1 hour before bedtime."
+            },
+            {
+              "slide": 5,
+              "wording_he": "אמבטיה ואז פיג׳מה ושירותים שיניים וספר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: a routine may include going to the bathroom, changing into pajamas, brushing teeth and reading a book; AAP: a bath is part of winding down."
+            },
+            {
+              "slide": 6,
+              "wording_he": "מים ושירותים לפני שמכבים אור",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: take care of needs before bedtime so they are not reasons to avoid sleep, such as a drink of water."
+            },
+            {
+              "slide": 7,
+              "wording_he": "דובי ומנורת לילה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: a favourite object to bed; KidsHealth: a nightlight if the child is afraid of the dark."
+            },
+            {
+              "slide": 8,
+              "wording_he": "דלת פתוחה קצת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: they may want a light left on or the door left slightly open; meeting it before bedtime keeps it from being a reason to delay."
+            },
+            {
+              "slide": 9,
+              "wording_he": "סיפור שקט בלי מסך אותו סדר דובי אור קטן ודלת פתוחה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "A recap of the eight items above, each with its source."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "HealthyChildren.org (AAP): a wind-down before bed can include reading the child a story. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח שמבטיח לגלות מה קורה אחרי ״לילה טוב״ ומספר ברור (8 דברים). הדברים אחד אחרי השני בשקופיות 3 עד 8, והסיפור האישי בסוף מרגיש כהמשך לערב רגוע."
+        },
+        {
+          "id": "kid-3",
+          "title": "עוד כוס מים 9 דברים שיעזרו לי",
+          "angle": "נטע שואלת ״עוד כוס מים?״ ונותנת תשעה דברים קטנים שיעזרו לה להישאר במיטה: מה מכינים לפני ומה עושים כשהיא קוראת.",
+          "target_parent": "הורים לילדה בת 4 עד 6 שקוראת להם בכל ערב ומבקשת עוד משהו.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "child_quote",
+          "hook": {
+            "formula": "child-question",
+            "gap": "Why does she keep asking, and what nine things help her stay in bed?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k3",
+            "mechanism": "honest_curiosity",
+            "slide2_move": "name_trigger"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "נטע",
+          "examples_target": 9,
+          "character_anchor": {
+            "child": "A 5-year-old Israeli girl with a short bob of light brown hair and a fringe, fair skin with freckles across her nose, hazel eyes; about 107 cm tall.",
+            "parent": "Her mother, early thirties, light-brown skin, dark hair in a loose bun, warm brown eyes, and her father, mid-thirties, short dark hair and a short beard; both warm and a little tired in a real way.",
+            "wardrobe": "Girl: lilac pyjamas with a small yellow moon print. Mother: grey knit sweater and jeans. Father: navy T-shirt and grey sweatpants."
+          },
+          "image": {
+            "beat": "a hopeful pout asking for one more",
+            "action": "The girl stands beside her bed, faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, holding a small blue plastic cup in both hands; her parents are small and soft in the bedroom doorway behind her.",
+            "setting": "A child's bedroom in an Israeli flat at bedtime: a bed with a moon-pattern quilt, a night lamp on a shelf, the door open to a warm hallway.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Dim warm glow from a night lamp and the hallway light.",
+            "wardrobe_objects": "A small blue plastic cup held by the girl.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale lilac bedroom wall"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״עוד כוס מים?״\n9 דברים שיעזרו לי",
+              "body": "",
+              "pull": {
+                "type": "numbered",
+                "note": "תשעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "ברגע שהדלת נסגרת\nאני רוצה שתבואו",
+              "body": "תשעה דברים יעזרו לי להישאר\nבמיטה בלי לקרוא לכם",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה עוזר לי? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 כוס מים לפני המיטה\n2 שירותים לפני המיטה",
+              "body": "״נטע מים ושירותים ואז ישנים״\nככה אין לי מה לבקש",
+              "examples": [
+                "כוס מים לפני המיטה",
+                "שירותים לפני המיטה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדברים השלישי והרביעי בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 אל תיכנסו מיד\n4 גם לא רק לבדוק",
+              "body": "אני בסדר? תנו לי לנסות\nכל כניסה אומרת לי לקרוא שוב",
+              "examples": [
+                "אל תיכנסו מיד",
+                "גם לא רק לבדוק"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר החמישי בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 חכו כמה דקות",
+              "body": "כשאני קוראת חכו קצת\nלפני שחוזרים לחדר",
+              "examples": [
+                "חכו כמה דקות"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדברים השישי והשביעי בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 אם אני מפחדת תכנסו\n7 ותרגיעו אותי בקצרה",
+              "body": "״נטע אני כאן הולכים לישון״\nביקור קצר וחוזרים",
+              "examples": [
+                "אם אני מפחדת תכנסו",
+                "ותרגיעו אותי בקצרה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השמיני בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "8 תחזירו אותי למיטה",
+              "body": "לא למיטה שלכם\nאני לומדת להירדם במיטה שלי",
+              "examples": [
+                "תחזירו אותי למיטה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "9 מדבקה על כל צעד אמיץ",
+              "body": "מדבקה כשאני נשארת בחדר\nאחרי שיצאתם",
+              "examples": [
+                "מדבקה על כל צעד אמיץ"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "תשעה דברים קטנים\nלהישאר במיטה שלי",
+              "body": "הכול מוכן מראש · מחכים רגע\nביקור קצר · מדבקה על אומץ",
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו קטן בשקופית האחרונה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "״עוד כוס מים?״ ו-9 דברים שיעזרו לנטע להישאר במיטה\nמים ושירותים לפני שמכבים אור\nלא נכנסים מיד וגם לא רק לבדוק\nמחכים כמה דקות ומרגיעים בקצרה אם היא מפחדת\nמחזירים אותה למיטה שלה ונותנים מדבקה על כל צעד אמיץ\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (adapted from Sleeping Well: Tips for Parents of Babies and Young Children, © 2022 AAP)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-16",
+              "quote": "to help your child understand that it will soon be time to go to sleep. Use this time to read them a story, put on quiet music, or give them a bath. It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Make bedtime the same time every night. This helps your child know what to expect and helps them establish healthy sleep patterns. ... Let your child take a favorite thing to bed each night. ... Take care of child’s needs before bedtime so they don’t use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Do not let your child sleep in the same bed with you. This can make it harder for them to fall asleep when they are alone. ... If they are safe and well, there is no need to go into their room while they sort out how to get themselves back to sleep. ... Keep in mind that children's main goal is to get you to appear. So if you appear for any reason, even just for \"checking,\" they will expect you to come each time they call out.",
+              "supports": "Wind-down before bed (a story, quiet music, a bath; no active play), the same bedtime every night, a favourite object, meeting needs such as water, a light or an open door before bedtime, not sharing the parents' bed, not going back in when the child is safe and well, and that appearing for any reason (even checking) teaches the child to expect it. The page is about toddlers; we apply it to preschoolers. Fragments read through a page fetch, joined with ' ... '."
+            },
+            {
+              "id": "src-kh",
+              "title": "Sleep and Your Preschooler",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD; date reviewed June 2020)",
+              "url": "https://kidshealth.org/en/parents/sleep-preschool.html",
+              "accessed": "2026-10-16",
+              "quote": "Preschoolers need about 10 to 13 hours of sleep each day, including naps. Set regular bedtimes, wake-up times, and nap times for your child. If your child no longer takes naps, schedule some quiet time during the day. ... Having a regular bedtime routine and a quiet, comfortable bedroom can help your child sleep well. A relaxing routine may include going to the bathroom, changing into pajamas, brushing teeth, and reading a book. Turn off all screens at least 1 hour before bedtime ... Let your child choose a special toy or blanket to sleep with. Turn on a nightlight if your child is afraid of the dark. Do not lie with your child until they fall asleep ... Make sure your child gets plenty of exercise during the day. ... It’s common for kids this age to not want to go to bed ... If your child is afraid or gets very upset, go in and offer comfort. After comforting and returning your child to bed, say that it's time to go to sleep. Keep your visit short. If your child cries when you leave, wait a few minutes before going back in the room. If your child gets out of bed, calmly take them back to bed.",
+              "supports": "10 to 13 hours of sleep, regular times, quiet time without a nap, a routine of bathroom, pajamas, teeth and a book, a quiet comfortable room, screens off an hour before, a special toy or blanket, a nightlight for fear of the dark, daytime exercise, that it is common not to want to go to bed, and the steps for calls and getting out of bed (wait a few minutes, comfort if afraid, short visit, say it is time to sleep, calmly take back to bed). Fragments read through a page fetch, joined with ' ... '."
+            },
+            {
+              "id": "src-cmi",
+              "title": "How to Help Kids Who Have Trouble Sleeping",
+              "publisher": "Child Mind Institute (Beth Arky; clinical experts Anna Loiterstein, PsyD, and Wendy Nash, MD; last reviewed 25 Feb 2026)",
+              "url": "https://childmind.org/article/how-to-help-kids-sleep/",
+              "accessed": "2026-10-16",
+              "quote": "A posted sleep schedule with a consistent, predictable routine will help everyone ... earning them rewards for doing brave steps like staying in their room after their parents leave ... the best thing when that happens is to bring them back to their own bed as soon as possible.",
+              "supports": "A posted schedule with a consistent routine, rewards for brave steps such as staying in the room after the parents leave, and bringing a child who comes out back to their own bed as soon as possible. Read through a page fetch (the site blocks plain curl); the page quotes Dr. Loiterstein; fragments joined with ' ... '."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "עוד כוס מים? אני שואלת כל ערב ו-9 דברים שיעזרו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh",
+                "src-cmi"
+              ],
+              "supports": "AAP, KidsHealth and Child Mind Institute give the practices the nine items rest on; the child's question is an imagined quote."
+            },
+            {
+              "slide": 2,
+              "wording_he": "ברגע שהדלת נסגרת אני רוצה שתבואו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: 'children's main goal is to get you to appear' (about calls at night); phrased in a child's voice as one girl's possibility."
+            },
+            {
+              "slide": 3,
+              "wording_he": "מים ושירותים לפני המיטה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: take care of needs before bedtime so they are not reasons to avoid sleep, such as a drink of water."
+            },
+            {
+              "slide": 4,
+              "wording_he": "אם אני בסדר לא נכנסים מיד וגם לא רק לבדוק",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: if they are safe and well there is no need to go into their room; if you appear for any reason, even just for checking, they will expect you to come each time they call out."
+            },
+            {
+              "slide": 5,
+              "wording_he": "מחכים כמה דקות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: if your child cries when you leave, wait a few minutes before going back in the room."
+            },
+            {
+              "slide": 6,
+              "wording_he": "אם היא מפחדת נכנסים ומרגיעים בקצרה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: if your child is afraid or gets very upset, go in and offer comfort; say it is time to go to sleep; keep your visit short."
+            },
+            {
+              "slide": 7,
+              "wording_he": "מחזירים אותה למיטה שלה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-cmi",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: calmly take them back to bed; Child Mind Institute: bring them back to their own bed as soon as possible; AAP: do not let your child sleep in the same bed with you."
+            },
+            {
+              "slide": 8,
+              "wording_he": "מדבקה על צעד אמיץ",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi"
+              ],
+              "supports": "Child Mind Institute: rewards for doing brave steps like staying in their room after their parents leave. The sticker is our example of a reward."
+            },
+            {
+              "slide": 9,
+              "wording_he": "מחכים רגע ביקור קצר מדבקה על אומץ",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-cmi"
+              ],
+              "supports": "A recap of the items above, each with its source."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "HealthyChildren.org (AAP): a wind-down before bed can include reading the child a story. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "ציטוט שכל הורה שמע (״עוד כוס מים?״) ומספר ברור (9 דברים). התשעה בשקופיות 3 עד 8 עונים גם על מה מכינים לפני וגם על מה עושים כשהיא קוראת."
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "label_he": "גישה מקצועית מבוססת מקורות",
+      "versions": [
+        {
+          "id": "expert-1",
+          "title": "הסיבה האמיתית שהוא מבקש עוד מים",
+          "angle": "רופאי הילדים האמריקאים אומרים שבקשות לפני השינה יכולות להיות דרך להביא את ההורה, ושמונה דברים שמכינים מראש משאירים פחות מה לבקש.",
+          "target_parent": "אמא לבן 4 עד 5 שמבקש עוד מים בכל ערב אחרי שיצאה מהחדר.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "real-reason",
+            "gap": "What is the real reason he asks for more water, and what helps?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e1",
+            "mechanism": "honest_curiosity",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "רון",
+          "examples_target": 8,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short straight black hair, olive skin, big dark eyes and thick eyebrows; about 102 cm tall.",
+            "parent": "His mother, early thirties, tanned skin, long dark wavy hair, kind green eyes; warm and a little tired in a real way.",
+            "wardrobe": "Boy: soft grey pyjamas with a small dinosaur print. Mother: dusty-pink cardigan and jeans."
+          },
+          "image": {
+            "beat": "a wide-eyed gasp, one more request",
+            "action": "The boy sits up in bed with the quilt around his waist, faces the viewer and looks straight into the camera with an open-mouthed gasp and huge wide eyes, one hand raised with a finger pointing up; his mother is small and soft in the doorway behind him with a hand on the light switch.",
+            "setting": "A child's bedroom in an Israeli flat at bedtime: a bed with a dinosaur-print quilt, a night lamp on a shelf, the door ajar to a warm hallway.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Dim warm glow from a night lamp.",
+            "wardrobe_objects": "A small green plush dinosaur on the pillow beside the boy.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale lilac bedroom wall"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "הסיבה האמיתית\nשהוא מבקש עוד מים\n8 דברים",
+              "body": "",
+              "pull": {
+                "type": "numbered",
+                "note": "שמונת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "לפי האקדמיה האמריקאית\nהם רוצים שתופיעי",
+              "body": "8 דברים שאת עושה לפני האור\nכדי שיהיה לו פחות מה לבקש",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה עושים לפני האור? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 שתייה לפני המיטה\n2 שירותים לפני המיטה",
+              "body": "״רון מים ושירותים וגמרנו״\nלפני האור ולא אחריו",
+              "examples": [
+                "שתייה לפני המיטה",
+                "שירותים לפני המיטה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדברים השלישי והרביעי בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 אור קטן בחדר\n4 דלת פתוחה קצת",
+              "body": "מנורה קטנה או דלת פתוחה קצת\nבלי שהוא יצטרך לבקש",
+              "examples": [
+                "אור קטן בחדר",
+                "דלת פתוחה קצת"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר החמישי בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 חפץ אהוב למיטה",
+              "body": "דובי שמיכה או צעצוע בטוח\nבלי כפתורים או סרטים רופפים",
+              "examples": [
+                "חפץ אהוב למיטה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השישי בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 אותה שעה בכל ערב",
+              "body": "אותה שעה עוזרת לו לדעת\nמה מצפה לו בערב",
+              "examples": [
+                "אותה שעה בכל ערב"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השביעי בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 שירותים פיג׳מה\nושיניים וספר",
+              "body": "בכל ערב באותו סדר\nעד שהמיטה מגיעה בסוף",
+              "examples": [
+                "שירותים פיג׳מה ושיניים וספר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 בלי מסך שעה לפני",
+              "body": "מכבים מסכים שעה לפני השינה\nועוברים לספר",
+              "examples": [
+                "בלי מסך שעה לפני"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "תכיני הכול מראש\nויהיה לו פחות מה לבקש",
+              "body": "מים · שירותים · אור · חפץ\nשעה קבועה וסדר בלי מסך",
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו קטן בשקופית האחרונה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "הסיבה שרון מבקש עוד מים ו-8 דברים שעוזרים לו\nלפי האקדמיה האמריקאית לרפואת ילדים הם רוצים שתופיעי\nמים ושירותים אור קטן ודלת פתוחה לפני שמכבים\nחפץ אהוב ושעה קבועה בכל ערב\nסדר קבוע ובלי מסך שעה לפני\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (adapted from Sleeping Well: Tips for Parents of Babies and Young Children, © 2022 AAP)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-16",
+              "quote": "to help your child understand that it will soon be time to go to sleep. Use this time to read them a story, put on quiet music, or give them a bath. It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Make bedtime the same time every night. This helps your child know what to expect and helps them establish healthy sleep patterns. ... Let your child take a favorite thing to bed each night. ... Take care of child’s needs before bedtime so they don’t use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Do not let your child sleep in the same bed with you. This can make it harder for them to fall asleep when they are alone. ... If they are safe and well, there is no need to go into their room while they sort out how to get themselves back to sleep. ... Keep in mind that children's main goal is to get you to appear. So if you appear for any reason, even just for \"checking,\" they will expect you to come each time they call out.",
+              "supports": "Wind-down before bed (a story, quiet music, a bath; no active play), the same bedtime every night, a favourite object, meeting needs such as water, a light or an open door before bedtime, not sharing the parents' bed, not going back in when the child is safe and well, and that appearing for any reason (even checking) teaches the child to expect it. The page is about toddlers; we apply it to preschoolers. Fragments read through a page fetch, joined with ' ... '."
+            },
+            {
+              "id": "src-kh",
+              "title": "Sleep and Your Preschooler",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD; date reviewed June 2020)",
+              "url": "https://kidshealth.org/en/parents/sleep-preschool.html",
+              "accessed": "2026-10-16",
+              "quote": "Preschoolers need about 10 to 13 hours of sleep each day, including naps. Set regular bedtimes, wake-up times, and nap times for your child. If your child no longer takes naps, schedule some quiet time during the day. ... Having a regular bedtime routine and a quiet, comfortable bedroom can help your child sleep well. A relaxing routine may include going to the bathroom, changing into pajamas, brushing teeth, and reading a book. Turn off all screens at least 1 hour before bedtime ... Let your child choose a special toy or blanket to sleep with. Turn on a nightlight if your child is afraid of the dark. Do not lie with your child until they fall asleep ... Make sure your child gets plenty of exercise during the day. ... It’s common for kids this age to not want to go to bed ... If your child is afraid or gets very upset, go in and offer comfort. After comforting and returning your child to bed, say that it's time to go to sleep. Keep your visit short. If your child cries when you leave, wait a few minutes before going back in the room. If your child gets out of bed, calmly take them back to bed.",
+              "supports": "10 to 13 hours of sleep, regular times, quiet time without a nap, a routine of bathroom, pajamas, teeth and a book, a quiet comfortable room, screens off an hour before, a special toy or blanket, a nightlight for fear of the dark, daytime exercise, that it is common not to want to go to bed, and the steps for calls and getting out of bed (wait a few minutes, comfort if afraid, short visit, say it is time to sleep, calmly take back to bed). Fragments read through a page fetch, joined with ' ... '."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "הסיבה שהוא מבקש עוד מים והדברים שעוזרים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: needs such as water, a light or an open door can become reasons to avoid sleep; children's main goal is to get you to appear. Phrased as one possible reason, not the only one."
+            },
+            {
+              "slide": 2,
+              "wording_he": "לפי האקדמיה האמריקאית הם רוצים שתופיעי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "HealthyChildren.org (AAP): 'Keep in mind that children's main goal is to get you to appear.' The page is about toddlers calling out at night; we apply it to preschoolers and to bedtime requests."
+            },
+            {
+              "slide": 3,
+              "wording_he": "מים ושירותים לפני המיטה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: take care of needs before bedtime, such as a drink of water; KidsHealth: the routine includes going to the bathroom."
+            },
+            {
+              "slide": 4,
+              "wording_he": "אור קטן ודלת פתוחה קצת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: they may want a light left on or the door left slightly open."
+            },
+            {
+              "slide": 5,
+              "wording_he": "חפץ אהוב בלי כפתורים או סרטים רופפים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: it's OK to let a child sleep with a teddy bear, special blanket or favourite toy; make sure it has no choking hazards like buttons or loose ribbons."
+            },
+            {
+              "slide": 6,
+              "wording_he": "אותה שעה בכל ערב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: make bedtime the same time every night; this helps your child know what to expect."
+            },
+            {
+              "slide": 7,
+              "wording_he": "שירותים פיג׳מה שיניים וספר באותו סדר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: a relaxing routine may include going to the bathroom, changing into pajamas, brushing teeth and reading a book."
+            },
+            {
+              "slide": 8,
+              "wording_he": "בלי מסך שעה לפני השינה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: turn off all screens at least 1 hour before bedtime."
+            },
+            {
+              "slide": 9,
+              "wording_he": "תכיני הכול מראש ויהיה לו פחות מה לבקש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: take care of needs before bedtime so they don't use them as reasons to avoid going to sleep."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "HealthyChildren.org (AAP): a wind-down before bed can include reading the child a story. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "שאלה ״מה הסיבה האמיתית״ שהקרוסלה עונה עליה בשקופית 2 עם שם הגוף המקצועי, ואז שמונה דברים להכין מראש. הסיפור האישי בסוף הוא הדבר התשיעי: ספר שמסתיים בשינה.",
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-2",
+          "title": "8 דברים קטנים לפני שמכבים אור",
+          "angle": "שמונה דברים קטנים שמתחילים שעה לפני האור, לפי רופאי הילדים האמריקאים ולפי KidsHealth, במקום לטפל בבקשה האחרונה.",
+          "target_parent": "הורים לילדה בת 3 עד 6 שהערב שלה נמשך כי כל בקשה מביאה עוד אחת.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "gentle_outcome",
+          "hook": {
+            "formula": "numbered-small-things",
+            "gap": "Which eight small things come before the light goes out, for ages 3 to 6?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "e2",
+            "mechanism": "practical_utility",
+            "slide2_move": "promise"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "עדי",
+          "examples_target": 8,
+          "character_anchor": {
+            "child": "A 5-year-old Israeli girl with long wavy chestnut hair in a loose side braid, tanned skin, big brown eyes and rosy cheeks; about 107 cm tall.",
+            "parent": "Her mother, early thirties, light-brown skin, dark hair in a loose bun, warm brown eyes, and her father, mid-thirties, short dark hair and a short beard; both warm and a little tired in a real way.",
+            "wardrobe": "Girl: peach cotton pyjamas with a small cloud print. Mother: sage-green knit sweater and jeans. Father: charcoal T-shirt and grey sweatpants."
+          },
+          "image": {
+            "beat": "a giant grin at story time",
+            "action": "The girl sits in the middle of her bed with a picture book closed on her lap, faces the viewer and looks straight into the camera with a giant grin; her parents are small and soft at the edge of the bed behind her, her father turning off the ceiling light.",
+            "setting": "A tidy child's bedroom in an Israeli flat at bedtime: a bed with a cloud-print quilt, a night lamp glowing on a shelf, a window with a drawn curtain.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm soft glow from a night lamp.",
+            "wardrobe_objects": "A closed picture book with a plain cover on the girl's lap.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale lilac bedroom wall"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "8 דברים קטנים\nלפני שמכבים אור\nלגילאי 3-6",
+              "body": "",
+              "pull": {
+                "type": "numbered",
+                "note": "שמונת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "שמונה דברים שמתחילים\nכבר שעה לפני האור",
+              "body": "לא ברגע האחרון אלא לפניו\nנסו להתחיל את הערב מוקדם",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה מתחילים בשעה שלפני? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 אומרים עוד מעט ישנים\n2 עוברים לפעילות שקטה",
+              "body": "סיפור שיר שקט או אמבטיה\nבמקום משחק שמעיר את עדי",
+              "examples": [
+                "אומרים עוד מעט ישנים",
+                "עוברים לפעילות שקטה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדברים השלישי והרביעי בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 בלי משחק רועש\n4 בלי מסך שעה לפני",
+              "body": "משחק פעיל מעורר את עדי\nומסכים כבים שעה לפני",
+              "examples": [
+                "בלי משחק רועש",
+                "בלי מסך שעה לפני"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר החמישי בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 אותה שעה בכל ערב",
+              "body": "גם בסופי שבוע\nככה השעה נהיית שגרה",
+              "examples": [
+                "אותה שעה בכל ערב"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השישי בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 חדר שקט ונעים",
+              "body": "חשוך נעים ושקט\nעם אור קטן אם צריך",
+              "examples": [
+                "חדר שקט ונעים"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השביעי בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 תנועה במשך היום",
+              "body": "ילדים ישנים טוב יותר\nכשיש להם הרבה תנועה ביום",
+              "examples": [
+                "תנועה במשך היום"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 זמן שקט בלי תנומה",
+              "body": "אם עדי כבר לא ישנה בצהריים\nנותנים לה שעה שקטה ביום",
+              "examples": [
+                "זמן שקט בלי תנומה"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "תתחילו את הערב לפני\nולא ב״עוד כוס מים״",
+              "body": "מודיעים · שקט · אותה שעה\nבלי מסך ועם תנועה ביום",
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו קטן בשקופית האחרונה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "8 דברים קטנים שמתחילים שעה לפני שמכבים אור\nמודיעים שעוד מעט ישנים ועוברים לסיפור שיר או אמבטיה\nבלי משחק רועש ובלי מסך שעה לפני\nאותה שעה בכל ערב וחדר שקט ונעים\nתנועה במשך היום וזמן שקט אם אין תנומה\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (adapted from Sleeping Well: Tips for Parents of Babies and Young Children, © 2022 AAP)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-16",
+              "quote": "to help your child understand that it will soon be time to go to sleep. Use this time to read them a story, put on quiet music, or give them a bath. It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Make bedtime the same time every night. This helps your child know what to expect and helps them establish healthy sleep patterns. ... Let your child take a favorite thing to bed each night. ... Take care of child’s needs before bedtime so they don’t use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Do not let your child sleep in the same bed with you. This can make it harder for them to fall asleep when they are alone. ... If they are safe and well, there is no need to go into their room while they sort out how to get themselves back to sleep. ... Keep in mind that children's main goal is to get you to appear. So if you appear for any reason, even just for \"checking,\" they will expect you to come each time they call out.",
+              "supports": "Wind-down before bed (a story, quiet music, a bath; no active play), the same bedtime every night, a favourite object, meeting needs such as water, a light or an open door before bedtime, not sharing the parents' bed, not going back in when the child is safe and well, and that appearing for any reason (even checking) teaches the child to expect it. The page is about toddlers; we apply it to preschoolers. Fragments read through a page fetch, joined with ' ... '."
+            },
+            {
+              "id": "src-kh",
+              "title": "Sleep and Your Preschooler",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD; date reviewed June 2020)",
+              "url": "https://kidshealth.org/en/parents/sleep-preschool.html",
+              "accessed": "2026-10-16",
+              "quote": "Preschoolers need about 10 to 13 hours of sleep each day, including naps. Set regular bedtimes, wake-up times, and nap times for your child. If your child no longer takes naps, schedule some quiet time during the day. ... Having a regular bedtime routine and a quiet, comfortable bedroom can help your child sleep well. A relaxing routine may include going to the bathroom, changing into pajamas, brushing teeth, and reading a book. Turn off all screens at least 1 hour before bedtime ... Let your child choose a special toy or blanket to sleep with. Turn on a nightlight if your child is afraid of the dark. Do not lie with your child until they fall asleep ... Make sure your child gets plenty of exercise during the day. ... It’s common for kids this age to not want to go to bed ... If your child is afraid or gets very upset, go in and offer comfort. After comforting and returning your child to bed, say that it's time to go to sleep. Keep your visit short. If your child cries when you leave, wait a few minutes before going back in the room. If your child gets out of bed, calmly take them back to bed.",
+              "supports": "10 to 13 hours of sleep, regular times, quiet time without a nap, a routine of bathroom, pajamas, teeth and a book, a quiet comfortable room, screens off an hour before, a special toy or blanket, a nightlight for fear of the dark, daytime exercise, that it is common not to want to go to bed, and the steps for calls and getting out of bed (wait a few minutes, comfort if afraid, short visit, say it is time to sleep, calmly take back to bed). Fragments read through a page fetch, joined with ' ... '."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "8 דברים קטנים לפני שמכבים אור לגילאי 3 עד 6",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP (toddlers) and KidsHealth (preschoolers, who need about 10 to 13 hours of sleep with naps) give the practices the eight items rest on."
+            },
+            {
+              "slide": 2,
+              "wording_he": "שמונה דברים שמתחילים שעה לפני האור",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: use the time before bed to read a story, put on quiet music or give a bath; KidsHealth: turn off all screens at least 1 hour before bedtime."
+            },
+            {
+              "slide": 3,
+              "wording_he": "מודיעים שעוד מעט ישנים ועוברים לפעילות שקטה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: 'to help your child understand that it will soon be time to go to sleep. Use this time to read them a story, put on quiet music, or give them a bath.'"
+            },
+            {
+              "slide": 4,
+              "wording_he": "בלי משחק רועש ובלי מסך שעה לפני",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: active play may make your child too excited to sleep; KidsHealth: turn off all screens at least 1 hour before bedtime."
+            },
+            {
+              "slide": 5,
+              "wording_he": "אותה שעה בכל ערב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: make bedtime the same time every night; KidsHealth: set regular bedtimes, wake-up times and nap times. The line about weekends is our reading of 'the same time every night'."
+            },
+            {
+              "slide": 6,
+              "wording_he": "חדר שקט ונעים עם אור קטן אם צריך",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: a regular bedtime routine and a quiet, comfortable bedroom can help your child sleep well; turn on a nightlight if your child is afraid of the dark."
+            },
+            {
+              "slide": 7,
+              "wording_he": "תנועה במשך היום",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: make sure your child gets plenty of exercise during the day; this can help kids sleep better. We say that children sleep better with it, as the page does, with no promise."
+            },
+            {
+              "slide": 8,
+              "wording_he": "זמן שקט בלי תנומה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: if your child no longer takes naps, schedule some quiet time during the day."
+            },
+            {
+              "slide": 9,
+              "wording_he": "מודיעים שקט אותה שעה בלי מסך ועם תנועה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "A recap of the items above, each with its source."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "HealthyChildren.org (AAP): a wind-down before bed can include reading the child a story. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "מספר וטווח גילאים על הכריכה (8 דברים לגילאי 3 עד 6) והבטחה לפעולה לפני האור. הדברים אחד אחרי השני בשקופיות 3 עד 8, והסיפור האישי בסוף משלים את השעה השקטה.",
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-3",
+          "title": "תפסיקו להיכנס כל פעם שהוא קורא",
+          "angle": "ההורים נכנסים לבדוק וכל כניסה מלמדת אותו לקרוא שוב. שמונה דברים שעובדים: מתי לא נכנסים, מתי כן, ואיך מתרחקים בהדרגה.",
+          "target_parent": "הורים לבן 4 עד 6 שקורא להם מהמיטה שוב ושוב והם נכנסים בכל פעם.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "stop-one-thing",
+            "gap": "If not going in every time, what works better?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e3",
+            "mechanism": "reframe",
+            "slide2_move": "contrast"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "גיא",
+          "examples_target": 8,
+          "character_anchor": {
+            "child": "A 5-year-old Israeli boy with short light-brown hair that sticks up at the back, fair skin, grey-green eyes and a small scar on his chin; about 108 cm tall.",
+            "parent": "His mother, early thirties, tanned skin, long dark wavy hair, kind green eyes, and his father, mid-thirties, short brown hair and glasses; both warm and a little tired in a real way.",
+            "wardrobe": "Boy: striped navy and white pyjamas. Mother: burgundy sweater and jeans. Father: grey T-shirt and dark sweatpants."
+          },
+          "image": {
+            "beat": "a jaw-dropped call from the bed",
+            "action": "The boy sits up in bed with the quilt in his lap, faces the viewer and looks straight into the camera with a jaw-dropped stare and raised eyebrows, one hand raised as if calling; his parents are small and soft in the hallway beyond the open door, turned toward each other.",
+            "setting": "A child's bedroom in an Israeli flat at night: a bed with a plain blue quilt, a night lamp on a shelf, the door open to a warm hallway.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Dim warm glow from a night lamp and the hallway light.",
+            "wardrobe_objects": "A small stuffed rabbit beside the boy on the pillow.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale lilac bedroom wall"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "תפסיקו להיכנס\nכשהוא קורא\n8 דברים שעובדים",
+              "body": "",
+              "pull": {
+                "type": "numbered",
+                "note": "שמונת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "לא נכנסים כל פעם\nאבל כן כשהוא מפחד",
+              "body": "לפי האקדמיה האמריקאית כל הופעה\nמלמדת אותו לצפות לעוד אחת",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה עושים במקום? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 גיא בסדר ובטוח\n2 אין צורך להיכנס",
+              "body": "אם הוא בטוח ובריא הוא לומד\nלהירדם לבד בלי לבדוק",
+              "examples": [
+                "גיא בסדר ובטוח",
+                "אין צורך להיכנס"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדברים השלישי והרביעי בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 חכו כמה דקות\n4 אם הוא מפחד תכנסו",
+              "body": "בוכה בלילה? מחכים כמה דקות\nמפחד מאוד? נכנסים ומרגיעים",
+              "examples": [
+                "חכו כמה דקות",
+                "אם הוא מפחד תכנסו"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר החמישי בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 ביקור קצר ושקט",
+              "body": "אומרים ״גיא הגיע הזמן לישון״\nויוצאים",
+              "examples": [
+                "ביקור קצר ושקט"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השישי בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 מחזירים אותו בשקט",
+              "body": "אם הוא יוצא מהמיטה\nלוקחים אותו בחזרה בלי ויכוח",
+              "examples": [
+                "מחזירים אותו בשקט"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר השביעי בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 לא ישנים במיטה שלכם",
+              "body": "מיטה משותפת מקשה עליו\nלהירדם כשהוא לבד",
+              "examples": [
+                "לא ישנים במיטה שלכם"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 מתרחקים קצת בכל לילה",
+              "body": "מתחילים ליד המיטה\nואז כיסא ואז הדלת",
+              "examples": [
+                "מתרחקים קצת בכל לילה"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "מחכים רגע מרגיעים\nבקצרה וחוזרים",
+              "body": "בטוח ובסדר · מחכים · ביקור קצר\nמיטה אחת שלו ומתרחקים בהדרגה",
+              "pull": {
+                "type": "next_step",
+                "note": "ועוד משהו קטן בשקופית האחרונה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "תפסיקו להיכנס כל פעם שגיא קורא ו-8 דברים שעובדים\nאם הוא בטוח ובריא אין צורך להיכנס\nמחכים כמה דקות ואם הוא מפחד נכנסים ומרגיעים\nביקור קצר ומחזירים אותו בשקט למיטה שלו\nלא ישנים במיטה משותפת ומתרחקים קצת בכל לילה\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "Toddler Won't Go to Sleep? 7 Tips to Help End Bedtime Battles",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (adapted from Sleeping Well: Tips for Parents of Babies and Young Children, © 2022 AAP)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx",
+              "accessed": "2026-10-16",
+              "quote": "to help your child understand that it will soon be time to go to sleep. Use this time to read them a story, put on quiet music, or give them a bath. It may be tempting to play with your child before bed. However, active play may make your child too excited to sleep. ... Make bedtime the same time every night. This helps your child know what to expect and helps them establish healthy sleep patterns. ... Let your child take a favorite thing to bed each night. ... Take care of child’s needs before bedtime so they don’t use them as reasons to avoid going to sleep. They may want a drink of water, a light left on, or the door left slightly open. ... Do not let your child sleep in the same bed with you. This can make it harder for them to fall asleep when they are alone. ... If they are safe and well, there is no need to go into their room while they sort out how to get themselves back to sleep. ... Keep in mind that children's main goal is to get you to appear. So if you appear for any reason, even just for \"checking,\" they will expect you to come each time they call out.",
+              "supports": "Wind-down before bed (a story, quiet music, a bath; no active play), the same bedtime every night, a favourite object, meeting needs such as water, a light or an open door before bedtime, not sharing the parents' bed, not going back in when the child is safe and well, and that appearing for any reason (even checking) teaches the child to expect it. The page is about toddlers; we apply it to preschoolers. Fragments read through a page fetch, joined with ' ... '."
+            },
+            {
+              "id": "src-kh",
+              "title": "Sleep and Your Preschooler",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD; date reviewed June 2020)",
+              "url": "https://kidshealth.org/en/parents/sleep-preschool.html",
+              "accessed": "2026-10-16",
+              "quote": "Preschoolers need about 10 to 13 hours of sleep each day, including naps. Set regular bedtimes, wake-up times, and nap times for your child. If your child no longer takes naps, schedule some quiet time during the day. ... Having a regular bedtime routine and a quiet, comfortable bedroom can help your child sleep well. A relaxing routine may include going to the bathroom, changing into pajamas, brushing teeth, and reading a book. Turn off all screens at least 1 hour before bedtime ... Let your child choose a special toy or blanket to sleep with. Turn on a nightlight if your child is afraid of the dark. Do not lie with your child until they fall asleep ... Make sure your child gets plenty of exercise during the day. ... It’s common for kids this age to not want to go to bed ... If your child is afraid or gets very upset, go in and offer comfort. After comforting and returning your child to bed, say that it's time to go to sleep. Keep your visit short. If your child cries when you leave, wait a few minutes before going back in the room. If your child gets out of bed, calmly take them back to bed.",
+              "supports": "10 to 13 hours of sleep, regular times, quiet time without a nap, a routine of bathroom, pajamas, teeth and a book, a quiet comfortable room, screens off an hour before, a special toy or blanket, a nightlight for fear of the dark, daytime exercise, that it is common not to want to go to bed, and the steps for calls and getting out of bed (wait a few minutes, comfort if afraid, short visit, say it is time to sleep, calmly take back to bed). Fragments read through a page fetch, joined with ' ... '."
+            },
+            {
+              "id": "src-cmi",
+              "title": "How to Help Kids Who Have Trouble Sleeping",
+              "publisher": "Child Mind Institute (Beth Arky; clinical experts Anna Loiterstein, PsyD, and Wendy Nash, MD; last reviewed 25 Feb 2026)",
+              "url": "https://childmind.org/article/how-to-help-kids-sleep/",
+              "accessed": "2026-10-16",
+              "quote": "A posted sleep schedule with a consistent, predictable routine will help everyone ... earning them rewards for doing brave steps like staying in their room after their parents leave ... the best thing when that happens is to bring them back to their own bed as soon as possible.",
+              "supports": "A posted schedule with a consistent routine, rewards for brave steps such as staying in the room after the parents leave, and bringing a child who comes out back to their own bed as soon as possible. Read through a page fetch (the site blocks plain curl); the page quotes Dr. Loiterstein; fragments joined with ' ... '."
+            },
+            {
+              "id": "src-cmi2",
+              "title": "Our 6-year-old son falls asleep with relative ease but has a difficult time staying in bed. What can we do?",
+              "publisher": "Child Mind Institute, Ask an Expert (Steven G. Dickstein, MD; last reviewed 31 Oct 2023)",
+              "url": "https://childmind.org/article/our-6-year-old-son-falls-asleep-with-relative-ease-but-has-a-difficult-time-staying-in-bed-what-can-we-do/",
+              "accessed": "2026-10-16",
+              "quote": "you can teach a child to fall asleep by himself by withdrawing gradually at bedtime ... move a little farther away each night until you are no longer needed within eyesight.",
+              "supports": "Gradual withdrawal at bedtime: move a little farther away each night until the parent is no longer needed within eyesight. The page answers a question about a 6-year-old; we apply it to preschoolers as an analogy. Read through a page fetch; fragments joined with ' ... '."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "תפסיקו להיכנס כל פעם שהוא קורא ו-8 דברים שעובדים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh",
+                "src-cmi",
+                "src-cmi2"
+              ],
+              "supports": "AAP: no need to go into the room if the child is safe and well; KidsHealth, Child Mind Institute: the steps for calls and getting out of bed. The slide says to go in when he is afraid."
+            },
+            {
+              "slide": 2,
+              "wording_he": "כל הופעה מלמדת אותו לצפות לעוד אחת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: 'if you appear for any reason, even just for \"checking,\" they will expect you to come each time they call out.' KidsHealth: if the child is afraid, go in and offer comfort (the page's own exception)."
+            },
+            {
+              "slide": 3,
+              "wording_he": "אם הוא בטוח ובריא אין צורך להיכנס",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: 'If they are safe and well, there is no need to go into their room while they sort out how to get themselves back to sleep.'"
+            },
+            {
+              "slide": 4,
+              "wording_he": "מחכים כמה דקות ואם הוא מפחד נכנסים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: if your child cries when you leave, wait a few minutes before going back; if your child is afraid or gets very upset, go in and offer comfort."
+            },
+            {
+              "slide": 5,
+              "wording_he": "ביקור קצר ושקט",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: after comforting and returning your child to bed, say that it's time to go to sleep. Keep your visit short."
+            },
+            {
+              "slide": 6,
+              "wording_he": "מחזירים אותו בשקט למיטה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-cmi"
+              ],
+              "supports": "KidsHealth: if your child gets out of bed, calmly take them back to bed; Child Mind Institute: bring them back to their own bed as soon as possible."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לא ישנים במיטה שלכם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: do not let your child sleep in the same bed with you, this can make it harder to fall asleep alone; KidsHealth: do not lie with your child until they fall asleep."
+            },
+            {
+              "slide": 8,
+              "wording_he": "מתרחקים קצת בכל לילה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi2"
+              ],
+              "supports": "Child Mind Institute (Dr. Dickstein): withdraw gradually at bedtime, moving a little farther away each night until you are no longer needed within eyesight (answer about a 6-year-old, applied as an analogy). The three stops on the slide are the page's own example of bed, chair and doorway."
+            },
+            {
+              "slide": 9,
+              "wording_he": "מחכים ביקור קצר מיטה אחת ומתרחקים בהדרגה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-cmi2"
+              ],
+              "supports": "A recap of the items above, each with its source."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "HealthyChildren.org (AAP): a wind-down before bed can include reading the child a story. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיח בפקודה על פעולה אחת (תפסיקו להיכנס) שמיד מקבלת חריג כנה (אבל כן כשהוא מפחד). שמונה הדברים נותנים מדרג ברור, והסיפור האישי בסוף הוא עוד כלי לערב.",
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        }
+      ]
+    }
+  ]
+}
