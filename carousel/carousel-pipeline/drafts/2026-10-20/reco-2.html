@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>משחקים וספרים 2 · 2026-10-20</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap">
+<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>
+<style>
+/* LumeBook design system · shared/design/lumebook.css
+   One stylesheet for every internal LumeBook page (HQ dashboard, plan, creator map, research pages, carousel review).
+   Builds inline this file; edit it here, then run `python3 tools/lumebook.py ripple` to rebuild every page that uses it.
+   Not used by the public ambassadors site.
+   Concept: Apple-style grouped surfaces on a warm cream ground, LumeBook ink for text, violet for anything you can
+   click, gold for brand emphasis. Hebrew first (RTL, logical properties), English pages work the same way.
+   Fonts (link in <head>): https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap
+   Theme: light only (Yarin, 14 Oct 2026: the whole project is light mode only). There are no dark tokens and no theme toggle. */
+
+:root {
+  /* brand */
+  --lb-ink: #1D1039;
+  --lb-ink-deep: #0B0518;
+  --lb-gold: #E6B762;
+  --lb-gold-deep: #C9954A;
+  --lb-violet: #5B2BD6;
+  --lb-cream: #F8F0E1;
+
+  /* surfaces */
+  --bg: #FBF7F0;                 /* page ground, cream tinted */
+  --surface: #FFFFFF;            /* cards, grouped rows, tables */
+  --surface-2: #F5EFE4;          /* inset areas inside a card, sidebar */
+  --surface-sunk: #F1E9DB;       /* wells, code, track of bars */
+  --bar: rgba(251, 247, 240, .82); /* translucent sticky bars */
+  --overlay: rgba(11, 5, 24, .42);
+
+  /* text (ink at three strengths; all pass 4.5:1 on --bg and --surface) */
+  --text: #1D1039;
+  --text-2: #554C6B;
+  --text-3: #655C7A;
+  --text-on-tint: #FFFFFF;
+
+  /* fills and lines (ink at low alpha) */
+  --fill: rgba(29, 16, 57, .05);
+  --fill-2: rgba(29, 16, 57, .08);
+  --fill-3: rgba(29, 16, 57, .13);
+  --line: rgba(29, 16, 57, .12);
+  --line-strong: rgba(29, 16, 57, .22);
+
+  /* interactive: violet */
+  --tint: #5B2BD6;
+  --tint-hover: #4A1FBF;
+  --tint-soft: rgba(91, 43, 214, .09);
+  --focus: rgba(124, 77, 255, .5);
+
+  /* brand emphasis: gold */
+  --accent: #C9954A;
+  --accent-soft: #FBEBC9;
+  --accent-ink: #8A5A14;
+
+  /* semantic */
+  --success: #18703F; --success-soft: rgba(35, 149, 90, .12);
+  --warning: #A3520A; --warning-soft: rgba(232, 140, 40, .16);
+  --danger: #C2303A;  --danger-soft: rgba(217, 58, 58, .10);
+  --info: #3653B0;    --info-soft: rgba(74, 104, 194, .11);
+
+  /* carousel pillars */
+  --kid: #6D3FC9;  --kid-soft: rgba(109, 63, 201, .11);
+  --expert: #8A5A14; --expert-soft: rgba(201, 149, 74, .16);
+
+  /* data series (sequential, light to dark) */
+  --seq-1: #E9E2F1; --seq-2: #D2C4DF; --seq-3: #D2B596; --seq-4: #C9954A; --seq-5: #A87425; --seq-6: #76500F;
+
+  /* type */
+  --font: "Heebo", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Varela Round", "Heebo", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --fs-display: clamp(1.9rem, 4.2vw, 2.6rem);
+  --fs-title: 1.5rem;
+  --fs-headline: 1.125rem;
+  --fs-body: 1rem;
+  --fs-callout: .9375rem;
+  --fs-footnote: .8125rem;
+  --fs-caption: .75rem;
+  --fs-num: 1.875rem;
+
+  /* space (4pt base) */
+  --sp-1: .25rem; --sp-2: .5rem; --sp-3: .75rem; --sp-4: 1rem; --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 3rem;
+
+  /* radius */
+  --r-xs: .375rem; --r-sm: .5rem; --r-md: .75rem; --r-lg: 1.125rem; --r-pill: 999px;
+
+  /* elevation */
+  --shadow-1: 0 1px 2px rgba(29, 16, 57, .06);
+  --shadow-2: 0 8px 28px -12px rgba(29, 16, 57, .22);
+  --shadow-3: 0 24px 60px -20px rgba(29, 16, 57, .35);
+
+  --sidebar-w: 15.5rem;
+  --content-w: 76rem;
+  color-scheme: light;
+}
+
+
+/* ---------- base ---------- */
+[hidden] { display: none !important; } /* hidden always wins over component display rules */
+[id] { scroll-margin-top: 4.5rem; } /* anchor jumps land below the sticky top bar */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: var(--fs-body); line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { margin: 0; color: var(--text); text-wrap: balance; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-display); line-height: 1.12; letter-spacing: -.01em; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-title); line-height: 1.2; }
+h3 { font-size: var(--fs-headline); font-weight: 700; line-height: 1.3; }
+h4 { font-size: var(--fs-callout); font-weight: 700; line-height: 1.35; }
+p { margin: 0; }
+a { color: var(--tint); text-decoration: none; }
+a:hover { color: var(--tint-hover); text-decoration: underline; text-underline-offset: 3px; }
+code, kbd, samp { font-family: var(--font-mono); font-size: .875em; background: var(--fill); padding: .05em .35em; border-radius: var(--r-xs); }
+pre { font-family: var(--font-mono); font-size: var(--fs-footnote); background: var(--surface-sunk); border-radius: var(--r-md); padding: var(--sp-4); overflow-x: auto; }
+hr { border: 0; border-top: 1px solid var(--line); margin: var(--sp-5) 0; }
+img, svg, video { max-width: 100%; }
+::selection { background: var(--tint-soft); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: var(--r-xs); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* ---------- text utilities ---------- */
+.lb-eyebrow { font-size: var(--fs-footnote); font-weight: 600; color: var(--accent-ink); letter-spacing: .02em; }
+.lb-lede { font-size: 1.125rem; line-height: 1.5; color: var(--text-2); max-width: 42rem; }
+.lb-muted { color: var(--text-2); }
+.lb-dim { color: var(--text-3); }
+.lb-small { font-size: var(--fs-callout); }
+.lb-xs { font-size: var(--fs-footnote); }
+.lb-num { font-variant-numeric: tabular-nums; }
+.lb-ltr { direction: ltr; unicode-bidi: isolate; }
+.lb-prose { max-width: 42rem; display: grid; gap: var(--sp-3); }
+.lb-prose ul, .lb-prose ol { margin: 0; padding-inline-start: 1.25rem; display: grid; gap: var(--sp-1); }
+.lb-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.lb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- layout ---------- */
+.lb-app { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: 100vh; }
+.lb-main { min-width: 0; display: flex; flex-direction: column; }
+.lb-page { width: 100%; max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); padding-block: var(--sp-5) var(--sp-7); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); align-content: start; }
+.lb-section { display: grid; gap: var(--sp-4); min-width: 0; }
+.lb-section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-2) var(--sp-4); }
+.lb-section-head .lb-meta { font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-grid { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min, 15rem)), 1fr)); }
+.lb-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.lb-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.lb-grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.lb-stack { display: grid; gap: var(--sp-3); align-content: start; min-width: 0; }
+.lb-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); min-width: 0; }
+.lb-row.between { justify-content: space-between; }
+.lb-spacer { flex: 1; }
+@media (max-width: 1000px) { .lb-grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lb-grid.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .lb-grid.cols-2, .lb-grid.cols-3, .lb-grid.cols-4 { grid-template-columns: minmax(0, 1fr); } .lb-page { padding-inline: var(--sp-4); } }
+
+/* ---------- sidebar navigation ---------- */
+.lb-sidebar {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2);
+  border-inline-end: 1px solid var(--line); padding: var(--sp-4) var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-4);
+}
+.lb-brand { display: flex; align-items: center; gap: var(--sp-2); padding-inline: var(--sp-2); color: var(--text); text-decoration: none; }
+.lb-brand:hover { text-decoration: none; color: var(--text); }
+.lb-brand img { height: 2rem; width: auto; }
+.lb-brand b { font-family: var(--font-display); font-weight: 400; font-size: 1.125rem; }
+.lb-brand small { display: block; font-size: var(--fs-caption); color: var(--text-3); }
+.lb-nav { display: grid; gap: 2px; }
+.lb-nav-label { font-size: var(--fs-caption); font-weight: 600; color: var(--text-3); padding: var(--sp-3) var(--sp-3) var(--sp-1); letter-spacing: .03em; }
+.lb-nav-item {
+  display: flex; align-items: center; gap: var(--sp-2); padding: .5rem var(--sp-3); border-radius: var(--r-sm);
+  color: var(--text); font-size: var(--fs-callout); font-weight: 500; text-decoration: none; cursor: pointer;
+  background: none; border: 0; font-family: inherit; text-align: start; width: 100%;
+}
+.lb-nav-item:hover { background: var(--fill); text-decoration: none; color: var(--text); }
+.lb-nav-item[aria-current="page"], .lb-nav-item.is-active { background: var(--surface); color: var(--tint); box-shadow: var(--shadow-1); }
+.lb-nav-item svg { width: 1.125rem; height: 1.125rem; flex: none; opacity: .8; }
+.lb-nav-item .lb-count { margin-inline-start: auto; }
+.lb-sidebar-foot { margin-top: auto; display: grid; gap: var(--sp-2); padding-inline: var(--sp-2); font-size: var(--fs-caption); color: var(--text-3); }
+
+/* sticky top bar (also the mobile header) */
+.lb-topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bar);
+  -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+.lb-topbar-in { max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); min-height: 3.5rem; display: flex; align-items: center; gap: var(--sp-3); }
+.lb-topbar h1 { font-size: 1.25rem; }
+.lb-menu-btn, .lb-btn.lb-menu-btn { display: none; }
+@media (max-width: 860px) {
+  .lb-app { grid-template-columns: minmax(0, 1fr); }
+  .lb-sidebar { position: fixed; inset-block: 0; inset-inline-start: 0; width: min(85vw, 18rem); z-index: 40; transform: translateX(100%); visibility: hidden; transition: transform .2s ease, visibility 0s linear .2s; }
+  [dir="ltr"] .lb-sidebar { transform: translateX(-100%); }
+  .lb-sidebar.is-open { transform: none; visibility: visible; box-shadow: var(--shadow-3); transition: transform .2s ease; }
+  .lb-menu-btn, .lb-btn.lb-menu-btn { display: inline-flex; }
+  .lb-topbar-in { padding-inline: var(--sp-4); }
+}
+.lb-scrim { position: fixed; inset: 0; background: var(--overlay); z-index: 35; }
+
+/* horizontal section nav (pages without a sidebar) */
+.lb-toc { display: flex; gap: var(--sp-1); overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.lb-toc::-webkit-scrollbar { display: none; }
+.lb-toc a { flex: none; padding: .35rem .75rem; border-radius: var(--r-pill); color: var(--text-2); font-size: var(--fs-callout); font-weight: 500; }
+.lb-toc a:hover { background: var(--fill); color: var(--text); text-decoration: none; }
+.lb-toc a[aria-current="true"], .lb-toc a[aria-current="page"], .lb-toc a.is-active { background: var(--tint-soft); color: var(--tint); }
+
+/* ---------- surfaces ---------- */
+.lb-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--sp-4) var(--sp-5); min-width: 0; display: grid; gap: var(--sp-3); align-content: start; }
+.lb-card.is-flush { padding: 0; overflow: hidden; }
+.lb-card.is-quiet { background: var(--surface-2); border-color: transparent; }
+.lb-card.is-raised { box-shadow: var(--shadow-2); }
+.lb-card.is-accent { border-color: var(--accent); box-shadow: 0 14px 40px -26px var(--accent); }
+a.lb-card { color: inherit; text-decoration: none; transition: border-color .15s, box-shadow .15s; }
+a.lb-card:hover { border-color: var(--tint); box-shadow: var(--shadow-2); text-decoration: none; color: inherit; }
+.lb-card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.lb-card-title { font-size: var(--fs-callout); font-weight: 600; color: var(--text-2); }
+
+/* Apple inset grouped list */
+.lb-group { background: var(--surface); border-radius: var(--r-md); border: 1px solid var(--line); overflow: hidden; }
+.lb-group > * + * { border-top: 1px solid var(--line); }
+.lb-group-row { display: flex; align-items: center; gap: var(--sp-3); padding: .75rem var(--sp-4); min-height: 3rem; color: inherit; }
+a.lb-group-row:hover { background: var(--fill); text-decoration: none; color: inherit; }
+.lb-group-row .lb-meta { margin-inline-start: auto; color: var(--text-3); font-size: var(--fs-footnote); }
+
+/* ---------- data display ---------- */
+.lb-stat { display: grid; gap: var(--sp-1); align-content: start; min-width: 0; }
+.lb-stat > * { min-width: 0; max-width: 100%; } /* long content wraps instead of widening the card */
+.lb-stat-label { font-size: var(--fs-footnote); color: var(--text-3); font-weight: 500; }
+.lb-stat-value { font-size: var(--fs-num); line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.lb-stat-value small { font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); margin-inline-start: var(--sp-2); }
+.lb-stat-foot { font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-delta { font-size: var(--fs-footnote); font-weight: 600; font-variant-numeric: tabular-nums; }
+.lb-delta.up { color: var(--success); } .lb-delta.down { color: var(--danger); }
+
+.lb-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.lb-table { width: 100%; border-collapse: collapse; font-size: var(--fs-callout); }
+.lb-table th, .lb-table td { text-align: start; padding: .6rem var(--sp-3); border-bottom: 1px solid var(--line); vertical-align: middle; }
+.lb-table th { font-weight: 500; font-size: var(--fs-footnote); color: var(--text-3); background: var(--surface-2); white-space: nowrap; position: sticky; top: 0; }
+.lb-table tr:last-child td { border-bottom: 0; }
+.lb-table tbody tr:hover td { background: var(--fill); }
+.lb-table td.num, .lb-table th.num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lb-table th[aria-sort] { cursor: pointer; }
+
+.lb-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.lb-list > li { display: grid; gap: 2px; min-width: 0; }
+.lb-list .lb-meta { font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--sp-2) var(--sp-4); font-size: var(--fs-callout); }
+.lb-kv dt { color: var(--text-3); } .lb-kv dd { margin: 0; }
+
+.lb-bar { height: .4rem; border-radius: var(--r-pill); background: var(--fill-2); overflow: hidden; }
+.lb-bar > i { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
+.lb-bar.is-tint > i { background: var(--tint); }
+.lb-hbars { display: grid; gap: var(--sp-2); }
+.lb-hbar { display: grid; grid-template-columns: minmax(5rem, 38%) minmax(0, 1fr) 2.5rem; gap: var(--sp-3); align-items: center; font-size: var(--fs-callout); }
+.lb-hbar .track { height: .625rem; background: var(--fill-2); border-radius: var(--r-xs); }
+.lb-hbar .track > i { display: block; height: 100%; background: var(--seq-4); border-radius: inherit; }
+.lb-hbar:hover .track > i { background: var(--accent-ink); }
+.lb-hbar .v { font-size: var(--fs-footnote); color: var(--text-2); font-variant-numeric: tabular-nums; text-align: end; }
+svg.lb-spark { width: 100%; height: 2.75rem; display: block; overflow: visible; }
+svg.lb-spark .grid { stroke: var(--line); }
+svg.lb-spark .area { fill: var(--accent-soft); }
+svg.lb-spark .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+svg.lb-spark .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+
+/* stacked status bar (pipeline stages) */
+.lb-stages { display: flex; height: .875rem; gap: 2px; border-radius: var(--r-xs); overflow: hidden; background: var(--fill); }
+.lb-stages > i { display: block; height: 100%; }
+.lb-legend { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-4); font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-legend > span { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.lb-legend b { width: .625rem; height: .625rem; border-radius: 3px; display: inline-block; }
+
+/* ---------- status ---------- */
+.lb-chip {
+  display: inline-flex; align-items: center; gap: .375rem; padding: .15rem .6rem; border-radius: var(--r-pill);
+  font-size: var(--fs-footnote); font-weight: 500; line-height: 1.5; white-space: nowrap;
+  background: var(--fill); color: var(--text-2);
+}
+.lb-chip.tint { background: var(--tint-soft); color: var(--tint); }
+.lb-chip.accent { background: var(--accent-soft); color: var(--accent-ink); }
+.lb-chip.success { background: var(--success-soft); color: var(--success); }
+.lb-chip.warning { background: var(--warning-soft); color: var(--warning); }
+.lb-chip.danger { background: var(--danger-soft); color: var(--danger); }
+.lb-chip.info { background: var(--info-soft); color: var(--info); }
+.lb-chip.kid { background: var(--kid-soft); color: var(--kid); }
+.lb-chip.expert { background: var(--expert-soft); color: var(--expert); }
+.lb-chip.outline { background: transparent; box-shadow: inset 0 0 0 1px var(--line-strong); }
+.lb-chip.wrap { white-space: normal; line-height: 1.35; padding-block: .3rem; border-radius: var(--r-sm); justify-self: start; } /* a sentence-length status */
+.lb-dot { width: .45rem; height: .45rem; border-radius: 50%; background: currentColor; flex: none; }
+.lb-dot.live { animation: lb-pulse 2.4s infinite; }
+@keyframes lb-pulse { 0% { box-shadow: 0 0 0 0 var(--success-soft); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.lb-count { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; padding-inline: .4rem; border-radius: var(--r-pill); background: var(--fill-2); color: var(--text-2); font-size: var(--fs-caption); font-weight: 600; font-variant-numeric: tabular-nums; }
+.lb-count.is-alert { background: var(--danger); color: var(--text-on-tint); }
+.lb-count.is-tint { background: var(--tint); color: var(--text-on-tint); }
+
+/* alert row: severity as a tinted pill + tinted ground */
+.lb-alerts { display: grid; gap: var(--sp-2); }
+.lb-alert { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; padding: .6rem var(--sp-3); border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-size: var(--fs-callout); }
+.lb-alert.crit { background: var(--danger-soft); border-color: transparent; }
+.lb-alert.warn { background: var(--warning-soft); border-color: transparent; }
+.lb-alert .lb-alert-text { min-width: 0; }
+.lb-alert a { font-size: var(--fs-footnote); white-space: nowrap; }
+
+/* ---------- controls ---------- */
+.lb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: 2.25rem; padding: 0 var(--sp-4); border-radius: var(--r-pill); border: 1px solid transparent;
+  font: inherit; font-size: var(--fs-callout); font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap;
+  background: var(--tint); color: var(--text-on-tint); transition: background .15s, border-color .15s;
+}
+.lb-btn:hover { background: var(--tint-hover); color: var(--text-on-tint); text-decoration: none; }
+.lb-btn.secondary { background: var(--surface); color: var(--text); border-color: var(--line-strong); }
+.lb-btn.secondary:hover { border-color: var(--tint); color: var(--tint); background: var(--surface); }
+.lb-btn.ghost { background: transparent; color: var(--tint); }
+.lb-btn.ghost:hover { background: var(--tint-soft); }
+.lb-btn.danger { background: var(--danger); }
+.lb-btn.sm { min-height: 1.875rem; padding: 0 var(--sp-3); font-size: var(--fs-footnote); }
+.lb-btn.icon { width: 2.25rem; padding: 0; }
+.lb-btn:disabled, .lb-btn[aria-disabled="true"] { opacity: .45; cursor: default; }
+.lb-btn svg { width: 1.1em; height: 1.1em; }
+@media (max-width: 560px) { [data-lb-theme-toggle] .lb-theme-label { display: none; } }
+
+.lb-segmented { display: inline-flex; padding: 2px; border-radius: var(--r-sm); background: var(--fill-2); gap: 2px; }
+.lb-segmented button { border: 0; background: transparent; font: inherit; font-size: var(--fs-footnote); font-weight: 500; color: var(--text-2); padding: .3rem .8rem; border-radius: calc(var(--r-sm) - 2px); cursor: pointer; }
+.lb-segmented button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
+
+.lb-input, .lb-select, .lb-textarea {
+  font: inherit; font-size: var(--fs-callout); color: var(--text); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: .45rem .7rem; min-height: 2.25rem; max-width: 100%;
+}
+.lb-textarea { min-height: 5rem; resize: vertical; width: 100%; line-height: 1.5; }
+.lb-input:focus, .lb-select:focus, .lb-textarea:focus { outline: none; border-color: var(--tint); box-shadow: 0 0 0 3px var(--tint-soft); }
+.lb-search { position: relative; display: flex; align-items: center; min-width: 0; }
+.lb-search .lb-input { width: 100%; padding-inline-start: 2.1rem; border-radius: var(--r-pill); background: var(--fill); border-color: transparent; }
+.lb-search svg { position: absolute; inset-inline-start: .7rem; width: 1rem; height: 1rem; color: var(--text-3); pointer-events: none; }
+.lb-field { display: grid; gap: var(--sp-1); font-size: var(--fs-footnote); color: var(--text-2); }
+
+.lb-check { display: flex; gap: .6rem; align-items: flex-start; font-size: var(--fs-callout); cursor: pointer; padding: 2px 0; }
+.lb-check input { appearance: none; flex: none; width: 1.125rem; height: 1.125rem; margin: .15rem 0 0; border: 1.5px solid var(--line-strong); border-radius: .35rem; display: grid; place-content: center; cursor: pointer; background: var(--surface); }
+.lb-check input::after { content: ""; width: .55rem; height: .3rem; border-style: solid; border-color: var(--text-on-tint); border-width: 0 0 2px 2px; /* physical sides: the tick must not mirror in RTL */ transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.lb-check input:checked { background: var(--tint); border-color: var(--tint); }
+.lb-check input:checked::after { opacity: 1; }
+.lb-check input:checked + span { color: var(--text-3); text-decoration: line-through; }
+.lb-check input:disabled { cursor: default; }
+
+.lb-switch { appearance: none; width: 2.6rem; height: 1.5rem; border-radius: var(--r-pill); background: var(--fill-3); position: relative; cursor: pointer; flex: none; transition: background .15s; }
+.lb-switch::after { content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #fff; box-shadow: var(--shadow-1); transition: inset-inline-start .15s; }
+.lb-switch:checked { background: var(--success); }
+.lb-switch:checked::after { inset-inline-start: calc(100% - 1.25rem - 2px); }
+
+.lb-tabs { display: flex; gap: var(--sp-1); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.lb-tabs button, .lb-tabs a { flex: none; border: 0; background: none; font: inherit; font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); padding: .55rem .9rem; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; }
+.lb-tabs [aria-selected="true"], .lb-tabs [aria-current="page"], .lb-tabs .is-active { color: var(--tint); border-bottom-color: var(--tint); }
+.lb-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+
+/* ---------- feedback ---------- */
+.lb-empty { padding: var(--sp-5); border: 1px dashed var(--line-strong); border-radius: var(--r-md); color: var(--text-2); font-size: var(--fs-callout); text-align: center; }
+.lb-note { font-size: var(--fs-footnote); color: var(--text-3); line-height: 1.5; }
+.lb-callout { display: grid; gap: var(--sp-1); padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md); background: var(--accent-soft); color: var(--text); font-size: var(--fs-callout); }
+.lb-callout.info { background: var(--info-soft); }
+.lb-toast { position: fixed; inset-block-end: calc(var(--sp-5) + env(safe-area-inset-bottom, 0px)); inset-inline-start: 50%; transform: translateX(-50%); z-index: 60; background: var(--lb-ink); color: #F5EFE4; padding: .6rem 1rem; border-radius: var(--r-pill); font-size: var(--fs-callout); box-shadow: var(--shadow-3); }
+[dir="rtl"] .lb-toast { transform: translateX(50%); }
+.lb-skeleton { background: linear-gradient(90deg, var(--fill) 25%, var(--fill-2) 50%, var(--fill) 75%); background-size: 200% 100%; animation: lb-shimmer 1.4s infinite; border-radius: var(--r-xs); min-height: 1em; }
+@keyframes lb-shimmer { to { background-position: -200% 0; } }
+
+/* ---------- overlays ---------- */
+.lb-drawer { position: fixed; inset-block: 0; inset-inline-end: 0; width: min(100%, 34rem); background: var(--surface); z-index: 50; box-shadow: var(--shadow-3); display: flex; flex-direction: column; overflow: hidden; }
+.lb-drawer-head { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--line); }
+.lb-drawer-body { padding: var(--sp-5); overflow-y: auto; display: grid; gap: var(--sp-4); align-content: start; }
+.lb-modal { position: fixed; inset: 0; display: grid; place-items: center; padding: var(--sp-4); z-index: 50; }
+.lb-modal > .lb-card { width: min(100%, 32rem); max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-3); }
+
+/* ---------- print-free page footer ---------- */
+.lb-footer { border-top: 1px solid var(--line); padding-top: var(--sp-4); font-size: var(--fs-footnote); color: var(--text-3); display: grid; gap: var(--sp-1); }
+
+</style><style>body{direction:rtl;text-align:right}
+:root{--card:var(--surface);--soft:var(--surface-2);--ink:var(--text);--ink2:var(--text-2);--muted:var(--text-3);--violet:var(--tint);--violet-soft:var(--tint-soft);--gold:var(--accent);--gold-soft:var(--accent-soft);--cream:var(--surface-2);--ok:var(--success);--bad:var(--danger);--content-w:79.25rem;--rv-sticky:4.75rem}
+[hidden]{display:none !important}
+body{direction:rtl;text-align:right}
+body.editing{--rv-sticky:7.75rem}
+[id]{scroll-margin-top:var(--rv-sticky)}
+.wrap{width:100%;max-width:var(--content-w);margin-inline:auto;padding:var(--sp-5) var(--sp-5) var(--sp-7);display:grid;gap:var(--sp-6)}
+.lb-page,.wrap{grid-template-columns:minmax(0,1fr)}
+.rv-topbar .lb-topbar-in{gap:var(--sp-3)}
+.rv-logo{width:28px;height:28px;border-radius:var(--r-xs);flex:none;display:block}
+.rv-name{font-family:var(--font-display);font-weight:400;font-size:1.125rem;white-space:nowrap;color:var(--text)}
+nav.jump{display:flex;align-items:center;gap:var(--sp-1);overflow-x:auto;scrollbar-width:none;min-width:0;flex:0 1 auto;padding-block:var(--sp-2)}
+nav.jump::-webkit-scrollbar{display:none}
+.drops{display:grid;gap:var(--sp-2)}
+.drops>details.more{margin-top:0}
+.rp-list{margin:0;padding-inline-start:1.1rem;display:grid;gap:var(--sp-1)}
+.top>.row h1{margin-inline-end:auto}
+.direction-head{padding:var(--sp-2) var(--sp-4)}
+.rv-tabs{margin-bottom:calc(-1 * var(--sp-3));flex-wrap:wrap;row-gap:var(--sp-1)}
+.rv-days{margin-inline-start:auto;display:flex;gap:var(--sp-2);align-items:center;font-size:var(--fs-footnote)}
+.rv-days a{color:var(--text-3);text-decoration:none;padding:2px 8px;border-radius:999px}
+.rv-days a[aria-current]{background:var(--surface-2);color:var(--text);font-weight:700}
+.post .cta-box{align-self:start}
+nav.jump .label{flex:none;font-size:var(--fs-caption);font-weight:600;color:var(--text-3);margin-inline-end:var(--sp-1)}
+nav.jump a{flex:none;padding:.3rem .7rem;border-radius:var(--r-pill);color:var(--text);font-size:var(--fs-footnote);font-weight:600;white-space:nowrap}
+nav.jump a:hover{background:var(--fill-2);color:var(--text);text-decoration:none}
+nav.jump a span{color:var(--text-3);font-weight:400}
+nav.jump .grp{flex:none;display:flex;align-items:center;gap:2px;padding:2px;border-radius:var(--r-pill);background:var(--pill-soft,var(--fill))}
+nav.jump .grp a:hover{background:var(--surface)}
+nav.jump .grp .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--pill,var(--text-3));margin-inline:var(--sp-2) var(--sp-1);flex:none}
+.editbar{max-width:var(--content-w);margin-inline:auto;padding:var(--sp-2) var(--sp-5);display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);border-top:1px solid var(--line)}
+.editbar .msg{flex:1 1 12rem;min-width:0;font-size:var(--fs-footnote);color:var(--text-2)}
+@media (max-width:860px){
+  :root{--rv-sticky:6rem}
+  body.editing{--rv-sticky:11rem}
+  .rv-topbar .lb-topbar-in{flex-wrap:wrap;row-gap:0;padding-top:var(--sp-2)}
+  .rv-topbar nav.jump{order:5;flex-basis:100%;padding-block:0 var(--sp-2)}
+  .editbar{padding-inline:var(--sp-4)}
+}
+@media (max-width:420px){.rv-topbar .lb-theme-label{display:none}}
+.p-kid{--pill:var(--kid);--pill-soft:var(--kid-soft)}
+.p-expert{--pill:var(--expert);--pill-soft:var(--expert-soft)}
+.top{display:grid;gap:var(--sp-3);min-width:0}
+.lead{color:var(--text-2);max-width:80ch;font-size:var(--fs-callout)}
+.row{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.chip{display:inline-flex;align-items:center;gap:.375rem;padding:.15rem .6rem;border-radius:var(--r-pill);font-size:var(--fs-footnote);font-weight:500;line-height:1.5;white-space:nowrap;background:var(--fill);color:var(--text-2)}
+.chip.violet{background:var(--tint-soft);color:var(--tint)}
+.chip.gold{background:var(--accent-soft);color:var(--accent-ink)}
+.chip.warn{background:var(--warning-soft);color:var(--warning)}
+.chip.ok{background:var(--success-soft);color:var(--success)}
+.oid{font-family:var(--font-mono);direction:ltr;unicode-bidi:isolate;font-weight:700;background:var(--p,var(--text));color:var(--lb-cream);border-radius:var(--r-xs);padding:.1rem .55rem;font-size:var(--fs-footnote)}
+.rv-id{font-family:var(--font-mono);font-weight:700;direction:ltr;unicode-bidi:isolate}
+.steps{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin:0;padding:0;list-style:none}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:var(--sp-1) var(--sp-3);font-size:var(--fs-footnote);color:var(--text-2)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:var(--sp-3)}
+.legend a{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);background:var(--pill-soft,var(--surface-2));color:var(--text);font-size:var(--fs-callout);text-decoration:none}
+.legend a:hover{color:var(--text);text-decoration:none;box-shadow:inset 0 0 0 1px var(--pill,var(--line-strong))}
+.legend a b{color:var(--pill,var(--text));font-weight:700;white-space:nowrap}
+.legend a>span:not(.sym){color:var(--text-2)}
+.sym{display:inline-grid;place-items:center;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--p,var(--text));color:var(--lb-cream);font-weight:800;font-size:1rem;line-height:1;flex:none}
+.p-kid .sym,.p-expert .sym{background:var(--pill);color:var(--text-on-tint)}
+.direction{gap:var(--sp-5)}
+.direction-head{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-lg);background:var(--pill-soft,var(--surface-2));border-inline-start:4px solid var(--pill,var(--text))}
+.direction-head>div{flex:1 1 14rem;min-width:0}
+.direction-head .sym{width:2.25rem;height:2.25rem;font-size:1.25rem}
+.direction-head h2{color:var(--text)}
+.direction-head p{color:var(--text-2);font-size:var(--fs-callout)}
+.direction-head .count{flex:none}
+.option{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--pill,var(--line-strong));border-radius:var(--r-lg);padding:var(--sp-4) var(--sp-5);display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-3);min-width:0;box-shadow:var(--shadow-1)}
+.option>*{margin:0}
+.opt-head{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.opt-head h3{margin-inline-end:auto;color:var(--text)}
+.strategy{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14.5rem),1fr));gap:var(--sp-3)}
+.strategy>div{background:var(--surface-2);border-radius:var(--r-md);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-callout);color:var(--text-2)}
+.strategy b{display:block;font-size:var(--fs-footnote);font-weight:600;color:var(--text-3);margin-bottom:2px}
+h4{margin:0 0 var(--sp-1);font-size:var(--fs-footnote);font-weight:600;color:var(--text-3)}
+.post{display:grid;grid-template-columns:2fr 1fr;gap:var(--sp-3)}
+.caption{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);white-space:pre-line;font-size:var(--fs-callout)}
+.cap-cta{margin-top:var(--sp-2);color:var(--text-3)}
+.cta-box{background:var(--pill-soft,var(--surface-2));color:var(--text);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);font-weight:600;font-size:var(--fs-callout);display:flex;flex-direction:column;gap:var(--sp-2)}
+.cta-box .code{align-self:flex-start}
+details.more{margin-top:var(--sp-3);border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);min-width:0}
+details.more>summary{cursor:pointer;min-height:2.75rem;padding:var(--sp-2) var(--sp-4);font-weight:600;font-size:var(--fs-callout);color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3)}
+details.more>summary:hover{color:var(--tint)}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::after{content:"";flex:none;width:.5rem;height:.5rem;border-right:2px solid var(--text-3);border-bottom:2px solid var(--text-3);transform:translateY(-2px) rotate(45deg);transition:transform .15s}
+details.more[open]>summary::after{transform:translateY(2px) rotate(-135deg)}
+details.more>.inner{padding:0 var(--sp-4) var(--sp-4);overflow-wrap:anywhere}
+.wrap>details.more,.lb-page>details.more,.top>details.more{margin-top:0}
+table{width:100%;border-collapse:collapse;font-size:var(--fs-footnote)}
+th,td{border-bottom:1px solid var(--line);padding:var(--sp-2);vertical-align:top;text-align:right;overflow-wrap:anywhere}
+th{color:var(--text-3);font-size:var(--fs-caption);font-weight:500;background:var(--surface-2);overflow-wrap:normal}
+tbody tr:last-child td{border-bottom:0}
+td.en,.en{direction:ltr;text-align:left}
+.kind{font-size:var(--fs-caption);font-weight:600;white-space:nowrap}
+.kind.sourced_fact{color:var(--success)}.kind.product_fact{color:var(--tint)}.kind.lumebook_wording{color:var(--text-3)}
+blockquote{overflow-wrap:anywhere;margin:var(--sp-1) 0 var(--sp-2);padding:var(--sp-2) var(--sp-3);border-inline-start:3px solid var(--accent);border-radius:var(--r-xs);background:var(--surface-2);color:var(--text-2);direction:ltr;text-align:left;font-size:var(--fs-caption)}
+.src{font-size:var(--fs-footnote);margin:var(--sp-2) 0 0}
+.anchor{direction:ltr;text-align:left;white-space:pre-wrap;font-family:var(--font-mono);font-size:var(--fs-caption);background:var(--surface-sunk);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);margin:0 0 var(--sp-2)}
+.prompt{direction:ltr;text-align:left;white-space:pre-wrap;font-family:var(--font-mono);font-size:.6875rem;line-height:1.45;color:var(--text-2)}
+.result{border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);border:1px solid var(--line);background:var(--surface);font-size:var(--fs-callout)}
+.result.ok{background:var(--success-soft);border-color:transparent}
+.result.bad{background:var(--danger-soft);border-color:transparent}
+.result ul{margin:var(--sp-2) 0 0;padding-inline-start:1.25rem;display:grid;gap:var(--sp-1)}
+.result a{cursor:pointer}
+.edit-note{font-size:var(--fs-footnote);color:var(--text-3);line-height:1.5;margin:0}
+.edit-note code{direction:ltr;unicode-bidi:isolate}
+body.editing [data-edit]{outline:1.5px dashed var(--focus);outline-offset:3px;border-radius:var(--r-xs);cursor:text;min-height:1.2em}
+body.editing [data-edit]:focus{outline:2px solid var(--tint);background:var(--tint-soft)}
+.has-error{outline:2.5px solid var(--danger) !important;outline-offset:3px}
+.lb-page>.reco-wrap{margin-top:0}
+.reco .opt-head h3{color:var(--text)}
+body .reco .oid{background:var(--p-deep,var(--lb-ink)) !important}
+body .reco .chip.bad{background:var(--danger-soft);color:var(--danger)}
+body .reco .flags li.w{color:var(--warning)}
+body.editing .reco [data-reco]{outline-color:var(--focus)}
+body.editing .reco [data-reco]:focus{outline-color:var(--tint);background:var(--tint-soft)}
+@media (max-width:760px){.post{grid-template-columns:1fr}table{table-layout:fixed}th{overflow-wrap:anywhere}.kind{white-space:normal}}
+@media (max-width:640px){.option{padding:var(--sp-3) var(--sp-4)}.wrap{padding-inline:var(--sp-4)}}
+
+.rv-tabs{margin-bottom:calc(-1 * var(--sp-3))}
+.rp-head{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3)}
+.rp-head h1{margin-inline-end:auto}
+.rp-slide{display:grid;gap:var(--sp-2);align-content:start}
+.rp-live{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:var(--r-md);border:1px solid var(--line);background:#fff}
+.rp-live iframe{position:absolute;top:0;left:0;width:1080px;height:1350px;border:0;transform-origin:0 0}
+.rp-hint{font-size:var(--fs-footnote);color:var(--text-3);margin:0}
+.rp-slide img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--r-md);border:1px solid var(--line);display:block;background:#fff}
+.rp-off{font-size:var(--fs-footnote);color:var(--text-3)}
+body.editing .rp-off{display:none}
+.rp-copy{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:var(--sp-3)}
+.rp-copy .rs{background:var(--surface-2);border-radius:var(--r-md);padding:var(--sp-3);display:grid;gap:var(--sp-1);align-content:start}
+.rp-copy .lbl{font-size:var(--fs-caption);color:var(--text-3)}
+.rp-copy .val{white-space:pre-line;font-size:var(--fs-callout);line-height:1.45}
+.rp-hl{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-caption);color:var(--text-3);margin-top:var(--sp-1)}
+.rp-hl .hl{background:var(--tint);color:var(--text-on-tint);border-radius:var(--r-xs);padding:1px 8px;font-weight:700;min-width:2em}
+.rp-copy .val.t{font-weight:700}
+.rp-caption{white-space:pre-line;font-size:var(--fs-callout);background:var(--surface-2);border-radius:var(--r-md);padding:var(--sp-3);margin-top:var(--sp-3)}
+details.prod{border-top:1px solid var(--line)}
+details.prod:first-child{border-top:0}
+details.prod>summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2);padding:var(--sp-3) 0}
+details.prod>summary::-webkit-details-marker{display:none}
+details.prod>summary img{width:2.75rem;height:2.75rem;object-fit:contain;border-radius:var(--r-xs);background:#fff;border:1px solid var(--line)}
+details.prod>summary b{margin-inline-end:auto}
+details.prod .lb-kv{padding-bottom:var(--sp-4)}
+.rp-list{margin:0;padding-inline-start:1.1rem;display:grid;gap:var(--sp-1);font-size:var(--fs-footnote)}
+.rp-q{color:var(--text-3)}
+.rp-flags li.e{color:var(--danger)}
+.rp-flags li.w{color:var(--text-2)}
+.rp-flags li{direction:ltr;text-align:left}
+body.editing [data-reco]{outline:1.5px dashed var(--focus);outline-offset:3px;border-radius:var(--r-xs);cursor:text;min-height:1.2em}
+body.editing [data-reco]:focus{outline:2px solid var(--tint);background:var(--tint-soft)}
+.rp-save{display:none;align-items:center;gap:var(--sp-3)}
+body.editing .rp-save{display:flex}
+.rp-copy.rp-slides{grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));gap:var(--sp-4)}
+/* Phones: the slides sit in one row that scrolls sideways (up to 20 in the combined carousel), each card most of the width */
+@media (max-width:640px){
+.rp-copy.rp-slides{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:82%;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:var(--sp-2);-webkit-overflow-scrolling:touch}
+.rp-copy.rp-slides>.rp-slide{scroll-snap-align:start}
+}
+.rp-count{font-size:var(--fs-footnote);color:var(--text-3)}
+</style></head>
+<body dir="rtl" data-date="2026-10-20" data-format="mixed2" data-dir="reco-2"><header class="lb-topbar rv-topbar"><div class="lb-topbar-in"><img class="rv-logo" src="data:image/png;base64,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" alt="LumeBook" width="28" height="28"><b class="rv-name">2026-10-20</b><span class="lb-spacer"></span></div></header><main class="lb-page"><nav class="lb-tabs rv-tabs" aria-label="עמודים"><a href="review.html">קרוסלות</a><a href="reco.html">משחקים וספרים</a><a href="reco-2.html" aria-selected="true">משחקים וספרים 2</a><span class="rv-days" aria-label="תאריכים"><a href="/pool/2026-10-18">מאגר השבוע · 3</a><a href="../2026-10-20/review.html" aria-current="page">20.10</a><a href="../2026-10-19/review.html">19.10</a><a href="../2026-10-18/review.html">18.10</a><a href="../2026-10-15/review.html">15.10</a><a href="../2026-10-14/review.html">14.10</a><a href="../2026-10-13/review.html">13.10</a><a href="../2026-10-12/review.html">12.10</a><a href="../2026-10-11/review.html">11.10</a><a href="../2026-10-09/review.html">9.10</a><a href="../2026-10-08/review.html">8.10</a></span></nav>
+<header class="rp-head"><h1 data-reco="mixed2" data-field="title">7 משחקים וספרים שיעזרו להם להבין מה הם מרגישים</h1><span class="lb-chip">גיל 5 עד 6 · הבנת רגשות</span><span class="lb-chip success">תקין</span><span class="lb-chip warning">לא לפרסום עדיין</span><span class="rp-count">10 שקופיות · 3 משחקים · 3 ספרים</span></header>
+<div class="rp-save"><button class="lb-btn sm" type="button">שמירה (⌘S)</button><span class="savemsg edit-note"></span></div>
+<p class="rp-off">לעריכה: python3 carousel/carousel-pipeline/scripts/review_server.py</p>
+<div class="rp-slides rp-copy"><div class="rp-slide" data-n="1"><a href="reco-2/01.png?v=1792142155" target="_blank" rel="noopener"><img src="reco-2/01.png?v=1792142155" alt="שקופית 1"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="1" data-field="headline">7 משחקים וספרים
+לגילאי 5-6 שיעזרו להם
+להבין מה הם מרגישים</div><div class="val" data-reco="mixed2" data-slide="1" data-field="body"></div><div class="rp-hl"><span>הדגשה</span><div class="val hl" data-reco="mixed2" data-slide="1" data-field="highlight">מה הם מרגישים</div></div></div></div><div class="rp-slide" data-n="2"><a href="reco-2/02.png?v=1792142157" target="_blank" rel="noopener"><img src="reco-2/02.png?v=1792142157" alt="שקופית 2"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="2" data-field="headline">בסביבות גיל 4 עד 5
+הרבה ילדים כבר
+מנחמים חבר עצוב</div><div class="val" data-reco="mixed2" data-slide="2" data-field="body">משחקים וספרים על רגשות
+מאפשרים להם לתרגל את זה</div><div class="rp-hl"><span>הדגשה</span><div class="val hl" data-reco="mixed2" data-slide="2" data-field="highlight">מנחמים חבר עצוב</div></div></div></div><div class="rp-slide" data-n="3"><a href="reco-2/03.png?v=1792142158" target="_blank" rel="noopener"><img src="reco-2/03.png?v=1792142158" alt="שקופית 3"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="3" data-field="headline">מפלצת הצבעים</div><div class="val" data-reco="mixed2" data-slide="3" data-field="age">מגיל 3</div><div class="val" data-reco="mixed2" data-slide="3" data-field="why">מתרגלים לספר מה גורם להם
+להרגיש שמחה כעס או פחד</div><div class="val" data-reco="mixed2" data-slide="3" data-field="how">בכל צבע תנו לכל אחד לספר
+על רגע שבו הם הרגישו כך</div></div></div><div class="rp-slide" data-n="4"><a href="reco-2/04.png?v=1792142160" target="_blank" rel="noopener"><img src="reco-2/04.png?v=1792142160" alt="שקופית 4"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="4" data-field="headline">לילה טוב! ספר הרגשות שלי</div><div class="val" data-reco="mixed2" data-slide="4" data-field="age">גיל 3 עד 6</div><div class="val" data-reco="mixed2" data-slide="4" data-field="why">מתרגלים לזהות ולספר
+איזה רגש עולה לפני השינה</div><div class="val" data-reco="mixed2" data-slide="4" data-field="how">בכל עמוד תשאלו ״איזה רגש פה?״
+ו״מתי הרגשתם אותו?״</div></div></div><div class="rp-slide" data-n="5"><a href="reco-2/05.png?v=1792142161" target="_blank" rel="noopener"><img src="reco-2/05.png?v=1792142161" alt="שקופית 5"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="5" data-field="headline">מה עובר עליך?</div><div class="val" data-reco="mixed2" data-slide="5" data-field="age">מגיל 6</div><div class="val" data-reco="mixed2" data-slide="5" data-field="why">מתרגלים לזהות ולחקות רגשות
+בקול ובתנועה</div><div class="val" data-reco="mixed2" data-slide="5" data-field="how">תנו להם לבחור רגש אחד
+ולהראות אותו בלי מילים</div></div></div><div class="rp-slide" data-n="6"><a href="reco-2/06.png?v=1792142163" target="_blank" rel="noopener"><img src="reco-2/06.png?v=1792142163" alt="שקופית 6"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="6" data-field="headline">מעשה בחמשה בלונים</div><div class="val" data-reco="mixed2" data-slide="6" data-field="age">גיל 3 עד 6</div><div class="val" data-reco="mixed2" data-slide="6" data-field="why">מתרגלים לספר איך מרגישים
+כשמשהו מתפוצץ ומנחמים</div><div class="val" data-reco="mixed2" data-slide="6" data-field="how">תשאלו ״איך הרגישו הילדים בסיפור?״
+ו״מה עוזר כשבלון מתפוצץ?״</div></div></div><div class="rp-slide" data-n="7"><a href="reco-2/07.png?v=1792142164" target="_blank" rel="noopener"><img src="reco-2/07.png?v=1792142164" alt="שקופית 7"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="7" data-field="headline">פרצופים מצחיקים</div><div class="val" data-reco="mixed2" data-slide="7" data-field="age">מגיל 5</div><div class="val" data-reco="mixed2" data-slide="7" data-field="why">מתרגלים לחקות פרצופים
+ולזהות מה כל פרצוף מביע</div><div class="val" data-reco="mixed2" data-slide="7" data-field="how">תנו להם לבקש קלף רק בפרצוף
+ותנחשו ביחד איזה רגש זה</div></div></div><div class="rp-slide" data-n="8"><a href="reco-2/08.png?v=1792142166" target="_blank" rel="noopener"><img src="reco-2/08.png?v=1792142166" alt="שקופית 8"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="8" data-field="headline">ספר של LumeBook</div><div class="val" data-reco="mixed2" data-slide="8" data-field="body">סיפור מותאם אישית עם תמונה
+של הילדים שלכם שבו הם מחבקים
+דובי ומגלים צבע לכל רגש</div></div></div><div class="rp-slide" data-n="9"><a href="reco-2/09.png?v=1792142167" target="_blank" rel="noopener"><img src="reco-2/09.png?v=1792142167" alt="שקופית 9"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="9" data-field="headline">פו הדב איה שוב מודאג</div><div class="val" data-reco="mixed2" data-slide="9" data-field="age">גיל 3 עד 6</div><div class="val" data-reco="mixed2" data-slide="9" data-field="why">מתרגלים לדבר על מצב רוח
+ולשאול מה עוזר</div><div class="val" data-reco="mixed2" data-slide="9" data-field="how">תשאלו ״מה איה מרגיש?״
+ו״מה אפשר להגיד לו?״</div></div></div><div class="rp-slide" data-n="10"><a href="reco-2/10.png?v=1792142169" target="_blank" rel="noopener"><img src="reco-2/10.png?v=1792142169" alt="שקופית 10"></a><div class="rs" lang="he" dir="rtl"><div class="val t" data-reco="mixed2" data-slide="10" data-field="headline">תשמרו לערב הבא
+איזה רגש הילדים שלכם הכי רוצים להבין?
+ספרו בתגובות</div><div class="rp-hl"><span>הדגשה</span><div class="val hl" data-reco="mixed2" data-slide="10" data-field="highlight"></div></div></div></div></div>
+<div class="rp-caption" dir="rtl"><div class="" data-reco="mixed2" data-field="caption">משחקים וספרים שבהם הילדים מתרגלים לדבר על רגשות
+משחקים שנותנים לפחד ולשמחה תור לדבר
+וספרים עם דמויות שאפשר לשאול מה הן מרגישות
+יש ילדים שמספרים מה הם מרגישים ויש שצריכים עוד זמן
+איזה רגש הילדים שלכם הכי רוצים להבין?</div></div>
+<details class="more"><summary>ניסוחי פתיח שנשקלו (מהשקט לחזק)</summary><div class="inner"><ul class="rp-list"><li>7 משחקים וספרים / לגילאי 5-6 שיעזרו להם / להבין מה הם מרגישים</li><li>7 משחקים וספרים / לגילאי 5-6 שמתרגלים בהם / לדבר על רגשות</li><li>7 משחקים וספרים / לגילאי 5-6 שעוזרים לילדים / לזהות רגשות</li><li>7 משחקים וספרים / לגילאי 5-6 שיעזרו להם / להבין רגשות</li></ul></div></details>
+<div>
+<details class="more"><summary>המוצרים</summary><div class="inner"><details class="prod"><summary><img src="reco-assets/game-color-monster.png" alt=""><b>מפלצת הצבעים</b><span class="lb-chip warning">זמין בלבד</span><span class="lb-chip warning">זכויות תמונה לא מאומתות</span></summary><dl class="lb-kv"><dt>סוג</dt><dd>משחק</dd><dt>יוצר</dt><dd>פוקסמיינד</dd><dt>גיל</dt><dd>מגיל 3 · רשמי <a href="https://foxmind.co.il/product/color-monster/" target="_blank" rel="noopener">3+ (FoxMind page)</a></dd><dt>פופולריות</dt><dd><ul class="rp-list"><li><a href="https://foxmind.co.il/about/" target="_blank" rel="noopener">מהדורה עברית בהוצאה מבוססת</a> <span class="rp-q">«אודות פוקסמיינד — חברת משחקי החשיבה המובילה בישראל»</span></li></ul></dd><dt>זמינות</dt><dd><ul class="rp-list"><li><a href="https://www.bug.co.il/%D7%9E%D7%A4%D7%9C%D7%A6%D7%AA-%D7%94%D7%A6%D7%91%D7%A2%D7%99%D7%9D-%D7%9E%D7%A9%D7%97%D7%A7-foxmind-7290014864894" target="_blank" rel="noopener">באג (BUG)</a> · במלאי</li></ul></dd><dt>תמונה</dt><dd><a href="https://foxmind.co.il/product/color-monster/" target="_blank" rel="noopener">foxmind.co.il</a> · 1200x1200</dd><dt>מגבלות</dt><dd dir="ltr" style="text-align:left">Popularity is thin (maker plus one retailer; the maker's own page calls it award-winning and popular, which is its claim). The maker page lists 2-6 players and…</dd></dl></details><details class="prod"><summary><img src="reco-assets/book-lila-tov-sefer-hargashot.png" alt=""><b>לילה טוב! ספר הרגשות שלי</b><span class="lb-chip success">פופולרי בישראל</span><span class="lb-chip warning">זכויות תמונה לא מאומתות</span></summary><dl class="lb-kv"><dt>סוג</dt><dd>ספר</dd><dt>יוצר</dt><dd>סטפני קוטוריה · מטר</dd><dt>גיל</dt><dd>גיל 3 עד 6 · רשמי <a href="https://www.steimatzky.co.il/013621696" target="_blank" rel="noopener">ספרי ילדים 3-6 (Steimatzky category)</a></dd><dt>פופולריות</dt><dd><ul class="rp-list"><li><a href="https://www.steimatzky.co.il/%D7%A1%D7%A4%D7%A8%D7%99%D7%9D/%D7%A4%D7%A2%D7%95%D7%98%D7%95%D7%AA-%D7%95%D7%99%D7%9C%D7%93%D7%99%D7%9D?product_list_order=globalrank" target="_blank" rel="noopener">דירוג אצל קמעונאי ישראלי</a> · 5 מתוך 4071 <span class="rp-q">«המומלצים»</span></li></ul></dd><dt>זמינות</dt><dd><ul class="rp-list"><li><a href="https://www.steimatzky.co.il/013621696" target="_blank" rel="noopener">Steimatzky (סטימצקי)</a> · במלאי</li></ul></dd><dt>תמונה</dt><dd><a href="https://www.steimatzky.co.il/013621696" target="_blank" rel="noopener">www.steimatzky.co.il</a> · 1024x1024</dd><dt>מגבלות</dt><dd dir="ltr" style="text-align:left">Age is the retailer's category label (3 to 6). The blurb uses the word ויסות and talks about helping feelings, which the slide does not repeat. Position 5 of t…</dd></dl></details><details class="prod"><summary><img src="reco-assets/game-whatsup.png" alt=""><b>מה עובר עליך?</b><span class="lb-chip warning">זמין בלבד</span><span class="lb-chip warning">זכויות תמונה לא מאומתות</span></summary><dl class="lb-kv"><dt>סוג</dt><dd>משחק</dd><dt>יוצר</dt><dd>קודקוד</dd><dt>גיל</dt><dd>מגיל 6 · רשמי <a href="https://toysrus.co.il/products/%D7%9E%D7%94-%D7%A2%D7%95%D7%91%D7%A8-%D7%A2%D7%9C%D7%99%D7%9A-%D7%A7%D7%95%D7%93%D7%A7%D7%95%D7%93" target="_blank" rel="noopener">לגילאי 6 ומעלה</a></dd><dt>פופולריות</dt><dd><ul class="rp-list"><li><a href="https://toysrus.co.il/collections/board-games?sort_by=best-selling" target="_blank" rel="noopener">דירוג אצל קמעונאי ישראלי</a> · 450 מתוך 469 <span class="rp-q">«הנמכרים ביותר»</span></li><li><a href="https://www.globes.co.il/news/article.aspx?did=776458" target="_blank" rel="noopener">מהדורה עברית בהוצאה מבוססת</a> <span class="rp-q">«כיום מייצרת קודקוד במפעל בערד משחקי קופסה ומשחקים עם רכיבים מפלסטיק מ…»</span></li></ul></dd><dt>זמינות</dt><dd><ul class="rp-list"><li><a href="https://toysrus.co.il/products/%D7%9E%D7%94-%D7%A2%D7%95%D7%91%D7%A8-%D7%A2%D7%9C%D7%99%D7%9A-%D7%A7%D7%95%D7%93%D7%A7%D7%95%D7%93" target="_blank" rel="noopener">Toys R Us Israel</a> · במלאי</li></ul></dd><dt>תמונה</dt><dd><a href="https://toysrus.co.il/products/%D7%9E%D7%94-%D7%A2%D7%95%D7%91%D7%A8-%D7%A2%D7%9C%D7%99%D7%9A-%D7%A7%D7%95%D7%93%D7%A7%D7%95%D7%93" target="_blank" rel="noopener">toysrus.co.il</a> · 528x550</dd><dt>מגבלות</dt><dd dir="ltr" style="text-align:left">Age 6+ is the retailer description (its age field is empty), which is the top of this carousel's range. Position 450 of 469 is the very bottom of the list, so…</dd></dl></details><details class="prod"><summary><img src="reco-assets/book-maase-bachamisha-balonim.png" alt=""><b>מעשה בחמשה בלונים</b><span class="lb-chip success">פופולרי בישראל</span><span class="lb-chip warning">זכויות תמונה לא מאומתות</span></summary><dl class="lb-kv"><dt>סוג</dt><dd>ספר</dd><dt>יוצר</dt><dd>מרים רות · פועלים-כתר</dd><dt>גיל</dt><dd>גיל 3 עד 6 · רשמי <a href="https://www.steimatzky.co.il/011521610" target="_blank" rel="noopener">ספרי ילדים 3-6 (Steimatzky category)</a></dd><dt>פופולריות</dt><dd><ul class="rp-list"><li><a href="https://www.steimatzky.co.il/%D7%A1%D7%A4%D7%A8%D7%99%D7%9D/%D7%A4%D7%A2%D7%95%D7%98%D7%95%D7%AA-%D7%95%D7%99%D7%9C%D7%93%D7%99%D7%9D?product_list_order=globalrank" target="_blank" rel="noopener">דירוג אצל קמעונאי ישראלי</a> · 4 מתוך 4071 <span class="rp-q">«המומלצים»</span></li></ul></dd><dt>זמינות</dt><dd><ul class="rp-list"><li><a href="https://www.steimatzky.co.il/011521610" target="_blank" rel="noopener">Steimatzky (סטימצקי)</a> · במלאי</li></ul></dd><dt>תמונה</dt><dd><a href="https://www.steimatzky.co.il/011521610" target="_blank" rel="noopener">www.steimatzky.co.il</a> · 1024x1024</dd><dt>מגבלות</dt><dd dir="ltr" style="text-align:left">Age is the retailer's category label (3 to 6). The blurb is a few lines, so the feelings angle (disappointment and comfort) comes from the scene it quotes. The…</dd></dl></details><details class="prod"><summary><img src="reco-assets/game-funnyfaces.png" alt=""><b>פרצופים מצחיקים</b><span class="lb-chip warning">זמין בלבד</span><span class="lb-chip warning">זכויות תמונה לא מאומתות</span></summary><dl class="lb-kv"><dt>סוג</dt><dd>משחק</dd><dt>יוצר</dt><dd>פוקסמיינד</dd><dt>גיל</dt><dd>מגיל 5 · רשמי <a href="https://foxmind.co.il/product/funny-faces-1/" target="_blank" rel="noopener">גילאי 5+</a></dd><dt>פופולריות</dt><dd><ul class="rp-list"><li><a href="https://toysrus.co.il/collections/board-games?sort_by=best-selling" target="_blank" rel="noopener">דירוג אצל קמעונאי ישראלי</a> · 345 מתוך 469 <span class="rp-q">«הנמכרים ביותר»</span></li><li><a href="https://foxmind.co.il/about/" target="_blank" rel="noopener">מהדורה עברית בהוצאה מבוססת</a> <span class="rp-q">«אודות פוקסמיינד — חברת משחקי החשיבה המובילה בישראל»</span></li></ul></dd><dt>זמינות</dt><dd><ul class="rp-list"><li><a href="https://toysrus.co.il/products/%D7%A8%D7%91%D7%99%D7%A2%D7%99%D7%95%D7%AA-%D7%A4%D7%A8%D7%A6%D7%95%D7%A4%D7%99%D7%9D-%D7%9E%D7%A6%D7%97%D7%99%D7%A7%D7%99%D7%9D-1-%D7%A4%D7%95%D7%A7%D7%A1%D7%9E%D7%99%D7%99%D7%A0%D7%93" target="_blank" rel="noopener">Toys R Us Israel</a> · במלאי</li></ul></dd><dt>תמונה</dt><dd><a href="https://foxmind.co.il/product/funny-faces-1/" target="_blank" rel="noopener">foxmind.co.il</a> · 1200x1200</dd><dt>מגבלות</dt><dd dir="ltr" style="text-align:left">The faces are funny faces and the page does not mention emotions, so the feelings angle is ours. Position 345 of 469 in the Toys R Us list is low; popularity i…</dd></dl></details><details class="prod"><summary><img src="reco-assets/book-pooh-eeyore-worried.png" alt=""><b>פו הדב איה שוב מודאג</b><span class="lb-chip success">פופולרי בישראל</span><span class="lb-chip warning">זכויות תמונה לא מאומתות</span></summary><dl class="lb-kv"><dt>סוג</dt><dd>ספר</dd><dt>יוצר</dt><dd>לא צוין בעמוד (דמויות פו הדב, סדרת הרגשות של דיסני) · ידיעות ספרים</dd><dt>גיל</dt><dd>גיל 3 עד 6 · רשמי <a href="https://www.steimatzky.co.il/011325660" target="_blank" rel="noopener">ספרי ילדים 3-6 (Steimatzky category)</a></dd><dt>פופולריות</dt><dd><ul class="rp-list"><li><a href="https://www.steimatzky.co.il/%D7%A1%D7%A4%D7%A8%D7%99%D7%9D/%D7%A4%D7%A2%D7%95%D7%98%D7%95%D7%AA-%D7%95%D7%99%D7%9C%D7%93%D7%99%D7%9D?product_list_order=globalrank" target="_blank" rel="noopener">דירוג אצל קמעונאי ישראלי</a> · 3 מתוך 4071 <span class="rp-q">«המומלצים»</span></li></ul></dd><dt>זמינות</dt><dd><ul class="rp-list"><li><a href="https://www.steimatzky.co.il/011325660" target="_blank" rel="noopener">Steimatzky (סטימצקי)</a> · במלאי</li></ul></dd><dt>תמונה</dt><dd><a href="https://www.steimatzky.co.il/011325660" target="_blank" rel="noopener">www.steimatzky.co.il</a> · 1024x1024</dd><dt>מגבלות</dt><dd dir="ltr" style="text-align:left">The page lists no author and the blurb is two lines; the cover names the emotions series. A licensed character book. Age is the retailer's category label (3 to…</dd></dl></details></div></details>
+<details class="more"><summary>מקורות</summary><div class="inner"><ul class="rp-list"><li><a href="https://www.cdc.gov/act-early/milestones/4-years.html" target="_blank" rel="noopener">CDC, Learn the Signs. Act Early. (date reviewed 16 May 2026)</a> · Milestones by 4 Years</li><li><a href="https://www.cdc.gov/act-early/milestones/5-years.html" target="_blank" rel="noopener">CDC, Learn the Signs. Act Early. (date reviewed 16 May 2026)</a> · Milestones by 5 Years</li><li><a href="https://www.healthychildren.org/English/healthy-living/emotional-wellness/Building-Resilience/Pages/recommended-reading-books-to-teach-kids-about-feelings-and-resilience.aspx" target="_blank" rel="noopener">HealthyChildren.org, American Academy of Pediatrics (last updated 24 Apr 2025)</a> · Recommended Reading: Books to Teach Kids About Feelings &amp; Resilience</li></ul><table style="margin-top:var(--sp-3)"><thead><tr><th>שקופית</th><th>טענה</th><th>מקור</th></tr></thead><tbody><tr><td>1</td><td>משחקים וספרים שיעזרו להם להבין מה הם מרגישים</td><td dir="ltr" style="text-align:left">src-cdc-4y, src-cdc-5y, src-aap-books</td></tr><tr><td>2</td><td>בסביבות גיל 4 עד 5 הרבה ילדים כבר מנחמים חבר עצוב</td><td dir="ltr" style="text-align:left">src-cdc-4y</td></tr><tr><td>3</td><td>מתרגלים לספר מה גורם להם להרגיש שמחה כעס או פחד</td><td dir="ltr" style="text-align:left">src-aap-books, src-cdc-5y</td></tr><tr><td>4</td><td>מתרגלים לזהות ולספר איזה רגש עולה לפני השינה</td><td dir="ltr" style="text-align:left">src-aap-books, src-cdc-5y</td></tr><tr><td>5</td><td>מתרגלים לזהות ולחקות רגשות בקול ובתנועה</td><td dir="ltr" style="text-align:left">src-aap-books, src-cdc-5y</td></tr><tr><td>6</td><td>מתרגלים לספר איך מרגישים כשמשהו מתפוצץ ומנחמים</td><td dir="ltr" style="text-align:left">src-cdc-4y, src-aap-books</td></tr><tr><td>7</td><td>מתרגלים לחקות פרצופים ולזהות מה כל פרצוף מביע</td><td dir="ltr" style="text-align:left">src-aap-books, src-cdc-5y</td></tr><tr><td>9</td><td>מתרגלים לחשוב איך מרגישים אחרים בסיפור</td><td dir="ltr" style="text-align:left">src-cdc-5y, src-cdc-4y</td></tr><tr><td>8</td><td>סיפור מותאם אישית עם תמונה של הילדים שלכם</td><td dir="ltr" style="text-align:left">site-star, site-photo</td></tr><tr><td>8</td><td>שבו הם מחבקים דובי ומגלים צבע לכל רגש</td><td dir="ltr" style="text-align:left">site-book-48</td></tr></tbody></table></div></details>
+<details class="more"><summary>לומבוק</summary><div class="inner"><dl class="lb-kv"><dt>תמונה</dt><dd><a href="https://lumebook.com/IL/he/books/48" target="_blank" rel="noopener">הדובי משנה צבעים (גילאי 2-6)</a></dd><dt>עובדות מהאתר</dt><dd><ul class="rp-list"><li>«השם שלהם מופיע בטקסט והם מככבים בכל האיורים» · <a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></li><li>«העלו תמונה של ילדכם והוסיפו את השם» · <a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></li><li>«סיפור קסום על אינטליגנציה רגשית שבו דובי הילד/ה משנה צבעים לפי הרגשות - צהוב לשמח, אדום לכועס, כחול לעצוב, סגול למבולבל.» · <a href="https://lumebook.com/IL/he/books/48" target="_blank" rel="noopener">lumebook.com</a></li></ul></dd><dt>החיבור</dt><dd dir="auto">Second to last of 7 suggestions (3 games, 3 books and the LumeBook book), between a game and the last book, in Yarin's format. Book 48 (ages 2 to 6, a teddy that changes colour with the feelings) fits a carousel about understanding feelings; the line says what the cover and the site show.</dd></dl></div></details>
+<details class="more" id="checks"><summary>בדיקות · 18 הערות</summary><div class="inner"><ul class="rp-list rp-flags"><li class="w">WARN mixed2/products: manufacturer פוקסמיינד appears twice in one carousel; prefer a different manufacturer</li><li class="w">WARN mixed2/products/game-color-monster/popularity_label: only available_in_israel: no sufficient Israeli popularity evidence; replace it if a popular product fits</li><li class="w">WARN mixed2/products/game-color-monster/image/rights_status: rights_unverified: an image being online does not make it cleared; the carousel is not publish-ready until someone confirms the right to use it</li><li class="w">WARN mixed2/products/game-color-monster: low confidence: say why in limitations or replace it</li><li class="w">WARN mixed2/products/book-lila-tov-sefer-hargashot/image/rights_status: rights_unverified: an image being online does not make it cleared; the carousel is not publish-ready until someone confirms the right to use it</li><li class="w">WARN mixed2/products/game-ma-over-alecha/popularity_label: only available_in_israel: no sufficient Israeli popularity evidence; replace it if a popular product fits</li><li class="w">WARN mixed2/products/game-ma-over-alecha/image/rights_status: rights_unverified: an image being online does not make it cleared; the carousel is not publish-ready until someone confirms the right to use it</li><li class="w">WARN mixed2/products/game-ma-over-alecha: low confidence: say why in limitations or replace it</li><li class="w">WARN mixed2/products/book-maase-bachamisha-balonim/image/rights_status: rights_unverified: an image being online does not make it cleared; the carousel is not publish-ready until someone confirms the right to use it</li><li class="w">WARN mixed2/products/game-funny-faces/popularity_label: only available_in_israel: no sufficient Israeli popularity evidence; replace it if a popular product fits</li><li class="w">WARN mixed2/products/game-funny-faces/image/rights_status: rights_unverified: an image being online does not make it cleared; the carousel is not publish-ready until someone confirms the right to use it</li><li class="w">WARN mixed2/products/game-funny-faces: low confidence: say why in limitations or replace it</li><li class="w">WARN mixed2/products/book-pooh-eeyore-worried/image/rights_status: rights_unverified: an image being online does not make it cleared; the carousel is not publish-ready until someone confirms the right to use it</li><li class="w">WARN mixed2/products/game-color-monster/manufacturer: פוקסמיינד was in a mixed2 carousel in the last 14 days</li><li class="w">WARN mixed2/products/book-lila-tov-sefer-hargashot/publisher: מטר was in a mixed2 carousel in the last 14 days</li><li class="w">WARN mixed2/products/game-ma-over-alecha/manufacturer: קודקוד was in a mixed2 carousel in the last 14 days</li><li class="w">WARN mixed2/products/game-funny-faces/manufacturer: פוקסמיינד was in a mixed2 carousel in the last 14 days</li><li class="w">WARN mixed2/products/book-pooh-eeyore-worried/publisher: ידיעות ספרים was in a mixed2 carousel in the last 14 days</li></ul></div></details>
+</div></main><script>
+(function () {
+  const RECO = {orig: new Map()};
+  const txt = el => el.innerText.replace(/ /g, ' ').split('\n').map(x => x.trim()).filter(Boolean).join('\n');
+  const fmt = document.body.dataset.format;
+  const msg = t => { const m = document.querySelector('.rp-save .savemsg'); if (m) m.textContent = t; };
+  async function save() {
+    const edits = [];
+    RECO.orig.forEach((o, el) => { if (txt(el) !== o) edits.push({slide: el.dataset.slide ? Number(el.dataset.slide) : null, field: el.dataset.field, value: txt(el)}); });
+    if (!edits.length) { msg('אין שינויים'); return; }
+    msg('שומר...');
+    try {
+      const r = await fetch('/api/save-reco', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({date: document.body.dataset.date, format: fmt, edits})});
+      sessionStorage.setItem('lumebook-reco-result', JSON.stringify(await r.json()));
+    } catch (e) { msg('השמירה נכשלה'); return; }
+    RECO.orig.clear(); location.reload();
+  }
+  async function init() {
+    try { const r = await fetch('/api/ping', {cache: 'no-store'}); if (!r.ok) return; } catch (e) { return; }
+    document.body.classList.add('editing');
+    document.querySelectorAll('[data-reco]').forEach(el => { try { el.contentEditable = 'plaintext-only'; } catch (e) { el.contentEditable = 'true'; }
+      if (el.contentEditable !== 'plaintext-only') el.contentEditable = 'true'; RECO.orig.set(el, txt(el)); });
+    document.querySelector('.rp-save button').onclick = save;
+    // The slide itself is the editing surface: the live slide replaces its picture, and typing on it fills the field below
+    document.querySelectorAll('.rp-slide[data-n]').forEach(card => { const a = card.querySelector('a'); if (!a) return;
+      const box = document.createElement('div'); box.className = 'rp-live'; const f = document.createElement('iframe');
+      f.src = (document.body.dataset.dir || fmt) + '/slides.html?s=' + card.dataset.n + '&edit=1'; f.title = 'שקופית ' + card.dataset.n; box.appendChild(f); a.replaceWith(box);
+      const fit = () => { f.style.transform = 'scale(' + (box.clientWidth / 1080) + ')'; }; fit(); new ResizeObserver(fit).observe(box); });
+    window.addEventListener('message', e => { const d = e.data; if (!d || d.lumebookEdit !== 1) return; if (d.save) { save(); return; }
+      const el = document.querySelector('[data-reco][data-slide="' + d.slide + '"][data-field="' + d.field + '"]'); if (!el) return;
+      el.textContent = d.value; msg('יש שינויים שלא נשמרו'); });
+    const hint = document.querySelector('.rp-off'); if (hint) { hint.className = 'rp-hint'; hint.textContent = 'לוחצים על הטקסט בשקופית ומקלידים · שמירה ב-⌘S'; }
+    document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); save(); } });
+    window.addEventListener('beforeunload', e => { for (const [el, o] of RECO.orig) if (txt(el) !== o) { e.preventDefault(); e.returnValue = ''; return; } });
+    let stored = null; try { stored = sessionStorage.getItem('lumebook-reco-result'); sessionStorage.removeItem('lumebook-reco-result'); } catch (e) {}
+    if (stored) { const res = JSON.parse(stored); msg(res.error ? 'השמירה נכשלה: ' + res.error : (res.valid ? 'נשמר' : 'נשמר · ' + res.errors.length + ' לתיקון, ברשימת הבדיקות'));
+      if (!res.valid) { const d = document.getElementById('checks'); if (d) d.open = true; } }
+  }
+  init();
+})();
+</script></body></html>
