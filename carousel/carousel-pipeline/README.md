@@ -35,6 +35,8 @@ carousel/carousel-pipeline/
                           13 Oct 2026: games-carousel.json, books-carousel.json, games/ and books/
   approved/DATE-OPTION/   one production run: approved.json, jobs.json, state.json, APPROVAL.md,
                           generated-assets/, real-assets/, final/
+  grades.json             Yarin's 1 to 5 grades and reasons from the Hook Studio grading page (the next batch reads them)
+  productions.json        what Hook Studio is producing or has produced, per carousel (written by producer.py)
   scripts/                all the tools (standard library Python, plus Google Chrome for rendering)
   assets/                 fonts (Heebo, Assistant, Rubik, SIL OFL) and the logo (off by default on slides)
   tests/                  unit tests and the valid pack fixture
@@ -42,6 +44,20 @@ carousel/carousel-pipeline/
 ```
 
 DATE is the morning the pack is for. A run at 22:00 on the 7th writes `drafts/<the 8th>/`.
+
+## Hook Studio, the app (since 16 Oct 2026)
+
+Yarin, 16 Oct 2026: "i want the entire carousel engine, editor and producer to be viewed in one place i can easily access no need of talking to you each time", one by one grading with reasons "so you can learn for next weeks batch", picking what to produce "from the tool itself", and "design it better using heebo as the main font, better hierarchy and apple design principles".
+
+**Always on at http://localhost:8777/** (Yarin, 16 Oct 2026: "set Hook Studio to start at login on port 8777 so I can bookmark it"): the login item `com.yarinbruner.hook-studio` starts `review_server.py --port 8777` at login and again if it stops (`scripts/hook_studio_login.py install|restart|status|uninstall`, log `~/Library/Logs/HookStudio.log`). The server imports its scripts once, so after editing any Hook Studio script run `python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart`. Sessions attach with the preview config `hook-studio` instead of starting a second copy; two copies would both write grades.json and productions.json. `carousel-review-editor` still starts one by hand when the login item is off. One sidebar on every page:
+
+- **בית** `/`: the week in numbers, what needs doing now, the seven packs, the next cloud run, "שליחת הדירוגים לענן" (commits grades.json alone and pushes main, so the next batch can read it) and "בדיקת חבילות חדשות מהענן" (cloud_sync.py without a restart)
+- **השבוע** `/pool/ID`: every topic with its six options and two carousels, each with its grade and production state
+- **דירוג** `/grade/ID`: one carousel at a time (grade_page.py): the slides, a 1 to 5 grade, the reason, a "להפקה" switch, all saved on change to grades.json. Keys: arrows, 1 to 5, P, W. "הפקת הנבחרים" starts every picked carousel in the producer
+- **הפקות** `/productions` (producer.py): a kid or expert option is frozen, gets one picture (picking it is the approval to spend up to $0.50, every attempt included), waits for Yarin to approve the picture or ask for another with a note (2 at most), then the slides, contact sheet, RTL check and ZIP are exported by themselves. A games and books carousel is exported at once with no cost. Download the ZIP or show it in Finder from the card; "ייצוא מחדש" after a text edit costs nothing
+- **חבילות ועריכה** `/packs`: every pack with its editor pages (section 2); the editors link back to Hook Studio
+
+Learning: `scripts/grades.py brief` turns grades.json into the summary the weekly cloud run reads before it writes (cloud-weekly-prompt.md, step 0.3). Grades are taste, not results: only hook-results.json can move a hook formula.
 
 ## 0 · The weekly batch (since 16 Oct 2026)
 

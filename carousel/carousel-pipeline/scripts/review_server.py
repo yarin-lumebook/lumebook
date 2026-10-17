@@ -20,7 +20,11 @@ become editable in place. "שמירה" (or Cmd+S) sends the changes here, and th
 4. rebuilds review.html and review.md, and updates history.json when the pack is valid
 5. returns the errors, which the page shows next to the exact field
 
-Listens on 127.0.0.1 only. Writes only under carousel/carousel-pipeline/drafts/. Standard library only.
+/grade/<batch id> shows every carousel of a weekly batch one at a time to grade 1 to 5 with a reason and a produce toggle
+(grade_page.py, grades.py); those saves go to grades.json and produce-queue.json next to drafts/.
+
+Listens on 127.0.0.1 only. Writes only under carousel/carousel-pipeline/drafts/ and to grades.json and produce-queue.json.
+Standard library only.
 """
 
 import argparse
@@ -37,6 +41,10 @@ import batch  # noqa: E402
 import carousel_lib as lib  # noqa: E402
 import cloud_sync  # noqa: E402
 import create_review  # noqa: E402
+import grade_page  # noqa: E402
+import grades  # noqa: E402
+import producer  # noqa: E402
+import studio  # noqa: E402
 import validate_pack  # noqa: E402
 
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -184,16 +192,31 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path.startswith("/api/ping"):
             return self.send_json({"ok": True})
-        if self.path in ("/", ""):
-            plan = None if self.server.pinned_date else batch.newest_batch_with_content()
-            self.send_response(302)
-            self.send_header("Location", f"/pool/{plan['id']}" if plan else f"/drafts/{self.server.default_date}/review.html")
-            self.end_headers()
-            return
+        route = self.path.split("?")[0]
+        if route in ("/", ""):
+            if self.server.pinned_date:
+                self.send_response(302)
+                self.send_header("Location", f"/drafts/{self.server.default_date}/review.html")
+                self.end_headers()
+                return
+            return self.send_html(studio.home_page())
+        if route == "/packs":
+            return self.send_html(studio.packs_page())
+        if route == "/productions":
+            return self.send_html(studio.productions_page())
+        if route == "/api/productions":
+            return self.send_json({"runs": producer.load()["runs"]})
+        # production outputs: the picture to approve, the exported slides, contact sheet and ZIP (read only)
+        if route.startswith("/approved/") and ".." not in route and route.rsplit(".", 1)[-1].lower() in ("png", "jpg", "zip", "txt", "md", "json", "html"):
+            return super().do_GET()
         m = re.match(r"^/pool/(\d{4}-\d{2}-\d{2})/?$", self.path.split("?")[0])
         if m:
             page = batch.pool_page(m.group(1))
             return self.send_html(page) if page else self.send_error(404)
+        m = re.match(r"^/grade/(\d{4}-\d{2}-\d{2})/?$", self.path.split("?")[0])
+        if m:
+            plan = batch.load(m.group(1))
+            return self.send_html(grade_page.page(plan)) if plan else self.send_error(404)
         # drafts for the review pages, assets/fonts for the pillar typefaces; nothing else in the pipeline folder is served
         if not self.path.startswith(("/drafts/", "/assets/fonts/")) or ".." in self.path:
             return self.send_error(404)
@@ -208,6 +231,8 @@ class Handler(SimpleHTTPRequestHandler):
         if not path.is_file():
             return self.send_error(404)
         html = DAYS_RE.sub(lambda _: reco_render.days_html(path.parent), path.read_text(encoding="utf-8"), count=1)
+        if not self.server.pinned_date:   # the editors keep their own layout; this gets back to Hook Studio
+            html = html.replace("</body>", studio.BACK_LINK + "</body>", 1)
         return self.send_html(html)
 
     def send_html(self, html):
@@ -230,9 +255,28 @@ class Handler(SimpleHTTPRequestHandler):
             return "text/html; charset=utf-8"
         return super().guess_type(path)
 
+    def read_payload(self):
+        try:
+            length = int(self.headers.get("Content-Length", 0))
+            return json.loads(self.rfile.read(min(length, 2_000_000)).decode("utf-8"))
+        except (ValueError, json.JSONDecodeError):
+            return None
+
     def do_POST(self):
         if self.path == "/api/save-reco":
             return self.save_reco()
+        if self.path in ("/api/grade", "/api/produce-send"):
+            return self.grade_api()
+        if self.path.startswith("/api/production/"):
+            return self.production_api()
+        if self.path == "/api/push-grades":
+            result = studio.push_grades()
+            print(f"grades pushed: {result}", flush=True)
+            return self.send_json(result, 200 if result.get("ok") else 400)
+        if self.path == "/api/sync":
+            lines = []
+            new = cloud_sync.sync(log=lines.append) or []
+            return self.send_json({"new": len(new) if isinstance(new, (list, tuple, set)) else 0, "log": lines[-20:]})
         if self.path != "/api/save":
             return self.send_error(404)
         try:
@@ -262,6 +306,81 @@ def _save_reco(self):
 Handler.save_reco = _save_reco
 
 
+def _grade_api(self):
+    """The grading page (grade_page.py): save one carousel's grade, or send the picked ones to produce-queue.json."""
+    payload = self.read_payload()
+    plan = batch.load(payload.get("batch", "")) if isinstance(payload, dict) and DATE_RE.match(str(payload.get("batch", ""))) else None
+    if not plan:
+        return self.send_json({"error": "unknown batch"}, 400)
+    if self.path == "/api/produce-send":
+        its = {i["key"]: i for i in grades.items(plan)}
+        started = [producer.start(its[k]) for k in grades.pick_unsent(plan["id"]) if k in its]
+        for r in started:
+            print(f"production started: {r['key']}", flush=True)
+        stored = {k: v for k, v in grades.load()["grades"].items() if k in its}
+        return self.send_json({"started": started, "grades": stored})
+    item = next((i for i in grades.items(plan) if i["key"] == payload.get("key")), None)
+    if not item:
+        return self.send_json({"error": "unknown carousel"}, 400)
+    score = payload.get("score")
+    if score is not None and score not in grades.SCORES:
+        return self.send_json({"error": "score must be 1 to 5"}, 400)
+    produce = payload.get("produce")
+    entry = grades.upsert(item, score=score, why=payload.get("why"), produce=None if produce is None else bool(produce))
+    return self.send_json({"entry": entry})
+
+
+Handler.grade_api = _grade_api
+
+
+def _item_for_key(key):
+    """The batch item (grades.items) behind a production key such as 2026-10-19/kid-2."""
+    date = str(key).split("/")[0]
+    plan = batch.plan_for_date(date)[0] if DATE_RE.match(date) else None
+    return next((i for i in grades.items(plan) if i["key"] == key), None) if plan else None
+
+
+def _production_api(self):
+    """Hook Studio's producer (producer.py): start or continue, approve the picture, ask for another, show in Finder."""
+    payload = self.read_payload()
+    if not isinstance(payload, dict):
+        return self.send_json({"error": "bad request"}, 400)
+    key = str(payload.get("key", ""))
+    item = _item_for_key(key)
+    if not item:
+        return self.send_json({"error": "הקרוסלה לא נמצאה בבאץ'"}, 400)
+    action = self.path.rsplit("/", 1)[-1]
+    try:
+        if action == "start":
+            rec = producer.start(item)
+        elif action == "approve":
+            rec = producer.approve(key, item)
+        elif action == "redo":
+            note = str(payload.get("note", "")).strip()
+            if not note:
+                return self.send_json({"error": "כתבו מה לשנות בתמונה"}, 400)
+            rec = producer.redo(key, item, note)
+        elif action == "reveal":
+            rec = producer.get(key) or {}
+            target = rec.get("zip") or rec.get("run_dir")
+            if not target:
+                return self.send_json({"error": "אין עדיין קבצים"}, 400)
+            path = (lib.PIPELINE / target.lstrip("/")).resolve()
+            if lib.PIPELINE not in path.parents:
+                return self.send_json({"error": "bad path"}, 400)
+            import subprocess
+            subprocess.run(["open", "-R", str(path)], check=False, timeout=10)
+        else:
+            return self.send_error(404)
+    except ValueError as exc:
+        return self.send_json({"error": str(exc)}, 400)
+    print(f"production {action}: {key}", flush=True)
+    return self.send_json({"run": producer.get(key)})
+
+
+Handler.production_api = _production_api
+
+
 def newest_date():
     dates = sorted(p.name for p in lib.DRAFTS.iterdir() if p.is_dir() and DATE_RE.match(p.name) and (p / "review.html").exists()) if lib.DRAFTS.exists() else []
     return dates[-1] if dates else None
@@ -275,6 +394,7 @@ def main():
     args = ap.parse_args()
     if not args.no_cloud:
         cloud_sync.sync(log=lambda m: print(m, flush=True))
+    producer.recover()
     date = args.date or newest_date()
     if not date:
         raise SystemExit("no packs in carousel/carousel-pipeline/drafts yet")
@@ -282,8 +402,8 @@ def main():
     server.default_date = date
     server.pinned_date = bool(args.date)
     plan = None if args.date else batch.newest_batch_with_content()
-    where = f"pool/{plan['id']}" if plan else f"drafts/{date}/review.html"
-    print(f"Review editor: http://localhost:{args.port}/{where}  (Ctrl+C to stop)", flush=True)
+    where = "" if plan else f"drafts/{date}/review.html"
+    print(f"Hook Studio: http://localhost:{args.port}/{where}  (Ctrl+C to stop)", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

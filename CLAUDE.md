@@ -64,3 +64,4 @@ python3 tools/lumebook.py serve      # one local server for the whole folder: ht
 - `sites/lumebook-smm-plan`: mirror every Hebrew change in `content.en.md` in the same commit.
 - Commit or push only when Yarin asks. Repos use the GitHub no-reply email.
 - Preview servers: `.claude/launch.json`. If Yarin has a page open in the site editor, ask before writing that file.
+- Hook Studio (carousel pool, grading, production, editors) runs all the time at http://localhost:8777/ as a login item; attach with the `hook-studio` preview config, never start a second copy, and run `python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart` after editing its scripts.

@@ -260,19 +260,18 @@ def check(batch_id):
 # ---------------------------------------------------------------------------
 
 POOL_CSS = """
-.pl-head{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:baseline;margin:var(--sp-4) 0 var(--sp-2)}
-.pl-head h1{margin:0;font-size:var(--fs-title)}
-.pl-slot{margin:var(--sp-3) 0;padding:var(--sp-4)}
-.pl-slot h2{margin:0 0 var(--sp-2);font-size:var(--fs-headline);display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
-.pl-opts{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-1)}
-.pl-opts a{color:var(--text);text-decoration:none;display:flex;gap:var(--sp-2);align-items:baseline}
-.pl-opts a:hover b{text-decoration:underline}
-.pl-id{font-family:var(--font-mono);font-size:var(--fs-footnote);color:var(--text-3);min-width:4.5em;direction:ltr;text-align:left}
-.pl-recos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--sp-3);margin-top:var(--sp-3);align-items:start}
-.pl-reco{display:block;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--surface)}
-.pl-reco img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--tint)}
-.pl-reco span{display:block;padding:var(--sp-2);font-size:var(--fs-footnote)}
-.pl-wait{color:var(--text-3)}
+.pl-head{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.pl-head .hs-h2{margin-inline-end:var(--sp-2)}
+.pl-head .lb-toolbar{margin-inline-start:auto}
+.pl-row{display:flex;align-items:center;gap:var(--sp-3);padding:.7rem var(--sp-4);min-height:3.25rem;color:inherit;text-decoration:none}
+a.pl-row:hover{background:var(--fill);text-decoration:none;color:inherit}
+.pl-row .hs-row-main b{white-space:nowrap}
+.pl-recos{display:grid;grid-template-columns:repeat(auto-fill,minmax(10rem,1fr));gap:var(--sp-3)}
+.pl-reco{display:grid;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--surface);transition:box-shadow .15s,border-color .15s}
+a.pl-reco:hover{border-color:var(--tint);box-shadow:var(--shadow-2);text-decoration:none;color:var(--text)}
+.pl-reco img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--tint-soft)}
+.pl-reco span{display:flex;gap:var(--sp-2);align-items:center;justify-content:space-between;padding:var(--sp-2) var(--sp-3);font-size:var(--fs-footnote)}
+.pl-wait{color:var(--text-3);padding:var(--sp-3)}
 """
 
 
@@ -282,17 +281,29 @@ def _cover(version):
 
 
 def pool_page(batch_id):
-    import create_review
-    design = create_review.design
+    import grades
+    import producer
+    import studio
     plan = load(batch_id)
     if not plan:
         return None
+    stored = grades.load()["grades"]
+    runs = producer.load()["runs"]
+
+    def marks(key):
+        g = stored.get(key, {})
+        out = f'<span class="hs-badge{" on" if g.get("score") else ""}" title="ציון">{g.get("score") or "·"}</span>'
+        r = runs.get(key)
+        if r:
+            cls = {"review": "review", "done": "done", "failed": "failed"}.get(r.get("status"), "busy")
+            out = f'<span class="hs-pill {cls}">{esc(r.get("status_he", ""))}</span>' + out
+        elif g.get("produce"):
+            out = '<span class="hs-pill review">להפקה</span>' + out
+        return out
+
     ready = sum(1 for s in plan["slots"] if (lib.DRAFTS / s["date"] / "pack.json").exists())
     n_reco = sum(1 for s in plan["slots"] for r in s["reco"] if rl.carousel_path(lib.DRAFTS / s["date"], r["format"]).exists())
-    parts = [f'<div class="pl-head"><h1>מאגר השבוע</h1><span class="lb-chip">נוצר {esc(plan.get("made_on", ""))}</span>'
-             f'<span class="lb-chip">{ready} מתוך {len(plan["slots"])} נושאים</span><span class="lb-chip">{ready * 6} קרוסלות ילד ומומחה</span>'
-             f'<span class="lb-chip">{n_reco} משחקים וספרים</span></div>',
-             '<p class="lb-muted">בוחרים כל קרוסלה מכל נושא, בלי סדר של ימים. לחיצה פותחת את העמוד לעריכה.</p>']
+    parts = []
     for slot in plan["slots"]:
         folder = lib.DRAFTS / slot["date"]
         pack_path = folder / "pack.json"
@@ -302,39 +313,45 @@ def pool_page(batch_id):
         chips = ""
         event = topic.get("event")
         if event:
-            chips += f'<span class="lb-chip warning">אירוע · {esc(event.get("name_he", ""))} · {esc(event.get("date", ""))}</span>'
+            chips += f'<span class="hs-pill review">אירוע · {esc(event.get("name_he", ""))} · {esc(event.get("date", ""))}</span>'
         elif slot["kind"] == "event":
-            chips += '<span class="lb-chip">משבצת אירוע</span>'
-        chips += '' if pack else '<span class="lb-chip">עוד לא הגיע</span>'
-        body = [f'<section class="lb-card pl-slot"><h2>{slot["n"]} · {esc(title)} {chips}</h2>']
+            chips += '<span class="hs-pill">משבצת אירוע</span>'
+        chips += '' if pack else '<span class="hs-pill">עוד לא הגיע</span>'
+        tools = ""
         if pack:
-            body.append('<ul class="pl-opts">')
+            tools = f'<a class="lb-btn ghost sm" href="/drafts/{slot["date"]}/review.html">עריכת ילד ומומחה</a>'
+        body = [f'<section class="lb-section" id="slot-{slot["n"]}"><div class="pl-head"><h2 class="hs-h2">{slot["n"]} · {esc(title)}</h2>{chips}'
+                f'<span class="lb-toolbar">{tools}</span></div>']
+        if pack:
+            body.append('<div class="lb-group">')
             for d in pack.get("directions", []):
                 for v in d.get("versions", []):
-                    body.append(f'<li><a href="/drafts/{slot["date"]}/review.html#{esc(v.get("id", ""))}"><span class="pl-id">{esc(v.get("id", ""))}</span>'
-                                f'<b>{esc(_cover(v))}</b><span class="lb-muted">{esc(v.get("child_name", ""))}</span></a></li>')
-            body.append('</ul>')
+                    key = f'{slot["date"]}/{v.get("id", "")}'
+                    body.append(f'<a class="pl-row" href="/grade/{esc(plan["id"])}#{esc(key)}"><span class="hs-id">{esc(v.get("id", ""))}</span>'
+                                f'<span class="hs-pill {esc(d["id"])}">{esc(lib.PILLARS.get(d["id"], {}).get("name_he", d["id"]))}</span>'
+                                f'<span class="hs-row-main"><b>{esc(_cover(v))}</b><span>{esc(v.get("child_name", ""))}</span></span>{marks(key)}</a>')
+            body.append('</div>')
         else:
-            body.append('<p class="pl-wait">החבילה עוד בדרך מהענן</p>')
+            body.append('<p class="lb-empty">החבילה עוד בדרך מהענן</p>')
         body.append('<div class="pl-recos">')
         for r in slot["reco"]:
             path = rl.carousel_path(folder, r["format"])
-            page = {rl.MIXED: "reco.html", rl.MIXED2: "reco-2.html"}[r["format"]]
+            out_dir = rl.OUT_DIRS[r["format"]]
             if path.exists():
                 car = lib.read_json(path)
-                thumb = folder / rl.OUT_DIRS[r["format"]] / "01.png"
-                img = f'<img src="/drafts/{slot["date"]}/{rl.OUT_DIRS[r["format"]]}/01.png" alt="" loading="lazy">' if thumb.exists() else ""
-                hook = lib.collapse(car.get("slides", [{}])[0].get("headline", ""))
-                body.append(f'<a class="pl-reco" href="/drafts/{slot["date"]}/{page}">{img}<span>{esc(hook)}</span></a>')
+                thumb = folder / out_dir / "01.png"
+                img = f'<img src="/drafts/{slot["date"]}/{out_dir}/01.png" alt="" loading="lazy">' if thumb.exists() else ""
+                key = f'{slot["date"]}/{out_dir}'
+                body.append(f'<a class="pl-reco" href="/grade/{esc(plan["id"])}#{esc(key)}" title="{esc(lib.collapse(car.get("slides", [{}])[0].get("headline", "")))}">{img}'
+                            f'<span><b>{esc(r.get("skill_he", ""))}</b>{marks(key)}</span></a>')
             else:
                 body.append(f'<div class="pl-reco"><span class="pl-wait">משחקים וספרים · {esc(r.get("skill_he", ""))} · עוד בדרך</span></div>')
         body.append('</div></section>')
         parts.append("".join(body))
-    return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<title>מאגר השבוע</title>{design.head()}<style>body{{direction:rtl;text-align:right}}{POOL_CSS}</style></head>\n'
-            '<body dir="rtl"><header class="lb-topbar"><div class="lb-topbar-in">'
-            f'<img src="{design.logo_data_uri()}" alt="LumeBook" width="28" height="28"><b>Hook Studio</b></div></header>'
-            f'<main class="lb-page">{"".join(parts)}</main></body></html>')
+    sub = (f'נוצר {esc(plan.get("made_on", ""))} · {ready} מתוך {len(plan["slots"])} נושאים · {ready * 6} קרוסלות ילד ומומחה · {n_reco} משחקים וספרים. '
+           'בלי סדר של ימים: בוחרים כל קרוסלה מכל נושא. לחיצה פותחת אותה בדירוג.')
+    actions = f'<a class="lb-btn sm" href="/grade/{esc(plan["id"])}">לדרג אחת אחת</a>'
+    return studio.page("מאגר השבוע", "pool", "".join(parts), subtitle=sub, actions=actions, css=POOL_CSS)
 
 
 def newest_batch_with_content():
