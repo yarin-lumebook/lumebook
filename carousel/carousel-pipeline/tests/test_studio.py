@@ -1,4 +1,4 @@
-"""Hook Studio, the app (16 Oct 2026): grades, the summary the next batch reads, the producer's free export and recovery, the pages."""
+"""Hook Studio (16 and 17 Oct 2026): grades, the summary the next batch reads, the producer's free export and recovery, the one page."""
 
 import json
 import shutil
@@ -12,7 +12,6 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "scripts"))
 import batch  # noqa: E402
 import carousel_lib as lib  # noqa: E402
-import grade_page  # noqa: E402
 import grades  # noqa: E402
 import producer  # noqa: E402
 import studio  # noqa: E402
@@ -140,21 +139,27 @@ class Producer(Sandbox):
 
 
 class Pages(Sandbox):
-    def test_every_page_is_hebrew_rtl_without_em_dashes(self):
-        pages = {"home": studio.home_page(), "packs": studio.packs_page(), "productions": studio.productions_page(),
-                 "grade": grade_page.page(PLAN), "pool": batch.pool_page(DATE)}
-        for name, html in pages.items():
-            self.assertIn('dir="rtl"', html, name)
-            self.assertIn("Hook Studio", html, name)
-            self.assertNotIn("—", html, name)
-            self.assertIn('aria-current="page"', html, name)
+    def test_one_page_hebrew_rtl_without_em_dashes(self):
+        html = studio.app_page(DATE)
+        self.assertIn('dir="rtl"', html)
+        self.assertIn("Hook Studio", html)
+        self.assertNotIn("—", html)
+        for part in ('id="hs-groups"', 'id="hs-stage"', 'id="hs-insp"', 'id="hs-send"'):
+            self.assertIn(part, html)
 
-    def test_grade_page_carries_the_batch_data(self):
-        html = grade_page.page(PLAN)
-        blob = html.split('<script type="application/json" id="gv-data">')[1].split("</script>")[0]
-        data = json.loads(blob)
+    def test_state_carries_items_grades_and_runs(self):
+        grades.upsert(self.item(f"{DATE}/kid-2"), score=4)
+        html = studio.app_page(DATE)
+        data = json.loads(html.split('<script type="application/json" id="hs-state">')[1].split("</script>")[0])
         self.assertEqual(data["batch"], DATE)
         self.assertEqual(len(data["items"]), 7)
+        self.assertEqual(data["grades"][f"{DATE}/kid-2"]["score"], 4)
+        kid = data["items"][0]
+        self.assertTrue(kid["cta"])
+        self.assertNotIn(kid["cta"], kid["caption_body"])   # the CTA is edited on its own
+        reco = data["items"][6]
+        self.assertTrue(all("role" in s for s in reco["slides"]))
+        self.assertTrue(reco["images"][0].split("?v=")[1].isdigit())   # cache-busted after a re-render
 
     def test_next_cloud_run_is_a_thursday_evening_utc(self):
         import datetime as dt
@@ -164,3 +169,46 @@ class Pages(Sandbox):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DriveExport(unittest.TestCase):
+    """Finished carousels are copied to Yarin's Drive folder, or wait in a queue (18 Oct 2026)."""
+
+    def setUp(self):
+        import drive_export
+        self.de = drive_export
+        self.tmp = Path(tempfile.mkdtemp())
+        self.approved = self.tmp / "approved"
+        self.run = self.approved / "2026-10-18-kid-2"
+        (self.run / "final").mkdir(parents=True)
+        for n in ("01.png", "02.png", "caption.txt", "alt-text.txt", "contact-sheet.png", "slides.html"):
+            (self.run / "final" / n).write_text(n, encoding="utf-8")
+        lib.write_json(self.run / "approved.json", {"topic": {"title_he": "מעבר לשעון חורף"}})
+        self.cloud = self.tmp / "CloudStorage"
+        cfg = {"name": "LumeBook תוכן", "account": "a@b.c", "carousels": {"name": "קרוסלות"}}
+        self.patches = [mock.patch.object(lib, "APPROVED", self.approved),                         mock.patch.object(drive_export, "CLOUD", self.cloud),
+                        mock.patch.object(drive_export, "config", return_value=cfg)]
+        for p in self.patches:
+            p.start()
+
+    def tearDown(self):
+        for p in self.patches:
+            p.stop()
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_runs_outside_approved_never_reach_drive(self):
+        other = self.tmp / "elsewhere"
+        other.mkdir()
+        self.assertIsNone(self.de.export(other, quiet=True))
+        self.assertFalse(self.de.pending_path().exists())
+
+    def test_queues_without_drive_then_copies_on_flush(self):
+        self.assertIsNone(self.de.export(self.run, quiet=True))
+        self.assertEqual(lib.read_json(self.de.pending_path())["runs"], ["2026-10-18-kid-2"])
+        target = self.cloud / "GoogleDrive-a@b.c" / "My Drive" / "LumeBook תוכן"
+        target.mkdir(parents=True)
+        root, done, left = self.de.flush()
+        self.assertEqual((root, left), (target, []))
+        dest = target / "קרוסלות" / "2026-10-18-kid-2 מעבר לשעון חורף"
+        self.assertEqual(sorted(p.name for p in dest.iterdir()), ["01.png", "02.png", "alt-text.txt", "caption.txt", "contact-sheet.png"])
+        self.assertFalse(self.de.pending_path().exists())

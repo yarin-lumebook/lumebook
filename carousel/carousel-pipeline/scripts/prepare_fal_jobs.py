@@ -277,9 +277,9 @@ def main():
 
     pack_path = Path(args.pack).resolve()
     pack = lib.read_json(pack_path)
-    errors = [i for i in validate_pack.pack_issues(pack, history=None) if i.level == "ERROR"]
+    errors = validate_pack.option_errors(pack, args.option, history=None)
     if errors:
-        print("The pack is not valid, so nothing was frozen:")
+        print(f"{args.option} is not valid, so nothing was frozen:")
         for i in errors:
             print(f"- {i}")
         raise SystemExit(1)

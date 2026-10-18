@@ -879,6 +879,24 @@ class Production(unittest.TestCase):
         self.assertEqual((st["jobs"]["slide-02"]["status"], st["jobs"]["slide-02"]["qa"]), ("done", "pass"))
         self.assertEqual(st["jobs"]["slide-03"]["status"], "pending")
 
+    def test_another_options_errors_do_not_block_the_freeze(self):
+        pack = json.loads(FIXTURE.read_text(encoding="utf-8"))
+        others = [v for d in pack["directions"] for v in d["versions"] if v["id"] != "expert-1"]
+        others[0]["slides"][-2]["headline"] = ""          # another option mid-edit
+        path = Path(tempfile.mkdtemp()) / "pack.json"
+        path.write_text(json.dumps(pack, ensure_ascii=False), encoding="utf-8")
+        self.assertTrue(validate_pack.pack_issues(pack) and any(i.level == "ERROR" for i in validate_pack.pack_issues(pack)))
+        self.assertEqual(validate_pack.option_errors(pack, "expert-1"), [])
+        self.assertNotEqual(validate_pack.option_errors(pack, others[0]["id"]), [])
+        out = Path(tempfile.mkdtemp())
+        argv = ["prepare_fal_jobs.py", str(path), "expert-1", "--out-root", str(out), "--no-history"]
+        with NoNetwork(), mock.patch.object(sys, "argv", argv), mock.patch.object(lib, "voice_status", return_value=VOICE0), redirect_stdout(io.StringIO()):
+            prepare_fal_jobs.main()
+        argv[2] = others[0]["id"]
+        with NoNetwork(), mock.patch.object(sys, "argv", argv), mock.patch.object(lib, "voice_status", return_value=VOICE0), redirect_stdout(io.StringIO()):
+            with self.assertRaises(SystemExit):
+                prepare_fal_jobs.main()
+
     def prepare_again(self, out, expect_exit, extra=()):
         argv = ["prepare_fal_jobs.py", str(FIXTURE), "expert-1", "--out-root", str(out), "--no-history", *extra]
         with NoNetwork(), mock.patch.object(sys, "argv", argv), mock.patch.object(lib, "voice_status", return_value=VOICE0), redirect_stdout(io.StringIO()):

@@ -597,6 +597,25 @@ def event_issues(pack, event):
     return issues
 
 
+def other_option_issue(issue, pack, option_id):
+    """True when the issue belongs to another option of the pack (its own path or its schema path)."""
+    path = str(issue.path)
+    for di, d in enumerate(pack.get("directions") or []):
+        for vi, v in enumerate(d.get("versions") or []):
+            if v.get("id") == option_id:
+                continue
+            if path.startswith(f"{d.get('id')}/{v.get('id')}/") or path == f"{d.get('id')}/{v.get('id')}" \
+                    or path.startswith(f"pack/directions[{di}]/versions[{vi}]/") or path == f"pack/directions[{di}]/versions[{vi}]":
+                return True
+    return False
+
+
+def option_errors(pack, option_id, **kw):
+    """ERRORs that block producing one option: its own and the pack's, never another option's half-done edits
+    (Yarin, 18 Oct 2026: Produce on kid-2 failed because expert-1 was mid-edit)."""
+    return [i for i in pack_issues(pack, **kw) if i.level == "ERROR" and not other_option_issue(i, pack, option_id)]
+
+
 def pack_issues(pack, history=None, bank=None, voice=None, today=None):
     root = lib.read_json(lib.SCHEMA)
     issues = schema_issues(pack, root, root)

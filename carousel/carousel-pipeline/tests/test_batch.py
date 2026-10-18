@@ -23,6 +23,8 @@ FIXTURES = HERE / "fixtures"
 class Sandbox(unittest.TestCase):
     """Drafts, histories and batch plans in a temporary folder."""
 
+    reco_active = True
+
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp(prefix="batch-test-"))
         drafts = self.tmp / "drafts"
@@ -35,6 +37,7 @@ class Sandbox(unittest.TestCase):
             mock.patch.object(lib, "HISTORY", self.tmp / "history.json"),
             mock.patch.object(rl, "HISTORY", self.tmp / "reco-history.json"),
             mock.patch.object(batch, "BATCHES", drafts / "batches"),
+            mock.patch.object(rl, "ACTIVE", self.reco_active),  # the carousel tests below still cover the switched-off code
         ]
         for p in self.patches:
             p.start()
@@ -48,6 +51,24 @@ class Sandbox(unittest.TestCase):
 
     def plan(self):
         return batch.make_plan(today=dt.date(2026, 10, 16), merge=False, log=lambda *_: None)
+
+
+class PlanWithoutCarousels(Sandbox):
+    reco_active = False  # Yarin, 18 Oct 2026: no more games and books carousels
+
+    def test_no_carousels_in_the_plan(self):
+        plan = self.plan()
+        self.assertEqual(len(plan["slots"]), 7)
+        self.assertTrue(all(s["reco"] == [] for s in plan["slots"]))
+        self.assertIn("no games and books carousels", plan["rules"])
+
+    def test_batch_start_context_has_no_recommendations(self):
+        import nightly
+        plan = self.plan()
+        out = nightly.batch_start_context(plan, plan["slots"][1], plan["slots"][1]["date"], lib.DRAFTS / plan["slots"][1]["date"], [])
+        self.assertIn("batch", out)
+        self.assertNotIn("recommendations", out)
+        self.assertNotIn("recommendations_2", out)
 
 
 class Plan(Sandbox):
@@ -92,12 +113,13 @@ class Plan(Sandbox):
         self.assertEqual((plan["id"], slot["n"]), ("2026-10-18", 3))
         self.assertEqual(batch.plan_for_date("2026-10-17"), (None, None))
 
-    def test_pool_page(self):
+    def test_the_one_page_lists_the_plan(self):
+        import studio
         plan = self.plan()
-        page = batch.pool_page(plan["id"])
-        self.assertIn("מאגר השבוע", page)
+        with mock.patch.object(studio, "grades_unsent", lambda: False):
+            page = studio.app_page(plan["id"])
         self.assertIn('dir="rtl"', page)
-        self.assertIn("משבצת אירוע", page)
+        self.assertIn(f'value="{plan["id"]}" selected', page)
         self.assertNotIn("—", page)
 
 

@@ -79,8 +79,11 @@ def items(plan, drafts=None):
         for d in (pack or {}).get("directions", []):
             for v in d.get("versions", []):
                 hook = v.get("hook") or {}
-                slides = [{"n": s["number"], "headline": s.get("headline", ""), "body": s.get("body", "")} for s in v.get("slides", [])]
+                slides = [{"n": s["number"], "role": s.get("role", ""), "headline": s.get("headline", ""), "body": s.get("body", ""),
+                           **({"highlight": s["highlight"]} if "highlight" in s else {})} for s in v.get("slides", [])]
                 cap = lib.lines_of(v.get("caption", ""))
+                cta = v.get("cta", "")
+                cap_body = cap[:-1] if cap and lib.collapse(cap[-1]) == lib.collapse(cta) else cap
                 out.append({**base, "key": f'{slot["date"]}/{v["id"]}', "kind": d["id"], "id": v["id"], "title": v.get("title", ""),
                             "child_name": v.get("child_name", ""), "addressee": v.get("addressee", ""),
                             "hook_formula": hook.get("formula", ""), "hook_family": v.get("hook_family", ""),
@@ -88,7 +91,7 @@ def items(plan, drafts=None):
                             "examples_target": v.get("examples_target"),
                             "cover": _cover(v["slides"][0]) if v.get("slides") else "",
                             "headlines": [lib.collapse(s["headline"]) for s in slides],
-                            "slides": slides, "caption": "\n".join(cap)})
+                            "slides": slides, "caption": "\n".join(cap), "caption_body": "\n".join(cap_body), "cta": cta})
         for r in slot.get("reco", []):
             fmt = r["format"]
             path = rl.carousel_path(folder, fmt)
@@ -98,15 +101,16 @@ def items(plan, drafts=None):
             out_dir = rl.OUT_DIRS[fmt]
             stage = car.get("stage") or {}
             slides = car.get("slides", [])
-            images = [f'/drafts/{slot["date"]}/{out_dir}/{i:02d}.png' for i in range(1, len(slides) + 1)
-                      if (folder / out_dir / f"{i:02d}.png").exists()]
+            pngs = [folder / out_dir / f"{i:02d}.png" for i in range(1, len(slides) + 1)]
+            images = [f'/drafts/{slot["date"]}/{out_dir}/{p.name}?v={int(p.stat().st_mtime)}' for p in pngs if p.exists()]
             out.append({**base, "key": f'{slot["date"]}/{out_dir}', "kind": "reco", "id": out_dir, "format": fmt,
                         "title": car.get("title", ""), "skill": r.get("skill", ""), "skill_he": r.get("skill_he", ""),
                         "ages": stage.get("age_label_he", ""), "addressee": car.get("addressee", ""),
                         "products": [f'{p.get("title_he", "")} ({rl.KIND_HE.get(p.get("kind"), p.get("kind", ""))})' for p in car.get("products", [])],
                         "cover": _cover(slides[0]) if slides else "",
                         "headlines": [lib.collapse(s.get("headline", "")) for s in slides],
-                        "slides": [{"n": i + 1, "headline": s.get("headline", ""), "body": s.get("body", "")} for i, s in enumerate(slides)],
+                        "slides": [{"n": i + 1, "role": s.get("role", ""), **{f: s[f] for f in ("headline", "body", "highlight", "age", "why", "how") if f in s}}
+                                   for i, s in enumerate(slides)],
                         "images": images, "caption": car.get("caption", "")})
     return out
 

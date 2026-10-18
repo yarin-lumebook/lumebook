@@ -20,10 +20,11 @@ become editable in place. "שמירה" (or Cmd+S) sends the changes here, and th
 4. rebuilds review.html and review.md, and updates history.json when the pack is valid
 5. returns the errors, which the page shows next to the exact field
 
-/grade/<batch id> shows every carousel of a weekly batch one at a time to grade 1 to 5 with a reason and a produce toggle
-(grade_page.py, grades.py); those saves go to grades.json and produce-queue.json next to drafts/.
+/ is Hook Studio itself (studio.py): every carousel of the week on one page, edited in place through /api/save and
+/api/save-reco, graded through /api/grade (grades.json) and produced through /api/production/* (producer.py,
+productions.json). /api/state is what the page reloads.
 
-Listens on 127.0.0.1 only. Writes only under carousel/carousel-pipeline/drafts/ and to grades.json and produce-queue.json.
+Listens on 127.0.0.1 only. Writes under carousel/carousel-pipeline/drafts/ and approved/, and to grades.json and productions.json.
 Standard library only.
 """
 
@@ -41,7 +42,6 @@ import batch  # noqa: E402
 import carousel_lib as lib  # noqa: E402
 import cloud_sync  # noqa: E402
 import create_review  # noqa: E402
-import grade_page  # noqa: E402
 import grades  # noqa: E402
 import producer  # noqa: E402
 import studio  # noqa: E402
@@ -199,24 +199,25 @@ class Handler(SimpleHTTPRequestHandler):
                 self.send_header("Location", f"/drafts/{self.server.default_date}/review.html")
                 self.end_headers()
                 return
-            return self.send_html(studio.home_page())
-        if route == "/packs":
-            return self.send_html(studio.packs_page())
-        if route == "/productions":
-            return self.send_html(studio.productions_page())
+            query = dict(part.split("=", 1) for part in self.path.partition("?")[2].split("&") if "=" in part)
+            wanted = query.get("batch", "")
+            return self.send_html(studio.app_page(wanted if DATE_RE.match(wanted) and batch.load(wanted) else None))
+        if route == "/api/state":
+            query = dict(part.split("=", 1) for part in self.path.partition("?")[2].split("&") if "=" in part)
+            wanted = query.get("batch", "")
+            return self.send_json(studio.state(wanted if DATE_RE.match(wanted) and batch.load(wanted) else None))
         if route == "/api/productions":
             return self.send_json({"runs": producer.load()["runs"]})
+        # the older addresses (16 Oct 2026) all open the one page (Yarin, 17 Oct: "one page for everything without any subpages")
+        m = re.match(r"^/(pool|grade)/(\d{4}-\d{2}-\d{2})/?$", route)
+        if m or route in ("/productions", "/packs"):
+            self.send_response(302)
+            self.send_header("Location", f"/?batch={m.group(2)}" if m else "/")
+            self.end_headers()
+            return
         # production outputs: the picture to approve, the exported slides, contact sheet and ZIP (read only)
         if route.startswith("/approved/") and ".." not in route and route.rsplit(".", 1)[-1].lower() in ("png", "jpg", "zip", "txt", "md", "json", "html"):
             return super().do_GET()
-        m = re.match(r"^/pool/(\d{4}-\d{2}-\d{2})/?$", self.path.split("?")[0])
-        if m:
-            page = batch.pool_page(m.group(1))
-            return self.send_html(page) if page else self.send_error(404)
-        m = re.match(r"^/grade/(\d{4}-\d{2}-\d{2})/?$", self.path.split("?")[0])
-        if m:
-            plan = batch.load(m.group(1))
-            return self.send_html(grade_page.page(plan)) if plan else self.send_error(404)
         # drafts for the review pages, assets/fonts for the pillar typefaces; nothing else in the pipeline folder is served
         if not self.path.startswith(("/drafts/", "/assets/fonts/")) or ".." in self.path:
             return self.send_error(404)

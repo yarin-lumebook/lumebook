@@ -6,6 +6,8 @@ that happen in Israel ("holidays or special days, hard or exciting").
     python3 carousel/carousel-pipeline/scripts/nightly.py week-plan      # plan the next batch (writes drafts/batches/ID.json)
     python3 carousel/carousel-pipeline/scripts/nightly.py batch-check ID # duplicates and gaps across the batch
 
+Since 18 Oct 2026 (Yarin: "i dont want the games and books carousels anymore", reco_lib.ACTIVE) a batch has no games and
+books carousels: 42 options only. Until then:
 A batch is 7 packs, each a normal drafts/DATE folder with the six kid and expert options (pack.json) and two games and
 books carousels (reco-carousel.json and reco-carousel-2.json): 42 options and 14 carousels. The dates are only keys, in a
 row after the newest night already made, so rotation and history keep working; Hook Studio shows the batch as one pool
@@ -170,18 +172,21 @@ def make_plan(today=None, merge=True, log=print):
             topic = {"kind": "regular", "topic_id": t["id"], "topic_he": t["title_he"]}
         slots.append({"n": i, "date": date, **topic,
                       "reco": [{"format": f, "skill": s, "skill_he": rl.SKILLS[s]["he"], "event": i == EVENT_SLOT}
-                               for f, s in zip(rl.BATCH_FORMATS, skills[i - 1])]})
+                               for f, s in zip(rl.BATCH_FORMATS, skills[i - 1])] if rl.ACTIVE else []})
     plan = {
         "id": dates[0],
         "kind": "weekly",
         "created_at": lib.now_local().isoformat(timespec="seconds"),
         "made_on": today.isoformat(),
         "event_window": [today.isoformat(), (today + dt.timedelta(days=EVENT_WINDOW_DAYS)).isoformat()],
-        "rules": ("7 packs on 7 different topics, each with 6 kid and expert options and 2 games and books carousels (42 and 14). "
-                  f"Slot {EVENT_SLOT} is the Israeli event pack (topic-bank.md \"Israeli events\"): one event in event_window, "
-                  "topic id event-<slug>, topic.event with a source read today; both its carousels record the same event. "
-                  "If no event fits, use fallback_topic_id and say why in topic.reason. Every other slot uses its topic_id. "
-                  "Each carousel uses its assigned skill; the two carousels of a pack use different ages and never share a product."),
+        "rules": (("7 packs on 7 different topics, each with 6 kid and expert options and 2 games and books carousels (42 and 14). "
+                   if rl.ACTIVE else "7 packs on 7 different topics, each with 6 kid and expert options (42); no games and books carousels. ")
+                  + f"Slot {EVENT_SLOT} is the Israeli event pack (topic-bank.md \"Israeli events\"): one event in event_window, "
+                  "topic id event-<slug>, topic.event with a source read today"
+                  + ("; both its carousels record the same event. " if rl.ACTIVE else ". ")
+                  + "If no event fits, use fallback_topic_id and say why in topic.reason. Every other slot uses its topic_id."
+                  + (" Each carousel uses its assigned skill; the two carousels of a pack use different ages and never share a product."
+                     if rl.ACTIVE else "")),
         "slots": slots,
     }
     lib.write_json(BATCHES / f"{plan['id']}.json", plan)
@@ -253,105 +258,6 @@ def check(batch_id):
     if events == 0 and not any("fallback" in w for w in warns):
         warns.append("no Israeli event pack in this batch")
     return errors, warns
-
-
-# ---------------------------------------------------------------------------
-# Pool page (served by review_server.py at /pool/ID)
-# ---------------------------------------------------------------------------
-
-POOL_CSS = """
-.pl-head{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
-.pl-head .hs-h2{margin-inline-end:var(--sp-2)}
-.pl-head .lb-toolbar{margin-inline-start:auto}
-.pl-row{display:flex;align-items:center;gap:var(--sp-3);padding:.7rem var(--sp-4);min-height:3.25rem;color:inherit;text-decoration:none}
-a.pl-row:hover{background:var(--fill);text-decoration:none;color:inherit}
-.pl-row .hs-row-main b{white-space:nowrap}
-.pl-recos{display:grid;grid-template-columns:repeat(auto-fill,minmax(10rem,1fr));gap:var(--sp-3)}
-.pl-reco{display:grid;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--surface);transition:box-shadow .15s,border-color .15s}
-a.pl-reco:hover{border-color:var(--tint);box-shadow:var(--shadow-2);text-decoration:none;color:var(--text)}
-.pl-reco img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--tint-soft)}
-.pl-reco span{display:flex;gap:var(--sp-2);align-items:center;justify-content:space-between;padding:var(--sp-2) var(--sp-3);font-size:var(--fs-footnote)}
-.pl-wait{color:var(--text-3);padding:var(--sp-3)}
-"""
-
-
-def _cover(version):
-    slides = version.get("slides") or [{}]
-    return lib.collapse(slides[0].get("headline", ""))
-
-
-def pool_page(batch_id):
-    import grades
-    import producer
-    import studio
-    plan = load(batch_id)
-    if not plan:
-        return None
-    stored = grades.load()["grades"]
-    runs = producer.load()["runs"]
-
-    def marks(key):
-        g = stored.get(key, {})
-        out = f'<span class="hs-badge{" on" if g.get("score") else ""}" title="ציון">{g.get("score") or "·"}</span>'
-        r = runs.get(key)
-        if r:
-            cls = {"review": "review", "done": "done", "failed": "failed"}.get(r.get("status"), "busy")
-            out = f'<span class="hs-pill {cls}">{esc(r.get("status_he", ""))}</span>' + out
-        elif g.get("produce"):
-            out = '<span class="hs-pill review">להפקה</span>' + out
-        return out
-
-    ready = sum(1 for s in plan["slots"] if (lib.DRAFTS / s["date"] / "pack.json").exists())
-    n_reco = sum(1 for s in plan["slots"] for r in s["reco"] if rl.carousel_path(lib.DRAFTS / s["date"], r["format"]).exists())
-    parts = []
-    for slot in plan["slots"]:
-        folder = lib.DRAFTS / slot["date"]
-        pack_path = folder / "pack.json"
-        pack = lib.read_json(pack_path) if pack_path.exists() else None
-        topic = (pack or {}).get("topic", {})
-        title = topic.get("title_he") or slot.get("topic_he") or ("אירוע בישראל" if slot["kind"] == "event" else slot.get("topic_id", ""))
-        chips = ""
-        event = topic.get("event")
-        if event:
-            chips += f'<span class="hs-pill review">אירוע · {esc(event.get("name_he", ""))} · {esc(event.get("date", ""))}</span>'
-        elif slot["kind"] == "event":
-            chips += '<span class="hs-pill">משבצת אירוע</span>'
-        chips += '' if pack else '<span class="hs-pill">עוד לא הגיע</span>'
-        tools = ""
-        if pack:
-            tools = f'<a class="lb-btn ghost sm" href="/drafts/{slot["date"]}/review.html">עריכת ילד ומומחה</a>'
-        body = [f'<section class="lb-section" id="slot-{slot["n"]}"><div class="pl-head"><h2 class="hs-h2">{slot["n"]} · {esc(title)}</h2>{chips}'
-                f'<span class="lb-toolbar">{tools}</span></div>']
-        if pack:
-            body.append('<div class="lb-group">')
-            for d in pack.get("directions", []):
-                for v in d.get("versions", []):
-                    key = f'{slot["date"]}/{v.get("id", "")}'
-                    body.append(f'<a class="pl-row" href="/grade/{esc(plan["id"])}#{esc(key)}"><span class="hs-id">{esc(v.get("id", ""))}</span>'
-                                f'<span class="hs-pill {esc(d["id"])}">{esc(lib.PILLARS.get(d["id"], {}).get("name_he", d["id"]))}</span>'
-                                f'<span class="hs-row-main"><b>{esc(_cover(v))}</b><span>{esc(v.get("child_name", ""))}</span></span>{marks(key)}</a>')
-            body.append('</div>')
-        else:
-            body.append('<p class="lb-empty">החבילה עוד בדרך מהענן</p>')
-        body.append('<div class="pl-recos">')
-        for r in slot["reco"]:
-            path = rl.carousel_path(folder, r["format"])
-            out_dir = rl.OUT_DIRS[r["format"]]
-            if path.exists():
-                car = lib.read_json(path)
-                thumb = folder / out_dir / "01.png"
-                img = f'<img src="/drafts/{slot["date"]}/{out_dir}/01.png" alt="" loading="lazy">' if thumb.exists() else ""
-                key = f'{slot["date"]}/{out_dir}'
-                body.append(f'<a class="pl-reco" href="/grade/{esc(plan["id"])}#{esc(key)}" title="{esc(lib.collapse(car.get("slides", [{}])[0].get("headline", "")))}">{img}'
-                            f'<span><b>{esc(r.get("skill_he", ""))}</b>{marks(key)}</span></a>')
-            else:
-                body.append(f'<div class="pl-reco"><span class="pl-wait">משחקים וספרים · {esc(r.get("skill_he", ""))} · עוד בדרך</span></div>')
-        body.append('</div></section>')
-        parts.append("".join(body))
-    sub = (f'נוצר {esc(plan.get("made_on", ""))} · {ready} מתוך {len(plan["slots"])} נושאים · {ready * 6} קרוסלות ילד ומומחה · {n_reco} משחקים וספרים. '
-           'בלי סדר של ימים: בוחרים כל קרוסלה מכל נושא. לחיצה פותחת אותה בדירוג.')
-    actions = f'<a class="lb-btn sm" href="/grade/{esc(plan["id"])}">לדרג אחת אחת</a>'
-    return studio.page("מאגר השבוע", "pool", "".join(parts), subtitle=sub, actions=actions, css=POOL_CSS)
 
 
 def newest_batch_with_content():

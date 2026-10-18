@@ -23,6 +23,8 @@ All Hebrew a parent will read follows the **lumebook-hebrew-voice** skill. Read 
 
 ## Weekly batch (since 16 Oct 2026)
 
+**Yarin, 18 Oct 2026: "i dont want the games and books carousels anymore". No new games and books carousels: `reco_lib.ACTIVE = False`, so `week-plan` plans none, `nightly.py start` prints no `recommendations`, and no run writes `reco-carousel*.json` or runs finish-reco. The ones already made still show in Hook Studio, validate, render and export. Skip step 8 below and leave the carousel out of step 9.**
+
 Yarin, 16 Oct 2026: one weekly batch every Thursday night instead of a pack every night: 7 packs on 7 different topics (42 kid and expert options), each with two games and books carousels (14), shown as one pool. One pack in seven is about something that happens in Israel (a holiday, a special day, a hard or exciting moment; topic-bank.md "Israeli events"), and the games and books are mixed in order, never 3 of the same kind in a row. The cloud routine follows `carousel/carousel-pipeline/cloud-weekly-prompt.md`: `nightly.py week-plan`, then every slot is built exactly like a nightly pack (Mode 1 below) with `nightly.py start --date DATE`, whose `batch` block fixes the topic (or the event slot) and whose `recommendations_2` is the second carousel, then `nightly.py batch-check ID`. README section 0 has the details.
 
 ## Mode 1 · Nightly review pack (no paid calls, ever)
@@ -113,6 +115,9 @@ Trigger: Yarin names one option, for example "produce kid-2 from tomorrow's pack
 3. Generate the picture, QA it yourself at full size (face to the viewer, the idea readable, a clean text zone, hands, no letters), replace it only if it fails and the cap allows
 4. `compose_slides.py` overlays the Hebrew in HTML and CSS in the clean look (new runs since 14 Oct 2026; a run already exported keeps its look when re-exported; copy without highlights gets the classic look; `--look clean|bold|classic` forces one) (no logo and no product card by default, because the carousel never names the brand), exports 1080 x 1350 PNGs, the contact sheet, the RTL check and the ZIP. View the contact sheet and the RTL check yourself before reporting
 5. One review message with the contact sheet, the ZIP, the spend and every open problem. Later text changes: `scripts/edit_final.py` (about 10 seconds, no images)
+6. The export is copied to Yarin's Drive folder `LumeBook תוכן/קרוסלות/` by itself (Yarin, 18 Oct 2026; README section 5, "Drive copy"). Say in the review message whether it was copied or is waiting for Google Drive for desktop
+
+The freeze checks only the option being produced and the pack as a whole, so another option that Yarin is still editing never blocks it (18 Oct 2026).
 
 FAL_KEY stays in the environment (it is in `~/.zshrc`, so run the generator through `zsh -ic`). Never print it, write it to a file or put it in a log.
 
@@ -120,4 +125,4 @@ FAL_KEY stays in the environment (it is in `~/.zshrc`, so run the generator thro
 
 `python3 carousel/carousel-pipeline/scripts/review_server.py` serves the newest pack at http://localhost:8777 (also the `carousel-review-editor` preview config). Yarin clicks any headline, body line, caption, CTA or title and types; Enter adds a line; "שמירה" or Cmd+S saves. The server copies the old files to `versions/vN/`, applies the edits (a CTA edit also updates the last slide, the caption's last line and the code word), validates with the same rules, saves even if something fails so nothing typed is lost, rebuilds the review, and the page highlights each field that still breaks a rule. When Yarin later says "produce kid-2", `prepare_fal_jobs.py` freezes the edited copy.
 
-Since 16 Oct 2026 the same server is the whole Hook Studio app (README, "Hook Studio, the app"): home, weekly pool, one by one grading (grades.json), productions run from the page (producer.py: picture up to $0.50, Yarin approves it there, export and ZIP by themselves) and the pack editors. Before writing a pack or batch, read `python3 carousel/carousel-pipeline/scripts/grades.py brief` and write toward what Yarin graded 4 to 5, away from 1 to 2, following the reasons. When Yarin asks for a production in chat, it still works as below; check productions.json first so a carousel is not produced twice.
+Since 16 Oct 2026 the same server is the whole Hook Studio app at http://localhost:8777/, one page since 17 Oct (README, "Hook Studio, the app"; scripts/studio.py): the week's carousels, in-place editing, grading (grades.json) and productions run from the page (producer.py: picture up to $0.50, Yarin approves it there, export and ZIP by themselves). Before writing a pack or batch, read `python3 carousel/carousel-pipeline/scripts/grades.py brief` and write toward what Yarin graded 4 to 5, away from 1 to 2, following the reasons. When Yarin asks for a production in chat, it still works as below; check productions.json first so a carousel is not produced twice.

@@ -93,9 +93,9 @@ def cmd_start(args):
             "caption_lines": [lib.CAPTION_MIN_LINES, lib.CAPTION_MAX_LINES],
             "max_options_per_hook_family": lib.HOOK_FAMILY_MAX_IN_WINDOW,
         },
-        # The extra daily carousel (games and books together for one developmental stage, 10 to 12 slides): recommendations.md
-        "recommendations": reco_lib.start_context(date, folder),
     }
+    if reco_lib.ACTIVE:  # the extra games and books carousel (recommendations.md); off since 18 Oct 2026
+        out["recommendations"] = reco_lib.start_context(date, folder)
     plan, slot = batch.plan_for_date(date)
     if plan:
         out.update(batch_start_context(plan, slot, date, folder, eligible))
@@ -116,9 +116,12 @@ def batch_start_context(plan, slot, date, folder, eligible):
     else:
         topic = {"event_slot": False, "topic_id": slot["topic_id"], "topic_he": slot["topic_he"],
                  "rule": "use exactly this topic (the weekly plan gives every pack a different one); ignore topic_shortlist"}
+    out = {"batch": {"id": plan["id"], "slot": slot["n"], "of": len(plan["slots"]), "other_slots": others, **topic}}
+    if not reco_lib.ACTIVE or not slot.get("reco"):
+        return out
     reco = {r["format"]: r for r in slot["reco"]}
     return {
-        "batch": {"id": plan["id"], "slot": slot["n"], "of": len(plan["slots"]), "other_slots": others, **topic},
+        **out,
         "recommendations": reco_lib.start_context(date, folder, fmt=reco_lib.MIXED, formats=reco_lib.BATCH_FORMATS, assigned=reco.get(reco_lib.MIXED)),
         "recommendations_2": reco_lib.start_context(date, folder, fmt=reco_lib.MIXED2, formats=reco_lib.BATCH_FORMATS, assigned=reco.get(reco_lib.MIXED2)),
     }

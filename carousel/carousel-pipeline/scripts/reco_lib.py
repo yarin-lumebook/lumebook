@@ -45,6 +45,9 @@ LEGACY_FORMATS = ("games", "books")      # the two separate carousels of the nig
 FORMATS = MIXED_FORMATS + LEGACY_FORMATS # every format the validator, the renderer and the review pages know
 NIGHTLY_FORMATS = (MIXED,)               # what nightly.py start draws and finish-reco expects (from 14 Oct 2026)
 BATCH_FORMATS = MIXED_FORMATS            # a pack of the weekly batch has two (Yarin, 16 Oct 2026: 14 a week for 7 packs)
+# Yarin, 18 Oct 2026: "i dont want the games and books carousels anymore". No new ones are planned or drawn; the ones
+# already made still validate, render, show in Hook Studio and export. Set True to bring them back.
+ACTIVE = False
 FILES = {MIXED: "reco-carousel.json", MIXED2: "reco-carousel-2.json", "games": "games-carousel.json", "books": "books-carousel.json"}
 OUT_DIRS = {MIXED: "reco", MIXED2: "reco-2", "games": "games", "books": "books"}  # drafts/DATE/<dir>/: slides.html, 01.png..., contact sheet
 ASSETS_DIR = "reco-assets"  # product and LumeBook images, inside drafts/DATE/ (both mixed carousels share it)

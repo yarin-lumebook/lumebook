@@ -140,7 +140,9 @@ python3 /Users/yarinbruner/Claude/Projects/Lumebook/carousel/carousel-pipeline/s
 
 Errors name the field, line, column and character. Rewrite the failed line into natural Hebrew (a comma usually means two thoughts: make two lines). Then run finish again. Warnings are for judgement; read each and fix the real ones.
 
-## 7b · The games and books carousel (every night, after the pack)
+## 7b · The games and books carousel (OFF since 18 Oct 2026: skip this section)
+
+Yarin, 18 Oct 2026: "i dont want the games and books carousels anymore". Kept for the carousels already made.
 
 One more complete carousel, next to the pack and never instead of it: games and books together (Yarin, 14 Oct 2026: "combine the book and games to one carousel. 10-20 slides", then "cap it to 7-9 books and games"), written to `reco-carousel.json` (`"format": "mixed"`, path in the start JSON under `recommendations.write_to`). It has a random number of suggestions, 7 to 9, drawn by `nightly.py start` (`recommendations.suggestions.tonight`, saved in `reco-slots.json` so a rerun keeps it); the LumeBook book counts as one of them, so N suggestions = N - 1 real products + the LumeBook book, N + 3 slides (10 to 12), the hook is always `X משחקים וספרים לגילאי A-B ש...` with X = N, and the validator refuses any other size. Read `carousel/carousel-pipeline/recommendations.md` first; `carousel/carousel-pipeline/tests/fixtures/reco/reco-carousel.json` is a complete 20-slide example that passes. No image generation and no paid call, ever, and nothing is posted. Nights up to 13 Oct 2026 have `games-carousel.json` and `books-carousel.json` instead; never write those again.
 

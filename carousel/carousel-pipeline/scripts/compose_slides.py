@@ -534,6 +534,10 @@ def main():
     result = {"out_dir": str(out_dir), "slides": [str(out_dir / f"{n:02d}.png") for n in range(1, count + 1)],
               "zip": str(zip_path), "look": look, "rtl_problems": problems, "placeholders": args.placeholders,
               "preview": str(preview) if preview else None}
+    if out_dir.name == "final" and not args.placeholders:
+        import drive_export  # Yarin's Drive content folder (18 Oct 2026); queued when Drive for desktop is not set up
+        dest = drive_export.export(run_dir)
+        result["drive"] = str(dest) if dest else "waiting"
     print(json.dumps(result, ensure_ascii=False, indent=2))
     if problems:
         raise SystemExit(1)

@@ -197,6 +197,8 @@ def export_reco(date, out_dir_name, drafts=None, approved=None):
         for name in ("caption.txt", "alt-text.txt", "sources.md", "contact-sheet.png"):
             if (final / name).exists():
                 z.write(final / name, name)
+    import drive_export  # Yarin's Drive content folder (18 Oct 2026); only real approved/ runs reach it
+    drive_export.export(final.parent, quiet=True)
     return final.parent
 
 
