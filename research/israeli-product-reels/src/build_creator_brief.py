@@ -270,7 +270,9 @@ def phone(kind, ctx):
         inner = (f'<div class="z z-spread"><span class="spread"><i></i><i></i></span></div>'
                  f'<div class="z z-cta">{html.escape(ctx["cta"])}</div>')
     subs = f'<div class="z z-subs"><span>{UI["zone_subs"]}</span></div>' if kind != "end" else ""
-    return f'<div class="phone p-{kind}"><span class="notch"></span>{inner}{subs}<div class="z z-ui"></div></div>'
+    # Meta's Reels safe zone (smm-research F2, T4; 18 Oct 2026): nothing in the top 14%, the bottom 35% or 6% at each side
+    ui = "".join(f'<div class="z z-ui {c}"></div>' for c in ("ui-bottom", "ui-top", "ui-side ui-start", "ui-side ui-end"))
+    return f'<div class="phone p-{kind}"><span class="notch"></span>{inner}{subs}{ui}</div>'
 
 
 def visual(name, ctx):
@@ -597,27 +599,34 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* the cover 
 .phone { container-type: inline-size; position: relative; width: 100%; max-width: 10rem; aspect-ratio: 9 / 16; border: 3px solid var(--ink-4);
   border-radius: 1.2rem; background: var(--ink-0); overflow: hidden; box-shadow: 0 0 0 1px var(--edge-strong); }
 .notch { position: absolute; top: 4px; left: 50%; transform: translateX(-50%); width: 28%; height: 5px; border-radius: 3px; background: var(--ink-4); z-index: 2; }
+/* everything that matters sits between 14% and 65% of the height and 6% in from each side (Meta's Reels safe zone,
+   smm-research F2 and T4, 18 Oct 2026); the hatched bands are where Instagram's caption and buttons sit */
 .z { position: absolute; inset-inline: 7%; display: grid; place-items: center; text-align: center; border-radius: 6px; }
-.z-hook { top: 7%; height: 22%; background: var(--violet-soft); color: var(--violet-hi); font-size: .6rem; font-size: 7cqw; font-weight: 800; line-height: 1.2; padding: 4px; }
-.z-book { top: 32%; height: 30%; }
-.mini-book { position: relative; width: 52%; aspect-ratio: 1; border-radius: 4px; background: linear-gradient(160deg, var(--gold), var(--gold-deep));
+.z-hook { top: 16%; height: 13%; background: var(--violet-soft); color: var(--violet-hi); font-size: .55rem; font-size: 6.4cqw; font-weight: 800; line-height: 1.2; padding: 3px 4px; }
+.z-book { top: 31%; height: 21%; }
+.mini-book { position: relative; width: 40%; aspect-ratio: 1; border-radius: 4px; background: linear-gradient(160deg, var(--gold), var(--gold-deep));
   box-shadow: 0 6px 14px -8px #000000; display: grid; place-items: center; }
 .mini-book i { width: 42%; aspect-ratio: 1; border-radius: 50%; background: var(--cream); }
-.mini-book.small { width: 34%; position: absolute; inset-inline-start: 18%; bottom: 14%; }
-.z-subs { top: 65%; height: 9%; }
+.mini-book.small { width: 32%; position: absolute; inset-inline-end: 12%; bottom: 47%; }
+.z-subs { top: 55%; height: 8%; }
 .z-subs span { background: var(--cream); color: var(--ink-0); font-size: .55rem; font-size: 6cqw; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
-.z-ui { inset-inline: 0; bottom: 0; height: 20%; border-radius: 0; background: var(--hatch); box-shadow: inset 0 1px 0 var(--red-soft); }
-.z-site { top: 7%; inset-inline-start: 7%; inset-inline-end: auto; width: 40%; height: 22%; background: var(--ink-1); border: 1.5px solid var(--violet-hi);
+.z-ui { inset-inline: 0; border-radius: 0; background: var(--hatch); z-index: 1; }
+.ui-bottom { bottom: 0; height: 35%; box-shadow: inset 0 1px 0 var(--red-soft); }
+.ui-top { top: 0; height: 14%; box-shadow: inset 0 -1px 0 var(--red-soft); }
+.ui-side { top: 14%; bottom: 35%; width: 6%; }
+.ui-start { inset-inline: 0 auto; }
+.ui-end { inset-inline: auto 0; }
+.z-site { top: 16%; inset-inline-start: 7%; inset-inline-end: auto; width: 40%; height: 20%; background: var(--ink-1); border: 1.5px solid var(--violet-hi);
   align-content: start; gap: 3px; padding: 4px; place-items: stretch; z-index: 1; }
 .z-site span { font-size: .5rem; font-size: 5.5cqw; font-weight: 700; color: var(--violet-hi); }
 .z-site i { display: block; height: 3px; border-radius: 2px; background: var(--fill-3); }
-.z-scene { top: 7%; bottom: 20%; inset-inline: 0; border-radius: 0; background: linear-gradient(180deg, var(--ink-2), var(--ink-3)); }
-.sofa { position: absolute; inset-inline: 10%; bottom: 18%; height: 22%; border-radius: 10px 10px 4px 4px; background: var(--ink-4); }
-.z-spread { top: 9%; height: 40%; }
+.z-scene { top: 0; bottom: 0; inset-inline: 0; border-radius: 0; background: linear-gradient(180deg, var(--ink-2), var(--ink-3)); }
+.sofa { position: absolute; inset-inline: 10%; bottom: 30%; height: 18%; border-radius: 10px 10px 4px 4px; background: var(--ink-4); }
+.z-spread { top: 16%; height: 24%; }
 .spread { display: flex; width: 76%; aspect-ratio: 2 / 1.25; box-shadow: 0 6px 14px -8px #000000; }
 .spread i { flex: 1; background: var(--cream); }
 .spread i:first-child { background: linear-gradient(160deg, var(--gold), var(--gold-deep)); }
-.z-cta { top: 53%; height: 25%; background: var(--violet); color: #FFFFFF; font-size: .5rem; font-size: 5.6cqw; font-weight: 600; line-height: 1.25; padding: 4px 6px; }
+.z-cta { top: 42%; height: 21%; background: var(--violet); color: #FFFFFF; font-size: .5rem; font-size: 5.6cqw; font-weight: 600; line-height: 1.25; padding: 4px 6px; }
 .legend { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); font-size: var(--fs-footnote); color: var(--text-2); }
 .key { display: inline-flex; align-items: center; gap: .4rem; }
 .key i { width: .85rem; height: .85rem; border-radius: 3px; }

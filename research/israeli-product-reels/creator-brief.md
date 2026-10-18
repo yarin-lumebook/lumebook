@@ -12,19 +12,20 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 - **Look (15 Oct, Yarin):** LumeBook's colours, Apple-style layout, Heebo only. Light by default with a dark/light toggle in the top bar (each viewer's choice is kept in their own browser). The dark option exists on this page only; the project rule is still light mode everywhere else.
 - **Example Reel on the page (15 Oct, Yarin: "add the reel example baked in the site"):** @shoham_novik's collab Reel plays in a phone frame (`<!--visual:reel-->`). Web copies: `media/projects/2026-10-15-israeli-product-reels/web/shoham-reel.mp4` (540p H.264, 6.3 MB, made with ffmpeg from the 15 Oct download) and `shoham-reel-poster.jpg`; the build copies them into `sites/lumebook-creator-brief/media/`. Raw media is not in git. Shoham agreed to LumeBook using her Reel (Yarin, 15 Oct 2026), so it is on the public site too; the other downloaded Reels stay internal. When republishing the artifact, pass `files` for `media/shoham-reel.mp4` and `media/shoham-reel-poster.jpg`, or the player is empty there.
 - **Public site (for creators):** https://lumebook-creator-brief.vercel.app (its own Vercel project, `noindex`), the same page as a full document in `sites/lumebook-creator-brief/`, written by the same build. After a rebuild: `python3 tools/lumebook.py deploy creator-brief`.
+- **Research check (18 Oct 2026):** brought in line with `smm-research/principles.md` and `playbook.md` section 8. The disclosure moved to the caption's first line, with the paid-partnership label as a third step next to the collaborator invite and the disclosure line (T8, S7); the barter terms now say the book does not depend on a positive review (T8). The opening step has speech from the first second (H4, H6), and the CTA section says one CTA only, with a follow-up DM only when the person answers (C1, C3).
+- **Removed by Yarin (18 Oct 2026, "תמחק את החלקים של קריינות וכתוביות וילדים בסרטון"):** the whole sections "קריינות וכתוביות" (with the phone-screens diagram, the 15 Oct lines on voiceover and subtitles, and the 18 Oct lines on the 14/35/6 safe zone, key-word subtitles and lines starting with a Hebrew letter) and "ילדים בסרטון" (written consent, never the face with the name, gan, school or town, the no-face option). Then, at Yarin's request, the lines tied to them: "באזור הבטוח" in the opening step, the no-face line in the home step, "לא שניהם באותו סרטון" in the pages step, the from-behind sofa shot in the worked example and the safe-zone do-not rule (which had replaced the 15 Oct subtitles rule). The pages step still reads "או התמונה שלו ליד האיור" (18 Oct wording; on 15 Oct it was "ואם בא לכם גם התמונה שלו ליד האיור"). The `<!--visual:screens-->` code stays in `src/build_creator_brief.py`, unused.
 
 ## How the brief maps to the research
 
 | In the brief | Where it comes from |
 |---|---|
-| Problem or moment in the first line, book on screen within 1 second | Shoham's opening (cover at 0:01); 35 of 41 Reels show the product within 2 s (`playbook.md` section 1) |
+| Problem or moment in the first line, spoken from 0:00, book on screen within 1 second | Shoham's opening (cover at 0:01); 150 of 173 Reels show the product within 2 s (`playbook.md` section 1); speech in the first seconds lifts early retention, so voice is recommended from the first second (H4, H6 moderate; section 8) |
 | Home footage, one short screen recording, page close-ups | Shoham 0:04-0:47; "show the ordering flow once, for three or four seconds, inside a story" (section 3) |
 | One buyer worry answered with a checked fact | Shoham's delivery question at 0:28; facts read on lumebook.com on 15 Oct |
-| CTA on screen and as the caption's last line | Shoham and @etti_haft had the CTA only in the caption (section 3) |
+| One CTA, on screen and as the caption's last line; the comment word brings the personal link by DM, a second message only after a reply | C1 moderate, C3 strong on the mechanics; Shoham and @etti_haft had the CTA only in the caption (section 3); any CTA and an on-screen CTA were clearly higher in the sample (section 8) |
 | One topic in hook, video and caption | Shoham's caption sold a birthday gift on a potty-training video |
-| Collaborator invite to @lumebook.il plus a plain disclosure line | Disclosure was loose in the sample, 0 of 41 used the paid-partnership label (section 1, point 8) |
-| Subtitles clear of overlays, nothing in the bottom fifth or at the sides | Shoham 0:11-0:27; the bottom fifth and right edge are the playbook's working rule, not a measured fact (sections 3 and 6). The brief says "the sides" because I haven't checked whether Instagram's Hebrew interface moves the buttons to the left |
-| About 32 seconds | The playbook's 20 to 35 s is a production choice with no watch-time data behind it |
+| Collaborator invite, Instagram's paid-partnership label and the disclosure as the caption's first line; the book does not depend on a positive review | T8, S7: strong as an Israeli duty to disclose, visible without tapping "more" (Consumer Protection Authority 2021 draft directive, Attorney General's position); 70 of 173 Reels had disclosure words and 4 the label (section 1, point 10); Shoham's disclosure sat at the end of the caption with no label |
+| About 32 seconds | Not changed on 18 Oct. Section 8 now says length follows the content (R1, R2) and the brief already says the times are approximate |
 
 ## Decide or check before sending
 
@@ -35,6 +36,10 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 5. **Rules you removed.** The brief no longer tells creators not to explain how the illustrations are made, and no longer says "no codes, only the personal link". The project rules still apply to what they post (CLAUDE.md: no AI in audience copy; the offer is a personal link, never a code). Say it in the DM, or ask me to put the lines back.
 6. **Professionals.** Approach A needs a real family moment. A therapist or gan teacher without their own child in that moment fits approach D ("talk with it in your hands", `playbook.md`) better; this brief doesn't cover it.
 7. **Instagram handle in facts.** `shared/facts.json` still lists `brand.instagram` as `lumebookai`; the live handle is @lumebook.il (`playbook.md`, line 7). Not changed here.
+8. **The written consent (18 Oct).** Since Yarin removed "ילדים בסרטון", the brief asks for written consent only for other families' children (the do-not rule). S5 also recommends the parent's written consent for the creator's own child, because a collab post shows on @lumebook.il too, so LumeBook publishes the child's image as well. If you want it, ask for it in the DM or agreement; no consent text exists yet. Ask a lawyer to look at it together with the open question of whether the Youth Employment permit covers barter content with children under 15.
+9. **Barter terms (18 Oct).** The brief says the book does not depend on a positive review; say the same in the DM or agreement that offers the book. It follows the Consumer Protection Authority's 2021 draft directive, whose final status was not confirmed (T8); this is not legal advice.
+10. **The paid-partnership label, not checked in the app.** I haven't confirmed the label's Hebrew name in Instagram's interface (the brief describes it instead of quoting it), whether it can be switched on in the same post as the collaborator invite, or whether @lumebook.il must first approve creators as a brand partner. Check once on a test post before the first creator films.
+11. **The child's face and name.** Since the 18 Oct removals the brief has no rule on showing a creator's own child: S5 says never the face together with the name, gan, school or town, and the pages step shows the name in the story. Say it in the DM if you want it. The book itself shows the child as an illustration on the cover and in 10 pictures, with the name in the story; the research does not say whether an illustrated face with the name counts (S5 only says an illustration used in LumeBook marketing needs the parents' written consent).
 
 ## The brief (send this part)
 
@@ -52,6 +57,7 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 <!--visual:reel-->
 
 <!--as:ticks-->מה נוסיף אצלכם<br>
+גילוי נאות בשורה הראשונה בכיתוב<br>
 קריאה לפעולה על המסך בסוף<br>
 כיתוב על אותו נושא כמו הסרטון<br>
 כתוביות שלא מתנגשות בהקלטת המסך
@@ -62,9 +68,10 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 הזמנים הם בערך
 
 <!--icon:play-->**הפתיחה · 0 עד 3 שניות**<br>
+מדברים מהשנייה הראשונה<br>
 הבעיה או הרגע שלכם במשפט אחד<br>
-והספר על המסך כבר בשנייה הראשונה<br>
-אותו משפט גם כטקסט בשליש העליון
+והספר על המסך באותה שנייה<br>
+אותו משפט כטקסט למעלה
 
 למשל<br>
 ״לא ידעתי איך מתחילים גמילה מחיתולים״<br>
@@ -92,7 +99,7 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 <!--icon:book-->**העמודים · 14 עד 22 שניות**<br>
 צילום מקרוב מלמעלה<br>
 השם של הילד בתוך הסיפור<br>
-ואם בא לכם גם התמונה שלו ליד האיור
+או התמונה שלו ליד האיור
 
 <!--icon:help-->**דאגה אחת · 22 עד 29 שניות**<br>
 אומרים בקול דאגה אחת של הורים לפני שמזמינים<br>
@@ -136,14 +143,6 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
   עמוד ההקדשה על המסך<br>
   והקריאה לפעולה כטקסט
 
-### <!--icon:captions--> קריינות וכתוביות
-
-מקליטים קריינות אחרי הצילום<br>
-שמים כתוביות על כל הסרטון<br>
-ובודקים כל מילה בעברית
-
-<!--visual:screens-->
-
 ### <!--icon:target--> נושא אחד
 
 נושא אחד לכל הרילס<br>
@@ -173,8 +172,10 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 ### <!--icon:megaphone--> הקריאה לפעולה
 
+קריאה אחת לפעולה בכל הרילס<br>
 אותו משפט על המסך בסוף<br>
-ובשורה האחרונה בכיתוב
+ובשורה האחרונה בכיתוב<br>
+בלי בקשה נוספת לצידו
 
 </div>
 
@@ -188,20 +189,28 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 <!--icon:message-->לכל מי שכותב ״לומי״<br>
 שולחים בהודעה פרטית את הקישור האישי שלכם<br>
-ככה ההזמנה עוברת דרך הקישור שלכם
+ככה ההזמנה עוברת דרך הקישור שלכם<br>
+ועוד הודעה רק אם עונים לכם
 
 ### <!--icon:message--> הכיתוב מתחת לסרטון
 
-שורה ראשונה על אותו נושא כמו הפתיחה<br>
-שורת גילוי נאות לפני הסוף<br>
+השורה הראשונה היא הגילוי הנאות<br>
+כדי שיראו אותו בלי ללחוץ על ״עוד״<br>
+אחריו שורה על אותו נושא כמו הפתיחה<br>
 והקריאה לפעולה היא השורה האחרונה
 
 בזמן ההעלאה מזמינים את `@lumebook.il` כשותף לפוסט<br>
-וגם כותבים שורת גילוי נאות בכיתוב<br>
-צריך את שניהם
+מסמנים את התווית של אינסטגרם לשיתוף פעולה בתשלום<br>
+וכותבים את הגילוי הנאות בשורה הראשונה<br>
+צריך את שלושתם
 
 גילוי נאות פשוט<br>
-״נוצר בשיתוף פעולה עם LumeBook״
+״נוצר בשיתוף פעולה עם LumeBook״<br>
+ואפשר גם כטקסט קטן על המסך בשניות הראשונות
+
+הספר שלכם בכל מקרה<br>
+הוא לא תלוי בביקורת חיובית<br>
+מספרים מה באמת חשבתם
 
 אם בחרתם לתת לעוקבים הנחה מתוך ה-25%<br>
 כתבו בכיתוב כמה הנחה יש בקישור
@@ -214,13 +223,13 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 <div dir="rtl" lang="he" data-lint="caption">
 
+> שיתוף פעולה עם לומיבוק<br>
+> קיבלתי את הספר במתנה<br>
+> ועל הזמנות דרך הקישור שלי מגיעה לי עמלה<br>
 > לא ידענו איך מתחילים גמילה מחיתולים<br>
 > אז הכנו לה ספר שבו היא הגיבורה<br>
 > והיא ביקשה לקרוא אותו שוב ושוב<br>
 > בקישור שלי יש 10% הנחה<br>
-> שיתוף פעולה עם לומיבוק<br>
-> קיבלתי את הספר במתנה<br>
-> ועל הזמנות דרך הקישור שלי מגיעה לי עמלה<br>
 > כתבו "לומי" בתגובות ואשלח לכם קישור לספר שבו הילד שלכם הוא הגיבור
 
 </div>
@@ -250,11 +259,6 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 - <!--icon:users-->ילדים של משפחות אחרות רק באישור בכתב מההורים שלהם<br>
   גם ברקע וגם בגן
-
-- <!--icon:captions-->כתוביות מעל החלק התחתון של המסך<br>
-  ולא צמוד לצדי המסך<br>
-  שם אינסטגרם מכסה בכיתוב ובכפתורים<br>
-  ושום שכבה לא עולה על הכתוביות
 
 - <!--icon:quote-->בלי משפטי פרסומת<br>
   משפטים אמיתיים ואותנטיים
