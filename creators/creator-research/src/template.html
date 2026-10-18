@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lumebook Creator Map</title>
-<meta name="description" content="Israeli micro-creators (1K–50K) for Lumebook UGC, verified 3 and 11 Oct 2026">
+<meta name="description" content="Israeli micro-creators (1K–50K) for Lumebook UGC, verified 3, 11 and 18 Oct 2026">
 <!--LB:HEAD-->
 <script>document.documentElement.setAttribute("data-theme","light")</script>
 <style>
@@ -382,11 +382,11 @@ details[open] summary{margin-bottom:var(--sp-2)}
     <details class="expnew" id="expNew"><summary>Set up a test</summary><div id="expForm"></div></details>
   </div>
   <div class="lb-card about">
-  <span class="lb-eyebrow">Creator research · verified 3 and 11 Oct 2026</span>
+  <span class="lb-eyebrow">Creator research · verified 3, 11 and 18 Oct 2026</span>
   <h3>Who Israeli parents already trust</h3>
-  <p class="lb-lede">243 Hebrew-language Israeli creators with roughly 1K–50K followers who could make credible, reusable Lumebook content. Each one was checked on their own Instagram profile for follower count, bio, the last 12 reels' views, and the date of their last reel: 204 on 3 Oct 2026 and 100 more on 11 Oct 2026. On 12 Oct 2026 the never-contacted creators under 5K followers were removed (61), so everyone not yet messaged has 5K or more.</p>
+  <p class="lb-lede">343 Hebrew-language Israeli creators with roughly 1K–50K followers who could make credible, reusable Lumebook content. Each one was checked on their own Instagram profile for follower count, bio, the last 12 reels' views, and the date of their last reel: 204 on 3 Oct 2026 and 100 more on 11 Oct 2026. On 12 Oct 2026 the never-contacted creators under 5K followers were removed (61), so everyone not yet messaged has 5K or more. On 18 Oct 2026 100 more were added, all between 5K and 50K followers.</p>
   <div class="facts">
-    <span class="lb-chip outline"><b>243</b> in database</span><span class="lb-chip outline"><b>72</b> added 11 Oct</span><span class="lb-chip outline"><b>8</b> over-50K edge cases</span><span class="lb-chip outline"><b>~200</b> accounts screened</span><span class="lb-chip outline">Lumebook Q4 budget: <b>₪0 cash, books as barter</b></span>
+    <span class="lb-chip outline"><b>343</b> in database</span><span class="lb-chip outline"><b>100</b> added 18 Oct</span><span class="lb-chip outline"><b>8</b> over-50K edge cases</span><span class="lb-chip outline"><b>~5,800</b> accounts screened 18 Oct</span><span class="lb-chip outline">Lumebook Q4 budget: <b>₪0 cash, books as barter</b></span>
   </div>
 <div class="quick"><a class="lb-btn secondary" href="#database">Database</a><a class="lb-btn secondary" href="#method">Method and limits</a></div></div>
 </section>
@@ -402,7 +402,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
 <section class="page lb-section" data-page="database" hidden>
   <span class="lb-eyebrow">Output 1</span>
   <h2>Master creator database</h2>
-  <p class="lb-lede">Click a row for role, ages, UGC roles, the score breakdown, a tailored concept, risks and contact. “Median views” is the median of the 12 most recent reels in the profile's Reels grid, read on 3 Oct 2026 (first two passes) or 11 Oct 2026 (third pass); pinned reels are included and can push it up.</p>
+  <p class="lb-lede">Click a row for role, ages, UGC roles, the score breakdown, a tailored concept, risks and contact. “Median views” is the median of the 12 most recent reels in the profile's Reels grid, read on 3 Oct 2026 (first two passes), 11 Oct 2026 (third pass) or 18 Oct 2026 (fourth pass); pinned reels are included and can push it up.</p>
   <div class="tbwrap" id="tb-db"></div>
   <div class="tbl lb-table-wrap"><table id="t" class="lb-table">
     <thead><tr>
@@ -457,7 +457,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
       <li><b>Web search (6 parallel agents, ~120 searches).</b> Hebrew and Arabic queries plus <code>site:instagram.com</code> / <code>site:tiktok.com</code>, and Hebrew listicles (mako, ynet, 9instyle, Walla). Yield was low: about 120 leads, many of them shops, inactive or not Israeli.</li>
       <li><b>Instagram similar-accounts graph (14 seeds).</b> Profiles of a kindergarten teacher, SLP, OT, dad, Montessori, books, homeschool, potty-training and gan-consultant creators. Most of the final list came from here.</li>
       <li><b>Instagram account search (58 keywords).</b> Hebrew, Arabic, Russian and English terms. This filled the gaps web search couldn't: Arabic and Russian SLPs, twins moms, grandparents, home daycares, dads, homeschoolers.</li>
-      <li><b>Verification.</b> Every listed creator was opened read-only in a logged-in browser, on 3 Oct 2026 for the first two passes and on 11 Oct 2026 for the third. I read follower count, bio and category, plus each of the last 12 reels' views and its post date (decoded from the reel ID). TikTok was read with yt-dlp (latest 15 videos). I also checked mebook.ai's Instagram “tagged” tab for competitor overlap.</li>
+      <li><b>Verification.</b> Every listed creator was opened read-only in a logged-in browser, on 3 Oct 2026 for the first two passes, on 11 Oct 2026 for the third and on 18 Oct 2026 for the fourth. I read follower count, bio and category, plus each of the last 12 reels' views and its post date (decoded from the reel ID). TikTok was read with yt-dlp (latest 15 videos). I also checked mebook.ai's Instagram “tagged” tab for competitor overlap.</li>
     </ul>
   </details>
   <details>
@@ -598,7 +598,7 @@ const FACETS={
   med:{l:"Median reel views",vals:[["Under 1K",0,1e3],["1K to 5K",1e3,5e3],["5K to 20K",5e3,2e4],["20K and up",2e4,Infinity]].map(([l,a,b])=>rng(l,a,b,c=>c.med))},
   last:{l:"Latest reel",vals:[["Last 14 days",0,15],["15 to 30 days ago",15,31],["31 to 90 days ago",31,91],["Over 90 days ago",91,Infinity]].map(([l,a,b])=>rng(l,a,b,c=>dayDiff(c.last))).concat([{v:"unknown",l:"Unknown",t:c=>dayDiff(c.last)==null}])},
   style:{l:"Style sent",vals:[{v:"1",l:"Warm",t:c=>HOOK.ss(c)===1},{v:"2",l:"Short",t:c=>HOOK.ss(c)===2}]},
-  batch:{l:"Research pass",vals:[{v:"1",l:"First pass",t:c=>c.batch===1},{v:"2",l:"Second pass",t:c=>c.batch===2},{v:"3",l:"Third pass (11 Oct)",t:c=>c.batch===3}]},
+  batch:{l:"Research pass",vals:[{v:"1",l:"First pass",t:c=>c.batch===1},{v:"2",l:"Second pass",t:c=>c.batch===2},{v:"3",l:"Third pass (11 Oct)",t:c=>c.batch===3},{v:"4",l:"Fourth pass (18 Oct)",t:c=>c.batch===4}]},
   kids:{l:"Kids",vals:[{v:"unk",l:"Not checked yet",t:c=>kidsOf(c).n==null&&kidsOf(c).b==null&&kidsOf(c).g==null},{v:"1",l:"1 kid",t:c=>kidsOf(c).n===1},{v:"2",l:"2 kids",t:c=>kidsOf(c).n===2},{v:"3",l:"3 kids",t:c=>kidsOf(c).n===3},{v:"4",l:"4 or more",t:c=>(kidsOf(c).n||0)>=4},{v:"girl",l:"Has a girl",t:c=>(kidsOf(c).g||0)>0},{v:"boy",l:"Has a boy",t:c=>(kidsOf(c).b||0)>0}]},
   arch:{l:"Archetype",vals:[...new Set(C.map(c=>c.arch))].sort().map(v=>({v,l:v,t:c=>c.arch===v}))}
 };

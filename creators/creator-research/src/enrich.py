@@ -24,7 +24,7 @@ def moment(role,concept):
     if re.search(r'sibling',t): return "אח חדש"
     if re.search(r'gan|kindergarten|first grade|grade 1',t): return "כניסה לגן"
     return "גמילה / כניסה לגן / אח חדש"
-GREET={'journo_family':'משפחת ג׳ורנו','the_bluepine':'צוות האצטרובל הכחול','beit_hayasmin':'צוות בית היסמין','savta.sulika':'סבתא סוליקה','trainingwheelsclinic':'עדילי וניצן'}
+GREET={'journo_family':'משפחת ג׳ורנו','the_bluepine':'צוות האצטרובל הכחול','beit_hayasmin':'צוות בית היסמין','savta.sulika':'סבתא סוליקה','trainingwheelsclinic':'עדילי וניצן','small_talk_slp':'אורי וגילי','thekalafs':'רם ואיילת','outravel_shmuel_bar':'שמואל ובר','urbanmoms.tlv':'שירן ומאור'}
 def moment3(role,concept):
     t=(role+' '+concept).lower()
     if re.search(r'potty|napp|dummy|weaning',t): return "גמילה"
@@ -37,6 +37,6 @@ def enrich(C):
         h=c['h']
         if h in W1: c['n'],c['l'],c['m']=W1[h]; c['wave']=1; c['own']=1
         else:
-            c['n']=GREET.get(h) or c['name'].split()[0]; c['l']=topic(c['arch']); c['m']=moment3(c['role'],c['concept']) if c.get('extra')=='pass3' else moment(c['role'],c['concept']); c['wave']=2; c['own']=0
+            c['n']=GREET.get(h) or c['name'].split()[0]; c['l']=topic(c['arch']); c['m']=moment3(c['role'],c['concept']) if c.get('extra') in ('pass3','pass4') else moment(c['role'],c['concept']); c['wave']=2; c['own']=0
             pr=c['prac']
             if 'expensive' in pr.lower() or 'Standard paid' in pr or 'management' in c['contact'].lower(): c['wave']=3

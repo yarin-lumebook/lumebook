@@ -18,8 +18,8 @@ assert sum(OFFER["ex"])==OFFER["pct"], "the split example must add up to the all
 for c in C:
     if c['h'] in KIDS: c['kids']=KIDS[c['h']]
 for i,c in enumerate(C):
-    p3=str(c.get('extra',''))=='pass3'
-    c['ai']=i; c['added']='2026-10-11' if p3 else '2026-10-03'; c['batch']=3 if p3 else 2 if str(c.get('extra','')).startswith('pass2') else 1; c['chk']='11 Oct 2026' if p3 else '3 Oct 2026'
+    ex=str(c.get('extra','')); p3=ex=='pass3'; p4=ex=='pass4'
+    c['ai']=i; c['added']='2026-10-18' if p4 else '2026-10-11' if p3 else '2026-10-03'; c['batch']=4 if p4 else 3 if p3 else 2 if ex.startswith('pass2') else 1; c['chk']='18 Oct 2026' if p4 else '11 Oct 2026' if p3 else '3 Oct 2026'
 for c in C:
     if c['h']=='edenmomlife': c['arch']='Homeschool / alternative ed'
 O={
@@ -53,6 +53,8 @@ EXCL=[("No reel in 6+ months","box.from.books, sharonturgeman1, carmit_dinbar, l
 ("Not parenting content","batzion_assulin, racheloron, shirifadlon, carmelalerner_, amit.socher, dvorivainer, aba.itanu_anaelpashaev, hadaserez_imalevia, naamakaminer.positive.psych, drsivan_psychology, noa_kalian"),
 ("Teen or adult focus / outside the 2–8 range","omershnollll, liraz__madmon, alonmeir10, marsel_revivo (ages 8–14), nurse_shiran (babies born 2026)"),
 ("Businesses, venues or brands with low reach","vikicdesigns, etgar_haotzar, mahuti_eol, shlomitlevit, tolaat_sfarim, sifriyat.pijama, kesem.mada, firststepmethod_il"),
+("Fourth pass, 18 Oct 2026: no reel since before July","lihen_imahut, hilaraanan_, dr_tal_babystepspsychology, montessori.il, hila_efratii, ellayohanan, ofer.medem.friedman, soul.soulandpaper, alhaveda, orin_zherebitsky, shirvahaba"),
+("Fourth pass: renamed account already in the map","by_shanina is the new handle of shanina_advent.learn"),
 ("Says no to collaborations","maya_navon_parenthood (bio: no collabs, no coupon codes)"),
 ("Sensitive","aviharush (bio links a memorial page; not appropriate for a product pitch)"),
 ("Arabic- or Russian-language","Removed at your request: tasharybak, slp.lanaab, raghad.speech, yasmeen_mawassi (and the Arabic over-50K edge cases)"),
