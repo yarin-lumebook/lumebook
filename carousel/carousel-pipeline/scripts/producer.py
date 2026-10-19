@@ -25,6 +25,7 @@ threads inside review_server.py; a restart in the middle marks the entry so the 
 
 import argparse
 import json
+import re
 import shlex
 import shutil
 import subprocess
@@ -45,6 +46,11 @@ PICTURE = "picture"
 BUSY = ("queued", "preparing", "generating", "composing", "exporting")
 STATUS_HE = {"queued": "בתור", "preparing": "מקפיא את הטקסט", "generating": "מייצר תמונה", "review": "מחכה לאישור שלך",
              "composing": "מרכיב שקופיות", "exporting": "מייצא", "done": "מוכן לפרסום", "failed": "נעצר"}
+# fal's image model sometimes declines a harmless family scene (18 Oct 2026: expert-1 of 20 Oct twice; the same
+# cover wording passed for kid-1, so the trigger is unknown). Rewording the scene and trying again got it through.
+SAFETY_MARKERS = ("content_policy_violation", "safety system declined")
+DECLINED_HE = ("מסנן הבטיחות של מודל התמונות דחה את תיאור התמונה. זה קורה לפעמים גם בסצנה תמימה, ולא ידוע מה בדיוק הפעיל אותו. "
+               "בקשה שנדחתה לא מייצרת תמונה. אפשר לנסח מחדש את תיאור הסצנה למטה ולנסות שוב.")
 QA_CHECKS_HE = ("הפנים של הילד אל המצלמה, עם הבעה גדולה", "הרעיון של הקרוסלה נקרא מהתמונה", "יש אזור נקי לטקסט",
                 "ידיים ופנים טבעיים, בלי אותיות או לוגו", "תלת ממד מונפש, לא צילום")
 ABOUT = ("Hook Studio productions (producer.py). One entry per carousel keyed <date>/<id>; status: " + ", ".join(STATUS_HE)
@@ -232,6 +238,9 @@ def _generate(key, run_dir, replace_note=None):
     code, out = _sh(args, 900, env_shell=True)
     st = _picture_state(run_dir)
     if st.get("status") != "done":
+        if any(m in out for m in SAFETY_MARKERS):
+            _update(key, declined=True)
+            raise RuntimeError(DECLINED_HE)
         raise RuntimeError("התמונה לא נוצרה:\n" + _tail(out))
     pic = Path(run_dir) / "generated-assets" / f"{PICTURE}.png"
     _update(key, status="review", picture=rel(pic) + f"?v={st.get('attempts', 1)}", spent_usd=spent(run_dir),
@@ -283,6 +292,44 @@ def _work(key, item, action, note=None):
         _update(key, status=back, error=str(exc)[:1500])
 
 
+# ---------------------------------------------------------------- the check before a production
+
+class Blocked(ValueError):
+    """The option still has validator errors, so it is not produced (Yarin, 18 Oct 2026: "refuse to start a production while
+    the option has validator errors, and show the errors right there so I can fix them first")."""
+
+    def __init__(self, errors):
+        super().__init__(f"לפני הפקה צריך לתקן {len(errors)} דברים")
+        self.errors = errors
+
+
+_checked = {}  # pack path -> (mtime_ns, pack, issues): one validation per pack change, the page asks every few seconds
+
+
+def blocking_errors(item):
+    """The ERRORs that stop producing one kid or expert option (validate_pack.option_errors), as {slide, path, message}.
+    Games and books carousels are an export of finished slides and are never blocked."""
+    if item.get("kind") == "reco":
+        return []
+    import validate_pack
+    path = lib.DRAFTS / item["date"] / "pack.json"
+    if not path.exists():
+        return [{"slide": None, "path": str(path.name), "message": "pack.json is missing"}]
+    mtime = path.stat().st_mtime_ns
+    hit = _checked.get(str(path))
+    if not hit or hit[0] != mtime:
+        pack = lib.read_json(path)
+        hit = _checked[str(path)] = (mtime, pack, validate_pack.pack_issues(pack, history=None))
+    _, pack, issues = hit
+    out = []
+    for i in issues:
+        if i.level != "ERROR" or validate_pack.other_option_issue(i, pack, item["id"]):
+            continue
+        m = re.search(r"/slide-(\d+)", str(i.path))
+        out.append({"slide": int(m.group(1)) if m else None, "path": str(i.path), "message": i.message})
+    return out
+
+
 def _item_fields(item):
     return {k: item[k] for k in ("date", "kind", "id", "format", "topic_he", "cover", "batch", "child_name", "skill_he") if item.get(k)}
 
@@ -294,7 +341,14 @@ def start(item):
         rec = get(key)
         if rec and rec.get("status") in BUSY + ("review",):
             return rec
-        rec = _update(key, status="queued", requested_at=now_iso(), error=None, warning=None, **_item_fields(item))
+    errors = blocking_errors(item)
+    if errors:
+        raise Blocked(errors)
+    with _lock:
+        rec = get(key)
+        if rec and rec.get("status") in BUSY + ("review",):
+            return rec
+        rec = _update(key, status="queued", requested_at=now_iso(), error=None, warning=None, declined=None, **_item_fields(item))
     _pool.submit(_work, key, item, "start")
     return rec
 

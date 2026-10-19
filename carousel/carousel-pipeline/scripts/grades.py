@@ -61,7 +61,8 @@ def _cover(slide):
 
 
 def items(plan, drafts=None):
-    """Every carousel of a batch in pool order: per pack the six options, then its two games and books carousels.
+    """Every carousel of a batch in pool order: per pack the six options, then its two games and books carousels (only
+    while reco_lib.ACTIVE; off since 18 Oct 2026, so batches made before then show their options only).
     Each item has what the page shows (slides) and the snapshot a grade keeps."""
     drafts = Path(drafts or lib.DRAFTS)
     out = []
@@ -89,10 +90,11 @@ def items(plan, drafts=None):
                             "hook_formula": hook.get("formula", ""), "hook_family": v.get("hook_family", ""),
                             "mechanism": hook.get("mechanism", ""), "slide2_move": hook.get("slide2_move", ""),
                             "examples_target": v.get("examples_target"),
+                            "image_action": (v.get("image") or {}).get("action", "") if isinstance(v.get("image"), dict) else "",
                             "cover": _cover(v["slides"][0]) if v.get("slides") else "",
                             "headlines": [lib.collapse(s["headline"]) for s in slides],
                             "slides": slides, "caption": "\n".join(cap), "caption_body": "\n".join(cap_body), "cta": cta})
-        for r in slot.get("reco", []):
+        for r in slot.get("reco", []) if rl.ACTIVE else []:  # hidden since 18 Oct 2026 (Yarin no longer wants them)
             fmt = r["format"]
             path = rl.carousel_path(folder, fmt)
             if not path.exists():
@@ -146,6 +148,16 @@ def upsert(item, score=None, why=None, produce=None, path=None):
         data["grades"][item["key"]] = entry
         lib.write_json(path or GRADES, data)
         return entry
+
+
+def unsend(keys, path=None):
+    """Clear sent_at again for picks that could not start (producer.Blocked), so the next send tries them again."""
+    with _LOCK:
+        data = load(path)
+        for key in keys:
+            data["grades"].get(key, {}).pop("sent_at", None)
+        if keys:
+            lib.write_json(path or GRADES, data)
 
 
 def pick_unsent(batch_id, path=None):

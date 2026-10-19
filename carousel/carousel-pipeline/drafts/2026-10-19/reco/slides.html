@@ -1,0 +1,150 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>2026-10-19 mixed</title><style>
+@font-face{font-family:"Heebo";src:url("../../../assets/fonts/Heebo-Black.ttf") format("truetype");font-weight:900;font-display:block}
+@font-face{font-family:"Heebo";src:url("../../../assets/fonts/Heebo-Bold.ttf") format("truetype");font-weight:700;font-display:block}
+@font-face{font-family:"Assistant";src:url("../../../assets/fonts/Assistant-VariableFont_wght.ttf") format("truetype");font-weight:200 800;font-display:block}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{direction:rtl}
+body{background:#d9d2c6}
+body.single .slide:not(.on){display:none}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:rgb(var(--bg,241,236,255));color:#1D1039;direction:rtl;text-align:center;--ink:#1D1039;--ink2:#4B4062}
+.slide.dark{background:#1D1039;--ink:#F8F0E1;--ink2:#D9CFF0}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.75) 0,rgba(255,255,255,0) 68%);left:90px;top:300px;pointer-events:none}
+.dark .glow{opacity:.08}
+.bignum{font-family:"Heebo",sans-serif;font-weight:900;font-size:300px;line-height:.86;color:var(--accent);letter-spacing:-.04em}
+/* Last slide (Yarin, 9 Oct 2026): a background made of everything the carousel suggested, every product and the
+   LumeBook book, whole on white tiles, under a purple layer; only the save and comment lines on top. */
+.collage{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr);gap:16px;padding:16px;background:rgb(var(--bg,241,236,255))}
+.collage .t{background:#fff;border-radius:24px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:16px}
+.collage .t img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.purple{position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--bg,241,236,255),.90) 0%,rgba(var(--bg2,233,225,255),.86) 50%,rgba(var(--bg,241,236,255),.92) 100%)}
+/* Text-only slides: one big line, quieter supporting lines, generous space between them */
+.sub{font-family:"Assistant",sans-serif;font-weight:700;line-height:1.32;color:var(--ink2)}
+.lead{font-family:"Assistant",sans-serif;font-weight:800;line-height:1.25;color:var(--ink2)}
+.h.wrap .ln{white-space:normal;text-wrap:balance}
+.icons{display:flex;justify-content:center;gap:48px;margin-top:84px}
+.icons .i{display:flex;flex-direction:column;align-items:center;gap:14px;font-family:"Assistant",sans-serif;font-weight:800;font-size:30px;color:var(--ink2)}
+.icons .c{width:124px;height:124px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px rgba(59,29,120,.14)}
+.icons svg{width:60px;height:60px}.icons path{fill:none;stroke:#1D1039;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.block{position:absolute;left:90px;right:90px;direction:rtl;text-align:center;color:var(--ink)}
+.h{font-family:"Heebo",sans-serif;font-weight:900;line-height:1.08;letter-spacing:-.01em;color:var(--ink)}
+.b{font-family:"Heebo",sans-serif;font-weight:900;line-height:1.16;color:var(--ink);opacity:.86}
+.how{font-family:"Assistant",sans-serif;font-weight:700;line-height:1.2;color:var(--ink2);margin-top:18px}
+.age{font-family:"Assistant",sans-serif;font-weight:700;line-height:1.2;color:var(--ink2);margin-top:12px}
+.hero3d{display:block;width:auto;height:auto;filter:drop-shadow(0 26px 30px rgba(29,16,57,.18))}
+/* The LumeBook slide shows the cover of the catalogue book whose idea the line states (10 Oct 2026), flat in the same
+   white card as the other books (Yarin, 14 Oct 2026: "look flat like the rest of the book examples and not as a 3d object") */
+.ln{display:block;white-space:nowrap}
+.prod{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center}
+.card{background:#fff;border-radius:28px;padding:22px;box-shadow:0 22px 50px rgba(29,16,57,.16),0 2px 6px rgba(29,16,57,.08);display:flex;align-items:center;justify-content:center}
+.card img{display:block;width:auto;height:auto;object-fit:contain;border-radius:10px}
+.fan{position:absolute;left:0;right:0;top:600px;height:600px}
+.fan .card{position:absolute;padding:14px;border-radius:22px}
+.fan .card img{max-width:340px;max-height:440px}
+.block.mid{top:50%;transform:translateY(-50%)}
+.kind{position:absolute;left:50%;transform:translateX(-50%);top:44px;padding:6px 26px 8px;border-radius:999px;background:var(--kind,var(--accent));color:#fff;font-family:"Assistant",sans-serif;font-weight:800;font-size:30px;line-height:1.2;letter-spacing:.01em}
+.collage.big{grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(5,1fr);gap:14px;padding:14px}
+.collage.big .t{border-radius:20px;padding:12px}
+.arrow{position:absolute;left:50%;transform:translateX(-50%);bottom:44px;width:72px;height:72px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center}
+.arrow svg{width:36px;height:36px}.arrow path{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+pre#report{display:none}
+/* The bold look (Hook Studio, 10 Oct 2026): a much bigger number, the hook and frame lines set larger, one phrase in a
+   colour block, the question of the last slide marked the same way. It applies when the carousel marks a highlight. */
+.look-bold .slide{--hl:var(--accent);--hl-ink:#FFF7E8}
+.look-bold .bignum{font-size:380px;line-height:.82}
+.look-bold .h{line-height:1.12;letter-spacing:-.02em}
+.look-bold .fan{top:760px;height:520px}
+.look-bold .hl{display:inline-block;background:var(--hl);color:var(--hl-ink);padding:0 .2em .05em;border-radius:.15em;transform:rotate(-1.6deg);box-shadow:0 10px 24px rgba(11,5,24,.22)}
+.look-bold .ln:has(.hl){margin:.07em 0}
+.look-bold .arrow{width:84px;height:84px}
+/* The plain look (Yarin, 14 Oct 2026: "from now on design the text of the carousels like these except the cta slide leave it
+   as it is"): every slide but the close one has centred Heebo Black headlines in dark plum, the number inside the hook
+   sentence, no colour block behind any word, and secondary lines in Heebo Bold in a lighter plum. The close slide keeps the
+   look above. Used by the combined games and books carousel; older games and books carousels keep their own look. */
+.look-plain .slide:not([data-role="close"]){--ink:#1C1233;--ink2:#3D2F5E}
+.look-plain .slide:not([data-role="close"]) .h{font-family:"Heebo",sans-serif;font-weight:900;color:var(--ink);line-height:1.1;letter-spacing:-.015em}
+.look-plain .slide:not([data-role="close"]) :is(.b,.sub,.how,.age){font-family:"Heebo",sans-serif;font-weight:700;color:var(--ink2);opacity:1}
+.look-plain .slide:not([data-role="close"]) .hl{background:none;color:inherit;padding:0;box-shadow:none;transform:none}
+.look-plain .fan{top:540px;height:600px}
+.look-plain .kind{background:none;color:var(--ink2);font-family:"Heebo",sans-serif;font-weight:700;font-size:32px;padding:0;top:48px}
+</style></head><body dir="rtl" class="look-bold look-plain"><section class="slide" data-n="1" data-role="hook" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="block" data-where="top" style="top:96px" data-maxh="430"><div data-f="headline" class="h fit" data-max="120" data-min="72"><span class="ln">8 משחקים וספרים</span><span class="ln">לגילאי 5-6 שיעזרו להם</span><span class="ln">לשחק עם אותיות וחרוזים</span></div></div><div class="fan"><div class="card" style="left:640px;top:90px;transform:rotate(6deg);z-index:1"><img class="main" src="../reco-assets/game-zikaron-otiyot.jpg" alt=""></div><div class="card" style="left:356px;top:20px;transform:rotate(0deg);z-index:3"><img class="main" data-trim="1" src="../reco-assets/book-sholem-leolam.jpg" alt=""></div><div class="card" style="left:72px;top:90px;transform:rotate(-6deg);z-index:2"><img class="main" src="../reco-assets/game-et-leayet.jpg" alt=""></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="2" data-role="frame" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="block mid" data-where="middle" data-maxh="980"><div data-f="headline" class="h fit" data-max="112" data-min="70"><span class="ln">בערך בגיל 5</span><span class="ln">הרבה ילדים כבר מכירים</span><span class="ln">חרוזים ואותיות</span></div><div data-f="body" class="sub fit" data-max="52" data-min="38" style="margin-top:64px"><span class="ln">משחקים עם אותיות וספרים מחורזים</span><span class="ln">מאפשרים להם לתרגל את זה</span></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="3" data-role="recommendation" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="kind" data-kind="book" style="--kind:#E30063">ספר</div><div class="block" data-where="title" style="top:110px" data-maxh="220"><div data-f="headline" class="h fit" data-max="84" data-min="52"><span class="ln">שולם לעולם</span></div><div data-f="age" class="age fit" data-max="36" data-min="28"><span class="ln">גיל 4 עד 6</span></div></div><div class="prod" style="top:360px;height:590px"><div class="card"><img class="main" data-trim="1" src="../reco-assets/book-sholem-leolam.jpg" alt="" style="max-width:820px;max-height:546px"></div></div><div class="block" data-where="reason" style="top:975px" data-maxh="215"><div data-f="why" class="b fit" data-max="46" data-min="34"><span class="ln">מתרגלים להקשיב לחרוזים</span><span class="ln">ולנחש איזו מילה חורזת</span></div><div data-f="how" class="how fit" data-max="38" data-min="28"><span class="ln">בקריאה שנייה תעצרו לפני סוף השורה</span><span class="ln">ותנו להם להשלים את החרוז</span></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="4" data-role="recommendation" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="kind" data-kind="game" style="--kind:#2500E6">משחק</div><div class="block" data-where="title" style="top:110px" data-maxh="220"><div data-f="headline" class="h fit" data-max="84" data-min="52"><span class="ln">זיכרון אותיות</span></div><div data-f="age" class="age fit" data-max="36" data-min="28"><span class="ln">מגיל 4</span></div></div><div class="prod" style="top:360px;height:590px"><div class="card"><img class="main" src="../reco-assets/game-zikaron-otiyot.jpg" alt="" style="max-width:820px;max-height:546px"></div></div><div class="block" data-where="reason" style="top:975px" data-maxh="215"><div data-f="why" class="b fit" data-max="46" data-min="34"><span class="ln">מתרגלים להתאים אות לתמונה</span><span class="ln">ולזכור איפה כל אות</span></div><div data-f="how" class="how fit" data-max="38" data-min="28"><span class="ln">מתחילים בשישה זוגות</span><span class="ln">ואומרים בקול את שם האות</span></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="5" data-role="recommendation" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="kind" data-kind="book" style="--kind:#E30063">ספר</div><div class="block" data-where="title" style="top:110px" data-maxh="220"><div data-f="headline" class="h fit" data-max="84" data-min="52"><span class="ln">אותיות מתוקות</span></div><div data-f="age" class="age fit" data-max="36" data-min="28"><span class="ln">גיל 4 עד 6</span></div></div><div class="prod" style="top:360px;height:590px"><div class="card"><img class="main" src="../reco-assets/book-otiyot-metukot.jpg" alt="" style="max-width:820px;max-height:546px"></div></div><div class="block" data-where="reason" style="top:975px" data-maxh="215"><div data-f="why" class="b fit" data-max="46" data-min="34"><span class="ln">מתרגלים לזהות אותיות</span><span class="ln">בתוך סיפור על סבא וסבתא</span></div><div data-f="how" class="how fit" data-max="38" data-min="28"><span class="ln">תצביעו על אות בספר</span><span class="ln">ותנו להם למצוא אותה בשם שלהם</span></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="6" data-role="recommendation" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="kind" data-kind="game" style="--kind:#2500E6">משחק</div><div class="block" data-where="title" style="top:110px" data-maxh="220"><div data-f="headline" class="h fit" data-max="84" data-min="52"><span class="ln">עת לאיית</span></div><div data-f="age" class="age fit" data-max="36" data-min="28"><span class="ln">מגיל 5</span></div></div><div class="prod" style="top:360px;height:590px"><div class="card"><img class="main" src="../reco-assets/game-et-leayet.jpg" alt="" style="max-width:820px;max-height:546px"></div></div><div class="block" data-where="reason" style="top:975px" data-maxh="215"><div data-f="why" class="b fit" data-max="46" data-min="34"><span class="ln">מתרגלים לבנות מילה לפי תמונה</span><span class="ln">אות אחרי אות</span></div><div data-f="how" class="how fit" data-max="38" data-min="28"><span class="ln">מתחילים ברמה הראשונה</span><span class="ln">ואומרים בקול כל אות שמניחים</span></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="7" data-role="recommendation" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="kind" data-kind="book" style="--kind:#E30063">ספר</div><div class="block" data-where="title" style="top:110px" data-maxh="220"><div data-f="headline" class="h fit" data-max="84" data-min="52"><span class="ln">הילדה מחולות הזהב</span></div><div data-f="age" class="age fit" data-max="36" data-min="28"><span class="ln">גיל 4 עד 6</span></div></div><div class="prod" style="top:360px;height:590px"><div class="card"><img class="main" src="../reco-assets/book-hayalda-zehuvat-hasear.jpg" alt="" style="max-width:820px;max-height:546px"></div></div><div class="block" data-where="reason" style="top:975px" data-maxh="215"><div data-f="why" class="b fit" data-max="46" data-min="34"><span class="ln">מתרגלים להקשיב לסיפור על בית ספר</span><span class="ln">שבו מדברים רק עברית</span></div><div data-f="how" class="how fit" data-max="38" data-min="28"><span class="ln">אחרי הקריאה תשאלו ״איך אומרים בעברית?״</span><span class="ln">על חפץ אחד בחדר</span></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="8" data-role="recommendation" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="kind" data-kind="game" style="--kind:#2500E6">משחק</div><div class="block" data-where="title" style="top:110px" data-maxh="220"><div data-f="headline" class="h fit" data-max="84" data-min="52"><span class="ln">מילים בעיגולים</span></div><div data-f="age" class="age fit" data-max="36" data-min="28"><span class="ln">מגיל 6</span></div></div><div class="prod" style="top:360px;height:590px"><div class="card"><img class="main" src="../reco-assets/game-milim-ba-igulim.jpg" alt="" style="max-width:820px;max-height:546px"></div></div><div class="block" data-where="reason" style="top:975px" data-maxh="215"><div data-f="why" class="b fit" data-max="46" data-min="34"><span class="ln">מתרגלים לבחור מילה שמתחילה</span><span class="ln">באות הנכונה</span></div><div data-f="how" class="how fit" data-max="38" data-min="28"><span class="ln">מתחילים בלי שעון</span><span class="ln">ונותנים להם זמן לחשוב בקול</span></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="9" data-role="lumebook" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="block" data-where="title" style="top:110px" data-maxh="220"><div data-f="headline" class="h fit" data-max="84" data-min="52"><span class="ln">ספר של <bdi dir="ltr">LumeBook</bdi></span></div></div><div class="prod" style="top:360px;height:590px"><div class="card"><img class="main" src="../reco-assets/lumebook-book-10-girl.png" alt="" style="max-width:820px;max-height:546px"></div></div><div class="block" data-where="reason" style="top:975px" data-maxh="215"><div data-f="body" class="b fit" data-max="46" data-min="34"><span class="ln">סיפור מותאם אישית עם תמונות</span><span class="ln">של הילדים שלכם שבו הם מתחילים</span><span class="ln">כיתה א׳ ומגלים שללמוד לקרוא</span><span class="ln">ולכתוב יכול להיות מדהים</span></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="10" data-role="recommendation" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:250,246,239;--bg2:244,237,226"><div class="glow"></div><div class="kind" data-kind="book" style="--kind:#E30063">ספר</div><div class="block" data-where="title" style="top:110px" data-maxh="220"><div data-f="headline" class="h fit" data-max="84" data-min="52"><span class="ln">אות בבאר</span></div><div data-f="age" class="age fit" data-max="36" data-min="28"><span class="ln">גיל 4 עד 6</span></div></div><div class="prod" style="top:360px;height:590px"><div class="card"><img class="main" src="../reco-assets/book-ot-babeer.jpg" alt="" style="max-width:820px;max-height:546px"></div></div><div class="block" data-where="reason" style="top:975px" data-maxh="215"><div data-f="why" class="b fit" data-max="46" data-min="34"><span class="ln">מתרגלים להקשיב לסיפור</span><span class="ln">על מי שרצה ללמוד לקרוא</span></div><div data-f="how" class="how fit" data-max="38" data-min="28"><span class="ln">אחרי הסיפור תשאלו איזו אות</span><span class="ln">הם רוצים ללמוד לכתוב</span></div></div><div class="arrow"><svg viewBox="0 0 36 36"><path d="M30 18H7M16 8 6 18l10 10"/></svg></div></section><section class="slide" data-n="11" data-role="close" data-format="mixed" style="--accent:#2500E6;--soft:#E9E5FF;--deep:#160087;--bg:241,236,255;--bg2:233,225,255"><div class="glow"></div><div class="collage"><div class="t"><img class="bg" src="../reco-assets/book-sholem-leolam.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/game-zikaron-otiyot.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/book-otiyot-metukot.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/book-otiyot-metukot.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/game-et-leayet.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/book-hayalda-zehuvat-hasear.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/book-hayalda-zehuvat-hasear.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/game-milim-ba-igulim.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/book-ot-babeer.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/book-ot-babeer.jpg" alt=""></div><div class="t"><img class="bg" src="../reco-assets/lumebook-book-10-girl.png" alt=""></div><div class="t"><img class="bg" src="../reco-assets/book-sholem-leolam.jpg" alt=""></div></div><div class="purple"></div><div class="block mid" data-where="middle" data-maxh="1100"><div data-f="headline" class="lead fit" data-max="44" data-min="34" style="margin-bottom:44px"><span class="ln">תשמרו בשביל הערב הבא</span></div><div data-f="headline" class="h fit wrap" data-max="100" data-min="66"><span class="ln">איזו אות הילדים שלכם מחפשים בכל מקום?</span></div><div data-f="headline" class="lead fit" data-max="44" data-min="34" style="margin-top:44px"><span class="ln">ספרו בתגובות</span></div><div class="icons"><div class="i"><div class="c"><svg viewBox="0 0 48 48"><path d="M13 7h22v34l-11-9-11 9z"/></svg></div></div><div class="i"><div class="c"><svg viewBox="0 0 48 48"><path d="M43 6 5 20l15 7 7 15z M43 6 20 27"/></svg></div></div><div class="i"><div class="c"><svg viewBox="0 0 48 48"><path d="M24 6c10 0 18 7.6 18 17s-8 17-18 17c-2.6 0-5-.5-7.2-1.4L7 41l2.6-8.6C7.6 29.7 6 26.5 6 23 6 13.6 14 6 24 6z"/></svg></div></div></div></div></section><pre id="report"></pre><script>
+const q = new URLSearchParams(location.search);
+const one = q.get('s');
+if (one) { document.body.classList.add('single'); document.querySelector('.slide[data-n="' + one + '"]').classList.add('on'); }
+function fit(block) {
+  // shrink every .fit inside the block until no line is wider than the column and the block fits its height
+  const parts = [...block.querySelectorAll('.fit')];
+  const wide = el => [...el.querySelectorAll('.ln')].some(l => l.scrollWidth > l.clientWidth + 1);
+  parts.forEach(p => { p.style.fontSize = p.dataset.max + 'px'; let s = Number(p.dataset.max);
+    while (wide(p) && s > Number(p.dataset.min)) { s -= 2; p.style.fontSize = s + 'px'; } p.dataset.size = s; });
+  const maxH = Number(block.dataset.maxh || 99999); let guard = 0;
+  while (block.scrollHeight > maxH + 1 && guard < 80) {
+    let moved = false;
+    parts.forEach(p => { let s = Number(p.dataset.size); if (s > Number(p.dataset.min)) { s -= 2; p.style.fontSize = s + 'px'; p.dataset.size = s; moved = true; } });
+    if (!moved) break; guard++;
+  }
+  block.dataset.fit = (!parts.some(wide) && block.scrollHeight <= maxH + 1) ? 'ok' : 'overflow';
+}
+// Retailer packshots often sit on a white band (e.g. a 1200x1600 canvas around a square cover). Hide only that uniform
+// margin with object-view-box: the file is untouched, the product itself is never cropped, and the aspect check uses the
+// trimmed box. Only images whose record says trim_padding (the source added the band) are trimmed: a cover with its own
+// light background would otherwise lose part of the cover. Nothing is trimmed when the corners are not near white.
+function trim(img) {
+  if (!img.naturalWidth) return;
+  const w = Math.min(400, img.naturalWidth), h = Math.max(1, Math.round(img.naturalHeight * w / img.naturalWidth));
+  const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const g = cv.getContext('2d'); g.drawImage(img, 0, 0, w, h);
+  let d; try { d = g.getImageData(0, 0, w, h).data; } catch (e) { return; }
+  const white = i => d[i] > 238 && d[i + 1] > 238 && d[i + 2] > 238;
+  if (![0, (w - 1) * 4, (h - 1) * w * 4, (h * w - 1) * 4].every(white)) return;
+  const rowInk = y => { let n = 0; for (let x = 0; x < w; x++) if (!white((y * w + x) * 4)) n++; return n > w * 0.01; };
+  const colInk = x => { let n = 0; for (let y = 0; y < h; y++) if (!white((y * w + x) * 4)) n++; return n > h * 0.01; };
+  let t = 0, b = h - 1, l = 0, r = w - 1;
+  while (t < b && !rowInk(t)) t++; while (b > t && !rowInk(b)) b--; while (l < r && !colInk(l)) l++; while (r > l && !colInk(r)) r--;
+  const pad = 0.01, T = Math.max(0, t / h - pad), B = Math.max(0, (h - 1 - b) / h - pad), L = Math.max(0, l / w - pad), R = Math.max(0, (w - 1 - r) / w - pad);
+  if (Math.max(T, B, L, R) < 0.02) return;
+  img.style.objectViewBox = `inset(${(T * 100).toFixed(2)}% ${(R * 100).toFixed(2)}% ${(B * 100).toFixed(2)}% ${(L * 100).toFixed(2)}%)`;
+  img.dataset.aspect = (img.naturalWidth * (1 - L - R)) / (img.naturalHeight * (1 - T - B));
+}
+async function ready() {
+  try { await document.fonts.ready; } catch (e) {}
+  await Promise.all([...document.images].map(i => i.complete ? null : new Promise(r => { i.onload = r; i.onerror = r; })));
+  document.querySelectorAll('img.main[data-trim]').forEach(trim);
+  document.querySelectorAll('.block').forEach(fit);
+  if (q.get('check')) {
+    const rep = [...document.querySelectorAll('.slide')].map(s => {
+      const sr = s.getBoundingClientRect();
+      const blocks = [...s.querySelectorAll('.ln')].map(el => ({ text: el.textContent, direction: getComputedStyle(el).direction,
+        overflow: el.scrollWidth > el.clientWidth + 1 }));
+      const imgs = [...s.querySelectorAll('img.main')].map(img => { const r = img.getBoundingClientRect();
+        return { src: img.getAttribute('src'), loaded: img.naturalWidth > 0, natural: [img.naturalWidth, img.naturalHeight],
+          shown: [Math.round(r.width), Math.round(r.height)],
+          aspect_error: img.naturalWidth ? Math.abs((img.offsetWidth / img.offsetHeight) / Number(img.dataset.aspect || img.naturalWidth / img.naturalHeight) - 1) : 1, trimmed: img.style.objectViewBox || '',  // layout size: rotation does not change it
+          center_dx: Math.round(r.left - sr.left + r.width / 2 - 540), share: Math.max(r.width / 1080, r.height / 1350),
+          top: Math.round(r.top - sr.top), bottom: Math.round(r.bottom - sr.top) }; });
+      const texts = [...s.querySelectorAll('.block')].map(b => { const r = b.getBoundingClientRect(); return { fit: b.dataset.fit, top: Math.round(r.top - sr.top), bottom: Math.round(r.bottom - sr.top), where: b.dataset.where }; });
+      return { n: Number(s.dataset.n), role: s.dataset.role, lang: document.documentElement.lang, htmlDir: document.documentElement.dir,
+               direction: getComputedStyle(s).direction, blocks, imgs, texts };
+    });
+    document.getElementById('report').textContent = JSON.stringify(rep);
+  }
+  document.body.dataset.ready = '1';
+  if (q.get('edit')) editMode();
+}
+// Editing straight on the slide (Yarin, 11 Oct 2026): the editor page shows this file in a frame with ?edit=1. Every text
+// block is typed into in place and each change is posted to the page, which keeps the field under the slide in step and saves.
+function editMode() {
+  const slide = document.querySelector('.slide.on') || document.querySelector('.slide'); if (!slide) return;
+  const st = document.createElement('style');
+  st.textContent = '[data-f]{outline:3px dashed rgba(29,16,57,.28);outline-offset:8px;border-radius:10px;cursor:text}[data-f]:focus{outline:4px solid var(--accent);background:rgba(255,255,255,.55)}.ln{white-space:pre-wrap}';
+  document.head.appendChild(st);
+  const lines = el => el.innerText.replace(/\u00a0/g, ' ').split('\n').map(x => x.trim()).filter(Boolean);
+  const value = f => { let out = ''; slide.querySelectorAll('[data-f="' + f + '"]').forEach(el => { const t = lines(el).join('\n'); if (!t) return;
+    out += (out ? (out.endsWith('\u0001') ? '' : '\n') : '') + t + (el.dataset.join === 'space' ? ' \u0001' : ''); }); return out.replace(/\u0001/g, ''); };
+  slide.querySelectorAll('[data-f]').forEach(el => {
+    try { el.contentEditable = 'plaintext-only'; } catch (e) { el.contentEditable = 'true'; }
+    if (el.contentEditable !== 'plaintext-only') el.contentEditable = 'true';
+    el.addEventListener('input', () => parent.postMessage({ lumebookEdit: 1, slide: Number(slide.dataset.n), field: el.dataset.f, value: value(el.dataset.f) }, '*'));
+    el.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); parent.postMessage({ lumebookEdit: 1, save: 1 }, '*'); } });
+  });
+}
+ready();
+</script></body></html>

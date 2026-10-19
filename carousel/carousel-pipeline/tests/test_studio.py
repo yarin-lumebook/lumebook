@@ -47,6 +47,7 @@ class Sandbox(unittest.TestCase):
             mock.patch.object(grades, "GRADES", self.tmp / "grades.json"),
             mock.patch.object(producer, "PRODUCTIONS", self.tmp / "productions.json"),
             mock.patch.object(studio, "grades_unsent", lambda: False),
+            mock.patch.object(grades.rl, "ACTIVE", True),  # the batch fixture has its carousels; the switch-off test is below
         ]
         for p in self.patches:
             p.start()
@@ -98,7 +99,40 @@ class Grades(Sandbox):
         self.assertNotIn("—", text)
 
 
+class CarouselsOff(Sandbox):
+    def test_games_and_books_are_hidden_when_switched_off(self):
+        with mock.patch.object(grades.rl, "ACTIVE", False):
+            its = grades.items(batch.load(DATE))
+        self.assertTrue(its)
+        self.assertFalse([i for i in its if i["kind"] == "reco"])
+
+
 class Producer(Sandbox):
+    def break_kid_1(self):
+        path = lib.DRAFTS / DATE / "pack.json"
+        pack = lib.read_json(path)
+        v = next(v for d in pack["directions"] for v in d["versions"] if v["id"] == "kid-1")
+        v["slides"][1]["headline"] = " ".join(["מילה"] * 40)
+        lib.write_json(path, pack)
+
+    def test_an_option_with_errors_is_not_produced(self):
+        """Yarin, 18 Oct 2026: refuse to start a production while the option has validator errors."""
+        other_before = producer.blocking_errors(self.item(f"{DATE}/kid-2"))
+        self.break_kid_1()
+        with mock.patch.object(producer, "_pool") as pool:
+            with self.assertRaises(producer.Blocked) as ctx:
+                producer.start(self.item(f"{DATE}/kid-1"))
+            pool.submit.assert_not_called()
+        self.assertIsNone(producer.get(f"{DATE}/kid-1"))
+        self.assertTrue(any(e["slide"] == 2 for e in ctx.exception.errors))
+        self.assertEqual(producer.blocking_errors(self.item(f"{DATE}/kid-2")), other_before)  # kid-1's errors never block kid-2
+
+    def test_the_page_state_carries_each_options_errors(self):
+        self.break_kid_1()
+        its = {i["key"]: i for i in studio.state(DATE)["items"]}
+        self.assertTrue(its[f"{DATE}/kid-1"]["errors"])
+        self.assertEqual(its[f"{DATE}/reco"]["errors"], [])
+
     def test_reco_export_writes_slides_texts_and_zip(self):
         run = producer.export_reco(DATE, "reco")
         final = run / "final"
@@ -117,6 +151,16 @@ class Producer(Sandbox):
         done = producer.get(f"{DATE}/reco")
         self.assertEqual((done["status"], done["spent_usd"]), ("done", 0))
         self.assertTrue(done["zip"].endswith(".zip"))
+
+    def test_a_declined_picture_says_so_plainly(self):
+        key = f"{DATE}/kid-1"
+        producer._update(key, status="generating")
+        out = '{"error": "The model\'s safety system declined this request (content_policy_violation)."}'
+        with mock.patch.object(producer, "_sh", return_value=(1, out)), mock.patch.object(producer, "_picture_state", return_value={}):
+            with self.assertRaises(RuntimeError) as ctx:
+                producer._generate(key, self.tmp)
+        self.assertEqual(str(ctx.exception), producer.DECLINED_HE)
+        self.assertTrue(producer.get(key)["declined"])
 
     def test_recover_marks_interrupted_work(self):
         lib.write_json(producer.PRODUCTIONS, {"runs": {"a": {"key": "a", "kind": "reco", "status": "exporting"},

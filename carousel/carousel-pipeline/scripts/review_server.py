@@ -111,6 +111,30 @@ def apply_edits(pack, edits):
     return changes
 
 
+def sync_examples(pack, changes, folder):
+    """After headline edits, the hidden example lists and counts follow the slides (carousel_lib.sync_numbered_examples).
+    A new count also goes into example-slots.json, which the validator checks against. Not logged as a voice edit."""
+    if not lib.numbered_examples_apply(pack):
+        return {}
+    edited = {c["option"] for c in changes if c["field"] == "headline"}
+    out = {}
+    for d in pack["directions"]:
+        for v in d["versions"]:
+            if v["id"] not in edited:
+                continue
+            r = lib.sync_numbered_examples(v)
+            if r["changed"] or r["examples"]:
+                out[v["id"]] = r
+            if r["examples"]:
+                slots_path = Path(folder) / lib.EXAMPLE_SLOTS_FILE
+                if slots_path.exists():
+                    slots = lib.read_json(slots_path)
+                    slots.setdefault("slots", {})[v["id"]] = r["examples"][1]
+                    slots.setdefault("edited", {})[v["id"]] = f'{r["examples"][0]} to {r["examples"][1]} by an edit, {lib.now_local().date()}'
+                    lib.write_json(slots_path, slots)
+    return out
+
+
 def voice_records(pack, changes, date):
     """Edits to audience copy, with context, for the voice skill to learn from (examples/edits.jsonl)."""
     by_id = {v["id"]: (d["id"], v) for d in pack["directions"] for v in d["versions"]}
@@ -158,6 +182,7 @@ def save(date, edits, drafts=lib.DRAFTS, history_path=lib.HISTORY, edits_log=lib
         return {"error": str(exc)}
     if not changes:
         return {"changed": 0, "errors": [], "warnings": [], "note": "nothing changed"}
+    synced = sync_examples(pack, changes, folder)
     backup = snapshot(folder)
     lib.write_json(pack_path, pack)
     logged = lib.log_voice_edits(voice_records(pack, changes, date), edits_log)
@@ -168,7 +193,7 @@ def save(date, edits, drafts=lib.DRAFTS, history_path=lib.HISTORY, edits_log=lib
     create_review.write_review(pack_path)
     if not errors:
         lib.record_history(pack, history_path)
-    return {"changed": len(changes), "valid": not errors, "errors": errors, "warnings": warnings,
+    return {"changed": len(changes), "valid": not errors, "errors": errors, "warnings": warnings, "synced": synced,
             "backup": str(backup.relative_to(Path(drafts).parent)) if backup else None,
             "voice_logged": logged, "voice_samples": voice["approved_samples"], "voice_required": voice["required"]}
 
@@ -315,11 +340,21 @@ def _grade_api(self):
         return self.send_json({"error": "unknown batch"}, 400)
     if self.path == "/api/produce-send":
         its = {i["key"]: i for i in grades.items(plan)}
-        started = [producer.start(its[k]) for k in grades.pick_unsent(plan["id"]) if k in its]
+        started, blocked = [], []
+        for k in grades.pick_unsent(plan["id"]):
+            if k not in its:
+                continue
+            try:
+                started.append(producer.start(its[k]))
+            except producer.Blocked as exc:
+                blocked.append({"key": k, "errors": exc.errors})
+        grades.unsend([b["key"] for b in blocked])
         for r in started:
             print(f"production started: {r['key']}", flush=True)
+        for b in blocked:
+            print(f"production blocked: {b['key']} ({len(b['errors'])} errors)", flush=True)
         stored = {k: v for k, v in grades.load()["grades"].items() if k in its}
-        return self.send_json({"started": started, "grades": stored})
+        return self.send_json({"started": started, "blocked": blocked, "grades": stored})
     item = next((i for i in grades.items(plan) if i["key"] == payload.get("key")), None)
     if not item:
         return self.send_json({"error": "unknown carousel"}, 400)
@@ -332,6 +367,23 @@ def _grade_api(self):
 
 
 Handler.grade_api = _grade_api
+
+
+def set_image_action(item, text):
+    """A new scene for the option's one picture, after the image model declined the old one (backup first, review rebuilt;
+    a picture brief is not audience copy, so it is not logged as a voice edit)."""
+    folder = lib.DRAFTS / item["date"]
+    pack_path = folder / "pack.json"
+    pack = lib.read_json(pack_path)
+    v = next(v for d in pack["directions"] for v in d["versions"] if v["id"] == item["id"])
+    if not isinstance(v.get("image"), dict):
+        raise ValueError("לאפשרות הזאת אין תמונה אחת")
+    if v["image"].get("action") == text:
+        return
+    snapshot(folder)
+    v["image"]["action"] = text
+    lib.write_json(pack_path, pack)
+    create_review.write_review(pack_path)
 
 
 def _item_for_key(key):
@@ -361,6 +413,12 @@ def _production_api(self):
             if not note:
                 return self.send_json({"error": "כתבו מה לשנות בתמונה"}, 400)
             rec = producer.redo(key, item, note)
+        elif action == "brief":
+            text = clean(payload.get("action", ""))
+            if len(text) < 20:
+                return self.send_json({"error": "תארו את הסצנה במשפט או שניים"}, 400)
+            set_image_action(item, text)
+            rec = producer.start(item)
         elif action == "reveal":
             rec = producer.get(key) or {}
             target = rec.get("zip") or rec.get("run_dir")
@@ -373,6 +431,9 @@ def _production_api(self):
             subprocess.run(["open", "-R", str(path)], check=False, timeout=10)
         else:
             return self.send_error(404)
+    except producer.Blocked as exc:
+        print(f"production blocked: {key} ({len(exc.errors)} errors)", flush=True)
+        return self.send_json({"error": str(exc), "errors": exc.errors}, 400)
     except ValueError as exc:
         return self.send_json({"error": str(exc)}, 400)
     print(f"production {action}: {key}", flush=True)

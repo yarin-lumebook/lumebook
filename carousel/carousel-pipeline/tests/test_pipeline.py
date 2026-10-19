@@ -1484,3 +1484,40 @@ class ChromeLookup(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SyncNumberedExamples(unittest.TestCase):
+    """Yarin, 18 Oct 2026: edits in Hook Studio reworded and removed examples, the hidden lists stayed old and the
+    production stopped. carousel_lib.sync_numbered_examples makes the lists and the count follow the slides."""
+
+    def option(self):
+        return json.loads((HERE / "fixtures" / "ten_slide_option.json").read_text(encoding="utf-8"))["version"]
+
+    def example_errors(self, v):
+        return [i for i in lib.numbered_example_issues("kid/kid-1", v) if i.level == "ERROR"]
+
+    def test_a_valid_option_is_left_alone(self):
+        v = self.option()
+        before = json.dumps(v, ensure_ascii=False)
+        r = lib.sync_numbered_examples(v)
+        self.assertEqual(json.dumps(v, ensure_ascii=False), before)
+        self.assertEqual(r, {"examples": None, "renumbered": False, "changed": []})
+
+    def test_a_reworded_example_updates_its_list(self):
+        v = self.option()
+        v["slides"][3]["headline"] = "2 לשאול איך הוא מרגיש"
+        self.assertTrue(self.example_errors(v))
+        lib.sync_numbered_examples(v)
+        self.assertEqual(v["slides"][3]["examples"], ["לשאול איך הוא מרגיש"])
+        self.assertEqual(self.example_errors(v), [])
+
+    def test_an_added_example_renumbers_and_updates_the_count_and_cover(self):
+        v = self.option()
+        v["slides"][3]["headline"] = "2 להגיד מה הוא מרגיש\n3 לשאול מה קורה"
+        r = lib.sync_numbered_examples(v)
+        self.assertEqual(r["examples"], (6, 7))
+        self.assertTrue(r["renumbered"])
+        self.assertEqual(v["examples_target"], 7)
+        self.assertIn("7 דברים", v["slides"][0]["headline"])
+        self.assertEqual(v["slides"][7]["headline"], "7 לחבק אותי אחרי")
+        self.assertEqual(self.example_errors(v), [])

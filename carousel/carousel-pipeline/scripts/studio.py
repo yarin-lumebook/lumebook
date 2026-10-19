@@ -112,6 +112,8 @@ def state(batch_id=None):
     if not plan:
         return {"batch": None, "batches": batches(), "items": [], "grades": {}, "runs": {}}
     its = grades.items(plan)
+    for it in its:
+        it["errors"] = producer.blocking_errors(it)
     keys = {i["key"] for i in its}
     nxt = next_cloud_run()
     dates = [s["date"] for s in plan["slots"]]
@@ -234,6 +236,9 @@ button{font-family:inherit}
 .in-pic{display:block;width:100%;border-radius:var(--r-md);border:1px solid var(--line);background:var(--surface-2)}
 .in-checks{margin:0;padding:0;list-style:none;display:grid;gap:var(--sp-1);font-size:var(--fs-footnote);color:var(--text-2)}
 .in-checks li::before{content:"";display:inline-block;width:.35rem;height:.35rem;border-radius:50%;background:var(--accent);margin-inline-end:var(--sp-2);vertical-align:middle}
+.in-block{display:flex;flex-direction:column;gap:var(--sp-2);background:var(--danger-soft);border-radius:var(--r-sm);padding:var(--sp-3);margin:0}
+.in-block-h{margin:0;font-weight:700;color:var(--danger)}
+.in-block .st-errs{margin:0}
 .in-err{white-space:pre-wrap;font-size:var(--fs-caption);color:var(--danger);background:var(--danger-soft);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);margin:0}
 .in-warn{font-size:var(--fs-caption);color:var(--warning);background:var(--warning-soft);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);margin:0}
 .in-btns{display:grid;gap:var(--sp-2)}
@@ -281,7 +286,7 @@ const day = d => { const x = new Date(d + 'T12:00:00'); return `יום ${DAYS[x.
 function toast(msg) { let t = $('#hs-toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 4200); }
 async function post(url, body) {
   const r = await fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body || {})});
-  const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status)); return j;
+  const j = await r.json().catch(() => ({})); if (!r.ok) { const e = new Error(j.error || ('HTTP ' + r.status)); e.data = j; throw e; } return j;
 }
 async function refresh() {
   const j = await (await fetch('/api/state?batch=' + encodeURIComponent(S.batch))).json();
@@ -413,7 +418,7 @@ async function saveEdits() {
     const mine = (j.errors || []).filter(e => it.kind === 'reco' || (e.path || '').includes(it.id));
     const warns = (j.warnings || []).filter(e => it.kind === 'reco' || (e.path || '').includes(it.id)).filter(e => !/rights_unverified/.test(e.message || ''));
     lastSave[it.key] = {msg: mine.length ? `נשמר עם גיבוי · ${mine.length} לתיקון` : 'נשמר עם גיבוי', list: mine.map(e => ({text: e.message})).concat(warns.slice(0, 4).map(e => ({text: e.message, warn: true})))};
-    await refresh(); renderList(); renderStage(); toast(mine.length ? 'נשמר. יש מה לתקן, מתחת לשקופיות' : 'נשמר');
+    await refresh(); renderList(); renderStage(); renderProd(); toast(mine.length ? 'נשמר. יש מה לתקן, מתחת לשקופיות' : 'נשמר');
     return true;
   } catch (e) { toast('השמירה נכשלה: ' + e.message); $('#st-save-btn').disabled = false; dirtyBar(); return false; }
   finally { saving = false; }
@@ -452,18 +457,28 @@ async function grade(fields) {
   catch (e) { state('לא נשמר: ' + e.message, true); }
 }
 function flushWhy() { if (!whyTimer) return; clearTimeout(whyTimer); whyTimer = null; const w = $('#in-why'); if (w) grade({why: w.value}); }
+/* Yarin, 18 Oct 2026: no production while the option has validator errors; the list shows here so they get fixed first. */
+function blockers(it, box) {
+  const errs = it.errors || []; if (!errs.length) return false;
+  const w = el('div', 'in-block');
+  w.append(el('p', 'in-block-h', `לפני הפקה צריך לתקן ${errs.length === 1 ? 'דבר אחד' : errs.length + ' דברים'}:`));
+  const ul = el('ul', 'st-errs'); errs.forEach(e => ul.append(el('li', null, (e.slide ? `שקופית ${e.slide}: ` : '') + e.message))); w.append(ul);
+  w.append(el('p', 'in-keys', 'מתקנים בשקופיות באמצע ושומרים. הכפתור נפתח לבד כשהכל תקין.'));
+  box.append(w); return true;
+}
 function renderProd() {
   const it = item(cur), r = run(it.key), box = $('#in-prod'); if (!box) return; box.textContent = '';
   const h = el('h2', null, 'הפקה'); box.append(h);
   const btns = el('div', 'in-btns');
+  const blocked = (!r || ['failed', 'done'].includes(r.status)) && blockers(it, box);
   if (!r) {
-    box.append(el('p', 'in-keys', it.kind === 'reco' ? 'השקופיות כבר מוכנות: ייצוא ל-ZIP עם כיתוב, בלי עלות.' : 'תמונה אחת לכל הקרוסלה, עד $0.50. אחרי שמאשרים אותה, השקופיות וה-ZIP נבנים לבד.'));
-    const b = el('button', 'lb-btn', it.kind === 'reco' ? 'ייצוא עכשיו' : 'להפיק עכשיו'); b.type = 'button'; b.onclick = () => act('start'); btns.append(b); box.append(btns); return;
+    if (!blocked) box.append(el('p', 'in-keys', it.kind === 'reco' ? 'השקופיות כבר מוכנות: ייצוא ל-ZIP עם כיתוב, בלי עלות.' : 'תמונה אחת לכל הקרוסלה, עד $0.50. אחרי שמאשרים אותה, השקופיות וה-ZIP נבנים לבד.'));
+    const b = el('button', 'lb-btn', it.kind === 'reco' ? 'ייצוא עכשיו' : 'להפיק עכשיו'); b.type = 'button'; b.disabled = blocked; b.onclick = () => act('start'); btns.append(b); box.append(btns); return;
   }
   const top = el('div', 'st-chips'); top.style.margin = '0'; top.append(statusPill(r)); if (r.kind !== 'reco' && r.spent_usd != null) top.append(el('span', 'hs-pill', `$${Number(r.spent_usd).toFixed(2)} מתוך $0.50`)); box.append(top);
   const src = r.status === 'done' ? (r.contact_sheet || (r.slides || [])[0]) : r.picture;
   if (src) { const a = el('a'); a.href = src; a.target = '_blank'; const img = el('img', 'in-pic'); img.src = src; img.alt = ''; a.append(img); box.append(a); }
-  if (r.error) box.append(el('pre', 'in-err', r.error));
+  if (r.error) box.append(el(r.declined ? 'p' : 'pre', 'in-err', r.error));
   if (r.warning) box.append(el('p', 'in-warn', r.warning));
   if (r.status === 'review') {
     const ul = el('ul', 'in-checks'); (S.qa || []).forEach(q => ul.append(el('li', null, q))); box.append(ul);
@@ -477,9 +492,15 @@ function renderProd() {
     if (r.zip) { const a = el('a', 'lb-btn', 'הורדת ZIP'); a.href = r.zip; a.download = ''; btns.append(a); }
     const f = el('button', 'lb-btn secondary', 'הצגה ב-Finder'); f.type = 'button'; f.onclick = () => act('reveal'); btns.append(f);
     if (r.caption_file) { const a = el('a', 'lb-btn ghost', 'הכיתוב'); a.href = r.caption_file; a.target = '_blank'; btns.append(a); }
-    const again = el('button', 'lb-btn ghost', 'ייצוא מחדש אחרי עריכה'); again.type = 'button'; again.title = 'בלי תמונה חדשה ובלי עלות'; again.onclick = () => act('start'); btns.append(again);
+    const again = el('button', 'lb-btn ghost', 'ייצוא מחדש אחרי עריכה'); again.type = 'button'; again.title = 'בלי תמונה חדשה ובלי עלות'; again.disabled = blocked; again.onclick = () => act('start'); btns.append(again);
+  } else if (r.status === 'failed' && r.declined && it.image_action) {
+    box.append(el('p', 'in-keys', 'תיאור הסצנה (באנגלית, כמו שהוא נשלח למודל):'));
+    const ta = el('textarea', 'lb-textarea'); ta.rows = 6; ta.dir = 'ltr'; ta.value = it.image_action; box.append(ta);
+    const again = el('button', 'lb-btn', 'לנסות עם התיאור הזה'); again.type = 'button'; again.disabled = blocked;
+    again.onclick = () => { if (ta.value.trim() === it.image_action.trim()) { ta.focus(); toast('שנו קודם את התיאור'); return; } act('brief', {action: ta.value.trim()}); };
+    btns.append(again);
   } else if (r.status === 'failed') {
-    const again = el('button', 'lb-btn', 'להמשיך מאותה נקודה'); again.type = 'button'; again.onclick = () => act('start'); btns.append(again);
+    const again = el('button', 'lb-btn', 'להמשיך מאותה נקודה'); again.type = 'button'; again.disabled = blocked; again.onclick = () => act('start'); btns.append(again);
   } else {
     box.append(el('p', 'in-keys', 'רץ ברקע. אפשר להמשיך לדרג ולערוך בינתיים.'));
   }
@@ -489,7 +510,7 @@ async function act(action, extra) {
   const it = item(cur);
   if (action === 'start' && edits().length) { const ok = await saveEdits(); if (!ok) return; }
   try { const j = await post('/api/production/' + action, {key: it.key, ...(extra || {})}); if (j.run) S.runs[it.key] = j.run; renderProd(); renderList(); poll(); }
-  catch (e) { toast(e.message); }
+  catch (e) { if (e.data && e.data.errors) { it.errors = e.data.errors; renderProd(); } toast(e.message); }
 }
 function poll() {
   clearTimeout(poller);
@@ -517,7 +538,9 @@ $('#hs-week').onchange = e => { location.href = '/?batch=' + encodeURIComponent(
 $('#hs-send').onclick = async () => {
   flushWhy(); $('#hs-send').disabled = true;
   try { const j = await post('/api/produce-send', {batch: S.batch}); Object.assign(S.grades, j.grades); j.started.forEach(r => S.runs[r.key] = r);
-    toast(j.started.length ? `נשלחו להפקה: ${j.started.length}` : 'אין מה לשלוח'); renderList(); renderInsp(); poll(); }
+    (j.blocked || []).forEach(b => { const x = S.items.find(i => i.key === b.key); if (x) x.errors = b.errors; });
+    const nb = (j.blocked || []).length;
+    toast((j.started.length ? `נשלחו להפקה: ${j.started.length}` : (nb ? 'לא נשלח כלום' : 'אין מה לשלוח')) + (nb ? ` · ${nb} מחכות לתיקון: ${j.blocked.map(b => b.key.split('/')[1]).join(', ')}` : '')); renderList(); renderInsp(); poll(); }
   catch (e) { toast('השליחה נכשלה: ' + e.message); meter(); }
 };
 $('#hs-push').onclick = async () => { const b = $('#hs-push'); b.disabled = true; b.textContent = 'שולח...';

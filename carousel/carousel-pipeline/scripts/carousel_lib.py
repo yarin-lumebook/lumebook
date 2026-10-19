@@ -383,6 +383,63 @@ def slide_image(version, slide):
     return version["image"] if one_picture(version) else slide["image"]
 
 
+NUMBERED_LINE_RE = re.compile(r"^\s*(\d{1,2})\s+(\S.*)$")
+
+
+def sync_numbered_examples(version):
+    """Make the hidden `examples` lists and `examples_target` follow what the slides say (Yarin, 18 Oct 2026: the editor
+    saved his reworded and removed examples, the lists stayed old and the production stopped on errors he could not
+    fix from the page). On slides 3 to 8 each headline line that starts with a number is an example (that line's
+    words; a line after it without a number stays on the slide but is not part of the example, as the packs write it); the numbers are rewritten 1, 2, 3... in order, and when the count changes, a cover or caption
+    number that stated the old count is updated. A slide with no numbered line keeps its list (the validator names it).
+    Returns {"examples": old->new count or None, "renumbered": bool, "changed": [slide numbers]}."""
+    slides = {s.get("number"): s for s in version.get("slides") or []}
+    old_target = version.get("examples_target")
+    k, changed, renumbered = 0, [], False
+    for n in NUMBERED_EXAMPLE_SLIDES:
+        s = slides.get(n)
+        if not s:
+            continue
+        lines = str(s.get("headline", "")).split("\n")
+        if not any(NUMBERED_LINE_RE.match(l) for l in lines):
+            k += len(s.get("examples") or [])
+            continue
+        items, out = [], []
+        for line in lines:
+            m = NUMBERED_LINE_RE.match(line)
+            if m:
+                k += 1
+                if int(m.group(1)) != k:
+                    renumbered = True
+                items.append(m.group(2).strip())
+                out.append(f"{k} {m.group(2).strip()}")
+            else:
+                out.append(line)
+        new_head = "\n".join(out)
+        old = s.get("examples") or []
+        shown, first = collapse(new_head + " " + s.get("body", "")), k - len(items) + 1
+        if len(old) == len(items) and all(re.search(rf"(?<!\d){first + i}\s+{re.escape(collapse(x))}", shown) for i, x in enumerate(old)):
+            items = old  # the list still matches the slide (some packs list both lines of an example): keep it
+        if items != s.get("examples") or new_head != s.get("headline"):
+            changed.append(n)
+        s["examples"], s["headline"] = items, new_head
+    count = None
+    if isinstance(old_target, int) and k and k != old_target:
+        count = (old_target, k)
+        version["examples_target"] = k
+        num = re.compile(rf"(?<!\d){old_target}(?!\d)")
+        cover = slides.get(1) or {}
+        for field in ("headline", "body"):
+            if len(num.findall(cover.get(field, ""))) == 1:
+                cover[field] = num.sub(str(k), cover[field])
+        cap = str(version.get("caption", "")).split("\n")
+        hits = [i for i, l in enumerate(cap) if num.search(l)]
+        if len(hits) == 1 and len(num.findall(cap[hits[0]])) == 1:
+            cap[hits[0]] = num.sub(str(k), cap[hits[0]])
+            version["caption"] = "\n".join(cap)
+    return {"examples": count, "renumbered": renumbered, "changed": changed}
+
+
 def numbered_example_issues(path, version):
     """Slides 3 to 8: 1 or 2 examples each, numbered in one run from 1, each number written right before its example
     on the slide; the other slides list none; the total is the option's draw."""
