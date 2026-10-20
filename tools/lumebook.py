@@ -279,6 +279,51 @@ def check():
         elif open(p(cp["from"]), "rb").read() != open(p(cp["to"]), "rb").read():
             add("warn", "brand", f"{cp['to']} differs from {cp['from']} (run sync, or move the new file into shared/brand first)")
 
+    # category colours (shared/design/categories.json): valid hues, one hue per category in a set, every
+    # component in exactly one workstream, and the generated categories.css up to date
+    cat_path = p("shared/design/categories.json")
+    if os.path.exists(cat_path):
+        try:
+            sets = json.load(open(cat_path, encoding="utf-8"))["sets"]
+        except (ValueError, KeyError) as e:
+            sets = {}
+            add("error", "design", f"shared/design/categories.json does not parse: {e}")
+        classes = {}
+        for sid, st in sets.items():
+            nums = [it.get("cat") for it in st.get("items", {}).values()]
+            if any(n not in range(0, 9) for n in nums):
+                add("error", "design", f"categories.json {sid}: a cat number is outside 0-8")
+            if not 3 <= len(nums) <= 8:
+                add("warn", "design", f"categories.json {sid}: {len(nums)} categories (colour 3 to 8)")
+            dup = sorted({n for n in nums if n and nums.count(n) > 1})
+            if dup:
+                add("warn", "design", f"categories.json {sid}: hue {', '.join(map(str, dup))} used twice")
+            if st.get("class"):
+                if st["class"] in classes:
+                    add("error", "design", f"categories.json {sid}: class prefix '{st['class']}' also used by {classes[st['class']]}")
+                classes[st["class"]] = sid
+        ws = sets.get("workstreams", {}).get("items", {})
+        if ws:
+            owner = {}
+            for key, it in ws.items():
+                for cid in it.get("components", []):
+                    if cid not in COMP:
+                        add("warn", "design", f"categories.json workstreams.{key}: unknown component {cid}")
+                    if cid in owner:
+                        add("warn", "design", f"categories.json: {cid} is in workstreams {owner[cid]} and {key}")
+                    owner[cid] = key
+            for cid in COMP:
+                if cid not in owner:
+                    add("warn", "design", f"{cid} has no workstream in shared/design/categories.json (the dashboard shows it uncoloured)")
+        try:
+            sys.path.insert(0, p("shared/design"))
+            import design as _design
+            css_path = p("shared/design/categories.css")
+            if not os.path.exists(css_path) or open(css_path, encoding="utf-8").read() != _design.categories_css() + "\n":
+                add("warn", "design", "shared/design/categories.css is older than categories.json (run sync)")
+        except Exception as e:  # a broken design.py must not stop the other checks
+            add("error", "design", f"shared/design/design.py: {type(e).__name__}: {e}")
+
     # audience copy: spelling, offer wording, em dashes
     banned = [(w, "brand spelling, use " + facts["brand"]["name_he"]) for w in facts["brand"]["banned_spellings"]]
     banned += [(w, "offer wording, use '" + facts["offer"]["wording_he"] + "'") for w in facts["offer"]["banned_wording_he"]]
@@ -337,6 +382,13 @@ def check():
 
 def sync(quiet=False):
     done = []
+    try:  # categories.css is generated from categories.json; refresh it before it is copied
+        sys.path.insert(0, p("shared/design"))
+        import design as _design
+        if _design.write_categories_css():
+            done.append("shared/design/categories.css (generated)")
+    except Exception as e:
+        print(f"sync: could not write shared/design/categories.css: {type(e).__name__}: {e}")
     for cp in [c for k in ("brand", "design") for c in COMP.get(k, {}).get("copies", [])]:
         src, dst = p(cp["from"]), p(cp["to"])
         if os.path.exists(src) and (not os.path.exists(dst) or open(src, "rb").read() != open(dst, "rb").read()):
@@ -471,15 +523,208 @@ def print_report(r, verbose=False):
             print(f"  … {len(shown) - 25} more (python3 tools/lumebook.py check)")
 
 
+UPLOAD_EXT = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".webm", ".m4v", ".mp3", ".m4a", ".wav", ".ogg", ".opus", ".pdf"}
+UPLOAD_MAX = 300 * 1024 * 1024
+
+
 def serve(port):
-    """Static server for the whole project folder, no caching, so every page and research report is one URL away."""
-    import http.server, functools
+    """Static server for the whole project folder, no caching, so every page and research report is one URL away.
+
+    Three small endpoints for the dashboard work board, all on 127.0.0.1 only:
+      GET  /api/board/env       tells the board it runs on the project server (local media previews, uploads)
+      GET  /api/local-tools     pings the services in facts.local_tools (Hook Studio...) from here; starts nothing
+      POST /api/media-inbox     saves one uploaded file into media/inbox/ (the unsorted folder of media/README.md),
+                                same-origin only (Origin header + X-LumeBook-Board), allowed media types, never overwrites
+      GET  /api/creator-map/state   the creator map's saved data (statuses, notes, settings, voice) from creators/creator-research/state/
+      PUT  /api/creator-map/doc?path=outreach/<handle>   writes one document of it (same-origin only; paths limited to
+                                outreach, settings, voice, log); this replaced the artifact database on 20 Oct 2026
+      GET  /                    redirects to the HQ dashboard
+      /hook-studio/             Hook Studio (the login item on 127.0.0.1:8777) through this server: its own paths
+                                (HS_PREFIX) are forwarded as they are, POSTs same-origin only; nothing of it runs here
+    There is no endpoint that runs a command."""
+    import http.client, http.server, functools, urllib.parse, urllib.request, threading
+    origins = {f"http://localhost:{port}", f"http://127.0.0.1:{port}"}
+    state_dir = p("creators/creator-research/state")
+    state_lock = threading.Lock()
+    doc_path = re.compile(r"^(?:(outreach|settings|voice)/([\w.\-]{1,120})|log/([\w.\-]{1,120})/events/([\w.\-]{1,60}))$")
+
+    def state_read(name):
+        try:
+            with open(os.path.join(state_dir, name + ".json"), encoding="utf-8") as fh:
+                return json.load(fh)
+        except FileNotFoundError:
+            return {}
+
+    def state_write(name, obj):
+        os.makedirs(state_dir, exist_ok=True)
+        dest = os.path.join(state_dir, name + ".json")
+        tmp = dest + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump(obj, fh, ensure_ascii=False, indent=1)
+        os.replace(tmp, dest)
+
+    hs_port = 8777
+    hs_prefix = ("/api/ping", "/api/state", "/api/productions", "/api/production/", "/api/save", "/api/grade",
+                 "/api/produce-send", "/api/push-grades", "/api/sync", "/drafts/", "/approved/", "/assets/fonts/",
+                 "/pool/", "/grade/", "/productions", "/packs")
+
     class H(http.server.SimpleHTTPRequestHandler):
         def end_headers(self):
             self.send_header("Cache-Control", "no-store")
             super().end_headers()
+
         def log_message(self, *args):
             pass
+
+        def guess_type(self, path):
+            # pages written as artifacts (docs/lumebook-social-strategy.html) carry no <meta charset>; without a charset here
+            # the browser reads their Hebrew as windows-1252
+            t = super().guess_type(path)
+            return t + "; charset=utf-8" if t.startswith("text/") or t in ("application/javascript", "application/json") else t
+
+        def _json(self, code, obj):
+            body = json.dumps(obj, ensure_ascii=False).encode("utf-8")
+            self.send_response(code)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def hook_studio(self, method):
+            """Forward a Hook Studio request to its own server (the login item); True when this was one."""
+            u = urllib.parse.urlparse(self.path)
+            if u.path in ("/hook-studio", "/hook-studio/"):
+                target = "/" + ("?" + u.query if u.query else "")
+            elif u.path.startswith(hs_prefix):
+                target = self.path
+            else:
+                return False
+            if method == "POST" and self.headers.get("Origin") not in origins:
+                self._json(403, {"error": "same-origin requests only"})
+                return True
+            body = None
+            if method == "POST":
+                size = int(self.headers.get("Content-Length") or 0)
+                body = self.rfile.read(size) if 0 < size <= 8 * 1024 * 1024 else b""
+            try:
+                conn = http.client.HTTPConnection("127.0.0.1", hs_port, timeout=300)
+                conn.request(method, target, body=body, headers={"Content-Type": self.headers.get("Content-Type", "application/json")} if body is not None else {})
+                r = conn.getresponse()
+                data = r.read()
+                status, headers = r.status, r.getheaders()
+                conn.close()
+            except OSError:
+                self._json(502, {"error": "Hook Studio is not running", "start": "python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart"})
+                return True
+            ctype = r.getheader("Content-Type", "")
+            if ctype.startswith("text/html"):
+                data = data.replace(b'href="/" ', b'href="/hook-studio/" ')   # the "Hook Studio" back link on the review pages
+            self.send_response(status)
+            for k, v in headers:
+                if k.lower() in ("content-type", "location", "content-disposition", "last-modified"):
+                    if k.lower() == "location" and (v == "/" or v.startswith("/?")):
+                        v = "/hook-studio/" + v[1:]
+                    self.send_header(k, v)
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+            return True
+
+        def do_GET(self):
+            if self.hook_studio("GET"):
+                return
+            path = urllib.parse.urlparse(self.path).path
+            if path == "/":   # the front door is the HQ dashboard, not a folder listing (Yarin, 20 Oct 2026)
+                self.send_response(302)
+                self.send_header("Location", "/sites/dashboard/site/lumebook-dashboard/")
+                self.end_headers()
+                return
+            if path == "/api/board/env":
+                return self._json(200, {"server": "lumebook", "port": port, "inbox": "media/inbox", "upload_max_mb": UPLOAD_MAX // (1024 * 1024)})
+            if path == "/api/local-tools":
+                facts = json.load(open(p("shared/facts.json"), encoding="utf-8"))
+                out = []
+                for t in facts.get("local_tools", {}).get("tools", []):
+                    ok = None
+                    if t.get("ping"):
+                        if urllib.parse.urlparse(t["ping"]).port == port:
+                            ok = True  # this server
+                        else:
+                            try:
+                                with urllib.request.urlopen(t["ping"], timeout=2) as r:
+                                    ok = r.status == 200
+                            except Exception:
+                                ok = False
+                    out.append({"key": t["key"], "ok": ok, "url": t.get("url")})
+                return self._json(200, {"tools": out, "checked_at": now()})
+            if path == "/api/creator-map/state":
+                with state_lock:
+                    return self._json(200, {k: state_read(k) for k in ("outreach", "settings", "voice", "log")})
+            return super().do_GET()
+
+        def do_PUT(self):
+            u = urllib.parse.urlparse(self.path)
+            if u.path != "/api/creator-map/doc":
+                return self._json(404, {"error": "not found"})
+            if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                return self._json(403, {"error": "same-origin requests only"})
+            m = doc_path.match((urllib.parse.parse_qs(u.query).get("path") or [""])[0])
+            size = int(self.headers.get("Content-Length") or 0)
+            if not m or size <= 0 or size > 2 * 1024 * 1024:
+                return self._json(400, {"error": "bad path or size"})
+            try:
+                doc = json.loads(self.rfile.read(size).decode("utf-8"))
+            except ValueError:
+                return self._json(400, {"error": "not JSON"})
+            if not isinstance(doc, dict):
+                return self._json(400, {"error": "a document is a JSON object"})
+            with state_lock:
+                if m.group(1):
+                    coll = state_read(m.group(1))
+                    coll[m.group(2)] = doc
+                    state_write(m.group(1), coll)
+                else:
+                    lg = state_read("log")
+                    lg.setdefault(m.group(3), {})[m.group(4)] = doc
+                    state_write("log", lg)
+            return self._json(200, {"ok": True})
+
+        def do_POST(self):
+            if self.hook_studio("POST"):
+                return
+            u = urllib.parse.urlparse(self.path)
+            if u.path != "/api/media-inbox":
+                return self._json(404, {"error": "not found"})
+            if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                return self._json(403, {"error": "same-origin board requests only"})
+            name = (urllib.parse.parse_qs(u.query).get("name") or [""])[0]
+            base, ext = os.path.splitext(os.path.basename(name))
+            if ext.lower() not in UPLOAD_EXT:
+                return self._json(415, {"error": "allowed: images, video, audio, pdf"})
+            size = int(self.headers.get("Content-Length") or 0)
+            if size <= 0 or size > UPLOAD_MAX:
+                return self._json(413, {"error": f"file must be 1 byte to {UPLOAD_MAX // (1024 * 1024)} MB"})
+            safe = re.sub(r"[^\w.\-\u0590-\u05FF]+", "-", base).strip("-.")[:80] or "file"
+            day = datetime.now(IL).date().isoformat()
+            inbox = p("media/inbox")
+            os.makedirs(inbox, exist_ok=True)
+            dest, n = os.path.join(inbox, f"{day}-{safe}{ext.lower()}"), 2
+            while os.path.exists(dest):
+                dest, n = os.path.join(inbox, f"{day}-{safe}-{n}{ext.lower()}"), n + 1
+            left = size
+            with open(dest, "xb") as f:
+                while left:
+                    chunk = self.rfile.read(min(left, 1 << 20))
+                    if not chunk:
+                        break
+                    f.write(chunk)
+                    left -= len(chunk)
+            if left:
+                os.remove(dest)
+                return self._json(400, {"error": "upload interrupted"})
+            log({"type": "media-inbox", "path": os.path.relpath(dest, ROOT), "bytes": size})
+            return self._json(201, {"path": os.path.relpath(dest, ROOT)})
+
     print(f"LumeBook project on http://localhost:{port}/  (HQ: /sites/dashboard/site/lumebook-dashboard/)")
     http.server.ThreadingHTTPServer(("127.0.0.1", port), functools.partial(H, directory=ROOT)).serve_forever()
 
