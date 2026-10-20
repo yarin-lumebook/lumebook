@@ -1,0 +1,211 @@
+{
+  "_about": "Hand-written content of the dashboard work board: Hebrew titles for discovered resources, the first board's frames and what goes in each, the starter cards, the prompts and the built-in templates. catalog.py reads this file with lumebook.json, shared/facts.json, media/README.md and shared/brand, and writes seed.js. The board uses the seed only to build a board that does not exist yet (first open, or 'reset' with a backup); refreshes never move or rename cards on a saved board. Hebrew follows creators/creator-research/src/hebrew-rules.md; no em dashes.",
+
+  "labels": {
+    "cmp:facts": {"title": "עובדות משותפות", "summary": "קישורים, ההצעה ליוצרים, תאריכים ורשימות יוצרים. כמה רכיבים קוראים מכאן."},
+    "cmp:brand": {"title": "קבצי המותג", "summary": "הלוגואים, הדמות, הפונטים והרקעים הקנוניים. האתרים והמכונה מעתיקים מכאן."},
+    "cmp:media": {"title": "תיקיית המדיה", "summary": "כל קבצי התמונה, הווידאו והאודיו, תיקייה אחת לכל עבודה. האינדקס והכללים ב-README."},
+    "cmp:product-docs": {"title": "מסמכי המוצר", "summary": "בריף המוצר, אסטרטגיית הרבעון, פלייבוק הקרוסלות בעברית ומחקר UGC."},
+    "cmp:brand-marketing-system": {"title": "מערכת המותג והשיווק", "summary": "טיוטת עבודה פנימית."},
+    "cmp:signup-form": {"title": "טופס ההרשמה ליוצרים", "summary": "Google Form. התשובות נכנסות לגיליון ההרשמות."},
+    "cmp:creator-map": {"title": "מפת היוצרים", "summary": "מאגר היוצרים: מצב פניות, הודעות לפי מסלול ומעקב."},
+    "cmp:creator-content-conversion": {"title": "תוכן יוצרים מול כוונת קנייה", "summary": "אילו פוסטים של יוצרים מביאים שיחה על קנייה ולא רק תשומת לב."},
+    "cmp:israeli-product-reels": {"title": "מחקר רילס מוצר: חומרי המקור", "summary": "הפלייבוק, הניתוחים והמקורות של מחקר הרילס."},
+    "cmp:carousel-pipeline": {"title": "Hook Studio", "summary": "מכונת הקרוסלות: ציונים, הפקה בתוך הדף ועורכים. רץ על המק כפריט התחברות."},
+    "cmp:hook-studio-page": {"title": "דף Hook Studio", "summary": "החבילה האחרונה, הכללים והפקודות של מכונת הקרוסלות."},
+    "cmp:dashboard": {"title": "לוח לומבוק", "summary": "הלוח הזה. בארטיפקט שומרים, ב-Vercel עותק לקריאה."},
+    "cmp:smm-plan": {"title": "תוכנית הסושיאל", "summary": "התוכנית המלאה: שבועות, יעדים, מדדים ומפת דרכים."},
+    "cmp:sales-readout": {"title": "סיכום נתוני המכירות", "summary": "נתוני האדמין מ-12.10 במילים פשוטות. מספרים פנימיים, נשאר במחשב בלבד."},
+    "cmp:creator-brief": {"title": "בריף הרילס ליוצרים", "summary": "שלד צילום לרילס, קריאה לפעולה, גילוי נאות וצ׳קליסט ליוצרי ברטר."},
+    "art:reels": {"title": "35 סרטונים שעבדו", "summary": "דוגמאות לרילס שעבדו, נאספו ליוסי."},
+    "link:form_edit": {"title": "עריכת טופס ההרשמה", "summary": "הטופס עצמו ב-Google Forms."},
+    "link:sheet": {"title": "גיליון ההרשמות", "summary": "תשובות טופס היוצרים. יש בו טלפונים ומיילים."},
+    "link:drive": {"title": "תיקיית \"שיווק\" בדרייב", "summary": "מעקב יוצרים, סרטונים מאושרים, UGC ומסמכי אסטרטגיה."},
+    "link:tracker": {"title": "Creator Outreach Tracker v2", "summary": "הגיליון הישן. חלק מהמספרים בו לא מעודכנים."},
+    "link:monorepo": {"title": "הריפו של הפרויקט", "summary": "github.com/yarinbruner/lumebook, פרטי."},
+    "link:store": {"title": "החנות", "summary": "lumebook.com בעברית."},
+    "link:instagram": {"title": "האינסטגרם של לומבוק", "summary": "@lumebook.il, הפרופיל החי."},
+    "link:mebook_instagram": {"title": "MeBook באינסטגרם", "summary": "המתחרה הישיר."},
+    "link:parent_shoot_form": {"title": "טופס יום צילום להורים", "summary": "משפחות נרשמות ליום צילום בבית תמורת ספר במתנה."},
+    "drive:content": {"title": "LumeBook תוכן", "summary": "כל תוכן מוכן לפרסום, תיקייה לפי סוג ותיקייה לכל עבודה."},
+    "drive:carousels": {"title": "קרוסלות בדרייב", "summary": "drive_export.py מעתיק לכאן כל קרוסלה מוכנה."},
+    "tool:project_server": {"title": "שרת הפרויקט המקומי", "summary": "כל הדפים והקבצים של הפרויקט בכתובת אחת. בו אפשר לראות קבצי מדיה מקומיים ולהעלות קבצים."},
+    "folder:correspondence": {"title": "התכתבויות עם יוצרים", "summary": "מיילים והקלטות DM, תיקייה לכל יוצר. פרטי, לא ב-git."},
+    "folder:media-inbox": {"title": "media/inbox", "summary": "קבצים חדשים שעוד לא סודרו. ממיינים לתיקיית עבודה תוך שבוע."},
+    "file:product-brief": {"title": "בריף המוצר", "summary": "המוצר, המחירים והקהל."},
+    "file:carousel-playbook-he": {"title": "פלייבוק הקרוסלות בעברית", "summary": "המסמך שממנו נבנו כללי הקרוסלות."},
+    "file:ugc-research": {"title": "מחקר UGC ושגרירים", "summary": "מה עובד בתוכניות יוצרים ושגרירים."},
+    "file:hebrew-voice": {"title": "כלי הקול בעברית", "summary": "איך עובד כלי הקול והבדיקה של הקופי."},
+    "file:organic-notes": {"title": "הערות על המרה אורגנית", "summary": "סיכום מ-14.10 על תוכן אורגני שמביא קנייה."},
+    "file:parent-outreach": {"title": "פניות לקהילות הורים", "summary": "הטיוטות והסדר לפניות לקבוצות ההורים."},
+    "file:hebrew-rules": {"title": "כללי העברית", "summary": "הצ׳קליסט שכל הודעה בעברית עוברת: פנייה, התאמה, ה׳ הידיעה ופיסוק."},
+    "brand:logo_wide.png": {"title": "לוגו רחב"},
+    "brand:logo_square.png": {"title": "לוגו ריבועי"},
+    "brand:mascot_3d_transparent.png": {"title": "Lume, הדמות"},
+    "brand:toddler_realistic_transparent.png": {"title": "Ben, הפעוט"},
+    "brand:social-backgrounds/lumebook-carousel-bg-v2.png": {"title": "רקע קרוסלה"},
+    "brand:facebook-cover-lumebook-v5-mobile-safe.png": {"title": "קאבר פייסבוק"},
+    "media:2026-10-16-creator-reels": {"title": "גלריית הסרטונים של היוצרים"},
+    "media:2026-10-13-reels-superhero-book": {"title": "רילס ספר גיבור העל"},
+    "media:2026-10-16-dj-ben-reel": {"title": "רילס DJ Ben"},
+    "media:2026-10-19-genjutsu-ben-dance-lume": {"title": "Ben רוקד, Lume מצלם"},
+    "media:2026-10-16-genjutsu-truck-box": {"title": "קופסה מהמשאית"},
+    "media:2026-10-11-lume-character-pack": {"title": "חבילת דמות: Lume"},
+    "media:2026-10-11-toddler-character-pack": {"title": "חבילת דמות: Ben"},
+    "media:2026-10-14-stories-qa-heebo": {"title": "סטוריז שאלות ותשובות"},
+    "cmd:ripple": {"title": "ripple", "summary": "אחרי שינוי ברכיב: בונה מחדש דפים שהמקור שלהם השתנה ומשאיר משימות לשאר."},
+    "cmd:check": {"title": "check", "summary": "בדיקות עקביות: כתיב המותג, נוסח ההצעה, מקפים ארוכים ונתיבים ישנים."},
+    "cmd:status": {"title": "status", "summary": "מה השתנה ומה מחכה, בלי לבנות כלום."},
+    "cmd:build-dashboard": {"title": "בניית העותק לקריאה", "summary": "בונה את הלוח ל-Vercel מהנתונים האחרונים. לא מפרסם."}
+  },
+
+  "views": {
+    "overview": {"title": "דורש תשומת לב", "summary": "התראות, השבוע וקיצורים לכל תחום."},
+    "plan": {"title": "תוכנית: שבועות ויעדים", "summary": "משימות השבוע, מונים, יעדים ומדדים מתוכנית הסושיאל."},
+    "creators": {"title": "יוצרים במעקב", "summary": "הטבלה ומצב הפנייה לכל יוצר במעקב."},
+    "signups": {"title": "הרשמות", "summary": "הרשמות מטופס היוצרים, חי מהגיליון בארטיפקט."},
+    "content": {"title": "קרוסלות", "summary": "החבילה האחרונה, מה בהפקה והחבילות הקודמות."},
+    "competitors": {"title": "MeBook מולנו", "summary": "עוקבים, עמודות תוכן ופערים."},
+    "research": {"title": "ספריית המחקר", "summary": "כל המחקרים והמסמכים לפי תחום."},
+    "sync": {"title": "סנכרון בין הרכיבים", "summary": "מה מחכה לטיפול, אי-התאמות ומה כל רכיב מזין."},
+    "assets": {"title": "אתרים וקבצים", "summary": "מצב האתרים, קישורים וקבצים שנערכו לאחרונה."}
+  },
+
+  "metrics": {
+    "refresh": {"title": "רענון הנתונים", "summary": "מתי רצה הבדיקה האחרונה של הנתונים."},
+    "ig_followers": {"title": "עוקבים באינסטגרם", "summary": "מהרענון היומי. יעד דצמבר 3-4K לפי התוכנית."},
+    "signups": {"title": "הרשמות יוצרים", "summary": "הרשמות אמיתיות בטופס, בלי שורות בדיקה."},
+    "creators_contacted": {"title": "פניות ליוצרים", "summary": "כמה מהיוצרים במעקב כבר קיבלו פנייה."},
+    "week_tasks": {"title": "משימות השבוע", "summary": "מתוכנית הסושיאל. מסמנים בתצוגת התוכנית."},
+    "counter_reels": {"title": "רילס החודש", "summary": "המונה בתצוגת התוכנית."},
+    "carousel_pack": {"title": "חבילת הקרוסלות האחרונה", "summary": "מ-Hook Studio."},
+    "key_dates": {"title": "תאריכים מרכזיים", "summary": "מהעובדות המשותפות של הפרויקט."},
+    "sync": {"title": "סנכרון", "summary": "משימות פתוחות ואי-התאמות בין הרכיבים."}
+  },
+
+  "prompts": {
+    "produce": {"title": "הפקת אופציה מ-Hook Studio", "text": "produce kid-2", "summary": "מחליפים את kid-2 באופציה שבחרתי ב-Hook Studio. Claude מפיק, בודק ומייצא.", "tags": ["קרוסלות", "Claude"]},
+    "hook-review": {"title": "לעבור על החבילה האחרונה", "text": "תעבור איתי על האופציות האחרונות ב-Hook Studio ותגיד לי איזו כדאי להפיק ולמה.", "summary": "לפני שבוחרים אופציה להפקה.", "tags": ["קרוסלות", "Claude"]},
+    "hebrew-voice": {"title": "קופי בקול שלי", "text": "תכתוב מחדש את הטקסט הזה בקול שלי לפי lumebook-hebrew-voice ותריץ את הבדיקה:\n\n[הטקסט]", "summary": "לכיתובים, שקופיות ותשובות לתגובות.", "tags": ["קופי", "Claude"]},
+    "creator-dm": {"title": "הודעת פנייה ליוצר/ת", "text": "תנסח לי הודעת פנייה ראשונה ל-@[שם המשתמש] לפי המסלול במפת היוצרים, בעברית שלי. ההצעה: ספר מותאם אישית וקישור אישי עם הנחה לקהל.", "summary": "לפי המסלול במפה ולפי כללי העברית.", "tags": ["יוצרים", "Claude"]},
+    "ripple": {"title": "אחרי שינוי ברכיב", "text": "שיניתי את [הרכיב]. תריץ ripple ותגיד לי מה צריך לפרסם מחדש.", "summary": "כדי שכל הדפים יישארו מעודכנים.", "tags": ["מערכת", "Claude"]},
+    "dashboard-refresh": {"title": "רענון הלוח עכשיו", "text": "תריץ עכשיו את רענון הלוח (lumebook-dashboard-refresh) ותגיד לי מה השתנה.", "summary": "כשהנתונים בלוח ישנים.", "tags": ["מערכת", "Claude"]}
+  },
+
+  "starter_cards": {
+    "help": {"type": "note", "color": "cream", "h": 240, "title": "ככה עובדים עם הלוח", "desc": "גוררים כרטיס כדי להזיז אותו. לחיצה כפולה עורכת את הכותרת, ו-Enter פותח את כל הפרטים. מחברים כרטיסים בגרירה מהעיגול שבצד של כרטיס מסומן. ? מציג את כל הקיצורים. כל שינוי נשמר לבד, והמקום שבו הוא נשמר כתוב למעלה.", "tags": ["עזרה"]},
+    "hanukkah": {"type": "project", "title": "חנוכה 2026", "desc": "שיא הרבעון לפי תוכנית הסושיאל. {dates}", "status": "todo", "tags": ["חנוכה", "קמפיין"]},
+    "refresh-routine": {"type": "workflow", "title": "רענון הלוח כל בוקר", "desc": "מה המשימה המתוזמנת lumebook-dashboard-refresh עושה, לפי הסדר.", "steps": ["ripple בין הרכיבים", "קריאת גיליון ההרשמות מ-Drive", "refresh.py בונה את הנתונים", "עדכון מסד הנתונים של הארטיפקט", "ייצוא למסד של העותק לקריאה", "build_site.py", "פריסה ל-Vercel"], "tags": ["מערכת"]}
+  },
+
+  "frames": [
+    {"key": "daily", "row": 0, "cols": 4, "items": ["card:help", "metric:refresh", "metric:ig_followers", "metric:signups", "metric:week_tasks", "view:overview", "metric:creators_contacted", "metric:counter_reels", "metric:carousel_pack", "link:instagram", "prompt:dashboard-refresh"]},
+    {"key": "content", "row": 0, "cols": 5, "items": ["cmp:carousel-pipeline", "cmp:hook-studio-page", "prompt:hook-review", "prompt:produce", "view:content", "cmp:carousel-playbook", "cmp:carousel-research", "carousel:*", "cmp:reels-research-page", "cmp:kids-lab", "art:reels", "prompt:hebrew-voice", "media:2026-10-16-creator-reels", "media:2026-10-19-genjutsu-ben-dance-lume", "media:2026-10-16-dj-ben-reel", "media:2026-10-13-reels-superhero-book", "drive:content", "drive:carousels"]},
+    {"key": "creators", "row": 0, "cols": 4, "items": ["cmp:creator-map", "view:creators", "cmp:creator-brief", "prompt:creator-dm", "cmp:signup-form", "view:signups", "link:sheet", "link:form_edit", "cmp:parent-communities", "link:parent_shoot_form", "cmp:creator-content-conversion", "file:hebrew-rules", "link:tracker", "folder:correspondence"]},
+    {"key": "research", "row": 1, "cols": 4, "items": ["cmp:competitor-teardown", "view:competitors", "link:mebook_instagram", "view:research", "cmp:israeli-product-reels", "cmp:product-docs", "file:product-brief", "file:ugc-research", "file:organic-notes", "file:parent-outreach", "cmp:brand-marketing-system", "cmp:sales-readout"]},
+    {"key": "campaigns", "row": 1, "cols": 3, "items": ["card:hanukkah", "metric:key_dates", "cmp:smm-plan", "view:plan", "cmp:strategy", "file:carousel-playbook-he", "link:store"]},
+    {"key": "brand", "row": 1, "cols": 4, "items": ["brand:logo_wide.png", "brand:logo_square.png", "brand:mascot_3d_transparent.png", "brand:toddler_realistic_transparent.png", "brand:social-backgrounds/lumebook-carousel-bg-v2.png", "brand:facebook-cover-lumebook-v5-mobile-safe.png", "cmp:brand", "cmp:design", "cmp:media", "folder:media-inbox", "media:2026-10-11-lume-character-pack", "media:2026-10-11-toddler-character-pack", "media:2026-10-14-stories-qa-heebo", "link:drive"]},
+    {"key": "system", "row": 1, "cols": 3, "items": ["metric:sync", "view:sync", "cmp:dashboard", "tool:project_server", "cmd:ripple", "cmd:check", "cmd:status", "cmd:build-dashboard", "card:refresh-routine", "prompt:ripple", "cmp:facts", "link:monorepo"]}
+  ],
+
+  "dock": ["cmp:carousel-pipeline", "cmp:creator-map", "cmp:smm-plan", "cmp:reels-research-page", "drive:content", "cmp:creator-brief", "link:instagram", "cmd:ripple"],
+
+  "templates": [
+    {
+      "key": "reel",
+      "title": "הפקת רילס",
+      "desc": "מרעיון ועד תוצאות: הוק, תסריט, צילום, עריכה, קובץ סופי, Drive ופרסום.",
+      "tags": ["רילס", "הפקה"],
+      "area": "content",
+      "project": {"title": "רילס: [נושא]", "desc": "מה הצופה צריך לעשות בסוף, ומתי מפרסמים."},
+      "cards": [
+        {"k": "idea", "type": "note", "title": "רעיון ומקור", "desc": "מאיפה הרעיון: טרנד, מחקר או תגובה של הורה. מקשרים למקור."},
+        {"k": "hook", "type": "task", "title": "הוק ל-3 השניות הראשונות", "checklist": ["מה רואים בפריים הראשון", "טקסט על המסך", "למה להישאר עד הסוף"]},
+        {"k": "playbook", "type": "doc", "ref": "cmp:reels-research-page", "title": "פלייבוק הרילס"},
+        {"k": "script", "type": "task", "title": "תסריט", "checklist": ["פתיחה", "אמצע: מה מראים", "סוף: קריאה לפעולה"]},
+        {"k": "shoot", "type": "task", "title": "צילום", "checklist": ["צילום אנכי 9:16", "אור וסאונד", "הספר בפריים"]},
+        {"k": "edit", "type": "task", "title": "עריכה וכתוביות", "checklist": ["כתוביות בעברית", "בדיקת טקסט מימין לשמאל", "מוזיקה וסאונד"]},
+        {"k": "final", "type": "media", "title": "קובץ סופי", "desc": "שומרים ב-media/projects/<תאריך>-<שם>/final/ ומקשרים לכאן."},
+        {"k": "drive", "type": "task", "title": "העלאה ל-Drive", "desc": "LumeBook תוכן, תיקייה לפי סוג ותיקייה לכל עבודה.", "url": "{drive_content}"},
+        {"k": "publish", "type": "task", "title": "פרסום", "checklist": ["כיתוב בקול שלי", "תיוג ושיתופי פעולה", "שעת פרסום"]},
+        {"k": "results", "type": "note", "title": "תוצאות", "desc": "צפיות, שמירות, שיתופים ותגובות. מה לוקחים לרילס הבא."}
+      ],
+      "edges": [["project", "idea", ""], ["idea", "hook", ""], ["hook", "script", ""], ["playbook", "script", "לפי"], ["script", "shoot", ""], ["shoot", "edit", ""], ["edit", "final", ""], ["final", "drive", ""], ["drive", "publish", ""], ["publish", "results", ""]]
+    },
+    {
+      "key": "carousel",
+      "title": "הפקת קרוסלה",
+      "desc": "מאופציה ב-Hook Studio ועד תגובות: ציון, הפקה, בדיקת איכות, ייצוא ל-Drive ופרסום.",
+      "tags": ["קרוסלות", "הפקה"],
+      "area": "content",
+      "project": {"title": "קרוסלה: [נושא]", "desc": "איזו אופציה, ומתי מפרסמים."},
+      "cards": [
+        {"k": "studio", "type": "tool", "ref": "cmp:carousel-pipeline", "title": "Hook Studio"},
+        {"k": "pick", "type": "task", "title": "ציון ובחירה", "checklist": ["ציון לכל האופציות", "בחירת אופציה אחת להפקה"]},
+        {"k": "playbook", "type": "doc", "ref": "cmp:carousel-playbook", "title": "פלייבוק הקרוסלות"},
+        {"k": "produce", "type": "prompt", "title": "הפקה", "prompt": "produce kid-2", "desc": "מחליפים את kid-2 באופציה שנבחרה."},
+        {"k": "qa", "type": "task", "title": "בדיקת איכות", "checklist": ["10 שקופיות עם דוגמאות ממוספרות", "תמונה אחת וטקסט נקי", "ילד או ילדה עם שם", "אמא או שני ההורים", "בלי המותג על השקופיות", "מילת הקוד לומי", "שקופית 1: הוק ופנים של הילד למצלמה"]},
+        {"k": "export", "type": "task", "title": "ייצוא ל-Drive", "desc": "drive_export.py מעתיק לתיקיית הקרוסלות ב-LumeBook תוכן.", "url": "{drive_carousels}"},
+        {"k": "publish", "type": "task", "title": "פרסום", "checklist": ["כיתוב מ-caption.txt", "מילת הקוד בכיתוב"]},
+        {"k": "results", "type": "note", "title": "תגובות והודעות", "desc": "כמה כתבו לומי, כמה הודעות יצאו וכמה הזמנות הגיעו."}
+      ],
+      "edges": [["project", "studio", ""], ["studio", "pick", ""], ["playbook", "pick", "לפי"], ["pick", "produce", ""], ["produce", "qa", ""], ["qa", "export", ""], ["export", "publish", ""], ["publish", "results", ""]]
+    },
+    {
+      "key": "creator",
+      "title": "שיתוף פעולה עם יוצר/ת",
+      "desc": "מהפרופיל במפה ועד התוצאות: פנייה, תיאום, ספר, בריף, רילס ופרסום.",
+      "tags": ["יוצרים"],
+      "area": "creators",
+      "project": {"title": "יוצר/ת: @[שם המשתמש]", "desc": "מסלול, מה סיכמנו ומתי מצפים לסרטון."},
+      "cards": [
+        {"k": "profile", "type": "doc", "ref": "cmp:creator-map", "title": "פרופיל במפת היוצרים"},
+        {"k": "dm", "type": "task", "title": "פנייה ראשונה", "desc": "הודעה לפי המסלול במפה. ההצעה: ספר מותאם אישית וקישור אישי עם הנחה לקהל.", "checklist": ["לבדוק שאין שיתוף פעולה עם MeBook", "לשלוח את ההודעה", "לעדכן במפה: נשלחה פנייה"]},
+        {"k": "reply", "type": "task", "title": "תשובה ותיאום", "checklist": ["פרטי הילד לספר", "כתובת למשלוח", "מתי הסרטון עולה"]},
+        {"k": "prep", "type": "task", "title": "ספר בהכנה"},
+        {"k": "sent", "type": "task", "title": "ספר נשלח"},
+        {"k": "brief", "type": "doc", "ref": "cmp:creator-brief", "title": "בריף הרילס"},
+        {"k": "reel", "type": "media", "title": "התוצר: הרילס", "desc": "שומרים עותק ב-Drive, בתיקיית תוכן לקוחות ויוצרים."},
+        {"k": "share", "type": "task", "title": "פרסום ושיתוף", "checklist": ["הזמנת collab", "שיתוף בסטורי"]},
+        {"k": "results", "type": "note", "title": "תוצאות", "desc": "מכירות דרך הקישור האישי, תגובות ושאלות של הורים."}
+      ],
+      "edges": [["project", "profile", ""], ["profile", "dm", ""], ["dm", "reply", ""], ["reply", "prep", ""], ["prep", "sent", ""], ["sent", "reel", ""], ["brief", "reel", "לפי הבריף"], ["reel", "share", ""], ["share", "results", ""]]
+    },
+    {
+      "key": "campaign",
+      "title": "תכנון קמפיין",
+      "desc": "קמפיין, משימות, נכסים ותוצאות. מתאים לחנוכה ולכל תקופה עם תאריך יעד.",
+      "tags": ["קמפיין"],
+      "area": "campaigns",
+      "project": {"title": "קמפיין: [שם]", "desc": "תאריך התחלה, שיא וסוף."},
+      "cards": [
+        {"k": "goal", "type": "note", "title": "מטרה ומדד", "desc": "מה רוצים שיקרה ואיך נדע. מספר אחד."},
+        {"k": "dates", "type": "note", "title": "תאריכים", "desc": "התחלה, שיא, סוף ודדליין הזמנות."},
+        {"k": "message", "type": "note", "title": "קהל ומסר"},
+        {"k": "content", "type": "task", "title": "תוכן", "checklist": ["רילס", "קרוסלות", "סטוריז"]},
+        {"k": "creators", "type": "task", "title": "יוצרים", "checklist": ["רשימת יוצרים", "ספרים בזמן"]},
+        {"k": "communities", "type": "task", "title": "קהילות הורים"},
+        {"k": "assets", "type": "media", "title": "נכסים", "desc": "קבצים מוכנים, ב-media/projects ובדרייב."},
+        {"k": "results", "type": "note", "title": "תוצאות", "desc": "מול המדד שבחרנו. מה עבד ומה לא."}
+      ],
+      "edges": [["project", "goal", ""], ["project", "dates", ""], ["goal", "message", ""], ["message", "content", ""], ["message", "creators", ""], ["message", "communities", ""], ["content", "assets", ""], ["creators", "assets", ""], ["assets", "results", ""], ["communities", "results", ""]]
+    },
+    {
+      "key": "research-loop",
+      "title": "מחקר, רעיון, הפקה ותוצאות",
+      "desc": "מתובנה במחקר לתוכן שמתפרסם, ומהתוצאות חזרה למחקר.",
+      "tags": ["מחקר", "הפקה"],
+      "area": "research",
+      "project": null,
+      "cards": [
+        {"k": "source", "type": "link", "title": "מקור המחקר", "desc": "דף מחקר, פוסט או נתון."},
+        {"k": "insight", "type": "note", "title": "תובנה"},
+        {"k": "idea", "type": "note", "title": "רעיון לתוכן"},
+        {"k": "make", "type": "task", "title": "הפקה"},
+        {"k": "publish", "type": "task", "title": "פרסום"},
+        {"k": "results", "type": "note", "title": "תוצאות ומה למדנו"}
+      ],
+      "edges": [["source", "insight", ""], ["insight", "idea", ""], ["idea", "make", ""], ["make", "publish", ""], ["publish", "results", ""], ["results", "insight", "מה למדנו"]]
+    }
+  ]
+}

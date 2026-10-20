@@ -58,6 +58,11 @@ MODE_BOOT = ('<script>(function(){var r=document.documentElement,m="light";r.set
 REEL_DIR = ROOT / "media" / "projects" / "2026-10-15-israeli-product-reels" / "web"
 REEL = {"video": "media/shoham-reel.mp4", "poster": "media/shoham-reel-poster.jpg"}
 
+
+def reel_files(slug):
+    """The web copies of a card's example Reel (20 Oct 2026): media/ex-SLUG.mp4 and media/ex-SLUG-poster.jpg."""
+    return {"video": f"media/ex-{slug}.mp4", "poster": f"media/ex-{slug}-poster.jpg"}
+
 # Hebrew the page adds around the brief's own text (linted by lint_creator_brief.py too)
 UI = {
     "brand": "לומיבוק",
@@ -215,8 +220,9 @@ def parse():
                 items.append({"type": "check", "lines": lines})
             elif first.startswith("- "):
                 if re.fullmatch(r"\*\*[^*]+\*\*", lines[0]):
-                    kind = "message" if hints.get("as") == "message" else "beat"
-                    items.append({"type": kind, "icon": hints.get("icon"), "name": lines[0].strip("*"), "lines": lines[1:]})
+                    kind = {"message": "message", "reelcard": "reelcard"}.get(hints.get("as"), "beat")
+                    items.append({"type": kind, "icon": hints.get("icon"), "name": lines[0].strip("*"), "lines": lines[1:],
+                                  "slug": hints.get("reel")})
                 else:
                     items.append({"type": "worry" if lines[0].startswith("״") else "rule", "icon": hints.get("icon"), "lines": lines})
             elif m:
@@ -335,7 +341,7 @@ def render_items(items, sec_id, ctx):
                     lis[-1].append(f'<p class="note">{br(s["lines"])}</p>')
             out.append('<ol class="steps">' + "".join(f'<li>{li[0]}{"".join(li[1:])}</div></li>' for li in lis) + "</ol>")
             continue
-        if t in ("worry", "rule", "check", "beat", "message"):
+        if t in ("worry", "rule", "check", "beat", "message", "reelcard"):
             run = []
             while i < len(items) and items[i]["type"] == t:
                 run.append(items[i]); i += 1
@@ -347,6 +353,17 @@ def render_items(items, sec_id, ctx):
                 out.append('<div class="cards">' + "".join(
                     f'<div class="card rule">{card_head(r.get("icon") or "x", r["lines"][0], " dark")}<p>{br(r["lines"][1:])}</p></div>'
                     for r in run) + "</div>")
+            elif t == "reelcard":
+                cards = []
+                for c in run:
+                    f = reel_files(c["slug"])
+                    who, _, topic = c["name"].partition(" · ")
+                    cards.append(
+                        f'<li class="rcard"><div class="reel-frame"><video src="{f["video"]}" poster="{f["poster"]}" controls playsinline '
+                        f'preload="none" aria-label="{html.escape(who)}"></video></div>'
+                        f'<h3>{inline(who)}<small>{inline(topic)}</small></h3><ul>'
+                        + "".join(f'<li>{inline(l)}</li>' for l in c["lines"]) + "</ul></li>")
+                out.append('<ul class="reelrow" data-carousel>' + "".join(cards) + "</ul>" + dots(len(cards)))
             elif t == "message":
                 cards = []
                 for msg in run:
@@ -662,6 +679,16 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* the cover 
 .reel figcaption { font-size: var(--fs-footnote); color: var(--text-3); }
 .reel figcaption bdi { color: var(--text-2); font-weight: 600; }
 
+/* five more example Reels: a grid on wide screens, a swipe row on phones */
+.reelrow { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-5) var(--sp-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+.rcard { display: grid; gap: var(--sp-2); align-content: start; justify-items: center; min-width: 0; }
+.rcard .reel-frame { width: 100%; }
+.rcard h3 { width: 100%; font-size: var(--fs-headline); font-weight: 700; line-height: 1.35; display: grid; }
+.rcard h3 small { font-size: var(--fs-footnote); font-weight: 500; color: var(--text-3); }
+.rcard ul { width: 100%; list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-1); color: var(--text-2); font-size: var(--fs-footnote); line-height: 1.55; }
+.rcard ul li { position: relative; padding-inline-start: .9rem; }
+.rcard ul li::before { content: ""; position: absolute; inset-inline-start: 0; top: .6em; width: .35rem; height: .35rem; border-radius: 50%; background: var(--text-3); }
+
 /* CTA and caption previews */
 .ctabox { display: grid; gap: var(--sp-4); justify-items: start; border-radius: var(--r-lg); padding: var(--sp-6) var(--sp-5);
   background: linear-gradient(150deg, var(--violet), #3E1C9E); color: #FFFFFF; box-shadow: 0 24px 50px -28px rgba(109, 63, 224, .9); }
@@ -715,9 +742,11 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* the cover 
   .node { width: 1.75rem; height: 1.75rem; font-size: var(--fs-footnote); margin-top: .75rem; }
   .step-card { padding: var(--sp-3) var(--sp-4); gap: var(--sp-2); }
   .time { margin-inline-start: 0; flex-basis: 100%; }
-  .phones, .board { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+  .phones, .board, .reelrow { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
     gap: var(--sp-3); padding-block: 2px var(--sp-1); max-width: none; }
-  .phones::-webkit-scrollbar, .board::-webkit-scrollbar { display: none; }
+  .phones::-webkit-scrollbar, .board::-webkit-scrollbar, .reelrow::-webkit-scrollbar { display: none; }
+  .reelrow { margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
+  .rcard { flex: 0 0 68%; scroll-snap-align: center; }
   .phones { margin-inline: calc(-1 * var(--sp-4)); padding-inline: var(--sp-4); }
   .phone-wrap { flex: 0 0 60%; scroll-snap-align: center; }
   .phone { max-width: none; }
@@ -979,7 +1008,8 @@ def build():
     preview_dst.parent.mkdir(parents=True, exist_ok=True)
     if not preview_dst.exists() or preview_dst.read_bytes() != PREVIEW.read_bytes():
         shutil.copy2(PREVIEW, preview_dst)
-    for rel in REEL.values():  # the Reel's web files sit next to the Vercel page
+    cards = [it["slug"] for sec in pages["brief"] for it in sec["items"] if it["type"] == "reelcard"]
+    for rel in [*REEL.values(), *(r for slug in cards for r in reel_files(slug).values())]:  # web files sit next to the Vercel page
         src, dst = REEL_DIR / Path(rel).name, SITE.parent / rel
         if src.exists() and (not dst.exists() or dst.read_bytes() != src.read_bytes()):
             dst.parent.mkdir(parents=True, exist_ok=True)

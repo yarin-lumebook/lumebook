@@ -17,9 +17,18 @@ OFFER={"pct":OF["allocation_pct"],"ex":[OF["split_example"]["creator_earnings_pc
 assert sum(OFFER["ex"])==OFFER["pct"], "the split example must add up to the allocation"
 for c in C:
     if c['h'] in KIDS: c['kids']=KIDS[c['h']]
+# weekly refresh (refresh/refresh.py): fresh followers, median views and last reel over the research numbers, plus its flags
+RF=json.load(open(P('refresh/latest.json'))) if os.path.exists(P('refresh/latest.json')) else {'date':None,'data':{}}
+for c in C:
+    x=RF['data'].get(c['h'])
+    if not x: continue
+    for k in ('f','med','last'):
+        if x.get(k) is not None: c[k]=x[k]
+    if x.get('rf'): c['rf']=x['rf']
+    c['rfd']=RF['date']
 for i,c in enumerate(C):
-    ex=str(c.get('extra','')); p3=ex=='pass3'; p4=ex=='pass4'
-    c['ai']=i; c['added']='2026-10-18' if p4 else '2026-10-11' if p3 else '2026-10-03'; c['batch']=4 if p4 else 3 if p3 else 2 if ex.startswith('pass2') else 1; c['chk']='18 Oct 2026' if p4 else '11 Oct 2026' if p3 else '3 Oct 2026'
+    ex=str(c.get('extra','')); p3=ex=='pass3'; p4=ex=='pass4'; p5=ex=='pass5'
+    c['ai']=i; c['added']='2026-10-20' if p5 else '2026-10-18' if p4 else '2026-10-11' if p3 else '2026-10-03'; c['batch']=5 if p5 else 4 if p4 else 3 if p3 else 2 if ex.startswith('pass2') else 1; c['chk']='20 באוקטובר 2026' if p5 else '18 באוקטובר 2026' if p4 else '11 באוקטובר 2026' if p3 else '3 באוקטובר 2026'
 for c in C:
     if c['h']=='edenmomlife': c['arch']='Homeschool / alternative ed'
 O={
@@ -40,46 +49,43 @@ O={
 "ganotmor":(2,"Paid UGC package: 3 hooks + usage rights (Yossi's approval)","Comedy hook → reveal","Paid-ad creative","Ad hook rate / CTR / cost per preview start"),
 "almaanddad":(2,"Gift + fee if requested (Yossi's approval)","Dad reads Alma her own story; she corrects it","Awareness (dad + daughter)","Views vs his 33.5K median; cost per preview start"),
 }
-EDGE=[("koral_shaul_slp","קורל שאול","SLP, mom; clinics in Ness Ziona & Kiryat Ono",60600,177000,"","Strongest SLP reach found; median 177K"),
-("li_noy_bar","לינוי בר","Parenting creator; 'enjoy kids away from screens'",61200,None,"","Screen-free angle, just over range"),
-("noy6166","נוי יותם","Mom blogger, does UGC",90900,42800,"",""),
-("maayanraichman","מעיין רייכמן","Parenting & travel journalist/creator",113000,150000,"",""),
-("galtamari1","גל תמרי","Dad, parenting coach, author",94400,None,"","Rare dad-expert voice"),
-("michalolivero","מיכל אוליברו","AMI Montessori guide, lecturer",99100,None,"",""),
-("einatnathan","עינת נתן","Parenting author (count only; profile not deep-checked)",106000,None,"",""),
-("adva_style","אדווה כלפון","Moms community founder (count only)",92000,None,"","")]
-EXCL=[("No reel in 6+ months","box.from.books, sharonturgeman1, carmit_dinbar, lihen_imahut, shilat_ben_hemo, meirav_shvarzman, tom.rom_ot, study_stav, hadas_afek_, tali_moncarz, tal_psychologist, liron_shiffman, sara.danny.ot, menucha_fux"),
-("Under 1,000 followers","lieli.play, gal_handly, lironam, ganenet_daniela_sagi, gan_agada1, the_olimom, _hayohaya_, savtagrafia, and others"),
-("Not parenting content","batzion_assulin, racheloron, shirifadlon, carmelalerner_, amit.socher, dvorivainer, aba.itanu_anaelpashaev, hadaserez_imalevia, naamakaminer.positive.psych, drsivan_psychology, noa_kalian"),
-("Teen or adult focus / outside the 2–8 range","omershnollll, liraz__madmon, alonmeir10, marsel_revivo (ages 8–14), nurse_shiran (babies born 2026)"),
-("Businesses, venues or brands with low reach","vikicdesigns, etgar_haotzar, mahuti_eol, shlomitlevit, tolaat_sfarim, sifriyat.pijama, kesem.mada, firststepmethod_il"),
-("Fourth pass, 18 Oct 2026: no reel since before July","lihen_imahut, hilaraanan_, dr_tal_babystepspsychology, montessori.il, hila_efratii, ellayohanan, ofer.medem.friedman, soul.soulandpaper, alhaveda, orin_zherebitsky, shirvahaba"),
-("Fourth pass: renamed account already in the map","by_shanina is the new handle of shanina_advent.learn"),
-("Says no to collaborations","maya_navon_parenthood (bio: no collabs, no coupon codes)"),
-("Sensitive","aviharush (bio links a memorial page; not appropriate for a product pitch)"),
-("Arabic- or Russian-language","Removed at your request: tasharybak, slp.lanaab, raghad.speech, yasmeen_mawassi (and the Arabic over-50K edge cases)"),
-("Under 5,000 followers (removed 12 Oct 2026, never contacted; the full records are in src/research/removed-2026-10-12.json)","_hadargilad_, adar_dan1, alina.barshai, anat_gavra, anna.botner.mironov, aviv_goldblatt, bat_el_shahar, beit_hayasmin, carmit_baram, dana_barsheshet, danaassory_imadana, danagu_slp, dr.rakefet, gabriela_madar, galalemida_beclass, go.parents_, hadasa_adar, hila.al.hahorut, horim.holon, inbar_gavrieli, iris_maayan, issar_bramly, its.a.twin.twin, journo_family, kidspace_byruthy, liat_noam, linoy_gelander, liron_bar_hen, liron_galili5, maayan.ab, maayanalush, magshima, malytsarfati, mamot.club, masha.ozeri, meirav_havivian, mesibalady.birthdaygirl, michal_greenwald_, michal_sat_, michal_tadmor_azran_, moments.il_, moranpasternak, netali_gan, nitzan.leon, noa.reis, nofartovly, odelia_katmor, ornit_teacher, pitputimslp, roni_babayov_dar, sensorysavta, shanny_ch_abramovich, shilat_almo, shira_kindergarten, shirankoifman, shirankrasnov, shiri_vago_katz, sterna_tm, taldinelton_oti, tinakiladze_, yael_schwartz10"),
-("Other","rochma_mikmak (joke account), linoyabutbul1 IG (personal page), evaifraimov TikTok (~700 median views)")]
-TRK=[("kuchale","Private account (7,138 now; tracker said 8,300)"),("happymeute","1,050 followers now; tracker said 15,700"),("doronmatalon_official, lian_kleyman, peaceloveandbeer","Handle not found"),("rivka_zerbib","South Florida realtor, not Israeli"),("avivmaman__","Business founder; last reel 2024"),("efratzoe, _lidorbar, ifathindes, ifatsochlizky","Deals, fashion-brand, wellness or PR accounts; parenting isn't the focus"),("hibasiam1","Photographer/events; not parenting"),("moranlevi22, lizamaman, menucha_fux","English bio with Hebrew content unverified, ~700 median views, or no reel since February")]
+EDGE=[("koral_shaul_slp","קורל שאול","קלינאית תקשורת ואמא; קליניקות בנס ציונה ובקריית אונו",60600,177000,"","הקלינאית עם החשיפה הגבוהה ביותר שמצאנו; חציון 177K"),
+("li_noy_bar","לינוי בר","יוצרת תוכן הורות; ״ליהנות מהילדים בלי מסכים״",61200,None,"","זווית של בלי מסכים, קצת מעל הטווח"),
+("noy6166","נוי יותם","בלוגרית אמהות, עושה UGC",90900,42800,"",""),
+("maayanraichman","מעיין רייכמן","עיתונאית ויוצרת תוכן על הורות וטיולים",113000,150000,"",""),
+("galtamari1","גל תמרי","אבא, מאמן הורים, סופר",94400,None,"","קול נדיר של אבא מומחה"),
+("michalolivero","מיכל אוליברו","מדריכת מונטסורי AMI, מרצה",99100,None,"",""),
+("einatnathan","עינת נתן","סופרת בתחום ההורות (רק מספר העוקבים; הפרופיל לא נבדק לעומק)",106000,None,"",""),
+("adva_style","אדווה כלפון","מייסדת קהילת אמהות (רק מספר העוקבים)",92000,None,"","")]
+EXCL=[("אין רילס 6 חודשים ומעלה","box.from.books, sharonturgeman1, carmit_dinbar, lihen_imahut, shilat_ben_hemo, meirav_shvarzman, tom.rom_ot, study_stav, hadas_afek_, tali_moncarz, tal_psychologist, liron_shiffman, sara.danny.ot, menucha_fux"),
+("פחות מ-1,000 עוקבים","lieli.play, gal_handly, lironam, ganenet_daniela_sagi, gan_agada1, the_olimom, _hayohaya_, savtagrafia ועוד"),
+("לא תוכן הורות","batzion_assulin, racheloron, shirifadlon, carmelalerner_, amit.socher, dvorivainer, aba.itanu_anaelpashaev, hadaserez_imalevia, naamakaminer.positive.psych, drsivan_psychology, noa_kalian"),
+("מתמקדים בבני נוער או במבוגרים, מחוץ לטווח 2 עד 8","omershnollll, liraz__madmon, alonmeir10, marsel_revivo (גילי 8 עד 14), nurse_shiran (תינוקות שנולדו ב-2026)"),
+("עסקים, מקומות או מותגים עם חשיפה נמוכה","vikicdesigns, etgar_haotzar, mahuti_eol, shlomitlevit, tolaat_sfarim, sifriyat.pijama, kesem.mada, firststepmethod_il"),
+("הסבב הרביעי, 18 באוקטובר 2026: אין רילס מאז לפני יולי","lihen_imahut, hilaraanan_, dr_tal_babystepspsychology, montessori.il, hila_efratii, ellayohanan, ofer.medem.friedman, soul.soulandpaper, alhaveda, orin_zherebitsky, shirvahaba"),
+("הסבב הרביעי: חשבון ששינה שם וכבר במפה","by_shanina הוא השם החדש של shanina_advent.learn"),
+("לא עושים שיתופי פעולה","maya_navon_parenthood (בביו: בלי שיתופי פעולה ובלי קופונים)"),
+("רגיש","aviharush (הביו מקשר לדף הנצחה; לא מתאים להצעת מוצר)"),
+("בערבית או ברוסית","הוסרו לבקשתך: tasharybak, slp.lanaab, raghad.speech, yasmeen_mawassi (וגם מקרי הקצה בערבית מעל 50K)"),
+("פחות מ-5,000 עוקבים (הוסרו ב-12 באוקטובר 2026 ולא פנינו אליהם; הרשומות המלאות ב-src/research/removed-2026-10-12.json)","_hadargilad_, adar_dan1, alina.barshai, anat_gavra, anna.botner.mironov, aviv_goldblatt, bat_el_shahar, beit_hayasmin, carmit_baram, dana_barsheshet, danaassory_imadana, danagu_slp, dr.rakefet, gabriela_madar, galalemida_beclass, go.parents_, hadasa_adar, hila.al.hahorut, horim.holon, inbar_gavrieli, iris_maayan, issar_bramly, its.a.twin.twin, journo_family, kidspace_byruthy, liat_noam, linoy_gelander, liron_bar_hen, liron_galili5, maayan.ab, maayanalush, magshima, malytsarfati, mamot.club, masha.ozeri, meirav_havivian, mesibalady.birthdaygirl, michal_greenwald_, michal_sat_, michal_tadmor_azran_, moments.il_, moranpasternak, netali_gan, nitzan.leon, noa.reis, nofartovly, odelia_katmor, ornit_teacher, pitputimslp, roni_babayov_dar, sensorysavta, shanny_ch_abramovich, shilat_almo, shira_kindergarten, shirankoifman, shirankrasnov, shiri_vago_katz, sterna_tm, taldinelton_oti, tinakiladze_, yael_schwartz10"),
+("אחר","rochma_mikmak (חשבון בדיחה), linoyabutbul1 IG (עמוד אישי), evaifraimov TikTok (חציון של כ-700 צפיות)")]
+TRK=[("kuchale","חשבון פרטי (7,138 עכשיו; בטבלה היה 8,300)"),("happymeute","1,050 עוקבים עכשיו; בטבלה היה 15,700"),("doronmatalon_official, lian_kleyman, peaceloveandbeer","שם המשתמש לא נמצא"),("rivka_zerbib","מתווכת נדל״ן בדרום פלורידה, לא ישראלית"),("avivmaman__","מייסד עסק; הרילס האחרון ב-2024"),("efratzoe, _lidorbar, ifathindes, ifatsochlizky","חשבונות של דילים, מותגי אופנה, וולנס או יחסי ציבור; הורות היא לא העיקר"),("hibasiam1","צילום ואירועים; לא הורות"),("moranlevi22, lizamaman, menucha_fux","ביו באנגלית עם תוכן בעברית שלא אומת, חציון של כ-700 צפיות, או אין רילס מאז פברואר")]
 ARCH=[
-["p-strong","Strongest","Speech therapists, OTs & developmental pros","28 in the database, many with reel medians above their follower count (@knafaim.ot_by_noy 10.7K followers / 14.7K median; @eden_spaiev 3.4K / 9.2K; @hadar_baier_slp 6.1K / 10K). They bring authority without Lumebook making a medical claim."],
-["p-strong","Strongest","Milestone specialists: potty, sleep, new sibling","Potty-training guides (@ima.shir, @lena.gaon.parenting, @shovali, @malytsarfati) and a sibling-prep expert (@nataliegaash, 33K) map directly onto Lumebook's weaning and big-sibling stories."],
-["p-strong","Strongest","Kindergarten teachers & home daycares","14 gan accounts plus 7 home daycares / gan-with-mom programmes. Reach is uneven but trust is high, and each one is also a B2B lead."],
-["p-sat","Oversaturated","Parent coaches selling courses","The largest group (47). Near-identical 'no yelling / boundaries' positioning, many selling to the same parents. Pick on views and fit, not on the title."],
-["p-sat","Oversaturated","Generic mom lifestyle & deals","The old tracker was mostly this. On re-check several were deals pages, fashion brands, or not Israeli at all."],
-["p-under","Underused","Dads","Only 4 in range (@rotem__unger, @almaanddad, @aba.maor, @kesem_maor_livshiz), plus male educators (@hofeshligdoldrorcohen, @nakash_amir). Rare voices stand out."],
-["p-under","Underused","Single, co-parent & blended families","4 found (@sharon__rosenbaum, @ayelet_divorcewithkids, @bat_el_shahar, @edenmarlel00). 'Two homes, one story' is an angle nobody else is using."],
-["p-under","Underused","Family travel & outings","13 in range, several with very high reach for their size (@our_little_travelers 153K median on 17.8K; @topfamily.travel 74K on 22K). A natural home for the screen-free-on-the-go angle."],
-["p-under","Unexpectedly promising","Grandparents","Still only 3 qualify. Two grandpa accounts get 80K–110K median views on 4K–17K followers. Both grandparent storytelling accounts found in the second pass were under 1K."],
-["p-under","Unexpectedly promising","SLPs & educators who write children's books","@books_are_friends_slp, @reshef_michal, @michalburnham_, @bishvil.hasafa_irit.slp, @yaffa_michaela_zukerman, @daniel.gabbai. They fill the 'book people' gap that reviewers and librarians couldn't."],
-["p-under","Unexpectedly promising","UGC moms & party producers","Several moms sell UGC directly (@ganotmor, @bar.levi.adiel, @valerialauren, @shaniben_shushan11, @gabriela_madar). 7 party producers can make the book a birthday moment."],
-["p-weak","Weak in this search","Book reviewers, librarians, nannies, grade 1–4 teachers","Still none in range after the second pass. Book accounts were shops or inactive, and teachers mostly post for other teachers."]]
+["p-strong","הכי חזקים","קלינאיות תקשורת, מרפאות בעיסוק ואנשי מקצוע בהתפתחות","28 במאגר, ולרבים מהם חציון צפיות גבוה ממספר העוקבים (@knafaim.ot_by_noy: 10.7K עוקבים / חציון 14.7K; @eden_spaiev: 3.4K / 9.2K; @hadar_baier_slp: 6.1K / 10K). הם מביאים סמכות בלי ש-LumeBook טוענת טענה רפואית."],
+["p-strong","הכי חזקים","מומחי אבני דרך: גמילה, שינה, אח חדש","מדריכות גמילה (@ima.shir, @lena.gaon.parenting, @shovali, @malytsarfati) ומומחית להכנה לאח חדש (@nataliegaash, 33K) מתחברות ישר לסיפורי הגמילה והאח הגדול של LumeBook."],
+["p-strong","הכי חזקים","גננות ומשפחתונים","14 חשבונות של גנים ועוד 7 משפחתונים או תוכניות של גן עם אמא. החשיפה לא אחידה אבל האמון גבוה, וכל אחד מהם הוא גם ליד ל-B2B."],
+["p-sat","רווי","מדריכות הורים שמוכרות קורסים","הקבוצה הגדולה ביותר (47). מיצוב כמעט זהה של ״בלי צעקות / גבולות״, ורבות מוכרות לאותם הורים. בוחרים לפי צפיות והתאמה, לא לפי התואר."],
+["p-sat","רווי","לייפסטייל אמהות כללי ודילים","הטבלה הישנה הייתה בעיקר זה. בבדיקה חוזרת כמה מהם היו עמודי דילים, מותגי אופנה או בכלל לא ישראלים."],
+["p-under","לא מנוצל","אבות","רק 4 בטווח (@rotem__unger, @almaanddad, @aba.maor, @kesem_maor_livshiz), ועוד אנשי חינוך גברים (@hofeshligdoldrorcohen, @nakash_amir). קולות נדירים בולטים."],
+["p-under","לא מנוצל","הורים יחידניים, הורות משותפת ומשפחות מעורבות","נמצאו 4 (@sharon__rosenbaum, @ayelet_divorcewithkids, @bat_el_shahar, @edenmarlel00). ״שני בתים, סיפור אחד״ היא זווית שאף אחד אחר לא משתמש בה."],
+["p-under","לא מנוצל","טיולים ובילויים עם המשפחה","13 בטווח, כמה מהם עם חשיפה גבוהה מאוד ביחס לגודל (@our_little_travelers: חציון 153K על 17.8K; @topfamily.travel: 74K על 22K). בית טבעי לזווית של בלי מסכים בדרכים."],
+["p-under","מבטיח באופן מפתיע","סבים וסבתות","עדיין רק 3 עומדים בתנאים. שני חשבונות של סבים מקבלים חציון של 80K עד 110K צפיות על 4K עד 17K עוקבים. שני חשבונות הסיפורים של סבים וסבתות שנמצאו בסבב השני היו מתחת ל-1K."],
+["p-under","מבטיח באופן מפתיע","קלינאיות ואנשי חינוך שכותבים ספרי ילדים","@books_are_friends_slp, @reshef_michal, @michalburnham_, @bishvil.hasafa_irit.slp, @yaffa_michaela_zukerman, @daniel.gabbai. הם ממלאים את החור של ״אנשי ספרים״ שמבקרים וספרניות לא מילאו."],
+["p-under","מבטיח באופן מפתיע","אמהות UGC ומפיקות ימי הולדת","כמה אמהות מוכרות UGC ישירות (@ganotmor, @bar.levi.adiel, @valerialauren, @shaniben_shushan11, @gabriela_madar). 7 מפיקות ימי הולדת יכולות להפוך את הספר לרגע של יום הולדת."],
+["p-weak","חלש בחיפוש הזה","מבקרי ספרים, ספרניות, מטפלות, מורות לכיתות א׳ עד ד׳","עדיין אף אחד בטווח אחרי הסבב השני. חשבונות הספרים היו חנויות או לא פעילים, והמורות מפרסמות בעיקר למורות אחרות."]]
 MIX=[[2,"Child-dev professionals","@knafaim.ot_by_noy · @eden_spaiev"],[2,"Kindergarten teachers","@yeladim_ktanim · @etti_haft"],[2,"Milestone specialists","@ima.shir (potty) · @nataliegaash (new sibling)"],[2,"Parents: a dad + twins","@rotem__unger · @daria_mansour1"],[1,"Screen-free / free play","@hadas.shvat"],[1,"Grandparent","@saba.chiche"],[1,"Book-writing SLPs","@books_are_friends_slp"],[1,"UGC producer (raw footage)","@bar.levi.adiel"]]
 Q=["Similar-accounts graph from 76 verified creators (Instagram suggestions)","גננת","הגננת","אמא גננת","קלינאית תקשורת","מרפאה בעיסוק","מדריכת הורים","גמילה מחיתולים","יוצרת תוכן הורות","אמא לתאומים","אבא במשרה מלאה","אבא של","אבא לבנות","אבא ובת","סבתא","סבא","סבא וסבתא","משפחתון","גן פרטי","גן ילדים","חינוך ביתי","מונטסורי בבית","בלי מסכים","פעילויות לילדים","פעילויות לגן","רעיונות לגן","יצירה עם ילדים","ספרי ילדים","ספרי ילדים המלצות","סופרת ילדים","ספרנית","מעודדת קריאה","הקראת סיפורים","שעת סיפור","סיפור לפני השינה","סיפור חברתי","מורה לכיתה א","מחנכת כיתה א","מורה לאנגלית לילדים","חוג מוזיקה לפעוטות","מפעילה ימי הולדת","צלמת ילדים","אמא לשלושה","אמא לארבעה","אמא לחמישה","אמא צעירה","אמא במשרה מלאה","טיולים עם ילדים","site:instagram.com / site:tiktok.com (agents)","Hebrew listicles: mako, ynet, 9instyle, Walla (agents)"]
 h=open(P('template.html')).read()
-R=[('I re-checked 58 of its handles', 'I re-checked 40 of its handles'), ('<li><b>Verification.</b>', "<li><b>Second pass (same day).</b> I crawled Instagram's similar-accounts data from 76 verified Hebrew creators (about 2,000 accounts), filtered them by name and bio line, then added more seeds and keyword searches for dads, grandparents, gan and book creators. About 190 more were checked one by one, and 134 passed.</li><li><b>Rule since 12 Oct 2026: 5,000 followers or more.</b> Creators under 5,000 who had not been contacted were removed from the map (61, including 28 of the third pass). Under-5K creators who were already messaged stay, with their conversations.</li><li><b>Third pass (11 Oct 2026).</b> I took Instagram's similar-accounts lists from 117 creators already in the map, then from 74 of the new finds, and ran 48 Hebrew keyword searches: about 3,800 accounts in all. I opened the 446 most relevant ones, read followers, bio and the latest reels, and kept 100. Most of the ones I dropped were baby-sleep, birth, nutrition or shop accounts, or outside 1K to 50K followers. About 80 of the 100 are a clear fit; about 20 are borderline and say so in their risk note.</li><li><b>Hebrew only.</b> At your request, Arabic- and Russian-language creators were removed.</li>\n      <li><b>Verification.</b>"), ('<li><b>Location.</b> Three Arabic-language creators are marked “Israel residence unverified”. Confirm before outreach.</li>', "<li><b>Scoring method differs by pass.</b> The 70 first-pass creators and 3 second-pass creators were rated by hand. The other 131 second-pass creators and all 100 third-pass creators get stricter rule-based ratings from archetype, views-to-followers ratio, reel recency and size. Use the per-creator notes rather than small score gaps.</li><li><b>Language</b> is inferred from Hebrew names and bios; I didn't listen to audio. A few creators write bios in English.</li>")]
-for a,b in R:
-    assert a in h, a[:60]; h=h.replace(a,b)
 J=lambda x: json.dumps(x,ensure_ascii=False)
 for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER}.items(): h=h.replace(k,J(v))
 for k,v in {"<!--LB:HEAD-->":design.head(),"<!--LB:THEME-TOGGLE-->":"","__LB_LOGO__":design.logo_data_uri()}.items():

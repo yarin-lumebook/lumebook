@@ -12,7 +12,7 @@ Usage:
 Writes sites/dashboard/out/snapshot.json and sites/dashboard/out/history.json.
 Only standard library; safe to run any time.
 """
-import argparse, ast, csv, html, json, os, re, subprocess, time, urllib.request
+import argparse, ast, csv, html, json, os, re, subprocess, sys, time, urllib.request
 from collections import Counter
 from datetime import datetime, timezone, timedelta
 
@@ -27,6 +27,10 @@ IL = timezone(timedelta(hours=3))  # Israel summer time; good enough for date st
 # Shared facts (links, artifact URLs, dates, creator lists) live in shared/facts.json; component paths in lumebook.json.
 REGISTRY = json.load(open(os.path.join(ROOT, "lumebook.json"), encoding="utf-8"))["components"]
 FACTS = json.load(open(os.path.join(ROOT, "shared", "facts.json"), encoding="utf-8"))
+# Workstreams and their category colours (shared/design/categories.json): the page colours each artifact and
+# component with the lb-ws-<key> class that design/categories.css defines.
+WORKSTREAMS = json.load(open(os.path.join(ROOT, "shared", "design", "categories.json"), encoding="utf-8"))["sets"]["workstreams"]["items"]
+WS_OF = {cid: key for key, w in WORKSTREAMS.items() for cid in w.get("components", [])}
 
 
 def _src_file(component):
@@ -34,7 +38,7 @@ def _src_file(component):
 
 
 ARTIFACTS = [{"key": a["key"], "label": a["label"], "url": a["url"], "file": _src_file(a.get("component")), "date": a["date"],
-              "summary": a.get("summary", ""), "kind": a.get("kind", ""), "component": a.get("component")}
+              "summary": a.get("summary", ""), "kind": a.get("kind", ""), "component": a.get("component"), "ws": WS_OF.get(a.get("component"))}
              for a in FACTS["artifacts"] if a["key"] != "dashboard"]
 SITES = [{"key": x["key"], "label": x["label"], "url": x["url"],
           "dir": os.path.dirname(os.path.join(REGISTRY[x["component"]]["path"], x["page"])) if x.get("page") else None}
@@ -45,6 +49,9 @@ PAID_HOLD = FACTS["creators"]["paid_hold"]
 KEY_DATES = FACTS["key_dates"]
 BASELINES = FACTS["baselines"]
 TEST_NAME = re.compile(FACTS["test_name_pattern"], re.I)  # the owner's own test submissions
+# Whose Instagram followers the dashboard counts: the live handle (@lumebook.il since the 15 Oct 2026 Reels research),
+# else the original one. History points before 19 Oct 2026 hold the old handle's count under ig_lumebookai.
+IG_HANDLE = FACTS["brand"].get("instagram_live") or FACTS["brand"]["instagram"]
 
 
 def rel(p):
@@ -321,7 +328,7 @@ def sync_section():
             "components": [{"id": c["id"], "name": c["name"], "kind": c["kind"], "path": c["path"], "changed_at": c["changed_at"],
                             "behind": (c["publish"] or {}).get("behind"), "publish": (c["publish"] or {}).get("type"),
                             "url": (c["publish"] or {}).get("url"), "schedule": c.get("schedule"),
-                            "feeds": REGISTRY.get(c["id"], {}).get("feeds", [])} for c in st["components"]]}
+                            "feeds": REGISTRY.get(c["id"], {}).get("feeds", []), "ws": WS_OF.get(c["id"])} for c in st["components"]]}
 
 
 def files_section():
@@ -340,6 +347,34 @@ def files_section():
     return {"count": len(files), "bytes": sum(f["size"] for f in files), "recent": files[:12]}
 
 
+def local_tools_section(network):
+    """Whether each local service (facts.local_tools: Hook Studio, the project server) answered at refresh time.
+    The board shows it as a dated fact; nothing here starts a service."""
+    out = []
+    for t in FACTS.get("local_tools", {}).get("tools", []):
+        item = {"key": t["key"], "at": datetime.now(IL).isoformat(timespec="minutes"), "ok": None}
+        if network and t.get("ping"):
+            try:
+                with urllib.request.urlopen(t["ping"], timeout=3) as r:
+                    item["ok"] = r.status == 200
+            except Exception:
+                item["ok"] = False
+        out.append(item)
+    return out
+
+
+def board_resources():
+    """The work board's resource catalog (sites/dashboard/board/catalog.py). Cards point at these by id, so a new
+    artifact, media job or brand file shows up in the board's "new" list; nothing on a saved board moves."""
+    sys.path.insert(0, os.path.join(HERE, "board"))
+    try:
+        import catalog
+        return catalog.resources()
+    except Exception as e:  # a broken catalog must not stop the snapshot
+        print(f"board catalog skipped: {type(e).__name__}: {e}", file=sys.stderr)
+        return None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sheet-md")
@@ -349,35 +384,40 @@ def main():
     now = datetime.now(IL)
     social = {}
     if net:
-        for h in ("lumebookai", "mebook.ai"):
+        for h in (IG_HANDLE, "mebook.ai"):
             social[h] = ig_profile(h)
             time.sleep(2)
     snap = {
         "generated_at": now.isoformat(timespec="seconds"),
         "date": now.date().isoformat(),
-        "social": social, "baselines": BASELINES,
+        "social": social, "ig_handle": IG_HANDLE, "baselines": BASELINES,
         "plan": plan_section(), "ambassadors": ambassadors_section(),
         "signups": sheet_section(a.sheet_md),
         "creators": creators_section(net), "competitors": competitor_section(),
         "sites": sites_section(net), "files": files_section(),
         "carousel": carousel_section(), "sync": sync_section(),
         "artifacts": [dict(x, modified=mtime(x["file"]) if x["file"] else None) for x in ARTIFACTS],
+        "workstreams": [[k, w["label"]] for k, w in WORKSTREAMS.items()],
         "links": LINKS, "key_dates": KEY_DATES,
+        "local_tools": local_tools_section(net),
     }
+    res = board_resources()
+    if res is not None:
+        snap["resources"], snap["resources_at"] = res, now.isoformat(timespec="seconds")
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "snapshot.json"), "w", encoding="utf-8") as f:
         json.dump(snap, f, ensure_ascii=False, indent=1)
     point = {"date": snap["date"], "at": snap["generated_at"],
-             "ig_lumebookai": social.get("lumebookai", {}).get("followers"),
+             "ig_lumebook": social.get(IG_HANDLE, {}).get("followers"), "ig_lumebook_handle": IG_HANDLE,
              "ig_mebook": social.get("mebook.ai", {}).get("followers"),
-             "ig_lumebookai_posts": social.get("lumebookai", {}).get("posts"),
+             "ig_lumebook_posts": social.get(IG_HANDLE, {}).get("posts"),
              "ig_mebook_posts": social.get("mebook.ai", {}).get("posts"),
              "signups": snap["signups"]["total"] if snap["signups"] else None,
              "creators_total": snap["creators"]["total"]}
     with open(os.path.join(OUT, "history.json"), "w", encoding="utf-8") as f:
         json.dump(point, f, ensure_ascii=False, indent=1)
     kb = os.path.getsize(os.path.join(OUT, "snapshot.json")) / 1024
-    print(f"snapshot {kb:.0f} KB · {snap['date']} · IG {point['ig_lumebookai']} / MeBook {point['ig_mebook']} · signups {point['signups']}")
+    print(f"snapshot {kb:.0f} KB · {snap['date']} · IG @{IG_HANDLE} {point['ig_lumebook']} / MeBook {point['ig_mebook']} · signups {point['signups']}")
 
 
 if __name__ == "__main__":

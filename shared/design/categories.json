@@ -1,0 +1,108 @@
+{
+  "_about": "Which category gets which of the eight category hues (--cat-1 ... --cat-8 in shared/design/lumebook.css; 0 = neutral ink). Builds read this file through shared/design/design.py: design.head() inlines a class per item (.lb-<class>-<key>, e.g. .lb-ws-creators), categories() and cat_class() give the data, category_css() writes aliases for a page's own class names. Pages without a build (dashboard, SMM plan) link categories.css, which `tools/lumebook.py sync` writes from this file and copies next to their lumebook.css. A set is one page's (or one concept's) 3 to 8 stable categories that a reader scans or filters by; keep a category on the same number everywhere it appears and give the categories of one set different numbers. Never colour status (done, late, broken) or the carousel pillars (kid, expert) with these hues. Where a page also shows status chips, prefer 2, 4, 5, 6 and 7: 1 sits near warning, 3 near success and 8 near the gold accent.",
+  "hues": {
+    "0": "neutral ink",
+    "1": "orange",
+    "2": "pink",
+    "3": "green",
+    "4": "blue",
+    "5": "purple",
+    "6": "teal",
+    "7": "slate",
+    "8": "ochre"
+  },
+  "sets": {
+    "reels-tools": {
+      "class": "tool",
+      "used_by": ["research/israeli-product-reels/src/build_research_page.py (as .t-hook ... .t-text)"],
+      "what": "The 8 tools of the Product Reels Playbook, one question each; the origin of the palette",
+      "items": {
+        "hook": {"cat": 1, "label": "Hook"},
+        "watch": {"cat": 2, "label": "Keep them watching"},
+        "cta": {"cat": 3, "label": "Call to action"},
+        "show": {"cat": 4, "label": "What to show"},
+        "edit": {"cat": 5, "label": "Editing"},
+        "topic": {"cat": 6, "label": "Topic"},
+        "film": {"cat": 7, "label": "Filming"},
+        "text": {"cat": 8, "label": "Text and caption"}
+      }
+    },
+    "workstreams": {
+      "class": "ws",
+      "used_by": ["sites/dashboard/lumebook-dashboard.html (sidebar tiles, research library, sync view)", "sites/dashboard/refresh.py (adds ws to each artifact and component)"],
+      "what": "The project's workstreams; each component of lumebook.json belongs to one",
+      "items": {
+        "plan": {"cat": 4, "label": "תוכנית ואסטרטגיה", "en": "Plan and strategy",
+                 "components": ["strategy", "smm-plan", "product-docs", "brand-marketing-system", "sales-readout"]},
+        "creators": {"cat": 2, "label": "יוצרים", "en": "Creators",
+                     "components": ["creator-map", "signup-form", "creator-content-conversion", "creator-brief", "ambassadors"]},
+        "carousels": {"cat": 5, "label": "קרוסלות", "en": "Carousels",
+                      "components": ["carousel-pipeline", "hook-studio-page", "carousel-research", "carousel-playbook", "fal-trial"]},
+        "reels": {"cat": 1, "label": "רילס ווידאו", "en": "Reels and video",
+                  "components": ["israeli-product-reels", "reels-research-page", "kids-lab", "media"]},
+        "competitors": {"cat": 7, "label": "מתחרים", "en": "Competitors",
+                        "components": ["competitor-teardown"]},
+        "communities": {"cat": 6, "label": "קהילות", "en": "Communities",
+                        "components": ["parent-communities"]},
+        "system": {"cat": 0, "label": "מערכת", "en": "System",
+                   "components": ["facts", "brand", "design", "dashboard", "board-seed"]}
+      }
+    },
+    "creator-tracks": {
+      "class": "track",
+      "used_by": ["creators/creator-research/src/template.html (track dots, track menu, database column)"],
+      "what": "Collaboration tracks of the creator map (shared/facts.json offer.collaboration_tracks)",
+      "items": {
+        "gift": {"cat": 2, "label": "General"},
+        "pro": {"cat": 6, "label": "Professionals"},
+        "par": {"cat": 5, "label": "Parents"}
+      }
+    },
+    "competitors": {
+      "class": "co",
+      "used_by": ["research/competitor-content-analysis/src/app_shell.html", "research/competitor-content-analysis/src/fill_report.py"],
+      "what": "The four competitors in the content teardown",
+      "items": {
+        "mebook": {"cat": 2, "label": "MeBook"},
+        "hoorayheroes": {"cat": 6, "label": "Hooray Heroes"},
+        "wonderbly": {"cat": 4, "label": "Wonderbly"},
+        "yoto": {"cat": 7, "label": "Yoto"}
+      }
+    },
+    "smm-pillars": {
+      "class": "smm",
+      "used_by": ["sites/lumebook-smm-plan/index.html (pillar table, example video chips)"],
+      "what": "The four content pillars of the SMM plan (עמודות תוכן)",
+      "items": {
+        "moment": {"cat": 6, "label": "רגע התפתחותי ← ספר"},
+        "reveal": {"cat": 5, "label": "חשיפת הספר"},
+        "proof": {"cat": 4, "label": "הוכחה ותהליך"},
+        "gift": {"cat": 2, "label": "מתנות ועונתיות"}
+      }
+    },
+    "kids-niches": {
+      "class": "niche",
+      "used_by": ["research/kids-brand-content-research/src/app.html (niche chips, niche filter)"],
+      "what": "The four niches of the Kids Content Lab",
+      "items": {
+        "developmental_milestone": {"cat": 6, "label": "Development and milestones"},
+        "novelty": {"cat": 2, "label": "Novelty"},
+        "expert": {"cat": 7, "label": "Expert"},
+        "parent_child_daily": {"cat": 5, "label": "Parent-child daily moments"}
+      }
+    },
+    "board-areas": {
+      "used_by": ["sites/dashboard/board/catalog.py (writes the area hues into board/seed.js)", "sites/dashboard/board/board.js (frame title tile and edge, list view group headers, through lb-cat-N)"],
+      "what": "The areas (frames) of the dashboard work board. No class key on purpose: the board applies lb-cat-N from seed.js, so adding this set did not change the inlined CSS of every other page. Creators keep the workstream hue; status never uses these hues",
+      "items": {
+        "daily": {"cat": 6, "label": "עבודה יומית", "en": "Daily work"},
+        "content": {"cat": 5, "label": "הפקת תוכן", "en": "Content production"},
+        "creators": {"cat": 2, "label": "יוצרים", "en": "Creators"},
+        "research": {"cat": 7, "label": "מחקר", "en": "Research"},
+        "campaigns": {"cat": 4, "label": "קמפיינים", "en": "Campaigns"},
+        "brand": {"cat": 8, "label": "מותג ומדיה", "en": "Brand and media"},
+        "system": {"cat": 0, "label": "מערכת", "en": "System"}
+      }
+    }
+  }
+}

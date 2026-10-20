@@ -34,9 +34,12 @@ section.page{scroll-margin-top:7rem}
 .sub{max-width:48rem;color:var(--text-2)}
 .he{direction:rtl;unicode-bidi:isolate}
 .facts{gap:var(--sp-2)}
-.facts .lb-chip b{color:var(--text);font-weight:600}
+.facts .lb-chip b{color:inherit;font-weight:700}
+.facts .lb-chip.cat b{color:var(--tc-ink)}
+/* competitor swatch (shared/design/categories.json, set competitors) */
+.lb-swatch.co-sw{display:inline-block;width:.6rem;height:.6rem;border-radius:2px;margin-inline-end:.4rem;vertical-align:baseline}
 .verdict-card{gap:var(--sp-2)}
-.verdict-card b{font-family:var(--font-display);font-weight:400;font-size:var(--fs-headline);line-height:1.3}
+.verdict-card b{font-weight:700;font-size:var(--fs-headline);line-height:1.3}
 .verdict-card p{font-size:var(--fs-callout)}
 .lb-card h3{font-size:var(--fs-headline)}
 ol.findings{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-3);counter-reset:f}
@@ -116,7 +119,7 @@ __THEME__
 <p class="lb-eyebrow">Competitor content research · 3 Oct 2026</p>
 <h1>What competitors post, and what Lumebook should test first</h1>
 <p class="lb-lede">147 videos and ads, each downloaded, transcribed from its audio, watched frame by frame and coded to one taxonomy, plus 1,274 unique comments read as customer research.</p>
-<div class="lb-row facts"><span class="lb-chip outline"><b>43</b> MeBook</span><span class="lb-chip outline"><b>31</b> Hooray Heroes</span><span class="lb-chip outline"><b>36</b> Wonderbly</span><span class="lb-chip outline"><b>37</b> Yoto</span><span class="lb-chip outline"><b>52</b> Meta ads</span><span class="lb-chip">Public data only, engagement is not sales</span></div>
+<div class="lb-row facts"><span class="lb-chip cat lb-co-mebook"><b>43</b> MeBook</span><span class="lb-chip cat lb-co-hoorayheroes"><b>31</b> Hooray Heroes</span><span class="lb-chip cat lb-co-wonderbly"><b>36</b> Wonderbly</span><span class="lb-chip cat lb-co-yoto"><b>37</b> Yoto</span><span class="lb-chip outline"><b>52</b> Meta ads</span><span class="lb-chip">Public data only, engagement is not sales</span></div>
 </div>
 <div class="lb-grid cols-4">
 <a class="lb-card" href="#findings"><div class="lb-stat"><span class="lb-stat-label">MeBook reels posted by creators</span><span class="lb-stat-value">11/12</span><span class="lb-stat-foot">6 with a personal code or DM keyword</span></div></a>
@@ -212,7 +215,7 @@ __OUTLIERS__
 <h3>Recurring patterns by count</h3>
 </div>
 <div class="lb-table-wrap"><table class="lb-table mid">
-<thead><tr><th>Pattern</th><th class="num">MeBook</th><th class="num">Hooray H.</th><th class="num">Wonderbly</th><th class="num">Yoto</th><th class="num">Organic median ×</th></tr></thead>
+<thead><tr><th>Pattern</th><th class="num"><b class="lb-swatch co-sw lb-co-mebook" aria-hidden="true"></b>MeBook</th><th class="num"><b class="lb-swatch co-sw lb-co-hoorayheroes" aria-hidden="true"></b>Hooray H.</th><th class="num"><b class="lb-swatch co-sw lb-co-wonderbly" aria-hidden="true"></b>Wonderbly</th><th class="num"><b class="lb-swatch co-sw lb-co-yoto" aria-hidden="true"></b>Yoto</th><th class="num">Organic median ×</th></tr></thead>
 <tbody>
 __PATTERNTABLE__
 </tbody></table></div>
@@ -300,7 +303,7 @@ function render(){
   const rows=DATA.filter(d=>(!c||d.c===c)&&(!p||d.p===p)&&(!pat||d.pat===pat)&&(!q||[d.hook,d.sum,d.ap,d.pat,d.pil,d.ms].join(' ').toLowerCase().includes(q)))
     .sort((a,b)=>(b.oi||0)-(a.oi||0)||(a.ar||999)-(b.ar||999));
   $('#count').textContent=rows.length+' of '+DATA.length;
-  $('#db tbody').innerHTML=rows.map((d,i)=>`<tr class="row" data-i="${i}" tabindex="0"><td>${esc(d.c)}${d.ver?' <span class="star">✓</span>':''}</td><td><span class="lb-chip ${d.p==='Meta ad'?'accent':'tint'}">${esc(d.p)}</span></td><td class="lb-num">${esc(d.d)}</td><td class="num">${fmt(d.v)}</td><td class="num ${d.oi>=3?'hi':''}">${d.oi?d.oi.toFixed(1):''}</td><td class="num">${d.ar?('#'+d.ar):''}</td><td>${esc(d.pat)}</td><td>${esc(d.pil)}</td><td>${esc(d.fun)}</td><td>${esc(d.cr)}</td><td class="${isHe(d.hook)?'he':''}" style="max-width:320px;${isHe(d.hook)?'text-align:right':''}">${esc(d.hook.slice(0,140))}</td><td><a href="${esc(d.u)}" target="_blank" rel="noopener">Open</a></td></tr>`).join('');
+  $('#db tbody').innerHTML=rows.map((d,i)=>`<tr class="row" data-i="${i}" tabindex="0"><td><span class="lb-chip cat lb-co-${d.c.toLowerCase().replace(/[^a-z]/g,'')}">${esc(d.c)}</span>${d.ver?' <span class="star">✓</span>':''}</td><td><span class="lb-chip ${d.p==='Meta ad'?'accent':'tint'}">${esc(d.p)}</span></td><td class="lb-num">${esc(d.d)}</td><td class="num">${fmt(d.v)}</td><td class="num ${d.oi>=3?'hi':''}">${d.oi?d.oi.toFixed(1):''}</td><td class="num">${d.ar?('#'+d.ar):''}</td><td>${esc(d.pat)}</td><td>${esc(d.pil)}</td><td>${esc(d.fun)}</td><td>${esc(d.cr)}</td><td class="${isHe(d.hook)?'he':''}" style="max-width:320px;${isHe(d.hook)?'text-align:right':''}">${esc(d.hook.slice(0,140))}</td><td><a href="${esc(d.u)}" target="_blank" rel="noopener">Open</a></td></tr>`).join('');
   window.__rows=rows;
 }
 function toggle(tr){const n=tr.nextElementSibling;if(n&&n.classList.contains('det')){n.remove();return}

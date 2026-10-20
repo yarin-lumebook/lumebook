@@ -97,7 +97,7 @@ out = []
 out.append('# Source index: Israeli creator product Reels\n')
 out.append(f"Accessed {ACCESS}. {len(ver)} verified examples from {len(creators)} creators, {len(par)} partly inspected leads, {len(exc)} excluded. "
            'Every row is also in `sources.csv` (one row per Reel, all fields).\n')
-out.append(review['_method'] + '\n')
+out.append(review['_method'] + ' Round 2 (evening of 15 Oct) added 150 Reels from the Reels grids of 12 children\'s brands (creator collaborations only), 9 parent creators and the 14 Oct study\'s remaining leads; agents coded them one Reel at a time with added yes/no fields, and I checked each against a 10-frame strip. Followers were not read for round-2 creators (shown as unavailable). The `approach` column adds one label for round 2, Use (children using the product), alongside the seven approaches in `playbook.md`.\n')
 out.append('**How to read the numbers.** Plays, likes and comments are public counts read on 15 Oct 2026 from Instagram (media info in the logged-in Claude browser pane, read only). '
            'They do not show reach, watch time, saves, shares, sales or whether a Reel was boosted as an ad. Shares and saves are not public: unavailable for every row. '
            '"Likes hidden by creator" means the creator turned like counts off. Followers come from the source named in `followers_source`.\n')
@@ -134,7 +134,7 @@ out.append(f'## Excluded ({len(exc)})\n')
 out.append('| Reel | Creator | Why excluded |\n|---|---|---|')
 for r in exc:
     out.append(f"| [{r['code']}]({r['url']}) | {r['handle']} | {r['why_relevant']} |")
-out.append('\nCandidates that never became Reels to watch: `DeKFbzRAmIy` (@_shirley_unger_kids_activities) and `DdwREvSCJg2` (@tal_strul) are carousels, not Reels.\n')
+out.append('\nCandidates that never became Reels to watch: `DeKFbzRAmIy` (@_shirley_unger_kids_activities) and `DdwREvSCJg2` (@tal_strul) are carousels, not Reels; `Dci-on1tpHV` (@aline_attar × mekupelet_toys) and `DdouZOzhWqU` (@tal_strul) failed to download on 15 Oct. 38 round-2 leads from the 14 Oct study were dropped before download as off-topic (restaurants, beauty, travel, parenting talk without a product); they are listed in `src/round2_dropped_offtopic.json`.\n')
 
 open(os.path.join(ROOT, 'source-index.md'), 'w', encoding='utf-8').write('\n'.join(out))
 print(len(ver), 'verified,', len(creators), 'creators;', len(par), 'partial;', len(exc), 'excluded')

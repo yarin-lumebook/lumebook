@@ -39,7 +39,7 @@ python3 tools/lumebook.py deploy ID  # Vercel deploy (dashboard)
 python3 tools/lumebook.py serve      # one local server for the whole folder: http://localhost:8780/
 ```
 
-- The 08:14 dashboard task runs `ripple` first, so the dashboard's "סנכרון בין הרכיבים" panel shows what is waiting.
+- The 08:14 dashboard task was deleted (Yarin, 20 Oct 2026); nothing runs `ripple` on a schedule now, so run it by hand for the dashboard's "סנכרון בין הרכיבים" panel to be current.
 - After changing a component, run `ripple`. After republishing an artifact, run `ack <id> --published`.
 - A new workstream gets an entry in `lumebook.json` (and in `shared/facts.json` if it has a URL). Use paths relative to this folder.
 - A fact that more than one component uses goes in `shared/facts.json`, not in a script constant.
@@ -65,6 +65,6 @@ python3 tools/lumebook.py serve      # one local server for the whole folder: ht
 - Finished content (carousel exports, final reels and images) also goes to Yarin's Drive folder `LumeBook תוכן` (My Drive, ids in `shared/facts.json` `drive_content`; Yarin, 18 Oct 2026). Carousels are copied by `carousel/carousel-pipeline/scripts/drive_export.py` through Google Drive for desktop; anything else goes in a subfolder by type, one folder per job named like its `media/projects/` folder.
 - Never delete project files: move them to `_to-delete/` under their original path and add a line to `_to-delete/README.md`.
 - `sites/lumebook-smm-plan`: mirror every Hebrew change in `content.en.md` in the same commit.
-- Commit or push only when Yarin asks. Repos use the GitHub no-reply email. One exception (Yarin, 20 Oct 2026): a launchd job (`com.yarinbruner.lumebook-nightly-commit`) runs `tools/nightly_commit.py` every day at 00:00 and commits everything not ignored, on the current branch, never pushing; it holds back `sheet.md` and an SMM plan `index.html` whose `content.en.md` mirror did not change. Log: `.lumebook/nightly-commit.log`. Pause it with `launchctl bootout gui/$(id -u)/com.yarinbruner.lumebook-nightly-commit`.
+- Commit or push only when Yarin asks. Repos use the GitHub no-reply email. One exception (Yarin, 20 Oct 2026): a launchd job (`com.yarinbruner.lumebook-nightly-commit`) runs `tools/nightly_commit.py` every day at 00:00: rebuilds the dashboard snapshot (`sites/dashboard/refresh.py`, no signup Sheet), commits everything not ignored on the current branch (holds back `sheet.md` and an SMM plan `index.html` whose `content.en.md` mirror did not change), pushes it to origin (never forced), then deploys the Vercel sites that changed (dashboard, creator-brief; skipped if the push failed). Log: `~/Library/Logs/LumeBookNightlyCommit.log` and `.lumebook/nightly-commit.log`. Pause it with `launchctl bootout gui/$(id -u)/com.yarinbruner.lumebook-nightly-commit`.
 - Preview servers: `.claude/launch.json`. If Yarin has a page open in the site editor, ask before writing that file.
 - Hook Studio (carousel pool, grading, production, editors) runs all the time at http://localhost:8777/ as a login item and is also reachable through the project server at http://localhost:8780/hook-studio/ (forwarded by `tools/lumebook.py serve`; there is no separate preview config since 20 Oct 2026), never start a second copy, and run `python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart` after editing its scripts.

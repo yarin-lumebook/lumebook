@@ -52,12 +52,14 @@ body{background:#d9d2c6;text-align:center}
 body.single .slide:not(.on){display:none}
 /* The layout of the approved fal trial carousel (media/projects/2026-10-06-fal-carousel-trial/source/flare_carousel.py, 7 Oct 2026):
    centred Heebo Black straight on the picture's plain wall, a soft veil, no boxes; the art is pushed down
-   (the plain top strip mirrored) until the characters start at least 60px under the text. */
+   (the gap above it filled by stretching the picture's top edge; until 19 Oct 2026 a mirror, which copied the mom's head
+   upside down into the 20 Oct carousel) until the characters under the text start at least 60px below it. */
 .slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:#F3EADC;--ink:#1D1039;--veil:243,234,220;direction:rtl;text-align:center}
 .slide.dark{--ink:#F8F0E1;--veil:11,5,24;background:#0B0518}
 .art{position:absolute;left:0;top:0;width:1080px;height:1350px;object-fit:cover}
 .mirror{position:absolute;left:0;top:0;width:1080px;height:0;overflow:hidden}
-.mirror img{position:absolute;left:0;width:1080px;height:1350px;object-fit:cover;transform:scaleY(-1)}
+.mirror img{display:none}
+.mirror canvas{position:absolute;left:0;top:0;width:1080px}
 .veil{position:absolute;inset:0;pointer-events:none}
 .veil.top{background:linear-gradient(180deg,rgba(var(--veil),.88) 0,rgba(var(--veil),.7) 20%,rgba(var(--veil),0) 40%)}
 .veil.bottom{background:linear-gradient(0deg,rgba(var(--veil),.88) 0,rgba(var(--veil),.7) 20%,rgba(var(--veil),0) 40%)}
@@ -68,6 +70,7 @@ body.single .slide:not(.on){display:none}
 .b{font-family:"Heebo",sans-serif;font-weight:900;line-height:1.15;margin-top:22px;opacity:.82}
 .ln{display:block;white-space:nowrap}
 .mark{position:absolute;top:44px;left:48px;width:60px;height:60px;border-radius:14px}
+/* Bottom centre (Yarin, 19 Oct 2026: "i want the arrow in the middle"); the art is pushed down only as far as the text needs, so it covers less */
 .arrow{position:absolute;left:50%;transform:translateX(-50%);bottom:56px;width:88px;height:88px;border-radius:50%;background:#F8F0E1;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(11,5,24,.28)}
 .arrow svg{width:44px;height:44px}.arrow path{fill:none;stroke:#1D1039;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
 .ai{position:absolute;right:48px;bottom:64px;font-family:"Assistant",sans-serif;font-weight:700;font-size:24px;color:#1D1039;background:rgba(248,240,225,.86);border-radius:999px;padding:6px 16px;direction:rtl}
@@ -148,8 +151,8 @@ function topLuma(px, rows) {
 // First row (slide px) where the picture stops being plain wall or sky. Each row is compared with a smooth
 // quadratic fitted across it (walls have soft left-right shading); a row where more than 2% of pixels
 // deviate strongly from that fit is where hair, faces or furniture begin. Same test as the trial's subject_top.
-function subjectTop(px) {
-  const x0 = 10, x1 = px.w - 10, m = x1 - x0;
+function subjectTop(px, left, right) {
+  const x0 = Math.max(10, Math.floor((left ?? 40) / 4)), x1 = Math.min(px.w - 10, Math.ceil((right ?? px.w * 4 - 40) / 4)), m = x1 - x0;
   const xs = Array.from({ length: m }, (_, k) => -1 + 2 * k / (m - 1));
   let S = [[0,0,0],[0,0,0],[0,0,0]];
   xs.forEach(x => { const v = [1, x, x * x]; for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) S[a][b] += v[a] * v[b]; });
@@ -182,17 +185,32 @@ function layoutSlide(s) {
   if (!s.classList.contains('dark') && c.classList.contains('top') && topLuma(px, Math.round(px.h * .3)) < 105) s.classList.add('dark');
   fitSlide(s);
   if (!c.classList.contains('top')) { s.dataset.push = 0; return; }
-  const need = c.offsetTop + c.scrollHeight + (document.body.classList.contains('look-bold') ? 44 : 60);          // keep at least 60px of clear wall under the text
-  const top = subjectTop(px);
-  let dy = Math.max(0, Math.ceil((need - top) / 10) * 10);
-  dy = Math.min(dy, 300);                                    // beyond ~300px the mirrored wall starts copying heads
+  const gap = document.body.classList.contains('look-bold') ? 44 : 60;   // keep at least 60px of clear wall under the text
+  const need = c.offsetTop + c.scrollHeight + gap;
+  // Each line of text needs clear wall only under its own width (Yarin, 19 Oct 2026: the mom's hair at the far left of the
+  // pacifier carousel pushed the art 260px down under a centred body line, so the child's pacifier landed under the arrow).
+  const sr = s.getBoundingClientRect(); let dy = 0, top = 1350;
+  c.querySelectorAll('.ln').forEach(l => { const r = document.createRange(); r.selectNodeContents(l); const b = r.getBoundingClientRect();
+    if (!b.width) return;
+    const t = subjectTop(px, b.left - sr.left - 60, b.right - sr.left + 60);
+    top = Math.min(top, t); dy = Math.max(dy, Math.ceil((b.bottom - sr.top + gap - t) / 10) * 10); });
+  if (top === 1350) { top = subjectTop(px); dy = Math.max(0, Math.ceil((need - top) / 10) * 10); }
+  dy = Math.min(dy, 300);                                    // at most 300px down, so the characters stay in the frame
   if (dy > 0) {
     img.style.top = dy + 'px';
     const mir = s.querySelector('.mirror'); mir.style.height = dy + 'px';
-    mir.querySelector('img').style.top = (dy - 1350) + 'px';
+    // Stretch the picture's top 4 rows (as shown, object-fit: cover) over the gap: every column keeps its own sky or wall colour.
+    const sc = Math.max(1080 / img.naturalWidth, 1350 / img.naturalHeight), cropY = (img.naturalHeight * sc - 1350) / 2 / sc;
+    // Through a 54px-wide strip first, so the stretch is a smooth wash and not streaks (no CSS blur: it lightened the edges).
+    const strip = document.createElement('canvas'); strip.width = 54; strip.height = 1;
+    const sx = Math.max(0, -(1080 - img.naturalWidth * sc) / 2 / sc), sw = Math.min(img.naturalWidth, 1080 / sc);
+    strip.getContext('2d').drawImage(img, sx, cropY, sw, 4 / sc, 0, 0, 54, 1);
+    const cv = document.createElement('canvas'); cv.width = 1080; cv.height = dy + 8; cv.style.height = (dy + 8) + 'px';
+    const g2 = cv.getContext('2d'); g2.imageSmoothingQuality = 'high'; g2.drawImage(strip, 0, 0, 54, 1, 0, 0, 1080, dy + 8);
+    mir.append(cv);
   }
   s.dataset.push = dy; s.dataset.subjectTop = top + dy; s.dataset.textBottom = c.offsetTop + c.scrollHeight;
-  if (top + dy < need) c.dataset.clear = 'tight';
+  if (dy >= 300) c.dataset.clear = 'tight';
 }
 async function ready() {
   try { await document.fonts.ready; } catch (e) {}

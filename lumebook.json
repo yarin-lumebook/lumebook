@@ -68,7 +68,8 @@
       "kind": "assets",
       "watch": [
         "shared/design/lumebook.css",
-        "shared/design/design.py"
+        "shared/design/design.py",
+        "shared/design/categories.json"
       ],
       "copies": [
         {
@@ -78,6 +79,14 @@
         {
           "from": "shared/design/lumebook.css",
           "to": "sites/dashboard/design/lumebook.css"
+        },
+        {
+          "from": "shared/design/categories.css",
+          "to": "sites/lumebook-smm-plan/categories.css"
+        },
+        {
+          "from": "shared/design/categories.css",
+          "to": "sites/dashboard/design/categories.css"
         }
       ],
       "feeds": [
@@ -89,9 +98,14 @@
         "carousel-playbook",
         "carousel-pipeline",
         "dashboard",
-        "parent-communities"
+        "parent-communities",
+        "reels-research-page",
+        "creator-content-conversion",
+        "creator-brief",
+        "hook-studio-page",
+        "sales-readout"
       ],
-      "notes": "Every internal page inlines lumebook.css at build (design.py). The SMM plan has no build, so it links a synced copy. Not used by the ambassadors site.",
+      "notes": "Every internal page inlines lumebook.css at build (design.py: head() also inlines the category classes from categories.json). The SMM plan and the dashboard have no page build, so they link synced copies of lumebook.css and of categories.css (sync writes categories.css from categories.json, then copies it). categories.json says which category of which page gets which of the eight category hues (18 Oct 2026); the dashboard's refresh.py reads its workstreams. Heebo main font, Assistant secondary (18 Oct 2026). Not used by the ambassadors site.",
       "publish": {
         "type": "artifact",
         "url": "https://claude.ai/artifact/RjUuSdYDwaJe4HWyEErNmF",
@@ -105,8 +119,10 @@
       "watch": [
         "media/README.md"
       ],
-      "feeds": [],
-      "notes": "Since 14 Oct 2026 every image, video and audio file LumeBook makes or collects lives in media/projects/YYYY-MM-DD-slug/ (output/ and video/ were folded in; media/inbox/ holds unsorted files). The index and the cloud-archive steps are in media/README.md. Media files are not in git. Exceptions: shared/brand (canonical brand files), the carousel pipeline's drafts and approved runs, research downloads."
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "Since 14 Oct 2026 every image, video and audio file LumeBook makes or collects lives in media/projects/YYYY-MM-DD-slug/ (output/ and video/ were folded in; media/inbox/ holds unsorted files). The index and the cloud-archive steps are in media/README.md. Media files are not in git. Exceptions: shared/brand (canonical brand files), the carousel pipeline's drafts and approved runs, research downloads. The dashboard board lists every job folder as a media resource (sites/dashboard/board/catalog.py reads the index)."
     },
     "product-docs": {
       "name": "Product brief, Q4 strategy, carousel playbook (Hebrew), UGC research",
@@ -196,7 +212,7 @@
       "notes": "Retired on 11 Oct 2026: Yarin no longer uses the Vercel ambassadors site. The folder is kept as an archive and is not deployed, synced or maintained. The old pages may still be online at https://lumebook-ambassadors.vercel.app until the Vercel project is removed."
     },
     "creator-map": {
-      "name": "Creator map (243 creators, outreach CRM)",
+      "name": "Creator map (343 creators, outreach CRM)",
       "path": "creators/creator-research",
       "kind": "page",
       "watch": [
@@ -258,7 +274,7 @@
       }
     },
     "israeli-product-reels": {
-      "name": "Israeli creator product Reels: filming research and playbook (41 verified Reels, 34 creators, 8 deep dives)",
+      "name": "Israeli creator product Reels: filming research and playbook (197 watched, 173 verified, 108 creators, 8 deep dives, 8-question table, 63 research principles)",
       "path": "research/israeli-product-reels",
       "kind": "docs",
       "watch": [
@@ -267,10 +283,13 @@
         "research/israeli-product-reels/breakdowns.md",
         "research/israeli-product-reels/source-index.md",
         "research/israeli-product-reels/sources.csv",
-        "research/israeli-product-reels/src/*"
+        "research/israeli-product-reels/src/*",
+        "research/israeli-product-reels/smm-research/*.md",
+        "research/israeli-product-reels/smm-research/notes/*",
+        "research/israeli-product-reels/src/table/*"
       ],
       "feeds": [],
-      "notes": "15 Oct 2026. How to film LumeBook product Reels with a phone, from 41 watched Israeli creator Reels: seven approaches, five concepts with linted Hebrew scripts (fallback voice, comment word לומי) and a 60-90 minute first shoot. source-index.md and sources.csv are built by src/build_index.py from src/review.json, src/coded/ and the 15 Oct Instagram counts. Product facts in the scripts were read on lumebook.com on 15 Oct (src/product-facts-2026-10-15.md); re-check price and delivery before posting. Cites internal figures from docs/lumebook-sales-data-decisions-2026-10-12.md, so keep it off public pages. Media (other creators' videos, frames, transcripts) in media/projects/2026-10-15-israeli-product-reels/, not in git and not for re-hosting."
+      "notes": "15 Oct 2026. How to film LumeBook product Reels with a phone, from 173 verified Israeli creator Reels (41 in the morning round, 132 added the evening of 15 Oct): seven approaches, five concepts with linted Hebrew scripts (fallback voice, comment word לומי) and a 60-90 minute first shoot. source-index.md and sources.csv are built by src/build_index.py from src/review.json, src/coded/ and the 15 Oct Instagram counts. Product facts in the scripts were read on lumebook.com on 15 Oct (src/product-facts-2026-10-15.md); re-check price and delivery before posting. Cites internal figures from docs/lumebook-sales-data-decisions-2026-10-12.md, so keep it off public pages. Media (other creators' videos, frames, transcripts) in media/projects/2026-10-15-israeli-product-reels/, not in git and not for re-hosting. 18 Oct 2026: SMM research (four passes, 63 principles with sources and strength, smm-research/notes/ and principles.md built by src/build_principles.py), the 8-question table (src/table/CODE.json per Reel, coded from src/TABLE_BRIEF.md, each why citing principle IDs) and the sample check (src/evidence_check.py: plays per follower and interaction rate with and without each feature, smm-research/sample-check.md). Followers for all 108 creators in src/followers.json (og18 = 18 Oct)."
     },
     "creator-brief": {
       "name": "Creator Reel brief page (Hebrew, for barter creators)",
@@ -317,7 +336,15 @@
         "research/israeli-product-reels/playbook.md",
         "research/israeli-product-reels/breakdowns.md",
         "research/israeli-product-reels/source-index.md",
-        "research/israeli-product-reels/src/build_research_page.py"
+        "research/israeli-product-reels/src/build_research_page.py",
+        "research/israeli-product-reels/smm-research/principles.md",
+        "research/israeli-product-reels/smm-research/sample-check.md",
+        "research/israeli-product-reels/src/table/*",
+        "research/israeli-product-reels/src/page/*",
+        "research/israeli-product-reels/src/mdlite.py",
+        "research/israeli-product-reels/smm-research/notes/*",
+        "research/israeli-product-reels/smm-research/sample-check.json",
+        "research/israeli-product-reels/smm-research/overlaps.json"
       ],
       "build": {
         "cmd": [
@@ -338,7 +365,7 @@
       "feeds": [
         "dashboard"
       ],
-      "notes": "15 Oct 2026. One page with every section of the research: overview, findings, seven approaches, fixes, five concepts with Hebrew scripts, first shoot, phone set-up, logging, eight deep dives with the annotated frame strips embedded (from media/projects/2026-10-15-israeli-product-reels/annotated/, about 3.9 MB), sources and limits. Built from the markdown; never edit the HTML. Private artifact; it quotes internal figures from the 12 Oct sales note, so do not share it outside LumeBook."
+      "notes": "15 Oct 2026. One page with every section of the research: overview, findings, seven approaches, fixes, five concepts with Hebrew scripts, first shoot, phone set-up, logging, eight deep dives with the annotated frame strips embedded (from media/projects/2026-10-15-israeli-product-reels/annotated/, about 3.9 MB), sources and limits. Built from the markdown; never edit the HTML. Private artifact; it quotes internal figures from the 12 Oct sales note, so do not share it outside LumeBook. 18 Oct 2026: three more views, the reel-by-reel 8-question table (filters, one-question mode, cards on phones), the SMM research principles and the sample check, rendered by src/reel_table.py. 18 Oct 2026 (later): rebuilt as an app for Yarin ('organize this tool like a pro'): Apple-style sidebar with the 8 tools as coloured tiles, one page per tool and per principle (rule, how to apply, our Reels' numbers, examples, sources behind toggles), Reel library with a compare-one-question mode and a page per Reel, proof board, pre-post checklist (ticks in the viewer's browser), concepts, shoot, patterns, deep dives, notes, method. Heebo main, Assistant secondary. src/build_research_page.py builds the data; src/page/playbook.css and playbook.js render it; plain hash routes (#tool-hook, #p-H1, #reel-CODE)."
     },
     "competitor-teardown": {
       "name": "Competitor content teardown (147 pieces)",
@@ -495,7 +522,10 @@
       "watch": [
         "sites/dashboard/lumebook-dashboard.html",
         "sites/dashboard/refresh.py",
-        "sites/dashboard/build_site.py"
+        "sites/dashboard/build_site.py",
+        "sites/dashboard/board/board.js",
+        "sites/dashboard/board/board.css",
+        "sites/dashboard/board/seed.js"
       ],
       "build": {
         "cmd": [
@@ -512,7 +542,16 @@
       "publish": {
         "type": "artifact",
         "url": "https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ",
-        "file": "sites/dashboard/lumebook-dashboard.html"
+        "file": "sites/dashboard/lumebook-dashboard.html",
+        "files": [
+          "design/lumebook.css",
+          "design/categories.css",
+          "img/logo.png",
+          "board/board.js",
+          "board/board.css",
+          "board/seed.js"
+        ],
+        "capabilities": "db, user, mcp (Google Drive read_file_content); optional for the board: assets (uploads), downloads (export)"
       },
       "schedule": "lumebook-dashboard-refresh, 08:14 daily",
       "feeds": [],
@@ -521,7 +560,37 @@
         "url": "https://lumebook-dashboard.vercel.app",
         "dir": "sites/dashboard/site/lumebook-dashboard",
         "note": "the 08:14 task builds and deploys it; includes the plan at /plan/"
-      }
+      },
+      "notes": "Default view since 19 Oct 2026: the work board (sites/dashboard/board/, README there). Board edits save to the artifact database under boards/ (never snapshot, history or tracker); on Vercel and the local server they stay in the browser (localStorage) with JSON export/import. catalog.py builds the resource catalog and first board (seed.js) from lumebook.json, facts.json, media/ and shared/brand; refresh.py adds the same catalog to the snapshot."
+    },
+    "board-seed": {
+      "name": "Dashboard board seed (resource catalog, first board, templates)",
+      "path": "sites/dashboard/board",
+      "kind": "data",
+      "watch": [
+        "sites/dashboard/board/content.json",
+        "sites/dashboard/board/catalog.py",
+        "shared/facts.json",
+        "media/README.md",
+        "shared/design/categories.json",
+        "lumebook.json"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "catalog.py"
+        ],
+        "cwd": "sites/dashboard/board",
+        "outputs": [
+          "sites/dashboard/board/seed.js"
+        ],
+        "auto": true,
+        "note": "Rewrites seed.js only when the catalog, layout or templates change. A saved board never takes positions or titles from it; refresh.py also puts the catalog into the snapshot every morning."
+      },
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "Hebrew content of the first board and the templates: content.json. Resources come from lumebook.json, shared/facts.json, media/ and shared/brand/."
     },
     "parent-communities": {
       "name": "Parent community map (361 FB/WA communities, closest to Ashkelon first)",
@@ -584,6 +653,28 @@
         "dashboard"
       ],
       "notes": "Built from the newest pack that has a games and books carousel (drafts/DATE/reco-carousel.json; older nights games-carousel.json and books-carousel.json). Shows the night's pack, validation state, contact sheets, the two modes, the rules and the commands. Rebuild after each nightly run, then republish."
+    },
+    "sales-readout": {
+      "name": "Sales readout (12 Oct admin data in plain words, social decisions, the numbers)",
+      "path": "docs",
+      "kind": "page",
+      "watch": [
+        "docs/lumebook-sales-data-decisions-2026-10-12.md",
+        "docs/src/build_sales_readout.py"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build_sales_readout.py"
+        ],
+        "cwd": "docs",
+        "outputs": [
+          "docs/lumebook-sales-readout.html"
+        ],
+        "auto": true
+      },
+      "feeds": [],
+      "notes": "Local only, not published: holds internal sales figures. The Markdown is the source; ripple rebuilds the HTML. The seven social decisions also live in the SMM plan (section id decisions) without figures."
     }
   }
 }

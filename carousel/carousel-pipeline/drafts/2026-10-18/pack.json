@@ -1,0 +1,2361 @@
+{
+  "schema_version": 3,
+  "date": "2026-10-18",
+  "generated_at": "2026-10-16T08:08:32+00:00",
+  "topic": {
+    "id": "event-clock-change-2026",
+    "title_he": "מעבר לשעון חורף",
+    "reason": "ביום ראשון 25 באוקטובר 2026 בשעה 02:00 השעון בישראל חוזר שעה אחורה (מעריב, 5.10.2026, ומצוטט שם משרד החינוך: שעון הקיץ מסתיים ב-25 באוקטובר). השבוע שלפני הוא בדיוק הזמן שבו הורים יכולים להתכונן, ולכן כדאי לפרסם עד שישי 23 באוקטובר. מעבר השעון הוא אירוע רגוע ובלי רגישות: אין פה פוליטיקה ואין פחד. מקורות הילדים כתובים לשעון החורף האמריקאי (בית חולים לילדים, האקדמיה האמריקאית לרפואת ילדים), והחבילה מתרגמת אותם לתאריך הישראלי. נבחר במקום יום הזיכרון ליצחק רבין (22.10) כי הוא נושא פוליטי ורגיש. הנושא לא היה בשימוש בהיסטוריה.",
+    "event": {
+      "name_he": "מעבר לשעון חורף",
+      "date": "2026-10-25",
+      "kind": "special_day",
+      "tone": "calm",
+      "post_by": "2026-10-23",
+      "source": {
+        "url": "https://www.maariv.co.il/news/world/article-1373689",
+        "publisher": "מעריב אונליין",
+        "quote": "המעבר לשעון החורף יתקיים כבר ביום ראשון, 25 באוקטובר 2026. לפי חוק קביעת הזמן, שעון הקיץ בישראל מסתיים ביום ראשון האחרון של חודש אוקטובר בשעה 02:00.",
+        "accessed": "2026-10-16"
+      }
+    }
+  },
+  "voice": {
+    "status": "fallback",
+    "approved_samples": 12,
+    "note": "נכתב בקול ברירת המחדל המתועד ב-.claude/skills/lumebook-hebrew-voice. עדיין לא מכויל לירין: 12 מתוך 15 דוגמאות מאושרות."
+  },
+  "product_facts": [
+    {
+      "id": "site-preview",
+      "fact": "Creating the book is free and a preview is free; parents pay only after they see it and love it",
+      "quote": "רואים תצוגה מקדימה בחינם. 4. אהבתם? משלמים ומקבלים את הספר המלא.",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    }
+  ],
+  "hook_slate": {
+    "kid": [
+      {
+        "id": "k1",
+        "formula": "child-letter",
+        "family": "child_pov",
+        "hook": "אמא\nהשעון זז אחורה\nואני קמה מוקדם\n9 דברים שיעזרו לי",
+        "slide2": "הגוף שלי עוד לא יודע\nשהשעון זז\nהשעון בבית זז בלילה\nהשעון שבתוכי צריך כמה ימים\nהכול קטן ובכל יום",
+        "slide2_move": "scene_restart",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does the clock change make her wake early, and what nine small things help?",
+        "payoff_slide": 3,
+        "answer": "Slide 2: the body clock lags; slides 3 to 8 give the nine steps.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1"
+      },
+      {
+        "id": "k2",
+        "formula": "child-question",
+        "family": "child_quote",
+        "hook": "״אמא למה אני ער?״\nשעה לפני כולם\n8 דברים שיעזרו לי לישון",
+        "slide2": "הגוף שלי עדיין חי\nלפי השעון הישן\nאני מתעורר כשהגוף מוכן\nוהשעון החדש אומר שעה פחות",
+        "slide2_move": "zoom_in",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "Why is he awake an hour before everyone, and what eight things help him sleep?",
+        "payoff_slide": 2,
+        "answer": "Slide 2: his body clock still runs on the old hour; slides 3 to 8 give the eight steps.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2"
+      },
+      {
+        "id": "k3",
+        "formula": "child-numbered-ask",
+        "family": "child_pov",
+        "hook": "אמא ואבא\n9 דברים שיעזרו לי\nבשעון החורף",
+        "slide2": "השעון זז בלילה\nואני לא מרגישה\nהגוף שלי צריך כמה ימים\nובכל יום אני צריכה אתכם",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "What are the nine things a child needs from her parents for the clock change?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the nine things as a timeline from the week before to Sunday morning.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3",
+        "note": "Yarin's own formula (8 Oct 2026), used by the one kid option that talks to both parents."
+      },
+      {
+        "id": "k4",
+        "formula": "child-body-moment",
+        "family": "moment",
+        "hook": "בחמש בבוקר\nהעיניים שלי כבר פתוחות",
+        "slide2": "השעון אומר חמש\nוהגוף שלי מרגיש שש",
+        "slide2_move": "zoom_in",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What does she feel at that hour and what would help?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 would explain the body clock.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: a time the child may not wake at, no value on the cover (usefulness 1)."
+      },
+      {
+        "id": "k5",
+        "formula": "one-sentence-changes",
+        "family": "story",
+        "hook": "אביב קם כל בוקר שעה מוקדם\nומשפט אחד משנה את הבוקר",
+        "slide2": "אביב בן 4\nוהחושך בחדר הוא החלק הכי קשה",
+        "slide2_move": "scene_restart",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "problem_aware",
+        "gap": "Which sentence changes the early morning?",
+        "payoff_slide": 4,
+        "answer": "Slide 4 would give the sentence.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": true,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: no source for a single sentence that changes the morning (unsupported_claim risk)."
+      },
+      {
+        "id": "k6",
+        "formula": "milestone-week",
+        "family": "milestone",
+        "hook": "השבוע לפני שהשעון זז\nורז כבר שואלת למה חושך",
+        "slide2": "ביום ראשון בבוקר\nהכול נראה אחרת",
+        "slide2_move": "name_trigger",
+        "mechanism": "anticipation",
+        "awareness_stage": "unaware",
+        "gap": "What waits in the week before the change?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 would start the preparation steps.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: the evening darkness claim is not in our sources and the cover has no value promise."
+      }
+    ],
+    "expert": [
+      {
+        "id": "e1",
+        "formula": "numbered-small-things",
+        "family": "gentle_outcome",
+        "hook": "7 דברים קטנים\nלפני שהשעון\nזז אחורה\nשיעזרו לילדים להסתגל",
+        "slide2": "השעון בבית זז בלילה\nהשעון בגוף צריך ימים\nכמו ג׳ט לג\nלכן צעדים קטנים עוזרים\nלפי בית חולים לילדים באוהיו",
+        "slide2_move": "promise",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "What are the seven small things to do before the clock goes back?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the seven steps with the organisation that recommends each.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-1"
+      },
+      {
+        "id": "e2",
+        "formula": "real-reason",
+        "family": "reframe",
+        "hook": "הסיבה האמיתית\nשהיא קמה שעה מוקדם\n9 דברים שעוזרים",
+        "slide2": "השעון זז אבל הגוף נשאר\nעל השעה הישנה\nבית חולים לילדים באוהיו\nהשעון הפנימי לא מתאפס מיד",
+        "slide2_move": "first_answer",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "What is the real reason she wakes an hour early after the clock change?",
+        "payoff_slide": 2,
+        "answer": "Slide 2: the internal body clock does not reset at once (Nationwide Children's).",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-2"
+      },
+      {
+        "id": "e3",
+        "formula": "analogy-scene",
+        "family": "analogy",
+        "hook": "דמיינו ג׳ט לג\nבלי לצאת מהבית\n7 דברים שעוזרים לילד",
+        "slide2": "נניח שהוא קם בשש\nפתאום השעון אומר חמש\nהגוף שלו עוד לא הבין\nכמו אחרי טיסה",
+        "slide2_move": "scene_restart",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "unaware",
+        "gap": "What does the clock change feel like for a child, and what helps his body?",
+        "payoff_slide": 2,
+        "answer": "Slide 2 draws the morning, slides 3 to 8 give the seven steps.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-3"
+      },
+      {
+        "id": "e4",
+        "formula": "instead-of-say",
+        "family": "sentences_we_say",
+        "hook": "במקום ״מה אכפת לך שעה אחת״\nנסו ״הגוף שלך עוד לא הבין״",
+        "slide2": "״שעה אחת זה כלום״\nזה המשפט שכולנו אומרים",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "Why is the second sentence better?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 explains the body clock; no source for the effect of the sentence.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": true,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: no source that the sentence works (unsupported_claim)."
+      },
+      {
+        "id": "e5",
+        "formula": "reversal",
+        "family": "reframe",
+        "hook": "שעה נוספת של שינה\nבדרך כלל הופכת להתעוררות מוקדמת",
+        "slide2": "הבונוס של שעה\nלא תמיד מרגיש כמו בונוס",
+        "slide2_move": "contrast",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does the extra hour not turn into extra sleep?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 explains the body clock.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: the cover has no promise of a thing to do (usefulness 1)."
+      },
+      {
+        "id": "e6",
+        "formula": "parent-identity",
+        "family": "parent_identity",
+        "hook": "להורים של ילד שקם בחמש\nבשבוע של שעון החורף",
+        "slide2": "בשבוע הראשון אחרי המעבר\nהרבה ילדים קמים מוקדם",
+        "slide2_move": "name_trigger",
+        "mechanism": "identity_filter",
+        "awareness_stage": "problem_aware",
+        "gap": "What will the first week look like and what helps?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 starts the steps.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: low stopping power and no value on the cover."
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "אמא השעון זז אחורה ואני קמה מוקדם 9 דברים",
+          "angle": "רז בת 4 כותבת לאמא מכתב קצר על השבוע שהשעון זז אחורה, ומבקשת תשעה צעדים קטנים.",
+          "target_parent": "אמא לילדה בת 3 עד 5 שקמה מוקדם או לא נרדמת אחרי מעבר השעון.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-letter",
+            "gap": "Why does the clock change make her wake early, and what nine small things help?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "k1",
+            "mechanism": "perspective_shift",
+            "slide2_move": "scene_restart"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "רז",
+          "examples_target": 9,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with straight dark-brown hair in a short bob with a fringe, olive skin, big dark eyes and a small gap between her front teeth; about 104 cm tall.",
+            "parent": "Her mother, early thirties, light-brown wavy hair in a loose bun, warm hazel eyes, gentle and a little tired.",
+            "wardrobe": "Girl: pale-lilac cotton pyjamas with a cream collar, no prints. Mother: oatmeal knit cardigan over a white tee."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא\nהשעון זז אחורה\nואני קמה מוקדם",
+              "body": "9 דברים שיעזרו לי",
+              "pull": {
+                "type": "open_loop",
+                "note": "תשעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "הגוף שלי עוד לא יודע\nשהשעון זז",
+              "body": "השעון בבית זז בלילה\nהשעון שבתוכי צריך כמה ימים\nהכול קטן ובכל יום",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה הדברים הקטנים? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 עשר דקות מאוחר יותר\n2 לקום באותה שעה",
+              "body": "כל ערב מוסיפים עשר דקות\nועד יום ראשון אני כבר שם",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר שלישי בשקופית 4"
+              },
+              "examples": [
+                "עשר דקות מאוחר יותר",
+                "לקום באותה שעה"
+              ]
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 אותו סדר לפני השינה",
+              "body": "״רז אמבטיה ואז ספר״\nהסדר הזה מרגיע אותי",
+              "pull": {
+                "type": "numbered",
+                "note": "דברים 4 ו-5 בשקופית 5"
+              },
+              "examples": [
+                "אותו סדר לפני השינה"
+              ]
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 בלי מסך שעה לפני\n5 וילון כהה בחדר",
+              "body": "מסך מבלבל לי את הראש\nחושך נותן לי עוד שינה",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 6 בשקופית 6"
+              },
+              "examples": [
+                "בלי מסך שעה לפני",
+                "וילון כהה בחדר"
+              ]
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 לצאת לשמש בבוקר",
+              "body": "״רז בואי נצא לשמש״\nחצי שעה בחוץ ביום ראשון\nככה הראש שלי מתעורר",
+              "pull": {
+                "type": "numbered",
+                "note": "דברים 7 ו-8 בשקופית 7"
+              },
+              "examples": [
+                "לצאת לשמש בבוקר"
+              ]
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 ארוחת בוקר בזמן חדש\n8 בלי לישון עד מאוחר",
+              "body": "הגוף לומד לפי הארוחות\nוגם לפי מתי קמים",
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר התשיעי בשקופית 8"
+              },
+              "examples": [
+                "ארוחת בוקר בזמן חדש",
+                "בלי לישון עד מאוחר"
+              ]
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "9 כמה ימים של סבלנות",
+              "body": "לרוב שבוע וזה מסתדר\n״רז עוד רגע גם הגוף יבין״",
+              "pull": {
+                "type": "numbered",
+                "note": "הכול ביחד בשקופית 9"
+              },
+              "examples": [
+                "כמה ימים של סבלנות"
+              ]
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "קטן וקבוע כל יום\nוהגוף שלי מבין",
+              "body": "עשר דקות · סדר · חושך\nשמש · ארוחה · סבלנות",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "כשהשעון זז אחורה הגוף של רז עוד לא מבין\nעשר דקות מאוחר יותר בכל ערב\nאותו סדר שינה ושמש בבוקר\nוכמה ימים של סבלנות\nובערב אפשר להוסיף סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-maariv",
+              "title": "שבוע של בלבול: איך המעבר לשעון חורף בישראל ישנה את הזמנים מול ארה\"ב?",
+              "publisher": "מעריב אונליין (5 באוקטובר 2026)",
+              "url": "https://www.maariv.co.il/news/world/article-1373689",
+              "accessed": "2026-10-16",
+              "quote": "המעבר לשעון החורף יתקיים כבר ביום ראשון, 25 באוקטובר 2026. לפי חוק קביעת הזמן, שעון הקיץ בישראל מסתיים ביום ראשון האחרון של חודש אוקטובר בשעה 02:00.",
+              "supports": "Israel moves to winter time on Sunday 25 October 2026 (clocks go back at 02:00)."
+            },
+            {
+              "id": "src-hc",
+              "title": "Daylight Saving Time: Don't Lose Sleep Over It",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics Section on Integrative Medicine (page last updated 31 Oct 2025)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/daylight-saving-time-dont-lose-sleep-over-it.aspx",
+              "accessed": "2026-10-16",
+              "quote": "The fall time change, meanwhile, can cause younger kids to crash before bedtime and wake up earlier than usual in the morning. ... For younger children, start nudging naps and bedtime in the direction the clocks will be changing a few minutes each day. Ideally, start this process about a week before the time change. ... Having set nighttime routines. This lets your child's body know that it's time to unwind and go to sleep. For younger kids, having a brush, book bed routine, cuddling, or listening to quiet music can help. ... Have your child put all screens away at least an hour before bedtime ... Spending some time outside and being exposed to natural light during the day can help reset your child's internal clock after a time change. ... Getting enough exercise during the day can help kids sleep better, too. Just avoid too much physical activity close to bedtime ... Examples include a warm bath with Epsom salts, reading a book that's not on a screen, meditation, soft music ... While time changes can cause some drowsy days, kids usually adjust within about a week. If your child continues to have problems sleeping, talk with your pediatrician.",
+              "supports": "Fall time change can make younger kids wake earlier; start nudging bedtime and naps a few minutes a day about a week before; set routines (brush, book, bed); screens away an hour before bed; natural light and daytime exercise; quiet evenings; most kids adjust within about a week. The page is written for the US dates; the advice is applied to Israel's change."
+            },
+            {
+              "id": "src-nch",
+              "title": "Helping Kids Adjust to the Time Change",
+              "publisher": "Nationwide Children's Hospital, Columbus, Ohio (October 2025)",
+              "url": "https://www.nationwidechildrens.org/family-resources-education/700childrens/2025/10/helping-kids-adjust-to-the-time-change",
+              "accessed": "2026-10-16",
+              "quote": "Kids don’t automatically adjust to new schedules, and the shift can lead to crankiness, early waking, and bedtime battles. ... their internal “body clock” (also known as the circadian rhythm) doesn’t reset immediately. ... Just like jet lag, it takes a few days for the body to catch up. ... In the week leading up to the time change, try shifting your child’s schedule by 10–15 minutes every night. ... Stick with the familiar steps—bathing, brushing teeth, reading, cuddling ... Use blackout curtains if your child tends to wake with the sun. ... Evening light helps reset the body clock and supports the shift. ... Adjust naps gradually in conjunction with bedtime and try not to let naps run too long ... It may take a few days (sometimes up to a week) for kids to fully adjust. Consistency with meals, playtime, and bedtime helps the new rhythm “stick.” ... Keep bedrooms cool, dark, and quiet.",
+              "supports": "The body clock does not reset at once and it takes a few days, like jet lag; shift the schedule 10 to 15 minutes a night in the week before; keep the bedtime steps; blackout curtains; evening light; adjust naps gradually; consistency in meals and playtime; cool, dark, quiet bedroom. Written for the US fall change; applied to Israel's."
+            },
+            {
+              "id": "src-cch",
+              "title": "How to Prepare Kids for the End of Daylight Saving Time This November",
+              "publisher": "Connecticut Children's (16 Sept 2021, Lynelle Schneeberg, PsyD, pediatric sleep psychologist)",
+              "url": "https://www.connecticutchildrens.org/sleep/daylight-savings-time-ways-to-prepare",
+              "accessed": "2026-10-16",
+              "quote": "Adjust little by little in the week before the change. If your child goes to bed at 8 pm, put them to bed at 8:15pm, 8:30pm, 8:45pm and so on ... Saturday night: After your child goes to bed, change the clocks in your home. Sunday morning: Get your child up at the time they’ll need to rise on Monday morning. Right away, get them out and about in sunlight for 30 to 60 minutes. Have breakfast at the new time, too. ... It should take your child about a week to adjust. ... Always get your child up around the same time each day, whether it’s a weekday or a weekend.",
+              "supports": "Gradual week-before method (bedtime shifted in 15 minute steps), the weekend-of method (change clocks Saturday night after the child is asleep, get up at Monday's time, 30 to 60 minutes of sunlight, breakfast at the new time), about a week to adjust, the same wake time every day. Written for the US change; applied to Israel's."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "ואני קמה מוקדם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: the fall time change can make younger kids wake earlier than usual; Nationwide Children's: early waking is common. Imagined child voice, one possibility for this one child."
+            },
+            {
+              "slide": 2,
+              "wording_he": "הגוף שלי עוד לא יודע שהשעון זז",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Nationwide Children's: the internal body clock does not reset immediately; it takes a few days."
+            },
+            {
+              "slide": 3,
+              "wording_he": "עשר דקות מאוחר יותר בכל ערב ולקום באותה שעה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch",
+                "src-cch",
+                "src-maariv"
+              ],
+              "supports": "A few minutes a day about a week ahead (HealthyChildren), 10 to 15 minutes a night (Nationwide), the same wake time every day (Connecticut Children's); the change is on Sunday 25 October (Maariv)."
+            },
+            {
+              "slide": 4,
+              "wording_he": "אותו סדר לפני השינה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-hc"
+              ],
+              "supports": "Both sources: keep the familiar bedtime steps; HealthyChildren names a brush, book, bed routine."
+            },
+            {
+              "slide": 5,
+              "wording_he": "בלי מסך שעה לפני ווילון כהה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: screens away at least an hour before bed. Nationwide: blackout curtains for a child who wakes with the sun. The child's explanation is our wording."
+            },
+            {
+              "slide": 6,
+              "wording_he": "חצי שעה בחוץ ביום ראשון",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cch",
+                "src-hc"
+              ],
+              "supports": "Connecticut Children's: 30 to 60 minutes of sunlight right after getting up on the Sunday; HealthyChildren: natural light helps reset the internal clock."
+            },
+            {
+              "slide": 7,
+              "wording_he": "ארוחת בוקר בזמן החדש ובלי לישון עד מאוחר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cch",
+                "src-nch"
+              ],
+              "supports": "Connecticut Children's: breakfast at the new time, no sleeping in more than about an hour; Nationwide: consistency with meals helps the new rhythm stick."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לרוב שבוע וזה מסתדר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: kids usually adjust within about a week; Nationwide: a few days, sometimes up to a week. No promise of a result."
+            },
+            {
+              "slide": 9,
+              "wording_he": "קטן וקבוע כל יום והגוף מבין",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Our summary of the steps above; rests on Nationwide: consistency helps the new rhythm stick."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren recommends a set bedtime routine such as a brush, book, bed routine. That the book is a personalised story with the child as the hero is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "מספר וערך על הכריכה (9 דברים) ופנים מופתעות ישר לעדשה. התאריך הקרוב (יום ראשון 25 באוקטובר) נותן סיבה לשמור ולשלוח.",
+          "image": {
+            "beat": "wide awake while the house still sleeps",
+            "action": "The girl sits up in bed, faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows and an open-mouthed gasp, a soft plush rabbit held against her chest; her mother is small and soft in the bedroom doorway in the background.",
+            "setting": "A cosy Israeli child's bedroom just before sunrise: a low bed with a cream linen duvet, a window with sheer curtains, a pale blue-grey sky outside.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Cool soft pre-dawn light through the window with a warm bedside lamp glow.",
+            "wardrobe_objects": "The plush rabbit, held by the girl.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain smooth pale cream wall above the bed head"
+            }
+          }
+        },
+        {
+          "id": "kid-2",
+          "title": "אמא למה אני ער שעה לפני כולם 8 דברים",
+          "angle": "אביב בן 4 שואל את אמא למה הוא ער כשכולם ישנים, ומקבל שמונה דברים שעוזרים לו לישון.",
+          "target_parent": "אמא לילד בן 3 עד 5 שמתעורר מוקדם אחרי מעבר השעון.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_quote",
+          "hook": {
+            "formula": "child-question",
+            "gap": "Why am I awake, and what six things help me get used to winter time?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "k2",
+            "mechanism": "recognition",
+            "slide2_move": "zoom_in"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "אביב",
+          "examples_target": 6,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short messy light-brown hair, fair skin with freckles across his nose, big green eyes; about 104 cm tall.",
+            "parent": "His mother, mid-thirties, dark shoulder-length hair, brown eyes, a soft tired smile.",
+            "wardrobe": "Boy: dark-green cotton pyjama set, no prints. Mother: grey cotton robe."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״אמא למה אני ער?״",
+              "body": "6 דברים שיעזרו לי\nלהתרגל לשעון חורף",
+              "pull": {
+                "type": "open_loop",
+                "note": "ששת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "הגוף שלי עדיין חי\nלפי השעון הישן",
+              "body": "המעבר לשעון חורף משפיע עליי\nגם אם לא שמים לב\nתעזרי לי להתרגל",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה עוזר לו? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 להחשיך את החדר",
+              "body": "חושך בחדר נותן לי עוד זמן להתרגל",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 2 בשקופית 4"
+              },
+              "examples": [
+                "להחשיך את החדר"
+              ]
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 אור שמש בחצי שעה\nהראשונה כשאני מתעורר",
+              "body": "לצאת לאור היום מיד כשקמים\nמכוון את השעון הביולוגי שלי",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 3 בשקופית 5"
+              },
+              "examples": [
+                "אור שמש בחצי שעה"
+              ]
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 ארוחות באותה השעה",
+              "body": "״אביב עכשיו ארוחת צהריים״\nגם אם אפור ומעונן בחוץ\nהגוף לומד לפי הארוחות",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 4 בשקופית 6"
+              },
+              "examples": [
+                "ארוחות באותה השעה"
+              ]
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "4 תנועה במהלך היום\nרגיעה לקראת הלילה",
+              "body": "ביום מתרוצצים ובערב נרגעים\nזה עוזר לי להירדם",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 5 בשקופית 7"
+              },
+              "examples": [
+                "תנועה במהלך היום"
+              ]
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "5 מקלחת חמימה וספר",
+              "body": "מקלחת חמה וספר אמיתי ולא במסך\nמקלים על ההירדמות",
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר האחרון בשקופית 8"
+              },
+              "examples": [
+                "מקלחת חמימה וספר"
+              ]
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "6 שבוע של סבלנות",
+              "body": "לרוב לוקח לי בערך שבוע\nואני אחזור לקום כרגיל",
+              "pull": {
+                "type": "numbered",
+                "note": "הכול ביחד בשקופית 9"
+              },
+              "examples": [
+                "שבוע של סבלנות"
+              ]
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "להרגיל את הגוף\nשבוע מראש",
+              "body": "חושך בחדר · שמש בבוקר\nארוחות קבועות · תנועה ביום\nערב שקט · סבלנות",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "כשהשעון זז אחורה אביב קם כשהגוף שלו מוכן ולא כשהשעון אומר\nתשאירי חושך בחדר ותצאו לשמש בבוקר\nארוחה בזמן החדש וערב שקט\nועוד כמה דברים קטנים לשבוע הראשון\nובערב אפשר להוסיף סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-maariv",
+              "title": "שבוע של בלבול: איך המעבר לשעון חורף בישראל ישנה את הזמנים מול ארה\"ב?",
+              "publisher": "מעריב אונליין (5 באוקטובר 2026)",
+              "url": "https://www.maariv.co.il/news/world/article-1373689",
+              "accessed": "2026-10-16",
+              "quote": "המעבר לשעון החורף יתקיים כבר ביום ראשון, 25 באוקטובר 2026. לפי חוק קביעת הזמן, שעון הקיץ בישראל מסתיים ביום ראשון האחרון של חודש אוקטובר בשעה 02:00.",
+              "supports": "Israel moves to winter time on Sunday 25 October 2026 (clocks go back at 02:00)."
+            },
+            {
+              "id": "src-hc",
+              "title": "Daylight Saving Time: Don't Lose Sleep Over It",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics Section on Integrative Medicine (page last updated 31 Oct 2025)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/daylight-saving-time-dont-lose-sleep-over-it.aspx",
+              "accessed": "2026-10-16",
+              "quote": "The fall time change, meanwhile, can cause younger kids to crash before bedtime and wake up earlier than usual in the morning. ... For younger children, start nudging naps and bedtime in the direction the clocks will be changing a few minutes each day. Ideally, start this process about a week before the time change. ... Having set nighttime routines. This lets your child's body know that it's time to unwind and go to sleep. For younger kids, having a brush, book bed routine, cuddling, or listening to quiet music can help. ... Have your child put all screens away at least an hour before bedtime ... Spending some time outside and being exposed to natural light during the day can help reset your child's internal clock after a time change. ... Getting enough exercise during the day can help kids sleep better, too. Just avoid too much physical activity close to bedtime ... Examples include a warm bath with Epsom salts, reading a book that's not on a screen, meditation, soft music ... While time changes can cause some drowsy days, kids usually adjust within about a week. If your child continues to have problems sleeping, talk with your pediatrician.",
+              "supports": "Fall time change can make younger kids wake earlier; start nudging bedtime and naps a few minutes a day about a week before; set routines (brush, book, bed); screens away an hour before bed; natural light and daytime exercise; quiet evenings; most kids adjust within about a week. The page is written for the US dates; the advice is applied to Israel's change."
+            },
+            {
+              "id": "src-nch",
+              "title": "Helping Kids Adjust to the Time Change",
+              "publisher": "Nationwide Children's Hospital, Columbus, Ohio (October 2025)",
+              "url": "https://www.nationwidechildrens.org/family-resources-education/700childrens/2025/10/helping-kids-adjust-to-the-time-change",
+              "accessed": "2026-10-16",
+              "quote": "Kids don’t automatically adjust to new schedules, and the shift can lead to crankiness, early waking, and bedtime battles. ... their internal “body clock” (also known as the circadian rhythm) doesn’t reset immediately. ... Just like jet lag, it takes a few days for the body to catch up. ... In the week leading up to the time change, try shifting your child’s schedule by 10–15 minutes every night. ... Stick with the familiar steps—bathing, brushing teeth, reading, cuddling ... Use blackout curtains if your child tends to wake with the sun. ... Evening light helps reset the body clock and supports the shift. ... Adjust naps gradually in conjunction with bedtime and try not to let naps run too long ... It may take a few days (sometimes up to a week) for kids to fully adjust. Consistency with meals, playtime, and bedtime helps the new rhythm “stick.” ... Keep bedrooms cool, dark, and quiet.",
+              "supports": "The body clock does not reset at once and it takes a few days, like jet lag; shift the schedule 10 to 15 minutes a night in the week before; keep the bedtime steps; blackout curtains; evening light; adjust naps gradually; consistency in meals and playtime; cool, dark, quiet bedroom. Written for the US fall change; applied to Israel's."
+            },
+            {
+              "id": "src-cch",
+              "title": "How to Prepare Kids for the End of Daylight Saving Time This November",
+              "publisher": "Connecticut Children's (16 Sept 2021, Lynelle Schneeberg, PsyD, pediatric sleep psychologist)",
+              "url": "https://www.connecticutchildrens.org/sleep/daylight-savings-time-ways-to-prepare",
+              "accessed": "2026-10-16",
+              "quote": "Adjust little by little in the week before the change. If your child goes to bed at 8 pm, put them to bed at 8:15pm, 8:30pm, 8:45pm and so on ... Saturday night: After your child goes to bed, change the clocks in your home. Sunday morning: Get your child up at the time they’ll need to rise on Monday morning. Right away, get them out and about in sunlight for 30 to 60 minutes. Have breakfast at the new time, too. ... It should take your child about a week to adjust. ... Always get your child up around the same time each day, whether it’s a weekday or a weekend.",
+              "supports": "Gradual week-before method (bedtime shifted in 15 minute steps), the weekend-of method (change clocks Saturday night after the child is asleep, get up at Monday's time, 30 to 60 minutes of sunlight, breakfast at the new time), about a week to adjust, the same wake time every day. Written for the US change; applied to Israel's."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "אמא למה אני ער? 6 דברים שיעזרו לי להתרגל לשעון חורף",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: the fall time change can make younger kids wake earlier than usual; Nationwide: early waking. Imagined child question, a possibility for this one child."
+            },
+            {
+              "slide": 2,
+              "wording_he": "המעבר לשעון חורף משפיע עליי גם אם לא שמים לב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-maariv"
+              ],
+              "supports": "Nationwide: the internal body clock does not reset immediately; Maariv: clocks go back one hour on Sunday 25 October at 02:00."
+            },
+            {
+              "slide": 3,
+              "wording_he": "להחשיך את החדר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Nationwide: blackout curtains if the child tends to wake with the sun."
+            },
+            {
+              "slide": 4,
+              "wording_he": "אור שמש בחצי שעה הראשונה כשאני מתעורר מכוון את השעון הביולוגי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cch",
+                "src-nch"
+              ],
+              "supports": "Connecticut Children's: on the Sunday get the child up and right away out in sunlight for 30 to 60 minutes; Nationwide: the body clock (circadian rhythm) takes days to reset."
+            },
+            {
+              "slide": 5,
+              "wording_he": "ארוחות באותה השעה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cch",
+                "src-nch"
+              ],
+              "supports": "Connecticut Children's: breakfast at the new time; Nationwide: consistency with meals."
+            },
+            {
+              "slide": 6,
+              "wording_he": "תנועה במהלך היום ורגיעה לקראת הלילה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: enough exercise during the day can help kids sleep, avoid too much physical activity close to bedtime, quiet evening activities."
+            },
+            {
+              "slide": 7,
+              "wording_he": "מקלחת חמה וספר אמיתי ולא במסך מקלים על ההירדמות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: a warm bath and reading a book that is not on a screen are relaxing evening activities (relaxing, read as easing falling asleep)."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לרוב לוקח לי בערך שבוע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: kids usually adjust within about a week; Nationwide: a few days, sometimes up to a week. No promise of a result."
+            },
+            {
+              "slide": 9,
+              "wording_he": "להרגיל את הגוף שבוע מראש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-cch"
+              ],
+              "supports": "HealthyChildren: start nudging bedtime about a week before the time change; Connecticut Children's: adjust little by little in the week before the change."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren recommends a set bedtime routine such as a brush, book, bed routine. That the book is a personalised story with the child as the hero is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "שאלה של ילד ברגע שכל הורה מכיר (מישהו ער לפני כולם) ומספר ערך. שמונה צעדים קטנים שאפשר להתחיל מהם בשבת בלילה.",
+          "image": {
+            "beat": "up before the whole house",
+            "action": "The boy stands next to his bed, faces the viewer and looks straight into the camera with an open-mouthed gasp and huge wide eyes and raised eyebrows, one hand resting on the bed rail; his mother is a small soft shape asleep under a blanket on the couch far behind him.",
+            "setting": "A quiet Israeli family room and child corner before sunrise: a couch with a throw blanket, a window with blinds half open, a pale blue-grey sky outside.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Dim blue-grey pre-dawn light with a small warm lamp glow.",
+            "wardrobe_objects": "The couch throw blanket over the mother.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain smooth pale blue-grey wall above the couch"
+            }
+          }
+        },
+        {
+          "id": "kid-3",
+          "title": "אמא ואבא 9 דברים שיעזרו לי בשעון החורף",
+          "angle": "יהלי בת 5 מבקשת מההורים תשעה דברים מהשבוע שלפני ועד יום ראשון בבוקר.",
+          "target_parent": "הורים לילדה בת 4 עד 6 שרוצים תוכנית קצרה לסוף השבוע של מעבר השעון.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-numbered-ask",
+            "gap": "What are the nine things a child needs from her parents for the clock change?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k3",
+            "mechanism": "practical_utility",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "יהלי",
+          "examples_target": 9,
+          "character_anchor": {
+            "child": "A 5-year-old Israeli girl with long curly chestnut hair, tan skin, big brown eyes and rosy cheeks; about 110 cm tall.",
+            "parent": "Her mother, early thirties, black curly hair in a ponytail, warm brown eyes, and her father, mid-thirties, short brown hair and a trimmed beard; both warm and a little sleepy.",
+            "wardrobe": "Girl: mustard-yellow cotton pyjamas with a cream top, no prints. Mother: sage-green sweatshirt. Father: plain navy T-shirt."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא ואבא\n9 דברים שיעזרו לי לעבור לשעון החורף",
+              "body": "",
+              "pull": {
+                "type": "numbered",
+                "note": "תשעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "השעון זז בלילה אבל אני עוד לא רילה אליו",
+              "body": "הגוף שלי צריך כמה ימים\nובכל יום אני צריכה אתכם",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה אני צריכה? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 להתחיל שבוע מראש\n2 כמה דקות בכל ערב",
+              "body": "כבר השבוע זזים לאט\nאז ביום ראשון אין הפתעה",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 3 בשקופית 4"
+              },
+              "examples": [
+                "להתחיל שבוע מראש",
+                "כמה דקות בכל ערב"
+              ]
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 לשנות שעון בליל שבת",
+              "body": "אחרי שנרדמתי מזיזים את השעון\nואני מתעוררת לשעה החדשה",
+              "pull": {
+                "type": "numbered",
+                "note": "דברים 4 ו-5 בשקופית 5"
+              },
+              "examples": [
+                "לשנות שעון בליל שבת"
+              ]
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 בבוקר לקום כמו בשני\n5 לצאת לשמש מיד",
+              "body": "ביום ראשון אני קמה כמו ביום שני\nואז שמש בחוץ",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 6 בשקופית 6"
+              },
+              "examples": [
+                "בבוקר לקום כמו בשני",
+                "לצאת לשמש מיד"
+              ]
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 לאכול לפי השעון החדש",
+              "body": "הגוף מתרגל גם דרך הארוחות\n״יהלי ארוחת בוקר בשבע״",
+              "pull": {
+                "type": "numbered",
+                "note": "דברים 7 ו-8 בשקופית 7"
+              },
+              "examples": [
+                "לאכול לפי השעון החדש"
+              ]
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 אותו סדר לפני השינה\n8 בלי מסך שעה לפני",
+              "body": "אמבטיה ספר וחושך כל ערב\nומסך כבוי שעה קודם",
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר התשיעי בשקופית 8"
+              },
+              "examples": [
+                "אותו סדר לפני השינה",
+                "בלי מסך שעה לפני"
+              ]
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "9 סבלנות עד שבוע",
+              "body": "אצל הרבה ילדים זה לוקח שבוע\n״יהלי אנחנו איתך״",
+              "pull": {
+                "type": "numbered",
+                "note": "הכול ביחד בשקופית 9"
+              },
+              "examples": [
+                "סבלנות עד שבוע"
+              ]
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "קודם צעד קטן כל ערב\nואחר כך שעון חדש",
+              "body": "מראש · שבת בלילה · שמש בבוקר\nארוחה · סדר · סבלנות",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "תשעה דברים שילדה מבקשת מההורים לקראת מעבר השעון\nלהתחיל שבוע מראש ולהזיז כמה דקות בכל ערב\nבליל שבת לשנות שעון ובבוקר לצאת לשמש\nאותו סדר שינה ובלי מסך שעה לפני\nובערב אפשר להוסיף סיפור שבו היא הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-maariv",
+              "title": "שבוע של בלבול: איך המעבר לשעון חורף בישראל ישנה את הזמנים מול ארה\"ב?",
+              "publisher": "מעריב אונליין (5 באוקטובר 2026)",
+              "url": "https://www.maariv.co.il/news/world/article-1373689",
+              "accessed": "2026-10-16",
+              "quote": "המעבר לשעון החורף יתקיים כבר ביום ראשון, 25 באוקטובר 2026. לפי חוק קביעת הזמן, שעון הקיץ בישראל מסתיים ביום ראשון האחרון של חודש אוקטובר בשעה 02:00.",
+              "supports": "Israel moves to winter time on Sunday 25 October 2026 (clocks go back at 02:00)."
+            },
+            {
+              "id": "src-hc",
+              "title": "Daylight Saving Time: Don't Lose Sleep Over It",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics Section on Integrative Medicine (page last updated 31 Oct 2025)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/daylight-saving-time-dont-lose-sleep-over-it.aspx",
+              "accessed": "2026-10-16",
+              "quote": "The fall time change, meanwhile, can cause younger kids to crash before bedtime and wake up earlier than usual in the morning. ... For younger children, start nudging naps and bedtime in the direction the clocks will be changing a few minutes each day. Ideally, start this process about a week before the time change. ... Having set nighttime routines. This lets your child's body know that it's time to unwind and go to sleep. For younger kids, having a brush, book bed routine, cuddling, or listening to quiet music can help. ... Have your child put all screens away at least an hour before bedtime ... Spending some time outside and being exposed to natural light during the day can help reset your child's internal clock after a time change. ... Getting enough exercise during the day can help kids sleep better, too. Just avoid too much physical activity close to bedtime ... Examples include a warm bath with Epsom salts, reading a book that's not on a screen, meditation, soft music ... While time changes can cause some drowsy days, kids usually adjust within about a week. If your child continues to have problems sleeping, talk with your pediatrician.",
+              "supports": "Fall time change can make younger kids wake earlier; start nudging bedtime and naps a few minutes a day about a week before; set routines (brush, book, bed); screens away an hour before bed; natural light and daytime exercise; quiet evenings; most kids adjust within about a week. The page is written for the US dates; the advice is applied to Israel's change."
+            },
+            {
+              "id": "src-nch",
+              "title": "Helping Kids Adjust to the Time Change",
+              "publisher": "Nationwide Children's Hospital, Columbus, Ohio (October 2025)",
+              "url": "https://www.nationwidechildrens.org/family-resources-education/700childrens/2025/10/helping-kids-adjust-to-the-time-change",
+              "accessed": "2026-10-16",
+              "quote": "Kids don’t automatically adjust to new schedules, and the shift can lead to crankiness, early waking, and bedtime battles. ... their internal “body clock” (also known as the circadian rhythm) doesn’t reset immediately. ... Just like jet lag, it takes a few days for the body to catch up. ... In the week leading up to the time change, try shifting your child’s schedule by 10–15 minutes every night. ... Stick with the familiar steps—bathing, brushing teeth, reading, cuddling ... Use blackout curtains if your child tends to wake with the sun. ... Evening light helps reset the body clock and supports the shift. ... Adjust naps gradually in conjunction with bedtime and try not to let naps run too long ... It may take a few days (sometimes up to a week) for kids to fully adjust. Consistency with meals, playtime, and bedtime helps the new rhythm “stick.” ... Keep bedrooms cool, dark, and quiet.",
+              "supports": "The body clock does not reset at once and it takes a few days, like jet lag; shift the schedule 10 to 15 minutes a night in the week before; keep the bedtime steps; blackout curtains; evening light; adjust naps gradually; consistency in meals and playtime; cool, dark, quiet bedroom. Written for the US fall change; applied to Israel's."
+            },
+            {
+              "id": "src-cch",
+              "title": "How to Prepare Kids for the End of Daylight Saving Time This November",
+              "publisher": "Connecticut Children's (16 Sept 2021, Lynelle Schneeberg, PsyD, pediatric sleep psychologist)",
+              "url": "https://www.connecticutchildrens.org/sleep/daylight-savings-time-ways-to-prepare",
+              "accessed": "2026-10-16",
+              "quote": "Adjust little by little in the week before the change. If your child goes to bed at 8 pm, put them to bed at 8:15pm, 8:30pm, 8:45pm and so on ... Saturday night: After your child goes to bed, change the clocks in your home. Sunday morning: Get your child up at the time they’ll need to rise on Monday morning. Right away, get them out and about in sunlight for 30 to 60 minutes. Have breakfast at the new time, too. ... It should take your child about a week to adjust. ... Always get your child up around the same time each day, whether it’s a weekday or a weekend.",
+              "supports": "Gradual week-before method (bedtime shifted in 15 minute steps), the weekend-of method (change clocks Saturday night after the child is asleep, get up at Monday's time, 30 to 60 minutes of sunlight, breakfast at the new time), about a week to adjust, the same wake time every day. Written for the US change; applied to Israel's."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "9 דברים שיעזרו לי בשעון החורף",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-maariv",
+                "src-hc"
+              ],
+              "supports": "Maariv: the move to winter time is on Sunday 25 October; HealthyChildren: the fall change can disturb kids' sleep and a gradual approach helps. The nine things are on slides 3 to 8."
+            },
+            {
+              "slide": 2,
+              "wording_he": "הגוף שלי צריך כמה ימים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Nationwide: the body clock does not reset immediately; it takes a few days."
+            },
+            {
+              "slide": 3,
+              "wording_he": "להתחיל שבוע מראש וכמה דקות בכל ערב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch",
+                "src-cch"
+              ],
+              "supports": "About a week before, a few minutes a day (HealthyChildren), 10 to 15 minutes a night (Nationwide), 15 minute steps (Connecticut Children's)."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לשנות שעון בליל שבת אחרי שהילד נרדם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cch",
+                "src-maariv"
+              ],
+              "supports": "Connecticut Children's: on Saturday night, after the child goes to bed, change the clocks in the home. In Israel the clocks go back at 02:00 on the night between Saturday and Sunday (Maariv)."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לקום כמו ביום שני ולצאת לשמש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cch"
+              ],
+              "supports": "Connecticut Children's: on Sunday get the child up at Monday's time and out into sunlight for 30 to 60 minutes."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לאכול לפי השעון החדש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cch",
+                "src-nch"
+              ],
+              "supports": "Connecticut Children's: breakfast at the new time; Nationwide: consistency with meals."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אותו סדר לפני השינה ובלי מסך שעה לפני",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: set routines and screens away at least an hour before bed; Nationwide: keep the familiar steps."
+            },
+            {
+              "slide": 8,
+              "wording_he": "אצל הרבה ילדים זה לוקח שבוע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: kids usually adjust within about a week; Nationwide: a few days, sometimes up to a week."
+            },
+            {
+              "slide": 9,
+              "wording_he": "קודם צעד קטן כל ערב ואחר כך שעון חדש",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-cch"
+              ],
+              "supports": "Our summary of the week-before and weekend-of methods."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren recommends a set bedtime routine such as a brush, book, bed routine. That the book is a personalised story with the child as the hero is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "הנוסחה של ירין (אמא ואבא ומספר) על אירוע עם תאריך. הרשימה נקראת כלוח זמנים מהשבוע שלפני ועד יום ראשון, ולכן קל לשמור.",
+          "image": {
+            "beat": "sparkling and ready while the parents are sleepy",
+            "action": "The girl faces the viewer and looks straight into the camera with a giant grin and huge wide bright eyes, a small plush owl held up beside her cheek; her parents are small and soft in the background, wrapped in blankets on the couch.",
+            "setting": "A sunny Israeli family room in the early morning: a sofa with cosy blankets, a window with white sheer curtains and a soft bright sky.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm soft early-morning light.",
+            "wardrobe_objects": "The small plush owl, held by the girl.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain smooth warm cream wall above the sofa"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "label_he": "גישה מקצועית מבוססת מקורות",
+      "versions": [
+        {
+          "id": "expert-1",
+          "title": "7 דברים קטנים לפני שהשעון זז אחורה",
+          "angle": "רשימה מבוססת מקורות של שבעה צעדים בשבוע שלפני מעבר השעון, עם שמות הגופים שממליצים.",
+          "target_parent": "הורים לילד בן 2 עד 5 שמחפשים תוכנית פשוטה לשבוע שלפני 25 באוקטובר.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "gentle_outcome",
+          "hook": {
+            "formula": "numbered-small-things",
+            "gap": "What are the seven small things to do before the clock goes back?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e1",
+            "mechanism": "practical_utility",
+            "slide2_move": "promise"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "נתן",
+          "examples_target": 7,
+          "character_anchor": {
+            "child": "A 3-year-old Israeli boy with short dark curls, olive skin and big brown eyes; about 96 cm tall.",
+            "parent": "His mother, early thirties, dark hair in a braid, and his father, mid-thirties, short hair and light stubble; both calm and attentive.",
+            "wardrobe": "Boy: plain soft grey cotton pyjamas, no prints. Mother: cream sweater. Father: plain navy T-shirt."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "6 דברים\nלפני שעוברים לשעון חורף",
+              "body": "שיעזרו לילדים להסתגל",
+              "pull": {
+                "type": "open_loop",
+                "note": "שבעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "השעון זז בלילה אחד\nאבל השעון בגוף צריך ימים",
+              "body": "הצעדים הקטנים האלה יעזרו להם להתרגל",
+              "pull": {
+                "type": "open_loop",
+                "note": "הצעד הראשון בשקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 להתחיל שבוע מראש",
+              "body": "באתר האקדמיה האמריקאית\nלרפואת ילדים מציעים להתחיל\nבערך שבוע לפני השינוי",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 2 בשקופית 4"
+              },
+              "examples": [
+                "להתחיל שבוע מראש"
+              ]
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 להחשיך את החדר",
+              "body": "וילון כהה או לסגור את התריסים",
+              "pull": {
+                "type": "numbered",
+                "note": "דברים 3 ו-4 בשקופית 5"
+              },
+              "examples": [
+                "עשר דקות מאוחר יותר"
+              ]
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 אותו סדר שינה בדיוק",
+              "body": "מקלחת צחצוח שיניים סיפור וחיבוק",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 5 בשקופית 6"
+              },
+              "examples": [
+                "אותו סדר שינה בדיוק",
+                "וילון כהה לבוקר"
+              ]
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "4 בלי מסך שעה לפני השינה",
+              "body": "האקדמיה האמריקאית ממליצה\nבלי מסכים לפחות שעה לפני השינה",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 6 בשקופית 7"
+              },
+              "examples": [
+                "בלי מסך שעה לפני"
+              ]
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "5 שמש בחוץ בבוקר",
+              "body": "אור טבעי ביום עוזר לאפס\nאת השעון הפנימי של הילד",
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר האחרון בשקופית 8"
+              },
+              "examples": [
+                "שמש בחוץ בבוקר"
+              ]
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "6 סבלנות של כמה ימים",
+              "body": "בדרך כלל זה לוקח בערך שבוע להתסגל",
+              "pull": {
+                "type": "numbered",
+                "note": "הסיכום בשקופית 9"
+              },
+              "examples": [
+                "סבלנות של כמה ימים"
+              ]
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "",
+              "body": "",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "שבעה צעדים קטנים לפני שהשעון בישראל חוזר אחורה ביום ראשון 25 באוקטובר\nתתחילו שבוע מראש ותזוזו עשר דקות בכל ערב\nאותו סדר שינה וילון כהה ובלי מסך שעה לפני\nשמש בבוקר וכמה ימים של סבלנות\nובערב אפשר להוסיף סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-maariv",
+              "title": "שבוע של בלבול: איך המעבר לשעון חורף בישראל ישנה את הזמנים מול ארה\"ב?",
+              "publisher": "מעריב אונליין (5 באוקטובר 2026)",
+              "url": "https://www.maariv.co.il/news/world/article-1373689",
+              "accessed": "2026-10-16",
+              "quote": "המעבר לשעון החורף יתקיים כבר ביום ראשון, 25 באוקטובר 2026. לפי חוק קביעת הזמן, שעון הקיץ בישראל מסתיים ביום ראשון האחרון של חודש אוקטובר בשעה 02:00.",
+              "supports": "Israel moves to winter time on Sunday 25 October 2026 (clocks go back at 02:00)."
+            },
+            {
+              "id": "src-hc",
+              "title": "Daylight Saving Time: Don't Lose Sleep Over It",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics Section on Integrative Medicine (page last updated 31 Oct 2025)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/daylight-saving-time-dont-lose-sleep-over-it.aspx",
+              "accessed": "2026-10-16",
+              "quote": "The fall time change, meanwhile, can cause younger kids to crash before bedtime and wake up earlier than usual in the morning. ... For younger children, start nudging naps and bedtime in the direction the clocks will be changing a few minutes each day. Ideally, start this process about a week before the time change. ... Having set nighttime routines. This lets your child's body know that it's time to unwind and go to sleep. For younger kids, having a brush, book bed routine, cuddling, or listening to quiet music can help. ... Have your child put all screens away at least an hour before bedtime ... Spending some time outside and being exposed to natural light during the day can help reset your child's internal clock after a time change. ... Getting enough exercise during the day can help kids sleep better, too. Just avoid too much physical activity close to bedtime ... Examples include a warm bath with Epsom salts, reading a book that's not on a screen, meditation, soft music ... While time changes can cause some drowsy days, kids usually adjust within about a week. If your child continues to have problems sleeping, talk with your pediatrician.",
+              "supports": "Fall time change can make younger kids wake earlier; start nudging bedtime and naps a few minutes a day about a week before; set routines (brush, book, bed); screens away an hour before bed; natural light and daytime exercise; quiet evenings; most kids adjust within about a week. The page is written for the US dates; the advice is applied to Israel's change."
+            },
+            {
+              "id": "src-nch",
+              "title": "Helping Kids Adjust to the Time Change",
+              "publisher": "Nationwide Children's Hospital, Columbus, Ohio (October 2025)",
+              "url": "https://www.nationwidechildrens.org/family-resources-education/700childrens/2025/10/helping-kids-adjust-to-the-time-change",
+              "accessed": "2026-10-16",
+              "quote": "Kids don’t automatically adjust to new schedules, and the shift can lead to crankiness, early waking, and bedtime battles. ... their internal “body clock” (also known as the circadian rhythm) doesn’t reset immediately. ... Just like jet lag, it takes a few days for the body to catch up. ... In the week leading up to the time change, try shifting your child’s schedule by 10–15 minutes every night. ... Stick with the familiar steps—bathing, brushing teeth, reading, cuddling ... Use blackout curtains if your child tends to wake with the sun. ... Evening light helps reset the body clock and supports the shift. ... Adjust naps gradually in conjunction with bedtime and try not to let naps run too long ... It may take a few days (sometimes up to a week) for kids to fully adjust. Consistency with meals, playtime, and bedtime helps the new rhythm “stick.” ... Keep bedrooms cool, dark, and quiet.",
+              "supports": "The body clock does not reset at once and it takes a few days, like jet lag; shift the schedule 10 to 15 minutes a night in the week before; keep the bedtime steps; blackout curtains; evening light; adjust naps gradually; consistency in meals and playtime; cool, dark, quiet bedroom. Written for the US fall change; applied to Israel's."
+            },
+            {
+              "id": "src-cch",
+              "title": "How to Prepare Kids for the End of Daylight Saving Time This November",
+              "publisher": "Connecticut Children's (16 Sept 2021, Lynelle Schneeberg, PsyD, pediatric sleep psychologist)",
+              "url": "https://www.connecticutchildrens.org/sleep/daylight-savings-time-ways-to-prepare",
+              "accessed": "2026-10-16",
+              "quote": "Adjust little by little in the week before the change. If your child goes to bed at 8 pm, put them to bed at 8:15pm, 8:30pm, 8:45pm and so on ... Saturday night: After your child goes to bed, change the clocks in your home. Sunday morning: Get your child up at the time they’ll need to rise on Monday morning. Right away, get them out and about in sunlight for 30 to 60 minutes. Have breakfast at the new time, too. ... It should take your child about a week to adjust. ... Always get your child up around the same time each day, whether it’s a weekday or a weekend.",
+              "supports": "Gradual week-before method (bedtime shifted in 15 minute steps), the weekend-of method (change clocks Saturday night after the child is asleep, get up at Monday's time, 30 to 60 minutes of sunlight, breakfast at the new time), about a week to adjust, the same wake time every day. Written for the US change; applied to Israel's."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "7 דברים קטנים לפני שהשעון זז אחורה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-maariv",
+                "src-hc"
+              ],
+              "supports": "Maariv: the clocks go back on Sunday 25 October 2026; HealthyChildren: preparing gradually helps kids adjust."
+            },
+            {
+              "slide": 2,
+              "wording_he": "השעון בגוף צריך ימים כמו ג׳ט לג",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Nationwide Children's: the body clock does not reset immediately; just like jet lag it takes a few days to catch up."
+            },
+            {
+              "slide": 3,
+              "wording_he": "להתחיל בערך שבוע לפני",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: ideally start about a week before the time change; Nationwide: in the week leading up to it."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לזוז 10 עד 15 דקות בכל ערב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-cch"
+              ],
+              "supports": "Nationwide: shift the schedule 10 to 15 minutes every night; Connecticut Children's: 15 minute steps."
+            },
+            {
+              "slide": 5,
+              "wording_he": "אותו סדר שינה ווילון כהה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-hc"
+              ],
+              "supports": "Nationwide: keep the familiar steps (bathing, brushing teeth, reading, cuddling) and use blackout curtains for a child who wakes with the sun; HealthyChildren: set routines."
+            },
+            {
+              "slide": 6,
+              "wording_he": "בלי מסך שעה לפני",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: have your child put all screens away at least an hour before bedtime."
+            },
+            {
+              "slide": 7,
+              "wording_he": "אור טבעי ביום מאפס את השעון הפנימי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: time outside in natural light during the day can help reset the internal clock after a time change; Nationwide: evening light helps too."
+            },
+            {
+              "slide": 8,
+              "wording_he": "בדרך כלל בערך שבוע ואם השינה נשארת קשה פונים לרופא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: kids usually adjust within about a week; if problems continue, talk with your pediatrician. Nationwide: a few days, sometimes up to a week."
+            },
+            {
+              "slide": 9,
+              "wording_he": "שבע התאמות קטנות ולוקחים את הזמן",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Our summary of the seven steps."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren recommends a set bedtime routine such as a brush, book, bed routine. That the book is a personalised story with the child as the hero is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "מספר וערך על הכריכה (7 דברים) ושמות גופים אמינים בגוף השקופיות. התאריך 25 באוקטובר נקשר לשבוע שבו אפשר להתחיל.",
+          "image": {
+            "beat": "surprised by the early morning",
+            "action": "The boy sits in the middle of his parents' bed, faces the viewer and looks straight into the camera with raised eyebrows and a huge surprised open-mouthed gasp, a plush bear on his lap; his parents are small and soft in the background, drawing the curtains.",
+            "setting": "A calm Israeli parents' bedroom in the first morning light: a wide bed with white linen, a wooden floor, white window blinds.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Muted gold early-morning daylight through the blinds.",
+            "wardrobe_objects": "The plush bear, held on the boy's lap.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain smooth warm cream wall above the bed head"
+            }
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-2",
+          "title": "הסיבה האמיתית שהיא קמה שעה מוקדם",
+          "angle": "מסבירים למה ילדה קמה מוקדם אחרי מעבר השעון (השעון הפנימי לא מתאפס מיד) ונותנים תשעה צעדים מבוססי מקורות.",
+          "target_parent": "אמא לפעוטה בת 2 עד 4 עם שנת צהריים, שחוששת מהשבוע שאחרי המעבר.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "real-reason",
+            "gap": "What is the real reason she wakes an hour early after the clock change?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "e2",
+            "mechanism": "reframe",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "שקד",
+          "examples_target": 9,
+          "character_anchor": {
+            "child": "A 3-year-old Israeli girl with light-brown hair in two small buns, fair skin and round hazel eyes; about 96 cm tall.",
+            "parent": "Her mother, early thirties, long brown hair, gentle brown eyes.",
+            "wardrobe": "Girl: pale-pink cotton pyjamas, no prints. Mother: sage-green knit sweater."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "הסיבה האמיתית\nשהיא קמה שעה מוקדם",
+              "body": "9 דברים שעוזרים",
+              "pull": {
+                "type": "open_loop",
+                "note": "הסיבה בשקופית 2 והדברים אחריה"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "השעון זז אבל הגוף נשאר\nעל השעה הישנה",
+              "body": "בית חולים לילדים באוהיו\nהשעון הפנימי לא מתאפס מיד",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה עוזר לגוף להתאים? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 להתחיל שבוע מראש",
+              "body": "זזים כמה דקות בכל יום\nלכיוון השעון החדש",
+              "pull": {
+                "type": "numbered",
+                "note": "דברים 2 ו-3 בשקופית 4"
+              },
+              "examples": [
+                "להתחיל שבוע מראש"
+              ]
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 עשר דקות מאוחר יותר\n3 שנת צהריים שזזה לאט",
+              "body": "גם השינה בצהריים זזה בהדרגה\nלפי בית חולים לילדים באוהיו",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 4 בשקופית 5"
+              },
+              "examples": [
+                "עשר דקות מאוחר יותר",
+                "שנת צהריים שזזה לאט"
+              ]
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 שנת צהריים קצרה",
+              "body": "שנה ארוכה בצהריים\nמקשה על הרדמות בערב\n״שקד שנת הצהריים נגמרת״",
+              "pull": {
+                "type": "numbered",
+                "note": "דברים 5 ו-6 בשקופית 6"
+              },
+              "examples": [
+                "שנת צהריים קצרה"
+              ]
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 וילון כהה בחדר\n6 שמש בחוץ בבוקר",
+              "body": "חושך בחדר עד הבוקר\nואור טבעי ברגע שקמה",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 7 בשקופית 7"
+              },
+              "examples": [
+                "וילון כהה בחדר",
+                "שמש בחוץ בבוקר"
+              ]
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 ארוחות באותן שעות",
+              "body": "לפי בית החולים באוהיו\nסדר קבוע בארוחות ובמשחק\nעוזר לקצב החדש להיקבע",
+              "pull": {
+                "type": "numbered",
+                "note": "דברים 8 ו-9 בשקופית 8"
+              },
+              "examples": [
+                "ארוחות באותן שעות"
+              ]
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 ערב שקט וחדר קריר\n9 סבלנות של כמה ימים",
+              "body": "לרוב עד שבוע וזה נרגע\nלפי האקדמיה האמריקאית",
+              "pull": {
+                "type": "numbered",
+                "note": "הסיכום בשקופית 9"
+              },
+              "examples": [
+                "ערב שקט וחדר קריר",
+                "סבלנות של כמה ימים"
+              ]
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "הגוף מתאים את עצמו\nכשנותנים לו זמן",
+              "body": "מראש · צהריים · חושך · שמש\nארוחות · ערב שקט · סבלנות",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "הסיבה שהיא קמה מוקדם אחרי מעבר השעון היא שהגוף עוד לא הבין\nלהתחיל שבוע מראש ולהזיז גם את שנת הצהריים\nוילון כהה שמש בבוקר וארוחות באותן שעות\nערב שקט חדר קריר וכמה ימים של סבלנות\nובערב אפשר להוסיף סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-maariv",
+              "title": "שבוע של בלבול: איך המעבר לשעון חורף בישראל ישנה את הזמנים מול ארה\"ב?",
+              "publisher": "מעריב אונליין (5 באוקטובר 2026)",
+              "url": "https://www.maariv.co.il/news/world/article-1373689",
+              "accessed": "2026-10-16",
+              "quote": "המעבר לשעון החורף יתקיים כבר ביום ראשון, 25 באוקטובר 2026. לפי חוק קביעת הזמן, שעון הקיץ בישראל מסתיים ביום ראשון האחרון של חודש אוקטובר בשעה 02:00.",
+              "supports": "Israel moves to winter time on Sunday 25 October 2026 (clocks go back at 02:00)."
+            },
+            {
+              "id": "src-hc",
+              "title": "Daylight Saving Time: Don't Lose Sleep Over It",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics Section on Integrative Medicine (page last updated 31 Oct 2025)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/daylight-saving-time-dont-lose-sleep-over-it.aspx",
+              "accessed": "2026-10-16",
+              "quote": "The fall time change, meanwhile, can cause younger kids to crash before bedtime and wake up earlier than usual in the morning. ... For younger children, start nudging naps and bedtime in the direction the clocks will be changing a few minutes each day. Ideally, start this process about a week before the time change. ... Having set nighttime routines. This lets your child's body know that it's time to unwind and go to sleep. For younger kids, having a brush, book bed routine, cuddling, or listening to quiet music can help. ... Have your child put all screens away at least an hour before bedtime ... Spending some time outside and being exposed to natural light during the day can help reset your child's internal clock after a time change. ... Getting enough exercise during the day can help kids sleep better, too. Just avoid too much physical activity close to bedtime ... Examples include a warm bath with Epsom salts, reading a book that's not on a screen, meditation, soft music ... While time changes can cause some drowsy days, kids usually adjust within about a week. If your child continues to have problems sleeping, talk with your pediatrician.",
+              "supports": "Fall time change can make younger kids wake earlier; start nudging bedtime and naps a few minutes a day about a week before; set routines (brush, book, bed); screens away an hour before bed; natural light and daytime exercise; quiet evenings; most kids adjust within about a week. The page is written for the US dates; the advice is applied to Israel's change."
+            },
+            {
+              "id": "src-nch",
+              "title": "Helping Kids Adjust to the Time Change",
+              "publisher": "Nationwide Children's Hospital, Columbus, Ohio (October 2025)",
+              "url": "https://www.nationwidechildrens.org/family-resources-education/700childrens/2025/10/helping-kids-adjust-to-the-time-change",
+              "accessed": "2026-10-16",
+              "quote": "Kids don’t automatically adjust to new schedules, and the shift can lead to crankiness, early waking, and bedtime battles. ... their internal “body clock” (also known as the circadian rhythm) doesn’t reset immediately. ... Just like jet lag, it takes a few days for the body to catch up. ... In the week leading up to the time change, try shifting your child’s schedule by 10–15 minutes every night. ... Stick with the familiar steps—bathing, brushing teeth, reading, cuddling ... Use blackout curtains if your child tends to wake with the sun. ... Evening light helps reset the body clock and supports the shift. ... Adjust naps gradually in conjunction with bedtime and try not to let naps run too long ... It may take a few days (sometimes up to a week) for kids to fully adjust. Consistency with meals, playtime, and bedtime helps the new rhythm “stick.” ... Keep bedrooms cool, dark, and quiet.",
+              "supports": "The body clock does not reset at once and it takes a few days, like jet lag; shift the schedule 10 to 15 minutes a night in the week before; keep the bedtime steps; blackout curtains; evening light; adjust naps gradually; consistency in meals and playtime; cool, dark, quiet bedroom. Written for the US fall change; applied to Israel's."
+            },
+            {
+              "id": "src-cch",
+              "title": "How to Prepare Kids for the End of Daylight Saving Time This November",
+              "publisher": "Connecticut Children's (16 Sept 2021, Lynelle Schneeberg, PsyD, pediatric sleep psychologist)",
+              "url": "https://www.connecticutchildrens.org/sleep/daylight-savings-time-ways-to-prepare",
+              "accessed": "2026-10-16",
+              "quote": "Adjust little by little in the week before the change. If your child goes to bed at 8 pm, put them to bed at 8:15pm, 8:30pm, 8:45pm and so on ... Saturday night: After your child goes to bed, change the clocks in your home. Sunday morning: Get your child up at the time they’ll need to rise on Monday morning. Right away, get them out and about in sunlight for 30 to 60 minutes. Have breakfast at the new time, too. ... It should take your child about a week to adjust. ... Always get your child up around the same time each day, whether it’s a weekday or a weekend.",
+              "supports": "Gradual week-before method (bedtime shifted in 15 minute steps), the weekend-of method (change clocks Saturday night after the child is asleep, get up at Monday's time, 30 to 60 minutes of sunlight, breakfast at the new time), about a week to adjust, the same wake time every day. Written for the US change; applied to Israel's."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "הסיבה האמיתית שהיא קמה שעה מוקדם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: the fall time change can make younger kids wake earlier than usual; Nationwide: the internal body clock does not reset immediately."
+            },
+            {
+              "slide": 2,
+              "wording_he": "השעון הפנימי לא מתאפס מיד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-maariv"
+              ],
+              "supports": "Nationwide Children's: their internal body clock doesn't reset immediately; Maariv: clocks go back on Sunday 25 October."
+            },
+            {
+              "slide": 3,
+              "wording_he": "להתחיל שבוע מראש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-cch"
+              ],
+              "supports": "HealthyChildren: a few minutes each day, ideally about a week before; Connecticut Children's: adjust little by little in the week before."
+            },
+            {
+              "slide": 4,
+              "wording_he": "עשר דקות מאוחר יותר ושנת צהריים שזזה לאט",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-hc"
+              ],
+              "supports": "Nationwide: 10 to 15 minutes a night and adjust naps gradually in conjunction with bedtime; HealthyChildren: nudge naps and bedtime a few minutes each day."
+            },
+            {
+              "slide": 5,
+              "wording_he": "שנה ארוכה בצהריים מקשה על הרדמות בערב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Nationwide: try not to let naps run too long, otherwise bedtime will become more challenging."
+            },
+            {
+              "slide": 6,
+              "wording_he": "וילון כהה ושמש בבוקר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-cch",
+                "src-hc"
+              ],
+              "supports": "Nationwide: blackout curtains; Connecticut Children's: sunlight right after getting up; HealthyChildren: natural light helps reset the internal clock."
+            },
+            {
+              "slide": 7,
+              "wording_he": "ארוחות באותן שעות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Nationwide: consistency with meals, playtime, and bedtime helps the new rhythm stick."
+            },
+            {
+              "slide": 8,
+              "wording_he": "ערב שקט וחדר קריר וכמה ימים של סבלנות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc",
+                "src-nch"
+              ],
+              "supports": "HealthyChildren: relaxing evening activities, kids usually adjust within about a week; Nationwide: keep bedrooms cool, dark, and quiet."
+            },
+            {
+              "slide": 9,
+              "wording_he": "הגוף מתאים את עצמו כשנותנים לו זמן",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Our summary; rests on Nationwide: it takes a few days for the body to catch up."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren recommends a set bedtime routine such as a brush, book, bed routine. That the book is a personalised story with the child as the hero is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "נוסחת הסיבה האמיתית עם מספר וערך (9 דברים). ההסבר ניתן כבר בשקופית 2 ולכן הכותרת לא מבטיחה מעבר למה שיש בפנים.",
+          "image": {
+            "beat": "confused awake before sunrise",
+            "action": "The girl sits up in her low toddler bed, faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks and huge wide eyes, a plush elephant held in her lap; her mother is small and soft in the doorway behind her.",
+            "setting": "A toddler bedroom with a blackout curtain half open, a low wooden bed with cream bedding and a thin pink-gold stripe of sunrise on the wall.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "A thin stripe of first pink-gold sunrise light in an otherwise dim, soft room.",
+            "wardrobe_objects": "The plush elephant, held on the girl's lap.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain smooth pale cream wall above the bed head"
+            }
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-3",
+          "title": "דמיינו ג'ט לג בלי לצאת מהבית 7 דברים",
+          "angle": "משל הג'ט לג של בית חולים לילדים מסביר מה עובר על ילד כשהשעון זז, ושבעה צעדים עוזרים לגוף להתאים.",
+          "target_parent": "הורים לילד בן 3 עד 6 שלא מבינים למה הוא קם שעה מוקדם.",
+          "awareness_stage": "unaware",
+          "hook_family": "analogy",
+          "hook": {
+            "formula": "analogy-scene",
+            "gap": "What does the clock change feel like for a child, and what helps his body?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e3",
+            "mechanism": "perspective_shift",
+            "slide2_move": "scene_restart"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "איתן",
+          "examples_target": 7,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short wavy black hair, tan skin and big dark eyes, a small gap in his smile; about 103 cm tall.",
+            "parent": "His mother, early thirties, shoulder-length brown hair, kind eyes, and his father, mid-thirties, short dark hair and light stubble; both relaxed with coffee cups.",
+            "wardrobe": "Boy: plain pale-blue cotton pyjamas, no prints. Mother: cream sweater. Father: plain grey T-shirt."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "דמיינו ג׳ט לג\nבלי לצאת מהבית",
+              "body": "7 דברים שעוזרים לילד",
+              "pull": {
+                "type": "open_loop",
+                "note": "השבעה מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "נניח שהוא קם בשש\nפתאום השעון אומר חמש",
+              "body": "הגוף שלו עוד לא הבין\nכמו אחרי טיסה",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה עוזר לו? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 שמש בחוץ בבוקר",
+              "body": "אור טבעי ביום עוזר לשעון\nהפנימי להתאים את עצמו",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 2 בשקופית 4"
+              },
+              "examples": [
+                "שמש בחוץ בבוקר"
+              ]
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 אור טבעי גם בערב",
+              "body": "אור הערב עוזר לגוף\nלהתרגל לשעה החדשה",
+              "pull": {
+                "type": "numbered",
+                "note": "דברים 3 ו-4 בשקופית 5"
+              },
+              "examples": [
+                "אור טבעי גם בערב"
+              ]
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 ארוחות באותן שעות\n4 כמה דקות בכל ערב",
+              "body": "קצב קבוע וצעדים קטנים\nעוזרים לגוף להתיישר",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 5 בשקופית 6"
+              },
+              "examples": [
+                "ארוחות באותן שעות",
+                "כמה דקות בכל ערב"
+              ]
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 סדר שינה קבוע",
+              "body": "אמבטיה שיניים וספר\n״איתן עכשיו אמבטיה״",
+              "pull": {
+                "type": "numbered",
+                "note": "דבר 6 בשקופית 7"
+              },
+              "examples": [
+                "סדר שינה קבוע"
+              ]
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 חדר קריר חשוך ושקט",
+              "body": "כך נכתב בבית חולים לילדים\nבאוהיו לגבי חדר השינה",
+              "pull": {
+                "type": "numbered",
+                "note": "הדבר האחרון בשקופית 8"
+              },
+              "examples": [
+                "חדר קריר חשוך ושקט"
+              ]
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "7 לתת לגוף כמה ימים",
+              "body": "כמו אחרי טיסה גם כאן\nלוקח כמה ימים להתאים",
+              "pull": {
+                "type": "numbered",
+                "note": "הסיכום בשקופית 9"
+              },
+              "examples": [
+                "לתת לגוף כמה ימים"
+              ]
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "שבעה צעדים קטנים\nוהגוף מתאים את עצמו",
+              "body": "שמש · אור בערב · ארוחות\nקצב · סדר · חדר · ימים",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "אחרי טיסה קשה להתרגל לשעה החדשה\nוזה קורה גם כשהשעון בבית זז אחורה\nשמש בבוקר ואור בערב\nארוחות באותן שעות וסדר שינה קבוע\nתנו לו חדר קריר חשוך ושקט וכמה ימים של סבלנות\nובערב אפשר להוסיף סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-maariv",
+              "title": "שבוע של בלבול: איך המעבר לשעון חורף בישראל ישנה את הזמנים מול ארה\"ב?",
+              "publisher": "מעריב אונליין (5 באוקטובר 2026)",
+              "url": "https://www.maariv.co.il/news/world/article-1373689",
+              "accessed": "2026-10-16",
+              "quote": "המעבר לשעון החורף יתקיים כבר ביום ראשון, 25 באוקטובר 2026. לפי חוק קביעת הזמן, שעון הקיץ בישראל מסתיים ביום ראשון האחרון של חודש אוקטובר בשעה 02:00.",
+              "supports": "Israel moves to winter time on Sunday 25 October 2026 (clocks go back at 02:00)."
+            },
+            {
+              "id": "src-hc",
+              "title": "Daylight Saving Time: Don't Lose Sleep Over It",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics Section on Integrative Medicine (page last updated 31 Oct 2025)",
+              "url": "https://www.healthychildren.org/English/healthy-living/sleep/Pages/daylight-saving-time-dont-lose-sleep-over-it.aspx",
+              "accessed": "2026-10-16",
+              "quote": "The fall time change, meanwhile, can cause younger kids to crash before bedtime and wake up earlier than usual in the morning. ... For younger children, start nudging naps and bedtime in the direction the clocks will be changing a few minutes each day. Ideally, start this process about a week before the time change. ... Having set nighttime routines. This lets your child's body know that it's time to unwind and go to sleep. For younger kids, having a brush, book bed routine, cuddling, or listening to quiet music can help. ... Have your child put all screens away at least an hour before bedtime ... Spending some time outside and being exposed to natural light during the day can help reset your child's internal clock after a time change. ... Getting enough exercise during the day can help kids sleep better, too. Just avoid too much physical activity close to bedtime ... Examples include a warm bath with Epsom salts, reading a book that's not on a screen, meditation, soft music ... While time changes can cause some drowsy days, kids usually adjust within about a week. If your child continues to have problems sleeping, talk with your pediatrician.",
+              "supports": "Fall time change can make younger kids wake earlier; start nudging bedtime and naps a few minutes a day about a week before; set routines (brush, book, bed); screens away an hour before bed; natural light and daytime exercise; quiet evenings; most kids adjust within about a week. The page is written for the US dates; the advice is applied to Israel's change."
+            },
+            {
+              "id": "src-nch",
+              "title": "Helping Kids Adjust to the Time Change",
+              "publisher": "Nationwide Children's Hospital, Columbus, Ohio (October 2025)",
+              "url": "https://www.nationwidechildrens.org/family-resources-education/700childrens/2025/10/helping-kids-adjust-to-the-time-change",
+              "accessed": "2026-10-16",
+              "quote": "Kids don’t automatically adjust to new schedules, and the shift can lead to crankiness, early waking, and bedtime battles. ... their internal “body clock” (also known as the circadian rhythm) doesn’t reset immediately. ... Just like jet lag, it takes a few days for the body to catch up. ... In the week leading up to the time change, try shifting your child’s schedule by 10–15 minutes every night. ... Stick with the familiar steps—bathing, brushing teeth, reading, cuddling ... Use blackout curtains if your child tends to wake with the sun. ... Evening light helps reset the body clock and supports the shift. ... Adjust naps gradually in conjunction with bedtime and try not to let naps run too long ... It may take a few days (sometimes up to a week) for kids to fully adjust. Consistency with meals, playtime, and bedtime helps the new rhythm “stick.” ... Keep bedrooms cool, dark, and quiet.",
+              "supports": "The body clock does not reset at once and it takes a few days, like jet lag; shift the schedule 10 to 15 minutes a night in the week before; keep the bedtime steps; blackout curtains; evening light; adjust naps gradually; consistency in meals and playtime; cool, dark, quiet bedroom. Written for the US fall change; applied to Israel's."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "דמיינו ג׳ט לג בלי לצאת מהבית",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Nationwide Children's: just like jet lag, it takes a few days for the body to catch up after the time change."
+            },
+            {
+              "slide": 2,
+              "wording_he": "הגוף שלו עוד לא הבין כמו אחרי טיסה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-hc"
+              ],
+              "supports": "Nationwide: the body clock does not reset immediately; HealthyChildren: kids can wake earlier than usual. The six and five o'clock are an illustration."
+            },
+            {
+              "slide": 3,
+              "wording_he": "אור טבעי ביום עוזר לשעון הפנימי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: time outside in natural light during the day can help reset the internal clock after a time change."
+            },
+            {
+              "slide": 4,
+              "wording_he": "אור בערב עוזר לגוף להתרגל",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Nationwide: encourage exposure to natural light later in the day; evening light helps reset the body clock."
+            },
+            {
+              "slide": 5,
+              "wording_he": "ארוחות באותן שעות וצעדים קטנים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-hc"
+              ],
+              "supports": "Nationwide: consistency with meals, playtime, and bedtime; HealthyChildren: nudge bedtime a few minutes each day."
+            },
+            {
+              "slide": 6,
+              "wording_he": "סדר שינה קבוע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-hc"
+              ],
+              "supports": "Nationwide: stick with bathing, brushing teeth, reading, cuddling; HealthyChildren: set nighttime routines."
+            },
+            {
+              "slide": 7,
+              "wording_he": "חדר קריר חשוך ושקט",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Nationwide: keep bedrooms cool, dark, and quiet."
+            },
+            {
+              "slide": 8,
+              "wording_he": "כמה ימים כמו אחרי טיסה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nch",
+                "src-hc",
+                "src-maariv"
+              ],
+              "supports": "Nationwide: a few days, sometimes up to a week; HealthyChildren: about a week; Maariv: the Israeli change is on Sunday 25 October."
+            },
+            {
+              "slide": 9,
+              "wording_he": "שבעה צעדים קטנים והגוף מתאים את עצמו",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-nch"
+              ],
+              "supports": "Our summary of the seven steps."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren recommends a set bedtime routine such as a brush, book, bed routine. That the book is a personalised story with the child as the hero is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "משל מוכר (ג׳ט לג) שהורים מרגישים בעצמם ומספר ערך. השקופית השנייה מציירת את הבוקר ולכן ההסבר עומד גם בלי הכריכה.",
+          "image": {
+            "beat": "stunned, as if just landed somewhere new",
+            "action": "The boy stands in the kitchen doorway, faces the viewer and looks straight into the camera with a jaw-dropped stunned stare and huge wide eyes, a small toy suitcase beside him; his parents are small and soft in the background at the breakfast table.",
+            "setting": "A sunny Israeli kitchen early in the morning: a wooden table, a window with a soft pale sky, a plain smooth cream wall.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft pale early-morning light from the window.",
+            "wardrobe_objects": "The small toy suitcase beside the boy, standing on its own.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain smooth pale cream wall above the doorway"
+            }
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        }
+      ]
+    }
+  ]
+}

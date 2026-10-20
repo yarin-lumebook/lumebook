@@ -180,7 +180,7 @@ def bars(comp, field, n=5):
     rs = [r for r in R if r['competitor'] == comp]
     c = Counter((r['coded'].get(field) or '?') for r in rs).most_common(n)
     mx = c[0][1]
-    return '<div class="lb-hbars">' + ''.join(f'<div class="lb-hbar"><span class="lb-truncate" title="{k}">{k}</span><span class="track"><i style="width:{v/mx*100:.0f}%"></i></span><span class="v">{v}</span></div>' for k, v in c) + '</div>'
+    return '<div class="lb-hbars">' + ''.join(f'<div class="lb-hbar is-cat"><span class="lb-truncate" title="{k}">{k}</span><span class="track"><i style="width:{v/mx*100:.0f}%"></i></span><span class="v">{v}</span></div>' for k, v in c) + '</div>'
 SYS = {
  'mebook': ("MeBook (IL, direct)", "43 pieces · IG 15K, FB 5K, TikTok 56 followers", {
    "Machine": "Creator collabs on IG with personal codes → best creator reels and parent testimonials run as Meta ads (25 live, 18 launched 18–30 Sep) → partner distribution (Materna club, ₪99).",
@@ -225,8 +225,13 @@ SYS = {
 }
 sh = []
 for comp, (name, sub, kv) in SYS.items():
-    dl = ''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in kv.items())
-    sh.append(f'<article class="lb-card sys-card"><h3>{name}</h3><div class="lb-dim lb-xs">{sub}</div><p class="lb-stat-label">Pillars</p>{bars(comp,"pillar")}<p class="lb-stat-label">Funnel</p>{bars(comp,"funnel_stage",4)}<p class="lb-stat-label">Creator</p>{bars(comp,"creator_type",4)}<dl class="lb-kv">{dl}</dl></article>')
+    # each competitor keeps its category colour (shared/design/categories.json, set competitors) on the card edge and bars;
+    # "Machine" stays in view, the rest of the profile opens on demand
+    first, *rest = kv.items()
+    dl = lambda rows: ''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in rows)
+    sh.append(f'<article class="lb-card is-cat sys-card lb-co-{comp}"><h3>{name}</h3><div class="lb-dim lb-xs">{sub}</div><p class="lb-stat-label">Pillars</p>{bars(comp,"pillar")}<p class="lb-stat-label">Funnel</p>{bars(comp,"funnel_stage",4)}<p class="lb-stat-label">Creator</p>{bars(comp,"creator_type",4)}'
+              f'<dl class="lb-kv">{dl([first])}</dl>'
+              f'<details class="lb-disclosure is-quiet"><summary><span class="lb-sum">Full profile<small>{", ".join(k for k, _ in rest)}</small></span></summary><div class="lb-disclosure-body"><dl class="lb-kv">{dl(rest)}</dl></div></details></article>')
 T = T.replace('__SYSTEMS__', '\n'.join(sh))
 
 # ---------------- outliers table ----------------
@@ -243,7 +248,7 @@ OUT = [
 oh = []
 for k, what, read in OUT:
     r = BY[k]
-    oh.append(f'<tr><td>{L(k, r["competitor"].replace("hoorayheroes","Hooray Heroes").replace("mebook","MeBook").replace("wonderbly","Wonderbly").replace("yoto","Yoto")+" · "+r["platform"].replace("Instagram","IG"))}</td><td class="num">{r["views"]:,}</td><td class="num">{r["outlier_index"]:.0f}×</td><td>{what}</td><td>{read}</td></tr>')
+    oh.append(f'<tr><td><b class="lb-swatch co-sw lb-co-{r["competitor"]}" aria-hidden="true"></b>{L(k, r["competitor"].replace("hoorayheroes","Hooray Heroes").replace("mebook","MeBook").replace("wonderbly","Wonderbly").replace("yoto","Yoto")+" · "+r["platform"].replace("Instagram","IG"))}</td><td class="num">{r["views"]:,}</td><td class="num">{r["outlier_index"]:.0f}×</td><td>{what}</td><td>{read}</td></tr>')
 T = T.replace('__OUTLIERS__', '\n'.join(oh))
 
 # ---------------- pattern table ----------------

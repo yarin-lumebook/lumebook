@@ -1,8 +1,17 @@
 # LumeBook: what the sales data says and what social does about it
 
-Written 12 Oct 2026. Internal, do not share outside the project: it holds sales figures.
+Written 12 Oct 2026, updated 15 Oct with the 14 Oct findings on link tracking and grandparents. Internal, do not share outside the project: it holds sales figures.
 
 Source for every number: 17 screenshots of the store's admin dashboard taken on 12 Oct 2026 at 09:34, from the Analytics tab (pdf.lumebook.com/api/admin/modern/analytics) and the Marketing tab (pdf.lumebook.com/api/admin/modern/marketing). Values marked ≈ were read off a chart, not a printed number. Anything marked "my reading" or "my guess" is an interpretation, not something the dashboard states. The book price (₪119) comes from `docs/lumebook-product-brief.md` as of 1 Oct and was not re-checked.
+
+## At a glance
+
+| Figure | What it means |
+|---|---|
+| 1 in 5 | people who start a book pay for it within a week |
+| ₪61 to ₪113 | cost of one sale from ads, against a ₪30 goal |
+| 31% | of orders are birthday and milestone books |
+| ≈115 | orders a month now, against ≈490 in March |
 
 ## The situation in plain words
 
@@ -12,22 +21,55 @@ Source for every number: 17 screenshots of the store's admin dashboard taken on 
 4. **Sales to people who already know the product cost almost nothing.** A purchase that followed a WhatsApp reminder or a post-purchase message cost $0.16 to $2.34 in message fees. The dashboard says those purchases followed the message, not that the message caused them.
 5. **People buy for a moment in the child's life.** Birthday is the number one book. Birthday, new sibling, pacifier, potty and first grade together are 603 of 1,972 orders, almost a third.
 6. **The buyers are not only young moms.** In the ads, women 55 to 64 and 35 to 44 have the most purchases, and women 25 to 34 cost the most per purchase among the large groups. My reading is that the older group is grandmothers buying a gift. The data does not prove it.
-7. **Nobody can see where a sale came from.** The site does not save which link a buyer clicked. A sale from a post or from a creator looks like any other sale.
+7. **The admin can't show where a sale came from yet.** Its Marketing tab says the website does not record which link brought an order, so a sale from a post or from a creator looks like any other sale. A 14 Oct read of the store's code found that it does send link data (UTMs, first and last touch) when a book is created, so the gap may be in the admin's reporting rather than in the tracking (`research/creator-content-conversion/report.md`).
 
 ## Social decisions
 
 These need no further information and sit inside the social role.
 
 1. **Choose topics by buying moment.** Something on birthdays every week. One milestone theme a month, in order of sales: new sibling, then pacifier, then potty.
-2. **One gift-giver post a week.** Aimed at a grandmother or aunt giving the book. It sits outside the carousel rule of mom or both parents, so it runs as a separate test for about a month.
+2. **One gift-giver post a week.** Aimed at a grandmother or aunt giving the book. It sits outside the carousel rule of mom or both parents, so it runs as a separate test for about a month. A 14 Oct read of 2,982 comments on creator posts found only 5 people who said they were grandparents (`research/creator-content-conversion/report.md`), so the grandmother buyer is still a hypothesis and this test is how to find out.
 3. **Pick creators by moment and place, not by size.** First in line: creators living a moment now (second child on the way, a toddler giving up the pacifier, a birthday coming), two or three creators of grandmother age, and creators from the top cities. Each creator gets the book that matches their moment.
 4. **Show the finished book and the price openly once a week.** The printed book in a child's hands, what it costs, how fast it arrives. My guess is that people leave at payment because they are unsure what they will get or surprised by the total.
 5. **Measure with what social controls.** A one-line daily log of what went out (post, creator video, group post). Every Monday, compare it to orders per day in the admin and mark the days that jumped. Count comments and DMs per post. Thu 8 Oct had ≈13 orders in one day and nothing on the dashboard explains it. A log would.
 6. **Start parent groups with the top cities.** Rishon LeZion, Tel Aviv, Ashkelon, Be'er Sheva, Petah Tikva, Holon, Netanya, then outward. (My first draft left Tel Aviv out without a good reason. It is second by orders.)
 7. **Publish the week's strongest post on Wednesday evening or Thursday.** Ad sales were cheapest on Thursday and Friday. The dashboard itself says this is not a valid test yet, but it costs nothing to try.
-8. **One request to Yossi: save the link on the order.** Before creator videos go live for Hanukkah (creator books are due 10 Nov). Without it nobody can show what social sold, and the creator offer (25% per sale through a personal link, see `shared/facts.json`) cannot be paid from data.
+8. **One request to Yossi: show sales per link and per creator in the admin.** Before creator videos go live for Hanukkah (creator books are due 10 Nov). The store already runs an ambassador program with personal links and sends link data with each new book (`research/creator-content-conversion/report.md`), so what's missing is a view of which orders each link brought. Without it nobody can show what social sold or check creator commissions against real sales.
 
 Not doing: asking for money to boost posts, since ads already cost too much per sale. Views and followers stay in the KPI table as supporting numbers. Orders and books started are the ones that matter.
+
+## Things to do
+
+Concrete steps for the decisions above. Tick them off on the page; the ticks stay in this browser.
+
+### This week
+
+- [ ] **Send Yossi one message.** Ask two things: can the admin show orders per link and per creator, and can creators from the map join the store's ambassador program with their own link. The 14 Oct research lists both as the first thing to settle before any creator test (`research/creator-content-conversion/report.md`, section 10).
+- [ ] **Start the publishing log.** One row per day: the date, what went out (post, story, creator video, group post), where, and the link used. About two minutes a day.
+- [ ] **Make new sibling October's milestone theme.** אח חדש and אחות חדשה together have 132 orders, the most of any milestone. Plan a reel, a carousel and stories on it for the rest of the month.
+- [ ] **Post one birthday piece.** Birthday is the best-selling book (262 orders).
+- [ ] **Film the printed book and show the full price.** The book in a child's hands, the price (₪119 on 14 Oct, `research/creator-content-conversion/report.md`), home shipping (₪30) and delivery time (up to 7 business days home, `docs/lumebook-product-brief.md`). Check all three on lumebook.com before posting.
+- [ ] **Contact topaz_meir_slp first.** The 14 Oct research's first recommended test: a book-list post by a speech therapist with the pacifier book as the one personalised pick and her own link in the DM (`research/creator-content-conversion/report.md`). She is already "in process" in the [creator map](https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB).
+- [ ] **Shortlist 5 creators who are in a moment now.** From the [creator map](https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB) and their recent posts: a second baby on the way, a toddler giving up the pacifier, a birthday coming. Write the moment and the city next to each name.
+- [ ] **Post the first gift-giver piece.** Made for a grandmother or aunt giving the book. Note its saves, shares, comments and DMs so it can be compared with your other posts after four weeks.
+
+### Every week
+
+- [ ] **Monday: compare the log with orders.** Count orders per day in the admin's All Orders tab, mark the days that jumped, and check what went out the day before.
+- [ ] **Count comments with לומי and DMs per post.** It is the one buying signal social can count today.
+- [ ] **Keep the weekly mix.** One birthday post, one gift-giver post and one printed-book post, plus the month's milestone theme.
+- [ ] **Put the strongest post out on Wednesday evening or Thursday.**
+- [ ] **Parent groups: start near home.** The [parent community map](https://claude.ai/artifact/CGZrFUNmTUBmo2aa9vCr4A) is already ordered closest to Ashkelon, which is third by orders. Then Rishon LeZion and Be'er Sheva.
+
+### On 31 Oct
+
+- [ ] **Take the same admin screenshots again.** The Analytics and Marketing tabs, then compare with 12 Oct: orders per month, the 1 in 5, cost per ad sale, and whether Meta's share of sales recovered. 31 Oct is the "initial analytics and new targets" date in `shared/facts.json`.
+
+### By mid-November
+
+- [ ] **Send the Hanukkah creator books by 10 Nov** (`shared/facts.json`). Pick creators by moment and city, send each the book that fits their moment, and share the [creator brief](https://lumebook-creator-brief.vercel.app) with them.
+- [ ] **Have Yossi's answer on sales per link** before the creator videos go up.
+- [ ] **Judge the gift-giver test after four weeks.** Compare its saves, shares, comments and DMs with your other posts. Keep it if it holds up; drop it if not.
 
 ## The numbers behind it
 

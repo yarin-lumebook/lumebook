@@ -1,0 +1,824 @@
+{
+  "schema_version": 1,
+  "format": "mixed",
+  "date": "2026-10-17",
+  "generated_at": "2026-10-16T07:09:40+00:00",
+  "title": "8 משחקים וספרים שיעזרו להם לתרגל פתרון בעיות",
+  "stage": {
+    "id": "solve-it-5-7",
+    "age_min": 5,
+    "age_max": 7,
+    "age_label_he": "גיל 5 עד 7",
+    "skill": "problem_solving",
+    "need": "Figuring out a puzzle or a plan at 5 to 7. CDC suggests puzzles, building blocks, simple board and card games with rules and asking 'Why?' and 'How?' at age 5; Nemours KidsHealth says that by 7 it is common for many kids to problem solve in a more organized and logical way; a 2026 review of board-game studies found promising but not yet firm effects on executive functions. Games give a puzzle to work out, books show someone who tries again or finds another way.",
+    "age_caveat": "Ages are approximate: the KidsHealth line is for 7 year olds, the CDC tips are for 5 year olds, and children differ. The frame says בסביבות and the caption says יש ילדים ש.... The board-game research is promising, not conclusive, so the wording stays at practise and opportunity."
+  },
+  "addressee": "parents",
+  "hook_structure": "count_ages_skill",
+  "hook_alternatives": [
+    "8 משחקים וספרים\nלגילאי 5-7 שמתרגלים בהם\nחשיבה",
+    "8 משחקים וספרים\nלגילאי 5-7 שיעזרו להם\nלחשוב צעד קדימה",
+    "8 משחקים וספרים\nלגילאי 5-7 שיעזרו להם\nלתרגל פתרון בעיות"
+  ],
+  "dev_sources": [
+    {
+      "id": "src-problem-solving",
+      "kind": "official_guidance",
+      "title": "Milestones by 5 Years",
+      "publisher": "CDC, Learn the Signs. Act Early.",
+      "url": "https://www.cdc.gov/act-early/milestones/5-years.html",
+      "accessed": "2026-10-16",
+      "quote": "Developmental milestones are things most children (75% or more) can do by a certain age. / Play with toys that encourage your child to put things together, such as puzzles and building blocks. / Teach your child to follow rules in games. For example, play simple board games, card games, or Simon Says. / Help her expand her answers by asking \"Why?\" and \"How?\"",
+      "supports": "CDC suggests, for age 5, playing with puzzles and building blocks, simple board and card games with rules, and asking 'Why?' and 'How?'. Read today through WebFetch (CDC blocks plain curl); sentences joined with ' / ', and the tool returned them as extracted text, not a raw HTML copy. Limits: these are parent tips for age 5, not a milestone about problem solving, and the page does not mention thinking ahead or trying another way. The 6-years milestone page returned 404, so CDC covers only up to 5 here. Use for 'around 5, puzzles and games with rules are everyday ways to practise', never for a promised outcome."
+    },
+    {
+      "id": "src-kidshealth-7y",
+      "kind": "reputable_explainer",
+      "title": "7 Year Well-Child Checkup",
+      "publisher": "Nemours KidsHealth (medically reviewed by Elana Pearl Ben-Joseph, MD, August 2024)",
+      "url": "https://kidshealth.org/en/parents/checkup-7yrs.html",
+      "accessed": "2026-10-16",
+      "quote": "By 7 years, it's common for many kids to: ... have longer attention spans / problem solve in a more organized and logical way",
+      "supports": "Nemours KidsHealth lists, among common development at 7, longer attention spans and solving problems in a more organized and logical way. Read today by curl; the list items are joined with ' ... ' and ' / ' (the page shows them as bullets). Limits: a general checkup page for parents, 'common for many kids' not a test; it says nothing about games, puzzles, planning ahead or persistence. It supports the general direction at about age 7, not the 5 to 6 end of the range."
+    },
+    {
+      "id": "src-estrada-plana-2026",
+      "kind": "peer_reviewed",
+      "title": "Can executive functions be improved by playing board games across the lifespan? A systematic review and meta-analysis",
+      "publisher": "Estrada-Plana et al., Applied Psychology: Health and Well-Being 2026;18(4):e70194, doi:10.1111/aphw.70194 (PubMed, NIH)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42532119/",
+      "accessed": "2026-10-16",
+      "quote": "In the systematic review, we especially found effects in verbal short-term memory in children. In addition, the meta-analysis showed significant results for visuospatial short-term memory in kindergarten and processing speed in older people. / Overall, the results suggest that the current empirical evidence is not yet sufficient to support a strong recommendation for the use of board games to improve executive functions. However, the findings are promising and highlight the potential of board games as a cognitive intervention.",
+      "supports": "Peer reviewed review of 24 studies (16 in the meta-analysis): promising but NOT sufficient for a strong recommendation that board games improve executive functions. Effects were in short-term memory (verbal in children; visuospatial in kindergarten), not planning or problem solving as such, and kindergarten is not ages 5 to 7 exactly. Only the abstract was read (PubMed page shows a cookie notice, so the abstract came from NCBI's efetch service for PMID 42532119). Use only as a soft 'research suggests board games are a promising way to exercise thinking skills', never 'prove' or 'improve'."
+    },
+    {
+      "id": "src-moya-higueras-2023",
+      "kind": "peer_reviewed",
+      "title": "Just Play Cognitive Modern Board and Card Games, It's Going to Be Good for Your Executive Functions: A Randomized Controlled Trial with Children at Risk of Social Exclusion",
+      "publisher": "Moya-Higueras et al., Children (Basel) 2023;10(9):1492, doi:10.3390/children10091492 (PubMed, NIH)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37761453/",
+      "accessed": "2026-10-16",
+      "quote": "Sixty-eight participants (7-12 years old) were divided into two experimental groups ... We found significant time effects in cognitive flexibility and inhibition and, to a lesser extent, in working memory in both gaming groups.",
+      "supports": "Randomized trial, 68 children aged 7 to 12 at risk of social exclusion: cognitive flexibility and inhibition improved over time in both groups that played modern board and card games. Limits: ages 7 to 12 (only the top of our range), a vulnerable population, no non-playing control group in the abstract, and it measured flexibility, inhibition and memory, not planning or problem solving. Only the abstract was read (NCBI efetch for PMID 37761453); sentences joined with ' ... '. Use for 'a chance to practise flexible thinking', never a promised result."
+    }
+  ],
+  "product_facts": [
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-book-23",
+      "fact": "The LumeBook book 'הטורניר הגדול של נוי' is a story about a child who loves football and discovers the power of persistence, determination and teamwork; the child falls, gets up and keeps trying. The site gives the age range 4-8.",
+      "quote": "מסר מעצים שגם אחרי נפילה יש לקום ולהמשיך לנסות",
+      "url": "https://lumebook.com/IL/he/books/23",
+      "checked_at": "2026-10-16"
+    }
+  ],
+  "products": [
+    {
+      "id": "game-catan-junior",
+      "kind": "game",
+      "type": "strategy_board_game",
+      "title_he": "קטאן ג'וניור",
+      "title_original": "Catan Junior (Klaus Teuber); Hebrew edition by HaKubia (הקובייה) 'קטאן: ג'וניור'",
+      "manufacturer": "הקובייה (HaKubia)",
+      "israeli_distributor": "הקובייה משחקים בע\"מ (HaKubia), the Israeli publisher of the Hebrew edition and importer of the Catan line",
+      "official_age": {
+        "text": "6+ printed on the Hebrew box ('לגילאי 6+') and on HaKubia's product page ('גילאים: 6 ומעלה'); 2-4 players, 30 minutes. Toys R Us's spec field shows '8+' (template value) and Bug shows 5+; the box and publisher figure is used",
+        "min": 6,
+        "source": "HaKubia (Israeli publisher) product page, confirmed on the box in the packshot",
+        "url": "https://www.hakubia.com/catalog/%d7%a7%d7%98%d7%90%d7%9f-%d7%92%d7%95%d7%a0%d7%99%d7%95%d7%a8/",
+        "quote": "גילאים: 6 ומעלה"
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/קטאן-גוניור",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "נותרו רק 5 יחידות במלאי!",
+          "price_ils": "139.90"
+        },
+        {
+          "retailer": "עמיגו (Amigo)",
+          "url": "https://www.amigo.co.il/product/קטאן-גוניור/",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "קיים במלאי",
+          "price_ils": "129.00"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-catanjr-tru",
+          "type": "retailer_ranking",
+          "description": "Displayed position in the Toys R Us Israel board-games collection sorted by the store's own 'הנמכרים ביותר' option (sales sort, undisclosed time window, not a published chart), 469 products over 12 pages of 40, read on 2026-10-16. Position counted from the page's product order (page 1, item 24); the store lists in-stock products first inside each page, so the position is exact to the page and approximate inside it. Position 24 of 469 is inside the top 10 percent (46), so strong.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר",
+          "accessed": "2026-10-16",
+          "group": "toysrus-ranking",
+          "rank": 24,
+          "out_of": 469
+        },
+        {
+          "id": "pop-catanjr-shops",
+          "type": "multi_retailer",
+          "description": "Sold by independent Israeli retailers: Toys R Us Israel and Amigo (product pages opened 2026-10-16).",
+          "url": "https://www.amigo.co.il/product/קטאן-גוניור/",
+          "quote": "קטאן ג'וניור",
+          "accessed": "2026-10-16",
+          "group": "retailers"
+        },
+        {
+          "id": "pop-catanjr-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Hebrew edition by HaKubia, an established Israeli games publisher whose site has a whole 'World of Catan' section.",
+          "url": "https://www.hakubia.com/catalog/%d7%a7%d7%98%d7%90%d7%9f-%d7%92%d7%95%d7%a0%d7%99%d7%95%d7%a8/",
+          "quote": "קטאן: ג'וניור",
+          "accessed": "2026-10-16",
+          "group": "publisher",
+          "israel_specific": true
+        }
+      ],
+      "popularity_reasoning": "One strong signal: 24th of 469 in the Toys R Us Israel best-selling sort (top 10 percent; position approximate inside page 1). Two supporting signals from other groups: two independent Israeli retailers and the established Israeli publisher of the Hebrew edition.",
+      "developmental_relevance": "HaKubia describes it as a first step into the world of Catan: players build pirate lairs with the help of the parrot Coco and resources, and the game 'מפתח יכולת קריאת מפות, ניצול הזדמנויות ומשא ומתן'. Each turn means choosing which resources to collect and where to build, so children weigh options and plan a few moves ahead.",
+      "parent_tip_source": "Our suggestion, from the publisher's description (build lairs from resources): before each turn, let the child say out loud which lair they are aiming for and what they still need to get there.",
+      "dev_source_ids": [
+        "src-problem-solving"
+      ],
+      "image": {
+        "file": "reco-assets/game-catan-junior.jpg",
+        "image_url": "https://www.amigo.co.il/wp-content/uploads/2020/02/3D_Box_Catan-Junior-Heb.jpg",
+        "page_url": "https://www.amigo.co.il/product/קטאן-גוניור/",
+        "source_type": "israeli_retailer",
+        "width": 1939,
+        "height": 1939,
+        "accessed": "2026-10-16",
+        "rights_status": "rights_unverified",
+        "rights_note": "Clean 3D packshot of the Hebrew HaKubia box (og:image of Amigo's product page; the same artwork is offered on HaKubia's page with a 'download high quality image' link, but no media licence text was seen, and HaKubia's own file is only 500x500). Rights not confirmed."
+      },
+      "confidence": "high",
+      "limitations": "Ranking is the store's internal best-selling sort; positions inside a page are approximate. Age sources differ: box and HaKubia 6+, Toys R Us spec field 8+ (template value), Bug 5+; the box figure is used. The developmental source is about problem solving in general, not about this product. Toys R Us stock is low (5 units)."
+    },
+    {
+      "id": "game-dreams-sleeping-queens",
+      "kind": "game",
+      "type": "card_strategy_game",
+      "title_he": "חלומות",
+      "title_original": "Sleeping Queens, Hebrew edition 'חלומות - משחק חשיבה חלומי' (FoxMind)",
+      "manufacturer": "פוקסמיינד (FoxMind)",
+      "israeli_distributor": "פוקסמיינד (FoxMind Israel), publisher of the Hebrew edition (foxmind.co.il)",
+      "official_age": {
+        "text": "7+ on FoxMind's product page ('לגיל 7+, ל-2-5 משתתפים') and on the box in the packshot; 15 minutes, 79 cards. Toys R Us's spec field shows nothing for this item",
+        "min": 7,
+        "source": "FoxMind Israel (publisher) product page",
+        "url": "https://foxmind.co.il/product/sleeping-queens/",
+        "quote": "חלומות הוא משחק קלפים לגיל 7+, ל־2–5 משתתפים."
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/חלומות-משחק-חשיבה-לילדים-פוקסמיינד",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "נותרו רק 7 יחידות במלאי!",
+          "price_ils": "49.90"
+        },
+        {
+          "retailer": "עמיגו (Amigo)",
+          "url": "https://www.amigo.co.il/product/חלומות/",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "קיים במלאי",
+          "price_ils": "44.90"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-dreams-tru",
+          "type": "retailer_ranking",
+          "description": "Displayed position in the Toys R Us Israel board-games collection sorted by the store's own 'הנמכרים ביותר' option (sales sort, undisclosed time window, not a published chart), 469 products over 12 pages of 40, read on 2026-10-16. Position counted from the page's product order (page 1, item 18); the store lists in-stock products first inside each page, so the position is exact to the page and approximate inside it. Position 18 of 469 is inside the top 10 percent (46), so strong.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר",
+          "accessed": "2026-10-16",
+          "group": "toysrus-ranking",
+          "rank": 18,
+          "out_of": 469
+        },
+        {
+          "id": "pop-dreams-shops",
+          "type": "multi_retailer",
+          "description": "Sold by independent Israeli retailers: Toys R Us Israel and Amigo (product pages opened 2026-10-16). A sequel, 'חלומות 2', is also in the Toys R Us top 30 (position 23).",
+          "url": "https://www.amigo.co.il/product/חלומות/",
+          "quote": "חלומות - משחק חשיבה חלומי לילדים",
+          "accessed": "2026-10-16",
+          "group": "retailers"
+        },
+        {
+          "id": "pop-dreams-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Hebrew edition by FoxMind Israel, an established Israeli games publisher; its own site lists the game and its sequel.",
+          "url": "https://foxmind.co.il/product/sleeping-queens/",
+          "quote": "משחק חשיבה חלומי",
+          "accessed": "2026-10-16",
+          "group": "publisher"
+        }
+      ],
+      "popularity_reasoning": "One strong signal: 18th of 469 in the Toys R Us Israel best-selling sort (top 20 and top 10 percent; position approximate inside page 1). Two supporting signals from other groups: two independent Israeli retailers and the established Israeli publisher.",
+      "developmental_relevance": "FoxMind files it under 'פיתוח מיומנויות אסטרטגיה': players wake queens with king cards while guarding against dragons and potions, and the winning condition changes with the number of players. Each turn means choosing which card to play and which queen to protect, so children think about what the other players might do next.",
+      "parent_tip_source": "Our suggestion, from the publisher's description (wake queens, protect them from dragons): before playing a card, ask the child what could happen to their queens on the next player's turn.",
+      "dev_source_ids": [
+        "src-problem-solving"
+      ],
+      "image": {
+        "file": "reco-assets/game-dreams-sleeping-queens.jpg",
+        "image_url": "https://foxmind.co.il/wp-content/uploads/2021/08/sleeping-queen-1.jpg",
+        "page_url": "https://foxmind.co.il/product/sleeping-queens/",
+        "source_type": "publisher",
+        "width": 1200,
+        "height": 1200,
+        "accessed": "2026-10-16",
+        "rights_status": "rights_unverified",
+        "rights_note": "FoxMind's own packshot of the Hebrew box (og:image of the product page). No press kit or media licence seen on the page."
+      },
+      "confidence": "high",
+      "limitations": "Official minimum age is 7, so it is at the top edge of the 5 to 7 stage (younger children will need an adult to read the cards). Ranking is the store's internal best-selling sort; positions inside a page are approximate. The developmental source is about problem solving in general, not about this product. Toys R Us stock is low (7 units)."
+    },
+    {
+      "id": "game-domino-rally-vertigo",
+      "kind": "game",
+      "type": "domino_chain_reaction_set",
+      "title_he": "דומינו ראלי ורטיגו",
+      "title_original": "Domino Rally Vertigo (Domino Rally brand); Hebrew box by Kodkod 'דומינו ראלי ורטיגו'",
+      "manufacturer": "Domino Rally (brand), Hebrew edition by קודקוד (Kodkod)",
+      "israeli_distributor": "קודקוד (Kodkod), Israeli publisher and distributor of the Domino Rally line (catalogue number 1761)",
+      "official_age": {
+        "text": "6-99 printed on the box ('6-99', read in Kodkod's packshot); Toys R Us writes 'מתאים לגילאי 6 שנים ומעלה' in the description and 6-8 in the spec field; Kodkod files it under the age groups 6-8, 8-9, 12+ and family. Kodkod's own text has no age sentence",
+        "min": 6,
+        "max": 99,
+        "source": "Kodkod (Israeli publisher) product page: the age printed on the box in the product image, with the Toys R Us description",
+        "url": "https://www.kodkod.co.il/product/%D7%93%D7%95%D7%9E%D7%99%D7%A0%D7%95%2D%D7%A8%D7%90%D7%9C%D7%99%2D%D7%95%D7%A8%D7%98%D7%99%D7%92%D7%95",
+        "quote": "ילדים 6-8"
+      },
+      "availability": [
+        {
+          "retailer": "Toys R Us Israel",
+          "url": "https://toysrus.co.il/products/דומינו-ראלי-ורטיגו-12-יח",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "נותרו רק 5 יחידות במלאי!",
+          "price_ils": "99.90"
+        },
+        {
+          "retailer": "קודקוד (publisher shop)",
+          "url": "https://www.kodkod.co.il/product/%D7%93%D7%95%D7%9E%D7%99%D7%A0%D7%95%2D%D7%A8%D7%90%D7%9C%D7%99%2D%D7%95%D7%A8%D7%98%D7%99%D7%92%D7%95",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "In stock",
+          "price_ils": "114"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-domino-tru",
+          "type": "retailer_ranking",
+          "description": "Displayed position in the Toys R Us Israel board-games collection sorted by the store's own 'הנמכרים ביותר' option (sales sort, undisclosed time window, not a published chart), 469 products over 12 pages of 40, read on 2026-10-16. Position counted from the page's product order (page 1, item 15); the store lists in-stock products first inside each page, so the position is exact to the page and approximate inside it. Position 15 of 469 is inside the top 10 percent (46), so strong.",
+          "url": "https://toysrus.co.il/collections/board-games?sort_by=best-selling",
+          "quote": "הנמכרים ביותר",
+          "accessed": "2026-10-16",
+          "group": "toysrus-ranking",
+          "rank": 15,
+          "out_of": 469
+        },
+        {
+          "id": "pop-domino-publisher",
+          "type": "hebrew_edition_established_publisher",
+          "description": "Hebrew box and distribution by Kodkod, an established Israeli games publisher with a whole Domino Rally category on its site (several sets: basic 250 and 500, Extreme, Vertigo, Motorally, Challenger).",
+          "url": "https://www.kodkod.co.il/category/%D7%93%D7%95%D7%9E%D7%99%D7%A0%D7%95%2D%D7%A8%D7%90%D7%9C%D7%99",
+          "quote": "דומינו ראלי",
+          "accessed": "2026-10-16",
+          "group": "publisher"
+        }
+      ],
+      "popularity_reasoning": "One strong signal: 15th of 469 in the Toys R Us Israel best-selling sort (top 20 and top 10 percent; position approximate inside page 1). One supporting signal from another group (the established Israeli publisher with a full Domino Rally category). Other Domino Rally sets also rank in the Toys R Us list (500-piece set at 60).",
+      "developmental_relevance": "Children plan and build a track of dominoes with a loop, a camel-back and a hinged section, then set it off and watch the chain reaction; Kodkod: 'הקימו מסלולים שונים של אבני דומינו ותגלו עולם חדש ומלהיב בכל משחק'. If a piece falls short the child has to find where the chain broke and try another layout, which is thinking a few steps ahead and trying again.",
+      "parent_tip_source": "Our suggestion, from the publisher's description (build different tracks): sketch or say the order of the pieces first, then run it and, if the chain stops, find the gap together and fix only that spot.",
+      "dev_source_ids": [
+        "src-problem-solving"
+      ],
+      "image": {
+        "file": "reco-assets/game-domino-rally-vertigo.jpg",
+        "image_url": "https://www.kodkod.co.il/images/itempics/1761_28012021101432.jpg",
+        "page_url": "https://www.kodkod.co.il/product/%D7%93%D7%95%D7%9E%D7%99%D7%A0%D7%95%2D%D7%A8%D7%90%D7%9C%D7%99%2D%D7%95%D7%A8%D7%98%D7%99%D7%92%D7%95",
+        "source_type": "publisher",
+        "width": 1044,
+        "height": 993,
+        "accessed": "2026-10-16",
+        "rights_status": "rights_unverified",
+        "rights_note": "Kodkod's own packshot of the Hebrew box (itempics file of the product page, white background). No press kit or media licence seen on the page."
+      },
+      "confidence": "medium",
+      "limitations": "It is a construction and chain-reaction set rather than a board or card game (Toys R Us files it under board games, Kodkod calls it a game); swap it if a stricter board or card game is wanted. Kodkod's text has no age sentence: the 6+ comes from the box ('6-99'), the Toys R Us description and Kodkod's 6-8 age group, while Toys R Us's spec field shows 6-8; max 99 is the box figure, not a real ceiling. Only one other retailer besides the publisher was read. Ranking is the store's internal best-selling sort; positions inside a page are approximate. The developmental source is about problem solving in general, not about this product."
+    },
+    {
+      "id": "book-hadavar-hachi-madhim",
+      "kind": "book",
+      "type": "persistence_building",
+      "title_he": "הדבר הכי מדהים",
+      "title_original": "The Most Magnificent Thing",
+      "author": "אשלי ספיירס",
+      "illustrator": "אשלי ספיירס",
+      "translator": "",
+      "publisher": "כנפיים (Sifriyat Pijama lists: כנפיים וכתר)",
+      "official_age": {
+        "text": "Steimatzky blurb: from age 4 and up; Sifriyat Pijama group: כִּתָּה ב' (about 7-8). max 8 is the Sifriyat Pijama group ceiling",
+        "min": 4,
+        "max": 8,
+        "source": "Steimatzky product page (publisher blurb) and Sifriyat Pijama",
+        "url": "https://www.steimatzky.co.il/010072865",
+        "quote": "סיפור חכם, שופע כנות ומשעשע, על התנסות שנוגעת לכולנו. מגיל 4 ומעלה."
+      },
+      "availability": [
+        {
+          "retailer": "Steimatzky (סטימצקי)",
+          "url": "https://www.steimatzky.co.il/010072865",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "המחיר הקטלוגי של הפריט: 78.00 מחיר מוצר 70.20 ₪",
+          "price_ils": "70.20"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-hadavar-sp",
+          "type": "sifriyat_pijama",
+          "description": "Chosen and distributed by Sifriyat Pijama (Hebrew page, class 2 programme, distribution year 2024-2025). The page gives no print run for this title; it proves selection and distribution by Sifriyat Pijama, not title-level sales.",
+          "url": "https://www.pjisrael.org/book/hadavar_hachi_madhim_grade2_1/",
+          "quote": "הוֹצָאָה לָאוֹר: כנפיים וכתר שְׁנַת חֲלֻקָּה: תשפ״ה 2024-2025",
+          "accessed": "2026-10-16",
+          "group": "sifriyat-pijama",
+          "israel_specific": true
+        }
+      ],
+      "popularity_reasoning": "One strong Israeli signal: selected and distributed by Sifriyat Pijama in 2024-2025. Hebrew edition in stock at Steimatzky today (JSON-LD availability InStock). No bestseller rank or retailer ranking was read, and the page shows no print run.",
+      "developmental_relevance": "Sifriyat Pijama blurb: 'לנסות ולהיכשל זה מתסכל, אבל הילדה בסיפור לא מוותרת. היא מנסה שוב ושוב לבנות את הדבר המדהים שהיא רואה בעיני רוחה'. A girl whose first build fails, who tries again: a direct picture of trying another way and not giving up.",
+      "parent_tip_source": "Sifriyat Pijama reading and conversation tips for the book (section 'ללמוד מהניסיון'); the question is my own short version.",
+      "dev_source_ids": [
+        "src-problem-solving"
+      ],
+      "image": {
+        "file": "reco-assets/book-hadavar-hachi-madhim.jpg",
+        "image_url": "https://www.steimatzky.co.il/pub/media/catalog/product/0/1/010072865-1708956541628775.jpg",
+        "page_url": "https://www.steimatzky.co.il/010072865",
+        "source_type": "israeli_retailer",
+        "width": 1200,
+        "height": 1600,
+        "accessed": "2026-10-16",
+        "rights_status": "rights_unverified",
+        "rights_note": "No press or media licence statement found on the page; publisher artwork. Treat as rights_unverified and ask the publisher before publishing. Steimatzky 1200x1600 canvas with a white band above and below the cover, so trim_padding is set.",
+        "trim_padding": true
+      },
+      "confidence": "medium",
+      "limitations": "Age is a mix: Steimatzky says from 4, Sifriyat Pijama files it under class 2 (about 7-8); max 8 is my conversion of that class. Translator not stated on the pages read. No print run shown. Publisher is Kanafayim (Keter group imprint), so a Keter-group warning may appear. I read the blurbs and Sifriyat Pijama page, not the full book."
+    },
+    {
+      "id": "book-hanesikha-vehaeven",
+      "kind": "book",
+      "type": "creative_solution",
+      "title_he": "הנסיכה והאבן",
+      "title_original": "הנסיכה והאבן (Hebrew original)",
+      "author": "רות קלדרון",
+      "illustrator": "אלונה מילגרם",
+      "translator": "",
+      "publisher": "מודן",
+      "official_age": {
+        "text": "Sifriyat Pijama age group: כִּתָּה ב' (about 7-8)",
+        "min": 7,
+        "max": 8,
+        "source": "Sifriyat Pijama (Hebrew page, age-group label via the site's own taxonomy)",
+        "url": "https://www.pjisrael.org/wp-json/wp/v2/book?slug=princess_and_stone",
+        "quote": "agegroup 686 = כִּתָּה ב'"
+      },
+      "availability": [
+        {
+          "retailer": "Steimatzky (סטימצקי)",
+          "url": "https://www.steimatzky.co.il/011415354",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "המחיר הקטלוגי של הפריט: 74.00 מחיר מוצר 66.60 ₪",
+          "price_ils": "66.60"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-hanesikha-sp",
+          "type": "sifriyat_pijama",
+          "description": "Chosen and distributed by Sifriyat Pijama in 2020-2021 with 51,500 copies printed for the programme (title-level print run on the Hebrew page). Proves selection and distribution, not retail sales.",
+          "url": "https://www.pjisrael.org/book/princess_and_stone/",
+          "quote": "עֳתָקִים שֶׁחֻלְּקוּ: 51,500 הוֹצָאָה לָאוֹר: מודן שְׁנַת חֲלֻקָּה: תשפ\"א 2020-2021",
+          "accessed": "2026-10-16",
+          "group": "sifriyat-pijama",
+          "israel_specific": true
+        }
+      ],
+      "popularity_reasoning": "One strong Israeli signal: selected and distributed by Sifriyat Pijama (class 2, 2020-2021, 51,500 copies). Hebrew-original edition in stock at Steimatzky today. No current rank read; the distribution is from 2020-2021, so it shows an established title rather than a current trend.",
+      "developmental_relevance": "Sifriyat Pijama: 'האם אפשר להעביר אבן ענקית וכבדה מכיכר השוק אל תוך ארמון המלך? ואיך עושים את זה? הנסיכה והאבן הוא סיפור מעצים על בעיה גדולה ועל נסיכה יצירתית.' The Sifriyat Pijama page also lists family activities for problem solving.",
+      "parent_tip_source": "Sifriyat Pijama family page for the book (suggestions for learning and problem solving at home); the question is my own short version.",
+      "dev_source_ids": [
+        "src-problem-solving"
+      ],
+      "image": {
+        "file": "reco-assets/book-hanesikha-vehaeven.jpg",
+        "image_url": "https://www.steimatzky.co.il/pub/media/catalog/product/0/1/011415354-1635771339689160.jpg",
+        "page_url": "https://www.steimatzky.co.il/011415354",
+        "source_type": "israeli_retailer",
+        "width": 1200,
+        "height": 1600,
+        "accessed": "2026-10-16",
+        "rights_status": "rights_unverified",
+        "rights_note": "No press or media licence statement found on the page; publisher artwork. Treat as rights_unverified and ask the publisher before publishing. Cover has its own pale blue edge, so trim_padding is not set."
+      },
+      "confidence": "medium",
+      "limitations": "Age is the Sifriyat Pijama class label (class 2, about 7-8), not a publisher age; Steimatzky page gives no age. Minimum 7 is at the top edge of the stage. Publisher Modan appeared in a recent carousel (maker warning). Based on a story attributed to Rabbi Nachman; I read the blurbs, not the full book."
+    },
+    {
+      "id": "book-tov-shem-tov",
+      "kind": "book",
+      "type": "clever_verdict",
+      "title_he": "טוב שם טוב",
+      "title_original": "טוב שם טוב (Hebrew original, retelling of the folk tale 'השופט הקטן')",
+      "author": "עדי זליכוב רלוי",
+      "illustrator": "רותם טפלו",
+      "translator": "",
+      "publisher": "ידיעות ספרים",
+      "official_age": {
+        "text": "Sifriyat Pijama age group: גַּנִּים בּוֹגְרִים (older kindergarten, about 5-6)",
+        "min": 5,
+        "max": 6,
+        "source": "Sifriyat Pijama (Hebrew page, age-group label via the site's own taxonomy)",
+        "url": "https://www.pjisrael.org/wp-json/wp/v2/book?slug=%d7%98%d7%95%d7%91-%d7%a9%d7%9d-%d7%98%d7%95%d7%91",
+        "quote": "agegroup 678 = גַּנִּים בּוֹגְרִים"
+      },
+      "availability": [
+        {
+          "retailer": "Steimatzky (סטימצקי)",
+          "url": "https://www.steimatzky.co.il/011325438",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "המחיר הקטלוגי של הפריט: 68.00 מחיר מוצר 61.20 ₪",
+          "price_ils": "61.20"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-tov-shem-tov-sp",
+          "type": "sifriyat_pijama",
+          "description": "Chosen and distributed by Sifriyat Pijama to older kindergartens in 2023-2024. The page gives no print run for this title; it proves selection and distribution, not sales.",
+          "url": "https://www.pjisrael.org/book/%d7%98%d7%95%d7%91-%d7%a9%d7%9d-%d7%98%d7%95%d7%91/",
+          "quote": "הוֹצָאָה לָאוֹר: ידיעות ספרים שְׁנַת חֲלֻקָּה: תשפ״ד 2023-2024",
+          "accessed": "2026-10-16",
+          "group": "sifriyat-pijama",
+          "israel_specific": true
+        }
+      ],
+      "popularity_reasoning": "One strong Israeli signal: selected and distributed by Sifriyat Pijama (older kindergarten, 2023-2024). The printed Hebrew edition is in stock at Steimatzky today. No bestseller rank read; no print run on the page.",
+      "developmental_relevance": "Sifriyat Pijama: 'כיצד ניתן לדעת מי מהשניים צודק? רק לאחד מבני העיירה יש פתרון – ילדה חכמה המציעה דרך מקורית להוציא את הצדק לאור.' A child who finds an original way to solve a puzzle the adults cannot: a clever plan.",
+      "parent_tip_source": "Sifriyat Pijama reading and conversation tips for the book; the question is my own short version.",
+      "dev_source_ids": [
+        "src-problem-solving"
+      ],
+      "image": {
+        "file": "reco-assets/book-tov-shem-tov.jpg",
+        "image_url": "https://www.steimatzky.co.il/pub/media/catalog/product/0/1/011325438-1779253190328258.jpg",
+        "page_url": "https://www.steimatzky.co.il/011325438",
+        "source_type": "israeli_retailer",
+        "width": 1200,
+        "height": 1600,
+        "accessed": "2026-10-16",
+        "rights_status": "rights_unverified",
+        "rights_note": "No press or media licence statement found on the page; publisher artwork. Treat as rights_unverified and ask the publisher before publishing. Steimatzky 1200x1600 canvas with a white band down both sides of the cover, so trim_padding is set.",
+        "trim_padding": true
+      },
+      "confidence": "medium",
+      "limitations": "Age is the Sifriyat Pijama group label (older kindergarten, about 5-6), not a publisher age. No print run shown. The tale is about a dispute between two merchants and a verdict, so the problem-solving fit is a clever solution rather than persistence. I read the blurbs, not the full book."
+    },
+    {
+      "id": "book-hagesher",
+      "kind": "book",
+      "type": "narrow_bridge_standoff",
+      "title_he": "הגשר",
+      "title_original": "הגשר (Hebrew edition by Modan; the foreign-language original is not stated on the pages read)",
+      "author": "היינץ יניש",
+      "illustrator": "הלגה בנש",
+      "translator": "",
+      "publisher": "מודן",
+      "official_age": {
+        "text": "Sifriyat Pijama age group: גַּנִּים בּוֹגְרִים (older kindergarten, about 5-6)",
+        "min": 5,
+        "max": 6,
+        "source": "Sifriyat Pijama (Hebrew page, age-group label via the site's own taxonomy)",
+        "url": "https://www.pjisrael.org/wp-json/wp/v2/book?slug=%d7%94%d7%92%d7%a9%d7%a8",
+        "quote": "agegroup 678 = גַּנִּים בּוֹגְרִים"
+      },
+      "availability": [
+        {
+          "retailer": "Steimatzky (סטימצקי)",
+          "url": "https://www.steimatzky.co.il/011413648",
+          "status": "in_stock",
+          "accessed": "2026-10-16",
+          "quote": "המחיר הקטלוגי של הפריט: 64.00 מחיר מוצר 57.60 ₪",
+          "price_ils": "57.60"
+        }
+      ],
+      "popularity_label": "popular_in_israel",
+      "popularity_signals": [
+        {
+          "id": "pop-hagesher-sp",
+          "type": "sifriyat_pijama",
+          "description": "Chosen and distributed by Sifriyat Pijama to older kindergartens in 2014-2015 (110,000 copies). The printed count is the whole older-kindergarten print run of that distribution year, so every title of the year shows the same number; it proves selection and distribution, not title-level sales.",
+          "url": "https://www.pjisrael.org/book/%d7%94%d7%92%d7%a9%d7%a8/",
+          "quote": "עֳתָקִים שֶׁחֻלְּקוּ: 110,000 הוֹצָאָה לָאוֹר: מודן שְׁנַת חֲלֻקָּה: תשע\"ה 2014-2015",
+          "accessed": "2026-10-16",
+          "group": "sifriyat-pijama",
+          "israel_specific": true
+        }
+      ],
+      "popularity_reasoning": "One strong Israeli signal: selected and distributed by Sifriyat Pijama (older kindergarten, 2014-2015). Hebrew edition by Modan in stock at Steimatzky today (a different novel with the same title also exists there; this is the children's book, sku 011413648). The distribution is old, so it shows an established title, not a current trend.",
+      "developmental_relevance": "Sifriyat Pijama: 'דוב וענק נפגשים באמצע גשר צר וארוך ... כיצד יצליחו השניים לחצות את הגשר בלי ליפול ובלי להפיל? הפתרון שהשניים מוצאים מדגים את היתרון של חשיבה משותפת ושל יצירתיות'. A stuck situation where neither will go back, solved by thinking of a new way.",
+      "parent_tip_source": "Sifriyat Pijama reading and conversation tips for the book; the question is my own short version.",
+      "dev_source_ids": [
+        "src-problem-solving"
+      ],
+      "image": {
+        "file": "reco-assets/book-hagesher.jpg",
+        "image_url": "https://www.steimatzky.co.il/pub/media/catalog/product/0/1/011413648-174548073228475.jpg",
+        "page_url": "https://www.steimatzky.co.il/011413648",
+        "source_type": "israeli_retailer",
+        "width": 1200,
+        "height": 1600,
+        "accessed": "2026-10-16",
+        "rights_status": "rights_unverified",
+        "rights_note": "No press or media licence statement found on the page; publisher artwork. Treat as rights_unverified and ask the publisher before publishing. Steimatzky 1200x1600 canvas with a white band above and below the cover, so trim_padding is set.",
+        "trim_padding": true
+      },
+      "confidence": "medium",
+      "limitations": "Age is the Sifriyat Pijama group label (older kindergarten, about 5-6). Translator not stated on the pages read. Distribution is 2014-2015, no current rank. The cover shows a bird and a faint bridge, not the bear and giant. Publisher Modan appeared in a recent carousel and appears twice here (maker warning)."
+    }
+  ],
+  "lumebook": {
+    "catalogue_book_id": 23,
+    "catalogue_book": "הטורניר הגדול של נוי (גילאי 4-8)",
+    "title_he": "הטורניר הגדול של נוי",
+    "image": {
+      "file": "reco-assets/lumebook-book-23-boy.png",
+      "image_url": "https://lumebook.com/book_covers/boy/B23_boy.avif",
+      "page_url": "https://lumebook.com/IL/he/books/23",
+      "source_type": "lumebook_site",
+      "width": 800,
+      "height": 800,
+      "accessed": "2026-10-16",
+      "rights_status": "owned",
+      "rights_note": "LumeBook's own catalogue cover (boy variant), converted from AVIF to PNG with ffmpeg. The girl variant (B23_girl) shows a child who looks about 4, so the boy variant was chosen.",
+      "depicts": "A boy of about 7 in a red and white number-7 football shirt and a kippah, mid-kick, ball in the air next to a large golden trophy and a goal, in a floodlit stadium with a cheering crowd and confetti. Shaky detail: the pitch-side advertising boards carry small, partly cut-off, brand-like lettering (looks like 'Rakuten' and a Pepsi-style logo); no Hebrew or English title text on the cover. The cover shows practising (a kick) and the goal, but not the fall and getting up, so the line names the football and the practising first and the trying again second, as the site's own text does."
+    },
+    "connection": "Second to last of 8 suggestions (3 games, 4 books and the LumeBook book), between the last two books, in Yarin's format. Book 23 (ages 4 to 8) is about persistence after a fall; the cover shows a boy of about 7 kicking a ball next to a trophy, so the line names the football and the practising first and the trying again second. Small brand-like lettering on the pitch boards is in the cover's background."
+  },
+  "slides": [
+    {
+      "number": 1,
+      "role": "hook",
+      "headline": "8 משחקים וספרים\nלגילאי 5-7 שיעזרו להם\nלתרגל פתרון בעיות",
+      "body": "",
+      "highlight": "פתרון בעיות"
+    },
+    {
+      "number": 2,
+      "role": "frame",
+      "headline": "בסביבות גיל 7\nהרבה ילדים פותרים\nבעיות בצורה מסודרת",
+      "body": "חידות ומשחקי חוקים\nמאפשרים להם לתרגל את זה",
+      "highlight": "בצורה מסודרת"
+    },
+    {
+      "number": 3,
+      "role": "recommendation",
+      "product_id": "game-catan-junior",
+      "headline": "קטאן ג'וניור",
+      "age": "מגיל 6",
+      "why": "מתרגלים לתכנן איזו מאורה לבנות\nולנצל את מה שיש להם",
+      "how": "לפני כל תור שאלו\n״איזו מאורה אנחנו רוצים עכשיו?״"
+    },
+    {
+      "number": 4,
+      "role": "recommendation",
+      "product_id": "game-dreams-sleeping-queens",
+      "headline": "חלומות",
+      "age": "מגיל 7",
+      "why": "מתרגלים לתכנן איך שומרים\nעל הקלפים שלהם",
+      "how": "לפני שמשחקים קלף שאלו\n״מה יכול לקרות לקלף שלנו?״"
+    },
+    {
+      "number": 5,
+      "role": "recommendation",
+      "product_id": "game-domino-rally-vertigo",
+      "headline": "דומינו ראלי ורטיגו",
+      "age": "מגיל 6",
+      "why": "מתרגלים לתכנן מסלול\nולגלות איפה המסלול נעצר",
+      "how": "ציירו את הסדר לפני שבונים\nואם המסלול נעצר חפשו איפה"
+    },
+    {
+      "number": 6,
+      "role": "recommendation",
+      "product_id": "book-hadavar-hachi-madhim",
+      "headline": "הדבר הכי מדהים",
+      "age": "גיל 4 עד 8",
+      "why": "מתרגלים לבנות שוב\nכשהבנייה לא מצליחה",
+      "how": "בסוף שאלו ״מה הילדה שינתה\nבניסיון הבא?״"
+    },
+    {
+      "number": 7,
+      "role": "recommendation",
+      "product_id": "book-hanesikha-vehaeven",
+      "headline": "הנסיכה והאבן",
+      "age": "גיל 7 עד 8",
+      "why": "מתרגלים לתכנן איך מזיזים\nאבן ענקית וכבדה",
+      "how": "עצרו באמצע ושאלו\n״איך אתם הייתם מזיזים אותה?״"
+    },
+    {
+      "number": 8,
+      "role": "recommendation",
+      "product_id": "book-tov-shem-tov",
+      "headline": "טוב שם טוב",
+      "age": "גיל 5 עד 6",
+      "why": "מתרגלים לחפש דרך מקורית\nלפתור חידה",
+      "how": "לפני הסוף שאלו\n״איך אפשר לדעת מי צודק?״"
+    },
+    {
+      "number": 9,
+      "role": "lumebook",
+      "headline": "ספר של LumeBook",
+      "body": "סיפור מותאם אישית עם תמונה\nשל הילדים שלכם שבו הם\nמתאמנים בכדורגל שוב ושוב וממשיכים לנסות"
+    },
+    {
+      "number": 10,
+      "role": "recommendation",
+      "product_id": "book-hagesher",
+      "headline": "הגשר",
+      "age": "גיל 5 עד 6",
+      "why": "מתרגלים לחפש פתרון\nכששני צדדים תקועים",
+      "how": "שאלו ״מה אפשר לעשות\nבשביל שיעברו שניהם?״"
+    },
+    {
+      "number": 11,
+      "role": "close",
+      "headline": "תשמרו בשביל הערב הבא\nמה הילדים שלכם עושים כשנתקעים?\nספרו בתגובות",
+      "body": ""
+    }
+  ],
+  "caption": "משחקים וספרים שבהם הילדים מתרגלים לפתור בעיות\nקודם המשחקים ואחר כך הספרים\nיש ילדים שפותרים בעיות מוקדם ויש שצריכים עוד זמן\nמה הילדים שלכם עושים כשנתקעים?",
+  "claims": [
+    {
+      "slide": 1,
+      "wording_he": "משחקים וספרים שיעזרו להם לתרגל פתרון בעיות",
+      "kind": "developmental",
+      "source_ids": [
+        "src-problem-solving",
+        "src-kidshealth-7y",
+        "src-estrada-plana-2026"
+      ],
+      "supports": "CDC suggests puzzles, building blocks and simple board and card games with rules at 5 and asking 'Why?' and 'How?'; KidsHealth: by 7 it is common to solve problems in a more organized and logical way; a 2026 review of 24 studies calls board games promising but not yet strong enough for a firm recommendation. 'Help them practise' is our wording, no result is promised. No source covers picture books."
+    },
+    {
+      "slide": 2,
+      "wording_he": "בסביבות גיל 7 הרבה ילדים פותרים בעיות בצורה מסודרת",
+      "kind": "developmental",
+      "source_ids": [
+        "src-kidshealth-7y"
+      ],
+      "supports": "Nemours KidsHealth, 7 year checkup: by 7 years it is common for many kids to problem solve in a more organized and logical way."
+    },
+    {
+      "slide": 2,
+      "wording_he": "חידות ומשחקי חוקים מאפשרים להם לתרגל את זה",
+      "kind": "developmental",
+      "source_ids": [
+        "src-problem-solving",
+        "src-estrada-plana-2026"
+      ],
+      "supports": "CDC for age 5: puzzles and building blocks, simple board and card games. The review of board-game studies found promising but not conclusive effects. 'An opportunity to practise' is our wording, not a promise."
+    },
+    {
+      "slide": 3,
+      "wording_he": "מתרגלים לתכנן איזו מאורה לבנות ולנצל את מה שיש להם",
+      "kind": "developmental",
+      "source_ids": [
+        "src-problem-solving"
+      ],
+      "supports": "HaKubia describes the game as building lairs from resources, developing map reading, using opportunities and negotiation; CDC suggests simple board games with rules at 5. Our reading, not a tested effect of this game."
+    },
+    {
+      "slide": 4,
+      "wording_he": "מתרגלים לחשוב איך מגינים על הקלפים שלהם",
+      "kind": "developmental",
+      "source_ids": [
+        "src-problem-solving"
+      ],
+      "supports": "FoxMind files the game under strategy skills: players wake queens while guarding against dragons and potions. CDC suggests simple card games with rules. Our reading, not a tested effect of this game."
+    },
+    {
+      "slide": 5,
+      "wording_he": "מתרגלים לתכנן מסלול ולגלות איפה המסלול נעצר",
+      "kind": "developmental",
+      "source_ids": [
+        "src-problem-solving"
+      ],
+      "supports": "Kodkod's description: children build different tracks and watch the chain reaction; CDC suggests toys that encourage putting things together. Our reading, not a tested effect of this set."
+    },
+    {
+      "slide": 6,
+      "wording_he": "מתרגלים לנסות שוב כשהבנייה לא מצליחה",
+      "kind": "developmental",
+      "source_ids": [
+        "src-problem-solving"
+      ],
+      "supports": "Sifriyat Pijama's blurb: the girl whose build fails does not give up and tries again and again. No study on picture books was found; CDC suggests asking 'Why?' and 'How?' questions, which the 'how' line uses."
+    },
+    {
+      "slide": 7,
+      "wording_he": "מתרגלים לחשוב איך מזיזים אבן ענקית וכבדה",
+      "kind": "developmental",
+      "source_ids": [
+        "src-problem-solving"
+      ],
+      "supports": "Sifriyat Pijama's blurb: how to move a giant heavy stone from the market square into the king's palace, a story about a big problem and a creative princess. No study on picture books was found; the question line follows CDC's 'How?' tip."
+    },
+    {
+      "slide": 8,
+      "wording_he": "מתרגלים להבין איך פותרים חידה בדרך מקורית",
+      "kind": "developmental",
+      "source_ids": [
+        "src-problem-solving"
+      ],
+      "supports": "Sifriyat Pijama's blurb: how to know which of two is right; a clever girl offers an original way. No study on picture books was found; the question line follows CDC's 'Why?' and 'How?' tip."
+    },
+    {
+      "slide": 9,
+      "wording_he": "סיפור מותאם אישית עם תמונה של הילדים שלכם",
+      "kind": "product_fact",
+      "source_ids": [
+        "site-star",
+        "site-photo"
+      ],
+      "supports": "Live site, 2026-10-16: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration."
+    },
+    {
+      "slide": 9,
+      "wording_he": "שבו הם מתאמנים בכדורגל שוב ושוב וממשיכים לנסות",
+      "kind": "product_fact",
+      "source_ids": [
+        "site-book-23"
+      ],
+      "supports": "Catalogue book 23 (lumebook.com, 2026-10-16, ages 4 to 8): a story about a child who loves football and discovers persistence; the site says that even after a fall you get up and keep trying. The cover shows a boy of about 7 kicking a ball next to a trophy."
+    },
+    {
+      "slide": 10,
+      "wording_he": "מתרגלים למצוא פתרון כששני צדדים תקועים",
+      "kind": "developmental",
+      "source_ids": [
+        "src-problem-solving"
+      ],
+      "supports": "Sifriyat Pijama's blurb: a bear and a giant meet in the middle of a narrow bridge; their solution shows the advantage of joint thinking and creativity. No study on picture books was found; the question line follows CDC's 'How?' tip."
+    },
+    {
+      "slide": 11,
+      "wording_he": "מה הילדים שלכם עושים כשנתקעים",
+      "kind": "developmental",
+      "source_ids": [
+        "src-kidshealth-7y"
+      ],
+      "supports": "A closing question to the parents, not a fact. It rests on the frame: by 7 many children problem solve in a more organized way."
+    }
+  ],
+  "checks": {
+    "paid_api_calls": 0,
+    "images_generated": 0,
+    "posted": false
+  },
+  "notes": "Stage solve-it-5-7. Open flags: all seven product images and the LumeBook cover are rights_unverified or owned as noted; the three games were checked on Toys R Us (best-selling sort, 469 products) and the books via Sifriyat Pijama and Steimatzky on 2026-10-16. No study on picture books that model problem solving was found, so the book lines rest on the Sifriyat Pijama blurbs and stay at 'practise'. The LumeBook cover has small brand-like lettering on the pitch boards in the background. Domino Rally is a chain-reaction set, not a board game."
+}

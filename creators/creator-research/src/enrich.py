@@ -18,25 +18,31 @@ def topic(a):
     if 'photographer' in a: return "התמונות של הילדים והמשפחות"
     if 'activities' in a or 'workshops' in a: return "הרעיונות לפעילויות לילדים"
     return "התוכן שלך"
+# role and concept in C_all.json are Hebrew since 20 Oct 2026 (the English is in git history); the English patterns stay for
+# research passes written in English. The Hebrew lists were checked to give every one of the 343 creators the same moment.
+def W(*ws): return r'(?<![א-ת])[והבלמשכ]{0,2}(?:'+'|'.join(ws)+r')(?![א-ת])'   # whole Hebrew word, optional prefix letters
+HE_POTTY=W('גמילה','גמילת','חיתול','חיתולים','סיר','שירותים'); HE_POTTY3=W('גמילה','גמילת','חיתול','חיתולים','סיר','שירותים','מוצץ','מוצצים')
+HE_SIB=W('אח חדש','אחות חדשה','אח או אחות','אח או אחות חדשים','אחים חדשים','יחסי אחים','אחאים')   # "sibling", not plain sisters or brothers
+HE_GAN=W('גן','גנים','גני','גננת','גננות'); HE_DAYCARE=W('משפחתון','משפחתונים','מעון','מעונות'); HE_GRADE1=r'כיתה א(?![א-ת])'
 def moment(role,concept):
     t=(role+' '+concept).lower()
-    if re.search(r'potty|diaper|weaning|toilet',t): return "גמילה"
-    if re.search(r'sibling',t): return "אח חדש"
-    if re.search(r'gan|kindergarten|first grade|grade 1',t): return "כניסה לגן"
+    if re.search(r'potty|diaper|weaning|toilet',t) or re.search(HE_POTTY,t): return "גמילה"
+    if re.search(r'sibling',t) or re.search(HE_SIB,t): return "אח חדש"
+    if re.search(r'gan|kindergarten|first grade|grade 1',t) or re.search(HE_GAN,t) or re.search(HE_GRADE1,t): return "כניסה לגן"
     return "גמילה / כניסה לגן / אח חדש"
 GREET={'journo_family':'משפחת ג׳ורנו','the_bluepine':'צוות האצטרובל הכחול','beit_hayasmin':'צוות בית היסמין','savta.sulika':'סבתא סוליקה','trainingwheelsclinic':'עדילי וניצן','small_talk_slp':'אורי וגילי','thekalafs':'רם ואיילת','outravel_shmuel_bar':'שמואל ובר','urbanmoms.tlv':'שירן ומאור'}
 def moment3(role,concept):
     t=(role+' '+concept).lower()
-    if re.search(r'potty|napp|dummy|weaning',t): return "גמילה"
-    if re.search(r'sibling',t): return "אח חדש"
-    if re.search(r'first-grade|first grade',t): return "כניסה לכיתה א׳"
-    if re.search(r'\bgan\b|kindergarten|daycare',t): return "כניסה לגן"
+    if re.search(r'potty|napp|dummy|weaning',t) or re.search(HE_POTTY3,t): return "גמילה"
+    if re.search(r'sibling',t) or re.search(HE_SIB,t): return "אח חדש"
+    if re.search(r'first-grade|first grade',t) or re.search(HE_GRADE1,t): return "כניסה לכיתה א׳"
+    if re.search(r'\bgan\b|kindergarten|daycare',t) or re.search(HE_GAN,t) or re.search(HE_DAYCARE,t): return "כניסה לגן"
     return "גמילה / כניסה לגן / אח חדש"
 def enrich(C):
     for c in C:
         h=c['h']
         if h in W1: c['n'],c['l'],c['m']=W1[h]; c['wave']=1; c['own']=1
         else:
-            c['n']=GREET.get(h) or c['name'].split()[0]; c['l']=topic(c['arch']); c['m']=moment3(c['role'],c['concept']) if c.get('extra') in ('pass3','pass4') else moment(c['role'],c['concept']); c['wave']=2; c['own']=0
+            c['n']=GREET.get(h) or c['name'].split()[0]; c['l']=topic(c['arch']); c['m']=moment3(c['role'],c['concept']) if c.get('extra') in ('pass3','pass4','pass5') else moment(c['role'],c['concept']); c['wave']=2; c['own']=0
             pr=c['prac']
-            if 'expensive' in pr.lower() or 'Standard paid' in pr or 'management' in c['contact'].lower(): c['wave']=3
+            if 'expensive' in pr.lower() or 'Standard paid' in pr or 'management' in c['contact'].lower() or 'ניהול' in c['contact']: c['wave']=3

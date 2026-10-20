@@ -79,6 +79,8 @@ carousel/carousel-pipeline/approved/**/*.png
 carousel/carousel-pipeline/approved/**/*.jpg
 carousel/carousel-pipeline/approved/**/*.zip
 carousel/carousel-pipeline/approved/**/versions/
+# runs waiting for Google Drive for desktop (scripts/drive_export.py), machine state
+carousel/carousel-pipeline/drive-pending.json
 
 # nightly drafts: rendered slides and downloaded product images stay on disk (re-rendered by finish-reco)
 carousel/carousel-pipeline/drafts/**/*.png
@@ -95,3 +97,6 @@ shared/design/_ds_artifact/
 # machine-local Claude settings
 .claude/settings.local.json
 .claude/scheduled_tasks.lock
+
+# creator map saved data on the project server (statuses, notes, settings, voice; moved from the artifact database 20 Oct 2026)
+creators/creator-research/state/

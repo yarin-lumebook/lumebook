@@ -8,6 +8,8 @@
     ],
     "store_url": "https://lumebook.com/IL/he",
     "instagram": "lumebookai",
+    "instagram_live": "lumebook.il",
+    "_instagram_live_source": "Israeli product Reels research, 15 Oct 2026: @lumebook.il is the live handle and @lumebookai no longer loads for logged-out visitors. refresh.py still counts followers of 'instagram'.",
     "competitor_instagram": "mebook.ai"
   },
   "offer": {
@@ -198,7 +200,46 @@
     "tracker": "https://docs.google.com/spreadsheets/d/1JU9y80sIQvzQ_Xt8lgKiJSb6MbKrbglKLMgap-3JNMk",
     "repo": "https://github.com/yarinbruner/lumebook-smm-plan",
     "plan_page": "https://lumebook-dashboard.vercel.app/plan/",
-    "hq_artifact": "https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ"
+    "hq_artifact": "https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ",
+    "monorepo": "https://github.com/yarinbruner/lumebook"
+  },
+  "local_tools": {
+    "_about": "Services that run on Yarin's Mac. The dashboard board checks them (from the project server, or from the page when the browser allows it) and shows how to bring them back; nothing in the browser starts them. refresh.py records whether each answered at refresh time.",
+    "tools": [
+    {
+      "key": "hook_studio",
+      "label": "Hook Studio",
+      "url": "http://localhost:8777/",
+      "ping": "http://127.0.0.1:8777/api/ping",
+      "component": "carousel-pipeline",
+      "runs_as": "login item (launchd com.yarinbruner.hook-studio); never start a second copy",
+      "runs_as_he": "רץ כל הזמן על המק כפריט התחברות (launchd). לא מפעילים עותק שני: אחרי שינוי בסקריפטים שלו מריצים restart.",
+      "status_cmd": "python3 carousel/carousel-pipeline/scripts/hook_studio_login.py status",
+      "start_cmd": "python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart"
+    },
+    {
+      "key": "project_server",
+      "label": "שרת הפרויקט המקומי",
+      "url": "http://localhost:8780/",
+      "ping": "http://127.0.0.1:8780/api/board/env",
+      "runs_as": "the 'lumebook' preview config or a terminal",
+      "runs_as_he": "מופעל לפי הצורך, מהגדרת התצוגה lumebook או ממסוף בתיקיית הפרויקט.",
+      "status_cmd": "curl -s http://127.0.0.1:8780/api/board/env",
+      "start_cmd": "python3 tools/lumebook.py serve"
+    }
+    ]
+  },
+  "drive_content": {
+    "_about": "Yarin's My Drive folder for every finished piece of content (18 Oct 2026). Carousels are copied there by carousel/carousel-pipeline/scripts/drive_export.py through Google Drive for desktop.",
+    "name": "LumeBook תוכן",
+    "account": "yarinbruner02@gmail.com",
+    "id": "1JMbj3xl_A_SGwGnID-BZ_ta0TognMbya",
+    "url": "https://drive.google.com/drive/folders/1JMbj3xl_A_SGwGnID-BZ_ta0TognMbya",
+    "carousels": {
+      "name": "קרוסלות",
+      "id": "1x8M8ifit6EEefg_-0FIbw7JKcXL7LXXx",
+      "url": "https://drive.google.com/drive/folders/1x8M8ifit6EEefg_-0FIbw7JKcXL7LXXx"
+    }
   },
   "creators": {
     "barter_batch": [

@@ -73,3 +73,27 @@ Write `/Users/yarinbruner/Claude/Projects/Lumebook/research/israeli-product-reel
 - Do not name or describe children beyond what is needed (age range if visible, "a toddler", "a girl about 5").
 - No em dashes in your output.
 - When done with all your Reels, reply with one line per Reel: CODE, include yes/no, relevance, one-line summary.
+
+## Extra fields (added 15 Oct, round 2)
+
+Add these to every JSON, at the top level, each answered from the frames (and caption where said):
+
+```json
+{
+  "child_on_camera": "yes | no | only hands or back of head",
+  "face_on_camera": "creator's face | no face (hands only) | other adult",
+  "price_on_screen": "the price as shown in the video, or 'no'",
+  "price_in_caption": "the price as written in the caption, or 'no'",
+  "likeness_proof": "for personalised products: 'photo beside illustration' | 'name visible on page' | 'no' ; otherwise 'n/a'",
+  "screen_recording": "yes | no (a phone or computer screen recording appears)",
+  "cta_type": ["comment_word", "code", "link_in_bio", "dm", "follow", "save_or_share", "website", "none"],
+  "comment_word": "the exact word, or 'none'",
+  "brand": "the product's brand as shown or tagged, or 'none visible'"
+}
+```
+
+`cta_type` lists every CTA in the video or caption. A code mentioned only as "coupon in the caption" counts as `code`.
+
+## Working order (round 2)
+
+Code one Reel at a time: open its contact sheets, write its JSON straight away, then move to the next Reel. Images you opened earlier may be dropped from your view ("media removed") once many are open; if a sheet you need comes back that way, open it again before writing the field. Never fill a visual field from memory or guesswork: if you could not see it, say so in `not_verified`.

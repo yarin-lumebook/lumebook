@@ -93,7 +93,7 @@ body.editing{--rv-sticky:7.75rem}
 .lb-page,.wrap{grid-template-columns:minmax(0,1fr)}
 .rv-topbar .lb-topbar-in{gap:var(--sp-3)}
 .rv-logo{width:28px;height:28px;border-radius:var(--r-xs);flex:none;display:block}
-.rv-name{font-family:var(--font-display);font-weight:400;font-size:1.125rem;white-space:nowrap;color:var(--text)}
+.rv-name{font-weight:800;font-size:1.0625rem;letter-spacing:-.01em;white-space:nowrap;color:var(--text)}
 nav.jump{display:flex;align-items:center;gap:var(--sp-1);overflow-x:auto;scrollbar-width:none;min-width:0;flex:0 1 auto;padding-block:var(--sp-2)}
 nav.jump::-webkit-scrollbar{display:none}
 .drops{display:grid;gap:var(--sp-2)}

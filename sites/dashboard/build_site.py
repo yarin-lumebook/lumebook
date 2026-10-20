@@ -52,9 +52,16 @@ def main():
     with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as f:
         f.write(doc)
     shutil.copytree(os.path.join(HERE, "img"), os.path.join(SITE, "img"), dirs_exist_ok=True)
+    # the work board: engine, styles and the seed (resource catalog, first board, templates). seed.js is the
+    # board-seed component's output (python3 sites/dashboard/board/catalog.py, run by ripple), so building here
+    # never changes a tracked file
+    os.makedirs(os.path.join(SITE, "board"), exist_ok=True)
+    for name in ("board.js", "board.css", "seed.js"):
+        shutil.copy2(os.path.join(HERE, "board", name), os.path.join(SITE, "board", name))
     # one design system for the whole site
     os.makedirs(os.path.join(SITE, "design"), exist_ok=True)
     shutil.copy2(os.path.join(ROOT, "shared", "design", "lumebook.css"), os.path.join(SITE, "design", "lumebook.css"))
+    shutil.copy2(os.path.join(ROOT, "shared", "design", "categories.css"), os.path.join(SITE, "design", "categories.css"))
     # the full SMM plan lives inside this site at /plan/ (its own Vercel project was retired on 8 Oct 2026)
     plan_src, plan_dst = os.path.join(ROOT, "sites", "lumebook-smm-plan"), os.path.join(SITE, "plan")
     shutil.rmtree(plan_dst, ignore_errors=True)

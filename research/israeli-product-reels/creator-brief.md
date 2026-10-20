@@ -11,6 +11,7 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 - **Page:** https://claude.ai/artifact/T9DJuNSzHoQ2WNHzceZq8L (private until you share it), built from the Hebrew part by `src/build_creator_brief.py`. Render hints in the Hebrew part are HTML comments, invisible in the Markdown: `<!--icon:NAME-->` on a heading, step or item, `<!--as:ticks-->` on a paragraph (first line is a label, the rest a tick list), `<!--visual:screens|topic|email-->` as its own block. After editing the Hebrew: lint, `python3 tools/lumebook.py build creator-brief`, republish the HTML, then `python3 tools/lumebook.py ack creator-brief --published`.
 - **Look (15 Oct, Yarin):** LumeBook's colours, Apple-style layout, Heebo only. Light by default with a dark/light toggle in the top bar (each viewer's choice is kept in their own browser). The dark option exists on this page only; the project rule is still light mode everywhere else.
 - **Example Reel on the page (15 Oct, Yarin: "add the reel example baked in the site"):** @shoham_novik's collab Reel plays in a phone frame (`<!--visual:reel-->`). Web copies: `media/projects/2026-10-15-israeli-product-reels/web/shoham-reel.mp4` (540p H.264, 6.3 MB, made with ffmpeg from the 15 Oct download) and `shoham-reel-poster.jpg`; the build copies them into `sites/lumebook-creator-brief/media/`. Raw media is not in git. Shoham agreed to LumeBook using her Reel (Yarin, 15 Oct 2026), so it is on the public site too; the other downloaded Reels stay internal. When republishing the artifact, pass `files` for `media/shoham-reel.mp4` and `media/shoham-reel-poster.jpg`, or the player is empty there.
+- **Five more example Reels on the page (20 Oct 2026, Yarin: "add all of these as examples to the creator brief"):** from the Drive folder `תוכן לקוחות ויוצרים (UGC)`: Koral_V2, Mor_Keisar_v3, Moran_arges_v3, Natali_Fridman_v2, Nofit_Hazut. They play in a swipe row under the Shoham example (`<!--as:reelcard--><!--reel:SLUG-->`, one block each; the build reads the web copies `ex-SLUG.mp4` and `ex-SLUG-poster.jpg` from `media/projects/2026-10-15-israeli-product-reels/web/`, raw files in `creator-examples/raw/`, not in git). Cards use first names only. Each description is from the frames and an on-device Hebrew transcript (MacWhisper turbo, `creator-examples/analysis/`), checked against the contact sheets. **Yarin confirmed on 20 Oct 2026 that all five creators agreed to be shown on the public site** (Shoham agreed on 15 Oct). Their reels also say "AI" and, in Moran's, the price, which the brief itself avoids; the cards do not repeat either.
 - **Public site (for creators):** https://lumebook-creator-brief.vercel.app (its own Vercel project, `noindex`), the same page as a full document in `sites/lumebook-creator-brief/`, written by the same build. After a rebuild: `python3 tools/lumebook.py deploy creator-brief`.
 - **Research check (18 Oct 2026):** brought in line with `smm-research/principles.md` and `playbook.md` section 8. The disclosure moved to the caption's first line, with the paid-partnership label as a third step next to the collaborator invite and the disclosure line (T8, S7); the barter terms now say the book does not depend on a positive review (T8). The opening step has speech from the first second (H4, H6), and the CTA section says one CTA only, with a follow-up DM only when the person answers (C1, C3).
 - **Removed by Yarin (18 Oct 2026, "תמחק את החלקים של קריינות וכתוביות וילדים בסרטון"):** the whole sections "קריינות וכתוביות" (with the phone-screens diagram, the 15 Oct lines on voiceover and subtitles, and the 18 Oct lines on the 14/35/6 safe zone, key-word subtitles and lines starting with a Hebrew letter) and "ילדים בסרטון" (written consent, never the face with the name, gan, school or town, the no-face option). Then, at Yarin's request, the lines tied to them: "באזור הבטוח" in the opening step, the no-face line in the home step, "לא שניהם באותו סרטון" in the pages step, the from-behind sofa shot in the worked example and the safe-zone do-not rule (which had replaced the 15 Oct subtitles rule). The pages step still reads "או התמונה שלו ליד האיור" (18 Oct wording; on 15 Oct it was "ואם בא לכם גם התמונה שלו ליד האיור"). The `<!--visual:screens-->` code stays in `src/build_creator_brief.py`, unused.
@@ -61,6 +62,35 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 קריאה לפעולה על המסך בסוף<br>
 כיתוב על אותו נושא כמו הסרטון<br>
 כתוביות שלא מתנגשות בהקלטת המסך
+
+עוד חמש דוגמאות מיוצרים שעשו סרטון על הספר שלהם<br>
+כל סרטון פותח מזווית אחרת<br>
+אפשר לבחור את מה שהכי מתאים לכם
+
+- <!--as:reelcard--><!--reel:koral-->**קורל · הכניסה לגן**<br>
+הסיפור האישי בשורה הראשונה: שנה בבית והגיע הזמן לגן<br>
+הספר עובר ביד ומסך האתר מופיע באמצע<br>
+הסוף בקריאה משותפת על הספה
+
+- <!--as:reelcard--><!--reel:mor-->**מור · תמונה אחת**<br>
+כתוביות גדולות מובילות את הסיפור: תמונה אחת וספר שלם<br>
+הילדה נוגעת בספר ורואים אותה מתרגשת<br>
+הסוף במסך שחור עם משפט אחד
+
+- <!--as:reelcard--><!--reel:moran-->**מורן · מתנה לאחיינית**<br>
+הפנים והכריכה באותו פריים כבר בשנייה הראשונה<br>
+דפדוף איטי עם תקריבים של האיורים ושל דף ההקדשה<br>
+המשפחה כולה מדברת על המתנה
+
+- <!--as:reelcard--><!--reel:natali-->**נטלי · גן חדש**<br>
+נפתח בצרחות של ילד ובשורה על הגן החדש<br>
+מדברת למצלמה ובאמצע מסך האתר עם בחירת הסיפור<br>
+הילד הולך לגן עם הספר ביד
+
+- <!--as:reelcard--><!--reel:nofit-->**נופית · פרידות בבוקר**<br>
+המשפט הראשון הוא הקושי: הפרידות בבוקר<br>
+הילד מחזיק את הספר ומדבר למצלמה<br>
+הקלטת מסך קצרה וסיום בקריאה לפעולה אחת
 
 ### <!--icon:film--> שלד הצילום
 

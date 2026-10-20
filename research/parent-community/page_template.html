@@ -29,7 +29,7 @@
 .top { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); counter-reset: top; }
 .top li { counter-increment: top; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--sp-3); background: var(--surface);
   border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
-.top li::before { content: counter(top); font-family: var(--font-display); font-size: 1.375rem; color: var(--accent-ink); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.top li::before { content: counter(top); font-weight: 800; font-size: 1.375rem; color: var(--accent-ink); line-height: 1.2; font-variant-numeric: tabular-nums; }
 .top .t-name { font-weight: 700; font-size: var(--fs-callout); line-height: 1.35; }
 .top .t-meta { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-2); align-items: center; font-size: var(--fs-footnote); color: var(--text-3); }
 .top p { font-size: var(--fs-footnote); color: var(--text-2); line-height: 1.5; }
@@ -44,7 +44,7 @@
 .day:hover { border-color: var(--tint); }
 .day[aria-pressed="true"] { border-color: var(--tint); box-shadow: 0 0 0 3px var(--tint-soft); }
 .day:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-.day .d-he { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.1; }
+.day .d-he { font-weight: 800; font-size: 1.25rem; line-height: 1.1; }
 .day .d-en { font-size: var(--fs-caption); color: var(--text-3); }
 .day .d-n { font-size: var(--fs-headline); font-weight: 700; font-variant-numeric: tabular-nums; }
 .day .d-n small { font-size: var(--fs-caption); font-weight: 500; color: var(--text-3); }
@@ -192,7 +192,7 @@ details[open] > summary { margin-bottom: var(--sp-3); }
         <tbody id="tbody"></tbody>
       </table>
     </div>
-    <p class="lb-note">Posts per month is Facebook's own Activity box on the About page, so compare groups with it rather than read it as an exact count. WhatsApp rows show the invite status instead.</p>
+    <p class="lb-note">Posts per month is Facebook's own Activity box on the About page, so compare groups with it rather than read it as an exact count. Members marked * come from a directory or invite page, not the group itself; hover for the source. WhatsApp rows show the invite status instead.</p>
   </section>
 
   <section class="lb-section" id="coverage">
@@ -259,6 +259,8 @@ const DATA = /*__DATA__*/null;
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt = n => n ? n.toLocaleString('en-US') : '';
+// Members cell without a parsed count: keep only the leading number (the full note stays in the tooltip and drawer)
+const memShort = s => { const m = /^\s*(\d[\d\s,]*)/.exec(s || ''); return m ? fmt(+m[1].replace(/[\s,]/g, '')) + '*' : ''; };
 const ROWS = DATA.rows;
 const PORD = {A:0,B:1,C:2,Reject:3};
 const DAYS = [['Sunday','א׳','Sun'],['Monday','ב׳','Mon'],['Tuesday','ג׳','Tue'],['Wednesday','ד׳','Wed'],['Thursday','ה׳','Thu'],['Friday','ו׳','Fri'],['Saturday','ש׳','Sat']];
@@ -370,7 +372,7 @@ function render() {
     <td class="c-name">${/^https?:/.test(r.url || '') ? `<a class="he" href="${esc(r.url)}" target="_blank" rel="noopener" title="Open the community in a new tab">${esc(r.name)}</a>` : `<b class="he">${esc(r.name)}</b>`}<span>${esc(r.platform)} · ${esc(r.language)}${r.days.length ? ' · posts ' + r.days.map(d => d.slice(0, 3)).join('/') : ''}</span></td>
     <td>${esc(r.geo)}</td>
     <td class="num km">${km(r)}</td>
-    <td class="num">${r.members_n ? fmt(r.members_n) : esc(r.members === 'Unknown' ? '' : r.members)}</td>
+    <td class="num"${r.members_n || /^Unknown/.test(r.members || '') ? '' : ` title="${esc(r.members)}"`}>${r.members_n ? fmt(r.members_n) : memShort(r.members)}</td>
     <td class="num">${isWA(r) ? `<span class="lb-chip wa-flag ${r.wa_status === 'VALID' ? 'success' : r.wa_status === 'EXPIRED' ? 'danger' : 'warning'}">${r.wa_status === 'ERROR' ? 'unchecked' : (r.wa_status || '').toLowerCase()}</span>` : fmt(r.posts_month)}</td>
     <td class="appr"><span class="lb-chip ${apChip(r.approach)}">${esc(r.approach)}</span></td>
     <td><span class="c-pol">${esc(r.policy)}</span></td></tr>`).join('')

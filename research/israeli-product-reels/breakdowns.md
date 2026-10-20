@@ -162,7 +162,7 @@ About 10 shots, 2.7 s each on average.
 
 **6. Ending and CTA.** Comment the word "ספרים" to get the file, then follow. The caption repeats the comment word and asks people to send the Reel to a parent who needs it.
 
-**7. Convincing and weak.** My read. Convincing: showing beats telling; one location makes it cheap to repeat; the free file is generous and specific. Weak: the hook text covers her face and the book in the first frames; the book's title never appears, so as product content the product is invisible; the 1,055 comments are mostly keyword requests (28 of 30 sampled), which shows interest in a free file, not in buying anything.
+**7. Convincing and weak.** My read. Convincing: showing beats telling; one location makes it cheap to repeat; the free file is generous and specific. Weak: the hook text box covers the book and her chest in the first two frames (corrected 18 Oct: not her face); the book's title never appears, so as product content the product is invisible; the 1,055 comments are mostly keyword requests (28 of 30 sampled), which shows interest in a free file, not in buying anything.
 
 **8. How Yarin can recreate it with a phone.** Yarin is not a clinician, so he should not copy expert advice. The format works for facts he owns: "3 things to know before you order" in one locked-off take with the book in hand, numbered headings and one CTA (concept 4 in `playbook.md`). Phone on a tripod at eye level, about 1 m away, window light in front of him, a clip-on mic (or the phone close and the room quiet). For expert content, invite a speech clinician instead: topaz_meir_slp was already "in process" in the creator map on 14 Oct (`research/creator-content-conversion/report.md`, first test T1).
 

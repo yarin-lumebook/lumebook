@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LumeBook Sales Readout</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap">
+<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>
+<script>document.addEventListener("DOMContentLoaded",function(){if(!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)||location.port!=="8780")return;var m={"https://claude.ai/artifact/BALURpPXY8psXxCNvb6jH6":"/docs/lumebook-social-strategy.html","https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB":"/creators/creator-research/lumebook-creator-map.html","https://claude.ai/artifact/T9DJuNSzHoQ2WNHzceZq8L":"/research/israeli-product-reels/creator-brief.html","https://claude.ai/artifact/A8ytoWta3FoFHJX9tvjHUJ":"/research/israeli-product-reels/reels-research.html","https://claude.ai/artifact/2aQamEfoJhb1Cix9CgZ1rY":"/research/competitor-content-analysis/lumebook-competitor-content.html","https://claude.ai/artifact/TbgbaGssUYjCe9onoWYPWe":"/research/kids-brand-content-research/lumebook-kids-content-lab.html","https://claude.ai/artifact/Rkt3DeuC86z23WcAbR7VHW":"/research/carousel-research/lumebook-carousel-research.html","https://claude.ai/artifact/VaSz99vry8bMncpV4WVHM7":"/research/carousel-playbook-research/lumebook-carousel-playbook.html","https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ":"/sites/dashboard/site/lumebook-dashboard/","https://claude.ai/artifact/CGZrFUNmTUBmo2aa9vCr4A":"/research/parent-community/lumebook-parent-communities.html","https://claude.ai/artifact/CbdVHboropRXjsgVorDCkL":"/carousel/carousel-pipeline/hook-studio.html"};document.querySelectorAll("a[href]").forEach(function(a){var h=a.getAttribute("href");if(m[h])a.setAttribute("href",m[h])})})</script>
+<style>
+/* LumeBook design system · shared/design/lumebook.css
+   One stylesheet for every internal LumeBook page (HQ dashboard, plan, creator map, research pages, carousel review).
+   Builds inline this file; edit it here, then run `python3 tools/lumebook.py ripple` to rebuild every page that uses it.
+   Not used by the public ambassadors site.
+   Concept: Apple-style grouped surfaces on a warm cream ground, LumeBook ink for text, violet for anything you can
+   click, gold for brand emphasis, eight category hues for things a reader scans or filters by. Hebrew first (RTL,
+   logical properties), English pages work the same way.
+   Fonts (link in <head>): https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap
+   Heebo is the main font, headings included; Assistant is the secondary font for labels, captions, counts, chips and
+   table headers (Yarin, 18 Oct 2026). Both have Hebrew glyphs.
+   Categories: which category gets which hue is in shared/design/categories.json; builds read it (design.py).
+   Theme: light only (Yarin, 14 Oct 2026: the whole project is light mode only). There are no dark tokens and no theme toggle. */
+
+:root {
+  /* brand */
+  --lb-ink: #1D1039;
+  --lb-ink-deep: #0B0518;
+  --lb-gold: #E6B762;
+  --lb-gold-deep: #C9954A;
+  --lb-violet: #5B2BD6;
+  --lb-cream: #F8F0E1;
+
+  /* surfaces */
+  --bg: #FBF7F0;                 /* page ground, cream tinted */
+  --surface: #FFFFFF;            /* cards, grouped rows, tables */
+  --surface-2: #F5EFE4;          /* inset areas inside a card, sidebar */
+  --surface-sunk: #F1E9DB;       /* wells, code, track of bars */
+  --bar: rgba(251, 247, 240, .82); /* translucent sticky bars */
+  --overlay: rgba(11, 5, 24, .42);
+
+  /* text (ink at three strengths; all pass 4.5:1 on --bg and --surface) */
+  --text: #1D1039;
+  --text-2: #554C6B;
+  --text-3: #655C7A;
+  --text-on-tint: #FFFFFF;
+
+  /* fills and lines (ink at low alpha) */
+  --fill: rgba(29, 16, 57, .05);
+  --fill-2: rgba(29, 16, 57, .08);
+  --fill-3: rgba(29, 16, 57, .13);
+  --line: rgba(29, 16, 57, .12);
+  --line-strong: rgba(29, 16, 57, .22);
+
+  /* interactive: violet */
+  --tint: #5B2BD6;
+  --tint-hover: #4A1FBF;
+  --tint-soft: rgba(91, 43, 214, .09);
+  --focus: rgba(124, 77, 255, .5);
+
+  /* brand emphasis: gold */
+  --accent: #C9954A;
+  --accent-soft: #FBEBC9;
+  --accent-ink: #8A5A14;
+
+  /* semantic */
+  --success: #18703F; --success-soft: rgba(35, 149, 90, .12);
+  --warning: #A3520A; --warning-soft: rgba(232, 140, 40, .16);
+  --danger: #C2303A;  --danger-soft: rgba(217, 58, 58, .10);
+  --info: #3653B0;    --info-soft: rgba(74, 104, 194, .11);
+
+  /* carousel pillars */
+  --kid: #6D3FC9;  --kid-soft: rgba(109, 63, 201, .11);
+  --expert: #8A5A14; --expert-soft: rgba(201, 149, 74, .16);
+
+  /* data series (sequential, light to dark) */
+  --seq-1: #E9E2F1; --seq-2: #D2C4DF; --seq-3: #D2B596; --seq-4: #C9954A; --seq-5: #A87425; --seq-6: #76500F;
+
+  /* categories (from the Product Reels Playbook, 18 Oct 2026): eight hues for a page's 3 to 8 stable categories.
+     base: tiles, bars, card edges, swatches (never under text; white text fails on most of them).
+     ink: category text, 4.5:1 or more on --surface, --bg, --surface-2 and its own soft ground.
+     soft: tinted ground for chips, ID chips, the current sub-item. Set them through .lb-cat-1 ... .lb-cat-8.
+     Separate from status (success, warning, danger, info), the carousel pillars (kid, expert) and the brand violet
+     and gold: a category colour never means a state. Playbook names in brackets. */
+  --cat-1: #EA7A0D; --cat-1-ink: #A3510A; --cat-1-soft: rgba(234, 122, 13, .12);  /* orange (hook) */
+  --cat-2: #E0457B; --cat-2-ink: #AE2457; --cat-2-soft: rgba(224, 69, 123, .11);  /* pink (keep watching) */
+  --cat-3: #2E9D57; --cat-3-ink: #1B7140; --cat-3-soft: rgba(46, 157, 87, .12);   /* green (call to action) */
+  --cat-4: #2F74DB; --cat-4-ink: #1D56AA; --cat-4-soft: rgba(47, 116, 219, .11);  /* blue (what to show) */
+  --cat-5: #9B4FD6; --cat-5-ink: #7433AC; --cat-5-soft: rgba(155, 79, 214, .11);  /* purple (editing) */
+  --cat-6: #129C9A; --cat-6-ink: #0A6E6C; --cat-6-soft: rgba(18, 156, 154, .12);  /* teal (topic) */
+  --cat-7: #5D6677; --cat-7-ink: #424958; --cat-7-soft: rgba(93, 102, 119, .13);  /* slate (filming) */
+  --cat-8: #C58B22; --cat-8-ink: #85580A; --cat-8-soft: rgba(197, 139, 34, .15);  /* ochre (text and caption) */
+
+  /* type: Heebo main (body, headings, buttons, inputs), Assistant secondary (labels, captions, counts, chips, table headers) */
+  --font: "Heebo", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-2: "Assistant", "Heebo", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: var(--font); /* kept so older page CSS still resolves: headings are Heebo since 18 Oct 2026 */
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --fs-display: clamp(1.75rem, 3.8vw, 2.375rem);
+  --fs-title: 1.375rem;
+  --fs-headline: 1.125rem;
+  --fs-body: 1rem;
+  --fs-callout: .9375rem;
+  --fs-footnote: .8125rem;
+  --fs-caption: .75rem;
+  --fs-num: 1.875rem;
+
+  /* space (4pt base) */
+  --sp-1: .25rem; --sp-2: .5rem; --sp-3: .75rem; --sp-4: 1rem; --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 3rem;
+
+  /* radius */
+  --r-xs: .375rem; --r-sm: .5rem; --r-md: .75rem; --r-lg: 1.125rem; --r-pill: 999px;
+
+  /* elevation */
+  --shadow-1: 0 1px 2px rgba(29, 16, 57, .06);
+  --shadow-2: 0 8px 28px -12px rgba(29, 16, 57, .22);
+  --shadow-3: 0 24px 60px -20px rgba(29, 16, 57, .35);
+
+  --sidebar-w: 15.5rem;
+  --content-w: 76rem;
+  color-scheme: light;
+}
+
+
+/* ---------- base ---------- */
+[hidden] { display: none !important; } /* hidden always wins over component display rules */
+[id] { scroll-margin-top: 4.5rem; } /* anchor jumps land below the sticky top bar */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: var(--fs-body); line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { margin: 0; color: var(--text); text-wrap: balance; }
+h1 { font-weight: 800; font-size: var(--fs-display); line-height: 1.15; letter-spacing: -.015em; }
+h2 { font-weight: 700; font-size: var(--fs-title); line-height: 1.25; letter-spacing: -.01em; }
+h3 { font-size: var(--fs-headline); font-weight: 700; line-height: 1.3; }
+h4 { font-size: var(--fs-callout); font-weight: 700; line-height: 1.35; }
+p { margin: 0; }
+figcaption, caption { font-family: var(--font-2); }
+a { color: var(--tint); text-decoration: none; }
+a:hover { color: var(--tint-hover); text-decoration: underline; text-underline-offset: 3px; }
+code, kbd, samp { font-family: var(--font-mono); font-size: .875em; background: var(--fill); padding: .05em .35em; border-radius: var(--r-xs); }
+pre { font-family: var(--font-mono); font-size: var(--fs-footnote); background: var(--surface-sunk); border-radius: var(--r-md); padding: var(--sp-4); overflow-x: auto; }
+hr { border: 0; border-top: 1px solid var(--line); margin: var(--sp-5) 0; }
+img, svg, video { max-width: 100%; }
+::selection { background: var(--tint-soft); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: var(--r-xs); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* ---------- text utilities ---------- */
+.lb-eyebrow { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--accent-ink); letter-spacing: .02em; }
+.lb-eyebrow.cat { color: var(--tc-ink); }
+.lb-lede { font-size: 1.125rem; line-height: 1.5; color: var(--text-2); max-width: 42rem; }
+.lb-muted { color: var(--text-2); }
+.lb-dim { color: var(--text-3); }
+.lb-small { font-size: var(--fs-callout); }
+.lb-xs { font-size: var(--fs-footnote); }
+.lb-num { font-variant-numeric: tabular-nums; }
+.lb-ltr { direction: ltr; unicode-bidi: isolate; }
+.lb-prose { max-width: 42rem; display: grid; gap: var(--sp-3); }
+.lb-prose ul, .lb-prose ol { margin: 0; padding-inline-start: 1.25rem; display: grid; gap: var(--sp-1); }
+.lb-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.lb-font-2 { font-family: var(--font-2); } /* the secondary font on any element: labels, captions, counts */
+.lb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- layout ---------- */
+.lb-app { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: 100vh; }
+.lb-main { min-width: 0; display: flex; flex-direction: column; }
+.lb-page { width: 100%; max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); padding-block: var(--sp-5) var(--sp-7); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); align-content: start; }
+.lb-section { display: grid; gap: var(--sp-4); min-width: 0; }
+.lb-section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-2) var(--sp-4); }
+.lb-section-head .lb-meta { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-grid { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min, 15rem)), 1fr)); }
+.lb-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.lb-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.lb-grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.lb-stack { display: grid; gap: var(--sp-3); align-content: start; min-width: 0; }
+.lb-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); min-width: 0; }
+.lb-row.between { justify-content: space-between; }
+.lb-spacer { flex: 1; }
+@media (max-width: 1000px) { .lb-grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lb-grid.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .lb-grid.cols-2, .lb-grid.cols-3, .lb-grid.cols-4 { grid-template-columns: minmax(0, 1fr); } .lb-page { padding-inline: var(--sp-4); } }
+
+/* ---------- sidebar navigation ---------- */
+.lb-sidebar {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2);
+  border-inline-end: 1px solid var(--line); padding: var(--sp-4) var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-4);
+}
+.lb-brand { display: flex; align-items: center; gap: var(--sp-2); padding-inline: var(--sp-2); color: var(--text); text-decoration: none; }
+.lb-brand:hover { text-decoration: none; color: var(--text); }
+.lb-brand img { height: 2rem; width: auto; }
+.lb-brand b { font-weight: 800; font-size: 1.0625rem; letter-spacing: -.01em; }
+.lb-brand small { display: block; font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
+.lb-nav { display: grid; gap: 2px; }
+.lb-nav-label { font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; color: var(--text-3); padding: var(--sp-3) var(--sp-3) var(--sp-1); letter-spacing: .03em; }
+.lb-nav-item {
+  display: flex; align-items: center; gap: var(--sp-2); padding: .5rem var(--sp-3); border-radius: var(--r-sm);
+  color: var(--text); font-size: var(--fs-callout); font-weight: 500; text-decoration: none; cursor: pointer;
+  background: none; border: 0; font-family: var(--font); text-align: start; width: 100%;
+}
+.lb-nav-item:hover { background: var(--fill); text-decoration: none; color: var(--text); }
+.lb-nav-item[aria-current="page"], .lb-nav-item.is-active { background: var(--surface); color: var(--tint); box-shadow: var(--shadow-1); }
+.lb-nav-item svg { width: 1.125rem; height: 1.125rem; flex: none; opacity: .8; }
+.lb-nav-item .lb-count { margin-inline-start: auto; }
+.lb-sidebar-foot { margin-top: auto; display: grid; gap: var(--sp-2); padding-inline: var(--sp-2); font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
+
+/* sticky top bar (also the mobile header) */
+.lb-topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bar);
+  -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+.lb-topbar-in { max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); min-height: 3.5rem; display: flex; align-items: center; gap: var(--sp-3); }
+.lb-topbar h1 { font-size: 1.125rem; font-weight: 700; letter-spacing: -.01em; }
+.lb-menu-btn, .lb-btn.lb-menu-btn { display: none; }
+@media (max-width: 860px) {
+  .lb-app { grid-template-columns: minmax(0, 1fr); }
+  .lb-sidebar { position: fixed; inset-block: 0; inset-inline-start: 0; width: min(85vw, 18rem); z-index: 40; transform: translateX(100%); visibility: hidden; transition: transform .2s ease, visibility 0s linear .2s; }
+  [dir="ltr"] .lb-sidebar { transform: translateX(-100%); }
+  .lb-sidebar.is-open { transform: none; visibility: visible; box-shadow: var(--shadow-3); transition: transform .2s ease; }
+  .lb-menu-btn, .lb-btn.lb-menu-btn { display: inline-flex; }
+  .lb-topbar-in { padding-inline: var(--sp-4); }
+}
+.lb-scrim { position: fixed; inset: 0; background: var(--overlay); z-index: 35; }
+
+/* horizontal section nav (pages without a sidebar) */
+.lb-toc { display: flex; gap: var(--sp-1); overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.lb-toc::-webkit-scrollbar { display: none; }
+.lb-toc a { flex: none; padding: .35rem .75rem; border-radius: var(--r-pill); color: var(--text-2); font-size: var(--fs-callout); font-weight: 500; }
+.lb-toc a:hover { background: var(--fill); color: var(--text); text-decoration: none; }
+.lb-toc a[aria-current="true"], .lb-toc a[aria-current="page"], .lb-toc a.is-active { background: var(--tint-soft); color: var(--tint); }
+
+/* ---------- surfaces ---------- */
+.lb-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--sp-4) var(--sp-5); min-width: 0; display: grid; gap: var(--sp-3); align-content: start; }
+.lb-card.is-flush { padding: 0; overflow: hidden; }
+.lb-card.is-quiet { background: var(--surface-2); border-color: transparent; }
+.lb-card.is-raised { box-shadow: var(--shadow-2); }
+.lb-card.is-accent { border-color: var(--accent); box-shadow: 0 14px 40px -26px var(--accent); }
+a.lb-card { color: inherit; text-decoration: none; transition: border-color .15s, box-shadow .15s; }
+a.lb-card:hover { border-color: var(--tint); box-shadow: var(--shadow-2); text-decoration: none; color: inherit; }
+.lb-card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.lb-card-title { font-size: var(--fs-callout); font-weight: 600; color: var(--text-2); }
+
+/* Apple inset grouped list */
+.lb-group { background: var(--surface); border-radius: var(--r-md); border: 1px solid var(--line); overflow: hidden; }
+.lb-group > * + * { border-top: 1px solid var(--line); }
+.lb-group-row { display: flex; align-items: center; gap: var(--sp-3); padding: .75rem var(--sp-4); min-height: 3rem; color: inherit; }
+a.lb-group-row:hover { background: var(--fill); text-decoration: none; color: inherit; }
+.lb-group-row .lb-meta { margin-inline-start: auto; color: var(--text-3); font-family: var(--font-2); font-size: var(--fs-footnote); }
+
+/* ---------- data display ---------- */
+.lb-stat { display: grid; gap: var(--sp-1); align-content: start; min-width: 0; }
+.lb-stat > * { min-width: 0; max-width: 100%; } /* long content wraps instead of widening the card */
+.lb-stat-label { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); font-weight: 600; }
+.lb-stat-value { font-size: var(--fs-num); line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.lb-stat-value small { font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); margin-inline-start: var(--sp-2); }
+.lb-stat-foot { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-delta { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; font-variant-numeric: tabular-nums; }
+.lb-delta.up { color: var(--success); } .lb-delta.down { color: var(--danger); }
+
+.lb-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.lb-table { width: 100%; border-collapse: collapse; font-size: var(--fs-callout); }
+.lb-table th, .lb-table td { text-align: start; padding: .6rem var(--sp-3); border-bottom: 1px solid var(--line); vertical-align: middle; }
+.lb-table th { font-family: var(--font-2); font-weight: 600; font-size: var(--fs-footnote); color: var(--text-3); background: var(--surface-2); white-space: nowrap; position: sticky; top: 0; }
+.lb-table tr:last-child td { border-bottom: 0; }
+.lb-table tbody tr:hover td { background: var(--fill); }
+.lb-table td.num, .lb-table th.num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lb-table th[aria-sort] { cursor: pointer; }
+
+.lb-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.lb-list > li { display: grid; gap: 2px; min-width: 0; }
+.lb-list .lb-meta { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--sp-2) var(--sp-4); font-size: var(--fs-callout); }
+.lb-kv dt { font-family: var(--font-2); font-weight: 600; color: var(--text-3); } .lb-kv dd { margin: 0; }
+
+.lb-bar { height: .4rem; border-radius: var(--r-pill); background: var(--fill-2); overflow: hidden; }
+.lb-bar > i { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
+.lb-bar.is-tint > i { background: var(--tint); }
+.lb-hbars { display: grid; gap: var(--sp-2); }
+.lb-hbar { display: grid; grid-template-columns: minmax(5rem, 38%) minmax(0, 1fr) 2.5rem; gap: var(--sp-3); align-items: center; font-size: var(--fs-callout); }
+.lb-hbar .track { height: .625rem; background: var(--fill-2); border-radius: var(--r-xs); }
+.lb-hbar .track > i { display: block; height: 100%; background: var(--seq-4); border-radius: inherit; }
+.lb-hbar:hover .track > i { background: var(--accent-ink); }
+.lb-hbar .v { font-family: var(--font-2); font-weight: 600; font-size: var(--fs-footnote); color: var(--text-2); font-variant-numeric: tabular-nums; text-align: end; }
+svg.lb-spark { width: 100%; height: 2.75rem; display: block; overflow: visible; }
+svg.lb-spark .grid { stroke: var(--line); }
+svg.lb-spark .area { fill: var(--accent-soft); }
+svg.lb-spark .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+svg.lb-spark .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+
+/* stacked status bar (pipeline stages) */
+.lb-stages { display: flex; height: .875rem; gap: 2px; border-radius: var(--r-xs); overflow: hidden; background: var(--fill); }
+.lb-stages > i { display: block; height: 100%; }
+.lb-legend { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-4); font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-legend > span { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.lb-legend b { width: .625rem; height: .625rem; border-radius: 3px; display: inline-block; }
+
+/* ---------- status ---------- */
+.lb-chip {
+  display: inline-flex; align-items: center; gap: .375rem; padding: .15rem .6rem; border-radius: var(--r-pill);
+  font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; line-height: 1.5; white-space: nowrap;
+  background: var(--fill); color: var(--text-2);
+}
+.lb-chip.tint { background: var(--tint-soft); color: var(--tint); }
+.lb-chip.accent { background: var(--accent-soft); color: var(--accent-ink); }
+.lb-chip.success { background: var(--success-soft); color: var(--success); }
+.lb-chip.warning { background: var(--warning-soft); color: var(--warning); }
+.lb-chip.danger { background: var(--danger-soft); color: var(--danger); }
+.lb-chip.info { background: var(--info-soft); color: var(--info); }
+.lb-chip.kid { background: var(--kid-soft); color: var(--kid); }
+.lb-chip.expert { background: var(--expert-soft); color: var(--expert); }
+.lb-chip.outline { background: transparent; box-shadow: inset 0 0 0 1px var(--line-strong); }
+.lb-chip.wrap { white-space: normal; line-height: 1.35; padding-block: .3rem; border-radius: var(--r-sm); justify-self: start; } /* a sentence-length status */
+.lb-dot { width: .45rem; height: .45rem; border-radius: 50%; background: currentColor; flex: none; }
+.lb-dot.live { animation: lb-pulse 2.4s infinite; }
+@keyframes lb-pulse { 0% { box-shadow: 0 0 0 0 var(--success-soft); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.lb-count { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; padding-inline: .4rem; border-radius: var(--r-pill); background: var(--fill-2); color: var(--text-2); font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; font-variant-numeric: tabular-nums; }
+.lb-count.is-alert { background: var(--danger); color: var(--text-on-tint); }
+.lb-count.is-tint { background: var(--tint); color: var(--text-on-tint); }
+
+/* alert row: severity as a tinted pill + tinted ground */
+.lb-alerts { display: grid; gap: var(--sp-2); }
+.lb-alert { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; padding: .6rem var(--sp-3); border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-size: var(--fs-callout); }
+.lb-alert.crit { background: var(--danger-soft); border-color: transparent; }
+.lb-alert.warn { background: var(--warning-soft); border-color: transparent; }
+.lb-alert .lb-alert-text { min-width: 0; }
+.lb-alert a { font-size: var(--fs-footnote); white-space: nowrap; }
+
+/* ---------- categories ----------
+   A page with 3 to 8 stable categories that a reader scans or filters by gives each one a class from
+   shared/design/categories.json: lb-cat-1 ... lb-cat-8 (lb-cat-0 for "none of them"). The class only sets
+   --tc (base), --tc-ink (text) and --tc-soft (ground); the pieces below read them, so one class on a row,
+   card or nav item colours its tile, chip, ID, bar and edge the same way. Status stays on the status chips.
+   Named per page too: design.head() adds .lb-<set>-<key> classes (.lb-ws-creators) generated from categories.json. */
+.lb-cat-0 { --tc: var(--lb-ink); --tc-ink: var(--text); --tc-soft: var(--fill); }
+.lb-cat-1 { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
+.lb-cat-2 { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-cat-3 { --tc: var(--cat-3); --tc-ink: var(--cat-3-ink); --tc-soft: var(--cat-3-soft); }
+.lb-cat-4 { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-cat-5 { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-cat-6 { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-cat-7 { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-cat-8 { --tc: var(--cat-8); --tc-ink: var(--cat-8-ink); --tc-soft: var(--cat-8-soft); }
+
+/* tile: a rounded square with a line icon, the category's mark in nav, card and page headers. Icons only:
+   a letter or number goes on .is-soft (ink on soft) because white text fails on most bases. */
+.lb-tile { display: inline-grid; place-items: center; width: 1.65rem; height: 1.65rem; border-radius: .45rem; background: var(--tc, var(--tint)); color: var(--text-on-tint); flex: none; font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; line-height: 1; }
+.lb-tile svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; opacity: 1; }
+.lb-tile.is-soft { background: var(--tc-soft, var(--tint-soft)); color: var(--tc-ink, var(--tint)); }
+.lb-tile.lg { width: 2.6rem; height: 2.6rem; border-radius: .7rem; font-size: var(--fs-callout); }
+.lb-tile.lg svg { width: 1.4rem; height: 1.4rem; }
+.lb-tile.xl { width: 3.5rem; height: 3.5rem; border-radius: .9rem; box-shadow: 0 10px 24px -12px var(--tc, var(--tint)); font-size: var(--fs-headline); }
+.lb-tile.xl svg { width: 1.9rem; height: 1.9rem; stroke-width: 2; }
+
+/* category chip: lb-chip + cat. The square swatch tells it apart from a status chip (dot and word). */
+.lb-chip.cat { background: var(--tc-soft, var(--fill)); color: var(--tc-ink, var(--text-2)); }
+.lb-chip.cat::before { content: ""; width: .5rem; height: .5rem; border-radius: 2px; background: var(--tc, var(--text-3)); flex: none; }
+.lb-chip.cat.no-swatch::before { content: none; }
+button.lb-chip { border: 0; cursor: pointer; font-family: var(--font-2); }
+button.lb-chip.cat[aria-pressed="false"] { background: var(--fill); color: var(--text-2); }
+button.lb-chip.cat[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--tc); }
+
+/* ID chip: a short code (H1, kid-2, 3) in the category's ink on its soft ground; left to right inside Hebrew. */
+.lb-pid {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 2.1rem; padding: .05rem .4rem; border-radius: .4rem;
+  font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .02em; line-height: 1.4; white-space: nowrap;
+  background: var(--tc-soft, var(--fill)); color: var(--tc-ink, var(--text)); text-decoration: none; font-variant-numeric: tabular-nums;
+  direction: ltr; unicode-bidi: isolate;
+}
+a.lb-pid:hover { background: var(--tc-ink, var(--tint)); color: var(--text-on-tint); text-decoration: none; }
+.lb-pid.in { min-width: 0; padding: 0 .32rem; font-size: .74em; vertical-align: .08em; }
+
+/* swatch for legends and stacked bars: <b class="lb-swatch lb-cat-3"></b> */
+.lb-swatch { background: var(--tc); }
+.lb-legend .lb-swatch { width: .625rem; height: .625rem; border-radius: 3px; display: inline-block; flex: none; }
+/* card edge, bars and eyebrow in the category's colour */
+.lb-card.is-cat { border-inline-start: 3px solid var(--tc); }
+a.lb-card.is-cat:hover { border-color: var(--tc); }
+.lb-bar.is-cat > i, .lb-hbar.is-cat .track > i { background: var(--tc); }
+.lb-hbar.is-cat:hover .track > i { background: var(--tc-ink); }
+
+/* sidebar item with a tile and an optional plain count (Apple source list); the current one keeps ink text */
+.lb-nav-item > .lb-tile { margin-inline-start: -.15rem; }
+.lb-nav-item:has(> .lb-tile)[aria-current="page"] { color: var(--text); font-weight: 700; box-shadow: var(--shadow-1), inset 0 0 0 1px var(--line); }
+.lb-nav-item > .lb-nav-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-nav-n { margin-inline-start: auto; font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 600; color: var(--text-3); font-variant-numeric: tabular-nums; }
+/* sub-list that opens under the current item, edged in its category's soft colour */
+.lb-nav-sub { display: grid; gap: 1px; min-width: 0; margin-block: .15rem .35rem; margin-inline-start: 1.35rem; padding-inline-start: .7rem; border-inline-start: 2px solid var(--tc-soft, var(--line)); }
+.lb-nav-sub a, .lb-nav-sub button {
+  display: flex; gap: .5rem; align-items: baseline; min-width: 0; padding: .26rem .5rem; border-radius: .45rem; border: 0; background: none;
+  color: var(--text-2); font-family: var(--font); font-size: .875rem; line-height: 1.3; text-align: start; text-decoration: none; cursor: pointer;
+}
+.lb-nav-sub a:hover, .lb-nav-sub button:hover { background: var(--fill); color: var(--text); text-decoration: none; }
+.lb-nav-sub [aria-current="page"], .lb-nav-sub .is-active { background: var(--tc-soft, var(--tint-soft)); color: var(--tc-ink, var(--tint)); font-weight: 700; }
+.lb-nav-sub a > span:last-child, .lb-nav-sub button > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-nav-sub .lb-pid { flex: none; }
+
+/* ---------- disclosure ----------
+   Secondary detail behind a toggle: <details class="lb-disclosure"><summary>Title <small>one line</small></summary>
+   <div class="lb-disclosure-body">...</div></details>. The chevron points forward (left in Hebrew) and turns down when open. */
+details.lb-disclosure { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); min-width: 0; }
+details.lb-disclosure.is-quiet { background: transparent; border-color: transparent; }
+.lb-disclosure > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: var(--sp-3); padding: .8rem var(--sp-4);
+  font-weight: 600; font-size: var(--fs-callout); border-radius: var(--r-md); min-width: 0;
+}
+.lb-disclosure > summary::-webkit-details-marker { display: none; }
+.lb-disclosure > summary:hover { background: var(--fill); }
+.lb-disclosure > summary > .lb-sum { flex: 1; min-width: 0; }
+.lb-disclosure > summary small { display: block; font-family: var(--font-2); font-weight: 500; font-size: var(--fs-footnote); color: var(--text-3); margin-top: .1rem; }
+.lb-disclosure > summary::after {
+  content: ""; flex: none; margin-inline-start: auto; width: .45rem; height: .45rem; border: solid var(--text-3);
+  border-width: 0 2px 2px 0; /* physical sides, turned below */ transform: rotate(-45deg); transition: transform .2s;
+}
+[dir="rtl"] .lb-disclosure > summary::after { transform: rotate(135deg); }
+.lb-disclosure[open] > summary::after { transform: rotate(45deg); } /* same specificity as the rtl rule, so it must stay after it */
+.lb-disclosure[open] > summary { border-end-start-radius: 0; border-end-end-radius: 0; border-bottom: 1px solid var(--line); }
+details.lb-disclosure.is-quiet[open] > summary { border-bottom-color: transparent; }
+.lb-disclosure.is-cat[open] { box-shadow: inset 3px 0 0 var(--tc); }
+[dir="rtl"] .lb-disclosure.is-cat[open] { box-shadow: inset -3px 0 0 var(--tc); }
+.lb-disclosure-body { padding: var(--sp-4); display: grid; gap: var(--sp-3); min-width: 0; }
+.lb-disclosures { display: grid; gap: var(--sp-2); }
+
+/* ---------- controls ---------- */
+.lb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: 2.25rem; padding: 0 var(--sp-4); border-radius: var(--r-pill); border: 1px solid transparent;
+  font: inherit; font-family: var(--font); font-size: var(--fs-callout); font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap;
+  background: var(--tint); color: var(--text-on-tint); transition: background .15s, border-color .15s;
+}
+.lb-btn:hover { background: var(--tint-hover); color: var(--text-on-tint); text-decoration: none; }
+.lb-btn.secondary { background: var(--surface); color: var(--text); border-color: var(--line-strong); }
+.lb-btn.secondary:hover { border-color: var(--tint); color: var(--tint); background: var(--surface); }
+.lb-btn.ghost { background: transparent; color: var(--tint); }
+.lb-btn.ghost:hover { background: var(--tint-soft); }
+.lb-btn.danger { background: var(--danger); }
+.lb-btn.sm { min-height: 1.875rem; padding: 0 var(--sp-3); font-size: var(--fs-footnote); }
+.lb-btn.icon { width: 2.25rem; padding: 0; }
+.lb-btn:disabled, .lb-btn[aria-disabled="true"] { opacity: .45; cursor: default; }
+.lb-btn svg { width: 1.1em; height: 1.1em; }
+@media (max-width: 560px) { [data-lb-theme-toggle] .lb-theme-label { display: none; } }
+
+.lb-segmented { display: inline-flex; padding: 2px; border-radius: var(--r-sm); background: var(--fill-2); gap: 2px; }
+.lb-segmented button { border: 0; background: transparent; font: inherit; font-family: var(--font); font-size: var(--fs-footnote); font-weight: 500; color: var(--text-2); padding: .3rem .8rem; border-radius: calc(var(--r-sm) - 2px); cursor: pointer; }
+.lb-segmented button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
+
+.lb-input, .lb-select, .lb-textarea {
+  font: inherit; font-family: var(--font); font-size: var(--fs-callout); color: var(--text); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: .45rem .7rem; min-height: 2.25rem; max-width: 100%;
+}
+.lb-textarea { min-height: 5rem; resize: vertical; width: 100%; line-height: 1.5; }
+.lb-input:focus, .lb-select:focus, .lb-textarea:focus { outline: none; border-color: var(--tint); box-shadow: 0 0 0 3px var(--tint-soft); }
+.lb-search { position: relative; display: flex; align-items: center; min-width: 0; }
+.lb-search .lb-input { width: 100%; padding-inline-start: 2.1rem; border-radius: var(--r-pill); background: var(--fill); border-color: transparent; }
+.lb-search svg { position: absolute; inset-inline-start: .7rem; width: 1rem; height: 1rem; color: var(--text-3); pointer-events: none; }
+.lb-field { display: grid; gap: var(--sp-1); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-2); }
+
+.lb-check { display: flex; gap: .6rem; align-items: flex-start; font-size: var(--fs-callout); cursor: pointer; padding: 2px 0; }
+.lb-check input { appearance: none; flex: none; width: 1.125rem; height: 1.125rem; margin: .15rem 0 0; border: 1.5px solid var(--line-strong); border-radius: .35rem; display: grid; place-content: center; cursor: pointer; background: var(--surface); }
+.lb-check input::after { content: ""; width: .55rem; height: .3rem; border-style: solid; border-color: var(--text-on-tint); border-width: 0 0 2px 2px; /* physical sides: the tick must not mirror in RTL */ transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.lb-check input:checked { background: var(--tint); border-color: var(--tint); }
+.lb-check input:checked::after { opacity: 1; }
+.lb-check input:checked + span { color: var(--text-3); text-decoration: line-through; }
+.lb-check input:disabled { cursor: default; }
+
+.lb-switch { appearance: none; width: 2.6rem; height: 1.5rem; border-radius: var(--r-pill); background: var(--fill-3); position: relative; cursor: pointer; flex: none; transition: background .15s; }
+.lb-switch::after { content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #fff; box-shadow: var(--shadow-1); transition: inset-inline-start .15s; }
+.lb-switch:checked { background: var(--success); }
+.lb-switch:checked::after { inset-inline-start: calc(100% - 1.25rem - 2px); }
+
+.lb-tabs { display: flex; gap: var(--sp-1); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.lb-tabs button, .lb-tabs a { flex: none; border: 0; background: none; font: inherit; font-family: var(--font); font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); padding: .55rem .9rem; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; }
+.lb-tabs [aria-selected="true"], .lb-tabs [aria-current="page"], .lb-tabs .is-active { color: var(--tint); border-bottom-color: var(--tint); }
+.lb-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+
+/* ---------- feedback ---------- */
+.lb-empty { padding: var(--sp-5); border: 1px dashed var(--line-strong); border-radius: var(--r-md); color: var(--text-2); font-size: var(--fs-callout); text-align: center; }
+.lb-note { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); line-height: 1.5; }
+.lb-callout { display: grid; gap: var(--sp-1); padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md); background: var(--accent-soft); color: var(--text); font-size: var(--fs-callout); }
+.lb-callout.info { background: var(--info-soft); }
+.lb-toast { position: fixed; inset-block-end: calc(var(--sp-5) + env(safe-area-inset-bottom, 0px)); inset-inline-start: 50%; transform: translateX(-50%); z-index: 60; background: var(--lb-ink); color: #F5EFE4; padding: .6rem 1rem; border-radius: var(--r-pill); font-size: var(--fs-callout); box-shadow: var(--shadow-3); }
+[dir="rtl"] .lb-toast { transform: translateX(50%); }
+.lb-skeleton { background: linear-gradient(90deg, var(--fill) 25%, var(--fill-2) 50%, var(--fill) 75%); background-size: 200% 100%; animation: lb-shimmer 1.4s infinite; border-radius: var(--r-xs); min-height: 1em; }
+@keyframes lb-shimmer { to { background-position: -200% 0; } }
+
+/* ---------- overlays ---------- */
+.lb-drawer { position: fixed; inset-block: 0; inset-inline-end: 0; width: min(100%, 34rem); background: var(--surface); z-index: 50; box-shadow: var(--shadow-3); display: flex; flex-direction: column; overflow: hidden; }
+.lb-drawer-head { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--line); }
+.lb-drawer-body { padding: var(--sp-5); overflow-y: auto; display: grid; gap: var(--sp-4); align-content: start; }
+.lb-modal { position: fixed; inset: 0; display: grid; place-items: center; padding: var(--sp-4); z-index: 50; }
+.lb-modal > .lb-card { width: min(100%, 32rem); max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-3); }
+
+/* ---------- print-free page footer ---------- */
+.lb-footer { border-top: 1px solid var(--line); padding-top: var(--sp-4); font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); display: grid; gap: var(--sp-1); }
+
+/* category classes, generated from shared/design/categories.json by design.py: do not edit */
+.lb-tool-hook { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
+.lb-tool-watch { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-tool-cta { --tc: var(--cat-3); --tc-ink: var(--cat-3-ink); --tc-soft: var(--cat-3-soft); }
+.lb-tool-show { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-tool-edit { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-tool-topic { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-tool-film { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-tool-text { --tc: var(--cat-8); --tc-ink: var(--cat-8-ink); --tc-soft: var(--cat-8-soft); }
+.lb-ws-plan { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-ws-creators { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-ws-carousels { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-ws-reels { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
+.lb-ws-competitors { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-ws-communities { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-ws-system { --tc: var(--lb-ink); --tc-ink: var(--text); --tc-soft: var(--fill); }
+.lb-track-gift { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-track-pro { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-track-par { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-co-mebook { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-co-hoorayheroes { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-co-wonderbly { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-co-yoto { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-smm-moment { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-smm-reveal { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-smm-proof { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-smm-gift { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-niche-developmental_milestone { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-niche-novelty { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-niche-expert { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-niche-parent_child_daily { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+</style>
+<style>
+/* Layout: a one-column readout on the LumeBook design system. Hero with four figures, the plain-words
+   sections as numbered points, then the numbers as tables. Light only; page rules use design tokens only. */
+:root { --read-w: 72ch; }
+.plan-logo { width: 1.75rem; height: 1.75rem; flex: none; display: block; }
+.brand { display: grid; line-height: 1.15; flex: none; }
+.brand b { font-weight: 800; font-size: var(--fs-headline); letter-spacing: -.01em; }
+.brand span { font-size: var(--fs-caption); font-weight: 600; letter-spacing: .02em; color: var(--accent-ink); }
+.lb-topbar .lb-toc { flex: 1 1 0; margin-inline-start: var(--sp-3); }
+@media (max-width: 860px) {
+  .lb-topbar-in { flex-wrap: wrap; row-gap: 0; padding-top: var(--sp-2); }
+  .lb-topbar .lb-toc { order: 9; flex-basis: 100%; margin: var(--sp-2) 0 0; padding-bottom: var(--sp-2); }
+}
+main > section { display: grid; gap: var(--sp-4); min-width: 0; scroll-margin-top: calc(6rem + var(--sp-4)); }
+.hero { display: grid; gap: var(--sp-3); padding-top: var(--sp-3); }
+.hero h1 { max-width: 24ch; }
+.hero p, main > section > p { max-width: var(--read-w); color: var(--text-2); text-wrap: pretty; }
+.hero .lb-chip { justify-self: start; }
+.glance { display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+.glance .lb-stat-value { color: var(--tint); unicode-bidi: plaintext; }
+h3.sub { margin-top: var(--sp-3); }
+ol.points { list-style: none; counter-reset: pt; margin: 0; padding: 0; display: grid; gap: var(--sp-3); max-width: 60rem; }
+ol.points > li { counter-increment: pt; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--sp-3);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--sp-4); }
+ol.points > li::before { content: counter(pt); display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%;
+  background: var(--tint-soft); color: var(--tint); font-weight: 700; font-variant-numeric: tabular-nums; }
+ol.points > li > div { display: grid; gap: var(--sp-1); min-width: 0; }
+ol.points p { margin: 0; color: var(--text-2); text-wrap: pretty; }
+ul.list { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: var(--sp-2); max-width: var(--read-w); }
+ul.list li::marker { color: var(--accent); }
+.lb-table td.num, .lb-table th.num { unicode-bidi: plaintext; }
+.lb-table-wrap { max-width: 60rem; }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-2); max-width: 60rem; }
+.checks li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
+.checks .lb-check { font-size: var(--fs-body); line-height: 1.5; }
+.checks .lb-check span { color: var(--text-2); text-wrap: pretty; }
+.checks .lb-check b { color: var(--text); }
+.checks .lb-check input:checked + span b { color: var(--text-3); }
+.done { font-size: var(--fs-footnote); color: var(--text-3); font-variant-numeric: tabular-nums; }
+main a { color: var(--tint); }
+.caution { display: grid; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-radius: var(--r-lg);
+  background: var(--warning-soft); border: 1px solid var(--line); max-width: 60rem; }
+.caution ul.list li::marker { color: var(--warning); }
+code { font-size: .9em; background: var(--fill); border-radius: var(--r-xs); padding: .05em .35em; overflow-wrap: anywhere; }
+bdi { unicode-bidi: isolate; }
+main p, main li, .lb-table td { overflow-wrap: anywhere; } /* long URLs and file paths wrap at phone width */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+<header class="lb-topbar">
+  <div class="lb-topbar-in">
+    <img class="plan-logo" src="data:image/png;base64,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" alt="" width="28" height="28">
+    <div class="brand"><span>LumeBook</span><b>Sales readout</b></div>
+    <nav class="lb-toc" aria-label="Sections"><a href="#the-situation-in-plain-words">The situation in plain words</a><a href="#social-decisions">Social decisions</a><a href="#things-to-do">Things to do</a><a href="#the-numbers-behind-it">The numbers behind it</a><a href="#numbers-not-to-use">Numbers not to use</a><a href="#things-to-check-with-whoever-built-the-dashboard">Things to check with whoever built the dashboard</a><a href="#open-questions-nobody-has-answered">Open questions nobody has answered</a><a href="#beyond-social-to-raise-with-yossi-if-useful">Beyond social, to raise with Yossi if useful</a></nav>
+  </div>
+</header>
+<main class="lb-page" dir="ltr" lang="en">
+<section class="hero" id="top">
+<span class="lb-chip warning">Internal: holds sales figures</span>
+<h1>LumeBook: what the sales data says and what social does about it</h1>
+<p>Written 12 Oct 2026, updated 15 Oct with the 14 Oct findings on link tracking and grandparents. Internal, do not share outside the project: it holds sales figures.</p>
+<p>Source for every number: 17 screenshots of the store's admin dashboard taken on 12 Oct 2026 at 09:34, from the Analytics tab (pdf.lumebook.com/api/admin/modern/analytics) and the Marketing tab (pdf.lumebook.com/api/admin/modern/marketing). Values marked ≈ were read off a chart, not a printed number. Anything marked "my reading" or "my guess" is an interpretation, not something the dashboard states. The book price (₪119) comes from <code>docs/lumebook-product-brief.md</code> as of 1 Oct and was not re-checked.</p>
+<div class="glance"><div class="lb-card lb-stat"><span class="lb-stat-value">1 in 5</span><span class="lb-stat-foot">people who start a book pay for it within a week</span></div><div class="lb-card lb-stat"><span class="lb-stat-value">₪61 to ₪113</span><span class="lb-stat-foot">cost of one sale from ads, against a ₪30 goal</span></div><div class="lb-card lb-stat"><span class="lb-stat-value">31%</span><span class="lb-stat-foot">of orders are birthday and milestone books</span></div><div class="lb-card lb-stat"><span class="lb-stat-value">≈115</span><span class="lb-stat-foot">orders a month now, against ≈490 in March</span></div></div>
+</section>
+<section id="the-situation-in-plain-words">
+<h2>The situation in plain words</h2>
+<ol class="points"><li><div><h3>People like making the book, but most don't pay.</h3><p>Of 6,130 people who started a book, 1,329 paid within a week, about 1 in 5. In the last 30 days, 202 orders reached the payment step and 85 were bought, so about half leave there.</p></div></li><li><div><h3>Ads are expensive.</h3><p>A sale costs ₪61 if ads get credit for every sale and ₪113 on Meta's own count. The company's goal is ₪30 and its ceiling is ₪50, on a ₪119 book. Ads cannot be what grows LumeBook right now.</p></div></li><li><div><h3>Sales behave like a tap.</h3><p>Strong months had ≈300 to 490 orders, weak months ≈15 to 20, and it is about 115 a month now. No steady stream of customers arrives on its own. Building that stream is what social is for.</p></div></li><li><div><h3>Sales to people who already know the product cost almost nothing.</h3><p>A purchase that followed a WhatsApp reminder or a post-purchase message cost $0.16 to $2.34 in message fees. The dashboard says those purchases followed the message, not that the message caused them.</p></div></li><li><div><h3>People buy for a moment in the child's life.</h3><p>Birthday is the number one book. Birthday, new sibling, pacifier, potty and first grade together are 603 of 1,972 orders, almost a third.</p></div></li><li><div><h3>The buyers are not only young moms.</h3><p>In the ads, women 55 to 64 and 35 to 44 have the most purchases, and women 25 to 34 cost the most per purchase among the large groups. My reading is that the older group is grandmothers buying a gift. The data does not prove it.</p></div></li><li><div><h3>The admin can't show where a sale came from yet.</h3><p>Its Marketing tab says the website does not record which link brought an order, so a sale from a post or from a creator looks like any other sale. A 14 Oct read of the store's code found that it does send link data (UTMs, first and last touch) when a book is created, so the gap may be in the admin's reporting rather than in the tracking (<code>research/creator-content-conversion/report.md</code>).</p></div></li></ol>
+</section>
+<section id="social-decisions">
+<h2>Social decisions</h2>
+<p>These need no further information and sit inside the social role.</p>
+<ol class="points"><li><div><h3>Choose topics by buying moment.</h3><p>Something on birthdays every week. One milestone theme a month, in order of sales: new sibling, then pacifier, then potty.</p></div></li><li><div><h3>One gift-giver post a week.</h3><p>Aimed at a grandmother or aunt giving the book. It sits outside the carousel rule of mom or both parents, so it runs as a separate test for about a month. A 14 Oct read of 2,982 comments on creator posts found only 5 people who said they were grandparents (<code>research/creator-content-conversion/report.md</code>), so the grandmother buyer is still a hypothesis and this test is how to find out.</p></div></li><li><div><h3>Pick creators by moment and place, not by size.</h3><p>First in line: creators living a moment now (second child on the way, a toddler giving up the pacifier, a birthday coming), two or three creators of grandmother age, and creators from the top cities. Each creator gets the book that matches their moment.</p></div></li><li><div><h3>Show the finished book and the price openly once a week.</h3><p>The printed book in a child's hands, what it costs, how fast it arrives. My guess is that people leave at payment because they are unsure what they will get or surprised by the total.</p></div></li><li><div><h3>Measure with what social controls.</h3><p>A one-line daily log of what went out (post, creator video, group post). Every Monday, compare it to orders per day in the admin and mark the days that jumped. Count comments and DMs per post. Thu 8 Oct had ≈13 orders in one day and nothing on the dashboard explains it. A log would.</p></div></li><li><div><h3>Start parent groups with the top cities.</h3><p>Rishon LeZion, Tel Aviv, Ashkelon, Be'er Sheva, Petah Tikva, Holon, Netanya, then outward. (My first draft left Tel Aviv out without a good reason. It is second by orders.)</p></div></li><li><div><h3>Publish the week's strongest post on Wednesday evening or Thursday.</h3><p>Ad sales were cheapest on Thursday and Friday. The dashboard itself says this is not a valid test yet, but it costs nothing to try.</p></div></li><li><div><h3>One request to Yossi: show sales per link and per creator in the admin.</h3><p>Before creator videos go live for Hanukkah (creator books are due 10 Nov). The store already runs an ambassador program with personal links and sends link data with each new book (<code>research/creator-content-conversion/report.md</code>), so what's missing is a view of which orders each link brought. Without it nobody can show what social sold or check creator commissions against real sales.</p></div></li></ol>
+<p>Not doing: asking for money to boost posts, since ads already cost too much per sale. Views and followers stay in the KPI table as supporting numbers. Orders and books started are the ones that matter.</p>
+</section>
+<section id="things-to-do">
+<div class="lb-section-head"><h2>Things to do</h2><span class="done" data-done></span></div>
+<p>Concrete steps for the decisions above. Tick them off on the page; the ticks stay in this browser.</p>
+<h3 class="sub">This week</h3>
+<ul class="checks"><li><label class="lb-check" for="do-send-yossi-one-message"><input type="checkbox" id="do-send-yossi-one-message"><span><b>Send Yossi one message.</b> Ask two things: can the admin show orders per link and per creator, and can creators from the map join the store's ambassador program with their own link. The 14 Oct research lists both as the first thing to settle before any creator test (<code>research/creator-content-conversion/report.md</code>, section 10).</span></label></li><li><label class="lb-check" for="do-start-the-publishing-log"><input type="checkbox" id="do-start-the-publishing-log"><span><b>Start the publishing log.</b> One row per day: the date, what went out (post, story, creator video, group post), where, and the link used. About two minutes a day.</span></label></li><li><label class="lb-check" for="do-make-new-sibling-october-s-milestone-theme"><input type="checkbox" id="do-make-new-sibling-october-s-milestone-theme"><span><b>Make new sibling October's milestone theme.</b> <bdi>אח חדש</bdi> and <bdi>אחות חדשה</bdi> together have 132 orders, the most of any milestone. Plan a reel, a carousel and stories on it for the rest of the month.</span></label></li><li><label class="lb-check" for="do-post-one-birthday-piece"><input type="checkbox" id="do-post-one-birthday-piece"><span><b>Post one birthday piece.</b> Birthday is the best-selling book (262 orders).</span></label></li><li><label class="lb-check" for="do-film-the-printed-book-and-show-the-full-price"><input type="checkbox" id="do-film-the-printed-book-and-show-the-full-price"><span><b>Film the printed book and show the full price.</b> The book in a child's hands, the price (₪119 on 14 Oct, <code>research/creator-content-conversion/report.md</code>), home shipping (₪30) and delivery time (up to 7 business days home, <code>docs/lumebook-product-brief.md</code>). Check all three on lumebook.com before posting.</span></label></li><li><label class="lb-check" for="do-contact-topaz-meir-slp-first"><input type="checkbox" id="do-contact-topaz-meir-slp-first"><span><b>Contact topaz_meir_slp first.</b> The 14 Oct research's first recommended test: a book-list post by a speech therapist with the pacifier book as the one personalised pick and her own link in the DM (<code>research/creator-content-conversion/report.md</code>). She is already "in process" in the <a href="https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB" target="_blank" rel="noopener">creator map</a>.</span></label></li><li><label class="lb-check" for="do-shortlist-5-creators-who-are-in-a-moment-now"><input type="checkbox" id="do-shortlist-5-creators-who-are-in-a-moment-now"><span><b>Shortlist 5 creators who are in a moment now.</b> From the <a href="https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB" target="_blank" rel="noopener">creator map</a> and their recent posts: a second baby on the way, a toddler giving up the pacifier, a birthday coming. Write the moment and the city next to each name.</span></label></li><li><label class="lb-check" for="do-post-the-first-gift-giver-piece"><input type="checkbox" id="do-post-the-first-gift-giver-piece"><span><b>Post the first gift-giver piece.</b> Made for a grandmother or aunt giving the book. Note its saves, shares, comments and DMs so it can be compared with your other posts after four weeks.</span></label></li></ul>
+<h3 class="sub">Every week</h3>
+<ul class="checks"><li><label class="lb-check" for="do-monday-compare-the-log-with-orders"><input type="checkbox" id="do-monday-compare-the-log-with-orders"><span><b>Monday: compare the log with orders.</b> Count orders per day in the admin's All Orders tab, mark the days that jumped, and check what went out the day before.</span></label></li><li><label class="lb-check" for="do-count-comments-with-and-dms-per-post"><input type="checkbox" id="do-count-comments-with-and-dms-per-post"><span><b>Count comments with <bdi>לומי</bdi> and DMs per post.</b> It is the one buying signal social can count today.</span></label></li><li><label class="lb-check" for="do-keep-the-weekly-mix"><input type="checkbox" id="do-keep-the-weekly-mix"><span><b>Keep the weekly mix.</b> One birthday post, one gift-giver post and one printed-book post, plus the month's milestone theme.</span></label></li><li><label class="lb-check" for="do-put-the-strongest-post-out-on-wednesday-evening-"><input type="checkbox" id="do-put-the-strongest-post-out-on-wednesday-evening-"><span><b>Put the strongest post out on Wednesday evening or Thursday.</b></span></label></li><li><label class="lb-check" for="do-parent-groups-start-near-home"><input type="checkbox" id="do-parent-groups-start-near-home"><span><b>Parent groups: start near home.</b> The <a href="https://claude.ai/artifact/CGZrFUNmTUBmo2aa9vCr4A" target="_blank" rel="noopener">parent community map</a> is already ordered closest to Ashkelon, which is third by orders. Then Rishon LeZion and Be'er Sheva.</span></label></li></ul>
+<h3 class="sub">On 31 Oct</h3>
+<ul class="checks"><li><label class="lb-check" for="do-take-the-same-admin-screenshots-again"><input type="checkbox" id="do-take-the-same-admin-screenshots-again"><span><b>Take the same admin screenshots again.</b> The Analytics and Marketing tabs, then compare with 12 Oct: orders per month, the 1 in 5, cost per ad sale, and whether Meta's share of sales recovered. 31 Oct is the "initial analytics and new targets" date in <code>shared/facts.json</code>.</span></label></li></ul>
+<h3 class="sub">By mid-November</h3>
+<ul class="checks"><li><label class="lb-check" for="do-send-the-hanukkah-creator-books-by-10-nov"><input type="checkbox" id="do-send-the-hanukkah-creator-books-by-10-nov"><span><b>Send the Hanukkah creator books by 10 Nov</b> (<code>shared/facts.json</code>). Pick creators by moment and city, send each the book that fits their moment, and share the <a href="https://lumebook-creator-brief.vercel.app" target="_blank" rel="noopener">creator brief</a> with them.</span></label></li><li><label class="lb-check" for="do-have-yossi-s-answer-on-sales-per-link"><input type="checkbox" id="do-have-yossi-s-answer-on-sales-per-link"><span><b>Have Yossi's answer on sales per link</b> before the creator videos go up.</span></label></li><li><label class="lb-check" for="do-judge-the-gift-giver-test-after-four-weeks"><input type="checkbox" id="do-judge-the-gift-giver-test-after-four-weeks"><span><b>Judge the gift-giver test after four weeks.</b> Compare its saves, shares, comments and DMs with your other posts. Keep it if it holds up; drop it if not.</span></label></li></ul>
+</section>
+<section id="the-numbers-behind-it">
+<h2>The numbers behind it</h2>
+<h3 class="sub">Paid ads (Meta), 13 Sep to 12 Oct</h3>
+<div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Measure</th><th class="num">Value</th></tr></thead><tbody><tr><td>Spent</td><td class="num">₪6,992</td></tr><tr><td>Sales in the same days (all sources)</td><td class="num">115</td></tr><tr><td>Sales Meta takes credit for</td><td class="num">62</td></tr><tr><td>Cost per sale, every sale credited to ads</td><td class="num">₪61</td></tr><tr><td>Cost per sale, Meta's count</td><td class="num">₪113</td></tr><tr><td>Money back per ₪1 of ads</td><td class="num">₪1.83</td></tr><tr><td>Company target and ceiling</td><td class="num">₪30 and ₪50</td></tr><tr><td>Times an ad was shown</td><td class="num">292,622</td></tr><tr><td>Clicks to the site</td><td class="num">4,214 (1.4% of views)</td></tr></tbody></table></div>
+<ul class="list"><li>Revenue in this window works out to about ₪111 per sale (₪6,992 × 1.83 ÷ 115).</li><li>Last 7 full days: ₪2,073 spent, 50 orders, ₪41 per order, Meta credits 18 (₪115 each). The 7 days before: ₪1,678, 21 orders, ₪80 per order, Meta ₪210.</li><li>Cost per order by week ≈: ₪44 (week of 7 Sep), ₪36, ₪130, ₪80, ₪41 (week of 5 Oct).</li><li>Meta's share of sales fell from ≈80% in the first two weeks to 36 to 38% in the last two. Either tracking broke around 28 Sep or more sales came from somewhere else. The dashboard's reliability panel warns that server and Meta purchase counts differ by more than 25% and that UTM coverage is under 80%.</li><li>The dashboard shows an active budget of ₪700 a day, but spend in the last 7 full days averaged ₪296 a day.</li><li>Thu 8 Oct: ≈13 to 14 orders in one day, of which Meta credits about 3.</li></ul>
+<p>Who the ads reach (Meta delivery and attribution, not verified buyers):</p>
+<div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Segment</th><th class="num">Spend</th><th class="num">Meta purchases</th><th class="num">Cost per purchase</th><th class="num">Share of ad views</th></tr></thead><tbody><tr><td>Women 55-64</td><td class="num">₪1,540</td><td class="num">17</td><td class="num">₪91</td><td class="num">22%</td></tr><tr><td>Women 35-44</td><td class="num">₪1,404</td><td class="num">13</td><td class="num">₪108</td><td class="num">14%</td></tr><tr><td>Women 45-54</td><td class="num">₪1,114</td><td class="num">8</td><td class="num">₪139</td><td class="num">14%</td></tr><tr><td>Women 25-34</td><td class="num">₪1,238</td><td class="num">7</td><td class="num">₪177</td><td class="num">18%</td></tr><tr><td>Women 65+</td><td class="num">₪1,219</td><td class="num">5</td><td class="num">₪244</td><td class="num">26%</td></tr><tr><td>Men 25-34</td><td class="num">₪112</td><td class="num">8</td><td class="num">₪14</td><td class="num">1.5%</td></tr></tbody></table></div>
+<p>Women 55 and over get 48% of ad views. The men 25-34 row is too small to trust.</p>
+<p>Cost per order by weekday (34 days, the dashboard says no valid test yet): Sun ₪53, Mon ₪55, Tue ₪92, Wed ₪97, Thu ₪31, Fri ₪40, Sat ₪82.</p>
+<h3 class="sub">From book to purchase</h3>
+<ul class="list"><li>All time: 14,942 books started, 1,844 paid within 7 days (12.3%). Per person: 6,130 started, 1,329 paid within 7 days (21.7%). About 4,800 people with a phone number made a book and did not buy that week.</li><li>Last 30 days (Mixpanel): 527 orders created, 202 reached payment, 85 purchased. Mixpanel undercounts (the server has 115 sales), so the real drop at payment is between 43% and 58%.</li><li>Buyers buy 1.40 books each on average (1,411 buyers).</li></ul>
+<h3 class="sub">WhatsApp messages</h3>
+<p>Last 30 days, Marketing tab, compared with a small group left alone:</p>
+<div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Message</th><th class="num">People contacted</th><th class="num">Bought</th><th class="num">Extra sales per 100</th></tr></thead><tbody><tr><td>Unfinished book reminder</td><td class="num">146</td><td class="num">13</td><td class="num">+4.1</td></tr><tr><td>First coupon</td><td class="num">132</td><td class="num">7</td><td class="num">+5.4</td></tr><tr><td>Third coupon</td><td class="num">125</td><td class="num">2</td><td class="num">+1.6</td></tr><tr><td>Birthday reminder</td><td class="num">2</td><td class="num">none</td><td class="num">none</td></tr></tbody></table></div>
+<p>Last 90 days, Analytics tab, purchases that followed a message (not proof the message caused them):</p>
+<div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Message</th><th class="num">Sent</th><th class="num">Purchases after</th><th class="num">Message cost per purchase</th></tr></thead><tbody><tr><td>Post-purchase offer</td><td class="num">209</td><td class="num">48</td><td class="num">$0.16</td></tr><tr><td>Reminder to finish the book</td><td class="num">483</td><td class="num">17</td><td class="num">$1.02</td></tr><tr><td>Third coupon</td><td class="num">390</td><td class="num">8</td><td class="num">$1.75</td></tr><tr><td>Second coupon</td><td class="num">269</td><td class="num">5</td><td class="num">$1.93</td></tr><tr><td>First coupon</td><td class="num">521</td><td class="num">8</td><td class="num">$2.34</td></tr><tr><td>Back-to-school broadcast</td><td class="num">813</td><td class="num">1</td><td class="num">$29.18</td></tr></tbody></table></div>
+<p>The whole programme cost about $96 in message fees over 90 days (the dashboard's estimate at $0.036 a message).</p>
+<h3 class="sub">What sells</h3>
+<p>Paid orders, all time (1,972):</p>
+<div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Book</th><th class="num">Orders</th></tr></thead><tbody><tr><td><bdi>יום הולדת</bdi></td><td class="num">262</td></tr><tr><td>Custom story</td><td class="num">237</td></tr><tr><td><bdi>הלב של יובל</bdi></td><td class="num">167</td></tr><tr><td><bdi>חברים צבעוניים</bdi></td><td class="num">118</td></tr><tr><td><bdi>ביי ביי מוצץ</bdi></td><td class="num">86</td></tr><tr><td><bdi>אח חדש</bdi></td><td class="num">72</td></tr><tr><td><bdi>עדן והחיות החופשיות, נפרדים מהטיטולים</bdi></td><td class="num">66</td></tr><tr><td><bdi>אחות חדשה</bdi></td><td class="num">60</td></tr><tr><td><bdi>שלום כיתה א'</bdi></td><td class="num">57</td></tr><tr><td><bdi>הטורניר הגדול של נוי</bdi></td><td class="num">50</td></tr><tr><td><bdi>מה אהיה מחר?</bdi></td><td class="num">43</td></tr></tbody></table></div>
+<ul class="list"><li>New sibling combined (<bdi>אח חדש</bdi> + <bdi>אחות חדשה</bdi>) is 132 and would rank fourth.</li><li>86% of orders are catalogue books, 12% custom stories, 2% written from scratch.</li><li>This table was set to "all period". Switching the selector to 30 days would show what sells now.</li></ul>
+<h3 class="sub">Who the books are for</h3>
+<ul class="list"><li>Girls 51%, boys 49%.</li><li>Book language: Hebrew 91.4%, Arabic 4.7% (93 orders), English 1.6%, Russian 0.9%.</li><li>Child age is not usable: 77.5% are "age 5", which the dashboard flags as a likely default. Among the other ages shown, ages 1 to 4 have 334 orders and ages 6 to 8 have 95.</li></ul>
+<h3 class="sub">Where</h3>
+<div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>City</th><th class="num">Orders</th></tr></thead><tbody><tr><td><bdi>ראשון לציון</bdi></td><td class="num">103</td></tr><tr><td><bdi>תל אביב-יפו</bdi></td><td class="num">69</td></tr><tr><td><bdi>אשקלון</bdi></td><td class="num">62</td></tr><tr><td><bdi>באר שבע</bdi></td><td class="num">61</td></tr><tr><td><bdi>פתח תקווה</bdi></td><td class="num">58</td></tr><tr><td><bdi>חולון</bdi></td><td class="num">52</td></tr><tr><td><bdi>נתניה</bdi></td><td class="num">52</td></tr><tr><td><bdi>ירושלים</bdi></td><td class="num">51</td></tr><tr><td><bdi>רמת גן</bdi></td><td class="num">49</td></tr><tr><td><bdi>חיפה</bdi></td><td class="num">48</td></tr><tr><td><bdi>אשדוד</bdi></td><td class="num">47</td></tr><tr><td><bdi>רחובות</bdi></td><td class="num">47</td></tr></tbody></table></div>
+<p>The top 12 cities are 35% of orders, so sales are spread across the country.</p>
+<h3 class="sub">History</h3>
+<p>Paid orders by month, ≈ read off the chart: Oct 2025 60, Nov 310, Dec 40, Jan 2026 240, Feb 370, Mar 490, Apr 110, May 20, Jun 15, Jul 15, Aug 118, Sep 89, Oct (12 days) 57. Total revenue to date ₪278,116.</p>
+</section>
+<section id="numbers-not-to-use">
+<h2>Numbers not to use</h2>
+<div class="caution"><ul class="list"><li><b>"Conversion rate 61%"</b> and the by-source cards (gallery 50%, custom 64%, scratch 73%). The monthly chart shows exactly 100% for six straight months, so unpaid orders from that period are missing. Use 21.7% per person, or 16% per order for the last 30 days.</li><li><b>Site visitors.</b> 129 visitors against 161 add-to-carts in the same week, while Meta reports 4,214 clicks in 30 days. Visitor tracking sees a fraction of the traffic.</li><li><b>Child age.</b> See above.</li><li><b>The weekday table as proof.</b> The dashboard says 4 of the 8 full weeks it needs are missing.</li></ul></div>
+</section>
+<section id="things-to-check-with-whoever-built-the-dashboard">
+<h2>Things to check with whoever built the dashboard</h2>
+<ul class="list"><li>The Analytics tab says there is no random control group for WhatsApp, while the Marketing tab reports extra sales against one.</li><li>"+5.4 per 100" for the first coupon is higher than the 5.3% who bought, so the left-alone group is probably tiny.</li><li>The second coupon has fewer sends (269) than the third (390), so step two may be skipped for some people.</li><li>Budget of ₪700 a day shown against ≈₪296 a day actually spent.</li></ul>
+</section>
+<section id="open-questions-nobody-has-answered">
+<h2>Open questions nobody has answered</h2>
+<ol class="points"><li><div>What ran in Nov 2025 and Feb to Mar 2026, and what stopped in Dec and in May?</div></li><li><div>Was there any ad spend in August 2026? August had ≈118 orders before the Meta data begins on 8 Sep. If no ads ran then, sales without ads were about 3.8 a day, the same as the 30-day ad window, and the ads may be adding very little.</div></li><li><div>What happened on Thu 8 Oct?</div></li><li><div>What do print and shipping cost per book? That sets the real ceiling for cost per sale.</div></li></ol>
+</section>
+<section id="beyond-social-to-raise-with-yossi-if-useful">
+<h2>Beyond social, to raise with Yossi if useful</h2>
+<ul class="list"><li>Keep ad spend flat (the dashboard recommends the same), stop showing ads to women 65+, try a small ad set for men 25-34, then run the single control against challenger test the dashboard proposes.</li><li>Find where people leave at the payment step, and add a WhatsApp message for people who reached payment and did not pay.</li><li>Turn on the birthday reminder (2 sends so far) and use the post-purchase message to offer a second book and ask for the reveal video.</li><li>Stop broadcasts to the whole list (813 sent, 1 purchase).</li><li>Remove the default child age so real ages are collected.</li></ul>
+</section>
+<p class="lb-note">Built from <code>docs/lumebook-sales-data-decisions-2026-10-12.md</code> by <code>docs/src/build_sales_readout.py</code>. Edit the Markdown, then rebuild.</p>
+</main>
+<script>
+(function () {
+  var KEY = "lumebook-sales-readout-done", saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) {}
+  var boxes = [].slice.call(document.querySelectorAll(".checks input[type=checkbox]"));
+  function count() {
+    var n = boxes.filter(function (b) { return b.checked; }).length;
+    document.querySelectorAll("[data-done]").forEach(function (el) { el.textContent = n + " of " + boxes.length + " done"; });
+  }
+  boxes.forEach(function (b) {
+    if (saved[b.id]) b.checked = true;
+    b.addEventListener("change", function () {
+      saved[b.id] = b.checked ? 1 : 0;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      count();
+    });
+  });
+  count();
+})();
+</script>
+</body>
+</html>

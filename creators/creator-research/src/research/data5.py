@@ -1,0 +1,7 @@
+# fifth pass, 20 Oct 2026: creators Yarin named himself (h, name, arch, role, ages, concept, risk)
+# Stats are in pass5_raw.json, read from each profile the day it was added. Free text in Hebrew, like C_all.json.
+N5 = [
+("gal__shoes","GAL.SHOES","UX:online sneaker store","חנות סניקרס מקוונת, משלוחים לכל הארץ, הזמנות בוואטסאפ (מהביו)","לא רלוונטי","החנות לא מכוונת להורים. אם תתברר לה זווית של ילדים, ספר במתנה עם סטורי על הילד.","חנות ולא יוצרת: הרילס הם מוצרים. אין בפרופיל רמז לילדים או להורות. נוספה לבקשת Yarin."),
+("avivit.cohen.photography","אביבית כהן","UX:family photographer","צלמת לייף סטייל (ניובורן, הריון, גיל שנה, משפחה) ומעבירה סדנאות לצלמים (מהביו)","0 עד 5","חבילה ״מהצילומים שלכם לספר״: התמונה שלה היא תמונת הילד שנדרשת להזמנה.","פחות מ-5K עוקבים (2.5K), נוספה לבקשת Yarin; חציון צפיות כ-1.9K; חשבון עסקי, שותפות על חבילה ולא UGC."),
+]
+KIDS5 = {}

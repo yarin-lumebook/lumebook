@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CSS = open(os.path.join(HERE, "lumebook.css"), encoding="utf-8").read()
-FONTS_URL = "https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap"
+FONTS_URL = "https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap"
 LOGOS = {"logo_square.png": ("d2e355f0add8153fb9f1b34b4e5b765d", 141241), "logo_wide.png": ("6c21967df0d6986aaa6b654fa3bb759a", 90647)}
 
 
@@ -67,13 +67,20 @@ COLOR_USAGE = {
 }
 for i in range(1, 7):
     COLOR_USAGE[f"seq-{i}"] = f"Sequential data series step {i} of 6 (stages, bars), lightest to deepest."
+CAT_HUES = {1: "orange", 2: "pink", 3: "green", 4: "blue", 5: "purple", 6: "teal", 7: "slate", 8: "ochre"}
+CAT_PLAYBOOK = {1: "Hook", 2: "Keep them watching", 3: "Call to action", 4: "What to show", 5: "Editing", 6: "Topic", 7: "Filming", 8: "Text and caption"}
+for i, hue in CAT_HUES.items():
+    COLOR_USAGE[f"cat-{i}"] = f"Category {i} ({hue}; the playbook's {CAT_PLAYBOOK[i]}): tile, bar, card edge, swatch. Never under text."
+    COLOR_USAGE[f"cat-{i}-ink"] = f"Category {i} text: chip, ID chip, eyebrow. 4.5:1 or more on surface, bg, surface-2 and its soft."
+    COLOR_USAGE[f"cat-{i}-soft"] = f"Category {i} ground: chip, ID chip, current sub-item."
 
 ORDER = ["lb-ink", "lb-ink-deep", "lb-gold", "lb-gold-deep", "lb-violet", "lb-cream",
          "bg", "surface", "surface-2", "surface-sunk", "bar", "overlay",
          "text", "text-2", "text-3", "text-on-tint", "fill", "fill-2", "fill-3", "line", "line-strong",
          "tint", "tint-hover", "tint-soft", "focus", "accent", "accent-soft", "accent-ink",
          "success", "success-soft", "warning", "warning-soft", "danger", "danger-soft", "info", "info-soft",
-         "kid", "kid-soft", "expert", "expert-soft"] + [f"seq-{i}" for i in range(1, 7)]
+         "kid", "kid-soft", "expert", "expert-soft"] + [f"seq-{i}" for i in range(1, 7)] + \
+        [f"cat-{i}{s}" for i in range(1, 9) for s in ("", "-ink", "-soft")]
 
 
 def color_value(v):
@@ -90,22 +97,26 @@ def tokens():
         if name in dark and dark[name].strip() != light[name].strip():
             val["dark"] = color_value(dark[name])
         colors.append({"name": name, "value": val, "usage": COLOR_USAGE.get(name, "")})
-    fam = {"sans": light["font"], "display": light["font-display"], "mono": light["font-mono"]}
+    fam = {"sans": light["font"], "secondary": light["font-2"], "mono": light["font-mono"]}
     fam = {k: v.strip() for k, v in fam.items()}
     t = {
         "name": "LumeBook", "version": 1,
         "meta": {"source": "shared/design/lumebook.css (LumeBook project repo)"},
         "color": {"themes": [{"id": "light", "name": "Light"}], "tokens": colors},
         "type": {"fonts": [], "families": fam, "groups": [
-            {"name": "Display", "family": "display", "styles": [
-                {"name": "display", "fontSize": "40px", "lineHeight": 1.12, "fontWeight": 400, "sample": "לוח לומבוק", "usage": "Page titles (h1). Varela Round, rounded and friendly like the books; once per page."},
-                {"name": "title", "fontSize": "24px", "lineHeight": 1.2, "fontWeight": 400, "sample": "דורש תשומת לב", "usage": "Section titles (h2)."}]},
+            {"name": "Display", "family": "sans", "styles": [
+                {"name": "display", "fontSize": "38px", "lineHeight": 1.15, "fontWeight": 800, "sample": "לוח לומבוק", "usage": "Page titles (h1). Heebo ExtraBold, tracking -0.015em; once per page."},
+                {"name": "title", "fontSize": "22px", "lineHeight": 1.25, "fontWeight": 700, "sample": "דורש תשומת לב", "usage": "Section titles (h2). Heebo Bold, tracking -0.01em."}]},
             {"name": "Text", "family": "sans", "styles": [
                 {"name": "headline", "fontSize": "18px", "lineHeight": 1.3, "fontWeight": 700, "sample": "שבוע 2 · עכשיו", "usage": "Card titles (h3)."},
                 {"name": "body", "fontSize": "16px", "lineHeight": 1.55, "fontWeight": 400, "sample": "ספר במתנה, קישור אישי עם הנחה לקהל ועד 25% עמלה.", "usage": "Running text, up to about 42rem wide."},
                 {"name": "callout", "fontSize": "15px", "lineHeight": 1.5, "fontWeight": 400, "sample": "16 יוצרים במעקב", "usage": "Table cells, lists, buttons, nav items."},
                 {"name": "footnote", "fontSize": "13px", "lineHeight": 1.45, "fontWeight": 500, "sample": "נבדק לפני 2 שע׳", "usage": "Labels, chips, metadata."},
-                {"name": "caption", "fontSize": "12px", "lineHeight": 1.4, "fontWeight": 600, "sample": "עבודה", "usage": "Sidebar group labels, counts."}]},
+                {"name": "caption", "fontSize": "12px", "lineHeight": 1.4, "fontWeight": 600, "sample": "עבודה", "usage": "Small running text in Heebo."}]},
+            {"name": "Secondary", "family": "secondary", "styles": [
+                {"name": "label", "fontSize": "13px", "lineHeight": 1.45, "fontWeight": 600, "sample": "מקור · נבדק לפני 2 שע׳", "usage": "Assistant: chips, table headers, stat labels, field labels, metadata, legends."},
+                {"name": "eyebrow", "fontSize": "13px", "lineHeight": 1.4, "fontWeight": 700, "sample": "שבוע 2", "usage": "Assistant Bold in accent-ink or a category ink, above a title."},
+                {"name": "count", "fontSize": "12px", "lineHeight": 1.4, "fontWeight": 700, "sample": "173", "usage": "Assistant Bold, tabular: counts, ID chips, sidebar group labels."}]},
             {"name": "Numbers", "family": "sans", "styles": [
                 {"name": "stat", "fontSize": "30px", "lineHeight": 1.1, "fontWeight": 700, "sample": "918", "usage": "Big numbers in stat tiles; always tabular figures."}]},
             {"name": "Code", "family": "mono", "styles": [
@@ -153,7 +164,8 @@ It is **not** used by the public ambassadors site (lumebook-ambassadors.vercel.a
 - **Three roles for color.** `text` (LumeBook ink) for reading; `tint` (violet) for anything you can click, and only for that; `accent` (gold) for brand emphasis and progress. Gold text uses `accent-ink` so it passes contrast.
 - **State is shape plus color.** Status always appears as a chip, dot, count or tinted alert row with a word, never color alone. `success`, `warning`, `danger`, `info` are separate from the accent.
 - **Carousel pillars.** `kid` (violet) for "הילד מספר", `expert` (gold) for "גישה מקצועית", matching the slide designs.
-- **Type.** Varela Round for page and section titles (rounded like the books), Heebo for everything else (Hebrew and Latin from one family), system mono for commands. Scale: display 40, title 24, headline 18, body 16, callout 15, footnote 13, caption 12.
+- **Category colour.** Eight hues (`cat-1` to `cat-8`, each with a base, an ink and a soft) for a page's 3 to 8 stable categories that a reader scans or filters by: the playbook's tools, the dashboard's workstreams, the creator map's tracks. See "Category colour" below.
+- **Type.** Heebo is the main font, headings included (h1 ExtraBold 800, h2 Bold 700, slightly tight tracking); Assistant is the secondary font for labels, captions, counts, chips, table headers and the sidebar group labels. Both carry Hebrew and Latin. Body text, buttons and inputs stay on Heebo. System mono for commands. Scale: display 38, title 22, headline 18, body 16, callout 15, footnote 13, caption 12. Varela Round was dropped on 18 Oct 2026.
 - **Space and shape.** 4pt spacing, pill buttons and chips, 18px card radius, 12px for tables and grouped lists.
 - **Theme.** Light only (Yarin, 14 Oct 2026): there is no dark theme and no theme toggle. `design.head()` sets `data-theme="light"` before first paint. Every text token passes 4.5:1 on every surface.
 - **Motion.** Short (0.15s to 0.2s) color and slide transitions only; all motion stops under `prefers-reduced-motion`.
@@ -164,6 +176,38 @@ It is **not** used by the public ambassadors site (lumebook-ambassadors.vercel.a
 - Reading pages and reports: `lb-topbar` with logo, page name, an `lb-toc` section nav, and the link back to the dashboard; then `lb-page`.
 - Grids: `lb-grid` (auto-fit, set `--min`), or `cols-2/3/4` that step down to 2 then 1 column. Rows: `lb-row`, stacks: `lb-stack`.
 - Phone width (390px) never scrolls sideways; wide tables scroll inside `lb-table-wrap`.
+
+## Type pairing
+
+| Role | Font | Weight | Where |
+|---|---|---|---|
+| Page title (h1) | Heebo | 800 | Once per page, `--fs-display` |
+| Section title (h2) | Heebo | 700 | `--fs-title` |
+| Card title (h3), body, buttons, inputs, nav items | Heebo | 400 to 700 | Everything you read or press |
+| Labels, eyebrows, chips, counts, table headers, legends, captions, field labels, metadata | Assistant (`--font-2`) | 600 to 700 | Anything that names or counts rather than says |
+
+Use `lb-font-2` to put any other element on the secondary font. Fonts link: `{{FONTS_URL}}`.
+
+## Category colour
+
+Eight hues for categories, kept apart from status (`success`, `warning`, `danger`, `info`), the carousel pillars (`kid`, `expert`) and the brand violet and gold. They came from the Product Reels Playbook (18 Oct 2026), where each of the eight tools owns one; the playbook's names are aliases, not the token names.
+
+{{PALETTE}}
+
+**Contrast** (computed from the stylesheet; text needs 4.5:1):
+
+{{CONTRAST}}
+
+**Rules**
+
+- Use category colour only where a page already has 3 to 8 stable categories that a reader scans or filters by. A page with no categories, or with more than 8, gets none. Never invent categories to have something to colour.
+- **A category colour is never also a status colour.** Done, late, broken, waiting: status chips with a word. A category says what something is, never how it is doing. Never colour the carousel pillars or a state with these hues.
+- One category, one hue, everywhere it appears on the page: sidebar tile, chip, ID chip, chart bar, card edge, legend swatch. Within a set every category gets a different hue.
+- The mapping lives in `shared/design/categories.json`, never in a page: builds read it (`design.head()` adds a `.lb-<set>-<key>` class per category, `design.cat_class()`, `design.category_css()`); the dashboard and the SMM plan link the synced `categories.css`.
+- Base colours mark things (tiles, bars, edges, swatches) and never sit under text: white text fails on most of them. Text in a category colour uses its ink, on surface, bg, surface-2 or its own soft.
+- Category chips carry a small square swatch; status chips carry a dot or a word. Shape plus word, never colour alone.
+- Where a page also shows status, prefer hues 2, 4, 5, 6 and 7: 1 sits near warning, 3 near success and 8 near the gold accent.
+- Add one legend only where the colour is not already labelled next to it (a chart, a stacked bar). A labelled chip or tile is its own legend.
 
 ## Iconography
 
@@ -191,8 +235,19 @@ COMPONENTS = {
               '<div dir="rtl" lang="he" style="padding:16px"><div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>מדד</th><th>מקור</th><th class="num">אוקטובר</th><th class="num">יעד דצמבר</th></tr></thead><tbody><tr><td>עוקבים באינסטגרם</td><td class="lb-muted">Instagram</td><td class="num">918</td><td class="num">3-4K</td></tr><tr><td>סרטוני לקוחות</td><td class="lb-muted">אקסל</td><td class="num">10</td><td class="num">25</td></tr></tbody></table></div></div>'),
     "Hbars": ("Data", 170, "Horizontal bars for ranked counts: label, track, value. One scale per list (the longest bar is the largest value). Use `--seq-*` for stacked stage bars with a legend.",
               '<div dir="rtl" lang="he" class="lb-stack" style="padding:16px"><div class="lb-hbars"><div class="lb-hbar"><span>הדגמת מוצר</span><span class="track"><i style="width:100%"></i></span><span class="v">38</span></div><div class="lb-hbar"><span>סיפור לקוח</span><span class="track"><i style="width:63%"></i></span><span class="v">24</span></div><div class="lb-hbar"><span>מתנה ואירוע</span><span class="track"><i style="width:42%"></i></span><span class="v">16</span></div></div><div class="lb-stages"><i style="flex:9;background:var(--seq-1)"></i><i style="flex:4;background:var(--seq-2)"></i><i style="flex:2;background:var(--seq-4)"></i><i style="flex:1;background:var(--seq-6)"></i></div><div class="lb-legend"><span><b style="background:var(--seq-1)"></b>לא פנינו 9</span><span><b style="background:var(--seq-2)"></b>נשלחה פנייה 4</span><span><b style="background:var(--seq-4)"></b>ספר בהכנה 2</span><span><b style="background:var(--seq-6)"></b>פורסם 1</span></div></div>'),
-    "Chip": ("Status", 110, "Short status words. Neutral by default; `tint`, `accent`, `success`, `warning`, `danger`, `info`, and the pillars `kid` and `expert`; `outline` for tags. Add `lb-dot` for live or health state. A chip always carries a word, never color alone.",
+    "Chip": ("Status", 110, "Short status words in the secondary font (Assistant). Neutral by default; `tint`, `accent`, `success`, `warning`, `danger`, `info`, and the pillars `kid` and `expert`; `outline` for tags; `cat` (with an `lb-cat-N` class) for a category, which adds a square swatch. Add `lb-dot` for live or health state. A chip always carries a word, never color alone.",
              '<div dir="rtl" lang="he" class="lb-row" style="padding:16px"><span class="lb-chip">שורטליסט</span><span class="lb-chip tint">סנכרון</span><span class="lb-chip accent">ברטר</span><span class="lb-chip success"><span class="lb-dot"></span>באוויר</span><span class="lb-chip warning">לפרסם מחדש</span><span class="lb-chip danger">מחזיר 500</span><span class="lb-chip info">לוודא עם יוסי</span><span class="lb-chip kid">kid-2 · הילד מספר</span><span class="lb-chip expert">expert-1 · גישה מקצועית</span><span class="lb-chip outline">רגע</span><span class="lb-count">16</span><span class="lb-count is-alert">3</span></div>'),
+    "Category": ("Category", 260, "Category colour for a page's 3 to 8 stable categories (see the README). Put `lb-cat-1` ... `lb-cat-8` (or a generated `.lb-<set>-<key>` class from categories.json) on the row, card or nav item; the pieces inside read it. `lb-tile` is the category's mark (icons only; `is-soft` for a letter or number; `lg`, `xl`). `lb-chip cat` adds a square swatch so it never reads as a status chip. `lb-pid` is a short ID in the category's ink. `lb-card is-cat` draws the edge, `lb-hbar is-cat` the bar, `lb-swatch` the legend mark. Never use it for state.",
+                 '<div dir="rtl" lang="he" class="lb-stack" style="padding:16px">'
+                 '<div class="lb-row">' + "".join(f'<span class="lb-tile lb-cat-{i}">' + '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>' + '</span>' for i in range(1, 9)) + '</div>'
+                 '<div class="lb-row"><span class="lb-chip cat lb-cat-4">תוכנית ואסטרטגיה</span><span class="lb-chip cat lb-cat-2">יוצרים</span><span class="lb-chip cat lb-cat-5">קרוסלות</span><span class="lb-chip cat lb-cat-1">רילס ווידאו</span><span class="lb-chip cat lb-cat-7">מתחרים</span><span class="lb-chip cat lb-cat-6">קהילות</span><span class="lb-chip success"><span class="lb-dot"></span>באוויר</span></div>'
+                 '<div class="lb-row"><span class="lb-pid lb-cat-1">H1</span><span class="lb-pid lb-cat-2">R3</span><span class="lb-pid lb-cat-3">C2</span><a class="lb-pid lb-cat-4" href="#">S1</a><span class="lb-tile is-soft lb-cat-6">3</span><span class="lb-eyebrow cat lb-cat-5">כלי 5 מתוך 8</span></div>'
+                 '<div class="lb-grid cols-2"><div class="lb-card is-cat lb-cat-6"><span class="lb-card-title">Hooray Heroes</span><div class="lb-hbars"><div class="lb-hbar is-cat"><span>הדגמת מוצר</span><span class="track"><i style="width:100%"></i></span><span class="v">12</span></div><div class="lb-hbar is-cat"><span>סיפור לקוח</span><span class="track"><i style="width:55%"></i></span><span class="v">7</span></div></div></div>'
+                 '<div class="lb-card"><div class="lb-stages"><i class="lb-swatch lb-cat-4" style="flex:5"></i><i class="lb-swatch lb-cat-2" style="flex:3"></i><i class="lb-swatch lb-cat-5" style="flex:2"></i></div><div class="lb-legend"><span><b class="lb-swatch lb-cat-4"></b>תוכנית 5</span><span><b class="lb-swatch lb-cat-2"></b>יוצרים 3</span><span><b class="lb-swatch lb-cat-5"></b>קרוסלות 2</span></div></div></div></div>'),
+    "Disclosure": ("Layout", 230, "Secondary detail behind a toggle, the way the Reels playbook keeps each page short: the summary says what is inside (an optional `small` line under it), the chevron points forward and turns down when open. `is-quiet` drops the box inside a card; `is-cat` marks an open one with its category edge. Keep the main point outside; put sources, method, long profiles and examples inside. Not for text someone edits in the site editor.",
+                   '<div dir="rtl" lang="he" class="lb-disclosures" style="padding:16px;max-width:520px"><details class="lb-disclosure" open><summary><span class="lb-sum">מקורות<small>4 מחקרים ועמודי פלטפורמה</small></span></summary><div class="lb-disclosure-body"><p class="lb-small">כל מקור נפתח בזמן המחקר. הנתונים הציבוריים נבדקו ב-15.10.</p></div></details><details class="lb-disclosure is-cat lb-cat-1"><summary><span class="lb-sum">למה הראיות מדורגות כבינוניות</span></summary><div class="lb-disclosure-body"><p class="lb-small">שני מחקרים, מדגם קטן.</p></div></details></div>'),
+    "SourceList": ("Layout", 300, "An Apple-style source list: `lb-nav-item` with an `lb-tile` (the category's colour) and an optional plain count (`lb-nav-n`) or a pill count (`lb-count`). The current item keeps ink text in bold; its children open in `lb-nav-sub` under it, edged in the category's soft colour, with `lb-pid` IDs. Items without a category keep a line icon.",
+                   '<div dir="rtl" lang="he" style="padding:16px;max-width:280px"><nav class="lb-nav" style="background:var(--surface-2);padding:12px;border-radius:var(--r-lg)"><div class="lb-nav-label">כלים</div><a class="lb-nav-item lb-cat-1" href="#" aria-current="page"><span class="lb-tile">' + '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>' + '</span><span class="lb-nav-text">הוק</span><span class="lb-nav-n">8</span></a><div class="lb-nav-sub lb-cat-1"><a href="#" aria-current="page"><span class="lb-pid">H1</span><span>מבחן הדילוג של 3 שניות</span></a><a href="#"><span class="lb-pid">H2</span><span>להראות את הערך מוקדם</span></a></div><a class="lb-nav-item lb-cat-2" href="#"><span class="lb-tile">' + '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>' + '</span><span class="lb-nav-text">להמשיך לצפות</span><span class="lb-nav-n">9</span></a><a class="lb-nav-item lb-cat-3" href="#"><span class="lb-tile">' + '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>' + '</span><span class="lb-nav-text">קריאה לפעולה</span><span class="lb-nav-n">7</span></a></nav></div>'),
     "Alert": ("Status", 170, "Rows in the attention list: a severity chip, one sentence, an optional link. `crit` and `warn` tint the whole row; info rows stay on the surface. Sort critical first.",
               '<div dir="rtl" lang="he" class="lb-alerts" style="padding:16px"><div class="lb-alert crit"><span class="lb-chip danger">אתר</span><span class="lb-alert-text">דף השגרירים מחזיר 500</span><a href="#">פתיחה</a></div><div class="lb-alert warn"><span class="lb-chip warning">אינסטגרם</span><span class="lb-alert-text">אינסטגרם לא החזיר את הפרופיל היום</span><a href="#">פתיחה</a></div><div class="lb-alert info"><span class="lb-chip info">לוודא עם יוסי</span><span class="lb-alert-text">דדליין הזמנות לחנוכה עוד לא מאושר</span><span></span></div></div>'),
     "Callout": ("Status", 110, "A tinted note for how-to or context inside a page. Gold by default, `info` for neutral help. One per section at most.",
@@ -222,14 +277,14 @@ COVER = """<!-- @dsCard height=300 -->
 .cv svg{position:absolute;inset:0}
 .ink{fill:var(--text)} .gold{fill:var(--lb-gold)} .violet{fill:var(--tint)} .cream{fill:var(--surface-2)} .soft{fill:var(--accent-soft)}
 .dot{fill:var(--bg)}
-.cv .name{position:absolute;left:40px;bottom:64px;font-family:var(--font-display);font-size:96px;line-height:.92;color:var(--text);margin:0}
+.cv .name{position:absolute;left:40px;bottom:64px;font-family:var(--font);font-weight:800;letter-spacing:-.03em;font-size:96px;line-height:.92;color:var(--text);margin:0}
 .cv .tag{position:absolute;left:44px;bottom:36px;font-size:14px;color:var(--text-2);margin:0;max-width:420px}
 </style>
 <div class="cv" dir="ltr">
   <svg viewBox="0 0 960 300" width="960" height="300" aria-hidden="true">
     <!-- blocks: lb-ink 208x300 slab, lb-gold 176x176 pill-cornered (r-lg), tint 120x120 disc, accent-soft 168x96 band, surface-2 ground strip
          arrangement: one tall ink slab bleeding off the top and bottom with satellites stacked toward the right edge, like a book spine and its pages
-         pattern: discs and half-rounds (soft, friendly, pill radii in the system; rounded display face) - a 4x3 grid of sp-5 dots cut out of the ink slab
+         pattern: discs and half-rounds (soft, friendly, pill radii in the system) - a 4x3 grid of sp-5 dots cut out of the ink slab
          scales: sp-4/sp-5/sp-6 gaps, radius r-lg (18px) and r-pill (half side) -->
     <rect class="cream" x="480" y="0" width="480" height="300"/>
     <rect class="ink" x="520" y="-20" width="208" height="340" rx="18"/>
@@ -244,12 +299,51 @@ COVER = """<!-- @dsCard height=300 -->
 """
 
 
+def _rgb(v):
+    v = v.strip()
+    if v.startswith("#"):
+        return [int(v[i:i + 2], 16) / 255 for i in (1, 3, 5)], 1.0
+    m = re.match(r"rgba?\(([^)]*)\)", v)
+    parts = [float(x) for x in m.group(1).replace(" ", "").split(",")]
+    return [x / 255 for x in parts[:3]], (parts[3] if len(parts) > 3 else 1.0)
+
+
+def _over(top, ground):
+    (c, a), (g, _) = _rgb(top), _rgb(ground)
+    return [a * x + (1 - a) * y for x, y in zip(c, g)]
+
+
+def _ratio(fg, bg):
+    lum = lambda c: sum(w * (x / 12.92 if x <= .04045 else ((x + .055) / 1.055) ** 2.4) for w, x in zip((.2126, .7152, .0722), c))
+    a, b = sorted((lum(fg), lum(bg)), reverse=True)
+    return (a + .05) / (b + .05)
+
+
+def palette_md():
+    rows = ["| Token | Hue | Base | Ink | Soft | Playbook alias |", "|---|---|---|---|---|---|"]
+    for i, hue in CAT_HUES.items():
+        rows.append(f"| `cat-{i}` | {hue} | `{light[f'cat-{i}'].strip()}` | `{light[f'cat-{i}-ink'].strip()}` | `{light[f'cat-{i}-soft'].strip()}` | {CAT_PLAYBOOK[i]} |")
+    return "\n".join(rows)
+
+
+def contrast_md():
+    surf, bg, s2 = (light[k].strip() for k in ("surface", "bg", "surface-2"))
+    rows = ["| Token | ink on surface | ink on bg | ink on surface-2 | ink on soft (on surface) | ink on soft (on bg) | white on base |", "|---|---|---|---|---|---|---|"]
+    for i in CAT_HUES:
+        ink, soft, base = _rgb(light[f"cat-{i}-ink"])[0], light[f"cat-{i}-soft"], light[f"cat-{i}"]
+        r = [_ratio(ink, _rgb(surf)[0]), _ratio(ink, _rgb(bg)[0]), _ratio(ink, _rgb(s2)[0]), _ratio(ink, _over(soft, surf)), _ratio(ink, _over(soft, bg)), _ratio([1, 1, 1], _rgb(base)[0])]
+        rows.append(f"| `cat-{i}` | " + " | ".join(f"{x:.2f}" for x in r[:5]) + f" | {r[5]:.2f} (icons only) |")
+    worst = min(min(_ratio(_rgb(light[f"cat-{i}-ink"])[0], g) for g in (_rgb(surf)[0], _rgb(bg)[0], _rgb(s2)[0], _over(light[f"cat-{i}-soft"], surf), _over(light[f"cat-{i}-soft"], bg))) for i in CAT_HUES)
+    assert worst >= 4.5, f"a category ink falls below 4.5:1 ({worst:.2f})"
+    return "\n".join(rows) + f"\n\nLowest ink ratio: {worst:.2f}:1."
+
+
 def main(out):
     proj = os.path.join(out, "project")
     os.makedirs(os.path.join(proj, "components"), exist_ok=True)
     w = lambda rel, text: (os.makedirs(os.path.dirname(os.path.join(proj, rel)), exist_ok=True), open(os.path.join(proj, rel), "w", encoding="utf-8").write(text))
     w("tokens.json", json.dumps(tokens(), ensure_ascii=False, indent=2))
-    w("README.md", README)
+    w("README.md", README.replace("{{FONTS_URL}}", FONTS_URL).replace("{{PALETTE}}", palette_md()).replace("{{CONTRAST}}", contrast_md()))
     w("components/bundle.css", f'@import url("{FONTS_URL}");\n' + CSS)
     for name, (group, height, guide, body) in COMPONENTS.items():
         w(f"components/{name}/README.md", f"# {name}\n\n{guide}\n")

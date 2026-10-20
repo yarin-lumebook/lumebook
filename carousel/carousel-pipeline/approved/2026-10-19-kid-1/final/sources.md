@@ -1,0 +1,38 @@
+# Sources · kid-1 · 2026-10-19
+
+- [Dummies](https://www.betterhealth.vic.gov.au/health/healthyliving/dummies) · Better Health Channel, Victorian Department of Health (with Oral Health Victoria), last reviewed 12 Jun 2026 · read 2026-10-16
+  - supports: Stopping gradually (not suddenly), limiting the dummy to sleep first, a chosen cuddly toy in its place, encouragement, and that the first few days are the hardest. Most children stop between 2 and 4. An Australian state health service page, applied to Israeli families as general child-health advice.
+  - quote: "Give your child the chance to stop their dummy habit when they are ready. ... Most children stop sucking habits between the ages of two and four ... Avoid trying to stop dummy use suddenly, as it can lead to other oral habits such as thumb or finger sucking. ... Limit the use of the dummy to sleep or nighttime. ... Consider replacing it with a toy, maybe a cuddly toy they have chosen and can hold when they would be using the dummy. ... Give plenty of encouragement and keep it positive. ... The first few days without a dummy are likely to be the most difficult."
+- [Weaning off dummies and bottles](https://library.sheffieldchildrens.nhs.uk/weaning-off-dummies-and-bottles/) · Sheffield Children's NHS Foundation Trust, Resource Library (no date shown) · read 2026-10-16
+  - supports: Limit the dummy to naps and bedtime first, set a dummy-free date once use is down, keep it out of sight, and distract when the child asks. NHS trust leaflet for UK families, used as general advice.
+  - quote: "Start by just letting your child use their dummy for nap times and bed time. ... Once they are using their dummy less, set a date for being ‘dummy free’. ... Make sure you and other caregivers remove any bottles and dummies from your child’s sight. ... Using distraction techniques can help when asked for bottles or dummies."
+- [Stopping use of a dummy and/or bottle](https://derbyshirefamilyhealthservice.nhs.uk/our-services/0-5-years/toddlers-1-3-years/feeding-and-nutrition/ditch-dummy-and-bottle) · Derbyshire Family Health Service (Derbyshire Community Health Services NHS Foundation Trust, no date shown) · read 2026-10-16
+  - supports: Cut down the dummy over the day, teach a new way to soothe, a dummy fairy or a swap for a toy, praise dummy-free times, keep it out of sight, the same rules for every carer, and take it out once the child is asleep. NHS trust webpage for UK families, used as general advice.
+  - quote: "reducing the amount a dummy is used over the day is a good way to start the transition. ... Help them learn new ways to soothe themselves, such as using a favourite blanket or toy instead of the dummy. ... Try sending the dummy away to Santa, the Easter Bunny, the Tooth Fairy or the Dummy Fairy. ... Exchange the dummy or bottle for a toy or activity or new toothbrush. ... Praise times without the dummy, keep it out of sight and reach, set clear rules and stick to them. ... all parents and carers (including childcare settings) should follow the same steps ... Keep the dummy in the bedroom (if possible), try to remove the dummy once they are asleep."
+- [Pacifier Weaning: When Is It the Right Time?](https://www.healthline.com/health/baby/pacifier-weaning) · Healthline (written by Rhona Lewis, medically reviewed by Karen Gill, M.D., 28 Aug 2020) · read 2026-10-16
+  - supports: Tell the child in advance, a quick route (3 days notice, then all pacifiers go) and a slow route (stretch the time), a comfort toy in its place, loud praise, and that for the quick route the crying spells are likely over within 2 days. A medically reviewed consumer page, not a clinical guideline.
+  - quote: "Explain to your toddler that in 3 days' time, you'll be taking away their paci ... On the day of reckoning, remove all pacifiers. ... Show your child that they can manage without their paci by gently stretching out the time ... Best practice is to offer your toddler another comfort toy like a teddy, blanket, whistle, or teether. ... When they successfully go without the paci, praise them loudly. ... Within 2 days, the crying spells will likely be behind you."
+- [How to Help Your Child Develop Empathy](https://www.zerotothree.org/resource/how-to-help-your-child-develop-empathy/) · ZERO TO THREE (page dated 1 Feb 2016) · read 2026-10-16
+  - supports: Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about pacifiers; used only as support for reading stories about a hard moment.
+  - quote: "Read stories about feelings."
+
+## Product facts (live site)
+
+- Creating the book and the preview are free; parents pay only if they love it · "יצירת הספר והתצוגה המקדימה בחינם — משלמים רק אם אהבתם." · https://lumebook.com/IL/he · checked 2026-10-16
+- The child's name appears in the text and the child stars in every illustration · "השם שלהם מופיע בטקסט והם מככבים בכל האיורים" · https://lumebook.com/IL/he · checked 2026-10-16
+- Parents upload a photo of the child and add the name · "העלו תמונה של ילדכם והוסיפו את השם" · https://lumebook.com/IL/he · checked 2026-10-16
+- Catalogue book 41 (ages 2 to 5): the child and the parents make a goodbye ceremony for the pacifier · "ילד/ה וההורים יוצרים יחד טקס פרידה מיוחד, מקשטים את המוצץ בפרחים וסרטים צבעוניים" · https://lumebook.com/IL/he/books/41 · checked 2026-10-16
+
+## Claims
+
+- slide 1 · sourced_fact · שישה דברים שיעזרו להיפרד מהמוצץ · The six things are our grouping of advice from the Better Health Channel, Derbyshire NHS and Healthline pages. No promise of a result. · src-bhc, src-derby, src-hl
+- slide 2 · sourced_fact · אני צריכה דרך חדשה להירגע בלי המוצץ · Derbyshire: help them learn new ways to soothe themselves, such as a favourite blanket or toy instead of the dummy; Better Health Channel: avoid stopping suddenly. Imagined child voice. · src-derby, src-bhc
+- slide 3 · sourced_fact · תספרי לי מראש · Healthline: explain to the toddler that in 3 days you will be taking away the pacifier. The sentence on the slide is our wording of that. · src-hl
+- slide 4 · sourced_fact · המוצץ נשאר רק במיטה · Better Health Channel: limit the dummy to sleep or nighttime; Sheffield: start with only nap times and bed time. · src-bhc, src-sheff
+- slide 5 · sourced_fact · דובי שבחרתי בעצמי · Better Health Channel: a cuddly toy they have chosen and can hold when they would be using the dummy; Derbyshire: a favourite blanket or toy. · src-bhc, src-derby
+- slide 6 · sourced_fact · תורידי אותו מהעיניים · Sheffield: remove dummies from the child’s sight; Derbyshire: keep it out of sight and reach. The high cupboard is our example. · src-sheff, src-derby
+- slide 7 · sourced_fact · תפרגני לי בבוקר · Derbyshire: praise times without the dummy; Healthline: praise them loudly when they go without. The sentence is our wording. · src-derby, src-hl
+- slide 8 · sourced_fact · הימים הראשונים הכי קשים · Better Health Channel: the first few days without a dummy are likely to be the most difficult. · src-bhc
+- slide 9 · lumebook_wording · ככה אני נפרדת מהמוצץ צעד צעד · Our recap of slides 3 to 8; the gradual approach is the Better Health Channel’s. · src-bhc
+- slide 10 · sourced_fact · סיפורים על רגעים קשים יכולים לעזור · Zero To Three: Read stories about feelings. The page is about empathy; applied to the pacifier goodbye as a hard moment. No promise of a result. · src-ztt
+- slide 10 · product_fact · סיפור אישי שבו הילד הוא הגיבור · Live site, 2026-10-16: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; creating the book and the preview are free. · site-star, site-photo, site-preview

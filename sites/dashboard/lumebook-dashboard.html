@@ -1,9 +1,11 @@
 <title>לוח לומבוק</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Varela+Round&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap">
 <script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>
 <link rel="stylesheet" href="design/lumebook.css">
+<link rel="stylesheet" href="design/categories.css">
+<link rel="stylesheet" href="board/board.css">
 <style>
 /* Layout: one app shell. Sidebar of views (overview first), sticky top bar with freshness, each view an lb-page.
    All color, type and spacing come from the LumeBook design system (design/lumebook.css); only dashboard-specific pieces live here. */
@@ -47,6 +49,12 @@
 .opt-title { font-weight: 600; line-height: 1.4; }
 
 /* research library */
+/* research library grouped by workstream; colours from design/categories.css (shared/design/categories.json, set workstreams) */
+.lib-groups { gap: var(--sp-6); }
+.lib-group { display: grid; gap: var(--sp-3); min-width: 0; }
+.lib-h { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-headline); }
+.lib-h .lb-swatch { width: .75rem; height: .75rem; border-radius: 3px; flex: none; }
+.lib-h .lb-nav-n { margin-inline-start: 0; }
 .lib-card { gap: var(--sp-2); }
 .lib-card .lb-card-head b { font-size: var(--fs-headline); font-weight: 700; color: var(--text); }
 .lib-card p { color: var(--text-2); font-size: var(--fs-callout); }
@@ -56,23 +64,24 @@
 .kpi-spark { margin-top: var(--sp-1); }
 .who { display: grid; gap: 1px; }
 tr.test td { opacity: .5; }
-.ctbl { min-width: 54rem; } .stbl { min-width: 34rem; }
+.ctbl { min-width: 60rem; } .stbl { min-width: 34rem; }
 .icon { width: 1.1rem; height: 1.1rem; }
 </style>
 
 <div class="lb-app" dir="rtl" lang="he">
   <aside class="lb-sidebar" id="sidebar" aria-label="ניווט">
-    <a class="lb-brand" href="#overview"><img src="img/logo.png" alt="LumeBook" width="640" height="186"></a>
+    <a class="lb-brand" href="#board"><img src="img/logo.png" alt="LumeBook" width="640" height="186"></a>
     <nav class="lb-nav" id="nav">
       <div class="lb-nav-label">היום</div>
+      <a class="lb-nav-item" href="#board" data-view="board"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="6.5" y="6.5" width="5" height="4" rx="1"/><rect x="13" y="12" width="5" height="5" rx="1"/><path d="M11.5 9h2a2 2 0 0 1 2 2v1"/></svg>לוח עבודה</a>
       <a class="lb-nav-item" href="#overview" data-view="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>סקירה<span class="lb-count" id="n-overview" hidden></span></a>
       <div class="lb-nav-label">עבודה</div>
-      <a class="lb-nav-item" href="#plan" data-view="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>תוכנית<span class="lb-count" id="n-plan" hidden></span></a>
-      <a class="lb-nav-item" href="#creators" data-view="creators"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg>יוצרים<span class="lb-count" id="n-creators" hidden></span></a>
-      <a class="lb-nav-item" href="#signups" data-view="signups"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>הרשמות<span class="lb-count" id="n-signups" hidden></span></a>
-      <a class="lb-nav-item" href="#content" data-view="content"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="5" width="13" height="14" rx="2"/><path d="M18 7v10M21.5 9v6"/></svg>קרוסלות<span class="lb-count" id="n-content" hidden></span></a>
+      <a class="lb-nav-item lb-ws-plan" href="#plan" data-view="plan"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></span>תוכנית<span class="lb-count" id="n-plan" hidden></span></a>
+      <a class="lb-nav-item lb-ws-creators" href="#creators" data-view="creators"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg></span>יוצרים<span class="lb-count" id="n-creators" hidden></span></a>
+      <a class="lb-nav-item lb-ws-creators" href="#signups" data-view="signups"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span>הרשמות<span class="lb-count" id="n-signups" hidden></span></a>
+      <a class="lb-nav-item lb-ws-carousels" href="#content" data-view="content"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="5" width="13" height="14" rx="2"/><path d="M18 7v10M21.5 9v6"/></svg></span>קרוסלות<span class="lb-count" id="n-content" hidden></span></a>
       <div class="lb-nav-label">מחקר</div>
-      <a class="lb-nav-item" href="#competitors" data-view="competitors"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 20V10M9 20V4M15 20v-7M21 20v-11"/></svg>מתחרים</a>
+      <a class="lb-nav-item lb-ws-competitors" href="#competitors" data-view="competitors"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 20V10M9 20V4M15 20v-7M21 20v-11"/></svg></span>מתחרים</a>
       <a class="lb-nav-item" href="#research" data-view="research"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2.5z"/><path d="M8 7h7M8 11h5"/></svg>ספריית מחקר<span class="lb-count" id="n-research" hidden></span></a>
       <div class="lb-nav-label">מערכת</div>
       <a class="lb-nav-item" href="#sync" data-view="sync"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8"/><path d="M21 4v5h-5M3 20v-5h5"/></svg>סנכרון<span class="lb-count" id="n-sync" hidden></span></a>
@@ -96,8 +105,11 @@ tr.test td { opacity: .5; }
     </header>
 
     <main>
+      <!-- BOARD: the work board (board/board.js), the default view -->
+      <div class="view" id="v-board" data-title="לוח עבודה" hidden><div id="board-root"></div></div>
+
       <!-- OVERVIEW -->
-      <div class="view lb-page" id="v-overview" data-title="סקירה">
+      <div class="view lb-page" id="v-overview" data-title="סקירה" hidden>
         <section class="lb-card tl" id="timeline"></section>
         <section class="lb-grid cols-4" id="kpis"></section>
         <div class="lb-grid cols-2">
@@ -195,7 +207,7 @@ tr.test td { opacity: .5; }
         </div>
         <section class="lb-callout info">
           <b>לעבור על החבילה ולערוך</b>
-          <span>החבילה נבנית כל לילה ב-22:00. לעריכה במקום: <code class="lb-ltr">python3 carousel/carousel-pipeline/scripts/review_server.py</code> ואז <span class="lb-ltr">http://localhost:8777</span>. להפקה: לכתוב ל-Claude "produce kid-2" (או אופציה אחרת).</span>
+          <span>החבילות נבנות פעם בשבוע, ביום חמישי בערב. Hook Studio רץ כל הזמן על המק כפריט התחברות, בכתובת <span class="lb-ltr">http://localhost:8777</span>. לא מפעילים עותק שני; אחרי שינוי בסקריפטים שלו: <code class="lb-ltr">python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart</code>. להפקה: לכתוב ל-Claude "produce kid-2" (או אופציה אחרת).</span>
         </section>
       </div>
 
@@ -212,7 +224,7 @@ tr.test td { opacity: .5; }
       <div class="view lb-page" id="v-research" data-title="ספריית מחקר" hidden>
         <section class="lb-section">
           <div class="lb-section-head"><h2>כל המחקרים והמסמכים</h2><span class="lb-meta">נפתחים ב-claude.ai, פרטיים</span></div>
-          <div class="lb-grid" style="--min:17rem" id="library"></div>
+          <div class="lb-stack lib-groups" id="library"></div>
         </section>
       </div>
 
@@ -256,6 +268,9 @@ tr.test td { opacity: .5; }
   const SHEET_ID = "1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI";
   const DRIVE = "Google Drive";
   const HQ = "https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ";
+  // On the project server (localhost) an artifact opens as its built page on the same server: a tab opened from the sandboxed artifact is blocked by claude.ai.
+  const ON_SERVER = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  const artHref = (a) => (ON_SERVER && a && /\.html?$/i.test(a.file || "") ? "/" + a.file.split("/").map(encodeURIComponent).join("/") : a && a.url);
   const STAGES = ["לא פנינו", "נשלחה פנייה", "ענו", "ספר בהכנה", "ספר נשלח", "פורסם"];
   const STAGE_COLORS = ["var(--seq-1)", "var(--seq-2)", "var(--seq-3)", "var(--seq-4)", "var(--seq-5)", "var(--seq-6)"];
   const COUNTERS = [
@@ -290,6 +305,11 @@ tr.test td { opacity: .5; }
   const when = (iso) => { if (!iso) return "–"; const d = new Date(iso); return `${dm(d)} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
   const hash = (s) => { let h = 5381; for (const c of s) h = ((h << 5) + h + c.codePointAt(0)) >>> 0; return "k" + h.toString(36); };
   const ltr = (s) => `<bdi class="lb-ltr">${esc(s)}</bdi>`;
+  // our Instagram profile: the handle refresh.py counted (facts brand.instagram_live), "lumebookai" in snapshots before 19 Oct 2026
+  const igHandle = (s) => s?.ig_handle || "lumebookai";
+  const igProfile = (s) => s?.social?.[igHandle(s)] || {};
+  // a history point's follower count: ig_lumebook since 19 Oct 2026, ig_lumebookai (the old handle) before
+  const igCount = (h) => typeof h.ig_lumebook === "number" ? h.ig_lumebook : typeof h.ig_lumebookai === "number" ? h.ig_lumebookai : null;
   const ext = (href, text) => `<a href="${esc(href)}" target="_blank" rel="noopener">${text}</a>`;
   const setCount = (id, n, alert) => { const el = $(id); if (!el) return; el.hidden = !n; el.textContent = n || ""; el.classList.toggle("is-alert", !!alert); };
   const empty = (t) => `<div class="lb-empty">${t}</div>`;
@@ -326,11 +346,14 @@ tr.test td { opacity: .5; }
   }
 
   // ---------- routing ----------
-  const VIEWS = ["overview", "plan", "creators", "signups", "content", "competitors", "research", "sync", "assets"];
+  const VIEWS = ["board", "overview", "plan", "creators", "signups", "content", "competitors", "research", "sync", "assets"];
   function route() {
     const v = (location.hash || "").slice(1);
-    S.view = VIEWS.includes(v) ? v : "overview";
+    S.view = VIEWS.includes(v) ? v : "board";
     for (const id of VIEWS) $("v-" + id).hidden = id !== S.view;
+    // the work board fills the window: the sidebar becomes a drawer behind the menu button
+    document.querySelector(".lb-app").classList.toggle("is-board", S.view === "board");
+    document.dispatchEvent(new CustomEvent("lb:route", { detail: { view: S.view } }));
     document.querySelectorAll(".lb-nav-item[data-view]").forEach((a) => { if (a.dataset.view === S.view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     $("view-title").textContent = $("v-" + S.view).dataset.title;
     closeMenu();
@@ -343,6 +366,14 @@ tr.test td { opacity: .5; }
   function render() {
     renderFresh(); renderTimeline(); renderKpis(); renderAlerts(); renderThisWeek(); renderOverviewCards();
     renderPlan(); renderCreators(); renderSignups(); renderContent(); renderCompetitors(); renderResearch(); renderSync(); renderAssets();
+    publish();
+  }
+
+  // the work board (board/board.js) reads the same data: snapshot, history, tracker ticks, signups. It never writes them.
+  function publish() {
+    window.LBDash = { data: { snap: S.snap, history: S.history, tracker: S.tracker, signups: signupsData(), liveSignups: !!S.live,
+      alerts: S.snap ? alerts() : null, dbReady: S.dbReady, dbMissing: S.dbMissing, canWrite: S.canWrite, isStatic: !!window.__DASH__ } };
+    window.dispatchEvent(new CustomEvent("lb:data"));
   }
 
   function renderFresh() {
@@ -406,21 +437,21 @@ tr.test td { opacity: .5; }
 
   function renderKpis() {
     const s = S.snap;
-    if (!s) { $("kpis").innerHTML = ["עוקבים @lumebookai", "MeBook", "הרשמות לשגרירים", "מאגר יוצרים"].map((l) => `<div class="lb-card lb-stat"><span class="lb-stat-label">${l}</span><span class="lb-stat-value lb-dim">–</span></div>`).join(""); return; }
-    const igp = s.social?.lumebookai || {}, ig = igp.followers, mb = s.social?.["mebook.ai"]?.followers;
-    const first = S.history.find((h) => typeof h.ig_lumebookai === "number");
-    const lastKnown = [...S.history].reverse().find((h) => typeof h.ig_lumebookai === "number");
-    const shown = ig ?? lastKnown?.ig_lumebookai ?? null;
-    const delta = ig != null && first ? ig - first.ig_lumebookai : null;
+    if (!s) { $("kpis").innerHTML = ["עוקבים באינסטגרם", "MeBook", "הרשמות לשגרירים", "מאגר יוצרים"].map((l) => `<div class="lb-card lb-stat"><span class="lb-stat-label">${l}</span><span class="lb-stat-value lb-dim">–</span></div>`).join(""); return; }
+    const igp = igProfile(s), ig = igp.followers, mb = s.social?.["mebook.ai"]?.followers;
+    const igHist = S.history.map((h) => ({ date: h.date, ig: igCount(h) })).filter((h) => h.ig != null);
+    const first = igHist[0], lastKnown = igHist[igHist.length - 1];
+    const shown = ig ?? lastKnown?.ig ?? null;
+    const delta = ig != null && first ? ig - first.ig : null;
     const su = signupsData(), c = s.creators;
     const barter = c.tracked.filter((x) => x.group === "barter").length;
     $("kpis").innerHTML = `
-      <div class="lb-card lb-stat"><span class="lb-stat-label">עוקבים <bdi class="lb-ltr">@lumebookai</bdi></span>
+      <div class="lb-card lb-stat"><span class="lb-stat-label">עוקבים ${ltr("@" + igHandle(s))}</span>
         <span class="lb-stat-value">${fmt(shown)}${delta ? `<small class="lb-delta ${delta > 0 ? "up" : "down"}">${ltr((delta > 0 ? "+" : "") + delta)}</small>` : ""}</span>
         ${ig == null && igp.error ? `<span class="lb-chip warning wrap"><span class="lb-dot"></span>הפרופיל לא נטען היום${lastKnown ? `, מוצג נתון מ-${esc(dm(parseISODate(lastKnown.date)))}` : ""}</span>` : ""}
         <div class="lb-bar" title="יעד דצמבר 3-4K"><i style="width:${shown ? Math.min(100, shown / 3000 * 100) : 0}%"></i></div>
         <span class="lb-stat-foot">יעד דצמבר 3-4K${igp.posts ? ` · ${igp.posts} פוסטים` : ""}</span>
-        ${spark(S.history, "ig_lumebookai")}</div>
+        ${spark(igHist, "ig")}</div>
       <div class="lb-card lb-stat"><span class="lb-stat-label">MeBook <bdi class="lb-ltr">@mebook.ai</bdi></span>
         <span class="lb-stat-value">${ltr((s.social?.["mebook.ai"]?.followers_exact ? "" : "~") + fmt(mb))}${shown && mb ? `<small>פי ${Math.round(mb / shown)} מאיתנו</small>` : ""}</span>
         <span class="lb-stat-foot">רילס: חציון ~${fmt(s.baselines.mebook_reels_median.value)} צפיות מולנו ${s.baselines.lumebook_reels_median.value}</span>
@@ -447,8 +478,10 @@ tr.test td { opacity: .5; }
       out.push({ sev: "warn", tag: "רענון", text: `הנתונים לא התרעננו מאז ${when(s.generated_at)}. צריך לפתוח את אפליקציית Claude כדי שהמשימה המתוזמנת תרוץ` });
     for (const site of s.sites) if (site.status && site.status !== 200 || site.error)
       out.push({ sev: "crit", tag: "אתר", text: `${site.label} מחזיר ${site.status || "שגיאה"}`, href: site.url });
-    if (s.social?.lumebookai?.error)
-      out.push({ sev: "warn", tag: "אינסטגרם", text: "אינסטגרם מחזיר דף שגיאה ל-@lumebookai כשלא מחוברים, כמו לשם משתמש שלא קיים. לבדוק באפליקציה שהחשבון פעיל ושהשם לא השתנה", href: "https://www.instagram.com/lumebookai/" });
+    if (igProfile(s).error) {
+      const h = igHandle(s);  // the alert text is escaped, so the handle and the path are isolated as LTR runs
+      out.push({ sev: "warn", tag: "אינסטגרם", text: `אינסטגרם מחזיר דף שגיאה ל-\u2066@${h}\u2069 כשלא מחוברים, כמו לשם משתמש שלא קיים. לבדוק באפליקציה שהחשבון פעיל ושהשם לא השתנה. אם השתנה, לעדכן את השם בקובץ \u2066shared/facts.json\u2069`, href: `https://www.instagram.com/${encodeURIComponent(h)}/` });
+    }
     const wi = currentWeekIndex();
     for (let i = 0; i < wi; i++) {
       const w = s.plan.weeks[i], open = w.tasks.filter((t) => !S.tracker.tasks[hash(w.name + "|" + t)]);
@@ -541,7 +574,7 @@ tr.test td { opacity: .5; }
         ${c.target ? `<div class="lb-bar"><i style="width:${Math.min(100, v / c.target * 100)}%"></i></div>` : `<span class="lb-note">כמה שיותר</span>`}</div>`;
     }).join("");
     $("targets").innerHTML = s.plan.targets.length ? s.plan.targets.map((t) => `<div class="target"><b>${esc(t.n)}</b><span class="lb-muted lb-small">${esc(t.label)}</span></div>`).join("") : empty("אין יעדים בתוכנית.");
-    const live = { "עוקבים באינסטגרם": s.social?.lumebookai?.followers != null ? fmt(s.social.lumebookai.followers) : null, "סרטוני לקוחות": S.tracker.counts.customer_videos ?? 0 };
+    const live = { "עוקבים באינסטגרם": igProfile(s).followers != null ? fmt(igProfile(s).followers) : null, "סרטוני לקוחות": S.tracker.counts.customer_videos ?? 0 };
     $("kpi-table").innerHTML = `<table class="lb-table stbl"><thead><tr><th>מדד</th><th>מקור</th><th class="num">אוקטובר</th><th class="num">עכשיו</th><th class="num">יעד דצמבר</th></tr></thead><tbody>
       ${s.plan.kpis.map((k) => `<tr><td>${esc(k.name)}</td><td class="lb-muted">${esc(k.source)}</td><td class="num">${esc(k.oct)}</td><td class="num">${live[k.name] != null ? `<b style="color:var(--accent-ink)">${esc(live[k.name])}</b>` : '<span class="lb-dim">–</span>'}</td><td class="num">${esc(k.dec)}</td></tr>`).join("")}
       </tbody></table>`;
@@ -553,7 +586,7 @@ tr.test td { opacity: .5; }
     const s = S.snap;
     if (!s) { $("cr-table").innerHTML = empty("טבלת היוצרים תופיע אחרי הרענון הראשון."); return; }
     const c = s.creators;
-    const mapUrl = (s.artifacts.find((a) => a.key === "creators") || {}).url;
+    const mapUrl = artHref(s.artifacts.find((a) => a.key === "creators"));
     $("cr-meta").innerHTML = `נבדק ${esc(c.checked_on.split("-").reverse().slice(0, 2).map(Number).join("."))}${mapUrl ? ` · ${ext(mapUrl, "למפת היוצרים")}` : ""}`;
     const maxBand = Math.max(...c.bands.map((b) => b[1]));
     $("cr-stats").innerHTML = `
@@ -569,7 +602,7 @@ tr.test td { opacity: .5; }
     $("stage-panel").innerHTML = `<div class="lb-card-head"><span class="lb-card-title">מצב הפניות</span><span class="lb-note">${counts.slice(4).reduce((a, b) => a + b, 0)} ספרים יצאו · ${counts[5]} פורסמו</span></div>
       <div class="lb-stages">${counts.map((n, i) => n ? `<i style="flex:${n};background:${STAGE_COLORS[i]}" title="${STAGES[i]}: ${n}"></i>` : "").join("")}</div>
       <div class="lb-legend">${STAGES.map((st, i) => `<span><b style="background:${STAGE_COLORS[i]}"></b>${st} <span class="lb-num">${counts[i]}</span></span>`).join("")}</div>`;
-    const grp = { barter: '<span class="lb-chip accent">ברטר</span>', paid_hold: '<span class="lb-chip kid">בתשלום · יוסי</span>', shortlist: '<span class="lb-chip">שורטליסט</span>' };
+    const grp = { barter: '<span class="lb-chip accent">ברטר</span>', paid_hold: '<span class="lb-chip info">בתשלום · יוסי</span>', shortlist: '<span class="lb-chip">שורטליסט</span>' };
     const q = S.crQ.trim().toLowerCase();
     const rows = c.tracked.filter((x) => (!S.crG || x.group === S.crG) && (!q || (x.handle + " " + x.name + " " + x.archetype).toLowerCase().includes(q)));
     $("cr-table").innerHTML = rows.length ? `<table class="lb-table ctbl"><thead><tr><th>יוצר/ת</th><th>קבוצה</th><th>סוג</th><th class="num">עוקבים עכשיו</th><th class="num">חציון צפיות</th><th class="num">רילס אחרון</th><th>קשר</th><th>מצב</th></tr></thead><tbody>
@@ -627,14 +660,14 @@ tr.test td { opacity: .5; }
     const s = S.snap;
     if (!s) { $("co-social").innerHTML = empty("נתוני המתחרים יופיעו אחרי הרענון הראשון."); return; }
     const co = s.competitors, b = s.baselines;
-    const tdUrl = (s.artifacts.find((a) => a.key === "teardown") || {}).url;
+    const tdUrl = artHref(s.artifacts.find((a) => a.key === "teardown"));
     $("co-meta").innerHTML = `${co.total} פריטי תוכן${tdUrl ? ` · ${ext(tdUrl, "הניתוח המלא")}` : ""}`;
     $("co-social").innerHTML = `<span class="lb-card-title">באינסטגרם</span>
       <div class="lb-grid cols-2" style="gap:var(--sp-4)">
         <div class="lb-stat"><span class="lb-stat-value">${fmt(s.social?.["mebook.ai"]?.followers)}</span><span class="lb-stat-label">עוקבים MeBook</span></div>
-        <div class="lb-stat"><span class="lb-stat-value">${fmt(s.social?.lumebookai?.followers)}</span><span class="lb-stat-label">עוקבים לומבוק</span></div>
+        <div class="lb-stat"><span class="lb-stat-value">${fmt(igProfile(s).followers)}</span><span class="lb-stat-label">עוקבים לומבוק ${ltr("@" + igHandle(s))}</span></div>
         <div class="lb-stat"><span class="lb-stat-value">${s.social?.["mebook.ai"]?.posts ?? "–"}</span><span class="lb-stat-label">פוסטים MeBook</span></div>
-        <div class="lb-stat"><span class="lb-stat-value">${s.social?.lumebookai?.posts ?? "–"}</span><span class="lb-stat-label">פוסטים לומבוק</span></div>
+        <div class="lb-stat"><span class="lb-stat-value">${igProfile(s).posts ?? "–"}</span><span class="lb-stat-label">פוסטים לומבוק</span></div>
         <div class="lb-stat"><span class="lb-stat-value">${fmt(b.mebook_collab_peak.value)}</span><span class="lb-stat-label">שיא collab של MeBook (פי 22 מהרגיל)</span></div>
         <div class="lb-stat"><span class="lb-stat-value">${fmt(b.lumebook_reels_median.value)}</span><span class="lb-stat-label">חציון צפיות ברילס שלנו (${esc(dm(parseISODate(b.lumebook_reels_median.date)))})</span></div>
       </div>`;
@@ -660,15 +693,23 @@ tr.test td { opacity: .5; }
     if (!s) { $("library").innerHTML = empty("הספרייה תופיע אחרי הרענון הראשון."); return; }
     const comps = Object.fromEntries((s.sync?.components || []).map((c) => [c.id, c]));
     let behindN = 0;
-    $("library").innerHTML = s.artifacts.map((a) => {
+    const card = (a) => {
       const comp = comps[a.component] || {}, behind = comp.behind === true;
       if (behind) behindN++;
-      return `<a class="lb-card lib-card" href="${esc(a.url)}" target="_blank" rel="noopener">
-        <div class="lb-row between">${a.kind ? `<span class="lb-chip accent">${esc(a.kind)}</span>` : "<span></span>"}${behind ? `<span class="lb-chip warning">המקור השתנה, לפרסם מחדש</span>` : ""}</div>
+      return `<a class="lb-card lib-card${a.ws ? " is-cat" : ""}" href="${esc(artHref(a))}" target="_blank" rel="noopener">
+        <div class="lb-row between">${a.kind ? `<span class="lb-chip ${a.ws ? "cat no-swatch" : "accent"}">${esc(a.kind)}</span>` : "<span></span>"}${behind ? `<span class="lb-chip warning">המקור השתנה, לפרסם מחדש</span>` : ""}</div>
         <div class="lb-card-head"><b>${esc(a.label)}</b></div>
         <p>${esc(a.summary || "")}</p>
         <span class="lb-note">פורסם ${esc(dm(parseISODate(a.date)))}${a.modified ? " · מקור נערך " + esc(ago(a.modified)) : ""}</span></a>`;
-    }).join("");
+    };
+    // grouped by workstream (snapshot.workstreams, from shared/design/categories.json); one plain grid for an older snapshot
+    const grid = (items) => `<div class="lb-grid" style="--min:17rem">${items.map(card).join("")}</div>`;
+    const wsList = s.workstreams || [], known = new Set(wsList.map(([k]) => k));
+    const groups = wsList.map(([k, label]) => [k, label, s.artifacts.filter((a) => a.ws === k)]).filter((g) => g[2].length);
+    const rest = s.artifacts.filter((a) => !known.has(a.ws));
+    $("library").innerHTML = groups.length
+      ? groups.map(([k, label, items]) => `<div class="lib-group lb-ws-${k}"><h3 class="lib-h"><b class="lb-swatch" aria-hidden="true"></b>${esc(label)}<span class="lb-nav-n">${items.length}</span></h3>${grid(items)}</div>`).join("") + (rest.length ? grid(rest) : "")
+      : grid(s.artifacts);
     setCount("n-research", behindN);
   }
 
@@ -680,11 +721,13 @@ tr.test td { opacity: .5; }
     $("sync-stats").innerHTML = [["משימות פתוחות", n.pending], ["אי-התאמות", n.warnings], ["שגיאות", n.errors], ["לפרסם מחדש", behind]]
       .map(([l, v]) => `<div class="lb-card lb-stat"><span class="lb-stat-label">${l}</span><span class="lb-stat-value">${v ?? 0}</span></div>`).join("");
     const names = Object.fromEntries(comps.map((c) => [c.id, c.name]));
-    $("sync-pending").innerHTML = (y.pending || []).length ? `<div class="lb-group">${y.pending.map((x) => `<div class="lb-group-row" style="align-items:flex-start"><span class="lb-chip tint">${esc(names[x.component] || x.component)}</span><span class="lb-small lb-ltr" style="min-width:0">${esc(x.action)}</span></div>`).join("")}</div>` : empty("אין משימות פתוחות.");
-    $("sync-warnings").innerHTML = (y.warnings || []).length ? `<div class="lb-group">${y.warnings.map((w) => `<div class="lb-group-row"><span class="lb-small lb-ltr" style="min-width:0">${esc(w)}</span></div>`).join("")}</div>` : empty("הכול תואם.");
+    const wsOf = Object.fromEntries(comps.map((c) => [c.id, c.ws])), wsName = Object.fromEntries(S.snap.workstreams || []);
+    const wsOrder = (S.snap.workstreams || []).map(([k]) => k), wsRank = (c) => (wsOrder.indexOf(c.ws) + 1) || 99;
+    $("sync-pending").innerHTML = (y.pending || []).length ? `<div class="lb-group">${y.pending.map((x) => `<div class="lb-group-row" style="align-items:flex-start"><span class="lb-chip ${wsOf[x.component] ? "cat lb-ws-" + wsOf[x.component] : "tint"}">${esc(names[x.component] || x.component)}</span><span class="lb-small lb-ltr" style="min-width:0;overflow-wrap:anywhere">${esc(x.action)}</span></div>`).join("")}</div>` : empty("אין משימות פתוחות.");
+    $("sync-warnings").innerHTML = (y.warnings || []).length ? `<div class="lb-group">${y.warnings.map((w) => `<div class="lb-group-row"><span class="lb-small lb-ltr" style="min-width:0;overflow-wrap:anywhere">${esc(w)}</span></div>`).join("")}</div>` : empty("הכול תואם.");
     const pubLabel = { artifact: "ארטיפקט", git: "git", vercel: "Vercel", manual: "ידני", via: "דרך הלוח" };
-    $("components").innerHTML = `<table class="lb-table ctbl"><thead><tr><th>רכיב</th><th>סוג</th><th>תיקייה</th><th>פרסום</th><th>מזין את</th><th>שונה</th></tr></thead><tbody>
-      ${comps.map((c) => `<tr><td><b>${esc(c.name)}</b></td><td class="lb-muted">${esc(c.kind)}</td><td class="lb-xs">${ltr(c.path)}</td>
+    $("components").innerHTML = `<table class="lb-table ctbl"><thead><tr><th>תחום</th><th>רכיב</th><th>סוג</th><th>תיקייה</th><th>פרסום</th><th>מזין את</th><th>שונה</th></tr></thead><tbody>
+      ${[...comps].sort((a, b) => wsRank(a) - wsRank(b)).map((c) => `<tr><td>${c.ws ? `<span class="lb-chip cat lb-ws-${c.ws}">${esc(wsName[c.ws] || c.ws)}</span>` : '<span class="lb-dim">–</span>'}</td><td><b>${esc(c.name)}</b></td><td class="lb-muted">${esc(c.kind)}</td><td class="lb-xs">${ltr(c.path)}</td>
         <td>${c.publish ? `<span class="lb-chip ${c.behind ? "warning" : c.behind === false ? "success" : ""}">${esc(pubLabel[c.publish] || c.publish)}${c.behind ? " · מאחור" : ""}</span>` : '<span class="lb-dim">–</span>'}</td>
         <td><div class="feeds">${(c.feeds || []).map((f) => `<span class="lb-chip outline">${esc(f)}</span>`).join("") || '<span class="lb-dim">–</span>'}</div></td>
         <td class="lb-xs lb-muted">${c.changed_at ? esc(ago(c.changed_at)) : "–"}</td></tr>`).join("")}</tbody></table>`;
@@ -809,4 +852,16 @@ tr.test td { opacity: .5; }
     }, { refetchInterval: 120000, cache: { staleTime: 60000 } });
   })();
 })();
+</script>
+<script src="board/seed.js"></script>
+<script src="board/board.js"></script>
+<script>
+// The board is the default view. If its files were not published with the page (board/board.js, board/seed.js),
+// say so in place of the board and open the overview, so the page never opens blank.
+window.addEventListener("load", () => {
+  if (window.LBBoardLoaded) return;
+  const root = document.getElementById("board-root");
+  if (root) root.innerHTML = '<div class="lb-page"><div class="lb-callout"><b>לוח העבודה לא נטען</b><span>הקבצים board/board.js ו-board/seed.js לא פורסמו יחד עם הדף. שאר התצוגות עובדות כרגיל.</span></div></div>';
+  if (!location.hash || location.hash === "#board") location.hash = "#overview";
+});
 </script>

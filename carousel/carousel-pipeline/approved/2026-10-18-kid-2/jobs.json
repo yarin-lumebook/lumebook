@@ -1,0 +1,29 @@
+{
+  "order": [
+    "picture"
+  ],
+  "max_replacements_per_job": 2,
+  "jobs": {
+    "picture": {
+      "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Characters, identical on every slide: A 4-year-old Israeli boy with short messy light-brown hair, fair skin with freckles across his nose, big green eyes; about 104 cm tall. His mother, mid-thirties, dark shoulder-length hair, brown eyes, a soft tired smile. Wardrobe: Boy: dark-green cotton pyjama set, no prints. Mother: grey cotton robe.\n\nScene: The boy stands next to his bed, faces the viewer and looks straight into the camera with an open-mouthed gasp and huge wide eyes and raised eyebrows, one hand resting on the bed rail; his mother is a small soft shape asleep under a blanket on the couch far behind him. Setting: A quiet Israeli family room and child corner before sunrise: a couch with a throw blanket, a window with blinds half open, a pale blue-grey sky outside.\n\nCover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.\n\nEmotional beat: up before the whole house\n\nCamera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Dim blue-grey pre-dawn light with a small warm lamp glow.\n\nWardrobe and objects in this scene: The couch throw blanket over the mother.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.\n\nComposition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain smooth pale blue-grey wall above the couch) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [],
+      "estimated_cost_usd": 0.055,
+      "purpose": "the one picture behind all 10 slides · up before the whole house",
+      "text_zone": {
+        "edge": "top",
+        "percent": 45,
+        "surface": "plain smooth pale blue-grey wall above the couch"
+      }
+    }
+  }
+}
