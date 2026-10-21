@@ -2,7 +2,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap">
-<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>
+<!-- white/black theme boot: a copy of THEME_BOOT in shared/design/design.py (this page has no build) -->
+<script>(function(){if(window.lbThemeBoot)return;window.lbThemeBoot=1;var d=document.documentElement,K="lb-mode";function saved(){try{return localStorage.getItem(K)==="dark"?"dark":"light"}catch(e){return"light"}}function set(t){d.setAttribute("data-theme",t);var s=document.querySelectorAll("[data-lb-theme-toggle]");for(var i=0;i<s.length;i++)s[i].setAttribute("aria-checked",String(t==="dark"))}set(saved());document.addEventListener("DOMContentLoaded",function(){set(d.getAttribute("data-theme"))});document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lb-theme-toggle]");if(!b)return;var t=d.getAttribute("data-theme")==="dark"?"light":"dark";set(t);try{localStorage.setItem(K,t)}catch(x){}});addEventListener("storage",function(e){if(e.key===K)set(saved())})})()</script>
 <link rel="stylesheet" href="design/lumebook.css">
 <link rel="stylesheet" href="design/categories.css">
 <link rel="stylesheet" href="board/board.css">
@@ -13,6 +14,7 @@
 .lb-topbar h1 { font-size: 1.25rem; }
 .top-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; justify-content: flex-end; }
 .lb-brand img { height: 1.9rem; }
+.dash-theme { display: flex; align-items: center; gap: var(--sp-2); cursor: pointer; color: var(--text-2); font-size: var(--fs-footnote); }
 
 /* Q4 timeline */
 .tl { display: grid; gap: var(--sp-3); }
@@ -88,7 +90,7 @@ tr.test td { opacity: .5; }
       <a class="lb-nav-item" href="#assets" data-view="assets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>אתרים וקבצים</a>
     </nav>
     <div class="lb-sidebar-foot">
-      <button class="lb-btn secondary sm" type="button" id="theme-toggle" aria-pressed="false" hidden>מצב כהה</button>
+      <label class="dash-theme"><button class="lb-theme-switch" type="button" role="switch" aria-checked="false" data-lb-theme-toggle aria-label="מצב כהה" title="מצב כהה"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button><span>מצב כהה</span></label>
       <span id="foot-note">הנתונים מתרעננים כל בוקר בסביבות 08:15</span>
     </div>
   </aside>
@@ -787,22 +789,11 @@ tr.test td { opacity: .5; }
     }
     if (b.id === "toggle-tests") { S.showTests = !S.showTests; renderSignups(); }
     if (b.id === "menu-btn") openMenu();
-    if (b.id === "theme-toggle") {
-      const dark = document.documentElement.getAttribute("data-theme") !== "dark";
-      document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-      try { localStorage.setItem("lb-theme", dark ? "dark" : "light"); } catch {}
-      syncThemeButton();
-    }
   });
   $("scrim").addEventListener("click", closeMenu);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
   window.addEventListener("hashchange", route);
 
-  function syncThemeButton() {
-    const dark = document.documentElement.getAttribute("data-theme") === "dark", b = $("theme-toggle");
-    b.textContent = dark ? "מצב בהיר" : "מצב כהה"; b.setAttribute("aria-pressed", String(dark));
-  }
-  syncThemeButton();
   route();
 
   // ---------- boot ----------

@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+"""Keep the project server running on this Mac: start it at login on http://localhost:8780/ and restart it if it stops.
+
+    python3 tools/serve_login.py install     # write the login item and start it now
+    python3 tools/serve_login.py restart     # after editing tools/lumebook.py (the server reads it once)
+    python3 tools/serve_login.py status
+    python3 tools/serve_login.py uninstall   # stop it and remove the login item
+
+Yarin, 21 Oct 2026: the creator map saves through this server, and it had stopped, so saves failed.
+
+A launchd agent (~/Library/LaunchAgents/com.yarinbruner.lumebook-serve.plist, the same naming as the Hook Studio and GA4
+agents) runs `python3 tools/lumebook.py serve --port 8780` from the project folder, at login and again whenever it exits.
+Do not also start it from a preview config or by hand: only one process can hold port 8780.
+Log: ~/Library/Logs/LumeBookServe.log. Standard library only.
+"""
+
+import argparse
+import os
+import plistlib
+import shutil
+import subprocess
+import sys
+import time
+import urllib.request
+from pathlib import Path
+
+LABEL = "com.yarinbruner.lumebook-serve"
+PORT = 8780
+PLIST = Path.home() / "Library" / "LaunchAgents" / f"{LABEL}.plist"
+LOG = Path.home() / "Library" / "Logs" / "LumeBookServe.log"
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPT = ROOT / "tools" / "lumebook.py"
+DOMAIN = f"gui/{os.getuid()}"
+
+
+def python():
+    """Homebrew's python3 (the one the project runs on), not macOS's older /usr/bin/python3."""
+    for candidate in (shutil.which("python3"), "/usr/local/bin/python3", "/opt/homebrew/bin/python3", sys.executable):
+        if candidate and Path(candidate).exists() and candidate != "/usr/bin/python3":
+            return candidate
+    return sys.executable
+
+
+def launchctl(*args):
+    p = subprocess.run(["launchctl", *args], capture_output=True, text=True)
+    return p.returncode, (p.stdout + p.stderr).strip()
+
+
+def ping(timeout=2):
+    """The creator map's own endpoint: /api/ping on this port is forwarded to Hook Studio, so it would not prove this server is up."""
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{PORT}/api/creator-map/state", timeout=timeout) as r:
+            return r.status == 200
+    except OSError:
+        return False
+
+
+def install():
+    if ping() and launchctl("print", f"{DOMAIN}/{LABEL}")[0]:
+        raise SystemExit(f"something else already answers on port {PORT} (a preview server or a terminal). Stop it first, then run install again.")
+    LOG.parent.mkdir(parents=True, exist_ok=True)
+    PLIST.parent.mkdir(parents=True, exist_ok=True)
+    spec = {
+        "Label": LABEL,
+        "ProgramArguments": [python(), str(SCRIPT), "serve", "--port", str(PORT)],
+        "WorkingDirectory": str(ROOT),
+        "EnvironmentVariables": {
+            "PATH": "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+            "LANG": "en_US.UTF-8",
+            "PYTHONIOENCODING": "utf-8",   # creator names and notes are Hebrew
+            "PYTHONUNBUFFERED": "1",
+        },
+        "RunAtLoad": True,
+        "KeepAlive": True,
+        "ThrottleInterval": 10,
+        "ProcessType": "Interactive",
+        "StandardOutPath": str(LOG),
+        "StandardErrorPath": str(LOG),
+    }
+    with PLIST.open("wb") as f:
+        plistlib.dump(spec, f)
+    launchctl("bootout", f"{DOMAIN}/{LABEL}")   # an older copy of the agent, if any
+    code, out = launchctl("bootstrap", DOMAIN, str(PLIST))
+    if code:
+        raise SystemExit(f"launchctl bootstrap failed: {out}")
+    return wait_up()
+
+
+def wait_up(seconds=30):
+    end = time.time() + seconds
+    while time.time() < end:
+        if ping():
+            print(f"The project server is up: http://localhost:{PORT}/")
+            return True
+        time.sleep(1)
+    print(f"The server did not answer on port {PORT} yet; see {LOG}")
+    return False
+
+
+def restart():
+    code, out = launchctl("kickstart", "-k", f"{DOMAIN}/{LABEL}")
+    if code:
+        raise SystemExit(f"not installed or not loaded ({out}); run install")
+    time.sleep(1)
+    return wait_up()
+
+
+def uninstall():
+    launchctl("bootout", f"{DOMAIN}/{LABEL}")
+    if PLIST.exists():
+        PLIST.unlink()
+    print("The project server no longer starts at login")
+
+
+def status():
+    code, out = launchctl("print", f"{DOMAIN}/{LABEL}")
+    state = next((l.strip() for l in out.splitlines() if l.strip().startswith(("state =", "pid ="))), "") if not code else "not loaded"
+    print(f"login item: {'installed' if PLIST.exists() else 'missing'} ({PLIST})")
+    print(f"launchd: {state}")
+    print(f"answering on http://localhost:{PORT}/: {'yes' if ping() else 'no'}")
+    print(f"log: {LOG}")
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("cmd", choices=("install", "restart", "status", "uninstall"))
+    args = ap.parse_args()
+    {"install": install, "restart": restart, "status": status, "uninstall": uninstall}[args.cmd]()
+
+
+if __name__ == "__main__":
+    main()

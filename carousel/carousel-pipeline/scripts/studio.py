@@ -193,6 +193,7 @@ button{font-family:inherit}
 [contenteditable]:hover{box-shadow:0 0 0 1px var(--line-strong)}
 [contenteditable]:focus{box-shadow:0 0 0 2px var(--tint);background:var(--surface)}
 .st-card.cta [contenteditable]:focus{background:rgba(255,255,255,.12)}
+.st-card:not(.cta) [contenteditable]:focus{background:#fff} /* slide cards keep their light pillar look in black mode too */
 [contenteditable].dirty{box-shadow:0 0 0 2px var(--accent)}
 [contenteditable]:empty::before{content:attr(data-ph);opacity:.45}
 .st-imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:var(--sp-3)}
@@ -593,6 +594,7 @@ def app_page(batch_id=None):
             '<button class="lb-btn ghost sm opt" type="button" id="hs-push" hidden>שליחת הדירוגים לענן</button>'
             f'<button class="lb-btn ghost icon sm opt" type="button" id="hs-sync" title="בדיקת חבילות חדשות מהענן" aria-label="בדיקת חבילות חדשות מהענן">{icon("sync", 16)}</button>'
             '<button class="lb-btn sm" type="button" id="hs-send" disabled>הפקת הנבחרים</button>'
+            f'{design.theme_toggle()}'
             '</header>'
             '<div class="hs-app">'
             f'<nav class="hs-list" aria-label="הקרוסלות של השבוע"><div class="hs-filter"><div class="lb-segmented" role="group" aria-label="סינון">{filt}</div></div>'

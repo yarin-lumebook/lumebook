@@ -5,7 +5,7 @@ The dashboard's default view since 19 Oct 2026 (`#board`): a canvas of cards, ar
 | File | What it is |
 |---|---|
 | `board.js` | The board (no framework, no library). Loaded by `../lumebook-dashboard.html` after the dashboard script. |
-| `board.css` | Board styles, on the design system tokens and `lb-` components (`../design/lumebook.css`). Light mode only. |
+| `board.css` | Board styles, on the design system tokens and `lb-` components (`../design/lumebook.css`). White and black modes (the switch in the sidebar). |
 | `content.json` | Hand-written Hebrew: titles for discovered resources, the first board's areas and what goes in each, starter cards, prompts, the five built-in templates. |
 | `catalog.py` | Builds the resource catalog from `lumebook.json`, `shared/facts.json`, `media/README.md` + `media/projects/`, `carousel/carousel-pipeline/approved/`, `shared/brand/` and `content.json`, lays out the first board, writes `seed.js`. Component `board-seed` in `lumebook.json`, so `ripple` reruns it. |
 | `seed.js` | Generated (do not edit): `window.LB_SEED` = catalog, first board, templates. |

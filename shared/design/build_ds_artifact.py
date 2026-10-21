@@ -20,23 +20,23 @@ LOGOS = {"logo_square.png": ("d2e355f0add8153fb9f1b34b4e5b765d", 141241), "logo_
 
 
 def block(selector_regex):
-    m = re.search(selector_regex + r"\s*\{(.*?)\n\}", CSS, re.S)
+    m = re.search(selector_regex + r"\s*\{(.*?)\n\}", CSS, re.S | re.M)
     return dict(re.findall(r"--([a-z0-9-]+):\s*([^;]+);", m.group(1))) if m else {}
 
 
 light = block(r"^:root")
 if not light:
     light = dict(re.findall(r"--([a-z0-9-]+):\s*([^;]+);", CSS.split("@media")[0]))
-dark = {}   # light only since 14 Oct 2026: the stylesheet has no dark tokens
+dark = block(r'^:root\[data-theme="dark"\]')   # black mode (21 Oct 2026): only the tokens it changes
 
 COLOR_USAGE = {
-    "lb-ink": "Brand ink. the toast ground.",
+    "lb-ink": "Brand ink (fixed in both modes).",
     "lb-ink-deep": "Brand ink, deepest.",
     "lb-gold": "Brand gold. never body text on light.",
     "lb-gold-deep": "Brand gold, deeper.",
     "lb-violet": "Brand violet.",
     "lb-cream": "Brand cream.",
-    "bg": "Page ground (warm cream in light).",
+    "bg": "Page ground: white, black in dark mode.",
     "surface": "Cards, grouped rows, tables, inputs.",
     "surface-2": "Sidebar, inset areas inside a card, table header row.",
     "surface-sunk": "Wells, code blocks.",
@@ -102,7 +102,7 @@ def tokens():
     t = {
         "name": "LumeBook", "version": 1,
         "meta": {"source": "shared/design/lumebook.css (LumeBook project repo)"},
-        "color": {"themes": [{"id": "light", "name": "Light"}], "tokens": colors},
+        "color": {"themes": [{"id": "light", "name": "White"}, {"id": "dark", "name": "Black"}], "tokens": colors},
         "type": {"fonts": [], "families": fam, "groups": [
             {"name": "Display", "family": "sans", "styles": [
                 {"name": "display", "fontSize": "38px", "lineHeight": 1.15, "fontWeight": 800, "sample": "לוח לומבוק", "usage": "Page titles (h1). Heebo ExtraBold, tracking -0.015em; once per page."},
@@ -130,7 +130,7 @@ def tokens():
         "radius": {"tokens": [{"name": n, "value": light[n].strip(), "usage": u} for n, u in
                               [("r-xs", "Code, bars, small marks."), ("r-sm", "Inputs, nav items, segmented control."),
                                ("r-md", "Grouped lists, tables, alerts, empty states."), ("r-lg", "Cards."), ("r-pill", "Buttons, chips, search.")]]},
-        "shadow": {"tokens": [{"name": n, "value": {"light": light[n].strip()}, "usage": u} for n, u in
+        "shadow": {"tokens": [{"name": n, "value": {"light": light[n].strip(), "dark": dark[n].strip()}, "usage": u} for n, u in
                               [("shadow-1", "Active nav item, segmented thumb."), ("shadow-2", "Raised card, hovered link card."), ("shadow-3", "Drawers, modals, toasts, mobile sidebar.")]]},
     }
     return t
@@ -138,7 +138,7 @@ def tokens():
 
 README = """# LumeBook
 
-The design system for every internal LumeBook page: the project dashboard (לוח לומבוק), the SMM plan, the creator map, the research reports and the nightly carousel review. It is Hebrew first and right to left, light only, and built for scanning operational data.
+The design system for every internal LumeBook page: the project dashboard (לוח לומבוק), the SMM plan, the creator map, the research reports and the nightly carousel review. It is Hebrew first and right to left, white or black by a switch, and built for scanning operational data.
 
 It is **not** used by the public ambassadors site (lumebook-ambassadors.vercel.app), which keeps its own look for creators, or by the carousel slides themselves, whose two pillar looks are audience content.
 
@@ -160,14 +160,14 @@ It is **not** used by the public ambassadors site (lumebook-ambassadors.vercel.a
 
 ## Visual foundations
 
-- **Surfaces.** Warm cream page (`bg`), white cards (`surface`), a slightly darker sidebar and inset areas (`surface-2`). Hierarchy comes from surface steps and hairlines (`line`), with shadows only on things that float.
-- **Three roles for color.** `text` (LumeBook ink) for reading; `tint` (violet) for anything you can click, and only for that; `accent` (gold) for brand emphasis and progress. Gold text uses `accent-ink` so it passes contrast.
+- **Surfaces.** White page (`bg`) and cards (`surface`) set apart by hairlines, a light grey sidebar and inset areas (`surface-2`); in black mode a black page, near-black cards and a slightly lighter sidebar. Hierarchy comes from surface steps and hairlines (`line`), with shadows only on things that float.
+- **Three roles for color.** `text` (neutral ink, near black or near white) for reading; `tint` (violet) for anything you can click, and only for that; `accent` (gold) for brand emphasis and progress. Gold text uses `accent-ink` so it passes contrast.
 - **State is shape plus color.** Status always appears as a chip, dot, count or tinted alert row with a word, never color alone. `success`, `warning`, `danger`, `info` are separate from the accent.
 - **Carousel pillars.** `kid` (violet) for "הילד מספר", `expert` (gold) for "גישה מקצועית", matching the slide designs.
 - **Category colour.** Eight hues (`cat-1` to `cat-8`, each with a base, an ink and a soft) for a page's 3 to 8 stable categories that a reader scans or filters by: the playbook's tools, the dashboard's workstreams, the creator map's tracks. See "Category colour" below.
 - **Type.** Heebo is the main font, headings included (h1 ExtraBold 800, h2 Bold 700, slightly tight tracking); Assistant is the secondary font for labels, captions, counts, chips, table headers and the sidebar group labels. Both carry Hebrew and Latin. Body text, buttons and inputs stay on Heebo. System mono for commands. Scale: display 38, title 22, headline 18, body 16, callout 15, footnote 13, caption 12. Varela Round was dropped on 18 Oct 2026.
 - **Space and shape.** 4pt spacing, pill buttons and chips, 18px card radius, 12px for tables and grouped lists.
-- **Theme.** Light only (Yarin, 14 Oct 2026): there is no dark theme and no theme toggle. `design.head()` sets `data-theme="light"` before first paint. Every text token passes 4.5:1 on every surface.
+- **Theme.** White and black modes with a switch (Yarin, 21 Oct 2026; the cream and purple grounds are gone). White is `:root`, black is `:root[data-theme="dark"]`, with the same token names. `design.head()` sets `data-theme` before first paint from the viewer's saved choice (white by default) and `design.theme_toggle()` writes the switch (`.lb-theme-switch`, sun and moon) for the top bar. Only the switch changes the mode, never the system setting. Every text token passes 4.5:1 on every surface in both modes.
 - **Motion.** Short (0.15s to 0.2s) color and slide transitions only; all motion stops under `prefers-reduced-motion`.
 
 ## Layout
@@ -294,7 +294,7 @@ COVER = """<!-- @dsCard height=300 -->
     <rect class="soft" x="752" y="214" width="96" height="64" rx="32"/>
   </svg>
   <p class="name">LumeBook</p>
-  <p class="tag">One design system for every internal page: Hebrew first, cream and ink, violet to click, gold to celebrate.</p>
+  <p class="tag">One design system for every internal page: Hebrew first, white or black, violet to click, gold to celebrate.</p>
 </div>
 """
 
@@ -320,22 +320,33 @@ def _ratio(fg, bg):
 
 
 def palette_md():
-    rows = ["| Token | Hue | Base | Ink | Soft | Playbook alias |", "|---|---|---|---|---|---|"]
+    rows = ["| Token | Hue | Base | Ink | Soft | Black base | Black ink | Playbook alias |", "|---|---|---|---|---|---|---|---|"]
     for i, hue in CAT_HUES.items():
-        rows.append(f"| `cat-{i}` | {hue} | `{light[f'cat-{i}'].strip()}` | `{light[f'cat-{i}-ink'].strip()}` | `{light[f'cat-{i}-soft'].strip()}` | {CAT_PLAYBOOK[i]} |")
+        rows.append(f"| `cat-{i}` | {hue} | `{light[f'cat-{i}'].strip()}` | `{light[f'cat-{i}-ink'].strip()}` | `{light[f'cat-{i}-soft'].strip()}` "
+                    f"| `{dark[f'cat-{i}'].strip()}` | `{dark[f'cat-{i}-ink'].strip()}` | {CAT_PLAYBOOK[i]} |")
     return "\n".join(rows)
 
 
 def contrast_md():
-    surf, bg, s2 = (light[k].strip() for k in ("surface", "bg", "surface-2"))
-    rows = ["| Token | ink on surface | ink on bg | ink on surface-2 | ink on soft (on surface) | ink on soft (on bg) | white on base |", "|---|---|---|---|---|---|---|"]
-    for i in CAT_HUES:
-        ink, soft, base = _rgb(light[f"cat-{i}-ink"])[0], light[f"cat-{i}-soft"], light[f"cat-{i}"]
-        r = [_ratio(ink, _rgb(surf)[0]), _ratio(ink, _rgb(bg)[0]), _ratio(ink, _rgb(s2)[0]), _ratio(ink, _over(soft, surf)), _ratio(ink, _over(soft, bg)), _ratio([1, 1, 1], _rgb(base)[0])]
-        rows.append(f"| `cat-{i}` | " + " | ".join(f"{x:.2f}" for x in r[:5]) + f" | {r[5]:.2f} (icons only) |")
-    worst = min(min(_ratio(_rgb(light[f"cat-{i}-ink"])[0], g) for g in (_rgb(surf)[0], _rgb(bg)[0], _rgb(s2)[0], _over(light[f"cat-{i}-soft"], surf), _over(light[f"cat-{i}-soft"], bg))) for i in CAT_HUES)
-    assert worst >= 4.5, f"a category ink falls below 4.5:1 ({worst:.2f})"
-    return "\n".join(rows) + f"\n\nLowest ink ratio: {worst:.2f}:1."
+    out, worst_all = [], 99
+    for mode, t in (("White", light), ("Black", {**light, **dark})):
+        surf, bg, s2 = (t[k].strip() for k in ("surface", "bg", "surface-2"))
+        grounds = lambda soft: (_rgb(surf)[0], _rgb(bg)[0], _rgb(s2)[0], _over(soft, surf), _over(soft, bg))
+        rows = [f"**{mode}**", "", "| Token | ink on surface | ink on bg | ink on surface-2 | ink on soft (on surface) | ink on soft (on bg) | base under icons |", "|---|---|---|---|---|---|---|"]
+        for i in CAT_HUES:
+            ink, soft, base = _rgb(t[f"cat-{i}-ink"])[0], t[f"cat-{i}-soft"], t[f"cat-{i}"]
+            r = [_ratio(ink, g) for g in grounds(soft)] + [_ratio(_rgb(t["text-on-tint"])[0], _rgb(base)[0])]
+            rows.append(f"| `cat-{i}` | " + " | ".join(f"{x:.2f}" for x in r[:5]) + f" | {r[5]:.2f} (icons only) |")
+        worst = min(_ratio(_rgb(t[f"cat-{i}-ink"])[0], g) for i in CAT_HUES for g in grounds(t[f"cat-{i}-soft"]))
+        # text and the coloured text tokens on every surface, and text on a tint button
+        pairs = [(k, g) for k in ("text", "text-2", "text-3", "tint", "accent-ink", "success", "warning", "danger", "info", "kid", "expert")
+                 for g in (surf, bg, s2)] + [("text-on-tint", t["tint"].strip())]
+        low = min((_ratio(_rgb(t[k])[0], _rgb(g if g.startswith("#") else t[g])[0]), k) for k, g in pairs)
+        assert worst >= 4.5, f"{mode}: a category ink falls below 4.5:1 ({worst:.2f})"
+        assert low[0] >= 4.5, f"{mode}: {low[1]} falls below 4.5:1 ({low[0]:.2f})"
+        rows += ["", f"Lowest category ink: {worst:.2f}:1. Lowest text token: {low[0]:.2f}:1 (`{low[1]}`)."]
+        out.append("\n".join(rows))
+    return "\n\n".join(out)
 
 
 def main(out):

@@ -3,10 +3,10 @@
 <title>מפת היוצרים · LumeBook</title>
 <meta name="description" content="יוצרי תוכן ישראלים (1K עד 50K) ל-UGC של LumeBook: פניות, תזכורות ומחקר">
 <!--LB:HEAD-->
-<script>document.documentElement.setAttribute("data-theme","light");document.documentElement.setAttribute("lang","he");document.documentElement.setAttribute("dir","rtl")</script>
+<script>document.documentElement.setAttribute("lang","he");document.documentElement.setAttribute("dir","rtl")</script>
 <style>
 /* Creator map: page rules on top of the LumeBook design system (shared/design/lumebook.css, inlined above by build2.py).
-   Hebrew, right to left, since 20 Oct 2026 (Yarin). Design tokens only, light mode. App shell = lb-app, lb-sidebar, lb-nav-item, lb-topbar, lb-page. */
+   Hebrew, right to left, since 20 Oct 2026 (Yarin). Design tokens only, white and black modes (the switch in the top bar). App shell = lb-app, lb-sidebar, lb-nav-item, lb-topbar, lb-page. */
 :root{
   --lb-logo:url("__LB_LOGO__");
   /* older variable names, mapped onto design tokens (--bg, --fill*, --tint*, --accent*, --success*, --warning*, --danger*, --font, --font-display and --r-pill are design tokens already) */
@@ -27,6 +27,10 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .flag.bad{color:var(--danger);font-weight:600}
 .brand-logo{display:block;flex:none;width:2rem;height:2rem;background:var(--lb-logo) center/contain no-repeat}
 
+/* no visible scrollbars anywhere; everything still scrolls (Yarin, 21 Oct 2026) */
+*{scrollbar-width:none}
+::-webkit-scrollbar{display:none}
+
 /* ---------- app shell: sidebar + top bar + one page at a time ---------- */
 .side-hd{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2)}
 .side-nav{display:grid;gap:var(--sp-1);align-content:start}
@@ -37,11 +41,6 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .lb-count:empty{display:none}
 .lb-count.warn{background:var(--warning-soft);color:var(--warning)}
 .lb-nav-item[aria-current="page"] .lb-count:not(.warn){background:var(--tint-soft);color:var(--tint)}
-.nav-row{position:relative}
-.nav-row .nav-i{padding-inline-end:2.2rem}
-.nav-x{position:absolute;inset-inline-end:.3rem;top:50%;transform:translateY(-50%);width:1.6rem;height:1.6rem;border-radius:50%;border:0;background:transparent;color:var(--text-3);cursor:pointer;font-size:1rem;line-height:1;opacity:0}
-.nav-row:hover .nav-x,.nav-x:focus-visible{opacity:1}
-.nav-x:hover{background:var(--fill-3);color:var(--text)}
 .side-ft{margin-top:auto;padding:var(--sp-3) var(--sp-3) 0;font-size:var(--fs-caption);color:var(--text-3);display:flex;align-items:center;gap:var(--sp-2)}
 .side-ft .dot{margin:0}
 .dot{display:inline-block;width:.55rem;height:.55rem;border-radius:50%;flex:none;background:var(--c,var(--text-3));margin:0 .275rem}
@@ -67,8 +66,6 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 }
 @media (max-width:640px){
   .lb-topbar-in{gap:var(--sp-2)}
-  .lb-topbar [data-lb-theme-toggle]{width:1.875rem;padding:0}
-  .lb-topbar .lb-theme-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 }
 @media (min-width:861px){.sstats{display:none!important}.scrim{display:none!important}}
 .side{padding-bottom:calc(var(--sp-4) + env(safe-area-inset-bottom,0px))}
@@ -90,43 +87,24 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .legend a:hover{color:var(--text);text-decoration:none}
 .legend b{color:var(--text);font-weight:600;margin-inline-start:var(--sp-1);font-variant-numeric:tabular-nums}
 
-/* ---------- today: one ranked list, phone first ---------- */
-.td-hd{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-1) var(--sp-3);flex-wrap:wrap}
-.td-hd h2{font-size:clamp(1.6rem,3.4vw,2.1rem);line-height:1.15}
-.td-sum{font-family:var(--font-2);font-size:var(--fs-callout);color:var(--text-3)}
-.today{display:grid;gap:var(--sp-3)}
-.tdg{gap:var(--sp-2);padding-block:var(--sp-3)}
-.tdg h3{font-size:var(--fs-headline);display:flex;align-items:center;gap:var(--sp-2)}
-.tdg .lb-card-head{flex-wrap:wrap;align-items:center}
-.tdg .lb-card-head .note{font-family:var(--font-2)}
-.tdl{list-style:none;margin:0;padding:0;display:grid}
-.tdr{display:grid;gap:var(--sp-2);padding:var(--sp-3) 0;border-top:1px solid var(--line);min-width:0}
-.tdr:first-child{border-top:0;padding-top:var(--sp-1)}
-.tdm{display:flex;align-items:baseline;gap:.15rem var(--sp-2);flex-wrap:wrap;min-width:0}
+/* ---------- reminders: every dated note, by day ---------- */
+.nc{display:grid;gap:var(--sp-5)}
+.nc-g{display:grid;gap:var(--sp-2)}
+.nc-g h4{font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:700;color:var(--text-3);margin:0}
+.nc-l{display:grid;gap:var(--sp-3);grid-template-columns:repeat(auto-fill,minmax(min(100%,20rem),1fr))}
+.nci{display:grid;gap:var(--sp-2);align-content:start;padding:var(--sp-3);border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface)}
+.nci.over{border-color:var(--danger)}
+.nci.now{border-color:var(--warning)}
+.nci-t{display:flex;gap:.2rem var(--sp-2);align-items:baseline;flex-wrap:wrap}
+.nci time{font-family:var(--font-2);font-variant-numeric:tabular-nums;font-size:var(--fs-footnote);font-weight:700;color:var(--text-2)}
+.nci.over time{color:var(--danger)}
 .tdh{border:0;background:none;padding:0;font:inherit;font-weight:700;font-size:var(--fs-body);color:var(--tint);cursor:pointer;min-height:1.75rem}
 .tdh:hover{text-decoration:underline;text-underline-offset:3px}
-.tdn{font-size:var(--fs-callout);color:var(--text-2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
-.tdx{flex-basis:100%;font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-3);font-variant-numeric:tabular-nums}
-.tdx .over{color:var(--danger);font-weight:600}
 .tdnote{font-size:var(--fs-callout);background:var(--accent-soft);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);white-space:pre-wrap;overflow-wrap:anywhere}
 .tda{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
 .tda .lb-btn{flex:1 1 auto}
 .tda .lb-btn.sm{flex:0 0 auto}
-.ans5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--sp-1)}
-.ans4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.ans5 .lb-btn{padding-inline:var(--sp-1);min-width:0;font-size:var(--fs-footnote);white-space:nowrap}
-.lb-btn.yes{background:var(--success-soft);color:var(--success);border-color:transparent}
-.lb-btn.yes:hover{background:color-mix(in srgb,var(--success) 22%,transparent);color:var(--success)}
-.lb-btn.no{background:var(--danger-soft);color:var(--danger);border-color:transparent}
-.lb-btn.no:hover{background:color-mix(in srgb,var(--danger) 22%,transparent);color:var(--danger)}
-.tdr.done{grid-template-columns:minmax(0,1fr) auto;align-items:center;color:var(--text-2);font-size:var(--fs-callout)}
-.tdr.done .tk{color:var(--success);font-weight:700}
-.tdlim{display:inline-flex;align-items:center;gap:var(--sp-1);font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-3)}
-.tdlim input{width:4.25rem;min-height:2rem;padding-block:.15rem;text-align:center}
-.td-more{justify-self:start}
-.tdold{background:var(--warning-soft);border-color:transparent}
-.tdold .tdl{background:var(--surface);border-radius:var(--r-md);padding-inline:var(--sp-3)}
-/* bell, save state */
+/* save state */
 .svst{display:inline-flex;align-items:center;gap:.35rem;font:inherit;font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-3);border:0;background:none;padding:.3rem .55rem;border-radius:var(--r-pill);cursor:pointer;white-space:nowrap;min-height:2rem}
 .svst .dot{margin:0;--c:var(--success)}
 .svst.wait{color:var(--warning);background:var(--warning-soft)}
@@ -134,11 +112,8 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .svst.err{color:var(--danger);background:var(--danger-soft)}
 .svst.err .dot{--c:var(--danger)}
 .svst.local .dot{--c:var(--warning)}
-.bell{position:relative;color:var(--text-2)}
-.bell .lb-count{position:absolute;top:-.15rem;inset-inline-end:-.2rem;font-size:var(--fs-caption);min-width:1.15rem;padding-inline:.25rem}
-.bell .lb-count.warn{background:var(--danger);color:var(--text-on-tint)}
 @media (max-width:480px){.lb-topbar .hub{display:none}.svst .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.svst.wait .t,.svst.err .t{position:static;width:auto;height:auto;clip:auto}}
-/* drawer: one creator's card, or the reminders */
+/* drawer: one creator's card */
 .drw{z-index:55}
 .drw .lb-drawer-head{gap:var(--sp-2);padding:var(--sp-3) var(--sp-4)}
 .drw .lb-drawer-head h3{flex:1;min-width:0;font-size:var(--fs-headline);display:flex;align-items:baseline;gap:var(--sp-2);overflow:hidden;white-space:nowrap}
@@ -151,15 +126,6 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 #drwScrim{z-index:52}
 body.drw-open,body.ask-open{overflow:hidden}
 @media (max-width:640px){.drw{width:100%}}
-.nc{display:grid;gap:var(--sp-4)}
-.nc-g{display:grid;gap:var(--sp-2)}
-.nc-g h4{font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:700;color:var(--text-3);margin:0}
-.nci{display:grid;gap:var(--sp-2);padding:var(--sp-3);border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface)}
-.nci.over{border-color:var(--danger)}
-.nci.now{border-color:var(--warning)}
-.nci-t{display:flex;gap:.2rem var(--sp-2);align-items:baseline;flex-wrap:wrap}
-.nci time{font-family:var(--font-2);font-variant-numeric:tabular-nums;font-size:var(--fs-footnote);font-weight:700;color:var(--text-2)}
-.nci.over time{color:var(--danger)}
 /* ask: the note and the reminder, asked before every status change */
 #askScrim{z-index:65}
 .ask{z-index:70}
@@ -230,8 +196,6 @@ body.drw-open,body.ask-open{overflow:hidden}
 .lvl > span{font-size:var(--fs-footnote);color:var(--text-3)}
 @media (max-width:480px){.lvl{grid-template-columns:minmax(0,1fr) auto 2.25rem}.lvl > span{grid-column:1/-1}}
 .pop .lb-select,.pop .lb-input{width:100%;min-width:0}
-.savebox{display:flex;gap:var(--sp-2);flex-wrap:wrap}
-.savebox input{flex:1 1 12rem}
 .grp{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-footnote);font-weight:600;color:var(--text-2);margin:var(--sp-2) .35rem -.1rem}
 .grp .n{color:var(--text-3);font-weight:500}
 .empty{display:grid;gap:var(--sp-2);justify-items:center}
@@ -283,7 +247,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .sstats button[aria-pressed="true"]{background:var(--tint-soft);color:var(--tint)}
 .sstats button[aria-pressed="true"] b{color:var(--tint)}
 .sstats button.due b{color:var(--warning)}
-@media (max-width:860px){.sstats{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--sp-4));padding-inline:var(--sp-4)}.sstats::-webkit-scrollbar{display:none}.sstats button{flex:none}}
+@media (max-width:860px){.sstats{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1 * var(--sp-4));padding-inline:var(--sp-4)}.sstats button{flex:none}}
 .olist{display:grid;gap:var(--sp-3)}
 .oc.done{opacity:.72}
 .oc > *{min-width:0}   /* a wide row (the message tabs) scrolls inside the card and never widens it */
@@ -347,8 +311,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .odet summary{font-size:var(--fs-callout);color:var(--tint);font-weight:500;min-height:2.75rem}
 .ogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:var(--sp-3);margin-top:var(--sp-3)}
 .ogrid label,.sset label{display:grid;gap:.3rem;font-size:var(--fs-footnote);color:var(--text-2);font-weight:500}
-.mtabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%;margin-top:var(--sp-1)}
-.mtabs::-webkit-scrollbar{display:none}
+.mtabs{flex-wrap:nowrap;overflow-x:auto;max-width:100%;margin-top:var(--sp-1)}
 .mtabs button{flex:none;min-height:2rem}
 .mtabs button:hover{color:var(--text)}
 .mtabs button[aria-pressed="true"]{font-weight:600}
@@ -377,8 +340,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .osec a{font-size:var(--fs-footnote);font-weight:500}
 .ogrid .full{grid-column:1/-1}
 /* overview: funnel, reasons, tests, data update */
-.cmp{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}
-.cmp::-webkit-scrollbar{display:none}
+.cmp{flex-wrap:nowrap;overflow-x:auto;max-width:100%}
 .cmp button{flex:none}
 .fun{min-width:640px}
 .fun td.unk{color:var(--text-3)}
@@ -442,17 +404,19 @@ details[open] summary{margin-bottom:var(--sp-2)}
 
 
 <div class="lb-app" dir="rtl">
-<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item" href="#overview" data-route="overview" data-ic="overview"><span class="t">היום</span><b class="cnt lb-count" data-cnt="today"></b></a><div id="navStatus" style="display:grid;gap:1px"></div></div><div class="nav-grp"><p class="lb-nav-label">תצוגות שמורות</p><div id="navViews" style="display:grid;gap:1px"></div></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
+<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות</span><b class="cnt lb-count" id="remN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
 <div class="main lb-main">
-<header class="topbar lb-topbar"><div class="lb-topbar-in"><button type="button" class="lb-btn ghost icon menu" id="menuBtn" aria-label="פתיחת התפריט" aria-controls="side" aria-expanded="false"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg></button><a class="tb-brand" href="#overview" aria-label="מפת היוצרים, היום"><span class="brand-logo" aria-hidden="true"></span></a><div class="crumbs"><span id="crumbG">פניות</span><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5l5.5 5.5-5.5 5.5"/></svg><b id="crumbT">היום</b></div><span class="lb-spacer"></span><span class="tb-hint"><kbd>/</kbd> לחיפוש</span><button type="button" class="svst" id="svst" title="מצב השמירה"><span class="dot"></span><span class="t">טוען…</span></button><button type="button" class="lb-btn ghost icon bell" id="bellBtn" aria-label="תזכורות" aria-haspopup="dialog"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8.5a5 5 0 0 1 10 0c0 4 1.6 5.5 1.6 5.5H3.4S5 12.5 5 8.5z"/><path d="M8.3 16.5a1.9 1.9 0 0 0 3.4 0"/></svg><b class="lb-count" id="bellN"></b></button><a class="lb-btn ghost sm hub" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">LumeBook HQ</a><!--LB:THEME-TOGGLE--></div></header>
+<header class="topbar lb-topbar"><div class="lb-topbar-in"><button type="button" class="lb-btn ghost icon menu" id="menuBtn" aria-label="פתיחת התפריט" aria-controls="side" aria-expanded="false"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg></button><a class="tb-brand" href="#overview" aria-label="מפת היוצרים, ראשי"><span class="brand-logo" aria-hidden="true"></span></a><div class="crumbs"><span id="crumbG">פניות</span><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5l5.5 5.5-5.5 5.5"/></svg><b id="crumbT">ראשי</b></div><span class="lb-spacer"></span><span class="tb-hint"><kbd>/</kbd> לחיפוש</span><button type="button" class="svst" id="svst" title="מצב השמירה"><span class="dot"></span><span class="t">טוען…</span></button><a class="lb-btn ghost sm hub" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">LumeBook HQ</a><!--LB:THEME-TOGGLE--></div></header>
 <main id="main" class="lb-page">
 <div class="warnbox lb-callout" id="dbnote" hidden></div>
 <div class="warnbox lb-callout" id="vnote" hidden role="status" aria-live="polite"></div>
 <div class="warnbox lb-callout mig" id="mignote" hidden></div>
+<section class="page lb-section" data-page="reminders" hidden>
+  <h2>תזכורות</h2>
+  <div id="remList"></div>
+</section>
 <section class="page lb-section" data-page="overview" hidden>
-  <div class="td-hd"><h2>היום</h2><span class="td-sum" id="tdSum"></span></div>
-  <div class="today" id="today"></div>
-  <p class="lb-eyebrow" style="margin-top:var(--sp-5)">תמונת מצב</p>
+  <p class="lb-eyebrow">תמונת מצב</p>
   <div class="kpis lb-grid" id="kpis"></div>
   <div class="lb-card"><div class="lb-card-head"><h3>שלבי הפנייה</h3><a href="#c-all">כל היוצרים</a></div><div class="pipe lb-stages" id="pipe"></div><div class="legend" id="legend"></div></div>
   <div class="lb-card"><div class="lb-card-head"><h3>מההודעה הראשונה ועד התוכן</h3></div>
@@ -470,16 +434,15 @@ details[open] summary{margin-bottom:var(--sp-2)}
   <div class="lb-card about">
   <span class="lb-eyebrow">מחקר יוצרים · נבדק ב-3, 11 ו-18 באוקטובר 2026</span>
   <h3>במי הורים בישראל כבר בוטחים</h3>
-  <p class="lb-lede">345 יוצרי תוכן ישראלים בעברית, עם כ-1K עד 50K עוקבים, שיכולים ליצור ל-LumeBook תוכן אמין שאפשר להשתמש בו שוב. כל אחד נבדק בפרופיל האינסטגרם שלו: מספר העוקבים, הביו, הצפיות ב-12 הרילס האחרונים ותאריך הרילס האחרון. 204 נבדקו ב-3 באוקטובר 2026 ועוד 100 ב-11 באוקטובר. ב-12 באוקטובר הוסרו 61 יוצרים שעוד לא פנינו אליהם ויש להם פחות מ-5K עוקבים, כך שלכל מי שעוד לא קיבל הודעה יש 5K ומעלה. ב-18 באוקטובר נוספו עוד 100, כולם בין 5K ל-50K עוקבים.</p>
+  <p class="lb-lede">346 יוצרי תוכן ישראלים בעברית, עם כ-1K עד 50K עוקבים, שיכולים ליצור ל-LumeBook תוכן אמין שאפשר להשתמש בו שוב. כל אחד נבדק בפרופיל האינסטגרם שלו: מספר העוקבים, הביו, הצפיות ב-12 הרילס האחרונים ותאריך הרילס האחרון. 204 נבדקו ב-3 באוקטובר 2026 ועוד 100 ב-11 באוקטובר. ב-12 באוקטובר הוסרו 61 יוצרים שעוד לא פנינו אליהם ויש להם פחות מ-5K עוקבים, כך שלכל מי שעוד לא קיבל הודעה יש 5K ומעלה. ב-18 באוקטובר נוספו עוד 100, כולם בין 5K ל-50K עוקבים.</p>
   <div class="facts">
-    <span class="lb-chip outline"><b>345</b> במאגר</span><span class="lb-chip outline"><b>100</b> נוספו ב-18 באוק׳</span><span class="lb-chip outline"><b>8</b> מקרי קצה מעל 50K</span><span class="lb-chip outline"><b>~5,800</b> חשבונות נסרקו ב-18 באוק׳</span><span class="lb-chip outline">תקציב Q4: <b>₪0 במזומן, ספרים כבארטר</b></span>
+    <span class="lb-chip outline"><b>346</b> במאגר</span><span class="lb-chip outline"><b>100</b> נוספו ב-18 באוק׳</span><span class="lb-chip outline"><b>8</b> מקרי קצה מעל 50K</span><span class="lb-chip outline"><b>~5,800</b> חשבונות נסרקו ב-18 באוק׳</span><span class="lb-chip outline">תקציב Q4: <b>₪0 במזומן, ספרים כבארטר</b></span>
   </div>
 <div class="quick"><a class="lb-btn secondary" href="#database">מאגר היוצרים</a><a class="lb-btn secondary" href="#method">שיטה ומגבלות</a></div></div>
 </section>
 <section class="page lb-section" data-page="contacts" hidden>
   <p class="lb-eyebrow" id="cEyebrow">יוצרים</p>
   <h2 id="cTitle">עוד לא פנינו</h2>
-  <p class="lb-lede">השם פותח את הפרופיל. מעתיקים את ההודעה, שולחים, ולוחצים ״שלחתי״. כל שינוי כאן נשמר לבד, והעריכות שלך מלמדות את התבניות את הקול שלך.</p>
   <div class="sstats" id="sstats" role="group" aria-label="סטטוס"></div>
   <div class="tbwrap" id="tb-c"></div>
   <div class="olist" id="olist"></div>
@@ -630,7 +593,7 @@ const ICON={
   flag:svg('<path d="M4.5 17.5V3M4.5 3.5h10l-2 3.5 2 3.5h-10"/>'),
   mail:svg('<rect x="2.5" y="4.5" width="15" height="11" rx="2"/><path d="M3 5.5l7 5.5 7-5.5"/>'),
   info:svg('<circle cx="10" cy="10" r="7.5"/><path d="M10 9v5M10 6.2v.1"/>'),
-  bookmark:svg('<path d="M5.5 3h9v14l-4.5-3.3L5.5 17z"/>'),
+  bell:svg('<path d="M5 8.5a5 5 0 0 1 10 0c0 4 1.6 5.5 1.6 5.5H3.4S5 12.5 5 8.5z"/><path d="M8.3 16.5a1.9 1.9 0 0 0 3.4 0"/>'),
   filter:svg('<path d="M3 4.5h14l-5.3 6.2v4.8l-3.4-1.6v-3.2z"/>'),
   sort:svg('<path d="M6 4v12M3 13l3 3 3-3M14 16V4M11 7l3-3 3 3"/>'),
   group:svg('<rect x="3" y="3" width="14" height="5" rx="1.3"/><rect x="3" y="12" width="14" height="5" rx="1.3"/>'),
@@ -655,7 +618,7 @@ const STAGES=[["info","נשלחו פרטים"],["fu","נשלח פולואפ"],["
 const LSTG={rates:"info",agreed:"info",prep:"info",pending:"booksent",recv:"content"};
 const STGL=Object.fromEntries(STAGES), STG_I=Object.fromEntries(STAGES.map((s,i)=>[s[0],i]));
 // filled in by the outreach tool once its saved state loads
-const HOOK={ko:()=>null,bk:()=>"new",ss:()=>null,st:()=>"new",due:()=>null,edited:()=>false,at:()=>0,on:()=>"",note:()=>"",saveView:null,
+const HOOK={ko:()=>null,bk:()=>"new",ss:()=>null,st:()=>"new",due:()=>null,edited:()=>false,at:()=>0,on:()=>"",note:()=>"",
   trk:()=>"",obj:()=>"",stage:()=>"",fit:()=>0,expv:()=>"",nad:()=>"",naDue:()=>false,offer:()=>false,fuOpen:()=>false,more:()=>"",open:null};
 const knum=v=>{ if(v===undefined||v===null||v==="") return null; const x=parseInt(v,10); return isNaN(x)||x<0?null:x };
 function kidsOf(c){ const o=HOOK.ko(c.h)||{}, edited=["kn","kb","kg"].some(k=>knum(o[k])!==null), base=c.kids||{};
@@ -787,12 +750,10 @@ function toolbar(el,key,o){
    +'<button type="button" class="lb-btn secondary tbb" data-pop="filter" aria-expanded="false" aria-haspopup="dialog">'+ICON.filter+'סינון<b class="tb-n lb-count is-tint" data-fn hidden></b></button>'
    +'<button type="button" class="lb-btn secondary tbb" data-pop="sort" aria-expanded="false" aria-haspopup="dialog">'+ICON.sort+'<span data-sl></span></button>'
    +(o.group?'<label class="tb-sel" title="קיבוץ הרשימה">'+ICON.group+'<select data-group aria-label="קיבוץ לפי">'+Object.entries(GROUPS).map(([k,g])=>'<option value="'+k+'">'+(k==="none"?"בלי קיבוץ":"קיבוץ: "+g.l)+'</option>').join("")+'</select></label>':'')
-   +(o.save?'<button type="button" class="lb-btn secondary tbb" data-pop="save" aria-expanded="false" aria-haspopup="dialog">'+ICON.bookmark+'שמירת תצוגה</button>':'')
    +'</div><span class="tb-count" data-count aria-live="polite"></span></div>'
    +'<div class="tb-chips" data-chips hidden></div>'
    +'<div class="pop" data-body="filter" role="dialog" aria-label="סינון" hidden></div>'
-   +'<div class="pop pop-sm" data-body="sort" role="dialog" aria-label="מיון" hidden></div>'
-   +(o.save?'<div class="pop pop-sm" data-body="save" role="dialog" aria-label="שמירת תצוגה" hidden></div>':'');
+   +'<div class="pop pop-sm" data-body="sort" role="dialog" aria-label="מיון" hidden></div>';
   const $=s=>el.querySelector(s), qIn=$("[data-q]");
   let openPop=null, lastN=0;
   const change=()=>{ uiSave(); o.onChange(); };
@@ -817,13 +778,12 @@ function toolbar(el,key,o){
     $('[data-body="sort"]').innerHTML='<h4>מיון</h4>'+(s.sort||[]).map((l,i)=>'<div class="lvl"><span>'+(i?"ואז לפי":"מיון לפי")+'</span><select class="lb-select" data-lv="'+i+'" aria-label="'+(i?"ואז לפי":"מיון לפי")+'">'+opts(l[0])+'</select><button type="button" class="lb-btn secondary" data-dir="'+i+'">'+(l[1]>0?"↑ ":"↓ ")+dirLabel(l[0],l[1])+'</button>'+(s.sort.length>1?'<button type="button" class="lb-btn ghost icon" data-rm="'+i+'" aria-label="הסרת רמת המיון">'+ICON.close+'</button>':'<span></span>')+'</div>').join("")
       +'<div class="pop-ft">'+((s.sort||[]).length<3?'<button type="button" class="lb-btn ghost sm" data-add>+ עוד רמת מיון</button>':'<span></span>')+'<button type="button" class="lb-btn ghost sm" data-sreset>חזרה לברירת המחדל</button></div>';
   }
-  function savePop(){ $('[data-body="save"]').innerHTML='<h4>שמירת התצוגה</h4><p class="note" style="margin-bottom:.75rem">שומרת את הרשימה הנוכחית, החיפוש, הסינון, המיון והקיבוץ. היא תופיע תחת ״תצוגות שמורות״ בתפריט.</p><div class="savebox"><input type="text" class="lb-input" data-vname maxlength="40" placeholder="שם התצוגה, למשל גננות עם מייל" aria-label="שם התצוגה"><button type="button" class="lb-btn" data-dosave>שמירה</button></div>' }
   function pop(name){
     if(openPop===name) name=null;
     el.querySelectorAll("[data-pop]").forEach(b=>b.setAttribute("aria-expanded",b.dataset.pop===name?"true":"false"));
     el.querySelectorAll("[data-body]").forEach(p=>p.hidden=p.dataset.body!==name);
     openPop=name;
-    if(name==="filter") filterPop(); if(name==="sort") sortPop(); if(name==="save"){ savePop(); setTimeout(()=>{const i=$("[data-vname]"); i&&i.focus()},0) }
+    if(name==="filter") filterPop(); if(name==="sort") sortPop();
   }
   el.addEventListener("input",e=>{ if(e.target.matches("[data-q]")){ st().q=e.target.value.trim(); change() } });
   el.addEventListener("change",e=>{
@@ -844,9 +804,7 @@ function toolbar(el,key,o){
     if(b.dataset.rm!=null){ s.sort.splice(+b.dataset.rm,1); sortPop(); change(); return }
     if(b.hasAttribute("data-add")){ const used=new Set(s.sort.map(l=>l[0])); const k=o.sorts.find(x=>!used.has(x)); if(k){ s.sort.push([k,SORTF[k].d]); sortPop(); change() } return }
     if(b.hasAttribute("data-sreset")){ s.sort=clone(VS_DEF[key].sort); sortPop(); change(); toast("המיון חזר לברירת המחדל."); return }
-    if(b.hasAttribute("data-dosave")){ const i=$("[data-vname]"), n=(i.value||"").trim(); if(!n){ fx(b,"is-err"); i.focus(); return } if(HOOK.saveView) HOOK.saveView(n); pop(null); return }
   });
-  el.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.matches("[data-vname]")){ e.preventDefault(); $("[data-dosave]").click() } });
   document.addEventListener("click",e=>{ if(openPop&&!el.contains(e.target)) pop(null) });
   document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&openPop){ const b=$('[data-pop="'+openPop+'"]'); pop(null); b&&b.focus() } });
   const api={
@@ -1041,7 +999,9 @@ const fill=(s,c)=>heTidy(hebArt(kidsG(brand(s),c).replace(MOMDUP,(m,ex)=>momDedu
 // 11 Oct 2026: the three lines about the percentage now say one allocation that the creator splits, as Yarin confirmed. Nothing else was touched.
 const OFFER="תוכנית השגרירים של לומבוק: ספר במתנה + קישור אישי עם "+PCT+"% מכל מכירה\n\nהיי {name},\n\nחשבנו על שיתוף הפעולה הזה כי התוכן שלך מרגיש טבעי, משפחתי ונגיש , בדיוק הסוג שיכול להפוך את הרגע שבו ילד פוגש את עצמו בתוך ספר לתוכן שקהל באמת מתחבר אליו\n\nההצעה שלנו פשוטה:\n\nאנחנו יוצרים לילד ספר מודפס ואישי במתנה, עם השם והפנים שלו. לאחר קבלת הספר, יוצרים רילס או טיקטוק שמציג את חוויית הקריאה או את רגע החשיפה לספר\n\nוהחלק הכי טוב, זה לא מסתיים ב״ספר תמורת פוסט״\n\nאתם מקבלים גם:\n\n• קישור אישי עם "+PCT+"% מכל הזמנה שמתבצעת דרכו\n• אתם מחליטים איך לחלק את ה-"+PCT+"% בין הרווח שלכם להנחה לקהל שלכם (למשל "+EXC+"% לכם ו-"+EXA+"% הנחה), וההנחה נכנסת אוטומטית דרך הקישור\n• אפשרות להמשיך להרוויח מכל רכישה שמגיעה מהתוכן שלכם\n• שיתוף התוכן בעמוד של ‎@lumebookai, עם קרדיט ותיוג מלאים\n\nכלומר, סרטון אחד יכול גם ליצור רגע משפחתי מרגש, גם לתת ערך לקהל שלכם וגם להפוך למקור הכנסה.\n\nאיך זה עובד?\n\n1. אנחנו מתאמים איתכם את שליחת הספר במתנה\n2. לאחר קבלת הספר, מעלים רילס או טיקטוק עם הקישור ועם תיוג של ‎@lumebookai\n3. מקבלים את החלק שבחרתם מתוך ה-"+PCT+"% על כל הזמנה שמתבצעת דרך הקישור\n\nכתבו לי מייל בחזרה עם מס הטלפון שלכם ונתקדם להכנת הספר!\n\nכבר מחכים לראות את הרגע של הילד עם הספר שלו!\nירין\n‎@lumebookai";
 const STY_NAME={1:"חם",2:"קצר"};
-const sty=c=>get(c.h).sty===2?2:1;
+// style: a choice made on the card wins; a creator already messaged keeps the style that was sent; everyone else gets warm or short at random (fixed per handle, so it does not flip on reload)
+const styRnd=h=>{ let x=0; for(const ch of String(h)) x=(x*31+ch.charCodeAt(0))|0; return (x>>>3)&1?2:1 };
+const sty=c=>{ const o=get(c.h); return o.sty===1||o.sty===2?o.sty:o.ssent===1||o.ssent===2?o.ssent:stOf(c.h)==="new"?styRnd(c.h):1 };
 const ssOf=c=>{ const o=get(c.h); return o.ssent===2||(o.ssent!==1&&o.sty===2)?2:1 };
 const SK=(k,s)=>s===2?k+"_b":k;
 // template key and saved-edit key for one message. An edit is stored per track and per style, so a text written for one offer never shows up under another.
@@ -1078,11 +1038,27 @@ let MODE=(window.claude&&window.claude.use)?"db":"local";
 // SRV: the page is served by the project server (tools/lumebook.py serve, localhost:8780). Its data then lives in
 // creators/creator-research/state/*.json instead of the artifact database (moved there on 20 Oct 2026).
 let SRV=false; const SRVH={"X-LumeBook-Board":"1","Content-Type":"application/json"};
-let srvN=0, srvErr=0;
-function srvPut(path,data){ srvN++; svRender();
-  fetch("/api/creator-map/doc?path="+encodeURIComponent(path),{method:"PUT",headers:SRVH,body:JSON.stringify(data)})
-    .then(r=>{ if(!r.ok) throw new Error(r.status) }).catch(()=>{ srvErr++; note("שינוי לא נשמר בשרת המקומי. בודקים שהשרת פועל (python3 tools/lumebook.py serve) ורעננים.") })
-    .finally(()=>{ srvN--; svRender() }) }
+// A write the server did not take (server stopped, laptop asleep) is kept in the browser and retried until it goes through, also after a reload,
+// so nothing is lost and the red error clears by itself when the server is back (21 Oct 2026). A newer write to the same document replaces the waiting one.
+const SQ_KEY="lume_sq_v1"; let SQ={}, sqSeq=0, sqTimer=null, srvNoted=false; const sqBusy=new Set(), sqFail={};
+try{ const j=JSON.parse(localStorage.getItem(SQ_KEY)||"null"); if(j&&typeof j==="object") SQ=j }catch(e){}
+const sqSave=()=>{ try{ localStorage.setItem(SQ_KEY,JSON.stringify(SQ)) }catch(e){} };
+const srvErrN=()=>Object.keys(SQ).filter(p=>sqFail[p]).length;
+function srvPut(path,data){ SQ[path]={d:clone(data),v:Date.now().toString(36)+"."+(++sqSeq)}; sqSave(); srvFlush() }
+function srvFlush(){ clearTimeout(sqTimer); sqTimer=null;
+  Object.keys(SQ).forEach(p=>{ if(sqBusy.has(p)) return; const v=SQ[p].v; sqBusy.add(p);
+    fetch("/api/creator-map/doc?path="+encodeURIComponent(p),{method:"PUT",headers:SRVH,body:JSON.stringify(SQ[p].d)})
+      .then(r=>{ if(!r.ok) throw new Error(r.status); delete sqFail[p]; if(SQ[p]&&SQ[p].v===v){ delete SQ[p]; sqSave() } })
+      .catch(()=>{ sqFail[p]=(sqFail[p]||0)+1 })
+      .finally(()=>{ sqBusy.delete(p);
+        const e=srvErrN();
+        if(e){ srvNoted=true; note("השרת המקומי לא עונה, אז "+(e===1?"שינוי אחד לא נשמר עדיין. הוא שמור":e+" שינויים לא נשמרו עדיין. הם שמורים")+" בדפדפן הזה, ויישמרו בשרת לבד כשהוא יחזור (python3 tools/lumebook.py serve).") }
+        else if(srvNoted&&!Object.keys(SQ).length){ srvNoted=false; note("") }
+        if(Object.keys(SQ).length&&!sqBusy.size&&!sqTimer) sqTimer=setTimeout(srvFlush,e?Math.min(3e4,3e3*Math.max(...Object.values(sqFail),1)):300);
+        svRender() }) });
+  svRender() }
+window.addEventListener("online",()=>{ if(SRV) srvFlush() });
+document.addEventListener("visibilitychange",()=>{ if(SRV&&!document.hidden&&Object.keys(SQ).length) srvFlush() });
 const WQ_KEY="lume_wq_v1", LOG_KEY="lume_log_v1";
 let WQ={}, wqSeq=0, wqTimer=null; const wqBusy=new Set(), wqErr={}, wqFail={}, wqNext={};
 try{ const j=JSON.parse(localStorage.getItem(WQ_KEY)||"null"); if(j&&typeof j==="object") WQ=j }catch(e){}
@@ -1115,7 +1091,7 @@ document.addEventListener("visibilitychange",()=>{ if(!document.hidden&&Object.k
 function svRender(){ const b=document.getElementById("svst"); if(!b) return;
   const n=Object.keys(WQ).length, e=Object.keys(wqErr).length, slow=Object.keys(WQ).some(p=>wqFail[p]);
   let cls="", txt, tip;
-  if(SRV){ cls=srvErr?"err":""; txt=srvErr?"שגיאת שמירה":srvN?"שומר…":"נשמר בשרת המקומי"; tip="השינויים נשמרים בקבצים בתיקיית הפרויקט (creators/creator-research/state)." }
+  if(SRV){ const se=srvErrN(), sn=Object.keys(SQ).length; cls=se?"err":""; txt=se?(se===1?"שינוי אחד לא נשמר":se+" שינויים לא נשמרו"):sn?"שומר…":"נשמר בשרת המקומי"; tip=se?"השרת המקומי לא עונה. השינויים שמורים בדפדפן הזה ויישמרו לבד כשהשרת יחזור. לחיצה מנסה עכשיו.":"השינויים נשמרים בקבצים בתיקיית הפרויקט (creators/creator-research/state)." }
   else if(MODE==="local"){ cls="local"; txt="בדפדפן הזה בלבד"; tip="אין כאן מסד נתונים משותף, אז השינויים נשמרים בדפדפן הזה בלבד." }
   else if(e){ cls="err"; txt=e===1?"שינוי אחד לא נשמר":e+" שינויים לא נשמרו"; tip="לחיצה מנסה שוב. עד אז השינויים שמורים בדפדפן הזה." }
   else if(n&&(slow||!dbh)){ cls="wait"; txt=n===1?"שינוי אחד ממתין":n+" ממתינים לשמירה"; tip=dbh?"החיבור נפל. השינויים שמורים בדפדפן הזה ויישמרו לבד כשהחיבור יחזור. לחיצה מנסה עכשיו.":"מתחבר למסד הנתונים…" }
@@ -1123,8 +1099,8 @@ function svRender(){ const b=document.getElementById("svst"); if(!b) return;
   else { txt="נשמר"; tip="כל השינויים נשמרו" }
   b.className="svst"+(cls?" "+cls:""); b.title=tip; b.querySelector(".t").textContent=txt;
   const st=document.getElementById("syncTxt"); if(st) st.textContent=SRV?"נשמר בשרת המקומי":MODE==="local"?"נשמר בדפדפן הזה בלבד":!dbh?"מתחבר…":(e||(n&&slow))?txt:"מסונכרן לחשבון Claude שלך";
-  const sd=document.getElementById("syncDot"); if(sd) sd.style.setProperty("--c",SRV&&!srvErr?"var(--success)":MODE==="db"&&dbh&&!e&&!(n&&slow)?"var(--success)":e?"var(--danger)":"var(--warning)") }
-document.getElementById("svst").addEventListener("click",()=>{ if(MODE==="db"){ retryNow(); toast(Object.keys(WQ).length?"מנסה לשמור שוב…":"הכול שמור.") } });
+  const sd=document.getElementById("syncDot"); if(sd) sd.style.setProperty("--c",SRV&&!srvErrN()?"var(--success)":MODE==="db"&&dbh&&!e&&!(n&&slow)?"var(--success)":e?"var(--danger)":"var(--warning)") }
+document.getElementById("svst").addEventListener("click",()=>{ if(SRV){ srvFlush(); toast(Object.keys(SQ).length?"מנסה לשמור שוב…":"הכול שמור.") } else if(MODE==="db"){ retryNow(); toast(Object.keys(WQ).length?"מנסה לשמור שוב…":"הכול שמור.") } });
 const writeDoc=h=>put("outreach/"+h,OD[h]);
 function patch(h,p){ OD[h]={...get(h),...p,at:Date.now()}; writeDoc(h) }
 const timers={};
@@ -1205,7 +1181,7 @@ askD.addEventListener("input",askQuick);
 [askD,askH].forEach(i=>i.addEventListener("click",()=>{ try{ i.showPicker() }catch(e){} }));
 // One change to one creator: ask first, then save it with the note and the reminder, add a history line, and offer Undo.
 // o: title, sub, na (suggested note), days (suggested date, null = no reminder), reasons, k (history kind), x (history detail),
-//    patch (object, or a function of the record before), msg (text or function), tab (null = show the card's next message), td (a Today row)
+//    patch (object, or a function of the record before), msg (text or function), tab (null = show the card's next message)
 async function change(h,o){
   const r=await ask(h,o); if(!r){ render(); return false }
   const prev={...get(h)}, p={...(typeof o.patch==="function"?o.patch(prev):o.patch||{}),na:r.na,nad:r.nad,nat:r.nat};
@@ -1213,131 +1189,20 @@ async function change(h,o){
   patch(h,p); if(o.tab===null) delete TABSEL[h];
   const t=remAt(r); if(t!=null&&t<=Date.now()) NOTED.add(h+"|"+t);   // a reminder set for a time already past is not announced again
   logEv(h,o.k,{...(o.x||{}),obj:o.reasons?r.obj:"",na:r.na,due:r.nad?r.nad+(r.nat?" "+r.nat:""):""});
-  if(o.td) TD_DONE[h]={g:o.td.g,i:o.td.i,txt:o.td.txt,undo:restore(h,prev,o.k)};
   render(); flashCard(h);
   toast((typeof o.msg==="function"?o.msg(r):o.msg||"נשמר.")+(r.nad?" תזכורת: "+whenL(r)+".":""),{undo:restore(h,prev,o.k)});
   return true }
 
-// ---------- Today: one ranked list. A creator sits in one group only, the first that fits, so nothing shows twice. ----------
-const TD_DONE={};   // rows handled during this visit stay where they were, marked done, with Undo
-const TD_ANS=new Set();   // follow-up rows where "they answered" is open
-let TD_OLD=false, TD_OLDN=15;
-const BACKLOG_D=3;   // a follow-up overdue by 3 days or more goes to the one-off clean-up, so the daily list stays short
-const lastTouch=o=>Math.max(sentMs(o)||0,fuMs(o,1)||0,fuMs(o,2)||0)||null;
-const sentToday=()=>C.filter(c=>get(c.h).on===today()).length;
-const dlim=()=>{ const n=parseInt(SET.dlim,10); return isNaN(n)||n<0?15:n };   // first messages a day; Yarin changes it on the Today list
-function bucketOf(c){ const o=get(c.h), s=stOf(c.h), bk=bkOf(c), t=remAt(o);
-  if(t!=null&&t<=endOfToday()) return "rem";
-  if(bk==="due") return dueOf(c)>=BACKLOG_D?"old":"fu";
-  if(inProc(s)) return t==null?"deal":null;
-  if(bk==="sent"&&!(t!=null&&t>Date.now())){ const lt=lastTouch(o); if(lt){ const d=Math.floor((Date.now()-lt)/864e5); if(d>=2&&d<=7&&!(o.ny&&o.ny>lt)) return "ans" } }
-  if(s==="new") return "new";
-  return null }
-const TDG=[["rem","תזכורות להיום","הפתקים שכתבת, לפי השעה"],["deal","בתהליך, בלי תזכורת","אין להם צעד הבא עם תאריך"],["ans","ענו?","נשלחה להם הודעה לפני 2 עד 7 ימים"],["fu","פולואפים לשליחה","ההעתקה נרשמת כשליחה אחרי ״שמירה״"],["new","חדשים לפנייה",""]];
-const ANS=[["yes","כן","yes"],["q","שאלה",""],["later","לא עכשיו",""],["no","לא","no"],["ny","עוד לא",""]];
-const ago=d=>d<=0?"היום":d===1?"אתמול":"לפני "+d+" ימים";
-const nextStg=c=>{ const i=STG_I[stgOf(c)]; return i==null||i>=STAGES.length-1?"":STAGES[i+1][0] };
-function ansBtns(four){ return '<div class="ans5'+(four?' ans4':'')+'" role="group" aria-label="מה ענו">'+ANS.filter(a=>!four||a[0]!=="ny").map(([k,l,cls])=>'<button type="button" class="lb-btn secondary '+cls+'" data-ans="'+k+'">'+l+'</button>').join("")+'</div>' }
-function tdMeta(c,g){ const o=get(c.h), s=stOf(c.h), lt=lastTouch(o), P=[];
-  if(g==="new") return "ציון "+c.score+" · "+esc(TRKL[trkOf(c)])+" · "+esc(chL(chOf(c)));
-  P.push(esc(inProc(s)?STGL[stgOf(c)]||STL[s]:STL[HOOK.bk(c)]||""));
-  if(lt&&!inProc(s)) P.push((fuMs(o,1)!=null?"פולואפ ":"הודעה ")+ago(Math.floor((Date.now()-lt)/864e5))+(o.chs?" · "+esc(chL(o.chs)):""));
-  if(g==="fu"||g==="old"){ const d=dueOf(c); P.push(d?'<span class="over">באיחור של '+(d===1?"יום":d+" ימים")+'</span>':"היום") }
-  if(g==="deal"){ const t=procSince(o); if(t) P.push("שינוי אחרון "+ago(Math.floor((Date.now()-t)/864e5))) }
-  if(g==="rem"){ const t=remAt(o); P.unshift('<span class="'+(t<=Date.now()?"over":"")+'">⏰ '+esc(whenL(o))+'</span>') }
-  return P.join(" · ") }
-function tdRow(c,g){ const h=c.h, o=get(h), s=stOf(h), bk=bkOf(c), nx=nextStg(c);
-  const step=nx?'<button type="button" class="lb-btn" data-tdstep>'+esc("שלב הבא: "+STGL[nx])+'</button>':'';
-  let note="", acts="";
-  if(g==="rem"){ note='<div class="tdnote" dir="auto">'+(o.na?esc(o.na):'<span class="note">בלי פתק</span>')+'</div>';
-    if(["sent","due","noreply"].includes(rawSt(h))&&!inProc(s)&&s!=="declined") acts=ansBtns(false)+(bk==="due"?'<div class="tda"><button type="button" class="lb-btn" data-tdfu>העתקת הפולואפ</button></div>':'');
-    else if(inProc(s)&&step) acts='<div class="tda">'+step+'</div>';
-    else if(s==="new") acts='<div class="tda"><button type="button" class="lb-btn" data-tdopen="'+esc(h)+'" data-t="dm">פתיחת ההודעה</button></div>';
-    acts+='<div class="tda"><button type="button" class="lb-btn secondary sm" data-tdrem>דחייה</button><button type="button" class="lb-btn ghost sm" data-tdremdone>בוצע ✓</button></div>' }
-  else if(g==="deal") acts='<div class="tda">'+step+'<button type="button" class="lb-btn secondary" data-tdrem>קביעת תזכורת</button></div>';
-  else if(g==="ans") acts=ansBtns(false);
-  else if(g==="fu"||g==="old") acts='<div class="tda"><button type="button" class="lb-btn" data-tdfu>העתקת ה'+(seq(c).n===2?"פולואפ האחרון":"פולואפ")+'</button>'
-    +(g==="old"?'<button type="button" class="lb-btn secondary" data-tdskip>דילוג</button><button type="button" class="lb-btn secondary" data-tdprior>כבר שלחתי</button>':'<button type="button" class="lb-btn secondary" data-tdans aria-expanded="'+TD_ANS.has(h)+'">ענו</button>')+'</div>'
-    +(g==="fu"&&TD_ANS.has(h)?ansBtns(true):'');
-  else if(g==="new") acts='<div class="tda"><button type="button" class="lb-btn secondary" data-tdopen="'+esc(h)+'" data-t="dm">פתיחת ההודעה</button></div>';
-  return '<li class="tdr" data-h="'+esc(h)+'"><div class="tdm"><button type="button" class="tdh" data-tdopen="'+esc(h)+'">'+hb(h)+'</button><span class="tdn" dir="auto">'+esc(c.name||c.n||"")+'</span><span class="tdx">'+tdMeta(c,g)+'</span></div>'+note+acts+'</li>' }
-const tdDone=(h,d)=>'<li class="tdr done" data-h="'+esc(h)+'"><span><span class="tk">✓</span> '+hb(h)+' · '+esc(d.txt)+'</span><button type="button" class="lb-btn ghost sm" data-tdundo>ביטול</button></li>';
-function tdRows(g,list){ const out=list.map(c=>tdRow(c,g)); Object.entries(TD_DONE).filter(([h,d])=>d.g===g).sort((a,b)=>a[1].i-b[1].i).forEach(([h,d])=>out.splice(Math.min(d.i,out.length),0,tdDone(h,d))); return out.join("") }
-function tdGroups(){ const G={rem:[],deal:[],ans:[],fu:[],old:[],new:[]};
-  C.forEach(c=>{ if(TD_DONE[c.h]) return; const g=bucketOf(c); if(g) G[g].push(c) });
-  G.rem.sort((a,b)=>remAt(get(a.h))-remAt(get(b.h)));
-  G.deal.sort((a,b)=>(procSince(get(a.h))||0)-(procSince(get(b.h))||0));
-  G.ans.sort((a,b)=>lastTouch(get(a.h))-lastTouch(get(b.h)));
-  G.fu.sort((a,b)=>dueOf(b)-dueOf(a)); G.old.sort((a,b)=>dueOf(b)-dueOf(a));
-  G.new.sort(cmpBy([["score",-1]]));
-  G.newAll=G.new.length; G.new=G.new.slice(0,Math.max(0,dlim()-sentToday()));
-  return G }
-function oldPanel(list){ const n=list.length, done=Object.values(TD_DONE).filter(d=>d.g==="old").length; if(!n&&!done) return "";
-  return '<div class="lb-card tdg tdold" data-g="old"><div class="lb-card-head"><h3>ניקוי חד-פעמי: פולואפים ישנים <span class="cnt lb-count">'+(n||"")+'</span></h3></div>'
-   +'<p class="note">פולואפים שהיו צריכים לצאת לפני '+BACKLOG_D+' ימים או יותר ולא נרשמו. לכל אחד: העתקה ושליחה עכשיו, דילוג (הם יעברו ל״לא ענו״), או ״כבר שלחתי״ אם יצא בלי שנרשם. כל פעולה אפשר לבטל.</p>'
-   +(TD_OLD||done?'<ul class="tdl">'+tdRows("old",list.slice(0,TD_OLDN))+'</ul>'+(n>TD_OLDN?'<button type="button" class="lb-btn secondary td-more" data-tdmore>עוד '+Math.min(15,n-TD_OLDN)+'</button>':''):'<div><button type="button" class="lb-btn secondary" data-tdold>לעבור עליהם ('+n+')</button></div>')
-   +'</div>' }
-function renderToday(){ const G=tdGroups(); let html="", total=0;
-  TDG.forEach(([g,title,sub])=>{ const list=G[g], done=Object.values(TD_DONE).filter(d=>d.g===g).length;
-    if(g!=="new"&&!list.length&&!done){ if(g==="fu") html+=oldPanel(G.old); return }
-    if(g!=="new") total+=list.length;
-    const cnt=' <span class="cnt lb-count">'+(list.length||"")+'</span>';
-    const head=g==="new"?'<div class="lb-card-head"><h3>'+title+cnt+'</h3><label class="tdlim">נשלחו היום '+sentToday()+' מתוך <input class="lb-input" type="number" min="0" max="200" inputmode="numeric" data-dlim value="'+dlim()+'" aria-label="מגבלה יומית להודעות ראשונות"></label></div>'
-      :'<div class="lb-card-head"><h3>'+title+cnt+'</h3>'+(sub?'<span class="note">'+sub+'</span>':'')+'</div>';
-    const body=list.length||done?'<ul class="tdl">'+tdRows(g,list)+'</ul>':'<p class="note">'+(G.newAll?"הגעת למגבלה היומית. אפשר לשנות אותה כאן למעלה.":"כולם כבר קיבלו הודעה.")+'</p>';
-    html+='<div class="lb-card tdg" data-g="'+g+'">'+head+body+'</div>';
-    if(g==="fu") html+=oldPanel(G.old) });
-  if(!total) html='<div class="lb-empty"><b>אין משימות פתוחות להיום.</b><p class="note">כל שינוי סטטוס שואל מה הלאה ומתי לבדוק, והתזכורות יופיעו כאן כשיגיע הזמן.</p></div>'+html;
-  document.getElementById("today").innerHTML=html;
-  document.getElementById("tdSum").textContent=(total===0?"אין משימות פתוחות":total===1?"משימה אחת":total+" משימות")+(G.new.length?" · "+G.new.length+" חדשים":"")+(G.old.length?" · "+G.old.length+" פולואפים ישנים":"") }
-const ANSX={
-  yes:{title:"ענו: כן",na:"לשלוח דוגמה ופרטים",days:1,msg:"נרשם: ענו כן. הפולואפים נעצרו.",p:{s:"process",stg:"info",int:1}},
-  q:{title:"ענו עם שאלה",na:"לענות על השאלה",days:1,msg:"נרשם: ענו עם שאלה. הפולואפים נעצרו.",p:{s:"process",stg:"info"}},
-  later:{title:"ענו: לא עכשיו",na:"לחזור אליהם",days:30,msg:"נרשם: לא עכשיו. הם בתהליך, עם תזכורת לחזור אליהם.",p:{s:"process",stg:"info",obj:"timing"}},
-  no:{title:"ענו: לא",na:"",days:null,reasons:true,msg:"נרשם: לא מתאים להם. הפולואפים נעצרו.",p:{s:"declined"}},
-  ny:{title:"עוד לא ענו",na:"לבדוק אם ענו",msg:"נרשם: עוד לא ענו.",p:{}}};
-function answer(h,k,td){ const c=byH[h], A=ANSX[k], now=Date.now(); let days=A.days;
-  if(k==="ny"){ const q=seq(c); days=q.k==="wait"?Math.max(1,Math.floor((q.at-dms(today()))/864e5)):2 }   // the next follow-up date, or in 2 days
-  return change(h,{title:A.title,na:A.na,days,reasons:A.reasons,k:k==="ny"?"notyet":"ans",x:{v:k},tab:null,msg:A.msg,td:td&&{...td,txt:A.title},
-    patch:prev=>k==="ny"?{ny:now}:{...A.p,ans:k,sct:now,...(prev.rat?{}:{rat:now}),...(prev.ssent?{}:{ssent:sty(c)})}}) }
 // a follow-up recorded as sent: the original send date and earlier follow-ups stay as they are
-const fuPatch=(prev,n,prior)=>{ const now=Date.now(); return {s:"sent",dat:"",fusk:0,...(n===2?{fu2:today(),fu2at:now}:{fu:today(),fuat:now}),fuh:[...(Array.isArray(prev.fuh)?prev.fuh:[]),{n,on:today(),at:now,...(prior?{prior:1}:{})}],...(prior?{fuu:1}:{})} };
-function fuRecord(h,td,btn){ const c=byH[h], n=fuMs(get(h),1)!=null?2:1;
-  if(btn) copyText(btn,msgOf(c,n===2?"f2":"fu"),true);
-  return change(h,{title:n===2?"הפולואפ האחרון הועתק":"הפולואפ הועתק",sub:"״שמירה״ רושמת אותו כנשלח. ״ביטול״ משאיר אותו לשליחה.",na:"לבדוק אם ענו לפולואפ",days:3,k:"fu",x:{n},tab:null,
-    patch:p=>fuPatch(p,n),msg:()=>(n===2?"הפולואפ האחרון":"הפולואפ")+" נרשם כנשלח ל-"+ht(h)+"."+moved(h),td:td&&{...td,txt:n===2?"נשלח פולואפ אחרון":"נשלח פולואפ"}}) }
-function skipFu(h,td){ return change(h,{title:"דילוג על הפולואפ",sub:"הם יעברו ל״לא ענו״. אפשר לבטל, ואפשר גם לשלוח פולואפ אחר כך מהכרטיס.",na:"",days:null,k:"fuskip",tab:null,
-  patch:{fusk:Date.now()},msg:"דילגת על הפולואפ ל-"+ht(h)+".",td:td&&{...td,txt:"דילוג על הפולואפ"}}) }
-function priorFu(h,td){ const n=fuMs(get(h),1)!=null?2:1; return change(h,{title:"כבר שלחתי פולואפ",sub:"נרשם עם התאריך של היום, כי התאריך האמיתי לא ידוע.",na:"לבדוק אם ענו לפולואפ",days:2,k:"fu",x:{n,prior:1},tab:null,
-  patch:p=>fuPatch(p,n,true),msg:"נרשם שהפולואפ כבר נשלח ל-"+ht(h)+".",td:td&&{...td,txt:"פולואפ שכבר נשלח"}}) }
+const fuPatch=(prev,n)=>{ const now=Date.now(); return {s:"sent",dat:"",fusk:0,...(n===2?{fu2:today(),fu2at:now}:{fu:today(),fuat:now}),fuh:[...(Array.isArray(prev.fuh)?prev.fuh:[]),{n,on:today(),at:now}]} };
 const STG_NA={info:"לבדוק אם קיבלו את הפרטים",fu:"לבדוק אם ענו",signed:"להכין את הספר",created:"לשלוח את הספר",booksent:"לבדוק שהספר הגיע",content:"לשתף את התוכן ולבדוק תוצאות"};
 const STG_DAYS={info:2,fu:3,signed:1,created:2,booksent:5,content:7};
-function setStage(h,v,td){ const c=byH[h], from=stgOf(c); if(!STGL[v]||v===from){ render(); return Promise.resolve(false) }
-  return change(h,{title:"שלב: "+STGL[v],na:STG_NA[v],days:STG_DAYS[v],k:"stage",x:{from,to:v},patch:{stg:v,sct:Date.now()},msg:"השלב נשמר: "+STGL[v]+".",td:td&&{...td,txt:"שלב: "+STGL[v]}}) }
-function setRem(h,td){ const o=get(h); return change(h,{title:o.nad?"דחיית התזכורת":"תזכורת",na:o.na||"",days:1,k:"rem",patch:{},msg:"התזכורת נשמרה.",td:td&&{...td,txt:"תזכורת חדשה"}}) }
-function remDone(h,td){ const prev={...get(h)}; patch(h,{nad:"",nat:""}); logEv(h,"remdone",{na:prev.na});
-  if(td) TD_DONE[h]={...td,txt:"התזכורת בוצעה",undo:restore(h,prev,"remdone")};
+function setStage(h,v){ const c=byH[h], from=stgOf(c); if(!STGL[v]||v===from){ render(); return Promise.resolve(false) }
+  return change(h,{title:"שלב: "+STGL[v],na:STG_NA[v],days:STG_DAYS[v],k:"stage",x:{from,to:v},patch:{stg:v,sct:Date.now()},msg:"השלב נשמר: "+STGL[v]+"."}) }
+function setRem(h){ const o=get(h); return change(h,{title:o.nad?"דחיית התזכורת":"תזכורת",na:o.na||"",days:1,k:"rem",patch:{},msg:"התזכורת נשמרה."}) }
+function remDone(h){ const prev={...get(h)}; patch(h,{nad:"",nat:""}); logEv(h,"remdone",{na:prev.na});
   render(); toast("התזכורת סומנה כבוצעה. הפתק נשאר בכרטיס.",{undo:restore(h,prev,"remdone")}) }
-document.getElementById("today").addEventListener("click",e=>{
-  const b=e.target.closest("button"); if(!b) return;
-  if(b.hasAttribute("data-tdold")){ TD_OLD=true; renderToday(); return }
-  if(b.hasAttribute("data-tdmore")){ TD_OLDN+=15; renderToday(); return }
-  const li=b.closest(".tdr"), h=li&&li.dataset.h; if(!h||!byH[h]) return;
-  const g=b.closest(".tdg").dataset.g, td={g,i:[...li.parentNode.children].indexOf(li)};
-  if(b.dataset.tdopen!==undefined) HOOK.open(h,b.dataset.t);
-  else if(b.dataset.ans) answer(h,b.dataset.ans,td);
-  else if(b.hasAttribute("data-tdfu")) fuRecord(h,td,b);
-  else if(b.hasAttribute("data-tdans")){ TD_ANS.has(h)?TD_ANS.delete(h):TD_ANS.add(h); renderToday() }
-  else if(b.hasAttribute("data-tdskip")) skipFu(h,td);
-  else if(b.hasAttribute("data-tdprior")) priorFu(h,td);
-  else if(b.hasAttribute("data-tdstep")) setStage(h,nextStg(byH[h]),td);
-  else if(b.hasAttribute("data-tdrem")) setRem(h,td);
-  else if(b.hasAttribute("data-tdremdone")) remDone(h,td);
-  else if(b.hasAttribute("data-tdundo")&&TD_DONE[h]) TD_DONE[h].undo() });
-document.getElementById("today").addEventListener("change",e=>{ if(!e.target.matches("[data-dlim]")) return; const v=parseInt(e.target.value,10);
-  if(isNaN(v)||v<0){ e.target.value=dlim(); return } SET={...SET,dlim:v}; saveSettings(); render(); toast("המגבלה היומית: "+v+" הודעות ראשונות ביום.") });
-
-// ---------- drawer: one creator's full card, or the reminders ----------
+// ---------- drawer: one creator's full card ----------
 const drw=document.getElementById("drw"), drwBody=document.getElementById("drwBody"), drwScrim=document.getElementById("drwScrim"), drwT=document.getElementById("drwT");
 let DRW=null, DRW_BACK=null;
 function drwOpen(m){ if(!DRW) DRW_BACK=document.activeElement; DRW=m; drw.hidden=false; drwScrim.hidden=false; document.body.classList.add("drw-open"); renderDrawer(true); setTimeout(()=>document.getElementById("drwX").focus({preventScroll:true}),30) }
@@ -1351,34 +1216,32 @@ function renderDrawer(first){ if(!DRW) return;
     const op=[...drwBody.querySelectorAll("details")].map(d=>d.open), top=drwBody.scrollTop;
     drwBody.innerHTML=card(c);
     if(!first){ const ds=drwBody.querySelectorAll("details"); if(ds.length===op.length) ds.forEach((d,i)=>{ d.open=op[i] }); drwBody.scrollTop=top } else drwBody.scrollTop=0;
-    drwBody.querySelectorAll("[data-msgbox]").forEach(fitBox); drwBody.querySelectorAll(".omsg .mtabs").forEach(showTab) }
-  else { drwT.textContent="תזכורות"; drwBody.innerHTML=bellHtml(); if(first) drwBody.scrollTop=0 } }
+    drwBody.querySelectorAll("[data-msgbox]").forEach(fitBox); drwBody.querySelectorAll(".omsg .mtabs").forEach(showTab) } }
 document.getElementById("drwX").addEventListener("click",drwClose); drwScrim.addEventListener("click",drwClose);
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&DRW&&!askDone&&!stMenuBtn&&!document.body.classList.contains("nav-open")){ e.preventDefault(); drwClose() } });
-drwBody.addEventListener("click",e=>{ if(!DRW||DRW.mode!=="bell") return; const b=e.target.closest("button"); if(!b) return; const it=b.closest("[data-h]"), h=it&&it.dataset.h; if(!h) return;
-  if(b.dataset.tdopen!==undefined) HOOK.open(h); else if(b.hasAttribute("data-tdrem")) setRem(h); else if(b.hasAttribute("data-tdremdone")) remDone(h) });
 
-// ---------- the reminders center: every dated note, by day. Reminders show while the map is open; nothing reaches the phone when it is closed. ----------
+// ---------- the reminders page: every dated note, by day. Reminders show while the map is open; nothing reaches the phone when it is closed. ----------
 const WD=["יום א׳","יום ב׳","יום ג׳","יום ד׳","יום ה׳","יום ו׳","שבת"];
 const remList=()=>C.map(c=>({c,o:get(c.h)})).map(x=>({...x,t:remAt(x.o)})).filter(x=>x.t!=null).sort((a,b)=>a.t-b.t);
-function bellHtml(){ const L=remList(), now=Date.now(), d0=dms(today());
-  if(!L.length) return '<div class="lb-empty"><b>אין תזכורות.</b><p class="note">כל שינוי סטטוס שואל מה צריך לעשות ומתי לבדוק. התזכורת מופיעה כאן וברשימת ״היום״.</p></div>';
+function renderRem(){ const L=remList(), now=Date.now(), d0=dms(today()), el=document.getElementById("remList");
+  if(!L.length){ el.innerHTML='<div class="lb-empty"><b>אין תזכורות.</b></div>'; return }
   const G=new Map(); L.forEach(x=>{ const day=Math.round((dms(isoOf(x.t))-d0)/864e5), key=day<0?"over":isoOf(x.t); if(!G.has(key)) G.set(key,{day,items:[]}); G.get(key).items.push(x) });
-  return '<p class="note">התזכורות מופיעות כשהמפה פתוחה: כאן, ברשימת ״היום״ ובהודעה קופצת כשמגיע הזמן. כשהמפה סגורה לא מגיעה התראה לטלפון.</p><div class="nc">'
-   +[...G.entries()].map(([key,g])=>'<div class="nc-g"><h4>'+(key==="over"?"באיחור":g.day===0?"היום":g.day===1?"מחר":WD[new Date(dms(key)).getDay()]+", "+dayLabel(dms(key)))+'</h4>'
+  el.innerHTML='<div class="nc">'
+   +[...G.entries()].map(([key,g])=>'<div class="nc-g"><h4>'+(key==="over"?"באיחור":g.day===0?"היום":g.day===1?"מחר":WD[new Date(dms(key)).getDay()]+", "+dayLabel(dms(key)))+'</h4><div class="nc-l">'
      +g.items.map(x=>'<div class="nci'+(x.t<d0?" over":x.t<=now?" now":"")+'" data-h="'+esc(x.c.h)+'"><div class="nci-t"><time>'+(key==="over"?dayLabel(x.t)+" ":"")+esc(x.o.nat||"")+'</time><button type="button" class="tdh" data-tdopen="'+esc(x.c.h)+'">'+hb(x.c.h)+'</button><span class="lb-chip">'+esc(STL[HOOK.bk(x.c)]||"")+'</span></div>'
-       +'<div class="tdnote" dir="auto">'+(x.o.na?esc(x.o.na):'<span class="note">בלי פתק</span>')+'</div><div class="tda"><button type="button" class="lb-btn secondary sm" data-tdrem>דחייה</button><button type="button" class="lb-btn ghost sm" data-tdremdone>בוצע ✓</button></div></div>').join("")+'</div>').join("")+'</div>' }
-function bellCount(){ const now=Date.now(), n=C.filter(c=>{ const t=remAt(get(c.h)); return t!=null&&t<=now }).length, b=document.getElementById("bellN");
-  b.textContent=n||""; b.classList.toggle("warn",n>0); document.getElementById("bellBtn").setAttribute("aria-label",n?"תזכורות, "+n+" שהגיע זמנן":"תזכורות"); return n }
-document.getElementById("bellBtn").addEventListener("click",()=>{ if(DRW&&DRW.mode==="bell") drwClose(); else drwOpen({mode:"bell"}) });
+       +'<div class="tdnote" dir="auto">'+(x.o.na?esc(x.o.na):'<span class="note">בלי פתק</span>')+'</div><div class="tda"><button type="button" class="lb-btn secondary sm" data-tdrem>דחייה</button><button type="button" class="lb-btn ghost sm" data-tdremdone>בוצע ✓</button></div></div>').join("")+'</div></div>').join("")+'</div>' }
+function remCount(){ const now=Date.now(), n=C.filter(c=>{ const t=remAt(get(c.h)); return t!=null&&t<=now }).length, b=document.getElementById("remN");
+  b.textContent=n||""; b.classList.toggle("warn",n>0); return n }
+document.getElementById("remList").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; const it=b.closest("[data-h]"), h=it&&it.dataset.h; if(!h) return;
+  if(b.dataset.tdopen!==undefined) HOOK.open(h); else if(b.hasAttribute("data-tdrem")) setRem(h); else if(b.hasAttribute("data-tdremdone")) remDone(h) });
 // a reminder whose time comes while the map is open pops up once
 const NOTED=new Set(); let remFirst=true;
 function remTick(){ const now=Date.now(), due=[];
   C.forEach(c=>{ const o=get(c.h), t=remAt(o); if(t==null||t>now) return; const key=c.h+"|"+t; if(NOTED.has(key)) return; NOTED.add(key); due.push({c,o}) });
-  bellCount(); if(DRW&&DRW.mode==="bell") renderDrawer();
-  if(remFirst){ remFirst=false; if(due.length) toast(due.length===1?"תזכורת אחת שהגיע זמנה.":due.length+" תזכורות שהגיע זמנן.",{icon:"⏰",act:{label:"פתיחה",fn:()=>drwOpen({mode:"bell"})},ms:8000}); return }
+  remCount(); if(ROUTE.page==="reminders") renderRem();
+  if(remFirst){ remFirst=false; if(due.length) toast(due.length===1?"תזכורת אחת שהגיע זמנה.":due.length+" תזכורות שהגיע זמנן.",{icon:"⏰",act:{label:"פתיחה",fn:()=>navigate("reminders")},ms:8000}); return }
   if(due.length===1){ const x=due[0]; toast(ht(x.c.h)+(x.o.na?": "+x.o.na:""),{icon:"⏰",act:{label:"פתיחה",fn:()=>HOOK.open(x.c.h)},ms:12000}) }
-  else if(due.length>1) toast(due.length+" תזכורות שהגיע זמנן.",{icon:"⏰",act:{label:"פתיחה",fn:()=>drwOpen({mode:"bell"})},ms:12000}) }
+  else if(due.length>1) toast(due.length+" תזכורות שהגיע זמנן.",{icon:"⏰",act:{label:"פתיחה",fn:()=>navigate("reminders")},ms:12000}) }
 setInterval(remTick,30000);
 
 // ---------- render ----------
@@ -1477,7 +1340,8 @@ function card(c){
 }
 function render(){
   const ae=document.activeElement, list=document.getElementById("olist");
-  navCounts(); migRender(); bellCount(); renderDrawer();
+  navCounts(); migRender(); remCount(); renderDrawer();
+  if(ROUTE.page==="reminders") renderRem();
   if(ROUTE.page==="overview") renderOverview();
   if(ROUTE.page==="database") dbRender();
   if(ROUTE.page!=="contacts") return;
@@ -1551,7 +1415,7 @@ window.addEventListener("scroll",e=>{ if(stMenuBtn&&!MENU.contains(e.target)) me
 window.addEventListener("resize",()=>menuClose());
 const stLabel=s=>s==="due"?"פולואפ לשליחה":(ST.find(x=>x[0]===s)||[0,s])[1];
 // put one creator's record back exactly as it was (Undo for the actions that move a creator); the history keeps both lines
-const restore=(h,prev,k)=>()=>{ OD[h]={...prev,at:Date.now()}; writeDoc(h); logEv(h,"undo",{of:k||""}); delete TD_DONE[h]; render(); flashCard(h); toast("בוטל.") };
+const restore=(h,prev,k)=>()=>{ OD[h]={...prev,at:Date.now()}; writeDoc(h); logEv(h,"undo",{of:k||""}); render(); flashCard(h); toast("בוטל.") };
 const moved=h=>cardEl(h)||ROUTE.page!=="contacts"?"":" עבר לרשימה ״"+stLabel(HOOK.bk(byH[h]))+"״.";
 let toastT;
 function toast(msg,o){
@@ -1562,15 +1426,14 @@ function toast(msg,o){
   el.classList.toggle("bad",!!o.bad); el.classList.add("show");
   toastT=setTimeout(()=>el.classList.remove("show"),o.ms||(act?6000:2200));
 }
-// quiet: no toast (the Today list asks right away whether the copied follow-up was sent)
-async function copyText(btn,text,quiet){
+async function copyText(btn,text){
   let ok=false; const raw=text; text=rtl(raw);
   try{ await navigator.clipboard.write([new ClipboardItem({"text/plain":new Blob([text],{type:"text/plain"}),"text/html":new Blob([rtlHtml(raw)],{type:"text/html"})})]); ok=true }catch(e0){}
   if(!ok) try{ await navigator.clipboard.writeText(text); ok=true }catch(e){
     try{ const t=document.createElement("textarea"); t.value=text; t.style.cssText="position:fixed;left:-9999px"; document.body.appendChild(t); t.select(); ok=document.execCommand("copy"); t.remove() }catch(e2){}
   }
   const old=btn.textContent; btn.textContent=ok?"הועתק ✓":"צריך להעתיק ידנית"; setTimeout(()=>{ if(btn.isConnected) btn.textContent=old },1400);
-  fx(btn,ok?"is-ok":"is-err"); if(!quiet||!ok) toast(ok?"הועתק. אפשר להדביק בצ׳אט.":"לא הצלחתי להעתיק. אפשר לסמן את הטקסט ולהעתיק ידנית.",{bad:!ok});
+  fx(btn,ok?"is-ok":"is-err"); toast(ok?"הועתק. אפשר להדביק בצ׳אט.":"לא הצלחתי להעתיק. אפשר לסמן את הטקסט ולהעתיק ידנית.",{bad:!ok});
   if(!ok){ const oc=btn.closest(".oc"), ta=oc&&oc.querySelector("[data-msgbox]"); if(ta){ ta.focus(); ta.select() } }
   return ok
 }
@@ -1595,7 +1458,7 @@ function onCardClick(e){
       patch:()=>({s:"sent",on:today(),sat:Date.now(),ssent:sty(c),trks:trkOf(c),chs:ch,mv,msnap:snap}),
       msg:()=>"נרשם שנשלחה הודעה ל-"+ht(c.h)+" דרך "+chL(ch)+". הפולואפ הראשון בעוד 4 ימים."+moved(c.h)}) }
   else if(act==="fusent"){ const n=fuMs(prev,1)!=null?2:1;
-    // only this button (or Copy on the Today list) records a follow-up as sent
+    // only this button records a follow-up as sent
     change(c.h,{title:n===2?"נשלח פולואפ אחרון":"נשלח פולואפ",na:"לבדוק אם ענו לפולואפ",days:3,k:"fu",x:{n},tab:null,patch:p=>fuPatch(p,n),
       msg:()=>(n===2?"הפולואפ האחרון":"הפולואפ")+" נרשם כנשלח ל-"+ht(c.h)+". "+(n===2?"הרצף הסתיים.":"אפשר לתכנן פולואפ אחרון מהכרטיס.")+moved(c.h)}) }
   else if(act==="tab") setTab(card,c,b.dataset.t);
@@ -1863,76 +1726,46 @@ document.getElementById("vclear").addEventListener("click",e=>{
   SET.tpl={}; VOICE={rules:[],ex:[],prev:null,n:0}; saveSettings(); writeVoice(); fillSettings(); fillVoice(); render(); vnote("הקול שנלמד נמחק. התבניות חזרו לברירת המחדל."); fx(b,"is-ok"); toast("הקול שנלמד נמחק.");
 });
 
-// ---------- navigation: sidebar, pages, overview, saved views ----------
+// ---------- navigation: sidebar, pages, overview ----------
 window.toast=toast; window.fx=fx;
 HOOK.ko=h=>get(h); HOOK.st=stOf; HOOK.bk=bkOf; HOOK.ss=c=>stOf(c.h)==="new"?null:ssOf(c); HOOK.due=dueOf; HOOK.at=h=>get(h).at||0; HOOK.on=h=>get(h).on||""; HOOK.note=h=>get(h).note||"";
 HOOK.edited=c=>MT.some(([t])=>manual(c,t));
 HOOK.trk=trkOf; HOOK.obj=objOf; HOOK.stage=stgOf; HOOK.expv=c=>expOf(c)?get(c.h).expv||"":""; HOOK.nad=h=>get(h).nad||"";
 HOOK.naDue=c=>["over","today"].includes(naState(c)); HOOK.offer=offerFlag; HOOK.fuOpen=fuOpen;
 HOOK.more=c=>{ const o=get(c.h), e=expOf(c); return [o.na,o.objn,o.objq,e&&e.name,TRKL[trkOf(c)]].filter(Boolean).join(" ") };
-const PAGES={overview:["פניות","היום"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
+const PAGES={reminders:["פניות","תזכורות"],overview:["פניות","ראשי"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
 const LEGACY={"c-posted":"c-process-content","c-book":"c-process-booksent","c-content":"c-process-content","c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview",today:"overview"};
 const STATUS_NAV=[["all","כל היוצרים"],["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["due","פולואפ לשליחה"],["noreply","לא ענו"],["process","בתהליך"],["declined","סירבו"]];
 const statusName=(s,g)=>(STATUS_NAV.find(x=>x[0]===s)||[0,"יוצרים"])[1]+(s==="process"&&STGL[g]?" · "+STGL[g]:"");
-const PRESETS=[
-  {id:"top",name:"ציון גבוה לפנייה",status:"new",state:{q:"",f:{score:["80 ומעלה"]},sort:[["score",-1]],group:"none"}},
-  {id:"wa",name:"וואטסאפ קודם",status:"new",state:{q:"",f:{ch:["WhatsApp"]},sort:[["score",-1]],group:"none"}},
-  {id:"mail",name:"יש מייל",status:"all",state:{q:"",f:{flag:["email"]},sort:[["score",-1]],group:"status"}},
-  {id:"newest",name:"נוספו לאחרונה",status:"all",state:{q:"",f:{},sort:[["added",-1]],group:"none"}},
-  {id:"steps",name:"בתהליך: הצעדים הבאים",status:"process",state:{q:"",f:{},sort:[["nad",1]],group:"stage"}},
-  {id:"pay",name:"ביקשו תשלום",status:"all",state:{q:"",f:{obj:OBJ_PAY.slice()},sort:[["activity",-1]],group:"status"}},
-  {id:"wording",name:"ניסוח הצעה לבדיקה",status:"all",state:{q:"",f:{flag:["offer"]},sort:[["activity",-1]],group:"status"}}
-];
-const allViews=()=>PRESETS.concat(Array.isArray(SET.views)?SET.views:[]);
-let ROUTE={page:"overview",status:"new",view:null,key:"overview"}, OPEN_H=null;
+let ROUTE={page:"overview",status:"new",key:"overview"}, OPEN_H=null;
 const navLink=(key,icon,label,cnt)=>'<a class="nav-i lb-nav-item" href="#'+key+'" data-route="'+key+'">'+icon+'<span class="t">'+esc(label)+'</span>'+(cnt?'<b class="cnt lb-count" data-cnt="'+cnt+'"></b>':'')+'</a>';
 document.getElementById("navStatus").innerHTML=STATUS_NAV.map(([k,l])=>navLink("c-"+k,'<span class="dot st-'+k+'"></span>',l,k)
   +(k==="process"?'<div class="lb-nav-sub nav-stg">'+STAGES.map(([g,gl])=>navLink("c-process-"+g,"",gl,"stg-"+g)).join("")+'</div>':"")).join("");
-function navViews(){
-  const custom=Array.isArray(SET.views)?SET.views:[];
-  document.getElementById("navViews").innerHTML=PRESETS.map(v=>navLink("v-"+v.id,ICON.bookmark,v.name)).join("")
-    +custom.map(v=>'<div class="nav-row">'+navLink("v-"+v.id,ICON.bookmark,v.name)+'<button type="button" class="nav-x" data-delview="'+esc(v.id)+'" aria-label="מחיקת התצוגה '+esc(v.name)+'">×</button></div>').join("");
-  markNav();
-}
 function markNav(){ document.querySelectorAll("#side [data-route]").forEach(a=>{ if(a.dataset.route===ROUTE.key) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current") }) }
 function navCounts(){
-  const cnt={all:C.length,due:0,today:0}; C.forEach(c=>{ const s=HOOK.bk(c); cnt[s]=(cnt[s]||0)+1; if(s==="process"){ const g="stg-"+stgOf(c); cnt[g]=(cnt[g]||0)+1 } const b=bucketOf(c); if(b&&b!=="new"&&b!=="old") cnt.today++ });
+  const cnt={all:C.length,due:0}; C.forEach(c=>{ const s=HOOK.bk(c); cnt[s]=(cnt[s]||0)+1; if(s==="process"){ const g="stg-"+stgOf(c); cnt[g]=(cnt[g]||0)+1 } });
   document.querySelectorAll("#side [data-cnt]").forEach(b=>{ const n=cnt[b.dataset.cnt]||0; b.textContent=n||""; b.classList.toggle("warn",b.dataset.cnt==="due"&&n>0) });
   return cnt;
 }
-HOOK.saveView=name=>{
-  const v={id:Date.now().toString(36),name,status:ROUTE.page==="contacts"?ROUTE.status:"all",state:clone(UI.vs.contacts)};
-  SET.views=[...(Array.isArray(SET.views)?SET.views:[]),v]; saveSettings(); navViews(); navigate("v-"+v.id); toast("התצוגה נשמרה: "+name);
-};
-document.getElementById("navViews").addEventListener("click",e=>{
-  const b=e.target.closest("[data-delview]"); if(!b) return; e.preventDefault();
-  const before=clone(SET.views||[]), v=before.find(x=>x.id===b.dataset.delview); if(!v) return;
-  SET.views=before.filter(x=>x.id!==v.id); saveSettings(); navViews();
-  if(ROUTE.key==="v-"+v.id) navigate("c-"+v.status);
-  toast("התצוגה ״"+v.name+"״ נמחקה.",{undo:()=>{ SET.views=before; saveSettings(); navViews(); toast("התצוגה חזרה.") }});
-});
 function parseRoute(h){
   h=String(h||"").replace(/^#/,""); h=LEGACY[h]||h;
   if(/^c-(all|due|new|sent|noreply|process|declined)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
   const m=/^c-process-(\w+)$/.exec(h); if(m&&STGL[m[1]]) return {page:"contacts",status:"process",stage:m[1],key:h};
-  if(/^v-[\w.~-]+$/.test(h)){ const v=allViews().find(x=>x.id===h.slice(2)); if(v) return {page:"contacts",status:LEGS[v.status]||v.status,view:v,key:h} }
   if(PAGES[h]) return {page:h,key:h};
   return null;
 }
 function navigate(key){ if(location.hash!=="#"+key){ try{ location.hash=key }catch(e){} } route(key) }
 function route(key){
   const r=parseRoute(key||location.hash)||parseRoute(UI.route)||{page:"overview",key:"overview"};
-  if(r.view&&UI.route!==r.key){ UI.vs.contacts=cleanVS({...clone(VS_DEF.contacts),...clone(r.view.state)},'contacts'); shown=30 }
   if(r.page==="contacts"&&(ROUTE.status!==r.status||ROUTE.stage!==(r.stage||"")||ROUTE.page!=="contacts")) shown=30;
   const pageChanged=ROUTE.page!==r.page||ROUTE.key!==r.key;
-  if(pageChanged) Object.keys(TD_DONE).forEach(x=>delete TD_DONE[x]);   // the done rows of the Today list last until you leave it
-  ROUTE={page:r.page,status:r.status||"new",stage:r.stage||"",view:r.view||null,key:r.key}; UI.route=r.key; uiSave();
+  ROUTE={page:r.page,status:r.status||"new",stage:r.stage||"",key:r.key}; UI.route=r.key; uiSave();
   TOOLBARS.forEach(t=>t.close());
   document.querySelectorAll("section.page").forEach(p=>p.hidden=p.dataset.page!==r.page);
-  const [grp,title]=PAGES[r.page], sub=r.page==="contacts"?(r.view?r.view.name:statusName(ROUTE.status,ROUTE.stage)):title;
+  const [grp,title]=PAGES[r.page], sub=r.page==="contacts"?statusName(ROUTE.status,ROUTE.stage):title;
   document.getElementById("crumbG").textContent=grp; document.getElementById("crumbT").textContent=sub;
   document.title=sub+" · מפת היוצרים של LumeBook";
-  if(r.page==="contacts"){ document.getElementById("cTitle").textContent=sub; document.getElementById("cEyebrow").textContent=r.view?"תצוגה שמורה · "+statusName(ROUTE.status,ROUTE.stage):"יוצרים" }
+  if(r.page==="contacts"){ document.getElementById("cTitle").textContent=sub }
   markNav(); closeDrawer(); drwHide();
   if(pageChanged&&!OPEN_H) window.scrollTo(0,0);
   render();
@@ -1951,7 +1784,7 @@ document.addEventListener("keydown",e=>{
   if(e.key==="/"&&!e.metaKey&&!e.ctrlKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)&&!document.activeElement.isContentEditable&&!DRW&&!askDone){
     const tb=ROUTE.page==="contacts"?TBC:ROUTE.page==="database"?TBD:null; if(tb){ e.preventDefault(); tb.input.focus() } }
 });
-// overview: the figures under the Today list
+// overview: the snapshot figures
 const CMPS=[["all","הכול"],["track","לפי מסלול"],["ch","לפי ערוץ"],["ver","לפי גרסת הודעה"],["obj","לפי סיבה"]];
 const CMPH={all:"קבוצה",track:"מסלול",ch:"הערוץ ששימש",ver:"גרסת ההודעה",obj:"סיבה"};
 const cmpKey={
@@ -1961,7 +1794,7 @@ const cmpKey={
   ver:c=>{ const o=get(c.h), e=expOf(c); return STY_NAME[ssOf(c)]+(o.mv===1?" · נערך ביד":o.mv===0?" · תבנית":" · הגרסה לא נרשמה")+(e?" · "+e.name+" "+(o.expv||""):"") },
   obj:c=>answered(c)?(objOf(c)?OBJL[objOf(c)]:"ענו, לא נרשמה סיבה"):"עוד לא ענו (זו לא סיבה)"
 };
-const CMPNOTE={all:"",track:" המסלול הוא זה שהיוצר נמצא בו עכשיו. ליוצרים שקיבלו הודעה לפני שהיו מסלולים אין מסלול, עד שבוחרים אחד.",ch:" הערוץ נרשם מ-11 באוקטובר 2026; שליחות מוקדמות יותר מופיעות כ״לא נרשם״ ולא מנחשים.",ver:" גרסה היא אם הטקסט היה התבנית או נערך ביד בזמן השליחה, ועוד תווית ניסוי אם יש. חם וקצר מוצגים לשליחות שלפני 11 באוקטובר 2026, כשבחרת סגנון ביד; הקצר כבר לא בשימוש, אז הפיצול הזה הוא תיעוד ולא ניסוי.",obj:" ״עוד לא ענו״ היא שורה בפני עצמה, כי שתיקה היא לא סיבה."};
+const CMPNOTE={all:"",track:" המסלול הוא זה שהיוצר נמצא בו עכשיו. ליוצרים שקיבלו הודעה לפני שהיו מסלולים אין מסלול, עד שבוחרים אחד.",ch:" הערוץ נרשם מ-11 באוקטובר 2026; שליחות מוקדמות יותר מופיעות כ״לא נרשם״ ולא מנחשים.",ver:" גרסה היא אם הטקסט היה התבנית או נערך ביד בזמן השליחה, ועוד תווית ניסוי אם יש. חם וקצר נבחרים ליוצר חדש באקראי (מ-21 באוקטובר 2026), ואפשר להחליף בכרטיס. לפני כן הסגנון נבחר ביד.",obj:" ״עוד לא ענו״ היא שורה בפני עצמה, כי שתיקה היא לא סיבה."};
 function funnel(rows){ const r={n:0,rep:0,int:0,intU:0,ag:0,con:0,pub:0,sN:0,sum:0};
   rows.forEach(c=>{ r.n++; if(hasReplied(c)) r.rep++; if(interested(c)) r.int++; else if(stOf(c.h)==="process") r.intU++; if(agreed(c)) r.ag++; if(gotContent(c)) r.con++; if(stOf(c.h)==="posted") r.pub++; const s=salesOf(c); if(s!==null){ r.sN++; r.sum+=s } }); return r }
 function renderFunnel(){ const mode=CMPH[UI.cmp]?UI.cmp:"all", rows=C.filter(c=>stOf(c.h)!=="new"), G=new Map();
@@ -1981,7 +1814,6 @@ function renderObj(){ const cnt={}, dec={}; let tot=0;
   document.getElementById("objNote").textContent="״לא ידוע״ אומר שלא נרשמה סיבה לסירוב, אז לא מנחשים. את הסיבה רושמים בכרטיס של יוצר שסירב או שבתהליך. "+(silent===1?"יוצר אחד שפנינו אליו עוד לא ענה":silent+" יוצרים שפנינו אליהם עוד לא ענו")+": זה נספר כ״לא ענו״ וכפולואפים, אף פעם לא כסיבה.";
 }
 function renderOverview(){
-  renderToday();
   const cnt=navCounts(), total=C.length, n=s=>(cnt[s]||0);
   const contacted=total-n("new"), replies=C.filter(hasReplied).length;
   const naDue=C.filter(c=>inProc(stOf(c.h))&&HOOK.naDue(c)).length, content=C.filter(gotContent).length;
@@ -1989,7 +1821,7 @@ function renderOverview(){
   document.getElementById("kpis").innerHTML=
      tile("c-sent","פנינו",contacted,"מתוך "+total+" יוצרים")
     +tile("c-process","ענו",replies,contacted?Math.round(replies/contacted*100)+"% ממי שפנינו אליהם, בלי סירובים":"עוד לא פנינו לאף אחד")
-    +tile("v-steps","בתהליך",n("process"),naDue?(naDue===1?"תזכורת אחת שהגיע זמנה":naDue+" תזכורות שהגיע זמנן"):"מדברים איתם עכשיו",naDue?"warn":"")
+    +tile("c-process","בתהליך",n("process"),naDue?(naDue===1?"תזכורת אחת שהגיע זמנה":naDue+" תזכורות שהגיע זמנן"):"מדברים איתם עכשיו",naDue?"warn":"")
     +tile("c-due","פולואפים לשליחה",cnt.due,"הראשון 4 ימים אחרי השליחה",cnt.due?"warn":"")
     +tile("c-process-content","נוצר תוכן",content,C.filter(c=>stgOf(c)==="booksent").length+" עם ספר בדרך");
   document.getElementById("pipe").innerHTML=STD.filter(([s])=>n(s)).map(([s,l])=>'<a class="st-'+s+'" href="#c-'+s+'" style="flex:'+n(s)+'" title="'+esc(l)+': '+n(s)+'" aria-label="'+esc(l)+': '+n(s)+'"></a>').join("");
@@ -2113,7 +1945,7 @@ document.getElementById("migdone").addEventListener("click",e=>{ const b=e.targe
 // mobile status chips
 document.getElementById("sstats").addEventListener("click",e=>{ const b=e.target.closest("button[data-st]"); if(b) navigate("c-"+(b.dataset.st||"all")) });
 document.getElementById("olist").addEventListener("click",e=>{ if(e.target.closest("[data-clearlist]")){ UI.vs.contacts.q=""; UI.vs.contacts.f={}; uiSave(); shown=30; render() } },true);
-const TBC=toolbar(document.getElementById("tb-c"),"contacts",{ph:"חיפוש לפי שם משתמש, שם, פתקים…",facets:["track","stage","obj","style","test","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF).filter(k=>!["prac","conflict"].includes(k)),group:true,save:true,base:()=>contactBase(),onChange:()=>{ shown=30; render() }});
+const TBC=toolbar(document.getElementById("tb-c"),"contacts",{ph:"חיפוש לפי שם משתמש, שם, פתקים…",facets:["track","stage","obj","style","test","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF).filter(k=>!["prac","conflict"].includes(k)),group:true,base:()=>contactBase(),onChange:()=>{ shown=30; render() }});
 
 // ---------- start ----------
 // on the project server the HQ links open the local dashboard, not the claude.ai artifact
@@ -2121,7 +1953,7 @@ if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) document.querySelectorA
 lsLoad();
 // changes still waiting from an earlier visit win over what the database says until they are saved
 if(MODE==="db") Object.keys(WQ).forEach(p=>{ const d=WQ[p].d; if(p.startsWith("outreach/")) OD[p.slice(9)]=d; else if(p==="settings/main") SET={...SET,...d}; else if(p==="voice/main") VOICE={...VOICE,...d} });
-fillSettings(); fillVoice(); navViews(); route(); svRender();
+fillSettings(); fillVoice(); route(); svRender();
 let SIG=C.map(HOOK.bk).join(""); setInterval(()=>{ const sig=C.map(HOOK.bk).join(""); if(sig!==SIG){ SIG=sig; render() } },60000);
 const goLocal=msg=>{ MODE="local"; lsSave(); svRender(); note(msg); remTick() };
 (async()=>{
@@ -2131,7 +1963,9 @@ const goLocal=msg=>{ MODE="local"; lsSave(); svRender(); note(msg); remTick() };
         try{ const r=await fetch("/api/creator-map/state",{cache:"no-store"}); if(r.ok){ const j=await r.json();
           SRV=true; OD=j.outreach||{}; SET={sender:"",preview:"",...(j.settings&&j.settings.main||{})}; VOICE={rules:[],ex:[],prev:null,n:0,...(j.voice&&j.voice.main||{})};
           Object.entries(j.log||{}).forEach(([h,m])=>{ LOGL[h]=Object.entries(m).map(([id,l])=>({id,...l})).sort((a,b)=>b.at-a.at).slice(0,40) });
-          fillSettings(); fillVoice(); navViews(); render(); svRender(); remTick(); return } }catch(e){}
+          // changes the server did not take earlier win over what it has until they are saved
+          Object.keys(SQ).forEach(p=>{ const d=SQ[p].d; if(p.startsWith("outreach/")) OD[p.slice(9)]=d; else if(p==="settings/main") SET={...SET,...d}; else if(p==="voice/main") VOICE={...VOICE,...d} });
+          fillSettings(); fillVoice(); render(); svRender(); remTick(); if(Object.keys(SQ).length) srvFlush(); return } }catch(e){}
       }
       note("תצוגה מקדימה: השינויים נשמרים בדפדפן הזה בלבד."); remTick(); return }
     const db=await window.claude.use("db");
@@ -2146,7 +1980,7 @@ const goLocal=msg=>{ MODE="local"; lsSave(); svRender(); note(msg); remTick() };
       render(); if(first){ first=false; remTick() }
     },e=>note("העדכונים החיים נעצרו ("+(e&&e.code||"שגיאה")+"). צריך לטעון את העמוד מחדש."));
     db.doc("voice/main").onSnapshot(s=>{ if(s.exists&&!WQ["voice/main"]){ VOICE={...VOICE,...s.data()}; fillVoice() } },()=>{});
-    db.doc("settings/main").onSnapshot(s=>{ if(s.exists&&!WQ["settings/main"]){ SET={...SET,...s.data()}; fillSettings(); navViews(); render() } },()=>{});
+    db.doc("settings/main").onSnapshot(s=>{ if(s.exists&&!WQ["settings/main"]){ SET={...SET,...s.data()}; fillSettings(); render() } },()=>{});
   }catch(e){ goLocal("השמירה המשותפת לא זמינה בתצוגה הזאת, אז השינויים נשמרים בדפדפן הזה בלבד.") }
 })();
 })();

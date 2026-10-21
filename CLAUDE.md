@@ -36,9 +36,10 @@ python3 tools/lumebook.py ack ID --published   # after republishing an artifact
 python3 tools/lumebook.py map        # the dependency graph
 python3 tools/lumebook.py build ID   # run one component's build
 python3 tools/lumebook.py deploy ID  # Vercel deploy (dashboard)
-python3 tools/lumebook.py serve      # one local server for the whole folder: http://localhost:8780/
+python3 tools/lumebook.py serve      # one local server for the whole folder: http://localhost:8780/ (runs as a login item, see below)
 ```
 
+- The project server (`tools/lumebook.py serve`, port 8780: the creator map saves through it, and it serves the dashboard and Hook Studio) runs as a login item since 21 Oct 2026, like Hook Studio: `python3 tools/serve_login.py status|restart|install|uninstall`. Run `restart` after editing `tools/lumebook.py`. Never start a second copy (a preview config, a terminal): only one process can hold the port. The `lumebook` preview config only attaches to it. Log: `~/Library/Logs/LumeBookServe.log`.
 - The 08:14 dashboard task was deleted (Yarin, 20 Oct 2026); nothing runs `ripple` on a schedule now, so run it by hand for the dashboard's "סנכרון בין הרכיבים" panel to be current.
 - After changing a component, run `ripple`. After republishing an artifact, run `ack <id> --published`.
 - A new workstream gets an entry in `lumebook.json` (and in `shared/facts.json` if it has a URL). Use paths relative to this folder.
@@ -49,7 +50,7 @@ python3 tools/lumebook.py serve      # one local server for the whole folder: ht
 ## Design system
 
 - Every internal page uses `shared/design/lumebook.css`: builds inline it with `design.head()`; the SMM plan and the dashboard link synced copies (`design.copies`, kept equal by `sync`). Change the CSS, then `ripple` rebuilds the pages and lists artifacts to republish; regenerate the Design System artifact with `build_ds_artifact.py`.
-- Style page-specific rules with tokens only (`--bg --surface --text --tint --accent ...`), use `lb-` components first, keep 390px phone width working, Hebrew pages RTL. Light mode only (Yarin, 14 Oct 2026): `design.py` forces the light theme and there is no theme toggle.
+- Style page-specific rules with tokens only (`--bg --surface --text --tint --accent ...`), use `lb-` components first, keep 390px phone width working, Hebrew pages RTL. White and black modes with a switch (Yarin, 21 Oct 2026; replaces light-only, the cream and purple grounds are gone): black is `:root[data-theme="dark"]`, `design.head()` sets the mode before first paint from localStorage `lb-mode` (white by default), `design.theme_toggle()` is the switch every internal page carries in its top bar or sidebar; the dashboard and the SMM plan hold a hand copy of the boot script. Check new pages in both modes. The public creator brief keeps its own modes (`design.head(theme=False)`).
 - Fonts (Yarin, 18 Oct 2026): Heebo is the main font, headings included; Assistant (`--font-2`) is the secondary font for labels, captions, counts, chips and table headers. Varela Round is dropped.
 - Category colour: eight hues (`--cat-1` ... `--cat-8`) only for a page's 3 to 8 stable categories that a reader scans or filters by, never for status or the kid/expert pillars. Which category gets which hue lives in `shared/design/categories.json` (builds read it via `design.py`; `sync` writes `categories.css` for the dashboard and the SMM plan). Add a set there before colouring a new page.
 - Not for the carousel slide designs (the kid/expert pillar looks are audience content). The retired ambassadors site keeps its own styling.

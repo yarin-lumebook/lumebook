@@ -29,6 +29,10 @@ for c in C:
 for i,c in enumerate(C):
     ex=str(c.get('extra','')); p3=ex=='pass3'; p4=ex=='pass4'; p5=ex=='pass5'
     c['ai']=i; c['added']='2026-10-20' if p5 else '2026-10-18' if p4 else '2026-10-11' if p3 else '2026-10-03'; c['batch']=5 if p5 else 4 if p4 else 3 if p3 else 2 if ex.startswith('pass2') else 1; c['chk']='20 באוקטובר 2026' if p5 else '18 באוקטובר 2026' if p4 else '11 באוקטובר 2026' if p3 else '3 באוקטובר 2026'
+# a creator added by hand on a later day than the rest of the pass keeps its own date in C_all.json ("added_on": "YYYY-MM-DD")
+HEM=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר']
+for c in C:
+    if c.get('added_on'): y,m,d=map(int,c['added_on'].split('-')); c['added']=c['added_on']; c['chk']='%d ב%s %d'%(d,HEM[m-1],y)
 for c in C:
     if c['h']=='edenmomlife': c['arch']='Homeschool / alternative ed'
 O={
@@ -88,7 +92,7 @@ Q=["Similar-accounts graph from 76 verified creators (Instagram suggestions)","�
 h=open(P('template.html')).read()
 J=lambda x: json.dumps(x,ensure_ascii=False)
 for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER}.items(): h=h.replace(k,J(v))
-for k,v in {"<!--LB:HEAD-->":design.head(),"<!--LB:THEME-TOGGLE-->":"","__LB_LOGO__":design.logo_data_uri()}.items():
+for k,v in {"<!--LB:HEAD-->":design.head(),"<!--LB:THEME-TOGGLE-->":design.theme_toggle(),"__LB_LOGO__":design.logo_data_uri()}.items():
     assert h.count(k)==1, k; h=h.replace(k,v)
 # NO_EM: the user never wants em dashes
 h=h.replace(' \u2014 ',', ').replace('"\u2014"','"n/a"').replace("'\u2014'","'n/a'").replace('\u2014','-').replace(' \u2013 ',', ').replace('\u2013','-')

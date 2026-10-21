@@ -551,6 +551,7 @@
       return '<a href="#note-' + n.slug + '"' + (cur.key === 'note-' + n.slug ? ' aria-current="page"' : '') + '><span>' + esc(n.title) + '</span></a>'; }).join('') + '</div>';
     h += navItem('method', 'Sources and method', ico('info'), cur) + '</div>';
     h += '</nav><div class="sb-results" id="sb-results" hidden></div>';
+    h += '<div class="sb-theme">' + D.themeSwitch + '<span>Dark mode</span></div>';
     h += '<p class="sb-foot">Internal. Public counts read 15 Oct 2026; none is tied to a sale. Research checked 18 Oct 2026.</p>';
     return h;
   }

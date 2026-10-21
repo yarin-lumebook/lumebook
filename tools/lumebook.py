@@ -639,6 +639,14 @@ def serve(port):
                 self.send_header("Location", "/sites/dashboard/site/lumebook-dashboard/")
                 self.end_headers()
                 return
+            if path in ("/favicon.ico", "/favicon.png"):   # one tab icon for every page on this server
+                data = open(p("shared/brand/logo_square_96.png"), "rb").read()
+                self.send_response(200)
+                self.send_header("Content-Type", "image/png")
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+                return
             if path == "/api/board/env":
                 return self._json(200, {"server": "lumebook", "port": port, "inbox": "media/inbox", "upload_max_mb": UPLOAD_MAX // (1024 * 1024)})
             if path == "/api/local-tools":

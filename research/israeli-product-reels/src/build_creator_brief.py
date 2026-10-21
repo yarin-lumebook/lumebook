@@ -964,7 +964,7 @@ def build():
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
-{design.head(include_fonts=False)}
+{design.head(include_fonts=False, theme=False)}
 <meta name="theme-color" content="#FBF7F0">
 {MODE_BOOT}
 <style>{PAGE_CSS}</style>

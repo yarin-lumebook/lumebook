@@ -119,7 +119,7 @@ def build():
 <body>
 <main class="lb-page">
   <header class="intro">
-    <h1>רילס של יוצרים על הספר</h1>
+    <div class="lb-row between"><h1>רילס של יוצרים על הספר</h1>{design.theme_toggle()}</div>
     <p>{total} סרטונים מ־7 יוצרים בתיקייה <a href="{UGC_FOLDER}" target="_blank" rel="noopener">תוכן לקוחות ויוצרים</a>, ועוד {len(RECUTS)} עריכות 9:16. הסרטונים מתנגנים ישר מהדרייב, אז צריך להיות מחובר לחשבון הגוגל שיש לו גישה לתיקייה. חומר גלם של שהם (22 קבצים, כ־2 GB) נשאר <a href="{RAW_SHOAM}" target="_blank" rel="noopener">בתיקייה שלו</a>.</p>
   </header>
 {body}

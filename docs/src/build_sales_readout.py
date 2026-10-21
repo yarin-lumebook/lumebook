@@ -4,7 +4,7 @@
     python3 docs/src/build_sales_readout.py
 
 Input:  docs/lumebook-sales-data-decisions-2026-10-12.md (the only source; edit it, then rebuild, never edit the HTML)
-Output: docs/lumebook-sales-readout.html, a full HTML document on the LumeBook design system (design.head() inlined, light only)
+Output: docs/lumebook-sales-readout.html, a full HTML document on the LumeBook design system (design.head() inlined, white and black modes)
         that opens straight from disk.
         Local only, not published: it holds internal sales figures.
 
@@ -256,6 +256,7 @@ def build():
     <img class="plan-logo" src="{design.logo_data_uri()}" alt="" width="28" height="28">
     <div class="brand"><span>LumeBook</span><b>Sales readout</b></div>
     <nav class="lb-toc" aria-label="Sections">{"".join(pills)}</nav>
+    {design.theme_toggle(dark_label="Dark mode")}
   </div>
 </header>
 <main class="lb-page" dir="ltr" lang="en">

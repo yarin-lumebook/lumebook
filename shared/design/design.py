@@ -7,7 +7,7 @@ shared/design/lumebook.css restyles them all on the next `python3 tools/lumebook
     sys.path.insert(0, str(<project root> / "shared" / "design"))
     import design
     html = html.replace("<!--LB:HEAD-->", design.head())       # in <head> or at the top of an artifact page
-    html = html.replace("<!--LB:THEME-TOGGLE-->", design.theme_toggle())   # empty now: light only
+    html = html.replace("<!--LB:THEME-TOGGLE-->", design.theme_toggle())   # the white/black switch, in the top bar
     design.cat_class("reels-tools", "hook")   # "lb-cat-1": the category colour class for one key
 
 Category colours: shared/design/categories.json says which category of which page gets which of the eight hues
@@ -26,30 +26,24 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 FONTS_URL = "https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap"
 CATEGORIES = os.path.join(HERE, "categories.json")
 
-# Light only (Yarin, 13-14 Oct 2026: "no need for dark mode", "only light mode"). Sets data-theme="light" before first paint
-# and forgets an old saved dark choice. The dark tokens stay in lumebook.css but never apply.
-THEME_BOOT = '<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>'
+# White and black modes with a switch (Yarin, 21 Oct 2026). The boot script runs in <head>: it sets data-theme on
+# <html> before first paint from the viewer's saved choice (localStorage "lb-mode", white by default; not "lb-theme", which old built pages still clear), flips it when any
+# [data-lb-theme-toggle] is clicked, keeps aria-checked on every switch in step and follows a change made in another tab.
+# The dashboard and the SMM plan (no build) carry a copy of this same script in their <head>.
+THEME_BOOT = (
+    '<script>(function(){if(window.lbThemeBoot)return;window.lbThemeBoot=1;var d=document.documentElement,K="lb-mode";'
+    'function saved(){try{return localStorage.getItem(K)==="dark"?"dark":"light"}catch(e){return"light"}}'
+    'function set(t){d.setAttribute("data-theme",t);var s=document.querySelectorAll("[data-lb-theme-toggle]");'
+    'for(var i=0;i<s.length;i++)s[i].setAttribute("aria-checked",String(t==="dark"))}'
+    'set(saved());document.addEventListener("DOMContentLoaded",function(){set(d.getAttribute("data-theme"))});'
+    'document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lb-theme-toggle]");if(!b)return;'
+    'var t=d.getAttribute("data-theme")==="dark"?"light":"dark";set(t);try{localStorage.setItem(K,t)}catch(x){}});'
+    'addEventListener("storage",function(e){if(e.key===K)set(saved())})})()</script>'
+)
 
-
-THEME_JS = """<script>
-(function () {
-  function sync(btn) {
-    var dark = document.documentElement.getAttribute("data-theme") === "dark";
-    btn.setAttribute("aria-pressed", String(dark));
-    btn.title = dark ? btn.dataset.light : btn.dataset.dark;
-    btn.querySelector(".lb-theme-label") && (btn.querySelector(".lb-theme-label").textContent = btn.title);
-  }
-  document.addEventListener("click", function (e) {
-    var btn = e.target.closest("[data-lb-theme-toggle]");
-    if (!btn) return;
-    var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", next);
-    try { localStorage.setItem("lb-theme", next); } catch (err) {}
-    document.querySelectorAll("[data-lb-theme-toggle]").forEach(sync);
-  });
-  document.querySelectorAll("[data-lb-theme-toggle]").forEach(sync);
-})();
-</script>"""
+SUN = ('<svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/>'
+       '<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>')
+MOON = '<svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>'
 
 
 def css():
@@ -86,25 +80,23 @@ def local_links_script():
             'var m=' + m + ';document.querySelectorAll("a[href]").forEach(function(a){var h=a.getAttribute("href");if(m[h])a.setAttribute("href",m[h])})})</script>')
 
 
-def head(include_fonts=True):
-    """Fonts link + the whole design system inline + the theme boot script."""
+def head(include_fonts=True, theme=True):
+    """Fonts link + the whole design system inline + the theme boot script. theme=False leaves the boot script out, for a
+    page with its own modes (the public creator brief) that must never pick up data-theme="dark"."""
     parts = []
     if include_fonts:
         parts += ['<link rel="preconnect" href="https://fonts.googleapis.com">',
                   '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
                   f'<link rel="stylesheet" href="{FONTS_URL}">']
-    parts += [THEME_BOOT, local_links_script(), "<style>\n" + css() + "\n" + categories_css() + "\n</style>"]
+    parts += ([THEME_BOOT] if theme else []) + [local_links_script(), "<style>\n" + css() + "\n" + categories_css() + "\n</style>"]
     return "\n".join(parts)
 
 
-def theme_toggle(dark_label="מצב כהה", light_label="מצב בהיר"):
-    """Kept so existing builds still run. Pages are light only, so there is no theme button any more."""
-    return ""
-    icon = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
-            '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>')
-    return (f'<button class="lb-btn secondary sm" type="button" data-lb-theme-toggle data-dark="{dark_label}" '
-            f'data-light="{light_label}" aria-pressed="false">{icon}<span class="lb-theme-label">{dark_label}</span></button>'
-            + THEME_JS)
+def theme_toggle(dark_label="מצב כהה", light_label=None):
+    """The white/black switch for a page's top bar. light_label is unused (kept so existing builds still run): a switch
+    has one label, for its on state."""
+    return (f'<button class="lb-theme-switch" type="button" role="switch" aria-checked="false" data-lb-theme-toggle '
+            f'aria-label="{dark_label}" title="{dark_label}">{SUN}{MOON}</button>')
 
 
 def logo_data_uri(name="logo_square_96.png"):
@@ -134,7 +126,7 @@ def _sets():
 
 def _vars(n):
     if not n:  # 0: neutral ink, the same values as .lb-cat-0
-        return "--tc: var(--lb-ink); --tc-ink: var(--text); --tc-soft: var(--fill);"
+        return "--tc: var(--text); --tc-ink: var(--text); --tc-soft: var(--fill);"
     return f"--tc: var(--cat-{n}); --tc-ink: var(--cat-{n}-ink); --tc-soft: var(--cat-{n}-soft);"
 
 

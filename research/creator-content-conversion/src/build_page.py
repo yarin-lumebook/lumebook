@@ -899,7 +899,7 @@ JS = """<script>
 </script>"""
 
 page = f"""<!doctype html>
-<html lang="en" dir="ltr" data-theme="light">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -919,7 +919,7 @@ page = f"""<!doctype html>
   <main class="lb-main">
     <div class="lb-topbar"><div class="lb-topbar-in">
       <button class="lb-btn secondary icon lb-menu-btn" id="rp-menu" type="button" aria-label="Open sections"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-      <span class="rp-crumb" id="rp-crumb">Overview</span><span class="lb-spacer"></span><span class="lb-dim">Creator content and purchase intent</span>
+      <span class="rp-crumb" id="rp-crumb">Overview</span><span class="lb-spacer"></span><span class="lb-dim">Creator content and purchase intent</span>{design.theme_toggle(dark_label="Dark mode")}
     </div></div>
     {views}
   </main>
