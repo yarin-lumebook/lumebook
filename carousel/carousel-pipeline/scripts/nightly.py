@@ -151,7 +151,7 @@ def hook_context(ctx, date):
         "mechanisms": lib.MECHANISMS,
         "sentence_shapes": lib.SENTENCE_SHAPES,
         "slide2_moves": lib.SLIDE2_MOVES,
-        # Hook Studio priorities (Yarin, 10 Oct 2026): the hook first, then the content, then the slide design.
+        # Carousel Machine priorities (Yarin, 10 Oct 2026): the hook first, then the content, then the slide design.
         "priorities_in_order": ["the loudest true cover the topic allows", "every slide is worth the swipe on its own", "copy cut to fit very large type"],
         "bold_look_rules": {
             "applies_from": lib.BOLD_RULE_FROM,

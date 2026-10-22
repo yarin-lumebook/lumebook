@@ -87,23 +87,36 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .legend a:hover{color:var(--text);text-decoration:none}
 .legend b{color:var(--text);font-weight:600;margin-inline-start:var(--sp-1);font-variant-numeric:tabular-nums}
 
-/* ---------- reminders: every dated note, by day ---------- */
-.nc{display:grid;gap:var(--sp-5)}
-.nc-g{display:grid;gap:var(--sp-2)}
-.nc-g h4{font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:700;color:var(--text-3);margin:0}
-.nc-l{display:grid;gap:var(--sp-3);grid-template-columns:repeat(auto-fill,minmax(min(100%,20rem),1fr))}
-.nci{display:grid;gap:var(--sp-2);align-content:start;padding:var(--sp-3);border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface)}
-.nci.over{border-color:var(--danger)}
-.nci.now{border-color:var(--warning)}
-.nci-t{display:flex;gap:.2rem var(--sp-2);align-items:baseline;flex-wrap:wrap}
-.nci time{font-family:var(--font-2);font-variant-numeric:tabular-nums;font-size:var(--fs-footnote);font-weight:700;color:var(--text-2)}
-.nci.over time{color:var(--danger)}
-.tdh{border:0;background:none;padding:0;font:inherit;font-weight:700;font-size:var(--fs-body);color:var(--tint);cursor:pointer;min-height:1.75rem}
-.tdh:hover{text-decoration:underline;text-underline-offset:3px}
-.tdnote{font-size:var(--fs-callout);background:var(--accent-soft);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);white-space:pre-wrap;overflow-wrap:anywhere}
-.tda{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
-.tda .lb-btn{flex:1 1 auto}
-.tda .lb-btn.sm{flex:0 0 auto}
+/* ---------- reminders: a stack of full creator cards, the most urgent on top; "spread" lays them all out by day ---------- */
+.rs-bar{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);margin-bottom:var(--sp-3)}
+.rs-count{font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-2);font-variant-numeric:tabular-nums}
+.rs-count b{color:var(--text);font-weight:700}
+.rs-bar .end{margin-inline-start:auto;display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.rs{position:relative;padding-bottom:calc(var(--rs-n,0) * 12px)}
+.rs-top{position:relative;z-index:3;box-shadow:var(--shadow-2)}
+.rs-top.is-in{animation:rs-in .28s cubic-bezier(.2,.8,.2,1)}
+.rs-top.is-out{animation:rs-out .2s ease-in forwards;pointer-events:none}
+@keyframes rs-in{from{transform:translateY(16px) scale(.97);opacity:.5}}
+@keyframes rs-out{to{transform:translateX(-45%) rotate(-3deg);opacity:0}}
+.rs-peek{position:absolute;z-index:calc(3 - var(--i));inset-inline:calc(var(--i) * var(--sp-4));bottom:calc((var(--rs-n) - var(--i)) * 12px);height:4rem;padding:0;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow-1);cursor:pointer}
+.rs-peek+.rs-peek{background:var(--surface-2)}
+.rs-peek:hover{border-color:var(--tint)}
+.rs-peek:focus-visible{outline:2px solid var(--tint);outline-offset:2px}
+.rs-fan{display:grid;gap:var(--sp-5)}
+.rs-g{display:grid;gap:var(--sp-3)}
+.rs-g > h4{font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:700;color:var(--text-3);margin:0}
+.rsi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);min-width:0}
+.rsi.over{border-color:var(--danger)}
+.rsi.now{border-color:var(--warning)}
+.rsi > .oc{border:0;background:none;border-radius:0 0 var(--r-lg) var(--r-lg)}
+.rsh{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);padding:var(--sp-3) var(--sp-5);background:var(--surface-2);border-bottom:1px solid var(--line);border-radius:var(--r-lg) var(--r-lg) 0 0}
+.rsi.over .rsh{background:var(--danger-soft)}
+.rsi.now .rsh{background:var(--warning-soft)}
+.rsh time{font-family:var(--font-2);font-variant-numeric:tabular-nums;font-size:var(--fs-footnote);font-weight:700;color:var(--text-2);white-space:nowrap}
+.rsi.over .rsh time{color:var(--danger)}
+.rsh-note{flex:1 1 12rem;min-width:0;font-size:var(--fs-callout);font-weight:600;white-space:pre-wrap;overflow-wrap:anywhere}
+.rsh-act{display:flex;gap:var(--sp-2)}
+@media (max-width:640px){.rsh{padding:var(--sp-3) var(--sp-4)}}
 /* save state */
 .svst{display:inline-flex;align-items:center;gap:.35rem;font:inherit;font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-3);border:0;background:none;padding:.3rem .55rem;border-radius:var(--r-pill);cursor:pointer;white-space:nowrap;min-height:2rem}
 .svst .dot{margin:0;--c:var(--success)}
@@ -404,7 +417,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
 
 
 <div class="lb-app" dir="rtl">
-<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות</span><b class="cnt lb-count" id="remN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
+<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות להיום</span><b class="cnt lb-count" id="remN"></b></a><a class="nav-i lb-nav-item" href="#remall" data-route="remall" data-ic="cal"><span class="t">כל התזכורות</span><b class="cnt lb-count" id="remAllN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
 <div class="main lb-main">
 <header class="topbar lb-topbar"><div class="lb-topbar-in"><button type="button" class="lb-btn ghost icon menu" id="menuBtn" aria-label="פתיחת התפריט" aria-controls="side" aria-expanded="false"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg></button><a class="tb-brand" href="#overview" aria-label="מפת היוצרים, ראשי"><span class="brand-logo" aria-hidden="true"></span></a><div class="crumbs"><span id="crumbG">פניות</span><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5l5.5 5.5-5.5 5.5"/></svg><b id="crumbT">ראשי</b></div><span class="lb-spacer"></span><span class="tb-hint"><kbd>/</kbd> לחיפוש</span><button type="button" class="svst" id="svst" title="מצב השמירה"><span class="dot"></span><span class="t">טוען…</span></button><a class="lb-btn ghost sm hub" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">LumeBook HQ</a><!--LB:THEME-TOGGLE--></div></header>
 <main id="main" class="lb-page">
@@ -412,7 +425,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
 <div class="warnbox lb-callout" id="vnote" hidden role="status" aria-live="polite"></div>
 <div class="warnbox lb-callout mig" id="mignote" hidden></div>
 <section class="page lb-section" data-page="reminders" hidden>
-  <h2>תזכורות</h2>
+  <h2 id="remTitle">תזכורות להיום</h2>
   <div id="remList"></div>
 </section>
 <section class="page lb-section" data-page="overview" hidden>
@@ -593,6 +606,7 @@ const ICON={
   flag:svg('<path d="M4.5 17.5V3M4.5 3.5h10l-2 3.5 2 3.5h-10"/>'),
   mail:svg('<rect x="2.5" y="4.5" width="15" height="11" rx="2"/><path d="M3 5.5l7 5.5 7-5.5"/>'),
   info:svg('<circle cx="10" cy="10" r="7.5"/><path d="M10 9v5M10 6.2v.1"/>'),
+  cal:svg('<rect x="3" y="4.5" width="14" height="12.5" rx="2"/><path d="M3 8.5h14M7 2.5v4M13 2.5v4"/>'),
   bell:svg('<path d="M5 8.5a5 5 0 0 1 10 0c0 4 1.6 5.5 1.6 5.5H3.4S5 12.5 5 8.5z"/><path d="M8.3 16.5a1.9 1.9 0 0 0 3.4 0"/>'),
   filter:svg('<path d="M3 4.5h14l-5.3 6.2v4.8l-3.4-1.6v-3.2z"/>'),
   sort:svg('<path d="M6 4v12M3 13l3 3 3-3M14 16V4M11 7l3-3 3 3"/>'),
@@ -647,9 +661,21 @@ function kidsG(s,c){ const f=kidsForm(c), names=kidsOf(c).names; if(!f&&!names.l
   const poss=N?((F.p||F.known)?w("poss"):""):w("poss");
   let r=String(s).replace(new RegExp(KB+"הילד שלך הוא הגיבור"+KE,"g"),"\u0001Y").replace(new RegExp(KB+"הילד הוא הגיבור"+KE,"g"),"\u0001H").replace(new RegExp("עם הילד כגיבור"+KE,"g"),"\u0001A")
    .replace(new RegExp("(הפנים|השם|הספר|התמונה) שלו"+KE,"g"),(m,x)=>x+(poss?" "+poss:""));
-  r=N?r.replace(new RegExp("של הילד"+KE,"g"),"של "+N).replace(new RegExp(KB+"לילד"+KE,"g"),"ל"+N).replace(new RegExp(KB+"הילד"+KE,"g"),N)
+  // names only at the first mention; later mentions say הילדים / הילדה / לילדים. One child whose gender is not known: later mentions drop "של הילד" and "לילד" instead of guessing
+  let named=false; const sure=F.p||F.f||F.known;
+  r=N?r.replace(new RegExp("( ?)(של הילד|"+KB+"לילד|"+KB+"הילד)"+KE,"g"),(m,sp,x)=>{ const at=named; named=true;
+       if(!at) return sp+(x==="של הילד"?"של "+N:x==="לילד"?"ל"+N:N);
+       return x==="הילד"?sp+w("child"):sure?sp+(x==="לילד"?w("to"):"של "+w("child")):"" })
      :r.replace(new RegExp(KB+"הילד"+KE,"g"),w("child")).replace(new RegExp(KB+"לילד"+KE,"g"),w("to"));
   return r.replace(/\u0001Y/g,w("child")+" שלך "+w("is")+" "+w("hero")).replace(/\u0001H/g,w("child")+" "+w("is")+" "+w("hero")).replace(/\u0001A/g,"עם "+w("child")+" "+w("ahero")) }
+// a text that already holds the names (a rewrite, a pasted draft): keep the first mention, later ones become הילדים / לילדה / של הילדים, the same way kidsG writes them
+function kidsOnce(s,c){ const names=kidsOf(c).names; s=String(s); if(!names.length) return s;
+  const F=kidsForm(c)||{p:0,f:0}, i=F.p*2+F.f, sure=F.p||F.f||F.known, N=namesJoin(names).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  let seen=false;
+  return s.replace(new RegExp("( ?)(של |"+KB+"[ובלכמש]|"+KB+")"+N+KE,"g"),(m,sp,pre)=>{ if(!seen){ seen=true; return m }
+    if(pre==="של ") return sure?sp+"של "+KW.child[i]:"";
+    if(pre==="ל") return sure?sp+KW.to[i]:"";
+    return sp+(pre||"")+KW.child[i] }) }
 function kidsGeneric(s,c){ const f=kidsForm(c), names=kidsOf(c).names; let r=String(s);
   if(names.length){ const N=namesJoin(names); r=r.split("של "+N).join("של הילד").split("ל"+N).join("לילד").split(N).join("הילד") }
   if(!f||(!f.p&&!f.f)) return r; const i=f.p*2+f.f, w=k=>KW[k][i];
@@ -735,7 +761,7 @@ const activeCount=st=>(st.q?1:0)+Object.values(st.f||{}).filter(a=>a&&a.length).
 const UI_KEY="lume_ui_v1";
 const VS_DEF={contacts:{q:"",f:{},sort:[["score",-1]],group:"none"},database:{q:"",f:{},sort:[["score",-1]],group:"none"}};
 let UI={vs:clone(VS_DEF),route:""};
-try{ const j=JSON.parse(localStorage.getItem(UI_KEY)||"null"); if(j&&j.vs){ for(const k in VS_DEF) if(j.vs[k]) UI.vs[k]={...VS_DEF[k],...j.vs[k]}; UI.route=j.route||"" } }catch(e){}
+try{ const j=JSON.parse(localStorage.getItem(UI_KEY)||"null"); if(j&&j.vs){ for(const k in VS_DEF) if(j.vs[k]) UI.vs[k]={...VS_DEF[k],...j.vs[k]}; UI.route=j.route||""; UI.remFan=!!j.remFan } }catch(e){}
 function cleanVS(s,key){ const d=VS_DEF[key]; s.f=s.f||{}; for(const k in s.f) if(!FACETS[k]) delete s.f[k]; s.sort=(s.sort||[]).filter(l=>SORTF[l[0]]); if(!s.sort.length) s.sort=clone(d.sort); if(!GROUPS[s.group]) s.group="none"; return s }
 for(const k in UI.vs) cleanVS(UI.vs[k],k);
 let uiT; function uiSave(){ clearTimeout(uiT); uiT=setTimeout(()=>{ try{ localStorage.setItem(UI_KEY,JSON.stringify(UI)) }catch(e){} },250) }
@@ -994,7 +1020,7 @@ const tpl=k=>{ const T=SET.tpl||{}; if(typeof T[k]==="string") return T[k]; if(D
 // A list of examples after {moment} must not repeat what {moment} already says (כמו {moment}, אח חדש, כניסה לגן ועוד)
 const MOMDUP=/\{moment\}((?:, [^,.\n!?]+)+?) ועוד/g;
 const momDedupe=(ex,c)=>{ const have=String(c.m||"").split(/\s*[\/,]\s*/).map(x=>x.trim()).filter(Boolean); const keep=ex.split(", ").filter(Boolean).filter(x=>!have.includes(x.trim())); return "{moment}"+keep.map(x=>", "+x).join("")+" ועוד" };
-const fill=(s,c)=>heTidy(hebArt(kidsG(brand(s),c).replace(MOMDUP,(m,ex)=>momDedupe(ex,c)).replace(/([לבכ])-?\{line\}/g,(m,p)=>p+dropH(lineOf(c))).replace(/(^|[\s(])(את|בזכות) \{line\}/g,(m,s0,p)=>s0+p+" "+addH(lineOf(c))).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]")));
+const fill=(s,c)=>heTidy(hebArt(kidsOnce(kidsG(brand(s),c),c).replace(MOMDUP,(m,ex)=>momDedupe(ex,c)).replace(/([לבכ])-?\{line\}/g,(m,p)=>p+dropH(lineOf(c))).replace(/(^|[\s(])(את|בזכות) \{line\}/g,(m,s0,p)=>s0+p+" "+addH(lineOf(c))).replace(/\{name\}/g,()=>who(c)).replace(/\{line\}/g,()=>lineOf(c)).replace(/\{moment\}/g,()=>c.m).replace(/\{sender\}/g,()=>signer()).replace(/\{preview\}/g,()=>SET.preview||"[קישור לתצוגה מקדימה]")));
 // Gifted offer details in the Warm style: Yarin's own wording, kept as written (no brand rewrite), only {name} is filled in.
 // 11 Oct 2026: the three lines about the percentage now say one allocation that the creator splits, as Yarin confirmed. Nothing else was touched.
 const OFFER="תוכנית השגרירים של לומבוק: ספר במתנה + קישור אישי עם "+PCT+"% מכל מכירה\n\nהיי {name},\n\nחשבנו על שיתוף הפעולה הזה כי התוכן שלך מרגיש טבעי, משפחתי ונגיש , בדיוק הסוג שיכול להפוך את הרגע שבו ילד פוגש את עצמו בתוך ספר לתוכן שקהל באמת מתחבר אליו\n\nההצעה שלנו פשוטה:\n\nאנחנו יוצרים לילד ספר מודפס ואישי במתנה, עם השם והפנים שלו. לאחר קבלת הספר, יוצרים רילס או טיקטוק שמציג את חוויית הקריאה או את רגע החשיפה לספר\n\nוהחלק הכי טוב, זה לא מסתיים ב״ספר תמורת פוסט״\n\nאתם מקבלים גם:\n\n• קישור אישי עם "+PCT+"% מכל הזמנה שמתבצעת דרכו\n• אתם מחליטים איך לחלק את ה-"+PCT+"% בין הרווח שלכם להנחה לקהל שלכם (למשל "+EXC+"% לכם ו-"+EXA+"% הנחה), וההנחה נכנסת אוטומטית דרך הקישור\n• אפשרות להמשיך להרוויח מכל רכישה שמגיעה מהתוכן שלכם\n• שיתוף התוכן בעמוד של ‎@lumebookai, עם קרדיט ותיוג מלאים\n\nכלומר, סרטון אחד יכול גם ליצור רגע משפחתי מרגש, גם לתת ערך לקהל שלכם וגם להפוך למקור הכנסה.\n\nאיך זה עובד?\n\n1. אנחנו מתאמים איתכם את שליחת הספר במתנה\n2. לאחר קבלת הספר, מעלים רילס או טיקטוק עם הקישור ועם תיוג של ‎@lumebookai\n3. מקבלים את החלק שבחרתם מתוך ה-"+PCT+"% על כל הזמנה שמתבצעת דרך הקישור\n\nכתבו לי מייל בחזרה עם מס הטלפון שלכם ונתקדם להכנת הספר!\n\nכבר מחכים לראות את הרגע של הילד עם הספר שלו!\nירין\n‎@lumebookai";
@@ -1014,7 +1040,7 @@ const exps=()=>Array.isArray(SET.exps)?SET.exps:[];
 const expOf=c=>{ const id=get(c.h).exp; return id?(exps().find(e=>e.id===id)||null):null };
 const defMsg=(c,t)=>{ const e=expOf(c);
   if(ownOffer(c,t)) return kidsG(OFFER,c).replace(/\{name\}/g,()=>who(c));
-  if(t==="em") return fill(tpl(tkey(c,"es")),c)+"\n\n"+fill(tpl(tkey(c,"eb")),c);
+  if(t==="em") return fill(tpl(tkey(c,"es"))+"\n\n"+tpl(tkey(c,"eb")),c);   // one fill, so the kids are named once across subject and body
   if(t==="dm"&&e&&e.kind==="dm"&&e.b&&get(c.h).expv==="B") return fill(e.b,c);
   return fill(tpl(tkey(c,t)),c) };
 const edited=(c,t)=>{const x=get(c.h)[xk(c,t)]; return typeof x==="string"&&x!==""};
@@ -1220,20 +1246,56 @@ function renderDrawer(first){ if(!DRW) return;
 document.getElementById("drwX").addEventListener("click",drwClose); drwScrim.addEventListener("click",drwClose);
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&DRW&&!askDone&&!stMenuBtn&&!document.body.classList.contains("nav-open")){ e.preventDefault(); drwClose() } });
 
-// ---------- the reminders page: every dated note, by day. Reminders show while the map is open; nothing reaches the phone when it is closed. ----------
+// ---------- the reminders page: a stack of full creator cards, the most urgent on top (Yarin, 22 Oct 2026). Each card is the same card as in the Creators list,
+// with the reminder on a strip above it. Done slides the top card off and the next one rises; "spread" lays the whole stack out by day.
+// Reminders show while the map is open; nothing reaches the phone when it is closed. ----------
 const WD=["יום א׳","יום ב׳","יום ג׳","יום ד׳","יום ה׳","יום ו׳","שבת"];
-const remList=()=>C.map(c=>({c,o:get(c.h)})).map(x=>({...x,t:remAt(x.o)})).filter(x=>x.t!=null).sort((a,b)=>a.t-b.t);
-function renderRem(){ const L=remList(), now=Date.now(), d0=dms(today()), el=document.getElementById("remList");
-  if(!L.length){ el.innerHTML='<div class="lb-empty"><b>אין תזכורות.</b></div>'; return }
-  const G=new Map(); L.forEach(x=>{ const day=Math.round((dms(isoOf(x.t))-d0)/864e5), key=day<0?"over":isoOf(x.t); if(!G.has(key)) G.set(key,{day,items:[]}); G.get(key).items.push(x) });
-  el.innerHTML='<div class="nc">'
-   +[...G.entries()].map(([key,g])=>'<div class="nc-g"><h4>'+(key==="over"?"באיחור":g.day===0?"היום":g.day===1?"מחר":WD[new Date(dms(key)).getDay()]+", "+dayLabel(dms(key)))+'</h4><div class="nc-l">'
-     +g.items.map(x=>'<div class="nci'+(x.t<d0?" over":x.t<=now?" now":"")+'" data-h="'+esc(x.c.h)+'"><div class="nci-t"><time>'+(key==="over"?dayLabel(x.t)+" ":"")+esc(x.o.nat||"")+'</time><button type="button" class="tdh" data-tdopen="'+esc(x.c.h)+'">'+hb(x.c.h)+'</button><span class="lb-chip">'+esc(STL[HOOK.bk(x.c)]||"")+'</span></div>'
-       +'<div class="tdnote" dir="auto">'+(x.o.na?esc(x.o.na):'<span class="note">בלי פתק</span>')+'</div><div class="tda"><button type="button" class="lb-btn secondary sm" data-tdrem>דחייה</button><button type="button" class="lb-btn ghost sm" data-tdremdone>בוצע ✓</button></div></div>').join("")+'</div></div>').join("")+'</div>' }
+// two tabs on one stack (Yarin, 22 Oct 2026): "today" holds today's reminders plus any from earlier days still not done; "all" holds every dated reminder
+const remAllMode=()=>ROUTE.key==="remall";
+const remList=all=>{ const end=dms(today())+864e5; return C.map(c=>({c,o:get(c.h)})).map(x=>({...x,t:remAt(x.o)})).filter(x=>x.t!=null&&(all||x.t<end)).sort((a,b)=>a.t-b.t) };
+let RS_TOP=null, RS_IN=false;   // the creator on top of the stack, and whether it just arrived there (plays the rise)
+const RS_RM=matchMedia("(prefers-reduced-motion: reduce)");
+const remDay=(t,d0)=>Math.round((dms(isoOf(t))-d0)/864e5);
+const dayName=(day,t)=>day<0?"באיחור":day===0?"היום":day===1?"מחר":WD[new Date(t).getDay()]+", "+dayLabel(t);
+function remItem(x,d0,now,cls){ const day=remDay(x.t,d0);
+  return '<div class="rsi'+(cls||"")+(x.t<d0?" over":x.t<=now?" now":"")+'" data-h="'+esc(x.c.h)+'"><div class="rsh"><time>'+esc(dayName(day,x.t)+(day<0?" · "+dayLabel(x.t):"")+(x.o.nat?" · "+x.o.nat:""))+'</time>'
+   +'<div class="rsh-note" dir="auto">'+(x.o.na?esc(x.o.na):'<span class="note">בלי פתק</span>')+'</div>'
+   +'<div class="rsh-act"><button type="button" class="lb-btn secondary sm" data-tdrem>דחייה</button><button type="button" class="lb-btn ok sm" data-tdremdone>בוצע ✓</button></div></div>'+card(x.c)+'</div>' }
+function renderRem(){ const el=document.getElementById("remList"), ae=document.activeElement;
+  if(ae&&el.contains(ae)&&/^(TEXTAREA|INPUT)$/.test(ae.tagName)&&ae.type!=="checkbox"){ pendingRender=true; return }
+  const L=remList(remAllMode()), now=Date.now(), d0=dms(today()), fan=!!UI.remFan;
+  if(!L.length){ RS_TOP=null; el.innerHTML='<div class="lb-empty"><b>'+(remAllMode()?'אין תזכורות.':'אין תזכורות להיום.')+'</b></div>'; return }
+  const open=new Set([...el.querySelectorAll(".rsi")].flatMap(r=>[...r.querySelectorAll("details")].map((d,i)=>d.open?r.dataset.h+"|"+i:"")));
+  let i=L.findIndex(x=>x.c.h===RS_TOP); if(i<0) i=0; RS_TOP=L[i].c.h;
+  const late=L.filter(x=>x.t<=now).length;
+  let html='<div class="rs-bar"><span class="rs-count">'+(fan?'<b>'+L.length+'</b> תזכורות':'<b>'+(i+1)+'</b> מתוך <b>'+L.length+'</b>')+(late?' · '+(late===1?'אחת שהגיע זמנה':late+' שהגיע זמנן'):'')+'</span><span class="end">'
+   +(fan?'':'<button type="button" class="lb-btn secondary sm" data-rsgo="-1"'+(i?'':' disabled')+'>→ הקודמת</button><button type="button" class="lb-btn secondary sm" data-rsgo="1"'+(i<L.length-1?'':' disabled')+'>הבאה ←</button>')
+   +'<button type="button" class="lb-btn ghost sm" data-rsfan aria-pressed="'+fan+'">'+(fan?'איסוף לערימה':'פריסת הכול')+'</button></span></div>';
+  if(fan){ const G=new Map(); L.forEach(x=>{ const day=remDay(x.t,d0), key=day<0?"over":isoOf(x.t); if(!G.has(key)) G.set(key,{day,t:x.t,items:[]}); G.get(key).items.push(x) });
+    html+='<div class="rs-fan">'+[...G.values()].map(g=>'<div class="rs-g"><h4>'+esc(dayName(g.day,g.t))+'</h4>'+g.items.map(x=>remItem(x,d0,now)).join("")+'</div>').join("")+'</div>' }
+  else { const pk=L.slice(i+1,i+3);
+    html+='<div class="rs" style="--rs-n:'+pk.length+'">'+remItem(L[i],d0,now," rs-top"+(RS_IN&&!RS_RM.matches?" is-in":""))
+     +pk.map((x,k)=>'<button type="button" class="rs-peek" style="--i:'+(k+1)+'" data-rsgo="'+(k+1)+'" aria-label="'+esc("הבאה בערימה: "+ht(x.c.h))+'"></button>').join("")+'</div>' }
+  RS_IN=false; el.innerHTML=html;
+  el.querySelectorAll(".rsi").forEach(r=>r.querySelectorAll("details").forEach((d,i)=>{ if(open.has(r.dataset.h+"|"+i)) d.open=true }));
+  el.querySelectorAll("[data-msgbox]").forEach(fitBox); el.querySelectorAll(".omsg .mtabs").forEach(showTab) }
+// who comes on top when this creator leaves the stack: the next one, or the one before at the end
+function rsAfter(h){ const L=remList(remAllMode()), i=L.findIndex(x=>x.c.h===h); return ((L[i+1]||L[i-1]||{}).c||{}).h||null }
+function rsGo(n){ const L=remList(remAllMode()), i=Math.max(0,L.findIndex(x=>x.c.h===RS_TOP)), j=Math.max(0,Math.min(L.length-1,i+n)); if(j===i) return;
+  const f=document.activeElement&&document.activeElement.dataset&&document.activeElement.dataset.rsgo;
+  RS_TOP=L[j].c.h; RS_IN=true; renderRem();
+  const el=document.getElementById("remList"), b=f&&(el.querySelector('.rs-bar [data-rsgo="'+(+f<0?-1:1)+'"]:not([disabled])')||el.querySelector('.rs-bar [data-rsgo]:not([disabled])')); if(b) b.focus({preventScroll:true}) }
+function rsDone(h,it){ if(it.classList.contains("is-out")) return; const top=!UI.remFan&&h===RS_TOP;
+  const go=()=>{ if(top){ RS_TOP=rsAfter(h); RS_IN=true } remDone(h) };
+  if(top&&!RS_RM.matches){ it.classList.add("is-out"); setTimeout(go,200) } else go() }
+async function rsSnooze(h){ const nx=rsAfter(h), top=!UI.remFan&&h===RS_TOP; if(await setRem(h)&&top&&RS_TOP===h&&nx){ RS_TOP=nx; RS_IN=true; renderRem() } }
 function remCount(){ const now=Date.now(), n=C.filter(c=>{ const t=remAt(get(c.h)); return t!=null&&t<=now }).length, b=document.getElementById("remN");
-  b.textContent=n||""; b.classList.toggle("warn",n>0); return n }
-document.getElementById("remList").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; const it=b.closest("[data-h]"), h=it&&it.dataset.h; if(!h) return;
-  if(b.dataset.tdopen!==undefined) HOOK.open(h); else if(b.hasAttribute("data-tdrem")) setRem(h); else if(b.hasAttribute("data-tdremdone")) remDone(h) });
+  b.textContent=n||""; b.classList.toggle("warn",n>0); document.getElementById("remAllN").textContent=remList(true).length||""; return n }
+document.getElementById("remList").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return;
+  if(b.hasAttribute("data-rsfan")){ UI.remFan=!UI.remFan; uiSave(); renderRem(); return }
+  if(b.dataset.rsgo){ rsGo(+b.dataset.rsgo); return }
+  const it=b.closest(".rsi"), h=it&&it.dataset.h; if(!h||!b.closest(".rsh")) return;
+  if(b.hasAttribute("data-tdrem")) rsSnooze(h); else if(b.hasAttribute("data-tdremdone")) rsDone(h,it) });
 // a reminder whose time comes while the map is open pops up once
 const NOTED=new Set(); let remFirst=true;
 function remTick(){ const now=Date.now(), due=[];
@@ -1366,12 +1428,12 @@ function render(){
 // ---------- click feedback ----------
 const FXT=new WeakMap();
 function fx(el,cls){ if(!el) return; el.classList.remove("is-ok","is-err"); void el.offsetWidth; el.classList.add(cls); clearTimeout(FXT.get(el)); FXT.set(el,setTimeout(()=>el.classList.remove(cls),1300)) }
-// a creator's card: the one in the drawer when it is open, else the one in the list
-const cardEl=h=>(DRW&&DRW.mode==="lead"&&DRW.h===h&&drwBody.querySelector('.oc[data-h="'+CSS.escape(h)+'"]'))||document.querySelector('#olist .oc[data-h="'+CSS.escape(h)+'"]');
+// a creator's card: the one in the drawer when it is open, else the one in the list or in the reminders stack
+const cardEl=h=>(DRW&&DRW.mode==="lead"&&DRW.h===h&&drwBody.querySelector('.oc[data-h="'+CSS.escape(h)+'"]'))||document.querySelector('#olist .oc[data-h="'+CSS.escape(h)+'"],#remList .oc[data-h="'+CSS.escape(h)+'"]');
 const fitBox=ta=>{ if(!ta||!ta.offsetParent) return; ta.style.height="auto"; ta.style.height=Math.min(ta.scrollHeight+2,560)+"px" };
 // on a narrow screen the tab strip scrolls sideways: keep the open tab in sight (works right to left too)
 const showTab=el=>{ const b=el.querySelector('[aria-pressed="true"]'); if(!b||el.scrollWidth<=el.clientWidth) return; const r=b.getBoundingClientRect(), q=el.getBoundingClientRect(); if(r.left<q.left) el.scrollLeft+=r.left-q.left-12; else if(r.right>q.right) el.scrollLeft+=r.right-q.right+12 };
-const fitAll=()=>{ document.querySelectorAll("#olist [data-msgbox]").forEach(fitBox); document.querySelectorAll("#olist .omsg .mtabs").forEach(showTab) };
+const fitAll=()=>{ document.querySelectorAll("#olist [data-msgbox],#remList [data-msgbox]").forEach(fitBox); document.querySelectorAll("#olist .omsg .mtabs,#remList .omsg .mtabs").forEach(showTab) };
 let fitT; window.addEventListener("resize",()=>{ clearTimeout(fitT); fitT=setTimeout(()=>{ fitAll(); drwBody.querySelectorAll("[data-msgbox]").forEach(fitBox) },150) });
 const flashCard=h=>{ const e=cardEl(h); if(e) fx(e,"is-flash") };
 // a status change asks first what to do next and when to check (Yarin, 20 Oct 2026); the suggested note and date depend on the new status
@@ -1443,7 +1505,7 @@ function onCardClick(e){
   const a=e.target.closest("a[data-ch]"); if(a){ const oc=a.closest(".oc"); if(oc) LASTCH[oc.dataset.h]=a.dataset.ch; return }
   const b=e.target.closest("[data-act]"); if(!b) return;
   const card=b.closest(".oc"); if(!card) return; const c=byH[card.dataset.h], act=b.dataset.act, prev={...get(c.h)};
-  if(act==="hefix"){ const ta=card.querySelector("[data-msgbox]"), tt=ta.dataset.t, f=heFix(ta.value,{skipBrand:ownOffer(c,tt)}); if(f!==ta.value){ ta.value=f; ta.dispatchEvent(new Event("input",{bubbles:true})); fx(ta,"is-flash"); toast("התיקונים הוחלו. אפשר עדיין לערוך את הטקסט.") } }
+  if(act==="hefix"){ const ta=card.querySelector("[data-msgbox]"), tt=ta.dataset.t, f=heFix(ta.value,{skipBrand:ownOffer(c,tt),c}); if(f!==ta.value){ ta.value=f; ta.dispatchEvent(new Event("input",{bubbles:true})); fx(ta,"is-flash"); toast("התיקונים הוחלו. אפשר עדיין לערוך את הטקסט.") } }
   else if(act==="decline") change(c.h,{title:"סירבו",na:"",days:null,reasons:true,k:"status",x:{from:HOOK.bk(c),to:"declined"},tab:null,
     patch:{s:"declined",sct:Date.now(),...(prev.rat?{}:{rat:Date.now()}),...(prev.ssent?{}:{ssent:sty(c)})},msg:()=>"נרשם סירוב מ-"+ht(c.h)+". הפולואפים נעצרו."+moved(c.h)});
   else if(act==="style"){ const s=+b.dataset.s; if(s!==sty(c)){ patch(c.h,{sty:s}); delete TABSEL[c.h]; render(); toast("ההודעות ל-"+ht(c.h)+" עכשיו בסגנון "+STY_NAME[s]+".") } }
@@ -1503,7 +1565,7 @@ function onCardCopy(e){
   const s=ta.value.slice(ta.selectionStart,ta.selectionEnd); if(!s) return;
   e.clipboardData.setData("text/plain",rtl(s)); e.clipboardData.setData("text/html",rtlHtml(s)); e.preventDefault();
 }
-[document.getElementById("olist"),drwBody].forEach(el=>{
+[document.getElementById("olist"),document.getElementById("remList"),drwBody].forEach(el=>{
   el.addEventListener("click",onCardClick); el.addEventListener("change",onCardChange); el.addEventListener("input",onCardInput); el.addEventListener("copy",onCardCopy);
   el.addEventListener("focusout",()=>{ setTimeout(()=>{ if(pendingRender) render() },50) });
   // the History section reads the full history once, when it is opened
@@ -1568,6 +1630,7 @@ function heIssues(s,o){ o=o||{}; s=String(s); const L=[], add=(msg,fix)=>L.push(
   if(!o.skipBrand&&new RegExp(BRAND.source).test(s)) add("שם המותג באותיות עבריות, צריך להיות LumeBook",true);
   if(has(RX.prefLatin)) add("אות שימוש לפני טקסט לועזי צריכה מקף, למשל ב-LumeBook",true);
   if(hebArt(s)!==s) add("ה אחרי ל, ב או כ: להילד צריך להיות לילד",true);
+  if(o.c&&kidsOnce(s,o.c)!==s) add("שמות הילדים חוזרים: בפעם השנייה בלי השמות",true);
   const cnt=(c)=>(s.match(new RegExp("\\"+c,"g"))||[]).length;
   if(cnt("(")!==cnt(")")) add("סוגריים שלא נסגרו",false);
   return L }
@@ -1586,8 +1649,8 @@ function offerIssues(s,c,t){ s=String(s); const L=[], add=(msg,fix)=>L.push({msg
 const offerFlag=c=>{ const o=get(c.h), st=stOf(c.h); if(st==="declined"||st==="posted") return false;
   return MT.some(([t])=>{ if(st!=="new"&&(t==="dm"||t==="em")) return false; if(t==="fu"&&fuMs(o,1)!=null) return false; if(t==="f2"&&fuMs(o,2)!=null) return false; if(!edited(c,t)) return false;
     const s=o[xk(c,t)]; return s.includes("קוד")||offerIssues(s,c,t).length>0 }) };
-const heFix=(s,o)=>{ o=o||{}; let x=heTidy(offerFix(codeFix(s)).replace(RX.dash,", ").replace(/,\s+,/g,",")); if(!o.skipBrand) x=brand(x); return hebArt(x) };
-const heBoxHtml=(s,c,t)=>{ const L=heIssues(s,{skipBrand:ownOffer(c,t)}), O=offerIssues(s,c,t); if(!L.length&&!O.length) return "";
+const heFix=(s,o)=>{ o=o||{}; let x=heTidy(offerFix(codeFix(s)).replace(RX.dash,", ").replace(/,\s+,/g,",")); if(!o.skipBrand) x=brand(x); if(o.c) x=heTidy(kidsOnce(x,o.c)); return hebArt(x) };
+const heBoxHtml=(s,c,t)=>{ const L=heIssues(s,{skipBrand:ownOffer(c,t),c}), O=offerIssues(s,c,t); if(!L.length&&!O.length) return "";
   return (L.length?'<b>בדיקת עברית:</b> '+L.map(x=>esc(x.msg)).join(" · ")+' ':'')+(O.length?'<b>בדיקת ההצעה:</b> '+O.map(x=>esc(x.msg)).join(" · ")+' ':'')+(L.concat(O).some(x=>x.fix)?'<button type="button" class="lb-btn secondary sm" data-act="hefix">תיקון</button>':'<span class="note">לבדוק ידנית.</span>') };
 let vnoteT, learning=false, vSaveT;
 function vnote(msg,undo){
@@ -1609,7 +1672,7 @@ function undoLearn(){
   VOICE.prev=null; writeVoice(); fillSettings(); fillVoice(); render(); if(pv.c&&pv.c.h) flashCard(pv.c.h); vnote("הלמידה האחרונה בוטלה. ההודעות חזרו למה שהיו."); toast("בוטל. ההודעות חזרו למה שהיו.");
 }
 const TNAME={dm:"first Instagram message",em:"email (subject line, blank line, body)",fu:"follow-up message",f2:"final follow-up message",d2:"reply to a creator who showed interest (book example, terms in short, one next step)",of:"offer details (title line, blank line, body)"};
-const RULES_BASE="Never use em dashes or en dashes. Write the brand name only in Latin letters as LumeBook (capital L and B), never in Hebrew letters; after a Hebrew prefix letter add a hyphen, for example ב-LumeBook. Do not invent claims, numbers or promises. Never repeat an example that {moment} already contains (for example after כמו {moment} do not list the same moments again). Keep the wording about the child (the child, the girls, the book of theirs) in the same singular or plural and masculine or feminine form as in the text you are given. Hebrew grammar: use the definite article ה only for a specific known noun (the child, the book, the page), never for general statements (ספרי ילדים, ילדים אוהבים). The prepositions ל, ב and כ absorb the article (לילד, בגן, לתוכן, never להילד or בהגן); מ, עם, של, על and את keep it (מהגן, עם הספר, של הילד). In a construct chain only the last noun takes it (מנהל הסושיאל, ספר הילדים, never המנהל הסושיאל). Use את only before a definite object. Adjectives agree with their noun and take the article too (הילד הקטן). Names and LumeBook never take an article. If a template puts ל, ב or כ directly before {line}, keep it attached with no hyphen; the app removes the article. Write Hebrew.";
+const RULES_BASE="Never use em dashes or en dashes. Write the brand name only in Latin letters as LumeBook (capital L and B), never in Hebrew letters; after a Hebrew prefix letter add a hyphen, for example ב-LumeBook. Do not invent claims, numbers or promises. Never repeat an example that {moment} already contains (for example after כמו {moment} do not list the same moments again). Keep the wording about the child (the child, the girls, the book of theirs) in the same singular or plural and masculine or feminine form as in the text you are given. Name the children at most once in each message; every later mention says הילדים, הילדה, הם and so on, never the names again. Hebrew grammar: use the definite article ה only for a specific known noun (the child, the book, the page), never for general statements (ספרי ילדים, ילדים אוהבים). The prepositions ל, ב and כ absorb the article (לילד, בגן, לתוכן, never להילד or בהגן); מ, עם, של, על and את keep it (מהגן, עם הספר, של הילד). In a construct chain only the last noun takes it (מנהל הסושיאל, ספר הילדים, never המנהל הסושיאל). Use את only before a definite object. Adjectives agree with their noun and take the article too (הילד הקטן). Names and LumeBook never take an article. If a template puts ל, ב or כ directly before {line}, keep it attached with no hyphen; the app removes the article. Write Hebrew.";
 // The commercial facts of each track. Voice learning changes how a message sounds, never what it offers, and never borrows an offer from another track.
 const FACTS={
   gift:"Offer facts, which must stay exactly as they are in the text you are given: a free personalised book for the child in exchange for one agreed video; a personal link (there is no discount code, never write קוד); one "+PCT+"% of each sale through that link, which the creator splits between their own earnings and an audience discount that is applied automatically through the link (for example "+EXC+"% and "+EXA+"%). Never write or imply "+PCT+"% earnings plus an extra discount. Never change a number. Everything is commission only: never add a fee, a payment, a rate or a budget. The track only changes the angle of the message (General, Professionals, or Parents), never the offer, so keep the audience angle the text already has."};
@@ -1733,7 +1796,7 @@ HOOK.edited=c=>MT.some(([t])=>manual(c,t));
 HOOK.trk=trkOf; HOOK.obj=objOf; HOOK.stage=stgOf; HOOK.expv=c=>expOf(c)?get(c.h).expv||"":""; HOOK.nad=h=>get(h).nad||"";
 HOOK.naDue=c=>["over","today"].includes(naState(c)); HOOK.offer=offerFlag; HOOK.fuOpen=fuOpen;
 HOOK.more=c=>{ const o=get(c.h), e=expOf(c); return [o.na,o.objn,o.objq,e&&e.name,TRKL[trkOf(c)]].filter(Boolean).join(" ") };
-const PAGES={reminders:["פניות","תזכורות"],overview:["פניות","ראשי"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
+const PAGES={reminders:["פניות","תזכורות להיום"],remall:["פניות","כל התזכורות"],overview:["פניות","ראשי"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
 const LEGACY={"c-posted":"c-process-content","c-book":"c-process-booksent","c-content":"c-process-content","c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview",today:"overview"};
 const STATUS_NAV=[["all","כל היוצרים"],["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["due","פולואפ לשליחה"],["noreply","לא ענו"],["process","בתהליך"],["declined","סירבו"]];
 const statusName=(s,g)=>(STATUS_NAV.find(x=>x[0]===s)||[0,"יוצרים"])[1]+(s==="process"&&STGL[g]?" · "+STGL[g]:"");
@@ -1751,6 +1814,7 @@ function parseRoute(h){
   h=String(h||"").replace(/^#/,""); h=LEGACY[h]||h;
   if(/^c-(all|due|new|sent|noreply|process|declined)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
   const m=/^c-process-(\w+)$/.exec(h); if(m&&STGL[m[1]]) return {page:"contacts",status:"process",stage:m[1],key:h};
+  if(h==="remall") return {page:"reminders",key:h};
   if(PAGES[h]) return {page:h,key:h};
   return null;
 }
@@ -1762,10 +1826,11 @@ function route(key){
   ROUTE={page:r.page,status:r.status||"new",stage:r.stage||"",key:r.key}; UI.route=r.key; uiSave();
   TOOLBARS.forEach(t=>t.close());
   document.querySelectorAll("section.page").forEach(p=>p.hidden=p.dataset.page!==r.page);
-  const [grp,title]=PAGES[r.page], sub=r.page==="contacts"?statusName(ROUTE.status,ROUTE.stage):title;
+  const [grp,title]=PAGES[r.key]||PAGES[r.page], sub=r.page==="contacts"?statusName(ROUTE.status,ROUTE.stage):title;
   document.getElementById("crumbG").textContent=grp; document.getElementById("crumbT").textContent=sub;
   document.title=sub+" · מפת היוצרים של LumeBook";
   if(r.page==="contacts"){ document.getElementById("cTitle").textContent=sub }
+  if(r.page==="reminders") document.getElementById("remTitle").textContent=title;
   markNav(); closeDrawer(); drwHide();
   if(pageChanged&&!OPEN_H) window.scrollTo(0,0);
   render();

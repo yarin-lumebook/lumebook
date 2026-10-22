@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Produce a carousel from Hook Studio itself, with no chat in between (Yarin, 16 Oct 2026: "i want the entire
+"""Produce a carousel from Carousel Machine itself, with no chat in between (Yarin, 16 Oct 2026: "i want the entire
 carousel engine, editor and producer to be viewed in one place i can easily access no need of talking to you each time").
 
     python3 carousel/carousel-pipeline/scripts/producer.py status          # every production and where it stands
@@ -9,9 +9,9 @@ Kid and expert option (one picture behind all ten slides, packs from 14 Oct 2026
 1. prepare_fal_jobs.py freezes the option into approved/DATE-ID/ (refreezes when the copy was edited since; images
    whose job did not change carry over)
 2. fal_generate.py run picture --max-usd 0.50, through `zsh -ic` so FAL_KEY comes from ~/.zshrc and is never
-   written anywhere. Picking the carousel for production in Hook Studio is the approval to spend up to $0.50 on it
+   written anywhere. Picking the carousel for production in Carousel Machine is the approval to spend up to $0.50 on it
    (the standing rule of 8 Oct 2026); the cap covers every attempt, replacements included
-3. Yarin looks at the picture in Hook Studio and approves it (qa pass) or asks for another with a note (qa fail +
+3. Yarin looks at the picture in Carousel Machine and approves it (qa pass) or asks for another with a note (qa fail +
    replace, at most 2 replacements, inside the same $0.50)
 4. compose_slides.py exports the 1080 x 1350 slides, contact sheet, RTL check, caption, sources and the ZIP
 
@@ -43,8 +43,8 @@ import reco_lib as rl  # noqa: E402
 PRODUCTIONS = lib.PIPELINE / "productions.json"
 MAX_USD = 0.50
 PICTURE = "picture"
-BUSY = ("queued", "preparing", "generating", "composing", "exporting")
-STATUS_HE = {"queued": "בתור", "preparing": "מקפיא את הטקסט", "generating": "מייצר תמונה", "review": "מחכה לאישור שלך",
+BUSY = ("queued", "fixing", "preparing", "generating", "composing", "exporting")
+STATUS_HE = {"queued": "בתור", "fixing": "מתקן את הטקסט", "preparing": "מקפיא את הטקסט", "generating": "מייצר תמונה", "review": "מחכה לאישור שלך",
              "composing": "מרכיב שקופיות", "exporting": "מייצא", "done": "מוכן לפרסום", "failed": "נעצר"}
 # fal's image model sometimes declines a harmless family scene (18 Oct 2026: expert-1 of 20 Oct twice; the same
 # cover wording passed for kid-1, so the trigger is unknown). Rewording the scene and trying again got it through.
@@ -53,7 +53,7 @@ DECLINED_HE = ("מסנן הבטיחות של מודל התמונות דחה את
                "בקשה שנדחתה לא מייצרת תמונה. אפשר לנסח מחדש את תיאור הסצנה למטה ולנסות שוב.")
 QA_CHECKS_HE = ("הפנים של הילד אל המצלמה, עם הבעה גדולה", "הרעיון של הקרוסלה נקרא מהתמונה", "יש אזור נקי לטקסט",
                 "ידיים ופנים טבעיים, בלי אותיות או לוגו", "תלת ממד מונפש, לא צילום")
-ABOUT = ("Hook Studio productions (producer.py). One entry per carousel keyed <date>/<id>; status: " + ", ".join(STATUS_HE)
+ABOUT = ("Carousel Machine productions (producer.py). One entry per carousel keyed <date>/<id>; status: " + ", ".join(STATUS_HE)
          + ". Kid and expert: approved/DATE-ID, one picture, spend cap $0.50 per carousel. Games and books: export only.")
 
 _lock = threading.RLock()
@@ -89,7 +89,7 @@ def _update(key, path=None, **fields):
 
 
 def rel(path):
-    """A path under the pipeline folder as the URL Hook Studio serves it from."""
+    """A path under the pipeline folder as the URL Carousel Machine serves it from."""
     path = Path(path).resolve()
     if lib.PIPELINE.resolve() not in path.parents:   # tests write to a temporary folder
         return str(path)
@@ -275,6 +275,11 @@ def _work(key, item, action, note=None):
         if action == "redo":
             run_dir = lib.PIPELINE / get(key)["run_dir"].lstrip("/")
             return _generate(key, run_dir, replace_note=note or "another take")
+        if blocking_errors(item):   # Yarin, 22 Oct 2026: Produce fixes the copy itself instead of stopping
+            import autofix
+            _update(key, status="fixing", error=None)
+            fixed = autofix.run(item)
+            _update(key, fixed=[{k: c.get(k) for k in ("field", "slide", "before", "after")} for c in fixed])
         _update(key, status="preparing", error=None)
         run_dir = _prepare(item)
         _update(key, run_dir=rel(run_dir), spent_usd=spent(run_dir))
@@ -295,8 +300,9 @@ def _work(key, item, action, note=None):
 # ---------------------------------------------------------------- the check before a production
 
 class Blocked(ValueError):
-    """The option still has validator errors, so it is not produced (Yarin, 18 Oct 2026: "refuse to start a production while
-    the option has validator errors, and show the errors right there so I can fix them first")."""
+    """Was raised by start() while the option had validator errors (Yarin, 18 Oct 2026). Since 22 Oct 2026 ("i dont want any
+    more errors, let me hit the produce button and youll figure it out youself") start() queues anyway and _work runs
+    autofix.py first; callers still catch it."""
 
     def __init__(self, errors):
         super().__init__(f"לפני הפקה צריך לתקן {len(errors)} דברים")
@@ -341,14 +347,11 @@ def start(item):
         rec = get(key)
         if rec and rec.get("status") in BUSY + ("review",):
             return rec
-    errors = blocking_errors(item)
-    if errors:
-        raise Blocked(errors)
     with _lock:
         rec = get(key)
         if rec and rec.get("status") in BUSY + ("review",):
             return rec
-        rec = _update(key, status="queued", requested_at=now_iso(), error=None, warning=None, declined=None, **_item_fields(item))
+        rec = _update(key, status="queued", requested_at=now_iso(), error=None, warning=None, declined=None, fixed=None, **_item_fields(item))
     _pool.submit(_work, key, item, "start")
     return rec
 
@@ -389,7 +392,7 @@ def recover(path=None):
                 rec.update(status="review", status_he=STATUS_HE["review"],
                            picture=rel(run_dir / "generated-assets" / f"{PICTURE}.png") + f"?v={st.get('attempts', 1)}")
             else:
-                rec.update(status="failed", status_he=STATUS_HE["failed"], error="Hook Studio נסגר באמצע. אפשר להמשיך מאותה נקודה, בלי לשלם שוב על מה שכבר נוצר.")
+                rec.update(status="failed", status_he=STATUS_HE["failed"], error="Carousel Machine נסגר באמצע. אפשר להמשיך מאותה נקודה, בלי לשלם שוב על מה שכבר נוצר.")
             changed = True
         if changed:
             lib.write_json(path or PRODUCTIONS, data)

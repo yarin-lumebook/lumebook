@@ -532,14 +532,14 @@ def serve(port):
 
     Three small endpoints for the dashboard work board, all on 127.0.0.1 only:
       GET  /api/board/env       tells the board it runs on the project server (local media previews, uploads)
-      GET  /api/local-tools     pings the services in facts.local_tools (Hook Studio...) from here; starts nothing
+      GET  /api/local-tools     pings the services in facts.local_tools (Carousel Machine...) from here; starts nothing
       POST /api/media-inbox     saves one uploaded file into media/inbox/ (the unsorted folder of media/README.md),
                                 same-origin only (Origin header + X-LumeBook-Board), allowed media types, never overwrites
       GET  /api/creator-map/state   the creator map's saved data (statuses, notes, settings, voice) from creators/creator-research/state/
       PUT  /api/creator-map/doc?path=outreach/<handle>   writes one document of it (same-origin only; paths limited to
                                 outreach, settings, voice, log); this replaced the artifact database on 20 Oct 2026
       GET  /                    redirects to the HQ dashboard
-      /hook-studio/             Hook Studio (the login item on 127.0.0.1:8777) through this server: its own paths
+      /hook-studio/             Carousel Machine (the login item on 127.0.0.1:8777) through this server: its own paths
                                 (HS_PREFIX) are forwarded as they are, POSTs same-origin only; nothing of it runs here
     There is no endpoint that runs a command."""
     import http.client, http.server, functools, urllib.parse, urllib.request, threading
@@ -591,7 +591,7 @@ def serve(port):
             self.wfile.write(body)
 
         def hook_studio(self, method):
-            """Forward a Hook Studio request to its own server (the login item); True when this was one."""
+            """Forward a Carousel Machine request to its own server (the login item); True when this was one."""
             u = urllib.parse.urlparse(self.path)
             if u.path in ("/hook-studio", "/hook-studio/"):
                 target = "/" + ("?" + u.query if u.query else "")
@@ -614,11 +614,11 @@ def serve(port):
                 status, headers = r.status, r.getheaders()
                 conn.close()
             except OSError:
-                self._json(502, {"error": "Hook Studio is not running", "start": "python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart"})
+                self._json(502, {"error": "Carousel Machine is not running", "start": "python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart"})
                 return True
             ctype = r.getheader("Content-Type", "")
             if ctype.startswith("text/html"):
-                data = data.replace(b'href="/" ', b'href="/hook-studio/" ')   # the "Hook Studio" back link on the review pages
+                data = data.replace(b'href="/" ', b'href="/hook-studio/" ')   # the "Carousel Machine" back link on the review pages
             self.send_response(status)
             for k, v in headers:
                 if k.lower() in ("content-type", "location", "content-disposition", "last-modified"):

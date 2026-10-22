@@ -100,3 +100,9 @@ OUT=os.path.dirname(HERE)
 open(OUT+'/lumebook-creator-map.html','w').write(h)
 # CSV is maintained separately (contacts + outreach messages); do not rewrite it here
 print('ok',len(C),len(h))
+# the kids are named once per message, in Hebrew letters (src/test_kids_names.mjs); skipped when node is not installed
+import shutil, subprocess
+if shutil.which('node'):
+    r=subprocess.run(['node',P('test_kids_names.mjs')],capture_output=True,text=True)
+    print((r.stdout.strip().splitlines() or ['no output'])[-1])
+    if r.returncode: print(r.stdout+r.stderr); sys.exit(1)

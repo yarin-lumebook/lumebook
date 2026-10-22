@@ -77,7 +77,7 @@ body.single .slide:not(.on){display:none}
 .card{position:absolute;left:72px;bottom:150px;width:400px;height:500px;transform:rotate(-2deg);border-radius:18px;overflow:hidden;background:#fff;border:10px solid #fff;box-shadow:0 18px 40px rgba(11,5,24,.28)}
 .card img{width:100%;height:100%;object-fit:cover;border-radius:8px}
 pre#rtl-report{display:none}
-/* The bold look (Hook Studio, 10 Oct 2026): type first. Much larger headline on short lines, one highlighted
+/* The bold look (Carousel Machine, 10 Oct 2026): type first. Much larger headline on short lines, one highlighted
    phrase per slide in the pillar colour, body in Rubik for a clear step down, spoken sentences as bubbles,
    the comment line of the last slide as a button. --look classic keeps the layout above untouched. */
 @font-face{font-family:"Rubik";src:url("{rubik}") format("truetype");font-weight:300 900;font-display:block}

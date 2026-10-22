@@ -9,7 +9,7 @@ CLOUD RUN NOTES (read first, they override the steps below where they differ):
 
 Build tomorrow morning's LumeBook carousel review pack. Work quietly and do not ask questions.
 
-This pipeline is Hook Studio (Yarin, 10 Oct 2026: "focus heavily on click baity hooks, content and slide design"). Spend the effort in that order: 1 the hook, the loudest true cover the topic allows; 2 the content, every slide worth the swipe on its own; 3 the slide design, copy cut to fit very large type. Sources and rotation are guardrails, never a reason to pick a quieter hook. Read "What comes first" in the skill's SKILL.md.
+This pipeline is Carousel Machine (Yarin, 10 Oct 2026: "focus heavily on click baity hooks, content and slide design"). Spend the effort in that order: 1 the hook, the loudest true cover the topic allows; 2 the content, every slide worth the swipe on its own; 3 the slide design, copy cut to fit very large type. Sources and rotation are guardrails, never a reason to pick a quieter hook. Read "What comes first" in the skill's SKILL.md.
 
 Project folder: the root of this repository clone (run every command from the repo root).
 

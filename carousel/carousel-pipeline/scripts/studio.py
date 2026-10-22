@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hook Studio: the whole carousel engine on one page, http://localhost:8777/ (review_server.py serves it).
+"""Carousel Machine: the whole carousel engine on one page, http://localhost:8777/ (review_server.py serves it).
 
 Yarin, 16 and 17 Oct 2026: "i want the entire carousel engine, editor and producer to be viewed in one place i can
 easily access", "design it better using heebo as the main font, better hierarchy and apple design principles",
@@ -88,7 +88,7 @@ def push_grades():
     if not grades.GRADES.exists():
         return {"ok": False, "error": "אין עדיין דירוגים"}
     git("add", "--", rel_path)
-    code, out = git("commit", "--only", "-m", "Hook Studio grades for the next weekly batch", "--", rel_path)
+    code, out = git("commit", "--only", "-m", "Carousel Machine grades for the next weekly batch", "--", rel_path)
     if code and "nothing to commit" not in out and "no changes added" not in out:
         return {"ok": False, "error": out[-600:]}
     code, out = git("push", "origin", "main", timeout=90)
@@ -97,7 +97,7 @@ def push_grades():
     return {"ok": True}
 
 
-BACK_LINK = '<a class="lb-btn secondary sm" href="/" style="position:fixed;bottom:16px;left:16px;z-index:80">Hook Studio</a>'
+BACK_LINK = '<a class="lb-btn secondary sm" href="/" style="position:fixed;bottom:16px;left:16px;z-index:80">Carousel Machine</a>'
 
 # ---------------------------------------------------------------- the one page
 
@@ -273,7 +273,7 @@ const KIND = {kid: 'הילד מספר', expert: 'גישה מקצועית', reco:
 const SCORE = {1: 'לא', 2: 'חלש', 3: 'בסדר', 4: 'טוב', 5: 'מעולה'};
 const ROLE = {hook: 'פתיח', frame: 'מה מתרגלים', recommendation: 'המלצה', lumebook: 'לומבוק', close: 'סיכום'};
 const DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
-const BUSY = ['queued', 'preparing', 'generating', 'composing', 'exporting'];
+const BUSY = ['queued', 'fixing', 'preparing', 'generating', 'composing', 'exporting'];
 let cur = null, filter = 'all', whyTimer = null, poller = null, zoomN = 0, saving = false;
 const orig = new Map();
 const lastSave = {};
@@ -458,14 +458,13 @@ async function grade(fields) {
   catch (e) { state('לא נשמר: ' + e.message, true); }
 }
 function flushWhy() { if (!whyTimer) return; clearTimeout(whyTimer); whyTimer = null; const w = $('#in-why'); if (w) grade({why: w.value}); }
-/* Yarin, 18 Oct 2026: no production while the option has validator errors; the list shows here so they get fixed first. */
+/* Yarin, 22 Oct 2026: errors never block Produce; it fixes them itself (autofix.py). The list only says what it will fix. */
 function blockers(it, box) {
   const errs = it.errors || []; if (!errs.length) return false;
   const w = el('div', 'in-block');
-  w.append(el('p', 'in-block-h', `לפני הפקה צריך לתקן ${errs.length === 1 ? 'דבר אחד' : errs.length + ' דברים'}:`));
+  w.append(el('p', 'in-block-h', `ההפקה תתקן לבד ${errs.length === 1 ? 'דבר אחד' : errs.length + ' דברים'}:`));
   const ul = el('ul', 'st-errs'); errs.forEach(e => ul.append(el('li', null, (e.slide ? `שקופית ${e.slide}: ` : '') + e.message))); w.append(ul);
-  w.append(el('p', 'in-keys', 'מתקנים בשקופיות באמצע ושומרים. הכפתור נפתח לבד כשהכל תקין.'));
-  box.append(w); return true;
+  box.append(w); return false;
 }
 function renderProd() {
   const it = item(cur), r = run(it.key), box = $('#in-prod'); if (!box) return; box.textContent = '';
@@ -481,6 +480,7 @@ function renderProd() {
   if (src) { const a = el('a'); a.href = src; a.target = '_blank'; const img = el('img', 'in-pic'); img.src = src; img.alt = ''; a.append(img); box.append(a); }
   if (r.error) box.append(el(r.declined ? 'p' : 'pre', 'in-err', r.error));
   if (r.warning) box.append(el('p', 'in-warn', r.warning));
+  if (r.fixed && r.fixed.length) { const ul = el('ul', 'in-checks'); r.fixed.forEach(f => ul.append(el('li', null, (f.slide ? `שקופית ${f.slide}: ` : '') + (f.after || '').replace(/\n/g, ' / ')))); box.append(el('p', 'in-keys', 'תוקן לבד לפני ההפקה:'), ul); }
   if (r.status === 'review') {
     const ul = el('ul', 'in-checks'); (S.qa || []).forEach(q => ul.append(el('li', null, q))); box.append(ul);
     const ok = el('button', 'lb-btn', 'מאשר, להרכיב את השקופיות'); ok.type = 'button'; ok.onclick = () => act('approve');
@@ -583,10 +583,10 @@ def app_page(batch_id=None):
     fonts = ('<style>@font-face{font-family:"Rubik Slide";src:url("/assets/fonts/Rubik-VariableFont_wght.ttf") format("truetype");font-weight:300 900}'
              '@font-face{font-family:"Heebo Slide";src:url("/assets/fonts/Heebo-Black.ttf") format("truetype");font-weight:900}</style>')
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<title>Hook Studio</title>{design.head()}{fonts}<style>{APP_CSS}</style></head>\n<body dir="rtl">'
+            f'<title>Carousel Machine</title>{design.head()}{fonts}<style>{APP_CSS}</style></head>\n<body dir="rtl">'
             '<header class="hs-top">'
             f'<button class="lb-btn ghost icon hs-listbtn" type="button" id="hs-listbtn" aria-label="הרשימה">{icon("menu")}</button>'
-            f'<span class="hs-brand"><img src="{design.logo_data_uri()}" alt="">Hook Studio</span>'
+            f'<span class="hs-brand"><img src="{design.logo_data_uri()}" alt="">Carousel Machine</span>'
             f'<select class="hs-week" id="hs-week" aria-label="שבוע">{weeks}</select>'
             '<span class="hs-meter"><span id="hs-meter-n"></span><span class="bar"><i id="hs-meter-bar"></i></span></span>'
             '<span class="hs-sp"></span>'

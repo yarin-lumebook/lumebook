@@ -8,7 +8,7 @@ Yarin, 16 Oct 2026: "i want all carousels to be showed one by one with option to
 i think theyre good so you can learn for next weeks batch", and "let me select them quickly from the tool itself and
 click to send you which one i want you to produce an exported version of".
 
-Hook Studio serves the grading page at /grade/<batch id> (review_server.py, grade_page.py). Every carousel of the batch (6 kid and
+Carousel Machine serves the grading page at /grade/<batch id> (review_server.py, grade_page.py). Every carousel of the batch (6 kid and
 expert options and 2 games and books carousels per pack) gets a 1 to 5 grade, a free "why" and a produce toggle.
 
 - grades.json holds one entry per carousel, keyed "<date>/<id>" (id: kid-1 ... expert-3, reco, reco-2). The entry
@@ -34,7 +34,7 @@ KIND_HE = {"kid": lib.PILLARS["kid"]["name_he"], "expert": lib.PILLARS["expert"]
 WHY_MAX = 4000
 _LOCK = threading.Lock()
 
-GRADES_ABOUT = ("Yarin's grades from the Hook Studio grading page (/grade/<batch id>): one entry per carousel, keyed "
+GRADES_ABOUT = ("Yarin's grades from the Carousel Machine grading page (/grade/<batch id>): one entry per carousel, keyed "
                 "<date>/<id>. score 1 to 5, why in Yarin's words, produce = picked for production. The snapshot is what "
                 "was graded. Taste, not performance: never cite it as evidence that a hook works (that is hook-results.json). "
                 "Written by review_server.py; grades.py brief summarises it for the next batch.")

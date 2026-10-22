@@ -10,7 +10,7 @@ Since 18 Oct 2026 (Yarin: "i dont want the games and books carousels anymore", r
 books carousels: 42 options only. Until then:
 A batch is 7 packs, each a normal drafts/DATE folder with the six kid and expert options (pack.json) and two games and
 books carousels (reco-carousel.json and reco-carousel-2.json): 42 options and 14 carousels. The dates are only keys, in a
-row after the newest night already made, so rotation and history keep working; Hook Studio shows the batch as one pool
+row after the newest night already made, so rotation and history keep working; Carousel Machine shows the batch as one pool
 (/pool/ID). Slot 1 is the Israeli event pack, the other six use six different topics from topic-bank.md, and the 14
 carousels get skills spread so none repeats within four packs. Standard library only.
 """

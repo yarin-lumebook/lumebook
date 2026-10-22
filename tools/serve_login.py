@@ -8,7 +8,7 @@
 
 Yarin, 21 Oct 2026: the creator map saves through this server, and it had stopped, so saves failed.
 
-A launchd agent (~/Library/LaunchAgents/com.yarinbruner.lumebook-serve.plist, the same naming as the Hook Studio and GA4
+A launchd agent (~/Library/LaunchAgents/com.yarinbruner.lumebook-serve.plist, the same naming as the Carousel Machine and GA4
 agents) runs `python3 tools/lumebook.py serve --port 8780` from the project folder, at login and again whenever it exits.
 Do not also start it from a preview config or by hand: only one process can hold port 8780.
 Log: ~/Library/Logs/LumeBookServe.log. Standard library only.
@@ -47,7 +47,7 @@ def launchctl(*args):
 
 
 def ping(timeout=2):
-    """The creator map's own endpoint: /api/ping on this port is forwarded to Hook Studio, so it would not prove this server is up."""
+    """The creator map's own endpoint: /api/ping on this port is forwarded to Carousel Machine, so it would not prove this server is up."""
     try:
         with urllib.request.urlopen(f"http://127.0.0.1:{PORT}/api/creator-map/state", timeout=timeout) as r:
             return r.status == 200

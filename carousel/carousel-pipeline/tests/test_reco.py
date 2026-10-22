@@ -724,7 +724,7 @@ class Render(Base):
 
 
 class BoldLook(Base):
-    """Hook Studio (10 Oct 2026): games and books get the highlight, the bold renderer and the hook wordings."""
+    """Carousel Machine (10 Oct 2026): games and books get the highlight, the bold renderer and the hook wordings."""
 
     def bold_car(self, fmt="games"):
         car = self.car(fmt)

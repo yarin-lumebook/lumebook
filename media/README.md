@@ -12,7 +12,7 @@ Set up 14 Oct 2026. Images, video and audio that LumeBook makes or collects live
 Not here, on purpose:
 
 - `shared/brand/`: the canonical logos, mascot, fonts and backgrounds. Sites and the carousel pipeline copy from it (`lumebook.py sync`), so it stays put. Brand explorations that did not become canonical go in a `projects/` folder.
-- `carousel/carousel-pipeline/drafts/` and `approved/`: Hook Studio writes its nightly packs and paid production runs there (22:00 task, `carousel_lib.py`). Final carousels stay in `approved/DATE-OPTION/final/`.
+- `carousel/carousel-pipeline/drafts/` and `approved/`: Carousel Machine writes its nightly packs and paid production runs there (22:00 task, `carousel_lib.py`). Final carousels stay in `approved/DATE-OPTION/final/`.
 - `research/*/videos`, `slides`, `img`: other brands' content downloaded for the research pages; the page builds read it from there.
 - `sites/*/img`: deploy copies of brand files, kept equal by `sync`.
 
@@ -39,7 +39,7 @@ Status: `active` = still being worked on, `done` = finished and kept locally, `s
 | `2026-10-06-fal-carousel-trial` | fal.ai carousel trial, frozen reference. The pipeline's classic look copies `source/flare_carousel.py`. Was `carousel/fal-carousel-trial/`. | 167 MB | superseded |
 | `2026-10-07-brand-explorations` | Mascot with the LB letters (7 Oct) and a mascot night-sky Facebook cover (9 Oct) that did not become canonical brand files. From Downloads. | 4.5 MB | done |
 | `2026-10-10-genjutsu-hotel-lobby` | Higgsfield Genjutsu inputs: reference clip, mascot, toddler, prompt. From Downloads. | 7.5 MB | done |
-| `2026-10-10-hook-studio-bold-look-trials` | Hook Studio bold-look trial renders (games, books, first-grade covers). Was `carousel/references/hook-studio-bold-look/`. | 9.4 MB | superseded |
+| `2026-10-10-hook-studio-bold-look-trials` | Carousel Machine bold-look trial renders (games, books, first-grade covers). Was `carousel/references/hook-studio-bold-look/`. | 9.4 MB | superseded |
 | `2026-10-11-fan-transition-reel` | Fan-transition outfit reel (kid, kid+mom, family, book last). Was `video/fan-transition/`. | 23 MB | done |
 | `2026-10-11-lume-character-pack` | Lume mascot reference pack, 13 angles in `final/`. Was `output/lume/reference-pack-v1/`. | 197 MB | done |
 | `2026-10-11-toddler-character-pack` | Toddler "Ben" reference pack, 13 angles in `final/`. Was `output/reel-character/reference-pack-v1/`. | 198 MB | done |

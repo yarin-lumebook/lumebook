@@ -46,7 +46,7 @@ FORMATS = MIXED_FORMATS + LEGACY_FORMATS # every format the validator, the rende
 NIGHTLY_FORMATS = (MIXED,)               # what nightly.py start draws and finish-reco expects (from 14 Oct 2026)
 BATCH_FORMATS = MIXED_FORMATS            # a pack of the weekly batch has two (Yarin, 16 Oct 2026: 14 a week for 7 packs)
 # Yarin, 18 Oct 2026: "i dont want the games and books carousels anymore". No new ones are planned or drawn; the ones
-# already made still validate, render, show in Hook Studio and export. Set True to bring them back.
+# already made still validate, render, show in Carousel Machine and export. Set True to bring them back.
 ACTIVE = False
 FILES = {MIXED: "reco-carousel.json", MIXED2: "reco-carousel-2.json", "games": "games-carousel.json", "books": "books-carousel.json"}
 OUT_DIRS = {MIXED: "reco", MIXED2: "reco-2", "games": "games", "books": "books"}  # drafts/DATE/<dir>/: slides.html, 01.png..., contact sheet
@@ -144,7 +144,7 @@ HOOK_TEMPLATE_RE = {
 HOOK_TEMPLATE_RE[MIXED2] = HOOK_TEMPLATE_RE[MIXED]
 HOOK_TEMPLATE_HE = {MIXED: "X משחקים וספרים לגילאי A-B ש...", "games": "X משחקי קופסא ש...", "books": "X ספרי ילדים ש..."}
 HOOK_TEMPLATE_HE[MIXED2] = HOOK_TEMPLATE_HE[MIXED]
-# Hook Studio (Yarin, 10 Oct 2026: click baity hooks, content and slide design for every carousel). The sentence
+# Carousel Machine (Yarin, 10 Oct 2026: click baity hooks, content and slide design for every carousel). The sentence
 # stays Yarin's; the ending and the type get louder. Carousels written from this moment name the phrase that gets the
 # colour block (`highlight`) on the hook and the frame slide and record the wordings they weighed (`hook_alternatives`).
 REQUIRE_HIGHLIGHT_ROLES = ("hook", "frame")

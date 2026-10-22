@@ -1,0 +1,29 @@
+{
+  "order": [
+    "picture"
+  ],
+  "max_replacements_per_job": 2,
+  "jobs": {
+    "picture": {
+      "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Characters, identical on every slide: A 6-year-old Israeli girl with long straight dark-brown hair in a low ponytail, olive skin, big dark eyes and a small gap between her front teeth; about 116 cm tall. Her mother, early thirties, tanned skin, shoulder-length wavy brown hair, kind brown eyes, and her father, mid-thirties, short dark hair and light stubble; both warm and a little tired in a real way. Wardrobe: Girl: coral cotton T-shirt with no print and denim shorts, bare feet. Mother: sage linen shirt and jeans. Father: grey T-shirt and navy shorts.\n\nScene: The girl faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, hands on her hips; her younger brother is a small soft blurred shape in the background and her mother stands small and soft behind him. Setting: A bright Israeli living room with cream walls, a striped floor rug and a few wooden building blocks on the rug.\n\nCover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.\n\nEmotional beat: a stubborn standoff with her little brother\n\nCamera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Soft warm late-afternoon light from a window.\n\nWardrobe and objects in this scene: A small wooden toy truck lying on the rug near her feet, held by no one.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.\n\nComposition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain warm cream wall above the girl) for editable Hebrew typography, and keep every face, hand and important object out of that zone.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [],
+      "estimated_cost_usd": 0.055,
+      "purpose": "the one picture behind all 10 slides · a stubborn standoff with her little brother",
+      "text_zone": {
+        "edge": "top",
+        "percent": 45,
+        "surface": "plain warm cream wall above the girl"
+      }
+    }
+  }
+}

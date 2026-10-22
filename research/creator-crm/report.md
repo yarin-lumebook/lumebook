@@ -569,7 +569,7 @@ Research pages (database, archetypes, method) stay as they are, out of the daily
 | B. Google Sheets as the store, the page as the screen | Right to left per sheet [RTL1], offline editing once switched on [T18], easy export | The page would need a connector to read and write the sheet; voice learning and live updates would have to be rebuilt; two systems to keep in step |
 | C. Notion database | Hebrew interface with mirrored layout [RTL2], phone app, Claude has a Notion connector here | Offline only for the first 50 rows of a database [T20]; right to left inside databases not documented [RTL2]; message drafting, offer lock and voice learning would be lost or rebuilt |
 | D. A paid creator platform | Built for the pipeline | From about $199 a month, no Hebrew, inbox-based automation ruled out [T4][T8] |
-| E. A local app on the Mac, like Hook Studio | Files in the repo, full control | Not on the phone, so not on the bus |
+| E. A local app on the Mac, like Carousel Machine | Files in the repo, full control | Not on the phone, so not on the bus |
 
 **Recommendation (inference): stay with A,** and fix its two real weaknesses:
 

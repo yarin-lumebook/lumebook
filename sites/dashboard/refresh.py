@@ -348,7 +348,7 @@ def files_section():
 
 
 def local_tools_section(network):
-    """Whether each local service (facts.local_tools: Hook Studio, the project server) answered at refresh time.
+    """Whether each local service (facts.local_tools: Carousel Machine, the project server) answered at refresh time.
     The board shows it as a dated fact; nothing here starts a service."""
     out = []
     for t in FACTS.get("local_tools", {}).get("tools", []):

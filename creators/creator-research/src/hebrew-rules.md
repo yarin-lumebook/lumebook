@@ -8,6 +8,12 @@ The messages are everyday Israeli Hebrew: warm and short, but grammatically corr
 - Do not guess a person's gender from a first name. Use it only if the bio says it (mom of, dad of).
 - Mixed or unknown group: masculine plural (הילדים, שלהם).
 
+## The kids' names (Yarin, 22 Oct 2026)
+- Name the kids once in a message, at the first mention: ספר אישי במתנה לרנה, ים ואריאל.
+- Every later mention without the names: הילדים, הילדה, הם, שלהם: סרטון אחד של הילדים עם הספר שלהם. Not: סרטון של רנה, ים ואריאל.
+- One child whose gender the bio does not say: leave the later mention out instead of guessing (סרטון אחד עם הספר).
+- Names are written in Hebrew letters. A bio that writes them only in English gets a Hebrew transliteration (Ellie: אלי, Afik: אפיק); `kids.json` keeps the English in `names_en`.
+
 ## Agreement
 - Verb, adjective and pronoun agree with the noun in gender and number: הילדה היא הגיבורה, הילדים הם הגיבורים.
 - Numbers 3 to 10 take the opposite gender: שלושה ילדים, שלוש ילדות. 2: שני ילדים, שתי ילדות. 1: ילד אחד, ילדה אחת. With digits, only the noun must match: 3 ילדים, 2 בנות.
@@ -51,4 +57,4 @@ The messages are everyday Israeli Hebrew: warm and short, but grammatically corr
 - Short sentences, no translated phrasing, no therapist tone.
 
 ## Checked automatically in the map
-Space before punctuation, missing space after it, double spaces, long dashes, the brand in Hebrew letters, a missing prefix hyphen before Latin text, ל/ב/כ before a known noun with a stray ה, a space before %, unclosed brackets. A Hebrew check line appears under the message box with a Fix button. Hand-typed text is only fixed when you press it.
+Space before punctuation, missing space after it, double spaces, long dashes, the brand in Hebrew letters, a missing prefix hyphen before Latin text, ל/ב/כ before a known noun with a stray ה, a space before %, unclosed brackets, the kids' names written more than once. A Hebrew check line appears under the message box with a Fix button. Hand-typed text is only fixed when you press it.

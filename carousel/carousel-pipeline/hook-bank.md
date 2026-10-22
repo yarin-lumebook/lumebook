@@ -1,6 +1,6 @@
 # Hook bank
 
-**Hook Studio order of work (Yarin, 10 Oct 2026): the hook comes first, then the content, then the slide design.** A carousel nobody stops on helps nobody, so the cover is written to be the loudest true thing the topic allows, and every rule below serves that. Three things stay fixed however loud it gets: the carousel answers what the cover opens, nothing untrue is said about children, and the parent is never shamed or scared.
+**Carousel Machine order of work (Yarin, 10 Oct 2026): the hook comes first, then the content, then the slide design.** A carousel nobody stops on helps nobody, so the cover is written to be the loudest true thing the topic allows, and every rule below serves that. Three things stay fixed however loud it gets: the carousel answers what the cover opens, nothing untrue is said about children, and the parent is never shamed or scared.
 
 Every carousel option (7 slides, about one named Israeli girl or boy, talking to mom or both parents, never dad) picks one formula from this bank for slide 1, fills the slots for tonight's topic, and scores itself with the hook formula below. Since 8 Oct 2026 the nightly writer first builds a private **hook slate** of 12 candidates (6 kid, 6 expert), scores them, and only then writes the six options from passing candidates (section "Nightly hook slate").
 
@@ -79,14 +79,14 @@ No formula in this bank is `platform_supported` as a formula: we found no first-
 | `positive-edition` | milestone | both | ״[אזהרה שכולם אומרים להורים]״ / הגרסה הטובה | ״חכי חכי שתגיע לגיל שלוש״ / הגרסה הטובה | research S17 |
 | `parent-confession` | normalising | expert | ״[מחשבה שהורים מתביישים בה]״ / [משפט שמוריד בושה בלי עובדה] | ״אני מתגעגעת לגדול שלי״ / והוא יושב לידי על הספה | research S12, S13, S18 |
 | `analogy-scene` | analogy | expert | דמייני ש[מצב מקביל מעולם המבוגרים] / [הפרט שעושה את זה קשה] | דמייני שמישהו לוקח לך את הטלפון / בלי להגיד מתי תקבלי אותו | research S8 |
-| `two-faces` | reframe | both | [מקום א׳] [הילד במיטבו] / [מקום ב׳] [ההפך] | בכיתה מלאך / בבית הר געש | Hook Studio, 10 Oct 2026; untested |
-| `words-that-backfire` | sentences_we_say | both | [מספר] מילים / ש[מה הן עושות לרגע] | 3 מילים / שמפוצצות את הצהריים | Hook Studio, 10 Oct 2026; untested |
-| `stop-one-thing` | reframe | expert | תפסיקי [פעולה אחת] / [יש משהו שעובד יותר טוב] | תפסיקי לשאול ״איך היה?״ / יש שאלה שעובדת יותר טוב | Hook Studio, 10 Oct 2026; untested |
-| `child-dont` | child_pov | kid | אמא אל [פעולה] / [מתי] | אמא אל תשאלי אותי / איך היה היום | Hook Studio, 10 Oct 2026; untested |
-| `child-secret` | child_pov | kid | יש לי סוד / על [רגע יומיומי] | יש לי סוד / על הדרך הביתה מבית הספר | Hook Studio, 10 Oct 2026; untested |
-| `nobody-tells` | surprising_statement | expert | מה שלא מספרים לך / על [שלב או רגע] | מה שלא מספרים לך / על החודש הראשון בכיתה א׳ | Hook Studio, 10 Oct 2026; untested |
-| `real-reason` | reframe | expert | הסיבה האמיתית / ש[התנהגות] | הסיבה האמיתית / שהוא מתפרק דווקא עלייך | Hook Studio, 10 Oct 2026; untested |
-| `one-sentence-changes` | story | both | [שם] [התנהגות] כל [זמן] / ומשפט אחד משנה את [הרגע] | נועם בוכה כל בוקר בשער / ומשפט אחד משנה את הבוקר | Hook Studio, 10 Oct 2026; untested |
+| `two-faces` | reframe | both | [מקום א׳] [הילד במיטבו] / [מקום ב׳] [ההפך] | בכיתה מלאך / בבית הר געש | Carousel Machine, 10 Oct 2026; untested |
+| `words-that-backfire` | sentences_we_say | both | [מספר] מילים / ש[מה הן עושות לרגע] | 3 מילים / שמפוצצות את הצהריים | Carousel Machine, 10 Oct 2026; untested |
+| `stop-one-thing` | reframe | expert | תפסיקי [פעולה אחת] / [יש משהו שעובד יותר טוב] | תפסיקי לשאול ״איך היה?״ / יש שאלה שעובדת יותר טוב | Carousel Machine, 10 Oct 2026; untested |
+| `child-dont` | child_pov | kid | אמא אל [פעולה] / [מתי] | אמא אל תשאלי אותי / איך היה היום | Carousel Machine, 10 Oct 2026; untested |
+| `child-secret` | child_pov | kid | יש לי סוד / על [רגע יומיומי] | יש לי סוד / על הדרך הביתה מבית הספר | Carousel Machine, 10 Oct 2026; untested |
+| `nobody-tells` | surprising_statement | expert | מה שלא מספרים לך / על [שלב או רגע] | מה שלא מספרים לך / על החודש הראשון בכיתה א׳ | Carousel Machine, 10 Oct 2026; untested |
+| `real-reason` | reframe | expert | הסיבה האמיתית / ש[התנהגות] | הסיבה האמיתית / שהוא מתפרק דווקא עלייך | Carousel Machine, 10 Oct 2026; untested |
+| `one-sentence-changes` | story | both | [שם] [התנהגות] כל [זמן] / ומשפט אחד משנה את [הרגע] | נועם בוכה כל בוקר בשער / ומשפט אחד משנה את הבוקר | Carousel Machine, 10 Oct 2026; untested |
 
 ## Evidence and rotation
 
@@ -380,7 +380,7 @@ Each card: Hebrew name, template, three examples (illustrative, written for this
 
 - Intent: unaware parents; perspective-taking. Dr Becky's pilot analogy (S8) is the strongest single post in the sample (12.5x her median) but it is one post from a very large expert account, so this stays a hypothesis. Risk: the analogy must not make the child's feeling look silly or dramatic. Stale when: two analogies in 14 days.
 
-### Loud formulas (Hook Studio, 10 Oct 2026)
+### Loud formulas (Carousel Machine, 10 Oct 2026)
 
 Eight formulas built for stopping power. None is tested and none rests on outside evidence: each is a `lumebook_hypothesis` with a short review date (2027-01-10), to keep or drop once `hook-results.json` has numbers. Reach for these first when the topic allows; each card says what keeps it true.
 

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Keep Hook Studio running on this Mac: start it at login on http://localhost:8777/ and restart it if it stops.
+"""Keep Carousel Machine running on this Mac: start it at login on http://localhost:8777/ and restart it if it stops.
 
     python3 carousel/carousel-pipeline/scripts/hook_studio_login.py install     # write the login item and start it now
-    python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart     # after editing a Hook Studio script
+    python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart     # after editing a Carousel Machine script
     python3 carousel/carousel-pipeline/scripts/hook_studio_login.py status
     python3 carousel/carousel-pipeline/scripts/hook_studio_login.py uninstall   # stop it and remove the login item
 
-Yarin, 16 Oct 2026: "set Hook Studio to start at login on port 8777 so I can bookmark it".
+Yarin, 16 Oct 2026: "set Carousel Machine to start at login on port 8777 so I can bookmark it".
 
 A launchd agent (~/Library/LaunchAgents/com.yarinbruner.hook-studio.plist, the same naming as the GA4 agents) runs
 review_server.py --port 8777 from the project folder, at login and again whenever it exits. The server imports its
@@ -88,10 +88,10 @@ def wait_up(seconds=45):
     end = time.time() + seconds
     while time.time() < end:
         if ping():
-            print(f"Hook Studio is up: http://localhost:{PORT}/")
+            print(f"Carousel Machine is up: http://localhost:{PORT}/")
             return True
         time.sleep(1)
-    print(f"Hook Studio did not answer on port {PORT} yet; see {LOG}")
+    print(f"Carousel Machine did not answer on port {PORT} yet; see {LOG}")
     return False
 
 
@@ -107,7 +107,7 @@ def uninstall():
     launchctl("bootout", f"{DOMAIN}/{LABEL}")
     if PLIST.exists():
         PLIST.unlink()
-    print("Hook Studio no longer starts at login")
+    print("Carousel Machine no longer starts at login")
 
 
 def status():

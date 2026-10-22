@@ -1487,7 +1487,7 @@ if __name__ == "__main__":
 
 
 class SyncNumberedExamples(unittest.TestCase):
-    """Yarin, 18 Oct 2026: edits in Hook Studio reworded and removed examples, the hidden lists stayed old and the
+    """Yarin, 18 Oct 2026: edits in Carousel Machine reworded and removed examples, the hidden lists stayed old and the
     production stopped. carousel_lib.sync_numbered_examples makes the lists and the count follow the slides."""
 
     def option(self):

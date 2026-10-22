@@ -1,4 +1,4 @@
-"""Hook Studio (16 and 17 Oct 2026): grades, the summary the next batch reads, the producer's free export and recovery, the one page."""
+"""Carousel Machine (16 and 17 Oct 2026): grades, the summary the next batch reads, the producer's free export and recovery, the one page."""
 
 import json
 import shutil
@@ -115,17 +115,31 @@ class Producer(Sandbox):
         v["slides"][1]["headline"] = " ".join(["מילה"] * 40)
         lib.write_json(path, pack)
 
-    def test_an_option_with_errors_is_not_produced(self):
-        """Yarin, 18 Oct 2026: refuse to start a production while the option has validator errors."""
+    def test_an_option_with_errors_is_fixed_before_it_is_produced(self):
+        """Yarin, 22 Oct 2026: Produce never refuses; it runs autofix.py first (it used to raise Blocked, 18 Oct)."""
         other_before = producer.blocking_errors(self.item(f"{DATE}/kid-2"))
         self.break_kid_1()
+        key = f"{DATE}/kid-1"
         with mock.patch.object(producer, "_pool") as pool:
-            with self.assertRaises(producer.Blocked) as ctx:
-                producer.start(self.item(f"{DATE}/kid-1"))
-            pool.submit.assert_not_called()
-        self.assertIsNone(producer.get(f"{DATE}/kid-1"))
-        self.assertTrue(any(e["slide"] == 2 for e in ctx.exception.errors))
-        self.assertEqual(producer.blocking_errors(self.item(f"{DATE}/kid-2")), other_before)  # kid-1's errors never block kid-2
+            producer.start(self.item(key))
+            pool.submit.assert_called_once()
+        self.assertEqual(producer.get(key)["status"], "queued")
+        import autofix
+        seen = []
+        with mock.patch.object(autofix, "run", side_effect=lambda it: seen.append(producer.get(key)["status"]) or []), \
+                mock.patch.object(producer, "_prepare", side_effect=RuntimeError("stop here")):
+            producer._work(key, self.item(key), "start")
+        self.assertEqual(seen, ["fixing"])
+        self.assertEqual(producer.get(key)["error"], "stop here")
+        self.assertEqual(producer.blocking_errors(self.item(f"{DATE}/kid-2")), other_before)  # kid-1's errors never touch kid-2
+
+    def test_autofix_splits_a_long_line_without_a_model(self):
+        import autofix
+        self.assertEqual(autofix.split_line("נותנים לו להירגע ומשתדלים לא לזרז אותו", 34), ("נותנים לו להירגע", "ומשתדלים לא לזרז אותו"))
+        self.assertIsNone(autofix.split_line("מילהארוכהמאודבליבכלל רווחים", 10))
+        v = {"id": "kid-1", "slides": [{"body": "x"}, {"body": "נותנים לו להירגע ומשתדלים לא לזרז אותו"}, {"body": "cta"}]}
+        err = {"path": "kid/kid-1/slide-2/body", "message": "line 1 has 38 characters and will not fit the slide at a readable size (max 34); break it into two lines"}
+        self.assertEqual(autofix.mechanical(v, [err]), [{"option": "kid-1", "field": "body", "slide": 2, "value": "נותנים לו להירגע\nומשתדלים לא לזרז אותו"}])
 
     def test_the_page_state_carries_each_options_errors(self):
         self.break_kid_1()
@@ -186,7 +200,7 @@ class Pages(Sandbox):
     def test_one_page_hebrew_rtl_without_em_dashes(self):
         html = studio.app_page(DATE)
         self.assertIn('dir="rtl"', html)
-        self.assertIn("Hook Studio", html)
+        self.assertIn("Carousel Machine", html)
         self.assertNotIn("—", html)
         for part in ('id="hs-groups"', 'id="hs-stage"', 'id="hs-insp"', 'id="hs-send"'):
             self.assertIn(part, html)

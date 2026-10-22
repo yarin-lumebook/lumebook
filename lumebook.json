@@ -498,7 +498,7 @@
       "notes": "Source of the slide layout the pipeline copies (source/flare_carousel.py). Not rebuilt. Moved into media/projects on 14 Oct 2026 (it was under carousel/)."
     },
     "carousel-pipeline": {
-      "name": "Hook Studio (nightly carousel pipeline)",
+      "name": "Carousel Machine (nightly carousel pipeline)",
       "path": "carousel/carousel-pipeline",
       "kind": "pipeline",
       "watch": [
@@ -508,7 +508,7 @@
         "carousel/carousel-pipeline/names.md",
         "carousel/carousel-pipeline/scripts/*.py"
       ],
-      "schedule": "cloud routine Hook Studio weekly batch: Thursday 19:00 UTC (22:00 Israel summer time, 21:00 winter), 7 packs + 14 games and books carousels to batch/ID; review_server.py pulls them (since 16 Oct 2026; the nightly runs before that)",
+      "schedule": "cloud routine 'Hook Studio weekly batch (cloud)' (its name from before the rename): Thursday 19:00 UTC (22:00 Israel summer time, 21:00 winter), 7 packs + 14 games and books carousels to batch/ID; review_server.py pulls them (since 16 Oct 2026; the nightly runs before that)",
       "feeds": [
         "dashboard"
       ],
@@ -625,7 +625,7 @@
       "notes": "Shooting day for social media, for a free book (shared/facts.json parent_shoot_offer), re-ranked 2026-10-14 by distance from Ashkelon. build_page.py also writes research/parent-community-outreach.md. 21 WhatsApp invites unverified (WhatsApp 429)."
     },
     "hook-studio-page": {
-      "name": "Hook Studio page (the carousel machine's front page)",
+      "name": "Carousel Machine page (its front page)",
       "path": "carousel/carousel-pipeline",
       "kind": "page",
       "watch": [

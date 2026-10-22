@@ -1,0 +1,2366 @@
+{
+  "schema_version": 3,
+  "date": "2026-10-22",
+  "generated_at": "2026-10-16T09:06:50+00:00",
+  "topic": {
+    "id": "big-feelings",
+    "title_he": "מכה נושך או צועק",
+    "reason": "הנושא נקבע לחבילה הזאת בתוכנית השבועית (סלוט 5 מתוך 7, כל חבילה בנושא אחר) והוא עוד לא הופיע בהיסטוריה. הוא רלוונטי לכל שבוע בשנה ולא נשען על תאריך בלוח השנה. הקרוסלות מדברות על גיל 2 עד 5 ומתחילות מכך שמכות ונשיכות בגיל הזה צפויות ושהמילים עוד לא שם (Cleveland Clinic ו-KidsHealth). הקול נשאר רגוע וללא האשמה: אף שקופית לא מאשימה את ההורים ואף שקופית לא מבטיחה שזה ייעלם."
+  },
+  "voice": {
+    "status": "fallback",
+    "approved_samples": 12,
+    "note": "נכתב בקול ברירת המחדל המתועד ב-.claude/skills/lumebook-hebrew-voice ובעקבות העריכות של ירין בעמוד הסקירה. עדיין לא מכויל לירין: 12 מתוך 15 דוגמאות."
+  },
+  "product_facts": [
+    {
+      "id": "site-star",
+      "fact": "The child's name is in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-preview",
+      "fact": "Creating the book and the preview are free; parents pay only if they love it",
+      "quote": "יצירת הספר והתצוגה המקדימה בחינם — משלמים רק אם אהבתם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-feelings",
+      "fact": "The catalogue covers common developmental topics including managing strong emotions",
+      "quote": "ניהול רגשות חזקים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    }
+  ],
+  "hook_slate": {
+    "kid": [
+      {
+        "id": "k1",
+        "formula": "child-dont",
+        "family": "child_pov",
+        "hook": "אמא אל תצעקי עליי\nכשאני מרביצה\n8 דברים שיעזרו לי להפסיק",
+        "slide2": "כשאת צועקת\nגם אני רוצה לצעוק\nאין לי עוד מספיק מילים",
+        "slide2_move": "other_side",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "Why should mom not shout when she hits, and what helps her stop instead?",
+        "payoff_slide": 3,
+        "answer": "Slide 2: shouting back adds more emotion; slides 3 to 8 give the eight things that help.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1",
+        "note": "Loud command from the child; the carousel never blames mom, it names yelling as something that happens when we are tired."
+      },
+      {
+        "id": "k2",
+        "formula": "child-not-because",
+        "family": "child_pov",
+        "hook": "אני לא נושך\nכי אני רע\n7 דברים שיעזרו לי לא לנשוך",
+        "slide2": "אני נושך כי\nאין לי מילים עדיין\nהפה והידיים מהירים מהמילים",
+        "slide2_move": "first_answer",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "If he does not bite because he is bad, why does he bite?",
+        "payoff_slide": 2,
+        "answer": "Slide 2 answers at once (no words yet); slides 3 to 8 give seven things that help.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2"
+      },
+      {
+        "id": "k3",
+        "formula": "moment-time",
+        "family": "moment",
+        "hook": "17:40\nאני מרביץ לאחותי\nכשאני רעב ועייף\n9 דברים שיעזרו לי",
+        "slide2": "בערב נגמר לי הכוח\nואין לי מילים\nהידיים מגיבות לפני המילים",
+        "slide2_move": "zoom_in",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What happens at 17:40 and what helps before it starts?",
+        "payoff_slide": 3,
+        "answer": "Slide 2 names tired and hungry as a trigger; slides 3 to 8 give nine things, several before the moment.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3"
+      },
+      {
+        "id": "k4",
+        "formula": "one-sentence-changes",
+        "family": "story",
+        "hook": "דניאל מרביץ כל ערב\nומשפט אחד משנה את הרגע",
+        "slide2": "בשש בערב הוא עייף\nואין לו מילים\nיש לו רק ידיים",
+        "slide2_move": "scene_restart",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "problem_aware",
+        "gap": "Which one sentence changes the evening?",
+        "payoff_slide": 5,
+        "answer": "Slide 5 would give a calm sentence; but no source says one sentence changes it, so the promise is too big.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passes by score, not used: the story family repeats the opening of recent story hooks and the source does not support a single sentence changing the evening."
+      },
+      {
+        "id": "k5",
+        "formula": "sentence-we-all-say",
+        "family": "sentences_we_say",
+        "hook": "״די תפסיק!״\nכולנו אומרות את זה כשהוא מרביץ",
+        "slide2": "מי שצועק בחזרה\nלומד את זה מאיתנו\nקודם כל מהקול שלנו",
+        "slide2_move": "other_side",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "If everyone says it, why does it not work?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 gives what works better.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passes (16) but the cover has no number or promise of value, usefulness 1, so not used."
+      },
+      {
+        "id": "k6",
+        "formula": "parent-identity",
+        "family": "parent_identity",
+        "hook": "לאמא של ילד\nשנושך בגן",
+        "slide2": "הגננת התקשרה שוב\nואת מחפשת מה עושים\nולא למי להאשים",
+        "slide2_move": "name_trigger",
+        "mechanism": "identity_filter",
+        "awareness_stage": "problem_aware",
+        "gap": "What does a mom of a child who bites get?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 gives steps.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: low stopping power and no value on the cover."
+      }
+    ],
+    "expert": [
+      {
+        "id": "e1",
+        "formula": "stop-one-thing",
+        "family": "reframe",
+        "hook": "תפסיקו לצעוק עליה\nשהיא תפסיק לצעוק\n8 דברים שעובדים יותר",
+        "slide2": "הצעקה שלנו\nמלמדת אותה לצעוק\nכך אומרים בנמורס",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "Why does shouting at her to stop shouting not work, and what works better?",
+        "payoff_slide": 3,
+        "answer": "Slide 2 (KidsHealth, Cleveland Clinic): a parent's shouting teaches shouting; slides 3 to 8 give eight things that work better.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-1",
+        "note": "Loud command about one action. The carousel opens with everybody does it when tired and never shames."
+      },
+      {
+        "id": "e2",
+        "formula": "practical-question",
+        "family": "practical_question",
+        "hook": "איך עוצרים ילד\nבן 3 שמרביץ\nבלי לצעוק?\n7 צעדים שעובדים",
+        "slide2": "בגיל 3 הידיים\nמהירות מהמילים\nילדים קטנים מגיבים בגוף",
+        "slide2_move": "promise",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "solution_aware",
+        "gap": "How do you stop a 3 year old who hits without shouting?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give seven steps in order.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-2"
+      },
+      {
+        "id": "e3",
+        "formula": "surprising-reframe",
+        "family": "surprising_statement",
+        "hook": "הנשיכה לא אומרת\nשהיא ילדה אלימה\n9 דברים לעשות ברגע הזה",
+        "slide2": "בגיל 3 הגוף מדבר\nלפני המילים\nזה צפוי כשאין עוד מילים",
+        "slide2_move": "name_trigger",
+        "mechanism": "reassurance",
+        "awareness_stage": "problem_aware",
+        "gap": "If biting does not mean she is violent, what does it mean and what do I do?",
+        "payoff_slide": 2,
+        "answer": "Slide 2 (Cleveland Clinic): aggression is expected at toddler age; slides 3 to 8 give nine things to do, slide 8 says when to see the pediatrician.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-3"
+      },
+      {
+        "id": "e4",
+        "formula": "reversal",
+        "family": "reframe",
+        "hook": "להגיד ״אל תרביץ״ שוב ושוב\nבדרך כלל רק מגביר את זה",
+        "slide2": "ככל שחוזרים על זה\nהוא מתרגל את זה יותר\nומתרגל לא לשמוע",
+        "slide2_move": "contrast",
+        "mechanism": "reframe",
+        "awareness_stage": "solution_aware",
+        "gap": "Why would repeating a warning make it worse?",
+        "payoff_slide": 3,
+        "answer": "No source says repeating a warning raises hitting.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": true,
+          "unfulfilled_promise": true,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Fails: no source supports the claim that repeating a warning makes it worse, so the cover would promise something we cannot back."
+      },
+      {
+        "id": "e5",
+        "formula": "parent-worry-quote",
+        "family": "objection",
+        "hook": "״למה הוא מרביץ רק לי?״",
+        "slide2": "בגיל הזה הרבה ילדים מרביצים\nכי עוד אין להם מילים\nולא כי משהו בך לא בסדר",
+        "slide2_move": "first_answer",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does he hit only me?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 says it is expected at this age; no source says why it is only mom.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 1,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passes (16) but the cover promises no value and the source does not explain why only mom, so not used."
+      },
+      {
+        "id": "e6",
+        "formula": "nobody-tells",
+        "family": "surprising_statement",
+        "hook": "מה שלא מספרים לך\nעל ילד בן 3 שנושך",
+        "slide2": "צפוי בגיל הזה\nועוד לא אומר שמשהו לא בסדר\nבמה כן שווה לשים לב",
+        "slide2_move": "first_answer",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "What are we not told about a 3 year old who bites?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 gives what is expected and slide 8 when to ask the pediatrician.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passes (17) but the cover has no number or promise of value (usefulness 1), so not used; the surprising_statement family is already used by e3."
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "אמא אל תצעקי עליי כשאני מרביצה",
+          "angle": "תמר בת 4 מבקשת מאמא שמונה דברים שעוזרים לה להפסיק להרביץ: לעצור לה את היד ברוגע, לתת שם לכעס, כרית, פינה שקטה, זמן, מחמאה, לשים לב לעייפות וחיבוק.",
+          "target_parent": "אמא לילדה בת 3 עד 5 שמרביצה כשהיא כועסת, ולפעמים מרגישה שהיא בעצמה מגיבה בצעקה.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-dont",
+            "gap": "Why should mom not shout when she hits, and what helps her stop instead?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "k1",
+            "mechanism": "perspective_shift",
+            "slide2_move": "other_side"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "תמר",
+          "examples_target": 8,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with wavy light-brown hair in two low pigtails, olive skin, big hazel eyes and a small dimple in her cheek; about 104 cm tall.",
+            "parent": "Her mother, early thirties, tanned skin, dark curly hair in a loose bun, kind brown eyes; warm and a little tired in a real way.",
+            "wardrobe": "Girl: mustard-yellow cotton dress over a cream long-sleeve tee, white sneakers. Mother: sage-green linen shirt and jeans."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא אל תצעקי עליי\nכשאני מרביצה",
+              "body": "8 דברים שיעזרו לי להפסיק",
+              "highlight": "אל תצעקי עליי",
+              "pull": {
+                "type": "numbered",
+                "note": "שמונה הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "כשאת צועקת\nגם אני רוצה לצעוק",
+              "body": "אין לי עוד מספיק מילים\nאז הידיים מדברות במקומי",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה כן עוזר לי? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 לעצור לי את היד\n2 להגיד מה אני מרגישה",
+              "body": "״אני לא נותנת להרביץ״\n״את כועסת כי לקחו לך״",
+              "examples": [
+                "לעצור לי את היד",
+                "להגיד מה אני מרגישה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עוד? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 לתת לי כרית להכות\n4 לתת לי פינת רוגע",
+              "body": "״בי אי אפשר אבל בכרית כן״\nפינה עם כרית ובובה",
+              "examples": [
+                "לתת לי כרית להכות",
+                "לתת לי פינת רוגע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אחרי שהכעס יוצא? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 לחכות עד שאירגע",
+              "body": "״נדבר כשתהיי מוכנה״\nבלי לדחוף אותי לספר מיד",
+              "examples": [
+                "לחכות עד שאירגע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 להגיד ״הצלחת להירגע״",
+              "body": "״תמר אהבתי איך נרגעת״\nזה נותן לי כוח לנסות שוב",
+              "examples": [
+                "להגיד ״הצלחת להירגע״"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 לשים לב שאני עייפה",
+              "body": "לפעמים אני מרביצה\nכשאני עייפה או רעבה",
+              "examples": [
+                "לשים לב שאני עייפה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 לחבק אותי אחרי",
+              "body": "כשאני רגועה אני צריכה לדעת\nשאת עדיין אוהבת אותי",
+              "examples": [
+                "לחבק אותי אחרי"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ובשקופית 9 הכול ביחד"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "מילים ורוגע\nבמקום ידיים",
+              "body": "לעצור · לתת שם · לחכות\nלהחמיא · לחבק",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "8 דברים שעוזרים לתמר להפסיק להרביץ\nלעצור לה את היד ברוגע ולתת שם לכעס\nכרית להכות ופינה שקטה\nלחכות עד שהיא נרגעת ואז להחמיא\nולפעמים לשים לב שהיא פשוט עייפה\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-kh-temper",
+              "title": "Taming Tempers",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Margaux J. Barnes, PhD)",
+              "url": "https://kidshealth.org/en/parents/temper.html",
+              "accessed": "2026-10-16",
+              "quote": "Reacting to kids' meltdowns with yelling and outbursts of your own will only teach them to do the same ... Speak calmly, clearly, and firmly ... Once your child calms down, ask what got them so upset. ... But don't push too hard for your child to talk right then. They may need some time to reflect before being ready to talk. ... In this family, we don't hit, push, or shove. ... Make sure kids get enough sleep. ... Doing a bunch of jumping jacks, dancing around the bedroom, or going outside and doing cartwheels are all good choices. ... Point out specifically what you liked about the way they handled it ... if your child has trouble with changes, give warnings ahead of time ... reading a favorite book",
+              "supports": "Yelling at an outburst teaches yelling; speak calmly and firmly; wait until the child is calm before asking; do not push the child to talk right away; short house rules such as no hitting; enough sleep; letting the anger out safely; praising specifically; warnings before changes; a favorite book is one way to shift mood. The page is about tempers in general and applied here to hitting, biting and shouting."
+            },
+            {
+              "id": "src-cleveland",
+              "title": "Have an Aggressive Toddler? Here's How To Manage Their Behavior",
+              "publisher": "Cleveland Clinic Health Essentials (25 June 2024, interview with pediatric psychologist Emily Mudd, PhD)",
+              "url": "https://health.clevelandclinic.org/toddler-hitting-and-aggressive-behavior",
+              "accessed": "2026-10-16",
+              "quote": "We generally expect toddlers to experience some aggressive behaviors ... At this stage, kids tend to resort to physical expressions of their frustration, simply because they don’t yet have the language skills to express themselves. ... When a child is expressing a lot of emotion, and the parents meet that with more emotion, it can increase the child’s aggression ... Never respond with physical force such as spanking, hitting or restraining. ... I have to keep you safe. You can’t hit me, but you can hit the pillow. ... Set boundaries and then put the child in charge of the next choice ... help your child identify the emotion ... Reward good behavior, even when your child isn’t doing anything out of the ordinary. Make the praise specific. ... it’s OK to accommodate. ... Do tantrums happen every morning before school? Work on structuring your morning routine. ... Whatever the cause, if the behavior impacts your child’s day-to-day functioning, it’s time to seek professional treatment",
+              "supports": "Aggression is expected at toddler age because language is not there yet; meeting big emotion with more emotion raises aggression; no physical force; redirect with keeping safe and a pillow; boundary then a choice; name the emotion; specific praise; say yes when it is not a safety issue; triggers and routines; see a pediatrician when daily functioning suffers. Written for toddlers, applied to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-tantrum",
+              "title": "Temper Tantrums",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Elizabeth M. Schilling, PhD, ABPP)",
+              "url": "https://kidshealth.org/en/parents/tantrums.html",
+              "accessed": "2026-10-16",
+              "quote": "Tantrums are a normal part of child development. ... Because toddlers can't always say what they want or need, and because words describing feelings are more complicated and develop later, a frustrating experience may cause a tantrum. ... Tantrums may happen when kids are tired, hungry, or uncomfortable. ... Kids who are in danger of hurting themselves or others during a tantrum should be taken to a quiet, safe place to calm down. ... Consider making a “chill out” or “calm down” spot in your home ... Now (when your child is calm) is the time for a hug and reassurance that your child is loved, no matter what. ... Offer minor choices such as",
+              "supports": "Tantrums (which include hitting) are a normal part of development; toddlers lack words for feelings; tiredness and hunger can set them off; a child who may hurt someone is taken to a quiet safe place; a calm down spot as a choice; a hug and reassurance once calm; small choices. Written for ages 1 to 3, applied here to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-selfcontrol",
+              "title": "Teaching Your Child Self-Control",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2018, Lauren M. O'Donnell, PsyD)",
+              "url": "https://kidshealth.org/en/parents/self-control.html",
+              "accessed": "2026-10-16",
+              "quote": "Infants and toddlers get frustrated by the large gap between the things they want to do and what they're able to do. ... end time-outs when your child calms down ... praise your child for not losing control in frustrating or difficult situations ... model good self-control yourself",
+              "supports": "Young children get frustrated by the gap between what they want and what they can do; for ages 3 to 5 end a break when the child calms down; praise staying in control; model self-control."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "כשאת צועקת גם אני רוצה לצעוק",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper",
+                "src-cleveland"
+              ],
+              "supports": "KidsHealth: reacting to meltdowns with yelling teaches children to do the same; Cleveland Clinic: more emotion from the parent increases the child's aggression."
+            },
+            {
+              "slide": 2,
+              "wording_he": "אין לי עוד מספיק מילים אז הידיים מדברות במקומי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לעצור את היד ולתת שם לרגש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "Cleveland Clinic: redirect with «I have to keep you safe»; KidsHealth: a child who may hurt others is taken to a quiet safe place. Cleveland Clinic: help the child identify the emotion («You're feeling so sad and mad because you really wanted that cereal»); KidsHealth: offer words like «so that made you angry»."
+            },
+            {
+              "slide": 4,
+              "wording_he": "כרית להכות ופינת רוגע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum",
+                "src-kh-selfcontrol"
+              ],
+              "supports": "Cleveland Clinic: «You can't hit me, but you can hit the pillow». KidsHealth: a «calm down» spot as a choice and not a punishment; for ages 3 to 5 end the break when the child calms down."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לחכות עד שהילדה נרגעת לפני שמדברים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth: once the child calms down ask what upset them, but do not push them to talk right then."
+            },
+            {
+              "slide": 6,
+              "wording_he": "להחמיא כשנרגעת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-selfcontrol",
+                "src-cleveland",
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth and Cleveland Clinic: praise staying calm, specifically, without treats or prizes."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לפעמים היא מרביצה כשהיא עייפה או רעבה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth: tantrums may happen when kids are tired, hungry or uncomfortable; enough sleep helps."
+            },
+            {
+              "slide": 8,
+              "wording_he": "חיבוק אחרי שהיא רגועה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-tantrum"
+              ],
+              "supports": "KidsHealth: when the child is calm it is time for a hug and reassurance that the child is loved no matter what."
+            },
+            {
+              "slide": 9,
+              "wording_he": "מילים ורוגע במקום ידיים",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "Our recap wording; the sources say language develops over time, so no promise of a result. Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later. KidsHealth: speak calmly, clearly and firmly; Cleveland Clinic: more emotion from the parent can raise the child's aggression."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth lists reading a favorite book as one way to shift from an angry mood to a calmer one. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילדה שלכם היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "הכריכה אומרת מה מקבלים (8 דברים) ומתחילה בבקשה הפוכה לציפייה: אל תצעקי. התמונה של תמר מסתכלת ישר לעדשה עם לחיים נפוחות. האמא לא מואשמת, והשקופית השנייה מציגה את הצעקה כמשהו שקורה כשאין מילים.",
+          "image": {
+            "beat": "puffed-cheek pout that says be gentle with me",
+            "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, her arms wrapped around a big soft cushion; her mother is small and soft in the background.",
+            "setting": "A bright Israeli living room corner with a low sofa and a rug; nothing else on the wall.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm soft late-afternoon light.",
+            "wardrobe_objects": "A big soft cream cushion, held by the girl.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall"
+            }
+          }
+        },
+        {
+          "id": "kid-2",
+          "title": "אני לא נושך כי אני רע",
+          "angle": "אורי בן 3 מסביר להורים שהוא נושך כי אין לו עדיין מילים, ומבקש שבעה דברים: להרחיק אותו בשקט, לתת שם לרגש, לתת מילים קצרות, בחירה, אזהרה, לשים לב לעייפות ולהחמיא.",
+          "target_parent": "הורים לילד בן 2 עד 4 שנושך או מרביץ בגן ובבית ודואגים שהוא ילד רע.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-not-because",
+            "gap": "If he does not bite because he is bad, why does he bite?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "k2",
+            "mechanism": "reframe",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "אורי",
+          "examples_target": 7,
+          "character_anchor": {
+            "child": "A 3-year-old Israeli boy with short dark curly hair, olive skin, big dark-brown eyes and rosy cheeks; about 98 cm tall.",
+            "parent": "His mother, early thirties, tanned skin, dark curly hair in a ponytail, kind brown eyes, and his father, mid-thirties, short dark hair, light stubble and round glasses; both warm and a little tired in a real way.",
+            "wardrobe": "Boy: forest-green hoodie over a white tee, grey joggers, light sneakers. Mother: terracotta linen top and jeans. Father: navy T-shirt and khaki shorts."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אני לא נושך\nכי אני רע",
+              "body": "7 דברים שיעזרו לי לא לנשוך",
+              "highlight": "כי אני רע",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז למה כן? התשובה בשקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "אני נושך כי\nאין לי מילים עדיין",
+              "body": "בגיל שלי הפה והידיים מהירים\nמהמילים שלי",
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה מחליף את הנשיכה? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 להרחיק אותי בשקט\n2 לתת שם לרגש שלי",
+              "body": "״אורי אנחנו לא פוגעים״\n״אורי כועס כי לקחו לו את הכדור״",
+              "examples": [
+                "להרחיק אותי בשקט",
+                "לתת שם לרגש שלי"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אומרים לי? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 לתת לי מילים קצרות",
+              "body": "״תגיד לו זה שלי״\nתנו לי מילים שאני זוכר",
+              "examples": [
+                "לתת לי מילים קצרות"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 לתת לי לבחור צעד הבא",
+              "body": "״רוצה לשחק בכדור או בקוביות?״\nבחירה קטנה שמחזירה לי שליטה",
+              "examples": [
+                "לתת לי לבחור צעד הבא"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 להזהיר אותי מראש",
+              "body": "״עוד 5 דקות יוצאים מהגן״\nועם שעון שאני רואה",
+              "examples": [
+                "להזהיר אותי מראש"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 לשים לב כשאני עייף",
+              "body": "לפעמים אני נושך כשאני עייף\nאו רעב ואין לי כוח לחכות",
+              "examples": [
+                "לשים לב כשאני עייף"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "7 להגיד לי כשהצלחתי",
+              "body": "״ביקשת במילים ולא נשכת״\nזה מה שאני רוצה לשמוע",
+              "examples": [
+                "להגיד לי כשהצלחתי"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ובשקופית 9 הכול ביחד"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "מילים וסבלנות\nבמקום שיניים",
+              "body": "להרחיק · לתת שם · לתת מילים\nלבחור · להזהיר · להחמיא",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "אורי לא נושך כי הוא רע\nהוא נושך כי עוד אין לו מילים\n7 דברים שעוזרים לו במקום\nלהרחיק אותו בשקט ולתת שם לרגש\nלתת לו מילים קצרות ובחירה קטנה\nלהזהיר אותו מראש ולהחמיא כשהצליח\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-cleveland",
+              "title": "Have an Aggressive Toddler? Here's How To Manage Their Behavior",
+              "publisher": "Cleveland Clinic Health Essentials (25 June 2024, interview with pediatric psychologist Emily Mudd, PhD)",
+              "url": "https://health.clevelandclinic.org/toddler-hitting-and-aggressive-behavior",
+              "accessed": "2026-10-16",
+              "quote": "We generally expect toddlers to experience some aggressive behaviors ... At this stage, kids tend to resort to physical expressions of their frustration, simply because they don’t yet have the language skills to express themselves. ... When a child is expressing a lot of emotion, and the parents meet that with more emotion, it can increase the child’s aggression ... Never respond with physical force such as spanking, hitting or restraining. ... I have to keep you safe. You can’t hit me, but you can hit the pillow. ... Set boundaries and then put the child in charge of the next choice ... help your child identify the emotion ... Reward good behavior, even when your child isn’t doing anything out of the ordinary. Make the praise specific. ... it’s OK to accommodate. ... Do tantrums happen every morning before school? Work on structuring your morning routine. ... Whatever the cause, if the behavior impacts your child’s day-to-day functioning, it’s time to seek professional treatment",
+              "supports": "Aggression is expected at toddler age because language is not there yet; meeting big emotion with more emotion raises aggression; no physical force; redirect with keeping safe and a pillow; boundary then a choice; name the emotion; specific praise; say yes when it is not a safety issue; triggers and routines; see a pediatrician when daily functioning suffers. Written for toddlers, applied to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-tantrum",
+              "title": "Temper Tantrums",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Elizabeth M. Schilling, PhD, ABPP)",
+              "url": "https://kidshealth.org/en/parents/tantrums.html",
+              "accessed": "2026-10-16",
+              "quote": "Tantrums are a normal part of child development. ... Because toddlers can't always say what they want or need, and because words describing feelings are more complicated and develop later, a frustrating experience may cause a tantrum. ... Tantrums may happen when kids are tired, hungry, or uncomfortable. ... Kids who are in danger of hurting themselves or others during a tantrum should be taken to a quiet, safe place to calm down. ... Consider making a “chill out” or “calm down” spot in your home ... Now (when your child is calm) is the time for a hug and reassurance that your child is loved, no matter what. ... Offer minor choices such as",
+              "supports": "Tantrums (which include hitting) are a normal part of development; toddlers lack words for feelings; tiredness and hunger can set them off; a child who may hurt someone is taken to a quiet safe place; a calm down spot as a choice; a hug and reassurance once calm; small choices. Written for ages 1 to 3, applied here to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-temper",
+              "title": "Taming Tempers",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Margaux J. Barnes, PhD)",
+              "url": "https://kidshealth.org/en/parents/temper.html",
+              "accessed": "2026-10-16",
+              "quote": "Reacting to kids' meltdowns with yelling and outbursts of your own will only teach them to do the same ... Speak calmly, clearly, and firmly ... Once your child calms down, ask what got them so upset. ... But don't push too hard for your child to talk right then. They may need some time to reflect before being ready to talk. ... In this family, we don't hit, push, or shove. ... Make sure kids get enough sleep. ... Doing a bunch of jumping jacks, dancing around the bedroom, or going outside and doing cartwheels are all good choices. ... Point out specifically what you liked about the way they handled it ... if your child has trouble with changes, give warnings ahead of time ... reading a favorite book",
+              "supports": "Yelling at an outburst teaches yelling; speak calmly and firmly; wait until the child is calm before asking; do not push the child to talk right away; short house rules such as no hitting; enough sleep; letting the anger out safely; praising specifically; warnings before changes; a favorite book is one way to shift mood. The page is about tempers in general and applied here to hitting, biting and shouting."
+            },
+            {
+              "id": "src-kh-selfcontrol",
+              "title": "Teaching Your Child Self-Control",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2018, Lauren M. O'Donnell, PsyD)",
+              "url": "https://kidshealth.org/en/parents/self-control.html",
+              "accessed": "2026-10-16",
+              "quote": "Infants and toddlers get frustrated by the large gap between the things they want to do and what they're able to do. ... end time-outs when your child calms down ... praise your child for not losing control in frustrating or difficult situations ... model good self-control yourself",
+              "supports": "Young children get frustrated by the gap between what they want and what they can do; for ages 3 to 5 end a break when the child calms down; praise staying in control; model self-control."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אני נושך כי אין לי מילים עדיין",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later."
+            },
+            {
+              "slide": 3,
+              "wording_he": "להרחיק בשקט ולתת שם לרגש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "Cleveland Clinic: redirect with «I have to keep you safe»; KidsHealth: a child who may hurt others is taken to a quiet safe place. Cleveland Clinic: help the child identify the emotion («You're feeling so sad and mad because you really wanted that cereal»); KidsHealth: offer words like «so that made you angry»."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לתת לי מילים קצרות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth suggests telling the child to use words; short phrases are our wording. Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later. Cleveland Clinic: help the child identify the emotion («You're feeling so sad and mad because you really wanted that cereal»); KidsHealth: offer words like «so that made you angry»."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לתת לי לבחור צעד הבא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: set the boundary and then put the child in charge of the next choice; KidsHealth: offer minor choices."
+            },
+            {
+              "slide": 6,
+              "wording_he": "להזהיר מראש עם שעון",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper",
+                "src-cleveland"
+              ],
+              "supports": "KidsHealth: give warnings ahead of time for children who struggle with changes; Cleveland Clinic: time warnings and a physical timer."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לפעמים אני נושך כשאני עייף או רעב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth: tantrums may happen when kids are tired, hungry or uncomfortable; enough sleep helps."
+            },
+            {
+              "slide": 8,
+              "wording_he": "להגיד לי כשהצלחתי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-selfcontrol",
+                "src-cleveland",
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth and Cleveland Clinic: praise staying calm, specifically, without treats or prizes."
+            },
+            {
+              "slide": 9,
+              "wording_he": "מילים וסבלנות במקום שיניים",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Our recap wording; no promise of a result. Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth lists reading a favorite book as one way to shift from an angry mood to a calmer one. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד שלכם הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיחה בשלילה ('אני לא נושך כי אני רע') שמורידה אשמה מההורים וממי שנושך, ותשובה מיד בשקופית 2. המספר 7 על הכריכה מתאים למספר הדוגמאות. הילד מסתכל ישר לעדשה בפה פעור.",
+          "image": {
+            "beat": "open-mouthed gasp, wide-eyed and innocent",
+            "action": "The boy faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, both hands holding a small wooden toy truck against his chest; his parents are small and soft in the background by a sofa.",
+            "setting": "A sunny Israeli living room with a rug and a low toy shelf far behind.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm morning light.",
+            "wardrobe_objects": "A small wooden toy truck, held by the boy.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall"
+            }
+          }
+        },
+        {
+          "id": "kid-3",
+          "title": "17:40 אני מרביץ לאחותי",
+          "angle": "דניאל בן 4 מסביר לאמא מה קורה בשעת הערב כשהוא עייף ורעב, ומבקש תשעה דברים: חטיף, שינה, אזהרה, הרחקה, שם לכעס, דוגמה של אמא, קפיצות, שיחה אחרי ומחמאה.",
+          "target_parent": "אמא לבן 3 עד 5 שמרביץ לאחותו בשעות הערב לפני הארוחה.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "moment",
+          "hook": {
+            "formula": "moment-time",
+            "gap": "What happens at 17:40 and what helps before it starts?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "k3",
+            "mechanism": "recognition",
+            "slide2_move": "zoom_in"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "דניאל",
+          "examples_target": 9,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short straight chestnut hair, light olive skin, round hazel eyes and a few freckles; about 102 cm tall.",
+            "parent": "His mother, early thirties, tanned skin, dark curly hair in a loose bun, kind brown eyes; warm and a little tired in a real way.",
+            "wardrobe": "Boy: red-and-white striped long-sleeve tee, blue shorts, grey socks. Mother: cream cotton shirt and denim skirt."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "17:40\nאני מרביץ לאחותי\nכשאני רעב ועייף",
+              "body": "9 דברים שיעזרו לי",
+              "highlight": "רעב ועייף",
+              "pull": {
+                "type": "numbered",
+                "note": "תשעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "בערב נגמר לי הכוח\nואין לי מילים",
+              "body": "כשהגוף עייף או רעב\nהידיים מגיבות לפני המילים",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה עוזר לפני הרגע הזה? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 חטיף כבר ב־17:00\n2 שינה מספיקה בלילה",
+              "body": "קערת פירות לפני שהכול מתחיל\nולישון בזמן כדי שיהיה לי כוח",
+              "examples": [
+                "חטיף כבר ב־17:00",
+                "שינה מספיקה בלילה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עושים ברגע עצמו? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 להזהיר אותי מראש\n4 להרחיק אותי מאחותי",
+              "body": "״דניאל עוד 5 דקות מסיימים״\n״דניאל אני לוקחת אותך לפינה״",
+              "examples": [
+                "להזהיר אותי מראש",
+                "להרחיק אותי מאחותי"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אחרי שהתרחקנו? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 לתת שם לכעס שלי\n6 להראות לי להירגע",
+              "body": "״דניאל כועס שלקחו לו צעצוע״\n״אמא קצת כועסת אז היא נושמת״",
+              "examples": [
+                "לתת שם לכעס שלי",
+                "להראות לי להירגע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "7 לתת לי לפרוק בקפיצות",
+              "body": "10 קפיצות או ריקוד בחדר\nאפשר גם לצייר את הכעס",
+              "examples": [
+                "לתת לי לפרוק בקפיצות"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "8 לדבר אחרי שאירגע",
+              "body": "רק כשהלב שלי רגוע\nאני יכול לספר מה קרה",
+              "examples": [
+                "לדבר אחרי שאירגע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "9 להגיד לי שהצלחתי",
+              "body": "״דניאל ראיתי שחיכית לתור״\nאני רוצה לשמוע את זה שוב",
+              "examples": [
+                "להגיד לי שהצלחתי"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ובשקופית 9 הכול ביחד"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "קודם הגוף נרגע\nואז באות המילים",
+              "body": "חטיף · שינה · אזהרה · פינה\nשם לכעס · קפיצות · שיחה",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "מה קורה ב־17:40 כשדניאל מרביץ לאחותו\nהוא עייף ורעב ואין לו מילים\n9 דברים שעוזרים לו לפני ואחרי\nחטיף ושינה מספיקה ואזהרה מראש\nלהרחיק ולתת שם לכעס\nקפיצות לפריקה ומחמאה כשהצליח לחכות\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-kh-tantrum",
+              "title": "Temper Tantrums",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Elizabeth M. Schilling, PhD, ABPP)",
+              "url": "https://kidshealth.org/en/parents/tantrums.html",
+              "accessed": "2026-10-16",
+              "quote": "Tantrums are a normal part of child development. ... Because toddlers can't always say what they want or need, and because words describing feelings are more complicated and develop later, a frustrating experience may cause a tantrum. ... Tantrums may happen when kids are tired, hungry, or uncomfortable. ... Kids who are in danger of hurting themselves or others during a tantrum should be taken to a quiet, safe place to calm down. ... Consider making a “chill out” or “calm down” spot in your home ... Now (when your child is calm) is the time for a hug and reassurance that your child is loved, no matter what. ... Offer minor choices such as",
+              "supports": "Tantrums (which include hitting) are a normal part of development; toddlers lack words for feelings; tiredness and hunger can set them off; a child who may hurt someone is taken to a quiet safe place; a calm down spot as a choice; a hug and reassurance once calm; small choices. Written for ages 1 to 3, applied here to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-temper",
+              "title": "Taming Tempers",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Margaux J. Barnes, PhD)",
+              "url": "https://kidshealth.org/en/parents/temper.html",
+              "accessed": "2026-10-16",
+              "quote": "Reacting to kids' meltdowns with yelling and outbursts of your own will only teach them to do the same ... Speak calmly, clearly, and firmly ... Once your child calms down, ask what got them so upset. ... But don't push too hard for your child to talk right then. They may need some time to reflect before being ready to talk. ... In this family, we don't hit, push, or shove. ... Make sure kids get enough sleep. ... Doing a bunch of jumping jacks, dancing around the bedroom, or going outside and doing cartwheels are all good choices. ... Point out specifically what you liked about the way they handled it ... if your child has trouble with changes, give warnings ahead of time ... reading a favorite book",
+              "supports": "Yelling at an outburst teaches yelling; speak calmly and firmly; wait until the child is calm before asking; do not push the child to talk right away; short house rules such as no hitting; enough sleep; letting the anger out safely; praising specifically; warnings before changes; a favorite book is one way to shift mood. The page is about tempers in general and applied here to hitting, biting and shouting."
+            },
+            {
+              "id": "src-cleveland",
+              "title": "Have an Aggressive Toddler? Here's How To Manage Their Behavior",
+              "publisher": "Cleveland Clinic Health Essentials (25 June 2024, interview with pediatric psychologist Emily Mudd, PhD)",
+              "url": "https://health.clevelandclinic.org/toddler-hitting-and-aggressive-behavior",
+              "accessed": "2026-10-16",
+              "quote": "We generally expect toddlers to experience some aggressive behaviors ... At this stage, kids tend to resort to physical expressions of their frustration, simply because they don’t yet have the language skills to express themselves. ... When a child is expressing a lot of emotion, and the parents meet that with more emotion, it can increase the child’s aggression ... Never respond with physical force such as spanking, hitting or restraining. ... I have to keep you safe. You can’t hit me, but you can hit the pillow. ... Set boundaries and then put the child in charge of the next choice ... help your child identify the emotion ... Reward good behavior, even when your child isn’t doing anything out of the ordinary. Make the praise specific. ... it’s OK to accommodate. ... Do tantrums happen every morning before school? Work on structuring your morning routine. ... Whatever the cause, if the behavior impacts your child’s day-to-day functioning, it’s time to seek professional treatment",
+              "supports": "Aggression is expected at toddler age because language is not there yet; meeting big emotion with more emotion raises aggression; no physical force; redirect with keeping safe and a pillow; boundary then a choice; name the emotion; specific praise; say yes when it is not a safety issue; triggers and routines; see a pediatrician when daily functioning suffers. Written for toddlers, applied to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-selfcontrol",
+              "title": "Teaching Your Child Self-Control",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2018, Lauren M. O'Donnell, PsyD)",
+              "url": "https://kidshealth.org/en/parents/self-control.html",
+              "accessed": "2026-10-16",
+              "quote": "Infants and toddlers get frustrated by the large gap between the things they want to do and what they're able to do. ... end time-outs when your child calms down ... praise your child for not losing control in frustrating or difficult situations ... model good self-control yourself",
+              "supports": "Young children get frustrated by the gap between what they want and what they can do; for ages 3 to 5 end a break when the child calms down; praise staying in control; model self-control."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "כשהגוף עייף או רעב הידיים מגיבות לפני המילים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-tantrum",
+                "src-kh-temper",
+                "src-cleveland"
+              ],
+              "supports": "KidsHealth: tantrums may happen when kids are tired, hungry or uncomfortable; enough sleep helps. Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later."
+            },
+            {
+              "slide": 3,
+              "wording_he": "חטיף ושינה מספיקה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth: tantrums may happen when kids are tired, hungry or uncomfortable; enough sleep helps."
+            },
+            {
+              "slide": 4,
+              "wording_he": "להזהיר מראש ולהרחיק",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper",
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "KidsHealth: give warnings ahead of time for children who struggle with changes; Cleveland Clinic: time warnings and a physical timer. Cleveland Clinic: redirect with «I have to keep you safe»; KidsHealth: a child who may hurt others is taken to a quiet safe place."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לתת שם לכעס ולהראות איך נרגעים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-temper",
+                "src-kh-selfcontrol"
+              ],
+              "supports": "Cleveland Clinic: help the child identify the emotion («You're feeling so sad and mad because you really wanted that cereal»); KidsHealth: offer words like «so that made you angry». KidsHealth and Cleveland Clinic: a parent who stays calm models calm; yelling teaches yelling; tell kids why you are frustrated and what you do about it."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לפרוק בקפיצות או ציור",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth: jumping jacks, dancing or drawing are safe ways to get the anger out."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לדבר אחרי שנרגעים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth: once the child calms down ask what upset them, but do not push them to talk right then."
+            },
+            {
+              "slide": 8,
+              "wording_he": "מחמאה על ההצלחה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-selfcontrol",
+                "src-cleveland",
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth and Cleveland Clinic: praise staying calm, specifically, without treats or prizes."
+            },
+            {
+              "slide": 9,
+              "wording_he": "קודם הגוף נרגע ואז באות המילים",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "Our recap wording; no promise of a result. Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later. KidsHealth: once the child calms down ask what upset them, but do not push them to talk right then."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth lists reading a favorite book as one way to shift from an angry mood to a calmer one. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד שלכם הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "שעה מדויקת וילד שמרביץ לאחותו זה רגע שהרבה אמהות מזהות. הכריכה אומרת מה מקבלים ומספרת על הסיבה (עייף ורעב) בלי להאשים. הילד נראה בעיניים גדולות ובתקשורת ישירה עם העדשה.",
+          "image": {
+            "beat": "wide-eyed worry at the end of a long day",
+            "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, holding an apple slice in one hand; his mother is small and soft in the background at the kitchen counter, and his little sister appears only as a soft blurred shape.",
+            "setting": "A warm Israeli kitchen in the early evening with cream tiles and a counter far behind him.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm golden late-afternoon light.",
+            "wardrobe_objects": "An apple slice, held by the boy.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "label_he": "גישה מקצועית מבוססת מקורות",
+      "versions": [
+        {
+          "id": "expert-1",
+          "title": "תפסיקו לצעוק עליה שהיא תפסיק לצעוק",
+          "angle": "מאיה בת 4 מרביצה, וההורים מגיבים בצעקה. KidsHealth ו-Cleveland Clinic: תגובה בצעקה מלמדת צעקה. שמונה דברים שעובדים יותר.",
+          "target_parent": "הורים לילדה בת 3 עד 5 שמרביצה וצועקת, ושנוטים להגיב בעצמם בקול גבוה כשהם עייפים.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "stop-one-thing",
+            "gap": "Why does shouting at her to stop shouting not work, and what works better?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "e1",
+            "mechanism": "practical_utility",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "מאיה",
+          "examples_target": 8,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with straight dark-brown hair in a short bob with a fringe, tan skin, big dark eyes and a small gap between her front teeth; about 103 cm tall.",
+            "parent": "Her mother, early thirties, tanned skin, dark curly hair in a ponytail, kind brown eyes, and her father, mid-thirties, short dark hair, light stubble and round glasses; both warm and a little tired in a real way.",
+            "wardrobe": "Girl: coral-pink cotton dress with a white collar, white socks, light sandals. Mother: olive-green linen shirt and jeans. Father: grey T-shirt and navy shorts."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "תפסיקו לצעוק עליה\nשהיא תפסיק לצעוק",
+              "body": "8 דברים שעובדים יותר",
+              "highlight": "תפסיקו לצעוק",
+              "pull": {
+                "type": "numbered",
+                "note": "שמונה הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "הצעקה שלנו\nמלמדת אותה לצעוק",
+              "body": "לפי נמורס לבריאות ילדים\nתגובה בצעקות מלמדת אותם אותו דבר",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה כן עובד? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 לדבר בשקט ובתקיפות\n2 לעצור את היד",
+              "body": "דברו בקול נמוך וברור\n״אסור להרביץ אנחנו שומרים עלייך״",
+              "examples": [
+                "לדבר בשקט ובתקיפות",
+                "לעצור את היד"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אומרים על הרגש? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 לתת שם לרגש\n4 להציע כרית להכות",
+              "body": "״מאיה כועסת כי רצתה כוס כחולה״\n״בי אי אפשר אבל בכרית כן״",
+              "examples": [
+                "לתת שם לרגש",
+                "להציע כרית להכות"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 לקחת אותה לפינה שקטה",
+              "body": "אם היא עלולה לפגוע במישהו\nלוקחים אותה למקום רגוע",
+              "examples": [
+                "לקחת אותה לפינה שקטה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 כן כשאפשר ולא כשלא",
+              "body": "כוס כחולה במקום ירוקה? כן\nלהרביץ כדי לקבל? לא",
+              "examples": [
+                "כן כשאפשר ולא כשלא"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 לתת לה לבחור צעד הבא",
+              "body": "״יוצאים מהחנות עכשיו\nלסרוק או לסחוב את התיק?״",
+              "examples": [
+                "לתת לה לבחור צעד הבא"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 להחמיא על כל הצלחה",
+              "body": "״אהבתי שביקשת במילים״\nמחמאה ספציפית ובלי פרסים",
+              "examples": [
+                "להחמיא על כל הצלחה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ובשקופית 9 הכול ביחד"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "קול שקט וגבול ברור\nומילים לכעס",
+              "body": "לדבר · לעצור · לתת שם\nלהציע · להרחיק · להחמיא",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "כשצועקים עליה היא לומדת לצעוק בחזרה\nצעקה של הורה מלמדת ילדים לעשות אותו דבר\n8 דברים שעובדים יותר\nקול נמוך וברור וגבול ברור\nשם לרגש וכרית במקום יד\nכן כשאפשר ובחירה קטנה בסוף\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-kh-temper",
+              "title": "Taming Tempers",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Margaux J. Barnes, PhD)",
+              "url": "https://kidshealth.org/en/parents/temper.html",
+              "accessed": "2026-10-16",
+              "quote": "Reacting to kids' meltdowns with yelling and outbursts of your own will only teach them to do the same ... Speak calmly, clearly, and firmly ... Once your child calms down, ask what got them so upset. ... But don't push too hard for your child to talk right then. They may need some time to reflect before being ready to talk. ... In this family, we don't hit, push, or shove. ... Make sure kids get enough sleep. ... Doing a bunch of jumping jacks, dancing around the bedroom, or going outside and doing cartwheels are all good choices. ... Point out specifically what you liked about the way they handled it ... if your child has trouble with changes, give warnings ahead of time ... reading a favorite book",
+              "supports": "Yelling at an outburst teaches yelling; speak calmly and firmly; wait until the child is calm before asking; do not push the child to talk right away; short house rules such as no hitting; enough sleep; letting the anger out safely; praising specifically; warnings before changes; a favorite book is one way to shift mood. The page is about tempers in general and applied here to hitting, biting and shouting."
+            },
+            {
+              "id": "src-cleveland",
+              "title": "Have an Aggressive Toddler? Here's How To Manage Their Behavior",
+              "publisher": "Cleveland Clinic Health Essentials (25 June 2024, interview with pediatric psychologist Emily Mudd, PhD)",
+              "url": "https://health.clevelandclinic.org/toddler-hitting-and-aggressive-behavior",
+              "accessed": "2026-10-16",
+              "quote": "We generally expect toddlers to experience some aggressive behaviors ... At this stage, kids tend to resort to physical expressions of their frustration, simply because they don’t yet have the language skills to express themselves. ... When a child is expressing a lot of emotion, and the parents meet that with more emotion, it can increase the child’s aggression ... Never respond with physical force such as spanking, hitting or restraining. ... I have to keep you safe. You can’t hit me, but you can hit the pillow. ... Set boundaries and then put the child in charge of the next choice ... help your child identify the emotion ... Reward good behavior, even when your child isn’t doing anything out of the ordinary. Make the praise specific. ... it’s OK to accommodate. ... Do tantrums happen every morning before school? Work on structuring your morning routine. ... Whatever the cause, if the behavior impacts your child’s day-to-day functioning, it’s time to seek professional treatment",
+              "supports": "Aggression is expected at toddler age because language is not there yet; meeting big emotion with more emotion raises aggression; no physical force; redirect with keeping safe and a pillow; boundary then a choice; name the emotion; specific praise; say yes when it is not a safety issue; triggers and routines; see a pediatrician when daily functioning suffers. Written for toddlers, applied to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-tantrum",
+              "title": "Temper Tantrums",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Elizabeth M. Schilling, PhD, ABPP)",
+              "url": "https://kidshealth.org/en/parents/tantrums.html",
+              "accessed": "2026-10-16",
+              "quote": "Tantrums are a normal part of child development. ... Because toddlers can't always say what they want or need, and because words describing feelings are more complicated and develop later, a frustrating experience may cause a tantrum. ... Tantrums may happen when kids are tired, hungry, or uncomfortable. ... Kids who are in danger of hurting themselves or others during a tantrum should be taken to a quiet, safe place to calm down. ... Consider making a “chill out” or “calm down” spot in your home ... Now (when your child is calm) is the time for a hug and reassurance that your child is loved, no matter what. ... Offer minor choices such as",
+              "supports": "Tantrums (which include hitting) are a normal part of development; toddlers lack words for feelings; tiredness and hunger can set them off; a child who may hurt someone is taken to a quiet safe place; a calm down spot as a choice; a hug and reassurance once calm; small choices. Written for ages 1 to 3, applied here to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-selfcontrol",
+              "title": "Teaching Your Child Self-Control",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2018, Lauren M. O'Donnell, PsyD)",
+              "url": "https://kidshealth.org/en/parents/self-control.html",
+              "accessed": "2026-10-16",
+              "quote": "Infants and toddlers get frustrated by the large gap between the things they want to do and what they're able to do. ... end time-outs when your child calms down ... praise your child for not losing control in frustrating or difficult situations ... model good self-control yourself",
+              "supports": "Young children get frustrated by the gap between what they want and what they can do; for ages 3 to 5 end a break when the child calms down; praise staying in control; model self-control."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "הצעקה שלנו מלמדת אותה לצעוק",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper",
+                "src-cleveland"
+              ],
+              "supports": "KidsHealth: reacting to meltdowns with yelling teaches children to do the same; Cleveland Clinic: more emotion from the parent increases the child's aggression."
+            },
+            {
+              "slide": 2,
+              "wording_he": "תגובה בצעקות מלמדת אותם לעשות אותו דבר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper",
+                "src-cleveland"
+              ],
+              "supports": "KidsHealth: reacting to meltdowns with yelling teaches children to do the same; Cleveland Clinic: more emotion from the parent increases the child's aggression."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לדבר בשקט ובתקיפות ולעצור את היד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper",
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "KidsHealth: speak calmly, clearly and firmly; Cleveland Clinic: more emotion from the parent can raise the child's aggression. Cleveland Clinic: redirect with «I have to keep you safe»; KidsHealth: a child who may hurt others is taken to a quiet safe place."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לתת שם לרגש ולהציע כרית",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-temper"
+              ],
+              "supports": "Cleveland Clinic: help the child identify the emotion («You're feeling so sad and mad because you really wanted that cereal»); KidsHealth: offer words like «so that made you angry». Cleveland Clinic: «You can't hit me, but you can hit the pillow»."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לקחת אותה למקום רגוע כשיש סכנה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: redirect with «I have to keep you safe»; KidsHealth: a child who may hurt others is taken to a quiet safe place."
+            },
+            {
+              "slide": 6,
+              "wording_he": "כן כשאפשר ולא כשלא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland"
+              ],
+              "supports": "Cleveland Clinic: if it is not a safety issue it is OK to accommodate; do not give in to aggression."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לתת לה לבחור את הצעד הבא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: set the boundary and then put the child in charge of the next choice; KidsHealth: offer minor choices."
+            },
+            {
+              "slide": 8,
+              "wording_he": "להחמיא על הצלחה בלי פרסים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-selfcontrol",
+                "src-cleveland",
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth and Cleveland Clinic: praise staying calm, specifically, without treats or prizes."
+            },
+            {
+              "slide": 9,
+              "wording_he": "קול שקט וגבול ברור ומילים לכעס",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-kh-temper",
+                "src-cleveland"
+              ],
+              "supports": "Our recap wording; no promise of a result. KidsHealth: speak calmly, clearly and firmly; Cleveland Clinic: more emotion from the parent can raise the child's aggression. Cleveland Clinic: help the child identify the emotion («You're feeling so sad and mad because you really wanted that cereal»); KidsHealth: offer words like «so that made you angry»."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth lists reading a favorite book as one way to shift from an angry mood to a calmer one. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילדה שלכם היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיחה בפקודה אחת שהמקורות תומכים בה (צעקה מלמדת צעקה) ומספר על הכריכה. השקופית השנייה מציגה את זה כמשהו שקורה כשעייפים ולא כאשמה. הילדה עם לחיים נפוחות מסתכלת ישר לעדשה.",
+          "image": {
+            "beat": "dramatic pout, a quiet protest",
+            "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, hugging a big cushion; her parents are small and soft in the background on a sofa.",
+            "setting": "A cosy Israeli living room corner with a sofa and a rug.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm evening light.",
+            "wardrobe_objects": "A big soft mustard-yellow cushion, held by the girl.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall"
+            }
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-2",
+          "title": "איך עוצרים ילד בן 3 שמרביץ בלי לצעוק",
+          "angle": "עידו בן 3 מרביץ. שבעה צעדים בסדר: לעצור, משפט קבוע, לתת שם, פינה שקטה, לדבר אחרי, מחמאה ואזהרה מראש.",
+          "target_parent": "אמא לילד בן 2 עד 4 שמרביץ ומחפשת תגובה ברורה שלא כוללת צעקות.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "practical_question",
+          "hook": {
+            "formula": "practical-question",
+            "gap": "How do you stop a 3 year old who hits without shouting?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 1,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "e2",
+            "mechanism": "honest_curiosity",
+            "slide2_move": "promise"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "עידו",
+          "examples_target": 7,
+          "character_anchor": {
+            "child": "A 3-year-old Israeli boy with short wavy light-brown hair, fair skin with a slight tan, big green-grey eyes and a button nose; about 97 cm tall.",
+            "parent": "His mother, early thirties, tanned skin, dark curly hair in a loose bun, kind brown eyes; warm and a little tired in a real way.",
+            "wardrobe": "Boy: royal-blue cotton T-shirt with no print, beige shorts, white sneakers. Mother: dusty-pink linen shirt and jeans."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "איך עוצרים ילד\nבן 3 שמרביץ\nבלי לצעוק?",
+              "body": "7 צעדים שעובדים",
+              "highlight": "בלי לצעוק",
+              "pull": {
+                "type": "numbered",
+                "note": "שבעת הצעדים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "בגיל 3 הידיים\nמהירות מהמילים",
+              "body": "ילדים קטנים מגיבים בגוף\nכשאין להם עוד מילים",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה עושים קודם? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 קודם עוצרים\n2 משפט קבוע וקצר",
+              "body": "מרחיקים את היד וזהו\n״בבית שלנו לא מרביצים״",
+              "examples": [
+                "קודם עוצרים",
+                "משפט קבוע וקצר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עם הרגש? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 לתת שם לכעס שלו",
+              "body": "״עידו כועס כי הגיע הזמן ללכת״\nזה עוזר לו לדבר במקום להרביץ",
+              "examples": [
+                "לתת שם לכעס שלו"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 פינה שקטה לנשימה",
+              "body": "מסיימים כשהוא נרגע\nולא לפי שעון",
+              "examples": [
+                "פינה שקטה לנשימה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 לדבר רק אחרי שנרגע",
+              "body": "לא לדחוף אותו לספר מיד\nלפעמים צריך קצת זמן",
+              "examples": [
+                "לדבר רק אחרי שנרגע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 מחמאה ספציפית",
+              "body": "״אהבתי איך נשמת עמוק״\nאחרי שהוא חזר לעצמו",
+              "examples": [
+                "מחמאה ספציפית"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "7 אזהרה לפני רגע קשה",
+              "body": "״עוד 10 דקות יוצאים״\nעם שעון שהוא רואה",
+              "examples": [
+                "אזהרה לפני רגע קשה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ובשקופית 9 הכול ביחד"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "עוצרים ונותנים שם\nומחכים שהוא ירגע",
+              "body": "קודם הגוף ואז המילים\nולא להפך",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "איך עוצרים ילד בן 3 שמרביץ בלי לצעוק\nבגיל הזה הידיים מהירות מהמילים\n7 צעדים שעובדים בסדר הזה\nלעצור ולהגיד משפט קבוע וקצר\nלתת שם לכעס ופינה שקטה\nלדבר אחרי שהוא נרגע ולהחמיא\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-cleveland",
+              "title": "Have an Aggressive Toddler? Here's How To Manage Their Behavior",
+              "publisher": "Cleveland Clinic Health Essentials (25 June 2024, interview with pediatric psychologist Emily Mudd, PhD)",
+              "url": "https://health.clevelandclinic.org/toddler-hitting-and-aggressive-behavior",
+              "accessed": "2026-10-16",
+              "quote": "We generally expect toddlers to experience some aggressive behaviors ... At this stage, kids tend to resort to physical expressions of their frustration, simply because they don’t yet have the language skills to express themselves. ... When a child is expressing a lot of emotion, and the parents meet that with more emotion, it can increase the child’s aggression ... Never respond with physical force such as spanking, hitting or restraining. ... I have to keep you safe. You can’t hit me, but you can hit the pillow. ... Set boundaries and then put the child in charge of the next choice ... help your child identify the emotion ... Reward good behavior, even when your child isn’t doing anything out of the ordinary. Make the praise specific. ... it’s OK to accommodate. ... Do tantrums happen every morning before school? Work on structuring your morning routine. ... Whatever the cause, if the behavior impacts your child’s day-to-day functioning, it’s time to seek professional treatment",
+              "supports": "Aggression is expected at toddler age because language is not there yet; meeting big emotion with more emotion raises aggression; no physical force; redirect with keeping safe and a pillow; boundary then a choice; name the emotion; specific praise; say yes when it is not a safety issue; triggers and routines; see a pediatrician when daily functioning suffers. Written for toddlers, applied to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-tantrum",
+              "title": "Temper Tantrums",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Elizabeth M. Schilling, PhD, ABPP)",
+              "url": "https://kidshealth.org/en/parents/tantrums.html",
+              "accessed": "2026-10-16",
+              "quote": "Tantrums are a normal part of child development. ... Because toddlers can't always say what they want or need, and because words describing feelings are more complicated and develop later, a frustrating experience may cause a tantrum. ... Tantrums may happen when kids are tired, hungry, or uncomfortable. ... Kids who are in danger of hurting themselves or others during a tantrum should be taken to a quiet, safe place to calm down. ... Consider making a “chill out” or “calm down” spot in your home ... Now (when your child is calm) is the time for a hug and reassurance that your child is loved, no matter what. ... Offer minor choices such as",
+              "supports": "Tantrums (which include hitting) are a normal part of development; toddlers lack words for feelings; tiredness and hunger can set them off; a child who may hurt someone is taken to a quiet safe place; a calm down spot as a choice; a hug and reassurance once calm; small choices. Written for ages 1 to 3, applied here to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-temper",
+              "title": "Taming Tempers",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Margaux J. Barnes, PhD)",
+              "url": "https://kidshealth.org/en/parents/temper.html",
+              "accessed": "2026-10-16",
+              "quote": "Reacting to kids' meltdowns with yelling and outbursts of your own will only teach them to do the same ... Speak calmly, clearly, and firmly ... Once your child calms down, ask what got them so upset. ... But don't push too hard for your child to talk right then. They may need some time to reflect before being ready to talk. ... In this family, we don't hit, push, or shove. ... Make sure kids get enough sleep. ... Doing a bunch of jumping jacks, dancing around the bedroom, or going outside and doing cartwheels are all good choices. ... Point out specifically what you liked about the way they handled it ... if your child has trouble with changes, give warnings ahead of time ... reading a favorite book",
+              "supports": "Yelling at an outburst teaches yelling; speak calmly and firmly; wait until the child is calm before asking; do not push the child to talk right away; short house rules such as no hitting; enough sleep; letting the anger out safely; praising specifically; warnings before changes; a favorite book is one way to shift mood. The page is about tempers in general and applied here to hitting, biting and shouting."
+            },
+            {
+              "id": "src-kh-selfcontrol",
+              "title": "Teaching Your Child Self-Control",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2018, Lauren M. O'Donnell, PsyD)",
+              "url": "https://kidshealth.org/en/parents/self-control.html",
+              "accessed": "2026-10-16",
+              "quote": "Infants and toddlers get frustrated by the large gap between the things they want to do and what they're able to do. ... end time-outs when your child calms down ... praise your child for not losing control in frustrating or difficult situations ... model good self-control yourself",
+              "supports": "Young children get frustrated by the gap between what they want and what they can do; for ages 3 to 5 end a break when the child calms down; praise staying in control; model self-control."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "איך עוצרים ילד בן 3 שמרביץ",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later."
+            },
+            {
+              "slide": 2,
+              "wording_he": "ילדים קטנים מגיבים בגוף כשאין להם עוד מילים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לעצור ולהגיד משפט קבוע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "Cleveland Clinic: redirect with «I have to keep you safe»; KidsHealth: a child who may hurt others is taken to a quiet safe place. KidsHealth: short house rules such as «In this family, we don't hit, push, or shove»."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לתת שם לכעס",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-temper"
+              ],
+              "supports": "Cleveland Clinic: help the child identify the emotion («You're feeling so sad and mad because you really wanted that cereal»); KidsHealth: offer words like «so that made you angry»."
+            },
+            {
+              "slide": 5,
+              "wording_he": "פינה שקטה ולסיים כשהוא נרגע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-tantrum",
+                "src-kh-selfcontrol"
+              ],
+              "supports": "KidsHealth: a «calm down» spot as a choice and not a punishment; for ages 3 to 5 end the break when the child calms down."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לדבר אחרי שהוא נרגע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth: once the child calms down ask what upset them, but do not push them to talk right then."
+            },
+            {
+              "slide": 7,
+              "wording_he": "מחמאה ספציפית",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-selfcontrol",
+                "src-cleveland",
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth and Cleveland Clinic: praise staying calm, specifically, without treats or prizes."
+            },
+            {
+              "slide": 8,
+              "wording_he": "אזהרה לפני רגע קשה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper",
+                "src-cleveland"
+              ],
+              "supports": "KidsHealth: give warnings ahead of time for children who struggle with changes; Cleveland Clinic: time warnings and a physical timer."
+            },
+            {
+              "slide": 9,
+              "wording_he": "קודם הגוף ואז המילים",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "Our recap wording; no promise of a result. Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later. KidsHealth: once the child calms down ask what upset them, but do not push them to talk right then."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth lists reading a favorite book as one way to shift from an angry mood to a calmer one. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד שלכם הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "שאלה מעשית עם מספר וגיל מדויק. הכריכה אומרת מה מקבלים (7 צעדים) ושקופית 2 נותנת תשובה חלקית מיד. הילד מסתכל ישר לעדשה בעיניים גדולות.",
+          "image": {
+            "beat": "wide-eyed caught moment",
+            "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, holding a small red rubber ball in both hands in front of him; his mother is small and soft in the background at a playground bench.",
+            "setting": "A neighbourhood Israeli playground in the afternoon with a low wooden sandbox border.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm late-afternoon sun.",
+            "wardrobe_objects": "A small red rubber ball, held by the boy.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "soft pale afternoon sky above the playground fence"
+            }
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-3",
+          "title": "הנשיכה לא אומרת שהיא ילדה אלימה",
+          "angle": "שירה בת 3 נושכת. לפי Cleveland Clinic התנהגות כזאת צפויה בגיל הזה. תשעה דברים לעשות ברגע, כולל מתי לפנות לרופא הילדים.",
+          "target_parent": "אמא לילדה בת 2 עד 4 שנושכת או מרביצה, שחוששת שזה אומר שמשהו לא בסדר איתה.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "surprising_statement",
+          "hook": {
+            "formula": "surprising-reframe",
+            "gap": "If biting does not mean she is violent, what does it mean and what do I do?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "e3",
+            "mechanism": "reassurance",
+            "slide2_move": "name_trigger"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "שירה",
+          "examples_target": 9,
+          "character_anchor": {
+            "child": "A 3-year-old Israeli girl with light-brown curly hair in a small high ponytail, fair skin with rosy cheeks, big blue-grey eyes; about 96 cm tall.",
+            "parent": "Her mother, early thirties, tanned skin, dark curly hair in a loose bun, kind brown eyes; warm and a little tired in a real way.",
+            "wardrobe": "Girl: lavender cotton dress with small white flowers, white socks, soft grey shoes. Mother: charcoal knit sweater and jeans."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "הנשיכה לא אומרת\nשהיא ילדה אלימה",
+              "body": "9 דברים לעשות ברגע הזה",
+              "highlight": "לא אומרת",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה היא כן אומרת? שקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "בגיל 3 הגוף מדבר\nלפני המילים",
+              "body": "לפי פסיכולוגית ילדים מקליבלנד\nזה צפוי כשאין עוד מילים",
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה עושים ברגע עצמו? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 לשמור על כולם קודם\n2 להישאר רגועה",
+              "body": "פוגשים רגש גדול בקול שקט\nולא בעוד רגש גדול",
+              "examples": [
+                "לשמור על כולם קודם",
+                "להישאר רגועה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אומרים לה? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 לתת שם לרגש\n4 כרית במקום יד",
+              "body": "״שירה כועסת כי רצתה את הבובה״\n״אפשר לפרוק בכרית״",
+              "examples": [
+                "לתת שם לרגש",
+                "כרית במקום יד"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד שניים בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 כן כשאפשר\n6 בחירה קטנה בסוף",
+              "body": "כוס אחרת? אפשר\nמרביצים כדי לקבל? אי אפשר\n״לסרוק או לסחוב?״",
+              "examples": [
+                "כן כשאפשר",
+                "בחירה קטנה בסוף"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "7 כלל קצר וקבוע",
+              "body": "״בבית שלנו לא נושכים\nולא מרביצים״",
+              "examples": [
+                "כלל קצר וקבוע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד אחד בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "8 לזהות מה מפעיל אותה",
+              "body": "אם זה קורה בכל בוקר לפני הגן\nמפרקים את הבוקר לשלבים קטנים",
+              "examples": [
+                "לזהות מה מפעיל אותה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "9 מתי מדברים עם רופא",
+              "body": "אם זה מפריע לחיי היומיום\nמתחילים עם רופא הילדים",
+              "examples": [
+                "מתי מדברים עם רופא"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ובשקופית 9 הכול ביחד"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "גבול ברור וקול רגוע\nעם מילים לכעס",
+              "body": "להגן · להירגע · לתת שם\nלהציע · לבחור · לעקוב",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילדה שלך היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "הנשיכה של שירה לא אומרת שהיא ילדה אלימה\nבגיל 3 הגוף מדבר לפני המילים\n9 דברים לעשות ברגע הזה\nלשמור על כולם ולהישאר רגועה\nלתת שם לרגש ולהציע כרית\nכלל קצר וקבוע ובחירה קטנה בסוף\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילדה שלך היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-cleveland",
+              "title": "Have an Aggressive Toddler? Here's How To Manage Their Behavior",
+              "publisher": "Cleveland Clinic Health Essentials (25 June 2024, interview with pediatric psychologist Emily Mudd, PhD)",
+              "url": "https://health.clevelandclinic.org/toddler-hitting-and-aggressive-behavior",
+              "accessed": "2026-10-16",
+              "quote": "We generally expect toddlers to experience some aggressive behaviors ... At this stage, kids tend to resort to physical expressions of their frustration, simply because they don’t yet have the language skills to express themselves. ... When a child is expressing a lot of emotion, and the parents meet that with more emotion, it can increase the child’s aggression ... Never respond with physical force such as spanking, hitting or restraining. ... I have to keep you safe. You can’t hit me, but you can hit the pillow. ... Set boundaries and then put the child in charge of the next choice ... help your child identify the emotion ... Reward good behavior, even when your child isn’t doing anything out of the ordinary. Make the praise specific. ... it’s OK to accommodate. ... Do tantrums happen every morning before school? Work on structuring your morning routine. ... Whatever the cause, if the behavior impacts your child’s day-to-day functioning, it’s time to seek professional treatment",
+              "supports": "Aggression is expected at toddler age because language is not there yet; meeting big emotion with more emotion raises aggression; no physical force; redirect with keeping safe and a pillow; boundary then a choice; name the emotion; specific praise; say yes when it is not a safety issue; triggers and routines; see a pediatrician when daily functioning suffers. Written for toddlers, applied to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-tantrum",
+              "title": "Temper Tantrums",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Elizabeth M. Schilling, PhD, ABPP)",
+              "url": "https://kidshealth.org/en/parents/tantrums.html",
+              "accessed": "2026-10-16",
+              "quote": "Tantrums are a normal part of child development. ... Because toddlers can't always say what they want or need, and because words describing feelings are more complicated and develop later, a frustrating experience may cause a tantrum. ... Tantrums may happen when kids are tired, hungry, or uncomfortable. ... Kids who are in danger of hurting themselves or others during a tantrum should be taken to a quiet, safe place to calm down. ... Consider making a “chill out” or “calm down” spot in your home ... Now (when your child is calm) is the time for a hug and reassurance that your child is loved, no matter what. ... Offer minor choices such as",
+              "supports": "Tantrums (which include hitting) are a normal part of development; toddlers lack words for feelings; tiredness and hunger can set them off; a child who may hurt someone is taken to a quiet safe place; a calm down spot as a choice; a hug and reassurance once calm; small choices. Written for ages 1 to 3, applied here to ages 2 to 5 as an analogy."
+            },
+            {
+              "id": "src-kh-temper",
+              "title": "Taming Tempers",
+              "publisher": "Nemours KidsHealth (medically reviewed June 2022, Margaux J. Barnes, PhD)",
+              "url": "https://kidshealth.org/en/parents/temper.html",
+              "accessed": "2026-10-16",
+              "quote": "Reacting to kids' meltdowns with yelling and outbursts of your own will only teach them to do the same ... Speak calmly, clearly, and firmly ... Once your child calms down, ask what got them so upset. ... But don't push too hard for your child to talk right then. They may need some time to reflect before being ready to talk. ... In this family, we don't hit, push, or shove. ... Make sure kids get enough sleep. ... Doing a bunch of jumping jacks, dancing around the bedroom, or going outside and doing cartwheels are all good choices. ... Point out specifically what you liked about the way they handled it ... if your child has trouble with changes, give warnings ahead of time ... reading a favorite book",
+              "supports": "Yelling at an outburst teaches yelling; speak calmly and firmly; wait until the child is calm before asking; do not push the child to talk right away; short house rules such as no hitting; enough sleep; letting the anger out safely; praising specifically; warnings before changes; a favorite book is one way to shift mood. The page is about tempers in general and applied here to hitting, biting and shouting."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "הנשיכה לא אומרת שהיא ילדה אלימה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: we generally expect toddlers to experience some aggressive behaviors and would not call a single push aggression unless it was part of a pattern. Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later."
+            },
+            {
+              "slide": 2,
+              "wording_he": "בגיל 3 הגוף מדבר לפני המילים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: at this stage kids resort to physical expressions because they lack language; KidsHealth: toddlers cannot always say what they want and words for feelings develop later."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לשמור על כולם ולהישאר רגועה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum",
+                "src-kh-temper"
+              ],
+              "supports": "Cleveland Clinic: redirect with «I have to keep you safe»; KidsHealth: a child who may hurt others is taken to a quiet safe place. KidsHealth: speak calmly, clearly and firmly; Cleveland Clinic: more emotion from the parent can raise the child's aggression."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לתת שם לרגש וכרית",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-temper"
+              ],
+              "supports": "Cleveland Clinic: help the child identify the emotion («You're feeling so sad and mad because you really wanted that cereal»); KidsHealth: offer words like «so that made you angry». Cleveland Clinic: «You can't hit me, but you can hit the pillow»."
+            },
+            {
+              "slide": 5,
+              "wording_he": "כן כשאפשר ובחירה קטנה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland",
+                "src-kh-tantrum"
+              ],
+              "supports": "Cleveland Clinic: if it is not a safety issue it is OK to accommodate; do not give in to aggression. Cleveland Clinic: set the boundary and then put the child in charge of the next choice; KidsHealth: offer minor choices."
+            },
+            {
+              "slide": 6,
+              "wording_he": "כלל קצר וקבוע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth: short house rules such as «In this family, we don't hit, push, or shove»."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לזהות מה מפעיל אותה ולארגן את הבוקר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland"
+              ],
+              "supports": "Cleveland Clinic: know the child's patterns and triggers, for example structure a morning routine that goes wrong."
+            },
+            {
+              "slide": 8,
+              "wording_he": "מתי פונים לרופא הילדים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cleveland"
+              ],
+              "supports": "Cleveland Clinic: if the behaviour affects day-to-day functioning, start with the pediatrician."
+            },
+            {
+              "slide": 9,
+              "wording_he": "גבול ברור וקול רגוע עם מילים לכעס",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-kh-temper",
+                "src-cleveland"
+              ],
+              "supports": "Our recap wording; no promise of a result. KidsHealth: speak calmly, clearly and firmly; Cleveland Clinic: more emotion from the parent can raise the child's aggression. Cleveland Clinic: help the child identify the emotion («You're feeling so sad and mad because you really wanted that cereal»); KidsHealth: offer words like «so that made you angry»."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh-temper"
+              ],
+              "supports": "KidsHealth lists reading a favorite book as one way to shift from an angry mood to a calmer one. That the story is personalised, with the child as the hero, is our wording."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילדה שלכם היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "פתיחה בהרגעה שמבוססת על מקור (התנהגות כזאת צפויה בגיל הזה) ומספר שאומר מה מקבלים. שקופית 8 מציינת מתי לפנות לרופא הילדים, ולכן אין הבטחה שזה ייעלם. הילדה בפה פעור מסתכלת ישר לעדשה.",
+          "image": {
+            "beat": "open-mouthed gasp, shocked at herself",
+            "action": "The girl faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, hugging a soft grey plush rabbit to her chest; her mother is small and soft in the background in a doorway.",
+            "setting": "A bright Israeli playroom with a rug and a low shelf far behind her.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm daylight from a window.",
+            "wardrobe_objects": "A soft grey plush rabbit, held by the girl.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall"
+            }
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        }
+      ]
+    }
+  ]
+}

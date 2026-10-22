@@ -702,7 +702,7 @@ def audience_lines(version):
 HOOK_SCORE_KEYS = ("specific", "feeling", "honest_gap", "short_spoken", "filters", "not_an_ad")
 HOOK_MIN_SCORE = 9
 HOOK_RECENT_PACKS = 3
-# Hook Studio (Yarin, 10 Oct 2026: "focus heavily on clickbaity hooks"): curiosity openers are wanted when the
+# Carousel Machine (Yarin, 10 Oct 2026: "focus heavily on clickbaity hooks"): curiosity openers are wanted when the
 # carousel pays them off, so «לא תאמינו», «הסוד ש», «חייבת לדעת», «מה שאף אחד לא מספר» and «תפסיקי» (about an
 # action, with the replacement in the carousel) are no longer banned. What stays banned is what is weak (lecture
 # and generic openers, hype with no gap) or what hurts the parent (shame, guilt, fear, threats).

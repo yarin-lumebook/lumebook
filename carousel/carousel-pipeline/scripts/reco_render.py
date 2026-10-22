@@ -94,7 +94,7 @@ body.single .slide:not(.on){display:none}
 .arrow{position:absolute;left:50%;transform:translateX(-50%);bottom:44px;width:72px;height:72px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center}
 .arrow svg{width:36px;height:36px}.arrow path{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
 pre#report{display:none}
-/* The bold look (Hook Studio, 10 Oct 2026): a much bigger number, the hook and frame lines set larger, one phrase in a
+/* The bold look (Carousel Machine, 10 Oct 2026): a much bigger number, the hook and frame lines set larger, one phrase in a
    colour block, the question of the last slide marked the same way. It applies when the carousel marks a highlight. */
 .look-bold .slide{--hl:var(--accent);--hl-ink:#FFF7E8}
 .look-bold .bignum{font-size:380px;line-height:.82}

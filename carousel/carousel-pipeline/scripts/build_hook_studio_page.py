@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the Hook Studio page (the carousel machine's front page) as one self-contained HTML file.
+"""Build the Carousel Machine page (its front page) as one self-contained HTML file.
 
     python3 carousel/carousel-pipeline/scripts/build_hook_studio_page.py [--date 2026-10-11]
 
@@ -154,10 +154,10 @@ def main():
 
 TEMPLATE = r'''<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hook Studio</title>
+<title>Carousel Machine</title>
 __HEAD__
 <style>
-/* Hook Studio page: page rules on top of the LumeBook design system (shared/design/lumebook.css, inlined above). Tokens only. */
+/* Carousel Machine page: page rules on top of the LumeBook design system (shared/design/lumebook.css, inlined above). Tokens only. */
 :root{--content-w:64rem}
 .lb-topbar .lb-brand{padding-inline:0;min-width:0;flex:none}
 .lb-topbar .lb-brand img{width:1.75rem;height:1.75rem;border-radius:var(--r-xs);flex:none}
@@ -199,7 +199,7 @@ ul.lim{margin:var(--sp-2) 0 0;padding-inline-start:1.2rem;color:var(--text-2);fo
 
 <div dir="rtl" lang="he">
 <header class="lb-topbar"><div class="lb-topbar-in">
-  <a class="lb-brand" href="#top"><img src="__LOGO__" alt="" width="28" height="28"><b>Hook Studio</b></a>
+  <a class="lb-brand" href="#top"><img src="__LOGO__" alt="" width="28" height="28"><b>Carousel Machine</b></a>
   <nav class="lb-toc" aria-label="פרקים">
     <a href="#today">הלילה האחרון</a><a href="#how">איך זה עובד</a><a href="#slides">שבע השקופיות</a><a href="#rules">כללים</a><a href="#commands">פקודות</a>
   </nav>
@@ -211,7 +211,7 @@ ul.lim{margin:var(--sp-2) 0 0;padding-inline-start:1.2rem;color:var(--text-2);fo
 <main class="lb-page" id="top">
 <header class="lb-section intro">
   <span class="lb-eyebrow">LumeBook · מכונת הקרוסלות</span>
-  <h1>Hook Studio</h1>
+  <h1>Carousel Machine</h1>
   <p class="lb-lede">כל לילה ב-22:00 המכונה מכינה חבילה אחת: שש אפשרויות לקרוסלה על נושא אחד, וגם קרוסלה אחת של משחקים וספרים. בבוקר בוחרים אפשרות אחת, והיא עוברת הפקה מלאה עם תמונות ועיצוב.</p>
   <div class="stats lb-grid">
     <div class="lb-card lb-stat"><span class="lb-stat-value">6</span><span class="lb-stat-label">אפשרויות בכל חבילה, 3 kid ו-3 expert</span></div>

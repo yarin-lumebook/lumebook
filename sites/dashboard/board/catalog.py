@@ -102,7 +102,7 @@ def resources():
         out.append({k: v for k, v in r.items() if v not in (None, "", [], {})})
 
     # components: one resource per registry entry (retired sites and the frozen fal trial stay out)
-    # a local tool that names a component stands for it on the board (Hook Studio is the carousel pipeline)
+    # a local tool that names a component stands for it on the board (Carousel Machine is the carousel pipeline)
     tools = {t["component"]: t for t in facts.get("local_tools", {}).get("tools", []) if t.get("component")}
     for cid, c in reg.items():
         if c.get("retired") or cid in ("ambassadors", "fal-trial"):
@@ -253,7 +253,7 @@ def media_resources(labels):
         r.update({k: v for k, v in lab.items() if k in ("title", "summary") and v})
         out.append({k: v for k, v in r.items() if v not in (None, "", [], {})})
 
-    # finished carousels (Hook Studio production runs), newest four
+    # finished carousels (Carousel Machine production runs), newest four
     appr = rel("carousel/carousel-pipeline/approved")
     runs = sorted((d for d in os.listdir(appr) if re.match(r"\d{4}-\d{2}-\d{2}-", d) and os.path.isdir(os.path.join(appr, d, "final"))), reverse=True) if os.path.isdir(appr) else []
     for run in runs[:4]:

@@ -1,0 +1,2239 @@
+{
+  "schema_version": 3,
+  "date": "2026-10-21",
+  "generated_at": "2026-10-16T08:57:55+00:00",
+  "topic": {
+    "id": "sibling-conflict",
+    "title_he": "מריבות בין אחים",
+    "reason": "הנושא נקבע בתוכנית השבועית כפאק מספר 4 מתוך 7 (מריבות בין אחים) ולא הופיע בשבעת הפאקים האחרונים. שלושה מקורות קוראים ואמינים: KidsHealth, האקדמיה האמריקאית לרפואת ילדים ומכון צ'יילד מיינד, ובהם פתיחים אמיתיים: הריב הוא לא על הצעצוע, לא כל ריב צריך שופט, ומריבה מלמדת. לא נטענת עובדת לוח שנה. בקטלוג יש ספר על שיתוף לגילאי 3 עד 6 (ארגז הצעצועים המיוחד, נבדק היום באתר), לשימוש פנימי בלבד בקישור שבתגובות."
+  },
+  "voice": {
+    "status": "fallback",
+    "approved_samples": 12,
+    "note": "נכתב בקול ברירת המחדל המתועד ובתיקונים של ירין מעמוד הסקירה. 12 מתוך 15 דוגמאות מאושרות, עדיין לא מכויל."
+  },
+  "product_facts": [
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-16"
+    },
+    {
+      "id": "site-book-50",
+      "fact": "Catalogue book 50 (ages 3 to 6, friendship and teamwork): a heart-warming story about learning to share when a friend comes to play (internal use only, for the comment link)",
+      "quote": "סיפור מחמם לב על ללמוד לשתף. כשחבר מגיע לשחק, הילד/ה בהתחלה רוצה לשמור את הצעצועים האהובים לעצמו/ה.",
+      "url": "https://lumebook.com/IL/he/books/50",
+      "checked_at": "2026-10-16"
+    }
+  ],
+  "hook_slate": {
+    "kid": [
+      {
+        "id": "k1",
+        "formula": "child-numbered-ask",
+        "family": "child_pov",
+        "hook": "אמא ואבא\n9 דברים שיעזרו לנו\nכשאנחנו רבים",
+        "slide2": "אני רבה עם אחי\nואני אוהבת אותו\nאצל הרבה אחים יש קנאה",
+        "slide2_move": "promise",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "מה תשעת הדברים שילדה צריכה מההורים כשהיא רבה עם אחיה?",
+        "payoff_slide": 3,
+        "answer": "שקופיות 3 עד 8 נותנות את תשעת הדברים אחד אחד",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1",
+        "note": "שקופית 2 נשענת על KidsHealth: לרוב האחים יש קנאה ותחרות."
+      },
+      {
+        "id": "k2",
+        "formula": "child-not-because",
+        "family": "child_pov",
+        "hook": "אמא\nלא על הצעצוע\n6 דברים שאני צריך",
+        "slide2": "אני רב עם אחותי\nכי אני רוצה שתראי אותי",
+        "slide2_move": "other_side",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "אם הריב הוא לא על הצעצוע על מה הוא, ומה הילד צריך מאמא?",
+        "payoff_slide": 2,
+        "answer": "שקופית 2 אומרת שהריב הוא על תשומת הלב ושקופיות 3 עד 8 נותנות ששה דברים",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2",
+        "note": "הכותרת היא קול של ילד אחד, לא טענה על כל הילדים."
+      },
+      {
+        "id": "k3",
+        "formula": "child-question",
+        "family": "child_quote",
+        "hook": "״למה תמיד אני?״\n9 משפטים להגיד לי",
+        "slide2": "אני שואלת את זה\nכי נדמה לי שאני אשמה",
+        "slide2_move": "name_trigger",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "למה ילדה מרגישה שהיא תמיד האשמה כשההורים נכנסים, ואילו תשעה משפטים עוזרים?",
+        "payoff_slide": 3,
+        "answer": "שקופית 2 אומרת מה מרגישים כשנכנסים באמצע ושקופיות 3 עד 8 נותנות תשעה משפטים",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3",
+        "note": "הציטוט הוא משפט שילדים באמת אומרים."
+      },
+      {
+        "id": "k4",
+        "formula": "two-faces",
+        "family": "reframe",
+        "hook": "בגן אני חברה טובה\nבבית רבה עם אחי\n6 דברים שיעזרו",
+        "slide2": "בגן אף אחד לא לוקח לי\nבבית הכול שלי ושלו",
+        "slide2_move": "name_trigger",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "למה ילדה היא חברה מצוינת בגן ורבה בבית, ומה עוזר לה?",
+        "payoff_slide": 3,
+        "answer": "שקופית 2 אומרת שבבית יש קנאה ושקופיות 3 עד 8 נותנות מה עוזר",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "ניגוד בין שני מקומות. לא נבחר כי שתי אפשרויות נוספות מאותה משפחה קרובות אליו."
+      },
+      {
+        "id": "k5",
+        "formula": "one-sentence-changes",
+        "family": "story",
+        "hook": "יעל ואחיה רבים כל ערב\nומשפט אחד משנה את הערב",
+        "slide2": "כל ערב אותה מריבה\nעל אותו צעצוע",
+        "slide2_move": "scene_restart",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "problem_aware",
+        "gap": "איזה משפט אחד משנה ערב של מריבה בין אחים?",
+        "payoff_slide": 3,
+        "answer": "שקופית 3 נותנת את המשפט ושקופיות 4 עד 8 ממשיכות",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "הפתיח מבטיח משפט אחד ולא דברים מעשיים, ולכן שימושי 1."
+      },
+      {
+        "id": "k6",
+        "formula": "sentence-we-all-say",
+        "family": "sentences_we_say",
+        "hook": "״תפסיקו כבר!״\nכולנו אומרים את זה\nכשהם רבים",
+        "slide2": "אומרים את זה כי אנחנו עייפים\nוהם שומעים את זה אחרת",
+        "slide2_move": "other_side",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "מה הילדים שומעים כשאומרים להם תפסיקו כבר?",
+        "payoff_slide": 3,
+        "answer": "שקופית 2 מראה איך הילדים שומעים את זה ושקופיות 3 עד 8 נותנות מה להגיד",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "הפתיח לא אומר מה מקבלים ולכן שימושי 1."
+      }
+    ],
+    "expert": [
+      {
+        "id": "e1",
+        "formula": "stop-one-thing",
+        "family": "reframe",
+        "hook": "תפסיקי לשאול\n״מי התחיל?״\n9 משפטים במקום",
+        "slide2": "בריב בין אחים\nשניהם חלק מהסיפור",
+        "slide2_move": "first_answer",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "מה עובד יותר טוב מלשאול מי התחיל, ואילו תשעה משפטים משתמשים בו?",
+        "payoff_slide": 3,
+        "answer": "שקופית 2 אומרת ששניהם חלק מהסיפור ושקופיות 3 עד 8 נותנות תשעה משפטים",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-1",
+        "note": "תפסיקי על פעולה אחת בלבד. הקרוסלה סוגרת את הפער."
+      },
+      {
+        "id": "e2",
+        "formula": "nobody-tells",
+        "family": "surprising_statement",
+        "hook": "6 דברים שלא מספרים\nלכם על אחים שרבים",
+        "slide2": "אצל רוב האחים יש\nקנאה ותחרות",
+        "slide2_move": "name_trigger",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "מה לא מספרים להורים על מריבות בין אחים?",
+        "payoff_slide": 3,
+        "answer": "שקופיות 3 עד 8 נותנות את ששת הדברים אחד אחד",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-2",
+        "note": "כל דבר נשען על KidsHealth, האקדמיה האמריקאית לרפואת ילדים או מכון צ'יילד מיינד."
+      },
+      {
+        "id": "e3",
+        "formula": "practical-question",
+        "family": "practical_question",
+        "hook": "איך עוצרים מריבה\nבלי להיות השופט?\n6 צעדים",
+        "slide2": "בכל פעם שמצילים\nמלמדים לחכות להצלה",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "איך עוצרים מריבה בין אחים בלי להיות השופט?",
+        "payoff_slide": 3,
+        "answer": "שקופית 2 אומרת למה לא להציל בכל פעם ושקופיות 3 עד 8 נותנות ששה צעדים",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-3",
+        "note": "שאלה מעשית אחת עם מספר."
+      },
+      {
+        "id": "e4",
+        "formula": "real-reason",
+        "family": "reframe",
+        "hook": "הסיבה האמיתית\nשהם רבים על הצעצוע\n6 דברים לעשות",
+        "slide2": "הצעצוע הוא לא העניין\nהרבה אחים רבים על תשומת לב",
+        "slide2_move": "first_answer",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "מה הסיבה האמיתית לריב על צעצוע, ומה עושים?",
+        "payoff_slide": 3,
+        "answer": "שקופית 2 אומרת שזו תשומת לב ושקופיות 3 עד 8 נותנות מה עושים",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "קרוב לאפשרות expert-2 בנושא ולכן לא נבחר."
+      },
+      {
+        "id": "e5",
+        "formula": "instead-of-say",
+        "family": "sentences_we_say",
+        "hook": "במקום ״תפסיקו לריב!״\nנסו ״מה קרה?״\n6 משפטים",
+        "slide2": "ההורה אומר ״תפסיקו״\nהילדים שומעים שמישהו אשם",
+        "slide2_move": "contrast",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "מה אומרים במקום תפסיקו לריב?",
+        "payoff_slide": 3,
+        "answer": "שקופיות 3 עד 8 נותנות ששה משפטים",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "קרוב לאפשרות expert-1 בנושא ולכן לא נבחר."
+      },
+      {
+        "id": "e6",
+        "formula": "parent-worry-quote",
+        "family": "objection",
+        "hook": "״אם אני לא נכנסת\nהם יפגעו אחד בשני״\n6 דברים שכדאי לדעת",
+        "slide2": "אם יש סכנה נכנסים מיד\nוזו הנקודה",
+        "slide2_move": "first_answer",
+        "mechanism": "reassurance",
+        "awareness_stage": "problem_aware",
+        "gap": "מתי באמת צריך להיכנס לריב בין אחים?",
+        "payoff_slide": 3,
+        "answer": "שקופית 2 אומרת מתי נכנסים ושקופיות 3 עד 8 נותנות מה אחר כך",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "החשש של ההורה במילים שלו. הכותרת לא אומרת מה מקבלים ולכן שימושי 1."
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "אמא ואבא 9 דברים שיעזרו לנו כשאנחנו רבים",
+          "angle": "מאיה בת 6 מבקשת מההורים תשעה דברים כשהיא רבה עם אחיה הקטן: לנסות לבד, להפריד, לא לחפש אשם, משחק משותף, זמן אחד על אחד, מקום משלה ושבח.",
+          "target_parent": "הורים לילדה בת 6 ולאח קטן שרבים כמעט כל ערב על צעצועים ועל תור.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-numbered-ask",
+            "gap": "What are the nine things a girl who fights with her little brother needs from her parents?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k1",
+            "mechanism": "practical_utility",
+            "slide2_move": "promise"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "מאיה",
+          "examples_target": 9,
+          "character_anchor": {
+            "child": "A 6-year-old Israeli girl with long straight dark-brown hair in a low ponytail, olive skin, big dark eyes and a small gap between her front teeth; about 116 cm tall.",
+            "parent": "Her mother, early thirties, tanned skin, shoulder-length wavy brown hair, kind brown eyes, and her father, mid-thirties, short dark hair and light stubble; both warm and a little tired in a real way.",
+            "wardrobe": "Girl: coral cotton T-shirt with no print and denim shorts, bare feet. Mother: sage linen shirt and jeans. Father: grey T-shirt and navy shorts."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא ואבא\n9 דברים שיעזרו לנו\nכשאנחנו רבים",
+              "body": "",
+              "highlight": "שיעזרו לנו",
+              "pull": {
+                "type": "numbered",
+                "note": "תשעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "אני רבה עם אחי\nואני אוהבת אותו",
+              "body": "אצל הרבה אחים יש קנאה ותחרות\nהנה מה שיעזור לנו",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה הדבר הראשון? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 תנו לנו לנסות לבד\n2 תיכנסו כשיש סכנה",
+              "body": "אם אפשר אל תתערבו מיד\nרק כשמישהו עלול להיפגע",
+              "examples": [
+                "תנו לנו לנסות לבד",
+                "תיכנסו כשיש סכנה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אחרי שנכנסים? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 תפרידו אותנו\nעד שנירגע",
+              "body": "אחר כך נדבר על זה\nלא באמצע הצעקות",
+              "examples": [
+                "תפרידו אותנו עד שנירגע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי התחיל? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 אל תחפשו מי התחיל\n5 תקשיבו לשנינו",
+              "body": "גם אחי וגם אני קצת אשמים\nתנו לשנינו לספר מה קרה",
+              "examples": [
+                "אל תחפשו מי התחיל",
+                "תקשיבו לשנינו"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עושים כששנינו רוצים אותו דבר? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 תנו לנו משחק\nשמנצחים בו ביחד",
+              "body": "כשאנחנו רוצים את אותו צעצוע\nאולי יש משחק לשנינו",
+              "examples": [
+                "תנו לנו משחק שמנצחים בו ביחד"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אני צריכה מכם לבד? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 זמן רק איתכם\n8 פינה משלי בבית",
+              "body": "אני רבה כי אני רוצה אתכם\nאו כי אני רוצה שקט",
+              "examples": [
+                "זמן רק איתכם",
+                "פינה משלי בבית"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "9 תגידו לנו כשאנחנו\nמשחקים יפה",
+              "body": "״מאיה אני רואה אתכם משתפים״\nאני רוצה לשמוע את זה עוד",
+              "examples": [
+                "תגידו לנו כשאנחנו משחקים יפה"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "תנו לנו לנסות\nותהיו שם כשצריך",
+              "body": "זמן לבד · משחק ביחד · מילה טובה\nככה אנחנו לומדים להסתדר",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "9 דברים שמבקשת ילדה כשהיא רבה עם אחיה\nלנסות לבד קודם ולהיכנס כשיש סכנה\nלהפריד עד שנרגעים ולהקשיב לשניהם\nמשחק שמנצחים בו ביחד וזמן אחד על אחד\n״אני רואה אתכם משתפים בצעצוע״\nובערב אפשר להמשיך עם סיפור שבו הילדה שלכם היא הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-kh",
+              "title": "Sibling Rivalry",
+              "publisher": "Nemours KidsHealth (medically reviewed by Jennifer Shroff Pendley, PhD)",
+              "url": "https://kidshealth.org/en/parents/sibling-rivalry.html",
+              "accessed": "2026-10-16",
+              "quote": "Most brothers and sisters have some degree of jealousy or competition, which can lead to arguments and bickering. ... When kids argue, if possible, don't get involved. Step in only if there's a danger of physical harm. If you always intervene, you risk creating other problems. The kids may start expecting your help and wait for you to come to the rescue rather than learning to work out the problems on their own. ... Separate kids until they're calm. Sometimes it's best just to give them space for a little while and not rehash the conflict. ... Don't put too much focus on figuring out which child is to blame. It takes two to fight — anyone who is involved is partly responsible. ... try to set up a \"win–win\" situation so that each child gains something. When they both want the same toy, perhaps there's a game they could play together instead. ... as kids cope with conflict, they also learn important skills that will serve them for life — like how to value another person's point of view, how to compromise and negotiate, and how to control aggressive impulses. ... Set ground rules for acceptable behavior. Tell the kids to keep their hands to themselves ... Get their input on the rules ... Don't let kids make you think that everything always has to be \"fair\" and \"equal\" — sometimes one kid needs more than the other. ... Give your kids one-on-one attention directed to their interests and needs. ... make sure kids have their own space and time to do their own thing ... Many kids fight over their caregiver's attention, so fun family activities can help reduce conflict. ... If you're concerned by the language used or name-calling, it's OK to \"coach\" kids through what they're feeling by using appropriate words. ... School-age kids often have a strong concept of fairness, so might not understand why siblings of other ages are treated differently",
+              "supports": "Sibling fights: most siblings have some jealousy or competition; step in only if there is a danger of physical harm, because always intervening teaches children to wait for rescue and can make one child feel the other is protected; separate until calm and do not rehash; do not focus on who is to blame, it takes two; look for a win-win, for example a game to play together; coping with conflict teaches compromise and negotiation; set ground rules with their input; fair is not always equal; one-on-one attention and their own space; many kids fight over a caregiver's attention; it is fine to coach children through feelings with words; school-age children have a strong concept of fairness. Read in full on 16 Oct 2026 (curl); the em dashes are the page's own. A parent explainer, not a trial of any method."
+            },
+            {
+              "id": "src-aap",
+              "title": "Sibling Relationships: How to Help Your Kids Build Healthy Bonds",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 6 Apr 2026)",
+              "url": "https://www.healthychildren.org/English/family-life/family-dynamics/Pages/sibling-synergy.aspx",
+              "accessed": "2026-10-16",
+              "quote": "A younger child, for example, may get upset when their sibling wants a favorite toy. ... If your kids struggle with sibling rivalry, pick teamwork-based games or don't keep score. ... Learning to disagree respectfully is part of developing effective communication and building coping skills. ... With younger siblings, you will need to intervene more often. ... As your children get older and become more mature, you can lessen your involvement. ... Always make sure your family's ground rules are clear. ... If it is a simple disagreement, give them a chance to solve it on their own. ... Do your best to listen fairly before making any decisions. ... While time together as a family is important, one-on-one time with each child is important too. ... Try fitting it into your daily routines, such as during a nightly chat at bedtime.",
+              "supports": "Fights over a favourite toy are common among younger siblings; teamwork-based games or not keeping score can help; disagreeing respectfully builds communication and coping skills; younger siblings need more intervention and older ones less; keep ground rules clear; give a simple disagreement a chance to be solved by the children; listen fairly before deciding; one-on-one time with each child, for example a nightly chat at bedtime. Read through a fetch tool on 16 Oct 2026; the quotes are the page's words as the tool returned them."
+            },
+            {
+              "id": "src-cmi",
+              "title": "When Siblings Won't Stop Fighting",
+              "publisher": "Child Mind Institute (writer Katherine Martinelli, clinical expert reviewer Stephanie A. Lee, PsyD; last reviewed 5 Feb 2025)",
+              "url": "https://childmind.org/article/when-siblings-wont-stop-fighting/",
+              "accessed": "2026-10-16",
+              "quote": "Kids aren't really so concerned about the toy ... that when I yell, when I kick, someone gets involved immediately. ... Stop and praise your kids right then for playing collaboratively ... For every time you catch them fighting, you want to catch them playing nicely together three to five more times ... The more proactive you can be the better off you're going to be in terms of setting the stage for success ... to make sure you give the toy back to them within a few minutes ... I see you guys sharing that toy ... Wow, great job taking turns",
+              "supports": "Look for the pattern and the root cause rather than only breaking up each fight: the fight is often not about the toy, and kids can learn that yelling or kicking gets a parent involved at once; praise cooperation as it happens (aim for three to five positive moments for every fight); make rules and outcomes clear ahead of time; if a toy is taken away give it back within minutes. Read through a fetch tool on 16 Oct 2026 (the site blocks plain curl); the quoted fragments are those the tool returned, joined with ' ... ' and not necessarily in page order."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אצל הרבה אחים יש קנאה ותחרות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: most brothers and sisters have some degree of jealousy or competition, which can lead to arguments and bickering. The first-person voice is an imagined possibility, not a quote."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לתת לנסות לבד ולהיכנס רק כשיש סכנה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: if possible do not get involved, step in only if there is a danger of physical harm; AAP: give a simple disagreement a chance to be solved by the children."
+            },
+            {
+              "slide": 4,
+              "wording_he": "להפריד עד שנרגעים ולא לדון באמצע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: separate kids until they are calm and do not rehash the conflict."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לא לחפש מי התחיל ולהקשיב לשניהם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: do not focus on who is to blame, it takes two to fight; AAP: listen fairly before making any decisions."
+            },
+            {
+              "slide": 6,
+              "wording_he": "משחק משותף כששניהם רוצים אותו צעצוע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: set up a win-win, for example a game they could play together; AAP: pick teamwork-based games or do not keep score."
+            },
+            {
+              "slide": 7,
+              "wording_he": "זמן אחד על אחד ופינה משלה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: one-on-one attention, their own space and time, and many kids fight over a caregiver's attention; AAP: one-on-one time with each child."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לשבח כשהם משחקים יפה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi"
+              ],
+              "supports": "Child Mind Institute: stop and praise kids right then for playing collaboratively; the example sentence 'I see you guys sharing that toy' is the expert's."
+            },
+            {
+              "slide": 9,
+              "wording_he": "ככה אנחנו לומדים להסתדר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: as kids cope with conflict they learn to value another person's point of view, compromise and negotiate. No promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: it is fine to 'coach' children through what they are feeling by using appropriate words. That a personalised story with the child as the hero is one way to find those words is our wording, not the source's."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "מספר וערך על הכריכה (9 דברים) והילדה מסתכלת ישר לעדשה. כל דבר נשען על KidsHealth, האקדמיה האמריקאית לרפואת ילדים או מכון צ'יילד מיינד.",
+          "image": {
+            "beat": "a stubborn standoff with her little brother",
+            "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, hands on her hips; her younger brother is a small soft blurred shape in the background and her mother stands small and soft behind him.",
+            "setting": "A bright Israeli living room with cream walls, a striped floor rug and a few wooden building blocks on the rug.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm late-afternoon light from a window.",
+            "wardrobe_objects": "A small wooden toy truck lying on the rug near her feet, held by no one.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the girl"
+            }
+          }
+        },
+        {
+          "id": "kid-2",
+          "title": "אמא לא על הצעצוע 6 דברים שאני צריך",
+          "angle": "עידו בן 5 מסביר לאמא שהוא רב עם אחותו הגדולה כי הוא רוצה שתראי אותו, ומבקש ממנה שישה דברים.",
+          "target_parent": "אמא לבן בן 5 ולבת גדולה יותר שרבים על צעצועים וממהרת להיכנס באמצע.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-not-because",
+            "gap": "If the fight is not about the toy, what is it about, and what does the boy need from his mother?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k2",
+            "mechanism": "perspective_shift",
+            "slide2_move": "other_side"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "עידו",
+          "examples_target": 6,
+          "character_anchor": {
+            "child": "A 5-year-old Israeli boy with short curly dark hair, light olive skin, big brown eyes and rosy cheeks; about 108 cm tall.",
+            "parent": "His mother, early thirties, tanned skin, long dark hair in a low braid, kind brown eyes; warm and a little tired in a real way.",
+            "wardrobe": "Boy: mustard cotton T-shirt with no print and grey shorts, bare feet. Mother: terracotta linen shirt and jeans."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא\nלא על הצעצוע\n6 דברים שאני צריך",
+              "body": "",
+              "highlight": "לא על הצעצוע",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז על מה הוא רב? שקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "אני רב עם אחותי\nכי אני רוצה שתראי אותי",
+              "body": "הרבה ילדים רבים על תשומת הלב\nולא על הצעצוע עצמו",
+              "pull": {
+                "type": "open_loop",
+                "note": "ששת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 תראי אותי\nגם כשאני רגוע",
+              "body": "אני רוצה שתשימי לב אליי\nלא רק כשאנחנו צועקים",
+              "examples": [
+                "תראי אותי גם כשאני רגוע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עוד אני צריך? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 תני לי זמן\nרק איתך",
+              "body": "אפילו שיחה קצרה לפני השינה\nואני אבחר על מה",
+              "examples": [
+                "תני לי זמן רק איתך"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי אשם? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 אל תחליטי\nמי אשם",
+              "body": "אנחנו שנינו רבים\nתשאלי אותנו מה קרה",
+              "examples": [
+                "אל תחליטי מי אשם"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אם אני כועס? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "4 תני לי להגיד\nאת זה במילים",
+              "body": "״אני כועס כי רציתי את הרכב״\nעזרי לי למצוא את המשפט",
+              "examples": [
+                "תני לי להגיד את זה במילים"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "וכשכולנו רוצים אותו דבר? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "5 תקבעי תור\nלכל אחד",
+              "body": "מי משתמש מתי\nכולם יודעים מה עכשיו",
+              "examples": [
+                "תקבעי תור לכל אחד"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והדבר האחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "6 תגידי לי\nכשאנחנו משחקים יפה",
+              "body": "״עידו אני רואה אותך מחכה לתור״\nזה עושה לי טוב",
+              "examples": [
+                "תגידי לי כשאנחנו משחקים יפה"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "הצעצוע הוא לא העניין\nאני רוצה שתראי אותי",
+              "body": "זמן איתך · מילים · תור · מילה טובה\nככה אני לומד להסתדר",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "6 דברים שבן 5 מבקש כשהוא רב עם אחותו\nלא תמיד הריב הוא על הצעצוע\nלפעמים הוא על תשומת הלב של אמא\nזמן רק איתו ומילים לכעס ותור לכל אחד\n״עידו אני רואה אותך מחכה לתור״\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-kh",
+              "title": "Sibling Rivalry",
+              "publisher": "Nemours KidsHealth (medically reviewed by Jennifer Shroff Pendley, PhD)",
+              "url": "https://kidshealth.org/en/parents/sibling-rivalry.html",
+              "accessed": "2026-10-16",
+              "quote": "Most brothers and sisters have some degree of jealousy or competition, which can lead to arguments and bickering. ... When kids argue, if possible, don't get involved. Step in only if there's a danger of physical harm. If you always intervene, you risk creating other problems. The kids may start expecting your help and wait for you to come to the rescue rather than learning to work out the problems on their own. ... Separate kids until they're calm. Sometimes it's best just to give them space for a little while and not rehash the conflict. ... Don't put too much focus on figuring out which child is to blame. It takes two to fight — anyone who is involved is partly responsible. ... try to set up a \"win–win\" situation so that each child gains something. When they both want the same toy, perhaps there's a game they could play together instead. ... as kids cope with conflict, they also learn important skills that will serve them for life — like how to value another person's point of view, how to compromise and negotiate, and how to control aggressive impulses. ... Set ground rules for acceptable behavior. Tell the kids to keep their hands to themselves ... Get their input on the rules ... Don't let kids make you think that everything always has to be \"fair\" and \"equal\" — sometimes one kid needs more than the other. ... Give your kids one-on-one attention directed to their interests and needs. ... make sure kids have their own space and time to do their own thing ... Many kids fight over their caregiver's attention, so fun family activities can help reduce conflict. ... If you're concerned by the language used or name-calling, it's OK to \"coach\" kids through what they're feeling by using appropriate words. ... School-age kids often have a strong concept of fairness, so might not understand why siblings of other ages are treated differently",
+              "supports": "Sibling fights: most siblings have some jealousy or competition; step in only if there is a danger of physical harm, because always intervening teaches children to wait for rescue and can make one child feel the other is protected; separate until calm and do not rehash; do not focus on who is to blame, it takes two; look for a win-win, for example a game to play together; coping with conflict teaches compromise and negotiation; set ground rules with their input; fair is not always equal; one-on-one attention and their own space; many kids fight over a caregiver's attention; it is fine to coach children through feelings with words; school-age children have a strong concept of fairness. Read in full on 16 Oct 2026 (curl); the em dashes are the page's own. A parent explainer, not a trial of any method."
+            },
+            {
+              "id": "src-aap",
+              "title": "Sibling Relationships: How to Help Your Kids Build Healthy Bonds",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 6 Apr 2026)",
+              "url": "https://www.healthychildren.org/English/family-life/family-dynamics/Pages/sibling-synergy.aspx",
+              "accessed": "2026-10-16",
+              "quote": "A younger child, for example, may get upset when their sibling wants a favorite toy. ... If your kids struggle with sibling rivalry, pick teamwork-based games or don't keep score. ... Learning to disagree respectfully is part of developing effective communication and building coping skills. ... With younger siblings, you will need to intervene more often. ... As your children get older and become more mature, you can lessen your involvement. ... Always make sure your family's ground rules are clear. ... If it is a simple disagreement, give them a chance to solve it on their own. ... Do your best to listen fairly before making any decisions. ... While time together as a family is important, one-on-one time with each child is important too. ... Try fitting it into your daily routines, such as during a nightly chat at bedtime.",
+              "supports": "Fights over a favourite toy are common among younger siblings; teamwork-based games or not keeping score can help; disagreeing respectfully builds communication and coping skills; younger siblings need more intervention and older ones less; keep ground rules clear; give a simple disagreement a chance to be solved by the children; listen fairly before deciding; one-on-one time with each child, for example a nightly chat at bedtime. Read through a fetch tool on 16 Oct 2026; the quotes are the page's words as the tool returned them."
+            },
+            {
+              "id": "src-cmi",
+              "title": "When Siblings Won't Stop Fighting",
+              "publisher": "Child Mind Institute (writer Katherine Martinelli, clinical expert reviewer Stephanie A. Lee, PsyD; last reviewed 5 Feb 2025)",
+              "url": "https://childmind.org/article/when-siblings-wont-stop-fighting/",
+              "accessed": "2026-10-16",
+              "quote": "Kids aren't really so concerned about the toy ... that when I yell, when I kick, someone gets involved immediately. ... Stop and praise your kids right then for playing collaboratively ... For every time you catch them fighting, you want to catch them playing nicely together three to five more times ... The more proactive you can be the better off you're going to be in terms of setting the stage for success ... to make sure you give the toy back to them within a few minutes ... I see you guys sharing that toy ... Wow, great job taking turns",
+              "supports": "Look for the pattern and the root cause rather than only breaking up each fight: the fight is often not about the toy, and kids can learn that yelling or kicking gets a parent involved at once; praise cooperation as it happens (aim for three to five positive moments for every fight); make rules and outcomes clear ahead of time; if a toy is taken away give it back within minutes. Read through a fetch tool on 16 Oct 2026 (the site blocks plain curl); the quoted fragments are those the tool returned, joined with ' ... ' and not necessarily in page order."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "הרבה ילדים רבים על תשומת הלב ולא על הצעצוע עצמו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-cmi"
+              ],
+              "supports": "KidsHealth: many kids fight over their caregiver's attention; Child Mind Institute: kids are not really so concerned about the toy. The first-person voice is an imagined possibility for this one boy, not a quote."
+            },
+            {
+              "slide": 3,
+              "wording_he": "להשקיע תשומת לב גם כשהם רגועים ולא רק כשצועקים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi"
+              ],
+              "supports": "Child Mind Institute: kids can learn that when they yell or kick someone gets involved immediately; the advice is to catch them playing nicely."
+            },
+            {
+              "slide": 4,
+              "wording_he": "זמן אחד על אחד ושיחה לפני השינה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: one-on-one attention directed to their interests; AAP: one-on-one time with each child, for example a nightly chat at bedtime."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לא להחליט מי אשם ולשאול מה קרה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: do not focus on who is to blame, it takes two to fight; AAP: listen fairly before making any decisions."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לעזור להגיד במילים מה מרגישים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: it is fine to coach kids through what they are feeling by using appropriate words."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לקבוע תור לכל אחד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: post a schedule showing which child owns the item at what times."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לשבח כשהם משחקים יפה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi"
+              ],
+              "supports": "Child Mind Institute: stop and praise your kids right then for playing collaboratively; the example 'Wow, great job taking turns'."
+            },
+            {
+              "slide": 9,
+              "wording_he": "ככה אני לומד להסתדר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: as kids cope with conflict they learn to compromise and negotiate. No promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: it is fine to 'coach' children through what they are feeling by using appropriate words. That a personalised story with the child as the hero is one way to find those words is our wording, not the source's."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "מספר וערך על הכריכה (6 דברים) והילד מסתכל ישר לעדשה בעיניים גדולות. ההפתעה שהריב הוא לא על הצעצוע נסגרת בשקופית 2 ונשענת על KidsHealth ועל מכון צ'יילד מיינד.",
+          "image": {
+            "beat": "hurt and wide-eyed: it was never about the toy",
+            "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, holding a small toy robot in front of him with both hands; his older sister is a soft blurred shape at the edge of the frame and his mother is small and soft in the background.",
+            "setting": "A kids' room in an Israeli apartment: a low bunk bed with plain bedding, a cream wall and a basket of toys.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm evening light from a bedside lamp.",
+            "wardrobe_objects": "A small toy robot held by the boy with both hands.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the boy"
+            }
+          }
+        },
+        {
+          "id": "kid-3",
+          "title": "למה תמיד אני 9 משפטים להגיד לי",
+          "angle": "תמר בת 7 שואלת למה תמיד היא האשמה כשההורים נכנסים באמצע ריב, ומבקשת תשעה משפטים להגיד לה ולאחיה.",
+          "target_parent": "הורים לילדה בת 7 ולאח שרבים והם נכנסים באמצע ומרגישים שהיא מרגישה שהם בצד שלו.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_quote",
+          "hook": {
+            "formula": "child-question",
+            "gap": "Why does a girl feel it is always her fault when her parents walk in, and which nine sentences help her?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k3",
+            "mechanism": "recognition",
+            "slide2_move": "name_trigger"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "תמר",
+          "examples_target": 9,
+          "character_anchor": {
+            "child": "A 7-year-old Israeli girl with curly light-brown hair in a high bun, fair olive skin, green eyes and a few freckles; about 122 cm tall.",
+            "parent": "Her mother, mid-thirties, tanned skin, dark straight hair in a ponytail, warm brown eyes, and her father, late thirties, short dark hair and a trimmed beard; both warm and a little tired in a real way.",
+            "wardrobe": "Girl: lilac cotton T-shirt with no print and denim shorts. Mother: cream knit top and jeans. Father: olive T-shirt and grey shorts."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״למה תמיד אני?״\n9 משפטים להגיד לי",
+              "body": "",
+              "highlight": "9 משפטים",
+              "pull": {
+                "type": "numbered",
+                "note": "תשעת המשפטים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "אני שואלת את זה\nכי נדמה לי שאני אשמה",
+              "body": "כשאתם נכנסים באמצע\nנדמה לי שאתם בצד שלו",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה להגיד לי? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 תקראו לרגש בשם\n2 אל תבחרו צד",
+              "body": "״אני רואה שאתם כועסים״\n״אני לא בצד של אף אחד״",
+              "examples": [
+                "תקראו לרגש בשם",
+                "אל תבחרו צד"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואיך עוצרים את הצעקות? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 תנו לנו לנשום קודם",
+              "body": "״קודם נירגע ואז נדבר״\nלא באמצע הצעקות",
+              "examples": [
+                "תנו לנו לנשום קודם"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואז מה? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 תקשיבו לכל אחד\n5 חפשו משהו לשנינו",
+              "body": "״ספרו לי כל אחד מה קרה״\n״מה יעזור לשנינו?״",
+              "examples": [
+                "תקשיבו לכל אחד",
+                "חפשו משהו לשנינו"
+              ],
+              "pull": {
+                "type": "question",
+                "note": "ומה עם הכללים? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 תזכירו כלל אחד",
+              "body": "״ידיים אצלנו״\nאנחנו קבענו אותו ביחד",
+              "examples": [
+                "תזכירו כלל אחד"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומתי לסמוך עלינו? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 תסמכו עלינו קצת\n8 לכל אחד מה שצריך",
+              "body": "״אני בטוחה שתסתדרו״\n״לא הכול חייב להיות שווה״",
+              "examples": [
+                "תסמכו עלינו קצת",
+                "לכל אחד מה שצריך"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והמשפט הכי חשוב בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "9 תגידו שאוהבים אותנו",
+              "body": "״תמר אנחנו אוהבים אתכם גם כשרבים״\nזה מרגיע אותי לשמוע",
+              "examples": [
+                "תגידו שאוהבים אותנו"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "משפט אחד לכל רגע\nואף אחד לא בצד",
+              "body": "לראות · להקשיב · לנשום\nולהגיד שאוהבים",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "״למה תמיד אני?״\n9 משפטים להגיד לילדים כשנכנסים באמצע ריב\nלקרוא לרגש בשם ולא לבחור צד\nלתת לנשום ולהקשיב לכל אחד\nולהזכיר שאוהבים אותם גם כשהם רבים\nובערב אפשר להמשיך עם סיפור שבו הילדה שלכם היא הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-kh",
+              "title": "Sibling Rivalry",
+              "publisher": "Nemours KidsHealth (medically reviewed by Jennifer Shroff Pendley, PhD)",
+              "url": "https://kidshealth.org/en/parents/sibling-rivalry.html",
+              "accessed": "2026-10-16",
+              "quote": "Most brothers and sisters have some degree of jealousy or competition, which can lead to arguments and bickering. ... When kids argue, if possible, don't get involved. Step in only if there's a danger of physical harm. If you always intervene, you risk creating other problems. The kids may start expecting your help and wait for you to come to the rescue rather than learning to work out the problems on their own. ... Separate kids until they're calm. Sometimes it's best just to give them space for a little while and not rehash the conflict. ... Don't put too much focus on figuring out which child is to blame. It takes two to fight — anyone who is involved is partly responsible. ... try to set up a \"win–win\" situation so that each child gains something. When they both want the same toy, perhaps there's a game they could play together instead. ... as kids cope with conflict, they also learn important skills that will serve them for life — like how to value another person's point of view, how to compromise and negotiate, and how to control aggressive impulses. ... Set ground rules for acceptable behavior. Tell the kids to keep their hands to themselves ... Get their input on the rules ... Don't let kids make you think that everything always has to be \"fair\" and \"equal\" — sometimes one kid needs more than the other. ... Give your kids one-on-one attention directed to their interests and needs. ... make sure kids have their own space and time to do their own thing ... Many kids fight over their caregiver's attention, so fun family activities can help reduce conflict. ... If you're concerned by the language used or name-calling, it's OK to \"coach\" kids through what they're feeling by using appropriate words. ... School-age kids often have a strong concept of fairness, so might not understand why siblings of other ages are treated differently",
+              "supports": "Sibling fights: most siblings have some jealousy or competition; step in only if there is a danger of physical harm, because always intervening teaches children to wait for rescue and can make one child feel the other is protected; separate until calm and do not rehash; do not focus on who is to blame, it takes two; look for a win-win, for example a game to play together; coping with conflict teaches compromise and negotiation; set ground rules with their input; fair is not always equal; one-on-one attention and their own space; many kids fight over a caregiver's attention; it is fine to coach children through feelings with words; school-age children have a strong concept of fairness. Read in full on 16 Oct 2026 (curl); the em dashes are the page's own. A parent explainer, not a trial of any method."
+            },
+            {
+              "id": "src-aap",
+              "title": "Sibling Relationships: How to Help Your Kids Build Healthy Bonds",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 6 Apr 2026)",
+              "url": "https://www.healthychildren.org/English/family-life/family-dynamics/Pages/sibling-synergy.aspx",
+              "accessed": "2026-10-16",
+              "quote": "A younger child, for example, may get upset when their sibling wants a favorite toy. ... If your kids struggle with sibling rivalry, pick teamwork-based games or don't keep score. ... Learning to disagree respectfully is part of developing effective communication and building coping skills. ... With younger siblings, you will need to intervene more often. ... As your children get older and become more mature, you can lessen your involvement. ... Always make sure your family's ground rules are clear. ... If it is a simple disagreement, give them a chance to solve it on their own. ... Do your best to listen fairly before making any decisions. ... While time together as a family is important, one-on-one time with each child is important too. ... Try fitting it into your daily routines, such as during a nightly chat at bedtime.",
+              "supports": "Fights over a favourite toy are common among younger siblings; teamwork-based games or not keeping score can help; disagreeing respectfully builds communication and coping skills; younger siblings need more intervention and older ones less; keep ground rules clear; give a simple disagreement a chance to be solved by the children; listen fairly before deciding; one-on-one time with each child, for example a nightly chat at bedtime. Read through a fetch tool on 16 Oct 2026; the quotes are the page's words as the tool returned them."
+            },
+            {
+              "id": "src-cmi",
+              "title": "When Siblings Won't Stop Fighting",
+              "publisher": "Child Mind Institute (writer Katherine Martinelli, clinical expert reviewer Stephanie A. Lee, PsyD; last reviewed 5 Feb 2025)",
+              "url": "https://childmind.org/article/when-siblings-wont-stop-fighting/",
+              "accessed": "2026-10-16",
+              "quote": "Kids aren't really so concerned about the toy ... that when I yell, when I kick, someone gets involved immediately. ... Stop and praise your kids right then for playing collaboratively ... For every time you catch them fighting, you want to catch them playing nicely together three to five more times ... The more proactive you can be the better off you're going to be in terms of setting the stage for success ... to make sure you give the toy back to them within a few minutes ... I see you guys sharing that toy ... Wow, great job taking turns",
+              "supports": "Look for the pattern and the root cause rather than only breaking up each fight: the fight is often not about the toy, and kids can learn that yelling or kicking gets a parent involved at once; praise cooperation as it happens (aim for three to five positive moments for every fight); make rules and outcomes clear ahead of time; if a toy is taken away give it back within minutes. Read through a fetch tool on 16 Oct 2026 (the site blocks plain curl); the quoted fragments are those the tool returned, joined with ' ... ' and not necessarily in page order."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "כשנכנסים באמצע ריב נדמה לילד שההורה בצד של האחר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: if you always intervene you could make it seem to one child that another is always being protected, which could make them even more resentful. The first-person voice is an imagined possibility for this one girl, not a quote."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לקרוא לרגש בשם ולא לבחור צד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: it is fine to coach kids through what they are feeling by using appropriate words and not to focus on who is to blame; AAP: listen fairly before deciding."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לתת לנשום ולהפריד עד שנרגעים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: separate kids until they are calm and do not rehash the conflict."
+            },
+            {
+              "slide": 5,
+              "wording_he": "להקשיב לכל אחד ולחפש משהו לשניהם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: listen fairly before making any decisions; KidsHealth: set up a win-win so that each child gains something."
+            },
+            {
+              "slide": 6,
+              "wording_he": "להזכיר כלל אחד שקבעו ביחד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: set ground rules, such as keeping hands to themselves, and get their input on the rules; AAP: always make sure the family's ground rules are clear."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לתת להם לפתור לבד ושלא הכול שווה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kh"
+              ],
+              "supports": "AAP: if it is a simple disagreement give them a chance to solve it on their own; KidsHealth: do not let kids make you think everything has to be fair and equal, sometimes one needs more than the other."
+            },
+            {
+              "slide": 8,
+              "wording_he": "להגיד שאוהבים בלי תנאי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: show and tell your kids that for you love is not something that comes with limits."
+            },
+            {
+              "slide": 9,
+              "wording_he": "משפט אחד לכל רגע",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "Our wording that sums up slides 3 to 8; each sentence rests on the KidsHealth and AAP lines cited there. No promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: it is fine to 'coach' children through what they are feeling by using appropriate words. That a personalised story with the child as the hero is one way to find those words is our wording, not the source's."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "משפט אמיתי של ילדים על הכריכה ומספר וערך (9 משפטים) והילדה מסתכלת ישר לעדשה בפה פעור. כל משפט נשען על KidsHealth או על האקדמיה האמריקאית לרפואת ילדים.",
+          "image": {
+            "beat": "indignant surprise: why always me?",
+            "action": "The girl faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, one finger pointing at herself; her younger brother is a soft blurred shape at the far end of the table and both parents are small and soft in the doorway.",
+            "setting": "A kitchen and dining corner in an Israeli apartment with cream tiles and a wooden table.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm early-evening light from the kitchen window.",
+            "wardrobe_objects": "No props in her hands: only the finger pointing at herself.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the girl"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "label_he": "גישה מקצועית מבוססת מקורות",
+      "versions": [
+        {
+          "id": "expert-1",
+          "title": "תפסיקי לשאול מי התחיל ו-9 משפטים במקום",
+          "angle": "לפי KidsHealth, מכון צ'יילד מיינד והאקדמיה האמריקאית לרפואת ילדים: במקום לחפש מי התחיל שואלים מה קרה. תשעה משפטים לריב בין אחים.",
+          "target_parent": "אמא לנדב בן 5 ולאחותו הגדולה, ששואלת בכל ריב מי התחיל.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "stop-one-thing",
+            "gap": "What works better than asking who started the fight, and which nine sentences does it use?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e1",
+            "mechanism": "reframe",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "נדב",
+          "examples_target": 9,
+          "character_anchor": {
+            "child": "A 5-year-old Israeli boy with short straight chestnut hair, tanned skin, brown eyes and a gap in his smile; about 108 cm tall.",
+            "parent": "His mother, early thirties, tanned skin, dark curly hair in a ponytail, kind brown eyes; warm and a little tired in a real way.",
+            "wardrobe": "Boy: navy cotton T-shirt with no print and beige shorts, bare feet. Mother: sage linen shirt and jeans."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "תפסיקי לשאול\n״מי התחיל?״\n9 משפטים במקום",
+              "body": "",
+              "highlight": "תפסיקי לשאול",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה שואלים במקום? שקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "בריב בין אחים\nשניהם חלק מהסיפור",
+              "body": "מומחי ילדים בארה״ב אומרים\nאת לא צריכה לברר מי אשם",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מה כן אומרים? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 לשאול מה קרה\n2 לקרוא לרגש בשם",
+              "body": "״מה קרה?״ ולא ״מי התחיל?״\n״אני רואה שיש פה כעס״",
+              "examples": [
+                "לשאול מה קרה",
+                "לקרוא לרגש בשם"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עושים עם התשובות? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 לתת לכל אחד לספר",
+              "body": "״נדב ספר לי מה קרה״\nבתורו ובלי שיפריעו לו",
+              "examples": [
+                "לתת לכל אחד לספר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אם הם עדיין צועקים? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 להפריד עד שנרגעים\n5 לחפש מה יעזור לשניהם",
+              "body": "״נירגע ואז נדבר״\n״מה יעזור לשניכם?״",
+              "examples": [
+                "להפריד עד שנרגעים",
+                "לחפש מה יעזור לשניהם"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואם שניהם רוצים אותו צעצוע? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 להציע משחק לשניהם",
+              "body": "כששניהם רוצים אותו צעצוע\nמשחק משותף יכול לעזור",
+              "examples": [
+                "להציע משחק לשניהם"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומתי לא נכנסים? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 לתת להם לפתור לבד\n8 לקבוע כלל ברור",
+              "body": "אם אין סכנה נותנים להם לנסות\nוכלל אחד: ידיים נשארות אצלנו",
+              "examples": [
+                "לתת להם לפתור לבד",
+                "לקבוע כלל ברור"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והדבר האחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "9 לשבח משחק משותף",
+              "body": "״ראיתי איך חיכיתם לתור״\nברגע שזה קורה ולא אחרי",
+              "examples": [
+                "לשבח משחק משותף"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "במקום ״מי התחיל?״\nשואלים ״מה יעזור?״",
+              "body": "מה קרה · רגש · תור · כלל · שבח\nואם יש סכנה נכנסים מיד",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבי \"לומי\" בתגובות\nוקבלי קישור ליצירת ספר\nשבו הילד שלך הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "תפסיקי לשאול ״מי התחיל?״\nבריב בין אחים שניהם חלק מהסיפור\n9 משפטים לפי מומחי ילדים בארה״ב\nמה קרה ואני רואה שיש פה כעס\nבואו נירגע ומה יעזור לשניכם\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nכתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "cta": "כתבי \"לומי\" בתגובות וקבלי קישור ליצירת ספר שבו הילד שלך הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-kh",
+              "title": "Sibling Rivalry",
+              "publisher": "Nemours KidsHealth (medically reviewed by Jennifer Shroff Pendley, PhD)",
+              "url": "https://kidshealth.org/en/parents/sibling-rivalry.html",
+              "accessed": "2026-10-16",
+              "quote": "Most brothers and sisters have some degree of jealousy or competition, which can lead to arguments and bickering. ... When kids argue, if possible, don't get involved. Step in only if there's a danger of physical harm. If you always intervene, you risk creating other problems. The kids may start expecting your help and wait for you to come to the rescue rather than learning to work out the problems on their own. ... Separate kids until they're calm. Sometimes it's best just to give them space for a little while and not rehash the conflict. ... Don't put too much focus on figuring out which child is to blame. It takes two to fight — anyone who is involved is partly responsible. ... try to set up a \"win–win\" situation so that each child gains something. When they both want the same toy, perhaps there's a game they could play together instead. ... as kids cope with conflict, they also learn important skills that will serve them for life — like how to value another person's point of view, how to compromise and negotiate, and how to control aggressive impulses. ... Set ground rules for acceptable behavior. Tell the kids to keep their hands to themselves ... Get their input on the rules ... Don't let kids make you think that everything always has to be \"fair\" and \"equal\" — sometimes one kid needs more than the other. ... Give your kids one-on-one attention directed to their interests and needs. ... make sure kids have their own space and time to do their own thing ... Many kids fight over their caregiver's attention, so fun family activities can help reduce conflict. ... If you're concerned by the language used or name-calling, it's OK to \"coach\" kids through what they're feeling by using appropriate words. ... School-age kids often have a strong concept of fairness, so might not understand why siblings of other ages are treated differently",
+              "supports": "Sibling fights: most siblings have some jealousy or competition; step in only if there is a danger of physical harm, because always intervening teaches children to wait for rescue and can make one child feel the other is protected; separate until calm and do not rehash; do not focus on who is to blame, it takes two; look for a win-win, for example a game to play together; coping with conflict teaches compromise and negotiation; set ground rules with their input; fair is not always equal; one-on-one attention and their own space; many kids fight over a caregiver's attention; it is fine to coach children through feelings with words; school-age children have a strong concept of fairness. Read in full on 16 Oct 2026 (curl); the em dashes are the page's own. A parent explainer, not a trial of any method."
+            },
+            {
+              "id": "src-aap",
+              "title": "Sibling Relationships: How to Help Your Kids Build Healthy Bonds",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 6 Apr 2026)",
+              "url": "https://www.healthychildren.org/English/family-life/family-dynamics/Pages/sibling-synergy.aspx",
+              "accessed": "2026-10-16",
+              "quote": "A younger child, for example, may get upset when their sibling wants a favorite toy. ... If your kids struggle with sibling rivalry, pick teamwork-based games or don't keep score. ... Learning to disagree respectfully is part of developing effective communication and building coping skills. ... With younger siblings, you will need to intervene more often. ... As your children get older and become more mature, you can lessen your involvement. ... Always make sure your family's ground rules are clear. ... If it is a simple disagreement, give them a chance to solve it on their own. ... Do your best to listen fairly before making any decisions. ... While time together as a family is important, one-on-one time with each child is important too. ... Try fitting it into your daily routines, such as during a nightly chat at bedtime.",
+              "supports": "Fights over a favourite toy are common among younger siblings; teamwork-based games or not keeping score can help; disagreeing respectfully builds communication and coping skills; younger siblings need more intervention and older ones less; keep ground rules clear; give a simple disagreement a chance to be solved by the children; listen fairly before deciding; one-on-one time with each child, for example a nightly chat at bedtime. Read through a fetch tool on 16 Oct 2026; the quotes are the page's words as the tool returned them."
+            },
+            {
+              "id": "src-cmi",
+              "title": "When Siblings Won't Stop Fighting",
+              "publisher": "Child Mind Institute (writer Katherine Martinelli, clinical expert reviewer Stephanie A. Lee, PsyD; last reviewed 5 Feb 2025)",
+              "url": "https://childmind.org/article/when-siblings-wont-stop-fighting/",
+              "accessed": "2026-10-16",
+              "quote": "Kids aren't really so concerned about the toy ... that when I yell, when I kick, someone gets involved immediately. ... Stop and praise your kids right then for playing collaboratively ... For every time you catch them fighting, you want to catch them playing nicely together three to five more times ... The more proactive you can be the better off you're going to be in terms of setting the stage for success ... to make sure you give the toy back to them within a few minutes ... I see you guys sharing that toy ... Wow, great job taking turns",
+              "supports": "Look for the pattern and the root cause rather than only breaking up each fight: the fight is often not about the toy, and kids can learn that yelling or kicking gets a parent involved at once; praise cooperation as it happens (aim for three to five positive moments for every fight); make rules and outcomes clear ahead of time; if a toy is taken away give it back within minutes. Read through a fetch tool on 16 Oct 2026 (the site blocks plain curl); the quoted fragments are those the tool returned, joined with ' ... ' and not necessarily in page order."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "בריב בין אחים שניהם חלק מהסיפור ולא מתמקדים במי אשם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: don't put too much focus on figuring out which child is to blame; it takes two to fight and anyone who is involved is partly responsible."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לשאול מה קרה ולקרוא לרגש בשם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: it is fine to coach kids through what they are feeling by using appropriate words; AAP: listen fairly before making any decisions."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לתת לכל אחד לספר בתורו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: do your best to listen fairly before making any decisions."
+            },
+            {
+              "slide": 5,
+              "wording_he": "להפריד עד שנרגעים ולחפש מה יעזור לשניהם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: separate kids until they are calm and do not rehash the conflict; set up a win-win so that each child gains something."
+            },
+            {
+              "slide": 6,
+              "wording_he": "משחק משותף כששניהם רוצים אותו צעצוע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: when they both want the same toy perhaps there is a game they could play together; AAP: pick teamwork-based games or do not keep score."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לתת לפתור לבד אם אין סכנה ולקבוע כלל ברור",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: if possible do not get involved and step in only if there is a danger of physical harm; set ground rules such as keeping hands to themselves; AAP: always make sure the family's ground rules are clear."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לשבח משחק משותף ברגע שזה קורה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi"
+              ],
+              "supports": "Child Mind Institute: stop and praise your kids right then for playing collaboratively; 'Wow, great job taking turns'."
+            },
+            {
+              "slide": 9,
+              "wording_he": "במקום מי התחיל שואלים מה יעזור",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "Our wording that sums up slides 3 to 8; rests on KidsHealth: do not focus on who is to blame and look for a win-win. No promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: it is fine to 'coach' children through what they are feeling by using appropriate words. That a personalised story with the child as the hero is one way to find those words is our wording, not the source's."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "תפסיקי על פעולה אחת (לשאול מי התחיל) ומספר וערך (9 משפטים במקום). כל משפט נשען על KidsHealth, על האקדמיה האמריקאית לרפואת ילדים או על מכון צ'יילד מיינד.",
+          "image": {
+            "beat": "who, me? an innocent shrug",
+            "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, both palms turned up in a shrug; his older sister is a soft blurred shape in the background and his mother is small and soft beside her.",
+            "setting": "A cheerful Israeli playroom with cream walls, a low shelf of picture books and a rug with a few wooden blocks.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm clear morning daylight from a window.",
+            "wardrobe_objects": "No props in his hands: only the open palms.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the boy"
+            }
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-2",
+          "title": "6 דברים שלא מספרים לכם על אחים שרבים",
+          "angle": "שישה דברים שלא תמיד שומעים על מריבות בין אחים לפי KidsHealth, מכון צ'יילד מיינד והאקדמיה האמריקאית לרפואת ילדים: מריבה מלמדת, לא כל ריב צריך שופט, ולרוב זה לא על הצעצוע.",
+          "target_parent": "הורים לטליה בת 7 ולאחיה הצעיר שמרגישים שהמריבות לא נגמרות וממהרים לשפוט.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "surprising_statement",
+          "hook": {
+            "formula": "nobody-tells",
+            "gap": "What do parents not hear about sibling fights, and which six things are worth knowing?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e2",
+            "mechanism": "honest_curiosity",
+            "slide2_move": "name_trigger"
+          },
+          "code_word": "לומי",
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "טליה",
+          "examples_target": 6,
+          "character_anchor": {
+            "child": "A 7-year-old Israeli girl with long wavy dark-blonde hair in a side braid, fair skin, hazel eyes and a few freckles; about 122 cm tall.",
+            "parent": "Her mother, mid-thirties, tanned skin, shoulder-length dark hair, warm brown eyes, and her father, late thirties, short dark hair and round glasses; both warm and a little tired in a real way.",
+            "wardrobe": "Girl: teal cotton T-shirt with no print and white shorts. Mother: oatmeal knit sweater and jeans. Father: navy T-shirt and khaki shorts."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "6 דברים שלא מספרים\nלכם על אחים שרבים",
+              "body": "",
+              "highlight": "שלא מספרים",
+              "pull": {
+                "type": "numbered",
+                "note": "ששת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "אצל רוב האחים יש\nקנאה ותחרות",
+              "body": "לפי מומחי ילדים בארה״ב\nמזה מגיעות המריבות",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה כדאי לדעת על זה? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 מריבה גם מלמדת",
+              "body": "לפי מומחי ילדים בארה״ב ילדים\nלומדים בה לוותר ולהתפשר",
+              "examples": [
+                "מריבה גם מלמדת"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואז מתי נכנסים? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 לא כל ריב צריך שופט",
+              "body": "אם אין סכנה נותנים להם\nהזדמנות לפתור לבד",
+              "examples": [
+                "לא כל ריב צריך שופט"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועל מה הם רבים באמת? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 הצעצוע הוא לא העניין",
+              "body": "הרבה אחים רבים על תשומת לב\nולא על הצעצוע עצמו",
+              "examples": [
+                "הצעצוע הוא לא העניין"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עם הוגן? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "4 שווה זה לא תמיד הוגן",
+              "body": "לפעמים אחד צריך יותר מהשני\nוזה בסדר",
+              "examples": [
+                "שווה זה לא תמיד הוגן"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עוזר באמת? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "5 זמן אחד על אחד עוזר",
+              "body": "״טליה מה בא לך לעשות?״\nזמן רק איתכם לפי מה שהיא אוהבת",
+              "examples": [
+                "זמן אחד על אחד עוזר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון תלוי בגיל בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "6 הוגנות חשובה\nבגיל בית ספר",
+              "body": "הרבה ילדים בגיל הזה בודקים\nמי קיבל מה ולמה",
+              "examples": [
+                "הוגנות חשובה בגיל בית ספר"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "מריבה היא חלק\nמהלמידה של אחים",
+              "body": "לא שופטים · קשובים · זמן לכל אחד\nואם יש סכנה נכנסים",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לה גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילדה שלכם היא הגיבורה",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "ששה דברים שמספרים פחות על אחים שרבים\nלפי מומחי ילדים בארה״ב\nמריבה גם מלמדת ולא כל ריב צריך שופט\nהצעצוע הוא לא העניין ושווה זה לא תמיד הוגן\nזמן אחד על אחד והוגנות בגיל בית ספר\nובערב אפשר להמשיך עם סיפור שבו הילדה שלכם היא הגיבורה\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילדה שלכם היא הגיבורה",
+          "sources": [
+            {
+              "id": "src-kh",
+              "title": "Sibling Rivalry",
+              "publisher": "Nemours KidsHealth (medically reviewed by Jennifer Shroff Pendley, PhD)",
+              "url": "https://kidshealth.org/en/parents/sibling-rivalry.html",
+              "accessed": "2026-10-16",
+              "quote": "Most brothers and sisters have some degree of jealousy or competition, which can lead to arguments and bickering. ... When kids argue, if possible, don't get involved. Step in only if there's a danger of physical harm. If you always intervene, you risk creating other problems. The kids may start expecting your help and wait for you to come to the rescue rather than learning to work out the problems on their own. ... Separate kids until they're calm. Sometimes it's best just to give them space for a little while and not rehash the conflict. ... Don't put too much focus on figuring out which child is to blame. It takes two to fight — anyone who is involved is partly responsible. ... try to set up a \"win–win\" situation so that each child gains something. When they both want the same toy, perhaps there's a game they could play together instead. ... as kids cope with conflict, they also learn important skills that will serve them for life — like how to value another person's point of view, how to compromise and negotiate, and how to control aggressive impulses. ... Set ground rules for acceptable behavior. Tell the kids to keep their hands to themselves ... Get their input on the rules ... Don't let kids make you think that everything always has to be \"fair\" and \"equal\" — sometimes one kid needs more than the other. ... Give your kids one-on-one attention directed to their interests and needs. ... make sure kids have their own space and time to do their own thing ... Many kids fight over their caregiver's attention, so fun family activities can help reduce conflict. ... If you're concerned by the language used or name-calling, it's OK to \"coach\" kids through what they're feeling by using appropriate words. ... School-age kids often have a strong concept of fairness, so might not understand why siblings of other ages are treated differently",
+              "supports": "Sibling fights: most siblings have some jealousy or competition; step in only if there is a danger of physical harm, because always intervening teaches children to wait for rescue and can make one child feel the other is protected; separate until calm and do not rehash; do not focus on who is to blame, it takes two; look for a win-win, for example a game to play together; coping with conflict teaches compromise and negotiation; set ground rules with their input; fair is not always equal; one-on-one attention and their own space; many kids fight over a caregiver's attention; it is fine to coach children through feelings with words; school-age children have a strong concept of fairness. Read in full on 16 Oct 2026 (curl); the em dashes are the page's own. A parent explainer, not a trial of any method."
+            },
+            {
+              "id": "src-aap",
+              "title": "Sibling Relationships: How to Help Your Kids Build Healthy Bonds",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 6 Apr 2026)",
+              "url": "https://www.healthychildren.org/English/family-life/family-dynamics/Pages/sibling-synergy.aspx",
+              "accessed": "2026-10-16",
+              "quote": "A younger child, for example, may get upset when their sibling wants a favorite toy. ... If your kids struggle with sibling rivalry, pick teamwork-based games or don't keep score. ... Learning to disagree respectfully is part of developing effective communication and building coping skills. ... With younger siblings, you will need to intervene more often. ... As your children get older and become more mature, you can lessen your involvement. ... Always make sure your family's ground rules are clear. ... If it is a simple disagreement, give them a chance to solve it on their own. ... Do your best to listen fairly before making any decisions. ... While time together as a family is important, one-on-one time with each child is important too. ... Try fitting it into your daily routines, such as during a nightly chat at bedtime.",
+              "supports": "Fights over a favourite toy are common among younger siblings; teamwork-based games or not keeping score can help; disagreeing respectfully builds communication and coping skills; younger siblings need more intervention and older ones less; keep ground rules clear; give a simple disagreement a chance to be solved by the children; listen fairly before deciding; one-on-one time with each child, for example a nightly chat at bedtime. Read through a fetch tool on 16 Oct 2026; the quotes are the page's words as the tool returned them."
+            },
+            {
+              "id": "src-cmi",
+              "title": "When Siblings Won't Stop Fighting",
+              "publisher": "Child Mind Institute (writer Katherine Martinelli, clinical expert reviewer Stephanie A. Lee, PsyD; last reviewed 5 Feb 2025)",
+              "url": "https://childmind.org/article/when-siblings-wont-stop-fighting/",
+              "accessed": "2026-10-16",
+              "quote": "Kids aren't really so concerned about the toy ... that when I yell, when I kick, someone gets involved immediately. ... Stop and praise your kids right then for playing collaboratively ... For every time you catch them fighting, you want to catch them playing nicely together three to five more times ... The more proactive you can be the better off you're going to be in terms of setting the stage for success ... to make sure you give the toy back to them within a few minutes ... I see you guys sharing that toy ... Wow, great job taking turns",
+              "supports": "Look for the pattern and the root cause rather than only breaking up each fight: the fight is often not about the toy, and kids can learn that yelling or kicking gets a parent involved at once; praise cooperation as it happens (aim for three to five positive moments for every fight); make rules and outcomes clear ahead of time; if a toy is taken away give it back within minutes. Read through a fetch tool on 16 Oct 2026 (the site blocks plain curl); the quoted fragments are those the tool returned, joined with ' ... ' and not necessarily in page order."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אצל רוב האחים יש קנאה ותחרות ומזה מגיעות המריבות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: most brothers and sisters have some degree of jealousy or competition, which can lead to arguments and bickering."
+            },
+            {
+              "slide": 3,
+              "wording_he": "מריבה גם מלמדת לוותר ולהתפשר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: as kids cope with conflict they learn how to value another person's point of view, compromise and negotiate; AAP: learning to disagree respectfully is part of developing communication and coping skills."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לא כל ריב צריך שופט",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: if possible do not get involved, step in only if there is a danger of physical harm, and always intervening has costs; AAP: give a simple disagreement a chance to be solved by the children."
+            },
+            {
+              "slide": 5,
+              "wording_he": "הצעצוע הוא לא העניין",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-cmi"
+              ],
+              "supports": "KidsHealth: many kids fight over their caregiver's attention; Child Mind Institute: kids are not really so concerned about the toy."
+            },
+            {
+              "slide": 6,
+              "wording_he": "שווה זה לא תמיד הוגן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: do not let kids make you think everything always has to be fair and equal, sometimes one kid needs more than the other."
+            },
+            {
+              "slide": 7,
+              "wording_he": "זמן אחד על אחד עוזר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: give your kids one-on-one attention directed to their interests; AAP: one-on-one time with each child is important too."
+            },
+            {
+              "slide": 8,
+              "wording_he": "הוגנות חשובה בגיל בית ספר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: school-age kids often have a strong concept of fairness, so might not understand why siblings of other ages are treated differently."
+            },
+            {
+              "slide": 9,
+              "wording_he": "מריבה היא חלק מהלמידה של אחים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: kids learn skills through conflict; AAP: disagreeing respectfully builds communication and coping skills. No promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: it is fine to 'coach' children through what they are feeling by using appropriate words. That a personalised story with the child as the hero is one way to find those words is our wording, not the source's."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "מה שלא מספרים לכם על מריבות של אחים ומספר וערך על הכריכה (6 דברים), והילדה מסתכלת ישר לעדשה בעיניים פעורות. כל דבר נשען על שלושה מקורות.",
+          "image": {
+            "beat": "a secret she is about to tell",
+            "action": "The girl faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows and a small open-mouthed gasp, one finger raised to her lips as if sharing a secret; her younger brother is a soft blurred shape in the background and both parents are small and soft behind him.",
+            "setting": "A sunny Israeli balcony turned play corner with a cream wall, a small plant and a low wooden bench.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm late-morning daylight.",
+            "wardrobe_objects": "No props in her hands: only the raised finger.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the girl"
+            }
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        },
+        {
+          "id": "expert-3",
+          "title": "איך עוצרים מריבה בין אחים בלי להיות השופט ב-6 צעדים",
+          "angle": "שישה צעדים לריב בין אחים לפי KidsHealth, מכון צ'יילד מיינד והאקדמיה האמריקאית לרפואת ילדים: להיכנס רק כשיש סכנה, להפריד, לחפש סיבה, כללים מראש, לוח זמנים ושבח.",
+          "target_parent": "הורים לרועי בן 4 ולאחותו הגדולה שרצים להציל בכל ריב ומרגישים שהם תמיד השופט.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "practical_question",
+          "hook": {
+            "formula": "practical-question",
+            "gap": "How do parents stop a fight between siblings without becoming the judge, and which six steps do it?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e3",
+            "mechanism": "practical_utility",
+            "slide2_move": "first_answer"
+          },
+          "code_word": "לומי",
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "רועי",
+          "examples_target": 6,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short wavy light-brown hair, fair olive skin, big hazel eyes and a dimple in his chin; about 103 cm tall.",
+            "parent": "His mother, early thirties, tanned skin, dark hair in a low bun, kind brown eyes, and his father, mid-thirties, short dark hair and light stubble; both warm and a little tired in a real way.",
+            "wardrobe": "Boy: sky-blue cotton T-shirt with no print and grey shorts, bare feet. Mother: terracotta linen shirt and jeans. Father: grey T-shirt and navy shorts."
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "איך עוצרים מריבה\nבלי להיות השופט?\n6 צעדים",
+              "body": "",
+              "highlight": "בלי להיות השופט",
+              "pull": {
+                "type": "open_loop",
+                "note": "למה לא להציל בכל פעם? שקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "בכל פעם שמצילים\nמלמדים לחכות להצלה",
+              "body": "לפי מומחי ילדים בארה״ב\nילדים מתחילים לצפות לעזרה",
+              "pull": {
+                "type": "open_loop",
+                "note": "אז מתי כן נכנסים? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 להיכנס רק כשיש סכנה",
+              "body": "אם מישהו עלול להיפגע\nנכנסים ועוצרים מיד",
+              "examples": [
+                "להיכנס רק כשיש סכנה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אם אין סכנה? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 להפריד עד שנרגעים",
+              "body": "לא לדון בזה עכשיו\nמחכים שהרגשות ירדו",
+              "examples": [
+                "להפריד עד שנרגעים"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה מחפשים אחר כך? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 לחפש את הסיבה",
+              "body": "מתי זה קורה ועל מה\nלפעמים זו תשומת לב",
+              "examples": [
+                "לחפש את הסיבה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואיך מונעים את הריב הבא? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "4 לקבוע כללים מראש",
+              "body": "ידיים אצלנו ואין קללות\nמבקשים גם את דעתם",
+              "examples": [
+                "לקבוע כללים מראש"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי משתמש מתי? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "5 לקבוע לוח זמנים",
+              "body": "אצל מי הצעצוע ומתי\nכולם רואים את הלוח",
+              "examples": [
+                "לקבוע לוח זמנים"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והצעד האחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "6 לשבח משחק משותף",
+              "body": "״רועי ראיתי איך שיתפתם״\nבזמן אמת",
+              "examples": [
+                "לשבח משחק משותף"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "שישה צעדים וכיוון אחד\nלתת להם לפתור",
+              "body": "סכנה · הפרדה · סיבה · כללים\nלוח זמנים · שבח",
+              "pull": {
+                "type": "next_step",
+                "note": "שקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור לו גם\nבסיפור אישי",
+              "body": "כתבו \"לומי\" בתגובות\nוקבלו קישור ליצירת ספר\nשבו הילד שלכם הוא הגיבור",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "איך עוצרים מריבה בין אחים בלי להיות השופט\n6 צעדים לפי מומחי ילדים בארה״ב\nלהיכנס רק כשיש סכנה ולהפריד עד שנרגעים\nלחפש סיבה ולקבוע כללים ולוח זמנים\nולשבח משחק משותף ברגע שזה קורה\nובערב אפשר להמשיך עם סיפור שבו הילד שלכם הוא הגיבור\nכתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "cta": "כתבו \"לומי\" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור",
+          "sources": [
+            {
+              "id": "src-kh",
+              "title": "Sibling Rivalry",
+              "publisher": "Nemours KidsHealth (medically reviewed by Jennifer Shroff Pendley, PhD)",
+              "url": "https://kidshealth.org/en/parents/sibling-rivalry.html",
+              "accessed": "2026-10-16",
+              "quote": "Most brothers and sisters have some degree of jealousy or competition, which can lead to arguments and bickering. ... When kids argue, if possible, don't get involved. Step in only if there's a danger of physical harm. If you always intervene, you risk creating other problems. The kids may start expecting your help and wait for you to come to the rescue rather than learning to work out the problems on their own. ... Separate kids until they're calm. Sometimes it's best just to give them space for a little while and not rehash the conflict. ... Don't put too much focus on figuring out which child is to blame. It takes two to fight — anyone who is involved is partly responsible. ... try to set up a \"win–win\" situation so that each child gains something. When they both want the same toy, perhaps there's a game they could play together instead. ... as kids cope with conflict, they also learn important skills that will serve them for life — like how to value another person's point of view, how to compromise and negotiate, and how to control aggressive impulses. ... Set ground rules for acceptable behavior. Tell the kids to keep their hands to themselves ... Get their input on the rules ... Don't let kids make you think that everything always has to be \"fair\" and \"equal\" — sometimes one kid needs more than the other. ... Give your kids one-on-one attention directed to their interests and needs. ... make sure kids have their own space and time to do their own thing ... Many kids fight over their caregiver's attention, so fun family activities can help reduce conflict. ... If you're concerned by the language used or name-calling, it's OK to \"coach\" kids through what they're feeling by using appropriate words. ... School-age kids often have a strong concept of fairness, so might not understand why siblings of other ages are treated differently",
+              "supports": "Sibling fights: most siblings have some jealousy or competition; step in only if there is a danger of physical harm, because always intervening teaches children to wait for rescue and can make one child feel the other is protected; separate until calm and do not rehash; do not focus on who is to blame, it takes two; look for a win-win, for example a game to play together; coping with conflict teaches compromise and negotiation; set ground rules with their input; fair is not always equal; one-on-one attention and their own space; many kids fight over a caregiver's attention; it is fine to coach children through feelings with words; school-age children have a strong concept of fairness. Read in full on 16 Oct 2026 (curl); the em dashes are the page's own. A parent explainer, not a trial of any method."
+            },
+            {
+              "id": "src-aap",
+              "title": "Sibling Relationships: How to Help Your Kids Build Healthy Bonds",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 6 Apr 2026)",
+              "url": "https://www.healthychildren.org/English/family-life/family-dynamics/Pages/sibling-synergy.aspx",
+              "accessed": "2026-10-16",
+              "quote": "A younger child, for example, may get upset when their sibling wants a favorite toy. ... If your kids struggle with sibling rivalry, pick teamwork-based games or don't keep score. ... Learning to disagree respectfully is part of developing effective communication and building coping skills. ... With younger siblings, you will need to intervene more often. ... As your children get older and become more mature, you can lessen your involvement. ... Always make sure your family's ground rules are clear. ... If it is a simple disagreement, give them a chance to solve it on their own. ... Do your best to listen fairly before making any decisions. ... While time together as a family is important, one-on-one time with each child is important too. ... Try fitting it into your daily routines, such as during a nightly chat at bedtime.",
+              "supports": "Fights over a favourite toy are common among younger siblings; teamwork-based games or not keeping score can help; disagreeing respectfully builds communication and coping skills; younger siblings need more intervention and older ones less; keep ground rules clear; give a simple disagreement a chance to be solved by the children; listen fairly before deciding; one-on-one time with each child, for example a nightly chat at bedtime. Read through a fetch tool on 16 Oct 2026; the quotes are the page's words as the tool returned them."
+            },
+            {
+              "id": "src-cmi",
+              "title": "When Siblings Won't Stop Fighting",
+              "publisher": "Child Mind Institute (writer Katherine Martinelli, clinical expert reviewer Stephanie A. Lee, PsyD; last reviewed 5 Feb 2025)",
+              "url": "https://childmind.org/article/when-siblings-wont-stop-fighting/",
+              "accessed": "2026-10-16",
+              "quote": "Kids aren't really so concerned about the toy ... that when I yell, when I kick, someone gets involved immediately. ... Stop and praise your kids right then for playing collaboratively ... For every time you catch them fighting, you want to catch them playing nicely together three to five more times ... The more proactive you can be the better off you're going to be in terms of setting the stage for success ... to make sure you give the toy back to them within a few minutes ... I see you guys sharing that toy ... Wow, great job taking turns",
+              "supports": "Look for the pattern and the root cause rather than only breaking up each fight: the fight is often not about the toy, and kids can learn that yelling or kicking gets a parent involved at once; praise cooperation as it happens (aim for three to five positive moments for every fight); make rules and outcomes clear ahead of time; if a toy is taken away give it back within minutes. Read through a fetch tool on 16 Oct 2026 (the site blocks plain curl); the quoted fragments are those the tool returned, joined with ' ... ' and not necessarily in page order."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "בכל פעם שמצילים ילדים מתחילים לצפות לעזרה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: if you always intervene the kids may start expecting your help and wait for you to come to the rescue rather than learning to work out the problems on their own."
+            },
+            {
+              "slide": 3,
+              "wording_he": "להיכנס רק כשיש סכנה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: step in only if there is a danger of physical harm."
+            },
+            {
+              "slide": 4,
+              "wording_he": "להפריד עד שנרגעים ולא לדון בזה עכשיו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: separate kids until they are calm and do not rehash the conflict."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לחפש את הסיבה ולא רק להפריד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi"
+              ],
+              "supports": "Child Mind Institute: look for the pattern and the root cause instead of only breaking up each fight; kids are not really so concerned about the toy."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לקבוע כללים מראש ולבקש את דעתם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-aap",
+                "src-cmi"
+              ],
+              "supports": "KidsHealth: set ground rules and get their input; AAP: always make sure the family's ground rules are clear; Child Mind Institute: make rules and outcomes clear ahead of time."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לוח זמנים לצעצוע שרבים עליו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: if they often argue over the same things post a schedule showing which child owns that item at what times during the week."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לשבח משחק משותף בזמן אמת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-cmi"
+              ],
+              "supports": "Child Mind Institute: stop and praise your kids right then for playing collaboratively and aim for three to five positive moments for every fight."
+            },
+            {
+              "slide": 9,
+              "wording_he": "שישה צעדים וכיוון אחד לתת להם לפתור",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "Our wording that sums up slides 3 to 8; rests on KidsHealth: let them work out the problems on their own when there is no danger. No promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: it is fine to 'coach' children through what they are feeling by using appropriate words. That a personalised story with the child as the hero is one way to find those words is our wording, not the source's."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star"
+              ],
+              "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, 16 Oct 2026). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "שאלה מעשית על הכריכה ומספר וערך (6 צעדים), והילד מסתכל ישר לעדשה בעיניים גדולות. כל צעד נשען על KidsHealth, על האקדמיה האמריקאית לרפואת ילדים או על מכון צ'יילד מיינד.",
+          "image": {
+            "beat": "a tense moment, wide-eyed and still",
+            "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes, raised eyebrows and a small tight pout, one hand hovering over a wooden block tower; his older sister is a soft blurred shape at the edge of the frame and both parents are small and soft in the background.",
+            "setting": "A bright Israeli living-room corner with cream walls and a low table with a wooden block tower.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm afternoon light from a window.",
+            "wardrobe_objects": "A wooden block tower on the low table, touched by no one.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the boy"
+            }
+          },
+          "expert_frame": {
+            "type": "evidence_based_take"
+          }
+        }
+      ]
+    }
+  ]
+}

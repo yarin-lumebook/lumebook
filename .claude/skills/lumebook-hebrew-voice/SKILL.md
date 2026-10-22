@@ -53,7 +53,7 @@ Read `references/fallback-voice.md` for the full description with good and bad p
 - Warm and direct, a little dry, never sugary. Humour only when it is light and kind
 - Uncertainty is said plainly: "לפעמים", "אצל הרבה ילדים", "יכול להיות ש"
 - Never: "חשוב לזכור", "בואו נדבר על", "המסע", "קסם", "להעצים", "חוסן", "להכיל", "לתקף", "מרחב בטוח", "בסופו של יום", "הנה הדבר", "מה שאף אחד לא מספר לכם"
-- One exception since 10 Oct 2026 (Hook Studio): on a carousel cover only, the hook bank's loud formulas may use "מה שלא מספרים לך" and "תפסיקי" about one action, when the carousel pays them off. In body lines and captions the list above still holds
+- One exception since 10 Oct 2026 (Carousel Machine): on a carousel cover only, the hook bank's loud formulas may use "מה שלא מספרים לך" and "תפסיקי" about one action, when the carousel pays them off. In body lines and captions the list above still holds
 
 ### Child narrator (kid direction)
 

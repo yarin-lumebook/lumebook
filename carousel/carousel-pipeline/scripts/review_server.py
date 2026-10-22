@@ -20,7 +20,7 @@ become editable in place. "שמירה" (or Cmd+S) sends the changes here, and th
 4. rebuilds review.html and review.md, and updates history.json when the pack is valid
 5. returns the errors, which the page shows next to the exact field
 
-/ is Hook Studio itself (studio.py): every carousel of the week on one page, edited in place through /api/save and
+/ is Carousel Machine itself (studio.py): every carousel of the week on one page, edited in place through /api/save and
 /api/save-reco, graded through /api/grade (grades.json) and produced through /api/production/* (producer.py,
 productions.json). /api/state is what the page reloads.
 
@@ -257,7 +257,7 @@ class Handler(SimpleHTTPRequestHandler):
         if not path.is_file():
             return self.send_error(404)
         html = DAYS_RE.sub(lambda _: reco_render.days_html(path.parent), path.read_text(encoding="utf-8"), count=1)
-        if not self.server.pinned_date:   # the editors keep their own layout; this gets back to Hook Studio
+        if not self.server.pinned_date:   # the editors keep their own layout; this gets back to Carousel Machine
             html = html.replace("</body>", studio.BACK_LINK + "</body>", 1)
         return self.send_html(html)
 
@@ -394,7 +394,7 @@ def _item_for_key(key):
 
 
 def _production_api(self):
-    """Hook Studio's producer (producer.py): start or continue, approve the picture, ask for another, show in Finder."""
+    """Carousel Machine's producer (producer.py): start or continue, approve the picture, ask for another, show in Finder."""
     payload = self.read_payload()
     if not isinstance(payload, dict):
         return self.send_json({"error": "bad request"}, 400)
@@ -465,7 +465,7 @@ def main():
     server.pinned_date = bool(args.date)
     plan = None if args.date else batch.newest_batch_with_content()
     where = "" if plan else f"drafts/{date}/review.html"
-    print(f"Hook Studio: http://localhost:{args.port}/{where}  (Ctrl+C to stop)", flush=True)
+    print(f"Carousel Machine: http://localhost:{args.port}/{where}  (Ctrl+C to stop)", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

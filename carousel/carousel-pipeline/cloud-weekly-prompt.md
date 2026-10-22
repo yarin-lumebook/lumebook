@@ -8,7 +8,7 @@ What you make: 7 packs on 7 different topics, each a normal drafts/DATE folder w
 
 1. Chrome for the slide PNGs: `python3 -c "import sys; sys.path.insert(0,'carousel/carousel-pipeline/scripts'); import carousel_lib as l; print(l.CHROME)"`. If it prints None: `apt-get update && apt-get install -y chromium` (sudo when not root; README section 9 has the Google Chrome fallback).
 2. Plan the week: `python3 carousel/carousel-pipeline/scripts/nightly.py week-plan`. It merges the history the earlier cloud runs pushed to their branches, then prints the plan (also written to carousel/carousel-pipeline/drafts/batches/<id>.json): the batch id, 7 slots with date, topic (slot 1: the event slot with its fallback topic). If it stops because too few topics are free, stop and say so.
-3. Read what Yarin thought of the earlier batches: `python3 carousel/carousel-pipeline/scripts/grades.py brief` (Yarin's 1 to 5 grades and reasons from the Hook Studio grading page, grades.json on main). Keep its output; every slot brief below gets it. If it says there are no grades, go on without.
+3. Read what Yarin thought of the earlier batches: `python3 carousel/carousel-pipeline/scripts/grades.py brief` (Yarin's 1 to 5 grades and reasons from the Carousel Machine grading page, grades.json on main). Keep its output; every slot brief below gets it. If it says there are no grades, go on without.
 4. Create the branch `batch/<id>` (if it exists on origin, `batch/<id>-2`), then `git add carousel/carousel-pipeline/drafts/batches/<id>.json carousel/carousel-pipeline/history.json`, commit "Weekly batch <id>: plan" with the GitHub no-reply email, and push that branch. Never push to main, never open a pull request.
 
 ## 1 · Build the slots
