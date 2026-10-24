@@ -142,10 +142,32 @@ CLAIM_KINDS = ("sourced_fact", "product_fact", "lumebook_wording")
 # Hebrew hard rules
 # ---------------------------------------------------------------------------
 
-# Characters that must never appear in audience facing Hebrew.
-# The three named in the brief plus their common lookalikes, so a model cannot
-# slip past the rule with a near identical glyph.
+# Characters that must never appear in audience facing Hebrew (Yarin, 24 Oct 2026: "lets bring back punctuation marks
+# except em dashes, semicolon and hyphens"): every dash, the semicolon and the hyphen, with their lookalikes so a model
+# cannot slip past the rule with a near identical glyph. Periods, commas, question and exclamation marks, colons,
+# quotation marks and the ellipsis are fine again. Packs written before PUNCTUATION_FROM (and the games and books
+# carousels) keep LEGACY_FORBIDDEN_CHARS: no dash, period or comma, hyphens allowed.
 FORBIDDEN_CHARS = {
+    "—": "em dash",
+    "―": "horizontal bar (em dash lookalike)",
+    "⸺": "two-em dash",
+    "⸻": "three-em dash",
+    "–": "en dash (write עד for ranges)",
+    "﹘": "small em dash",
+    "-": "hyphen (write the number or word on its own: ועוד 8, בשעה 17:40, 3 עד 6)",
+    "־": "maqaf (Hebrew hyphen)",
+    "‐": "hyphen",
+    "‑": "non-breaking hyphen",
+    "‒": "figure dash",
+    "−": "minus sign (hyphen lookalike)",
+    "﹣": "small hyphen",
+    "－": "fullwidth hyphen",
+    ";": "semicolon",
+    "；": "fullwidth semicolon",
+    "\u037e": "Greek question mark (semicolon lookalike)",
+}
+PUNCTUATION_FROM = "2026-10-24T21:00"
+LEGACY_FORBIDDEN_CHARS = {
     "—": "em dash",
     "―": "horizontal bar (em dash lookalike)",
     "⸺": "two-em dash",
@@ -305,7 +327,8 @@ def draw_example_slots(folder, rng=None):
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))["slots"]
     rng = rng or random.SystemRandom()
-    slots = {oid: rng.randint(NUMBERED_EXAMPLES_MIN, NUMBERED_EXAMPLES_MAX) for oid in OPTION_IDS}
+    # kid-4 to kid-6 are the second topic of a two-topic pack (24 Oct 2026); the expert ids stay for older dates
+    slots = {oid: rng.randint(NUMBERED_EXAMPLES_MIN, NUMBERED_EXAMPLES_MAX) for oid in dict.fromkeys(OPTION_IDS + PAIR_OPTION_IDS)}
     path.write_text(json.dumps({"drawn_at": now_local().isoformat(timespec="seconds"), "slots": slots}, indent=2) + "\n", encoding="utf-8")
     return slots
 
@@ -562,14 +585,20 @@ def collapse(text):
     return " ".join(str(text).split())
 
 
-def forbidden_char_issues(path, text):
+def punctuation_rule_applies(pack):
+    """Dashes, semicolons and hyphens out, the rest of punctuation back: packs from PUNCTUATION_FROM and packs moved to the save for later CTA."""
+    return str((pack or {}).get("generated_at", ""))[:16] >= PUNCTUATION_FROM or (pack or {}).get("cta_style") == SAVE_LATER_STYLE
+
+
+def forbidden_char_issues(path, text, legacy=False):
     """Report every forbidden character with its exact line and column. Never edits the text."""
     issues = []
+    chars = LEGACY_FORBIDDEN_CHARS if legacy else FORBIDDEN_CHARS
     for line_no, line in enumerate(str(text).splitlines() or [str(text)], start=1):
         for col, ch in enumerate(line, start=1):
-            if ch in FORBIDDEN_CHARS:
+            if ch in chars:
                 issues.append(Issue(
-                    "ERROR", path, f"forbidden {FORBIDDEN_CHARS[ch]}",
+                    "ERROR", path, f"forbidden {chars[ch]}",
                     char=ch, line=line_no, col=col, excerpt=line.strip()[:80],
                 ))
     return issues
@@ -599,14 +628,14 @@ def lexicon_issues(path, text, allow_cta=False):
 AI_MENTION_RE = re.compile(r"(?<![A-Za-z])A\.?I(?![A-Za-z])|בינה\s+מלאכותית|נוצר[הו]?\s+(?:ב|על\s+ידי|בעזרת)\s*(?:AI|בינה)|\bai\b", re.I)
 
 
-def audience_text_issues(path, text, require_hebrew=True, allow_cta=False):
-    """All hard rules for one piece of audience facing Hebrew."""
+def audience_text_issues(path, text, require_hebrew=True, allow_cta=False, legacy=False):
+    """All hard rules for one piece of audience facing Hebrew (legacy: the punctuation rule before PUNCTUATION_FROM)."""
     issues = []
     if not isinstance(text, str) or not text.strip():
         return [Issue("ERROR", path, "must be a non empty string")]
     if require_hebrew and not HEBREW_RE.search(text):
         issues.append(Issue("ERROR", path, "must contain Hebrew"))
-    issues.extend(forbidden_char_issues(path, text))
+    issues.extend(forbidden_char_issues(path, text, legacy=legacy))
     issues.extend(lexicon_issues(path, text, allow_cta=allow_cta))
     if AI_MENTION_RE.search(text):
         issues.append(Issue("ERROR", path, "mentions AI; carousels never say the images or copy are AI made (Yarin, 8 Oct 2026)", excerpt=AI_MENTION_RE.search(text).group(0)))
@@ -652,8 +681,8 @@ MOM_ADDRESS_RE = re.compile(r"(?<![\u05D0-\u05EA])(?:ו|ש|כש)?(?:את|לך|ש
 PARENTS_ADDRESS_RE = re.compile(r"(?<![\u05D0-\u05EA])(?:ו|ש|כש)?(?:אתם|לכם|שלכם|אתכם|איתכם|עליכם|לפניכם|אצלכם|בשבילכם|תגידו|תבואו|כתבו|בואו|נסו|תנו)(?![\u05D0-\u05EA])")
 
 
-def cta_issues(path, cta, code_word):
-    issues = audience_text_issues(path, cta, allow_cta=True)
+def cta_issues(path, cta, code_word, legacy=False):
+    issues = audience_text_issues(path, cta, allow_cta=True, legacy=legacy)
     flat = collapse(cta)
     for pattern, label in CTA_REQUIRED:
         if not re.search(pattern, flat):
@@ -1031,6 +1060,271 @@ def code_word_issues(path, code_word):
 
 
 # ---------------------------------------------------------------------------
+# Two topics a day and the save and share CTA (Yarin, 24 Oct 2026, after the carousel audit in research/carousel-audit/):
+# "Keep the child-voice numbered lists, on 2 topics that have a best-selling book (6 versions for each day (3 options for
+# each) so i can choose the strongest one)" and "change the cta to save the post and share to a parent who would agree".
+# Packs generated from DAILY_PAIR_FROM on have format two_topics: `topics` holds the day's two topics (each tied to a
+# best-selling book, topic-bank.md "Best-selling books"), `topic` repeats the first for older readers, and one kid
+# direction holds six options, kid-1 to kid-3 on topics[0] and kid-4 to kid-6 on topics[1] (each records `topic_id`).
+# The CTA asks to save the post and send it to a mom who will relate; there is no comment word any more.
+# Older packs keep their rules.
+# ---------------------------------------------------------------------------
+DAILY_PAIR_FROM = "2026-10-24T18:00"
+PAIR_FORMAT = "two_topics"
+PAIR_LANES = (("a", ("kid-1", "kid-2", "kid-3")), ("b", ("kid-4", "kid-5", "kid-6")))   # slate key and options per topic
+PAIR_OPTION_IDS = tuple(o for _, ids in PAIR_LANES for o in ids)
+PAIR_TOPIC_COOLDOWN_PACKS = 3      # a topic of a two-topic pack is not used again in the next 3 packs (days)
+PAIR_BOOK_MAX_IN_BATCH = 2         # one best-selling book feeds at most two of a week's 14 topics
+
+
+def daily_pair_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= DAILY_PAIR_FROM
+
+
+def is_pair_pack(pack):
+    return (pack or {}).get("format") == PAIR_FORMAT
+
+
+# Older packs switched to the new last slide (Yarin, 24 Oct 2026: "switch this week's 42 carousels to the new last slide:
+# אפשר לעזור להם גם בסיפור אישי plus the save and share CTA, and let the validator accept it") carry cta_style save_share.
+# They keep their one topic and kid and expert directions; only the CTA rules change.
+SAVE_SHARE_STYLE = "save_share"
+
+
+def save_share_applies(pack):
+    """No comment word: the save and share CTA and the save for later CTA that replaced it."""
+    return daily_pair_applies(pack) or (pack or {}).get("cta_style") in (SAVE_SHARE_STYLE, SAVE_LATER_STYLE) or save_later_applies(pack)
+
+
+# Yarin, 24 Oct 2026 (evening): "remove אפשר לעזור להם גם בסיפור אישי from the cta" and "i want the cta to change,
+# 'תשמרו את הפוסט לפעם הבאה שX'". Slide 10 is only the CTA: its headline is the save line (drawn as the yellow button with
+# the save icon) and its body says when the post will be needed again, X being the moment the carousel is about
+# (לפעם הבאה שהיא מפחדת מרעמים). Mom: תשמרי, both parents: תשמרו. Packs from SAVE_LATER_FROM have it; the week of
+# 25 to 31 Oct 2026 was moved to it the same evening (cta_style save_for_later).
+SAVE_LATER_STYLE = "save_for_later"
+SAVE_LATER_FROM = "2026-10-24T21:00"
+SAVE_LATER_FORMS = {
+    "mom": {"save": "תשמרי את הפוסט", "text": "תשמרי את הפוסט\nלפעם הבאה ש..."},
+    "parents": {"save": "תשמרו את הפוסט", "text": "תשמרו את הפוסט\nלפעם הבאה ש..."},
+}
+SAVE_LATER_RE = re.compile(r"^(?:ת?שמר[וי])\s+את\s+הפוסט\s+לפעם\s+הבאה\s+ש[\u05D0-\u05EA״\"]")
+
+
+def save_later_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= SAVE_LATER_FROM or (pack or {}).get("cta_style") == SAVE_LATER_STYLE
+
+
+def save_later_slide(cta):
+    """(headline, body) of slide 10 for a save for later CTA: the save line, then the rest on one line, or broken after
+    לפעם הבאה so the moment (ש...) stays whole, or in two even lines when even that is too long."""
+    w = collapse(cta).split()
+    head, rest = " ".join(w[:3]), w[3:]
+    if len(" ".join(rest)) <= 32 or len(rest) < 4:
+        return head, " ".join(rest)
+    clause = rest[2:]
+    if rest[:2] == ["לפעם", "הבאה"] and len(" ".join(clause)) <= 30:
+        return head, "לפעם הבאה\n" + " ".join(clause)
+    cut = min(range(2, len(rest) - 1), key=lambda i: abs(len(" ".join(rest[:i])) - len(" ".join(rest[i:]))))
+    return head, " ".join(rest[:cut]) + "\n" + " ".join(rest[cut:])
+
+
+# The moment after לפעם הבאה ש is the topic's everyday situation, never one scene of the carousel ("too specific", "doesnt
+# sound natural"), and it is always about the child (Yarin, 24 Oct 2026: "always refer to the kid"): הוא or היא, לו or לה,
+# אותו or אותה as the option's child, or the child's name. The same situation for every option on a topic.
+SAVE_LATER_MOMENT_MAX_WORDS = 5
+KID_REF = {
+    "boy": re.compile(r"(?<![\u05D0-\u05EA])(?:ש|כש|ו)?(?:הוא|לו|אותו|שלו|ממנו|איתו|אליו|עליו|בשבילו)(?![\u05D0-\u05EA])"),
+    "girl": re.compile(r"(?<![\u05D0-\u05EA])(?:ש|כש|ו)?(?:היא|לה|אותה|שלה|ממנה|איתה|אליה|עליה|בשבילה)(?![\u05D0-\u05EA])"),
+}
+
+
+def save_later_moment(cta):
+    """The words after לפעם הבאה in a save for later CTA ('' when it has none)."""
+    flat = collapse(cta)
+    return flat.split("לפעם הבאה", 1)[1].strip() if "לפעם הבאה" in flat else ""
+
+
+def save_later_topic_issues(pack):
+    """Every option on one topic says the same situation: options about a boy share one line and options about a girl
+    share one line (the CTA is the topic's moment, not a scene of one carousel; Yarin, 24 Oct 2026)."""
+    out = []
+    groups = {}
+    for d in pack.get("directions", []):
+        for v in d.get("versions", []):
+            topic = v.get("topic_id") if is_pair_pack(pack) else "topic"
+            groups.setdefault((topic, v.get("child_gender")), []).append(v)
+    for (topic, gender), vs in groups.items():
+        moments = {save_later_moment(v.get("cta", "")) for v in vs}
+        if len(moments) > 1:
+            out.append(Issue("ERROR", f"directions/{topic}/cta", f"every option on this topic about a {gender} ends the CTA the same way, "
+                                                                    f"with the topic's situation, not its own scene: {' / '.join(sorted(moments))}"))
+    return out
+
+
+def save_later_cta_issues(path, cta, addressee, legacy=False, gender=None, child_name=None):
+    """The save for later CTA: תשמרי (or תשמרו) את הפוסט לפעם הבאה ש... in the addressee's form, about the child, and nothing else."""
+    issues = audience_text_issues(path, cta, allow_cta=True, legacy=legacy)
+    flat = collapse(cta)
+    if not SAVE_LATER_RE.search(flat):
+        issues.append(Issue("ERROR", path, "the CTA is «תשמרי את הפוסט לפעם הבאה ש...» (both parents: תשמרו), ending with the moment the post will be needed again (Yarin, 24 Oct 2026)"))
+    elif len(words(flat)) < 7:
+        issues.append(Issue("ERROR", path, "say when the post will be needed again: לפעם הבאה ש + the moment (לפעם הבאה שהיא מפחדת מרעמים)"))
+    else:
+        moment = save_later_moment(flat)
+        if len(words(moment)) > SAVE_LATER_MOMENT_MAX_WORDS:
+            issues.append(Issue("ERROR", path, f"the moment has {len(words(moment))} words: keep it to the topic's everyday situation in up to {SAVE_LATER_MOMENT_MAX_WORDS} words (שהיא מפחדת מרעמים, שיש לו יום הולדת), not a scene"))
+        ref = KID_REF.get(gender)
+        if ref and not ref.search(moment) and not (child_name and child_name in moment):
+            pron = "הוא, לו, אותו" if gender == "boy" else "היא, לה, אותה"
+            issues.append(Issue("ERROR", path, f"the moment is always about the child (Yarin, 24 Oct 2026: \"always refer to the kid\"): {pron}"))
+    form = SAVE_LATER_FORMS.get(addressee)
+    if form and not flat.startswith(form["save"]):
+        who = "mom (feminine singular)" if addressee == "mom" else "both parents (plural)"
+        issues.append(Issue("ERROR", path, f"the CTA talks to {who}: {form['save']} לפעם הבאה ש..."))
+    n = len(words(flat))
+    if n > CTA_SLIDE_MAX_WORDS:
+        issues.append(Issue("ERROR", path, f"CTA has {n} words (max {CTA_SLIDE_MAX_WORDS})"))
+    for pattern, why in COMMENT_CTA_PATTERNS + [p for p in SECOND_CTA_PATTERNS if p[1] not in ("save CTA", "link in bio CTA")]:
+        m = re.search(pattern, flat)
+        if m:
+            issues.append(Issue("ERROR", path, f"CTA contains a second CTA ({why}): «{m.group(0)}»"))
+    return issues
+
+
+def pack_topics(pack):
+    """The pack's topics in lane order: two for a two-topic pack, otherwise the one topic."""
+    if is_pair_pack(pack):
+        return [t for t in pack.get("topics") or [] if isinstance(t, dict)]
+    return [pack["topic"]] if isinstance((pack or {}).get("topic"), dict) else []
+
+
+def option_topic(pack, version):
+    """The topic one option is about: its topic_id in a two-topic pack, otherwise the pack's topic."""
+    if is_pair_pack(pack):
+        for t in pack_topics(pack):
+            if t.get("id") == (version or {}).get("topic_id"):
+                return t
+    return (pack or {}).get("topic") or {}
+
+
+def pair_lane_of(option_id):
+    """'a' or 'b' for a two-topic pack option id, else None."""
+    return next((lane for lane, ids in PAIR_LANES if option_id in ids), None)
+
+
+# Yarin, 24 Oct 2026: "make sure the carousel machine do 50/50 boys and girls". Packs generated from GENDER_BALANCE_FROM
+# have as many girls as boys, and in a two-topic pack each topic has at least one of each. `nightly.py start` hands the
+# writer a gender per option, alternating, and the first option's gender flips from day to day so kid-1 is not always a girl.
+GENDER_BALANCE_FROM = "2026-10-24T21:00"
+
+
+def gender_balance_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= GENDER_BALANCE_FROM
+
+
+def gender_slots(date_str):
+    """{option id: girl or boy} for one date: kid-1 girl, kid-2 boy, kid-3 girl... on even days, the other way round on odd ones."""
+    first, second = ("girl", "boy") if dt.date.fromisoformat(date_str).toordinal() % 2 == 0 else ("boy", "girl")
+    return {oid: first if i % 2 == 0 else second for i, oid in enumerate(PAIR_OPTION_IDS)}
+
+
+def gender_balance_issues(pack):
+    """Half girls and half boys across the options, and both in each topic of a two-topic pack (checked when the pack is written)."""
+    if not gender_balance_applies(pack):
+        return []
+    versions = [v for d in pack.get("directions", []) for v in d.get("versions", [])]
+    genders = [v.get("child_gender") for v in versions]
+    out = []
+    if genders.count("girl") != genders.count("boy"):
+        out.append(Issue("ERROR", "directions/child_gender", f"the options must be half girls and half boys (Yarin, 24 Oct 2026: \"50/50 boys and girls\"): "
+                                                             f"{genders.count('girl')} girls and {genders.count('boy')} boys; follow child_gender_per_option from nightly.py start"))
+    if is_pair_pack(pack):
+        for lane, ids in PAIR_LANES:
+            have = {v.get("child_gender") for v in versions if v.get("id") in ids}
+            if not {"girl", "boy"} <= have:
+                out.append(Issue("ERROR", f"directions/topic-{lane}/child_gender", f"topic {lane} ({', '.join(ids)}) needs at least one girl and one boy"))
+    return out
+
+
+# The save and share CTA. Written in Yarin's own caption voice ("תשמרי כדי לזכור ותשלחי לאמא שצריכה לשמוע את זה גם",
+# the reel of 14 Oct 2026); the default forms below are what `nightly.py start` hands the writer.
+SAVE_SHARE_FORMS = {
+    # Yarin, 24 Oct 2026: "i want the cta to be 'אפשר לעזור להם גם בסיפור אישי, תשמרי את הפוסט ותשלחי לאמא שתתחבר'"
+    # (slide 10's headline is STORY_LINE; this is its body and the caption's last line). Both parents: the same in plural.
+    "mom": {"save": r"ת?שמרי", "send": r"ו?ת?שלחי", "text": "תשמרי את הפוסט\nותשלחי לאמא שתתחבר"},
+    "parents": {"save": r"ת?שמרו", "send": r"ו?ת?שלחו", "text": "תשמרו את הפוסט\nותשלחו לאמא שתתחבר"},
+}
+# Slide 10's headline above the save and share CTA, the same in every option (Yarin, 24 Oct 2026: "change the cta to
+# אפשר לעזור להם גם בסיפור אישי"), with בסיפור אישי as the highlighted phrase
+STORY_LINE = "אפשר לעזור להם גם\nבסיפור אישי"
+STORY_LINE_HIGHLIGHT = "בסיפור אישי"
+SAVE_SHARE_REQUIRED = [
+    (r"(?<![א-ת])ת?שמר[וי](?![א-ת])", "a save verb (תשמרו / תשמרי)"),
+    (r"(?<![א-ת])ו?ת?שלח[וי](?![א-ת])", "a send verb (ותשלחו / ותשלחי)"),
+    (r"(?<![א-ת])ל(?:אמא|הורה|הורים|אמהות|חברה)(?![א-ת])", "who to send it to (לאמא, להורה)"),
+    (r"(?<![\u05D0-\u05EA])ש(?:ת|י)תחבר(?:ו|י)?(?![\u05D0-\u05EA])", "a mom who will relate (שתתחבר)"),
+]
+# Since the save and share CTA, asking for a comment or a link is a second CTA anywhere in the option
+COMMENT_CTA_PATTERNS = [
+    (r"(?<![א-ת])(?:ו)?(?:ת)?כתב[וי]\s*[\"״]|בתגובות", "comment CTA (no comment word since 24 Oct 2026)"),
+    (r"קישור|לינק|בביו", "link CTA"),
+]
+
+
+def save_share_cta_issues(path, cta, addressee, legacy=False):
+    """The CTA of a pack from DAILY_PAIR_FROM: save the post and send it to a mom who will relate, in the addressee's form."""
+    issues = audience_text_issues(path, cta, allow_cta=True, legacy=legacy)
+    flat = collapse(cta)
+    for pattern, label in SAVE_SHARE_REQUIRED:
+        if not re.search(pattern, flat):
+            issues.append(Issue("ERROR", path, f"the CTA asks to save the post and send it to a mom who will relate (Yarin, 24 Oct 2026); it needs {label}"))
+    form = SAVE_SHARE_FORMS.get(addressee)
+    if form:
+        verbs_ok = re.search(rf"(?<![א-ת]){form['save']}(?![א-ת])", flat) and \
+            re.search(rf"(?<![א-ת]){form['send']}(?![א-ת])", flat)
+        if not verbs_ok:
+            who = "mom (feminine singular)" if addressee == "mom" else "both parents (plural)"
+            issues.append(Issue("ERROR", path, f"the CTA talks to {who}: {collapse(form['text'])}"))
+    n = len(words(flat))
+    if n > CTA_SLIDE_MAX_WORDS:
+        issues.append(Issue("ERROR", path, f"CTA has {n} words (max {CTA_SLIDE_MAX_WORDS})"))
+    for pattern, why in COMMENT_CTA_PATTERNS + [p for p in SECOND_CTA_PATTERNS if p[1] not in ("save CTA", "share CTA", "link in bio CTA")]:
+        m = re.search(pattern, flat)
+        if m:
+            issues.append(Issue("ERROR", path, f"CTA contains a second CTA ({why}): «{m.group(0)}»"))
+    return issues
+
+
+def comment_cta_issues(path, text):
+    """A comment or link request in a two-topic pack's slides or caption: the save and share CTA is the only one."""
+    out = []
+    for line in lines_of(text):
+        for pattern, why in COMMENT_CTA_PATTERNS:
+            m = re.search(pattern, line)
+            if m:
+                out.append(Issue("ERROR", path, f"second CTA ({why}): «{m.group(0)}»", excerpt=line[:80]))
+    return out
+
+
+def load_bestsellers(path=None):
+    """{topic id: {"book", "title_he", "orders", "about"}} from topic-bank.md "Best-selling books" (Yarin, 24 Oct 2026)."""
+    out, on = {}, False
+    for line in Path(path or TOPIC_BANK).read_text(encoding="utf-8").splitlines():
+        if line.startswith("## "):
+            on = line.startswith("## Best-selling books")
+            continue
+        if not on or not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 5 or not cells[0].isdigit():
+            continue
+        book = {"book": int(cells[0]), "title_he": cells[1], "orders": int(cells[2]) if cells[2].isdigit() else None, "about": cells[3]}
+        for tid in re.findall(r"`([a-z0-9-]+)`", cells[4]):
+            out[tid] = book
+    return out
+
+
+# ---------------------------------------------------------------------------
 # Image prompts
 # ---------------------------------------------------------------------------
 
@@ -1159,7 +1453,11 @@ def text_zone_sentence(zone):
     surface = zone.get("surface") or "plain evenly lit cream wall"
     return (
         f"Composition: vertical 4:5. Reserve the {edge} {percent}% of the frame as clean, quiet negative space "
-        f"({surface}) for editable Hebrew typography, and keep every face, hand and important object out of that zone."
+        f"({surface}) for editable Hebrew typography, and keep every face, hand and important object out of that zone. "
+        # Yarin, 24 Oct 2026 ("do it" on the audit's contrast fix): dark plum type was hard to read on the blue night
+        # walls of the clock change and pacifier carousels. The renderer also checks the contrast (compose_slides.py).
+        "That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark "
+        "type reads at high contrast; in an evening or night scene a warm lamp lights that wall."
     )
 
 
@@ -1322,7 +1620,9 @@ def is_event_topic(topic_id):
 
 
 def load_topic_bank(path=TOPIC_BANK):
-    """Rows of the markdown table whose first cell is a backticked id."""
+    """Rows of the markdown table whose first cell is a backticked id. A row tied to a best-selling book (topic-bank.md
+    "Best-selling books", 24 Oct 2026) carries it as `bestseller`."""
+    best = load_bestsellers(path)
     topics = []
     for line in Path(path).read_text(encoding="utf-8").splitlines():
         if not line.startswith("|"):
@@ -1339,6 +1639,7 @@ def load_topic_bank(path=TOPIC_BANK):
             "months": months,
             "code_words": [w.strip() for w in cells[4].split("/") if w.strip()],
             "books": cells[5] if len(cells) > 5 else "",
+            "bestseller": best.get(m.group(1)),
         })
     return topics
 
@@ -1360,7 +1661,9 @@ def rotation_context(history, date_str, bank=None):
     bank = bank if bank is not None else load_topic_bank()
     day = parse_date(date_str)
     prev = previous_packs(history, date_str)
-    recent_topics = [p["topic_id"] for p in prev[:TOPIC_COOLDOWN_PACKS]]
+    topic_ids_of = lambda p: p.get("topic_ids") or [p["topic_id"]]  # noqa: E731  (two per pack since 24 Oct 2026)
+    recent_topics = [t for p in prev[:TOPIC_COOLDOWN_PACKS] for t in topic_ids_of(p)]
+    recent_pair_topics = [t for p in prev[:PAIR_TOPIC_COOLDOWN_PACKS] for t in topic_ids_of(p)]
     code_cutoff = (day - dt.timedelta(days=CODE_WORD_COOLDOWN_DAYS)).isoformat()
     recent_code_words = sorted({w for p in prev if p["date"] >= code_cutoff for w in p.get("code_words", [])})
     fam_cutoff = (day - dt.timedelta(days=HOOK_FAMILY_WINDOW_DAYS)).isoformat()
@@ -1390,7 +1693,8 @@ def rotation_context(history, date_str, bank=None):
     recent_names = sorted({o.get("child_name") for p in prev[:NAME_COOLDOWN_PACKS] for o in p.get("options", []) if o.get("child_name")})
     last_used = {}
     for p in prev:
-        last_used.setdefault(p["topic_id"], p["date"])
+        for t in topic_ids_of(p):
+            last_used.setdefault(t, p["date"])
     ranked = []
     for t in bank:
         eligible = t["id"] not in recent_topics
@@ -1408,6 +1712,7 @@ def rotation_context(history, date_str, bank=None):
     return {
         "date": date_str,
         "recent_topic_ids": recent_topics,
+        "recent_pair_topic_ids": recent_pair_topics,
         "recent_code_words": recent_code_words,
         "blocked_hook_families": blocked,
         "hook_family_candidates_last_7_days": candidate_counts,
@@ -1433,15 +1738,17 @@ def history_entry(pack, bank=None):
             hook = v.get("hook") or {}
             formula = bank.get(hook.get("formula"), {})
             options.append({
-                "id": v["id"], "hook_family": v["hook_family"], "hook_formula": hook.get("formula"), "code_word": v["code_word"],
+                "id": v["id"], "hook_family": v["hook_family"], "hook_formula": hook.get("formula"), "code_word": v.get("code_word"),
                 "child_name": v.get("child_name"), "title": v["title"],
+                **({"topic_id": v.get("topic_id")} if is_pair_pack(pack) else {}),
                 # rotation fields (hook strategy research, 8 Oct 2026)
                 "mechanism": hook.get("mechanism") or (formula.get("mechanisms") or [None])[0],
                 "shape": formula.get("shape") or None,
                 "slide2_move": hook.get("slide2_move"),
                 "awareness_stage": v.get("awareness_stage"),
             })
-            code_words.add(v["code_word"])
+            if v.get("code_word"):
+                code_words.add(v["code_word"])
             hooks.append(collapse(v["slides"][0]["headline"]))
             if len(v["slides"]) > 1:
                 slide2.append(collapse(v["slides"][1]["headline"]))
@@ -1450,6 +1757,8 @@ def history_entry(pack, bank=None):
         "generated_at": pack.get("generated_at"),
         "topic_id": pack["topic"]["id"],
         "topic": pack["topic"]["title_he"],
+        **({"topic_ids": [t.get("id") for t in pack_topics(pack)], "topics": [t.get("title_he") for t in pack_topics(pack)]}
+           if is_pair_pack(pack) else {}),
         "hook_families": sorted({o["hook_family"] for o in options}),
         "code_words": sorted(code_words),
         "hooks": hooks,
@@ -1497,7 +1806,9 @@ def read_json(path):
 def write_json(path, data):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
+    # a temp name of its own per process, so two exports writing drive-pending.json at once never take each other's file
+    # (24 Oct 2026: one of seven parallel re-exports failed with FileNotFoundError on the shared .tmp)
+    tmp = path.with_name(f"{path.name}.{os.getpid()}.{id(data)}.tmp")
     tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     tmp.replace(path)
 

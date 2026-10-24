@@ -62,6 +62,9 @@ def cmd_start(args):
         ],
         "blocked_topic_ids": ctx["recent_topic_ids"],
         "examples_per_option": lib.draw_example_slots(folder),
+        "child_gender_per_option": lib.gender_slots(date),
+        "child_gender_note": "half the options are about a girl and half about a boy (Yarin, 24 Oct 2026: \"make sure the carousel machine do 50/50 boys and girls\"), "
+                             "each topic with at least one of each: give every option the gender listed here, a name of that gender from names.md, and the matching image anchor",
         "examples_note": f"10 slides and numbered examples (Yarin, 14 Oct 2026): copy the option's number ({lib.NUMBERED_EXAMPLES_MIN} to {lib.NUMBERED_EXAMPLES_MAX}) into `examples_target`. Slide 2 explains the idea. Slides 3 to 8 each show 1 or 2 examples, numbered 1, 2, 3... across the carousel, the number written right before the example on the slide (\"1 חיבוק של 3 שניות\"), each slide listing them in `examples`; the total is the draw and the cover's number matches it. Slide 9 recaps with no new example. Slide 10 is the story and CTA. ONE picture per option: the brief goes in the option's `image` (it depicts the idea, is the cover, and sits behind every slide); slides have no image",
         "cta_code_word": lib.CTA_CODE_WORD,
         "cta_code_word_note": f"the CTA word is always «{lib.CTA_CODE_WORD}» in all six options (Yarin, 10 Oct 2026); no rotation, no topic code words",
@@ -96,15 +99,62 @@ def cmd_start(args):
     }
     if reco_lib.ACTIVE:  # the extra games and books carousel (recommendations.md); off since 18 Oct 2026
         out["recommendations"] = reco_lib.start_context(date, folder)
+    if lib.daily_pair_applies({"generated_at": out["generated_at"]}):
+        out.update(pair_start_context(ctx))
     plan, slot = batch.plan_for_date(date)
     if plan:
         out.update(batch_start_context(plan, slot, date, folder, eligible))
     print(json.dumps(out, ensure_ascii=False, indent=2))
 
 
+def pair_start_context(ctx):
+    """Packs from 24 Oct 2026 (Yarin, after the carousel audit): two topics a day, each tied to a best-selling book, three
+    child-voice options on each, and the save and share CTA instead of the comment word. Overrides the older keys."""
+    best = [t for t in ctx["topics"] if t.get("bestseller")]
+    free = [t for t in best if t["id"] not in ctx["recent_pair_topic_ids"]]
+    return {
+        "pack_shape": {
+            "format": lib.PAIR_FORMAT,
+            "rule": ("Yarin, 24 Oct 2026: \"Keep the child-voice numbered lists, on 2 topics that have a best-selling book (6 versions for "
+                     "each day (3 options for each) so i can choose the strongest one)\". Write `format`: \"two_topics\", `topics`: [topic 1, "
+                     "topic 2] (each id, title_he, reason, book {id, title_he, checked_at}), `topic` = topics[0] again, and ONE direction, "
+                     "kid, with six options: kid-1, kid-2, kid-3 about topics[0] and kid-4, kid-5, kid-6 about topics[1], each with its "
+                     "`topic_id`. Every option is a child-voice numbered list (the child talks in first person on at least 3 of slides 1 "
+                     "to 5). No expert direction. The hook slate has keys a (6 candidates for topics[0], ids a1 to a6) and b (topics[1], "
+                     "b1 to b6), child-voice formulas only (direction kid or both)."),
+            "options": {lane: {"options": list(ids), "topic": f"topics[{i}]"} for i, (lane, ids) in enumerate(lib.PAIR_LANES)},
+            "two_different_books": True,
+        },
+        "bestseller_topics": [{k: t.get(k) for k in ("id", "title_he", "title_en", "in_season", "last_used", "bestseller")} for t in free],
+        "topic_shortlist_note": "two-topic packs pick their topics from bestseller_topics (or take the batch block's two); topic_shortlist is for older packs",
+        "cta_code_word": None,
+        "cta_code_word_note": "no comment word since 24 Oct 2026 (Yarin: \"change the cta to save the post and share to a parent who would agree\"); leave code_word out",
+        "cta_forms": {k: f["text"] for k, f in lib.SAVE_LATER_FORMS.items()},
+        "cta_note": ("slide 10 is only the CTA (Yarin, 24 Oct 2026: \"remove אפשר לעזור להם גם בסיפור אישי from the cta\" and \"i want the cta to "
+                     "change, 'תשמרו את הפוסט לפעם הבאה שX'\"): its headline is the save line, תשמרי את הפוסט (both parents: תשמרו את הפוסט), "
+                     "drawn as the yellow button with the save icon, and its body finishes the sentence with the topic's everyday situation, "
+                     "always about the child (Yarin: \"too specific\", \"always refer to the kid\"): הוא or היא as the option's child, up to 6 words, "
+                     "the same situation for every option on the topic, never a scene from the slides: לפעם הבאה שהיא מפחדת מרעמים, "
+                     "לפעם הבאה שיש לו יום הולדת, לפעם הבאה שקשה לה להיפרד מהמסך. No highlight, no story line. "
+                     "The `cta` field is the whole sentence and is also, word for word, the caption's last line. No comment word, no link, no "
+                     "send or share request, no בתגובות anywhere"),
+        "punctuation_note": ("punctuation is back (Yarin, 24 Oct 2026: \"lets bring back punctuation marks except em dashes, semicolon and "
+                             "hyphens\"): periods, commas, question and exclamation marks, colons and quotation marks where natural; never a "
+                             "dash of any kind, a semicolon or a hyphen (write ועוד 8, בשעה 17:40, 3 עד 6)"),
+        "addressees": {"mom": "feminine singular (את, תשמרי)", "parents": "plural (אתם, תשמרו)", "never": "dad"},
+    }
+
+
 def batch_start_context(plan, slot, date, folder, eligible):
     """A pack of the weekly batch: its assigned topic (or the event slot), and two games and books carousels."""
-    others = [{"n": s["n"], "topic_id": s.get("topic_id"), "topic_he": s.get("topic_he")} for s in plan["slots"] if s["n"] != slot["n"]]
+    others = [{"n": s["n"], "topic_id": s.get("topic_id"), "topic_he": s.get("topic_he"),
+               **({"topics": [t["topic_id"] for t in s["topics"]]} if s.get("topics") else {})} for s in plan["slots"] if s["n"] != slot["n"]]
+    if slot["kind"] == "pair":   # two topics of two best-selling books (24 Oct 2026)
+        topic = {"event_slot": False, "topics": slot["topics"],
+                 "rule": ("use exactly these two topics, in this order: topics[0] for kid-1 to kid-3 and topics[1] for kid-4 to kid-6, "
+                          "each with the book given here (check its page on lumebook.com today and record checked_at); ignore "
+                          "topic_shortlist and bestseller_topics")}
+        return {"batch": {"id": plan["id"], "slot": slot["n"], "of": len(plan["slots"]), "other_slots": others, **topic}}
     if slot["kind"] == "event":
         topic = {"event_slot": True,
                  "rule": ("this pack is the batch's Israeli event pack (topic-bank.md \"Israeli events\", Yarin 16 Oct 2026): find ONE thing that happens "
@@ -206,7 +256,7 @@ def finish_schema_issues(pack):
 def cmd_finish(args):
     path = Path(args.pack).resolve()
     pack = lib.read_json(path)
-    issues = finish_schema_issues(pack) + validate_pack.pack_issues(pack, history=lib.load_history()) + lib.example_target_issues(pack, path.parent)
+    issues = finish_schema_issues(pack) + validate_pack.pack_issues(pack, history=lib.load_history()) + lib.example_target_issues(pack, path.parent) + lib.gender_balance_issues(pack)
     errors = [i for i in issues if i.level == "ERROR"]
     warns = [i for i in issues if i.level == "WARN"]
     if errors:
@@ -221,12 +271,14 @@ def cmd_finish(args):
         raise SystemExit("RTL check failed: " + "; ".join(problems))
     entry = lib.record_history(pack)
     n = sum(len(v["slides"]) for d in pack["directions"] for v in d["versions"])
-    print(f"VALID 2 directions, 6 options, {n} slides")
+    n_opts = sum(len(d["versions"]) for d in pack["directions"])
+    print(f"VALID {'2 topics' if lib.is_pair_pack(pack) else '2 directions'}, {n_opts} options, {n} slides")
     if warns:
         print(f"{len(warns)} reviewer warnings:")
         for i in warns:
             print(f"- {i}")
-    print(f"history: {entry['date']} {entry['topic_id']} code words {', '.join(entry['code_words'])}")
+    topics = " + ".join(entry.get("topic_ids") or [entry["topic_id"]])
+    print(f"history: {entry['date']} {topics}" + (f" code words {', '.join(entry['code_words'])}" if entry["code_words"] else " (save and share CTA)"))
     print(f"REVIEW_HTML {html_path}")
     print(f"REVIEW_MD {md_path}")
 

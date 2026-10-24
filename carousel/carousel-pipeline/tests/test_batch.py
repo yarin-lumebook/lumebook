@@ -107,6 +107,18 @@ class Plan(Sandbox):
         second = batch.make_plan(today=dt.date(2026, 10, 22), merge=False, log=lambda *_: None)
         self.assertEqual(second["slots"][0]["date"], "2026-10-25")
 
+    def test_running_it_twice_the_same_day_keeps_one_plan(self):
+        first = self.plan()
+        again = self.plan()
+        self.assertEqual(again["id"], first["id"])
+        self.assertEqual([p.name for p in batch.BATCHES.glob("*.json")], [f"{first['id']}.json"])
+
+    def test_a_plan_with_a_pack_is_not_reused(self):
+        first = self.plan()
+        lib.write_json(lib.DRAFTS / first["slots"][0]["date"] / "pack.json", {})
+        again = self.plan()
+        self.assertEqual(again["slots"][0]["date"], "2026-10-25")
+
     def test_plan_for_date(self):
         self.plan()
         plan, slot = batch.plan_for_date("2026-10-20")

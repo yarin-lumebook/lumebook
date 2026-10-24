@@ -291,7 +291,7 @@ def main():
     run_dir = Path(args.out_root) / f"{pack['date']}-{version['id']}"
     frozen = {
         "date": pack["date"],
-        "topic": pack["topic"],
+        "topic": lib.option_topic(pack, version) or pack["topic"],   # the option's own topic in a two-topic pack (24 Oct 2026)
         "direction": direction["id"],
         "option_id": version["id"],
         "source_pack": str(pack_path),

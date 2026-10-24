@@ -1,5 +1,8 @@
 # Nightly review mode, step by step
 
+> **Since 24 Oct 2026 (Yarin, after the carousel audit):** a pack holds two topics of two best-selling books and six child-voice options, kid-1 to kid-3 on topics[0] and kid-4 to kid-6 on topics[1], one `kid` direction, hook slate keys `a` and `b`, and since the evening of 24 Oct slide 10 is only the save for later CTA (`תשמרי את הפוסט` as the headline, `לפעם הבאה ש...` as the body; no story line, no `code_word`) and punctuation is back except dashes, semicolons and hyphens. The skill's section "Two topics a day" and the top block of `carousel/carousel-pipeline/cloud-nightly-prompt.md` have the rules; `nightly.py start` prints `pack_shape` and `cta_forms`; a complete passing pack is `carousel/carousel-pipeline/tests/fixtures/two_topic_pack.json`. The JSON skeleton below is the older shape: for a two-topic pack add `format` and `topics`, write one kid direction with six versions (each with `topic_id`), slate keys a and b, and drop `code_word` and `expert_frame`.
+
+
 Project folder: `/Users/yarinbruner/Claude/Projects/Lumebook`. Use absolute paths in commands so the run works from any working directory.
 
 ## 0 · Guard rails
@@ -67,7 +70,7 @@ Read `carousel/carousel-pipeline/hook-bank.md`: the formula cards, the slate sco
 ```
 
 - Six different formulas per direction, at least 3 families (at most 2 candidates per family) and 3 mechanisms. Skip formulas in `blocked_expired_formulas`
-- Every candidate's Hebrew follows the same rules as the slides (no comma, period or em dash; hook main line up to 8 words, 12 in total; never dad; no sale words). Slide 2 never opens with a word that leans on slide 1 (אבל, ואז, כי, גם, זה, ככה...)
+- Every candidate's Hebrew follows the same rules as the slides (no dash, semicolon or hyphen since the evening of 24 Oct 2026, no comma or period before it; hook main line up to 8 words, 12 in total; never dad; no sale words). Slide 2 never opens with a word that leans on slide 1 (אבל, ואז, כי, גם, זה, ככה...)
 - Score honestly. A candidate fails with any fail check true, a 0 on honest_curiosity, emotional_truth, topic_fit or lumebook_fit, or a total under 14 of 20. Failed candidates stay in the slate, unused
 - Mark exactly one candidate per option in `used_by`, choosing three different ones per direction for difference: across the six, 4+ mechanisms (2+ per direction), 4+ sentence shapes, 3+ slide 2 moves, 2+ awareness stages, and no two openings that share most of their words
 - Slide 1 is the thumbnail (Yarin, 10 Oct 2026; hook-bank.md "Slide 1 is the thumbnail"): write every candidate's slide 1 as the biggest honest gap the topic allows (a tease may open it, but the cover says what the viewer gets: a number of things, a sentence to say, a result or an answer; value first, Yarin 11 Oct 2026; no soft words). An option may only use a candidate that scores 2 on `stopping_power`, `honest_curiosity`, `swipe_promise` and `usefulness`. The slide 1 image brief of every option shows the child facing the viewer, looking into the camera, with one named exaggerated expression, in a close shot (image-briefs.md "Slide 1 is the cover")
@@ -102,7 +105,7 @@ Each version:
   "id": "kid-1", "title": "Hebrew working title",
   "angle": "Hebrew, internal", "target_parent": "Hebrew, internal",
   "awareness_stage": "unaware|problem_aware|solution_aware|product_aware|most_aware",
-  "hook_family": "<one of the families printed by start>", "code_word": "לומי", "child_gender": "boy|girl",
+  "hook_family": "<one of the families printed by start>", "code_word": "לומי", "child_gender": "boy|girl (child_gender_per_option from start: 3 and 3 since 24 Oct 2026)",
   "character_anchor": {"child": "English, with age", "parent": "English", "wardrobe": "English"},
   "expert_frame": {"type": "evidence_based_take"},
   "examples_target": 6,

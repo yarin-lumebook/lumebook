@@ -1,0 +1,29 @@
+{
+  "order": [
+    "picture"
+  ],
+  "max_replacements_per_job": 2,
+  "jobs": {
+    "picture": {
+      "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Characters, identical on every slide: A 4-year-old Israeli girl with honey-blonde straight hair in two short braids, fair skin with rosy cheeks and big blue-grey eyes; about 101 cm tall. Her mother, late thirties, warm brown skin, short black curly hair and round glasses, calm and steady. Wardrobe: Girl: soft pink hoodie and cream joggers. Mother: navy linen shirt and grey trousers.\n\nScene: The girl faces the viewer and looks straight into the camera with an open-mouthed gasp and huge wide eyes, sitting in a cozy corner of floor cushions under a draped blanket and holding a small glowing flashlight; her mother sits small and soft in the background, calm and smiling gently. Setting: A quiet corner of an Israeli living room away from the window: floor cushions on a woven rug, a soft blanket draped over two chairs, a basket of wooden puzzle pieces.\n\nCover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.\n\nEmotional beat: a thunderclap gasp inside a cozy safe corner, mom calm\n\nCamera: Child eye level, close waist-up shot, the face large in the lower half of the frame. Lighting: Warm lamp light with the faint cool glow of a lightning flash reflected at the side of the room.\n\nWardrobe and objects in this scene: The small flashlight, held by the girl; the blanket over the chairs; the basket of wooden puzzle pieces on the rug.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.\n\nComposition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain warm cream wall above the cushion corner) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [],
+      "estimated_cost_usd": 0.055,
+      "purpose": "the one picture behind all 10 slides · a thunderclap gasp inside a cozy safe corner, mom calm",
+      "text_zone": {
+        "edge": "top",
+        "percent": 45,
+        "surface": "plain warm cream wall above the cushion corner"
+      }
+    }
+  }
+}

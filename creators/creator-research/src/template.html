@@ -87,6 +87,27 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .legend a:hover{color:var(--text);text-decoration:none}
 .legend b{color:var(--text);font-weight:600;margin-inline-start:var(--sp-1);font-variant-numeric:tabular-nums}
 
+/* ---------- performance on the card: small numbers with a label, each rated against the rest of the map ---------- */
+/* the six boxes run the full width of the message box: one row of six where the message column has room, two rows of three where it does not */
+.omsg{container-type:inline-size}
+.operf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-2);margin:var(--sp-2) 0 0}
+@container (min-width:34rem){.operf{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.operf > div{min-width:0;padding:var(--sp-2) var(--sp-3);background:var(--surface-2);border-radius:var(--r-md)}
+.operf dt{font-family:var(--font-2);font-size:var(--fs-caption,.72rem);color:var(--text-3);line-height:1.25}
+.operf dd{margin:.15rem 0 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:.1rem .35rem;font-weight:700;font-size:var(--fs-callout);color:var(--text)}
+.operf dd .num{font-variant-numeric:tabular-nums}
+.operf i{font-style:normal;font-family:var(--font-2);font-size:var(--fs-caption,.72rem);font-weight:700;white-space:nowrap}
+.operf i.chg.up{color:var(--success)}
+.operf i.chg.down{color:var(--danger)}
+/* the rating against the map: green up, red down, neutral flat */
+.operf > div.up{background:var(--success-soft)}
+.operf > div.down{background:var(--danger-soft)}
+.operf .vd{width:1.05em;height:1.05em;flex:none;align-self:center}
+.operf .up .vd{color:var(--success)}
+.operf .down .vd{color:var(--danger)}
+.operf .mid .vd{color:var(--text-3)}
+.operf .nd{font-weight:500;font-size:var(--fs-footnote);color:var(--text-3)}
+
 /* ---------- reminders: a stack of full creator cards, the most urgent on top; "spread" lays them all out by day ---------- */
 .rs-bar{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);margin-bottom:var(--sp-3)}
 .rs-count{font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-2);font-variant-numeric:tabular-nums}
@@ -116,7 +137,8 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .rsi.over .rsh time{color:var(--danger)}
 .rsh-note{flex:1 1 12rem;min-width:0;font-size:var(--fs-callout);font-weight:600;white-space:pre-wrap;overflow-wrap:anywhere}
 .rsh-act{display:flex;gap:var(--sp-2)}
-@media (max-width:640px){.rsh{padding:var(--sp-3) var(--sp-4)}}
+.rsh .fuch{flex:0 0 auto}
+@media (max-width:640px){.rsh{padding:var(--sp-3) var(--sp-4)}.rsh .fuch{order:3}}
 /* save state */
 .svst{display:inline-flex;align-items:center;gap:.35rem;font:inherit;font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-3);border:0;background:none;padding:.3rem .55rem;border-radius:var(--r-pill);cursor:pointer;white-space:nowrap;min-height:2rem}
 .svst .dot{margin:0;--c:var(--success)}
@@ -412,14 +434,72 @@ details[open] summary{margin-bottom:var(--sp-2)}
 #toast.bad .tk{background:var(--text-on-tint);color:var(--danger)}
 #toast button{font:inherit;font-size:var(--fs-callout);font-weight:600;background:color-mix(in srgb,currentColor 16%,transparent);color:inherit;border:0;border-radius:var(--r-pill);padding:.35rem .9rem;cursor:pointer;flex:none}
 #toast button:hover{background:color-mix(in srgb,currentColor 26%,transparent)}
+/* ---------- adding creators: the top bar button and its form ---------- */
+@media (max-width:640px){.addb .t{display:none}.addb{width:2.25rem;padding:0}}
+.addm textarea{min-height:5.5rem}
+.addl{list-style:none;margin:0;padding:var(--sp-2) 0 0;display:grid;gap:var(--sp-1);border-top:1px solid var(--line)}
+.addl li{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-footnote);padding:.25rem 0;animation:mo-down var(--mo) var(--mo-out)}
+.addl .ic{display:grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:50%;flex:none;background:var(--warning-soft);color:var(--warning)}
+.addl .ok .ic{background:var(--success-soft);color:var(--success)}
+.addl .out .ic{background:var(--danger-soft);color:var(--danger)}
+.addl .ic .i{width:.85rem;height:.85rem}
+.addl .h{font-weight:600;flex:none}
+.addl .t{flex:1;min-width:0;color:var(--text-2)}
+
+/* ---------- motion (24 Oct 2026): short and purposeful; off when the system asks for reduced motion ---------- */
+:root{--mo-fast:.14s;--mo:.22s;--mo-slow:.32s;--mo-out:cubic-bezier(.2,.8,.2,1);--mo-spring:cubic-bezier(.2,1.25,.4,1)}
+.lb-btn .i{width:1.05em;height:1.05em}
+.lb-btn.sm{gap:.3rem}
+/* pages rise in; the drawer slides in from its side; scrims fade; the note popup and menus pop */
+section.page.pg-in{animation:pg-in var(--mo-slow) var(--mo-out)}
+.drw:not([hidden]){animation:drw-in var(--mo-slow) var(--mo-out)}
+.lb-scrim:not([hidden]){animation:mo-fade var(--mo) ease}
+.ask:not([hidden]) > .lb-card{animation:mo-pop var(--mo) var(--mo-spring)}
+.stmenu:not([hidden]){animation:mo-pop var(--mo-fast) var(--mo-out)}
+details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
+@keyframes pg-in{from{opacity:0;transform:translateY(8px)}}
+@keyframes drw-in{from{opacity:.3;transform:translateX(-28px)}}
+@keyframes mo-fade{from{opacity:0}}
+@keyframes mo-pop{from{opacity:0;transform:scale(.96) translateY(-4px)}}
+@keyframes mo-down{from{opacity:0;transform:translateY(-4px)}}
+/* cards, tiles and controls answer the pointer */
+.oc{transition:border-color var(--mo) ease,box-shadow var(--mo) ease}
+.oc:hover{border-color:var(--line-strong)}
+.operf > div{transition:transform var(--mo-fast) var(--mo-out),box-shadow var(--mo) ease}
+.operf > div:hover{transform:translateY(-2px);box-shadow:var(--shadow-1)}
+.operf dt{display:flex;align-items:flex-start;gap:.25rem}
+.operf dt .i{width:.85rem;height:.85rem;margin-top:.05rem;opacity:.85}
+.operf .vd{transition:transform var(--mo) var(--mo-spring)}
+.operf > div.up:hover .vd{transform:translateY(-3px)}
+.operf > div.down:hover .vd{transform:translateY(3px)}
+.operf > div.mid:hover .vd{transform:scaleX(1.3)}
+.lb-segmented button,.askq button,.askr button,.stmenu button,.nav-i,.rs-peek{transition:background-color var(--mo-fast) ease,color var(--mo-fast) ease,box-shadow var(--mo-fast) ease,border-color var(--mo-fast) ease,transform var(--mo-fast) var(--mo-out)}
+.lb-segmented button:active,.askq button:active,.askr button:active{transform:scale(.94)}
+.lb-segmented button .i{width:.95em;height:.95em;margin-inline-end:.25rem;vertical-align:-.15em}
+.nav-i .i{transition:transform var(--mo) var(--mo-spring)}
+.nav-i:hover .i{transform:scale(1.14)}
+.rs-peek:hover{transform:translateY(2px)}
+/* feedback: counts bump when they change, the saving dot breathes, check marks pop */
+.cnt.bump,.lb-count.bump{animation:mo-bump .42s var(--mo-spring)}
+.svst.wait .dot{animation:lb-pulse 1.4s infinite}
+.lb-btn .i.pop,#toast.show .tk{animation:mo-icon .4s var(--mo-spring)}
+#toast .tk .i{width:.85rem;height:.85rem;stroke-width:2.4}
+@keyframes mo-bump{40%{transform:scale(1.3)}}
+@keyframes mo-icon{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.15);opacity:1}}
+/* empty states */
+.lb-empty .emp-ic{display:grid;place-items:center;width:3rem;height:3rem;border-radius:50%;background:var(--success-soft);color:var(--success);margin:0 auto var(--sp-1);animation:mo-icon .5s var(--mo-spring)}
+.lb-empty .emp-ic.q{background:var(--fill-2);color:var(--text-2)}
+.lb-empty .emp-ic .i{width:1.5rem;height:1.5rem}
+.lb-empty{text-align:center}
+@media (prefers-reduced-motion:reduce){.operf > div:hover,.rs-peek:hover,.nav-i:hover .i,.operf .vd{transform:none!important}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.lb-btn:active,.sstats button:active{transform:none}.lb-btn.is-ok,.lb-btn.is-err,.oc.is-flash,.oc textarea.is-flash{animation:none}.lb-btn.is-ok{box-shadow:0 0 0 3px var(--success)}.lb-btn.is-err{box-shadow:0 0 0 3px var(--danger)}.lb-btn.is-busy::before{animation-duration:2s}}
 </style>
 
 
 <div class="lb-app" dir="rtl">
-<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות להיום</span><b class="cnt lb-count" id="remN"></b></a><a class="nav-i lb-nav-item" href="#remall" data-route="remall" data-ic="cal"><span class="t">כל התזכורות</span><b class="cnt lb-count" id="remAllN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
+<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות להיום</span><b class="cnt lb-count" id="remN"></b></a><a class="nav-i lb-nav-item" href="#remall" data-route="remall" data-ic="cal"><span class="t">כל התזכורות</span><b class="cnt lb-count" id="remAllN"></b></a><a class="nav-i lb-nav-item" href="#followups" data-route="followups" data-ic="send"><span class="t">פולואפים להיום</span><b class="cnt lb-count" data-cnt="due"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
 <div class="main lb-main">
-<header class="topbar lb-topbar"><div class="lb-topbar-in"><button type="button" class="lb-btn ghost icon menu" id="menuBtn" aria-label="פתיחת התפריט" aria-controls="side" aria-expanded="false"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg></button><a class="tb-brand" href="#overview" aria-label="מפת היוצרים, ראשי"><span class="brand-logo" aria-hidden="true"></span></a><div class="crumbs"><span id="crumbG">פניות</span><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5l5.5 5.5-5.5 5.5"/></svg><b id="crumbT">ראשי</b></div><span class="lb-spacer"></span><span class="tb-hint"><kbd>/</kbd> לחיפוש</span><button type="button" class="svst" id="svst" title="מצב השמירה"><span class="dot"></span><span class="t">טוען…</span></button><a class="lb-btn ghost sm hub" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">LumeBook HQ</a><!--LB:THEME-TOGGLE--></div></header>
+<header class="topbar lb-topbar"><div class="lb-topbar-in"><button type="button" class="lb-btn ghost icon menu" id="menuBtn" aria-label="פתיחת התפריט" aria-controls="side" aria-expanded="false"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg></button><a class="tb-brand" href="#overview" aria-label="מפת היוצרים, ראשי"><span class="brand-logo" aria-hidden="true"></span></a><div class="crumbs"><span id="crumbG">פניות</span><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5l5.5 5.5-5.5 5.5"/></svg><b id="crumbT">ראשי</b></div><span class="lb-spacer"></span><span class="tb-hint"><kbd>/</kbd> לחיפוש</span><button type="button" class="svst" id="svst" title="מצב השמירה"><span class="dot"></span><span class="t">טוען…</span></button><button type="button" class="lb-btn sm addb" id="addBtn" data-ic="userplus" aria-label="הוספת יוצרים"><span class="t">הוספת יוצרים</span></button><a class="lb-btn ghost sm hub" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">LumeBook HQ</a><!--LB:THEME-TOGGLE--></div></header>
 <main id="main" class="lb-page">
 <div class="warnbox lb-callout" id="dbnote" hidden></div>
 <div class="warnbox lb-callout" id="vnote" hidden role="status" aria-live="polite"></div>
@@ -427,6 +507,10 @@ details[open] summary{margin-bottom:var(--sp-2)}
 <section class="page lb-section" data-page="reminders" hidden>
   <h2 id="remTitle">תזכורות להיום</h2>
   <div id="remList"></div>
+</section>
+<section class="page lb-section" data-page="followups" hidden>
+  <h2>פולואפים להיום</h2>
+  <div id="fuList"></div>
 </section>
 <section class="page lb-section" data-page="overview" hidden>
   <p class="lb-eyebrow">תמונת מצב</p>
@@ -561,7 +645,15 @@ details[open] summary{margin-bottom:var(--sp-2)}
   <p class="note" id="askP" hidden></p>
   <div class="lb-field"><span>מתי לבדוק</span><div class="askq" id="askQ"></div></div>
   <div class="askdt"><label class="lb-field">תאריך<input class="lb-input" type="date" id="askD"></label><label class="lb-field">שעה<input class="lb-input" type="time" id="askH" step="300"></label></div>
-  <div class="acts"><button type="submit" class="lb-btn" id="askOk">שמירה</button><button type="button" class="lb-btn secondary" id="askX">ביטול</button></div>
+  <div class="acts"><button type="submit" class="lb-btn" id="askOk" data-ic="check">שמירה</button><button type="button" class="lb-btn secondary" id="askX">ביטול</button></div>
+</form></div>
+<div class="lb-scrim" id="addScrim" hidden></div>
+<div class="lb-modal ask addm" id="addM" role="dialog" aria-modal="true" aria-labelledby="addT" hidden><form class="lb-card" id="addF" novalidate>
+  <h3 id="addT">הוספת יוצרים</h3>
+  <label class="lb-field">שמות משתמש או קישורים לאינסטגרם<textarea class="lb-textarea" id="addHs" dir="ltr" rows="3" placeholder="@handle"></textarea></label>
+  <label class="lb-field">הערה (לא חובה)<input class="lb-input" id="addN" dir="auto"></label>
+  <div class="acts"><button type="submit" class="lb-btn" data-ic="userplus">הוספה</button><button type="button" class="lb-btn secondary" id="addX">סגירה</button></div>
+  <div id="addL"></div>
 </form></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
@@ -605,6 +697,7 @@ const ICON={
   gift:svg('<rect x="3" y="8" width="14" height="9" rx="1.5"/><path d="M2.5 5.5h15V8h-15zM10 5.5V17M10 5.5C9 3 6 2.5 6 4.3S9 5.5 10 5.5zM10 5.5c1-2.5 4-3 4-1.2S11 5.5 10 5.5z"/>'),
   flag:svg('<path d="M4.5 17.5V3M4.5 3.5h10l-2 3.5 2 3.5h-10"/>'),
   mail:svg('<rect x="2.5" y="4.5" width="15" height="11" rx="2"/><path d="M3 5.5l7 5.5 7-5.5"/>'),
+  send:svg('<path d="M17.5 2.5L8.6 11.4M17.5 2.5l-5.6 15-3.3-6.1-6.1-3.3z"/>'),
   info:svg('<circle cx="10" cy="10" r="7.5"/><path d="M10 9v5M10 6.2v.1"/>'),
   cal:svg('<rect x="3" y="4.5" width="14" height="12.5" rx="2"/><path d="M3 8.5h14M7 2.5v4M13 2.5v4"/>'),
   bell:svg('<path d="M5 8.5a5 5 0 0 1 10 0c0 4 1.6 5.5 1.6 5.5H3.4S5 12.5 5 8.5z"/><path d="M8.3 16.5a1.9 1.9 0 0 0 3.4 0"/>'),
@@ -614,8 +707,30 @@ const ICON={
   search:svg('<circle cx="8.5" cy="8.5" r="5.3"/><path d="M12.6 12.6l4.4 4.4"/>'),
   menu:svg('<path d="M3 5.5h14M3 10h14M3 14.5h14"/>'),
   close:svg('<path d="M5 5l10 10M15 5L5 15"/>'),
-  chev:svg('<path d="M7.5 4.5l5.5 5.5-5.5 5.5"/>')
+  chev:svg('<path d="M7.5 4.5l5.5 5.5-5.5 5.5"/>'),
+  // actions and feedback (24 Oct 2026)
+  check:svg('<path d="M4.5 10.5l3.5 3.5 7.5-8"/>'),
+  userplus:svg('<circle cx="8" cy="7" r="2.8"/><path d="M3 16c.6-2.8 2.6-4.3 5-4.3s4.4 1.5 5 4.3M15.5 6v5M13 8.5h5"/>'),
+  checkc:svg('<circle cx="10" cy="10" r="7.5"/><path d="M6.8 10.3l2.2 2.2 4.4-4.8"/>'),
+  copy:svg('<rect x="7" y="7" width="9.5" height="9.5" rx="1.8"/><path d="M13 7V4.8c0-.7-.6-1.3-1.3-1.3H4.8c-.7 0-1.3.6-1.3 1.3v6.9c0 .7.6 1.3 1.3 1.3H7"/>'),
+  chat:svg('<path d="M10 3a7 7 0 0 0-6.1 10.5L3 17l3.6-.9A7 7 0 1 0 10 3z"/><path d="M7.4 8.2c.3 1.9 1.8 3.5 3.9 4.2"/>'),
+  insta:svg('<rect x="3" y="3" width="14" height="14" rx="4"/><circle cx="10" cy="10" r="3.2"/><path d="M14 6v.1"/>'),
+  clock:svg('<circle cx="10" cy="10" r="7.2"/><path d="M10 6.3V10l2.6 1.8"/>'),
+  arrL:svg('<path d="M16 10H4M8.5 5.5L4 10l4.5 4.5"/>'),
+  arrR:svg('<path d="M4 10h12M11.5 5.5L16 10l-4.5 4.5"/>'),
+  spread:svg('<path d="M10 2.5v15M6.5 6L10 2.5 13.5 6M6.5 14l3.5 3.5 3.5-3.5"/>'),
+  stack:svg('<path d="M3 7.5l7-4 7 4-7 4z"/><path d="M3 12l7 4 7-4"/>'),
+  skip:svg('<path d="M14.5 5l-6 5 6 5zM5.5 5v10"/>'),
+  undo:svg('<path d="M7 4.5L3.5 8 7 11.5M3.5 8h8.5a4.5 4.5 0 0 1 0 9H9"/>'),
+  eye:svg('<path d="M1.8 10S5 4.5 10 4.5 18.2 10 18.2 10 15 15.5 10 15.5 1.8 10 1.8 10z"/><circle cx="10" cy="10" r="2.4"/>'),
+  reach:svg('<path d="M3 14l4.5-4.5 3 3L17 6M12.5 6H17v4.5"/>'),
+  heart:svg('<path d="M10 16.5S3 12.3 3 7.6A3.6 3.6 0 0 1 10 6a3.6 3.6 0 0 1 7 1.6c0 4.7-7 8.9-7 8.9z"/>'),
+  comment:svg('<path d="M3.5 4.5h13v9h-7l-4 3v-3h-2z"/>'),
+  cart:svg('<path d="M2.5 3.5h2l1.8 9h9.2l1.6-6.5H5.4"/><circle cx="8" cy="16.2" r="1"/><circle cx="14" cy="16.2" r="1"/>'),
+  coin:svg('<circle cx="10" cy="10" r="7.2"/><path d="M12.6 7.4c-.5-.8-1.5-1.2-2.6-1.2-1.5 0-2.6.8-2.6 1.9 0 2.6 5.3 1.3 5.3 4 0 1.1-1.2 1.9-2.7 1.9-1.2 0-2.2-.5-2.7-1.3M10 4.8v1.4M10 13.9v1.3"/>')
 };
+// the channel's own icon, wherever a channel is named on a button
+const CHI={"Instagram DM":ICON.insta,WhatsApp:ICON.chat,Email:ICON.mail};
 
 // ---------- views engine: search, faceted filters, multi-level sort, grouping (Creators and Database share it) ----------
 const ST=[["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["noreply","לא ענו"],["process","בתהליך"],["declined","סירבו"]];   // Book sent and Content created are steps inside In process since 19 Oct 2026
@@ -710,7 +825,7 @@ const FACETS={
   med:{l:"צפיות חציון ברילס",vals:[["מתחת ל-1K",0,1e3],["1K עד 5K",1e3,5e3],["5K עד 20K",5e3,2e4],["20K ומעלה",2e4,Infinity]].map(([l,a,b])=>rng(l,a,b,c=>c.med))},
   last:{l:"רילס אחרון",vals:[["ב-14 הימים האחרונים",0,15],["לפני 15 עד 30 ימים",15,31],["לפני 31 עד 90 ימים",31,91],["לפני יותר מ-90 ימים",91,Infinity]].map(([l,a,b])=>rng(l,a,b,c=>dayDiff(c.last))).concat([{v:"unknown",l:"לא ידוע",t:c=>dayDiff(c.last)==null}])},
   style:{l:"הסגנון שנשלח",vals:[{v:"1",l:"חם",t:c=>HOOK.ss(c)===1},{v:"2",l:"קצר",t:c=>HOOK.ss(c)===2}]},
-  batch:{l:"סבב מחקר",vals:[{v:"1",l:"סבב ראשון",t:c=>c.batch===1},{v:"2",l:"סבב שני",t:c=>c.batch===2},{v:"3",l:"סבב שלישי (11 באוק׳)",t:c=>c.batch===3},{v:"4",l:"סבב רביעי (18 באוק׳)",t:c=>c.batch===4}]},
+  batch:{l:"סבב מחקר",vals:[{v:"1",l:"סבב ראשון",t:c=>c.batch===1},{v:"2",l:"סבב שני",t:c=>c.batch===2},{v:"3",l:"סבב שלישי (11 באוק׳)",t:c=>c.batch===3},{v:"4",l:"סבב רביעי (18 באוק׳)",t:c=>c.batch===4},{v:"5",l:"נוספו ידנית",t:c=>c.batch===5}].concat([...new Set(C.map(c=>c.batch))].filter(b=>b>5).sort((a,b)=>a-b).map(b=>{const p=(C.find(c=>c.batch===b).added||"").split("-"); return {v:String(b),l:"סבב שבועי "+b+(p.length===3?" ("+(+p[2])+" ב"+MON[+p[1]-1]+")":""),t:c=>c.batch===b}}))},
   kids:{l:"ילדים",vals:[{v:"unk",l:"עוד לא נבדק",t:c=>kidsOf(c).n==null&&kidsOf(c).b==null&&kidsOf(c).g==null},{v:"1",l:"ילד אחד",t:c=>kidsOf(c).n===1},{v:"2",l:"2 ילדים",t:c=>kidsOf(c).n===2},{v:"3",l:"3 ילדים",t:c=>kidsOf(c).n===3},{v:"4",l:"4 ומעלה",t:c=>(kidsOf(c).n||0)>=4},{v:"girl",l:"יש בת",t:c=>(kidsOf(c).g||0)>0},{v:"boy",l:"יש בן",t:c=>(kidsOf(c).b||0)>0}]},
   arch:{l:"סוג יוצר",vals:[...new Set(C.map(c=>c.arch))].sort((a,b)=>archL(a).localeCompare(archL(b),"he")).map(v=>({v,l:archL(v),t:c=>c.arch===v}))}
 };
@@ -761,7 +876,7 @@ const activeCount=st=>(st.q?1:0)+Object.values(st.f||{}).filter(a=>a&&a.length).
 const UI_KEY="lume_ui_v1";
 const VS_DEF={contacts:{q:"",f:{},sort:[["score",-1]],group:"none"},database:{q:"",f:{},sort:[["score",-1]],group:"none"}};
 let UI={vs:clone(VS_DEF),route:""};
-try{ const j=JSON.parse(localStorage.getItem(UI_KEY)||"null"); if(j&&j.vs){ for(const k in VS_DEF) if(j.vs[k]) UI.vs[k]={...VS_DEF[k],...j.vs[k]}; UI.route=j.route||""; UI.remFan=!!j.remFan } }catch(e){}
+try{ const j=JSON.parse(localStorage.getItem(UI_KEY)||"null"); if(j&&j.vs){ for(const k in VS_DEF) if(j.vs[k]) UI.vs[k]={...VS_DEF[k],...j.vs[k]}; UI.route=j.route||""; UI.remFan=!!j.remFan; UI.fuFan=!!j.fuFan } }catch(e){}
 function cleanVS(s,key){ const d=VS_DEF[key]; s.f=s.f||{}; for(const k in s.f) if(!FACETS[k]) delete s.f[k]; s.sort=(s.sort||[]).filter(l=>SORTF[l[0]]); if(!s.sort.length) s.sort=clone(d.sort); if(!GROUPS[s.group]) s.group="none"; return s }
 for(const k in UI.vs) cleanVS(UI.vs[k],k);
 let uiT; function uiSave(){ clearTimeout(uiT); uiT=setTimeout(()=>{ try{ localStorage.setItem(UI_KEY,JSON.stringify(UI)) }catch(e){} },250) }
@@ -1034,11 +1149,28 @@ const SK=(k,s)=>s===2?k+"_b":k;
 const tkey=(c,t)=>PRE[trkM(c)]+SK(t,sty(c));
 const xkS=(s,t,T)=>"x_"+PRE[T||"gift"]+t+(s===2?"_2":""), axkS=(s,t,T)=>"a"+xkS(s,t,T);
 const xk=(c,t)=>xkS(sty(c),t,trkM(c)), axk=(c,t)=>axkS(sty(c),t,trkM(c));
-const MT=[["dm","הודעה ראשונה"],["em","מייל"],["fu","פולואפ"],["f2","פולואפ אחרון"],["d2","תשובה למתעניינים"],["of","פרטי ההצעה"]];
+const MT=[["dm","הודעה ראשונה"],["em","מייל"],["fu","פולואפ"],["fx","פולואפ בערוץ אחר"],["f2","פולואפ אחרון"],["d2","תשובה למתעניינים"],["of","פרטי ההצעה"]];
+// ---------- follow-up channel (Yarin, 24 Oct 2026): the follow-up goes out on another channel than the first message when the creator publishes one ----------
+const CHIN={"Instagram DM":"באינסטגרם",WhatsApp:"בוואטסאפ",Email:"במייל"};
+const CHS_OF=c=>CHS.filter(x=>x==="Instagram DM"||(x==="WhatsApp"&&c.phone)||(x==="Email"&&c.email));
+// the channel of the first message; sends from before the channel was recorded are taken to be Instagram DMs
+const firstCh=c=>get(c.h).chs||"Instagram DM";
+// a final follow-up goes where the first follow-up went; otherwise WhatsApp, then email, then Instagram, never the channel that got no answer if another exists
+const fuChDef=c=>{ const o=get(c.h), f=firstCh(c); if(o.fuch&&CHS_OF(c).includes(o.fuch)) return o.fuch; const alt=CHS_OF(c).filter(x=>x!==f); return alt.find(x=>x!=="Instagram DM")||alt[0]||f };
+const FUCH={};   // a channel picked on the strip of the follow-ups page, until the follow-up is recorded
+const fuCh=c=>FUCH[c.h]&&CHS_OF(c).includes(FUCH[c.h])?FUCH[c.h]:fuChDef(c);
+const fxOK=c=>["sent","due","noreply"].includes(rawSt(c.h))&&CHS_OF(c).some(x=>x!==firstCh(c));
+const fuT=c=>seq(c).n===2?"f2":fuCh(c)!==firstCh(c)?"fx":"fu";
+const FX_LEAD="היי {name} 🙂\nכתבתי לך {ch} ולא בטוח שההודעה הגיעה, אז אני שולח אותה גם כאן:";
+function fxMsg(c){ const o=get(c.h), f=firstCh(c); let m=String(o.msnap||msgOf(c,f==="Email"?"em":"dm"));
+  if(f==="Email"&&m.includes("\n\n")) m=m.slice(m.indexOf("\n\n")+2);   // drop the email subject
+  const L=m.split("\n"); if(L.length>1&&/^\s*(היי|הי|שלום)(\s|,|$)/.test(L[0])) L.shift();   // the lead line already says hello
+  return FX_LEAD.replace("{name}",who(c)).replace("{ch}",CHIN[f])+"\n\n"+L.join("\n").trim() }
 const ownOffer=(c,t)=>t==="of"&&trkM(c)==="gift"&&sty(c)===1;
 const exps=()=>Array.isArray(SET.exps)?SET.exps:[];
 const expOf=c=>{ const id=get(c.h).exp; return id?(exps().find(e=>e.id===id)||null):null };
 const defMsg=(c,t)=>{ const e=expOf(c);
+  if(t==="fx") return fxMsg(c);
   if(ownOffer(c,t)) return kidsG(OFFER,c).replace(/\{name\}/g,()=>who(c));
   if(t==="em") return fill(tpl(tkey(c,"es"))+"\n\n"+tpl(tkey(c,"eb")),c);   // one fill, so the kids are named once across subject and body
   if(t==="dm"&&e&&e.kind==="dm"&&e.b&&get(c.h).expv==="B") return fill(e.b,c);
@@ -1155,7 +1287,7 @@ function histLine(l){ const t=new Date(l.at), when=t.getDate()+"."+(t.getMonth()
   if(l.k==="stage") x+=": "+(STGL[l.to]||l.to||"");
   if(l.k==="track") x+=": "+(TRKL[l.to]||l.to||"");
   if(l.k==="fu"&&l.n===2) x="נשלח פולואפ אחרון"; if(l.k==="fu"&&l.prior) x+=" (נרשם בדיעבד)";
-  if(l.k==="sent"&&l.ch) x+=" · "+chL(l.ch);
+  if((l.k==="sent"||l.k==="fu")&&l.ch) x+=" · "+chL(l.ch);
   if(l.k==="undo") x+=": "+(HK[l.of]||l.of||"");
   if(l.obj) x+=" · "+(OBJL[l.obj]||l.obj);
   if(l.due) x+=" · תזכורת "+dueTxt(l.due);
@@ -1260,17 +1392,17 @@ const dayName=(day,t)=>day<0?"באיחור":day===0?"היום":day===1?"מחר":
 function remItem(x,d0,now,cls){ const day=remDay(x.t,d0);
   return '<div class="rsi'+(cls||"")+(x.t<d0?" over":x.t<=now?" now":"")+'" data-h="'+esc(x.c.h)+'"><div class="rsh"><time>'+esc(dayName(day,x.t)+(day<0?" · "+dayLabel(x.t):"")+(x.o.nat?" · "+x.o.nat:""))+'</time>'
    +'<div class="rsh-note" dir="auto">'+(x.o.na?esc(x.o.na):'<span class="note">בלי פתק</span>')+'</div>'
-   +'<div class="rsh-act"><button type="button" class="lb-btn secondary sm" data-tdrem>דחייה</button><button type="button" class="lb-btn ok sm" data-tdremdone>בוצע ✓</button></div></div>'+card(x.c)+'</div>' }
+   +'<div class="rsh-act"><button type="button" class="lb-btn secondary sm" data-tdrem>'+ICON.clock+'דחייה</button><button type="button" class="lb-btn ok sm" data-tdremdone>'+ICON.check+'בוצע</button></div></div>'+card(x.c)+'</div>' }
 function renderRem(){ const el=document.getElementById("remList"), ae=document.activeElement;
   if(ae&&el.contains(ae)&&/^(TEXTAREA|INPUT)$/.test(ae.tagName)&&ae.type!=="checkbox"){ pendingRender=true; return }
   const L=remList(remAllMode()), now=Date.now(), d0=dms(today()), fan=!!UI.remFan;
-  if(!L.length){ RS_TOP=null; el.innerHTML='<div class="lb-empty"><b>'+(remAllMode()?'אין תזכורות.':'אין תזכורות להיום.')+'</b></div>'; return }
+  if(!L.length){ RS_TOP=null; el.innerHTML='<div class="lb-empty"><span class="emp-ic">'+ICON.checkc+'</span><b>'+(remAllMode()?'אין תזכורות.':'אין תזכורות להיום.')+'</b></div>'; return }
   const open=new Set([...el.querySelectorAll(".rsi")].flatMap(r=>[...r.querySelectorAll("details")].map((d,i)=>d.open?r.dataset.h+"|"+i:"")));
   let i=L.findIndex(x=>x.c.h===RS_TOP); if(i<0) i=0; RS_TOP=L[i].c.h;
   const late=L.filter(x=>x.t<=now).length;
   let html='<div class="rs-bar"><span class="rs-count">'+(fan?'<b>'+L.length+'</b> תזכורות':'<b>'+(i+1)+'</b> מתוך <b>'+L.length+'</b>')+(late?' · '+(late===1?'אחת שהגיע זמנה':late+' שהגיע זמנן'):'')+'</span><span class="end">'
-   +(fan?'':'<button type="button" class="lb-btn secondary sm" data-rsgo="-1"'+(i?'':' disabled')+'>→ הקודמת</button><button type="button" class="lb-btn secondary sm" data-rsgo="1"'+(i<L.length-1?'':' disabled')+'>הבאה ←</button>')
-   +'<button type="button" class="lb-btn ghost sm" data-rsfan aria-pressed="'+fan+'">'+(fan?'איסוף לערימה':'פריסת הכול')+'</button></span></div>';
+   +(fan?'':'<button type="button" class="lb-btn secondary sm" data-rsgo="-1"'+(i?'':' disabled')+'>'+ICON.arrR+'הקודמת</button><button type="button" class="lb-btn secondary sm" data-rsgo="1"'+(i<L.length-1?'':' disabled')+'>הבאה'+ICON.arrL+'</button>')
+   +'<button type="button" class="lb-btn ghost sm" data-rsfan aria-pressed="'+fan+'">'+(fan?ICON.stack+'איסוף לערימה':ICON.spread+'פריסת הכול')+'</button></span></div>';
   if(fan){ const G=new Map(); L.forEach(x=>{ const day=remDay(x.t,d0), key=day<0?"over":isoOf(x.t); if(!G.has(key)) G.set(key,{day,t:x.t,items:[]}); G.get(key).items.push(x) });
     html+='<div class="rs-fan">'+[...G.values()].map(g=>'<div class="rs-g"><h4>'+esc(dayName(g.day,g.t))+'</h4>'+g.items.map(x=>remItem(x,d0,now)).join("")+'</div>').join("")+'</div>' }
   else { const pk=L.slice(i+1,i+3);
@@ -1290,7 +1422,7 @@ function rsDone(h,it){ if(it.classList.contains("is-out")) return; const top=!UI
   if(top&&!RS_RM.matches){ it.classList.add("is-out"); setTimeout(go,200) } else go() }
 async function rsSnooze(h){ const nx=rsAfter(h), top=!UI.remFan&&h===RS_TOP; if(await setRem(h)&&top&&RS_TOP===h&&nx){ RS_TOP=nx; RS_IN=true; renderRem() } }
 function remCount(){ const now=Date.now(), n=C.filter(c=>{ const t=remAt(get(c.h)); return t!=null&&t<=now }).length, b=document.getElementById("remN");
-  b.textContent=n||""; b.classList.toggle("warn",n>0); document.getElementById("remAllN").textContent=remList(true).length||""; return n }
+  setCnt(b,n||""); b.classList.toggle("warn",n>0); setCnt(document.getElementById("remAllN"),remList(true).length||""); return n }
 document.getElementById("remList").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return;
   if(b.hasAttribute("data-rsfan")){ UI.remFan=!UI.remFan; uiSave(); renderRem(); return }
   if(b.dataset.rsgo){ rsGo(+b.dataset.rsgo); return }
@@ -1306,6 +1438,101 @@ function remTick(){ const now=Date.now(), due=[];
   else if(due.length>1) toast(due.length+" תזכורות שהגיע זמנן.",{icon:"⏰",act:{label:"פתיחה",fn:()=>navigate("reminders")},ms:12000}) }
 setInterval(remTick,30000);
 
+// ---------- the follow-ups page (Yarin, 24 Oct 2026): every creator whose follow-up is due, as a stack of full cards like the reminders.
+// The most recently due is on top: replies mostly came within a day of a message, so the fresher the follow-up, the better its chance.
+// The strip above each card picks the channel, opens it with the text in the box, and records the follow-up in one tap. No note popup here:
+// the follow-up sequence itself moves the creator to No reply when nothing comes back. ----------
+const OPEN_L={"Instagram DM":"העתקה ופתיחת הצ׳אט",WhatsApp:"פתיחה בוואטסאפ",Email:"פתיחה במייל"};
+const igDM=c=>"https://ig.me/m/"+encodeURIComponent(c.h);
+const fuQueue=()=>C.filter(c=>dueOf(c)!==null).map(c=>{ const q=seq(c); return {c,n:q.n,since:q.since,d:dueOf(c)} }).sort((a,b)=>b.since-a.since||a.c.h.localeCompare(b.c.h));
+const FU_G=[[0,"הגיע היום"],[1,"באיחור של 1 עד 3 ימים"],[4,"באיחור של 4 עד 7 ימים"],[8,"באיחור של יותר משבוע"]];
+const fuGrp=d=>FU_G.filter(g=>d>=g[0]).pop();
+let FS_TOP=null, FS_IN=false;
+function fuItem(x,cls){ const c=x.c, o=get(c.h), ch=fuCh(c), chs=CHS_OF(c), d=x.d;
+  return '<div class="rsi'+(cls||"")+(d>=3?" over":" now")+'" data-h="'+esc(c.h)+'"><div class="rsh">'
+   +'<time>'+esc((x.n===2?"פולואפ אחרון":"פולואפ")+(d?" · באיחור של "+(d===1?"יום":d+" ימים"):" · היום"))+'</time>'
+   +'<div class="rsh-note">'+esc("ההודעה הראשונה נשלחה "+CHIN[firstCh(c)]+(o.on?" ב-"+dL(o.on):""))+'</div>'
+   +(chs.length>1?'<div class="mtabs lb-segmented fuch" role="group" aria-label="הערוץ לפולואפ">'+chs.map(v=>'<button type="button" data-fuch="'+esc(v)+'" aria-pressed="'+(v===ch)+'">'+CHI[v]+esc(chL(v))+'</button>').join("")+'</div>':'')
+   +'<div class="rsh-act"><button type="button" class="lb-btn secondary sm" data-fuopen>'+CHI[ch]+esc(OPEN_L[ch])+'</button><button type="button" class="lb-btn ghost sm" data-fuskip title="מעביר ל״לא ענו״ בלי לשלוח פולואפ">'+ICON.skip+'בלי פולואפ</button><button type="button" class="lb-btn ok sm" data-fusent>'+ICON.check+'שלחתי</button></div></div>'
+   +card(c,{q:1})+'</div>' }
+function renderFu(){ const el=document.getElementById("fuList"), ae=document.activeElement;
+  if(ae&&el.contains(ae)&&/^(TEXTAREA|INPUT)$/.test(ae.tagName)&&ae.type!=="checkbox"){ pendingRender=true; return }
+  const L=fuQueue(), fan=!!UI.fuFan;
+  if(!L.length){ FS_TOP=null; el.innerHTML='<div class="lb-empty"><span class="emp-ic">'+ICON.checkc+'</span><b>אין פולואפים להיום.</b></div>'; return }
+  const open=new Set([...el.querySelectorAll(".rsi")].flatMap(r=>[...r.querySelectorAll("details")].map((d,i)=>d.open?r.dataset.h+"|"+i:"")));
+  let i=L.findIndex(x=>x.c.h===FS_TOP); if(i<0) i=0; FS_TOP=L[i].c.h;
+  let html='<div class="rs-bar"><span class="rs-count">'+(fan?'<b>'+L.length+'</b> פולואפים':'<b>'+(i+1)+'</b> מתוך <b>'+L.length+'</b>')+'</span><span class="end">'
+   +(fan?'':'<button type="button" class="lb-btn secondary sm" data-rsgo="-1"'+(i?'':' disabled')+'>'+ICON.arrR+'הקודם</button><button type="button" class="lb-btn secondary sm" data-rsgo="1"'+(i<L.length-1?'':' disabled')+'>הבא'+ICON.arrL+'</button>')
+   +'<button type="button" class="lb-btn ghost sm" data-rsfan aria-pressed="'+fan+'">'+(fan?ICON.stack+'איסוף לערימה':ICON.spread+'פריסת הכול')+'</button></span></div>';
+  if(fan){ const G=new Map(); L.forEach(x=>{ const g=fuGrp(x.d); if(!G.has(g)) G.set(g,[]); G.get(g).push(x) });
+    html+='<div class="rs-fan">'+[...G.entries()].map(([g,xs])=>'<div class="rs-g"><h4>'+esc(g[1])+' · '+xs.length+'</h4>'+xs.map(x=>fuItem(x)).join("")+'</div>').join("")+'</div>' }
+  else { const pk=L.slice(i+1,i+3);
+    html+='<div class="rs" style="--rs-n:'+pk.length+'">'+fuItem(L[i]," rs-top"+(FS_IN&&!RS_RM.matches?" is-in":""))
+     +pk.map((x,k)=>'<button type="button" class="rs-peek" style="--i:'+(k+1)+'" data-rsgo="'+(k+1)+'" aria-label="'+esc("הבא בערימה: "+ht(x.c.h))+'"></button>').join("")+'</div>' }
+  FS_IN=false; el.innerHTML=html;
+  el.querySelectorAll(".rsi").forEach(r=>r.querySelectorAll("details").forEach((d,i)=>{ if(open.has(r.dataset.h+"|"+i)) d.open=true }));
+  el.querySelectorAll("[data-msgbox]").forEach(fitBox); el.querySelectorAll(".omsg .mtabs").forEach(showTab) }
+function fsAfter(h){ const L=fuQueue(), i=L.findIndex(x=>x.c.h===h); return ((L[i+1]||L[i-1]||{}).c||{}).h||null }
+function fsGo(n){ const L=fuQueue(), i=Math.max(0,L.findIndex(x=>x.c.h===FS_TOP)), j=Math.max(0,Math.min(L.length-1,i+n)); if(j===i) return;
+  FS_TOP=L[j].c.h; FS_IN=true; renderFu() }
+// the top card slides off, then the change is saved and the next one rises
+function fsLeave(h,it,go){ const top=!UI.fuFan&&h===FS_TOP, nx=fsAfter(h);
+  const run=()=>{ if(top){ FS_TOP=nx; FS_IN=true } go() };
+  if(top&&!RS_RM.matches){ it.classList.add("is-out"); setTimeout(run,200) } else run() }
+function fuSent(h,it){ if(it.classList.contains("is-out")) return; const c=byH[h], prev={...get(h)}, n=fuMs(prev,1)!=null?2:1, ch=fuCh(c);
+  fsLeave(h,it,()=>{ patch(h,{...fuPatch(prev,n),fuch:ch}); delete FUCH[h]; delete TABSEL[h]; logEv(h,"fu",{n,ch});
+    render(); toast((n===2?"הפולואפ האחרון":"הפולואפ")+" ל-"+ht(h)+" נרשם כנשלח "+CHIN[ch]+".",{undo:restore(h,prev,"fu")}) }) }
+// no follow-up: a first one is marked skipped, a planned final one is called off
+function fuSkip(h,it){ if(it.classList.contains("is-out")) return; const prev={...get(h)}, n=seq(byH[h]).n;
+  fsLeave(h,it,()=>{ patch(h,{...(n===2?{fu2w:0}:{fusk:Date.now()}),s:"sent",dat:""}); delete FUCH[h]; logEv(h,"fuskip",{n});
+    render(); toast(ht(h)+" עבר ל״לא ענו״ בלי פולואפ.",{undo:restore(h,prev,"fuskip")}) }) }
+async function fuOpenCh(h,b){ const c=byH[h], ch=fuCh(c), it=b.closest(".rsi"), ta=it&&it.querySelector("[data-msgbox]"), text=ta?ta.value:msgOf(c,fuT(c));
+  LASTCH[h]=ch;
+  if(ch==="WhatsApp"){ const u=waLink(c,text); if(u) window.open(u,"_blank","noopener") }
+  else if(ch==="Email"){ const e=(c.email||"").split(",")[0].trim(); if(e) location.href="mailto:"+e+"?subject="+encodeURIComponent(rtl(fill(tpl(tkey(c,"es")),c)))+"&body="+encodeURIComponent(rtl(text)) }
+  else if(await copyText(b,text)) window.open(igDM(c),"_blank","noopener") }
+document.getElementById("fuList").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return;
+  if(b.hasAttribute("data-rsfan")){ UI.fuFan=!UI.fuFan; uiSave(); renderFu(); return }
+  if(b.dataset.rsgo){ fsGo(+b.dataset.rsgo); return }
+  const it=b.closest(".rsi"), h=it&&it.dataset.h; if(!h||!b.closest(".rsh")) return;
+  if(b.dataset.fuch){ FUCH[h]=b.dataset.fuch; TABSEL[h]=fuT(byH[h]); renderFu(); const ta=document.querySelector('#fuList .rsi[data-h="'+CSS.escape(h)+'"] [data-msgbox]'); if(ta) fx(ta,"is-flash") }
+  else if(b.hasAttribute("data-fuopen")) fuOpenCh(h,b);
+  else if(b.hasAttribute("data-fusent")) fuSent(h,it);
+  else if(b.hasAttribute("data-fuskip")) fuSkip(h,it) });
+
+// ---------- adding creators by hand (Yarin, 24 Oct 2026). The page cannot read Instagram, so a handle goes into a queue
+// (settings/main addq); the Saturday run reads it, checks it against the admission bar and adds it if it passes.
+// What happened comes back in ADDQ (src/research/weekly/requests.json, built in). A creator already in the map opens at once. ----------
+const ADDQ=__ADDQ__;
+const addM=document.getElementById("addM"), addScrim=document.getElementById("addScrim"), addHs=document.getElementById("addHs"), addN=document.getElementById("addN");
+const normH=s=>{ s=String(s||"").trim(); const m=/instagram\.com\/([A-Za-z0-9._]+)/i.exec(s); if(m) s=m[1]; s=s.replace(/^@+/,"").replace(/[/?#].*$/,"").toLowerCase(); return /^[a-z0-9._]{1,30}$/.test(s)&&!/^(p|reel|reels|stories|explore)$/.test(s)?s:"" };
+const addQ=()=>Array.isArray(SET.addq)?SET.addq:[];
+const addSt=h=>{ const r=ADDQ[h]; if(byH[h]&&(!r||r.r==="added")) return ["ok","נוסף למפה"]; if(r&&r.r==="out") return ["out",r.why||"לא עבר את הרף"];
+  if(r&&r.r==="err") return ["wait","הפרופיל לא נטען, ננסה שוב בשבת"]; if(r&&r.r==="pass") return ["wait",r.why]; return ["wait","ממתין לבדיקה במוצאי שבת"] };
+function addList(){ const q=addQ().slice().reverse(), el=document.getElementById("addL");
+  el.innerHTML=q.length?'<ul class="addl">'+q.map(x=>{ const [k,t]=addSt(x.h);
+    return '<li class="'+k+'"><span class="ic">'+(k==="ok"?ICON.check:k==="out"?ICON.close:ICON.clock)+'</span><span class="h">'+(byH[x.h]?'<a href="#" data-addopen="'+esc(x.h)+'">'+hb(x.h)+'</a>':hb(x.h))+'</span><span class="t">'+esc(t)+'</span>'
+      +(k==="wait"&&!ADDQ[x.h]?'<button type="button" class="lb-btn ghost icon sm" data-addrm="'+esc(x.h)+'" aria-label="'+esc("הסרה מהתור: "+x.h)+'">'+ICON.close+'</button>':'')+'</li>' }).join("")+'</ul>':"" }
+let ADD_BACK=null;
+function addOpen(){ ADD_BACK=document.activeElement; addM.hidden=false; addScrim.hidden=false; document.body.classList.add("ask-open"); addList(); setTimeout(()=>addHs.focus({preventScroll:true}),40) }
+function addClose(){ addM.hidden=true; addScrim.hidden=true; document.body.classList.remove("ask-open"); if(ADD_BACK&&ADD_BACK.isConnected) try{ ADD_BACK.focus({preventScroll:true}) }catch(e){} }
+document.getElementById("addBtn").addEventListener("click",addOpen);
+document.getElementById("addX").addEventListener("click",addClose); addScrim.addEventListener("click",addClose);
+addM.addEventListener("click",e=>{ if(e.target===addM){ addClose(); return }
+  const o=e.target.closest("[data-addopen]"); if(o){ e.preventDefault(); addClose(); HOOK.open(o.dataset.addopen); return }
+  const r=e.target.closest("[data-addrm]"); if(r){ SET.addq=addQ().filter(x=>x.h!==r.dataset.addrm); saveSettings(); addList(); toast("הוסר מהתור.") } });
+addM.addEventListener("keydown",e=>{ if(e.key==="Escape"){ e.preventDefault(); e.stopPropagation(); addClose() } });
+document.getElementById("addF").addEventListener("submit",e=>{ e.preventDefault();
+  const raw=addHs.value.split(/[\s,]+/).filter(Boolean), bad=raw.filter(x=>!normH(x)), hs=[...new Set(raw.map(normH).filter(Boolean))], q=addQ(), note=addN.value.trim();
+  const inMap=hs.filter(h=>byH[h]), queued=hs.filter(h=>!byH[h]&&q.some(x=>x.h===h)), fresh=hs.filter(h=>!byH[h]&&!q.some(x=>x.h===h));
+  if(!raw.length){ fx(addHs,"is-err"); addHs.focus(); return }
+  if(fresh.length){ SET.addq=q.concat(fresh.map(h=>({h,at:Date.now(),...(note?{note}:{})}))); saveSettings() }
+  addHs.value=""; addN.value=""; addList();
+  const parts=[]; if(fresh.length) parts.push(fresh.length===1?"נוסף לתור":fresh.length+" נוספו לתור"); if(inMap.length) parts.push(inMap.length===1?"אחד כבר במפה":inMap.length+" כבר במפה");
+  if(queued.length) parts.push(queued.length===1?"אחד כבר בתור":queued.length+" כבר בתור"); if(bad.length) parts.push(bad.length===1?"שם אחד לא תקין":bad.length+" שמות לא תקינים");
+  toast(parts.join(", ")+".",{bad:!fresh.length&&!inMap.length,act:inMap.length===1?{label:"פתיחה",fn:()=>{ addClose(); HOOK.open(inMap[0]) }}:null});
+  const sb=e.submitter||addM.querySelector('[type="submit"]'); fx(sb,fresh.length||inMap.length?"is-ok":"is-err") });
+
 // ---------- render ----------
 function contactBase(){ const s=ROUTE.status; return s==="all"?C.slice():s==="due"?C.filter(c=>dueOf(c)!==null):C.filter(c=>HOOK.bk(c)===s&&(!ROUTE.stage||stgOf(c)===ROUTE.stage)) }
 function stats(){
@@ -1315,22 +1542,54 @@ function stats(){
 const sel=(f,opts,cur,aria,cls)=>'<select class="'+(cls||"lb-select")+'" data-f="'+f+'"'+(aria?' aria-label="'+esc(aria)+'"':'')+'>'+opts.map(([v,l])=>'<option value="'+esc(v)+'"'+(String(v)===String(cur||"")?" selected":"")+'>'+esc(l)+'</option>').join("")+'</select>';
 // follow-up controls for one card: what is due, what was really sent, and the optional final follow-up
 function fuUI(c){ const o=get(c.h), q=seq(c), bk=bkOf(c); let a="";
-  const btns=n=>'<button type="button" class="lb-btn ok" data-act="fusent">'+(n===2?"שלחתי פולואפ אחרון":"שלחתי פולואפ")+'</button>', dd=d=>d===1?"יום":d+" ימים";
+  const btns=n=>'<button type="button" class="lb-btn ok" data-act="fusent">'+ICON.send+(n===2?"שלחתי פולואפ אחרון":"שלחתי פולואפ")+'</button>', dd=d=>d===1?"יום":d+" ימים";
   if(bk==="due"){ const d=dueOf(c); a+=btns(q.n)+'<span class="lb-chip '+(d>=3?"danger":"warning")+'">'+(q.n===2?"פולואפ אחרון":"פולואפ")+' לשליחה'+(d?' · באיחור של '+dd(d):' · היום')+'</span>' }
   else if(bk==="noreply"&&(q.k==="due"||q.k==="nodate")) a+=btns(1)+'<span class="note">עוד לא נשלח פולואפ, אז הוא עדיין פתוח.</span>';
-  else if(q.k==="done"&&q.n===0) a+='<span class="lb-chip outline">דילגת על הפולואפ</span><button type="button" class="lb-btn ghost sm" data-act="unskip">ביטול הדילוג</button>';
+  else if(q.k==="done"&&q.n===0) a+='<span class="lb-chip outline">דילגת על הפולואפ</span><button type="button" class="lb-btn ghost sm" data-act="unskip">'+ICON.undo+'ביטול הדילוג</button>';
   else if(q.k==="wait"&&q.n===1&&bk==="sent") a+='<span class="lb-chip outline">פולואפ ב-'+dayLabel(q.at)+'</span>';
-  else if(q.k==="wait"&&q.n===2) a+='<span class="lb-chip outline">פולואפ נשלח ב-'+esc(o.fu?dL(o.fu):dayLabel(q.last))+' · האחרון ב-'+dayLabel(q.at)+'</span><button type="button" class="lb-btn ghost sm" data-act="fu2off">ביטול הפולואפ האחרון</button>';
-  else if(q.k==="done"&&q.n===1) a+='<span class="lb-chip outline">פולואפ נשלח ב-'+esc(o.fu?dL(o.fu):dayLabel(q.last))+'</span><button type="button" class="lb-btn ghost sm" data-act="fu2on" title="מוסיף פולואפ אחרון ליוצר הזה, 7 ימים אחרי שהפולואפ הראשון נשלח">תכנון פולואפ אחרון</button>';
+  else if(q.k==="wait"&&q.n===2) a+='<span class="lb-chip outline">פולואפ נשלח ב-'+esc(o.fu?dL(o.fu):dayLabel(q.last))+' · האחרון ב-'+dayLabel(q.at)+'</span><button type="button" class="lb-btn ghost sm" data-act="fu2off">'+ICON.close+'ביטול הפולואפ האחרון</button>';
+  else if(q.k==="done"&&q.n===1) a+='<span class="lb-chip outline">פולואפ נשלח ב-'+esc(o.fu?dL(o.fu):dayLabel(q.last))+'</span><button type="button" class="lb-btn ghost sm" data-act="fu2on" title="מוסיף פולואפ אחרון ליוצר הזה, 7 ימים אחרי שהפולואפ הראשון נשלח">'+ICON.cal+'תכנון פולואפ אחרון</button>';
   else if(q.k==="done"&&q.n===2) a+='<span class="lb-chip outline">פולואפ אחרון נשלח ב-'+esc(o.fu2?dL(o.fu2):dayLabel(q.last))+' · הרצף הסתיים</span>';
   else if(q.k==="nodate"&&bk==="sent") a+='<span class="note">אין תאריך שליחה, אז לא מתוזמן פולואפ. אפשר להוסיף ״נשלח בתאריך״ בפרטים.</span>';
   return a }
+// ---------- performance on the card (Yarin, 24 Oct 2026): reach for every creator, engagement and buying talk where the content research
+// measured them (134 creators, 14 Oct 2026), and what came through LumeBook. Each number is rated against the rest of the map:
+// top third green with an arrow up, bottom third red with an arrow down, the middle third neutral with a flat line. ----------
+const rankOf=a=>{ const s=a.filter(v=>v!=null&&isFinite(v)).sort((x,y)=>x-y), f=v=>v==null||!isFinite(v)||s.length<10?null:s.filter(x=>x<v).length/s.length; f.n=s.length; return f };
+const vpf=c=>c.f&&c.med!=null?c.med/c.f:null;
+let RK=null;
+const rk=()=>RK||(RK={f:rankOf(C.map(c=>c.f)),med:rankOf(C.map(c=>c.med)),vpf:rankOf(C.map(vpf)),cpk:rankOf(C.map(c=>c.kpi&&c.kpi.cpk)),lpk:rankOf(C.map(c=>c.kpi&&c.kpi.lpk)),bs:rankOf(C.map(c=>c.kpi&&c.kpi.bs))});
+const verd=p=>p==null?"":p>=2/3?"up":p<1/3?"down":"mid";
+const VSVG={up:'<path d="M10 15.5v-11M5.5 9L10 4.5 14.5 9"/>',down:'<path d="M10 4.5v11M5.5 11l4.5 4.5 4.5-4.5"/>',mid:'<path d="M5 10h10"/>'};
+const VL={up:"טוב",down:"חלש",mid:"בינוני"};
+const n1=v=>v>=10?String(Math.round(v)):v.toFixed(1).replace(/\.0$/,"");
+// the change since the research, once a weekly refresh has run
+const chg=(now,was)=>{ if(!now||!was||now===was) return ""; const p=Math.round((now-was)/was*100); return p?'<i class="chg '+(p>0?"up":"down")+'" title="השינוי מאז המחקר">'+(p>0?"+":"-")+Math.abs(p)+'%</i>':"" };
+const PIC={"עוקבים":"people","צפיות חציון":"eye","צפיות לעוקב":"reach","לייקים ל-1K צפיות":"heart","תגובות ל-1K צפיות":"comment","שאלות קנייה ל-100 תגובות":"cart","מכירות דרך הקישור":"coin"};
+function perfHtml(c){ const q=c.kpi||null, R=rk(), v=vpf(c), sl=salesOf(c), when=c.rfd?"ברענון של "+dL(c.rfd):"במחקר, "+c.chk;
+  // p: the share of the comparison group below this number; who: that group
+  // every card shows all six boxes; a number we do not have says so (Yarin, 24 Oct 2026)
+  const cell=(val,lab,tip,p,who,tag)=>{ if(val==null) return '<div class="na" title="'+esc(tip)+'"><dt>'+(ICON[PIC[lab]]||"")+esc(lab)+'</dt><dd><span class="nd">אין נתונים</span></dd></div>';
+    const d=verd(p), rt=d?VL[d]+": גבוה מ-"+Math.round(p*100)+"% "+who+". ":"";
+    return '<div'+(d?' class="'+d+'"':'')+' title="'+esc(rt+tip)+'"><dt>'+(ICON[PIC[lab]]||"")+esc(lab)+'</dt><dd><span class="num">'+val+'</span>'
+      +(d?'<svg class="vd" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-label="'+VL[d]+'">'+VSVG[d]+'</svg>':'')+(tag||"")+'</dd></div>' };
+  const MAP="מהיוצרים במפה", meas=f=>"מה-"+f.n+" שנמדדו", nv=x=>x==null||!isFinite(x)?null:x, NOTYET="עוד לא נמדד. הרענון השבועי במוצאי שבת ימדוד אותו";
+  const src=q&&q.d?"ב-"+q.n+" הפוסטים האחרונים, נמדד ב-"+dL(q.d):NOTYET, bsrc=q&&nv(q.bs)!=null?"מתוך "+q.cm+" תגובות ב-"+(q.bn||q.n)+" הפוסטים האחרונים, נמדד ב-"+dL(q.bd||q.d):NOTYET;
+  const kv=f=>q&&nv(q[f])!=null?q[f]:null;
+  let h=cell(nv(c.f)!=null?k(c.f):null,"עוקבים","מהפרופיל הציבורי, "+when,R.f(c.f),MAP,c.rfd?chg(c.f,c.f0):"")
+    +cell(nv(c.med)!=null?k(c.med):null,"צפיות חציון","החציון של הרילס האחרונים, "+when,R.med(c.med),MAP,c.rfd?chg(c.med,c.med0):"")
+    +cell(v!=null?n1(v):null,"צפיות לעוקב","צפיות חציון חלקי עוקבים. מעל 1: הרילס מגיעים גם למי שלא עוקב",R.vpf(v),MAP)
+    +cell(kv("lpk")!=null?n1(q.lpk):null,"לייקים ל-1K צפיות",kv("lpk")!=null?src:NOTYET,R.lpk(kv("lpk")),meas(R.lpk))
+    +cell(kv("cpk")!=null?n1(q.cpk):null,"תגובות ל-1K צפיות",kv("cpk")!=null?src:NOTYET,R.cpk(kv("cpk")),meas(R.cpk))
+    +cell(kv("bs")!=null?n1(q.bs):null,"שאלות קנייה ל-100 תגובות","תגובות ששואלות איפה קונים או כמה זה עולה, רוצות לקנות או מספרות שקנו. "+bsrc,R.bs(kv("bs")),meas(R.bs));
+  if(sl!=null) h+=cell(String(sl),"מכירות דרך הקישור","מה שרשמת בכרטיס",null,"");
+  return h }
 // which message the box shows first: the one that is next for this creator. A tab Yarin picked stays until the creator moves on.
 const TABSEL={};
-const defTab=c=>{ const bk=bkOf(c), q=seq(c); return bk==="due"?(q.n===2?"f2":"fu"):(bk==="noreply"&&(q.k==="due"||q.k==="nodate"))?"fu":inProc(stOf(c.h))?"d2":"dm" };
-const tabOf=c=>{ const t=TABSEL[c.h]; return t&&MT.some(m=>m[0]===t)&&(t!=="em"||c.email)?t:defTab(c) };
-function card(c){
-  const o=get(c.h), s=stOf(c.h), cur=HOOK.bk(c), prof=url(c), T=trkOf(c), e=expOf(c), t0=tabOf(c);
+const defTab=c=>{ const bk=bkOf(c), q=seq(c); return bk==="due"?fuT(c):(bk==="noreply"&&(q.k==="due"||q.k==="nodate"))?"fu":inProc(stOf(c.h))?"d2":"dm" };
+const tabOf=c=>{ const t=TABSEL[c.h]; return t&&MT.some(m=>m[0]===t)&&(t!=="em"||c.email)&&(t!=="fx"||fxOK(c))?t:defTab(c) };
+function card(c,opt){
+  const q1=!!(opt&&opt.q), o=get(c.h), s=stOf(c.h), cur=HOOK.bk(c), prof=url(c), T=trkOf(c), e=expOf(c), t0=tabOf(c);
   const wa=waLink(c,msgOf(c,"dm")), ml=mailLink(c), ch=chOf(c), ob=objOf(c), sg=stgOf(c), na=naState(c), rt=remAt(o);
   const kt=kidsTxt(c);
   const chips=(sg?'<span class="lb-chip info">'+esc(STGL[sg])+'</span>':'')
@@ -1341,10 +1600,10 @@ function card(c){
    +(e?'<span class="lb-chip outline" title="'+esc("ניסוי ״"+e.name+"״, גרסה "+(o.expv||"")+". תווית לטיוטה: הניסוי לא שולח כלום.")+'">ניסוי · '+esc(o.expv||"")+'</span>':'')
    +(c.own?'':'<span class="lb-chip" title="שורה כללית לפי קטגוריה: כדאי להחליף אותה במשהו ספציפי מאחד הסרטונים שלהם">שורה כללית</span>');
   let acts="";
-  if(wa) acts+='<a class="lb-btn secondary" href="'+wa+'" target="_blank" rel="noopener" data-ch="WhatsApp">וואטסאפ ↗</a>';
-  if(ml) acts+='<a class="lb-btn secondary" href="'+ml+'" data-ch="Email">מייל ↗</a>';
-  if(s==="new") acts+='<button type="button" class="lb-btn ok" data-act="sent">שלחתי</button>';
-  acts+=fuUI(c);
+  if(wa&&!q1) acts+='<a class="lb-btn secondary" href="'+wa+'" target="_blank" rel="noopener" data-ch="WhatsApp">'+ICON.chat+'וואטסאפ</a>';
+  if(ml&&!q1) acts+='<a class="lb-btn secondary" href="'+ml+'" data-ch="Email">'+ICON.mail+'מייל</a>';
+  if(s==="new") acts+='<button type="button" class="lb-btn ok" data-act="sent">'+ICON.check+'שלחתי</button>';
+  if(!q1) acts+=fuUI(c);
   // the reminder row (every creator): what to do next and when to check. In process adds the step and the interest tick; a no or a stall adds the reason.
   let deal='<label class="grow">פתק: מה צריך לעשות<textarea class="lb-textarea na" data-f="na" dir="auto" rows="2" placeholder="מה הצעד הבא איתם">'+esc(o.na||"")+'</textarea></label>'
     +'<label>תזכורת בתאריך<input class="lb-input" type="date" data-f="nad" value="'+esc(o.nad||"")+'"></label>'
@@ -1357,14 +1616,14 @@ function card(c){
   const CHEV='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7.5l5 5 5-5"/></svg>';
   const mbtn=(f,cls,lab,aria)=>'<button type="button" class="stbtn" data-menu="'+f+'" aria-haspopup="listbox" aria-expanded="false" aria-label="'+esc(aria+": "+lab)+'"><span class="dot '+cls+'"></span><span class="t">'+esc(lab)+'</span>'+CHEV+'</button>';
   const contact=(c.email?'<div class="note">מייל: <bdi dir="ltr" class="num">'+esc(c.email)+'</bdi></div>':'')+(c.phone?'<div class="note">טלפון / וואטסאפ: <bdi dir="ltr" class="num">'+esc(c.phone)+'</bdi></div>':'')+(c.csrc?'<div class="note">פרטי הקשר נמצאו ב: '+esc(c.csrc)+'</div>':'');
-  const tabs=MT.filter(([t])=>t!=="em"||c.email).map(([t,l])=>'<button type="button" data-act="tab" data-t="'+t+'" aria-pressed="'+(t===t0?"true":"false")+'">'+l+'</button>').join("");
+  const tabs=MT.filter(([t])=>(t!=="em"||c.email)&&(t!=="fx"||fxOK(c))).map(([t,l])=>'<button type="button" data-act="tab" data-t="'+t+'" aria-pressed="'+(t===t0?"true":"false")+'">'+l+'</button>').join("");
   // the first message as it went out: recorded at Mark sent, or for older Short sends the saved Short text
   const sentTxt=o.msnap||(s!=="new"&&ssOf(c)===2&&typeof o.x_dm_2==="string"?o.x_dm_2:"");
   const rfc=(c.rf||[]).map(t=>isPost(t)?'<a class="lb-chip success wrap" href="'+esc(t.slice(t.indexOf("https://")))+'" target="_blank" rel="noopener" title="הרענון השבועי, '+esc(c.rfd||"")+'">'+esc(t.slice(0,t.indexOf(": https://")))+' ↗</a>':'<span class="lb-chip warning wrap" title="הרענון השבועי, '+esc(c.rfd||"")+'">'+esc(t)+'</span>').join("");
   return '<article class="oc lb-card '+(s==="declined"||s==="posted"||cur==="noreply"?"done":"")+'" data-h="'+esc(c.h)+'">'
    +'<div class="ocg"><div class="oside">'
    +'<div class="oid"><a class="hn" href="'+prof+'" target="_blank" rel="noopener" title="פתיחת הרילס שלהם בלשונית חדשה">'+hb(c.h)+' <span aria-hidden="true">↗</span></a><span class="he" dir="auto">'+esc(c.name)+'</span></div>'
-   +'<div class="omet"><span>'+k(c.f)+' עוקבים · '+k(c.med)+' צפיות חציון</span><span>רילס אחרון '+esc(c.last||"לא ידוע")+'</span>'+(o.on?'<span>נשלח ב-'+esc(dL(o.on))+(ssOf(c)===2?' · קצר':'')+'</span>':'')+'</div>'
+   +'<div class="omet"><span>רילס אחרון '+esc(c.last||"לא ידוע")+'</span>'+(o.on?'<span>נשלח ב-'+esc(dL(o.on))+(ssOf(c)===2?' · קצר':'')+'</span>':'')+'</div>'
    +'<div class="chips">'+chips+(staleProc(c.h)?'<span class="lb-chip danger" title="בתהליך בלי שינוי סטטוס ובלי תזכורת במשך 30 יום, אז עבר לסירוב לבד. בחירה מחדש של ״בתהליך״ מחזירה אותו.">אוטומטי: חודש בתהליך</span>':'')+rfc+'</div>'
    +'<div class="ofld"><div class="fl"><span>סטטוס</span>'+mbtn("s","st-"+cur,STL[cur],"הסטטוס של "+c.h)+'</div>'
    +'<div class="fl" title="'+(trkSet(c)?"המסלול שבחרת. הוא קובע את הזווית של ההודעות.":"נבחר לפי קטגוריית המחקר ("+esc(archL(c.arch))+"). אפשר לבחור אחר כאן.")+'"><span>מסלול'+(trkSet(c)?'':' · נבחר אוטומטית')+'</span>'+mbtn("trk","tk lb-track-"+T,TRKL[T],"מסלול שיתוף הפעולה של "+c.h)+'</div></div>'
@@ -1373,8 +1632,9 @@ function card(c){
    +'<div class="omsg"><div class="otabs"><div class="mtabs lb-segmented" role="group" aria-label="סוג ההודעה">'+tabs+'</div><div class="mtabs lb-segmented stysw" role="group" aria-label="סגנון ההודעה">'+[1,2].map(x=>'<button type="button" data-act="style" data-s="'+x+'" aria-pressed="'+(sty(c)===x?"true":"false")+'">'+STY_NAME[x]+'</button>').join("")+'</div></div>'
    +'<textarea class="msgbox lb-textarea" data-msgbox data-t="'+t0+'" dir="rtl" rows="5" aria-label="טקסט ההודעה, אפשר לערוך">'+esc(msgOf(c,t0))+'</textarea>'
    +'<div class="hechk" data-hecheck>'+heBoxHtml(msgOf(c,t0),c,t0)+'</div>'
-   +'<div class="oact"><button type="button" class="lb-btn" data-act="copybox">העתקה</button>'+acts
-   +'<span class="end"><span class="lb-chip warning" data-edited'+(edited(c,t0)?'':' hidden')+'>'+chipTxt(c,t0)+'</span><button type="button" class="lb-btn ghost sm" data-act="resetmsg"'+(edited(c,t0)?'':' hidden')+'>חזרה לתבנית</button>'+(s!=="declined"?'<button type="button" class="lb-btn icon xdecl" data-act="decline" title="סימון כסירוב (הפולואפים נעצרים)" aria-label="סימון '+esc(c.h)+' כסירוב"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button>':'')+'</span></div>'
+   +'<div class="oact"><button type="button" class="lb-btn" data-act="copybox">'+ICON.copy+'העתקה</button>'+acts
+   +'<span class="end"><span class="lb-chip warning" data-edited'+(edited(c,t0)?'':' hidden')+'>'+chipTxt(c,t0)+'</span><button type="button" class="lb-btn ghost sm" data-act="resetmsg"'+(edited(c,t0)?'':' hidden')+'>'+ICON.undo+'חזרה לתבנית</button>'+(s!=="declined"?'<button type="button" class="lb-btn icon xdecl" data-act="decline" title="סימון כסירוב (הפולואפים נעצרים)" aria-label="סימון '+esc(c.h)+' כסירוב"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button>':'')+'</span></div>'
+   +'<dl class="operf">'+perfHtml(c)+'</dl>'
    +'</div></div>'
    +'<div class="odeal">'+deal+'</div>'
    +'<details class="odet"><summary>העסקה, התשובה והפתקים</summary>'
@@ -1404,6 +1664,7 @@ function render(){
   const ae=document.activeElement, list=document.getElementById("olist");
   navCounts(); migRender(); remCount(); renderDrawer();
   if(ROUTE.page==="reminders") renderRem();
+  if(ROUTE.page==="followups") renderFu();
   if(ROUTE.page==="overview") renderOverview();
   if(ROUTE.page==="database") dbRender();
   if(ROUTE.page!=="contacts") return;
@@ -1417,8 +1678,8 @@ function render(){
   let html="", last={};
   rows.slice(0,shown).forEach(c=>{ if(g&&g.v){ const v=g.v(c); if(v!==last){ last=v; html+='<h3 class="grp">'+(st.group==="status"?'<span class="dot st-'+v+'"></span>':'')+esc(g.lab(v))+' <span class="n num">'+gc[v]+'</span></h3>' } } html+=card(c) });
   list.innerHTML=html||(activeCount(st)
-    ?'<div class="empty lb-empty"><b>אין יוצרים שמתאימים.</b><p class="note">שום דבר ב״'+esc(statusName(ROUTE.status,ROUTE.stage))+'״ לא מתאים לחיפוש או לסינון.</p><button type="button" class="lb-btn secondary" data-clearlist>ניקוי החיפוש והסינון</button></div>'
-    :'<div class="empty lb-empty"><b>אין כאן אף אחד כרגע.</b><p class="note">אף יוצר לא נמצא ב״'+esc(statusName(ROUTE.status,ROUTE.stage))+'״ עכשיו.</p></div>');
+    ?'<div class="empty lb-empty"><span class="emp-ic q">'+ICON.search+'</span><b>אין יוצרים שמתאימים.</b><p class="note">שום דבר ב״'+esc(statusName(ROUTE.status,ROUTE.stage))+'״ לא מתאים לחיפוש או לסינון.</p><button type="button" class="lb-btn secondary" data-clearlist>ניקוי החיפוש והסינון</button></div>'
+    :'<div class="empty lb-empty"><span class="emp-ic">'+ICON.checkc+'</span><b>אין כאן אף אחד כרגע.</b><p class="note">אף יוצר לא נמצא ב״'+esc(statusName(ROUTE.status,ROUTE.stage))+'״ עכשיו.</p></div>');
   list.querySelectorAll(".oc").forEach(el=>{ if(openH.has(el.dataset.h)) el.querySelector("details").open=true });
   fitAll();
   if(OPEN_H){ const el=cardEl(OPEN_H); OPEN_H=null; if(el){ el.scrollIntoView({block:"start"}); fx(el,"is-flash") } }
@@ -1429,11 +1690,11 @@ function render(){
 const FXT=new WeakMap();
 function fx(el,cls){ if(!el) return; el.classList.remove("is-ok","is-err"); void el.offsetWidth; el.classList.add(cls); clearTimeout(FXT.get(el)); FXT.set(el,setTimeout(()=>el.classList.remove(cls),1300)) }
 // a creator's card: the one in the drawer when it is open, else the one in the list or in the reminders stack
-const cardEl=h=>(DRW&&DRW.mode==="lead"&&DRW.h===h&&drwBody.querySelector('.oc[data-h="'+CSS.escape(h)+'"]'))||document.querySelector('#olist .oc[data-h="'+CSS.escape(h)+'"],#remList .oc[data-h="'+CSS.escape(h)+'"]');
+const cardEl=h=>(DRW&&DRW.mode==="lead"&&DRW.h===h&&drwBody.querySelector('.oc[data-h="'+CSS.escape(h)+'"]'))||document.querySelector('#olist .oc[data-h="'+CSS.escape(h)+'"],#remList .oc[data-h="'+CSS.escape(h)+'"],#fuList .oc[data-h="'+CSS.escape(h)+'"]');
 const fitBox=ta=>{ if(!ta||!ta.offsetParent) return; ta.style.height="auto"; ta.style.height=Math.min(ta.scrollHeight+2,560)+"px" };
 // on a narrow screen the tab strip scrolls sideways: keep the open tab in sight (works right to left too)
 const showTab=el=>{ const b=el.querySelector('[aria-pressed="true"]'); if(!b||el.scrollWidth<=el.clientWidth) return; const r=b.getBoundingClientRect(), q=el.getBoundingClientRect(); if(r.left<q.left) el.scrollLeft+=r.left-q.left-12; else if(r.right>q.right) el.scrollLeft+=r.right-q.right+12 };
-const fitAll=()=>{ document.querySelectorAll("#olist [data-msgbox],#remList [data-msgbox]").forEach(fitBox); document.querySelectorAll("#olist .omsg .mtabs,#remList .omsg .mtabs").forEach(showTab) };
+const fitAll=()=>{ document.querySelectorAll("#olist [data-msgbox],#remList [data-msgbox],#fuList [data-msgbox]").forEach(fitBox); document.querySelectorAll("#olist .omsg .mtabs,#remList .omsg .mtabs,#fuList .omsg .mtabs").forEach(showTab) };
 let fitT; window.addEventListener("resize",()=>{ clearTimeout(fitT); fitT=setTimeout(()=>{ fitAll(); drwBody.querySelectorAll("[data-msgbox]").forEach(fitBox) },150) });
 const flashCard=h=>{ const e=cardEl(h); if(e) fx(e,"is-flash") };
 // a status change asks first what to do next and when to check (Yarin, 20 Oct 2026); the suggested note and date depend on the new status
@@ -1482,10 +1743,10 @@ const moved=h=>cardEl(h)||ROUTE.page!=="contacts"?"":" עבר לרשימה ״"+s
 let toastT;
 function toast(msg,o){
   o=o||{}; const el=document.getElementById("toast"); clearTimeout(toastT);
-  el.innerHTML='<span class="tk" aria-hidden="true">'+(o.icon||(o.bad?"!":"✓"))+'</span><span></span>'; el.children[1].textContent=msg;
+  el.innerHTML='<span class="tk" aria-hidden="true">'+(o.icon||(o.bad?"!":ICON.check))+'</span><span></span>'; el.children[1].textContent=msg;
   const act=o.undo?{label:"ביטול",fn:o.undo}:o.act;
   if(act){ const b=document.createElement("button"); b.type="button"; b.textContent=act.label; b.addEventListener("click",()=>{ el.classList.remove("show"); act.fn() }); el.appendChild(b) }
-  el.classList.toggle("bad",!!o.bad); el.classList.add("show");
+  el.classList.toggle("bad",!!o.bad); el.classList.remove("show"); void el.offsetWidth; el.classList.add("show");
   toastT=setTimeout(()=>el.classList.remove("show"),o.ms||(act?6000:2200));
 }
 async function copyText(btn,text){
@@ -1494,7 +1755,8 @@ async function copyText(btn,text){
   if(!ok) try{ await navigator.clipboard.writeText(text); ok=true }catch(e){
     try{ const t=document.createElement("textarea"); t.value=text; t.style.cssText="position:fixed;left:-9999px"; document.body.appendChild(t); t.select(); ok=document.execCommand("copy"); t.remove() }catch(e2){}
   }
-  const old=btn.textContent; btn.textContent=ok?"הועתק ✓":"צריך להעתיק ידנית"; setTimeout(()=>{ if(btn.isConnected) btn.textContent=old },1400);
+  const old=btn.innerHTML; btn.innerHTML=ok?ICON.check+"הועתק":"צריך להעתיק ידנית"; const ic=btn.querySelector(".i"); if(ic) ic.classList.add("pop");
+  setTimeout(()=>{ if(btn.isConnected) btn.innerHTML=old },1400);
   fx(btn,ok?"is-ok":"is-err"); toast(ok?"הועתק. אפשר להדביק בצ׳אט.":"לא הצלחתי להעתיק. אפשר לסמן את הטקסט ולהעתיק ידנית.",{bad:!ok});
   if(!ok){ const oc=btn.closest(".oc"), ta=oc&&oc.querySelector("[data-msgbox]"); if(ta){ ta.focus(); ta.select() } }
   return ok
@@ -1502,7 +1764,8 @@ async function copyText(btn,text){
 const byH=Object.fromEntries(C.map(c=>[c.h,c]));
 // one set of handlers for every card: in the Creators list and in the drawer
 function onCardClick(e){
-  const a=e.target.closest("a[data-ch]"); if(a){ const oc=a.closest(".oc"); if(oc) LASTCH[oc.dataset.h]=a.dataset.ch; return }
+  const a=e.target.closest("a[data-ch]"); if(a){ const oc=a.closest(".oc"); if(oc){ LASTCH[oc.dataset.h]=a.dataset.ch;
+    const ta=oc.querySelector("[data-msgbox]"); if(a.dataset.ch==="WhatsApp"&&ta&&ta.dataset.t!=="em"){ const u=waLink(byH[oc.dataset.h],ta.value); if(u) a.href=u } } return }
   const b=e.target.closest("[data-act]"); if(!b) return;
   const card=b.closest(".oc"); if(!card) return; const c=byH[card.dataset.h], act=b.dataset.act, prev={...get(c.h)};
   if(act==="hefix"){ const ta=card.querySelector("[data-msgbox]"), tt=ta.dataset.t, f=heFix(ta.value,{skipBrand:ownOffer(c,tt),c}); if(f!==ta.value){ ta.value=f; ta.dispatchEvent(new Event("input",{bubbles:true})); fx(ta,"is-flash"); toast("התיקונים הוחלו. אפשר עדיין לערוך את הטקסט.") } }
@@ -1565,7 +1828,7 @@ function onCardCopy(e){
   const s=ta.value.slice(ta.selectionStart,ta.selectionEnd); if(!s) return;
   e.clipboardData.setData("text/plain",rtl(s)); e.clipboardData.setData("text/html",rtlHtml(s)); e.preventDefault();
 }
-[document.getElementById("olist"),document.getElementById("remList"),drwBody].forEach(el=>{
+[document.getElementById("olist"),document.getElementById("remList"),document.getElementById("fuList"),drwBody].forEach(el=>{
   el.addEventListener("click",onCardClick); el.addEventListener("change",onCardChange); el.addEventListener("input",onCardInput); el.addEventListener("copy",onCardCopy);
   el.addEventListener("focusout",()=>{ setTimeout(()=>{ if(pendingRender) render() },50) });
   // the History section reads the full history once, when it is opened
@@ -1737,7 +2000,7 @@ function learnTemplates(sample,c,t,before,after,S){
 }
 // Voice learning runs by itself: when Yarin leaves a message box he changed, that edit is learned once. One edit at a time; the others wait their turn.
 const LQ=[];
-function autoLearn(c,t){ if(!c||!manual(c,t)||get(c.h)["l"+xk(c,t)]===1) return; if(!LQ.some(x=>x.h===c.h&&x.t===t)) LQ.push({h:c.h,t}); pumpLearn() }
+function autoLearn(c,t){ if(!c||t==="fx"||!manual(c,t)||get(c.h)["l"+xk(c,t)]===1) return; if(!LQ.some(x=>x.h===c.h&&x.t===t)) LQ.push({h:c.h,t}); pumpLearn() }
 function pumpLearn(){ if(learning||!LQ.length) return; const x=LQ.shift(); learn(byH[x.h],x.t).catch(()=>{}).then(pumpLearn) }
 async function learn(c,t){
   if(learning) return;
@@ -1796,18 +2059,20 @@ HOOK.edited=c=>MT.some(([t])=>manual(c,t));
 HOOK.trk=trkOf; HOOK.obj=objOf; HOOK.stage=stgOf; HOOK.expv=c=>expOf(c)?get(c.h).expv||"":""; HOOK.nad=h=>get(h).nad||"";
 HOOK.naDue=c=>["over","today"].includes(naState(c)); HOOK.offer=offerFlag; HOOK.fuOpen=fuOpen;
 HOOK.more=c=>{ const o=get(c.h), e=expOf(c); return [o.na,o.objn,o.objq,e&&e.name,TRKL[trkOf(c)]].filter(Boolean).join(" ") };
-const PAGES={reminders:["פניות","תזכורות להיום"],remall:["פניות","כל התזכורות"],overview:["פניות","ראשי"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
-const LEGACY={"c-posted":"c-process-content","c-book":"c-process-booksent","c-content":"c-process-content","c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview",today:"overview"};
+const PAGES={reminders:["פניות","תזכורות להיום"],remall:["פניות","כל התזכורות"],followups:["פניות","פולואפים להיום"],overview:["פניות","ראשי"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
+const LEGACY={"c-due":"followups","c-posted":"c-process-content","c-book":"c-process-booksent","c-content":"c-process-content","c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview",today:"overview"};
 const STATUS_NAV=[["all","כל היוצרים"],["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["due","פולואפ לשליחה"],["noreply","לא ענו"],["process","בתהליך"],["declined","סירבו"]];
 const statusName=(s,g)=>(STATUS_NAV.find(x=>x[0]===s)||[0,"יוצרים"])[1]+(s==="process"&&STGL[g]?" · "+STGL[g]:"");
 let ROUTE={page:"overview",status:"new",key:"overview"}, OPEN_H=null;
 const navLink=(key,icon,label,cnt)=>'<a class="nav-i lb-nav-item" href="#'+key+'" data-route="'+key+'">'+icon+'<span class="t">'+esc(label)+'</span>'+(cnt?'<b class="cnt lb-count" data-cnt="'+cnt+'"></b>':'')+'</a>';
-document.getElementById("navStatus").innerHTML=STATUS_NAV.map(([k,l])=>navLink("c-"+k,'<span class="dot st-'+k+'"></span>',l,k)
+document.getElementById("navStatus").innerHTML=STATUS_NAV.filter(([k])=>k!=="due").map(([k,l])=>navLink("c-"+k,'<span class="dot st-'+k+'"></span>',l,k)
   +(k==="process"?'<div class="lb-nav-sub nav-stg">'+STAGES.map(([g,gl])=>navLink("c-process-"+g,"",gl,"stg-"+g)).join("")+'</div>':"")).join("");
 function markNav(){ document.querySelectorAll("#side [data-route]").forEach(a=>{ if(a.dataset.route===ROUTE.key) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current") }) }
+// a count that changes gives a small bump, so the change is noticed (not on the first fill)
+function setCnt(b,v){ v=String(v); if(b.textContent===v) return; const was=b.textContent; b.textContent=v; if(was!==""&&v!==""){ b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump") } }
 function navCounts(){
   const cnt={all:C.length,due:0}; C.forEach(c=>{ const s=HOOK.bk(c); cnt[s]=(cnt[s]||0)+1; if(s==="process"){ const g="stg-"+stgOf(c); cnt[g]=(cnt[g]||0)+1 } });
-  document.querySelectorAll("#side [data-cnt]").forEach(b=>{ const n=cnt[b.dataset.cnt]||0; b.textContent=n||""; b.classList.toggle("warn",b.dataset.cnt==="due"&&n>0) });
+  document.querySelectorAll("#side [data-cnt]").forEach(b=>{ const n=cnt[b.dataset.cnt]||0; setCnt(b,n||""); b.classList.toggle("warn",b.dataset.cnt==="due"&&n>0) });
   return cnt;
 }
 function parseRoute(h){
@@ -1825,7 +2090,7 @@ function route(key){
   const pageChanged=ROUTE.page!==r.page||ROUTE.key!==r.key;
   ROUTE={page:r.page,status:r.status||"new",stage:r.stage||"",key:r.key}; UI.route=r.key; uiSave();
   TOOLBARS.forEach(t=>t.close());
-  document.querySelectorAll("section.page").forEach(p=>p.hidden=p.dataset.page!==r.page);
+  document.querySelectorAll("section.page").forEach(p=>{ p.hidden=p.dataset.page!==r.page; if(!p.hidden&&pageChanged){ p.classList.remove("pg-in"); void p.offsetWidth; p.classList.add("pg-in") } });
   const [grp,title]=PAGES[r.key]||PAGES[r.page], sub=r.page==="contacts"?statusName(ROUTE.status,ROUTE.stage):title;
   document.getElementById("crumbG").textContent=grp; document.getElementById("crumbT").textContent=sub;
   document.title=sub+" · מפת היוצרים של LumeBook";

@@ -3,11 +3,15 @@
 
     python3 carousel/carousel-pipeline/scripts/voice_lint.py copy.json
     python3 carousel/carousel-pipeline/scripts/voice_lint.py copy.json --cta cta --code-word גן --caption caption --hook hook
+    python3 carousel/carousel-pipeline/scripts/voice_lint.py copy.json --cta cta --addressee mom --caption caption   # save for later CTA
     python3 carousel/carousel-pipeline/scripts/voice_lint.py copy.txt
 
 copy.json is a flat object {"field name": "Hebrew text"}. A .txt file is linted as one field.
 --cta names the field holding the CTA, --caption the caption field (its last line must equal the CTA),
---hook a field held to the hook limits. Exit 1 on any error. Nothing is ever edited.
+--hook a field held to the hook limits. Without --code-word the CTA is the save for later CTA of packs from the evening of
+24 Oct 2026 (Yarin: "i want the cta to change, 'תשמרו את הפוסט לפעם הבאה שX'"), checked for --addressee (mom or parents).
+Punctuation follows the rule of the same evening: everything but dashes, semicolons and hyphens.
+Exit 1 on any error. Nothing is ever edited.
 """
 
 import argparse
@@ -20,11 +24,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import carousel_lib as lib  # noqa: E402
 
 
-def lint(fields, cta=None, code_word=None, caption=None, hooks=()):
+def lint(fields, cta=None, code_word=None, caption=None, hooks=(), addressee=None):
     issues = []
     for name, text in fields.items():
         if name == cta:
-            issues.extend(lib.cta_issues(name, text, code_word))
+            issues.extend(lib.cta_issues(name, text, code_word) if code_word else lib.save_later_cta_issues(name, text, addressee))
         else:
             issues.extend(lib.audience_text_issues(name, text, allow_cta=(name == caption)))
         if name in hooks:
@@ -42,7 +46,7 @@ def lint(fields, cta=None, code_word=None, caption=None, hooks=()):
         if not cap or lib.collapse(cap[-1]) != lib.collapse(fields[cta]):
             issues.append(lib.Issue("ERROR", caption, "the caption's final line must be exactly the CTA"))
         for i, line in enumerate(cap[:-1], start=1):
-            for pattern, why in lib.SECOND_CTA_PATTERNS:
+            for pattern, why in lib.SECOND_CTA_PATTERNS + ([] if code_word else lib.COMMENT_CTA_PATTERNS):
                 if re.search(pattern, line):
                     issues.append(lib.Issue("ERROR", caption, f"line {i} adds a second CTA ({why})"))
     return issues
@@ -55,6 +59,7 @@ def main():
     ap.add_argument("--code-word")
     ap.add_argument("--caption")
     ap.add_argument("--hook", action="append", default=[])
+    ap.add_argument("--addressee", choices=sorted(lib.SAVE_LATER_FORMS), help="who the save for later CTA talks to")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
     path = Path(args.file)
@@ -62,7 +67,7 @@ def main():
         fields = {k: v for k, v in json.loads(path.read_text(encoding="utf-8")).items() if isinstance(v, str)}
     else:
         fields = {path.name: path.read_text(encoding="utf-8")}
-    issues = lint(fields, args.cta, args.code_word, args.caption, tuple(args.hook))
+    issues = lint(fields, args.cta, args.code_word, args.caption, tuple(args.hook), args.addressee)
     errors = [i for i in issues if i.level == "ERROR"]
     if args.json:
         print(json.dumps({"valid": not errors, "issues": [i.as_dict() for i in issues]}, ensure_ascii=False, indent=2))

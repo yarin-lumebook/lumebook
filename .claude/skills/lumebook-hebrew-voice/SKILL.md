@@ -24,7 +24,7 @@ Samples count from three places: files in `examples/approved/`, fenced `text` bl
 
 Audience facing Hebrew is everything a parent reads: slide headline and body, caption, CTA, comment code word, and any text placed on a design.
 
-- No em dash, no period, no comma, and none of their lookalikes (en dash, ellipsis, fullwidth or Arabic comma). Use a line break instead
+- No dash of any kind (em dash, en dash), no semicolon and no hyphen (also the maqaf ־), nor their lookalikes (Yarin, 24 Oct 2026: "lets bring back punctuation marks except em dashes, semicolon and hyphens"). Periods, commas, question and exclamation marks, colons and quotation marks are fine where a person would type them. For a prefix on a number write it apart or in words: ועוד 8, בשעה 17:40, 3 עד 6. Carousel packs written before that evening keep the old rule (no period or comma either)
 - One thought per line, at most 12 words per line
 - Hook main line up to 8 words, hook slide up to 12 words in total
 - Regular slide up to 25 words, CTA slide up to 18 words
@@ -33,14 +33,14 @@ Audience facing Hebrew is everything a parent reads: slide headline and body, ca
 - Never claim every child feels the same (כל הילדים, כל ילד). Use הרבה ילדים, יש ילדים, זה מוכר
 - No guilt, no scare tactics, no slogans
 - Carousels talk to mom (feminine singular) or both parents (plural), never to dad, about one named Israeli child from carousel/carousel-pipeline/names.md
-- Carousels (slides, caption, CTA) never name the brand or a book title. A book where the child is the hero is hinted at as one possible tool, and the comment CTA leads to it. In other copy the Hebrew spelling is לומבוק, never לומיבוק (the website still uses the yod spelling)
+- Carousels (slides, caption, CTA) never name the brand or a book title. A book where the child is the hero is hinted at as one possible tool. Since the evening of 24 Oct 2026 the carousel CTA asks to save the post for the next time the topic's situation comes up, always said about the child, short and everyday, never a scene (תשמרי את הפוסט / לפעם הבאה שהיא מפחדת מרעמים; to both parents תשמרו), with no story line, send line or comment word; older carousels used the save and share CTA or the comment CTA. In other copy the Hebrew spelling is לומבוק, never לומיבוק (the website still uses the yod spelling)
 
-Why line breaks and not punctuation: on a slide each line is read as one spoken beat. Commas and periods make it look like an essay, and an em dash is the most visible sign of machine written Hebrew.
+Line breaks still carry the rhythm: on a slide each line is read as one spoken beat, so punctuation is there to help the reader, not to fill every line. An em dash is the most visible sign of machine written Hebrew.
 
-When a line fails, rewrite the line. Do not delete the character and hope: removing a comma usually glues two thoughts together.
+When a line fails, rewrite the line. Do not delete the character and hope.
 
-- "אני רוצה ללכת, אבל מפחד" becomes two lines: "אני רוצה ללכת" / "אבל קצת מפחד"
-- "זה טבעי — וזה עובר." becomes "זה מוכר" / "וזה עובר לאט"
+- "זה טבעי — וזה עובר" becomes "זה מוכר, וזה עובר לאט"
+- "ו-8 דברים שעוזרים" becomes "ועוד 8 דברים שעוזרים"
 
 ## 3 · How the voice sounds
 
@@ -86,6 +86,7 @@ Voice is not a licence to add facts. A hedge like "הרבה פעמים" or "יש
    ```bash
    python3 carousel/carousel-pipeline/scripts/voice_lint.py FILE.json      # {"field name": "Hebrew text", ...}
    python3 carousel/carousel-pipeline/scripts/voice_lint.py FILE.json --cta cta --code-word גן
+   python3 carousel/carousel-pipeline/scripts/voice_lint.py FILE.json --cta cta --addressee mom   # the save and share CTA (since 24 Oct 2026, no code word)
    ```
    For a full nightly pack use `validate_pack.py`, which applies the same rules plus structure
 4. Rewrite every failed line and lint again until it passes. Warnings are for judgement: read the line and decide

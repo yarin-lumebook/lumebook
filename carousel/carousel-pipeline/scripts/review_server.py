@@ -80,6 +80,8 @@ def apply_edits(pack, edits):
                 raise ValueError(f"bad slide number {n}")
             if field == "body" and n == len(v["slides"]):
                 raise ValueError("the last slide's body is the CTA; edit the CTA instead")
+            if field == "headline" and n == len(v["slides"]) and lib.save_later_applies(pack):
+                raise ValueError("the last slide is only the CTA; edit the CTA instead")
             before = v["slides"][n - 1].get(field, "")
             if before != value:
                 v["slides"][n - 1][field] = value
@@ -103,7 +105,11 @@ def apply_edits(pack, edits):
                 v["cta"] = new_cta
                 cap = [l for l in lib.lines_of(v["caption"]) if lib.collapse(l) not in (lib.collapse(old), new_cta)]
                 v["caption"] = "\n".join(cap + [new_cta])
-                v["slides"][-1]["body"] = cta_slide_lines(new_cta)
+                if lib.save_later_applies(pack):   # slide 10 is only the CTA: the save line, then לפעם הבאה ש... (24 Oct 2026)
+                    v["slides"][-1]["headline"], v["slides"][-1]["body"] = lib.save_later_slide(new_cta)
+                    v["slides"][-1].pop("highlight", None)
+                else:
+                    v["slides"][-1]["body"] = cta_slide_lines(new_cta)
                 m = re.search(lib.CTA_WRITE_RE + r"\s*[״\"׳']?([\u05D0-\u05EA]+)", new_cta)
                 if m:
                     v["code_word"] = m.group(1)
@@ -342,7 +348,7 @@ def _grade_api(self):
         its = {i["key"]: i for i in grades.items(plan)}
         started, blocked = [], []
         for k in grades.pick_unsent(plan["id"]):
-            if k not in its:
+            if k not in its or producer.get(k):   # one with a production already (re-export is its own button)
                 continue
             try:
                 started.append(producer.start(its[k]))

@@ -2,7 +2,9 @@
 // (signed in, read only). Run it again until it returns done:true; progress survives hard reloads in localStorage.
 // First call: set localStorage.__rf_todo to a JSON array of handles (see refresh/README.md), or this returns need:"todo".
 // Each run works about 30 seconds, then returns a progress count. It never follows, likes, comments or sends anything.
+// Per profile: followers, median views, last reel, reels about LumeBook, and the 12 newest reels' views, likes and comments.
 (async () => {
+  if (!document.cookie.includes("ds_user_id")) return { stop: "signed out of Instagram" };
   if (!localStorage.__rf_todo) return { need: "todo" };
   if (!window.__rfh) {
     window.__rfh = 1; window.__rfcap = [];
@@ -36,8 +38,11 @@
             if (o.username === h && o.follower_count != null) user = user || o;
             if (o.code && o.play_count != null) {
               const tags = ((o.usertags && o.usertags.in) || []).map(t => t.user && t.user.username).concat((o.coauthor_producers || []).map(u => u.username));
-              const cap = (o.caption && o.caption.text) || "";
-              reels[o.code] = { v: o.play_count, lb: LB.test(cap) || tags.some(u => LB.test(u || "")) };
+              const cap = (o.caption && o.caption.text) || "", p = reels[o.code] || {};
+              // likes and comments per reel feed the card's per-1K-views numbers; hidden like counts stay empty
+              reels[o.code] = { v: o.play_count, lb: p.lb || LB.test(cap) || tags.some(u => LB.test(u || "")),
+                l: o.like_and_view_counts_disabled ? null : (o.like_count != null ? o.like_count : (p.l != null ? p.l : null)),
+                m: o.comment_count != null ? o.comment_count : (p.m != null ? p.m : null) };
             }
             for (const k in o) walk(o[k]);
           })(JSON.parse(c));
@@ -49,7 +54,9 @@
     const codes = Object.keys(reels), views = codes.map(c => reels[c].v).sort((a, b) => a - b), dates = codes.map(day).sort();
     R[h] = { fc: user.follower_count, pk: String(user.pk || user.id || ""), priv: user.is_private ? 1 : 0, n: user.full_name || "",
       med: views.length ? views[Math.floor(views.length / 2)] : null, nr: views.length, last: dates[dates.length - 1] || null,
-      lb: codes.filter(c => reels[c].lb).map(c => ({ code: c, day: day(c), v: reels[c].v })) };
+      lb: codes.filter(c => reels[c].lb).map(c => ({ code: c, day: day(c), v: reels[c].v })),
+      // the 12 newest reels: [code, day, views, likes, comments] (newest first)
+      rl: codes.slice().sort((a, b) => day(b).localeCompare(day(a))).slice(0, 12).map(c => [c, day(c), reels[c].v, reels[c].l, reels[c].m]) };
     localStorage.__rf_out = JSON.stringify(R);
   }
   localStorage.removeItem("__rf_pend");

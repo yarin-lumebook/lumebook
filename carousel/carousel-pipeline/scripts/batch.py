@@ -148,14 +148,34 @@ def assign_skills(dates, cars_history, per_date=2):
     return out
 
 
+def unbuilt_plan_from(today, history):
+    """A plan made on `today` that has no pack yet (no drafts/DATE/pack.json, no history entry), or None. The 22 Oct 2026
+    cloud run called week-plan twice, got a second plan for the week after, and stopped without building anything."""
+    made = {p["date"] for p in history.get("packs", [])}
+    for plan in reversed(plans()):
+        dates = [s["date"] for s in plan.get("slots", [])]
+        if plan.get("made_on") == today.isoformat() and not any(d in made or (lib.DRAFTS / d / "pack.json").exists() for d in dates):
+            return plan
+    return None
+
+
 def make_plan(today=None, merge=True, log=print):
-    """Plan the next weekly batch and write drafts/batches/ID.json (ID = its first date). Returns the plan."""
+    """Plan the next weekly batch and write drafts/batches/ID.json (ID = its first date). Returns the plan.
+    Safe to run twice: a plan made today with nothing built yet is returned as it is."""
     if merge:
         merge_cloud_history(log=log)
     today = today or lib.now_local().date()
     history = lib.load_history(lib.HISTORY)
+    same = unbuilt_plan_from(today, history)
+    if same:
+        log(f"week-plan: plan {same['id']} was made today and has no packs yet, so it stays the plan (no new one)")
+        return same
     dates = next_dates(history, today=today)
     ctx = lib.rotation_context(history, dates[0])
+    if today >= lib.parse_date(lib.DAILY_PAIR_FROM[:10]):   # two topics a day, plans made from 24 Oct 2026
+        plan = make_pair_plan(dates, ctx, today, log=log)
+        lib.write_json(BATCHES / f"{plan['id']}.json", plan)
+        return plan
     eligible = [t for t in ctx["topics"] if t["eligible"]]
     regular_needed = BATCH_SIZE - 1
     if len(eligible) < regular_needed + 1:
@@ -193,6 +213,67 @@ def make_plan(today=None, merge=True, log=print):
     return plan
 
 
+def pick_pairs(dates, ctx, log=print):
+    """Two topics a day from two different best-selling books (topic-bank.md "Best-selling books", Yarin 24 Oct 2026).
+    In season first, then the longest since last use, then the book with more orders; no topic twice in the batch, no book
+    more than PAIR_BOOK_MAX_IN_BATCH times, a book of the day before only when nothing else is left, and none of the
+    topics of the last PAIR_TOPIC_COOLDOWN_PACKS packs (relaxed, oldest first, only if the batch cannot be filled)."""
+    best = [t for t in ctx["topics"] if t.get("bestseller")]
+    ranked = sorted(best, key=lambda t: (not t["in_season"], t["last_used"] or "", -(t["bestseller"].get("orders") or 0), t["id"]))
+    recent = set(ctx["recent_pair_topic_ids"])
+
+    def fill(blocked):
+        used, per_book, days, prev_books = set(), {}, [], set()
+        for _ in dates:
+            free = [t for t in ranked if t["id"] not in used and t["id"] not in blocked
+                    and per_book.get(t["bestseller"]["book"], 0) < lib.PAIR_BOOK_MAX_IN_BATCH]
+            day = []
+            for t in sorted(free, key=lambda t: t["bestseller"]["book"] in prev_books):  # stable: keeps the ranking
+                if len(day) < 2 and all(t["bestseller"]["book"] != d["bestseller"]["book"] for d in day):
+                    day.append(t)
+            if len(day) < 2:
+                return None
+            for t in day:
+                used.add(t["id"])
+                per_book[t["bestseller"]["book"]] = per_book.get(t["bestseller"]["book"], 0) + 1
+            prev_books = {t["bestseller"]["book"] for t in day}
+            days.append(day)
+        return days
+
+    days = fill(recent)
+    if days is None:
+        log(f"week-plan: not enough best-seller topics outside the last {lib.PAIR_TOPIC_COOLDOWN_PACKS} packs; allowing them, oldest first")
+        days = fill(set())
+    if days is None:
+        raise SystemExit(f"only {len(best)} best-seller topics in topic-bank.md; a week of two-topic packs needs {2 * len(dates)} "
+                         f"from at least {len(dates) + 1} books (add rows under \"Best-selling books\")")
+    return days
+
+
+def make_pair_plan(dates, ctx, today, log=print):
+    """The weekly batch since 24 Oct 2026: 7 packs, each with two best-seller topics and three child-voice options on each
+    (Yarin: "6 versions for each day (3 options for each) so i can choose the strongest one"). No event slot."""
+    days = pick_pairs(dates, ctx, log=log)
+    slots = []
+    for i, (date, day) in enumerate(zip(dates, days), start=1):
+        topics = [{"topic_id": t["id"], "topic_he": t["title_he"], "book": {"id": t["bestseller"]["book"], "title_he": t["bestseller"]["title_he"]},
+                   "options": list(ids)} for t, (_, ids) in zip(day, lib.PAIR_LANES)]
+        slots.append({"n": i, "date": date, "kind": "pair", "topic_id": topics[0]["topic_id"],
+                      "topic_he": " · ".join(t["topic_he"] for t in topics), "topics": topics, "reco": []})
+    return {
+        "id": dates[0],
+        "kind": "weekly",
+        "format": lib.PAIR_FORMAT,
+        "created_at": lib.now_local().isoformat(timespec="seconds"),
+        "made_on": today.isoformat(),
+        "rules": ("7 packs, one a day, each with two topics of two different best-selling books (topic-bank.md \"Best-selling books\") "
+                  "and three child-voice options per topic: kid-1 to kid-3 on topics[0], kid-4 to kid-6 on topics[1] (42 options). "
+                  "The CTA asks to save the post and send it to a mom who will relate; no comment word. No Israeli event slot. "
+                  "Every slot uses exactly its two topics."),
+        "slots": slots,
+    }
+
+
 # ---------------------------------------------------------------------------
 # Check
 # ---------------------------------------------------------------------------
@@ -224,6 +305,19 @@ def check(batch_id):
         pack_path = folder / "pack.json"
         if not pack_path.exists():
             errors.append(f"{tag}: no pack.json")
+        elif slot["kind"] == "pair":   # two topics a pack since 24 Oct 2026
+            pack = lib.read_json(pack_path)
+            got = [t.get("id") for t in lib.pack_topics(pack)]
+            want = [t["topic_id"] for t in slot["topics"]]
+            if got != want:
+                errors.append(f"{tag}: planned topics {' + '.join(want)}, the pack has {' + '.join(map(str, got)) or 'none'}")
+            for tid in got:
+                if tid in topics:
+                    errors.append(f"{tag}: topic {tid} repeats slot {topics[tid]}")
+                topics[tid] = slot["n"]
+            n = sum(len(d.get("versions", [])) for d in pack.get("directions", []))
+            if n != len(lib.PAIR_OPTION_IDS):
+                errors.append(f"{tag}: {n} options; a two-topic pack has {len(lib.PAIR_OPTION_IDS)}")
         else:
             topic = lib.read_json(pack_path).get("topic", {})
             tid = topic.get("id")
@@ -255,7 +349,7 @@ def check(batch_id):
                     errors.append(f"{tag} {path.name}: {p.get('title_he')} is also in {products[key]}")
                 else:
                     products[key] = f"slot {slot['n']} {path.name}"
-    if events == 0 and not any("fallback" in w for w in warns):
+    if events == 0 and not any("fallback" in w for w in warns) and plan.get("format") != lib.PAIR_FORMAT:
         warns.append("no Israeli event pack in this batch")
     return errors, warns
 

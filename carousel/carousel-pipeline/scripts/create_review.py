@@ -331,8 +331,9 @@ def html_option(pack, direction, v):
                f'<span class="lb-chip {esc(direction)} rv-id">{vid}</span>'
                f'<h3 data-edit="title" data-opt="{vid}" data-path="{p}/title">{esc(v["title"])}</h3>'
                f'<span class="lb-chip">{esc(v.get("child_name", ""))}</span>'
-               f'<span class="lb-chip accent">"{esc(v["code_word"])}"</span>'
-               '</header>')
+               + (f'<span class="lb-chip accent">"{esc(v["code_word"])}"</span>' if v.get("code_word") else '')
+               + (f'<span class="lb-chip">{esc(lib.option_topic(pack, v).get("title_he", ""))}</span>' if lib.is_pair_pack(pack) else '')
+               + '</header>')
     out.append('<div class="deck">' + "".join(html_card(direction, v, s) for s in v["slides"]) + '</div>')
     # What someone who reads only the headlines gets (Yarin, 10 Oct 2026): the story must survive without the bodies
     out.append('<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> ' + " ← ".join(esc(" ".join(lib.lines_of(s["headline"]))) for s in v["slides"]) + '</p>')
@@ -429,8 +430,8 @@ def build_html(pack):
         '</header>',
         '<div class="lb-page">',
         '<header class="top">',
-        f'<div class="row"><h1>{esc(pack["topic"]["title_he"])}</h1>{vchip}</div>',
-        f'<details class="more"><summary>על הנושא</summary><div class="inner"><p class="lead" dir="auto">{esc(pack["topic"]["reason"])}</p>'
+        f'<div class="row"><h1>{esc(" · ".join(t["title_he"] for t in lib.pack_topics(pack)))}</h1>{vchip}</div>',
+        f'<details class="more"><summary>על הנושא</summary><div class="inner"><p class="lead" dir="auto">{esc(chr(10).join(t["reason"] for t in lib.pack_topics(pack)))}</p>'
         f'<div class="legend">{"".join(legend)}</div></div></details>',
         '<p class="edit-note" id="edit-note" hidden>לעריכה: <code>python3 carousel/carousel-pipeline/scripts/review_server.py</code></p>',
         '</header>',
@@ -455,11 +456,11 @@ def build_md(pack):
     vline = ("קול מכויל" if voice["status"] == "calibrated"
              else f"קול ברירת מחדל ({voice['approved_samples']} מתוך {lib.CALIBRATION_MIN_SAMPLES} דוגמאות מאושרות)")
     md = [
-        f"# קרוסלות לבוקר {pack['date']} · {pack['topic']['title_he']}",
+        f"# קרוסלות לבוקר {pack['date']} · {' · '.join(t['title_he'] for t in lib.pack_topics(pack))}",
         "",
         '<div dir="rtl" lang="he" style="direction:rtl;text-align:right">',
         "",
-        f"**למה הנושא הזה:** {pack['topic']['reason']}",
+        f"**למה הנושא הזה:** {' / '.join(t['reason'] for t in lib.pack_topics(pack))}",
         "",
         f"**סטטוס קול:** {vline}. {voice['note']}",
         "",
@@ -477,7 +478,7 @@ def build_md(pack):
                 f"- **למי:** {v['target_parent']}",
                 f"- **שלב מודעות:** {lib.AWARENESS_LABELS_HE.get(v['awareness_stage'], v['awareness_stage'])}",
                 f"- **פתיח:** {(v.get('hook') or {}).get('formula', '')}",
-                f"- **מילת קוד:** {v['code_word']}",
+                f"- **מילת קוד:** {v['code_word']}" if v.get("code_word") else f"- **נושא:** {lib.option_topic(pack, v).get('title_he', '')} (קריאה לפעולה: שמירה ושליחה)",
                 f"- **למה זה עשוי להמיר:** {v['conversion_rationale']}",
                 "",
             ]

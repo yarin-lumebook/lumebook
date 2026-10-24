@@ -455,7 +455,8 @@ def text_issues(path, text, allow_cta=False, title=None):
     issues = []
     checked = _mask_title(text, title) if title else text
     brand_only_latin = not lib.LATIN_RE.search(lib.BRAND_RE.sub("", checked))
-    for i in lib.audience_text_issues(path, checked, allow_cta=allow_cta):
+    # every games and books carousel predates 24 Oct 2026, so it keeps the punctuation rule of its time (no period or comma, hyphens allowed)
+    for i in lib.audience_text_issues(path, checked, allow_cta=allow_cta, legacy=True):
         if brand_only_latin and i.message.startswith("contains Latin letters"):
             continue  # "ספר של LumeBook" is Yarin's own wording; the renderer isolates the Latin run
         issues.append(i)

@@ -756,10 +756,10 @@ class Voice(unittest.TestCase):
 
     def test_lint_cli(self):
         tmp = Path(tempfile.mkdtemp()) / "copy.json"
-        tmp.write_text(json.dumps({"hook": "אני לא בוכה, בגלל הגן", "cta": "כתבו גן בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור"}, ensure_ascii=False), encoding="utf-8")
+        tmp.write_text(json.dumps({"hook": "אני לא בוכה - בגלל הגן", "cta": "כתבו גן בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור"}, ensure_ascii=False), encoding="utf-8")
         res = subprocess.run([sys.executable, str(SCRIPTS / "voice_lint.py"), str(tmp), "--cta", "cta", "--code-word", "גן", "--hook", "hook"], capture_output=True, text=True)
         self.assertEqual(res.returncode, 1)
-        self.assertIn("U+002C", res.stdout)
+        self.assertIn("U+002D", res.stdout)   # a hyphen; commas are fine again since 24 Oct 2026
         self.assertEqual(len(voice_lint.lint({"cta": 'כתבו "גן" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור'}, cta="cta", code_word="גן")), 0)
 
 
@@ -1220,7 +1220,7 @@ class ExamplesRule(unittest.TestCase):
     def test_the_draw_is_saved_and_in_range(self):
         folder = Path(tempfile.mkdtemp())
         slots = lib.draw_example_slots(folder)
-        self.assertEqual(set(slots), set(lib.OPTION_IDS))
+        self.assertEqual(set(slots), set(lib.OPTION_IDS) | set(lib.PAIR_OPTION_IDS))  # kid-4 to kid-6 since 24 Oct 2026
         self.assertTrue(all(lib.NUMBERED_EXAMPLES_MIN <= n <= lib.NUMBERED_EXAMPLES_MAX for n in slots.values()))
         self.assertEqual(lib.draw_example_slots(folder), slots)
 
@@ -1371,9 +1371,9 @@ class Renderer(unittest.TestCase):
         html = (final / "slides.html").read_text(encoding="utf-8")
         self.assertIn('<html lang="he" dir="rtl">', html)
         self.assertNotIn("logo_square", html)  # no brand mark unless --brand-mark
-        # the trial layout: centred type on the picture, no boxes, the art pushed down under the text
+        # the trial layout: centred type on the picture, no boxes; the picture is never moved or stretched (24 Oct 2026)
         self.assertIn("text-align:center", html)
-        self.assertEqual(html.count('<div class="mirror">'), lib.SLIDE_COUNT)
+        self.assertNotIn('class="mirror"', html)
         self.assertNotIn('class="pill"', html)
         with zipfile.ZipFile(result["zip"]) as z:
             names = set(z.namelist())
@@ -1381,7 +1381,7 @@ class Renderer(unittest.TestCase):
         self.assertTrue({"caption.txt", "sources.md", "generation-log.jsonl", "contact-sheet.png"} <= names)
         report = json.loads((final / "rtl-report.json").read_text(encoding="utf-8"))
         self.assertTrue(all(s["direction"] == "rtl" and s["fit"] == "ok" for s in report))
-        self.assertTrue(all("push" in s for s in report))  # the layout script ran on every slide
+        self.assertTrue(all(s["push"] == 0 for s in report))  # the layout script ran on every slide and moved no picture
         self.assertTrue(report[-1]["dark"])  # the last slide is the dark evening slide
         self.assertNotIn("AI", html)  # never say the carousel is AI made (Yarin, 8 Oct 2026)
 

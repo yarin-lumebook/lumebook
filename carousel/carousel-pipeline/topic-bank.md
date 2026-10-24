@@ -1,8 +1,8 @@
 # Topic bank
 
-One topic per pack, so the six candidates compare voice and angle rather than six unrelated ideas. Since 16 Oct 2026 the packs come as a weekly batch: 7 packs on 7 different topics, one of them an Israeli event (see "Israeli events").
+Since 24 Oct 2026 every pack (one per day) has two topics, each tied to a best-selling book (see "Best-selling books"), with three child-voice options on each: six options a day to choose one from. Yarin, 24 Oct 2026, after the carousel audit: "Keep the child-voice numbered lists, on 2 topics that have a best-selling book (6 versions for each day (3 options for each) so i can choose the strongest one)". The weekly batch is 7 such packs, 14 different topics, and has no Israeli event slot any more. Packs made before then have one topic, six kid and expert options, and one event pack a week (see "Israeli events").
 
-`scripts/nightly.py start` reads the table below, checks `history.json` and prints the topics ranked for tonight: eligible first (not used in the previous 14 packs), then in season for the review month, then the longest since last use. The validator rejects a pack whose topic id is not in this table or was used in the previous 14 packs.
+`scripts/nightly.py week-plan` reads the table below and "Best-selling books", checks `history.json` and gives every day two topics of two different best-selling books: in season first, then the longest since last use, no topic twice in a week, no book more than twice in a week, and no topic from the previous 3 packs. The validator rejects a two-topic pack whose topics are not best-seller rows or were used in the previous 3 packs. Older one-topic packs: not used in the previous 14 packs.
 
 ## How to edit
 
@@ -16,37 +16,66 @@ One topic per pack, so the six candidates compare voice and angle rather than si
 | id | topic | topic (en) | months | code words | books to check on lumebook.com |
 |---|---|---|---|---|---|
 | `new-sibling` | אח חדש והגדול שחוזר אחורה | new sibling and regression | any | אח / אחות / גדול | אח חדש · אחות חדשה |
+| `new-sibling-coming` | מכינים את הגדול לתינוק שבדרך | preparing the older child for the baby on the way | any | אח / תינוק | אח חדש · אחות חדשה |
+| `new-sibling-jealousy` | מקנא בתינוק החדש | jealous of the new baby | any | אח / קנאה | אח חדש · אחות חדשה |
 | `gan-separation` | פרידה בבוקר בגן | separation at kindergarten drop-off | 8, 9, 10 | גן / פרידה / לב / בוקר | לב האומץ של אלי · הגן הקסום של הגדולים |
 | `fear-of-dark` | פחד מחושך | fear of the dark | 10, 11, 12, 1, 2 | חושך / לילה / פנס | check catalogue |
 | `pacifier-weaning` | פרידה מהמוצץ | pacifier weaning | any | מוצץ / ביי | ביי ביי מוצץ · עץ המוצצים |
-| `toilet-setbacks` | פספוסים אחרי גמילה | toilet setbacks after potty training | any | גמילה / סיר | check catalogue |
+| `pacifier-first-nights` | הלילות הראשונים בלי מוצץ | the first nights without the pacifier | any | מוצץ / לילה | ביי ביי מוצץ |
+| `toilet-setbacks` | פספוסים אחרי גמילה | toilet setbacks after potty training | any | גמילה / סיר | עדן והחיות החופשיות - נפרדים מהטיטולים |
+| `potty-start` | מתחילים להיפרד מהטיטול | starting to say goodbye to diapers | any | טיטול / סיר | עדן והחיות החופשיות - נפרדים מהטיטולים |
 | `sibling-conflict` | מריבות בין אחים | sibling conflict | any | אחים / ריב | check catalogue |
 | `big-feelings` | מכה נושך או צועק | hitting biting or shouting | any | כעס / רגש | check catalogue |
 | `transitions` | מסרב לעבור מפעילות לפעילות | refusing transitions | any | מעבר / עוד | check catalogue |
-| `same-story` | רוצה את אותו סיפור שוב ושוב | wanting the same story again | any | שוב / סיפור | check catalogue |
-| `sorry-on-command` | קשה לו להגיד סליחה | difficulty apologising on command | any | סליחה | check catalogue |
+| `same-story` | רוצה את אותו סיפור שוב ושוב | wanting the same story again | any | שוב / סיפור | חברים צבעוניים |
+| `first-words` | המילים הראשונות | first words | any | מילה / תינוק | חברים צבעוניים |
+| `baby-reading` | תינוק שלא יושב רגע עם ספר ביד | reading with a baby who will not sit still | any | קריאה / תינוק | חברים צבעוניים |
+| `sorry-on-command` | קשה לו להגיד סליחה | difficulty apologising on command | any | סליחה | הלב של יובל · ארמון הנימוסים |
+| `kindness-small-acts` | מגלה כמה כיף לעזור לאחרים | small acts of kindness | any | לב / עזרה | הלב של יובל |
 | `cautious-child` | ילד זהיר מול אתגר חדש | cautious children and new challenges | any | אומץ / מגלשה | לב האומץ של אלי |
 | `first-grade-decompression` | פריקה אחרי יום בכיתה א׳ | first grade decompression after school | 9, 10, 11 | כיתה / בסדר | שלום כיתה א׳ |
+| `first-grade-mornings` | בוקר לחוץ לפני בית הספר | rushed school mornings in first grade | 9, 10, 11, 12 | בוקר / תיק | שלום כיתה א׳ |
+| `first-grade-ready` | מתכוננים לכיתה א׳ | getting ready for first grade | 5, 6, 7, 8 | כיתה / תיק | שלום כיתה א׳ |
 | `bedtime-stalling` | עוד כוס מים לפני השינה | bedtime stalling | any | מים / לילה / שינה | check catalogue |
-| `birthday-expectations` | יום הולדת שלא הולך לפי התוכנית | birthday expectations | any | הולדת / עוגה | check catalogue (birthdays category) |
-| `left-out` | הרגיש שלא שיתפו אותו | feeling left out | any | חבר / לבד | חברים צבעוניים |
+| `birthday-expectations` | יום הולדת שלא הולך לפי התוכנית | birthday expectations | any | הולדת / עוגה | יום הולדת |
+| `birthday-countdown` | סופר את הימים עד יום ההולדת | counting the days to the birthday | any | הולדת / ימים | יום הולדת |
+| `birthday-at-gan` | חוגגים לה יום הולדת בגן | being the birthday child at gan | any | הולדת / גן | יום הולדת |
+| `left-out` | הרגיש שלא שיתפו אותו | feeling left out | any | חבר / לבד | check catalogue |
 | `grandparents-gifts` | סבא וסבתא שואלים מה לקנות | grandparents as gift buyers | 11, 12 | סבתא / נכדים / מתנה | check gifts page |
 | `picky-eating` | אוכל רק פסטה ואורז | picky eating | any | צלחת / ארוחה | check catalogue |
 | `screen-time-end` | בכי כשנגמר המסך | meltdown when screen time ends | any | מסך / טאבלט | check catalogue |
 | `bad-dream` | מתעורר מחלום רע | waking from a bad dream | any | חלום / לילה | check catalogue |
-| `making-friends` | קשה לו להתחבר לילדים חדשים | making new friends | any | חבר / גן | חברים צבעוניים |
-| `losing-games` | לא מסוגל להפסיד במשחק | not coping with losing a game | any | משחק / ניצחון | check catalogue |
+| `making-friends` | קשה לו להתחבר לילדים חדשים | making new friends | any | חבר / גן | check catalogue |
+| `losing-games` | לא מסוגל להפסיד במשחק | not coping with losing a game | any | משחק / ניצחון | הטורניר הגדול של נוי |
+| `giving-up` | מוותר מהר כשמשהו קשה | giving up fast when something is hard | any | ניסיון / התמדה | הטורניר הגדול של נוי |
 | `whining` | מדבר בקול בכייני | whining | any | קול / בקשה | check catalogue |
 | `doctor-visit` | פחד מרופא ומזריקה | fear of the doctor and shots | any | רופא / זריקה | check catalogue |
 | `haircut-fear` | בוכה בתספורת | crying at haircuts | any | תספורת / שיער | check catalogue |
 | `morning-dressing` | לא מתלבש בבוקר | morning dressing battles | any | בגדים / בוקר | check catalogue |
-| `sharing-toys` | לא רוצה לתת לאף אחד את הצעצוע | not wanting to share toys | any | צעצוע / תור | check catalogue |
+| `sharing-toys` | לא רוצה לתת לאף אחד את הצעצוע | not wanting to share toys | any | צעצוע / תור | הלב של יובל · ארגז הצעצועים המיוחד |
 | `moving-home` | עוברים דירה | moving home | any | דירה / חדר | check catalogue |
 | `public-tantrum` | התפרצות באמצע הסופר | tantrums in public | any | סופר / התפרצות | check catalogue |
 | `own-bed` | עובר למיטה של ההורים בלילה | coming into the parents' bed at night | any | מיטה / לילה | check catalogue |
 | `toothbrushing` | מלחמה על צחצוח שיניים | toothbrushing battles | any | שיניים / מברשת | check catalogue |
 
-## Israeli events (weekly batch, Yarin 16 Oct 2026)
+## Best-selling books (Yarin, 24 Oct 2026)
+
+Every pack's two topics come from this table: the catalogue books with 50 or more paid orders of all time in the admin export of 12 Oct 2026 (`docs/lumebook-sales-data-decisions-2026-10-12.md`, internal: keep these numbers off public pages). Book numbers and what each book is about were read on the live book pages on 24 Oct 2026 (lumebook.com/IL/he/books/<book>). אח חדש and אחות חדשה are one book in two versions, counted together. Custom stories (237 orders) are not a catalogue book and have no topic. The carousels still never name a book: the book only decides the topic.
+
+`scripts/nightly.py week-plan` reads the topics cell. To add a topic for a best-selling book, add its row to the Topics table and its id here.
+
+| book | title | orders | what it is about (live page) | topics |
+|---|---|---|---|---|
+| 15 | יום הולדת | 262 | the birthday as a magical day, king or queen for a day | `birthday-expectations` `birthday-countdown` `birthday-at-gan` |
+| 13 | הלב של יובל | 167 | real heroism through empathy, generosity and everyday kindness | `kindness-small-acts` `sharing-toys` `sorry-on-command` |
+| 2 | אח חדש | 132 | preparing for and welcoming a new brother or sister (with אחות חדשה, book 7) | `new-sibling` `new-sibling-coming` `new-sibling-jealousy` |
+| 29 | חברים צבעוניים | 118 | colours and animals for one-year-olds, simple repeating text | `same-story` `first-words` `baby-reading` |
+| 41 | ביי ביי מוצץ | 86 | a goodbye ceremony for the pacifier | `pacifier-weaning` `pacifier-first-nights` |
+| 43 | עדן והחיות החופשיות - נפרדים מהטיטולים | 66 | saying goodbye to diapers with zoo animals | `potty-start` `toilet-setbacks` |
+| 10 | שלום כיתה א׳ | 57 | from gan to first grade, worries into excitement | `first-grade-decompression` `first-grade-mornings` `first-grade-ready` |
+| 23 | הטורניר הגדול של נוי | 50 | a football-loving child learns perseverance and teamwork | `losing-games` `giving-up` |
+
+## Israeli events (weekly batch, Yarin 16 Oct 2026; no event slot since 24 Oct 2026)
 
 "I need the carousels to have social and event context about things that happen in Israel like holidays or special days, hard or exciting. I don't want all carousels to be about them, let's say about 10%-20% of the weekly batch."
 

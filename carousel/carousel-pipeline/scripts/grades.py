@@ -80,6 +80,10 @@ def items(plan, drafts=None):
         for d in (pack or {}).get("directions", []):
             for v in d.get("versions", []):
                 hook = v.get("hook") or {}
+                if lib.is_pair_pack(pack):   # two topics a pack since 24 Oct 2026: each option carries its own
+                    t = lib.option_topic(pack, v)
+                    base = {**base, "topic_id": t.get("id", ""), "topic_he": t.get("title_he", ""),
+                            "lane": lib.pair_lane_of(v.get("id")), "day_topics": [x.get("title_he", "") for x in lib.pack_topics(pack)]}
                 slides = [{"n": s["number"], "role": s.get("role", ""), "headline": s.get("headline", ""), "body": s.get("body", ""),
                            **({"highlight": s["highlight"]} if "highlight" in s else {})} for s in v.get("slides", [])]
                 cap = lib.lines_of(v.get("caption", ""))

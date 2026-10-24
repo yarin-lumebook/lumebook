@@ -37,7 +37,7 @@
         "creators": {"cat": 2, "label": "יוצרים", "en": "Creators",
                      "components": ["creator-map", "signup-form", "creator-content-conversion", "creator-brief", "ambassadors"]},
         "carousels": {"cat": 5, "label": "קרוסלות", "en": "Carousels",
-                      "components": ["carousel-pipeline", "hook-studio-page", "carousel-research", "carousel-playbook", "fal-trial"]},
+                      "components": ["carousel-pipeline", "hook-studio-page", "carousel-research", "carousel-playbook", "carousel-audit", "fal-trial"]},
         "reels": {"cat": 1, "label": "רילס ווידאו", "en": "Reels and video",
                   "components": ["israeli-product-reels", "reels-research-page", "kids-lab", "media"]},
         "competitors": {"cat": 7, "label": "מתחרים", "en": "Competitors",
@@ -102,6 +102,19 @@
         "campaigns": {"cat": 4, "label": "קמפיינים", "en": "Campaigns"},
         "brand": {"cat": 8, "label": "מותג ומדיה", "en": "Brand and media"},
         "system": {"cat": 0, "label": "מערכת", "en": "System"}
+      }
+    },
+    "journey-stages": {
+      "used_by": ["research/cro-crm/src/build_strategy_page.py (the action list: stage tiles, stage strip, check circles, through lb-cat-N)"],
+      "what": "The seven stages of the buying journey in research/cro-crm (journey demo and its action list). No class key on purpose, like board-areas: the build applies lb-cat-N, so the inlined CSS of other pages does not change. Status keeps its own chips",
+      "items": {
+        "ad": {"cat": 4, "label": "מודעה בפייסבוק", "en": "Facebook ad"},
+        "book": {"cat": 8, "label": "דף הספר", "en": "Book page"},
+        "wizard": {"cat": 5, "label": "האשף", "en": "Wizard"},
+        "preview": {"cat": 6, "label": "תצוגה מקדימה", "en": "Preview"},
+        "pay": {"cat": 7, "label": "תשלום", "en": "Payment"},
+        "after": {"cat": 2, "label": "אחרי הרכישה", "en": "After purchase"},
+        "messages": {"cat": 3, "label": "הודעות", "en": "Messages"}
       }
     }
   }

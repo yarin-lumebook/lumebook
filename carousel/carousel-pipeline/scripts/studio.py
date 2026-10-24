@@ -5,12 +5,18 @@ Yarin, 16 and 17 Oct 2026: "i want the entire carousel engine, editor and produc
 easily access", "design it better using heebo as the main font, better hierarchy and apple design principles",
 "why cant i edit them directly from the local host?" and "i want one page for everything without any subpages".
 
-One screen, like a mail app (RTL): the week's carousels in a list on the right (filter: all, to grade, production,
-waiting for approval), the chosen carousel in the middle with every headline, body, highlight, caption and CTA
-editable in place (saved through the editors' own save: backup, voice log, validation, rebuilt pages; games and books
-slides are re-rendered), and on the left its grade, the reason, the produce switch and its production (picture to
-approve or redo, ZIP, Finder). The top bar has the week, progress, what waits for approval, the cloud buttons and
-"הפקת הנבחרים". Everything loads from /api/state; old addresses (/pool, /grade, /productions, /packs) open this page.
+Yarin, 24 Oct 2026: "instead of the current layout i want a grid that shows the first slide of each carousel and only
+when i click on it the carousel exapnds so i can view it all with all the necessary controls. i want the side panel to
+view what carousels i chose to produce with a button to batch produce them".
+
+One screen (RTL): a grid of slide 1 of every carousel of the week, grouped by topic (filter: all, to grade,
+production, waiting for approval; "+ להפקה" on each card picks it). A click opens the carousel in a sheet: every
+headline, body, highlight, caption and CTA editable in place (saved through the editors' own save: backup, voice log,
+validation, rebuilt pages; games and books slides are re-rendered), and beside it the grade, the reason, the produce
+switch and its production (picture to approve or redo, ZIP, Finder). The side panel lists the picked carousels with
+one button that produces them all, then the ones in production or done. The top bar has the week, progress, what
+waits for approval and the cloud buttons. Everything loads from /api/state; old addresses (/pool, /grade,
+/productions, /packs) open this page.
 Design system tokens and lb- components; Heebo for the interface, the pillar fonts only on the slide cards. Light only.
 """
 
@@ -141,22 +147,67 @@ button{font-family:inherit}
 .hs-meter .bar i{display:block;height:100%;background:var(--tint);border-radius:inherit;transition:width .3s}
 .hs-sp{flex:1}
 .hs-top .lb-btn{white-space:nowrap}
-.hs-listbtn{display:none}
-.hs-app{display:grid;grid-template-columns:21rem minmax(0,1fr) 20rem;height:calc(100vh - var(--hs-top))}
-.hs-list{overflow-y:auto;background:var(--surface-2);border-inline-end:1px solid var(--line);padding-bottom:var(--sp-6)}
+.hs-pickbtn{display:none}
+.hs-app{display:grid;grid-template-columns:minmax(0,1fr) 21rem;height:calc(100vh - var(--hs-top))}
+.hs-main{overflow-y:auto;min-width:0;padding:0 var(--sp-6) var(--sp-7);container-type:inline-size}
+.hs-filter{position:sticky;top:0;z-index:3;background:var(--bg);padding:var(--sp-4) 0 var(--sp-3)}
+.hs-filter .lb-segmented{display:flex;max-width:30rem}
+.hs-filter .lb-segmented button{flex:1;padding-inline:.3rem}
+.hs-group{margin-top:var(--sp-4)}
+.hs-group>h2{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-headline);font-weight:600;letter-spacing:-.01em;margin:0 0 var(--sp-3)}
+.hs-group>h2 .n{font-family:var(--font-2);color:var(--text-3);font-variant-numeric:tabular-nums}
+.hs-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-5) var(--sp-4)} /* a topic's 3 kid and 3 expert options: one row each, or all six on one row */
+@container (min-width:60rem){.hs-cards{grid-template-columns:repeat(6,minmax(0,1fr))}}
+/* A day since 24 Oct 2026: two topics side by side, each with its three child-voice options */
+.hs-day{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-5)}
+.hs-lane>h3{font-size:var(--fs-callout);font-weight:600;color:var(--text-2);margin:0 0 var(--sp-2)}
+@container (min-width:60rem){.hs-day{grid-template-columns:repeat(2,minmax(0,1fr))}.hs-day .hs-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.gc{position:relative;display:grid;gap:var(--sp-2);align-content:start;min-width:0}
+.gc-thumb{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;border-radius:var(--r-lg);transition:transform .15s ease;container-type:inline-size}
+.gc-thumb:hover{transform:translateY(-2px)}
+.gc-thumb:focus-visible{outline:none}
+.gc-thumb:focus-visible>*{box-shadow:0 0 0 3px var(--tint)}
+.gc-thumb img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:var(--shadow-1)}
+.gc-thumb .st-card{overflow:hidden;box-shadow:var(--shadow-1);text-align:right}
+.gc-thumb .st-card .h{font-size:clamp(.9rem,8.5cqi,1.4rem);line-height:1.22;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden}
+.gc-thumb .st-card .b{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.gc.picked .gc-thumb>*{box-shadow:0 0 0 3px var(--tint)}
+.gc-frame{position:relative}
+.gc-pick{position:absolute;bottom:var(--sp-2);inset-inline-end:var(--sp-2);z-index:1;display:inline-flex;align-items:center;height:1.75rem;padding:0 .65rem;border:0;border-radius:var(--r-pill);background:var(--surface);color:var(--text);font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;box-shadow:var(--shadow-2);cursor:pointer}
+.gc-pick[aria-pressed="true"]{background:var(--tint);color:var(--text-on-tint)}
+.gc-meta{display:flex;align-items:center;gap:var(--sp-2);font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);min-width:0}
+.gc-meta .who{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gc-meta .hs-pill{flex:none}
+.hs-picks{overflow-y:auto;background:var(--surface);border-inline-start:1px solid var(--line);padding:var(--sp-5) var(--sp-4) var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-3)}
+.pk-head{display:flex;align-items:baseline;gap:var(--sp-2)}
+.pk-head h2{margin:0;font-size:var(--fs-headline);font-weight:700}
+.pk-head .c{font-family:var(--font-2);color:var(--text-3);font-variant-numeric:tabular-nums}
+.pk-send{display:grid;gap:var(--sp-2)}
+.pk-send .lb-btn{width:100%;justify-content:center}
+.pk-send .in-keys:empty{display:none}
+.pk-list{display:grid;gap:2px}
+.pk-sub{font-family:var(--font-2);font-size:var(--fs-caption);font-weight:600;color:var(--text-3);margin:var(--sp-3) 0 0}
+.pk-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--sp-2);align-items:center;padding:var(--sp-2);border-radius:var(--r-md)}
+.pk-row:hover{background:var(--fill)}
+.pk-open{display:grid;grid-template-columns:2.6rem minmax(0,1fr);gap:var(--sp-3);align-items:center;padding:0;border:0;background:none;color:var(--text);text-align:right;cursor:pointer;min-width:0}
+.pk-mini{display:block;width:2.6rem;aspect-ratio:4/5;border-radius:var(--r-xs);overflow:hidden;border:1px solid var(--line)}
+.pk-mini.kid{background:#F8F4FF}.pk-mini.expert{background:#FCF7EE}.pk-mini.reco{background:var(--info-soft)}
+.pk-mini img{display:block;width:100%;height:100%;object-fit:cover}
+.pk-open .t{font-size:var(--fs-footnote);font-weight:500;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pk-open .m{display:block;font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pk-x{width:1.75rem;height:1.75rem;border:0;border-radius:50%;background:none;color:var(--text-3);cursor:pointer;font-size:1.15rem;line-height:1}
+.pk-x:hover{background:var(--fill-2);color:var(--text)}
+.pk-empty{font-size:var(--fs-footnote);color:var(--text-3);margin:0;line-height:1.6}
+.hs-picks .hs-foot{margin-top:auto;padding:var(--sp-4) 0 0}
+.hs-open{position:fixed;inset:0;z-index:50;background:var(--overlay);display:flex;justify-content:center;padding:var(--sp-5)}
+.hs-open[hidden]{display:none}
+.op-sheet{width:min(100%,88rem);display:flex;flex-direction:column;background:var(--bg);border-radius:var(--r-lg);box-shadow:var(--shadow-3);overflow:hidden;animation:op-in .18s ease}
+@keyframes op-in{from{opacity:0;transform:scale(.985)}}
+.op-bar{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--line);background:var(--surface)}
+.op-bar .pos{font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-3);font-variant-numeric:tabular-nums;min-width:5.5rem;text-align:center}
+.op-body{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 20rem}
 .hs-stage{overflow-y:auto;padding:var(--sp-5) var(--sp-6) var(--sp-7);min-width:0;position:relative}
 .hs-insp{overflow-y:auto;background:var(--surface);border-inline-start:1px solid var(--line);padding:var(--sp-4) var(--sp-4) var(--sp-7);display:grid;gap:var(--sp-5);align-content:start}
-.hs-filter{position:sticky;top:0;z-index:2;background:var(--surface-2);padding:var(--sp-3) var(--sp-3) var(--sp-2);border-bottom:1px solid var(--line)}
-.hs-filter .lb-segmented{display:flex}
-.hs-filter .lb-segmented button{flex:1;padding-inline:.3rem}
-.hs-group h3{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-caption);font-weight:600;color:var(--text-3);margin:0;padding:var(--sp-4) var(--sp-4) var(--sp-1)}
-.hs-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--sp-3);align-items:center;width:calc(100% - var(--sp-4));margin-inline:var(--sp-2);padding:.55rem var(--sp-3);border:0;border-radius:var(--r-sm);background:none;color:var(--text);text-align:right;cursor:pointer}
-.hs-row:hover{background:var(--fill)}
-.hs-row[aria-selected="true"]{background:var(--tint);color:var(--text-on-tint)}
-.hs-row[aria-selected="true"] .m{color:var(--text-on-tint);opacity:.8}
-.hs-row .t{font-size:var(--fs-callout);font-weight:500;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.hs-row .m{display:block;font-size:var(--fs-caption);color:var(--text-3);margin-top:2px}
-.hs-row-side{display:flex;align-items:center;gap:var(--sp-1)}
 .hs-kind{width:.5rem;height:.5rem;border-radius:50%;flex:none}
 .hs-kind.kid{background:var(--kid)}.hs-kind.expert{background:var(--accent)}.hs-kind.reco{background:var(--info)}
 .hs-badge{display:inline-flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;border-radius:var(--r-xs);font-weight:700;font-size:var(--fs-caption);background:var(--fill-2);color:var(--text-3);font-variant-numeric:tabular-nums}
@@ -165,7 +216,6 @@ button{font-family:inherit}
 .hs-pill.kid{background:var(--kid-soft);color:var(--kid)}.hs-pill.expert{background:var(--expert-soft);color:var(--expert)}.hs-pill.reco{background:var(--info-soft);color:var(--info)}
 .hs-pill.review{background:var(--accent-soft);color:var(--accent-ink)}.hs-pill.done{background:var(--success-soft);color:var(--success)}
 .hs-pill.failed{background:var(--danger-soft);color:var(--danger)}.hs-pill.busy{background:var(--tint-soft);color:var(--tint)}
-.hs-row[aria-selected="true"] .hs-pill{background:var(--surface);color:var(--text)}
 .hs-spin{width:.75rem;height:.75rem;border-radius:50%;border:2px solid currentColor;border-inline-end-color:transparent;animation:hs-spin .8s linear infinite;flex:none}
 @keyframes hs-spin{to{transform:rotate(360deg)}}
 .hs-foot{font-size:var(--fs-caption);color:var(--text-3);padding:var(--sp-4);line-height:1.6}
@@ -221,8 +271,6 @@ button{font-family:inherit}
 .st-errs li.warn{color:var(--warning);background:var(--warning-soft)}
 .in-sec{display:grid;gap:var(--sp-3)}
 .in-sec h2{font-size:var(--fs-footnote);font-weight:600;color:var(--text-3);margin:0;letter-spacing:.01em}
-.in-nav{display:flex;align-items:center;gap:var(--sp-2)}
-.in-nav .pos{flex:1;text-align:center;font-size:var(--fs-footnote);color:var(--text-3);font-variant-numeric:tabular-nums}
 .in-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-1)}
 .in-scores button{border:1px solid var(--line-strong);background:var(--surface);border-radius:var(--r-md);padding:var(--sp-2) 0;cursor:pointer;display:grid;gap:2px;color:var(--text)}
 .in-scores button b{font-size:1.2rem;line-height:1}
@@ -250,17 +298,23 @@ button{font-family:inherit}
 .hs-box.open{display:flex}
 .hs-box img{max-width:min(100%,34rem);max-height:100%;border-radius:var(--r-md);box-shadow:var(--shadow-3)}
 .hs-box .lb-btn{position:absolute;top:var(--sp-4);inset-inline-end:var(--sp-4)}
-@media (max-width:1200px){.hs-app{grid-template-columns:18rem minmax(0,1fr) 18rem}.hs-stage{padding-inline:var(--sp-5)}.st-save{margin-inline:calc(-1 * var(--sp-5))}.hs-meter .bar{display:none}}
+@media (max-width:1200px){.hs-app{grid-template-columns:minmax(0,1fr) 18rem}.op-body{grid-template-columns:minmax(0,1fr) 18rem}.hs-main{padding-inline:var(--sp-5)}.hs-stage{padding-inline:var(--sp-5)}.st-save{margin-inline:calc(-1 * var(--sp-5))}.hs-meter .bar{display:none}}
 @media (max-width:900px){
   body{overflow:auto}
   .hs-top{position:sticky;top:0;padding-inline:var(--sp-3);gap:var(--sp-2)}
-  .hs-listbtn{display:inline-flex}
+  .hs-pickbtn{display:inline-flex}
   .hs-week,.hs-meter span,.hs-top .opt{display:none}
   .hs-app{display:block;height:auto}
-  .hs-list{position:fixed;top:var(--hs-top);bottom:0;inset-inline-start:0;width:min(88vw,22rem);z-index:40;transform:translateX(100%);transition:transform .2s ease;box-shadow:var(--shadow-3)}
-  .hs-list.open{transform:none}
+  .hs-main{overflow:visible;padding:0 var(--sp-4) var(--sp-6)}
+  .hs-filter{top:var(--hs-top)}
+  .hs-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-4) var(--sp-3)}
+  .hs-picks{position:fixed;top:var(--hs-top);bottom:0;inset-inline-end:0;width:min(88vw,22rem);z-index:40;transform:translateX(-100%);transition:transform .2s ease;box-shadow:var(--shadow-3)}
+  .hs-picks.open{transform:none}
+  .hs-open{padding:0}
+  .op-sheet{border-radius:0}
+  .op-body{display:block;overflow-y:auto}
   .hs-stage{overflow:visible;padding:var(--sp-4)}
-  .hs-insp{border:0;border-top:1px solid var(--line);padding:var(--sp-4)}
+  .hs-insp{overflow:visible;border:0;border-top:1px solid var(--line);padding:var(--sp-4)}
   .st-slides{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:11rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--sp-2)}
   .st-slides>*{scroll-snap-align:start}
   .st-save{margin:var(--sp-4) calc(-1 * var(--sp-4)) 0;padding-inline:var(--sp-4)}
@@ -299,40 +353,84 @@ function statusPill(r) {
   p.append(document.createTextNode(r.status_he || r.status)); return p;
 }
 
-/* ---------- list ---------- */
+/* ---------- the grid: slide 1 of every carousel ---------- */
 function visible() {
   return S.items.filter(it => { const s = g(it.key), r = run(it.key);
     if (filter === 'open') return !s.score; if (filter === 'pick') return !!s.produce || !!r; if (filter === 'review') return r && r.status === 'review'; return true; });
 }
-function renderList() {
+const who = it => it.kind === 'reco' ? `${it.id === 'reco' ? 'משחקים וספרים 1' : 'משחקים וספרים 2'} · ${it.skill_he}` : `${it.id}${it.child_name ? ' · ' + it.child_name : ''}`;
+function firstImage(it) { const r = run(it.key); return (r && r.status === 'done' && (r.slides || [])[0]) || (it.images || [])[0] || ''; }
+function card(it) {
+  const s = g(it.key), r = run(it.key);
+  const a = el('article', 'gc' + (s.produce && !r ? ' picked' : '')); a.dataset.key = it.key;
+  const b = el('button', 'gc-thumb p-' + it.kind); b.type = 'button'; b.setAttribute('aria-label', 'פתיחה: ' + it.cover);
+  const src = firstImage(it);
+  const coverCard = () => { const c = el('div', 'st-card'), f = it.slides[0] || {}; c.append(el('div', 'h', f.headline || it.cover)); if (f.body) c.append(el('div', 'b', f.body)); return c; };
+  if (src) { const img = el('img'); img.src = src; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async'; img.onerror = () => img.replaceWith(coverCard()); b.append(img); }
+  else b.append(coverCard());
+  b.onclick = () => openCar(it.key); const fr = el('div', 'gc-frame'); fr.append(b); a.append(fr);
+  if (!r) { const p = el('button', 'gc-pick', s.produce ? '✓ להפקה' : '+ להפקה'); p.type = 'button'; p.setAttribute('aria-pressed', String(!!s.produce));
+    p.onclick = () => grade({produce: !s.produce}, it.key); fr.append(p); }
+  const m = el('div', 'gc-meta'); m.append(el('span', 'hs-kind ' + it.kind), el('span', 'who', who(it)));
+  if (r) m.append(statusPill(r));
+  if (s.score) { const sc = el('span', 'hs-badge on', String(s.score)); sc.title = 'ציון: ' + SCORE[s.score]; m.append(sc); }
+  a.append(m);
+  return a;
+}
+function renderGrid() {
   const box = $('#hs-groups'); box.textContent = '';
-  let slot = null, group = null;
+  let slot = null, cards = null, dayBox = null, lane = null;
   visible().forEach(it => {
     if (it.slot !== slot) {
-      slot = it.slot; group = el('section', 'hs-group'); const h = el('h3');
-      h.append(el('span', null, `${it.slot} · ${it.topic_he}`)); if (it.event) h.append(el('span', 'hs-pill review', 'אירוע'));
-      group.append(h); box.append(group);
+      slot = it.slot; lane = null; const sec = el('section', 'hs-group'), h = el('h2');
+      h.append(el('span', 'n', String(it.slot)), el('span', null, it.day_topics ? it.day_topics.join(' · ') : it.topic_he)); if (it.event) h.append(el('span', 'hs-pill review', 'אירוע'));
+      if (it.day_topics) { dayBox = el('div', 'hs-day'); cards = null; sec.append(h, dayBox); }   // two topics a day (24 Oct 2026)
+      else { dayBox = null; cards = el('div', 'hs-cards'); sec.append(h, cards); }
+      box.append(sec);
     }
-    const b = el('button', 'hs-row'); b.type = 'button'; b.dataset.key = it.key; b.setAttribute('aria-selected', String(it.key === cur));
-    b.append(el('span', 'hs-kind ' + it.kind));
-    const main = el('span'); main.append(el('span', 't', it.cover));
-    main.append(el('span', 'm', it.kind === 'reco' ? `${it.id === 'reco' ? 'משחקים וספרים 1' : 'משחקים וספרים 2'} · ${it.skill_he}` : `${it.id} · ${it.child_name || ''}`));
-    b.append(main);
-    const side = el('span', 'hs-row-side'); const r = run(it.key), s = g(it.key);
-    if (r) side.append(statusPill(r)); else if (s.produce) side.append(el('span', 'hs-pill review', 'להפקה'));
-    side.append(el('span', 'hs-badge' + (s.score ? ' on' : ''), s.score ? String(s.score) : ''));
-    b.append(side); b.onclick = () => select(it.key); group.append(b);
+    if (dayBox && it.lane !== lane) {
+      lane = it.lane; const ln = el('div', 'hs-lane'); cards = el('div', 'hs-cards');
+      ln.append(el('h3', null, it.topic_he), cards); dayBox.append(ln);
+    }
+    cards.append(card(it));
   });
   if (!box.children.length) box.append(el('p', 'hs-empty', 'אין כאן קרוסלות בסינון הזה'));
   document.querySelectorAll('.hs-filter button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.f === filter)));
   meter();
 }
+
+/* ---------- the side panel: what is picked to produce ---------- */
+const RUN_ORDER = s => s === 'review' ? 0 : BUSY.includes(s) ? 1 : s === 'failed' ? 2 : 3;
+function pickRow(it, removable) {
+  const row = el('div', 'pk-row');
+  const o = el('button', 'pk-open'); o.type = 'button'; o.onclick = () => { closePicks(); openCar(it.key); };
+  const mini = el('span', 'pk-mini ' + it.kind), src = firstImage(it);
+  if (src) { const img = el('img'); img.src = src; img.alt = ''; img.loading = 'lazy'; img.onerror = () => img.remove(); mini.append(img); }
+  const tx = el('span'); tx.append(el('span', 't', it.cover), el('span', 'm', `${it.slot} · ${it.topic_he} · ${it.id}`));
+  o.append(mini, tx); row.append(o);
+  if (removable) { const x = el('button', 'pk-x', '×'); x.type = 'button'; x.title = 'להוריד מההפקה'; x.setAttribute('aria-label', 'להוריד מההפקה'); x.onclick = () => grade({produce: false}, it.key); row.append(x); }
+  else row.append(statusPill(run(it.key)));
+  return row;
+}
+function renderPicks() {
+  const wait = S.items.filter(i => g(i.key).produce && !run(i.key));
+  const going = S.items.filter(i => run(i.key)).sort((a, b) => RUN_ORDER(run(a.key).status) - RUN_ORDER(run(b.key).status));
+  $('#pk-count').textContent = wait.length ? String(wait.length) : '';
+  $('#hs-pickbtn-n').textContent = wait.length ? String(wait.length) : '';
+  const lw = $('#pk-wait'); lw.textContent = '';
+  if (!wait.length) lw.append(el('p', 'pk-empty', 'עוד לא נבחרה קרוסלה. ״+ להפקה״ על קרוסלה ברשת מוסיף אותה לכאן.'));
+  wait.forEach(it => lw.append(pickRow(it, true)));
+  const usd = wait.reduce((n, i) => n + (i.kind === 'reco' ? 0 : 0.5), 0);
+  const b = $('#hs-send'); b.disabled = !wait.length; b.textContent = wait.length > 1 ? `להפיק את כולן (${wait.length})` : 'להפיק';
+  $('#pk-cost').textContent = !wait.length ? '' : usd ? `עד $0.50 לקרוסלה, עד $${usd.toFixed(2)} בסך הכול. כל תמונה מחכה לאישור שלך לפני שהשקופיות נבנות.` : 'ייצוא בלי עלות.';
+  const lg = $('#pk-going'); lg.textContent = ''; $('#pk-going-h').hidden = !going.length;
+  going.forEach(it => lg.append(pickRow(it, false)));
+}
+function closePicks() { $('#hs-picks').classList.remove('open'); }
 function meter() {
   const graded = S.items.filter(i => g(i.key).score).length, total = S.items.length;
   $('#hs-meter-n').textContent = `דורגו ${graded} מתוך ${total}`;
   $('#hs-meter-bar').style.width = (total ? Math.round(100 * graded / total) : 0) + '%';
-  const picks = S.items.filter(i => g(i.key).produce && !g(i.key).sent_at && !run(i.key)).length;
-  const b = $('#hs-send'); b.textContent = picks ? `הפקת הנבחרים (${picks})` : 'הפקת הנבחרים'; b.disabled = !picks;
   const rv = Object.values(S.runs).filter(r => r.status === 'review').length;
   const c = $('#hs-review'); c.hidden = !rv; c.textContent = `מחכות לאישור: ${rv}`;
   $('#hs-push').hidden = !S.unsent;
@@ -358,7 +456,7 @@ function dirtyBar() {
 function renderStage() {
   const it = item(cur), st = $('#hs-stage'); st.textContent = ''; orig.clear();
   st.className = 'hs-stage p-' + it.kind;
-  st.append(el('div', 'st-eyebrow', `${day(it.date)} · נושא ${it.slot} מתוך 7`), el('h1', 'st-h1', it.topic_he));
+  st.append(el('div', 'st-eyebrow', it.day_topics ? `${day(it.date)} · יום ${it.slot} מתוך 7 · נושא ${it.lane === 'b' ? 2 : 1} מתוך 2` : `${day(it.date)} · נושא ${it.slot} מתוך 7`), el('h1', 'st-h1', it.topic_he));
   const chips = el('div', 'st-chips');
   chips.append(el('span', 'hs-pill ' + it.kind, KIND[it.kind]));
   chips.append(el('span', 'hs-pill', it.kind === 'reco' ? (it.id === 'reco' ? 'קרוסלה 1' : 'קרוסלה 2') : it.id));
@@ -419,7 +517,7 @@ async function saveEdits() {
     const mine = (j.errors || []).filter(e => it.kind === 'reco' || (e.path || '').includes(it.id));
     const warns = (j.warnings || []).filter(e => it.kind === 'reco' || (e.path || '').includes(it.id)).filter(e => !/rights_unverified/.test(e.message || ''));
     lastSave[it.key] = {msg: mine.length ? `נשמר עם גיבוי · ${mine.length} לתיקון` : 'נשמר עם גיבוי', list: mine.map(e => ({text: e.message})).concat(warns.slice(0, 4).map(e => ({text: e.message, warn: true})))};
-    await refresh(); renderList(); renderStage(); renderProd(); toast(mine.length ? 'נשמר. יש מה לתקן, מתחת לשקופיות' : 'נשמר');
+    await refresh(); renderGrid(); renderPicks(); renderStage(); renderProd(); toast(mine.length ? 'נשמר. יש מה לתקן, מתחת לשקופיות' : 'נשמר');
     return true;
   } catch (e) { toast('השמירה נכשלה: ' + e.message); $('#st-save-btn').disabled = false; dirtyBar(); return false; }
   finally { saving = false; }
@@ -429,10 +527,7 @@ async function saveEdits() {
 function renderInsp() {
   const it = item(cur), s = g(it.key), box = $('#hs-insp'); box.textContent = '';
   const list = visible(), i = list.findIndex(x => x.key === cur);
-  const nav = el('div', 'in-nav');
-  const prev = el('button', 'lb-btn secondary sm', 'הקודם'); prev.type = 'button'; prev.onclick = () => step(-1);
-  const next = el('button', 'lb-btn sm', 'הבא'); next.type = 'button'; next.onclick = () => step(1);
-  nav.append(prev, el('span', 'pos', i >= 0 ? `${i + 1} מתוך ${list.length}` : ''), next); box.append(nav);
+  $('#op-pos').textContent = i >= 0 ? `${i + 1} מתוך ${list.length}` : '';
   const gs = el('section', 'in-sec'); gs.append(el('h2', null, 'ציון'));
   const sc = el('div', 'in-scores');
   [1, 2, 3, 4, 5].forEach(n => { const b = el('button'); b.type = 'button'; b.dataset.s = n; b.setAttribute('aria-pressed', String(s.score === n)); b.append(el('b', null, String(n)), el('span', null, SCORE[n])); b.onclick = () => grade({score: n}); sc.append(b); });
@@ -440,7 +535,7 @@ function renderInsp() {
   const why = el('textarea', 'lb-textarea'); why.id = 'in-why'; why.rows = 4; why.dir = 'rtl'; why.placeholder = 'למה? מה עובד, מה לא, מה היית משנה'; why.value = s.why || '';
   why.addEventListener('input', () => { clearTimeout(whyTimer); state('...'); whyTimer = setTimeout(() => { whyTimer = null; grade({why: why.value}); }, 700); });
   why.addEventListener('blur', flushWhy); gs.append(why);
-  const sw = el('div', 'in-switch'); const lab = el('label'); lab.htmlFor = 'in-pick'; lab.append(document.createTextNode('להפקה'), el('small', null, s.sent_at ? 'נשלח להפקה' : 'מסמנים עכשיו, שולחים בכפתור למעלה'));
+  const sw = el('div', 'in-switch'); const lab = el('label'); lab.htmlFor = 'in-pick'; lab.append(document.createTextNode('להפקה'), el('small', null, s.sent_at ? 'נשלח להפקה' : 'נכנסת לרשימת ההפקה בצד'));
   const pick = el('input', 'lb-switch'); pick.type = 'checkbox'; pick.id = 'in-pick'; pick.checked = !!s.produce; pick.onchange = () => grade({produce: pick.checked});
   sw.append(lab, pick); gs.append(sw);
   const stt = el('div', 'in-state'); stt.id = 'in-state'; gs.append(stt);
@@ -450,12 +545,12 @@ function renderInsp() {
   box.append(keys);
 }
 function state(msg, err) { const s = $('#in-state'); if (!s) return; s.textContent = msg; s.classList.toggle('err', !!err); }
-async function grade(fields) {
-  const it = item(cur); state('שומר...');
-  try { const j = await post('/api/grade', {batch: S.batch, key: it.key, ...fields}); S.grades[it.key] = j.entry; state('נשמר');
-    if (fields.score) document.querySelectorAll('.in-scores button').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.s) === fields.score)));
-    renderList(); if (fields.produce !== undefined) renderInsp(); }
-  catch (e) { state('לא נשמר: ' + e.message, true); }
+async function grade(fields, key) {
+  key = key || cur; const here = isOpen() && key === cur; if (here) state('שומר...');
+  try { const j = await post('/api/grade', {batch: S.batch, key, ...fields}); S.grades[key] = j.entry; if (here) state('נשמר');
+    if (here && fields.score) document.querySelectorAll('.in-scores button').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.s) === fields.score)));
+    renderGrid(); renderPicks(); if (here && fields.produce !== undefined) renderInsp(); }
+  catch (e) { if (here) state('לא נשמר: ' + e.message, true); else toast('לא נשמר: ' + e.message); }
 }
 function flushWhy() { if (!whyTimer) return; clearTimeout(whyTimer); whyTimer = null; const w = $('#in-why'); if (w) grade({why: w.value}); }
 /* Yarin, 22 Oct 2026: errors never block Produce; it fixes them itself (autofix.py). The list only says what it will fix. */
@@ -510,39 +605,49 @@ function renderProd() {
 async function act(action, extra) {
   const it = item(cur);
   if (action === 'start' && edits().length) { const ok = await saveEdits(); if (!ok) return; }
-  try { const j = await post('/api/production/' + action, {key: it.key, ...(extra || {})}); if (j.run) S.runs[it.key] = j.run; renderProd(); renderList(); poll(); }
+  try { const j = await post('/api/production/' + action, {key: it.key, ...(extra || {})}); if (j.run) S.runs[it.key] = j.run; renderProd(); renderGrid(); renderPicks(); poll(); }
   catch (e) { if (e.data && e.data.errors) { it.errors = e.data.errors; renderProd(); } toast(e.message); }
 }
 function poll() {
   clearTimeout(poller);
   if (!Object.values(S.runs).some(r => BUSY.includes(r.status))) return;
-  poller = setTimeout(async () => { try { const before = JSON.stringify(S.runs); await refresh(); if (JSON.stringify(S.runs) !== before) { renderList(); renderProd(); } } catch (e) {} poll(); }, 3000);
+  poller = setTimeout(async () => { try { const before = JSON.stringify(S.runs); await refresh(); if (JSON.stringify(S.runs) !== before) { renderGrid(); renderPicks(); if (isOpen()) renderProd(); } } catch (e) {} poll(); }, 3000);
 }
 
 /* ---------- moving around ---------- */
-async function select(key) {
-  if (key === cur) { closeList(); return; }
+const isOpen = () => !$('#hs-open').hidden;
+async function openCar(key) {
+  if (isOpen() && key === cur) return;
   flushWhy();
-  if (cur && edits().length) { const ok = await saveEdits(); if (!ok) return; }
+  if (isOpen() && cur && edits().length) { const ok = await saveEdits(); if (!ok) return; }
   cur = key; history.replaceState(null, '', '#' + key);
-  renderList(); renderStage(); renderInsp(); $('#hs-stage').scrollTop = 0; closeList();
-  const row = document.querySelector(`.hs-row[data-key="${CSS.escape(key)}"]`); if (row) row.scrollIntoView({block: 'nearest'});
+  $('#hs-open').hidden = false; renderStage(); renderInsp(); $('#hs-stage').scrollTop = 0; $('.op-body').scrollTop = 0;
 }
-function step(d) { const list = visible(); const i = list.findIndex(x => x.key === cur); const n = list[i + d] || (i < 0 ? list[0] : null); if (n) select(n.key); }
+async function closeCar() {
+  flushWhy();
+  if (edits().length) { const ok = await saveEdits(); if (!ok) return; }
+  $('#hs-open').hidden = true; orig.clear(); history.replaceState(null, '', location.pathname + location.search);
+  const c = document.querySelector(`.gc[data-key="${CSS.escape(cur)}"] .gc-thumb`); if (c) { c.scrollIntoView({block: 'nearest'}); c.focus({preventScroll: true}); }
+}
+function step(d) { const list = visible(); const i = list.findIndex(x => x.key === cur); const n = list[i + d] || (i < 0 ? list[0] : null); if (n) openCar(n.key); }
 function zoom(n) { const it = item(cur); if (!it.images || !it.images.length) return; zoomN = (n + it.images.length) % it.images.length; $('#hs-box img').src = it.images[zoomN]; $('#hs-box').classList.add('open'); }
-function closeList() { $('.hs-list').classList.remove('open'); }
 
-document.querySelectorAll('.hs-filter button').forEach(b => b.onclick = () => { filter = b.dataset.f; renderList(); renderInsp(); });
-$('#hs-review').onclick = () => { filter = 'review'; renderList(); const f = visible()[0]; if (f) select(f.key); };
-$('#hs-listbtn').onclick = () => $('.hs-list').classList.toggle('open');
+document.querySelectorAll('.hs-filter button').forEach(b => b.onclick = () => { filter = b.dataset.f; renderGrid(); if (isOpen()) renderInsp(); });
+$('#hs-review').onclick = () => { filter = 'review'; renderGrid(); const f = visible()[0]; if (f) openCar(f.key); };
+$('#hs-pickbtn').onclick = () => $('#hs-picks').classList.toggle('open');
+$('#op-close').onclick = () => closeCar();
+$('#op-prev').onclick = () => step(-1);
+$('#op-next').onclick = () => step(1);
+$('#hs-open').onclick = e => { if (e.target.id === 'hs-open') closeCar(); };
 $('#hs-week').onchange = e => { location.href = '/?batch=' + encodeURIComponent(e.target.value); };
 $('#hs-send').onclick = async () => {
   flushWhy(); $('#hs-send').disabled = true;
   try { const j = await post('/api/produce-send', {batch: S.batch}); Object.assign(S.grades, j.grades); j.started.forEach(r => S.runs[r.key] = r);
     (j.blocked || []).forEach(b => { const x = S.items.find(i => i.key === b.key); if (x) x.errors = b.errors; });
     const nb = (j.blocked || []).length;
-    toast((j.started.length ? `נשלחו להפקה: ${j.started.length}` : (nb ? 'לא נשלח כלום' : 'אין מה לשלוח')) + (nb ? ` · ${nb} מחכות לתיקון: ${j.blocked.map(b => b.key.split('/')[1]).join(', ')}` : '')); renderList(); renderInsp(); poll(); }
-  catch (e) { toast('השליחה נכשלה: ' + e.message); meter(); }
+    toast((j.started.length ? `נשלחו להפקה: ${j.started.length}` : (nb ? 'לא נשלח כלום' : 'אין מה לשלוח')) + (nb ? ` · ${nb} מחכות לתיקון: ${j.blocked.map(b => b.key.split('/')[1]).join(', ')}` : ''));
+    renderGrid(); renderPicks(); if (isOpen()) renderInsp(); poll(); }
+  catch (e) { toast('השליחה נכשלה: ' + e.message); renderPicks(); }
 };
 $('#hs-push').onclick = async () => { const b = $('#hs-push'); b.disabled = true; b.textContent = 'שולח...';
   try { await post('/api/push-grades'); S.unsent = false; toast('הדירוגים בענן. הבאץ\' הבא יקרא אותם'); }
@@ -557,6 +662,8 @@ document.addEventListener('keydown', e => {
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') { e.preventDefault(); saveEdits(); return; }
   if ($('#hs-box').classList.contains('open')) { if (e.key === 'Escape') $('#hs-box').classList.remove('open'); else if (e.key === 'ArrowLeft') zoom(zoomN + 1); else if (e.key === 'ArrowRight') zoom(zoomN - 1); return; }
   if (e.target.closest('[contenteditable], textarea, input, select') || e.metaKey || e.ctrlKey || e.altKey) { if (e.key === 'Escape') e.target.blur(); return; }
+  if (e.key === 'Escape') { if ($('#hs-picks').classList.contains('open')) closePicks(); else if (isOpen()) closeCar(); return; }
+  if (!isOpen()) return;
   if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); step(1); }
   else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); step(-1); }
   else if ('12345'.includes(e.key) && e.key.length === 1) grade({score: Number(e.key)});
@@ -564,11 +671,12 @@ document.addEventListener('keydown', e => {
   else if (e.key === 'w' || e.key === "'") { e.preventDefault(); const w = $('#in-why'); if (w) w.focus(); }
 });
 window.addEventListener('beforeunload', e => { flushWhy(); if (edits().length) { e.preventDefault(); e.returnValue = ''; } });
+renderGrid(); renderPicks();
 if (S.items.length) {
   const want = decodeURIComponent(location.hash.slice(1));
-  const start = S.items.find(i => i.key === want) || S.items.find(i => !g(i.key).score) || S.items[0];
-  select(start.key); poll();
-} else { $('#hs-stage').append(el('p', 'hs-empty', 'אין עדיין באץ\' שבועי עם חבילות.')); renderList(); }
+  if (S.items.some(i => i.key === want)) openCar(want);
+  poll();
+} else { $('#hs-groups').textContent = ''; $('#hs-groups').append(el('p', 'hs-empty', 'אין עדיין באץ\' שבועי עם חבילות.')); }
 """
 
 
@@ -585,7 +693,6 @@ def app_page(batch_id=None):
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             f'<title>Carousel Machine</title>{design.head()}{fonts}<style>{APP_CSS}</style></head>\n<body dir="rtl">'
             '<header class="hs-top">'
-            f'<button class="lb-btn ghost icon hs-listbtn" type="button" id="hs-listbtn" aria-label="הרשימה">{icon("menu")}</button>'
             f'<span class="hs-brand"><img src="{design.logo_data_uri()}" alt="">Carousel Machine</span>'
             f'<select class="hs-week" id="hs-week" aria-label="שבוע">{weeks}</select>'
             '<span class="hs-meter"><span id="hs-meter-n"></span><span class="bar"><i id="hs-meter-bar"></i></span></span>'
@@ -593,15 +700,25 @@ def app_page(batch_id=None):
             '<button class="lb-btn secondary sm" type="button" id="hs-review" hidden></button>'
             '<button class="lb-btn ghost sm opt" type="button" id="hs-push" hidden>שליחת הדירוגים לענן</button>'
             f'<button class="lb-btn ghost icon sm opt" type="button" id="hs-sync" title="בדיקת חבילות חדשות מהענן" aria-label="בדיקת חבילות חדשות מהענן">{icon("sync", 16)}</button>'
-            '<button class="lb-btn sm" type="button" id="hs-send" disabled>הפקת הנבחרים</button>'
+            '<button class="lb-btn secondary sm hs-pickbtn" type="button" id="hs-pickbtn">להפקה <span id="hs-pickbtn-n"></span></button>'
             f'{design.theme_toggle()}'
             '</header>'
             '<div class="hs-app">'
-            f'<nav class="hs-list" aria-label="הקרוסלות של השבוע"><div class="hs-filter"><div class="lb-segmented" role="group" aria-label="סינון">{filt}</div></div>'
-            f'<div id="hs-groups"></div><p class="hs-foot">השבוע: {esc(st.get("week_he", ""))}<br>הבאץ\' הבא בענן: {esc(st.get("next_run_he", ""))}</p></nav>'
-            '<main class="hs-stage" id="hs-stage"></main>'
-            '<aside class="hs-insp" id="hs-insp" aria-label="ציון והפקה"></aside>'
+            f'<main class="hs-main" aria-label="הקרוסלות של השבוע"><div class="hs-filter"><div class="lb-segmented" role="group" aria-label="סינון">{filt}</div></div>'
+            '<div id="hs-groups"></div></main>'
+            '<aside class="hs-picks" id="hs-picks" aria-label="נבחרו להפקה">'
+            '<div class="pk-head"><h2>נבחרו להפקה</h2><span class="c" id="pk-count"></span></div>'
+            '<div class="pk-send"><button class="lb-btn" type="button" id="hs-send" disabled>להפיק</button><p class="in-keys" id="pk-cost"></p></div>'
+            '<div class="pk-list" id="pk-wait"></div>'
+            '<h3 class="pk-sub" id="pk-going-h" hidden>בהפקה ומוכנות</h3><div class="pk-list" id="pk-going"></div>'
+            f'<p class="hs-foot">השבוע: {esc(st.get("week_he", ""))}<br>הבאץ\' הבא בענן: {esc(st.get("next_run_he", ""))}</p></aside>'
             '</div>'
+            '<div class="hs-open" id="hs-open" role="dialog" aria-modal="true" aria-label="הקרוסלה" hidden><div class="op-sheet">'
+            '<div class="op-bar"><button class="lb-btn secondary sm" type="button" id="op-prev">הקודם</button><span class="pos" id="op-pos"></span>'
+            '<button class="lb-btn secondary sm" type="button" id="op-next">הבא</button><span class="hs-sp"></span>'
+            '<button class="lb-btn ghost sm" type="button" id="op-close">סגירה</button></div>'
+            '<div class="op-body"><main class="hs-stage" id="hs-stage"></main><aside class="hs-insp" id="hs-insp" aria-label="ציון והפקה"></aside></div>'
+            '</div></div>'
             '<div class="hs-box" id="hs-box"><button class="lb-btn secondary sm" type="button" data-close>סגירה</button><img alt=""></div>'
             '<div class="lb-toast" id="hs-toast" role="status" hidden></div>'
             f'<script type="application/json" id="hs-state">{blob}</script><script>{APP_JS}</script></body></html>')

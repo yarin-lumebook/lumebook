@@ -212,7 +212,7 @@
       "notes": "Retired on 11 Oct 2026: Yarin no longer uses the Vercel ambassadors site. The folder is kept as an archive and is not deployed, synced or maintained. The old pages may still be online at https://lumebook-ambassadors.vercel.app until the Vercel project is removed."
     },
     "creator-map": {
-      "name": "Creator map (346 creators, outreach CRM)",
+      "name": "Creator map (outreach CRM, up to 100 new creators every Saturday)",
       "path": "creators/creator-research",
       "kind": "page",
       "watch": [
@@ -220,7 +220,11 @@
         "creators/creator-research/src/build2.py",
         "creators/creator-research/src/enrich.py",
         "creators/creator-research/src/*.json",
-        "creators/creator-research/creators-200-2026-10-03.csv"
+        "creators/creator-research/creators-200-2026-10-03.csv",
+        "creators/creator-research/src/research/merge_pass.py",
+        "creators/creator-research/src/research/weekly/*",
+        "research/creator-content-conversion/round2/creators_kpi.csv",
+        "creators/creator-research/src/refresh/latest.json"
       ],
       "build": {
         "cmd": [
@@ -244,7 +248,8 @@
       ],
       "feeds": [
         "dashboard"
-      ]
+      ],
+      "notes": "Grows every Saturday at 21:00: scheduled task lumebook-creator-map-weekly (Claude desktop app, built-in browser signed in to Instagram, read only) runs the method in src/research/weekly/README.md and appends through src/research/merge_pass.py. The Sunday 10:00 task lumebook-creator-refresh then re-reads every creator, the new ones included."
     },
     "creator-content-conversion": {
       "name": "Creator content and purchase intent (round 1: 41 creators; round 2: 134 creators, 1,456 posts, 22,428 comments)",
@@ -488,6 +493,36 @@
         "carousel-pipeline"
       ],
       "notes": "Hook families in carousel/carousel-pipeline/hook-bank.md follow playbook section 7; update the bank by hand."
+    },
+    "carousel-audit": {
+      "name": "Carousel audit (every published carousel: inventory, Instagram numbers, creative scores, tagged links)",
+      "path": "research/carousel-audit",
+      "kind": "docs",
+      "watch": [
+        "research/carousel-audit/src/*",
+        "research/carousel-audit/data/carousels.json",
+        "research/carousel-audit/data/scores.json",
+        "research/carousel-audit/data/rules.json",
+        "research/carousel-audit/data/books.json",
+        "research/carousel-audit/exports/*.csv"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/audit.py",
+          "build"
+        ],
+        "cwd": "research/carousel-audit",
+        "outputs": [
+          "research/carousel-audit/carousel-inventory.csv",
+          "research/carousel-audit/performance-ranking.csv",
+          "research/carousel-audit/creative-audit.md",
+          "research/carousel-audit/data/posts.json"
+        ],
+        "auto": true
+      },
+      "feeds": [],
+      "notes": "Local only, not published: holds Instagram numbers and sales figures. New Meta export: python3 research/carousel-audit/src/audit.py import <file.csv>; it lists carousels that need an inventory entry and a score. Tagged links before posting: audit.py link <topic_id>. audit.py hook-results --write copies 7+ day old results into carousel/carousel-pipeline/hook-results.json, which can move hook formulas in the hook bank, so it runs only when asked. Reads slide PNGs from carousel/carousel-pipeline/approved/*-all/ and hook fields from each run's approved.json. Started 24 Oct 2026 (README.md there)."
     },
     "fal-trial": {
       "name": "fal.ai carousel trial (frozen reference)",

@@ -61,6 +61,28 @@
         }
       }
     },
+    "format": {
+      "enum": [
+        "two_topics"
+      ],
+      "description": "two_topics since 24 Oct 2026 (Yarin: \"2 topics that have a best-selling book ... 3 options for each\"): `topics` holds the day's two topics and one kid direction holds kid-1 to kid-6. Absent in older packs."
+    },
+    "cta_style": {
+      "enum": [
+        "save_share",
+        "save_for_later"
+      ],
+      "description": "An older pack switched to a newer CTA: save_share (the save and share CTA under the fixed slide 10 headline, 24 Oct 2026) or save_for_later (slide 10 is only the CTA, תשמרי את הפוסט לפעם הבאה ש..., the evening of 24 Oct 2026; the week of 25 Oct was moved to it). Packs written after each change have it without this field."
+    },
+    "topics": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/$defs/pair_topic"
+      },
+      "description": "Two-topic packs only: topics[0] for kid-1 to kid-3, topics[1] for kid-4 to kid-6. `topic` repeats topics[0] for older readers."
+    },
     "voice": {
       "type": "object",
       "required": [
@@ -126,7 +148,7 @@
     },
     "directions": {
       "type": "array",
-      "minItems": 2,
+      "minItems": 1,
       "maxItems": 2,
       "items": {
         "$ref": "#/$defs/direction"
@@ -159,10 +181,11 @@
         "versions": {
           "type": "array",
           "minItems": 3,
-          "maxItems": 3,
+          "maxItems": 6,
           "items": {
             "$ref": "#/$defs/version"
-          }
+          },
+          "description": "3 per direction; 6 in the one kid direction of a two-topic pack (24 Oct 2026)"
         }
       }
     },
@@ -176,7 +199,6 @@
         "awareness_stage",
         "hook_family",
         "hook",
-        "code_word",
         "child_gender",
         "addressee",
         "child_name",
@@ -192,7 +214,8 @@
       "properties": {
         "id": {
           "type": "string",
-          "pattern": "^(kid|expert)-[1-3]$"
+          "pattern": "^(kid-[1-6]|expert-[1-3])$",
+          "description": "kid-1 to kid-3 and expert-1 to expert-3; a two-topic pack (24 Oct 2026) has kid-1 to kid-6"
         },
         "title": {
           "type": "string",
@@ -240,7 +263,8 @@
         },
         "code_word": {
           "type": "string",
-          "pattern": "^[א-ת]{2,10}$"
+          "pattern": "^[א-ת]{2,10}$",
+          "description": "The comment word (always לומי from 10 Oct 2026). Required before 24 Oct 2026; since then the CTA asks to save and share and there is no comment word"
         },
         "child_gender": {
           "enum": [
@@ -399,7 +423,7 @@
             },
             "slate_id": {
               "type": "string",
-              "pattern": "^[ke][1-6]$",
+              "pattern": "^[keab][1-6]$",
               "description": "The hook_slate candidate this option was built from (k1 to k6 for kid, e1 to e6 for expert). Required from schema_version 3."
             },
             "mechanism": {
@@ -452,6 +476,11 @@
         "image": {
           "$ref": "#/$defs/image",
           "description": "Packs from 2026-10-14 10:00: the ONE picture for the whole carousel, depicting the idea; it is also the cover (child facing the viewer), shown behind every slide. Slides then carry no image of their own."
+        },
+        "topic_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Two-topic packs: the topic this option is about (topics[0] for kid-1 to kid-3, topics[1] for kid-4 to kid-6)"
         }
       }
     },
@@ -685,12 +714,9 @@
     },
     "hook_slate": {
       "type": "object",
-      "required": [
-        "kid",
-        "expert"
-      ],
+      "required": [],
       "additionalProperties": false,
-      "description": "Private working slate written before the six options (hook-bank.md, Nightly hook slate). Internal, never shown to parents. Required from schema_version 3.",
+      "description": "Private working slate written before the six options (hook-bank.md, Nightly hook slate). Internal, never shown to parents. Required from schema_version 3. Packs before 24 Oct 2026: `kid` and `expert`, 6 each. Two-topic packs: `a` (topics[0]) and `b` (topics[1]), 6 child-voice candidates each.",
       "properties": {
         "kid": {
           "type": "array",
@@ -701,6 +727,22 @@
           }
         },
         "expert": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/slate_candidate"
+          }
+        },
+        "a": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/slate_candidate"
+          }
+        },
+        "b": {
           "type": "array",
           "minItems": 6,
           "maxItems": 6,
@@ -733,7 +775,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "pattern": "^[ke][1-6]$"
+          "pattern": "^[keab][1-6]$"
         },
         "formula": {
           "type": "string",
@@ -917,7 +959,7 @@
         },
         "used_by": {
           "type": "string",
-          "pattern": "^((kid|expert)-[1-3])?$",
+          "pattern": "^(kid-[1-6]|expert-[1-3])?$",
           "description": "The option built from this candidate, or empty. Never a ranking: the system does not pick a winner."
         },
         "note": {
@@ -1026,6 +1068,56 @@
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
             }
           }
+        }
+      }
+    },
+    "pair_topic": {
+      "type": "object",
+      "required": [
+        "id",
+        "title_he",
+        "reason",
+        "book"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "A topic-bank.md id listed under \"Best-selling books\""
+        },
+        "title_he": {
+          "type": "string",
+          "minLength": 2
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Why this topic today. Internal, punctuation allowed."
+        },
+        "book": {
+          "type": "object",
+          "required": [
+            "id",
+            "title_he"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "lumebook.com/IL/he/books/<id>"
+            },
+            "title_he": {
+              "type": "string",
+              "minLength": 2
+            },
+            "checked_at": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            }
+          },
+          "description": "The best-selling book behind the topic. Never named on the slides, caption or CTA."
         }
       }
     }

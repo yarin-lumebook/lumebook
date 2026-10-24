@@ -82,8 +82,9 @@ def schema_issues(value, schema, root, path="pack"):
 # Rules the schema cannot express
 # ---------------------------------------------------------------------------
 
-def person_issues(p, v, direction_id, names):
-    """Who the carousel is about (a named Israeli girl or boy) and who it talks to (mom or both parents, never dad)."""
+def person_issues(p, v, direction_id, names, pair=False):
+    """Who the carousel is about (a named Israeli girl or boy) and who it talks to (mom or both parents, never dad).
+    pair: a pack with the save and share CTA (24 Oct 2026), which lib.save_share_cta_issues checks instead."""
     issues = []
     name, gender, addressee = v.get("child_name", ""), v.get("child_gender"), v.get("addressee")
     if gender in names and name not in names[gender]:
@@ -99,7 +100,7 @@ def person_issues(p, v, direction_id, names):
     form = lib.CTA_FORMS.get(addressee)
     cta = lib.collapse(v.get("cta", ""))
     if form:
-        if not cta.startswith(form["verb"]) or form["get"] not in cta or form["owner"] not in cta:
+        if not pair and (not cta.startswith(form["verb"]) or form["get"] not in cta or form["owner"] not in cta):
             issues.append(lib.Issue("ERROR", f"{p}/cta", f"the CTA must talk to {'mom' if addressee == 'mom' else 'both parents'}: {form['verb']} \"X\" בתגובות {form['get']} קישור ליצירת ספר שבו {'הילד' if gender == 'boy' else 'הילדה'} {form['owner']} {'הוא הגיבור' if gender == 'boy' else 'היא הגיבורה'}"))
         address_re = lib.MOM_ADDRESS_RE if addressee == "mom" else lib.PARENTS_ADDRESS_RE
         other_re = lib.PARENTS_ADDRESS_RE if addressee == "mom" else lib.MOM_ADDRESS_RE
@@ -127,10 +128,19 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     if not str(vid).startswith(f"{direction_id}-"):
         issues.append(lib.Issue("ERROR", f"{p}/id", f"option id must start with {direction_id}-"))
 
+    pair = lib.daily_pair_applies(pack)   # two topics, child voice only (24 Oct 2026)
+    save_share = lib.save_share_applies(pack)   # no comment word: the save and share CTA, the save for later CTA, older packs switched to them
+    later = lib.save_later_applies(pack)        # the save for later CTA, slide 10 = only the CTA (24 Oct 2026 evening)
+    legacy = not lib.punctuation_rule_applies(pack)   # older packs: no period or comma, hyphens allowed
     code_word = v.get("code_word", "")
-    issues.extend(lib.code_word_issues(f"{p}/code_word", code_word))
-    if lib.fixed_code_word_applies(pack) and code_word != lib.CTA_CODE_WORD:
-        issues.append(lib.Issue("ERROR", f"{p}/code_word", f"the CTA word is always «{lib.CTA_CODE_WORD}» (Yarin, 10 Oct 2026); got «{code_word}». Write it in the CTA, on the last slide and in the caption's last line"))
+    if save_share:
+        if code_word:
+            issues.append(lib.Issue("ERROR", f"{p}/code_word", "no comment word since 24 Oct 2026 (Yarin: \"change the cta to save the post and share to a parent who would agree\"); remove code_word"))
+        code_word = ""
+    else:
+        issues.extend(lib.code_word_issues(f"{p}/code_word", code_word))
+        if lib.fixed_code_word_applies(pack) and code_word != lib.CTA_CODE_WORD:
+            issues.append(lib.Issue("ERROR", f"{p}/code_word", f"the CTA word is always «{lib.CTA_CODE_WORD}» (Yarin, 10 Oct 2026); got «{code_word}». Write it in the CTA, on the last slide and in the caption's last line"))
 
     slides = v.get("slides") or []
     numbers = [s.get("number") for s in slides]
@@ -144,7 +154,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     middle = {s.get("role") for s in slides[first - 1:last_insight]}
     if len(lib.INSIGHT_SLIDES) > 1 and not {"recognition", "reframe"} <= middle:
         issues.append(lib.Issue("ERROR", f"{p}/slides[{first}-{last_insight}]", f"slides {first} to {last_insight} must touch the feeling or problem (recognition) and what is behind it (reframe), at least one of each"))
-    issues.extend(person_issues(p, v, direction_id, names))
+    issues.extend(person_issues(p, v, direction_id, names, pair=save_share))
     issues.extend(lib.hook_issues(p, v, direction_id, hook_bank))
     for s in slides[:CTA - 1]:
         pull = s.get("pull")
@@ -162,7 +172,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
         if m:
             issues.append(lib.Issue("ERROR", f"{p}/slide-{s.get('number')}", f"«{m.group(0)}» prepares a sale; the personalised story and the link belong only on the last slide"))
     last_text = slides[CTA - 1].get("headline", "") + "\n" + slides[CTA - 1].get("body", "")
-    if not re.search(r"סיפור", last_text) or not re.search(r"אישי", last_text):
+    if not later and (not re.search(r"סיפור", last_text) or not re.search(r"אישי", last_text)):
         issues.append(lib.Issue("ERROR", f"{p}/slide-{CTA}", "the last slide must suggest helping the child with a personalised story (say סיפור and אישי) before the CTA"))
     bold = lib.bold_rule_applies(pack)
     numbered = lib.numbered_examples_apply(pack)
@@ -181,10 +191,10 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.append(lib.Issue("ERROR", f"{sp}/role", f"slide {n} must be {' or '.join(roles[n])}"))
         headline, body = s.get("headline", ""), s.get("body", "")
         is_cta = n == CTA
-        issues.extend(lib.audience_text_issues(f"{sp}/headline", headline, allow_cta=is_cta))
+        issues.extend(lib.audience_text_issues(f"{sp}/headline", headline, allow_cta=is_cta, legacy=legacy))
         issues.extend(lib.brand_issues(f"{sp}/headline", headline, titles))
         if body.strip():
-            issues.extend(lib.audience_text_issues(f"{sp}/body", body, allow_cta=is_cta))
+            issues.extend(lib.audience_text_issues(f"{sp}/body", body, allow_cta=is_cta, legacy=legacy))
             issues.extend(lib.brand_issues(f"{sp}/body", body, titles))
         hw = len(lib.words(headline))
         total = hw + len(lib.words(body))
@@ -254,8 +264,9 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     # Kid direction should be the child talking
     if direction_id == "kid":
         first_person = sum(1 for s in slides[:5] if lib.FIRST_PERSON_RE.search(s.get("headline", "") + " " + s.get("body", "")))
-        if first_person < 3:
-            issues.append(lib.Issue("WARN", f"{p}/slides", f"only {first_person} of slides 1 to 5 sound like the child in first person"))
+        if first_person < 3:  # an ERROR since 24 Oct 2026: every option is a child-voice numbered list (Yarin)
+            issues.append(lib.Issue("ERROR" if pair else "WARN", f"{p}/slides", f"only {first_person} of slides 1 to 5 sound like the child in first person"
+                                    + ("; every option is in the child's voice (Yarin, 24 Oct 2026)" if pair else "")))
 
     # Expert frame
     frame = v.get("expert_frame")
@@ -269,7 +280,21 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
 
     # CTA
     cta = v.get("cta", "")
-    issues.extend(lib.cta_issues(f"{p}/cta", cta, code_word))
+    if later:
+        issues.extend(lib.save_later_cta_issues(f"{p}/cta", cta, v.get("addressee"), legacy=legacy, gender=v.get("child_gender"), child_name=v.get("child_name")))
+        if lib.collapse(last_text) != lib.collapse(cta):
+            issues.append(lib.Issue("ERROR", f"{p}/slide-{CTA}", f"slide {CTA} is only the CTA since 24 Oct 2026 (Yarin: \"remove אפשר לעזור להם גם בסיפור אישי from the cta\"): "
+                                                               f"the save line as its headline and «לפעם הבאה ש...» as its body"))
+        for s in slides:
+            issues.extend(lib.comment_cta_issues(f"{p}/slide-{s.get('number')}", s.get("headline", "") + "\n" + s.get("body", "")))
+    elif save_share:
+        issues.extend(lib.save_share_cta_issues(f"{p}/cta", cta, v.get("addressee"), legacy=legacy))
+        if lib.collapse(slides[CTA - 1].get("headline", "")) != lib.collapse(lib.STORY_LINE):
+            issues.append(lib.Issue("ERROR", f"{p}/slide-{CTA}/headline", f"slide {CTA}'s headline is always «{lib.collapse(lib.STORY_LINE)}» (Yarin, 24 Oct 2026), then the save and share CTA"))
+        for s in slides:
+            issues.extend(lib.comment_cta_issues(f"{p}/slide-{s.get('number')}", s.get("headline", "") + "\n" + s.get("body", "")))
+    else:
+        issues.extend(lib.cta_issues(f"{p}/cta", cta, code_word, legacy=legacy))
     last = slides[CTA - 1]
     if lib.collapse(cta) not in lib.collapse(last.get("headline", "") + "\n" + last.get("body", "")):
         issues.append(lib.Issue("ERROR", f"{p}/slide-{CTA}", f"slide {CTA} must contain the exact CTA text"))
@@ -279,7 +304,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
 
     # Caption
     caption = v.get("caption", "")
-    issues.extend(lib.audience_text_issues(f"{p}/caption", caption, allow_cta=True))  # second CTA lines checked below
+    issues.extend(lib.audience_text_issues(f"{p}/caption", caption, allow_cta=True, legacy=legacy))  # second CTA lines checked below
     issues.extend(lib.brand_issues(f"{p}/caption", caption, titles))
     issues.extend(lib.brand_issues(f"{p}/cta", cta, titles))
     cap_lines = lib.lines_of(caption)
@@ -293,6 +318,8 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
                 issues.append(lib.Issue("ERROR", f"{p}/caption", f"caption line {i} adds a second CTA ({why})", excerpt=line[:80]))
         if code_word and re.search(lib.CTA_WRITE_RE + rf"\s*[״\"]?{re.escape(code_word)}", line):
             issues.append(lib.Issue("ERROR", f"{p}/caption", f"caption line {i} repeats the CTA; it belongs only on the final line"))
+        if save_share:
+            issues.extend(lib.comment_cta_issues(f"{p}/caption", line))
     if cap_lines and lib.collapse(cap_lines[0]) == lib.collapse(slides[0].get("headline", "")):
         issues.append(lib.Issue("ERROR", f"{p}/caption", "caption line 1 must restate the hook in different words, not copy it"))
 
@@ -374,12 +401,12 @@ def _first_line(text):
     return lines[0] if lines else ""
 
 
-def candidate_text_issues(p, c, titles):
+def candidate_text_issues(p, c, titles, legacy=False):
     """Audience rules for a slate candidate's slide 1 and slide 2 text."""
     issues = []
     for field in ("hook", "slide2"):
         text = c.get(field, "")
-        issues.extend(lib.audience_text_issues(f"{p}/{field}", text))
+        issues.extend(lib.audience_text_issues(f"{p}/{field}", text, legacy=legacy))
         issues.extend(lib.brand_issues(f"{p}/{field}", text, titles))
         m = lib.SALE_PREP_RE.search(text)
         if m:
@@ -419,12 +446,21 @@ def candidate_fails(c):
     return why
 
 
-def slate_issues(slate, bank, titles):
+def slate_lanes(pair):
+    """(slate key, candidate id prefix, direction, the options it feeds). Two-topic packs (24 Oct 2026): one lane per topic."""
+    if pair:
+        return [(lane, lane, "kid", list(ids)) for lane, ids in lib.PAIR_LANES]
+    return [(d, "k" if d == "kid" else "e", d, [f"{d}-{i}" for i in range(1, 4)]) for d in lib.DIRECTIONS]
+
+
+def slate_issues(slate, bank, titles, pair=False, legacy=False):
     issues = []
-    for direction in lib.DIRECTIONS:
-        cands = slate.get(direction) or []
-        prefix = "k" if direction == "kid" else "e"
-        p0 = f"hook_slate/{direction}"
+    for key, prefix, direction, expected in slate_lanes(pair):
+        cands = slate.get(key) or []
+        p0 = f"hook_slate/{key}"
+        if len(cands) != lib.SLATE_SIZE:
+            what = f"topic {'1' if key == 'a' else '2'}" if pair else direction
+            issues.append(lib.Issue("ERROR", p0, f"the slate needs {lib.SLATE_SIZE} candidates for {what} (has {len(cands)})"))
         ids = [c.get("id") for c in cands]
         if len(set(ids)) != len(ids):
             issues.append(lib.Issue("ERROR", p0, "duplicate candidate ids"))
@@ -432,7 +468,7 @@ def slate_issues(slate, bank, titles):
         for c in cands:
             p = f"{p0}/{c.get('id')}"
             if not str(c.get("id", "")).startswith(prefix):
-                issues.append(lib.Issue("ERROR", f"{p}/id", f"{direction} candidates are numbered {prefix}1 to {prefix}{lib.SLATE_SIZE}"))
+                issues.append(lib.Issue("ERROR", f"{p}/id", f"{key} candidates are numbered {prefix}1 to {prefix}{lib.SLATE_SIZE}"))
             f = bank.get(c.get("formula"))
             if not f:
                 issues.append(lib.Issue("ERROR", f"{p}/formula", f"{c.get('formula')!r} is not in hook-bank.md"))
@@ -445,13 +481,13 @@ def slate_issues(slate, bank, titles):
                 issues.append(lib.Issue("ERROR", f"{p}/mechanism", f"{f['id']} works through {' or '.join(f['mechanisms'])}"))
             fams[f["family"]] = fams.get(f["family"], 0) + 1
             mechs.add(c.get("mechanism"))
-            issues.extend(candidate_text_issues(p, c, titles))
+            issues.extend(candidate_text_issues(p, c, titles, legacy=legacy))
             if len(str(c.get("answer", "")).strip()) < 8:
                 issues.append(lib.Issue("ERROR", f"{p}/answer", "say how the payoff slide closes the question"))
             if c.get("used_by"):
                 used.append(c["used_by"])
-                if not c["used_by"].startswith(direction + "-"):
-                    issues.append(lib.Issue("ERROR", f"{p}/used_by", f"a {direction} candidate can only become a {direction} option"))
+                if c["used_by"] not in expected:
+                    issues.append(lib.Issue("ERROR", f"{p}/used_by", f"a {key} candidate can only become one of {', '.join(expected)}"))
                 why = candidate_fails(c)
                 if why:
                     issues.append(lib.Issue("ERROR", f"{p}/used_by", f"this candidate fails ({'; '.join(why)}) and cannot become an option"))
@@ -469,7 +505,6 @@ def slate_issues(slate, bank, titles):
             for b in cands[i + 1:]:
                 if lib.overlap(a.get("hook", ""), b.get("hook", "")) >= lib.NEAR_DUPLICATE:
                     issues.append(lib.Issue("ERROR", p0, f"{a.get('id')} and {b.get('id')} are near rewrites of each other"))
-        expected = [f"{direction}-{i}" for i in range(1, 4)]
         if sorted(used) != expected:
             issues.append(lib.Issue("ERROR", f"{p0}/used_by", f"exactly one candidate per option: {', '.join(expected)} (got {', '.join(sorted(used)) or 'none'})"))
     return issues
@@ -483,9 +518,12 @@ def hook_strategy_issues(pack, bank, titles, today=None):
         today = today or lib.parse_date(pack.get("date", ""))
     except ValueError:
         today = lib.now_local().date()
+    pair = lib.daily_pair_applies(pack)
     options = [(d.get("id"), v) for d in pack.get("directions", []) for v in d.get("versions", [])]
     slate = pack.get("hook_slate") or {}
-    by_id = {c.get("id"): (direction, c) for direction in lib.DIRECTIONS for c in (slate.get(direction) or [])}
+    lanes = slate_lanes(pair)
+    by_id = {c.get("id"): (key, c) for key, _, _, _ in lanes for c in (slate.get(key) or [])}
+    lane_of = (lambda did, v: lib.pair_lane_of(v.get("id"))) if pair else (lambda did, v: did)  # noqa: E731
     for did, v in options:
         p = f"{did}/{v.get('id')}"
         hook = v.get("hook") or {}
@@ -512,8 +550,8 @@ def hook_strategy_issues(pack, bank, titles, today=None):
         if hook.get("slate_id") and not found:
             issues.append(lib.Issue("ERROR", f"{p}/hook/slate_id", f"{hook['slate_id']} is not in hook_slate"))
         elif found:
-            direction, c = found
-            if direction != did or c.get("used_by") != v.get("id"):
+            key, c = found
+            if key != lane_of(did, v) or c.get("used_by") != v.get("id"):
                 issues.append(lib.Issue("ERROR", f"{p}/hook/slate_id", f"candidate {c.get('id')} is not marked used_by {v.get('id')}"))
             for key in ("formula", "mechanism", "slide2_move"):
                 ours = hook.get(key)
@@ -536,16 +574,20 @@ def hook_strategy_issues(pack, bank, titles, today=None):
     if not v3:
         return issues
     if not slate:
-        issues.append(lib.Issue("ERROR", "pack/hook_slate", "schema_version 3 packs need the hook slate (6 kid and 6 expert candidates)"))
+        what = "6 child-voice candidates per topic, keys a and b" if pair else "6 kid and 6 expert candidates"
+        issues.append(lib.Issue("ERROR", "pack/hook_slate", f"schema_version 3 packs need the hook slate ({what})"))
     else:
-        issues.extend(slate_issues(slate, bank, titles))
+        issues.extend(slate_issues(slate, bank, titles, pair=pair, legacy=not lib.punctuation_rule_applies(pack)))
+    if lib.save_later_applies(pack):
+        issues.extend(lib.save_later_topic_issues(pack))
     # The six final options must not be cosmetic rewrites of one another
-    mechs = {did: set() for did in lib.DIRECTIONS}
+    mechs = {key: set() for key, _, _, _ in lanes}
     shapes, moves, stages = set(), set(), set()
     for did, v in options:
         hook = v.get("hook") or {}
-        if did in mechs and hook.get("mechanism"):
-            mechs[did].add(hook["mechanism"])
+        lane = lane_of(did, v)
+        if lane in mechs and hook.get("mechanism"):
+            mechs[lane].add(hook["mechanism"])
         f = bank.get(hook.get("formula"))
         if f and f.get("shape"):
             shapes.add(f["shape"])
@@ -555,9 +597,10 @@ def hook_strategy_issues(pack, bank, titles, today=None):
     all_mechs = set().union(*mechs.values())
     if len(all_mechs) < lib.PACK_MIN_MECHANISMS:
         issues.append(lib.Issue("ERROR", "pack/directions", f"the six hooks use {len(all_mechs)} mechanisms (needs {lib.PACK_MIN_MECHANISMS})"))
-    for did, ms in mechs.items():
+    for key, ms in mechs.items():
         if len(ms) < 2:
-            issues.append(lib.Issue("ERROR", f"{did}", "the three options in a direction need at least 2 different mechanisms"))
+            where = f"the three options of topic {'1' if key == 'a' else '2'}" if pair else "the three options in a direction"
+            issues.append(lib.Issue("ERROR", f"{key}", f"{where} need at least 2 different mechanisms"))
     if len(shapes) < lib.PACK_MIN_SHAPES:
         issues.append(lib.Issue("ERROR", "pack/directions", f"the six hooks use {len(shapes)} sentence shapes (needs {lib.PACK_MIN_SHAPES})"))
     if len(moves) < lib.PACK_MIN_SLIDE2_MOVES:
@@ -616,6 +659,57 @@ def option_errors(pack, option_id, **kw):
     return [i for i in pack_issues(pack, **kw) if i.level == "ERROR" and not other_option_issue(i, pack, option_id)]
 
 
+def pair_pack_issues(pack, bank):
+    """A pack from 24 Oct 2026 (Yarin: "on 2 topics that have a best-selling book (6 versions for each day (3 options for
+    each)"): two topics of two different best-selling books, one kid direction, kid-1 to kid-3 on topics[0] and kid-4 to
+    kid-6 on topics[1]."""
+    if not lib.is_pair_pack(pack):
+        return [lib.Issue("ERROR", "pack/format", f"packs from 24 Oct 2026 have two topics: set format {lib.PAIR_FORMAT!r} and `topics`, "
+                                                  "two best-selling-book topics with three child-voice options each (Yarin, 24 Oct 2026)")]
+    issues = []
+    topics = lib.pack_topics(pack)
+    rows = {t["id"]: t for t in bank}
+    if len(topics) != 2:
+        issues.append(lib.Issue("ERROR", "pack/topics", f"a two-topic pack has exactly two topics (has {len(topics)})"))
+    ids = [t.get("id") for t in topics]
+    if len(set(ids)) != len(ids):
+        issues.append(lib.Issue("ERROR", "pack/topics", "the two topics must be different"))
+    books = []
+    for i, t in enumerate(topics):
+        tp = f"pack/topics[{i}]"
+        row = rows.get(t.get("id"))
+        if not row:
+            issues.append(lib.Issue("ERROR", f"{tp}/id", f"{t.get('id')} is not in topic-bank.md"))
+            continue
+        best = row.get("bestseller")
+        if not best:
+            issues.append(lib.Issue("ERROR", f"{tp}/id", f"{t['id']} has no best-selling book; pick a topic listed in topic-bank.md \"Best-selling books\""))
+            continue
+        if (t.get("book") or {}).get("id") != best["book"]:
+            issues.append(lib.Issue("ERROR", f"{tp}/book/id", f"{t['id']} goes with book {best['book']} ({best['title_he']}) in topic-bank.md \"Best-selling books\""))
+        books.append(best["book"])
+    if len(books) == 2 and books[0] == books[1]:
+        issues.append(lib.Issue("ERROR", "pack/topics", "the two topics of a day come from two different best-selling books"))
+    if topics and (pack.get("topic") or {}).get("id") != topics[0].get("id"):
+        issues.append(lib.Issue("ERROR", "pack/topic", "topic repeats topics[0] (for the pages that read one topic)"))
+    dirs = pack.get("directions") or []
+    if [d.get("id") for d in dirs] != ["kid"]:
+        issues.append(lib.Issue("ERROR", "pack/directions", "a two-topic pack has one kid direction: every option is in the child's voice (Yarin, 24 Oct 2026)"))
+        return issues
+    versions = dirs[0].get("versions") or []
+    got = [v.get("id") for v in versions]
+    if got != list(lib.PAIR_OPTION_IDS):
+        issues.append(lib.Issue("ERROR", "pack/directions", f"the kid direction has six options in order, {', '.join(lib.PAIR_OPTION_IDS)} (got {', '.join(map(str, got))})"))
+    for v in versions:
+        lane = lib.pair_lane_of(v.get("id"))
+        if lane is None or len(topics) != 2:
+            continue
+        want = topics[0 if lane == "a" else 1].get("id")
+        if v.get("topic_id") != want:
+            issues.append(lib.Issue("ERROR", f"kid/{v.get('id')}/topic_id", f"{v.get('id')} is about topic {'1' if lane == 'a' else '2'}, {want}"))
+    return issues
+
+
 def pack_issues(pack, history=None, bank=None, voice=None, today=None):
     root = lib.read_json(lib.SCHEMA)
     issues = schema_issues(pack, root, root)
@@ -634,6 +728,9 @@ def pack_issues(pack, history=None, bank=None, voice=None, today=None):
 
     # Topic
     bank = bank if bank is not None else lib.load_topic_bank()
+    pair = lib.daily_pair_applies(pack)
+    if pair:
+        issues.extend(pair_pack_issues(pack, bank))
     topic_id = pack.get("topic", {}).get("id")
     event = pack.get("topic", {}).get("event")
     if lib.is_event_topic(topic_id):
@@ -658,7 +755,7 @@ def pack_issues(pack, history=None, bank=None, voice=None, today=None):
     # Directions and versions
     directions = pack.get("directions", [])
     dids = [d.get("id") for d in directions]
-    if sorted(dids) != sorted(lib.DIRECTIONS):
+    if not pair and sorted(dids) != sorted(lib.DIRECTIONS):  # two-topic packs: pair_pack_issues
         issues.append(lib.Issue("ERROR", "pack/directions", "must be exactly one kid and one expert direction"))
     titles = lib.catalogue_titles(bank)
     hook_bank = lib.load_hook_bank()
@@ -689,7 +786,11 @@ def pack_issues(pack, history=None, bank=None, voice=None, today=None):
     # Rotation against history
     if history is not None and pack.get("date"):
         ctx = lib.rotation_context(history, pack["date"], bank)
-        if topic_id in ctx["recent_topic_ids"]:
+        if pair:
+            for i, t in enumerate(lib.pack_topics(pack)):
+                if t.get("id") in ctx["recent_pair_topic_ids"]:
+                    issues.append(lib.Issue("ERROR", f"pack/topics[{i}]/id", f"{t.get('id')} was used in the previous {lib.PAIR_TOPIC_COOLDOWN_PACKS} packs"))
+        elif topic_id in ctx["recent_topic_ids"]:
             issues.append(lib.Issue("ERROR", "pack/topic/id", f"{topic_id} was used in the previous {lib.TOPIC_COOLDOWN_PACKS} packs"))
         for d in directions:
             for v in d.get("versions", []):
@@ -729,7 +830,7 @@ def main():
         print(f"INVALID {path}\n- ERROR pack: not valid JSON ({exc})")
         raise SystemExit(1)
     history = None if args.no_history else lib.load_history(args.history)
-    issues = pack_issues(pack, history=history) + lib.example_target_issues(pack, path.resolve().parent)
+    issues = pack_issues(pack, history=history) + lib.example_target_issues(pack, path.resolve().parent) + lib.gender_balance_issues(pack)
     errors = [i for i in issues if i.level == "ERROR"]
     warns = [i for i in issues if i.level == "WARN"]
     if args.json:
@@ -745,7 +846,8 @@ def main():
                 print(f"- {i}")
         if not errors:
             n = sum(len(v.get("slides", [])) for d in pack["directions"] for v in d["versions"])
-            print(f"VALID {path}: 2 directions, 6 options, {n} slides")
+            what = "2 topics" if lib.is_pair_pack(pack) else "2 directions"
+            print(f"VALID {path}: {what}, {sum(len(d['versions']) for d in pack['directions'])} options, {n} slides")
     raise SystemExit(1 if errors else 0)
 
 

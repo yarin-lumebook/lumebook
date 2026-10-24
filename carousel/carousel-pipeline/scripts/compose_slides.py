@@ -51,15 +51,12 @@ html,body{direction:rtl}
 body{background:#d9d2c6;text-align:center}
 body.single .slide:not(.on){display:none}
 /* The layout of the approved fal trial carousel (media/projects/2026-10-06-fal-carousel-trial/source/flare_carousel.py, 7 Oct 2026):
-   centred Heebo Black straight on the picture's plain wall, a soft veil, no boxes; the art is pushed down
-   (the gap above it filled by stretching the picture's top edge; until 19 Oct 2026 a mirror, which copied the mom's head
-   upside down into the 20 Oct carousel) until the characters under the text start at least 60px below it. */
+   centred Heebo Black straight on the picture's plain wall, a soft veil, no boxes. The picture always fills the slide
+   exactly as generated (Yarin, 24 Oct 2026: "i dont want you to distort the images anymore"); until then it was pushed
+   down under the text and the gap filled by stretching its top rows. The copy is fitted to the plain wall instead (fitTop). */
 .slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:#F3EADC;--ink:#1D1039;--veil:243,234,220;direction:rtl;text-align:center}
 .slide.dark{--ink:#F8F0E1;--veil:11,5,24;background:#0B0518}
 .art{position:absolute;left:0;top:0;width:1080px;height:1350px;object-fit:cover}
-.mirror{position:absolute;left:0;top:0;width:1080px;height:0;overflow:hidden}
-.mirror img{display:none}
-.mirror canvas{position:absolute;left:0;top:0;width:1080px}
 .veil{position:absolute;inset:0;pointer-events:none}
 .veil.top{background:linear-gradient(180deg,rgba(var(--veil),.88) 0,rgba(var(--veil),.7) 20%,rgba(var(--veil),0) 40%)}
 .veil.bottom{background:linear-gradient(0deg,rgba(var(--veil),.88) 0,rgba(var(--veil),.7) 20%,rgba(var(--veil),0) 40%)}
@@ -84,7 +81,7 @@ pre#rtl-report{display:none}
 .pillar-kid{--hl:#5B2BD6;--hl-ink:#FFF7E8}
 .pillar-expert{--hl:#F6C445;--hl-ink:#1D1039}
 .look-bold .copy{left:64px;right:64px}
-.look-bold .copy.top{top:108px}
+.look-bold .copy.top{top:72px}
 .look-bold .veil.top{background:linear-gradient(180deg,rgba(var(--veil),.94) 0,rgba(var(--veil),.8) 24%,rgba(var(--veil),0) 48%)}
 .look-bold .h{line-height:1.13;letter-spacing:-.02em;text-shadow:0 0 26px rgba(var(--veil),.95),0 0 8px rgba(var(--veil),.85)}
 .look-bold .b{font-family:"Rubik",sans-serif;font-weight:600;line-height:1.26;margin-top:28px;opacity:1;text-shadow:0 0 18px rgba(var(--veil),.95),0 0 6px rgba(var(--veil),.8)}
@@ -92,6 +89,8 @@ pre#rtl-report{display:none}
 .look-bold .ln:has(.hl){margin:.07em 0}
 .look-bold .q{display:inline-block;background:#FFFDF8;color:#1D1039;border-radius:.5em;padding:.04em .42em .08em;margin:.1em 0;text-shadow:none;box-shadow:0 6px 16px rgba(11,5,24,.2)}
 .look-bold .btn{display:inline-block;background:#F6C445;color:#1D1039;border-radius:.4em;padding:.06em .5em .1em;margin-bottom:.16em;font-weight:800;text-shadow:none;box-shadow:0 10px 26px rgba(0,0,0,.4)}
+/* Instagram's own save and send glyphs beside the save and share CTA (Yarin, 24 Oct 2026: "add default save and send icons") */
+.ic{display:inline-block;width:.86em;height:.86em;vertical-align:-.13em;margin-inline-end:.3em;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
 .look-bold .arrow{width:96px;height:96px;bottom:52px;background:var(--hl)}
 .look-bold .arrow path{stroke:var(--hl-ink);stroke-width:6}
 /* The clean look (Yarin, 14 Oct 2026: "from now on design the text of the carousels like these except the cta
@@ -104,6 +103,10 @@ pre#rtl-report{display:none}
 .look-clean .slide.dark:not(.cta) .b{color:var(--ink);opacity:.86}
 .look-clean .slide:not(.cta) .arrow{width:88px;height:88px;bottom:56px;background:#F8F0E1}
 .look-clean .slide:not(.cta) .arrow path{stroke:#1D1039;stroke-width:5}
+/* Only when the contrast check (legible() below) still fails after darker ink and light-on-dark: a soft panel of the
+   wall colour behind the copy (24 Oct 2026) */
+.copy.panel{isolation:isolate}
+.copy.panel::before{content:"";position:absolute;inset:-28px -36px;border-radius:44px;background:rgba(var(--veil),.84);z-index:-1}
 """
 
 JS = """
@@ -176,6 +179,148 @@ function inv3(m) {
           [B / det, (a * i - c * g) / det, -(a * f - c * d) / det],
           [C / det, -(a * h - b * g) / det, (a * e - b * d) / det]];
 }
+// Readable type on any picture (Yarin, 24 Oct 2026, "do it" on the carousel audit's contrast fix: the clock change and
+// pacifier carousels set dark plum type on a blue wall). The WCAG contrast of each text block's ink against the picture
+// behind its lines, read at the 15th percentile so a busy patch counts. Below MIN_CONTRAST the body first takes the
+// headline's darker ink, then the slide turns light on dark if that reads better, and only then a soft panel of the
+// wall colour goes behind the copy. The report records the contrast before and after, and the fix used.
+const MIN_CONTRAST = 4.5;
+function lum(r, g, b) { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return .2126 * f(r) + .7152 * f(g) + .0722 * f(b); }
+function behind(px, s, el, dy) {
+  const sr = s.getBoundingClientRect(), out = [];
+  el.querySelectorAll('.ln').forEach(l => { const r = document.createRange(); r.selectNodeContents(l); const b = r.getBoundingClientRect();
+    if (!b.width) return;
+    for (let y = Math.max(0, b.top - sr.top); y < Math.min(1350, b.bottom - sr.top); y += 8)
+      for (let x = Math.max(0, b.left - sr.left - 12); x < Math.min(1080, b.right - sr.left + 12); x += 8) {
+        const iy = Math.min(px.h - 1, Math.max(0, Math.floor((y < dy ? 0 : y - dy) / 4))), ix = Math.min(px.w - 1, Math.floor(x / 4)), i = (iy * px.w + ix) * 4;
+        out.push(lum(px.d[i], px.d[i + 1], px.d[i + 2]));
+      } });
+  return out;
+}
+function contrastOf(px, s, el, dy) {
+  const cs = getComputedStyle(el), m = cs.color.match(/[0-9.]+/g).map(Number), op = Number(cs.opacity) * (m.length > 3 ? m[3] : 1);
+  const ink = lum(m[0], m[1], m[2]), bgs = behind(px, s, el, dy);
+  if (!bgs.length) return 21;
+  const ks = bgs.map(L => { const t = op * ink + (1 - op) * L; return (Math.max(L, t) + .05) / (Math.min(L, t) + .05); }).sort((a, b) => a - b);
+  return ks[Math.floor(ks.length * .15)];
+}
+function legible(s, px, dy) {
+  if (s.classList.contains('cta')) return;   // the last slide keeps its own dark veil
+  const c = s.querySelector('.copy'), h = c.querySelector('.h'), b = c.querySelector('.b'), els = [h, b].filter(Boolean);
+  const worst = () => Math.min(...els.map(e => contrastOf(px, s, e, dy)));
+  const before = worst(); let k = before, fix = 'none';
+  if (k < MIN_CONTRAST && b) { b.style.color = getComputedStyle(h).color; b.style.opacity = '1'; const k1 = worst(); if (k1 > k) { k = k1; fix = 'ink'; } else { b.style.color = ''; b.style.opacity = ''; } }
+  if (k < MIN_CONTRAST) {
+    const keep = b ? [b.style.color, b.style.opacity] : null;
+    if (b) { b.style.color = ''; b.style.opacity = ''; }
+    s.classList.toggle('dark'); const k2 = worst();
+    if (k2 > k) { k = k2; fix = 'flip'; } else { s.classList.toggle('dark'); if (b) { b.style.color = keep[0]; b.style.opacity = keep[1]; } }
+  }
+  if (k < MIN_CONTRAST) { c.classList.add('panel'); fix = fix === 'none' ? 'panel' : fix + '+panel'; }
+  s.dataset.contrast = before.toFixed(2); s.dataset.contrastAfter = (c.classList.contains('panel') ? Math.max(k, MIN_CONTRAST) : k).toFixed(2); s.dataset.fix = fix;
+}
+// Text on the picture's plain wall, the picture untouched (Yarin, 24 Oct 2026: "i dont want you to distort the images anymore,
+// fit the text on the flat space in the generated picture even if it means to play a bit with the sizing of the text or make
+// another line"). Every line must end GAP px above the row where the picture stops being plain under that line's own width
+// (centred lines, so a short line can go lower between the furniture at the sides). The search tries each headline size from
+// the largest down (the body keeps its proportion), first on the copy's own lines and then breaking the widest line that
+// does not fit at its most even word gap, up to MAX_SPLITS more lines, and keeps the largest type; every extra line costs
+// LINE_COST px of headline size. Under the usual floors it goes on to SMALL of them. If nothing fits even then, the layout
+// that runs least into the picture is kept with the soft panel, and the report calls it tight.
+const GAP = 28, SIDE = 36, MAX_SPLITS = 3, LINE_COST = 10, SMALL = .8, ARROW_TOP = 1350 - 170;
+const clearMaps = {};
+function clearTop(px, src, half) {
+  // first row that is not plain wall under a centred span of this half width (+SIDE px each side), cached per picture
+  const map = clearMaps[src] = clearMaps[src] || {}, k = Math.min(540, Math.max(20, Math.ceil(half / 20) * 20));
+  if (!(k in map)) map[k] = subjectTop(px, 540 - k - SIDE, 540 + k + SIDE);
+  return map[k];
+}
+function overlap(s, c, px, src) {
+  // how far the copy runs into the picture (0 or less: it fits); a line wider than the copy box never fits
+  const sr = s.getBoundingClientRect(); let worst = -1350;
+  for (const l of c.querySelectorAll('.ln')) {
+    if (l.scrollWidth > l.clientWidth + 1) return 5000 + l.scrollWidth - l.clientWidth;
+    const r = document.createRange(); r.selectNodeContents(l); const b = r.getBoundingClientRect();
+    if (!b.width) continue;
+    const bottom = b.bottom - sr.top, half = Math.max(540 - (b.left - sr.left), b.right - sr.left - 540);
+    worst = Math.max(worst, bottom + GAP - clearTop(px, src, half), bottom - ARROW_TOP);
+  }
+  return worst;
+}
+function groupsOf(l) {
+  // the line's words as node groups: a top-level space separates them; a highlight, button, bubble or Latin run stays whole
+  const out = [[]];
+  l.childNodes.forEach(n => {
+    if (n.nodeType !== 3) { out[out.length - 1].push(n.cloneNode(true)); return; }
+    n.textContent.split(/(\\s+)/).forEach(p => { if (!p) return; if (/^\\s+$/.test(p)) out.push([]); else out[out.length - 1].push(document.createTextNode(p)); });
+  });
+  return out.filter(g => g.length);
+}
+function splitLine(l) {
+  // one line into two at the word gap that makes them most even; a list number stays with its first word
+  if (l.querySelector('.btn')) return false;
+  const gs = groupsOf(l), len = g => g.reduce((t, n) => t + n.textContent.length, 0);
+  const first = /^\\d+$/.test(gs.length ? gs[0].map(n => n.textContent).join('') : '') ? 2 : 1;
+  let best = -1, diff = 1e9;
+  for (let i = first; i < gs.length; i++) {
+    const a = gs.slice(0, i).reduce((t, g) => t + len(g) + 1, 0), b = gs.slice(i).reduce((t, g) => t + len(g) + 1, 0);
+    if (Math.abs(a - b) < diff) { diff = Math.abs(a - b); best = i; }
+  }
+  // the save for later CTA breaks after לפעם הבאה, so the moment about the child stays whole (24 Oct 2026)
+  const words = gs.map(g => g.map(n => n.textContent).join(''));
+  if (gs.length > 2 && words[0] === 'לפעם' && words[1] === 'הבאה') best = 2;
+  if (best < 0) return false;
+  const make = part => { const el = l.cloneNode(false); part.forEach((g, k) => { if (k) el.append(' '); el.append(...g); }); return el; };
+  l.replaceWith(make(gs.slice(0, best)), make(gs.slice(best)));
+  return true;
+}
+function splitWorst(s, c, px, src) {
+  // break the widest line that does not fit on its own
+  const sr = s.getBoundingClientRect(); let pick = null, wide = 0;
+  for (const l of c.querySelectorAll('.ln')) {
+    const r = document.createRange(); r.selectNodeContents(l); const b = r.getBoundingClientRect();
+    if (!b.width || l.querySelector('.btn') || groupsOf(l).length < 2) continue;
+    const half = Math.max(540 - (b.left - sr.left), b.right - sr.left - 540);
+    const bad = l.scrollWidth > l.clientWidth + 1 || b.bottom - sr.top + GAP > clearTop(px, src, half);
+    if (bad && b.width > wide) { wide = b.width; pick = l; }
+  }
+  return pick ? splitLine(pick) : false;
+}
+function fitTop(s, px, src) {
+  const c = s.querySelector('.copy'), h = c.querySelector('.h'), b = c.querySelector('.b');
+  const orig = [h.innerHTML, b ? b.innerHTML : ''];
+  const hmax = Number(h.dataset.max), hmin = Number(c.dataset.hmin || 56), bmax = b ? Number(b.dataset.max) : 0, bmin = Number(c.dataset.bmin || 40);
+  const set = (hs, splits) => {
+    h.innerHTML = orig[0]; h.style.fontSize = hs + 'px';
+    if (b) { b.innerHTML = orig[1]; b.style.fontSize = Math.max(Math.round(bmin * (hs < hmin ? SMALL : 1)), Math.min(bmax, Math.round(bmax * hs / hmax))) + 'px'; }
+    for (let k = 0; k < splits; k++) if (!splitWorst(s, c, px, src)) return k;
+    return splits;
+  };
+  let best = null, least = null;
+  for (let hs = hmax; hs >= Math.round(hmin * SMALL); hs -= 4) {
+    for (let k = 0; k <= MAX_SPLITS; k++) {
+      if (set(hs, k) < k) break;                                  // nothing left to break
+      const o = overlap(s, c, px, src);
+      if (!least || o < least.o) least = { hs, k, o };
+      if (o <= 0) { const score = hs - LINE_COST * k - (hs < hmin ? 30 : 0); if (!best || score > best.score) best = { hs, k, o, score }; break; }
+    }
+    if (best && hs - 4 <= best.score) break;                      // smaller type cannot win any more
+  }
+  const pick = best || least;
+  set(pick.hs, pick.k);
+  if (best && b) {                                                // then the body as large as the wall still allows
+    let bs = parseInt(b.style.fontSize);
+    while (bs < bmax) { b.style.fontSize = (bs + 2) + 'px'; if (overlap(s, c, px, src) > 0) { b.style.fontSize = bs + 'px'; break; } bs += 2; }
+    pick.o = overlap(s, c, px, src);
+  }
+  c.dataset.fit = best ? 'ok' : 'tight'; c.dataset.headSize = pick.hs; c.dataset.bodySize = b ? parseInt(b.style.fontSize) : 0;
+  c.dataset.splits = pick.k; c.dataset.clearance = Math.round(-pick.o);
+  if (!best) c.classList.add('panel');
+  if (s.classList.contains('cta')) {                              // the dark veil of the last slide ends just under its copy
+    const end = c.offsetTop + c.scrollHeight + GAP + 50;
+    s.querySelector('.veil').style.background = `linear-gradient(180deg,rgba(var(--veil),.94) 0,rgba(var(--veil),.8) ${Math.round(end * .62)}px,rgba(var(--veil),0) ${end}px)`;
+  }
+}
 function layoutSlide(s) {
   const img = s.querySelector('.art'); const c = s.querySelector('.copy');
   if (!img || !img.naturalWidth) return;
@@ -183,34 +328,9 @@ function layoutSlide(s) {
   try { px = pixels(img); } catch (e) { s.dataset.layout = 'no-pixels'; return; }
   // Dark ink or cream ink: the last slide is always dark; any other slide goes dark when the wall behind the text is dark.
   if (!s.classList.contains('dark') && c.classList.contains('top') && topLuma(px, Math.round(px.h * .3)) < 105) s.classList.add('dark');
-  fitSlide(s);
-  if (!c.classList.contains('top')) { s.dataset.push = 0; return; }
-  const gap = document.body.classList.contains('look-bold') ? 44 : 60;   // keep at least 60px of clear wall under the text
-  const need = c.offsetTop + c.scrollHeight + gap;
-  // Each line of text needs clear wall only under its own width (Yarin, 19 Oct 2026: the mom's hair at the far left of the
-  // pacifier carousel pushed the art 260px down under a centred body line, so the child's pacifier landed under the arrow).
-  const sr = s.getBoundingClientRect(); let dy = 0, top = 1350;
-  c.querySelectorAll('.ln').forEach(l => { const r = document.createRange(); r.selectNodeContents(l); const b = r.getBoundingClientRect();
-    if (!b.width) return;
-    const t = subjectTop(px, b.left - sr.left - 60, b.right - sr.left + 60);
-    top = Math.min(top, t); dy = Math.max(dy, Math.ceil((b.bottom - sr.top + gap - t) / 10) * 10); });
-  if (top === 1350) { top = subjectTop(px); dy = Math.max(0, Math.ceil((need - top) / 10) * 10); }
-  dy = Math.min(dy, 300);                                    // at most 300px down, so the characters stay in the frame
-  if (dy > 0) {
-    img.style.top = dy + 'px';
-    const mir = s.querySelector('.mirror'); mir.style.height = dy + 'px';
-    // Stretch the picture's top 4 rows (as shown, object-fit: cover) over the gap: every column keeps its own sky or wall colour.
-    const sc = Math.max(1080 / img.naturalWidth, 1350 / img.naturalHeight), cropY = (img.naturalHeight * sc - 1350) / 2 / sc;
-    // Through a 54px-wide strip first, so the stretch is a smooth wash and not streaks (no CSS blur: it lightened the edges).
-    const strip = document.createElement('canvas'); strip.width = 54; strip.height = 1;
-    const sx = Math.max(0, -(1080 - img.naturalWidth * sc) / 2 / sc), sw = Math.min(img.naturalWidth, 1080 / sc);
-    strip.getContext('2d').drawImage(img, sx, cropY, sw, 4 / sc, 0, 0, 54, 1);
-    const cv = document.createElement('canvas'); cv.width = 1080; cv.height = dy + 8; cv.style.height = (dy + 8) + 'px';
-    const g2 = cv.getContext('2d'); g2.imageSmoothingQuality = 'high'; g2.drawImage(strip, 0, 0, 54, 1, 0, 0, 1080, dy + 8);
-    mir.append(cv);
-  }
-  s.dataset.push = dy; s.dataset.subjectTop = top + dy; s.dataset.textBottom = c.offsetTop + c.scrollHeight;
-  if (dy >= 300) c.dataset.clear = 'tight';
+  if (c.classList.contains('top')) fitTop(s, px, img.src); else fitSlide(s);
+  s.dataset.push = 0; s.dataset.textBottom = c.offsetTop + c.scrollHeight;
+  legible(s, px, 0);
 }
 async function ready() {
   try { await document.fonts.ready; } catch (e) {}
@@ -224,7 +344,9 @@ async function ready() {
         text: el.textContent, direction: getComputedStyle(el).direction, textAlign: getComputedStyle(el).textAlign,
         mixed: /[A-Za-z0-9]/.test(el.textContent), overflow: el.scrollWidth > el.clientWidth + 1 }));
       return { n: Number(s.dataset.n), lang: document.documentElement.lang, htmlDir: document.documentElement.dir,
-               direction: cs.direction, textAlign: cs.textAlign, fit: c.dataset.fit, push: Number(s.dataset.push || 0), clear: c.dataset.clear || 'ok', dark: s.classList.contains('dark'), headSize: Number(c.dataset.headSize), bodySize: Number(c.dataset.bodySize), blocks };
+               direction: cs.direction, textAlign: cs.textAlign, fit: c.dataset.fit, push: Number(s.dataset.push || 0), clear: c.dataset.clear || 'ok', dark: s.classList.contains('dark'), headSize: Number(c.dataset.headSize), bodySize: Number(c.dataset.bodySize),
+               splits: Number(c.dataset.splits || 0), clearance: Number(c.dataset.clearance || 0),
+               contrast: Number(s.dataset.contrast || 0), contrastAfter: Number(s.dataset.contrastAfter || 0), contrastFix: s.dataset.fix || '', blocks };
     });
     document.getElementById('rtl-report').textContent = JSON.stringify(rep);
   }
@@ -242,6 +364,11 @@ def rel(target, base):
 
 LATIN_RUN = re.compile(r"([A-Za-z][A-Za-z0-9 .'&-]*[A-Za-z0-9]|[A-Za-z])")
 SPOKEN_RE = re.compile(r"([״\"“][^״\"“”]{6,}[״\"”])")
+SAVE_LINE_RE = re.compile(r"\s*ת?שמר[וי](?![א-ת])")   # the save and share CTA's first line (24 Oct 2026)
+SEND_LINE_RE = re.compile(r"\s*ו?ת?שלח[וי](?![א-ת])")  # and its second line
+# Instagram's save (bookmark) and send (paper plane) glyphs, drawn as outlines like the app's own
+SAVE_ICON = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h11a1.5 1.5 0 0 1 1.5 1.5V21l-7-6.2L5 21V4.5A1.5 1.5 0 0 1 6.5 3z"/></svg>'
+SEND_ICON = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2.5 10.6 13.4"/><path d="M22 2.5 15 21.5l-4.4-8.1L2.5 9z"/></svg>'
 LOOKS = ("clean", "bold", "classic")
 # Type sizes per look: (headline max, headline floor, body max, body floor) for the cover, a regular slide, the last slide
 SIZES = {
@@ -260,12 +387,17 @@ def _safe(piece):
 
 def lines_html(text, highlight=None, bubbles=False, button=None):
     """One <span class="ln"> per line. Bold look only: `highlight` (a phrase of the text) gets the colour block
-    once, `bubbles` wraps spoken sentences in quotation marks, `button` is the line set as the comment button."""
+    once, `bubbles` wraps spoken sentences in quotation marks, `button` is the line set as the comment button.
+    A save line as the button gets the save icon, and the send line after it the send icon."""
     out = []
     highlight = (highlight or "").strip()
+    saving = bool(button and SAVE_LINE_RE.match(button))
     for line in lib.lines_of(text):
         if button and line.strip() == button.strip():
-            out.append(f'<span class="ln"><span class="btn">{_safe(line)}</span></span>')
+            out.append(f'<span class="ln"><span class="btn">{SAVE_ICON if saving else ""}{_safe(line)}</span></span>')
+            continue
+        if saving and SEND_LINE_RE.match(line):
+            out.append(f'<span class="ln">{SEND_ICON}{_safe(line)}</span>')
             continue
         if highlight and highlight in line:
             before, after = line.split(highlight, 1)
@@ -309,17 +441,20 @@ def build_html(frozen, images, out_dir, preview, brand_mark=False, look="bold"):
         dark = n == last
         if dark:
             edge = "top"
-        max_h = int(H * pct / 100) - ((108 if bold else 150) if edge == "top" else 180) + 60
+        max_h = int(H * pct / 100) - ((72 if bold else 150) if edge == "top" else 180) + 60
         head_max, head_min, body_max, body_min = SIZES[look]["cta" if n == last else "cover" if n == 1 else "slide"]
         body = s.get("body", "").strip()
-        button = next((ln for ln in lib.lines_of(body) if re.search(r"[\"״]", ln)), None) if bold and n == last else None
+        # the comment line (code word in quotes), or since 24 Oct 2026 the save line of the save and share CTA, as the button
+        button = next((ln for ln in lib.lines_of(body) if re.search(r"[\"״]", ln) or SAVE_LINE_RE.match(ln)), None) if bold and n == last else None
+        # since the save for later CTA (24 Oct 2026 evening) the save line is slide 10's headline, drawn as the button
+        head_lines = lib.lines_of(s["headline"])
+        head_button = head_lines[0] if bold and n == last and len(head_lines) == 1 and SAVE_LINE_RE.match(head_lines[0]) else None
         src = rel(images[n], out_dir)
         parts = [f'<section class="slide{" dark" if dark else ""}{" cta" if n == last else ""}" data-n="{n}">',
-                 f'<div class="mirror"><img src="{src}" alt=""></div>',
                  f'<img class="art" src="{src}" alt="">',
                  f'<div class="veil {edge}"></div>',
                  f'<div class="copy {edge}" data-maxh="{max_h}" data-hmin="{head_min}" data-bmin="{body_min}">',
-                 f'<div class="h" data-max="{head_max}">{lines_html(s["headline"], highlight=slide_highlight(s) if bold and (n == last or not clean) else None)}</div>']
+                 f'<div class="h" data-max="{head_max}">{lines_html(s["headline"], highlight=slide_highlight(s) if bold and (n == last or not clean) else None, button=head_button)}</div>']
         if body:
             parts.append(f'<div class="b" data-max="{body_max}">{lines_html(body, bubbles=bold and not button and (n == last or not clean), button=button)}</div>')
         parts.append('</div>')
@@ -351,22 +486,25 @@ def chrome(args, timeout=60):
     return base + args, profile
 
 
-def screenshot(url, out, width, height):
-    cmd, profile = chrome([f"--window-size={width},{height}", f"--screenshot={out}", url])
-    if out.exists():
-        out.unlink()
-    proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    for _ in range(160):  # Chrome sometimes writes the PNG and never exits
-        time.sleep(0.25)
-        if proc.poll() is not None or (out.exists() and out.stat().st_size > 0):
-            time.sleep(0.4)
-            break
-    if proc.poll() is None:
-        proc.kill()
-    shutil.rmtree(profile, ignore_errors=True)
-    if not out.exists():
-        raise SystemExit(f"Chrome did not write {out}")
-    return out
+def screenshot(url, out, width, height, attempts=2):
+    # Chrome now and then exits without writing the PNG (the known hiccup: a test failed that way on 24 Oct 2026 and
+    # passed on the rerun), so a missing file gets one more try with a fresh profile before it is an error.
+    for attempt in range(attempts):
+        cmd, profile = chrome([f"--window-size={width},{height}", f"--screenshot={out}", url])
+        if out.exists():
+            out.unlink()
+        proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        for _ in range(160):  # Chrome sometimes writes the PNG and never exits
+            time.sleep(0.25)
+            if proc.poll() is not None or (out.exists() and out.stat().st_size > 0):
+                time.sleep(0.4)
+                break
+        if proc.poll() is None:
+            proc.kill()
+        shutil.rmtree(profile, ignore_errors=True)
+        if out.exists() and out.stat().st_size > 0:
+            return out
+    raise SystemExit(f"Chrome did not write {out}")
 
 
 def dump_dom(url, width, height):
@@ -400,7 +538,9 @@ def rtl_report(html_path):
             problems.append(f"slide {s['n']}: page must be lang he dir rtl")
         if s["direction"] != "rtl" or s["textAlign"] not in ("right", "start", "center"):  # centred lines, as in the trial
             problems.append(f"slide {s['n']}: copy block is {s['direction']} {s['textAlign']}")
-        if s["fit"] != "ok":
+        if s["fit"] == "tight":
+            problems.append(f"slide {s['n']}: even at the smallest size the text runs {-s.get('clearance', 0)}px into the picture (it has a soft panel); shorten it")
+        elif s["fit"] != "ok":
             problems.append(f"slide {s['n']}: text does not fit the reserved zone even at the smallest size")
         for b in s["blocks"]:
             if b["direction"] != "rtl":
@@ -482,6 +622,15 @@ def previous_look(html_path):
     return "clean" if "look-clean" in html_path.read_text(encoding="utf-8")[:200000] else m.group(1)
 
 
+def choose_look(forced, previous, v):
+    """--look wins, then the look of the run's earlier export, then clean for a one-picture carousel (14 Oct 2026 on) or
+    copy with highlights, else classic. Since the save for later CTA (24 Oct 2026) slide 10 has no highlight, which was the
+    only one in many carousels: four re-exports that evening fell back to classic, so a one-picture run never keeps it."""
+    if previous == "classic" and lib.one_picture(v):
+        previous = None
+    return forced or previous or ("clean" if lib.one_picture(v) or any(s.get("highlight") for s in v["slides"]) else "classic")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("run_dir")
@@ -498,7 +647,7 @@ def main():
     frozen = lib.read_json(run_dir / "approved.json")
     v = frozen["option"]
     out_dir = run_dir / (args.out or ("final-placeholders" if args.placeholders else "final"))
-    look = args.look or previous_look(out_dir / "slides.html") or ("clean" if any(s.get("highlight") for s in v["slides"]) else "classic")
+    look = choose_look(args.look, previous_look(out_dir / "slides.html"), v)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     images = {}

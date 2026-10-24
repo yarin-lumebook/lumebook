@@ -19,6 +19,7 @@ for c in C:
     if c['h'] in KIDS: c['kids']=KIDS[c['h']]
 # weekly refresh (refresh/refresh.py): fresh followers, median views and last reel over the research numbers, plus its flags
 RF=json.load(open(P('refresh/latest.json'))) if os.path.exists(P('refresh/latest.json')) else {'date':None,'data':{}}
+for c in C: c['f0'],c['med0']=c.get('f'),c.get('med')   # the research numbers, so the card can show the change since
 for c in C:
     x=RF['data'].get(c['h'])
     if not x: continue
@@ -26,10 +27,32 @@ for c in C:
         if x.get(k) is not None: c[k]=x[k]
     if x.get('rf'): c['rf']=x['rf']
     c['rfd']=RF['date']
+# engagement and buying talk on each creator's 12 most recent posts, measured 14 Oct 2026 for 134 creators
+# (research/creator-content-conversion/round2/creators_kpi.csv; buying signals = comments asking where to buy or the price, wanting it, or saying they bought it)
+KPI=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))),'research','creator-content-conversion','round2','creators_kpi.csv')
+if os.path.exists(KPI):
+    byh={c['h']:c for c in C}
+    fl=lambda v: round(float(v),2) if v not in ('',None) else None
+    for r in csv.DictReader(open(KPI,encoding='utf-8')):
+        c=byh.get(r['creator'])
+        if c: c['kpi']={'cpk':fl(r['median_comments_per_1k_plays']),'lpk':fl(r['median_likes_per_1k_plays']),'bs':fl(r['purchase_signals_per_100']),'n':int(r['posts']),'cm':int(r['comments_sampled']),'d':'2026-10-14','bn':int(r['posts']),'bd':'2026-10-14'}
+# the Saturday refresh (refresh/refresh.py) measures them again for every creator: a fresh number replaces the 14 Oct one.
+# lpk and cpk come with n reels and date d; bs with cm audience comments on bn reels, date bd
+for c in C:
+    k=(RF['data'].get(c['h']) or {}).get('kpi')
+    if not k: continue
+    q=c.setdefault('kpi',{})
+    if k.get('lpk') is not None or k.get('cpk') is not None:
+        for f in ('lpk','cpk'):
+            if k.get(f) is not None: q[f]=k[f]
+        q['n'],q['d']=k['n'],k['d']
+    if k.get('bs') is not None: q.update(bs=k['bs'],cm=k['cm'],bn=k['bn'],bd=k['bd'])
+import re
 for i,c in enumerate(C):
-    ex=str(c.get('extra','')); p3=ex=='pass3'; p4=ex=='pass4'; p5=ex=='pass5'
-    c['ai']=i; c['added']='2026-10-20' if p5 else '2026-10-18' if p4 else '2026-10-11' if p3 else '2026-10-03'; c['batch']=5 if p5 else 4 if p4 else 3 if p3 else 2 if ex.startswith('pass2') else 1; c['chk']='20 באוקטובר 2026' if p5 else '18 באוקטובר 2026' if p4 else '11 באוקטובר 2026' if p3 else '3 באוקטובר 2026'
-# a creator added by hand on a later day than the rest of the pass keeps its own date in C_all.json ("added_on": "YYYY-MM-DD")
+    m=re.match(r'pass(\d+)',str(c.get('extra',''))); n=int(m.group(1)) if m else 1
+    c['ai']=i; c['batch']=n; c['added']={5:'2026-10-20',4:'2026-10-18',3:'2026-10-11'}.get(n,'2026-10-03'); c['chk']={5:'20 באוקטובר 2026',4:'18 באוקטובר 2026',3:'11 באוקטובר 2026'}.get(n,'3 באוקטובר 2026')
+# a creator added by hand on a later day than the rest of the pass keeps its own date in C_all.json ("added_on": "YYYY-MM-DD");
+# the weekly passes (6 and later, research/merge_pass.py) always write it
 HEM=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר']
 for c in C:
     if c.get('added_on'): y,m,d=map(int,c['added_on'].split('-')); c['added']=c['added_on']; c['chk']='%d ב%s %d'%(d,HEM[m-1],y)
@@ -67,7 +90,7 @@ EXCL=[("אין רילס 6 חודשים ומעלה","box.from.books, sharonturgem
 ("מתמקדים בבני נוער או במבוגרים, מחוץ לטווח 2 עד 8","omershnollll, liraz__madmon, alonmeir10, marsel_revivo (גילי 8 עד 14), nurse_shiran (תינוקות שנולדו ב-2026)"),
 ("עסקים, מקומות או מותגים עם חשיפה נמוכה","vikicdesigns, etgar_haotzar, mahuti_eol, shlomitlevit, tolaat_sfarim, sifriyat.pijama, kesem.mada, firststepmethod_il"),
 ("הסבב הרביעי, 18 באוקטובר 2026: אין רילס מאז לפני יולי","lihen_imahut, hilaraanan_, dr_tal_babystepspsychology, montessori.il, hila_efratii, ellayohanan, ofer.medem.friedman, soul.soulandpaper, alhaveda, orin_zherebitsky, shirvahaba"),
-("הסבב הרביעי: חשבון ששינה שם וכבר במפה","by_shanina הוא השם החדש של shanina_advent.learn"),
+("הסבב הרביעי: חשבון ששינה שם וכבר במפה","by_shanina הוא שם שהיה ל-shanina_advent.learn; מ-24 באוקטובר 2026 היא במפה בשם החדש art_by_shanina"),
 ("לא עושים שיתופי פעולה","maya_navon_parenthood (בביו: בלי שיתופי פעולה ובלי קופונים)"),
 ("רגיש","aviharush (הביו מקשר לדף הנצחה; לא מתאים להצעת מוצר)"),
 ("בערבית או ברוסית","הוסרו לבקשתך: tasharybak, slp.lanaab, raghad.speech, yasmeen_mawassi (וגם מקרי הקצה בערבית מעל 50K)"),
@@ -91,7 +114,9 @@ MIX=[[2,"Child-dev professionals","@knafaim.ot_by_noy · @eden_spaiev"],[2,"Kind
 Q=["Similar-accounts graph from 76 verified creators (Instagram suggestions)","גננת","הגננת","אמא גננת","קלינאית תקשורת","מרפאה בעיסוק","מדריכת הורים","גמילה מחיתולים","יוצרת תוכן הורות","אמא לתאומים","אבא במשרה מלאה","אבא של","אבא לבנות","אבא ובת","סבתא","סבא","סבא וסבתא","משפחתון","גן פרטי","גן ילדים","חינוך ביתי","מונטסורי בבית","בלי מסכים","פעילויות לילדים","פעילויות לגן","רעיונות לגן","יצירה עם ילדים","ספרי ילדים","ספרי ילדים המלצות","סופרת ילדים","ספרנית","מעודדת קריאה","הקראת סיפורים","שעת סיפור","סיפור לפני השינה","סיפור חברתי","מורה לכיתה א","מחנכת כיתה א","מורה לאנגלית לילדים","חוג מוזיקה לפעוטות","מפעילה ימי הולדת","צלמת ילדים","אמא לשלושה","אמא לארבעה","אמא לחמישה","אמא צעירה","אמא במשרה מלאה","טיולים עם ילדים","site:instagram.com / site:tiktok.com (agents)","Hebrew listicles: mako, ynet, 9instyle, Walla (agents)"]
 h=open(P('template.html')).read()
 J=lambda x: json.dumps(x,ensure_ascii=False)
-for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER}.items(): h=h.replace(k,J(v))
+# what happened to the creators Yarin added with the map's "הוספת יוצרים" button (weekly.py requests writes it on Saturdays)
+RQ=P('research/weekly/requests.json'); ADDQ=json.load(open(RQ,encoding='utf-8')) if os.path.exists(RQ) else {}
+for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER,"__ADDQ__":ADDQ}.items(): h=h.replace(k,J(v))
 for k,v in {"<!--LB:HEAD-->":design.head(),"<!--LB:THEME-TOGGLE-->":design.theme_toggle(),"__LB_LOGO__":design.logo_data_uri()}.items():
     assert h.count(k)==1, k; h=h.replace(k,v)
 # NO_EM: the user never wants em dashes

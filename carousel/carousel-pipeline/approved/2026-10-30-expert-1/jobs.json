@@ -1,0 +1,29 @@
+{
+  "order": [
+    "picture"
+  ],
+  "max_replacements_per_job": 2,
+  "jobs": {
+    "picture": {
+      "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Characters, identical on every slide: A 4-year-old Israeli girl with curly auburn hair in two puffs, fair skin with freckles and big blue-grey eyes; about 102 cm tall. Her mother, mid-thirties, fair skin, straight light-brown hair in a messy bun, kind green eyes; calm and sleepy in a real way. Wardrobe: Girl: mint-green cotton pajamas with no print. Mother: soft dusty-pink sweatshirt and grey trousers.\n\nScene: The girl sits up in bed, faces the viewer and looks straight into the camera with an open-mouthed gasp and huge wide eyes, holding the edge of her blanket in both hands; her mother is small and soft in the background, kneeling at the bedside and switching on the lamp. Setting: An Israeli child's bedroom at night with a wooden bed, a mint blanket and a small bedside lamp; nothing on the wall above the bed.\n\nCover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.\n\nEmotional beat: the first second after a bad dream, mom already there\n\nCamera: Eye level with the child, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Warm lamplight just switched on, the wall above the bed evenly lit and pale.\n\nWardrobe and objects in this scene: The bedside lamp, switched on by the mother; the girl's mint blanket.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.\n\nComposition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain pale cream wall above the bed) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [],
+      "estimated_cost_usd": 0.055,
+      "purpose": "the one picture behind all 10 slides · the first second after a bad dream, mom already there",
+      "text_zone": {
+        "edge": "top",
+        "percent": 45,
+        "surface": "plain pale cream wall above the bed"
+      }
+    }
+  }
+}

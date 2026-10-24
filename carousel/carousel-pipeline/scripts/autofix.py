@@ -88,7 +88,7 @@ everywhere else, and keep each line inside the character limit the error names. 
 Hard rules: never address the dad or use masculine-singular "you" (אתה, בוא נ...) anywhere, even inside a quote the parent says
 to the child: rephrase the verb instead (e.g. «אם אתה ממשיך» -> «אם תמשיך»). Address mom (feminine singular) or both parents (plural)
 as the option's addressee says. No em dashes. Brand is לומבוק. Never mention AI. Line breaks are "\\n"; a headline has at most 3 lines.
-The last slide's body is built from the CTA: to change it, edit the "cta" field, never that body.
+The last slide is built from the CTA (its body; since 24 Oct 2026 its headline too): to change it, edit the "cta" field, never that slide.
 
 Errors to clear:
 {json.dumps(errors, ensure_ascii=False, indent=1)}

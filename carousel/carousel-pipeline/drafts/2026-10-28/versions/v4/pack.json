@@ -1,0 +1,2360 @@
+{
+  "schema_version": 3,
+  "date": "2026-10-28",
+  "generated_at": "2026-10-24T06:58:57+00:00",
+  "topic": {
+    "id": "picky-eating",
+    "title_he": "אוכל רק פסטה ואורז",
+    "reason": "הנושא נקבע לחבילה הזאת בתוכנית השבועית (סלוט 4 מתוך 7, כל חבילה בנושא אחר) והוא לא תלוי בתאריך: צלחת פסטה ואורז וויכוח על ירקות קורים בכל ערב בכל שבוע בשנה. הקרוסלות מדברות על גיל 3 עד 4 ונשענות על האקדמיה האמריקאית לרפואת ילדים, NHS ו-KidsHealth, שמתארים בררנות באכילה כשלב מוכר בגיל הזה, ולכן הקול רגוע ומעשי. רגיש: לא מדברים על משקל או על הגוף של הילד, לא מפחידים מחוסרים, ובמקום שיש דאגה מפנים לרופא ילדים (expert-3). אף שקופית לא מאשימה את ההורים ואף שקופית לא מבטיחה תוצאה."
+  },
+  "voice": {
+    "status": "calibrated",
+    "approved_samples": 37,
+    "note": "מכויל: 37 דוגמאות מהעריכות של ירין בעמוד הסקירה. נכתב לפי העריכות האחרונות: שורה אחת לכל דוגמה כשאפשר, פעלים קונקרטיים בכותרות, וגוף הסיכום כשאלה קצרה (״גם את רוצה לעזור...?״)."
+  },
+  "product_facts": [
+    {
+      "id": "site-star",
+      "fact": "The child's name is in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-24"
+    },
+    {
+      "id": "site-preview",
+      "fact": "Creating the book and the preview are free; parents pay only if they love it",
+      "quote": "יצירת הספר והתצוגה המקדימה בחינם — משלמים רק אם אהבתם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-24"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-24"
+    },
+    {
+      "id": "site-new-story",
+      "fact": "Parents can pick a catalogue story or create a new story (the catalogue checked today has no book about picky eating, so the DM link would offer a new story)",
+      "quote": "בחרו סיפור מהקטלוג שלנו או צרו סיפור חדש",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-24"
+    }
+  ],
+  "hook_slate": {
+    "kid": [
+      {
+        "id": "k1",
+        "formula": "child-numbered-ask",
+        "family": "child_pov",
+        "hook": "אמא ואבא\n8 דברים שיעזרו לי\nלטעום ירוק\nולא רק פסטה ואורז",
+        "slide2": "אני טועמת רק\nמה שכבר מוכר לי",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "Which 8 things help her taste something green?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the eight things one by one, starting with something familiar next to the green.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1",
+        "note": "Three wordings: calm «אמא ואבא יש לי בקשה על הירקות» / middle «אמא ואבא 8 דברים שיעזרו לי עם אוכל» / loud (kept) «אמא ואבא 8 דברים שיעזרו לי לטעום ירוק». Yarin's own formula, graded 5 on 2026-10-21; used recently, so freshness 1."
+      },
+      {
+        "id": "k2",
+        "formula": "child-not-because",
+        "family": "child_pov",
+        "hook": "אני לא עושה דווקא\nאני רוצה לבחור\n6 דברים שיעזרו לי לטעום",
+        "slide2": "את שומעת ״לא רוצה״\nאני מתכוונת ״לבד״",
+        "slide2_move": "other_side",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "If she is not being stubborn, what does she want?",
+        "payoff_slide": 2,
+        "answer": "Slide 2: eating is one of the first things she can decide on her own (KidsHealth); the six things give her that choice.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2",
+        "note": "Three wordings: calm «קשה לי כשמחליטים בשבילי מה לאכול» / middle «אני לא בררנית אני נזהרת» / loud (kept) «אני לא עושה דווקא אני רוצה לבחור»."
+      },
+      {
+        "id": "k3",
+        "formula": "two-faces",
+        "family": "reframe",
+        "hook": "אצל סבתא אוכל הכול\nבבית רק פסטה\n8 דברים שיעזרו גם בבית",
+        "slide2": "לא האוכל של סבתא\nהשולחן של סבתא",
+        "slide2_move": "name_trigger",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does he eat everything at grandma's and only pasta at home?",
+        "payoff_slide": 2,
+        "answer": "Slide 2: it is grandma's table, not her food: everyone eats together and he copies (NHS).",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3",
+        "note": "Three wordings: calm «אצל סבתא אני אוכל יותר» / middle «אצל סבתא אני טועם הכול» / loud (kept) «אצל סבתא אוכל הכול בבית רק פסטה». The answer never blames mom: it is the shared table."
+      },
+      {
+        "id": "k4",
+        "formula": "child-body-moment",
+        "family": "moment",
+        "hook": "כשיש ירוק בצלחת\nהידיים שלי דוחפות אותה",
+        "slide2": "בפסטה אני יודע\nבדיוק מה יהיה",
+        "slide2_move": "zoom_in",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does he push the plate away the moment something green is on it?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 would name the need (knowing what to expect).",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 0,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "No value on the cover, so it cannot be a cover (usefulness 0). Not used."
+      },
+      {
+        "id": "k5",
+        "formula": "child-question",
+        "family": "child_quote",
+        "hook": "״מה זה הירוק הזה?״\n6 דברים שיעזרו לי לטעום",
+        "slide2": "כל דבר חדש בצלחת\nאני צריכה לבדוק קודם",
+        "slide2_move": "name_trigger",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does she question every new food, and what helps?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 would start the six things.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 1,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 1,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Quote openers scored lower in Yarin's grades (child-question 3 of 5 on 2026-10-18) and stopping power is weaker than the used three. Not used."
+      },
+      {
+        "id": "k6",
+        "formula": "one-sentence-changes",
+        "family": "story",
+        "hook": "הוא אוכל רק פסטה כל ערב\nומשפט אחד משנה את הארוחה",
+        "slide2": "בן 4 וצלחת חדשה\nזה החלק הכי קשה בערב",
+        "slide2_move": "scene_restart",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "unaware",
+        "gap": "Which sentence changes the meal?",
+        "payoff_slide": 4,
+        "answer": "Slide 4 would quote one sentence.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 1,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": true,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Fails: no source says one sentence changes the meal for a picky eater; the promise is bigger than the carousel."
+      }
+    ],
+    "expert": [
+      {
+        "id": "e1",
+        "formula": "real-reason",
+        "family": "reframe",
+        "hook": "הסיבה האמיתית\nשהוא אוכל רק פסטה\n7 דברים שאפשר לעשות",
+        "slide2": "ילדים קטנים נזהרים\nמאוכל שהם לא מכירים",
+        "slide2_move": "first_answer",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "What is the real reason he eats only pasta?",
+        "payoff_slide": 2,
+        "answer": "Slide 2: young children are wary of unfamiliar food, a natural stage, and pasta and rice hold no texture surprises (del Campo et al.).",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-1",
+        "note": "Three wordings: calm «למה הוא אוכל רק פסטה» / middle «למה דווקא פסטה ואורז 7 דברים» / loud (kept) «הסיבה האמיתית שהוא אוכל רק פסטה 7 דברים שאפשר לעשות». Graded 4 on 2026-10-20; used recently, freshness 1."
+      },
+      {
+        "id": "e2",
+        "formula": "practical-question",
+        "family": "practical_question",
+        "hook": "איך עוזרים לבת 3\nשאוכלת רק פסטה?\n9 צעדים שאפשר להתחיל הערב",
+        "slide2": "בלי להכריח וגם\nבלי לוותר על ירקות",
+        "slide2_move": "promise",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "solution_aware",
+        "gap": "How do you help a 3-year-old who eats only pasta, without forcing her?",
+        "payoff_slide": 3,
+        "answer": "Slide 2 gives the principle (parents decide what, she decides whether and how much) and slides 3 to 8 the nine steps.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-2",
+        "note": "Three wordings: calm «מה עושים עם ילדה שאוכלת רק פסטה» / middle «איך עוזרים לבת 3 לאכול גם ירקות?» / loud (kept) «איך עוזרים לבת 3 שאוכלת רק פסטה? 9 צעדים שאפשר להתחיל הערב». Graded 5 on 2026-10-22; used recently, freshness 1."
+      },
+      {
+        "id": "e3",
+        "formula": "just-so-you-know",
+        "family": "normalising",
+        "hook": "רק שתדעו\nשבועות של פסטה\nזה שלב מוכר\nו-7 דברים שעוזרים",
+        "slide2": "רק שתדעו\nלפעמים צריך 10 טעימות",
+        "slide2_move": "same_template",
+        "mechanism": "reassurance",
+        "awareness_stage": "problem_aware",
+        "gap": "Are weeks of only pasta normal, and what helps?",
+        "payoff_slide": 2,
+        "answer": "Slide 2: sometimes it takes 10 tastes, and today's no is not forever (AAP, NHS); slides 3 to 8 give seven things.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "expert-3",
+        "note": "Three wordings: calm «בררנות באכילה היא שלב» / middle «רק שתדעו פסטה כל יום זה מוכר» / loud (kept) «רק שתדעו שבועות של פסטה זה שלב מוכר ו-7 דברים שעוזרים». current_trend formula, review by 2027-01-08."
+      },
+      {
+        "id": "e4",
+        "formula": "words-that-backfire",
+        "family": "sentences_we_say",
+        "hook": "4 מילים\nשהופכות ארוחה למשא ומתן\nו-7 דברים לעשות במקום",
+        "slide2": "״עוד ביס ואז קינוח״\nכולנו אומרות את זה בערב",
+        "slide2_move": "zoom_in",
+        "mechanism": "practical_utility",
+        "awareness_stage": "unaware",
+        "gap": "Which four words turn dinner into a negotiation?",
+        "payoff_slide": 2,
+        "answer": "Slide 2 names them (עוד ביס ואז קינוח), KidsHealth on bargaining; slides 3 to 8 give what to do instead.",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passing but not used: the «X מילים» cover opened several recent packs, and its idea (no bribes) already sits inside expert-1 and expert-2."
+      },
+      {
+        "id": "e5",
+        "formula": "stop-one-thing",
+        "family": "reframe",
+        "hook": "תפסיקי להכין לו\nארוחה נפרדת\n7 דברים שעוזרים במקום",
+        "slide2": "כולנו מכינות פסטה נוספת\nרק כדי שהוא יאכל משהו",
+        "slide2_move": "first_answer",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "What works better than cooking him a separate pasta?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 would give one meal for everyone with one liked food (AAP).",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 1,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passing but not used: the reframe family already has two options in this pack (two-faces and real-reason)."
+      },
+      {
+        "id": "e6",
+        "formula": "nobody-tells",
+        "family": "surprising_statement",
+        "hook": "מה שלא מספרים לך\nעל ילד שאוכל רק פסטה\n7 דברים שעוזרים",
+        "slide2": "בררנות באכילה היא\nשלב מוכר בגיל הזה",
+        "slide2_move": "name_trigger",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "What is it they don't tell you about a child who eats only pasta?",
+        "payoff_slide": 2,
+        "answer": "Slide 2: picky eating usually is a normal stage (AAP).",
+        "factual_claim": true,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Passing but not used: its answer is the same reassurance as e3, which says it more plainly."
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "אמא ואבא 8 דברים שיעזרו לי לטעום ירוק",
+          "angle": "רוני בת 4 מבקשת מההורים שמונה דברים קטנים שהופכים ירק חדש למוכר: משהו מוכר לידו, כפית ולא ערימה, לראות אותם אוכלים, לגעת ולהריח, צורה אחרת, לבשל, לבחור בסופר ולנסות שוב בשבוע הבא.",
+          "target_parent": "הורים לבת 3 עד 5 שאוכלת רק פסטה ואורז ומחפשים צעדים קטנים לירקות בלי מלחמה.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-numbered-ask",
+            "gap": "Which 8 things help a 4-year-old who eats only pasta and rice taste something green?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "k1",
+            "mechanism": "practical_utility",
+            "slide2_move": "first_answer"
+          },
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "רוני",
+          "examples_target": 8,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with straight dark-brown hair in a high ponytail with a few loose strands, light olive skin, big brown eyes and light freckles across her nose; about 102 cm tall.",
+            "parent": "Her mother, mid-thirties, light skin, shoulder-length auburn hair and warm green eyes, and her father, late thirties, olive skin, short black curly hair and a trimmed beard; both relaxed and a little tired in a real way.",
+            "wardrobe": "Girl: coral cotton T-shirt with no print and denim overall shorts. Mother: cream knit sweater and jeans. Father: grey long-sleeve shirt."
+          },
+          "image": {
+            "beat": "suspicious wide eyes at one green pea",
+            "action": "The girl faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, holding a small fork with a single green pea on it a little away from her face; a bowl of plain pasta sits in front of her and her parents are small and soft in the background at the kitchen counter, smiling.",
+            "setting": "An Israeli family kitchen in the early evening: a light wooden table, cream tiles behind the counter, a bowl of plain pasta and a small dish of peas on the table.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm early-evening window light, soft and even.",
+            "wardrobe_objects": "The small fork with the pea, held by the girl; the bowl of pasta and the small dish of peas on the table.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the table"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא ואבא\n8 דברים שיעזרו לי\nלטעום ירוק",
+              "body": "ולא רק פסטה ואורז",
+              "pull": {
+                "type": "numbered",
+                "note": "שמונת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "אני טועמת רק\nמה שכבר מוכר לי",
+              "body": "ירוק חדש לוקח לי זמן\nלפעמים 10 טעימות ויותר\nוהדברים האלה עוזרים לי",
+              "pull": {
+                "type": "next_step",
+                "note": "הדבר הראשון בשקופית הבאה"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 משהו מוכר ליד הירוק",
+              "body": "פסטה בצלחת ולידה אפונה אחת\nככה יש לי בטוח מה לאכול",
+              "examples": [
+                "משהו מוכר ליד הירוק"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עם הכמות? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 כפית אחת ולא ערימה",
+              "body": "ערימה ירוקה זה יותר מדי בשבילי\nכפית אחת אני יכולה לנסות",
+              "examples": [
+                "כפית אחת ולא ערימה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי אוכל לידה? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 תאכלו ירוק לידי",
+              "body": "״רוני תראי כמה זה פריך״\nאני מחקה אתכם",
+              "examples": [
+                "תאכלו ירוק לידי"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אם היא לא מוכנה לטעום? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "4 לגעת ולהריח קודם\n5 גזר חי במקום מבושל",
+              "body": "גם בלי לאכול אני מכירה יותר\nואותו ירק בצורה אחרת",
+              "examples": [
+                "לגעת ולהריח קודם",
+                "גזר חי במקום מבושל"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והדבר השישי במטבח בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 תנו לי לבשל איתכם",
+              "body": "לשטוף לערבב לספור עגבניות\nמה שאני מכינה בא לי לטעום",
+              "examples": [
+                "תנו לי לבשל איתכם"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ושני האחרונים בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "7 אני בוחרת ירק בסופר\n8 נסו שוב בשבוע הבא",
+              "body": "״רוני איזה ירק נקנה היום?״\nואולי מחר כן",
+              "examples": [
+                "אני בוחרת ירק בסופר",
+                "נסו שוב בשבוע הבא"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "קטן ומוכר ושוב ושוב\nככה ירוק נהיה שלי",
+              "body": "גם אתם רוצים לעזור לרוני לטעום?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור להם גם\nבסיפור אישי",
+              "body": "תשמרו את הפוסט\nותשלחו להורה שיסכים איתכם",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "8 דברים שילדה בת 4 מבקשת כדי לטעום ירוק\nמשהו מוכר ליד הירוק וכפית אחת במקום ערימה\nלראות אתכם אוכלים ולגעת ולהריח לפני שטועמים\nלבשל ביחד ולבחור ירק בסופר ולנסות שוב בשבוע הבא\nובערב אפשר להמשיך עם סיפור שבו הילדה שלכם היא הגיבורה\nתשמרו את הפוסט ותשלחו להורה שיסכים איתכם",
+          "cta": "תשמרו את הפוסט\nותשלחו להורה שיסכים איתכם",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "10 Tips for Parents of Picky Eaters",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (source: AAP Committee on Nutrition, last updated 4/26/2018)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/nutrition/Pages/Picky-Eaters.aspx",
+              "accessed": "2026-10-24",
+              "quote": "Serve one meal for the whole family and resist the urge to make another meal if your child refuses what you've served. This only encourages picky eating. Try to include at least one food your child likes with each meal and continue to provide a balanced meal, whether she eats it or not. ... Just because a child refuses a food once, don't give up. Keep offering new foods and those your child didn't like before. It can take as many as 10 or more times tasting a food before a toddler’s taste buds accept it. Scheduled meals and limiting snacks can help ensure your child is hungry when a new food is introduced. ... To minimize waste, offer new foods in small amounts and wait at least a week or two before reintroducing the same food. ... Let you child pick which fruit and vegetable to make for dinner or during visits to the grocery store or farmer's market. ... Some cooking tasks are perfect for toddlers (with lots of supervision, of course): sifting, stirring, counting ingredients ... Help your child explore new flavors and textures in food.",
+              "supports": "Include at least one liked food at each meal; it can take 10 or more tastes before a toddler accepts a food; offer new foods in small amounts and wait a week or two before offering the same food again; let the child pick a vegetable at the store; toddlers can help with stirring and counting; help children explore new flavors and textures. Written for toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-kht",
+              "title": "Toddlers at the Table: Avoiding Power Struggles",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD, January 2021)",
+              "url": "https://kidshealth.org/en/parents/toddler-meals.html",
+              "accessed": "2026-10-24",
+              "quote": "Especially with foods that aren't yet favorites, a couple of tablespoons is plenty to start with. Small portions are less overwhelming",
+              "supports": "Small portions of new foods (a couple of tablespoons) are less overwhelming. Written about toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-nhs",
+              "title": "Fussy eaters",
+              "publisher": "NHS (page last reviewed 13 November 2023)",
+              "url": "https://www.nhs.uk/baby/weaning-and-feeding/fussy-eaters/",
+              "accessed": "2026-10-24",
+              "quote": "The best way for your child to learn to eat and enjoy new foods is to copy you. Try to eat with them as often as you can. ... Changing how you serve a food may make it more appealing. For example, your child might refuse cooked carrots but enjoy raw grated carrot.",
+              "supports": "Children learn to eat new foods by copying their parents; changing how a food is served (raw grated carrot instead of cooked) may help. NHS advice for parents of fussy eaters (baby and toddler section); applied to ages 3 to 4."
+            },
+            {
+              "id": "src-owen",
+              "title": "Peas, please! Food familiarization though picture books helps parents introduce vegetables into preschoolers' diets",
+              "publisher": "Owen L.H., Kennedy O.B., Hill C., Houston-Price C., Appetite 2018;128:32-43 (peer reviewed, University of Reading repository)",
+              "url": "https://centaur.reading.ac.uk/72923/",
+              "accessed": "2026-10-24",
+              "quote": "Repeated taste exposure is an established means of increasing children’s liking and intake of fruit and vegetables. However, parents find it difficult to offer children disliked foods repeatedly, often giving up after a few attempts. Studies show that familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods. ... compared to the control group who experienced only taste exposure, looking at vegetable books enhanced children’s liking of their target vegetable post-intervention (p<.001) and at follow-up (p<.05), and increased consumption of the vegetable at follow-up (p<.01).",
+              "supports": "Picture books that make a vegetable familiar raised toddlers' interest in tasting it and their liking of it. A randomised study with 127 toddlers aged 21 to 24 months; picture books about one target vegetable, read daily for two weeks before taste exposure. It does not test personalised books."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "ירוק חדש לוקח לי זמן לפעמים 10 טעימות ויותר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: it can take as many as 10 or more times tasting a food before a toddler's taste buds accept it. Said in the child's imagined voice about herself."
+            },
+            {
+              "slide": 2,
+              "wording_he": "אני טועמת רק מה שכבר מוכר לי",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "Imagined child voice for this one child; rests on AAP: keep offering foods, acceptance takes repeated tastes."
+            },
+            {
+              "slide": 3,
+              "wording_he": "משהו מוכר ליד הירוק",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: try to include at least one food your child likes with each meal."
+            },
+            {
+              "slide": 4,
+              "wording_he": "כפית אחת ולא ערימה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kht",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: a couple of tablespoons is plenty to start, small portions are less overwhelming; AAP: offer new foods in small amounts."
+            },
+            {
+              "slide": 5,
+              "wording_he": "תאכלו ירוק לידי אני מחקה אתכם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS: the best way for your child to learn to eat new foods is to copy you; eat with them."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לגעת ולהריח קודם",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "Our wording for exploring a food before tasting; rests on AAP: help your child explore new flavors and textures."
+            },
+            {
+              "slide": 6,
+              "wording_he": "גזר חי במקום מבושל",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS example: a child might refuse cooked carrots but enjoy raw grated carrot."
+            },
+            {
+              "slide": 7,
+              "wording_he": "תנו לי לבשל איתכם לשטוף לערבב לספור",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: cooking tasks for toddlers with supervision such as stirring and counting ingredients. 'What I make I want to taste' is the imagined child voice, a possibility."
+            },
+            {
+              "slide": 8,
+              "wording_he": "אני בוחרת ירק בסופר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: let your child pick which fruit and vegetable to make, also at the grocery store."
+            },
+            {
+              "slide": 8,
+              "wording_he": "נסו שוב בשבוע הבא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: wait at least a week or two before reintroducing the same food; keep offering foods your child didn't like before."
+            },
+            {
+              "slide": 9,
+              "wording_he": "קטן ומוכר ושוב ושוב ככה ירוק נהיה שלי",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "Our recap of the examples; no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-owen"
+              ],
+              "supports": "Owen et al. 2018: familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods, and vegetable books added to taste exposure raised liking. Toddler study with picture books about one vegetable; that the story is personal, with the child as the hero, is our wording and was not tested."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילדה היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-new-story"
+              ],
+              "supports": "Live site, checked today: the child's name is in the text and the child stars in every illustration; parents can pick a catalogue story or create a new one (there is no catalogue book on picky eating, so the DM link would offer a new story). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "הנוסחה של ירין עם מספר וערך על הכריכה (8 דברים) ומטרה קונקרטית (לטעום ירוק). הילדה מסתכלת ישר לעדשה עם אפונה על המזלג. כל שקופית נותנת פעולה של עשר שניות, ומי שקורא רק כותרות מקבל את כל הרשימה."
+        },
+        {
+          "id": "kid-2",
+          "title": "אני לא עושה דווקא אני רוצה לבחור",
+          "angle": "שקד בת 4 מסבירה לאמא שה״לא רוצה״ ליד הצלחת הוא רצון לבחור משהו, ומבקשת שישה דברים שנותנים לה בחירה בלי לחץ: שתי אפשרויות, לשים לעצמה, אמא מגישה והיא מחליטה, בלי ״עוד ביס״, בלי פרס ובלי הרצאה.",
+          "target_parent": "אמא לבת 3 עד 5 שכל ארוחה נהיית ויכוח על ביס ומרגישה שהילדה עושה לה דווקא.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-not-because",
+            "gap": "If she is not being stubborn, what does she want at the table, and what helps her taste?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 1,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "k2",
+            "mechanism": "perspective_shift",
+            "slide2_move": "other_side"
+          },
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "שקד",
+          "examples_target": 6,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with curly black hair in two puffs, warm brown skin, dark eyes with long lashes and a small gap between her front teeth; about 103 cm tall.",
+            "parent": "Her mother, early thirties, warm brown skin, long black braids tied back, calm dark eyes and a gentle half smile.",
+            "wardrobe": "Girl: mustard-yellow cotton dress over a white long-sleeve tee. Mother: soft lilac linen shirt and light jeans."
+          },
+          "image": {
+            "beat": "a stubborn-looking pout that is really a wish to choose",
+            "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, her arms folded on the table beside two small bowls, one with cucumber sticks and one with carrot sticks; her mother is small and soft in the background, waiting calmly.",
+            "setting": "A small Israeli dining corner at dinner time: a round white table, a plate with a little plain rice and the two small bowls of cut vegetables.",
+            "camera": "Child eye level, close waist-up shot, the face large in the frame.",
+            "lighting": "Soft warm lamp light in the evening.",
+            "wardrobe_objects": "The two small bowls of cucumber sticks and carrot sticks and the plate of rice, all on the table.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain soft beige wall above the table"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אני לא עושה דווקא\nאני רוצה לבחור",
+              "body": "6 דברים שיעזרו לי לטעום",
+              "pull": {
+                "type": "open_loop",
+                "note": "למה לבחור? שקופית 2 עונה"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "את שומעת ״לא רוצה״\nאני מתכוונת ״לבד״",
+              "body": "האוכל זה אחד הדברים הראשונים\nשאני יכולה להחליט עליהם לבד",
+              "pull": {
+                "type": "next_step",
+                "note": "איך נותנים לה לבחור? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 שתי אפשרויות לבחור",
+              "body": "״שקד מלפפון או גזר?״\nככה גם אני מחליטה משהו",
+              "examples": [
+                "שתי אפשרויות לבחור"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והשני בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 לשים לעצמי בצלחת",
+              "body": "כף אחת מהקערה שבאמצע\nמה ששמתי לבד בא לי לנסות",
+              "examples": [
+                "לשים לעצמי בצלחת"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי מחליט כמה? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 את מגישה ואני מחליטה",
+              "body": "את בוחרת מה יש על השולחן\nאני בוחרת אם ובכמה לאכול",
+              "examples": [
+                "את מגישה ואני מחליטה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה לא להגיד? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "4 בלי ״עוד ביס אחד״",
+              "body": "כשסופרים לי ביסים\nהצלחת נהיית מלחמה",
+              "examples": [
+                "בלי ״עוד ביס אחד״"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והחמישי על קינוח בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "5 בלי שוקולד כפרס",
+              "body": "כשהשוקולד הוא הפרס\nהירק נהיה העונש",
+              "examples": [
+                "בלי שוקולד כפרס"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון כשהיא לא נוגעת בצלחת בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "6 להוריד את הצלחת בשקט",
+              "body": "בלי כעס ובלי הרצאה\nומנסים שוב בפעם אחרת",
+              "examples": [
+                "להוריד את הצלחת בשקט"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "כשאני בוחרת\nקל לי יותר לטעום",
+              "body": "גם את רוצה לעזור לשקד לטעום?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור להם גם\nבסיפור אישי",
+              "body": "תשמרי את הפוסט\nותשלחי לאמא שתסכים איתך",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "ילדה שאומרת ״לא״ לכל ירק רוצה בעיקר לבחור\nשתי אפשרויות על השולחן והיא שמה לעצמה בצלחת\nאת מחליטה מה מגישים והיא מחליטה כמה לאכול\nבלי ״עוד ביס״ ובלי שוקולד כפרס\nובערב אפשר להמשיך עם סיפור שבו הילדה שלך היא הגיבורה\nתשמרי את הפוסט ותשלחי לאמא שתסכים איתך",
+          "cta": "תשמרי את הפוסט\nותשלחי לאמא שתסכים איתך",
+          "sources": [
+            {
+              "id": "src-kht",
+              "title": "Toddlers at the Table: Avoiding Power Struggles",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD, January 2021)",
+              "url": "https://kidshealth.org/en/parents/toddler-meals.html",
+              "accessed": "2026-10-24",
+              "quote": "Toddlers are learning to navigate their world, communicate, and control some parts of their lives. They don't actually have control over much, but eating is one of the first areas where they will. ... They need to decide whether to eat, what they will eat, and how much to eat. ... Then present two healthy snack options to choose from. Even a child who is sad about the lack of candy will still enjoy the sense of control from deciding which healthy snack to eat. ... Or you might start bargaining: \"If you eat 3 more bites, I'll give you a cookie.\" The problem is that these tactics don't work in the long run. ... Threatening a punishment, much like bribing a child with dessert, won't work in the long run either. It creates a power struggle.",
+              "supports": "Eating is one of the first areas where toddlers have control; they need to decide whether to eat, what and how much; offering two healthy options gives a sense of control; bargaining for bites and threatening punishment do not work in the long run and create a power struggle. The two-options line is about snacks; we apply it to vegetables at a meal. Written about toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-aap",
+              "title": "10 Tips for Parents of Picky Eaters",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (source: AAP Committee on Nutrition, last updated 4/26/2018)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/nutrition/Pages/Picky-Eaters.aspx",
+              "accessed": "2026-10-24",
+              "quote": "It's a parent's responsibility to provide food, and the child’s decision to eat it. Pressuring kids to eat, or punishing them if they don't, can make them actively dislike foods they may otherwise like.",
+              "supports": "A parent's responsibility to provide food and the child's decision to eat it; pressuring kids to eat can make them dislike foods. Written for toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-nhs",
+              "title": "Fussy eaters",
+              "publisher": "NHS (page last reviewed 13 November 2023)",
+              "url": "https://www.nhs.uk/baby/weaning-and-feeding/fussy-eaters/",
+              "accessed": "2026-10-24",
+              "quote": "Do not use food as a reward. Your child may start to think of sweets as nice and vegetables as nasty. ... If your child rejects the food, do not force them to eat it. Just take the food away without saying anything. Try to stay calm, even if it's very frustrating. Try the food again another time.",
+              "supports": "Do not use food as a reward (sweets become nice and vegetables nasty); if a child rejects a food, take it away without saying anything and try again another time. NHS advice for parents of fussy eaters (baby and toddler section); applied to ages 3 to 4."
+            },
+            {
+              "id": "src-khp",
+              "title": "How Should I Deal With a Picky Eater?",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD, January 2021)",
+              "url": "https://kidshealth.org/en/parents/picky-eater.html",
+              "accessed": "2026-10-24",
+              "quote": "Telling kids they can have a cookie if they eat their broccoli only reinforces the appeal of the cookie over the veggies.",
+              "supports": "A cookie for eating broccoli only reinforces the appeal of the cookie over the vegetables. A parent Q&A about a picky eater who wants the same food every day."
+            },
+            {
+              "id": "src-owen",
+              "title": "Peas, please! Food familiarization though picture books helps parents introduce vegetables into preschoolers' diets",
+              "publisher": "Owen L.H., Kennedy O.B., Hill C., Houston-Price C., Appetite 2018;128:32-43 (peer reviewed, University of Reading repository)",
+              "url": "https://centaur.reading.ac.uk/72923/",
+              "accessed": "2026-10-24",
+              "quote": "Repeated taste exposure is an established means of increasing children’s liking and intake of fruit and vegetables. However, parents find it difficult to offer children disliked foods repeatedly, often giving up after a few attempts. Studies show that familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods. ... compared to the control group who experienced only taste exposure, looking at vegetable books enhanced children’s liking of their target vegetable post-intervention (p<.001) and at follow-up (p<.05), and increased consumption of the vegetable at follow-up (p<.01).",
+              "supports": "Picture books that make a vegetable familiar raised toddlers' interest in tasting it and their liking of it. A randomised study with 127 toddlers aged 21 to 24 months; picture books about one target vegetable, read daily for two weeks before taste exposure. It does not test personalised books."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "אני לא עושה דווקא אני רוצה לבחור",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-kht"
+              ],
+              "supports": "Imagined child voice, a possibility for this one child; rests on KidsHealth: eating is one of the first areas where toddlers have control."
+            },
+            {
+              "slide": 2,
+              "wording_he": "האוכל זה אחד הדברים הראשונים שאני יכולה להחליט עליהם לבד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kht"
+              ],
+              "supports": "KidsHealth: toddlers don't have control over much, but eating is one of the first areas where they will. Written about toddlers; applied to age 4."
+            },
+            {
+              "slide": 3,
+              "wording_he": "שתי אפשרויות לבחור",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kht"
+              ],
+              "supports": "KidsHealth: present two healthy options to choose from; the child enjoys the sense of control. The page says this about snacks; we apply it to vegetables."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לשים לעצמי בצלחת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kht"
+              ],
+              "supports": "KidsHealth: children need to decide whether to eat, what they will eat and how much. Serving herself from a shared bowl is our concrete example."
+            },
+            {
+              "slide": 5,
+              "wording_he": "את מגישה ואני מחליטה אם ובכמה לאכול",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kht"
+              ],
+              "supports": "AAP: a parent's responsibility to provide food and the child's decision to eat it; KidsHealth: let a child decide which foods to eat or whether to eat at all."
+            },
+            {
+              "slide": 6,
+              "wording_he": "בלי עוד ביס אחד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kht",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: bargaining for bites does not work in the long run and threats create a power struggle; AAP: pressuring kids to eat can make them dislike foods."
+            },
+            {
+              "slide": 7,
+              "wording_he": "כשהשוקולד הוא הפרס הירק נהיה העונש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs",
+                "src-khp"
+              ],
+              "supports": "NHS: do not use food as a reward, the child may think of sweets as nice and vegetables as nasty; KidsHealth: a cookie reward reinforces the cookie over the vegetables."
+            },
+            {
+              "slide": 8,
+              "wording_he": "להוריד את הצלחת בשקט ולנסות שוב בפעם אחרת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS: take the food away without saying anything, stay calm and try the food again another time."
+            },
+            {
+              "slide": 9,
+              "wording_he": "כשאני בוחרת קל לי יותר לטעום",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-kht"
+              ],
+              "supports": "Our recap in the child's voice; a possibility, no promise."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-owen"
+              ],
+              "supports": "Owen et al. 2018: familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods, and vegetable books added to taste exposure raised liking. Toddler study with picture books about one vegetable; that the story is personal, with the child as the hero, is our wording and was not tested."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילדה היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-new-story"
+              ],
+              "supports": "Live site, checked today: the child's name is in the text and the child stars in every illustration; parents can pick a catalogue story or create a new one (there is no catalogue book on picky eating, so the DM link would offer a new story). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "שלילה בקול של הילדה שהופכת ״דווקא״ לבקשה (״אני רוצה לבחור״), וערך על הכריכה (6 דברים). שקופית 2 מראה את שני הצדדים של אותו משפט, וכל דוגמה היא משפט או פעולה שאמא יכולה לעשות כבר בארוחת הערב."
+        },
+        {
+          "id": "kid-3",
+          "title": "אצל סבתא אוכל הכול בבית רק פסטה",
+          "angle": "אופק בן 4 מספר שאצל סבתא הוא אוכל הכול כי כולם יושבים ואוכלים ביחד והוא מחקה, ומבקש להביא את השולחן של סבתא הביתה: לשבת לאכול איתו, בלי מסכים, אותה ארוחה, טחינה ליד הירקות, לדבר על דברים אחרים, חבר לארוחה, ארוחה מוקדמת ולהזמין את סבתא.",
+          "target_parent": "אמא לבן 3 עד 5 ששומעת מסבתא ״אצלי הוא אכל הכול״ ובבית הוא מסכים רק לפסטה.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "two-faces",
+            "gap": "Why does he eat everything at grandma's and only pasta at home?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "k3",
+            "mechanism": "recognition",
+            "slide2_move": "name_trigger"
+          },
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "אופק",
+          "examples_target": 8,
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short wavy chestnut hair, light tan skin, round hazel eyes and rosy cheeks; about 105 cm tall.",
+            "parent": "His mother, late thirties, olive skin, dark straight hair in a low bun, small gold hoop earrings and a warm tired smile.",
+            "wardrobe": "Boy: teal cotton T-shirt with no print and grey shorts. Mother: white cotton blouse and navy trousers."
+          },
+          "image": {
+            "beat": "an open-mouthed gasp at a full family table",
+            "action": "The boy faces the viewer and looks straight into the camera with an open-mouthed gasp and raised eyebrows, holding a cucumber stick dipped in a small bowl of tahini; a bowl of plain pasta sits in front of him and his mother is small and soft in the background, sitting down at the table with her own plate.",
+            "setting": "An Israeli family dinner table at home: a striped tablecloth, a big shared bowl of salad in the middle, a small bowl of tahini, plates and glasses of water.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm evening light from a ceiling lamp, cosy and even.",
+            "wardrobe_objects": "The cucumber stick, held by the boy; the small bowl of tahini, the bowl of pasta and the shared salad bowl on the table.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the table"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אצל סבתא אוכל הכול\nבבית רק פסטה",
+              "body": "8 דברים שיעזרו גם בבית",
+              "pull": {
+                "type": "open_loop",
+                "note": "למה דווקא אצל סבתא? שקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "לא האוכל של סבתא\nהשולחן של סבתא",
+              "body": "אצל סבתא כולם אוכלים ביחד\nואני מחקה את כולם",
+              "pull": {
+                "type": "next_step",
+                "note": "איך מביאים את השולחן הביתה? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 לשבת לאכול איתי\n2 בלי מסכים על השולחן",
+              "body": "כשאת אוכלת לידי גם אני רוצה\nובלי מסך אני רואה אותך",
+              "examples": [
+                "לשבת לאכול איתי",
+                "בלי מסכים על השולחן"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והשלישי על התפריט בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 אותה ארוחה לכולם",
+              "body": "בלי מנה מיוחדת רק בשבילי\nועם משהו אחד שאני אוהב",
+              "examples": [
+                "אותה ארוחה לכולם"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והרביעי מהמטבח של סבתא בשקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 טחינה ליד הירקות",
+              "body": "כמו אצל סבתא\nמלפפון בטחינה זה כבר משחק",
+              "examples": [
+                "טחינה ליד הירקות"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועל מה מדברים? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 לדבר על דברים אחרים",
+              "body": "״אופק מה הכי הצחיק אותך היום?״\nולא על כמה אכלתי",
+              "examples": [
+                "לדבר על דברים אחרים"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי עוד מוזמן? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 חבר לארוחת ערב",
+              "body": "ילד שאוכל לידי ירקות\nרק בלי ״תראה איך הוא אוכל״",
+              "examples": [
+                "חבר לארוחת ערב"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ושני האחרונים בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "7 ארוחה לפני שאני עייף\n8 להזמין את סבתא",
+              "body": "כשעוד יש לי כוח לנסות\nוליד סבתא קל לי יותר לטעום",
+              "examples": [
+                "ארוחה לפני שאני עייף",
+                "להזמין את סבתא"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "השולחן של סבתא\nיכול להיות גם אצלנו",
+              "body": "ביחד ובכיף ובלי לספור ביסים",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור להם גם\nבסיפור אישי",
+              "body": "תשמרי את הפוסט\nותשלחי לאמא שתסכים איתך",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "למה אצל סבתא הוא אוכל הכול ובבית רק פסטה\nאצל סבתא כולם יושבים ואוכלים ביחד והוא מחקה\nלשבת לאכול איתו בלי מסכים ולדבר על דברים אחרים\nטחינה ליד הירקות חבר לארוחה ולפעמים גם סבתא\nובערב אפשר להמשיך עם סיפור שבו הילד שלך הוא הגיבור\nתשמרי את הפוסט ותשלחי לאמא שתסכים איתך",
+          "cta": "תשמרי את הפוסט\nותשלחי לאמא שתסכים איתך",
+          "sources": [
+            {
+              "id": "src-nhs",
+              "title": "Fussy eaters",
+              "publisher": "NHS (page last reviewed 13 November 2023)",
+              "url": "https://www.nhs.uk/baby/weaning-and-feeding/fussy-eaters/",
+              "accessed": "2026-10-24",
+              "quote": "Ask an adult that your child likes and looks up to to eat with you. Sometimes a child will eat for someone else, such as a grandparent, without any fuss. ... The best way for your child to learn to eat and enjoy new foods is to copy you. Try to eat with them as often as you can. ... Make mealtimes enjoyable and not just about eating. Sit down and chat about other things. ... If you know any other children of the same age who are good eaters, ask them round for tea. But do not talk too much about how good the other children are. ... Do not leave meals until your child is too hungry or tired to eat.",
+              "supports": "A child will sometimes eat for someone else, such as a grandparent, without any fuss; children learn new foods by copying, so eat with them; make mealtimes enjoyable and chat about other things; invite children who are good eaters without talking about how good they are; do not leave meals until the child is too hungry or tired. NHS advice for parents of fussy eaters (baby and toddler section); applied to ages 3 to 4."
+            },
+            {
+              "id": "src-aap",
+              "title": "10 Tips for Parents of Picky Eaters",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (source: AAP Committee on Nutrition, last updated 4/26/2018)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/nutrition/Pages/Picky-Eaters.aspx",
+              "accessed": "2026-10-24",
+              "quote": "Share a meal together as a family as often as you can. This means no media distractions like TV or cell phones at mealtime. Use this time to model healthy eating. ... Serve one meal for the whole family and resist the urge to make another meal if your child refuses what you've served. This only encourages picky eating. Try to include at least one food your child likes with each meal and continue to provide a balanced meal, whether she eats it or not. ... Kids this age also tend to enjoy any food involving a dip.",
+              "supports": "Share family meals with no TV or phones; serve one meal for the whole family with at least one food the child likes; toddlers tend to enjoy food with a dip. Written for toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-owen",
+              "title": "Peas, please! Food familiarization though picture books helps parents introduce vegetables into preschoolers' diets",
+              "publisher": "Owen L.H., Kennedy O.B., Hill C., Houston-Price C., Appetite 2018;128:32-43 (peer reviewed, University of Reading repository)",
+              "url": "https://centaur.reading.ac.uk/72923/",
+              "accessed": "2026-10-24",
+              "quote": "Repeated taste exposure is an established means of increasing children’s liking and intake of fruit and vegetables. However, parents find it difficult to offer children disliked foods repeatedly, often giving up after a few attempts. Studies show that familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods. ... compared to the control group who experienced only taste exposure, looking at vegetable books enhanced children’s liking of their target vegetable post-intervention (p<.001) and at follow-up (p<.05), and increased consumption of the vegetable at follow-up (p<.01).",
+              "supports": "Picture books that make a vegetable familiar raised toddlers' interest in tasting it and their liking of it. A randomised study with 127 toddlers aged 21 to 24 months; picture books about one target vegetable, read daily for two weeks before taste exposure. It does not test personalised books."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "אצל סבתא אוכל הכול בבית רק פסטה",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "A setup for one imagined child; rests on NHS: sometimes a child will eat for someone else, such as a grandparent, without any fuss."
+            },
+            {
+              "slide": 2,
+              "wording_he": "אצל סבתא כולם אוכלים ביחד ואני מחקה את כולם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS: the best way for a child to learn to eat new foods is to copy; a child may eat for a grandparent without fuss. That grandma's shared table is the reason for this child is our wording, a possibility."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לשבת לאכול איתי ובלי מסכים על השולחן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs",
+                "src-aap"
+              ],
+              "supports": "NHS: eat with them as often as you can; AAP: family meals with no media distractions like TV or cell phones."
+            },
+            {
+              "slide": 4,
+              "wording_he": "אותה ארוחה לכולם ועם משהו אחד שאני אוהב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: serve one meal for the whole family and include at least one food your child likes."
+            },
+            {
+              "slide": 5,
+              "wording_he": "טחינה ליד הירקות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: kids this age tend to enjoy any food involving a dip. Tahini is our Israeli example."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לדבר על דברים אחרים ולא על כמה אכלתי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS: make mealtimes enjoyable and not just about eating; chat about other things."
+            },
+            {
+              "slide": 7,
+              "wording_he": "חבר לארוחת ערב בלי להשוות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS: invite children of the same age who are good eaters, but do not talk too much about how good the other children are."
+            },
+            {
+              "slide": 8,
+              "wording_he": "ארוחה לפני שאני עייף ולהזמין את סבתא",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS: do not leave meals until your child is too hungry or tired; ask an adult the child looks up to, such as a grandparent, to eat with you."
+            },
+            {
+              "slide": 9,
+              "wording_he": "השולחן של סבתא יכול להיות גם אצלנו",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "Our recap; no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לו גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-owen"
+              ],
+              "supports": "Owen et al. 2018: familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods, and vegetable books added to taste exposure raised liking. Toddler study with picture books about one vegetable; that the story is personal, with the child as the hero, is our wording and was not tested."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-new-story"
+              ],
+              "supports": "Live site, checked today: the child's name is in the text and the child stars in every illustration; parents can pick a catalogue story or create a new one (there is no catalogue book on picky eating, so the DM link would offer a new story). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "הניגוד ״אצל סבתא / בבית״ מוכר כמעט לכל אמא ושואל ״למה דווקא אצלי?״. שקופית 2 עונה בלי להאשים (זה השולחן ולא האוכל), והדוגמאות מביאות את השולחן של סבתא הביתה. הכריכה אומרת מה מקבלים (8 דברים) והילד מסתכל ישר לעדשה."
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "label_he": "גישה מקצועית מבוססת מקורות",
+      "versions": [
+        {
+          "id": "expert-1",
+          "title": "הסיבה האמיתית שהוא אוכל רק פסטה",
+          "angle": "הסבר מבוסס מקורות: זהירות מאוכל לא מוכר היא שלב טבעי בגיל הזה, ומרקם הוא סיבה מרכזית לסירוב, ולכן פסטה ואורז שמרגישים אותו דבר בכל פעם בטוחים. שבעה דברים: מוכר בכל צלחת, גשרים בין מאכלים, עשר טעימות, טעם מוכר ליד חדש, לא פסטה בכל ארוחה, בלי פרס, והוא מחליט כמה.",
+          "target_parent": "אמא לבן 2 עד 4 שאוכל רק פסטה ואורז ותוהה אם זה משהו שהיא עשתה.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "real-reason",
+            "gap": "What is the real reason a toddler eats only pasta, and what can mom do?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e1",
+            "mechanism": "reframe",
+            "slide2_move": "first_answer"
+          },
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "נתן",
+          "examples_target": 7,
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "character_anchor": {
+            "child": "A 3-year-old Israeli boy with a short dark-blond bowl cut, fair skin with a light tan, big blue-grey eyes and chubby cheeks; about 96 cm tall.",
+            "parent": "His mother, early thirties, olive skin, long wavy dark-brown hair worn down, kind brown eyes and a calm smile.",
+            "wardrobe": "Boy: navy cotton T-shirt with no print and beige shorts. Mother: sage-green cardigan over a white tee."
+          },
+          "image": {
+            "beat": "a giant grin over the one food he trusts",
+            "action": "The boy faces the viewer and looks straight into the camera with a giant grin, holding up a fork twirled with plain spaghetti; next to his bowl of pasta there is one small spoonful of couscous on a side plate, and his mother is small and soft in the background, smiling.",
+            "setting": "An Israeli home kitchen at lunchtime: a white table, a child's bowl of plain pasta and a small side plate with a spoonful of couscous.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Bright soft midday daylight.",
+            "wardrobe_objects": "The fork, held by the boy; the bowl of pasta and the side plate with couscous on the table.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale cream wall above the table"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "הסיבה האמיתית\nשהוא אוכל רק פסטה",
+              "body": "7 דברים שאפשר לעשות",
+              "pull": {
+                "type": "open_loop",
+                "note": "מה הסיבה? שקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "ילדים קטנים נזהרים\nמאוכל שהם לא מכירים",
+              "body": "זה שלב טבעי שבדרך כלל עובר\nובפסטה ואורז אין הפתעות במרקם",
+              "pull": {
+                "type": "next_step",
+                "note": "ומה עושים עם זה? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 משהו מוכר בכל צלחת",
+              "body": "פסטה ולידה כף אחת של משהו חדש\nככה נתן לא נשאר רעב",
+              "examples": [
+                "משהו מוכר בכל צלחת"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והשני בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 מאורז לפתיתים",
+              "body": "ומשם לקוסקוס\nצבע ומרקם דומים עוזרים להתקדם",
+              "examples": [
+                "מאורז לפתיתים"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "וכמה פעמים לנסות? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 לעשות טעימות",
+              "body": "״רק טעימה קטנה״\nואם לא אז שוב בעוד שבוע",
+              "examples": [
+                "לעשות טעימות"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והרביעי על ירקות בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "4 ירק עם טעם מוכר",
+              "body": "ברוקולי עם גבינה מגוררת\nמר ליד מלוח שהוא כבר אוהב",
+              "examples": [
+                "ירק עם טעם מוכר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והחמישי על הפסטה עצמה בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "5 פסטה לא בכל ארוחה",
+              "body": "גם אם הוא מבקש רק פסטה\nתקופה של מאכל אחד לרוב קצרה",
+              "examples": [
+                "פסטה לא בכל ארוחה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ושני האחרונים בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "6 בלי קינוח כפרס\n7 הוא מחליט כמה לאכול",
+              "body": "פרס הופך את הירק למטלה\nאת מגישה והוא מחליט אם ובכמה",
+              "examples": [
+                "בלי קינוח כפרס",
+                "הוא מחליט כמה לאכול"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "מוכר ליד חדש\nושוב ושוב בלי לחץ",
+              "body": "גם את רוצה לעזור להם\nלאכול דברים חדשים?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור להם גם\nבסיפור אישי",
+              "body": "תשמרי את הפוסט\nותשלחי לאמא שתסכים איתך",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "למה ילד בן 3 אוכל רק פסטה ואורז\nילדים קטנים נזהרים מאוכל שהם לא מכירים וזה שלב טבעי\nמשהו מוכר בכל צלחת ומאורז לפתיתים לקוסקוס\nעשר טעימות ויותר ובלי קינוח כפרס\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nתשמרי את הפוסט ותשלחי לאמא שתסכים איתך",
+          "cta": "תשמרי את הפוסט\nותשלחי לאמא שתסכים איתך",
+          "sources": [
+            {
+              "id": "src-dc",
+              "title": "Risk Factors and Consequences of Food Neophobia and Pickiness in Children and Adolescents: A Systematic Review",
+              "publisher": "del Campo C. et al., Foods 2024;14(1):69 (systematic review, PMC)",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11720204/",
+              "accessed": "2026-10-24",
+              "quote": "Currently, neophobia is a useful mechanism in early childhood linked to the development of a sense of taste; the attitude of distrust toward novelty protects the child from the danger of eating something potentially dangerous to health ... Sensory characteristics have been reported as the most influential determinants of eating behavior, and among these, textures are the main reason for food rejection or acceptance in children ... Food neophobia is a natural development stage that usually resolves spontaneously",
+              "supports": "Wariness of new food is a useful mechanism in early childhood and a natural stage that usually resolves; texture is the main reason children reject or accept foods. A systematic review on food neophobia and pickiness; the quoted lines are its background statements."
+            },
+            {
+              "id": "src-aap",
+              "title": "10 Tips for Parents of Picky Eaters",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (source: AAP Committee on Nutrition, last updated 4/26/2018)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/nutrition/Pages/Picky-Eaters.aspx",
+              "accessed": "2026-10-24",
+              "quote": "Serve one meal for the whole family and resist the urge to make another meal if your child refuses what you've served. This only encourages picky eating. Try to include at least one food your child likes with each meal and continue to provide a balanced meal, whether she eats it or not. ... Once a food is accepted, use what nutritionists call \"food bridges\" to introduce others with similar color, flavor and texture to help expand variety in what your child will eat. ... Just because a child refuses a food once, don't give up. Keep offering new foods and those your child didn't like before. It can take as many as 10 or more times tasting a food before a toddler’s taste buds accept it. Scheduled meals and limiting snacks can help ensure your child is hungry when a new food is introduced. ... To minimize waste, offer new foods in small amounts and wait at least a week or two before reintroducing the same food. ... Try serving unfamiliar foods, or flavors young children tend to dislike at first (sour and bitter), with familiar foods toddlers naturally prefer (sweet and salty). Pairing broccoli (bitter) with grated cheese (salty), for example, is a great combination for toddler taste buds. ... Tempting as it may be, try not to bribe your children with treats for eating other foods. This can make the \"prize\" food even more exciting, and the food you want them to try an unpleasant chore. It also can lead to nightly battles at the dinner table. ... It's a parent's responsibility to provide food, and the child’s decision to eat it. Pressuring kids to eat, or punishing them if they don't, can make them actively dislike foods they may otherwise like.",
+              "supports": "Include one liked food at each meal; food bridges to foods of similar color, flavor and texture; 10 or more tastes; wait a week or two before offering the same food again; pair bitter vegetables with familiar salty foods such as broccoli with grated cheese; no treats as bribes; the parent provides and the child decides whether to eat. Written for toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-kht",
+              "title": "Toddlers at the Table: Avoiding Power Struggles",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD, January 2021)",
+              "url": "https://kidshealth.org/en/parents/toddler-meals.html",
+              "accessed": "2026-10-24",
+              "quote": "You choose the foods on your toddler's plate — and you don't have to serve macaroni and cheese daily. If you do, you miss a chance to introduce new foods and increase the number of foods your child is willing to eat. Most of these \"food jags\" won't last long if parents don't give in to them. ... Especially with foods that aren't yet favorites, a couple of tablespoons is plenty to start with. Small portions are less overwhelming",
+              "supports": "The parent chooses what goes on the plate and need not serve the same favorite daily; most food jags don't last long; small portions of new foods. Written about toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-owen",
+              "title": "Peas, please! Food familiarization though picture books helps parents introduce vegetables into preschoolers' diets",
+              "publisher": "Owen L.H., Kennedy O.B., Hill C., Houston-Price C., Appetite 2018;128:32-43 (peer reviewed, University of Reading repository)",
+              "url": "https://centaur.reading.ac.uk/72923/",
+              "accessed": "2026-10-24",
+              "quote": "Repeated taste exposure is an established means of increasing children’s liking and intake of fruit and vegetables. However, parents find it difficult to offer children disliked foods repeatedly, often giving up after a few attempts. Studies show that familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods. ... compared to the control group who experienced only taste exposure, looking at vegetable books enhanced children’s liking of their target vegetable post-intervention (p<.001) and at follow-up (p<.05), and increased consumption of the vegetable at follow-up (p<.01).",
+              "supports": "Picture books that make a vegetable familiar raised toddlers' interest in tasting it and their liking of it. A randomised study with 127 toddlers aged 21 to 24 months; picture books about one target vegetable, read daily for two weeks before taste exposure. It does not test personalised books."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "ילדים קטנים נזהרים מאוכל שהם לא מכירים וזה שלב טבעי שבדרך כלל עובר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-dc"
+              ],
+              "supports": "del Campo et al.: distrust toward novelty is a useful mechanism in early childhood; food neophobia is a natural stage that usually resolves spontaneously."
+            },
+            {
+              "slide": 2,
+              "wording_he": "ובפסטה ואורז אין הפתעות במרקם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-dc"
+              ],
+              "supports": "del Campo et al.: textures are the main reason for food rejection or acceptance in children. That pasta and rice feel the same each time is our plain-language application."
+            },
+            {
+              "slide": 3,
+              "wording_he": "משהו מוכר בכל צלחת וכף אחת של משהו חדש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kht"
+              ],
+              "supports": "AAP: include at least one food your child likes with each meal; KidsHealth: a couple of tablespoons of a new food is plenty."
+            },
+            {
+              "slide": 4,
+              "wording_he": "מאורז לפתיתים ומשם לקוסקוס",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: food bridges, foods with similar color, flavor and texture to expand variety. Rice to ptitim to couscous is our Israeli example of the principle."
+            },
+            {
+              "slide": 5,
+              "wording_he": "עשר טעימות ויותר ושוב בעוד שבוע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: it can take as many as 10 or more tastes before a toddler accepts a food; wait at least a week or two before reintroducing the same food."
+            },
+            {
+              "slide": 6,
+              "wording_he": "ברוקולי עם גבינה מגוררת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: pair bitter flavors with familiar salty ones, for example broccoli with grated cheese."
+            },
+            {
+              "slide": 7,
+              "wording_he": "פסטה לא בכל ארוחה ותקופה של מאכל אחד לרוב קצרה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kht"
+              ],
+              "supports": "KidsHealth: you choose the foods on the plate and don't have to serve the same favorite daily; most food jags won't last long."
+            },
+            {
+              "slide": 8,
+              "wording_he": "בלי קינוח כפרס והוא מחליט כמה לאכול",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: bribing with treats makes the food you want them to try an unpleasant chore; it is the parent's job to provide food and the child's decision to eat it."
+            },
+            {
+              "slide": 9,
+              "wording_he": "מוכר ליד חדש ושוב ושוב בלי לחץ",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "Our recap of the examples; no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לו גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-owen"
+              ],
+              "supports": "Owen et al. 2018: familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods, and vegetable books added to taste exposure raised liking. Toddler study with picture books about one vegetable; that the story is personal, with the child as the hero, is our wording and was not tested."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-new-story"
+              ],
+              "supports": "Live site, checked today: the child's name is in the text and the child stars in every illustration; parents can pick a catalogue story or create a new one (there is no catalogue book on picky eating, so the DM link would offer a new story). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "״הסיבה האמיתית״ פותח שאלה שכל אמא של אוכל פסטה רוצה לסגור, והתשובה בשקופית 2 מורידה אשמה (שלב טבעי ומרקם צפוי). הכריכה מבטיחה 7 דברים, והדוגמאות קונקרטיות לבית ישראלי (פתיתים וקוסקוס, ברוקולי עם גבינה)."
+        },
+        {
+          "id": "expert-2",
+          "title": "איך עוזרים לבת 3 שאוכלת רק פסטה?",
+          "angle": "תשעה צעדים מעשיים מבוססי מקורות לבת 3 שאוכלת רק פסטה, על בסיס חלוקת התפקידים: ההורים מחליטים מה מגישים והילדה מחליטה אם ובכמה. ארוחה משותפת, ארוחה אחת, משהו אהוב, מנה קטנה, טעם מוכר, בלי חטיף לפני, שוב אחרי שבוע, לבחור ולבשל, בלי שוחד ועונש.",
+          "target_parent": "הורים לבת 2 עד 4 שמחפשים תוכנית ברורה לארוחת הערב בלי להכריח ובלי לוותר.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "practical_question",
+          "hook": {
+            "formula": "practical-question",
+            "gap": "How do you help a 3-year-old who eats only pasta, without forcing her?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "e2",
+            "mechanism": "honest_curiosity",
+            "slide2_move": "promise"
+          },
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "ליה",
+          "examples_target": 9,
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "character_anchor": {
+            "child": "A 3-year-old Israeli girl with light-brown hair in a short bob with a fringe, fair skin, wide green eyes and a tiny dimple; about 95 cm tall.",
+            "parent": "Her mother, mid-thirties, light olive skin, dark hair in a messy bun and warm brown eyes, and her father, mid-thirties, tanned skin, short brown hair and light stubble; both calm and a little tired in a real way.",
+            "wardrobe": "Girl: pale pink cotton sweatshirt with no print and grey leggings. Mother: plum knit top and jeans. Father: light blue shirt with rolled sleeves."
+          },
+          "image": {
+            "beat": "a jaw-dropped stare at two spoonfuls of something new",
+            "action": "The girl faces the viewer and looks straight into the camera with a jaw-dropped stare and raised eyebrows, sitting behind her plate of plain pasta with two small spoonfuls of broccoli and grated cheese beside the pasta; her parents are small and soft in the background, sitting at the table with their own plates.",
+            "setting": "An Israeli family dinner table in the evening: a light oak table, three plates, a shared bowl of broccoli and a small bowl of grated cheese.",
+            "camera": "Child eye level, close waist-up shot, the face large in the frame.",
+            "lighting": "Warm golden evening light.",
+            "wardrobe_objects": "Her plate with the pasta and the two spoonfuls of broccoli with grated cheese; the shared bowls on the table.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the table"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "איך עוזרים לבת 3\nשאוכלת רק פסטה?",
+              "body": "9 צעדים שאפשר להתחיל הערב",
+              "pull": {
+                "type": "question",
+                "note": "התשובה מתחילה בשקופית 2"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "בלי להכריח וגם\nבלי לוותר על ירקות",
+              "body": "אתם מחליטים מה מגישים\nוהיא מחליטה אם ובכמה לאכול",
+              "pull": {
+                "type": "next_step",
+                "note": "שני הצעדים הראשונים בשקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 אוכלים ביחד בלי מסך\n2 ארוחה אחת לכל הבית",
+              "body": "כולם אותו דבר מאותו סיר\nבלי להכין לה מנה נפרדת",
+              "examples": [
+                "אוכלים ביחד בלי מסך",
+                "ארוחה אחת לכל הבית"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והשלישי בצלחת שלה בשקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 משהו אהוב בכל צלחת",
+              "body": "פסטה או אורז ליד החדש\nגם אם היא אוכלת רק אותם",
+              "examples": [
+                "משהו אהוב בכל צלחת"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "וכמה מהחדש? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 שתי כפות מהחדש\n5 ירק ליד טעם מוכר",
+              "body": "מנה קטנה פחות מבהילה\nולברוקולי מוסיפים גבינה מגוררת",
+              "examples": [
+                "שתי כפות מהחדש",
+                "ירק ליד טעם מוכר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והשישי לפני הארוחה בשקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 בלי חטיף לפני ארוחה",
+              "body": "גם לא כוס חלב או מיץ\nכשהיא רעבה קל לה יותר לנסות",
+              "examples": [
+                "בלי חטיף לפני ארוחה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אם היא לא טעמה? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 לנסות שוב אחרי שבוע\n8 לבחור ולבשל ביחד",
+              "body": "לפעמים צריך 10 טעימות ויותר\n״ליה איזה ירק נקנה היום?״",
+              "examples": [
+                "לנסות שוב אחרי שבוע",
+                "לבחור ולבשל ביחד"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "9 בלי שוחד ובלי עונש",
+              "body": "שניהם הופכים את הארוחה למאבק\nואת הירק למטלה",
+              "examples": [
+                "בלי שוחד ובלי עונש"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "אתם מגישים היא מחליטה\nוהארוחה נרגעת",
+              "body": "מנה קטנה ליד משהו מוכר\nושוב ושוב בלי לחץ",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור להם גם\nבסיפור אישי",
+              "body": "תשמרו את הפוסט\nותשלחו להורה שיסכים איתכם",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "בת 3 שאוכלת רק פסטה ואתם לא רוצים מלחמה על הצלחת\nלפי האקדמיה האמריקאית לרפואת ילדים אתם מחליטים מה מגישים\nוהיא מחליטה אם ובכמה לאכול\nארוחה אחת לכולם שתי כפות מהחדש ובלי חטיף לפני\nובערב אפשר להמשיך עם סיפור שבו הילדה שלכם היא הגיבורה\nתשמרו את הפוסט ותשלחו להורה שיסכים איתכם",
+          "cta": "תשמרו את הפוסט\nותשלחו להורה שיסכים איתכם",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "10 Tips for Parents of Picky Eaters",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (source: AAP Committee on Nutrition, last updated 4/26/2018)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/nutrition/Pages/Picky-Eaters.aspx",
+              "accessed": "2026-10-24",
+              "quote": "It's a parent's responsibility to provide food, and the child’s decision to eat it. Pressuring kids to eat, or punishing them if they don't, can make them actively dislike foods they may otherwise like. ... Share a meal together as a family as often as you can. This means no media distractions like TV or cell phones at mealtime. Use this time to model healthy eating. ... Serve one meal for the whole family and resist the urge to make another meal if your child refuses what you've served. This only encourages picky eating. Try to include at least one food your child likes with each meal and continue to provide a balanced meal, whether she eats it or not. ... Try serving unfamiliar foods, or flavors young children tend to dislike at first (sour and bitter), with familiar foods toddlers naturally prefer (sweet and salty). Pairing broccoli (bitter) with grated cheese (salty), for example, is a great combination for toddler taste buds. ... Just because a child refuses a food once, don't give up. Keep offering new foods and those your child didn't like before. It can take as many as 10 or more times tasting a food before a toddler’s taste buds accept it. Scheduled meals and limiting snacks can help ensure your child is hungry when a new food is introduced. ... To minimize waste, offer new foods in small amounts and wait at least a week or two before reintroducing the same food. ... Let you child pick which fruit and vegetable to make for dinner or during visits to the grocery store or farmer's market. ... Some cooking tasks are perfect for toddlers (with lots of supervision, of course): sifting, stirring, counting ingredients ... Tempting as it may be, try not to bribe your children with treats for eating other foods. This can make the \"prize\" food even more exciting, and the food you want them to try an unpleasant chore. It also can lead to nightly battles at the dinner table.",
+              "supports": "The parent provides food and the child decides whether to eat; pressure can make children dislike foods; family meals with no TV or phones; one meal for the whole family with one liked food; pair bitter vegetables with familiar salty foods; 10 or more tastes; scheduled meals and limiting snacks; wait a week or two before offering the same food again; let the child pick vegetables and help cook; no bribes, which turn the new food into a chore and lead to battles. Written for toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-kht",
+              "title": "Toddlers at the Table: Avoiding Power Struggles",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD, January 2021)",
+              "url": "https://kidshealth.org/en/parents/toddler-meals.html",
+              "accessed": "2026-10-24",
+              "quote": "A parent's role is to present healthy foods and let a child decide which ones to eat — or whether to eat at all. ... Especially with foods that aren't yet favorites, a couple of tablespoons is plenty to start with. Small portions are less overwhelming ... Avoid offering snacks or giving hungry kids cups of milk or juice right before a meal. This can lessen their appetite and make them less willing to try a new food being offered. ... Threatening a punishment, much like bribing a child with dessert, won't work in the long run either. It creates a power struggle.",
+              "supports": "A parent presents foods and lets the child decide which to eat or whether to eat; a couple of tablespoons of new food is plenty; no snacks, milk or juice right before a meal; threats, like bribes, create a power struggle. Written about toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-khp",
+              "title": "How Should I Deal With a Picky Eater?",
+              "publisher": "Nemours KidsHealth (medically reviewed by Mary L. Gavin, MD, January 2021)",
+              "url": "https://kidshealth.org/en/parents/picky-eater.html",
+              "accessed": "2026-10-24",
+              "quote": "Don't cook special meals just for a picky eater, but do include something your daughter likes in every meal.",
+              "supports": "Don't cook special meals for a picky eater, but include something the child likes in every meal. A parent Q&A about a picky eater who wants the same food every day."
+            },
+            {
+              "id": "src-owen",
+              "title": "Peas, please! Food familiarization though picture books helps parents introduce vegetables into preschoolers' diets",
+              "publisher": "Owen L.H., Kennedy O.B., Hill C., Houston-Price C., Appetite 2018;128:32-43 (peer reviewed, University of Reading repository)",
+              "url": "https://centaur.reading.ac.uk/72923/",
+              "accessed": "2026-10-24",
+              "quote": "Repeated taste exposure is an established means of increasing children’s liking and intake of fruit and vegetables. However, parents find it difficult to offer children disliked foods repeatedly, often giving up after a few attempts. Studies show that familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods. ... compared to the control group who experienced only taste exposure, looking at vegetable books enhanced children’s liking of their target vegetable post-intervention (p<.001) and at follow-up (p<.05), and increased consumption of the vegetable at follow-up (p<.01).",
+              "supports": "Picture books that make a vegetable familiar raised toddlers' interest in tasting it and their liking of it. A randomised study with 127 toddlers aged 21 to 24 months; picture books about one target vegetable, read daily for two weeks before taste exposure. It does not test personalised books."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אתם מחליטים מה מגישים והיא מחליטה אם ובכמה לאכול",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kht"
+              ],
+              "supports": "AAP: it's a parent's responsibility to provide food, and the child's decision to eat it; KidsHealth: a parent presents healthy foods and lets a child decide which ones to eat or whether to eat at all."
+            },
+            {
+              "slide": 3,
+              "wording_he": "אוכלים ביחד בלי מסך וארוחה אחת לכל הבית",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: share family meals with no TV or cell phones; serve one meal for the whole family and resist making another meal."
+            },
+            {
+              "slide": 4,
+              "wording_he": "משהו אהוב בכל צלחת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-khp"
+              ],
+              "supports": "AAP: include at least one food your child likes with each meal; KidsHealth: include something the child likes in every meal."
+            },
+            {
+              "slide": 5,
+              "wording_he": "שתי כפות מהחדש וירק ליד טעם מוכר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kht",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: a couple of tablespoons is plenty to start, small portions are less overwhelming; AAP: pair broccoli with grated cheese."
+            },
+            {
+              "slide": 6,
+              "wording_he": "בלי חטיף לפני ארוחה וגם לא כוס חלב או מיץ",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kht",
+                "src-aap"
+              ],
+              "supports": "KidsHealth: avoid snacks or cups of milk or juice right before a meal, they lessen appetite and willingness to try a new food; AAP: limiting snacks helps the child be hungry when a new food is introduced."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לנסות שוב אחרי שבוע ולפעמים צריך 10 טעימות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: it can take as many as 10 or more tastes; wait at least a week or two before reintroducing the same food."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לבחור ולבשל ביחד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: let your child pick fruit and vegetables at the store; toddlers can help with simple cooking tasks."
+            },
+            {
+              "slide": 8,
+              "wording_he": "בלי שוחד ובלי עונש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-kht"
+              ],
+              "supports": "AAP: bribes make the new food an unpleasant chore and can lead to nightly battles; KidsHealth: threatening a punishment creates a power struggle."
+            },
+            {
+              "slide": 9,
+              "wording_he": "אתם מגישים היא מחליטה והארוחה נרגעת",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-aap",
+                "src-kht"
+              ],
+              "supports": "Our recap of the approach; 'נרגעת' describes the mood the sources aim for (fewer battles), not a promised result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לה גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-owen"
+              ],
+              "supports": "Owen et al. 2018: familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods, and vegetable books added to taste exposure raised liking. Toddler study with picture books about one vegetable; that the story is personal, with the child as the hero, is our wording and was not tested."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילדה היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-new-story"
+              ],
+              "supports": "Live site, checked today: the child's name is in the text and the child stars in every illustration; parents can pick a catalogue story or create a new one (there is no catalogue book on picky eating, so the DM link would offer a new story). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "השאלה המעשית שהורים מחפשים, עם גיל וערך על הכריכה (9 צעדים שאפשר להתחיל הערב). שקופית 2 נותנת את העיקרון של האקדמיה האמריקאית לרפואת ילדים במשפט אחד, וכל צעד אחריו קטן ומדויק."
+        },
+        {
+          "id": "expert-3",
+          "title": "רק שתדעו שבועות של פסטה זה שלב מוכר",
+          "angle": "נרמול שמוריד דאגה, מבוסס מקורות: שבועות של מאכל אחד או שניים הם שלב מוכר בגיל הזה, ו״לא״ של היום הוא לא ״לא״ לתמיד. שבעה דברים שעוזרים לעבור את השלב: להסתכל על שבוע, ארבע קבוצות מזון, משהו מוכר, טעם חדש ליד מוכר, שוב בעוד שבוע, בלי לחץ, ורופא ילדים כשמשהו מדאיג.",
+          "target_parent": "הורים לבן 2 עד 4 שמודאגים שהוא לא מקבל מספיק כי הוא אוכל רק פסטה ואורז.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "normalising",
+          "hook": {
+            "formula": "just-so-you-know",
+            "gap": "Is weeks of only pasta normal, and what helps through it?",
+            "payoff_slide": 2,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 1,
+              "not_an_ad": 2
+            },
+            "slate_id": "e3",
+            "mechanism": "reassurance",
+            "slide2_move": "same_template"
+          },
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "איתן",
+          "examples_target": 7,
+          "expert_frame": {
+            "type": "evidence_based_take"
+          },
+          "character_anchor": {
+            "child": "A 3-year-old Israeli boy with short black curly hair, warm brown skin, big dark eyes and a round face; about 97 cm tall.",
+            "parent": "His mother, early thirties, light brown skin, long dark curly hair in a ponytail, and his father, mid-thirties, olive skin, short dark hair and round glasses; both relaxed and amused.",
+            "wardrobe": "Boy: orange cotton T-shirt with no print and dark blue shorts. Mother: cream linen shirt. Father: dark green T-shirt."
+          },
+          "image": {
+            "beat": "a cheeky giant grin, hugging his bowl of pasta",
+            "action": "The boy faces the viewer and looks straight into the camera with a cheeky giant grin, hugging a bowl of plain pasta with both arms on the table; his parents are small and soft in the background, smiling at each other.",
+            "setting": "An Israeli kitchen in the evening: a white table and a small plate with a few cucumber slices and a little rice next to the boy.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm evening light.",
+            "wardrobe_objects": "The bowl of pasta, held by the boy; the small plate of cucumber slices and rice on the table.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the table"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "רק שתדעו\nשבועות של פסטה\nזה שלב מוכר",
+              "body": "ו-7 דברים שעוזרים",
+              "pull": {
+                "type": "numbered",
+                "note": "השבעה מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "רק שתדעו\nלפעמים צריך 10 טעימות",
+              "body": "עד שילד מתרגל לטעם חדש\n״לא״ של היום הוא לא ״לא״ לתמיד",
+              "pull": {
+                "type": "next_step",
+                "note": "אז על מה כן להסתכל? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 מסתכלים על שבוע שלם",
+              "body": "יום של רק פסטה זה מוכר\nמה שחשוב זה מה שהוא אוכל בשבוע",
+              "examples": [
+                "מסתכלים על שבוע שלם"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה צריך להיות בשבוע? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "2 ארבע קבוצות מזון",
+              "body": "פסטה ואורז הם אחת מהן\nועוד פירות וירקות חלבון ומוצרי חלב",
+              "examples": [
+                "ארבע קבוצות מזון"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה שמים בצלחת? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "3 משהו מוכר בכל ארוחה\n4 טעם חדש ליד מוכר",
+              "body": "״איתן הפסטה פה ולידה משהו חדש״\nכמו ברוקולי וגבינה מגוררת",
+              "examples": [
+                "משהו מוכר בכל ארוחה",
+                "טעם חדש ליד מוכר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומתי לנסות שוב? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 לנסות שוב בעוד שבוע",
+              "body": "מנה קטנה של אותו מאכל\nבלי לוותר אחרי פעם אחת",
+              "examples": [
+                "לנסות שוב בעוד שבוע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והשישי על מה לא להגיד בשקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 בלי ״רק עוד ביס״",
+              "body": "לחץ לאכול יכול לגרום לו\nלא לאהוב מאכל שאולי היה אוהב",
+              "examples": [
+                "בלי ״רק עוד ביס״"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון כשמשהו מדאיג בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "7 לבדוק אצל רופא ילדים",
+              "body": "אם משהו מדאיג אתכם\nהוא יבדוק שלא חסר לו כלום",
+              "examples": [
+                "לבדוק אצל רופא ילדים"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "הכול ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "שבוע שלם ולא יום אחד\nוסבלנות בלי לחץ",
+              "body": "גם אתם רוצים לעזור לאיתן לטעום?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 מציעה עוד דרך לעזור"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר לעזור להם גם\nבסיפור אישי",
+              "body": "תשמרו את הפוסט\nותשלחו להורה שיסכים איתכם",
+              "highlight": "בסיפור אישי"
+            }
+          ],
+          "caption": "שבועות שהוא אוכל רק פסטה ואורז ואתם מודאגים\nלפי האקדמיה האמריקאית לרפואת ילדים זה שלב מוכר בגיל הזה\nמסתכלים על שבוע שלם ולא על יום אחד\nולפעמים צריך 10 טעימות עד שטעם חדש מתקבל\nובערב אפשר להמשיך עם סיפור שבו הילד שלכם הוא הגיבור\nתשמרו את הפוסט ותשלחו להורה שיסכים איתכם",
+          "cta": "תשמרו את הפוסט\nותשלחו להורה שיסכים איתכם",
+          "sources": [
+            {
+              "id": "src-aap",
+              "title": "10 Tips for Parents of Picky Eaters",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (source: AAP Committee on Nutrition, last updated 4/26/2018)",
+              "url": "https://www.healthychildren.org/English/ages-stages/toddler/nutrition/Pages/Picky-Eaters.aspx",
+              "accessed": "2026-10-24",
+              "quote": "For weeks, they may eat 1 or 2 preferred foods – and nothing else. ... If you are concerned about your child’s diet, talk with your pediatrician, who can help troubleshoot and make sure your child is getting all the necessary nutrients to grow and develop. Also keep in mind that picky eating usually is a normal developmental stage for toddlers. ... Just because a child refuses a food once, don't give up. Keep offering new foods and those your child didn't like before. It can take as many as 10 or more times tasting a food before a toddler’s taste buds accept it. Scheduled meals and limiting snacks can help ensure your child is hungry when a new food is introduced. ... Serve one meal for the whole family and resist the urge to make another meal if your child refuses what you've served. This only encourages picky eating. Try to include at least one food your child likes with each meal and continue to provide a balanced meal, whether she eats it or not. ... Try serving unfamiliar foods, or flavors young children tend to dislike at first (sour and bitter), with familiar foods toddlers naturally prefer (sweet and salty). Pairing broccoli (bitter) with grated cheese (salty), for example, is a great combination for toddler taste buds. ... To minimize waste, offer new foods in small amounts and wait at least a week or two before reintroducing the same food. ... It's a parent's responsibility to provide food, and the child’s decision to eat it. Pressuring kids to eat, or punishing them if they don't, can make them actively dislike foods they may otherwise like.",
+              "supports": "For weeks toddlers may eat 1 or 2 preferred foods and nothing else; picky eating is usually a normal developmental stage; talk with your pediatrician if concerned; 10 or more tastes; one liked food at each meal; pair bitter vegetables with familiar salty foods; small amounts and a week or two before trying the same food again; pressure can make children dislike foods. Written for toddlers; applied to ages 3 to 4 as the same stage."
+            },
+            {
+              "id": "src-nhs",
+              "title": "Fussy eaters",
+              "publisher": "NHS (page last reviewed 13 November 2023)",
+              "url": "https://www.nhs.uk/baby/weaning-and-feeding/fussy-eaters/",
+              "accessed": "2026-10-24",
+              "quote": "But it's perfectly normal for toddlers to refuse to eat or even taste new foods. ... Do not worry about what your child eats in a day or if they do not eat everything at mealtimes. It's more helpful to think about what they eat over a week. ... If your child is active and gaining weight, and they seem well, then they're getting enough to eat. ... As long as your child eats some food from the 4 main food groups (fruit and vegetables; potatoes, bread, rice, pasta and other starchy carbohydrates; dairy or dairy alternatives; and beans, pulses, fish, eggs, meat and other proteins) you do not need to worry. ... Children's tastes change. One day they'll hate something, but a month later they may love it.",
+              "supports": "Refusing new foods is normal for toddlers; think about what they eat over a week; an active child who is gaining weight and seems well is getting enough; some food from the 4 main food groups (including rice and pasta) means no need to worry; tastes change. NHS advice for parents of fussy eaters (baby and toddler section); applied to ages 3 to 4."
+            },
+            {
+              "id": "src-owen",
+              "title": "Peas, please! Food familiarization though picture books helps parents introduce vegetables into preschoolers' diets",
+              "publisher": "Owen L.H., Kennedy O.B., Hill C., Houston-Price C., Appetite 2018;128:32-43 (peer reviewed, University of Reading repository)",
+              "url": "https://centaur.reading.ac.uk/72923/",
+              "accessed": "2026-10-24",
+              "quote": "Repeated taste exposure is an established means of increasing children’s liking and intake of fruit and vegetables. However, parents find it difficult to offer children disliked foods repeatedly, often giving up after a few attempts. Studies show that familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods. ... compared to the control group who experienced only taste exposure, looking at vegetable books enhanced children’s liking of their target vegetable post-intervention (p<.001) and at follow-up (p<.05), and increased consumption of the vegetable at follow-up (p<.01).",
+              "supports": "Picture books that make a vegetable familiar raised toddlers' interest in tasting it and their liking of it. A randomised study with 127 toddlers aged 21 to 24 months; picture books about one target vegetable, read daily for two weeks before taste exposure. It does not test personalised books."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "שבועות של פסטה זה שלב מוכר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: for weeks, toddlers may eat 1 or 2 preferred foods and nothing else; picky eating usually is a normal developmental stage for toddlers."
+            },
+            {
+              "slide": 2,
+              "wording_he": "לפעמים צריך 10 טעימות עד שילד מתרגל לטעם חדש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: it can take as many as 10 or more times tasting a food before a toddler's taste buds accept it."
+            },
+            {
+              "slide": 2,
+              "wording_he": "״לא״ של היום הוא לא ״לא״ לתמיד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS: children's tastes change; one day they'll hate something, but a month later they may love it."
+            },
+            {
+              "slide": 3,
+              "wording_he": "מסתכלים על שבוע שלם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS: do not worry about what your child eats in a day; think about what they eat over a week."
+            },
+            {
+              "slide": 4,
+              "wording_he": "ארבע קבוצות מזון ופסטה ואורז הם אחת מהן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-nhs"
+              ],
+              "supports": "NHS: as long as your child eats some food from the 4 main food groups (fruit and vegetables; starchy carbohydrates including rice and pasta; dairy; proteins) you do not need to worry."
+            },
+            {
+              "slide": 5,
+              "wording_he": "משהו מוכר בכל ארוחה וטעם חדש ליד מוכר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: include one liked food with each meal; pair unfamiliar flavors with familiar ones, such as broccoli with grated cheese."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לנסות שוב בעוד שבוע במנה קטנה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: offer new foods in small amounts and wait at least a week or two before reintroducing; don't give up after one refusal."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לחץ לאכול יכול לגרום לו לא לאהוב מאכל",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap"
+              ],
+              "supports": "AAP: pressuring kids to eat can make them actively dislike foods they may otherwise like."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לבדוק אצל רופא ילדים אם משהו מדאיג",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-aap",
+                "src-nhs"
+              ],
+              "supports": "AAP: if you are concerned, talk with your pediatrician, who can make sure your child is getting the necessary nutrients; NHS: an active child who is gaining weight and seems well is getting enough."
+            },
+            {
+              "slide": 9,
+              "wording_he": "שבוע שלם ולא יום אחד וסבלנות בלי לחץ",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-nhs",
+                "src-aap"
+              ],
+              "supports": "Our recap; no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "אפשר לעזור לו גם בסיפור אישי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-owen"
+              ],
+              "supports": "Owen et al. 2018: familiarizing children to fruit and vegetables through picture books can increase their interest in tasting targeted foods, and vegetable books added to taste exposure raised liking. Toddler study with picture books about one vegetable; that the story is personal, with the child as the hero, is our wording and was not tested."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-new-story"
+              ],
+              "supports": "Live site, checked today: the child's name is in the text and the child stars in every illustration; parents can pick a catalogue story or create a new one (there is no catalogue book on picky eating, so the DM link would offer a new story). No brand or title on the slide."
+            }
+          ],
+          "conversion_rationale": "״רק שתדעו״ מוריד דאגה ומזמין שיתוף בין הורים, והכריכה מבטיחה 7 דברים. השקופיות נותנות להורים מה לבדוק (שבוע, ארבע קבוצות מזון) ומה לעשות בצלחת, ומתי לפנות לרופא ילדים."
+        }
+      ]
+    }
+  ],
+  "cta_style": "save_share"
+}

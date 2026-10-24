@@ -43,6 +43,6 @@ def enrich(C):
         h=c['h']
         if h in W1: c['n'],c['l'],c['m']=W1[h]; c['wave']=1; c['own']=1
         else:
-            c['n']=GREET.get(h) or c['name'].split()[0]; c['l']=topic(c['arch']); c['m']=moment3(c['role'],c['concept']) if c.get('extra') in ('pass3','pass4','pass5') else moment(c['role'],c['concept']); c['wave']=2; c['own']=0
+            c['n']=GREET.get(h) or c['name'].split()[0]; c['l']=topic(c['arch']); c['m']=moment3(c['role'],c['concept']) if int((re.match(r'pass(\d+)',str(c.get('extra','')))or[0,0])[1])>=3 else moment(c['role'],c['concept']); c['wave']=2; c['own']=0
             pr=c['prac']
             if 'expensive' in pr.lower() or 'Standard paid' in pr or 'management' in c['contact'].lower() or 'ניהול' in c['contact']: c['wave']=3
