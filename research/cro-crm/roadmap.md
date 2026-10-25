@@ -37,13 +37,17 @@ Confidence: high = observed defect or strong evidence; medium = good evidence, L
 | 18 | Smaller fixes: links to @lumebook.il, step counter, seasonal ordering, Markdown in blog preview, "Unknown Book", sibling copy, age range (A8, A10 to A15) | Observed | Trust and polish | High | S each | | Yossi | n/a |
 | 19 | One illustrated inner page for people who left (X3) | Inner pages locked | Removes the likeness doubt for the undecided | Low | M | Generation cost per page | Yossi, business | Contribution per person messaged |
 | 20 | Free greeting card vs direct link (X9, F0) | Live at `/holiday-cards`, untracked; zero-price effect | Unknown | Low | M | Code redemptions per arm | Yarin, Yossi | Paid books per 100 DM conversations |
+| 22 | Meta URL parameters: one line on every ad; CardCom and test hosts as unwanted referrals (`measurement.md` section 4) | 1,441 ad sessions counted as Organic Social; 8 source spellings; CardCom referral credited ₪4,376 (`numbers-2026-10-25.md`) | Ads and organic posts become separable; GA4 stops crediting CardCom | High | S | Ads Manager and GA4 access | whoever runs the ads, Yossi | Share of Meta sessions with `utm_medium=paid-social`; Referral revenue in GA4 |
+| 23 | No list-wide marketing broadcasts until consent is separate (A6) | Back-to-school message: 813 sent, 1 purchase within 24 h | Removes the riskiest messages and their cost | High | S | | Yossi, business | Marketing messages sent without a trigger: zero |
+| 24 | "למי הספר?" on the thank-you page, four weeks (X8) | Meta credits 43 of 102 purchases to women 45 and over | Tells whether gift givers need their own path | Medium | S | | Yossi, Yarin | Share answering "לנכד או לנכדה"; payment per preview by answer |
+| 25 | One Control-versus-Challenger ad test before raising the budget | Admin recommendation, 25 Oct; ₪33 per paid order in 7 days, ₪30 target | Budget goes to the ad that sells | Medium | S | | whoever runs the ads | Meta purchases and paid orders per arm after about 102 Meta purchases |
 | 21 | Gift-giver photo link or gift card (X8, B2) | Gift buyer share unknown; MeBook sells gift cards | Lets buyers without a photo order | Low | L | Result of item 14 | Business, Yossi | Gift orders |
 
 ## 3. Do now, test next, defer
 
-**Do now (fixes and low-risk changes, no test needed):** items 1, 2, 3, 5, 7, 8, 9, 10, 16, 18. Measure each with a before/after window written down in advance.
+**Do now (fixes and low-risk changes, no test needed):** items 1, 2, 3, 5, 7, 8, 9, 10, 16, 18, 22, 23, 24 (22 first: it takes minutes and makes every later read possible). Measure each with a before/after window written down in advance.
 
-**Test next (with a holdout or a fixed before/after window):** items 4, 6, 11, 12, 13, 14, 15, 17.
+**Test next (with a holdout or a fixed before/after window):** items 4, 6, 11, 12, 13, 14, 15, 17, 25.
 
 **Defer until the basics are fixed and costs are known:** items 19, 20, 21, new discount levels, any new tool, small copy and design tests.
 
@@ -53,6 +57,7 @@ Confidence: high = observed defect or strong evidence; medium = good evidence, L
 |---|---|---|
 | Mon | Yarin | Load `/books/15` and `/books/2` on a phone in a private window over mobile data; note when the cover appears. Send Yossi the results with audit A1. |
 | Mon | Yarin | Send Yossi one message with: A1, A2/A3, A6, F6, F4 and the missing-data list (section 6 below). Ask for a 30-minute call. |
+| Mon | Yarin | Send whoever runs the Meta ads the URL parameters line (item 22) and ask for the destination URL of every live ad; ask Yossi what the `chatgpt / paid` traffic in GA4 is and whether money is spent on it. |
 | Tue | Yarin | Start using one UTM format (`measurement.md` section 4) on every link; link posts to the book page, not the home page. |
 | Tue | Yarin | Ask whoever answers support for the last 90 days of chats, or read them; tag price, delivery, likeness, payment, photo, other. |
 | Wed | Business | Confirm the Hanukkah order-by date and the real print plus delivery time (`shared/facts.json` key date is unconfirmed). |
@@ -83,6 +88,7 @@ Confidence: high = observed defect or strong evidence; medium = good evidence, L
 
 | Need | From | Why |
 |---|---|---|
+| Mixpanel connected to the admin again ("mixpanel_export_too_large" on 25 Oct) | Yossi | The only source of reached-payment counts, the biggest leak in the plan |
 | Read access to the admin's order table with `acquisitionAttribution`, flow arm, and the message log (sends, holdout flag, opt-outs) | Yossi | Every KPI and holdout read |
 | GA4 property `G-HXMTP56QS9` admin or editor access | Yossi | Unwanted referrals, data redaction, internal traffic, DebugView |
 | Cost per order: print, shipping, CardCom fee, illustration generation per page and per preview, message fees | Yossi, business | Contribution per order and every discount or preview decision |

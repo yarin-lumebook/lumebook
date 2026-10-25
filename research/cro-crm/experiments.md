@@ -19,6 +19,7 @@ What this means:
 - **Only large effects are measurable by A/B test**, and only at the payment step or for the whole start-to-purchase rate. A change that adds 2 or 3 points will not be distinguishable from noise this year.
 - **CRM holdouts cannot produce a precise answer per message.** They can still show direction when pooled over months and over several flows, and they protect against counting purchases that would have happened anyway.
 - The store already splits visitors into flow arms (`localStorage.lumebook_flow_arm = "wizard"`, `book_flow_v1`), so randomisation infrastructure exists. Use it for the few tests below that can reach a decision; use the methods in section 2 for the rest.
+- **Ads are the exception.** Meta credited about 45 purchases a week in late October, and the admin's decision centre (25 Oct [O-admin-oct25]) already plans one current ad against one new ad, ₪250 each, a random 50/50 split, up to 14 days, ending at about 102 Meta purchases. That is the one test with enough volume this quarter; read it on paid orders per arm as well as Meta's count, and do not split the budget across more ads during it.
 - **Peeking**: deciding as soon as a difference looks good inflates false positives [S-exp]. Fix the sample size or the end date before starting, and read results once.
 
 ## 2. What to do when volume is too low
@@ -99,7 +100,7 @@ Ordering: fix observed defects first (they need no test to justify), then the te
 
 ### X5. Rationalise the coupon ladder
 
-- **Problem and evidence:** in the admin's comparison with a left-alone group, the first coupon added +5.4 sales per 100 and the third +1.6 (12 Oct readout); the dashboard's own note flags that the left-alone group is probably tiny. In 70 randomised discount e-mail tests, about 90% of the extra spending came from people who never redeemed the code, so the reminder did most of the work; deeper discounts lowered later buying by established customers in catalogue field tests; and a minority of buyers (5% to 19% in airline data) wait strategically for deals [S-wait].
+- **Problem and evidence:** in the admin's comparison with a left-alone group, the first coupon added +5.4 sales per 100 and the third +1.6 (12 Oct readout); on 25 Oct the plain reminder added +9.5, the first coupon +7.6 and the third +2 [O-admin-oct25]. The dashboard's own notes flag that the left-alone group is probably tiny and not random. In 70 randomised discount e-mail tests, about 90% of the extra spending came from people who never redeemed the code, so the reminder did most of the work; deeper discounts lowered later buying by established customers in catalogue field tests; and a minority of buyers (5% to 19% in airline data) wait strategically for deals [S-wait].
 - **Hypothesis:** dropping the third coupon, and making the first reminder a no-discount help message, keeps most recovered sales and raises contribution per recovered sale.
 - **Exact change:** reminder 1 without coupon; coupon only at step 2 for people still eligible; no third coupon.
 - **Primary metric:** contribution per eligible person (revenue minus discount, print, shipping and message costs), not purchases.
@@ -128,7 +129,7 @@ Ordering: fix observed defects first (they need no test to justify), then the te
 
 ### X8. Gift giver photo request (B2)
 
-- **Problem and evidence:** ad delivery skews to women 55 and over, read as grandmothers but not verified (12 Oct readout); a gift giver may not have a good photo. The group-order flow already sends parents an upload link.
+- **Problem and evidence:** ad delivery skews to women 55 and over, read as grandmothers but not verified (12 Oct readout); on 25 Oct Meta credited 43 of the 102 purchases in its age table to women 45 and over, women 55 to 64 the cheapest at ₪81 each [O-admin-oct25], still Meta's attribution and not buyers. A gift giver may not have a good photo. **First step, now:** one optional question on the thank-you page, "למי הספר?" (לילד שלי, לנכד או לנכדה, לאחיין או לאחיינית, מתנה לחברים), for four weeks, read against payment per preview by answer (journey demo step 8, note 5). The group-order flow already sends parents an upload link.
 - **Hypothesis:** letting a gift buyer send the parent an upload link increases gift orders.
 - **Step 1 (no development):** ask "למי הספר?" in the Instagram DM router (`crm-flows.md`, F1) and in the post-purchase message, for four weeks, to size the gift-giver share.
 - **Decision rule:** build the request link only if gift givers are a meaningful share (business sets the bar before reading the answers).
@@ -145,7 +146,7 @@ Ordering: fix observed defects first (they need no test to justify), then the te
 
 ### X10. Second book offer framed for siblings and family
 
-- **Problem and evidence:** the post-purchase offer is the strongest recorded message (48 purchases after 209 sends in 90 days, $0.16 message cost per purchase, not shown to be caused by the message) and buyers average 1.40 books (12 Oct readout).
+- **Problem and evidence:** the post-purchase offer is the strongest recorded message (48 purchases after 209 sends in 90 days, $0.16 message cost per purchase, 12 Oct; 62 purchases within 24 hours of 234 received, $0.15, 25 Oct [O-admin-oct25]; not shown to be caused by the message) and buyers average 1.41 books.
 - **Hypothesis:** a sibling and cousin framing ("עוד ילד או ילדה בבית?") raises second-book take-up versus the current wording.
 - **Primary metric:** second book within the ₪79 window ÷ first purchases, by variant, with a holdout that gets no offer.
 - **Decision rule:** sizeable effects only (volume is about 70 sends a month); run for a quarter.

@@ -13,9 +13,10 @@ CRO (conversion rate optimisation) here means getting more of the people who alr
 | `measurement.md` | Events, sources of truth, UTMs, KPIs, incrementality, weekly checks |
 | `roadmap.md` | Backlog, first week, 30/60/90 days, who does what, missing access, stack |
 | `sources.md` | Every source with its evidence type and limits |
-| `cro-crm-strategy.html` | All seven files as one page with a section menu, plus the Hebrew action list as section 2 (built by `src/build_strategy_page.py`: edit the Markdown or `src/journey-actions.json`, then rebuild) |
+| `numbers-2026-10-25.md` | The admin readout and GA4 exports of 25 Oct: ad cost per order, funnel, books, messages, what GA4 can and cannot see, and what it changes here (raw GA4 files in `data/ga4-2026-10-25/`) |
+| `cro-crm-strategy.html` | All eight files as one page with a section menu, plus the Hebrew action list as section 2 (built by `src/build_strategy_page.py`: edit the Markdown or `src/journey-actions.json`, then rebuild) |
 | `src/journey-actions.json` | Every action in the journey demo as Yarin's working list in Hebrew (47 items in seven stages, who does it, fix or test or decision, how we know it worked); filter tiles and done marks on the page, marks kept in the browser only |
-| `journey-demo.html` | A step-by-step walkthrough of the fixed journey on a simulated phone, starting from a Facebook ad (since 24 Oct, at Yarin's request; it started from an Instagram post and DM before), with a note behind every change and the list of every change at the end (built from `src/journey-demo.template.html` by `src/build_journey_demo.py`; nothing in it is generated or live) |
+| `journey-demo.html` | A step-by-step walkthrough of the fixed journey on a simulated phone, starting from a Facebook ad (since 24 Oct, at Yarin's request; it started from an Instagram post and DM before), with a note behind every change and the list of every change at the end (built from `src/journey-demo.template.html` by `src/build_journey_demo.py`; nothing in it is generated or live). |
 
 ## The five priorities
 
@@ -56,6 +57,17 @@ CRO (conversion rate optimisation) here means getting more of the people who alr
 
 A sixth item belongs on the same developer list because it is small and sits upstream of everything: **show the book cover immediately on book pages** (8.7 s and 16.2 s waits measured for a returning visitor; first-time visitors also wait for a 3D viewer, `audit.md` A1).
 
+## What the 25 Oct numbers change
+
+The admin readout and seven GA4 exports came in on 25 Oct (`numbers-2026-10-25.md`). The five priorities stand; these points sharpen them.
+
+1. **Ads are close to target, so the funnel is now the cheaper lever.** In the 7 full days to 24 Oct ads cost ₪33 per paid order across all orders and ₪52 per purchase Meta credits, against ₪47 and ₪89 the week before, a ₪30 target and a ₪50 ceiling, at ₪550 a day. Every point gained between preview and payment now lowers cost per order without more budget. Keep the budget flat until one Control-versus-Challenger ad test has run (the admin's own recommendation, and the one place with enough volume for a real A/B test).
+2. **Priority 5 starts this week, with the ads owner:** more than half of GA4's "Organic Social" (1,441 of 2,606 sessions) is ad clicks whose Meta placement sits in `utm_medium`; the Meta source has eight spellings; CardCom's return visits give "Referral" more revenue than Paid Social; GA4 counts a third or more fewer purchasers than the store and has three purchase events. One URL parameter line on every ad and the unwanted-referral list fix most of it (`measurement.md` section 4).
+3. **Recovery order confirmed, with today's admin comparison:** the plain "finish your book" reminder adds +9.5 purchases per 100 against people left alone, the first coupon +7.6, the third +2. Reminder first, one coupon at most, no third (X5). The admin also says there is no random control group, so holdouts become a fix.
+4. **No list-wide broadcasts:** the back-to-school message went to 813 people and was followed by one purchase within 24 hours; it is also the riskiest kind of message while consent is bundled (priority 3).
+5. **"למי הספר?" moves to do now** as one optional question on the thank-you page (X8): Meta credits 43 of the 102 purchases in its age table to women 45 and over.
+6. **The ads probably land on general pages, not book pages** (the birthday book page has about 390 views in 90 days against 3,490 paid-social sessions), which makes the book deep link (X7) more valuable than assumed. Check the ads' destination URLs.
+
 ## What the research changed (assumptions challenged)
 
 1. **"We need to set up phone-based lead capture and a CRM."** The store already does both. It verifies the phone (and requires an e-mail) before any preview, sends WhatsApp and SMS through Twilio, keeps a left-alone comparison group, and has reminders, a referral program, a reaction-video offer, a sibling offer and a marketing preferences page. The work is to fix consent, sequence and measure what exists, with the developer, not to add a new system.
@@ -63,8 +75,8 @@ A sixth item belongs on the same developer list because it is small and sits ups
 3. **The free greeting card is already live, so the question is whether it sells books.** `/holiday-cards` offers a personalised Hanukkah card or a five-page colouring booklet, then a ₪99 book code, but it is not in the sitemap and trackers are blocked on it. A free offer attracts people who value the zero price ([S-zero]), costs generation money and adds a step. Keep the direct book link as the default social CTA and test the card against it in the DM funnel, judged on paid books and cost per paid book (`experiments.md` X9).
 4. **Tool access does not mean tracking works.** GA4 is nearly blind past the landing page (priority 5).
 5. **ManyChat is an entry point, not the CRM.** Use it to answer comments and DMs with the right book link and one question ("למי הספר?"); let the store's own phone step identify people, so consent and identity stay in one place.
-6. **Discounts are not the main recovery lever.** In the admin's own comparison the third coupon added +1.6 sales per 100 against +5.4 for the first (with a comparison group the dashboard calls probably tiny), and the best recorded message is the ₪79 second book, not a coupon. Fix clarity first; at most one coupon, never in the first message, judged on contribution (`crm-flows.md` section 6).
-7. **The grandparent buyer is still a hypothesis.** It rests on ad delivery by age, not on verified buyers. Ask "למי הספר?" in the DM router and after purchase for four weeks before building anything for gift givers (`experiments.md` X8).
+6. **Discounts are not the main recovery lever.** In the admin's own comparison the third coupon added +1.6 sales per 100 against +5.4 for the first (with a comparison group the dashboard calls probably tiny); on 25 Oct the plain reminder added +9.5, the first coupon +7.6 and the third +2, and the best linked message is still the ₪79 second book (62 purchases within 24 hours of 234 received), not a coupon. Fix clarity first; at most one coupon, never in the first message, judged on contribution (`crm-flows.md` section 6).
+7. **The grandparent buyer is still a hypothesis, but a stronger one.** It rests on Meta's attribution by age (since 25 Oct: women 45 and over get 43 of 102 credited purchases, women 55 to 64 the cheapest at ₪81 each), not on verified buyers. Ask "למי הספר?" after purchase now, and in the DM router, for four weeks before building anything for gift givers (`experiments.md` X8).
 8. **Faster recovery messages are not better.** In field experiments with 40,500 and 23,900 customers, cart reminders sent 30 to 60 minutes after abandonment made people less likely to buy than no message, while reminders 1 to 3 days later increased purchases [S-timing]. Every recovery flow here waits about a day (`crm-flows.md`, section 3).
 9. **A/B tests are mostly out of reach.** About 200 people reach payment a month; detecting a 10-point change there needs about 780. Fix observed defects, use fixed before/after windows, usability sessions and non-buyer interviews, and keep holdouts running for a quarter (`experiments.md` section 1).
 
@@ -76,13 +88,13 @@ A sixth item belongs on the same developer list because it is small and sits ups
 | Steps to purchase | Book page, wizard, preview, payment | Card request, card, a later book offer, then the same four steps |
 | Cost | Preview generation per started book (cost unknown) | Card generation per request, plus the book preview later |
 | Risk | Visitors not ready yet leave without trace | Draws freebie seekers; distracts from the book; tracking blocked on the route |
-| Evidence for LumeBook | 21.7% of starters pay within 7 days | None yet |
+| Evidence for LumeBook | 21.1% of people who start a book pay within 7 days (25 Oct; 21.7% on 12 Oct) | None yet |
 | Recommendation | Default | Test only (X9); also a good thank-you gift after purchase |
 
 ## Do now, test next, defer
 
-- **Do now:** priorities 1, 3, 4 and 5, the book-page cover fix, links to @lumebook.il, the photo-retention line at upload, coupon ladder without a first-message coupon. These are fixes; measure each with a before/after window written down in advance.
-- **Test next:** priority 2 content (real pages, promise), the payment-step reminder (F4) with a holdout, the help, video, review and referral sequence after delivery (F8, F9, F12), the sibling framing of the second-book offer (X10), the DM router question (X8), per-channel preferences.
+- **Do now:** priorities 1, 3, 4 and 5 (starting with the Meta URL parameters and CardCom as an unwanted referral), the book-page cover fix, links to @lumebook.il, the photo-retention line at upload, coupon ladder without a first-message coupon, no list-wide broadcasts, the "למי הספר?" question after purchase. These are fixes; measure each with a before/after window written down in advance.
+- **Test next:** priority 2 content (real pages, promise), the payment-step reminder (F4) with a holdout, the help, video, review and referral sequence after delivery (F8, F9, F12), the sibling framing of the second-book offer (X10), the DM router question (X8), per-channel preferences, one Control-versus-Challenger ad test before any budget increase.
 - **Defer:** one illustrated inner page before payment (needs the generation cost), the free card as a default funnel, a gift-giver photo link or gift card, new discount levels, any new tool, small copy and design tests.
 
 ## Stack in one paragraph
@@ -91,7 +103,7 @@ Keep customer records, consent and WhatsApp in the store, which already sends th
 
 ## What is still unverified
 
-Card entry, and whether the wallets (all four show in Safari) appear inside Facebook's and Instagram's in-app browsers; payment failure and confirmation pages on screen; the server's purchase payload; the live WhatsApp templates and their timing; page speed and accessibility scores (PageSpeed Insights would not run); the first-visit experience on a clean phone; costs per order (print, shipping, generation, fees), which every profit decision needs. The access needed is listed in `roadmap.md` section 6.
+Where the ads land; what the "chatgpt / paid" traffic in GA4 is; reached-payment counts since 12 Oct (Mixpanel is not connected to the admin); card entry, and whether the wallets (all four show in Safari) appear inside Facebook's and Instagram's in-app browsers; payment failure and confirmation pages on screen; the server's purchase payload; the live WhatsApp templates and their timing; page speed and accessibility scores (PageSpeed Insights would not run); the first-visit experience on a clean phone; costs per order (print, shipping, generation, fees), which every profit decision needs. The access needed is listed in `roadmap.md` section 6.
 
 ## How this folder is kept private
 

@@ -3,7 +3,7 @@
 
     python3 research/cro-crm/src/build_strategy_page.py
 
-Input:  research/cro-crm/{report,audit,experiments,crm-flows,measurement,roadmap,sources}.md and
+Input:  research/cro-crm/{report,numbers-2026-10-25,audit,experiments,crm-flows,measurement,roadmap,sources}.md and
         research/cro-crm/src/journey-actions.json (the Hebrew action list, every action in the journey demo; its pictures
         come from media/projects/2026-10-24-cro-crm-actions/ and are left out when missing). Edit them, then rebuild,
         never edit the HTML
@@ -40,6 +40,7 @@ TITLE = "CRO and CRM Strategy"
 DOCS = [  # (file stem, pill label); "actions" is the Hebrew action list from src/journey-actions.json, open at the top
     ("actions", "מה עושים"),
     ("report", "Summary"),
+    ("numbers-2026-10-25", "25 Oct numbers"),
     ("audit", "Audit"),
     ("experiments", "Experiments"),
     ("crm-flows", "CRM flows"),
@@ -71,7 +72,7 @@ def plain(t):
 
 
 def code(c):
-    stem = re.sub(r"^(?:research/cro-crm/)?([a-z-]+)\.md$", r"\1", c)
+    stem = re.sub(r"^(?:research/cro-crm/)?([a-z0-9-]+)\.md$", r"\1", c)
     if stem in STEMS and c.endswith(".md"):
         return f'<a href="#doc-{stem}"><code>{html.escape(c)}</code></a>'
     return f"<code>{html.escape(c)}</code>"

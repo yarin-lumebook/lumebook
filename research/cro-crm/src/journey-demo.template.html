@@ -32,8 +32,7 @@
 @media (max-width: 1199px) { .tb-chapters .chapters { display: none; } }
 @media (min-width: 1200px) { main .chapters { display: none; } }
 .tb-link { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-2); text-decoration: none; padding: .35rem .6rem; border-radius: var(--r-sm); white-space: nowrap; }
-.tb-link:hover { background: var(--fill); color: var(--text); text-decoration: none; }
-@media (max-width: 600px) { .tb-link.hide-sm, .tb-brand span { display: none; } .tb-brand b { font-size: 1rem; } }
+.tb-link:hover { background: var(--fill); color: var(--text); text-decoration: none; }@media (max-width: 600px) { .tb-link.hide-sm, .tb-brand span { display: none; } .tb-brand b { font-size: 1rem; } }
 
 main { width: 100%; max-width: 82rem; margin-inline: auto; padding: var(--sp-5) var(--sp-5) var(--sp-7); }
 @media (max-width: 640px) { main { padding: var(--sp-4) var(--sp-4) var(--sp-7); } }
@@ -123,6 +122,7 @@ abbr[title] { text-decoration: underline dotted var(--text-3); text-underline-of
 .nrow { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: var(--sp-3); }
 .nrow > b { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); padding-top: .1rem; }
 .nrow .today { color: var(--text-2); }
+.how { display: block; margin: 0; justify-self: start; text-align: left; font-size: var(--fs-footnote); line-height: 1.5; overflow-wrap: anywhere; background: var(--fill); border-radius: var(--r-sm); padding: var(--sp-2) var(--sp-3); }
 @media (max-width: 560px) { .note > summary { grid-template-columns: 1.75rem minmax(0, 1fr) auto; } .note > summary .lb-chip { grid-column: 2; grid-row: 2; justify-self: start; } .nbody { padding-inline-start: var(--sp-4); } .nrow { grid-template-columns: minmax(0, 1fr); gap: .15rem; } }
 .ev { display: grid; gap: var(--sp-2); margin: 0; padding: 0; list-style: none; }
 .ev li { display: grid; gap: .2rem; }
@@ -433,6 +433,10 @@ body.fit .notes-box { flex: 1; min-height: 0; overflow-y: auto; overscroll-behav
 .ty-extra div { display: grid; gap: 6px; }
 .ty-row { display: flex; gap: 6px; }
 .ty-row > * { flex: 1; min-width: 0; height: 44px; font-size: 15px; }
+.ty-who { display: grid; gap: 8px; }
+.ty-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ty-chips button { appearance: none; border: 1.5px solid var(--gold); background: transparent; color: var(--gold); border-radius: 999px; padding: 8px 12px; min-height: 40px; font: 400 14px var(--site); cursor: pointer; }
+.ty-chips button[aria-pressed="true"] { background: var(--gold); color: var(--ink); }
 
 /* ---------- WhatsApp (light) ---------- */
 .wa { flex: 1; display: flex; flex-direction: column; min-height: 0; background: var(--wa-bg); color: var(--wa-text); }
@@ -502,14 +506,22 @@ body.fit .notes-box { flex: 1; min-height: 0; overflow-y: auto; overscroll-behav
 .cgroup-h h3 { font-size: var(--fs-headline); }
 .cgroup-h a { margin-inline-start: auto; font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; }
 .clist { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
-.crow { display: grid; grid-template-columns: 1.75rem minmax(0, 1.25fr) minmax(0, 1fr) auto; gap: var(--sp-3); align-items: start; padding: var(--sp-3) var(--sp-4); font-size: var(--fs-callout); }
+.crow { font-size: var(--fs-callout); }
 .crow + .crow { border-top: 1px solid var(--line); }
-.crow .ctitle b { display: block; line-height: 1.35; }
+.crow > details > summary { list-style: none; display: grid; grid-template-columns: 1.75rem minmax(0, 1fr) auto auto; gap: var(--sp-3); align-items: start; padding: var(--sp-3) var(--sp-4); cursor: pointer; }
+.crow > details > summary::-webkit-details-marker { display: none; }
+.crow > details > summary:hover { background: var(--fill); }
+.crow > details > summary:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.crow .chev { color: var(--text-3); transition: transform .2s; margin-top: .15rem; }
+.crow details[open] .chev { transform: rotate(-90deg); }
+.crow .ctitle { display: block; line-height: 1.4; font-weight: 700; }
+.crow .cbody { display: grid; gap: var(--sp-2); padding: 0 var(--sp-4) var(--sp-3); padding-inline-start: calc(var(--sp-4) + 1.75rem + var(--sp-3)); }
+.crow .cbody a { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; }
 .crow .muted { color: var(--text-2); }
 .crow .k { display: block; font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); font-weight: 700; }
 .crow .meta { display: grid; gap: .3rem; justify-items: end; }
 .crow .meta small { font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
-@media (max-width: 760px) { .crow { grid-template-columns: 1.75rem minmax(0, 1fr); } .crow > :not(.nnum) { grid-column: 2; } .crow .meta { justify-items: start; grid-auto-flow: column; justify-content: start; } }
+@media (max-width: 760px) { .crow > details > summary { grid-template-columns: 1.75rem minmax(0, 1fr) auto; } .crow .meta { grid-column: 2; grid-row: 2; justify-items: start; grid-auto-flow: column; justify-content: start; align-items: center; gap: var(--sp-2); } .crow .chev { grid-column: 3; grid-row: 1; } .crow .cbody { padding-inline-start: var(--sp-4); } }
 .gloss > summary { cursor: pointer; font-weight: 700; font-size: var(--fs-headline); }
 .gloss dl { display: grid; grid-template-columns: minmax(9rem, max-content) minmax(0, 1fr); gap: var(--sp-2) var(--sp-4); margin: var(--sp-3) 0 0; font-size: var(--fs-callout); }
 .gloss dt { font-weight: 700; }
@@ -606,12 +618,13 @@ const ic = (n, cls) => `<svg class="i ${cls || ""}" viewBox="0 0 24 24" aria-hid
 
 /* ---------- simulation state (lives only in this tab) ---------- */
 const S = { version: "girl", name: "", age: "", gender: "", lang: "he", photo: false, phone: "", terms: false, mkt: false,
-  otp: false, verified: false, like: null, ship: "home", paid: false, reply: false, extra: false, reminder: false,
+  otp: false, verified: false, like: null, ship: "home", paid: false, reply: false, extra: false, reminder: false, who: "",
   tried: { details: false, photo: false, phone: false }, fired: new Set(), log: [] };
 const SHIP = { home: { label: "משלוח עד הבית", price: 30, days: 7, sub: "עד 7 ימי עסקים מהאישור" },
   rishon: { label: "נקודת איסוף בראשון לציון", price: 20, days: 14, sub: "עד 14 ימי עסקים מהאישור" },
   jlm: { label: "איסוף עצמי בירושלים", price: 0, days: 7, sub: "עד 7 ימי עסקים, בתיאום מראש" } };
 const BOOK = 119, EXTRA = 79;
+const FOR_WHOM = [["child", "לילד שלי"], ["grandchild", "לנכד או לנכדה"], ["niece", "לאחיין או לאחיינית"], ["gift", "מתנה לחברים"]];
 const nm = () => (S.name.trim() || "נועה");
 const ship = () => SHIP[S.ship];
 const total = () => BOOK + ship().price;
@@ -920,10 +933,14 @@ thanks: { sb: "", hi: "on-dark",
           ${S.extra ? `<span class="st-toast">✓ נוסף ספר (הדגמה)</span>` : `<button type="button" class="st-btn2" id="extra">מוסיפים ספר</button>`}</div></div>
         <div class="st-card" data-note="3"><b>שנזכיר לפני יום ההולדת הבא?</b><span class="st-dim">נזכיר שלושה שבועות לפני, מספיק זמן לספר מודפס</span>
           ${S.reminder ? `<span class="st-toast">✓ התזכורת נשמרה (הדגמה)</span>` : `<div class="ty-row"><input class="wz-in" value="${esc(nm())}" aria-label="שם"><select class="wz-sel" aria-label="יום">${Array.from({ length: 31 }, (_, i) => `<option>${i + 1}</option>`).join("")}</select></div><button type="button" class="st-btn2" id="remind">שמירת תזכורת</button>`}</div>
+        <div class="st-card ty-who" data-note="5"><b>שאלה אחת קטנה: למי הספר?</b>
+          <div class="ty-chips">${FOR_WHOM.map(([k, t]) => `<button type="button" data-who="${k}" aria-pressed="${S.who === k}">${t}</button>`).join("")}</div>
+          ${S.who ? `<span class="st-toast">✓ תודה! (הדגמה)</span>` : ""}</div>
         <p class="wz-note">${ic("message")}<span>העותק הדיגיטלי של ${esc(nm())} בדרך למייל</span></p>
       </div></div>`);
   },
   bind(root) {
+    $$("[data-who]", root).forEach(b => b.addEventListener("click", () => { S.who = b.dataset.who; fire("thanks", "who_for_answered", { who_for: S.who }); paint(true); }));
     const ex = $("#extra", root); if (ex) ex.addEventListener("click", () => { S.extra = true; paint(true); });
     const rm = $("#remind", root); if (rm) rm.addEventListener("click", () => { S.reminder = true; fire("thanks", "reminder_saved", { reminders_count: 1, days_until_next: "not sent: a date" }); paint(true); });
   } },
@@ -936,7 +953,7 @@ after: { sb: "", hi: "",
       <span class="demo-tag" data-note="1">שירות · תבנית utility · בלי הצעה</span>
       <div class="wa-day">אחרי האישור</div>
       ${waIn(`הספר של ${esc(nm())} יצא להדפסה 🖨️\nמגיע עד ${eta()}`, "14:40", { buttons: [["link", "מעקב אחרי ההזמנה"]] })}
-      <span class="demo-tag" data-note="2">שירות · בערך 0.005 דולר להודעה בישראל</span>
+      <span class="demo-tag" data-note="2">שירות · בערך 0.01 דולר להודעה בישראל, עם Twilio</span>
       <div class="wa-day" data-note="3">יומיים אחרי המסירה</div>
       ${waIn(`היי, הספר של ${esc(nm())} הגיע?\nאם משהו לא תקין בהדפסה או במשלוח, כתבו לנו כאן ונסדר`, "10:05")}
       ${S.reply ? waOut(`הגיע! לא מפסיקים לדפדף בו 😍`, "10:21") : `<button type="button" class="wa-reveal" id="reply">להציג את התשובה של ההורה</button>`}
@@ -944,7 +961,7 @@ after: { sb: "", hi: "",
       ${waIn(`יש לכם דקה לכתוב לנו ביקורת בגוגל?\nזה עוזר להורים אחרים להחליט`, "11:00", { buttons: [["link", "לכתיבת ביקורת"]] })}
       <span class="demo-tag">שירות · קשור להזמנה הזאת · בלי פרס</span>
       <div class="wa-day" data-note="5">אחרי תשובה שמחה</div>
-      ${S.mkt ? referral + `<span class="demo-tag mkt">שיווק · בערך 0.035 דולר · נשלח כי היא סימנה את תיבת ההצעות</span>`
+      ${S.mkt ? referral + `<span class="demo-tag mkt">שיווק · בערך 0.04 דולר · נשלח כי היא סימנה את תיבת ההצעות</span>`
         : `<div class="wa-blocked">${referral}</div><div class="wa-sys"><b>לא נשלח.</b> היא לא סימנה את תיבת ההצעות בשלב 5, אז אין הודעת שיווק. אפשר להחליף בפאנל.</div>`}
       <div class="wa-sys" data-note="6"><b>תקרות:</b> לכל היותר הודעת שיווק אחת ביום ושתיים בשבוע, לא בלילה ולא בשבת</div>` : ""}`);
   },
@@ -971,7 +988,8 @@ recover: { sb: "", hi: "",
       ${on ? "" : `<div class="wa-sys" data-note="3"><b>לא נשלח.</b> אין הסכמה לשיווק, אז אף אחת מהתזכורות לא יוצאת</div>`}
       <div class="wa-sys" data-note="5"><b>קבוצת ביקורת:</b> 2 מכל 10 הורים זכאים לא מקבלים כלום, בהגרלה</div>
       <div class="wa-people" aria-label="8 מתוך 10 מקבלים הודעות, 2 לא">${[1, 1, 0, 1, 1, 1, 1, 0, 1, 1].map(x => `<span class="${x ? "" : "out"}">🙂</span>`).join("")}</div>
-      <div class="wa-sys" data-note="6"><b>נחסם עם 131049?</b> נספר בנפרד: היא לא ראתה את ההודעה</div>`);
+      <div class="wa-sys" data-note="6"><b>נחסם עם 131049?</b> נספר בנפרד: היא לא ראתה את ההודעה</div>
+      <div class="wa-sys" data-note="7"><b>לא נשלח.</b> הודעה אחת לכל הרשימה, כמו ״חוזרים ללימודים״</div>`);
   },
   bind() {
     fire("recover", "F3", { flow: "F3 preview left", category: "marketing", holdout_group: "20% at random", first_send: "about 24 h after leaving", requires: "marketing consent" }, "msg");
@@ -1027,10 +1045,10 @@ function renderIntro() {
 function noteHTML(n, onScreen) {
   const ev = n.why.map(([t, s, u]) => `<li><span class="etype">${esc(t)}</span><span>${gloss(s)}</span>${srcLink(u)}</li>`).join("");
   return `<details class="note" id="note-${n.n}" data-n="${n.n}" ${activeNote === n.n ? "open" : ""}>
-    <summary><span class="nnum ${onScreen ? "" : "off"}">${n.n}</span><span class="ntitle">${gloss(n.title)}<small>${esc(whoText(n))}${onScreen ? "" : " · לא על המסך"}</small></span>${chip(n.st)}${ic("chev", "chev")}</summary>
+    <summary><span class="nnum ${onScreen ? "" : "off"}">${n.n}</span><span class="ntitle">${gloss(n.change)}<small>${esc(whoText(n))}${onScreen ? "" : " · לא על המסך"}</small></span>${chip(n.st)}${ic("chev", "chev")}</summary>
     <div class="nbody">
       <div class="nrow"><b>היום באתר</b><span class="today">${gloss(n.today)}</span></div>
-      <div class="nrow"><b>מה משנים</b><span>${gloss(n.change)}</span></div>
+      ${n.how ? `<div class="nrow"><b>איך בדיוק</b><code class="how" dir="ltr">${esc(n.how)}</code></div>` : ""}
       <div class="nrow"><b>למה</b><ul class="ev">${ev}</ul></div>
       <div class="nrow"><b>איך נדע שעבד</b><span>${gloss(n.measure)}</span></div>
       <div class="nrow"><b>במחקר</b><span class="refs">${n.refs.map(r => `<span>${gloss(r)}</span>`).join("")}</span></div>
@@ -1178,10 +1196,13 @@ function renderChanges() {
     $("#clist").innerHTML = Object.keys(groups).length ? Object.keys(groups).map(k => {
       const s = STEPS[k - 1], st = STAGES[s.stage];
       return `<div class="cgroup lb-cat-${st.cat}"><div class="cgroup-h"><span class="lb-tile">${ic(STAGE_ICON[s.stage])}</span><h3>${k} · ${esc(s.title)}</h3><a href="#step-${k}">לפתוח את המסך</a></div><ul class="clist">${groups[k].map(n => `
-        <li class="crow"><span class="nnum">${n.n}</span>
-          <div class="ctitle"><b>${gloss(n.title)}</b><span class="muted">${gloss(n.change)}</span></div>
-          <div><span class="k">היום באתר</span><span class="muted">${gloss(n.today)}</span></div>
-          <div class="meta">${chip(n.st)}<small>${esc(whoText(n))}</small></div>
+        <li class="crow"><details><summary><span class="nnum">${n.n}</span>
+          <b class="ctitle">${gloss(n.change)}</b>
+          <span class="meta">${chip(n.st)}<small>${esc(whoText(n))}</small></span>${ic("chev", "chev")}</summary>
+          <div class="cbody"><div><span class="k">היום באתר</span><span class="muted">${gloss(n.today)}</span></div>
+            ${n.how ? `<div><span class="k">איך בדיוק</span><code class="how" dir="ltr">${esc(n.how)}</code></div>` : ""}
+            <div><span class="k">איך נדע שעבד</span><span class="muted">${gloss(n.measure)}</span></div>
+            <a href="#step-${n.step}">לראות בטלפון, הערה ${n.n}</a></div></details>
         </li>`).join("")}</ul></div>`;
     }).join("") : `<p class="lb-note">אין פריטים שמתאימים לסינון.</p>`;
   };
