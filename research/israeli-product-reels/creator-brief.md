@@ -8,7 +8,7 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 - **Brand spelling on this page only (Yarin, 15 Oct 2026):** the brief and its messages page say לומיבוק, the way the store spells it. The rest of the project keeps לומבוק (CLAUDE.md, `shared/facts.json`); `src/lint_creator_brief.py` waives the lint's brand-spelling check for this file and nothing else.
 - **Messages page (15 Oct, Yarin: "תוסיף דף מסרים"):** the second part below, the key messages creators should get across, each with an example line. Facts only from `src/product-facts-2026-10-15.md` (the free preview, the child on the cover and in 10 pictures, the catalogue topics, the family-conversation framing the site uses, print plus digital copy, the dedication page, ages 2 to 8). No price, since you took the price worry out of the brief.
 - **Hebrew voice:** the LumeBook Hebrew voice skill in its fallback voice (12 of the 15 approved samples it needs). Creators are addressed in the plural and the example lines are first person past tense, so nothing assumes the creator's gender (`creators/creator-research/src/hebrew-rules.md`). Every Hebrew block passes `voice_lint.py`: `python3 research/israeli-product-reels/src/lint_creator_brief.py` (`--text` prints the Hebrew as plain lines for a DM).
-- **Page:** https://claude.ai/artifact/T9DJuNSzHoQ2WNHzceZq8L (private until you share it), built from the Hebrew part by `src/build_creator_brief.py`. Render hints in the Hebrew part are HTML comments, invisible in the Markdown: `<!--icon:NAME-->` on a heading, step or item, `<!--as:ticks-->` on a paragraph (first line is a label, the rest a tick list), `<!--visual:screens|topic|email-->` as its own block. After editing the Hebrew: lint, `python3 tools/lumebook.py build creator-brief`, republish the HTML, then `python3 tools/lumebook.py ack creator-brief --published`.
+- **Page:** https://claude.ai/artifact/8aHom1FHtP9jiSgBkbgGc7 (private until you share it), built from the Hebrew part by `src/build_creator_brief.py`. Render hints in the Hebrew part are HTML comments, invisible in the Markdown: `<!--icon:NAME-->` on a heading, step or item, `<!--as:ticks-->` on a paragraph (first line is a label, the rest a tick list), `<!--visual:screens|topic|email-->` as its own block. After editing the Hebrew: lint, `python3 tools/lumebook.py build creator-brief`, republish the HTML, then `python3 tools/lumebook.py ack creator-brief --published`.
 - **Look (15 Oct, Yarin):** LumeBook's colours, Apple-style layout, Heebo only. Light by default with a dark/light toggle in the top bar (each viewer's choice is kept in their own browser). The dark option exists on this page only; the project rule is still light mode everywhere else.
 - **Example Reel on the page (15 Oct, Yarin: "add the reel example baked in the site"):** @shoham_novik's collab Reel plays in a phone frame (`<!--visual:reel-->`). Web copies: `media/projects/2026-10-15-israeli-product-reels/web/shoham-reel.mp4` (540p H.264, 6.3 MB, made with ffmpeg from the 15 Oct download) and `shoham-reel-poster.jpg`; the build copies them into `sites/lumebook-creator-brief/media/`. Raw media is not in git. Shoham agreed to LumeBook using her Reel (Yarin, 15 Oct 2026), so it is on the public site too; the other downloaded Reels stay internal. When republishing the artifact, pass `files` for `media/shoham-reel.mp4` and `media/shoham-reel-poster.jpg`, or the player is empty there.
 - **Five more example Reels on the page (20 Oct 2026, Yarin: "add all of these as examples to the creator brief"):** from the Drive folder `תוכן לקוחות ויוצרים (UGC)`: Koral_V2, Mor_Keisar_v3, Moran_arges_v3, Natali_Fridman_v2, Nofit_Hazut. They play in a swipe row under the Shoham example (`<!--as:reelcard--><!--reel:SLUG-->`, one block each; the build reads the web copies `ex-SLUG.mp4` and `ex-SLUG-poster.jpg` from `media/projects/2026-10-15-israeli-product-reels/web/`, raw files in `creator-examples/raw/`, not in git). Cards use first names only. Each description is from the frames and an on-device Hebrew transcript (MacWhisper turbo, `creator-examples/analysis/`), checked against the contact sheets. **Yarin confirmed on 20 Oct 2026 that all five creators agreed to be shown on the public site** (Shoham agreed on 15 Oct). Their reels also say "AI" and, in Moran's, the price, which the brief itself avoids; the cards do not repeat either.
@@ -48,24 +48,11 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 ### בריף ליוצרים
 
-### <!--icon:star--> דוגמה שאנחנו אוהבים
+### <!--icon:star--> דוגמאות שאנחנו אוהבים
 
-הסרטון של `@shoham_novik` עם הספר של הבת שלה<br>
+- <!--as:reelcard--><!--reel:shoham-->**שוהם · גמילה**<br>
 הפחד מהגמילה בשורה הראשונה<br>
-והספר על המסך כבר בשנייה הראשונה<br>
-[לצפייה בסרטון](https://www.instagram.com/reel/DTugYwmDNKa/)
-
-<!--visual:reel-->
-
-<!--as:ticks-->מה נוסיף אצלכם<br>
-גילוי נאות בשורה הראשונה בכיתוב<br>
-קריאה לפעולה על המסך בסוף<br>
-כיתוב על אותו נושא כמו הסרטון<br>
-כתוביות שלא מתנגשות בהקלטת המסך
-
-עוד חמש דוגמאות מיוצרים שעשו סרטון על הספר שלהם<br>
-כל סרטון פותח מזווית אחרת<br>
-אפשר לבחור את מה שהכי מתאים לכם
+הספר על המסך כבר בשנייה הראשונה
 
 - <!--as:reelcard--><!--reel:koral-->**קורל · הכניסה לגן**<br>
 הסיפור האישי בשורה הראשונה: שנה בבית והגיע הזמן לגן<br>
@@ -92,6 +79,11 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 הילד מחזיק את הספר ומדבר למצלמה<br>
 הקלטת מסך קצרה וסיום בקריאה לפעולה אחת
 
+<!--as:ticks-->מה נוסיף אצלכם<br>
+הוק חזק על המסך במשך כל הסרטון<br>
+קריאה לפעולה על המסך בסוף<br>
+כתוביות
+
 ### <!--icon:film--> שלד הצילום
 
 שישה חלקים קצרים לפי הסדר<br>
@@ -107,9 +99,6 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 ״לא ידעתי איך מתחילים גמילה מחיתולים״<br>
 ״המוצץ היה צריך ללכת ולא ידעתי איך״<br>
 ״חיפשתי מתנה ליום הולדת 4 שתהיה רק שלו״
-
-רק אם זה קרה אצלכם<br>
-ובמילים שלכם
 
 <!--icon:home-->**הבית · 3 עד 10 שניות**<br>
 צילומים אמיתיים מהבית<br>
@@ -152,7 +141,7 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 - **הבית**<br>
   צילום רחב על הספה לפני השינה<br>
-  ״הכנו לה ספר שבו היא הגיבורה״
+  ״אז הכנו לה ספר שבו היא הגיבורה״
 
 - **ההזמנה**<br>
   הקלטת מסך קטנה בפינה העליונה<br>
@@ -166,27 +155,14 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 - **דאגה אחת**<br>
   דפדוף בעמודים מלמעלה<br>
   ״חששתי שזה לא יגיע בזמן״<br>
-  ״משלוח עד הבית עד 7 ימי עסקים״<br>
-  ״ועותק דיגיטלי מגיע במייל אחרי כמה דקות״
+  ״אבל המשלוח מגיע תוך פחות משבוע״
 
 - **הקריאה לפעולה**<br>
-  עמוד ההקדשה על המסך<br>
-  והקריאה לפעולה כטקסט
-
-### <!--icon:target--> נושא אחד
-
-נושא אחד לכל הרילס<br>
-אם הפתיחה על גמילה<br>
-גם הסרטון וגם הכיתוב על גמילה<br>
-ולא על יום הולדת
-
-<!--visual:topic-->
+  הקריאה לפעולה כטקסט על צילום
 
 ### <!--icon:help--> דאגה אחת ועובדה אחת
 
-בוחרים אחת מהדאגות האלה<br>
-העובדות נבדקו באתר ב-15 באוקטובר 2026<br>
-ולפני שמעלים נבדוק איתכם שהן עדיין נכונות
+בוחרים אחת מהדאגות האלה
 
 - <!--icon:truck-->״זה יגיע בזמן?״<br>
   משלוח עד הבית עד 7 ימי עסקים<br>
@@ -202,10 +178,8 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 ### <!--icon:megaphone--> הקריאה לפעולה
 
-קריאה אחת לפעולה בכל הרילס<br>
-אותו משפט על המסך בסוף<br>
-ובשורה האחרונה בכיתוב<br>
-בלי בקשה נוספת לצידו
+קריאה אחת לפעולה בכל הרילס, אותו משפט על המסך בסוף<br>
+ובשורה האחרונה בתיאור הסרטון
 
 </div>
 
@@ -219,48 +193,30 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 <!--icon:message-->לכל מי שכותב ״לומי״<br>
 שולחים בהודעה פרטית את הקישור האישי שלכם<br>
-ככה ההזמנה עוברת דרך הקישור שלכם<br>
-ועוד הודעה רק אם עונים לכם
+ככה ההזמנה עוברת דרך הקישור שלכם
 
 ### <!--icon:message--> הכיתוב מתחת לסרטון
-
-השורה הראשונה היא הגילוי הנאות<br>
-כדי שיראו אותו בלי ללחוץ על ״עוד״<br>
-אחריו שורה על אותו נושא כמו הפתיחה<br>
-והקריאה לפעולה היא השורה האחרונה
 
 בזמן ההעלאה מזמינים את `@lumebook.il` כשותף לפוסט<br>
 מסמנים את התווית של אינסטגרם לשיתוף פעולה בתשלום<br>
 וכותבים את הגילוי הנאות בשורה הראשונה<br>
 צריך את שלושתם
 
-גילוי נאות פשוט<br>
-״נוצר בשיתוף פעולה עם LumeBook״<br>
-ואפשר גם כטקסט קטן על המסך בשניות הראשונות
-
-הספר שלכם בכל מקרה<br>
-הוא לא תלוי בביקורת חיובית<br>
-מספרים מה באמת חשבתם
-
-אם בחרתם לתת לעוקבים הנחה מתוך ה-25%<br>
+*אם בחרתם לתת לעוקבים הנחה מתוך ה-25%<br>
 כתבו בכיתוב כמה הנחה יש בקישור
 
-דוגמה לכיתוב<br>
-החליפו את הסיפור במילים שלכם<br>
-ושורת ההנחה רק אם בחרתם הנחה
+דוגמה לכיתוב:
 
 </div>
 
 <div dir="rtl" lang="he" data-lint="caption">
 
-> שיתוף פעולה עם לומיבוק<br>
-> קיבלתי את הספר במתנה<br>
-> ועל הזמנות דרך הקישור שלי מגיעה לי עמלה<br>
-> לא ידענו איך מתחילים גמילה מחיתולים<br>
-> אז הכנו לה ספר שבו היא הגיבורה<br>
-> והיא ביקשה לקרוא אותו שוב ושוב<br>
-> בקישור שלי יש 10% הנחה<br>
-> כתבו "לומי" בתגובות ואשלח לכם קישור לספר שבו הילד שלכם הוא הגיבור
+> "לא ידענו איך מתחילים גמילה מחיתולים..."<br>
+> "אז הכנו לה ספר שבו היא הגיבורה..."<br>
+> "בקישור שלי יש X% הנחה..."<br>
+> כתבו "לומי" בתגובות ואשלח לכם קישור לספר שבו הילד שלכם הוא הגיבור<br>
+> <br>
+> בשיתוף פעולה עם @lumebook.il
 
 </div>
 
@@ -268,18 +224,14 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
 
 ### <!--icon:mail--> חומרי הגלם
 
-שולחים גם את חומרי הגלם<br>
-למייל `yarin@lumebook.com`
+שולחים את חומרי הגלם והריל המוגמר למייל `yarin@lumebook.com`
 
 <!--visual:email-->
 
 <!--as:ticks-->מה שולחים<br>
 הצילומים המקוריים בלי עריכה<br>
 הקלטת המסך והקריינות<br>
-והסרטון הסופי
-
-אם הקבצים גדולים<br>
-אפשר לשלוח קישור להורדה
+הסרטון הסופי
 
 ### <!--icon:x--> מה לא עושים
 
@@ -342,9 +294,6 @@ For Yarin, 15 Oct 2026. A short brief LumeBook can send to barter creators who f
   עמוד הקדשה מודפס<br>
   או מקום לכתוב ביד<br>
   ״כתבתי לה הקדשה בכתב יד״
-
-- <!--as:message--><!--icon:users-->**לגילאי 2 עד 8**<br>
-  כך כתוב באתר
 
 ### <!--icon:x--> מה לא אומרים
 

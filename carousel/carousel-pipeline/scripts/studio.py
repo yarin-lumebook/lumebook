@@ -130,7 +130,8 @@ def state(batch_id=None):
             "week_he": f"{int(dates[0][8:])}.{int(dates[0][5:7])} עד {int(dates[-1][8:])}.{int(dates[-1][5:7])}",
             "grades": {k: v for k, v in grades.load()["grades"].items() if k in keys},
             "runs": {k: v for k, v in producer.load()["runs"].items() if k in keys},
-            "unsent": bool(grades_unsent()), "next_run_he": when_he(nxt), "qa": list(producer.QA_CHECKS_HE)}
+            "unsent": bool(grades_unsent()), "next_run_he": when_he(nxt), "qa": list(producer.QA_CHECKS_HE),
+            "post_hour": int((lib.read_json(lib.ROOT / "shared" / "facts.json").get("postiz") or {}).get("default_hour", 6))}
 
 
 APP_CSS = """
@@ -296,6 +297,20 @@ button{font-family:inherit}
 .in-keys kbd{font-family:var(--font);font-size:var(--fs-caption);background:var(--fill-2);border-radius:4px;padding:0 .3rem}
 .hs-box{position:fixed;inset:0;background:var(--overlay);display:none;align-items:center;justify-content:center;z-index:70;padding:var(--sp-4)}
 .hs-box.open{display:flex}
+.in-postiz{margin-top:var(--sp-4);padding-top:var(--sp-3);border-top:1px solid var(--line);display:grid;gap:var(--sp-2)}
+.in-postiz .lb-input{width:100%}
+.pv-wrap{display:flex;flex-wrap:wrap;gap:var(--sp-5);align-items:flex-start}
+.pv-card{width:min(100%,22rem);background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-1);overflow:hidden}
+.pv-head{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3)}
+.pv-av{width:2rem;height:2rem;border-radius:50%;background:var(--surface-2) center/cover}
+.pv-net{margin-inline-start:auto;font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3)}
+.pv-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.pv-track img{flex:none;width:100%;aspect-ratio:4/5;object-fit:cover;scroll-snap-align:start}
+.pv-dots{display:flex;justify-content:center;gap:4px;padding:var(--sp-2)}
+.pv-dots span{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.pv-dots span.on{background:var(--accent)}
+.pv-text{white-space:pre-line;margin:0;padding:var(--sp-2) var(--sp-3) var(--sp-3);font-size:var(--fs-callout)}
+.pv-one{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
 .hs-box img{max-width:min(100%,34rem);max-height:100%;border-radius:var(--r-md);box-shadow:var(--shadow-3)}
 .hs-box .lb-btn{position:absolute;top:var(--sp-4);inset-inline-end:var(--sp-4)}
 @media (max-width:1200px){.hs-app{grid-template-columns:minmax(0,1fr) 18rem}.op-body{grid-template-columns:minmax(0,1fr) 18rem}.hs-main{padding-inline:var(--sp-5)}.hs-stage{padding-inline:var(--sp-5)}.st-save{margin-inline:calc(-1 * var(--sp-5))}.hs-meter .bar{display:none}}
@@ -497,6 +512,11 @@ function renderStage() {
     const cap = el('section', 'st-sec'); const h = el('h2', null, 'כיתוב וקריאה לפעולה'); h.append(el('span', 'hint', 'הקריאה לפעולה מעדכנת גם את השקופית האחרונה')); cap.append(h);
     cap.append(editable('div', 'st-box', it.caption_body, 'caption', null, 'כיתוב'), editable('div', 'st-box', it.cta, 'cta', null, 'קריאה לפעולה'));
     st.append(cap);
+    const r = run(it.key);
+    if (r && r.status === 'done') {   // the finished slides as they will look on Instagram and on Facebook (postiz_export.py)
+      const pv = el('section', 'st-sec'); pv.id = 'st-postiz'; const h = el('h2', null, 'איך זה ייראה באינסטגרם ובפייסבוק'); h.append(el('span', 'hint', 'כך זה נשלח ל-Postiz'));
+      const wrap = el('div', 'pv-wrap'); pv.append(h, wrap); st.append(pv); postizCards(it.key, wrap);
+    }
   }
   const bar = el('div', 'st-save'); bar.id = 'st-save'; bar.hidden = true;
   const msg = el('span', 'msg'); msg.id = 'st-save-msg';
@@ -601,6 +621,48 @@ function renderProd() {
     box.append(el('p', 'in-keys', 'רץ ברקע. אפשר להמשיך לדרג ולערוך בינתיים.'));
   }
   box.append(btns);
+  if (r.status === 'done' && r.kind !== 'reco') postizBox(it, r, box);
+}
+/* ---------- Postiz: pick the date and time, preview Instagram and Facebook, schedule or keep as a draft ---------- */
+const pad2 = n => String(n).padStart(2, '0');
+const localIso = d => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}T${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+const whenHe = v => new Date(v).toLocaleString('he-IL', {weekday: 'long', day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit'});
+function postizBox(it, r, box) {
+  const w = el('div', 'in-postiz'); w.append(el('h2', null, 'פרסום דרך Postiz'));
+  if (r.postiz) w.append(el('p', 'in-keys', (r.postiz.status === 'schedule' ? 'מתוזמן ל' : 'טיוטה ל') + whenHe(r.postiz.date)));
+  const t = el('input', 'lb-input'); t.type = 'datetime-local'; t.dir = 'ltr'; t.min = localIso(new Date());
+  t.value = r.postiz && r.postiz.date ? localIso(new Date(r.postiz.date)) : `${r.date}T${pad2(S.post_hour ?? 6)}:00`;
+  const row = el('div', 'in-btns');
+  const pv = el('button', 'lb-btn ghost', 'איך זה ייראה'); pv.type = 'button'; pv.onclick = () => { const sec = $('#st-postiz'); if (sec) sec.scrollIntoView({behavior: 'smooth', block: 'start'}); };
+  const go = el('button', 'lb-btn', r.postiz ? 'לתזמן שוב' : 'לתזמן'); go.type = 'button';
+  const dr = el('button', 'lb-btn secondary', 'טיוטה בלבד'); dr.type = 'button'; dr.title = 'נשמר ב-Postiz בלי תזמון, מתזמנים שם';
+  const send = async (draft) => {
+    if (!t.value) { t.focus(); toast('בחרו תאריך ושעה'); return; }
+    const again = r.postiz ? 'הקרוסלה כבר נשלחה ל-Postiz, זה ייצור פוסט נוסף.\n' : '';
+    if (!confirm(again + (draft ? `לשמור טיוטה ב-Postiz ל${whenHe(t.value)}?` : `לפרסם באינסטגרם ובפייסבוק ב${whenHe(t.value)}?`))) return;
+    go.disabled = dr.disabled = true; (draft ? dr : go).textContent = 'שולח ל-Postiz...';
+    await act('postiz', {when: t.value, draft});
+    const p = S.runs[it.key] && S.runs[it.key].postiz; if (p && p.sent_at !== (r.postiz || {}).sent_at) toast(p.status === 'schedule' ? 'מתוזמן ב-Postiz' : 'נשמר כטיוטה ב-Postiz');
+  };
+  go.onclick = () => send(false); dr.onclick = () => send(true);
+  row.append(pv, go, dr); w.append(t, row); box.append(w);
+}
+async function postizCards(key, wrap) {
+  let d; try { d = await (await fetch('/api/postiz-preview?key=' + encodeURIComponent(key))).json(); } catch (e) { return; }
+  if (d.error || !wrap.isConnected) return;
+  const head = (label) => { const h = el('div', 'pv-head'); const av = el('span', 'pv-av'); av.style.backgroundImage = `url(${d.avatar})`; h.append(av, el('b', null, 'lumebook.il'), el('span', 'pv-net', label)); return h; };
+  // Instagram: the slides swipe sideways, the caption under them
+  const ig = el('div', 'pv-card'); ig.append(head('אינסטגרם'));
+  const track = el('div', 'pv-track'); d.slides.forEach(src => { const i = el('img'); i.src = src; i.alt = ''; i.loading = 'lazy'; track.append(i); });
+  const dots = el('div', 'pv-dots'); d.slides.forEach((_, n) => dots.append(el('span', n ? null : 'on')));
+  track.onscroll = () => { const n = Math.round(Math.abs(track.scrollLeft) / track.clientWidth); [...dots.children].forEach((s, i) => s.className = i === n ? 'on' : ''); };
+  const cap = el('p', 'pv-text'); cap.append(el('b', null, 'lumebook.il '), document.createTextNode(d.caption));
+  ig.append(track, dots, cap);
+  // Facebook: the written slides above, slide 1 under them
+  const fb = el('div', 'pv-card'); fb.append(head('פייסבוק'));
+  const ft = el('p', 'pv-text'); ft.textContent = d.fb_text; const fi = el('img', 'pv-one'); fi.src = d.slides[0]; fi.alt = '';
+  fb.append(ft, fi);
+  wrap.textContent = ''; wrap.append(ig, fb);
 }
 async function act(action, extra) {
   const it = item(cur);

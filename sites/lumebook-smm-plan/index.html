@@ -7,13 +7,17 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&amp;family=Varela+Round&amp;display=swap">
-<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("lb-theme")}catch(e){}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&amp;family=Assistant:wght@400;500;600;700&amp;display=swap">
+<!-- white/black theme boot: a copy of THEME_BOOT in shared/design/design.py (this page has no build) -->
+<script>(function(){if(window.lbThemeBoot)return;window.lbThemeBoot=1;var d=document.documentElement,K="lb-mode";function saved(){try{return localStorage.getItem(K)==="dark"?"dark":"light"}catch(e){return"light"}}function set(t){d.setAttribute("data-theme",t);var s=document.querySelectorAll("[data-lb-theme-toggle]");for(var i=0;i<s.length;i++)s[i].setAttribute("aria-checked",String(t==="dark"))}set(saved());document.addEventListener("DOMContentLoaded",function(){set(d.getAttribute("data-theme"))});document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lb-theme-toggle]");if(!b)return;var t=d.getAttribute("data-theme")==="dark"?"light":"dark";set(t);try{localStorage.setItem(K,t)}catch(x){}});addEventListener("storage",function(e){if(e.key===K)set(saved())})})()</script>
 <link rel="stylesheet" href="lumebook.css">
+<link rel="stylesheet" href="categories.css">
 <style>
 /* Page rules on top of lumebook.css (a synced copy of shared/design/lumebook.css; never edit the copy).
    This page has no build step (it is edited in the site editor), so the fonts link, the theme boot script and the
    theme toggle are pasted in literally from shared/design/design.py. Everything below uses design tokens only.
+   categories.css (also synced) colours the four content pillars: lb-chip cat lb-smm-moment / reveal / proof / gift
+   (shared/design/categories.json, set smm-pillars). Creator-type chips on the videos stay neutral.
    sites/dashboard/refresh.py (plan_section) reads this file's markup with regexes, so keep these exactly as written:
    the week label div (class when) with its bold name, the task list (ul class tasks) with plain span tasks,
    the target spans (class n, then class l), the KPI section (id kpis, no other attributes) with attribute-free tr rows,
@@ -35,11 +39,6 @@ html{scroll-behavior:smooth}
   .lb-topbar .plan-toc{order:9;flex-basis:100%;margin:var(--sp-2) calc(-1 * var(--sp-5)) 0;padding:0 var(--sp-5) var(--sp-2)}
 }
 @media (max-width:860px){.lb-topbar .plan-toc{margin-inline:calc(-1 * var(--sp-4));padding-inline:var(--sp-4)}}
-@media (max-width:560px){
-  /* icon-only theme button on phones (the same size as lb-btn.sm, square) */
-  [data-lb-theme-toggle] .lb-theme-label{display:none}
-  .lb-btn.sm[data-lb-theme-toggle]{width:1.875rem;padding:0}
-}
 
 /* sections (the same layout as lb-section; see the note above) */
 .lb-page>section{display:grid;gap:var(--sp-4);min-width:0;scroll-margin-top:calc(3.5rem + var(--sp-4))}
@@ -70,7 +69,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
 /* october: weeks with checklists */
 .week{grid-template-columns:7.5rem minmax(0,1fr);gap:var(--sp-5)}
 .week .when{display:grid;gap:2px;align-content:start;padding-inline-end:var(--sp-4);border-inline-end:1px solid var(--line)}
-.week .when b{font-family:var(--font-display);font-weight:400;font-size:var(--fs-headline)}
+.week .when b{font-weight:800;font-size:var(--fs-headline)}
 .week .when span{font-size:var(--fs-footnote);color:var(--text-3)}
 @media (max-width:640px){
   .week{grid-template-columns:minmax(0,1fr);gap:var(--sp-2)}
@@ -124,26 +123,8 @@ li:empty,tr:empty,.tasks li:empty{display:none}
     <img class="plan-logo" src="data:image/png;base64,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" alt="" width="28" height="28">
     <h1 class="plan-title"><span class="wordmark">לומבוק</span><span class="doc-title">תוכנית סושיאל ותוכן</span></h1>
     <nav class="lb-toc plan-toc"></nav>
-    <a class="lb-btn ghost sm plan-hub" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">ללוח</a>
-    <button class="lb-btn secondary sm" type="button" data-lb-theme-toggle hidden data-dark="מצב כהה" data-light="מצב בהיר" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="lb-theme-label">מצב כהה</span></button><script>
-(function () {
-  function sync(btn) {
-    var dark = document.documentElement.getAttribute("data-theme") === "dark";
-    btn.setAttribute("aria-pressed", String(dark));
-    btn.title = dark ? btn.dataset.light : btn.dataset.dark;
-    btn.querySelector(".lb-theme-label") && (btn.querySelector(".lb-theme-label").textContent = btn.title);
-  }
-  document.addEventListener("click", function (e) {
-    var btn = e.target.closest("[data-lb-theme-toggle]");
-    if (!btn) return;
-    var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", next);
-    try { localStorage.setItem("lb-theme", next); } catch (err) {}
-    document.querySelectorAll("[data-lb-theme-toggle]").forEach(sync);
-  });
-  document.querySelectorAll("[data-lb-theme-toggle]").forEach(sync);
-})();
-</script>
+    <a class="lb-btn ghost sm plan-hub" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">ללוח</a>
+    <button class="lb-theme-switch" type="button" role="switch" aria-checked="false" data-lb-theme-toggle aria-label="מצב כהה" title="מצב כהה"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </div>
 </header>
 
@@ -230,10 +211,10 @@ li:empty,tr:empty,.tasks li:empty{display:none}
     <h2>מערך התוכן</h2>
     <div class="lb-table-wrap"><table class="lb-table">
       <tbody><tr><th>עמודת תוכן</th><th>הגדרה</th></tr>
-      <tr><td>רגע התפתחותי ← ספר</td><td>הרגע ההתפתחותי, מה הקושי של הילד, והספר ככלי</td></tr>
-      <tr><td>חשיפת הספר</td><td>הרגע שבו הילד רואה את עצמו בספר</td></tr>
-      <tr><td>הוכחה ותהליך</td><td>איך יוצרים ספר, איך נראה ספר מודפס, ביקורות אמיתיות</td></tr>
-      <tr><td>מתנות ועונתיות</td><td>ימי הולדת, סבים וסבתות, חגים וימים מיוחדים</td></tr>
+      <tr><td><span class="lb-chip cat lb-smm-moment">רגע התפתחותי ← ספר</span></td><td>הרגע ההתפתחותי, מה הקושי של הילד, והספר ככלי</td></tr>
+      <tr><td><span class="lb-chip cat lb-smm-reveal">חשיפת הספר</span></td><td>הרגע שבו הילד רואה את עצמו בספר</td></tr>
+      <tr><td><span class="lb-chip cat lb-smm-proof">הוכחה ותהליך</span></td><td>איך יוצרים ספר, איך נראה ספר מודפס, ביקורות אמיתיות</td></tr>
+      <tr><td><span class="lb-chip cat lb-smm-gift">מתנות ועונתיות</span></td><td>ימי הולדת, סבים וסבתות, חגים וימים מיוחדים</td></tr>
     </tbody></table></div>
     <div class="lb-grid cols-2">
       <div class="lb-card">
@@ -257,7 +238,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
       <article class="vid lb-card is-flush">
         <div class="frame" data-src="https://www.tiktok.com/player/v1/7670603837136325896?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@lironofir/video/7670603837136325896" data-title="לירון אופיר ממציא סיפור לבן שלו"><button class="play" type="button" aria-label="לנגן: לירון אופיר ממציא סיפור לבן שלו"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
         <div class="body">
-          <span class="lb-chip accent">יוצרים</span>
+          <span class="lb-chip">יוצרים</span>
           <h3>אבא ממציא סיפור, MeBook הופכים אותו לספר</h3>
           <span class="meta"><bdi dir="ltr">@lironofir</bdi> · <bdi dir="ltr">229K</bdi> צפיות לסרטון המקורי</span>
           <p>שבוע אחרי, MeBook הפכו את הסיפור לספר ופרסמו collab איתו באינסטגרם: <bdi dir="ltr">86.5K</bdi>, פי 22 מהרגיל שלהם (<a href="https://www.instagram.com/reel/Db79B6COOSN/" target="_blank" rel="noopener">הגרסה שלהם</a>)</p>
@@ -266,7 +247,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
       <article class="vid lb-card is-flush">
         <div class="frame" data-src="https://www.tiktok.com/player/v1/7517299113197587718?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@babyalison31/video/7517299113197587718" data-title="Wonder Wraps: הפתעה והנחה בסוף"><button class="play" type="button" aria-label="לנגן: Wonder Wraps: הפתעה והנחה בסוף"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
         <div class="body">
-          <span class="lb-chip accent">יוצרים</span>
+          <span class="lb-chip">יוצרים</span>
           <h3>הפתעה, ״זה אני!״, הנחה בסוף</h3>
           <span class="meta"><bdi dir="ltr">@babyalison31</bdi> · <bdi dir="ltr">77.2K</bdi> צפיות</span>
           <p>מבנה מוכן לבריף: הפתעה, הילדה מזהה את עצמה, הנחה בסוף</p>
@@ -276,7 +257,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
       <article class="vid lb-card is-flush">
         <div class="frame" data-src="https://www.tiktok.com/player/v1/7478352764188282134?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@wonderwraps.com/video/7478352764188282134" data-title="Wonder Wraps: התגובה של האחיין"><button class="play" type="button" aria-label="לנגן: Wonder Wraps: התגובה של האחיין"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
         <div class="body">
-          <span class="lb-chip accent">חשיפת הספר</span>
+          <span class="lb-chip cat lb-smm-reveal">חשיפת הספר</span>
           <h3>POV: התגובה של האחיין</h3>
           <span class="meta"><bdi dir="ltr">@wonderwraps.com</bdi> · <bdi dir="ltr">163K</bdi> צפיות, פי 144 מהרגיל</span>
           <p>7 שניות, הצופה הוא מי שנותן את המתנה</p>
@@ -286,7 +267,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
       <article class="vid lb-card is-flush">
         <div class="frame" data-src="https://www.tiktok.com/player/v1/7568232703116545288?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@lookitskateeee/video/7568232703116545288" data-title="הלוויה למוצץ"><button class="play" type="button" aria-label="לנגן: הלוויה למוצץ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
         <div class="body">
-          <span class="lb-chip accent">רגע התפתחותי ← ספר</span>
+          <span class="lb-chip cat lb-smm-moment">רגע התפתחותי ← ספר</span>
           <h3>הלוויה למוצץ</h3>
           <span class="meta"><bdi dir="ltr">@lookitskateeee</bdi> · <bdi dir="ltr">2.6M</bdi> צפיות, בחשבון שהחציון שלו 870</span>
           <p>טקס פרידה עם הומור, הרעיון סחב לבד</p>
@@ -296,7 +277,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
       <article class="vid lb-card is-flush">
         <div class="frame" data-src="https://www.tiktok.com/player/v1/7650173364480314637?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@learntotalkwithme/video/7650173364480314637" data-title="קלינאית תקשורת: תמונה בספר"><button class="play" type="button" aria-label="לנגן: קלינאית תקשורת: תמונה בספר"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
         <div class="body">
-          <span class="lb-chip accent">אנשי מקצוע</span>
+          <span class="lb-chip">אנשי מקצוע</span>
           <h3>קלינאית: ״שימו את התמונה שלכם בספר״</h3>
           <span class="meta"><bdi dir="ltr">@learntotalkwithme</bdi> · <bdi dir="ltr">36.2K</bdi> צפיות, פי 32 מהרגיל</span>
           <p>מומחית עם המוצר ביד כל הזמן, מרגיש כמו עצה ולא פרסומת</p>
@@ -306,7 +287,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
       <article class="vid lb-card is-flush">
         <div class="frame" data-src="https://www.tiktok.com/player/v1/7545096813838093574?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@mebook.ai/video/7545096813838093574" data-title="MeBook: דודה מחפשת מתנה לכיתה א׳"><button class="play" type="button" aria-label="לנגן: MeBook: דודה מחפשת מתנה לכיתה א׳"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
         <div class="body">
-          <span class="lb-chip accent">מתנות ועונתיות</span>
+          <span class="lb-chip cat lb-smm-gift">מתנות ועונתיות</span>
           <h3>דודה מחפשת מתנה לכיתה א׳</h3>
           <span class="meta"><bdi dir="ltr">@mebook.ai</bdi> · <bdi dir="ltr">31.2K</bdi> צפיות</span>
           <p>נותנת מתנה + אבן דרך בשורה אחת</p>
@@ -316,7 +297,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
       <article class="vid lb-card is-flush">
         <div class="frame" data-src="https://www.tiktok.com/player/v1/7551351429231938823?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@linoyabutbul1/video/7551351429231938823" data-title="מתנה לגננת לראש השנה"><button class="play" type="button" aria-label="לנגן: מתנה לגננת לראש השנה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
         <div class="body">
-          <span class="lb-chip accent">גננות</span>
+          <span class="lb-chip">גננות</span>
           <h3>מתנה לגננת לראש השנה</h3>
           <span class="meta"><bdi dir="ltr">@linoyabutbul1</bdi> · <bdi dir="ltr">410K</bdi> צפיות, פי 82 מהרגיל</span>
           <p>DIY עם reveal בסוף, ומועד שכולם מחפשים</p>
@@ -326,7 +307,7 @@ li:empty,tr:empty,.tasks li:empty{display:none}
       <article class="vid lb-card is-flush">
         <div class="frame" data-src="https://www.tiktok.com/player/v1/7310332715738484010?rel=0&amp;music_info=0&amp;description=0&amp;autoplay=1" data-oembed="https://www.tiktok.com/@melissametrano/video/7310332715738484010" data-title="8 לילות של מתנות חנוכה"><button class="play" type="button" aria-label="לנגן: 8 לילות של מתנות חנוכה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span class="pf">TikTok</span></button></div>
         <div class="body">
-          <span class="lb-chip accent">מתנות ועונתיות</span>
+          <span class="lb-chip cat lb-smm-gift">מתנות ועונתיות</span>
           <h3>8 לילות של מתנות חנוכה</h3>
           <span class="meta"><bdi dir="ltr">@melissametrano</bdi> · <bdi dir="ltr">380K</bdi> צפיות, דצמ׳ 2023</span>
           <p>״לילה 1״: הבנות פותחות מתנה, ואז הפתעה להורים. סדרה של 8 = 8 סיבות לחזור</p>

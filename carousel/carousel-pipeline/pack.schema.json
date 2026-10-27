@@ -330,6 +330,15 @@
           "type": "string",
           "minLength": 20
         },
+        "post_text": {
+          "type": "object",
+          "required": ["caption", "fb_text"],
+          "properties": {
+            "caption": {"type": "string", "minLength": 20},
+            "fb_text": {"type": "string", "minLength": 20}
+          },
+          "description": "Packs from 2026-10-26 21:00 (Yarin: \"in the written captions add punctuation marks and emojis (dont overdo it only at cta and hooks)\"): the Instagram caption and the Facebook text (slides 2 to 10, a blank line between slides), the same words punctuated, one emoji ending the hook line and 🔖 ending the CTA."
+        },
         "cta": {
           "type": "string",
           "minLength": 10

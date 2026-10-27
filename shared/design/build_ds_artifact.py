@@ -2,7 +2,7 @@
 """Generate the LumeBook Design System artifact's files from shared/design/lumebook.css.
 
 The stylesheet is the source of truth; this writes the browsable reference
-(https://claude.ai/artifact/RjUuSdYDwaJe4HWyEErNmF) as files under <out>/project/:
+(https://claude.ai/artifact/Cw3pWrTsoCKkCaPzZLrr5B) as files under <out>/project/:
 tokens.json, README.md, components/bundle.css, components/<Comp>/{README.md,preview.html},
 components/Cover/preview.html and design-system.json (the index).
 
@@ -16,7 +16,7 @@ from datetime import datetime, timezone
 HERE = os.path.dirname(os.path.abspath(__file__))
 CSS = open(os.path.join(HERE, "lumebook.css"), encoding="utf-8").read()
 FONTS_URL = "https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap"
-LOGOS = {"logo_square.png": ("d2e355f0add8153fb9f1b34b4e5b765d", 141241), "logo_wide.png": ("6c21967df0d6986aaa6b654fa3bb759a", 90647)}
+LOGOS = {"logo_square.png": ("fced3317e50c510f4abe26ccb21e46f5", 141241), "logo_wide.png": ("b8b883e0138996754585bb68186ae69c", 90647)}
 
 
 def block(selector_regex):

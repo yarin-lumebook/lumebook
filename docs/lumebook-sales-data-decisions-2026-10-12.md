@@ -59,7 +59,7 @@ Concrete steps for the decisions above. Tick them off on the page; the ticks sta
 - [ ] **Count comments with לומי and DMs per post.** It is the one buying signal social can count today.
 - [ ] **Keep the weekly mix.** One birthday post, one gift-giver post and one printed-book post, plus the month's milestone theme.
 - [ ] **Put the strongest post out on Wednesday evening or Thursday.**
-- [ ] **Parent groups: start near home.** The [parent community map](https://claude.ai/artifact/CGZrFUNmTUBmo2aa9vCr4A) is already ordered closest to Ashkelon, which is third by orders. Then Rishon LeZion and Be'er Sheva.
+- [ ] **Parent groups: start near home.** The [parent community map](https://claude.ai/artifact/WAcZJ7xXj826wzvLj49dmE) is already ordered closest to Ashkelon, which is third by orders. Then Rishon LeZion and Be'er Sheva.
 
 ### On 31 Oct
 

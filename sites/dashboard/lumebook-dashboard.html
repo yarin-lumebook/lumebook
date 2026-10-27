@@ -269,7 +269,7 @@ tr.test td { opacity: .5; }
 (() => {
   const SHEET_ID = "1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI";
   const DRIVE = "Google Drive";
-  const HQ = "https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ";
+  const HQ = "https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6";
   // On the project server (localhost) an artifact opens as its built page on the same server: a tab opened from the sandboxed artifact is blocked by claude.ai.
   const ON_SERVER = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
   const artHref = (a) => (ON_SERVER && a && /\.html?$/i.test(a.file || "") ? "/" + a.file.split("/").map(encodeURIComponent).join("/") : a && a.url);

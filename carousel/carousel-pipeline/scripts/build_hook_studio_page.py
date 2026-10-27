@@ -204,7 +204,7 @@ ul.lim{margin:var(--sp-2) 0 0;padding-inline-start:1.2rem;color:var(--text-2);fo
     <a href="#today">הלילה האחרון</a><a href="#how">איך זה עובד</a><a href="#slides">שבע השקופיות</a><a href="#rules">כללים</a><a href="#commands">פקודות</a>
   </nav>
   <span class="lb-spacer"></span>
-  <a class="lb-btn ghost sm" href="https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ" target="_blank" rel="noopener">לוח לומבוק</a>
+  <a class="lb-btn ghost sm" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">לוח לומבוק</a>
   __TOGGLE__
 </div></header>
 

@@ -176,3 +176,5 @@ The December targets are temporary and will be replaced with more realistic targ
 - A personal link with an audience discount for each creator, and adding a "how did you find us" question at checkout
 - One age range (the site lists various ranges)
 - That the site saves which link each order came from, by 10.11 (before the creators' videos go up)
+
+<!-- 26.10.2026: the "ללוח" button in the top bar now opens the dashboard on the new Claude account (account handoff). No Hebrew text changed. -->

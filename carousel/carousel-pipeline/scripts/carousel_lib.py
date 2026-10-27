@@ -1138,6 +1138,132 @@ KID_REF = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Post texts: the written Instagram caption and Facebook text (Yarin, 26 Oct 2026: "in the written captions add
+# punctuation marks and emojis (dont overdo it only at cta and hooks)")
+# ---------------------------------------------------------------------------
+
+POST_TEXT_FROM = "2026-10-26T21:00"
+POST_CTA_EMOJI = "🔖"
+_BARE_RE = re.compile(r"[^א-ת0-9A-Za-z]")
+_POST_EMOJI_RE = re.compile("(?:" + EMOJI_RE.pattern + ")[\ufe0e\ufe0f\u200d]*")   # ☀️ = ☀ + a variation selector
+
+
+def post_text_applies(pack):
+    """Packs generated from POST_TEXT_FROM need post_text on every option."""
+    return str((pack or {}).get("generated_at", ""))[:16] >= POST_TEXT_FROM
+
+
+def fb_source(version):
+    """Slides 2 to the last as written text, the Facebook post above slide 1: headline and body, a blank line between slides."""
+    blocks = ["\n".join(lines_of(s.get("headline", "")) + lines_of(s.get("body", ""))) for s in version.get("slides", [])[1:]]
+    return "\n\n".join(b for b in blocks if b)
+
+
+def _bare(token):
+    return _BARE_RE.sub("", token)
+
+
+def _no_emoji(text):
+    return "\n".join(" ".join(_POST_EMOJI_RE.sub("", line).split()) for line in str(text).split("\n"))
+
+
+def post_words(text):
+    """The words of a text without punctuation or emojis, to compare a post text with its source."""
+    return [b for b in (_bare(t) for t in str(text).split()) if b]
+
+
+def carry_punctuation(source, template):
+    """The source text with its own words and line breaks, each word written as in the template where the two agree
+    (difflib on the bare words), so a review edit keeps the punctuation of every unchanged word."""
+    import difflib
+    toks = _no_emoji(template).split()   # a mark standing alone (the · between words) stays its own token
+    src_lines = [line.split() for line in str(source).split("\n")]
+    flat = [w for line in src_lines for w in line]
+    use = list(flat)
+    sm = difflib.SequenceMatcher(None, [_bare(w) for w in flat], [_bare(t) for t in toks], autojunk=False)
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == "equal":
+            for k in range(i2 - i1):
+                use[i1 + k] = toks[j1 + k]
+        elif tag == "replace" and i2 - i1 == j2 - j1:   # a word swapped for another keeps the marks around it
+            for k in range(i2 - i1):
+                t = toks[j1 + k]
+                core = re.search(r"[א-ת0-9A-Za-z].*[א-ת0-9A-Za-z]|[א-ת0-9A-Za-z]", t)
+                if core and _bare(flat[i1 + k]) == flat[i1 + k]:
+                    use[i1 + k] = t[:core.start()] + flat[i1 + k] + t[core.end():]
+    out, n = [], 0
+    for line in src_lines:
+        out.append(" ".join(use[n:n + len(line)]))
+        n += len(line)
+    return "\n".join(out)
+
+
+def _hook_emoji(text):
+    """(emoji, line) of the hook: the emoji ending line 1 or 2 (the hook sentence may run over two lines)."""
+    filled = [line for line in str(text).split("\n") if line.strip()]
+    for n, line in enumerate(filled[:2]):
+        found = [e for e in _POST_EMOJI_RE.findall(line) if e != POST_CTA_EMOJI]
+        if found:
+            return found[0], n
+    return "", 0
+
+
+def post_texts(version, template=None):
+    """{"caption", "fb_text"} ready to post: the current caption and slides, punctuated as in the template
+    (version["post_text"] or a hand written postiz-text.json), the hook emoji at the end of the first line and the
+    save emoji at the end of the last. Without a template: the plain texts with only the save emoji."""
+    tpl = template if template is not None else (version.get("post_text") or {})
+    out = {}
+    for key, src in (("caption", version.get("caption", "").strip()), ("fb_text", fb_source(version))):
+        t = tpl.get(key) or ""
+        text = carry_punctuation(src, t) if t else src
+        lines = text.split("\n")
+        filled = [i for i, line in enumerate(lines) if line.strip()]
+        emoji, at = _hook_emoji(t)
+        if not emoji:
+            emoji, at = _hook_emoji(tpl.get("caption", ""))[0], 0
+        if filled and emoji:
+            lines[filled[min(at, len(filled) - 1)]] += " " + emoji
+        if filled:
+            lines[filled[-1]] += " " + POST_CTA_EMOJI
+        out[key] = "\n".join(lines)
+    return out
+
+
+def post_text_issues(path, version):
+    """post_text must hold both texts, word for word the caption and slides 2 to 10, punctuated (no dash, semicolon or
+    hyphen), with one emoji at the end of the first line, 🔖 at the end of the last and no other emoji."""
+    pt = version.get("post_text")
+    if not isinstance(pt, dict):
+        return [Issue("ERROR", path, "post_text is missing: the written Instagram caption and Facebook text, punctuated, one emoji on the hook line and 🔖 on the CTA (Yarin, 26 Oct 2026)")]
+    issues = []
+    for key, src in (("caption", version.get("caption", "")), ("fb_text", fb_source(version))):
+        p, text = f"{path}/{key}", str(pt.get(key) or "")
+        if not text.strip():
+            issues.append(Issue("ERROR", p, "empty"))
+            continue
+        a, b = post_words(src), post_words(text)
+        if a != b:
+            k = next((i for i, (x, y) in enumerate(zip(a, b)) if x != y), min(len(a), len(b)))
+            issues.append(Issue("ERROR", p, f"the words must be exactly the {'caption' if key == 'caption' else 'slides 2 to 10'}, only punctuation and emojis added; first difference at word {k + 1}",
+                                excerpt=" ".join(b[max(0, k - 2):k + 3])))
+        issues.extend(forbidden_char_issues(p, _POST_EMOJI_RE.sub("", text)))
+        lines = [line for line in text.split("\n") if line.strip()]
+        last = lines[-1] if lines else ""
+        emoji, at = _hook_emoji(text)
+        hook_line = lines[at] if lines else ""
+        if not emoji or len(_POST_EMOJI_RE.findall(hook_line)) != 1 or not hook_line.rstrip().endswith(emoji):
+            issues.append(Issue("ERROR", p, "the hook (line 1, or line 2 when the sentence runs over) ends with exactly one emoji that fits the topic", excerpt=(lines[0] if lines else "")[:80]))
+        if not last.rstrip().endswith(POST_CTA_EMOJI) or len(_POST_EMOJI_RE.findall(last)) != 1:
+            issues.append(Issue("ERROR", p, f"the last line (the CTA) ends with {POST_CTA_EMOJI} and nothing else", excerpt=last[:80]))
+        if sum(len(_POST_EMOJI_RE.findall(line)) for line in lines) != 2:
+            issues.append(Issue("ERROR", p, "two emojis in all: one on the hook and the CTA's, never in between"))
+        if not re.search(r"[.,?!:]", _POST_EMOJI_RE.sub("", text)):
+            issues.append(Issue("WARN", p, "no punctuation at all: add the periods, commas and question marks a person would type"))
+    return issues
+
+
 def save_later_moment(cta):
     """The words after לפעם הבאה in a save for later CTA ('' when it has none)."""
     flat = collapse(cta)

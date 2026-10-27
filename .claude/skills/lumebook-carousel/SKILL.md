@@ -106,6 +106,7 @@ Headlines alone must tell the story, and each one is written like a cover: it st
 - Never say or hint that anything is made with AI: no label on slides, nothing in the caption, alt text or comments (Yarin, 8 Oct 2026: it ruins trust and engagement). The validator rejects AI, בינה מלאכותית and "נוצר בעזרת"
 - No brand and no book title anywhere a parent reads (slides, caption, CTA). The comment link does the selling; the validator rejects לומבוק, LumeBook and catalogue titles
 - Caption: line 1 restates the hook in other words, then 2 to 4 short value lines, then one bridge line, then the CTA. 5 to 8 lines, no em dash, period or comma
+- Post texts (packs from 26 Oct 2026 21:00): `post_text` holds the caption and the Facebook text (slides 2 to 10) punctuated, same words, one emoji ending the hook and 🔖 ending the CTA, nothing else (Yarin: "dont overdo it only at cta and hooks"); `references/nightly.md` has the rule and the validator checks it
 
 ### Claims and sources
 

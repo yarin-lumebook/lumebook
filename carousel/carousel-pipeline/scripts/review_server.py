@@ -22,7 +22,8 @@ become editable in place. "שמירה" (or Cmd+S) sends the changes here, and th
 
 / is Carousel Machine itself (studio.py): every carousel of the week on one page, edited in place through /api/save and
 /api/save-reco, graded through /api/grade (grades.json) and produced through /api/production/* (producer.py,
-productions.json). /api/state is what the page reloads.
+productions.json); /api/production/postiz sends a finished one to Postiz, scheduled or as a draft (postiz_export.py). /api/state is
+what the page reloads.
 
 Listens on 127.0.0.1 only. Writes under carousel/carousel-pipeline/drafts/ and approved/, and to grades.json and productions.json.
 Standard library only.
@@ -189,6 +190,10 @@ def save(date, edits, drafts=lib.DRAFTS, history_path=lib.HISTORY, edits_log=lib
     if not changes:
         return {"changed": 0, "errors": [], "warnings": [], "note": "nothing changed"}
     synced = sync_examples(pack, changes, folder)
+    for d in pack["directions"]:   # the written post texts follow the edited caption and slides, punctuation kept
+        for v in d["versions"]:
+            if isinstance(v.get("post_text"), dict) and any(c["option"] == v["id"] for c in changes):
+                v["post_text"] = lib.post_texts(v)
     backup = snapshot(folder)
     lib.write_json(pack_path, pack)
     logged = lib.log_voice_edits(voice_records(pack, changes, date), edits_log)
@@ -237,6 +242,13 @@ class Handler(SimpleHTTPRequestHandler):
             query = dict(part.split("=", 1) for part in self.path.partition("?")[2].split("&") if "=" in part)
             wanted = query.get("batch", "")
             return self.send_json(studio.state(wanted if DATE_RE.match(wanted) and batch.load(wanted) else None))
+        if route == "/api/postiz-preview":
+            import postiz_export
+            from urllib.parse import parse_qs
+            rec = producer.get(parse_qs(self.path.partition("?")[2]).get("key", [""])[0]) or {}
+            if rec.get("status") != "done" or not rec.get("run_dir"):
+                return self.send_json({"error": "הקרוסלה עוד לא מוכנה"}, 400)
+            return self.send_json(postiz_export.preview(lib.PIPELINE / rec["run_dir"].lstrip("/")))
         if route == "/api/productions":
             return self.send_json({"runs": producer.load()["runs"]})
         # the older addresses (16 Oct 2026) all open the one page (Yarin, 17 Oct: "one page for everything without any subpages")
@@ -250,7 +262,7 @@ class Handler(SimpleHTTPRequestHandler):
         if route.startswith("/approved/") and ".." not in route and route.rsplit(".", 1)[-1].lower() in ("png", "jpg", "zip", "txt", "md", "json", "html"):
             return super().do_GET()
         # drafts for the review pages, assets/fonts for the pillar typefaces; nothing else in the pipeline folder is served
-        if not self.path.startswith(("/drafts/", "/assets/fonts/")) or ".." in self.path:
+        if not self.path.startswith(("/drafts/", "/assets/fonts/", "/assets/brand/")) or ".." in self.path:
             return self.send_error(404)
         if DAY_PAGE_RE.match(self.path.split("?")[0]):
             return self.send_page()
@@ -435,6 +447,18 @@ def _production_api(self):
                 return self.send_json({"error": "bad path"}, 400)
             import subprocess
             subprocess.run(["open", "-R", str(path)], check=False, timeout=10)
+        elif action == "postiz":
+            # to Postiz, scheduled for the picked time or a draft: Instagram gets every slide, Facebook slide 1 with the rest written out (postiz_export.py)
+            import postiz_export
+            rec = producer.get(key) or {}
+            if rec.get("status") != "done" or not rec.get("run_dir"):
+                return self.send_json({"error": "הקרוסלה עוד לא מוכנה"}, 400)
+            try:
+                sent = postiz_export.send(lib.PIPELINE / rec["run_dir"].lstrip("/"), when=payload.get("when") or None,
+                                          draft=bool(payload.get("draft")))
+            except RuntimeError as exc:
+                return self.send_json({"error": str(exc)}, 502)
+            producer._update(key, postiz={"sent_at": sent["sent_at"], "date": sent["date"], "status": sent["status"]})
         else:
             return self.send_error(404)
     except producer.Blocked as exc:

@@ -40,7 +40,7 @@ def hub_url():
     try:
         return json.loads((ROOT / "shared" / "facts.json").read_text(encoding="utf-8"))["links"]["hq_artifact"]
     except (OSError, ValueError, KeyError):
-        return "https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ"
+        return "https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6"
 
 
 # The slide previews: the carousel's audience-facing look, fixed in both themes and kept exactly as it was.

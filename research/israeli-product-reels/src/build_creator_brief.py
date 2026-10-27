@@ -60,7 +60,10 @@ REEL = {"video": "media/shoham-reel.mp4", "poster": "media/shoham-reel-poster.jp
 
 
 def reel_files(slug):
-    """The web copies of a card's example Reel (20 Oct 2026): media/ex-SLUG.mp4 and media/ex-SLUG-poster.jpg."""
+    """The web copies of a card's example Reel (20 Oct 2026): media/ex-SLUG.mp4 and media/ex-SLUG-poster.jpg.
+    Shoham's Reel keeps its 15 Oct file names; since 26 Oct it is the first card of the one example carousel."""
+    if slug == "shoham":
+        return REEL
     return {"video": f"media/ex-{slug}.mp4", "poster": f"media/ex-{slug}-poster.jpg"}
 
 # Hebrew the page adds around the brief's own text (linted by lint_creator_brief.py too)
@@ -87,6 +90,8 @@ UI = {
     "msg_example": "למשל",
     "screens_title": "איפה כל דבר יושב על המסך",
     "swipe_hint": "החליקו הצידה",
+    "prev": "הסרטון הקודם",
+    "next": "הסרטון הבא",
     "screen_open": "פתיחה",
     "screen_rec": "הקלטת מסך",
     "screen_end": "סוף",
@@ -139,6 +144,8 @@ ICONS = {
     "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     "user": '<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/>',
     "sun": '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/>',
+    "chev-r": '<path d="m9 6 6 6-6 6"/>',
+    "chev-l": '<path d="m15 6-6 6 6 6"/>',
     "moon": '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
 }
 
@@ -255,6 +262,13 @@ def dots(n):
     return f'<div class="dots" aria-hidden="true"><span>{UI["swipe_hint"]}</span>' + "<i></i>" * n + "</div>"
 
 
+def carousel_nav(n):
+    """Dots plus previous / next buttons for the example Reels carousel (shown at every width, 26 Oct 2026)."""
+    return (f'<div class="dots nav"><button class="iconbtn" type="button" data-step="-1" aria-label="{UI["prev"]}">{icon("chev-r")}</button>'
+            f'<span>{UI["swipe_hint"]}</span>' + "<i></i>" * n +
+            f'<button class="iconbtn" type="button" data-step="1" aria-label="{UI["next"]}">{icon("chev-l")}</button></div>')
+
+
 def strip(steps):
     total = steps[-1]["end"]
     segs = "".join(
@@ -363,7 +377,7 @@ def render_items(items, sec_id, ctx):
                         f'preload="none" aria-label="{html.escape(who)}"></video></div>'
                         f'<h3>{inline(who)}<small>{inline(topic)}</small></h3><ul>'
                         + "".join(f'<li>{inline(l)}</li>' for l in c["lines"]) + "</ul></li>")
-                out.append('<ul class="reelrow" data-carousel>' + "".join(cards) + "</ul>" + dots(len(cards)))
+                out.append('<ul class="reelrow" data-carousel>' + "".join(cards) + "</ul>" + carousel_nav(len(cards)))
             elif t == "message":
                 cards = []
                 for msg in run:
@@ -679,9 +693,15 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* the cover 
 .reel figcaption { font-size: var(--fs-footnote); color: var(--text-3); }
 .reel figcaption bdi { color: var(--text-2); font-weight: 600; }
 
-/* five more example Reels: a grid on wide screens, a swipe row on phones */
-.reelrow { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-5) var(--sp-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
-.rcard { display: grid; gap: var(--sp-2); align-content: start; justify-items: center; min-width: 0; }
+/* all the example Reels in one carousel at every width (26 Oct 2026): swipe, or the arrows under it */
+.reelrow { list-style: none; margin: 0; padding: 2px 0 var(--sp-1); display: flex; gap: var(--sp-4); overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; overscroll-behavior-x: contain; }
+.reelrow::-webkit-scrollbar { display: none; }
+.rcard { flex: 0 0 15rem; scroll-snap-align: center; display: grid; gap: var(--sp-2); align-content: start; justify-items: center; min-width: 0; }
+.dots.nav { display: flex; }
+.dots.nav .iconbtn { width: 2.25rem; height: 2.25rem; background: var(--surface); }
+.dots.nav button:first-child { margin-inline-end: var(--sp-2); }
+.dots.nav button:last-child { margin-inline-start: var(--sp-2); }
 .rcard .reel-frame { width: 100%; }
 .rcard h3 { width: 100%; font-size: var(--fs-headline); font-weight: 700; line-height: 1.35; display: grid; }
 .rcard h3 small { font-size: var(--fs-footnote); font-weight: 500; color: var(--text-3); }
@@ -742,11 +762,11 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* the cover 
   .node { width: 1.75rem; height: 1.75rem; font-size: var(--fs-footnote); margin-top: .75rem; }
   .step-card { padding: var(--sp-3) var(--sp-4); gap: var(--sp-2); }
   .time { margin-inline-start: 0; flex-basis: 100%; }
-  .phones, .board, .reelrow { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+  .phones, .board { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
     gap: var(--sp-3); padding-block: 2px var(--sp-1); max-width: none; }
-  .phones::-webkit-scrollbar, .board::-webkit-scrollbar, .reelrow::-webkit-scrollbar { display: none; }
+  .phones::-webkit-scrollbar, .board::-webkit-scrollbar { display: none; }
   .reelrow { margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
-  .rcard { flex: 0 0 68%; scroll-snap-align: center; }
+  .rcard { flex: 0 0 68%; }
   .phones { margin-inline: calc(-1 * var(--sp-4)); padding-inline: var(--sp-4); }
   .phone-wrap { flex: 0 0 60%; scroll-snap-align: center; }
   .phone { max-width: none; }
@@ -864,6 +884,13 @@ PAGE_JS = """
       Array.prototype.forEach.call(dots, function (d, i) { d.classList.toggle("on", i === best); });
     }
     row.addEventListener("scroll", update, { passive: true });
+    Array.prototype.forEach.call(row.nextElementSibling.querySelectorAll("[data-step]"), function (b) {
+      b.addEventListener("click", function () {
+        var on = Array.prototype.indexOf.call(dots, row.nextElementSibling.querySelector("i.on"));
+        var c = row.children[Math.max(0, Math.min(row.children.length - 1, on + Number(b.getAttribute("data-step"))))];
+        row.scrollTo({ left: row.scrollLeft + c.getBoundingClientRect().left + c.offsetWidth / 2 - row.getBoundingClientRect().left - row.clientWidth / 2, behavior: "smooth" });
+      });
+    });
     window.addEventListener("resize", update);
     update();
   });

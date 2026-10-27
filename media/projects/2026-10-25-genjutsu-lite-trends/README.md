@@ -106,3 +106,15 @@ Characters reused: Ben `../2026-10-11-toddler-character-pack/final/01_front.png`
 
 - These are recreations of other creators' trends; captions and sound are added afterwards (the mom spa original carried an English caption, to be replaced with Hebrew in post).
 - Ben is a generated character, so no family permission is needed; the mom is generated too.
+
+## Fridge, Lume and Ben with Lume: captioned versions (`captioned/`, 26 Oct)
+
+A second hook set, funnier and about mom struggles (`captions-v2-mom-humour.json`, 26 Oct). Yarin picked and rewrote 11 of them in his own words. `build_captions.py --reel=<id>` burns them in the same look as Ben in the window, with "הסבר בתיאור👇🏻" at the bottom and the sound kept. The hooks are in `captioned/<name>-captions.json`, positions in `captioned/<name>-versions.json` and check sheets in `qc/<id>-captions-sheet.jpg`:
+- `03-mom-fridge-caption-1..3.mp4`: not even a plate / before and after kids, sugar after 8 / therapy after the kids fall asleep
+- `04-lume-books-dance-caption-1..3.mp4`: mom orders a book starring her child / the perfect gift for the next birthday (52px, the longest line) / the kindergarten teacher says "he was lovely today"
+- `05-ben-lume-dance-caption-1..5.mp4`: 8 pm "we're tired" / one bite of kindergarten cake / "time for a shower" / after a day at grandma's / POV no kindergarten tomorrow
+Check sheet notes: on Lume the hook sits over the floating book (whose page text is gibberish) and, in the middle of the reel, over the tips of Lume's ears; the text stays readable. No description written yet for these three.
+
+**26 Oct, later:** Yarin asked to drop "הסבר בתיאור👇🏻" from all of them. `_bottom` is now optional in `build_captions.py` and removed from the four `*-captions.json`; all 16 `captioned/*-caption-N.mp4` were rebuilt with the hook only (the earlier versions with the bottom line were overwritten). The `qc/*-captions-sheet.jpg` sheets still show the old bottom line. The Ben window trial versions (`captioned/trial/`) hold only their record, no video files, so they were not rebuilt.
+
+**26 Oct, scheduled:** the three sets are in Postiz as Instagram trial reels (`is_trial_reel`, graduation MANUAL: Yarin picks which version to share to followers), Instagram only, 15:00 Israel time, 5 minutes apart: Tue 27 Oct fridge 1..3, Wed 28 Oct Lume 1..3, Thu 29 Oct Ben with Lume 1..5. Post texts: `captioned/<name>-description.txt`, one per reel (hook with one emoji, then how it works, then the CTA "רוצים ספר שבו הילד שלכם הוא הגיבור? הקישור בביו 👆"; Yarin first dropped the "לומי" comment CTA, then asked for a link in bio one; the other lines pass `voice_lint.py`, whose carousel rules flag any link in bio). Upload paths, the text sent and Postiz post ids: `captioned/postiz-trial.json`. The CLI cannot edit a post's text: change the description file, then `captioned/replace_trial_texts.py` recreates each post with the same video and time and deletes the old one.

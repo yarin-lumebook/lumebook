@@ -322,6 +322,9 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.extend(lib.comment_cta_issues(f"{p}/caption", line))
     if cap_lines and lib.collapse(cap_lines[0]) == lib.collapse(slides[0].get("headline", "")):
         issues.append(lib.Issue("ERROR", f"{p}/caption", "caption line 1 must restate the hook in different words, not copy it"))
+    # Written post texts for Instagram and Facebook (Yarin, 26 Oct 2026): punctuation, one emoji on the hook and the CTA
+    if lib.post_text_applies(pack) or "post_text" in v:
+        issues.extend(lib.post_text_issues(f"{p}/post_text", v))
 
     # Sources and claims
     sources = v.get("sources", [])

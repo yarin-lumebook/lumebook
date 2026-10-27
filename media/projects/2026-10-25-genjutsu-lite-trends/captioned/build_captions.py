@@ -1,6 +1,7 @@
-"""Five caption versions of 02-ben-window (sound version), Yarin's hooks of 25 Oct 2026.
-Run: <python with Pillow> build_captions.py   (the watch-video .venv has Pillow)
-Top: the hook from ben-window-captions.json, starting at y 290, below the top 14% of the frame.
+"""Caption versions of one Genjutsu Lite reel (sound version): Yarin's hooks of 25 Oct 2026 for 02-ben-window,
+of 26 Oct for 03-mom-fridge, 04-lume-books-dance and 05-ben-lume-dance.
+Run: <python with Pillow> build_captions.py [--reel=03-mom-fridge]   (default 02-ben-window; the watch-video .venv has Pillow)
+Top: each hook from <reel without number>-captions.json (e.g. mom-fridge-captions.json), starting at y 290, below the top 14% of the frame.
 Bottom: "_bottom" ("הסבר בתיאור👇🏻"), its baseline at the lowest safe line (65% of the height; the bottom 35%
 is covered by Instagram's buttons and caption, research/israeli-product-reels/playbook.md).
 Look follows 2026-10-21-genjutsu-ben-truck-jump/build_versions.py: SF Hebrew Bold, white, soft shadow.
@@ -12,8 +13,10 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = Path(__file__).parent
-SRC = HERE.parent / "results" / "02-ben-window-v1-1080p-sound.mp4"
-copy = json.load(open(HERE / "ben-window-captions.json"))
+REEL = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--reel=")), "02-ben-window")
+NAME = REEL.split("-", 1)[1]
+SRC = HERE.parent / "results" / f"{REEL}-v1-1080p-sound.mp4"
+copy = json.load(open(HERE / f"{NAME}-captions.json"))
 TMP = HERE / "_cards"; TMP.mkdir(exist_ok=True)
 SF = "/System/Library/Fonts/SFHebrew.ttf"
 SF_LATIN = "/System/Library/Fonts/SFNS.ttf"  # SF Hebrew has no Latin letters; SF Pro supplies them
@@ -121,17 +124,19 @@ record = {}
 for i, key in enumerate(keys):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     hook_px, hook_top, hook_bottom = block(im, shadow, copy[key], 64, top=TOP)
-    low_px, low_top, low_bottom = block(im, shadow, copy["_bottom"], 54, bottom=SAFE_BOTTOM)
-    card = TMP / f"caption-{key}.png"
+    # "_bottom" is optional: Yarin dropped "הסבר בתיאור👇🏻" from every reel on 26 Oct 2026
+    low_px, low_top, low_bottom = (block(im, shadow, copy["_bottom"], 54, bottom=SAFE_BOTTOM)
+                                   if copy.get("_bottom") else (None, None, None))
+    card = TMP / f"caption-{NAME}-{key}.png"
     Image.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(6)), im).save(card)
     pic, aud, p = picture_filter(i, key)
-    out = out_dir / (f"02-ben-window-trial-{key}.mp4" if TRIAL else f"02-ben-window-caption-{key}.mp4")
+    out = out_dir / (f"{REEL}-trial-{key}.mp4" if TRIAL else f"{REEL}-caption-{key}.mp4")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(SRC), "-i", str(card),
                     "-filter_complex", f"{pic};[p][1:v]overlay=0:0:format=auto,format=yuv420p[v];{aud}",
                     "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-crf", "16", "-preset", "slow",
                     "-c:a", "aac", "-b:a", "192k", "-r", "24", "-movflags", "+faststart", str(out)], check=True)
-    record[key] = dict(file=out.name, hook=copy[key], bottom=copy["_bottom"], hook_px=hook_px,
+    record[key] = dict(file=out.name, hook=copy[key], bottom=copy.get("_bottom"), hook_px=hook_px,
                        hook_y=[hook_top, hook_bottom], bottom_px=low_px, bottom_y=[low_top, low_bottom], **p)
     print(out.name, f"hook {hook_px}px y {hook_top}-{hook_bottom}", f"bottom {low_px}px y {low_top}-{low_bottom}",
           ("flip" if p.get("flip") else "no flip") if TRIAL else "", p.get("zoom", ""))
-json.dump(record, open(out_dir / "ben-window-versions.json", "w"), ensure_ascii=False, indent=1)
+json.dump(record, open(out_dir / f"{NAME}-versions.json", "w"), ensure_ascii=False, indent=1)

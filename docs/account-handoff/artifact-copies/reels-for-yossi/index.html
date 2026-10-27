@@ -1,0 +1,489 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>רילס שעובדים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Varela+Round&display=swap">
+<style>
+/* Layout: one RTL reading column; summary first (gap, takeaways), then 8 must-sees, then a filterable library, then tests and method. Lumebook site tokens, dark by design. */
+:root{
+  --ink:#0B0518; --ink-1:#130827; --ink-2:#1D1039; --ink-3:#291852;
+  --line:rgba(230,183,98,.14); --line-strong:rgba(248,240,225,.16);
+  --gold:#E6B762; --gold-soft:#F3D9A1; --gold-wash:rgba(230,183,98,.10);
+  --cream:#F8F0E1; --cream-mute:#B8AF9E; --cream-dim:#8A8376;
+  --rose:#E88BA8; --rose-wash:rgba(232,139,168,.12);
+  --warn:#E9A15B;
+  --font-display:"Varela Round","Heebo",system-ui,sans-serif;
+  --font-body:"Heebo","Varela Round",system-ui,sans-serif;
+  --r-sm:.6rem; --r-md:1rem; --r-pill:999px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ink);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.65;margin:0}
+main{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:40px 72px;display:flex;flex-direction:column;gap:56px}
+a{color:var(--gold)}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.1rem,5vw,3.1rem);line-height:1.15;color:var(--gold-soft)}
+h2{font-size:1.45rem;color:var(--gold-soft)}
+h3{font-size:1.06rem;line-height:1.35;color:var(--cream)}
+.eyebrow{font-size:.8rem;letter-spacing:.04em;color:var(--cream-dim)}
+.lead{font-size:1.08rem;color:var(--cream-mute);max-width:62ch;margin:0}
+.ltr{direction:ltr;unicode-bidi:isolate}
+section{display:flex;flex-direction:column;gap:20px}
+.section-head{display:flex;flex-direction:column;gap:6px}
+.section-head p{margin:0;color:var(--cream-mute);max-width:65ch}
+
+/* header */
+.top{display:flex;flex-direction:column;gap:18px}
+.gap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:6px}
+.gap div{background:var(--ink-1);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.gap b{align-self:flex-start;font-family:var(--font-display);font-weight:400;font-size:2rem;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--cream)}
+.gap div:last-child b{color:var(--gold)}
+.gap span{font-size:.9rem;color:var(--cream-mute)}
+@media (max-width:640px){.gap{grid-template-columns:1fr}}
+
+/* takeaways */
+.takeaways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;margin:0;padding:0;list-style:none}
+.takeaways li{border-top:1px solid var(--line-strong);padding-top:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.takeaways strong{font-family:var(--font-display);font-weight:400;font-size:1.08rem;color:var(--gold-soft)}
+.takeaways p{margin:0;color:var(--cream-mute)}
+@media (max-width:760px){.takeaways{grid-template-columns:1fr}}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.grid.lg{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.grid,.grid.lg{grid-template-columns:1fr}}
+.card{background:var(--ink-1);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 16px 14px;display:flex;flex-direction:column;gap:10px;min-width:0;scroll-margin-top:24px}
+.card:target{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-wash)}
+.lg .card{padding:20px 20px 16px;background:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.74rem;line-height:1;padding:5px 9px;border-radius:var(--r-pill);border:1px solid var(--line-strong);color:var(--cream-mute);white-space:nowrap}
+.chip.il{border-color:transparent;background:var(--rose-wash);color:var(--rose)}
+.chip.intl{border-color:transparent;background:var(--gold-wash);color:var(--gold)}
+.creator{font-size:.85rem;color:var(--cream-dim);margin-top:-4px}
+.metrics{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-size:.86rem;color:var(--cream-mute);font-variant-numeric:tabular-nums}
+.metrics .views{font-family:var(--font-display);font-size:1.5rem;color:var(--cream);line-height:1}
+.metrics .views small{font-family:var(--font-body);font-size:.8rem;color:var(--cream-dim);margin-inline-start:4px}
+.metrics .mult{color:var(--gold)}
+.metrics .mult.low{color:var(--cream-dim)}
+.what{margin:0;color:var(--cream)}
+.why{margin:0;padding-inline-start:1.1em;color:var(--cream-mute);font-size:.94rem;display:flex;flex-direction:column;gap:2px}
+.how{margin:0;font-size:.94rem;background:var(--gold-wash);border-radius:var(--r-sm);padding:9px 11px;color:var(--cream)}
+.how b{color:var(--gold);font-weight:500}
+.flag{margin:0;font-size:.82rem;color:var(--warn)}
+.card footer{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid var(--line)}
+.icps{display:flex;flex-wrap:wrap;gap:4px}
+.icps span{font-size:.72rem;color:var(--cream-dim);background:var(--ink-3);border-radius:var(--r-pill);padding:3px 8px}
+.watch{font-size:.88rem;font-weight:500;text-decoration:none;white-space:nowrap}
+.watch:hover{text-decoration:underline}
+
+/* filters */
+.filters{display:flex;flex-direction:column;gap:10px;background:var(--ink-1);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px}
+.frow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.frow .lbl{font-size:.8rem;color:var(--cream-dim);min-width:4.5em}
+.fbtn{font:inherit;font-size:.84rem;line-height:1;padding:7px 12px;border-radius:var(--r-pill);border:1px solid var(--line-strong);background:transparent;color:var(--cream-mute);cursor:pointer}
+.fbtn[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.fbtn:hover{border-color:var(--gold)}
+select{font:inherit;font-size:.84rem;background:var(--ink-2);color:var(--cream);border:1px solid var(--line-strong);border-radius:var(--r-sm);padding:6px 10px}
+.count{font-size:.85rem;color:var(--cream-dim)}
+.empty{color:var(--cream-mute);padding:24px;text-align:center;border:1px dashed var(--line-strong);border-radius:var(--r-md)}
+
+/* tests + method */
+.tests{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.tests li{background:var(--ink-1);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.tests strong{font-weight:500;color:var(--cream)}
+.tests p{margin:0;color:var(--cream-mute);font-size:.94rem}
+.method{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;font-size:.9rem;color:var(--cream-mute)}
+.method h3{font-size:.95rem;color:var(--cream);margin-bottom:6px}
+.method ul{margin:0;padding-inline-start:1.1em;display:flex;flex-direction:column;gap:4px}
+@media (max-width:860px){.method{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+</style>
+
+<main dir="rtl" lang="he">
+  <header class="top">
+    <div class="eyebrow">לומיבוק · מחקר תוכן לסושיאל · נאסף 2.10.2026</div>
+    <h1>רילס שעובדים</h1>
+    <p class="lead">35 טיקטוקים ורילס שהצליחו באמת, ישראל וחו״ל, ספרים אישיים וגם פורמטים מתחומים קרובים. לכל אחד: מה רואים, למה זה עבד, ואיך זה נראה אצלנו.</p>
+    <div class="gap" aria-label="נקודת פתיחה">
+      <div><b class="ltr">48</b><span>חציון צפיות ל-12 הרילס האחרונים של <span class="ltr">@lumebookai</span></span></div>
+      <div><b class="ltr">~4K</b><span>חציון צפיות ל-12 הרילס האחרונים של MeBook</span></div>
+      <div><b class="ltr">86.5K</b><span>הרילס של MeBook עם יוצר תוכן (פי 22 מהרגיל שלהם)</span></div>
+    </div>
+  </header>
+
+  <section aria-labelledby="t-take">
+    <div class="section-head"><h2 id="t-take">בקצרה</h2></div>
+    <ul class="takeaways">
+      <li><strong>הפורמט עושה את העבודה, לא גודל החשבון</strong><p>22 מתוך 31 הסרטונים כאן שיש להם חציון חשבון עשו פי 10 ומעלה מהרגיל של החשבון שלהם. הלוויה למוצץ: 2.6M צפיות בחשבון עם חציון 870 (<a href="#v-c01">לסרטון</a>).</p></li>
+      <li><strong>collab עם יוצר מנצח פוסט של מותג</strong><p>אצל MeBook רוב הרילס בין 1.3K ל-5.6K, והרילס עם <span class="ltr">@liron_ofir</span> הגיע ל-86.5K (<a href="#v-b02">לסרטון</a>). בחו״ל אותו דבר: יוצרת קטנה שתייגה מותג עשתה פי 63 מהרגיל שלה (<a href="#v-a07">לסרטון</a>).</p></li>
+      <li><strong>הרגע ״זה אני!״ הוא המוצר</strong><p>הסרטונים החזקים של המותגים בנויים סביב הרגע שהילד מזהה את עצמו. זה עובד גם בלי ספר: ילדה צופה בעצמה לפני שנולדה (2.5M), תינוקת שומעת את השם שלה (724K).</p></li>
+      <li><strong>אבן דרך + טקס = שיתופים</strong><p>הלוויה למוצץ (2.6M), אחות גדולה פוגשת את התינוק (2.7M), רופאה מגיבה לפרידה מהמוצץ (1.7M). זה בדיוק הקטלוג שלנו: מוצץ, אח חדש, כיתה א׳.</p></li>
+      <li><strong>לדבר גם עם מי שקונה מתנה</strong><p>הדודה של MeBook שמחפשת מתנה לכיתה א׳ (<a href="#v-b01">לסרטון</a>), ״מתנה מושלמת לסבתות״ (1.4M), ״התגובה של האחיין״ (163K). לקראת חנוכה (4–12.12) זה ה-hook.</p></li>
+      <li><strong>בישראל גננות הן ערוץ בפני עצמו</strong><p>חשבון של גן עם חציון 135K לסרטון, מתנה לגננת שעשתה פי 82 מהרגיל (<a href="#v-d01">לסרטון</a>), הגננת פלפלת פי 29. גם קונות B2B וגם יוצרות תוכן.</p></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="t-feat">
+    <div class="section-head">
+      <h2 id="t-feat">8 שכדאי לראות קודם</h2>
+      <p>הכי קרובים למה שאנחנו יכולים לעשות עכשיו, בלי תקציב, עם ספרים בבארטר.</p>
+    </div>
+    <div class="grid lg" id="featured"></div>
+  </section>
+
+  <section aria-labelledby="t-lib">
+    <div class="section-head">
+      <h2 id="t-lib">כל הדוגמאות</h2>
+      <p>אפשר לסנן לפי מקור, סוג וקהל. ״מובן מאליו״ = תוכן על ספרים אישיים. ״לא מובן מאליו״ = פורמט מתחום קרוב שאפשר להעתיק.</p>
+    </div>
+    <div class="filters" role="group" aria-label="סינון">
+      <div class="frow" data-group="geo"><span class="lbl">מקור</span></div>
+      <div class="frow" data-group="bucket"><span class="lbl">סוג</span></div>
+      <div class="frow" data-group="icp"><span class="lbl">קהל</span></div>
+      <div class="frow"><span class="lbl">סדר</span>
+        <select id="sort" aria-label="סדר">
+          <option value="mult">הכי חריג ביחס לחשבון</option>
+          <option value="views">הכי נצפה</option>
+          <option value="date">הכי חדש</option>
+        </select>
+        <span class="count" id="count" aria-live="polite"></span>
+      </div>
+    </div>
+    <div class="grid" id="library"></div>
+  </section>
+
+  <section aria-labelledby="t-test">
+    <div class="section-head">
+      <h2 id="t-test">מה הייתי מנסה באוקטובר</h2>
+      <p>בתוך התוכנית הקיימת (בארטר, UGC, אבני דרך). כל מה שעולה כסף או ספרים חינם, באישור יוסי.</p>
+    </div>
+    <ul class="tests">
+      <li><strong>בריף אחד ליוצרים בבארטר</strong><p>לפי <a href="#v-b02">MeBook × לירון</a> ו-<a href="#v-a08">Wonder Wraps</a>: רגע הפתעה אמיתי, close-up על הדף שבו הילד מזהה את עצמו, פוסט collab, קוד אישי ליוצר (באישור יוסי)</p></li>
+      <li><strong>״ביי ביי מוצץ״ כטקס</strong><p>לבקש מכל מי שקונה ספר גמילה לצלם את טקס הפרידה עם הספר (UGC). אפשר גם להציע למומחית לעשות stitch, כמו <a href="#v-c02">הרופאה</a></p></li>
+      <li><strong>hook לנותני מתנות לקראת חנוכה</strong><p>״POV: אתם רואים את התגובה של האחיין״ / ״מה מביאים לנכד שיש לו הכל?״, לפי <a href="#v-a06">Wonder Wraps</a> ו-<a href="#v-b01">MeBook</a></p></li>
+      <li><strong>גננות עם קהל</strong><p>ספרים לכל הגן בתמורה לסרטון אצל גננת עם קהל, כמו <a href="#v-d03">הגן הזה</a> או <a href="#v-f07">הגננת פלפלת</a> (באישור יוסי). ובנוסף רילס ״מתנה לגננת לחנוכה״ לועדי הורים</p></li>
+      <li><strong>״5 שמות של ילדים שכבר גיבורים״</strong><p>סדרה קצרה של כריכות עם שמות (באישור ההורים) ובקשה לשמות בתגובות לפרק הבא, לפי <a href="#v-c04">סנטה</a></p></li>
+      <li><strong>הסוקרת המקצועית</strong><p>קלינאית או פסיכולוגית מחזיקה את הספר כל הסרטון ומסבירה למה ילד שרואה את עצמו מתמודד טוב יותר, לפי <a href="#v-f03">הקלינאית</a>. לוודא עם יוסי מי</p></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="t-method">
+    <div class="section-head"><h2 id="t-method">איך נאסף ומה חסר</h2></div>
+    <div class="method">
+      <div>
+        <h3>איך</h3>
+        <ul>
+          <li>6 סוכני חיפוש, כל אחד על תחום: ספרים אישיים בישראל ובחו״ל, פורמטים קרובים בישראל ובחו״ל, נותני מתנות, גננות ואנשי מקצוע</li>
+          <li>75 מועמדים עם מספרים שנבדקו, 38 נצפו פריים אחרי פריים, 35 נכנסו לכאן</li>
+          <li>את הטקסט בעברית בסרטונים הישראליים בדקתי בעצמי מול הפריימים</li>
+        </ul>
+      </div>
+      <div>
+        <h3>המספרים</h3>
+        <ul>
+          <li>נתונים ציבוריים מ-2.10.2026. טיקטוק: צפיות ולייקים מהעמוד הציבורי. אינסטגרם: צפיות מגריד הרילס בלי התחברות, לייקים מעמוד הרילס</li>
+          <li>״פי X״ = צפיות חלקי חציון הצפיות בסרטונים האחרונים של אותו חשבון</li>
+          <li>בחרנו חריגות בכוונה, אז זה לא ממוצע של השוק</li>
+        </ul>
+      </div>
+      <div>
+        <h3>מה חסר</h3>
+        <ul>
+          <li>סאונד לא נותח: לרוב הסרטונים אין כתוביות, אז מה שנאמר בקול לא ידוע</li>
+          <li>אינסטגרם כמעט סגור בלי התחברות, אז חסרים רילס של הורים ישראלים</li>
+          <li>חלק מהמספרים הגדולים של מותגים כנראה ממומנים (יחס לייקים נמוך מאוד). זו הערכה, מסומן בכרטיס</li>
+          <li>חלק מהסרטונים בני יותר משנתיים, מסומן בתאריך</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const ICP = {
+  "milestone-parent":"הורים באבן דרך","gift-giver":"נותני מתנות","parent-creator":"יוצרי תוכן הורים",
+  "gannenet-b2b":"גננות / B2B","religious":"ציבור דתי","developmental-pro":"אנשי מקצוע","intl-parent":"הורים בחו״ל"
+};
+const MONTHS = ["ינו׳","פבר׳","מרץ","אפר׳","מאי","יוני","יולי","אוג׳","ספט׳","אוק׳","נוב׳","דצמ׳"];
+const FEATURED = ["b02","b01","c01","a08","a06","d01","c04","f03"];
+
+const DATA = [
+  {id:"b02",p:"ig",url:"https://www.instagram.com/reel/Db79B6COOSN/",creator:"@liron_ofir × @mebook.ai",geo:"IL",bucket:"obvious",icp:["parent-creator","milestone-parent"],views:86500,likes:734,median:4008,date:"20260812",dur:176,
+   title:"אבא ממציא סיפור, MeBook הופכים אותו לספר",
+   what:"דיאלוג קצר (״אתה רוצה סיפור? כן, יאללה״) ואז הסיפור שהאבא המציא לבן שלו מוצג דף אחרי דף כספר. נגמר באבא והבן מחובקים.",
+   why:["הרילס הכי חזק בגריד של MeBook, פי 22 מהחציון שלהם","היוצר הוא ״הסופר״, זה הסיפור שלו ולא פרסומת","פוסט collab, אז רץ גם אצל הקהל של היוצר"],
+   how:"בריף בארטר להורה-יוצר: הילד מקבל ספר שהוא הגיבור בו, ההורה מספר על הרגע. לוודא עם יוסי אם אפשר גם סיפור מותאם",
+   flag:"176 שניות, ארוך מהרגיל. הצפיות מגריד הרילס של MeBook"},
+  {id:"b01",p:"tt",url:"https://www.tiktok.com/@mebook.ai/video/7545096813838093574",creator:"@mebook.ai",geo:"IL",bucket:"obvious",icp:["gift-giver","milestone-parent"],views:31200,likes:60,median:null,date:"20250901",dur:52,
+   title:"דודה מחפשת מתנה לכיתה א׳",
+   what:"״אחיינית שלי עלתה לכיתה א׳ ולא ידעתי״. אמא שלה כבר קנתה תיק ומחברות, אז הדודה מחפשת משהו אחר: מסך היצירה של MeBook, ואז הספר ״שלום כיתה א׳״ ביד של הילדה.",
+   why:["נותנת מתנה + אבן דרך בשורה אחת","פותר בעיה אמיתית: מה מביאים כשכבר קנו הכל","התהליך באתר בכמה שניות, ואז ספר אמיתי ביד"],
+   how:"יש לנו ״שלום כיתה א׳״. גרסת חנוכה: ״מה מביאים לאחיין שיש לו הכל?״",
+   flag:"רק 2 סרטונים בטיקטוק שלהם, אז אין חציון אמין"},
+  {id:"b03",p:"tt",url:"https://www.tiktok.com/@booqli.ai/video/7455230510063799560",creator:"@booqli.ai",geo:"IL",bucket:"obvious",icp:["gift-giver"],views:8831,likes:7,median:136,date:"20250102",dur:13,
+   title:"קיר כריכות: כל ילד הוא הגיבור",
+   what:"13 שניות של כריכות ״פית הלילה והחד-קרן״, בכל אחת ילד או ילדה אחרים כגיבורים.",
+   why:["הרבה ילדים שונים = ״גם שלי יכול״","כמעט בלי טקסט, מובן בלי סאונד"],
+   how:"קרוסלת כריכות אמיתיות של לקוחות (באישור ההורים)",
+   flag:"7 לייקים על 8.8K צפיות, כנראה קידום ממומן (הערכה)"},
+  {id:"b04",p:"tt",url:"https://www.tiktok.com/@tinyherostories6/video/7599017287735135495",creator:"@tinyherostories6",geo:"IL",bucket:"obvious",icp:["milestone-parent","gift-giver"],views:2567,likes:73,median:186,date:"20260124",dur:13,
+   title:"POV: מתחילים גן חדש",
+   what:"״POV: הילדה מתחילה גן חדש ורק עכשיו מצאת את הדרך הכי טובה להכין אותה״ על אמא בהלם מול מחשב, ואז ילדה מחבקת ספר.",
+   why:["אבן דרך + ״איך לא ידעתי״ בשורה אחת","הצילומים נראים כמו סטוק או AI (הערכה) ועדיין פי 14 מהרגיל"],
+   how:"אותו hook עם ״מתחילים גן״ או ״ביי ביי מוצץ״, אפשר מחומרים שכבר יש לנו",
+   flag:"חשבון קטן מאוד, המספרים נמוכים"},
+  {id:"b05",p:"tt",url:"https://www.tiktok.com/@tinyherostories6/video/7597872147335351560",creator:"@tinyherostories6",geo:"IL",bucket:"obvious",icp:["milestone-parent"],views:1021,likes:13,median:186,date:"20260121",dur:14,
+   title:"כיתה א׳: ״איך אף אחת לא סיפרה לי?״",
+   what:"״אני בשוק... איך אף אחת לא סיפרה לי שיש דרך להכין אותם לכיתה א׳״, ואז מילוי פרטי הילד בטלפון וספר מודפס.",
+   why:["שאלה שמזמינה תגובות ותיוג של חברות","מראה שזה פשוט: טופס ואז ספר"],
+   how:"גרסה שלנו עם ״שלום כיתה א׳״ + מסך ה-wizard (שם, גיל, תמונה)",
+   flag:"חשבון קטן מאוד, המספרים נמוכים"},
+
+  {id:"a01",p:"tt",url:"https://www.tiktok.com/@librio.books/video/7572633691961167126",creator:"@librio.books",geo:"intl",bucket:"obvious",icp:["gift-giver","intl-parent"],views:14700000,likes:39400,median:14850,date:"20251114",dur:23,
+   title:"מודעת מתנה לחג",
+   what:"גבר בסוודר חג מדבר למצלמה לקראת כריסמס, מציג ספר אישי ומדפדף בו. בסוף הפניה לאתר.",
+   why:["פונה לנותן המתנה בלחץ של החג","הספר על המסך רוב הזמן, רואים בדיוק מה קונים"],
+   how:"גרסת חנוכה בעברית: הורה או סבא מדבר למצלמה ומדפדף בספר עם שם בעברית",
+   flag:"0.3% לייקים, כנראה ממומן (הערכה). ללמוד מה-hook, לא מהמספר"},
+  {id:"a02",p:"tt",url:"https://www.tiktok.com/@hoorayheroes/video/7351358567988907296",creator:"@hoorayheroes",geo:"intl",bucket:"obvious",icp:["gift-giver","intl-parent"],views:6100000,likes:5919,median:18750,date:"20240328",dur:43,
+   title:"״לגרום לאמא לבכות מאושר״",
+   what:"אישה מכסה את הפנים ומתרגשת, ואחר כך הרבה ספרי ״אמא ואני״ אישיים על השולחן.",
+   why:["התגובה של מי שמקבלת את המתנה כבר בשנייה הראשונה","מראה כמה וריאציות יש"],
+   how:"לפתוח בתגובה של מי שמקבל את הספר, ורק אז להראות את הספר",
+   flag:"מ-2024. 0.1% לייקים, כנראה ממומן (הערכה)"},
+  {id:"a03",p:"tt",url:"https://www.tiktok.com/@hoorayheroes/video/7348024192064900384",creator:"@hoorayheroes",geo:"intl",bucket:"obvious",icp:["gift-giver","intl-parent"],views:1400000,likes:2508,median:18750,date:"20240319",dur:17,
+   title:"״מצאתי מתנה מושלמת לסבתות״",
+   what:"ידיים מחזיקות ספר אישי לסבתא עם הטקסט ״מצאתי מתנה מושלמת לסבתות״. מדפדפים, אין פנים.",
+   why:["משפט אחד: למי ומה","17 שניות בלי פנים, קל לצלם"],
+   how:"״מצאתי מתנה מושלמת לנכדים״: סבתא כקונה (יש לנו עמוד מתנה לנכדים)",
+   flag:"מ-2024. 0.2% לייקים, כנראה ממומן (הערכה)"},
+  {id:"a04",p:"tt",url:"https://www.tiktok.com/@hoorayheroes/video/7288288589752929568",creator:"@hoorayheroes",geo:"intl",bucket:"obvious",icp:["milestone-parent","gift-giver","intl-parent"],views:115300,likes:119,median:18750,date:"20231010",dur:26,
+   title:"מתנה שהופכת את הילד לאח גדול",
+   what:"תינוק חדש על המיטה, לידו ספר ״... becomes a big brother״, והטקסט: מצאתם את המתנה המושלמת לקדם את התינוק שלכם לאח גדול.",
+   why:["אבן דרך אחת וברורה","הספר כמתנה לאח הגדול כשהתינוק מגיע"],
+   how:"יש לנו ״אח חדש״ ו״אחות חדשה״: אותו צילום, הספר ליד התינוק",
+   flag:"מ-2023"},
+  {id:"a05",p:"tt",url:"https://www.tiktok.com/@wonderwraps.com/video/7506119795645926678",creator:"@wonderwraps.com",geo:"intl",bucket:"obvious",icp:["intl-parent","gift-giver"],views:553400,likes:9004,median:1135,date:"20250519",dur:9,
+   title:"״כל מה שהוא עושה מאז שקיבל את הספר״",
+   what:"ילד מציץ מהדלת עם הטקסט, ואז קאטים מהירים שלו עם הספר. 9 שניות.",
+   why:["סקרנות (מה הוא עושה?) ותשובה מיידית","קצר מספיק לצפייה חוזרת"],
+   how:"UGC מלקוחות: 3-4 קטעים קצרים של הילד עם הספר + אותו טקסט בעברית"},
+  {id:"a06",p:"tt",url:"https://www.tiktok.com/@wonderwraps.com/video/7478352764188282134",creator:"@wonderwraps.com",geo:"intl",bucket:"obvious",icp:["gift-giver","intl-parent"],views:163400,likes:1752,median:1135,date:"20250305",dur:7,
+   title:"POV: התגובה של האחיין",
+   what:"מסיבת יום הולדת, ילד פותח מתנה. הטקסט: ״POV: אתם רואים את התגובה של האחיין לספר האישי הוויראלי״. 7 שניות.",
+   why:["הצופה הוא נותן המתנה (דודה, דוד)","התגובה היא כל הסרטון"],
+   how:"POV של דודה או סבתא בחנוכה. הכי קל לבקש מלקוחות"},
+  {id:"a07",p:"tt",url:"https://www.tiktok.com/@harleykathrynxo/video/7376805978567707950",creator:"@harleykathrynxo",geo:"intl",bucket:"obvious",icp:["parent-creator","gift-giver","intl-parent"],views:36800,likes:75,median:581,date:"20240605",dur:33,
+   title:"אבא בשירות, הספר שומר אותו קרוב",
+   what:"אמא-יוצרת: הילד מחזיק ספר אישי שבו הוא ואבא שלו. לפי הקפשן אבא בשירות צבאי רחוק מהבית. הספר על המסך כל הזמן.",
+   why:["סיפור משפחתי אמיתי, המוצר הוא חלק ממנו","תייגה את המותג ועשתה פי 63 מהרגיל שלה"],
+   how:"מקבילה ישראלית: הורה במילואים. רגיש, רק באישור יוסי",
+   flag:"מ-2024"},
+  {id:"a08",p:"tt",url:"https://www.tiktok.com/@babyalison31/video/7517299113197587718",creator:"@babyalison31",geo:"intl",bucket:"obvious",icp:["parent-creator","intl-parent"],views:77200,likes:826,median:50450,date:"20250618",dur:53,
+   title:"הפתעה, ״זה אני!״, קוד הנחה",
+   what:"״יש לי הפתעה בשבילך״, הילדה פוגשת את הספר ורואה את עצמה בדפים, ובסוף קוד הנחה אישי של היוצרת על המסך.",
+   why:["מבנה מוכן לבריף: הפתעה, זיהוי עצמי, קוד","כל הסרטון הוא הילדה עם הספר"],
+   how:"תבנית לבריף בארטר: רגע ההפתעה + close-up על הדף + קוד אישי ליוצר (באישור יוסי)",
+   flag:"לא חריג אצלה (פי 2). דוגמה למבנה, לא לחריגות"},
+
+  {id:"c01",p:"tt",url:"https://www.tiktok.com/@lookitskateeee/video/7568232703116545288",creator:"@lookitskateeee",geo:"intl",bucket:"non",icp:["milestone-parent","intl-parent"],views:2600000,likes:547700,median:870,date:"20251102",dur:84,
+   title:"הלוויה למוצץ",
+   what:"משפחה בשחור עושה ״הלוויה״ למוצץ: תוכניות הלוויה על הפסנתר, פסנתרן, והפעוטה משחררת בלונים שחורים בחצר.",
+   why:["הומור + רגע אמיתי של פרידה","חשבון עם חציון 870 צפיות, הרעיון סחב לבד","כל הורה בגמילה ישלח את זה לבן או בת הזוג"],
+   how:"״ביי ביי מוצץ״ ו״עץ המוצצים״ כחלק מטקס הפרידה. לבקש מלקוחות לצלם את הטקס שלהם (UGC)"},
+  {id:"c02",p:"tt",url:"https://www.tiktok.com/@drtanyaaltmann/video/7348186401151683886",creator:"@drtanyaaltmann",geo:"intl",bucket:"non",icp:["developmental-pro","milestone-parent","intl-parent"],views:1700000,likes:40000,median:898,date:"20240319",dur:53,
+   title:"רופאת ילדים מגיבה לפרידה מהמוצץ",
+   what:"רופאה עושה stitch לסרטון של פעוט שמשחרר מוצץ על בלונים בשלג, ומגיבה עליו. בין השאר היא מעירה על לכלוך מבלונים בטבע.",
+   why:["מומחית + רגע חמוד = אמון","stitch על תוכן של אחרים, בלי לצלם ילדים","ההערה על הבלונים פותחת דיון בתגובות"],
+   how:"מומחית שמגיבה לסרטוני גמילה ישראליים וממליצה להכין את הילד עם סיפור",
+   flag:"מ-2024"},
+  {id:"c03",p:"tt",url:"https://www.tiktok.com/@tiffanyhoughton/video/7510252731773472046",creator:"@tiffanyhoughton",geo:"intl",bucket:"non",icp:["milestone-parent","intl-parent"],views:2700000,likes:142600,median:13950,date:"20250530",dur:52,
+   title:"אחות גדולה פוגשת את אח שלה",
+   what:"פעוטה פוגשת את התינוק בבית החולים. בקפשן: הכנו אותה 9 חודשים. התגובה שלה היא כל הסרטון.",
+   why:["רגע של זהות חדשה: ״אחות גדולה״","ההכנה רק נאמרת, התוצאה מוצגת"],
+   how:"לבקש מלקוחות של ״אח חדש״ ו״אחות חדשה״ לצלם את המפגש: ״הכנו אותה עם הספר״"},
+  {id:"c07",p:"tt",url:"https://www.tiktok.com/@lindsieostrowski/video/7594918397608054030",creator:"@lindsieostrowski",geo:"intl",bucket:"non",icp:["milestone-parent","intl-parent"],views:2500000,likes:448700,median:null,date:"20260113",dur:19,
+   title:"הילדה צופה בעצמה לפני שנולדה",
+   what:"״POV: הבת שלך צופה בסרטון מההיריון איתה״. רואים רק את הפנים שלה מול הטלפון.",
+   why:["ילד שרואה את הסיפור של עצמו, אותו מנגנון כמו הספר","19 שניות, טייק אחד"],
+   how:"אותו צילום כשהילד פותח את הספר בפעם הראשונה: רק הפנים"},
+  {id:"c04",p:"tt",url:"https://www.tiktok.com/@pnpsanta/video/7661641017828838664",creator:"@pnpsanta",geo:"intl",bucket:"non",icp:["gift-giver","intl-parent"],views:815200,likes:49900,median:14850,date:"20260712",dur:14,
+   title:"סנטה מקריא שמות",
+   what:"סנטה מקריא 5 שמות מ״רשימת הילדים הטובים״, השמות על המסך. בקפשן: האם הוא אמר את השם של הילד שלכם?",
+   why:["הורים נכנסים לתגובות לחפש ולכתוב שמות","14 שניות, בנוי לסדרה"],
+   how:"״5 שמות של ילדים שכבר גיבורים בספר״ לפני חנוכה, ובקשה לשמות בתגובות לפרק הבא"},
+  {id:"c08",p:"tt",url:"https://www.tiktok.com/@chloerobertson44/video/7450527503254293793",creator:"@chloerobertson44",geo:"intl",bucket:"non",icp:["milestone-parent","intl-parent"],views:723700,likes:133200,median:null,date:"20241220",dur:17,
+   title:"שומעת את השם שלה",
+   what:"תינוקת בת שנה בערך שומעת הודעה אישית עם השם שלה ופותחת פה בהלם.",
+   why:["השם של הילד עובד כבר בגיל שנה","שיא אחד של 2 שניות"],
+   how:"רגע ״שומע את השם שלו בסיפור״ כשההורה מקריא את הספר"},
+  {id:"c05",p:"tt",url:"https://www.tiktok.com/@thingsihavedrawn/video/7645697206778940694",creator:"@thingsihavedrawn",geo:"intl",bucket:"non",icp:["parent-creator","intl-parent"],views:6600000,likes:289600,median:126150,date:"20260530",dur:8,
+   title:"הציור הופך לאמיתי",
+   what:"אבא עם משקפת ״מוצא״ את הנמר מהציור של הבת, והציור מתחלף בנמר אמיתי. 8 שניות.",
+   why:["לפני/אחרי מהיר","הורים שולחים ציורים, אז התוכן מגיע לבד"],
+   how:"תמונת הילד, ואז אותו ילד כגיבור בספר. לפני/אחרי ב-8 שניות"},
+  {id:"c06",p:"tt",url:"https://www.tiktok.com/@budsies/video/7496920041972239662",creator:"@budsies",geo:"intl",bucket:"non",icp:["gift-giver","intl-parent"],views:276600,likes:5891,median:4244,date:"20250424",dur:44,
+   title:"״וזה שלך!״ בובה מהציור",
+   what:"ילדה מקבלת בובה שנתפרה לפי הציור שלה, משווה אותה לציור, ובסוף מונטאז׳ של עוד ילדים.",
+   why:["תחושת בעלות: ״זה שלי״","עוד ילדים בסוף = הוכחה חברתית"],
+   how:"ילד מחזיק את התמונה המקורית שלו ליד הכריכה: ״זה אני!״"},
+  {id:"e01",p:"tt",url:"https://www.tiktok.com/@samanthabagley/video/7512844990884678958",creator:"@samanthabagley",geo:"intl",bucket:"non",icp:["gift-giver","parent-creator","intl-parent"],views:880100,likes:44100,median:13500,date:"20250606",dur:60,
+   title:"מדרגת מתנות, שנה אחרי",
+   what:"אמא מדרגת מתנות של יום הולדת 1 ״שנה אחרי״, לפי כמה באמת משתמשים בהן.",
+   why:["כנות: חלק מהמתנות מקבלות ציון נמוך","פורמט שמוצר אחד יכול להיכנס אליו"],
+   how:"לבקש מיוצרות בבארטר להכניס את הספר למדריך המתנות שלהן לחנוכה או ליום הולדת"},
+  {id:"e04",p:"tt",url:"https://www.tiktok.com/@melissametrano/video/7310332715738484010",creator:"@melissametrano",geo:"intl",bucket:"non",icp:["gift-giver","intl-parent"],views:380000,likes:36900,median:null,date:"20231208",dur:27,
+   title:"8 לילות של מתנות חנוכה",
+   what:"״8 לילות של מתנות חנוכה, לילה 1״: הבנות פותחות מתנה, ואז הפתעה להורים.",
+   why:["סדרה של 8 = 8 סיבות לחזור","חנוכה כמסגרת מוכנה"],
+   how:"״8 לילות, 8 גיבורים״: לקוחות או יוצרים מצלמים את פתיחת הספר באחד הלילות",
+   flag:"מ-2023"},
+  {id:"f01",p:"tt",url:"https://www.tiktok.com/@teachwithheath_/video/7642140484743286030",creator:"@teachwithheath_",geo:"intl",bucket:"non",icp:["gannenet-b2b"],views:1400000,likes:125400,median:42300,date:"20260521",dur:74,
+   title:"מתנת סוף שנה לכל ילד בגן",
+   what:"גנן מסדר 16 דליים זהים, אחד לכל ילד, ומראה מה יש בפנים, כולל תמונה ממוסגרת אישית.",
+   why:["החזרה (אותו דבר 16 פעמים) מהפנטת","השקעה אישית בכל ילד"],
+   how:"גננת מסדרת 20 ספרים, בכל אחד הפנים והשם של ילד אחר. זה ה-B2B שלנו"},
+  {id:"f03",p:"tt",url:"https://www.tiktok.com/@learntotalkwithme/video/7650173364480314637",creator:"@learntotalkwithme",geo:"intl",bucket:"obvious",icp:["developmental-pro","milestone-parent","intl-parent"],views:36200,likes:2047,median:1115,date:"20260611",dur:39,
+   title:"קלינאית: ״שימו את התמונה שלכם בספר״",
+   what:"קלינאית תקשורת בחנות צעצועים מחזיקה ספר תמונות רך ומסבירה איך תמונה בספר עוזרת לתינוק ללמוד שמות.",
+   why:["מומחית + המוצר ביד כל הזמן = עצה, לא פרסומת","פי 32 מהרגיל אצלה"],
+   how:"המודל לסוקרת המקצועית: קלינאית או פסיכולוגית מחזיקה ספר לומיבוק ומסבירה למה זה עובד"},
+  {id:"f08",p:"tt",url:"https://www.tiktok.com/@pedsdoctalk/video/7639739282751638797",creator:"@pedsdoctalk",geo:"intl",bucket:"non",icp:["developmental-pro","milestone-parent","intl-parent"],views:618200,likes:41000,median:1533,date:"20260514",dur:176,
+   title:"מומחית: לפחד ועדיין לנסות",
+   what:"מומחית לבריאות ילדים מסבירה איך לעזור לילד שמפחד מהמגלשה לנסות בכל זאת. אין מוצר בכלל.",
+   why:["עצה נקייה = אמון","פי 403 מהרגיל, גם באורך של 3 דקות"],
+   how:"תוכן אומץ עם מומחית, ו״לב האומץ״ רק בקפשן",
+   flag:"176 שניות"},
+
+  {id:"d01",p:"tt",url:"https://www.tiktok.com/@linoyabutbul1/video/7551351429231938823",creator:"@linoyabutbul1",geo:"IL",bucket:"non",icp:["gift-giver","gannenet-b2b"],views:410000,likes:13600,median:5015,date:"20250918",dur:27,
+   title:"מתנה לגננת לראש השנה",
+   what:"״כמו תמיד, מעלה לכן רעיונות למתנה לגננת לראש השנה״: קופסת עץ ליין, צנצנת דבש עטופה ביוטה וכרטיס שנה טובה, בנייה עד התוצאה.",
+   why:["DIY עם reveal בסוף","מועד ברור, אז מחפשים את זה בדיוק עכשיו","פי 82 מהרגיל שלה"],
+   how:"רילס ״מתנה לגננת ולילדים לחנוכה״ לועדי הורים: ספר לכל ילד בגן (B2B)"},
+  {id:"d02",p:"tt",url:"https://www.tiktok.com/@moriashoo/video/7463393282467368199",creator:"@moriashoo",geo:"IL",bucket:"non",icp:["gannenet-b2b","religious"],views:419500,likes:25600,median:134750,date:"20250124",dur:24,
+   title:"קבלת שבת בגן, עם פרצוף חתום",
+   what:"אישה מצלמת סלפי עם פרצוף רציני, ומאחוריה הגננת והפעוטות בכיפות עושים קבלת שבת עם ריקודים.",
+   why:["ניגוד: פרצוף חתום מקדימה, שמחה מאחורה","טקס שבועי = פורמט שחוזר"],
+   how:"קבלת שבת עם הספרים בגן מהציבור הדתי. יעד לשיתוף פעולה (באישור יוסי)"},
+  {id:"d03",p:"tt",url:"https://www.tiktok.com/@moriashoo/video/7442248586462711048",creator:"@moriashoo",geo:"IL",bucket:"non",icp:["gannenet-b2b","parent-creator"],views:1100000,likes:72400,median:134750,date:"20241128",dur:21,
+   title:"שיר החילזון בגן",
+   what:"אותו פורמט: סלפי עם פרצוף רציני וקשת חילזון על הראש, ומאחור הגננת והפעוטות שרים.",
+   why:["חשבון עם חציון 135K לסרטון, הגן הפך לדמות","פשוט לצילום, בלי עריכה"],
+   how:"גן עם קהל כזה = חשיפה ענקית לספרים לכל הילדים. לפנות (באישור יוסי)"},
+  {id:"d04",p:"tt",url:"https://www.tiktok.com/@chana_hoffmann/video/7680609604551642388",creator:"@chana_hoffmann",geo:"IL",bucket:"non",icp:["milestone-parent","parent-creator"],views:73200,likes:6642,median:25800,date:"20260901",dur:80,
+   title:"הקטנה מתחילה גן",
+   what:"ילדה עם תיק ליד שער הגן, ואז האמא מדברת למצלמה על הפרידה וההסתגלות אחרי כמעט 3 שנים בבית.",
+   why:["אבן דרך אמיתית בזמן אמת","וידוי אישי בלי עריכה"],
+   how:"יוצרת שהילד שלה מתחיל גן: ״הכנו אותו עם ספר שהוא הגיבור בו״ (בארטר)"},
+  {id:"d05",p:"tt",url:"https://www.tiktok.com/@batelsananes/video/7646375793060318485",creator:"@batelsananes",geo:"IL",bucket:"non",icp:["parent-creator"],views:618300,likes:55800,median:75300,date:"20260601",dur:21,
+   title:"״רציתי רק להגיד לו שהוא בן 4״",
+   what:"אמא מסרקת את הבן, והטקסט: רציתי לספר לו שאני בהלם שהוא כבר בן 4, ואז התשובה שלו.",
+   why:["תשובה של ילד = הומור שאנשים משתפים","פי 8 מהרגיל, בחשבון שכבר גדול"],
+   how:"יוצרת הומור קוראת עם הילד את הספר שלו ומחכה לתגובה שלו. יעד לבארטר"},
+  {id:"d06",p:"tt",url:"https://www.tiktok.com/@makore_il/video/7686019021405441301",creator:"@makore_il",geo:"IL",bucket:"non",icp:["milestone-parent","gift-giver"],views:205200,likes:167,median:2503,date:"20260916",dur:64,
+   title:"ילד ממליץ על ספרים",
+   what:"סדרה מצולמת היטב: ילד בן 8 יושב מול מדף ספרים וממליץ על סדרת ספרים במילים שלו.",
+   why:["ילד מדבר בגובה העיניים של ילדים","פורמט סדרה של מותג"],
+   how:"״ילדים ממליצים על הספר שהם הגיבורים בו״, מלקוחות",
+   flag:"167 לייקים על 205K צפיות, כנראה ממומן (הערכה)"},
+  {id:"f07",p:"tt",url:"https://www.tiktok.com/@anatydegani/video/7589682915349482759",creator:"@anatydegani",geo:"IL",bucket:"non",icp:["gannenet-b2b","developmental-pro"],views:316400,likes:14100,median:10850,date:"20251230",dur:111,
+   title:"הגננת פלפלת: ״לא אשבר בשביל אף אחד״",
+   what:"גננת בגן מעבירה שיעור עם חפצים, כוס עטופה בבד וקופסה: ״עכשיו תדמיינו שאתם הכוס״. כתוביות בעברית ובאנגלית.",
+   why:["זה בעצם סיפור חברתי בפעולה","פי 29 מהרגיל, גם באורך של 111 שניות"],
+   how:"הכי קרוב לזווית ההתפתחותית שלנו: גננת שמשתמשת בספר אישי כדי להסביר רגש או מעבר. יעד לשיתוף פעולה"},
+  {id:"f05",p:"tt",url:"https://www.tiktok.com/@litalmagnezi/video/7579976858146508040",creator:"@litalmagnezi",geo:"IL",bucket:"non",icp:["gannenet-b2b"],views:352600,likes:9945,median:38600,date:"20251204",dur:28,
+   title:"גננת מכינה מטבעות חנוכה מצלחות",
+   what:"הגננת והילדים מכינים מטבעות חנוכה מצלחות חד-פעמיות, שלב אחרי שלב, עד הקיר המוכן.",
+   why:["תהליך ואז תוצאה, מספק לצפייה","חנוכה בגן = תוכן שגננות מחפשות"],
+   how:"גננת מראה פינת ״גיבורי חנוכה״ עם הספרים של הילדים"},
+  {id:"f06",p:"tt",url:"https://www.tiktok.com/@shirmat/video/7452404352242683154",creator:"@shirmat",geo:"IL",bucket:"non",icp:["developmental-pro"],views:39100,likes:552,median:5957,date:"20241225",dur:67,
+   title:"קלינאית ממליצה על משחק",
+   what:"קלינאית תקשורת מציגה משחק מהקליניקה ומפרטת אילו מטרות טיפוליות הוא מתרגל.",
+   why:["מונחים מקצועיים = אמינות","המוצר הוא דוגמה, לא הנושא"],
+   how:"סדרת ״קלינאית ממליצה״: מה ספר אישי מתרגל (שפה, רגש, מעבר)",
+   flag:"מ-2024"}
+];
+
+const fmtN = n => n>=1e6 ? (n/1e6).toFixed(1).replace(/\.0$/,"")+"M" : n>=1e5 ? Math.round(n/1e3)+"K" : n>=1e3 ? (n/1e3).toFixed(1).replace(/\.0$/,"")+"K" : String(n);
+const fmtDate = d => MONTHS[+d.slice(4,6)-1]+" "+d.slice(0,4);
+const fmtDur = s => Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+const mult = v => v.median ? v.views/v.median : null;
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function card(v, withId){
+  const m = mult(v);
+  const multHtml = m===null ? "" : m>=3
+    ? `<span class="mult">פי <span class="ltr">${Math.round(m).toLocaleString("en-US")}</span> מהרגיל בחשבון</span>`
+    : `<span class="mult low">פי <span class="ltr">${Math.round(m)}</span> בלבד, לא חריג</span>`;
+  return `<article class="card"${withId?` id="v-${v.id}"`:""}>
+    <div class="chips">
+      <span class="chip ${v.geo==="IL"?"il":"intl"}">${v.geo==="IL"?"ישראל":"חו״ל"}</span>
+      <span class="chip">${v.p==="ig"?"Instagram":"TikTok"}</span>
+      <span class="chip">${v.bucket==="obvious"?"מובן מאליו":"לא מובן מאליו"}</span>
+    </div>
+    <h3>${esc(v.title)}</h3>
+    <div class="creator ltr">${esc(v.creator)}</div>
+    <div class="metrics">
+      <span class="views"><span class="ltr">${fmtN(v.views)}</span><small>צפיות</small></span>
+      ${multHtml}
+      <span><span class="ltr">${fmtN(v.likes)}</span> לייקים</span>
+      <span>${fmtDate(v.date)}</span>
+      <span class="ltr">${fmtDur(v.dur)}</span>
+    </div>
+    <p class="what">${esc(v.what)}</p>
+    <ul class="why">${v.why.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>
+    <p class="how"><b>אצלנו:</b> ${esc(v.how)}</p>
+    ${v.flag?`<p class="flag">${esc(v.flag)}</p>`:""}
+    <footer>
+      <div class="icps">${v.icp.map(i=>`<span>${ICP[i]}</span>`).join("")}</div>
+      <a class="watch" href="${v.url}" target="_blank" rel="noopener noreferrer">לצפייה ב-${v.p==="ig"?"Instagram":"TikTok"} ↗</a>
+    </footer>
+  </article>`;
+}
+
+const byId = Object.fromEntries(DATA.map(v=>[v.id,v]));
+document.getElementById("featured").innerHTML = FEATURED.map(id=>card(byId[id],true)).join("");
+
+const state = {geo:"all",bucket:"all",icp:"all",sort:"mult"};
+const OPTS = {
+  geo:[["all","הכל"],["IL","ישראל"],["intl","חו״ל"]],
+  bucket:[["all","הכל"],["obvious","מובן מאליו"],["non","לא מובן מאליו"]],
+  icp:[["all","הכל"],...Object.entries(ICP)]
+};
+try{ const s=JSON.parse(localStorage.getItem("lb-reels-filters")||"null"); if(s) Object.assign(state,s); }catch(e){}
+
+for(const [g,opts] of Object.entries(OPTS)){
+  const row=document.querySelector(`.frow[data-group="${g}"]`);
+  for(const [val,label] of opts){
+    const b=document.createElement("button");
+    b.type="button"; b.className="fbtn"; b.id=`f-${g}-${val}`; b.textContent=label; b.dataset.val=val;
+    b.addEventListener("click",()=>{state[g]=val; render();});
+    row.appendChild(b);
+  }
+}
+const sortEl=document.getElementById("sort");
+sortEl.value=state.sort;
+sortEl.addEventListener("change",()=>{state.sort=sortEl.value; render();});
+
+function render(){
+  for(const g of Object.keys(OPTS)) document.querySelectorAll(`.frow[data-group="${g}"] .fbtn`).forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.val===state[g])));
+  let list=DATA.filter(v=>(state.geo==="all"||v.geo===state.geo)&&(state.bucket==="all"||v.bucket===state.bucket)&&(state.icp==="all"||v.icp.includes(state.icp)));
+  const key={mult:v=>mult(v)??-1,views:v=>v.views,date:v=>+v.date}[state.sort];
+  list.sort((a,b)=>key(b)-key(a));
+  document.getElementById("library").innerHTML = list.length ? list.map(v=>card(v,!FEATURED.includes(v.id))).join("") :`<div class="empty">אין דוגמאות שמתאימות לכל הסינונים. נסו להחזיר אחד מהם ל״הכל״.</div>`;
+  document.getElementById("count").textContent=`מציג ${list.length} מתוך ${DATA.length}`;
+  try{ localStorage.setItem("lb-reels-filters",JSON.stringify(state)); }catch(e){}
+}
+render();
+// a link to a card hidden by the filters: clear the filters, then jump to it
+document.addEventListener("click",e=>{
+  const a=e.target.closest('a[href^="#v-"]'); if(!a) return;
+  const id=a.getAttribute("href").slice(1);
+  if(!document.getElementById(id)){ state.geo=state.bucket=state.icp="all"; render(); }
+  const el=document.getElementById(id); if(el){ e.preventDefault(); el.scrollIntoView({block:"start"}); history.replaceState(null,"","#"+id); }
+});
+</script>
+
+</body></html>

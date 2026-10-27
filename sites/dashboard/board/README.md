@@ -48,7 +48,7 @@ The dashboard's default view since 19 Oct 2026 (`#board`): a canvas of cards, ar
 
 ## Publishing the artifact (only when Yarin asks)
 
-Publish `sites/dashboard/lumebook-dashboard.html` to https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ with the files `design/lumebook.css`, `design/categories.css`, `img/logo.png`, `board/board.js`, `board/board.css`, `board/seed.js`. Capabilities: keep `db`, `user` and `mcp` (Google Drive `read_file_content`); add `assets` for uploads and `downloads` for a saved export file (both optional: without them the board hides upload and falls back to a browser download or copy). Then `python3 tools/lumebook.py ack dashboard --published`. If the board files are missing, the page says so and opens the overview.
+Publish `sites/dashboard/lumebook-dashboard.html` to https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6 with the files `design/lumebook.css`, `design/categories.css`, `img/logo.png`, `board/board.js`, `board/board.css`, `board/seed.js`. Capabilities: keep `db`, `user` and `mcp` (Google Drive `read_file_content`); add `assets` for uploads and `downloads` for a saved export file (both optional: without them the board hides upload and falls back to a browser download or copy). Then `python3 tools/lumebook.py ack dashboard --published`. If the board files are missing, the page says so and opens the overview.
 
 ## Rebuilding
 

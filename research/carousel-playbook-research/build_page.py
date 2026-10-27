@@ -17,7 +17,7 @@ import design  # LumeBook design system: tokens, components, theme toggle, logo
 SRC = os.path.join(ROOT, "docs/lumebook-instagram-carousel-playbook-he.md")
 SRC_DIR = os.path.relpath(os.path.dirname(SRC), ROOT)  # local links in the markdown are relative to docs/
 OUT = os.path.join(HERE, "lumebook-carousel-playbook.html")
-HUB = "https://claude.ai/artifact/3y8LwbxtTNQW2HAL479aSQ"  # LumeBook HQ
+HUB = "https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6"  # LumeBook HQ
 
 md_text = open(SRC, encoding="utf-8").read()
 md_text = md_text.replace('<div dir="rtl">', "").replace("</div>", "").strip()
