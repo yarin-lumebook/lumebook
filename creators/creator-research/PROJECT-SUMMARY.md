@@ -7,7 +7,7 @@ Status date: 11 Oct 2026 (evening). Outreach numbers were read from the map's da
 A verified list of 243 Hebrew-speaking Israeli creators (5K to 50K followers for anyone not yet contacted; 204 from 3 Oct, 100 added 11 Oct, 61 never-contacted under-5K creators removed 12 Oct) who could make credible UGC for LumeBook, plus the outreach tool Yarin uses every day to contact them. The first goal was the research; the map became the main working tool.
 
 - Published map (private artifact): https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB
-- Code: `creators/creator-research/` in the monorepo github.com/yarinbruner/lumebook (since 8 Oct; the old `lumebook-creator-map` repo is archived, history kept)
+- Code: `creators/creator-research/` in the monorepo github.com/yarin-lumebook/lumebook (since 8 Oct; the old `lumebook-creator-map` repo is archived, history kept)
 - Component id in `lumebook.json`: `creator-map`
 
 ## 2. Rules that apply to everything here

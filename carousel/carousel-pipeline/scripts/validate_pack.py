@@ -268,6 +268,9 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.append(lib.Issue("ERROR" if pair else "WARN", f"{p}/slides", f"only {first_person} of slides 1 to 5 sound like the child in first person"
                                     + ("; every option is in the child's voice (Yarin, 24 Oct 2026)" if pair else "")))
 
+    if direction_id == "kid" and lib.to_parents_applies(pack):   # the child tells the parents (Yarin, 28 Oct 2026)
+        issues.extend(lib.to_parents_issues(p, v))
+
     # Expert frame
     frame = v.get("expert_frame")
     if direction_id == "expert":

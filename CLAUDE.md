@@ -20,7 +20,7 @@ Social media work for LumeBook (personalised kids' books, Israel). Solo SMM: Yar
 | `media/` | Every creative file (images, video, audio) since 14 Oct 2026: `projects/YYYY-MM-DD-slug/` one folder per job (reels, podcasts, character packs, stories, highlights, trend recreations, the frozen fal trial), `inbox/` for unsorted files. Index, rules and the cloud-archive steps: `media/README.md` |
 | `_to-delete/` | Files the project no longer needs, under their original path, listed in its README. Yarin empties it; not in git |
 
-One git repo for everything: github.com/yarinbruner/lumebook (private, since 8 Oct 2026; the four old repos are archived and their history is inside). Raw media is ignored (see `.gitignore`). The root `.githooks/pre-commit` enforces the SMM plan's English mirror and blocks Sheet exports.
+One git repo for everything: github.com/yarin-lumebook/lumebook (private, since 8 Oct 2026; the four old repos are archived and their history is inside). Raw media is ignored (see `.gitignore`). The root `.githooks/pre-commit` enforces the SMM plan's English mirror and blocks Sheet exports.
 
 **Account handoff in progress (since 26 Oct 2026):** the project moved to a new Claude account on this Mac. The artifact links below are the new account's (republished 26 Oct); the weekly cloud routine and a few checks are still open in `docs/account-handoff/README.md`; finish those first.
 

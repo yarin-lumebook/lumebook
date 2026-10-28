@@ -5,7 +5,7 @@
     "title_he": "קשה לו להתחבר לילדים חדשים",
     "reason": "הנושא נקבע בתוכנית השבועית (חבילה 7 מתוך 7, כל חבילה על נושא אחר), ואין כאן טענה על תאריך. מקורות שנקראו היום: בית החולים לילדים בפילדלפיה (CHOP) על ילדים שלוקח להם זמן להיפתח, ZERO TO THREE, האקדמיה האמריקאית לרפואת ילדים (HealthyChildren), First 5 California, Understood ודף הנחיות של ממשלת ויילס. הנושא קרוב לחבילה של 27 באוקטובר (לא שיתפו אותו), ולכן כאן הזווית היא ילדים חדשים וקצב של ילד שצריך זמן, לא דחייה, והדוגמאות נכתבו אחרת. בקטלוג: הגן הקסום של הגדולים (גילאי 2 עד 5, חברים ומשחקים חדשים בגן החדש) ואור והסוד שבים (גילאי 4 עד 8, חברות) לקישור בהודעה. חברים צבעוניים שמופיע בבנק הנושאים הוא ספר לתינוקות ולא מתאים."
   },
-  "direction": "expert",
+  "direction": "kid",
   "option_id": "expert-1",
   "source_pack": "/Users/yarinbruner/Claude/Projects/Lumebook/carousel/carousel-pipeline/drafts/2026-10-31/pack.json",
   "voice": {
@@ -45,15 +45,15 @@
   ],
   "option": {
     "id": "expert-1",
-    "title": "הסיבה האמיתית שהוא לא ניגש לילדים חדשים",
-    "angle": "פירוש אחר: יש ילדים שצריכים יותר זמן להיפתח, וזה חלק טבעי מההתפתחות. משם 7 דברים: הכנה, הקצב שלו, דוגמה של אמא, חבר אחד בבית, תרגול עם בני דודים, משחק שהוא מתחיל ופרגון.",
-    "target_parent": "אמא לבן 4 שבכל מקום חדש נשאר קרוב אליה, ודואגת שלא יהיו לו חברים.",
+    "title": "אמא רציתי להגיד לך משהו על הספסל",
+    "angle": "מכתב של הילד לאמא מהספסל בגינה, על מה שעוזר לו כשלוקח לו זמן להיפתח לילדים חדשים: בלי תווית, בלי דחיפה, היא קרובה בהתחלה, שמחה על צעד קטן, שואלת מה הוא צריך ומזכירה מה הלך טוב.",
+    "target_parent": "אמא לבן 5 שבגינה החדשה נשאר ליד הספסל, ושומעת סביבה ״הוא ביישן״.",
     "awareness_stage": "problem_aware",
-    "hook_family": "reframe",
+    "hook_family": "child_pov",
     "hook": {
-      "formula": "real-reason",
-      "gap": "What is the real reason a 4-year-old does not approach new kids, and what helps?",
-      "payoff_slide": 2,
+      "formula": "child-letter",
+      "gap": "What does a slow-to-warm 5-year-old want to tell his mom about the playground bench, and which 6 things help him get up and join?",
+      "payoff_slide": 3,
       "score": {
         "specific": 1,
         "feeling": 2,
@@ -62,21 +62,18 @@
         "filters": 1,
         "not_an_ad": 2
       },
-      "slate_id": "e1",
-      "mechanism": "reframe",
-      "slide2_move": "first_answer"
+      "slate_id": "k2",
+      "mechanism": "perspective_shift",
+      "slide2_move": "scene_restart"
     },
     "child_gender": "boy",
     "addressee": "mom",
-    "child_name": "נועם",
-    "expert_frame": {
-      "type": "evidence_based_take"
-    },
-    "examples_target": 7,
+    "child_name": "אדם",
+    "examples_target": 6,
     "character_anchor": {
-      "child": "A 4-year-old Israeli boy with short straight black hair, tan skin, round dark eyes and a gap-toothed smile; about 104 cm tall.",
-      "parent": "His mother, mid-thirties, auburn hair in a messy bun, light freckles, kind green eyes.",
-      "wardrobe": "Boy: teal T-shirt with a small whale print, beige cargo shorts, grey sneakers. Mother: rust-orange sweater and dark jeans."
+      "child": "A 5-year-old Israeli boy with short wavy dark-brown hair, light olive skin, big dark eyes and long lashes; about 110 cm tall.",
+      "parent": "His mother, early thirties, long straight black hair in a low bun, warm brown eyes, small gold hoop earrings.",
+      "wardrobe": "Boy: navy hoodie with a small orange rocket patch, khaki shorts, blue sneakers. Mother: mustard linen shirt and light jeans."
     },
     "image": {
       "beat": "wide-eyed surprise, about to work out the new kids",
@@ -95,96 +92,95 @@
       {
         "number": 1,
         "role": "hook",
-        "headline": "הסיבה האמיתית\nשהוא לא ניגש\nלילדים חדשים",
-        "body": "7 דברים שאפשר לעשות",
+        "headline": "אמא\nרציתי להגיד לך\nמשהו על הספסל",
+        "body": "6 דברים שיעזרו לי לקום",
         "pull": {
-          "type": "open_loop",
-          "note": "הסיבה בשקופית 2"
+          "type": "numbered",
+          "note": "ששת הדברים מתחילים בשקופית 3"
         }
       },
       {
         "number": 2,
         "role": "explain",
-        "headline": "יש ילדים שצריכים\nיותר זמן להיפתח",
-        "body": "לפי בית החולים לילדים בפילדלפיה\nזה חלק טבעי מההתפתחות\nוצריך לעזור להם בהכנה ובתרגול",
+        "headline": "כולם כבר משחקים\nואני יושב ומסתכל",
+        "body": "אני כן רוצה חברים\nרק לוקח לי זמן להיפתח",
         "pull": {
-          "type": "next_step",
-          "note": "שבעת הדברים מתחילים בשקופית 3"
+          "type": "open_loop",
+          "note": "אז מה עוזר לו? שקופית 3"
         }
       },
       {
         "number": 3,
         "role": "example",
-        "headline": "1 לספר מראש מי יהיה שם",
-        "body": "״נועם היום נפגוש שכנים חדשים״\nככה הוא יודע למה לצפות",
+        "headline": "1 אל תגידי שאני ביישן",
+        "body": "תגידי ״הוא צריך רגע״\nואני אענה כשאהיה מוכן",
         "examples": [
-          "לספר מראש מי יהיה שם"
+          "אל תגידי שאני ביישן"
         ],
         "pull": {
           "type": "numbered",
-          "note": "ומה עושים כשמגיעים? שקופית 4"
+          "note": "והבקשה השנייה בשקופית 4"
         }
       },
       {
         "number": 4,
         "role": "example",
-        "headline": "2 ללכת לפי הקצב שלו",
-        "body": "אם הוא רוצה קודם להסתכל\nמסתכלים איתו ולא ממהרים",
+        "headline": "2 תישארי לידי בהתחלה",
+        "body": "רק בדקות הראשונות\nואז אני מנסה לבד",
         "examples": [
-          "ללכת לפי הקצב שלו"
+          "תישארי לידי בהתחלה"
         ],
         "pull": {
           "type": "numbered",
-          "note": "ומי מתחיל את השיחה? שקופית 5"
+          "note": "ומה לא לעשות? שקופית 5"
         }
       },
       {
         "number": 5,
         "role": "example",
-        "headline": "3 להגיד שלום ראשונה",
-        "body": "״היי כמה הוא בן?״ לאמא בגינה\nהוא רואה ממך איך מתחילים",
+        "headline": "3 אל תדחפי אותי פנימה",
+        "body": "״אדם לך תגיד שלום״ מול כולם\nעוצר אותי עוד יותר",
         "examples": [
-          "להגיד שלום ראשונה"
+          "אל תדחפי אותי פנימה"
         ],
         "pull": {
           "type": "numbered",
-          "note": "ואיפה הכי קל לו? שקופית 6"
+          "note": "ומה כן עוזר? שקופית 6"
         }
       },
       {
         "number": 6,
         "role": "example",
-        "headline": "4 להזמין חבר אחד הביתה",
-        "body": "בבית הוא הכי רגוע\nואז קל לו לשחק איתו גם בגן",
+        "headline": "4 תשמחי גם על צעד קטן",
+        "body": "״ראיתי שצחקת עם הילד בארגז החול״\nככה בא לי לנסות שוב",
         "examples": [
-          "להזמין חבר אחד הביתה"
+          "תשמחי גם על צעד קטן"
         ],
         "pull": {
           "type": "numbered",
-          "note": "ועם מי מתאמנים? שקופית 7"
+          "note": "ומה כשהיה קשה? שקופית 7"
         }
       },
       {
         "number": 7,
         "role": "example",
-        "headline": "5 להתאמן עם בני דודים",
-        "body": "עם ילדים שהוא מכיר\nהוא מתרגל איך מתחילים לשחק",
+        "headline": "5 תשאלי מה אני צריך",
+        "body": "חיבוק או לשבת לידי בשקט\nאחרי גינה שלא הלכה טוב",
         "examples": [
-          "להתאמן עם בני דודים"
+          "תשאלי מה אני צריך"
         ],
         "pull": {
           "type": "numbered",
-          "note": "ועוד שניים בשקופית 8"
+          "note": "והאחרון בשקופית 8"
         }
       },
       {
         "number": 8,
         "role": "example",
-        "headline": "6 להציע משחק שהוא אוהב\n7 לפרגן על צעד קטן",
-        "body": "״ראיתי ששיחקת ליד הילדים״",
+        "headline": "6 תזכירי לי מה הלך טוב",
+        "body": "״אתמול שיחקת כדור עם ילד מהבניין״\nואז אני זוכר שאני יכול",
         "examples": [
-          "להציע משחק שהוא אוהב",
-          "לפרגן על צעד קטן"
+          "תזכירי לי מה הלך טוב"
         ],
         "pull": {
           "type": "next_step",
@@ -194,11 +190,11 @@
       {
         "number": 9,
         "role": "recap",
-        "headline": "מכינים מתרגלים\nומפרגנים על כל צעד",
-        "body": "גם את רוצה לעזור להם\nלהתחבר לילדים חדשים?",
+        "headline": "בלי לדחוף ובלי תווית\nאני נפתח בקצב שלי",
+        "body": "תני לי זמן\nותשמחי איתי על כל צעד",
         "pull": {
-          "type": "question",
-          "note": "התשובה בשקופית 10"
+          "type": "next_step",
+          "note": "ושקופית 10 מציעה עוד דרך לעזור"
         }
       },
       {
@@ -208,7 +204,7 @@
         "body": "לפעם הבאה שהוא פוגש ילדים חדשים"
       }
     ],
-    "caption": "למה יש ילדים שלא ניגשים לילדים חדשים ומה עוזר להם\nלפי בית החולים לילדים בפילדלפיה יש ילדים שצריכים יותר זמן להיפתח\n7 דברים שאפשר לעשות כבר השבוע\nלספר מראש מי יהיה שם וללכת לפי הקצב שלו\nלהגיד שלום ראשונה ולהזמין חבר אחד הביתה\nובערב אפשר להמשיך עם סיפור שבו הוא הגיבור\nתשמרי את הפוסט לפעם הבאה שהוא פוגש ילדים חדשים",
+    "caption": "6 דברים שאני רוצה להגיד לך כשאני מול ילדים חדשים\nאל תקראי לי ביישן ותני לי לענות כשאני מוכן\nתהיי לידי בהתחלה ואל תדחפי אותי פנימה\nתשמחי על צעד קטן ותשאלי מה אני צריך\nותזכירי לי מה כבר הלך טוב\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שהוא פוגש ילדים חדשים",
     "cta": "תשמרי את הפוסט\nלפעם הבאה שהוא פוגש ילדים חדשים",
     "sources": [
       {
@@ -230,6 +226,15 @@
         "supports": "Slow to warm children need time in a new setting, may want the parent close, often prefer one or two friends to a group; avoid labels; give notice about new people and places; practise with family and friends at home; read books about friendships. Written for toddlers (18 to 36 months); we apply it to ages 4 and 5 as an analogy."
       },
       {
+        "id": "src-aap",
+        "title": "What Parents Can Do to Support Friendships",
+        "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 7 Apr 2022)",
+        "url": "https://www.healthychildren.org/English/family-life/power-of-play/Pages/what-parents-can-do-to-support-friendships.aspx",
+        "accessed": "2026-10-24",
+        "quote": "Starting from the preschool years, you can be present and available when your children are playing with others. ... These early play times allow you to see how your child interacts with other children and highlights your child's internal social strengths and challenges. If your child is very shy, you will be able to help warm up initial interactions",
+        "supports": "From the preschool years a parent can be present during play and help warm up first interactions for a very shy child."
+      },
+      {
         "id": "src-wales",
         "title": "Tips for Parents: Supporting your child to make friends",
         "publisher": "Welsh Government, Give it time parenting advice sheet (Crown copyright 2024, WG50353)",
@@ -237,99 +242,90 @@
         "accessed": "2026-10-24",
         "quote": "While you can't make friends for them, you can help your child to practice how to be a good friend. ... Some children are naturally shy and making friends can be difficult. It can be really helpful to arrange play dates at your house where your child feels most relaxed. They should then feel more relaxed in nursery or school playing with that friend and in turn will begin playing with others. ... If they are playing next to another child, you could say \"hello\" to the other child and their parent so that your child learns a simple but effective skill to make the first step. ... Read books about friendships with your child ... This is a really simple but very effective way of helping children to understand friendships and what to do if the friends have conflict or fall out.",
         "supports": "Play dates at home where the child is most relaxed, after which they may feel more relaxed with that friend at nursery; the parent saying hello to the other child and parent models the first step; reading books about friendships helps children understand friendships. Government advice sheet, no promise of a result."
-      },
-      {
-        "id": "src-first5",
-        "title": "Helping Your Child Form Early Friendships",
-        "publisher": "First 5 California (California state early childhood agency)",
-        "url": "https://www.first5california.com/en-us/articles/helping-your-child-form-early-friendships/",
-        "accessed": "2026-10-24",
-        "quote": "By age 3, many kids start to play with others in child care or playgroups, and by age 4, they often know who their friends are. ... Some kids jump right in, while others can take more time. ... If your child is more reserved, start with one-on-one playdates with a familiar friend, neighbor, or relative similar in age. ... Activities that require teamwork, such as building a fort or playing cooperative games, can further enhance their ability to work together. ... Siblings or cousins can be a child's first friends, providing a safe space to practice social skills like sharing and cooperation. ... Reading books about friendship is another great way to teach empathy and understanding. Characters in stories often face similar challenges and discussing these can help your child relate to their own experiences.",
-        "supports": "By age 4 children often know who their friends are; some jump in and some take more time; one on one playdates for reserved children; teamwork activities such as building a fort; cousins as first friends to practise with; reading books about friendship and discussing characters who face similar challenges."
       }
     ],
     "claims": [
       {
         "slide": 2,
-        "wording_he": "יש ילדים שצריכים יותר זמן להיפתח וזה חלק טבעי מההתפתחות ועוזרים להם בהכנה ובתרגול",
+        "wording_he": "אני כן רוצה חברים רק לוקח לי זמן להיפתח",
         "kind": "sourced_fact",
         "source_ids": [
           "src-chop"
         ],
-        "supports": "CHOP: a natural part of child development, some kids may need more time to adapt or warm up than others; help a slow-to-warm child with preparation and practice. Applied to a boy who does not approach new kids; the cover's real reason is this possibility, not a diagnosis."
+        "supports": "Imagined child voice, one possibility for this child, resting on CHOP: some kids may need more time to adapt or warm up than others, a natural part of development."
       },
       {
         "slide": 3,
-        "wording_he": "לספר מראש מי יהיה שם",
+        "wording_he": "אל תגידי שאני ביישן אלא הוא צריך רגע ואני אענה כשאהיה מוכן",
         "kind": "sourced_fact",
         "source_ids": [
-          "src-ztt",
-          "src-chop"
+          "src-chop",
+          "src-ztt"
         ],
-        "supports": "Zero To Three: give notice about new people, events and places (toddler source, analogy); CHOP: tell your child about a new park before you get there."
+        "supports": "CHOP: be careful about labeling kids as shy, say the child is slow to warm and let children respond when they feel comfortable; Zero To Three: avoid labels."
       },
       {
         "slide": 4,
-        "wording_he": "ללכת לפי הקצב שלו ולהסתכל איתו קודם",
+        "wording_he": "תישארי לידי בהתחלה",
         "kind": "sourced_fact",
         "source_ids": [
-          "src-chop"
+          "src-ztt",
+          "src-aap"
         ],
-        "supports": "CHOP: follow your child's lead; slow-to-warm children may prefer to walk around with a parent first and observe."
+        "supports": "Zero To Three: slow to warm children may prefer to have the parent close while they play with others (toddler source, analogy); AAP: be present and help warm up initial interactions."
       },
       {
         "slide": 5,
-        "wording_he": "להגיד שלום ראשונה והוא רואה ממך איך מתחילים",
-        "kind": "sourced_fact",
-        "source_ids": [
-          "src-chop",
-          "src-wales"
-        ],
-        "supports": "CHOP: start a conversation with another parent and model introducing yourself; Welsh Government: say hello to the other child and their parent so your child learns the first step."
-      },
-      {
-        "slide": 6,
-        "wording_he": "להזמין חבר אחד הביתה ואז קל לו גם בגן",
-        "kind": "sourced_fact",
-        "source_ids": [
-          "src-wales"
-        ],
-        "supports": "Welsh Government: play dates at your house where the child is most relaxed; they should then feel more relaxed with that friend at nursery. No promise of a result."
-      },
-      {
-        "slide": 7,
-        "wording_he": "להתאמן עם בני דודים",
-        "kind": "sourced_fact",
-        "source_ids": [
-          "src-chop",
-          "src-first5"
-        ],
-        "supports": "CHOP: practise with children of adult friends or close family members; First 5 California: cousins can be first friends to practise social skills."
-      },
-      {
-        "slide": 8,
-        "wording_he": "משחק שהוא מתחיל ולפרגן על צעד קטן",
+        "wording_he": "אל תדחפי אותי פנימה",
         "kind": "sourced_fact",
         "source_ids": [
           "src-chop"
         ],
-        "supports": "CHOP: share ways they can join others or start their own activity; praise efforts such as playing near another child."
+        "supports": "CHOP: follow your child's lead and let children respond when they feel comfortable. That being pushed in front of everyone stops him more is his imagined voice."
+      },
+      {
+        "slide": 6,
+        "wording_he": "תשמחי גם על צעד קטן כמו לצחוק עם ילד",
+        "kind": "sourced_fact",
+        "source_ids": [
+          "src-chop"
+        ],
+        "supports": "CHOP: praise their efforts, for example playing near another child or laughing at their jokes."
+      },
+      {
+        "slide": 7,
+        "wording_he": "תשאלי מה אני צריך חיבוק או לשבת לידי",
+        "kind": "sourced_fact",
+        "source_ids": [
+          "src-chop"
+        ],
+        "supports": "CHOP: ask your child what they need from you, to talk about it, a hug, to be left alone or to sit with them."
+      },
+      {
+        "slide": 8,
+        "wording_he": "תזכירי לי מה הלך טוב",
+        "kind": "sourced_fact",
+        "source_ids": [
+          "src-chop"
+        ],
+        "supports": "CHOP: offer your child a positive look back after a recent experience."
       },
       {
         "slide": 9,
-        "wording_he": "מכינים מתרגלים ומפרגנים על כל צעד",
+        "wording_he": "בלי לדחוף ובלי תווית אני נפתח בקצב שלי",
         "kind": "lumebook_wording",
         "source_ids": [],
-        "supports": "Our recap of slides 3 to 8; no new fact."
+        "supports": "Our recap in the child's imagined voice; no new fact and no promise."
       },
       {
         "slide": 10,
         "wording_he": "אפשר לעזור גם בסיפור אישי",
         "kind": "sourced_fact",
         "source_ids": [
+          "src-ztt",
           "src-wales"
         ],
-        "supports": "Welsh Government: read books about friendships with your child, a simple and effective way of helping children understand friendships. That the story is personalised with the child as the hero is our wording."
+        "supports": "Zero To Three: read books about friendships; Welsh Government: reading books about friendships helps children understand friendships. That the story is personalised with the child as the hero is our wording."
       },
       {
         "slide": 10,
@@ -341,7 +337,12 @@
         "supports": "The child's name is in the text and the child stars in every illustration (live site FAQ, read 24 Oct 2026). No brand or title on the slide."
       }
     ],
-    "conversion_rationale": "הסיבה האמיתית עם מספר על הכריכה (פורמט שקיבל 4 מירין), והתשובה כבר בשקופית 2 עם מקור. הפירוש מוריד דאגה, והדוגמאות נותנות תוכנית לשבוע."
+    "conversion_rationale": "מכתב לאמא עם מספר על הכריכה (פורמט שקיבל 4 מירין) והפנים של הילד ישר למצלמה. כל שקופית היא בקשה אחת שאמא יכולה לעשות כבר בגינה של מחר.",
+    "voice_rewrite": {
+      "from": "drafts/2026-10-31/pack.json kid-2",
+      "at": "2026-10-28T23:02:15+02:00",
+      "note": "child-to-parents voice, picture kept (Yarin 28 Oct 2026)"
+    }
   },
   "frozen_at": "2026-10-24T21:18:30+03:00"
 }

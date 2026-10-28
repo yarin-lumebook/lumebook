@@ -66,6 +66,23 @@ def default_date(run_dir, now=None):
     return when
 
 
+def slots(count, first=None, every=2, hour=None):
+    """The next `count` posting times (Yarin, 28 Oct 2026: "every other day starting friday morning and skipping every
+    saturday"): `first` (a date, default the next Friday on or after today), then every `every` days at default_hour,
+    Israel time. A slot that lands on a Saturday moves to the Sunday and the count restarts there (Fri 30 Oct, Sun 1,
+    Tue 3, Thu 5, Sun 8, Tue 10, Thu 12, Sun 15, ...). Only a plan: nothing is sent or changed in Postiz by this."""
+    now = lib.now_local()
+    day = first or now.date() + dt.timedelta(days=(4 - now.date().weekday()) % 7)   # Monday 0, Friday 4
+    hour = int(config().get("default_hour", 6)) if hour is None else hour
+    out = []
+    while len(out) < count:
+        if day.weekday() == 5:
+            day += dt.timedelta(days=1)
+        out.append(dt.datetime.combine(day, dt.time(hour), tzinfo=now.tzinfo))
+        day += dt.timedelta(days=every)
+    return out
+
+
 def parse_when(text, now=None):
     """A time from the page's picker (2026-10-27T20:30, this Mac's time zone). A scheduled time has to be ahead."""
     now = now or lib.now_local()
@@ -164,11 +181,17 @@ def send(run_dir, when=None, draft=False, dry_run=False):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("run_dir", help="approved/DATE-ID")
+    ap.add_argument("run_dir", nargs="?", help="approved/DATE-ID")
+    ap.add_argument("--slots", type=int, help="print the next N posting times (every other day from Friday 06:00, Saturdays skipped) and exit; sends nothing")
     ap.add_argument("--at", help="date and time to publish, e.g. 2026-10-27T20:30 (default: the carousel's day at default_hour)")
     ap.add_argument("--draft", action="store_true", help="save as a draft in Postiz instead of scheduling")
     ap.add_argument("--dry-run", action="store_true", help="print what would be sent without uploading anything")
     args = ap.parse_args()
+    if args.slots:
+        print("\n".join(w.strftime("%a %Y-%m-%d %H:%M") for w in slots(args.slots)))
+        return
+    if not args.run_dir:
+        ap.error("run_dir is needed unless --slots is given")
     run_dir = Path(args.run_dir)
     if not run_dir.is_absolute() and not run_dir.exists():
         run_dir = lib.PIPELINE / run_dir

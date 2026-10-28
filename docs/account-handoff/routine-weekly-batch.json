@@ -1,5 +1,5 @@
 {
-  "_about": "The old account's cloud routine 'Hook Studio weekly batch (cloud)' (trig_01DpZqMp4fUTqkC67RHjTBok), as read on 26 Oct 2026. Last run 22 Oct 2026 succeeded; next run Thu 29 Oct 2026 19:00 UTC. Recreate it from the new account with RemoteTrigger create, putting the new cloud environment's id in place of NEW_ENVIRONMENT_ID. The environment needs network access set to Full (carousel/carousel-pipeline/README.md section 9) and GitHub access to yarinbruner/lumebook.",
+  "_about": "The old account's cloud routine 'Hook Studio weekly batch (cloud)' (trig_01DpZqMp4fUTqkC67RHjTBok), as read on 26 Oct 2026. Last run 22 Oct 2026 succeeded; next run Thu 29 Oct 2026 19:00 UTC. Recreate it from the new account with RemoteTrigger create, putting the new cloud environment's id in place of NEW_ENVIRONMENT_ID. The environment needs network access set to Full (carousel/carousel-pipeline/README.md section 9) and GitHub access to yarin-lumebook/lumebook.",
   "old_trigger_id": "trig_01DpZqMp4fUTqkC67RHjTBok",
   "old_environment_id": "env_018nnUtA9SNWTX5LZMPfpGic",
   "name": "Hook Studio weekly batch (cloud)",
@@ -7,7 +7,7 @@
   "enabled": true,
   "model": "claude-sonnet-5-5",
   "allowed_tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "Skill", "Agent"],
-  "sources": [{"git_repository": {"url": "https://github.com/yarinbruner/lumebook"}}],
+  "sources": [{"git_repository": {"url": "https://github.com/yarin-lumebook/lumebook"}}],
   "environment_id": "NEW_ENVIRONMENT_ID",
   "prompt": "You are the LumeBook weekly carousel batch job. Work unattended and never ask questions. In this repository (main), open carousel/carousel-pipeline/cloud-weekly-prompt.md and follow it exactly from top to bottom. Done means: the batch plan and every finished slot are pushed to the branch batch/<id>, and nightly.py batch-check <id> prints VALID (or you say exactly which slots or checks failed and why). Never push to main and never open a pull request. If something blocks you, name the exact step and command that failed and stop."
 }

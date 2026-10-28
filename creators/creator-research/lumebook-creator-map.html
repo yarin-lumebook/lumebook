@@ -1343,8 +1343,10 @@ function kidsForm(c){ const k=kidsOf(c), b=k.b||0, g=k.g||0; let n=k.n; if(n==nu
 const KB="(?<![\\u05D0-\\u05EA])", KE="(?![\\u05D0-\\u05EA])";
 const KW={child:["הילד","הילדה","הילדים","הילדות"],is:["הוא","היא","הם","הן"],hero:["הגיבור","הגיבורה","הגיבורים","הגיבורות"],ahero:["כגיבור","כגיבורה","כגיבורים","כגיבורות"],to:["לילד","לילדה","לילדים","לילדות"],poss:["שלו","שלה","שלהם","שלהן"]};
 const namesJoin=a=>a.length<2?(a[0]||""):a.length===2?a[0]+" ו"+a[1]:a.slice(0,-1).join(", ")+" ו"+a[a.length-1];
-function kidsG(s,c){ const f=kidsForm(c), names=kidsOf(c).names; if(!f&&!names.length) return s;
-  const F=f||{p:0,f:0,known:false}; if(!names.length&&!F.p&&!F.f) return s;
+function kidsG(s,c){ let f=kidsForm(c), names=kidsOf(c).names; if(!f&&!names.length) return s;
+  // more than one child (Yarin, 28 Oct 2026): the offer is one book for one of them, the creator's pick; singular, no names (feminine only when every child is a girl)
+  const multi=!!(f&&f.p)||names.length>1; if(multi){ f={p:0,f:f?f.f:0,known:true}; names=[] }
+  const F=f||{p:0,f:0,known:false}; if(!names.length&&!F.p&&!F.f&&!multi) return s;
   const i=F.p*2+F.f, w=k=>KW[k][i], N=names.length?namesJoin(names):"";
   const poss=N?((F.p||F.known)?w("poss"):""):w("poss");
   let r=String(s).replace(new RegExp(KB+"הילד שלך הוא הגיבור"+KE,"g"),"\u0001Y").replace(new RegExp(KB+"הילד הוא הגיבור"+KE,"g"),"\u0001H").replace(new RegExp("עם הילד כגיבור"+KE,"g"),"\u0001A")
@@ -1354,7 +1356,7 @@ function kidsG(s,c){ const f=kidsForm(c), names=kidsOf(c).names; if(!f&&!names.l
   r=N?r.replace(new RegExp("( ?)(של הילד|"+KB+"לילד|"+KB+"הילד)"+KE,"g"),(m,sp,x)=>{ const at=named; named=true;
        if(!at) return sp+(x==="של הילד"?"של "+N:x==="לילד"?"ל"+N:N);
        return x==="הילד"?sp+w("child"):sure?sp+(x==="לילד"?w("to"):"של "+w("child")):"" })
-     :r.replace(new RegExp(KB+"הילד"+KE,"g"),w("child")).replace(new RegExp(KB+"לילד"+KE,"g"),w("to"));
+     :r.replace(new RegExp(KB+"הילד"+KE,"g"),w("child")).replace(new RegExp(KB+"לילד"+KE,"g"),multi?(/מנהל הסושיאל של @lumebookai/.test(r)?"לאחד הילדים (לבחירתך)":"לאחד הילדים"):w("to"));
   return r.replace(/\u0001Y/g,w("child")+" שלך "+w("is")+" "+w("hero")).replace(/\u0001H/g,w("child")+" "+w("is")+" "+w("hero")).replace(/\u0001A/g,"עם "+w("child")+" "+w("ahero")) }
 // a text that already holds the names (a rewrite, a pasted draft): keep the first mention, later ones become הילדים / לילדה / של הילדים, the same way kidsG writes them
 function kidsOnce(s,c){ const names=kidsOf(c).names; s=String(s); if(!names.length) return s;
@@ -1372,7 +1374,8 @@ function kidsGeneric(s,c){ const f=kidsForm(c), names=kidsOf(c).names; let r=Str
    .replace(new RegExp("(הפנים|השם|הספר|התמונה) "+w("poss")+KE,"g"),(m,x)=>x+" שלו")
    .replace(new RegExp(KB+w("child")+KE,"g"),"הילד")
    .replace(new RegExp(KB+w("to")+KE,"g"),"לילד") }
-const kidsFormLabel=c=>{ const f=kidsForm(c), names=kidsOf(c).names; if(names.length){ const poss=(f&&(f.p||f.known))?KW.poss[f.p*2+f.f]:"בלי כינוי שייכות"; return namesJoin(names)+" / "+poss }
+const kidsFormLabel=c=>{ const f=kidsForm(c), names=kidsOf(c).names; if((f&&f.p)||names.length>1){ const i=f?f.f:0; return "אחד הילדים / "+KW.poss[i]+" (יותר מילד אחד)" }
+  if(names.length){ const poss=(f&&(f.p||f.known))?KW.poss[f.p*2+f.f]:"בלי כינוי שייכות"; return namesJoin(names)+" / "+poss }
   if(!f) return "הילד / שלו (ברירת מחדל, הילדים לא ידועים)"; const i=f.p*2+f.f; return KW.child[i]+" / "+KW.poss[i]+(i===0?" (ברירת מחדל)":"") };
 // Hebrew definite article (ה) rules. ל, ב and כ absorb the article (לילד, בגן, לתוכן); מ, עם, של, על and את keep it.
 const HEROOT=new Set(["הומור","הצעה","הצצה","הפעלה","הפעלות","התפתחות","התנהגות","הורות","הכנה","הסבר","הרגל","הוראה","הנקה","הרגעה","הצלחה","הנאה","היגיון","היסטוריה","הרצאה","הדרכה","הזדמנות","הערכה","היכרות","הפתעה","התמדה","התאמה","הגשמה","הבנה","הקשבה","הגדרה","הפסקה","הפרדה","הפעלה"]);

@@ -1,6 +1,6 @@
 # Cloud rerun of the Carousel Machine nightly carousel
 
-Paste everything below the line into a cloud Claude Code session on github.com/yarinbruner/lumebook.
+Paste everything below the line into a cloud Claude Code session on github.com/yarin-lumebook/lumebook.
 The cloud session clones GitHub main (rules as of commit bf87a71, 15 Oct 2026 17:50).
 
 ---

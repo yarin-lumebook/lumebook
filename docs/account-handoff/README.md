@@ -90,7 +90,7 @@ Not `snapshot/latest`: write that one in 3.4 from a fresh build, so it carries t
 1. `RemoteTrigger create` from `routine-weekly-batch.json`: name, cron, model, allowed tools, the repo as source, the prompt, and the new environment's id in place of `NEW_ENVIRONMENT_ID`. Tell Yarin the next run time it reports.
 2. The old routine (`trig_01DpZqMp4fUTqkC67RHjTBok`) must be off, or both will push a batch on Thursday. If the old account did not pause it on 26 Oct, Yarin turns it off in claude.ai/code (Routines) signed in with the old account.
 
-- [ ] new routine created   - [ ] old routine off
+- [x] new routine created (28 Oct: `trig_013C3V1RxF3M38utouVepaVC`, env `env_015dxmDDSVHVQFvzuD7nrPNm`, next run Thu 29 Oct 19:03 UTC; repo moved to yarin-lumebook/lumebook, Claude GitHub app installed there)   - [ ] old routine off
 
 (26 Oct: blocked. The new account has no cloud environment yet (`list_start_targets`: no_environment), so 3.0's third step is still open. The new account's routines list shows only "Morning brief".)
 

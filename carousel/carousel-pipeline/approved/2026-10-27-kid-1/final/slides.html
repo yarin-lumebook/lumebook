@@ -219,6 +219,9 @@ function splitLine(l) {
     const a = gs.slice(0, i).reduce((t, g) => t + len(g) + 1, 0), b = gs.slice(i).reduce((t, g) => t + len(g) + 1, 0);
     if (Math.abs(a - b) < diff) { diff = Math.abs(a - b); best = i; }
   }
+  // the save for later CTA breaks after לפעם הבאה, so the moment about the child stays whole (24 Oct 2026)
+  const words = gs.map(g => g.map(n => n.textContent).join(''));
+  if (gs.length > 2 && words[0] === 'לפעם' && words[1] === 'הבאה') best = 2;
   if (best < 0) return false;
   const make = part => { const el = l.cloneNode(false); part.forEach((g, k) => { if (k) el.append(' '); el.append(...g); }); return el; };
   l.replaceWith(make(gs.slice(0, best)), make(gs.slice(best)));

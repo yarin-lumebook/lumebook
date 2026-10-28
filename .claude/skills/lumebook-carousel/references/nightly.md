@@ -170,3 +170,7 @@ It renders the deck with Chrome (1080 x 1350 PNGs, up to 20, in `reco/`, each pr
 ## 8 · Report
 
 Final message: the absolute path to `review.html`, then `review.md`, the topic, the six option ids with their child's name and hook, the games and books carousel (stage, size, the game and book titles, valid and publish-ready status, open flags), the voice status (for example "קול ברירת מחדל, 0 מתוך 15 דוגמאות"), and how to edit: `python3 /Users/yarinbruner/Claude/Projects/Lumebook/carousel/carousel-pipeline/scripts/review_server.py`.
+
+## The child tells the parents (28 Oct 2026)
+
+Yarin: "make this carousels about the kids sound like the kid is telling his parents". Slides 1 to 9 and the caption of every kid option are the child talking to mom or both parents, in first person with direct asks, never a narrator about the child. Slide 9 closes in the child voice, the caption bridge is `ובערב אפשר להמשיך עם סיפור שבו אני הגיבור/ה`, and the pack carries `"voice_style": "to_parents"`. The validator (`lib.to_parents_issues`) rejects third person lines.

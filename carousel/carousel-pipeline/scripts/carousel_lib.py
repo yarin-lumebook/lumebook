@@ -1101,6 +1101,41 @@ def save_share_applies(pack):
 # the save icon) and its body says when the post will be needed again, X being the moment the carousel is about
 # (לפעם הבאה שהיא מפחדת מרעמים). Mom: תשמרי, both parents: תשמרו. Packs from SAVE_LATER_FROM have it; the week of
 # 25 to 31 Oct 2026 was moved to it the same evening (cta_style save_for_later).
+
+# Yarin, 28 Oct 2026: "make this carousels about the kids sound like the kid is telling his parents". In a kid option
+# everything a parent reads is the child talking to them: slides 1 to 9, the caption and its bridge line. No narrator
+# who speaks about the child in the third person ("גם את רוצה לעזור לרוני", "מה נדב מבקש מכם", "ילדה שאומרת"). The CTA
+# slide keeps the save for later wording, which refers to the child (הוא/היא). Packs from TO_PARENTS_FROM, or with
+# voice_style "to_parents" (the week of 28 to 31 Oct 2026 was moved to it the same day).
+TO_PARENTS_STYLE = "to_parents"
+TO_PARENTS_FROM = "2026-10-28T12:00"
+NARRATOR_RE = re.compile(r"(?:רוצ(?:ה|ים) לעזור ל|מבקש(?:ת)? מ(?:כם|ך|את)|עוזר(?:ת)? ל(?:ילד|ילדה|הוא|היא)|ילד(?:ה)? ש(?:אומר|צריך|מבקש|רוצה))")
+
+
+def to_parents_applies(pack):
+    return str((pack or {}).get("generated_at", ""))[:16] >= TO_PARENTS_FROM or (pack or {}).get("voice_style") == TO_PARENTS_STYLE
+
+
+def to_parents_issues(p, v):
+    """Narrator leaks in a kid option: third person about the child on slides 1 to 9 or in the caption (before the CTA
+    line), a caption with no first person in it, or the child's own name outside a quoted sentence."""
+    issues = []
+    name = v.get("child_name", "")
+    for n, s in enumerate((v.get("slides") or [])[:9], 1):
+        text = (s.get("headline", "") + " " + s.get("body", ""))
+        if NARRATOR_RE.search(text):
+            issues.append(Issue("ERROR", f"{p}/slide-{n}", "the child is talking to the parents (Yarin, 28 Oct 2026): no narrator speaking about the child in the third person, say it as the child (תעזרי לי, תעזרו לי)"))
+    cta = str(v.get("cta", "")).replace("\n", " ").strip()
+    body = [ln for ln in str(v.get("caption", "")).strip().split("\n") if ln.strip()]
+    if body and cta and " ".join(body[-1].split()) == " ".join(cta.split()):
+        body = body[:-1]
+    caption = "\n".join(body)
+    if NARRATOR_RE.search(caption) or (name and re.search(r"(?<![\u05D0-\u05EA״])" + re.escape(name) + r"(?![\u05D0-\u05EA])", caption.replace("״", "\""))):
+        issues.append(Issue("ERROR", f"{p}/caption", "the caption is the child talking to the parents (Yarin, 28 Oct 2026): first person, no narrator and no third person name"))
+    elif sum(1 for ln in body if FIRST_PERSON_RE.search(ln) or re.search(r"(?:^|\s)ת[\u05D0-\u05EA]{2,}|(?:^|\s)(?:תני|תנו|תעזר)", ln)) < 3:
+        issues.append(Issue("ERROR", f"{p}/caption", "the caption is the child talking to the parents (Yarin, 28 Oct 2026): at least 3 of its lines say I or ask the parents for something (תשבי איתי, תנו לי)"))
+    return issues
+
 SAVE_LATER_STYLE = "save_for_later"
 SAVE_LATER_FROM = "2026-10-24T21:00"
 SAVE_LATER_FORMS = {

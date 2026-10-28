@@ -5,7 +5,7 @@
     "title_he": "בכי כשנגמר המסך",
     "reason": "הנושא נקבע בתוכנית השבועית (חבילה 5 מתוך 7, כל חבילה על נושא אחר). כיבוי מסך הוא רגע של כל ערב ואין כאן טענה על תאריך. יש עליו מקורות טובים שנקראו היום: האקדמיה האמריקאית לרפואת ילדים (עמוד של ד״ר ג׳ני רדסקי), מחקר של אוניברסיטת וושינגטון על 28 משפחות, Common Sense Media בשיתוף Child Mind Institute ו-The Conversation. בקטלוג אין ספר על מסכים, אבל באתר אפשר ליצור סיפור חדש, ויש את הדובי משנה צבעים (גילאי 2 עד 6) על זיהוי רגשות כמו כעס, לקישור בהודעה."
   },
-  "direction": "expert",
+  "direction": "kid",
   "option_id": "expert-1",
   "source_pack": "/Users/yarinbruner/Claude/Projects/Lumebook/carousel/carousel-pipeline/drafts/2026-10-29/pack.json",
   "voice": {
@@ -45,38 +45,35 @@
   ],
   "option": {
     "id": "expert-1",
-    "title": "איך מכבים טאבלט בלי מלחמה",
-    "angle": "שבעה צעדים לפי האקדמיה האמריקאית לרפואת ילדים ומחקר של אוניברסיטת וושינגטון: רובם לפני שהמסך נדלק, והשאר ברגע עצמו במעט מילים.",
-    "target_parent": "אמא לבת 4 שמחפשת סדר פעולות ברור לסוף המסך, בלי הרצאות ובלי ויכוח.",
-    "awareness_stage": "solution_aware",
-    "hook_family": "practical_question",
+    "title": "אני לא מכורה למסך",
+    "angle": "מעיין עונה לחשש של אמא שהיא מכורה: היא עוד לומדת מה עושים עם אכזבה גדולה, ותשעה דברים עוזרים לה ברגע עצמו ואחריו.",
+    "target_parent": "אמא לבת 5 שמבהילה אותה עוצמת הצרחות כשהטאבלט נלקח ותוהה אם זו התמכרות.",
+    "awareness_stage": "problem_aware",
+    "hook_family": "child_pov",
     "hook": {
-      "formula": "practical-question",
-      "gap": "How do you switch off a 4-year-old's tablet without a fight?",
+      "formula": "child-not-because",
+      "gap": "If Maayan is not hooked on the screen, why does she scream when it ends, and what helps?",
       "payoff_slide": 2,
       "score": {
         "specific": 2,
         "feeling": 2,
         "honest_gap": 2,
         "short_spoken": 2,
-        "filters": 2,
+        "filters": 1,
         "not_an_ad": 2
       },
-      "slate_id": "e1",
-      "mechanism": "honest_curiosity",
-      "slide2_move": "first_answer"
+      "slate_id": "k2",
+      "mechanism": "reframe",
+      "slide2_move": "other_side"
     },
     "child_gender": "girl",
     "addressee": "mom",
-    "child_name": "טליה",
-    "examples_target": 7,
-    "expert_frame": {
-      "type": "evidence_based_take"
-    },
+    "child_name": "מעיין",
+    "examples_target": 9,
     "character_anchor": {
-      "child": "A 4-year-old Israeli girl with long wavy chestnut hair in two low pigtails, tanned skin, big brown eyes and rosy cheeks; about 102 cm tall.",
-      "parent": "Her mother, early thirties, tanned skin, dark hair in a loose bun, warm brown eyes; relaxed and kind.",
-      "wardrobe": "Girl: peach cotton dress over cream leggings. Mother: oatmeal linen shirt and jeans."
+      "child": "A 5-year-old Israeli girl with shoulder-length straight black hair and a fringe, light-brown skin, dark eyes and rosy cheeks; about 108 cm tall.",
+      "parent": "Her mother, mid-thirties, light-brown skin, curly dark hair tied up, gentle dark eyes; warm and calm.",
+      "wardrobe": "Girl: lilac long-sleeved top with a small star print and grey leggings. Mother: soft plum cardigan over a white T-shirt and jeans."
     },
     "image": {
       "beat": "huge wide eyes as the episode ends with her mother beside her",
@@ -95,96 +92,98 @@
       {
         "number": 1,
         "role": "hook",
-        "headline": "איך מכבים טאבלט\nלילדה בת ארבע\nבלי מלחמה?",
-        "body": "7 צעדים שעוזרים",
+        "headline": "אני לא מכורה למסך\nעוד קשה לי להפסיק",
+        "body": "9 דברים שיעזרו לי",
         "pull": {
-          "type": "numbered",
-          "note": "שבעת הצעדים מתחילים בשקופית 3"
+          "type": "open_loop",
+          "note": "למה קשה לה? בשקופית 2"
         }
       },
       {
         "number": 2,
         "role": "explain",
-        "headline": "רוב העבודה קורית\nלפני שהמסך נדלק",
-        "body": "לפי האקדמיה האמריקאית\nלרפואת ילדים תכנון מראש\nמונע חלק מהמריבות",
+        "headline": "את רואה צרחות\nואני מרגישה שהכיף נלקח",
+        "body": "אני עוד לומדת מה עושים\nעם אכזבה גדולה כזאת",
         "pull": {
           "type": "open_loop",
-          "note": "מה מתכננים? צעד 1 בשקופית 3"
+          "note": "מה עוזר לה ברגע הזה? שקופית 3"
         }
       },
       {
         "number": 3,
         "role": "example",
-        "headline": "1 לסכם מראש\nכמה פרקים ומה אחרי",
-        "body": "״טליה שני פרקים\nואחר כך אנחנו יוצאות לגינה״",
+        "headline": "1 משפט אחד קצר\n2 הטאבלט לא חוזר",
+        "body": "״מעיין אני יודעת שקשה\nועכשיו מכבים״\nגם כשאני צורחת",
         "examples": [
-          "לסכם מראש כמה פרקים ומה אחרי"
+          "משפט אחד קצר",
+          "הטאבלט לא חוזר"
         ],
         "pull": {
           "type": "numbered",
-          "note": "צעד 2 בשקופית 4"
+          "note": "והדבר השלישי הוא עלייך בשקופית 4"
         }
       },
       {
         "number": 4,
         "role": "example",
-        "headline": "2 לשבת לידה רגע\nלפני שמכבים",
-        "body": "להסתכל במה היא צופה ולחייך\nככה קל לה יותר לחזור אלייך",
+        "headline": "3 שתנשמי עמוק\nלפני שאת עונה",
+        "body": "כשאת רגועה\nקל לי יותר להירגע איתך",
         "examples": [
-          "לשבת לידה רגע לפני שמכבים"
+          "שתנשמי עמוק לפני שאת עונה"
         ],
         "pull": {
           "type": "numbered",
-          "note": "צעד 3 בשקופית 5"
+          "note": "לאן היא הולכת להירגע? שקופית 5"
         }
       },
       {
         "number": 5,
         "role": "example",
-        "headline": "3 לכבות בסוף פרק\nולא באמצע",
-        "body": "לפי מחקר של אוניברסיטת וושינגטון\nבוחרים בנקודת סיום\nטבעית המקלה על המעבר",
+        "headline": "4 פינה שקטה שלי\n5 כרית שעפה באוויר",
+        "body": "כשבא לי להרביץ\nזרקי כרית למעלה ואני אהדוף אותה",
         "examples": [
-          "לכבות בסוף פרק ולא באמצע"
+          "פינה שקטה שלי",
+          "כרית שעפה באוויר"
         ],
         "pull": {
           "type": "numbered",
-          "note": "ומה אומרים ברגע עצמו? שקופית 6"
+          "note": "ומה אחרי שנרגעה? שקופית 6"
         }
       },
       {
         "number": 6,
         "role": "example",
-        "headline": "4 משפט אחד בלי הרצאה\n5 הטאבלט לא חוזר",
-        "body": "״אני יודעת שקשה\nועכשיו מכבים״\nגם אם היא בוכה",
+        "headline": "6 תחכי לי\nעד שאחזור אלייך",
+        "body": "״אני כאן כשתהיי מוכנה״\nואני אבוא לחיבוק",
         "examples": [
-          "משפט אחד בלי הרצאה",
-          "הטאבלט לא חוזר"
+          "תחכי לי עד שאחזור אלייך"
         ],
         "pull": {
           "type": "numbered",
-          "note": "ואם היא מתפרקת? שקופית 7"
+          "note": "מה בא במקום המסך? שקופית 7"
         }
       },
       {
         "number": 7,
         "role": "example",
-        "headline": "6 פינה שקטה\nלהירגע בה",
-        "body": "מובילים אותה ביד אם צריך\n״אחכה לך פה כשתהיי מוכנה״",
+        "headline": "7 חיבוק עם החתול\n8 משימה קטנה איתך",
+        "body": "משהו שאני אוהבת עוד יותר\nכמו לערוך איתך את השולחן",
         "examples": [
-          "פינה שקטה להירגע בה"
+          "חיבוק עם החתול",
+          "משימה קטנה איתך"
         ],
         "pull": {
           "type": "numbered",
-          "note": "והצעד האחרון בשקופית 8"
+          "note": "והאחרון כבר לפעם הבאה בשקופית 8"
         }
       },
       {
         "number": 8,
         "role": "example",
-        "headline": "7 לעבור למשהו\nשהיא אוהבת עוד יותר",
-        "body": "טיול עם הכלב\nאו משימה קטנה במטבח איתך",
+        "headline": "9 טיימר שאני\nמכוונת בעצמי",
+        "body": "כשהטיימר מצלצל\nזה לא את נגדי",
         "examples": [
-          "לעבור למשהו שהיא אוהבת עוד יותר"
+          "טיימר שאני מכוונת בעצמי"
         ],
         "pull": {
           "type": "next_step",
@@ -194,8 +193,8 @@
       {
         "number": 9,
         "role": "recap",
-        "headline": "תכנון לפני\nומעט מילים ברגע עצמו",
-        "body": "גם את רוצה לעזור לה\nלהיפרד מהמסך בלי מלחמה?",
+        "headline": "אני לא מכורה\nאני לומדת להפסיק",
+        "body": "תעזרי לי\nלהיפרד מהמסך, טוב?",
         "pull": {
           "type": "question",
           "note": "התשובה בשקופית האחרונה"
@@ -208,7 +207,7 @@
         "body": "לפעם הבאה שקשה לה להיפרד מהמסך"
       }
     ],
-    "caption": "7 צעדים לכיבוי טאבלט אצל ילדה בת 4\nרוב העבודה קורית עוד לפני שהמסך נדלק\nמסכמים מראש כמה פרקים ומה בא אחרי\nמכבים בסוף פרק ואומרים משפט אחד בלי הרצאה\nפינה שקטה ואחר כך משהו שהיא אוהבת עוד יותר\nובערב אפשר להמשיך עם סיפור שבו היא הגיבורה\nתשמרי את הפוסט לפעם הבאה שקשה לה להיפרד מהמסך",
+    "caption": "אני לא מכורה, אני עוד לומדת להפסיק\nאני צורחת כשהטאבלט נכבה כי קשה לי עם אכזבה גדולה\nמשפט אחד קצר והטאבלט לא חוזר\nפינה שקטה וכרית שעפה באוויר\nואחר כך חיבוק או משימה קטנה איתך\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שקשה לה להיפרד מהמסך",
     "cta": "תשמרי את הפוסט\nלפעם הבאה שקשה לה להיפרד מהמסך",
     "sources": [
       {
@@ -217,17 +216,8 @@
         "publisher": "HealthyChildren.org, American Academy of Pediatrics (by Jenny Radesky, MD, FAAP; last updated 3/13/2024)",
         "url": "https://www.healthychildren.org/English/family-life/Media/Pages/screen-time-and-temper-tantrums-helpful-tips-for-parents.aspx",
         "accessed": "2026-10-24",
-        "quote": "Advance planning can prevent struggles, but it won't eliminate every meltdown. ... You can help build a bridge back to reality by entering the room or sitting down near your child, quietly observing what they're doing. When you see signs that they're willing to engage, offer a warm smile of encouragement. ... This isn't the time to go over the rules, since a child in meltdown mode can't think logically. Simply hold your ground, using as few words as possible: \"I know it's tough, but it's time to put your tablet away.\" ... Kids can benefit from having a spot where they can go to calm down. ... If your child starts to rage when screen time ends, ask them to go to their quiet spot until they feel better. If necessary, gently pick up a younger child or lead them by the hand. Tell them you'll be glad to see them again when they're ready to reconnect. ... Try it with younger kids, too: offer a beloved book, cuddle time with the family pet or a small chore that makes them feel part of the group.",
-        "supports": "Advance planning can prevent struggles but won't eliminate every meltdown; sit down near the child, watch what they do and smile; few words and holding your ground; a quiet spot, leading a younger child by the hand, glad to see them when ready; trading up to a pet cuddle, a small chore or a beloved book. Fragments read in the page today, joined with ' ... '."
-      },
-      {
-        "id": "src-uw",
-        "title": "Two-minute warnings make kids’ ‘screen time’ tantrums worse",
-        "publisher": "UW News, University of Washington (Jennifer Langston, May 5, 2016; on Hiniker, Suh, Cao and Kientz, CHI 2016)",
-        "url": "https://www.washington.edu/news/2016/05/05/two-minute-warnings-make-kids-screen-time-tantrums-worse/",
-        "accessed": "2026-10-24",
-        "quote": "Some things did make that switch easier, like having routines, disengaging at a natural stopping point or simply having a battery die. But children aged 1 to 5 who were given a two-minute warning by their parents were more upset when the screen went away. ... Natural stopping points in the content children were viewing or in the games they were interacting with made transitions easier",
-        "supports": "A natural stopping point made the switch easier in a diary study of families with children aged 1 to 5. Fragments read in the page today, joined with ' ... '."
+        "quote": "Difficulty switching gears does not automatically mean your child is hopelessly hooked on tech. ... Toddlers and younger school-aged children are still learning to deal with anger, frustration and disappointment. ... This isn't the time to go over the rules, since a child in meltdown mode can't think logically. Simply hold your ground, using as few words as possible: \"I know it's tough, but it's time to put your tablet away.\" ... Pausing before speaking or acting can help you maintain the calm you need to help your child. ... Kids can benefit from having a spot where they can go to calm down. ... If your child starts to rage when screen time ends, ask them to go to their quiet spot until they feel better. If necessary, gently pick up a younger child or lead them by the hand. Tell them you'll be glad to see them again when they're ready to reconnect. ... researchers found that tossing a pillow in the air and challenging kids to bat it in a new direction helped work off momentary tension. ... Try it with younger kids, too: offer a beloved book, cuddle time with the family pet or a small chore that makes them feel part of the group. ... If you've found warnings are useful for your child, consider using a timer they set themselves. This models the idea of self-regulation and helps kids feel more in control.",
+        "supports": "Difficulty switching gears does not automatically mean a child is hooked; young children are still learning to deal with disappointment; few words and holding your ground; pausing to stay calm; a quiet spot and coming back when ready; tossing a pillow to bat; trading up to a pet cuddle or a small chore; a timer the child sets. Fragments read in the page today, joined with ' ... '."
       },
       {
         "id": "src-csm",
@@ -235,93 +225,103 @@
         "publisher": "Common Sense Media (the Child Mind Institute contributed; last reviewed or updated September 27, 2021)",
         "url": "https://www.commonsensemedia.org/articles/how-do-i-put-a-stop-to-screen-time-turn-off-the-tv-or-take-the-phone-away-without-causing-a-meltdown",
         "accessed": "2026-10-24",
-        "quote": "Have a plan. Explain beforehand to your kid that he or she can watch a certain number of shows or for a specific time period. Let them know what to expect after the show, too. ... Turn it off and stick to your guns.",
-        "supports": "Explain beforehand how many shows and what comes after; turn it off and stick to your guns. Fragments read in the page today, joined with ' ... '."
+        "quote": "A lot of parents worry that a tantrum means a child has developed an unhealthy attachment to the phone or tablet, but that's very unlikely. ... Turn it off and stick to your guns.",
+        "supports": "Parents often worry that a tantrum over a tablet means an unhealthy attachment, which the page calls very unlikely; turn it off and stick to your guns. Fragments read in the page today, joined with ' ... '."
       },
       {
-        "id": "src-conv",
-        "title": "3 ways to help your child transition off screens and avoid the dreaded ‘tech tantrums’",
-        "publisher": "The Conversation (Juliana Zabatiero, Kate Highfield, Leon Straker and Susan Edwards; published January 9, 2024)",
-        "url": "https://theconversation.com/3-ways-to-help-your-child-transition-off-screens-and-avoid-the-dreaded-tech-tantrums-220138",
+        "id": "src-uw",
+        "title": "Two-minute warnings make kids’ ‘screen time’ tantrums worse",
+        "publisher": "UW News, University of Washington (Jennifer Langston, May 5, 2016; on Hiniker, Suh, Cao and Kientz, CHI 2016)",
+        "url": "https://www.washington.edu/news/2016/05/05/two-minute-warnings-make-kids-screen-time-tantrums-worse/",
         "accessed": "2026-10-24",
-        "quote": "Some successful strategies parents and carers in this research used were “you can watch two episodes of this show” or “when this game is finished we will stop”. ... Telling them what activity would follow was also helpful. For example “when you have finished that game it will be time to eat” or “after you have watched that show we will go to the park”. What they are moving to may not always be fun, helping children understand what to expect helps make for a smoother transition.",
-        "supports": "'You can watch two episodes of this show' and saying what activity follows helped families in a 12 week study. Fragments read in the page today, joined with ' ... '."
+        "quote": "“The kids we looked at for this particular study are right in that power struggle age,” Kientz said. “It’s much easier to do that with a person than with technology. Once you take that parental withholding component out of it, kids are a lot more accepting.” ... Screen time transitions also went more smoothly if the technology was to blame.",
+        "supports": "Children in the power struggle age accept the end more easily from technology than from a parent; transitions went more smoothly when the technology was to blame. Fragments read in the page today, joined with ' ... '."
       }
     ],
     "claims": [
       {
-        "slide": 2,
-        "wording_he": "רוב העבודה קורית לפני שהמסך נדלק",
-        "kind": "sourced_fact",
-        "source_ids": [
-          "src-aap"
-        ],
-        "supports": "AAP: advance planning can prevent struggles, but it won't eliminate every meltdown (so the slide says 'חלק מהמריבות')."
-      },
-      {
-        "slide": 3,
-        "wording_he": "לסכם מראש כמה פרקים ומה אחרי",
-        "kind": "sourced_fact",
-        "source_ids": [
-          "src-conv",
-          "src-csm"
-        ],
-        "supports": "The Conversation: 'you can watch two episodes of this show' and telling them what activity would follow; Common Sense Media: explain beforehand how many shows and what to expect after."
-      },
-      {
-        "slide": 4,
-        "wording_he": "לשבת לידה רגע לפני שמכבים",
-        "kind": "sourced_fact",
-        "source_ids": [
-          "src-aap"
-        ],
-        "supports": "AAP: sit down near your child, quietly observe what they're doing, offer a warm smile; it builds a bridge back to the here and now."
-      },
-      {
-        "slide": 5,
-        "wording_he": "לכבות בסוף פרק ולא באמצע",
-        "kind": "sourced_fact",
-        "source_ids": [
-          "src-uw"
-        ],
-        "supports": "UW: natural stopping points in the content made transitions easier."
-      },
-      {
-        "slide": 6,
-        "wording_he": "משפט אחד בלי הרצאה והטאבלט לא חוזר",
+        "slide": 1,
+        "wording_he": "אני לא מכורה למסך עוד קשה לי להפסיק",
         "kind": "sourced_fact",
         "source_ids": [
           "src-aap",
           "src-csm"
         ],
-        "supports": "AAP: don't lecture; hold your ground with as few words as possible ('I know it's tough, but it's time to put your tablet away'); Common Sense Media: stick to your guns."
+        "supports": "AAP: difficulty switching gears does not automatically mean your child is hopelessly hooked on tech; Common Sense Media: worrying that a tantrum means an unhealthy attachment is common, but that is very unlikely. The page also says to see the pediatrician if meltdowns happen nearly every time; we do not claim more than 'not automatically'."
+      },
+      {
+        "slide": 2,
+        "wording_he": "אני עוד לומדת מה עושים עם אכזבה גדולה",
+        "kind": "sourced_fact",
+        "source_ids": [
+          "src-aap"
+        ],
+        "supports": "AAP: toddlers and younger school-aged children are still learning to deal with anger, frustration and disappointment."
+      },
+      {
+        "slide": 3,
+        "wording_he": "משפט אחד קצר והטאבלט לא חוזר",
+        "kind": "sourced_fact",
+        "source_ids": [
+          "src-aap",
+          "src-csm"
+        ],
+        "supports": "AAP: hold your ground with as few words as possible ('I know it's tough, but it's time to put your tablet away'); Common Sense Media: stick to your guns."
+      },
+      {
+        "slide": 4,
+        "wording_he": "שתנשמי עמוק לפני שאת עונה",
+        "kind": "sourced_fact",
+        "source_ids": [
+          "src-aap"
+        ],
+        "supports": "AAP: parents need to avoid having a tantrum too; a few deep breaths and pausing before speaking help keep the calm needed to help the child."
+      },
+      {
+        "slide": 5,
+        "wording_he": "פינה שקטה וכרית שעפה באוויר",
+        "kind": "sourced_fact",
+        "source_ids": [
+          "src-aap"
+        ],
+        "supports": "AAP: a spot to calm down; for physical acting out, tossing a pillow in the air for the child to bat helped work off tension."
+      },
+      {
+        "slide": 6,
+        "wording_he": "תחכי לי עד שאחזור אלייך",
+        "kind": "sourced_fact",
+        "source_ids": [
+          "src-aap"
+        ],
+        "supports": "AAP: tell them you'll be glad to see them again when they're ready to reconnect."
       },
       {
         "slide": 7,
-        "wording_he": "פינה שקטה להירגע בה",
+        "wording_he": "חיבוק עם החתול או משימה קטנה איתך",
         "kind": "sourced_fact",
         "source_ids": [
           "src-aap"
         ],
-        "supports": "AAP: a quiet spot until they feel better; if necessary lead a younger child by the hand; tell them you'll be glad to see them when they're ready ('אחכה לך פה' is our wording)."
+        "supports": "AAP 'trading up': cuddle time with the family pet or a small chore that makes them feel part of the group."
       },
       {
         "slide": 8,
-        "wording_he": "לעבור למשהו שהיא אוהבת עוד יותר",
+        "wording_he": "טיימר שאני מכוונת בעצמי",
         "kind": "sourced_fact",
         "source_ids": [
-          "src-aap"
+          "src-aap",
+          "src-uw"
         ],
-        "supports": "AAP 'trading up': cuddle time with the family pet or a small chore."
+        "supports": "AAP: a timer they set themselves helps kids feel more in control; UW: kids accept the end more easily when the parental withholding is taken out of it ('זה לא את נגדי' is our wording)."
       },
       {
         "slide": 9,
-        "wording_he": "תכנון לפני ומעט מילים ברגע עצמו",
+        "wording_he": "אני לא מכורה אני לומדת להפסיק",
         "kind": "sourced_fact",
         "source_ids": [
           "src-aap"
         ],
-        "supports": "A recap of slides 2 to 8, each with its source."
+        "supports": "A recap of slides 1 to 8, each with its source."
       },
       {
         "slide": 10,
@@ -343,7 +343,12 @@
         "supports": "The child's name is in the text and the child stars in every illustration; parents can pick a catalogue story or create a new one (live site, 24 Oct 2026). No brand or title on the slide."
       }
     ],
-    "conversion_rationale": "שאלה מעשית עם גיל ומספר צעדים, כמו הכריכה שירין נתן לה 5. הצעדים מסודרים לפי הזמן (לפני, ברגע, אחרי), והסיפור האישי בסוף משלים את ה״משהו שהיא אוהבת עוד יותר״."
+    "conversion_rationale": "שלילה בקול של הילדה שעונה לחשש הכי גדול של אמא, עם מקור שמרגיע. הדברים עוזרים ברגע הקשה עצמו, והסיפור האישי בסוף הוא דרך רגועה לדבר על זה ביום אחר.",
+    "voice_rewrite": {
+      "from": "drafts/2026-10-29/pack.json kid-2",
+      "at": "2026-10-28T23:02:14+02:00",
+      "note": "child-to-parents voice, picture kept (Yarin 28 Oct 2026)"
+    }
   },
   "frozen_at": "2026-10-24T21:16:54+03:00"
 }
