@@ -548,7 +548,8 @@ def tabs_html(folder, active):
         other = next((d for d in dates if d != folder.name and rl.carousel_path(folder.parent / d, f).exists()), None)
         if other:
             items.append((f, f"../{other}/{PAGES[f]}", f"{TAB_LABELS[f]} · {short(other)}"))
-    links = "".join(f'<a href="{href}"{" aria-selected=\"true\"" if key == active else ""}>{esc(label)}</a>' for key, href, label in items)
+    selected = ' aria-selected="true"'   # not inside the f-string: a backslash there needs Python 3.12 (the cloud box has 3.11)
+    links = "".join(f'<a href="{href}"{selected if key == active else ""}>{esc(label)}</a>' for key, href, label in items)
     return f'<nav class="lb-tabs rv-tabs" aria-label="עמודים">{links}{days_html(folder)}</nav>'
 
 
