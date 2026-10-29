@@ -2,7 +2,7 @@ MONTHLY BATCH, CLOUD RUN (Yarin, 29 Oct 2026: "i need a monthly batch from now o
 
 ## 00 · Is today the day? (do this first)
 
-The routine fires on days 28 to 31 at 04:00 UTC (about 06:00 in Israel). Run `TZ=Asia/Jerusalem date +%Y-%m-%d` and `TZ=Asia/Jerusalem date -d tomorrow +%d` (on macOS `date -v+1d +%d`). Only when tomorrow is day 01 (today is the last day of the month in Israel) go on. Exception: if the task message you were given says FORCE_MONTHLY, skip this check and plan the next month from today. Otherwise print "not the last day of the month, nothing to do" and stop: no plan, no branch, no commit.
+The routine fires on days 28 to 31 at 04:00 UTC (about 06:00 in Israel). Run `TZ=Asia/Jerusalem date +%Y-%m-%d` and `TZ=Asia/Jerusalem date -d tomorrow +%d` (on macOS `date -v+1d +%d`). Only when tomorrow is day 01 (today is the last day of the month in Israel) go on. Exception: if the file carousel/carousel-pipeline/force-monthly.txt exists in the repo, skip this check and plan the next month from today. Otherwise print "not the last day of the month, nothing to do" and stop: no plan, no branch, no commit.
 
 The batch below is the same job as the weekly one, with these changes: `week-plan` is run as `python3 carousel/carousel-pipeline/scripts/nightly.py week-plan --monthly`, and it plans one pack per posting day of the NEXT month (every other day, a Saturday moved to the Sunday; 13 to 15 packs), not 7. Everything below that says 7 means the number of slots in the plan. A topic may come back after 4 packs (the best-seller list is shorter than a month needs); batch-check accepts that. Run at most 3 slots at a time; the whole run takes hours, so push after every slot. Branch `batch/<id>`, commit text "Monthly batch <id>".
 
