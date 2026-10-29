@@ -1,0 +1,2209 @@
+{
+  "schema_version": 3,
+  "date": "2026-11-05",
+  "generated_at": "2026-10-29T12:10:46+00:00",
+  "topic": {
+    "id": "birthday-countdown",
+    "title_he": "סופר את הימים עד יום ההולדת",
+    "reason": "הנושא נקבע בתוכנית החודשית (החבילה החודשית של 1 בנובמבר 2026, חריץ 3) ואין כאן טענה על תאריך בלוח השנה. ילדים בני 4 עד 5 שואלים כל בוקר כמה ימים נשארו, וקשה להם לדמיין זמן. מקורות שנקראו היום: Brightly (מורה לגן וחובה על לוח שנה שילדים בונים) ואת Empowered Parents (מושג הזמן אצל גיל הגן). בקטלוג יש ספר יום הולדת לגילאי 3 עד 8 (נבדק באתר היום), לשימוש פנימי בקישור בלבד."
+  },
+  "format": "two_topics",
+  "topics": [
+    {
+      "id": "birthday-countdown",
+      "title_he": "סופר את הימים עד יום ההולדת",
+      "reason": "הנושא נקבע בתוכנית החודשית (החבילה החודשית של 1 בנובמבר 2026, חריץ 3) ואין כאן טענה על תאריך בלוח השנה. ילדים בני 4 עד 5 שואלים כל בוקר כמה ימים נשארו, וקשה להם לדמיין זמן. מקורות שנקראו היום: Brightly (מורה לגן וחובה על לוח שנה שילדים בונים) ואת Empowered Parents (מושג הזמן אצל גיל הגן). בקטלוג יש ספר יום הולדת לגילאי 3 עד 8 (נבדק באתר היום), לשימוש פנימי בקישור בלבד.",
+      "book": {
+        "id": 15,
+        "title_he": "יום הולדת",
+        "checked_at": "2026-10-29"
+      }
+    },
+    {
+      "id": "sharing-toys",
+      "title_he": "לא רוצה לתת לאף אחד את הצעצוע",
+      "reason": "הנושא נקבע בתוכנית החודשית (החבילה החודשית של 1 בנובמבר 2026, חריץ 3) ואין כאן טענה על תאריך בלוח השנה. שיתוף צעצועים הוא חיכוך יומי בגיל 3 עד 5, ויש לו מקורות ברורים: עמוד האקדמיה האמריקאית לרפואת ילדים (HealthyChildren) ועמוד של Pathways.org, שניהם נקראו היום. בקטלוג יש את הלב של יובל לגילאי 4 עד 8 על נדיבות וחסד יומיומי (נבדק באתר היום), לשימוש פנימי בקישור בלבד.",
+      "book": {
+        "id": 13,
+        "title_he": "הלב של יובל",
+        "checked_at": "2026-10-29"
+      }
+    }
+  ],
+  "voice": {
+    "status": "calibrated",
+    "approved_samples": 40,
+    "note": "נכתב בקול של ירין לפי הדוגמאות והתיקונים שלו (40 דוגמאות מאושרות, מכויל)."
+  },
+  "product_facts": [
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "בהחלט - השם שלהם מופיע בטקסט והם מככבים בכל האיורים.",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-29"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents choose a book, upload a photo and see a free preview before paying",
+      "quote": "1. בוחרים ספר.\n2. מעלים תמונה.\n3. רואים תצוגה מקדימה בחינם.",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-29"
+    },
+    {
+      "id": "site-book-15",
+      "fact": "Catalogue book 15 (ages 3 to 8, birthdays and holidays), internal only for the DM link: the birthday as a magical day where the child is king or queen for a day",
+      "quote": "הספר מציג את יום ההולדת כחוויה קסומה שבה הילד הופך למלך/מלכה ליום אחד, דרך עולם של דמיון, בלונים, עוגות ומשחקים עם חברים.",
+      "url": "https://lumebook.com/IL/he/books/15",
+      "checked_at": "2026-10-29"
+    },
+    {
+      "id": "site-book-13",
+      "fact": "Catalogue book 13 (ages 4 to 8, friendship and teamwork), internal only for the DM link: a story about empathy, generosity and everyday kindness",
+      "quote": "הספר מלמד את הילדים שגבורה אמיתית מגיעה מתוך אמפתיה, נדיבות וטוב לב דרך סיפור מלא קסם וחום על ילד שמגלה את כוחות הלב שלו במעשי חסד יומיומיים.",
+      "url": "https://lumebook.com/IL/he/books/13",
+      "checked_at": "2026-10-29"
+    }
+  ],
+  "hook_slate": {
+    "a": [
+      {
+        "id": "a1",
+        "formula": "child-numbered-ask",
+        "family": "child_pov",
+        "hook": "אמא ואבא\n9 דברים שיעזרו לי\nלחכות לחגיגה",
+        "slide2": "אני לא מבין כמה\nזה עוד 12 ימים\nאני צריך לראות את הזמן\nתעזרו לי לראות אותו",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "Which 9 things help a 4-year-old boy wait for his birthday, in his own words?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the nine things, starting with a wall calendar and an X for every day.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1",
+        "note": "Calm: אמא ואבא תעזרו לי לחכות. Loud (kept): the number and the value on the cover. Yarin graded this formula 5; freshness 1 because it opened kid options recently."
+      },
+      {
+        "id": "a2",
+        "formula": "child-secret",
+        "family": "child_pov",
+        "hook": "יש לי סוד\nעל הימים עד\nיום ההולדת\n9 דברים שיעזרו לי",
+        "slide2": "כל בוקר אני שואלת\nכמה ימים נשארו\nאני לא יודעת לספור אותם\nאז תעזרי לי לראות",
+        "slide2_move": "zoom_in",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "What is the secret a 4-year-old girl has about the days before her birthday, and which 9 things help her?",
+        "payoff_slide": 3,
+        "answer": "Slide 2 gives the secret (she asks every morning because she cannot see the days); slides 3 to 8 give the nine things.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2",
+        "note": "The secret is only a feeling about an everyday moment, out by slide 2."
+      },
+      {
+        "id": "a3",
+        "formula": "moment-time",
+        "family": "moment",
+        "hook": "בשש בבוקר\nאני בודק כמה\nימים נשארו\n9 דברים שיעזרו לי לחכות",
+        "slide2": "בשבילי עוד 12 ימים\nזה נצח\nאני צריך שהנצח יהיה קטן\nואת יכולה לעזור",
+        "slide2_move": "other_side",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What helps a 5-year-old who wakes at six to check how many days are left until his birthday?",
+        "payoff_slide": 3,
+        "answer": "Slide 2 shows the gap between his 12 days and hers; slides 3 to 8 give nine things that make the days small and visible.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3",
+        "note": "A precise hour; the value is the nine things."
+      },
+      {
+        "id": "a4",
+        "formula": "child-question",
+        "family": "child_quote",
+        "hook": "״כמה ימים עוד?״\nאני שואלת כל בוקר\n9 דברים שיעזרו לי",
+        "slide2": "כשהיא עונה ״עוד הרבה״\nאני לא יודעת כמה זה",
+        "slide2_move": "name_trigger",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does a 4-year-old keep asking how many days are left, and what helps her?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give nine ways to see the days.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Unused: graded lower in the past (child-question 3 of 5)."
+      },
+      {
+        "id": "a5",
+        "formula": "sentence-we-all-say",
+        "family": "sentences_we_say",
+        "hook": "״עוד מעט יום הולדת״\nזה לא עוזר לי לחכות\n9 דברים שכן",
+        "slide2": "״עוד מעט״ זה כמה?\nאני לא יודע לראות את זה",
+        "slide2_move": "contrast",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does 'soon' not help a child wait, and what does?",
+        "payoff_slide": 3,
+        "answer": "Slide 2 says 'soon' is not a size he can see; slides 3 to 8 give nine ways to show it.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Unused: a longer cover."
+      },
+      {
+        "id": "a6",
+        "formula": "child-body-moment",
+        "family": "moment",
+        "hook": "כשאני חושבת על העוגה\nהרגליים שלי קופצות\n9 דברים שיעזרו לי",
+        "slide2": "אני לא יכולה לשבת\nכשיש בפנים כל כך הרבה שמחה",
+        "slide2_move": "zoom_in",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What helps a girl whose legs jump when she thinks of the birthday cake?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give nine ways to wait.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Unused."
+      }
+    ],
+    "b": [
+      {
+        "id": "b1",
+        "formula": "child-question",
+        "family": "child_quote",
+        "hook": "״זה שלי!״\nאני צועקת את זה\n7 דברים שיעזרו לי לשתף",
+        "slide2": "כשהיא מושיטה יד\nאני נצמדת לצעצוע\nאני עוד לומדת לחכות לתור\nתעזרי לי ללמוד",
+        "slide2_move": "name_trigger",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "problem_aware",
+        "gap": "What can help a 4-year-old girl who shouts mine when another child reaches for her toy?",
+        "payoff_slide": 3,
+        "answer": "Slide 2 says she is still learning to wait for a turn; slides 3 to 8 give the seven things.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-4",
+        "note": "Quote plus a framing line and the value on the cover."
+      },
+      {
+        "id": "b2",
+        "formula": "sentence-we-all-say",
+        "family": "sentences_we_say",
+        "hook": "״תן לו גם!״\nאני מחזיק חזק יותר\n8 דברים שיעזרו לי לתת",
+        "slide2": "כשאומרים לי ״תן לו״\nאני מרגיש שלוקחים לי\nאני רוצה לסיים קודם\nתנו לי תור ברור",
+        "slide2_move": "contrast",
+        "mechanism": "reframe",
+        "awareness_stage": "problem_aware",
+        "gap": "What helps a 4-year-old boy who holds a toy tighter every time he hears 'give him too'?",
+        "payoff_slide": 3,
+        "answer": "Slide 2 gives what he feels when he hears 'give him'; slides 3 to 8 give the eight things.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-5",
+        "note": "A sentence every parent says, in the child's ears."
+      },
+      {
+        "id": "b3",
+        "formula": "child-body-moment",
+        "family": "moment",
+        "hook": "כשהיא לוקחת בובה\nהידיים שלי נסגרות\n7 דברים שיעזרו לי",
+        "slide2": "הידיים מחזיקות לפני\nשאני מספיקה לחשוב\nאני לא רעה, אני לומדת\nתעזרו לי לעצור רגע",
+        "slide2_move": "zoom_in",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What helps a 4-year-old girl whose hands close tight when another girl takes her doll?",
+        "payoff_slide": 3,
+        "answer": "Slide 2 says she is not mean, she is learning; slides 3 to 8 give the seven things.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-6",
+        "note": "An ordinary sensation, never a symptom."
+      },
+      {
+        "id": "b4",
+        "formula": "child-numbered-ask",
+        "family": "child_pov",
+        "hook": "אמא ואבא\n7 דברים שיעזרו לי\nלשתף את הצעצוע",
+        "slide2": "אני רוצה לתת\nאבל קודם אני צריכה לסיים",
+        "slide2_move": "first_answer",
+        "mechanism": "practical_utility",
+        "awareness_stage": "solution_aware",
+        "gap": "Which 7 things help a 4-year-old share a toy, in her own words?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the seven things.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Unused: the formula already opened a topic in this pack."
+      },
+      {
+        "id": "b5",
+        "formula": "child-letter",
+        "family": "child_pov",
+        "hook": "אמא\nרציתי להגיד לך\nמשהו על הצעצוע שלי\n7 דברים שיעזרו",
+        "slide2": "אני לא נצמד כי אני רע\nאני נצמד כי הוא שלי",
+        "slide2_move": "scene_restart",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "What does a boy want to tell his mom about his favourite toy?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the seven things.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Unused."
+      },
+      {
+        "id": "b6",
+        "formula": "moment-time",
+        "family": "moment",
+        "hook": "16:30 החברה באה\nואני מחביא את הבובה\n7 דברים שיעזרו לי",
+        "slide2": "כל היום אני מחכה לה\nואז כשהיא באה אני נבהלת",
+        "slide2_move": "other_side",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What helps a girl who hides her doll when her friend arrives at 16:30?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 give the seven things.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Unused."
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "title": "אמא ואבא 9 דברים שיעזרו לי לחכות לחגיגה",
+          "angle": "הילד מבקש מההורים לעזור לו לראות את הזמן עד יום ההולדת: לוח, איקסים, מילות זמן, ספירה, ציור, טיימר, דקות, סדר יום ואפייה.",
+          "target_parent": "הורים לילד בן 4 שסופר ימים עד יום ההולדת ושואל כל בוקר כמה נשארו.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-numbered-ask",
+            "gap": "Which 9 things help a 4-year-old boy wait for his birthday, in his own words?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "a1",
+            "mechanism": "practical_utility",
+            "slide2_move": "first_answer"
+          },
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "יונתן",
+          "examples_target": 9,
+          "topic_id": "birthday-countdown",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short dark brown hair, warm olive skin, big brown eyes and a small dimple on the left cheek; about 105 cm tall.",
+            "parent": "His mother, mid-thirties, shoulder-length wavy chestnut hair, kind brown eyes; and his father, late thirties, short dark hair and a light stubble; both warm and relaxed.",
+            "wardrobe": "Boy: mustard-yellow cotton T-shirt with a small white star, light denim shorts, pale sneakers. Mother: cream knit sweater. Father: navy T-shirt."
+          },
+          "image": {
+            "beat": "wide-eyed hopeful excitement while counting down to a party",
+            "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes, raised eyebrows and a big hopeful open-mouthed smile, hugging a plain cream paper party hat to his chest with both arms; his parents are small and soft in the background on the sofa, smiling at each other.",
+            "setting": "The family's Israeli living room in the late afternoon: a cream sofa, a few plain pastel balloons tied to a chair far behind, a light wooden floor.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm late-afternoon sun from a window on the right.",
+            "wardrobe_objects": "A plain cream paper party hat with no printing, held by the boy; a few pastel balloons far in the background.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the sofa"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא ואבא\n9 דברים שיעזרו לי\nלחכות לחגיגה",
+              "body": "",
+              "pull": {
+                "type": "numbered",
+                "note": "תשעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "אני לא מבין כמה\nזה עוד 12 ימים",
+              "body": "אני צריך לראות את הזמן\nתעזרו לי לראות אותו",
+              "pull": {
+                "type": "open_loop",
+                "note": "ומה אפשר לראות? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 לוח שנה על הקיר\n2 איקס על כל יום",
+              "body": "תנו לי לסמן בעצמי\nואני רואה שהוא מתקרב",
+              "examples": [
+                "לוח שנה על הקיר",
+                "איקס על כל יום"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואיך אומרים את הזמן? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 תגידו לי כמה זמן",
+              "body": "״יונתן יום ההולדת בעוד שבועיים״\nואחר כך ״בעוד 6 ימים״",
+              "examples": [
+                "תגידו לי כמה זמן"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי סופר איתי? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 תספרו איתי כל בוקר",
+              "body": "נספור ביחד כמה ימים נשארו\nוכל בוקר המספר קטן",
+              "examples": [
+                "תספרו איתי כל בוקר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה מציירים על הלוח? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 עוגה מצוירת ביום שלי",
+              "body": "תנו לי לצייר אותה בלוח\nכדי שאדע לאן אני מחכה",
+              "examples": [
+                "עוגה מצוירת ביום שלי"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואיך מרגישים זמן קצר? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 טיימר שאפשר לראות\n7 חמש דקות לסדר חדר",
+              "body": "ככה אני מרגיש כמה זה זמן",
+              "examples": [
+                "טיימר שאפשר לראות",
+                "חמש דקות לסדר חדר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד שניים בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 סדר יום קבוע בתמונות\n9 לאפות ביחד עוגה",
+              "body": "אני יודע מה בא אחרי מה\nואפשר לספור עם טיימר",
+              "examples": [
+                "סדר יום קבוע בתמונות",
+                "לאפות ביחד עוגה"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "והכל ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "כשאני רואה את הזמן\nקל לי לחכות",
+              "body": "תעזרו לי לראות אותו\nעד יום ההולדת?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 היא לפעם הבאה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "תשמרו את הפוסט",
+              "body": "לפעם הבאה שהוא מחכה ליום הולדת"
+            }
+          ],
+          "caption": "9 דברים שיעזרו לי לחכות ליום ההולדת\nתנו לי לסמן איקס על לוח השנה בכל יום\nתגידו לי בעוד כמה זמן זה ותספרו איתי כל בוקר\nתנו לי טיימר שאפשר לראות ופוסטר של סדר היום\nואם נאפה ביחד אני אבין כמה זמן עובר\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרו את הפוסט לפעם הבאה שהוא מחכה ליום הולדת",
+          "post_text": {
+            "caption": "9 דברים שיעזרו לי לחכות ליום ההולדת. 🎂\nתנו לי לסמן איקס על לוח השנה בכל יום.\nתגידו לי בעוד כמה זמן זה ותספרו איתי כל בוקר.\nתנו לי טיימר שאפשר לראות ופוסטר של סדר היום.\nואם נאפה ביחד אני אבין כמה זמן עובר.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור.\nתשמרו את הפוסט לפעם הבאה שהוא מחכה ליום הולדת. 🔖",
+            "fb_text": "אני לא מבין כמה. 🎂\nזה עוד 12 ימים.\nאני צריך לראות את הזמן.\nתעזרו לי לראות אותו.\n\n1 לוח שנה על הקיר.\n2 איקס על כל יום.\nתנו לי לסמן בעצמי.\nואני רואה שהוא מתקרב.\n\n3 תגידו לי כמה זמן.\n״יונתן יום ההולדת בעוד שבועיים״\nואחר כך ״בעוד 6 ימים״\n\n4 תספרו איתי כל בוקר.\nנספור ביחד כמה ימים נשארו.\nוכל בוקר המספר קטן.\n\n5 עוגה מצוירת ביום שלי.\nתנו לי לצייר אותה בלוח.\nכדי שאדע לאן אני מחכה.\n\n6 טיימר שאפשר לראות.\n7 חמש דקות לסדר חדר.\nככה אני מרגיש כמה זה זמן.\n\n8 סדר יום קבוע בתמונות.\n9 לאפות ביחד עוגה.\nאני יודע מה בא אחרי מה.\nואפשר לספור עם טיימר.\n\nכשאני רואה את הזמן.\nקל לי לחכות.\nתעזרו לי לראות אותו.\nעד יום ההולדת?\n\nתשמרו את הפוסט.\nלפעם הבאה שהוא מחכה ליום הולדת. 🔖"
+          },
+          "cta": "תשמרו את הפוסט\nלפעם הבאה שהוא מחכה ליום הולדת",
+          "conversion_rationale": "המספר והבקשה של הילד על הכריכה (פורמט שקיבל 5 מירין), וכל שקופית היא צעד שאפשר לעשות עוד היום: לוח, איקסים, מילות זמן וטיימר. שקופית 2 אומרת למה הילד צריך לראות את הזמן.",
+          "sources": [
+            {
+              "id": "src-bright",
+              "title": "Tips, Tricks, and Books for Helping Kids Understand Calendars",
+              "publisher": "Brightly (Penguin Random House), written by a kindergarten and preschool teacher",
+              "url": "https://www.readbrightly.com/books-help-kids-understand-calendars",
+              "accessed": "2026-10-29",
+              "quote": "Kids are more likely to internalize calendar concepts and patterns when they can put them in the context of their own lives. ... Challenge yourself to greet children each day with, “Happy Tuesday! On Tuesdays we _____!” ... Let the kids add cues to the calendar, like houses on no-school days, pizza slices for pizza lunch days, or Xs for days gone by, to give purpose and meaning. ... Ask them to point to “yesterday, today, and tomorrow,” find specific day numbers, or count the days or weeks until a significant event. ... Pairing movement with a song or chant can help the words stick",
+              "supports": "Kids make sense of calendar words through their own lives; a calendar kids add cues to (Xs for days gone by); counting the days or weeks to an event; songs and chants with movement; a greeting that names what we do each day. A teacher's practical article, not a clinical guideline."
+            },
+            {
+              "id": "src-emp",
+              "title": "Teaching the Concept of Time to Preschoolers",
+              "publisher": "Empowered Parents (early years educators' parenting site)",
+              "url": "https://empoweredparents.co/teaching-concept-of-time-to-preschoolers",
+              "accessed": "2026-10-29",
+              "quote": "Because time is an abstract concept, children need multiple opportunities to experience and understand it. ... Your birthday is in 2 weeks' time. ... Give them five minutes to tidy the class to understand how long five minutes feels ... Visual timers let kids watch the numbers count down. For young kids, 3 to 5 minutes is long enough. ... Predictable routines not only teach kids about time but also help them feel secure and safe. ... Create a poster with your kids that outlines the day's major activities. ... Baking and cooking with kids is a great opportunity for teaching them about how we use time when cooking, and it also gives them a feel for the passing of time.",
+              "supports": "Time is abstract and kids need repeated experiences of it; saying time words in context (a birthday in 2 weeks); feeling how long five minutes is; a visual timer for 3 to 5 minutes; a predictable routine and a routine poster; baking as a feel for passing time. An educators' site, used as general advice."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אני לא מבין כמה זה עוד 12 ימים ואני צריך לראות את הזמן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Empowered Parents: time is an abstract concept and children need multiple opportunities to experience it. The 12 days is an imagined example in the child's voice."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לוח שנה על הקיר ואיקס על כל יום",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: let the kids add cues to the calendar, like Xs for days gone by; count the days or weeks until a significant event."
+            },
+            {
+              "slide": 4,
+              "wording_he": "תגידו לי כמה זמן: יום ההולדת בעוד שבועיים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Empowered Parents lists 'Your birthday is in 2 weeks' time.' among time words children need to hear in context."
+            },
+            {
+              "slide": 5,
+              "wording_he": "תספרו איתי כל בוקר כמה ימים נשארו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: count the days or weeks until a significant event."
+            },
+            {
+              "slide": 6,
+              "wording_he": "עוגה מצוירת ביום שלי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: let the kids add cues to the calendar to give purpose and meaning. The cake drawing is our example of a cue."
+            },
+            {
+              "slide": 7,
+              "wording_he": "טיימר שאפשר לראות וחמש דקות לסדר חדר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Empowered Parents: visual timers (3 to 5 minutes for young kids) and five minutes to tidy to feel how long five minutes is."
+            },
+            {
+              "slide": 8,
+              "wording_he": "סדר יום קבוע בתמונות ולאפות ביחד עוגה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Empowered Parents: a routine poster of the day's activities; baking with kids gives a feel for the passing of time."
+            },
+            {
+              "slide": 9,
+              "wording_he": "כשאני רואה את הזמן קל לי לחכות",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Our recap of slides 3 to 8 in the child's imagined voice; no new fact and no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספרים וסיפורים יכולים לעזור להבין זמן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly lists picture books that help kids learn the days of the week and months, as a way to help with calendar concepts. Applied to a birthday wait as a general idea."
+            },
+            {
+              "slide": 10,
+              "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview."
+            }
+          ]
+        },
+        {
+          "id": "kid-2",
+          "title": "יש לי סוד על הימים עד יום ההולדת",
+          "angle": "הילדה מגלה לאמא סוד: כל בוקר היא שואלת כמה ימים נשארו כי היא לא יודעת לראות את הזמן. תשעה דברים, מלוח שהיא בונה ועד טיימר.",
+          "target_parent": "אמהות לילדה בת 4 שמבקשת כל בוקר לדעת כמה ימים נשארו עד יום ההולדת.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-secret",
+            "gap": "What is the secret a 4-year-old girl has about the days before her birthday, and which 9 things help her?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "a2",
+            "mechanism": "perspective_shift",
+            "slide2_move": "zoom_in"
+          },
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "אגם",
+          "examples_target": 9,
+          "topic_id": "birthday-countdown",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with light brown wavy hair in two small pigtails, fair skin with a few freckles, big green-brown eyes; about 104 cm tall.",
+            "parent": "Her mother, early thirties, dark hair in a low ponytail, warm brown eyes, relaxed and a little tired in a real way.",
+            "wardrobe": "Girl: coral-pink long-sleeve top with a small white heart and soft grey leggings. Mother: sage-green cotton shirt and jeans."
+          },
+          "image": {
+            "beat": "a big wide-eyed secret about to be told",
+            "action": "The girl faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, both small hands cupped beside her mouth as if whispering a secret; her mother is small and soft in the background at the kitchen counter smiling.",
+            "setting": "A warm Israeli kitchen in the morning: cream tiles, a wooden counter with a plain bakery box on it, a fruit bowl.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft bright morning light from a window on the left.",
+            "wardrobe_objects": "A plain beige cardboard bakery box with no printing on the counter, far behind the girl.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm beige wall above the kitchen counter"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "יש לי סוד\nעל הימים עד\nיום ההולדת",
+              "body": "9 דברים שיעזרו לי",
+              "pull": {
+                "type": "numbered",
+                "note": "תשעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "כל בוקר אני שואלת\nכמה ימים נשארו",
+              "body": "אני לא יודעת לספור אותם\nאז תעזרי לי לראות",
+              "pull": {
+                "type": "open_loop",
+                "note": "ואיך רואים ימים? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 לוח שאני בונה איתך\n2 מדבקה על כל יום",
+              "body": "תני לי להדביק בעצמי\nואני יודעת איפה אנחנו",
+              "examples": [
+                "לוח שאני בונה איתך",
+                "מדבקה על כל יום"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה היום? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 תגידי לי מה היום",
+              "body": "״אגם היום יום שלישי\nומחר יום רביעי״",
+              "examples": [
+                "תגידי לי מה היום"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואיך זוכרים את הימים? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 שיר על ימי השבוע\n5 תנועה לכל יום",
+              "body": "ככה כל יום מקבל סימן\nואני זוכרת אותו",
+              "examples": [
+                "שיר על ימי השבוע",
+                "תנועה לכל יום"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עושים בכל יום? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 לכל יום יש משהו שלו",
+              "body": "״בימי שלישי אנחנו בגינה״\nככה הימים לא נראים אותו דבר",
+              "examples": [
+                "לכל יום יש משהו שלו"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עם שבועות? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 לספור שבועות על הלוח",
+              "body": "״אגם עוד 2 שבועות״\nואז אני רואה אותם על הלוח",
+              "examples": [
+                "לספור שבועות על הלוח"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד שניים בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 תמונות של סדר היום\n9 טיימר של חמש דקות",
+              "body": "אני יודעת מה בא אחרי מה\nואיך מרגישים חמש דקות",
+              "examples": [
+                "תמונות של סדר היום",
+                "טיימר של חמש דקות"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "והכל ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "כשיש סימן על כל יום\nקל לי לחכות",
+              "body": "לוח, שיר וטיימר\nתעזרי לי לראות את הזמן?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 היא לפעם הבאה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "תשמרי את הפוסט",
+              "body": "לפעם הבאה שהיא מחכה ליום הולדת"
+            }
+          ],
+          "caption": "הסוד שלי הוא שכל בוקר אני סופרת ימים עד יום ההולדת\nתני לי לבנות איתך לוח ולהדביק מדבקה על כל יום\nתגידי לי מה היום ותשירי איתי את ימי השבוע\nתספרי איתי שבועות על הלוח ותני לי טיימר של חמש דקות\nכל יום מקבל משהו משלו וככה קל לי לחכות\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מחכה ליום הולדת",
+          "post_text": {
+            "caption": "הסוד שלי הוא שכל בוקר אני סופרת ימים עד יום ההולדת. 🎂\nתני לי לבנות איתך לוח ולהדביק מדבקה על כל יום.\nתגידי לי מה היום ותשירי איתי את ימי השבוע.\nתספרי איתי שבועות על הלוח ותני לי טיימר של חמש דקות.\nכל יום מקבל משהו משלו וככה קל לי לחכות.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה.\nתשמרי את הפוסט לפעם הבאה שהיא מחכה ליום הולדת. 🔖",
+            "fb_text": "כל בוקר אני שואלת. 🎂\nכמה ימים נשארו.\nאני לא יודעת לספור אותם.\nאז תעזרי לי לראות.\n\n1 לוח שאני בונה איתך.\n2 מדבקה על כל יום.\nתני לי להדביק בעצמי.\nואני יודעת איפה אנחנו.\n\n3 תגידי לי מה היום.\n״אגם היום יום שלישי.\nומחר יום רביעי״\n\n4 שיר על ימי השבוע.\n5 תנועה לכל יום.\nככה כל יום מקבל סימן.\nואני זוכרת אותו.\n\n6 לכל יום יש משהו שלו.\n״בימי שלישי אנחנו בגינה״\nככה הימים לא נראים אותו דבר.\n\n7 לספור שבועות על הלוח.\n״אגם עוד 2 שבועות״\nואז אני רואה אותם על הלוח.\n\n8 תמונות של סדר היום.\n9 טיימר של חמש דקות.\nאני יודעת מה בא אחרי מה.\nואיך מרגישים חמש דקות.\n\nכשיש סימן על כל יום.\nקל לי לחכות.\nלוח, שיר וטיימר.\nתעזרי לי לראות את הזמן?\n\nתשמרי את הפוסט.\nלפעם הבאה שהיא מחכה ליום הולדת. 🔖"
+          },
+          "cta": "תשמרי את הפוסט\nלפעם הבאה שהיא מחכה ליום הולדת",
+          "conversion_rationale": "סוד שמתגלה בשקופית 2 ותשעה דברים עם מספר ושווי על הכריכה. כל דבר מבוסס על לוח שנה שילדה בונה בעצמה, ומילות זמן שאפשר להגיד עוד בבוקר.",
+          "sources": [
+            {
+              "id": "src-bright",
+              "title": "Tips, Tricks, and Books for Helping Kids Understand Calendars",
+              "publisher": "Brightly (Penguin Random House), written by a kindergarten and preschool teacher",
+              "url": "https://www.readbrightly.com/books-help-kids-understand-calendars",
+              "accessed": "2026-10-29",
+              "quote": "Kids are more likely to internalize calendar concepts and patterns when they can put them in the context of their own lives. ... Challenge yourself to greet children each day with, “Happy Tuesday! On Tuesdays we _____!” ... Let the kids add cues to the calendar, like houses on no-school days, pizza slices for pizza lunch days, or Xs for days gone by, to give purpose and meaning. ... Ask them to point to “yesterday, today, and tomorrow,” find specific day numbers, or count the days or weeks until a significant event. ... Pairing movement with a song or chant can help the words stick",
+              "supports": "Kids make sense of calendar words through their own lives; a calendar kids add cues to (Xs for days gone by); counting the days or weeks to an event; songs and chants with movement; a greeting that names what we do each day. A teacher's practical article, not a clinical guideline."
+            },
+            {
+              "id": "src-emp",
+              "title": "Teaching the Concept of Time to Preschoolers",
+              "publisher": "Empowered Parents (early years educators' parenting site)",
+              "url": "https://empoweredparents.co/teaching-concept-of-time-to-preschoolers",
+              "accessed": "2026-10-29",
+              "quote": "Because time is an abstract concept, children need multiple opportunities to experience and understand it. ... Your birthday is in 2 weeks' time. ... Give them five minutes to tidy the class to understand how long five minutes feels ... Visual timers let kids watch the numbers count down. For young kids, 3 to 5 minutes is long enough. ... Predictable routines not only teach kids about time but also help them feel secure and safe. ... Create a poster with your kids that outlines the day's major activities. ... Baking and cooking with kids is a great opportunity for teaching them about how we use time when cooking, and it also gives them a feel for the passing of time.",
+              "supports": "Time is abstract and kids need repeated experiences of it; saying time words in context (a birthday in 2 weeks); feeling how long five minutes is; a visual timer for 3 to 5 minutes; a predictable routine and a routine poster; baking as a feel for passing time. An educators' site, used as general advice."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אני לא יודעת לספור את הימים אז תעזרי לי לראות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Empowered Parents: time is an abstract concept and children need multiple opportunities to experience it. The daily question is an imagined child voice."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לוח שאני בונה איתך ומדבקה על כל יום",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: building the calendar with the kids, and letting them add cues to it."
+            },
+            {
+              "slide": 4,
+              "wording_he": "תגידי לי מה היום: היום יום שלישי ומחר יום רביעי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright",
+                "src-emp"
+              ],
+              "supports": "Brightly: point to yesterday, today and tomorrow; Empowered Parents: 'Tomorrow is Tuesday.'"
+            },
+            {
+              "slide": 5,
+              "wording_he": "שיר על ימי השבוע ותנועה לכל יום",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: pairing movement with a song or chant can help the words stick."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לכל יום יש משהו שלו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: greet children each day with 'Happy Tuesday! On Tuesdays we ___!' to link calendar words to their own lives."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לספור שבועות על הלוח",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: count the days or weeks until a significant event."
+            },
+            {
+              "slide": 8,
+              "wording_he": "תמונות של סדר היום וטיימר של חמש דקות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Empowered Parents: a routine poster; visual timers, 3 to 5 minutes for young kids."
+            },
+            {
+              "slide": 9,
+              "wording_he": "כשיש סימן על כל יום קל לי לחכות",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Our recap in the child's imagined voice; no new fact and no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספרים וסיפורים יכולים לעזור להבין זמן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly lists picture books that help kids learn the days of the week and months."
+            },
+            {
+              "slide": 10,
+              "wording_he": "סיפור אישי שבו הילדה היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview."
+            }
+          ]
+        },
+        {
+          "id": "kid-3",
+          "title": "בשש בבוקר אני בודק כמה ימים נשארו",
+          "angle": "הילד קם מוקדם בבוקר ובודק כמה ימים נשארו. הוא מבקש מאמא תשעה דברים שהופכים את הנצח לדבר שאפשר לראות: לוח, אתמול ומחר, סימן ליום ההולדת, שרשרת ועוד.",
+          "target_parent": "אמהות לילד בן 5 שקם מוקדם בבוקר ובודק כמה ימים נשארו עד יום ההולדת.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "moment",
+          "hook": {
+            "formula": "moment-time",
+            "gap": "What helps a 5-year-old who wakes at six to check how many days are left until his birthday?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "a3",
+            "mechanism": "recognition",
+            "slide2_move": "other_side"
+          },
+          "child_gender": "boy",
+          "addressee": "mom",
+          "child_name": "גיא",
+          "examples_target": 9,
+          "topic_id": "birthday-countdown",
+          "character_anchor": {
+            "child": "A 5-year-old Israeli boy with curly light-brown hair, tanned skin, round hazel eyes and a missing front tooth; about 110 cm tall.",
+            "parent": "His mother, mid-thirties, dark-blonde hair in a messy bun, soft green eyes, a gentle sleepy smile.",
+            "wardrobe": "Boy: sky-blue pyjamas with small white clouds, bare feet. Mother: oatmeal cardigan over a white tee."
+          },
+          "image": {
+            "beat": "early-morning impatient excitement",
+            "action": "The boy faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, holding a short paper chain of plain colourful paper rings in both hands in front of him; his mother is small and soft in the background in the bedroom doorway, rubbing her eyes with a smile.",
+            "setting": "A cosy Israeli child bedroom at early morning: a low wooden bed with a cream blanket, a plain pale-yellow wall above the headboard.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft early-morning light, warm pale gold through a curtain on the right.",
+            "wardrobe_objects": "A short chain of plain colourful paper rings with no writing, held by the boy.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale-yellow bedroom wall above the headboard"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "בשש בבוקר\nאני בודק כמה\nימים נשארו",
+              "body": "9 דברים שיעזרו לי לחכות",
+              "pull": {
+                "type": "numbered",
+                "note": "תשעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "בשבילי עוד 12 ימים\nזה נצח",
+              "body": "אני צריך שהנצח יהיה קטן\nואת יכולה לעזור",
+              "pull": {
+                "type": "open_loop",
+                "note": "ואיך הופכים נצח לקטן? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 לוח של כל החודש\n2 איקס אחרי ארוחת בוקר",
+              "body": "ככה אני רואה כמה ימים עברו",
+              "examples": [
+                "לוח של כל החודש",
+                "איקס אחרי ארוחת בוקר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה היה אתמול? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 אתמול היום ומחר",
+              "body": "תשאלי אותי: ״גיא מה היה אתמול\nומה יהיה מחר?״",
+              "examples": [
+                "אתמול היום ומחר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה מסמנים ביום שלי? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 סימן ביום ההולדת",
+              "body": "מדבקה בצבע שאני בוחר\nכדי שאמצא אותו בלוח",
+              "examples": [
+                "סימן ביום ההולדת"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואיך סופרים? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 לספור ימים ושבועות",
+              "body": "נמצא ביחד את היום שלי\nונספור כמה נשארו",
+              "examples": [
+                "לספור ימים ושבועות"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אחרי הספירה? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 קלפים של סדר היום\n7 לאפות עוגה ביחד",
+              "body": "ככה הזמן עובר בלי שאני סופר",
+              "examples": [
+                "קלפים של סדר היום",
+                "לאפות עוגה ביחד"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ועוד שניים בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 שיר ספירה בבוקר\n9 לדבר על מה שיהיה",
+              "body": "מה נעשה ביום ההולדת\nואיך נתכונן לזה",
+              "examples": [
+                "שיר ספירה בבוקר",
+                "לדבר על מה שיהיה"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "והכל ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "כשהזמן קטן ונראה\nקל לי לחכות",
+              "body": "לוח, סימן וסדר יום\nתעזרי לי להתחיל מחר?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 היא לפעם הבאה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "תשמרי את הפוסט",
+              "body": "לפעם הבאה שהוא מחכה ליום הולדת"
+            }
+          ],
+          "caption": "כבר בשש בבוקר אני קם ובודק כמה ימים נשארו\nתני לי לוח של כל החודש ואיקס אחרי ארוחת בוקר\nתשאלי אותי מה היה אתמול ומה יהיה מחר\nתעזרי לי לסמן את יום ההולדת בצבע שאני בוחר\nנספור ביחד ימים ושבועות ונאפה לקראת היום\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שהוא מחכה ליום הולדת",
+          "post_text": {
+            "caption": "כבר בשש בבוקר אני קם ובודק כמה ימים נשארו. 🎂\nתני לי לוח של כל החודש ואיקס אחרי ארוחת בוקר.\nתשאלי אותי מה היה אתמול ומה יהיה מחר.\nתעזרי לי לסמן את יום ההולדת בצבע שאני בוחר.\nנספור ביחד ימים ושבועות ונאפה לקראת היום.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור.\nתשמרי את הפוסט לפעם הבאה שהוא מחכה ליום הולדת. 🔖",
+            "fb_text": "בשבילי עוד 12 ימים. 🎂\nזה נצח.\nאני צריך שהנצח יהיה קטן.\nואת יכולה לעזור.\n\n1 לוח של כל החודש.\n2 איקס אחרי ארוחת בוקר.\nככה אני רואה כמה ימים עברו.\n\n3 אתמול היום ומחר.\nתשאלי אותי: ״גיא מה היה אתמול.\nומה יהיה מחר?״\n\n4 סימן ביום ההולדת.\nמדבקה בצבע שאני בוחר.\nכדי שאמצא אותו בלוח.\n\n5 לספור ימים ושבועות.\nנמצא ביחד את היום שלי.\nונספור כמה נשארו.\n\n6 קלפים של סדר היום.\n7 לאפות עוגה ביחד.\nככה הזמן עובר בלי שאני סופר.\n\n8 שיר ספירה בבוקר.\n9 לדבר על מה שיהיה.\nמה נעשה ביום ההולדת.\nואיך נתכונן לזה.\n\nכשהזמן קטן ונראה.\nקל לי לחכות.\nלוח, סימן וסדר יום.\nתעזרי לי להתחיל מחר?\n\nתשמרי את הפוסט.\nלפעם הבאה שהוא מחכה ליום הולדת. 🔖"
+          },
+          "cta": "תשמרי את הפוסט\nלפעם הבאה שהוא מחכה ליום הולדת",
+          "conversion_rationale": "שעה מדויקת בכריכה ושווי ברור (9 דברים). שקופית 2 מראה את הפער בין זמן של ילד לזמן של אמא, והדוגמאות הן דברים שמסתדרים עוד הבוקר.",
+          "sources": [
+            {
+              "id": "src-bright",
+              "title": "Tips, Tricks, and Books for Helping Kids Understand Calendars",
+              "publisher": "Brightly (Penguin Random House), written by a kindergarten and preschool teacher",
+              "url": "https://www.readbrightly.com/books-help-kids-understand-calendars",
+              "accessed": "2026-10-29",
+              "quote": "Kids are more likely to internalize calendar concepts and patterns when they can put them in the context of their own lives. ... Challenge yourself to greet children each day with, “Happy Tuesday! On Tuesdays we _____!” ... Let the kids add cues to the calendar, like houses on no-school days, pizza slices for pizza lunch days, or Xs for days gone by, to give purpose and meaning. ... Ask them to point to “yesterday, today, and tomorrow,” find specific day numbers, or count the days or weeks until a significant event. ... Pairing movement with a song or chant can help the words stick",
+              "supports": "Kids make sense of calendar words through their own lives; a calendar kids add cues to (Xs for days gone by); counting the days or weeks to an event; songs and chants with movement; a greeting that names what we do each day. A teacher's practical article, not a clinical guideline."
+            },
+            {
+              "id": "src-emp",
+              "title": "Teaching the Concept of Time to Preschoolers",
+              "publisher": "Empowered Parents (early years educators' parenting site)",
+              "url": "https://empoweredparents.co/teaching-concept-of-time-to-preschoolers",
+              "accessed": "2026-10-29",
+              "quote": "Because time is an abstract concept, children need multiple opportunities to experience and understand it. ... Your birthday is in 2 weeks' time. ... Give them five minutes to tidy the class to understand how long five minutes feels ... Visual timers let kids watch the numbers count down. For young kids, 3 to 5 minutes is long enough. ... Predictable routines not only teach kids about time but also help them feel secure and safe. ... Create a poster with your kids that outlines the day's major activities. ... Baking and cooking with kids is a great opportunity for teaching them about how we use time when cooking, and it also gives them a feel for the passing of time.",
+              "supports": "Time is abstract and kids need repeated experiences of it; saying time words in context (a birthday in 2 weeks); feeling how long five minutes is; a visual timer for 3 to 5 minutes; a predictable routine and a routine poster; baking as a feel for passing time. An educators' site, used as general advice."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "בשבילי עוד 12 ימים זה נצח ואני צריך שהנצח יהיה קטן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Empowered Parents: time is an abstract concept; children need multiple opportunities to experience and understand it. The 12 days is an imagined example in the child's voice."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לוח של כל החודש ואיקס אחרי ארוחת בוקר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: having the entire month visible; Xs for days gone by. The breakfast moment is our example."
+            },
+            {
+              "slide": 4,
+              "wording_he": "אתמול היום ומחר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: ask kids to point to yesterday, today, and tomorrow."
+            },
+            {
+              "slide": 5,
+              "wording_he": "סימן מיוחד ביום ההולדת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: let the kids add cues to the calendar to give purpose and meaning."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לספור ימים ושבועות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly: count the days or weeks until a significant event."
+            },
+            {
+              "slide": 7,
+              "wording_he": "קלפים של סדר היום ולאפות ביחד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Empowered Parents: sequence cards of daily routines; baking and cooking give a feel for the passing of time."
+            },
+            {
+              "slide": 8,
+              "wording_he": "שיר ספירה בבוקר ולדבר על מה שיהיה",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-bright",
+                "src-emp"
+              ],
+              "supports": "Our wording: a morning count in song and talking about what will happen, resting on Brightly (songs and chants) and Empowered Parents (talk about time). No claim about results."
+            },
+            {
+              "slide": 9,
+              "wording_he": "כשהזמן קטן ונראה קל לי לחכות",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-emp"
+              ],
+              "supports": "Our recap in the child's imagined voice; no new fact and no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספרים וסיפורים יכולים לעזור להבין זמן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-bright"
+              ],
+              "supports": "Brightly lists picture books that help kids learn the days of the week and months."
+            },
+            {
+              "slide": 10,
+              "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview."
+            }
+          ]
+        },
+        {
+          "id": "kid-4",
+          "title": "״זה שלי!״ אני צועקת את זה",
+          "angle": "הילדה מסבירה לאמא למה היא צועקת ״זה שלי!״ ומבקשת שבעה דברים שיעזרו לה לשתף: תור, טיימר, מילים, צעצוע שנשאר בארון, הגרלה, דוגמה וכל הכבוד.",
+          "target_parent": "אמהות לילדה בת 4 שצועקת ״זה שלי״ כשילדה אחרת מושיטה יד לצעצוע.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_quote",
+          "hook": {
+            "formula": "child-question",
+            "gap": "What can help a 4-year-old girl who shouts mine when another child reaches for her toy?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "b1",
+            "mechanism": "honest_curiosity",
+            "slide2_move": "name_trigger"
+          },
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "נטע",
+          "examples_target": 7,
+          "topic_id": "sharing-toys",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with dark straight shoulder-length hair with a side clip, olive skin, big dark eyes and rosy cheeks; about 103 cm tall.",
+            "parent": "Her mother, early thirties, curly dark hair tied back, warm brown eyes, calm and attentive.",
+            "wardrobe": "Girl: mint-green cotton dress with a small white collar and white socks. Mother: soft grey sweater and jeans."
+          },
+          "image": {
+            "beat": "fierce protective pout over a favourite toy",
+            "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout, puffed cheeks and wide determined eyes, hugging a small beige plush bunny tightly to her chest with both arms; her mother is small and soft in the background kneeling by a toy shelf.",
+            "setting": "A bright Israeli playroom in the afternoon: a low shelf of plain wooden toys, a soft rug, a plain wall.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm afternoon daylight from a window on the right.",
+            "wardrobe_objects": "A small beige plush bunny, held by the girl; wooden blocks on the shelf far behind.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream wall above the toy shelf"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״זה שלי!״\nאני צועקת את זה",
+              "body": "7 דברים שיעזרו לי לשתף",
+              "pull": {
+                "type": "numbered",
+                "note": "שבעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "כשהיא מושיטה יד\nאני נצמדת לצעצוע",
+              "body": "אני עוד לומדת לחכות לתור\nתעזרי לי ללמוד",
+              "pull": {
+                "type": "open_loop",
+                "note": "ואיך לומדים תור? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 תגידי שיהיה לי תור\n2 תני לי טיימר",
+              "body": "״נטע התור שלך מגיע אחריה״\nטיימר שאני רואה",
+              "examples": [
+                "תגידי שיהיה לי תור",
+                "תני לי טיימר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אומרים במקום לצעוק? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 תלמדי אותי במילים",
+              "body": "״אני רוצה תור, בבקשה״\nבמקום לצעוק זה שלי",
+              "examples": [
+                "תלמדי אותי במילים"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עם הצעצוע האהוב? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 צעצוע אחד נשאר בארון",
+              "body": "״נטע בואי נבחר אחד לשמור\nלפני שהחברה מגיעה״",
+              "examples": [
+                "צעצוע אחד נשאר בארון"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי מתחילה? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 מגרילות מי הראשונה",
+              "body": "תני לנו להגריל ביד\nואף אחת לא נעלבת",
+              "examples": [
+                "מגרילות מי הראשונה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי מראה לי איך? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 תראי לי איך משתפים",
+              "body": "תגידי ״תודה שחילקת״ כשמישהו נותן\nואני זוכרת את זה",
+              "examples": [
+                "תראי לי איך משתפים"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "7 תפרגני לי כשאני מחכה",
+              "body": "״נטע ראיתי שחיכית לתור\nכל הכבוד״",
+              "examples": [
+                "תפרגני לי כשאני מחכה"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "והכל ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "כשיש תור וטיימר\nקל לי לתת",
+              "body": "מילים במקום צעקות\nתעזרי לי להחליף תור?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 היא לפעם הבאה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "תשמרי את הפוסט",
+              "body": "לפעם הבאה שהיא לא רוצה לשתף"
+            }
+          ],
+          "caption": "7 דברים שיעזרו לי לשתף כשאני צועקת ״זה שלי״\nתגידי שיהיה לי תור ותני לי טיימר שאפשר לראות\nתלמדי אותי להגיד במילים ולהגריל מי הראשונה\nתשאירי צעצוע אחד שלי בארון לפני שחברה מגיעה\nותראי לי איך משתפים ותפרגני לי כשאני מחכה\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא לא רוצה לשתף",
+          "post_text": {
+            "caption": "7 דברים שיעזרו לי לשתף כשאני צועקת ״זה שלי״ 🧸\nתגידי שיהיה לי תור ותני לי טיימר שאפשר לראות.\nתלמדי אותי להגיד במילים ולהגריל מי הראשונה.\nתשאירי צעצוע אחד שלי בארון לפני שחברה מגיעה.\nותראי לי איך משתפים ותפרגני לי כשאני מחכה.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה.\nתשמרי את הפוסט לפעם הבאה שהיא לא רוצה לשתף. 🔖",
+            "fb_text": "כשהיא מושיטה יד. 🧸\nאני נצמדת לצעצוע.\nאני עוד לומדת לחכות לתור.\nתעזרי לי ללמוד.\n\n1 תגידי שיהיה לי תור.\n2 תני לי טיימר.\n״נטע התור שלך מגיע אחריה״\nטיימר שאני רואה.\n\n3 תלמדי אותי במילים.\n״אני רוצה תור, בבקשה״\nבמקום לצעוק זה שלי.\n\n4 צעצוע אחד נשאר בארון.\n״נטע בואי נבחר אחד לשמור.\nלפני שהחברה מגיעה״\n\n5 מגרילות מי הראשונה.\nתני לנו להגריל ביד.\nואף אחת לא נעלבת.\n\n6 תראי לי איך משתפים.\nתגידי ״תודה שחילקת״ כשמישהו נותן.\nואני זוכרת את זה.\n\n7 תפרגני לי כשאני מחכה.\n״נטע ראיתי שחיכית לתור.\nכל הכבוד״\n\nכשיש תור וטיימר.\nקל לי לתת.\nמילים במקום צעקות.\nתעזרי לי להחליף תור?\n\nתשמרי את הפוסט.\nלפעם הבאה שהיא לא רוצה לשתף. 🔖"
+          },
+          "cta": "תשמרי את הפוסט\nלפעם הבאה שהיא לא רוצה לשתף",
+          "conversion_rationale": "משפט שכל הורה שומע (״זה שלי״) ומספר על הכריכה. שבעה צעדים קטנים שאפשר לנסות בפעם הבאה שחברה מגיעה, בלי להאשים את הילדה.",
+          "sources": [
+            {
+              "id": "src-hc",
+              "title": "Social Development in Preschoolers: Learning How to Share & Cooperate",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 12/5/2024)",
+              "url": "https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx",
+              "accessed": "2026-10-29",
+              "quote": "Three-year-olds are able to work out solutions to disputes by taking turns or trading toys. However, particularly in the beginning, you'll need to encourage this cooperation. ... Say to your child \"use your words\" to deal with problems instead of acting out. ... Remind them that when two children are sharing a toy, each gets an equal turn. ... Suggest ways to reach a simple solution when your child and another child want the same toy. They might draw for the first turn, for example, or find another toy or activity. ... Help your child with the appropriate words to describe their feelings and desires so that they don't feel frustrated.",
+              "supports": "Preschoolers can learn to take turns and trade toys but need encouragement at first; use your words; an equal turn for each child; draw for the first turn or find another toy; words for feelings. AAP page adapted from Caring for Your Baby and Young Child."
+            },
+            {
+              "id": "src-path",
+              "title": "Getting Preschoolers to Share…How Do You Do It?",
+              "publisher": "Pathways.org (pediatric therapists' nonprofit, last updated 18 Jul 2025)",
+              "url": "https://pathways.org/getting-preschoolers-share",
+              "accessed": "2026-10-29",
+              "quote": "In preschool years, children are still learning how to share, so it is okay if your child isn’t great at this skill yet. ... Something visual, like a timer, will let children know exactly when it’s time for them to give up a certain toy. ... explain that they can have a turn next ... point out how nice it was that Dad shared his water with Mom. ... Talk about how it would feel if they went to a friend’s house and wasn’t allowed to play with any toys. ... If your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date!",
+              "supports": "Preschoolers are still learning to share; a visual timer shows when to give up a toy; explain they can have a turn next; point out sharing you see; talk about how it feels before a playdate; put away one absolute favorite toy. A nonprofit of pediatric therapists, used as general advice."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אני עוד לומדת לחכות לתור, תעזרי לי ללמוד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path",
+                "src-hc"
+              ],
+              "supports": "Pathways: in the preschool years children are still learning how to share, and it is okay if they are not great at it yet; HealthyChildren: at first you will need to encourage this cooperation. Imagined child voice."
+            },
+            {
+              "slide": 3,
+              "wording_he": "תור אחריה וטיימר שאפשר לראות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: explain that they can have a turn next; something visual, like a timer, lets children know when to give up a toy."
+            },
+            {
+              "slide": 4,
+              "wording_he": "תלמדי אותי להגיד במילים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: say to your child 'use your words'; help with the words to describe feelings and desires."
+            },
+            {
+              "slide": 5,
+              "wording_he": "צעצוע אחד נשאר בארון",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: if your child has an absolute favorite toy they do not want to share, put it away before the play date."
+            },
+            {
+              "slide": 6,
+              "wording_he": "מגרילות מי הראשונה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: they might draw for the first turn, or find another toy or activity."
+            },
+            {
+              "slide": 7,
+              "wording_he": "תראי לי איך משתפים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: model and point out sharing, for example 'Thanks for sharing, Dad!'. The sentence on the slide is our wording."
+            },
+            {
+              "slide": 8,
+              "wording_he": "תפרגני לי כשאני מחכה",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Our wording of pointing out good behaviour (Pathways: model and point out good behavior). No claim about results."
+            },
+            {
+              "slide": 9,
+              "wording_he": "כשיש תור וטיימר קל לי לתת",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-path",
+                "src-hc"
+              ],
+              "supports": "Our recap in the child's imagined voice; no new fact and no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ילדים בגיל הזה עדיין לומדים לשתף",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: in the preschool years children are still learning how to share."
+            },
+            {
+              "slide": 10,
+              "wording_he": "סיפור אישי שבו הילדה היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview."
+            }
+          ]
+        },
+        {
+          "id": "kid-5",
+          "title": "״תן לו גם!״ אני מחזיק חזק יותר",
+          "angle": "הילד מספר להורים מה קורה לו כשאומרים לו ״תן לו גם״, ומבקש שמונה דברים: טיימר, תור לחבר, מילים לכעס, החלפה, הגרלה, צעצוע שנשאר שלו, שיחה לפני שחבר בא ותודה.",
+          "target_parent": "הורים לילד בן 4 שמחזיק חזק את הצעצוע כשאומרים לו ״תן לו גם״.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "sentences_we_say",
+          "hook": {
+            "formula": "sentence-we-all-say",
+            "gap": "What helps a 4-year-old boy who holds a toy tighter every time he hears 'give him too'?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "b2",
+            "mechanism": "reframe",
+            "slide2_move": "contrast"
+          },
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "רון",
+          "examples_target": 8,
+          "topic_id": "sharing-toys",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short wavy black hair, warm brown skin, big dark eyes and a cheeky half smile; about 104 cm tall.",
+            "parent": "His mother, mid-thirties, long dark hair in a braid, soft brown eyes; and his father, late thirties, short curly hair and glasses; both calm and kind.",
+            "wardrobe": "Boy: forest-green T-shirt with a small orange dinosaur and grey shorts. Mother: terracotta cotton shirt. Father: light-blue button shirt."
+          },
+          "image": {
+            "beat": "stubborn determination holding a favourite toy",
+            "action": "The boy faces the viewer and looks straight into the camera with a jaw-dropped stare and wide eyes, holding a green toy dinosaur close to his chest with both hands; his parents are small and soft in the background sitting on the rug, and a visiting child is only a soft blurred shape.",
+            "setting": "An Israeli living room in the afternoon: a woven rug, a low cream couch, a plain wall.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Warm soft daylight from a window on the left.",
+            "wardrobe_objects": "A green plush toy dinosaur with no printing, held by the boy.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain soft beige wall above the couch"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״תן לו גם!״\nאני מחזיק חזק יותר",
+              "body": "8 דברים שיעזרו לי לתת",
+              "pull": {
+                "type": "numbered",
+                "note": "שמונת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "כשאומרים לי ״תן לו״\nאני מרגיש שלוקחים לי",
+              "body": "אני רוצה לסיים קודם\nתנו לי תור ברור",
+              "pull": {
+                "type": "open_loop",
+                "note": "ואיך נראה תור ברור? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 טיימר שאני רואה\n2 ואז התור של חבר",
+              "body": "״רון כשהטיימר נגמר\nהצעצוע עובר לחבר״",
+              "examples": [
+                "טיימר שאני רואה",
+                "ואז התור של חבר"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אומרים כשכועסים? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 תנו לי מילים לכעס\n4 אפשר להחליף צעצוע",
+              "body": "״אני כועס, אני רוצה עוד דקה״\nאו צעצוע אחר",
+              "examples": [
+                "תנו לי מילים לכעס",
+                "אפשר להחליף צעצוע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי מתחיל? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "5 להגריל מי ראשון",
+              "body": "״רון ביד ימין או שמאל?״\nככה לא רבים על התור",
+              "examples": [
+                "להגריל מי ראשון"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה נשאר שלי? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "6 צעצוע אחד נשאר שלי",
+              "body": "תנו לי לבחור אחד לשמור\nלפני שחבר מגיע",
+              "examples": [
+                "צעצוע אחד נשאר שלי"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה מדברים לפני? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "7 שיחה לפני שחבר מגיע",
+              "body": "״איך היית מרגיש בלי צעצועים\nאצל חבר?״",
+              "examples": [
+                "שיחה לפני שחבר מגיע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "8 תגידו לי תודה",
+              "body": "״תודה שנתת לו״ בקול\nואני רוצה לעשות שוב",
+              "examples": [
+                "תגידו לי תודה"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "והכל ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "עם טיימר ותור\nקל לי לתת",
+              "body": "ועם מילים במקום צעקות\nתעזרו לי להמשיך?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 היא לפעם הבאה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "תשמרו את הפוסט",
+              "body": "לפעם הבאה שהוא לא רוצה לשתף"
+            }
+          ],
+          "caption": "8 דברים שיעזרו לי לתת כשאומרים לי ״תן לו גם״\nתנו לי טיימר שאני רואה ותגידו לי מתי התור של חבר\nתנו לי מילים לכעס ואפשרות להחליף צעצוע\nתגרילו איתי מי ראשון ותנו לי לשמור צעצוע אחד\nדברו איתי לפני שחבר מגיע ותגידו לי תודה כשנתתי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרו את הפוסט לפעם הבאה שהוא לא רוצה לשתף",
+          "post_text": {
+            "caption": "8 דברים שיעזרו לי לתת כשאומרים לי ״תן לו גם״ 🧸\nתנו לי טיימר שאני רואה ותגידו לי מתי התור של חבר.\nתנו לי מילים לכעס ואפשרות להחליף צעצוע.\nתגרילו איתי מי ראשון ותנו לי לשמור צעצוע אחד.\nדברו איתי לפני שחבר מגיע ותגידו לי תודה כשנתתי.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור.\nתשמרו את הפוסט לפעם הבאה שהוא לא רוצה לשתף. 🔖",
+            "fb_text": "כשאומרים לי ״תן לו״ 🧸\nאני מרגיש שלוקחים לי.\nאני רוצה לסיים קודם.\nתנו לי תור ברור.\n\n1 טיימר שאני רואה.\n2 ואז התור של חבר.\n״רון כשהטיימר נגמר.\nהצעצוע עובר לחבר״\n\n3 תנו לי מילים לכעס.\n4 אפשר להחליף צעצוע.\n״אני כועס, אני רוצה עוד דקה״\nאו צעצוע אחר.\n\n5 להגריל מי ראשון.\n״רון ביד ימין או שמאל?״\nככה לא רבים על התור.\n\n6 צעצוע אחד נשאר שלי.\nתנו לי לבחור אחד לשמור.\nלפני שחבר מגיע.\n\n7 שיחה לפני שחבר מגיע.\n״איך היית מרגיש בלי צעצועים.\nאצל חבר?״\n\n8 תגידו לי תודה.\n״תודה שנתת לו״ בקול.\nואני רוצה לעשות שוב.\n\nעם טיימר ותור.\nקל לי לתת.\nועם מילים במקום צעקות.\nתעזרו לי להמשיך?\n\nתשמרו את הפוסט.\nלפעם הבאה שהוא לא רוצה לשתף. 🔖"
+          },
+          "cta": "תשמרו את הפוסט\nלפעם הבאה שהוא לא רוצה לשתף",
+          "conversion_rationale": "משפט מוכר (״תן לו גם״) והמספר 8 על הכריכה. שקופית 2 מראה מה הילד מרגיש, והדוגמאות הן צעדים קטנים של טיימר, תור והגרלה.",
+          "sources": [
+            {
+              "id": "src-hc",
+              "title": "Social Development in Preschoolers: Learning How to Share & Cooperate",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 12/5/2024)",
+              "url": "https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx",
+              "accessed": "2026-10-29",
+              "quote": "Three-year-olds are able to work out solutions to disputes by taking turns or trading toys. However, particularly in the beginning, you'll need to encourage this cooperation. ... Say to your child \"use your words\" to deal with problems instead of acting out. ... Remind them that when two children are sharing a toy, each gets an equal turn. ... Suggest ways to reach a simple solution when your child and another child want the same toy. They might draw for the first turn, for example, or find another toy or activity. ... Help your child with the appropriate words to describe their feelings and desires so that they don't feel frustrated.",
+              "supports": "Preschoolers can learn to take turns and trade toys but need encouragement at first; use your words; an equal turn for each child; draw for the first turn or find another toy; words for feelings. AAP page adapted from Caring for Your Baby and Young Child."
+            },
+            {
+              "id": "src-path",
+              "title": "Getting Preschoolers to Share…How Do You Do It?",
+              "publisher": "Pathways.org (pediatric therapists' nonprofit, last updated 18 Jul 2025)",
+              "url": "https://pathways.org/getting-preschoolers-share",
+              "accessed": "2026-10-29",
+              "quote": "In preschool years, children are still learning how to share, so it is okay if your child isn’t great at this skill yet. ... Something visual, like a timer, will let children know exactly when it’s time for them to give up a certain toy. ... explain that they can have a turn next ... point out how nice it was that Dad shared his water with Mom. ... Talk about how it would feel if they went to a friend’s house and wasn’t allowed to play with any toys. ... If your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date!",
+              "supports": "Preschoolers are still learning to share; a visual timer shows when to give up a toy; explain they can have a turn next; point out sharing you see; talk about how it feels before a playdate; put away one absolute favorite toy. A nonprofit of pediatric therapists, used as general advice."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אני רוצה לסיים קודם, תנו לי תור ברור",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: a visual timer lets children know exactly when it is time to give up a toy; explain that they can have a turn next. Imagined child voice."
+            },
+            {
+              "slide": 3,
+              "wording_he": "טיימר שאני רואה ואז התור של חבר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: a visual timer for when to give up a toy; explain they can have a turn next."
+            },
+            {
+              "slide": 4,
+              "wording_he": "מילים לכעס והחלפת צעצוע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: help your child with words to describe feelings; three-year-olds can work out disputes by taking turns or trading toys."
+            },
+            {
+              "slide": 5,
+              "wording_he": "להגריל מי ראשון",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: they might draw for the first turn."
+            },
+            {
+              "slide": 6,
+              "wording_he": "צעצוע אחד נשאר שלי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: put the absolute favorite toy away before the play date."
+            },
+            {
+              "slide": 7,
+              "wording_he": "שיחה לפני שחבר מגיע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: talk about how it would feel to go to a friend's house and not be allowed to play with any toys."
+            },
+            {
+              "slide": 8,
+              "wording_he": "תודה שנתת לו",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Our wording of pointing out sharing (Pathways: model and point out good behavior). No claim about results."
+            },
+            {
+              "slide": 9,
+              "wording_he": "עם טיימר ותור קל לי לתת",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-path",
+                "src-hc"
+              ],
+              "supports": "Our recap in the child's imagined voice; no new fact and no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ילדים בגיל הזה עדיין לומדים לשתף",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: in the preschool years children are still learning how to share."
+            },
+            {
+              "slide": 10,
+              "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview."
+            }
+          ]
+        },
+        {
+          "id": "kid-6",
+          "title": "כשהיא לוקחת בובה הידיים שלי נסגרות",
+          "angle": "הילדה מתארת את הרגע שבו ילדה אחרת לוקחת לה בובה והידיים נסגרות לבד, ומבקשת מההורים שבעה דברים: תור שווה, מילים, לשבת לידה, בובה אחרת, לשחק לידה ושלא חייבים לחלק הכול.",
+          "target_parent": "הורים לילדה בת 4 שהידיים שלה נסגרות כשילדה אחרת לוקחת לה צעצוע.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "moment",
+          "hook": {
+            "formula": "child-body-moment",
+            "gap": "What helps a 4-year-old girl whose hands close tight when another girl takes her doll?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "b3",
+            "mechanism": "recognition",
+            "slide2_move": "zoom_in"
+          },
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "עדי",
+          "examples_target": 7,
+          "topic_id": "sharing-toys",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with long dark-brown hair in a low ponytail, light olive skin, big hazel eyes; about 106 cm tall.",
+            "parent": "Her mother, mid-thirties, auburn wavy hair to the shoulders, kind hazel eyes; and her father, late thirties, short brown hair and a trimmed beard; both warm and relaxed.",
+            "wardrobe": "Girl: lemon-yellow cotton top with a small white daisy and blue denim overalls. Mother: cream linen shirt. Father: grey T-shirt."
+          },
+          "image": {
+            "beat": "a sudden gasp when a toy is taken",
+            "action": "The girl faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, pressing a soft rag doll to her chest with both arms; her parents are small and soft in the background by the balcony door, and another child is only a soft blurred shape.",
+            "setting": "A sunny Israeli apartment balcony play corner in the morning: a small woven mat, a white railing far behind, a plain pale sky.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Bright soft morning sunlight from the left.",
+            "wardrobe_objects": "A soft beige rag doll with a plain face and no printing, held by the girl.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale morning sky above the railing"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "כשהיא לוקחת בובה\nהידיים שלי נסגרות",
+              "body": "7 דברים שיעזרו לי",
+              "pull": {
+                "type": "numbered",
+                "note": "שבעת הדברים מתחילים בשקופית 3"
+              }
+            },
+            {
+              "number": 2,
+              "role": "explain",
+              "headline": "הידיים מחזיקות לפני\nשאני מספיקה לחשוב",
+              "body": "אני לא רעה, אני לומדת\nתעזרו לי לעצור רגע",
+              "pull": {
+                "type": "open_loop",
+                "note": "ואיך עוצרים רגע? שקופית 3"
+              }
+            },
+            {
+              "number": 3,
+              "role": "example",
+              "headline": "1 לכל אחת תור שווה\n2 תנו לי לומר עוד רגע",
+              "body": "״עדי כל אחת מקבלת תור״\nואני אומרת מילים",
+              "examples": [
+                "לכל אחת תור שווה",
+                "תנו לי לומר עוד רגע"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה עושים עם הרגש? שקופית 4"
+              }
+            },
+            {
+              "number": 4,
+              "role": "example",
+              "headline": "3 תגידו מה אני מרגישה",
+              "body": "״את כועסת כי רצית עוד זמן״\nככה אני מוצאת מילים",
+              "examples": [
+                "תגידו מה אני מרגישה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומי יושב לידי? שקופית 5"
+              }
+            },
+            {
+              "number": 5,
+              "role": "example",
+              "headline": "4 תשבו לידי כשקשה",
+              "body": "בלי לדבר הרבה\nאני צריכה אתכם קרובים",
+              "examples": [
+                "תשבו לידי כשקשה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ומה אם היא רוצה בובה? שקופית 6"
+              }
+            },
+            {
+              "number": 6,
+              "role": "example",
+              "headline": "5 בובה אחרת לחברה",
+              "body": "״בואי נמצא לה בובה אחרת״\nואז אני לא נשארת בלי",
+              "examples": [
+                "בובה אחרת לחברה"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "ואיך משחקים ביחד? שקופית 7"
+              }
+            },
+            {
+              "number": 7,
+              "role": "example",
+              "headline": "6 לשחק לידה ולא ביחד",
+              "body": "בהתחלה אני משחקת לידה\nועם הזמן גם איתה",
+              "examples": [
+                "לשחק לידה ולא ביחד"
+              ],
+              "pull": {
+                "type": "numbered",
+                "note": "והאחרון בשקופית 8"
+              }
+            },
+            {
+              "number": 8,
+              "role": "example",
+              "headline": "7 לא חייבים לחלק הכול",
+              "body": "הבובה האהובה שלי נשארת שלי\nוזה בסדר גמור",
+              "examples": [
+                "לא חייבים לחלק הכול"
+              ],
+              "pull": {
+                "type": "next_step",
+                "note": "והכל ביחד בשקופית 9"
+              }
+            },
+            {
+              "number": 9,
+              "role": "recap",
+              "headline": "תור, מילים וקצת סבלנות\nוקל לי יותר",
+              "body": "ובובה אחת שהיא רק שלי\nתעזרו לי להתחיל?",
+              "pull": {
+                "type": "next_step",
+                "note": "ושקופית 10 היא לפעם הבאה"
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "תשמרו את הפוסט",
+              "body": "לפעם הבאה שהיא לא רוצה לשתף"
+            }
+          ],
+          "caption": "הידיים שלי נסגרות כשילדה אחרת לוקחת לי בובה\nתנו לי תור שווה ותנו לי להגיד עוד רגע\nתגידו לי מה אני מרגישה ותשבו לידי כשקשה\nתנו לה בובה אחרת ותנו לי לשחק לידה קודם\nואל תדרשו ממני לחלק הכול\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרו את הפוסט לפעם הבאה שהיא לא רוצה לשתף",
+          "post_text": {
+            "caption": "הידיים שלי נסגרות כשילדה אחרת לוקחת לי בובה. 🧸\nתנו לי תור שווה ותנו לי להגיד עוד רגע.\nתגידו לי מה אני מרגישה ותשבו לידי כשקשה.\nתנו לה בובה אחרת ותנו לי לשחק לידה קודם.\nואל תדרשו ממני לחלק הכול.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה.\nתשמרו את הפוסט לפעם הבאה שהיא לא רוצה לשתף. 🔖",
+            "fb_text": "הידיים מחזיקות לפני. 🧸\nשאני מספיקה לחשוב.\nאני לא רעה, אני לומדת.\nתעזרו לי לעצור רגע.\n\n1 לכל אחת תור שווה.\n2 תנו לי לומר עוד רגע.\n״עדי כל אחת מקבלת תור״\nואני אומרת מילים.\n\n3 תגידו מה אני מרגישה.\n״את כועסת כי רצית עוד זמן״\nככה אני מוצאת מילים.\n\n4 תשבו לידי כשקשה.\nבלי לדבר הרבה.\nאני צריכה אתכם קרובים.\n\n5 בובה אחרת לחברה.\n״בואי נמצא לה בובה אחרת״\nואז אני לא נשארת בלי.\n\n6 לשחק לידה ולא ביחד.\nבהתחלה אני משחקת לידה.\nועם הזמן גם איתה.\n\n7 לא חייבים לחלק הכול.\nהבובה האהובה שלי נשארת שלי.\nוזה בסדר גמור.\n\nתור, מילים וקצת סבלנות.\nוקל לי יותר.\nובובה אחת שהיא רק שלי.\nתעזרו לי להתחיל?\n\nתשמרו את הפוסט.\nלפעם הבאה שהיא לא רוצה לשתף. 🔖"
+          },
+          "cta": "תשמרו את הפוסט\nלפעם הבאה שהיא לא רוצה לשתף",
+          "conversion_rationale": "רגע מדויק בגוף (הידיים נסגרות) ומספר 7 על הכריכה. שקופית 2 אומרת שהיא לא רעה אלא לומדת, והדוגמאות נותנות להורים משפטים וצעדים לפעם הבאה.",
+          "sources": [
+            {
+              "id": "src-hc",
+              "title": "Social Development in Preschoolers: Learning How to Share & Cooperate",
+              "publisher": "HealthyChildren.org, American Academy of Pediatrics (last updated 12/5/2024)",
+              "url": "https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx",
+              "accessed": "2026-10-29",
+              "quote": "Three-year-olds are able to work out solutions to disputes by taking turns or trading toys. However, particularly in the beginning, you'll need to encourage this cooperation. ... Say to your child \"use your words\" to deal with problems instead of acting out. ... Remind them that when two children are sharing a toy, each gets an equal turn. ... Suggest ways to reach a simple solution when your child and another child want the same toy. They might draw for the first turn, for example, or find another toy or activity. ... Help your child with the appropriate words to describe their feelings and desires so that they don't feel frustrated.",
+              "supports": "Preschoolers can learn to take turns and trade toys but need encouragement at first; use your words; an equal turn for each child; draw for the first turn or find another toy; words for feelings. AAP page adapted from Caring for Your Baby and Young Child."
+            },
+            {
+              "id": "src-path",
+              "title": "Getting Preschoolers to Share…How Do You Do It?",
+              "publisher": "Pathways.org (pediatric therapists' nonprofit, last updated 18 Jul 2025)",
+              "url": "https://pathways.org/getting-preschoolers-share",
+              "accessed": "2026-10-29",
+              "quote": "In preschool years, children are still learning how to share, so it is okay if your child isn’t great at this skill yet. ... Something visual, like a timer, will let children know exactly when it’s time for them to give up a certain toy. ... explain that they can have a turn next ... point out how nice it was that Dad shared his water with Mom. ... Talk about how it would feel if they went to a friend’s house and wasn’t allowed to play with any toys. ... If your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date!",
+              "supports": "Preschoolers are still learning to share; a visual timer shows when to give up a toy; explain they can have a turn next; point out sharing you see; talk about how it feels before a playdate; put away one absolute favorite toy. A nonprofit of pediatric therapists, used as general advice."
+            }
+          ],
+          "claims": [
+            {
+              "slide": 2,
+              "wording_he": "אני לא רעה, אני לומדת, תעזרו לי לעצור רגע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path",
+                "src-hc"
+              ],
+              "supports": "Pathways: in the preschool years children are still learning how to share; HealthyChildren: at first you need to encourage cooperation. The hands closing is an imagined ordinary sensation, no medical claim."
+            },
+            {
+              "slide": 3,
+              "wording_he": "לכל אחת תור שווה ותנו לי להגיד עוד רגע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: when two children are sharing a toy, each gets an equal turn; say 'use your words'."
+            },
+            {
+              "slide": 4,
+              "wording_he": "תגידו לי מה אני מרגישה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: help your child with the appropriate words to describe their feelings and desires so that they do not feel frustrated."
+            },
+            {
+              "slide": 5,
+              "wording_he": "תשבו לידי כשקשה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: particularly in the beginning, you will need to encourage this cooperation. Sitting near is our wording."
+            },
+            {
+              "slide": 6,
+              "wording_he": "בובה אחרת לחברה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: find another toy or activity."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לשחק לידה ולא ביחד",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: at this age it is typical for children to play side by side in parallel play."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לא חייבים לחלק הכול",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: if the favorite toy is one they do not want to share, put it away; it is okay to have a special one just for them."
+            },
+            {
+              "slide": 9,
+              "wording_he": "תור, מילים וקצת סבלנות וקל לי יותר",
+              "kind": "lumebook_wording",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "Our recap in the child's imagined voice; no new fact and no promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ילדים בגיל הזה עדיין לומדים לשתף",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-path"
+              ],
+              "supports": "Pathways: in the preschool years children are still learning how to share."
+            },
+            {
+              "slide": 10,
+              "wording_he": "סיפור אישי שבו הילדה היא הגיבורה",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo"
+              ],
+              "supports": "Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cta_style": "save_for_later",
+  "voice_style": "to_parents"
+}

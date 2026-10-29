@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
+<title>קרוסלות לבוקר 2026-11-05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap">
+<script>(function(){if(window.lbThemeBoot)return;window.lbThemeBoot=1;var d=document.documentElement,K="lb-mode";function saved(){try{return localStorage.getItem(K)==="dark"?"dark":"light"}catch(e){return"light"}}function set(t){d.setAttribute("data-theme",t);var s=document.querySelectorAll("[data-lb-theme-toggle]");for(var i=0;i<s.length;i++)s[i].setAttribute("aria-checked",String(t==="dark"))}set(saved());document.addEventListener("DOMContentLoaded",function(){set(d.getAttribute("data-theme"))});document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lb-theme-toggle]");if(!b)return;var t=d.getAttribute("data-theme")==="dark"?"light":"dark";set(t);try{localStorage.setItem(K,t)}catch(x){}});addEventListener("storage",function(e){if(e.key===K)set(saved())})})()</script>
+<script>document.addEventListener("DOMContentLoaded",function(){if(!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)||location.port!=="8780")return;var m={"https://claude.ai/artifact/3GNTuoDk4swPGUarrf4xkp":"/docs/lumebook-social-strategy.html","https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB":"/creators/creator-research/lumebook-creator-map.html","https://claude.ai/artifact/8aHom1FHtP9jiSgBkbgGc7":"/research/israeli-product-reels/creator-brief.html","https://claude.ai/artifact/3JRcb77z4HcE8PRcVjcpEp":"/research/israeli-product-reels/reels-research.html","https://claude.ai/artifact/XRuKAwrXNwf6iPfkLG8o7f":"/research/competitor-content-analysis/lumebook-competitor-content.html","https://claude.ai/artifact/4Uaprv274bf69dH5KkQyPY":"/research/kids-brand-content-research/lumebook-kids-content-lab.html","https://claude.ai/artifact/B2YkxMHGTeM5T5LLC2wnYU":"/research/carousel-research/lumebook-carousel-research.html","https://claude.ai/artifact/BGqB3Azgek9F6MXu3EY5rx":"/research/carousel-playbook-research/lumebook-carousel-playbook.html","https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6":"/sites/dashboard/site/lumebook-dashboard/","https://claude.ai/artifact/WAcZJ7xXj826wzvLj49dmE":"/research/parent-community/lumebook-parent-communities.html","https://claude.ai/artifact/DHpzqHn1DcVNZ5y4YVAdau":"/carousel/carousel-pipeline/hook-studio.html"};document.querySelectorAll("a[href]").forEach(function(a){var h=a.getAttribute("href");if(m[h])a.setAttribute("href",m[h])})})</script>
+<style>
+/* LumeBook design system · shared/design/lumebook.css
+   One stylesheet for every internal LumeBook page (HQ dashboard, plan, creator map, research pages, carousel review).
+   Builds inline this file; edit it here, then run `python3 tools/lumebook.py ripple` to rebuild every page that uses it.
+   Not used by the public ambassadors site.
+   Concept: Apple-style grouped surfaces on a white ground (black in dark mode), neutral ink for text, violet for
+   anything you can click, gold for brand emphasis, eight category hues for things a reader scans or filters by.
+   Hebrew first (RTL, logical properties), English pages work the same way.
+   Fonts (link in <head>): https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap
+   Heebo is the main font, headings included; Assistant is the secondary font for labels, captions, counts, chips and
+   table headers (Yarin, 18 Oct 2026). Both have Hebrew glyphs.
+   Categories: which category gets which hue is in shared/design/categories.json; builds read it (design.py).
+   Theme (Yarin, 21 Oct 2026: "black and white modes with a switch"): white on bare :root, black under
+   :root[data-theme="dark"]. The viewer picks with the theme switch (.lb-theme-switch, design.theme_toggle()); the boot
+   script in design.head() sets data-theme before first paint from the saved choice (localStorage "lb-mode"), white by
+   default. No prefers-color-scheme: only the switch changes it. The cream ground and the purple dark ground are gone. */
+
+:root {
+  /* brand (fixed in both modes) */
+  --lb-ink: #1D1039;
+  --lb-ink-deep: #0B0518;
+  --lb-gold: #E6B762;
+  --lb-gold-deep: #C9954A;
+  --lb-violet: #5B2BD6;
+  --lb-cream: #F8F0E1;
+
+  /* surfaces */
+  --bg: #FFFFFF;                 /* page ground, white */
+  --surface: #FFFFFF;            /* cards, grouped rows, tables (a hairline sets them apart from the ground) */
+  --surface-2: #F5F5F5;          /* inset areas inside a card, sidebar */
+  --surface-sunk: #EDEDED;       /* wells, code, track of bars */
+  --bar: rgba(255, 255, 255, .82); /* translucent sticky bars */
+  --overlay: rgba(0, 0, 0, .4);
+
+  /* text (neutral ink at three strengths; all pass 4.5:1 on every surface) */
+  --text: #111111;
+  --text-2: #4D4D4D;
+  --text-3: #666666;
+  --text-on-tint: #FFFFFF;
+
+  /* fills and lines (black at low alpha) */
+  --fill: rgba(0, 0, 0, .045);
+  --fill-2: rgba(0, 0, 0, .075);
+  --fill-3: rgba(0, 0, 0, .12);
+  --line: rgba(0, 0, 0, .1);
+  --line-strong: rgba(0, 0, 0, .2);
+
+  /* interactive: violet */
+  --tint: #5B2BD6;
+  --tint-hover: #4A1FBF;
+  --tint-soft: rgba(91, 43, 214, .09);
+  --focus: rgba(124, 77, 255, .5);
+
+  /* brand emphasis: gold */
+  --accent: #C9954A;
+  --accent-soft: #FBEBC9;
+  --accent-ink: #8A5A14;
+
+  /* semantic */
+  --success: #18703F; --success-soft: rgba(35, 149, 90, .12);
+  --warning: #A3520A; --warning-soft: rgba(232, 140, 40, .16);
+  --danger: #C2303A;  --danger-soft: rgba(217, 58, 58, .10);
+  --info: #3653B0;    --info-soft: rgba(74, 104, 194, .11);
+
+  /* carousel pillars */
+  --kid: #6D3FC9;  --kid-soft: rgba(109, 63, 201, .11);
+  --expert: #8A5A14; --expert-soft: rgba(201, 149, 74, .16);
+
+  /* data series (sequential, light to dark) */
+  --seq-1: #EEEEEE; --seq-2: #D6D6D6; --seq-3: #D2B596; --seq-4: #C9954A; --seq-5: #A87425; --seq-6: #76500F;
+
+  /* categories (from the Product Reels Playbook, 18 Oct 2026): eight hues for a page's 3 to 8 stable categories.
+     base: tiles, bars, card edges, swatches (never under text; white text fails on most of them).
+     ink: category text, 4.5:1 or more on --surface, --bg, --surface-2 and its own soft ground.
+     soft: tinted ground for chips, ID chips, the current sub-item. Set them through .lb-cat-1 ... .lb-cat-8.
+     Separate from status (success, warning, danger, info), the carousel pillars (kid, expert) and the brand violet
+     and gold: a category colour never means a state. Playbook names in brackets. */
+  --cat-1: #EA7A0D; --cat-1-ink: #A3510A; --cat-1-soft: rgba(234, 122, 13, .12);  /* orange (hook) */
+  --cat-2: #E0457B; --cat-2-ink: #AE2457; --cat-2-soft: rgba(224, 69, 123, .11);  /* pink (keep watching) */
+  --cat-3: #2E9D57; --cat-3-ink: #1B7140; --cat-3-soft: rgba(46, 157, 87, .12);   /* green (call to action) */
+  --cat-4: #2F74DB; --cat-4-ink: #1D56AA; --cat-4-soft: rgba(47, 116, 219, .11);  /* blue (what to show) */
+  --cat-5: #9B4FD6; --cat-5-ink: #7433AC; --cat-5-soft: rgba(155, 79, 214, .11);  /* purple (editing) */
+  --cat-6: #129C9A; --cat-6-ink: #0A6E6C; --cat-6-soft: rgba(18, 156, 154, .12);  /* teal (topic) */
+  --cat-7: #5D6677; --cat-7-ink: #424958; --cat-7-soft: rgba(93, 102, 119, .13);  /* slate (filming) */
+  --cat-8: #C58B22; --cat-8-ink: #85580A; --cat-8-soft: rgba(197, 139, 34, .15);  /* ochre (text and caption) */
+
+  /* type: Heebo main (body, headings, buttons, inputs), Assistant secondary (labels, captions, counts, chips, table headers) */
+  --font: "Heebo", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-2: "Assistant", "Heebo", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: var(--font); /* kept so older page CSS still resolves: headings are Heebo since 18 Oct 2026 */
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --fs-display: clamp(1.75rem, 3.8vw, 2.375rem);
+  --fs-title: 1.375rem;
+  --fs-headline: 1.125rem;
+  --fs-body: 1rem;
+  --fs-callout: .9375rem;
+  --fs-footnote: .8125rem;
+  --fs-caption: .75rem;
+  --fs-num: 1.875rem;
+
+  /* space (4pt base) */
+  --sp-1: .25rem; --sp-2: .5rem; --sp-3: .75rem; --sp-4: 1rem; --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 3rem;
+
+  /* radius */
+  --r-xs: .375rem; --r-sm: .5rem; --r-md: .75rem; --r-lg: 1.125rem; --r-pill: 999px;
+
+  /* elevation */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, .07);
+  --shadow-2: 0 8px 28px -12px rgba(0, 0, 0, .2);
+  --shadow-3: 0 24px 60px -20px rgba(0, 0, 0, .32);
+
+  --sidebar-w: 15.5rem;
+  --content-w: 76rem;
+  color-scheme: light;
+}
+
+/* black mode: the same token names, so every lb- component and page rule follows. Tint, accent, status, pillars and
+   categories get lighter steps that keep 4.5:1 on the black surfaces; text on a tint turns black. */
+:root[data-theme="dark"] {
+  --bg: #000000; --surface: #141414; --surface-2: #1C1C1C; --surface-sunk: #0A0A0A;
+  --bar: rgba(0, 0, 0, .78); --overlay: rgba(0, 0, 0, .6);
+  --text: #F5F5F5; --text-2: #B8B8B8; --text-3: #8F8F8F; --text-on-tint: #000000;
+  --fill: rgba(255, 255, 255, .06); --fill-2: rgba(255, 255, 255, .09); --fill-3: rgba(255, 255, 255, .15);
+  --line: rgba(255, 255, 255, .12); --line-strong: rgba(255, 255, 255, .22);
+  --tint: #A48BFF; --tint-hover: #BBA6FF; --tint-soft: rgba(164, 139, 255, .16); --focus: rgba(164, 139, 255, .55);
+  --accent: #E6B762; --accent-soft: rgba(230, 183, 98, .16); --accent-ink: #F0CD8C;
+  --success: #6BD196; --success-soft: rgba(107, 209, 150, .14);
+  --warning: #F2A65E; --warning-soft: rgba(242, 166, 94, .15);
+  --danger: #F08791;  --danger-soft: rgba(240, 135, 145, .15);
+  --info: #9DB4F0;    --info-soft: rgba(157, 180, 240, .14);
+  --kid: #B79BFF; --kid-soft: rgba(183, 155, 255, .15);
+  --expert: #F0CD8C; --expert-soft: rgba(230, 183, 98, .16);
+  --seq-1: #262626; --seq-2: #3D3D3D; --seq-3: #6E5A43; --seq-4: #B38650; --seq-5: #D8A75A; --seq-6: #F3D9A1;
+  --cat-1: #F28C2E; --cat-1-ink: #FFAD5C; --cat-1-soft: rgba(242, 140, 46, .18);
+  --cat-2: #EC5F90; --cat-2-ink: #FF8FB5; --cat-2-soft: rgba(236, 95, 144, .18);
+  --cat-3: #3DB86A; --cat-3-ink: #6FD894; --cat-3-soft: rgba(61, 184, 106, .18);
+  --cat-4: #4A8BEB; --cat-4-ink: #8DB8FF; --cat-4-soft: rgba(74, 139, 235, .2);
+  --cat-5: #A865E0; --cat-5-ink: #CDA2F7; --cat-5-soft: rgba(168, 101, 224, .2);
+  --cat-6: #1FB5B2; --cat-6-ink: #5FD8D4; --cat-6-soft: rgba(31, 181, 178, .18);
+  --cat-7: #7F8899; --cat-7-ink: #B9C0CD; --cat-7-soft: rgba(127, 136, 153, .2);
+  --cat-8: #D9A23A; --cat-8-ink: #EDC777; --cat-8-soft: rgba(217, 162, 58, .18);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, .5); --shadow-2: 0 10px 30px -12px rgba(0, 0, 0, .7); --shadow-3: 0 24px 60px -20px rgba(0, 0, 0, .8);
+  color-scheme: dark;
+}
+
+
+/* ---------- base ---------- */
+[hidden] { display: none !important; } /* hidden always wins over component display rules */
+[id] { scroll-margin-top: 4.5rem; } /* anchor jumps land below the sticky top bar */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: var(--fs-body); line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { margin: 0; color: var(--text); text-wrap: balance; }
+h1 { font-weight: 800; font-size: var(--fs-display); line-height: 1.15; letter-spacing: -.015em; }
+h2 { font-weight: 700; font-size: var(--fs-title); line-height: 1.25; letter-spacing: -.01em; }
+h3 { font-size: var(--fs-headline); font-weight: 700; line-height: 1.3; }
+h4 { font-size: var(--fs-callout); font-weight: 700; line-height: 1.35; }
+p { margin: 0; }
+figcaption, caption { font-family: var(--font-2); }
+a { color: var(--tint); text-decoration: none; }
+a:hover { color: var(--tint-hover); text-decoration: underline; text-underline-offset: 3px; }
+code, kbd, samp { font-family: var(--font-mono); font-size: .875em; background: var(--fill); padding: .05em .35em; border-radius: var(--r-xs); }
+pre { font-family: var(--font-mono); font-size: var(--fs-footnote); background: var(--surface-sunk); border-radius: var(--r-md); padding: var(--sp-4); overflow-x: auto; }
+hr { border: 0; border-top: 1px solid var(--line); margin: var(--sp-5) 0; }
+img, svg, video { max-width: 100%; }
+::selection { background: var(--tint-soft); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: var(--r-xs); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* ---------- text utilities ---------- */
+.lb-eyebrow { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--accent-ink); letter-spacing: .02em; }
+.lb-eyebrow.cat { color: var(--tc-ink); }
+.lb-lede { font-size: 1.125rem; line-height: 1.5; color: var(--text-2); max-width: 42rem; }
+.lb-muted { color: var(--text-2); }
+.lb-dim { color: var(--text-3); }
+.lb-small { font-size: var(--fs-callout); }
+.lb-xs { font-size: var(--fs-footnote); }
+.lb-num { font-variant-numeric: tabular-nums; }
+.lb-ltr { direction: ltr; unicode-bidi: isolate; }
+.lb-prose { max-width: 42rem; display: grid; gap: var(--sp-3); }
+.lb-prose ul, .lb-prose ol { margin: 0; padding-inline-start: 1.25rem; display: grid; gap: var(--sp-1); }
+.lb-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.lb-font-2 { font-family: var(--font-2); } /* the secondary font on any element: labels, captions, counts */
+.lb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- layout ---------- */
+.lb-app { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: 100vh; }
+.lb-main { min-width: 0; display: flex; flex-direction: column; }
+.lb-page { width: 100%; max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); padding-block: var(--sp-5) var(--sp-7); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); align-content: start; }
+.lb-section { display: grid; gap: var(--sp-4); min-width: 0; }
+.lb-section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-2) var(--sp-4); }
+.lb-section-head .lb-meta { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-grid { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min, 15rem)), 1fr)); }
+.lb-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.lb-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.lb-grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.lb-stack { display: grid; gap: var(--sp-3); align-content: start; min-width: 0; }
+.lb-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); min-width: 0; }
+.lb-row.between { justify-content: space-between; }
+.lb-spacer { flex: 1; }
+@media (max-width: 1000px) { .lb-grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lb-grid.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .lb-grid.cols-2, .lb-grid.cols-3, .lb-grid.cols-4 { grid-template-columns: minmax(0, 1fr); } .lb-page { padding-inline: var(--sp-4); } }
+
+/* ---------- sidebar navigation ---------- */
+.lb-sidebar {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2);
+  border-inline-end: 1px solid var(--line); padding: var(--sp-4) var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-4);
+}
+.lb-brand { display: flex; align-items: center; gap: var(--sp-2); padding-inline: var(--sp-2); color: var(--text); text-decoration: none; }
+.lb-brand:hover { text-decoration: none; color: var(--text); }
+.lb-brand img { height: 2rem; width: auto; }
+.lb-brand b { font-weight: 800; font-size: 1.0625rem; letter-spacing: -.01em; }
+.lb-brand small { display: block; font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
+.lb-nav { display: grid; gap: 2px; }
+.lb-nav-label { font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; color: var(--text-3); padding: var(--sp-3) var(--sp-3) var(--sp-1); letter-spacing: .03em; }
+.lb-nav-item {
+  display: flex; align-items: center; gap: var(--sp-2); padding: .5rem var(--sp-3); border-radius: var(--r-sm);
+  color: var(--text); font-size: var(--fs-callout); font-weight: 500; text-decoration: none; cursor: pointer;
+  background: none; border: 0; font-family: var(--font); text-align: start; width: 100%;
+}
+.lb-nav-item:hover { background: var(--fill); text-decoration: none; color: var(--text); }
+.lb-nav-item[aria-current="page"], .lb-nav-item.is-active { background: var(--surface); color: var(--tint); box-shadow: var(--shadow-1); }
+.lb-nav-item svg { width: 1.125rem; height: 1.125rem; flex: none; opacity: .8; }
+.lb-nav-item .lb-count { margin-inline-start: auto; }
+.lb-sidebar-foot { margin-top: auto; display: grid; gap: var(--sp-2); padding-inline: var(--sp-2); font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
+
+/* sticky top bar (also the mobile header) */
+.lb-topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bar);
+  -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+.lb-topbar-in { max-width: var(--content-w); margin-inline: auto; padding-inline: var(--sp-5); min-height: 3.5rem; display: flex; align-items: center; gap: var(--sp-3); }
+.lb-topbar h1 { font-size: 1.125rem; font-weight: 700; letter-spacing: -.01em; }
+.lb-menu-btn, .lb-btn.lb-menu-btn { display: none; }
+@media (max-width: 860px) {
+  .lb-app { grid-template-columns: minmax(0, 1fr); }
+  .lb-sidebar { position: fixed; inset-block: 0; inset-inline-start: 0; width: min(85vw, 18rem); z-index: 40; transform: translateX(100%); visibility: hidden; transition: transform .2s ease, visibility 0s linear .2s; }
+  [dir="ltr"] .lb-sidebar { transform: translateX(-100%); }
+  .lb-sidebar.is-open { transform: none; visibility: visible; box-shadow: var(--shadow-3); transition: transform .2s ease; }
+  .lb-menu-btn, .lb-btn.lb-menu-btn { display: inline-flex; }
+  .lb-topbar-in { padding-inline: var(--sp-4); }
+}
+.lb-scrim { position: fixed; inset: 0; background: var(--overlay); z-index: 35; }
+
+/* horizontal section nav (pages without a sidebar) */
+.lb-toc { display: flex; gap: var(--sp-1); overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.lb-toc::-webkit-scrollbar { display: none; }
+.lb-toc a { flex: none; padding: .35rem .75rem; border-radius: var(--r-pill); color: var(--text-2); font-size: var(--fs-callout); font-weight: 500; }
+.lb-toc a:hover { background: var(--fill); color: var(--text); text-decoration: none; }
+.lb-toc a[aria-current="true"], .lb-toc a[aria-current="page"], .lb-toc a.is-active { background: var(--tint-soft); color: var(--tint); }
+
+/* ---------- surfaces ---------- */
+.lb-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--sp-4) var(--sp-5); min-width: 0; display: grid; gap: var(--sp-3); align-content: start; }
+.lb-card.is-flush { padding: 0; overflow: hidden; }
+.lb-card.is-quiet { background: var(--surface-2); border-color: transparent; }
+.lb-card.is-raised { box-shadow: var(--shadow-2); }
+.lb-card.is-accent { border-color: var(--accent); box-shadow: 0 14px 40px -26px var(--accent); }
+a.lb-card { color: inherit; text-decoration: none; transition: border-color .15s, box-shadow .15s; }
+a.lb-card:hover { border-color: var(--tint); box-shadow: var(--shadow-2); text-decoration: none; color: inherit; }
+.lb-card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.lb-card-title { font-size: var(--fs-callout); font-weight: 600; color: var(--text-2); }
+
+/* Apple inset grouped list */
+.lb-group { background: var(--surface); border-radius: var(--r-md); border: 1px solid var(--line); overflow: hidden; }
+.lb-group > * + * { border-top: 1px solid var(--line); }
+.lb-group-row { display: flex; align-items: center; gap: var(--sp-3); padding: .75rem var(--sp-4); min-height: 3rem; color: inherit; }
+a.lb-group-row:hover { background: var(--fill); text-decoration: none; color: inherit; }
+.lb-group-row .lb-meta { margin-inline-start: auto; color: var(--text-3); font-family: var(--font-2); font-size: var(--fs-footnote); }
+
+/* ---------- data display ---------- */
+.lb-stat { display: grid; gap: var(--sp-1); align-content: start; min-width: 0; }
+.lb-stat > * { min-width: 0; max-width: 100%; } /* long content wraps instead of widening the card */
+.lb-stat-label { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); font-weight: 600; }
+.lb-stat-value { font-size: var(--fs-num); line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.lb-stat-value small { font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); margin-inline-start: var(--sp-2); }
+.lb-stat-foot { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-delta { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; font-variant-numeric: tabular-nums; }
+.lb-delta.up { color: var(--success); } .lb-delta.down { color: var(--danger); }
+
+.lb-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.lb-table { width: 100%; border-collapse: collapse; font-size: var(--fs-callout); }
+.lb-table th, .lb-table td { text-align: start; padding: .6rem var(--sp-3); border-bottom: 1px solid var(--line); vertical-align: middle; }
+.lb-table th { font-family: var(--font-2); font-weight: 600; font-size: var(--fs-footnote); color: var(--text-3); background: var(--surface-2); white-space: nowrap; position: sticky; top: 0; }
+.lb-table tr:last-child td { border-bottom: 0; }
+.lb-table tbody tr:hover td { background: var(--fill); }
+.lb-table td.num, .lb-table th.num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lb-table th[aria-sort] { cursor: pointer; }
+
+.lb-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.lb-list > li { display: grid; gap: 2px; min-width: 0; }
+.lb-list .lb-meta { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--sp-2) var(--sp-4); font-size: var(--fs-callout); }
+.lb-kv dt { font-family: var(--font-2); font-weight: 600; color: var(--text-3); } .lb-kv dd { margin: 0; }
+
+.lb-bar { height: .4rem; border-radius: var(--r-pill); background: var(--fill-2); overflow: hidden; }
+.lb-bar > i { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
+.lb-bar.is-tint > i { background: var(--tint); }
+.lb-hbars { display: grid; gap: var(--sp-2); }
+.lb-hbar { display: grid; grid-template-columns: minmax(5rem, 38%) minmax(0, 1fr) 2.5rem; gap: var(--sp-3); align-items: center; font-size: var(--fs-callout); }
+.lb-hbar .track { height: .625rem; background: var(--fill-2); border-radius: var(--r-xs); }
+.lb-hbar .track > i { display: block; height: 100%; background: var(--seq-4); border-radius: inherit; }
+.lb-hbar:hover .track > i { background: var(--accent-ink); }
+.lb-hbar .v { font-family: var(--font-2); font-weight: 600; font-size: var(--fs-footnote); color: var(--text-2); font-variant-numeric: tabular-nums; text-align: end; }
+svg.lb-spark { width: 100%; height: 2.75rem; display: block; overflow: visible; }
+svg.lb-spark .grid { stroke: var(--line); }
+svg.lb-spark .area { fill: var(--accent-soft); }
+svg.lb-spark .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+svg.lb-spark .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+
+/* stacked status bar (pipeline stages) */
+.lb-stages { display: flex; height: .875rem; gap: 2px; border-radius: var(--r-xs); overflow: hidden; background: var(--fill); }
+.lb-stages > i { display: block; height: 100%; }
+.lb-legend { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-4); font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-2); }
+.lb-legend > span { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.lb-legend b { width: .625rem; height: .625rem; border-radius: 3px; display: inline-block; }
+
+/* ---------- status ---------- */
+.lb-chip {
+  display: inline-flex; align-items: center; gap: .375rem; padding: .15rem .6rem; border-radius: var(--r-pill);
+  font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; line-height: 1.5; white-space: nowrap;
+  background: var(--fill); color: var(--text-2);
+}
+.lb-chip.tint { background: var(--tint-soft); color: var(--tint); }
+.lb-chip.accent { background: var(--accent-soft); color: var(--accent-ink); }
+.lb-chip.success { background: var(--success-soft); color: var(--success); }
+.lb-chip.warning { background: var(--warning-soft); color: var(--warning); }
+.lb-chip.danger { background: var(--danger-soft); color: var(--danger); }
+.lb-chip.info { background: var(--info-soft); color: var(--info); }
+.lb-chip.kid { background: var(--kid-soft); color: var(--kid); }
+.lb-chip.expert { background: var(--expert-soft); color: var(--expert); }
+.lb-chip.outline { background: transparent; box-shadow: inset 0 0 0 1px var(--line-strong); }
+.lb-chip.wrap { white-space: normal; line-height: 1.35; padding-block: .3rem; border-radius: var(--r-sm); justify-self: start; } /* a sentence-length status */
+.lb-dot { width: .45rem; height: .45rem; border-radius: 50%; background: currentColor; flex: none; }
+.lb-dot.live { animation: lb-pulse 2.4s infinite; }
+@keyframes lb-pulse { 0% { box-shadow: 0 0 0 0 var(--success-soft); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.lb-count { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; padding-inline: .4rem; border-radius: var(--r-pill); background: var(--fill-2); color: var(--text-2); font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; font-variant-numeric: tabular-nums; }
+.lb-count.is-alert { background: var(--danger); color: var(--text-on-tint); }
+.lb-count.is-tint { background: var(--tint); color: var(--text-on-tint); }
+
+/* alert row: severity as a tinted pill + tinted ground */
+.lb-alerts { display: grid; gap: var(--sp-2); }
+.lb-alert { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; padding: .6rem var(--sp-3); border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-size: var(--fs-callout); }
+.lb-alert.crit { background: var(--danger-soft); border-color: transparent; }
+.lb-alert.warn { background: var(--warning-soft); border-color: transparent; }
+.lb-alert .lb-alert-text { min-width: 0; }
+.lb-alert a { font-size: var(--fs-footnote); white-space: nowrap; }
+
+/* ---------- categories ----------
+   A page with 3 to 8 stable categories that a reader scans or filters by gives each one a class from
+   shared/design/categories.json: lb-cat-1 ... lb-cat-8 (lb-cat-0 for "none of them"). The class only sets
+   --tc (base), --tc-ink (text) and --tc-soft (ground); the pieces below read them, so one class on a row,
+   card or nav item colours its tile, chip, ID, bar and edge the same way. Status stays on the status chips.
+   Named per page too: design.head() adds .lb-<set>-<key> classes (.lb-ws-creators) generated from categories.json. */
+.lb-cat-0 { --tc: var(--text); --tc-ink: var(--text); --tc-soft: var(--fill); }
+.lb-cat-1 { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
+.lb-cat-2 { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-cat-3 { --tc: var(--cat-3); --tc-ink: var(--cat-3-ink); --tc-soft: var(--cat-3-soft); }
+.lb-cat-4 { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-cat-5 { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-cat-6 { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-cat-7 { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-cat-8 { --tc: var(--cat-8); --tc-ink: var(--cat-8-ink); --tc-soft: var(--cat-8-soft); }
+
+/* tile: a rounded square with a line icon, the category's mark in nav, card and page headers. Icons only:
+   a letter or number goes on .is-soft (ink on soft) because white text fails on most bases. */
+.lb-tile { display: inline-grid; place-items: center; width: 1.65rem; height: 1.65rem; border-radius: .45rem; background: var(--tc, var(--tint)); color: var(--text-on-tint); flex: none; font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; line-height: 1; }
+.lb-tile svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; opacity: 1; }
+.lb-tile.is-soft { background: var(--tc-soft, var(--tint-soft)); color: var(--tc-ink, var(--tint)); }
+.lb-tile.lg { width: 2.6rem; height: 2.6rem; border-radius: .7rem; font-size: var(--fs-callout); }
+.lb-tile.lg svg { width: 1.4rem; height: 1.4rem; }
+.lb-tile.xl { width: 3.5rem; height: 3.5rem; border-radius: .9rem; box-shadow: 0 10px 24px -12px var(--tc, var(--tint)); font-size: var(--fs-headline); }
+.lb-tile.xl svg { width: 1.9rem; height: 1.9rem; stroke-width: 2; }
+
+/* category chip: lb-chip + cat. The square swatch tells it apart from a status chip (dot and word). */
+.lb-chip.cat { background: var(--tc-soft, var(--fill)); color: var(--tc-ink, var(--text-2)); }
+.lb-chip.cat::before { content: ""; width: .5rem; height: .5rem; border-radius: 2px; background: var(--tc, var(--text-3)); flex: none; }
+.lb-chip.cat.no-swatch::before { content: none; }
+button.lb-chip { border: 0; cursor: pointer; font-family: var(--font-2); }
+button.lb-chip.cat[aria-pressed="false"] { background: var(--fill); color: var(--text-2); }
+button.lb-chip.cat[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--tc); }
+
+/* ID chip: a short code (H1, kid-2, 3) in the category's ink on its soft ground; left to right inside Hebrew. */
+.lb-pid {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 2.1rem; padding: .05rem .4rem; border-radius: .4rem;
+  font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .02em; line-height: 1.4; white-space: nowrap;
+  background: var(--tc-soft, var(--fill)); color: var(--tc-ink, var(--text)); text-decoration: none; font-variant-numeric: tabular-nums;
+  direction: ltr; unicode-bidi: isolate;
+}
+a.lb-pid:hover { background: var(--tc-ink, var(--tint)); color: var(--text-on-tint); text-decoration: none; }
+.lb-pid.in { min-width: 0; padding: 0 .32rem; font-size: .74em; vertical-align: .08em; }
+
+/* swatch for legends and stacked bars: <b class="lb-swatch lb-cat-3"></b> */
+.lb-swatch { background: var(--tc); }
+.lb-legend .lb-swatch { width: .625rem; height: .625rem; border-radius: 3px; display: inline-block; flex: none; }
+/* card edge, bars and eyebrow in the category's colour */
+.lb-card.is-cat { border-inline-start: 3px solid var(--tc); }
+a.lb-card.is-cat:hover { border-color: var(--tc); }
+.lb-bar.is-cat > i, .lb-hbar.is-cat .track > i { background: var(--tc); }
+.lb-hbar.is-cat:hover .track > i { background: var(--tc-ink); }
+
+/* sidebar item with a tile and an optional plain count (Apple source list); the current one keeps ink text */
+.lb-nav-item > .lb-tile { margin-inline-start: -.15rem; }
+.lb-nav-item:has(> .lb-tile)[aria-current="page"] { color: var(--text); font-weight: 700; box-shadow: var(--shadow-1), inset 0 0 0 1px var(--line); }
+.lb-nav-item > .lb-nav-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-nav-n { margin-inline-start: auto; font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 600; color: var(--text-3); font-variant-numeric: tabular-nums; }
+/* sub-list that opens under the current item, edged in its category's soft colour */
+.lb-nav-sub { display: grid; gap: 1px; min-width: 0; margin-block: .15rem .35rem; margin-inline-start: 1.35rem; padding-inline-start: .7rem; border-inline-start: 2px solid var(--tc-soft, var(--line)); }
+.lb-nav-sub a, .lb-nav-sub button {
+  display: flex; gap: .5rem; align-items: baseline; min-width: 0; padding: .26rem .5rem; border-radius: .45rem; border: 0; background: none;
+  color: var(--text-2); font-family: var(--font); font-size: .875rem; line-height: 1.3; text-align: start; text-decoration: none; cursor: pointer;
+}
+.lb-nav-sub a:hover, .lb-nav-sub button:hover { background: var(--fill); color: var(--text); text-decoration: none; }
+.lb-nav-sub [aria-current="page"], .lb-nav-sub .is-active { background: var(--tc-soft, var(--tint-soft)); color: var(--tc-ink, var(--tint)); font-weight: 700; }
+.lb-nav-sub a > span:last-child, .lb-nav-sub button > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-nav-sub .lb-pid { flex: none; }
+
+/* ---------- disclosure ----------
+   Secondary detail behind a toggle: <details class="lb-disclosure"><summary>Title <small>one line</small></summary>
+   <div class="lb-disclosure-body">...</div></details>. The chevron points forward (left in Hebrew) and turns down when open. */
+details.lb-disclosure { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); min-width: 0; }
+details.lb-disclosure.is-quiet { background: transparent; border-color: transparent; }
+.lb-disclosure > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: var(--sp-3); padding: .8rem var(--sp-4);
+  font-weight: 600; font-size: var(--fs-callout); border-radius: var(--r-md); min-width: 0;
+}
+.lb-disclosure > summary::-webkit-details-marker { display: none; }
+.lb-disclosure > summary:hover { background: var(--fill); }
+.lb-disclosure > summary > .lb-sum { flex: 1; min-width: 0; }
+.lb-disclosure > summary small { display: block; font-family: var(--font-2); font-weight: 500; font-size: var(--fs-footnote); color: var(--text-3); margin-top: .1rem; }
+.lb-disclosure > summary::after {
+  content: ""; flex: none; margin-inline-start: auto; width: .45rem; height: .45rem; border: solid var(--text-3);
+  border-width: 0 2px 2px 0; /* physical sides, turned below */ transform: rotate(-45deg); transition: transform .2s;
+}
+[dir="rtl"] .lb-disclosure > summary::after { transform: rotate(135deg); }
+.lb-disclosure[open] > summary::after { transform: rotate(45deg); } /* same specificity as the rtl rule, so it must stay after it */
+.lb-disclosure[open] > summary { border-end-start-radius: 0; border-end-end-radius: 0; border-bottom: 1px solid var(--line); }
+details.lb-disclosure.is-quiet[open] > summary { border-bottom-color: transparent; }
+.lb-disclosure.is-cat[open] { box-shadow: inset 3px 0 0 var(--tc); }
+[dir="rtl"] .lb-disclosure.is-cat[open] { box-shadow: inset -3px 0 0 var(--tc); }
+.lb-disclosure-body { padding: var(--sp-4); display: grid; gap: var(--sp-3); min-width: 0; }
+.lb-disclosures { display: grid; gap: var(--sp-2); }
+
+/* ---------- controls ---------- */
+.lb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: 2.25rem; padding: 0 var(--sp-4); border-radius: var(--r-pill); border: 1px solid transparent;
+  font: inherit; font-family: var(--font); font-size: var(--fs-callout); font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap;
+  background: var(--tint); color: var(--text-on-tint); transition: background .15s, border-color .15s;
+}
+.lb-btn:hover { background: var(--tint-hover); color: var(--text-on-tint); text-decoration: none; }
+.lb-btn.secondary { background: var(--surface); color: var(--text); border-color: var(--line-strong); }
+.lb-btn.secondary:hover { border-color: var(--tint); color: var(--tint); background: var(--surface); }
+.lb-btn.ghost { background: transparent; color: var(--tint); }
+.lb-btn.ghost:hover { background: var(--tint-soft); }
+.lb-btn.danger { background: var(--danger); }
+.lb-btn.sm { min-height: 1.875rem; padding: 0 var(--sp-3); font-size: var(--fs-footnote); }
+.lb-btn.icon { width: 2.25rem; padding: 0; }
+.lb-btn:disabled, .lb-btn[aria-disabled="true"] { opacity: .45; cursor: default; }
+.lb-btn svg { width: 1.1em; height: 1.1em; }
+
+/* theme switch: white or black. design.theme_toggle() writes it (a button, role="switch"); the boot script in
+   design.head() flips data-theme on <html> and keeps the viewer's choice. Sun at the start, moon at the end: the knob
+   sits on the sun in white mode and slides to the moon in black mode (it follows the page direction, like .lb-switch). */
+.lb-theme-switch {
+  position: relative; display: inline-flex; align-items: center; justify-content: space-between; flex: none;
+  width: 3.5rem; height: 1.875rem; padding: 0 .42rem; border-radius: var(--r-pill); border: 1px solid var(--line-strong);
+  background: var(--fill); color: var(--text-3); cursor: pointer; font: inherit; transition: border-color .15s;
+}
+.lb-theme-switch:hover { border-color: var(--tint); }
+.lb-theme-switch::before {
+  content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: calc(1.875rem - 6px); height: calc(1.875rem - 6px);
+  border-radius: 50%; background: var(--surface); box-shadow: var(--shadow-1); transition: inset-inline-start .2s ease;
+}
+.lb-theme-switch svg { position: relative; width: .95rem; height: .95rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lb-theme-switch .sun { color: var(--text); }
+:root[data-theme="dark"] .lb-theme-switch::before { inset-inline-start: calc(100% - 1.875rem + 4px); background: var(--fill-3); box-shadow: inset 0 0 0 1px var(--line-strong); }
+:root[data-theme="dark"] .lb-theme-switch .sun { color: var(--text-3); }
+:root[data-theme="dark"] .lb-theme-switch .moon { color: var(--text); }
+
+.lb-segmented { display: inline-flex; padding: 2px; border-radius: var(--r-sm); background: var(--fill-2); gap: 2px; }
+.lb-segmented button { border: 0; background: transparent; font: inherit; font-family: var(--font); font-size: var(--fs-footnote); font-weight: 500; color: var(--text-2); padding: .3rem .8rem; border-radius: calc(var(--r-sm) - 2px); cursor: pointer; }
+.lb-segmented button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
+
+.lb-input, .lb-select, .lb-textarea {
+  font: inherit; font-family: var(--font); font-size: var(--fs-callout); color: var(--text); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: .45rem .7rem; min-height: 2.25rem; max-width: 100%;
+}
+.lb-textarea { min-height: 5rem; resize: vertical; width: 100%; line-height: 1.5; }
+.lb-input:focus, .lb-select:focus, .lb-textarea:focus { outline: none; border-color: var(--tint); box-shadow: 0 0 0 3px var(--tint-soft); }
+.lb-search { position: relative; display: flex; align-items: center; min-width: 0; }
+.lb-search .lb-input { width: 100%; padding-inline-start: 2.1rem; border-radius: var(--r-pill); background: var(--fill); border-color: transparent; }
+.lb-search svg { position: absolute; inset-inline-start: .7rem; width: 1rem; height: 1rem; color: var(--text-3); pointer-events: none; }
+.lb-field { display: grid; gap: var(--sp-1); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-2); }
+
+.lb-check { display: flex; gap: .6rem; align-items: flex-start; font-size: var(--fs-callout); cursor: pointer; padding: 2px 0; }
+.lb-check input { appearance: none; flex: none; width: 1.125rem; height: 1.125rem; margin: .15rem 0 0; border: 1.5px solid var(--line-strong); border-radius: .35rem; display: grid; place-content: center; cursor: pointer; background: var(--surface); }
+.lb-check input::after { content: ""; width: .55rem; height: .3rem; border-style: solid; border-color: var(--text-on-tint); border-width: 0 0 2px 2px; /* physical sides: the tick must not mirror in RTL */ transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.lb-check input:checked { background: var(--tint); border-color: var(--tint); }
+.lb-check input:checked::after { opacity: 1; }
+.lb-check input:checked + span { color: var(--text-3); text-decoration: line-through; }
+.lb-check input:disabled { cursor: default; }
+
+.lb-switch { appearance: none; width: 2.6rem; height: 1.5rem; border-radius: var(--r-pill); background: var(--fill-3); position: relative; cursor: pointer; flex: none; transition: background .15s; }
+.lb-switch::after { content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #fff; box-shadow: var(--shadow-1); transition: inset-inline-start .15s; }
+.lb-switch:checked { background: var(--success); }
+.lb-switch:checked::after { inset-inline-start: calc(100% - 1.25rem - 2px); }
+
+.lb-tabs { display: flex; gap: var(--sp-1); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.lb-tabs button, .lb-tabs a { flex: none; border: 0; background: none; font: inherit; font-family: var(--font); font-size: var(--fs-callout); font-weight: 500; color: var(--text-2); padding: .55rem .9rem; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; }
+.lb-tabs [aria-selected="true"], .lb-tabs [aria-current="page"], .lb-tabs .is-active { color: var(--tint); border-bottom-color: var(--tint); }
+.lb-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+
+/* ---------- feedback ---------- */
+.lb-empty { padding: var(--sp-5); border: 1px dashed var(--line-strong); border-radius: var(--r-md); color: var(--text-2); font-size: var(--fs-callout); text-align: center; }
+.lb-note { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); line-height: 1.5; }
+.lb-callout { display: grid; gap: var(--sp-1); padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md); background: var(--accent-soft); color: var(--text); font-size: var(--fs-callout); }
+.lb-callout.info { background: var(--info-soft); }
+.lb-toast { position: fixed; inset-block-end: calc(var(--sp-5) + env(safe-area-inset-bottom, 0px)); inset-inline-start: 50%; transform: translateX(-50%); z-index: 60; background: var(--text); color: var(--bg); padding: .6rem 1rem; border-radius: var(--r-pill); font-size: var(--fs-callout); box-shadow: var(--shadow-3); }
+[dir="rtl"] .lb-toast { transform: translateX(50%); }
+.lb-skeleton { background: linear-gradient(90deg, var(--fill) 25%, var(--fill-2) 50%, var(--fill) 75%); background-size: 200% 100%; animation: lb-shimmer 1.4s infinite; border-radius: var(--r-xs); min-height: 1em; }
+@keyframes lb-shimmer { to { background-position: -200% 0; } }
+
+/* ---------- overlays ---------- */
+.lb-drawer { position: fixed; inset-block: 0; inset-inline-end: 0; width: min(100%, 34rem); background: var(--surface); z-index: 50; box-shadow: var(--shadow-3); display: flex; flex-direction: column; overflow: hidden; }
+.lb-drawer-head { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--line); }
+.lb-drawer-body { padding: var(--sp-5); overflow-y: auto; display: grid; gap: var(--sp-4); align-content: start; }
+.lb-modal { position: fixed; inset: 0; display: grid; place-items: center; padding: var(--sp-4); z-index: 50; }
+.lb-modal > .lb-card { width: min(100%, 32rem); max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-3); }
+
+/* ---------- print-free page footer ---------- */
+.lb-footer { border-top: 1px solid var(--line); padding-top: var(--sp-4); font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); display: grid; gap: var(--sp-1); }
+
+/* category classes, generated from shared/design/categories.json by design.py: do not edit */
+.lb-tool-hook { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
+.lb-tool-watch { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-tool-cta { --tc: var(--cat-3); --tc-ink: var(--cat-3-ink); --tc-soft: var(--cat-3-soft); }
+.lb-tool-show { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-tool-edit { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-tool-topic { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-tool-film { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-tool-text { --tc: var(--cat-8); --tc-ink: var(--cat-8-ink); --tc-soft: var(--cat-8-soft); }
+.lb-ws-plan { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-ws-creators { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-ws-carousels { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-ws-reels { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
+.lb-ws-competitors { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-ws-communities { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-ws-system { --tc: var(--text); --tc-ink: var(--text); --tc-soft: var(--fill); }
+.lb-track-gift { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-track-pro { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-track-par { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-co-mebook { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-co-hoorayheroes { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-co-wonderbly { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-co-yoto { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-smm-moment { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-smm-reveal { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-smm-proof { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-smm-gift { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-niche-developmental_milestone { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-niche-novelty { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-niche-expert { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
+.lb-niche-parent_child_daily { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+</style>
+<style>
+@font-face{font-family:"Rubik";src:url("../../assets/fonts/Rubik-VariableFont_wght.ttf") format("truetype");font-weight:300 900}
+@font-face{font-family:"Heebo Slide";src:url("../../assets/fonts/Heebo-Black.ttf") format("truetype");font-weight:900}
+.p-kid{--p:#5B2BD6;--p-soft:#F1EBFF;--p-card:#F8F4FF;--p-deep:#3B1D78;--p-font:"Rubik";--p-cta:#3B1D78;--p-cta2:#5B2BD6}
+.p-expert{--p:#A8741F;--p-soft:#F8EEDC;--p-card:#FCF7EE;--p-deep:#1D1039;--p-font:"Heebo Slide";--p-cta:#1D1039;--p-cta2:#1D1039}
+.deck{--ink:#1D1039;--ink2:#4B4062;--muted:#7D7491;--line:#E7DFD2;--violet:#5B2BD6;--violet-soft:#F0EAFF;--cream:#FBF6EE;color-scheme:light;color:#1D1039;font-family:"Heebo Slide","Assistant",-apple-system,"SF Hebrew","Arial Hebrew",sans-serif;font-size:16px;line-height:1.55;font-weight:400;-webkit-font-smoothing:auto}
+.hstory{font-size:13px;line-height:1.7;color:#4B4062;margin:8px 2px 0}.hstory b{color:#1D1039;margin-inline-end:6px}
+.deck{display:grid;grid-template-columns:repeat(10,minmax(150px,1fr));gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x proximity}
+.deck .card{scroll-snap-align:start}
+.card{background:var(--p-card,var(--cream));border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;display:flex;flex-direction:column;gap:6px;min-height:200px;direction:rtl;text-align:right}
+.card.cta{background:linear-gradient(160deg,var(--p-cta2),var(--p-cta));color:#F8F0E1;border-color:var(--p-cta)}
+.p-kid .card:not(.cta){border-radius:18px 18px 18px 4px;border-color:#E3D8FB}
+.p-expert .card:not(.cta) .h::before{content:"";display:block;width:28px;height:3px;border-radius:2px;background:var(--p);margin-bottom:6px}
+.card .n{font-size:11px;font-weight:700;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.card.cta .n{color:#C9BFE0}
+.card .h{font-family:var(--p-font),"Heebo Slide",sans-serif;font-weight:800;font-size:17px;line-height:1.2;white-space:pre-line;color:var(--p-deep,var(--ink))}
+.card.cta .h{color:#F8F0E1}
+.card .b{font-size:14px;line-height:1.4;white-space:pre-line;color:var(--ink2)}
+.card .hlrow{margin-top:auto;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.card .hlrow .hl{background:var(--p,var(--violet));color:#fff;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;min-width:2em}
+.card.cta .b{color:#F8F0E1}
+.card .pull{margin-top:auto;font-size:11px;color:var(--p-deep,var(--violet));background:var(--p-soft,var(--violet-soft));border-radius:8px;padding:4px 7px;line-height:1.35}
+.card .wc{font-size:11px;color:var(--muted)}
+.b:empty{display:none}
+body.editing .deck [data-edit]{outline:1.5px dashed rgba(91,43,214,.45);outline-offset:3px;border-radius:6px}
+body.editing .deck [data-edit]:focus{outline:2px solid var(--violet);background:rgba(240,234,255,.6)}
+body.editing .deck .card.cta [data-edit]:focus{background:rgba(255,255,255,.08)}
+body.editing .card .b:empty{display:block}
+body.editing .card .b[data-edit]:empty::before{content:"שורות גוף (לא חובה)";opacity:.45}
+@media (max-width:760px){.deck{grid-template-columns:repeat(10,150px)}}
+
+:root{--card:var(--surface);--soft:var(--surface-2);--ink:var(--text);--ink2:var(--text-2);--muted:var(--text-3);--violet:var(--tint);--violet-soft:var(--tint-soft);--gold:var(--accent);--gold-soft:var(--accent-soft);--cream:var(--surface-2);--ok:var(--success);--bad:var(--danger);--content-w:79.25rem;--rv-sticky:4.75rem}
+[hidden]{display:none !important}
+body{direction:rtl;text-align:right}
+body.editing{--rv-sticky:7.75rem}
+[id]{scroll-margin-top:var(--rv-sticky)}
+.wrap{width:100%;max-width:var(--content-w);margin-inline:auto;padding:var(--sp-5) var(--sp-5) var(--sp-7);display:grid;gap:var(--sp-6)}
+.lb-page,.wrap{grid-template-columns:minmax(0,1fr)}
+.rv-topbar .lb-topbar-in{gap:var(--sp-3)}
+.rv-logo{width:28px;height:28px;border-radius:var(--r-xs);flex:none;display:block}
+.rv-name{font-weight:800;font-size:1.0625rem;letter-spacing:-.01em;white-space:nowrap;color:var(--text)}
+nav.jump{display:flex;align-items:center;gap:var(--sp-1);overflow-x:auto;scrollbar-width:none;min-width:0;flex:0 1 auto;padding-block:var(--sp-2)}
+nav.jump::-webkit-scrollbar{display:none}
+.drops{display:grid;gap:var(--sp-2)}
+.drops>details.more{margin-top:0}
+.rp-list{margin:0;padding-inline-start:1.1rem;display:grid;gap:var(--sp-1)}
+.top>.row h1{margin-inline-end:auto}
+.direction-head{padding:var(--sp-2) var(--sp-4)}
+.rv-tabs{margin-bottom:calc(-1 * var(--sp-3));flex-wrap:wrap;row-gap:var(--sp-1)}
+.rv-days{margin-inline-start:auto;display:flex;gap:var(--sp-2);align-items:center;font-size:var(--fs-footnote)}
+.rv-days a{color:var(--text-3);text-decoration:none;padding:2px 8px;border-radius:999px}
+.rv-days a[aria-current]{background:var(--surface-2);color:var(--text);font-weight:700}
+.post .cta-box{align-self:start}
+nav.jump .label{flex:none;font-size:var(--fs-caption);font-weight:600;color:var(--text-3);margin-inline-end:var(--sp-1)}
+nav.jump a{flex:none;padding:.3rem .7rem;border-radius:var(--r-pill);color:var(--text);font-size:var(--fs-footnote);font-weight:600;white-space:nowrap}
+nav.jump a:hover{background:var(--fill-2);color:var(--text);text-decoration:none}
+nav.jump a span{color:var(--text-3);font-weight:400}
+nav.jump .grp{flex:none;display:flex;align-items:center;gap:2px;padding:2px;border-radius:var(--r-pill);background:var(--pill-soft,var(--fill))}
+nav.jump .grp a:hover{background:var(--surface)}
+nav.jump .grp .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--pill,var(--text-3));margin-inline:var(--sp-2) var(--sp-1);flex:none}
+.editbar{max-width:var(--content-w);margin-inline:auto;padding:var(--sp-2) var(--sp-5);display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);border-top:1px solid var(--line)}
+.editbar .msg{flex:1 1 12rem;min-width:0;font-size:var(--fs-footnote);color:var(--text-2)}
+@media (max-width:860px){
+  :root{--rv-sticky:6rem}
+  body.editing{--rv-sticky:11rem}
+  .rv-topbar .lb-topbar-in{flex-wrap:wrap;row-gap:0;padding-top:var(--sp-2)}
+  .rv-topbar nav.jump{order:5;flex-basis:100%;padding-block:0 var(--sp-2)}
+  .editbar{padding-inline:var(--sp-4)}
+}
+@media (max-width:420px){.rv-topbar .lb-theme-label{display:none}}
+.p-kid{--pill:var(--kid);--pill-soft:var(--kid-soft)}
+.p-expert{--pill:var(--expert);--pill-soft:var(--expert-soft)}
+.top{display:grid;gap:var(--sp-3);min-width:0}
+.lead{color:var(--text-2);max-width:80ch;font-size:var(--fs-callout)}
+.row{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.chip{display:inline-flex;align-items:center;gap:.375rem;padding:.15rem .6rem;border-radius:var(--r-pill);font-size:var(--fs-footnote);font-weight:500;line-height:1.5;white-space:nowrap;background:var(--fill);color:var(--text-2)}
+.chip.violet{background:var(--tint-soft);color:var(--tint)}
+.chip.gold{background:var(--accent-soft);color:var(--accent-ink)}
+.chip.warn{background:var(--warning-soft);color:var(--warning)}
+.chip.ok{background:var(--success-soft);color:var(--success)}
+.oid{font-family:var(--font-mono);direction:ltr;unicode-bidi:isolate;font-weight:700;background:var(--p,var(--text));color:var(--lb-cream);border-radius:var(--r-xs);padding:.1rem .55rem;font-size:var(--fs-footnote)}
+.rv-id{font-family:var(--font-mono);font-weight:700;direction:ltr;unicode-bidi:isolate}
+.steps{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin:0;padding:0;list-style:none}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:var(--sp-1) var(--sp-3);font-size:var(--fs-footnote);color:var(--text-2)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:var(--sp-3)}
+.legend a{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);background:var(--pill-soft,var(--surface-2));color:var(--text);font-size:var(--fs-callout);text-decoration:none}
+.legend a:hover{color:var(--text);text-decoration:none;box-shadow:inset 0 0 0 1px var(--pill,var(--line-strong))}
+.legend a b{color:var(--pill,var(--text));font-weight:700;white-space:nowrap}
+.legend a>span:not(.sym){color:var(--text-2)}
+.sym{display:inline-grid;place-items:center;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--p,var(--text));color:var(--lb-cream);font-weight:800;font-size:1rem;line-height:1;flex:none}
+.p-kid .sym,.p-expert .sym{background:var(--pill);color:var(--text-on-tint)}
+.direction{gap:var(--sp-5)}
+.direction-head{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-lg);background:var(--pill-soft,var(--surface-2));border-inline-start:4px solid var(--pill,var(--text))}
+.direction-head>div{flex:1 1 14rem;min-width:0}
+.direction-head .sym{width:2.25rem;height:2.25rem;font-size:1.25rem}
+.direction-head h2{color:var(--text)}
+.direction-head p{color:var(--text-2);font-size:var(--fs-callout)}
+.direction-head .count{flex:none}
+.option{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--pill,var(--line-strong));border-radius:var(--r-lg);padding:var(--sp-4) var(--sp-5);display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-3);min-width:0;box-shadow:var(--shadow-1)}
+.option>*{margin:0}
+.opt-head{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.opt-head h3{margin-inline-end:auto;color:var(--text)}
+.strategy{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14.5rem),1fr));gap:var(--sp-3)}
+.strategy>div{background:var(--surface-2);border-radius:var(--r-md);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-callout);color:var(--text-2)}
+.strategy b{display:block;font-size:var(--fs-footnote);font-weight:600;color:var(--text-3);margin-bottom:2px}
+h4{margin:0 0 var(--sp-1);font-size:var(--fs-footnote);font-weight:600;color:var(--text-3)}
+.post{display:grid;grid-template-columns:2fr 1fr;gap:var(--sp-3)}
+.caption{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);white-space:pre-line;font-size:var(--fs-callout)}
+.cap-cta{margin-top:var(--sp-2);color:var(--text-3)}
+.cta-box{background:var(--pill-soft,var(--surface-2));color:var(--text);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);font-weight:600;font-size:var(--fs-callout);display:flex;flex-direction:column;gap:var(--sp-2)}
+.cta-box .code{align-self:flex-start}
+details.more{margin-top:var(--sp-3);border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);min-width:0}
+details.more>summary{cursor:pointer;min-height:2.75rem;padding:var(--sp-2) var(--sp-4);font-weight:600;font-size:var(--fs-callout);color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3)}
+details.more>summary:hover{color:var(--tint)}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::after{content:"";flex:none;width:.5rem;height:.5rem;border-right:2px solid var(--text-3);border-bottom:2px solid var(--text-3);transform:translateY(-2px) rotate(45deg);transition:transform .15s}
+details.more[open]>summary::after{transform:translateY(2px) rotate(-135deg)}
+details.more>.inner{padding:0 var(--sp-4) var(--sp-4);overflow-wrap:anywhere}
+.wrap>details.more,.lb-page>details.more,.top>details.more{margin-top:0}
+table{width:100%;border-collapse:collapse;font-size:var(--fs-footnote)}
+th,td{border-bottom:1px solid var(--line);padding:var(--sp-2);vertical-align:top;text-align:right;overflow-wrap:anywhere}
+th{color:var(--text-3);font-size:var(--fs-caption);font-weight:500;background:var(--surface-2);overflow-wrap:normal}
+tbody tr:last-child td{border-bottom:0}
+td.en,.en{direction:ltr;text-align:left}
+.kind{font-size:var(--fs-caption);font-weight:600;white-space:nowrap}
+.kind.sourced_fact{color:var(--success)}.kind.product_fact{color:var(--tint)}.kind.lumebook_wording{color:var(--text-3)}
+blockquote{overflow-wrap:anywhere;margin:var(--sp-1) 0 var(--sp-2);padding:var(--sp-2) var(--sp-3);border-inline-start:3px solid var(--accent);border-radius:var(--r-xs);background:var(--surface-2);color:var(--text-2);direction:ltr;text-align:left;font-size:var(--fs-caption)}
+.src{font-size:var(--fs-footnote);margin:var(--sp-2) 0 0}
+.anchor{direction:ltr;text-align:left;white-space:pre-wrap;font-family:var(--font-mono);font-size:var(--fs-caption);background:var(--surface-sunk);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);margin:0 0 var(--sp-2)}
+.prompt{direction:ltr;text-align:left;white-space:pre-wrap;font-family:var(--font-mono);font-size:.6875rem;line-height:1.45;color:var(--text-2)}
+.result{border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);border:1px solid var(--line);background:var(--surface);font-size:var(--fs-callout)}
+.result.ok{background:var(--success-soft);border-color:transparent}
+.result.bad{background:var(--danger-soft);border-color:transparent}
+.result ul{margin:var(--sp-2) 0 0;padding-inline-start:1.25rem;display:grid;gap:var(--sp-1)}
+.result a{cursor:pointer}
+.edit-note{font-size:var(--fs-footnote);color:var(--text-3);line-height:1.5;margin:0}
+.edit-note code{direction:ltr;unicode-bidi:isolate}
+body.editing [data-edit]{outline:1.5px dashed var(--focus);outline-offset:3px;border-radius:var(--r-xs);cursor:text;min-height:1.2em}
+body.editing [data-edit]:focus{outline:2px solid var(--tint);background:var(--tint-soft)}
+.has-error{outline:2.5px solid var(--danger) !important;outline-offset:3px}
+.lb-page>.reco-wrap{margin-top:0}
+.reco .opt-head h3{color:var(--text)}
+body .reco .oid{background:var(--p-deep,var(--lb-ink)) !important}
+body .reco .chip.bad{background:var(--danger-soft);color:var(--danger)}
+body .reco .flags li.w{color:var(--warning)}
+body.editing .reco [data-reco]{outline-color:var(--focus)}
+body.editing .reco [data-reco]:focus{outline-color:var(--tint);background:var(--tint-soft)}
+@media (max-width:760px){.post{grid-template-columns:1fr}table{table-layout:fixed}th{overflow-wrap:anywhere}.kind{white-space:normal}}
+@media (max-width:640px){.option{padding:var(--sp-3) var(--sp-4)}.wrap{padding-inline:var(--sp-4)}}
+</style></head>
+<body dir="rtl" data-date="2026-11-05">
+<header class="lb-topbar rv-topbar"><div class="lb-topbar-in">
+<img class="rv-logo" src="data:image/png;base64,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" alt="LumeBook" width="28" height="28">
+<b class="rv-name">2026-11-05</b>
+<nav class="jump"><span class="grp p-kid" title="הילד מספר"><span class="dot"></span><a href="#kid-1">kid-1 <span>יונתן</span></a><a href="#kid-2">kid-2 <span>אגם</span></a><a href="#kid-3">kid-3 <span>גיא</span></a><a href="#kid-4">kid-4 <span>נטע</span></a><a href="#kid-5">kid-5 <span>רון</span></a><a href="#kid-6">kid-6 <span>עדי</span></a></span></nav>
+<span class="lb-spacer"></span>
+<a class="lb-btn ghost sm" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">ללוח</a>
+<button class="lb-theme-switch" type="button" role="switch" aria-checked="false" data-lb-theme-toggle aria-label="מצב כהה" title="מצב כהה"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</div>
+<div class="editbar" id="editbar" hidden><span class="lb-chip tint"><span class="lb-dot"></span><b>מצב עריכה</b></span><span class="msg" id="edit-msg">לוחצים על טקסט ומשנים. אנטר מוסיף שורה.</span><button class="save lb-btn sm" type="button">שמירה (⌘S)</button><button class="undo lb-btn secondary sm" type="button">ביטול</button></div>
+</header>
+<div class="lb-page"><nav class="lb-tabs rv-tabs" aria-label="עמודים"><a href="review.html" aria-selected="true">קרוסלות</a><a href="../2026-10-24/reco.html">משחקים וספרים · 24.10</a><span class="rv-days" aria-label="תאריכים"><a href="/pool/2026-11-01">מאגר השבוע · 3</a><a href="../2026-11-26/review.html">26.11</a><a href="../2026-11-24/review.html">24.11</a><a href="../2026-11-19/review.html">19.11</a><a href="../2026-11-17/review.html">17.11</a><a href="../2026-11-12/review.html">12.11</a><a href="../2026-11-10/review.html">10.11</a><a href="../2026-11-08/review.html">8.11</a><a href="../2026-11-05/review.html" aria-current="page">5.11</a><a href="../2026-11-01/review.html">1.11</a><a href="../2026-10-31/review.html">31.10</a><a href="../2026-10-30/review.html">30.10</a><a href="../2026-10-29/review.html">29.10</a><a href="../2026-10-28/review.html">28.10</a><a href="../2026-10-27/review.html">27.10</a><a href="../2026-10-26/review.html">26.10</a><a href="../2026-10-25/review.html">25.10</a><a href="../2026-10-24/review.html">24.10</a><a href="../2026-10-23/review.html">23.10</a><a href="../2026-10-22/review.html">22.10</a><a href="../2026-10-21/review.html">21.10</a><a href="../2026-10-20/review.html">20.10</a><a href="../2026-10-19/review.html">19.10</a><a href="../2026-10-18/review.html">18.10</a><a href="../2026-10-17/review.html">17.10</a><a href="../2026-10-15/review.html">15.10</a><a href="../2026-10-14/review.html">14.10</a><a href="../2026-10-13/review.html">13.10</a><a href="../2026-10-12/review.html">12.10</a><a href="../2026-10-11/review.html">11.10</a><a href="../2026-10-09/review.html">9.10</a><a href="../2026-10-08/review.html">8.10</a></span></nav>
+<header class="top">
+<div class="row"><h1>סופר את הימים עד יום ההולדת · לא רוצה לתת לאף אחד את הצעצוע</h1><span class="lb-chip success">קול מכויל</span></div>
+<details class="more"><summary>על הנושא</summary><div class="inner"><p class="lead" dir="auto">הנושא נקבע בתוכנית החודשית (החבילה החודשית של 1 בנובמבר 2026, חריץ 3) ואין כאן טענה על תאריך בלוח השנה. ילדים בני 4 עד 5 שואלים כל בוקר כמה ימים נשארו, וקשה להם לדמיין זמן. מקורות שנקראו היום: Brightly (מורה לגן וחובה על לוח שנה שילדים בונים) ואת Empowered Parents (מושג הזמן אצל גיל הגן). בקטלוג יש ספר יום הולדת לגילאי 3 עד 8 (נבדק באתר היום), לשימוש פנימי בקישור בלבד.
+הנושא נקבע בתוכנית החודשית (החבילה החודשית של 1 בנובמבר 2026, חריץ 3) ואין כאן טענה על תאריך בלוח השנה. שיתוף צעצועים הוא חיכוך יומי בגיל 3 עד 5, ויש לו מקורות ברורים: עמוד האקדמיה האמריקאית לרפואת ילדים (HealthyChildren) ועמוד של Pathways.org, שניהם נקראו היום. בקטלוג יש את הלב של יובל לגילאי 4 עד 8 על נדיבות וחסד יומיומי (נבדק באתר היום), לשימוש פנימי בקישור בלבד.</p><div class="legend"><a class="p-kid" href="#dir-kid"><span class="sym">״</span><b>הילד מספר</b><span>הילד מדבר בגוף ראשון ומספר מה מרגיש לו</span></a></div></div></details>
+<p class="edit-note" id="edit-note" hidden>לעריכה: <code>python3 carousel/carousel-pipeline/scripts/review_server.py</code></p>
+</header>
+<div class="result" id="save-result" hidden></div>
+<section class="direction p-kid lb-section" id="dir-kid"><div class="direction-head"><span class="sym">״</span><div><h2>הילד מספר</h2></div></div>
+<article class="option p-kid" id="kid-1">
+<header class="opt-head"><span class="lb-chip kid rv-id">kid-1</span><h3 data-edit="title" data-opt="kid-1" data-path="kid/kid-1/title">אמא ואבא 9 דברים שיעזרו לי לחכות לחגיגה</h3><span class="lb-chip">יונתן</span><span class="lb-chip">סופר את הימים עד יום ההולדת</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="1" data-path="kid/kid-1/slide-1/headline">אמא ואבא
+9 דברים שיעזרו לי
+לחכות לחגיגה</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="1" data-path="kid/kid-1/slide-1/body"></div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="2" data-path="kid/kid-1/slide-2/headline">אני לא מבין כמה
+זה עוד 12 ימים</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="2" data-path="kid/kid-1/slide-2/body">אני צריך לראות את הזמן
+תעזרו לי לראות אותו</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="3" data-path="kid/kid-1/slide-3/headline">1 לוח שנה על הקיר
+2 איקס על כל יום</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="3" data-path="kid/kid-1/slide-3/body">תנו לי לסמן בעצמי
+ואני רואה שהוא מתקרב</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="4" data-path="kid/kid-1/slide-4/headline">3 תגידו לי כמה זמן</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="4" data-path="kid/kid-1/slide-4/body">״יונתן יום ההולדת בעוד שבועיים״
+ואחר כך ״בעוד 6 ימים״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="5" data-path="kid/kid-1/slide-5/headline">4 תספרו איתי כל בוקר</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="5" data-path="kid/kid-1/slide-5/body">נספור ביחד כמה ימים נשארו
+וכל בוקר המספר קטן</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="6" data-path="kid/kid-1/slide-6/headline">5 עוגה מצוירת ביום שלי</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="6" data-path="kid/kid-1/slide-6/body">תנו לי לצייר אותה בלוח
+כדי שאדע לאן אני מחכה</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="7" data-path="kid/kid-1/slide-7/headline">6 טיימר שאפשר לראות
+7 חמש דקות לסדר חדר</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="7" data-path="kid/kid-1/slide-7/body">ככה אני מרגיש כמה זה זמן</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="8" data-path="kid/kid-1/slide-8/headline">8 סדר יום קבוע בתמונות
+9 לאפות ביחד עוגה</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="8" data-path="kid/kid-1/slide-8/body">אני יודע מה בא אחרי מה
+ואפשר לספור עם טיימר</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-1/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="9" data-path="kid/kid-1/slide-9/headline">כשאני רואה את הזמן
+קל לי לחכות</div><div class="b" data-edit="body" data-opt="kid-1" data-slide="9" data-path="kid/kid-1/slide-9/body">תעזרו לי לראות אותו
+עד יום ההולדת?</div></div><div class="card cta" lang="he" dir="rtl" data-path="kid/kid-1/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="kid-1" data-slide="10" data-path="kid/kid-1/slide-10/headline">תשמרו את הפוסט</div><div class="b" data-path="kid/kid-1/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">לפעם הבאה שהוא מחכה ליום הולדת</div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> אמא ואבא 9 דברים שיעזרו לי לחכות לחגיגה ← אני לא מבין כמה זה עוד 12 ימים ← 1 לוח שנה על הקיר 2 איקס על כל יום ← 3 תגידו לי כמה זמן ← 4 תספרו איתי כל בוקר ← 5 עוגה מצוירת ביום שלי ← 6 טיימר שאפשר לראות 7 חמש דקות לסדר חדר ← 8 סדר יום קבוע בתמונות 9 לאפות ביחד עוגה ← כשאני רואה את הזמן קל לי לחכות ← תשמרו את הפוסט</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="kid/kid-1/caption"><div data-edit="caption" data-opt="kid-1">9 דברים שיעזרו לי לחכות ליום ההולדת
+תנו לי לסמן איקס על לוח השנה בכל יום
+תגידו לי בעוד כמה זמן זה ותספרו איתי כל בוקר
+תנו לי טיימר שאפשר לראות ופוסטר של סדר היום
+ואם נאפה ביחד אני אבין כמה זמן עובר
+ובערב אפשר להמשיך עם סיפור שבו אני הגיבור</div><div class="cap-cta">תשמרו את הפוסט
+לפעם הבאה שהוא מחכה ליום הולדת</div></div><div class="cta-box" data-path="kid/kid-1/code_word"><div data-edit="cta" data-opt="kid-1" data-path="kid/kid-1/cta">תשמרו את הפוסט
+לפעם הבאה שהוא מחכה ליום הולדת</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>יונתן · בן · מדבר לשני ההורים</dd><dt>זווית</dt><dd dir="auto">הילד מבקש מההורים לעזור לו לראות את הזמן עד יום ההולדת: לוח, איקסים, מילות זמן, ספירה, ציור, טיימר, דקות, סדר יום ואפייה.</dd><dt>למי</dt><dd dir="auto">הורים לילד בן 4 שסופר ימים עד יום ההולדת ושואל כל בוקר כמה נשארו. · מחפש פתרון</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">המספר והבקשה של הילד על הכריכה (פורמט שקיבל 5 מירין), וכל שקופית היא צעד שאפשר לעשות עוד היום: לוח, איקסים, מילות זמן וטיימר. שקופית 2 אומרת למה הילד צריך לראות את הזמן.</dd><dt>פתיח</dt><dd>child-numbered-ask · 12/12 · Which 9 things help a 4-year-old boy wait for his birthday, in his own words?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · תשעת הדברים מתחילים בשקופית 3</li><li>2 · ומה אפשר לראות? שקופית 3</li><li>3 · ואיך אומרים את הזמן? שקופית 4</li><li>4 · ומי סופר איתי? שקופית 5</li><li>5 · ומה מציירים על הלוח? שקופית 6</li><li>6 · ואיך מרגישים זמן קצר? שקופית 7</li><li>7 · ועוד שניים בשקופית 8</li><li>8 · והכל ביחד בשקופית 9</li><li>9 · ושקופית 10 היא לפעם הבאה</li></ul></dd></dl></div></details>
+<details class="more" data-path="kid/kid-1/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>אני לא מבין כמה זה עוד 12 ימים ואני צריך לראות את הזמן</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Empowered Parents: time is an abstract concept and children need multiple opportunities to experience it. The 12 days is an imagined example in the child's voice.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>3</td><td>לוח שנה על הקיר ואיקס על כל יום</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: let the kids add cues to the calendar, like Xs for days gone by; count the days or weeks until a significant event.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>4</td><td>תגידו לי כמה זמן: יום ההולדת בעוד שבועיים</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Empowered Parents lists 'Your birthday is in 2 weeks' time.' among time words children need to hear in context.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>5</td><td>תספרו איתי כל בוקר כמה ימים נשארו</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: count the days or weeks until a significant event.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>6</td><td>עוגה מצוירת ביום שלי</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: let the kids add cues to the calendar to give purpose and meaning. The cake drawing is our example of a cue.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>7</td><td>טיימר שאפשר לראות וחמש דקות לסדר חדר</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Empowered Parents: visual timers (3 to 5 minutes for young kids) and five minutes to tidy to feel how long five minutes is.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>8</td><td>סדר יום קבוע בתמונות ולאפות ביחד עוגה</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Empowered Parents: a routine poster of the day's activities; baking with kids gives a feel for the passing of time.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>9</td><td>כשאני רואה את הזמן קל לי לחכות</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our recap of slides 3 to 8 in the child's imagined voice; no new fact and no promise of a result.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>10</td><td>ספרים וסיפורים יכולים לעזור להבין זמן</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly lists picture books that help kids learn the days of the week and months, as a way to help with calendar concepts. Applied to a birthday wait as a general idea.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>10</td><td>סיפור אישי שבו הילד הוא הגיבור</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a> · <a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a> · Brightly (Penguin Random House), written by a kindergarten and preschool teacher · נקרא 2026-10-29<blockquote dir="ltr" lang="en">Kids are more likely to internalize calendar concepts and patterns when they can put them in the context of their own lives. ... Challenge yourself to greet children each day with, “Happy Tuesday! On Tuesdays we _____!” ... Let the kids add cues to the calendar, like houses on no-school days, pizza slices for pizza lunch days, or Xs for days gone by, to give purpose and meaning. ... Ask them to point to “yesterday, today, and tomorrow,” find specific day numbers, or count the days or weeks until a significant event. ... Pairing movement with a song or chant can help the words stick</blockquote></p><p class="src"><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a> · Empowered Parents (early years educators' parenting site) · נקרא 2026-10-29<blockquote dir="ltr" lang="en">Because time is an abstract concept, children need multiple opportunities to experience and understand it. ... Your birthday is in 2 weeks' time. ... Give them five minutes to tidy the class to understand how long five minutes feels ... Visual timers let kids watch the numbers count down. For young kids, 3 to 5 minutes is long enough. ... Predictable routines not only teach kids about time but also help them feel secure and safe. ... Create a poster with your kids that outlines the day's major activities. ... Baking and cooking with kids is a great opportunity for teaching them about how we use time when cooking, and it also gives them a feel for the passing of time.</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 4-year-old Israeli boy with short dark brown hair, warm olive skin, big brown eyes and a small dimple on the left cheek; about 105 cm tall.
+Parent: His mother, mid-thirties, shoulder-length wavy chestnut hair, kind brown eyes; and his father, late thirties, short dark hair and a light stubble; both warm and relaxed.
+Wardrobe: Boy: mustard-yellow cotton T-shirt with a small white star, light denim shorts, pale sneakers. Mother: cream knit sweater. Father: navy T-shirt.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>wide-eyed hopeful excitement while counting down to a party</b><br>The boy faces the viewer and looks straight into the camera with huge wide eyes, raised eyebrows and a big hopeful open-mouthed smile, hugging a plain cream paper party hat to his chest with both arms; his parents are small and soft in the background on the sofa, smiling at each other.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 4-year-old Israeli boy with short dark brown hair, warm olive skin, big brown eyes and a small dimple on the left cheek; about 105 cm tall. His mother, mid-thirties, shoulder-length wavy chestnut hair, kind brown eyes; and his father, late thirties, short dark hair and a light stubble; both warm and relaxed. Wardrobe: Boy: mustard-yellow cotton T-shirt with a small white star, light denim shorts, pale sneakers. Mother: cream knit sweater. Father: navy T-shirt.
+
+Scene: The boy faces the viewer and looks straight into the camera with huge wide eyes, raised eyebrows and a big hopeful open-mouthed smile, hugging a plain cream paper party hat to his chest with both arms; his parents are small and soft in the background on the sofa, smiling at each other. Setting: The family's Israeli living room in the late afternoon: a cream sofa, a few plain pastel balloons tied to a chair far behind, a light wooden floor.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: wide-eyed hopeful excitement while counting down to a party
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Warm late-afternoon sun from a window on the right.
+
+Wardrobe and objects in this scene: A plain cream paper party hat with no printing, held by the boy; a few pastel balloons far in the background.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain warm cream wall above the sofa) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+<article class="option p-kid" id="kid-2">
+<header class="opt-head"><span class="lb-chip kid rv-id">kid-2</span><h3 data-edit="title" data-opt="kid-2" data-path="kid/kid-2/title">יש לי סוד על הימים עד יום ההולדת</h3><span class="lb-chip">אגם</span><span class="lb-chip">סופר את הימים עד יום ההולדת</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="1" data-path="kid/kid-2/slide-1/headline">יש לי סוד
+על הימים עד
+יום ההולדת</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="1" data-path="kid/kid-2/slide-1/body">9 דברים שיעזרו לי</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="2" data-path="kid/kid-2/slide-2/headline">כל בוקר אני שואלת
+כמה ימים נשארו</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="2" data-path="kid/kid-2/slide-2/body">אני לא יודעת לספור אותם
+אז תעזרי לי לראות</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="3" data-path="kid/kid-2/slide-3/headline">1 לוח שאני בונה איתך
+2 מדבקה על כל יום</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="3" data-path="kid/kid-2/slide-3/body">תני לי להדביק בעצמי
+ואני יודעת איפה אנחנו</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="4" data-path="kid/kid-2/slide-4/headline">3 תגידי לי מה היום</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="4" data-path="kid/kid-2/slide-4/body">״אגם היום יום שלישי
+ומחר יום רביעי״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="5" data-path="kid/kid-2/slide-5/headline">4 שיר על ימי השבוע
+5 תנועה לכל יום</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="5" data-path="kid/kid-2/slide-5/body">ככה כל יום מקבל סימן
+ואני זוכרת אותו</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="6" data-path="kid/kid-2/slide-6/headline">6 לכל יום יש משהו שלו</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="6" data-path="kid/kid-2/slide-6/body">״בימי שלישי אנחנו בגינה״
+ככה הימים לא נראים אותו דבר</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="7" data-path="kid/kid-2/slide-7/headline">7 לספור שבועות על הלוח</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="7" data-path="kid/kid-2/slide-7/body">״אגם עוד 2 שבועות״
+ואז אני רואה אותם על הלוח</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="8" data-path="kid/kid-2/slide-8/headline">8 תמונות של סדר היום
+9 טיימר של חמש דקות</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="8" data-path="kid/kid-2/slide-8/body">אני יודעת מה בא אחרי מה
+ואיך מרגישים חמש דקות</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-2/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="9" data-path="kid/kid-2/slide-9/headline">כשיש סימן על כל יום
+קל לי לחכות</div><div class="b" data-edit="body" data-opt="kid-2" data-slide="9" data-path="kid/kid-2/slide-9/body">לוח, שיר וטיימר
+תעזרי לי לראות את הזמן?</div></div><div class="card cta" lang="he" dir="rtl" data-path="kid/kid-2/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="kid-2" data-slide="10" data-path="kid/kid-2/slide-10/headline">תשמרי את הפוסט</div><div class="b" data-path="kid/kid-2/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">לפעם הבאה שהיא מחכה ליום הולדת</div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> יש לי סוד על הימים עד יום ההולדת ← כל בוקר אני שואלת כמה ימים נשארו ← 1 לוח שאני בונה איתך 2 מדבקה על כל יום ← 3 תגידי לי מה היום ← 4 שיר על ימי השבוע 5 תנועה לכל יום ← 6 לכל יום יש משהו שלו ← 7 לספור שבועות על הלוח ← 8 תמונות של סדר היום 9 טיימר של חמש דקות ← כשיש סימן על כל יום קל לי לחכות ← תשמרי את הפוסט</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="kid/kid-2/caption"><div data-edit="caption" data-opt="kid-2">הסוד שלי הוא שכל בוקר אני סופרת ימים עד יום ההולדת
+תני לי לבנות איתך לוח ולהדביק מדבקה על כל יום
+תגידי לי מה היום ותשירי איתי את ימי השבוע
+תספרי איתי שבועות על הלוח ותני לי טיימר של חמש דקות
+כל יום מקבל משהו משלו וככה קל לי לחכות
+ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה</div><div class="cap-cta">תשמרי את הפוסט
+לפעם הבאה שהיא מחכה ליום הולדת</div></div><div class="cta-box" data-path="kid/kid-2/code_word"><div data-edit="cta" data-opt="kid-2" data-path="kid/kid-2/cta">תשמרי את הפוסט
+לפעם הבאה שהיא מחכה ליום הולדת</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>אגם · בת · מדברת לאמא</dd><dt>זווית</dt><dd dir="auto">הילדה מגלה לאמא סוד: כל בוקר היא שואלת כמה ימים נשארו כי היא לא יודעת לראות את הזמן. תשעה דברים, מלוח שהיא בונה ועד טיימר.</dd><dt>למי</dt><dd dir="auto">אמהות לילדה בת 4 שמבקשת כל בוקר לדעת כמה ימים נשארו עד יום ההולדת. · מכיר את הבעיה</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">סוד שמתגלה בשקופית 2 ותשעה דברים עם מספר ושווי על הכריכה. כל דבר מבוסס על לוח שנה שילדה בונה בעצמה, ומילות זמן שאפשר להגיד עוד בבוקר.</dd><dt>פתיח</dt><dd>child-secret · 12/12 · What is the secret a 4-year-old girl has about the days before her birthday, and which 9 things help her?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · תשעת הדברים מתחילים בשקופית 3</li><li>2 · ואיך רואים ימים? שקופית 3</li><li>3 · ומה היום? שקופית 4</li><li>4 · ואיך זוכרים את הימים? שקופית 5</li><li>5 · ומה עושים בכל יום? שקופית 6</li><li>6 · ומה עם שבועות? שקופית 7</li><li>7 · ועוד שניים בשקופית 8</li><li>8 · והכל ביחד בשקופית 9</li><li>9 · ושקופית 10 היא לפעם הבאה</li></ul></dd></dl></div></details>
+<details class="more" data-path="kid/kid-2/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>אני לא יודעת לספור את הימים אז תעזרי לי לראות</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Empowered Parents: time is an abstract concept and children need multiple opportunities to experience it. The daily question is an imagined child voice.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>3</td><td>לוח שאני בונה איתך ומדבקה על כל יום</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: building the calendar with the kids, and letting them add cues to it.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>4</td><td>תגידי לי מה היום: היום יום שלישי ומחר יום רביעי</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: point to yesterday, today and tomorrow; Empowered Parents: 'Tomorrow is Tuesday.'<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a> · <a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>5</td><td>שיר על ימי השבוע ותנועה לכל יום</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: pairing movement with a song or chant can help the words stick.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>6</td><td>לכל יום יש משהו שלו</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: greet children each day with 'Happy Tuesday! On Tuesdays we ___!' to link calendar words to their own lives.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>7</td><td>לספור שבועות על הלוח</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: count the days or weeks until a significant event.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>8</td><td>תמונות של סדר היום וטיימר של חמש דקות</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Empowered Parents: a routine poster; visual timers, 3 to 5 minutes for young kids.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>9</td><td>כשיש סימן על כל יום קל לי לחכות</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our recap in the child's imagined voice; no new fact and no promise of a result.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>10</td><td>ספרים וסיפורים יכולים לעזור להבין זמן</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly lists picture books that help kids learn the days of the week and months.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>10</td><td>סיפור אישי שבו הילדה היא הגיבורה</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a> · <a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a> · Brightly (Penguin Random House), written by a kindergarten and preschool teacher · נקרא 2026-10-29<blockquote dir="ltr" lang="en">Kids are more likely to internalize calendar concepts and patterns when they can put them in the context of their own lives. ... Challenge yourself to greet children each day with, “Happy Tuesday! On Tuesdays we _____!” ... Let the kids add cues to the calendar, like houses on no-school days, pizza slices for pizza lunch days, or Xs for days gone by, to give purpose and meaning. ... Ask them to point to “yesterday, today, and tomorrow,” find specific day numbers, or count the days or weeks until a significant event. ... Pairing movement with a song or chant can help the words stick</blockquote></p><p class="src"><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a> · Empowered Parents (early years educators' parenting site) · נקרא 2026-10-29<blockquote dir="ltr" lang="en">Because time is an abstract concept, children need multiple opportunities to experience and understand it. ... Your birthday is in 2 weeks' time. ... Give them five minutes to tidy the class to understand how long five minutes feels ... Visual timers let kids watch the numbers count down. For young kids, 3 to 5 minutes is long enough. ... Predictable routines not only teach kids about time but also help them feel secure and safe. ... Create a poster with your kids that outlines the day's major activities. ... Baking and cooking with kids is a great opportunity for teaching them about how we use time when cooking, and it also gives them a feel for the passing of time.</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 4-year-old Israeli girl with light brown wavy hair in two small pigtails, fair skin with a few freckles, big green-brown eyes; about 104 cm tall.
+Parent: Her mother, early thirties, dark hair in a low ponytail, warm brown eyes, relaxed and a little tired in a real way.
+Wardrobe: Girl: coral-pink long-sleeve top with a small white heart and soft grey leggings. Mother: sage-green cotton shirt and jeans.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>a big wide-eyed secret about to be told</b><br>The girl faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, both small hands cupped beside her mouth as if whispering a secret; her mother is small and soft in the background at the kitchen counter smiling.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 4-year-old Israeli girl with light brown wavy hair in two small pigtails, fair skin with a few freckles, big green-brown eyes; about 104 cm tall. Her mother, early thirties, dark hair in a low ponytail, warm brown eyes, relaxed and a little tired in a real way. Wardrobe: Girl: coral-pink long-sleeve top with a small white heart and soft grey leggings. Mother: sage-green cotton shirt and jeans.
+
+Scene: The girl faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, both small hands cupped beside her mouth as if whispering a secret; her mother is small and soft in the background at the kitchen counter smiling. Setting: A warm Israeli kitchen in the morning: cream tiles, a wooden counter with a plain bakery box on it, a fruit bowl.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: a big wide-eyed secret about to be told
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Soft bright morning light from a window on the left.
+
+Wardrobe and objects in this scene: A plain beige cardboard bakery box with no printing on the counter, far behind the girl.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain warm beige wall above the kitchen counter) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+<article class="option p-kid" id="kid-3">
+<header class="opt-head"><span class="lb-chip kid rv-id">kid-3</span><h3 data-edit="title" data-opt="kid-3" data-path="kid/kid-3/title">בשש בבוקר אני בודק כמה ימים נשארו</h3><span class="lb-chip">גיא</span><span class="lb-chip">סופר את הימים עד יום ההולדת</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="1" data-path="kid/kid-3/slide-1/headline">בשש בבוקר
+אני בודק כמה
+ימים נשארו</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="1" data-path="kid/kid-3/slide-1/body">9 דברים שיעזרו לי לחכות</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="2" data-path="kid/kid-3/slide-2/headline">בשבילי עוד 12 ימים
+זה נצח</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="2" data-path="kid/kid-3/slide-2/body">אני צריך שהנצח יהיה קטן
+ואת יכולה לעזור</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="3" data-path="kid/kid-3/slide-3/headline">1 לוח של כל החודש
+2 איקס אחרי ארוחת בוקר</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="3" data-path="kid/kid-3/slide-3/body">ככה אני רואה כמה ימים עברו</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="4" data-path="kid/kid-3/slide-4/headline">3 אתמול היום ומחר</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="4" data-path="kid/kid-3/slide-4/body">תשאלי אותי: ״גיא מה היה אתמול
+ומה יהיה מחר?״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="5" data-path="kid/kid-3/slide-5/headline">4 סימן ביום ההולדת</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="5" data-path="kid/kid-3/slide-5/body">מדבקה בצבע שאני בוחר
+כדי שאמצא אותו בלוח</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="6" data-path="kid/kid-3/slide-6/headline">5 לספור ימים ושבועות</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="6" data-path="kid/kid-3/slide-6/body">נמצא ביחד את היום שלי
+ונספור כמה נשארו</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="7" data-path="kid/kid-3/slide-7/headline">6 קלפים של סדר היום
+7 לאפות עוגה ביחד</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="7" data-path="kid/kid-3/slide-7/body">ככה הזמן עובר בלי שאני סופר</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="8" data-path="kid/kid-3/slide-8/headline">8 שיר ספירה בבוקר
+9 לדבר על מה שיהיה</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="8" data-path="kid/kid-3/slide-8/body">מה נעשה ביום ההולדת
+ואיך נתכונן לזה</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-3/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="9" data-path="kid/kid-3/slide-9/headline">כשהזמן קטן ונראה
+קל לי לחכות</div><div class="b" data-edit="body" data-opt="kid-3" data-slide="9" data-path="kid/kid-3/slide-9/body">לוח, סימן וסדר יום
+תעזרי לי להתחיל מחר?</div></div><div class="card cta" lang="he" dir="rtl" data-path="kid/kid-3/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="kid-3" data-slide="10" data-path="kid/kid-3/slide-10/headline">תשמרי את הפוסט</div><div class="b" data-path="kid/kid-3/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">לפעם הבאה שהוא מחכה ליום הולדת</div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> בשש בבוקר אני בודק כמה ימים נשארו ← בשבילי עוד 12 ימים זה נצח ← 1 לוח של כל החודש 2 איקס אחרי ארוחת בוקר ← 3 אתמול היום ומחר ← 4 סימן ביום ההולדת ← 5 לספור ימים ושבועות ← 6 קלפים של סדר היום 7 לאפות עוגה ביחד ← 8 שיר ספירה בבוקר 9 לדבר על מה שיהיה ← כשהזמן קטן ונראה קל לי לחכות ← תשמרי את הפוסט</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="kid/kid-3/caption"><div data-edit="caption" data-opt="kid-3">כבר בשש בבוקר אני קם ובודק כמה ימים נשארו
+תני לי לוח של כל החודש ואיקס אחרי ארוחת בוקר
+תשאלי אותי מה היה אתמול ומה יהיה מחר
+תעזרי לי לסמן את יום ההולדת בצבע שאני בוחר
+נספור ביחד ימים ושבועות ונאפה לקראת היום
+ובערב אפשר להמשיך עם סיפור שבו אני הגיבור</div><div class="cap-cta">תשמרי את הפוסט
+לפעם הבאה שהוא מחכה ליום הולדת</div></div><div class="cta-box" data-path="kid/kid-3/code_word"><div data-edit="cta" data-opt="kid-3" data-path="kid/kid-3/cta">תשמרי את הפוסט
+לפעם הבאה שהוא מחכה ליום הולדת</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>גיא · בן · מדבר לאמא</dd><dt>זווית</dt><dd dir="auto">הילד קם מוקדם בבוקר ובודק כמה ימים נשארו. הוא מבקש מאמא תשעה דברים שהופכים את הנצח לדבר שאפשר לראות: לוח, אתמול ומחר, סימן ליום ההולדת, שרשרת ועוד.</dd><dt>למי</dt><dd dir="auto">אמהות לילד בן 5 שקם מוקדם בבוקר ובודק כמה ימים נשארו עד יום ההולדת. · מכיר את הבעיה</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">שעה מדויקת בכריכה ושווי ברור (9 דברים). שקופית 2 מראה את הפער בין זמן של ילד לזמן של אמא, והדוגמאות הן דברים שמסתדרים עוד הבוקר.</dd><dt>פתיח</dt><dd>moment-time · 12/12 · What helps a 5-year-old who wakes at six to check how many days are left until his birthday?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · תשעת הדברים מתחילים בשקופית 3</li><li>2 · ואיך הופכים נצח לקטן? שקופית 3</li><li>3 · ומה היה אתמול? שקופית 4</li><li>4 · ומה מסמנים ביום שלי? שקופית 5</li><li>5 · ואיך סופרים? שקופית 6</li><li>6 · ומה אחרי הספירה? שקופית 7</li><li>7 · ועוד שניים בשקופית 8</li><li>8 · והכל ביחד בשקופית 9</li><li>9 · ושקופית 10 היא לפעם הבאה</li></ul></dd></dl></div></details>
+<details class="more" data-path="kid/kid-3/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>בשבילי עוד 12 ימים זה נצח ואני צריך שהנצח יהיה קטן</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Empowered Parents: time is an abstract concept; children need multiple opportunities to experience and understand it. The 12 days is an imagined example in the child's voice.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>3</td><td>לוח של כל החודש ואיקס אחרי ארוחת בוקר</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: having the entire month visible; Xs for days gone by. The breakfast moment is our example.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>4</td><td>אתמול היום ומחר</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: ask kids to point to yesterday, today, and tomorrow.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>5</td><td>סימן מיוחד ביום ההולדת</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: let the kids add cues to the calendar to give purpose and meaning.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>6</td><td>לספור ימים ושבועות</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly: count the days or weeks until a significant event.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>7</td><td>קלפים של סדר היום ולאפות ביחד</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Empowered Parents: sequence cards of daily routines; baking and cooking give a feel for the passing of time.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>8</td><td>שיר ספירה בבוקר ולדבר על מה שיהיה</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our wording: a morning count in song and talking about what will happen, resting on Brightly (songs and chants) and Empowered Parents (talk about time). No claim about results.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a> · <a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>9</td><td>כשהזמן קטן ונראה קל לי לחכות</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our recap in the child's imagined voice; no new fact and no promise of a result.<br><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a></td></tr><tr><td>10</td><td>ספרים וסיפורים יכולים לעזור להבין זמן</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Brightly lists picture books that help kids learn the days of the week and months.<br><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a></td></tr><tr><td>10</td><td>סיפור אישי שבו הילד הוא הגיבור</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a> · <a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.readbrightly.com/books-help-kids-understand-calendars" target="_blank" rel="noopener">Tips, Tricks, and Books for Helping Kids Understand Calendars</a> · Brightly (Penguin Random House), written by a kindergarten and preschool teacher · נקרא 2026-10-29<blockquote dir="ltr" lang="en">Kids are more likely to internalize calendar concepts and patterns when they can put them in the context of their own lives. ... Challenge yourself to greet children each day with, “Happy Tuesday! On Tuesdays we _____!” ... Let the kids add cues to the calendar, like houses on no-school days, pizza slices for pizza lunch days, or Xs for days gone by, to give purpose and meaning. ... Ask them to point to “yesterday, today, and tomorrow,” find specific day numbers, or count the days or weeks until a significant event. ... Pairing movement with a song or chant can help the words stick</blockquote></p><p class="src"><a href="https://empoweredparents.co/teaching-concept-of-time-to-preschoolers" target="_blank" rel="noopener">Teaching the Concept of Time to Preschoolers</a> · Empowered Parents (early years educators' parenting site) · נקרא 2026-10-29<blockquote dir="ltr" lang="en">Because time is an abstract concept, children need multiple opportunities to experience and understand it. ... Your birthday is in 2 weeks' time. ... Give them five minutes to tidy the class to understand how long five minutes feels ... Visual timers let kids watch the numbers count down. For young kids, 3 to 5 minutes is long enough. ... Predictable routines not only teach kids about time but also help them feel secure and safe. ... Create a poster with your kids that outlines the day's major activities. ... Baking and cooking with kids is a great opportunity for teaching them about how we use time when cooking, and it also gives them a feel for the passing of time.</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 5-year-old Israeli boy with curly light-brown hair, tanned skin, round hazel eyes and a missing front tooth; about 110 cm tall.
+Parent: His mother, mid-thirties, dark-blonde hair in a messy bun, soft green eyes, a gentle sleepy smile.
+Wardrobe: Boy: sky-blue pyjamas with small white clouds, bare feet. Mother: oatmeal cardigan over a white tee.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>early-morning impatient excitement</b><br>The boy faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, holding a short paper chain of plain colourful paper rings in both hands in front of him; his mother is small and soft in the background in the bedroom doorway, rubbing her eyes with a smile.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 5-year-old Israeli boy with curly light-brown hair, tanned skin, round hazel eyes and a missing front tooth; about 110 cm tall. His mother, mid-thirties, dark-blonde hair in a messy bun, soft green eyes, a gentle sleepy smile. Wardrobe: Boy: sky-blue pyjamas with small white clouds, bare feet. Mother: oatmeal cardigan over a white tee.
+
+Scene: The boy faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, holding a short paper chain of plain colourful paper rings in both hands in front of him; his mother is small and soft in the background in the bedroom doorway, rubbing her eyes with a smile. Setting: A cosy Israeli child bedroom at early morning: a low wooden bed with a cream blanket, a plain pale-yellow wall above the headboard.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: early-morning impatient excitement
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Soft early-morning light, warm pale gold through a curtain on the right.
+
+Wardrobe and objects in this scene: A short chain of plain colourful paper rings with no writing, held by the boy.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain pale-yellow bedroom wall above the headboard) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+<article class="option p-kid" id="kid-4">
+<header class="opt-head"><span class="lb-chip kid rv-id">kid-4</span><h3 data-edit="title" data-opt="kid-4" data-path="kid/kid-4/title">״זה שלי!״ אני צועקת את זה</h3><span class="lb-chip">נטע</span><span class="lb-chip">לא רוצה לתת לאף אחד את הצעצוע</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="kid/kid-4/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="1" data-path="kid/kid-4/slide-1/headline">״זה שלי!״
+אני צועקת את זה</div><div class="b" data-edit="body" data-opt="kid-4" data-slide="1" data-path="kid/kid-4/slide-1/body">7 דברים שיעזרו לי לשתף</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-4/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="2" data-path="kid/kid-4/slide-2/headline">כשהיא מושיטה יד
+אני נצמדת לצעצוע</div><div class="b" data-edit="body" data-opt="kid-4" data-slide="2" data-path="kid/kid-4/slide-2/body">אני עוד לומדת לחכות לתור
+תעזרי לי ללמוד</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-4/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="3" data-path="kid/kid-4/slide-3/headline">1 תגידי שיהיה לי תור
+2 תני לי טיימר</div><div class="b" data-edit="body" data-opt="kid-4" data-slide="3" data-path="kid/kid-4/slide-3/body">״נטע התור שלך מגיע אחריה״
+טיימר שאני רואה</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-4/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="4" data-path="kid/kid-4/slide-4/headline">3 תלמדי אותי במילים</div><div class="b" data-edit="body" data-opt="kid-4" data-slide="4" data-path="kid/kid-4/slide-4/body">״אני רוצה תור, בבקשה״
+במקום לצעוק זה שלי</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-4/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="5" data-path="kid/kid-4/slide-5/headline">4 צעצוע אחד נשאר בארון</div><div class="b" data-edit="body" data-opt="kid-4" data-slide="5" data-path="kid/kid-4/slide-5/body">״נטע בואי נבחר אחד לשמור
+לפני שהחברה מגיעה״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-4/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="6" data-path="kid/kid-4/slide-6/headline">5 מגרילות מי הראשונה</div><div class="b" data-edit="body" data-opt="kid-4" data-slide="6" data-path="kid/kid-4/slide-6/body">תני לנו להגריל ביד
+ואף אחת לא נעלבת</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-4/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="7" data-path="kid/kid-4/slide-7/headline">6 תראי לי איך משתפים</div><div class="b" data-edit="body" data-opt="kid-4" data-slide="7" data-path="kid/kid-4/slide-7/body">תגידי ״תודה שחילקת״ כשמישהו נותן
+ואני זוכרת את זה</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-4/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="8" data-path="kid/kid-4/slide-8/headline">7 תפרגני לי כשאני מחכה</div><div class="b" data-edit="body" data-opt="kid-4" data-slide="8" data-path="kid/kid-4/slide-8/body">״נטע ראיתי שחיכית לתור
+כל הכבוד״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-4/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="9" data-path="kid/kid-4/slide-9/headline">כשיש תור וטיימר
+קל לי לתת</div><div class="b" data-edit="body" data-opt="kid-4" data-slide="9" data-path="kid/kid-4/slide-9/body">מילים במקום צעקות
+תעזרי לי להחליף תור?</div></div><div class="card cta" lang="he" dir="rtl" data-path="kid/kid-4/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="kid-4" data-slide="10" data-path="kid/kid-4/slide-10/headline">תשמרי את הפוסט</div><div class="b" data-path="kid/kid-4/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">לפעם הבאה שהיא לא רוצה לשתף</div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> ״זה שלי!״ אני צועקת את זה ← כשהיא מושיטה יד אני נצמדת לצעצוע ← 1 תגידי שיהיה לי תור 2 תני לי טיימר ← 3 תלמדי אותי במילים ← 4 צעצוע אחד נשאר בארון ← 5 מגרילות מי הראשונה ← 6 תראי לי איך משתפים ← 7 תפרגני לי כשאני מחכה ← כשיש תור וטיימר קל לי לתת ← תשמרי את הפוסט</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="kid/kid-4/caption"><div data-edit="caption" data-opt="kid-4">7 דברים שיעזרו לי לשתף כשאני צועקת ״זה שלי״
+תגידי שיהיה לי תור ותני לי טיימר שאפשר לראות
+תלמדי אותי להגיד במילים ולהגריל מי הראשונה
+תשאירי צעצוע אחד שלי בארון לפני שחברה מגיעה
+ותראי לי איך משתפים ותפרגני לי כשאני מחכה
+ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה</div><div class="cap-cta">תשמרי את הפוסט
+לפעם הבאה שהיא לא רוצה לשתף</div></div><div class="cta-box" data-path="kid/kid-4/code_word"><div data-edit="cta" data-opt="kid-4" data-path="kid/kid-4/cta">תשמרי את הפוסט
+לפעם הבאה שהיא לא רוצה לשתף</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>נטע · בת · מדברת לאמא</dd><dt>זווית</dt><dd dir="auto">הילדה מסבירה לאמא למה היא צועקת ״זה שלי!״ ומבקשת שבעה דברים שיעזרו לה לשתף: תור, טיימר, מילים, צעצוע שנשאר בארון, הגרלה, דוגמה וכל הכבוד.</dd><dt>למי</dt><dd dir="auto">אמהות לילדה בת 4 שצועקת ״זה שלי״ כשילדה אחרת מושיטה יד לצעצוע. · מכיר את הבעיה</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">משפט שכל הורה שומע (״זה שלי״) ומספר על הכריכה. שבעה צעדים קטנים שאפשר לנסות בפעם הבאה שחברה מגיעה, בלי להאשים את הילדה.</dd><dt>פתיח</dt><dd>child-question · 12/12 · What can help a 4-year-old girl who shouts mine when another child reaches for her toy?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · שבעת הדברים מתחילים בשקופית 3</li><li>2 · ואיך לומדים תור? שקופית 3</li><li>3 · ומה אומרים במקום לצעוק? שקופית 4</li><li>4 · ומה עם הצעצוע האהוב? שקופית 5</li><li>5 · ומי מתחילה? שקופית 6</li><li>6 · ומי מראה לי איך? שקופית 7</li><li>7 · והאחרון בשקופית 8</li><li>8 · והכל ביחד בשקופית 9</li><li>9 · ושקופית 10 היא לפעם הבאה</li></ul></dd></dl></div></details>
+<details class="more" data-path="kid/kid-4/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>אני עוד לומדת לחכות לתור, תעזרי לי ללמוד</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: in the preschool years children are still learning how to share, and it is okay if they are not great at it yet; HealthyChildren: at first you will need to encourage this cooperation. Imagined child voice.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a> · <a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>3</td><td>תור אחריה וטיימר שאפשר לראות</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: explain that they can have a turn next; something visual, like a timer, lets children know when to give up a toy.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>4</td><td>תלמדי אותי להגיד במילים</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">HealthyChildren: say to your child 'use your words'; help with the words to describe feelings and desires.<br><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>5</td><td>צעצוע אחד נשאר בארון</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: if your child has an absolute favorite toy they do not want to share, put it away before the play date.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>6</td><td>מגרילות מי הראשונה</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">HealthyChildren: they might draw for the first turn, or find another toy or activity.<br><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>7</td><td>תראי לי איך משתפים</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: model and point out sharing, for example 'Thanks for sharing, Dad!'. The sentence on the slide is our wording.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>8</td><td>תפרגני לי כשאני מחכה</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our wording of pointing out good behaviour (Pathways: model and point out good behavior). No claim about results.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>9</td><td>כשיש תור וטיימר קל לי לתת</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our recap in the child's imagined voice; no new fact and no promise of a result.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a> · <a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>10</td><td>ילדים בגיל הזה עדיין לומדים לשתף</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: in the preschool years children are still learning how to share.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>10</td><td>סיפור אישי שבו הילדה היא הגיבורה</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a> · <a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a> · HealthyChildren.org, American Academy of Pediatrics (last updated 12/5/2024) · נקרא 2026-10-29<blockquote dir="ltr" lang="en">Three-year-olds are able to work out solutions to disputes by taking turns or trading toys. However, particularly in the beginning, you'll need to encourage this cooperation. ... Say to your child &quot;use your words&quot; to deal with problems instead of acting out. ... Remind them that when two children are sharing a toy, each gets an equal turn. ... Suggest ways to reach a simple solution when your child and another child want the same toy. They might draw for the first turn, for example, or find another toy or activity. ... Help your child with the appropriate words to describe their feelings and desires so that they don't feel frustrated.</blockquote></p><p class="src"><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a> · Pathways.org (pediatric therapists' nonprofit, last updated 18 Jul 2025) · נקרא 2026-10-29<blockquote dir="ltr" lang="en">In preschool years, children are still learning how to share, so it is okay if your child isn’t great at this skill yet. ... Something visual, like a timer, will let children know exactly when it’s time for them to give up a certain toy. ... explain that they can have a turn next ... point out how nice it was that Dad shared his water with Mom. ... Talk about how it would feel if they went to a friend’s house and wasn’t allowed to play with any toys. ... If your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date!</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 4-year-old Israeli girl with dark straight shoulder-length hair with a side clip, olive skin, big dark eyes and rosy cheeks; about 103 cm tall.
+Parent: Her mother, early thirties, curly dark hair tied back, warm brown eyes, calm and attentive.
+Wardrobe: Girl: mint-green cotton dress with a small white collar and white socks. Mother: soft grey sweater and jeans.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>fierce protective pout over a favourite toy</b><br>The girl faces the viewer and looks straight into the camera with a dramatic pout, puffed cheeks and wide determined eyes, hugging a small beige plush bunny tightly to her chest with both arms; her mother is small and soft in the background kneeling by a toy shelf.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 4-year-old Israeli girl with dark straight shoulder-length hair with a side clip, olive skin, big dark eyes and rosy cheeks; about 103 cm tall. Her mother, early thirties, curly dark hair tied back, warm brown eyes, calm and attentive. Wardrobe: Girl: mint-green cotton dress with a small white collar and white socks. Mother: soft grey sweater and jeans.
+
+Scene: The girl faces the viewer and looks straight into the camera with a dramatic pout, puffed cheeks and wide determined eyes, hugging a small beige plush bunny tightly to her chest with both arms; her mother is small and soft in the background kneeling by a toy shelf. Setting: A bright Israeli playroom in the afternoon: a low shelf of plain wooden toys, a soft rug, a plain wall.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: fierce protective pout over a favourite toy
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Warm afternoon daylight from a window on the right.
+
+Wardrobe and objects in this scene: A small beige plush bunny, held by the girl; wooden blocks on the shelf far behind.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain warm cream wall above the toy shelf) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+<article class="option p-kid" id="kid-5">
+<header class="opt-head"><span class="lb-chip kid rv-id">kid-5</span><h3 data-edit="title" data-opt="kid-5" data-path="kid/kid-5/title">״תן לו גם!״ אני מחזיק חזק יותר</h3><span class="lb-chip">רון</span><span class="lb-chip">לא רוצה לתת לאף אחד את הצעצוע</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="kid/kid-5/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="1" data-path="kid/kid-5/slide-1/headline">״תן לו גם!״
+אני מחזיק חזק יותר</div><div class="b" data-edit="body" data-opt="kid-5" data-slide="1" data-path="kid/kid-5/slide-1/body">8 דברים שיעזרו לי לתת</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-5/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="2" data-path="kid/kid-5/slide-2/headline">כשאומרים לי ״תן לו״
+אני מרגיש שלוקחים לי</div><div class="b" data-edit="body" data-opt="kid-5" data-slide="2" data-path="kid/kid-5/slide-2/body">אני רוצה לסיים קודם
+תנו לי תור ברור</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-5/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="3" data-path="kid/kid-5/slide-3/headline">1 טיימר שאני רואה
+2 ואז התור של חבר</div><div class="b" data-edit="body" data-opt="kid-5" data-slide="3" data-path="kid/kid-5/slide-3/body">״רון כשהטיימר נגמר
+הצעצוע עובר לחבר״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-5/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="4" data-path="kid/kid-5/slide-4/headline">3 תנו לי מילים לכעס
+4 אפשר להחליף צעצוע</div><div class="b" data-edit="body" data-opt="kid-5" data-slide="4" data-path="kid/kid-5/slide-4/body">״אני כועס, אני רוצה עוד דקה״
+או צעצוע אחר</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-5/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="5" data-path="kid/kid-5/slide-5/headline">5 להגריל מי ראשון</div><div class="b" data-edit="body" data-opt="kid-5" data-slide="5" data-path="kid/kid-5/slide-5/body">״רון ביד ימין או שמאל?״
+ככה לא רבים על התור</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-5/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="6" data-path="kid/kid-5/slide-6/headline">6 צעצוע אחד נשאר שלי</div><div class="b" data-edit="body" data-opt="kid-5" data-slide="6" data-path="kid/kid-5/slide-6/body">תנו לי לבחור אחד לשמור
+לפני שחבר מגיע</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-5/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="7" data-path="kid/kid-5/slide-7/headline">7 שיחה לפני שחבר מגיע</div><div class="b" data-edit="body" data-opt="kid-5" data-slide="7" data-path="kid/kid-5/slide-7/body">״איך היית מרגיש בלי צעצועים
+אצל חבר?״</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-5/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="8" data-path="kid/kid-5/slide-8/headline">8 תגידו לי תודה</div><div class="b" data-edit="body" data-opt="kid-5" data-slide="8" data-path="kid/kid-5/slide-8/body">״תודה שנתת לו״ בקול
+ואני רוצה לעשות שוב</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-5/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="9" data-path="kid/kid-5/slide-9/headline">עם טיימר ותור
+קל לי לתת</div><div class="b" data-edit="body" data-opt="kid-5" data-slide="9" data-path="kid/kid-5/slide-9/body">ועם מילים במקום צעקות
+תעזרו לי להמשיך?</div></div><div class="card cta" lang="he" dir="rtl" data-path="kid/kid-5/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="kid-5" data-slide="10" data-path="kid/kid-5/slide-10/headline">תשמרו את הפוסט</div><div class="b" data-path="kid/kid-5/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">לפעם הבאה שהוא לא רוצה לשתף</div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> ״תן לו גם!״ אני מחזיק חזק יותר ← כשאומרים לי ״תן לו״ אני מרגיש שלוקחים לי ← 1 טיימר שאני רואה 2 ואז התור של חבר ← 3 תנו לי מילים לכעס 4 אפשר להחליף צעצוע ← 5 להגריל מי ראשון ← 6 צעצוע אחד נשאר שלי ← 7 שיחה לפני שחבר מגיע ← 8 תגידו לי תודה ← עם טיימר ותור קל לי לתת ← תשמרו את הפוסט</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="kid/kid-5/caption"><div data-edit="caption" data-opt="kid-5">8 דברים שיעזרו לי לתת כשאומרים לי ״תן לו גם״
+תנו לי טיימר שאני רואה ותגידו לי מתי התור של חבר
+תנו לי מילים לכעס ואפשרות להחליף צעצוע
+תגרילו איתי מי ראשון ותנו לי לשמור צעצוע אחד
+דברו איתי לפני שחבר מגיע ותגידו לי תודה כשנתתי
+ובערב אפשר להמשיך עם סיפור שבו אני הגיבור</div><div class="cap-cta">תשמרו את הפוסט
+לפעם הבאה שהוא לא רוצה לשתף</div></div><div class="cta-box" data-path="kid/kid-5/code_word"><div data-edit="cta" data-opt="kid-5" data-path="kid/kid-5/cta">תשמרו את הפוסט
+לפעם הבאה שהוא לא רוצה לשתף</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>רון · בן · מדבר לשני ההורים</dd><dt>זווית</dt><dd dir="auto">הילד מספר להורים מה קורה לו כשאומרים לו ״תן לו גם״, ומבקש שמונה דברים: טיימר, תור לחבר, מילים לכעס, החלפה, הגרלה, צעצוע שנשאר שלו, שיחה לפני שחבר בא ותודה.</dd><dt>למי</dt><dd dir="auto">הורים לילד בן 4 שמחזיק חזק את הצעצוע כשאומרים לו ״תן לו גם״. · מכיר את הבעיה</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">משפט מוכר (״תן לו גם״) והמספר 8 על הכריכה. שקופית 2 מראה מה הילד מרגיש, והדוגמאות הן צעדים קטנים של טיימר, תור והגרלה.</dd><dt>פתיח</dt><dd>sentence-we-all-say · 12/12 · What helps a 4-year-old boy who holds a toy tighter every time he hears 'give him too'?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · שמונת הדברים מתחילים בשקופית 3</li><li>2 · ואיך נראה תור ברור? שקופית 3</li><li>3 · ומה אומרים כשכועסים? שקופית 4</li><li>4 · ומי מתחיל? שקופית 5</li><li>5 · ומה נשאר שלי? שקופית 6</li><li>6 · ומה מדברים לפני? שקופית 7</li><li>7 · והאחרון בשקופית 8</li><li>8 · והכל ביחד בשקופית 9</li><li>9 · ושקופית 10 היא לפעם הבאה</li></ul></dd></dl></div></details>
+<details class="more" data-path="kid/kid-5/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>אני רוצה לסיים קודם, תנו לי תור ברור</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: a visual timer lets children know exactly when it is time to give up a toy; explain that they can have a turn next. Imagined child voice.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>3</td><td>טיימר שאני רואה ואז התור של חבר</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: a visual timer for when to give up a toy; explain they can have a turn next.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>4</td><td>מילים לכעס והחלפת צעצוע</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">HealthyChildren: help your child with words to describe feelings; three-year-olds can work out disputes by taking turns or trading toys.<br><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>5</td><td>להגריל מי ראשון</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">HealthyChildren: they might draw for the first turn.<br><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>6</td><td>צעצוע אחד נשאר שלי</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: put the absolute favorite toy away before the play date.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>7</td><td>שיחה לפני שחבר מגיע</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: talk about how it would feel to go to a friend's house and not be allowed to play with any toys.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>8</td><td>תודה שנתת לו</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our wording of pointing out sharing (Pathways: model and point out good behavior). No claim about results.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>9</td><td>עם טיימר ותור קל לי לתת</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our recap in the child's imagined voice; no new fact and no promise of a result.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a> · <a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>10</td><td>ילדים בגיל הזה עדיין לומדים לשתף</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: in the preschool years children are still learning how to share.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>10</td><td>סיפור אישי שבו הילד הוא הגיבור</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a> · <a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a> · HealthyChildren.org, American Academy of Pediatrics (last updated 12/5/2024) · נקרא 2026-10-29<blockquote dir="ltr" lang="en">Three-year-olds are able to work out solutions to disputes by taking turns or trading toys. However, particularly in the beginning, you'll need to encourage this cooperation. ... Say to your child &quot;use your words&quot; to deal with problems instead of acting out. ... Remind them that when two children are sharing a toy, each gets an equal turn. ... Suggest ways to reach a simple solution when your child and another child want the same toy. They might draw for the first turn, for example, or find another toy or activity. ... Help your child with the appropriate words to describe their feelings and desires so that they don't feel frustrated.</blockquote></p><p class="src"><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a> · Pathways.org (pediatric therapists' nonprofit, last updated 18 Jul 2025) · נקרא 2026-10-29<blockquote dir="ltr" lang="en">In preschool years, children are still learning how to share, so it is okay if your child isn’t great at this skill yet. ... Something visual, like a timer, will let children know exactly when it’s time for them to give up a certain toy. ... explain that they can have a turn next ... point out how nice it was that Dad shared his water with Mom. ... Talk about how it would feel if they went to a friend’s house and wasn’t allowed to play with any toys. ... If your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date!</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 4-year-old Israeli boy with short wavy black hair, warm brown skin, big dark eyes and a cheeky half smile; about 104 cm tall.
+Parent: His mother, mid-thirties, long dark hair in a braid, soft brown eyes; and his father, late thirties, short curly hair and glasses; both calm and kind.
+Wardrobe: Boy: forest-green T-shirt with a small orange dinosaur and grey shorts. Mother: terracotta cotton shirt. Father: light-blue button shirt.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>stubborn determination holding a favourite toy</b><br>The boy faces the viewer and looks straight into the camera with a jaw-dropped stare and wide eyes, holding a green toy dinosaur close to his chest with both hands; his parents are small and soft in the background sitting on the rug, and a visiting child is only a soft blurred shape.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 4-year-old Israeli boy with short wavy black hair, warm brown skin, big dark eyes and a cheeky half smile; about 104 cm tall. His mother, mid-thirties, long dark hair in a braid, soft brown eyes; and his father, late thirties, short curly hair and glasses; both calm and kind. Wardrobe: Boy: forest-green T-shirt with a small orange dinosaur and grey shorts. Mother: terracotta cotton shirt. Father: light-blue button shirt.
+
+Scene: The boy faces the viewer and looks straight into the camera with a jaw-dropped stare and wide eyes, holding a green toy dinosaur close to his chest with both hands; his parents are small and soft in the background sitting on the rug, and a visiting child is only a soft blurred shape. Setting: An Israeli living room in the afternoon: a woven rug, a low cream couch, a plain wall.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: stubborn determination holding a favourite toy
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Warm soft daylight from a window on the left.
+
+Wardrobe and objects in this scene: A green plush toy dinosaur with no printing, held by the boy.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain soft beige wall above the couch) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+<article class="option p-kid" id="kid-6">
+<header class="opt-head"><span class="lb-chip kid rv-id">kid-6</span><h3 data-edit="title" data-opt="kid-6" data-path="kid/kid-6/title">כשהיא לוקחת בובה הידיים שלי נסגרות</h3><span class="lb-chip">עדי</span><span class="lb-chip">לא רוצה לתת לאף אחד את הצעצוע</span></header>
+<div class="deck"><div class="card" lang="he" dir="rtl" data-path="kid/kid-6/slide-1"><div class="n"><span>1</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="1" data-path="kid/kid-6/slide-1/headline">כשהיא לוקחת בובה
+הידיים שלי נסגרות</div><div class="b" data-edit="body" data-opt="kid-6" data-slide="1" data-path="kid/kid-6/slide-1/body">7 דברים שיעזרו לי</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-6/slide-2"><div class="n"><span>2</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="2" data-path="kid/kid-6/slide-2/headline">הידיים מחזיקות לפני
+שאני מספיקה לחשוב</div><div class="b" data-edit="body" data-opt="kid-6" data-slide="2" data-path="kid/kid-6/slide-2/body">אני לא רעה, אני לומדת
+תעזרו לי לעצור רגע</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-6/slide-3"><div class="n"><span>3</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="3" data-path="kid/kid-6/slide-3/headline">1 לכל אחת תור שווה
+2 תנו לי לומר עוד רגע</div><div class="b" data-edit="body" data-opt="kid-6" data-slide="3" data-path="kid/kid-6/slide-3/body">״עדי כל אחת מקבלת תור״
+ואני אומרת מילים</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-6/slide-4"><div class="n"><span>4</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="4" data-path="kid/kid-6/slide-4/headline">3 תגידו מה אני מרגישה</div><div class="b" data-edit="body" data-opt="kid-6" data-slide="4" data-path="kid/kid-6/slide-4/body">״את כועסת כי רצית עוד זמן״
+ככה אני מוצאת מילים</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-6/slide-5"><div class="n"><span>5</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="5" data-path="kid/kid-6/slide-5/headline">4 תשבו לידי כשקשה</div><div class="b" data-edit="body" data-opt="kid-6" data-slide="5" data-path="kid/kid-6/slide-5/body">בלי לדבר הרבה
+אני צריכה אתכם קרובים</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-6/slide-6"><div class="n"><span>6</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="6" data-path="kid/kid-6/slide-6/headline">5 בובה אחרת לחברה</div><div class="b" data-edit="body" data-opt="kid-6" data-slide="6" data-path="kid/kid-6/slide-6/body">״בואי נמצא לה בובה אחרת״
+ואז אני לא נשארת בלי</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-6/slide-7"><div class="n"><span>7</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="7" data-path="kid/kid-6/slide-7/headline">6 לשחק לידה ולא ביחד</div><div class="b" data-edit="body" data-opt="kid-6" data-slide="7" data-path="kid/kid-6/slide-7/body">בהתחלה אני משחקת לידה
+ועם הזמן גם איתה</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-6/slide-8"><div class="n"><span>8</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="8" data-path="kid/kid-6/slide-8/headline">7 לא חייבים לחלק הכול</div><div class="b" data-edit="body" data-opt="kid-6" data-slide="8" data-path="kid/kid-6/slide-8/body">הבובה האהובה שלי נשארת שלי
+וזה בסדר גמור</div></div><div class="card" lang="he" dir="rtl" data-path="kid/kid-6/slide-9"><div class="n"><span>9</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="9" data-path="kid/kid-6/slide-9/headline">תור, מילים וקצת סבלנות
+וקל לי יותר</div><div class="b" data-edit="body" data-opt="kid-6" data-slide="9" data-path="kid/kid-6/slide-9/body">ובובה אחת שהיא רק שלי
+תעזרו לי להתחיל?</div></div><div class="card cta" lang="he" dir="rtl" data-path="kid/kid-6/slide-10"><div class="n"><span>10</span></div><div class="h" data-edit="headline" data-opt="kid-6" data-slide="10" data-path="kid/kid-6/slide-10/headline">תשמרו את הפוסט</div><div class="b" data-path="kid/kid-6/slide-10/body" title="נגזר אוטומטית מהקריאה לפעולה">לפעם הבאה שהיא לא רוצה לשתף</div></div></div>
+<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> כשהיא לוקחת בובה הידיים שלי נסגרות ← הידיים מחזיקות לפני שאני מספיקה לחשוב ← 1 לכל אחת תור שווה 2 תנו לי לומר עוד רגע ← 3 תגידו מה אני מרגישה ← 4 תשבו לידי כשקשה ← 5 בובה אחרת לחברה ← 6 לשחק לידה ולא ביחד ← 7 לא חייבים לחלק הכול ← תור, מילים וקצת סבלנות וקל לי יותר ← תשמרו את הפוסט</p>
+<div class="drops">
+<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post"><div class="caption" dir="rtl" data-path="kid/kid-6/caption"><div data-edit="caption" data-opt="kid-6">הידיים שלי נסגרות כשילדה אחרת לוקחת לי בובה
+תנו לי תור שווה ותנו לי להגיד עוד רגע
+תגידו לי מה אני מרגישה ותשבו לידי כשקשה
+תנו לה בובה אחרת ותנו לי לשחק לידה קודם
+ואל תדרשו ממני לחלק הכול
+ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה</div><div class="cap-cta">תשמרו את הפוסט
+לפעם הבאה שהיא לא רוצה לשתף</div></div><div class="cta-box" data-path="kid/kid-6/code_word"><div data-edit="cta" data-opt="kid-6" data-path="kid/kid-6/cta">תשמרו את הפוסט
+לפעם הבאה שהיא לא רוצה לשתף</div></div></div></div></details>
+<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv"><dt>על מי</dt><dd>עדי · בת · מדברת לשני ההורים</dd><dt>זווית</dt><dd dir="auto">הילדה מתארת את הרגע שבו ילדה אחרת לוקחת לה בובה והידיים נסגרות לבד, ומבקשת מההורים שבעה דברים: תור שווה, מילים, לשבת לידה, בובה אחרת, לשחק לידה ושלא חייבים לחלק הכול.</dd><dt>למי</dt><dd dir="auto">הורים לילדה בת 4 שהידיים שלה נסגרות כשילדה אחרת לוקחת לה צעצוע. · מכיר את הבעיה</dd><dt>למה זה עשוי להמיר</dt><dd dir="auto">רגע מדויק בגוף (הידיים נסגרות) ומספר 7 על הכריכה. שקופית 2 אומרת שהיא לא רעה אלא לומדת, והדוגמאות נותנות להורים משפטים וצעדים לפעם הבאה.</dd><dt>פתיח</dt><dd>child-body-moment · 12/12 · What helps a 4-year-old girl whose hands close tight when another girl takes her doll?</dd><dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list"><li>1 · שבעת הדברים מתחילים בשקופית 3</li><li>2 · ואיך עוצרים רגע? שקופית 3</li><li>3 · ומה עושים עם הרגש? שקופית 4</li><li>4 · ומי יושב לידי? שקופית 5</li><li>5 · ומה אם היא רוצה בובה? שקופית 6</li><li>6 · ואיך משחקים ביחד? שקופית 7</li><li>7 · והאחרון בשקופית 8</li><li>8 · והכל ביחד בשקופית 9</li><li>9 · ושקופית 10 היא לפעם הבאה</li></ul></dd></dl></div></details>
+<details class="more" data-path="kid/kid-6/claims"><summary>טענות ומקורות</summary><div class="inner"><table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody><tr><td>2</td><td>אני לא רעה, אני לומדת, תעזרו לי לעצור רגע</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: in the preschool years children are still learning how to share; HealthyChildren: at first you need to encourage cooperation. The hands closing is an imagined ordinary sensation, no medical claim.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a> · <a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>3</td><td>לכל אחת תור שווה ותנו לי להגיד עוד רגע</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">HealthyChildren: when two children are sharing a toy, each gets an equal turn; say 'use your words'.<br><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>4</td><td>תגידו לי מה אני מרגישה</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">HealthyChildren: help your child with the appropriate words to describe their feelings and desires so that they do not feel frustrated.<br><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>5</td><td>תשבו לידי כשקשה</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">HealthyChildren: particularly in the beginning, you will need to encourage this cooperation. Sitting near is our wording.<br><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>6</td><td>בובה אחרת לחברה</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">HealthyChildren: find another toy or activity.<br><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>7</td><td>לשחק לידה ולא ביחד</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: at this age it is typical for children to play side by side in parallel play.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>8</td><td>לא חייבים לחלק הכול</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: if the favorite toy is one they do not want to share, put it away; it is okay to have a special one just for them.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>9</td><td>תור, מילים וקצת סבלנות וקל לי יותר</td><td class="kind lumebook_wording">ניסוח שלנו</td><td dir="auto">Our recap in the child's imagined voice; no new fact and no promise of a result.<br><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a></td></tr><tr><td>10</td><td>ילדים בגיל הזה עדיין לומדים לשתף</td><td class="kind sourced_fact">עובדה עם מקור</td><td dir="auto">Pathways: in the preschool years children are still learning how to share.<br><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a></td></tr><tr><td>10</td><td>סיפור אישי שבו הילדה היא הגיבורה</td><td class="kind product_fact">עובדת מוצר מהאתר</td><td dir="auto">Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview.<br><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a> · <a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">lumebook.com</a></td></tr></tbody></table><p class="src"><a href="https://www.healthychildren.org/English/ages-stages/preschool/Pages/Social-Development-in-Preschoolers.aspx" target="_blank" rel="noopener">Social Development in Preschoolers: Learning How to Share &amp; Cooperate</a> · HealthyChildren.org, American Academy of Pediatrics (last updated 12/5/2024) · נקרא 2026-10-29<blockquote dir="ltr" lang="en">Three-year-olds are able to work out solutions to disputes by taking turns or trading toys. However, particularly in the beginning, you'll need to encourage this cooperation. ... Say to your child &quot;use your words&quot; to deal with problems instead of acting out. ... Remind them that when two children are sharing a toy, each gets an equal turn. ... Suggest ways to reach a simple solution when your child and another child want the same toy. They might draw for the first turn, for example, or find another toy or activity. ... Help your child with the appropriate words to describe their feelings and desires so that they don't feel frustrated.</blockquote></p><p class="src"><a href="https://pathways.org/getting-preschoolers-share" target="_blank" rel="noopener">Getting Preschoolers to Share…How Do You Do It?</a> · Pathways.org (pediatric therapists' nonprofit, last updated 18 Jul 2025) · נקרא 2026-10-29<blockquote dir="ltr" lang="en">In preschool years, children are still learning how to share, so it is okay if your child isn’t great at this skill yet. ... Something visual, like a timer, will let children know exactly when it’s time for them to give up a certain toy. ... explain that they can have a turn next ... point out how nice it was that Dad shared his water with Mom. ... Talk about how it would feel if they went to a friend’s house and wasn’t allowed to play with any toys. ... If your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date!</blockquote></p></div></details>
+<details class="more"><summary>תמונות</summary><div class="inner"><div class="anchor" dir="ltr" lang="en">Child: A 4-year-old Israeli girl with long dark-brown hair in a low ponytail, light olive skin, big hazel eyes; about 106 cm tall.
+Parent: Her mother, mid-thirties, auburn wavy hair to the shoulders, kind hazel eyes; and her father, late thirties, short brown hair and a trimmed beard; both warm and relaxed.
+Wardrobe: Girl: lemon-yellow cotton top with a small white daisy and blue denim overalls. Mother: cream linen shirt. Father: grey T-shirt.</div><table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody><tr><td>1 עד 10</td><td>תמונה אחת לכל הקרוסלה</td><td class="en" dir="ltr" lang="en"><b>a sudden gasp when a toy is taken</b><br>The girl faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, pressing a soft rag doll to her chest with both arms; her parents are small and soft in the background by the balcony door, and another child is only a soft blurred shape.<details><summary>Full prompt</summary><div class="prompt" dir="ltr">Characters, identical on every slide: A 4-year-old Israeli girl with long dark-brown hair in a low ponytail, light olive skin, big hazel eyes; about 106 cm tall. Her mother, mid-thirties, auburn wavy hair to the shoulders, kind hazel eyes; and her father, late thirties, short brown hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: lemon-yellow cotton top with a small white daisy and blue denim overalls. Mother: cream linen shirt. Father: grey T-shirt.
+
+Scene: The girl faces the viewer and looks straight into the camera with an open-mouthed gasp, huge wide eyes and raised eyebrows, pressing a soft rag doll to her chest with both arms; her parents are small and soft in the background by the balcony door, and another child is only a soft blurred shape. Setting: A sunny Israeli apartment balcony play corner in the morning: a small woven mat, a white railing far behind, a plain pale sky.
+
+Cover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.
+
+Emotional beat: a sudden gasp when a toy is taken
+
+Camera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Bright soft morning sunlight from the left.
+
+Wardrobe and objects in this scene: A soft beige rag doll with a plain face and no printing, held by the girl.
+
+Feature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.
+
+Palette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.
+
+Avoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.
+
+Composition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain pale morning sky above the railing) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.
+
+No generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs.</div></details></td></tr></tbody></table></div></details>
+</div></article>
+</section>
+<details class="more facts"><summary>עובדות מהאתר</summary><div class="inner"><table><thead><tr><th>מזהה</th><th>עובדה</th><th>ציטוט מהאתר</th></tr></thead><tbody><tr><td class="en" dir="ltr">site-star</td><td dir="auto">The child's name appears in the text and the child stars in every illustration</td><td><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">בהחלט - השם שלהם מופיע בטקסט והם מככבים בכל האיורים.</a> · 2026-10-29</td></tr><tr><td class="en" dir="ltr">site-photo</td><td dir="auto">Parents choose a book, upload a photo and see a free preview before paying</td><td><a href="https://lumebook.com/IL/he" target="_blank" rel="noopener">1. בוחרים ספר.
+2. מעלים תמונה.
+3. רואים תצוגה מקדימה בחינם.</a> · 2026-10-29</td></tr><tr><td class="en" dir="ltr">site-book-15</td><td dir="auto">Catalogue book 15 (ages 3 to 8, birthdays and holidays), internal only for the DM link: the birthday as a magical day where the child is king or queen for a day</td><td><a href="https://lumebook.com/IL/he/books/15" target="_blank" rel="noopener">הספר מציג את יום ההולדת כחוויה קסומה שבה הילד הופך למלך/מלכה ליום אחד, דרך עולם של דמיון, בלונים, עוגות ומשחקים עם חברים.</a> · 2026-10-29</td></tr><tr><td class="en" dir="ltr">site-book-13</td><td dir="auto">Catalogue book 13 (ages 4 to 8, friendship and teamwork), internal only for the DM link: a story about empathy, generosity and everyday kindness</td><td><a href="https://lumebook.com/IL/he/books/13" target="_blank" rel="noopener">הספר מלמד את הילדים שגבורה אמיתית מגיעה מתוך אמפתיה, נדיבות וטוב לב דרך סיפור מלא קסם וחום על ילד שמגלה את כוחות הלב שלו במעשי חסד יומיומיים.</a> · 2026-10-29</td></tr></tbody></table></div></details>
+</div><script>
+// ---- Editing: enabled only when the page is served by review_server.py ----
+const CHAR_HE = {',': 'פסיק', '.': 'נקודה', '—': 'מקף ארוך', '–': 'מקף', '…': 'שלוש נקודות', '，': 'פסיק', '―': 'מקף ארוך'};
+const FIELD_HE = {headline: 'כותרת', body: 'גוף', caption: 'כיתוב', cta: 'קריאה לפעולה', title: 'שם', code_word: 'מילת קוד', child_name: 'שם הילד', claims: 'מקורות', hook: 'פתיח', highlight: 'הדגשה'};
+const EDIT = {orig: new Map()};
+function textOf(el) { return el.innerText.replace(/ /g, ' ').split('\n').map(x => x.trim()).filter(Boolean).join('\n'); }
+function changed() { const out = []; EDIT.orig.forEach((o, el) => { const now = textOf(el); if (now !== o) out.push({el, now}); }); return out; }
+function setMsg(t) { document.getElementById('edit-msg').textContent = t; }
+function labelFor(path) {
+  const parts = path.split('/'); let where = parts[1] || '';
+  const slide = (path.match(/slide-(\d+)/) || [])[1]; if (slide) where += ' · שקופית ' + slide;
+  const field = parts[parts.length - 1]; if (FIELD_HE[field]) where += ' · ' + FIELD_HE[field];
+  return where;
+}
+function heMessage(i) {
+  if (i.char) return (CHAR_HE[i.char] || 'סימן אסור') + ' בשורה ' + i.line + ' (צריך לשכתב את השורה, לא רק למחוק)';
+  return i.message;
+}
+function targetFor(path) {
+  return document.querySelector('[data-path="' + path + '"]') || document.querySelector('[data-path="' + path.split('/').slice(0, 3).join('/') + '"]') || document.getElementById(path.split('/')[1]);
+}
+function showResult(res) {
+  const box = document.getElementById('save-result'); box.hidden = false;
+  if (res.error) { box.className = 'result bad'; box.textContent = 'השמירה נכשלה: ' + res.error; return; }
+  const errs = res.errors || [];
+  box.className = 'result ' + (errs.length ? 'bad' : 'ok');
+  let html = res.changed ? ('נשמר (' + res.changed + ' שדות). ') : '';
+  html += errs.length ? ('יש ' + errs.length + ' דברים לתקן לפני שאפשר להפיק:') : 'הכול תקין ומוכן להפקה.';
+  if (res.voice_logged) html += ' <span class="edit-note">השינויים נשמרו ללמידת הקול (' + res.voice_samples + ' מתוך ' + res.voice_required + ' דוגמאות לכיול).</span>';
+  const ul = document.createElement('ul');
+  errs.forEach(i => {
+    const li = document.createElement('li'); const a = document.createElement('a');
+    a.textContent = labelFor(i.path) + ': ' + heMessage(i);
+    const t = targetFor(i.path);
+    if (t) {
+      t.classList.add('has-error');
+      a.onclick = () => { const d = t.closest('details'); if (d) d.open = true; t.scrollIntoView({behavior: 'smooth', block: 'center'}); };
+    }
+    li.appendChild(a); ul.appendChild(li);
+  });
+  box.innerHTML = html; if (errs.length) box.appendChild(ul);
+}
+async function saveEdits() {
+  const ch = changed();
+  if (!ch.length) { setMsg('אין שינויים לשמור'); return; }
+  setMsg('שומר...');
+  const edits = ch.map(({el, now}) => ({option: el.dataset.opt, field: el.dataset.edit, slide: el.dataset.slide ? Number(el.dataset.slide) : null, value: now}));
+  let res;
+  try {
+    const r = await fetch('/api/save', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({date: document.body.dataset.date, edits})});
+    res = await r.json();
+  } catch (e) { setMsg('השמירה נכשלה: העורך לא רץ?'); return; }
+  try { sessionStorage.setItem('lumebook-save-result', JSON.stringify(res)); } catch (e) {}
+  EDIT.orig.clear();
+  location.reload();
+}
+async function enableEditing() {
+  try { const r = await fetch('/api/ping', {cache: 'no-store'}); if (!r.ok) throw new Error(); }
+  catch (e) { return; }  // read only when opened as a file; no hint text (Yarin wants the page minimal)
+  document.body.classList.add('editing');
+  document.querySelectorAll('[data-edit]').forEach(el => {
+    try { el.contentEditable = 'plaintext-only'; } catch (e) { el.contentEditable = 'true'; }
+    if (el.contentEditable !== 'plaintext-only') el.contentEditable = 'true';
+    EDIT.orig.set(el, textOf(el));
+  });
+  document.getElementById('editbar').hidden = false;
+  document.querySelector('#editbar .save').onclick = saveEdits;
+  document.querySelector('#editbar .undo').onclick = () => { if (!changed().length || confirm('לבטל את השינויים שלא נשמרו?')) { EDIT.orig.clear(); location.reload(); } };
+  document.addEventListener('input', e => { if (e.target.closest('[data-edit]')) setMsg(changed().length + ' שדות שונו, עוד לא נשמרו'); });
+  document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); saveEdits(); } });
+  window.addEventListener('beforeunload', e => { if (changed().length) { e.preventDefault(); e.returnValue = ''; } });
+  let stored = null; try { stored = sessionStorage.getItem('lumebook-save-result'); sessionStorage.removeItem('lumebook-save-result'); } catch (e) {}
+  if (stored) showResult(JSON.parse(stored));
+}
+enableEditing();
+</script></body></html>
