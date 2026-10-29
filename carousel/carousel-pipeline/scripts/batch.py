@@ -159,7 +159,7 @@ def unbuilt_plan_from(today, history):
     return None
 
 
-def make_plan(today=None, merge=True, log=print):
+def make_plan(today=None, merge=True, log=print, monthly=False):
     """Plan the next weekly batch and write drafts/batches/ID.json (ID = its first date). Returns the plan.
     Safe to run twice: a plan made today with nothing built yet is returned as it is."""
     if merge:
@@ -170,10 +170,10 @@ def make_plan(today=None, merge=True, log=print):
     if same:
         log(f"week-plan: plan {same['id']} was made today and has no packs yet, so it stays the plan (no new one)")
         return same
-    dates = next_dates(history, today=today)
+    dates = posting_dates(history, today=today) if monthly else next_dates(history, today=today)
     ctx = lib.rotation_context(history, dates[0])
     if today >= lib.parse_date(lib.DAILY_PAIR_FROM[:10]):   # two topics a day, plans made from 24 Oct 2026
-        plan = make_pair_plan(dates, ctx, today, log=log)
+        plan = make_pair_plan(dates, ctx, today, log=log, monthly=monthly)
         lib.write_json(BATCHES / f"{plan['id']}.json", plan)
         return plan
     eligible = [t for t in ctx["topics"] if t["eligible"]]
@@ -213,7 +213,20 @@ def make_plan(today=None, merge=True, log=print):
     return plan
 
 
-def pick_pairs(dates, ctx, log=print):
+def posting_dates(history, today=None):
+    """The monthly batch's keys (Yarin, 29 Oct 2026): every other day from the first free date, a Saturday moving to the
+    Sunday (28 Oct rhythm: Fri 30 Oct, Sun 1, Tue 3, Thu 5, Sun 8 ...), up to the end of that month."""
+    first = lib.parse_date(next_dates(history, n=1, today=today)[0])
+    out, d = [], first
+    while d.month == first.month:
+        out.append(d.isoformat())
+        d += dt.timedelta(days=2)
+        if d.weekday() == 5:   # Saturday
+            d += dt.timedelta(days=1)
+    return out
+
+
+def pick_pairs(dates, ctx, log=print, monthly=False):
     """Two topics a day from two different best-selling books (topic-bank.md "Best-selling books", Yarin 24 Oct 2026).
     In season first, then the longest since last use, then the book with more orders; no topic twice in the batch, no book
     more than PAIR_BOOK_MAX_IN_BATCH times, a book of the day before only when nothing else is left, and none of the
@@ -222,19 +235,28 @@ def pick_pairs(dates, ctx, log=print):
     ranked = sorted(best, key=lambda t: (not t["in_season"], t["last_used"] or "", -(t["bestseller"].get("orders") or 0), t["id"]))
     recent = set(ctx["recent_pair_topic_ids"])
 
+    book_max = lib.PAIR_BOOK_MAX_IN_BATCH * (-(-len(dates) // 7))   # the weekly cap per 7 packs
+    cool = lib.PAIR_TOPIC_COOLDOWN_PACKS + 1                        # monthly: a topic may return after this many packs
+
     def fill(blocked):
-        used, per_book, days, prev_books = set(), {}, [], set()
+        used, per_book, days, prev_books, uses = set(), {}, [], set(), {}
         for _ in dates:
-            free = [t for t in ranked if t["id"] not in used and t["id"] not in blocked
-                    and per_book.get(t["bestseller"]["book"], 0) < lib.PAIR_BOOK_MAX_IN_BATCH]
+            if monthly:   # topics may repeat in a month: least used first, never within the cooldown
+                recent_in_batch = {t["id"] for day in days[-cool:] for t in day}
+                free = sorted((t for t in ranked if t["id"] not in blocked and t["id"] not in recent_in_batch
+                               and per_book.get(t["bestseller"]["book"], 0) < book_max), key=lambda t: uses.get(t["id"], 0))
+            else:
+                free = [t for t in ranked if t["id"] not in used and t["id"] not in blocked
+                        and per_book.get(t["bestseller"]["book"], 0) < lib.PAIR_BOOK_MAX_IN_BATCH]
             day = []
-            for t in sorted(free, key=lambda t: t["bestseller"]["book"] in prev_books):  # stable: keeps the ranking
+            for t in sorted(free, key=lambda t: t["bestseller"]["book"] in prev_books):  # stable: keeps the ranking / least used
                 if len(day) < 2 and all(t["bestseller"]["book"] != d["bestseller"]["book"] for d in day):
                     day.append(t)
             if len(day) < 2:
                 return None
             for t in day:
                 used.add(t["id"])
+                uses[t["id"]] = uses.get(t["id"], 0) + 1
                 per_book[t["bestseller"]["book"]] = per_book.get(t["bestseller"]["book"], 0) + 1
             prev_books = {t["bestseller"]["book"] for t in day}
             days.append(day)
@@ -250,10 +272,10 @@ def pick_pairs(dates, ctx, log=print):
     return days
 
 
-def make_pair_plan(dates, ctx, today, log=print):
+def make_pair_plan(dates, ctx, today, log=print, monthly=False):
     """The weekly batch since 24 Oct 2026: 7 packs, each with two best-seller topics and three child-voice options on each
     (Yarin: "6 versions for each day (3 options for each) so i can choose the strongest one"). No event slot."""
-    days = pick_pairs(dates, ctx, log=log)
+    days = pick_pairs(dates, ctx, log=log, monthly=monthly)
     slots = []
     for i, (date, day) in enumerate(zip(dates, days), start=1):
         topics = [{"topic_id": t["id"], "topic_he": t["title_he"], "book": {"id": t["bestseller"]["book"], "title_he": t["bestseller"]["title_he"]},
@@ -262,11 +284,12 @@ def make_pair_plan(dates, ctx, today, log=print):
                       "topic_he": " · ".join(t["topic_he"] for t in topics), "topics": topics, "reco": []})
     return {
         "id": dates[0],
-        "kind": "weekly",
+        "kind": "monthly" if monthly else "weekly",
         "format": lib.PAIR_FORMAT,
         "created_at": lib.now_local().isoformat(timespec="seconds"),
         "made_on": today.isoformat(),
-        "rules": ("7 packs, one a day, each with two topics of two different best-selling books (topic-bank.md \"Best-selling books\") "
+        "rules": (f"{len(dates)} packs, one per posting day (every other day, Saturday moved to Sunday), made once a month; a topic may "
+                  f"return after {lib.PAIR_TOPIC_COOLDOWN_PACKS + 1} packs. Each pack has" if monthly else "7 packs, one a day, each with two topics of two different best-selling books (topic-bank.md \"Best-selling books\") "
                   "and three child-voice options per topic: kid-1 to kid-3 on topics[0], kid-4 to kid-6 on topics[1] (42 options). "
                   "The CTA asks to save the post and send it to a mom who will relate; no comment word. No Israeli event slot. "
                   "Every slot uses exactly its two topics."),
@@ -312,7 +335,7 @@ def check(batch_id):
             if got != want:
                 errors.append(f"{tag}: planned topics {' + '.join(want)}, the pack has {' + '.join(map(str, got)) or 'none'}")
             for tid in got:
-                if tid in topics:
+                if tid in topics and (plan.get("kind") != "monthly" or slot["n"] - topics[tid] <= lib.PAIR_TOPIC_COOLDOWN_PACKS):
                     errors.append(f"{tag}: topic {tid} repeats slot {topics[tid]}")
                 topics[tid] = slot["n"]
             n = sum(len(d.get("versions", [])) for d in pack.get("directions", []))

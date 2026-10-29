@@ -332,7 +332,7 @@ def cmd_finish_reco(args):
 
 
 def cmd_week_plan(args):
-    plan = batch.make_plan(merge=not args.no_fetch)
+    plan = batch.make_plan(merge=not args.no_fetch, monthly=getattr(args, "monthly", False))
     print(json.dumps(plan, ensure_ascii=False, indent=2))
 
 
@@ -383,6 +383,7 @@ def main():
     hk.set_defaults(func=cmd_hooks)
     wp = sub.add_parser("week-plan", help="plan the next weekly batch: 7 packs, 7 topics (one an Israeli event), 14 games and books carousels")
     wp.add_argument("--no-fetch", action="store_true", help="do not merge history from the cloud branches first")
+    wp.add_argument("--monthly", action="store_true", help="plan the monthly batch (29 Oct 2026): one pack per posting day of the next month")
     wp.set_defaults(func=cmd_week_plan)
     bc = sub.add_parser("batch-check", help="duplicates and gaps across a weekly batch")
     bc.add_argument("id", help="the batch id (its first date)")
