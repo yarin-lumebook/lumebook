@@ -18,11 +18,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import carousel_lib as lib  # noqa: E402
+import story_lib as story_lib  # noqa: E402  (the story copy format, 29 Oct 2026)
 
 
 # ---------------------------------------------------------------------------
 # A small JSON Schema subset (type, required, enum, const, pattern, min/max,
-# additionalProperties false, $ref) so pack.schema.json stays the single
+# additionalProperties false, $ref, boolean schemas, if/then/else) so pack.schema.json stays the single
 # source of the structure without needing the jsonschema package.
 # ---------------------------------------------------------------------------
 
@@ -32,6 +33,10 @@ TYPES = {
 
 
 def schema_issues(value, schema, root, path="pack"):
+    if schema is True:
+        return []
+    if schema is False:   # a field this kind of pack does not have (story fields in an older pack, for example)
+        return [lib.Issue("ERROR", path, "is not a known field")]
     if "$ref" in schema:
         ref = schema["$ref"].split("/")[-1]
         return schema_issues(value, root["$defs"][ref], root, path)
@@ -75,6 +80,10 @@ def schema_issues(value, schema, root, path="pack"):
         for key, sub in props.items():
             if key in value:
                 issues.extend(schema_issues(value[key], sub, root, f"{path}/{key}"))
+    if "if" in schema:   # if/then/else: the story format's rules (then) next to the older packs' rules (else)
+        branch = schema.get("else") if schema_issues(value, schema["if"], root, path) else schema.get("then")
+        if branch is not None:
+            issues.extend(schema_issues(value, branch, root, path))
     return issues
 
 
@@ -128,6 +137,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     if not str(vid).startswith(f"{direction_id}-"):
         issues.append(lib.Issue("ERROR", f"{p}/id", f"option id must start with {direction_id}-"))
 
+    story = story_lib.is_story(pack)      # the story copy format (story-format.md, Yarin 29 Oct 2026)
     pair = lib.daily_pair_applies(pack)   # two topics, child voice only (24 Oct 2026)
     save_share = lib.save_share_applies(pack)   # no comment word: the save and share CTA, the save for later CTA, older packs switched to them
     later = lib.save_later_applies(pack)        # the save for later CTA, slide 10 = only the CTA (24 Oct 2026 evening)
@@ -144,19 +154,31 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
 
     slides = v.get("slides") or []
     numbers = [s.get("number") for s in slides]
-    CTA = lib.slide_count(pack)  # the last slide: 7 before 14 Oct 2026, 10 since
-    hook_slides = (1,) if CTA == lib.TEN_SLIDE_COUNT else lib.HOOK_SLIDES
-    if numbers != list(range(1, CTA + 1)):
-        issues.append(lib.Issue("ERROR", f"{p}/slides", f"slides must be numbered 1 to {CTA} in order (got {numbers})"))
-    if len(slides) != CTA:
-        return issues  # structural error already reported by the schema
+    if story:   # 9 to 12 slides: the cover, 7 to 10 story slides, the CTA
+        CTA = len(slides)
+        hook_slides = (1,)
+        if not story_lib.SLIDES_MIN <= CTA <= story_lib.SLIDES_MAX:
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"a story option has {story_lib.SLIDES_MIN} to {story_lib.SLIDES_MAX} slides: the cover, "
+                                                             f"{story_lib.SLIDES_MIN - 2} to {story_lib.SLIDES_MAX - 2} story slides and the CTA (has {CTA})"))
+            return issues
+        if numbers != list(range(1, CTA + 1)):
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"slides must be numbered 1 to {CTA} in order (got {numbers})"))
+    else:
+        CTA = lib.slide_count(pack)  # the last slide: 7 before 14 Oct 2026, 10 since
+        hook_slides = (1,) if CTA == lib.TEN_SLIDE_COUNT else lib.HOOK_SLIDES
+        if numbers != list(range(1, CTA + 1)):
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"slides must be numbered 1 to {CTA} in order (got {numbers})"))
+        if len(slides) != CTA:
+            return issues  # structural error already reported by the schema
     first, last_insight = lib.INSIGHT_SLIDES[0], lib.INSIGHT_SLIDES[-1]
     middle = {s.get("role") for s in slides[first - 1:last_insight]}
     if len(lib.INSIGHT_SLIDES) > 1 and not {"recognition", "reframe"} <= middle:
         issues.append(lib.Issue("ERROR", f"{p}/slides[{first}-{last_insight}]", f"slides {first} to {last_insight} must touch the feeling or problem (recognition) and what is behind it (reframe), at least one of each"))
     issues.extend(person_issues(p, v, direction_id, names, pair=save_share))
-    issues.extend(lib.hook_issues(p, v, direction_id, hook_bank))
+    issues.extend(lib.hook_issues(p, v, direction_id, hook_bank, story=story))
     for s in slides[:CTA - 1]:
+        if story and "pull" not in s:
+            continue   # story slides carry the story itself; a pull is optional (story-format.md section 2)
         pull = s.get("pull")
         sp = f"{p}/slide-{s.get('number')}/pull"
         if not isinstance(pull, dict) or pull.get("type") not in lib.PULL_TYPES or len(str(pull.get("note", "")).strip()) < 5:
@@ -176,14 +198,16 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
         issues.append(lib.Issue("ERROR", f"{p}/slide-{CTA}", "the last slide must suggest helping the child with a personalised story (say סיפור and אישי) before the CTA"))
     bold = lib.bold_rule_applies(pack)
     numbered = lib.numbered_examples_apply(pack)
-    if lib.examples_rule_applies(pack):
+    if story and "examples_target" in v:
+        issues.append(lib.Issue("WARN", f"{p}/examples_target", "story packs have no numbered examples (story-format.md): examples_target is ignored, remove it"))
+    if lib.examples_rule_applies(pack) and not story:
         tgt = v.get("examples_target")
         low, high = (lib.NUMBERED_EXAMPLES_MIN, lib.NUMBERED_EXAMPLES_MAX) if numbered else (lib.EXAMPLES_MIN, lib.EXAMPLES_MAX)
         if not isinstance(tgt, int) or not low <= tgt <= high:
             issues.append(lib.Issue("ERROR", f"{p}/examples_target", f"copy this option's number ({low} to {high}) from `examples_per_option` in the start JSON into examples_target"))
     if numbered:
         issues.extend(lib.numbered_example_issues(p, v))
-    roles = lib.slide_roles(pack)
+    roles = {} if story else lib.slide_roles(pack)   # story roles: story_option_issues
     for s in slides:
         n = s.get("number")
         sp = f"{p}/slide-{n}"
@@ -191,11 +215,18 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.append(lib.Issue("ERROR", f"{sp}/role", f"slide {n} must be {' or '.join(roles[n])}"))
         headline, body = s.get("headline", ""), s.get("body", "")
         is_cta = n == CTA
-        issues.extend(lib.audience_text_issues(f"{sp}/headline", headline, allow_cta=is_cta, legacy=legacy))
+        if not (story and isinstance(headline, str) and not headline.strip()):   # an empty story headline: story_option_issues
+            issues.extend(lib.audience_text_issues(f"{sp}/headline", headline, allow_cta=is_cta, legacy=legacy))
         issues.extend(lib.brand_issues(f"{sp}/headline", headline, titles))
         if body.strip():
             issues.extend(lib.audience_text_issues(f"{sp}/body", body, allow_cta=is_cta, legacy=legacy))
             issues.extend(lib.brand_issues(f"{sp}/body", body, titles))
+        if story:
+            issues.extend(story_slide_issues(sp, s, n, CTA, titles, legacy))
+            if direction_id == "expert" and n < CTA and lib.AUTHORITY_TITLES.search(headline + " " + body):
+                if (v.get("expert_frame") or {}).get("type") != "named_expert":
+                    issues.append(lib.Issue("ERROR", sp, "academic title on a slide without a verified named expert (no authority theater)"))
+            continue
         hw = len(lib.words(headline))
         total = hw + len(lib.words(body))
         if n in hook_slides and hw > lib.HOOK_MAIN_MAX_WORDS:
@@ -245,10 +276,11 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             if frame != "named_expert":
                 issues.append(lib.Issue("ERROR", sp, "academic title on a slide without a verified named expert (no authority theater)"))
 
-    if numbered:
+    if numbered or story:
         image = v.get("image")
         if not isinstance(image, dict):
-            issues.append(lib.Issue("ERROR", f"{p}/image", "one picture for the whole carousel (Yarin, 14 Oct 2026): the option needs `image`, the brief of the one picture that depicts the idea"))
+            issues.append(lib.Issue("ERROR", f"{p}/image", "the cover's picture brief goes in the option's `image` (story-format.md section 4); every other slide has its `scene`" if story else
+                                    "one picture for the whole carousel (Yarin, 14 Oct 2026): the option needs `image`, the brief of the one picture that depicts the idea"))
         else:
             for field in lib.IMAGE_FIELDS:
                 if not str(image.get(field, "")).strip():
@@ -258,6 +290,8 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.extend(lib.cover_image_issues(f"{p}/image", image))
 
     headlines = [lib.collapse(s.get("headline", "")) for s in slides]
+    if story:   # the body slides of a letter have no headline
+        headlines = [h for h in headlines if h]
     if len(set(headlines)) != len(headlines):
         issues.append(lib.Issue("ERROR", f"{p}/slides", "two slides share the same headline; headlines must tell the story on their own"))
 
@@ -325,6 +359,10 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.extend(lib.comment_cta_issues(f"{p}/caption", line))
     if cap_lines and lib.collapse(cap_lines[0]) == lib.collapse(slides[0].get("headline", "")):
         issues.append(lib.Issue("ERROR", f"{p}/caption", "caption line 1 must restate the hook in different words, not copy it"))
+    bridge = story_lib.BRIDGE_LINES.get(v.get("child_gender"))
+    if story and bridge and (len(cap_lines) < 2 or lib.collapse(cap_lines[-2]) != bridge):
+        issues.append(lib.Issue("ERROR", f"{p}/caption", f"the line before the CTA is the bridge line «{bridge}» (story-format.md)",
+                                excerpt=cap_lines[-2][:80] if len(cap_lines) > 1 else None))
     # Written post texts for Instagram and Facebook (Yarin, 26 Oct 2026): punctuation, one emoji on the hook and the CTA
     if lib.post_text_applies(pack) or "post_text" in v:
         issues.extend(lib.post_text_issues(f"{p}/post_text", v))
@@ -365,7 +403,9 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
         if sid not in used and direction_id == "expert":
             issues.append(lib.Issue("WARN", f"{p}/sources/{sid}", "source is listed but no claim cites it"))
     sourced_slides = {c.get("slide") for c in claims if c.get("kind") == "sourced_fact"}
-    if numbered:
+    if story:
+        issues.extend(story_claim_issues(p, v, CTA))
+    elif numbered:
         value = set(lib.NUMBERED_VALUE_SLIDES)
         value_label = f"{min(value)} to {max(value)}"
         if not sourced_slides & value:
@@ -384,6 +424,9 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     if not any(c.get("kind") == "product_fact" and c.get("slide") == CTA for c in claims):
         issues.append(lib.Issue("ERROR", f"{p}/claims", f"slide {CTA} must map the personalised story (the child as the hero) to a live-site product fact"))
 
+    if story:
+        issues.extend(story_option_issues(p, v, CTA))
+
     # Character anchor sanity
     anchor = v.get("character_anchor") or {}
     if anchor and not re.search(r"\d", anchor.get("child", "")):
@@ -392,6 +435,262 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
         if lib.HEBREW_RE.search(anchor.get(field, "")):
             issues.append(lib.Issue("ERROR", f"{p}/character_anchor/{field}", "write the anchor in English"))
     return issues
+
+
+# ---------------------------------------------------------------------------
+# The story format (story-format.md, Yarin 29 Oct 2026: "i like the new content, change the entire carousel machine and
+# November batch to match it"). Only for packs with "copy_style": "story"; story_lib holds the numbers and the markup.
+# ---------------------------------------------------------------------------
+
+SL = story_lib
+
+
+def story_slide_issues(sp, s, n, last, titles, legacy=False):
+    """One slide of a story option: role, label, scene, headline and body size, markup (story-format.md sections 2 to 4)."""
+    issues = []
+    headline, body = str(s.get("headline", "")), str(s.get("body", ""))
+    is_story_slide = 1 < n < last
+    # Roles: hook, beat, an optional turn just before the CTA, story_cta
+    want = (SL.ROLE_HOOK,) if n == 1 else (SL.ROLE_CTA,) if n == last else (SL.ROLE_BEAT, SL.ROLE_TURN) if n == last - 1 else (SL.ROLE_BEAT,)
+    if s.get("role") not in want:
+        issues.append(lib.Issue("ERROR", f"{sp}/role", f"slide {n} must be {' or '.join(want)} (story slides are beat; turn is only the slide before the CTA)"))
+    # The label above the headline
+    if "label" in s:
+        label = str(s.get("label") or "")
+        if n in (1, last):
+            issues.append(lib.Issue("ERROR", f"{sp}/label", "the cover and the CTA slide have no label"))
+        elif not label.strip():
+            issues.append(lib.Issue("ERROR", f"{sp}/label", "an empty label: remove the field or write the tag"))
+        else:
+            if len(label.strip()) > SL.LABEL_MAX_CHARS or "\n" in label.strip():
+                issues.append(lib.Issue("ERROR", f"{sp}/label", f"a label is one line of up to {SL.LABEL_MAX_CHARS} characters (has {len(label.strip())})", excerpt=label.strip()))
+            issues.extend(lib.audience_text_issues(f"{sp}/label", label, legacy=legacy))
+            issues.extend(lib.brand_issues(f"{sp}/label", label, titles))
+    # The picture of this slide
+    scene = s.get("scene")
+    if n == 1:
+        if scene is not None:
+            issues.append(lib.Issue("ERROR", f"{sp}/scene", "slide 1's picture is the option's `image` (the cover brief); scenes start on slide 2"))
+    elif not isinstance(scene, dict):
+        issues.append(lib.Issue("ERROR", f"{sp}/scene", "every slide from 2 to the last has its own picture: scene {\"action\": ..., \"setting\": ...} in English, "
+                                                        "one concrete moment of this slide (story-format.md section 4)"))
+    else:
+        for field in SL.SCENE_FIELDS:
+            val = str(scene.get(field) or "")
+            if not val.strip():
+                issues.append(lib.Issue("ERROR", f"{sp}/scene/{field}", "the scene needs this field"))
+            elif lib.HEBREW_RE.search(val):
+                issues.append(lib.Issue("ERROR", f"{sp}/scene/{field}", "scenes are written in English"))
+            m = SL.SCENE_TEXT_RE.search(val)
+            if m:
+                issues.append(lib.Issue("ERROR", f"{sp}/scene/{field}", f"a scene asks for no words, letters or numbers anywhere: «{m.group(0)}»"))
+    # Headline: the cover up to 3 lines of 18 characters, every other slide up to 2 lines of 26
+    head_lines = SL.plain_lines(headline)
+    max_lines, max_chars = (SL.COVER_HEADLINE_MAX_LINES, SL.COVER_HEADLINE_LINE_MAX_CHARS) if n == 1 else (SL.HEADLINE_MAX_LINES, SL.HEADLINE_LINE_MAX_CHARS)
+    if len(head_lines) > max_lines:
+        issues.append(lib.Issue("ERROR", f"{sp}/headline", f"headline is longer than {max_lines} lines"))
+    for i, line in enumerate(head_lines, start=1):
+        if len(line) > max_chars:
+            issues.append(lib.Issue("ERROR", f"{sp}/headline", f"line {i} has {len(line)} characters (max {max_chars}); break it by hand", excerpt=line))
+    if any(SL.LABEL_LINE_RE.match(x.strip()) or SL.CARD_LINE_RE.match(x.strip()) for x in headline.split("\n")):
+        issues.append(lib.Issue("ERROR", f"{sp}/headline", "## labels and > cards belong in the body, not the headline"))
+    if n == 1:
+        pill = SL.plain_lines(body)
+        if len(pill) != 1:
+            issues.append(lib.Issue("ERROR", f"{sp}/body", f"slide 1's body is the cover pill: one line of up to {SL.COVER_PILL_MAX_CHARS} characters (has {len(pill)} lines)"))
+        elif len(pill[0]) > SL.COVER_PILL_MAX_CHARS:
+            issues.append(lib.Issue("ERROR", f"{sp}/body", f"the cover pill has {len(pill[0])} characters (max {SL.COVER_PILL_MAX_CHARS})", excerpt=pill[0]))
+        if body != SL.strip_markup(body) or headline != SL.strip_markup(headline):
+            issues.append(lib.Issue("ERROR", sp, "no markup on the cover"))
+        return issues
+    # Body: lines broken by hand, at most 38 characters and 12 words each (markup not counted)
+    for i, line in enumerate(SL.plain_lines(body), start=1):
+        if len(line) > SL.BODY_LINE_MAX_CHARS:
+            issues.append(lib.Issue("ERROR", f"{sp}/body", f"line {i} has {len(line)} characters (max {SL.BODY_LINE_MAX_CHARS}); break it by hand so the renderer never wraps it", excerpt=line))
+        if len(SL.words(line)) > SL.BODY_LINE_MAX_WORDS:
+            issues.append(lib.Issue("ERROR", f"{sp}/body", f"line {i} has {len(SL.words(line))} words (max {SL.BODY_LINE_MAX_WORDS})", excerpt=line))
+    for problem in SL.markup_problems(body):
+        issues.append(lib.Issue("ERROR", f"{sp}/body", problem))
+    n_emph = len(SL.emphasis(headline)) + len(SL.emphasis(body))
+    if SL.emphasis(headline) and n_emph > SL.EMPHASIS_MAX:
+        issues.append(lib.Issue("ERROR", sp, f"{n_emph} emphasised phrases on the slide (max {SL.EMPHASIS_MAX})"))
+    if is_story_slide:
+        total = SL.word_count(headline, body)
+        if not SL.SLIDE_MIN_WORDS <= total <= SL.SLIDE_MAX_WORDS:
+            issues.append(lib.Issue("ERROR", sp, f"a story slide carries {SL.SLIDE_MIN_WORDS} to {SL.SLIDE_MAX_WORDS} words, headline and body, markup not counted (has {total})"))
+    elif body != SL.strip_markup(body):
+        issues.append(lib.Issue("ERROR", f"{sp}/body", "no markup on the CTA slide"))
+    return issues
+
+
+def _runs(labels):
+    """[(label, count)] of consecutive equal labels."""
+    out = []
+    for x in labels:
+        if out and out[-1][0] == x:
+            out[-1][1] += 1
+        else:
+            out.append([x, 1])
+    return [tuple(r) for r in out]
+
+
+def story_option_issues(p, v, last):
+    """The structure of one story option (story-format.md sections 1 and 3): its labels, headlines and special lines."""
+    issues = []
+    structure = v.get("structure")
+    slides = v.get("slides") or []
+    if structure not in SL.STRUCTURES or len(slides) != last:
+        return issues   # the schema names a missing or unknown structure
+    story = slides[1:-1]
+    labels = [str(s.get("label") or "").strip() for s in story]
+    has_turn = story and story[-1].get("role") == SL.ROLE_TURN
+    body_slides = story[:-1] if has_turn else story   # the story itself, without the turn back to the parents
+    addressee, gender, name = v.get("addressee"), v.get("child_gender"), v.get("child_name", "")
+    sp = lambda s: f"{p}/slide-{s.get('number')}"  # noqa: E731
+
+    # Empty headlines: only the body slides of a letter
+    for s in slides:
+        if not str(s.get("headline", "")).strip() and not (structure == "letter" and 3 <= (s.get("number") or 0) < last):
+            issues.append(lib.Issue("ERROR", f"{sp(s)}/headline", "the headline may be empty only on the body slides of a letter (slide 3 to the slide before the CTA)"))
+
+    # Numbered point labels and «N דברים» belong to a short_list only
+    cover = slides[0].get("headline", "") + "\n" + slides[0].get("body", "")
+    promised = SL.cover_promise(cover)
+    points = [(s, SL.POINT_LABEL_RE.match(lbl)) for s, lbl in zip(story, labels) if SL.POINT_LABEL_RE.match(lbl)]
+    if structure != "short_list":
+        if promised is not None:
+            issues.append(lib.Issue("ERROR", f"{p}/slide-1", f"the cover promises a list ({SL.COVER_COUNT_RE.search(SL.strip_markup(cover)).group(0)}); only a short_list "
+                                                              f"may promise «N דברים» (Yarin, 29 Oct 2026: \"why is it always 8 things? why always lists?\")"))
+        for s, _ in points:
+            issues.append(lib.Issue("ERROR", f"{sp(s)}/label", f"a numbered point label («{s.get('label')}») belongs to a short_list; this option is {structure}"))
+
+    if structure == "before_after":
+        runs = _runs(labels)
+        ok = (len(runs) >= 4 and runs[0][0] == SL.BEFORE and SL.BEFORE_SLIDES[0] <= runs[0][1] <= SL.BEFORE_SLIDES[1]
+              and runs[1] == (SL.THEN, 1) and runs[2][0] == SL.SINCE and SL.SINCE_SLIDES[0] <= runs[2][1] <= SL.SINCE_SLIDES[1]
+              and not any(lbl in (SL.BEFORE, SL.THEN, SL.SINCE) for lbl, _ in runs[3:]))
+        if not ok:
+            got = ", ".join(f"{lbl or '(none)'} x{k}" for lbl, k in runs)
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"before_after reads: {SL.BEFORE_SLIDES[0]} to {SL.BEFORE_SLIDES[1]} slides labelled «{SL.BEFORE}» from slide 2, "
+                                                             f"one «{SL.THEN}», {SL.SINCE_SLIDES[0]} to {SL.SINCE_SLIDES[1]} «{SL.SINCE}», then what brings back «{SL.BEFORE}» "
+                                                             f"and the turn back to you (got {got})"))
+
+    elif structure == "letter":
+        opening = SL.LETTER_OPENINGS.get(addressee)
+        if opening and lib.collapse(slides[1].get("headline", "")) != opening:
+            issues.append(lib.Issue("ERROR", f"{p}/slide-2/headline", f"a letter opens with the headline «{opening}» on slide 2"))
+        for s in story[1:]:
+            if str(s.get("headline", "")).strip():
+                issues.append(lib.Issue("ERROR", f"{sp(s)}/headline", "the letter's following slides have no headline (body only)"))
+        for s, lbl in zip(story, labels):
+            if lbl:
+                issues.append(lib.Issue("ERROR", f"{sp(s)}/label", "a letter has no labels"))
+        sign = SL.signature_line(gender, name)
+        lines = [x.strip() for x in str(story[-1].get("body", "")).split("\n") if x.strip()]
+        if not lines or lines[-1] != sign:
+            issues.append(lib.Issue("ERROR", f"{sp(story[-1])}/body", f"the last letter slide ends with the signature line «{sign}»",
+                                    excerpt=lines[-1] if lines else None))
+
+    elif structure == "thoughts_answers":
+        thought, thoughts = SL.THOUGHT_LABELS.get(addressee, SL.THOUGHT_LABELS["parents"]), body_slides[1:]
+        if labels and labels[0] in (thought, SL.THOUGHT_LAST_LABEL):
+            issues.append(lib.Issue("ERROR", f"{p}/slide-2/label", "slide 2 sets the scene (אני רואה איך אתם מסתכלים עליי...); the thoughts start on slide 3"))
+        if len(thoughts) < 3:
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"thoughts_answers needs at least 3 thought slides after slide 2 (has {len(thoughts)})"))
+        for k, s in enumerate(thoughts):
+            final = k == len(thoughts) - 1
+            want = SL.THOUGHT_LAST_LABEL if final else thought
+            if str(s.get("label") or "").strip() != want:
+                issues.append(lib.Issue("ERROR", f"{sp(s)}/label", f"this thought slide is labelled «{want}»" + ("" if final else f" ({'mom' if addressee == 'mom' else 'both parents'})")))
+            head = lib.collapse(SL.strip_markup(s.get("headline", "")))
+            if not (head.startswith("״") and head.rstrip(".!?").endswith("״")):
+                issues.append(lib.Issue("ERROR", f"{sp(s)}/headline", "the headline is the parent's thought in ״...״", excerpt=head or None))
+            if not final and not SL.has_help(s.get("body", "")):
+                issues.append(lib.Issue("ERROR", f"{sp(s)}/body", "the body is the child's answer under «## אני עונה:» and/or «## מה יעזור לי:»"))
+
+    elif structure == "one_minute":
+        body_labels = labels[:len(body_slides)]
+        missing = [s.get("number") for s, lbl in zip(body_slides, body_labels) if not lbl]
+        if missing:
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"every slide of the minute has a time label (slides {', '.join(map(str, missing))} have none)"))
+        if SL.MINUTE_START not in body_labels:
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"one_minute slows one moment down: a slide labelled «{SL.MINUTE_START}», then the seconds (עשר שניות, עשרים שניות...)"))
+        else:
+            start = body_labels.index(SL.MINUTE_START)
+            ticks = [k for k, lbl in enumerate(body_labels) if k > start and SL.MINUTE_TICK_RE.search(lbl)]
+            if len(ticks) < SL.MINUTE_MIN_TICKS:
+                issues.append(lib.Issue("ERROR", f"{p}/slides", f"after «{SL.MINUTE_START}» at least {SL.MINUTE_MIN_TICKS} slides go second by second (labels with שניות), has {len(ticks)}"))
+            elif ticks[-1] == len(body_slides) - 1 or not any(SL.has_help(s.get("body", "")) for s in body_slides[ticks[-1] + 1:]):
+                issues.append(lib.Issue("ERROR", f"{p}/slides", "after the minute comes what helps (a slide like «בערב» with «## מה יעזור לי:»)"))
+
+    elif structure == "one_day":
+        times = []
+        for s, lbl in zip(body_slides, labels):
+            t = SL.time_minutes(lbl)
+            if t is None:
+                issues.append(lib.Issue("ERROR", f"{sp(s)}/label", "every slide of the day is labelled by the clock: «HH:MM, where» (07:30, בבוקר)", excerpt=lbl or None))
+            else:
+                times.append((s, t))
+        for (a, ta), (b, tb) in zip(times, times[1:]):
+            if tb <= ta:
+                issues.append(lib.Issue("ERROR", f"{sp(b)}/label", f"the clock goes forward: «{b.get('label')}» comes after «{a.get('label')}»"))
+        if len(times) < SL.DAY_MIN_TIMES:
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"one_day needs at least {SL.DAY_MIN_TIMES} times of the day (has {len(times)})"))
+        elif times[0][1] >= SL.DAY_FIRST_BEFORE or times[-1][1] < SL.DAY_LAST_FROM:
+            issues.append(lib.Issue("ERROR", f"{p}/slides", "one_day runs from the morning (before 12:00) to the evening or bed (18:00 or later)"))
+
+    elif structure == "short_list":
+        nums = [int(m.group(1)) for _, m in points]
+        if not SL.SHORT_LIST_MIN_POINTS <= len(points) <= SL.SHORT_LIST_MAX_POINTS:
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"a short_list has {SL.SHORT_LIST_MIN_POINTS} to {SL.SHORT_LIST_MAX_POINTS} point slides labelled «N: short title» (has {len(points)})"))
+        if nums != list(range(1, len(nums) + 1)):
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"the points are numbered 1, 2, 3... in order (got {', '.join(map(str, nums)) or 'none'})"))
+        idx = [story.index(s) for s, _ in points]
+        if idx and idx != list(range(idx[0], idx[0] + len(idx))):
+            issues.append(lib.Issue("ERROR", f"{p}/slides", "the point slides follow each other"))
+        for (a, _), (b, _) in zip(points, points[1:]):
+            if SL.shape(a) == SL.shape(b):
+                issues.append(lib.Issue("ERROR", f"{sp(b)}/body", f"neighbouring point slides look alike (both {SL.shape(a)}): rotate the shapes "
+                                                                  "(a short monologue, short beats, ## מה אתם רואים: then ## מה קורה לי בפנים:, a sentence to say on a > card, the parents' question as the headline)"))
+        if promised is not None and points and promised != len(points):
+            issues.append(lib.Issue("ERROR", f"{p}/slide-1", f"the cover promises {promised} but the list has {len(points)} points"))
+
+    # Neighbouring story slides that look alike (a reviewer warning; the short_list points are checked above)
+    if structure in ("before_after", "one_minute", "one_day"):
+        for a, b in zip(body_slides, body_slides[1:]):
+            if SL.shape(a) == SL.shape(b) and SL.shape(a) != "monologue":
+                issues.append(lib.Issue("WARN", f"{sp(b)}/body", f"looks like the slide before it ({SL.shape(a)}); rotate the shapes so no two neighbours look alike"))
+    return issues
+
+
+def story_claim_issues(p, v, last):
+    """Facts in a story option (story-format.md section 5): every help action is a claim with its slide and source ids,
+    at least HELP_ACTIONS_MIN of them, and no claim points past the CTA."""
+    issues = []
+    claims = v.get("claims", [])
+    sourced = [c for c in claims if c.get("kind") == "sourced_fact" and c.get("source_ids")]
+    for s in (v.get("slides") or [])[1:-1]:
+        if SL.has_help(s.get("body", "")) and not any(c.get("slide") == s.get("number") for c in sourced):
+            issues.append(lib.Issue("ERROR", f"{p}/claims", f"slide {s.get('number')} tells the parents what helps: list that action in claims "
+                                                            f"(kind sourced_fact, slide {s.get('number')}, its source ids)"))
+    on_story = [c for c in sourced if isinstance(c.get("slide"), int) and 1 < c["slide"] < last]
+    if len(on_story) < SL.HELP_ACTIONS_MIN:
+        issues.append(lib.Issue("ERROR", f"{p}/claims", f"a story gives at least {SL.HELP_ACTIONS_MIN} help actions backed by sources: "
+                                                        f"{len(on_story)} sourced_fact claims sit on slides 2 to {last - 1}"))
+    for i, c in enumerate(claims):
+        if isinstance(c.get("slide"), int) and c["slide"] > last:
+            issues.append(lib.Issue("ERROR", f"{p}/claims[{i}]", f"slide {c['slide']} does not exist (this option has {last})"))
+    return issues
+
+
+def story_pack_issues(pack):
+    """The structures across the six options (story-format.md section 1): at least 4 different ones, none more than twice,
+    short_list at most once, and the three options of one topic in three different structures."""
+    versions = [v for d in pack.get("directions") or [] for v in d.get("versions") or []]
+    assignment = {v.get("id"): v.get("structure") for v in versions}
+    lanes = lib.PAIR_LANES if lib.is_pair_pack(pack) else tuple((d.get("id"), tuple(v.get("id") for v in d.get("versions") or [])) for d in pack.get("directions") or [])
+    return [lib.Issue("ERROR", "pack/directions", f"story structures: {problem} (follow structure_per_option from nightly.py start)")
+            for problem in SL.distribution_problems(assignment, lanes)]
 
 
 # ---------------------------------------------------------------------------
@@ -407,8 +706,9 @@ def _first_line(text):
     return lines[0] if lines else ""
 
 
-def candidate_text_issues(p, c, titles, legacy=False):
-    """Audience rules for a slate candidate's slide 1 and slide 2 text."""
+def candidate_text_issues(p, c, titles, legacy=False, story=False):
+    """Audience rules for a slate candidate's slide 1 and slide 2 text. story: a story pack, whose cover is held to its
+    character limits (3 lines of 18 and the pill) and whose slide 2 carries up to 50 words (story-format.md section 2)."""
     issues = []
     for field in ("hook", "slide2"):
         text = c.get(field, "")
@@ -426,10 +726,12 @@ def candidate_text_issues(p, c, titles, legacy=False):
     hook = c.get("hook", "")
     if len(lib.words(_first_line(hook))) > lib.HOOK_MAIN_MAX_WORDS:
         issues.append(lib.Issue("ERROR", f"{p}/hook", f"hook main line has {len(lib.words(_first_line(hook)))} words (max {lib.HOOK_MAIN_MAX_WORDS})"))
-    if len(lib.words(hook)) > lib.HOOK_TOTAL_MAX_WORDS:
+    if not story and len(lib.words(hook)) > lib.HOOK_TOTAL_MAX_WORDS:
         issues.append(lib.Issue("ERROR", f"{p}/hook", f"hook has {len(lib.words(hook))} words (max {lib.HOOK_TOTAL_MAX_WORDS})"))
     s2 = c.get("slide2", "")
-    if len(lib.words(s2)) > lib.SLIDE_MAX_WORDS:
+    if story and story_lib.word_count(s2) > story_lib.SLIDE_MAX_WORDS:
+        issues.append(lib.Issue("ERROR", f"{p}/slide2", f"slide 2 has {story_lib.word_count(s2)} words (max {story_lib.SLIDE_MAX_WORDS}, markup not counted)"))
+    elif not story and len(lib.words(s2)) > lib.SLIDE_MAX_WORDS:
         issues.append(lib.Issue("ERROR", f"{p}/slide2", f"slide 2 has {len(lib.words(s2))} words (max {lib.SLIDE_MAX_WORDS})"))
     if lib.SLIDE2_LEANS_ON_SLIDE1_RE.search(lib.collapse(_first_line(s2))):
         issues.append(lib.Issue("ERROR", f"{p}/slide2", f"slide 2 opens with «{lib.SLIDE2_LEANS_ON_SLIDE1_RE.search(lib.collapse(_first_line(s2))).group(0)}» and leans on slide 1; it must work as a first slide on its own"))
@@ -459,7 +761,7 @@ def slate_lanes(pair):
     return [(d, "k" if d == "kid" else "e", d, [f"{d}-{i}" for i in range(1, 4)]) for d in lib.DIRECTIONS]
 
 
-def slate_issues(slate, bank, titles, pair=False, legacy=False):
+def slate_issues(slate, bank, titles, pair=False, legacy=False, story=False):
     issues = []
     for key, prefix, direction, expected in slate_lanes(pair):
         cands = slate.get(key) or []
@@ -487,7 +789,7 @@ def slate_issues(slate, bank, titles, pair=False, legacy=False):
                 issues.append(lib.Issue("ERROR", f"{p}/mechanism", f"{f['id']} works through {' or '.join(f['mechanisms'])}"))
             fams[f["family"]] = fams.get(f["family"], 0) + 1
             mechs.add(c.get("mechanism"))
-            issues.extend(candidate_text_issues(p, c, titles, legacy=legacy))
+            issues.extend(candidate_text_issues(p, c, titles, legacy=legacy, story=story))
             if len(str(c.get("answer", "")).strip()) < 8:
                 issues.append(lib.Issue("ERROR", f"{p}/answer", "say how the payoff slide closes the question"))
             if c.get("used_by"):
@@ -583,7 +885,7 @@ def hook_strategy_issues(pack, bank, titles, today=None):
         what = "6 child-voice candidates per topic, keys a and b" if pair else "6 kid and 6 expert candidates"
         issues.append(lib.Issue("ERROR", "pack/hook_slate", f"schema_version 3 packs need the hook slate ({what})"))
     else:
-        issues.extend(slate_issues(slate, bank, titles, pair=pair, legacy=not lib.punctuation_rule_applies(pack)))
+        issues.extend(slate_issues(slate, bank, titles, pair=pair, legacy=not lib.punctuation_rule_applies(pack), story=story_lib.is_story(pack)))
     if lib.save_later_applies(pack):
         issues.extend(lib.save_later_topic_issues(pack))
     # The six final options must not be cosmetic rewrites of one another
@@ -788,6 +1090,8 @@ def pack_issues(pack, history=None, bank=None, voice=None, today=None):
         if n > lib.HOOK_FAMILY_MAX_IN_WINDOW:
             issues.append(lib.Issue("ERROR", "pack/directions", f"hook family {fam} is used {n} times in this pack (max {lib.HOOK_FAMILY_MAX_IN_WINDOW})"))
     issues.extend(hook_strategy_issues(pack, hook_bank, titles, today))
+    if story_lib.is_story(pack):
+        issues.extend(story_pack_issues(pack))
 
     # Rotation against history
     if history is not None and pack.get("date"):

@@ -10,7 +10,7 @@ The image model never renders Hebrew. Every word is HTML text set in Heebo and A
 
 Writes to RUN_DIR/final/ (or RUN_DIR/final-placeholders/ with --placeholders):
     slides.html          editable source, one <section class="slide" data-n="N"> per slide
-    01.png ... 08.png    exactly 1080 x 1350
+    01.png ... NN.png    exactly 1080 x 1350, one per slide (7, 10, or 9 to 12 in the story format)
     contact-sheet.png    numbered overview
     rtl-check.png        every line that mixes Hebrew with digits or Latin, large, for a visual check
     rtl-report.json      computed direction and alignment of every text block, plus overflow
@@ -19,6 +19,10 @@ Writes to RUN_DIR/final/ (or RUN_DIR/final-placeholders/ with --placeholders):
 
 Carousels do not name the brand: no logo and no product card by default. --brand-mark adds the logo,
 --preview-card adds real-assets/preview.png as a card on the last slide (only if it shows no brand name).
+
+Story packs (copy_style "story", story-format.md, 29 Oct 2026) get the story look: a picture per slide
+(generated-assets/slide-NN.png, the cover slide-01.png), Varela Round on an ink veil, gold tags and labels, a cream card for
+"> " lines, the letter structure on a cream sheet. --brand-mark and --preview-card do not apply to it.
 
 Needs Google Chrome or Chromium (carousel_lib.find_chrome). Standard library only.
 """
@@ -357,6 +361,193 @@ ready();
 
 ARROW = '<div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div>'
 
+# ---------------------------------------------------------------------------------------------------------------------
+# The story look (story-format.md section 6, Yarin 29 Oct 2026: "i like the new content, change the entire carousel
+# machine and November batch to match it"). Ported from media/projects/2026-10-29-lotem-format-carousels/render.py
+# (final-v4 is the reference): Lotem Lerner's text treatment in lumebook.com's palette and font. An ink #0B0518 veil over
+# each slide's own picture, cream #F8F0E1 type in Varela Round (one weight, so a thin stroke in the type's own colour reads
+# heavier), gold #E6B762 tags, labels, emphasis, cover pill and save button, soft gold #F3D9A1 for quoted speech, a cream
+# card for "> " lines, the letter structure on a cream sheet in ink. No logo, handle or swipe arrow. Body lines are broken
+# by hand (white-space nowrap) and the whole copy block shrinks in steps only when it does not fit.
+# ---------------------------------------------------------------------------------------------------------------------
+STORY_CSS = """
+@font-face{font-family:"Varela Round";src:url("{he}") format("woff2");unicode-range:U+0307-0308,U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F;font-display:block}
+@font-face{font-family:"Varela Round";src:url("{la}") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:block}
+:root{--ink:#0B0518;--ink-2:#1D1039;--gold:#E6B762;--gold-soft:#F3D9A1;--cream:#F8F0E1}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{direction:rtl;background:#0B0518}
+body.single .slide:not(.on){display:none}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:var(--ink);font-family:"Varela Round",sans-serif;color:var(--cream);text-align:center;direction:rtl}
+.art{position:absolute;inset:0;width:1080px;height:1350px;object-fit:cover}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,5,24,.88) 0,rgba(11,5,24,.8) 45%,rgba(11,5,24,.55) 66%,rgba(11,5,24,.22) 84%,rgba(11,5,24,.38) 100%)}
+.cover .veil{background:linear-gradient(180deg,rgba(11,5,24,.88) 0,rgba(11,5,24,.66) 30%,rgba(11,5,24,0) 52%)}
+.cta .veil{background:linear-gradient(180deg,rgba(11,5,24,.9) 0,rgba(11,5,24,.78) 40%,rgba(11,5,24,.45) 70%,rgba(11,5,24,.55) 100%)}
+.copy{position:absolute;top:70px;left:70px;right:70px;direction:rtl;text-align:center}
+.h,.t{text-wrap:balance;-webkit-text-stroke:.022em currentColor;paint-order:stroke fill;text-shadow:0 2px 22px rgba(11,5,24,.7)}
+.h{line-height:1.16;letter-spacing:-.005em}
+.h .ln{display:block}
+.t{font-size:.74em;line-height:1.3;margin-top:.15em;-webkit-text-stroke-width:.014em}
+.part{margin-top:.5em}
+.lab{display:block;color:var(--gold);font-size:.56em;letter-spacing:.01em;margin-bottom:.15em;-webkit-text-stroke:.012em currentColor;text-shadow:0 2px 16px rgba(11,5,24,.8)}
+.q{color:var(--gold-soft)}
+.num{display:inline-flex;align-items:center;justify-content:center;width:84px;height:84px;border-radius:50%;background:var(--gold);color:var(--ink);font-size:46px;margin-bottom:26px;box-shadow:0 8px 24px rgba(11,5,24,.45)}
+.pill{display:inline-block;margin-top:34px;background:var(--gold);color:var(--ink);border-radius:999px;padding:.22em .9em .3em;font-size:.5em;line-height:1.2;box-shadow:0 10px 28px rgba(11,5,24,.45)}
+.btn{display:inline-flex;white-space:nowrap;align-items:center;gap:.35em;background:var(--gold);color:var(--ink);border-radius:999px;padding:.16em .8em .24em;-webkit-text-stroke:.02em currentColor;text-shadow:none;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.btn svg{width:.8em;height:.8em;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.tag{display:inline-flex;align-items:center;gap:.3em;color:var(--gold);font-size:.46em;margin-bottom:.45em;-webkit-text-stroke:.012em currentColor;text-shadow:0 2px 16px rgba(11,5,24,.8)}
+.tag .num{width:1.55em;height:1.55em;margin:0;font-size:1em;box-shadow:0 6px 18px rgba(11,5,24,.45);-webkit-text-stroke:0}
+.body{font-size:.6em;margin-top:.55em}
+.body .t{font-size:1em;margin-top:0}
+.body .t .ln{display:block;white-space:nowrap}
+.body .gap{height:.55em}
+.body .lab{font-size:.8em;margin:.55em 0 .05em}
+.body .lab:first-child{margin-top:0}
+.em{color:var(--gold);-webkit-text-stroke:.03em currentColor}
+.say{display:inline-block;margin-top:.15em;background:var(--cream);color:var(--ink);border-radius:.7em;padding:.28em .8em .36em;line-height:1.3;-webkit-text-stroke:.012em currentColor;text-shadow:none;box-shadow:0 10px 28px rgba(11,5,24,.5);white-space:nowrap}
+.say .q{color:var(--ink)}
+.tag.plain{font-size:.5em}
+.letter .copy{background:var(--cream);color:var(--ink);border-radius:34px;padding:56px 58px 60px;transform:rotate(-1.2deg);box-shadow:0 24px 60px rgba(11,5,24,.55)}
+.letter .h,.letter .t,.letter .lab{text-shadow:none}
+.letter .h{font-size:.92em}
+.letter .em,.letter .q{color:#8A5A14}
+.letter .veil{background:linear-gradient(180deg,rgba(11,5,24,.55) 0,rgba(11,5,24,.3) 60%,rgba(11,5,24,.2) 100%)}
+pre#rtl-report{display:none}
+"""
+
+STORY_JS = """
+const q = new URLSearchParams(location.search), one = q.get('s');
+if (one) { document.body.classList.add('single'); document.querySelector('.slide[data-n="' + one + '"]').classList.add('on'); }
+const WIDE = '.h,.t,.ln,.pill,.say,.tag,.btn';
+function fit(s) {
+  // the whole copy block shrinks in steps of 2px until it ends above data-maxh and no line runs past the sides
+  const c = s.querySelector('.copy'), maxH = Number(c.dataset.maxh), min = Number(c.dataset.min);
+  let k = Number(c.dataset.max);
+  const over = () => c.scrollHeight > maxH || [...c.querySelectorAll(WIDE)].some(e => e.scrollWidth > e.clientWidth + 1);
+  c.style.fontSize = k + 'px';
+  while (over() && k > min) { k -= 2; c.style.fontSize = k + 'px'; }
+  c.dataset.fit = over() ? 'overflow' : 'ok'; c.dataset.size = k;
+}
+(async () => {
+  try { await document.fonts.ready; } catch (e) {}
+  await Promise.all([...document.images].map(i => i.complete ? null : new Promise(r => { i.onload = r; i.onerror = r; })));
+  try { document.querySelectorAll('.slide').forEach(fit); }
+  catch (e) { document.getElementById('rtl-report').textContent = 'JSERROR ' + e + ' ' + e.stack; document.body.dataset.ready = '1'; return; }
+  if (q.get('check')) {
+    const font = document.fonts.check('40px "Varela Round"', 'אב');
+    const rep = [...document.querySelectorAll('.slide')].map(s => {
+      const c = s.querySelector('.copy'), cs = getComputedStyle(c), k = Number(c.dataset.size);
+      const blocks = [...s.querySelectorAll('.copy .ln, .copy .lab, .copy .tag, .copy .say, .copy .pill, .copy .btn, .cta .t')].map(el => ({
+        text: el.textContent, direction: getComputedStyle(el).direction, textAlign: getComputedStyle(el).textAlign,
+        mixed: /[A-Za-z0-9]/.test(el.textContent), overflow: el.scrollWidth > el.clientWidth + 1 }));
+      return { n: Number(s.dataset.n), lang: document.documentElement.lang, htmlDir: document.documentElement.dir,
+               direction: cs.direction, textAlign: cs.textAlign, fit: c.dataset.fit, push: 0, clear: 'ok', dark: true,
+               headSize: k, bodySize: Math.round(k * (s.classList.contains('cover') ? .5 : s.classList.contains('cta') ? .67 : .6)),
+               splits: 0, clearance: Math.round(Number(c.dataset.maxh) - c.scrollHeight), height: c.scrollHeight, maxH: Number(c.dataset.maxh),
+               contrast: 0, contrastAfter: 0, contrastFix: 'veil', font, blocks };
+    });
+    document.getElementById('rtl-report').textContent = JSON.stringify(rep);
+  }
+  document.body.dataset.ready = '1';
+})();
+"""
+
+STORY_SAVE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h11a1.5 1.5 0 0 1 1.5 1.5V21l-7-6.2L5 21V4.5A1.5 1.5 0 0 1 6.5 3z"/></svg>'
+STORY_QUOTE = re.compile(r"(״[^״]+״)")
+STORY_NUMBERED_TAG = re.compile(r"(\d+):\s+(.*)")
+# (headline max px, floor px, the height the copy block must end above) per slide kind, as in render.py
+STORY_SIZES = {"cover": (104, 72, 560), "cta": (84, 60, 520), "slide": (84, 62, 900)}
+STORY_MARKUP = re.compile(r"\*\*|^\s*(?:##|>)\s+", re.M)
+
+
+def is_story(frozen):
+    """A run in the story format (story-format.md): the frozen pack's copy_style, or the option's own structure."""
+    v = (frozen or {}).get("option") or {}
+    return (frozen or {}).get("copy_style") == "story" or v.get("copy_style") == "story" or bool(v.get("structure"))
+
+
+def plain_text(text):
+    """Story copy without its markup (## label, > card, **emphasis**), for the alt text."""
+    return STORY_MARKUP.sub("", text or "")
+
+
+def _story_text(t):
+    # spoken lines in gershayim in the soft gold
+    return "".join(f'<span class="q">{_safe(p)}</span>' if i % 2 else _safe(p) for i, p in enumerate(STORY_QUOTE.split(t)))
+
+
+def _story_rich(t):
+    # **x** is gold emphasis, the stand-in for her heavy-bold words (Varela Round has one weight)
+    return "".join(f'<span class="em">{_story_text(p)}</span>' if i % 2 else _story_text(p) for i, p in enumerate(t.split("**")))
+
+
+def story_body_html(body):
+    """'## ' a gold label, '> ' a cream card, an empty line a gap, every other line its own hand-broken line."""
+    out, para = [], []
+
+    def flush():
+        if para:
+            out.append('<div class="t">' + "".join(f'<span class="ln">{_story_rich(l)}</span>' for l in para) + "</div>")
+            para.clear()
+    for line in (body or "").split("\n"):
+        line = line.strip()
+        if not line:
+            flush()
+            out.append('<div class="gap"></div>')
+        elif line.startswith("## "):
+            flush()
+            out.append(f'<div class="lab">{_story_rich(line[3:].strip())}</div>')
+        elif line.startswith("> "):
+            flush()
+            out.append(f'<div><span class="say">{_story_rich(line[2:].strip())}</span></div>')
+        else:
+            para.append(line)
+    flush()
+    return '<div class="body">' + "".join(out) + "</div>"
+
+
+def story_slide_html(v, s, img_src, last):
+    n = s["number"]
+    head, body = s.get("headline", ""), (s.get("body") or "").strip()
+    cls, inner = "", []
+    if n == 1:
+        cls, kind = "cover", "cover"
+        inner.append('<div class="h">' + "".join(f'<span class="ln">{_story_text(l)}</span>' for l in lib.lines_of(head)) + "</div>")
+        if body:
+            inner.append(f'<div class="pill">{_story_rich(lib.collapse(body))}</div>')
+    elif n == last:
+        cls, kind = "cta", "cta"
+        inner.append(f'<div class="h"><span class="btn">{STORY_SAVE_ICON}{_safe(lib.collapse(head))}</span></div>')
+        inner.append('<div class="part"><div class="t" style="font-size:.9em">' + _story_rich(lib.collapse(body)) + "</div></div>")
+    else:
+        kind = "slide"
+        label = (s.get("label") or "").strip()
+        m = STORY_NUMBERED_TAG.match(label)
+        if m:
+            inner.append(f'<div><span class="tag"><span class="num">{esc(m.group(1))}</span>{_safe(m.group(2))}</span></div>')
+        elif label:
+            inner.append(f'<div><span class="tag plain">{_safe(label)}</span></div>')
+        if head.strip():
+            inner.append('<div class="h">' + "".join(f'<span class="ln">{_story_rich(l)}</span>' for l in lib.lines_of(head)) + "</div>")
+        if v.get("structure") == "letter":
+            cls = "letter"
+        inner.append(story_body_html(body))
+    mx, mn, max_h = STORY_SIZES[kind]
+    return (f'<section class="slide {cls}" data-n="{n}"><img class="art" src="{img_src}" alt=""><div class="veil"></div>'
+            f'<div class="copy" data-max="{mx}" data-min="{mn}" data-maxh="{max_h}" style="font-size:{mx}px">'
+            + "".join(inner) + "</div></section>")
+
+
+def build_story_html(frozen, images, out_dir):
+    v = frozen["option"]
+    css = (STORY_CSS.replace("{he}", rel(FONTS / "VarelaRound-hebrew.woff2", out_dir))
+                    .replace("{la}", rel(FONTS / "VarelaRound-latin.woff2", out_dir)))
+    last = len(v["slides"])
+    sections = "".join(story_slide_html(v, s, rel(images[s["number"]], out_dir), last) for s in v["slides"])
+    return ('<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">'
+            f'<title>{esc(frozen["date"])} {esc(v["id"])}</title><style>{css}</style></head>'
+            f'<body dir="rtl" class="look-story structure-{esc(v.get("structure") or "story")}">{sections}'
+            f'<pre id="rtl-report"></pre><script>{STORY_JS}</script></body></html>')
+
 
 def rel(target, base):
     return Path(os.path.relpath(target, base)).as_posix()
@@ -369,7 +560,7 @@ SEND_LINE_RE = re.compile(r"\s*ו?ת?שלח[וי](?![א-ת])")  # and its second
 # Instagram's save (bookmark) and send (paper plane) glyphs, drawn as outlines like the app's own
 SAVE_ICON = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h11a1.5 1.5 0 0 1 1.5 1.5V21l-7-6.2L5 21V4.5A1.5 1.5 0 0 1 6.5 3z"/></svg>'
 SEND_ICON = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2.5 10.6 13.4"/><path d="M22 2.5 15 21.5l-4.4-8.1L2.5 9z"/></svg>'
-LOOKS = ("clean", "bold", "classic")
+LOOKS = ("clean", "bold", "classic", "story")
 # Type sizes per look: (headline max, headline floor, body max, body floor) for the cover, a regular slide, the last slide
 SIZES = {
     "classic": {"cover": (96, 56, 50, 40), "slide": (96, 56, 50, 40), "cta": (84, 56, 50, 40)},
@@ -542,6 +733,8 @@ def rtl_report(html_path):
             problems.append(f"slide {s['n']}: even at the smallest size the text runs {-s.get('clearance', 0)}px into the picture (it has a soft panel); shorten it")
         elif s["fit"] != "ok":
             problems.append(f"slide {s['n']}: text does not fit the reserved zone even at the smallest size")
+        if s.get("font") is False:   # the story look's Varela Round (assets/fonts/VarelaRound-*.woff2) did not load
+            problems.append(f"slide {s['n']}: Varela Round did not load (assets/fonts/VarelaRound-*.woff2, lumebook.py sync)")
         for b in s["blocks"]:
             if b["direction"] != "rtl":
                 problems.append(f"slide {s['n']}: «{b['text']}» renders {b['direction']}")
@@ -589,6 +782,7 @@ def contact_sheet(out_dir, count):
 
 def write_texts(frozen, out_dir):
     v = frozen["option"]
+    story = is_story(frozen)
     (out_dir / "caption.txt").write_text(v["caption"].strip() + "\n", encoding="utf-8")
     src = [f"# Sources · {v['id']} · {frozen['date']}", ""]
     for s in v["sources"]:
@@ -600,7 +794,8 @@ def write_texts(frozen, out_dir):
     for c in v["claims"]:
         src.append(f"- slide {c['slide']} · {c['kind']} · {c['wording_he']} · {c['supports']} · {', '.join(c['source_ids'])}")
     (out_dir / "sources.md").write_text("\n".join(src) + "\n", encoding="utf-8")
-    alt = [f"{s['number']}: " + " ".join(lib.lines_of(s["headline"] + "\n" + s.get("body", ""))) for s in v["slides"]]
+    words = (lambda t: plain_text(t)) if story else (lambda t: t)   # story copy carries ## > ** markup
+    alt = [f"{s['number']}: " + " ".join(lib.lines_of(words(s["headline"] + "\n" + s.get("body", "")))) for s in v["slides"]]
     (out_dir / "alt-text.txt").write_text("\n".join(alt) + "\n", encoding="utf-8")
 
 
@@ -616,19 +811,37 @@ def previous_look(html_path):
     """A run already exported keeps its look when it is re-exported (edit_final.py); new runs get the clean look."""
     if not html_path.exists():
         return None
-    m = re.search(r'<body[^>]*class="[^"]*look-(clean|bold|classic)', html_path.read_text(encoding="utf-8"))
+    m = re.search(r'<body[^>]*class="[^"]*look-(clean|bold|classic|story)', html_path.read_text(encoding="utf-8"))
     if not m:
         return None
     return "clean" if "look-clean" in html_path.read_text(encoding="utf-8")[:200000] else m.group(1)
 
 
-def choose_look(forced, previous, v):
+def choose_look(forced, previous, v, story=False):
     """--look wins, then the look of the run's earlier export, then clean for a one-picture carousel (14 Oct 2026 on) or
     copy with highlights, else classic. Since the save for later CTA (24 Oct 2026) slide 10 has no highlight, which was the
-    only one in many carousels: four re-exports that evening fell back to classic, so a one-picture run never keeps it."""
+    only one in many carousels: four re-exports that evening fell back to classic, so a one-picture run never keeps it.
+    A story run (story-format.md, 29 Oct 2026) always gets the story look unless --look says otherwise, and the story
+    look is never carried over to a run whose copy is not in the story format."""
+    if story:
+        return forced or "story"
+    if previous == "story":
+        previous = None
     if previous == "classic" and lib.one_picture(v):
         previous = None
     return forced or previous or ("clean" if lib.one_picture(v) or any(s.get("highlight") for s in v["slides"]) else "classic")
+
+
+def story_images(run_dir, v):
+    """A story run has a picture per slide (story-format.md section 4): slide N is generated-assets/slide-NN.png, the cover
+    slide-01.png, each job QA-passed in state.json. A slide with no job of its own shows the cover picture."""
+    state = lib.read_json(run_dir / "state.json")["jobs"]
+    cover = "slide-01" if "slide-01" in state else "picture"
+    job_of = {s["number"]: (f"slide-{s['number']:02d}" if f"slide-{s['number']:02d}" in state else cover) for s in v["slides"]}
+    missing = sorted({j for j in job_of.values() if state.get(j, {}).get("qa") != "pass"})
+    if missing:
+        raise SystemExit("These images have not passed visual QA yet: " + ", ".join(missing))
+    return {n: run_dir / "generated-assets" / f"{j}.png" for n, j in job_of.items()}
 
 
 def main():
@@ -638,7 +851,7 @@ def main():
     ap.add_argument("--slides", nargs="*", type=int, help="only re-export these slide numbers")
     ap.add_argument("--preview-card", action="store_true", help="place real-assets/preview.png as a card on the last slide (must not show the brand)")
     ap.add_argument("--brand-mark", action="store_true", help="add the small logo to every slide (off: carousels do not name the brand)")
-    ap.add_argument("--look", choices=LOOKS, help="clean (default for new runs since 14 Oct 2026): plain centred type, no highlight block or bubbles, the last slide as in bold. bold: large type, a highlighted phrase, bubbles and a comment button (default for copy written with highlights, "
+    ap.add_argument("--look", choices=LOOKS, help="story (default for story packs, story-format.md, 29 Oct 2026): Varela Round on an ink veil over a picture per slide. clean (default for new runs since 14 Oct 2026): plain centred type, no highlight block or bubbles, the last slide as in bold. bold: large type, a highlighted phrase, bubbles and a comment button (default for copy written with highlights, "
                     "packs from 10 Oct 2026 18:30). classic: the 8 Oct layout (default for older copy, whose lines are too long for the large type)")
     ap.add_argument("--out", help="write to RUN_DIR/NAME instead of final/ (to compare looks without touching the export)")
     args = ap.parse_args()
@@ -647,7 +860,8 @@ def main():
     frozen = lib.read_json(run_dir / "approved.json")
     v = frozen["option"]
     out_dir = run_dir / (args.out or ("final-placeholders" if args.placeholders else "final"))
-    look = choose_look(args.look, previous_look(out_dir / "slides.html"), v)
+    story = is_story(frozen)
+    look = choose_look(args.look, previous_look(out_dir / "slides.html"), v, story=story)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     images = {}
@@ -655,6 +869,8 @@ def main():
         ph = run_dir / "placeholders"
         for s in v["slides"]:
             images[s["number"]] = lib.write_placeholder_png(ph / f"slide-{s['number']:02d}.png", 1024, 1280, seed=s["number"])
+    elif story:
+        images = story_images(run_dir, v)
     else:
         state = lib.read_json(run_dir / "state.json")["jobs"]
         # One picture behind every slide (packs from 14 Oct 2026), or one picture per slide before that
@@ -671,7 +887,11 @@ def main():
             raise SystemExit(f"--preview-card needs an image at {run_dir / 'real-assets' / 'preview.png'}")
 
     html_path = out_dir / "slides.html"
-    html_path.write_text(build_html(frozen, images, out_dir, preview, brand_mark=args.brand_mark, look=look), encoding="utf-8")
+    if look == "story":
+        page = build_story_html(frozen, images, out_dir)
+    else:
+        page = build_html(frozen, images, out_dir, preview, brand_mark=args.brand_mark, look=look)
+    html_path.write_text(page, encoding="utf-8")
     report, problems = rtl_report(html_path)
     (out_dir / "rtl-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 

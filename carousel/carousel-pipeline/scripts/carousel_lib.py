@@ -18,6 +18,8 @@ import unicodedata
 import zlib
 from pathlib import Path
 
+import story_lib  # the story copy format (story-format.md, 29 Oct 2026)
+
 PIPELINE = Path(__file__).resolve().parents[1]
 # Project root = the nearest folder up that holds lumebook.json (the component registry)
 ROOT = next((p for p in PIPELINE.parents if (p / "lumebook.json").exists()), PIPELINE.parents[1])
@@ -379,16 +381,25 @@ NUMBERED_SLIDE_ROLES = {
 NUMBERED_VALUE_SLIDES = (2, 3, 4, 5, 6, 7, 8, 9)
 
 
-def numbered_examples_apply(pack):
+def ten_slide_era(pack):
+    """Packs written from TEN_SLIDE_FROM on (10 slides, one picture), the story packs included."""
     return str((pack or {}).get("generated_at", ""))[:16] >= TEN_SLIDE_FROM
 
 
+def numbered_examples_apply(pack):
+    """10 slides with numbered examples: packs from TEN_SLIDE_FROM, except story packs (story-format.md, 29 Oct 2026),
+    which have no numbered examples."""
+    return ten_slide_era(pack) and not story_lib.is_story(pack)
+
+
 def slide_roles(pack):
-    return NUMBERED_SLIDE_ROLES if numbered_examples_apply(pack) else SLIDE_ROLES
+    """Roles by slide number for the fixed layouts. Story packs have 9 to 12 slides: story_lib.ROLES, checked by the validator."""
+    return NUMBERED_SLIDE_ROLES if ten_slide_era(pack) else SLIDE_ROLES
 
 
 def slide_count(pack):
-    return TEN_SLIDE_COUNT if numbered_examples_apply(pack) else SLIDE_COUNT
+    """The fixed slide count of a pack's era. A story option has 9 to 12 slides: use last_slide(version) for it."""
+    return TEN_SLIDE_COUNT if ten_slide_era(pack) else SLIDE_COUNT
 
 
 def last_slide(version):
@@ -499,8 +510,9 @@ def numbered_example_issues(path, version):
 
 
 def example_target_issues(pack, folder):
-    """Cross-check the options' examples_target against the saved draw (only when the pack applies the rule)."""
-    if not examples_rule_applies(pack):
+    """Cross-check the options' examples_target against the saved draw (only when the pack applies the rule; story packs
+    have no examples)."""
+    if not examples_rule_applies(pack) or story_lib.is_story(pack):
         return []
     f = Path(folder) / EXAMPLE_SLOTS_FILE
     if not f.exists():
@@ -963,8 +975,9 @@ def overlap(a, b):
     return len(wa & wb) / len(wa | wb)
 
 
-def hook_issues(path, version, direction_id, bank):
-    """The option's declared hook formula, gap, payoff slide and score, plus clickbait checks on slide 1."""
+def hook_issues(path, version, direction_id, bank, story=False):
+    """The option's declared hook formula, gap, payoff slide and score, plus clickbait checks on slide 1.
+    story: a story pack, whose payoff can be any slide from 2 to the one before the CTA."""
     issues = []
     hook = version.get("hook") or {}
     formula = bank.get(hook.get("formula"))
@@ -984,7 +997,11 @@ def hook_issues(path, version, direction_id, bank):
             weak = [k for k in HOOK_SCORE_KEYS if score.get(k) == 0]
             issues.append(Issue("ERROR", f"{path}/hook/score", f"hook scores {total} of 12{' with 0 on ' + ', '.join(weak) if weak else ''}; rewrite it (needs {HOOK_MIN_SCORE}+ and no zero)"))
     payoff = hook.get("payoff_slide")
-    low, high = (EXPLAIN_SLIDE, RECAP_SLIDE) if len(version.get("slides") or []) == TEN_SLIDE_COUNT else (INSIGHT_SLIDES[0], RESOLUTION_SLIDE)
+    n_slides = len(version.get("slides") or [])
+    if story:
+        low, high = 2, max(2, n_slides - 1)
+    else:
+        low, high = (EXPLAIN_SLIDE, RECAP_SLIDE) if n_slides == TEN_SLIDE_COUNT else (INSIGHT_SLIDES[0], RESOLUTION_SLIDE)
     if not isinstance(payoff, int) or not low <= payoff <= high:
         issues.append(Issue("ERROR", f"{path}/hook/payoff_slide", f"say which slide ({low} to {high}) answers the hook"))
     if len(str(hook.get("gap", "")).strip()) < 8:
@@ -1121,7 +1138,9 @@ def to_parents_issues(p, v):
     line), a caption with no first person in it, or the child's own name outside a quoted sentence."""
     issues = []
     name = v.get("child_name", "")
-    for n, s in enumerate((v.get("slides") or [])[:9], 1):
+    slides = v.get("slides") or []
+    # slides 1 to 9 of a 10 slide pack; every slide before the CTA of a story option (9 to 12 slides)
+    for n, s in enumerate(slides[:max(9, len(slides) - 1)], 1):
         text = (s.get("headline", "") + " " + s.get("body", ""))
         if NARRATOR_RE.search(text):
             issues.append(Issue("ERROR", f"{p}/slide-{n}", "the child is talking to the parents (Yarin, 28 Oct 2026): no narrator speaking about the child in the third person, say it as the child (תעזרי לי, תעזרו לי)"))
@@ -1190,8 +1209,10 @@ def post_text_applies(pack):
 
 
 def fb_source(version):
-    """Slides 2 to the last as written text, the Facebook post above slide 1: headline and body, a blank line between slides."""
-    blocks = ["\n".join(lines_of(s.get("headline", "")) + lines_of(s.get("body", ""))) for s in version.get("slides", [])[1:]]
+    """Slides 2 to the last as written text, the Facebook post above slide 1: headline and body, a blank line between slides.
+    A story option (it has a `structure`) is written without its markup (## labels, > cards, **emphasis**)."""
+    clean = story_lib.strip_markup if version.get("structure") else (lambda t: t)
+    blocks = ["\n".join(lines_of(clean(s.get("headline", ""))) + lines_of(clean(s.get("body", "")))) for s in version.get("slides", [])[1:]]
     return "\n\n".join(b for b in blocks if b)
 
 
@@ -1887,8 +1908,19 @@ def rotation_context(history, date_str, bank=None):
         "recent_slide2_hooks": recent_slide2,
         "selected_formulas_last_14_days": selected_formulas_14,
         "recent_child_names": recent_names,
+        # story packs (29 Oct 2026): how often each structure was used in the previous packs, to rotate away from them
+        "recent_structures": {st: n for st, n in sorted(_story_counts(prev[:story_lib.RECENT_PACKS]).items())},
         "topics": ranked,
     }
+
+
+def _story_counts(packs):
+    out = {}
+    for p in packs:
+        for o in p.get("options", []):
+            if o.get("structure"):
+                out[o["structure"]] = out.get(o["structure"], 0) + 1
+    return out
 
 
 def history_entry(pack, bank=None):
@@ -1902,6 +1934,7 @@ def history_entry(pack, bank=None):
                 "id": v["id"], "hook_family": v["hook_family"], "hook_formula": hook.get("formula"), "code_word": v.get("code_word"),
                 "child_name": v.get("child_name"), "title": v["title"],
                 **({"topic_id": v.get("topic_id")} if is_pair_pack(pack) else {}),
+                **({"structure": v["structure"]} if v.get("structure") else {}),   # story packs rotate structures (29 Oct 2026)
                 # rotation fields (hook strategy research, 8 Oct 2026)
                 "mechanism": hook.get("mechanism") or (formula.get("mechanisms") or [None])[0],
                 "shape": formula.get("shape") or None,
@@ -1911,7 +1944,7 @@ def history_entry(pack, bank=None):
             if v.get("code_word"):
                 code_words.add(v["code_word"])
             hooks.append(collapse(v["slides"][0]["headline"]))
-            if len(v["slides"]) > 1:
+            if len(v["slides"]) > 1 and collapse(v["slides"][1]["headline"]):
                 slide2.append(collapse(v["slides"][1]["headline"]))
     return {
         "date": pack["date"],

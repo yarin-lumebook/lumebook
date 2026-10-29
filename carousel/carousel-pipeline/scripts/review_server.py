@@ -20,6 +20,11 @@ become editable in place. "שמירה" (or Cmd+S) sends the changes here, and th
 4. rebuilds review.html and review.md, and updates history.json when the pack is valid
 5. returns the errors, which the page shows next to the exact field
 
+Story packs (copy_style "story", story-format.md, 29 Oct 2026) also take a slide's label and its scene (scene_action,
+scene_setting), and a body keeps its markup and one empty line as a paragraph gap. Labels are logged for the voice
+skill like headlines and bodies; scenes are picture briefs and are not. /assets/fonts/*.woff2 falls back to
+shared/brand/fonts (Varela Round, the story look) when the pipeline has no copy.
+
 / is Carousel Machine itself (studio.py): every carousel of the week on one page, edited in place through /api/save and
 /api/save-reco, graded through /api/grade (grades.json) and produced through /api/production/* (producer.py,
 productions.json); /api/production/postiz sends a finished one to Postiz, scheduled or as a draft (postiz_export.py). /api/state is
@@ -50,12 +55,25 @@ import validate_pack  # noqa: E402
 
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 FIELDS = {"headline", "body", "highlight", "caption", "cta", "title"}
+STORY_FIELDS = {"label", "scene_action", "scene_setting"}   # story packs only (story-format.md, 29 Oct 2026)
 DAY_PAGE_RE = re.compile(r"^/drafts/\d{4}-\d{2}-\d{2}/[\w-]+\.html$")
 DAYS_RE = re.compile(r'<span class="rv-days" aria-label="תאריכים">.*?</span>', re.S)
 
 
 def clean(text):
     return "\n".join(line.strip() for line in str(text).replace(" ", " ").splitlines() if line.strip())
+
+
+def clean_keep_gaps(text):
+    """A story body: lines trimmed, one empty line kept as the paragraph gap (story-format.md 3), none at the ends."""
+    out = []
+    for line in str(text).replace("\u00a0", " ").splitlines():
+        line = line.strip()
+        if line or (out and out[-1]):
+            out.append(line)
+    while out and not out[-1]:
+        out.pop()
+    return "\n".join(out)
 
 
 def cta_slide_lines(cta):
@@ -67,21 +85,47 @@ def apply_edits(pack, edits):
     """Apply edits from the page. Returns a list of changes (option, field, slide, before, after).
     Raises ValueError on a bad edit."""
     options = {v["id"]: v for d in pack["directions"] for v in d["versions"]}
+    story = create_review.story_applies(pack)
     changes = []
     for e in edits:
         v = options.get(e.get("option"))
         field = e.get("field")
-        if v is None or field not in FIELDS:
+        if v is None or field not in FIELDS | (STORY_FIELDS if story else set()):
             raise ValueError(f"unknown option or field: {e.get('option')} {field}")
-        value = clean(e.get("value", ""))
+        value = clean_keep_gaps(e.get("value", "")) if story and field == "body" else clean(e.get("value", ""))
         change = {"option": v["id"], "field": field, "slide": None}
-        if field in ("headline", "body", "highlight"):
+        if field in STORY_FIELDS:   # a story slide's label (audience copy) or its scene (the picture brief, English)
+            n = e.get("slide")
+            if not isinstance(n, int) or not 1 <= n <= len(v["slides"]):
+                raise ValueError(f"bad slide number {n}")
+            s = v["slides"][n - 1]
+            if field == "label":
+                if n in (1, len(v["slides"])) and value:
+                    raise ValueError("the cover and the save slide have no label")
+                before = s.get("label", "")
+                if before != value:
+                    if value:
+                        s["label"] = value
+                    else:
+                        s.pop("label", None)
+                    changes.append({**change, "slide": n, "role": s.get("role"), "before": before, "after": value})
+            else:
+                if n == 1:
+                    raise ValueError("slide 1's picture is the option's image brief")
+                key = field.split("_", 1)[1]
+                scene = s.get("scene") if isinstance(s.get("scene"), dict) else {"action": str(s.get("scene") or ""), "setting": ""}
+                before = scene.get(key, "")
+                if before != value:
+                    scene[key] = value
+                    s["scene"] = scene
+                    changes.append({**change, "slide": n, "role": s.get("role"), "before": before, "after": value})
+        elif field in ("headline", "body", "highlight"):
             n = e.get("slide")
             if not isinstance(n, int) or not 1 <= n <= len(v["slides"]):
                 raise ValueError(f"bad slide number {n}")
             if field == "body" and n == len(v["slides"]):
                 raise ValueError("the last slide's body is the CTA; edit the CTA instead")
-            if field == "headline" and n == len(v["slides"]) and lib.save_later_applies(pack):
+            if field == "headline" and n == len(v["slides"]) and (story or lib.save_later_applies(pack)):
                 raise ValueError("the last slide is only the CTA; edit the CTA instead")
             before = v["slides"][n - 1].get(field, "")
             if before != value:
@@ -147,7 +191,7 @@ def voice_records(pack, changes, date):
     by_id = {v["id"]: (d["id"], v) for d in pack["directions"] for v in d["versions"]}
     out = []
     for c in changes:
-        if c["field"] not in ("headline", "body", "caption"):
+        if c["field"] not in ("headline", "body", "caption", "label"):   # scenes are picture briefs, not audience copy
             continue
         direction, v = by_id[c["option"]]
         out.append({"at": lib.now_local().isoformat(timespec="seconds"), "pack_date": date, "direction": direction,
@@ -228,6 +272,9 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path.startswith("/api/ping"):
             return self.send_json({"ok": True})
+        brand = self.brand_font()
+        if brand:   # the story look's Varela Round, until the pipeline keeps its own copy in assets/fonts
+            return brand
         route = self.path.split("?")[0]
         if route in ("/", ""):
             if self.server.pinned_date:
@@ -267,6 +314,25 @@ class Handler(SimpleHTTPRequestHandler):
         if DAY_PAGE_RE.match(self.path.split("?")[0]):
             return self.send_page()
         return super().do_GET()
+
+    def brand_font(self):
+        """/assets/fonts/NAME that the pipeline has no copy of but shared/brand/fonts does (the woff2 files lumebook.com
+        serves); None when this is not one, so the normal file serving answers."""
+        route = self.path.split("?")[0]
+        name = route[len("/assets/fonts/"):] if route.startswith("/assets/fonts/") else ""
+        if not re.fullmatch(r"[\w.-]+\.woff2", name) or (lib.PIPELINE / "assets" / "fonts" / name).exists():
+            return None
+        src = lib.PIPELINE.parents[1] / "shared" / "brand" / "fonts" / name
+        if not src.is_file():
+            return None
+        body = src.read_bytes()
+        self.send_response(200)
+        self.send_header("Content-Type", "font/woff2")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "max-age=86400")
+        self.end_headers()
+        self.wfile.write(body)
+        return True
 
     def send_page(self):
         """A review or carousel page with today's row of dates, so nights added since it was built show too."""

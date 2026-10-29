@@ -37,11 +37,12 @@ S=.claude/skills/reel-editor/scripts
 | `versions` | how many files (default: one per hook) |
 | `captions` | a words file (step 2), or leave it out for no captions ("captions if needed") |
 | `words_per_card` | words shown at once, default 1 (word by word) |
-| `cta` | optional: replaces the hook for the last `seconds` |
+| `cta` | optional: replaces the hook for the last `seconds`. `"highlight": true` puts it on LumeBook purple rounded boxes (#5B2BD6, Instagram's highlighted text look; a hex colour also works), Yarin, 29 Oct 2026 |
 | `bottom` | optional fixed line at the lowest safe line, such as `הסבר בתיאור👇🏻`; captions then sit just above it |
 | `flip` | trial only, default true. Set false when the frame shows Hebrew text (a book title, a screen): a flip mirrors it |
 | `seed` | trial only, default `name`. Same seed, same versions; change it for a fresh set |
 | `hook_size`, `caption_size` | px, default 64 and 74; long lines shrink to fit automatically |
+| `caption_x` | optional: the captions' horizontal centre as a share of the width, default 0.5. Move them aside when the default spot covers the book or a face (0.72 put them on the free side of the frame on 29 Oct); they stay inside the side margins |
 | `audio` | leave it out for automatic sound (see below); a file path to use that sound; `"source"` to keep the source's own; `"none"` for a silent file (sound added in Instagram) |
 | `audio_offset` | seconds into the `audio` file where the reel starts; worked out automatically for Higgsfield references |
 

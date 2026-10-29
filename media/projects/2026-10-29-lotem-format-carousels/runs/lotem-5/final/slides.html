@@ -1,0 +1,309 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>2026-10-29 lotem-5</title><style>
+@font-face{font-family:"Heebo";src:url("../../../../../../carousel/carousel-pipeline/assets/fonts/Heebo-Black.ttf") format("truetype");font-weight:900;font-display:block}
+@font-face{font-family:"Assistant";src:url("../../../../../../carousel/carousel-pipeline/assets/fonts/Assistant-VariableFont_wght.ttf") format("truetype");font-weight:200 800;font-display:block}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{direction:rtl}
+body{background:#d9d2c6;text-align:center}
+body.single .slide:not(.on){display:none}
+/* The layout of the approved fal trial carousel (media/projects/2026-10-06-fal-carousel-trial/source/flare_carousel.py, 7 Oct 2026):
+   centred Heebo Black straight on the picture's plain wall, a soft veil, no boxes. The picture always fills the slide
+   exactly as generated (Yarin, 24 Oct 2026: "i dont want you to distort the images anymore"); until then it was pushed
+   down under the text and the gap filled by stretching its top rows. The copy is fitted to the plain wall instead (fitTop). */
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:#F3EADC;--ink:#1D1039;--veil:243,234,220;direction:rtl;text-align:center}
+.slide.dark{--ink:#F8F0E1;--veil:11,5,24;background:#0B0518}
+.art{position:absolute;left:0;top:0;width:1080px;height:1350px;object-fit:cover}
+.veil{position:absolute;inset:0;pointer-events:none}
+.veil.top{background:linear-gradient(180deg,rgba(var(--veil),.88) 0,rgba(var(--veil),.7) 20%,rgba(var(--veil),0) 40%)}
+.veil.bottom{background:linear-gradient(0deg,rgba(var(--veil),.88) 0,rgba(var(--veil),.7) 20%,rgba(var(--veil),0) 40%)}
+.copy{position:absolute;left:90px;right:90px;direction:rtl;text-align:center;color:var(--ink)}
+.copy.top{top:150px}
+.copy.bottom{bottom:180px}
+.h{font-family:"Heebo",sans-serif;font-weight:900;line-height:1.08;letter-spacing:-.01em}
+.b{font-family:"Heebo",sans-serif;font-weight:900;line-height:1.15;margin-top:22px;opacity:.82}
+.ln{display:block;white-space:nowrap}
+.mark{position:absolute;top:44px;left:48px;width:60px;height:60px;border-radius:14px}
+/* Bottom centre (Yarin, 19 Oct 2026: "i want the arrow in the middle"); the art is pushed down only as far as the text needs, so it covers less */
+.arrow{position:absolute;left:50%;transform:translateX(-50%);bottom:56px;width:88px;height:88px;border-radius:50%;background:#F8F0E1;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(11,5,24,.28)}
+.arrow svg{width:44px;height:44px}.arrow path{fill:none;stroke:#1D1039;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.ai{position:absolute;right:48px;bottom:64px;font-family:"Assistant",sans-serif;font-weight:700;font-size:24px;color:#1D1039;background:rgba(248,240,225,.86);border-radius:999px;padding:6px 16px;direction:rtl}
+.card{position:absolute;left:72px;bottom:150px;width:400px;height:500px;transform:rotate(-2deg);border-radius:18px;overflow:hidden;background:#fff;border:10px solid #fff;box-shadow:0 18px 40px rgba(11,5,24,.28)}
+.card img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+pre#rtl-report{display:none}
+/* The bold look (Carousel Machine, 10 Oct 2026): type first. Much larger headline on short lines, one highlighted
+   phrase per slide in the pillar colour, body in Rubik for a clear step down, spoken sentences as bubbles,
+   the comment line of the last slide as a button. --look classic keeps the layout above untouched. */
+@font-face{font-family:"Rubik";src:url("../../../../../../carousel/carousel-pipeline/assets/fonts/Rubik-VariableFont_wght.ttf") format("truetype");font-weight:300 900;font-display:block}
+.pillar-kid{--hl:#5B2BD6;--hl-ink:#FFF7E8}
+.pillar-expert{--hl:#F6C445;--hl-ink:#1D1039}
+.look-bold .copy{left:64px;right:64px}
+.look-bold .copy.top{top:72px}
+.look-bold .veil.top{background:linear-gradient(180deg,rgba(var(--veil),.94) 0,rgba(var(--veil),.8) 24%,rgba(var(--veil),0) 48%)}
+.look-bold .h{line-height:1.13;letter-spacing:-.02em;text-shadow:0 0 26px rgba(var(--veil),.95),0 0 8px rgba(var(--veil),.85)}
+.look-bold .b{font-family:"Rubik",sans-serif;font-weight:600;line-height:1.26;margin-top:28px;opacity:1;text-shadow:0 0 18px rgba(var(--veil),.95),0 0 6px rgba(var(--veil),.8)}
+.look-bold .hl{display:inline-block;background:var(--hl);color:var(--hl-ink);padding:0 .2em .05em;border-radius:.15em;transform:rotate(-1.6deg);text-shadow:none;box-shadow:0 10px 24px rgba(11,5,24,.24)}
+.look-bold .ln:has(.hl){margin:.07em 0}
+.look-bold .q{display:inline-block;background:#FFFDF8;color:#1D1039;border-radius:.5em;padding:.04em .42em .08em;margin:.1em 0;text-shadow:none;box-shadow:0 6px 16px rgba(11,5,24,.2)}
+.look-bold .btn{display:inline-block;background:#F6C445;color:#1D1039;border-radius:.4em;padding:.06em .5em .1em;margin-bottom:.16em;font-weight:800;text-shadow:none;box-shadow:0 10px 26px rgba(0,0,0,.4)}
+/* Instagram's own save and send glyphs beside the save and share CTA (Yarin, 24 Oct 2026: "add default save and send icons") */
+.ic{display:inline-block;width:.86em;height:.86em;vertical-align:-.13em;margin-inline-end:.3em;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.look-bold .arrow{width:96px;height:96px;bottom:52px;background:var(--hl)}
+.look-bold .arrow path{stroke:var(--hl-ink);stroke-width:6}
+/* The clean look (Yarin, 14 Oct 2026: "from now on design the text of the carousels like these except the cta
+   slide"): every slide but the last is plain centred type on the wall. Headline in Heebo Black, solid dark plum;
+   the body a step down in a lighter plum; no highlight block, no bubbles, no veil or glow; a cream round arrow.
+   The last slide keeps the bold look exactly (it also carries .look-bold). */
+.look-clean .slide:not(.cta) .veil{display:none}
+.look-clean .slide:not(.cta) .h{color:var(--ink);line-height:1.1;text-shadow:none}
+.look-clean .slide:not(.cta) .b{font-family:"Heebo",sans-serif;font-weight:900;color:#43345F;line-height:1.22;margin-top:30px;text-shadow:none}
+.look-clean .slide.dark:not(.cta) .b{color:var(--ink);opacity:.86}
+.look-clean .slide:not(.cta) .arrow{width:88px;height:88px;bottom:56px;background:#F8F0E1}
+.look-clean .slide:not(.cta) .arrow path{stroke:#1D1039;stroke-width:5}
+/* Only when the contrast check (legible() below) still fails after darker ink and light-on-dark: a soft panel of the
+   wall colour behind the copy (24 Oct 2026) */
+.copy.panel{isolation:isolate}
+.copy.panel::before{content:"";position:absolute;inset:-28px -36px;border-radius:44px;background:rgba(var(--veil),.84);z-index:-1}
+</style></head><body dir="rtl" class="pillar-kid look-bold look-clean"><section class="slide" data-n="1"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="80" data-bmin="44"><div class="h" data-max="128"><span class="ln">בכיתה אני בסדר</span><span class="ln">ובבית אני</span><span class="ln">מתפרק</span></div><div class="b" data-max="60"><span class="ln">8 דברים שאני עושה ומה הם אומרים</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="2"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">אמא ואבא, כל היום אני מתאמץ</span></div><div class="b" data-max="54"><span class="ln">לשבת, לחכות לתור, להקשיב למורה.</span><span class="ln">כשאני מגיע אליכם, נגמר לי הכוח.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="3"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">1 אני צועק על שטויות</span></div><div class="b" data-max="54"><span class="ln">בעצם החזקתי את עצמי כל היום.</span><span class="ln">מה יעזור לי: לא לשאול כלום בעשר הדקות הראשונות.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="4"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">2 אני לא עונה ״מה היה היום?״</span></div><div class="b" data-max="54"><span class="ln">בעצם אין לי כוח לספר עכשיו.</span><span class="ln">מה יעזור לי: לשאול אותי בערב, במיטה.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="5"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">3 אני רעב ועצבני ביחד</span></div><div class="b" data-max="54"><span class="ln">בעצם אולי לא אכלתי הרבה בהפסקה.</span><span class="ln">מה יעזור לי: משהו לאכול כבר כשאני נכנס.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="6"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">4 אני רב עם כל מי שבבית</span></div><div class="b" data-max="54"><span class="ln">בעצם אני מוציא את מה שהחזקתי.</span><span class="ln">מה יעזור לי: פינה שקטה שלי לכמה דקות.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="7"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">5 אני רק רוצה לשכב</span></div><div class="b" data-max="54"><span class="ln">בעצם אני מחפש לנוח מכל הרעש.</span><span class="ln">מה יעזור לי: לשכב איתכם על הספה, בלי שאלות.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="8"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">6 אני בוכה מול שיעורי הבית</span></div><div class="b" data-max="54"><span class="ln">בעצם אני עייף, לא עצלן.</span><span class="ln">מה יעזור לי: קודם לנוח, אחר כך לשבת.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="9"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">7 אני נצמד לאמא כמו תינוק</span></div><div class="b" data-max="54"><span class="ln">בעצם התגעגעתי אחרי יום ארוך.</span><span class="ln">מה יעזור לי: חיבוק ארוך בדלת, עוד לפני הכל.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="10"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">8 אני מתפרק דווקא אצלכם</span></div><div class="b" data-max="54"><span class="ln">בעצם איתכם אני מרגיש הכי בטוח.</span><span class="ln">מה יעזור לי: לדעת שאתם לא כועסים עליי.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide" data-n="11"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="72" data-bmin="42"><div class="h" data-max="112"><span class="ln">אני לא ילד רע אחרי בית הספר</span></div><div class="b" data-max="54"><span class="ln">אני פשוט מתרוקן.</span><span class="ln">אוכל, שקט וחיבוק, ואני חוזר להיות אני.</span></div></div><div class="arrow"><svg viewBox="0 0 44 44"><path d="M36 22H8M19 10 7 22l12 12"/></svg></div></section><section class="slide dark cta" data-n="12"><img class="art" src="../generated-assets/picture.png" alt=""><div class="veil top"></div><div class="copy top" data-maxh="555" data-hmin="64" data-bmin="42"><div class="h" data-max="92"><span class="ln"><span class="btn"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h11a1.5 1.5 0 0 1 1.5 1.5V21l-7-6.2L5 21V4.5A1.5 1.5 0 0 1 6.5 3z"/></svg>תשמרו את הפוסט</span></span></div><div class="b" data-max="58"><span class="ln">לפעם הבאה שהוא חוזר עצבני</span></div></div></section><pre id="rtl-report"></pre><script>
+const q = new URLSearchParams(location.search);
+const one = q.get('s');
+// layout notes per slide land in data-push / data-clear and in the check report
+if (one) { document.body.classList.add('single'); document.querySelector('.slide[data-n="' + one + '"]').classList.add('on'); }
+function fitSlide(s) {
+  // Headline and body are fitted separately so a long headline never shrinks the body.
+  // Floors: headline 56px, body 40px (Heebo Black is wider than the old Assistant body). Below that
+  // the slide is reported as overflow and the copy has to be shortened instead of printed too small.
+  const c = s.querySelector('.copy'); const h = c.querySelector('.h'); const b = c.querySelector('.b');
+  const maxH = Number(c.dataset.maxh);
+  const HMIN = Number(c.dataset.hmin || 56), BMIN = Number(c.dataset.bmin || 40);
+  const wide = el => [...el.querySelectorAll('.ln')].some(l => l.scrollWidth > l.clientWidth + 1);
+  let hs = Number(h.dataset.max); h.style.fontSize = hs + 'px';
+  while (wide(h) && hs > HMIN) { hs -= 2; h.style.fontSize = hs + 'px'; }
+  let bs = 0;
+  if (b) { bs = Number(b.dataset.max); b.style.fontSize = bs + 'px'; while (wide(b) && bs > BMIN) { bs -= 1; b.style.fontSize = bs + 'px'; } }
+  let guard = 0;
+  while (c.scrollHeight > maxH + 1 && guard < 120) {
+    const before = hs + bs;
+    if (hs > HMIN) { hs -= 2; h.style.fontSize = hs + 'px'; }
+    if (b && bs > BMIN) { bs -= 1; b.style.fontSize = bs + 'px'; }
+    if (hs + bs === before) break;
+    guard++;
+  }
+  const ok = !wide(h) && !(b && wide(b)) && c.scrollHeight <= maxH + 1;
+  c.dataset.fit = ok ? 'ok' : 'overflow'; c.dataset.headSize = hs; c.dataset.bodySize = bs;
+}
+// Pixels of the picture as it is shown (object-fit: cover onto 1080x1350), at quarter resolution:
+// downscaling averages 4x4 blocks, which stands in for the trial's 3px blur.
+function pixels(img) {
+  const w = 270, h = 338, cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+  const g = cv.getContext('2d'); const sc = Math.max(1080 / img.naturalWidth, 1350 / img.naturalHeight);
+  const dw = img.naturalWidth * sc / 4, dh = img.naturalHeight * sc / 4;
+  g.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+  return { w, h, d: g.getImageData(0, 0, w, h).data };
+}
+function topLuma(px, rows) {
+  let sum = 0, n = 0;
+  for (let y = 0; y < rows; y++) for (let x = 0; x < px.w; x++) { const i = (y * px.w + x) * 4; sum += .2126 * px.d[i] + .7152 * px.d[i + 1] + .0722 * px.d[i + 2]; n++; }
+  return sum / n;
+}
+// First row (slide px) where the picture stops being plain wall or sky. Each row is compared with a smooth
+// quadratic fitted across it (walls have soft left-right shading); a row where more than 2% of pixels
+// deviate strongly from that fit is where hair, faces or furniture begin. Same test as the trial's subject_top.
+function subjectTop(px, left, right) {
+  const x0 = Math.max(10, Math.floor((left ?? 40) / 4)), x1 = Math.min(px.w - 10, Math.ceil((right ?? px.w * 4 - 40) / 4)), m = x1 - x0;
+  const xs = Array.from({ length: m }, (_, k) => -1 + 2 * k / (m - 1));
+  let S = [[0,0,0],[0,0,0],[0,0,0]];
+  xs.forEach(x => { const v = [1, x, x * x]; for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) S[a][b] += v[a] * v[b]; });
+  const inv = inv3(S);
+  for (let y = 5; y < px.h; y++) {
+    const coef = [0, 1, 2].map(ch => { const r = [0, 0, 0];
+      xs.forEach((x, k) => { const val = px.d[(y * px.w + x0 + k) * 4 + ch]; r[0] += val; r[1] += val * x; r[2] += val * x * x; });
+      return [0, 1, 2].map(a => inv[a][0] * r[0] + inv[a][1] * r[1] + inv[a][2] * r[2]); });
+    let bad = 0;
+    xs.forEach((x, k) => { let e = 0;
+      for (let ch = 0; ch < 3; ch++) { const f = coef[ch][0] + coef[ch][1] * x + coef[ch][2] * x * x; const dv = px.d[(y * px.w + x0 + k) * 4 + ch] - f; e += dv * dv; }
+      if (Math.sqrt(e) > 18) bad++; });
+    if (bad / m > 0.02) return y * 4;
+  }
+  return 1350;
+}
+function inv3(m) {
+  const [a, b, c] = m[0], [d, e, f] = m[1], [g, h, i] = m[2];
+  const A = e * i - f * h, B = -(d * i - f * g), C = d * h - e * g, det = a * A + b * B + c * C;
+  return [[A / det, -(b * i - c * h) / det, (b * f - c * e) / det],
+          [B / det, (a * i - c * g) / det, -(a * f - c * d) / det],
+          [C / det, -(a * h - b * g) / det, (a * e - b * d) / det]];
+}
+// Readable type on any picture (Yarin, 24 Oct 2026, "do it" on the carousel audit's contrast fix: the clock change and
+// pacifier carousels set dark plum type on a blue wall). The WCAG contrast of each text block's ink against the picture
+// behind its lines, read at the 15th percentile so a busy patch counts. Below MIN_CONTRAST the body first takes the
+// headline's darker ink, then the slide turns light on dark if that reads better, and only then a soft panel of the
+// wall colour goes behind the copy. The report records the contrast before and after, and the fix used.
+const MIN_CONTRAST = 4.5;
+function lum(r, g, b) { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return .2126 * f(r) + .7152 * f(g) + .0722 * f(b); }
+function behind(px, s, el, dy) {
+  const sr = s.getBoundingClientRect(), out = [];
+  el.querySelectorAll('.ln').forEach(l => { const r = document.createRange(); r.selectNodeContents(l); const b = r.getBoundingClientRect();
+    if (!b.width) return;
+    for (let y = Math.max(0, b.top - sr.top); y < Math.min(1350, b.bottom - sr.top); y += 8)
+      for (let x = Math.max(0, b.left - sr.left - 12); x < Math.min(1080, b.right - sr.left + 12); x += 8) {
+        const iy = Math.min(px.h - 1, Math.max(0, Math.floor((y < dy ? 0 : y - dy) / 4))), ix = Math.min(px.w - 1, Math.floor(x / 4)), i = (iy * px.w + ix) * 4;
+        out.push(lum(px.d[i], px.d[i + 1], px.d[i + 2]));
+      } });
+  return out;
+}
+function contrastOf(px, s, el, dy) {
+  const cs = getComputedStyle(el), m = cs.color.match(/[0-9.]+/g).map(Number), op = Number(cs.opacity) * (m.length > 3 ? m[3] : 1);
+  const ink = lum(m[0], m[1], m[2]), bgs = behind(px, s, el, dy);
+  if (!bgs.length) return 21;
+  const ks = bgs.map(L => { const t = op * ink + (1 - op) * L; return (Math.max(L, t) + .05) / (Math.min(L, t) + .05); }).sort((a, b) => a - b);
+  return ks[Math.floor(ks.length * .15)];
+}
+function legible(s, px, dy) {
+  if (s.classList.contains('cta')) return;   // the last slide keeps its own dark veil
+  const c = s.querySelector('.copy'), h = c.querySelector('.h'), b = c.querySelector('.b'), els = [h, b].filter(Boolean);
+  const worst = () => Math.min(...els.map(e => contrastOf(px, s, e, dy)));
+  const before = worst(); let k = before, fix = 'none';
+  if (k < MIN_CONTRAST && b) { b.style.color = getComputedStyle(h).color; b.style.opacity = '1'; const k1 = worst(); if (k1 > k) { k = k1; fix = 'ink'; } else { b.style.color = ''; b.style.opacity = ''; } }
+  if (k < MIN_CONTRAST) {
+    const keep = b ? [b.style.color, b.style.opacity] : null;
+    if (b) { b.style.color = ''; b.style.opacity = ''; }
+    s.classList.toggle('dark'); const k2 = worst();
+    if (k2 > k) { k = k2; fix = 'flip'; } else { s.classList.toggle('dark'); if (b) { b.style.color = keep[0]; b.style.opacity = keep[1]; } }
+  }
+  if (k < MIN_CONTRAST) { c.classList.add('panel'); fix = fix === 'none' ? 'panel' : fix + '+panel'; }
+  s.dataset.contrast = before.toFixed(2); s.dataset.contrastAfter = (c.classList.contains('panel') ? Math.max(k, MIN_CONTRAST) : k).toFixed(2); s.dataset.fix = fix;
+}
+// Text on the picture's plain wall, the picture untouched (Yarin, 24 Oct 2026: "i dont want you to distort the images anymore,
+// fit the text on the flat space in the generated picture even if it means to play a bit with the sizing of the text or make
+// another line"). Every line must end GAP px above the row where the picture stops being plain under that line's own width
+// (centred lines, so a short line can go lower between the furniture at the sides). The search tries each headline size from
+// the largest down (the body keeps its proportion), first on the copy's own lines and then breaking the widest line that
+// does not fit at its most even word gap, up to MAX_SPLITS more lines, and keeps the largest type; every extra line costs
+// LINE_COST px of headline size. Under the usual floors it goes on to SMALL of them. If nothing fits even then, the layout
+// that runs least into the picture is kept with the soft panel, and the report calls it tight.
+const GAP = 28, SIDE = 36, MAX_SPLITS = 3, LINE_COST = 10, SMALL = .8, ARROW_TOP = 1350 - 170;
+const clearMaps = {};
+function clearTop(px, src, half) {
+  // first row that is not plain wall under a centred span of this half width (+SIDE px each side), cached per picture
+  const map = clearMaps[src] = clearMaps[src] || {}, k = Math.min(540, Math.max(20, Math.ceil(half / 20) * 20));
+  if (!(k in map)) map[k] = subjectTop(px, 540 - k - SIDE, 540 + k + SIDE);
+  return map[k];
+}
+function overlap(s, c, px, src) {
+  // how far the copy runs into the picture (0 or less: it fits); a line wider than the copy box never fits
+  const sr = s.getBoundingClientRect(); let worst = -1350;
+  for (const l of c.querySelectorAll('.ln')) {
+    if (l.scrollWidth > l.clientWidth + 1) return 5000 + l.scrollWidth - l.clientWidth;
+    const r = document.createRange(); r.selectNodeContents(l); const b = r.getBoundingClientRect();
+    if (!b.width) continue;
+    const bottom = b.bottom - sr.top, half = Math.max(540 - (b.left - sr.left), b.right - sr.left - 540);
+    worst = Math.max(worst, bottom + GAP - clearTop(px, src, half), bottom - ARROW_TOP);
+  }
+  return worst;
+}
+function groupsOf(l) {
+  // the line's words as node groups: a top-level space separates them; a highlight, button, bubble or Latin run stays whole
+  const out = [[]];
+  l.childNodes.forEach(n => {
+    if (n.nodeType !== 3) { out[out.length - 1].push(n.cloneNode(true)); return; }
+    n.textContent.split(/(\s+)/).forEach(p => { if (!p) return; if (/^\s+$/.test(p)) out.push([]); else out[out.length - 1].push(document.createTextNode(p)); });
+  });
+  return out.filter(g => g.length);
+}
+function splitLine(l) {
+  // one line into two at the word gap that makes them most even; a list number stays with its first word
+  if (l.querySelector('.btn')) return false;
+  const gs = groupsOf(l), len = g => g.reduce((t, n) => t + n.textContent.length, 0);
+  const first = /^\d+$/.test(gs.length ? gs[0].map(n => n.textContent).join('') : '') ? 2 : 1;
+  let best = -1, diff = 1e9;
+  for (let i = first; i < gs.length; i++) {
+    const a = gs.slice(0, i).reduce((t, g) => t + len(g) + 1, 0), b = gs.slice(i).reduce((t, g) => t + len(g) + 1, 0);
+    if (Math.abs(a - b) < diff) { diff = Math.abs(a - b); best = i; }
+  }
+  // the save for later CTA breaks after לפעם הבאה, so the moment about the child stays whole (24 Oct 2026)
+  const words = gs.map(g => g.map(n => n.textContent).join(''));
+  if (gs.length > 2 && words[0] === 'לפעם' && words[1] === 'הבאה') best = 2;
+  if (best < 0) return false;
+  const make = part => { const el = l.cloneNode(false); part.forEach((g, k) => { if (k) el.append(' '); el.append(...g); }); return el; };
+  l.replaceWith(make(gs.slice(0, best)), make(gs.slice(best)));
+  return true;
+}
+function splitWorst(s, c, px, src) {
+  // break the widest line that does not fit on its own
+  const sr = s.getBoundingClientRect(); let pick = null, wide = 0;
+  for (const l of c.querySelectorAll('.ln')) {
+    const r = document.createRange(); r.selectNodeContents(l); const b = r.getBoundingClientRect();
+    if (!b.width || l.querySelector('.btn') || groupsOf(l).length < 2) continue;
+    const half = Math.max(540 - (b.left - sr.left), b.right - sr.left - 540);
+    const bad = l.scrollWidth > l.clientWidth + 1 || b.bottom - sr.top + GAP > clearTop(px, src, half);
+    if (bad && b.width > wide) { wide = b.width; pick = l; }
+  }
+  return pick ? splitLine(pick) : false;
+}
+function fitTop(s, px, src) {
+  const c = s.querySelector('.copy'), h = c.querySelector('.h'), b = c.querySelector('.b');
+  const orig = [h.innerHTML, b ? b.innerHTML : ''];
+  const hmax = Number(h.dataset.max), hmin = Number(c.dataset.hmin || 56), bmax = b ? Number(b.dataset.max) : 0, bmin = Number(c.dataset.bmin || 40);
+  const set = (hs, splits) => {
+    h.innerHTML = orig[0]; h.style.fontSize = hs + 'px';
+    if (b) { b.innerHTML = orig[1]; b.style.fontSize = Math.max(Math.round(bmin * (hs < hmin ? SMALL : 1)), Math.min(bmax, Math.round(bmax * hs / hmax))) + 'px'; }
+    for (let k = 0; k < splits; k++) if (!splitWorst(s, c, px, src)) return k;
+    return splits;
+  };
+  let best = null, least = null;
+  for (let hs = hmax; hs >= Math.round(hmin * SMALL); hs -= 4) {
+    for (let k = 0; k <= MAX_SPLITS; k++) {
+      if (set(hs, k) < k) break;                                  // nothing left to break
+      const o = overlap(s, c, px, src);
+      if (!least || o < least.o) least = { hs, k, o };
+      if (o <= 0) { const score = hs - LINE_COST * k - (hs < hmin ? 30 : 0); if (!best || score > best.score) best = { hs, k, o, score }; break; }
+    }
+    if (best && hs - 4 <= best.score) break;                      // smaller type cannot win any more
+  }
+  const pick = best || least;
+  set(pick.hs, pick.k);
+  if (best && b) {                                                // then the body as large as the wall still allows
+    let bs = parseInt(b.style.fontSize);
+    while (bs < bmax) { b.style.fontSize = (bs + 2) + 'px'; if (overlap(s, c, px, src) > 0) { b.style.fontSize = bs + 'px'; break; } bs += 2; }
+    pick.o = overlap(s, c, px, src);
+  }
+  c.dataset.fit = best ? 'ok' : 'tight'; c.dataset.headSize = pick.hs; c.dataset.bodySize = b ? parseInt(b.style.fontSize) : 0;
+  c.dataset.splits = pick.k; c.dataset.clearance = Math.round(-pick.o);
+  if (!best) c.classList.add('panel');
+  if (s.classList.contains('cta')) {                              // the dark veil of the last slide ends just under its copy
+    const end = c.offsetTop + c.scrollHeight + GAP + 50;
+    s.querySelector('.veil').style.background = `linear-gradient(180deg,rgba(var(--veil),.94) 0,rgba(var(--veil),.8) ${Math.round(end * .62)}px,rgba(var(--veil),0) ${end}px)`;
+  }
+}
+function layoutSlide(s) {
+  const img = s.querySelector('.art'); const c = s.querySelector('.copy');
+  if (!img || !img.naturalWidth) return;
+  let px = null;
+  try { px = pixels(img); } catch (e) { s.dataset.layout = 'no-pixels'; return; }
+  // Dark ink or cream ink: the last slide is always dark; any other slide goes dark when the wall behind the text is dark.
+  if (!s.classList.contains('dark') && c.classList.contains('top') && topLuma(px, Math.round(px.h * .3)) < 105) s.classList.add('dark');
+  if (c.classList.contains('top')) fitTop(s, px, img.src); else fitSlide(s);
+  s.dataset.push = 0; s.dataset.textBottom = c.offsetTop + c.scrollHeight;
+  legible(s, px, 0);
+}
+async function ready() {
+  try { await document.fonts.ready; } catch (e) {}
+  await Promise.all([...document.querySelectorAll('img.art')].map(i => i.complete ? null : new Promise(r => { i.onload = r; i.onerror = r; })));
+  try { document.querySelectorAll('.slide').forEach(s => { fitSlide(s); layoutSlide(s); }); }
+  catch (e) { document.getElementById('rtl-report').textContent = 'JSERROR ' + e + ' ' + e.stack; document.body.dataset.ready = '1'; return; }
+  if (q.get('check')) {
+    const rep = [...document.querySelectorAll('.slide')].map(s => {
+      const c = s.querySelector('.copy'); const cs = getComputedStyle(c);
+      const blocks = [...s.querySelectorAll('.copy .ln, .ai')].map(el => ({
+        text: el.textContent, direction: getComputedStyle(el).direction, textAlign: getComputedStyle(el).textAlign,
+        mixed: /[A-Za-z0-9]/.test(el.textContent), overflow: el.scrollWidth > el.clientWidth + 1 }));
+      return { n: Number(s.dataset.n), lang: document.documentElement.lang, htmlDir: document.documentElement.dir,
+               direction: cs.direction, textAlign: cs.textAlign, fit: c.dataset.fit, push: Number(s.dataset.push || 0), clear: c.dataset.clear || 'ok', dark: s.classList.contains('dark'), headSize: Number(c.dataset.headSize), bodySize: Number(c.dataset.bodySize),
+               splits: Number(c.dataset.splits || 0), clearance: Number(c.dataset.clearance || 0),
+               contrast: Number(s.dataset.contrast || 0), contrastAfter: Number(s.dataset.contrastAfter || 0), contrastFix: s.dataset.fix || '', blocks };
+    });
+    document.getElementById('rtl-report').textContent = JSON.stringify(rep);
+  }
+  document.body.dataset.ready = '1';
+}
+ready();
+</script></body></html>

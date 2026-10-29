@@ -76,9 +76,24 @@ def _save_pending(runs):
         pending_path().unlink()
 
 
+def final_slides(run_dir):
+    """final/01.png .. NN.png for this carousel's own slide count (7, 10, or 9 to 12 in the story format), so a slide
+    left from a longer earlier version (a re-export after an edit restores the old final/ first) is never sent on."""
+    final = Path(run_dir) / "final"
+    pngs = sorted(final.glob("[0-9][0-9].png"))
+    approved = Path(run_dir) / "approved.json"
+    if not approved.exists():   # games and books runs: no frozen option, every slide in final/
+        return pngs
+    try:
+        count = len(lib.read_json(approved)["option"]["slides"])
+    except (KeyError, TypeError, ValueError):
+        return pngs
+    return [p for p in pngs if int(p.stem) <= count]
+
+
 def copy_run(run_dir, root):
     final = Path(run_dir) / "final"
-    slides = sorted(p for p in final.glob("[0-9][0-9].png"))
+    slides = final_slides(run_dir)
     if not slides:
         raise FileNotFoundError(f"{final} has no slides")
     dest = root / config().get("carousels", {}).get("name", "קרוסלות") / _title(run_dir)

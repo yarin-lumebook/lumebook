@@ -1,6 +1,6 @@
 ---
 name: lumebook-carousel
-description: Carousel Machine (called Hook Studio until 22 Oct 2026), the LumeBook carousel pipeline. Create the LumeBook Hebrew carousel review pack for a day (since 24 Oct 2026: two topics of two best-selling books, three child-voice 10-slide options on each, one picture each, the save and share CTA; no paid images), or turn one chosen option such as kid-2 or expert-1 into a fal.ai GPT Image 2.5 Flare production run with approval, visual QA and final 1080x1350 export. Use it for the scheduled lumebook-nightly-carousel task, whenever someone asks for tonight's or tomorrow's carousel options, says "produce kid-2" or "make expert-1", or asks to regenerate, QA or export a LumeBook carousel, or mentions the Carousel Machine or Hook Studio.
+description: Carousel Machine (called Hook Studio until 22 Oct 2026), the LumeBook carousel pipeline. Create the LumeBook Hebrew carousel review pack for a day (since 29 Oct 2026 in the story format of story-format.md: two topics of two best-selling books, three child-voice options on each, each with its own structure such as before and after, a letter or one day, 9 to 12 fuller slides with a picture per slide, the save CTA; no paid images), or turn one chosen option such as kid-2 or expert-1 into a fal.ai GPT Image 2.5 Flare production run with approval, visual QA and final 1080x1350 export. Use it for the scheduled lumebook-nightly-carousel task, whenever someone asks for tonight's or tomorrow's carousel options, says "produce kid-2" or "make expert-1", or asks to regenerate, QA or export a LumeBook carousel, or mentions the Carousel Machine or Hook Studio.
 ---
 
 # Carousel Machine (the LumeBook carousel pipeline)
@@ -20,6 +20,20 @@ Sources, rotation and the rest of the checks are guardrails. They keep the carou
 One pipeline, two modes. Everything lives in `carousel/carousel-pipeline/` (scripts, schema, topic bank, history, drafts, approved runs) and the README there is the operator manual.
 
 All Hebrew a parent will read follows the **lumebook-hebrew-voice** skill. Read its `SKILL.md` before writing any copy, in both modes.
+
+## Story format (since 29 Oct 2026, overrides everything below where they differ)
+
+Yarin, 29 Oct 2026, after five carousels built on @lotem_lerner's structure (`media/projects/2026-10-29-lotem-format-carousels/`, `final-v4/`): "i like the new content, change the entire carousel machine and November batch to match it". Earlier the same evening: "too little text so the slides are not coherent enough and the format is too repetitive" and "why is it always 8 things? why always lists?".
+
+Every new pack is a story pack (`"copy_style": "story"`). The full rules are in `carousel/carousel-pipeline/story-format.md`; read it before writing a pack. In short:
+
+- **No list of 8.** Each option has a `structure`: before and after, a letter from the child, the parents' thoughts and the child's answers, one minute slowed down, one day by the clock, or a short list of 3 to 5. At least 4 structures per pack, the three options of a topic all different.
+- **Fuller, linked slides:** 9 to 12 slides, 15 to 50 words on each story slide, lines broken by hand (up to 38 characters), small tags, gold labels (`## `), a card with a sentence to say (`> `), gold emphasis (`**`), and shapes that change from slide to slide.
+- **A picture per slide:** a `scene` on every slide from 2; production makes the cover first, then every other slide from the cover as the reference (cap $1.00 a carousel; Yarin to confirm, the standing approval was $0.50).
+- **The look:** `compose_slides.py --look story`, her text treatment in lumebook.com's palette and its font, Varela Round.
+- Unchanged: two topics, the child's voice to the parents, names and 50/50 gender, sources and claims, the save CTA, the caption.
+
+The "ten slides", "numbered examples", "one picture" and "clean look" rules below apply only to packs without `copy_style: "story"`.
 
 ## Two topics a day, child voice only, the save and share CTA (since 24 Oct 2026)
 

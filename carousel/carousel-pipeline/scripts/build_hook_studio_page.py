@@ -109,11 +109,27 @@ def card_kid(day, run, opt):
 </article>'''
 
 
-def table_options(opts):
+STRUCTURES = [   # story-format.md, 29 Oct 2026 (the names match create_review.STRUCTURES_HE)
+    ("before_after", "פעם ועכשיו", "איך היה פעם, מה השתנה, מה הילד עושה עכשיו ולמה, ומה מחזיר את פעם", "פעם, ואז, ומאז"),
+    ("letter", "מכתב", "מכתב מהילד: ״אמא שלי,״ בשקופית 2, אחריה גוף בלי כותרת, וחתימה בסוף. על דף שמנת", "בלי תוויות"),
+    ("thoughts_answers", "אתם חושבים, אני עונה", "המחשבה של ההורה בכותרת, והתשובה של הילד בגוף", "אתם חושבים:, ואחרונה:"),
+    ("one_minute", "דקה אחת", "רגע קשה אחד לאט, שנייה אחרי שנייה, ואז מה עוזר אחריו", "הדקה מתחילה, עשר שניות, בערב"),
+    ("one_day", "יום אחד", "יום אחד של הילד לפי השעון, מהבוקר עד המיטה", "07:30, בבוקר עד 20:00, במיטה"),
+    ("short_list", "רשימה קצרה", "3 עד 5 נקודות בלבד, כל אחת מונולוג קצר. פעם אחת בחבילה לכל היותר", "1: ... עד 5: ..."),
+]
+STRUCT_HE = {k: he for k, he, _, _ in STRUCTURES}
+
+
+def table_options(opts, story=False):
     rows = []
     for o in opts:
         kind = "kid" if o["id"].startswith("kid") else "expert"
-        heads = " · ".join(esc(s["headline"].replace("\n", " ")) for s in o["slides"])
+        if story:   # a story option: its structure, its slide count, and the label before each headline
+            heads = " · ".join(esc(" ".join(x for x in (s.get("label", ""), s["headline"].replace("\n", " ")) if x.strip()))
+                               for s in o["slides"] if (s.get("label") or s["headline"]).strip())
+            heads = f'{chip(STRUCT_HE.get(o.get("structure"), o.get("structure") or "בלי מבנה"), "tint")} {chip(str(len(o["slides"])) + " שקופיות", "outline")}<div>{heads}</div>'
+        else:
+            heads = " · ".join(esc(s["headline"].replace("\n", " ")) for s in o["slides"])
         who = "אמא" if o["addressee"] == "mom" else "הורים"
         done = chip("הופק", "success") if o["id"] == "kid-2" else ""
         rows.append(f'<tr><td><span class="lb-chip {kind}">{o["id"]}</span> {done}</td>'
@@ -122,13 +138,17 @@ def table_options(opts):
     return "\n".join(rows)
 
 
+def structures_html():
+    return "\n".join(f'<tr><td>{esc(he)}</td><td>{esc(how)}</td><td>{esc(labels)}</td></tr>' for _, he, how, labels in STRUCTURES)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date")
     day = (ap.parse_args().date or newest_date())
     pack = json.loads((PIPE / "drafts" / day / "pack.json").read_text(encoding="utf-8"))
     opts = list(options(pack["directions"]))
-    topic = pack["topic"]
+    topic = pack.get("topic") or (pack.get("topics") or [{}])[0]
     history = json.loads((PIPE / "history.json").read_text(encoding="utf-8"))["packs"]
     mixed, games, books = reco_state(day, reco_lib.MIXED), reco_state(day, "games"), reco_state(day, "books")
     run = PIPE / "approved" / f"{day}-kid-2"
@@ -144,7 +164,7 @@ def main():
     for k, v in {
         "__HEAD__": design.head(), "__TOGGLE__": design.theme_toggle(), "__LOGO__": design.logo_data_uri(),
         "__DAY__": day_he, "__TOPIC__": esc(topic["title_he"]), "__REASON__": esc(topic["reason"]),
-        "__CARDS__": "\n".join(cards), "__ROWS__": table_options(opts), "__PACKS__": str(len(history)),
+        "__CARDS__": "\n".join(cards), "__ROWS__": table_options(opts, pack.get("copy_style") == "story"), "__PACKS__": str(len(history)),
     }.items():
         page = page.replace(k, v)
     assert "__" not in page.replace("__init__", ""), "unfilled placeholder"
@@ -201,7 +221,7 @@ ul.lim{margin:var(--sp-2) 0 0;padding-inline-start:1.2rem;color:var(--text-2);fo
 <header class="lb-topbar"><div class="lb-topbar-in">
   <a class="lb-brand" href="#top"><img src="__LOGO__" alt="" width="28" height="28"><b>Carousel Machine</b></a>
   <nav class="lb-toc" aria-label="פרקים">
-    <a href="#today">הלילה האחרון</a><a href="#how">איך זה עובד</a><a href="#slides">שבע השקופיות</a><a href="#rules">כללים</a><a href="#commands">פקודות</a>
+    <a href="#today">הלילה האחרון</a><a href="#story">פורמט הסיפור</a><a href="#how">איך זה עובד</a><a href="#slides">שבע השקופיות</a><a href="#rules">כללים</a><a href="#commands">פקודות</a>
   </nav>
   <span class="lb-spacer"></span>
   <a class="lb-btn ghost sm" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">לוח לומבוק</a>
@@ -235,6 +255,22 @@ __CARDS__
 __ROWS__
     </tbody>
   </table></div>
+</section>
+
+<section class="lb-section" id="story">
+  <h2>פורמט הסיפור</h2>
+  <p>מ-29 באוקטובר 2026 כל חבילה חדשה היא בפורמט הסיפור: לכל אפשרות מבנה משלה, 9 עד 12 שקופיות, תמונה לכל שקופית, והילד מדבר אל ההורים. בכל חבילה לפחות 4 מבנים שונים, אף מבנה לא יותר מפעמיים, ושלוש האפשרויות של נושא אחד בשלושה מבנים שונים.</p>
+  <div class="lb-table-wrap"><table class="lb-table" style="min-width:36rem">
+    <thead><tr><th>מבנה</th><th>איך הוא נקרא</th><th>תוויות</th></tr></thead>
+    <tbody>
+__STRUCTS__
+    </tbody>
+  </table></div>
+  <ul class="rules">
+    <li><strong>בגוף השקופית:</strong> שורה שמתחילה ב-## היא תווית זהב קטנה, שורה שמתחילה ב-&gt; היא משפט להגיד בכרטיס שמנת, **מילה** היא הדגשה בזהב, ושורה ריקה היא רווח.</li>
+    <li><strong>המראה:</strong> שכבת דיו מעל התמונה של כל שקופית, טקסט שמנת ב-Varela Round, תוויות והדגשות בזהב, והמכתב על דף שמנת.</li>
+    <li><strong>בעורך:</strong> כל שקופית מוצגת במראה הזה, ולידה התווית, הכותרת, הגוף ותיאור התמונה שלה, לעריכה ישירה.</li>
+  </ul>
 </section>
 
 <section class="lb-section" id="how">
@@ -342,7 +378,7 @@ def cmd_html():
     return "\n    ".join(out)
 
 
-TEMPLATE = TEMPLATE.replace("__CMDS__", cmd_html()).replace("__NOCOST__", '<span class="lb-chip success">בלי עלות</span>')
+TEMPLATE = TEMPLATE.replace("__CMDS__", cmd_html()).replace("__STRUCTS__", structures_html()).replace("__NOCOST__", '<span class="lb-chip success">בלי עלות</span>')
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,14 @@
+# Sources · lotem-1 · 2026-10-29
+
+- [Preparing Your Older Child for a New Baby: How to Help Siblings Adjust](https://www.healthychildren.org/English/ages-stages/prenatal/Pages/Preparing-Your-Family-for-a-New-Baby.aspx) · HealthyChildren.org, American Academy of Pediatrics (last updated 2/10/2026) · read 2026-10-29
+  - supports: Be honest that the baby will cry and take time, expect a little regression, special time for the older child, invite them to help, family and friends spending time with them, a small gift, cuddling next to you at feeding, and reading books about newborns and siblings.
+  - quote: "Be honest. Explain that the baby will be cute but will also cry and take a lot of your time and attention. ... Expect your child to regress a little. For example, your toilet-trained child might suddenly start having "accidents," or they might want to take a bottle. This is normal and is your older child's way of making sure they still have your love and attention. ... Set aside special time for your child. ... Find ways to invite your child to help. You want to make sure your child feels included and not excluded. ... Ask family and friends to spend time with your older child when they come to see the new baby. ... Read children's books about newborns and siblings with your child."
+- ["When Is He Going Back in Your Belly?" How to Help Older Siblings Adjust to the New Baby](https://www.zerotothree.org/resource/when-is-he-going-back-in-your-belly-how-to-help-older-siblings-adjust-to-the-new-baby/) · ZERO TO THREE (10 April 2017) · read 2026-10-29
+  - supports: Mixed feelings are normal, validate the feeling, no pressure to love the baby, photos and visitors for the older child too, a doll to show gentle touch, invite to help without forcing, regression as a sign of stress answered matter of fact, keep the limits.
+  - quote: "They may love the baby intensely, yet also feel angry and resentful at having to share the attention of caregivers. ... The first step in helping your child manage these complex emotions is to let him know his feelings are understood and valid. ... Avoid putting pressure on your child to be in love with the new baby. ... when the older child senses pressure to love the baby, it can have the opposite effect ... Don't make everything about the new baby. When you're taking photos of the baby, snap some pictures of your older child. ... Using a doll or a stuffed animal, demonstrate actions that are gentle ... See if he wants to get the clean diaper ready, pick out clothes or rock the baby in her carrier. Don't pressure him if he is not interested. ... Your child may insist on a bottle, use baby talk or begin having potty accidents. ... Fight the urge to loosen up on limits and over-indulge your older child."
+
+## Product facts (live site)
+
+
+## Claims
+

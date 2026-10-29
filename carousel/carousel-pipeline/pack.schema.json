@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://lumebook.local/carousel-pipeline/pack.schema.json",
   "title": "LumeBook nightly carousel review pack",
-  "description": "Structure of carousel/carousel-pipeline/drafts/YYYY-MM-DD/pack.json. scripts/validate_pack.py checks this structure and adds the rules a schema cannot express. Arc (packs from 2026-10-14 10:00, 10 slides and one picture per option): hook, 2 explains the idea, 3 to 8 show 1 or 2 numbered examples each, 9 recaps, and the last slide suggests a personalised story where the child is the hero together with the CTA. Every option is about one named Israeli girl or boy and talks to mom or to both parents, never to dad. No brand or book title anywhere. Audience facing Hebrew is: slide headline and body, caption, cta, code_word.",
+  "description": "Structure of carousel/carousel-pipeline/drafts/YYYY-MM-DD/pack.json. scripts/validate_pack.py checks this structure and adds the rules a schema cannot express. Arc (packs from 2026-10-14 10:00, 10 slides and one picture per option): hook, 2 explains the idea, 3 to 8 show 1 or 2 numbered examples each, 9 recaps, and the last slide suggests a personalised story where the child is the hero together with the CTA. Every option is about one named Israeli girl or boy and talks to mom or to both parents, never to dad. No brand or book title anywhere. Audience facing Hebrew is: slide headline and body, caption, cta, code_word. Story packs (\"copy_style\": \"story\", from 29 Oct 2026, story-format.md): each option has a structure, 9 to 12 slides (the cover, 7 to 10 story slides with roles beat and an optional turn, the save CTA), a label and a scene on the slides, and no numbered examples. The if/then/else at the end of this file holds the rules that differ between the two.",
   "type": "object",
   "required": [
     "schema_version",
@@ -66,6 +66,12 @@
         "two_topics"
       ],
       "description": "two_topics since 24 Oct 2026 (Yarin: \"2 topics that have a best-selling book ... 3 options for each\"): `topics` holds the day's two topics and one kid direction holds kid-1 to kid-6. Absent in older packs."
+    },
+    "copy_style": {
+      "enum": [
+        "story"
+      ],
+      "description": "story since 29 Oct 2026 (Yarin: \"i like the new content, change the entire carousel machine and November batch to match it\"): the story format of story-format.md. Absent in older packs, which keep every older rule (10 slides, numbered examples, one picture)."
     },
     "cta_style": {
       "enum": [
@@ -325,12 +331,10 @@
         },
         "slides": {
           "type": "array",
-          "minItems": 7,
-          "maxItems": 10,
           "items": {
             "$ref": "#/$defs/slide"
           },
-          "description": "7 slides in packs before 2026-10-14 10:00, 10 slides since (Yarin, 14 Oct 2026)."
+          "description": "7 slides in packs before 2026-10-14 10:00, 10 slides since (Yarin, 14 Oct 2026). Story packs: 9 to 12 (the cover, 7 to 10 story slides, the CTA)."
         },
         "caption": {
           "type": "string",
@@ -338,10 +342,19 @@
         },
         "post_text": {
           "type": "object",
-          "required": ["caption", "fb_text"],
+          "required": [
+            "caption",
+            "fb_text"
+          ],
           "properties": {
-            "caption": {"type": "string", "minLength": 20},
-            "fb_text": {"type": "string", "minLength": 20}
+            "caption": {
+              "type": "string",
+              "minLength": 20
+            },
+            "fb_text": {
+              "type": "string",
+              "minLength": 20
+            }
           },
           "description": "Packs from 2026-10-26 21:00 (Yarin: \"in the written captions add punctuation marks and emojis (dont overdo it only at cta and hooks)\"): the Instagram caption and the Facebook text (slides 2 to 10, a blank line between slides), the same words punctuated, one emoji ending the hook line and 🔖 ending the CTA."
         },
@@ -390,7 +403,7 @@
             "payoff_slide": {
               "type": "integer",
               "minimum": 2,
-              "maximum": 9
+              "description": "2 to 9; in a story pack 2 to the slide before the CTA."
             },
             "score": {
               "type": "object",
@@ -486,7 +499,7 @@
           "type": "integer",
           "minimum": 3,
           "maximum": 9,
-          "description": "6 to 9 in packs from 2026-10-14 10:00 (3 to 7 before). This option's number of examples from tonight's draw (nightly.py start, examples_per_option)."
+          "description": "6 to 9 in packs from 2026-10-14 10:00 (3 to 7 before). This option's number of examples from tonight's draw (nightly.py start, examples_per_option). Not used in story packs."
         },
         "image": {
           "$ref": "#/$defs/image",
@@ -496,6 +509,17 @@
           "type": "string",
           "pattern": "^[a-z0-9-]+$",
           "description": "Two-topic packs: the topic this option is about (topics[0] for kid-1 to kid-3, topics[1] for kid-4 to kid-6)"
+        },
+        "structure": {
+          "enum": [
+            "before_after",
+            "letter",
+            "thoughts_answers",
+            "one_minute",
+            "one_day",
+            "short_list"
+          ],
+          "description": "Story packs only (story-format.md section 1): how the option reads. before_after, letter, thoughts_answers, one_minute, one_day or short_list (3 to 5 points)."
         }
       }
     },
@@ -512,29 +536,41 @@
         "number": {
           "type": "integer",
           "minimum": 1,
-          "maximum": 10
+          "description": "1 to 10; story packs 1 to 12."
         },
         "role": {
-          "enum": [
-            "hook",
-            "second_hook",
-            "recognition",
-            "reframe",
-            "solution",
-            "resolution",
-            "example",
-            "explain",
-            "recap",
-            "story_cta"
-          ]
+          "description": "Older packs: hook, second_hook, recognition, reframe, solution, resolution, example, explain, recap, story_cta. Story packs: hook (slide 1), beat (story slides), turn (optional, the slide before the CTA that turns back to the parents), story_cta (last)."
         },
         "headline": {
           "type": "string",
-          "minLength": 2
+          "description": "At least 2 characters; in a story pack it may be \"\" only on the body slides of a letter (slide 3 to the slide before the CTA)."
         },
         "body": {
           "type": "string",
-          "description": "May be empty. Lines separated by newlines."
+          "description": "May be empty. Lines separated by newlines. Story packs: lines broken by hand, with markup: a line `## text` is a gold label, `> ״...״` a card with a sentence to say, **word** emphasis, an empty line a paragraph gap."
+        },
+        "label": {
+          "type": "string",
+          "description": "Story packs only: the small tag above the headline (up to 28 characters): פעם / ואז / ומאז, אתם חושבים:, הדקה מתחילה, 07:30, בבוקר, 1: short title."
+        },
+        "scene": {
+          "type": "object",
+          "required": [
+            "action",
+            "setting"
+          ],
+          "additionalProperties": false,
+          "description": "Story packs only, on every slide from 2 to the last: this slide's picture, one concrete moment in English (same characters, same home, 3D animated), the upper third calm, no words, letters or numbers. The CTA slide's scene is a calm, warm resolution.",
+          "properties": {
+            "action": {
+              "type": "string",
+              "minLength": 10
+            },
+            "setting": {
+              "type": "string",
+              "minLength": 5
+            }
+          }
         },
         "highlight": {
           "type": "string",
@@ -702,7 +738,7 @@
         "slide": {
           "type": "integer",
           "minimum": 1,
-          "maximum": 10
+          "description": "1 to 10; story packs 1 to 12."
         },
         "wording_he": {
           "type": "string",
@@ -867,8 +903,7 @@
         },
         "payoff_slide": {
           "type": "integer",
-          "minimum": 2,
-          "maximum": 9
+          "minimum": 2
         },
         "answer": {
           "type": "string",
@@ -1135,6 +1170,236 @@
           "description": "The best-selling book behind the topic. Never named on the slides, caption or CTA."
         }
       }
+    },
+    "story_pack": {
+      "description": "Rules of a story pack (copy_style story) on top of the shared structure.",
+      "properties": {
+        "directions": {
+          "items": {
+            "properties": {
+              "versions": {
+                "items": {
+                  "$ref": "#/$defs/story_version"
+                }
+              }
+            }
+          }
+        },
+        "hook_slate": {
+          "properties": {
+            "kid": {
+              "items": {
+                "properties": {
+                  "payoff_slide": {
+                    "maximum": 11
+                  }
+                }
+              }
+            },
+            "expert": {
+              "items": {
+                "properties": {
+                  "payoff_slide": {
+                    "maximum": 11
+                  }
+                }
+              }
+            },
+            "a": {
+              "items": {
+                "properties": {
+                  "payoff_slide": {
+                    "maximum": 11
+                  }
+                }
+              }
+            },
+            "b": {
+              "items": {
+                "properties": {
+                  "payoff_slide": {
+                    "maximum": 11
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "legacy_pack": {
+      "description": "Rules of every pack without copy_style, unchanged from before the story format.",
+      "properties": {
+        "directions": {
+          "items": {
+            "properties": {
+              "versions": {
+                "items": {
+                  "$ref": "#/$defs/legacy_version"
+                }
+              }
+            }
+          }
+        },
+        "hook_slate": {
+          "properties": {
+            "kid": {
+              "items": {
+                "properties": {
+                  "payoff_slide": {
+                    "maximum": 9
+                  }
+                }
+              }
+            },
+            "expert": {
+              "items": {
+                "properties": {
+                  "payoff_slide": {
+                    "maximum": 9
+                  }
+                }
+              }
+            },
+            "a": {
+              "items": {
+                "properties": {
+                  "payoff_slide": {
+                    "maximum": 9
+                  }
+                }
+              }
+            },
+            "b": {
+              "items": {
+                "properties": {
+                  "payoff_slide": {
+                    "maximum": 9
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "story_version": {
+      "required": [
+        "structure",
+        "image"
+      ],
+      "properties": {
+        "slides": {
+          "minItems": 9,
+          "maxItems": 12,
+          "items": {
+            "$ref": "#/$defs/story_slide"
+          }
+        },
+        "hook": {
+          "properties": {
+            "payoff_slide": {
+              "maximum": 11
+            }
+          }
+        },
+        "claims": {
+          "items": {
+            "properties": {
+              "slide": {
+                "maximum": 12
+              }
+            }
+          }
+        }
+      }
+    },
+    "legacy_version": {
+      "properties": {
+        "structure": false,
+        "slides": {
+          "minItems": 7,
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/$defs/legacy_slide"
+          }
+        },
+        "hook": {
+          "properties": {
+            "payoff_slide": {
+              "maximum": 9
+            }
+          }
+        },
+        "claims": {
+          "items": {
+            "properties": {
+              "slide": {
+                "maximum": 10
+              }
+            }
+          }
+        }
+      }
+    },
+    "story_slide": {
+      "properties": {
+        "number": {
+          "maximum": 12
+        },
+        "role": {
+          "enum": [
+            "hook",
+            "beat",
+            "turn",
+            "story_cta"
+          ]
+        },
+        "image": false,
+        "examples": false
+      }
+    },
+    "legacy_slide": {
+      "properties": {
+        "number": {
+          "maximum": 10
+        },
+        "role": {
+          "enum": [
+            "hook",
+            "second_hook",
+            "recognition",
+            "reframe",
+            "solution",
+            "resolution",
+            "example",
+            "explain",
+            "recap",
+            "story_cta"
+          ]
+        },
+        "headline": {
+          "minLength": 2
+        },
+        "label": false,
+        "scene": false
+      }
     }
+  },
+  "if": {
+    "properties": {
+      "copy_style": {
+        "const": "story"
+      }
+    },
+    "required": [
+      "copy_style"
+    ]
+  },
+  "then": {
+    "$ref": "#/$defs/story_pack"
+  },
+  "else": {
+    "$ref": "#/$defs/legacy_pack"
   }
 }

@@ -15,6 +15,14 @@ Kid and expert option (one picture behind all ten slides, packs from 14 Oct 2026
    replace, at most 2 replacements, inside the same $0.50)
 4. compose_slides.py exports the 1080 x 1350 slides, contact sheet, RTL check, caption, sources and the ZIP
 
+Story carousel (story-format.md, 29 Oct 2026: a picture per slide, 9 to 12 slides):
+1. prepare_fal_jobs.py freezes it with jobs slide-01 (the cover, text-to-image) and slide-02..NN (edits of the cover)
+2. fal_generate.py run slide-01 --max-usd 1.00; Carousel Machine shows the cover for approval or another take, as above
+3. after the cover is approved: fal_generate.py run --max-usd 1.00 makes every other slide in parallel; they are marked
+   QA-passed with the cover's approval (Yarin sees them in the final export) and compose_slides.py exports in the story
+   look. Cap STORY_MAX_USD ($1.00) for the whole carousel, every attempt included. A slide that failed is made again by
+   pressing produce again: finished pictures are never bought twice
+
 Games and books carousel: its slide PNGs are already final, so production is an export: approved/DATE-reco[-2]/final/
 with the slides, caption, alt text, sources, contact sheet and the ZIP. No paid call.
 
@@ -42,7 +50,9 @@ import reco_lib as rl  # noqa: E402
 
 PRODUCTIONS = lib.PIPELINE / "productions.json"
 MAX_USD = 0.50
+STORY_MAX_USD = 1.00   # a story carousel (a picture per slide, 29 Oct 2026); the same as prepare_fal_jobs.STORY_MAX_USD
 PICTURE = "picture"
+SLIDES_HE = "מייצר את התמונות של השקופיות"
 BUSY = ("queued", "fixing", "preparing", "generating", "composing", "exporting")
 STATUS_HE = {"queued": "בתור", "fixing": "מתקן את הטקסט", "preparing": "מקפיא את הטקסט", "generating": "מייצר תמונה", "review": "מחכה לאישור שלך",
              "composing": "מרכיב שקופיות", "exporting": "מייצא", "done": "מוכן לפרסום", "failed": "נעצר"}
@@ -54,7 +64,8 @@ DECLINED_HE = ("מסנן הבטיחות של מודל התמונות דחה את
 QA_CHECKS_HE = ("הפנים של הילד אל המצלמה, עם הבעה גדולה", "הרעיון של הקרוסלה נקרא מהתמונה", "יש אזור נקי לטקסט",
                 "ידיים ופנים טבעיים, בלי אותיות או לוגו", "תלת ממד מונפש, לא צילום")
 ABOUT = ("Carousel Machine productions (producer.py). One entry per carousel keyed <date>/<id>; status: " + ", ".join(STATUS_HE)
-         + ". Kid and expert: approved/DATE-ID, one picture, spend cap $0.50 per carousel. Games and books: export only.")
+         + ". Kid and expert: approved/DATE-ID, one picture, spend cap $0.50 per carousel; story format (29 Oct 2026): a picture"
+         " per slide, the cover approved first, cap $1.00 per carousel. Games and books: export only.")
 
 _lock = threading.RLock()
 _pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="produce")
@@ -117,6 +128,7 @@ def spent(run_dir):
 
 
 def outputs(run_dir):
+    import drive_export   # final_slides: only this carousel's slide count, never a stale NN.png from a longer version
     final = Path(run_dir) / "final"
     out = {}
     zips = sorted(final.glob("*.zip")) if final.exists() else []
@@ -125,7 +137,7 @@ def outputs(run_dir):
     for name, key in (("contact-sheet.png", "contact_sheet"), ("rtl-check.png", "rtl_check"), ("caption.txt", "caption_file")):
         if (final / name).exists():
             out[key] = rel(final / name)
-    slides = sorted(final.glob("[0-9][0-9].png")) if final.exists() else []
+    slides = drive_export.final_slides(run_dir) if final.exists() else []
     out["slides"] = [rel(p) for p in slides]
     return out
 
@@ -156,11 +168,31 @@ def _tail(text, n=6):
     return "\n".join(lines[-n:])
 
 
+def _jobs(run_dir):
+    path = Path(run_dir) / "jobs.json"
+    return lib.read_json(path) if path.exists() else {}
+
+
+def is_story(run_dir):
+    """A story run: a picture per slide, the cover (slide-01) approved first (jobs.json "story", 29 Oct 2026)."""
+    return bool(_jobs(run_dir).get("story"))
+
+
+def cover_job(run_dir):
+    """The picture Yarin approves in Carousel Machine: the one picture, or the cover of a story run."""
+    jobs = _jobs(run_dir)
+    return (jobs.get("reference_job") or "slide-01") if jobs.get("story") else PICTURE
+
+
+def cap_usd(run_dir):
+    return STORY_MAX_USD if is_story(run_dir) else MAX_USD
+
+
 def _picture_state(run_dir):
     state = Path(run_dir) / "state.json"
     if not state.exists():
         return {}
-    return lib.read_json(state).get("jobs", {}).get(PICTURE, {})
+    return lib.read_json(state).get("jobs", {}).get(cover_job(run_dir), {})
 
 
 # ---------------------------------------------------------------- games and books export (no cost)
@@ -220,7 +252,7 @@ def _prepare(item):
         raise RuntimeError("ההקפאה נכשלה:\n" + _tail(out))
     run_dir = run_dir_for(item)
     jobs = lib.read_json(run_dir / "jobs.json")
-    if jobs.get("order") != [PICTURE]:
+    if jobs.get("order") != [PICTURE] and not jobs.get("story"):
         raise RuntimeError("זו קרוסלה בפורמט הישן (תמונה לכל שקופית). אותה מפיקים דרך קלוד.")
     return run_dir
 
@@ -228,13 +260,14 @@ def _prepare(item):
 def _generate(key, run_dir, replace_note=None):
     _update(key, status="generating", error=None)
     fal = HERE / "fal_generate.py"
+    job, cap = cover_job(run_dir), cap_usd(run_dir)
     if replace_note is not None:
-        code, out = _sh([sys.executable, fal, run_dir, "qa", PICTURE, "fail", "--note", replace_note], 60)
+        code, out = _sh([sys.executable, fal, run_dir, "qa", job, "fail", "--note", replace_note], 60)
         if code:
             raise RuntimeError(_tail(out))
-        args = [sys.executable, fal, run_dir, "replace", PICTURE, "--note", replace_note, "--max-usd", MAX_USD]
+        args = [sys.executable, fal, run_dir, "replace", job, "--note", replace_note, "--max-usd", cap]
     else:
-        args = [sys.executable, fal, run_dir, "run", PICTURE, "--max-usd", MAX_USD]
+        args = [sys.executable, fal, run_dir, "run", job, "--max-usd", cap]
     code, out = _sh(args, 900, env_shell=True)
     st = _picture_state(run_dir)
     if st.get("status") != "done":
@@ -242,10 +275,38 @@ def _generate(key, run_dir, replace_note=None):
             _update(key, declined=True)
             raise RuntimeError(DECLINED_HE)
         raise RuntimeError("התמונה לא נוצרה:\n" + _tail(out))
-    pic = Path(run_dir) / "generated-assets" / f"{PICTURE}.png"
+    pic = Path(run_dir) / "generated-assets" / f"{job}.png"
     _update(key, status="review", picture=rel(pic) + f"?v={st.get('attempts', 1)}", spent_usd=spent(run_dir),
             replacements=st.get("replacements", 0), attempts=st.get("attempts", 1),
             error=_tail(out) if code else None)
+
+
+def _generate_slides(key, run_dir):
+    """Story run, after the cover is approved: every other slide in parallel as an edit of the cover, inside the cap.
+    The cover's approval covers them (Carousel Machine has no per-slide approval): each new picture is marked QA-passed.
+    Raises when a slide is still missing, so pressing produce again makes only the missing ones."""
+    fal = HERE / "fal_generate.py"
+    jobs = _jobs(run_dir)
+    cover = cover_job(run_dir)
+    state = lambda: lib.read_json(Path(run_dir) / "state.json").get("jobs", {})  # noqa: E731
+    todo = [n for n in jobs.get("order", []) if n != cover and state().get(n, {}).get("status") != "done"]
+    out = ""
+    if todo:
+        _update(key, status="generating", error=None)
+        _update(key, status_he=SLIDES_HE, slides_total=len(jobs.get("order", [])))
+        code, out = _sh([sys.executable, fal, run_dir, "run", *todo, "--max-usd", cap_usd(run_dir)], 1800, env_shell=True)
+    st = state()
+    for n in jobs.get("order", []):
+        if n != cover and st.get(n, {}).get("status") == "done" and st[n].get("qa") is None:
+            _sh([sys.executable, fal, run_dir, "qa", n, "pass", "--note", "approved with the cover in Carousel Machine"], 60)
+    st = state()
+    missing = [n for n in jobs.get("order", []) if st.get(n, {}).get("status") != "done"]
+    _update(key, spent_usd=spent(run_dir), slides_made=len(jobs.get("order", [])) - len(missing))
+    if missing:
+        if any(m in out for m in SAFETY_MARKERS):
+            _update(key, declined=True)
+        raise RuntimeError(f"{len(missing)} תמונות של שקופיות לא נוצרו ({', '.join(missing)}). "
+                           "אפשר ללחוץ שוב על הפקה: רק החסרות ייווצרו, בלי לשלם שוב על מה שכבר קיים.\n" + _tail(out))
 
 
 def _compose(key, run_dir):
@@ -268,9 +329,11 @@ def _work(key, item, action, note=None):
             return
         if action == "approve":
             run_dir = lib.PIPELINE / get(key)["run_dir"].lstrip("/")
-            code, out = _sh([sys.executable, HERE / "fal_generate.py", run_dir, "qa", PICTURE, "pass"], 60)
+            code, out = _sh([sys.executable, HERE / "fal_generate.py", run_dir, "qa", cover_job(run_dir), "pass"], 60)
             if code:
                 raise RuntimeError(_tail(out))
+            if is_story(run_dir):
+                _generate_slides(key, run_dir)
             return _compose(key, run_dir)
         if action == "redo":
             run_dir = lib.PIPELINE / get(key)["run_dir"].lstrip("/")
@@ -285,9 +348,11 @@ def _work(key, item, action, note=None):
         _update(key, run_dir=rel(run_dir), spent_usd=spent(run_dir))
         st = _picture_state(run_dir)
         if st.get("status") == "done" and st.get("qa") == "pass":
+            if is_story(run_dir):
+                _generate_slides(key, run_dir)     # only the slides still missing; none when all were made
             return _compose(key, run_dir)          # a picture approved earlier: only re-export
         if st.get("status") == "done":
-            pic = Path(run_dir) / "generated-assets" / f"{PICTURE}.png"
+            pic = Path(run_dir) / "generated-assets" / f"{cover_job(run_dir)}.png"
             _update(key, status="review", picture=rel(pic) + f"?v={st.get('attempts', 1)}", spent_usd=spent(run_dir))
             return
         _generate(key, run_dir)
@@ -390,7 +455,7 @@ def recover(path=None):
             st = _picture_state(run_dir) if run_dir else {}
             if rec.get("kind") != "reco" and st.get("status") == "done" and st.get("qa") != "pass":
                 rec.update(status="review", status_he=STATUS_HE["review"],
-                           picture=rel(run_dir / "generated-assets" / f"{PICTURE}.png") + f"?v={st.get('attempts', 1)}")
+                           picture=rel(run_dir / "generated-assets" / f"{cover_job(run_dir)}.png") + f"?v={st.get('attempts', 1)}")
             else:
                 rec.update(status="failed", status_he=STATUS_HE["failed"], error="Carousel Machine נסגר באמצע. אפשר להמשיך מאותה נקודה, בלי לשלם שוב על מה שכבר נוצר.")
             changed = True

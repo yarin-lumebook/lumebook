@@ -3,13 +3,15 @@
 
     python3 edit_final.py RUN_DIR --slide 1 --headline "אמא ואבא\\n2 דברים שיעזרו לי" --body "לפני שאתם שמים אותי בגן"
     python3 edit_final.py RUN_DIR --caption "שורה 1\\nשורה 2"          # caption body; the CTA stays its last line
-    python3 edit_final.py RUN_DIR --cta 'כתבו "גן" בתגובות ...'        # also updates slide 7, the caption and the code word
+    python3 edit_final.py RUN_DIR --cta 'כתבו "גן" בתגובות ...'        # also updates the last slide, the caption and the code word
 
 "\\n" in a value is a line break. Steps, all automatic:
 1. the edit goes into the nightly pack through the review editor's save: backup to versions/vN, voice log
    (Yarin's edits teach the voice skill), validation, review page rebuilt
 2. if the pack is valid, the option is re-frozen; the images and their QA carry over because their jobs did not change
-3. only the changed slides are re-exported (the caption, contact sheet and ZIP are refreshed too)
+3. only the changed slides are re-exported (the caption, contact sheet and ZIP are refreshed too), in the run's own look:
+   a story run (story-format.md, 29 Oct 2026; 9 to 12 slides, a picture each) keeps the story look, because
+   compose_slides.py reads copy_style and the option's structure from the refrozen approved.json
 If validation fails nothing is re-frozen or exported, and the errors are printed.
 """
 

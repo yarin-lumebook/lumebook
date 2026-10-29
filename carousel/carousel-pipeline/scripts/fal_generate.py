@@ -18,6 +18,10 @@ Resumable: finished jobs are skipped, state.json records every attempt, and a fa
 other images untouched. Slides need a reference image that passed QA. Each job may be replaced twice;
 after that the runner refuses and asks for direction.
 
+Story runs (story-format.md, 29 Oct 2026; jobs.json "story": true): the reference is the cover, slide-01 (jobs.json
+"reference_job"). It runs alone and waits for QA like the character reference; then slide-02 to slide-NN run in
+parallel as edits of it. jobs.json "max_usd" (1.00) caps the whole carousel even when --max-usd is higher.
+
 FAL_KEY is read from the environment and never written to disk or logs. The calls go to the official
 fal.ai MCP server (https://mcp.fal.ai/mcp), the same server the fal-ai MCP connector uses, so this works
 even when the MCP tools are not loaded into a Claude session.
@@ -168,10 +172,17 @@ def payload_for(run, name, note_lines):
     return job, arguments
 
 
+def reference_job(run):
+    """The job every other job is edited from: the character reference, or the cover of a story run (slide-01)."""
+    return run.jobs.get("reference_job", "character-reference")
+
+
 def check_budget(run, cost, max_usd):
     spent = run.spent()
     if max_usd is None:
         raise SystemExit("--max-usd is required: pass the amount Yarin approved in chat")
+    if run.jobs.get("max_usd") is not None:   # a story run's own cap (1.00) is never exceeded, whatever was passed
+        max_usd = min(max_usd, float(run.jobs["max_usd"]))
     if spent + cost > max_usd + 1e-9:
         raise SystemExit(f"stop: logged estimate ${spent:.3f} + this image ${cost:.3f} would pass the approved ${max_usd:.2f}. Ask before spending more.")
 
@@ -246,12 +257,13 @@ def cmd_run(run, args):
         for name in todo:
             execute(run, name, args.max_usd, True)
         return
-    if "character-reference" in todo:   # the reference always runs alone and stops for visual QA
+    ref = reference_job(run)
+    if ref in todo and ref in run.jobs["jobs"]:   # the reference (or a story cover) always runs alone and stops for visual QA
         try:
-            execute(run, "character-reference", args.max_usd, False)
+            execute(run, ref, args.max_usd, False)
         except RuntimeError as exc:
             raise SystemExit(str(exc))
-        print("Inspect the reference at full size, then: qa character-reference pass")
+        print(f"Inspect the reference at full size, then: qa {ref} pass")
         return
     if not todo:
         return

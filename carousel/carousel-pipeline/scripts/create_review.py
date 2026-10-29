@@ -80,6 +80,248 @@ body.editing .card .b[data-edit]:empty::before{content:"שורות גוף (לא 
 @media (max-width:760px){.deck{grid-template-columns:repeat(7,150px)}}
 """
 
+# ---------------------------------------------------------------- the story look (packs with copy_style "story")
+# Yarin, 29 Oct 2026 ("i like the new content, change the entire carousel machine and November batch to match it";
+# story-format.md): the previews of a story pack are drawn like compose_slides.py --look story and the reference
+# media/projects/2026-10-29-lotem-format-carousels/render.py: an ink veil over the slide's picture (plain ink until there
+# is one), cream Varela Round type, gold tags, labels and emphasis, a cream card for "> " lines, the cover pill in gold,
+# the letter on a cream sheet. Sizes are the 1080 x 1350 slide's pixels in cqw, so a preview of any width looks like the
+# export, and a small fit script shrinks the copy block in steps the way render.py does. Audience look: fixed colours
+# in both themes, like the pillar previews. Carousel Machine (studio.py) draws the same look with STORY_JS.
+
+STRUCTURES_HE = {"before_after": "פעם ועכשיו", "letter": "מכתב", "thoughts_answers": "אתם חושבים, אני עונה",
+                 "one_minute": "דקה אחת", "one_day": "יום אחד", "short_list": "רשימה קצרה"}
+STORY_ROLES_HE = {"hook": "שער", "beat": "סיפור", "turn": "פנייה להורים", "story_cta": "שמירה"}
+VARELA = ("VarelaRound-hebrew.woff2", "VarelaRound-latin.woff2")
+VARELA_RANGES = ("U+0307-0308,U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F",
+                 "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD")
+
+
+def story_applies(pack):
+    return (pack or {}).get("copy_style") == "story"
+
+
+def story_fonts_css(*bases):
+    """@font-face for the story type. Each base is a folder URL tried in order (the pipeline's assets/fonts first, then
+    shared/brand/fonts, which holds the same files lumebook.com serves)."""
+    out = []
+    for name, rng in zip(VARELA, VARELA_RANGES):
+        src = ",".join(f'url("{b.rstrip("/")}/{name}") format("woff2")' for b in bases)
+        out.append(f'@font-face{{font-family:"Varela Story";src:{src};unicode-range:{rng};font-display:swap}}')
+    return "".join(out)
+
+
+STORY_CSS = """
+.sty{position:relative;display:block;width:100%;aspect-ratio:4/5;overflow:hidden;background:#0B0518;color:#F8F0E1;font-family:"Varela Story","Varela Round","Heebo",sans-serif;font-weight:400;text-align:center;direction:rtl;container-type:inline-size;line-height:normal;-webkit-font-smoothing:antialiased}
+.sty *{box-sizing:border-box}
+.sty .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.sty .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,5,24,.88) 0,rgba(11,5,24,.8) 45%,rgba(11,5,24,.55) 66%,rgba(11,5,24,.22) 84%,rgba(11,5,24,.38) 100%)}
+.sty.cover .veil{background:linear-gradient(180deg,rgba(11,5,24,.88) 0,rgba(11,5,24,.66) 30%,rgba(11,5,24,0) 52%)}
+.sty.cta .veil{background:linear-gradient(180deg,rgba(11,5,24,.9) 0,rgba(11,5,24,.78) 40%,rgba(11,5,24,.45) 70%,rgba(11,5,24,.55) 100%)}
+.sty.bare{background:radial-gradient(120% 70% at 50% 100%,#2A1A47 0,#0B0518 70%)}
+.sty.bare .veil{display:none}
+.sty .copy{position:absolute;top:6.48cqw;left:6.48cqw;right:6.48cqw;direction:rtl;font-size:calc(var(--k,84) * 100cqw / 1080)}
+.sty .h,.sty .t{text-wrap:balance;-webkit-text-stroke:.022em currentColor;paint-order:stroke fill;text-shadow:0 .19cqw 2.04cqw rgba(11,5,24,.7)}
+.sty .h{line-height:1.16;letter-spacing:-.005em}
+.sty .h .ln,.sty .t .ln{display:block}
+.sty .t{font-size:.74em;line-height:1.3;margin-top:.15em;-webkit-text-stroke-width:.014em}
+.sty .part{margin-top:.5em}
+.sty .lab{display:block;color:#E6B762;font-size:.56em;letter-spacing:.01em;margin-bottom:.15em;-webkit-text-stroke:.012em currentColor;text-shadow:0 .19cqw 1.48cqw rgba(11,5,24,.8)}
+.sty .q{color:#F3D9A1}
+.sty .pill{display:inline-block;margin-top:3.15cqw;background:#E6B762;color:#0B0518;border-radius:999px;padding:.22em .9em .3em;font-size:.5em;line-height:1.2;box-shadow:0 .93cqw 2.59cqw rgba(11,5,24,.45)}
+.sty .btn{display:inline-flex;white-space:nowrap;align-items:center;gap:.35em;background:#E6B762;color:#0B0518;border-radius:999px;padding:.16em .8em .24em;-webkit-text-stroke:.02em currentColor;text-shadow:none;box-shadow:0 1.11cqw 2.78cqw rgba(0,0,0,.45)}
+.sty .btn svg{width:.8em;height:.8em;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.sty .tag{display:inline-flex;align-items:center;gap:.3em;color:#E6B762;font-size:.46em;margin-bottom:.45em;-webkit-text-stroke:.012em currentColor;text-shadow:0 .19cqw 1.48cqw rgba(11,5,24,.8)}
+.sty .tag.plain{font-size:.5em}
+.sty .num{display:inline-flex;align-items:center;justify-content:center;width:1.55em;height:1.55em;border-radius:50%;background:#E6B762;color:#0B0518;box-shadow:0 .56cqw 1.67cqw rgba(11,5,24,.45);-webkit-text-stroke:0}
+.sty .body{font-size:.6em;margin-top:.55em}
+.sty .body .t{font-size:1em;margin-top:0}
+.sty .body .t .ln{white-space:nowrap}
+.sty .body .gap{height:.55em}
+.sty .body .lab{font-size:.8em;margin:.55em 0 .05em}
+.sty .body .lab:first-child{margin-top:0}
+.sty .em{color:#E6B762;-webkit-text-stroke:.03em currentColor}
+.sty .say{display:inline-block;margin-top:.15em;background:#F8F0E1;color:#0B0518;border-radius:.7em;padding:.28em .8em .36em;line-height:1.3;-webkit-text-stroke:.012em currentColor;text-shadow:none;box-shadow:0 .93cqw 2.59cqw rgba(11,5,24,.5)}
+.sty .say .q{color:#0B0518}
+.sty.letter .copy{background:#F8F0E1;color:#0B0518;border-radius:3.15cqw;padding:5.19cqw 5.37cqw 5.56cqw;transform:rotate(-1.2deg);box-shadow:0 2.22cqw 5.56cqw rgba(11,5,24,.55)}
+.sty.letter .h,.sty.letter .t,.sty.letter .lab{text-shadow:none}
+.sty.letter .h{font-size:.92em}
+.sty.letter .em,.sty.letter .q{color:#8A5A14}
+.sty.letter .veil{background:linear-gradient(180deg,rgba(11,5,24,.55) 0,rgba(11,5,24,.3) 60%,rgba(11,5,24,.2) 100%)}
+.sty.over .copy{outline:.4cqw dashed #E6B762;outline-offset:1cqw}
+"""
+
+# Fits every .sty preview on the page (render.py's fit: the copy block shrinks in steps of 2 until it ends above
+# data-maxh and no line runs past the sides; .over marks one that still does not fit at data-min). STORY_JS also
+# carries the renderer Carousel Machine uses for live previews while typing.
+STORY_JS = r"""
+const STY = (() => {
+  const SAVE = '<svg viewBox="0 0 24 24"><path d="M6.5 3h11a1.5 1.5 0 0 1 1.5 1.5V21l-7-6.2L5 21V4.5A1.5 1.5 0 0 1 6.5 3z"/></svg>';
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+  const text = t => String(t).split(/(״[^״]+״)/).map((p, i) => i % 2 ? `<span class="q">${esc(p)}</span>` : esc(p)).join('');
+  const rich = t => String(t).split('**').map((p, i) => i % 2 ? `<span class="em">${text(p)}</span>` : text(p)).join('');
+  const lines = (t, f) => String(t || '').split('\n').map(l => l.trim()).filter(Boolean).map(l => `<span class="ln">${f(l)}</span>`).join('');
+  function body(b) {
+    const out = [], para = [];
+    const flush = () => { if (para.length) { out.push('<div class="t">' + para.map(l => `<span class="ln">${rich(l)}</span>`).join('') + '</div>'); para.length = 0; } };
+    String(b || '').split('\n').forEach(raw => { const l = raw.trim();
+      if (!l) { flush(); out.push('<div class="gap"></div>'); }
+      else if (l.startsWith('## ')) { flush(); out.push(`<div class="lab">${rich(l.slice(3))}</div>`); }
+      else if (l.startsWith('> ')) { flush(); out.push(`<div><span class="say">${rich(l.slice(2))}</span></div>`); }
+      else para.push(l); });
+    flush(); return '<div class="body">' + out.join('') + '</div>';
+  }
+  /* s: {headline, body, label}; n: slide number; last: slide count; structure; pic: picture URL or '' */
+  function html(s, n, last, structure, pic) {
+    const head = s.headline || '', b = (s.body || '').trim(), inner = []; let cls = '', size;
+    if (n === 1) { cls = 'cover'; inner.push(`<div class="h">${lines(head, text)}</div>`); if (b) inner.push(`<div class="pill">${esc(b)}</div>`); size = [104, 72, 560]; }
+    else if (n === last) { cls = 'cta'; inner.push(`<div class="h"><span class="btn">${SAVE}${esc(head.replace(/\n/g, ' '))}</span></div>`, `<div class="part"><div class="t" style="font-size:.9em">${rich(b.replace(/\n/g, ' '))}</div></div>`); size = [84, 60, 520]; }
+    else {
+      const lab = (s.label || '').trim(), m = lab.match(/^(\d+):\s+(.*)$/);
+      if (m) inner.push(`<div><span class="tag"><span class="num">${esc(m[1])}</span>${esc(m[2])}</span></div>`);
+      else if (lab) inner.push(`<div><span class="tag plain">${esc(lab)}</span></div>`);
+      if (head.trim()) inner.push(`<div class="h">${lines(head, rich)}</div>`);
+      if (structure === 'letter') cls = 'letter';
+      inner.push(body(b)); size = [84, 62, 900];
+    }
+    if (!pic) cls += ' bare';
+    return {cls: cls.trim(), inner: (pic ? `<img class="art" src="${esc(pic)}" alt="" loading="lazy">` : '') + '<div class="veil"></div>' +
+      `<div class="copy" data-max="${size[0]}" data-min="${size[1]}" data-maxh="${size[2]}" style="--k:${size[0]}">${inner.join('')}</div>`};
+  }
+  function fit(slide) {
+    const c = slide.querySelector('.copy'), w = slide.clientWidth; if (!c || !w) return;
+    const scale = w / 1080, maxH = Number(c.dataset.maxh) * scale + 1, min = Number(c.dataset.min);
+    let k = Number(c.dataset.max);
+    const over = () => c.scrollHeight > maxH || [...c.querySelectorAll('.h,.t,.pill,.say')].some(e => e.scrollWidth > e.clientWidth + 1);
+    c.style.setProperty('--k', k);
+    while (over() && k > min) { k -= 2; c.style.setProperty('--k', k); }
+    slide.classList.toggle('over', over());
+  }
+  const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(es => es.forEach(e => fit(e.target))) : null;
+  function watch(slide) { if (ro) ro.observe(slide); else fit(slide); }
+  function el(s, n, last, structure, pic, tag) {
+    const d = document.createElement(tag || 'div'), r = html(s, n, last, structure, pic);
+    d.className = 'sty ' + r.cls; d.innerHTML = r.inner; d.setAttribute('aria-label', 'שקופית ' + n); watch(d);
+    const img = d.querySelector('img.art'); if (img) img.onerror = () => { img.remove(); d.classList.add('bare'); };
+    return d;
+  }
+  function update(d, s, n, last, structure, pic) { const r = html(s, n, last, structure, pic); d.className = 'sty ' + r.cls; d.innerHTML = r.inner; fit(d); }
+  function fitAll() { document.querySelectorAll('.sty').forEach(watch); }
+  // fit again once Varela Round is in (it loads only when a slide first uses it, after the first fit on the fallback)
+  const refit = () => document.querySelectorAll('.sty').forEach(fit);
+  if (document.fonts) {
+    if (document.fonts.ready) document.fonts.ready.then(refit);
+    if (document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', refit);
+    if (document.fonts.load) document.fonts.load('40px "Varela Story"', 'אב').then(refit, () => {});
+  }
+  return {html, el, update, fit, fitAll};
+})();
+"""
+
+STORY_SAVE_ICON = '<svg viewBox="0 0 24 24"><path d="M6.5 3h11a1.5 1.5 0 0 1 1.5 1.5V21l-7-6.2L5 21V4.5A1.5 1.5 0 0 1 6.5 3z"/></svg>'
+
+
+def _story_text(t):
+    import re
+    return "".join(f'<span class="q">{esc(p)}</span>' if i % 2 else esc(p) for i, p in enumerate(re.split(r"(״[^״]+״)", str(t))))
+
+
+def _story_rich(t):
+    return "".join(f'<span class="em">{_story_text(p)}</span>' if i % 2 else _story_text(p) for i, p in enumerate(str(t).split("**")))
+
+
+def _story_lines(t, f):
+    return "".join(f'<span class="ln">{f(l.strip())}</span>' for l in str(t or "").split("\n") if l.strip())
+
+
+def _story_body(body):
+    out, para = [], []
+
+    def flush():
+        if para:
+            out.append('<div class="t">' + "".join(f'<span class="ln">{_story_rich(l)}</span>' for l in para) + "</div>")
+            para.clear()
+    for line in str(body or "").split("\n"):
+        line = line.strip()
+        if not line:
+            flush()
+            out.append('<div class="gap"></div>')
+        elif line.startswith("## "):
+            flush()
+            out.append(f'<div class="lab">{_story_rich(line[3:])}</div>')
+        elif line.startswith("> "):
+            flush()
+            out.append(f'<div><span class="say">{_story_rich(line[2:])}</span></div>')
+        else:
+            para.append(line)
+    flush()
+    return '<div class="body">' + "".join(out) + "</div>"
+
+
+def story_slide_html(s, n, last, structure, pic=""):
+    """One slide preview in the story look (Python twin of STY.html in STORY_JS, used by review.html)."""
+    import re
+    head, body, inner = s.get("headline", "") or "", (s.get("body", "") or "").strip(), []
+    cls = ""
+    if n == 1:
+        cls = "cover"
+        inner.append(f'<div class="h">{_story_lines(head, _story_text)}</div>')
+        if body:
+            inner.append(f'<div class="pill">{esc(body)}</div>')
+        size = (104, 72, 560)
+    elif n == last:
+        cls = "cta"
+        inner.append(f'<div class="h"><span class="btn">{STORY_SAVE_ICON}{esc(" ".join(head.split()))}</span></div>'
+                     f'<div class="part"><div class="t" style="font-size:.9em">{_story_rich(" ".join(body.split()))}</div></div>')
+        size = (84, 60, 520)
+    else:
+        label = (s.get("label") or "").strip()
+        m = re.match(r"^(\d+):\s+(.*)$", label)
+        if m:
+            inner.append(f'<div><span class="tag"><span class="num">{esc(m.group(1))}</span>{esc(m.group(2))}</span></div>')
+        elif label:
+            inner.append(f'<div><span class="tag plain">{esc(label)}</span></div>')
+        if head.strip():
+            inner.append(f'<div class="h">{_story_lines(head, _story_rich)}</div>')
+        if structure == "letter":
+            cls = "letter"
+        inner.append(_story_body(body))
+        size = (84, 62, 900)
+    if not pic:
+        cls += " bare"
+    art = f'<img class="art" src="{esc(pic)}" alt="" loading="lazy">' if pic else ""
+    return (f'<div class="sty {cls.strip()}" aria-label="שקופית {n}">{art}<div class="veil"></div>'
+            f'<div class="copy" data-max="{size[0]}" data-min="{size[1]}" data-maxh="{size[2]}" style="--k:{size[0]}">'
+            + "".join(inner) + "</div></div>")
+
+
+def slide_pictures(date, option_id, prefix="/"):
+    """{slide number: URL} of the pictures a production made for a story option so far
+    (approved/DATE-ID/generated-assets: picture.png or cover.png for slide 1, NN.png / slide-NN.png / scene-NN.png for
+    the others). A slide without one is drawn on plain ink. prefix is how the page reaches the pipeline folder."""
+    import re
+    folder = lib.PIPELINE / "approved" / f"{date}-{option_id}" / "generated-assets"
+    out = {}
+    if not date or not folder.is_dir():
+        return out
+    for p in sorted(folder.iterdir()):
+        if p.suffix.lower() not in (".png", ".jpg", ".jpeg", ".webp"):
+            continue
+        stem = p.stem.lower()
+        m = re.fullmatch(r"(?:slide|scene)?[-_]?0*(\d{1,2})", stem)
+        n = 1 if stem in ("picture", "cover", "reference") else int(m.group(1)) if m else None
+        if n:   # sorted, so 01.png wins over cover.png, picture.png and reference.png
+            out.setdefault(n, f"{prefix}approved/{date}-{option_id}/generated-assets/{p.name}?v={int(p.stat().st_mtime)}")
+    return out
+
+
+def scene_text(s):
+    sc = s.get("scene")
+    if isinstance(sc, dict):
+        return sc.get("action", ""), sc.get("setting", "")
+    return (str(sc or ""), "")
+
+
 # The chrome: design system tokens only. The old variable names stay as aliases because reco_render.py injects
 # the games and books section into this page and styles it with them (and with .chip, .opt-head, .strategy,
 # .post, .caption, details.more, .direction-head, .sym, .oid, h4 and plain tables).
@@ -204,15 +446,38 @@ body.editing .reco [data-reco]:focus{outline-color:var(--tint);background:var(--
 @media (max-width:640px){.option{padding:var(--sp-3) var(--sp-4)}.wrap{padding-inline:var(--sp-4)}}
 """
 
+# review.html of a story pack: the slides scroll sideways, each preview with its fields under it (chrome tokens only)
+STORY_PAGE_CSS = """
+.sdeck{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(13.5rem,15rem);gap:var(--sp-3);overflow-x:auto;padding-bottom:var(--sp-2);scroll-snap-type:x proximity}
+.scard{scroll-snap-align:start;display:flex;flex-direction:column;gap:var(--sp-2);min-width:0}
+.scard>.n{display:flex;justify-content:space-between;font-family:var(--font-2);font-size:var(--fs-caption);font-weight:600;color:var(--text-3)}
+.scard .sty{border-radius:var(--r-md);box-shadow:var(--shadow-1)}
+.sf{display:grid;gap:var(--sp-1);font-size:var(--fs-footnote);line-height:1.5}
+.sf>div,.sf-sc>div{white-space:pre-line;min-height:1.2em;overflow-wrap:anywhere}
+.sf-l{color:var(--accent-ink);font-family:var(--font-2);font-weight:600}
+.sf-h{font-weight:700;color:var(--text)}
+.sf-b{color:var(--text-2)}
+.sf-sc{direction:ltr;text-align:left;font-size:var(--fs-caption);color:var(--text-3);background:var(--surface-2);border-radius:var(--r-sm);padding:var(--sp-2);display:grid;gap:2px;margin-top:var(--sp-1)}
+.sf-sc .k{font-family:var(--font-2);font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:.625rem}
+.sf-sc .set{opacity:.8}
+body.editing .sf [data-edit]:empty::before{content:attr(data-ph);opacity:.45}
+.sf>div:empty:not([data-edit]){display:none}
+"""
+
 # reco_render.standalone_page() inlines CSS on its own (no design.head()), so CSS carries the design system too.
 CSS = design.css() + SLIDE_CSS + PAGE_CSS
 
 SCRIPT = r"""
 // ---- Editing: enabled only when the page is served by review_server.py ----
 const CHAR_HE = {',': 'פסיק', '.': 'נקודה', '—': 'מקף ארוך', '–': 'מקף', '…': 'שלוש נקודות', '，': 'פסיק', '―': 'מקף ארוך'};
-const FIELD_HE = {headline: 'כותרת', body: 'גוף', caption: 'כיתוב', cta: 'קריאה לפעולה', title: 'שם', code_word: 'מילת קוד', child_name: 'שם הילד', claims: 'מקורות', hook: 'פתיח', highlight: 'הדגשה'};
+const FIELD_HE = {headline: 'כותרת', body: 'גוף', caption: 'כיתוב', cta: 'קריאה לפעולה', title: 'שם', code_word: 'מילת קוד', child_name: 'שם הילד', claims: 'מקורות', hook: 'פתיח', highlight: 'הדגשה', label: 'תווית', scene: 'תמונה', structure: 'מבנה'};
 const EDIT = {orig: new Map()};
-function textOf(el) { return el.innerText.replace(/ /g, ' ').split('\n').map(x => x.trim()).filter(Boolean).join('\n'); }
+function textOf(el) {
+  const ls = el.innerText.replace(/ /g, ' ').split('\n').map(x => x.trim());
+  if (!el.dataset.keep) return ls.filter(Boolean).join('\n');
+  // a story body keeps one empty line as its paragraph gap (story-format.md 3)
+  return ls.filter((x, i) => x || (i > 0 && ls[i - 1])).join('\n').trim();
+}
 function changed() { const out = []; EDIT.orig.forEach((o, el) => { const now = textOf(el); if (now !== o) out.push({el, now}); }); return out; }
 function setMsg(t) { document.getElementById('edit-msg').textContent = t; }
 function labelFor(path) {
@@ -321,22 +586,55 @@ def html_card(direction, v, s):
             f'{body}{mark}</div>')
 
 
+def story_card(direction, v, s, pic=""):
+    """A story slide in review.html: the preview in the story look, then its fields (label, headline, body with its
+    markup, and the scene as the picture brief), editable when the page is served by review_server.py."""
+    n = s["number"]
+    last = len(v["slides"])
+    sp = f'{direction}/{esc(v["id"])}/slide-{n}'
+    edit = f'data-opt="{esc(v["id"])}" data-slide="{n}"'
+    role = STORY_ROLES_HE.get(s.get("role"), s.get("role", ""))
+    fields = []
+    if 1 < n < last:
+        fields.append(f'<div class="sf-l" data-edit="label" {edit} data-path="{sp}/label" data-ph="תווית">{esc(s.get("label", ""))}</div>')
+    if n == last:   # the save CTA: built from the CTA field (edit it there)
+        fields.append(f'<div class="sf-h" data-path="{sp}/headline" title="נגזר מהקריאה לפעולה">{esc(s.get("headline", ""))}</div>'
+                      f'<div class="sf-b" data-path="{sp}/body" title="נגזר מהקריאה לפעולה">{esc(s.get("body", ""))}</div>')
+    else:
+        fields.append(f'<div class="sf-h" data-edit="headline" {edit} data-path="{sp}/headline" data-ph="{"בלי כותרת" if v.get("structure") == "letter" else "כותרת"}">{esc(s.get("headline", ""))}</div>'
+                      f'<div class="sf-b" data-edit="body" data-keep="1" {edit} data-path="{sp}/body" data-ph="גוף">{esc(s.get("body", ""))}</div>')
+    if n > 1:
+        act, setting = scene_text(s)
+        fields.append(f'<div class="sf-sc" dir="ltr" lang="en" data-path="{sp}/scene"><span class="k">Picture</span>'
+                      f'<div data-edit="scene_action" {edit} data-ph="action">{esc(act)}</div>'
+                      f'<div class="set" data-edit="scene_setting" {edit} data-ph="setting">{esc(setting)}</div></div>')
+    return (f'<div class="scard" lang="he" dir="rtl" data-path="{sp}"><div class="n"><span>{n}</span><span>{esc(role)}</span></div>'
+            f'{story_slide_html(s, n, last, v.get("structure"), pic)}<div class="sf">{"".join(fields)}</div></div>')
+
+
 def html_option(pack, direction, v):
     vid = esc(v["id"])
     p = f"{direction}/{vid}"
     hook = v.get("hook") or {}
     total = sum((hook.get("score") or {}).get(k, 0) for k in lib.HOOK_SCORE_KEYS)
+    story = story_applies(pack)
     out = [f'<article class="option p-{esc(direction)}" id="{vid}">']
     out.append('<header class="opt-head">'
                f'<span class="lb-chip {esc(direction)} rv-id">{vid}</span>'
                f'<h3 data-edit="title" data-opt="{vid}" data-path="{p}/title">{esc(v["title"])}</h3>'
                f'<span class="lb-chip">{esc(v.get("child_name", ""))}</span>'
+               + (f'<span class="lb-chip tint">{esc(STRUCTURES_HE.get(v.get("structure"), v.get("structure") or "בלי מבנה"))}</span>'
+                  f'<span class="lb-chip">{len(v["slides"])} שקופיות</span>' if story else '')
                + (f'<span class="lb-chip accent">"{esc(v["code_word"])}"</span>' if v.get("code_word") else '')
                + (f'<span class="lb-chip">{esc(lib.option_topic(pack, v).get("title_he", ""))}</span>' if lib.is_pair_pack(pack) else '')
                + '</header>')
-    out.append('<div class="deck">' + "".join(html_card(direction, v, s) for s in v["slides"]) + '</div>')
+    if story:
+        pics = slide_pictures(pack.get("date", ""), v["id"], prefix="../../")
+        out.append('<div class="sdeck">' + "".join(story_card(direction, v, s, pics.get(s["number"], "")) for s in v["slides"]) + '</div>')
+    else:
+        out.append('<div class="deck">' + "".join(html_card(direction, v, s) for s in v["slides"]) + '</div>')
     # What someone who reads only the headlines gets (Yarin, 10 Oct 2026): the story must survive without the bodies
-    out.append('<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> ' + " ← ".join(esc(" ".join(lib.lines_of(s["headline"]))) for s in v["slides"]) + '</p>')
+    out.append('<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> ' + " ← ".join(esc(" ".join(lib.lines_of(s["headline"]))) for s in v["slides"] if lib.collapse(s.get("headline", ""))) + '</p>')
     out.append('<div class="drops">')
     cap_lines = lib.lines_of(v["caption"])
     cap_body = cap_lines[:-1] if cap_lines and lib.collapse(cap_lines[-1]) == lib.collapse(v["cta"]) else cap_lines
@@ -346,13 +644,13 @@ def html_option(pack, direction, v):
                f'<div class="cap-cta">{esc(v["cta"])}</div></div>'
                f'<div class="cta-box" data-path="{p}/code_word"><div data-edit="cta" data-opt="{vid}" data-path="{p}/cta">{esc(v["cta"])}</div></div>'
                '</div></div></details>')
-    awareness = esc(lib.AWARENESS_LABELS_HE.get(v["awareness_stage"], v["awareness_stage"]))
+    awareness = esc(lib.AWARENESS_LABELS_HE.get(v.get("awareness_stage", ""), v.get("awareness_stage", "")))
     pulls = "".join(f'<li>{s["number"]} · {esc((s.get("pull") or {}).get("note", ""))}</li>' for s in v["slides"] if s.get("pull"))
     out.append('<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv">'
                f'<dt>על מי</dt><dd>{person_line(v)}</dd>'
-               f'<dt>זווית</dt><dd dir="auto">{esc(v["angle"])}</dd>'
-               f'<dt>למי</dt><dd dir="auto">{esc(v["target_parent"])} · {awareness}</dd>'
-               f'<dt>למה זה עשוי להמיר</dt><dd dir="auto">{esc(v["conversion_rationale"])}</dd>'
+               f'<dt>זווית</dt><dd dir="auto">{esc(v.get("angle", ""))}</dd>'
+               f'<dt>למי</dt><dd dir="auto">{esc(v.get("target_parent", ""))} · {awareness}</dd>'
+               f'<dt>למה זה עשוי להמיר</dt><dd dir="auto">{esc(v.get("conversion_rationale", ""))}</dd>'
                f'<dt>פתיח</dt><dd>{esc(hook.get("formula", ""))} · {total}/12 · {esc(hook.get("gap", ""))}</dd>'
                f'<dt>משיכה לשקופית הבאה</dt><dd><ul class="rp-list">{pulls}</ul></dd>'
                '</dl></div></details>')
@@ -372,13 +670,22 @@ def html_option(pack, direction, v):
     # Image descriptions: dropdown, each slide's copy next to its prompt
     anchor = v["character_anchor"]
     img_rows = []
-    if lib.one_picture(v):   # one picture behind every slide (Yarin, 14 Oct 2026)
+    if story:   # a picture per slide (story-format.md 4): the cover brief, then each slide's scene
+        im = v.get("image") if isinstance(v.get("image"), dict) else {}
+        img_rows.append(f'<tr><td>1</td><td style="white-space:pre-line">{esc(v["slides"][0]["headline"])}</td>'
+                        f'<td class="en" dir="ltr" lang="en"><b>{esc(im.get("beat", ""))}</b><br>{esc(im.get("action", ""))}'
+                        f'{"<br>" + esc(im.get("setting", "")) if im.get("setting") else ""}</td></tr>')
+        for s in v["slides"][1:]:
+            act, setting = scene_text(s)
+            img_rows.append(f'<tr><td>{s["number"]}</td><td style="white-space:pre-line">{esc(s.get("label") or s.get("headline") or "")}</td>'
+                            f'<td class="en" dir="ltr" lang="en">{esc(act)}{"<br>" + esc(setting) if setting else ""}</td></tr>')
+    elif lib.one_picture(v):   # one picture behind every slide (Yarin, 14 Oct 2026)
         im = v["image"]
         prompt = lib.compose_image_prompt(anchor, im, 1, pillar=direction, one_picture_prompt=True)
         img_rows.append(f'<tr><td>1 עד {len(v["slides"])}</td><td>תמונה אחת לכל הקרוסלה</td>'
                         f'<td class="en" dir="ltr" lang="en"><b>{esc(im["beat"])}</b><br>{esc(im["action"])}'
                         f'<details><summary>Full prompt</summary><div class="prompt" dir="ltr">{esc(prompt)}</div></details></td></tr>')
-    for s in ([] if lib.one_picture(v) else v["slides"]):
+    for s in ([] if story or lib.one_picture(v) else v["slides"]):
         prompt = lib.compose_image_prompt(anchor, s["image"], s["number"], pillar=direction)
         img_rows.append(f'<tr><td>{s["number"]}</td><td style="white-space:pre-line">{esc(s["headline"])}</td>'
                         f'<td class="en" dir="ltr" lang="en"><b>{esc(s["image"]["beat"])}</b><br>{esc(s["image"]["action"])}'
@@ -406,6 +713,9 @@ def build_html(pack):
                       f'<b>{esc(pil.get("name_he", d["label_he"]))}</b><span>{esc(pil.get("tagline_he", ""))}</span></a>')
     count = max((len(v["slides"]) for d in pack["directions"] for v in d["versions"]), default=lib.SLIDE_COUNT)
     styles = (SLIDE_CSS + PAGE_CSS).replace("repeat(7,", "repeat(%d," % count)
+    story = story_applies(pack)
+    if story:   # drafts/DATE/review.html: the pipeline's assets/fonts first, then shared/brand/fonts (opened as a file)
+        styles += story_fonts_css("../../assets/fonts", "../../../../shared/brand/fonts") + STORY_CSS + STORY_PAGE_CSS
     # reco_render.inject_review adds its jump link to the first </nav> (keep nav.jump the only <nav>) and inserts its
     # section before the last "</div><script>" (the end of the page body below).
     parts = [
@@ -447,7 +757,8 @@ def build_html(pack):
     facts = "".join(f'<tr><td class="en" dir="ltr">{esc(f["id"])}</td><td dir="auto">{esc(f["fact"])}</td><td><a href="{esc(f["url"])}" target="_blank" rel="noopener">{esc(f["quote"])}</a> · {esc(f["checked_at"])}</td></tr>' for f in pack["product_facts"])
     parts.append(f'<details class="more facts"><summary>עובדות מהאתר</summary><div class="inner">'
                  f'<table><thead><tr><th>מזהה</th><th>עובדה</th><th>ציטוט מהאתר</th></tr></thead><tbody>{facts}</tbody></table></div></details>')
-    parts.append(f'</div><script>{SCRIPT}</script></body></html>')
+    story_js = f"{STORY_JS}\nSTY.fitAll();\n" if story else ""
+    parts.append(f'</div><script>{story_js}{SCRIPT}</script></body></html>')
     return "\n".join(parts)
 
 
@@ -482,6 +793,9 @@ def build_md(pack):
                 f"- **למה זה עשוי להמיר:** {v['conversion_rationale']}",
                 "",
             ]
+            if story_applies(pack):
+                md += story_md(v)
+                continue
             for s in v["slides"]:
                 md += [f"#### שקופית {s['number']} · {lib.ROLE_LABELS_HE.get(s['role'], s['role'])}", ""]
                 md += [f"**{line}**  " for line in lib.lines_of(s["headline"])]
@@ -505,6 +819,41 @@ def build_md(pack):
         md.append(f"- {f['fact']} · [{f['quote']}]({f['url']}) · {f['checked_at']}")
     md += ["", "</div>", ""]
     return "\n".join(md)
+
+
+def story_md(v):
+    """review.md for a story option: the structure, each slide with its label, headline, body (## label in italics,
+    > card line and **emphasis** as they read) and its picture brief, then caption, CTA, claims and sources."""
+    md = [f"- **מבנה:** {STRUCTURES_HE.get(v.get('structure'), v.get('structure') or '')} · {len(v['slides'])} שקופיות", ""]
+    for s in v["slides"]:
+        head = f"#### שקופית {s['number']} · {STORY_ROLES_HE.get(s.get('role'), s.get('role', ''))}"
+        md += [head + (f" · {s['label']}" if s.get("label") else ""), ""]
+        md += [f"**{line}**  " for line in lib.lines_of(s.get("headline", ""))]
+        for line in str(s.get("body", "")).split("\n"):
+            line = line.strip()
+            if not line:
+                md.append("")
+            elif line.startswith("## "):
+                md.append(f"*{line[3:]}*  ")
+            elif line.startswith("> "):
+                md.append(f"▪ {line[2:]}  ")
+            else:
+                md.append(f"{line}  ")
+        act, setting = scene_text(s)
+        if act or setting:
+            md += ["", '<div dir="ltr" lang="en" style="direction:ltr;text-align:left">', "",
+                   f"*Picture:* {act} {setting}".rstrip(), "", "</div>"]
+        md.append("")
+    md += ["**הכותרות בלבד:** " + " ← ".join(" ".join(lib.lines_of(s["headline"])) for s in v["slides"] if lib.collapse(s.get("headline", ""))), ""]
+    md += ["**כיתוב לפוסט**", ""] + [f"{line}  " for line in lib.lines_of(v["caption"])] + [""]
+    md += [f"**CTA:** {v['cta']}", "", "<details><summary>טענות ומקורות</summary>", "", "**מקורות**", ""]
+    for src in v.get("sources", []):
+        md.append(f"- [{src['title']}]({src['url']}) · {src['publisher']}: {src['supports']}")
+    md += ["", "**טענות**", ""]
+    for c in v.get("claims", []):
+        md.append(f"- שקופית {c['slide']} · {c['wording_he']} · {c['kind']} · {c['supports']}")
+    md += ["", "</details>", ""]
+    return md
 
 
 def write_review(pack_path):

@@ -10,6 +10,9 @@
     python3 carousel/carousel-pipeline/scripts/nightly.py batch-check ID     # check a weekly batch
 
 start
+    New packs are in the story format (story-format.md, Yarin 29 Oct 2026): copy_style "story", a structure per option
+    (structure_per_option, rotated away from the previous 3 packs), 9 to 12 slides with a scene each, no numbered
+    examples. `start --copy-style lists` prints the older numbered-list context instead.
     Works out the review date (the next morning; a run after midnight and before 06:00
     targets the same morning), creates drafts/DATE/, moves an existing pack into
     drafts/DATE/versions/vN/ so nothing is overwritten, and prints the context the
@@ -32,6 +35,7 @@ import batch  # noqa: E402  (the weekly batch, 16 Oct 2026)
 import carousel_lib as lib  # noqa: E402
 import create_review  # noqa: E402
 import reco_lib  # noqa: E402  (the daily games and books carousel)
+import story_lib  # noqa: E402  (the story copy format, 29 Oct 2026)
 import validate_pack  # noqa: E402
 
 
@@ -45,6 +49,7 @@ def cmd_start(args):
     ctx = lib.rotation_context(history, date)
     voice = lib.voice_status()
     eligible = [t for t in ctx["topics"] if t["eligible"]]
+    story = getattr(args, "copy_style", story_lib.COPY_STYLE) == story_lib.COPY_STYLE
     out = {
         "date": date,
         "generated_at": lib.now_local().isoformat(timespec="seconds"),
@@ -61,7 +66,7 @@ def cmd_start(args):
             for t in eligible[:6]
         ],
         "blocked_topic_ids": ctx["recent_topic_ids"],
-        "examples_per_option": lib.draw_example_slots(folder),
+        **({} if story else {"examples_per_option": lib.draw_example_slots(folder)}),   # story packs have no numbered examples
         "child_gender_per_option": lib.gender_slots(date),
         "child_gender_note": "half the options are about a girl and half about a boy (Yarin, 24 Oct 2026: \"make sure the carousel machine do 50/50 boys and girls\"), "
                              "each topic with at least one of each: give every option the gender listed here, a name of that gender from names.md, and the matching image anchor",
@@ -101,6 +106,10 @@ def cmd_start(args):
         out["recommendations"] = reco_lib.start_context(date, folder)
     if lib.daily_pair_applies({"generated_at": out["generated_at"]}):
         out.update(pair_start_context(ctx))
+    if story:
+        out.pop("examples_note", None)
+        out.pop("bold_look_rules", None)   # the 10-slide limits; story limits are in rules
+        out.update(story_start_context(ctx, date, out.get("pack_shape")))
     plan, slot = batch.plan_for_date(date)
     if plan:
         out.update(batch_start_context(plan, slot, date, folder, eligible))
@@ -142,6 +151,62 @@ def pair_start_context(ctx):
                              "hyphens\"): periods, commas, question and exclamation marks, colons and quotation marks where natural; never a "
                              "dash of any kind, a semicolon or a hyphen (write ועוד 8, בשעה 17:40, 3 עד 6)"),
         "addressees": {"mom": "feminine singular (את, תשמרי)", "parents": "plural (אתם, תשמרו)", "never": "dad"},
+    }
+
+
+def story_start_context(ctx, date, pack_shape=None):
+    """The story format (story-format.md; Yarin, 29 Oct 2026: "i like the new content, change the entire carousel machine and
+    November batch to match it"): copy_style story, one structure per option that keeps the per-pack rules and rotates away
+    from the previous packs' structures, and the slide rules. Overrides the numbered-list keys."""
+    lanes = lib.PAIR_LANES
+    recent = ctx.get("recent_structures") or {}
+    assignment = story_lib.assign_structures(lanes, recent, seed=date)
+    shape = dict(pack_shape or {})
+    shape["rule"] = ("Yarin, 29 Oct 2026 (story-format.md): two topics of two best-selling books, `format`: \"two_topics\", `topics`: [topic 1, "
+                     "topic 2] (each id, title_he, reason, book {id, title_he, checked_at}), `topic` = topics[0] again, and ONE direction, kid, "
+                     "with six options: kid-1, kid-2, kid-3 about topics[0] and kid-4, kid-5, kid-6 about topics[1], each with its `topic_id` and "
+                     "its `structure` from structure_per_option. The child talks to the parents everywhere. No expert direction. The hook slate "
+                     "has keys a and b, child-voice formulas only.")
+    return {
+        "copy_style": story_lib.COPY_STYLE,
+        "copy_style_note": "write \"copy_style\": \"story\" at the top of pack.json; story-format.md is the spec (read it first), "
+                           "media/projects/2026-10-29-lotem-format-carousels/copy-structures.json the reference copy",
+        "pack_shape": shape,
+        "structure_per_option": assignment,
+        "structure_note": (f"give every option the structure listed here (`structure` on the option). Per pack: at least {story_lib.PACK_MIN_STRUCTURES} "
+                           f"different structures, none more than {story_lib.STRUCTURE_MAX_PER_PACK} times, short_list at most {story_lib.SHORT_LIST_MAX_PER_PACK}, "
+                           f"the three options of a topic in three different structures; this assignment keeps those rules and rotates away from the "
+                           f"structures of the previous {story_lib.RECENT_PACKS} packs (recent_structures). The cover never promises «N דברים» unless the "
+                           f"option is a short_list"),
+        "recent_structures": recent,
+        "structures": story_lib.STRUCTURES_EN,
+        "slide_roles": {"1": [story_lib.ROLE_HOOK], "2 to N-1": [story_lib.ROLE_BEAT], "N-1": [story_lib.ROLE_BEAT, story_lib.ROLE_TURN], "N": [story_lib.ROLE_CTA]},
+        "story_slides_note": ("9 to 12 slides: the cover, 7 to 10 story slides, the CTA. Slide fields: number, role, headline (\"\" only on the body "
+                              "slides of a letter), body, optional label (up to 28 characters), and scene {action, setting} in English on every "
+                              "slide from 2 to the last: one concrete moment of that slide, same characters and home, the upper third calm, no words, "
+                              "letters or numbers; the CTA slide's scene is a calm, warm resolution. The option's `image` stays the cover brief "
+                              "(the child faces the viewer). Slide 1's body is the cover pill. Body markup: a line `## text` is a gold label, "
+                              "`> ״...״` a card with a sentence to say (one per slide), **word** emphasis (two per slide), an empty line a gap. "
+                              "Rotate the shapes so no two neighbouring story slides look alike. Every help action (## מה יעזור לי:, ## אני עונה:) "
+                              "and every statement about why a child does something is a sourced_fact claim with its slide number, at least 3 per "
+                              "option. No pull, highlight, examples or examples_target"),
+        "caption_note": ("the child's voice: line 1 restates the hook, 2 to 4 value lines ask the parents for something, then the bridge line "
+                         f"«{story_lib.BRIDGE_LINES['boy']}» (a girl: «{story_lib.BRIDGE_LINES['girl']}»), then the CTA word for word"),
+        "rules": {
+            "slides": [story_lib.SLIDES_MIN, story_lib.SLIDES_MAX],
+            "cover_headline": {"max_lines": story_lib.COVER_HEADLINE_MAX_LINES, "max_chars_per_line": story_lib.COVER_HEADLINE_LINE_MAX_CHARS},
+            "cover_pill_max_chars": story_lib.COVER_PILL_MAX_CHARS,
+            "headline": {"max_lines": story_lib.HEADLINE_MAX_LINES, "max_chars_per_line": story_lib.HEADLINE_LINE_MAX_CHARS},
+            "label_max_chars": story_lib.LABEL_MAX_CHARS,
+            "story_slide_words": [story_lib.SLIDE_MIN_WORDS, story_lib.SLIDE_MAX_WORDS],
+            "body_line": {"max_chars": story_lib.BODY_LINE_MAX_CHARS, "max_words": story_lib.BODY_LINE_MAX_WORDS},
+            "markup": {"label_max_chars": story_lib.MARK_LABEL_MAX_CHARS, "cards_per_slide": story_lib.CARDS_MAX, "emphasis_per_slide": story_lib.EMPHASIS_MAX},
+            "short_list_points": [story_lib.SHORT_LIST_MIN_POINTS, story_lib.SHORT_LIST_MAX_POINTS],
+            "help_actions_min": story_lib.HELP_ACTIONS_MIN,
+            "cta_slide_max_words": lib.CTA_SLIDE_MAX_WORDS,
+            "caption_lines": [lib.CAPTION_MIN_LINES, lib.CAPTION_MAX_LINES],
+            "max_options_per_hook_family": lib.HOOK_FAMILY_MAX_IN_WINDOW,
+        },
     }
 
 
@@ -365,6 +430,8 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("start")
     s.add_argument("--date", help="override the review date YYYY-MM-DD")
+    s.add_argument("--copy-style", choices=("story", "lists"), default="story",
+                   help="story (default since 29 Oct 2026, story-format.md) or lists (the older 10-slide numbered examples)")
     s.set_defaults(func=cmd_start)
     f = sub.add_parser("finish")
     f.add_argument("pack")

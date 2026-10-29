@@ -15,6 +15,11 @@ Running it twice with the same option is safe. If the option's copy changed sinc
 the script stops unless --refreeze is given, and then the old files move to versions/vN/.
 A refreeze keeps every generated image whose job (prompt, endpoint, settings) did not change, with its QA
 result, and keeps the spend log, so a copy-only change never throws away or re-buys images.
+
+Story packs (copy_style "story", story-format.md, 29 Oct 2026) get a picture per slide: slide-01 is the cover
+(text-to-image from option.image and the character anchor, as for one-picture runs), slide-02 to slide-NN are edits of
+the approved cover (same characters), each from its slide's scene. The cover runs first and waits for approval; the
+rest run in parallel. Spend cap STORY_MAX_USD for the whole carousel, every attempt included.
 """
 
 import argparse
@@ -30,6 +35,63 @@ import validate_pack  # noqa: E402
 MAX_REPLACEMENTS = 2
 JOB_ORDER = ["character-reference"] + [f"slide-{n:02d}" for n in range(1, lib.SLIDE_COUNT + 1)]
 PICTURE_JOB = "picture"  # packs from 14 Oct 2026: one picture for the whole carousel
+STORY_COVER_JOB = "slide-01"   # story packs (29 Oct 2026): the cover, the reference for every other slide's edit
+STORY_MAX_USD = 1.00           # story packs: the cap for one carousel, every attempt and replacement included
+# Every story scene keeps the top third calm for the words, which sit on an ink veil (story-format.md section 4)
+STORY_COMPOSITION = (
+    "Composition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, "
+    "hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in "
+    "the image."
+)
+
+
+def is_story(pack, version):
+    """A story-format option (story-format.md): the pack's copy_style, or the option's own structure."""
+    return (pack or {}).get("copy_style") == "story" or (version or {}).get("copy_style") == "story" or bool((version or {}).get("structure"))
+
+
+def story_slide_prompt(anchor, scene):
+    """The edit prompt for a story slide from 2 on: the cover as the reference (same characters), this slide's scene,
+    the standing style block, the calm upper third and no text."""
+    scene_line = f"Scene: {str(scene.get('action', '')).strip()} Setting: {str(scene.get('setting', '')).strip()}"
+    extra = " ".join(f"{label}: {str(scene[k]).strip()}" for k, label in (("camera", "Camera"), ("lighting", "Lighting")) if scene.get(k))
+    return "\n\n".join(p for p in [
+        lib.REFERENCE_LOCK,
+        "Characters, identical on every slide: "
+        f"{anchor['child'].strip()} {anchor['parent'].strip()} Wardrobe: {anchor['wardrobe'].strip()}",
+        scene_line + (" " + extra if extra else ""),
+        lib.STYLE, lib.PALETTE, lib.AVOID,
+        STORY_COMPOSITION,
+        lib.NO_TEXT,
+    ] if p)
+
+
+def build_story_jobs(version, cfg, base, pillar):
+    t2i = "openai/gpt-image-2.5/flare/text-to-image"
+    edit = "openai/gpt-image-2.5/flare/edit"
+    anchor, image = version["character_anchor"], version["image"]
+    jobs = {STORY_COVER_JOB: {
+        "endpoint": t2i,
+        "input": {**base, "prompt": lib.compose_image_prompt(anchor, image, 1, pillar=pillar, one_picture_prompt=True)},
+        "refs": [],
+        "estimated_cost_usd": cfg["estimate_usd_per_image"][t2i],
+        "purpose": f"slide 1 · cover · {image.get('beat', '')}".rstrip(" ·"),
+        "text_zone": image.get("text_zone", {}),
+    }}
+    for s in version["slides"][1:]:
+        scene = s.get("scene") or {}
+        if not str(scene.get("action", "")).strip():
+            raise SystemExit(f"slide {s['number']} has no scene: every story slide from 2 on needs scene.action and scene.setting")
+        jobs[f"slide-{s['number']:02d}"] = {
+            "endpoint": edit,
+            "input": {**base, "prompt": story_slide_prompt(anchor, scene)},
+            "refs": [STORY_COVER_JOB],
+            "estimated_cost_usd": cfg["estimate_usd_per_image"][edit],
+            "purpose": f"slide {s['number']} · {s.get('role', '')} · {str(scene.get('action', '')).strip()[:90]}",
+        }
+    order = [f"slide-{s['number']:02d}" for s in version["slides"]]
+    return {"order": order, "story": True, "reference_job": STORY_COVER_JOB, "max_usd": STORY_MAX_USD,
+            "max_replacements_per_job": MAX_REPLACEMENTS, "jobs": jobs}
 
 
 def endpoint_config():
@@ -80,6 +142,8 @@ def build_jobs(pack, version, cfg):
     t2i = "openai/gpt-image-2.5/flare/text-to-image"
     edit = "openai/gpt-image-2.5/flare/edit"
     base = {"image_size": dict(cfg["generation_size"]), "quality": cfg["quality"], "output_format": "png", "num_images": 1}
+    if is_story(pack, version):
+        return build_story_jobs(version, cfg, base, pillar)
     if lib.one_picture(version):
         # Yarin, 14 Oct 2026: one picture that depicts the idea for the whole carousel, shown behind every slide.
         image = version["image"]
@@ -116,6 +180,8 @@ def build_jobs(pack, version, cfg):
 def cost_summary(jobs):
     base = sum(j["estimated_cost_usd"] for j in jobs["jobs"].values())
     retries = sum(j["estimated_cost_usd"] * MAX_REPLACEMENTS for j in jobs["jobs"].values())
+    if jobs.get("story"):   # a story carousel never spends past its cap, whatever the replacements
+        return round(base, 3), round(min(base + retries, jobs.get("max_usd", STORY_MAX_USD)), 3)
     return round(base, 3), round(base + retries, 3)
 
 
@@ -137,6 +203,30 @@ def approval_text(pack, direction, version, jobs, run_dir):
         lines += [f"{l}  " for l in lib.lines_of(s.get("body", ""))]
         lines.append("")
     lines += ["**כיתוב**  "] + [f"{l}  " for l in lib.lines_of(version["caption"])] + ["", "</div>", ""]
+    if jobs.get("story"):
+        n = len(jobs["jobs"])
+        lines += [
+            "## Images",
+            "",
+            f"- Images: **{n}**, one per slide (story format, 29 Oct 2026): the cover by text-to-image, then {n - 1} slide scenes edited from the approved cover (same characters)",
+            "- Endpoints: `openai/gpt-image-2.5/flare/text-to-image` (cover), `openai/gpt-image-2.5/flare/edit` (slides 2 to the last)",
+            "- Quality: `high` · generation size 1024 x 1280 (4:5) · final export 1080 x 1350",
+            f"- Estimated cost: about **${base:.2f}** if every image passes QA first time",
+            f"- Cap: **${maximum:.2f}** for the whole carousel, every attempt and replacement included (the runner refuses to pass it)",
+            "- Pricing is token based; estimates come from the fal pricing table checked "
+            + endpoint_config()["checked_at"] + " (see scripts/fal_endpoints.json)",
+            "",
+            "## Order",
+            "",
+            "- The cover first. It is approved (qa slide-01 pass) or replaced with a note, at most twice.",
+            "- Then every other slide in parallel, each an edit of the approved cover from its slide's scene, the upper third kept calm for the words.",
+            "- Only a failed image is regenerated, with a short fix note added to its prompt.",
+            "",
+            "## After approval",
+            "",
+            f"See `{run_dir / 'README.md'}` for the exact commands.",
+        ]
+        return "\n".join(lines) + "\n"
     lines += [
         "## Images",
         "",
@@ -170,9 +260,42 @@ def approval_text(pack, direction, version, jobs, run_dir):
     return "\n".join(lines) + "\n"
 
 
-def readme_text(run_dir, maximum, one=False, slides=7):
+def readme_text(run_dir, maximum, one=False, slides=7, story=False):
     gen = lib.PIPELINE / "scripts" / "fal_generate.py"
     comp = lib.PIPELINE / "scripts" / "compose_slides.py"
+    if story:
+        return f"""# Production run (story format, a picture per slide)
+
+{slides} slides, a picture each (story-format.md, 29 Oct 2026): `generated-assets/slide-01.png` is the cover, `slide-02.png` to `slide-{slides:02d}.png` are edits of the approved cover. Rejected attempts go to `generated-assets/rejected/`, the run log to `generated-assets/generation-log.jsonl`, the resume point to `state.json`. FAL_KEY is read from the environment only (`~/.zshrc`, so run through `zsh -ic`). Cap for the whole carousel: ${maximum:.2f}.
+
+## 1 · The cover
+
+```bash
+zsh -ic 'python3 {gen} {run_dir} run {STORY_COVER_JOB} --max-usd {maximum:.2f}'
+```
+
+Inspect `generated-assets/{STORY_COVER_JOB}.png` at full size (the child's face to the viewer, a big expression, hands, no letters), then `python3 {gen} {run_dir} qa {STORY_COVER_JOB} pass`, or replace it:
+
+```bash
+zsh -ic 'python3 {gen} {run_dir} replace {STORY_COVER_JOB} --note "what is wrong" --max-usd {maximum:.2f}'
+```
+
+## 2 · The other slides, in parallel
+
+```bash
+zsh -ic 'python3 {gen} {run_dir} run --max-usd {maximum:.2f}'
+```
+
+Finished slides are skipped, so the same command resumes. Inspect each and record `qa slide-NN pass` or `qa slide-NN fail --note "..."`, then `replace slide-NN --note "..." --max-usd {maximum:.2f}`.
+
+## 3 · Final composition
+
+```bash
+python3 {comp} {run_dir}
+```
+
+The story look (Varela Round on an ink veil). Writes `final/01.png` to `final/{slides:02d}.png` at 1080 x 1350, the contact sheet, the RTL check, caption, sources, alt text and the ZIP. Layout check with no paid images: `--placeholders`. Status: `python3 {gen} {run_dir} status`
+"""
     if one:
         return f"""# Production run (one picture)
 
@@ -299,6 +422,8 @@ def main():
         "product_facts": pack["product_facts"],
         "option": version,
     }
+    if pack.get("copy_style"):   # the story format (29 Oct 2026): compose_slides.py picks its look from this
+        frozen["copy_style"] = pack["copy_style"]
     approved_path = run_dir / "approved.json"
     backup = None
     if approved_path.exists():
@@ -333,7 +458,8 @@ def main():
         lib.write_json(state_path, {"jobs": fresh})
     base, maximum = cost_summary(jobs)
     (run_dir / "APPROVAL.md").write_text(approval_text(pack, direction, version, jobs, run_dir), encoding="utf-8")
-    (run_dir / "README.md").write_text(readme_text(run_dir, maximum, one=PICTURE_JOB in jobs["jobs"], slides=len(version["slides"])), encoding="utf-8")
+    (run_dir / "README.md").write_text(readme_text(run_dir, maximum, one=PICTURE_JOB in jobs["jobs"], slides=len(version["slides"]),
+                                                   story=bool(jobs.get("story"))), encoding="utf-8")
     if not args.no_history:
         lib.mark_selected(pack["date"], version["id"])
     print(json.dumps({
@@ -344,6 +470,7 @@ def main():
         "size": cfg["generation_size"],
         "estimated_usd": base,
         "estimated_max_usd": maximum,
+        **({"cap_usd": jobs["max_usd"], "story": True} if jobs.get("story") else {}),
         "approval_sheet": str(run_dir / "APPROVAL.md"),
         "network_calls": 0,
     }, ensure_ascii=False, indent=2))

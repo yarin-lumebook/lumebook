@@ -36,14 +36,13 @@ def font(size):
     la = ImageFont.truetype(SF_LATIN, size); la.set_variation_by_name("Bold")
     return he, la
 
-_tofu = None
+_tofu = {}   # the missing-glyph box per font size (a mask from one size never matches another)
 def runs(vis, fonts):
-    global _tofu
     he, la = fonts
-    if _tofu is None: _tofu = bytes(he.getmask("\U000F0000"))
+    if he.size not in _tofu: _tofu[he.size] = bytes(he.getmask("\U000F0000"))
     out = []
     for c in vis:
-        f = la if (c != " " and bytes(he.getmask(c)) == _tofu) else he
+        f = la if (c != " " and bytes(he.getmask(c)) == _tofu[he.size]) else he
         if out and out[-1][1] is f: out[-1][0] += c
         else: out.append([c, f])
     return out
@@ -63,26 +62,39 @@ def emoji_img(seq, px, tmp):
     im = im.crop(im.getbbox())
     return im.resize((int(im.width * px / im.height), px), Image.LANCZOS)
 
-def block(im, shadow, text, size, tmp, top=None, bottom=None):
-    """Centred RTL lines (\\n splits them); an emoji at the end goes at the left end of the last line."""
+BRAND_PURPLE = "#5B2BD6"   # --lb-violet in shared/design/lumebook.css, the logo's purple
+
+def block(im, shadow, text, size, tmp, top=None, bottom=None, cx=W / 2, highlight=None):
+    """Centred RTL lines (\\n splits them) around x = cx; an emoji at the end goes at the left end of the last line.
+    highlight: a colour for an Instagram style rounded box behind each line (the boxes join); no shadow then."""
     d = ImageDraw.Draw(im); sd = ImageDraw.Draw(shadow)
     m = EMOJI.search(text); emo_seq = m.group(0) if m else None
     if emo_seq: text = text[:-len(emo_seq)].rstrip()
     lines = [visual(l) for l in text.split("\n")]
     f = font(size)
-    while max(width(d, l, f) for l in lines) + (size if emo_seq else 0) > MAX_W:
+    pad = lambda s: 2 * int(s * 0.32) if highlight else 0
+    max_w = min(MAX_W, 2 * min(cx - (W - MAX_W) / 2, (W + MAX_W) / 2 - cx))   # stay inside the side margins
+    while max(width(d, l, f) for l in lines) + (size if emo_seq else 0) + pad(size) > max_w:
         size -= 2; f = font(size)
     h = int(size * 1.22)
     if top is None: top = bottom - len(lines) * h
     emo = emoji_img(emo_seq, int(size * 1.05), tmp) if emo_seq else None
     gap = int(size * 0.18)
+    rows = []
     for i, vis in enumerate(lines):
         extra = gap + emo.width if (emo and i == len(lines) - 1) else 0
-        total = width(d, vis, f) + extra
-        x = (W - total) / 2 + extra; y = top + i * h
+        rows.append((vis, extra, width(d, vis, f) + extra, top + i * h))
+    if highlight:
+        px, py = pad(size) / 2, int(size * 0.14)
+        for vis, extra, total, y in rows:
+            d.rounded_rectangle((cx - total / 2 - px, y - py + size * 0.08, cx + total / 2 + px, y + h + py),
+                                radius=int(size * 0.3), fill=highlight)
+    for vis, extra, total, y in rows:
+        x = cx - total / 2 + extra
         if extra:
-            im.alpha_composite(emo, (int((W - total) / 2), int(y + (h - emo.height) / 2 + size * 0.04)))
-        draw(sd, (x, y + 3), vis, f, fill=(0, 0, 0, 200), stroke_width=4, stroke_fill=(0, 0, 0, 200))
+            im.alpha_composite(emo, (int(cx - total / 2), int(y + (h - emo.height) / 2 + size * 0.04)))
+        if not highlight:
+            draw(sd, (x, y + 3), vis, f, fill=(0, 0, 0, 200), stroke_width=4, stroke_fill=(0, 0, 0, 200))
         draw(d, (x, y), vis, f, fill="white")
     return dict(px=size, y=[top, top + len(lines) * h])
 
@@ -274,9 +286,13 @@ def build(cfg_path, trial):
             key = (top_text, word)
             if key not in cache:
                 im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-                lay = {"cta" if top_text != hook else "hook": block(im, sh, top_text, hook_size, tmp, top=TOP)}
+                is_cta = top_text != hook
+                hl = cta.get("highlight") if is_cta else None
+                lay = {"cta" if is_cta else "hook": block(im, sh, top_text, hook_size, tmp, top=TOP,
+                                                         highlight=BRAND_PURPLE if hl is True else hl)}
                 if bottom: lay["bottom"] = block(im, sh, bottom, 54, tmp, bottom=SAFE_BOTTOM)
-                if word: lay["caption"] = block(im, sh, word, cap_size, tmp, bottom=cap_bottom)
+                if word: lay["caption"] = block(im, sh, word, cap_size, tmp, bottom=cap_bottom,
+                                                cx=W * cfg.get("caption_x", 0.5))
                 png = tmp / f"card-{len(cache):03d}.png"
                 Image.alpha_composite(sh.filter(ImageFilter.GaussianBlur(6)), im).save(png)
                 cache[key] = png

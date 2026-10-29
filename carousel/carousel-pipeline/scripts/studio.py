@@ -17,7 +17,12 @@ switch and its production (picture to approve or redo, ZIP, Finder). The side pa
 one button that produces them all, then the ones in production or done. The top bar has the week, progress, what
 waits for approval and the cloud buttons. Everything loads from /api/state; old addresses (/pool, /grade,
 /productions, /packs) open this page.
-Design system tokens and lb- components; Heebo for the interface, the pillar fonts only on the slide cards. Light only.
+Design system tokens and lb- components; Heebo for the interface, the pillar fonts only on the slide cards.
+
+Story packs (copy_style "story", story-format.md, 29 Oct 2026): each option shows its structure, the slides (9 to 12)
+are drawn in the story look (create_review.STORY_CSS and STORY_JS: ink or the slide's picture, cream Varela Round,
+gold labels and emphasis, the cream card, the letter sheet), and each slide's label, headline, body (markup kept) and
+scene are edited beside its preview, which redraws while typing. Older packs keep the pillar cards.
 """
 
 import datetime as dt
@@ -112,12 +117,44 @@ def batches():
     return [p["id"] for p in reversed(batch.plans()) if any((lib.DRAFTS / s["date"] / "pack.json").exists() for s in p.get("slots", []))]
 
 
+def add_story_fields(its):
+    """Story packs (copy_style "story", story-format.md, 29 Oct 2026): what the page needs on top of grades.items, the
+    option's structure, each slide's label and scene (the picture brief), and the pictures a production made so far.
+    Older packs get nothing, so they look and work as before."""
+    import create_review
+    packs = {}
+    for it in its:
+        if it.get("kind") == "reco":
+            continue
+        if it["date"] not in packs:
+            path = lib.DRAFTS / it["date"] / "pack.json"
+            packs[it["date"]] = lib.read_json(path) if path.exists() else None
+        pack = packs[it["date"]]
+        if not create_review.story_applies(pack):
+            continue
+        v = next((v for d in pack.get("directions", []) for v in d.get("versions", []) if v.get("id") == it["id"]), None)
+        if not v:
+            continue
+        it["copy_style"] = "story"
+        it["structure"] = v.get("structure", "")
+        it["structure_he"] = create_review.STRUCTURES_HE.get(v.get("structure"), v.get("structure") or "")
+        by_n = {s.get("number"): s for s in v.get("slides", [])}
+        for s in it["slides"]:
+            src = by_n.get(s["n"], {})
+            s["label"] = src.get("label", "")
+            if s["n"] > 1:
+                act, setting = create_review.scene_text(src)
+                s["scene"] = {"action": act, "setting": setting}
+        it["pictures"] = create_review.slide_pictures(it["date"], it["id"])
+    return its
+
+
 def state(batch_id=None):
     """Everything the page shows, as JSON: the carousels, the grades, the productions, the cloud status."""
     plan = batch.load(batch_id) if batch_id else current_plan()
     if not plan:
         return {"batch": None, "batches": batches(), "items": [], "grades": {}, "runs": {}}
-    its = grades.items(plan)
+    its = add_story_fields(grades.items(plan))
     for it in its:
         it["errors"] = producer.blocking_errors(it)
     keys = {i["key"] for i in its}
@@ -313,6 +350,27 @@ button{font-family:inherit}
 .pv-one{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
 .hs-box img{max-width:min(100%,34rem);max-height:100%;border-radius:var(--r-md);box-shadow:var(--shadow-3)}
 .hs-box .lb-btn{position:absolute;top:var(--sp-4);inset-inline-end:var(--sp-4)}
+/* story packs (29 Oct 2026, story-format.md): the slide in its own look (.sty, create_review.STORY_CSS) with its fields beside it */
+.gc-thumb .sty{border-radius:var(--r-lg);box-shadow:var(--shadow-1)}
+.pk-mini .sty{border-radius:0}
+.ss-deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(27rem,1fr));gap:var(--sp-4)}
+.ss-row{display:grid;grid-template-columns:13rem minmax(0,1fr);gap:var(--sp-3);align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--sp-3)}
+.ss-prev{display:grid;gap:var(--sp-2);min-width:0}
+.ss-prev .sty{border-radius:var(--r-md)}
+.ss-row.first .ss-prev .sty{box-shadow:0 0 0 2px var(--tint)}
+.ss-fields{display:grid;gap:var(--sp-2);align-content:start;min-width:0}
+.ss-n{display:flex;gap:var(--sp-2);align-items:baseline;font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3)}
+.ss-n b{color:var(--text);font-size:var(--fs-footnote)}
+.ss-l{font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:600;color:var(--accent-ink);padding:1px 4px}
+.ss-h{font-weight:700;font-size:var(--fs-callout);line-height:1.35;white-space:pre-line;padding:1px 4px}
+.ss-b{font-size:var(--fs-footnote);line-height:1.6;white-space:pre-line;color:var(--text-2);padding:1px 4px}
+.ss-scene{direction:ltr;text-align:left;font-size:var(--fs-caption);line-height:1.45;color:var(--text-3);background:var(--surface-2);border-radius:var(--r-sm);padding:var(--sp-2);display:grid;gap:2px}
+.ss-scene .k{font-family:var(--font-2);font-weight:600;font-size:.625rem;letter-spacing:.04em;text-transform:uppercase}
+.ss-scene>div{white-space:pre-line;overflow-wrap:anywhere}
+.ss-scene .set{opacity:.8}
+.ss-note{margin:0;font-size:var(--fs-caption);color:var(--text-3)}
+.ss-key{font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);margin:0 0 var(--sp-3)}
+.ss-key code{font-family:inherit;font-weight:700;color:var(--accent-ink);background:var(--accent-soft);border-radius:4px;padding:0 .3rem;margin-inline-end:.2rem}
 @media (max-width:1200px){.hs-app{grid-template-columns:minmax(0,1fr) 18rem}.op-body{grid-template-columns:minmax(0,1fr) 18rem}.hs-main{padding-inline:var(--sp-5)}.hs-stage{padding-inline:var(--sp-5)}.st-save{margin-inline:calc(-1 * var(--sp-5))}.hs-meter .bar{display:none}}
 @media (max-width:900px){
   body{overflow:auto}
@@ -333,7 +391,10 @@ button{font-family:inherit}
   .st-slides{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:11rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--sp-2)}
   .st-slides>*{scroll-snap-align:start}
   .st-save{margin:var(--sp-4) calc(-1 * var(--sp-4)) 0;padding-inline:var(--sp-4)}
+  .ss-deck{grid-template-columns:minmax(0,1fr)}
+  .ss-row{grid-template-columns:9.5rem minmax(0,1fr)}
 }
+@media (max-width:480px){.ss-row{grid-template-columns:minmax(0,1fr)}.ss-prev{max-width:15rem}}
 """
 
 APP_JS = r"""
@@ -341,6 +402,9 @@ const S = JSON.parse(document.getElementById('hs-state').textContent);
 const KIND = {kid: 'הילד מספר', expert: 'גישה מקצועית', reco: 'משחקים וספרים'};
 const SCORE = {1: 'לא', 2: 'חלש', 3: 'בסדר', 4: 'טוב', 5: 'מעולה'};
 const ROLE = {hook: 'פתיח', frame: 'מה מתרגלים', recommendation: 'המלצה', lumebook: 'לומבוק', close: 'סיכום'};
+const STORY_ROLE = {hook: 'שער', beat: 'סיפור', turn: 'פנייה להורים', story_cta: 'שמירה'};
+const isStory = it => it.copy_style === 'story';
+const storyCover = it => { const f = it.slides[0] || {}; return STY.el({headline: f.headline || it.cover, body: f.body || ''}, 1, it.slides.length, it.structure, (it.pictures || {})[1] || ''); };
 const DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 const BUSY = ['queued', 'fixing', 'preparing', 'generating', 'composing', 'exporting'];
 let cur = null, filter = 'all', whyTimer = null, poller = null, zoomN = 0, saving = false;
@@ -351,7 +415,8 @@ const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls)
 const g = k => S.grades[k] || {};
 const run = k => S.runs[k];
 const item = k => S.items.find(i => i.key === k);
-const txt = e => e.innerText.replace(/ /g, ' ').split('\n').map(l => l.trim()).filter(Boolean).join('\n');
+const txt = e => { const ls = e.innerText.replace(/\u00a0/g, ' ').split('\n').map(l => l.trim());   // a story body keeps one empty line, its paragraph gap
+  return e.dataset.keep ? ls.filter((x, i) => x || (i > 0 && ls[i - 1])).join('\n').trim() : ls.filter(Boolean).join('\n'); };
 const day = d => { const x = new Date(d + 'T12:00:00'); return `יום ${DAYS[x.getDay()]} ${x.getDate()}.${x.getMonth() + 1}`; };
 function toast(msg) { let t = $('#hs-toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 4200); }
 async function post(url, body) {
@@ -380,13 +445,14 @@ function card(it) {
   const a = el('article', 'gc' + (s.produce && !r ? ' picked' : '')); a.dataset.key = it.key;
   const b = el('button', 'gc-thumb p-' + it.kind); b.type = 'button'; b.setAttribute('aria-label', 'פתיחה: ' + it.cover);
   const src = firstImage(it);
-  const coverCard = () => { const c = el('div', 'st-card'), f = it.slides[0] || {}; c.append(el('div', 'h', f.headline || it.cover)); if (f.body) c.append(el('div', 'b', f.body)); return c; };
+  const coverCard = () => { if (isStory(it)) return storyCover(it); const c = el('div', 'st-card'), f = it.slides[0] || {}; c.append(el('div', 'h', f.headline || it.cover)); if (f.body) c.append(el('div', 'b', f.body)); return c; };
   if (src) { const img = el('img'); img.src = src; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async'; img.onerror = () => img.replaceWith(coverCard()); b.append(img); }
   else b.append(coverCard());
   b.onclick = () => openCar(it.key); const fr = el('div', 'gc-frame'); fr.append(b); a.append(fr);
   if (!r) { const p = el('button', 'gc-pick', s.produce ? '✓ להפקה' : '+ להפקה'); p.type = 'button'; p.setAttribute('aria-pressed', String(!!s.produce));
     p.onclick = () => grade({produce: !s.produce}, it.key); fr.append(p); }
   const m = el('div', 'gc-meta'); m.append(el('span', 'hs-kind ' + it.kind), el('span', 'who', who(it)));
+  if (it.structure_he) m.append(el('span', 'hs-pill', it.structure_he));
   if (r) m.append(statusPill(r));
   if (s.score) { const sc = el('span', 'hs-badge on', String(s.score)); sc.title = 'ציון: ' + SCORE[s.score]; m.append(sc); }
   a.append(m);
@@ -421,6 +487,7 @@ function pickRow(it, removable) {
   const o = el('button', 'pk-open'); o.type = 'button'; o.onclick = () => { closePicks(); openCar(it.key); };
   const mini = el('span', 'pk-mini ' + it.kind), src = firstImage(it);
   if (src) { const img = el('img'); img.src = src; img.alt = ''; img.loading = 'lazy'; img.onerror = () => img.remove(); mini.append(img); }
+  else if (isStory(it)) mini.append(storyCover(it));
   const tx = el('span'); tx.append(el('span', 't', it.cover), el('span', 'm', `${it.slot} · ${it.topic_he} · ${it.id}`));
   o.append(mini, tx); row.append(o);
   if (removable) { const x = el('button', 'pk-x', '×'); x.type = 'button'; x.title = 'להוריד מההפקה'; x.setAttribute('aria-label', 'להוריד מההפקה'); x.onclick = () => grade({produce: false}, it.key); row.append(x); }
@@ -435,9 +502,10 @@ function renderPicks() {
   const lw = $('#pk-wait'); lw.textContent = '';
   if (!wait.length) lw.append(el('p', 'pk-empty', 'עוד לא נבחרה קרוסלה. ״+ להפקה״ על קרוסלה ברשת מוסיף אותה לכאן.'));
   wait.forEach(it => lw.append(pickRow(it, true)));
-  const usd = wait.reduce((n, i) => n + (i.kind === 'reco' ? 0 : 0.5), 0);
+  const capOf = i => i.kind === 'reco' ? 0 : isStory(i) ? 1 : 0.5;   // story carousels: a picture per slide, cap $1.00 (29 Oct 2026)
+  const usd = wait.reduce((n, i) => n + capOf(i), 0);
   const b = $('#hs-send'); b.disabled = !wait.length; b.textContent = wait.length > 1 ? `להפיק את כולן (${wait.length})` : 'להפיק';
-  $('#pk-cost').textContent = !wait.length ? '' : usd ? `עד $0.50 לקרוסלה, עד $${usd.toFixed(2)} בסך הכול. כל תמונה מחכה לאישור שלך לפני שהשקופיות נבנות.` : 'ייצוא בלי עלות.';
+  $('#pk-cost').textContent = !wait.length ? '' : usd ? `עד $${Math.max(...wait.map(capOf)).toFixed(2)} לקרוסלה, עד $${usd.toFixed(2)} בסך הכול. השער מחכה לאישור שלך לפני שהשקופיות נבנות.` : 'ייצוא בלי עלות.';
   const lg = $('#pk-going'); lg.textContent = ''; $('#pk-going-h').hidden = !going.length;
   going.forEach(it => lg.append(pickRow(it, false)));
 }
@@ -452,8 +520,8 @@ function meter() {
 }
 
 /* ---------- the carousel ---------- */
-function editable(tag, cls, value, field, slide, ph) {
-  const e = el(tag, cls, value || '');
+function editable(tag, cls, value, field, slide, ph, keep) {
+  const e = el(tag, cls, value || ''); if (keep) e.dataset.keep = '1';
   try { e.contentEditable = 'plaintext-only'; } catch (x) {} if (e.contentEditable !== 'plaintext-only') e.contentEditable = 'true';
   e.dataset.f = field; if (slide != null) e.dataset.s = slide; if (ph) e.dataset.ph = ph;
   e.spellcheck = false; e.dir = 'rtl'; orig.set(e, txt(e) || '');
@@ -468,6 +536,37 @@ function dirtyBar() {
   $('#st-save-msg').textContent = n ? (n === 1 ? 'שינוי אחד שלא נשמר' : `${n} שינויים שלא נשמרו`) : (res ? res.msg : '');
   $('#st-save-btn').hidden = !n; $('#st-undo').hidden = !n;
 }
+/* A story option (copy_style "story", story-format.md): one row per slide, the preview in the story look (STY from
+   create_review.STORY_JS, redrawn while typing) with its scene under it as the picture brief, and beside it the label,
+   headline and body (markup kept: ## gold label, > cream card, **gold**, an empty line for a gap). The last slide is the
+   save CTA, built from the CTA field. */
+function storyDeck(it) {
+  const wrap = el('section', 'st-sec'); wrap.style.marginTop = '0';
+  const key = el('p', 'ss-key');
+  [['## ', 'תווית זהב'], ['> ', 'משפט בכרטיס'], ['**…**', 'הדגשה'], ['שורה ריקה', 'רווח']].forEach(([c, t], i) => { const k = el('code', null, c); key.append(k, document.createTextNode(t + (i < 3 ? ' · ' : ''))); });
+  const deck = el('div', 'ss-deck'), last = it.slides.length;
+  it.slides.forEach(s => {
+    const row = el('div', 'ss-row' + (s.n === 1 ? ' first' : '') + (s.n === last ? ' cta' : ''));
+    const pv = el('div', 'ss-prev'), fs = el('div', 'ss-fields');
+    const pic = (it.pictures || {})[s.n] || '', now = {headline: s.headline, body: s.body, label: s.label || ''};
+    const prev = STY.el(now, s.n, last, it.structure, pic); pv.append(prev);
+    const bind = (e, k) => { e.addEventListener('input', () => { now[k] = txt(e); STY.update(prev, now, s.n, last, it.structure, pic); }); return e; };
+    const n = el('div', 'ss-n'); n.append(el('b', null, String(s.n)), el('span', null, STORY_ROLE[s.role] || s.role || '')); fs.append(n);
+    if (s.n === last) fs.append(el('div', 'ss-h', s.headline), el('div', 'ss-b', s.body), el('p', 'ss-note', 'נבנית מהקריאה לפעולה, מתחת לשקופיות'));
+    else {
+      if (s.n > 1) fs.append(bind(editable('div', 'ss-l', s.label || '', 'label', s.n, 'תווית (לא חובה)'), 'label'));
+      fs.append(bind(editable('div', 'ss-h', s.headline, 'headline', s.n, it.structure === 'letter' && s.n > 2 ? 'בלי כותרת' : 'כותרת'), 'headline'));
+      fs.append(bind(editable('div', 'ss-b', s.body, 'body', s.n, s.n === 1 ? 'שורת השער' : 'גוף', true), 'body'));
+    }
+    if (s.n > 1) {
+      const sc = el('div', 'ss-scene'); sc.dir = 'ltr'; sc.lang = 'en'; sc.title = 'הסצנה של התמונה (באנגלית)';
+      const a = editable('div', null, (s.scene || {}).action || '', 'scene_action', s.n, 'action'), b = editable('div', 'set', (s.scene || {}).setting || '', 'scene_setting', s.n, 'setting');
+      a.dir = b.dir = 'ltr'; sc.append(el('span', 'k', 'Picture'), a, b); pv.append(sc);
+    }
+    row.append(pv, fs); deck.append(row);
+  });
+  wrap.append(key, deck); return wrap;
+}
 function renderStage() {
   const it = item(cur), st = $('#hs-stage'); st.textContent = ''; orig.clear();
   st.className = 'hs-stage p-' + it.kind;
@@ -476,6 +575,7 @@ function renderStage() {
   chips.append(el('span', 'hs-pill ' + it.kind, KIND[it.kind]));
   chips.append(el('span', 'hs-pill', it.kind === 'reco' ? (it.id === 'reco' ? 'קרוסלה 1' : 'קרוסלה 2') : it.id));
   if (it.child_name) chips.append(el('span', 'hs-pill', it.child_name));
+  if (isStory(it)) chips.append(el('span', 'hs-pill busy', it.structure_he || 'בלי מבנה'), el('span', 'hs-pill', `${it.slides.length} שקופיות`));
   if (it.skill_he) chips.append(el('span', 'hs-pill', it.skill_he + (it.ages ? ' · ' + it.ages : '')));
   if (it.event) chips.append(el('span', 'hs-pill review', 'אירוע · ' + it.event));
   st.append(chips);
@@ -498,17 +598,20 @@ function renderStage() {
     sec.append(rows); st.append(sec);
     const cap = el('section', 'st-sec'); cap.append(el('h2', null, 'כיתוב'), editable('div', 'st-box', it.caption, 'caption', null, 'כיתוב')); st.append(cap);
   } else {
-    const grid = el('div', 'st-slides'); const last = it.slides.length;
-    it.slides.forEach((s, i) => {
-      const c = el('div', 'st-card' + (i === 0 ? ' first' : '') + (s.n === last ? ' cta' : ''));
-      c.append(el('span', 'n', i === 0 ? '1 · שער' : String(s.n)));
-      c.append(editable('div', 'h', s.headline, 'headline', s.n, 'כותרת'));
-      if (s.n === last) c.append(el('div', 'b', s.body)); else c.append(editable('div', 'b', s.body, 'body', s.n, 'גוף (לא חובה)'));
-      if ('highlight' in s) { const hl = el('div', 'hl'); hl.append(el('span', null, 'הדגשה'), editable('b', null, s.highlight, 'highlight', s.n, '')); c.append(hl); }
-      grid.append(c);
-    });
-    st.append(grid);
-    const p = el('p', 'st-story'); p.append(el('b', null, 'הכותרות בלבד'), document.createTextNode(it.headlines.join(' ← '))); st.append(p);
+    if (isStory(it)) st.append(storyDeck(it));   // story packs (29 Oct 2026): every slide in its look, its fields beside it
+    else {
+      const grid = el('div', 'st-slides'); const last = it.slides.length;
+      it.slides.forEach((s, i) => {
+        const c = el('div', 'st-card' + (i === 0 ? ' first' : '') + (s.n === last ? ' cta' : ''));
+        c.append(el('span', 'n', i === 0 ? '1 · שער' : String(s.n)));
+        c.append(editable('div', 'h', s.headline, 'headline', s.n, 'כותרת'));
+        if (s.n === last) c.append(el('div', 'b', s.body)); else c.append(editable('div', 'b', s.body, 'body', s.n, 'גוף (לא חובה)'));
+        if ('highlight' in s) { const hl = el('div', 'hl'); hl.append(el('span', null, 'הדגשה'), editable('b', null, s.highlight, 'highlight', s.n, '')); c.append(hl); }
+        grid.append(c);
+      });
+      st.append(grid);
+    }
+    const p = el('p', 'st-story'); p.append(el('b', null, 'הכותרות בלבד'), document.createTextNode(it.headlines.filter(Boolean).join(' ← '))); st.append(p);
     const cap = el('section', 'st-sec'); const h = el('h2', null, 'כיתוב וקריאה לפעולה'); h.append(el('span', 'hint', 'הקריאה לפעולה מעדכנת גם את השקופית האחרונה')); cap.append(h);
     cap.append(editable('div', 'st-box', it.caption_body, 'caption', null, 'כיתוב'), editable('div', 'st-box', it.cta, 'cta', null, 'קריאה לפעולה'));
     st.append(cap);
@@ -587,10 +690,12 @@ function renderProd() {
   const btns = el('div', 'in-btns');
   const blocked = (!r || ['failed', 'done'].includes(r.status)) && blockers(it, box);
   if (!r) {
-    if (!blocked) box.append(el('p', 'in-keys', it.kind === 'reco' ? 'השקופיות כבר מוכנות: ייצוא ל-ZIP עם כיתוב, בלי עלות.' : 'תמונה אחת לכל הקרוסלה, עד $0.50. אחרי שמאשרים אותה, השקופיות וה-ZIP נבנים לבד.'));
+    if (!blocked) box.append(el('p', 'in-keys', it.kind === 'reco' ? 'השקופיות כבר מוכנות: ייצוא ל-ZIP עם כיתוב, בלי עלות.'
+      : isStory(it) ? 'תמונה לכל שקופית, עד $1.00. השער קודם, ואחרי שמאשרים אותו שאר התמונות, השקופיות וה-ZIP נבנים לבד.'
+      : 'תמונה אחת לכל הקרוסלה, עד $0.50. אחרי שמאשרים אותה, השקופיות וה-ZIP נבנים לבד.'));
     const b = el('button', 'lb-btn', it.kind === 'reco' ? 'ייצוא עכשיו' : 'להפיק עכשיו'); b.type = 'button'; b.disabled = blocked; b.onclick = () => act('start'); btns.append(b); box.append(btns); return;
   }
-  const top = el('div', 'st-chips'); top.style.margin = '0'; top.append(statusPill(r)); if (r.kind !== 'reco' && r.spent_usd != null) top.append(el('span', 'hs-pill', `$${Number(r.spent_usd).toFixed(2)} מתוך $0.50`)); box.append(top);
+  const top = el('div', 'st-chips'); top.style.margin = '0'; top.append(statusPill(r)); if (r.kind !== 'reco' && r.spent_usd != null) top.append(el('span', 'hs-pill', `$${Number(r.spent_usd).toFixed(2)} מתוך $${isStory(it) ? '1.00' : '0.50'}`)); box.append(top);
   const src = r.status === 'done' ? (r.contact_sheet || (r.slides || [])[0]) : r.picture;
   if (src) { const a = el('a'); a.href = src; a.target = '_blank'; const img = el('img', 'in-pic'); img.src = src; img.alt = ''; a.append(img); box.append(a); }
   if (r.error) box.append(el(r.declined ? 'p' : 'pre', 'in-err', r.error));
@@ -751,9 +856,11 @@ def app_page(batch_id=None):
     filt = "".join(f'<button type="button" data-f="{k}" aria-pressed="false">{v}</button>'
                    for k, v in (("all", "הכול"), ("open", "לדירוג"), ("pick", "הפקה"), ("review", "לאישור")))
     fonts = ('<style>@font-face{font-family:"Rubik Slide";src:url("/assets/fonts/Rubik-VariableFont_wght.ttf") format("truetype");font-weight:300 900}'
-             '@font-face{font-family:"Heebo Slide";src:url("/assets/fonts/Heebo-Black.ttf") format("truetype");font-weight:900}</style>')
+             '@font-face{font-family:"Heebo Slide";src:url("/assets/fonts/Heebo-Black.ttf") format("truetype");font-weight:900}'
+             # the story look's Varela Round (review_server.py serves /assets/fonts/ from shared/brand/fonts when the pipeline has no copy)
+             + create_review.story_fonts_css("/assets/fonts") + '</style>')
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<title>Carousel Machine</title>{design.head()}{fonts}<style>{APP_CSS}</style></head>\n<body dir="rtl">'
+            f'<title>Carousel Machine</title>{design.head()}{fonts}<style>{create_review.STORY_CSS}{APP_CSS}</style></head>\n<body dir="rtl">'
             '<header class="hs-top">'
             f'<span class="hs-brand"><img src="{design.logo_data_uri()}" alt="">Carousel Machine</span>'
             f'<select class="hs-week" id="hs-week" aria-label="שבוע">{weeks}</select>'
@@ -783,4 +890,4 @@ def app_page(batch_id=None):
             '</div></div>'
             '<div class="hs-box" id="hs-box"><button class="lb-btn secondary sm" type="button" data-close>סגירה</button><img alt=""></div>'
             '<div class="lb-toast" id="hs-toast" role="status" hidden></div>'
-            f'<script type="application/json" id="hs-state">{blob}</script><script>{APP_JS}</script></body></html>')
+            f'<script type="application/json" id="hs-state">{blob}</script><script>{create_review.STORY_JS}{APP_JS}</script></body></html>')

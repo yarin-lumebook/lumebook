@@ -1,6 +1,6 @@
 """Send a finished carousel to Postiz (Yarin, 26 Oct 2026).
 
-Instagram gets all the slides with caption.txt. Facebook gets slide 1 only, with the text of slides 2 to 10 written out
+Instagram gets all the slides with caption.txt. Facebook gets slide 1 only, with the text of slides 2 to the last written out
 as the post above it. Both go in one Postiz post, scheduled for the date and time Yarin picks in Carousel Machine, or
 saved as a draft (then it waits in Postiz until she schedules it there). Without a time it is the carousel's own day at
 default_hour (shared/facts.json postiz).
@@ -30,6 +30,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import carousel_lib as lib  # noqa: E402
+import compose_slides  # noqa: E402  (story copy: is_story, plain_text)
+import drive_export  # noqa: E402  (final_slides: this carousel's own slide count)
 
 CLI_DIRS = (Path.home() / ".local" / "bin", Path("/usr/local/bin"), Path("/opt/homebrew/bin"))
 
@@ -39,21 +41,31 @@ def config():
 
 
 def slides_of(run_dir):
-    return sorted((Path(run_dir) / "final").glob("[0-9][0-9].png"))
+    return drive_export.final_slides(run_dir)
+
+
+def _plain(frozen):
+    """The option as a parent reads it: a story option's slides without the ## label, > card and **emphasis** markup
+    (story-format.md section 3), so the Facebook text never shows the asterisks. Other options are returned as they are."""
+    option = frozen["option"]
+    if not compose_slides.is_story(frozen):
+        return option
+    return {**option, "slides": [dict(s, headline=compose_slides.plain_text(s.get("headline", "")),
+                                         body=compose_slides.plain_text(s.get("body", ""))) for s in option.get("slides", [])]}
 
 
 def texts(run_dir):
     """The Instagram caption and the Facebook text from the current caption and slides, punctuated and with the hook
     and save emojis as in postiz-text.json (hand written) or the option's post_text (the pipeline's, since 26 Oct 2026)."""
     run_dir = Path(run_dir)
-    option = lib.read_json(run_dir / "approved.json")["option"]
+    option = _plain(lib.read_json(run_dir / "approved.json"))
     own = run_dir / "final" / "postiz-text.json"
     option = {**option, "caption": (run_dir / "final" / "caption.txt").read_text(encoding="utf-8").strip() or option.get("caption", "")}
     return lib.post_texts(option, lib.read_json(own) if own.exists() else None)
 
 
 def fb_text(run_dir):
-    return lib.fb_source(lib.read_json(Path(run_dir) / "approved.json")["option"])
+    return lib.fb_source(_plain(lib.read_json(Path(run_dir) / "approved.json")))
 
 
 def default_date(run_dir, now=None):
