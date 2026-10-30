@@ -125,7 +125,7 @@ def apply_edits(pack, edits):
                 raise ValueError(f"bad slide number {n}")
             if field == "body" and n == len(v["slides"]):
                 raise ValueError("the last slide's body is the CTA; edit the CTA instead")
-            if field == "headline" and n == len(v["slides"]) and (story or lib.save_later_applies(pack)):
+            if field == "headline" and n == len(v["slides"]) and (story or lib.save_later_applies(pack) or lib.book_link_applies(pack, v)):
                 raise ValueError("the last slide is only the CTA; edit the CTA instead")
             before = v["slides"][n - 1].get(field, "")
             if before != value:
@@ -137,9 +137,10 @@ def apply_edits(pack, edits):
                 v["title"] = value
         elif field == "caption":
             cta = v["cta"]
-            old_body = "\n".join(l for l in lib.lines_of(v["caption"]) if lib.collapse(l) != lib.collapse(cta))
-            body = [l for l in value.splitlines() if lib.collapse(l) != lib.collapse(cta)]
-            new = "\n".join(body + [cta])
+            cta_lines = {lib.collapse(cta)} | {lib.collapse(l) for l in lib.lines_of(cta)}   # a book link CTA is two lines
+            old_body = "\n".join(l for l in lib.lines_of(v["caption"]) if lib.collapse(l) not in cta_lines)
+            body = [l for l in value.splitlines() if lib.collapse(l) not in cta_lines]
+            new = "\n".join(body + (lib.lines_of(cta) if lib.cta_tail_lines(v) == 2 else [lib.collapse(cta)]))
             if v["caption"] != new:
                 v["caption"] = new
                 changes.append({**change, "before": old_body, "after": "\n".join(body)})
@@ -148,9 +149,20 @@ def apply_edits(pack, edits):
             if new_cta != lib.collapse(v["cta"]):
                 old = v["cta"]
                 v["cta"] = new_cta
-                cap = [l for l in lib.lines_of(v["caption"]) if lib.collapse(l) not in (lib.collapse(old), new_cta)]
-                v["caption"] = "\n".join(cap + [new_cta])
-                if lib.save_later_applies(pack):   # slide 10 is only the CTA: the save line, then לפעם הבאה ש... (24 Oct 2026)
+                gone = {lib.collapse(old), lib.collapse(new_cta)} | {lib.collapse(l) for l in lib.lines_of(old) + lib.lines_of(value)}
+                cap = [l for l in lib.lines_of(v["caption"]) if lib.collapse(l) not in gone]
+                if lib.book_link_applies(pack, v):   # two sentences: two caption lines, and the cta keeps its line break
+                    p = lib.book_link_parts(new_cta)
+                    if p:
+                        v["cta"] = new_cta = lib.book_link_cta(p["problem"], p["word"], v.get("addressee"))
+                    v["caption"] = "\n".join(cap + lib.lines_of(new_cta))
+                else:
+                    v["caption"] = "\n".join(cap + [new_cta])
+                if lib.book_link_applies(pack, v):   # slide 10 is only the CTA: the problem, then the ask and the link promise (30 Oct 2026)
+                    v["slides"][-1]["headline"], v["slides"][-1]["body"] = lib.book_link_slide(new_cta)
+                    v["slides"][-1].pop("highlight", None)
+                    v["code_word"] = lib.book_link_keyword(new_cta) or v.get("code_word", "")
+                elif lib.save_later_applies(pack):   # slide 10 is only the CTA: the save line, then לפעם הבאה ש... (24 Oct 2026)
                     v["slides"][-1]["headline"], v["slides"][-1]["body"] = lib.save_later_slide(new_cta)
                     v["slides"][-1].pop("highlight", None)
                 else:
@@ -539,6 +551,25 @@ def _production_api(self):
 Handler.production_api = _production_api
 
 
+def watch_chatgpt_pictures(every=4.0):
+    """Pictures from ChatGPT (30 Oct 2026): Claude ingests them from another process (chatgpt_pictures.py ingest), so this
+    thread moves each waiting production on (producer.advance_waiting): a new cover to approval, a finished story run
+    to the slides and the ZIP."""
+    import threading
+    import time
+
+    def loop():
+        while True:
+            try:
+                for key in producer.advance_waiting():
+                    print(f"pictures in from ChatGPT: {key}", flush=True)
+            except Exception as exc:  # noqa: BLE001 - keep watching; the next round tries again
+                print(f"chatgpt pictures watch: {exc}", flush=True)
+            time.sleep(every)
+
+    threading.Thread(target=loop, name="chatgpt-pictures", daemon=True).start()
+
+
 def newest_date():
     dates = sorted(p.name for p in lib.DRAFTS.iterdir() if p.is_dir() and DATE_RE.match(p.name) and (p / "review.html").exists()) if lib.DRAFTS.exists() else []
     return dates[-1] if dates else None
@@ -553,6 +584,7 @@ def main():
     if not args.no_cloud:
         cloud_sync.sync(log=lambda m: print(m, flush=True))
     producer.recover()
+    watch_chatgpt_pictures()
     date = args.date or newest_date()
     if not date:
         raise SystemExit("no packs in carousel/carousel-pipeline/drafts yet")

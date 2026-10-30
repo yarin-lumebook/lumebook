@@ -10,91 +10,147 @@
 
 ## הילד מספר להורים
 
-### kid-1 · אמא ואבא 9 דברים שיעזרו לי כשיש תינוק בבית
+### kid-1 · אמא ואבא, 5 דברים שיעזרו לי כשהתינוק בבית
 
 - **על מי:** רועי (בן), לשני ההורים
-- **זווית:** רועי בן 4 מבקש מההורים תשעה דברים לתקופה שיש תינוק בבית: זמן רק שלו, לעזור, לדבר על מה שהוא מרגיש, לשמור על ההרגלים שלו ולפרגן לו.
+- **זווית:** רועי, בן 4, אוהב את התינוק ועדיין קשה לו. הוא מבקש מההורים חמישה דברים: עשר דקות רק שלו כל יום, לעזור, לשאול מה הוא מרגיש, לכעוס במילים ולא בידיים, ותמונות שלו מכשהיה תינוק.
 - **למי:** הורים לילד בן 3 עד 6 שמקנא בתינוק שנולד.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** child-numbered-ask
 - **נושא:** מקנא בתינוק החדש (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** הנוסחה של ירין עם מספר וערך על הכריכה, והיא נשענת על הציון הגבוה של 'אמא ואבא 9 דברים שיעזרו לנו' בחבילת 21 באוקטובר. רועי מבקש בקול שלו תשעה דברים עם משפט להגיד, ומסתכל ישר לעדשה.
+- **למה זה עשוי להמיר:** רשימה קצרה של חמישה דברים, כל אחד בצורה אחרת, שהורים יכולים להתחיל כבר הערב. הכריכה שומרת על הבקשה הישירה מאמא ואבא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** רשימה קצרה · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **אמא ואבא**  
-**9 דברים שיעזרו לי**  
+**5 דברים שיעזרו לי**  
 **כשהתינוק בבית**  
-אני אוהב אותו  
+אני אוהב אותו, ועדיין קשה לי  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**אני אוהב את התינוק**  
-**אבל מתגעגע אליכם**  
-כשכולם סביבו אני מרגיש קטן  
-תעזרו לי להרגיש שאני שלכם  
+**יש לנו תינוק בבית**  
+הוא קטן, הוא בוכה, כולם מחזיקים אותו.  
+ואני? אני אוהב אותו, באמת.  
+אבל לפעמים אני עומד בצד עם הרכבת,  
+ואף אחד לא שם לב **שאני פה**.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 עשר דקות רק שלי**  
-**2 תנו לי לעזור לו**  
-״רועי עכשיו רק אנחנו״  
-להביא חיתול ולשמוע ״תודה״  
+*Picture:* The boy stands at the edge of the room holding his wooden toy train, watching his parents bend over the newborn baby on the sofa. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 תשאלו מה אני מרגיש**  
-**4 תגידו שמותר לכעוס**  
-״קשה לך שהוא תמיד איתי?״  
-״מותר לכעוס, לא להרביץ״  
+#### שקופית 3 · סיפור · 1: עשר דקות רק שלי
 
-#### שקופית 5 · דוגמאות ממוספרות
+**רק אני ואחד מכם**  
+כל יום עשר דקות, בלי התינוק.  
+אחד מכם, רק איתי, על השטיח.  
+בונים מסילה, מדברים, צוחקים.  
+ואני מרגיש שעוד יש לי **מקום** אצלכם.  
 
-**5 תראו לי תמונות שלי**  
-**6 קראו לי ספר על תינוק**  
-״ככה נראית כשנולדת״  
-לפני השינה על אח גדול  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The boy and his father build a wooden train track together on the rug, both laughing, the baby nowhere in sight. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**7 תנו לי ללטף**  
-**אותו איתכם**  
-״רועי ככה, בעדינות״  
-כשאתם לידי ומחזיקים אותו  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 2: תנו לי לעזור
 
-**8 תשירו לי**  
-**את השיר שלנו**  
-אותו שיר ואותו סיפור בלילה  
-ככה אני יודע שנשארתי שלכם  
+**אני יכול להביא חיתול**  
+אני רץ לחדר.  
+מביא חיתול.  
+מגיש לכם.  
+״תודה רועי, עזרת לנו.״  
+ואני **גדל** בסנטימטר.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**9 תפרגנו לי כשאני גדול**  
-״ראיתי שחיכית בסבלנות״  
-וזה גורם לי להרגיש גאה  
+*Picture:* The boy proudly holds out a folded diaper to his mother, who is changing the baby on a changing mat, smiling at him. The family's Israeli nursery corner: a changing table, a soft lamp, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**זמן, עזרה ומילים**  
-**ומרגישים שאני שלכם**  
-תעזרו לי להיות אח גדול  
-בלי לאבד אתכם?  
+#### שקופית 5 · סיפור · 3: לשאול מה אני מרגיש
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**״קשה לך שהוא איתנו?״**  
+כשאתם שואלים, משהו בי נפתח.  
+*מה יעזור לי:*  
+שתשאלו, ותקשיבו עד הסוף,  
+גם אם אני אומר ״אני לא אוהב אותו״.  
+אני רק מחפש איך להגיד **שקשה לי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* His mother sits on the floor with the boy in her lap, her face close to his, listening; he talks with a frown and his hands moving. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 4: לכעוס במילים
+
+**כועס זה בסדר, להרביץ לא**  
+לפעמים אני דוחף את העגלה שלו חזק.  
+אני כועס, ואין לי איפה לשים את זה.  
+*מה יעזור לי לשמוע:*  
+▪ ״כועסים במילים, לא בידיים.״  
+ולמצוא איתי מה **כן** אפשר לעשות.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy stamps his feet with clenched fists next to the baby's pram, while his father kneels in front of him with calm open hands. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 5: תמונות שלי מפעם
+
+**גם אני הייתי קטן ככה**  
+*מה אתם רואים:*  
+אני מבקש את האלבום, שוב ושוב.  
+*מה קורה לי בפנים:*  
+אני בודק שגם אותי החזיקו ככה.  
+כשאתם מראים לי תמונות שלי מפעם,  
+אני רואה שגם אני הייתי **התינוק**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits between his parents on the sofa, pointing excitedly at a baby photo in an open family album. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+**אני אח גדול, ועדיין שלכם**  
+זמן רק שלי, משימה קטנה, שאלה,  
+מילים לכעס, ותמונות מפעם.  
+ככה אני יכול לאהוב אותו,  
+**בלי לאבד** אתכם.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy gently strokes the sleeping baby's tiny hand while his mother holds the baby and his father hugs the boy from behind. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה שהוא מקנא בתינוק  
 
-**הכותרות בלבד:** אמא ואבא 9 דברים שיעזרו לי כשהתינוק בבית ← אני אוהב את התינוק אבל מתגעגע אליכם ← 1 עשר דקות רק שלי 2 תנו לי לעזור לו ← 3 תשאלו מה אני מרגיש 4 תגידו שמותר לכעוס ← 5 תראו לי תמונות שלי 6 קראו לי ספר על תינוק ← 7 תנו לי ללטף אותו איתכם ← 8 תשירו לי את השיר שלנו ← 9 תפרגנו לי כשאני גדול ← זמן, עזרה ומילים ומרגישים שאני שלכם ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The whole family rests together on the sofa in warm evening light, the boy leaning on his father with his train, his mother holding the sleeping baby. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא ואבא 5 דברים שיעזרו לי כשהתינוק בבית ← יש לנו תינוק בבית ← רק אני ואחד מכם ← אני יכול להביא חיתול ← ״קשה לך שהוא איתנו?״ ← כועס זה בסדר, להרביץ לא ← גם אני הייתי קטן ככה ← אני אח גדול, ועדיין שלכם ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-אני אוהב את התינוק ועדיין קשה לי  
-תנו לי זמן רק שלי ותנו לי לעזור  
-תשאלו מה אני מרגיש ותגידו שמותר לכעוס  
-תראו לי תמונות שלי ותקראו לי ספר על תינוק  
+אמא ואבא, אני אוהב את התינוק, ועדיין קשה לי.  
+תנו לי עשר דקות רק שלי כל יום, ותנו לי לעזור.  
+תשאלו מה אני מרגיש, ותגידו שכועסים במילים.  
+ותראו לי תמונות שלי מכשהייתי תינוק.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרו את הפוסט לפעם הבאה שהוא מקנא בתינוק  
 
@@ -110,104 +166,188 @@
 
 **טענות**
 
-- שקופית 1 · 9 דברים שיעזרו · lumebook_wording · Our grouping of the advice on slides 3 to 8; no promise of a result.
-- שקופית 2 · אני אוהב את התינוק אבל מתגעגע אליכם כשכולם סביבו אני מרגיש קטן תעזרו לי להרגיש שאני שלכם · sourced_fact · KidsHealth: it is common to feel jealousy toward the newborn; Child Mind Institute: regression and seeking attention are normal. Told in the imagined child voice, not a quote of a real child.
-- שקופית 3 · עשר דקות רק שלי · sourced_fact · KidsHealth: set aside time each day for older kids to get one parent's undivided attention; Child Mind Institute: one on one time with each parent helps reduce anxiety and jealousy. The sentence to say is our wording.
-- שקופית 3 · תנו לי לעזור לו · sourced_fact · KidsHealth: many kids want to help take care of a new baby. The small jobs are our examples.
-- שקופית 4 · תשאלו מה אני מרגיש · sourced_fact · KidsHealth: encourage older kids to talk about their feelings about the new baby. The sentence to say is our wording.
-- שקופית 4 · תגידו שמותר לכעוס · sourced_fact · KidsHealth: feelings are important but they have to be expressed in appropriate ways. The sentence to say is our wording.
-- שקופית 5 · תראו לי תמונות שלי · sourced_fact · KidsHealth lists going through the child's baby pictures among the ways to prepare an older child. Used here after the birth as our adaptation.
-- שקופית 5 · קראו לי ספר על תינוק · sourced_fact · Child Mind Institute: board books and picture books about new babies are a great thing to add to the usual bedtime ritual.
-- שקופית 6 · תנו לי ללטף אותו איתכם · sourced_fact · Child Mind Institute: with adult supervision, learn how to hold and gently touch the baby.
-- שקופית 7 · תשירו לי את השיר שלנו · sourced_fact · Child Mind Institute: share the important routines your child counts on. Keeping the bedtime song is our example.
-- שקופית 8 · תפרגנו לי כשאני גדול · sourced_fact · Child Mind Institute: praise the positive mature behaviors the child exhibits. The sentence to say is our wording.
-- שקופית 9 · זמן, עזרה ומילים ומרגישים שאני שלכם · lumebook_wording · Our recap of slides 3 to 8 in the child's voice.
-- שקופית 10 · ספרי תמונות על תינוק חדש יכולים להצטרף לשגרת השינה · sourced_fact · Child Mind Institute: board books and picture books about new babies are a great thing to add to the usual bedtime ritual. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
+- שקופית 2 · אני אוהב אותו, ולפעמים אני עומד בצד · sourced_fact · KidsHealth: it is common for older children to feel jealousy toward the newborn and to act out. Said as this child's feeling, not about every child.
+- שקופית 3 · עשר דקות כל יום רק עם אחד מכם · sourced_fact · KidsHealth: set aside time each day for older kids to get one parent's undivided attention; Child Mind Institute: maintaining one on one time with each parent helps reduce jealousy.
+- שקופית 4 · לעזור ולשמוע תודה · sourced_fact · KidsHealth: many kids want to help take care of a new baby; Child Mind Institute: praise the positive mature behaviors the child exhibits.
+- שקופית 5 · לשאול מה אני מרגיש ולהקשיב · sourced_fact · KidsHealth: encourage older kids to talk about their feelings about the new baby.
+- שקופית 6 · כועסים במילים, לא בידיים · sourced_fact · KidsHealth: although the child's feelings are important, they have to be expressed in appropriate ways.
+- שקופית 7 · תמונות שלי מכשהייתי תינוק · sourced_fact · KidsHealth: going through your child's baby pictures. Checking that he was held too is this child's imagined reason.
+- שקופית 8 · זמן רק שלי, משימה, שאלה, מילים לכעס ותמונות · lumebook_wording · Our recap of slides 3 to 7 in the child's imagined voice; no new fact.
+- שקופית 9 · ספרי תמונות על תינוק חדש יכולים להצטרף לשגרת השינה · sourced_fact · Child Mind Institute: board books and picture books about new babies are a great thing to add to the usual bedtime ritual. No promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
 
 </details>
 
-### kid-2 · כשהתינוק אצלך אני מרגישה בבטן
+### kid-2 · כשהתינוק אצלך כבד לי בבטן
 
 - **על מי:** הדר (בת), לאמא
-- **זווית:** הדר בת 4 מספרת לאמא איך זה מרגיש כשהתינוק אצלה ומבקשת שישה דברים שמחזירים לה את הקרבה: ישיבה ביחד, משימה קטנה, שאלה על הרגשות, רשות לכעוס, תמונות שלה וספר.
+- **זווית:** הדר, בת 4, מספרת לאמא איך היה כשהיו רק שתיהן, מה קרה כשהתינוק הגיע הביתה, ומה קורה מאז: אבן בבטן, מדברת כמו תינוקת, נדחפת לעגלה, אומרת דברים לא יפים. מה עוזר: זמן קטן כל יום רק איתה, להרים בלי לכעוס, משימה קטנה ותודה, לשאול ולהקשיב, וספר על תינוק חדש לפני השינה.
 - **למי:** אמא לילדה בת 3 עד 6 שהתינוק החדש לוקח את כל תשומת הלב.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** child-body-moment
 - **נושא:** מקנא בתינוק החדש (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** רגע בגוף שאמא מכירה מהערב (הבטן כשהתינוק אצלה) ומספר וערך על הכריכה. הדר מבקשת שישה דברים קטנים עם משפט להגיד, ומסתכלת לעדשה בפרצוף נפוח.
+- **למה זה עשוי להמיר:** פעם, ואז, ומאז: אמא רואה את הרגע שבו הבת הגדולה נשארה ליד הדלת, וכל שקופית של ״ומאז״ נותנת צעד אחד. הכריכה שומרת על התחושה בבטן.
 
-#### שקופית 1 · פתיח
+- **מבנה:** פעם ועכשיו · 11 שקופיות
+
+#### שקופית 1 · שער
 
 **כשהתינוק אצלך**  
-**כבד בבטן**  
-**6 דברים שיעזרו לי**  
-אני צריכה אותך קרוב  
+**כבד לי בבטן**  
+פעם, ואז, ומה שקורה לי עכשיו  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · פעם
 
-**כשכולם מסתכלים עליו**  
-**אני מרגישה שקופה**  
-זה לא אומר שאני לא אוהבת אותו  
-זה אומר שאני מתגעגעת  
+**פעם היינו רק את ואני**  
+בבוקר צמות, בצהריים גן,  
+בערב אמבטיה ושיר, ועוד שיר.  
+כשרציתי לשבת עלייך, פשוט עליתי.  
+לא הייתי צריכה **לחכות** לאף אחד.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תשבי איתי שתי דקות**  
-״הדר עכשיו רק את ואני״  
-גם כשהוא בוכה ברקע  
+*Picture:* The girl sits on her mother's lap on the sofa while her mother braids her hair, both smiling, the plush rabbit beside them. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 תני לי משימה קטנה**  
-להביא לו חיתול או לשיר לו  
-״תודה הדר, עזרת לי״  
+#### שקופית 3 · סיפור · פעם
 
-#### שקופית 5 · דוגמאות ממוספרות
+**והשיר בערב היה רק שלנו**  
+את שרה, אני מחזיקה לך את האצבע,  
+והארנבת שלי מקשיבה גם.  
+והלכתי לישון עם הקול שלך  
+**באוזן**.  
 
-**3 תשאלי איך אני מרגישה**  
-״קשה לך כשהוא איתי?״  
-ותקשיבי עד הסוף  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The mother sits on the edge of the girl's bed singing softly, the girl holding her finger and hugging the plush rabbit. The girl's small Israeli bedroom at night: a low bed, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**4 תגידי שמותר לכעוס**  
-״מותר לכעוס, לא מרביצים״  
-ותראי לי מה כן אפשר  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · ואז
 
-**5 תראי לי תמונות שלי**  
-מהיום שהייתי תינוקת  
-״ככה היית קטנה גם את״  
+**ואז הבאתם אותו הביתה**  
+קטן, אדום, עם כובע.  
+כולם באו לראות אותו.  
+את יושבת איתו על הספה כל היום,  
+ואני עומדת עם הארנבת ליד הדלת,  
+ומרגישה **שקופה**.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**6 תקראי לי ספר**  
-**על תינוק**  
-לפני השינה ביחד  
-על אחות גדולה ותינוק חדש  
+*Picture:* Relatives crowd around the mother holding the newborn on the sofa, while the girl stands alone by the doorway clutching her plush rabbit. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**זמן, משימה ומילים**  
-**כדי לחזור אלייך**  
-תעזרי לי להיות אחות גדולה  
-בלי להרגיש שקופה?  
+#### שקופית 5 · סיפור · ומאז
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**כבד לי בבטן כשהוא אצלך**  
+אני אוהבת אותו. וגם מתגעגעת אלייך.  
+זה מרגיש כמו אבן קטנה בבטן.  
+*מה יעזור לי:*  
+זמן קטן כל יום, רק את ואני,  
+גם אם הוא **בוכה** ברקע.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother sit together at the kitchen table doing a puzzle, just the two of them, the baby's empty bouncer in the far background. The family's Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · ומאז
+
+**פתאום אני מדברת כמו תינוקת**  
+״אני תינוקת, תרימי אותי!״  
+אני יודעת שאני גדולה.  
+אבל גם אני רוצה שיחזיקו אותי **ככה**.  
+*מה יעזור לי:*  
+להרים אותי בלי לכעוס. זה יעבור.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl lifts her arms up to her mother like a baby, pouting, while her mother bends down to pick her up with a soft smile. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ומאז
+
+**אני רוצה לעזור, ולא נותנים**  
+*מה את רואה:*  
+ילדה שנדחפת לעגלה.  
+*מה קורה לי בפנים:*  
+גם אני רוצה להיות חלק.  
+*מה יעזור לי:*  
+משימה קטנה, להביא חיתול, לשיר לו.  
+ו״תודה הדר, **עזרת לי**״.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl proudly carries a small folded blanket to the baby's pram while her mother smiles and holds out her hand to take it. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ומאז
+
+**״קשה לך כשהוא איתי?״**  
+כשאת שואלת, אני סוף סוף מספרת.  
+*מה יעזור לי:*  
+שתקשיבי עד הסוף,  
+גם כשאני אומרת דברים לא יפים.  
+ושתגידי לי ״מותר לכעוס, **במילים**״.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits on the rug facing her mother, talking with a frown and crossed arms, while her mother listens closely at her eye level. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · מה שמחזיר לי את פעם
+
+**ספר אחד לפני השינה**  
+את, אני והארנבת, בלי טלפון.  
+ספר על אחות גדולה ותינוק קטן,  
+והשיר שלנו בסוף, כמו **פעם**.  
+ואני נרדמת עם הקול שלך.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother and the girl read a picture book together in the girl's bed, the plush rabbit tucked between them. The girl's small Israeli bedroom at night: a low bed, a soft lamp, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · פנייה להורים
+
+**אני לא רוצה להיות שקופה**  
+אני רק צריכה לראות שגם אני פה.  
+זמן קטן רק שלנו, משימה, שאלה,  
+וספר בערב.  
+ואז הבטן שלי **קלה** יותר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl leans against her mother on the sofa, smiling, gently touching the baby's foot as her mother holds him. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהיא מקנאה בתינוק  
 
-**הכותרות בלבד:** כשהתינוק אצלך כבד בבטן 6 דברים שיעזרו לי ← כשכולם מסתכלים עליו אני מרגישה שקופה ← 1 תשבי איתי שתי דקות ← 2 תני לי משימה קטנה ← 3 תשאלי איך אני מרגישה ← 4 תגידי שמותר לכעוס ← 5 תראי לי תמונות שלי ← 6 תקראי לי ספר על תינוק ← זמן, משימה ומילים כדי לחזור אלייך ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl hugs her mother from the side on the sofa while the baby sleeps in a bassinet nearby, warm and calm. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** כשהתינוק אצלך כבד לי בבטן ← פעם היינו רק את ואני ← והשיר בערב היה רק שלנו ← ואז הבאתם אותו הביתה ← כבד לי בבטן כשהוא אצלך ← פתאום אני מדברת כמו תינוקת ← אני רוצה לעזור, ולא נותנים ← ״קשה לך כשהוא איתי?״ ← ספר אחד לפני השינה ← אני לא רוצה להיות שקופה ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-כשהתינוק אצלך כבד לי בבטן  
-תשבי איתי ותני לי משימה קטנה  
-תשאלי איך אני מרגישה ותגידי שמותר לכעוס  
-תראי לי תמונות שלי ותקראי לי ספר  
+אמא, כשהתינוק אצלך יש לי כמו אבן קטנה בבטן.  
+תני לי זמן קטן כל יום, רק את ואני.  
+תני לי משימה קטנה, ותשאלי אותי איך אני מרגישה.  
+ובערב, תקראי לי ספר על אחות גדולה ותינוק קטן.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא מקנאה בתינוק  
 
@@ -223,100 +363,172 @@
 
 **טענות**
 
-- שקופית 1 · 6 דברים שיעזרו · lumebook_wording · Our grouping of the advice on slides 3 to 8; no promise of a result.
-- שקופית 2 · כשכולם מסתכלים עליו אני מרגישה שקופה זה לא אומר שאני לא אוהבת אותו זה אומר שאני מתגעגעת · sourced_fact · KidsHealth: it is common to feel jealousy toward the newborn and to act out; Child Mind Institute: seeking attention is a normal way for children to react. Feeling invisible is the imagined child voice.
-- שקופית 3 · תשבי איתי שתי דקות · sourced_fact · KidsHealth: set aside time each day for older kids to get one parent's undivided attention; Child Mind Institute: one on one time with each parent helps reduce anxiety and jealousy. The sentence to say is our wording.
-- שקופית 4 · תני לי משימה קטנה · sourced_fact · KidsHealth: many kids want to help take care of a new baby. The small jobs are our examples.
-- שקופית 5 · תשאלי איך אני מרגישה · sourced_fact · KidsHealth: encourage older kids to talk about their feelings about the new baby. The sentence to say is our wording.
-- שקופית 6 · תגידי שמותר לכעוס · sourced_fact · KidsHealth: feelings are important but they have to be expressed in appropriate ways. The sentence to say is our wording.
-- שקופית 7 · תראי לי תמונות שלי · sourced_fact · KidsHealth lists going through the child's baby pictures among the ways to prepare an older child. Used here after the birth as our adaptation.
-- שקופית 8 · תקראי לי ספר על תינוק · sourced_fact · Child Mind Institute: board books and picture books about new babies are a great thing to add to the usual bedtime ritual.
-- שקופית 9 · זמן, משימה ומילים כדי לחזור אלייך · lumebook_wording · Our recap of slides 3 to 8 in the child's voice.
-- שקופית 10 · ספרי תמונות על תינוק חדש יכולים להצטרף לשגרת השינה · sourced_fact · Child Mind Institute: board books and picture books about new babies are a great thing to add to the usual bedtime ritual. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
+- שקופית 1 · כשהתינוק אצלך כבד לי בבטן · sourced_fact · KidsHealth: it is common for older children to feel jealousy toward the newborn. The heavy tummy is this child's imagined feeling, not about every child.
+- שקופית 5 · זמן קטן כל יום, רק את ואני · sourced_fact · KidsHealth: set aside time each day for older kids to get one parent's undivided attention; Child Mind Institute: maintaining one on one time with each parent helps reduce jealousy.
+- שקופית 6 · להרים אותי בלי לכעוס, זה יעבור · sourced_fact · Child Mind Institute: regression behaviors are normal ways for children to seek attention and will pass with time.
+- שקופית 7 · משימה קטנה ותודה · sourced_fact · KidsHealth: many kids want to help take care of a new baby; Child Mind Institute: praise the positive mature behaviors.
+- שקופית 8 · לשאול, להקשיב, ומותר לכעוס במילים · sourced_fact · KidsHealth: encourage older kids to talk about their feelings; feelings are important but have to be expressed in appropriate ways.
+- שקופית 9 · ספר על אחות גדולה ותינוק קטן לפני השינה · sourced_fact · Child Mind Institute: board books and picture books about new babies are a great thing to add to the usual bedtime ritual; one on one time.
+- שקופית 10 · זמן קטן, משימה, שאלה וספר · lumebook_wording · Our recap of slides 5 to 9 in the child's imagined voice; no new fact.
+- שקופית 11 · ספרי תמונות על תינוק חדש יכולים להצטרף לשגרת השינה · sourced_fact · Child Mind Institute: board books and picture books about new babies are a great thing to add to the usual bedtime ritual. No promise of a result.
+- שקופית 11 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
 
 </details>
 
-### kid-3 · למה הוא אצלך? 7 דברים שיעזרו לי
+### kid-3 · ״למה הוא אצלך?״ אני שואל כל ערב
 
 - **על מי:** אדם (בן), לאמא
-- **זווית:** אדם בן 5 שואל כל ערב למה התינוק אצל אמא, ומבקש שבעה דברים: עשר דקות רק שלו, לעזור, לשמור על השיר, רשות לכעוס, פינה משלו, לדעת מי בא היום ופרגון.
+- **זווית:** אדם, בן 5, מראה לאמא יום אחד שלו מאז שהתינוק נולד, מהבוקר עד המיטה, ושואל בערב ״למה הוא אצלך?״. מה עוזר: לתת לו לעזור ולהגיד תודה, לכעוס במילים, לפרגן כשהוא מחכה, לשאול מה הוא מרגיש, עשר דקות רק שלו, והשיר הקבוע לפני השינה.
 - **למי:** אמא לילד בן 4 עד 6 ששואל שוב ושוב למה התינוק תמיד אצלה.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** child-question
 - **נושא:** מקנא בתינוק החדש (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** שאלה אמיתית שילד שואל בערב, עם מספר וערך מתחת. שבעת הדברים כוללים רעיון שונה משני האחרים (פינה משלו, לדעת מי בא), והפרצוף על הכריכה הוא פה פעור.
+- **למה זה עשוי להמיר:** יום אחד לפי השעון מראה לאמא מאיפה מגיעה השאלה של הערב, וכל שעה נותנת צעד אחד. הכריכה שומרת על השאלה שהיא שומעת כל ערב.
 
-#### שקופית 1 · פתיח
+- **מבנה:** יום אחד · 10 שקופיות
+
+#### שקופית 1 · שער
 
 **״למה הוא אצלך?״**  
-**7 דברים שיעזרו לי**  
-אני שואל כל ערב  
+**אני שואל כל ערב**  
+יום אחד שלי, מהבוקר עד המיטה  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · 07:00, במטבח
 
-**בערב את איתו כל הזמן**  
-**ואני לבד עם הקוביות**  
-אני לא רוצה שהוא ילך  
-אני רוצה אותך קצת בשבילי  
+**בבוקר את עייפה**  
+התינוק היה ער כל הלילה,  
+ואת עם עיניים קטנות.  
+אני רוצה לספר לך על החלום שלי,  
+ואת אומרת ״רגע, אדם״.  
+עוד **רגע**. ועוד רגע.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 עשר דקות רק שלי**  
-**2 תני לי לעזור לך**  
-״אדם עכשיו זה רק אנחנו״  
-להביא מוצץ ולשמוע ״תודה״  
+*Picture:* The boy talks excitedly at the breakfast table while his tired mother rocks the baby with one arm and holds up a finger asking him to wait. The family's Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 תחזרי לשיר שלנו**  
-אותו שיר לפני השינה  
-גם כשהתינוק ער  
+#### שקופית 3 · סיפור · 13:30, בבית
 
-#### שקופית 5 · דוגמאות ממוספרות
+**הוא שוב אצלך**  
+חזרתי מהגן עם ציור, ואת מאכילה אותו.  
+*מה יעזור לי:*  
+שתתני לי לעזור. להביא מוצץ, לשיר לו.  
+ושתגידי לי ״תודה אדם, **עזרת לי**״.  
 
-**4 תגידי שמותר לכעוס**  
-״מותר לכעוס, לא להרביץ״  
-ותראי לי מה כן אפשר  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The boy hands his mother a pacifier while she feeds the baby in an armchair; she smiles at him gratefully, his drawing lying on the armrest. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 תכיני לי פינה משלי**  
-מקום עם הצעצועים שלי  
-שהתינוק לא מגיע אליו  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 16:00, בסלון
 
-**6 תספרי לי מי בא היום**  
-״אדם סבתא באה לעזור  
-ואחר כך את שלך״  
+**אני מפיל את המגדל**  
+בניתי מגדל גבוה, והתינוק בכה,  
+וכולם רצו אליו.  
+אז הפלתי הכל. **בכוונה**.  
+*מה יעזור לי לשמוע:*  
+▪ ״מותר לכעוס. כועסים במילים.״  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**7 תפרגני לי כשאני סבלן**  
-״ראיתי שחיכית בסבלנות״  
-זה גורם לי להרגיש גדול  
+*Picture:* The boy kicks over a tall block tower with an angry face while his mother, holding the baby, looks at him calmly from the sofa. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**זמן, שיר ומקום שלי**  
-**ומילים למה שקשה לי**  
-תעזרי לי להרגיש שאני  
-עדיין חשוב לך?  
+#### שקופית 5 · סיפור · 17:30, בגינה
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**חיכיתי בתור לנדנדה**  
+את עם העגלה, ואני מחכה בשקט,  
+בלי לבכות ובלי לדחוף.  
+*מה יעזור לי:*  
+שתראי את זה ותגידי ״ראיתי שחיכית״.  
+ואני מרגיש **גדול** באמת.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy waits patiently by a swing in a playground while his mother pushes the pram beside him and gives him a thumbs up. A small Israeli neighbourhood playground in late afternoon: swings, a sandpit, trees and a plain pale wall at the back. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 18:30, באמבטיה
+
+**״למה הוא תמיד אצלך?״**  
+את עונה ״כי הוא קטן״.  
+ואני שומע ״כי הוא יותר חשוב״.  
+*מה יעזור לי:*  
+שתשאלי מה אני מרגיש,  
+ותקשיבי לי **עד הסוף**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits in the bath with bubbles, looking up with a serious question on his face, while his mother kneels by the tub listening. The family's small Israeli bathroom in the evening: white tiles, a bathtub with bubbles, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 19:30, בחדר שלי
+
+**עשר דקות, רק את ואני**  
+התינוק אצל סבתא בסלון.  
+אנחנו על השטיח, בונים, מדברים.  
+לא ״רגע״, לא ״עוד מעט״.  
+רק אני ואת, כל ערב,  
+ואני יודע שעוד יש לי **מקום**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his mother sit on his bedroom rug building with blocks together, both laughing, no baby in the room. The boy's small Israeli bedroom in the evening: a low bed, a toy shelf, a soft lamp, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · 20:00, במיטה
+
+**והשיר שלנו**  
+גם כשהתינוק ער, גם כשאת עייפה,  
+את שרה לי את אותו שיר, כמו תמיד.  
+הוא נשאר **שלי**.  
+ואני נרדם בלי לשאול שוב.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother sits on the edge of the boy's bed singing softly, stroking his hair; he is falling asleep with his red toy car in his hand. The boy's small Israeli bedroom at night: a low bed, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · פנייה להורים
+
+**אני שואל כדי לבדוק**  
+לא כי אני רע, ולא כי אני לא אוהב אותו.  
+אני בודק שעוד יש לי מקום אצלך.  
+עזרה, מילים, זמן קטן ושיר,  
+ואני **בטוח** בתשובה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy hugs his mother tightly on the sofa while she cradles the baby with her other arm, all three calm. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהוא מקנא בתינוק  
 
-**הכותרות בלבד:** ״למה הוא אצלך?״ 7 דברים שיעזרו לי ← בערב את איתו כל הזמן ואני לבד עם הקוביות ← 1 עשר דקות רק שלי 2 תני לי לעזור לך ← 3 תחזרי לשיר שלנו ← 4 תגידי שמותר לכעוס ← 5 תכיני לי פינה משלי ← 6 תספרי לי מי בא היום ← 7 תפרגני לי כשאני סבלן ← זמן, שיר ומקום שלי ומילים למה שקשה לי ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits close to his mother in an armchair in warm lamp light, gently holding the baby's tiny hand, smiling. The family's Israeli living room: a low grey sofa with a cream throw, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** ״למה הוא אצלך?״ אני שואל כל ערב ← בבוקר את עייפה ← הוא שוב אצלך ← אני מפיל את המגדל ← חיכיתי בתור לנדנדה ← ״למה הוא תמיד אצלך?״ ← עשר דקות, רק את ואני ← והשיר שלנו ← אני שואל כדי לבדוק ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אני שואל כל ערב למה הוא אצלך  
-תני לי עשר דקות רק שלי ותני לי לעזור  
-תחזרי לשיר שלנו ותגידי שמותר לכעוס  
-תכיני לי פינה משלי ותפרגני לי  
+אמא, כל ערב אני שואל אותך למה התינוק תמיד אצלך.  
+תני לי לעזור, ותגידי לי תודה.  
+תשאלי מה אני מרגיש, ותני לי עשר דקות רק שלי.  
+ובלילה, תשירי לי את השיר שלנו, כמו תמיד.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שהוא מקנא בתינוק  
 
@@ -332,102 +544,154 @@
 
 **טענות**
 
-- שקופית 1 · 7 דברים שיעזרו · lumebook_wording · Our grouping of the advice on slides 3 to 8; no promise of a result.
-- שקופית 2 · בערב את איתו כל הזמן ואני לבד עם הקוביות אני לא רוצה שהוא ילך אני רוצה אותך קצת בשבילי · sourced_fact · KidsHealth: it is common to feel jealousy toward the newborn and to act out. The evening scene is the imagined child voice.
-- שקופית 3 · עשר דקות רק שלי · sourced_fact · KidsHealth: set aside time each day for older kids to get one parent's undivided attention; Child Mind Institute: one on one time with each parent helps reduce anxiety and jealousy. The sentence to say is our wording.
-- שקופית 3 · תני לי לעזור לך · sourced_fact · KidsHealth: many kids want to help take care of a new baby. The small jobs are our examples.
-- שקופית 4 · תחזרי לשיר שלנו · sourced_fact · Child Mind Institute: share the important routines your child counts on. Keeping the bedtime song is our example.
-- שקופית 5 · תגידי שמותר לכעוס · sourced_fact · KidsHealth: feelings are important but they have to be expressed in appropriate ways. The sentence to say is our wording.
-- שקופית 6 · תכיני לי פינה משלי · lumebook_wording · Imagined child voice. Rests loosely on KidsHealth (jealousy toward the newborn is common); a corner of his own is our idea, no source says it.
-- שקופית 7 · תספרי לי מי בא היום · sourced_fact · Child Mind Institute: share the important routines your child counts on. Keeping the bedtime song is our example.
-- שקופית 8 · תפרגני לי כשאני סבלן · sourced_fact · Child Mind Institute: praise the positive mature behaviors the child exhibits. The sentence to say is our wording.
-- שקופית 9 · זמן, שיר ומקום שלי ומילים למה שקשה לי · lumebook_wording · Our recap of slides 3 to 8 in the child's voice.
+- שקופית 1 · למה הוא אצלך? אני שואל כל ערב · sourced_fact · KidsHealth: it is common for older children to feel jealousy toward the newborn and to act out. The evening question is this child's imagined voice.
+- שקופית 3 · לתת לי לעזור ולהגיד תודה · sourced_fact · KidsHealth: many kids want to help take care of a new baby; Child Mind Institute: praise the positive mature behaviors.
+- שקופית 4 · מותר לכעוס, כועסים במילים · sourced_fact · KidsHealth: it is common to feel jealousy and act out; feelings are important but have to be expressed in appropriate ways.
+- שקופית 5 · ראיתי שחיכית · sourced_fact · Child Mind Institute: it is good to praise the positive mature behaviors the child exhibits.
+- שקופית 6 · לשאול מה אני מרגיש ולהקשיב · sourced_fact · KidsHealth: encourage older kids to talk about their feelings about the new baby. Hearing "more important" is this child's imagined voice.
+- שקופית 7 · עשר דקות כל ערב, רק את ואני · sourced_fact · KidsHealth: time each day with one parent's undivided attention; Child Mind Institute: one on one time with each parent.
+- שקופית 8 · אותו שיר לפני השינה · sourced_fact · Child Mind Institute: keep the important routines your child counts on (the page says to share them with caregivers ahead of time). The song is this child's routine.
+- שקופית 9 · אני בודק שעוד יש לי מקום אצלך · sourced_fact · KidsHealth: jealousy toward the newborn is common. The reason is said as this child's imagined voice, not about every child.
 - שקופית 10 · ספרי תמונות על תינוק חדש יכולים להצטרף לשגרת השינה · sourced_fact · Child Mind Institute: board books and picture books about new babies are a great thing to add to the usual bedtime ritual. No promise of a result.
 - שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
 
 </details>
 
-### kid-4 · אמא 7 דברים שיעזרו לי להגיד מילה ראשונה
+### kid-4 · אמא, אני כבר מנסה להגיד מילה ראשונה
 
 - **על מי:** ליה (בת), לאמא
-- **זווית:** ליה בת שנה וחצי מספרת לאמא שהיא מבינה הרבה ורק קשה לה להגיד, ומבקשת שבעה דברים: עיניים בגובה שלה, לתת שם לדברים, לחזור על המילה, להוסיף מילה, שאלות קטנות, חלקי גוף וספר.
+- **זווית:** ליה, בת שנה וחצי, כותבת לאמא מכתב: היא מבינה הרבה, והמילים עוד בפנים. מה עוזר: לרדת לגובה שלה, לתת שם לדברים לאט וברור, להגיד נכון בלי לצחוק ובלי לתקן, להוסיף עוד מילה, שאלות קטנות על האף והבטן, וספר בערב עם הצבעה על התמונות.
 - **למי:** אמא לילדה בת שנה עד שנתיים שמחכה למילים הראשונות.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** child-letter
 - **נושא:** המילים הראשונות (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** מכתב קצר מהילדה שהציון על הנוסחה הזאת היה 4, עם מספר וערך (להגיד מילה ראשונה). כל שקופית בקשה אחת פשוטה עם משפט להגיד, והילדה מצביעה על כדור ופיה פתוח.
+- **למה זה עשוי להמיר:** מכתב מפעוטה שעוד לא מדברת נותן לאמא קול למה שהיא כבר מבינה, וכל שקופית היא דבר אחד לעשות היום. הכריכה שומרת על ״אני כבר מנסה״.
 
-#### שקופית 1 · פתיח
+- **מבנה:** מכתב · 9 שקופיות
 
-**אמא**  
-**7 דברים שיעזרו לי**  
-**להגיד מילה ראשונה**  
-אני כבר מנסה  
+#### שקופית 1 · שער
 
-#### שקופית 2 · ההסבר
+**אמא, אני כבר**  
+**מנסה להגיד**  
+**מילה ראשונה**  
+מכתב קטן ממני אלייך  
 
-**אני מבינה כבר הרבה**  
-**רק קשה לי להגיד**  
-תדברי איתי ואני אנסה  
-להגיד אותן בעצמי  
+#### שקופית 2 · סיפור
 
-#### שקופית 3 · דוגמאות ממוספרות
+**אמא שלי,**  
+אני מבינה הרבה יותר ממה שאני אומרת.  
+כשאת אומרת ״אמבטיה״, אני רצה.  
+כשאת אומרת ״נעליים״, אני מביאה.  
+רק המילים שלי עוד **תקועות** בפנים.  
+אז הנה מה שעוזר לי.  
 
-**1 תסתכלי לי בעיניים**  
-**2 תקראי לדברים בשם**  
-תרדי אליי לגובה שלי  
-״ליה זה כדור, כדור״  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* The toddler girl toddles proudly toward her mother holding a pair of small shoes, her mother crouching with open arms. The family's bright Israeli hallway in the morning: a shoe bench, a soft rug, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**3 תחזרי על מה שאמרתי**  
-אמרתי ״בבה״? ״כן, בקבוק״  
-ובלי לצחוק על הטעויות  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור
 
-**4 תוסיפי עוד מילה אחת**  
-אני אומרת ״כדור״  
-ואת אומרת ״כדור גדול״  
+תרדי אליי, לגובה שלי.  
+ככה אני רואה את הפה שלך מקרוב,  
+ואיך המילה **יוצאת** ממנו.  
+ואז אני מנסה לעשות אותו דבר.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**5 תשאלי שאלות קטנות**  
-״איפה הכדור?״  
-ותחכי עד שאצביע  
+*Picture:* The mother kneels on the play rug face to face with the toddler at her eye level, both with round open mouths, the toddler copying her. The family's bright Israeli living room in the morning: a soft play rug, wooden blocks, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**6 תראי לי איפה האף שלי**  
+#### שקופית 4 · סיפור
+
+כשאני מצביעה על משהו,  
+תגידי לי איך קוראים לו.  
+״כדור. ליה, זה **כדור**.״  
+לאט, ברור, פעם ועוד פעם.  
+ואולי יום אחד זה ייצא גם לי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler points at a red ball on the rug while her mother holds it up and names it slowly, smiling. The family's bright Israeli living room in the morning: a soft play rug, wooden blocks, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 5 · סיפור
+
+ואם יצא לי ״בבה״ במקום בקבוק,  
+אל תצחקי, ואל תתקני אותי.  
+פשוט תגידי ״כן, **בקבוק**״,  
+ואז אני שומעת איך זה נשמע נכון.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler reaches up for her bottle from her high chair while her mother hands it to her warmly. The family's bright Israeli kitchen: cream tiles, a high chair by the wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור
+
+וכשאני אומרת מילה אחת,  
+תוסיפי לה עוד אחת קטנה.  
+אני: ״כדור״.  
+את: ״כדור **אדום**״.  
+ככה המילה שלי גדלה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler holds the red ball high above her head with a proud grin while her mother claps softly beside her. The family's bright Israeli living room: a soft play rug, wooden blocks, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור
+
+ותשאלי אותי שאלות קטנות.  
 ״איפה האף של ליה?״  
-ואחר כך אני מראה לך  
+ואני מצביעה על האף, וצוחקת.  
+עוד לא אומרת, אבל כבר **עונה**.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**7 תקראי לי ספר ותצביעי**  
-תצביעי על התמונות  
-ותגידי את השם בקול פשוט  
+*Picture:* The toddler giggles and points at her own nose while her mother points at her own nose too, both laughing. The family's bright Israeli living room: a soft play rug, a pale sofa, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**לדבר לאט, לתת שם**  
-**ולחזור על מה שאמרתי**  
-תעזרי לי להגיד  
-את המילה הראשונה שלי?  
+#### שקופית 8 · סיפור
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+ובערב, ספר אחד על הברכיים שלך.  
+תצביעי על התמונות,  
+ותגידי לי איך קוראים להן.  
+אני מקשיבה גם כשאני שותקת, אמא.  
+
+**אוהבת, ליה**  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler sits on her mother's lap in an armchair while her mother points at a picture of a cow in a big board book. The family's cosy Israeli living room in the evening: an armchair, a soft lamp, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהיא לומדת להגיד מילים  
 
-**הכותרות בלבד:** אמא 7 דברים שיעזרו לי להגיד מילה ראשונה ← אני מבינה כבר הרבה רק קשה לי להגיד ← 1 תסתכלי לי בעיניים 2 תקראי לדברים בשם ← 3 תחזרי על מה שאמרתי ← 4 תוסיפי עוד מילה אחת ← 5 תשאלי שאלות קטנות ← 6 תראי לי איפה האף שלי ← 7 תקראי לי ספר ותצביעי ← לדבר לאט, לתת שם ולחזור על מה שאמרתי ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler falls asleep on her mother's shoulder holding a board book, warm lamp light around them. The toddler's small Israeli bedroom at night: a crib, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא, אני כבר מנסה להגיד מילה ראשונה ← אמא שלי, ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אמא אני כבר מנסה להגיד מילה ראשונה  
-תסתכלי לי בעיניים ותקראי לדברים בשם  
-תחזרי על מה שאמרתי ותוסיפי עוד מילה אחת  
-תשאלי שאלות קטנות ותקראי לי ספר  
+אמא, אני כבר מנסה להגיד את המילה הראשונה שלי.  
+תרדי אליי לגובה שלי, ותגידי לי איך קוראים לדברים.  
+אם יצא לי לא נכון, תגידי את המילה נכון, בלי לצחוק.  
+תוסיפי לי עוד מילה, ותקראי לי ספר בערב.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא לומדת להגיד מילים  
 
@@ -443,104 +707,173 @@
 
 **טענות**
 
-- שקופית 1 · 7 דברים שיעזרו · lumebook_wording · Our grouping of the advice on slides 3 to 8; no promise of a result.
-- שקופית 2 · אני מבינה כבר הרבה רק קשה לי להגיד תדברי איתי ואני אנסה להגיד אותן בעצמי · sourced_fact · CDC: around 18 months a child tries to say three or more words besides mama and dada; AAP: first words often include familiar people, favourite things and body parts. That she understands more than she says is the imagined child voice.
-- שקופית 3 · תסתכלי לי בעיניים · sourced_fact · CDC: face the child at eye level when possible; AAP: speak slowly and clearly with simple words and short sentences. The sentence to say is our wording.
-- שקופית 3 · תקראי לדברים בשם · sourced_fact · AAP: teach the correct names of objects and body parts; CDC: name body parts by pointing them out. The sentence to say is our wording.
-- שקופית 4 · תחזרי על מה שאמרתי · sourced_fact · AAP: answer with a correct pronunciation of the word and do not ridicule language mistakes. The sentence to say is our wording.
-- שקופית 5 · תוסיפי עוד מילה אחת · sourced_fact · CDC: teach more words by adding to the words the child says. The sentence to say is our wording.
-- שקופית 6 · תשאלי שאלות קטנות · sourced_fact · CDC: ask simple questions to help the child think about what is around her. Waiting for the pointing is our addition.
-- שקופית 7 · תראי לי איפה האף שלי · sourced_fact · CDC: start to teach the names of body parts by pointing them out; AAP: first words often include body parts.
-- שקופית 8 · תקראי לי ספר ותצביעי · sourced_fact · CDC: read books and talk about the pictures using simple words.
-- שקופית 9 · לדבר לאט, לתת שם ולחזור על מה שאמרתי · lumebook_wording · Our recap of slides 3 to 8 in the child's voice.
-- שקופית 10 · קריאת ספר והצבעה על התמונות עוזרת לשפה · sourced_fact · CDC: read books and talk about the pictures using simple words. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
+- שקופית 1 · אני כבר מנסה להגיד מילה ראשונה · sourced_fact · CDC: by 18 months a child tries to say three or more words besides mama or dada; AAP: first words often include familiar people, favourite possessions and body parts. Said as this child's voice, no milestone promise.
+- שקופית 3 · תרדי אליי לגובה שלי · sourced_fact · CDC: talk with your child by facing her and getting down to her eye level when possible. Seeing the mouth up close is this child's imagined reason.
+- שקופית 4 · תגידי לי איך קוראים לדברים, לאט וברור · sourced_fact · AAP (HealthyChildren): speak slowly and clearly using simple words; teach the correct names of objects. CDC: talk with simple words.
+- שקופית 5 · תגידי ״כן, בקבוק״, בלי לצחוק · sourced_fact · AAP (HealthyChildren): answer with a correct pronunciation of the word; don't ridicule his language mistakes.
+- שקופית 6 · תוסיפי עוד מילה: ״כדור אדום״ · sourced_fact · CDC: teach your child more words by adding to the words she says.
+- שקופית 7 · ״איפה האף של ליה?״ · sourced_fact · CDC: teach the names for body parts by pointing them out; ask simple questions. AAP: teach the correct names of body parts.
+- שקופית 8 · ספר בערב, להצביע על התמונות · sourced_fact · CDC: read books and talk about the pictures using simple words.
+- שקופית 9 · קריאת ספר והצבעה על התמונות עוזרת לשפה · sourced_fact · CDC: read books and talk about the pictures using simple words. No promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
 
 </details>
 
-### kid-5 · לפני המילה הראשונה שלי 9 דברים שיעזרו לי
+### kid-5 · לפני המילה הראשונה שלי, יום אחד שלי
 
 - **על מי:** אביב (בן), לשני ההורים
-- **זווית:** אביב בן שנה ורבע מבקש מהורים תשעה דברים לפני המילה הראשונה: עיניים בגובה שלו, לאט, לתת שם, לחזור, להוסיף מילה, שאלות, אף ופה, ספר וחיוך על כל ניסיון.
+- **זווית:** אביב, בן שנה ורבע, מראה לאמא ואבא יום אחד שלו, מהכיסא של האוכל עד המיטה: הוא מקשיב לכל מילה. מה עוזר: לדבר לאט במשפטים קצרים, לרדת לגובה שלו ולתת שם לדברים, להגיד נכון בלי לתקן, להוסיף מילה, שאלות קטנות על הגוף, וספר בערב.
 - **למי:** הורים לילד בן שנה עד שנתיים שעוד לא אמר מילה ראשונה ורוצים לעזור.
 - **שלב מודעות:** לא מודע
 - **פתיח:** milestone-week
 - **נושא:** המילים הראשונות (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** רגע התפתחותי שההורים מחכים לו (המילה הראשונה) עם מספר וערך על הכריכה. תשעה דברים פשוטים מבוססי CDC ו-AAP, וחיוך ענק עם ברווז ביד על הכריכה.
+- **למה זה עשוי להמיר:** יום אחד לפי השעון מראה להורים כמה רגעים של מילים יש כבר עכשיו, מהבוקר עד המיטה, וכל רגע נותן דבר קטן אחד לעשות. הכריכה שומרת על ההמתנה למילה הראשונה.
 
-#### שקופית 1 · פתיח
+- **מבנה:** יום אחד · 10 שקופיות
+
+#### שקופית 1 · שער
 
 **לפני המילה**  
 **הראשונה שלי**  
-**9 דברים שיעזרו לי**  
-תעזרו לי להגיד אותה  
+יום אחד שלי, מלא במילים שלכם  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · 07:00, בכיסא האוכל
 
-**אני מבין מה אתם אומרים**  
-**ורוצה להגיד בעצמי**  
-בימים האלה אני מקשיב לכל מילה  
-תדברו איתי בקול פשוט  
+**אני מקשיב לכל מילה**  
+״בננה. אביב רוצה בננה?״  
+אני מסתכל לכם על הפה, ודופק על המגש.  
+*מה יעזור לי:*  
+לדבר אליי לאט, במשפטים קצרים.  
+אני עוד לא אומר, אבל **אוסף**.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תדברו אליי בגובה שלי**  
-**2 תדברו לאט ופשוט**  
-תרדו אליי ותסתכלו לי בעיניים  
-״אביב רוצה כדור?״  
+*Picture:* The toddler bangs happily on his high chair tray, staring at his mother's mouth as she holds up a banana, his father pouring coffee behind. The family's Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 תקראו לכל דבר בשם**  
-**4 תחזרו על מה שאמרתי**  
-״זה כדור, כדור״  
-אמרתי ״בבה״? ״כן, בקבוק״  
+#### שקופית 3 · סיפור · 09:30, על השטיח
 
-#### שקופית 5 · דוגמאות ממוספרות
+**״כדור! זה כדור.״**  
+אני מצביע, ואתם נותנים לו שם.  
+*מה יעזור לי:*  
+לרדת אליי, לגובה של העיניים שלי,  
+ולהגיד את השם לאט וברור.  
+פעם אחת, ועוד **פעם**.  
 
-**5 תוסיפו לי עוד מילה**  
-**6 תשאלו שאלות קטנות**  
-אני אומר ״כדור״ ואתם ״כדור גדול״  
-״איפה הכדור?״ ותחכו שאצביע  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The father lies on his tummy on the play rug, face to face with the toddler, holding up a ball between them. The family's bright Israeli living room in the morning: a play rug with wooden blocks, a pale sofa, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**7 תראו לי איפה האף שלי**  
-״איפה האף של אביב?״  
-ואני מראה לכם ומחייך  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 11:00, בגינה
 
-**8 תקראו לי ספר ותצביעו**  
-תצביעו על התמונות  
-ותגידו את השם במילים פשוטות  
+**אני אומר ״בה״**  
+ואתם מבינים שאני רוצה את הבקבוק!  
+*מה יעזור לי לשמוע:*  
+▪ ״כן, אביב, בקבוק.״  
+בלי לתקן ובלי לצחוק.  
+ככה אני שומע איך זה נשמע **נכון**.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**9 תחייכו על כל ניסיון**  
-גם אם יוצא ״בה״ במקום ״בקבוק״  
-בלי לצחוק עליי  
+*Picture:* Sitting on a picnic blanket in the park, the toddler reaches for a bottle and his mother hands it to him with a warm smile. A green Israeli neighbourhood park in late morning: a picnic blanket on the grass, trees, a plain pale wall at the back. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**לדבר פשוט, לתת שם**  
-**ולחייך על כל ניסיון**  
-תעזרו לי להגיד  
-את המילה הראשונה שלי?  
+#### שקופית 5 · סיפור · 16:00, בסלון
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**מילה אחת, ועוד אחת**  
+אני אומר ״הב״ ומצביע על הכלב.  
+אתם אומרים ״כלב גדול, עושה הב״.  
+*מה יעזור לי:*  
+להוסיף עוד מילה קטנה למה שאמרתי.  
+ככה המילה שלי **גדלה**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler points excitedly at the family dog lying on the rug while both parents lean in, smiling and talking to him. The family's bright Israeli living room in the afternoon: a play rug, a pale sofa, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 17:30, באמבטיה
+
+**״איפה הבטן של אביב?״**  
+אני מחפש, ומוצא, וצוחק.  
+*מה יעזור לי:*  
+לשאול אותי שאלות קטנות,  
+ולהראות לי אף, אוזן, **פה**.  
+אני מצביע, עוד לפני שאני אומר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler sits in a bubble bath pointing proudly at his round tummy while his mother kneels by the tub laughing. The family's small Israeli bathroom in the evening: white tiles, a bathtub with bubbles, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 19:00, על הספה
+
+**ספר אחד, שלושתנו**  
+אתם מצביעים על התמונות ואומרים:  
+״פרה. ברווז. ירח.״  
+ואני מצביע אחריכם עם אצבע קטנה.  
+זה החלק הכי **טוב** שלי ביום.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler sits between his parents on the sofa in pyjamas, pointing at a picture of a duck in a big board book. The family's cosy Israeli living room in the evening: a pale sofa, a soft lamp, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · 20:00, במיטה
+
+**ואז, בחושך, אני מנסה**  
+״מה... מה...״  
+אני ממלמל לעצמי את המילים של היום.  
+עוד לא יוצא כמו אצלכם,  
+אבל אני מתאמן, **בשקט**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler lies in his crib in the dark, babbling to his yellow plush duck, moonlight on the blanket. The toddler's small Israeli bedroom at night: a crib, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · פנייה להורים
+
+**אני עוד לא אומר, אבל שומע**  
+תדברו איתי לאט, בגובה שלי.  
+תנו שם לכל דבר, תוסיפו מילה,  
+ותחייכו על כל ״בה״.  
+והמילה הראשונה שלי  
+מתאמנת אצלי **בפנים**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler is held up between his smiling parents in the living room, giggling with his arms stretched out. The family's bright Israeli living room in warm evening light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה שהוא לומד להגיד מילים  
 
-**הכותרות בלבד:** לפני המילה הראשונה שלי 9 דברים שיעזרו לי ← אני מבין מה אתם אומרים ורוצה להגיד בעצמי ← 1 תדברו אליי בגובה שלי 2 תדברו לאט ופשוט ← 3 תקראו לכל דבר בשם 4 תחזרו על מה שאמרתי ← 5 תוסיפו לי עוד מילה 6 תשאלו שאלות קטנות ← 7 תראו לי איפה האף שלי ← 8 תקראו לי ספר ותצביעו ← 9 תחייכו על כל ניסיון ← לדבר פשוט, לתת שם ולחייך על כל ניסיון ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler sleeps peacefully in his crib hugging his yellow plush duck, his parents looking in from the doorway, smiling. The toddler's small Israeli bedroom at night: a crib, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** לפני המילה הראשונה שלי ← אני מקשיב לכל מילה ← ״כדור! זה כדור.״ ← אני אומר ״בה״ ← מילה אחת, ועוד אחת ← ״איפה הבטן של אביב?״ ← ספר אחד, שלושתנו ← ואז, בחושך, אני מנסה ← אני עוד לא אומר, אבל שומע ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-לפני המילה הראשונה שלי אני צריך אתכם  
-תדברו אליי בגובה שלי ובקול פשוט  
-תקראו לכל דבר בשם ותחזרו על מה שאמרתי  
-תשאלו שאלות קטנות ותקראו לי ספר  
+אמא ואבא, לפני המילה הראשונה שלי אני מקשיב לכל מה שאתם אומרים.  
+תרדו אליי לגובה שלי, ותגידו לי לאט איך קוראים לדברים.  
+תוסיפו מילה למה שאמרתי, ותשאלו אותי שאלות קטנות.  
+ובערב, תקראו איתי ספר ותצביעו על התמונות.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרו את הפוסט לפעם הבאה שהוא לומד להגיד מילים  
 
@@ -556,103 +889,161 @@
 
 **טענות**
 
-- שקופית 1 · 9 דברים שיעזרו · lumebook_wording · Our grouping of the advice on slides 3 to 8; no promise of a result.
-- שקופית 2 · אני מבין מה אתם אומרים ורוצה להגיד בעצמי בימים האלה אני מקשיב לכל מילה תדברו איתי בקול פשוט · sourced_fact · CDC: around 18 months a child tries to say three or more words besides mama and dada; AAP: first words often include familiar people and favourite things. Understanding what is said is the imagined child voice.
-- שקופית 3 · תדברו אליי בגובה שלי · sourced_fact · CDC: face the child at eye level when possible; AAP: speak slowly and clearly with simple words and short sentences. The sentence to say is our wording.
-- שקופית 3 · תדברו לאט ופשוט · sourced_fact · CDC: face the child at eye level when possible; AAP: speak slowly and clearly with simple words and short sentences. The sentence to say is our wording.
-- שקופית 4 · תקראו לכל דבר בשם · sourced_fact · AAP: teach the correct names of objects and body parts; CDC: name body parts by pointing them out. The sentence to say is our wording.
-- שקופית 4 · תחזרו על מה שאמרתי · sourced_fact · AAP: answer with a correct pronunciation of the word and do not ridicule language mistakes. The sentence to say is our wording.
-- שקופית 5 · תוסיפו לי עוד מילה · sourced_fact · CDC: teach more words by adding to the words the child says. The sentence to say is our wording.
-- שקופית 5 · תשאלו שאלות קטנות · sourced_fact · CDC: ask simple questions to help the child think about what is around her. Waiting for the pointing is our addition.
-- שקופית 6 · תראו לי איפה האף שלי · sourced_fact · CDC: start to teach the names of body parts by pointing them out; AAP: first words often include body parts.
-- שקופית 7 · תקראו לי ספר ותצביעו · sourced_fact · CDC: read books and talk about the pictures using simple words.
-- שקופית 8 · תחייכו על כל ניסיון · sourced_fact · AAP: do not ridicule language mistakes. Smiling at every try is our wording.
-- שקופית 9 · לדבר פשוט, לתת שם ולחייך על כל ניסיון · lumebook_wording · Our recap of slides 3 to 8 in the child's voice.
+- שקופית 2 · לדבר אליי לאט, במשפטים קצרים · sourced_fact · AAP (HealthyChildren): try speaking slowly and clearly, using simple words and short sentences.
+- שקופית 3 · לרדת לגובה העיניים ולהגיד את השם · sourced_fact · CDC: face your child and get down to his eye level; AAP: teach the correct names of objects, speak slowly and clearly.
+- שקופית 4 · ״כן, אביב, בקבוק״ בלי לתקן ובלי לצחוק · sourced_fact · AAP (HealthyChildren): answer with a correct pronunciation of the word; don't ridicule language mistakes.
+- שקופית 5 · להוסיף עוד מילה למה שאמרתי · sourced_fact · CDC: teach your child more words by adding to the words he says.
+- שקופית 6 · שאלות קטנות, אף, אוזן, פה · sourced_fact · CDC: teach the names for body parts by pointing them out; ask simple questions. AAP: teach the correct names of body parts.
+- שקופית 7 · ספר, להצביע על התמונות ולהגיד את השם · sourced_fact · CDC: read books and talk about the pictures using simple words.
+- שקופית 9 · לאט, בגובה שלי, שם לכל דבר, עוד מילה · lumebook_wording · Our recap of slides 2 to 7 in the child's imagined voice; no new fact.
 - שקופית 10 · קריאת ספר והצבעה על התמונות עוזרת לשפה · sourced_fact · CDC: read books and talk about the pictures using simple words. No promise of a result.
 - שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
 
 </details>
 
-### kid-6 · ״תגידי אמא״ כולם אומרים לי, 6 דברים שיעזרו לי
+### kid-6 · ״תגידי אמא״ כולם אומרים לי את זה כל היום
 
 - **על מי:** עלמה (בת), לאמא
-- **זווית:** עלמה בת שנה וחצי שומעת כל היום ״תגידי אמא״ ומבקשת שישה דברים אחרים: לחכות, לתת שם ולהצביע, לחזור בלי לתקן, לשיר ביחד, לספר מה עושים וספר עם צבעים.
+- **זווית:** עלמה, בת שנה וחצי, שומעת כל היום ״תגידי אמא״ ועונה על מה שאמא חושבת: ״היא לא מנסה״, ״אולי אם נחזור היא תגיד״, ״זה לא בבה, זה בקבוק״, ״היא אומרת רק מילה אחת״, ״מתי היא כבר תדבר?״. מה עוזר: לגובה שלה, לתת שם לדברים, להגיד נכון בלי לתקן, להוסיף מילה, ספר בערב.
 - **למי:** אמא לילדה בת שנה עד שנתיים שכולם מבקשים ממנה להגיד אמא.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** sentence-we-all-say
 - **נושא:** המילים הראשונות (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** משפט שכל המשפחה אומרת לילדה (תגידי אמא) ומספר וערך על הכריכה. עלמה מסבירה מה כן עוזר, בלי לחץ ובלי תיקונים, וכל בקשה נשענת על CDC או AAP.
+- **למה זה עשוי להמיר:** אמא מכירה את ה״תגידי אמא״ מכל ביקור, והפעוטה עונה על כל מחשבה עם דבר אחד שעוזר באמת. הכריכה שומרת על המשפט שכולם אומרים.
 
-#### שקופית 1 · פתיח
+- **מבנה:** אתם חושבים, אני עונה · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **״תגידי אמא״**  
-**6 דברים שיעזרו לי**  
-כולם אומרים לי את זה  
+**כולם אומרים לי**  
+**את זה כל היום**  
+ומה הייתי עונה לך, אם יכולתי  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**אני מבינה אותך מצוין**  
-**רק לא יודעת להגיד**  
-כשאת מבקשת שוב ושוב  
-אני רוצה אבל המילה נתקעת  
+**אני רואה איך את מחכה**  
+״עלמה, תגידי אמא. אמא. נו, אמא.״  
+סבתא אומרת, הגננת אומרת, כולם מחכים.  
+ואני מסתכלת עלייך,  
+והמילה נשארת לי **בפה**.  
+אז הנה מה שהייתי עונה לך, אם יכולתי.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תחכי שאנסה בעצמי**  
-תסתכלי עליי ותחכי רגע  
-בלי למהר ובלי לתקן  
+*Picture:* Grandma, the mother and a kindergarten teacher all lean toward the toddler with eager faces, while she hugs her blue plush elephant and looks up shyly. The family's bright Israeli living room in the afternoon: a play rug, a pale sofa, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 תקראי לדברים בשם**  
-״עלמה זה כדור, כדור״  
-כל דבר שאני מצביעה עליו  
+#### שקופית 3 · סיפור · את חושבת:
 
-#### שקופית 5 · דוגמאות ממוספרות
+**״היא לא מנסה בכלל״**  
+אני מנסה כל הזמן. בשקט.  
+אני מסתכלת לך על הפה ומקשיבה.  
+*אני עונה:*  
+כשאת **מתקרבת** לגובה שלי,  
+אני רואה איך זה יוצא לך.  
 
-**3 תחזרי בלי לתקן**  
-אמרתי ״בבה״? ״כן, בקבוק״  
-ואני מרגישה שהבנת אותי  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The mother lies on the rug face to face with the toddler at her eye level; the toddler studies her mouth with great concentration. The family's bright Israeli living room: a play rug, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**4 תשירי איתי שיר קצר**  
-אותו שיר עם תנועות  
-ואני מצטרפת במילה אחת  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · את חושבת:
 
-**5 תספרי מה את עושה**  
-״עכשיו עלמה שותה מים״  
-במילים קצרות ופשוטות  
+**״אולי אם נחזור, היא תגיד״**  
+״תגידי אמא, תגידי אמא...״  
+אחרי הפעם החמישית, אני מסתובבת.  
+*מה יעזור לי:*  
+לתת שם למה שאני מצביעה עליו.  
+״כדור״, ״כוס״, ״חתול״, **לאט** וברור.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**6 תקראי לי ספר**  
-**עם צבעים**  
-תצביעי על כל צבע ובעל חיים  
-ותגידי את השם בקול פשוט  
+*Picture:* The toddler points at a cat curled up on the sofa while her mother crouches beside her and names it slowly, smiling. The family's bright Israeli living room: a pale sofa, a play rug, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**לחכות, לתת שם ולחזור**  
-**בלי ללחוץ ובלי לתקן**  
-תעזרי לי להגיד  
-את המילה בקצב שלי?  
+#### שקופית 5 · סיפור · את חושבת:
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**״זה לא בבה, זה בקבוק!״**  
+אמרתי משהו! ואת מתקנת.  
+ואני מתביישת קצת.  
+*מה יעזור לי לשמוע:*  
+▪ ״כן, עלמה, בקבוק.״  
+ככה אני שומעת את המילה הנכונה,  
+ויודעת **שהבנת אותי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler holds out her hands from her high chair and her mother gives her the bottle with a warm, approving smile. The family's bright Israeli kitchen: cream tiles, a high chair, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · את חושבת:
+
+**״היא אומרת רק מילה אחת״**  
+״הב!״ אני אומרת, ומצביעה על הכלב.  
+*אני עונה:*  
+זאת התחלה. תוסיפי לה עוד אחת.  
+״כן, **כלב גדול**.״  
+ואני שומעת איך מילה נהיית שתיים.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler points at a big friendly dog in the garden with an excited shout, her mother kneeling beside her and pointing too. A small Israeli garden in the afternoon: green grass, a low fence, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ואחרונה:
+
+**״מתי היא כבר תדבר?״**  
+אני לא יודעת מתי, אמא.  
+אבל כל ערב, כשאת מצביעה בספר  
+ואומרת ״פרה״, ״ירח״, ״ברווז״,  
+אני אוספת עוד מילה **בשבילך**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler sits on her mother's lap in the evening, both looking at a big board book with a moon on the page. The family's cosy Israeli living room in the evening: an armchair, a soft lamp, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+**אני מנסה, בקצב שלי**  
+תרדי אליי, תני שם לדברים,  
+תגידי נכון בלי לתקן,  
+ותקראי איתי בערב.  
+ואת המילה **אמא**,  
+אני שומרת בשבילך במיוחד.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler hugs her mother around the neck on the rug, the blue plush elephant squeezed between them, both smiling. The family's bright Israeli living room in warm evening light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהיא לומדת להגיד מילים  
 
-**הכותרות בלבד:** ״תגידי אמא״ 6 דברים שיעזרו לי ← אני מבינה אותך מצוין רק לא יודעת להגיד ← 1 תחכי שאנסה בעצמי ← 2 תקראי לדברים בשם ← 3 תחזרי בלי לתקן ← 4 תשירי איתי שיר קצר ← 5 תספרי מה את עושה ← 6 תקראי לי ספר עם צבעים ← לחכות, לתת שם ולחזור בלי ללחוץ ובלי לתקן ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The toddler sleeps in her crib with the blue plush elephant while her mother tucks the blanket around her, smiling softly. The toddler's small Israeli bedroom at night: a crib, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** ״תגידי אמא״ כולם אומרים לי את זה כל היום ← אני רואה איך את מחכה ← ״היא לא מנסה בכלל״ ← ״אולי אם נחזור, היא תגיד״ ← ״זה לא בבה, זה בקבוק!״ ← ״היא אומרת רק מילה אחת״ ← ״מתי היא כבר תדבר?״ ← אני מנסה, בקצב שלי ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-כולם אומרים לי תגידי אמא ואני מנסה  
-תחכי שאנסה בעצמי ותקראי לדברים בשם  
-תחזרי בלי לתקן ותשירי איתי שיר קצר  
-תספרי לי מה את עושה ותקראי לי ספר  
+אמא, כולם אומרים לי ״תגידי אמא״, ואני באמת מנסה.  
+תרדי אליי לגובה שלי, ותני שם למה שאני מצביעה עליו.  
+אם אמרתי ״בבה״, תגידי ״כן, בקבוק״, ותוסיפי עוד מילה.  
+ובערב, תקראי איתי ספר ותצביעי על התמונות.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא לומדת להגיד מילים  
 
@@ -668,17 +1059,15 @@
 
 **טענות**
 
-- שקופית 1 · 6 דברים שיעזרו · lumebook_wording · Our grouping of the advice on slides 3 to 8; no promise of a result.
-- שקופית 2 · אני מבינה אותך מצוין רק לא יודעת להגיד כשאת מבקשת שוב ושוב אני רוצה אבל המילה נתקעת · sourced_fact · CDC: around 18 months a child tries to say three or more words besides mama and dada; AAP: do not ridicule mistakes and speak slowly and clearly. That she understands more than she says is the imagined child voice.
-- שקופית 3 · תחכי שאנסה בעצמי · lumebook_wording · Imagined child voice. Rests on CDC (around 18 months a child tries to say three or more words); the waiting is our idea, no source gives a number of seconds.
-- שקופית 4 · תקראי לדברים בשם · sourced_fact · AAP: teach the correct names of objects and body parts; CDC: name body parts by pointing them out. The sentence to say is our wording.
-- שקופית 5 · תחזרי בלי לתקן · sourced_fact · AAP: answer with a correct pronunciation of the word and do not ridicule language mistakes. The sentence to say is our wording.
-- שקופית 6 · תשירי איתי שיר קצר · lumebook_wording · Imagined child voice. Rests loosely on AAP (speak slowly and clearly, simple words); the song is our idea.
-- שקופית 7 · תספרי מה את עושה · lumebook_wording · Imagined child voice. Rests loosely on AAP (speak slowly and clearly, simple words); the song is our idea.
-- שקופית 8 · תקראי לי ספר עם צבעים · sourced_fact · CDC: read books and talk about the pictures using simple words.
-- שקופית 9 · לחכות, לתת שם ולחזור בלי ללחוץ ובלי לתקן · lumebook_wording · Our recap of slides 3 to 8 in the child's voice.
-- שקופית 10 · קריאת ספר והצבעה על התמונות עוזרת לשפה · sourced_fact · CDC: read books and talk about the pictures using simple words. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
+- שקופית 1 · תגידי אמא, ואני מנסה · sourced_fact · AAP: first words probably include the names of familiar people; CDC: by 18 months a child tries to say three or more words besides mama or dada. Said as this child's voice, no milestone promise.
+- שקופית 3 · כשאת מתקרבת לגובה שלי · sourced_fact · CDC: talk with your child by facing her and getting down to her eye level when possible. Watching the mouth is this child's imagined voice.
+- שקופית 4 · לתת שם למה שאני מצביעה עליו, לאט וברור · sourced_fact · AAP (HealthyChildren): teach the correct names of objects; speak slowly and clearly, using simple words; first words often include favourite possessions.
+- שקופית 5 · ״כן, עלמה, בקבוק״ · sourced_fact · AAP (HealthyChildren): answer with a correct pronunciation of the word; don't ridicule language mistakes.
+- שקופית 6 · תוסיפי לה עוד מילה: ״כלב גדול״ · sourced_fact · CDC: teach your child more words by adding to the words she says.
+- שקופית 7 · ספר בערב, להצביע ולהגיד את השם · sourced_fact · CDC: read books and talk about the pictures using simple words.
+- שקופית 8 · לגובה שלי, שם לדברים, נכון בלי לתקן, ספר · lumebook_wording · Our recap of slides 3 to 7 in the child's imagined voice; no new fact.
+- שקופית 9 · קריאת ספר והצבעה על התמונות עוזרת לשפה · sourced_fact · CDC: read books and talk about the pictures using simple words. No promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; a free preview before paying.
 
 </details>
 

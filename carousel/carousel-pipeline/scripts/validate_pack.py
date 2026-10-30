@@ -141,6 +141,9 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     pair = lib.daily_pair_applies(pack)   # two topics, child voice only (24 Oct 2026)
     save_share = lib.save_share_applies(pack)   # no comment word: the save and share CTA, the save for later CTA, older packs switched to them
     later = lib.save_later_applies(pack)        # the save for later CTA, slide 10 = only the CTA (24 Oct 2026 evening)
+    book = lib.book_link_applies(pack, v)       # the book link CTA over the booklet: a book for the problem, a comment word, a link in the DM (30 Oct 2026)
+    if book:                                    # a pack's own CTA rules step aside for an option moved to it
+        save_share = later = False
     legacy = not lib.punctuation_rule_applies(pack)   # older packs: no period or comma, hyphens allowed
     code_word = v.get("code_word", "")
     if save_share:
@@ -149,7 +152,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
         code_word = ""
     else:
         issues.extend(lib.code_word_issues(f"{p}/code_word", code_word))
-        if lib.fixed_code_word_applies(pack) and code_word != lib.CTA_CODE_WORD:
+        if lib.fixed_code_word_applies(pack) and code_word != lib.CTA_CODE_WORD and not book:
             issues.append(lib.Issue("ERROR", f"{p}/code_word", f"the CTA word is always «{lib.CTA_CODE_WORD}» (Yarin, 10 Oct 2026); got «{code_word}». Write it in the CTA, on the last slide and in the caption's last line"))
 
     slides = v.get("slides") or []
@@ -157,9 +160,10 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     if story:   # 9 to 12 slides: the cover, 7 to 10 story slides, the CTA
         CTA = len(slides)
         hook_slides = (1,)
-        if not story_lib.SLIDES_MIN <= CTA <= story_lib.SLIDES_MAX:
-            issues.append(lib.Issue("ERROR", f"{p}/slides", f"a story option has {story_lib.SLIDES_MIN} to {story_lib.SLIDES_MAX} slides: the cover, "
-                                                             f"{story_lib.SLIDES_MIN - 2} to {story_lib.SLIDES_MAX - 2} story slides and the CTA (has {CTA})"))
+        top = story_lib.slides_max(pack)   # 10 since 30 Oct 2026 (Instagram through Postiz takes at most 10 images)
+        if not story_lib.SLIDES_MIN <= CTA <= top:
+            issues.append(lib.Issue("ERROR", f"{p}/slides", f"a story option has {story_lib.SLIDES_MIN} to {top} slides: the cover, "
+                                                             f"{story_lib.SLIDES_MIN - 2} to {top - 2} story slides and the CTA (has {CTA}); Instagram takes at most 10"))
             return issues
         if numbers != list(range(1, CTA + 1)):
             issues.append(lib.Issue("ERROR", f"{p}/slides", f"slides must be numbered 1 to {CTA} in order (got {numbers})"))
@@ -174,7 +178,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     middle = {s.get("role") for s in slides[first - 1:last_insight]}
     if len(lib.INSIGHT_SLIDES) > 1 and not {"recognition", "reframe"} <= middle:
         issues.append(lib.Issue("ERROR", f"{p}/slides[{first}-{last_insight}]", f"slides {first} to {last_insight} must touch the feeling or problem (recognition) and what is behind it (reframe), at least one of each"))
-    issues.extend(person_issues(p, v, direction_id, names, pair=save_share))
+    issues.extend(person_issues(p, v, direction_id, names, pair=save_share or book))
     issues.extend(lib.hook_issues(p, v, direction_id, hook_bank, story=story))
     for s in slides[:CTA - 1]:
         if story and "pull" not in s:
@@ -194,7 +198,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
         if m:
             issues.append(lib.Issue("ERROR", f"{p}/slide-{s.get('number')}", f"«{m.group(0)}» prepares a sale; the personalised story and the link belong only on the last slide"))
     last_text = slides[CTA - 1].get("headline", "") + "\n" + slides[CTA - 1].get("body", "")
-    if not later and (not re.search(r"סיפור", last_text) or not re.search(r"אישי", last_text)):
+    if not later and not book and (not re.search(r"סיפור", last_text) or not re.search(r"אישי", last_text)):
         issues.append(lib.Issue("ERROR", f"{p}/slide-{CTA}", "the last slide must suggest helping the child with a personalised story (say סיפור and אישי) before the CTA"))
     bold = lib.bold_rule_applies(pack)
     numbered = lib.numbered_examples_apply(pack)
@@ -222,7 +226,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.extend(lib.audience_text_issues(f"{sp}/body", body, allow_cta=is_cta, legacy=legacy))
             issues.extend(lib.brand_issues(f"{sp}/body", body, titles))
         if story:
-            issues.extend(story_slide_issues(sp, s, n, CTA, titles, legacy))
+            issues.extend(story_slide_issues(sp, s, n, CTA, titles, legacy, cta_head_lines=3 if book else None))
             if direction_id == "expert" and n < CTA and lib.AUTHORITY_TITLES.search(headline + " " + body):
                 if (v.get("expert_frame") or {}).get("type") != "named_expert":
                     issues.append(lib.Issue("ERROR", sp, "academic title on a slide without a verified named expert (no authority theater)"))
@@ -317,7 +321,13 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
 
     # CTA
     cta = v.get("cta", "")
-    if later:
+    if book:
+        issues.extend(lib.book_link_cta_issues(f"{p}/cta", cta, v.get("addressee"), code_word=code_word, legacy=legacy))
+        if v.get("booklet") is not None:   # written at production, with its pictures (scripts/booklet_cta.py)
+            issues.extend(lib.booklet_issues(f"{p}/booklet", v.get("booklet")))
+        for s in slides[:CTA - 1]:   # the word and the link are asked for once, on the last slide
+            issues.extend(lib.book_link_early_issues(f"{p}/slide-{s.get('number')}", s.get("headline", "") + "\n" + s.get("body", "")))
+    elif later:
         issues.extend(lib.save_later_cta_issues(f"{p}/cta", cta, v.get("addressee"), legacy=legacy, gender=v.get("child_gender"), child_name=v.get("child_name")))
         if lib.collapse(last_text) != lib.collapse(cta):
             issues.append(lib.Issue("ERROR", f"{p}/slide-{CTA}", f"slide {CTA} is only the CTA since 24 Oct 2026 (Yarin: \"remove אפשר לעזור להם גם בסיפור אישי from the cta\"): "
@@ -345,11 +355,12 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
     issues.extend(lib.brand_issues(f"{p}/caption", caption, titles))
     issues.extend(lib.brand_issues(f"{p}/cta", cta, titles))
     cap_lines = lib.lines_of(caption)
-    if cap_lines and lib.collapse(cap_lines[-1]) != lib.collapse(cta):
-        issues.append(lib.Issue("ERROR", f"{p}/caption", "the caption's final line must be exactly the CTA", excerpt=cap_lines[-1][:80]))
-    if not (lib.CAPTION_MIN_LINES <= len(cap_lines) <= lib.CAPTION_MAX_LINES):
+    tail = lib.cta_tail_lines(v) if book else 1   # a book link CTA is two sentences, the caption's last two lines
+    if cap_lines and lib.collapse(" ".join(cap_lines[-tail:])) != lib.collapse(cta):
+        issues.append(lib.Issue("ERROR", f"{p}/caption", "the caption's final line must be exactly the CTA" if tail == 1 else "the caption's last two lines must be exactly the CTA's two sentences", excerpt=cap_lines[-1][:80]))
+    if not (lib.CAPTION_MIN_LINES <= len(cap_lines) <= lib.CAPTION_MAX_LINES + tail - 1):
         issues.append(lib.Issue("ERROR", f"{p}/caption", f"caption has {len(cap_lines)} lines; the formula is hook line, 2 to 4 value lines, one bridge line, CTA ({lib.CAPTION_MIN_LINES} to {lib.CAPTION_MAX_LINES} lines)"))
-    for i, line in enumerate(cap_lines[:-1], start=1):
+    for i, line in enumerate(cap_lines[:-tail], start=1):
         for pattern, why in lib.SECOND_CTA_PATTERNS:
             if re.search(pattern, line):
                 issues.append(lib.Issue("ERROR", f"{p}/caption", f"caption line {i} adds a second CTA ({why})", excerpt=line[:80]))
@@ -357,12 +368,14 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
             issues.append(lib.Issue("ERROR", f"{p}/caption", f"caption line {i} repeats the CTA; it belongs only on the final line"))
         if save_share:
             issues.extend(lib.comment_cta_issues(f"{p}/caption", line))
+        if book:
+            issues.extend(lib.book_link_early_issues(f"{p}/caption", line))
     if cap_lines and lib.collapse(cap_lines[0]) == lib.collapse(slides[0].get("headline", "")):
         issues.append(lib.Issue("ERROR", f"{p}/caption", "caption line 1 must restate the hook in different words, not copy it"))
     bridge = story_lib.BRIDGE_LINES.get(v.get("child_gender"))
-    if story and bridge and (len(cap_lines) < 2 or lib.collapse(cap_lines[-2]) != bridge):
+    if story and bridge and (len(cap_lines) < 1 + tail or lib.collapse(cap_lines[-1 - tail]) != bridge):
         issues.append(lib.Issue("ERROR", f"{p}/caption", f"the line before the CTA is the bridge line «{bridge}» (story-format.md)",
-                                excerpt=cap_lines[-2][:80] if len(cap_lines) > 1 else None))
+                                excerpt=cap_lines[-1 - tail][:80] if len(cap_lines) > tail else None))
     # Written post texts for Instagram and Facebook (Yarin, 26 Oct 2026): punctuation, one emoji on the hook and the CTA
     if lib.post_text_applies(pack) or "post_text" in v:
         issues.extend(lib.post_text_issues(f"{p}/post_text", v))
@@ -445,7 +458,7 @@ def version_issues(direction_id, v, pack, product_ids, titles=frozenset(), hook_
 SL = story_lib
 
 
-def story_slide_issues(sp, s, n, last, titles, legacy=False):
+def story_slide_issues(sp, s, n, last, titles, legacy=False, cta_head_lines=None):
     """One slide of a story option: role, label, scene, headline and body size, markup (story-format.md sections 2 to 4)."""
     issues = []
     headline, body = str(s.get("headline", "")), str(s.get("body", ""))
@@ -487,6 +500,8 @@ def story_slide_issues(sp, s, n, last, titles, legacy=False):
     # Headline: the cover up to 3 lines of 18 characters, every other slide up to 2 lines of 26
     head_lines = SL.plain_lines(headline)
     max_lines, max_chars = (SL.COVER_HEADLINE_MAX_LINES, SL.COVER_HEADLINE_LINE_MAX_CHARS) if n == 1 else (SL.HEADLINE_MAX_LINES, SL.HEADLINE_LINE_MAX_CHARS)
+    if n == last and cta_head_lines:   # the book link CTA's first sentence takes three lines
+        max_lines = cta_head_lines
     if len(head_lines) > max_lines:
         issues.append(lib.Issue("ERROR", f"{sp}/headline", f"headline is longer than {max_lines} lines"))
     for i, line in enumerate(head_lines, start=1):
@@ -888,6 +903,7 @@ def hook_strategy_issues(pack, bank, titles, today=None):
         issues.extend(slate_issues(slate, bank, titles, pair=pair, legacy=not lib.punctuation_rule_applies(pack), story=story_lib.is_story(pack)))
     if lib.save_later_applies(pack):
         issues.extend(lib.save_later_topic_issues(pack))
+    issues.extend(lib.book_link_topic_issues(pack))
     # The six final options must not be cosmetic rewrites of one another
     mechs = {key: set() for key, _, _, _ in lanes}
     shapes, moves, stages = set(), set(), set()

@@ -170,7 +170,8 @@ class Producer(Sandbox):
         key = f"{DATE}/kid-1"
         producer._update(key, status="generating")
         out = '{"error": "The model\'s safety system declined this request (content_policy_violation)."}'
-        with mock.patch.object(producer, "_sh", return_value=(1, out)), mock.patch.object(producer, "_picture_state", return_value={}):
+        with mock.patch.object(producer, "_sh", return_value=(1, out)), mock.patch.object(producer, "_picture_state", return_value={}), \
+                mock.patch.object(lib, "picture_backend", return_value="fal"):   # fal only (off since 30 Oct 2026)
             with self.assertRaises(RuntimeError) as ctx:
                 producer._generate(key, self.tmp)
         self.assertEqual(str(ctx.exception), producer.DECLINED_HE)

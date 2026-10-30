@@ -64,3 +64,39 @@ Top 5 by likes, all 3D animated, all age-stage behaviour or development: DaK3TJU
 - Our kid carousels already use her strongest form (child to parents, 3D, one picture world). Her data backs it: in 2026 the child voice got about 6 times the likes of her own voice.
 - Worth testing: the three-part point slide (child line / what is really going on / what to do), an age-stage series ("מה אני מנסה לספר לכם בגיל 3"), 12 to 15 slides instead of 10, and a keyword repeated mid-post where a book or a free guide fits naturally, not only on slide 10.
 - Different from our rules: she adds an about-me and a reviews slide (we keep the brand out), and she uses dad in the picture.
+
+## CTAs and captions (30 Oct 2026)
+
+Read from `src/all_coded.json` (coded CTA slides, `cap` = her full caption) for all 52 carousels. Medians, small groups, confounded by voice and topic (the child-voice posts are also the ones with the shortest captions), so read as direction.
+
+### CTA on the slides
+
+- **Keyword pill repeated, 2 or more times before the closing slides**: median 309 likes / 571 comments (25 posts) vs 104 / 200 with fewer (27 posts). Best ones: "גיל שנה" (slides 10, 12), "פעוט" (slides 2, 4, 7, 9), "התנהגות" (4, 7, 9, 12).
+- **One keyword per post, one word, the topic itself**: "פעוט", "גיל שנה", "טנטרום", "חדר", "אחים", "חג", "אוטו", "מזגן", "שעון". Never a generic word like "מדריך" on the top posts, except DaK3TJUDNY0 and Dacu5bDjLDw ("מדריך" next to a guide that sorts things out).
+- **Wording patterns on the slide (her words, for structure only):**
+  - the cut-off: the explanation stops, then "להסבר המלא / הגיבו פה ״X״ ואשלח לכם"
+  - the promise sentence: "הבנה של התינוק שלנו זה הצעד הראשון, לדעת איך להגיב זה העיקר" + comment keyword
+  - the stakes line before it: "אז בפעם הבאה שזה קורה... תזכרו משפט אחד" + keyword
+  - the guide line: "לוטם הכינה מדריך על מה שעובר עלי... הגיבו פה ״X״" (in child voice posts she refers to herself in third person, the child talks about "her" guide)
+  - a mid-post question as the CTA: "מה באמת קורה בעייפות יתר? הגיבו פה ״עייפות״"
+- **Last slides**: about-me, then "אם אתם חדשים כאן... עקבו אחריי ושתפו" (22 of 52). Older posts: "עקבו אחריי, שמרו ושלחו להורים שחייבים לדעת את זה". Not the driver of results.
+- **Coupon / product pills** (Ddqnlj1jG8H, one keyword per product, code "lotem") got 100 likes: a shopping list does not travel like a topic.
+
+### Captions
+
+- **Short**: 13 captions of 60 characters or less got 186 likes / 705 comments; 61 to 200 characters 213 / 389; over 200 characters 101 / 203. The top 5 by likes all have a one-line caption.
+- **The top child-voice and age-stage posts carry a title only**, or title plus keyword: "גיל שנה - קווים לדמותו", "התנהגויות בגיל 8-11 חודשים 🙂", "התנהגויות נפוצות בגיל שנה- שנה וחצי - להסבר המלא הגיבו ״פעוט״ ואשלח לכם לפרטי 👇🏻".
+- **Keyword in the caption is not what drives comments**: 23 captions ask for the keyword (115 likes / 206 comments), 29 do not (226 / 510). The keyword on the slides does the work; the caption only repeats it on the posts that are less strong. Keep it in the caption anyway where there is room, it is the first thing under the post.
+- **Shapes that repeat**:
+  1. Title line only.
+  2. Title + one line with the keyword: "הגיבו ״X״ ואשלח לכם את ההסבר המלא".
+  3. Question + normalising line + the promise ("כתבתי לכם 10 טיפים... כתבו ״צינון״ ואשלח לכם").
+  4. The "forgot to say" line: "וואי אפילו שכחתי לציין שמי שיגיבו ״מדריך״ יקבלו גם..." (Dacu5bDjLDw: 633 likes, 1,752 comments, the highest comments-to-likes of the top 10).
+- **Punctuation and emoji**: she keeps quotes around the keyword (״X״), ♥️ 👇🏻 💜 at the end, rarely in the middle. Posts with an emoji got fewer likes (112 vs 186), but they are the older, Lotem-voice ones, so no conclusion.
+- **Medical disclaimer** in 15 captions (115 likes vs 184 without): she is a nurse, we are not; LumeBook should not copy it.
+
+### For LumeBook
+
+- Keep captions to 1 to 2 lines: the hook topic, then one line asking for the keyword and promising what lands in the DM. Matches what Yarin already approved ([[feedback-post-text-emojis]]: one emoji on hook, one on CTA).
+- Test the keyword on two or three slides, on the slides where the text is cut short, not only on slide 10. A keyword needs a thing to send (a free guide, a book idea list); decide what that is before using one.
+- Do not copy: about-me and reviews slides, the medical disclaimer, the coupon code, the third-person "Lotem prepared a guide".

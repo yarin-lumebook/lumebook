@@ -1,0 +1,204 @@
+{
+  "order": [
+    "slide-01",
+    "slide-02",
+    "slide-03",
+    "slide-04",
+    "slide-05",
+    "slide-06",
+    "slide-07",
+    "slide-08",
+    "slide-09",
+    "slide-10"
+  ],
+  "story": true,
+  "reference_job": "slide-01",
+  "max_usd": 0,
+  "max_replacements_per_job": 2,
+  "jobs": {
+    "slide-01": {
+      "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Characters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl faces the viewer and looks straight into the camera with a giant grin and wide eyes, holding one sneaker up in her hand while the other foot is already in a shoe; her mother is small and soft in the background, standing by the kitchen door with a lunch box in her hands. Setting: A bright Israeli apartment entrance hall with a wooden shoe rack and a small wall clock, morning.\n\nCover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.\n\nEmotional beat: one shoe on, searching, with a huge grin\n\nCamera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Warm soft morning light from a window on the left.\n\nWardrobe and objects in this scene: One white sneaker held up by the girl; a small yellow lunch box in the mother's hands.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.\n\nComposition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain soft cream hallway wall above the child) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [],
+      "estimated_cost_usd": 0.055,
+      "purpose": "slide 1 · cover · one shoe on, searching, with a huge grin",
+      "text_zone": {
+        "edge": "top",
+        "percent": 45,
+        "surface": "plain soft cream hallway wall above the child"
+      }
+    },
+    "slide-02": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl hides under her blanket while her mother, already dressed, sits on the bed and hugs her awake, a small speaker on the nightstand. Setting: The girl's small Israeli bedroom in the early morning: a low bed, soft light through the curtain, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "slide-01"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 2 · beat · The girl hides under her blanket while her mother, already dressed, sits on the bed and hu"
+    },
+    "slide-03": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl stands in front of a row of simple drawings on her bedroom wall showing a toothbrush, a shirt, a bowl and shoes, pointing at the next drawing. Setting: The girl's small Israeli bedroom in the morning: a low bed, an open drawer, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "slide-01"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 3 · beat · The girl stands in front of a row of simple drawings on her bedroom wall showing a toothbr"
+    },
+    "slide-04": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl eats cereal at a neatly set breakfast table while her mother, dressed and calm, sips coffee beside her. Setting: The family's Israeli kitchen in the morning: cream tiles, a wooden table, a window with soft light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "slide-01"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 4 · beat · The girl eats cereal at a neatly set breakfast table while her mother, dressed and calm, s"
+    },
+    "slide-05": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl sits on the shoe bench putting on her sneakers, taken from their fixed spot on the shoe rack, while her mother holds up an open hand with five fingers. Setting: The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "slide-01"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 5 · beat · The girl sits on the shoe bench putting on her sneakers, taken from their fixed spot on th"
+    },
+    "slide-06": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl sits at a school desk with her pencil case and book neatly in place, listening to the teacher with a confident smile. Setting: An Israeli first grade classroom in the morning: small desks, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "slide-01"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 6 · beat · The girl sits at a school desk with her pencil case and book neatly in place, listening to"
+    },
+    "slide-07": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl and her mother pack her school backpack by the front door in the evening, a folded outfit ready on a chair, the girl singing. Setting: The family's Israeli apartment entrance hall in the evening: a front door, a wooden shoe rack, a chair, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "slide-01"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 7 · beat · The girl and her mother pack her school backpack by the front door in the evening, a folde"
+    },
+    "slide-08": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl snuggles into bed with a plush toy while her mother turns off the bedroom light, the living room screen dark in the background. Setting: The girl's small Israeli bedroom at night: a low bed, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "slide-01"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 8 · beat · The girl snuggles into bed with a plush toy while her mother turns off the bedroom light, "
+    },
+    "slide-09": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl and her mother high five at the front door in the morning, backpack on, shoes on, both smiling. Setting: The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "slide-01"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 9 · turn · The girl and her mother high five at the front door in the morning, backpack on, shoes on,"
+    },
+    "slide-10": {
+      "endpoint": "openai/gpt-image-2.5/flare/edit",
+      "input": {
+        "image_size": {
+          "width": 1024,
+          "height": 1280
+        },
+        "quality": "high",
+        "output_format": "png",
+        "num_images": 1,
+        "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 6-year-old Israeli girl with two dark curly braids, light olive skin, big brown eyes and a front tooth missing; about 115 cm tall. Her mother, mid thirties, light skin, auburn hair in a messy bun, green eyes; warm and a little rushed in a real way. Wardrobe: Girl: a mustard cardigan over a white t-shirt, denim skirt, and one white sneaker on. Mother: a navy sweater.\n\nScene: The girl walks to school holding her mother's hand, skipping a little, both relaxed. Setting: A quiet Israeli street leading to a primary school in the morning, trees and a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+      },
+      "refs": [
+        "slide-01"
+      ],
+      "estimated_cost_usd": 0.06,
+      "purpose": "slide 10 · story_cta · The girl walks to school holding her mother's hand, skipping a little, both relaxed."
+    }
+  },
+  "backend": "chatgpt"
+}

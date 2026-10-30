@@ -1,5 +1,7 @@
 # Production mode, step by step
 
+**Since 30 Oct 2026 this file is the old paid flow.** Carousel Machine is disconnected from fal.ai (Yarin: "disconnect my fal account from the carousel machine, use my chatgpt in chrome to create the images so everything will be free"): `carousel/carousel-pipeline/production.json` has `"picture_backend": "chatgpt"`, `fal_generate.py` refuses to run, and the pictures come from ChatGPT as in SKILL.md Mode 2. Everything below applies only if Yarin sets `picture_backend` back to `"fal"`.
+
 Only after Yarin names one option ("produce kid-2").
 
 **Standing approval (Yarin, 8 Oct 2026): up to $0.50 per carousel.** Naming the option is the go-ahead to spend up to $0.50 on that carousel without asking again. Pass `--max-usd 0.5` (the runner counts everything already logged for the run). A full run is about $0.475, so a replacement usually does not fit: if an image fails QA and fixing it would pass $0.50, finish everything else and ask in the single review message. Anything above $0.50 always needs a new yes in chat.
@@ -75,6 +77,15 @@ The look follows the copy: options with `highlight` on their slides (packs from 
 It refuses to run until all seven slides passed QA. No logo and no product card by default (`--brand-mark` and `--preview-card` turn them on). It writes `final/slides.html` (editable), `final/01.png` to `08.png` at 1080 x 1350, `contact-sheet.png`, `rtl-check.png`, `rtl-report.json`, `caption.txt`, `sources.md`, `alt-text.txt` and the ZIP. It exits 1 if any text block is not RTL, overflows, or cannot fit at the readable floor (headline 56px, body 44px).
 
 Open `contact-sheet.png` and `rtl-check.png` with Read and look: numerals, quotes and question marks must sit in the right place.
+
+## 6b · The booklet under the book link CTA (packs with cta_style book_link, 30 Oct 2026)
+
+After the export, a book link option gets the open booklet on its last slide (story-format.md section 7; reference `approved/2026-12-06-kid-1/final/09.png`). Yarin asked for fal for these two pictures, so they are made with fal even though the slides come from ChatGPT:
+
+1. `python3 carousel/carousel-pipeline/scripts/booklet_cta.py --prompts "<the child in the topic's scene>"` prints both prompts. Upload `generated-assets/slide-01.png` to fal and run `fal-ai/nano-banana-2/edit` twice with it as the reference: the booklet (16:9) and the face photo (1:1). Save them as `RUN_DIR/booklet/booklet.png` and `RUN_DIR/booklet/kid.png`. About $0.16 a carousel.
+2. Look at booklet.png with a 10% grid (Pillow in `/usr/bin/python3`): the crop of the two pages with the spine in the middle, and the child's face. The right page must be blank and the face turned to the viewer; regenerate otherwise. Check the photo looks the child's age.
+3. Write three short page lines (21 characters at most each) about the child in the topic, in the child's name, Hebrew rules as everywhere.
+4. `python3 carousel/carousel-pipeline/scripts/booklet_cta.py RUN_DIR --problem "..." --word ... --page "a|b|c" --crop x,y,w,h --face x,y[,0.5]` (0.5 when the face is small, so the arrow lands on it). It validates, backs up and re-exports only the last slide. Read the new last slide: the page text on three lines, both arrows on a face.
 
 ## 7 · One review message
 

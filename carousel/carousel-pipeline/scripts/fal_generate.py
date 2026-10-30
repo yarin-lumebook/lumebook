@@ -22,6 +22,10 @@ Story runs (story-format.md, 29 Oct 2026; jobs.json "story": true): the referenc
 "reference_job"). It runs alone and waits for QA like the character reference; then slide-02 to slide-NN run in
 parallel as edits of it. jobs.json "max_usd" (1.00) caps the whole carousel even when --max-usd is higher.
 
+Disconnected since 30 Oct 2026 (Yarin: "disconnect my fal account from the carousel machine, use my chatgpt in chrome to
+create the images so everything will be free"): this script refuses to run unless carousel/carousel-pipeline/production.json
+has "picture_backend": "fal". Pictures now come from ChatGPT (scripts/chatgpt_pictures.py).
+
 FAL_KEY is read from the environment and never written to disk or logs. The calls go to the official
 fal.ai MCP server (https://mcp.fal.ai/mcp), the same server the fal-ai MCP connector uses, so this works
 even when the MCP tools are not loaded into a Claude session.
@@ -42,6 +46,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import carousel_lib as lib  # noqa: E402
 
 MCP_URL = "https://mcp.fal.ai/mcp"
+DISCONNECTED = ("Carousel Machine is disconnected from fal.ai (Yarin, 30 Oct 2026): production.json has picture_backend "
+                "\"{backend}\". Pictures are made in ChatGPT: python3 carousel/carousel-pipeline/scripts/chatgpt_pictures.py next. "
+                "Set picture_backend to \"fal\" in carousel/carousel-pipeline/production.json to use this script again.")
+
+
+def require_fal():
+    """Stop unless the picture backend is fal (production.json); nothing here may reach fal.ai otherwise."""
+    backend = lib.picture_backend()
+    if backend != "fal":
+        raise SystemExit(DISCONNECTED.format(backend=backend))
 
 
 class Run:
@@ -82,6 +96,7 @@ class Run:
 
 class Fal:
     def __init__(self):
+        require_fal()
         self.key = os.environ.get("FAL_KEY", "")
         if not self.key:
             raise SystemExit("FAL_KEY is not set in this shell. Run through zsh -ic so ~/.zshrc is loaded.")
@@ -350,6 +365,7 @@ def main():
     rp.add_argument("--dry-run", action="store_true")
     rp.set_defaults(func=cmd_replace)
     args = ap.parse_args()
+    require_fal()
     run = Run(args.run_dir)
     args.func(run, args)
 

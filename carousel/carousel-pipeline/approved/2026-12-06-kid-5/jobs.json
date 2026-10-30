@@ -1,0 +1,204 @@
+{
+ "order": [
+  "slide-01",
+  "slide-02",
+  "slide-03",
+  "slide-04",
+  "slide-05",
+  "slide-06",
+  "slide-07",
+  "slide-08",
+  "slide-09",
+  "slide-10"
+ ],
+ "story": true,
+ "reference_job": "slide-01",
+ "max_usd": 0.3,
+ "max_replacements_per_job": 2,
+ "jobs": {
+  "slide-01": {
+   "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Characters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The girl faces the viewer and looks straight into the camera with huge wide eyes, raised eyebrows and a trembling little pout, holding one balloon string in both hands; her parents are small and soft in the background by the front door. Setting: An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall.\n\nCover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.\n\nEmotional beat: worried wide eyes while waiting for the first guest\n\nCamera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Soft warm lamp light from the left that lights the cream wall, late afternoon.\n\nWardrobe and objects in this scene: One pink balloon held by the girl on a string, a few more balloons far behind, no writing anywhere.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.\n\nComposition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain pale cream living room wall above the table) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [],
+   "estimated_cost_usd": 0.055,
+   "purpose": "slide 1 · cover · worried wide eyes while waiting for the first guest",
+   "text_zone": {
+    "edge": "top",
+    "percent": 45,
+    "surface": "plain pale cream living room wall above the table"
+   }
+  },
+  "slide-02": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The girl jumps onto her parents' bed at dawn in her pyjamas, grinning hugely, as her sleepy parents laugh. Setting: The parents' Israeli bedroom at dawn: a wide bed, a plain pale wall, soft first light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 2 · beat · The girl jumps onto her parents' bed at dawn in her pyjamas, grinning hugely, as her sleep"
+  },
+  "slide-03": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The girl sits at the breakfast table between her parents, listening seriously as her mother counts on her fingers. Setting: The family's Israeli kitchen in the morning: a wooden table, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 3 · beat · The girl sits at the breakfast table between her parents, listening seriously as her mothe"
+  },
+  "slide-04": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The mother pretends to knock on the living room door holding a wrapped gift, and the girl opens it with a polite little bow while the father claps. Setting: An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 4 · beat · The mother pretends to knock on the living room door holding a wrapped gift, and the girl "
+  },
+  "slide-05": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The girl sits on the floor by the closed front door crying loudly, her balloon drifting to the ceiling, her parents rushing toward her. Setting: An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 6 · beat · The girl sits on the floor by the closed front door crying loudly, her balloon drifting to"
+  },
+  "slide-06": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The girl sits wrapped in a soft blanket in a quiet corner of her bedroom, her father sitting beside her on the floor. Setting: The girl's small Israeli bedroom in the afternoon: a soft rug, a plain pale wall, gentle light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 7 · beat · The girl sits wrapped in a soft blanket in a quiet corner of her bedroom, her father sitti"
+  },
+  "slide-07": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The girl opens the front door with a shy smile to a small friend holding a gift, her mother standing behind her. Setting: An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 8 · beat · The girl opens the front door with a shy smile to a small friend holding a gift, her mothe"
+  },
+  "slide-08": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The girl lies in bed, cheeks still flushed from the party, telling her parents about the day as they sit on either side of her. Setting: The girl's small Israeli bedroom at night: a warm bedside lamp, a plain wall above the bed. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 9 · beat · The girl lies in bed, cheeks still flushed from the party, telling her parents about the d"
+  },
+  "slide-09": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The girl hugs both parents in the living room among the leftover balloons and paper cups, all three tired and smiling. Setting: An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 10 · turn · The girl hugs both parents in the living room among the leftover balloons and paper cups, "
+  },
+  "slide-10": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli girl with long dark wavy hair and a small side clip, warm olive skin and big brown eyes; about 103 cm tall. Her mother, early thirties, dark wavy hair in a loose bun, kind brown eyes, and her father, mid thirties, short black hair and a trimmed beard; both warm and relaxed. Wardrobe: Girl: pale pink cotton dress with short sleeves, no printed text. Mother: cream blouse and jeans. Father: light blue shirt.\n\nScene: The girl sleeps holding one balloon string tied to her bedpost, a calm smile on her face. Setting: The girl's small Israeli bedroom at night: a warm night light, a plain wall above the bed. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 11 · story_cta · The girl sleeps holding one balloon string tied to her bedpost, a calm smile on her face."
+  }
+ },
+ "backend": "fal"
+}

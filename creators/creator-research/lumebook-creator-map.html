@@ -917,6 +917,8 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .odet{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:0}
 .odet[open]{padding-bottom:0}
 .odet summary{font-size:var(--fs-callout);color:var(--tint);font-weight:500;min-height:2.75rem}
+.drrow{display:flex;gap:var(--sp-2);align-items:center}.drrow .lb-input{flex:1;min-width:0}
+.bkbar{display:flex;gap:var(--sp-3);margin:var(--sp-3) 0;align-items:center}.bkbar .lb-input{flex:1;max-width:28rem}.bktbl td{vertical-align:middle;padding:.25rem}.bktbl .lb-input{min-width:7.5rem;width:100%}.bktbl td.dr{min-width:15rem}.bktbl .drc{display:flex;gap:.35rem;align-items:center}
 .ogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:var(--sp-3);margin-top:var(--sp-3)}
 .ogrid label,.sset label{display:grid;gap:.3rem;font-size:var(--fs-footnote);color:var(--text-2);font-weight:500}
 .mtabs{flex-wrap:nowrap;overflow-x:auto;max-width:100%;margin-top:var(--sp-1)}
@@ -1070,7 +1072,7 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
 
 
 <div class="lb-app" dir="rtl">
-<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות להיום</span><b class="cnt lb-count" id="remN"></b></a><a class="nav-i lb-nav-item" href="#remall" data-route="remall" data-ic="cal"><span class="t">כל התזכורות</span><b class="cnt lb-count" id="remAllN"></b></a><a class="nav-i lb-nav-item" href="#followups" data-route="followups" data-ic="send"><span class="t">פולואפים להיום</span><b class="cnt lb-count" data-cnt="due"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
+<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות להיום</span><b class="cnt lb-count" id="remN"></b></a><a class="nav-i lb-nav-item" href="#remall" data-route="remall" data-ic="cal"><span class="t">כל התזכורות</span><b class="cnt lb-count" id="remAllN"></b></a><a class="nav-i lb-nav-item" href="#followups" data-route="followups" data-ic="send"><span class="t">פולואפים להיום</span><b class="cnt lb-count" data-cnt="due"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div><a class="nav-i lb-nav-item" href="#books" data-route="books" data-ic="gift"><span class="t">ספרים שנוצרו</span><b class="cnt lb-count" id="booksN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
 <div class="main lb-main">
 <header class="topbar lb-topbar"><div class="lb-topbar-in"><button type="button" class="lb-btn ghost icon menu" id="menuBtn" aria-label="פתיחת התפריט" aria-controls="side" aria-expanded="false"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg></button><a class="tb-brand" href="#overview" aria-label="מפת היוצרים, ראשי"><span class="brand-logo" aria-hidden="true"></span></a><div class="crumbs"><span id="crumbG">פניות</span><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5l5.5 5.5-5.5 5.5"/></svg><b id="crumbT">ראשי</b></div><span class="lb-spacer"></span><span class="tb-hint"><kbd>/</kbd> לחיפוש</span><button type="button" class="svst" id="svst" title="מצב השמירה"><span class="dot"></span><span class="t">טוען…</span></button><button type="button" class="lb-btn sm addb" id="addBtn" data-ic="userplus" aria-label="הוספת יוצרים"><span class="t">הוספת יוצרים</span></button><a class="lb-btn ghost sm hub" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">LumeBook HQ</a><button class="lb-theme-switch" type="button" role="switch" aria-checked="false" data-lb-theme-toggle aria-label="מצב כהה" title="מצב כהה"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div></header>
 <main id="main" class="lb-page">
@@ -1139,6 +1141,14 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
     <p class="note" style="margin-top:10px"><b>טבלת המעקב הישנה (Creator Outreach Tracker v2 ב-Drive).</b> בדקתי מחדש 40 מהשמות שבה. המספרים השתנו וחלק מהרשומות שבורות:</p>
     <ul class="tight" id="trk"></ul>
   </details>
+</section>
+<section class="page lb-section" data-page="books" hidden>
+  <p class="lb-eyebrow">פניות</p>
+  <h2>ספרים שנוצרו</h2>
+  <p class="lb-lede" id="bkLede"></p>
+  <div class="bkbar"><input class="lb-input" type="search" id="bkQ" dir="auto" placeholder="חיפוש לפי יוצר, ילד או ספר" aria-label="חיפוש בטבלת הספרים"><button type="button" class="lb-btn" id="bkAdd">+ ספר חדש</button></div>
+  <div class="tbl lb-table-wrap"><table class="lb-table bktbl"><thead><tr><th>יוצר</th><th>שם הילד</th><th>הספר (נושא או שם)</th><th>נוצר בתאריך</th><th>נשלח בתאריך</th><th>תיקיית דרייב</th><th>הערות</th><th></th></tr></thead><tbody id="bkBody"></tbody></table></div>
+  <datalist id="bkH"></datalist>
 </section>
 <section class="page lb-section" data-page="archetypes" hidden>
   <span class="lb-eyebrow">תוצר 3</span>
@@ -1241,7 +1251,8 @@ const conflictCls=s=>/COMPETITOR/i.test(s)?"flag bad":/Adjacent|Unclear/i.test(s
 
 
 const MON=["ינו׳","פבר׳","מרץ","אפר׳","מאי","יוני","יולי","אוג׳","ספט׳","אוק׳","נוב׳","דצמ׳"];
-const addedLabel=c=>{const p=(c.added||"").split("-"); return p.length===3?p[2]+" / "+p[1]+" / "+p[0]+" · סבב "+c.batch:"לא ידוע"};
+const isoDL=v=>{ const p=String(v||"").split("-"); return p.length===3&&p[0].length===4?"\u2066"+p[2]+" / "+p[1]+" / "+p[0]+"\u2069":String(v||"") };   // dd / mm / yyyy (Yarin, 30 Oct 2026)
+const addedLabel=c=>{const p=(c.added||"").split("-"); return p.length===3?"\u2066"+p[2]+" / "+p[1]+" / "+p[0]+"\u2069 · סבב "+c.batch:"לא ידוע"};
 // The research record is in English (C_all.json). Fields with a fixed set of values are shown in Hebrew; the values themselves stay as they are.
 const ARCH_HE={"Parent":"הורה","Parent guide / coach":"הדרכת הורים / קואצ׳ינג","Child-dev professional":"מקצועות התפתחות הילד","Family travel & outings":"טיולים ובילויים עם המשפחה","Gan / preschool":"גן / גיל הגן","Special ed & neurodiversity":"חינוך מיוחד ונוירודיברסיטי","Homeschool / alternative ed":"חינוך ביתי / חינוך אלטרנטיבי","Parent (twins)":"הורה (תאומים)","Parent (dad)":"הורה (אבא)","Elementary & remedial teacher":"הוראה ביסודי ובהוראה מתקנת","Home daycare / childcare":"משפחתון / טיפול בילדים","Community leader / podcaster":"הובלת קהילה / פודקאסט","Screen-free / free play":"בלי מסכים / משחק חופשי","Books & reading":"ספרים וקריאה","Grandparent":"סבא / סבתא","Parent (single / co-parent / blended)":"הורה (יחידני / הורות משותפת / משפחה מעורבת)","Bilingual & multicultural":"דו-לשוני ורב-תרבותי",
   "Unexpected: party producer":"לא צפוי: הפקת ימי הולדת","Unexpected: kids activities":"לא צפוי: פעילויות לילדים","Unexpected: family photographer":"לא צפוי: צילום משפחות","Unexpected: kids entertainer":"לא צפוי: הפעלת ילדים","Unexpected: creative producer":"לא צפוי: הפקה יצירתית","Unexpected: enrichment-centre owner":"לא צפוי: מרכז העשרה","Unexpected: toddler music teacher":"לא צפוי: מוזיקה לפעוטות","Unexpected: kids nutritionist":"לא צפוי: תזונה לילדים","Unexpected: family games maker":"לא צפוי: משחקי משפחה","Unexpected: kids workshops":"לא צפוי: סדנאות לילדים","Unexpected: illustrator and cartoonist":"לא צפוי: איור וקומיקס","Unexpected: kids dance teacher":"לא צפוי: מחול לילדים","Unexpected: kids musician":"לא צפוי: מוזיקה לילדים"};
@@ -1394,6 +1405,7 @@ const FACETS={
   track:{l:"מסלול",vals:TRACKS.map(([v,l])=>({v,l,t:c=>HOOK.trk(c)===v}))},
   stage:{l:"שלב בתהליך",vals:STAGES.map(([v,l])=>({v,l,t:c=>HOOK.stage(c)===v}))},
   obj:{l:"סיבה (סירוב או תקיעה)",vals:OBJ.map(([v,l])=>({v,l,t:c=>HOOK.obj(c)===v}))},
+  bk:{l:"ספרים ותוכן",vals:[{v:"book",l:"נוצר להם ספר",t:c=>booksOf(c)>0},{v:"drive",l:"יש תיקיית דרייב",t:c=>!!driveOf(c)},{v:"nodrive",l:"קיבלו ספר, בלי תיקיית דרייב",t:c=>booksOf(c)>0&&!driveOf(c)}]},
   test:{l:"גרסת ניסוי",vals:[{v:"A",l:"גרסה A",t:c=>HOOK.expv(c)==="A"},{v:"B",l:"גרסה B",t:c=>HOOK.expv(c)==="B"}]},
   flag:{l:"חייב לכלול",all:true,vals:[{v:"rem",l:"יש תזכורת",t:c=>!!HOOK.nad(c.h)},{v:"rf",l:"סומן ברענון השבועי",t:c=>!!(c.rf&&c.rf.length)},{v:"rfpost",l:"פרסמו על LumeBook (רענון שבועי)",t:c=>!!(c.rf||[]).some(isPost)},{v:"email",l:"כתובת מייל",t:c=>!!c.email},{v:"phone",l:"טלפון או וואטסאפ",t:c=>!!c.phone},{v:"due",l:"פולואפ לשליחה",t:c=>HOOK.due(c)!=null},{v:"fuopen",l:"לא ענו, עוד אפשר פולואפ",t:c=>HOOK.fuOpen(c)},{v:"na",l:"תזכורת שהגיע זמנה",t:c=>HOOK.naDue(c)},{v:"offer",l:"ניסוח הצעה לבדיקה",t:c=>HOOK.offer(c)},{v:"edited",l:"הודעות שערכתי",t:c=>HOOK.edited(c)},{v:"conflict",l:"חשש להתנגשות מותג",t:c=>/COMPETITOR|Adjacent|Unclear/i.test(c.conflict||"")}]},
   score:{l:"ציון",vals:[["80 ומעלה",80,Infinity],["70 עד 79",70,80],["60 עד 69",60,70],["מתחת ל-60",-Infinity,60]].map(([l,a,b])=>rng(l,a,b,c=>c.score))},
@@ -1407,6 +1419,7 @@ const FACETS={
 };
 const SORTF={
   score:{l:"ציון",d:-1,v:c=>c.score}, f:{l:"עוקבים",d:-1,v:c=>c.f}, med:{l:"צפיות חציון",d:-1,v:c=>c.med},
+  books:{l:"מספר ספרים שנוצרו",d:-1,v:c=>booksOf(c)||null},
   last:{l:"רילס אחרון",d:-1,v:c=>c.last||null}, added:{l:"תאריך הוספה",d:-1,v:c=>c.ai},
   status:{l:"סטטוס הפנייה",d:1,v:c=>ST_I[HOOK.bk(c)]}, activity:{l:"פעילות אחרונה",d:-1,v:c=>HOOK.at(c.h)||null},
   sent:{l:"תאריך שליחה",d:-1,v:c=>HOOK.on(c.h)||null}, due:{l:"ימים מאז השליחה (פולואפים)",d:-1,v:c=>HOOK.due(c)},
@@ -1552,7 +1565,7 @@ function dbRender(){
       <td><a href="${url(c)}" target="_blank" rel="noopener">${hb(c.h)}</a>${c.plat!=="Instagram"?` <span class="lb-chip">${c.plat}</span>`:""}<div class="he note" dir="auto">${esc(c.name)}</div></td>
       <td><span class="dot st-${s}"></span>${esc(STL[s])}${s==="process"&&HOOK.stage(c)?`<div class="note">${esc(STGL[HOOK.stage(c)])}</div>`:""}${HOOK.obj(c)&&(s==="declined"||s==="process")?`<div class="note">${esc(OBJL[HOOK.obj(c)])}</div>`:""}</td>
       <td>${TRKL[HOOK.trk(c)]?`<span class="lb-chip cat lb-track-${HOOK.trk(c)}">${esc(TRKL[HOOK.trk(c)])}</span>`:""}</td>
-      <td>${esc(archL(c.arch))}</td><td>${kidsTxt(c)?esc(kidsTxt(c)):'<span class="note">לא נבדק</span>'}</td><td class="r num">${k(c.f)}</td><td class="r num">${k(c.med)}</td><td class="num">${esc(c.last||"לא ידוע")}</td>
+      <td>${esc(archL(c.arch))}</td><td>${kidsTxt(c)?esc(kidsTxt(c)):'<span class="note">לא נבדק</span>'}</td><td class="r num">${k(c.f)}</td><td class="r num">${k(c.med)}</td><td class="num">${esc(c.last?isoDL(c.last):"לא ידוע")}</td>
       <td class="num">${esc(addedLabel(c))}</td><td>${esc(pracL(c.prac))}</td><td class="${conflictCls(c.conflict)}">${esc(confL(c.conflict))}</td></tr>`;
     if(open!==c.h) return row;
     return row+`<tr class="det"><td colspan="12"><div class="detgrid">
@@ -1652,7 +1665,7 @@ const bkOf=c=>{ const raw=rawSt(c.h); if(raw!=="sent"&&raw!=="due") return stOf(
 const dueOf=c=>bkOf(c)==="due"?Math.max(0,Math.floor((Date.now()-seq(c).since)/864e5)):null;
 // A creator in No reply never said no, so the follow-up that was not sent yet stays available
 const fuOpen=c=>{ if(bkOf(c)!=="noreply") return false; const q=seq(c); return q.k==="due"||q.k==="nodate"||(q.k==="done"&&q.n<2) };
-const dayLabel=ms=>{ const d=new Date(ms); return String(d.getDate()).padStart(2,"0")+" / "+String(d.getMonth()+1).padStart(2,"0")+" / "+d.getFullYear() };   // dd / mm / yyyy (Yarin, 30 Oct 2026)
+const dayLabel=ms=>{ const d=new Date(ms); return "\u2066"+String(d.getDate()).padStart(2,"0")+" / "+String(d.getMonth()+1).padStart(2,"0")+" / "+d.getFullYear()+"\u2069" };
 const dL=s=>{ const t=dms(s); return t==null?String(s||""):dayLabel(t) };
 // ---------- tracks, reasons, steps ----------
 // Every creator has a track, and every track is the same commission offer (a personalised book for one agreed video and a personal link with the split):
@@ -1676,6 +1689,10 @@ const SIGNED=["signed","created","booksent","content"];
 const agreed=c=>SIGNED.includes(stgOf(c));
 const interested=c=>get(c.h).int===1||agreed(c);
 const gotContent=c=>stgOf(c)==="content";
+// Books and content (Yarin, 30 Oct 2026): how many books we made for a creator and which, and the link to the Google Drive folder that holds their content (`dr`).
+const BK=()=>Array.isArray(SET.books)?SET.books:[];
+const booksOf=c=>BK().filter(b=>b.h===c.h).length;
+const driveOf=c=>{ const v=String(get(c.h).dr||"").trim(); return /^https:\/\//.test(v)?v:"" };
 const salesOf=c=>{ const v=get(c.h).sales; if(v===undefined||v===null||String(v).trim()==="") return null; const x=parseFloat(v); return isNaN(x)?null:x };
 const chOf=c=>c.phone?"WhatsApp":c.email?"Email":"Instagram DM";
 const CHS=["Instagram DM","WhatsApp","Email"], LASTCH={};
@@ -2146,6 +2163,12 @@ const n1=v=>v>=10?String(Math.round(v)):v.toFixed(1).replace(/\.0$/,"");
 // the change since the research, once a weekly refresh has run
 const chg=(now,was)=>{ if(!now||!was||now===was) return ""; const p=Math.round((now-was)/was*100); return p?'<i class="chg '+(p>0?"up":"down")+'" title="השינוי מאז המחקר">'+(p>0?"+":"-")+Math.abs(p)+'%</i>':"" };
 const PIC={"עוקבים":"people","צפיות חציון":"eye","צפיות לעוקב":"reach","לייקים ל-1K צפיות":"heart","תגובות ל-1K צפיות":"comment","שאלות קנייה ל-100 תגובות":"cart","מכירות דרך הקישור":"coin"};
+function bookContentHtml(c,o){
+  const d=driveOf(c);
+  return '<h4 class="osec">ספרים ותוכן</h4><div class="ogrid"><p class="note full" style="margin:0">'+(booksOf(c)?booksOf(c)+(booksOf(c)===1?' ספר נוצר':' ספרים נוצרו')+' ליוצר הזה. ':'עוד לא נרשם ספר ליוצר הזה. ')+'<a href="#books" data-openbooks="'+esc(c.h)+'">לטבלת הספרים</a></p>'
+   +'<label class="full">קישור לתיקיית הדרייב שלהם<span class="drrow"><input class="lb-input" data-f="dr" dir="ltr" value="'+esc(o.dr||"")+'" placeholder="https://drive.google.com/drive/folders/…">'
+   +(d?'<a class="lb-btn secondary" href="'+esc(d)+'" target="_blank" rel="noopener">פתיחת התיקייה ↗</a>':'')+'</span></label></div>';
+}
 function perfHtml(c){ const q=c.kpi||null, R=rk(), v=vpf(c), sl=salesOf(c), when=c.rfd?"ברענון של "+dL(c.rfd):"במחקר, "+c.chk;
   // p: the share of the comparison group below this number; who: that group
   // every card shows all six boxes; a number we do not have says so (Yarin, 24 Oct 2026)
@@ -2173,6 +2196,8 @@ function card(c,opt){
   const wa=waLink(c,msgOf(c,"dm")), ml=mailLink(c), ch=chOf(c), ob=objOf(c), sg=stgOf(c), na=naState(c), rt=remAt(o);
   const kt=kidsTxt(c);
   const chips=(sg?'<span class="lb-chip info">'+esc(STGL[sg])+'</span>':'')
+   +(booksOf(c)?'<span class="lb-chip success" title="כמה ספרים נוצרו ליוצר הזה">'+booksOf(c)+(booksOf(c)===1?' ספר':' ספרים')+'</span>':'')
+   +(driveOf(c)?'<a class="lb-chip success" href="'+esc(driveOf(c))+'" target="_blank" rel="noopener" title="תיקיית הדרייב של היוצר">תיקיית דרייב ↗</a>':'')
    +(ob?'<span class="lb-chip wrap '+(s==="declined"?"danger":"warning")+'" title="'+(o.obj?"הסיבה שרשמת":"לא נרשמה סיבה לסירוב")+'">'+(s==="declined"?"סיבה: ":"מה תוקע: ")+esc(OBJL[ob])+'</span>':'')
    +(rt!=null?'<span class="lb-chip '+(na==="over"?"danger":na==="today"?"warning":"outline")+'" title="'+esc(o.na||"")+'">⏰ '+esc(whenL(o))+'</span>':'')
    +'<span class="lb-chip tint">'+esc(chL(o.chs&&s!=="new"?o.chs:ch))+'</span>'
@@ -2203,7 +2228,7 @@ function card(c,opt){
   return '<article class="oc lb-card '+(s==="declined"||s==="posted"||cur==="noreply"?"done":"")+'" data-h="'+esc(c.h)+'">'
    +'<div class="ocg"><div class="oside">'
    +'<div class="oid"><a class="hn" href="'+prof+'" target="_blank" rel="noopener" title="פתיחת הרילס שלהם בלשונית חדשה">'+hb(c.h)+' <span aria-hidden="true">↗</span></a><span class="he" dir="auto">'+esc(c.name)+'</span></div>'
-   +'<div class="omet"><span>רילס אחרון '+esc(c.last||"לא ידוע")+'</span>'+(o.on?'<span>נשלח ב-'+esc(dL(o.on))+(ssOf(c)===2?' · קצר':'')+'</span>':'')+'</div>'
+   +'<div class="omet"><span>רילס אחרון '+esc(c.last?isoDL(c.last):"לא ידוע")+'</span>'+(o.on?'<span>נשלח ב-'+esc(dL(o.on))+(ssOf(c)===2?' · קצר':'')+'</span>':'')+'</div>'
    +'<div class="chips">'+chips+(staleProc(c.h)?'<span class="lb-chip danger" title="בתהליך בלי שינוי סטטוס ובלי תזכורת במשך 30 יום, אז עבר לסירוב לבד. בחירה מחדש של ״בתהליך״ מחזירה אותו.">אוטומטי: חודש בתהליך</span>':'')+rfc+'</div>'
    +'<div class="ofld"><div class="fl"><span>סטטוס</span>'+mbtn("s","st-"+cur,STL[cur],"הסטטוס של "+c.h)+'</div>'
    +'<div class="fl" title="'+(trkSet(c)?"המסלול שבחרת. הוא קובע את הזווית של ההודעות.":"נבחר לפי קטגוריית המחקר ("+esc(archL(c.arch))+"). אפשר לבחור אחר כאן.")+'"><span>מסלול'+(trkSet(c)?'':' · נבחר אוטומטית')+'</span>'+mbtn("trk","tk lb-track-"+T,TRKL[T],"מסלול שיתוף הפעולה של "+c.h)+'</div></div>'
@@ -2217,6 +2242,7 @@ function card(c,opt){
    +'<dl class="operf">'+perfHtml(c)+'</dl>'
    +'</div></div>'
    +'<div class="odeal">'+deal+'</div>'
+   +(s!=="new"&&s!=="declined"||booksOf(c)||driveOf(c)?bookContentHtml(c,o):'')
    +'<details class="odet"><summary>העסקה, התשובה והפתקים</summary>'
    +'<p class="note" style="margin:0">אלה ההודעות של המסלול '+esc(TRKL[T])+' בסגנון '+STY_NAME[sty(c)]+'. העריכות נשמרות ליוצר הזה ולמסלול הזה, וכשיוצאים מהתיבה הן מלמדות את התבניות את הקול שלך. ההצעה עצמה לא משתנה אף פעם. על המסך <bdi dir="ltr">@lumebookai</bdi> אולי ייראה הפוך; הטקסט שמועתק תקין.</p>'
    +'<h4 class="osec">ההצעה והעסקה</h4>'
@@ -2240,13 +2266,51 @@ function card(c,opt){
    +'<details class="odet" data-hist="'+esc(c.h)+'" style="margin-top:var(--sp-3)"><summary>היסטוריה</summary><ul class="hist" data-histl>'+histHtml(c.h)+'</ul></details>'
    +'<div style="margin-top:8px">'+contact+'</div></details></article>';
 }
+// ---------- books table (30 Oct 2026): one row per book we made; SET.books in settings/main ----------
+const bkNew=h=>({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),h:h||"",child:"",title:"",on:today(),sent:"",note:"",dr:""});
+const bkDr=b=>byH[b.h]?(get(b.h).dr||""):(b.dr||"");
+function bkRow(b){
+  const d=bkDr(b), ok=/^https:\/\//.test(d.trim());
+  return '<tr data-id="'+esc(b.id)+'"><td><input class="lb-input" list="bkH" dir="ltr" data-bk="h" value="'+esc(b.h)+'" placeholder="@handle" aria-label="יוצר"></td>'
+   +'<td><input class="lb-input" dir="auto" data-bk="child" value="'+esc(b.child)+'" aria-label="שם הילד"></td>'
+   +'<td><input class="lb-input" dir="auto" data-bk="title" value="'+esc(b.title)+'" aria-label="הספר"></td>'
+   +'<td><input class="lb-input" type="date" data-bk="on" value="'+esc(b.on)+'" aria-label="נוצר בתאריך"></td>'
+   +'<td><input class="lb-input" type="date" data-bk="sent" value="'+esc(b.sent)+'" aria-label="נשלח בתאריך"></td>'
+   +'<td class="dr"><span class="drc"><input class="lb-input" dir="ltr" data-bk="dr" value="'+esc(d)+'" placeholder="https://drive.google.com/…" aria-label="תיקיית דרייב">'+(ok?'<a class="lb-btn secondary sm" href="'+esc(d.trim())+'" target="_blank" rel="noopener">פתיחה ↗</a>':'')+'</span></td>'
+   +'<td><input class="lb-input" dir="auto" data-bk="note" value="'+esc(b.note)+'" aria-label="הערות"></td>'
+   +'<td><button type="button" class="lb-btn icon" data-bkdel title="הסרת השורה" aria-label="הסרת הספר">×</button></td></tr>';
+}
+function renderBooks(){
+  const ae=document.activeElement, body=document.getElementById("bkBody");
+  if(ae&&body.contains(ae)&&ae.tagName==="INPUT") return;   // never rebuild a row while it is being typed in
+  const q=(document.getElementById("bkQ").value||"").trim().toLowerCase(), all=BK();
+  const rows=all.filter(b=>!q||[b.h,b.child,b.title,b.note].join(" ").toLowerCase().includes(q)).sort((a,b)=>(b.on||"").localeCompare(a.on||""));
+  body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="8" class="note">'+(all.length?"שום ספר לא מתאים לחיפוש.":"עוד לא נרשם אף ספר. ״ספר חדש״ מוסיף שורה.")+'</td></tr>';
+  const cre=new Set(all.map(b=>b.h).filter(Boolean)).size;
+  document.getElementById("bkLede").textContent=all.length?all.length+(all.length===1?" ספר נוצר":" ספרים נוצרו")+", ל-"+cre+(cre===1?" יוצר":" יוצרים")+". כל שדה ניתן לעריכה ונשמר מעצמו. תיקיית הדרייב שייכת ליוצר, אז היא זהה בכל הספרים שלו ונראית גם בכרטיס שלו.":"טבלה אחת לכל הספרים שנוצרו ליוצרים: מי, לאיזה ילד, איזה ספר, ומתי.";
+  const n=document.getElementById("booksN"); if(n) setCnt(n,all.length||"");
+  const dl=document.getElementById("bkH"); if(!dl.children.length) dl.innerHTML=C.map(c=>'<option value="'+esc(c.h)+'">'+esc(c.n||"")+'</option>').join("");
+}
+(function(){
+  const body=document.getElementById("bkBody");
+  document.getElementById("bkAdd").addEventListener("click",()=>{ const h=window.__bkH||""; window.__bkH=""; document.getElementById("bkQ").value=""; const b=bkNew(h); SET.books=BK().concat([b]); saveSettings(); renderBooks(); const f=body.querySelector('tr[data-id="'+b.id+'"] [data-bk="h"]'); f&&f.focus() });
+  document.getElementById("bkQ").addEventListener("input",renderBooksForce);
+  body.addEventListener("input",e=>{ const k=e.target.dataset&&e.target.dataset.bk; if(!k) return; const b=BK().find(x=>x.id===e.target.closest("tr").dataset.id); if(!b) return;
+    const v=e.target.value.trim(); if(k==="dr"){ if(byH[b.h]) patchLater(b.h,{dr:v}); else{ b.dr=v; saveLater() } } else{ b[k]=v; saveLater() } });
+  body.addEventListener("change",e=>{ const k=e.target.dataset&&e.target.dataset.bk; if(!k) return; if(k==="h"){ const b=BK().find(x=>x.id===e.target.closest("tr").dataset.id); if(b) b.h=e.target.value.trim().replace(/^@/,"") } saveSettings(); e.target.blur(); render() });
+  body.addEventListener("click",e=>{ const x=e.target.closest("[data-bkdel]"); if(!x) return; const id=x.closest("tr").dataset.id; SET.books=BK().filter(b=>b.id!==id); saveSettings(); render() });
+  document.querySelector("main").addEventListener("click",e=>{ const a=e.target.closest("[data-openbooks]"); if(!a) return; e.preventDefault(); window.__bkH=a.dataset.openbooks; document.getElementById("bkQ").value=a.dataset.openbooks; navigate("books") });
+})();
+function renderBooksForce(){ const ae=document.activeElement; if(ae&&ae.id==="bkQ"){ const body=document.getElementById("bkBody"); const q=ae.value.trim().toLowerCase(), all=BK(); const rows=all.filter(b=>!q||[b.h,b.child,b.title,b.note].join(" ").toLowerCase().includes(q)).sort((a,b)=>(b.on||"").localeCompare(a.on||"")); body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="8" class="note">שום ספר לא מתאים לחיפוש.</td></tr>' } else renderBooks() }
 function render(){
   const ae=document.activeElement, list=document.getElementById("olist");
   navCounts(); migRender(); remCount(); renderDrawer();
+  { const bn=document.getElementById("booksN"); if(bn) setCnt(bn,BK().length||"") }
   if(ROUTE.page==="reminders") renderRem();
   if(ROUTE.page==="followups") renderFu();
   if(ROUTE.page==="overview") renderOverview();
   if(ROUTE.page==="database") dbRender();
+  if(ROUTE.page==="books") renderBooks();
   if(ROUTE.page!=="contacts") return;
   if(ae&&list.contains(ae)&&/^(TEXTAREA|INPUT)$/.test(ae.tagName)&&ae.type!=="checkbox"){ pendingRender=true; stats(); return }
   pendingRender=false; stats();
@@ -2381,6 +2445,7 @@ function onCardChange(e){
   else if(f==="nad"||f==="nat"){ const v=e.target.value, p={[f]:v}; if(f==="nad"&&!v) p.nat=""; if(f==="nad"&&v&&!get(h).nat) p.nat="08:00";
     patch(h,p); const o=get(h); logEv(h,"rem",{na:o.na,due:o.nad?o.nad+(o.nat?" "+o.nat:""):""}); render(); flashCard(h); toast(o.nad?"התזכורת נשמרה: "+whenL(o)+".":"התזכורת הוסרה.") }
   else if(f==="kn"||f==="kb"||f==="kg"||f==="kname"){ patch(h,{[f]:e.target.value}); render() }
+  else if(f==="dr"){ patch(h,{[f]:e.target.value.trim()}); render() }
   else if(f==="on"){ patch(h,{on:e.target.value,sat:""}); render(); flashCard(h); toast("תאריך השליחה נשמר.") }
 }
 function syncBar(card,c){
@@ -2639,7 +2704,7 @@ HOOK.edited=c=>MT.some(([t])=>manual(c,t));
 HOOK.trk=trkOf; HOOK.obj=objOf; HOOK.stage=stgOf; HOOK.expv=c=>expOf(c)?get(c.h).expv||"":""; HOOK.nad=h=>get(h).nad||"";
 HOOK.naDue=c=>["over","today"].includes(naState(c)); HOOK.offer=offerFlag; HOOK.fuOpen=fuOpen;
 HOOK.more=c=>{ const o=get(c.h), e=expOf(c); return [o.na,o.objn,o.objq,e&&e.name,TRKL[trkOf(c)]].filter(Boolean).join(" ") };
-const PAGES={reminders:["פניות","תזכורות להיום"],remall:["פניות","כל התזכורות"],followups:["פניות","פולואפים להיום"],overview:["פניות","ראשי"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
+const PAGES={reminders:["פניות","תזכורות להיום"],remall:["פניות","כל התזכורות"],followups:["פניות","פולואפים להיום"],overview:["פניות","ראשי"],books:["פניות","ספרים שנוצרו"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
 const LEGACY={"c-due":"followups","c-posted":"c-process-content","c-book":"c-process-booksent","c-content":"c-process-content","c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview",today:"overview"};
 const STATUS_NAV=[["all","כל היוצרים"],["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["due","פולואפ לשליחה"],["noreply","לא ענו"],["process","בתהליך"],["declined","סירבו"],["unfit","לא מתאימים"]];
 const statusName=(s,g)=>(STATUS_NAV.find(x=>x[0]===s)||[0,"יוצרים"])[1]+(s==="process"&&STGL[g]?" · "+STGL[g]:"");
@@ -2657,6 +2722,7 @@ function navCounts(){
 }
 function parseRoute(h){
   h=String(h||"").replace(/^#/,""); h=LEGACY[h]||h;
+  if(h==="books") return {page:"books",key:h};
   if(/^c-(all|due|new|sent|noreply|process|declined|unfit)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
   const m=/^c-process-(\w+)$/.exec(h); if(m&&STGL[m[1]]) return {page:"contacts",status:"process",stage:m[1],key:h};
   if(h==="remall") return {page:"reminders",key:h};
@@ -2733,6 +2799,7 @@ function renderOverview(){
     +tile("c-process","ענו",replies,contacted?Math.round(replies/contacted*100)+"% ממי שפנינו אליהם, בלי סירובים":"עוד לא פנינו לאף אחד")
     +tile("c-process","בתהליך",n("process"),naDue?(naDue===1?"תזכורת אחת שהגיע זמנה":naDue+" תזכורות שהגיע זמנן"):"מדברים איתם עכשיו",naDue?"warn":"")
     +tile("c-due","פולואפים לשליחה",cnt.due,"הראשון 4 ימים אחרי השליחה",cnt.due?"warn":"")
+    +tile("c-all","ספרים ותוכן",C.reduce((a,c)=>a+booksOf(c),0)+" ספרים",C.filter(c=>booksOf(c)>0).length+" יוצרים עם ספר · "+C.filter(c=>!!driveOf(c)).length+" עם תיקיית דרייב")
     +tile("c-process-content","נוצר תוכן",content,C.filter(c=>stgOf(c)==="booksent").length+" עם ספר בדרך");
   document.getElementById("pipe").innerHTML=STD.filter(([s])=>n(s)).map(([s,l])=>'<a class="st-'+s+'" href="#c-'+s+'" style="flex:'+n(s)+'" title="'+esc(l)+': '+n(s)+'" aria-label="'+esc(l)+': '+n(s)+'"></a>').join("");
   document.getElementById("legend").innerHTML=STD.map(([s,l])=>'<a href="#c-'+s+'"><span class="dot st-'+s+'"></span>'+esc(l)+'<b>'+n(s)+'</b></a>').join("");

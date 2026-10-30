@@ -10,89 +10,150 @@
 
 ## הילד מספר להורים
 
-### kid-1 · אמא ואבא 8 דברים שיעזרו לי להיפרד מהטיטול
+### kid-1 · אמא ואבא, 5 דברים שיעזרו לי להיפרד מהטיטול
 
 - **על מי:** הילה (בת), לשני ההורים
-- **זווית:** הילדה מבקשת מההורים שמונה דברים קטנים: תחתונים של גדולים, סיר שמגיע לרצפה, ספר, סיר ראשון בבוקר, לראות אותם בשירותים, מילים טובות, ללחוץ על המים ולשמוע למה הם גאים.
+- **זווית:** הילה, בת 3, כמעט גדולה והטיטול עוד איתה. היא מבקשת מההורים חמישה דברים: תחתונים של גדולים, סיר נמוך שהרגליים נוגעות בו ברצפה, סיר ראשון בבוקר עם ספר, לראות אותם בשירותים ולשטוף ידיים, ומילה ברורה על מה שהצליחה בלי ממתק.
 - **למי:** הורים לילדה בת 2 עד 3 שמתחילים להיפרד מהטיטול ורוצים דברים מעשיים לעשות כבר מחר.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** child-numbered-ask
 - **נושא:** מתחילים להיפרד מהטיטול (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המספר והבקשה של הילד/ה על הכריכה (8 דברים שיעזרו), והפנים מסתכלות ישר לעדשה. שקופית 2 מסבירה מה עומד מאחורי הרגע, שקופיות 3 עד 8 נותנות דברים ממוספרים שאפשר לעשות מחר, ושקופית 9 מסכמת לצילום מסך. שקופית 10 מבקשת לשמור את הפוסט לפעם הבאה.
+- **למה זה עשוי להמיר:** רשימה קצרה של חמישה דברים, כל אחד בצורה אחרת, שהורים יכולים להתחיל בבוקר שאחרי. הכריכה שומרת על הבקשה הישירה מאמא ואבא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** רשימה קצרה · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **אמא ואבא**  
-**8 דברים שיעזרו לי**  
+**5 דברים שיעזרו לי**  
 **להיפרד מהטיטול**  
+אני כבר גדולה, כמעט  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**אני לומדת להרגיש**  
-**מתי בא לי פיפי**  
-זה גדול ולוקח לי זמן  
-אתם יכולים ללמד אותי צעד צעד  
+**הטיטול שלי עוד איתי**  
+אני כבר רצה, מטפסת ושרה,  
+ועדיין עם טיטול מתחת למכנסיים.  
+אני רוצה להיות גדולה,  
+אבל להרגיש מתי בא לי פיפי  
+זה **חדש** לי לגמרי.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תחתונים של גדולים**  
-**2 סיר שמגיע לרצפה**  
-אני רוצה לבחור את התחתונים  
-והרגליים שלי צריכות לעמוד יציב  
+*Picture:* The girl runs and climbs on the sofa cushions, laughing, a diaper peeking out above her leggings, her parents watching with a smile. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 ספר על הסיר**  
-**4 הסיר ראשון בבוקר**  
-ספר שאני אוהבת בזמן הסיר  
-וכל בוקר מתחילים מהסיר  
+#### שקופית 3 · סיפור · 1: תחתונים של גדולים
 
-#### שקופית 5 · דוגמאות ממוספרות
+**אני בוחרת את התחתונים**  
+תחתונים עם תותים, או עם כוכבים?  
+כשאני בוחרת בעצמי, זה מרגיש שלי.  
+וכשאני לובשת אותם, אני גדולה **באמת**.  
+תנו לי לעבור לתחתונים כבר כשמתחילים.  
 
-**5 תנו לי לראות אתכם**  
-אני רוצה לראות איך אתם משתמשים  
-בשירותים ושוטפים ידיים  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The girl holds up two pairs of colourful big-kid underwear, one with strawberries and one with stars, deciding with a serious face, her mother kneeling beside her. The girl's small Israeli bedroom in the morning: an open drawer, a low bed, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**6 מילים טובות על הגוף**  
-בלי ״מסריח״ ובלי ״מלוכלך״  
-פשוט פיפי וקקי  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 2: רגליים על הרצפה
 
-**7 אני מורידה את המים**  
-לפעמים המים מפחידים אותי  
-אז אני לוחצת בעצמי  
+**למה אני קופצת מהאסלה?**  
+האסלה גבוהה, והחור גדול.  
+הרגליים שלי מתנדנדות באוויר.  
+*מה יעזור לי:*  
+סיר קטן בגובה שלי,  
+שהרגליים שלי **נוגעות** ברצפה.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**8 תגידו למה אתם גאים**  
-״הילה, אני גאה שהשתמשת בשירותים״  
-בלי ממתקים, רק מילים טובות  
+*Picture:* The girl sits comfortably on a small potty chair with both feet flat on the floor, a towel over her lap, smiling at her father who crouches nearby. The family's bright Israeli bathroom: plain pale cream wall tiles, a small potty chair and a step stool by the toilet. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**ככה אני לומדת**  
-**להיפרד מהטיטול**  
-תעזרו לי צעד אחרי צעד  
-בקצב שלי  
+#### שקופית 5 · סיפור · 3: סיר ראשון בבוקר
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**ספר אחד, וכבר ישבתי**  
+בבוקר, ראשון,  
+עוד בפיג׳מה,  
+ישר לסיר.  
+עם ספר על הברכיים.  
+דף, ועוד **דף**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In pyjamas, the girl sits on her small potty chair first thing in the morning, a towel over her lap and a picture book open on her knees, sleepy and content. The family's bright Israeli bathroom: plain pale cream wall tiles, a small potty chair and a step stool by the toilet. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 4: לראות אתכם
+
+**אני רוצה לבוא איתכם**  
+אתם נכנסים לשירותים, ואני אחריכם.  
+אני רוצה לראות מה עושים שם.  
+*מה יעזור לי:*  
+▪ ״בואי, הילה, ואחר כך שוטפים ידיים.״  
+ככה אני רואה איך **גדולים** עושים.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother wash their hands side by side at the bathroom sink, the girl standing on a step stool, both covered in soap bubbles. The family's bright Israeli bathroom: plain pale cream wall tiles, a small potty chair and a step stool by the toilet. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 5: מילה ברורה
+
+**״ישבת לבד על הסיר!״**  
+*מה אתם רואים:*  
+ילדה שקופצת מהסיר בצעקות.  
+*מה קורה לי בפנים:*  
+אני רוצה שתראו **מה עשיתי**.  
+*מה יעזור לי:*  
+מילה ברורה על מה שהצלחתי,  
+בלי ממתק ובלי פרס. זה מספיק לי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl jumps up from the potty area with her arms in the air, beaming, while both parents clap and smile in the bathroom doorway. The family's bright Israeli bathroom: plain pale cream wall tiles, a small potty chair and a step stool by the toilet. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+**צעד צעד, בקצב שלי**  
+יהיו פספוסים, ויהיו ימים טובים.  
+תחתונים, סיר נמוך, ספר בבוקר,  
+ומילה טובה כשהצלחתי.  
+ככה אני **נפרדת** מהטיטול.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl hugs both parents on the hallway rug, wearing her strawberry underwear over her leggings like a proud joke, everyone laughing. The family's Israeli hallway: a door to the bathroom, a soft rug, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה  
 שהיא מתחילה להיפרד מהטיטול  
 
-**הכותרות בלבד:** אמא ואבא 8 דברים שיעזרו לי להיפרד מהטיטול ← אני לומדת להרגיש מתי בא לי פיפי ← 1 תחתונים של גדולים 2 סיר שמגיע לרצפה ← 3 ספר על הסיר 4 הסיר ראשון בבוקר ← 5 תנו לי לראות אתכם ← 6 מילים טובות על הגוף ← 7 אני מורידה את המים ← 8 תגידו למה אתם גאים ← ככה אני לומדת להיפרד מהטיטול ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits between her parents on the sofa in pyjamas, reading a picture book together, calm and happy. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא ואבא 5 דברים שיעזרו לי להיפרד מהטיטול ← הטיטול שלי עוד איתי ← אני בוחרת את התחתונים ← למה אני קופצת מהאסלה? ← ספר אחד, וכבר ישבתי ← אני רוצה לבוא איתכם ← ״ישבת לבד על הסיר!״ ← צעד צעד, בקצב שלי ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-8 דברים שיעזרו לי להיפרד מהטיטול  
-תנו לי לבחור תחתונים וסיר שמגיע לרצפה  
-תושיבו אותי על הסיר כל בוקר עם ספר  
-תנו לי לראות אתכם ולהוריד את המים בעצמי  
-תגידו לי מילים טובות ולמה אתם גאים  
+אמא ואבא, אני כבר כמעט גדולה, והטיטול עוד איתי.  
+תנו לי תחתונים של גדולים, וסיר שהרגליים שלי נוגעות ברצפה.  
+כל בוקר, סיר ראשון וספר על הברכיים.  
+תנו לי לראות אתכם, ותגידו לי בדיוק מה הצלחתי.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרו את הפוסט לפעם הבאה שהיא מתחילה להיפרד מהטיטול  
 
@@ -109,102 +170,155 @@
 
 **טענות**
 
-- שקופית 1 · שמונה דברים שיעזרו להיפרד מהטיטול · sourced_fact · The eight things are our grouping of AAP HealthyChildren advice on potty training (underwear, a fitting potty chair, books, a morning routine, a role model, positive words, flushing, specific praise). No promise of a result.
-- שקופית 2 · אני לומדת להרגיש מתי בא לי פיפי · sourced_fact · HealthyChildren: children need to be aware of their own bladder and bowel signals, and can succeed at using the toilet in their own time. Imagined child voice.
-- שקופית 3 · תחתונים של גדולים וסיר שמגיע לרצפה · sourced_fact · HealthyChildren: when toilet training starts, switch to big-kid underwear; children's feet should be able to reach the floor of the potty chair.
-- שקופית 4 · ספר על הסיר והסיר ראשון בבוקר · sourced_fact · HealthyChildren: books or toys for potty time may help make this time more fun; make a habit of seating children on the potty chair first thing in the morning.
-- שקופית 5 · תנו לי לראות אתכם · sourced_fact · HealthyChildren: be a role model, let your children see you use the toilet and wash your hands afterward.
-- שקופית 6 · מילים טובות על הגוף · sourced_fact · HealthyChildren: choose positive words for body parts, urine and bowel movements, avoid negative words like dirty, naughty or stinky.
-- שקופית 7 · אני מורידה את המים · sourced_fact · HealthyChildren: some children may be scared the toilet will flush parts of them away; to give them a feeling of control, let them flush the toilet.
-- שקופית 8 · תגידו למה אתם גאים · sourced_fact · HealthyChildren: be specific about why you are proud, and avoid treats and punishments.
-- שקופית 9 · ככה אני לומדת להיפרד מהטיטול · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact.
-- שקופית 10 · ספרים על הסיר יכולים לעזור · sourced_fact · HealthyChildren: read children's books about using the toilet to help the process make sense and seem inviting and exciting. That a personalised story with the child as the hero is another way is our wording.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 43 on diapers. No brand or title on the slides.
+- שקופית 1 · 5 דברים שיעזרו לי להיפרד מהטיטול · sourced_fact · AAP (HealthyChildren): children can succeed at using the toilet but in their own time; toilet training is a learning experience. The five things are the slides below.
+- שקופית 2 · להרגיש מתי בא לי פיפי זה חדש לי · sourced_fact · AAP: children can succeed at using the toilet but in their own time. Said as this child's feeling.
+- שקופית 3 · תחתונים של גדולים כבר כשמתחילים · sourced_fact · AAP (HealthyChildren): when toilet training starts, switch to big-kid underwear.
+- שקופית 4 · סיר קטן, הרגליים נוגעות ברצפה · sourced_fact · AAP: children's feet should be able to reach the floor.
+- שקופית 5 · סיר ראשון בבוקר, עם ספר · sourced_fact · AAP: make a habit of seating your children onto the potty chair first thing in the morning; books or toys for potty time may help make this time more fun.
+- שקופית 6 · לראות אתכם, ואחר כך שוטפים ידיים · sourced_fact · AAP: let your children see you use the toilet and wash your hands afterward.
+- שקופית 7 · מילה ברורה על מה שהצלחתי, בלי ממתק · sourced_fact · AAP (HealthyChildren): be precise with praise; when your children succeed, be specific about why you are proud; avoid treats and punishments.
+- שקופית 8 · צעד צעד, בקצב שלי · sourced_fact · AAP: children can succeed at using the toilet but in their own time.
+- שקופית 9 · ספרים על הסיר יכולים לעזור · sourced_fact · HealthyChildren: read children's books about using the toilet to help the process make sense and seem inviting and exciting. That a personalised story with the child as the hero is another way is our wording.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 43 on diapers. No brand or title on the slides.
 
 </details>
 
-### kid-2 · אני לא מסרב לסיר אני רק רוצה להחליט
+### kid-2 · אני לא מסרב לסיר, אני רק רוצה להחליט
 
 - **על מי:** איתי (בן), לאמא
-- **זווית:** הילד אומר שהוא לא מסרב אלא רוצה להחליט בעצמו, ומבקש מאמא שמונה דברים: ללחוץ על הכפתור, לשמוע לאן הפיפי הולך, שיגידו לו מתי בא לו קקי, בלי ריב, לעזור בניקיון, לשמוע למה גאים, לראות אמא ולבחור ספר.
+- **זווית:** איתי, בן 3, כותב לאמא מכתב: הוא לא מסרב, הוא רוצה להחליט בעצמו. מה עוזר: אמא רגועה בלי ויכוח, להסביר לאן הולכים המים ולתת לו ללחוץ, להגיד בשקט ״נראה לי שבא לך קקי״, לעזור לנקות אחרי פספוס, ולהגיד בדיוק מה הצליח בלי ממתק.
 - **למי:** אמהות לילד בן 2 עד 3 שמסרב לשבת על הסיר ובבית כבר מתחיל כוח.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** child-not-because
 - **נושא:** מתחילים להיפרד מהטיטול (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המספר והבקשה של הילד/ה על הכריכה (8 דברים שיעזרו), והפנים מסתכלות ישר לעדשה. שקופית 2 מסבירה מה עומד מאחורי הרגע, שקופיות 3 עד 8 נותנות דברים ממוספרים שאפשר לעשות מחר, ושקופית 9 מסכמת לצילום מסך. שקופית 10 מבקשת לשמור את הפוסט לפעם הבאה.
+- **למה זה עשוי להמיר:** מכתב מהילד הופך את ה״לא״ לבקשה להחליט לבד, ואמא מקבלת חמישה צעדים רגועים במקום מאבק. הכריכה שומרת על ההפתעה שבמשפט.
 
-#### שקופית 1 · פתיח
+- **מבנה:** מכתב · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **אני לא מסרב לסיר**  
-**אני רק רוצה להחליט**  
-8 דברים שיעזרו לי  
+**אני רק רוצה**  
+**להחליט**  
+מכתב קטן על הסיר שלי  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**רק אני מחליט**  
-**מתי הפיפי יוצא**  
-כשיש ריב על זה אני נתקע  
-כשרגועים קל לי יותר  
+**אמא שלי,**  
+כשאת קוראת ״איתי, לסיר!״, אני בורח.  
+את חושבת שאני עושה דווקא.  
+אבל אני לא מסרב, אמא.  
+אני רק רוצה **להחליט** בעצמי.  
+אז הנה מה שעוזר לי.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 אני לוחץ על הכפתור**  
-**2 לאן הולך הפיפי**  
-המים עושים רעש ומבהילים אותי  
-אז תסבירי לי לאן הכל הולך  
+*Picture:* The boy runs away down the hallway giggling with a toy car in his hand, while his mother stands by the bathroom door holding a small potty chair. The family's Israeli hallway: a door to the bathroom, a soft rug, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 תגידי שבא לי קקי**  
-**4 בלי ריב ובלי בקשות**  
-״איתי, נראה שבא לך קקי״  
-ואם אני מסרב, תישארי רגועה  
+#### שקופית 3 · סיפור
 
-#### שקופית 5 · דוגמאות ממוספרות
+כשאת מבקשת ומתחננת,  
+וכשאת כועסת,  
+אני רק נתקע יותר.  
+כשאת רגועה ולא מתווכחת,  
+הגוף שלי **משתחרר**.  
 
-**5 תני לי לעזור בניקיון**  
-אחרי פספוס אני מנקה איתך  
-כדי שארגיש אחראי על זה  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The mother sits calmly on the hallway floor with a cup of tea, not chasing, while the boy peeks at her from behind the sofa. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**6 תגידי למה את גאה**  
-״איתי, אני גאה שהשתמשת בשירותים״  
-בלי ממתקים ובלי עונשים  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור
 
-**7 תני לי לראות אותך**  
-אני לומד כשאני רואה אותך  
-בשירותים ואיך שוטפים ידיים  
+ויש לי סוד: הרעש של המים מפחיד אותי.  
+אני לא יודע לאן הכל נעלם.  
+תסבירי לי, ותני לי ללחוץ על הכפתור  
+**בעצמי**. ככה הוא פחות מפחיד.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**8 ספר לזמן הסיר**  
-ספר קטן שאני בוחר  
-ככה קל לי לשבת רגע  
+*Picture:* Standing on a step stool, the boy presses the big round flush button with both hands, eyes squeezed half shut, while his mother crouches beside him smiling. The family's bright Israeli bathroom: plain pale cream wall tiles, a small potty chair and a step stool by the toilet. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**אני לא מסרב**  
-**אני לומד להחליט**  
-תני לי ללחוץ ולנקות בעצמי  
-וככה אני לומד לשבת  
+#### שקופית 5 · סיפור
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+לפעמים אני עוצר באמצע משחק,  
+מתכווץ, או קופא במקום.  
+אני לא תמיד יודע מה זה.  
+תגידי לי בשקט:  
+״איתי, נראה לי שבא לך **קקי**.״  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy freezes in the middle of the living room rug next to his blocks, squatting slightly with a serious face, while his mother kneels down to him gently. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור
+
+ואם פספסתי, אל תכעסי.  
+תני לי לעזור לך לנקות,  
+להביא מגבת, לשים בכביסה.  
+ככה זה **שלי**, לא רק שלך.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy carries a small towel to the laundry basket with a responsible face, while his mother wipes the floor beside him calmly. The family's bright Israeli bathroom: plain pale cream wall tiles, a small potty chair and a step stool by the toilet. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור
+
+וכשהצלחתי, תגידי לי בדיוק מה.  
+״ישבת לבד ולחצת על המים!״  
+לא צריך ממתק.  
+מספיק לי לשמוע שאת **גאה** בי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy stands proudly in the bathroom with his hands on his hips while his mother kneels and gives him a high five. The family's bright Israeli bathroom: plain pale cream wall tiles, a small potty chair and a step stool by the toilet. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור
+
+אני לומד, אמא. לאט.  
+תני לי להחליט, ללחוץ ולנקות,  
+ותהיי רגועה כשזה לוקח זמן.  
+ואני אנסה שוב, ושוב, בקצב שלי.  
+
+**אוהב, איתי**  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy hugs his mother tightly on the hallway rug, his small potty chair standing nearby, both smiling. The family's Israeli hallway: a door to the bathroom, a soft rug, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה  
 שהוא מתחיל להיפרד מהטיטול  
 
-**הכותרות בלבד:** אני לא מסרב לסיר אני רק רוצה להחליט ← רק אני מחליט מתי הפיפי יוצא ← 1 אני לוחץ על הכפתור 2 לאן הולך הפיפי ← 3 תגידי שבא לי קקי 4 בלי ריב ובלי בקשות ← 5 תני לי לעזור בניקיון ← 6 תגידי למה את גאה ← 7 תני לי לראות אותך ← 8 ספר לזמן הסיר ← אני לא מסרב אני לומד להחליט ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy reads a picture book on his mother's lap on the sofa in the evening, both relaxed and cosy. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אני לא מסרב לסיר אני רק רוצה להחליט ← אמא שלי, ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אני רוצה להחליט בעצמי על הסיר ויש 8 דברים שיעזרו לי  
-תני לי ללחוץ על הכפתור ותסבירי לי לאן הפיפי הולך  
-תגידי לי מתי בא לי קקי ותישארי רגועה אם אני מסרב  
-תני לי לעזור בניקיון ותגידי לי למה את גאה  
+אמא, אני לא מסרב לסיר, אני רק רוצה להחליט בעצמי.  
+תהיי רגועה, בלי ויכוחים ובלי תחנונים.  
+תני לי ללחוץ על המים, ולעזור לנקות אחרי פספוס.  
+ותגידי לי בדיוק מה הצלחתי, בלי ממתק.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שהוא מתחיל להיפרד מהטיטול  
 
@@ -221,100 +335,168 @@
 
 **טענות**
 
-- שקופית 1 · אני לא מסרב לסיר אני רק רוצה להחליט · sourced_fact · HealthyChildren: children control when and where they pee and poop; power struggles keep children from managing their own toileting; invite the child to take over. Imagined child voice; the eight things are our grouping.
-- שקופית 2 · רק אני מחליט מתי הפיפי יוצא · sourced_fact · HealthyChildren: remember that children control when and where they pee and poop; stay calm, power struggles keep children from managing their own toileting.
-- שקופית 3 · אני לוחץ על הכפתור · sourced_fact · HealthyChildren: some children may be scared the toilet will flush parts of them away; let them flush the toilet. The line about where the pee goes is our wording of an explanation.
-- שקופית 4 · תגידי שבא לי קקי ובלי ריב · sourced_fact · HealthyChildren: grunting, squatting or freezing are signs of a poop coming, explain this briefly; stay calm, no begging or pleading.
-- שקופית 5 · תני לי לעזור בניקיון · sourced_fact · HealthyChildren: help children stay in charge by having them be in charge of the cleanup.
-- שקופית 6 · תגידי למה את גאה · sourced_fact · HealthyChildren: be specific about why you are proud and avoid treats and punishments.
-- שקופית 7 · תני לי לראות אותך · sourced_fact · HealthyChildren: let your children see you use the toilet and wash your hands afterward.
-- שקופית 8 · ספר לזמן הסיר · sourced_fact · HealthyChildren: books or toys for potty time may help make this time more fun.
-- שקופית 9 · אני לא מסרב אני לומד להחליט · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact.
-- שקופית 10 · ספרים על הסיר יכולים לעזור · sourced_fact · HealthyChildren: read children's books about using the toilet to help the process make sense and seem inviting and exciting. That a personalised story with the child as the hero is another way is our wording.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 43 on diapers. No brand or title on the slides.
+- שקופית 2 · אני לא מסרב, אני רוצה להחליט בעצמי · sourced_fact · AAP (HealthyChildren): children control when and where they pee and poop; avoid a power struggle. Said as this child's voice.
+- שקופית 3 · כשאת רגועה ולא מתווכחת, קל לי יותר · sourced_fact · AAP: try to stay calm about toilet training; power struggles, begging, pleading, rewarding and punishing keep children from managing their own toileting.
+- שקופית 4 · תסבירי לי, ותני לי ללחוץ על הכפתור · sourced_fact · AAP: understand their fear, some children may be scared the toilet will flush parts of them away; to give a feeling of control, let them flush the toilet.
+- שקופית 5 · ״נראה לי שבא לך קקי״ · sourced_fact · AAP: when children feel the urge to poop you might notice grunting, squatting or freezing; explain briefly that these signs mean a poop is about to come.
+- שקופית 6 · תני לי לעזור לנקות אחרי פספוס · sourced_fact · AAP: help them stay in charge by having them be in charge of the cleanup.
+- שקופית 7 · תגידי לי בדיוק מה, בלי ממתק · sourced_fact · AAP: be precise with praise, be specific about why you are proud; avoid treats and punishments.
+- שקופית 8 · אני לומד לאט, בקצב שלי · sourced_fact · AAP: children can succeed in their own time; toilet training is a learning experience.
+- שקופית 9 · ספרים על הסיר יכולים לעזור · sourced_fact · HealthyChildren: read children's books about using the toilet to help the process make sense and seem inviting and exciting. That a personalised story with the child as the hero is another way is our wording.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 43 on diapers. No brand or title on the slides.
 
 </details>
 
 ### kid-3 · ״נו, תשבי כבר״ אני שומעת את זה
 
 - **על מי:** שקד (בת), לאמא
-- **זווית:** הילדה מספרת שהמשפט ״נו תשבי כבר״ רק תוקע אותה, ומבקשת מאמא שישה משפטים אחרים: את אחראית על הפיפי, נראה לי שבא לך קקי, פיפי וקקי זה בסדר, איזה כיף שסיפרת, אני גאה, לא נורא ננסה שוב.
+- **זווית:** שקד, בת 3, מאטה לאמא דקה אחת: היא משחקת, קופאת, שומעת ״נו, תשבי כבר!״, בורחת, ואז אמא יושבת לידה ואומרת בשקט ״נראה לי שבא לך קקי״, והיא מתיישבת בעצמה ומצליחה. בערב: להגיד מה הגוף עושה, לתת לה להחליט, לשבת לידה, ולנסות שוב בלי ויכוח.
 - **למי:** אמהות לילדה בת 2 עד 3 שאומרות ״נו תשבי כבר״ בלי לשים לב ורוצות משפטים אחרים.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** sentence-we-all-say
 - **נושא:** מתחילים להיפרד מהטיטול (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המספר והבקשה של הילד/ה על הכריכה (6 דברים שיעזרו), והפנים מסתכלות ישר לעדשה. שקופית 2 מסבירה מה עומד מאחורי הרגע, שקופיות 3 עד 8 נותנות דברים ממוספרים שאפשר לעשות מחר, ושקופית 9 מסכמת לצילום מסך. שקופית 10 מבקשת לשמור את הפוסט לפעם הבאה.
+- **למה זה עשוי להמיר:** דקה אחת מואטת מראה לאמא איך ״נו״ אחד תוקע, ומה משחרר. הכריכה שומרת על המשפט שכולנו אומרים.
 
-#### שקופית 1 · פתיח
+- **מבנה:** דקה אחת · 10 שקופיות
+
+#### שקופית 1 · שער
 
 **״נו, תשבי כבר״**  
 **אני שומעת את זה**  
-6 משפטים שיעזרו לי יותר  
+דקה אחת ליד הסיר, מבפנים  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · קודם
 
-**כשאומרים לי ״נו״**  
-**אני רק נתקעת**  
-אני צריכה מילים אחרות  
-שעוזרות לי להבין את הגוף  
+**אני משחקת בבובות**  
+אני מאכילה אותן, משכיבה אותן לישון.  
+פתאום משהו בבטן מרגיש מוזר,  
+אבל המשחק כל כך **טוב**,  
+שאני ממשיכה.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 את אחראית על הפיפי**  
-תגידי לי שעכשיו זה שלי  
-ואני אנסה להחליט בעצמי  
+*Picture:* The girl kneels on the living room rug feeding two dolls with a toy spoon, absorbed in her game. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 תסבירי מה הגוף עושה**  
-״שקד, נראה לי שבא לך קקי״  
-כשאני מתכווצת או קופאת  
+#### שקופית 3 · סיפור · הדקה מתחילה
 
-#### שקופית 5 · דוגמאות ממוספרות
+**אני קופאת במקום**  
+*מה את רואה:*  
+ילדה שעומדת בפינה, עם פנים רציניות.  
+*מה קורה לי בפנים:*  
+משהו רוצה לצאת, ואני לא בטוחה **מה**.  
 
-**3 פיפי וקקי זה בסדר**  
-בלי ״מסריח״ ובלי ״מלוכלך״  
-שיהיו לי מילים רגילות  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The girl stands frozen in the corner of the living room with a very serious face, a doll hanging from one hand. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**4 איזה כיף שסיפרת לי**  
-כשאני אומרת שהטיטול רטוב  
-תשמחי שסיפרתי לך  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · עשר שניות
 
-**5 אני גאה שישבת בעצמך**  
-תגידי למה את גאה  
-בלי ממתקים ובלי הבטחות  
+**״נו, שקד, תשבי כבר!״**  
+את רצה אליי עם הסיר, ואני מתכווצת.  
+ה״נו״ שלך נשמע לי כמו **מהר**,  
+והמהר הזה תוקע לי את הבטן.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**6 לא נורא, ננסה שוב**  
-כשלא הצלחתי, תישארי רגועה  
-וננסה שוב אחר כך  
+*Picture:* The mother hurries toward the girl holding the small potty chair, while the girl shrinks back with her shoulders up. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**ככה אני לומדת**  
-**בלי ״נו״ ובלי ריב**  
-תגידי לי מה קורה בגוף שלי  
-ותני לי להחליט  
+#### שקופית 5 · סיפור · עשרים שניות
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**אני בורחת מהסיר**  
+את רודפת אחריי, אני צוחקת,  
+אבל בפנים אני לא צוחקת בכלל.  
+אני רוצה **להחליט** לבד,  
+ואין לי עדיין מילים להגיד את זה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl runs away around the sofa with a nervous laugh while her mother follows her with the potty chair. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · שלושים שניות
+
+**ואז את עוצרת**  
+את מתיישבת על הרצפה, בגובה שלי.  
+בלי ״נו״. בקול שקט:  
+▪ ״נראה לי שבא לך קקי. הסיר פה.״  
+והבטן שלי **נרגעת** קצת.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother sits down on the floor at the girl's eye level and speaks softly, the potty chair placed quietly beside her. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ארבעים שניות
+
+**אני מתיישבת בעצמי**  
+על הסיר הקטן, הרגליים על הרצפה.  
+את לא עומדת מעליי, את מחכה.  
+ואני **מצליחה**.  
+הפעם, בלי שאף אחד דחף.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits on the small potty chair by herself with a towel over her lap and both feet on the floor, while her mother waits a little way off, smiling. The family's bright Israeli bathroom: plain pale cream wall tiles, a small potty chair and a step stool by the toilet. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · חמישים שניות
+
+**״ישבת לבד, ולחצת על המים!״**  
+את אומרת בדיוק מה עשיתי.  
+בלי ממתק, בלי פרס.  
+אני לוחצת שוב על הכפתור,  
+רק בשביל הרעש, ומרגישה **גדולה**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* Standing on a step stool, the girl presses the flush button with a huge proud grin while her mother claps beside her. The family's bright Israeli bathroom: plain pale cream wall tiles, a small potty chair and a step stool by the toilet. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · בערב
+
+**מה עזר לי היום, אמא**  
+*מה יעזור לי:*  
+במקום ״נו, תשבי כבר״,  
+להגיד לי מה הגוף שלי עושה.  
+לתת לי להחליט, ולשבת לידי בשקט.  
+ואם לא הצלחתי, **ננסה שוב** אחר כך.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In pyjamas, the girl cuddles on her mother's lap on the sofa with her doll, both relaxed and smiling. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה  
 שהיא מתחילה להיפרד מהטיטול  
 
-**הכותרות בלבד:** ״נו, תשבי כבר״ אני שומעת את זה ← כשאומרים לי ״נו״ אני רק נתקעת ← 1 את אחראית על הפיפי ← 2 תסבירי מה הגוף עושה ← 3 פיפי וקקי זה בסדר ← 4 איזה כיף שסיפרת לי ← 5 אני גאה שישבת בעצמך ← 6 לא נורא, ננסה שוב ← ככה אני לומדת בלי ״נו״ ובלי ריב ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sleeps peacefully in her bed hugging her doll, her mother tucking in the blanket. The girl's small Israeli bedroom at night: a low bed, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** ״נו, תשבי כבר״ אני שומעת את זה ← אני משחקת בבובות ← אני קופאת במקום ← ״נו, שקד, תשבי כבר!״ ← אני בורחת מהסיר ← ואז את עוצרת ← אני מתיישבת בעצמי ← ״ישבת לבד, ולחצת על המים!״ ← מה עזר לי היום, אמא ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-6 משפטים שיעזרו לי יותר מ״נו תשבי כבר״  
-תגידי לי שאני אחראית על הפיפי שלי  
-תגידי לי מתי נראה לך שבא לי קקי ותשמחי שסיפרתי  
-תגידי לי למה את גאה ותישארי רגועה כשלא הצלחתי  
+אמא, כשאת אומרת ״נו, תשבי כבר״, אני רק נתקעת.  
+תגידי לי בשקט מה הגוף שלי עושה.  
+תשבי לידי, ותני לי להחליט בעצמי.  
+וכשהצלחתי, תגידי לי בדיוק מה עשיתי.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא מתחילה להיפרד מהטיטול  
 
@@ -331,15 +513,12 @@
 
 **טענות**
 
-- שקופית 1 · שישה משפטים שיעזרו יותר מ״נו תשבי כבר״ · sourced_fact · HealthyChildren: power struggles, begging and pleading keep children from managing their own toileting; the six sentences are our wording of advice on slides 3 to 8.
-- שקופית 2 · כשאומרים לי נו אני רק נתקעת · sourced_fact · HealthyChildren: children control when and where they pee and poop, power struggles keep children from managing their own toileting. Imagined child voice.
-- שקופית 3 · את אחראית על הפיפי · sourced_fact · HealthyChildren: talk with them about how they will now be in charge of their pee and poop.
-- שקופית 4 · תסבירי מה הגוף עושה, נראה לי שבא לך קקי · sourced_fact · HealthyChildren: grunting, squatting or freezing are signs a poop is about to come; explain briefly that these signs mean a poop is about to come.
-- שקופית 5 · פיפי וקקי זה בסדר · sourced_fact · HealthyChildren: choose positive words, avoid words like dirty, naughty or stinky.
-- שקופית 6 · איזה כיף שסיפרת לי · sourced_fact · HealthyChildren: if children tell you about a wet diaper, praise them for using their words.
-- שקופית 7 · אני גאה שישבת בעצמך · sourced_fact · HealthyChildren: be specific about why you are proud, avoid treats and punishments.
-- שקופית 8 · לא נורא ננסה שוב · sourced_fact · HealthyChildren: try to stay calm about toilet training; toilet training is a learning experience.
-- שקופית 9 · ככה אני לומדת בלי נו ובלי ריב · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact.
+- שקופית 1 · ״נו, תשבי כבר״ רק תוקע אותי · sourced_fact · AAP (HealthyChildren): avoid a power struggle; begging and pleading keep children from managing their own toileting. Said as this child's feeling.
+- שקופית 5 · אני רוצה להחליט לבד · sourced_fact · AAP: children control when and where they pee and poop. Said as this child's reason.
+- שקופית 6 · ״נראה לי שבא לך קקי. הסיר פה.״ · sourced_fact · AAP: when children feel the urge you might notice grunting, squatting or freezing, explain briefly what these signs mean; try to stay calm about toilet training.
+- שקופית 7 · סיר קטן, הרגליים על הרצפה · sourced_fact · AAP: children's feet should be able to reach the floor.
+- שקופית 8 · להגיד בדיוק מה עשיתי, בלי ממתק, ללחוץ על המים · sourced_fact · AAP: be specific about why you are proud; avoid treats; to give a feeling of control, let them flush the toilet.
+- שקופית 9 · להגיד מה הגוף עושה, לתת להחליט, לנסות שוב · sourced_fact · AAP: explain briefly the signs that a poop is about to come; avoid a power struggle; toilet training is a learning experience.
 - שקופית 10 · ספרים על הסיר יכולים לעזור · sourced_fact · HealthyChildren: read children's books about using the toilet to help the process make sense and seem inviting and exciting. That a personalised story with the child as the hero is another way is our wording.
 - שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 43 on diapers. No brand or title on the slides.
 
@@ -348,86 +527,174 @@
 ### kid-4 · ליד הדלת אני מרגיש את זה בבטן
 
 - **על מי:** אלון (בן), לאמא
-- **זווית:** הילד מספר שבבוקר ליד הדלת הבטן שלו מתכווצת, ומבקש מאמא שמונה דברים: תיק ובגדים מהערב, שינה מספיקה בלי מסך, להעיר אותו בשיר, אותו סדר, ספירה לאחור לנעליים ולשאול מה מדאיג אותו.
+- **זווית:** אלון, בן 6, מספר לאמא איך היו הבקרים בגן, מה השתנה בכיתה א׳, ומה קורה מאז: מעירים אותו ב״מהר״, הוא לא מוצא דברים, לא יודע מה הבא, והבטן כואבת ליד הדלת. מה עוזר: להעיר בשיר וחיבוק כשאמא כבר מוכנה, תיק ובגדים מהערב, אותו סדר כל בוקר, לשאול מה מדאיג, ומסכים כבויים ושעת שינה קבועה.
 - **למי:** אמהות לילד בכיתה א׳ שהבקרים אצלם לחוצים והוא מתלונן על הבטן לפני בית הספר.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** child-body-moment
 - **נושא:** בוקר לחוץ לפני בית הספר (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המספר והבקשה של הילד/ה על הכריכה (8 דברים שיעזרו), והפנים מסתכלות ישר לעדשה. שקופית 2 מסבירה מה עומד מאחורי הרגע, שקופיות 3 עד 8 נותנות דברים ממוספרים שאפשר לעשות מחר, ושקופית 9 מסכמת לצילום מסך. שקופית 10 מבקשת לשמור את הפוסט לפעם הבאה.
+- **למה זה עשוי להמיר:** פעם בגן, ואז כיתה א׳, ומאז: אמא רואה מאיפה בא הכאב בבטן ליד הדלת, וכל שקופית נותנת צעד אחד לבוקר של מחר. הכריכה שומרת על הרגע בדלת.
 
-#### שקופית 1 · פתיח
+- **מבנה:** פעם ועכשיו · 11 שקופיות
+
+#### שקופית 1 · שער
 
 **ליד הדלת**  
 **אני מרגיש את זה**  
 **בבטן**  
-8 דברים שיעזרו לי  
+הבקרים שלי, לפני ואחרי  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · פעם
 
-**אני עוד מתעורר**  
-**וכבר אומרים לי למהר**  
-כשהבוקר מסודר מראש  
-הבטן שלי פחות מתכווצת  
+**בגן, הבקרים היו רכים**  
+התעוררתי לאט, עם השמש.  
+אכלתי בפיג׳מה, שיחקתי בלגו,  
+ואת הלבשת אותי על הספה.  
+אף אחד לא אמר **״מהר״**.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 התיק ליד הדלת מהערב**  
-**2 בגדים שבחרתי מהערב**  
-נארוז יחד בערב ליד הדלת  
-ואני בוחר בגדים בעצמי  
+*Picture:* The younger-looking boy eats breakfast in pyjamas on the sofa, playing with toy bricks, while his mother sits beside him relaxed with a mug. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 לישון 9 עד 12 שעות**  
-**4 בלי מסך לפני שינה**  
-תספרי אחורה מהשעה שאני קם  
-ומכבים מסכים שעה לפני  
+#### שקופית 3 · סיפור · פעם
 
-#### שקופית 5 · דוגמאות ממוספרות
+**ובשער של הגן, רצתי פנימה**  
+נשיקה, ביי, והייתי כבר בארגז החול.  
+לא חשבתי על הבוקר בכלל.  
+הבטן שלי הייתה **שקטה**,  
+ושום דבר לא לחץ.  
 
-**5 להעיר אותי בשיר**  
-שיר שאני אוהב או חיבוק  
-במקום שעון מעורר רועש  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The boy runs happily through a kindergarten gate toward a sandpit, waving back at his mother. An Israeli kindergarten yard in the morning: a low gate, a sandpit, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**6 אותו סדר כל בוקר**  
-פנים, ארוחה, בגדים, שיניים  
-ואז יוצאים  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · ואז
 
-**7 ספירה לאחור לנעליים**  
-״אלון, בשעה 7:25 נועלים נעליים״  
-שעה ברורה במקום ״מהר״  
+**ואז התחילה כיתה א׳**  
+שעון מעורר, תיק כבד, צלצול בשמונה.  
+פתאום כולם ממהרים בבוקר,  
+גם את.  
+ובדלת, עם התיק על הגב,  
+משהו בבטן שלי **מתכווץ**.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**8 תשאלי מה מדאיג אותי**  
-לפעמים הבטן מרגישה דאגה  
-שאני לא יודע להגיד  
+*Picture:* At the front door, the boy stands with a heavy school backpack, one hand pressed on his stomach, while his mother rushes past with keys and a coat. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**כשהערב מסודר**  
-**הבוקר שלי רגוע יותר**  
-תעזרי לי להתכונן מהערב  
-צעד אחרי צעד  
+#### שקופית 5 · סיפור · ומאז
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**אני מתעורר, וכבר ״מהר״**  
+אני עוד בחלום, ואת כבר בדלת החדר.  
+*מה יעזור לי:*  
+להעיר אותי עם השיר שאני אוהב,  
+או עם **חיבוק** ארוך,  
+כשאת כבר מוכנה ולא רצה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother, already dressed, sits on the edge of the boy's bed and wakes him with a hug while a small speaker plays beside the bed. The boy's small Israeli bedroom in the early morning: a low bed, soft light through the curtain, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · ומאז
+
+**אני לא מוצא את הכובע**  
+*מה את רואה:*  
+ילד שמסתובב בבית בלי נעל אחת.  
+*מה קורה לי בפנים:*  
+יותר מדי דברים לזכור **בבת אחת**.  
+*מה יעזור לי:*  
+לארוז איתך את התיק בערב, ליד הדלת,  
+ולבחור בגדים כבר מהערב.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy wanders the hallway wearing one shoe, looking around confused, a cap lying forgotten on the shoe rack. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ומאז
+
+**אני לא יודע מה בא עכשיו**  
+נעליים? שיניים? ארוחה?  
+כל בוקר זה נראה לי אחרת.  
+*מה יעזור לי:*  
+אותו סדר כל בוקר. פנים, ארוחה,  
+בגדים, שיניים, ואז **יוצאים**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy, already in his school clothes, brushes his teeth at the sink while his mother smiles at him in the mirror, his shoes waiting neatly by the bathroom door. The family's small Israeli bathroom in the morning: a sink with a mirror, white tiles, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ומאז
+
+**הבטן כואבת לי בבוקר**  
+לא כל בוקר. רק לפעמים, ליד הדלת.  
+אני לא יודע להגיד ממה.  
+*מה יעזור לי לשמוע:*  
+▪ ״מה מדאיג אותך היום, אלון?״  
+ולשבת איתי רגע, **בלי למהר**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother sits on the shoe bench by the front door with the boy beside her, her arm around him, listening as he looks down at his shoes. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · מה שמחזיר לי את הבוקר
+
+**ערב רגוע, שינה ארוכה**  
+שעה לפני השינה מכבים מסכים.  
+הולכים לישון באותה שעה כל ערב,  
+ככה אני ישן מספיק.  
+ובבוקר יש לי **כוח** לכל השלבים.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy lies in bed in pyjamas listening to his mother read, a dark switched-off tablet on the shelf across the room. The boy's small Israeli bedroom at night: a low bed, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · פנייה להורים
+
+**אני לא איטי, אמא**  
+אני עוד לומד בוקר של בית ספר.  
+שיר, תיק מהערב, אותו סדר,  
+ורגע לשאול מה מדאיג אותי.  
+ואז הבטן שלי **שקטה**, כמו בגן.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy walks out of the front door holding his mother's hand, backpack on, looking up at her with a calm smile. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שקשה לו להתארגן בבוקר  
 
-**הכותרות בלבד:** ליד הדלת אני מרגיש את זה בבטן ← אני עוד מתעורר וכבר אומרים לי למהר ← 1 התיק ליד הדלת מהערב 2 בגדים שבחרתי מהערב ← 3 לישון 9 עד 12 שעות 4 בלי מסך לפני שינה ← 5 להעיר אותי בשיר ← 6 אותו סדר כל בוקר ← 7 ספירה לאחור לנעליים ← 8 תשאלי מה מדאיג אותי ← כשהערב מסודר הבוקר שלי רגוע יותר ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy waves from a school gate with a relaxed smile, his mother waving back from the pavement. A quiet Israeli street by a primary school gate in the morning, trees and a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** ליד הדלת אני מרגיש את זה בבטן ← בגן, הבקרים היו רכים ← ובשער של הגן, רצתי פנימה ← ואז התחילה כיתה א׳ ← אני מתעורר, וכבר ״מהר״ ← אני לא מוצא את הכובע ← אני לא יודע מה בא עכשיו ← הבטן כואבת לי בבוקר ← ערב רגוע, שינה ארוכה ← אני לא איטי, אמא ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-ליד הדלת אני מרגיש את זה בבטן ויש 8 דברים שיעזרו לי  
-תכיני איתי את התיק והבגדים מהערב  
-תעזרי לי לישון 9 עד 12 שעות בלי מסך לפני  
-תעירי אותי בשיר ותספרי איתי לאחור עד הנעליים  
-תשאלי אותי מה מדאיג אותי  
+אמא, בבוקר ליד הדלת אני מרגיש משהו בבטן.  
+תעירי אותי עם שיר, ותארזי איתי את התיק מהערב.  
+תשמרי על אותו סדר כל בוקר, ותשאלי מה מדאיג אותי.  
+ובערב, מכבים מסכים שעה לפני השינה.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שקשה לו להתארגן בבוקר  
 
@@ -445,102 +712,172 @@
 
 **טענות**
 
-- שקופית 1 · ליד הדלת אני מרגיש את זה בבטן · sourced_fact · Understood experts: a child may have a stomachache, usually in the morning before school; Nemours KidsHealth: a few kids develop physical symptoms such as stomachaches at the start of school. We do not say it is a worry; imagined child voice.
-- שקופית 2 · כשהבוקר מסודר מראש הבטן פחות מתכווצת · sourced_fact · Nemours KidsHealth and Understood: prepare the night before. The link to the stomach feeling is our gentle wording, no promise.
-- שקופית 3 · התיק ליד הדלת ובגדים מהערב · sourced_fact · Understood: ask your child to pick out an outfit, check that everything is packed and by the door; KidsHealth: backpacks by the door, clothes laid out.
-- שקופית 4 · לישון 9 עד 12 שעות ובלי מסך · sourced_fact · Nemours KidsHealth: school-age kids need 9 to 12 hours of sleep; count back from the wake-up time; turn off all screens at least 1 hour before bedtime.
-- שקופית 5 · להעיר אותי בשיר · sourced_fact · Understood: set the alarm to play a favorite song, or wake your child with lots of snuggles.
-- שקופית 6 · אותו סדר כל בוקר · sourced_fact · Understood: make every day as predictable as you can, the same routine; Understood experts: most young children are creatures of habit and thrive on routines.
-- שקופית 7 · ספירה לאחור לנעליים · sourced_fact · Understood: give manageable countdowns, like at 7:25 it will be time to put your shoes on.
-- שקופית 8 · תשאלי מה מדאיג אותי · sourced_fact · Nemours KidsHealth: it is important to talk to kids about any worries and offer support.
-- שקופית 9 · כשהערב מסודר הבוקר רגוע יותר · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact, no promise of a result.
-- שקופית 10 · ספרים על הרגע יכולים לעזור · sourced_fact · Understood: explore back-to-school book lists for preschoolers and grade-schoolers. That a personalised story with the child as the hero is another way is our wording.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 10 on first grade. No brand or title on the slides.
+- שקופית 1 · ליד הדלת אני מרגיש את זה בבטן · sourced_fact · Understood: your child may have a stomachache, usually in the morning before school; KidsHealth: a few kids develop stomachaches at the start of school. Said as this child's feeling, not about every child.
+- שקופית 5 · להעיר אותי עם שיר או חיבוק, כשאת כבר מוכנה · sourced_fact · Understood: set the alarm to a favorite song, try waking your child with lots of snuggles; wake up a little earlier than your child and try not to race around at the same time.
+- שקופית 6 · לארוז את התיק בערב ליד הדלת, ולבחור בגדים מהערב · sourced_fact · KidsHealth: organize and set out what they need the night before, backpacks by the door and clothes laid out; Understood: ask your child to pick out an outfit for the next day.
+- שקופית 7 · אותו סדר כל בוקר · sourced_fact · Understood: make every day as predictable as you can, follow the same routine (wake up, wash face, eat breakfast, get dressed, brush teeth); young children thrive on routines.
+- שקופית 8 · לשאול מה מדאיג אותי ולשבת איתי רגע · sourced_fact · KidsHealth: talk to kids about any worries and offer support; Understood: a stomachache in the morning before school.
+- שקופית 9 · מסכים כבויים שעה לפני, ואותה שעת שינה · sourced_fact · KidsHealth: school-age kids need 9 to 12 hours of sleep; turn off all screens at least 1 hour before bedtime; set regular bedtimes and wake-up times.
+- שקופית 10 · שיר, תיק מהערב, אותו סדר ורגע לשאול · lumebook_wording · Our recap of slides 5 to 9 in the child's imagined voice; no new fact.
+- שקופית 11 · ספרים על הרגע יכולים לעזור · sourced_fact · Understood: explore back-to-school book lists for preschoolers and grade-schoolers. That a personalised story with the child as the hero is another way is our wording.
+- שקופית 11 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 10 on first grade. No brand or title on the slides.
 
 </details>
 
-### kid-5 · בכיתה אני מסודרת בבוקר אני נתקעת
+### kid-5 · בכיתה אני מסודרת, בבוקר אני נתקעת
 
 - **על מי:** מעיין (בת), לאמא
-- **זווית:** הילדה מספרת שבכיתה היא מסודרת ובבוקר נתקעת כי יש הרבה שלבים, ומבקשת מאמא תשעה דברים: מקום קבוע, רשימת בדיקה, סדר בציורים, שעון, שאמא תקום לפניה, שולחן מהערב, שיר שמזכיר, משחק אם נשאר זמן ושעת שינה קבועה.
+- **זווית:** מעיין, בת 6, מראה לאמא יום אחד שלה: בבוקר היא נתקעת בין השלבים, בכיתה הכל ידוע מראש, ובערב אורזים את מחר. מה עוזר: אמא שקמה קודם ומעירה בשיר, סדר הבוקר בציורים, שולחן ערוך מהערב, ספירה לאחור לנעליים ומקום קבוע, תיק ובגדים ושיר קטן בערב, ושעת שינה קבועה בלי מסכים.
 - **למי:** אמהות לילדה בכיתה א׳ שבכיתה מסודרת ובבית הבקרים נתקעים.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** two-faces
 - **נושא:** בוקר לחוץ לפני בית הספר (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המספר והבקשה של הילד/ה על הכריכה (9 דברים שיעזרו), והפנים מסתכלות ישר לעדשה. שקופית 2 מסבירה מה עומד מאחורי הרגע, שקופיות 3 עד 8 נותנות דברים ממוספרים שאפשר לעשות מחר, ושקופית 9 מסכמת לצילום מסך. שקופית 10 מבקשת לשמור את הפוסט לפעם הבאה.
+- **למה זה עשוי להמיר:** יום אחד לפי השעון מראה לאמא איפה בדיוק הבוקר נתקע ומה מסדר אותו כבר מהערב. הכריכה שומרת על שני הפנים של אותה ילדה.
 
-#### שקופית 1 · פתיח
+- **מבנה:** יום אחד · 10 שקופיות
+
+#### שקופית 1 · שער
 
 **בכיתה אני מסודרת**  
 **בבוקר אני נתקעת**  
-9 דברים שיעזרו לי  
+יום אחד שלי, מהבוקר עד הערב  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · 06:50, במיטה
 
-**בבוקר יש הרבה שלבים**  
-**ואני שוכחת מה הבא**  
-כשהסדר הוא אותו דבר  
-אני יודעת מה עושים  
+**השעון מצלצל,**  
+**ואני מתחת לשמיכה**  
+הצלצול חזק, ואני עוד חולמת.  
+*מה יעזור לי:*  
+שתקומי קצת לפניי, ותעירי אותי  
+בשיר שאני אוהבת, **ובחיבוק**.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 מקום קבוע לנעליים**  
-**2 רשימת בדיקה בדלת**  
-לכל דבר יש מקום  
-ואני בודקת הכל לפני שיוצאים  
+*Picture:* The girl hides under her blanket while her mother, already dressed, sits on the bed and hugs her awake, a small speaker on the nightstand. The girl's small Israeli bedroom in the early morning: a low bed, soft light through the curtain, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 סדר הבוקר בציורים**  
-ציור לכל שלב על הקיר  
-וככה אני יודעת מה הבא  
+#### שקופית 3 · סיפור · 07:05, בחדר
 
-#### שקופית 5 · דוגמאות ממוספרות
+**איפה הגרביים?**  
+אני פותחת מגירה, ושוכחת מה חיפשתי.  
+בבוקר יש כל כך הרבה **שלבים**.  
+*מה יעזור לי:*  
+סדר הבוקר בציורים על הקיר,  
+ציור לכל שלב, וככה אני יודעת מה הבא.  
 
-**4 שעון בכל חדר**  
-**5 תקומי קצת לפניי**  
-אני רואה כמה זמן נשאר  
-כשאת לא ממהרת גם אני רגועה  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The girl stands in front of a row of simple drawings on her bedroom wall showing a toothbrush, a shirt, a bowl and shoes, pointing at the next drawing. The girl's small Israeli bedroom in the morning: a low bed, an open drawer, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**6 שולחן ארוחה מהערב**  
-״מעיין, הארוחה מוכנה על השולחן״  
-ואני אוכלת בשקט ובלי לרוץ  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 07:20, במטבח
 
-**7 שיר קטן שמזכיר לי**  
-**8 אם נשאר זמן משחקים**  
-שיר על מה לוקחים מהבית  
-ומשחק קצר אם נשאר זמן  
+**ארוחה בלי לרוץ**  
+השולחן כבר ערוך מאתמול בערב.  
+אני יושבת, אוכלת, ואף אחד לא **ממהר**.  
+את שותה קפה לידי, כבר לבושה,  
+וגם אני רגועה.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**9 שעת שינה קבועה**  
-גם בסוף שבוע, קצת מאוחר יותר  
-ואז קל לי לקום  
+*Picture:* The girl eats cereal at a neatly set breakfast table while her mother, dressed and calm, sips coffee beside her. The family's Israeli kitchen in the morning: cream tiles, a wooden table, a window with soft light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**כשהסדר קבוע**  
-**אני לא נתקעת**  
-תעזרי לי להתארגן  
-צעד אחרי צעד  
+#### שקופית 5 · סיפור · 07:25, בדלת
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**נעליים, בלי ״מהר״**  
+את לא אומרת ״מהר״. את אומרת כמה זמן.  
+*מה יעזור לי לשמוע:*  
+▪ ״מעיין, עוד חמש דקות, נעליים.״  
+והנעליים מחכות לי באותו מקום,  
+**ליד הדלת**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits on the shoe bench putting on her sneakers, taken from their fixed spot on the shoe rack, while her mother holds up an open hand with five fingers. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 10:00, בכיתה
+
+**בכיתה אני הכי מסודרת**  
+הקלמר במקום, הספר במקום.  
+המורה אומרת מה עושים עכשיו,  
+ומה אחר כך.  
+שם הכל **ידוע** מראש,  
+אז אני לא נתקעת.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits at a school desk with her pencil case and book neatly in place, listening to the teacher with a confident smile. An Israeli first grade classroom in the morning: small desks, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 19:00, ליד הדלת
+
+**אורזים את מחר**  
+התיק נארז בערב, ועומד ליד הדלת.  
+אני בוחרת בגדים לבוקר, ושמה על הכיסא.  
+ושרה את השיר שלי:  
+״קלמר, בקבוק, כריך, **יוצאים**!״  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother pack her school backpack by the front door in the evening, a folded outfit ready on a chair, the girl singing. The family's Israeli apartment entrance hall in the evening: a front door, a wooden shoe rack, a chair, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · 20:00, במיטה
+
+**אותה שעה, כל ערב**  
+בלי טלוויזיה, שעה לפני.  
+אותה שעת שינה, גם בסוף שבוע,  
+אולי קצת יותר מאוחר.  
+ככה בבוקר קל לי יותר **לקום**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl snuggles into bed with a plush toy while her mother turns off the bedroom light, the living room screen dark in the background. The girl's small Israeli bedroom at night: a low bed, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · פנייה להורים
+
+**אני לא מבולגנת, אמא**  
+בבוקר יש פשוט יותר מדי שלבים.  
+ציורים על הקיר, שעון, מקום קבוע,  
+ותיק מהערב.  
+ככה גם בבית אני **מסודרת**,  
+כמו בכיתה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother high five at the front door in the morning, backpack on, shoes on, both smiling. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שקשה לה להתארגן בבוקר  
 
-**הכותרות בלבד:** בכיתה אני מסודרת בבוקר אני נתקעת ← בבוקר יש הרבה שלבים ואני שוכחת מה הבא ← 1 מקום קבוע לנעליים 2 רשימת בדיקה בדלת ← 3 סדר הבוקר בציורים ← 4 שעון בכל חדר 5 תקומי קצת לפניי ← 6 שולחן ארוחה מהערב ← 7 שיר קטן שמזכיר לי 8 אם נשאר זמן משחקים ← 9 שעת שינה קבועה ← כשהסדר קבוע אני לא נתקעת ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl walks to school holding her mother's hand, skipping a little, both relaxed. A quiet Israeli street leading to a primary school in the morning, trees and a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** בכיתה אני מסודרת בבוקר אני נתקעת ← השעון מצלצל, ואני מתחת לשמיכה ← איפה הגרביים? ← ארוחה בלי לרוץ ← נעליים, בלי ״מהר״ ← בכיתה אני הכי מסודרת ← אורזים את מחר ← אותה שעה, כל ערב ← אני לא מבולגנת, אמא ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-בכיתה אני מסודרת ובבוקר אני נתקעת ויש 9 דברים שיעזרו לי  
-תני לי מקום קבוע לדברים ורשימת בדיקה ליד הדלת  
-תעשי איתי סדר בוקר בציורים ושעון שאני רואה  
-תקומי קצת לפניי ותכיני שולחן מהערב  
+אמא, בכיתה אני מסודרת, ובבוקר בבית אני נתקעת.  
+תקומי קצת לפניי, ותעירי אותי בשיר.  
+תתלי לי את סדר הבוקר בציורים, ותערכי את השולחן מהערב.  
+ובערב, נארוז ביחד את התיק ונלך לישון באותה שעה.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שקשה לה להתארגן בבוקר  
 
@@ -558,15 +895,14 @@
 
 **טענות**
 
-- שקופית 1 · בכיתה אני מסודרת בבוקר אני נתקעת · sourced_fact · Understood: follow a routine, designate spots, countdowns and double-check; Understood experts: young children thrive on routines. The nine things are our grouping; imagined child voice.
-- שקופית 2 · כשהסדר הוא אותו דבר אני יודעת מה עושים · sourced_fact · Understood: make every day as predictable as you can; experts: most young children are creatures of habit and thrive on routines and schedules.
-- שקופית 3 · מקום קבוע לנעליים ורשימת בדיקה · sourced_fact · Understood: designate spots for school supplies, coats and jackets; have your child check and re-check that everything is packed before leaving.
-- שקופית 4 · סדר הבוקר בציורים · sourced_fact · Understood: a picture schedule can be extra helpful for kids who struggle with reading; a routine such as wake up, wash face, eat breakfast, get dressed, brush teeth.
-- שקופית 5 · שעון בכל חדר ואמא קמה לפני · sourced_fact · Understood: make sure there are clocks around the house; wake up a little earlier than your child and try not to be racing around, this lowers the stress level for both of you.
-- שקופית 6 · שולחן ארוחה מהערב · sourced_fact · Understood: if you have breakfast as a family, set the breakfast table the night before; KidsHealth: eat a healthy breakfast.
-- שקופית 7 · שיר קטן שמזכיר לי ומשחק אם נשאר זמן · sourced_fact · Understood: younger kids can come up with a silly phrase or song to help remember what they need; if there is time to spare, play a quick game together or read a book.
-- שקופית 8 · שעת שינה קבועה · sourced_fact · Nemours KidsHealth: set regular bedtimes and wake-up times; on weekends aim for sleep or wake-up times no more than an hour later than on weekdays.
-- שקופית 9 · כשהסדר קבוע אני לא נתקעת · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact, no promise of a result.
+- שקופית 1 · בכיתה מסודרת, בבוקר נתקעת · sourced_fact · Understood: most young children are creatures of habit and thrive on routines and schedules; make every day as predictable as you can. Said as this child's two sides.
+- שקופית 2 · לקום לפניי ולהעיר אותי בשיר ובחיבוק · sourced_fact · Understood: wake up a little earlier than your child; set the alarm to a favorite song, or wake your child with lots of snuggles.
+- שקופית 3 · סדר הבוקר בציורים על הקיר · sourced_fact · Understood: wake up, wash face, eat breakfast, get dressed, brush teeth; a picture schedule can be extra helpful.
+- שקופית 4 · שולחן ערוך מהערב, ואמא כבר לבושה · sourced_fact · Understood: if you have breakfast as a family, set the breakfast table; try not to be racing around to get yourself ready at the same time, this lowers the stress level for both of you.
+- שקופית 5 · ״עוד חמש דקות, נעליים״ ומקום קבוע לנעליים · sourced_fact · Understood: give manageable countdowns, like at 7:25 it will be time to put your shoes on; designate spots for school supplies, coats and jackets.
+- שקופית 6 · בכיתה הכל ידוע מראש · sourced_fact · Understood: young children thrive on routines and schedules. Said as this child's reason.
+- שקופית 7 · תיק ליד הדלת ובגדים מהערב, ושיר שמזכיר · sourced_fact · KidsHealth: set out what they need the night before, backpacks by the door and clothes laid out; Understood: pick out an outfit, a silly phrase or song to remember what they need.
+- שקופית 8 · בלי מסך שעה לפני, אותה שעת שינה גם בסוף שבוע · sourced_fact · KidsHealth: turn off all screens at least 1 hour before bedtime; regular bedtimes; on weekends no more than an hour later.
 - שקופית 10 · ספרים על הרגע יכולים לעזור · sourced_fact · Understood: explore back-to-school book lists for preschoolers and grade-schoolers. That a personalised story with the child as the hero is another way is our wording.
 - שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 10 on first grade. No brand or title on the slides.
 
@@ -575,83 +911,154 @@
 ### kid-6 · 7:25 אני מחפש את הנעל השנייה
 
 - **על מי:** תומר (בן), לשני ההורים
-- **זווית:** הילד אומר שהוא לא מאחר בכוונה אלא מחפש ומתבלבל, ומבקש מההורים שבעה דברים: מקום קבוע לנעליים, להעיר אותו בנחת, שעון, שולחן מהערב, שיתכוננו לפניו, ספירה לאחור ליציאה ובדיקה כפולה בדלת.
+- **זווית:** תומר, בן 6, מאט לאמא ואבא את הדקה של 7:25: נעל אחת חסרה, ״מהר, נאחר!״, הוא מחפש ומתבלבל, ואז אחד מהם מתכופף ומחפש איתו, והם בודקים ביחד בדלת. בערב: מקום קבוע לנעליים, שעון שרואים, שעה במקום ״מהר״, ושההורים יקומו קצת לפניו.
 - **למי:** הורים לילד בכיתה א׳ שמחפש נעליים ותיק כל בוקר ומאחר.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** moment-time
 - **נושא:** בוקר לחוץ לפני בית הספר (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המספר והבקשה של הילד/ה על הכריכה (7 דברים שיעזרו), והפנים מסתכלות ישר לעדשה. שקופית 2 מסבירה מה עומד מאחורי הרגע, שקופיות 3 עד 8 נותנות דברים ממוספרים שאפשר לעשות מחר, ושקופית 9 מסכמת לצילום מסך. שקופית 10 מבקשת לשמור את הפוסט לפעם הבאה.
+- **למה זה עשוי להמיר:** דקה אחת מואטת מראה להורים מה קורה בתוך הילד כשהם אומרים ״מהר״, ומה מחזיר אותו לנשום. הכריכה שומרת על השעה והנעל.
 
-#### שקופית 1 · פתיח
+- **מבנה:** דקה אחת · 10 שקופיות
+
+#### שקופית 1 · שער
 
 **7:25 אני מחפש**  
 **את הנעל השנייה**  
-7 דברים שיעזרו לי  
+דקה אחת בבוקר, מבפנים  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · קודם
 
-**אני לא מאחר בכוונה**  
-**אני מחפש ומתבלבל**  
-כשיש מקום לכל דבר  
-קל לי למצוא ולצאת  
+**אני כבר כמעט מוכן**  
+לבוש, אכלתי, התיק על הגב.  
+נעל אחת כבר על הרגל,  
+ואני מרגיש **גדול**.  
+עוד רגע יוצאים.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 מקום קבוע לנעליים**  
-**2 להעיר אותי בנחת**  
-שיר שאני אוהב או חיבוק  
-והנעליים באותו מקום  
+*Picture:* The boy stands in the hallway dressed for school with his backpack on and one sneaker on, looking proud. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 שעון שאני רואה**  
-שעון בחדר ובמטבח  
-ככה אני רואה כמה זמן נשאר  
+#### שקופית 3 · סיפור · הדקה מתחילה
 
-#### שקופית 5 · דוגמאות ממוספרות
+**איפה הנעל השנייה?**  
+לא ליד הדלת. לא מתחת לספה.  
+אני מסתובב בסלון עם נעל אחת,  
+והלב מתחיל **לדפוק**.  
 
-**4 שולחן מוכן מהערב**  
-אני אוכל בלי לרוץ  
-וזה פחות לחץ על כולנו  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The boy crawls to look under the sofa wearing one sneaker and one sock, his backpack still on. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 תתכוננו לפניי**  
-תקומו קצת לפניי ותתארגנו  
-כשאתם לא ממהרים גם אני רגוע  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · עשר שניות
 
-**6 ספירה לאחור ליציאה**  
-״תומר, בשעה 7:30 יוצאים מהדלת״  
-שעה ברורה במקום ״מהר״  
+**״תומר, מהר, נאחר!״**  
+אתם אומרים את זה מהמטבח, שניכם.  
+ואני רץ, אבל לאן?  
+״מהר״ ממלא לי את הראש,  
+ואין בו מקום **לחשוב**.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**7 בדיקה כפולה בדלת**  
-ביחד בודקים תיק, נעליים וכריך  
-ואז יוצאים  
+*Picture:* The boy runs in a circle in the living room with his hands on his head, while his parents call from the kitchen doorway with coats on. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**כשיש מקום לכל דבר**  
-**אני לא מחפש**  
-תעזרו לי להתארגן  
-צעד אחרי צעד  
+#### שקופית 5 · סיפור · עשרים שניות
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**אני מחפש בכל מקום**  
+*מה אתם רואים:*  
+ילד שמבזבז זמן.  
+*מה קורה לי בפנים:*  
+אני לא מאחר בכוונה.  
+אני מחפש, ומתבלבל, ושוכח מה **חיפשתי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy stands in the middle of the hallway holding a toy instead of a shoe, looking lost and confused. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · שלושים שניות
+
+**ואז אחד מכם מתכופף**  
+בלי לצעוק, בקול רגיל:  
+▪ ״נחפש ביחד, יש לנו עוד רגע.״  
+והנשימה שלי חוזרת **למקום**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* His father kneels down next to the boy at his eye level, one calm hand on his shoulder, both looking around the room together. The family's cosy Israeli living room: a beige sofa, a soft rug, a toy basket, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ארבעים שניות
+
+**היא הייתה באמבטיה**  
+שכחתי אותה שם אתמול בערב, מתחת למגבת.  
+אני נועל אותה, ושנינו **צוחקים**.  
+אף אחד לא כעס,  
+ויצאנו רק רגע אחרי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy pulls his missing sneaker out from under a towel on the bathroom floor and holds it up, laughing with his father. The family's small Israeli bathroom in the morning: white tiles, a towel on the floor, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · חמישים שניות
+
+**בדלת, בודקים ביחד**  
+תיק? יש.  
+כריך? יש.  
+בקבוק? יש.  
+נעליים? שתיים.  
+אתם שואלים, אני עונה.  
+ויוצאים בלי **צעקות**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* At the front door the boy and his mother check his backpack together, the boy giving a thumbs up, both sneakers on. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · בערב
+
+**מה יעזור לי מחר בבוקר**  
+*מה יעזור לי:*  
+מקום קבוע לנעליים, ליד הדלת.  
+שעון שאני רואה, ושעה במקום ״מהר״:  
+״תומר, בשבע ועשרים וחמש, נעליים.״  
+ושתקומו קצת **לפניי**, ולא תרוצו.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In the evening the boy places both sneakers side by side on the shoe rack by the door, his parents smiling beside him. The family's Israeli apartment entrance hall in the evening: a front door, a wooden shoe rack, a round wall clock, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה שקשה לו להתארגן בבוקר  
 
-**הכותרות בלבד:** 7:25 אני מחפש את הנעל השנייה ← אני לא מאחר בכוונה אני מחפש ומתבלבל ← 1 מקום קבוע לנעליים 2 להעיר אותי בנחת ← 3 שעון שאני רואה ← 4 שולחן מוכן מהערב ← 5 תתכוננו לפניי ← 6 ספירה לאחור ליציאה ← 7 בדיקה כפולה בדלת ← כשיש מקום לכל דבר אני לא מחפש ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy walks out of the front door between his parents in the morning, both sneakers on, all three relaxed and smiling. The family's Israeli apartment entrance hall in the morning: a front door, a wooden shoe rack, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** 7:25 אני מחפש את הנעל השנייה ← אני כבר כמעט מוכן ← איפה הנעל השנייה? ← ״תומר, מהר, נאחר!״ ← אני מחפש בכל מקום ← ואז אחד מכם מתכופף ← היא הייתה באמבטיה ← בדלת, בודקים ביחד ← מה יעזור לי מחר בבוקר ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-7:25 אני מחפש את הנעל השנייה ויש 7 דברים שיעזרו לי  
-תנו לנעליים מקום קבוע ותבדקו איתי לפני שיוצאים  
-תעירו אותי בנחת ותשימו לי שעון שאני רואה  
-תכינו שולחן מהערב ותתכוננו לפניי  
+אמא ואבא, בבוקר אני לא מאחר בכוונה, אני מחפש ומתבלבל.  
+תנו לי מקום קבוע לנעליים, ושעון שאני רואה.  
+תגידו לי שעה במקום ״מהר״, ותבדקו איתי את התיק בדלת.  
+ותקומו קצת לפניי, כדי שגם אתם לא תרוצו.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרו את הפוסט לפעם הבאה שקשה לו להתארגן בבוקר  
 
@@ -667,15 +1074,11 @@
 
 **טענות**
 
-- שקופית 1 · 7:25 אני מחפש את הנעל השנייה · sourced_fact · Understood: designate spots, countdowns and a double-check make mornings easier; the seven things are our grouping. Imagined child voice.
-- שקופית 2 · כשיש מקום לכל דבר קל לי למצוא · sourced_fact · Understood: designate spots for school supplies, coats and jackets so your child always knows where to look when you are halfway out the door.
-- שקופית 3 · מקום קבוע ולהעיר בנחת · sourced_fact · Understood: designate spots; set the alarm to a favorite song or wake your child with lots of snuggles.
-- שקופית 4 · שעון שאני רואה · sourced_fact · Understood: make sure there are clocks around the house, in your child's room, the bathroom and the kitchen.
-- שקופית 5 · שולחן מוכן מהערב · sourced_fact · Understood: if you have breakfast as a family, set the breakfast table the night before.
-- שקופית 6 · תתכוננו לפניי · sourced_fact · Understood: wake up a little earlier than your child and try not to be racing around to get yourself ready at the same time; this will lower the stress level for both of you.
-- שקופית 7 · ספירה לאחור ליציאה · sourced_fact · Understood: give manageable countdowns, like at 7:25 it will be time to put your shoes on.
-- שקופית 8 · בדיקה כפולה בדלת · sourced_fact · Understood: have your child check and re-check to make sure everything is packed before leaving the house.
-- שקופית 9 · כשיש מקום לכל דבר אני לא מחפש · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact, no promise of a result.
+- שקופית 1 · 7:25 אני מחפש את הנעל השנייה · sourced_fact · Understood: give manageable countdowns, like at 7:25 it will be time to put your shoes on; designate spots for coats and gear. The lost shoe is this child's story.
+- שקופית 5 · אני לא מאחר בכוונה, אני מתבלבל · sourced_fact · Understood: most young children are creatures of habit and thrive on routines and schedules. Getting confused is said as this child's reason, not about every child.
+- שקופית 6 · בלי לצעוק: ״נחפש ביחד, יש לנו עוד רגע״ · sourced_fact · Understood: try not to be racing around at the same time, this will lower the stress level for both of you.
+- שקופית 8 · בודקים ביחד בדלת · sourced_fact · Understood: have your child check and re-check to make sure everything is packed before leaving the house.
+- שקופית 9 · מקום קבוע לנעליים, שעון, שעה במקום ״מהר״, לקום לפניי · sourced_fact · Understood: designate spots for gear, coats and jackets; clocks in your face around the house; manageable countdowns like at 7:25 shoes on; wake up a little earlier than your child.
 - שקופית 10 · ספרים על הרגע יכולים לעזור · sourced_fact · Understood: explore back-to-school book lists for preschoolers and grade-schoolers. That a personalised story with the child as the hero is another way is our wording.
 - שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 10 on first grade. No brand or title on the slides.
 

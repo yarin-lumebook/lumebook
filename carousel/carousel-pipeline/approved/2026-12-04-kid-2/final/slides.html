@@ -1,0 +1,86 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>2026-12-04 kid-2</title><style>
+@font-face{font-family:"Varela Round";src:url("../../../assets/fonts/VarelaRound-hebrew.woff2") format("woff2");unicode-range:U+0307-0308,U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F;font-display:block}
+@font-face{font-family:"Varela Round";src:url("../../../assets/fonts/VarelaRound-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:block}
+:root{--ink:#0B0518;--ink-2:#1D1039;--gold:#E6B762;--gold-soft:#F3D9A1;--cream:#F8F0E1}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{direction:rtl;background:#0B0518}
+body.single .slide:not(.on){display:none}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:var(--ink);font-family:"Varela Round",sans-serif;color:var(--cream);text-align:center;direction:rtl}
+.art{position:absolute;inset:0;width:1080px;height:1350px;object-fit:cover}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,5,24,.88) 0,rgba(11,5,24,.8) 45%,rgba(11,5,24,.55) 66%,rgba(11,5,24,.22) 84%,rgba(11,5,24,.38) 100%)}
+.cover .veil{background:linear-gradient(180deg,rgba(11,5,24,.88) 0,rgba(11,5,24,.66) 30%,rgba(11,5,24,0) 52%)}
+.cta .veil{background:linear-gradient(180deg,rgba(11,5,24,.9) 0,rgba(11,5,24,.78) 40%,rgba(11,5,24,.45) 70%,rgba(11,5,24,.55) 100%)}
+.copy{position:absolute;top:70px;left:70px;right:70px;direction:rtl;text-align:center}
+.h,.t{text-wrap:balance;-webkit-text-stroke:.022em currentColor;paint-order:stroke fill;text-shadow:0 2px 22px rgba(11,5,24,.7)}
+.h{line-height:1.16;letter-spacing:-.005em}
+.h .ln{display:block}
+.t{font-size:.74em;line-height:1.3;margin-top:.15em;-webkit-text-stroke-width:.014em}
+.part{margin-top:.5em}
+.lab{display:block;color:var(--gold);font-size:.56em;letter-spacing:.01em;margin-bottom:.15em;-webkit-text-stroke:.012em currentColor;text-shadow:0 2px 16px rgba(11,5,24,.8)}
+.q{color:var(--gold-soft)}
+.num{display:inline-flex;align-items:center;justify-content:center;width:84px;height:84px;border-radius:50%;background:var(--gold);color:var(--ink);font-size:46px;margin-bottom:26px;box-shadow:0 8px 24px rgba(11,5,24,.45)}
+.pill{display:inline-block;margin-top:34px;background:var(--gold);color:var(--ink);border-radius:999px;padding:.22em .9em .3em;font-size:.5em;line-height:1.2;box-shadow:0 10px 28px rgba(11,5,24,.45)}
+.btn{display:inline-flex;white-space:nowrap;align-items:center;gap:.35em;background:var(--gold);color:var(--ink);border-radius:999px;padding:.16em .8em .24em;-webkit-text-stroke:.02em currentColor;text-shadow:none;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.btn svg{width:.8em;height:.8em;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.tag{display:inline-flex;align-items:center;gap:.3em;color:var(--gold);font-size:.46em;margin-bottom:.45em;-webkit-text-stroke:.012em currentColor;text-shadow:0 2px 16px rgba(11,5,24,.8)}
+.tag .num{width:1.55em;height:1.55em;margin:0;font-size:1em;box-shadow:0 6px 18px rgba(11,5,24,.45);-webkit-text-stroke:0}
+.body{font-size:.6em;margin-top:.55em}
+/* the open booklet under the book link CTA (30 Oct 2026, story-format.md section 7) */
+.fade{position:absolute;left:0;top:500px;width:1080px;height:220px;background:linear-gradient(180deg,rgba(11,5,24,0),rgba(11,5,24,.9) 55%,rgba(11,5,24,0))}
+.book{position:absolute;left:65px;top:620px;width:950px;overflow:hidden;border-radius:14px;box-shadow:0 26px 60px rgba(0,0,0,.65)}
+.book .bk{position:absolute;max-width:none}
+.book .page{position:absolute;top:0;bottom:0;right:0;width:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:38px;line-height:1.45;color:#2a2340;text-align:center;padding:0 24px}
+.book .page span{display:block}
+.kid{position:absolute;left:830px;top:505px;width:230px;height:230px;border-radius:50%;border:7px solid #fff;box-shadow:0 8px 22px rgba(0,0,0,.35);background-size:cover;background-position:50% 38%}
+.arrows{position:absolute;left:0;top:0;pointer-events:none}
+.body .t{font-size:1em;margin-top:0}
+.body .t .ln{display:block;white-space:nowrap}
+.body .gap{height:.55em}
+.body .lab{font-size:.8em;margin:.55em 0 .05em}
+.body .lab:first-child{margin-top:0}
+.em{color:var(--gold);-webkit-text-stroke:.03em currentColor}
+.say{display:inline-block;margin-top:.15em;background:var(--cream);color:var(--ink);border-radius:.7em;padding:.28em .8em .36em;line-height:1.3;-webkit-text-stroke:.012em currentColor;text-shadow:none;box-shadow:0 10px 28px rgba(11,5,24,.5);white-space:nowrap}
+.say .q{color:var(--ink)}
+.tag.plain{font-size:.5em}
+.letter .copy{background:var(--cream);color:var(--ink);border-radius:34px;padding:56px 58px 60px;transform:rotate(-1.2deg);box-shadow:0 24px 60px rgba(11,5,24,.55)}
+.letter .h,.letter .t,.letter .lab{text-shadow:none}
+.letter .h{font-size:.92em}
+.letter .em,.letter .q{color:#8A5A14}
+.letter .veil{background:linear-gradient(180deg,rgba(11,5,24,.55) 0,rgba(11,5,24,.3) 60%,rgba(11,5,24,.2) 100%)}
+pre#rtl-report{display:none}
+</style></head><body dir="rtl" class="look-story structure-thoughts_answers"><section class="slide cover" data-n="1"><img class="art" src="../generated-assets/slide-01.png" alt=""><div class="veil"></div><div class="copy" data-max="104" data-min="72" data-maxh="560" style="font-size:104px"><div class="h"><span class="ln">אמא, כשאת אומרת</span><span class="ln"><span class="q">״תהיה אח גדול״</span></span><span class="ln">בא לי להיות תינוק</span></div><div class="pill">מה את חושבת, ומה אני עונה</div></div></section><section class="slide " data-n="2"><img class="art" src="../generated-assets/slide-02.png" alt=""><div class="veil"></div><div class="copy" data-max="84" data-min="62" data-maxh="900" style="font-size:84px"><div class="h"><span class="ln">אני רואה את המבט שלך</span></div><div class="body"><div class="t"><span class="ln">כשאני מבקש את המוצץ של התינוק.</span><span class="ln">כשאני זוחל על השטיח כמוהו.</span><span class="ln">את נאנחת, ואני יודע מה את חושבת.</span></div><div class="gap"></div><div class="t"><span class="ln">אז החלטתי לענות לך,</span><span class="ln">מחשבה אחרי <span class="em">מחשבה</span>.</span></div></div></div></section><section class="slide " data-n="3"><img class="art" src="../generated-assets/slide-03.png" alt=""><div class="veil"></div><div class="copy" data-max="84" data-min="62" data-maxh="900" style="font-size:84px"><div><span class="tag plain">את חושבת:</span></div><div class="h"><span class="ln"><span class="q">״הוא כבר גדול, למה בקבוק?״</span></span></div><div class="body"><div class="t"><span class="ln">אני רואה אותו שותה בשקט בידיים שלך.</span><span class="ln">גם אני רוצה <span class="em">להיות שם</span>.</span></div><div class="lab">אני עונה:</div><div class="t"><span class="ln">כשקשה לי, אני חוזר קצת אחורה.</span><span class="ln">תני לי, בלי לכעוס.</span></div></div></div></section><section class="slide " data-n="4"><img class="art" src="../generated-assets/slide-04.png" alt=""><div class="veil"></div><div class="copy" data-max="84" data-min="62" data-maxh="900" style="font-size:84px"><div><span class="tag plain">את חושבת:</span></div><div class="h"><span class="ln"><span class="q">״תהיה אח גדול, תעזור לי״</span></span></div><div class="body"><div class="t"><span class="ln">ואני דווקא בורח לחדר.</span><span class="ln">כי <span class="q">״גדול״</span> אומר שאני כבר לא קטן שלך.</span></div><div class="lab">מה יעזור לי:</div><div class="t"><span class="ln">להזמין אותי, ולא להכריח.</span></div><div><span class="say"><span class="q">״נועם, רוצה להביא לו חיתול?״</span></span></div><div class="t"><span class="ln">ואם לא בא לי, זה <span class="em">בסדר</span>.</span></div></div></div></section><section class="slide " data-n="5"><img class="art" src="../generated-assets/slide-05.png" alt=""><div class="veil"></div><div class="copy" data-max="84" data-min="62" data-maxh="900" style="font-size:84px"><div><span class="tag plain">את חושבת:</span></div><div class="h"><span class="ln"><span class="q">״למה הוא מתנהג ככה פתאום?״</span></span></div><div class="body"><div class="t"><span class="ln">פעם היינו רק את ואני כל הבוקר.</span><span class="ln">עכשיו אני מחכה, ומחכה.</span></div><div class="lab">אני עונה:</div><div class="t"><span class="ln">קשה לי לחכות <span class="em">כל הזמן</span>.</span></div><div class="lab">מה יעזור לי:</div><div class="t"><span class="ln">זמן קטן רק שלנו, כל יום.</span></div></div></div></section><section class="slide " data-n="6"><img class="art" src="../generated-assets/slide-06.png" alt=""><div class="veil"></div><div class="copy" data-max="84" data-min="62" data-maxh="900" style="font-size:84px"><div><span class="tag plain">את חושבת:</span></div><div class="h"><span class="ln"><span class="q">״הוא לא אוהב את התינוק״</span></span></div><div class="body"><div class="t"><span class="ln">כשאני אומר <span class="q">״תחזירי אותו!״</span>,</span><span class="ln">אני רואה שנבהלת.</span></div><div class="lab">אני עונה:</div><div class="t"><span class="ln">אני רק רוצה לדעת שיש <span class="em">גם לי</span> מקום.</span></div><div class="lab">מה יעזור לי לשמוע:</div><div><span class="say"><span class="q">״נועם, אני אוהבת אותך כמו קודם.״</span></span></div></div></div></section><section class="slide " data-n="7"><img class="art" src="../generated-assets/slide-07.png" alt=""><div class="veil"></div><div class="copy" data-max="84" data-min="62" data-maxh="900" style="font-size:84px"><div><span class="tag plain">ואחרונה:</span></div><div class="h"><span class="ln"><span class="q">״מתי הוא יחזור לעצמו?״</span></span></div><div class="body"><div class="t"><span class="ln">אני פה, אמא. אותו נועם.</span><span class="ln">רק לומד שיש עוד מישהו בבית.</span></div><div class="gap"></div><div class="t"><span class="ln">כשאת מפרגנת לי על ליטוף עדין,</span><span class="ln">כשאת נותנת לי לבחור לו שמיכה,</span><span class="ln">אני מרגיש שזה <span class="em">גם התינוק שלי</span>.</span></div></div></div></section><section class="slide " data-n="8"><img class="art" src="../generated-assets/slide-08.png" alt=""><div class="veil"></div><div class="copy" data-max="84" data-min="62" data-maxh="900" style="font-size:84px"><div class="h"><span class="ln">אני לא צריך להיות גדול</span></div><div class="body"><div class="t"><span class="ln">אני צריך לדעת שאני עדיין שלך.</span><span class="ln">גם כשאני מבקש בקבוק,</span><span class="ln">גם כשאני בורח מהחיתולים.</span></div><div class="gap"></div><div class="t"><span class="ln">קצת זמן רק שלנו, עזרה כשבא לי,</span><span class="ln">וככה אני לומד להיות אח, <span class="em">בקצב שלי</span>.</span></div></div></div></section><section class="slide cta" data-n="9"><img class="art" src="../generated-assets/slide-09.png" alt=""><div class="veil"></div><div class="copy" data-max="66" data-min="50" data-maxh="425" style="font-size:66px"><div class="h"><span class="ln">אפשר גם לעזור להם</span><span class="ln">עם הקנאה באח החדש</span><span class="ln">בעזרת ספר מותאם אישית.</span></div><div class="part"><div class="t" style="font-size:.9em"><span class="ln" style="display:block">תכתבי <span class="em">&quot;אח&quot;</span></span><span class="ln" style="display:block">ואשלח לך קישור להכנת הספר</span></div></div></div><div class="fade"></div><div class="book" style="height:512px"><img class="bk" src="../booklet/booklet.png" alt="" style="width:1092.1px;height:609.5px;left:-76.2px;top:-51.6px"><div class="page"><span>נועם החזיק את אחיו,</span><span>ואמא ראתה</span><span>אח גדול באמת.</span></div></div><div class="kid" style="background-image:url(&quot;../booklet/kid.png&quot;)"></div><svg class="arrows" viewBox="0 0 1080 1350" width="1080" height="1350"><defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.4" markerHeight="4.4" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#FFC21A"/></marker><marker id="ao" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="3.6" markerHeight="3.6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#000"/></marker></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M90 1088 L212 943" stroke="#000" stroke-width="19" marker-end="url(#ao)"/><path d="M90 1088 L212 943" stroke="#FFC21A" stroke-width="13" marker-end="url(#ah)"/><path d="M1040 845 L978 724" stroke="#000" stroke-width="19" marker-end="url(#ao)"/><path d="M1040 845 L978 724" stroke="#FFC21A" stroke-width="13" marker-end="url(#ah)"/></g></svg></section><pre id="rtl-report"></pre><script>
+const q = new URLSearchParams(location.search), one = q.get('s');
+if (one) { document.body.classList.add('single'); document.querySelector('.slide[data-n="' + one + '"]').classList.add('on'); }
+const WIDE = '.h,.t,.ln,.pill,.say,.tag,.btn';
+function fit(s) {
+  // the whole copy block shrinks in steps of 2px until it ends above data-maxh and no line runs past the sides
+  const c = s.querySelector('.copy'), maxH = Number(c.dataset.maxh), min = Number(c.dataset.min);
+  let k = Number(c.dataset.max);
+  const over = () => c.scrollHeight > maxH || [...c.querySelectorAll(WIDE)].some(e => e.scrollWidth > e.clientWidth + 1);
+  c.style.fontSize = k + 'px';
+  while (over() && k > min) { k -= 2; c.style.fontSize = k + 'px'; }
+  c.dataset.fit = over() ? 'overflow' : 'ok'; c.dataset.size = k;
+}
+(async () => {
+  try { await document.fonts.ready; } catch (e) {}
+  await Promise.all([...document.images].map(i => i.complete ? null : new Promise(r => { i.onload = r; i.onerror = r; })));
+  try { document.querySelectorAll('.slide').forEach(fit); }
+  catch (e) { document.getElementById('rtl-report').textContent = 'JSERROR ' + e + ' ' + e.stack; document.body.dataset.ready = '1'; return; }
+  if (q.get('check')) {
+    const font = document.fonts.check('40px "Varela Round"', 'אב');
+    const rep = [...document.querySelectorAll('.slide')].map(s => {
+      const c = s.querySelector('.copy'), cs = getComputedStyle(c), k = Number(c.dataset.size);
+      const blocks = [...s.querySelectorAll('.copy .ln, .copy .lab, .copy .tag, .copy .say, .copy .pill, .copy .btn, .cta .t')].map(el => ({
+        text: el.textContent, direction: getComputedStyle(el).direction, textAlign: getComputedStyle(el).textAlign,
+        mixed: /[A-Za-z0-9]/.test(el.textContent), overflow: el.scrollWidth > el.clientWidth + 1 }));
+      return { n: Number(s.dataset.n), lang: document.documentElement.lang, htmlDir: document.documentElement.dir,
+               direction: cs.direction, textAlign: cs.textAlign, fit: c.dataset.fit, push: 0, clear: 'ok', dark: true,
+               headSize: k, bodySize: Math.round(k * (s.classList.contains('cover') ? .5 : s.classList.contains('cta') ? .67 : .6)),
+               splits: 0, clearance: Math.round(Number(c.dataset.maxh) - c.scrollHeight), height: c.scrollHeight, maxH: Number(c.dataset.maxh),
+               contrast: 0, contrastAfter: 0, contrastFix: 'veil', font, blocks };
+    });
+    document.getElementById('rtl-report').textContent = JSON.stringify(rep);
+  }
+  document.body.dataset.ready = '1';
+})();
+</script></body></html>

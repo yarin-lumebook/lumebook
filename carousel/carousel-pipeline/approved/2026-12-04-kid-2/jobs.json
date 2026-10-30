@@ -1,0 +1,185 @@
+{
+ "order": [
+  "slide-01",
+  "slide-02",
+  "slide-03",
+  "slide-04",
+  "slide-05",
+  "slide-06",
+  "slide-07",
+  "slide-08",
+  "slide-09"
+ ],
+ "story": true,
+ "reference_job": "slide-01",
+ "max_usd": 0.18,
+ "max_replacements_per_job": 2,
+ "jobs": {
+  "slide-01": {
+   "endpoint": "openai/gpt-image-2.5/flare/text-to-image",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Characters, identical on every slide: A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall. His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and soft grey trousers. Mother: sage-green linen shirt and jeans.\n\nScene: The boy faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, eyebrows low, arms crossed in front of him; his mother is small and soft in the background sitting on the sofa. Setting: A bright Israeli living room in the afternoon with a plain pale beige wall, a soft rug and a sofa.\n\nCover image, composed like an animated film poster: the child is the subject and FACES THE VIEWER, head and shoulders or waist up, the face large in the frame, eyes looking straight into the camera. One big, exaggerated, instantly readable expression that fits the emotional beat (for example huge wide eyes with raised eyebrows, a dramatic pout with puffed cheeks, an open-mouthed gasp, a jaw-dropped stare, a giant grin). The whole face is visible: never from behind, never in profile, never hidden by hair, hands or objects. A parent may appear only small or soft in the background. This cover framing overrides any wider framing asked for elsewhere in this prompt.\n\nEmotional beat: grumpy and stubborn\n\nCamera: Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame. Lighting: Soft warm daylight from a side window.\n\nWardrobe and objects in this scene: A small grey plush rabbit sitting on the sofa.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, staged stock-photo poses and any uncanny or distorted hands or faces. The exaggeration is in the expression, the way an animated film exaggerates, never in broken anatomy.\n\nComposition: vertical 4:5. Reserve the top 45% of the frame as clean, quiet negative space (plain pale beige living-room wall) for editable Hebrew typography, and keep every face, hand and important object out of that zone. That zone is light and warm (cream, soft beige or a pale sky), never dark, blue, grey or saturated, so dark type reads at high contrast; in an evening or night scene a warm lamp lights that wall.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [],
+   "estimated_cost_usd": 0.055,
+   "purpose": "slide 1 · cover · grumpy and stubborn",
+   "text_zone": {
+    "edge": "top",
+    "percent": 45,
+    "surface": "plain pale beige living-room wall"
+   }
+  },
+  "slide-02": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall. His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and soft grey trousers. Mother: sage-green linen shirt and jeans.\n\nScene: The boy crawls on the rug next to the baby bouncer, imitating the baby, and glances up at his mother who sighs on the sofa. Setting: A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 2 · beat · The boy crawls on the rug next to the baby bouncer, imitating the baby, and glances up at "
+  },
+  "slide-03": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall. His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and soft grey trousers. Mother: sage-green linen shirt and jeans.\n\nScene: The boy stands holding a baby bottle and watches his mother feed the baby on the sofa, a longing look on his face. Setting: A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 3 · beat · The boy stands holding a baby bottle and watches his mother feed the baby on the sofa, a l"
+  },
+  "slide-04": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall. His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and soft grey trousers. Mother: sage-green linen shirt and jeans.\n\nScene: The mother holds out a folded nappy with a gentle smile while the boy peeks at her from behind the bedroom door, half hiding. Setting: A simple Israeli hallway: a plain cream wall, a wooden floor, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 4 · beat · The mother holds out a folded nappy with a gentle smile while the boy peeks at her from be"
+  },
+  "slide-05": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall. His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and soft grey trousers. Mother: sage-green linen shirt and jeans.\n\nScene: The boy and his mother sit on the rug doing a simple puzzle together, just the two of them, the baby asleep in the bouncer in the background. Setting: A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 5 · beat · The boy and his mother sit on the rug doing a simple puzzle together, just the two of them"
+  },
+  "slide-06": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall. His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and soft grey trousers. Mother: sage-green linen shirt and jeans.\n\nScene: The mother kneels to the boy's height and holds his face in her hands, looking warmly into his eyes, while he pouts with crossed arms. Setting: A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 6 · beat · The mother kneels to the boy's height and holds his face in her hands, looking warmly into"
+  },
+  "slide-07": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall. His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and soft grey trousers. Mother: sage-green linen shirt and jeans.\n\nScene: The boy carefully lays a small blanket he chose over the sleeping baby in the bouncer, his mother crouching beside him with a proud smile. Setting: A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 7 · beat · The boy carefully lays a small blanket he chose over the sleeping baby in the bouncer, his"
+  },
+  "slide-08": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall. His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and soft grey trousers. Mother: sage-green linen shirt and jeans.\n\nScene: The boy curls up in his mother's lap on the sofa while the baby sleeps in the bouncer beside them, both relaxed. Setting: A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 8 · turn · The boy curls up in his mother's lap on the sofa while the baby sleeps in the bouncer besi"
+  },
+  "slide-09": {
+   "endpoint": "openai/gpt-image-2.5/flare/edit",
+   "input": {
+    "image_size": {
+     "width": 1024,
+     "height": 1280
+    },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1,
+    "prompt": "Use the reference image as the exact character and style reference. Keep the same child and parent: same faces, ages, hair, skin tone, body proportions, clothing and the same feature-film 3D animated style, lighting and textures. Create a new scene and camera angle; do not copy the reference layout.\n\nCharacters, identical on every slide: A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall. His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way. Wardrobe: Boy: mustard-yellow cotton T-shirt and soft grey trousers. Mother: sage-green linen shirt and jeans.\n\nScene: The boy sits beside his mother on the sofa gently holding the baby's tiny hand, all three calm and close in the warm light. Setting: A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.\n\nFeature-film 3D animated style: smooth soft-shaded stylised characters with large expressive eyes, rounded features, gentle subsurface skin glow, detailed knit and linen fabric textures, warm cinematic lighting, soft depth of field, rich but tender colour. Cute faces: large round eyes with soft sparkly catch-lights, chubby rosy cheeks, small soft noses and chins; the child has a slightly bigger head relative to the body. Clearly an animated film still, never a photograph. Lived-in Israeli apartment details.\n\nPalette: warm cream (#F8F0E1) walls and textiles, plum and violet accents (#5B2BD6, #291852), muted gold highlights (#C9954A). Low saturation, warm white balance.\n\nAvoid photorealism, glossy advertising smiles, exaggerated sadness or tears, staged stock-photo poses and any uncanny or distorted hands or faces.\n\nComposition: vertical 4:5. Keep the upper third of the frame calm: a plain wall or soft background with no faces, hands or important objects in it, because words are set over it later. No words, letters or numbers anywhere in the image.\n\nNo generated words, letters, numbers, logos, watermarks, signatures, frames, borders or user interface anywhere in the image, including on books, screens, clothing, toys and signs."
+   },
+   "refs": [
+    "slide-01"
+   ],
+   "estimated_cost_usd": 0.06,
+   "purpose": "slide 9 · story_cta · The boy sits beside his mother on the sofa gently holding the baby's tiny hand, all three "
+  }
+ },
+ "backend": "fal"
+}

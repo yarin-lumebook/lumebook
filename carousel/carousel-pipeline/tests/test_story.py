@@ -330,7 +330,7 @@ class NightlyStart(unittest.TestCase):
         self.assertEqual(out["copy_style"], "story")
         self.assertNotIn("letter", out["structure_per_option"].values())
         self.assertNotIn("examples_per_option", out)
-        self.assertEqual(out["rules"]["slides"], [9, 12])
+        self.assertEqual(out["rules"]["slides"], [9, 10])
 
     def test_history_records_the_structure(self):
         entry = lib.history_entry(story_pack())

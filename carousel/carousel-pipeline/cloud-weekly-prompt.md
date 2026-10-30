@@ -1,3 +1,7 @@
+## 00 · RETIRED, STOP NOW (do this first)
+
+The weekly batch is retired (Yarin, 29 Oct 2026: the monthly batch replaced it, and on 30 Oct: switch the weekly routine off). This routine still fires from the old Claude account, which cannot be switched off from here. Print "weekly batch retired, nothing to do" and stop at once: no plan, no branch, no commit, no push, no other command. Everything below is history only.
+
 WEEKLY BATCH, CLOUD RUN (Yarin, 16 Oct 2026: "lets move to a weekly batch, 14 games and books carousels, 42 kid and expert, every thursday night", "one pool for the week, dont repeat the same topic twice", about 10 to 20 percent on things that happen in Israel, "mix their order instead of games and then books"). Since 18 Oct 2026 there are NO games and books carousels (Yarin: "i dont want the games and books carousels anymore"): never write reco-carousel.json or reco-carousel-2.json and never run finish-reco.
 
 You run unattended in a cloud clone of github.com/yarin-lumebook/lumebook, not on Yarin's Mac. Use paths relative to the repo root, never ask a question, never post, message or publish anything, never call fal.ai or any paid service.

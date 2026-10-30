@@ -8,6 +8,7 @@
     "reason": "הנושא נקבע בתוכנית השבועית (חריץ 6 מתוך 7) ולא מופיע בשאר הימים של השבוע. יש לו ספר רב מכר בקטלוג (בדקתי את עמוד הספר באתר היום: ספר על ילד שמגלה התמדה ושגם אחרי נפילה קמים ומנסים שוב), רק לשימוש פנימי. קראתי היום את דפי Child Mind Institute ו KidsHealth על הפסד, התאמנות עליו ושאלות אחרי משחק. לא נטענת עובדת לוח שנה."
   },
   "format": "two_topics",
+  "copy_style": "story",
   "topics": [
     {
       "id": "losing-games",
@@ -489,14 +490,15 @@
       "versions": [
         {
           "id": "kid-1",
-          "title": "״זה רק משחק״ זה לא עוזר לי: 7 דברים שכן עוזרים",
-          "angle": "הילד אומר לאמא שהמשפט ״זה רק משחק״ לא עוזר לו כשהוא מפסיד, ומבקש שבעה דברים אחרים: לשמוע אותו, להתאמן על הפסד, תוכנית לגוף, לשאול מה הצליח, להזכיר הפסד שעבר, מילה טובה למנצח ודוגמה אישית.",
+          "structure": "thoughts_answers",
+          "title": "אמא, ״זה רק משחק״ לא עוזר לי כשאני מפסיד",
+          "angle": "יואב, בן 5, עונה לאמא על המחשבות שלה כשהוא מפסיד בקלפים: ״זה רק משחק״, ״הוא לא יודע להפסיד״, ״למה הוא מתפוצץ״, ״אולי אתן לו לנצח״. מה עוזר לו: לשמוע שרואים שזה מבאס בלי לשפוט, להתאמן על הפסד קטן, תוכנית לגוף, לשאול מה הלך טוב, להזכיר הפסד שעבר, ואמא שמפסידה ואומרת ״משחק יפה״.",
           "target_parent": "אמהות לילד בן 4 עד 7 שמתפוצץ כשהוא מפסיד במשחק קלפים או קופסה ושמנסות להגיד לו שזה רק משחק.",
           "awareness_stage": "problem_aware",
           "hook_family": "sentences_we_say",
           "hook": {
             "formula": "sentence-we-all-say",
-            "gap": "If 'it's only a game' does not help a boy who lost, what does?",
+            "gap": "Why doesn't 'it's only a game' help a 5-year-old who loses, and what does he answer to each of his mother's thoughts?",
             "payoff_slide": 3,
             "score": {
               "specific": 2,
@@ -514,7 +516,6 @@
           "addressee": "mom",
           "child_name": "יואב",
           "topic_id": "losing-games",
-          "examples_target": 7,
           "character_anchor": {
             "child": "A 5-year-old Israeli boy with short dark brown hair, warm olive skin, big brown eyes and a small scar-free forehead; about 108 cm tall.",
             "parent": "His mother, mid-thirties, light-brown shoulder-length wavy hair, hazel eyes, kind and a little tired.",
@@ -537,126 +538,103 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "״זה רק משחק״\nזה לא עוזר לי",
-              "body": "7 דברים שכן עוזרים",
-              "pull": {
-                "type": "numbered",
-                "note": "שבעת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "אמא, ״זה רק משחק״\nלא עוזר לי\nכשאני מפסיד",
+              "body": "המחשבות שלך, והתשובות שלי"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "בשבילך זה רק משחק\nבשבילי זה ממש גדול",
-              "body": "כשאני מפסיד אני מתפוצץ\nואני צריך שתעזרי לי",
-              "pull": {
-                "type": "open_loop",
-                "note": "ומה כן עוזר? שקופית 3"
+              "role": "beat",
+              "headline": "אני מכיר את המבט הזה",
+              "body": "כשהקלף האחרון נופל ואני מפסיד,\nאני זורק את הקלפים על הרצפה.\nואת מסתכלת עליי, ככה.\n\nאני יודע מה עובר לך בראש.\nאז הנה התשובות **שלי**.",
+              "scene": {
+                "action": "The boy flings a handful of playing cards with plain star-pattern backs onto the rug, and his mother on the sofa looks at him with raised eyebrows.",
+                "setting": "A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 תגידי שאת רואה אותי",
-              "body": "״יואב, אני רואה שזה מבאס״\nבלי להגיד ״זה רק משחק״",
-              "examples": [
-                "תגידי שאת רואה אותי"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עושים אחרי זה? שקופית 4"
+              "role": "beat",
+              "label": "את חושבת:",
+              "headline": "״זה רק משחק, יואב״",
+              "body": "בשבילך זה רק משחק.\nבשבילי זה כל העולם, עכשיו.\n## מה יעזור לי לשמוע:\n> ״אני רואה שזה ממש מבאס אותך.״\nבלי ״לא נורא״, בלי **לשפוט**.",
+              "scene": {
+                "action": "The mother sits on the rug next to the boy, who hugs his knees with a red face, and she rests a calm hand on his back.",
+                "setting": "A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 4,
-              "role": "example",
-              "headline": "2 תתאמני איתי על הפסד",
-              "body": "משחק קצר שאפשר להפסיד בו\nואז עוד אחד",
-              "examples": [
-                "תתאמני איתי על הפסד"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עושה הגוף? שקופית 5"
+              "role": "beat",
+              "label": "את חושבת:",
+              "headline": "״הוא לא יודע להפסיד״",
+              "body": "נכון. עוד לא התאמנתי על זה.\n## מה יעזור לי:\nמשחק קצר שלא אכפת לי להפסיד בו.\nלהפסיד בכוונה, ככה סתם,\nולהרגיש שזה **לא סוף העולם**.",
+              "scene": {
+                "action": "The boy and his mother play rock paper scissors on the sofa, the boy laughing as he loses on purpose with a silly face.",
+                "setting": "A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 5,
-              "role": "example",
-              "headline": "3 תוכנית קטנה לגוף שלי",
-              "body": "ידיים על הברכיים וסופרים עד 5\nתתרגלי איתי לפני המשחק",
-              "examples": [
-                "תוכנית קטנה לגוף שלי"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה שואלים אחרי? שקופית 6"
+              "role": "beat",
+              "label": "את חושבת:",
+              "headline": "״למה הוא מתפוצץ ככה?״",
+              "body": "כי הכל קורה לי בגוף בבת אחת.\nהידיים רוצות לזרוק, הרגליים לבעוט.\n## מה יעזור לי:\nתוכנית לגוף, עוד לפני המשחק.\nידיים על הברכיים, נשימה **ארוכה**,\nואז אני מחליט מה אומרים.",
+              "scene": {
+                "action": "The boy sits on the floor practising with his mother: both have their hands on their knees and puffed cheeks, taking a long breath together.",
+                "setting": "A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 6,
-              "role": "example",
-              "headline": "4 תשאלי מה היה לי טוב",
-              "body": "״יואב, מה הלך לך טוב במשחק?״\nואחר כך מה אפשר לשפר",
-              "examples": [
-                "תשאלי מה היה לי טוב"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה מזכירים לי? שקופית 7"
+              "role": "beat",
+              "label": "את חושבת:",
+              "headline": "״אולי פשוט אתן לו לנצח״",
+              "body": "## אני עונה:\nאם אנצח כל פעם, לא אלמד להפסיד.\n## מה יעזור לי:\nבסוף המשחק, לשאול **מה הלך לי טוב**,\nולא רק מי ניצח.",
+              "scene": {
+                "action": "After a card game the mother leans toward the boy and asks him something with a curious smile, and he counts on his fingers thinking.",
+                "setting": "A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 7,
-              "role": "example",
-              "headline": "5 תזכירי הפסד שעבר",
-              "body": "״יואב, גם בפעם הקודמת הפסדת\nוהמשכנו לשחק״",
-              "examples": [
-                "תזכירי הפסד שעבר"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ועוד שניים בשקופית 8"
+              "role": "beat",
+              "label": "את חושבת:",
+              "headline": "״כל הפסד זה דרמה חדשה״",
+              "body": "כי בראש שלי אני זוכר רק את עכשיו.\n## מה יעזור לי:\nשתזכירי לי הפסד שעבר.\n> ״זוכר שהפסדת אצל סבא? והמשכת לשחק.״",
+              "scene": {
+                "action": "The mother sits with the boy on the sofa, gesturing as if recalling a funny memory, and the boy starts to grin through his frown.",
+                "setting": "A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 8,
-              "role": "example",
-              "headline": "6 כל הכבוד למנצח\n7 תפסידי גם את",
-              "body": "״כל הכבוד״ ו״בפעם הבאה אצליח״\nאני לומד את זה ממך",
-              "examples": [
-                "כל הכבוד למנצח",
-                "תפסידי גם את"
-              ],
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
+              "role": "beat",
+              "label": "ואחרונה:",
+              "headline": "״איך הוא ילמד להפסיד יפה?״",
+              "body": "ממך, אמא. כשאת מפסידה לי בשש בש,\nואומרת ״אוף. משחק יפה, יואב.״\nאני רואה **איך** עושים את זה.\n\nואז גם אני מנסה להגיד\n״כל הכבוד״ למי שניצח.",
+              "scene": {
+                "action": "The mother laughs and shakes the boy's hand over a backgammon board after losing to him, and the boy beams.",
+                "setting": "A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 9,
-              "role": "recap",
-              "headline": "ככה אני לומד להפסיד\nבלי להתפוצץ",
-              "body": "תעזרי לי לנסות שוב\nולהמשיך לשחק?",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 לפעם הבאה"
-              }
-            },
-            {
-              "number": 10,
               "role": "story_cta",
-              "headline": "תשמרי את הפוסט",
-              "body": "לפעם הבאה שקשה לו להפסיד"
+              "headline": "אפשר גם לעזור להם\nעם ההפסד במשחק\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבי \"משחק\"\nואשלח לך קישור להכנת הספר",
+              "scene": {
+                "action": "The boy and his mother sit on the rug playing cards again, both smiling, the cards held calmly in their hands.",
+                "setting": "A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "7 דברים שכן עוזרים לי כשאני מפסיד במשחק\nתגידי שאת רואה אותי, ותתאמני איתי על הפסד\nתכיני איתי תוכנית לגוף ותשאלי מה היה לי טוב\nתזכירי לי שהפסדתי פעם ותפסידי גם את בקול\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שקשה לו להפסיד",
-          "cta": "תשמרי את הפוסט\nלפעם הבאה שקשה לו להפסיד",
+          "caption": "אמא, כשאני מפסיד, ״זה רק משחק״ לא עוזר לי.\nתגידי שאת רואה שזה מבאס, בלי לשפוט אותי.\nתתאמני איתי על הפסד קטן, ועל מה עושים עם הידיים.\nתשאלי מה הלך לי טוב, ותזכירי לי הפסד שעבר.\nותפסידי גם את מולי, ותגידי ״משחק יפה״.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם ההפסד במשחק בעזרת ספר מותאם אישית.\nתכתבי \"משחק\" ואשלח לך קישור להכנת הספר",
+          "cta": "אפשר גם לעזור להם עם ההפסד במשחק בעזרת ספר מותאם אישית.\nתכתבי \"משחק\" ואשלח לך קישור להכנת הספר",
           "post_text": {
-            "caption": "7 דברים שכן עוזרים לי כשאני מפסיד במשחק 🎲\nתגידי שאת רואה אותי, ותתאמני איתי על הפסד\nתכיני איתי תוכנית לגוף ותשאלי מה היה לי טוב\nתזכירי לי שהפסדתי פעם ותפסידי גם את בקול\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שקשה לו להפסיד 🔖",
-            "fb_text": "בשבילך זה רק משחק 🎲\nבשבילי זה ממש גדול\nכשאני מפסיד אני מתפוצץ\nואני צריך שתעזרי לי\n\n1 תגידי שאת רואה אותי\n״יואב, אני רואה שזה מבאס״\nבלי להגיד ״זה רק משחק״\n\n2 תתאמני איתי על הפסד\nמשחק קצר שאפשר להפסיד בו\nואז עוד אחד\n\n3 תוכנית קטנה לגוף שלי\nידיים על הברכיים וסופרים עד 5\nתתרגלי איתי לפני המשחק\n\n4 תשאלי מה היה לי טוב\n״יואב, מה הלך לך טוב במשחק?״\nואחר כך מה אפשר לשפר\n\n5 תזכירי הפסד שעבר\n״יואב, גם בפעם הקודמת הפסדת\nוהמשכנו לשחק״\n\n6 כל הכבוד למנצח\n7 תפסידי גם את\n״כל הכבוד״ ו״בפעם הבאה אצליח״\nאני לומד את זה ממך\n\nככה אני לומד להפסיד\nבלי להתפוצץ\nתעזרי לי לנסות שוב\nולהמשיך לשחק?\n\nתשמרי את הפוסט\nלפעם הבאה שקשה לו להפסיד 🔖"
+            "caption": "אמא, כשאני מפסיד, ״זה רק משחק״ לא עוזר לי. 🎲\nתגידי שאת רואה שזה מבאס, בלי לשפוט אותי.\nתתאמני איתי על הפסד קטן, ועל מה עושים עם הידיים.\nתשאלי מה הלך לי טוב, ותזכירי לי הפסד שעבר.\nותפסידי גם את מולי, ותגידי ״משחק יפה״.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם ההפסד במשחק בעזרת ספר מותאם אישית.\nתכתבי \"משחק\" ואשלח לך קישור להכנת הספר 📖",
+            "fb_text": "אני מכיר את המבט הזה. 🎲\nכשהקלף האחרון נופל ואני מפסיד,\nאני זורק את הקלפים על הרצפה.\nואת מסתכלת עליי, ככה.\nאני יודע מה עובר לך בראש.\nאז הנה התשובות שלי.\n\n״זה רק משחק, יואב״\nבשבילך זה רק משחק.\nבשבילי זה כל העולם, עכשיו.\nמה יעזור לי לשמוע:\n״אני רואה שזה ממש מבאס אותך.״\nבלי ״לא נורא״, בלי לשפוט.\n\n״הוא לא יודע להפסיד״\nנכון. עוד לא התאמנתי על זה.\nמה יעזור לי:\nמשחק קצר שלא אכפת לי להפסיד בו.\nלהפסיד בכוונה, ככה סתם,\nולהרגיש שזה לא סוף העולם.\n\n״למה הוא מתפוצץ ככה?״\nכי הכל קורה לי בגוף בבת אחת.\nהידיים רוצות לזרוק, הרגליים לבעוט.\nמה יעזור לי:\nתוכנית לגוף, עוד לפני המשחק.\nידיים על הברכיים, נשימה ארוכה,\nואז אני מחליט מה אומרים.\n\n״אולי פשוט אתן לו לנצח״\nאני עונה:\nאם אנצח כל פעם, לא אלמד להפסיד.\nמה יעזור לי:\nבסוף המשחק, לשאול מה הלך לי טוב,\nולא רק מי ניצח.\n\n״כל הפסד זה דרמה חדשה״\nכי בראש שלי אני זוכר רק את עכשיו.\nמה יעזור לי:\nשתזכירי לי הפסד שעבר.\n״זוכר שהפסדת אצל סבא? והמשכת לשחק.״\n\n״איך הוא ילמד להפסיד יפה?״\nממך, אמא. כשאת מפסידה לי בשש בש,\nואומרת ״אוף. משחק יפה, יואב.״\nאני רואה איך עושים את זה.\nואז גם אני מנסה להגיד\n״כל הכבוד״ למי שניצח.\n\nאפשר גם לעזור להם\nעם ההפסד במשחק\nבעזרת ספר מותאם אישית.\nתכתבי \"משחק\"\nואשלח לך קישור להכנת הספר 📖"
           },
-          "conversion_rationale": "המשפט ״זה רק משחק״ מוכר לכל אמא, והכריכה מבטיחה שבעה דברים אחרים שעוזרים. כל שקופית נותנת משפט או פעולה של עשר שניות. הילד מבקש מאמא ולא מאשים.",
+          "conversion_rationale": "המשפט ״זה רק משחק״ על הכריכה, ואז המחשבות של אמא אחת אחרי השנייה, ולכל אחת תשובה של יואב ומה יעזור לו. מבנה שונה מהרשימה ומהדקה של שתי האפשרויות האחרות בנושא.",
           "sources": [
             {
               "id": "src-cmi-dis",
@@ -697,80 +675,62 @@
           ],
           "claims": [
             {
-              "slide": 2,
-              "wording_he": "כשאני מפסיד אני מתפוצץ ואני צריך שתעזרי לי",
-              "kind": "lumebook_wording",
-              "source_ids": [
-                "src-cmi-dis"
-              ],
-              "supports": "Imagined child voice; Child Mind Institute: acknowledge children's frustration and disappointment."
-            },
-            {
               "slide": 3,
-              "wording_he": "תגידי שאת רואה אותי",
+              "wording_he": "אני רואה שזה ממש מבאס אותך, בלי לשפוט",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-cmi-dis"
               ],
-              "supports": "Child Mind Institute: listen to and acknowledge children's frustration and disappointment, avoid judging their reactions."
+              "supports": "Child Mind Institute: listen to and acknowledge children's frustration and disappointment; avoid judging their reactions."
             },
             {
               "slide": 4,
-              "wording_he": "תתאמני איתי על הפסד",
+              "wording_he": "להתאמן על הפסד במשחק קצר, להפסיד בכוונה",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-cmi-sports"
               ],
-              "supports": "Child Mind Institute: practice losing on purpose, in small ways. The short game is our example."
+              "supports": "Child Mind Institute: we do a lot of practice with losing on purpose, sitting with that a little bit."
             },
             {
               "slide": 5,
-              "wording_he": "תוכנית קטנה לגוף שלי",
+              "wording_he": "הכל קורה לי בגוף, ותוכנית לגוף לפני המשחק",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-cmi-sports"
               ],
-              "supports": "Child Mind Institute: plan what the body does when frustrated; hands on knees and counting to 5 is our example."
+              "supports": "Child Mind Institute: what should they be doing with themselves and their body if they're feeling frustrated; how do you keep your body calm when you lose? Hands on knees and a long breath are our wording of such a plan."
             },
             {
               "slide": 6,
-              "wording_he": "תשאלי מה היה לי טוב",
+              "wording_he": "אם אנצח כל פעם לא אלמד להפסיד, ולשאול מה הלך טוב",
               "kind": "sourced_fact",
               "source_ids": [
+                "src-cmi-sports",
                 "src-kh"
               ],
-              "supports": "KidsHealth: instead of who won or lost, ask what did you do well and what could have gone better."
+              "supports": "Child Mind Institute: practice with losing; KidsHealth: after a competition, don't focus on who won or lost, ask what did you do well."
             },
             {
               "slide": 7,
-              "wording_he": "תזכירי הפסד שעבר",
+              "wording_he": "שתזכירי לי הפסד שעבר והמשכתי",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-cmi-dis"
               ],
-              "supports": "Child Mind Institute: remind kids of things they have tolerated before, including losing a big game."
+              "supports": "Child Mind Institute: remind your kids of things they've tolerated before, including losing a big game, and that they can use the same skills."
             },
             {
               "slide": 8,
-              "wording_he": "כל הכבוד למנצח ותפסידי גם את",
+              "wording_he": "אני לומד ממך להפסיד ולהגיד כל הכבוד",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-kh"
               ],
-              "supports": "KidsHealth: kind words like good try, and kids learn sportsmanship from the adults around them."
+              "supports": "KidsHealth: kids learn how to be a good sport from the adults in their lives, especially their parents; support others by saying good try."
             },
             {
               "slide": 9,
-              "wording_he": "ככה אני לומד להפסיד בלי להתפוצץ",
-              "kind": "lumebook_wording",
-              "source_ids": [
-                "src-cmi-dis",
-                "src-kh"
-              ],
-              "supports": "Our recap of slides 3 to 8; no promise of a result."
-            },
-            {
-              "slide": 10,
               "wording_he": "סיפורים על רגעים קשים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -779,7 +739,7 @@
               "supports": "Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 9,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -789,18 +749,38 @@
               ],
               "supports": "Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free."
             }
-          ]
+          ],
+          "cta_style": "book_link",
+          "code_word": "משחק",
+          "booklet": {
+            "page_text": [
+              "יואב הפסיד במשחק,",
+              "לחץ יד לחברה",
+              "וביקש עוד סיבוב."
+            ],
+            "crop": [
+              69,
+              42,
+              1252,
+              684
+            ],
+            "face": [
+              0.154,
+              0.421
+            ]
+          }
         },
         {
           "id": "kid-2",
-          "title": "אמא ואבא 7 דברים שאני צריכה כשאני מפסידה",
-          "angle": "הילדה מבקשת מההורים שבעה דברים כשהיא מפסידה: להיות עצובה בלי שישפטו אותה, משחק קצר להתאמן, מה לעשות בגוף, שאלה על מה שהצליח, תזכורת להפסד שעבר, ללמוד להגיד כל הכבוד ושההורים יפסידו גם.",
+          "structure": "short_list",
+          "title": "אמא ואבא, 5 דברים שאני צריכה כשאני מפסידה",
+          "angle": "מיכל, בת 5, מבקשת מההורים חמישה דברים כשהיא מפסידה במשחק קופסה: לראות שקשה לה בלי ״לא נורא״, להתאמן על הפסד במשחק קטן, תוכנית לגוף, לשאול מה הלך טוב, ולהתאמן על ״משחק יפה״. בסוף: שההורים יפסידו גם ויזכירו לה הפסד שעבר.",
           "target_parent": "הורים לילדה בת 4 עד 6 שבוכה או זורקת את חתיכות המשחק כשהיא מפסידה.",
           "awareness_stage": "solution_aware",
           "hook_family": "child_pov",
           "hook": {
             "formula": "child-numbered-ask",
-            "gap": "Which 7 things help a girl who just lost a board game?",
+            "gap": "Which five things does a 5-year-old girl ask her parents for when she loses a board game?",
             "payoff_slide": 3,
             "score": {
               "specific": 2,
@@ -818,7 +798,6 @@
           "addressee": "parents",
           "child_name": "מיכל",
           "topic_id": "losing-games",
-          "examples_target": 7,
           "character_anchor": {
             "child": "A 5-year-old Israeli girl with a long dark braid, light olive skin, round brown eyes and rosy cheeks; about 105 cm tall.",
             "parent": "Her mother, early thirties, dark wavy hair in a low ponytail, warm brown eyes; and her father, mid-thirties, short dark hair and a trimmed beard, gentle face.",
@@ -841,126 +820,102 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "אמא ואבא\n7 דברים שאני צריכה\nכשאני מפסידה",
-              "body": "",
-              "pull": {
-                "type": "numbered",
-                "note": "שבעת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "אמא ואבא\n5 דברים שאני צריכה\nכשאני מפסידה",
+              "body": "מהקובייה האחרונה ועד המשחק הבא"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "הכי קשה לי הרגע האחרון\nשם אני צריכה אתכם",
-              "body": "כשהקובייה האחרונה נופלת\nאני מרגישה הכול בבת אחת",
-              "pull": {
-                "type": "open_loop",
-                "note": "ומה עוזר ברגע הזה? שקופית 3"
+              "role": "beat",
+              "headline": "הכי קשה לי הרגע האחרון",
+              "body": "הקובייה נופלת, ואתם מגיעים ראשונים.\nואני מרגישה הכל בבת אחת.\nבטן, דמעות, ידיים שרוצות לזרוק.\n\nאז אמא ואבא, הנה חמישה דברים\nשאני צריכה **מכם**.",
+              "scene": {
+                "action": "The girl stares at a die on the board game with her mouth open and tears starting, her parents' pawns already at the finish.",
+                "setting": "A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 תנו לי להיות עצובה",
-              "body": "״מיכל, אני רואה שאת מאוכזבת״\nבלי לשפוט אותי",
-              "examples": [
-                "תנו לי להיות עצובה"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עושים אחר כך? שקופית 4"
+              "role": "beat",
+              "label": "1: לראות שקשה לי",
+              "headline": "אל תגידו ״לא נורא״",
+              "body": "בשבילי זה כן נורא, עכשיו.\nאני צריכה שתראו את זה.\n## מה יעזור לי לשמוע:\n> ״מיכל, אני רואה שאת מאוכזבת.״\nואז לחכות איתי, בלי **לשפוט**.",
+              "scene": {
+                "action": "The mother crouches beside the girl's chair and holds her hand while the girl wipes her eyes, the father waiting quietly across the table.",
+                "setting": "A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 4,
-              "role": "example",
-              "headline": "2 משחק קצר להתאמן",
-              "body": "אחד שלא אכפת לי להפסיד בו\nכדי שאלמד איך מפסידים",
-              "examples": [
-                "משחק קצר להתאמן"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עם הגוף? שקופית 5"
+              "role": "beat",
+              "label": "2: להתאמן על הפסד",
+              "headline": "משחק קטן, שלא אכפת לי בו",
+              "body": "אבן נייר ומספריים, או משחק זיכרון.\nלהפסיד בכוונה ולצחוק על זה ביחד.\nככה אני מתאמנת על ההרגשה הזאת\nכשהיא **קטנה**, לפני שהיא גדולה.",
+              "scene": {
+                "action": "The girl and her father play rock paper scissors at the table, both laughing loudly as the girl loses on purpose.",
+                "setting": "A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 5,
-              "role": "example",
-              "headline": "3 תגידו מה עושים בגוף",
-              "body": "״כשמפסידים ידיים על השולחן\nונושמים לאט״",
-              "examples": [
-                "תגידו מה עושים בגוף"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה שואלים? שקופית 6"
+              "role": "beat",
+              "label": "3: תוכנית לגוף",
+              "headline": "מתאמנים על זה לפני",
+              "body": "ידיים על השולחן.\nנשימה אחת ארוכה.\nסופרים עד חמש.\nורק אז מדברים.\n\nמתרגלים את זה **לפני** המשחק,\nלא באמצע הבכי.",
+              "scene": {
+                "action": "The girl and her mother sit at the table with their palms flat on the wood and eyes closed, taking a slow breath together before a game.",
+                "setting": "A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 6,
-              "role": "example",
-              "headline": "4 תשאלו מה הצליח לי",
-              "body": "״מיכל, מה אהבת במשחק?״\nולא רק מי ניצח",
-              "examples": [
-                "תשאלו מה הצליח לי"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה מזכירים? שקופית 7"
+              "role": "beat",
+              "label": "4: מה הלך לי טוב",
+              "headline": "״מה הלך לך טוב במשחק?״",
+              "body": "ולא ״מי ניצח?״.\nפתאום אני נזכרת בשש שקיבלתי,\nובפעם שכמעט עקפתי אתכם.\nואחר כך, אולי, מה הייתי עושה **אחרת**.",
+              "scene": {
+                "action": "The girl talks with her hands in the air about the game while her parents listen across the table, smiling and nodding.",
+                "setting": "A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 7,
-              "role": "example",
-              "headline": "5 תזכירו לי הפסד שעבר",
-              "body": "״זוכרת שהפסדת בשבוע שעבר?\nוהמשכת לשחק״",
-              "examples": [
-                "תזכירו לי הפסד שעבר"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ועוד שניים בשקופית 8"
+              "role": "beat",
+              "label": "5: להגיד ״משחק יפה״",
+              "headline": "גם למי שניצח אותי",
+              "body": "## מה אתם רואים:\nאני אומרת ״כל הכבוד״ בפה עקום.\n## מה קורה לי בפנים:\nאני מתאמנת. זה עוד קשה לי.\n\nתתרגלו איתי את זה לפני שמתחילים,\nותגידו את זה גם **אתם**.",
+              "scene": {
+                "action": "The girl shakes her father's hand over the board game with a crooked, reluctant smile, and he grins warmly back.",
+                "setting": "A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 8,
-              "role": "example",
-              "headline": "6 ללמוד להגיד כל הכבוד\n7 להפסיד גם אתם מולי",
-              "body": "״משחק יפה״ נתרגל לפני שמתחילים\n״אוף, בפעם הבאה״ גם מכם",
-              "examples": [
-                "ללמוד להגיד כל הכבוד",
-                "להפסיד גם אתם מולי"
-              ],
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
+              "role": "turn",
+              "headline": "ותפסידו גם אתם מולי",
+              "body": "״אוף, בפעם הבאה.״ ככה, עם חיוך.\nואז תזכירו לי שגם בשבוע שעבר הפסדתי,\nוהמשכתי לשחק.\n\nזה לא שאני לא יודעת לשחק.\nאני רק **לומדת** להפסיד.",
+              "scene": {
+                "action": "The mother throws up her hands and laughs after losing the board game to the girl, while the father pats the girl's shoulder.",
+                "setting": "A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 9,
-              "role": "recap",
-              "headline": "אתם מבינים אותי\nואני מנסה שוב",
-              "body": "תעזרו לי לחזור\nלמשחק?",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 לפעם הבאה"
-              }
-            },
-            {
-              "number": 10,
               "role": "story_cta",
               "headline": "תשמרו את הפוסט",
-              "body": "לפעם הבאה שקשה לה להפסיד"
+              "body": "לפעם הבאה שקשה לה להפסיד",
+              "scene": {
+                "action": "The whole family sits around the kitchen table setting up the board game again, the girl rolling the die with a calm smile.",
+                "setting": "A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "7 דברים שיעזרו לי כשאני מפסידה במשחק\nתנו לי להיות עצובה, ותתאמנו איתי על הפסד במשחק קצר\nתשאלו מה הצליח לי ותזכירו לי הפסד שעבר\nתלמדו אותי להגיד כל הכבוד ותפסידו גם אתם מולי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרו את הפוסט לפעם הבאה שקשה לה להפסיד",
+          "caption": "אמא ואבא, כשאני מפסידה אני צריכה מכם חמישה דברים.\nתגידו שאתם רואים שאני מאוכזבת, בלי ״לא נורא״.\nתתאמנו איתי על הפסד קטן, ועל מה עושים עם הידיים.\nתשאלו מה הלך לי טוב, ולא רק מי ניצח.\nותפסידו גם אתם מולי, עם ״אוף, בפעם הבאה״.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרו את הפוסט לפעם הבאה שקשה לה להפסיד",
           "cta": "תשמרו את הפוסט\nלפעם הבאה שקשה לה להפסיד",
           "post_text": {
-            "caption": "7 דברים שיעזרו לי כשאני מפסידה במשחק 🎲\nתנו לי להיות עצובה, ותתאמנו איתי על הפסד במשחק קצר\nתשאלו מה הצליח לי ותזכירו לי הפסד שעבר\nתלמדו אותי להגיד כל הכבוד ותפסידו גם אתם מולי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרו את הפוסט לפעם הבאה שקשה לה להפסיד 🔖",
-            "fb_text": "הכי קשה לי הרגע האחרון 🎲\nשם אני צריכה אתכם\nכשהקובייה האחרונה נופלת\nאני מרגישה הכול בבת אחת\n\n1 תנו לי להיות עצובה\n״מיכל, אני רואה שאת מאוכזבת״\nבלי לשפוט אותי\n\n2 משחק קצר להתאמן\nאחד שלא אכפת לי להפסיד בו\nכדי שאלמד איך מפסידים\n\n3 תגידו מה עושים בגוף\n״כשמפסידים ידיים על השולחן\nונושמים לאט״\n\n4 תשאלו מה הצליח לי\n״מיכל, מה אהבת במשחק?״\nולא רק מי ניצח\n\n5 תזכירו לי הפסד שעבר\n״זוכרת שהפסדת בשבוע שעבר?\nוהמשכת לשחק״\n\n6 ללמוד להגיד כל הכבוד\n7 להפסיד גם אתם מולי\n״משחק יפה״ נתרגל לפני שמתחילים\n״אוף, בפעם הבאה״ גם מכם\n\nאתם מבינים אותי\nואני מנסה שוב\nתעזרו לי לחזור\nלמשחק?\n\nתשמרו את הפוסט\nלפעם הבאה שקשה לה להפסיד 🔖"
+            "caption": "אמא ואבא, כשאני מפסידה אני צריכה מכם חמישה דברים. 🎲\nתגידו שאתם רואים שאני מאוכזבת, בלי ״לא נורא״.\nתתאמנו איתי על הפסד קטן, ועל מה עושים עם הידיים.\nתשאלו מה הלך לי טוב, ולא רק מי ניצח.\nותפסידו גם אתם מולי, עם ״אוף, בפעם הבאה״.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרו את הפוסט לפעם הבאה שקשה לה להפסיד 🔖",
+            "fb_text": "הכי קשה לי הרגע האחרון. 🎲\nהקובייה נופלת, ואתם מגיעים ראשונים.\nואני מרגישה הכל בבת אחת.\nבטן, דמעות, ידיים שרוצות לזרוק.\nאז אמא ואבא, הנה חמישה דברים\nשאני צריכה מכם.\n\nאל תגידו ״לא נורא״\nבשבילי זה כן נורא, עכשיו.\nאני צריכה שתראו את זה.\nמה יעזור לי לשמוע:\n״מיכל, אני רואה שאת מאוכזבת.״\nואז לחכות איתי, בלי לשפוט.\n\nמשחק קטן, שלא אכפת לי בו.\nאבן נייר ומספריים, או משחק זיכרון.\nלהפסיד בכוונה ולצחוק על זה ביחד.\nככה אני מתאמנת על ההרגשה הזאת\nכשהיא קטנה, לפני שהיא גדולה.\n\nמתאמנים על זה לפני.\nידיים על השולחן.\nנשימה אחת ארוכה.\nסופרים עד חמש.\nורק אז מדברים.\nמתרגלים את זה לפני המשחק,\nלא באמצע הבכי.\n\n״מה הלך לך טוב במשחק?״\nולא ״מי ניצח?״.\nפתאום אני נזכרת בשש שקיבלתי,\nובפעם שכמעט עקפתי אתכם.\nואחר כך, אולי, מה הייתי עושה אחרת.\n\nגם למי שניצח אותי.\nמה אתם רואים:\nאני אומרת ״כל הכבוד״ בפה עקום.\nמה קורה לי בפנים:\nאני מתאמנת. זה עוד קשה לי.\nתתרגלו איתי את זה לפני שמתחילים,\nותגידו את זה גם אתם.\n\nותפסידו גם אתם מולי.\n״אוף, בפעם הבאה.״ ככה, עם חיוך.\nואז תזכירו לי שגם בשבוע שעבר הפסדתי,\nוהמשכתי לשחק.\nזה לא שאני לא יודעת לשחק.\nאני רק לומדת להפסיד.\n\nתשמרו את הפוסט\nלפעם הבאה שקשה לה להפסיד 🔖"
           },
-          "conversion_rationale": "פורמט המספר עם הפנייה להורים שקיבל 5 מירין (ביום 21 באוקטובר). שבע בקשות ברורות מהילדה, כל אחת עם משפט להגיד, ושקופית 9 מסכמת לצילום מסך.",
+          "conversion_rationale": "רשימה קצרה של חמש נקודות, כל אחת שקופית מלאה, והצורות מתחלפות (כרטיס עם משפט, מונולוג, שורות קצרות, שאלה בכותרת, מה אתם רואים ומה קורה לי בפנים). הכריכה שומרת על המספר ועל הפנייה לשני ההורים.",
           "sources": [
             {
               "id": "src-cmi-dis",
@@ -1001,79 +956,73 @@
           ],
           "claims": [
             {
-              "slide": 2,
-              "wording_he": "הכי קשה לי הרגע האחרון",
-              "kind": "lumebook_wording",
+              "slide": 1,
+              "wording_he": "חמישה דברים שיעזרו לי כשאני מפסידה",
+              "kind": "sourced_fact",
               "source_ids": [
-                "src-cmi-dis"
+                "src-cmi-dis",
+                "src-cmi-sports",
+                "src-kh"
               ],
-              "supports": "Imagined child voice about the feeling of losing; Child Mind Institute on frustration and disappointment."
+              "supports": "Our grouping of advice from Child Mind Institute and KidsHealth. No promise of a result."
             },
             {
               "slide": 3,
-              "wording_he": "תנו לי להיות עצובה",
+              "wording_he": "אני רואה שאת מאוכזבת, בלי לשפוט",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-cmi-dis"
               ],
-              "supports": "Child Mind Institute: acknowledge frustration and disappointment and avoid judging the reaction."
+              "supports": "Child Mind Institute: listen to and acknowledge children's frustration and disappointment; avoid judging their reactions."
             },
             {
               "slide": 4,
-              "wording_he": "משחק קצר להתאמן",
+              "wording_he": "להפסיד בכוונה במשחק קטן כדי להתאמן",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-cmi-sports"
               ],
-              "supports": "Child Mind Institute: practice losing on purpose, in small ways."
+              "supports": "Child Mind Institute: practice with losing on purpose in small ways and sitting with that a little bit."
             },
             {
               "slide": 5,
-              "wording_he": "תגידו מה עושים בגוף",
+              "wording_he": "תוכנית לגוף לפני המשחק",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-cmi-sports"
               ],
-              "supports": "Child Mind Institute: plan what the body does when a child loses; hands on the table and slow breathing is our example."
+              "supports": "Child Mind Institute: what should they be doing with their body if they're feeling frustrated; how do you keep your body calm when you lose? The steps are our wording."
             },
             {
               "slide": 6,
-              "wording_he": "תשאלו מה הצליח לי",
+              "wording_he": "מה הלך לך טוב, ולא מי ניצח, ומה הייתי עושה אחרת",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-kh"
               ],
-              "supports": "KidsHealth: ask what went well rather than who won."
+              "supports": "KidsHealth: don't focus on who won or lost; ask what did you do well, or was there something you wish you could have done better."
             },
             {
               "slide": 7,
-              "wording_he": "תזכירו לי הפסד שעבר",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-cmi-dis"
-              ],
-              "supports": "Child Mind Institute: remind kids of things they have tolerated before, including losing a big game."
-            },
-            {
-              "slide": 8,
-              "wording_he": "ללמוד להגיד כל הכבוד ולהפסיד גם אתם",
+              "wording_he": "להתאמן על כל הכבוד ומשחק יפה, וגם אתם",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-kh"
               ],
-              "supports": "KidsHealth: kind words like good try; kids learn from the adults in their lives."
+              "supports": "KidsHealth: support others by saying good shot or good try; kids learn to be a good sport from the adults in their lives."
+            },
+            {
+              "slide": 8,
+              "wording_he": "תפסידו גם אתם, ותזכירו לי שהפסדתי והמשכתי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh",
+                "src-cmi-dis"
+              ],
+              "supports": "KidsHealth: kids learn how to be a good sport from their parents; Child Mind Institute: remind your kids of things they've tolerated before, including losing a big game."
             },
             {
               "slide": 9,
-              "wording_he": "אתם מבינים אותי ואני מנסה שוב",
-              "kind": "lumebook_wording",
-              "source_ids": [
-                "src-cmi-dis"
-              ],
-              "supports": "Our recap of slides 3 to 8; no promise of a result."
-            },
-            {
-              "slide": 10,
               "wording_he": "סיפורים על רגעים קשים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -1082,7 +1031,7 @@
               "supports": "Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 9,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -1096,15 +1045,16 @@
         },
         {
           "id": "kid-3",
-          "title": "אני בן חמש ומפסיד: 9 דברים שיעזרו לי",
-          "angle": "הילד מספר שהוא בן 5 ומפסיד בקלפים, וכשיהיה בן 6 ובן 7 זה עדיין יקרה. הוא מבקש מאמא תשעה דברים: לשמוע, בלי ״זה רק משחק״, משחק קצר, תוכנית לגוף, מה משפרים, מה היה טוב, הפסד שעבר, משחק יפה ודוגמה.",
+          "structure": "one_minute",
+          "title": "אני בן חמש והפסדתי בקלפים, זו הדקה שאחרי",
+          "angle": "ליאור, בן 5, מראה לאמא את הדקה שאחרי הפסד בקלפים, שנייה אחרי שנייה: הקלף האחרון, הפנים החמות, הקלפים שעפים, הכרית. מה עוזר אחר כך: לשמוע ״אני רואה שזה מבאס״ במקום ״זה רק משחק״, להתאמן על הפסד ועל תוכנית לגוף, לשאול מה הלך טוב, להזכיר שהמשיך לשחק, ואמא שמפסידה ואומרת ״משחק יפה״.",
           "target_parent": "אמהות לילד בן 5 עד 7 שמפסיד בקלפים או בשש בש ונעלב, ורוצות כלים מעשיים שאפשר להתחיל מהם היום.",
           "awareness_stage": "problem_aware",
           "hook_family": "story",
           "hook": {
             "formula": "through-the-ages",
-            "gap": "What helps a 5-year-old boy who keeps losing at cards, and will he grow out of it?",
-            "payoff_slide": 3,
+            "gap": "What happens inside a 5-year-old in the one minute after he loses at cards, and what helps him after?",
+            "payoff_slide": 7,
             "score": {
               "specific": 2,
               "feeling": 2,
@@ -1121,7 +1071,6 @@
           "addressee": "mom",
           "child_name": "ליאור",
           "topic_id": "losing-games",
-          "examples_target": 9,
           "character_anchor": {
             "child": "A 5-year-old Israeli boy with curly light-brown hair, fair skin with a few freckles and green-brown eyes; about 107 cm tall.",
             "parent": "His mother, mid-thirties, dark hair in a neat bun, olive skin, calm brown eyes.",
@@ -1144,128 +1093,125 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "אני בן חמש\nומפסיד בקלפים",
-              "body": "9 דברים שיעזרו לי",
-              "pull": {
-                "type": "numbered",
-                "note": "תשעת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "אני בן 5\nוהפסדתי בקלפים\nזו הדקה שאחרי",
+              "body": "דקה אחת שלי, שנייה אחרי שנייה"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "אני בן שש\nומפסיד בשש בש",
-              "body": "אני עדיין צריך אותך\nכדי להירגע אחרי",
-              "pull": {
-                "type": "open_loop",
-                "note": "איך מתחילים? שקופית 3"
+              "role": "beat",
+              "label": "17:00, בסלון",
+              "headline": "אני כמעט מנצח",
+              "body": "נשארו לי שני קלפים, לך שלושה.\nאני כבר רואה את עצמי קם וצועק\n״ניצחתי!״\nהלב שלי דופק **מהר**.",
+              "scene": {
+                "action": "The boy leans over the small table clutching two playing cards with plain star-pattern backs, eyes shining with excitement, his mother opposite him.",
+                "setting": "A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 תשמעי שקשה לי\n2 בלי ״זה רק משחק״",
-              "body": "״ליאור, אני רואה שזה מבאס״\nואז ממשיכים",
-              "examples": [
-                "תשמעי שקשה לי",
-                "בלי ״זה רק משחק״"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה מתרגלים? שקופית 4"
+              "role": "beat",
+              "label": "הדקה מתחילה",
+              "headline": "ואז את שמה את הקלף שלך",
+              "body": "קלף אחד, ועוד אחד.\nאת אומרת ״גמרתי!״ ומחייכת.\nאני מסתכל על שני הקלפים ביד שלי.\nהם פתאום **כבדים**.",
+              "scene": {
+                "action": "The mother lays down her last card with a cheerful smile while the boy freezes, staring at the two cards still in his hand.",
+                "setting": "A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 4,
-              "role": "example",
-              "headline": "3 משחק קצר להתאמן",
-              "body": "אחד שאפשר להפסיד בו\nואני מתרגל איך זה מרגיש",
-              "examples": [
-                "משחק קצר להתאמן"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עם הגוף? שקופית 5"
+              "role": "beat",
+              "label": "עשר שניות",
+              "headline": "הפנים שלי נהיות חמות",
+              "body": "הבטן מתכווצת, הלחיים בוערות.\nאני לא שומע מה את אומרת.\nאני רק רוצה שזה **לא יקרה**.",
+              "scene": {
+                "action": "A close view of the boy's flushed face and clenched jaw as he grips his cards, his mother soft in the background.",
+                "setting": "A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 5,
-              "role": "example",
-              "headline": "4 תוכנית לגוף שלי\n5 מה משפרים בפעם הבאה",
-              "body": "ידיים על הברכיים וסופרים עד 5\nואז מדברים מה היה אחרת",
-              "examples": [
-                "תוכנית לגוף שלי",
-                "מה משפרים בפעם הבאה"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה שואלים אחרי? שקופית 6"
+              "role": "beat",
+              "label": "עשרים שניות",
+              "headline": "הקלפים עפים",
+              "body": "אני זורק אותם על הרצפה.\nאחד נכנס מתחת לספה.\nאני צועק ״זה לא פייר!״\nובורח לחדר, וטורק את **הדלת**.",
+              "scene": {
+                "action": "Playing cards scatter through the air across the rug as the boy runs toward the hallway, his mother half rising from her seat.",
+                "setting": "A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 6,
-              "role": "example",
-              "headline": "6 תשאלי מה היה לי טוב",
-              "body": "״ליאור, מה הצליח לך במשחק?״\nולא רק מי ניצח",
-              "examples": [
-                "תשאלי מה היה לי טוב"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה מזכירים לי? שקופית 7"
+              "role": "beat",
+              "label": "שלושים שניות",
+              "headline": "על המיטה, עם הפנים בכרית",
+              "body": "אני בוכה, ואני גם כועס על עצמי.\nאני יודע שזה רק קלפים.\nאבל כרגע זה מרגיש **ענק**.",
+              "scene": {
+                "action": "The boy lies face down on his bed with his face pressed into a pillow, fists clenched, his shoes still on.",
+                "setting": "The boy's small Israeli bedroom in the late afternoon: a simple bed, a plain pale wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 7,
-              "role": "example",
-              "headline": "7 תזכירי הפסד שעבר\n8 משחק יפה למנצח",
-              "body": "״בפעם הקודמת הפסדת וחזרת״\n״משחק יפה״ כמו שמתאמנים",
-              "examples": [
-                "תזכירי הפסד שעבר",
-                "משחק יפה למנצח"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "והאחרון הכי חשוב"
+              "role": "beat",
+              "label": "ארבעים שניות",
+              "headline": "את נכנסת ומתיישבת",
+              "body": "לא אומרת ״זה רק משחק״.\nלא אומרת ״לא יפה לזרוק״.\n## מה יעזור לי לשמוע:\n> ״ליאור, אני רואה שזה ממש מבאס.״",
+              "scene": {
+                "action": "The mother sits quietly on the edge of the boy's bed with her hand resting near his back, while he peeks at her from the pillow.",
+                "setting": "The boy's small Israeli bedroom in the late afternoon: a simple bed, a plain pale wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 8,
-              "role": "example",
-              "headline": "9 תפסידי גם את מולי",
-              "body": "ותגידי ״אוף, בפעם הבאה״\nאני לומד ממך",
-              "examples": [
-                "תפסידי גם את מולי"
-              ],
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
+              "role": "beat",
+              "label": "בערב",
+              "headline": "אנחנו עושים תוכנית",
+              "body": "## מה יעזור לי:\nלהתאמן על הפסד במשחק קטן,\nאבן נייר ומספריים, להפסיד בכוונה.\nולהחליט מה הגוף שלי עושה:\nידיים על הברכיים, נשימה **ארוכה**.",
+              "scene": {
+                "action": "The boy and his mother sit cross-legged on the rug practising: hands on knees, cheeks puffed, taking a long breath and giggling.",
+                "setting": "A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 9,
-              "role": "recap",
-              "headline": "ככה אני לומד להפסיד\nגם כשאני גדל",
-              "body": "תעזרי לי לנסות שוב\nולא להפסיק לשחק?",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 לפעם הבאה"
+              "role": "beat",
+              "label": "למחרת",
+              "headline": "משחקים שוב",
+              "body": "ושוב אני מפסיד.\nידיים על הברכיים, נשימה.\nואת שואלת מה הלך לי טוב.\n## מה יעזור לי:\nלהזכיר לי שגם אתמול הפסדתי,\nו**המשכתי** לשחק.",
+              "scene": {
+                "action": "The boy sits at the table with his hands on his knees and a determined face after losing, while his mother smiles and gathers the cards.",
+                "setting": "A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 10,
+              "role": "turn",
+              "headline": "אני בן חמש, ואני לומד",
+              "body": "עוד הרבה הפסדים מחכים לי.\nבקלפים, בכדור, בגן.\n\nכשאת מפסידה מולי ואומרת ״משחק יפה״,\nאני רואה איך **עושים** את זה.",
+              "scene": {
+                "action": "The mother loses a round and playfully shakes the boy's hand across the table, both laughing.",
+                "setting": "A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 11,
               "role": "story_cta",
               "headline": "תשמרי את הפוסט",
-              "body": "לפעם הבאה שקשה לו להפסיד"
+              "body": "לפעם הבאה שקשה לו להפסיד",
+              "scene": {
+                "action": "The boy and his mother sit side by side shuffling a deck of cards together, calm and smiling in the warm evening light.",
+                "setting": "A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "אני בן חמש ומפסיד, 9 דברים שיעזרו לי\nתשמעי שקשה לי ותגידי משהו חוץ מ״זה רק משחק״\nתתאמני איתי על משחק קצר ותכיני לי תוכנית לגוף\nתשאלי מה היה לי טוב ותפסידי גם את מולי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שקשה לו להפסיד",
+          "caption": "אמא, אני בן חמש, ואחרי הפסד בקלפים יש לי דקה קשה.\nאל תגידי ״זה רק משחק״, תגידי שאת רואה שזה מבאס.\nתתאמני איתי על הפסד קטן, ועל ידיים על הברכיים.\nתשאלי מה הלך לי טוב, ותזכירי לי שהמשכתי לשחק.\nותפסידי גם את מולי, עם ״משחק יפה״.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שקשה לו להפסיד",
           "cta": "תשמרי את הפוסט\nלפעם הבאה שקשה לו להפסיד",
           "post_text": {
-            "caption": "אני בן חמש ומפסיד, 9 דברים שיעזרו לי 🎲\nתשמעי שקשה לי ותגידי משהו חוץ מ״זה רק משחק״\nתתאמני איתי על משחק קצר ותכיני לי תוכנית לגוף\nתשאלי מה היה לי טוב ותפסידי גם את מולי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שקשה לו להפסיד 🔖",
-            "fb_text": "אני בן שש 🎲\nומפסיד בשש בש\nאני עדיין צריך אותך\nכדי להירגע אחרי\n\n1 תשמעי שקשה לי\n2 בלי ״זה רק משחק״\n״ליאור, אני רואה שזה מבאס״\nואז ממשיכים\n\n3 משחק קצר להתאמן\nאחד שאפשר להפסיד בו\nואני מתרגל איך זה מרגיש\n\n4 תוכנית לגוף שלי\n5 מה משפרים בפעם הבאה\nידיים על הברכיים וסופרים עד 5\nואז מדברים מה היה אחרת\n\n6 תשאלי מה היה לי טוב\n״ליאור, מה הצליח לך במשחק?״\nולא רק מי ניצח\n\n7 תזכירי הפסד שעבר\n8 משחק יפה למנצח\n״בפעם הקודמת הפסדת וחזרת״\n״משחק יפה״ כמו שמתאמנים\n\n9 תפסידי גם את מולי\nותגידי ״אוף, בפעם הבאה״\nאני לומד ממך\n\nככה אני לומד להפסיד\nגם כשאני גדל\nתעזרי לי לנסות שוב\nולא להפסיק לשחק?\n\nתשמרי את הפוסט\nלפעם הבאה שקשה לו להפסיד 🔖"
+            "caption": "אמא, אני בן חמש, ואחרי הפסד בקלפים יש לי דקה קשה. 🎲\nאל תגידי ״זה רק משחק״, תגידי שאת רואה שזה מבאס.\nתתאמני איתי על הפסד קטן, ועל ידיים על הברכיים.\nתשאלי מה הלך לי טוב, ותזכירי לי שהמשכתי לשחק.\nותפסידי גם את מולי, עם ״משחק יפה״.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שקשה לו להפסיד 🔖",
+            "fb_text": "אני כמעט מנצח. 🎲\nנשארו לי שני קלפים, לך שלושה.\nאני כבר רואה את עצמי קם וצועק\n״ניצחתי!״\nהלב שלי דופק מהר.\n\nואז את שמה את הקלף שלך.\nקלף אחד, ועוד אחד.\nאת אומרת ״גמרתי!״ ומחייכת.\nאני מסתכל על שני הקלפים ביד שלי.\nהם פתאום כבדים.\n\nהפנים שלי נהיות חמות.\nהבטן מתכווצת, הלחיים בוערות.\nאני לא שומע מה את אומרת.\nאני רק רוצה שזה לא יקרה.\n\nהקלפים עפים.\nאני זורק אותם על הרצפה.\nאחד נכנס מתחת לספה.\nאני צועק ״זה לא פייר!״\nובורח לחדר, וטורק את הדלת.\n\nעל המיטה, עם הפנים בכרית.\nאני בוכה, ואני גם כועס על עצמי.\nאני יודע שזה רק קלפים.\nאבל כרגע זה מרגיש ענק.\n\nאת נכנסת ומתיישבת.\nלא אומרת ״זה רק משחק״.\nלא אומרת ״לא יפה לזרוק״.\nמה יעזור לי לשמוע:\n״ליאור, אני רואה שזה ממש מבאס.״\n\nאנחנו עושים תוכנית.\nמה יעזור לי:\nלהתאמן על הפסד במשחק קטן,\nאבן נייר ומספריים, להפסיד בכוונה.\nולהחליט מה הגוף שלי עושה:\nידיים על הברכיים, נשימה ארוכה.\n\nמשחקים שוב.\nושוב אני מפסיד.\nידיים על הברכיים, נשימה.\nואת שואלת מה הלך לי טוב.\nמה יעזור לי:\nלהזכיר לי שגם אתמול הפסדתי,\nוהמשכתי לשחק.\n\nאני בן חמש, ואני לומד.\nעוד הרבה הפסדים מחכים לי.\nבקלפים, בכדור, בגן.\nכשאת מפסידה מולי ואומרת ״משחק יפה״,\nאני רואה איך עושים את זה.\n\nתשמרי את הפוסט\nלפעם הבאה שקשה לו להפסיד 🔖"
           },
-          "conversion_rationale": "פורמט גיל אחרי גיל (טרנד נוכחי) עם מספר ברור על הכריכה: תשעה דברים. הילד מראה שזה לא נעלם בגיל 6, ומבקש מאמא כלים אחד אחד.",
+          "conversion_rationale": "דקה אחת אחרי הפסד בקלפים, שנייה אחרי שנייה, ורק אחריה מה עוזר בערב ולמחרת. הכריכה שומרת על הגיל ומבטיחה את הדקה, לא רשימה.",
           "sources": [
             {
               "id": "src-cmi-dis",
@@ -1306,81 +1252,44 @@
           ],
           "claims": [
             {
-              "slide": 2,
-              "wording_he": "אני עדיין צריך אותך כדי להירגע אחרי",
-              "kind": "lumebook_wording",
-              "source_ids": [
-                "src-cmi-dis"
-              ],
-              "supports": "Imagined child voice; Child Mind Institute: acknowledge frustration and disappointment."
-            },
-            {
-              "slide": 3,
-              "wording_he": "תשמעי שקשה לי, בלי ״זה רק משחק״",
+              "slide": 7,
+              "wording_he": "בלי זה רק משחק, אני רואה שזה ממש מבאס",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-cmi-dis"
               ],
-              "supports": "Child Mind Institute: acknowledge frustration and disappointment, avoid judging the reaction."
+              "supports": "Child Mind Institute: listen to and acknowledge children's frustration and disappointment; avoid judging their reactions."
             },
             {
-              "slide": 4,
-              "wording_he": "משחק קצר להתאמן",
+              "slide": 8,
+              "wording_he": "להתאמן על הפסד בכוונה ותוכנית לגוף",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-cmi-sports"
               ],
-              "supports": "Child Mind Institute: practice losing on purpose in small ways."
-            },
-            {
-              "slide": 5,
-              "wording_he": "תוכנית לגוף שלי ומה משפרים בפעם הבאה",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-cmi-sports",
-                "src-kh"
-              ],
-              "supports": "Child Mind Institute: plan what the body does when losing; KidsHealth: accept a loss and focus on what to improve."
-            },
-            {
-              "slide": 6,
-              "wording_he": "תשאלי מה היה לי טוב",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-kh"
-              ],
-              "supports": "KidsHealth: ask what did you do well during the game."
-            },
-            {
-              "slide": 7,
-              "wording_he": "תזכירי הפסד שעבר, משחק יפה למנצח",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-cmi-dis",
-                "src-kh"
-              ],
-              "supports": "Child Mind Institute: remind kids of earlier letdowns including losing a big game; KidsHealth: good try / good shot."
-            },
-            {
-              "slide": 8,
-              "wording_he": "תפסידי גם את מולי",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-kh"
-              ],
-              "supports": "KidsHealth: kids learn how to be a good sport from the adults in their lives."
+              "supports": "Child Mind Institute: practice with losing on purpose; what should they be doing with their body if they're feeling frustrated; how do you keep your body calm when you lose?"
             },
             {
               "slide": 9,
-              "wording_he": "ככה אני לומד להפסיד גם כשאני גדל",
-              "kind": "lumebook_wording",
+              "wording_he": "מה הלך לי טוב, ולהזכיר שהפסדתי והמשכתי",
+              "kind": "sourced_fact",
               "source_ids": [
+                "src-kh",
                 "src-cmi-dis"
               ],
-              "supports": "Our recap of slides 3 to 8; no promise of a result."
+              "supports": "KidsHealth: ask what did you do well instead of focusing on who won; Child Mind Institute: remind your kids of things they've tolerated before, including losing a big game."
             },
             {
               "slide": 10,
+              "wording_he": "כשאת מפסידה ואומרת משחק יפה אני רואה איך עושים את זה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-kh"
+              ],
+              "supports": "KidsHealth: kids learn how to be a good sport from the adults in their lives, especially their parents; say good try."
+            },
+            {
+              "slide": 11,
               "wording_he": "סיפורים על רגעים קשים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -1389,7 +1298,7 @@
               "supports": "Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 11,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -1403,15 +1312,16 @@
         },
         {
           "id": "kid-4",
-          "title": "יש לי סוד על הסיפור של הערב: 8 דברים שיעזרו לי",
-          "angle": "הילדה מגלה סוד: היא רוצה את אותו סיפור כי היא יודעת מה בא אחרי וזה מרגיע אותה. היא מבקשת מאמא שמונה דברים: לקרוא שוב, לשאול מה היא אוהבת בו, שני סיפורים, אותה דמות, להחליף תפקידים, לספור פעמים, להשאיר אותו ליד המיטה ולחבק.",
+          "structure": "letter",
+          "title": "אמא, יש לי סוד על הסיפור של הערב",
+          "angle": "רוני, בת 3, כותבת לאמא מכתב על הספר עם הדוב שהיא מביאה כל ערב: הסוד הוא שהיא יודעת מה בא, וזה מרגיע אותה. מה עוזר: לקרוא שוב ולשאול מה ראתה היום, קול מצחיק כשנמאס, שני ספרים, ולהחליף תפקידים כשהיא מספרת את הדוב מהזיכרון.",
           "target_parent": "אמהות לילדה בת 2 עד 4 שמבקשת כל ערב את אותו סיפור ושנמאס להן לקרוא אותו.",
           "awareness_stage": "problem_aware",
           "hook_family": "child_pov",
           "hook": {
             "formula": "child-secret",
-            "gap": "What is the secret behind asking for the same story every night?",
-            "payoff_slide": 3,
+            "gap": "What is the secret behind a 3-year-old bringing the same book every night, and what does she ask her mother to do?",
+            "payoff_slide": 2,
             "score": {
               "specific": 2,
               "feeling": 2,
@@ -1428,7 +1338,6 @@
           "addressee": "mom",
           "child_name": "רוני",
           "topic_id": "same-story",
-          "examples_target": 8,
           "character_anchor": {
             "child": "A 3-year-old Israeli girl with two small dark pigtails, light olive skin, big dark eyes and a dimple on one cheek; about 95 cm tall.",
             "parent": "Her mother, early thirties, dark hair in a loose braid, warm brown eyes, soft and tired in a real way.",
@@ -1451,127 +1360,97 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "יש לי סוד\nעל הסיפור של הערב",
-              "body": "8 דברים שיעזרו לי",
-              "pull": {
-                "type": "numbered",
-                "note": "שמונת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "אמא, יש לי סוד\nעל הסיפור\nשל הערב",
+              "body": "מכתב ממני, לפני השינה"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "כל היום יש הפתעות\nבסיפור אני יודעת מה בא",
-              "body": "בגלל זה אני רוצה אותו שוב\nוזה לא משעמם אותי",
-              "pull": {
-                "type": "open_loop",
-                "note": "ומה עושים עם זה? שקופית 3"
+              "role": "beat",
+              "headline": "אמא שלי,",
+              "body": "כל ערב אני מביאה לך את אותו ספר.\nזה עם הדוב, שהפינה שלו קרועה.\nואת אומרת ״שוב הוא?״\n\nאז הנה הסוד שלי.\nאני יודעת מה בא בכל דף,\nובגלל זה אני **רגועה**.",
+              "scene": {
+                "action": "The girl in pyjamas holds up a worn picture book with a drawn bear on the cover, a hopeful face, while her mother on the bed gives a tired smile.",
+                "setting": "A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 תקראי לי אותו שוב",
-              "body": "בכל פעם אני רואה\nמשהו אחר בתמונות",
-              "examples": [
-                "תקראי לי אותו שוב"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עוד אפשר? שקופית 4"
+              "role": "beat",
+              "headline": "",
+              "body": "כל היום יש הפתעות.\nילד שלקח לי את הכדור בגן,\nגשם כשרציתי לצאת.\n\nאבל בסיפור, הדוב מוצא את הבית.\nבכל פעם. אני יודעת,\nואני **מחכה** לזה.",
+              "scene": {
+                "action": "The girl snuggles under her blanket with the bear book open on her lap, pointing at the last page with a satisfied smile.",
+                "setting": "A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 4,
-              "role": "example",
-              "headline": "2 תשאלי מה אני אוהבת",
-              "body": "״רוני, מה הכי אהוב עלייך?״\nואני מספרת על התמונה",
-              "examples": [
-                "תשאלי מה אני אוהבת"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ויש גם שניים ביחד"
+              "role": "beat",
+              "headline": "",
+              "body": "ואת יודעת מה?\nכל פעם אני רואה משהו חדש.\nפעם את הציפור על העץ,\nפעם את הנעל של הדוב.\n\nתשאלי אותי ״מה ראית היום?״\nואני אראה לך **באצבע**.",
+              "scene": {
+                "action": "The girl points excitedly at a small bird in the picture book's illustration while her mother leans in, surprised.",
+                "setting": "A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 5,
-              "role": "example",
-              "headline": "3 שני סיפורים בלילה\n4 אותה דמות בסיפור חדש",
-              "body": "אחד שאת בוחרת ואחד שאני\nאותה חברה שאני אוהבת",
-              "examples": [
-                "שני סיפורים בלילה",
-                "אותה דמות בסיפור חדש"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אם נחליף? שקופית 6"
+              "role": "beat",
+              "headline": "",
+              "body": "ואם נמאס לך, אמא, זה בסדר.\nתקראי לי בקול של דוב גדול,\nואת הציפור בקול **דק** דק.\n\nאני אצחק, ואת תצחקי,\nואותו סיפור יהיה קצת חדש.",
+              "scene": {
+                "action": "The mother puffs out her cheeks and growls like a big bear while reading, and the girl giggles with both hands over her mouth.",
+                "setting": "A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 6,
-              "role": "example",
-              "headline": "5 אני מספרת לך את הישן",
-              "body": "את קוראת סיפור חדש\nואני מספרת לך את האהוב",
-              "examples": [
-                "אני מספרת לך את הישן"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ואיך יודעים מתי נגמר? שקופית 7"
+              "role": "beat",
+              "headline": "",
+              "body": "ואולי שני סיפורים?\nאחד שאת בוחרת, חדש,\nואחד שאני בוחרת, הדוב שלי.\n\nככה גם את מקבלת משהו חדש,\nואני מקבלת את **שלי**.",
+              "scene": {
+                "action": "The girl and her mother sit on the bed each holding up a different picture book, the girl clutching the bear book to her chest.",
+                "setting": "A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 7,
-              "role": "example",
-              "headline": "6 תגידי כמה פעמים נקרא\n7 הסיפור ליד המיטה שלי",
-              "body": "״רוני נקרא פעמיים ואז ישנים״\nאני יודעת מה מחכה",
-              "examples": [
-                "תגידי כמה פעמים נקרא",
-                "הסיפור ליד המיטה שלי"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "והאחרון בשקופית 8"
+              "role": "beat",
+              "headline": "",
+              "body": "ויש לי עוד רעיון.\nאת קוראת לי סיפור חדש,\nואני מספרת לך את הדוב.\nבלי הספר, מהזיכרון.\n\nאני זוכרת אותו **כולו**,\nכי שמעתי אותו המון פעמים.",
+              "scene": {
+                "action": "The girl stands on the bed acting out the bear story with big arm movements, the book closed beside her, while her mother lies back listening.",
+                "setting": "A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 8,
-              "role": "example",
-              "headline": "8 חיבוק כשהוא נגמר",
-              "body": "הסיפור המוכר הוא מקום בטוח\nגם הסוף שלו",
-              "examples": [
-                "חיבוק כשהוא נגמר"
-              ],
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
+              "role": "turn",
+              "headline": "",
+              "body": "אז כשאני מביאה שוב את הדוב,\nאני לא עושה לך דווקא.\nהוא כמו שמיכה בשבילי.\n\nעוד פעם אחת, ועוד חיבוק,\nואני נרדמת **בשקט**.\n\n**אוהבת, רוני**",
+              "scene": {
+                "action": "The girl hugs the bear book against her chest as her mother tucks the blanket around her, both eyes half closed.",
+                "setting": "A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 9,
-              "role": "recap",
-              "headline": "אותו סיפור כל ערב\nזה מקום בטוח לי",
-              "body": "תעזרי לי לאהוב אותו\nועוד סיפור חדש?",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 לפעם הבאה"
-              }
-            },
-            {
-              "number": 10,
               "role": "story_cta",
               "headline": "תשמרי את הפוסט",
-              "body": "לפעם הבאה שהיא מבקשת שוב את הסיפור"
+              "body": "לפעם הבאה שהיא מבקשת שוב את הסיפור",
+              "scene": {
+                "action": "The girl sleeps peacefully with the bear book resting beside her pillow, her mother switching off the lamp at the door.",
+                "setting": "A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "יש לי סוד על הסיפור של הערב ושמונה דברים שיעזרו לי\nתקראי לי אותו שוב, ותשאלי מה אני אוהבת בו\nתקראי לי שני סיפורים ותני לי לספר לך את הישן\nתגידי לי כמה פעמים קוראים ותשאירי אותו ליד המיטה שלי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור",
+          "caption": "אמא, יש לי סוד על הספר שאני מביאה כל ערב.\nתקראי לי אותו שוב, ותשאלי מה ראיתי היום.\nואם נמאס לך, תקראי בקול של דוב.\nתקריאי לי שני סיפורים, אחד שלך ואחד שלי.\nותני לי לספר לך את הדוב, מהזיכרון.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור",
           "cta": "תשמרי את הפוסט\nלפעם הבאה שהיא מבקשת שוב את הסיפור",
           "post_text": {
-            "caption": "יש לי סוד על הסיפור של הערב ושמונה דברים שיעזרו לי 📖\nתקראי לי אותו שוב, ותשאלי מה אני אוהבת בו\nתקראי לי שני סיפורים ותני לי לספר לך את הישן\nתגידי לי כמה פעמים קוראים ותשאירי אותו ליד המיטה שלי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור 🔖",
-            "fb_text": "כל היום יש הפתעות 📖\nבסיפור אני יודעת מה בא\nבגלל זה אני רוצה אותו שוב\nוזה לא משעמם אותי\n\n1 תקראי לי אותו שוב\nבכל פעם אני רואה\nמשהו אחר בתמונות\n\n2 תשאלי מה אני אוהבת\n״רוני, מה הכי אהוב עלייך?״\nואני מספרת על התמונה\n\n3 שני סיפורים בלילה\n4 אותה דמות בסיפור חדש\nאחד שאת בוחרת ואחד שאני\nאותה חברה שאני אוהבת\n\n5 אני מספרת לך את הישן\nאת קוראת סיפור חדש\nואני מספרת לך את האהוב\n\n6 תגידי כמה פעמים נקרא\n7 הסיפור ליד המיטה שלי\n״רוני נקרא פעמיים ואז ישנים״\nאני יודעת מה מחכה\n\n8 חיבוק כשהוא נגמר\nהסיפור המוכר הוא מקום בטוח\nגם הסוף שלו\n\nאותו סיפור כל ערב\nזה מקום בטוח לי\nתעזרי לי לאהוב אותו\nועוד סיפור חדש?\n\nתשמרי את הפוסט\nלפעם הבאה שהיא מבקשת שוב את הסיפור 🔖"
+            "caption": "אמא, יש לי סוד על הספר שאני מביאה כל ערב. 📖\nתקראי לי אותו שוב, ותשאלי מה ראיתי היום.\nואם נמאס לך, תקראי בקול של דוב.\nתקריאי לי שני סיפורים, אחד שלך ואחד שלי.\nותני לי לספר לך את הדוב, מהזיכרון.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור 🔖",
+            "fb_text": "אמא שלי, 📖\nכל ערב אני מביאה לך את אותו ספר.\nזה עם הדוב, שהפינה שלו קרועה.\nואת אומרת ״שוב הוא?״\nאז הנה הסוד שלי.\nאני יודעת מה בא בכל דף,\nובגלל זה אני רגועה.\n\nכל היום יש הפתעות.\nילד שלקח לי את הכדור בגן,\nגשם כשרציתי לצאת.\nאבל בסיפור, הדוב מוצא את הבית.\nבכל פעם. אני יודעת,\nואני מחכה לזה.\n\nואת יודעת מה?\nכל פעם אני רואה משהו חדש.\nפעם את הציפור על העץ,\nפעם את הנעל של הדוב.\nתשאלי אותי ״מה ראית היום?״\nואני אראה לך באצבע.\n\nואם נמאס לך, אמא, זה בסדר.\nתקראי לי בקול של דוב גדול,\nואת הציפור בקול דק דק.\nאני אצחק, ואת תצחקי,\nואותו סיפור יהיה קצת חדש.\n\nואולי שני סיפורים?\nאחד שאת בוחרת, חדש,\nואחד שאני בוחרת, הדוב שלי.\nככה גם את מקבלת משהו חדש,\nואני מקבלת את שלי.\n\nויש לי עוד רעיון.\nאת קוראת לי סיפור חדש,\nואני מספרת לך את הדוב.\nבלי הספר, מהזיכרון.\nאני זוכרת אותו כולו,\nכי שמעתי אותו המון פעמים.\n\nאז כשאני מביאה שוב את הדוב,\nאני לא עושה לך דווקא.\nהוא כמו שמיכה בשבילי.\nעוד פעם אחת, ועוד חיבוק,\nואני נרדמת בשקט.\nאוהבת, רוני\n\nתשמרי את הפוסט\nלפעם הבאה שהיא מבקשת שוב את הסיפור 🔖"
           },
-          "conversion_rationale": "סוד שמסביר את הבקשה החוזרת, ומיד שמונה דברים לעשות הערב. הילדה לא מאשימה, היא מבקשת, וכך אמא שנמאס לה לקרוא את אותו סיפור מקבלת סיבה ורעיונות.",
+          "conversion_rationale": "מכתב של רוני לאמא שמגלה את הסוד מהכריכה כבר בשקופית 2, ואז מה עוזר לה משקופית לשקופית, וחתום בשם שלה. מבנה שונה מהפעם ועכשיו ומהיום לפי השעון של שתי האפשרויות האחרות בנושא.",
           "sources": [
             {
               "id": "src-uow",
@@ -1604,79 +1483,71 @@
           "claims": [
             {
               "slide": 2,
-              "wording_he": "בסיפור אני יודעת מה בא וזה לא משעמם אותי",
+              "wording_he": "אני יודעת מה בא בכל דף, ובגלל זה אני רגועה",
               "kind": "sourced_fact",
               "source_ids": [
-                "src-uow"
+                "src-uow",
+                "src-schol"
               ],
-              "supports": "University of Wollongong: young children commonly prefer familiarity to novelty. Imagined child voice."
+              "supports": "University of Wollongong: a preference for familiarity rather than novelty is commonly reported at young ages; Scholastic: that book is a security object for them. Said as this child's own feeling."
             },
             {
               "slide": 3,
-              "wording_he": "תקראי לי אותו שוב",
+              "wording_he": "בסיפור אני יודעת שהדוב מוצא את הבית",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-uow"
               ],
-              "supports": "University of Wollongong: repetition aids learning by increasing opportunities to encode the information; the page notes children can focus on different details each time."
+              "supports": "University of Wollongong: a preference for familiarity, rather than novelty, at young ages. Said as this child's own feeling."
             },
             {
               "slide": 4,
-              "wording_he": "תשאלי מה אני אוהבת",
-              "kind": "lumebook_wording",
+              "wording_he": "כל פעם אני רואה משהו חדש, תשאלי מה ראית",
+              "kind": "sourced_fact",
               "source_ids": [
                 "src-uow"
               ],
-              "supports": "Our suggestion; the University of Wollongong page notes children talk about the story and the pictures during repeated reading."
+              "supports": "University of Wollongong: repeated reading lets children notice other details and talk about the story."
             },
             {
               "slide": 5,
-              "wording_he": "שני סיפורים לפני השינה וסיפור חדש על אותה דמות",
+              "wording_he": "קול של דוב וקול דק של ציפור",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-schol"
               ],
-              "supports": "Scholastic: read two books at bedtime; find books with the same character or by the same author and illustrator."
+              "supports": "Scholastic: read in funny accents."
             },
             {
               "slide": 6,
-              "wording_he": "את קוראת חדש ואני מספרת לך את האהוב",
+              "wording_he": "שני סיפורים, אחד שאת בוחרת ואחד שאני",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-schol"
               ],
-              "supports": "Scholastic: you read a new book and have them read you their old favorite."
+              "supports": "Scholastic: read two books at bedtime."
             },
             {
               "slide": 7,
-              "wording_he": "כמה פעמים קוראים והסיפור ליד המיטה",
+              "wording_he": "את קוראת חדש ואני מספרת את הדוב מהזיכרון, כי שמעתי אותו המון",
               "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: the favourite book is a security object. Agreeing in advance how many times is our suggestion."
-            },
-            {
-              "slide": 8,
-              "wording_he": "הסיפור המוכר הוא מקום בטוח",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: that book is a security object for them."
-            },
-            {
-              "slide": 9,
-              "wording_he": "אותו סיפור זה מקום בטוח לי",
-              "kind": "lumebook_wording",
               "source_ids": [
                 "src-schol",
                 "src-uow"
               ],
-              "supports": "Our recap of slides 3 to 8; no promise of a result."
+              "supports": "Scholastic: you read a new book and have them read you their old favorite; University of Wollongong: repeated exposure helps children encode and remember."
             },
             {
-              "slide": 10,
+              "slide": 8,
+              "wording_he": "הוא כמו שמיכה בשבילי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-schol"
+              ],
+              "supports": "Scholastic: that book is a security object for them. Said as this child's own feeling."
+            },
+            {
+              "slide": 9,
               "wording_he": "סיפורים על רגעים קשים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -1685,7 +1556,7 @@
               "supports": "Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 9,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -1699,15 +1570,16 @@
         },
         {
           "id": "kid-5",
-          "title": "״אפשר עוד פעם?״ אני שואל כל ערב: 7 דברים שיעזרו לי",
-          "angle": "הילד שואל כל ערב ״אפשר עוד פעם?״ ומסביר להורים שהוא יודע מה בא אחרי וזה מרגיע אותו. הוא מבקש שבעה דברים: לקרוא שוב בקול מצחיק, שני סיפורים, אותה דמות, להחליף תפקידים, להפוך דף, להגיד כמה פעמים ולחבק בסוף.",
+          "structure": "before_after",
+          "title": "״אפשר עוד פעם?״ אני שואל כל ערב",
+          "angle": "עומר, בן 3, מספר להורים איך הספר עם הארנב היה פעם חדש ומפחיד, ואיך מאז שגילה את הסוף הוא מבקש אותו כל ערב. מה עוזר: לקרוא שוב, לשאול איפה הארנב מתחבא, להחליף תפקידים, ושני ספרים לפני השינה או ספר חדש עם אותו ארנב.",
           "target_parent": "הורים לילד בן 2 עד 4 שמבקש כל ערב אותו סיפור, ושניהם מתחלפים בקריאה.",
           "awareness_stage": "problem_aware",
           "hook_family": "child_quote",
           "hook": {
             "formula": "child-question",
-            "gap": "What do you do when a boy asks for the same story again every night?",
-            "payoff_slide": 3,
+            "gap": "Why does a 3-year-old ask 'again?' every night for the same book, and what helps him?",
+            "payoff_slide": 5,
             "score": {
               "specific": 2,
               "feeling": 2,
@@ -1724,7 +1596,6 @@
           "addressee": "parents",
           "child_name": "עומר",
           "topic_id": "same-story",
-          "examples_target": 7,
           "character_anchor": {
             "child": "A 3-year-old Israeli boy with short wavy dark hair, warm olive skin, big brown eyes and chubby cheeks; about 96 cm tall.",
             "parent": "His mother, early thirties, dark wavy hair in a low bun, kind brown eyes; and his father, mid-thirties, short black hair and a trimmed beard, warm and relaxed.",
@@ -1747,126 +1618,125 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "״אפשר עוד פעם?״\nאני שואל כל ערב",
-              "body": "7 דברים שיעזרו לי",
-              "pull": {
-                "type": "numbered",
-                "note": "שבעת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "״אפשר עוד פעם?״\nאני שואל\nכל ערב",
+              "body": "איך זה התחיל, ולמה אני מבקש שוב"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "אני יודע מה בא אחרי\nוזה מרגיע אותי",
-              "body": "בגלל זה אני מבקש אותו שוב\nואני לא עושה לכם דווקא",
-              "pull": {
-                "type": "open_loop",
-                "note": "אז מה עושים? שקופית 3"
+              "role": "beat",
+              "label": "פעם",
+              "headline": "פעם הספר היה חדש",
+              "body": "הארנב, הבור, החושך ביער.\nלא ידעתי מה יקרה בדף הבא,\nובדף עם החושך **התחבאתי** מתחת לשמיכה.\n\nאמא ואבא, זה היה קצת מפחיד.",
+              "scene": {
+                "action": "The boy in pyjamas peeks out from under a blanket on the sofa at an open picture book his parents are reading, wide-eyed.",
+                "setting": "A cosy Israeli living room in the evening: a low sofa, a plain warm cream wall, a floor lamp glowing in the corner. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 תקראו לי אותו שוב",
-              "body": "בכל פעם אני רואה\nמשהו אחר בתמונות",
-              "examples": [
-                "תקראו לי אותו שוב"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עוד? שקופית 4"
+              "role": "beat",
+              "label": "פעם",
+              "headline": "ובכל ערב היה ספר אחר",
+              "body": "ספר על משאית, ספר על דג,\nספר שסבתא הביאה.\nכל לילה סיפור חדש,\nוכל לילה **שאלות**: מה יקרה עכשיו?",
+              "scene": {
+                "action": "A small pile of different picture books on the sofa, the boy picking one up and looking at it doubtfully between his parents.",
+                "setting": "A cosy Israeli living room in the evening: a low sofa, a plain warm cream wall, a floor lamp glowing in the corner. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 4,
-              "role": "example",
-              "headline": "2 תקראו בקול מצחיק",
-              "body": "קול של דוב או של ציפור\nואני צוחק",
-              "examples": [
-                "תקראו בקול מצחיק"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה לפני השינה? שקופית 5"
+              "role": "beat",
+              "label": "ואז",
+              "headline": "ואז גיליתי את הסוף",
+              "body": "בפעם השלישית ידעתי:\nהארנב מוצא את אמא שלו.\nבכל פעם, בדיוק בדף **האחרון**.\n\nומאז, זה הספר שלי.",
+              "scene": {
+                "action": "The boy hugs the rabbit picture book to his chest with a big relieved smile, his parents smiling at each other behind him.",
+                "setting": "A cosy Israeli living room in the evening: a low sofa, a plain warm cream wall, a floor lamp glowing in the corner. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 5,
-              "role": "example",
-              "headline": "3 שני סיפורים בלילה",
-              "body": "אחד שאתם בוחרים\nואחד שאני בוחר",
-              "examples": [
-                "שני סיפורים בלילה"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עוד אפשר? שקופית 6"
+              "role": "beat",
+              "label": "ומאז",
+              "headline": "״אפשר עוד פעם?״",
+              "body": "אני שואל, ואתם נאנחים.\nאבל כשאני יודע מה בא,\nהגוף שלי **נרגע** בשמיכה.\n## מה יעזור לי:\nלקרוא לי אותו שוב, ועוד פעם.",
+              "scene": {
+                "action": "The boy holds out the rabbit book to his parents with a pleading grin, while his father pretends to sigh dramatically.",
+                "setting": "The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 6,
-              "role": "example",
-              "headline": "4 אותה דמות בסיפור חדש",
-              "body": "אותו חבר שאני אוהב\nבהרפתקה אחרת",
-              "examples": [
-                "אותה דמות בסיפור חדש"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ויש משהו הפוך? שקופית 7"
+              "role": "beat",
+              "label": "ומאז",
+              "headline": "אני רואה דברים חדשים",
+              "body": "פעם אחת את הציפור על העץ.\nפעם את הגזר בכיס של הארנב.\n## מה יעזור לי:\nשתעצרו ותשאלו\n״עומר, איפה הארנב מתחבא?״\nואני מוצא אותו **ראשון**.",
+              "scene": {
+                "action": "The boy jabs a finger at a hidden rabbit in the book's illustration, delighted, as his mother leans in with exaggerated surprise.",
+                "setting": "The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 7,
-              "role": "example",
-              "headline": "5 אני מספר לכם את הישן\n6 תנו לי להפוך דף",
-              "body": "אתם קוראים סיפור חדש\nואני מספר לכם את האהוב",
-              "examples": [
-                "אני מספר לכם את הישן",
-                "תנו לי להפוך דף"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "והאחרון בשקופית 8"
+              "role": "beat",
+              "label": "ומאז",
+              "headline": "אני כבר זוכר אותו כולו",
+              "body": "אתם מתחילים משפט,\nואני גומר אותו בקול רם.\n## מה יעזור לי:\nלהחליף תפקידים.\nאתם קוראים לי ספר חדש,\nואני ״קורא״ לכם את **הארנב**.",
+              "scene": {
+                "action": "The boy sits up in bed holding the rabbit book upside down, telling the story with big gestures, while his parents listen like an audience.",
+                "setting": "The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 8,
-              "role": "example",
-              "headline": "7 חיבוק כשהוא נגמר",
-              "body": "הסיפור המוכר הוא מקום בטוח\n״עומר, עוד חיבוק ונרדמים״",
-              "examples": [
-                "חיבוק כשהוא נגמר"
-              ],
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
+              "role": "beat",
+              "label": "ומאז",
+              "headline": "ואם נמאס לכם, זה בסדר",
+              "body": "## מה יעזור לי:\nשני ספרים לפני השינה, אחד חדש מכם\nואחד שאני בוחר.\nואולי ספר חדש\nעם אותו ארנב, **בהרפתקה אחרת**.",
+              "scene": {
+                "action": "The father holds up two picture books, a new one and the rabbit one, and the boy points at both with a happy shout.",
+                "setting": "The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 9,
-              "role": "recap",
-              "headline": "אותו סיפור כל ערב\nזה מקום בטוח לי",
-              "body": "תעזרו לי לאהוב אותו\nועוד סיפור חדש?",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 לפעם הבאה"
+              "role": "beat",
+              "label": "מה שמחזיר לי את פעם",
+              "headline": "ספר חדש, ליד הארנב",
+              "body": "כשהארנב מחכה לי על הכרית,\nאני מוכן לשמוע גם סיפור **חדש**,\nעם דף מפחיד ועם סוף שאני לא יודע.\n\nכי אחריו מחכה לי, עוד פעם אחת, הארנב.",
+              "scene": {
+                "action": "The boy listens to a new picture book with curious eyes, the rabbit book resting on his pillow beside him.",
+                "setting": "The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 10,
+              "role": "turn",
+              "headline": "אני לא תקוע, אמא ואבא",
+              "body": "אני לומד את הסיפור עוד ועוד,\nעד שהוא שלי.\n\nואז, כשהוא שלי,\nאני **מוכן** לסיפור הבא.",
+              "scene": {
+                "action": "The boy lies between his mother and father on the bed, all three looking at a new open book together, calm and cosy.",
+                "setting": "The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 11,
               "role": "story_cta",
-              "headline": "תשמרו את הפוסט",
-              "body": "לפעם הבאה שהוא מבקש שוב את הסיפור"
+              "headline": "אפשר גם לעזור להם\nעם הבקשה לאותו סיפור\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבו \"סיפור\"\nואשלח לכם קישור להכנת הספר",
+              "scene": {
+                "action": "The boy sleeps hugging the rabbit book, his parents quietly leaving the room hand in hand.",
+                "setting": "The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "״אפשר עוד פעם?״ אני שואל כל ערב ושבעה דברים יעזרו לי\nתקראו לי אותו שוב בקול מצחיק\nתקראו לי שני סיפורים ותנו לי לספר לכם את הישן\nתנו לי להפוך דף ולחבק אתכם בסוף\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרו את הפוסט לפעם הבאה שהוא מבקש שוב את הסיפור",
-          "cta": "תשמרו את הפוסט\nלפעם הבאה שהוא מבקש שוב את הסיפור",
+          "caption": "אמא ואבא, כל ערב אני שואל ״אפשר עוד פעם?״, ויש לזה סיבה.\nתקראו לי אותו שוב, ותשאלו איפה הארנב מתחבא.\nתנו לי ״לקרוא״ לכם אותו, ואתם תקראו לי ספר חדש.\nשני ספרים לפני השינה, אחד שלכם ואחד שלי.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם הבקשה לאותו סיפור בעזרת ספר מותאם אישית.\nתכתבו \"סיפור\" ואשלח לכם קישור להכנת הספר",
+          "cta": "אפשר גם לעזור להם עם הבקשה לאותו סיפור בעזרת ספר מותאם אישית.\nתכתבו \"סיפור\" ואשלח לכם קישור להכנת הספר",
           "post_text": {
-            "caption": "״אפשר עוד פעם?״ אני שואל כל ערב ושבעה דברים יעזרו לי 📖\nתקראו לי אותו שוב בקול מצחיק\nתקראו לי שני סיפורים ותנו לי לספר לכם את הישן\nתנו לי להפוך דף ולחבק אתכם בסוף\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרו את הפוסט לפעם הבאה שהוא מבקש שוב את הסיפור 🔖",
-            "fb_text": "אני יודע מה בא אחרי 📖\nוזה מרגיע אותי\nבגלל זה אני מבקש אותו שוב\nואני לא עושה לכם דווקא\n\n1 תקראו לי אותו שוב\nבכל פעם אני רואה\nמשהו אחר בתמונות\n\n2 תקראו בקול מצחיק\nקול של דוב או של ציפור\nואני צוחק\n\n3 שני סיפורים בלילה\nאחד שאתם בוחרים\nואחד שאני בוחר\n\n4 אותה דמות בסיפור חדש\nאותו חבר שאני אוהב\nבהרפתקה אחרת\n\n5 אני מספר לכם את הישן\n6 תנו לי להפוך דף\nאתם קוראים סיפור חדש\nואני מספר לכם את האהוב\n\n7 חיבוק כשהוא נגמר\nהסיפור המוכר הוא מקום בטוח\n״עומר, עוד חיבוק ונרדמים״\n\nאותו סיפור כל ערב\nזה מקום בטוח לי\nתעזרו לי לאהוב אותו\nועוד סיפור חדש?\n\nתשמרו את הפוסט\nלפעם הבאה שהוא מבקש שוב את הסיפור 🔖"
+            "caption": "אמא ואבא, כל ערב אני שואל ״אפשר עוד פעם?״, ויש לזה סיבה. 📖\nתקראו לי אותו שוב, ותשאלו איפה הארנב מתחבא.\nתנו לי ״לקרוא״ לכם אותו, ואתם תקראו לי ספר חדש.\nשני ספרים לפני השינה, אחד שלכם ואחד שלי.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם הבקשה לאותו סיפור בעזרת ספר מותאם אישית.\nתכתבו \"סיפור\" ואשלח לכם קישור להכנת הספר 📖",
+            "fb_text": "פעם הספר היה חדש. 📖\nהארנב, הבור, החושך ביער.\nלא ידעתי מה יקרה בדף הבא,\nובדף עם החושך התחבאתי מתחת לשמיכה.\nאמא ואבא, זה היה קצת מפחיד.\n\nובכל ערב היה ספר אחר.\nספר על משאית, ספר על דג,\nספר שסבתא הביאה.\nכל לילה סיפור חדש,\nוכל לילה שאלות: מה יקרה עכשיו?\n\nואז גיליתי את הסוף.\nבפעם השלישית ידעתי:\nהארנב מוצא את אמא שלו.\nבכל פעם, בדיוק בדף האחרון.\nומאז, זה הספר שלי.\n\n״אפשר עוד פעם?״\nאני שואל, ואתם נאנחים.\nאבל כשאני יודע מה בא,\nהגוף שלי נרגע בשמיכה.\nמה יעזור לי:\nלקרוא לי אותו שוב, ועוד פעם.\n\nאני רואה דברים חדשים.\nפעם אחת את הציפור על העץ.\nפעם את הגזר בכיס של הארנב.\nמה יעזור לי:\nשתעצרו ותשאלו\n״עומר, איפה הארנב מתחבא?״\nואני מוצא אותו ראשון.\n\nאני כבר זוכר אותו כולו.\nאתם מתחילים משפט,\nואני גומר אותו בקול רם.\nמה יעזור לי:\nלהחליף תפקידים.\nאתם קוראים לי ספר חדש,\nואני ״קורא״ לכם את הארנב.\n\nואם נמאס לכם, זה בסדר.\nמה יעזור לי:\nשני ספרים לפני השינה, אחד חדש מכם\nואחד שאני בוחר.\nואולי ספר חדש\nעם אותו ארנב, בהרפתקה אחרת.\n\nספר חדש, ליד הארנב.\nכשהארנב מחכה לי על הכרית,\nאני מוכן לשמוע גם סיפור חדש,\nעם דף מפחיד ועם סוף שאני לא יודע.\nכי אחריו מחכה לי, עוד פעם אחת, הארנב.\n\nאני לא תקוע, אמא ואבא.\nאני לומד את הסיפור עוד ועוד,\nעד שהוא שלי.\nואז, כשהוא שלי,\nאני מוכן לסיפור הבא.\n\nאפשר גם לעזור להם\nעם הבקשה לאותו סיפור\nבעזרת ספר מותאם אישית.\nתכתבו \"סיפור\"\nואשלח לכם קישור להכנת הספר 📖"
           },
-          "conversion_rationale": "משפט שכל הורה שמע (״אפשר עוד פעם?״) והבטחה לשבעה דברים. שקופית 2 מרגיעה: הוא לא עושה דווקא. שני ההורים מקבלים בקשות ברורות.",
+          "conversion_rationale": "פעם הספר היה חדש ומפחיד, ואז עומר גילה את הסוף, ומאז הוא מבקש אותו כל ערב, עם מה יעזור בכל שקופית. הכריכה שומרת על השאלה שההורים שומעים כל ערב.",
           "sources": [
             {
               "id": "src-uow",
@@ -1898,81 +1768,63 @@
           ],
           "claims": [
             {
-              "slide": 2,
-              "wording_he": "אני יודע מה בא אחרי וזה מרגיע אותי",
+              "slide": 5,
+              "wording_he": "כשאני יודע מה בא אני נרגע, לקרוא לי אותו שוב",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-uow",
                 "src-schol"
               ],
-              "supports": "University of Wollongong: young children commonly prefer familiarity; Scholastic: the favourite book is a security object. Imagined child voice."
+              "supports": "University of Wollongong: a preference for familiarity rather than novelty is commonly reported at young ages; Scholastic: young kids thrive on repetition; the book is a security object."
             },
             {
-              "slide": 3,
-              "wording_he": "תקראו לי אותו שוב",
+              "slide": 6,
+              "wording_he": "אני רואה דברים חדשים, תעצרו ותשאלו",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-uow"
               ],
-              "supports": "University of Wollongong: repetition aids learning; children can focus on different details each time."
-            },
-            {
-              "slide": 4,
-              "wording_he": "תקראו בקול מצחיק",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: read in funny accents."
-            },
-            {
-              "slide": 5,
-              "wording_he": "שני סיפורים לפני השינה",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: read two books at bedtime."
-            },
-            {
-              "slide": 6,
-              "wording_he": "סיפור חדש על אותה דמות",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: find books with the same character or by the same author and illustrator."
+              "supports": "University of Wollongong: repeated reading lets children notice other details and talk about the story."
             },
             {
               "slide": 7,
-              "wording_he": "אני מספר לכם את הישן ותנו לי להפוך דף",
+              "wording_he": "אני יודע אותו בעל פה, ולהחליף תפקידים",
               "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: you read a new book and have them read you their old favorite; turning the page is our example."
-            },
-            {
-              "slide": 8,
-              "wording_he": "הסיפור המוכר הוא מקום בטוח",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: that book is a security object for them."
-            },
-            {
-              "slide": 9,
-              "wording_he": "אותו סיפור זה מקום בטוח לי",
-              "kind": "lumebook_wording",
               "source_ids": [
                 "src-schol",
                 "src-uow"
               ],
-              "supports": "Our recap of slides 3 to 8; no promise of a result."
+              "supports": "Scholastic: you read a new book and have them read you their old favorite; University of Wollongong: repeated exposure helps children encode and remember."
+            },
+            {
+              "slide": 8,
+              "wording_he": "שני ספרים לפני השינה, וספר חדש עם אותו ארנב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-schol"
+              ],
+              "supports": "Scholastic: read two books at bedtime; find books with the same character."
+            },
+            {
+              "slide": 9,
+              "wording_he": "כשהארנב מחכה לי אני מוכן גם לסיפור חדש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-schol"
+              ],
+              "supports": "Scholastic: read two books at bedtime, a new book and their old favorite; that book is a security object. Said as this child's own feeling."
             },
             {
               "slide": 10,
+              "wording_he": "אני לומד את הסיפור עוד ועוד עד שהוא שלי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-uow"
+              ],
+              "supports": "University of Wollongong: repetition aids learning complex information by increasing opportunities for it to be encoded. Said as this child's own feeling."
+            },
+            {
+              "slide": 11,
               "wording_he": "סיפורים על רגעים קשים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -1981,7 +1833,7 @@
               "supports": "Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 11,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -1991,19 +1843,40 @@
               ],
               "supports": "Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free."
             }
-          ]
+          ],
+          "cta_style": "book_link",
+          "code_word": "סיפור",
+          "booklet": {
+            "page_text": [
+              "עומר בחר את הסיפור",
+              "שהוא הכי אוהב,",
+              "והפעם הוא הגיבור."
+            ],
+            "crop": [
+              76,
+              50,
+              1225,
+              664
+            ],
+            "face": [
+              0.242,
+              0.48,
+              0.5
+            ]
+          }
         },
         {
           "id": "kid-6",
-          "title": "כשהדף האחרון נגמר הלב שלי רוצה עוד: 6 דברים",
-          "angle": "הילדה מספרת שכשהדף האחרון נגמר הלב שלה רוצה עוד, ומבקשת מאמא שישה דברים: לקרוא שוב, קול מצחיק לכל דמות, הסיפור ליד המיטה, להחליף תפקידים, סיפור על אותה דמות ושני סיפורים לפני השינה.",
+          "structure": "one_day",
+          "title": "כשהדף האחרון נגמר, הלב שלי רוצה עוד",
+          "angle": "רז, בת 3, מראה לאמא יום אחד עם הספר על הארנבת: בבוקר הוא ליד המיטה, באוטו היא מספרת אותו לעצמה, בגן יש סיפור חדש, אחר הצהריים היא משחקת אותו, ובערב הדף האחרון נגמר. מה עוזר: לשחק איתה את הסיפור ולשאול מה קורה, שני ספרים, קול מצחיק לכל דמות, וסיפור חדש עם אותה ארנבת.",
           "target_parent": "אמהות לילדה בת 2 עד 4 שמתקשה להיפרד מהסיפור בסוף הדף האחרון ומבקשת להתחיל שוב.",
           "awareness_stage": "problem_aware",
           "hook_family": "moment",
           "hook": {
             "formula": "child-body-moment",
-            "gap": "What helps a girl whose heart wants more when the last page ends?",
-            "payoff_slide": 3,
+            "gap": "Why does a 3-year-old's heart want more when the last page ends, and what helps her through the day and at bedtime?",
+            "payoff_slide": 8,
             "score": {
               "specific": 2,
               "feeling": 2,
@@ -2020,7 +1893,6 @@
           "addressee": "mom",
           "child_name": "רז",
           "topic_id": "same-story",
-          "examples_target": 6,
           "character_anchor": {
             "child": "A 3-year-old Israeli girl with a short dark bob and a small clip, light olive skin, big brown eyes and a gap-toothed smile; about 94 cm tall.",
             "parent": "Her mother, early thirties, light-brown hair in a ponytail, hazel eyes, gentle and sleepy.",
@@ -2044,124 +1916,113 @@
               "number": 1,
               "role": "hook",
               "headline": "כשהדף האחרון נגמר\nהלב שלי רוצה עוד",
-              "body": "6 דברים שיעזרו לי",
-              "pull": {
-                "type": "numbered",
-                "note": "ששת הדברים מתחילים בשקופית 3"
-              }
+              "body": "יום אחד שלי, עם הסיפור שלי"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "כל ערב הסוף מגיע מהר\nואני לא מוכנה",
-              "body": "אני רוצה לחזור להתחלה\nכי שם אני רגועה",
-              "pull": {
-                "type": "open_loop",
-                "note": "מה עוזר לי? שקופית 3"
+              "role": "beat",
+              "label": "07:00, במיטה",
+              "headline": "הספר ישן לידי",
+              "body": "פתחתי עיניים, והוא שם, על הכרית.\nאני מחבקת אותו לפני הכל,\nעוד לפני שאני קוראת לך, **אמא**.",
+              "scene": {
+                "action": "The girl wakes up in bed and hugs a picture book with a drawn rabbit on the cover, smiling sleepily in the morning light.",
+                "setting": "A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 תקראי לי אותו שוב",
-              "body": "כשאני שומעת אותו שוב\nאני לומדת אותו יותר",
-              "examples": [
-                "תקראי לי אותו שוב"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עוד? שקופית 4"
+              "role": "beat",
+              "label": "08:00, באוטו",
+              "headline": "אני מספרת אותו לעצמי",
+              "body": "בכיסא של האוטו, בשקט.\nהארנבת הולכת, הולכת,\nונופלת לשלולית. **פלאץ׳**.\nאני יודעת מה בא עכשיו,\nואני צוחקת לבד.",
+              "scene": {
+                "action": "The girl sits in her car seat whispering to herself and miming a jump with her hands, giggling, her mother glancing back from the driver's seat.",
+                "setting": "Inside a family car in the morning: soft daylight, a plain grey car ceiling above. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 4,
-              "role": "example",
-              "headline": "2 קול מצחיק לכל דמות",
-              "body": "קול של דוב וקול של ציפור\nואני צוחקת",
-              "examples": [
-                "קול מצחיק לכל דמות"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עם המיטה? שקופית 5"
+              "role": "beat",
+              "label": "10:00, בגן",
+              "headline": "בגן יש מלא דברים חדשים",
+              "body": "ילדים, רעש, שיר חדש במעגל.\nכשהגננת מקריאה סיפור שלא הכרתי,\nאני יושבת **קרוב** אליה,\nולא יודעת מה יקרה בדף הבא.",
+              "scene": {
+                "action": "The girl sits very close to the kindergarten teacher in a circle of small children, watching a new picture book with a serious, unsure face.",
+                "setting": "An Israeli kindergarten room in the morning: low wooden shelves, a soft rug, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 5,
-              "role": "example",
-              "headline": "3 הסיפור ליד המיטה שלי",
-              "body": "״רז, הוא כאן לידך״\nככה אני נרדמת עם משהו מוכר",
-              "examples": [
-                "הסיפור ליד המיטה שלי"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אם נחליף? שקופית 6"
+              "role": "beat",
+              "label": "17:00, בסלון",
+              "headline": "אני משחקת את הסיפור",
+              "body": "הדובי הוא הארנבת, הכרית היא השלולית.\nאני זוכרת את כל הדרך.\n## מה יעזור לי:\nלשחק איתי ולשאול\n״רז, מה קורה עכשיו?״ ואני **עונה**.",
+              "scene": {
+                "action": "The girl makes her teddy bear jump into a cushion on the rug, acting out the story, while her mother kneels beside her playing along.",
+                "setting": "The family's Israeli living room in the late afternoon: a beige sofa, a soft rug, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 6,
-              "role": "example",
-              "headline": "4 תחליפי איתי תפקידים",
-              "body": "את קוראת סיפור חדש\nואני מספרת לך את האהוב",
-              "examples": [
-                "תחליפי איתי תפקידים"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "ויש עוד סיפור? שקופית 7"
+              "role": "beat",
+              "label": "19:30, אחרי המקלחת",
+              "headline": "״היום שוב הארנבת?״",
+              "body": "את שואלת, ואני כבר מחייכת.\n## מה יעזור לי:\nלהגיד לי כבר עכשיו שיהיו שני ספרים.\nאחד חדש שאת בוחרת,\nואחד שאני בוחרת, **שלי**.",
+              "scene": {
+                "action": "The girl, wrapped in a hooded towel with wet hair, grins and nods while her mother holds up two picture books.",
+                "setting": "A small Israeli bathroom in the evening: soft light, a plain pale wall, a fluffy bath mat. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 7,
-              "role": "example",
-              "headline": "5 סיפור על אותה דמות",
-              "body": "אותה חברה שאני אוהבת\nבהרפתקה אחרת",
-              "examples": [
-                "סיפור על אותה דמות"
-              ],
-              "pull": {
-                "type": "numbered",
-                "note": "והאחרון בשקופית 8"
+              "role": "beat",
+              "label": "20:00, במיטה",
+              "headline": "את מקריאה בקול של ארנבת",
+              "body": "קול דק, קופצני, עם אף שמרחרח.\nאני צוחקת, ואת צוחקת,\nואותו סיפור **מרגיש** קצת חדש.\n## מה יעזור לי:\nקול מצחיק לכל דמות.",
+              "scene": {
+                "action": "The mother twitches her nose like a rabbit while reading aloud, and the girl in lilac pyjamas laughs with her head thrown back.",
+                "setting": "A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 8,
-              "role": "example",
-              "headline": "6 שני סיפורים בלילה",
-              "body": "אחד שאני בוחרת\nואחד שאת בוחרת",
-              "examples": [
-                "שני סיפורים בלילה"
-              ],
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
+              "role": "beat",
+              "label": "20:10, במיטה",
+              "headline": "הדף האחרון נגמר",
+              "body": "והלב שלי רוצה עוד.\n## מה יעזור לי:\nסיפור חדש עם אותה ארנבת,\nהרפתקה אחרת, אותה **חברה**.\nוכשהאור נכבה, היא נשארת לידי.",
+              "scene": {
+                "action": "The mother closes the book on the last page and the girl reaches for it with a sad little pout, then the mother shows her another book with the same rabbit.",
+                "setting": "A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 9,
-              "role": "recap",
-              "headline": "הסוף מגיע וגם המשך\nאני רגועה יותר",
-              "body": "תעזרי לי להיפרד מהדף האחרון\nבחיבוק?",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 לפעם הבאה"
+              "role": "turn",
+              "headline": "זה לא שאני לא אוהבת חדש",
+              "body": "אמא, יש לי יום מלא בדברים חדשים.\nבערב, אני רוצה משהו **שאני מכירה**.\nמשהו שאני יודעת איך הוא נגמר.\n\nואז, עם הארנבת לידי,\nאני מוכנה גם לסיפור חדש.",
+              "scene": {
+                "action": "The girl snuggles against her mother on the bed, the rabbit book under her arm, listening to a new book with curious eyes.",
+                "setting": "A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 10,
               "role": "story_cta",
               "headline": "תשמרי את הפוסט",
-              "body": "לפעם הבאה שהיא מבקשת שוב את הסיפור"
+              "body": "לפעם הבאה שהיא מבקשת שוב את הסיפור",
+              "scene": {
+                "action": "The girl sleeps peacefully with the rabbit book beside her pillow, the night light glowing softly.",
+                "setting": "A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "כשהדף האחרון נגמר הלב שלי רוצה עוד ושישה דברים יעזרו לי\nתקראי לי אותו שוב, ותעשי קול מצחיק לכל דמות\nתשאירי את הסיפור ליד המיטה שלי ותחליפי איתי תפקידים\nתקראי לי שני סיפורים לפני השינה\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור",
+          "caption": "אמא, כשהדף האחרון נגמר, הלב שלי רוצה עוד.\nתשחקי איתי את הסיפור, ותשאלי מה קורה עכשיו.\nתקריאי בקול מצחיק לכל דמות.\nתני לי שני ספרים, אחד שלך ואחד שלי.\nוסיפור חדש עם אותה ארנבת, שתישאר לידי.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור",
           "cta": "תשמרי את הפוסט\nלפעם הבאה שהיא מבקשת שוב את הסיפור",
           "post_text": {
-            "caption": "כשהדף האחרון נגמר הלב שלי רוצה עוד ושישה דברים יעזרו לי 📖\nתקראי לי אותו שוב, ותעשי קול מצחיק לכל דמות\nתשאירי את הסיפור ליד המיטה שלי ותחליפי איתי תפקידים\nתקראי לי שני סיפורים לפני השינה\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור 🔖",
-            "fb_text": "כל ערב הסוף מגיע מהר 📖\nואני לא מוכנה\nאני רוצה לחזור להתחלה\nכי שם אני רגועה\n\n1 תקראי לי אותו שוב\nכשאני שומעת אותו שוב\nאני לומדת אותו יותר\n\n2 קול מצחיק לכל דמות\nקול של דוב וקול של ציפור\nואני צוחקת\n\n3 הסיפור ליד המיטה שלי\n״רז, הוא כאן לידך״\nככה אני נרדמת עם משהו מוכר\n\n4 תחליפי איתי תפקידים\nאת קוראת סיפור חדש\nואני מספרת לך את האהוב\n\n5 סיפור על אותה דמות\nאותה חברה שאני אוהבת\nבהרפתקה אחרת\n\n6 שני סיפורים בלילה\nאחד שאני בוחרת\nואחד שאת בוחרת\n\nהסוף מגיע וגם המשך\nאני רגועה יותר\nתעזרי לי להיפרד מהדף האחרון\nבחיבוק?\n\nתשמרי את הפוסט\nלפעם הבאה שהיא מבקשת שוב את הסיפור 🔖"
+            "caption": "אמא, כשהדף האחרון נגמר, הלב שלי רוצה עוד. 📖\nתשחקי איתי את הסיפור, ותשאלי מה קורה עכשיו.\nתקריאי בקול מצחיק לכל דמות.\nתני לי שני ספרים, אחד שלך ואחד שלי.\nוסיפור חדש עם אותה ארנבת, שתישאר לידי.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור 🔖",
+            "fb_text": "הספר ישן לידי. 📖\nפתחתי עיניים, והוא שם, על הכרית.\nאני מחבקת אותו לפני הכל,\nעוד לפני שאני קוראת לך, אמא.\n\nאני מספרת אותו לעצמי.\nבכיסא של האוטו, בשקט.\nהארנבת הולכת, הולכת,\nונופלת לשלולית. פלאץ׳.\nאני יודעת מה בא עכשיו,\nואני צוחקת לבד.\n\nבגן יש מלא דברים חדשים.\nילדים, רעש, שיר חדש במעגל.\nכשהגננת מקריאה סיפור שלא הכרתי,\nאני יושבת קרוב אליה,\nולא יודעת מה יקרה בדף הבא.\n\nאני משחקת את הסיפור.\nהדובי הוא הארנבת, הכרית היא השלולית.\nאני זוכרת את כל הדרך.\nמה יעזור לי:\nלשחק איתי ולשאול\n״רז, מה קורה עכשיו?״ ואני עונה.\n\n״היום שוב הארנבת?״\nאת שואלת, ואני כבר מחייכת.\nמה יעזור לי:\nלהגיד לי כבר עכשיו שיהיו שני ספרים.\nאחד חדש שאת בוחרת,\nואחד שאני בוחרת, שלי.\n\nאת מקריאה בקול של ארנבת.\nקול דק, קופצני, עם אף שמרחרח.\nאני צוחקת, ואת צוחקת,\nואותו סיפור מרגיש קצת חדש.\nמה יעזור לי:\nקול מצחיק לכל דמות.\n\nהדף האחרון נגמר.\nוהלב שלי רוצה עוד.\nמה יעזור לי:\nסיפור חדש עם אותה ארנבת,\nהרפתקה אחרת, אותה חברה.\nוכשהאור נכבה, היא נשארת לידי.\n\nזה לא שאני לא אוהבת חדש.\nאמא, יש לי יום מלא בדברים חדשים.\nבערב, אני רוצה משהו שאני מכירה.\nמשהו שאני יודעת איך הוא נגמר.\nואז, עם הארנבת לידי,\nאני מוכנה גם לסיפור חדש.\n\nתשמרי את הפוסט\nלפעם הבאה שהיא מבקשת שוב את הסיפור 🔖"
           },
-          "conversion_rationale": "רגע מוכר של סוף הספר עם הגוף (הלב) ושישה דברים ברורים. נוסחה שהשתמשנו בה לאחרונה, והמספר והערך על הכריכה מחזיקים אותה.",
+          "conversion_rationale": "יום אחד של רז לפי השעון, מהבוקר עם הספר על הכרית ועד הדף האחרון במיטה, כדי להראות למה בערב היא רוצה את המוכר, ואז מה עוזר. מבנה שונה מהמכתב ומהפעם ועכשיו של שתי האפשרויות האחרות בנושא.",
           "sources": [
             {
               "id": "src-uow",
@@ -2193,26 +2054,25 @@
           ],
           "claims": [
             {
-              "slide": 2,
-              "wording_he": "אני רוצה לחזור להתחלה כי שם אני רגועה",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-uow",
-                "src-schol"
-              ],
-              "supports": "University of Wollongong: young children commonly prefer familiarity; Scholastic: the favourite book is a security object. Imagined child voice."
-            },
-            {
-              "slide": 3,
-              "wording_he": "תקראי לי אותו שוב",
+              "slide": 5,
+              "wording_he": "אני זוכרת את כל הדרך, לשחק איתי ולשאול מה קורה",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-uow"
               ],
-              "supports": "University of Wollongong: repetition aids learning by increasing opportunities to encode the information."
+              "supports": "University of Wollongong: repeated exposure helps children encode and remember; repeated reading lets children talk about the story. Playing it out is our wording."
             },
             {
-              "slide": 4,
+              "slide": 6,
+              "wording_he": "שני ספרים, אחד חדש שאת בוחרת ואחד שלי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-schol"
+              ],
+              "supports": "Scholastic: read two books at bedtime."
+            },
+            {
+              "slide": 7,
               "wording_he": "קול מצחיק לכל דמות",
               "kind": "sourced_fact",
               "source_ids": [
@@ -2221,49 +2081,23 @@
               "supports": "Scholastic: read in funny accents."
             },
             {
-              "slide": 5,
-              "wording_he": "הסיפור ליד המיטה שלי",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: that book is a security object for them."
-            },
-            {
-              "slide": 6,
-              "wording_he": "תחליפי איתי תפקידים",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: you read a new book and have them read you their old favorite."
-            },
-            {
-              "slide": 7,
-              "wording_he": "סיפור על אותה דמות",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-schol"
-              ],
-              "supports": "Scholastic: find books with the same character or by the same author and illustrator."
-            },
-            {
               "slide": 8,
-              "wording_he": "שני סיפורים לפני השינה",
+              "wording_he": "סיפור חדש עם אותה ארנבת, והיא נשארת לידי",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-schol"
               ],
-              "supports": "Scholastic: read two books at bedtime."
+              "supports": "Scholastic: find books with the same character; that book is a security object for them."
             },
             {
               "slide": 9,
-              "wording_he": "הסוף מגיע וגם המשך",
-              "kind": "lumebook_wording",
+              "wording_he": "בערב אני רוצה משהו שאני מכירה",
+              "kind": "sourced_fact",
               "source_ids": [
+                "src-uow",
                 "src-schol"
               ],
-              "supports": "Our recap of slides 3 to 8; no promise of a result."
+              "supports": "University of Wollongong: a preference for familiarity rather than novelty is commonly reported at young ages; Scholastic: young kids thrive on repetition. Said as this child's own feeling."
             },
             {
               "slide": 10,

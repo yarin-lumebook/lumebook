@@ -20,6 +20,10 @@ Story packs (copy_style "story", story-format.md, 29 Oct 2026) get a picture per
 (text-to-image from option.image and the character anchor, as for one-picture runs), slide-02 to slide-NN are edits of
 the approved cover (same characters), each from its slide's scene. The cover runs first and waits for approval; the
 rest run in parallel. Spend cap STORY_MAX_USD for the whole carousel, every attempt included.
+
+Pictures from ChatGPT (30 Oct 2026, production.json "picture_backend": "chatgpt", the default): the jobs and prompts are
+the same, jobs.json gets "backend": "chatgpt" (and "max_usd": 0 on a story run), APPROVAL.md and README.md describe the free
+ChatGPT flow (scripts/chatgpt_pictures.py) and the summary costs 0. Nothing here ever calls fal.ai either way.
 """
 
 import argparse
@@ -178,6 +182,8 @@ def build_jobs(pack, version, cfg):
 
 
 def cost_summary(jobs):
+    if jobs.get("backend") == "chatgpt":   # ChatGPT in Yarin's own account (30 Oct 2026): nothing is paid
+        return 0.0, 0.0
     base = sum(j["estimated_cost_usd"] for j in jobs["jobs"].values())
     retries = sum(j["estimated_cost_usd"] * MAX_REPLACEMENTS for j in jobs["jobs"].values())
     if jobs.get("story"):   # a story carousel never spends past its cap, whatever the replacements
@@ -185,7 +191,57 @@ def cost_summary(jobs):
     return round(base, 3), round(base + retries, 3)
 
 
+def chatgpt_approval_text(pack, version, jobs, run_dir):
+    """APPROVAL.md for a run whose pictures come from ChatGPT (30 Oct 2026): what will be made, at no cost."""
+    n = len(jobs["jobs"])
+    lines = [f"# Production sheet · {version['id']} · {pack['date']}", "",
+             "Pictures are made in ChatGPT in Yarin's own Chrome, by Claude, at no cost (production.json picture_backend "
+             "\"chatgpt\", 30 Oct 2026). fal.ai is never called.", "", "## Selected copy (frozen)", "", '<div dir="rtl" lang="he">', ""]
+    for s in version["slides"]:
+        lines.append(f"**{s['number']} · {lib.ROLE_LABELS_HE.get(s['role'], s['role'])}**  ")
+        lines += [f"{l}  " for l in lib.lines_of(s["headline"])]
+        lines += [f"{l}  " for l in lib.lines_of(s.get("body", ""))]
+        lines.append("")
+    lines += ["**כיתוב**  "] + [f"{l}  " for l in lib.lines_of(version["caption"])] + ["", "</div>", "", "## Images", ""]
+    if jobs.get("story"):
+        lines += [f"- Images: **{n}**, one per slide: the cover first, then {n - 1} slide scenes made from the approved cover as the reference picture (same characters)",
+                  "- The cover waits for Yarin's approval in Carousel Machine; the other slides are made only after it"]
+    else:
+        lines.append(f"- Images: **{n}**" + (", the one picture behind every slide" if PICTURE_JOB in jobs["jobs"] else ""))
+    lines += ["- Cost: **$0** (ChatGPT, Yarin's own account)", "", f"See `{run_dir / 'README.md'}` for the exact steps."]
+    return "\n".join(lines) + "\n"
+
+
+def chatgpt_readme_text(run_dir, jobs, slides):
+    tool = lib.PIPELINE / "scripts" / "chatgpt_pictures.py"
+    comp = lib.PIPELINE / "scripts" / "compose_slides.py"
+    cover = jobs.get("reference_job") or jobs["order"][0]
+    rest = ("" if not jobs.get("story") else
+            f"\n## 2 · The other slides (after the cover is approved)\n\n`next` then lists `slide-02` to `slide-{slides:02d}`, each with the "
+            f"approved cover as the reference picture. One new ChatGPT chat: attach `generated-assets/{cover}.png`, send the prompts "
+            "one by one, ingest each download. When the last one is in, Carousel Machine builds the slides and the ZIP by itself.\n")
+    return f"""# Production run (pictures from ChatGPT)
+
+Pictures are made in ChatGPT in Yarin's Chrome by Claude, free (production.json picture_backend "chatgpt", 30 Oct 2026). fal.ai is never called. Each picture lands in `generated-assets/<job>.png` (cropped to 4:5, 1024 x 1280; the download is kept in `generated-assets/chatgpt-originals/`), the resume point is `state.json`.
+
+## 1 · The cover
+
+```bash
+python3 {tool} next            # the prompt, the file name to download as
+python3 {tool} ingest {run_dir} {cover}
+```
+
+Carousel Machine then shows the picture for approval (or another take with a note, which puts it back in `next`).
+{rest}
+## Final composition
+
+Carousel Machine runs it by itself after the approval. By hand: `python3 {comp} {run_dir}`. Status: `python3 {tool} status`
+"""
+
+
 def approval_text(pack, direction, version, jobs, run_dir):
+    if jobs.get("backend") == "chatgpt":
+        return chatgpt_approval_text(pack, version, jobs, run_dir)
     base, maximum = cost_summary(jobs)
     lines = [
         f"# Approval sheet · {version['id']} · {pack['date']}",
@@ -439,6 +495,10 @@ def main():
 
     cfg = endpoint_config()
     jobs = build_jobs(pack, version, cfg)
+    if lib.picture_backend() == "chatgpt":   # 30 Oct 2026: the same prompts, made in ChatGPT for free
+        jobs["backend"] = "chatgpt"
+        if jobs.get("story"):
+            jobs["max_usd"] = 0
     problems = [p for name, job in jobs["jobs"].items() for p in job_issues(name, job, cfg)]
     if problems:
         print("Jobs do not match the endpoint schema:")
@@ -458,8 +518,11 @@ def main():
         lib.write_json(state_path, {"jobs": fresh})
     base, maximum = cost_summary(jobs)
     (run_dir / "APPROVAL.md").write_text(approval_text(pack, direction, version, jobs, run_dir), encoding="utf-8")
-    (run_dir / "README.md").write_text(readme_text(run_dir, maximum, one=PICTURE_JOB in jobs["jobs"], slides=len(version["slides"]),
-                                                   story=bool(jobs.get("story"))), encoding="utf-8")
+    if jobs.get("backend") == "chatgpt":
+        (run_dir / "README.md").write_text(chatgpt_readme_text(run_dir, jobs, len(version["slides"])), encoding="utf-8")
+    else:
+        (run_dir / "README.md").write_text(readme_text(run_dir, maximum, one=PICTURE_JOB in jobs["jobs"], slides=len(version["slides"]),
+                                                       story=bool(jobs.get("story"))), encoding="utf-8")
     if not args.no_history:
         lib.mark_selected(pack["date"], version["id"])
     print(json.dumps({
@@ -471,6 +534,7 @@ def main():
         "estimated_usd": base,
         "estimated_max_usd": maximum,
         **({"cap_usd": jobs["max_usd"], "story": True} if jobs.get("story") else {}),
+        "backend": jobs.get("backend", "fal"),
         "approval_sheet": str(run_dir / "APPROVAL.md"),
         "network_calls": 0,
     }, ensure_ascii=False, indent=2))

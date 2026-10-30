@@ -1,0 +1,30 @@
+# Sources · kid-1 · 2026-12-02
+
+- [The Right Age to Potty Train](https://www.healthychildren.org/English/ages-stages/toddler/toilet-training/Pages/The-Right-Age-to-Toilet-Train.aspx) · HealthyChildren.org, American Academy of Pediatrics · read 2026-10-29
+  - supports: Potty training advice from the AAP: children learn in their own time, positive words, a potty chair where the feet reach the floor, books, a role model, signs of a poop coming, being in charge, a morning routine, hesitation and cleanup. An American page, applied to Israeli families as general child-health advice.
+  - quote: "Toilet training struggles happen when children choose not to use the toilet. It's important to remember that children can succeed at using the toilet but in their own time. ... Choose the words your family will use to describe body parts, urine, and bowel movements. Avoid words that are negative, like dirty, naughty, or stinky. ... Children's feet should be able to reach the floor. Books or toys for "potty time" may help make this time more fun. ... Let your children see you use the toilet and wash your hands afterward. ... When your children feel the urge to poop, you might notice grunting, squatting, or freezing. ... Explain briefly to your children that these signs mean a poop is about to come. If your children tell you about a wet diaper, praise them for "using their words." ... Talk with them about how they will now be in charge of their pee and poop. Read children's books about using the toilet to help the process make sense and seem inviting and exciting. ... Make a habit of seating your children onto the potty-chair first thing in the morning. ... Gently help them overcome their hesitation. Then help them stay in charge by having them be in charge of the cleanup."
+- [Potty Training: 12 Tips to Keep the Process Positive](https://www.healthychildren.org/English/ages-stages/toddler/toilet-training/Pages/Praise-and-Reward-Your-Childs-Success.aspx) · HealthyChildren.org, American Academy of Pediatrics · read 2026-10-29
+  - supports: Big-kid underwear, specific praise without treats, avoiding power struggles, staying calm, fear of the flush and letting the child flush. An American page, applied to Israeli families as general child-health advice.
+  - quote: "When toilet training starts, switch to big-kid underwear. ... Be precise with praise. ... Avoid treats and punishments. ... When your children succeed, be specific about why you are proud. ... Avoid a power struggle. ... Try to stay calm about toilet training. Remember that children control when and where they pee and poop. So power struggles, begging, pleading, rewarding, and punishing keep children from managing their own toileting. ... Understand their fear. Some children believe that their pee and poop are part of their bodies. They may be scared the toilet will flush parts of them away. ... To give your children a feeling of control, let them flush the toilet. ... Toilet training is a learning experience."
+
+## Product facts (live site)
+
+- The child's name appears in the text and the child stars in every illustration · "בהחלט - השם שלהם מופיע בטקסט והם מככבים בכל האיורים." · https://lumebook.com/IL/he · checked 2026-10-29
+- Parents choose a book, upload a photo and see a free preview before paying · "1. בוחרים ספר.
+2. מעלים תמונה.
+3. רואים תצוגה מקדימה בחינם." · https://lumebook.com/IL/he · checked 2026-10-29
+- Catalogue book 43 (ages 2 to 4), internal only for the DM link: a funny story about saying goodbye to diapers through zoo animals · "סיפור חמוד ומצחיק על גמילה מטיטולים דרך מפגש עם חיות בגן חיות שכל אחת מהן נפרדה מהטיטול וגילתה כוחות חדשים." · https://lumebook.com/IL/he/books/43 · checked 2026-10-29
+- Catalogue book 10 (ages 5 to 7), internal only for the DM link: the move from gan to first grade, worries into excitement · "הספר מלווה את הילד במעבר המרגש מהגן לכיתה א', ממיר חששות וחרדות להתרגשות וביטחון דרך סיפור קסום על תיק מיוחד המעניק אומץ." · https://lumebook.com/IL/he/books/10 · checked 2026-10-29
+
+## Claims
+
+- slide 1 · sourced_fact · 5 דברים שיעזרו לי להיפרד מהטיטול · AAP (HealthyChildren): children can succeed at using the toilet but in their own time; toilet training is a learning experience. The five things are the slides below. · src-hc1, src-hc2
+- slide 2 · sourced_fact · להרגיש מתי בא לי פיפי זה חדש לי · AAP: children can succeed at using the toilet but in their own time. Said as this child's feeling. · src-hc1
+- slide 3 · sourced_fact · תחתונים של גדולים כבר כשמתחילים · AAP (HealthyChildren): when toilet training starts, switch to big-kid underwear. · src-hc2
+- slide 4 · sourced_fact · סיר קטן, הרגליים נוגעות ברצפה · AAP: children's feet should be able to reach the floor. · src-hc1
+- slide 5 · sourced_fact · סיר ראשון בבוקר, עם ספר · AAP: make a habit of seating your children onto the potty chair first thing in the morning; books or toys for potty time may help make this time more fun. · src-hc1
+- slide 6 · sourced_fact · לראות אתכם, ואחר כך שוטפים ידיים · AAP: let your children see you use the toilet and wash your hands afterward. · src-hc1
+- slide 7 · sourced_fact · מילה ברורה על מה שהצלחתי, בלי ממתק · AAP (HealthyChildren): be precise with praise; when your children succeed, be specific about why you are proud; avoid treats and punishments. · src-hc2
+- slide 8 · sourced_fact · צעד צעד, בקצב שלי · AAP: children can succeed at using the toilet but in their own time. · src-hc1
+- slide 9 · sourced_fact · ספרים על הסיר יכולים לעזור · HealthyChildren: read children's books about using the toilet to help the process make sense and seem inviting and exciting. That a personalised story with the child as the hero is another way is our wording. · src-hc1
+- slide 9 · product_fact · סיפור אישי שבו הילד הוא הגיבור · Live site, 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo, free preview. Internal only: book 43 on diapers. No brand or title on the slides. · site-star, site-photo, site-book-43

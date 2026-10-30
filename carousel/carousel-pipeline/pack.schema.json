@@ -76,9 +76,10 @@
     "cta_style": {
       "enum": [
         "save_share",
-        "save_for_later"
+        "save_for_later",
+        "book_link"
       ],
-      "description": "An older pack switched to a newer CTA: save_share (the save and share CTA under the fixed slide 10 headline, 24 Oct 2026) or save_for_later (slide 10 is only the CTA, תשמרי את הפוסט לפעם הבאה ש..., the evening of 24 Oct 2026; the week of 25 Oct was moved to it). Packs written after each change have it without this field."
+      "description": "An older pack switched to a newer CTA: save_share (the save and share CTA under the fixed slide 10 headline, 24 Oct 2026) or save_for_later (slide 10 is only the CTA, תשמרי את הפוסט לפעם הבאה ש..., the evening of 24 Oct 2026; the week of 25 Oct was moved to it) or book_link (30 Oct 2026: slide 10 is only «יש ספר שיכול לעזור עם X. הגיבי \"word\" ואשלח לך קישור», a book hint, the link goes in the DM). Packs written after each change have it without this field."
     },
     "voice_style": {
       "enum": [
@@ -272,6 +273,41 @@
             "normalising",
             "analogy"
           ]
+        },
+        "cta_style": {
+          "enum": [
+            "book_link"
+          ],
+          "description": "One option moved to the book link CTA over the booklet while its pack keeps its own CTA (the 14 produced November carousels, 30 Oct 2026; story-format.md section 7)."
+        },
+        "booklet": {
+          "type": "object",
+          "description": "The open booklet under the book link CTA (story-format.md section 7, scripts/booklet_cta.py): page_text (up to 3 lines on the blank page), crop ([x, y, w, h] of the spread in RUN_DIR/booklet/booklet.png) and face ([x, y] of the child's face in that crop, 0 to 1).",
+          "required": [
+            "page_text",
+            "crop",
+            "face"
+          ],
+          "properties": {
+            "page_text": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "crop": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "face": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
         },
         "code_word": {
           "type": "string",

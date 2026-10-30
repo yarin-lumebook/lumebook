@@ -10,90 +10,154 @@
 
 ## הילד מספר להורים
 
-### kid-1 · אמא ואבא להיפרד מהמוצץ אני מבקשת 8 דברים
+### kid-1 · אמא ואבא, להיפרד מהמוצץ אני צריכה 5 דברים
 
 - **על מי:** רוני (בת), לשני ההורים
-- **זווית:** הילדה מבקשת מההורים שמונה דברים: להגיד לה מראש, מוצץ רק בלילה, דובי שבחרה, מוצץ רחוק מהעיניים, תאריך, פיית המוצצים, פרגון בבוקר והורים רגועים בימים הראשונים.
+- **זווית:** רוני, בת 3, מבקשת מההורים חמישה דברים כדי להיפרד מהמוצץ לאט: לספר לה כמה ימים לפני, קודם רק במיטה ומחוץ לעיניים ביום, הארנב שבחרה ותזכורת כשהיא מבקשת, פיה שמשאירה הפתעה ופרגון בבוקר, והורים רגועים בלילות הראשונים.
 - **למי:** הורים לילדה בת 2 עד 4 שמתחילים לחשוב איך נפרדים מהמוצץ ולא רוצים לעשות את זה בבת אחת.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** child-numbered-ask
 - **נושא:** פרידה מהמוצץ (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המספר והבקשה מההורים על הכריכה (פורמט שקיבל 5 מירין), והילדה מבקשת שמונה דברים מעשיים שאפשר להתחיל מהם השבוע. סיפור על פרידה מהמוצץ הוא המשך טבעי לטקס שמכינים בבית.
+- **למה זה עשוי להמיר:** רשימה קצרה של חמש נקודות במקום שמונה, כל נקודה שקופית מלאה, והצורות מתחלפות (כרטיס עם משפט, מונולוג, מה אתם רואים ומה קורה לי בפנים, שורות קצרות, שאלה בכותרת). הכריכה שומרת על המספר ועל הפנייה לשני ההורים.
 
-#### שקופית 1 · פתיח
+- **מבנה:** רשימה קצרה · 9 שקופיות
 
-**אמא ואבא**  
-**להיפרד מהמוצץ**  
-**אני מבקשת 8 דברים**  
-שיעזרו לי  
+#### שקופית 1 · שער
 
-#### שקופית 2 · ההסבר
+**אמא ואבא,**  
+**בשביל להיפרד**  
+**מהמוצץ**  
+**אני צריכה 5 דברים**  
+צעד קטן, ועוד צעד, ועוד אחד  
 
-**המוצץ מרגיע אותי**  
-**ואני צריכה דרך אחרת**  
-תלמדו אותי לאט  
-צעד אחרי צעד  
+#### שקופית 2 · סיפור
 
-#### שקופית 3 · דוגמאות ממוספרות
+**אני יודעת שהגיע הזמן**  
+אתם אומרים שאני כבר בת שלוש.  
+והמוצץ? הוא איתי בכל מקום.  
+באוטו, בסלון, מתחת לכרית.  
 
-**1 תגידו לי מראש**  
-״רוני עוד 3 ימים נגיד ביי  
-למוצץ״ ככה אני מתכוננת  
+אז בבקשה, לא בבת אחת.  
+הנה חמישה דברים שיעזרו **לי**.  
 
-#### שקופית 4 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**2 מוצץ רק בלילה**  
-ביום אין מוצץ  
-בלילה במיטה אפשר  
+*Picture:* The girl sits on the sofa with a dummy in her mouth, hugging her plush rabbit, looking up at her parents with big serious eyes. The family's Israeli living room in the morning: a beige sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 5 · דוגמאות ממוספרות
+</div>
 
-**3 דובי שבחרתי בעצמי**  
-משהו לחבק במקום המוצץ  
-ותזכירו לי עליו כשאני מבקשת  
+#### שקופית 3 · סיפור · 1: להגיד לי מראש
 
-#### שקופית 6 · דוגמאות ממוספרות
+**תספרו לי כמה ימים לפני**  
+שאני אדע מה עומד לקרות,  
+ושיהיה לי זמן להתרגל לרעיון.  
+*מה יעזור לי לשמוע:*  
+▪ ״רוני, עוד שלושה לילות נגיד לו ביי.״  
 
-**4 מוצץ רחוק מהעיניים**  
-בארון גבוה ולא על השולחן  
-כדי שלא אחפש אותו כל היום  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 7 · דוגמאות ממוספרות
+*Picture:* The mother and father sit on the edge of the girl's bed explaining something gently, and the girl listens holding her dummy in her hand. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 תקבעו איתי תאריך**  
-**6 פיית המוצצים**  
-יום שבו נפרדים סופית  
-ופיה שלוקחת ומשאירה מתנה  
+</div>
 
-#### שקופית 8 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 2: קודם רק במיטה
 
-**7 תפרגנו לי בבוקר**  
-**8 תהיו רגועים בהתחלה**  
-״רוני איזה כיף שישנת בלי מוצץ״  
-הימים הראשונים הכי קשים  
+**ביום הוא נשאר בארון**  
+בבוקר אני משחקת, הולכת לגן, רצה בחצר,  
+ולא צריכה אותו בפה כל הזמן.  
+כשהוא לא מול העיניים, אני שוכחת ממנו.  
+ובלילה, במיטה, הוא **עוד שלי**.  
 
-#### שקופית 9 · סיכום
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**צעד צעד אני נפרדת**  
-**מהמוצץ איתכם**  
-תעזרו לי להרגיש בטוחה  
-גם בלי המוצץ?  
+*Picture:* The father places the dummy on a high shelf of a wardrobe while the girl runs off happily to play with blocks. The girl's small Israeli bedroom in the morning: a white wardrobe, a soft rug, a plain cream wall, daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+</div>
+
+#### שקופית 5 · סיפור · 3: חבר שאני בוחרת
+
+**הארנב שבחרתי בעצמי**  
+*מה אתם רואים:*  
+אני מבקשת מוצץ, ומתחילה לבכות.  
+*מה קורה לי בפנים:*  
+הידיים שלי מחפשות משהו להחזיק.  
+
+אז תזכירו לי את הארנב,  
+בדיוק אז, **כשאני מבקשת**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother hands the crying girl her soft plush rabbit, and the girl squeezes it tightly against her cheek. The family's Israeli living room in the morning: a beige sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 4: פיית המוצצים
+
+**פיה לוקחת, ומשאירה הפתעה**  
+שמים אותו ליד המיטה.  
+אני נרדמת.  
+בבוקר הוא איננו.  
+ובמקומו מחכה **משהו קטן**.  
+
+ותגידו לי ״רוני, הצלחת!״  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl wakes up and finds a small wrapped gift on her bedside table where the dummy was, gasping with delight as her parents peek in. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 5: הלילות הראשונים
+
+**ומה אם אתעורר בלי מוצץ?**  
+הלילות הראשונים הכי קשים לי.  
+אני אבכה, ואולי אבקש אותו שוב.  
+*מה יעזור לי:*  
+שתהיו רגועים, ותחזיקו מעמד איתי.  
+בעדינות, אבל בלי להחזיר אותו.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* At night the mother sits calmly beside the girl's bed stroking her hair while the girl hugs her rabbit with teary eyes. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+**אני עושה צעד גדול**  
+בשבילכם זה מוצץ קטן.  
+בשבילי זה הדבר הכי רך בלילה.  
+אז לאט, עם הרבה **חיבוקים**,  
+ועם הארנב ביד,  
+אני מגיעה לשם בקצב שלי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl stands between her parents holding both their hands, her plush rabbit tucked under one arm, smiling proudly. The family's Israeli living room in the morning: a beige sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה  
 שהיא נפרדת מהמוצץ  
 
-**הכותרות בלבד:** אמא ואבא להיפרד מהמוצץ אני מבקשת 8 דברים ← המוצץ מרגיע אותי ואני צריכה דרך אחרת ← 1 תגידו לי מראש ← 2 מוצץ רק בלילה ← 3 דובי שבחרתי בעצמי ← 4 מוצץ רחוק מהעיניים ← 5 תקבעו איתי תאריך 6 פיית המוצצים ← 7 תפרגנו לי בבוקר 8 תהיו רגועים בהתחלה ← צעד צעד אני נפרדת מהמוצץ איתכם ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sleeps peacefully hugging her plush rabbit, no dummy in sight, her parents smiling at the door. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא ואבא, בשביל להיפרד מהמוצץ אני צריכה 5 דברים ← אני יודעת שהגיע הזמן ← תספרו לי כמה ימים לפני ← ביום הוא נשאר בארון ← הארנב שבחרתי בעצמי ← פיה לוקחת, ומשאירה הפתעה ← ומה אם אתעורר בלי מוצץ? ← אני עושה צעד גדול ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-אמא ואבא, אני מבקשת 8 דברים כדי להיפרד מהמוצץ  
-תגידו לי מראש ותשאירו את המוצץ רק בלילה  
-תנו לי דובי שבחרתי בעצמי ותרחיקו את המוצץ מהעיניים  
-תקבעו איתי תאריך ותפרגנו לי בבוקר  
-תהיו רגועים איתי בימים הראשונים  
+אמא ואבא, כדי להיפרד מהמוצץ אני צריכה מכם חמישה דברים.  
+תספרו לי כמה ימים לפני, ותשאירו אותו קודם רק למיטה.  
+תזכירו לי את הארנב שבחרתי, כשאני מבקשת מוצץ.  
+פיה שלוקחת אותו בלילה, ו״הצלחת!״ בבוקר.  
+ובלילות הראשונים, תהיו רגועים איתי.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרו את הפוסט לפעם הבאה שהיא נפרדת מהמוצץ  
 
@@ -110,101 +174,203 @@
 
 **טענות**
 
-- שקופית 2 · המוצץ מרגיע אותי ואני צריכה דרך אחרת · sourced_fact · Both pages replace the dummy with a comfort toy and a gradual route, so the child needs another way to soothe. Imagined child voice.
-- שקופית 3 · תגידו לי מראש · sourced_fact · Better Health Channel: talk about stopping the dummy for a couple of days to prepare your child.
-- שקופית 4 · מוצץ רק בלילה · sourced_fact · Better Health Channel: limit the dummy to sleep or nighttime; Sheffield: nap times and bed time first.
-- שקופית 5 · דובי שבחרתי בעצמי · sourced_fact · Better Health Channel: a cuddly toy they have chosen; talk about the replacement when they ask for the dummy.
-- שקופית 6 · מוצץ רחוק מהעיניים · sourced_fact · Sheffield: remove dummies from the child's sight. The high cupboard is our example.
-- שקופית 7 · תקבעו איתי תאריך ופיית המוצצים · sourced_fact · Sheffield: set a dummy free date once use is down; a Dummy Fairy takes it away during the night and leaves a small reward.
-- שקופית 8 · תפרגנו לי והימים הראשונים הכי קשים · sourced_fact · Sheffield: lots of praise; Better Health Channel: the first few days without a dummy are likely to be the most difficult.
-- שקופית 9 · צעד צעד אני נפרדת מהמוצץ · lumebook_wording · Our recap in the child's imagined voice of slides 3 to 8; the gradual approach is the Better Health Channel's.
-- שקופית 10 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 1 · חמישה דברים שיעזרו לי להיפרד מהמוצץ · sourced_fact · Our grouping of advice from the Better Health Channel and Sheffield Children's NHS pages. No promise of a result.
+- שקופית 2 · לא בבת אחת · sourced_fact · Better Health Channel: avoid trying to stop dummy use suddenly.
+- שקופית 3 · תספרו לי כמה ימים לפני, עוד שלושה לילות · sourced_fact · Better Health Channel: talk about stopping the dummy for a couple of days to prepare your child; Sheffield Children's: set a date for being dummy free.
+- שקופית 4 · ביום בארון, ורק במיטה, וכשהוא לא מול העיניים · sourced_fact · Better Health Channel: limit the use of the dummy to sleep or nighttime; Sheffield Children's: only for nap times and bed time first, and remove dummies from your child's sight.
+- שקופית 5 · הארנב שבחרתי, ותזכירו לי אותו כשאני מבקשת · sourced_fact · Better Health Channel: replace it with a cuddly toy they have chosen and talk about the replacement when they are asking for the dummy; Sheffield Children's: swap it for their favourite toy for comfort.
+- שקופית 6 · פיה שלוקחת ומשאירה הפתעה, והצלחת בבוקר · sourced_fact · Sheffield Children's: a Dummy Fairy that takes it away during the night and leaves a small reward; lots of praise and positive attention.
+- שקופית 7 · הלילות הראשונים הכי קשים, רגועים ובלי להחזיר · sourced_fact · Better Health Channel: persist gently but firmly; the first few days without a dummy are likely to be the most difficult.
+- שקופית 8 · לאט, עם הארנב, בקצב שלי · lumebook_wording · Our recap of slides 3 to 7 in the child's imagined voice; no new fact.
+- שקופית 9 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-2 · יש לי סוד על המוצץ בלילה
+### kid-2 · יש לי סוד על המוצץ בשתיים בלילה
 
 - **על מי:** עומר (בן), לאמא
-- **זווית:** הילד מגלה לאמא סוד: בלילה המוצץ מרגיע אותו הכי הרבה. הוא מבקש ממנה שבעה דברים: להסביר מה יקרה, מוצץ רק במיטה, לבחור דובי, להזכיר לו עליו, פיית המוצצים, פרגון ורוגע בימים הראשונים.
+- **זווית:** עומר, בן 3, מגלה לאמא סוד: ביום הוא כבר כמעט בלי מוצץ, ובלילה הוא הכי חסר לו. הוא מראה לה את הדקה של הלילה הראשון בלעדיו, שנייה אחרי שנייה, ומה עוזר: לספר לו לפני, דובי שבחר, אמא רגועה שמחזירה לו את הדובי, פרגון בבוקר, מוצץ מחוץ לעיניים, ותזכורת לפני השינה.
 - **למי:** אמהות לילד בן 3 שהמוצץ שלו קשור ללילה ושלא יודעות איך להתחיל.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** child-secret
 - **נושא:** פרידה מהמוצץ (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** הסוד על הלילה הוא פתיח שמסקרן, והמספר 7 על הכריכה מבטיח דברים מעשיים. הילד מבקש מאמא בקשות קטנות שאפשר לעשות מהערב, ואז סיפור אישי על פרידה מהמוצץ הוא המשך טבעי.
+- **למה זה עשוי להמיר:** הסוד מהכריכה נחשף בשקופית 2, ואז דקה אחת של הלילה הראשון בלי מוצץ, שנייה אחרי שנייה, ורק אחריה מה עוזר בבוקר ובערב. מבנה שונה מהרשימה ומהפעם ועכשיו של שתי האפשרויות האחרות בנושא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** דקה אחת · 12 שקופיות
+
+#### שקופית 1 · שער
 
 **יש לי סוד**  
-**על המוצץ בלילה**  
-7 דברים שיעזרו לי  
-להיפרד ממנו  
+**על המוצץ**  
+**בשתיים בלילה**  
+דקה אחת שלי, בחושך  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · הסוד שלי
 
-**הסוד שלי: בלילה המוצץ**  
-**מרגיע אותי הכי הרבה**  
-אני צריך משהו אחר במקומו  
-תעזרי לי למצוא אותו  
+**ביום כבר אין לי מוצץ**  
+אני משחק, רץ, אוכל, וכמעט שוכח.  
+אבל בלילה, בחושך, הוא **הכי** חסר לי.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+אז הנה הדקה הכי קשה שלי, אמא.  
+הלילה הראשון בלעדיו.  
 
-**1 תסבירי לי מה יקרה**  
-״עומר עוד כמה ימים  
-נפרדים מהמוצץ״ ואני מקשיב  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* The boy runs happily around the living room with a toy plane, no dummy in his mouth, his mother watching from the kitchen doorway. The family's Israeli living room in the afternoon: a beige sofa, a soft rug, a plain cream wall, daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**2 ביום אין מוצץ**  
-ביום אני משחק ומתעסק  
-המוצץ מחכה לי במיטה  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור · שבוע לפני
 
-**3 תני לי לבחור דובי**  
-אני בוחר מי ישן איתי  
-ומחבק אותו במקום המוצץ  
+**סימנו יום ביחד**  
+אמרת לי שעוד כמה לילות  
+המוצץ הולך לפיה.  
+בחרתי דובי חום שיישן איתי,  
+ושמנו אותו **על הכרית**.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+והלילה, זה הלילה.  
 
-**4 תזכירי לי על הדובי**  
-כשאני מבקש מוצץ  
-״הנה הדובי, תחבק אותו״  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 7 · דוגמאות ממוספרות
+*Picture:* The boy and his mother place a small brown plush bear on his pillow together, the boy patting it seriously. A cosy Israeli child bedroom at night: a low wooden bed, a plain pale beige wall, a rug with a soft pattern, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 פיית המוצצים**  
-היא לוקחת אותו בלילה  
-ומשאירה לי מתנה קטנה  
+</div>
 
-#### שקופית 8 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · הדקה מתחילה
 
-**6 תשבחי אותי בבוקר**  
-**7 תהיי רגועה איתי**  
-״וואו עומר ישנת בלי מוצץ״  
-הימים הראשונים הכי קשים  
+**פתאום אני ער**  
+הבית שקט. החדר חשוך.  
+היד שלי זזה לבד על הכרית,  
+מחפשת את המוצץ, כמו כל לילה.  
+אבל הוא **לא שם**.  
 
-#### שקופית 9 · סיכום
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**בלילה אני נרגע**  
-**בדרך חדשה איתך**  
-תחזיקי לי יד בימים האלה  
-וניפרד מהמוצץ ביחד  
+*Picture:* In the dim night light the boy sits up in bed, one hand patting around the pillow searching, his face puzzled. A cosy Israeli child bedroom at night: a low wooden bed, a plain pale beige wall, a rug with a soft pattern, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+</div>
+
+#### שקופית 5 · סיפור · עשר שניות
+
+**הלב שלי דופק**  
+אני מחפש מתחת לשמיכה,  
+בין הכרית לקיר, על הרצפה.  
+אולי נפל? אולי הפיה טעתה?  
+אני מתחיל **לבכות** בשקט.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy leans over the edge of the bed peering at the floor in the dim light, his lip trembling. A cosy Israeli child bedroom at night: a low wooden bed, a plain pale beige wall, a rug with a soft pattern, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · עשרים שניות
+
+**״אמא! המוצץ!״**  
+אני קורא לך חזק.  
+הפה שלי רוצה משהו, והגוף רוצה להירגע,  
+ואני לא יודע איך **בלעדיו**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits in the middle of his bed calling out toward the half open door, tears on his cheeks, the plush bear fallen beside him. A cosy Israeli child bedroom at night: a low wooden bed, a plain pale beige wall, a rug with a soft pattern, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · שלושים שניות
+
+**את נכנסת בשקט**  
+לא מדליקה אור גדול, לא כועסת.  
+את יושבת על הקצה של המיטה  
+ומחזירה לי את הדובי **לידיים**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother sits on the edge of the bed in the dim light and gently places the brown plush bear into the boy's arms. A cosy Israeli child bedroom at night: a low wooden bed, a plain pale beige wall, a rug with a soft pattern, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ארבעים שניות
+
+**אני מחבק את הדובי חזק**  
+הוא רך, ויש לו ריח של הכרית שלי.  
+את מלטפת לי את הגב, לאט, לאט.  
+הבכי נהיה קטן יותר,  
+ועוד יותר **קטן**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy lies curled around the plush bear with his eyes closing while his mother strokes his back slowly. A cosy Israeli child bedroom at night: a low wooden bed, a plain pale beige wall, a rug with a soft pattern, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · בבוקר
+
+**״עומר, ישנת בלי מוצץ!״**  
+את אומרת את זה בקול שמח,  
+ואני מרגיש **ענק**.  
+*מה יעזור לי:*  
+הרבה פרגון בבוקר,  
+ושהמוצץ לא יחכה לי על המדף.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In the morning light the mother lifts the boy up in a big celebratory hug next to his bed, both laughing. The boy's small Israeli bedroom in the morning: a low bed, a plain pale beige wall, bright daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · סיפור · בערב
+
+**הלילה השני**  
+*מה יעזור לי:*  
+שתזכירי לי את הדובי עוד לפני השינה,  
+ותגידי שאולי אתעורר, וזה בסדר.  
+הלילות הראשונים הכי קשים לי.  
+אז תהיי **רגועה**, גם כשאני לא.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother tucks the boy into bed with the plush bear under his arm, both smiling softly before lights out. A cosy Israeli child bedroom at night: a low wooden bed, a plain pale beige wall, a rug with a soft pattern, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · פנייה להורים
+
+**לאט, לילה אחרי לילה**  
+יהיו לילות שאתעורר ואבכה.  
+אל תכעסי עליהם.  
+
+עם הדובי ביד, ואיתך על הקצה של המיטה,  
+אני **לומד** להירדם בדרך חדשה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sleeps deeply hugging the plush bear while his mother quietly watches from the doorway. A cosy Israeli child bedroom at night: a low wooden bed, a plain pale beige wall, a rug with a soft pattern, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 12 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה  
 שהוא נפרד מהמוצץ  
 
-**הכותרות בלבד:** יש לי סוד על המוצץ בלילה ← הסוד שלי: בלילה המוצץ מרגיע אותי הכי הרבה ← 1 תסבירי לי מה יקרה ← 2 ביום אין מוצץ ← 3 תני לי לבחור דובי ← 4 תזכירי לי על הדובי ← 5 פיית המוצצים ← 6 תשבחי אותי בבוקר 7 תהיי רגועה איתי ← בלילה אני נרגע בדרך חדשה איתך ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sleeps peacefully with the brown plush bear tucked under his chin, the night light glowing softly. A cosy Israeli child bedroom at night: a low wooden bed, a plain pale beige wall, a rug with a soft pattern, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** יש לי סוד על המוצץ בשתיים בלילה ← ביום כבר אין לי מוצץ ← סימנו יום ביחד ← פתאום אני ער ← הלב שלי דופק ← ״אמא! המוצץ!״ ← את נכנסת בשקט ← אני מחבק את הדובי חזק ← ״עומר, ישנת בלי מוצץ!״ ← הלילה השני ← לאט, לילה אחרי לילה ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-הסוד שלי על המוצץ: 7 דברים שיעזרו לי להיפרד  
-תסבירי לי מה יקרה ותשאירי את המוצץ רק במיטה  
-תני לי לבחור דובי ותזכירי לי עליו כשאני מבקש מוצץ  
-תשבחי אותי בבוקר ותהיי רגועה איתי בימים הראשונים  
+אמא, יש לי סוד: בלילה המוצץ הכי חסר לי.  
+תגידי לי כמה לילות לפני, ותני לי לבחור דובי.  
+כשאני מתעורר, תבואי בשקט ותחזירי לי אותו לידיים.  
+בבוקר תפרגני לי, ושהמוצץ לא יחכה על המדף.  
+ובלילות הראשונים, תהיי רגועה, גם כשאני לא.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שהוא נפרד מהמוצץ  
 
@@ -221,100 +387,187 @@
 
 **טענות**
 
-- שקופית 2 · בלילה המוצץ מרגיע אותי ואני צריך משהו אחר במקומו · sourced_fact · Both pages limit the dummy to sleep and swap it for a toy for comfort. Imagined child voice, not a claim about every child.
-- שקופית 3 · תסבירי לי מה יקרה · sourced_fact · Better Health Channel: talk about stopping the dummy for a couple of days to prepare your child.
-- שקופית 4 · ביום אין מוצץ · sourced_fact · Better Health Channel: limit the dummy to sleep or nighttime; Sheffield: nap times and bed time.
-- שקופית 5 · תני לי לבחור דובי · sourced_fact · Better Health Channel: a cuddly toy they have chosen and can hold.
-- שקופית 6 · תזכירי לי על הדובי · sourced_fact · Better Health Channel: you can talk about the replacement when they are asking for the dummy.
-- שקופית 7 · פיית המוצצים · sourced_fact · Sheffield: a Dummy Fairy takes it away during the night and leaves a small reward.
-- שקופית 8 · תשבחי אותי והימים הראשונים הכי קשים · sourced_fact · Sheffield: lots of praise; Better Health Channel: the first few days without a dummy are likely to be the most difficult.
-- שקופית 9 · בלילה אני נרגע בדרך חדשה איתך · lumebook_wording · Our recap in the child's imagined voice; no new fact.
-- שקופית 10 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 2 · ביום כבר אין לי מוצץ, ובלילה הוא הכי חסר לי · sourced_fact · Better Health Channel: limit the use of the dummy to sleep or nighttime; Sheffield Children's: start by letting your child use the dummy only for nap times and bed time. Said as this child's own feeling.
+- שקופית 3 · אמרת לי כמה לילות לפני, ובחרתי דובי · sourced_fact · Better Health Channel: talk about stopping the dummy for a couple of days to prepare your child; a cuddly toy they have chosen; Sheffield Children's: set a date.
+- שקופית 7 · את לא כועסת ומחזירה לי את הדובי לידיים · sourced_fact · Better Health Channel: persist gently but firmly; a cuddly toy they can hold when they would be using the dummy.
+- שקופית 9 · הרבה פרגון בבוקר, והמוצץ לא על המדף · sourced_fact · Sheffield Children's: give them lots of praise and positive attention; remove dummies from your child's sight.
+- שקופית 10 · להזכיר את הדובי לפני השינה, והלילות הראשונים הכי קשים · sourced_fact · Better Health Channel: talk about the replacement; persist gently but firmly; the first few days without a dummy are likely to be the most difficult.
+- שקופית 12 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
+- שקופית 12 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-3 · אני לא נרדמת בלי מוצץ ומשפט אחד עוזר לי
+### kid-3 · אני לא נרדמת בלי מוצץ, ומשפט אחד עוזר לי
 
 - **על מי:** אלמה (בת), לאמא
-- **זווית:** הילדה מספרת שבלי המוצץ היא לא נרדמת, ושמשפט אחד מאמא עוזר: ניפרד בעוד 3 לילות. אחריו חמישה דברים: מוצץ רק בשינה, דובי, תאריך, מסיבת פרידה קטנה וקרבה בהתחלה.
+- **זווית:** אלמה, בת 3, מספרת לאמא איך המוצץ היה פעם כל הזמן, איך משפט אחד שלה (״עוד שלושה לילות, וניפרד ממנו ביחד״) התחיל את הפרידה, ומה עוזר מאז: מוצץ רק במיטה ומחוץ לעיניים, כבשה רכה שבחרה, מסיבה קטנה עם פיה, ואמא רגועה ופרגון בבוקר.
 - **למי:** אמהות לילדה שלא נרדמת בלי מוצץ ושחוששות מהלילות הראשונים בלעדיו.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** one-sentence-changes
 - **נושא:** פרידה מהמוצץ (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** משפט אחד שאמא יכולה להגיד הערב הוא ערך מיידי, והכריכה מבטיחה גם חמישה דברים נוספים. הפתיח על הלילה מוכר להורים שמחכים ללילה הראשון בלי מוצץ.
+- **למה זה עשוי להמיר:** פעם המוצץ היה כל הזמן, ואז המשפט האחד מהכריכה, ומאז מה עוזר לאלמה, שקופית אחרי שקופית. הכריכה מבטיחה משפט אחד והוא מגיע כבר בשקופית 4 על כרטיס.
 
-#### שקופית 1 · פתיח
+- **מבנה:** פעם ועכשיו · 11 שקופיות
 
-**אני לא נרדמת**  
-**בלי מוצץ**  
-6 דברים שיעזרו לי  
-הראשון משפט אחד  
+#### שקופית 1 · שער
 
-#### שקופית 2 · ההסבר
+**בלילה אני לא נרדמת**  
+**בלי מוצץ,**  
+**ומשפט אחד עוזר לי**  
+איך היה פעם, ומה עוזר לי מאז  
 
-**אני במיטה בחושך**  
-**והמוצץ לא איתי**  
-הידיים שלי מחפשות אותו  
-תשבי איתי עוד רגע  
+#### שקופית 2 · סיפור · פעם
 
-#### שקופית 3 · דוגמאות ממוספרות
+**פעם המוצץ היה כל הזמן**  
+בבוקר באוטו, מול הטלוויזיה,  
+בגן במנוחה, ובלילה במיטה.  
+כשהייתי עייפה או משועממת,  
+הוא פשוט היה **בפה**.  
 
-**1 משפט אחד לפני השינה**  
-״אלמה עוד 3 לילות  
-וניפרד מהמוצץ ביחד״  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* The girl sits on the sofa watching something off screen with a dummy in her mouth, relaxed and sleepy-eyed. The family's Israeli living room: a grey sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**2 קודם רק בשינה**  
-ביום בלי מוצץ  
-ובשינה עוד אפשר  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור · פעם
 
-**3 דובי שיישן איתי**  
-אני בוחרת אותו בעצמי  
-כדי שיהיה לי מה להחזיק  
+**ונרדמתי תוך שנייה**  
+מוצץ, שמיכה, חושך.  
+העיניים נסגרות מעצמן.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+לא הייתי צריכה לחשוב על זה בכלל,  
+כמו שלא חושבים על **לנשום**.  
 
-**4 תקבעי איתי תאריך**  
-כשאני כבר צריכה פחות  
-נבחר יום ונסמן אותו  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 7 · דוגמאות ממוספרות
+*Picture:* The girl lies in bed with the dummy in her mouth, eyes already closing, the blanket pulled up to her chin. A cosy Israeli child bedroom at night: a low bed, a plain warm cream wall, a soft rug, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 מסיבה קטנה לפרידה**  
-נקשט קופסה למוצץ  
-או נשלח אותו לפיה  
+</div>
 
-#### שקופית 8 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · ואז
 
-**6 תהיי קרובה בהתחלה**  
-הימים הראשונים הכי קשים  
-״כל הכבוד אלמה על הלילה״  
+**ואז אמרת לי משפט אחד**  
+ישבת לידי על המיטה, ואמרת בשקט:  
+▪ ״עוד שלושה לילות, וניפרד ממנו ביחד.״  
+פתאום ידעתי מה **יקרה**.  
+וזה היה פחות מפחיד.  
 
-#### שקופית 9 · סיכום
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**ככה אני נפרדת**  
-**מהמוצץ לאט**  
-תישארי איתי בלילות האלה  
-ואנסה צעד אחרי צעד  
+*Picture:* The mother sits on the edge of the girl's bed holding up three fingers and speaking softly, while the girl listens wide-eyed. A cosy Israeli child bedroom at night: a low bed, a plain warm cream wall, a soft rug, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+</div>
+
+#### שקופית 5 · סיפור · ומאז
+
+**ביום, הוא נשאר במגירה**  
+אני משחקת בלי מוצץ, הולכת לגן בלעדיו.  
+ממש לא קל. אבל אני **מתאמנת**.  
+*מה יעזור לי:*  
+שהוא לא יהיה מול העיניים שלי,  
+ורק במיטה, קודם, עוד מותר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother closes a drawer with the dummy inside while the girl plays with a toy kitchen nearby, busy and content. The family's Israeli living room: a grey sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · ומאז
+
+**בחרתי כבשה רכה**  
+היא מחכה לי על הכרית כל ערב.  
+כשאני מבקשת מוצץ, את אומרת  
+״בואי, הכבשה רוצה חיבוק.״  
+והידיים שלי מוצאות **משהו להחזיק**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl hugs a fluffy white plush lamb tightly in bed while her mother smiles beside her. A cosy Israeli child bedroom at night: a low bed, a plain warm cream wall, a soft rug, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ומאז
+
+**בלילה השלישי, מסיבה קטנה**  
+קישטנו ביחד קופסה למוצץ, עם מדבקות.  
+שמנו אותה ליד הדלת,  
+ובבוקר, במקום המוצץ, חיכתה **הפתעה**.  
+את אמרת שזו הפיה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother decorate a small cardboard box with stickers at a low table, the dummy lying beside it, both smiling. The family's Israeli living room: a grey sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ומאז
+
+**הלילות הראשונים קשים לי**  
+אני מתהפכת, ומבקשת אותו שוב.  
+*מה יעזור לי:*  
+שתשבי לידי עוד רגע, **רגועה**.  
+ובבוקר, שתגידי לי בקול שמח  
+▪ ״אלמה, ישנת בלעדיו!״  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl tosses in bed clutching her plush lamb while her mother sits calmly beside her with a gentle hand on the blanket. A cosy Israeli child bedroom at night: a low bed, a plain warm cream wall, a soft rug, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · מה שמחזיר לי את פעם
+
+**כבשה, שמיכה, ואת לידי**  
+אותו סדר, כל ערב.  
+אני מחבקת אותה חזק,  
+ואת מלטפת לי את המצח.  
+ואני נרדמת כמעט **כמו פעם**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother strokes the girl's forehead as she drifts off to sleep hugging her plush lamb, the room calm. A cosy Israeli child bedroom at night: a low bed, a plain warm cream wall, a soft rug, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · פנייה להורים
+
+**משפט אחד, וזה התחיל**  
+לא היית צריכה להסביר הרבה, אמא.  
+רק להגיד לי מראש מה יקרה,  
+ולתת לי את הזמן **שלי**.  
+
+ככה אני נפרדת, לאט,  
+בלי להיבהל.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits on her mother's lap on the sofa holding her plush lamb, both laughing together in the afternoon light. The family's Israeli living room: a grey sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה  
 שהיא נפרדת מהמוצץ  
 
-**הכותרות בלבד:** אני לא נרדמת בלי מוצץ ← אני במיטה בחושך והמוצץ לא איתי ← 1 משפט אחד לפני השינה ← 2 קודם רק בשינה ← 3 דובי שיישן איתי ← 4 תקבעי איתי תאריך ← 5 מסיבה קטנה לפרידה ← 6 תהיי קרובה בהתחלה ← ככה אני נפרדת מהמוצץ לאט ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sleeps peacefully hugging her plush lamb, no dummy in sight, a soft night light glowing. A cosy Israeli child bedroom at night: a low bed, a plain warm cream wall, a soft rug, a dim night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** בלילה אני לא נרדמת בלי מוצץ, ומשפט אחד עוזר לי ← פעם המוצץ היה כל הזמן ← ונרדמתי תוך שנייה ← ואז אמרת לי משפט אחד ← ביום, הוא נשאר במגירה ← בחרתי כבשה רכה ← בלילה השלישי, מסיבה קטנה ← הלילות הראשונים קשים לי ← כבשה, שמיכה, ואת לידי ← משפט אחד, וזה התחיל ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אני לא נרדמת בלי מוצץ ומשפט אחד עוזר לי  
-תגידי לי לפני השינה שניפרד ביחד בעוד כמה לילות  
-תני לי דובי שאבחר ותקבעי איתי תאריך  
-תעשי איתי מסיבה קטנה לפרידה ותהיי קרובה בהתחלה  
+אמא, בלי מוצץ אני לא נרדמת, ומשפט אחד שלך עזר.  
+תגידי לי כמה לילות לפני: ״עוד שלושה לילות, וניפרד ממנו ביחד״.  
+ביום, שהמוצץ יישאר במגירה, ובמיטה עוד מותר.  
+תני לי משהו רך לחבק, ותזכירי לי אותו כשאני מבקשת.  
+ובבוקר, תגידי לי שישנתי בלעדיו.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא נפרדת מהמוצץ  
 
@@ -331,103 +584,166 @@
 
 **טענות**
 
-- שקופית 2 · אני במיטה בחושך והמוצץ לא איתי · sourced_fact · Imagined child voice resting on both pages: the dummy is kept for sleep, so the bed is where its absence is felt most.
-- שקופית 3 · ניפרד מהמוצץ ביחד בעוד 3 לילות · sourced_fact · Better Health Channel: talk about stopping the dummy for a couple of days to prepare your child; avoid stopping suddenly.
-- שקופית 4 · קודם רק בשינה · sourced_fact · Sheffield: start by letting the child use the dummy for nap times and bed time only; Better Health Channel: limit it to sleep.
-- שקופית 5 · דובי שיישן איתי · sourced_fact · Sheffield: swap it for a favourite toy or teddy; Better Health Channel: a cuddly toy they have chosen.
-- שקופית 6 · תקבעי איתי תאריך · sourced_fact · Sheffield: once they are using the dummy less, set a date for being dummy free.
-- שקופית 7 · מסיבה קטנה לפרידה · sourced_fact · Sheffield: try creating some fun around leaving the dummy behind, for example a Dummy Fairy.
-- שקופית 8 · הימים הראשונים הכי קשים · sourced_fact · Better Health Channel: the first few days are likely to be the most difficult; Sheffield: lots of praise and positive attention.
-- שקופית 9 · ככה אני נפרדת מהמוצץ לאט · lumebook_wording · Our recap in the child's imagined voice; no new fact.
-- שקופית 10 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 4 · עוד שלושה לילות וניפרד ממנו ביחד, ופתאום ידעתי מה יקרה · sourced_fact · Better Health Channel: talk about stopping the dummy for a couple of days to prepare your child; Sheffield Children's: set a date for being dummy free.
+- שקופית 5 · לא מול העיניים, ורק במיטה קודם · sourced_fact · Better Health Channel: limit the use of the dummy to sleep or nighttime; Sheffield Children's: nap times and bed time first, and remove dummies from your child's sight.
+- שקופית 6 · כבשה רכה, ותזכורת כשאני מבקשת · sourced_fact · Better Health Channel: a cuddly toy they have chosen, and talk about the replacement when they are asking for the dummy; Sheffield Children's: their favourite toy to hold for comfort.
+- שקופית 7 · קופסה מקושטת, פיה, והפתעה בבוקר · sourced_fact · Sheffield Children's: try creating some fun around leaving the dummy behind, a Dummy Fairy that takes it away during the night and leaves a small reward.
+- שקופית 8 · הלילות הראשונים קשים, תשבי לידי רגועה, ופרגון בבוקר · sourced_fact · Better Health Channel: persist gently but firmly; the first few days are likely to be the most difficult. Sheffield Children's: lots of praise and positive attention.
+- שקופית 10 · להגיד לי מראש ולתת לי את הזמן שלי · sourced_fact · Better Health Channel: give your child the chance to stop when they are ready, prepare them by talking for a couple of days, avoid stopping suddenly.
+- שקופית 11 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
+- שקופית 11 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-4 · ״זה לא נורא״ כשהעוגה שלי נופלת
+### kid-4 · אמא, ״זה לא נורא״ כשהעוגה שלי נופלת
 
 - **על מי:** יואב (בן), לאמא
-- **זווית:** הילד מבקש מאמא תשעה דברים כשיום ההולדת לא יוצא כמו שדמיין: להקשיב לו, בלי ״זה לא נורא״, לספר איך היום ילך, מותר שלא יהיה מושלם, תוכנית ב׳, מקום שקט, לבחור משהו, לתכנן ביחד ולפרגן.
+- **זווית:** יואב, בן 4, עונה לאמא על המחשבות שלה כשהעוגה שלו נופלת ביום ההולדת: ״זה רק עוגה״, ״הוא מגזים״, ״רציתי שהכל יהיה מושלם״, ״מה עושים עכשיו״, ״זה יותר מדי בשבילו״. מה עוזר: לשמוע שזה מבאס במקום ״לא נורא״, לא לשפוט, להגיד מראש שמשהו יכול להשתבש, לחשוב יחד על רעיון אחר, פינה שקטה, ולראות איך אמא מסתדרת.
 - **למי:** אמהות לילד בן 4 עד 5 שמחכה ליום ההולדת שלו הרבה ובוכה כשמשהו לא יוצא כמו שדמיין.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** sentence-we-all-say
 - **נושא:** יום הולדת שלא הולך לפי התוכנית (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המשפט ״זה לא נורא״ מוכר לכל הורה, והכריכה מציעה במקומו תשעה דברים. הילד מבקש הקשבה והכנה, לא ביטול, וסיפור שבו הוא גיבור יום ההולדת הוא המשך טבעי.
+- **למה זה עשוי להמיר:** המשפט ״זה לא נורא״ על הכריכה, ואז המחשבות של אמא אחת אחרי השנייה, ולכל אחת תשובה של יואב ומה יעזור לו. מבנה שונה מהיום לפי השעון ומהמכתב של שתי האפשרויות האחרות בנושא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** אתם חושבים, אני עונה · 9 שקופיות
 
-**״זה לא נורא״**  
+#### שקופית 1 · שער
+
+**אמא, ״זה לא נורא״**  
 **כשהעוגה שלי נופלת**  
-9 דברים שיעזרו לי  
-במקום  
+את חושבת משהו, ואני עונה  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**בשבילך זה לא נורא**  
-**בשבילי זה יום ההולדת**  
-אני מחכה לו כל השנה  
-תעזרי לי כשזה לא יוצא  
+**העוגה שלי על הרצפה**  
+קרם על השטיח, נרות שבורים,  
+ואני צועק כאילו נגמר העולם.  
+את מחבקת ואומרת ״זה לא נורא״.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+אבל בראש שלך רצות עוד מחשבות.  
+אז הנה מה שאני **עונה**.  
 
-**1 תגידי שאת שומעת אותי**  
-**2 בלי ״זה לא נורא״**  
-״יואב אני רואה שאתה מאוכזב״  
-ואל תמהרי לתקן  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* A birthday cake lies smashed upside down on the rug, and the boy stands over it screaming with his fists clenched while his mother reaches for him. An Israeli living room set for a small birthday at home: a low table with a plain pale cream tablecloth, a few balloons, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**3 תספרי לי מה יהיה**  
-מי יבוא ומה נעשה  
-ואז אני יודע למה לצפות  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור · את חושבת:
 
-**4 מותר שלא יהיה מושלם**  
-**5 נחשוב על תוכנית ב׳**  
-״אם העוגה תיפול מה נעשה?״  
-אני רוצה לחשוב איתך  
+**״זה לא נורא, זו רק עוגה״**  
+בשבילך זו עוגה.  
+בשבילי זה היום שחיכיתי לו כל השנה.  
+*אני עונה:*  
+כשאומרים לי ״לא נורא״, אני מרגיש לבד.  
+*מה יעזור לי לשמוע:*  
+▪ ״יואב, אני שומעת אותך. זה מבאס.״  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**6 מקום שקט להפסקה**  
-אם יהיה לי יותר מדי  
-אני יודע לאן ללכת  
+*Picture:* The mother kneels to the boy's height and holds both his hands, looking into his teary face with full attention. An Israeli living room set for a small birthday at home: a low table with a plain pale cream tablecloth, a few balloons, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**7 תני לי לבחור משהו**  
-**8 תתכנני איתי את היום**  
-אני בוחר שיר אחד  
-וחלק מהתכנון  
+#### שקופית 4 · סיפור · את חושבת:
 
-#### שקופית 8 · דוגמאות ממוספרות
+**״הוא מגזים, זה סתם בכי״**  
+אני בוכה חזק, ורוקע ברגליים.  
+מבחוץ זה נראה **הרבה**.  
+*אני עונה:*  
+זה בדיוק כמה שזה מרגיש לי.  
+אל תגידי ״די, מספיק״.  
+תגידי שאת רואה שקשה לי.  
 
-**9 תפרגני לי שהסתדרתי**  
-״יואב ראיתי איך הסתדרת  
-כשזה לא יצא כמו שרצית״  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 9 · סיכום
+*Picture:* The boy stamps his feet and sobs beside the balloons while his mother stays close, calm, with an open, accepting face. An Israeli living room set for a small birthday at home: a low table with a plain pale cream tablecloth, a few balloons, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**קודם תקשיבי לי**  
-**ואז נתכונן ביחד**  
-גם אם העוגה תיפול  
-יהיה לנו מה לעשות ביחד  
+</div>
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+#### שקופית 5 · סיפור · את חושבת:
+
+**״רציתי שהכל יהיה מושלם״**  
+גם אני רציתי. בראש שלי הכל היה מושלם.  
+*מה יעזור לי:*  
+שתגידי לי מראש, כמה ימים לפני,  
+שגם ביום הולדת משהו יכול להשתבש,  
+וזה **בסדר**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* Days before the party, the boy and his mother sit on the sofa talking, the mother tilting her hand as if to say things can wobble, the boy nodding. The family's Israeli living room in the afternoon: a grey sofa, a soft rug, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · את חושבת:
+
+**״ומה עושים עכשיו?״**  
+*אני עונה:*  
+בואי נחשוב ביחד, אני ואת.  
+אולי עוגיות במקום?  
+אולי נרות על פנקייק?  
+אני רוצה **רעיון משלי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy, with tear-stained cheeks, points eagerly at a plate of cookies on the table, an idea lighting up his face, his mother laughing. An Israeli living room set for a small birthday at home: a low table with a plain pale cream tablecloth, a few balloons, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · את חושבת:
+
+**״זה יותר מדי בשבילו״**  
+לפעמים זה באמת יותר מדי.  
+המון ילדים, שירים, בלונים מתפוצצים.  
+*מה יעזור לי:*  
+פינה שקטה בחדר שלי,  
+שאני יודע מראש שאפשר ללכת אליה  
+להפסקה, ואז **לחזור**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits quietly on a beanbag in his bedroom corner hugging a cushion, the party sounds far away, his mother peeking in at the door. The boy's small Israeli bedroom in the afternoon: a soft beanbag, a plain pale wall, soft light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ואחרונה:
+
+**״איך הוא ילמד להסתדר?״**  
+ממך, אמא.  
+כשמשהו אצלך לא יוצא, ואת אומרת  
+״אוקיי, מה עושים במקום?״  
+אני רואה איך **מסתדרים**.  
+
+ואחר כך, תגידי לי שראית שהסתדרתי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother calmly lays candles on a stack of pancakes and the boy watches, starting to smile, as guests gather behind them. An Israeli living room set for a small birthday at home: a low table with a plain pale cream tablecloth, a few balloons, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה  
 שיש לו יום הולדת  
 
-**הכותרות בלבד:** ״זה לא נורא״ כשהעוגה שלי נופלת ← בשבילך זה לא נורא בשבילי זה יום ההולדת ← 1 תגידי שאת שומעת אותי 2 בלי ״זה לא נורא״ ← 3 תספרי לי מה יהיה ← 4 מותר שלא יהיה מושלם 5 נחשוב על תוכנית ב׳ ← 6 מקום שקט להפסקה ← 7 תני לי לבחור משהו 8 תתכנני איתי את היום ← 9 תפרגני לי שהסתדרתי ← קודם תקשיבי לי ואז נתכונן ביחד ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy blows out candles on a stack of pancakes with his mother beside him, both beaming, balloons behind them. An Israeli living room set for a small birthday at home: a low table with a plain pale cream tablecloth, a few balloons, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא, ״זה לא נורא״ כשהעוגה שלי נופלת ← העוגה שלי על הרצפה ← ״זה לא נורא, זו רק עוגה״ ← ״הוא מגזים, זה סתם בכי״ ← ״רציתי שהכל יהיה מושלם״ ← ״ומה עושים עכשיו?״ ← ״זה יותר מדי בשבילו״ ← ״איך הוא ילמד להסתדר?״ ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-9 דברים שיעזרו לי כשהעוגה נופלת במקום ״זה לא נורא״  
-תשמעי אותי ואל תגידי לי שזה לא נורא  
-תספרי לי איך היום ילך ותחשבי איתי על תוכנית ב׳  
-תני לי מקום שקט להפסקה ותתכנני איתי חלק מהיום  
+אמא, כשהעוגה שלי נופלת, ״זה לא נורא״ לא עוזר לי.  
+תגידי שאת שומעת אותי, ושזה מבאס.  
+תספרי לי מראש שגם ביום הולדת משהו יכול להשתבש.  
+תחשבי איתי מה עושים במקום, ותני לי פינה שקטה להפסקה.  
+ותראי לי איך את מסתדרת, כשמשהו לא יוצא לך.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שיש לו יום הולדת  
 
@@ -446,102 +762,185 @@
 
 **טענות**
 
-- שקופית 2 · בשבילי זה יום ההולדת ותעזרי לי כשזה לא יוצא · sourced_fact · Child Mind Institute: avoid invalidating the pain children feel by telling them it is not a big deal. Imagined child voice.
-- שקופית 3 · תגידי שאת שומעת אותי ובלי ״זה לא נורא״ · sourced_fact · Child Mind Institute: emphasize that you hear your child and avoid judging their reactions; do not tell them it is not a big deal.
-- שקופית 4 · תספרי לי איך היום ילך · sourced_fact · Child Mind Institute: go over where it will be, who will be there and what might happen.
-- שקופית 5 · מותר שלא יהיה מושלם ותוכנית ב׳ · sourced_fact · Child Mind Institute: no holiday is going to be perfect; come up with ideas for what else we can do if that happens.
-- שקופית 6 · מקום שקט להפסקה · sourced_fact · Child Mind Institute: if things get too overwhelming, there is a place to take a break and just be quiet.
-- שקופית 7 · תני לי לבחור ותתכנני איתי · sourced_fact · Child Mind Institute: planning the day together gives a sense of control; invite the child to help come up with ideas.
-- שקופית 8 · תפרגני לי שהסתדרתי · sourced_fact · Child Mind Institute: let them know that they can use some of the same skills to get through it.
-- שקופית 9 · קודם תקשיבי לי ואז נתכונן ביחד · lumebook_wording · Our recap in the child's imagined voice of slides 3 to 8; no new fact.
-- שקופית 10 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 3 · כשאומרים לא נורא אני מרגיש לבד, אני שומעת אותך, זה מבאס · sourced_fact · Child Mind Institute: invalidating the pain children are feeling, by telling them it's not a big deal, for example; instead emphasize that you hear your child and express your support.
+- שקופית 4 · תגידי שאת רואה שקשה לי, בלי די מספיק · sourced_fact · Child Mind Institute: it's also important to avoid judging their reactions; emphasize that you hear your child.
+- שקופית 5 · להגיד מראש שמשהו יכול להשתבש · sourced_fact · Child Mind Institute (family gatherings): have a conversation before about what to expect; know that no holiday is going to be perfect. Child Mind Institute (disappointment): plan out days together.
+- שקופית 6 · לחשוב ביחד על רעיון אחר, רעיון משלי · sourced_fact · Child Mind Institute: let's come up with some awesome ideas for what else we can do if that happens; invite them to help you come up with ideas.
+- שקופית 7 · פינה שקטה להפסקה ואז לחזור · sourced_fact · Child Mind Institute: if things get too overwhelming and intense, there's a place to take a break and just be quiet.
+- שקופית 8 · אני רואה ממך איך מסתדרים, ותגידי שראית · sourced_fact · Child Mind Institute: when your child sees you navigate changes or surprises in a reasonable, solution-focused way; express your support for how they're handling this.
+- שקופית 9 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-5 · 16:45 אף אחד לא בא ואני מתפרקת
+### kid-5 · 16:45, אף אחד לא בא ואני מתפרקת
 
 - **על מי:** מיכל (בת), לשני ההורים
-- **זווית:** הילדה מספרת על הרגע ברבע לחמש כשהאורחים עוד לא הגיעו ומבקשת מההורים שמונה דברים: לספר איך היום ילך, לתרגל מראש, להגיד שלא הכול מושלם, תוכנית ב׳, להקשיב לה בלי ״זה כלום״, מקום שקט לפני האורחים ולתת לה לבחור.
+- **זווית:** מיכל, בת 4, מראה להורים את יום ההולדת שלה לפי השעון: התמונה בראש בבוקר, ההכנה מי יבוא ומה יהיה, משחק ״מסיבה״, ההמתנה ליד הדלת, 16:45 כשאף אחד עוד לא בא, הפינה השקטה, החברה הראשונה, והמיטה. מה עוזר: לספר מראש ושמשהו יכול להשתבש, לשחק את זה, לשמוע אותה במקום ״זה כלום״, פינה שקטה, ופרגון על איך שחזרה.
 - **למי:** הורים לילדה בת 4 שמתרגשת מיום ההולדת ונלחצת כשהאורחים מאחרים או כשמשהו שונה ממה שדמיינה.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** moment-time
 - **נושא:** יום הולדת שלא הולך לפי התוכנית (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** השעה המדויקת על הכריכה מזהה רגע שכל הורה מכיר, והמספר 8 מבטיח דברים מעשיים. הילדה מבקשת הכנה והקשבה, ויום הולדת בסיפור שבו היא הגיבורה הוא המשך טבעי.
+- **למה זה עשוי להמיר:** יום ההולדת של מיכל לפי השעון, מהבוקר ועד המיטה, עם הרגע של 16:45 מהכריכה באמצע היום ומה עוזר לפניו ואחריו. מבנה שונה מהמחשבות ומהמכתב של שתי האפשרויות האחרות בנושא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** יום אחד · 11 שקופיות
+
+#### שקופית 1 · שער
 
 **16:45**  
 **אף אחד לא בא**  
 **ואני מתפרקת**  
-8 דברים שיעזרו לי  
+יום ההולדת שלי, לפי השעון  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · 07:00, במיטה
 
-**יש לי תמונה בראש**  
-**כל שינוי מרגיש לי גדול**  
-תעזרו לי להתכונן  
-לפני שהאורחים מגיעים  
+**היום יום ההולדת שלי!**  
+אני קופצת למיטה שלכם עוד בחושך.  
+בראש שלי כבר יש תמונה:  
+כל החברים באים ביחד, בדיוק בארבע,  
+ואני פותחת להם את **הדלת**.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תספרו לי מה יהיה**  
-מי יבוא ומתי  
-ומה נעשה קודם  
+*Picture:* The girl jumps onto her parents' bed at dawn in her pyjamas, grinning hugely, as her sleepy parents laugh. The parents' Israeli bedroom at dawn: a wide bed, a plain pale wall, soft first light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 נתרגל ביחד מראש**  
-נעשה הצגה קטנה  
-של מי מגיע ומה אומרים  
+#### שקופית 3 · סיפור · 08:30, במטבח
 
-#### שקופית 5 · דוגמאות ממוספרות
+**אתם מספרים לי מה יהיה**  
+מי יבוא, איפה נשב, מה נעשה קודם.  
+*מה יעזור לי:*  
+גם להגיד לי שחברים מגיעים לאט,  
+אחד אחד, ולא כולם **ביחד**.  
+ושזה בסדר אם משהו משתנה.  
 
-**3 תגידו שלא הכול מושלם**  
-גם ביום הולדת  
-יכול להיות משהו שמתבלבל  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The girl sits at the breakfast table between her parents, listening seriously as her mother counts on her fingers. The family's Israeli kitchen in the morning: a wooden table, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**4 נחשוב על תוכנית ב׳**  
-״אם הבלון יתפוצץ מה נעשה?״  
-אני רוצה רעיון משלי  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 11:00, בסלון
 
-**5 תשמעו אותי כשעצוב לי**  
-**6 בלי ״זה כלום״**  
-תגידו ״מיכל אנחנו שומעים אותך״  
-ואל תמהרו לתקן  
+**אנחנו משחקים ״מסיבה״**  
+אמא משחקת אורחת, ואני פותחת לה.  
+״שלום, תודה שבאת!״  
+ומה אם עוד אף אחד לא בא?  
+אז מחכים, ומציירים **ביחד**.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**7 מקום שקט להפסקה**  
-**8 תנו לי לבחור משהו**  
-אם יהיה לי יותר מדי  
-אפשר הפסקה ואז לחזור  
+*Picture:* The mother pretends to knock on the living room door holding a wrapped gift, and the girl opens it with a polite little bow while the father claps. An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**עם תוכנית ועם אוזן**  
-**קל לי יותר ביום ההולדת**  
-תעזרו לי להתכונן  
-וגם להישאר איתי כשצריך  
+#### שקופית 5 · סיפור · 16:00, ליד הדלת
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**הכל מוכן**  
+הבלונים תלויים, הכוסות על השולחן.  
+אני בשמלה הוורודה, ליד הדלת.  
+מחכה לצלצול **הראשון**.  
+עוד רגע, עוד רגע.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl in her pink dress stands right by the front door clutching a balloon string, bouncing on her toes with excitement. An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 16:45, ליד הדלת
+
+**אף אחד עוד לא בא**  
+עשרים דקות, וכלום.  
+הבטן שלי מתכווצת, הדמעות באות,  
+ואני צועקת ״אף אחד לא אוהב אותי!״  
+בתמונה שבראש שלי זה **לא** היה ככה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits on the floor by the closed front door crying loudly, her balloon drifting to the ceiling, her parents rushing toward her. An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 16:50, בחדר שלי
+
+**פינה שקטה, רק לרגע**  
+אתם לא אומרים ״זה כלום״.  
+אתם אומרים ״אנחנו שומעים אותך.״  
+*מה יעזור לי:*  
+פינה שקטה עם שמיכה,  
+ואחד מכם **לידי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits wrapped in a soft blanket in a quiet corner of her bedroom, her father sitting beside her on the floor. The girl's small Israeli bedroom in the afternoon: a soft rug, a plain pale wall, gentle light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · 17:00, ליד הדלת
+
+**דינג דונג!**  
+החברה שלי מהגן הגיעה, ועוד שניים.  
+אני מנגבת את העיניים ורצה לפתוח,  
+בדיוק כמו שהתאמנו בבוקר.  
+״שלום, תודה **שבאת**!״  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl opens the front door with a shy smile to a small friend holding a gift, her mother standing behind her. An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · 20:00, במיטה
+
+**״מה היה הכי כיף?״**  
+אתם שואלים, ואני נזכרת בעוגה,  
+ובריקודים עם **החברה מהגן**.  
+*מה יעזור לי לשמוע:*  
+▪ ״מיכל, ראינו איך חזרת למסיבה.״  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl lies in bed, cheeks still flushed from the party, telling her parents about the day as they sit on either side of her. The girl's small Israeli bedroom at night: a warm bedside lamp, a plain wall above the bed. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · פנייה להורים
+
+**זה לא היה יום מושלם**  
+אמא ואבא, היו בו דמעות,  
+והיה בו רגע שחשבתי שאף אחד לא יבוא.  
+
+אבל ידעתי מה יכול לקרות,  
+וידעתי לאן ללכת **כשקשה**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl hugs both parents in the living room among the leftover balloons and paper cups, all three tired and smiling. An Israeli living room ready for a small birthday: a table with a plain pale cream tablecloth and a few paper cups, balloons in the corner, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה  
 שיש לה יום הולדת  
 
-**הכותרות בלבד:** 16:45 אף אחד לא בא ואני מתפרקת ← יש לי תמונה בראש כל שינוי מרגיש לי גדול ← 1 תספרו לי מה יהיה ← 2 נתרגל ביחד מראש ← 3 תגידו שלא הכול מושלם ← 4 נחשוב על תוכנית ב׳ ← 5 תשמעו אותי כשעצוב לי 6 בלי ״זה כלום״ ← 7 מקום שקט להפסקה 8 תנו לי לבחור משהו ← עם תוכנית ועם אוזן קל לי יותר ביום ההולדת ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sleeps holding one balloon string tied to her bedpost, a calm smile on her face. The girl's small Israeli bedroom at night: a warm night light, a plain wall above the bed. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** 16:45 אף אחד לא בא ואני מתפרקת ← היום יום ההולדת שלי! ← אתם מספרים לי מה יהיה ← אנחנו משחקים ״מסיבה״ ← הכל מוכן ← אף אחד עוד לא בא ← פינה שקטה, רק לרגע ← דינג דונג! ← ״מה היה הכי כיף?״ ← זה לא היה יום מושלם ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-אף אחד לא בא ואני מתפרקת, תעזרו לי ביום ההולדת  
-תספרו לי מי יבוא ומה נעשה ונתרגל את זה ביחד  
-תגידו לי שלא הכול מושלם ותחשבו איתי על תוכנית ב׳  
-תשמעו אותי כשעצוב לי ותנו לי מקום שקט להפסקה  
+אמא ואבא, ברבע לחמש עוד אף אחד לא בא, ואני מתפרקת.  
+תספרו לי בבוקר מי יבוא ומה יהיה, ושמשהו יכול להשתבש.  
+תשחקו איתי ״מסיבה״, ומה עושים אם מחכים.  
+וכשאני בוכה, תגידו שאתם שומעים אותי, ותנו לי פינה שקטה.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרו את הפוסט לפעם הבאה שיש לה יום הולדת  
 
@@ -560,102 +959,176 @@
 
 **טענות**
 
-- שקופית 2 · יש לי תמונה בראש וכל שינוי מרגיש לי גדול · sourced_fact · Child Mind Institute: kids who think flexibly are less likely to fall apart if things do not go according to plan. Imagined child voice.
-- שקופית 3 · תספרו לי מה יהיה · sourced_fact · Child Mind Institute: go over where it will be, who will be there and what might happen.
-- שקופית 4 · נתרגל ביחד מראש · sourced_fact · Child Mind Institute: scripting, role-playing and previewing are all excellent tools. The page is about socially anxious children; used as a general tip.
-- שקופית 5 · תגידו שלא הכול מושלם · sourced_fact · Child Mind Institute: know that no holiday is going to be perfect (a page about family gatherings, applied to birthdays by analogy).
-- שקופית 6 · נחשוב על תוכנית ב׳ · sourced_fact · Child Mind Institute: let's come up with some awesome ideas for what else we can do if that happens.
-- שקופית 7 · תשמעו אותי וגם בלי ״זה כלום״ · sourced_fact · Child Mind Institute: emphasize that you hear your child; avoid telling them it is not a big deal.
-- שקופית 8 · מקום שקט להפסקה ולבחור משהו · sourced_fact · Child Mind Institute: a place to take a break and be quiet; planning the day with the child gives a sense of control.
-- שקופית 9 · עם תוכנית ועם אוזן קל לי יותר · lumebook_wording · Our recap in the child's imagined voice; no promise of a result.
-- שקופית 10 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 3 · מי יבוא ומה יהיה, ושזה בסדר אם משהו משתנה · sourced_fact · Child Mind Institute (socially anxious children): go over where it will be, who will be there and what might happen; (family gatherings): talk before, and know that no holiday is going to be perfect.
+- שקופית 4 · משחקים מסיבה, ומה עושים אם מחכים · sourced_fact · Child Mind Institute: scripting, role-playing and previewing are excellent tools; come up with ideas for what else we can do if that happens.
+- שקופית 7 · אנחנו שומעים אותך במקום זה כלום, ופינה שקטה · sourced_fact · Child Mind Institute: emphasize that you hear your child instead of telling them it's not a big deal; a place to take a break and just be quiet.
+- שקופית 9 · לראות איך חזרתי למסיבה אחרי שהיה קשה · sourced_fact · Child Mind Institute: express your support for how they're handling this.
+- שקופית 10 · ידעתי מה יכול לקרות ולאן ללכת כשקשה · lumebook_wording · Our recap of slides 3 to 9 in the child's imagined voice; no new fact.
+- שקופית 11 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
+- שקופית 11 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-6 · בדמיון יום מושלם באמת העוגה נשברת
+### kid-6 · בדמיון יום מושלם, באמת העוגה נשברת
 
 - **על מי:** ליאור (בן), לשני ההורים
-- **זווית:** הילד מסביר שהוא חיכה כל כך שקשה לו כשהיום שונה, ומבקש שמונה דברים: להגיד שיכול להשתבש, לחשוב ביחד מה אם, לתת לו רעיונות, להראות איך מסתדרים, לדבר לפני שמתחילים, להגיד מה מצפים ממנו, לתת לו לבחור ולפרגן.
+- **זווית:** ליאור, בן 5, כותב להורים מכתב לפני יום ההולדת הבא: בדמיון היה יום מושלם ובאמת ירד גשם והעוגה נשברה. מה הוא מבקש: לשמוע אותו ולא ״זה כלום״, להגיד מראש שאף יום לא מושלם, לשחק ״מה אם״ ולשאול אותו לרעיונות, לספר מה עושים ומה מבקשים ממנו, פינה שקטה, ולראות איך הם מסתדרים כשמשהו משתבש.
 - **למי:** הורים לילד בן 5 עם דמיון גדול ליום ההולדת שמתפרק כשהיום יוצא שונה.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** two-faces
 - **נושא:** יום הולדת שלא הולך לפי התוכנית (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** הניגוד בין הדמיון למציאות מוכר, והמספר 8 על הכריכה מבטיח דברים מעשיים. הילד לא עושה דווקא אלא מאוכזב, ומבקש שיחה לפני ורעיונות ביחד.
+- **למה זה עשוי להמיר:** מכתב של ליאור להורים לפני יום ההולדת הבא, שמתחיל מהפער שעל הכריכה (בדמיון ובאמת) ומבקש מה יעזור לו, משקופית לשקופית, וחתום בשם שלו. מבנה שונה מהמחשבות ומהיום לפי השעון של שתי האפשרויות האחרות בנושא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** מכתב · 10 שקופיות
 
+#### שקופית 1 · שער
+
+**אמא ואבא,**  
 **בדמיון: יום מושלם**  
 **באמת: העוגה נשברת**  
-8 דברים שיעזרו לי  
-כשזה קורה  
+מכתב ממני, לפני יום ההולדת הבא  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**כל כך חיכיתי לו**  
-**שקשה לי כשהוא שונה**  
-אני לא עושה דווקא  
-אני פשוט מאוכזב  
+**אמא ואבא שלי,**  
+ביום ההולדת שלי, בראש שלי,  
+הכל היה מושלם. שמש, חברים, עוגה גבוהה.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+ובאמת? ירד גשם,  
+והעוגה נשברה **לשניים**.  
+אז לפני יום ההולדת הבא,  
+יש לי כמה דברים לבקש.  
 
-**1 תגידו שיכול להשתבש**  
-ושזה בסדר  
-גם ביום הולדת  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* The boy stands at a rainy window looking out at the wet terrace, a cake split in two on the table behind him. The family's Israeli living room: a beige sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**2 נחשוב ביחד מה אם**  
-״אם הגשם ירד מה נעשה?״  
-בלי להבטיח, רק לחשוב  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור
 
-**3 תנו לי לתת רעיונות**  
-אני אומר מה אפשר לעשות  
-אם משהו לא יוצא  
+כשהעוגה נשברה, צעקתי ובכיתי.  
+אני יודע שזה נראה לכם הרבה.  
+אבל חיכיתי לזה **כל כך** הרבה זמן.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+אל תגידו לי שזה כלום.  
+תגידו שאתם שומעים אותי,  
+ושאתם איתי.  
 
-**4 תראו לי איך מסתדרים**  
-אם משהו משתבש תגידו  
-״בואו נמצא פתרון״  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 7 · דוגמאות ממוספרות
+*Picture:* The father kneels and hugs the crying boy beside the broken cake while the mother rests a hand on his head. An Israeli backyard terrace at a small birthday: a table with a plain pale cream tablecloth, a plain pale cream wall, a few balloons tied at the side. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 נדבר לפני שמתחילים**  
-**6 תגידו מה מצפים ממני**  
-מה אני אמור לעשות  
-כשהאורחים מגיעים  
+</div>
 
-#### שקופית 8 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור
 
-**7 תנו לי לבחור חלק**  
-**8 תפרגנו לי אחר כך**  
-אני בוחר שיר או משחק  
-״ליאור ראיתי איך חזרת לעצמך״  
+ובפעם הבאה, תגידו לי מראש  
+שגם יום הולדת לא יוצא מושלם.  
+שום יום הוא לא **מושלם**, נכון?  
 
-#### שקופית 9 · סיכום
+אם אני יודע את זה לפני,  
+זה מפתיע אותי פחות.  
 
-**נחשוב ביחד לפני**  
-**ואז קל לי יותר**  
-גם אם משהו ישתבש  
-תהיו לידי ונמצא פתרון  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+*Picture:* The boy sits between his parents on the sofa as they talk to him calmly, his father making a wobbly gesture with his hand. The family's Israeli living room: a beige sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 5 · סיפור
+
+ונשחק ביחד ״מה אם״.  
+מה אם יירד גשם? נעביר את המסיבה לסלון.  
+מה אם העוגה תישבר? נאכל אותה **בכפיות**.  
+
+ותשאלו אותי מה אני חושב.  
+יש לי רעיונות טובים.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy lies on the rug with his parents, pretending to hold an umbrella and laughing as they act out a silly plan together. The family's Israeli living room: a beige sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור
+
+ולפני שהחברים מגיעים,  
+תספרו לי מה עושים קודם ומה אחר כך,  
+ומה אתם מבקשים **ממני**.  
+לחלק עוגה? להגיד תודה על המתנה?  
+
+ככה אני יודע מה לעשות עם הידיים.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother kneels with the boy by the front door before the party, explaining something while he listens and nods seriously. The family's Israeli hallway: cream tiled floor, a low wooden shoe bench, a plain wall, soft light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור
+
+ועוד משהו:  
+אם יהיה לי יותר מדי רעש,  
+תנו לי ללכת לחדר שלי לכמה דקות.  
+לנשום, לשבת בשקט,  
+ואז לחזור **לחגוג**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits alone on his bed with a cushion on his lap, breathing slowly, the party glimpsed through the half open door. The boy's small Israeli bedroom in the afternoon: a simple bed, a plain pale wall, soft light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור
+
+וכשמשהו משתבש לכם,  
+כשהבלונים עפים או שהפיצה מאחרת,  
+תגידו ״אוקיי, מה עושים במקום?״  
+אני מסתכל עליכם, ולומד **מכם**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The father shrugs and laughs as balloons float away into the sky over the terrace, the mother already pulling out snacks, the boy watching them. An Israeli backyard terrace at a small birthday: a table with a plain pale cream tablecloth, a plain pale cream wall, a few balloons tied at the side. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · פנייה להורים
+
+אז בדמיון שלי יהיה עוד יום מושלם.  
+ובאמת, אולי שוב משהו יישבר.  
+
+אבל אם תחשבו איתי, ותהיו לידי,  
+גם יום כזה יכול להיות **שמח**.  
+
+**אוהב, ליאור**  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy hands his parents a folded drawing of a birthday cake, and they pull him into a hug on the sofa. The family's Israeli living room: a beige sofa, a soft rug, a plain cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה  
 שיש לו יום הולדת  
 
-**הכותרות בלבד:** בדמיון: יום מושלם באמת: העוגה נשברת ← כל כך חיכיתי לו שקשה לי כשהוא שונה ← 1 תגידו שיכול להשתבש ← 2 נחשוב ביחד מה אם ← 3 תנו לי לתת רעיונות ← 4 תראו לי איך מסתדרים ← 5 נדבר לפני שמתחילים 6 תגידו מה מצפים ממני ← 7 תנו לי לבחור חלק 8 תפרגנו לי אחר כך ← נחשוב ביחד לפני ואז קל לי יותר ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy blows out candles on a slightly wonky cake on the terrace, his parents laughing beside him, balloons swaying. An Israeli backyard terrace at a small birthday: a table with a plain pale cream tablecloth, a plain pale cream wall, a few balloons tied at the side. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא ואבא, בדמיון: יום מושלם באמת: העוגה נשברת ← אמא ואבא שלי, ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-בדמיון יום מושלם ובאמת העוגה נשברת, תעזרו לי  
-תגידו לי שיכול להשתבש ותחשבו איתי מה אם  
-תנו לי לתת רעיונות ותראו לי איך מסתדרים  
-תדברו איתי לפני שמתחילים ותנו לי לבחור חלק  
+אמא ואבא, בראש שלי יום ההולדת מושלם, ובאמת העוגה נשברת.  
+תגידו שאתם שומעים אותי, ולא שזה כלום.  
+תספרו לי מראש מה יהיה, ושגם יום הולדת לא יוצא מושלם.  
+תשחקו איתי ״מה אם״, ותנו לי פינה שקטה.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרו את הפוסט לפעם הבאה שיש לו יום הולדת  
 
@@ -673,14 +1146,13 @@
 
 **טענות**
 
-- שקופית 2 · כל כך חיכיתי לו שקשה לי כשהוא שונה · sourced_fact · Child Mind Institute: kids who think flexibly are less likely to fall apart if things do not go according to plan; the inverse is our imagined child voice.
-- שקופית 3 · תגידו שיכול להשתבש · sourced_fact · Child Mind Institute: know that no holiday is going to be perfect (family gatherings page, applied to birthdays).
-- שקופית 4 · נחשוב ביחד מה אם · sourced_fact · Child Mind Institute: let's come up with some awesome ideas for what else we can do if that happens.
-- שקופית 5 · תנו לי לתת רעיונות · sourced_fact · Child Mind Institute: invite them to help you come up with ideas for how to manage uncertainty and difficult changes.
-- שקופית 6 · תראו לי איך מסתדרים · sourced_fact · Child Mind Institute: when your child sees you navigate changes or surprises in a reasonable, solution focused way.
-- שקופית 7 · נדבר לפני שמתחילים · sourced_fact · Child Mind Institute: always have a conversation before leaving your house about how you expect your children to behave.
-- שקופית 8 · תנו לי לבחור חלק ותפרגנו לי · sourced_fact · Child Mind Institute: planning the day with the child gives a sense of control; remind them of the skills they used.
-- שקופית 9 · נחשוב ביחד לפני ואז קל לי יותר · lumebook_wording · Our recap in the child's imagined voice; no promise of a result.
+- שקופית 3 · אל תגידו שזה כלום, תגידו שאתם שומעים אותי · sourced_fact · Child Mind Institute: avoid invalidating the pain by telling them it's not a big deal; emphasize that you hear your child and express your support; avoid judging their reactions.
+- שקופית 4 · להגיד מראש ששום יום לא מושלם · sourced_fact · Child Mind Institute: know that no holiday is going to be perfect; have a conversation before the event.
+- שקופית 5 · לשחק מה אם, ולשאול אותי לרעיונות · sourced_fact · Child Mind Institute: let's come up with some awesome ideas for what else we can do if that happens; invite them to help you come up with ideas.
+- שקופית 6 · לספר מה עושים קודם ומה מבקשים ממני · sourced_fact · Child Mind Institute: have a conversation before about how you expect your children to behave; working with your child to plan out their days gives a sense of control.
+- שקופית 7 · ללכת לחדר לכמה דקות ואז לחזור · sourced_fact · Child Mind Institute: if things get too overwhelming, there's a place to take a break and just be quiet.
+- שקופית 8 · מה עושים במקום, ואני לומד מכם · sourced_fact · Child Mind Institute: when your child sees you navigate changes or surprises in a reasonable, solution-focused way.
+- שקופית 9 · אם תחשבו איתי ותהיו לידי · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact.
 - שקופית 10 · סיפורים על רגשות יכולים לעזור · sourced_fact · Zero To Three: Read stories about feelings. The page is about empathy; applied to a hard everyday moment. No promise of a result.
 - שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 

@@ -156,9 +156,12 @@ class StoryRun(unittest.TestCase):
 
     def test_producer_knows_the_cover_and_the_cap(self):
         self.assertTrue(producer.is_story(self.run_dir))
-        self.assertEqual((producer.cover_job(self.run_dir), producer.cap_usd(self.run_dir)), ("slide-01", producer.STORY_MAX_USD))
+        with mock.patch.object(lib, "picture_backend", return_value="fal"):   # the paid flow, off since 30 Oct 2026
+            self.assertEqual((producer.cover_job(self.run_dir), producer.cap_usd(self.run_dir)), ("slide-01", producer.STORY_MAX_USD))
+            self.assertEqual((producer.cover_job(self.tmp), producer.cap_usd(self.tmp)), ("picture", producer.MAX_USD))
         self.assertEqual(producer.STORY_MAX_USD, prepare_fal_jobs.STORY_MAX_USD)
-        self.assertEqual((producer.cover_job(self.tmp), producer.cap_usd(self.tmp)), ("picture", producer.MAX_USD))
+        with mock.patch.object(lib, "picture_backend", return_value="chatgpt"):   # pictures from ChatGPT: nothing may be spent
+            self.assertEqual((producer.cap_usd(self.run_dir), producer.cap_usd(self.tmp)), (0, 0))
 
     def test_after_the_cover_the_other_slides_run_together_and_pass_with_it(self):
         order = self.jobs["order"]
@@ -180,7 +183,8 @@ class StoryRun(unittest.TestCase):
                 lib.write_json(self.run_dir / "state.json", st)
             return 0, ""
 
-        with mock.patch.object(producer, "_sh", side_effect=fake_sh), mock.patch.object(producer, "PRODUCTIONS", self.tmp / "p.json"):
+        with mock.patch.object(producer, "_sh", side_effect=fake_sh), mock.patch.object(producer, "PRODUCTIONS", self.tmp / "p.json"), \
+                mock.patch.object(lib, "picture_backend", return_value="fal"):   # the paid flow, off since 30 Oct 2026
             with self.assertRaises(RuntimeError) as ctx:
                 producer._generate_slides("k", self.run_dir)
             self.assertIn("slide-04", str(ctx.exception))

@@ -59,7 +59,15 @@ RECENT_PACKS = 3               # nightly start rotates away from the structures 
 # Slides (story-format.md section 2)
 # ---------------------------------------------------------------------------
 
-SLIDES_MIN, SLIDES_MAX = 9, 12           # the cover, 7 to 10 story slides, the CTA
+SLIDES_MIN, SLIDES_MAX = 9, 10           # the cover, 7 to 8 story slides, the CTA
+# 30 Oct 2026: Instagram through Postiz takes at most 10 images ("Instagram carousel only supports up to 10 media
+# attachments"), so new packs stop at 10. Packs written before then keep up to 12 (trim a slide when one is produced).
+SLIDES_MAX_BEFORE_30_OCT = 12
+
+
+def slides_max(pack):
+    return SLIDES_MAX if str(pack.get("generated_at") or pack.get("date") or "") >= "2026-10-30T13" else SLIDES_MAX_BEFORE_30_OCT
+
 ROLE_HOOK, ROLE_BEAT, ROLE_TURN, ROLE_CTA = "hook", "beat", "turn", "story_cta"
 ROLES = (ROLE_HOOK, ROLE_BEAT, ROLE_TURN, ROLE_CTA)
 ROLE_LABELS_HE = {ROLE_HOOK: "כריכה", ROLE_BEAT: "שקופית סיפור", ROLE_TURN: "פנייה להורים", ROLE_CTA: "שמירה"}

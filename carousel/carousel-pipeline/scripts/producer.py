@@ -26,6 +26,15 @@ Story carousel (story-format.md, 29 Oct 2026: a picture per slide, 9 to 12 slide
 Games and books carousel: its slide PNGs are already final, so production is an export: approved/DATE-reco[-2]/final/
 with the slides, caption, alt text, sources, contact sheet and the ZIP. No paid call.
 
+Pictures from ChatGPT (since 30 Oct 2026, production.json "picture_backend": "chatgpt", the default; Yarin: "disconnect my
+fal account from the carousel machine, use my chatgpt in chrome to create the images so everything will be free"): the
+steps above stay, but fal_generate.py is never run and FAL_KEY is never needed. After the freeze the entry is "waiting"
+(waiting for pictures from ChatGPT): Claude makes them in Yarin's Chrome (chatgpt_pictures.py next, chatgpt_helper.js,
+chatgpt_pictures.py ingest). advance_waiting(), which review_server.py runs every few seconds, moves a waiting entry on:
+a new cover goes to "review" exactly like a fal cover; approving a story cover makes it "waiting" again for slides 2..N;
+when they are all in they pass with the cover and compose_slides.py exports. Another take with a note puts the picture
+back in `next`. The caps are 0 and nothing is paid. "fal" in production.json brings the old paid flow back.
+
 State is productions.json (one entry per carousel, keyed "<date>/<id>"), written only here. Work runs in background
 threads inside review_server.py; a restart in the middle marks the entry so the page offers to continue
 (prepare and fal_generate are both resumable, a finished picture is never bought twice).
@@ -46,6 +55,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import carousel_lib as lib  # noqa: E402
+import chatgpt_pictures as cg  # noqa: E402
 import reco_lib as rl  # noqa: E402
 
 PRODUCTIONS = lib.PIPELINE / "productions.json"
@@ -55,7 +65,9 @@ PICTURE = "picture"
 SLIDES_HE = "מייצר את התמונות של השקופיות"
 BUSY = ("queued", "fixing", "preparing", "generating", "composing", "exporting")
 STATUS_HE = {"queued": "בתור", "fixing": "מתקן את הטקסט", "preparing": "מקפיא את הטקסט", "generating": "מייצר תמונה", "review": "מחכה לאישור שלך",
-             "composing": "מרכיב שקופיות", "exporting": "מייצא", "done": "מוכן לפרסום", "failed": "נעצר"}
+             "waiting": "מחכה לתמונות מ-ChatGPT", "composing": "מרכיב שקופיות", "exporting": "מייצא", "done": "מוכן לפרסום", "failed": "נעצר"}
+WAITING = "waiting"   # ChatGPT runs (30 Oct 2026): waiting for Claude to make the pictures; not BUSY, so a restart keeps it
+WAITING_SLIDES_HE = "מחכה לתמונות השקופיות מ-ChatGPT"
 # fal's image model sometimes declines a harmless family scene (18 Oct 2026: expert-1 of 20 Oct twice; the same
 # cover wording passed for kid-1, so the trigger is unknown). Rewording the scene and trying again got it through.
 SAFETY_MARKERS = ("content_policy_violation", "safety system declined")
@@ -65,7 +77,8 @@ QA_CHECKS_HE = ("הפנים של הילד אל המצלמה, עם הבעה גד�
                 "ידיים ופנים טבעיים, בלי אותיות או לוגו", "תלת ממד מונפש, לא צילום")
 ABOUT = ("Carousel Machine productions (producer.py). One entry per carousel keyed <date>/<id>; status: " + ", ".join(STATUS_HE)
          + ". Kid and expert: approved/DATE-ID, one picture, spend cap $0.50 per carousel; story format (29 Oct 2026): a picture"
-         " per slide, the cover approved first, cap $1.00 per carousel. Games and books: export only.")
+         " per slide, the cover approved first, cap $1.00 per carousel. Games and books: export only. Since 30 Oct 2026 the"
+         " pictures come from ChatGPT (production.json picture_backend chatgpt, backend on each entry): free, cap 0.")
 
 _lock = threading.RLock()
 _pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="produce")
@@ -184,8 +197,29 @@ def cover_job(run_dir):
     return (jobs.get("reference_job") or "slide-01") if jobs.get("story") else PICTURE
 
 
+def chatgpt():
+    """True while the pictures come from ChatGPT (production.json, the default since 30 Oct 2026): fal is never run."""
+    return lib.picture_backend() == "chatgpt"
+
+
 def cap_usd(run_dir):
+    if chatgpt():   # ChatGPT in Yarin's own account: nothing is paid, so nothing may be spent
+        return 0
     return STORY_MAX_USD if is_story(run_dir) else MAX_USD
+
+
+def run_dir_of(rec):
+    """The run folder behind a productions.json entry ("/approved/DATE-ID", or an absolute path in tests)."""
+    raw = str(rec["run_dir"])
+    p = Path(raw)
+    return p if p.is_absolute() and (p / "jobs.json").exists() else lib.PIPELINE / raw.lstrip("/")
+
+
+def _require_fal():
+    """The paid fal steps run only with picture_backend "fal" (off since 30 Oct 2026)."""
+    if lib.picture_backend() == "fal":
+        return
+    raise RuntimeError("Carousel Machine is disconnected from fal.ai (production.json picture_backend is not \"fal\")")
 
 
 def _picture_state(run_dir):
@@ -258,6 +292,7 @@ def _prepare(item):
 
 
 def _generate(key, run_dir, replace_note=None):
+    _require_fal()
     _update(key, status="generating", error=None)
     fal = HERE / "fal_generate.py"
     job, cap = cover_job(run_dir), cap_usd(run_dir)
@@ -285,6 +320,7 @@ def _generate_slides(key, run_dir):
     """Story run, after the cover is approved: every other slide in parallel as an edit of the cover, inside the cap.
     The cover's approval covers them (Carousel Machine has no per-slide approval): each new picture is marked QA-passed.
     Raises when a slide is still missing, so pressing produce again makes only the missing ones."""
+    _require_fal()
     fal = HERE / "fal_generate.py"
     jobs = _jobs(run_dir)
     cover = cover_job(run_dir)
@@ -309,6 +345,79 @@ def _generate_slides(key, run_dir):
                            "אפשר ללחוץ שוב על הפקה: רק החסרות ייווצרו, בלי לשלם שוב על מה שכבר קיים.\n" + _tail(out))
 
 
+# ---------------------------------------------------------------- pictures from ChatGPT (30 Oct 2026)
+
+def _slides_ready(run_dir):
+    st = lib.read_json(Path(run_dir) / "state.json").get("jobs", {})
+    return all(st.get(n, {}).get("status") == "done" for n in _jobs(run_dir).get("order", []))
+
+
+def _pass_slides(run_dir):
+    """Every slide picture of a story run passes QA with the approved cover (Carousel Machine has no per-slide approval)."""
+    st = lib.read_json(Path(run_dir) / "state.json").get("jobs", {})
+    cover = cover_job(run_dir)
+    for n in _jobs(run_dir).get("order", []):
+        if n != cover and st.get(n, {}).get("status") == "done" and st[n].get("qa") is None:
+            cg.qa(run_dir, n, "pass", cg.QA_WITH_COVER)
+
+
+def _wait(key, run_dir):
+    """Mark the entry as waiting for Claude to make pictures in ChatGPT (chatgpt_pictures.py next lists them)."""
+    made, total = cg.counts(run_dir)
+    cover_done = _picture_state(run_dir).get("status") == "done"
+    fields = dict(status=WAITING, error=None, declined=None, stage="slides" if cover_done else "cover", pictures_made=made,
+                  pictures_total=total, spent_usd=0, backend="chatgpt")
+    rec = _update(key, **fields)
+    if cover_done:
+        rec = _update(key, status_he=WAITING_SLIDES_HE)
+    return rec
+
+
+def _finish_chatgpt(key, run_dir):
+    try:
+        if is_story(run_dir):
+            _pass_slides(run_dir)
+        _compose(key, run_dir)
+    except Exception as exc:  # noqa: BLE001 - the page shows the reason and offers to continue
+        _update(key, status="failed", error=str(exc)[:1500])
+
+
+def advance_waiting(path=None, background=True):
+    """Move every waiting ChatGPT entry on once Claude ingested its pictures: a new cover to "review" (the same approval as
+    a fal cover), an approved story cover with every slide in to composing and the ZIP. review_server.py calls this every
+    few seconds; it writes productions.json only when something changed. Returns the keys it moved."""
+    with _lock:
+        waiting = [(k, dict(r)) for k, r in load(path)["runs"].items() if r.get("status") == WAITING and r.get("run_dir")]
+    moved = []
+    for key, rec in waiting:
+        run_dir = run_dir_of(rec)
+        if not (run_dir / "state.json").exists():
+            continue
+        st = _picture_state(run_dir)
+        made, total = cg.counts(run_dir)
+        with _lock:
+            now = get(key, path) or {}
+            if now.get("status") != WAITING:
+                continue
+            if st.get("status") == "done" and st.get("qa") is None:
+                pic = run_dir / "generated-assets" / f"{cover_job(run_dir)}.png"
+                _update(key, path, status="review", picture=rel(pic) + f"?v={st.get('attempts', 1)}", attempts=st.get("attempts", 1),
+                        replacements=st.get("replacements", 0), pictures_made=made, pictures_total=total, spent_usd=0)
+                moved.append(key)
+                continue
+            if st.get("status") == "done" and st.get("qa") == "pass" and (not is_story(run_dir) or _slides_ready(run_dir)):
+                _update(key, path, status="composing", pictures_made=made, pictures_total=total)
+                moved.append(key)
+                if background:
+                    _pool.submit(_finish_chatgpt, key, run_dir)
+                else:
+                    _finish_chatgpt(key, run_dir)
+                continue
+            if (now.get("pictures_made"), now.get("pictures_total")) != (made, total):
+                _update(key, path, pictures_made=made, pictures_total=total)
+    return moved
+
+
 def _compose(key, run_dir):
     _update(key, status="composing", error=None)
     code, out = _sh([sys.executable, HERE / "compose_slides.py", run_dir], 600)
@@ -328,7 +437,14 @@ def _work(key, item, action, note=None):
             _update(key, status="done", done_at=now_iso(), run_dir=rel(run_dir), spent_usd=0, **outputs(run_dir))
             return
         if action == "approve":
-            run_dir = lib.PIPELINE / get(key)["run_dir"].lstrip("/")
+            run_dir = run_dir_of(get(key))
+            if chatgpt():
+                cg.qa(run_dir, cover_job(run_dir), "pass")
+                if is_story(run_dir):
+                    if not _slides_ready(run_dir):
+                        return _wait(key, run_dir)   # Claude makes slides 2..N in ChatGPT from the approved cover
+                    _pass_slides(run_dir)
+                return _compose(key, run_dir)
             code, out = _sh([sys.executable, HERE / "fal_generate.py", run_dir, "qa", cover_job(run_dir), "pass"], 60)
             if code:
                 raise RuntimeError(_tail(out))
@@ -336,7 +452,11 @@ def _work(key, item, action, note=None):
                 _generate_slides(key, run_dir)
             return _compose(key, run_dir)
         if action == "redo":
-            run_dir = lib.PIPELINE / get(key)["run_dir"].lstrip("/")
+            run_dir = run_dir_of(get(key))
+            if chatgpt():
+                st = cg.replace(run_dir, cover_job(run_dir), note or "another take")
+                _update(key, replacements=st.get("replacements", 0))
+                return _wait(key, run_dir)
             return _generate(key, run_dir, replace_note=note or "another take")
         if blocking_errors(item):   # Yarin, 22 Oct 2026: Produce fixes the copy itself instead of stopping
             import autofix
@@ -345,16 +465,23 @@ def _work(key, item, action, note=None):
             _update(key, fixed=[{k: c.get(k) for k in ("field", "slide", "before", "after")} for c in fixed])
         _update(key, status="preparing", error=None)
         run_dir = _prepare(item)
-        _update(key, run_dir=rel(run_dir), spent_usd=spent(run_dir))
+        _update(key, run_dir=rel(run_dir), spent_usd=spent(run_dir), backend=lib.picture_backend())
         st = _picture_state(run_dir)
         if st.get("status") == "done" and st.get("qa") == "pass":
             if is_story(run_dir):
-                _generate_slides(key, run_dir)     # only the slides still missing; none when all were made
+                if chatgpt():
+                    if not _slides_ready(run_dir):
+                        return _wait(key, run_dir)
+                    _pass_slides(run_dir)
+                else:
+                    _generate_slides(key, run_dir)     # only the slides still missing; none when all were made
             return _compose(key, run_dir)          # a picture approved earlier: only re-export
         if st.get("status") == "done":
             pic = Path(run_dir) / "generated-assets" / f"{cover_job(run_dir)}.png"
             _update(key, status="review", picture=rel(pic) + f"?v={st.get('attempts', 1)}", spent_usd=spent(run_dir))
             return
+        if chatgpt():
+            return _wait(key, run_dir)             # Claude makes the cover in ChatGPT (chatgpt_pictures.py next)
         _generate(key, run_dir)
     except Exception as exc:  # noqa: BLE001 - the page shows the reason and offers to try again
         rec = get(key) or {}
@@ -410,11 +537,11 @@ def start(item):
     key = item["key"]
     with _lock:
         rec = get(key)
-        if rec and rec.get("status") in BUSY + ("review",):
+        if rec and rec.get("status") in BUSY + ("review", WAITING):
             return rec
     with _lock:
         rec = get(key)
-        if rec and rec.get("status") in BUSY + ("review",):
+        if rec and rec.get("status") in BUSY + ("review", WAITING):
             return rec
         rec = _update(key, status="queued", requested_at=now_iso(), error=None, warning=None, declined=None, fixed=None, **_item_fields(item))
     _pool.submit(_work, key, item, "start")
@@ -451,13 +578,14 @@ def recover(path=None):
         for key, rec in data["runs"].items():
             if rec.get("status") not in BUSY:
                 continue
-            run_dir = lib.PIPELINE / rec["run_dir"].lstrip("/") if rec.get("run_dir") else None
+            run_dir = run_dir_of(rec) if rec.get("run_dir") else None
             st = _picture_state(run_dir) if run_dir else {}
             if rec.get("kind") != "reco" and st.get("status") == "done" and st.get("qa") != "pass":
                 rec.update(status="review", status_he=STATUS_HE["review"],
                            picture=rel(run_dir / "generated-assets" / f"{cover_job(run_dir)}.png") + f"?v={st.get('attempts', 1)}")
             else:
-                rec.update(status="failed", status_he=STATUS_HE["failed"], error="Carousel Machine נסגר באמצע. אפשר להמשיך מאותה נקודה, בלי לשלם שוב על מה שכבר נוצר.")
+                rec.update(status="failed", status_he=STATUS_HE["failed"], error="Carousel Machine נסגר באמצע. אפשר להמשיך מאותה נקודה"
+                           + (", שום תמונה לא הולכת לאיבוד." if chatgpt() else ", בלי לשלם שוב על מה שכבר נוצר."))
             changed = True
         if changed:
             lib.write_json(path or PRODUCTIONS, data)

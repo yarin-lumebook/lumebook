@@ -10,86 +10,152 @@
 
 ## הילד מספר להורים
 
-### kid-1 · ״זה רק משחק״ זה לא עוזר לי: 7 דברים שכן עוזרים
+### kid-1 · אמא, ״זה רק משחק״ לא עוזר לי כשאני מפסיד
 
 - **על מי:** יואב (בן), לאמא
-- **זווית:** הילד אומר לאמא שהמשפט ״זה רק משחק״ לא עוזר לו כשהוא מפסיד, ומבקש שבעה דברים אחרים: לשמוע אותו, להתאמן על הפסד, תוכנית לגוף, לשאול מה הצליח, להזכיר הפסד שעבר, מילה טובה למנצח ודוגמה אישית.
+- **זווית:** יואב, בן 5, עונה לאמא על המחשבות שלה כשהוא מפסיד בקלפים: ״זה רק משחק״, ״הוא לא יודע להפסיד״, ״למה הוא מתפוצץ״, ״אולי אתן לו לנצח״. מה עוזר לו: לשמוע שרואים שזה מבאס בלי לשפוט, להתאמן על הפסד קטן, תוכנית לגוף, לשאול מה הלך טוב, להזכיר הפסד שעבר, ואמא שמפסידה ואומרת ״משחק יפה״.
 - **למי:** אמהות לילד בן 4 עד 7 שמתפוצץ כשהוא מפסיד במשחק קלפים או קופסה ושמנסות להגיד לו שזה רק משחק.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** sentence-we-all-say
 - **נושא:** לא מסוגל להפסיד במשחק (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המשפט ״זה רק משחק״ מוכר לכל אמא, והכריכה מבטיחה שבעה דברים אחרים שעוזרים. כל שקופית נותנת משפט או פעולה של עשר שניות. הילד מבקש מאמא ולא מאשים.
+- **למה זה עשוי להמיר:** המשפט ״זה רק משחק״ על הכריכה, ואז המחשבות של אמא אחת אחרי השנייה, ולכל אחת תשובה של יואב ומה יעזור לו. מבנה שונה מהרשימה ומהדקה של שתי האפשרויות האחרות בנושא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** אתם חושבים, אני עונה · 9 שקופיות
 
-**״זה רק משחק״**  
-**זה לא עוזר לי**  
-7 דברים שכן עוזרים  
+#### שקופית 1 · שער
 
-#### שקופית 2 · ההסבר
+**אמא, ״זה רק משחק״**  
+**לא עוזר לי**  
+**כשאני מפסיד**  
+המחשבות שלך, והתשובות שלי  
 
-**בשבילך זה רק משחק**  
-**בשבילי זה ממש גדול**  
-כשאני מפסיד אני מתפוצץ  
-ואני צריך שתעזרי לי  
+#### שקופית 2 · סיפור
 
-#### שקופית 3 · דוגמאות ממוספרות
+**אני מכיר את המבט הזה**  
+כשהקלף האחרון נופל ואני מפסיד,  
+אני זורק את הקלפים על הרצפה.  
+ואת מסתכלת עליי, ככה.  
 
-**1 תגידי שאת רואה אותי**  
-״יואב, אני רואה שזה מבאס״  
-בלי להגיד ״זה רק משחק״  
+אני יודע מה עובר לך בראש.  
+אז הנה התשובות **שלי**.  
 
-#### שקופית 4 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**2 תתאמני איתי על הפסד**  
-משחק קצר שאפשר להפסיד בו  
-ואז עוד אחד  
+*Picture:* The boy flings a handful of playing cards with plain star-pattern backs onto the rug, and his mother on the sofa looks at him with raised eyebrows. A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 5 · דוגמאות ממוספרות
+</div>
 
-**3 תוכנית קטנה לגוף שלי**  
-ידיים על הברכיים וסופרים עד 5  
-תתרגלי איתי לפני המשחק  
+#### שקופית 3 · סיפור · את חושבת:
 
-#### שקופית 6 · דוגמאות ממוספרות
+**״זה רק משחק, יואב״**  
+בשבילך זה רק משחק.  
+בשבילי זה כל העולם, עכשיו.  
+*מה יעזור לי לשמוע:*  
+▪ ״אני רואה שזה ממש מבאס אותך.״  
+בלי ״לא נורא״, בלי **לשפוט**.  
 
-**4 תשאלי מה היה לי טוב**  
-״יואב, מה הלך לך טוב במשחק?״  
-ואחר כך מה אפשר לשפר  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 7 · דוגמאות ממוספרות
+*Picture:* The mother sits on the rug next to the boy, who hugs his knees with a red face, and she rests a calm hand on his back. A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 תזכירי הפסד שעבר**  
-״יואב, גם בפעם הקודמת הפסדת  
-והמשכנו לשחק״  
+</div>
 
-#### שקופית 8 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · את חושבת:
 
-**6 כל הכבוד למנצח**  
-**7 תפסידי גם את**  
-״כל הכבוד״ ו״בפעם הבאה אצליח״  
-אני לומד את זה ממך  
+**״הוא לא יודע להפסיד״**  
+נכון. עוד לא התאמנתי על זה.  
+*מה יעזור לי:*  
+משחק קצר שלא אכפת לי להפסיד בו.  
+להפסיד בכוונה, ככה סתם,  
+ולהרגיש שזה **לא סוף העולם**.  
 
-#### שקופית 9 · סיכום
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**ככה אני לומד להפסיד**  
-**בלי להתפוצץ**  
-תעזרי לי לנסות שוב  
-ולהמשיך לשחק?  
+*Picture:* The boy and his mother play rock paper scissors on the sofa, the boy laughing as he loses on purpose with a silly face. A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+</div>
+
+#### שקופית 5 · סיפור · את חושבת:
+
+**״למה הוא מתפוצץ ככה?״**  
+כי הכל קורה לי בגוף בבת אחת.  
+הידיים רוצות לזרוק, הרגליים לבעוט.  
+*מה יעזור לי:*  
+תוכנית לגוף, עוד לפני המשחק.  
+ידיים על הברכיים, נשימה **ארוכה**,  
+ואז אני מחליט מה אומרים.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits on the floor practising with his mother: both have their hands on their knees and puffed cheeks, taking a long breath together. A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · את חושבת:
+
+**״אולי פשוט אתן לו לנצח״**  
+*אני עונה:*  
+אם אנצח כל פעם, לא אלמד להפסיד.  
+*מה יעזור לי:*  
+בסוף המשחק, לשאול **מה הלך לי טוב**,  
+ולא רק מי ניצח.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* After a card game the mother leans toward the boy and asks him something with a curious smile, and he counts on his fingers thinking. A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · את חושבת:
+
+**״כל הפסד זה דרמה חדשה״**  
+כי בראש שלי אני זוכר רק את עכשיו.  
+*מה יעזור לי:*  
+שתזכירי לי הפסד שעבר.  
+▪ ״זוכר שהפסדת אצל סבא? והמשכת לשחק.״  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother sits with the boy on the sofa, gesturing as if recalling a funny memory, and the boy starts to grin through his frown. A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ואחרונה:
+
+**״איך הוא ילמד להפסיד יפה?״**  
+ממך, אמא. כשאת מפסידה לי בשש בש,  
+ואומרת ״אוף. משחק יפה, יואב.״  
+אני רואה **איך** עושים את זה.  
+
+ואז גם אני מנסה להגיד  
+״כל הכבוד״ למי שניצח.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother laughs and shakes the boy's hand over a backgammon board after losing to him, and the boy beams. A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שקשה לו להפסיד  
 
-**הכותרות בלבד:** ״זה רק משחק״ זה לא עוזר לי ← בשבילך זה רק משחק בשבילי זה ממש גדול ← 1 תגידי שאת רואה אותי ← 2 תתאמני איתי על הפסד ← 3 תוכנית קטנה לגוף שלי ← 4 תשאלי מה היה לי טוב ← 5 תזכירי הפסד שעבר ← 6 כל הכבוד למנצח 7 תפסידי גם את ← ככה אני לומד להפסיד בלי להתפוצץ ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his mother sit on the rug playing cards again, both smiling, the cards held calmly in their hands. A bright Israeli living room in the afternoon: a low sofa, a small wooden coffee table with a game tray, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא, ״זה רק משחק״ לא עוזר לי כשאני מפסיד ← אני מכיר את המבט הזה ← ״זה רק משחק, יואב״ ← ״הוא לא יודע להפסיד״ ← ״למה הוא מתפוצץ ככה?״ ← ״אולי פשוט אתן לו לנצח״ ← ״כל הפסד זה דרמה חדשה״ ← ״איך הוא ילמד להפסיד יפה?״ ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-7 דברים שכן עוזרים לי כשאני מפסיד במשחק  
-תגידי שאת רואה אותי, ותתאמני איתי על הפסד  
-תכיני איתי תוכנית לגוף ותשאלי מה היה לי טוב  
-תזכירי לי שהפסדתי פעם ותפסידי גם את בקול  
+אמא, כשאני מפסיד, ״זה רק משחק״ לא עוזר לי.  
+תגידי שאת רואה שזה מבאס, בלי לשפוט אותי.  
+תתאמני איתי על הפסד קטן, ועל מה עושים עם הידיים.  
+תשאלי מה הלך לי טוב, ותזכירי לי הפסד שעבר.  
+ותפסידי גם את מולי, ותגידי ״משחק יפה״.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שקשה לו להפסיד  
 
@@ -107,99 +173,165 @@
 
 **טענות**
 
-- שקופית 2 · כשאני מפסיד אני מתפוצץ ואני צריך שתעזרי לי · lumebook_wording · Imagined child voice; Child Mind Institute: acknowledge children's frustration and disappointment.
-- שקופית 3 · תגידי שאת רואה אותי · sourced_fact · Child Mind Institute: listen to and acknowledge children's frustration and disappointment, avoid judging their reactions.
-- שקופית 4 · תתאמני איתי על הפסד · sourced_fact · Child Mind Institute: practice losing on purpose, in small ways. The short game is our example.
-- שקופית 5 · תוכנית קטנה לגוף שלי · sourced_fact · Child Mind Institute: plan what the body does when frustrated; hands on knees and counting to 5 is our example.
-- שקופית 6 · תשאלי מה היה לי טוב · sourced_fact · KidsHealth: instead of who won or lost, ask what did you do well and what could have gone better.
-- שקופית 7 · תזכירי הפסד שעבר · sourced_fact · Child Mind Institute: remind kids of things they have tolerated before, including losing a big game.
-- שקופית 8 · כל הכבוד למנצח ותפסידי גם את · sourced_fact · KidsHealth: kind words like good try, and kids learn sportsmanship from the adults around them.
-- שקופית 9 · ככה אני לומד להפסיד בלי להתפוצץ · lumebook_wording · Our recap of slides 3 to 8; no promise of a result.
-- שקופית 10 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 3 · אני רואה שזה ממש מבאס אותך, בלי לשפוט · sourced_fact · Child Mind Institute: listen to and acknowledge children's frustration and disappointment; avoid judging their reactions.
+- שקופית 4 · להתאמן על הפסד במשחק קצר, להפסיד בכוונה · sourced_fact · Child Mind Institute: we do a lot of practice with losing on purpose, sitting with that a little bit.
+- שקופית 5 · הכל קורה לי בגוף, ותוכנית לגוף לפני המשחק · sourced_fact · Child Mind Institute: what should they be doing with themselves and their body if they're feeling frustrated; how do you keep your body calm when you lose? Hands on knees and a long breath are our wording of such a plan.
+- שקופית 6 · אם אנצח כל פעם לא אלמד להפסיד, ולשאול מה הלך טוב · sourced_fact · Child Mind Institute: practice with losing; KidsHealth: after a competition, don't focus on who won or lost, ask what did you do well.
+- שקופית 7 · שתזכירי לי הפסד שעבר והמשכתי · sourced_fact · Child Mind Institute: remind your kids of things they've tolerated before, including losing a big game, and that they can use the same skills.
+- שקופית 8 · אני לומד ממך להפסיד ולהגיד כל הכבוד · sourced_fact · KidsHealth: kids learn how to be a good sport from the adults in their lives, especially their parents; support others by saying good try.
+- שקופית 9 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-2 · אמא ואבא 7 דברים שאני צריכה כשאני מפסידה
+### kid-2 · אמא ואבא, 5 דברים שאני צריכה כשאני מפסידה
 
 - **על מי:** מיכל (בת), לשני ההורים
-- **זווית:** הילדה מבקשת מההורים שבעה דברים כשהיא מפסידה: להיות עצובה בלי שישפטו אותה, משחק קצר להתאמן, מה לעשות בגוף, שאלה על מה שהצליח, תזכורת להפסד שעבר, ללמוד להגיד כל הכבוד ושההורים יפסידו גם.
+- **זווית:** מיכל, בת 5, מבקשת מההורים חמישה דברים כשהיא מפסידה במשחק קופסה: לראות שקשה לה בלי ״לא נורא״, להתאמן על הפסד במשחק קטן, תוכנית לגוף, לשאול מה הלך טוב, ולהתאמן על ״משחק יפה״. בסוף: שההורים יפסידו גם ויזכירו לה הפסד שעבר.
 - **למי:** הורים לילדה בת 4 עד 6 שבוכה או זורקת את חתיכות המשחק כשהיא מפסידה.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** child-numbered-ask
 - **נושא:** לא מסוגל להפסיד במשחק (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** פורמט המספר עם הפנייה להורים שקיבל 5 מירין (ביום 21 באוקטובר). שבע בקשות ברורות מהילדה, כל אחת עם משפט להגיד, ושקופית 9 מסכמת לצילום מסך.
+- **למה זה עשוי להמיר:** רשימה קצרה של חמש נקודות, כל אחת שקופית מלאה, והצורות מתחלפות (כרטיס עם משפט, מונולוג, שורות קצרות, שאלה בכותרת, מה אתם רואים ומה קורה לי בפנים). הכריכה שומרת על המספר ועל הפנייה לשני ההורים.
 
-#### שקופית 1 · פתיח
+- **מבנה:** רשימה קצרה · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **אמא ואבא**  
-**7 דברים שאני צריכה**  
+**5 דברים שאני צריכה**  
 **כשאני מפסידה**  
+מהקובייה האחרונה ועד המשחק הבא  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
 **הכי קשה לי הרגע האחרון**  
-**שם אני צריכה אתכם**  
-כשהקובייה האחרונה נופלת  
-אני מרגישה הכול בבת אחת  
+הקובייה נופלת, ואתם מגיעים ראשונים.  
+ואני מרגישה הכל בבת אחת.  
+בטן, דמעות, ידיים שרוצות לזרוק.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+אז אמא ואבא, הנה חמישה דברים  
+שאני צריכה **מכם**.  
 
-**1 תנו לי להיות עצובה**  
-״מיכל, אני רואה שאת מאוכזבת״  
-בלי לשפוט אותי  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* The girl stares at a die on the board game with her mouth open and tears starting, her parents' pawns already at the finish. A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**2 משחק קצר להתאמן**  
-אחד שלא אכפת לי להפסיד בו  
-כדי שאלמד איך מפסידים  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור · 1: לראות שקשה לי
 
-**3 תגידו מה עושים בגוף**  
-״כשמפסידים ידיים על השולחן  
-ונושמים לאט״  
+**אל תגידו ״לא נורא״**  
+בשבילי זה כן נורא, עכשיו.  
+אני צריכה שתראו את זה.  
+*מה יעזור לי לשמוע:*  
+▪ ״מיכל, אני רואה שאת מאוכזבת.״  
+ואז לחכות איתי, בלי **לשפוט**.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**4 תשאלו מה הצליח לי**  
-״מיכל, מה אהבת במשחק?״  
-ולא רק מי ניצח  
+*Picture:* The mother crouches beside the girl's chair and holds her hand while the girl wipes her eyes, the father waiting quietly across the table. A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**5 תזכירו לי הפסד שעבר**  
-״זוכרת שהפסדת בשבוע שעבר?  
-והמשכת לשחק״  
+#### שקופית 4 · סיפור · 2: להתאמן על הפסד
 
-#### שקופית 8 · דוגמאות ממוספרות
+**משחק קטן, שלא אכפת לי בו**  
+אבן נייר ומספריים, או משחק זיכרון.  
+להפסיד בכוונה ולצחוק על זה ביחד.  
+ככה אני מתאמנת על ההרגשה הזאת  
+כשהיא **קטנה**, לפני שהיא גדולה.  
 
-**6 ללמוד להגיד כל הכבוד**  
-**7 להפסיד גם אתם מולי**  
-״משחק יפה״ נתרגל לפני שמתחילים  
-״אוף, בפעם הבאה״ גם מכם  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 9 · סיכום
+*Picture:* The girl and her father play rock paper scissors at the table, both laughing loudly as the girl loses on purpose. A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**אתם מבינים אותי**  
-**ואני מנסה שוב**  
-תעזרו לי לחזור  
-למשחק?  
+</div>
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+#### שקופית 5 · סיפור · 3: תוכנית לגוף
+
+**מתאמנים על זה לפני**  
+ידיים על השולחן.  
+נשימה אחת ארוכה.  
+סופרים עד חמש.  
+ורק אז מדברים.  
+
+מתרגלים את זה **לפני** המשחק,  
+לא באמצע הבכי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother sit at the table with their palms flat on the wood and eyes closed, taking a slow breath together before a game. A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 4: מה הלך לי טוב
+
+**״מה הלך לך טוב במשחק?״**  
+ולא ״מי ניצח?״.  
+פתאום אני נזכרת בשש שקיבלתי,  
+ובפעם שכמעט עקפתי אתכם.  
+ואחר כך, אולי, מה הייתי עושה **אחרת**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl talks with her hands in the air about the game while her parents listen across the table, smiling and nodding. A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 5: להגיד ״משחק יפה״
+
+**גם למי שניצח אותי**  
+*מה אתם רואים:*  
+אני אומרת ״כל הכבוד״ בפה עקום.  
+*מה קורה לי בפנים:*  
+אני מתאמנת. זה עוד קשה לי.  
+
+תתרגלו איתי את זה לפני שמתחילים,  
+ותגידו את זה גם **אתם**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl shakes her father's hand over the board game with a crooked, reluctant smile, and he grins warmly back. A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+**ותפסידו גם אתם מולי**  
+״אוף, בפעם הבאה.״ ככה, עם חיוך.  
+ואז תזכירו לי שגם בשבוע שעבר הפסדתי,  
+והמשכתי לשחק.  
+
+זה לא שאני לא יודעת לשחק.  
+אני רק **לומדת** להפסיד.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother throws up her hands and laughs after losing the board game to the girl, while the father pats the girl's shoulder. A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה שקשה לה להפסיד  
 
-**הכותרות בלבד:** אמא ואבא 7 דברים שאני צריכה כשאני מפסידה ← הכי קשה לי הרגע האחרון שם אני צריכה אתכם ← 1 תנו לי להיות עצובה ← 2 משחק קצר להתאמן ← 3 תגידו מה עושים בגוף ← 4 תשאלו מה הצליח לי ← 5 תזכירו לי הפסד שעבר ← 6 ללמוד להגיד כל הכבוד 7 להפסיד גם אתם מולי ← אתם מבינים אותי ואני מנסה שוב ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The whole family sits around the kitchen table setting up the board game again, the girl rolling the die with a calm smile. A sunny Israeli kitchen corner in the afternoon: a wooden table with a colourful board game, a plain soft cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא ואבא 5 דברים שאני צריכה כשאני מפסידה ← הכי קשה לי הרגע האחרון ← אל תגידו ״לא נורא״ ← משחק קטן, שלא אכפת לי בו ← מתאמנים על זה לפני ← ״מה הלך לך טוב במשחק?״ ← גם למי שניצח אותי ← ותפסידו גם אתם מולי ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-7 דברים שיעזרו לי כשאני מפסידה במשחק  
-תנו לי להיות עצובה, ותתאמנו איתי על הפסד במשחק קצר  
-תשאלו מה הצליח לי ותזכירו לי הפסד שעבר  
-תלמדו אותי להגיד כל הכבוד ותפסידו גם אתם מולי  
+אמא ואבא, כשאני מפסידה אני צריכה מכם חמישה דברים.  
+תגידו שאתם רואים שאני מאוכזבת, בלי ״לא נורא״.  
+תתאמנו איתי על הפסד קטן, ועל מה עושים עם הידיים.  
+תשאלו מה הלך לי טוב, ולא רק מי ניצח.  
+ותפסידו גם אתם מולי, עם ״אוף, בפעם הבאה״.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרו את הפוסט לפעם הבאה שקשה לה להפסיד  
 
@@ -217,101 +349,185 @@
 
 **טענות**
 
-- שקופית 2 · הכי קשה לי הרגע האחרון · lumebook_wording · Imagined child voice about the feeling of losing; Child Mind Institute on frustration and disappointment.
-- שקופית 3 · תנו לי להיות עצובה · sourced_fact · Child Mind Institute: acknowledge frustration and disappointment and avoid judging the reaction.
-- שקופית 4 · משחק קצר להתאמן · sourced_fact · Child Mind Institute: practice losing on purpose, in small ways.
-- שקופית 5 · תגידו מה עושים בגוף · sourced_fact · Child Mind Institute: plan what the body does when a child loses; hands on the table and slow breathing is our example.
-- שקופית 6 · תשאלו מה הצליח לי · sourced_fact · KidsHealth: ask what went well rather than who won.
-- שקופית 7 · תזכירו לי הפסד שעבר · sourced_fact · Child Mind Institute: remind kids of things they have tolerated before, including losing a big game.
-- שקופית 8 · ללמוד להגיד כל הכבוד ולהפסיד גם אתם · sourced_fact · KidsHealth: kind words like good try; kids learn from the adults in their lives.
-- שקופית 9 · אתם מבינים אותי ואני מנסה שוב · lumebook_wording · Our recap of slides 3 to 8; no promise of a result.
-- שקופית 10 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 1 · חמישה דברים שיעזרו לי כשאני מפסידה · sourced_fact · Our grouping of advice from Child Mind Institute and KidsHealth. No promise of a result.
+- שקופית 3 · אני רואה שאת מאוכזבת, בלי לשפוט · sourced_fact · Child Mind Institute: listen to and acknowledge children's frustration and disappointment; avoid judging their reactions.
+- שקופית 4 · להפסיד בכוונה במשחק קטן כדי להתאמן · sourced_fact · Child Mind Institute: practice with losing on purpose in small ways and sitting with that a little bit.
+- שקופית 5 · תוכנית לגוף לפני המשחק · sourced_fact · Child Mind Institute: what should they be doing with their body if they're feeling frustrated; how do you keep your body calm when you lose? The steps are our wording.
+- שקופית 6 · מה הלך לך טוב, ולא מי ניצח, ומה הייתי עושה אחרת · sourced_fact · KidsHealth: don't focus on who won or lost; ask what did you do well, or was there something you wish you could have done better.
+- שקופית 7 · להתאמן על כל הכבוד ומשחק יפה, וגם אתם · sourced_fact · KidsHealth: support others by saying good shot or good try; kids learn to be a good sport from the adults in their lives.
+- שקופית 8 · תפסידו גם אתם, ותזכירו לי שהפסדתי והמשכתי · sourced_fact · KidsHealth: kids learn how to be a good sport from their parents; Child Mind Institute: remind your kids of things they've tolerated before, including losing a big game.
+- שקופית 9 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-3 · אני בן חמש ומפסיד: 9 דברים שיעזרו לי
+### kid-3 · אני בן חמש והפסדתי בקלפים, זו הדקה שאחרי
 
 - **על מי:** ליאור (בן), לאמא
-- **זווית:** הילד מספר שהוא בן 5 ומפסיד בקלפים, וכשיהיה בן 6 ובן 7 זה עדיין יקרה. הוא מבקש מאמא תשעה דברים: לשמוע, בלי ״זה רק משחק״, משחק קצר, תוכנית לגוף, מה משפרים, מה היה טוב, הפסד שעבר, משחק יפה ודוגמה.
+- **זווית:** ליאור, בן 5, מראה לאמא את הדקה שאחרי הפסד בקלפים, שנייה אחרי שנייה: הקלף האחרון, הפנים החמות, הקלפים שעפים, הכרית. מה עוזר אחר כך: לשמוע ״אני רואה שזה מבאס״ במקום ״זה רק משחק״, להתאמן על הפסד ועל תוכנית לגוף, לשאול מה הלך טוב, להזכיר שהמשיך לשחק, ואמא שמפסידה ואומרת ״משחק יפה״.
 - **למי:** אמהות לילד בן 5 עד 7 שמפסיד בקלפים או בשש בש ונעלב, ורוצות כלים מעשיים שאפשר להתחיל מהם היום.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** through-the-ages
 - **נושא:** לא מסוגל להפסיד במשחק (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** פורמט גיל אחרי גיל (טרנד נוכחי) עם מספר ברור על הכריכה: תשעה דברים. הילד מראה שזה לא נעלם בגיל 6, ומבקש מאמא כלים אחד אחד.
+- **למה זה עשוי להמיר:** דקה אחת אחרי הפסד בקלפים, שנייה אחרי שנייה, ורק אחריה מה עוזר בערב ולמחרת. הכריכה שומרת על הגיל ומבטיחה את הדקה, לא רשימה.
 
-#### שקופית 1 · פתיח
+- **מבנה:** דקה אחת · 11 שקופיות
 
-**אני בן חמש**  
-**ומפסיד בקלפים**  
-9 דברים שיעזרו לי  
+#### שקופית 1 · שער
 
-#### שקופית 2 · ההסבר
+**אני בן 5**  
+**והפסדתי בקלפים**  
+**זו הדקה שאחרי**  
+דקה אחת שלי, שנייה אחרי שנייה  
 
-**אני בן שש**  
-**ומפסיד בשש בש**  
-אני עדיין צריך אותך  
-כדי להירגע אחרי  
+#### שקופית 2 · סיפור · 17:00, בסלון
 
-#### שקופית 3 · דוגמאות ממוספרות
+**אני כמעט מנצח**  
+נשארו לי שני קלפים, לך שלושה.  
+אני כבר רואה את עצמי קם וצועק  
+״ניצחתי!״  
+הלב שלי דופק **מהר**.  
 
-**1 תשמעי שקשה לי**  
-**2 בלי ״זה רק משחק״**  
-״ליאור, אני רואה שזה מבאס״  
-ואז ממשיכים  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* The boy leans over the small table clutching two playing cards with plain star-pattern backs, eyes shining with excitement, his mother opposite him. A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**3 משחק קצר להתאמן**  
-אחד שאפשר להפסיד בו  
-ואני מתרגל איך זה מרגיש  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור · הדקה מתחילה
 
-**4 תוכנית לגוף שלי**  
-**5 מה משפרים בפעם הבאה**  
-ידיים על הברכיים וסופרים עד 5  
-ואז מדברים מה היה אחרת  
+**ואז את שמה את הקלף שלך**  
+קלף אחד, ועוד אחד.  
+את אומרת ״גמרתי!״ ומחייכת.  
+אני מסתכל על שני הקלפים ביד שלי.  
+הם פתאום **כבדים**.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**6 תשאלי מה היה לי טוב**  
-״ליאור, מה הצליח לך במשחק?״  
-ולא רק מי ניצח  
+*Picture:* The mother lays down her last card with a cheerful smile while the boy freezes, staring at the two cards still in his hand. A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**7 תזכירי הפסד שעבר**  
-**8 משחק יפה למנצח**  
-״בפעם הקודמת הפסדת וחזרת״  
-״משחק יפה״ כמו שמתאמנים  
+#### שקופית 4 · סיפור · עשר שניות
 
-#### שקופית 8 · דוגמאות ממוספרות
+**הפנים שלי נהיות חמות**  
+הבטן מתכווצת, הלחיים בוערות.  
+אני לא שומע מה את אומרת.  
+אני רק רוצה שזה **לא יקרה**.  
 
-**9 תפסידי גם את מולי**  
-ותגידי ״אוף, בפעם הבאה״  
-אני לומד ממך  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 9 · סיכום
+*Picture:* A close view of the boy's flushed face and clenched jaw as he grips his cards, his mother soft in the background. A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**ככה אני לומד להפסיד**  
-**גם כשאני גדל**  
-תעזרי לי לנסות שוב  
-ולא להפסיק לשחק?  
+</div>
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+#### שקופית 5 · סיפור · עשרים שניות
+
+**הקלפים עפים**  
+אני זורק אותם על הרצפה.  
+אחד נכנס מתחת לספה.  
+אני צועק ״זה לא פייר!״  
+ובורח לחדר, וטורק את **הדלת**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* Playing cards scatter through the air across the rug as the boy runs toward the hallway, his mother half rising from her seat. A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · שלושים שניות
+
+**על המיטה, עם הפנים בכרית**  
+אני בוכה, ואני גם כועס על עצמי.  
+אני יודע שזה רק קלפים.  
+אבל כרגע זה מרגיש **ענק**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy lies face down on his bed with his face pressed into a pillow, fists clenched, his shoes still on. The boy's small Israeli bedroom in the late afternoon: a simple bed, a plain pale wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ארבעים שניות
+
+**את נכנסת ומתיישבת**  
+לא אומרת ״זה רק משחק״.  
+לא אומרת ״לא יפה לזרוק״.  
+*מה יעזור לי לשמוע:*  
+▪ ״ליאור, אני רואה שזה ממש מבאס.״  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother sits quietly on the edge of the boy's bed with her hand resting near his back, while he peeks at her from the pillow. The boy's small Israeli bedroom in the late afternoon: a simple bed, a plain pale wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · בערב
+
+**אנחנו עושים תוכנית**  
+*מה יעזור לי:*  
+להתאמן על הפסד במשחק קטן,  
+אבן נייר ומספריים, להפסיד בכוונה.  
+ולהחליט מה הגוף שלי עושה:  
+ידיים על הברכיים, נשימה **ארוכה**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his mother sit cross-legged on the rug practising: hands on knees, cheeks puffed, taking a long breath and giggling. A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · למחרת
+
+**משחקים שוב**  
+ושוב אני מפסיד.  
+ידיים על הברכיים, נשימה.  
+ואת שואלת מה הלך לי טוב.  
+*מה יעזור לי:*  
+להזכיר לי שגם אתמול הפסדתי,  
+ו**המשכתי** לשחק.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits at the table with his hands on his knees and a determined face after losing, while his mother smiles and gathers the cards. A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · פנייה להורים
+
+**אני בן חמש, ואני לומד**  
+עוד הרבה הפסדים מחכים לי.  
+בקלפים, בכדור, בגן.  
+
+כשאת מפסידה מולי ואומרת ״משחק יפה״,  
+אני רואה איך **עושים** את זה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother loses a round and playfully shakes the boy's hand across the table, both laughing. A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שקשה לו להפסיד  
 
-**הכותרות בלבד:** אני בן חמש ומפסיד בקלפים ← אני בן שש ומפסיד בשש בש ← 1 תשמעי שקשה לי 2 בלי ״זה רק משחק״ ← 3 משחק קצר להתאמן ← 4 תוכנית לגוף שלי 5 מה משפרים בפעם הבאה ← 6 תשאלי מה היה לי טוב ← 7 תזכירי הפסד שעבר 8 משחק יפה למנצח ← 9 תפסידי גם את מולי ← ככה אני לומד להפסיד גם כשאני גדל ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his mother sit side by side shuffling a deck of cards together, calm and smiling in the warm evening light. A tidy Israeli living room in the late afternoon: a low sofa, a small wooden table with playing cards, a plain warm beige wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אני בן 5 והפסדתי בקלפים זו הדקה שאחרי ← אני כמעט מנצח ← ואז את שמה את הקלף שלך ← הפנים שלי נהיות חמות ← הקלפים עפים ← על המיטה, עם הפנים בכרית ← את נכנסת ומתיישבת ← אנחנו עושים תוכנית ← משחקים שוב ← אני בן חמש, ואני לומד ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אני בן חמש ומפסיד, 9 דברים שיעזרו לי  
-תשמעי שקשה לי ותגידי משהו חוץ מ״זה רק משחק״  
-תתאמני איתי על משחק קצר ותכיני לי תוכנית לגוף  
-תשאלי מה היה לי טוב ותפסידי גם את מולי  
+אמא, אני בן חמש, ואחרי הפסד בקלפים יש לי דקה קשה.  
+אל תגידי ״זה רק משחק״, תגידי שאת רואה שזה מבאס.  
+תתאמני איתי על הפסד קטן, ועל ידיים על הברכיים.  
+תשאלי מה הלך לי טוב, ותזכירי לי שהמשכתי לשחק.  
+ותפסידי גם את מולי, עם ״משחק יפה״.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שקשה לו להפסיד  
 
@@ -329,100 +545,166 @@
 
 **טענות**
 
-- שקופית 2 · אני עדיין צריך אותך כדי להירגע אחרי · lumebook_wording · Imagined child voice; Child Mind Institute: acknowledge frustration and disappointment.
-- שקופית 3 · תשמעי שקשה לי, בלי ״זה רק משחק״ · sourced_fact · Child Mind Institute: acknowledge frustration and disappointment, avoid judging the reaction.
-- שקופית 4 · משחק קצר להתאמן · sourced_fact · Child Mind Institute: practice losing on purpose in small ways.
-- שקופית 5 · תוכנית לגוף שלי ומה משפרים בפעם הבאה · sourced_fact · Child Mind Institute: plan what the body does when losing; KidsHealth: accept a loss and focus on what to improve.
-- שקופית 6 · תשאלי מה היה לי טוב · sourced_fact · KidsHealth: ask what did you do well during the game.
-- שקופית 7 · תזכירי הפסד שעבר, משחק יפה למנצח · sourced_fact · Child Mind Institute: remind kids of earlier letdowns including losing a big game; KidsHealth: good try / good shot.
-- שקופית 8 · תפסידי גם את מולי · sourced_fact · KidsHealth: kids learn how to be a good sport from the adults in their lives.
-- שקופית 9 · ככה אני לומד להפסיד גם כשאני גדל · lumebook_wording · Our recap of slides 3 to 8; no promise of a result.
-- שקופית 10 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 7 · בלי זה רק משחק, אני רואה שזה ממש מבאס · sourced_fact · Child Mind Institute: listen to and acknowledge children's frustration and disappointment; avoid judging their reactions.
+- שקופית 8 · להתאמן על הפסד בכוונה ותוכנית לגוף · sourced_fact · Child Mind Institute: practice with losing on purpose; what should they be doing with their body if they're feeling frustrated; how do you keep your body calm when you lose?
+- שקופית 9 · מה הלך לי טוב, ולהזכיר שהפסדתי והמשכתי · sourced_fact · KidsHealth: ask what did you do well instead of focusing on who won; Child Mind Institute: remind your kids of things they've tolerated before, including losing a big game.
+- שקופית 10 · כשאת מפסידה ואומרת משחק יפה אני רואה איך עושים את זה · sourced_fact · KidsHealth: kids learn how to be a good sport from the adults in their lives, especially their parents; say good try.
+- שקופית 11 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
+- שקופית 11 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-4 · יש לי סוד על הסיפור של הערב: 8 דברים שיעזרו לי
+### kid-4 · אמא, יש לי סוד על הסיפור של הערב
 
 - **על מי:** רוני (בת), לאמא
-- **זווית:** הילדה מגלה סוד: היא רוצה את אותו סיפור כי היא יודעת מה בא אחרי וזה מרגיע אותה. היא מבקשת מאמא שמונה דברים: לקרוא שוב, לשאול מה היא אוהבת בו, שני סיפורים, אותה דמות, להחליף תפקידים, לספור פעמים, להשאיר אותו ליד המיטה ולחבק.
+- **זווית:** רוני, בת 3, כותבת לאמא מכתב על הספר עם הדוב שהיא מביאה כל ערב: הסוד הוא שהיא יודעת מה בא, וזה מרגיע אותה. מה עוזר: לקרוא שוב ולשאול מה ראתה היום, קול מצחיק כשנמאס, שני ספרים, ולהחליף תפקידים כשהיא מספרת את הדוב מהזיכרון.
 - **למי:** אמהות לילדה בת 2 עד 4 שמבקשת כל ערב את אותו סיפור ושנמאס להן לקרוא אותו.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** child-secret
 - **נושא:** רוצה את אותו סיפור שוב ושוב (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** סוד שמסביר את הבקשה החוזרת, ומיד שמונה דברים לעשות הערב. הילדה לא מאשימה, היא מבקשת, וכך אמא שנמאס לה לקרוא את אותו סיפור מקבלת סיבה ורעיונות.
+- **למה זה עשוי להמיר:** מכתב של רוני לאמא שמגלה את הסוד מהכריכה כבר בשקופית 2, ואז מה עוזר לה משקופית לשקופית, וחתום בשם שלה. מבנה שונה מהפעם ועכשיו ומהיום לפי השעון של שתי האפשרויות האחרות בנושא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** מכתב · 9 שקופיות
 
-**יש לי סוד**  
-**על הסיפור של הערב**  
-8 דברים שיעזרו לי  
+#### שקופית 1 · שער
 
-#### שקופית 2 · ההסבר
+**אמא, יש לי סוד**  
+**על הסיפור**  
+**של הערב**  
+מכתב ממני, לפני השינה  
 
-**כל היום יש הפתעות**  
-**בסיפור אני יודעת מה בא**  
-בגלל זה אני רוצה אותו שוב  
-וזה לא משעמם אותי  
+#### שקופית 2 · סיפור
 
-#### שקופית 3 · דוגמאות ממוספרות
+**אמא שלי,**  
+כל ערב אני מביאה לך את אותו ספר.  
+זה עם הדוב, שהפינה שלו קרועה.  
+ואת אומרת ״שוב הוא?״  
 
-**1 תקראי לי אותו שוב**  
-בכל פעם אני רואה  
-משהו אחר בתמונות  
+אז הנה הסוד שלי.  
+אני יודעת מה בא בכל דף,  
+ובגלל זה אני **רגועה**.  
 
-#### שקופית 4 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**2 תשאלי מה אני אוהבת**  
-״רוני, מה הכי אהוב עלייך?״  
-ואני מספרת על התמונה  
+*Picture:* The girl in pyjamas holds up a worn picture book with a drawn bear on the cover, a hopeful face, while her mother on the bed gives a tired smile. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 5 · דוגמאות ממוספרות
+</div>
 
-**3 שני סיפורים בלילה**  
-**4 אותה דמות בסיפור חדש**  
-אחד שאת בוחרת ואחד שאני  
-אותה חברה שאני אוהבת  
+#### שקופית 3 · סיפור
 
-#### שקופית 6 · דוגמאות ממוספרות
+כל היום יש הפתעות.  
+ילד שלקח לי את הכדור בגן,  
+גשם כשרציתי לצאת.  
 
-**5 אני מספרת לך את הישן**  
-את קוראת סיפור חדש  
-ואני מספרת לך את האהוב  
+אבל בסיפור, הדוב מוצא את הבית.  
+בכל פעם. אני יודעת,  
+ואני **מחכה** לזה.  
 
-#### שקופית 7 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**6 תגידי כמה פעמים נקרא**  
-**7 הסיפור ליד המיטה שלי**  
-״רוני נקרא פעמיים ואז ישנים״  
-אני יודעת מה מחכה  
+*Picture:* The girl snuggles under her blanket with the bear book open on her lap, pointing at the last page with a satisfied smile. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 8 · דוגמאות ממוספרות
+</div>
 
-**8 חיבוק כשהוא נגמר**  
-הסיפור המוכר הוא מקום בטוח  
-גם הסוף שלו  
+#### שקופית 4 · סיפור
 
-#### שקופית 9 · סיכום
+ואת יודעת מה?  
+כל פעם אני רואה משהו חדש.  
+פעם את הציפור על העץ,  
+פעם את הנעל של הדוב.  
 
-**אותו סיפור כל ערב**  
-**זה מקום בטוח לי**  
-תעזרי לי לאהוב אותו  
-ועוד סיפור חדש?  
+תשאלי אותי ״מה ראית היום?״  
+ואני אראה לך **באצבע**.  
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl points excitedly at a small bird in the picture book's illustration while her mother leans in, surprised. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 5 · סיפור
+
+ואם נמאס לך, אמא, זה בסדר.  
+תקראי לי בקול של דוב גדול,  
+ואת הציפור בקול **דק** דק.  
+
+אני אצחק, ואת תצחקי,  
+ואותו סיפור יהיה קצת חדש.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother puffs out her cheeks and growls like a big bear while reading, and the girl giggles with both hands over her mouth. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור
+
+ואולי שני סיפורים?  
+אחד שאת בוחרת, חדש,  
+ואחד שאני בוחרת, הדוב שלי.  
+
+ככה גם את מקבלת משהו חדש,  
+ואני מקבלת את **שלי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother sit on the bed each holding up a different picture book, the girl clutching the bear book to her chest. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור
+
+ויש לי עוד רעיון.  
+את קוראת לי סיפור חדש,  
+ואני מספרת לך את הדוב.  
+בלי הספר, מהזיכרון.  
+
+אני זוכרת אותו **כולו**,  
+כי שמעתי אותו המון פעמים.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl stands on the bed acting out the bear story with big arm movements, the book closed beside her, while her mother lies back listening. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+אז כשאני מביאה שוב את הדוב,  
+אני לא עושה לך דווקא.  
+הוא כמו שמיכה בשבילי.  
+
+עוד פעם אחת, ועוד חיבוק,  
+ואני נרדמת **בשקט**.  
+
+**אוהבת, רוני**  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl hugs the bear book against her chest as her mother tucks the blanket around her, both eyes half closed. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהיא מבקשת שוב את הסיפור  
 
-**הכותרות בלבד:** יש לי סוד על הסיפור של הערב ← כל היום יש הפתעות בסיפור אני יודעת מה בא ← 1 תקראי לי אותו שוב ← 2 תשאלי מה אני אוהבת ← 3 שני סיפורים בלילה 4 אותה דמות בסיפור חדש ← 5 אני מספרת לך את הישן ← 6 תגידי כמה פעמים נקרא 7 הסיפור ליד המיטה שלי ← 8 חיבוק כשהוא נגמר ← אותו סיפור כל ערב זה מקום בטוח לי ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sleeps peacefully with the bear book resting beside her pillow, her mother switching off the lamp at the door. A cosy Israeli child bedroom in the evening: a low wooden bed, a plain warm cream wall, a small lamp glowing on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא, יש לי סוד על הסיפור של הערב ← אמא שלי, ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-יש לי סוד על הסיפור של הערב ושמונה דברים שיעזרו לי  
-תקראי לי אותו שוב, ותשאלי מה אני אוהבת בו  
-תקראי לי שני סיפורים ותני לי לספר לך את הישן  
-תגידי לי כמה פעמים קוראים ותשאירי אותו ליד המיטה שלי  
+אמא, יש לי סוד על הספר שאני מביאה כל ערב.  
+תקראי לי אותו שוב, ותשאלי מה ראיתי היום.  
+ואם נמאס לך, תקראי בקול של דוב.  
+תקריאי לי שני סיפורים, אחד שלך ואחד שלי.  
+ותני לי לספר לך את הדוב, מהזיכרון.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור  
 
@@ -439,99 +721,192 @@
 
 **טענות**
 
-- שקופית 2 · בסיפור אני יודעת מה בא וזה לא משעמם אותי · sourced_fact · University of Wollongong: young children commonly prefer familiarity to novelty. Imagined child voice.
-- שקופית 3 · תקראי לי אותו שוב · sourced_fact · University of Wollongong: repetition aids learning by increasing opportunities to encode the information; the page notes children can focus on different details each time.
-- שקופית 4 · תשאלי מה אני אוהבת · lumebook_wording · Our suggestion; the University of Wollongong page notes children talk about the story and the pictures during repeated reading.
-- שקופית 5 · שני סיפורים לפני השינה וסיפור חדש על אותה דמות · sourced_fact · Scholastic: read two books at bedtime; find books with the same character or by the same author and illustrator.
-- שקופית 6 · את קוראת חדש ואני מספרת לך את האהוב · sourced_fact · Scholastic: you read a new book and have them read you their old favorite.
-- שקופית 7 · כמה פעמים קוראים והסיפור ליד המיטה · sourced_fact · Scholastic: the favourite book is a security object. Agreeing in advance how many times is our suggestion.
-- שקופית 8 · הסיפור המוכר הוא מקום בטוח · sourced_fact · Scholastic: that book is a security object for them.
-- שקופית 9 · אותו סיפור זה מקום בטוח לי · lumebook_wording · Our recap of slides 3 to 8; no promise of a result.
-- שקופית 10 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 2 · אני יודעת מה בא בכל דף, ובגלל זה אני רגועה · sourced_fact · University of Wollongong: a preference for familiarity rather than novelty is commonly reported at young ages; Scholastic: that book is a security object for them. Said as this child's own feeling.
+- שקופית 3 · בסיפור אני יודעת שהדוב מוצא את הבית · sourced_fact · University of Wollongong: a preference for familiarity, rather than novelty, at young ages. Said as this child's own feeling.
+- שקופית 4 · כל פעם אני רואה משהו חדש, תשאלי מה ראית · sourced_fact · University of Wollongong: repeated reading lets children notice other details and talk about the story.
+- שקופית 5 · קול של דוב וקול דק של ציפור · sourced_fact · Scholastic: read in funny accents.
+- שקופית 6 · שני סיפורים, אחד שאת בוחרת ואחד שאני · sourced_fact · Scholastic: read two books at bedtime.
+- שקופית 7 · את קוראת חדש ואני מספרת את הדוב מהזיכרון, כי שמעתי אותו המון · sourced_fact · Scholastic: you read a new book and have them read you their old favorite; University of Wollongong: repeated exposure helps children encode and remember.
+- שקופית 8 · הוא כמו שמיכה בשבילי · sourced_fact · Scholastic: that book is a security object for them. Said as this child's own feeling.
+- שקופית 9 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-5 · ״אפשר עוד פעם?״ אני שואל כל ערב: 7 דברים שיעזרו לי
+### kid-5 · ״אפשר עוד פעם?״ אני שואל כל ערב
 
 - **על מי:** עומר (בן), לשני ההורים
-- **זווית:** הילד שואל כל ערב ״אפשר עוד פעם?״ ומסביר להורים שהוא יודע מה בא אחרי וזה מרגיע אותו. הוא מבקש שבעה דברים: לקרוא שוב בקול מצחיק, שני סיפורים, אותה דמות, להחליף תפקידים, להפוך דף, להגיד כמה פעמים ולחבק בסוף.
+- **זווית:** עומר, בן 3, מספר להורים איך הספר עם הארנב היה פעם חדש ומפחיד, ואיך מאז שגילה את הסוף הוא מבקש אותו כל ערב. מה עוזר: לקרוא שוב, לשאול איפה הארנב מתחבא, להחליף תפקידים, ושני ספרים לפני השינה או ספר חדש עם אותו ארנב.
 - **למי:** הורים לילד בן 2 עד 4 שמבקש כל ערב אותו סיפור, ושניהם מתחלפים בקריאה.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** child-question
 - **נושא:** רוצה את אותו סיפור שוב ושוב (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** משפט שכל הורה שמע (״אפשר עוד פעם?״) והבטחה לשבעה דברים. שקופית 2 מרגיעה: הוא לא עושה דווקא. שני ההורים מקבלים בקשות ברורות.
+- **למה זה עשוי להמיר:** פעם הספר היה חדש ומפחיד, ואז עומר גילה את הסוף, ומאז הוא מבקש אותו כל ערב, עם מה יעזור בכל שקופית. הכריכה שומרת על השאלה שההורים שומעים כל ערב.
 
-#### שקופית 1 · פתיח
+- **מבנה:** פעם ועכשיו · 11 שקופיות
+
+#### שקופית 1 · שער
 
 **״אפשר עוד פעם?״**  
-**אני שואל כל ערב**  
-7 דברים שיעזרו לי  
+**אני שואל**  
+**כל ערב**  
+איך זה התחיל, ולמה אני מבקש שוב  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · פעם
 
-**אני יודע מה בא אחרי**  
-**וזה מרגיע אותי**  
-בגלל זה אני מבקש אותו שוב  
-ואני לא עושה לכם דווקא  
+**פעם הספר היה חדש**  
+הארנב, הבור, החושך ביער.  
+לא ידעתי מה יקרה בדף הבא,  
+ובדף עם החושך **התחבאתי** מתחת לשמיכה.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+אמא ואבא, זה היה קצת מפחיד.  
 
-**1 תקראו לי אותו שוב**  
-בכל פעם אני רואה  
-משהו אחר בתמונות  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* The boy in pyjamas peeks out from under a blanket on the sofa at an open picture book his parents are reading, wide-eyed. A cosy Israeli living room in the evening: a low sofa, a plain warm cream wall, a floor lamp glowing in the corner. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**2 תקראו בקול מצחיק**  
-קול של דוב או של ציפור  
-ואני צוחק  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור · פעם
 
-**3 שני סיפורים בלילה**  
-אחד שאתם בוחרים  
-ואחד שאני בוחר  
+**ובכל ערב היה ספר אחר**  
+ספר על משאית, ספר על דג,  
+ספר שסבתא הביאה.  
+כל לילה סיפור חדש,  
+וכל לילה **שאלות**: מה יקרה עכשיו?  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**4 אותה דמות בסיפור חדש**  
-אותו חבר שאני אוהב  
-בהרפתקה אחרת  
+*Picture:* A small pile of different picture books on the sofa, the boy picking one up and looking at it doubtfully between his parents. A cosy Israeli living room in the evening: a low sofa, a plain warm cream wall, a floor lamp glowing in the corner. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**5 אני מספר לכם את הישן**  
-**6 תנו לי להפוך דף**  
-אתם קוראים סיפור חדש  
-ואני מספר לכם את האהוב  
+#### שקופית 4 · סיפור · ואז
 
-#### שקופית 8 · דוגמאות ממוספרות
+**ואז גיליתי את הסוף**  
+בפעם השלישית ידעתי:  
+הארנב מוצא את אמא שלו.  
+בכל פעם, בדיוק בדף **האחרון**.  
 
-**7 חיבוק כשהוא נגמר**  
-הסיפור המוכר הוא מקום בטוח  
-״עומר, עוד חיבוק ונרדמים״  
+ומאז, זה הספר שלי.  
 
-#### שקופית 9 · סיכום
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**אותו סיפור כל ערב**  
-**זה מקום בטוח לי**  
-תעזרו לי לאהוב אותו  
-ועוד סיפור חדש?  
+*Picture:* The boy hugs the rabbit picture book to his chest with a big relieved smile, his parents smiling at each other behind him. A cosy Israeli living room in the evening: a low sofa, a plain warm cream wall, a floor lamp glowing in the corner. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+</div>
+
+#### שקופית 5 · סיפור · ומאז
+
+**״אפשר עוד פעם?״**  
+אני שואל, ואתם נאנחים.  
+אבל כשאני יודע מה בא,  
+הגוף שלי **נרגע** בשמיכה.  
+*מה יעזור לי:*  
+לקרוא לי אותו שוב, ועוד פעם.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy holds out the rabbit book to his parents with a pleading grin, while his father pretends to sigh dramatically. The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · ומאז
+
+**אני רואה דברים חדשים**  
+פעם אחת את הציפור על העץ.  
+פעם את הגזר בכיס של הארנב.  
+*מה יעזור לי:*  
+שתעצרו ותשאלו  
+״עומר, איפה הארנב מתחבא?״  
+ואני מוצא אותו **ראשון**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy jabs a finger at a hidden rabbit in the book's illustration, delighted, as his mother leans in with exaggerated surprise. The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ומאז
+
+**אני כבר זוכר אותו כולו**  
+אתם מתחילים משפט,  
+ואני גומר אותו בקול רם.  
+*מה יעזור לי:*  
+להחליף תפקידים.  
+אתם קוראים לי ספר חדש,  
+ואני ״קורא״ לכם את **הארנב**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits up in bed holding the rabbit book upside down, telling the story with big gestures, while his parents listen like an audience. The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ומאז
+
+**ואם נמאס לכם, זה בסדר**  
+*מה יעזור לי:*  
+שני ספרים לפני השינה, אחד חדש מכם  
+ואחד שאני בוחר.  
+ואולי ספר חדש  
+עם אותו ארנב, **בהרפתקה אחרת**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The father holds up two picture books, a new one and the rabbit one, and the boy points at both with a happy shout. The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · מה שמחזיר לי את פעם
+
+**ספר חדש, ליד הארנב**  
+כשהארנב מחכה לי על הכרית,  
+אני מוכן לשמוע גם סיפור **חדש**,  
+עם דף מפחיד ועם סוף שאני לא יודע.  
+
+כי אחריו מחכה לי, עוד פעם אחת, הארנב.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy listens to a new picture book with curious eyes, the rabbit book resting on his pillow beside him. The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · פנייה להורים
+
+**אני לא תקוע, אמא ואבא**  
+אני לומד את הסיפור עוד ועוד,  
+עד שהוא שלי.  
+
+ואז, כשהוא שלי,  
+אני **מוכן** לסיפור הבא.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy lies between his mother and father on the bed, all three looking at a new open book together, calm and cosy. The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה שהוא מבקש שוב את הסיפור  
 
-**הכותרות בלבד:** ״אפשר עוד פעם?״ אני שואל כל ערב ← אני יודע מה בא אחרי וזה מרגיע אותי ← 1 תקראו לי אותו שוב ← 2 תקראו בקול מצחיק ← 3 שני סיפורים בלילה ← 4 אותה דמות בסיפור חדש ← 5 אני מספר לכם את הישן 6 תנו לי להפוך דף ← 7 חיבוק כשהוא נגמר ← אותו סיפור כל ערב זה מקום בטוח לי ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sleeps hugging the rabbit book, his parents quietly leaving the room hand in hand. The boy's small Israeli bedroom at night: a low bed, a plain warm cream wall, a soft night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** ״אפשר עוד פעם?״ אני שואל כל ערב ← פעם הספר היה חדש ← ובכל ערב היה ספר אחר ← ואז גיליתי את הסוף ← ״אפשר עוד פעם?״ ← אני רואה דברים חדשים ← אני כבר זוכר אותו כולו ← ואם נמאס לכם, זה בסדר ← ספר חדש, ליד הארנב ← אני לא תקוע, אמא ואבא ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-״אפשר עוד פעם?״ אני שואל כל ערב ושבעה דברים יעזרו לי  
-תקראו לי אותו שוב בקול מצחיק  
-תקראו לי שני סיפורים ותנו לי לספר לכם את הישן  
-תנו לי להפוך דף ולחבק אתכם בסוף  
+אמא ואבא, כל ערב אני שואל ״אפשר עוד פעם?״, ויש לזה סיבה.  
+תקראו לי אותו שוב, ותשאלו איפה הארנב מתחבא.  
+תנו לי ״לקרוא״ לכם אותו, ואתם תקראו לי ספר חדש.  
+שני ספרים לפני השינה, אחד שלכם ואחד שלי.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרו את הפוסט לפעם הבאה שהוא מבקש שוב את הסיפור  
 
@@ -548,98 +923,173 @@
 
 **טענות**
 
-- שקופית 2 · אני יודע מה בא אחרי וזה מרגיע אותי · sourced_fact · University of Wollongong: young children commonly prefer familiarity; Scholastic: the favourite book is a security object. Imagined child voice.
-- שקופית 3 · תקראו לי אותו שוב · sourced_fact · University of Wollongong: repetition aids learning; children can focus on different details each time.
-- שקופית 4 · תקראו בקול מצחיק · sourced_fact · Scholastic: read in funny accents.
-- שקופית 5 · שני סיפורים לפני השינה · sourced_fact · Scholastic: read two books at bedtime.
-- שקופית 6 · סיפור חדש על אותה דמות · sourced_fact · Scholastic: find books with the same character or by the same author and illustrator.
-- שקופית 7 · אני מספר לכם את הישן ותנו לי להפוך דף · sourced_fact · Scholastic: you read a new book and have them read you their old favorite; turning the page is our example.
-- שקופית 8 · הסיפור המוכר הוא מקום בטוח · sourced_fact · Scholastic: that book is a security object for them.
-- שקופית 9 · אותו סיפור זה מקום בטוח לי · lumebook_wording · Our recap of slides 3 to 8; no promise of a result.
-- שקופית 10 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 5 · כשאני יודע מה בא אני נרגע, לקרוא לי אותו שוב · sourced_fact · University of Wollongong: a preference for familiarity rather than novelty is commonly reported at young ages; Scholastic: young kids thrive on repetition; the book is a security object.
+- שקופית 6 · אני רואה דברים חדשים, תעצרו ותשאלו · sourced_fact · University of Wollongong: repeated reading lets children notice other details and talk about the story.
+- שקופית 7 · אני יודע אותו בעל פה, ולהחליף תפקידים · sourced_fact · Scholastic: you read a new book and have them read you their old favorite; University of Wollongong: repeated exposure helps children encode and remember.
+- שקופית 8 · שני ספרים לפני השינה, וספר חדש עם אותו ארנב · sourced_fact · Scholastic: read two books at bedtime; find books with the same character.
+- שקופית 9 · כשהארנב מחכה לי אני מוכן גם לסיפור חדש · sourced_fact · Scholastic: read two books at bedtime, a new book and their old favorite; that book is a security object. Said as this child's own feeling.
+- שקופית 10 · אני לומד את הסיפור עוד ועוד עד שהוא שלי · sourced_fact · University of Wollongong: repetition aids learning complex information by increasing opportunities for it to be encoded. Said as this child's own feeling.
+- שקופית 11 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
+- שקופית 11 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-6 · כשהדף האחרון נגמר הלב שלי רוצה עוד: 6 דברים
+### kid-6 · כשהדף האחרון נגמר, הלב שלי רוצה עוד
 
 - **על מי:** רז (בת), לאמא
-- **זווית:** הילדה מספרת שכשהדף האחרון נגמר הלב שלה רוצה עוד, ומבקשת מאמא שישה דברים: לקרוא שוב, קול מצחיק לכל דמות, הסיפור ליד המיטה, להחליף תפקידים, סיפור על אותה דמות ושני סיפורים לפני השינה.
+- **זווית:** רז, בת 3, מראה לאמא יום אחד עם הספר על הארנבת: בבוקר הוא ליד המיטה, באוטו היא מספרת אותו לעצמה, בגן יש סיפור חדש, אחר הצהריים היא משחקת אותו, ובערב הדף האחרון נגמר. מה עוזר: לשחק איתה את הסיפור ולשאול מה קורה, שני ספרים, קול מצחיק לכל דמות, וסיפור חדש עם אותה ארנבת.
 - **למי:** אמהות לילדה בת 2 עד 4 שמתקשה להיפרד מהסיפור בסוף הדף האחרון ומבקשת להתחיל שוב.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** child-body-moment
 - **נושא:** רוצה את אותו סיפור שוב ושוב (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** רגע מוכר של סוף הספר עם הגוף (הלב) ושישה דברים ברורים. נוסחה שהשתמשנו בה לאחרונה, והמספר והערך על הכריכה מחזיקים אותה.
+- **למה זה עשוי להמיר:** יום אחד של רז לפי השעון, מהבוקר עם הספר על הכרית ועד הדף האחרון במיטה, כדי להראות למה בערב היא רוצה את המוכר, ואז מה עוזר. מבנה שונה מהמכתב ומהפעם ועכשיו של שתי האפשרויות האחרות בנושא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** יום אחד · 10 שקופיות
+
+#### שקופית 1 · שער
 
 **כשהדף האחרון נגמר**  
 **הלב שלי רוצה עוד**  
-6 דברים שיעזרו לי  
+יום אחד שלי, עם הסיפור שלי  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · 07:00, במיטה
 
-**כל ערב הסוף מגיע מהר**  
-**ואני לא מוכנה**  
-אני רוצה לחזור להתחלה  
-כי שם אני רגועה  
+**הספר ישן לידי**  
+פתחתי עיניים, והוא שם, על הכרית.  
+אני מחבקת אותו לפני הכל,  
+עוד לפני שאני קוראת לך, **אמא**.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תקראי לי אותו שוב**  
-כשאני שומעת אותו שוב  
-אני לומדת אותו יותר  
+*Picture:* The girl wakes up in bed and hugs a picture book with a drawn rabbit on the cover, smiling sleepily in the morning light. A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 קול מצחיק לכל דמות**  
-קול של דוב וקול של ציפור  
-ואני צוחקת  
+#### שקופית 3 · סיפור · 08:00, באוטו
 
-#### שקופית 5 · דוגמאות ממוספרות
+**אני מספרת אותו לעצמי**  
+בכיסא של האוטו, בשקט.  
+הארנבת הולכת, הולכת,  
+ונופלת לשלולית. **פלאץ׳**.  
+אני יודעת מה בא עכשיו,  
+ואני צוחקת לבד.  
 
-**3 הסיפור ליד המיטה שלי**  
-״רז, הוא כאן לידך״  
-ככה אני נרדמת עם משהו מוכר  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The girl sits in her car seat whispering to herself and miming a jump with her hands, giggling, her mother glancing back from the driver's seat. Inside a family car in the morning: soft daylight, a plain grey car ceiling above. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**4 תחליפי איתי תפקידים**  
-את קוראת סיפור חדש  
-ואני מספרת לך את האהוב  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 10:00, בגן
 
-**5 סיפור על אותה דמות**  
-אותה חברה שאני אוהבת  
-בהרפתקה אחרת  
+**בגן יש מלא דברים חדשים**  
+ילדים, רעש, שיר חדש במעגל.  
+כשהגננת מקריאה סיפור שלא הכרתי,  
+אני יושבת **קרוב** אליה,  
+ולא יודעת מה יקרה בדף הבא.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**6 שני סיפורים בלילה**  
-אחד שאני בוחרת  
-ואחד שאת בוחרת  
+*Picture:* The girl sits very close to the kindergarten teacher in a circle of small children, watching a new picture book with a serious, unsure face. An Israeli kindergarten room in the morning: low wooden shelves, a soft rug, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**הסוף מגיע וגם המשך**  
-**אני רגועה יותר**  
-תעזרי לי להיפרד מהדף האחרון  
-בחיבוק?  
+#### שקופית 5 · סיפור · 17:00, בסלון
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**אני משחקת את הסיפור**  
+הדובי הוא הארנבת, הכרית היא השלולית.  
+אני זוכרת את כל הדרך.  
+*מה יעזור לי:*  
+לשחק איתי ולשאול  
+״רז, מה קורה עכשיו?״ ואני **עונה**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl makes her teddy bear jump into a cushion on the rug, acting out the story, while her mother kneels beside her playing along. The family's Israeli living room in the late afternoon: a beige sofa, a soft rug, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 19:30, אחרי המקלחת
+
+**״היום שוב הארנבת?״**  
+את שואלת, ואני כבר מחייכת.  
+*מה יעזור לי:*  
+להגיד לי כבר עכשיו שיהיו שני ספרים.  
+אחד חדש שאת בוחרת,  
+ואחד שאני בוחרת, **שלי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl, wrapped in a hooded towel with wet hair, grins and nods while her mother holds up two picture books. A small Israeli bathroom in the evening: soft light, a plain pale wall, a fluffy bath mat. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 20:00, במיטה
+
+**את מקריאה בקול של ארנבת**  
+קול דק, קופצני, עם אף שמרחרח.  
+אני צוחקת, ואת צוחקת,  
+ואותו סיפור **מרגיש** קצת חדש.  
+*מה יעזור לי:*  
+קול מצחיק לכל דמות.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother twitches her nose like a rabbit while reading aloud, and the girl in lilac pyjamas laughs with her head thrown back. A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · 20:10, במיטה
+
+**הדף האחרון נגמר**  
+והלב שלי רוצה עוד.  
+*מה יעזור לי:*  
+סיפור חדש עם אותה ארנבת,  
+הרפתקה אחרת, אותה **חברה**.  
+וכשהאור נכבה, היא נשארת לידי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother closes the book on the last page and the girl reaches for it with a sad little pout, then the mother shows her another book with the same rabbit. A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · פנייה להורים
+
+**זה לא שאני לא אוהבת חדש**  
+אמא, יש לי יום מלא בדברים חדשים.  
+בערב, אני רוצה משהו **שאני מכירה**.  
+משהו שאני יודעת איך הוא נגמר.  
+
+ואז, עם הארנבת לידי,  
+אני מוכנה גם לסיפור חדש.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl snuggles against her mother on the bed, the rabbit book under her arm, listening to a new book with curious eyes. A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהיא מבקשת שוב את הסיפור  
 
-**הכותרות בלבד:** כשהדף האחרון נגמר הלב שלי רוצה עוד ← כל ערב הסוף מגיע מהר ואני לא מוכנה ← 1 תקראי לי אותו שוב ← 2 קול מצחיק לכל דמות ← 3 הסיפור ליד המיטה שלי ← 4 תחליפי איתי תפקידים ← 5 סיפור על אותה דמות ← 6 שני סיפורים בלילה ← הסוף מגיע וגם המשך אני רגועה יותר ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sleeps peacefully with the rabbit book beside her pillow, the night light glowing softly. A cosy Israeli child bedroom: a low bed, a plain warm cream wall, a night light on a shelf. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** כשהדף האחרון נגמר הלב שלי רוצה עוד ← הספר ישן לידי ← אני מספרת אותו לעצמי ← בגן יש מלא דברים חדשים ← אני משחקת את הסיפור ← ״היום שוב הארנבת?״ ← את מקריאה בקול של ארנבת ← הדף האחרון נגמר ← זה לא שאני לא אוהבת חדש ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-כשהדף האחרון נגמר הלב שלי רוצה עוד ושישה דברים יעזרו לי  
-תקראי לי אותו שוב, ותעשי קול מצחיק לכל דמות  
-תשאירי את הסיפור ליד המיטה שלי ותחליפי איתי תפקידים  
-תקראי לי שני סיפורים לפני השינה  
+אמא, כשהדף האחרון נגמר, הלב שלי רוצה עוד.  
+תשחקי איתי את הסיפור, ותשאלי מה קורה עכשיו.  
+תקריאי בקול מצחיק לכל דמות.  
+תני לי שני ספרים, אחד שלך ואחד שלי.  
+וסיפור חדש עם אותה ארנבת, שתישאר לידי.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא מבקשת שוב את הסיפור  
 
@@ -656,14 +1106,11 @@
 
 **טענות**
 
-- שקופית 2 · אני רוצה לחזור להתחלה כי שם אני רגועה · sourced_fact · University of Wollongong: young children commonly prefer familiarity; Scholastic: the favourite book is a security object. Imagined child voice.
-- שקופית 3 · תקראי לי אותו שוב · sourced_fact · University of Wollongong: repetition aids learning by increasing opportunities to encode the information.
-- שקופית 4 · קול מצחיק לכל דמות · sourced_fact · Scholastic: read in funny accents.
-- שקופית 5 · הסיפור ליד המיטה שלי · sourced_fact · Scholastic: that book is a security object for them.
-- שקופית 6 · תחליפי איתי תפקידים · sourced_fact · Scholastic: you read a new book and have them read you their old favorite.
-- שקופית 7 · סיפור על אותה דמות · sourced_fact · Scholastic: find books with the same character or by the same author and illustrator.
-- שקופית 8 · שני סיפורים לפני השינה · sourced_fact · Scholastic: read two books at bedtime.
-- שקופית 9 · הסוף מגיע וגם המשך · lumebook_wording · Our recap of slides 3 to 8; no promise of a result.
+- שקופית 5 · אני זוכרת את כל הדרך, לשחק איתי ולשאול מה קורה · sourced_fact · University of Wollongong: repeated exposure helps children encode and remember; repeated reading lets children talk about the story. Playing it out is our wording.
+- שקופית 6 · שני ספרים, אחד חדש שאת בוחרת ואחד שלי · sourced_fact · Scholastic: read two books at bedtime.
+- שקופית 7 · קול מצחיק לכל דמות · sourced_fact · Scholastic: read in funny accents.
+- שקופית 8 · סיפור חדש עם אותה ארנבת, והיא נשארת לידי · sourced_fact · Scholastic: find books with the same character; that book is a security object for them.
+- שקופית 9 · בערב אני רוצה משהו שאני מכירה · sourced_fact · University of Wollongong: a preference for familiarity rather than novelty is commonly reported at young ages; Scholastic: young kids thrive on repetition. Said as this child's own feeling.
 - שקופית 10 · סיפורים על רגעים קשים יכולים לעזור · sourced_fact · Reading stories about feelings is one of the ways Zero To Three suggests to help a child with big feelings. The page is about empathy, not about losing games; used only as support for reading stories about a hard moment. No promise of a result.
 - שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 

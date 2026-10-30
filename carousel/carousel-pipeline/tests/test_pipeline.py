@@ -823,6 +823,20 @@ class Review(unittest.TestCase):
 
 
 class Production(unittest.TestCase):
+    """The paid fal flow, as it ran up to 30 Oct 2026; production.json now says chatgpt (tests/test_chatgpt_pictures.py),
+    so these tests switch the backend to fal for themselves."""
+
+    def setUp(self):
+        self.cfg_dir = Path(tempfile.mkdtemp())
+        self.cfg = self.cfg_dir / "production.json"
+        self.cfg.write_text(json.dumps({"picture_backend": "fal"}), encoding="utf-8")
+        self.backend = mock.patch.object(lib, "PRODUCTION_CONFIG", self.cfg)
+        self.backend.start()
+
+    def tearDown(self):
+        self.backend.stop()
+        shutil.rmtree(self.cfg_dir, ignore_errors=True)
+
     def prepare(self, option="expert-1", extra=()):
         out = Path(tempfile.mkdtemp())
         argv = ["prepare_fal_jobs.py", str(FIXTURE), option, "--out-root", str(out), "--no-history", *extra]
@@ -909,6 +923,7 @@ class Production(unittest.TestCase):
     def fal(self, run, *args, env=None):
         e = dict(os.environ)
         e.pop("FAL_KEY", None)
+        e["CAROUSEL_PRODUCTION_CONFIG"] = str(self.cfg)   # picture_backend fal, for this test only
         return subprocess.run([sys.executable, str(SCRIPTS / "fal_generate.py"), str(run), *args], capture_output=True, text=True, env=e)
 
     def test_slides_run_in_parallel_and_budget_is_checked_first(self):

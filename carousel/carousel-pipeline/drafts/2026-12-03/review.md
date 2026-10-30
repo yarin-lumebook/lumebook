@@ -10,89 +10,144 @@
 
 ## הילד מספר להורים
 
-### kid-1 · אמא ואבא 8 דברים שיעזרו לי לא לוותר
+### kid-1 · אמא ואבא, 5 דברים שיעזרו לי לא לוותר
 
 - **על מי:** אלון (בן), לשני ההורים
-- **זווית:** הילד מבקש מההורים שמונה דברים מעשיים לרגע שבו הוא רוצה לוותר: לראות שקשה, לחלק לחלקים, הפסקה, לאמן, חמש דקות, לפרגן על המאמץ, לדבר אחרי ההרגעה ולתכנן ניסיון נוסף.
+- **זווית:** אלון, בן 5, רוצה לזרוק הכל כשהמגדל נופל שוב. הוא מבקש מההורים חמישה דברים: להגיד שהם רואים שקשה, לחלק לחלק קטן, הפסקה של חיבוק וספר ואז לחזור, לשאול מה עוד אפשר לנסות בלי לבנות במקומו, ומילה על המאמץ ולא רק על התוצאה. בסוף: לדבר אחרי שנרגע על מה ננסה מחר.
 - **למי:** הורים לילד בן 4 עד 7 שזורק משימה ברגע הראשון שקשה לו.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** child-numbered-ask
 - **נושא:** מוותר מהר כשמשהו קשה (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** מספר וערך על הכריכה (8 דברים שיעזרו לא לוותר), הילד מביט ישר לעדשה עם פרצוף מבואס. שקופית 2 מסבירה שזה תסכול ושאפשר לאמן, 3 עד 8 נותנות שמונה דברים ממוספרים, 9 מסכמת לצילום מסך.
+- **למה זה עשוי להמיר:** רשימה קצרה של חמישה דברים, כל אחד בצורה אחרת, לרגע שהמגדל נופל. הכריכה שומרת על הבקשה הישירה מאמא ואבא.
 
-#### שקופית 1 · פתיח
+- **מבנה:** רשימה קצרה · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **אמא ואבא**  
-**8 דברים שיעזרו לי**  
+**5 דברים שיעזרו לי**  
 **לא לוותר**  
-כשקשה לי  
+כשקשה לי, ואני רוצה לזרוק הכל  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**כשקשה לי**  
-**אני רוצה לוותר**  
-זה מתסכל אותי.  
-אתם יכולים לאמן אותי צעד צעד.  
+**המגדל נפל, שוב**  
+בניתי אותו גבוה, כמעט עד השולחן.  
+ואז קובייה אחת זזה, והכל נפל.  
+אני בועט בקוביות וצועק ״אני לא יכול!״  
+אבל בפנים אני **רוצה** להצליח.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תראו שקשה לי**  
-**2 תחלקו לחלקים קטנים**  
-״אלון, אני רואה כמה זה מתסכל״  
-קודם רק פינות הפאזל  
+*Picture:* The boy kicks at a pile of fallen wooden blocks on the rug with an angry, teary face, while his parents look up from the sofa. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 הפסקה קטנה לחיבוק**  
-אחרי זה אני חוזר לנסות  
-עם כוח חדש  
+#### שקופית 3 · סיפור · 1: לראות שקשה לי
 
-#### שקופית 5 · דוגמאות ממוספרות
+**קודם, תגידו שאתם רואים**  
+כשאומרים לי ״זה קל, נו״,  
+אני רק כועס יותר.  
+כשאתם אומרים ״אני רואה שזה קשה לך״,  
+משהו בי נרגע, ואני מוכן **לשמוע**.  
 
-**4 תהיו המאמנים שלי**  
-תשאלו ״מה אפשר לנסות?״  
-ולא תעשו במקומי  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* His mother sits down on the rug next to the boy and puts a gentle hand on his back, looking at the fallen blocks with him. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 חמש דקות של ניסיון**  
-**6 תפרגנו על המאמץ**  
-״ניסית שוב ושוב״  
-לא רק ״איזה יפה יצא״  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 2: חלק קטן
 
-**7 נדבר אחרי שאירגע**  
-כשאני מוכן נבין מה היה קשה  
-ומה אפשר לשנות  
+**רק את השורה הראשונה**  
+לא כל המגדל.  
+רק שלוש קוביות.  
+ואז עוד שלוש.  
+פתאום זה **אפשרי**.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**8 ננסה שוב אחרת ביחד**  
-מה נעשה אחרת  
-בפעם הבאה?  
+*Picture:* The boy carefully stacks just three wooden blocks on the rug, his tongue out in concentration, his father kneeling beside him. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**זה מה שיעזור לי**  
-**להמשיך לנסות**  
-תראו, תחלקו, תנו הפסקה.  
-תעזרו לי להמשיך?  
+#### שקופית 5 · סיפור · 3: הפסקה של חיבוק
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**מה עושים כשאני מתפוצץ?**  
+אני כבר זורק, צועק, בוכה.  
+*מה יעזור לי:*  
+הפסקה קטנה. חיבוק על הספה, ספר אחד,  
+ואחר כך חוזרים לקוביות **עם כוח חדש**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy snuggles between his parents on the sofa looking at a picture book together, the blocks waiting on the rug. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 4: לאמן, לא לבנות
+
+**אל תבנו במקומי**  
+כשאתם בונים לי, זה כבר לא שלי.  
+*מה יעזור לי לשמוע:*  
+▪ ״מה עוד אפשר לנסות, אלון?״  
+ואולי להראות לי דרך **אחת**,  
+ולתת לי להמשיך לבד.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* His father points at a wide flat block as the base while the boy places it himself, his father's hands resting on his knees. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 5: מילה על הניסיון
+
+**״ניסית שוב ושוב״**  
+*מה אתם רואים:*  
+מגדל עקום, שעוד לא גמור.  
+*מה קורה לי בפנים:*  
+אני מחכה לשמוע שראיתם **שניסיתי**.  
+לא רק ״איזה יפה יצא״.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy stands proudly next to a crooked half-built block tower while both parents give him a warm thumbs up. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+**אני לא מוותר, קשה לי**  
+ואחרי שנרגעתי, תשאלו אותי  
+מה היה הכי קשה, ומה ננסה מחר.  
+ככה אני חוזר לקוביות,  
+ולא **בורח** מהן.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In pyjamas, the boy talks with his mother on his bed in the evening, both looking at the block tower on the floor. The boy's small Israeli bedroom in the evening: a low bed, a block tower on the floor, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה שהוא רוצה לוותר  
 
-**הכותרות בלבד:** אמא ואבא 8 דברים שיעזרו לי לא לוותר ← כשקשה לי אני רוצה לוותר ← 1 תראו שקשה לי 2 תחלקו לחלקים קטנים ← 3 הפסקה קטנה לחיבוק ← 4 תהיו המאמנים שלי ← 5 חמש דקות של ניסיון 6 תפרגנו על המאמץ ← 7 נדבר אחרי שאירגע ← 8 ננסה שוב אחרת ביחד ← זה מה שיעזור לי להמשיך לנסות ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his parents admire a tall finished block tower together on the rug, the boy beaming. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא ואבא 5 דברים שיעזרו לי לא לוותר ← המגדל נפל, שוב ← קודם, תגידו שאתם רואים ← רק את השורה הראשונה ← מה עושים כשאני מתפוצץ? ← אל תבנו במקומי ← ״ניסית שוב ושוב״ ← אני לא מוותר, קשה לי ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-אמא ואבא, כשקשה לי אני רוצה לוותר.  
-תגידו לי שאתם רואים כמה זה מתסכל.  
-תחלקו לי את המשימה לחלקים קטנים.  
-תנו לי הפסקה עם חיבוק ואז אחזור לנסות.  
-תפרגנו לי על המאמץ ולא רק על התוצאה.  
+אמא ואבא, כשהמגדל נופל שוב, אני רוצה לזרוק הכל.  
+תגידו שאתם רואים שקשה לי, ותחלקו לי לחלק קטן.  
+תנו לי הפסקה של חיבוק, ואל תבנו במקומי.  
+ותגידו לי שראיתם שניסיתי, לא רק מה יצא.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרו את הפוסט לפעם הבאה שהוא רוצה לוותר  
 
@@ -109,100 +164,168 @@
 
 **טענות**
 
-- שקופית 1 · שמונה דברים שיעזרו לא לוותר · sourced_fact · The eight things are our grouping of advice from ZERO TO THREE and Child Mind Institute. No promise of a result.
-- שקופית 2 · אפשר לאמן אותי צעד צעד · sourced_fact · ZERO TO THREE: become the child's coach and help them think through solutions without doing the work for them. Imagined child voice.
-- שקופית 3 · לראות שקשה ולחלק לחלקים קטנים · sourced_fact · ZERO TO THREE: appreciate how hard it can be; break the challenge into manageable parts. Child Mind Institute: let them know you see how frustrated they are. The jigsaw corners are our example.
-- שקופית 4 · הפסקה קטנה לחיבוק · sourced_fact · ZERO TO THREE: offer time away for a hug and then return with new energy.
-- שקופית 5 · תהיו המאמנים שלי · sourced_fact · ZERO TO THREE: become the coach and help think through solutions without doing the work.
-- שקופית 6 · חמש דקות של ניסיון ופרגון על המאמץ · sourced_fact · Child Mind Institute: short bursts of difficult work; praising effort instead of results. The five minutes follow the page's own example.
-- שקופית 7 · נדבר אחרי שאירגע · sourced_fact · Child Mind Institute: when your kid is ready, talk about what went wrong.
-- שקופית 8 · ננסה שוב אחרת ביחד · sourced_fact · Child Mind Institute: come up with what they could do next time for a better chance at success.
-- שקופית 9 · המסכם: לראות, לחלק, להפסיק, לפרגן · lumebook_wording · Our recap of slides 3 to 8.
-- שקופית 10 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 1 · 5 דברים שיעזרו לי לא לוותר · sourced_fact · ZERO TO THREE: strategies for a child who is easily frustrated; Child Mind Institute: managing frustration without blowing up or giving up is an essential skill. The five things are the slides below.
+- שקופית 3 · אני רואה שזה קשה לך · sourced_fact · ZERO TO THREE: when your child falls apart, let her know you appreciate how hard it can be; Child Mind Institute: let them know you see how frustrated they are.
+- שקופית 4 · רק שלוש קוביות, ואז עוד שלוש · sourced_fact · ZERO TO THREE: break the challenge into manageable parts; Child Mind Institute: small bursts of difficult work.
+- שקופית 5 · הפסקה, חיבוק וספר, וחוזרים עם כוח חדש · sourced_fact · ZERO TO THREE: offer time away from the frustrating task for a hug or a cozy snuggle with a book, then return to the challenge with new energy.
+- שקופית 6 · ״מה עוד אפשר לנסות?״ ודרך אחת, בלי לבנות במקומי · sourced_fact · ZERO TO THREE: become her coach, help your child think through solutions without doing the work for her; suggest or demonstrate strategies.
+- שקופית 7 · ראיתי שניסית, לא רק איזה יפה · sourced_fact · Child Mind Institute: praising your child's efforts instead of focusing on results helps them feel more comfortable trying things.
+- שקופית 8 · אחרי שנרגעתי, מה היה קשה ומה ננסה מחר · sourced_fact · Child Mind Institute: when your kid is ready, talk about what went wrong and what they could do next time.
+- שקופית 9 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-2 · 17:40 אני זורקת את הפאזל
+### kid-2 · 17:40, אני זורקת את הפאזל
 
 - **על מי:** טליה (בת), לאמא
-- **זווית:** הילדה מספרת על רגע מדויק, 17:40 מול הפאזל, ומבקשת מאמא שמונה דברים: לשבת לידה, לתת שם לתסכול, לחלק, לשאול, חמש דקות, לפרגן, לחכות ולתכנן.
+- **זווית:** טליה, בת 5, מאטה לאמא את הדקה של 17:40: חלק אחד לא נכנס, ״אני לא יכולה!״, החלקים עפים, ואז אמא מתיישבת לידה בלי לסדר ובלי לכעוס, אומרת ״זה מרגיז״, נותנת חיבוק ושואלת מה עוד אפשר לנסות. בערב: להתחיל מהפינות, ולדבר אחרי שנרגעה על מה ננסה אחרת.
 - **למי:** אמהות לילדה בת 4 עד 6 שזורקת פאזל או משחק ברגע שהחלק לא נכנס.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** moment-time
 - **נושא:** מוותר מהר כשמשהו קשה (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** שעה מדויקת וסצנה מוכרת על הכריכה, והערך (8 דברים) בגוף הכריכה. הילדה מסתכלת ישר לעדשה בפה פעור. שקופיות 3 עד 8 נותנות שמונה דברים לרגע הזה.
+- **למה זה עשוי להמיר:** דקה אחת מואטת מראה לאמא מה קורה בתוך הילדה רגע לפני שהפאזל עף, ומה מחזיר אותה. הכריכה שומרת על השעה והפאזל.
 
-#### שקופית 1 · פתיח
+- **מבנה:** דקה אחת · 10 שקופיות
+
+#### שקופית 1 · שער
 
 **17:40**  
+**אני זורקת**  
+**את הפאזל**  
+דקה אחת מול הפאזל, מבפנים  
+
+#### שקופית 2 · סיפור · קודם
+
+**פאזל של חמישים חלקים**  
+קיבלתי אותו מסבתא, עם חד קרן.  
+ישבתי על השטיח הרבה זמן,  
+וכבר יש לי את הקרן ואת **הזנב**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl kneels on the rug over a half-finished jigsaw puzzle of a unicorn, proudly pressing a piece into place. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 3 · סיפור · הדקה מתחילה
+
+**חלק אחד לא נכנס**  
+אני מסובבת אותו, לוחצת, מסובבת שוב.  
+הוא לא נכנס.  
+הפנים שלי מתחממות,  
+והידיים **לוחצות** חזק מדי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl presses a puzzle piece hard with both thumbs, her face red and scrunched, her braids swinging. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 4 · סיפור · עשר שניות
+
+**״אני לא יכולה!״**  
+אני צועקת את זה לכל הבית.  
+*מה את רואה:*  
+ילדה שמוותרת.  
+*מה קורה לי בפנים:*  
+אני רוצה כל כך להצליח, שזה **כואב**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl shouts with her fists clenched and her head thrown back, the puzzle in front of her. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 5 · סיפור · עשרים שניות
+
 **אני זורקת את הפאזל**  
-8 דברים שיעזרו לי להמשיך  
+החלקים עפים על השטיח.  
+אני בוכה, ואת באה מהמטבח.  
+אני מחכה שתגידי ״לא זורקים!״  
+או שתסדרי **במקומי**.  
 
-#### שקופית 2 · ההסבר
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**בדיוק כשהחלק לא נכנס**  
-**אני רוצה לוותר**  
-אני לא באמת רוצה.  
-אני צריכה שתעזרי לי.  
+*Picture:* Puzzle pieces fly across the rug as the girl sweeps them away in tears, her mother appearing in the kitchen doorway. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 3 · דוגמאות ממוספרות
+</div>
 
-**1 תשבי לידי בלי לתקן**  
-**2 תגידי מה את רואה**  
-״החלק לא נכנס וזה מרגיז״  
+#### שקופית 6 · סיפור · שלושים שניות
 
-#### שקופית 4 · דוגמאות ממוספרות
+**ואת מתיישבת לידי**  
+את לא מסדרת ולא כועסת.  
+את רק אומרת:  
+▪ ״טליה, החלק לא נכנס, וזה מרגיז.״  
+ואני מרגישה שמישהו **מבין**.  
 
-**3 קודם רק חלקי הפינה**  
-תחלקי לי את הפאזל  
-למשימות קטנות  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 5 · דוגמאות ממוספרות
+*Picture:* Her mother sits down on the rug beside the girl among the scattered pieces, calm, one arm around her. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**4 תשאלי מה לנסות**  
+</div>
+
+#### שקופית 7 · סיפור · ארבעים שניות
+
+**חיבוק, ואז שוב**  
+אני נשענת עלייך רגע, בלי פאזל.  
+ואחר כך את שואלת:  
 ״מה עוד אפשר לנסות?״  
-ולא לעשות במקומי  
+ואני **מסובבת** את החלק לצד השני.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**5 חמש דקות ניסיון בלבד**  
-אני מנסה בקצרה  
-ובלי ללחוץ שאסיים  
+*Picture:* The girl leans against her mother for a hug, then turns a puzzle piece around in her fingers, curious again. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**6 תפרגני לי על המאמץ**  
-**7 תחכי שאירגע ואז נדבר**  
-״טליה, ניסית שוב ושוב״  
+#### שקופית 8 · סיפור · חמישים שניות
 
-#### שקופית 8 · דוגמאות ממוספרות
+**הוא נכנס!**  
+אני צועקת שוב, אבל הפעם משמחה.  
+ואת לא אומרת ״איזה פאזל יפה״.  
+את אומרת ״ניסית שוב ושוב.״  
+ואני **גאה** בעצמי.  
 
-**8 נתכנן ניסיון חדש**  
-אני אומרת מה היה קשה  
-ואת עוזרת לי לתכנן  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 9 · סיכום
+*Picture:* The girl throws her arms up in joy as the piece clicks into place, her mother smiling and clapping softly beside her. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**ככה אני נשארת**  
-**עם הפאזל**  
-תשבי איתי, תחלקי ותפרגני.  
-תעזרי לי להמשיך?  
+</div>
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+#### שקופית 9 · סיפור · בערב
+
+**מה יעזור לי מחר**  
+*מה יעזור לי:*  
+להתחיל רק מהפינות, חלק קטן כל פעם.  
+ואחרי שנרגעתי, לדבר על מה היה קשה,  
+ומה ננסה **אחרת** בפעם הבאה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In pyjamas, the girl and her mother sit on the sofa sorting the corner pieces of the puzzle into a small bowl, relaxed. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהיא רוצה לוותר  
 
-**הכותרות בלבד:** 17:40 אני זורקת את הפאזל ← בדיוק כשהחלק לא נכנס אני רוצה לוותר ← 1 תשבי לידי בלי לתקן 2 תגידי מה את רואה ← 3 קודם רק חלקי הפינה ← 4 תשאלי מה לנסות ← 5 חמש דקות ניסיון בלבד ← 6 תפרגני לי על המאמץ 7 תחכי שאירגע ואז נדבר ← 8 נתכנן ניסיון חדש ← ככה אני נשארת עם הפאזל ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother look down together at the finished unicorn puzzle on the rug, the girl glowing with pride. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** 17:40 אני זורקת את הפאזל ← פאזל של חמישים חלקים ← חלק אחד לא נכנס ← ״אני לא יכולה!״ ← אני זורקת את הפאזל ← ואת מתיישבת לידי ← חיבוק, ואז שוב ← הוא נכנס! ← מה יעזור לי מחר ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-17:40 ואני זורקת את הפאזל.  
-תשבי איתי ותגידי שאת רואה שזה מרגיז.  
-תחלקי לי את הפאזל לחלקים קטנים.  
-תני לי חיבוק קטן ואז אנסה שוב.  
-תפרגני לי על הניסיון, גם אם לא סיימתי.  
+אמא, בדיוק כשהחלק לא נכנס, אני רוצה לזרוק הכל.  
+תשבי לידי, ותגידי שאת רואה שזה מרגיז.  
+תני לי חיבוק, ואז תשאלי מה עוד אפשר לנסות.  
+ותגידי לי שראית שניסיתי, לא רק שיצא יפה.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא רוצה לוותר  
 
@@ -219,101 +342,153 @@
 
 **טענות**
 
-- שקופית 1 · שמונה דברים שיעזרו להמשיך · sourced_fact · The eight things are our grouping of advice from ZERO TO THREE and Child Mind Institute. No promise of a result.
-- שקופית 2 · אפשר לאמן אותי צעד צעד · sourced_fact · ZERO TO THREE: become the child's coach and help them think through solutions without doing the work for them. Imagined child voice.
-- שקופית 3 · לשבת לידי ולהגיד מה את רואה · sourced_fact · ZERO TO THREE: let her know you appreciate how hard it can be; Child Mind Institute: let them know you see how frustrated they are. The sentence is our wording.
-- שקופית 4 · קודם רק חלקי הפינה · sourced_fact · ZERO TO THREE: break the challenge into manageable parts. The corner pieces are our example.
-- שקופית 5 · תשאלי מה לנסות · sourced_fact · ZERO TO THREE: coach and help the child think through solutions without doing the work for her.
-- שקופית 6 · חמש דקות ניסיון בלבד · sourced_fact · Child Mind Institute: short bursts of difficult work, with the page's own example of five minutes.
-- שקופית 7 · לפרגן על המאמץ ולדבר אחרי ההרגעה · sourced_fact · Child Mind Institute: praise effort instead of results; when your kid is ready, talk about what went wrong.
-- שקופית 8 · נתכנן ניסיון חדש · sourced_fact · Child Mind Institute: come up with what they could do the next time.
-- שקופית 9 · המסכם: לראות, לחלק, להפסיק, לפרגן · lumebook_wording · Our recap of slides 3 to 8.
+- שקופית 1 · 17:40, אני זורקת את הפאזל · sourced_fact · ZERO TO THREE: a child who is easily frustrated may fall apart; Child Mind Institute: managing frustration without blowing up or giving up is an essential skill. The time and the puzzle are this child's story.
+- שקופית 4 · אני רוצה כל כך להצליח, שזה כואב · sourced_fact · Child Mind Institute: kids need the time to feel their frustration and disappointment. Said as this child's inside, not about every child.
+- שקופית 6 · ״החלק לא נכנס, וזה מרגיז״, בלי לסדר במקומי · sourced_fact · ZERO TO THREE: let her know you appreciate how hard it can be, help without doing the work for her; Child Mind Institute: let them know you see how frustrated they are.
+- שקופית 7 · חיבוק, ואז ״מה עוד אפשר לנסות?״ · sourced_fact · ZERO TO THREE: offer time away for a hug, then return with new energy; become her coach and help her think through solutions.
+- שקופית 8 · ״ניסית שוב ושוב״ ולא ״איזה יפה״ · sourced_fact · Child Mind Institute: praising efforts instead of results helps kids feel more comfortable trying.
+- שקופית 9 · רק מהפינות, ואחרי שנרגעתי לדבר על מה ננסה אחרת · sourced_fact · ZERO TO THREE: break the challenge into manageable parts; Child Mind Institute: when your kid is ready, talk about what went wrong and how they might do things differently next time.
 - שקופית 10 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
 - שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-3 · אמא אל תעשי במקומי 8 דברים שעוזרים לי
+### kid-3 · אמא, אל תעשי במקומי כשקשה לי
 
 - **על מי:** תומר (בן), לאמא
-- **זווית:** הילד מבקש מאמא לא לפתור במקומו אלא לעזור לו לחשוב: משפטים וצעדים שמחזיקים אותו בתוך הקושי.
+- **זווית:** תומר, בן 5, כותב לאמא מכתב על השרוכים: הוא רוצה ללמוד לבד. מה עוזר: להגיד שזה נראה מתסכל, לשאול מה תקוע או להראות פעם אחת לאט על הנעל שלה, לחלק ללולאה אחת קודם, חיבוק קטן כשהוא נשבר, להגיד שראתה שניסה, ולדבר בערב על מה ננסה מחר.
 - **למי:** אמהות לילד בן 4 עד 7 שמיד מרים ידיים או מבקש שיעשו במקומו.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** child-dont
 - **נושא:** מוותר מהר כשמשהו קשה (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** פנייה ישירה לאמא וערך ברור (8 דברים) על הכריכה. הילד מביט ישר לעדשה בהבעה נחושה. שקופית 2 מבדילה בין לעשות במקומי לבין לעזור לי, ושקופיות 3 עד 8 נותנות את המשפטים והצעדים.
+- **למה זה עשוי להמיר:** מכתב מהילד הופך את ה״אני אעשה לך״ של הבוקר לבקשה ללמוד לבד, וכל שקופית היא צעד אחד. הכריכה שומרת על ה״אל תעשי במקומי״.
 
-#### שקופית 1 · פתיח
+- **מבנה:** מכתב · 9 שקופיות
 
-**אמא אל תעשי במקומי**  
-**8 דברים שעוזרים לי**  
-כשקשה  
+#### שקופית 1 · שער
 
-#### שקופית 2 · ההסבר
+**אמא, אל תעשי**  
+**במקומי**  
+**כשקשה לי**  
+מכתב על הנעליים שלי  
 
-**אני לא רוצה שתעשי**  
-**אני רוצה שתעזרי**  
-מי שעוזרת לי לחשוב  
-מלמדת אותי להמשיך.  
+#### שקופית 2 · סיפור
 
-#### שקופית 3 · דוגמאות ממוספרות
+**אמא שלי,**  
+כל בוקר אני מתיישב עם הנעליים,  
+ואת כבר מתכופפת וקושרת לי.  
+מהר, יפה, בלי בעיות.  
+אבל אז הן **שלך**, לא שלי.  
+ואני רוצה ללמוד לבד.  
 
-**1 תגידי לי שקשה**  
-**2 תשאלי מה תקוע**  
-״תומר, זה נראה מתסכל״  
-״איזה חלק הכי תקוע?״  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* The boy sits on the shoe bench while his mother quickly ties his sneaker laces for him; he watches with a small frown. The family's sunny Israeli apartment entrance hall: a wooden shoe bench, a woven mat, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**3 תראי לי דרך אחת**  
-״אפשר לנסות מהפינה״  
-ואז תני לי להמשיך  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור
 
-**4 תחלקי לי לחלקים**  
-״רק שורה אחת קודם״  
-ואחר כך עוד אחת  
+כשהשרוך מתבלבל לי,  
+אני רוצה לזרוק את הנעל.  
+לפני שאת עוזרת, תגידי לי  
+״תומר, זה נראה **מתסכל**.״  
+ככה אני יודע שאת איתי.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**5 תני לי הפסקה**  
-חיבוק קטן בצד  
-ואז אני חוזר עם כוח  
+*Picture:* The boy holds up a tangled shoelace with a frustrated face, his mother kneeling in front of him with a kind look. The family's sunny Israeli apartment entrance hall: a wooden shoe bench, a woven mat, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**6 תפרגני על הניסיון**  
-**7 תחכי שאירגע**  
-״ראיתי שניסית שוב״  
-ואז נדבר מה לשנות  
+#### שקופית 4 · סיפור
 
-#### שקופית 8 · דוגמאות ממוספרות
+ואל תקשרי במקומי.  
+תשאלי אותי ״איזה חלק תקוע?״  
+או תראי לי פעם אחת, לאט,  
+על הנעל **שלך**.  
+ואז תני לי לנסות על שלי.  
 
-**8 תתכנני איתי שוב**  
-״מה נעשה אחרת מחר?״  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 9 · סיכום
+*Picture:* The mother slowly ties her own shoe on the bench while the boy watches closely beside her, his own untied sneaker on his lap. The family's sunny Israeli apartment entrance hall: a wooden shoe bench, a woven mat, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**ככה אני ממשיך**  
-**גם כשקשה**  
-תגידי, תשאלי, תראי ותחלקי.  
-תעזרי לי להמשיך?  
+</div>
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+#### שקופית 5 · סיפור
+
+ותחלקי לי את זה לחלקים.  
+קודם רק לולאה אחת.  
+מחר, לולאה ועוד אחת.  
+כשזה **קטן**, אני לא מוותר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy proudly holds up a single loop of shoelace between his fingers, his mother smiling beside him. The family's sunny Israeli apartment entrance hall: a wooden shoe bench, a woven mat, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור
+
+ואם אני כבר בוכה,  
+אל תגידי ״נו, זה קל״.  
+תני לי חיבוק קטן בצד,  
+ואני אחזור לנעל  
+עם **כוח** חדש.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother hugs the teary boy on the shoe bench, the sneaker resting on the mat beside them. The family's sunny Israeli apartment entrance hall: a wooden shoe bench, a woven mat, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור
+
+וכשהצלחתי, גם אם עקום,  
+תגידי ״ראיתי שניסית שוב ושוב״.  
+אני רוצה שתראי כמה ניסיתי,  
+לא רק כמה **יפה** יצא.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy shows off a crooked but finished bow on his sneaker, beaming, while his mother gives him a high five. The family's sunny Israeli apartment entrance hall: a wooden shoe bench, a woven mat, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור
+
+ואם היום לא הצלחתי בכלל,  
+נדבר על זה בערב, כשאני רגוע.  
+מה היה קשה, ומה ננסה מחר.  
+אני יכול, אמא. רק תני לי.  
+
+**אוהב, תומר**  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In pyjamas, the boy sits on his bed with his mother in the evening, a sneaker in his lap, both talking calmly. The boy's small Israeli bedroom in the evening: a low bed, a soft lamp, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהוא רוצה לוותר  
 
-**הכותרות בלבד:** אמא אל תעשי במקומי 8 דברים שעוזרים לי ← אני לא רוצה שתעשי אני רוצה שתעזרי ← 1 תגידי לי שקשה 2 תשאלי מה תקוע ← 3 תראי לי דרך אחת ← 4 תחלקי לי לחלקים ← 5 תני לי הפסקה ← 6 תפרגני על הניסיון 7 תחכי שאירגע ← 8 תתכנני איתי שוב ← ככה אני ממשיך גם כשקשה ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy runs out of the front door in his own tied sneakers, his mother laughing behind him. The family's sunny Israeli apartment entrance hall: a wooden shoe bench, a woven mat, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא, אל תעשי במקומי כשקשה לי ← אמא שלי, ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אמא, אל תעשי במקומי, תעזרי לי.  
-תגידי לי שקשה ושאת רואה את זה.  
-תשאלי איזה חלק תקוע ותני לי לחשוב.  
-תראי לי דרך אחת ותני לי להמשיך.  
-תפרגני לי כשניסיתי שוב.  
+אמא, כשקשה לי עם השרוכים, אל תקשרי במקומי.  
+תגידי שזה נראה מתסכל, ותראי לי פעם אחת לאט.  
+תחלקי לי לחלקים קטנים, ותני לי חיבוק כשאני נשבר.  
+ותגידי לי שראית שניסיתי, גם אם יצא עקום.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שהוא רוצה לוותר  
 
@@ -330,100 +505,159 @@
 
 **טענות**
 
-- שקופית 1 · שמונה דברים שעוזרים כשקשה · sourced_fact · The eight things are our grouping of advice from ZERO TO THREE and Child Mind Institute. No promise of a result.
-- שקופית 2 · אפשר לאמן אותי צעד צעד · sourced_fact · ZERO TO THREE: become the child's coach and help them think through solutions without doing the work for them. Imagined child voice.
-- שקופית 3 · להגיד שקשה ולשאול מה תקוע · sourced_fact · ZERO TO THREE: appreciate how hard it can be, then coach and help the child think through solutions. Child Mind Institute: see how frustrated they are. The sentences are our wording.
-- שקופית 4 · תראי לי דרך אחת · sourced_fact · ZERO TO THREE: suggest or demonstrate strategies for solving the problem.
-- שקופית 5 · תחלקי לי לחלקים · sourced_fact · ZERO TO THREE: break the challenge into manageable parts.
-- שקופית 6 · תני לי הפסקה · sourced_fact · ZERO TO THREE: offer time away from the frustrating task for a hug, then return with new energy.
-- שקופית 7 · לפרגן על הניסיון ולדבר אחרי ההרגעה · sourced_fact · Child Mind Institute: praise effort; when your kid is ready, talk about what went wrong.
-- שקופית 8 · תתכנני איתי שוב · sourced_fact · Child Mind Institute: come up with what they could do the next time.
-- שקופית 9 · המסכם: לראות, לחלק, להפסיק, לפרגן · lumebook_wording · Our recap of slides 3 to 8.
-- שקופית 10 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 1 · אל תעשי במקומי כשקשה לי · sourced_fact · ZERO TO THREE: help your child think through solutions without doing the work for her.
+- שקופית 3 · ״זה נראה מתסכל״ · sourced_fact · ZERO TO THREE: let her know you appreciate how hard it can be; Child Mind Institute: let them know you see how frustrated they are.
+- שקופית 4 · ״איזה חלק תקוע?״ או להראות פעם אחת לאט · sourced_fact · ZERO TO THREE: become her coach, help think through solutions without doing the work for her; suggest or demonstrate strategies.
+- שקופית 5 · קודם רק לולאה אחת · sourced_fact · ZERO TO THREE: break the challenge into manageable parts; Child Mind Institute: small bursts of difficult work.
+- שקופית 6 · חיבוק קטן, ואז חוזרים עם כוח חדש · sourced_fact · ZERO TO THREE: offer time away from the frustrating task for a hug, then return to the challenge with new energy.
+- שקופית 7 · ״ראיתי שניסית שוב ושוב״ · sourced_fact · Child Mind Institute: praising your child's efforts instead of focusing on results.
+- שקופית 8 · נדבר בערב, מה היה קשה ומה ננסה מחר · sourced_fact · Child Mind Institute: when your kid is ready, talk about what went wrong and what they could do next time.
+- שקופית 9 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
 ### kid-4 · ״תגידי סליחה!״ אני לא מצליחה
 
 - **על מי:** שקד (בת), לשני ההורים
-- **זווית:** הילדה מסבירה להורים למה סליחה בפקודה לא יוצאת, ומבקשת שבעה דברים: רגע להרגיש, לתאר מה קרה, לראות את הצד של השני, זמן, דוגמה אישית, לומר על מה, ולקבל שקשה לה.
+- **זווית:** שקד, בת 4, יודעת מה ההורים חושבים כשהיא לא אומרת סליחה: ״היא חצופה״, ״לא אכפת לה״, ״שתגיד סליחה וזהו״, ״היא לא יודעת להתנצל״, ״אמרה סליחה, אבל על מה?״, ״מתי היא תגיד לבד?״. היא עונה: רגע להירגע, לראות את הצד שלו, לבקש רק אחרי שהבינה, לשמוע אותם מתנצלים עד הסוף, להגיד על מה, וזמן.
 - **למי:** הורים לילדה בת 3 עד 6 שמבקשים ממנה סליחה והיא שותקת או מסתובבת.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** sentence-we-all-say
 - **נושא:** קשה לו להגיד סליחה (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** המשפט שכולנו אומרים על הכריכה, ומיד הערך: שבעה דברים. הילדה מסתכלת ישר לעדשה בעיניים גדולות. שקופית 2 מסבירה שקודם צריך להבין, ושקופיות 3 עד 8 נותנות את שבעת הדברים.
+- **למה זה עשוי להמיר:** ההורים מכירים את המחשבות האלה מהגינה, והילדה עונה על כל אחת עם צעד אחד שהופך סליחה לאמיתית. הכריכה שומרת על המשפט שכולנו אומרים.
 
-#### שקופית 1 · פתיח
+- **מבנה:** אתם חושבים, אני עונה · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **״תגידי סליחה!״**  
-**אני לא מצליחה.**  
-7 דברים שיעזרו לי  
+**אני לא מצליחה**  
+ומה אני רוצה לענות לכם  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**אני רוצה להגיד סליחה**  
-**אבל קודם להבין**  
-קודם אני צריכה להבין מה עשיתי  
-ואז אפשר לבקש.  
+**אני רואה איך**  
+**אתם מסתכלים עליי**  
+דחפתי ילד מהמגלשה, והוא בכה.  
+אתם אמרתם ״תגידי סליחה!״,  
+ואני שתקתי, עם השפתיים **סגורות**.  
+אני יודעת מה עבר לכם בראש.  
+אז הנה התשובה שלי.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תנו לי רגע להרגיש**  
-**2 תתארו מה קרה**  
-״שקד, דחפת והוא נפל״  
-ולא ״את ילדה רעה״  
+*Picture:* At the playground slide, the girl stands with her lips pressed shut and her red ball clutched to her chest, while a younger boy cries on the sand and her parents look at her. A small Israeli neighbourhood playground in the afternoon: a slide, a sandpit, trees, a plain pale wall at the back. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 תראו לי את הצד שלו**  
-״תסתכלי עליו, הוא בוכה.  
-איך זה בשבילו?״  
+#### שקופית 3 · סיפור · אתם חושבים:
 
-#### שקופית 5 · דוגמאות ממוספרות
+**״היא חצופה״**  
+אני לא חצופה. אני נתקעת.  
+המילה נעלמת לי כשכולם מסתכלים.  
+*אני עונה:*  
+קודם תנו לי רגע להירגע,  
+ותגידו ״אני רואה שקשה **לך**״.  
 
-**4 תנו לי זמן להבין**  
-אני לא מבינה מיד  
-ואני כן לומדת.  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The girl sits on a bench with her face hidden in her knees while her mother sits beside her quietly, one hand on her back. A small Israeli neighbourhood playground in the afternoon: a slide, a sandpit, trees, a plain pale wall at the back. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 תתנצלו גם אתם**  
-״סליחה שצעקתי עלייך  
-כי כעסתי על הבלגן״  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · אתם חושבים:
 
-**6 תגידו לי על מה**  
-״סליחה שלקחתי לך את הכדור״  
+**״לא אכפת לה ממנו״**  
+אכפת לי. אבל אני עוד לא רואה  
+מה הוא **הרגיש**.  
+*מה יעזור לי:*  
+▪ ״שקד, תסתכלי עליו. איך זה בשבילו?״  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**7 תקבלו שקשה לי**  
-״אני רואה שקשה לך״  
-וממשיכים לאט.  
+*Picture:* Her father crouches beside the girl and gently points toward the crying boy; the girl looks at him with dawning understanding. A small Israeli neighbourhood playground in the afternoon: a slide, a sandpit, trees, a plain pale wall at the back. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**ככה הסליחה שלי**  
-**נהיית אמיתית**  
-תנו רגע, תסבירו, תתנצלו גם.  
-תעזרו לי להגיד סליחה?  
+#### שקופית 5 · סיפור · אתם חושבים:
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**״שתגיד סליחה וזהו״**  
+סליחה בלי להבין זה רק מילה.  
+*אני עונה:*  
+קודם שאבין מה עשיתי,  
+ורק אחר כך תבקשו.  
+ככה הסליחה שלי **אמיתית**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother sit on the edge of the sandpit, the girl thinking hard with her finger on her chin. A small Israeli neighbourhood playground in the afternoon: a slide, a sandpit, trees, a plain pale wall at the back. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · אתם חושבים:
+
+**״היא לא יודעת להתנצל״**  
+נכון, אני עוד לומדת איך.  
+*מה יעזור לי:*  
+לשמוע אתכם מתנצלים, עד הסוף:  
+״סליחה שצעקתי, כעסתי על הבלגן.״  
+ככה אני **שומעת** איך זה נשמע.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* At home, her mother kneels in front of the girl in a messy living room and apologises gently, while the girl listens closely. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · אתם חושבים:
+
+**״אמרה סליחה, אבל על מה?״**  
+״סליחה״ לבד זה קצר מדי.  
+*אני עונה:*  
+תעזרו לי להגיד על מה:  
+״סליחה שדחפתי אותך מהמגלשה.״  
+ואז הוא יודע **שהבנתי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl stands in front of the younger boy at the foot of the slide and offers him her red ball, both small and shy. A small Israeli neighbourhood playground in the afternoon: a slide, a sandpit, trees, a plain pale wall at the back. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ואחרונה:
+
+**״מתי היא תגיד לבד?״**  
+אני לא מבינה מיד, וזה בסדר.  
+לפעמים לוקח לי זמן,  
+ולפעמים אני חוזרת אליו אחר כך,  
+ואומרת סליחה **לבד**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and the younger boy go down the slide together laughing, her parents smiling from a nearby bench. A small Israeli neighbourhood playground in the afternoon: a slide, a sandpit, trees, a plain pale wall at the back. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה שקשה לה להגיד סליחה  
 
-**הכותרות בלבד:** ״תגידי סליחה!״ אני לא מצליחה. ← אני רוצה להגיד סליחה אבל קודם להבין ← 1 תנו לי רגע להרגיש 2 תתארו מה קרה ← 3 תראו לי את הצד שלו ← 4 תנו לי זמן להבין ← 5 תתנצלו גם אתם ← 6 תגידו לי על מה ← 7 תקבלו שקשה לי ← ככה הסליחה שלי נהיית אמיתית ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl walks home from the playground between her parents, holding both their hands, the red ball under her arm. A quiet Israeli street in the late afternoon, trees and a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** ״תגידי סליחה!״ אני לא מצליחה ← אני רואה איך אתם מסתכלים עליי ← ״היא חצופה״ ← ״לא אכפת לה ממנו״ ← ״שתגיד סליחה וזהו״ ← ״היא לא יודעת להתנצל״ ← ״אמרה סליחה, אבל על מה?״ ← ״מתי היא תגיד לבד?״ ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-אמא ואבא, ״תגידי סליחה!״ ואני לא מצליחה.  
-תנו לי רגע להרגיש לפני שאני מדברת.  
-תתארו לי מה קרה ותראו לי איך הוא הרגיש.  
-תגידו גם אתם סליחה ועל מה.  
-תנו לי זמן להבין, אני לומדת.  
+אמא ואבא, כשאתם אומרים ״תגידי סליחה!״, המילה נתקעת לי.  
+תנו לי רגע להירגע, ותעזרו לי לראות איך זה בשבילו.  
+תבקשו סליחה רק אחרי שהבנתי, ותתנצלו גם אתם עד הסוף.  
+ותעזרו לי להגיד על מה אני מתנצלת.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרו את הפוסט לפעם הבאה שקשה לה להגיד סליחה  
 
@@ -440,98 +674,185 @@
 
 **טענות**
 
-- שקופית 1 · שבעה דברים שיעזרו להגיד סליחה · sourced_fact · The seven things are our grouping of advice from the AAP pages and Child Mind Institute. No promise of a result.
-- שקופית 2 · קודם להבין מה עשיתי ואז לבקש · sourced_fact · AAP: once they understand what they've done wrong, but not before, ask them to apologize. Imagined child voice.
-- שקופית 3 · רגע להרגיש ולתאר מה קרה · sourced_fact · Child Mind Institute: skipping ahead does not give kids time to feel their feelings; AAP: focus on the behavior, not the child. The sentences are our wording.
-- שקופית 4 · תראו לי את הצד שלו · sourced_fact · AAP: help your child see the situation from the other child's point of view.
-- שקופית 5 · תנו לי זמן להבין · sourced_fact · AAP: they may not understand right away, but give it time.
-- שקופית 6 · תתנצלו גם אתם · sourced_fact · AAP: model full apologies; the example sentence follows the page's own 'I am sorry I yelled at you'.
-- שקופית 7 · להגיד על מה מתנצלים · sourced_fact · AAP: we often teach children to say sorry without teaching them to acknowledge the issue; they also need to know why they're apologizing.
-- שקופית 8 · לקבל שקשה לי · sourced_fact · AAP: let them know you understand and accept their feelings.
-- שקופית 9 · המסכם: רגע, להבין, להסביר ולהתנצל גם · lumebook_wording · Our recap of slides 3 to 8.
-- שקופית 10 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 1 · ״תגידי סליחה!״ ואני לא מצליחה · sourced_fact · AAP (HealthyChildren): once they understand what they have done wrong, but not before, ask them to apologize; they may not understand right away. Said as this child's voice.
+- שקופית 3 · רגע להירגע, ״אני רואה שקשה לך״ · sourced_fact · AAP: let them know you understand and accept their feelings.
+- שקופית 4 · ״תסתכלי עליו. איך זה בשבילו?״ · sourced_fact · AAP: help your child see the situation from the other child's point of view.
+- שקופית 5 · קודם שאבין, ורק אחר כך תבקשו · sourced_fact · AAP: once they understand what they have done wrong, but not before, ask them to apologize; simply saying I'm sorry may not help; they need to know why.
+- שקופית 6 · לשמוע אתכם מתנצלים עד הסוף · sourced_fact · AAP (HealthyChildren): model full apologies, for example I am sorry I yelled at you, Mommy felt frustrated with the mess.
+- שקופית 7 · להגיד על מה: ״סליחה שדחפתי אותך״ · sourced_fact · AAP: teach children to acknowledge the issue, not only to say I'm sorry; model full apologies (I am sorry for...); they need to know why they are apologizing.
+- שקופית 8 · לפעמים לוקח לי זמן · sourced_fact · AAP: they may not understand right away, but give it time.
+- שקופית 9 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
 ### kid-5 · כשמכריחים אני שותק, כשמבינים אני מתנצל
 
 - **על מי:** אופק (בן), לאמא
-- **זווית:** הילד מבקש מאמא שבעה דברים שהופכים סליחה מכפויה לאמיתית: להבין אותו, לתאר, לשאול על השני, לחכות, להראות, לומר על מה ולקבל את הסליחה.
+- **זווית:** אופק, בן 5, מספר לאמא איך היה כשאמרו לו ״תגיד סליחה! עכשיו!״ (שתק, או אמר סתם), מה השתנה כשהיא התיישבה לידו ותיארה מה הוא עשה, ומה קורה מאז: מסתכל על החבר, צריך עוד רגע, שומע אותה מתנצלת, ואומר על מה. מה מחזיר את השתיקה: צעקה מול כולם.
 - **למי:** אמהות לילד בן 4 עד 7 ששותק או מסרב כשמבקשים ממנו סליחה בכוח.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** two-faces
 - **נושא:** קשה לו להגיד סליחה (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** ניגוד על הכריכה (כשמכריחים אני שותק, כשמבינים אני מתנצל) ומיד הערך: שבעה דברים. הילד מסתכל ישר לעדשה עם שפתיים בולטות. שקופיות 3 עד 8 נותנות את הדברים לאמא.
+- **למה זה עשוי להמיר:** פעם, ואז, ומאז: אמא רואה את ההבדל בין סליחה בכוח לסליחה שיוצאת לבד, וכל שקופית של ״ומאז״ נותנת צעד אחד. הכריכה שומרת על שני הפנים של אותו ילד.
 
-#### שקופית 1 · פתיח
+- **מבנה:** פעם ועכשיו · 11 שקופיות
+
+#### שקופית 1 · שער
 
 **כשמכריחים אני שותק**  
 **כשמבינים אני מתנצל**  
-7 דברים שיעזרו לי  
+פעם שתקתי, ומה קורה לי עכשיו  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · פעם
 
-**אני יודע שצריך סליחה**  
-**אבל אני נתקע**  
-אני עוד לומד איך עושים את זה.  
+**פעם, ״תגיד סליחה!״**  
+לקחתי לחבר את הכדור, והוא בכה.  
+את אמרת ״אופק, תגיד סליחה! עכשיו!״  
+כולם הסתכלו עליי.  
+ואני שתקתי, **חזק** יותר.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תגידי שאת מבינה**  
-**2 תתארי מה קרה**  
-״אופק, דחפת והוא נפל״  
+*Picture:* The boy stands with his arms crossed and lips pressed tight, holding a ball behind his back, while a friend cries and his mother points at him. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 תשאלי איך הוא הרגיש**  
-״איך זה היה בשבילו?״  
-ואז אני מבין  
+#### שקופית 3 · סיפור · פעם
 
-#### שקופית 5 · דוגמאות ממוספרות
+**ובפעם אחרת, אמרתי סתם**  
+״סליחה.״ מהר, בלי להסתכל.  
+ואז לקחתי שוב את הכדור.  
+המילה יצאה,  
+אבל אני לא הבנתי **על מה**.  
 
-**4 תחכי שאבין**  
-אני לא מבין מיד  
-תני לי זמן  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The boy mumbles while looking away, then grabs the ball again from his friend, who frowns. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 תראי לי סליחה אמיתית**  
-״סליחה שצעקתי עליך  
-כי כעסתי על הבלגן״  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · ואז
 
-**6 תגידי על מה מתנצלים**  
-״סליחה שלקחתי לך את הכדור״  
+**ואז את התיישבת לידי**  
+בלי לצעוק, בלי ״עכשיו!״.  
+את אמרת בשקט:  
+״לקחת לו את הכדור, והוא בוכה.״  
+דיברת על מה **שעשיתי**,  
+לא על איזה ילד אני.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**7 תקבלי אותה בשמחה**  
-״תודה אופק  
-זה היה חשוב לו״  
+*Picture:* His mother sits down on the rug beside the boy, speaking softly, her hand open toward the crying friend. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**ככה אני אומר**  
-**סליחה באמת**  
-תגידי, תתארי, תשאלי, תחכי.  
-תעזרי לי להגיד סליחה?  
+#### שקופית 5 · סיפור · ומאז
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**אני מסתכל עליו**  
+*מה יעזור לי:*  
+▪ ״איך זה היה בשבילו, אופק?״  
+ואז אני רואה את הפנים שלו,  
+ומבין שזה **כאב** לו.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy looks closely at his friend's sad face, his own expression softening, the ball loose in his hands. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · ומאז
+
+**אני צריך עוד רגע**  
+לפעמים אני לא מבין מיד.  
+אני כועס, אני רוצה את הכדור.  
+*מה יעזור לי:*  
+לחכות קצת, ולא לבקש סליחה **מיד**.  
+כשאני מבין, אני מבקש בעצמי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits by himself on a cushion in the corner hugging his knees, his mother waiting patiently a little way off. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ומאז
+
+**אני שומע אותך מתנצלת**  
+*מה את רואה:*  
+ילד שמקשיב כשאת אומרת סליחה.  
+*מה קורה לי בפנים:*  
+אני לומד איך זה **נשמע**:  
+״סליחה שצעקתי, כעסתי על הבלגן.״  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In a messy playroom, his mother kneels and apologises to the boy, who listens with wide, serious eyes. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ומאז
+
+**ועכשיו אני אומר על מה**  
+▪ ״סליחה שלקחתי לך את הכדור.״  
+והחבר מחייך, ומושיט לי יד.  
+ככה הסליחה שלי **אמיתית**,  
+לא רק מילה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy hands the ball back to his friend with a shy smile, and the friend smiles back. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · מה שמחזיר אותי לשתוק
+
+**צעקה, ״עכשיו!״**  
+**וכולם מסתכלים**  
+כשמכריחים אותי מול כולם,  
+אני נסגר, והמילה נעלמת.  
+בשקט, לידך, עם רגע להבין,  
+היא יוצאת לי **לבד**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy whispers into his mother's ear as she sits close beside him on the rug, the other children busy playing in the background. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · פנייה להורים
+
+**אני לא עקשן, אמא**  
+אני רק צריך להבין לפני שאני אומר.  
+תתארי מה קרה, תראי לי את הצד שלו,  
+ותני לי רגע.  
+ואז הסליחה יוצאת **ממני**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his mother hug on the playroom rug, the ball resting beside them. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שקשה לו להגיד סליחה  
 
-**הכותרות בלבד:** כשמכריחים אני שותק כשמבינים אני מתנצל ← אני יודע שצריך סליחה אבל אני נתקע ← 1 תגידי שאת מבינה 2 תתארי מה קרה ← 3 תשאלי איך הוא הרגיש ← 4 תחכי שאבין ← 5 תראי לי סליחה אמיתית ← 6 תגידי על מה מתנצלים ← 7 תקבלי אותה בשמחה ← ככה אני אומר סליחה באמת ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his friend play catch together in the playroom, laughing, his mother smiling from the doorway. The family's tidy Israeli playroom: a low wooden toy shelf, a soft rug, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** כשמכריחים אני שותק כשמבינים אני מתנצל ← פעם, ״תגיד סליחה!״ ← ובפעם אחרת, אמרתי סתם ← ואז את התיישבת לידי ← אני מסתכל עליו ← אני צריך עוד רגע ← אני שומע אותך מתנצלת ← ועכשיו אני אומר על מה ← צעקה, ״עכשיו!״ וכולם מסתכלים ← אני לא עקשן, אמא ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אמא, כשמכריחים אותי אני שותק.  
-תגידי שאת מבינה שקשה לי.  
-תתארי מה קרה ותשאלי איך הוא הרגיש.  
-תחכי שאבין ואז נדבר.  
-תראי לי איך מתנצלים באמת.  
+אמא, כשמכריחים אותי להגיד סליחה, אני רק שותק.  
+תגידי לי בשקט מה עשיתי, ולא מה אני.  
+תשאלי איך זה היה בשבילו, ותני לי רגע להבין.  
+ותתנצלי גם את, עד הסוף, כדי שאלמד איך זה נשמע.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שקשה לו להגיד סליחה  
 
@@ -548,99 +869,157 @@
 
 **טענות**
 
-- שקופית 1 · שבעה דברים שיעזרו להתנצל באמת · sourced_fact · The seven things are our grouping of advice from the AAP pages and Child Mind Institute. No promise of a result.
-- שקופית 2 · אני עוד לומד איך עושים סליחה · sourced_fact · AAP: they may not understand right away, but give it time. Imagined child voice.
-- שקופית 3 · להגיד שאת מבינה ולתאר מה קרה · sourced_fact · AAP: let them know you understand and accept their feelings; focus on the behavior, not the child. The sentence is our wording.
-- שקופית 4 · לשאול איך השני הרגיש · sourced_fact · AAP: help your child see the situation from the other child's point of view.
-- שקופית 5 · תחכי שאבין · sourced_fact · AAP: ask for an apology once they understand, but not before; give it time.
-- שקופית 6 · תראי לי סליחה אמיתית · sourced_fact · AAP: model full apologies; the example follows the page's own 'I am sorry I yelled at you'.
-- שקופית 7 · להגיד על מה מתנצלים · sourced_fact · AAP: teach children to acknowledge the issue and know why they're apologizing.
-- שקופית 8 · לקבל את הסליחה בשמחה · lumebook_wording · Our own wording of a warm reply; not a claim from a source.
-- שקופית 9 · המסכם: רגע, להבין, להסביר ולהתנצל גם · lumebook_wording · Our recap of slides 3 to 8.
-- שקופית 10 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 1 · כשמכריחים אני שותק, כשמבינים אני מתנצל · sourced_fact · AAP (HealthyChildren): once they understand what they have done wrong, but not before, ask them to apologize; simply saying I'm sorry may not help. Said as this child's two sides.
+- שקופית 3 · אמרתי סתם, ולא הבנתי על מה · sourced_fact · AAP: simply saying I'm sorry may not help your child correct their behavior; they also need to know why they are apologizing.
+- שקופית 4 · לדבר על מה שעשיתי, לא על איזה ילד אני · sourced_fact · AAP (HealthyChildren): focus on the behavior, not the child.
+- שקופית 5 · ״איך זה היה בשבילו?״ · sourced_fact · AAP: help your child see the situation from the other child's point of view.
+- שקופית 6 · לחכות שאבין, ולא לבקש סליחה מיד · sourced_fact · AAP: once they understand, but not before, ask them to apologize; they may not understand right away, but give it time.
+- שקופית 7 · לשמוע אותך מתנצלת עד הסוף · sourced_fact · AAP: model full apologies, for example I am sorry I yelled at you, Mommy felt frustrated with the mess.
+- שקופית 8 · להגיד על מה: ״סליחה שלקחתי לך את הכדור״ · sourced_fact · AAP: teach children to acknowledge the issue; model full apologies (I am sorry for...).
+- שקופית 9 · בשקט, עם רגע להבין, הסליחה יוצאת לבד · sourced_fact · AAP: ask for the apology once the child understands, not before. The forced moment is this child's story.
+- שקופית 11 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
+- שקופית 11 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 
-### kid-6 · בגיל 4 אני עוד לומדת סליחה
+### kid-6 · בגיל ארבע אני עוד לומדת סליחה
 
 - **על מי:** הילה (בת), לאמא
-- **זווית:** הילדה מסבירה בנחת שסליחה היא משהו שלומדים לאט, ומבקשת שבעה דברים: רגע להרגיש, שיגידו שמבינים, הצד של השני, לחכות עד שתבין, להסביר למה, שאמא תתנצל גם וזמן.
+- **זווית:** הילה, בת 4, מראה לאמא יום אחד שלה מהגן עד המיטה: חוטפת בובה בגן ושותקת, מספרת לאמא, חושבת על הצד של החברה, שומעת את אמא מתנצלת על צעקה, שואלת למה אומרים סליחה, ומתאמנת על הסליחה של מחר. מה עוזר: לקבל שקשה לה, לחשוב איתה על הצד השני, לבקש רק אחרי שהבינה, להתנצל עד הסוף לידה, להסביר למה, וזמן.
 - **למי:** אמהות לילדה בת 3 עד 5 שעדיין לא מבינה למה מבקשים ממנה סליחה.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** milestone-week
 - **נושא:** קשה לו להגיד סליחה (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** גיל מדויק וערך על הכריכה (7 דברים), בטון רך ולא מאשים. הילדה מסתכלת ישר לעדשה בפה פעור. שקופית 2 אומרת שהיא עוד לא מבינה והסליחה נולדת מהבנה, ושקופיות 3 עד 8 נותנות את הדברים.
+- **למה זה עשוי להמיר:** יום אחד לפי השעון מראה לאמא כמה הזדמנויות קטנות לסליחה יש ביום אחד, וכל אחת נותנת צעד. הכריכה שומרת על ״אני עוד לומדת״.
 
-#### שקופית 1 · פתיח
+- **מבנה:** יום אחד · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **בגיל ארבע אני**  
 **עוד לומדת סליחה**  
-7 דברים שיעזרו לי  
+יום אחד שלי, וכמה סליחות בו  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · 08:00, בגן
 
-**אני לא ממש מבינה**  
-**מה קרה לו**  
-כשאני מבינה אני יכולה לבקש.  
-תני לי זמן להבין.  
+**חטפתי את הבובה**  
+חברה החזיקה אותה, ואני רציתי.  
+אז פשוט לקחתי. היא בכתה.  
+הגננת אמרה ״הילה, תגידי סליחה״,  
+ואני הסתכלתי על **הרצפה**.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תני לי רגע להרגיש**  
-**2 תגידי שאת מבינה**  
-״קשה לך, אני רואה״  
+*Picture:* In a kindergarten room the girl holds a rag doll behind her back and stares at the floor, while another girl cries and the teacher crouches nearby. An Israeli kindergarten room in the morning: low wooden shelves, small chairs, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**3 תראי לי את הצד שלו**  
-״תראי איך הוא מסתכל עכשיו״  
+#### שקופית 3 · סיפור · 13:30, בבית
 
-#### שקופית 5 · דוגמאות ממוספרות
+**אני מספרת לך**  
+אני מספרת לך על הבובה, בשקט.  
+*מה יעזור לי:*  
+שתגידי ״קשה לך, אני רואה״,  
+לפני שאת שואלת **למה**.  
+ככה אני ממשיכה לספר.  
 
-**4 תחכי עד שאבין**  
-״הילה, מה קרה לו?״  
-ורק אחר כך מבקשים סליחה  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The girl sits on her mother's lap on the sofa, whispering, her plush bunny pressed to her cheek; her mother listens calmly. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 תסבירי למה מתנצלים**  
-סליחה היא לתקן משהו  
-שעשיתי למישהו  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 15:00, בסלון
 
-**6 תתנצלי גם את**  
-״סליחה שצעקתי עלייך״  
-וגם על מה  
+**״מה היא הרגישה?״**  
+את שואלת, ואני חושבת על הפנים שלה.  
+היא בכתה. היא רצתה את הבובה.  
+*מה יעזור לי:*  
+לחשוב איתך על הצד **שלה**,  
+עוד לפני שמבקשים סליחה.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**7 תני לזה זמן**  
-לוקח לי זמן להבין  
-אבל אני לומדת  
+*Picture:* The girl and her mother sit on the rug with two dolls, acting out the morning; the girl makes one doll cry and looks thoughtful. The family's cosy Israeli living room: a woven rug, a low wooden shelf, a beige sofa, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**ככה אני לומדת**  
-**סליחה אמיתית**  
-תני רגע, תראי לי, תסבירי, תתנצלי.  
-תעזרי לי להגיד סליחה?  
+#### שקופית 5 · סיפור · 17:40, במטבח
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**את צועקת עליי**  
+שפכתי מיץ על הרצפה, ואת צעקת.  
+אחרי רגע, את מתכופפת אליי:  
+▪ ״סליחה שצעקתי. כעסתי על הבלגן.״  
+ואני שומעת איך זה **נשמע**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother kneels by a puddle of spilled juice on the kitchen floor and apologises to the girl, who listens with wide eyes holding a cloth. The family's Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain warm cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 18:30, באמבטיה
+
+**״למה אומרים סליחה?״**  
+אני שואלת, ואת עונה פשוט:  
+״כדי לתקן משהו שעשינו למישהו.״  
+*מה יעזור לי:*  
+לשמוע **למה**, ולא רק ״תגידי״.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits in a bubble bath with her chin on the edge of the tub, asking a serious question, her mother kneeling beside the tub. The family's small Israeli bathroom in the evening: white tiles, a bathtub with bubbles, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 19:30, במיטה
+
+**אני מתאמנת על מחר**  
+מחר בגן אני אגש אליה.  
+״סליחה שחטפתי לך את הבובה.״  
+אני אומרת את זה בשקט לארנב שלי,  
+**להתאמן**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In pyjamas, the girl sits in bed whispering to her plush bunny, practising, her mother smiling at the doorway. The girl's cosy Israeli bedroom: a low wooden bed, a small shelf, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+**אני לומדת, לאט**  
+בגיל ארבע, סליחה זה דבר חדש.  
+תני לי רגע, תראי לי את הצד שלה,  
+תגידי לי למה,  
+ותתנצלי גם את.  
+ככה אני **לומדת** איך.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl hugs her mother on the bed in the soft evening light, the plush bunny between them. The girl's cosy Israeli bedroom: a low wooden bed, a small shelf, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שקשה לה להגיד סליחה  
 
-**הכותרות בלבד:** בגיל ארבע אני עוד לומדת סליחה ← אני לא ממש מבינה מה קרה לו ← 1 תני לי רגע להרגיש 2 תגידי שאת מבינה ← 3 תראי לי את הצד שלו ← 4 תחכי עד שאבין ← 5 תסבירי למה מתנצלים ← 6 תתנצלי גם את ← 7 תני לזה זמן ← ככה אני לומדת סליחה אמיתית ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The next morning at kindergarten, the girl hands the rag doll to the other girl and they hold hands, smiling. An Israeli kindergarten room in the morning: low wooden shelves, small chairs, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** בגיל ארבע אני עוד לומדת סליחה ← חטפתי את הבובה ← אני מספרת לך ← ״מה היא הרגישה?״ ← את צועקת עליי ← ״למה אומרים סליחה?״ ← אני מתאמנת על מחר ← אני לומדת, לאט ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אמא, בגיל ארבע אני עוד לומדת סליחה.  
-תני לי רגע להרגיש לפני שאדבר.  
-תראי לי את הצד של הילד השני.  
-תסבירי לי למה מתנצלים.  
-תתנצלי גם את כשצריך, ותני לי זמן.  
+אמא, בגיל ארבע אני עוד לומדת להגיד סליחה.  
+תגידי לי שאת רואה שקשה לי, ותחשבי איתי על הצד שלה.  
+תסבירי לי למה אומרים סליחה, ותתנצלי גם את עד הסוף.  
+ותני לי זמן, אני לומדת לאט.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שקשה לה להגיד סליחה  
 
@@ -657,17 +1036,15 @@
 
 **טענות**
 
-- שקופית 1 · שבעה דברים שיעזרו ללמוד סליחה · sourced_fact · The seven things are our grouping of advice from the AAP pages and Child Mind Institute. Age 4 is the girl's age in this option, from the page on preschoolers. No promise of a result.
-- שקופית 2 · כשאני מבינה אני יכולה לבקש · sourced_fact · AAP: once they understand what they've done wrong, but not before, ask them to apologize. Imagined child voice.
-- שקופית 3 · רגע להרגיש ושיגידו שמבינים · sourced_fact · Child Mind Institute: kids need time to feel their feelings; AAP: let them know you understand and accept their feelings.
-- שקופית 4 · תראי לי את הצד שלו · sourced_fact · AAP: help your child see the situation from the other child's point of view.
-- שקופית 5 · לחכות עד שאבין · sourced_fact · AAP: ask them to apologize only once they understand.
-- שקופית 6 · להסביר למה מתנצלים · sourced_fact · AAP: they also need to know why they're apologizing; teach them to acknowledge the issue.
-- שקופית 7 · תתנצלי גם את · sourced_fact · AAP: model full apologies; the example follows the page's own sentence.
-- שקופית 8 · לוקח לי זמן להבין · sourced_fact · AAP: they may not understand right away, but give it time.
-- שקופית 9 · המסכם: רגע, להבין, להסביר ולהתנצל גם · lumebook_wording · Our recap of slides 3 to 8.
-- שקופית 10 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
-- שקופית 10 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
+- שקופית 1 · בגיל ארבע אני עוד לומדת סליחה · sourced_fact · AAP (HealthyChildren): they may not understand right away, but give it time; ask for the apology once they understand. Said as this child's voice, no claim about every 4-year-old.
+- שקופית 3 · ״קשה לך, אני רואה״ · sourced_fact · AAP: let them know you understand and accept their feelings.
+- שקופית 4 · לחשוב איתך על הצד שלה, לפני שמבקשים סליחה · sourced_fact · AAP: help your child see the situation from the other child's point of view; once they understand, but not before, ask them to apologize.
+- שקופית 5 · ״סליחה שצעקתי. כעסתי על הבלגן.״ · sourced_fact · AAP (HealthyChildren): model full apologies, for example I am sorry I yelled at you, Mommy felt frustrated with the mess.
+- שקופית 6 · לשמוע למה אומרים סליחה · sourced_fact · AAP: simply saying I'm sorry may not help, they also need to know why they are apologizing.
+- שקופית 7 · ״סליחה שחטפתי לך את הבובה״ · sourced_fact · AAP: teach children to acknowledge the issue, full apologies (I am sorry for...).
+- שקופית 8 · רגע, הצד שלה, למה, ואת מתנצלת גם · sourced_fact · AAP: give it time; see the other child's point of view; know why; model full apologies.
+- שקופית 9 · לקרוא יחד על רגשות עוזר לזהות אותם · sourced_fact · AAP: reading books together about common feelings can help children recognize their own emotions and develop empathy. Applied to a hard moment; no promise of a result.
+- שקופית 9 · סיפור אישי שבו הילד הוא הגיבור · product_fact · Live site, 2026-10-29: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free.
 
 </details>
 

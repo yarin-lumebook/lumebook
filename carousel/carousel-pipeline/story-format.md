@@ -10,7 +10,7 @@ A pack is in the story format when it has `"copy_style": "story"` at the top lev
 - The child talks to the parents everywhere (slides, caption). Addressee mom (feminine singular) or both parents (plural), never dad alone; names from `names.md`; 3 girls and 3 boys per pack as `nightly.py start` assigns them.
 - Hebrew voice rules (lumebook-hebrew-voice skill): no dash of any kind, no semicolon, no hyphen or maqaf; no jargon or diagnosis words; no fake certainty; never "כל הילדים"; no brand, no book title, no AI mention.
 - Cover (slide 1): the loud true hook, headline up to 3 lines of up to 18 characters, the child faces the viewer with an exaggerated expression (`image` on the option, as now).
-- Last slide: the save CTA exactly as now: headline `תשמרי את הפוסט` / `תשמרו את הפוסט`, body `לפעם הבאה ש...` about the child (הוא/היא), up to 5 words.
+- Last slide: the save CTA exactly as now (packs with `cta_style` `save_for_later`; since 30 Oct 2026 new packs use the book link CTA, section 7): headline `תשמרי את הפוסט` / `תשמרו את הפוסט`, body `לפעם הבאה ש...` about the child (הוא/היא), up to 5 words.
 - Caption: the child's voice, line 1 restates the hook, value lines ask the parents for something, the bridge line `ובערב אפשר להמשיך עם סיפור שבו אני הגיבור/ה`, last line = the CTA word for word. `post_text` follows the caption with one emoji on the hook line and one on the CTA line only.
 
 ## What changes
@@ -32,7 +32,7 @@ Per pack (6 options): at least 4 different structures, none more than twice, `sh
 
 ### 2. Slides
 
-- 9 to 12 slides per option: cover, 7 to 10 story slides, the CTA. Roles: `hook` (slide 1), `beat` (story slides), `turn` (optional, the slide that turns back to the parents just before the CTA), `story_cta` (last).
+- 9 or 10 slides per option: cover, 7 or 8 story slides, the CTA (30 Oct 2026: Instagram through Postiz takes at most 10 images; packs written before then may have up to 12, and one story slide is dropped when such an option is produced). Roles: `hook` (slide 1), `beat` (story slides), `turn` (optional, the slide that turns back to the parents just before the CTA), `story_cta` (last).
 - Slide fields: `number`, `role`, `headline` (may be `""` only on `letter` body slides), `body`, optional `label` (up to 28 characters), and `scene` on every slide from 2 to the last (the picture brief for that slide, see 4).
 - Slide 1 `body` is the cover pill: up to 34 characters (for example `מה היה פעם, ומה קורה לי עכשיו`).
 - Story slides carry 15 to 50 words (headline + body, markup not counted). This replaces the 25-word cap for story packs.
@@ -51,7 +51,7 @@ Shapes to rotate inside a carousel so no two neighbouring story slides look alik
 
 - `option.image` stays the cover brief (slide 1) and `option.character_anchor` stays the characters. Every slide from 2 to the last has `scene`: `{"action": "...", "setting": "..."}` in English, one concrete moment that matches that slide (same characters, same home, 3D animated). The CTA slide's scene is a calm, warm resolution.
 - Every scene keeps the upper third of the frame calm (a wall or soft background, no faces or hands there) and asks for no words, letters or numbers anywhere.
-- Production makes the cover with text-to-image and every other slide with the edit endpoint, the approved cover as the reference image (same characters).
+- Production makes the cover first and every other slide from the approved cover as the reference image (same characters). Since 30 Oct 2026 Claude makes them in ChatGPT in Yarin's Chrome, free (README section 2b, `scripts/chatgpt_pictures.py`); with `picture_backend` "fal" in `production.json` the fal text-to-image and edit endpoints make them as before.
 
 ### 5. Facts
 
@@ -61,3 +61,23 @@ Shapes to rotate inside a carousel so no two neighbouring story slides look alik
 ### 6. The look
 
 `compose_slides.py --look story` (the default for story packs): Lotem's text treatment in lumebook.com's palette and font: an ink #0B0518 veil over each slide's picture, cream #F8F0E1 type in Varela Round (the site's font, `assets/fonts/VarelaRound-*.woff2`), gold #E6B762 tags, labels, emphasis and save button, soft gold #F3D9A1 for quoted speech, a cream card for `> ` lines, the cover pill in gold, the letter structure on a cream sheet in ink. No logo, handle or swipe arrow. Reference implementation: `media/projects/2026-10-29-lotem-format-carousels/render.py`.
+
+### 7. The book link CTA over the booklet (Yarin, 30 Oct 2026)
+
+Yarin, after the Lotem CTA and caption study (`research/lotem-lerner-carousels/README.md`): "i want the cta to point to a book that might help them with x problem and then theyll get a link to the website"; the wording and the look the same afternoon ("אפשר גם לעזור להם עם X בעזרת ספר מותאם אישית / תכתבו X ואשלח לכם קישור להכנת הספר", an open booklet "with a realistic image of the kid inside a small circle in the corner", "straight short arrows", "bigger, add a thin black outline"), then "great implement in novembers batch". The approved reference: `approved/2026-12-06-kid-1/final/09.png`.
+
+A pack has it with `"cta_style": "book_link"` at the top level, or one option with its own `"cta_style": "book_link"` (the 14 produced November carousels were moved one by one; the other options of their packs keep the save CTA). The validator then replaces the save for later and save and share rules with these.
+
+- `cta`: two sentences on two lines, `carousel_lib.book_link_cta(problem, word, addressee)`: `אפשר גם לעזור להם עם הגמילה מהמוצץ בעזרת ספר מותאם אישית.` then `תכתבו "מוצץ" ואשלח לכם קישור להכנת הספר` (mom: `תכתבי`, `ואשלח לך`). The problem is the topic's everyday problem in 1 to 3 words, one headline line of 26 characters at most with `עם`.
+- The caption ends with both lines (one line each); post_text ends the CTA line with 📖 instead of 🔖.
+- Slide 10 is only the CTA: headline `אפשר גם לעזור להם / עם <problem> / בעזרת ספר מותאם אישית.`, body `תכתבו "<word>" / ואשלח לכם קישור להכנת הספר` (`book_link_slide`), the word in gold.
+- `code_word`: the topic's own word (מוצץ, אח, עוגה), one word, never `ספר` (MeBook uses it) or `לומי`, the same on every book link option of a topic.
+- Nothing of it before slide 10 or before the caption's last two lines. No brand, no catalogue title, no web address: the link to the website goes in the DM Yarin (or an automation he sets up) sends to each commenter. Nothing sends DMs yet.
+
+**The booklet** (`option.booklet`, made at production, not in the pack):
+
+- `RUN_DIR/booklet/booklet.png`: fal `nano-banana-2/edit`, 16:9, the run's cover picture as the reference: an open picture book from above, the pages edge to edge, the left page a 3D illustration of the same child in the topic's scene with the face turned to the viewer, the right page blank. `RUN_DIR/booklet/kid.png`: the same endpoint, 1:1, a realistic close-up photo of a child who looks like the cover's child. Prompts: `booklet_cta.py --prompts "<scene>"`. About $0.08 an image (6 Oct 2026 price, not checked since).
+- `booklet`: `page_text` (up to 3 lines of 21 characters, set by Claude in Varela Round on the blank page, never asked of the model), `crop` ([x, y, w, h] of the two pages inside booklet.png, the spine in the middle), `face` ([x, y] of the child's face in that crop, 0 to 1, and an optional arrow scale, 0.5 for a small face). Look at the picture with a grid to set them.
+- The slide (`compose_slides.booklet_html`): the last slide's own picture behind, a soft dark band above the booklet, the booklet 950 px wide at y 620 with rounded corners and a shadow, the page text centred on the white page, the photo in a 230 px white ringed circle over the booklet's top right corner, and two straight yellow arrows (#FFC21A, thin black outline): one at the child's face in the illustration, one up at the photo's chin. The CTA text shrinks to fit above the circle (66 to 50 px).
+- One command per produced carousel: `python3 scripts/booklet_cta.py RUN_DIR --problem ... --word ... --page "a|b|c" --crop x,y,w,h --face x,y[,k]` or `--spec booklets-YYYY-MM.json`. It backs up to `versions/booklet-N/`, writes approved.json and the pack option, validates the pack and re-exports only the last slide. It never touches Postiz.
+- Checks: `lib.book_link_cta_issues`, `lib.booklet_issues`, `tests/test_book_link.py`.

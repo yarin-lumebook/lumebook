@@ -397,6 +397,14 @@ body.single .slide:not(.on){display:none}
 .tag{display:inline-flex;align-items:center;gap:.3em;color:var(--gold);font-size:.46em;margin-bottom:.45em;-webkit-text-stroke:.012em currentColor;text-shadow:0 2px 16px rgba(11,5,24,.8)}
 .tag .num{width:1.55em;height:1.55em;margin:0;font-size:1em;box-shadow:0 6px 18px rgba(11,5,24,.45);-webkit-text-stroke:0}
 .body{font-size:.6em;margin-top:.55em}
+/* the open booklet under the book link CTA (30 Oct 2026, story-format.md section 7) */
+.fade{position:absolute;left:0;top:500px;width:1080px;height:220px;background:linear-gradient(180deg,rgba(11,5,24,0),rgba(11,5,24,.9) 55%,rgba(11,5,24,0))}
+.book{position:absolute;left:65px;top:620px;width:950px;overflow:hidden;border-radius:14px;box-shadow:0 26px 60px rgba(0,0,0,.65)}
+.book .bk{position:absolute;max-width:none}
+.book .page{position:absolute;top:0;bottom:0;right:0;width:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:38px;line-height:1.45;color:#2a2340;text-align:center;padding:0 24px}
+.book .page span{display:block}
+.kid{position:absolute;left:830px;top:505px;width:230px;height:230px;border-radius:50%;border:7px solid #fff;box-shadow:0 8px 22px rgba(0,0,0,.35);background-size:cover;background-position:50% 38%}
+.arrows{position:absolute;left:0;top:0;pointer-events:none}
 .body .t{font-size:1em;margin-top:0}
 .body .t .ln{display:block;white-space:nowrap}
 .body .gap{height:.55em}
@@ -455,7 +463,7 @@ STORY_SAVE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h1
 STORY_QUOTE = re.compile(r"(״[^״]+״)")
 STORY_NUMBERED_TAG = re.compile(r"(\d+):\s+(.*)")
 # (headline max px, floor px, the height the copy block must end above) per slide kind, as in render.py
-STORY_SIZES = {"cover": (104, 72, 560), "cta": (84, 60, 520), "slide": (84, 62, 900)}
+STORY_SIZES = {"cover": (104, 72, 560), "cta": (84, 60, 520), "slide": (84, 62, 900), "cta_booklet": (66, 50, 425)}
 STORY_MARKUP = re.compile(r"\*\*|^\s*(?:##|>)\s+", re.M)
 
 
@@ -505,7 +513,40 @@ def story_body_html(body):
     return '<div class="body">' + "".join(out) + "</div>"
 
 
-def story_slide_html(v, s, img_src, last):
+BOOK_BOX = (65, 620, 950)          # left, top, width of the booklet on the last slide
+ARROW_YELLOW = "#FFC21A"           # Yarin, 30 Oct 2026: "straight short arrows", then "bigger, add a thin black outline"
+
+
+def booklet_html(booklet, files):
+    """The booklet block of the last slide: the spread cropped to its pages, the page text set in Varela Round on the blank
+    right page, the face photo in a circle over the top right corner, and an arrow at each face."""
+    bx, by, bw = BOOK_BOX
+    cx, cy, cw, ch = booklet["crop"]
+    k = bw / cw
+    bh = round(ch * k)
+    nat_w, nat_h = lib.png_size(files["booklet_path"])
+    page = "".join(f"<span>{esc(ln)}</span>" for ln in booklet["page_text"])
+    fx, fy = booklet["face"][:2]
+    k_face = booklet["face"][2] if len(booklet["face"]) > 2 else 1   # a smaller face: the tip sits closer to it
+    tip = (bx + fx * bw - 60 * k_face, by + fy * bh + 95 * k_face)   # just under the face, from the lower left
+    tail = (tip[0] - 122, tip[1] + 145)
+    if tail[0] < 30:                                           # a face near the left edge: from the lower right
+        tail = (tip[0] + 122, tip[1] + 145)
+    arrows = [(tail, tip), ((1040, 845), (978, 724))]          # the second points up at the photo's chin
+    paths = "".join(f'<path d="M{a[0]:.0f} {a[1]:.0f} L{b[0]:.0f} {b[1]:.0f}" stroke="#000" stroke-width="19" marker-end="url(#ao)"/>'
+                    f'<path d="M{a[0]:.0f} {a[1]:.0f} L{b[0]:.0f} {b[1]:.0f}" stroke="{ARROW_YELLOW}" stroke-width="13" marker-end="url(#ah)"/>'
+                    for a, b in arrows)
+    return (f'<div class="fade"></div><div class="book" style="height:{bh}px">'
+            f'<img class="bk" src="{files["booklet"]}" alt="" style="width:{nat_w * k:.1f}px;height:{nat_h * k:.1f}px;left:{-cx * k:.1f}px;top:{-cy * k:.1f}px">'
+            f'<div class="page">{page}</div></div>'
+            f'<div class="kid" style="background-image:url(&quot;{files["kid"]}&quot;)"></div>'
+            f'<svg class="arrows" viewBox="0 0 1080 1350" width="1080" height="1350"><defs>'
+            f'<marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.4" markerHeight="4.4" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="{ARROW_YELLOW}"/></marker>'
+            f'<marker id="ao" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="3.6" markerHeight="3.6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#000"/></marker>'
+            f'</defs><g fill="none" stroke-linecap="round" stroke-linejoin="round">{paths}</g></svg>')
+
+
+def story_slide_html(v, s, img_src, last, booklet_files=None):
     n = s["number"]
     head, body = s.get("headline", ""), (s.get("body") or "").strip()
     cls, inner = "", []
@@ -516,8 +557,15 @@ def story_slide_html(v, s, img_src, last):
             inner.append(f'<div class="pill">{_story_rich(lib.collapse(body))}</div>')
     elif n == last:
         cls, kind = "cta", "cta"
-        inner.append(f'<div class="h"><span class="btn">{STORY_SAVE_ICON}{_safe(lib.collapse(head))}</span></div>')
-        inner.append('<div class="part"><div class="t" style="font-size:.9em">' + _story_rich(lib.collapse(body)) + "</div></div>")
+        if SAVE_LINE_RE.match(head):   # the save line is the gold button; the book link CTA (30 Oct 2026) has a plain headline
+            inner.append(f'<div class="h"><span class="btn">{STORY_SAVE_ICON}{_safe(lib.collapse(head))}</span></div>')
+        else:
+            inner.append('<div class="h">' + "".join(f'<span class="ln">{_story_text(l)}</span>' for l in lib.lines_of(head)) + "</div>")
+        if not SAVE_LINE_RE.match(head):   # book link CTA: the comment word in gold, one line per thought
+            body_html = "".join(f'<span class="ln" style="display:block">{_story_rich(re.sub(r"([\"״][^\"״]+[\"״])", r"**\1**", l))}</span>' for l in lib.lines_of(body))
+            inner.append(f'<div class="part"><div class="t" style="font-size:.9em">{body_html}</div></div>')
+        else:
+            inner.append('<div class="part"><div class="t" style="font-size:.9em">' + _story_rich(lib.collapse(body)) + "</div></div>")
     else:
         kind = "slide"
         label = (s.get("label") or "").strip()
@@ -532,9 +580,13 @@ def story_slide_html(v, s, img_src, last):
             cls = "letter"
         inner.append(story_body_html(body))
     mx, mn, max_h = STORY_SIZES[kind]
+    extra = ""
+    if n == last and booklet_files and v.get("booklet"):   # the copy ends above the photo circle, the booklet below it
+        mx, mn, max_h = STORY_SIZES["cta_booklet"]
+        extra = booklet_html(v["booklet"], booklet_files)
     return (f'<section class="slide {cls}" data-n="{n}"><img class="art" src="{img_src}" alt=""><div class="veil"></div>'
             f'<div class="copy" data-max="{mx}" data-min="{mn}" data-maxh="{max_h}" style="font-size:{mx}px">'
-            + "".join(inner) + "</div></section>")
+            + "".join(inner) + "</div>" + extra + "</section>")
 
 
 def build_story_html(frozen, images, out_dir):
@@ -542,7 +594,13 @@ def build_story_html(frozen, images, out_dir):
     css = (STORY_CSS.replace("{he}", rel(FONTS / "VarelaRound-hebrew.woff2", out_dir))
                     .replace("{la}", rel(FONTS / "VarelaRound-latin.woff2", out_dir)))
     last = len(v["slides"])
-    sections = "".join(story_slide_html(v, s, rel(images[s["number"]], out_dir), last) for s in v["slides"])
+    files = None
+    if v.get("booklet"):   # RUN_DIR/booklet/ (scripts/booklet_cta.py)
+        bdir = Path(images[last]).parent.parent / "booklet"
+        if not (bdir / "booklet.png").exists() or not (bdir / "kid.png").exists():
+            raise SystemExit(f"the option has a booklet but {bdir} lacks booklet.png or kid.png (scripts/booklet_cta.py)")
+        files = {"booklet": rel(bdir / "booklet.png", out_dir), "kid": rel(bdir / "kid.png", out_dir), "booklet_path": bdir / "booklet.png"}
+    sections = "".join(story_slide_html(v, s, rel(images[s["number"]], out_dir), last, files) for s in v["slides"])
     return ('<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">'
             f'<title>{esc(frozen["date"])} {esc(v["id"])}</title><style>{css}</style></head>'
             f'<body dir="rtl" class="look-story structure-{esc(v.get("structure") or "story")}">{sections}'

@@ -3,6 +3,7 @@
   "date": "2026-12-04",
   "generated_at": "2026-10-29T19:16:19+00:00",
   "format": "two_topics",
+  "copy_style": "story",
   "topics": [
     {
       "id": "new-sibling",
@@ -481,14 +482,15 @@
       "versions": [
         {
           "id": "kid-1",
-          "title": "אמא ואבא 8 דברים שיעזרו לי כשיש תינוק בבית",
-          "angle": "נועה מבקשת מההורים שמונה דברים כשיש תינוק בבית: זמן רק איתה, להזמין אותה לעזור, בלי להגיד לה שהיא גדולה, פרגון, הבנה לבקבוק ולקנאה, אהבה כמו קודם ולא הכול על התינוק.",
+          "structure": "short_list",
+          "title": "אמא ואבא, 5 דברים שאני צריכה עם התינוק",
+          "angle": "נועה, בת 4, מאז שהתינוק הגיע מבקשת בקבוק ומפספסת, ומבקשת מההורים חמישה דברים: דייט קטן רק איתה, להזמין אותה לעזור בלי להכריח, לראות כשהיא עדינה, בלי ״את כבר גדולה״ כשהיא רוצה בקבוק, ולשמוע שאוהבים אותה כמו קודם.",
           "target_parent": "הורים לילדה בת 4 שהתינוק החדש הפך אצלה בקבוק וקנאה.",
           "awareness_stage": "solution_aware",
           "hook_family": "child_pov",
           "hook": {
             "formula": "child-numbered-ask",
-            "gap": "What are the eight things a 4-year-old girl wants from her parents when there is a new baby at home?",
+            "gap": "Which five things does a 4-year-old girl ask her parents for since the new baby came home?",
             "payoff_slide": 3,
             "score": {
               "specific": 2,
@@ -505,7 +507,6 @@
           "child_gender": "girl",
           "addressee": "parents",
           "child_name": "נועה",
-          "examples_target": 8,
           "character_anchor": {
             "child": "A 4-year-old Israeli girl with dark brown curly hair in two small puffs, olive skin, big brown eyes and a small gap-toothed smile; about 102 cm tall.",
             "parent": "Her mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes, and her father, mid-thirties, short dark hair and light stubble; both warm and a little tired in a real way.",
@@ -528,123 +529,98 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "אמא ואבא\n8 דברים שיעזרו לי\nעם התינוק",
-              "body": "",
-              "pull": {
-                "type": "numbered",
-                "note": "שמונת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "אמא ואבא\n5 דברים שאני צריכה\nעם התינוק",
+              "body": "מאז שהוא נולד, אני קצת אחרת"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "כשיש תינוק בבית\nאני מתבלבלת",
-              "body": "פתאום אני רוצה בקבוק\nזה סימן שקשה לי\nהנה מה שיעזור לי",
-              "pull": {
-                "type": "open_loop",
-                "note": "ומה יעזור לה? שקופית 3"
+              "role": "beat",
+              "headline": "מאז שהתינוק הגיע הביתה",
+              "body": "הבית מלא בכי, חיתולים ואורחים.\nכולם שואלים ״איך התינוק?״\nואני עומדת ליד העריסה עם הדובי שלי.\n\nפתאום אני רוצה בקבוק,\nולפעמים מפספסת במכנסיים.\nאז הנה חמישה דברים שאני **צריכה**.",
+              "scene": {
+                "action": "The girl stands beside the wicker bassinet hugging her teddy bear, looking up uncertainly while visiting relatives lean over the baby.",
+                "setting": "The family's cosy Israeli living room: a cream sofa, a soft rug, a small wicker bassinet, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 זמן מיוחד רק איתכם",
-              "body": "״נועה, היום יש לנו דייט״\nאחד מכם ואני",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עוד? שקופית 4"
-              },
-              "examples": [
-                "זמן מיוחד רק איתכם"
-              ]
-            },
-            {
-              "number": 4,
-              "role": "example",
-              "headline": "2 תזמינו אותי לעזור",
-              "body": "אבל אל תכריחו אותי\nאם לא בא לי, זה בסדר",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה כשאני עדינה? שקופית 5"
-              },
-              "examples": [
-                "תזמינו אותי לעזור"
-              ]
-            },
-            {
-              "number": 5,
-              "role": "example",
-              "headline": "3 בלי ״את כבר גדולה״",
-              "body": "לפעמים אני רוצה להיות קטנה\nוזה בסדר",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אומרים במקום? שקופית 6"
-              },
-              "examples": [
-                "בלי ״את כבר גדולה״"
-              ]
-            },
-            {
-              "number": 6,
-              "role": "example",
-              "headline": "4 פרגנו לי כשאני עדינה",
-              "body": "״נועה, איזה חיבוק עדין לתינוק״\nככה אני יודעת שראיתם",
-              "pull": {
-                "type": "numbered",
-                "note": "ועוד שניים בשקופית 7"
-              },
-              "examples": [
-                "פרגנו לי כשאני עדינה"
-              ]
-            },
-            {
-              "number": 7,
-              "role": "example",
-              "headline": "5 אם אני מבקשת בקבוק\n6 מותר לי לקנא בתינוק",
-              "body": "״נועה, קשה לך ואנחנו איתך״",
-              "pull": {
-                "type": "numbered",
-                "note": "ועוד שניים בשקופית 8"
-              },
-              "examples": [
-                "אם אני מבקשת בקבוק",
-                "מותר לי לקנא בתינוק"
-              ]
-            },
-            {
-              "number": 8,
-              "role": "example",
-              "headline": "7 אוהבים אותי כמו קודם\n8 לא הכול על התינוק",
-              "body": "״נועה, נאהב אותך אותו דבר״\nגם כשיש אורחים",
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
-              },
-              "examples": [
-                "אוהבים אותי כמו קודם",
-                "לא הכול על התינוק"
-              ]
-            },
-            {
-              "number": 9,
-              "role": "recap",
-              "headline": "8 דברים שיעזרו לי\nלהיות אחות גדולה",
-              "body": "זמן, עזרה, פרגון, הבנה\nתעזרו לי להרגיש שאני שלכם",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 שומרת את הכול"
+              "role": "beat",
+              "label": "1: זמן רק שלי",
+              "headline": "דייט קטן, רק אני ואחד מכם",
+              "body": "לא צריך לצאת רחוק.\nגלידה בפינה, או מגדל קוביות בסלון.\nעשר דקות בלי התינוק ובלי טלפון.\n\nאחרי זה גם הבכי שלו\nנשמע לי **פחות רועש**.",
+              "scene": {
+                "action": "The girl and her father sit on a bench outside a small ice cream kiosk, each holding a cone, laughing together.",
+                "setting": "A quiet Israeli street corner in the late afternoon: a small kiosk, a tree, a plain pale wall behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
-              "number": 10,
+              "number": 4,
+              "role": "beat",
+              "label": "2: להזמין אותי לעזור",
+              "headline": "תשאלו אם בא לי לעזור",
+              "body": "## מה אתם רואים:\nילדה שמביאה חיתול ונעלמת לחדר.\n## מה קורה לי בפנים:\nאני רוצה להיות חלק, אבל לא כל פעם.\n\nאז תזמינו אותי, ואל תכריחו.\nאם אמרתי לא, זה **בסדר**.",
+              "scene": {
+                "action": "The girl proudly hands a folded nappy to her mother at the changing mat, then turns half away as if ready to run off to play.",
+                "setting": "The parents' Israeli bedroom: a simple changing mat on a low dresser, a plain pale cream wall, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 5,
+              "role": "beat",
+              "label": "3: לראות כשאני עדינה",
+              "headline": "ליטפתי לו את הרגל",
+              "body": "בעדינות, עם שתי אצבעות.\nהוא הסתכל עליי.\nואף אחד לא ראה.\n\nתגידו לי שראיתם.\n״נועה, איזה ליטוף עדין.״\nואני **מחייכת** כל הערב.",
+              "scene": {
+                "action": "The girl gently strokes the baby's tiny foot with two fingers as he lies in the bassinet, her face soft and careful.",
+                "setting": "The family's cosy Israeli living room: a cream sofa, a soft rug, a small wicker bassinet, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 6,
+              "role": "beat",
+              "label": "4: בלי ״את כבר גדולה״",
+              "headline": "לפעמים בא לי להיות קטנה",
+              "body": "כשאתם אומרים ״את כבר גדולה״,\nאני דווקא רוצה בקבוק.\nאני מבקשת אותו כי **קשה לי** עכשיו.\n## מה יעזור לי לשמוע:\n> ״נועה, בואי, גם לך מגיע חיבוק.״",
+              "scene": {
+                "action": "The girl curls up on the sofa holding a baby bottle, and her mother sits down beside her and opens her arms for a hug.",
+                "setting": "The family's cosy Israeli living room: a cream sofa, a soft rug, a small wicker bassinet, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 7,
+              "role": "beat",
+              "label": "5: לשמוע שאוהבים אותי",
+              "headline": "עוד אוהבים אותי כמו קודם?",
+              "body": "לפעמים אני חושבת על זה בלילה,\nכשאני שומעת אותו בוכה בחדר שלכם.\n## מה יעזור לי:\nשתגידו לי שאוהבים אותי אותו דבר.\nושלא כל הבית יהיה **רק עליו**.",
+              "scene": {
+                "action": "The girl lies awake in her small bed hugging her teddy bear, looking toward the half open door, a soft line of hallway light on the floor.",
+                "setting": "The girl's small Israeli bedroom at night: a warm night light, a plain wall above the bed. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 8,
+              "role": "turn",
+              "headline": "אני רק לומדת להיות אחות",
+              "body": "זה חדש גם לי, אמא ואבא.\nיהיו ימים שאני אעזור ואלטף,\nויהיו ימים שארצה בקבוק.\n\nעם קצת זמן רק שלי,\nומקום **גם לי** אצלכם,\nאני לומדת את זה בקצב שלי.",
+              "scene": {
+                "action": "The girl sits between her mother and father on the sofa, the baby asleep in the mother's arms, the father's arm around the girl, all calm.",
+                "setting": "The family's cosy Israeli living room: a cream sofa, a soft rug, a small wicker bassinet, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 9,
               "role": "story_cta",
               "headline": "תשמרו את הפוסט",
-              "body": "לפעם הבאה שהיא מקנאה בתינוק"
+              "body": "לפעם הבאה שהיא מקנאה בתינוק",
+              "scene": {
+                "action": "The girl and her father build a tall block tower on the rug while the baby sleeps in the bassinet nearby, the mother smiling from the sofa.",
+                "setting": "The family's cosy Israeli living room: a cream sofa, a soft rug, a small wicker bassinet, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "אמא ואבא, 8 דברים שיעזרו לי כשיש תינוק בבית\nתנו לי זמן רק איתכם ותזמינו אותי לעזור\nאל תגידו לי להיות גדולה ופרגנו לי כשאני עדינה\nאם אני מבקשת בקבוק, תגידו לי שאתם איתי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרו את הפוסט לפעם הבאה שהיא מקנאה בתינוק",
+          "caption": "אמא ואבא, מאז שהתינוק הגיע אני צריכה מכם חמישה דברים.\nתנו לי דייט קטן, רק אני ואחד מכם.\nתזמינו אותי לעזור, ותגידו לי כשראיתם שאני עדינה.\nואם אני מבקשת בקבוק, בלי ״את כבר גדולה״.\nתגידו לי שאתם אוהבים אותי כמו קודם.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרו את הפוסט לפעם הבאה שהיא מקנאה בתינוק",
           "cta": "תשמרו את הפוסט\nלפעם הבאה שהיא מקנאה בתינוק",
-          "conversion_rationale": "מספר וצורך על הכריכה (8 דברים שיעזרו לי), והילדה מסתכלת ישר לעדשה. הרשימה בקול הילדה והבקשות ישירות להורים.",
+          "conversion_rationale": "רשימה קצרה של חמש נקודות במקום שמונה, כל נקודה שקופית מלאה עם רגע של נועה, והצורות מתחלפות (מונולוג, מה אתם רואים ומה קורה לי בפנים, שורות קצרות, כרטיס עם משפט, שאלה בכותרת). הכריכה שומרת על המספר ועל הפנייה לשני ההורים.",
           "sources": [
             {
               "id": "src-hc",
@@ -668,55 +644,45 @@
           "claims": [
             {
               "slide": 1,
-              "wording_he": "שמונה דברים שיעזרו לילדה כשיש תינוק בבית",
+              "wording_he": "חמישה דברים שיעזרו לי עם התינוק",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-hc",
                 "src-ztt"
               ],
-              "supports": "The eight are our grouping of advice from the AAP HealthyChildren page and the ZERO TO THREE page. No promise of a result."
+              "supports": "Our grouping of advice from the AAP HealthyChildren page and the ZERO TO THREE page. No promise of a result."
             },
             {
               "slide": 2,
-              "wording_he": "כשאני מבקשת בקבוק זה סימן שקשה לי",
+              "wording_he": "פתאום אני רוצה בקבוק, ולפעמים מפספסת במכנסיים",
               "kind": "sourced_fact",
               "source_ids": [
-                "src-ztt",
                 "src-hc"
               ],
-              "supports": "ZERO TO THREE: taking steps backwards in development is often a sign of stress; HealthyChildren: expect your child to regress a little, such as wanting a bottle. Imagined child voice."
+              "supports": "HealthyChildren: expect your child to regress a little; a toilet-trained child might start having accidents or want a bottle. Said as this child's own story."
             },
             {
               "slide": 3,
-              "wording_he": "זמן מיוחד רק איתכם",
+              "wording_he": "דייט קטן, רק אני ואחד מכם, עשר דקות בלי התינוק",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-hc"
               ],
-              "supports": "HealthyChildren: plan a one-on-one date with your child."
+              "supports": "HealthyChildren: plan a one-on-one date with your child; set aside special time for your child."
             },
             {
               "slide": 4,
-              "wording_he": "תזמינו אותי לעזור ואל תכריחו",
+              "wording_he": "תזמינו אותי לעזור, ואל תכריחו",
               "kind": "sourced_fact",
               "source_ids": [
-                "src-ztt",
-                "src-hc"
+                "src-hc",
+                "src-ztt"
               ],
-              "supports": "ZERO TO THREE: encourage your older child to help, but don't force it; HealthyChildren: find ways to invite your child to help."
+              "supports": "HealthyChildren: find ways to invite your child to help, make sure your child feels included; ZERO TO THREE: encourage your older child to help, but don't force it."
             },
             {
               "slide": 5,
-              "wording_he": "בלי את כבר גדולה",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-ztt"
-              ],
-              "supports": "ZERO TO THREE: encouraging or demanding that older children act like a big boy or girl often backfires."
-            },
-            {
-              "slide": 6,
-              "wording_he": "פרגנו לי כשאני עדינה",
+              "wording_he": "תגידו לי שראיתם ליטוף עדין",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-hc"
@@ -724,36 +690,34 @@
               "supports": "HealthyChildren: praise them when they are gentle and loving toward the baby."
             },
             {
+              "slide": 6,
+              "wording_he": "בלי את כבר גדולה, אני מבקשת בקבוק כי קשה לי",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt",
+                "src-hc"
+              ],
+              "supports": "ZERO TO THREE: taking steps backwards is often a sign of stress, and demanding that older children act like a big boy or girl often backfires; HealthyChildren: a child might want to take a bottle. The hug sentence is our wording."
+            },
+            {
               "slide": 7,
-              "wording_he": "אם אני מבקשת בקבוק, מותר לי לקנא",
+              "wording_he": "שתגידו לי שאוהבים אותי אותו דבר, ושלא הכל יהיה רק עליו",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-hc",
                 "src-ztt"
               ],
-              "supports": "HealthyChildren: a child might want to take a bottle; ZERO TO THREE: let the child know feelings are understood. The sentence is our wording."
+              "supports": "HealthyChildren: reassure your child that you will love them just as much; ZERO TO THREE: don't make everything about the new baby."
             },
             {
               "slide": 8,
-              "wording_he": "אוהבים אותי כמו קודם, לא הכול על התינוק",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-hc",
-                "src-ztt"
-              ],
-              "supports": "HealthyChildren: reassure your child that you will love them just as much after the baby is born; ZERO TO THREE: don't make everything about the new baby."
+              "wording_he": "אני לומדת להיות אחות בקצב שלי",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "Our recap of slides 3 to 7 in the child's imagined voice; no new fact."
             },
             {
               "slide": 9,
-              "wording_he": "זמן, עזרה, פרגון, הבנה",
-              "kind": "lumebook_wording",
-              "source_ids": [
-                "src-hc"
-              ],
-              "supports": "Our recap of slides 3 to 8 in the child's imagined voice; no new fact."
-            },
-            {
-              "slide": 10,
               "wording_he": "סיפורים על ספרים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -762,7 +726,7 @@
               "supports": "Reading children's books or stories about the moment is suggested by the source; no promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 9,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -775,21 +739,22 @@
           ],
           "topic_id": "new-sibling",
           "post_text": {
-            "caption": "אמא ואבא, 8 דברים שיעזרו לי כשיש תינוק בבית 👶\nתנו לי זמן רק איתכם ותזמינו אותי לעזור\nאל תגידו לי להיות גדולה ופרגנו לי כשאני עדינה\nאם אני מבקשת בקבוק, תגידו לי שאתם איתי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרו את הפוסט לפעם הבאה שהיא מקנאה בתינוק 🔖",
-            "fb_text": "כשיש תינוק בבית 👶\nאני מתבלבלת\nפתאום אני רוצה בקבוק\nזה סימן שקשה לי\nהנה מה שיעזור לי\n\n1 זמן מיוחד רק איתכם\n״נועה, היום יש לנו דייט״\nאחד מכם ואני\n\n2 תזמינו אותי לעזור\nאבל אל תכריחו אותי\nאם לא בא לי, זה בסדר\n\n3 בלי ״את כבר גדולה״\nלפעמים אני רוצה להיות קטנה\nוזה בסדר\n\n4 פרגנו לי כשאני עדינה\n״נועה, איזה חיבוק עדין לתינוק״\nככה אני יודעת שראיתם\n\n5 אם אני מבקשת בקבוק\n6 מותר לי לקנא בתינוק\n״נועה, קשה לך ואנחנו איתך״\n\n7 אוהבים אותי כמו קודם\n8 לא הכול על התינוק\n״נועה, נאהב אותך אותו דבר״\nגם כשיש אורחים\n\n8 דברים שיעזרו לי\nלהיות אחות גדולה\nזמן, עזרה, פרגון, הבנה\nתעזרו לי להרגיש שאני שלכם\n\nתשמרו את הפוסט\nלפעם הבאה שהיא מקנאה בתינוק 🔖"
+            "caption": "אמא ואבא, מאז שהתינוק הגיע אני צריכה מכם חמישה דברים. 👶\nתנו לי דייט קטן, רק אני ואחד מכם.\nתזמינו אותי לעזור, ותגידו לי כשראיתם שאני עדינה.\nואם אני מבקשת בקבוק, בלי ״את כבר גדולה״.\nתגידו לי שאתם אוהבים אותי כמו קודם.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרו את הפוסט לפעם הבאה שהיא מקנאה בתינוק 🔖",
+            "fb_text": "מאז שהתינוק הגיע הביתה. 👶\nהבית מלא בכי, חיתולים ואורחים.\nכולם שואלים ״איך התינוק?״\nואני עומדת ליד העריסה עם הדובי שלי.\nפתאום אני רוצה בקבוק,\nולפעמים מפספסת במכנסיים.\nאז הנה חמישה דברים שאני צריכה.\n\nדייט קטן, רק אני ואחד מכם.\nלא צריך לצאת רחוק.\nגלידה בפינה, או מגדל קוביות בסלון.\nעשר דקות בלי התינוק ובלי טלפון.\nאחרי זה גם הבכי שלו\nנשמע לי פחות רועש.\n\nתשאלו אם בא לי לעזור.\nמה אתם רואים:\nילדה שמביאה חיתול ונעלמת לחדר.\nמה קורה לי בפנים:\nאני רוצה להיות חלק, אבל לא כל פעם.\nאז תזמינו אותי, ואל תכריחו.\nאם אמרתי לא, זה בסדר.\n\nליטפתי לו את הרגל.\nבעדינות, עם שתי אצבעות.\nהוא הסתכל עליי.\nואף אחד לא ראה.\nתגידו לי שראיתם.\n״נועה, איזה ליטוף עדין.״\nואני מחייכת כל הערב.\n\nלפעמים בא לי להיות קטנה.\nכשאתם אומרים ״את כבר גדולה״,\nאני דווקא רוצה בקבוק.\nאני מבקשת אותו כי קשה לי עכשיו.\nמה יעזור לי לשמוע:\n״נועה, בואי, גם לך מגיע חיבוק.״\n\nעוד אוהבים אותי כמו קודם?\nלפעמים אני חושבת על זה בלילה,\nכשאני שומעת אותו בוכה בחדר שלכם.\nמה יעזור לי:\nשתגידו לי שאוהבים אותי אותו דבר.\nושלא כל הבית יהיה רק עליו.\n\nאני רק לומדת להיות אחות.\nזה חדש גם לי, אמא ואבא.\nיהיו ימים שאני אעזור ואלטף,\nויהיו ימים שארצה בקבוק.\nעם קצת זמן רק שלי,\nומקום גם לי אצלכם,\nאני לומדת את זה בקצב שלי.\n\nתשמרו את הפוסט\nלפעם הבאה שהיא מקנאה בתינוק 🔖"
           }
         },
         {
           "id": "kid-2",
-          "title": "3 מילים שמרגיזות אותי ו6 דברים במקום",
-          "angle": "נועם מגלה את שלוש המילים ״תהיה אח גדול״ שמרגיזות אותו כשיש תינוק, ומבקש מאמא שישה דברים במקומן.",
+          "structure": "thoughts_answers",
+          "title": "אמא, כשאת אומרת ״תהיה אח גדול״ בא לי להיות תינוק",
+          "angle": "נועם, בן 4, עונה לאמא על המחשבות שלה מאז שהתינוק נולד: הבקבוק, הבריחה מהעזרה, הצעקות, ״תחזירי אותו״, ומה כן עוזר לו: בלי לכעוס על הבקבוק, להזמין ולא להכריח, זמן רק שלהם, לשמוע שהיא אוהבת אותו כמו קודם, ופרגון כשהוא עדין.",
           "target_parent": "אמהות לילד בן 4 שהתינוק החדש גרם לו לכעוס ולבקש בקבוק.",
           "awareness_stage": "problem_aware",
           "hook_family": "sentences_we_say",
           "hook": {
             "formula": "words-that-backfire",
-            "gap": "Which three words make a 4-year-old boy angry when there is a new baby, and what can mom say instead?",
-            "payoff_slide": 2,
+            "gap": "Why does saying 'be a big brother' make a 4-year-old want to be the baby, and what does he answer to his mother's thoughts?",
+            "payoff_slide": 3,
             "score": {
               "specific": 2,
               "feeling": 2,
@@ -805,7 +770,6 @@
           "child_gender": "boy",
           "addressee": "mom",
           "child_name": "נועם",
-          "examples_target": 6,
           "character_anchor": {
             "child": "A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and olive skin; about 102 cm tall.",
             "parent": "His mother, early thirties, tanned skin, dark wavy hair in a low bun, kind brown eyes; warm and a little tired in a real way.",
@@ -828,121 +792,98 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "3 מילים\nשמרגיזות אותי\n6 דברים במקום",
-              "body": "",
-              "pull": {
-                "type": "open_loop",
-                "note": "אילו מילים? שקופית 2"
-              }
+              "headline": "אמא, כשאת אומרת\n״תהיה אח גדול״\nבא לי להיות תינוק",
+              "body": "מה את חושבת, ומה אני עונה"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "״תהיה אח גדול״\nכשאת אומרת לי את זה",
-              "body": "אני דווקא רוצה להיות קטן\nבדיוק כמו התינוק",
-              "pull": {
-                "type": "open_loop",
-                "note": "ומה להגיד במקום? שקופית 3"
+              "role": "beat",
+              "headline": "אני רואה את המבט שלך",
+              "body": "כשאני מבקש את המוצץ של התינוק.\nכשאני זוחל על השטיח כמוהו.\nאת נאנחת, ואני יודע מה את חושבת.\n\nאז החלטתי לענות לך,\nמחשבה אחרי **מחשבה**.",
+              "scene": {
+                "action": "The boy crawls on the rug next to the baby bouncer, imitating the baby, and glances up at his mother who sighs on the sofa.",
+                "setting": "A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 ״קשה לך עם התינוק?״",
-              "body": "תגידי את זה במקום ״תהיה אח גדול״\nככה אני יודע שמבינים אותי",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עוד? שקופית 4"
-              },
-              "examples": [
-                "״קשה לך עם התינוק?״"
-              ]
-            },
-            {
-              "number": 4,
-              "role": "example",
-              "headline": "2 תני לי זמן רק איתך",
-              "body": "״נועם, נצא רק שנינו״\nבלי התינוק",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אני יכול לעשות? שקופית 5"
-              },
-              "examples": [
-                "תני לי זמן רק איתך"
-              ]
-            },
-            {
-              "number": 5,
-              "role": "example",
-              "headline": "3 תזמיני אותי לעזור",
-              "body": "להביא חיתול או לשיר לו\nואם לא בא לי, לא מכריחים",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה כשאני עדין? שקופית 6"
-              },
-              "examples": [
-                "תזמיני אותי לעזור"
-              ]
-            },
-            {
-              "number": 6,
-              "role": "example",
-              "headline": "4 תפרגני לי כשאני עדין",
-              "body": "״נועם, ראיתי איך ליטפת אותו״\nאני רוצה לעשות את זה שוב",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה כשאני קטן? שקופית 7"
-              },
-              "examples": [
-                "תפרגני לי כשאני עדין"
-              ]
-            },
-            {
-              "number": 7,
-              "role": "example",
-              "headline": "5 תני לי להיות קטן שוב",
-              "body": "אם אני מבקש בקבוק, אל תכעסי\nאני רק צריך אותך יותר קרוב",
-              "pull": {
-                "type": "numbered",
-                "note": "והאחרון בשקופית 8"
-              },
-              "examples": [
-                "תני לי להיות קטן שוב"
-              ]
-            },
-            {
-              "number": 8,
-              "role": "example",
-              "headline": "6 תגידי שאת אוהבת אותי",
-              "body": "״נועם, אני אוהבת אותך אותו דבר״\nגם אחרי שהתינוק נולד",
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
-              },
-              "examples": [
-                "תגידי שאת אוהבת אותי"
-              ]
-            },
-            {
-              "number": 9,
-              "role": "recap",
-              "headline": "במקום ״תהיה אח גדול״\nאלה 6 דברים בשבילי",
-              "body": "תעזרי לי להרגיש\nשאני עדיין שלך",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 שומרת את הכול"
+              "role": "beat",
+              "label": "את חושבת:",
+              "headline": "״הוא כבר גדול, למה בקבוק?״",
+              "body": "אני רואה אותו שותה בשקט בידיים שלך.\nגם אני רוצה **להיות שם**.\n## אני עונה:\nכשקשה לי, אני חוזר קצת אחורה.\nתני לי, בלי לכעוס.",
+              "scene": {
+                "action": "The boy stands holding a baby bottle and watches his mother feed the baby on the sofa, a longing look on his face.",
+                "setting": "A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
-              "number": 10,
+              "number": 4,
+              "role": "beat",
+              "label": "את חושבת:",
+              "headline": "״תהיה אח גדול, תעזור לי״",
+              "body": "ואני דווקא בורח לחדר.\nכי ״גדול״ אומר שאני כבר לא קטן שלך.\n## מה יעזור לי:\nלהזמין אותי, ולא להכריח.\n> ״נועם, רוצה להביא לו חיתול?״\nואם לא בא לי, זה **בסדר**.",
+              "scene": {
+                "action": "The mother holds out a folded nappy with a gentle smile while the boy peeks at her from behind the bedroom door, half hiding.",
+                "setting": "A simple Israeli hallway: a plain cream wall, a wooden floor, soft daylight. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 5,
+              "role": "beat",
+              "label": "את חושבת:",
+              "headline": "״למה הוא מתנהג ככה פתאום?״",
+              "body": "פעם היינו רק את ואני כל הבוקר.\nעכשיו אני מחכה, ומחכה.\n## אני עונה:\nקשה לי לחכות **כל הזמן**.\n## מה יעזור לי:\nזמן קטן רק שלנו, כל יום.",
+              "scene": {
+                "action": "The boy and his mother sit on the rug doing a simple puzzle together, just the two of them, the baby asleep in the bouncer in the background.",
+                "setting": "A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 6,
+              "role": "beat",
+              "label": "את חושבת:",
+              "headline": "״הוא לא אוהב את התינוק״",
+              "body": "כשאני אומר ״תחזירי אותו!״,\nאני רואה שנבהלת.\n## אני עונה:\nאני רק רוצה לדעת שיש **גם לי** מקום.\n## מה יעזור לי לשמוע:\n> ״נועם, אני אוהבת אותך כמו קודם.״",
+              "scene": {
+                "action": "The mother kneels to the boy's height and holds his face in her hands, looking warmly into his eyes, while he pouts with crossed arms.",
+                "setting": "A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 7,
+              "role": "beat",
+              "label": "ואחרונה:",
+              "headline": "״מתי הוא יחזור לעצמו?״",
+              "body": "אני פה, אמא. אותו נועם.\nרק לומד שיש עוד מישהו בבית.\n\nכשאת מפרגנת לי על ליטוף עדין,\nכשאת נותנת לי לבחור לו שמיכה,\nאני מרגיש שזה **גם התינוק שלי**.",
+              "scene": {
+                "action": "The boy carefully lays a small blanket he chose over the sleeping baby in the bouncer, his mother crouching beside him with a proud smile.",
+                "setting": "A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 8,
+              "role": "turn",
+              "headline": "אני לא צריך להיות גדול",
+              "body": "אני צריך לדעת שאני עדיין שלך.\nגם כשאני מבקש בקבוק,\nגם כשאני בורח מהחיתולים.\n\nקצת זמן רק שלנו, עזרה כשבא לי,\nוככה אני לומד להיות אח, **בקצב שלי**.",
+              "scene": {
+                "action": "The boy curls up in his mother's lap on the sofa while the baby sleeps in the bouncer beside them, both relaxed.",
+                "setting": "A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 9,
               "role": "story_cta",
-              "headline": "תשמרי את הפוסט",
-              "body": "לפעם הבאה שהוא מקנא בתינוק"
+              "headline": "אפשר גם לעזור להם\nעם הקנאה באח החדש\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבי \"אח\"\nואשלח לך קישור להכנת הספר",
+              "scene": {
+                "action": "The boy sits beside his mother on the sofa gently holding the baby's tiny hand, all three calm and close in the warm light.",
+                "setting": "A cosy Israeli living room: a grey sofa, a soft rug, a baby bouncer chair, a plain pale cream wall. Warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "3 מילים שמרגיזות אותי, ומה אפשר להגיד במקום?\nתגידי לי שקשה לי, ותני לי זמן רק איתך\nתזמיני אותי לעזור ותפרגני לי כשאני עדין\nתני לי להיות קטן שוב ותגידי שאת אוהבת אותי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שהוא מקנא בתינוק",
-          "cta": "תשמרי את הפוסט\nלפעם הבאה שהוא מקנא בתינוק",
-          "conversion_rationale": "שלוש מילים וחסר: איזה? הכריכה מבטיחה גם שישה דברים במקום. שקופית 2 חושפת את המילים בקולו של הילד ושקופיות 3 עד 8 נותנות מה להגיד ולעשות.",
+          "caption": "אמא, כשאת אומרת ״תהיה אח גדול״, אני רוצה להיות קטן.\nתני לי לחזור קצת אחורה, בלי לכעוס.\nתזמיני אותי לעזור, ואל תכריחי.\nתני לי זמן רק שלנו, ותגידי שאת אוהבת אותי כמו קודם.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם הקנאה באח החדש בעזרת ספר מותאם אישית.\nתכתבי \"אח\" ואשלח לך קישור להכנת הספר",
+          "cta": "אפשר גם לעזור להם עם הקנאה באח החדש בעזרת ספר מותאם אישית.\nתכתבי \"אח\" ואשלח לך קישור להכנת הספר",
+          "conversion_rationale": "המשפט ״תהיה אח גדול״ על הכריכה, ואז המחשבות של אמא אחת אחרי השנייה עם תשובה של נועם ומה יעזור לו. מבנה שונה מהרשימה ומהדקה של שתי האפשרויות האחרות בנושא.",
           "sources": [
             {
               "id": "src-hc",
@@ -965,91 +906,72 @@
           ],
           "claims": [
             {
-              "slide": 1,
-              "wording_he": "שלוש מילים שמרגיזות ושישה דברים במקום",
+              "slide": 2,
+              "wording_he": "כשאת אומרת תהיה אח גדול, בא לי להיות תינוק",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-ztt",
                 "src-hc"
               ],
-              "supports": "The six are our grouping of advice from ZERO TO THREE and the AAP HealthyChildren page. No promise of a result."
-            },
-            {
-              "slide": 2,
-              "wording_he": "תהיה אח גדול, אני דווקא רוצה להיות קטן",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-ztt"
-              ],
-              "supports": "ZERO TO THREE: encouraging or demanding that older children act like a big boy or girl often backfires. Imagined child voice."
+              "supports": "ZERO TO THREE: encouraging or demanding that older children act like a big boy or girl often backfires, and taking steps backwards is often a sign of stress; HealthyChildren: expect your child to regress a little. The cover and slide 2 say it as this child's own feeling."
             },
             {
               "slide": 3,
-              "wording_he": "קשה לך עם התינוק?",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-ztt"
-              ],
-              "supports": "ZERO TO THREE: let the child know his feelings are understood and valid. The question is our wording."
-            },
-            {
-              "slide": 4,
-              "wording_he": "זמן רק איתך",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-hc"
-              ],
-              "supports": "HealthyChildren: plan a one-on-one date with your child; set aside special time."
-            },
-            {
-              "slide": 5,
-              "wording_he": "תזמיני אותי לעזור ולא מכריחים",
+              "wording_he": "כשקשה לי אני חוזר קצת אחורה, תני לי בלי לכעוס",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-ztt",
                 "src-hc"
               ],
-              "supports": "ZERO TO THREE: encourage your older child to help, but don't force it."
+              "supports": "ZERO TO THREE: taking steps backwards in development is often a sign of stress; HealthyChildren: expect your child to regress a little, such as wanting a bottle. 'Without anger' is our wording of expecting it."
             },
             {
-              "slide": 6,
-              "wording_he": "תפרגני לי כשאני עדין",
+              "slide": 4,
+              "wording_he": "גדול אומר שאני כבר לא קטן שלך, ולהזמין ולא להכריח",
               "kind": "sourced_fact",
               "source_ids": [
+                "src-ztt",
                 "src-hc"
               ],
-              "supports": "HealthyChildren: praise them when they are gentle and loving toward the baby."
+              "supports": "ZERO TO THREE: demanding that older children act like a big boy or girl often backfires; encourage your older child to help, but don't force it. HealthyChildren: find ways to invite your child to help."
             },
             {
-              "slide": 7,
-              "wording_he": "תני לי להיות קטן שוב",
+              "slide": 5,
+              "wording_he": "קשה לי לחכות, וזמן קטן רק שלנו כל יום",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-hc",
                 "src-ztt"
               ],
-              "supports": "HealthyChildren: expect your child to regress a little, such as wanting a bottle; ZERO TO THREE: taking steps backwards is often a sign of stress."
+              "supports": "HealthyChildren: set aside special time for your child; ZERO TO THREE: regression is often a sign of stress and don't make everything about the new baby."
             },
             {
-              "slide": 8,
-              "wording_he": "תגידי שאת אוהבת אותי",
+              "slide": 6,
+              "wording_he": "אני רוצה לדעת שיש גם לי מקום, אני אוהבת אותך כמו קודם",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-hc"
               ],
-              "supports": "HealthyChildren: reassure your child that you will love them just as much after the baby is born."
+              "supports": "HealthyChildren: reassure your child that you will love them just as much after the baby is born, as you do now. Said as this child's own feeling."
             },
             {
-              "slide": 9,
-              "wording_he": "שישה דברים בשבילי",
-              "kind": "lumebook_wording",
+              "slide": 7,
+              "wording_he": "לפרגן על ליטוף עדין ולתת לי לבחור לו שמיכה",
+              "kind": "sourced_fact",
               "source_ids": [
                 "src-hc"
               ],
-              "supports": "Our recap in the child's imagined voice; no new fact."
+              "supports": "HealthyChildren: praise them when they are gentle and loving toward the baby; make sure your child feels included and not excluded."
             },
             {
-              "slide": 10,
+              "slide": 8,
+              "wording_he": "אני לא צריך להיות גדול, אני לומד בקצב שלי",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "Our recap of slides 3 to 7 in the child's imagined voice; no new fact."
+            },
+            {
+              "slide": 9,
               "wording_he": "סיפורים על ספרים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -1058,7 +980,7 @@
               "supports": "Reading children's books or stories about the moment is suggested by the source; no promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 9,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -1071,21 +993,41 @@
           ],
           "topic_id": "new-sibling",
           "post_text": {
-            "caption": "3 מילים שמרגיזות אותי, ומה אפשר להגיד במקום? 👶\nתגידי לי שקשה לי, ותני לי זמן רק איתך\nתזמיני אותי לעזור ותפרגני לי כשאני עדין\nתני לי להיות קטן שוב ותגידי שאת אוהבת אותי\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שהוא מקנא בתינוק 🔖",
-            "fb_text": "״תהיה אח גדול״ 👶\nכשאת אומרת לי את זה\nאני דווקא רוצה להיות קטן\nבדיוק כמו התינוק\n\n1 ״קשה לך עם התינוק?״\nתגידי את זה במקום ״תהיה אח גדול״\nככה אני יודע שמבינים אותי\n\n2 תני לי זמן רק איתך\n״נועם, נצא רק שנינו״\nבלי התינוק\n\n3 תזמיני אותי לעזור\nלהביא חיתול או לשיר לו\nואם לא בא לי, לא מכריחים\n\n4 תפרגני לי כשאני עדין\n״נועם, ראיתי איך ליטפת אותו״\nאני רוצה לעשות את זה שוב\n\n5 תני לי להיות קטן שוב\nאם אני מבקש בקבוק, אל תכעסי\nאני רק צריך אותך יותר קרוב\n\n6 תגידי שאת אוהבת אותי\n״נועם, אני אוהבת אותך אותו דבר״\nגם אחרי שהתינוק נולד\n\nבמקום ״תהיה אח גדול״\nאלה 6 דברים בשבילי\nתעזרי לי להרגיש\nשאני עדיין שלך\n\nתשמרי את הפוסט\nלפעם הבאה שהוא מקנא בתינוק 🔖"
+            "caption": "אמא, כשאת אומרת ״תהיה אח גדול״, אני רוצה להיות קטן. 👶\nתני לי לחזור קצת אחורה, בלי לכעוס.\nתזמיני אותי לעזור, ואל תכריחי.\nתני לי זמן רק שלנו, ותגידי שאת אוהבת אותי כמו קודם.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם הקנאה באח החדש בעזרת ספר מותאם אישית.\nתכתבי \"אח\" ואשלח לך קישור להכנת הספר 📖",
+            "fb_text": "אני רואה את המבט שלך. 👶\nכשאני מבקש את המוצץ של התינוק.\nכשאני זוחל על השטיח כמוהו.\nאת נאנחת, ואני יודע מה את חושבת.\nאז החלטתי לענות לך,\nמחשבה אחרי מחשבה.\n\n״הוא כבר גדול, למה בקבוק?״\nאני רואה אותו שותה בשקט בידיים שלך.\nגם אני רוצה להיות שם.\nאני עונה:\nכשקשה לי, אני חוזר קצת אחורה.\nתני לי, בלי לכעוס.\n\n״תהיה אח גדול, תעזור לי״\nואני דווקא בורח לחדר.\nכי ״גדול״ אומר שאני כבר לא קטן שלך.\nמה יעזור לי:\nלהזמין אותי, ולא להכריח.\n״נועם, רוצה להביא לו חיתול?״\nואם לא בא לי, זה בסדר.\n\n״למה הוא מתנהג ככה פתאום?״\nפעם היינו רק את ואני כל הבוקר.\nעכשיו אני מחכה, ומחכה.\nאני עונה:\nקשה לי לחכות כל הזמן.\nמה יעזור לי:\nזמן קטן רק שלנו, כל יום.\n\n״הוא לא אוהב את התינוק״\nכשאני אומר ״תחזירי אותו!״,\nאני רואה שנבהלת.\nאני עונה:\nאני רק רוצה לדעת שיש גם לי מקום.\nמה יעזור לי לשמוע:\n״נועם, אני אוהבת אותך כמו קודם.״\n\n״מתי הוא יחזור לעצמו?״\nאני פה, אמא. אותו נועם.\nרק לומד שיש עוד מישהו בבית.\nכשאת מפרגנת לי על ליטוף עדין,\nכשאת נותנת לי לבחור לו שמיכה,\nאני מרגיש שזה גם התינוק שלי.\n\nאני לא צריך להיות גדול.\nאני צריך לדעת שאני עדיין שלך.\nגם כשאני מבקש בקבוק,\nגם כשאני בורח מהחיתולים.\nקצת זמן רק שלנו, עזרה כשבא לי,\nוככה אני לומד להיות אח, בקצב שלי.\n\nאפשר גם לעזור להם\nעם הקנאה באח החדש\nבעזרת ספר מותאם אישית.\nתכתבי \"אח\"\nואשלח לך קישור להכנת הספר 📖"
+          },
+          "cta_style": "book_link",
+          "code_word": "אח",
+          "booklet": {
+            "page_text": [
+              "נועם החזיק את אחיו,",
+              "ואמא ראתה",
+              "אח גדול באמת."
+            ],
+            "crop": [
+              96,
+              65,
+              1197,
+              645
+            ],
+            "face": [
+              0.218,
+              0.446
+            ]
           }
         },
         {
           "id": "kid-3",
-          "title": "ערב רגיל והתינוק בוכה ו9 דברים שיעזרו לי",
-          "angle": "סיפור קטן של ערב רגיל: התינוק בוכה ויעל מבקשת בקבוק, ואחריו תשעה דברים שהיא מבקשת מאמא.",
+          "structure": "one_minute",
+          "title": "ערב רגיל, התינוק בוכה, ואני רוצה בקבוק",
+          "angle": "יעל, בת 4, מספרת לאמא דקה אחת מערב רגיל: הן בונות מגדל, התינוק בוכה, אמא קמה, יעל מפילה את המגדל ומבקשת בקבוק. אחרי הדקה: לא לכעוס ולא ״את גדולה״, זמן קבוע רק שלהן, ולהזמין אותה לשיר לו.",
           "target_parent": "אמהות לילדה בת 4 שמרגישה שקופה כשהתינוק בבית.",
           "awareness_stage": "problem_aware",
           "hook_family": "story",
           "hook": {
             "formula": "story-unresolved",
-            "gap": "What nine small things help a 4-year-old girl who asks for a bottle when the baby cries?",
-            "payoff_slide": 3,
+            "gap": "What happens inside a 4-year-old in the one minute after the baby cries and mom leaves their game, and what helps after?",
+            "payoff_slide": 8,
             "score": {
               "specific": 2,
               "feeling": 2,
@@ -1101,7 +1043,6 @@
           "child_gender": "girl",
           "addressee": "mom",
           "child_name": "יעל",
-          "examples_target": 9,
           "character_anchor": {
             "child": "A 4-year-old Israeli girl with wavy light-brown hair, fair olive skin, hazel eyes and a small dimple; about 101 cm tall.",
             "parent": "Her mother, early thirties, tanned skin, long wavy auburn hair, freckles, kind eyes; warm and a little tired in a real way.",
@@ -1124,124 +1065,110 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "ערב רגיל\nוהתינוק בוכה\nואני רוצה בקבוק",
-              "body": "9 דברים שיעזרו לי",
-              "pull": {
-                "type": "numbered",
-                "note": "תשעת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "ערב רגיל,\nהתינוק בוכה,\nואני רוצה בקבוק",
+              "body": "דקה אחת שלי, ומה עוזר אחריה"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "אני בת 4\nוהבית פתאום מלא תינוק",
-              "body": "כולם מסתכלים עליו\nואני מרגישה שקופה",
-              "pull": {
-                "type": "open_loop",
-                "note": "ומה עוזר לי? שקופית 3"
+              "role": "beat",
+              "label": "18:30, בסלון",
+              "headline": "אנחנו בונות מגדל",
+              "body": "רק אני ואמא על השטיח.\nעוד קובייה, ועוד אחת.\nהמגדל כבר גבוה **כמוני**.\n\nואז מהחדר מגיע הבכי שלו.",
+              "scene": {
+                "action": "The girl in pyjamas and her mother kneel on the rug building a tall tower of wooden blocks, both concentrating and smiling.",
+                "setting": "The family's Israeli living room in the evening: a beige sofa, a soft rug, a plain pale wall, warm lamp light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 דייט רק שלי ושלך\n2 תזמיני אותי לעזור",
-              "body": "״יעל, בואי נצא רק שתינו״",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה כשאני עדינה? שקופית 4"
-              },
-              "examples": [
-                "דייט רק שלי ושלך",
-                "תזמיני אותי לעזור"
-              ]
+              "role": "beat",
+              "label": "הדקה מתחילה",
+              "headline": "את קמה באמצע",
+              "body": "את אומרת ״רגע, יעל, אני תכף חוזרת״,\nונעלמת לחדר שלו.\nהקובייה נשארת לי ביד.\nהמגדל שלנו נשאר **חצי**.",
+              "scene": {
+                "action": "The girl kneels alone by a half built block tower holding one block, looking toward the doorway where her mother just left.",
+                "setting": "The family's Israeli living room in the evening: a beige sofa, a soft rug, a plain pale wall, warm lamp light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 4,
-              "role": "example",
-              "headline": "3 פרגני לי כשאני עדינה",
-              "body": "״יעל, איך ליטפת אותו יפה״\nאני רוצה לשמוע את זה",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אל תגידי? שקופית 5"
-              },
-              "examples": [
-                "פרגני לי כשאני עדינה"
-              ]
+              "role": "beat",
+              "label": "עשר שניות",
+              "headline": "אני שומעת אותך שרה לו",
+              "body": "את השיר שלי. השיר של הלילה שלי.\nאני עומדת בפתח של החדר\nורואה אותו בידיים שלך.\n\nמשהו בגרון שלי **נתקע**.",
+              "scene": {
+                "action": "The girl stands in a doorway watching her mother rock the baby and sing softly to him, the girl's lip trembling.",
+                "setting": "The parents' Israeli bedroom in the evening seen from the doorway: a plain wall, a soft lamp, a wooden crib. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 5,
-              "role": "example",
-              "headline": "4 בלי ״את כבר גדולה״\n5 תני לי להיות קטנה",
-              "body": "אני עדיין הבת שלך\nגם אם אני מבקשת בקבוק",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה כשקשה לי? שקופית 6"
-              },
-              "examples": [
-                "בלי ״את כבר גדולה״",
-                "תני לי להיות קטנה"
-              ]
+              "role": "beat",
+              "label": "עשרים שניות",
+              "headline": "אני מפילה את המגדל",
+              "body": "עם הרגל. בבת אחת.\nהקוביות מתפזרות על כל השטיח.\nזה עושה רעש גדול,\nואת מסתכלת עליי **מהפתח**.",
+              "scene": {
+                "action": "Wooden blocks fly across the rug as the girl kicks the tower down, her mother appearing in the doorway with the baby on her shoulder.",
+                "setting": "The family's Israeli living room in the evening: a beige sofa, a soft rug, a plain pale wall, warm lamp light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 6,
-              "role": "example",
-              "headline": "6 תגידי לי שקשה לי",
-              "body": "״יעל, קשה לך עם התינוק?״\nואז תשבי איתי רגע",
-              "pull": {
-                "type": "numbered",
-                "note": "ועוד שניים בשקופית 7"
-              },
-              "examples": [
-                "תגידי לי שקשה לי"
-              ]
+              "role": "beat",
+              "label": "שלושים שניות",
+              "headline": "״אני רוצה בקבוק!״",
+              "body": "אני צועקת את זה חזק,\nאפילו שכבר שנה אני שותה מכוס.\nאני לא יודעת למה.\nאני רק יודעת שקשה לי **עכשיו**.",
+              "scene": {
+                "action": "The girl stands among scattered blocks with her fists clenched, shouting with tears in her eyes, her mother watching with the baby in her arms.",
+                "setting": "The family's Israeli living room in the evening: a beige sofa, a soft rug, a plain pale wall, warm lamp light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 7,
-              "role": "example",
-              "headline": "7 תאהבי אותי אותו דבר\n8 לא הכול על התינוק",
-              "body": "״יעל, אוהבת אותך כמו קודם״",
-              "pull": {
-                "type": "numbered",
-                "note": "והאחרון בשקופית 8"
-              },
-              "examples": [
-                "תאהבי אותי אותו דבר",
-                "לא הכול על התינוק"
-              ]
+              "role": "beat",
+              "label": "ארבעים שניות",
+              "headline": "ואת לא אומרת ״את גדולה״",
+              "body": "את מתיישבת לידי על השטיח,\nעם התינוק על הכתף.\n## מה יעזור לי:\nשלא תכעסי על הבקבוק,\nולא תבקשי ממני להיות **גדולה**.",
+              "scene": {
+                "action": "The mother sits down on the rug beside the girl, the baby resting on her shoulder, and puts her free arm around the girl.",
+                "setting": "The family's Israeli living room in the evening: a beige sofa, a soft rug, a plain pale wall, warm lamp light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 8,
-              "role": "example",
-              "headline": "9 תשאלי אותי מה לבחור",
-              "body": "איזו שמיכה לתינוק?\nכשאני בוחרת אני מרגישה חלק",
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
-              },
-              "examples": [
-                "תשאלי אותי מה לבחור"
-              ]
+              "role": "beat",
+              "label": "בערב",
+              "headline": "אחרי שהוא נרדם",
+              "body": "את באה למיטה שלי, בלי התינוק.\nבונות שוב מגדל קטן על השמיכה.\n## מה יעזור לי:\nזמן קבוע רק שלנו, כל ערב.\n> ״יעל, עכשיו הזמן רק שלנו.״",
+              "scene": {
+                "action": "The mother sits on the girl's bed and they stack a few small blocks on the blanket together, the girl smiling sleepily.",
+                "setting": "The girl's small Israeli bedroom at night: a warm bedside lamp, a plain wall above the bed. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 9,
-              "role": "recap",
-              "headline": "9 דברים שאני צריכה\nכשיש תינוק בבית",
-              "body": "תעזרי לי להרגיש\nשיש מקום גם לי",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 שומרת את הכול"
+              "role": "turn",
+              "headline": "זו הייתה דקה קשה, אמא",
+              "body": "לא בגלל הבכי שלו.\nבגלל שהשיר שלי הלך אליו.\n\nאני לומדת לחלק אותך,\nוזה לוקח לי **זמן**.\nתזמיני אותי לשיר לו איתך?",
+              "scene": {
+                "action": "The girl and her mother sit together beside the crib, the girl leaning in to sing to the baby with her mother's arm around her.",
+                "setting": "The parents' Israeli bedroom in the evening: a plain wall, a soft lamp, a wooden crib. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 10,
               "role": "story_cta",
               "headline": "תשמרי את הפוסט",
-              "body": "לפעם הבאה שהיא מקנאה בתינוק"
+              "body": "לפעם הבאה שהיא מקנאה בתינוק",
+              "scene": {
+                "action": "The girl falls asleep hugging her mother on her bed, a small block tower standing on the bedside table, the room calm.",
+                "setting": "The girl's small Israeli bedroom at night: a warm bedside lamp, a plain wall above the bed. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "ערב רגיל, התינוק בוכה ואני רוצה בקבוק\nתקבעי לי דייט רק שלי ושלך\nתזמיני אותי לעזור ופרגני לי כשאני עדינה\nאל תגידי לי שאני כבר גדולה\nתשאלי אותי מה לבחור ותאהבי אותי אותו דבר\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מקנאה בתינוק",
+          "caption": "אמא, בערב רגיל אחד התינוק בכה, ואני ביקשתי בקבוק.\nכשאני מבקשת בקבוק, אל תכעסי ואל תגידי ״את גדולה״.\nתשבי לידי על השטיח, גם עם התינוק על הכתף.\nתני לי זמן קבוע רק שלנו, אחרי שהוא נרדם.\nותזמיני אותי לשיר לו איתך.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מקנאה בתינוק",
           "cta": "תשמרי את הפוסט\nלפעם הבאה שהיא מקנאה בתינוק",
-          "conversion_rationale": "סצנה קטנה של ערב רגיל עם בקבוק ותינוק בוכה, ותשעה דברים על הכריכה. הילדה מבקשת בקול שלה ובלי האשמה.",
+          "conversion_rationale": "דקה אחת מערב רגיל, שנייה אחרי שנייה, ורק אחריה מה עוזר. הכריכה פותחת סיפור ולא מבטיחה רשימה, ומבנה שונה מהרשימה ומהמחשבות של שתי האפשרויות האחרות בנושא.",
           "sources": [
             {
               "id": "src-hc",
@@ -1265,89 +1192,52 @@
           "claims": [
             {
               "slide": 1,
-              "wording_he": "תשעה דברים שיעזרו לילדה כשהתינוק בוכה",
+              "wording_he": "התינוק בוכה ואני רוצה בקבוק",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-hc",
                 "src-ztt"
               ],
-              "supports": "The nine are our grouping of advice from the AAP HealthyChildren page and the ZERO TO THREE page. No promise of a result."
-            },
-            {
-              "slide": 2,
-              "wording_he": "כולם מסתכלים עליו ואני מרגישה שקופה",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-ztt",
-                "src-hc"
-              ],
-              "supports": "ZERO TO THREE: don't make everything about the new baby; HealthyChildren: make sure your child feels included and not excluded. Imagined child voice."
-            },
-            {
-              "slide": 3,
-              "wording_he": "דייט רק שלי ושלך ותזמיני אותי לעזור",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-hc",
-                "src-ztt"
-              ],
-              "supports": "HealthyChildren: plan a one-on-one date with your child; ZERO TO THREE: encourage your older child to help, but don't force it."
-            },
-            {
-              "slide": 4,
-              "wording_he": "פרגני לי כשאני עדינה",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-hc"
-              ],
-              "supports": "HealthyChildren: praise them when they are gentle and loving toward the baby."
-            },
-            {
-              "slide": 5,
-              "wording_he": "בלי את כבר גדולה, תני לי להיות קטנה",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-ztt",
-                "src-hc"
-              ],
-              "supports": "ZERO TO THREE: demanding that older children act like a big boy or girl often backfires; HealthyChildren: expect your child to regress a little."
+              "supports": "HealthyChildren: expect your child to regress a little, a child might want to take a bottle; ZERO TO THREE: taking steps backwards is often a sign of stress. Said as this child's own evening."
             },
             {
               "slide": 6,
-              "wording_he": "תגידי לי שקשה לי",
+              "wording_he": "אני רוצה בקבוק כי קשה לי עכשיו",
               "kind": "sourced_fact",
               "source_ids": [
-                "src-ztt"
+                "src-ztt",
+                "src-hc"
               ],
-              "supports": "ZERO TO THREE: let the child know feelings are understood and valid. The question is our wording."
+              "supports": "ZERO TO THREE: taking steps backwards in development is often a sign of stress; HealthyChildren: a child might want to take a bottle. Said as this child's own feeling."
             },
             {
               "slide": 7,
-              "wording_he": "תאהבי אותי אותו דבר, לא הכול על התינוק",
+              "wording_he": "שלא תכעסי על הבקבוק ולא תבקשי ממני להיות גדולה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt",
+                "src-hc"
+              ],
+              "supports": "ZERO TO THREE: encouraging or demanding that older children act like a big boy or girl often backfires; HealthyChildren: expect your child to regress a little."
+            },
+            {
+              "slide": 8,
+              "wording_he": "זמן קבוע רק שלנו, כל ערב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-hc"
+              ],
+              "supports": "HealthyChildren: set aside special time for your child; plan a one-on-one date."
+            },
+            {
+              "slide": 9,
+              "wording_he": "תזמיני אותי לשיר לו איתך",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-hc",
                 "src-ztt"
               ],
-              "supports": "HealthyChildren: reassure your child that you will love them just as much after the baby is born; ZERO TO THREE: don't make everything about the new baby."
-            },
-            {
-              "slide": 8,
-              "wording_he": "תשאלי אותי מה לבחור",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-hc"
-              ],
-              "supports": "HealthyChildren: find ways to invite your child to help and make sure they feel included. The blanket is our example."
-            },
-            {
-              "slide": 9,
-              "wording_he": "תשעה דברים שאני צריכה",
-              "kind": "lumebook_wording",
-              "source_ids": [
-                "src-hc"
-              ],
-              "supports": "Our recap in the child's imagined voice; no new fact."
+              "supports": "HealthyChildren: find ways to invite your child to help so the child feels included; ZERO TO THREE: encourage the older child to help, but don't force it. The song is our wording."
             },
             {
               "slide": 10,
@@ -1372,21 +1262,22 @@
           ],
           "topic_id": "new-sibling",
           "post_text": {
-            "caption": "ערב רגיל, התינוק בוכה ואני רוצה בקבוק 👶\nתקבעי לי דייט רק שלי ושלך\nתזמיני אותי לעזור ופרגני לי כשאני עדינה\nאל תגידי לי שאני כבר גדולה\nתשאלי אותי מה לבחור ותאהבי אותי אותו דבר\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מקנאה בתינוק 🔖",
-            "fb_text": "אני בת 4 👶\nוהבית פתאום מלא תינוק\nכולם מסתכלים עליו\nואני מרגישה שקופה\n\n1 דייט רק שלי ושלך\n2 תזמיני אותי לעזור\n״יעל, בואי נצא רק שתינו״\n\n3 פרגני לי כשאני עדינה\n״יעל, איך ליטפת אותו יפה״\nאני רוצה לשמוע את זה\n\n4 בלי ״את כבר גדולה״\n5 תני לי להיות קטנה\nאני עדיין הבת שלך\nגם אם אני מבקשת בקבוק\n\n6 תגידי לי שקשה לי\n״יעל, קשה לך עם התינוק?״\nואז תשבי איתי רגע\n\n7 תאהבי אותי אותו דבר\n8 לא הכול על התינוק\n״יעל, אוהבת אותך כמו קודם״\n\n9 תשאלי אותי מה לבחור\nאיזו שמיכה לתינוק?\nכשאני בוחרת אני מרגישה חלק\n\n9 דברים שאני צריכה\nכשיש תינוק בבית\nתעזרי לי להרגיש\nשיש מקום גם לי\n\nתשמרי את הפוסט\nלפעם הבאה שהיא מקנאה בתינוק 🔖"
+            "caption": "אמא, בערב רגיל אחד התינוק בכה, ואני ביקשתי בקבוק. 👶\nכשאני מבקשת בקבוק, אל תכעסי ואל תגידי ״את גדולה״.\nתשבי לידי על השטיח, גם עם התינוק על הכתף.\nתני לי זמן קבוע רק שלנו, אחרי שהוא נרדם.\nותזמיני אותי לשיר לו איתך.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא מקנאה בתינוק 🔖",
+            "fb_text": "אנחנו בונות מגדל. 👶\nרק אני ואמא על השטיח.\nעוד קובייה, ועוד אחת.\nהמגדל כבר גבוה כמוני.\nואז מהחדר מגיע הבכי שלו.\n\nאת קמה באמצע.\nאת אומרת ״רגע, יעל, אני תכף חוזרת״,\nונעלמת לחדר שלו.\nהקובייה נשארת לי ביד.\nהמגדל שלנו נשאר חצי.\n\nאני שומעת אותך שרה לו.\nאת השיר שלי. השיר של הלילה שלי.\nאני עומדת בפתח של החדר\nורואה אותו בידיים שלך.\nמשהו בגרון שלי נתקע.\n\nאני מפילה את המגדל.\nעם הרגל. בבת אחת.\nהקוביות מתפזרות על כל השטיח.\nזה עושה רעש גדול,\nואת מסתכלת עליי מהפתח.\n\n״אני רוצה בקבוק!״\nאני צועקת את זה חזק,\nאפילו שכבר שנה אני שותה מכוס.\nאני לא יודעת למה.\nאני רק יודעת שקשה לי עכשיו.\n\nואת לא אומרת ״את גדולה״\nאת מתיישבת לידי על השטיח,\nעם התינוק על הכתף.\nמה יעזור לי:\nשלא תכעסי על הבקבוק,\nולא תבקשי ממני להיות גדולה.\n\nאחרי שהוא נרדם.\nאת באה למיטה שלי, בלי התינוק.\nבונות שוב מגדל קטן על השמיכה.\nמה יעזור לי:\nזמן קבוע רק שלנו, כל ערב.\n״יעל, עכשיו הזמן רק שלנו.״\n\nזו הייתה דקה קשה, אמא.\nלא בגלל הבכי שלו.\nבגלל שהשיר שלי הלך אליו.\nאני לומדת לחלק אותך,\nוזה לוקח לי זמן.\nתזמיני אותי לשיר לו איתך?\n\nתשמרי את הפוסט\nלפעם הבאה שהיא מקנאה בתינוק 🔖"
           }
         },
         {
           "id": "kid-4",
-          "title": "מה שאתם לא רואים אחרי יום בכיתה א׳ ו7 דברים שיעזרו לי",
-          "angle": "איתן מראה להורים את מה שהם לא רואים בכיתה: הוא מחזיק את עצמו כל היום, ומבקש שבעה דברים כשהוא חוזר הביתה.",
+          "structure": "one_day",
+          "title": "אמא ואבא, יש חצי של היום שלי שאתם לא רואים",
+          "angle": "איתן, בן 6, בכיתה א׳, מראה להורים יום אחד לפי השעון: בשער, בהפסקה הקצרה, בכיתה שבה הוא מחזיק הכל, באוטו, במטבח, בחצר, בארוחת ערב ובמיטה. מה עוזר: כיף בלי שאלות, שאלות לאחר כך, אוכל ומים מוכנים, לרוץ לפני שיעורים, לשאול קודם על הטוב ולהקשיב בלי לתקן.",
           "target_parent": "הורים לילד בן 6 שמתפרק בבית אחרי בית הספר.",
           "awareness_stage": "problem_aware",
           "hook_family": "child_pov",
           "hook": {
             "formula": "child-hidden-half",
-            "gap": "What does a first grade boy go through at school that his parents do not see, and what helps him at home?",
-            "payoff_slide": 2,
+            "gap": "What is the half of a first grader's day his parents never see, and what helps him when he comes home?",
+            "payoff_slide": 5,
             "score": {
               "specific": 2,
               "feeling": 2,
@@ -1402,7 +1293,6 @@
           "child_gender": "boy",
           "addressee": "parents",
           "child_name": "איתן",
-          "examples_target": 7,
           "character_anchor": {
             "child": "A 6-year-old Israeli boy with short dark curly hair, olive skin, big brown eyes and a small gap between his front teeth; about 118 cm tall.",
             "parent": "His mother, mid-thirties, tanned skin, dark hair in a low bun, kind brown eyes, and his father, late thirties, short dark hair and light stubble; both warm and a little tired in a real way.",
@@ -1425,122 +1315,121 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "מה שאתם לא רואים\nאחרי יום בכיתה א׳",
-              "body": "7 דברים שיעזרו לי",
-              "pull": {
-                "type": "numbered",
-                "note": "שבעת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "אמא ואבא, יש חצי\nשל היום שלי\nשאתם לא רואים",
+              "body": "יום אחד שלי, מהשער ועד המיטה"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "כל היום אני מחזיק\nאת עצמי בכיתה",
-              "body": "זה מתיש אותי\nובבית אני סוף סוף משחרר",
-              "pull": {
-                "type": "open_loop",
-                "note": "ומה יעזור לי? שקופית 3"
+              "role": "beat",
+              "label": "07:45, בשער",
+              "headline": "אני נכנס עם חיוך",
+              "body": "תיק על הגב, נשימה עמוקה.\nאתם אומרים ״איתן, יום טוב!״\nואני רץ פנימה בלי להסתכל אחורה.\n\nמכאן מתחיל החצי\n**שאתם לא רואים**.",
+              "scene": {
+                "action": "The boy runs through a school gate with his backpack bouncing, waving without looking back, his parents waving from the pavement.",
+                "setting": "The gate of an Israeli primary school in the morning: a low fence, a few trees, a plain pale wall behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 חיבוק או כיף בדלת",
-              "body": "״שלום איתן, התגעגענו אליך״\nבלי שאלות עדיין",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אחרי החיבוק? שקופית 4"
-              },
-              "examples": [
-                "חיבוק או כיף בדלת"
-              ]
+              "role": "beat",
+              "label": "10:00, בהפסקה",
+              "headline": "ההפסקה נגמרת מהר",
+              "body": "אני רוצה לרוץ, לקפוץ, לצעוק.\nאבל עד שמצאתי כדור, יש צלצול.\nוחוזרים לשבת.\n\nהרגליים שלי עוד **רצות**\nגם כשאני כבר בכיסא.",
+              "scene": {
+                "action": "The boy stops mid-run holding a ball in the schoolyard as other children turn back toward the building, his face disappointed.",
+                "setting": "An Israeli primary school yard at recess: a few trees, a bench, a plain pale wall of the school building. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 4,
-              "role": "example",
-              "headline": "2 משהו לאכול ולשתות",
-              "body": "אני מגיע רעב ועייף\nחטיף מוכן עוזר לי",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אחרי החטיף? שקופית 5"
-              },
-              "examples": [
-                "משהו לאכול ולשתות"
-              ]
+              "role": "beat",
+              "label": "12:00, בכיתה",
+              "headline": "אני מחזיק הכל בפנים",
+              "body": "יושב יפה, מרים יד, מחכה לתור.\nלא בוכה כשמישהו לקח לי את המחק.\n\nבחוץ אני נראה רגוע.\nבפנים, אני כבר **ממש עייף**.",
+              "scene": {
+                "action": "The boy sits very straight at his small desk with his hand raised, looking calm but with tired eyes, classmates' backs in soft focus.",
+                "setting": "An Israeli first grade classroom: small wooden desks, a plain pale wall, soft daylight from a window. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 5,
-              "role": "example",
-              "headline": "3 תנו לי להתנתק בשקט",
-              "body": "אני צריך זמן לשתוק\nלפני שמספרים מה היה",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עם הכוח שלי? שקופית 6"
-              },
-              "examples": [
-                "תנו לי להתנתק בשקט"
-              ]
+              "role": "beat",
+              "label": "13:15, באוטו",
+              "headline": "״נו, איך היה?״",
+              "body": "אתם שואלים מקדימה, ואני שותק.\nאו עונה ״כלום״ ומסתכל מהחלון.\n## מה יעזור לי:\nכיף כשאני נכנס לאוטו, בלי שאלות.\nאת ״איך היה?״ תשאירו **לערב**.",
+              "scene": {
+                "action": "The boy slumps in his car seat staring out of the window while his mother turns from the front seat and gives him a gentle high five.",
+                "setting": "Inside a family car parked by an Israeli school: soft daylight, a plain grey car ceiling above. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 6,
-              "role": "example",
-              "headline": "4 תנו לי לרוץ ולשחק",
-              "body": "אחרי הכיתה אני צריך לזוז\nואז קל לי יותר",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עם השאלות? שקופית 7"
-              },
-              "examples": [
-                "תנו לי לרוץ ולשחק"
-              ]
+              "role": "beat",
+              "label": "13:40, במטבח",
+              "headline": "אני רעב יותר ממה שאני אומר",
+              "body": "אמרתי שאני לא רעב.\nואז אני צועק על הצלחת הלא נכונה.\n## מה יעזור לי:\nשהאוכל כבר יחכה על השולחן,\nעם כוס מים **גדולה**.",
+              "scene": {
+                "action": "The boy sits at the kitchen table eating hungrily from a plate of pasta and cut vegetables, a big glass of water beside him, his father setting down a fork.",
+                "setting": "The family's Israeli home in the afternoon: a wooden kitchen table, a plain cream wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 7,
-              "role": "example",
-              "headline": "5 שאלות רק אחר כך",
-              "body": "אל תשאלו ״איך היה?״ מיד\nאני אספר כשיהיה לי כוח",
-              "pull": {
-                "type": "numbered",
-                "note": "ועוד שניים בשקופית 8"
-              },
-              "examples": [
-                "שאלות רק אחר כך"
-              ]
+              "role": "beat",
+              "label": "14:30, בחצר",
+              "headline": "אני רץ עד שנגמר לי האוויר",
+              "body": "אופניים. כדור. קפיצות.\nעוד סיבוב, ועוד אחד.\nאתם רק יושבים ומסתכלים.\n\nאחרי חצי שעה\nאני מוכן **לשבת**.",
+              "scene": {
+                "action": "The boy pedals fast on a small bike around a paved courtyard, laughing, his father sitting on a low step watching.",
+                "setting": "A small Israeli building courtyard in the afternoon: paving stones, a few potted plants, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 8,
-              "role": "example",
-              "headline": "6 קודם שואלים על הטוב\n7 מקשיבים בלי לתקן",
-              "body": "״מה היה כיף היום?״",
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
-              },
-              "examples": [
-                "קודם שואלים על הטוב",
-                "מקשיבים בלי לתקן"
-              ]
+              "role": "beat",
+              "label": "18:30, בארוחת ערב",
+              "headline": "״מה היה הכי כיף היום?״",
+              "body": "פתאום יש לי מה לספר.\nעל הכדור, על המורה, על הילד שלידי.\n## מה יעזור לי:\nלשאול קודם על הטוב,\nולהקשיב **בלי לתקן**,\nגם כשמשהו היה קשה.",
+              "scene": {
+                "action": "The boy talks excitedly at the dinner table with his hands in the air while his mother and father listen, leaning toward him.",
+                "setting": "The family's Israeli kitchen in the evening: a wooden table, a plain cream wall, warm lamp light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 9,
-              "role": "recap",
-              "headline": "7 דברים אחרי יום בכיתה\nשעוזרים לי להירגע",
-              "body": "חיבוק, אוכל, שקט ותנועה\nואז אני אספר לכם",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 שומרת את הכול"
+              "role": "beat",
+              "label": "20:30, במיטה",
+              "headline": "אני נרדם תוך דקה",
+              "body": "הגוף שלי סוף סוף משחרר.\nואתם יודעים עכשיו מה קרה לי היום,\nגם את החצי שלא ראיתם.\n\nעוד חיבוק אחד,\nומחר אני שוב **בשער**.",
+              "scene": {
+                "action": "The boy is tucked into bed half asleep while his father pulls the blanket up and his mother kisses his forehead.",
+                "setting": "The boy's small Israeli bedroom at night: a warm bedside lamp, a plain wall above the bed. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 10,
+              "role": "turn",
+              "headline": "הצהריים שלי מתחילים בדלת",
+              "body": "אמא ואבא, בכיתה אני מחזיק חזק.\nאצלכם אני יכול להניח את התיק.\n\nכיף, אוכל, ריצה, ושאלות אחר כך.\nככה אני **נוחת** בבית.",
+              "scene": {
+                "action": "The boy drops his backpack by the front door and falls into a hug with both parents, all three smiling.",
+                "setting": "The family's Israeli hallway: cream tiled floor, a low wooden shoe bench, a plain wall, warm afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 11,
               "role": "story_cta",
               "headline": "תשמרו את הפוסט",
-              "body": "לפעם הבאה\nשהוא חוזר עצבני מבית הספר"
+              "body": "לפעם הבאה\nשהוא חוזר עצבני מבית הספר",
+              "scene": {
+                "action": "The boy sits relaxed on the sofa between his parents, a bowl of fruit on his lap, all three laughing together.",
+                "setting": "The family's Israeli living room in the late afternoon: a beige sofa, a plain cream wall, warm light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "אחרי יום בכיתה א׳ יש משהו שלא רואים אצלי\nקבלו אותי בחיבוק ותנו לי משהו לאכול ולשתות\nתנו לי להתנתק בשקט ולרוץ קצת\nאל תשאלו הכול מיד, ושאלו קודם על הטוב\n7 דברים שיעזרו לי להירגע אחרי בית הספר\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרו את הפוסט לפעם הבאה שהוא חוזר עצבני מבית הספר",
+          "caption": "אמא ואבא, יש לי חצי יום בכיתה שאתם לא רואים.\nכשאני נכנס לאוטו, תנו לי כיף ותשאירו את השאלות לאחר כך.\nתכינו לי אוכל ומים עוד לפני שאני מבקש.\nתנו לי לרוץ בחצר לפני שיעורים.\nובארוחת ערב, תשאלו קודם מה היה כיף, ותקשיבו בלי לתקן.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרו את הפוסט לפעם הבאה שהוא חוזר עצבני מבית הספר",
           "cta": "תשמרו את הפוסט\nלפעם הבאה שהוא חוזר עצבני מבית הספר",
-          "conversion_rationale": "הכריכה מבטיחה לראות את החצי שההורים לא רואים ושבעה דברים שעוזרים. שקופית 2 מסבירה שהכיתה מתישה, ושקופיות 3 עד 8 נותנות צעדים ממוספרים מרגע הכניסה.",
+          "conversion_rationale": "יום אחד של איתן לפי השעון, מהשער ועד המיטה, כדי להראות להורים את החצי שהם לא רואים ואז מה עוזר בכל שעה אחרי הכיתה. מבנה שונה מהמכתב ומהפעם ועכשיו של שתי האפשרויות האחרות בנושא.",
           "sources": [
             {
               "id": "src-und",
@@ -1573,72 +1462,65 @@
           "claims": [
             {
               "slide": 1,
-              "wording_he": "שבעה דברים שיעזרו לילד אחרי יום בכיתה א׳",
+              "wording_he": "יש חצי של היום שלי שאתם לא רואים",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-und",
                 "src-pbs"
               ],
-              "supports": "The seven are our grouping of advice from the Understood and PBS Parents pages, which are about school age children in general. No promise of a result."
-            },
-            {
-              "slide": 2,
-              "wording_he": "כל היום אני מחזיק את עצמי, זה מתיש אותי",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-pbs"
-              ],
-              "supports": "PBS Parents: going to school can be completely exhausting for many kids. Imagined child voice."
+              "supports": "Understood: restraint collapse, why kids fall apart after school after holding it together all day; PBS Parents: going to school can be completely exhausting. Said as this child's own day."
             },
             {
               "slide": 3,
-              "wording_he": "חיבוק או כיף בדלת",
+              "wording_he": "ההפסקה נגמרת מהר והרגליים שלי עוד רצות",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-pbs"
               ],
-              "supports": "PBS Parents: a simple greeting and a hug or high-five is a great way to connect."
+              "supports": "PBS Parents: many children lack sufficient time to play, run and regroup throughout the day. Said as this child's own day."
             },
             {
               "slide": 4,
-              "wording_he": "משהו לאכול ולשתות",
+              "wording_he": "בחוץ אני נראה רגוע, בפנים אני ממש עייף",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-pbs",
                 "src-und"
               ],
-              "supports": "PBS Parents: many children come home starving and dehydrated; Understood: a snack can help your child get back on an even keel."
+              "supports": "PBS Parents: going to school can be completely exhausting for many kids; Understood: restraint collapse, why kids fall apart after school. Said as this child's own feeling."
             },
             {
               "slide": 5,
-              "wording_he": "תנו לי להתנתק בשקט",
+              "wording_he": "כיף כשאני נכנס, בלי שאלות, ואת איך היה לערב",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-pbs"
               ],
-              "supports": "PBS Parents: most kids need time to decompress and zone out before discussing the daily play-by-play."
+              "supports": "PBS Parents: a simple greeting and a hug or high-five is a great way to connect; leave the questions for later; most kids need time to decompress before discussing the day."
             },
             {
               "slide": 6,
-              "wording_he": "תנו לי לרוץ ולשחק",
+              "wording_he": "אני רעב יותר ממה שאני אומר, אוכל מוכן וכוס מים",
               "kind": "sourced_fact",
               "source_ids": [
-                "src-pbs"
+                "src-pbs",
+                "src-und"
               ],
-              "supports": "PBS Parents: many of them lack sufficient time to play, run and regroup throughout the day."
+              "supports": "PBS Parents: many children come home starving and dehydrated, even if they communicate otherwise; plan the after school snacks in advance. Understood: a snack can help."
             },
             {
               "slide": 7,
-              "wording_he": "שאלות רק אחר כך",
+              "wording_he": "לרוץ חצי שעה ואז אני מוכן לשבת",
               "kind": "sourced_fact",
               "source_ids": [
-                "src-pbs"
+                "src-pbs",
+                "src-und"
               ],
-              "supports": "PBS Parents: leave the questions for later."
+              "supports": "PBS Parents: many children lack time to play, run and regroup; Understood: connect before demands such as homework. Said as this child's own afternoon."
             },
             {
               "slide": 8,
-              "wording_he": "קודם שואלים על הטוב ומקשיבים בלי לתקן",
+              "wording_he": "לשאול קודם על הטוב, ולהקשיב בלי לתקן",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-und",
@@ -1647,16 +1529,14 @@
               "supports": "Understood: don't ask about negatives first; PBS Parents: let your child speak without attempting to fix any identified problems."
             },
             {
-              "slide": 9,
-              "wording_he": "חיבוק, אוכל, שקט ותנועה",
+              "slide": 10,
+              "wording_he": "כיף, אוכל, ריצה ושאלות אחר כך",
               "kind": "lumebook_wording",
-              "source_ids": [
-                "src-pbs"
-              ],
-              "supports": "Our recap in the child's imagined voice; no new fact."
+              "source_ids": [],
+              "supports": "Our recap of slides 5 to 8 in the child's imagined voice; no new fact."
             },
             {
-              "slide": 10,
+              "slide": 11,
               "wording_he": "סיפורים על ספרים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -1665,7 +1545,7 @@
               "supports": "Reading children's books or stories about the moment is suggested by the source; no promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 11,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -1678,21 +1558,22 @@
           ],
           "topic_id": "first-grade-decompression",
           "post_text": {
-            "caption": "אחרי יום בכיתה א׳ יש משהו שלא רואים אצלי 🎒\nקבלו אותי בחיבוק ותנו לי משהו לאכול ולשתות\nתנו לי להתנתק בשקט ולרוץ קצת\nאל תשאלו הכול מיד, ושאלו קודם על הטוב\n7 דברים שיעזרו לי להירגע אחרי בית הספר\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרו את הפוסט לפעם הבאה שהוא חוזר עצבני מבית הספר 🔖",
-            "fb_text": "כל היום אני מחזיק 🎒\nאת עצמי בכיתה\nזה מתיש אותי\nובבית אני סוף סוף משחרר\n\n1 חיבוק או כיף בדלת\n״שלום איתן, התגעגענו אליך״\nבלי שאלות עדיין\n\n2 משהו לאכול ולשתות\nאני מגיע רעב ועייף\nחטיף מוכן עוזר לי\n\n3 תנו לי להתנתק בשקט\nאני צריך זמן לשתוק\nלפני שמספרים מה היה\n\n4 תנו לי לרוץ ולשחק\nאחרי הכיתה אני צריך לזוז\nואז קל לי יותר\n\n5 שאלות רק אחר כך\nאל תשאלו ״איך היה?״ מיד\nאני אספר כשיהיה לי כוח\n\n6 קודם שואלים על הטוב\n7 מקשיבים בלי לתקן\n״מה היה כיף היום?״\n\n7 דברים אחרי יום בכיתה\nשעוזרים לי להירגע\nחיבוק, אוכל, שקט ותנועה\nואז אני אספר לכם\n\nתשמרו את הפוסט\nלפעם הבאה\nשהוא חוזר עצבני מבית הספר 🔖"
+            "caption": "אמא ואבא, יש לי חצי יום בכיתה שאתם לא רואים. 🎒\nכשאני נכנס לאוטו, תנו לי כיף ותשאירו את השאלות לאחר כך.\nתכינו לי אוכל ומים עוד לפני שאני מבקש.\nתנו לי לרוץ בחצר לפני שיעורים.\nובארוחת ערב, תשאלו קודם מה היה כיף, ותקשיבו בלי לתקן.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרו את הפוסט לפעם הבאה שהוא חוזר עצבני מבית הספר 🔖",
+            "fb_text": "אני נכנס עם חיוך. 🎒\nתיק על הגב, נשימה עמוקה.\nאתם אומרים ״איתן, יום טוב!״\nואני רץ פנימה בלי להסתכל אחורה.\nמכאן מתחיל החצי\nשאתם לא רואים.\n\nההפסקה נגמרת מהר.\nאני רוצה לרוץ, לקפוץ, לצעוק.\nאבל עד שמצאתי כדור, יש צלצול.\nוחוזרים לשבת.\nהרגליים שלי עוד רצות\nגם כשאני כבר בכיסא.\n\nאני מחזיק הכל בפנים.\nיושב יפה, מרים יד, מחכה לתור.\nלא בוכה כשמישהו לקח לי את המחק.\nבחוץ אני נראה רגוע.\nבפנים, אני כבר ממש עייף.\n\n״נו, איך היה?״\nאתם שואלים מקדימה, ואני שותק.\nאו עונה ״כלום״ ומסתכל מהחלון.\nמה יעזור לי:\nכיף כשאני נכנס לאוטו, בלי שאלות.\nאת ״איך היה?״ תשאירו לערב.\n\nאני רעב יותר ממה שאני אומר.\nאמרתי שאני לא רעב.\nואז אני צועק על הצלחת הלא נכונה.\nמה יעזור לי:\nשהאוכל כבר יחכה על השולחן,\nעם כוס מים גדולה.\n\nאני רץ עד שנגמר לי האוויר.\nאופניים. כדור. קפיצות.\nעוד סיבוב, ועוד אחד.\nאתם רק יושבים ומסתכלים.\nאחרי חצי שעה\nאני מוכן לשבת.\n\n״מה היה הכי כיף היום?״\nפתאום יש לי מה לספר.\nעל הכדור, על המורה, על הילד שלידי.\nמה יעזור לי:\nלשאול קודם על הטוב,\nולהקשיב בלי לתקן,\nגם כשמשהו היה קשה.\n\nאני נרדם תוך דקה.\nהגוף שלי סוף סוף משחרר.\nואתם יודעים עכשיו מה קרה לי היום,\nגם את החצי שלא ראיתם.\nעוד חיבוק אחד,\nומחר אני שוב בשער.\n\nהצהריים שלי מתחילים בדלת.\nאמא ואבא, בכיתה אני מחזיק חזק.\nאצלכם אני יכול להניח את התיק.\nכיף, אוכל, ריצה, ושאלות אחר כך.\nככה אני נוחת בבית.\n\nתשמרו את הפוסט\nלפעם הבאה\nשהוא חוזר עצבני מבית הספר 🔖"
           }
         },
         {
           "id": "kid-5",
-          "title": "אני בת 6 ומחזיקה את עצמי בכיתה ו6 דברים שיעזרו לי",
-          "angle": "ליבי בת 6 מספרת שהיא מחזיקה את עצמי בכיתה, ובבית הכול יוצא, ומבקשת מאמא שישה דברים אחרי הכיתה.",
+          "structure": "before_after",
+          "title": "אני בת 6 ומחזיקה את עצמי כל היום בכיתה",
+          "angle": "ליבי, בת 6, מספרת לאמא איך היה בגן ואיך זה מאז כיתה א׳: בכיתה היא מצליחה, ובבית היא מתפרקת. מה עוזר: חיבוק או כיף בלי שאלות, צלחת ומים מוכנים, זמן לנחות ושאלות על הטוב, לקפוץ לפני שיעורים, ודרך הביתה רק שתיהן.",
           "target_parent": "אמהות לילדה בכיתה א׳ שחוזרת הביתה עצבנית.",
           "awareness_stage": "unaware",
           "hook_family": "story",
           "hook": {
             "formula": "through-the-ages",
-            "gap": "What six things help a 6-year-old girl who holds herself together all day at school and lets go at home?",
-            "payoff_slide": 3,
+            "gap": "Why does a 6-year-old who is perfect in first grade fall apart at the door at home, and what helps her?",
+            "payoff_slide": 5,
             "score": {
               "specific": 2,
               "feeling": 2,
@@ -1708,7 +1589,6 @@
           "child_gender": "girl",
           "addressee": "mom",
           "child_name": "ליבי",
-          "examples_target": 6,
           "character_anchor": {
             "child": "A 6-year-old Israeli girl with long dark straight hair in a ponytail, light olive skin, big dark eyes and a few freckles; about 116 cm tall.",
             "parent": "Her mother, mid-thirties, tanned skin, light-brown wavy hair tied loosely, gentle hazel eyes; warm and a little tired in a real way.",
@@ -1731,121 +1611,121 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "אני בת 6\nומחזיקה את עצמי\nבכיתה",
-              "body": "6 דברים שיעזרו לי",
-              "pull": {
-                "type": "numbered",
-                "note": "ששת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "אני בת 6\nומחזיקה את עצמי\nכל היום בכיתה",
+              "body": "מה היה בגן, ומה קורה מאז כיתה א׳"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "אני בת 6\nוהגעתי הביתה",
-              "body": "כאן אני כבר לא מחזיקה\nואז הכול יוצא",
-              "pull": {
-                "type": "open_loop",
-                "note": "ומה יעזור לי? שקופית 3"
+              "role": "beat",
+              "label": "פעם",
+              "headline": "בגן הייתה לי חצר גדולה",
+              "body": "רצתי בחול כל הבוקר,\nאכלתי כשהייתי רעבה,\nונחתי במנוחה כשהייתי עייפה.\n\nכשבאת לקחת אותי,\nסיפרתי לך הכל **בדרך**.",
+              "scene": {
+                "action": "The girl runs barefoot across a sandy kindergarten yard laughing, a small bucket in her hand.",
+                "setting": "An Israeli kindergarten yard in the morning: a sandpit, a few trees, a low fence, a plain pale wall behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 חטיף מוכן מראש",
-              "body": "״ליבי, יש חטיף מוכן״\nכי אני מגיעה רעבה",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עוד בכניסה? שקופית 4"
-              },
-              "examples": [
-                "חטיף מוכן מראש"
-              ]
+              "role": "beat",
+              "label": "פעם",
+              "headline": "ובבית הייתי רגועה",
+              "body": "אכלתי ושיחקתי בבובות בחדר שלי,\nעזרתי לך לערוך את השולחן לארוחה.\nכמעט לא שמעת אותי **צועקת**.\n\nוחשבתי שככה זה יישאר גם בכיתה א׳.",
+              "scene": {
+                "action": "The girl calmly helps her mother set plates on the kitchen table, both chatting and smiling.",
+                "setting": "The family's Israeli kitchen in the afternoon: a wooden table, a plain cream wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 4,
-              "role": "example",
-              "headline": "2 חיבוק כשאני נכנסת",
-              "body": "גם בלי מילים\nכך אני יודעת שחיכית לי",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אחרי החיבוק? שקופית 5"
-              },
-              "examples": [
-                "חיבוק כשאני נכנסת"
-              ]
+              "role": "beat",
+              "label": "ואז",
+              "headline": "ואז התחילה כיתה א׳",
+              "body": "שולחנות בשורה, צלצול, מורה.\nיושבים הרבה, מחכים לתור ומרימים יד,\nגם כשבא לי לצעוק משהו.\n\nואני **מצליחה**. באמת.\nהמורה אומרת שאני תלמידה מצוינת.",
+              "scene": {
+                "action": "The girl sits upright at a small desk with her hand neatly raised, focused and serious, classmates in soft focus around her.",
+                "setting": "An Israeli first grade classroom: small wooden desks in a row, a plain pale wall, soft daylight from a window. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 5,
-              "role": "example",
-              "headline": "3 תני לי רגע שקט",
-              "body": "אני צריכה להתנתק קודם\nואז אני מספרת",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עם השיעורים? שקופית 6"
-              },
-              "examples": [
-                "תני לי רגע שקט"
-              ]
+              "role": "beat",
+              "label": "ומאז",
+              "headline": "בדלת אני מתפרקת",
+              "body": "התיק נופל, הנעליים עפות,\nואני בוכה בגלל גרב הפוכה.\n## מה קורה לי בפנים:\nכל היום החזקתי, ופה אני **משחררת**.\n## מה יעזור לי:\nחיבוק או כיף כשאני נכנסת, בלי שאלות.",
+              "scene": {
+                "action": "The girl sits on the hallway floor crying over a sock, her backpack and shoes scattered, while her mother kneels and opens her arms.",
+                "setting": "The family's Israeli home in the afternoon: a cream tiled hallway, a low wooden shoe bench, a plain pale wall, soft light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 6,
-              "role": "example",
-              "headline": "4 קודם משחק אז שיעורים",
-              "body": "אחרי שאני משחקת כמה דקות\nקל לי יותר להתחיל",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אשאל? שקופית 7"
-              },
-              "examples": [
-                "קודם משחק אז שיעורים"
-              ]
+              "role": "beat",
+              "label": "ומאז",
+              "headline": "אני אומרת ״לא רעבה״",
+              "body": "ואחרי חמש דקות אני צועקת\nשהחביתה לא כמו שאני אוהבת.\n## מה יעזור לי:\nצלחת קטנה שכבר מחכה לי על השולחן,\nוכוס מים, גם אם אמרתי **שלא**.",
+              "scene": {
+                "action": "The girl sits at the kitchen table with her arms crossed and a stormy face in front of a small plate of omelette and a glass of water.",
+                "setting": "The family's Israeli kitchen in the afternoon: a wooden table, a plain cream wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 7,
-              "role": "example",
-              "headline": "5 תשאלי קודם על הטוב",
-              "body": "״מה היה כיף היום?״\nולא ״למה לא כתבת?״",
-              "pull": {
-                "type": "numbered",
-                "note": "והאחרון בשקופית 8"
-              },
-              "examples": [
-                "תשאלי קודם על הטוב"
-              ]
+              "role": "beat",
+              "label": "ומאז",
+              "headline": "״למה לא סיפרת כלום?״",
+              "body": "את שואלת, ואני מושכת בכתפיים.\nאני עוד לא פה, אני עוד **בכיתה**.\n## מה יעזור לי:\nקודם להתנתק קצת על הספה.\nואחר כך לשאול ״מה היה כיף?״,\nולא ״למה לא הקשבת?״",
+              "scene": {
+                "action": "The girl lies upside down on the sofa with her legs up the backrest, staring at the ceiling, while her mother sits nearby quietly folding laundry.",
+                "setting": "The family's Israeli living room in the afternoon: a beige sofa, a plain cream wall, soft light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 8,
-              "role": "example",
-              "headline": "6 תקשיבי בלי לתקן",
-              "body": "כשאני מספרת על חברה שכעסה\nרק תגידי ״אני שומעת אותך״",
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
-              },
-              "examples": [
-                "תקשיבי בלי לתקן"
-              ]
+              "role": "beat",
+              "label": "ומאז",
+              "headline": "ואז אני רוצה רק לקפוץ",
+              "body": "על הספה, על המיטה, על הטרמפולינה.\nאת אומרת ״קודם שיעורים״,\nואני נשברת.\n## מה יעזור לי:\nקודם לזוז ולשחק קצת,\nואחר כך לשבת **ליד השולחן**.",
+              "scene": {
+                "action": "The girl bounces high on a small backyard trampoline with her ponytail flying, her mother watching from the doorway with a smile.",
+                "setting": "A small Israeli garden in the afternoon: a low trampoline, a few plants, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             },
             {
               "number": 9,
-              "role": "recap",
-              "headline": "6 דברים אחרי הכיתה\nשעוזרים לי לחזור",
-              "body": "חטיף, חיבוק, שקט ומשחק\nואז אני מספרת",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 שומרת את הכול"
+              "role": "beat",
+              "label": "מה שמחזיר לי את פעם",
+              "headline": "הדרך הביתה, רק שתינו",
+              "body": "בלי טלפון, בלי ״איך היה״.\nאת מספרת לי משהו מצחיק מהעבודה,\nואני פתאום מספרת לך **הכל**.\n\nכמו פעם, בדרך מהגן.",
+              "scene": {
+                "action": "The girl and her mother walk home hand in hand along a quiet street, the girl talking animatedly and the mother laughing.",
+                "setting": "A quiet Israeli residential street in the early afternoon: trees, a low stone wall, a plain pale building behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 10,
+              "role": "turn",
+              "headline": "אני לא חוצפנית, אמא",
+              "body": "אני ילדה שמחזיקה הרבה כל היום.\nובבית, אצלך, אני סוף סוף משחררת.\n\nאוכל, חיבוק, קצת קפיצות,\nואז את פוגשת שוב\nאת **ליבי של פעם**.",
+              "scene": {
+                "action": "The girl rests her head in her mother's lap on the sofa, both smiling, her school bag leaning against the sofa.",
+                "setting": "The family's Israeli living room in the afternoon: a beige sofa, a plain cream wall, warm light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 11,
               "role": "story_cta",
-              "headline": "תשמרי את הפוסט",
-              "body": "לפעם הבאה\nשהיא חוזרת עצבנית מבית הספר"
+              "headline": "אפשר גם לעזור להם\nעם החזרה מבית הספר\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבי \"כיתה\"\nואשלח לך קישור להכנת הספר",
+              "scene": {
+                "action": "The girl and her mother sit on the front step sharing a bowl of cut fruit, the girl leaning on her mother's shoulder.",
+                "setting": "The entrance of a small Israeli house in the late afternoon: a stone step, a potted plant, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "אני בת 6, ובכיתה אני מחזיקה הכול בפנים\nתכיני לי חטיף ותני לי חיבוק כשאני נכנסת\nתני לי רגע שקט ותני לי לשחק קודם\nתשאלי אותי קודם על הטוב ותקשיבי בלי לתקן\n6 דברים שיעזרו לי אחרי בית הספר\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא חוזרת עצבנית מבית הספר",
-          "cta": "תשמרי את הפוסט\nלפעם הבאה שהיא חוזרת עצבנית מבית הספר",
-          "conversion_rationale": "גיל ומספר על הכריכה (אני בת 6, 6 דברים) ובקשות ישירות לאמא. הקרוסלה עונה מה עוזר מרגע הכניסה לבית.",
+          "caption": "אמא, אני בת 6, ובכיתה אני מחזיקה את עצמי כל היום.\nכשאני נכנסת, תני לי חיבוק בלי שאלות.\nתכיני לי צלחת קטנה וכוס מים, גם אם אמרתי שלא.\nתני לי לקפוץ קצת לפני שיעורים.\nותשאלי אותי מה היה כיף, אחרי שנחתי.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nאפשר גם לעזור להם עם החזרה מבית הספר בעזרת ספר מותאם אישית.\nתכתבי \"כיתה\" ואשלח לך קישור להכנת הספר",
+          "cta": "אפשר גם לעזור להם עם החזרה מבית הספר בעזרת ספר מותאם אישית.\nתכתבי \"כיתה\" ואשלח לך קישור להכנת הספר",
+          "conversion_rationale": "פעם בגן, ואז כיתה א׳, ומאז מה שקורה בדלת ולמה, עם מה יעזור בכל שקופית. הכריכה שומרת על הגיל ועל המשפט מהקול של ליבי, בלי רשימה.",
           "sources": [
             {
               "id": "src-und",
@@ -1878,90 +1758,74 @@
           "claims": [
             {
               "slide": 1,
-              "wording_he": "שישה דברים שיעזרו לילדה אחרי הכיתה",
+              "wording_he": "אני מחזיקה את עצמי כל היום בכיתה",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-und",
                 "src-pbs"
               ],
-              "supports": "The six are our grouping of advice from the Understood and PBS Parents pages, about school age children in general. No promise of a result."
+              "supports": "Understood: restraint collapse, why kids fall apart after school; PBS Parents: going to school can be completely exhausting. Said as this child's own feeling."
             },
             {
-              "slide": 2,
-              "wording_he": "כאן אני כבר לא מחזיקה, ואז הכול יוצא",
+              "slide": 5,
+              "wording_he": "כל היום החזקתי ופה אני משחררת, חיבוק או כיף בלי שאלות",
               "kind": "sourced_fact",
               "source_ids": [
+                "src-und",
                 "src-pbs"
               ],
-              "supports": "PBS Parents: going to school can be completely exhausting for many kids. Imagined child voice."
+              "supports": "Understood: restraint collapse, why kids fall apart after school; PBS Parents: going to school can be exhausting; a simple greeting and a hug or high-five is a great way to connect."
             },
             {
-              "slide": 3,
-              "wording_he": "חטיף מוכן מראש",
+              "slide": 6,
+              "wording_he": "צלחת שכבר מחכה וכוס מים, גם אם אמרתי שלא",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-pbs",
                 "src-und"
               ],
-              "supports": "PBS Parents: get ahead of the hunger crash by planning the after school snacks in advance; Understood: a snack can help."
-            },
-            {
-              "slide": 4,
-              "wording_he": "חיבוק כשאני נכנסת",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-pbs"
-              ],
-              "supports": "PBS Parents: a simple greeting and a hug or high-five is a great way to connect."
-            },
-            {
-              "slide": 5,
-              "wording_he": "תני לי רגע שקט",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-pbs"
-              ],
-              "supports": "PBS Parents: most kids need time to decompress and zone out before discussing the daily play-by-play."
-            },
-            {
-              "slide": 6,
-              "wording_he": "קודם משחק, אז שיעורים",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-und",
-                "src-pbs"
-              ],
-              "supports": "Understood: address the need to share or connect before demands like homework; PBS Parents: kids need time to play and unwind. The order is our wording."
+              "supports": "PBS Parents: many children come home starving and dehydrated, even if they communicate otherwise; plan the snacks in advance. Understood: a snack can help your child get back on an even keel."
             },
             {
               "slide": 7,
-              "wording_he": "תשאלי קודם על הטוב",
+              "wording_he": "קודם להתנתק, ואחר כך מה היה כיף ולא למה לא הקשבת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs",
+                "src-und"
+              ],
+              "supports": "PBS Parents: leave the questions for later; most kids need time to decompress. Understood: don't ask about negatives first."
+            },
+            {
+              "slide": 8,
+              "wording_he": "קודם לזוז ולשחק, ואחר כך שיעורים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs",
+                "src-und"
+              ],
+              "supports": "PBS Parents: many children lack sufficient time to play, run and regroup; Understood: connect about the day before demands such as homework."
+            },
+            {
+              "slide": 9,
+              "wording_he": "הדרך הביתה רק שתינו, ואני מספרת הכל",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-und"
               ],
-              "supports": "Understood: don't ask about negatives first."
-            },
-            {
-              "slide": 8,
-              "wording_he": "תקשיבי בלי לתקן",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-pbs"
-              ],
-              "supports": "PBS Parents: let your child speak without attempting to fix any identified problems."
-            },
-            {
-              "slide": 9,
-              "wording_he": "חטיף, חיבוק, שקט ומשחק",
-              "kind": "lumebook_wording",
-              "source_ids": [
-                "src-pbs"
-              ],
-              "supports": "Our recap in the child's imagined voice; no new fact."
+              "supports": "Understood: the need to share or connect about their day. The walk and the phone are our wording."
             },
             {
               "slide": 10,
+              "wording_he": "בבית אני סוף סוף משחררת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-und"
+              ],
+              "supports": "Understood: restraint collapse, kids fall apart after school after holding it together. Said as this child's own feeling."
+            },
+            {
+              "slide": 11,
               "wording_he": "סיפורים על ספרים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -1970,7 +1834,7 @@
               "supports": "Reading children's books or stories about the moment is suggested by the source; no promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 11,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -1983,21 +1847,42 @@
           ],
           "topic_id": "first-grade-decompression",
           "post_text": {
-            "caption": "אני בת 6, ובכיתה אני מחזיקה הכול בפנים 🎒\nתכיני לי חטיף ותני לי חיבוק כשאני נכנסת\nתני לי רגע שקט ותני לי לשחק קודם\nתשאלי אותי קודם על הטוב ותקשיבי בלי לתקן\n6 דברים שיעזרו לי אחרי בית הספר\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nתשמרי את הפוסט לפעם הבאה שהיא חוזרת עצבנית מבית הספר 🔖",
-            "fb_text": "אני בת 6 🎒\nוהגעתי הביתה\nכאן אני כבר לא מחזיקה\nואז הכול יוצא\n\n1 חטיף מוכן מראש\n״ליבי, יש חטיף מוכן״\nכי אני מגיעה רעבה\n\n2 חיבוק כשאני נכנסת\nגם בלי מילים\nכך אני יודעת שחיכית לי\n\n3 תני לי רגע שקט\nאני צריכה להתנתק קודם\nואז אני מספרת\n\n4 קודם משחק אז שיעורים\nאחרי שאני משחקת כמה דקות\nקל לי יותר להתחיל\n\n5 תשאלי קודם על הטוב\n״מה היה כיף היום?״\nולא ״למה לא כתבת?״\n\n6 תקשיבי בלי לתקן\nכשאני מספרת על חברה שכעסה\nרק תגידי ״אני שומעת אותך״\n\n6 דברים אחרי הכיתה\nשעוזרים לי לחזור\nחטיף, חיבוק, שקט ומשחק\nואז אני מספרת\n\nתשמרי את הפוסט\nלפעם הבאה\nשהיא חוזרת עצבנית מבית הספר 🔖"
+            "caption": "אמא, אני בת 6, ובכיתה אני מחזיקה את עצמי כל היום. 🎒\nכשאני נכנסת, תני לי חיבוק בלי שאלות.\nתכיני לי צלחת קטנה וכוס מים, גם אם אמרתי שלא.\nתני לי לקפוץ קצת לפני שיעורים.\nותשאלי אותי מה היה כיף, אחרי שנחתי.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nאפשר גם לעזור להם עם החזרה מבית הספר בעזרת ספר מותאם אישית.\nתכתבי \"כיתה\" ואשלח לך קישור להכנת הספר 📖",
+            "fb_text": "בגן הייתה לי חצר גדולה. 🎒\nרצתי בחול כל הבוקר,\nאכלתי כשהייתי רעבה,\nונחתי במנוחה כשהייתי עייפה.\nכשבאת לקחת אותי,\nסיפרתי לך הכל בדרך.\n\nובבית הייתי רגועה.\nאכלתי ושיחקתי בבובות בחדר שלי,\nעזרתי לך לערוך את השולחן לארוחה.\nכמעט לא שמעת אותי צועקת.\nוחשבתי שככה זה יישאר גם בכיתה א׳.\n\nואז התחילה כיתה א׳.\nשולחנות בשורה, צלצול, מורה.\nיושבים הרבה, מחכים לתור ומרימים יד,\nגם כשבא לי לצעוק משהו.\nואני מצליחה. באמת.\nהמורה אומרת שאני תלמידה מצוינת.\n\nבדלת אני מתפרקת.\nהתיק נופל, הנעליים עפות,\nואני בוכה בגלל גרב הפוכה.\nמה קורה לי בפנים:\nכל היום החזקתי, ופה אני משחררת.\nמה יעזור לי:\nחיבוק או כיף כשאני נכנסת, בלי שאלות.\n\nאני אומרת ״לא רעבה״\nואחרי חמש דקות אני צועקת\nשהחביתה לא כמו שאני אוהבת.\nמה יעזור לי:\nצלחת קטנה שכבר מחכה לי על השולחן,\nוכוס מים, גם אם אמרתי שלא.\n\n״למה לא סיפרת כלום?״\nאת שואלת, ואני מושכת בכתפיים.\nאני עוד לא פה, אני עוד בכיתה.\nמה יעזור לי:\nקודם להתנתק קצת על הספה.\nואחר כך לשאול ״מה היה כיף?״,\nולא ״למה לא הקשבת?״\n\nואז אני רוצה רק לקפוץ.\nעל הספה, על המיטה, על הטרמפולינה.\nאת אומרת ״קודם שיעורים״,\nואני נשברת.\nמה יעזור לי:\nקודם לזוז ולשחק קצת,\nואחר כך לשבת ליד השולחן.\n\nהדרך הביתה, רק שתינו.\nבלי טלפון, בלי ״איך היה״.\nאת מספרת לי משהו מצחיק מהעבודה,\nואני פתאום מספרת לך הכל.\nכמו פעם, בדרך מהגן.\n\nאני לא חוצפנית, אמא.\nאני ילדה שמחזיקה הרבה כל היום.\nובבית, אצלך, אני סוף סוף משחררת.\nאוכל, חיבוק, קצת קפיצות,\nואז את פוגשת שוב\nאת ליבי של פעם.\n\nאפשר גם לעזור להם\nעם החזרה מבית הספר\nבעזרת ספר מותאם אישית.\nתכתבי \"כיתה\"\nואשלח לך קישור להכנת הספר 📖"
+          },
+          "cta_style": "book_link",
+          "code_word": "כיתה",
+          "booklet": {
+            "page_text": [
+              "ליבי חזרה הביתה,",
+              "נשמה עמוק בחיבוק,",
+              "וסיפרה לאמא הכל."
+            ],
+            "crop": [
+              96,
+              65,
+              1183,
+              641
+            ],
+            "face": [
+              0.209,
+              0.413,
+              0.5
+            ]
           }
         },
         {
           "id": "kid-6",
-          "title": "״אפשר קודם לאכול?״ ו7 דברים שיעזרו לי אחרי בית הספר",
-          "angle": "דניאל שואל כל צהריים אם אפשר קודם לאכול, ומבקש מאמא שבעה דברים אחרי הכיתה: אוכל, מים, שקט, תנועה, שאלות מאוחר ושיחה בלי תיקונים.",
+          "structure": "letter",
+          "title": "״אפשר קודם לאכול?״ אני שואל כל צהריים",
+          "angle": "דניאל, בן 7, בכיתה א׳, כותב לאמא מכתב על הצהריים: למה הוא שואל קודם לאכול, ומה עוזר לו: אוכל מוכן, כוס מים, כמה דקות לנחות בלי שאלות, לרוץ לפני שיעורים, ולשאול קודם על הטוב ולהקשיב בלי לפתור.",
           "target_parent": "אמהות לילד בכיתה א׳ שחוזר רעב ועצבני.",
           "awareness_stage": "solution_aware",
           "hook_family": "child_quote",
           "hook": {
             "formula": "child-question",
-            "gap": "Why does a first grade boy ask to eat first every afternoon, and what seven things help him after school?",
-            "payoff_slide": 2,
+            "gap": "Why does a first grader ask 'can I eat first?' every afternoon, and what does he ask his mother for in his letter?",
+            "payoff_slide": 3,
             "score": {
               "specific": 2,
               "feeling": 2,
@@ -2013,7 +1898,6 @@
           "child_gender": "boy",
           "addressee": "mom",
           "child_name": "דניאל",
-          "examples_target": 7,
           "character_anchor": {
             "child": "A 7-year-old Israeli boy with short wavy black hair, light-brown skin, dark eyes and a wide friendly smile; about 122 cm tall.",
             "parent": "His mother, mid-thirties, tanned skin, dark curly hair in a ponytail, kind brown eyes; warm and a little tired in a real way.",
@@ -2036,122 +1920,93 @@
             {
               "number": 1,
               "role": "hook",
-              "headline": "״אפשר קודם לאכול?״\nאני שואל כל צהריים",
-              "body": "7 דברים שיעזרו לי",
-              "pull": {
-                "type": "numbered",
-                "note": "שבעת הדברים מתחילים בשקופית 3"
-              }
+              "headline": "״אפשר קודם לאכול?״\nאני שואל\nכל צהריים",
+              "body": "מכתב קטן ממני, על הצהריים"
             },
             {
               "number": 2,
-              "role": "explain",
-              "headline": "הכי הרבה אני רעב\nכשאני חוזר מהכיתה",
-              "body": "ואז קשה לי להיות נחמד\nעד שיש לי משהו בבטן",
-              "pull": {
-                "type": "open_loop",
-                "note": "ומה עוד יעזור לי? שקופית 3"
+              "role": "beat",
+              "headline": "אמא שלי,",
+              "body": "כל צהריים אני נכנס ושואל\n״אפשר קודם לאכול?״\nואת אומרת ״קודם תספר מה היה״.\n\nאני לא מתחמק, אמא.\nאני פשוט **ריק** מבפנים.\nאז כתבתי לך מה עוזר לי.",
+              "scene": {
+                "action": "The boy stands just inside the front door with his backpack still on, one hand on his stomach and a pleading face, his mother turning toward him.",
+                "setting": "The family's Israeli hallway: cream tiled floor, a low wooden shoe bench, a plain wall, soft afternoon light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
               "number": 3,
-              "role": "example",
-              "headline": "1 קודם משהו לאכול",
-              "body": "״דניאל, מה בא לך לאכול?״\nואחר כך נדבר",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה לשתות? שקופית 4"
-              },
-              "examples": [
-                "קודם משהו לאכול"
-              ]
-            },
-            {
-              "number": 4,
-              "role": "example",
-              "headline": "2 גם כוס מים גדולה",
-              "body": "הרבה פעמים אני צמא\nגם כשאני אומר שלא",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה אחרי? שקופית 5"
-              },
-              "examples": [
-                "גם כוס מים גדולה"
-              ]
-            },
-            {
-              "number": 5,
-              "role": "example",
-              "headline": "3 תני לי להתנתק רגע",
-              "body": "כמה דקות בלי שאלות\nואז אפשר לדבר",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה עם השיעורים? שקופית 6"
-              },
-              "examples": [
-                "תני לי להתנתק רגע"
-              ]
-            },
-            {
-              "number": 6,
-              "role": "example",
-              "headline": "4 שיעורים אחרי שאני זז",
-              "body": "קודם אני רץ או משחק בחוץ\nאחר כך אפשר לשבת",
-              "pull": {
-                "type": "numbered",
-                "note": "ומה כשאת שואלת? שקופית 7"
-              },
-              "examples": [
-                "שיעורים אחרי שאני זז"
-              ]
-            },
-            {
-              "number": 7,
-              "role": "example",
-              "headline": "5 ״איך היה?״ לא עכשיו",
-              "body": "תחכי שאני מוכן\nואז אספר בעצמי",
-              "pull": {
-                "type": "numbered",
-                "note": "ועוד שניים בשקופית 8"
-              },
-              "examples": [
-                "״איך היה?״ לא עכשיו"
-              ]
-            },
-            {
-              "number": 8,
-              "role": "example",
-              "headline": "6 ״מה היה כיף היום?״\n7 תקשיבי בלי לתקן",
-              "body": "אם משהו היה קשה\nרק תגידי ״אני שומעת״",
-              "pull": {
-                "type": "next_step",
-                "note": "הכול ביחד בשקופית 9"
-              },
-              "examples": [
-                "״מה היה כיף היום?״",
-                "תקשיבי בלי לתקן"
-              ]
-            },
-            {
-              "number": 9,
-              "role": "recap",
-              "headline": "7 דברים שעוזרים לי\nלחזור מהכיתה בשלום",
-              "body": "אוכל, מים, שקט, תנועה ושיחה\nככה קל לי יותר",
-              "pull": {
-                "type": "next_step",
-                "note": "שקופית 10 שומרת את הכול"
+              "role": "beat",
+              "headline": "",
+              "body": "בכיתה יש הפסקת אוכל קצרה,\nואני מדבר עם החברים וכמעט לא אוכל.\nכשאני מגיע הביתה, אני **מורעב**,\nגם אם אמרתי לך שלא.\n\nאם האוכל כבר מחכה על השולחן,\nקל לי יותר להירגע.",
+              "scene": {
+                "action": "The boy sits at the kitchen table eagerly digging into a plate of rice and chicken that was waiting for him, his mother pouring water.",
+                "setting": "The family's Israeli kitchen in the early afternoon: a wooden table, a plain cream wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
               }
             },
             {
-              "number": 10,
+              "number": 4,
+              "role": "beat",
+              "headline": "",
+              "body": "ועוד משהו קטן:\nכוס מים גדולה.\nאני שוכח לשתות כל היום,\nובבית אני מגלה כמה הייתי **צמא**.",
+              "scene": {
+                "action": "The boy gulps down a big glass of water with both hands, eyes closed in relief, at the kitchen table.",
+                "setting": "The family's Israeli kitchen in the early afternoon: a wooden table, a plain cream wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 5,
+              "role": "beat",
+              "headline": "",
+              "body": "אחרי האוכל, אל תשאלי עדיין.\nתני לי לשכב על השטיח עם הלגו,\nבלי שאלות, בלי תוכניות.\n\nזה לא שאני לא רוצה לספר.\nאני צריך כמה דקות **לנשום**.",
+              "scene": {
+                "action": "The boy lies on his stomach on the living room rug quietly building with plastic bricks, his mother reading on the sofa behind him.",
+                "setting": "The family's Israeli living room in the afternoon: a grey sofa, a soft rug, a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 6,
+              "role": "beat",
+              "headline": "",
+              "body": "ואז אני צריך לרוץ.\nלגינה, לכדור, לאופניים.\nכל היום ישבתי על כיסא,\nוהרגליים שלי **מחכות**.\n\nאחרי הריצה, קל לי יותר לשבת לשיעורים.",
+              "scene": {
+                "action": "The boy kicks a football across a small neighbourhood park, running hard, his mother sitting on a bench nearby.",
+                "setting": "A small Israeli neighbourhood park in the afternoon: grass, a few trees, a bench, a plain pale wall behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 7,
+              "role": "beat",
+              "headline": "",
+              "body": "וכשאני כבר מספר,\nתשאלי קודם ״מה היה כיף היום?״\nולא ״מי הציק לך?״\n\nואם אני מספר על משהו קשה,\nרק תקשיבי. אל תפתרי לי **מיד**.",
+              "scene": {
+                "action": "The boy sits on the kitchen counter stool talking with his hands while his mother leans on the counter listening closely.",
+                "setting": "The family's Israeli kitchen in the early afternoon: a wooden table, a plain cream wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 8,
+              "role": "turn",
+              "headline": "",
+              "body": "אז כשאני שואל ״אפשר קודם לאכול?״,\nאני לא עושה בלגן, אמא.\nאני רק מבקש **לנחות** בבית.\n\nאוכל, מים, שקט, ריצה,\nואז אני כולו שלך.\n\n**אוהב, דניאל**",
+              "scene": {
+                "action": "The boy hands his mother a folded drawing of the two of them, and she hugs him at the kitchen table.",
+                "setting": "The family's Israeli kitchen in the early afternoon: a wooden table, a plain cream wall, soft window light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 9,
               "role": "story_cta",
               "headline": "תשמרי את הפוסט",
-              "body": "לפעם הבאה\nשהוא חוזר עצבני מבית הספר"
+              "body": "לפעם הבאה\nשהוא חוזר עצבני מבית הספר",
+              "scene": {
+                "action": "The boy and his mother sit side by side on the sofa sharing a bowl of fruit, his school bag resting at their feet, both relaxed.",
+                "setting": "The family's Israeli living room in the late afternoon: a grey sofa, a plain cream wall, warm light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
             }
           ],
-          "caption": "בכל צהריים אני מבקש קודם לאכול\nתני לי משהו לאכול וכוס מים גדולה\nתני לי להתנתק רגע ואל תשאלי ״איך היה?״ מיד\nתשאלי מה היה כיף ותקשיבי בלי לתקן\n7 דברים שיעזרו לי אחרי בית הספר\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שהוא חוזר עצבני מבית הספר",
+          "caption": "״אפשר קודם לאכול?״, את זה אני שואל כל צהריים.\nתכיני לי אוכל וכוס מים עוד לפני שאני נכנס.\nתני לי כמה דקות על השטיח, ואחר כך לרוץ בחוץ.\nוכשאני מספר, תשאלי קודם מה היה כיף, ותקשיבי.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שהוא חוזר עצבני מבית הספר",
           "cta": "תשמרי את הפוסט\nלפעם הבאה שהוא חוזר עצבני מבית הספר",
-          "conversion_rationale": "משפט אמיתי של ילד ומספר על הכריכה. שקופית 2 עונה למה הוא רעב, ושקופיות 3 עד 8 נותנות צעדים ממוספרים למה שקורה אחרי הכיתה.",
+          "conversion_rationale": "מכתב של דניאל לאמא שמתחיל מהשאלה שהיא שומעת כל צהריים ומסביר מה עוזר לו, משקופית לשקופית, וחתום בשם שלו. מבנה שונה מהיום לפי השעון ומהפעם ועכשיו של שתי האפשרויות האחרות בנושא.",
           "sources": [
             {
               "id": "src-und",
@@ -2183,38 +2038,27 @@
           ],
           "claims": [
             {
-              "slide": 1,
-              "wording_he": "שבעה דברים שיעזרו לילד שרעב אחרי בית הספר",
+              "slide": 2,
+              "wording_he": "אני פשוט ריק מבפנים כשאני חוזר",
               "kind": "sourced_fact",
               "source_ids": [
-                "src-und",
                 "src-pbs"
               ],
-              "supports": "The seven are our grouping of advice from the Understood and PBS Parents pages, about school age children in general. No promise of a result."
-            },
-            {
-              "slide": 2,
-              "wording_he": "הכי הרבה אני רעב כשאני חוזר מהכיתה",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-pbs",
-                "src-und"
-              ],
-              "supports": "PBS Parents: many children come home starving and dehydrated; Understood: a snack can help your child get back on an even keel. Imagined child voice."
+              "supports": "PBS Parents: going to school can be completely exhausting; many children come home starving. Said as this child's own feeling."
             },
             {
               "slide": 3,
-              "wording_he": "קודם משהו לאכול",
+              "wording_he": "אני מורעב גם אם אמרתי שלא, ואוכל שמחכה על השולחן",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-pbs",
                 "src-und"
               ],
-              "supports": "PBS Parents: plan the after school snacks in advance; Understood: a snack can help."
+              "supports": "PBS Parents: many children come home starving and dehydrated, even if they communicate otherwise; get ahead of the hunger crash by planning the snacks in advance. Understood: a snack can help your child get back on an even keel."
             },
             {
               "slide": 4,
-              "wording_he": "כוס מים גדולה",
+              "wording_he": "כוס מים גדולה, ואני מגלה כמה הייתי צמא",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-pbs"
@@ -2223,35 +2067,26 @@
             },
             {
               "slide": 5,
-              "wording_he": "תני לי להתנתק רגע",
+              "wording_he": "אחרי האוכל אל תשאלי עדיין, כמה דקות לנשום",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-pbs"
               ],
-              "supports": "PBS Parents: most kids need time to decompress and zone out before discussing the daily play-by-play."
+              "supports": "PBS Parents: leave the questions for later; most kids need time to decompress and zone out before discussing the daily play-by-play."
             },
             {
               "slide": 6,
-              "wording_he": "שיעורים אחרי שאני זז",
+              "wording_he": "לרוץ לפני שיעורים",
               "kind": "sourced_fact",
               "source_ids": [
-                "src-und",
-                "src-pbs"
+                "src-pbs",
+                "src-und"
               ],
-              "supports": "Understood: connect before demands like homework; PBS Parents: kids lack time to play, run and regroup. The order is our wording."
+              "supports": "PBS Parents: many children lack sufficient time to play, run and regroup throughout the day; Understood: connect before demands such as homework."
             },
             {
               "slide": 7,
-              "wording_he": "איך היה לא עכשיו",
-              "kind": "sourced_fact",
-              "source_ids": [
-                "src-pbs"
-              ],
-              "supports": "PBS Parents: leave the questions for later."
-            },
-            {
-              "slide": 8,
-              "wording_he": "מה היה כיף היום ותקשיבי בלי לתקן",
+              "wording_he": "קודם מה היה כיף, ולהקשיב בלי לפתור",
               "kind": "sourced_fact",
               "source_ids": [
                 "src-und",
@@ -2260,16 +2095,14 @@
               "supports": "Understood: don't ask about negatives first; PBS Parents: let your child speak without attempting to fix any identified problems."
             },
             {
-              "slide": 9,
-              "wording_he": "אוכל, מים, שקט, תנועה ושיחה",
+              "slide": 8,
+              "wording_he": "אוכל, מים, שקט, ריצה",
               "kind": "lumebook_wording",
-              "source_ids": [
-                "src-pbs"
-              ],
-              "supports": "Our recap in the child's imagined voice; no new fact."
+              "source_ids": [],
+              "supports": "Our recap of slides 3 to 7 in the child's imagined voice; no new fact."
             },
             {
-              "slide": 10,
+              "slide": 9,
               "wording_he": "סיפורים על ספרים יכולים לעזור",
               "kind": "sourced_fact",
               "source_ids": [
@@ -2278,7 +2111,7 @@
               "supports": "Reading children's books or stories about the moment is suggested by the source; no promise of a result."
             },
             {
-              "slide": 10,
+              "slide": 9,
               "wording_he": "סיפור אישי שבו הילד הוא הגיבור",
               "kind": "product_fact",
               "source_ids": [
@@ -2291,8 +2124,8 @@
           ],
           "topic_id": "first-grade-decompression",
           "post_text": {
-            "caption": "בכל צהריים אני מבקש קודם לאכול 🎒\nתני לי משהו לאכול וכוס מים גדולה\nתני לי להתנתק רגע ואל תשאלי ״איך היה?״ מיד\nתשאלי מה היה כיף ותקשיבי בלי לתקן\n7 דברים שיעזרו לי אחרי בית הספר\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שהוא חוזר עצבני מבית הספר 🔖",
-            "fb_text": "הכי הרבה אני רעב 🎒\nכשאני חוזר מהכיתה\nואז קשה לי להיות נחמד\nעד שיש לי משהו בבטן\n\n1 קודם משהו לאכול\n״דניאל, מה בא לך לאכול?״\nואחר כך נדבר\n\n2 גם כוס מים גדולה\nהרבה פעמים אני צמא\nגם כשאני אומר שלא\n\n3 תני לי להתנתק רגע\nכמה דקות בלי שאלות\nואז אפשר לדבר\n\n4 שיעורים אחרי שאני זז\nקודם אני רץ או משחק בחוץ\nאחר כך אפשר לשבת\n\n5 ״איך היה?״ לא עכשיו\nתחכי שאני מוכן\nואז אספר בעצמי\n\n6 ״מה היה כיף היום?״\n7 תקשיבי בלי לתקן\nאם משהו היה קשה\nרק תגידי ״אני שומעת״\n\n7 דברים שעוזרים לי\nלחזור מהכיתה בשלום\nאוכל, מים, שקט, תנועה ושיחה\nככה קל לי יותר\n\nתשמרי את הפוסט\nלפעם הבאה\nשהוא חוזר עצבני מבית הספר 🔖"
+            "caption": "״אפשר קודם לאכול?״, את זה אני שואל כל צהריים. 🎒\nתכיני לי אוכל וכוס מים עוד לפני שאני נכנס.\nתני לי כמה דקות על השטיח, ואחר כך לרוץ בחוץ.\nוכשאני מספר, תשאלי קודם מה היה כיף, ותקשיבי.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nתשמרי את הפוסט לפעם הבאה שהוא חוזר עצבני מבית הספר 🔖",
+            "fb_text": "אמא שלי, 🎒\nכל צהריים אני נכנס ושואל\n״אפשר קודם לאכול?״\nואת אומרת ״קודם תספר מה היה״.\nאני לא מתחמק, אמא.\nאני פשוט ריק מבפנים.\nאז כתבתי לך מה עוזר לי.\n\nבכיתה יש הפסקת אוכל קצרה,\nואני מדבר עם החברים וכמעט לא אוכל.\nכשאני מגיע הביתה, אני מורעב,\nגם אם אמרתי לך שלא.\nאם האוכל כבר מחכה על השולחן,\nקל לי יותר להירגע.\n\nועוד משהו קטן:\nכוס מים גדולה.\nאני שוכח לשתות כל היום,\nובבית אני מגלה כמה הייתי צמא.\n\nאחרי האוכל, אל תשאלי עדיין.\nתני לי לשכב על השטיח עם הלגו,\nבלי שאלות, בלי תוכניות.\nזה לא שאני לא רוצה לספר.\nאני צריך כמה דקות לנשום.\n\nואז אני צריך לרוץ.\nלגינה, לכדור, לאופניים.\nכל היום ישבתי על כיסא,\nוהרגליים שלי מחכות.\nאחרי הריצה, קל לי יותר לשבת לשיעורים.\n\nוכשאני כבר מספר,\nתשאלי קודם ״מה היה כיף היום?״\nולא ״מי הציק לך?״\nואם אני מספר על משהו קשה,\nרק תקשיבי. אל תפתרי לי מיד.\n\nאז כשאני שואל ״אפשר קודם לאכול?״,\nאני לא עושה בלגן, אמא.\nאני רק מבקש לנחות בבית.\nאוכל, מים, שקט, ריצה,\nואז אני כולו שלך.\nאוהב, דניאל\n\nתשמרי את הפוסט\nלפעם הבאה\nשהוא חוזר עצבני מבית הספר 🔖"
           }
         }
       ]

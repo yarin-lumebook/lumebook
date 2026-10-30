@@ -147,6 +147,20 @@ def pair_start_context(ctx):
                      "לפעם הבאה שיש לו יום הולדת, לפעם הבאה שקשה לה להיפרד מהמסך. No highlight, no story line. "
                      "The `cta` field is the whole sentence and is also, word for word, the caption's last line. No comment word, no link, no "
                      "send or share request, no בתגובות anywhere"),
+        "book_link_cta": {
+            "cta_style": lib.BOOK_LINK_STYLE,
+            "supersedes": "cta_forms, cta_note and cta_code_word_note above (Yarin, 30 Oct 2026: \"i want the cta to point to a book that might help them with x problem and then theyll get a link to the website\", the wording \"אפשר גם לעזור להם עם X בעזרת ספר מותאם אישית / תכתבו X ואשלח לכם קישור להכנת הספר\")",
+            "forms": {k: f["text"] for k, f in lib.BOOK_LINK_FORMS.items()},
+            "note": ("write `cta_style`: \"book_link\" at the top of the pack. `cta` is two sentences on two lines, built as "
+                     "carousel_lib.book_link_cta(problem, word, addressee): «אפשר גם לעזור להם עם <the topic's everyday problem, 1 to 3 "
+                     "words> בעזרת ספר מותאם אישית.» then «תכתבו \"<word>\" ואשלח לכם קישור להכנת הספר» (mom: תכתבי, ואשלח לך). "
+                     "The caption ends with both lines. Slide 10 is only the CTA: headline «אפשר גם לעזור להם / עם <problem> / בעזרת "
+                     "ספר מותאם אישית.», body «תכתבו \"<word>\" / ואשלח לכם קישור להכנת הספר» (book_link_slide). One Hebrew word per "
+                     "topic (the topic's own word: מוצץ, אח, עוגה), in `code_word`, the same on all three options of a topic, never ספר "
+                     "or לומי. Never לומבוק, a catalogue title or a web address. Nothing of it before slide 10. post_text: the CTA line "
+                     "ends with 📖. The open booklet under the CTA (`booklet`, the photo circle and the arrows) is made at production "
+                     "with fal (scripts/booklet_cta.py), not in the pack"),
+        },
         "punctuation_note": ("punctuation is back (Yarin, 24 Oct 2026: \"lets bring back punctuation marks except em dashes, semicolon and "
                              "hyphens\"): periods, commas, question and exclamation marks, colons and quotation marks where natural; never a "
                              "dash of any kind, a semicolon or a hyphen (write ועוד 8, בשעה 17:40, 3 עד 6)"),
@@ -181,7 +195,7 @@ def story_start_context(ctx, date, pack_shape=None):
         "recent_structures": recent,
         "structures": story_lib.STRUCTURES_EN,
         "slide_roles": {"1": [story_lib.ROLE_HOOK], "2 to N-1": [story_lib.ROLE_BEAT], "N-1": [story_lib.ROLE_BEAT, story_lib.ROLE_TURN], "N": [story_lib.ROLE_CTA]},
-        "story_slides_note": ("9 to 12 slides: the cover, 7 to 10 story slides, the CTA. Slide fields: number, role, headline (\"\" only on the body "
+        "story_slides_note": ("9 or 10 slides (Instagram takes at most 10): the cover, 7 or 8 story slides, the CTA. Slide fields: number, role, headline (\"\" only on the body "
                               "slides of a letter), body, optional label (up to 28 characters), and scene {action, setting} in English on every "
                               "slide from 2 to the last: one concrete moment of that slide, same characters and home, the upper third calm, no words, "
                               "letters or numbers; the CTA slide's scene is a calm, warm resolution. The option's `image` stays the cover brief "

@@ -10,88 +10,182 @@
 
 ## הילד מספר להורים
 
-### kid-1 · השבוע האחרון לפני יום ההולדת
+### kid-1 · השבוע האחרון לפני יום ההולדת, יום אחד שלי
 
 - **על מי:** הדר (בת), לאמא
-- **זווית:** הילדה מבקשת מאמא להפוך את השבוע האחרון לפני יום ההולדת לדבר שאפשר לראות: לוח, שרשרת, תוכנית ליום, משהו לעשות והתראה לפני שנרגעים.
+- **זווית:** הדר, בת 5, מראה לאמא יום אחד מהשבוע שלפני יום ההולדת, מהבוקר עד המיטה: שואלת כבר במיטה, מסמנת איקס בלוח, שואלת בדלת, משתגעת מלחכות, שואלת מה יהיה ביום עצמו ומתפוצצת בערב. מה עוזר: לוח שרואים, ספירה בלילות, שרשרת שמתקצרת, משהו לעשות בינתיים, לספר מה בא אחרי מה, והתראה של 5 דקות לפני שנרגעים.
 - **למי:** אמא לילדה בת 5 שמתפוצצת בשבוע לפני יום ההולדת ושואלת כל רגע כמה נשאר.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** milestone-week
 - **נושא:** סופר את הימים עד יום ההולדת (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** מספר וערך על הכריכה (7 דברים שיעזרו לי לחכות) והפנים של הילדה ישר לעדשה. כל שקופית היא בקשה אחת שאמא יכולה לעשות כבר מחר, והמשפט שבו היא מבקשת לראות את הזמן הוא ליבת הקרוסלה.
+- **למה זה עשוי להמיר:** יום אחד לפי השעון מראה לאמא את השבוע מבפנים, וכל שעה נותנת צעד אחד שאפשר לעשות כבר מחר בבוקר. הכריכה שומרת על ההתפוצצות של השבוע האחרון.
 
-#### שקופית 1 · פתיח
+- **מבנה:** יום אחד · 11 שקופיות
+
+#### שקופית 1 · שער
 
 **השבוע האחרון**  
 **לפני יום ההולדת**  
 **ואני מתפוצצת**  
-7 דברים שיעזרו לי לחכות  
+יום אחד מהשבוע הכי ארוך שלי  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · 06:50, במיטה
 
-**השבוע האחרון הכי ארוך**  
-**בשנה שלי**  
-אני לא רואה כמה זמן נשאר  
-תעזרי לי לראות אותו  
+**אני מתעוררת ורצה אלייך**  
+עוד לפני הנעליים, עוד לפני הכל.  
+״אמא, היום יום ההולדת שלי?״  
+את אומרת ״עוד לא״,  
+ואני לא מבינה כמה זה **עוד לא**.  
+*מה יעזור לי:*  
+לוח על הקיר, עם היום שלי מסומן.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 לוח שנה שאני רואה**  
-תסמני בו את יום ההולדת  
-בצבע שאי אפשר לפספס  
+*Picture:* The girl runs barefoot into the kitchen in her pyjamas, arms wide, while her mother turns from the counter with a mug, smiling sleepily. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 לסמן יום כל בוקר**  
-״הדר, עוד 5 לילות״  
-ואני מסמנת איקס בעצמי  
+#### שקופית 3 · סיפור · 07:10, ליד הלוח
 
-#### שקופית 5 · דוגמאות ממוספרות
+**איקס אחד, בעצמי**  
+כל בוקר אני מסמנת איקס על היום שעבר.  
+את אומרת ״הדר, עוד 5 לילות״,  
+ואני סופרת את הריבועים עם האצבע.  
 
-**3 שרשרת שמורידים**  
-**ממנה טבעת**  
-אני רואה שהיא מתקצרת  
-וככה אני מבינה כמה נשאר  
+פתאום ״עוד לא״ נהיה **משהו שרואים**.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**4 לספר לי מה יקרה ביום**  
-״קודם העוגה, אחר כך החברים״  
-כשאני יודעת מה בא אני רגועה  
+*Picture:* The girl stands on a small stool and marks a big cross on a plain wall calendar grid with a thick crayon, her mother holding the stool steady beside her. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**5 משהו לעשות בינתיים**  
-**6 עזרה בהכנות**  
-לצייר הזמנה או לקשט בלונים  
-כשיש מה לעשות הזמן עובר  
+#### שקופית 4 · סיפור · 10:00, בגן
 
-#### שקופית 8 · דוגמאות ממוספרות
+**אני מספרת לכולם**  
+לגננת, לחברות, לילד שבכלל לא שאל.  
+אני קופצת על הכיסא ולא מצליחה לשבת.  
+בפנים יש לי משהו כמו **בלונים**,  
+שמתנפחים כל הזמן.  
 
-**7 התראה של 5 דקות**  
-״עוד 5 דקות ונרגעים קצת״  
-ככה אני מספיקה להתכונן  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 9 · סיכום
+*Picture:* The girl bounces on a small chair in a kindergarten circle, arms flung up, talking excitedly to two smiling friends. An Israeli kindergarten room in the morning: low wooden shelves, small chairs, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**תראי לי את הזמן**  
-**ויהיה לי קל לחכות**  
-לוח, שרשרת, תוכנית ליום  
-משהו לעשות וחמש דקות  
+</div>
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+#### שקופית 5 · סיפור · 13:30, בדלת
+
+**״כמה עוד נשאר?״**  
+אני שואלת עוד לפני שהורדתי את התיק.  
+ושואלת שוב באוטו, ושוב במטבח.  
+*מה יעזור לי:*  
+שרשרת נייר על הדלת,  
+טבעת אחת לכל לילה שנשאר.  
+אני מורידה אחת, והיא **מתקצרת**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* At the front door, her small bag still on her back, the girl pulls one coloured paper ring off a short paper chain hanging on the door, her mother crouching beside her. The family's Israeli front hall in the afternoon: a wooden door, a shoe bench, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 16:00, בסלון
+
+**אני משתגעת מלחכות**  
+אין לי מה לעשות עם כל ההתרגשות.  
+אז אני רצה, צועקת, מרביצה לכריות.  
+*מה יעזור לי:*  
+משהו לעשות בינתיים.  
+לצייר הזמנות, לקשט בלון **ביחד**.  
+כשהידיים עסוקות, הזמן עובר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother sit on the rug decorating a balloon with stickers and crayons, the girl's tongue out in concentration, cushions scattered around. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 18:30, באמבטיה
+
+**״ומה יהיה ביום עצמו?״**  
+אני לא יודעת איך זה ייראה,  
+וזה קצת **מפחיד** באמצע השמחה.  
+*מה יעזור לי:*  
+שתספרי לי מה בא אחרי מה.  
+קודם עוגה בגן, אחר כך סבתא,  
+ובערב החברים.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits in a bubble bath with foam on her head, looking up seriously, while her mother kneels by the tub counting on her fingers. The family's small Israeli bathroom in the evening: white tiles, a bathtub with bubbles, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · 19:30, על הספה
+
+**ואז אני מתפוצצת**  
+קופצת על הספה, צוחקת חזק מדי,  
+ולא שומעת שקוראים לי.  
+*מה יעזור לי:*  
+▪ ״הדר, עוד 5 דקות ונרגעים.״  
+ככה יש לי זמן **להתכונן** לשקט.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In pyjamas, the girl jumps on the sofa with her hair flying, while her mother sits close by with an open hand raised gently, smiling. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · 20:15, במיטה
+
+**עוד לילה אחד ירד**  
+אני מסתכלת על השרשרת מהמיטה.  
+עוד ארבע טבעות.  
+את מלטפת לי את הגב ולוחשת  
+״עוד ארבעה לילות״.  
+ואני נרדמת עם **חיוך**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl lies in bed under a soft blanket, gazing at a short paper chain hanging on the door, while her mother strokes her back. The girl's small Israeli bedroom at night: a low bed, a soft night light, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · פנייה להורים
+
+**אני לא חסרת סבלנות**  
+אני פשוט לא רואה את הזמן, אמא.  
+לוח, שרשרת, משהו לעשות,  
+וחמש דקות לפני השקט.  
+ככה השבוע הארוך הזה  
+נהיה **שלי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits on her mother's lap on the sofa, both laughing, a paper chain and a decorated balloon beside them. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהיא מחכה ליום הולדת  
 
-**הכותרות בלבד:** השבוע האחרון לפני יום ההולדת ואני מתפוצצת ← השבוע האחרון הכי ארוך בשנה שלי ← 1 לוח שנה שאני רואה ← 2 לסמן יום כל בוקר ← 3 שרשרת שמורידים ממנה טבעת ← 4 לספר לי מה יקרה ביום ← 5 משהו לעשות בינתיים 6 עזרה בהכנות ← 7 התראה של 5 דקות ← תראי לי את הזמן ויהיה לי קל לחכות ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl, in a party crown made of paper, hugs her mother in the kitchen, a small cake with candles on the table behind them. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** השבוע האחרון לפני יום ההולדת ואני מתפוצצת ← אני מתעוררת ורצה אלייך ← איקס אחד, בעצמי ← אני מספרת לכולם ← ״כמה עוד נשאר?״ ← אני משתגעת מלחכות ← ״ומה יהיה ביום עצמו?״ ← ואז אני מתפוצצת ← עוד לילה אחד ירד ← אני לא חסרת סבלנות ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-השבוע האחרון לפני יום ההולדת ואני מתפוצצת.  
-תתלי לי לוח ותסמני איתי יום כל בוקר.  
-תכיני לי שרשרת שמורידים ממנה טבעת ותספרי לי מה יקרה ביום עצמו.  
-תני לי משהו לעשות בינתיים ותגידי לי חמש דקות לפני שנרגעים.  
+אמא, בשבוע שלפני יום ההולדת אני ממש מתפוצצת.  
+תתלי לי לוח, ותני לי לסמן איקס כל בוקר.  
+תכיני איתי שרשרת, ותספרי לי מה יהיה ביום עצמו.  
+ותגידי לי חמש דקות לפני שנרגעים.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא מחכה ליום הולדת  
 
@@ -109,100 +203,190 @@
 
 **טענות**
 
-- שקופית 2 · השבוע האחרון הכי ארוך בשנה שלי אני לא רואה כמה זמן נשאר תעזרי לי לראות אותו · sourced_fact · Child Mind: countdowns and visual cues help a child get ready for an event; PBS: a calendar helps a child keep track of days. Imagined child voice.
-- שקופית 3 · 1 לוח שנה שאני רואה · sourced_fact · PBS: a calendar for a big event like a birthday lets a child keep track of days. The colour marking is our example.
-- שקופית 4 · 2 לסמן יום כל בוקר · sourced_fact · PBS: keeping track of days on a calendar; Child Mind: countdowns. The sentence is our wording.
-- שקופית 5 · 3 שרשרת שמורידים ממנה טבעת · sourced_fact · Child Mind: visual cues and countdowns. The paper chain is our example of a visual countdown.
-- שקופית 6 · 4 לספר לי מה יקרה ביום · sourced_fact · Child Mind: give a description of what will happen; PBS: talking about what comes next can comfort a child.
-- שקופית 7 · 5 משהו לעשות בינתיים 6 עזרה בהכנות · sourced_fact · PBS: giving each person something else to do while they wait. The invitation and balloons are our examples.
-- שקופית 8 · 7 התראה של 5 דקות · sourced_fact · Understood: a five-minute notice when a preschooler gets louder and too excited.
-- שקופית 9 · תראי לי את הזמן ויהיה לי קל לחכות · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact and no promise.
-- שקופית 10 · לפעם הבאה שהיא מחכה ליום הולדת · sourced_fact · Child Mind: countdowns and a description of what will happen help a child get ready for an event. The moment in the save line is the topic's everyday situation.
-- שקופית 10 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
+- שקופית 2 · לוח על הקיר, עם היום שלי מסומן · sourced_fact · PBS KIDS: waiting for big events like birthdays is a great opportunity to use a calendar; Child Mind Institute: visual cues help some children.
+- שקופית 3 · כל בוקר איקס, ״עוד 5 לילות״ · sourced_fact · Child Mind Institute: give a time frame along with countdowns, so a child can emotionally get ready for an event; PBS KIDS: a calendar for a birthday. The daily cross is our example.
+- שקופית 5 · שרשרת נייר, טבעת לכל לילה · sourced_fact · Child Mind Institute: countdowns, and visual cues help some children. The paper chain is our example of a visual countdown.
+- שקופית 6 · משהו לעשות בינתיים · sourced_fact · PBS KIDS: waiting is hard; give each person something else to do while they wait.
+- שקופית 7 · לספר מה בא אחרי מה ביום עצמו · sourced_fact · Child Mind Institute: give a description of what will happen, so a child can emotionally get ready for an event.
+- שקופית 8 · עוד 5 דקות ונרגעים · sourced_fact · Understood: plan on giving a five-minute notice when a preschooler starts to get louder and too excited.
+- שקופית 10 · אני לא רואה את הזמן: לוח, שרשרת, משהו לעשות וחמש דקות · sourced_fact · Child Mind Institute: a time frame, countdowns and visual cues help a child get ready. The recap is said as this child's feeling, not about every child.
+- שקופית 11 · לפעם הבאה שהיא מחכה ליום הולדת · sourced_fact · Child Mind: countdowns and a description of what will happen help a child get ready for an event. The moment in the save line is the topic's everyday situation.
+- שקופית 11 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
 
 </details>
 
-### kid-2 · 7:30 במטבח ואני שואל מתי יום ההולדת
+### kid-2 · 7:30 במטבח ואני שואל שוב מתי יום ההולדת
 
 - **על מי:** אופק (בן), לשני ההורים
-- **זווית:** הילד מבקש מההורים לתת לו דברים שאפשר לראות ולגעת בהם כדי לספור את הימים: לוח, שרשרת, צנצנת חרוזים וציור של היום עצמו.
+- **זווית:** אופק, בן 4, מספר לאמא ואבא איך היו הבקרים לפני שידע על יום ההולדת, מה קרה כשאמרו לו ״עוד שבוע״, ומה קורה מאז: שואל כל בוקר, סופר על האצבעות, מצייר את היום ומתפוצץ בערב. מה עוזר: לוח ואיקס שהוא מסמן לבד, צנצנת חרוזים, לספר מה יהיה ביום, התראה של 5 דקות ומשהו לעשות בינתיים.
 - **למי:** אמא ואבא לילד בן 4 ששואל כל בוקר באותה שעה מתי יום ההולדת.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** moment-time
 - **נושא:** סופר את הימים עד יום ההולדת (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** שעה מדויקת על הכריכה ומספר שמבטיח ערך. הפתרון הוא דברים שילד יכול לראות ולגעת בהם, כך שההורים מקבלים רשימה מוכנה לבוקר הבא.
+- **למה זה עשוי להמיר:** פעם, ואז, ומאז: הורים מזהים מיד את השאלה של כל בוקר, וכל שקופית של ״ומאז״ נותנת צעד אחד. הכריכה שומרת על השעה והמטבח.
 
-#### שקופית 1 · פתיח
+- **מבנה:** פעם ועכשיו · 11 שקופיות
+
+#### שקופית 1 · שער
 
 **7:30 במטבח**  
 **אני שואל שוב**  
 **מתי יום ההולדת**  
-7 דברים שיעזרו לי  
+איך היה פעם, ומה קורה לי עכשיו  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · פעם
 
-**אני שואל כי הימים**  
-**לא נראים לי**  
-אי אפשר לגעת ב״עוד שבוע״  
-תנו לי משהו שאפשר לראות  
+**פעם לא חשבתי על זה בכלל**  
+קמתי, אכלתי קורנפלקס, הלכתי לגן.  
+יום הולדת היה משהו רחוק,  
+של ילדים אחרים, עם עוגה של מישהו אחר.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+לא שאלתי **מתי**. לא ספרתי כלום.  
 
-**1 לוח גדול על הקיר**  
-**2 איקס על כל יום**  
-אני מסמן בעצמי כל בוקר  
-ואז רואה כמה ימים עברו  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 4 · דוגמאות ממוספרות
+*Picture:* The boy eats cereal calmly at the kitchen table, swinging his legs and pushing a toy car beside his bowl. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**3 שרשרת נייר שמתקצרת**  
-כל בוקר אני קורע טבעת  
-והשרשרת נהיית קצרה  
+</div>
 
-#### שקופית 5 · דוגמאות ממוספרות
+#### שקופית 3 · סיפור · פעם
 
-**4 צנצנת חרוזים לכל יום**  
-כל בוקר אני מוציא חרוז  
-מה שנשאר בצנצנת הוא עוד לילות  
+**ובבקרים היה לנו שקט**  
+אתם שתיתם קפה וחיפשתם מפתחות.  
+אני שיחקתי עם המכונית ליד הצלחת.  
+אף אחד לא היה צריך לענות לי  
+על אותה שאלה **עשר פעמים**.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**5 ציור של יום ההולדת**  
-תציירו איתי איך זה ייראה  
-ואז אני יודע למה אני מחכה  
+*Picture:* His mother sips coffee and his father pats his pockets looking for keys, while the boy plays quietly with a toy car on the table. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**6 משהו לעשות בינתיים**  
-לקשט בלונים או לצייר הזמנה  
-כשיש מה לעשות הזמן עובר  
+#### שקופית 4 · סיפור · ואז
 
-#### שקופית 8 · דוגמאות ממוספרות
+**ואז אמרתם ״עוד שבוע״**  
+״אופק, עוד שבוע יום ההולדת שלך!״  
+ומשהו בבטן שלי **נדלק**.  
+עוגה, בלונים, חברים, מתנות.  
+אבל שבוע? כמה זה שבוע?  
+אני לא רואה אותו בשום מקום.  
 
-**7 חמש דקות להתכונן**  
-״אופק, עוד 5 דקות ונרגעים״  
-כשאני מתפוצץ אני צריך לדעת  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 9 · סיכום
+*Picture:* His parents kneel in front of him with big smiles, holding up a single balloon; the boy stares back with wide eyes and both hands on his tummy. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**תראו לי את הימים**  
-**ויהיה לי קל יותר לחכות**  
-לוח, שרשרת, צנצנת וציור  
-ועוד משהו לעשות בינתיים  
+</div>
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+#### שקופית 5 · סיפור · ומאז
+
+**אני שואל כל בוקר מחדש**  
+״היום? מחר? עוד כמה?״  
+אתם עונים ״עוד מעט״, ואני שוב שואל.  
+*מה יעזור לי:*  
+לוח גדול על הקיר במטבח,  
+ואיקס שאני מסמן **בעצמי** כל בוקר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy stands on a chair and draws a big cross on a plain wall calendar grid with a thick marker, his mother pointing at the next square. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · ומאז
+
+**אני סופר על האצבעות**  
+*מה אתם רואים:*  
+ילד שלא מפסיק לשאול.  
+*מה קורה לי בפנים:*  
+אני רוצה לראות כמה נשאר, ואין לי איך.  
+*מה יעזור לי:*  
+צנצנת עם חרוז לכל לילה.  
+כל בוקר אחד יוצא, ואני **רואה** כמה נשאר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy holds a small glass jar of colourful beads up to his eye, taking one bead out, his father leaning in beside him. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ומאז
+
+**אני מצייר את היום ההוא**  
+עוגה עם נרות, וכולם סביבי.  
+אבל אני לא באמת יודע מה יהיה שם.  
+*מה יעזור לי:*  
+▪ ״קודם עוגה בגן, ואז סבא וסבתא.״  
+כשאני יודע מה בא, אני **רגוע** יותר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy draws a cake with candles on a big sheet of paper at the table while his mother sits beside him and points along his drawing, explaining. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · ומאז
+
+**ובערב אני מתפוצץ**  
+רץ בסלון, צועק, קופץ מהספה,  
+כאילו כל השבוע נכנס לי ברגליים.  
+*מה יעזור לי:*  
+להגיד לי ״עוד 5 דקות ונרגעים״,  
+עוד לפני שאני **עף** לגמרי.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy leaps off the sofa with arms in the air, while his father crouches nearby with one calm hand raised. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · מה שמחזיר לי את השקט
+
+**משהו לעשות בינתיים**  
+לקשט בלונים איתכם,  
+לצייר הזמנות לחברים מהגן.  
+כשהידיים שלי עסוקות, אני שוכח לשאול,  
+והימים עוברים **מהר** יותר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and both parents sit on the rug decorating balloons with stickers, the boy laughing. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · פנייה להורים
+
+**אני לא שואל כדי לעצבן**  
+אני שואל כי אני לא רואה את הימים.  
+תראו לי אותם, על הקיר, בצנצנת,  
+ותגידו לי מה יהיה ביום עצמו.  
+ואז אני יכול **לחכות** איתכם.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits between his parents on the sofa, the bead jar in his lap, all three smiling. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 11 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה שהוא מחכה ליום הולדת  
 
-**הכותרות בלבד:** 7:30 במטבח אני שואל שוב מתי יום ההולדת ← אני שואל כי הימים לא נראים לי ← 1 לוח גדול על הקיר 2 איקס על כל יום ← 3 שרשרת נייר שמתקצרת ← 4 צנצנת חרוזים לכל יום ← 5 ציור של יום ההולדת ← 6 משהו לעשות בינתיים ← 7 חמש דקות להתכונן ← תראו לי את הימים ויהיה לי קל יותר לחכות ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy blows out candles on a small cake at the kitchen table, his parents on both sides of him, warm and happy. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** 7:30 במטבח אני שואל שוב מתי יום ההולדת ← פעם לא חשבתי על זה בכלל ← ובבקרים היה לנו שקט ← ואז אמרתם ״עוד שבוע״ ← אני שואל כל בוקר מחדש ← אני סופר על האצבעות ← אני מצייר את היום ההוא ← ובערב אני מתפוצץ ← משהו לעשות בינתיים ← אני לא שואל כדי לעצבן ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-7:30 במטבח ואני שואל שוב מתי יום ההולדת.  
-תנו לי לוח ושרשרת וצנצנת חרוזים שאני רואה בהם את הימים.  
-תציירו איתי איך זה ייראה ותנו לי משהו לעשות בינתיים.  
-ותגידו לי חמש דקות לפני שנרגעים.  
+אמא ואבא, כל בוקר במטבח אני שואל אתכם מתי יום ההולדת.  
+תתלו לוח במטבח, ותנו לי לסמן איקס בעצמי.  
+תכינו איתי צנצנת חרוזים, ותספרו לי מה יהיה ביום עצמו.  
+תנו לי משהו לעשות בינתיים, ותגידו לי חמש דקות לפני שנרגעים.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרו את הפוסט לפעם הבאה שהוא מחכה ליום הולדת  
 
@@ -220,99 +404,157 @@
 
 **טענות**
 
-- שקופית 2 · אני שואל כי הימים לא נראים לי אי אפשר לגעת ב״עוד שבוע״ תנו לי משהו שאפשר לראות · sourced_fact · Child Mind: visual cues and countdowns help; PBS: a calendar helps a child keep track of days. Imagined child voice.
-- שקופית 3 · 1 לוח גדול על הקיר 2 איקס על כל יום · sourced_fact · PBS: a calendar for a big event like a birthday lets a child keep track of days; the daily X is our example.
-- שקופית 4 · 3 שרשרת נייר שמתקצרת · sourced_fact · Child Mind: visual cues and countdowns. The paper chain is our example of a visual countdown.
-- שקופית 5 · 4 צנצנת חרוזים לכל יום · sourced_fact · Child Mind: visual cues; PBS: a timer that shows a countdown. The jar of beads is our example.
-- שקופית 6 · 5 ציור של יום ההולדת · sourced_fact · Child Mind: a chart with drawings about what to expect helps some children.
-- שקופית 7 · 6 משהו לעשות בינתיים · sourced_fact · PBS: giving each person something else to do while they wait. The balloons and invitation are our examples.
-- שקופית 8 · 7 חמש דקות להתכונן · sourced_fact · Understood: a five-minute notice when a preschooler gets louder and too excited.
-- שקופית 9 · תראו לי את הימים ויהיה לי קל יותר לחכות · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact and no promise.
-- שקופית 10 · לפעם הבאה שהוא מחכה ליום הולדת · sourced_fact · Child Mind: countdowns and a description of what will happen help a child get ready for an event. The moment in the save line is the topic's everyday situation.
-- שקופית 10 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
+- שקופית 5 · לוח גדול על הקיר ואיקס שאני מסמן בעצמי · sourced_fact · PBS KIDS: waiting for big events like birthdays is a great opportunity to use a calendar; Child Mind Institute: countdowns and visual cues. The cross is our example.
+- שקופית 6 · צנצנת עם חרוז לכל לילה · sourced_fact · Child Mind Institute: countdowns and visual cues help some children; PBS KIDS: a countdown you can see helps with waiting. The bead jar is our example. Wanting to see what is left is this child's feeling.
+- שקופית 7 · לספר מה יהיה ביום: קודם עוגה בגן, ואז סבא וסבתא · sourced_fact · Child Mind Institute: give a description of what will happen, so a child can emotionally get ready for an event.
+- שקופית 8 · עוד 5 דקות ונרגעים · sourced_fact · Understood: plan on giving a five-minute notice when a preschooler starts to get louder and too excited.
+- שקופית 9 · משהו לעשות בינתיים · sourced_fact · PBS KIDS: waiting is hard; give each person something else to do while they wait.
+- שקופית 10 · אני שואל כי אני לא רואה את הימים · sourced_fact · Child Mind Institute: a time frame, countdowns and visual cues help a child get ready for an event. Said as this child's reason, not about every child.
+- שקופית 11 · לפעם הבאה שהוא מחכה ליום הולדת · sourced_fact · Child Mind: countdowns and a description of what will happen help a child get ready for an event. The moment in the save line is the topic's everyday situation.
+- שקופית 11 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
 
 </details>
 
-### kid-3 · אמא אל תגידי לי ״עוד מעט״
+### kid-3 · אמא אל תגידי לי ״עוד מעט״ ליום ההולדת
 
 - **על מי:** ליה (בת), לאמא
-- **זווית:** הילדה מבקשת מאמא להחליף את ״עוד מעט״ במספר, בלוח ובתוכנית ליום ההולדת, כי ״עוד מעט״ לא אומר לה כלום.
+- **זווית:** ליה, בת 4, כותבת לאמא מכתב: ״עוד מעט״ לא אומר לה כלום. היא מבקשת מספר לילות, לוח שמראה איפה אנחנו, לספר מה יהיה ביום עצמו, משהו לעשות בינתיים, ו״עוד 5 דקות ונרגעים״ כשהיא מתפוצצת.
 - **למי:** אמא לילדה בת 4 ששואלת מתי יום ההולדת ומקבלת ״עוד מעט״.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** child-dont
 - **נושא:** סופר את הימים עד יום ההולדת (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** פתיח של ילדה שמבקשת משהו מאוד מסוים (לא ״עוד מעט״) ומספר שמבטיח ערך. שקופית 2 נותנת מיד תשובה חלקית: מספר לילות.
+- **למה זה עשוי להמיר:** מכתב מהילדה הופך ״עוד מעט״ לבקשה פשוטה שכל אמא יכולה לענות עליה כבר הערב. הכריכה שומרת על המשפט שכולנו אומרים.
 
-#### שקופית 1 · פתיח
+- **מבנה:** מכתב · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **אמא אל תגידי לי**  
 **״עוד מעט״**  
 **ליום ההולדת**  
-6 דברים שיעזרו לי  
+מכתב ממני אלייך  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**״עוד מעט״ זה לא**  
-**מספר שאני מכירה**  
-אבל ״עוד 6 לילות״ אני מבינה  
-ואפשר גם לספור אותם  
+**אמא שלי,**  
+כל פעם שאני שואלת מתי יום ההולדת,  
+את מחייכת ואומרת ״עוד מעט״.  
+ואני מחכה.  
+ומחכה.  
+ושואלת **שוב**.  
+אז רציתי להסביר לך משהו.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תגידי לי כמה לילות**  
-״ליה, עוד 6 לילות״  
-מספר אני יכולה לספור  
+*Picture:* The girl tugs her mother's sleeve on the sofa, looking up with a hopeful questioning face, while her mother smiles down at her. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 תראי לי על הלוח**  
-תצביעי איפה אנחנו היום  
-ואיפה יום ההולדת  
+#### שקופית 3 · סיפור
 
-#### שקופית 5 · דוגמאות ממוספרות
+״עוד מעט״ זה כמה?  
+עד ארוחת ערב? עד מחר? עד החורף?  
+אני לא יודעת לספור **מעט**.  
 
-**3 תספרי מה בא אחרי מה**  
-״קודם שינה, אחר כך בוקר״  
-״וככה עוד 6 פעמים״  
+אבל ״עוד 6 לילות״ אני מבינה.  
+שש פעמים ללכת לישון, ואז זה מגיע.  
 
-#### שקופית 6 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**4 תספרי איך ייראה היום**  
-מי יבוא ומה נאכל  
-כשאני יודעת אני רגועה  
+*Picture:* The girl sits on her bed counting on her small fingers with a serious frown, her stuffed bunny beside her. The girl's small Israeli bedroom in the evening: a low bed, a soft lamp, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 7 · דוגמאות ממוספרות
+</div>
 
-**5 משהו לעשות בינתיים**  
-בינתיים נכין יחד הזמנה  
-ואז הזמן עובר  
+#### שקופית 4 · סיפור
 
-#### שקופית 8 · דוגמאות ממוספרות
+ואם תראי לי את זה על לוח,  
+עוד יותר טוב.  
+תצביעי איפה אנחנו היום,  
+ואיפה היום שלי, עם **לב** גדול.  
+ככה אני רואה כמה דרך נשארה.  
 
-**6 התראה לפני שנרגעים**  
-״ליה, עוד 5 דקות ונרגעים״  
-כך אני מתכוננת לשקט  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 9 · סיכום
+*Picture:* Her mother points at a square on a plain wall calendar grid while the girl stands on tiptoe pointing at a big red heart drawn on another square. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**תני לי מספר**  
-**ולא ״עוד מעט״**  
-לילות, לוח ותוכנית ליום  
-משהו לעשות וחמש דקות  
+</div>
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+#### שקופית 5 · סיפור
+
+ולפעמים אני שואלת שאלה אחרת:  
+מה יהיה ביום עצמו?  
+מי יבוא? מה נאכל? יהיו בלונים?  
+כשאת מספרת לי מה בא אחרי מה,  
+הבטן שלי **נרגעת**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl lies on the rug on her tummy, chin in her hands, listening intently while her mother sits beside her and counts on her fingers. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור
+
+ובימים שבינתיים,  
+תני לי משהו לעשות עם הידיים.  
+להכין איתך הזמנות לחברים,  
+לקשט בלון אחד כל ערב.  
+כשאני עסוקה, אני שוכחת **לשאול**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl and her mother sit at the kitchen table decorating paper party invitations with crayons and stickers, a balloon tied to a chair. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור
+
+ויש ערבים שאני ממש מתפוצצת.  
+קופצת, צועקת, לא שומעת אותך.  
+אל תכעסי.  
+תגידי לי ״ליה, עוד 5 דקות ונרגעים״,  
+ואני אספיק **להתכונן**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl jumps on the sofa cushions in her pyjamas, while her mother kneels nearby and holds up an open hand, calm and smiling. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור
+
+אני לא חסרת סבלנות, אמא.  
+אני פשוט עוד לא רואה את הזמן.  
+תני לי מספר, לוח ותוכנית,  
+ואני אחכה איתך.  
+
+**אוהבת, ליה**  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl hugs her mother tightly on the sofa, eyes closed and smiling, a decorated balloon floating beside them. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שהיא מחכה ליום הולדת  
 
-**הכותרות בלבד:** אמא אל תגידי לי ״עוד מעט״ ליום ההולדת ← ״עוד מעט״ זה לא מספר שאני מכירה ← 1 תגידי לי כמה לילות ← 2 תראי לי על הלוח ← 3 תספרי מה בא אחרי מה ← 4 תספרי איך ייראה היום ← 5 משהו לעשות בינתיים ← 6 התראה לפני שנרגעים ← תני לי מספר ולא ״עוד מעט״ ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl, in a paper party crown, sits on her mother's lap at the kitchen table in front of a small cake with candles, both glowing with joy. The family's bright Israeli kitchen: cream tiles, a wooden table, a window with soft light, a plain pale peach wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא אל תגידי לי ״עוד מעט״ ליום ההולדת ← אמא שלי, ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אמא אל תגידי לי ״עוד מעט״ ליום ההולדת.  
-תגידי לי כמה לילות ותראי לי על הלוח איפה אנחנו.  
-תספרי לי מה בא אחרי מה ואיך ייראה היום עצמו.  
-תני לי משהו לעשות בינתיים ותגידי לי חמש דקות לפני שנרגעים.  
+אמא, כשאת אומרת לי ״עוד מעט״ אני לא יודעת כמה זה.  
+תגידי לי כמה לילות, ותראי לי על הלוח איפה אנחנו.  
+תספרי לי מה יהיה ביום עצמו, ותני לי משהו לעשות בינתיים.  
+וכשאני מתפוצצת, תגידי לי ״עוד 5 דקות ונרגעים״.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרי את הפוסט לפעם הבאה שהיא מחכה ליום הולדת  
 
@@ -330,99 +572,171 @@
 
 **טענות**
 
-- שקופית 2 · ״עוד מעט״ זה לא מספר שאני מכירה אבל ״עוד 6 לילות״ אני מבינה ואפשר גם לספור אותם · sourced_fact · Child Mind: give a time frame and a description of what will happen, along with countdowns. Imagined child voice.
-- שקופית 3 · 1 תגידי לי כמה לילות · sourced_fact · Child Mind: give a time frame along with countdowns.
-- שקופית 4 · 2 תראי לי על הלוח · sourced_fact · PBS: a calendar helps a child keep track of days; Child Mind: visual cues.
-- שקופית 5 · 3 תספרי מה בא אחרי מה · sourced_fact · PBS: talking about what comes next can comfort a child.
-- שקופית 6 · 4 תספרי איך ייראה היום · sourced_fact · Child Mind: give a description of what will happen.
-- שקופית 7 · 5 משהו לעשות בינתיים · sourced_fact · PBS: giving each person something else to do while they wait.
-- שקופית 8 · 6 התראה לפני שנרגעים · sourced_fact · Understood: a five-minute notice when a preschooler gets louder and too excited.
-- שקופית 9 · תני לי מספר ולא ״עוד מעט״ · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact and no promise.
-- שקופית 10 · לפעם הבאה שהיא מחכה ליום הולדת · sourced_fact · Child Mind: countdowns and a description of what will happen help a child get ready for an event. The moment in the save line is the topic's everyday situation.
-- שקופית 10 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
+- שקופית 3 · לא ״עוד מעט״ אלא ״עוד 6 לילות״ · sourced_fact · Child Mind Institute: give a time frame along with countdowns, so a child can emotionally get ready for an event. Not understanding "soon" is this child's voice.
+- שקופית 4 · תראי לי על לוח איפה אנחנו ואיפה היום שלי · sourced_fact · PBS KIDS: waiting for big events like birthdays is a great opportunity to use a calendar; Child Mind Institute: pointing to a chart and visual cues.
+- שקופית 5 · תספרי לי מה בא אחרי מה ביום עצמו · sourced_fact · Child Mind Institute: give a description of what will happen.
+- שקופית 6 · משהו לעשות עם הידיים בינתיים · sourced_fact · PBS KIDS: waiting is hard; give each person something else to do while they wait.
+- שקופית 7 · עוד 5 דקות ונרגעים · sourced_fact · Understood: plan on giving a five-minute notice when a preschooler starts to get louder and too excited.
+- שקופית 8 · אני עוד לא רואה את הזמן: מספר, לוח ותוכנית · sourced_fact · Child Mind Institute: a time frame, a description of what will happen and visual cues. Said as this child's reason.
+- שקופית 9 · לפעם הבאה שהיא מחכה ליום הולדת · sourced_fact · Child Mind: countdowns and a description of what will happen help a child get ready for an event. The moment in the save line is the topic's everyday situation.
+- שקופית 9 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
 
 </details>
 
 ### kid-4 · אני מחזיק משאית ומשפט אחד משנה את הרגע
 
 - **על מי:** אריאל (בן), לאמא
-- **זווית:** הילד מחזיק את המשאית והידיים לא נפתחות. הוא מבקש מאמא משפט אחד, ״יש לך תור ארוך״, ועוד חמישה דברים שעוזרים לו לתת תור.
+- **זווית:** אריאל, בן 4, מאט לאמא דקה אחת על השטיח: חבר מושיט יד למשאית, ״תן לו גם!״, משיכה וצעקות, ואז אמא אומרת ״יש לך תור ארוך״ ונותנת לחבר משהו אחר, והוא נותן לבד. בערב: שעון שמצלצל, ״אפשר תור?״ ו״קשה לחכות, אני יודעת״.
 - **למי:** אמא לילד בן 4 שלא נותן לאף אחד את הצעצוע שהוא מחזיק.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** one-sentence-changes
 - **נושא:** לא רוצה לתת לאף אחד את הצעצוע (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** משפט אחד שמשנה את הרגע הוא פער סקרנות אמיתי שנסגר בשקופית 3, ומספר שמבטיח ערך. הילד מבקש מאמא דברים קטנים שאפשר לומר מחר בגינה.
+- **למה זה עשוי להמיר:** דקה אחת מואטת מראה לאמא מה קורה בתוך הילד בזמן ה״תן לו גם״, ומשפט אחד שמשנה את הרגע. הכריכה שומרת על המשאית והמשפט.
 
-#### שקופית 1 · פתיח
+- **מבנה:** דקה אחת · 10 שקופיות
+
+#### שקופית 1 · שער
 
 **אני מחזיק משאית**  
 **ומשפט אחד**  
 **משנה את הרגע**  
-6 דברים שיעזרו לי  
+דקה אחת על השטיח, מבפנים  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור · קודם
 
-**אני מחזיק את המשאית**  
-**והידיים לא נפתחות**  
-אני לא רוצה שתיקחו אותה  
-אני רוצה שתחכו שאסיים  
+**המשאית הצהובה שלי**  
+אני בונה איתה כביש מהקוביות,  
+כבר הרבה זמן, בשקט, רק אני.  
+היא נוסעת, עוצרת, מעמיסה.  
+זה המשחק הכי **טוב** שלי היום.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 יש לך תור ארוך**  
-תגידי לי ״יש לך תור ארוך״  
-ואני משחק עוד ואז החבר  
+*Picture:* The boy kneels on the playroom rug pushing a yellow toy truck along a road built from wooden blocks, completely absorbed. The family's bright Israeli playroom in the afternoon: a soft rug, wooden blocks, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 שעון שמחליט במקומך**  
-כשהשעון מצלצל, זה לא את  
-ואז אני פחות כועס עלייך  
+#### שקופית 3 · סיפור · הדקה מתחילה
 
-#### שקופית 5 · דוגמאות ממוספרות
+**חבר מהגן נכנס לחדר**  
+הוא מסתכל על המשאית שלי.  
+מתקרב. מושיט יד.  
+הידיים שלי נסגרות עליה לבד,  
+עוד לפני שחשבתי **משהו**.  
 
-**3 מילים לבקש תור**  
-תלמדי את החבר להגיד ״אפשר תור?״  
-במקום לחטוף לי  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* A friend of the same age reaches toward the yellow truck; the boy pulls it to his chest with both arms, eyes wide. The family's bright Israeli playroom in the afternoon: a soft rug, wooden blocks, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**4 תגידי שקשה לחכות**  
-״קשה לך לחכות, אני מבינה״  
-ואני מרגיש שמבינים אותי  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · עשר שניות
 
-**5 משהו אחר לחבר שמחכה**  
-תציעי לו לשחק במשהו אחר  
-בינתיים עד שאסיים  
+**״אריאל, תן לו גם!״**  
+את אומרת את זה מהר, מהמטבח.  
+ואני מחבק את המשאית **חזק** יותר.  
+בראש שלי זה נשמע ככה:  
+עכשיו לוקחים לי אותה,  
+ואני עוד לא גמרתי.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**6 אחריי תורך**  
-״אחרי אריאל יש תור לחבר״  
-כשאני יודע מי בא אחריי אני נותן  
+*Picture:* The boy hugs the truck tighter with a stubborn pout, while his mother calls from the kitchen doorway with a dish towel in her hand. The family's bright Israeli playroom in the afternoon, the kitchen doorway at the side, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**תני לי תור ארוך**  
-**ותגידי מי בא אחר כך**  
-שעון ומילים לבקש  
-ועוד משהו לחבר שמחכה  
+#### שקופית 5 · סיפור · עשרים שניות
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**אני צועק ״שלי!״**  
+החבר מושך, אני מושך.  
+שנינו כמעט בוכים ביחד.  
+*מה את רואה:*  
+ילד שלא מוכן לתת.  
+*מה קורה לי בפנים:*  
+אני עוד לא מצליח לראות את הצד **שלו**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* Both boys tug at opposite ends of the yellow truck, faces scrunched and close to tears. The family's bright Israeli playroom in the afternoon: a soft rug, scattered blocks, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · שלושים שניות
+
+**ואז את מתכופפת אליי**  
+את לא לוקחת לי את המשאית.  
+את אומרת בשקט:  
+▪ ״יש לך תור ארוך, ואחריך תורו.״  
+והידיים שלי **נפתחות** קצת.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* His mother kneels down to the boy's eye level and speaks softly; the boy's grip on the truck loosens a little. The family's bright Israeli playroom in the afternoon: a soft rug, scattered blocks, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ארבעים שניות
+
+**ולחבר את נותנת משהו אחר**  
+״בינתיים תבנה פה מגדל?״  
+הוא כבר לא עומד מעליי,  
+ואני יכול לסיים את הכביש **בשקט**.  
+אף אחד לא חוטף, אף אחד לא בוכה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The mother hands the friend a basket of blocks and he starts building a tower, while the boy goes back to his truck road nearby. The family's bright Israeli playroom in the afternoon: a soft rug, wooden blocks, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · סיפור · חמישים שניות
+
+**אני נותן לו את המשאית**  
+לבד. בלי שאף אחד לקח.  
+כי ידעתי שהיא לא נעלמת,  
+ושאחריו היא **חוזרת** אליי.  
+הוא מחייך, ואני קצת גאה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy holds out the yellow truck to his friend with a proud little smile; the friend takes it, beaming. The family's bright Israeli playroom in the afternoon: a soft rug, a block tower, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · סיפור · בערב
+
+**זה היה קשה לי, אמא**  
+לתת משהו שאני אוהב זה לא קל.  
+*מה יעזור לי בפעם הבאה:*  
+שעון קטן שמצלצל כשמחליפים,  
+שהחבר ילמד להגיד ״אפשר תור?״,  
+ושתגידי לי **״קשה לחכות, אני יודעת״**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* In pyjamas, the boy cuddles against his mother on the sofa, the yellow truck in his lap and a small kitchen timer on the low table. The family's cosy Israeli living room: a beige sofa, a low wooden table, a plain pale wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 10 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שקשה לו לשתף  
 
-**הכותרות בלבד:** אני מחזיק משאית ומשפט אחד משנה את הרגע ← אני מחזיק את המשאית והידיים לא נפתחות ← 1 יש לך תור ארוך ← 2 שעון שמחליט במקומך ← 3 מילים לבקש תור ← 4 תגידי שקשה לחכות ← 5 משהו אחר לחבר שמחכה ← 6 אחריי תורך ← תני לי תור ארוך ותגידי מי בא אחר כך ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his friend sit side by side on the rug, sharing the yellow truck and the block tower, laughing, his mother smiling in the doorway. The family's bright Israeli playroom in warm late afternoon light, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אני מחזיק משאית ומשפט אחד משנה את הרגע ← המשאית הצהובה שלי ← חבר מהגן נכנס לחדר ← ״אריאל, תן לו גם!״ ← אני צועק ״שלי!״ ← ואז את מתכופפת אליי ← ולחבר את נותנת משהו אחר ← אני נותן לו את המשאית ← זה היה קשה לי, אמא ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-אני מחזיק משאית ומשפט אחד משנה את הרגע.  
-תגידי לי ״יש לך תור ארוך״ ותני לי לשחק עוד קצת.  
-תלמדי את החבר לבקש תור ותגידי שקשה לחכות.  
-תציעי לו משהו אחר בינתיים ותגידי לי מי בא אחריי.  
+אמא, כשאני מחזיק את המשאית, משפט אחד שלך משנה הכל.  
+תגידי לי ״יש לך תור ארוך״, ותני לחבר משהו אחר בינתיים.  
+תביאי שעון שמצלצל כשמחליפים, ותלמדי את החבר לבקש תור.  
+ותגידי לי שאת יודעת שקשה לחכות.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שקשה לו לשתף  
 
@@ -438,101 +752,161 @@
 
 **טענות**
 
-- שקופית 2 · אני מחזיק את המשאית והידיים לא נפתחות אני לא רוצה שתיקחו אותה אני רוצה שתחכו שאסיים · sourced_fact · ZERO TO THREE: young children cannot yet see another child's side, and a long turn before sharing is fine. Imagined child voice.
-- שקופית 3 · 1 יש לך תור ארוך · sourced_fact · ZERO TO THREE: it is okay to let children have a long turn before they share; the page's example sentence is Take as long as you like with those trains.
-- שקופית 4 · 2 שעון שמחליט במקומך · sourced_fact · ZERO TO THREE: a timer makes the rule the bell's, not the adult's; PBS: a timer that shows a countdown.
-- שקופית 5 · 3 מילים לבקש תור · sourced_fact · ZERO TO THREE: children can learn to ask first, Can I have a turn, instead of grabbing.
-- שקופית 6 · 4 תגידי שקשה לחכות · sourced_fact · ZERO TO THREE: It's OK to be upset when you have to wait. Waiting is hard; PBS: waiting is hard.
-- שקופית 7 · 5 משהו אחר לחבר שמחכה · sourced_fact · ZERO TO THREE: the waiting child can be offered a different activity; PBS: something else to do while waiting.
-- שקופית 8 · 6 אחריי תורך · sourced_fact · PBS: talking about what comes next can remind children who gets the next turn.
-- שקופית 9 · תני לי תור ארוך ותגידי מי בא אחר כך · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact and no promise.
+- שקופית 5 · אני עוד לא מצליח לראות את הצד שלו · sourced_fact · ZERO TO THREE: children this age have not developed the ability to put themselves in another's shoes yet; these skills develop between 3.5 and 4. Said as this child's inside, not about every child.
+- שקופית 6 · יש לך תור ארוך, ואחריך תורו · sourced_fact · ZERO TO THREE: it is okay to let children have a long turn; PBS KIDS: talking about what comes next reminds them who gets the next turn.
+- שקופית 7 · לחבר שמחכה נותנים משהו אחר לעשות · sourced_fact · PBS KIDS: give each person something else to do while they wait.
+- שקופית 9 · שעון שמצלצל, ״אפשר תור?״, ״קשה לחכות, אני יודעת״ · sourced_fact · ZERO TO THREE: a timer or clock can be a helpful rule-keeper; children can learn to ask Can I have a turn?; it is OK to be upset when you have to wait, waiting is hard. PBS KIDS: a timer that shows a countdown for taking turns.
 - שקופית 10 · לפעם הבאה שקשה לו לשתף · sourced_fact · ZERO TO THREE: young children are still learning to share, and waiting is hard for them. The moment in the save line is the topic's everyday situation.
 - שקופית 10 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
 
 </details>
 
-### kid-5 · אמא ואבא 9 דברים שיעזרו לי לשתף חברה
+### kid-5 · אמא ואבא, 5 דברים שיעזרו לי לשתף חברה
 
 - **על מי:** אביגיל (בת), לשני ההורים
-- **זווית:** הילדה מבקשת מההורים תשעה דברים: תור ארוך, שעון, מילים לבקש תור, להבין שקשה לחכות, משהו אחר לחברה, מי בא אחר כך, להחליף, תור שווה ולתרגל שוב.
+- **זווית:** אביגיל, בת 5, מחכה לחברה ומבקשת מההורים חמישה דברים: תור ארוך, שעון שמחליט מתי מחליפים, ללמד את שתיהן להגיד ״אפשר תור?״, להחליף במקום לוותר, ולהגיד בקול מי הבאה בתור.
 - **למי:** אמא ואבא לילדה בת 5 שמתקשה לתת לחברה לשחק בצעצועים שלה.
 - **שלב מודעות:** מחפש פתרון
 - **פתיח:** child-numbered-ask
 - **נושא:** לא רוצה לתת לאף אחד את הצעצוע (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** הנוסחה של ירין, אמא ואבא ומספר דברים שיעזרו לי, עם תשעה דברים ממוספרים. כל פריט הוא בקשה אחת שאפשר לומר בבית כבר היום.
+- **למה זה עשוי להמיר:** רשימה קצרה של חמישה דברים, כל אחד בצורה אחרת, שהורים יכולים להכין עוד לפני שהחברה מגיעה. הכריכה שומרת על הבקשה הישירה.
 
-#### שקופית 1 · פתיח
+- **מבנה:** רשימה קצרה · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **אמא ואבא**  
-**9 דברים שיעזרו לי**  
+**5 דברים שיעזרו לי**  
 **לשתף חברה**  
+לפני שהחברה מגיעה אלינו  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**אני רוצה לתת לה**  
-**רק קשה לי**  
-אני עוד לומדת להרגיש  
-איך זה בצד שלה  
+**היום מגיעה אליי חברה**  
+אני מחכה לה כל הבוקר.  
+אבל כשהיא נוגעת בארנבת שלי,  
+משהו בי נסגר.  
+אני רוצה לתת לה, באמת.  
+פשוט עוד קשה לי לראות את זה  
+**מהצד שלה**.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תור ארוך**  
-קודם אני משחקת עד שאני גומרת  
-אחר כך אפשר להחליף  
+*Picture:* The girl hugs a plush bunny by the front door, peeking out of the window, half excited and half worried, her parents behind her. The family's tidy Israeli living room by the front door in the afternoon, a plain pale peach-cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 שעון שמצלצל**  
-**3 לבקש אפשר תור**  
-הצלצול אומר מתי מחליפים  
-למדו אותי להגיד ״אפשר תור?״  
+#### שקופית 3 · סיפור · 1: תור ארוך
 
-#### שקופית 5 · דוגמאות ממוספרות
+**תנו לי לסיים**  
+כשאני באמצע משחק ומבקשים ממני לתת,  
+זה מרגיש כאילו עוצרים לי את הסיפור.  
+אם אתם אומרים לי ״יש לך תור ארוך״,  
+אני יודעת שאני **אסיים**,  
+ואז קל לי יותר להעביר הלאה.  
 
-**4 קשה לך לחכות**  
-תגידו לי ״אביגיל, קשה לך לחכות״  
-וגם לחברה כשהיא מחכה  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The girl plays a tea party with her plush bunny on the rug while her friend sits close by watching, the girl's mother crouched beside them. The family's tidy Israeli living room: a soft rug, a toy tea set, a plain pale peach-cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**5 משהו אחר לחברה**  
-**6 אחריי התור שלך**  
-החברה מקבלת משהו לעשות בינתיים  
-ואני יודעת שהיא תקבל תור  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · 2: שעון שמצלצל
 
-**7 להחליף במקום לוותר**  
-**8 תור שווה לכולן**  
-להחליף צעצוע זה בסדר  
-וכל אחת מקבלת תור שווה  
+**מי אומר מתי מחליפים?**  
+כשאתם אומרים ״די, עכשיו היא״,  
+אני כועסת עליכם.  
+אבל כשהשעון מצלצל, זה השעון.  
+*מה יעזור לי:*  
+שעון חול או טיימר על השולחן,  
+שכולנו **רואים** אותו.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**9 לתרגל שוב ושוב**  
-עוד פעם ועוד פעם  
-ככה אני לומדת לשתף  
+*Picture:* The two girls kneel at the low table watching a big sand timer run, the plush bunny between them. The family's tidy Israeli living room: a low wooden table, a plain pale peach-cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**תנו לי זמן ומילים**  
-**ואני לומדת לשתף**  
-תור ארוך, שעון וחברה  
-שמחכה עם משהו אחר  
+#### שקופית 5 · סיפור · 3: לבקש במקום לחטוף
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**כשחוטפים לי, אני נסגרת**  
+אבל כשהיא שואלת, זה אחרת.  
+*מה יעזור לי:*  
+שתלמדו את שתינו להגיד:  
+▪ ״אפשר תור כשתסיימי?״  
+ואז אני שומעת **בקשה**, לא חטיפה.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The friend holds out an open hand and asks politely, while the girl, holding the bunny, looks at her and thinks; her father sits nearby, encouraging. The family's tidy Israeli living room: a soft rug, a plain pale peach-cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · 4: להחליף, לא לוותר
+
+**שתינו מקבלות משהו**  
+*מה אתם רואים:*  
+ילדה שלא מוכנה לוותר על הארנבת.  
+*מה קורה לי בפנים:*  
+אם אני נותנת ולא מקבלת, זה כמו להפסיד.  
+אבל כשאני מקבלת את הבובה שלה,  
+**מחליפים**, ושתינו מרוצות.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The two girls swap toys, the plush bunny for a rag doll, both smiling shyly. The family's tidy Israeli living room: a soft rug, a plain pale peach-cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · 5: מי הבאה בתור
+
+**כשאני יודעת מה בא אחר כך**  
+החברה מחכה.  
+אני משחקת.  
+אתם אומרים לה בקול:  
+״אחרי אביגיל, תורך.״  
+ואז אני כבר **לא מפחדת**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The friend waits beside the girl with a little cup from the tea set, while the girl's mother points from one girl to the other, explaining whose turn is next. The family's tidy Israeli living room: a soft rug, a toy tea set, a plain pale peach-cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+**אני לא קמצנית, אני לומדת**  
+זה לוקח זמן, ויהיו גם בכי וחטיפות.  
+תגידו לי ״קשה לך לחכות, אנחנו יודעים״,  
+ותנסו איתי שוב ושוב.  
+ככה, כל פעם, הידיים שלי  
+נפתחות **קצת יותר**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The girl sits between her parents on the sofa, leaning on her mother, the plush bunny in her lap, all three smiling. The family's tidy Israeli living room in warm late afternoon light, a beige sofa, a plain pale peach-cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרו את הפוסט**  
 לפעם הבאה שקשה לה לשתף  
 
-**הכותרות בלבד:** אמא ואבא 9 דברים שיעזרו לי לשתף חברה ← אני רוצה לתת לה רק קשה לי ← 1 תור ארוך ← 2 שעון שמצלצל 3 לבקש אפשר תור ← 4 קשה לך לחכות ← 5 משהו אחר לחברה 6 אחריי התור שלך ← 7 להחליף במקום לוותר 8 תור שווה לכולן ← 9 לתרגל שוב ושוב ← תנו לי זמן ומילים ואני לומדת לשתף ← תשמרו את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The two girls sit on the rug laughing together over the toy tea set, the plush bunny between them, her parents smiling from the sofa. The family's tidy Israeli living room in warm late afternoon light, a plain pale peach-cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** אמא ואבא 5 דברים שיעזרו לי לשתף חברה ← היום מגיעה אליי חברה ← תנו לי לסיים ← מי אומר מתי מחליפים? ← כשחוטפים לי, אני נסגרת ← שתינו מקבלות משהו ← כשאני יודעת מה בא אחר כך ← אני לא קמצנית, אני לומדת ← תשמרו את הפוסט
 
 **כיתוב לפוסט**
 
-אמא ואבא, 9 דברים שיעזרו לי לשתף חברה.  
-תנו לי תור ארוך ושעון שמצלצל ותלמדו אותי לבקש תור.  
-תגידו לי שקשה לחכות ותנו לחברה משהו לעשות בינתיים.  
-תנו לי להחליף צעצוע ותזכירו לנו שלכל אחת תור שווה.  
+אמא ואבא, כשחברה מגיעה, קשה לי לתת לה את הארנבת שלי.  
+תנו לי תור ארוך, ושימו שעון שיגיד מתי מחליפים.  
+תלמדו את שתינו להגיד ״אפשר תור?״, ותנו לנו להחליף.  
+ותגידו בקול מי הבאה בתור.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבורה  
 תשמרו את הפוסט לפעם הבאה שקשה לה לשתף  
 
@@ -549,98 +923,161 @@
 
 **טענות**
 
-- שקופית 2 · אני רוצה לתת לה רק קשה לי אני עוד לומדת להרגיש איך זה בצד שלה · sourced_fact · ZERO TO THREE: children this age have not yet developed the ability to put themselves in another's shoes; these skills develop around 3.5 to 4. Imagined child voice.
-- שקופית 3 · 1 תור ארוך · sourced_fact · ZERO TO THREE: it is okay to let children have a long turn before they share.
-- שקופית 4 · 2 שעון שמצלצל 3 לבקש אפשר תור · sourced_fact · ZERO TO THREE: a timer as the rule-keeper, and children can learn to say Can I have a turn.
-- שקופית 5 · 4 קשה לך לחכות · sourced_fact · ZERO TO THREE: acknowledge how both children feel, It's OK to be upset when you have to wait; PBS: waiting is hard.
-- שקופית 6 · 5 משהו אחר לחברה 6 אחריי התור שלך · sourced_fact · ZERO TO THREE: offer the waiting child another activity; PBS: talk about what comes next and who gets the next turn.
-- שקופית 7 · 7 להחליף במקום לוותר 8 תור שווה לכולן · sourced_fact · HealthyChildren: preschoolers can work out disputes by taking turns or trading toys; each child gets an equal turn.
-- שקופית 8 · 9 לתרגל שוב ושוב · sourced_fact · ZERO TO THREE: Keep practicing.
-- שקופית 9 · תנו לי זמן ומילים ואני לומדת לשתף · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact and no promise.
-- שקופית 10 · לפעם הבאה שקשה לה לשתף · sourced_fact · ZERO TO THREE: young children are still learning to share, and waiting is hard for them. The moment in the save line is the topic's everyday situation.
-- שקופית 10 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
+- שקופית 2 · עוד קשה לי לראות את זה מהצד שלה · sourced_fact · ZERO TO THREE: children this age have not developed the ability to put themselves in another's shoes yet; these skills develop between 3.5 and 4. Said as this child's feeling.
+- שקופית 3 · יש לך תור ארוך · sourced_fact · ZERO TO THREE: it is okay to let children have a long turn.
+- שקופית 4 · שעון חול או טיימר שמחליט מתי מחליפים · sourced_fact · ZERO TO THREE: a timer or clock can be a helpful rule-keeper and visual aid; PBS KIDS: a timer that shows a countdown for taking turns.
+- שקופית 5 · ללמד את שתיהן להגיד ״אפשר תור?״ · sourced_fact · ZERO TO THREE: children can learn to ask Can I have a turn?
+- שקופית 6 · להחליף צעצועים · sourced_fact · HealthyChildren (AAP): preschoolers can work out disputes by taking turns or trading toys.
+- שקופית 7 · להגיד בקול מי הבאה בתור · sourced_fact · PBS KIDS: talking about what comes next can comfort your child and remind them who gets the next turn.
+- שקופית 8 · קשה לך לחכות, ולנסות שוב ושוב · sourced_fact · ZERO TO THREE: it is OK to be upset when you have to wait, waiting is hard; acknowledge how both children feel; keep practicing.
+- שקופית 9 · לפעם הבאה שקשה לה לשתף · sourced_fact · ZERO TO THREE: young children are still learning to share, and waiting is hard for them. The moment in the save line is the topic's everyday situation.
+- שקופית 9 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
 
 </details>
 
 ### kid-6 · את הרגיל אני נותן, את האהוב לא
 
 - **על מי:** רועי (בן), לאמא
-- **זווית:** הילד מסביר שאת הצעצוע הרגיל קל לו לתת ואת האהוב לא, ומבקש מאמא תור ארוך, שעון, הבנה, מילים לבקש, החלפה ותור שווה.
+- **זווית:** רועי, בן 5, יודע מה אמא חושבת כשהוא לא נותן את הדובי: ״הוא קמצן״, ״צריך פשוט לקחת לו״, ״זה רק צעצוע״, ״הוא אף פעם לא ייתן״, ״מתי הוא כבר ילמד?״. הוא עונה: הדובי הוא חלק ממנו, תור ארוך ושעון, להגיד שקשה לו, להחליף ותור שווה, ולהתאמן.
 - **למי:** אמא לילד בן 5 שנותן בקלות צעצוע רגיל אבל לא את הצעצוע האהוב עליו.
 - **שלב מודעות:** מכיר את הבעיה
 - **פתיח:** two-faces
 - **נושא:** לא רוצה לתת לאף אחד את הצעצוע (קריאה לפעולה: שמירה ושליחה)
-- **למה זה עשוי להמיר:** ניגוד פשוט וזהה לכל הורה: הצעצוע הרגיל מול האהוב. הילד מסביר למה קשה לו ומבקש שישה דברים מעשיים.
+- **למה זה עשוי להמיר:** אמא מכירה את המחשבות האלה מבפנים, והילד עונה על כל אחת בעדינות ובצעד אחד. הכריכה שומרת על שני הפנים של אותו ילד.
 
-#### שקופית 1 · פתיח
+- **מבנה:** אתם חושבים, אני עונה · 9 שקופיות
+
+#### שקופית 1 · שער
 
 **את הרגיל אני נותן**  
 **את האהוב לא**  
-6 דברים שיעזרו לי  
+ויש לי תשובה למה שאת חושבת  
 
-#### שקופית 2 · ההסבר
+#### שקופית 2 · סיפור
 
-**הדובי הזה הוא לא סתם**  
-**צעצוע בשבילי**  
-כשחבר מושיט יד אליו  
-זה מרגיש כמו שלוקחים לי חלק  
+**אני רואה איך**  
+**את מסתכלת עליי**  
+את המכונית הישנה נתתי לחבר בשנייה.  
+את הקוביות גם.  
+אבל כשהוא נגע בדובי שלי,  
+צעקתי ״לא!״ ותפסתי אותו **חזק**.  
+ואני יודע מה עבר לך בראש.  
 
-#### שקופית 3 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**1 תור ארוך לאהוב שלי**  
-תני לי לשחק בו עד שאסיים  
-והחבר יחכה לתור שלו  
+*Picture:* The boy clutches a worn brown teddy bear to his chest while a friend holds out a hand toward it; his mother watches from the doorway, puzzled. The boy's warm Israeli bedroom in the afternoon: a low bed, a toy shelf, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 4 · דוגמאות ממוספרות
+</div>
 
-**2 שעון שמחליט עבורנו**  
-כשהוא מצלצל מחליפים  
-ולא את אומרת לי ״די״  
+#### שקופית 3 · סיפור · את חושבת:
 
-#### שקופית 5 · דוגמאות ממוספרות
+**״הוא קמצן״**  
+את הרגילים קל לי לתת.  
+*אני עונה:*  
+הדובי ישן איתי כל לילה.  
+לתת אותו זה כמו לתת **חתיכה ממני**.  
+ועוד קשה לי לראות את הצד שלו.  
 
-**3 קשה לך לתת**  
-תגידי לי ״רועי, קשה לך לתת״  
-לפני שאת מבקשת שאתן  
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-#### שקופית 6 · דוגמאות ממוספרות
+*Picture:* The boy sleeps in his bed hugging the worn teddy bear, moonlight on the blanket. The boy's warm Israeli bedroom at night: a low bed, a soft night light, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-**4 לבקש תור במקום לחטוף**  
-תלמדי את החבר להגיד ״אפשר תור?״  
-ואז קל לי יותר לתת  
+</div>
 
-#### שקופית 7 · דוגמאות ממוספרות
+#### שקופית 4 · סיפור · את חושבת:
 
-**5 להחליף במקום לוותר**  
-אני מקבל משהו והוא מקבל משהו  
-זה לא כמו שלוקחים לי  
+**״צריך פשוט לקחת לו״**  
+כשלוקחים לי מהידיים, אני רק נאחז יותר.  
+*מה יעזור לי:*  
+תור ארוך עם הדובי, עד שאני מסיים.  
+ושעון קטן שיגיד מתי מחליפים,  
+ולא את, **באמצע**.  
 
-#### שקופית 8 · דוגמאות ממוספרות
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
 
-**6 תור שווה לשנינו**  
-״לכל אחד תור שווה״  
-כשזה הוגן קל לי להסכים  
+*Picture:* The boy sits on the rug with the teddy bear and a small kitchen timer in front of him, his friend waiting beside him with a toy car. The boy's warm Israeli bedroom in the afternoon: a soft rug, a toy shelf, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
 
-#### שקופית 9 · סיכום
+</div>
 
-**תני לי תור ארוך ושעון**  
-**ובקשה לתור במקום חטיפה**  
-תגידי שקשה לי, תני לי להחליף  
-ואני אתן בשמחה  
+#### שקופית 5 · סיפור · את חושבת:
 
-#### שקופית 10 · סיפור אישי וקריאה לפעולה
+**״זה רק צעצוע, למה לבכות?״**  
+בשבילך זה צעצוע.  
+בשבילי זה החבר שלי מהמיטה.  
+*מה יעזור לי:*  
+▪ ״רועי, קשה לך לתת אותו, אני רואה.״  
+ואז אני מרגיש שמישהו **איתי**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* His mother kneels and holds the teary boy close, one hand on the teddy bear in his arms, speaking softly. The boy's warm Israeli bedroom in the afternoon: a low bed, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 6 · סיפור · את חושבת:
+
+**״הוא פשוט לא ייתן אותו״**  
+אני כן נותן, כשזה לא מרגיש כמו לאבד.  
+*מה יעזור לי:*  
+להחליף. הוא מקבל את הדובי לרגע,  
+ואני מקבל את הדינוזאור שלו.  
+ותזכירי לשנינו: **תור שווה**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The two boys swap toys, the teddy bear for a green toy dinosaur, while his mother sits between them smiling. The boy's warm Israeli bedroom in the afternoon: a soft rug, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 7 · סיפור · ואחרונה:
+
+**״מתי הוא כבר ילמד?״**  
+זה לוקח זמן, אמא.  
+יהיו עוד פעמים שאצעק ״לא!״.  
+אבל כל פעם שאנחנו מתאמנים,  
+קצת יותר קל לי לפתוח את הידיים.  
+עם הדובי, זה פשוט **הכי קשה**.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy sits on his mother's lap on the bed, thoughtfully holding out the teddy bear a little toward a friend's waiting hands. The boy's warm Israeli bedroom in the afternoon: a low bed, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 8 · פנייה להורים
+
+**את הרגיל אני כבר נותן**  
+את האהוב, תני לי עוד קצת זמן.  
+תור ארוך, שעון, החלפה,  
+ומילה שאומרת שאת מבינה.  
+ככה גם הדובי, יום אחד,  
+**ישחק** עם חבר.  
+
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his mother cuddle on the bed, the teddy bear between them, both smiling. The boy's warm Israeli bedroom in warm evening light, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+#### שקופית 9 · שמירה
 
 **תשמרי את הפוסט**  
 לפעם הבאה שקשה לו לשתף  
 
-**הכותרות בלבד:** את הרגיל אני נותן את האהוב לא ← הדובי הזה הוא לא סתם צעצוע בשבילי ← 1 תור ארוך לאהוב שלי ← 2 שעון שמחליט עבורנו ← 3 קשה לך לתת ← 4 לבקש תור במקום לחטוף ← 5 להחליף במקום לוותר ← 6 תור שווה לשנינו ← תני לי תור ארוך ושעון ובקשה לתור במקום חטיפה ← תשמרי את הפוסט
+<div dir="ltr" lang="en" style="direction:ltr;text-align:left">
+
+*Picture:* The boy and his friend sit on the rug together, the teddy bear and the toy dinosaur side by side, laughing, his mother smiling from the bed. The boy's warm Israeli bedroom in warm late afternoon light, a plain pale cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there.
+
+</div>
+
+**הכותרות בלבד:** את הרגיל אני נותן את האהוב לא ← אני רואה איך את מסתכלת עליי ← ״הוא קמצן״ ← ״צריך פשוט לקחת לו״ ← ״זה רק צעצוע, למה לבכות?״ ← ״הוא פשוט לא ייתן אותו״ ← ״מתי הוא כבר ילמד?״ ← את הרגיל אני כבר נותן ← תשמרי את הפוסט
 
 **כיתוב לפוסט**
 
-את הרגיל אני נותן, את האהוב לא.  
-תני לי תור ארוך ושעון שמחליט עבורנו.  
-תגידי לי שאת מבינה שקשה לי לתת ותלמדי את החבר לבקש תור.  
-תני לי להחליף במקום לוותר, ושיהיה תור שווה לשנינו.  
+אמא, את הצעצועים הרגילים אני נותן, אבל את הדובי שלי קשה לי.  
+תני לי תור ארוך איתו, ושעון שיגיד מתי מחליפים.  
+תגידי לי שאת רואה שקשה לי, ותני לנו להחליף.  
+ותזכירי שלשנינו יש תור שווה.  
 ובערב אפשר להמשיך עם סיפור שבו אני הגיבור  
 תשמרי את הפוסט לפעם הבאה שקשה לו לשתף  
 
@@ -657,16 +1094,14 @@
 
 **טענות**
 
-- שקופית 2 · הדובי הזה הוא לא סתם צעצוע בשבילי כשחבר מושיט יד אליו זה מרגיש כמו שלוקחים לי חלק · sourced_fact · ZERO TO THREE: young children focus on their own feelings and cannot yet fully see another child's side. Imagined child voice.
-- שקופית 3 · 1 תור ארוך לאהוב שלי · sourced_fact · ZERO TO THREE: it is okay to let children have a long turn before they share.
-- שקופית 4 · 2 שעון שמחליט עבורנו · sourced_fact · ZERO TO THREE: a timer makes the rule the bell's, not the adult's.
-- שקופית 5 · 3 קשה לך לתת · sourced_fact · ZERO TO THREE: acknowledge how both children feel.
-- שקופית 6 · 4 לבקש תור במקום לחטוף · sourced_fact · ZERO TO THREE: children can learn to ask first, Can I have a turn, instead of grabbing.
-- שקופית 7 · 5 להחליף במקום לוותר · sourced_fact · HealthyChildren: preschoolers can work out disputes by taking turns or trading toys.
-- שקופית 8 · 6 תור שווה לשנינו · sourced_fact · HealthyChildren: when two children share a toy, each gets an equal turn.
-- שקופית 9 · תני לי תור ארוך ושעון ובקשה לתור במקום חטיפה · lumebook_wording · Our recap of slides 3 to 8 in the child's imagined voice; no new fact and no promise.
-- שקופית 10 · לפעם הבאה שקשה לו לשתף · sourced_fact · ZERO TO THREE: young children are still learning to share, and waiting is hard for them. The moment in the save line is the topic's everyday situation.
-- שקופית 10 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
+- שקופית 3 · עוד קשה לי לראות את הצד שלו · sourced_fact · ZERO TO THREE: children this age have not developed the ability to put themselves in another's shoes yet; these skills develop between 3.5 and 4. The teddy being part of him is this child's voice.
+- שקופית 4 · תור ארוך עם הדובי ושעון שיגיד מתי מחליפים · sourced_fact · ZERO TO THREE: it is okay to let children have a long turn; a timer or clock can be a helpful rule-keeper. PBS KIDS: a timer that shows a countdown for taking turns.
+- שקופית 5 · רועי, קשה לך לתת אותו, אני רואה · sourced_fact · ZERO TO THREE: it is OK to be upset when you have to wait; when struggles happen, acknowledge how both children feel.
+- שקופית 6 · להחליף, ותור שווה לשנינו · sourced_fact · HealthyChildren (AAP): preschoolers can work out disputes by taking turns or trading toys; remind them that each gets an equal turn.
+- שקופית 7 · כל פעם שמתאמנים, קצת יותר קל · sourced_fact · ZERO TO THREE: keep practicing; these skills develop over time.
+- שקופית 8 · תור ארוך, שעון, החלפה ומילה שאומרת שאת מבינה · lumebook_wording · Our recap of slides 3 to 7 in the child's imagined voice; no new fact.
+- שקופית 9 · לפעם הבאה שקשה לו לשתף · sourced_fact · ZERO TO THREE: young children are still learning to share, and waiting is hard for them. The moment in the save line is the topic's everyday situation.
+- שקופית 9 · סיפור שבו הילד הוא הגיבור · product_fact · Live site, read 2026-10-29: the child's name is in the text and the child stars in every illustration; choose a book, upload a photo and see a free preview. No brand or title on the slide.
 
 </details>
 

@@ -36,6 +36,28 @@ APPROVED_EXAMPLES = VOICE_SKILL / "examples" / "approved"
 REJECTED_EXAMPLES = VOICE_SKILL / "examples" / "rejected"
 VOICE_EDITS = VOICE_SKILL / "examples" / "edits.jsonl"
 FAL_ENDPOINTS = PIPELINE / "scripts" / "fal_endpoints.json"
+# Where production pictures come from (Yarin, 30 Oct 2026: "disconnect my fal account from the carousel machine, use my
+# chatgpt in chrome to create the images so everything will be free"): "chatgpt" (the default) or "fal"
+# CAROUSEL_PRODUCTION_CONFIG points at another file (the tests use a temporary one to exercise the old fal flow)
+PRODUCTION_CONFIG = Path(os.environ.get("CAROUSEL_PRODUCTION_CONFIG") or PIPELINE / "production.json")
+PICTURE_BACKENDS = ("chatgpt", "fal")
+
+
+def production_config():
+    try:
+        data = read_json(PRODUCTION_CONFIG)
+    except (OSError, ValueError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def picture_backend():
+    """"chatgpt" (Claude makes the pictures in ChatGPT in Yarin's Chrome, free) or "fal" (the paid fal.ai flow, off since
+    30 Oct 2026). A missing file or an unknown value means chatgpt, so nothing paid ever runs by accident."""
+    value = production_config().get("picture_backend")
+    return value if value in PICTURE_BACKENDS else "chatgpt"
+
+
 CHROME_MAC = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 CHROME_LINUX = ("google-chrome", "google-chrome-stable", "chromium", "chromium-browser")
 
@@ -1109,6 +1131,8 @@ SAVE_SHARE_STYLE = "save_share"
 
 
 def save_share_applies(pack):
+    if book_link_applies(pack):
+        return False
     """No comment word: the save and share CTA and the save for later CTA that replaced it."""
     return daily_pair_applies(pack) or (pack or {}).get("cta_style") in (SAVE_SHARE_STYLE, SAVE_LATER_STYLE) or save_later_applies(pack)
 
@@ -1146,8 +1170,9 @@ def to_parents_issues(p, v):
             issues.append(Issue("ERROR", f"{p}/slide-{n}", "the child is talking to the parents (Yarin, 28 Oct 2026): no narrator speaking about the child in the third person, say it as the child (תעזרי לי, תעזרו לי)"))
     cta = str(v.get("cta", "")).replace("\n", " ").strip()
     body = [ln for ln in str(v.get("caption", "")).strip().split("\n") if ln.strip()]
-    if body and cta and " ".join(body[-1].split()) == " ".join(cta.split()):
-        body = body[:-1]
+    tail = cta_tail_lines(v)   # the book link CTA is the caption's last two lines
+    if body and cta and " ".join(" ".join(body[-tail:]).split()) == " ".join(cta.split()):
+        body = body[:-tail]
     caption = "\n".join(body)
     if NARRATOR_RE.search(caption) or (name and re.search(r"(?<![\u05D0-\u05EA״])" + re.escape(name) + r"(?![\u05D0-\u05EA])", caption.replace("״", "\""))):
         issues.append(Issue("ERROR", f"{p}/caption", "the caption is the child talking to the parents (Yarin, 28 Oct 2026): first person, no narrator and no third person name"))
@@ -1165,6 +1190,8 @@ SAVE_LATER_RE = re.compile(r"^(?:ת?שמר[וי])\s+את\s+הפוסט\s+לפעם
 
 
 def save_later_applies(pack):
+    if book_link_applies(pack):
+        return False
     return str((pack or {}).get("generated_at", ""))[:16] >= SAVE_LATER_FROM or (pack or {}).get("cta_style") == SAVE_LATER_STYLE
 
 
@@ -1192,6 +1219,143 @@ KID_REF = {
 }
 
 
+
+# ---------------------------------------------------------------------------
+# The book link CTA (Yarin, 30 Oct 2026, after learning @lotem_lerner's CTAs and captions: "i want the cta to point to a
+# book that might help them with x problem and then theyll get a link to the website"; the wording and the booklet the
+# same afternoon: "אפשר גם לעזור להם עם X בעזרת ספר מותאם אישית / תכתבו X ואשלח לכם קישור להכנת הספר", then "great
+# implement in novembers batch"). An option (or a whole pack) with cta_style "book_link" ends on two sentences: the
+# problem of the carousel and a personalised book, then one topic word in the comments for the link in the DM. Never the
+# brand or a catalogue title. The word is the topic's own (מוצץ, אח), the same on every book link option of a topic, in
+# the option's `code_word`. Slide 10 is only the CTA over the open booklet (`booklet`, story-format.md section 7).
+# ---------------------------------------------------------------------------
+BOOK_LINK_STYLE = "book_link"
+BOOK_LINK_FORMS = {
+    "mom": {"ask": "תכתבי", "send": "ואשלח לך", "text": "אפשר גם לעזור להם עם ... בעזרת ספר מותאם אישית.\nתכתבי \"X\" ואשלח לך קישור להכנת הספר"},
+    "parents": {"ask": "תכתבו", "send": "ואשלח לכם", "text": "אפשר גם לעזור להם עם ... בעזרת ספר מותאם אישית.\nתכתבו \"X\" ואשלח לכם קישור להכנת הספר"},
+}
+BOOK_LINK_RE = re.compile(r"^אפשר\s+גם\s+לעזור\s+להם\s+עם\s")
+BOOK_LINK_PROBLEM_MAX_WORDS = 3     # the first sentence is one caption line of at most LINE_MAX_WORDS words
+BOOK_LINK_CTA_MAX_WORDS = 20
+BOOK_LINK_EARLY_RE = re.compile(r"תכתב[וי]\s*[\"״]|הגיב[וי]\s*[\"״]|כתב[וי]\s*[\"״]|בתגובות|ואשלח|קישור|לינק|ספר מותאם אישית")
+_BOOK_LINK_PARTS = re.compile(r"^(אפשר גם לעזור להם עם (.+?) בעזרת ספר מותאם אישית)[.]\s*(תכתב[וי])\s+[\"״]([^\"״]+)[\"״]\s+(ואשלח\s+\S+)\s+קישור להכנת הספר[.]?$")
+
+
+def book_link_applies(pack, version=None):
+    """The pack's cta_style, or one option's own (the 14 produced November carousels were moved one by one)."""
+    return (pack or {}).get("cta_style") == BOOK_LINK_STYLE or (version or {}).get("cta_style") == BOOK_LINK_STYLE
+
+
+def book_link_parts(cta):
+    """{problem, ask, word, send} of a book link CTA, or {} when the text has another shape."""
+    m = _BOOK_LINK_PARTS.match(collapse(cta))
+    return {"sentence": m.group(1), "problem": m.group(2), "ask": m.group(3), "word": m.group(4), "send": m.group(5)} if m else {}
+
+
+def book_link_cta(problem, word, addressee):
+    """The CTA text: two sentences on two lines (the caption ends with both)."""
+    f = BOOK_LINK_FORMS["mom" if addressee == "mom" else "parents"]
+    return f"אפשר גם לעזור להם עם {problem} בעזרת ספר מותאם אישית.\n{f['ask']} \"{word}\" {f['send']} קישור להכנת הספר"
+
+
+def book_link_slide(cta):
+    """(headline, body) of the last slide: the first sentence on three lines, then the ask and the link promise."""
+    p = book_link_parts(cta)
+    if not p:
+        return collapse(cta), ""
+    return (f"אפשר גם לעזור להם\nעם {p['problem']}\nבעזרת ספר מותאם אישית.",
+            f"{p['ask']} \"{p['word']}\"\n{p['send']} קישור להכנת הספר")
+
+
+def book_link_keyword(cta):
+    return book_link_parts(cta).get("word", "")
+
+
+def book_link_early_issues(path, text):
+    """The book line, the word and the link promise belong to the last slide and the caption's last two lines only."""
+    out = []
+    for line in lines_of(text):
+        m = BOOK_LINK_EARLY_RE.search(line)
+        if m:
+            out.append(Issue("ERROR", path, f"the book link CTA appears only on the last slide and as the caption's last two lines: «{m.group(0)}»", excerpt=line[:80]))
+    return out
+
+
+def book_link_cta_issues(path, cta, addressee, code_word="", legacy=False):
+    """«אפשר גם לעזור להם עם <problem> בעזרת ספר מותאם אישית. תכתבו "<word>" ואשלח לכם קישור להכנת הספר» in the
+    addressee's form (mom: תכתבי, ואשלח לך). No brand and no catalogue title (brand_issues), nothing else."""
+    p = book_link_parts(cta)
+    issues = audience_text_issues(path, "\n".join(book_link_slide(cta)), allow_cta=True, legacy=legacy)
+    if not p:
+        issues.append(Issue("ERROR", path, "the CTA is «אפשר גם לעזור להם עם <the problem> בעזרת ספר מותאם אישית. תכתבו \"<מילה>\" ואשלח לכם קישור להכנת הספר» (mom: תכתבי ... ואשלח לך), Yarin 30 Oct 2026"))
+        return issues
+    n_problem = len(words(p["problem"]))
+    if not 1 <= n_problem <= BOOK_LINK_PROBLEM_MAX_WORDS:
+        issues.append(Issue("ERROR", path, f"name the problem in 1 to {BOOK_LINK_PROBLEM_MAX_WORDS} words after «עם» (has {n_problem}): the topic's everyday problem (הגמילה מהמוצץ, הקנאה באח החדש)"))
+    if len("עם " + p["problem"]) > 26:
+        issues.append(Issue("ERROR", path, f"«עם {p['problem']}» is one headline line: 26 characters at most"))
+    if not re.fullmatch(r"[א-ת]{2,10}", p["word"]):
+        issues.append(Issue("ERROR", path, "the comment word is one Hebrew word, 2 to 10 letters"))
+    elif p["word"] in BLOCKED_CODE_WORDS:
+        issues.append(Issue("ERROR", path, BLOCKED_CODE_WORDS[p["word"]]))
+    if code_word and p["word"] != code_word:
+        issues.append(Issue("ERROR", path, f"the comment word in the CTA («{p['word']}») must be the option's code_word («{code_word}»)"))
+    form = BOOK_LINK_FORMS.get(addressee)
+    if form and (p["ask"] != form["ask"] or p["send"] != form["send"]):
+        who = "mom (feminine singular)" if addressee == "mom" else "both parents (plural)"
+        issues.append(Issue("ERROR", path, f"the CTA talks to {who}: {collapse(form['text'])}"))
+    n = len(words(collapse(cta)))
+    if n > BOOK_LINK_CTA_MAX_WORDS:
+        issues.append(Issue("ERROR", path, f"CTA has {n} words (max {BOOK_LINK_CTA_MAX_WORDS})"))
+    for pattern, why in SECOND_CTA_PATTERNS:
+        m = re.search(pattern, collapse(cta))
+        if m and why != "link in bio CTA":
+            issues.append(Issue("ERROR", path, f"CTA contains a second CTA ({why}): «{m.group(0)}»"))
+    return issues
+
+
+def book_link_topic_issues(pack):
+    """Every book link option on one topic uses the same comment word (one word per topic, as in Lotem's posts)."""
+    out = []
+    groups = {}
+    for d in pack.get("directions", []):
+        for v in d.get("versions", []):
+            if book_link_applies(pack, v):
+                groups.setdefault(v.get("topic_id") if is_pair_pack(pack) else "topic", []).append(v)
+    for topic, vs in groups.items():
+        words_ = {v.get("code_word", "") for v in vs}
+        if len(words_) > 1:
+            out.append(Issue("ERROR", f"directions/{topic}/code_word", f"every book link option on this topic uses the same comment word: {' / '.join(sorted(words_))}"))
+    return out
+
+
+# The open booklet under the CTA (Yarin, 30 Oct 2026: "an image of a physical open booklet example under the cta (in the
+# same topic of the carousel), with a realistic image of the kid inside a small circle in the corner of the booklet",
+# made with fal). `option.booklet`: {"page_text": [up to 3 lines], "crop": [x, y, w, h] of the spread inside
+# booklet/booklet.png, "face": [x, y] of the child's face inside that crop, 0 to 1, and an optional arrow scale for a small face}. Files in RUN_DIR/booklet/:
+# booklet.png (the spread, right page blank) and kid.png (a realistic face photo). scripts/booklet_cta.py.
+BOOKLET_PAGE_MAX_LINES, BOOKLET_PAGE_LINE_MAX_CHARS = 3, 21
+
+
+def booklet_issues(path, booklet):
+    issues = []
+    if not isinstance(booklet, dict):
+        return [Issue("ERROR", path, "a book link option needs `booklet` (story-format.md section 7)")]
+    lines = booklet.get("page_text") or []
+    if not 1 <= len(lines) <= BOOKLET_PAGE_MAX_LINES:
+        issues.append(Issue("ERROR", f"{path}/page_text", f"1 to {BOOKLET_PAGE_MAX_LINES} lines on the booklet page"))
+    for ln in lines:
+        if len(ln) > BOOKLET_PAGE_LINE_MAX_CHARS:
+            issues.append(Issue("ERROR", f"{path}/page_text", f"a booklet line is {BOOKLET_PAGE_LINE_MAX_CHARS} characters at most", excerpt=ln))
+    issues.extend(audience_text_issues(f"{path}/page_text", "\n".join(lines)))
+    crop, face = booklet.get("crop"), booklet.get("face")
+    if not (isinstance(crop, list) and len(crop) == 4):
+        issues.append(Issue("ERROR", f"{path}/crop", "crop is [x, y, w, h] in booklet.png pixels"))
+    if not (isinstance(face, list) and len(face) in (2, 3) and all(0 <= f <= 1 for f in face[:2]) and (len(face) == 2 or 0.3 <= face[2] <= 1.5)):
+        issues.append(Issue("ERROR", f"{path}/face", "face is [x, y] inside the crop, 0 to 1, and an optional arrow scale (0.3 to 1.5; smaller for a small face)"))
+    return issues
+
+
 # ---------------------------------------------------------------------------
 # Post texts: the written Instagram caption and Facebook text (Yarin, 26 Oct 2026: "in the written captions add
 # punctuation marks and emojis (dont overdo it only at cta and hooks)")
@@ -1199,6 +1363,16 @@ KID_REF = {
 
 POST_TEXT_FROM = "2026-10-26T21:00"
 POST_CTA_EMOJI = "🔖"
+BOOK_CTA_EMOJI = "📖"   # the CTA line of a book link post (30 Oct 2026) ends with a book, not the save bookmark
+
+
+def post_cta_emoji(version):
+    return BOOK_CTA_EMOJI if BOOK_LINK_RE.search(collapse((version or {}).get("cta", ""))) else POST_CTA_EMOJI
+
+
+def cta_tail_lines(version):
+    """How many caption lines the CTA takes: two for a book link CTA, one otherwise."""
+    return 2 if BOOK_LINK_RE.search(collapse((version or {}).get("cta", ""))) else 1
 _BARE_RE = re.compile(r"[^א-ת0-9A-Za-z]")
 _POST_EMOJI_RE = re.compile("(?:" + EMOJI_RE.pattern + ")[\ufe0e\ufe0f\u200d]*")   # ☀️ = ☀ + a variation selector
 
@@ -1259,7 +1433,7 @@ def _hook_emoji(text):
     """(emoji, line) of the hook: the emoji ending line 1 or 2 (the hook sentence may run over two lines)."""
     filled = [line for line in str(text).split("\n") if line.strip()]
     for n, line in enumerate(filled[:2]):
-        found = [e for e in _POST_EMOJI_RE.findall(line) if e != POST_CTA_EMOJI]
+        found = [e for e in _POST_EMOJI_RE.findall(line) if e != POST_CTA_EMOJI]   # 📖 stays a hook emoji (the same-story topic uses it)
         if found:
             return found[0], n
     return "", 0
@@ -1282,7 +1456,7 @@ def post_texts(version, template=None):
         if filled and emoji:
             lines[filled[min(at, len(filled) - 1)]] += " " + emoji
         if filled:
-            lines[filled[-1]] += " " + POST_CTA_EMOJI
+            lines[filled[-1]] += " " + post_cta_emoji(version)
         out[key] = "\n".join(lines)
     return out
 
@@ -1311,8 +1485,9 @@ def post_text_issues(path, version):
         hook_line = lines[at] if lines else ""
         if not emoji or len(_POST_EMOJI_RE.findall(hook_line)) != 1 or not hook_line.rstrip().endswith(emoji):
             issues.append(Issue("ERROR", p, "the hook (line 1, or line 2 when the sentence runs over) ends with exactly one emoji that fits the topic", excerpt=(lines[0] if lines else "")[:80]))
-        if not last.rstrip().endswith(POST_CTA_EMOJI) or len(_POST_EMOJI_RE.findall(last)) != 1:
-            issues.append(Issue("ERROR", p, f"the last line (the CTA) ends with {POST_CTA_EMOJI} and nothing else", excerpt=last[:80]))
+        cta_emoji = post_cta_emoji(version)
+        if not last.rstrip().endswith(cta_emoji) or len(_POST_EMOJI_RE.findall(last)) != 1:
+            issues.append(Issue("ERROR", p, f"the last line (the CTA) ends with {cta_emoji} and nothing else", excerpt=last[:80]))
         if sum(len(_POST_EMOJI_RE.findall(line)) for line in lines) != 2:
             issues.append(Issue("ERROR", p, "two emojis in all: one on the hook and the CTA's, never in between"))
         if not re.search(r"[.,?!:]", _POST_EMOJI_RE.sub("", text)):
@@ -1333,6 +1508,8 @@ def save_later_topic_issues(pack):
     groups = {}
     for d in pack.get("directions", []):
         for v in d.get("versions", []):
+            if book_link_applies(None, v):
+                continue
             topic = v.get("topic_id") if is_pair_pack(pack) else "topic"
             groups.setdefault((topic, v.get("child_gender")), []).append(v)
     for (topic, gender), vs in groups.items():

@@ -168,6 +168,7 @@ def state(batch_id=None):
             "grades": {k: v for k, v in grades.load()["grades"].items() if k in keys},
             "runs": {k: v for k, v in producer.load()["runs"].items() if k in keys},
             "unsent": bool(grades_unsent()), "next_run_he": when_he(nxt), "qa": list(producer.QA_CHECKS_HE),
+            "backend": lib.picture_backend(),   # "chatgpt" since 30 Oct 2026: pictures from ChatGPT, free, made by Claude
             "post_hour": int((lib.read_json(lib.ROOT / "shared" / "facts.json").get("postiz") or {}).get("default_hour", 6))}
 
 
@@ -406,7 +407,10 @@ const STORY_ROLE = {hook: 'שער', beat: 'סיפור', turn: 'פנייה להו
 const isStory = it => it.copy_style === 'story';
 const storyCover = it => { const f = it.slides[0] || {}; return STY.el({headline: f.headline || it.cover, body: f.body || ''}, 1, it.slides.length, it.structure, (it.pictures || {})[1] || ''); };
 const DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
-const BUSY = ['queued', 'fixing', 'preparing', 'generating', 'composing', 'exporting'];
+const BUSY = ['queued', 'fixing', 'preparing', 'generating', 'waiting', 'composing', 'exporting'];
+/* Pictures from ChatGPT (30 Oct 2026, production.json): free, Claude makes them in Yarin's Chrome. fal texts only when the backend is fal. */
+const GPT = () => (S.backend || 'chatgpt') === 'chatgpt';
+const gptRun = r => r && (r.backend === 'chatgpt' || (!r.backend && GPT() && r.status === 'waiting'));
 let cur = null, filter = 'all', whyTimer = null, poller = null, zoomN = 0, saving = false;
 const orig = new Map();
 const lastSave = {};
@@ -505,7 +509,8 @@ function renderPicks() {
   const capOf = i => i.kind === 'reco' ? 0 : isStory(i) ? 1 : 0.5;   // story carousels: a picture per slide, cap $1.00 (29 Oct 2026)
   const usd = wait.reduce((n, i) => n + capOf(i), 0);
   const b = $('#hs-send'); b.disabled = !wait.length; b.textContent = wait.length > 1 ? `להפיק את כולן (${wait.length})` : 'להפיק';
-  $('#pk-cost').textContent = !wait.length ? '' : usd ? `עד $${Math.max(...wait.map(capOf)).toFixed(2)} לקרוסלה, עד $${usd.toFixed(2)} בסך הכול. השער מחכה לאישור שלך לפני שהשקופיות נבנות.` : 'ייצוא בלי עלות.';
+  $('#pk-cost').textContent = !wait.length ? '' : GPT() && usd ? 'התמונות נוצרות ב-ChatGPT, בחינם, וקלוד מייצר אותן. השער מחכה לאישור שלך לפני שהשקופיות נבנות.'
+    : usd ? `עד $${Math.max(...wait.map(capOf)).toFixed(2)} לקרוסלה, עד $${usd.toFixed(2)} בסך הכול. השער מחכה לאישור שלך לפני שהשקופיות נבנות.` : 'ייצוא בלי עלות.';
   const lg = $('#pk-going'); lg.textContent = ''; $('#pk-going-h').hidden = !going.length;
   going.forEach(it => lg.append(pickRow(it, false)));
 }
@@ -691,11 +696,17 @@ function renderProd() {
   const blocked = (!r || ['failed', 'done'].includes(r.status)) && blockers(it, box);
   if (!r) {
     if (!blocked) box.append(el('p', 'in-keys', it.kind === 'reco' ? 'השקופיות כבר מוכנות: ייצוא ל-ZIP עם כיתוב, בלי עלות.'
+      : GPT() ? (isStory(it) ? 'תמונה לכל שקופית, ב-ChatGPT ובחינם. קלוד מייצר קודם את השער, ואחרי שמאשרים אותו את שאר התמונות. השקופיות וה-ZIP נבנים לבד.'
+        : 'תמונה אחת לכל הקרוסלה, ב-ChatGPT ובחינם. קלוד מייצר אותה, ואחרי שמאשרים אותה השקופיות וה-ZIP נבנים לבד.')
       : isStory(it) ? 'תמונה לכל שקופית, עד $1.00. השער קודם, ואחרי שמאשרים אותו שאר התמונות, השקופיות וה-ZIP נבנים לבד.'
       : 'תמונה אחת לכל הקרוסלה, עד $0.50. אחרי שמאשרים אותה, השקופיות וה-ZIP נבנים לבד.'));
     const b = el('button', 'lb-btn', it.kind === 'reco' ? 'ייצוא עכשיו' : 'להפיק עכשיו'); b.type = 'button'; b.disabled = blocked; b.onclick = () => act('start'); btns.append(b); box.append(btns); return;
   }
-  const top = el('div', 'st-chips'); top.style.margin = '0'; top.append(statusPill(r)); if (r.kind !== 'reco' && r.spent_usd != null) top.append(el('span', 'hs-pill', `$${Number(r.spent_usd).toFixed(2)} מתוך $${isStory(it) ? '1.00' : '0.50'}`)); box.append(top);
+  const top = el('div', 'st-chips'); top.style.margin = '0'; top.append(statusPill(r));
+  if (r.kind !== 'reco' && gptRun(r)) top.append(el('span', 'hs-pill', 'ChatGPT · בחינם'));
+  else if (r.kind !== 'reco' && r.spent_usd != null) top.append(el('span', 'hs-pill', `$${Number(r.spent_usd).toFixed(2)} מתוך $${isStory(it) ? '1.00' : '0.50'}`));
+  if (r.kind !== 'reco' && gptRun(r) && r.pictures_total > 1) top.append(el('span', 'hs-pill', `${r.pictures_made || 0} מתוך ${r.pictures_total} תמונות`));
+  box.append(top);
   const src = r.status === 'done' ? (r.contact_sheet || (r.slides || [])[0]) : r.picture;
   if (src) { const a = el('a'); a.href = src; a.target = '_blank'; const img = el('img', 'in-pic'); img.src = src; img.alt = ''; a.append(img); box.append(a); }
   if (r.error) box.append(el(r.declined ? 'p' : 'pre', 'in-err', r.error));
@@ -703,7 +714,7 @@ function renderProd() {
   if (r.fixed && r.fixed.length) { const ul = el('ul', 'in-checks'); r.fixed.forEach(f => ul.append(el('li', null, (f.slide ? `שקופית ${f.slide}: ` : '') + (f.after || '').replace(/\n/g, ' / ')))); box.append(el('p', 'in-keys', 'תוקן לבד לפני ההפקה:'), ul); }
   if (r.status === 'review') {
     const ul = el('ul', 'in-checks'); (S.qa || []).forEach(q => ul.append(el('li', null, q))); box.append(ul);
-    const ok = el('button', 'lb-btn', 'מאשר, להרכיב את השקופיות'); ok.type = 'button'; ok.onclick = () => act('approve');
+    const ok = el('button', 'lb-btn', gptRun(r) && isStory(it) ? 'מאשר, להמשיך לשאר התמונות' : 'מאשר, להרכיב את השקופיות'); ok.type = 'button'; ok.onclick = () => act('approve');
     const left = 2 - (r.replacements || 0);
     const ta = el('textarea', 'lb-textarea'); ta.rows = 2; ta.placeholder = 'מה לשנות בתמונה? למשל: הפנים לא למצלמה, אותיות על החולצה';
     const again = el('button', 'lb-btn secondary', left > 0 ? `תמונה אחרת (עוד ${left})` : 'אין עוד ניסיונות'); again.type = 'button'; again.disabled = left <= 0;
@@ -722,6 +733,11 @@ function renderProd() {
     btns.append(again);
   } else if (r.status === 'failed') {
     const again = el('button', 'lb-btn', 'להמשיך מאותה נקודה'); again.type = 'button'; again.disabled = blocked; again.onclick = () => act('start'); btns.append(again);
+  } else if (r.status === 'waiting') {
+    box.append(el('p', 'in-keys', r.stage === 'slides'
+      ? 'השער אושר. קלוד מייצר עכשיו את שאר התמונות ב-ChatGPT, בחינם. כשכולן מוכנות השקופיות וה-ZIP נבנים לבד.'
+      : 'קלוד מייצר את התמונה ב-ChatGPT, בחינם. כשהיא מוכנה היא מופיעה כאן לאישור שלך.'));
+    box.append(el('p', 'in-keys', 'אם זה מחכה הרבה זמן, לבקש מקלוד: ״תייצר את התמונות שמחכות ב-Carousel Machine״.'));
   } else {
     box.append(el('p', 'in-keys', 'רץ ברקע. אפשר להמשיך לדרג ולערוך בינתיים.'));
   }
