@@ -116,7 +116,7 @@ h=open(P('template.html')).read()
 J=lambda x: json.dumps(x,ensure_ascii=False)
 # what happened to the creators Yarin added with the map's "הוספת יוצרים" button (weekly.py requests writes it on Saturdays)
 RQ=P('research/weekly/requests.json'); ADDQ=json.load(open(RQ,encoding='utf-8')) if os.path.exists(RQ) else {}
-for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER,"__ADDQ__":ADDQ}.items(): h=h.replace(k,J(v))
+for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER,"__ADDQ__":ADDQ,"__ADM__":FACTS["creators"]["admission"]}.items(): h=h.replace(k,J(v))
 for k,v in {"<!--LB:HEAD-->":design.head(),"<!--LB:THEME-TOGGLE-->":design.theme_toggle(),"__LB_LOGO__":design.logo_data_uri()}.items():
     assert h.count(k)==1, k; h=h.replace(k,v)
 # NO_EM: the user never wants em dashes

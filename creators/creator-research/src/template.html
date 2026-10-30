@@ -47,7 +47,7 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 /* tracks are categories, not states: a square swatch in the track's category colour (shared/design/categories.json, set creator-tracks) */
 .dot.tk{border-radius:2px;--c:var(--tc)}
 /* status colours: one design token each, readable in both themes */
-.st-new{--c:var(--line-strong)}.st-sent{--c:var(--tint)}.st-replied,.st-process{--c:var(--info)}.st-book{--c:var(--accent)}.st-content{--c:color-mix(in srgb,var(--success) 55%,var(--info))}.st-yes,.st-posted{--c:var(--success)}.st-noreply{--c:var(--text-3)}.st-code{--c:var(--accent)}.st-declined{--c:var(--danger)}.st-due{--c:var(--warning)}.st-all{--c:var(--text)}
+.st-new{--c:var(--line-strong)}.st-sent{--c:var(--tint)}.st-replied,.st-process{--c:var(--info)}.st-book{--c:var(--accent)}.st-content{--c:color-mix(in srgb,var(--success) 55%,var(--info))}.st-yes,.st-posted{--c:var(--success)}.st-noreply{--c:var(--text-3)}.st-code{--c:var(--accent)}.st-declined{--c:var(--danger)}.st-unfit{--c:var(--text-3)}.st-due{--c:var(--warning)}.st-all{--c:var(--text)}
 .tb-brand{display:none;flex:none;border-radius:var(--r-sm)}
 .tb-brand .brand-logo{width:1.75rem;height:1.75rem}
 .crumbs{display:flex;align-items:center;gap:var(--sp-2);min-width:0;font-size:var(--fs-callout);color:var(--text-3)}
@@ -668,7 +668,7 @@ const conflictCls=s=>/COMPETITOR/i.test(s)?"flag bad":/Adjacent|Unclear/i.test(s
 
 
 const MON=["ינו׳","פבר׳","מרץ","אפר׳","מאי","יוני","יולי","אוג׳","ספט׳","אוק׳","נוב׳","דצמ׳"];
-const addedLabel=c=>{const p=(c.added||"").split("-"); return p.length===3?(+p[2])+" ב"+MON[+p[1]-1]+" · סבב "+c.batch:"לא ידוע"};
+const addedLabel=c=>{const p=(c.added||"").split("-"); return p.length===3?p[2]+" / "+p[1]+" / "+p[0]+" · סבב "+c.batch:"לא ידוע"};
 // The research record is in English (C_all.json). Fields with a fixed set of values are shown in Hebrew; the values themselves stay as they are.
 const ARCH_HE={"Parent":"הורה","Parent guide / coach":"הדרכת הורים / קואצ׳ינג","Child-dev professional":"מקצועות התפתחות הילד","Family travel & outings":"טיולים ובילויים עם המשפחה","Gan / preschool":"גן / גיל הגן","Special ed & neurodiversity":"חינוך מיוחד ונוירודיברסיטי","Homeschool / alternative ed":"חינוך ביתי / חינוך אלטרנטיבי","Parent (twins)":"הורה (תאומים)","Parent (dad)":"הורה (אבא)","Elementary & remedial teacher":"הוראה ביסודי ובהוראה מתקנת","Home daycare / childcare":"משפחתון / טיפול בילדים","Community leader / podcaster":"הובלת קהילה / פודקאסט","Screen-free / free play":"בלי מסכים / משחק חופשי","Books & reading":"ספרים וקריאה","Grandparent":"סבא / סבתא","Parent (single / co-parent / blended)":"הורה (יחידני / הורות משותפת / משפחה מעורבת)","Bilingual & multicultural":"דו-לשוני ורב-תרבותי",
   "Unexpected: party producer":"לא צפוי: הפקת ימי הולדת","Unexpected: kids activities":"לא צפוי: פעילויות לילדים","Unexpected: family photographer":"לא צפוי: צילום משפחות","Unexpected: kids entertainer":"לא צפוי: הפעלת ילדים","Unexpected: creative producer":"לא צפוי: הפקה יצירתית","Unexpected: enrichment-centre owner":"לא צפוי: מרכז העשרה","Unexpected: toddler music teacher":"לא צפוי: מוזיקה לפעוטות","Unexpected: kids nutritionist":"לא צפוי: תזונה לילדים","Unexpected: family games maker":"לא צפוי: משחקי משפחה","Unexpected: kids workshops":"לא צפוי: סדנאות לילדים","Unexpected: illustrator and cartoonist":"לא צפוי: איור וקומיקס","Unexpected: kids dance teacher":"לא צפוי: מחול לילדים","Unexpected: kids musician":"לא צפוי: מוזיקה לילדים"};
@@ -1071,11 +1071,15 @@ function seq(c){ const o=get(c.h), raw=rawSt(c.h), now=Date.now();
   if(raw==="due") return {k:"due",n:1,since:o.dat||o.at||now};
   if(s==null) return {k:"nodate"};
   const d=s+FU1_MS; return now>=d?{k:"due",n:1,since:d}:{k:"wait",n:1,at:d} }
-const bkOf=c=>{ const raw=rawSt(c.h); if(raw!=="sent"&&raw!=="due") return stOf(c.h); const q=seq(c); return q.k==="due"?"due":(q.k==="done"&&Date.now()>=q.lapse)?"noreply":"sent" };
+// Unfit (Yarin, 30 Oct 2026): a declined creator who fails the admission bar (shared/facts.json creators.admission) lives in its own tab. A number we do not have is never counted as a failure.
+const ADM=__ADM__;
+const unfitOf=c=>{ const v=c.f&&c.med!=null?c.med/c.f:null, k=c.kpi||{};
+  return (c.f!=null&&(c.f<ADM.followers_min||c.f>ADM.followers_max))||(c.med!=null&&c.med<ADM.median_views_min)||(v!=null&&v<ADM.views_per_follower_min)||(k.lpk!=null&&k.lpk<ADM.likes_per_1k_views_min)||(k.cpk!=null&&k.cpk<ADM.comments_per_1k_views_min) };
+const bkOf=c=>{ const raw=rawSt(c.h); if(raw!=="sent"&&raw!=="due") return stOf(c.h)==="declined"&&unfitOf(c)?"unfit":stOf(c.h); const q=seq(c); return q.k==="due"?"due":(q.k==="done"&&Date.now()>=q.lapse)?"noreply":"sent" };
 const dueOf=c=>bkOf(c)==="due"?Math.max(0,Math.floor((Date.now()-seq(c).since)/864e5)):null;
 // A creator in No reply never said no, so the follow-up that was not sent yet stays available
 const fuOpen=c=>{ if(bkOf(c)!=="noreply") return false; const q=seq(c); return q.k==="due"||q.k==="nodate"||(q.k==="done"&&q.n<2) };
-const dayLabel=ms=>{ const d=new Date(ms); return d.getDate()+" ב"+MON[d.getMonth()] };
+const dayLabel=ms=>{ const d=new Date(ms); return String(d.getDate()).padStart(2,"0")+" / "+String(d.getMonth()+1).padStart(2,"0")+" / "+d.getFullYear() };   // dd / mm / yyyy (Yarin, 30 Oct 2026)
 const dL=s=>{ const t=dms(s); return t==null?String(s||""):dayLabel(t) };
 // ---------- tracks, reasons, steps ----------
 // Every creator has a track, and every track is the same commission offer (a personalised book for one agreed video and a personal link with the split):
@@ -1284,7 +1288,7 @@ function loadHist(h){ if(HIST[h]) return; HIST[h]=(LOGL[h]||[]).slice(); if(!dbh
 const HK={status:"סטטוס",sent:"נשלחה הודעה ראשונה",fu:"נשלח פולואפ",fuskip:"דילוג על הפולואפ",unskip:"הדילוג בוטל",ans:"ענו",notyet:"עוד לא ענו",stage:"שלב",track:"מסלול",rem:"תזכורת",remdone:"התזכורת בוצעה",undo:"בוטל",fu2:"תוכנן פולואפ אחרון",fu2off:"הפולואפ האחרון בוטל",int:"סימון עניין",obj:"סיבה"};
 const ANSL={yes:"כן",q:"שאלה",later:"לא עכשיו",no:"לא"};
 const dueTxt=s=>String(s||"").replace(/^\d{4}-(\d{2})-(\d{2})/,(m,mo,d)=>(+d)+"."+(+mo));
-function histLine(l){ const t=new Date(l.at), when=t.getDate()+"."+(t.getMonth()+1)+" "+hm(l.at); let x=HK[l.k]||l.k;
+function histLine(l){ const t=new Date(l.at), when=dayLabel(l.at)+" "+hm(l.at); let x=HK[l.k]||l.k;
   if(l.k==="status") x+=": "+(STL[l.to]||l.to||"");
   if(l.k==="ans") x+=": "+(ANSL[l.v]||l.v||"");
   if(l.k==="stage") x+=": "+(STGL[l.to]||l.to||"");
@@ -2064,7 +2068,7 @@ HOOK.naDue=c=>["over","today"].includes(naState(c)); HOOK.offer=offerFlag; HOOK.
 HOOK.more=c=>{ const o=get(c.h), e=expOf(c); return [o.na,o.objn,o.objq,e&&e.name,TRKL[trkOf(c)]].filter(Boolean).join(" ") };
 const PAGES={reminders:["פניות","תזכורות להיום"],remall:["פניות","כל התזכורות"],followups:["פניות","פולואפים להיום"],overview:["פניות","ראשי"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
 const LEGACY={"c-due":"followups","c-posted":"c-process-content","c-book":"c-process-booksent","c-content":"c-process-content","c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview",today:"overview"};
-const STATUS_NAV=[["all","כל היוצרים"],["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["due","פולואפ לשליחה"],["noreply","לא ענו"],["process","בתהליך"],["declined","סירבו"]];
+const STATUS_NAV=[["all","כל היוצרים"],["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["due","פולואפ לשליחה"],["noreply","לא ענו"],["process","בתהליך"],["declined","סירבו"],["unfit","לא מתאימים"]];
 const statusName=(s,g)=>(STATUS_NAV.find(x=>x[0]===s)||[0,"יוצרים"])[1]+(s==="process"&&STGL[g]?" · "+STGL[g]:"");
 let ROUTE={page:"overview",status:"new",key:"overview"}, OPEN_H=null;
 const navLink=(key,icon,label,cnt)=>'<a class="nav-i lb-nav-item" href="#'+key+'" data-route="'+key+'">'+icon+'<span class="t">'+esc(label)+'</span>'+(cnt?'<b class="cnt lb-count" data-cnt="'+cnt+'"></b>':'')+'</a>';
@@ -2080,7 +2084,7 @@ function navCounts(){
 }
 function parseRoute(h){
   h=String(h||"").replace(/^#/,""); h=LEGACY[h]||h;
-  if(/^c-(all|due|new|sent|noreply|process|declined)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
+  if(/^c-(all|due|new|sent|noreply|process|declined|unfit)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
   const m=/^c-process-(\w+)$/.exec(h); if(m&&STGL[m[1]]) return {page:"contacts",status:"process",stage:m[1],key:h};
   if(h==="remall") return {page:"reminders",key:h};
   if(PAGES[h]) return {page:h,key:h};
