@@ -6,7 +6,7 @@
 <script>(function(){if(window.lbThemeBoot)return;window.lbThemeBoot=1;var d=document.documentElement,K="lb-mode";function saved(){try{return localStorage.getItem(K)==="dark"?"dark":"light"}catch(e){return"light"}}function set(t){d.setAttribute("data-theme",t);var s=document.querySelectorAll("[data-lb-theme-toggle]");for(var i=0;i<s.length;i++)s[i].setAttribute("aria-checked",String(t==="dark"))}set(saved());document.addEventListener("DOMContentLoaded",function(){set(d.getAttribute("data-theme"))});document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lb-theme-toggle]");if(!b)return;var t=d.getAttribute("data-theme")==="dark"?"light":"dark";set(t);try{localStorage.setItem(K,t)}catch(x){}});addEventListener("storage",function(e){if(e.key===K)set(saved())})})()</script>
 <link rel="stylesheet" href="design/lumebook.css">
 <link rel="stylesheet" href="design/categories.css">
-<link rel="stylesheet" href="board/board.css">
+<link rel="stylesheet" href="course/course.css">
 <style>
 /* Layout: one app shell. Sidebar of views (overview first), sticky top bar with freshness, each view an lb-page.
    All color, type and spacing come from the LumeBook design system (design/lumebook.css); only dashboard-specific pieces live here. */
@@ -72,22 +72,33 @@ tr.test td { opacity: .5; }
 
 <div class="lb-app" dir="rtl" lang="he">
   <aside class="lb-sidebar" id="sidebar" aria-label="ניווט">
-    <a class="lb-brand" href="#board"><img src="img/logo.png" alt="LumeBook" width="640" height="186"></a>
+    <a class="lb-brand" href="#course"><img src="img/logo.png" alt="LumeBook" width="640" height="186"></a>
     <nav class="lb-nav" id="nav">
       <div class="lb-nav-label">היום</div>
-      <a class="lb-nav-item" href="#board" data-view="board"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="6.5" y="6.5" width="5" height="4" rx="1"/><rect x="13" y="12" width="5" height="5" rx="1"/><path d="M11.5 9h2a2 2 0 0 1 2 2v1"/></svg>לוח עבודה</a>
-      <a class="lb-nav-item" href="#overview" data-view="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>סקירה<span class="lb-count" id="n-overview" hidden></span></a>
+      <a class="lb-nav-item lb-ws-learning" href="#course" data-view="course"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 5M3.5 12l1.2 1.2L7 11"/><circle cx="5" cy="18" r="1.3"/></svg></span><span lang="en" dir="ltr">Course</span></a>
+      <a class="lb-nav-item lb-ws-learning" href="#course" data-open-tab="links"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/></svg></span>יוצר קישורי UTM</a>
+      <a class="lb-nav-item lb-ws-plan" href="#overview" data-view="overview"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></span>סקירה<span class="lb-count" id="n-overview" hidden></span></a>
       <div class="lb-nav-label">עבודה</div>
-      <a class="lb-nav-item lb-ws-plan" href="#plan" data-view="plan"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></span>תוכנית<span class="lb-count" id="n-plan" hidden></span></a>
-      <a class="lb-nav-item lb-ws-creators" href="#creators" data-view="creators"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg></span>יוצרים<span class="lb-count" id="n-creators" hidden></span></a>
+      <a class="lb-nav-item lb-ws-creators" href="http://localhost:8780/creators/creator-research/lumebook-creator-map.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg></span>יוצרים<span class="lb-count" id="n-creators" hidden></span></a>
       <a class="lb-nav-item lb-ws-creators" href="#signups" data-view="signups"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span>הרשמות<span class="lb-count" id="n-signups" hidden></span></a>
-      <a class="lb-nav-item lb-ws-carousels" href="#content" data-view="content"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="5" width="13" height="14" rx="2"/><path d="M18 7v10M21.5 9v6"/></svg></span>קרוסלות<span class="lb-count" id="n-content" hidden></span></a>
+      <a class="lb-nav-item lb-ws-carousels" href="http://localhost:8780/hook-studio/" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="5" width="13" height="14" rx="2"/><path d="M18 7v10M21.5 9v6"/></svg></span>קרוסלות<span class="lb-count" id="n-content" hidden></span></a>
+      <a class="lb-nav-item lb-ws-plan" href="http://localhost:8780/sites/lumebook-smm-plan/index.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span>תוכנית סושיאל</a>
+      <a class="lb-nav-item lb-ws-creators" href="https://lumebook-creator-brief.vercel.app" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg></span>בריף ליוצרים</a>
+      <a class="lb-nav-item lb-ws-communities" href="http://localhost:8780/research/parent-community/lumebook-parent-communities.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>קהילות הורים</a>
       <div class="lb-nav-label">מחקר</div>
       <a class="lb-nav-item lb-ws-competitors" href="#competitors" data-view="competitors"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 20V10M9 20V4M15 20v-7M21 20v-11"/></svg></span>מתחרים</a>
-      <a class="lb-nav-item" href="#research" data-view="research"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2.5z"/><path d="M8 7h7M8 11h5"/></svg>ספריית מחקר<span class="lb-count" id="n-research" hidden></span></a>
+      <a class="lb-nav-item lb-ws-library" href="#research" data-view="research"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2.5z"/><path d="M8 7h7M8 11h5"/></svg></span>ספריית מחקר<span class="lb-count" id="n-research" hidden></span></a>
+      <a class="lb-nav-item lb-ws-carousels" href="http://localhost:8780/research/carousel-playbook-research/lumebook-carousel-playbook.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2.5z"/></svg></span>פלייבוק קרוסלות</a>
+      <a class="lb-nav-item lb-ws-reels" href="http://localhost:8780/research/israeli-product-reels/reels-research.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4-2.5z"/></svg></span>פלייבוק רילס</a>
+      <a class="lb-nav-item lb-ws-plan" href="http://localhost:8780/docs/lumebook-social-strategy.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></span>אסטרטגיית Q4</a>
+      <a class="lb-nav-item lb-ws-plan" href="http://localhost:8780/docs/lumebook-sales-readout.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>מכירות (פנימי)</a>
       <div class="lb-nav-label">מערכת</div>
-      <a class="lb-nav-item" href="#sync" data-view="sync"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8"/><path d="M21 4v5h-5M3 20v-5h5"/></svg>סנכרון<span class="lb-count" id="n-sync" hidden></span></a>
-      <a class="lb-nav-item" href="#assets" data-view="assets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>אתרים וקבצים</a>
+      <a class="lb-nav-item lb-ws-system" href="#sync" data-view="sync"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8"/><path d="M21 4v5h-5M3 20v-5h5"/></svg></span>סנכרון<span class="lb-count" id="n-sync" hidden></span></a>
+      <a class="lb-nav-item lb-ws-system" href="#assets" data-view="assets"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>אתרים וקבצים</a>
+      <a class="lb-nav-item lb-ws-system" href="https://claude.ai/artifact/Cw3pWrTsoCKkCaPzZLrr5B" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.2"/><circle cx="12" cy="7.5" r="1.2"/><circle cx="15.5" cy="10" r="1.2"/></svg></span>מערכת העיצוב</a>
+      <a class="lb-nav-item lb-ws-system" href="https://drive.google.com/drive/folders/1JMbj3xl_A_SGwGnID-BZ_ta0TognMbya" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>Drive: LumeBook תוכן</a>
+      <a class="lb-nav-item lb-ws-system" href="https://docs.google.com/spreadsheets/d/1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI/edit" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></span>גיליון ההרשמות</a>
+      <a class="lb-nav-item lb-ws-system" href="https://lumebook.com/IL/he" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></span>החנות lumebook.com</a>
     </nav>
     <div class="lb-sidebar-foot">
       <label class="dash-theme"><button class="lb-theme-switch" type="button" role="switch" aria-checked="false" data-lb-theme-toggle aria-label="מצב כהה" title="מצב כהה"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button><span>מצב כהה</span></label>
@@ -107,8 +118,8 @@ tr.test td { opacity: .5; }
     </header>
 
     <main>
-      <!-- BOARD: the work board (board/board.js), the default view -->
-      <div class="view" id="v-board" data-title="לוח עבודה" hidden><div id="board-root"></div></div>
+      <!-- COURSE: the course, tasks and lessons (course/course.js), in English, the default view since 31 Oct 2026 -->
+      <div class="view" id="v-course" data-title="Course" hidden><div id="course-root"></div></div>
 
       <!-- OVERVIEW -->
       <div class="view lb-page" id="v-overview" data-title="סקירה" hidden>
@@ -120,7 +131,7 @@ tr.test td { opacity: .5; }
             <div class="lb-alerts" id="alerts"><div class="lb-empty">הרשימה תתמלא כשהנתונים ייטענו.</div></div>
           </section>
           <section class="lb-section">
-            <div class="lb-section-head"><h2>השבוע</h2><a class="lb-meta" href="#plan">לתוכנית המלאה</a></div>
+            <div class="lb-section-head"><h2>השבוע</h2></div>
             <div id="this-week"></div>
           </section>
         </div>
@@ -348,19 +359,22 @@ tr.test td { opacity: .5; }
   }
 
   // ---------- routing ----------
-  const VIEWS = ["board", "overview", "plan", "creators", "signups", "content", "competitors", "research", "sync", "assets"];
+  const VIEWS = ["course", "overview", "creators", "signups", "content", "competitors", "research", "sync", "assets"];
   function route() {
     const v = (location.hash || "").slice(1);
-    S.view = VIEWS.includes(v) ? v : "board";
+    S.view = VIEWS.includes(v) ? v : "course";
     for (const id of VIEWS) $("v-" + id).hidden = id !== S.view;
-    // the work board fills the window: the sidebar becomes a drawer behind the menu button
-    document.querySelector(".lb-app").classList.toggle("is-board", S.view === "board");
     document.dispatchEvent(new CustomEvent("lb:route", { detail: { view: S.view } }));
     document.querySelectorAll(".lb-nav-item[data-view]").forEach((a) => { if (a.dataset.view === S.view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     $("view-title").textContent = $("v-" + S.view).dataset.title;
     closeMenu();
     window.scrollTo(0, 0);
   }
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("[data-open-tab]"); if (!a) return;
+    const tab = a.dataset.openTab, go = (n) => { const b = document.querySelector(`#v-course [data-tab="${tab}"]`); if (b) b.click(); else if (n < 20) setTimeout(() => go(n + 1), 100); };
+    closeMenu(); setTimeout(() => go(0), 50);
+  });
   function openMenu() { $("sidebar").classList.add("is-open"); $("scrim").hidden = false; $("menu-btn").setAttribute("aria-expanded", "true"); }
   function closeMenu() { $("sidebar").classList.remove("is-open"); $("scrim").hidden = true; $("menu-btn").setAttribute("aria-expanded", "false"); }
 
@@ -368,14 +382,6 @@ tr.test td { opacity: .5; }
   function render() {
     renderFresh(); renderTimeline(); renderKpis(); renderAlerts(); renderThisWeek(); renderOverviewCards();
     renderPlan(); renderCreators(); renderSignups(); renderContent(); renderCompetitors(); renderResearch(); renderSync(); renderAssets();
-    publish();
-  }
-
-  // the work board (board/board.js) reads the same data: snapshot, history, tracker ticks, signups. It never writes them.
-  function publish() {
-    window.LBDash = { data: { snap: S.snap, history: S.history, tracker: S.tracker, signups: signupsData(), liveSignups: !!S.live,
-      alerts: S.snap ? alerts() : null, dbReady: S.dbReady, dbMissing: S.dbMissing, canWrite: S.canWrite, isStatic: !!window.__DASH__ } };
-    window.dispatchEvent(new CustomEvent("lb:data"));
   }
 
   function renderFresh() {
@@ -487,7 +493,7 @@ tr.test td { opacity: .5; }
     const wi = currentWeekIndex();
     for (let i = 0; i < wi; i++) {
       const w = s.plan.weeks[i], open = w.tasks.filter((t) => !S.tracker.tasks[hash(w.name + "|" + t)]);
-      if (open.length) out.push({ sev: "warn", tag: w.name, text: `נשארו ${open.length} משימות משבוע שעבר`, href: "#plan" });
+      if (open.length) out.push({ sev: "warn", tag: w.name, text: `נשארו ${open.length} משימות משבוע שעבר`, href: "#course" });
     }
     const y = s.sync;
     if (y && !y.error && y.counts?.pending) out.push({ sev: "info", tag: "סנכרון", text: `${y.counts.pending} משימות סנכרון פתוחות${y.counts.warnings ? `, ${y.counts.warnings} אי-התאמות` : ""}`, href: "#sync" });
@@ -844,15 +850,15 @@ tr.test td { opacity: .5; }
   })();
 })();
 </script>
-<script src="board/seed.js"></script>
-<script src="board/board.js"></script>
+<script src="course/course-data.js"></script>
+<script src="course/course.js"></script>
 <script>
-// The board is the default view. If its files were not published with the page (board/board.js, board/seed.js),
-// say so in place of the board and open the overview, so the page never opens blank.
+// The course is the default view. If their files were not published with the page (course/course-data.js,
+// course/course.js), say so in their place and open the overview, so the page never opens blank.
 window.addEventListener("load", () => {
-  if (window.LBBoardLoaded) return;
-  const root = document.getElementById("board-root");
-  if (root) root.innerHTML = '<div class="lb-page"><div class="lb-callout"><b>לוח העבודה לא נטען</b><span>הקבצים board/board.js ו-board/seed.js לא פורסמו יחד עם הדף. שאר התצוגות עובדות כרגיל.</span></div></div>';
-  if (!location.hash || location.hash === "#board") location.hash = "#overview";
+  if (window.LBCourseLoaded) return;
+  const root = document.getElementById("course-root");
+  if (root) root.innerHTML = '<div class="lb-page" dir="ltr" lang="en"><div class="lb-callout"><b>The course did not load</b><span>The files course/course-data.js and course/course.js were not published with the page. The other views work as usual.</span></div></div>';
+  if (!location.hash || location.hash === "#course") location.hash = "#overview";
 });
 </script>
