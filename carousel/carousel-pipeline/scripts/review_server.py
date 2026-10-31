@@ -54,7 +54,7 @@ import studio  # noqa: E402
 import validate_pack  # noqa: E402
 
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-FIELDS = {"headline", "body", "highlight", "caption", "cta", "title"}
+FIELDS = {"headline", "body", "highlight", "caption", "cta", "title", "booklet_page"}   # booklet_page: the text inside the book (30 Oct 2026)
 STORY_FIELDS = {"label", "scene_action", "scene_setting"}   # story packs only (story-format.md, 29 Oct 2026)
 DAY_PAGE_RE = re.compile(r"^/drafts/\d{4}-\d{2}-\d{2}/[\w-]+\.html$")
 DAYS_RE = re.compile(r'<span class="rv-days" aria-label="תאריכים">.*?</span>', re.S)
@@ -94,6 +94,15 @@ def apply_edits(pack, edits):
             raise ValueError(f"unknown option or field: {e.get('option')} {field}")
         value = clean_keep_gaps(e.get("value", "")) if story and field == "body" else clean(e.get("value", ""))
         change = {"option": v["id"], "field": field, "slide": None}
+        if field == "booklet_page":   # the lines on the booklet's blank page under the book link CTA (story-format.md section 7)
+            if not isinstance(v.get("booklet"), dict):
+                raise ValueError("this carousel has no booklet yet")
+            lines = [ln.strip() for ln in str(e.get("value", "")).replace("\r", "").split("\n") if ln.strip()]
+            before = "\n".join(v["booklet"].get("page_text") or [])
+            if before != "\n".join(lines):
+                v["booklet"]["page_text"] = lines
+                changes.append({**change, "before": before, "after": "\n".join(lines)})
+            continue
         if field in STORY_FIELDS:   # a story slide's label (audience copy) or its scene (the picture brief, English)
             n = e.get("slide")
             if not isinstance(n, int) or not 1 <= n <= len(v["slides"]):
@@ -526,7 +535,7 @@ def _production_api(self):
             import subprocess
             subprocess.run(["open", "-R", str(path)], check=False, timeout=10)
         elif action == "postiz":
-            # to Postiz, scheduled for the picked time or a draft: Instagram gets every slide, Facebook slide 1 with the rest written out (postiz_export.py)
+            # to Postiz, scheduled for the picked time or a draft: Instagram gets every slide, Facebook its own post (postiz_export.py)
             import postiz_export
             rec = producer.get(key) or {}
             if rec.get("status") != "done" or not rec.get("run_dir"):
@@ -537,6 +546,16 @@ def _production_api(self):
             except RuntimeError as exc:
                 return self.send_json({"error": str(exc)}, 502)
             producer._update(key, postiz={"sent_at": sent["sent_at"], "date": sent["date"], "status": sent["status"]})
+        elif action == "fb_text":
+            # the Facebook post's own text, edited in the preview (facebook/facebook.txt, 31 Oct 2026); the disclaimer is added at sending
+            rec = producer.get(key) or {}
+            if rec.get("status") != "done" or not rec.get("run_dir"):
+                return self.send_json({"error": "הקרוסלה עוד לא מוכנה"}, 400)
+            text = lib.strip_disclaimer(str(payload.get("text") or "")).strip()
+            errors = [i for i in lib.fb_post_issues(lib.FB_POST_FILE, text) if i.level == "ERROR"]
+            if errors:
+                return self.send_json({"error": "הטקסט לא נשמר: " + "; ".join(i.message for i in errors[:3])}, 400)
+            lib.fb_post_path(lib.PIPELINE / rec["run_dir"].lstrip("/")).write_text(text + "\n", encoding="utf-8")
         else:
             return self.send_error(404)
     except producer.Blocked as exc:

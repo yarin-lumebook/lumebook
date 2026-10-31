@@ -1,7 +1,10 @@
 """Send a finished carousel to Postiz (Yarin, 26 Oct 2026).
 
-Instagram gets all the slides with caption.txt. Facebook gets slide 1 only, with the text of slides 2 to the last written out
-as the post above it. Both go in one Postiz post, scheduled for the date and time Yarin picks in Carousel Machine, or
+Instagram gets all the slides with caption.txt. Facebook gets slide 1 with its own text since 31 Oct 2026 (Yarin:
+"engaging and converting facebook posts ... also the cta should just refer people to the link"; slide 1 keeps its text,
+"add the text back to the facebook images"): RUN_DIR/facebook/facebook.txt. A run without facebook.txt keeps the old
+post: slide 1 with the text of slides 2 to the last written out. Both texts end with the caption disclaimer
+(carousel_lib.CAPTION_DISCLAIMER). Both go in one Postiz post, scheduled for the date and time Yarin picks in Carousel Machine, or
 saved as a draft (then it waits in Postiz until she schedules it there). Without a time it is the carousel's own day at
 default_hour (shared/facts.json postiz).
 
@@ -13,11 +16,17 @@ The words always come from caption.txt and the slides; their punctuation and the
 26 Oct 2026) from the option's post_text, which the pipeline writes since 26 Oct 2026, or a hand written
 RUN_DIR/final/postiz-text.json ({"caption": ..., "fb_text": ...}), so a later edit keeps them (carousel_lib.post_texts).
 
+    python3 carousel/carousel-pipeline/scripts/postiz_export.py approved/DATE-ID --replace                    # send it again at the same time, then delete the old post
+
 Carousel Machine calls send() from its "לתזמן" and "טיוטה בלבד" buttons (review_server.py /api/production/postiz).
-The result is kept in RUN_DIR/postiz.json. Needs the postiz CLI signed in (`postiz auth:status`).
+The result is kept in RUN_DIR/postiz.json, with a stamp of the slides it uploaded: changed slides are uploaded again.
+--replace is for a post already in Postiz whose slides or texts changed: Postiz has no text edit, so it creates the post
+again with the old date and status and then deletes the old one (only with Yarin's OK). Needs the postiz CLI signed in
+(`postiz auth:status`).
 """
 import argparse
 import datetime as dt
+import hashlib
 import json
 import os
 import shutil
@@ -56,12 +65,18 @@ def _plain(frozen):
 
 def texts(run_dir):
     """The Instagram caption and the Facebook text from the current caption and slides, punctuated and with the hook
-    and save emojis as in postiz-text.json (hand written) or the option's post_text (the pipeline's, since 26 Oct 2026)."""
+    and save emojis as in postiz-text.json (hand written) or the option's post_text (the pipeline's, since 26 Oct 2026).
+    The Facebook text is facebook/facebook.txt when the run has one. Both end with the caption disclaimer."""
     run_dir = Path(run_dir)
     option = _plain(lib.read_json(run_dir / "approved.json"))
     own = run_dir / "final" / "postiz-text.json"
-    option = {**option, "caption": (run_dir / "final" / "caption.txt").read_text(encoding="utf-8").strip() or option.get("caption", "")}
-    return lib.post_texts(option, lib.read_json(own) if own.exists() else None)
+    caption = lib.strip_disclaimer((run_dir / "final" / "caption.txt").read_text(encoding="utf-8")).strip()
+    option = {**option, "caption": caption or option.get("caption", "")}
+    out = lib.post_texts(option, lib.read_json(own) if own.exists() else None)
+    fb = lib.fb_post_path(run_dir)
+    if fb.exists():
+        out["fb_text"] = fb.read_text(encoding="utf-8").strip()
+    return {k: lib.with_disclaimer(v) for k, v in out.items()}
 
 
 def fb_text(run_dir):
@@ -137,7 +152,8 @@ def _upload(path, tries=4):
 
 
 def payload(run_dir, paths, when=None, draft=False, now=None):
-    """The posts:create body: one post with an Instagram carousel and a Facebook post (slide 1 + the written slides)."""
+    """The posts:create body: one post with an Instagram carousel and a Facebook post (slide 1 with its own text, or
+    with the written slides on an older run)."""
     run_dir = Path(run_dir)
     cfg = config()
     text = texts(run_dir)
@@ -162,8 +178,16 @@ def preview(run_dir):
     """What Carousel Machine's preview shows: the slides as page addresses, the Instagram caption and the Facebook text."""
     run_dir = Path(run_dir).resolve()
     avatar = next((c for c in (lib.PIPELINE / "assets").rglob("*") if c.suffix.lower() in (".png", ".jpg") and "logo" in c.name.lower()), None)
-    return {"slides": [f"/approved/{run_dir.name}/final/{p.name}" for p in slides_of(run_dir)],
-            **texts(run_dir), "avatar": "/" + str(avatar.relative_to(lib.PIPELINE)) if avatar else ""}
+    return {"slides": [f"/approved/{run_dir.name}/final/{p.name}?v={int(p.stat().st_mtime)}" for p in slides_of(run_dir)],
+            "fb_own": lib.fb_post_path(run_dir).exists(), **texts(run_dir), "avatar": "/" + str(avatar.relative_to(lib.PIPELINE)) if avatar else ""}
+
+
+def stamp(paths):
+    """A short hash of the files' bytes, so a re-exported slide or picture is uploaded again."""
+    h = hashlib.sha1()
+    for p in paths:
+        h.update(Path(p).read_bytes())
+    return h.hexdigest()[:16]
 
 
 def send(run_dir, when=None, draft=False, dry_run=False):
@@ -177,7 +201,9 @@ def send(run_dir, when=None, draft=False, dry_run=False):
     if dry_run:
         return payload(run_dir, [str(p) for p in slides], when, draft)
     old = lib.read_json(run_dir / "postiz.json") if (run_dir / "postiz.json").exists() else {}
-    paths = old.get("media") if len(old.get("media") or []) == len(slides) else [_upload(p) for p in slides]
+    slides_stamp = stamp(slides)
+    same = old.get("media_stamp") == slides_stamp and len(old.get("media") or []) == len(slides)
+    paths = old["media"] if same else [_upload(p) for p in slides]
     body = payload(run_dir, paths, when, draft)
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as f:
         json.dump(body, f, ensure_ascii=False)
@@ -186,7 +212,25 @@ def send(run_dir, when=None, draft=False, dry_run=False):
     finally:
         os.unlink(f.name)
     record = {"sent_at": lib.now_local().isoformat(timespec="seconds"), "date": body["date"], "status": body["type"],
-              "slides": len(paths), "media": paths, "result": created}
+              "slides": len(paths), "media": paths, "media_stamp": slides_stamp, "result": created}
+    lib.write_json(run_dir / "postiz.json", record)
+    return record
+
+
+def replace(run_dir):
+    """Send the carousel again with the date and status of the post already in Postiz, then delete the old post
+    (Postiz cannot edit a post's text or pictures). The old record is kept in postiz.json under "replaced"."""
+    run_dir = Path(run_dir).resolve()
+    old = lib.read_json(run_dir / "postiz.json")
+    old_ids = sorted({r["postId"] for r in (old.get("result") or []) if isinstance(r, dict) and r.get("postId")})
+    when = dt.datetime.fromisoformat(old["date"])
+    record = send(run_dir, when=when.isoformat(), draft=old.get("status") == "draft")
+    deleted = []
+    for pid in old_ids:
+        exe = shutil.which("postiz", path=_env()["PATH"])
+        p = subprocess.run([exe, "posts:delete", pid], capture_output=True, text=True, timeout=120, env=_env())
+        deleted.append({"postId": pid, "ok": p.returncode == 0, "answer": (p.stdout or p.stderr).strip()[-200:]})
+    record["replaced"] = {"date": old.get("date"), "status": old.get("status"), "result": old.get("result"), "deleted": deleted}
     lib.write_json(run_dir / "postiz.json", record)
     return record
 
@@ -198,6 +242,7 @@ def main():
     ap.add_argument("--at", help="date and time to publish, e.g. 2026-10-27T20:30 (default: the carousel's day at default_hour)")
     ap.add_argument("--draft", action="store_true", help="save as a draft in Postiz instead of scheduling")
     ap.add_argument("--dry-run", action="store_true", help="print what would be sent without uploading anything")
+    ap.add_argument("--replace", action="store_true", help="send again at the date and status in postiz.json, then delete the old post (Yarin's OK first)")
     args = ap.parse_args()
     if args.slots:
         print("\n".join(w.strftime("%a %Y-%m-%d %H:%M") for w in slots(args.slots)))
@@ -207,6 +252,9 @@ def main():
     run_dir = Path(args.run_dir)
     if not run_dir.is_absolute() and not run_dir.exists():
         run_dir = lib.PIPELINE / run_dir
+    if args.replace:
+        print(json.dumps(replace(run_dir), ensure_ascii=False, indent=2))
+        return
     print(json.dumps(send(run_dir, when=args.at, draft=args.draft, dry_run=args.dry_run), ensure_ascii=False, indent=2))
 
 

@@ -1044,16 +1044,19 @@
 ```
 https://lumebook.com/IL/he/books/[מספר הספר]
 ?utm_source=instagram
-&utm_medium=bio  (או dm / story)
+&utm_medium=social
 &utm_campaign=car-[נושא]   (למשל car-ach-chadash)
-&utm_content=[תאריך]-[גרסה]   (למשל 20261018-A)
+&utm_content=dm-[תאריך]   (או story-[תאריך], או bio. למשל dm-20261102)
+&utm_term=[גרסה]   (רק בניסוי, למשל a)
 ```
+
+**עודכן ב-31.10.2026, בתוקף מ-1.11:** `utm_medium` הוא תמיד `social`, כי זה הערך שיוסי סופר כהזמנות של ירין, והמקום (DM, סטורי, ביו) עבר ל-`utm_content` (`research/cro-crm/measurement.md` סעיף 4). את הקישורים מכינים במחולל הקישורים של הדשבורד, או ב-`research/carousel-audit/src/audit.py link`. קישורים מאוקטובר עם `utm_medium=dm` הם לא טעות.
 
 - `utm_source=instagram` מספיק כדי ש-GA4 יסווג את הכניסה כ-Organic Social ([Google Analytics Help](https://support.google.com/analytics/answer/9756891)).
 - **קישור ישר לדף הספר של הנושא**, לא לדף הבית. פחות צעדים, ופחות בחירות (סעיף 4, Choice Architecture).
 - קישורים מ-Instagram נפתחים בדפדפן הפנימי, ולכן בלי UTM הם נוטים ליפול ל-Direct. זו הסכמה של אנשי מקצוע; לא מצאנו תיעוד של Meta.
 
-**2. מילת קוד ← DM עם קישור ייחודי.** הייחוס הכי מדויק: כל מילה = קרוסלה אחת, וכל DM יוצא עם `utm_medium=dm` ו-`utm_campaign` של הקרוסלה (סעיף 12.3).
+**2. מילת קוד ← DM עם קישור ייחודי.** הייחוס הכי מדויק: כל מילה = קרוסלה אחת, וכל DM יוצא עם `utm_medium=social`, `utm_content=dm-[תאריך]` ו-`utm_campaign` של הקרוסלה (סעיף 12.3).
 
 **3. הקישור בביו "מתחלף".** Instagram מאפשר עד 5 קישורים בפרופיל ([Instagram Help](https://help.instagram.com/362497417173378)). ב-72 השעות אחרי כל קרוסלה, **הקישור הראשון** בביו הוא קישור ה-UTM שלה. כשמפרסמים בראשון וברביעי, החלונות לא חופפים.
 

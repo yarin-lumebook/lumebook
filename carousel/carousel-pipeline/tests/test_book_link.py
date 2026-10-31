@@ -61,5 +61,35 @@ class BookLinkTests(unittest.TestCase):
         self.assertEqual([i for i in lib.booklet_issues("b", {**ok, "face": [0.2, 0.5, 0.5]}) if i.level == "ERROR"], [])
 
 
+class AppEditTests(unittest.TestCase):
+    """Carousel Machine edits of a book link option (review_server.apply_edits): the text inside the book, and the CTA."""
+
+    def option(self):
+        import json
+        pack = json.loads((Path(__file__).resolve().parents[1] / "drafts" / "2026-12-06" / "pack.json").read_text(encoding="utf-8"))
+        v = next(x for d in pack["directions"] for x in d["versions"] if x["id"] == "kid-1")
+        return pack, v
+
+    def test_booklet_page(self):
+        import review_server
+        pack, v = self.option()
+        if not v.get("booklet"):
+            self.skipTest("2026-12-06 kid-1 has no booklet in this checkout")
+        ch = review_server.apply_edits(pack, [{"option": "kid-1", "field": "booklet_page", "value": "שורה אחת\n\nשורה שתיים "}])
+        self.assertEqual(v["booklet"]["page_text"], ["שורה אחת", "שורה שתיים"])
+        self.assertEqual(ch[0]["field"], "booklet_page")
+
+    def test_cta_edit_rebuilds_slide_and_caption(self):
+        import review_server
+        pack, v = self.option()
+        if not lib.book_link_applies(pack, v):
+            self.skipTest("2026-12-06 kid-1 is not a book link option in this checkout")
+        new = 'אפשר גם לעזור להם עם הפרידה מהמוצץ בעזרת ספר מותאם אישית. תכתבו "מוצץ" ואשלח לכם קישור להכנת הספר'
+        review_server.apply_edits(pack, [{"option": "kid-1", "field": "cta", "value": new}])
+        self.assertEqual(v["slides"][-1]["headline"], "אפשר גם לעזור להם\nעם הפרידה מהמוצץ\nבעזרת ספר מותאם אישית.")
+        self.assertEqual(lib.lines_of(v["caption"])[-2:], lib.lines_of(v["cta"]))
+        self.assertEqual(v["code_word"], "מוצץ")
+
+
 if __name__ == "__main__":
     unittest.main()

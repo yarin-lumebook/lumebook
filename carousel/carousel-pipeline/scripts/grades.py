@@ -88,7 +88,8 @@ def items(plan, drafts=None):
                            **({"highlight": s["highlight"]} if "highlight" in s else {})} for s in v.get("slides", [])]
                 cap = lib.lines_of(v.get("caption", ""))
                 cta = v.get("cta", "")
-                cap_body = cap[:-1] if cap and lib.collapse(cap[-1]) == lib.collapse(cta) else cap
+                tail = lib.cta_tail_lines(v)   # a book link CTA is the caption's last two lines (30 Oct 2026)
+                cap_body = cap[:-tail] if cap and lib.collapse(" ".join(cap[-tail:])) == lib.collapse(cta) else cap
                 out.append({**base, "key": f'{slot["date"]}/{v["id"]}', "kind": d["id"], "id": v["id"], "title": v.get("title", ""),
                             "child_name": v.get("child_name", ""), "addressee": v.get("addressee", ""),
                             "hook_formula": hook.get("formula", ""), "hook_family": v.get("hook_family", ""),

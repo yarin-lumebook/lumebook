@@ -349,7 +349,8 @@ def files_section():
 
 def local_tools_section(network):
     """Whether each local service (facts.local_tools: Carousel Machine, the project server) answered at refresh time.
-    The board shows it as a dated fact; nothing here starts a service."""
+    Kept in the snapshot as a dated fact (the work board that showed it was retired on 31 Oct 2026); nothing here
+    starts a service."""
     out = []
     for t in FACTS.get("local_tools", {}).get("tools", []):
         item = {"key": t["key"], "at": datetime.now(IL).isoformat(timespec="minutes"), "ok": None}
@@ -361,18 +362,6 @@ def local_tools_section(network):
                 item["ok"] = False
         out.append(item)
     return out
-
-
-def board_resources():
-    """The work board's resource catalog (sites/dashboard/board/catalog.py). Cards point at these by id, so a new
-    artifact, media job or brand file shows up in the board's "new" list; nothing on a saved board moves."""
-    sys.path.insert(0, os.path.join(HERE, "board"))
-    try:
-        import catalog
-        return catalog.resources()
-    except Exception as e:  # a broken catalog must not stop the snapshot
-        print(f"board catalog skipped: {type(e).__name__}: {e}", file=sys.stderr)
-        return None
 
 
 def main():
@@ -401,9 +390,6 @@ def main():
         "links": LINKS, "key_dates": KEY_DATES,
         "local_tools": local_tools_section(net),
     }
-    res = board_resources()
-    if res is not None:
-        snap["resources"], snap["resources_at"] = res, now.isoformat(timespec="seconds")
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "snapshot.json"), "w", encoding="utf-8") as f:
         json.dump(snap, f, ensure_ascii=False, indent=1)

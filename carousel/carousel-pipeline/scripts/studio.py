@@ -23,6 +23,13 @@ Story packs (copy_style "story", story-format.md, 29 Oct 2026): each option show
 are drawn in the story look (create_review.STORY_CSS and STORY_JS: ink or the slide's picture, cream Varela Round,
 gold labels and emphasis, the cream card, the letter sheet), and each slide's label, headline, body (markup kept) and
 scene are edited beside its preview, which redraws while typing. Older packs keep the pillar cards.
+
+The book link CTA over the booklet (story-format.md section 7; Yarin, 31 Oct 2026: "add it all to the carousel machine, let
+me edit the text inside the book as well"): a book link option's last slide is drawn at its real 1080 x 1350 layout
+(bookletPreview, the HTML compose_slides.booklet_html draws for the export, so the 3D booklet of 31 Oct 2026 looks the same) with the text inside the book editable beside it
+(field booklet_page, one line per page line), redrawn while typing. The CTA field rebuilds the slide and the caption's last
+two lines. A finished carousel gets its new slides from "ייצוא מחדש אחרי עריכה" (no new pictures; RUN_DIR/booklet/ stays
+through the refreeze). An option without its booklet yet says to ask Claude for it.
 """
 
 import datetime as dt
@@ -146,6 +153,17 @@ def add_story_fields(its):
                 act, setting = create_review.scene_text(src)
                 s["scene"] = {"action": act, "setting": setting}
         it["pictures"] = create_review.slide_pictures(it["date"], it["id"])
+        if lib.book_link_applies(pack, v):   # the book link CTA over the booklet (story-format.md section 7, 30 Oct 2026)
+            it["book_link"] = True
+            run = lib.APPROVED / f'{it["date"]}-{it["id"]}'
+            bk = v.get("booklet")
+            if isinstance(bk, dict) and (run / "booklet" / "booklet.png").exists() and (run / "booklet" / "kid.png").exists():
+                import compose_slides
+                stamp = int((run / "booklet" / "booklet.png").stat().st_mtime)
+                files = {"booklet": f"/approved/{run.name}/booklet/booklet.png?v={stamp}", "booklet_path": run / "booklet" / "booklet.png",
+                         "kid": f"/approved/{run.name}/booklet/kid.png?v={int((run / 'booklet' / 'kid.png').stat().st_mtime)}"}
+                it["booklet"] = {"page_text": bk.get("page_text") or [], "crop": bk.get("crop"), "face": bk.get("face"),
+                                 "html": compose_slides.booklet_html(bk, files, uid="__UID__")}   # the 3D booklet, as exported
     return its
 
 
@@ -349,6 +367,9 @@ button{font-family:inherit}
 .pv-dots span.on{background:var(--accent)}
 .pv-text{white-space:pre-line;margin:0;padding:var(--sp-2) var(--sp-3) var(--sp-3);font-size:var(--fs-callout)}
 .pv-one{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.pv-text[contenteditable]{outline:1px dashed transparent;border-radius:var(--r-sm)}
+.pv-text[contenteditable]:focus{outline-color:var(--accent)}
+.pv-save{margin:0 var(--sp-3) var(--sp-3)}
 .hs-box img{max-width:min(100%,34rem);max-height:100%;border-radius:var(--r-md);box-shadow:var(--shadow-3)}
 .hs-box .lb-btn{position:absolute;top:var(--sp-4);inset-inline-end:var(--sp-4)}
 /* story packs (29 Oct 2026, story-format.md): the slide in its own look (.sty, create_review.STORY_CSS) with its fields beside it */
@@ -370,6 +391,19 @@ button{font-family:inherit}
 .ss-scene>div{white-space:pre-line;overflow-wrap:anywhere}
 .ss-scene .set{opacity:.8}
 .ss-note{margin:0;font-size:var(--fs-caption);color:var(--text-3)}
+/* the book link CTA over the booklet (30 Oct 2026, story-format.md section 7): the last slide drawn at its real 1080 x 1350
+   layout and scaled down, with the text inside the book editable beside it */
+.ss-row.book{grid-column:1/-1;grid-template-columns:minmax(14rem,26rem) minmax(0,1fr)}
+.bk-wrap{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:var(--r-md);background:#0B0518}
+.bk-slide{position:absolute;top:0;left:0;width:1080px;height:1350px;transform-origin:0 0;direction:rtl;font-family:"Varela Story",sans-serif;color:#F8F0E1}
+.bk-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bk-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,5,24,.9) 0,rgba(11,5,24,.78) 40%,rgba(11,5,24,.45) 70%,rgba(11,5,24,.55) 100%)}
+.bk-copy{position:absolute;top:70px;left:70px;right:70px;text-align:center}
+.bk-h{font-size:62px;line-height:1.16;white-space:pre-line}
+.bk-b{font-size:52px;line-height:1.3;margin-top:24px}
+.bk-w{color:#E6B762}
+/* the booklet itself: compose_slides.BOOKLET_CSS and booklet_html (the 3D booklet, 31 Oct 2026) */
+.ss-book{background:var(--surface-2);border-radius:var(--r-sm);padding:var(--sp-2);font-size:var(--fs-callout);line-height:1.6;color:var(--text)}
 .ss-key{font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);margin:0 0 var(--sp-3)}
 .ss-key code{font-family:inherit;font-weight:700;color:var(--accent-ink);background:var(--accent-soft);border-radius:4px;padding:0 .3rem;margin-inline-end:.2rem}
 @media (max-width:1200px){.hs-app{grid-template-columns:minmax(0,1fr) 18rem}.op-body{grid-template-columns:minmax(0,1fr) 18rem}.hs-main{padding-inline:var(--sp-5)}.hs-stage{padding-inline:var(--sp-5)}.st-save{margin-inline:calc(-1 * var(--sp-5))}.hs-meter .bar{display:none}}
@@ -557,8 +591,20 @@ function storyDeck(it) {
     const prev = STY.el(now, s.n, last, it.structure, pic); pv.append(prev);
     const bind = (e, k) => { e.addEventListener('input', () => { now[k] = txt(e); STY.update(prev, now, s.n, last, it.structure, pic); }); return e; };
     const n = el('div', 'ss-n'); n.append(el('b', null, String(s.n)), el('span', null, STORY_ROLE[s.role] || s.role || '')); fs.append(n);
-    if (s.n === last) fs.append(el('div', 'ss-h', s.headline), el('div', 'ss-b', s.body), el('p', 'ss-note', 'נבנית מהקריאה לפעולה, מתחת לשקופיות'));
-    else {
+    if (s.n === last && it.booklet) {   // the book link CTA over the booklet: the real slide, and the text inside the book editable
+      row.classList.add('book'); pv.textContent = '';
+      const nums = Object.keys(it.pictures || {}).map(Number), lastPic = nums.length ? it.pictures[Math.max(...nums)] : '';
+      const bp = bookletPreview(it, s, pic || lastPic); pv.append(bp.wrap);   // a run trimmed to 10 slides: its CTA has the last picture
+      fs.append(el('div', 'ss-h', s.headline), el('div', 'ss-b', s.body), el('p', 'ss-note', 'נבנית מהקריאה לפעולה, מתחת לשקופיות'));
+      const lab = el('div', 'ss-n'); lab.append(el('b', null, 'הטקסט בתוך הספר'), el('span', null, 'שורה בעמוד לכל שורה כאן, עד 3 שורות של 21 תווים'));
+      const box = editable('div', 'ss-book', (it.booklet.page_text || []).join('\n'), 'booklet_page', null, 'הטקסט על העמוד הלבן');
+      box.addEventListener('input', () => bp.setText(txt(box)));
+      fs.append(lab, box);
+      if ((run(it.key) || {}).status === 'done') fs.append(el('p', 'ss-note', 'אחרי השמירה: ״ייצוא מחדש אחרי עריכה״ בצד בונה את השקופית מחדש, בלי תמונות חדשות ובלי עלות'));
+    } else if (s.n === last) {
+      fs.append(el('div', 'ss-h', s.headline), el('div', 'ss-b', s.body), el('p', 'ss-note', 'נבנית מהקריאה לפעולה, מתחת לשקופיות'));
+      if (it.book_link) fs.append(el('p', 'ss-note', 'החוברת מתחת לקריאה לפעולה עוד לא נוצרה. לבקש מקלוד: ״תייצר את החוברת לקרוסלה הזו״'));
+    } else {
       if (s.n > 1) fs.append(bind(editable('div', 'ss-l', s.label || '', 'label', s.n, 'תווית (לא חובה)'), 'label'));
       fs.append(bind(editable('div', 'ss-h', s.headline, 'headline', s.n, it.structure === 'letter' && s.n > 2 ? 'בלי כותרת' : 'כותרת'), 'headline'));
       fs.append(bind(editable('div', 'ss-b', s.body, 'body', s.n, s.n === 1 ? 'שורת השער' : 'גוף', true), 'body'));
@@ -571,6 +617,26 @@ function storyDeck(it) {
     row.append(pv, fs); deck.append(row);
   });
   wrap.append(key, deck); return wrap;
+}
+/* The last slide of a book link carousel at its real layout: the slide's picture under the veil, the CTA, and the booklet
+   as compose_slides.booklet_html draws it for the export (the 3D booklet with the page text, the photo circle and the
+   two yellow arrows; the server sends that HTML). */
+let bkSeq = 0;
+function bookletPreview(it, s, pic) {
+  const b = it.booklet, wrap = el('div', 'bk-wrap'), sl = el('div', 'bk-slide'), uid = ++bkSeq;
+  if (pic) { const a = el('img', 'bk-art'); a.src = pic; a.alt = ''; sl.append(a); }
+  sl.append(el('div', 'bk-veil'));
+  const cp = el('div', 'bk-copy'); cp.append(el('div', 'bk-h', s.headline));
+  const body = el('div', 'bk-b');
+  (s.body || '').split('\n').forEach(l => { const ln = el('div'); l.split(/("[^"]+"|״[^״]+״)/).forEach((p, i) => ln.append(i % 2 ? el('span', 'bk-w', p) : document.createTextNode(p))); body.append(ln); });
+  cp.append(body); sl.append(cp);
+  sl.insertAdjacentHTML('beforeend', b.html.replaceAll('__UID__', 'p' + uid));
+  const page = sl.querySelector('.bk3-page'); wrap.append(sl);
+  const setText = t => { page.textContent = ''; String(t || '').split('\n').map(x => x.trim()).filter(Boolean).forEach(x => page.append(el('span', null, x))); };
+  setText((b.page_text || []).join('\n'));
+  const fit = () => { if (wrap.clientWidth) sl.style.transform = `scale(${wrap.clientWidth / 1080})`; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(wrap); requestAnimationFrame(fit);
+  return {wrap, setText};
 }
 function renderStage() {
   const it = item(cur), st = $('#hs-stage'); st.textContent = ''; orig.clear();
@@ -645,7 +711,7 @@ async function saveEdits() {
     const mine = (j.errors || []).filter(e => it.kind === 'reco' || (e.path || '').includes(it.id));
     const warns = (j.warnings || []).filter(e => it.kind === 'reco' || (e.path || '').includes(it.id)).filter(e => !/rights_unverified/.test(e.message || ''));
     lastSave[it.key] = {msg: mine.length ? `נשמר עם גיבוי · ${mine.length} לתיקון` : 'נשמר עם גיבוי', list: mine.map(e => ({text: e.message})).concat(warns.slice(0, 4).map(e => ({text: e.message, warn: true})))};
-    await refresh(); renderGrid(); renderPicks(); renderStage(); renderProd(); toast(mine.length ? 'נשמר. יש מה לתקן, מתחת לשקופיות' : 'נשמר');
+    await refresh(); renderGrid(); renderPicks(); renderStage(); renderProd(); toast(mine.length ? 'נשמר. יש מה לתקן, מתחת לשקופיות' : (run(it.key) || {}).status === 'done' ? 'נשמר. ״ייצוא מחדש אחרי עריכה״ בצד מעדכן את השקופיות' : 'נשמר');
     return true;
   } catch (e) { toast('השמירה נכשלה: ' + e.message); $('#st-save-btn').disabled = false; dirtyBar(); return false; }
   finally { saving = false; }
@@ -779,10 +845,22 @@ async function postizCards(key, wrap) {
   track.onscroll = () => { const n = Math.round(Math.abs(track.scrollLeft) / track.clientWidth); [...dots.children].forEach((s, i) => s.className = i === n ? 'on' : ''); };
   const cap = el('p', 'pv-text'); cap.append(el('b', null, 'lumebook.il '), document.createTextNode(d.caption));
   ig.append(track, dots, cap);
-  // Facebook: the written slides above, slide 1 under them
+  // Facebook: slide 1 under its own post (31 Oct 2026); older runs: the written slides over slide 1
   const fb = el('div', 'pv-card'); fb.append(head('פייסבוק'));
   const ft = el('p', 'pv-text'); ft.textContent = d.fb_text; const fi = el('img', 'pv-one'); fi.src = d.slides[0]; fi.alt = '';
-  fb.append(ft, fi);
+  fb.append(ft);
+  if (d.fb_own) {   // facebook/facebook.txt: edited here, checked and saved by the server (the disclaimer is added on its own)
+    ft.contentEditable = 'plaintext-only'; ft.spellcheck = false; ft.title = 'אפשר לערוך את הטקסט לפייסבוק';
+    const sv = el('button', 'lb-btn secondary sm pv-save', 'שמירת הטקסט לפייסבוק'); sv.type = 'button'; sv.hidden = true;
+    ft.addEventListener('input', () => { sv.hidden = false; });
+    sv.onclick = async () => {
+      sv.disabled = true;
+      try { await post('/api/production/fb_text', {key, text: ft.innerText}); toast('הטקסט לפייסבוק נשמר'); postizCards(key, wrap); }
+      catch (e) { toast(e.message); sv.disabled = false; }
+    };
+    fb.append(sv);
+  }
+  fb.append(fi);
   wrap.textContent = ''; wrap.append(ig, fb);
 }
 async function act(action, extra) {
@@ -864,6 +942,7 @@ if (S.items.length) {
 
 
 def app_page(batch_id=None):
+    import compose_slides
     import create_review
     design = create_review.design
     st = state(batch_id)
@@ -876,7 +955,7 @@ def app_page(batch_id=None):
              # the story look's Varela Round (review_server.py serves /assets/fonts/ from shared/brand/fonts when the pipeline has no copy)
              + create_review.story_fonts_css("/assets/fonts") + '</style>')
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<title>Carousel Machine</title>{design.head()}{fonts}<style>{create_review.STORY_CSS}{APP_CSS}</style></head>\n<body dir="rtl">'
+            f'<title>Carousel Machine</title>{design.head()}{fonts}<style>{create_review.STORY_CSS}{compose_slides.BOOKLET_CSS}{APP_CSS}</style></head>\n<body dir="rtl">'
             '<header class="hs-top">'
             f'<span class="hs-brand"><img src="{design.logo_data_uri()}" alt="">Carousel Machine</span>'
             f'<select class="hs-week" id="hs-week" aria-label="שבוע">{weeks}</select>'

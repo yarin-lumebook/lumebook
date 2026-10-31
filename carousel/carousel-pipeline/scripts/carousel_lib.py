@@ -1495,6 +1495,97 @@ def post_text_issues(path, version):
     return issues
 
 
+# ---------------------------------------------------------------------------
+# Disclaimers (Yarin, 31 Oct 2026): a small block at the foot of every slide from slide 2 ("i want the disclaimer only
+# from the second slide"; slide 1 is the thumbnail), and a line after the written caption of
+# the Instagram post and the Facebook post. Both are fixed wording, added at export (compose_slides, caption.txt,
+# postiz_export), never written into a pack.
+# ---------------------------------------------------------------------------
+
+SLIDE_DISCLAIMER = ("אין במוצג או באמור כדי להוות תחליף לייעוץ רפואי או המלצה לפעולה. בכל ספק יש לפנות לגורם רפואי "
+                    "מוסמך כדי לשלול בעיה רפואית. ניתן למטרת ידע כללי ועל דעתי האישית בלבד.")
+CAPTION_DISCLAIMER = "*לא מהווה ייעוץ רפואי/תחליף לייעוץ רפואי ולא מהווה המלצה לפעולה כלשהי. בכל ספק יש לפנות לגורם רפואי מוסמך"
+
+
+def strip_disclaimer(text):
+    """The text without its trailing caption disclaimer."""
+    t = str(text or "").rstrip()
+    if t.endswith(CAPTION_DISCLAIMER):
+        t = t[:-len(CAPTION_DISCLAIMER)].rstrip()
+    return t
+
+
+def with_disclaimer(text):
+    """The written text with the caption disclaimer after a blank line, once."""
+    body = strip_disclaimer(text)
+    return f"{body}\n\n{CAPTION_DISCLAIMER}" if body else CAPTION_DISCLAIMER
+
+
+# ---------------------------------------------------------------------------
+# The Facebook post (Yarin, 31 Oct 2026: "i need the facebook posts to be written more like engaging and converting
+# facebook posts, their image without text on them and the right aspect ratio. also the cta should just refer people to
+# the link"). Since then a finished carousel's Facebook post is its own text, RUN_DIR/facebook/facebook.txt, written at
+# production: a hook, the moment, what helps, the book as one more way, a CTA line and the site link alone on the last
+# line. Its picture is slide 1 as exported, with its text (1080 x 1350; the same day Yarin took back the picture without
+# text: "add the text back to the facebook images"). The folder sits beside final/, so a re-export (which moves final/
+# into versions/) keeps it, like booklet/. A run without facebook.txt keeps the old post (slide 1 with the slides
+# written out).
+# ---------------------------------------------------------------------------
+
+FB_DIR = "facebook"
+FB_POST_FILE = "facebook.txt"
+
+
+def fb_post_path(run_dir):
+    """The Facebook text of a run."""
+    return Path(run_dir) / FB_DIR / FB_POST_FILE
+
+
+FB_POST_MIN_WORDS = 45
+FB_POST_MAX_WORDS = 160
+_FB_COMMENT_CTA_RE = re.compile(r"(?<![א-ת])ת?כתב[וי]\s+[\"״]|ואשלח\s+(?:לך|לכם)")
+
+
+def fb_link():
+    """The site link every Facebook post ends with (shared/facts.json postiz.facebook_link)."""
+    return (read_json(ROOT / "shared" / "facts.json").get("postiz") or {}).get("facebook_link", "")
+
+
+def fb_post_issues(path, text):
+    """facebook.txt: Hebrew that passes the audience rules, 45 to 160 words, the link alone on the last line and nowhere
+    else, no comment word CTA, one emoji at the end of the hook line and one at the end of the CTA line above the link."""
+    text = strip_disclaimer(text)
+    lines = [line.strip() for line in str(text).split("\n") if line.strip()]
+    if not lines:
+        return [Issue("ERROR", path, "empty")]
+    link = fb_link()
+    issues = []
+    if lines[-1] != link:
+        issues.append(Issue("ERROR", path, f"the last line is the link alone: {link}", excerpt=lines[-1][:80]))
+    body_lines = lines[:-1] if lines[-1] == link else lines
+    body = "\n".join(body_lines)
+    if re.search(r"https?://|lumebook\.com", body, re.I):
+        issues.append(Issue("ERROR", path, "the link appears once, alone on the last line"))
+    issues.extend(audience_text_issues(path, _POST_EMOJI_RE.sub("", body), allow_cta=True))
+    m = _FB_COMMENT_CTA_RE.search(body)
+    if m:
+        issues.append(Issue("ERROR", path, "Facebook sends people to the link, not to a comment word", excerpt=m.group(0)))
+    if re.search(r"לומבוק|לומיבוק|lumebook", body, re.I):
+        issues.append(Issue("WARN", path, "names the brand: hint at a book where the child is the hero, the page name is on the post already"))
+    n = len(words(_POST_EMOJI_RE.sub("", body)))
+    if not FB_POST_MIN_WORDS <= n <= FB_POST_MAX_WORDS:
+        issues.append(Issue("ERROR", path, f"{n} words; a Facebook post here is {FB_POST_MIN_WORDS} to {FB_POST_MAX_WORDS} words"))
+    if body_lines:
+        hook, cta = body_lines[0], body_lines[-1]
+        if len(_POST_EMOJI_RE.findall(hook)) != 1 or not _POST_EMOJI_RE.search(hook.rstrip()[-3:]):
+            issues.append(Issue("ERROR", path, "the hook (first line) ends with exactly one emoji", excerpt=hook[:80]))
+        if len(body_lines) < 2 or len(_POST_EMOJI_RE.findall(cta)) != 1 or not _POST_EMOJI_RE.search(cta.rstrip()[-3:]):
+            issues.append(Issue("ERROR", path, "the CTA line above the link ends with exactly one emoji", excerpt=cta[:80]))
+        if sum(len(_POST_EMOJI_RE.findall(line)) for line in body_lines) != 2:
+            issues.append(Issue("ERROR", path, "two emojis in all: one on the hook and one on the CTA line (Yarin, 26 Oct 2026)"))
+    return issues
+
+
 def save_later_moment(cta):
     """The words after לפעם הבאה in a save for later CTA ('' when it has none)."""
     flat = collapse(cta)

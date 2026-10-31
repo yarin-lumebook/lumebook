@@ -24,7 +24,7 @@ One git repo for everything: github.com/yarin-lumebook/lumebook (private, since 
 
 **Account handoff in progress (since 26 Oct 2026):** the project moved to a new Claude account on this Mac. The artifact links below are the new account's (republished 26 Oct); the weekly cloud routine and a few checks are still open in `docs/account-handoff/README.md`; finish those first.
 
-Front door: the dashboard (https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6; read-only copy https://lumebook-dashboard.vercel.app). Its default view is the work board (`sites/dashboard/board/`, README there): board edits save to the artifact database under `boards/` (never `snapshot`, `history` or `tracker`), and on Vercel or the local server only in that browser. Design System reference: https://claude.ai/artifact/Cw3pWrTsoCKkCaPzZLrr5B.
+Front door: the dashboard (https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6; read-only copy https://lumebook-dashboard.vercel.app). Its default view since 31 Oct 2026 is the LumeBook pipeline course, in English, with tasks and Claude grading Yarin's written answers in the page (`sites/dashboard/course/`, README there; content and plan in `course/`, built by `python3 course/build.py`): it saves to the artifact database under `course/*` (never `snapshot`, `history`, `tracker` or the old `boards/`), and on Vercel or the local server only in that browser. It replaced the canvas work board (now in `_to-delete/`). Design System reference: https://claude.ai/artifact/Cw3pWrTsoCKkCaPzZLrr5B.
 
 Project skills: `.claude/skills/lumebook-carousel`, `.claude/skills/lumebook-hebrew-voice`, `.claude/skills/reel-editor` (hook, word-by-word captions and trial reel versions, 26 Oct 2026). `.agents/skills/*` are symlinks to them; edit only `.claude/skills`.
 

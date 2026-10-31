@@ -130,7 +130,7 @@
       "feeds": [
         "dashboard"
       ],
-      "notes": "Since 14 Oct 2026 every image, video and audio file LumeBook makes or collects lives in media/projects/YYYY-MM-DD-slug/ (output/ and video/ were folded in; media/inbox/ holds unsorted files). The index and the cloud-archive steps are in media/README.md. Media files are not in git. Exceptions: shared/brand (canonical brand files), the carousel pipeline's drafts and approved runs, research downloads. The dashboard board lists every job folder as a media resource (sites/dashboard/board/catalog.py reads the index)."
+      "notes": "Since 14 Oct 2026 every image, video and audio file LumeBook makes or collects lives in media/projects/YYYY-MM-DD-slug/ (output/ and video/ were folded in; media/inbox/ holds unsorted files). The index and the cloud-archive steps are in media/README.md. Media files are not in git. Exceptions: shared/brand (canonical brand files), the carousel pipeline's drafts and approved runs, research downloads."
     },
     "product-docs": {
       "name": "Product brief, Q4 strategy, carousel playbook (Hebrew), UGC research",
@@ -578,9 +578,9 @@
         "sites/dashboard/lumebook-dashboard.html",
         "sites/dashboard/refresh.py",
         "sites/dashboard/build_site.py",
-        "sites/dashboard/board/board.js",
-        "sites/dashboard/board/board.css",
-        "sites/dashboard/board/seed.js"
+        "sites/dashboard/course/course.js",
+        "sites/dashboard/course/course.css",
+        "sites/dashboard/course/course-data.js"
       ],
       "build": {
         "cmd": [
@@ -602,11 +602,11 @@
           "design/lumebook.css",
           "design/categories.css",
           "img/logo.png",
-          "board/board.js",
-          "board/board.css",
-          "board/seed.js"
+          "course/course.js",
+          "course/course.css",
+          "course/course-data.js"
         ],
-        "capabilities": "db, user, mcp (Google Drive read_file_content); optional for the board: assets (uploads), downloads (export)"
+        "capabilities": "db, user, mcp (Google Drive read_file_content), assets, downloads and sample (the course's Claude check) on contract 0.2.96, as stored on version 5 (31 Oct 2026); omit capabilities and contract on later publishes (sites/dashboard/course/README.md, Publishing). The course view writes course/tasks, course/progress, course/numbers, course/settings and course/links"
       },
       "schedule": "lumebook-dashboard-refresh, 08:14 daily",
       "feeds": [],
@@ -616,36 +616,35 @@
         "dir": "sites/dashboard/site/lumebook-dashboard",
         "note": "the 08:14 task builds and deploys it; includes the plan at /plan/"
       },
-      "notes": "Default view since 19 Oct 2026: the work board (sites/dashboard/board/, README there). Board edits save to the artifact database under boards/ (never snapshot, history or tracker); on Vercel and the local server they stay in the browser (localStorage) with JSON export/import. catalog.py builds the resource catalog and first board (seed.js) from lumebook.json, facts.json, media/ and shared/brand; refresh.py adds the same catalog to the snapshot."
+      "notes": "Default view since 31 Oct 2026: tasks and lessons (sites/dashboard/course/, README there; content from course/, plan in course/curriculum.md). It replaced the canvas work board (19 to 31 Oct 2026, now in _to-delete/sites/dashboard/board/). Course state saves to the artifact database under course/* (never snapshot, history, tracker or the old boards/), and on Vercel or the local server only in that browser."
     },
-    "board-seed": {
-      "name": "Dashboard board seed (resource catalog, first board, templates)",
-      "path": "sites/dashboard/board",
+    "course": {
+      "name": "LumeBook pipeline course (lessons, task types, checklists, projects)",
+      "path": "course",
       "kind": "data",
       "watch": [
-        "sites/dashboard/board/content.json",
-        "sites/dashboard/board/catalog.py",
-        "shared/facts.json",
-        "media/README.md",
-        "shared/design/categories.json",
-        "lumebook.json"
+        "course/lessons.json",
+        "course/lessons/*.md",
+        "course/build.py",
+        "course/curriculum.md",
+        "research/carousel-audit/data/books.json"
       ],
       "build": {
         "cmd": [
           "python3",
-          "catalog.py"
+          "course/build.py"
         ],
-        "cwd": "sites/dashboard/board",
+        "cwd": ".",
         "outputs": [
-          "sites/dashboard/board/seed.js"
+          "sites/dashboard/course/course-data.js"
         ],
         "auto": true,
-        "note": "Rewrites seed.js only when the catalog, layout or templates change. A saved board never takes positions or titles from it; refresh.py also puts the catalog into the snapshot every morning."
+        "note": "Fails on a lesson file that breaks the fixed English format, an em or en dash, Hebrew outside `code` (none at all in lessons.json), or curriculum.md section 5 drifting from lessons.json."
       },
       "feeds": [
         "dashboard"
       ],
-      "notes": "Hebrew content of the first board and the templates: content.json. Resources come from lumebook.json, shared/facts.json, media/ and shared/brand/."
+      "notes": "Started 31 Oct 2026 for Yarin, due 30 Nov 2026. course/discovery.md (approved), course/curriculum.md (approved), course/lessons.json (single source of truth), course/lessons/Lnn.md (lesson texts, English since 31 Oct 2026 on Yarin's ask; the Hebrew first version is in _to-delete/course/lessons-he/). Each question 3 model answer is the rubric Claude grades against in the page, and each project's check in lessons.json is what Claude looks for in a hand-in. No LumeBook sales figures in lesson files: they ship to the public Vercel copy."
     },
     "parent-communities": {
       "name": "Parent community map (361 FB/WA communities, closest to Ashkelon first)",

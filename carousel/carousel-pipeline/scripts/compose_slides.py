@@ -29,6 +29,7 @@ Needs Google Chrome or Chromium (carousel_lib.find_chrome). Standard library onl
 
 import argparse
 import json
+import math
 import os
 import re
 import shutil
@@ -397,14 +398,7 @@ body.single .slide:not(.on){display:none}
 .tag{display:inline-flex;align-items:center;gap:.3em;color:var(--gold);font-size:.46em;margin-bottom:.45em;-webkit-text-stroke:.012em currentColor;text-shadow:0 2px 16px rgba(11,5,24,.8)}
 .tag .num{width:1.55em;height:1.55em;margin:0;font-size:1em;box-shadow:0 6px 18px rgba(11,5,24,.45);-webkit-text-stroke:0}
 .body{font-size:.6em;margin-top:.55em}
-/* the open booklet under the book link CTA (30 Oct 2026, story-format.md section 7) */
-.fade{position:absolute;left:0;top:500px;width:1080px;height:220px;background:linear-gradient(180deg,rgba(11,5,24,0),rgba(11,5,24,.9) 55%,rgba(11,5,24,0))}
-.book{position:absolute;left:65px;top:620px;width:950px;overflow:hidden;border-radius:14px;box-shadow:0 26px 60px rgba(0,0,0,.65)}
-.book .bk{position:absolute;max-width:none}
-.book .page{position:absolute;top:0;bottom:0;right:0;width:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:38px;line-height:1.45;color:#2a2340;text-align:center;padding:0 24px}
-.book .page span{display:block}
-.kid{position:absolute;left:830px;top:505px;width:230px;height:230px;border-radius:50%;border:7px solid #fff;box-shadow:0 8px 22px rgba(0,0,0,.35);background-size:cover;background-position:50% 38%}
-.arrows{position:absolute;left:0;top:0;pointer-events:none}
+/*BOOKLET*/
 .body .t{font-size:1em;margin-top:0}
 .body .t .ln{display:block;white-space:nowrap}
 .body .gap{height:.55em}
@@ -419,8 +413,25 @@ body.single .slide:not(.on){display:none}
 .letter .h{font-size:.92em}
 .letter .em,.letter .q{color:#8A5A14}
 .letter .veil{background:linear-gradient(180deg,rgba(11,5,24,.55) 0,rgba(11,5,24,.3) 60%,rgba(11,5,24,.2) 100%)}
+/* the medical disclaimer at the foot of every slide from slide 2 (Yarin, 31 Oct 2026: "only from the second slide") */
+.disc-bg{position:absolute;left:0;right:0;bottom:0;height:190px;background:linear-gradient(180deg,rgba(11,5,24,0),rgba(11,5,24,.62))}
+.disc{position:absolute;left:150px;right:150px;bottom:30px;font-size:20px;line-height:1.38;color:rgba(255,255,255,.82);text-align:center;direction:rtl;text-wrap:balance;text-shadow:0 1px 6px rgba(0,0,0,.75)}
 pre#rtl-report{display:none}
 """
+
+# The booklet under the book link CTA (30 Oct 2026, story-format.md section 7), drawn in 3D since 31 Oct 2026. Carousel
+# Machine's preview uses the same rules and the same HTML (studio.py), so every class starts with bk3.
+BOOKLET_CSS = """
+.bk3-fade{position:absolute;left:0;top:500px;width:1080px;height:220px;background:linear-gradient(180deg,rgba(11,5,24,0),rgba(11,5,24,.9) 55%,rgba(11,5,24,0))}
+.bk3{position:absolute;left:0;top:0;width:1080px;height:1350px;pointer-events:none}
+.bk3 svg{position:absolute;left:0;top:0;overflow:visible}
+.bk3-strip{position:absolute;left:0;top:0;transform-origin:0 0;background-repeat:no-repeat;backface-visibility:hidden}
+.bk3-strip i{position:absolute;inset:0}
+.bk3-page{position:absolute;left:0;top:0;transform-origin:0 0;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:38px;line-height:1.45;color:#2a2340;text-align:center;direction:rtl;font-family:inherit}
+.bk3-page span{display:block;white-space:nowrap}
+.bk3-kid{position:absolute;left:830px;top:505px;width:230px;height:230px;border-radius:50%;border:7px solid #fff;box-shadow:0 8px 22px rgba(0,0,0,.35);background-size:cover;background-position:50% 38%}
+"""
+STORY_CSS = STORY_CSS.replace("/*BOOKLET*/", BOOKLET_CSS.strip())
 
 STORY_JS = """
 const q = new URLSearchParams(location.search), one = q.get('s');
@@ -513,37 +524,172 @@ def story_body_html(body):
     return '<div class="body">' + "".join(out) + "</div>"
 
 
-BOOK_BOX = (65, 620, 950)          # left, top, width of the booklet on the last slide
+BOOK_BOX = (65, 620, 950)          # left, top, width of the booklet's flat spread on the last slide
 ARROW_YELLOW = "#FFC21A"           # Yarin, 30 Oct 2026: "straight short arrows", then "bigger, add a thin black outline"
+# The booklet in 3D (Yarin, 31 Oct 2026: "the booklet in the last slides should look more 3D like but not like a book, its
+# a booklet"): the flat spread (the crop of RUN_DIR/booklet/booklet.png) lies open, tilted back, thin and soft. Each page
+# is cut into strips from the fold outwards (BOOK_STRIPS, parts of the page width) that bend down into the fold, the far
+# edge is narrower than the near one, two sheet edges and the soft cover show under the pages, and a soft shadow sits
+# under it all. Every strip is the flat picture mapped onto its corners (a CSS matrix3d), so no new picture is made.
+BOOK_STRIPS = (0, 0.03, 0.07, 0.12, 0.2, 1)
+BOOK_TILT = 0.9                    # the page height after the tilt
+BOOK_FAR_INSET = 42                # the far edge is this much narrower at each side
+BOOK_DIP = (28, 15)                # how deep the far and the near edge sink into the fold
+BOOK_LIFT = (9, 5)                 # how much the far and the near edge rise across the page
+BOOK_SHEETS = ((3, 2, "#F4F1F7"), (6, 4, "#E3DDEA"), (9, 6, "#CEC5DA"))   # down, out, colour: two sheets and the cover
+BOOK_TEXT_SPAN = (0.08, 0.96)      # where the page text box sits across the white page (part of its width from the fold)
 
 
-def booklet_html(booklet, files):
-    """The booklet block of the last slide: the spread cropped to its pages, the page text set in Varela Round on the blank
-    right page, the face photo in a circle over the top right corner, and an arrow at each face."""
+def _solve(a, b):
+    """Gaussian elimination with partial pivoting (8 x 8, no numpy on the server's Python)."""
+    n = len(b)
+    m = [row[:] + [b[i]] for i, row in enumerate(a)]
+    for c in range(n):
+        piv = max(range(c, n), key=lambda r: abs(m[r][c]))
+        m[c], m[piv] = m[piv], m[c]
+        for r in range(n):
+            if r != c and m[r][c]:
+                f = m[r][c] / m[c][c]
+                m[r] = [x - f * y for x, y in zip(m[r], m[c])]
+    return [m[i][n] / m[i][i] for i in range(n)]
+
+
+def homography(src, dst):
+    """The 3 x 3 projective map that takes the four src points to the four dst points."""
+    a, b = [], []
+    for (x, y), (u, v) in zip(src, dst):
+        a.append([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.append(u)
+        a.append([0, 0, 0, x, y, 1, -v * x, -v * y]); b.append(v)
+    h = _solve(a, b)
+    return [[h[0], h[1], h[2]], [h[3], h[4], h[5]], [h[6], h[7], 1.0]]
+
+
+def hpoint(hm, x, y):
+    w = hm[2][0] * x + hm[2][1] * y + hm[2][2]
+    return ((hm[0][0] * x + hm[0][1] * y + hm[0][2]) / w, (hm[1][0] * x + hm[1][1] * y + hm[1][2]) / w)
+
+
+def matrix3d(hm, x0=0.0, y0=0.0):
+    """CSS matrix3d for an element whose own (0, 0) sits at flat (x0, y0), with transform-origin 0 0."""
+    m = [[hm[r][0], hm[r][1], hm[r][0] * x0 + hm[r][1] * y0 + hm[r][2]] for r in range(3)]
+    d = m[2][2]
+    m = [[v / d for v in row] for row in m]
+    vals = (m[0][0], m[1][0], 0, m[2][0], m[0][1], m[1][1], 0, m[2][1], 0, 0, 1, 0, m[0][2], m[1][2], 0, m[2][2])
+    return "matrix3d(" + ",".join(f"{v:.8g}" for v in vals) + ")"
+
+
+def _book_edge(side, u, far, box):
+    """A point on the far (top) or near (bottom) edge of a page: side -1 the left page, 1 the right; u 0 at the fold,
+    1 at the outer corner."""
+    left, top, width, flat_h = box
+    fold = left + width / 2
+    reach = width / 2 - (BOOK_FAR_INSET if far else 0)
+    e = 0 if far else 1
+    y = (top if far else top + flat_h * BOOK_TILT) + BOOK_DIP[e] * max(0.0, 1 - u / 0.2) ** 2 - BOOK_LIFT[e] * math.sin(math.pi * u)
+    return (fold + side * u * reach, y)
+
+
+def booklet_geometry(booklet):
+    """Where every strip of the two pages goes, as flat spread coordinates (0 .. 950 wide) mapped to slide pixels."""
     bx, by, bw = BOOK_BOX
     cx, cy, cw, ch = booklet["crop"]
     k = bw / cw
-    bh = round(ch * k)
-    nat_w, nat_h = lib.png_size(files["booklet_path"])
-    page = "".join(f"<span>{esc(ln)}</span>" for ln in booklet["page_text"])
+    flat_h = ch * k
+    pw = bw / 2
+    box = (bx, by, bw, flat_h)
+    pages = {}
+    for side in (-1, 1):   # -1 the picture page, 1 the white page
+        strips = []
+        for u0, u1 in zip(BOOK_STRIPS, BOOK_STRIPS[1:]):
+            x0, x1 = (pw * (1 - u1), pw * (1 - u0)) if side < 0 else (pw * (1 + u0), pw * (1 + u1))
+            ua, ub = (u1, u0) if side < 0 else (u0, u1)   # u at the strip's flat left and right edge
+            dst = [_book_edge(side, ua, True, box), _book_edge(side, ub, True, box),
+                   _book_edge(side, ub, False, box), _book_edge(side, ua, False, box)]
+            strips.append({"u": (u0, u1), "x": (x0, x1), "h": homography([(x0, 0), (x1, 0), (x1, flat_h), (x0, flat_h)], dst)})
+        pages[side] = strips
+    steps = [1, .85, .7, .55, .4, .3, .22, .16, .11, .07, .04, .02, 0]
+    outline = {"far": [_book_edge(-1, u, True, box) for u in steps] + [_book_edge(1, u, True, box) for u in reversed(steps)],
+               "near": [_book_edge(1, u, False, box) for u in steps] + [_book_edge(-1, u, False, box) for u in reversed(steps)]}
+    return {"k": k, "flat_h": flat_h, "pw": pw, "crop": (cx, cy), "pages": pages, "outline": outline, "box": box}
+
+
+def booklet_face_tip(booklet, geo=None):
+    """The arrow tip just under the face on the picture page, from the lower left (face [x, y] or [x, y, scale], parts
+    of the flat spread's width and height), and the arrow's tail."""
+    geo = geo or booklet_geometry(booklet)
     fx, fy = booklet["face"][:2]
     k_face = booklet["face"][2] if len(booklet["face"]) > 2 else 1   # a smaller face: the tip sits closer to it
-    tip = (bx + fx * bw - 60 * k_face, by + fy * bh + 95 * k_face)   # just under the face, from the lower left
+    x, y = fx * BOOK_BOX[2], fy * geo["flat_h"]
+    strip = min(geo["pages"][-1], key=lambda s: 0 if s["x"][0] <= x <= s["x"][1] else min(abs(x - s["x"][0]), abs(x - s["x"][1])))
+    px, py = hpoint(strip["h"], x, y)
+    tip = (px - 60 * k_face, py + 95 * k_face)
     tail = (tip[0] - 122, tip[1] + 145)
     if tail[0] < 30:                                           # a face near the left edge: from the lower right
         tail = (tip[0] + 122, tip[1] + 145)
+    return tip, tail
+
+
+def _pts(points):
+    return " ".join(f"{x:.1f},{y:.1f}" for x, y in points)
+
+
+def booklet_html(booklet, files, uid=""):
+    """The booklet block of the last slide in 3D: the shadow and the thin edges, the two pages in strips with the page
+    text set in Varela Round on the white page, the face photo in a circle over the top right corner, and an arrow at
+    each face. files: {"booklet": src, "kid": src, "booklet_path": the local booklet.png}; uid keeps the SVG ids apart
+    when several previews share a page (Carousel Machine)."""
+    geo = booklet_geometry(booklet)
+    k, flat_h = geo["k"], geo["flat_h"]
+    cx, cy = geo["crop"]
+    nat_w, nat_h = lib.png_size(files["booklet_path"])
+    far, near = geo["outline"]["far"], geo["outline"]["near"]
+    fold = BOOK_BOX[0] + BOOK_BOX[2] / 2
+
+    def spread(points, down, out):   # the outline pushed down and out towards the outer corners
+        return [(x + (out * (x - fold) / (BOOK_BOX[2] / 2)), y + down) for x, y in points]
+    shadow = spread(far, 10, 6) + spread(near, 26, 14)
+    under = (f'<svg viewBox="0 0 1080 1350" width="1080" height="1350"><defs>'
+             f'<filter id="bks{uid}" x="-20%" y="-20%" width="140%" height="160%"><feGaussianBlur stdDeviation="16"/></filter>'
+             f'<filter id="bkc{uid}" x="-10%" y="-10%" width="120%" height="130%"><feGaussianBlur stdDeviation="4"/></filter></defs>'
+             f'<polygon points="{_pts(shadow)}" fill="rgba(4,0,12,.62)" filter="url(#bks{uid})"/>'
+             f'<polygon points="{_pts(spread(far, 4, 4) + spread(near, 12, 8))}" fill="rgba(4,0,12,.45)" filter="url(#bkc{uid})"/>'
+             + "".join(f'<polygon points="{_pts(spread(far, d, o) + spread(near, d, o))}" fill="{c}" stroke="rgba(60,40,80,.18)" stroke-width="1"/>'
+                       for d, o, c in reversed(BOOK_SHEETS))
+             + "</svg>")
+    strips = []
+    for side, page in geo["pages"].items():
+        for s in page:
+            x0, x1 = s["x"]
+            u0, u1 = s["u"]
+            a0, a1 = (.44 * max(0.0, 1 - u / 0.2) ** 1.7 + .03 for u in (u0, u1))
+            shade = (f"linear-gradient(to right,rgba(24,12,44,{a1:.3f}),rgba(24,12,44,{a0:.3f}))" if side < 0
+                     else f"linear-gradient(to right,rgba(24,12,44,{a0:.3f}),rgba(24,12,44,{a1:.3f}))")
+            if u1 == 1:   # a soft light across the open part of the page, nothing at the edge next to the bent strips
+                shade += (",linear-gradient(to right,rgba(255,255,255,.1),rgba(255,255,255,0) 60%)" if side < 0
+                          else ",linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,.08) 55%,rgba(255,255,255,0))")
+                shade += ",linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.07))"
+            pad = 0.8   # strips overlap a hair, so no seam shows between them
+            strips.append(f'<div class="bk3-strip" style="width:{x1 - x0 + 2 * pad:.2f}px;height:{flat_h:.2f}px;'
+                          f'transform:{matrix3d(s["h"], x0 - pad, 0)};background-image:url(&quot;{files["booklet"]}&quot;);'
+                          f'background-size:{nat_w * k:.1f}px {nat_h * k:.1f}px;background-position:{-(cx * k + x0 - pad):.2f}px {-cy * k:.2f}px">'
+                          f'<i style="background:{shade}"></i></div>')
+    outer = geo["pages"][1][-1]
+    t0, t1 = (geo["pw"] * (1 + f) for f in BOOK_TEXT_SPAN)
+    page = (f'<div class="bk3-page" style="width:{t1 - t0:.1f}px;height:{flat_h:.1f}px;transform:{matrix3d(outer["h"], t0, 0)}">'
+            + "".join(f"<span>{esc(ln)}</span>" for ln in booklet["page_text"]) + "</div>")
+    tip, tail = booklet_face_tip(booklet, geo)
     arrows = [(tail, tip), ((1040, 845), (978, 724))]          # the second points up at the photo's chin
-    paths = "".join(f'<path d="M{a[0]:.0f} {a[1]:.0f} L{b[0]:.0f} {b[1]:.0f}" stroke="#000" stroke-width="19" marker-end="url(#ao)"/>'
-                    f'<path d="M{a[0]:.0f} {a[1]:.0f} L{b[0]:.0f} {b[1]:.0f}" stroke="{ARROW_YELLOW}" stroke-width="13" marker-end="url(#ah)"/>'
+    paths = "".join(f'<path d="M{a[0]:.0f} {a[1]:.0f} L{b[0]:.0f} {b[1]:.0f}" stroke="#000" stroke-width="19" marker-end="url(#ao{uid})"/>'
+                    f'<path d="M{a[0]:.0f} {a[1]:.0f} L{b[0]:.0f} {b[1]:.0f}" stroke="{ARROW_YELLOW}" stroke-width="13" marker-end="url(#ah{uid})"/>'
                     for a, b in arrows)
-    return (f'<div class="fade"></div><div class="book" style="height:{bh}px">'
-            f'<img class="bk" src="{files["booklet"]}" alt="" style="width:{nat_w * k:.1f}px;height:{nat_h * k:.1f}px;left:{-cx * k:.1f}px;top:{-cy * k:.1f}px">'
-            f'<div class="page">{page}</div></div>'
-            f'<div class="kid" style="background-image:url(&quot;{files["kid"]}&quot;)"></div>'
-            f'<svg class="arrows" viewBox="0 0 1080 1350" width="1080" height="1350"><defs>'
-            f'<marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.4" markerHeight="4.4" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="{ARROW_YELLOW}"/></marker>'
-            f'<marker id="ao" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="3.6" markerHeight="3.6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#000"/></marker>'
-            f'</defs><g fill="none" stroke-linecap="round" stroke-linejoin="round">{paths}</g></svg>')
+    crease = f'<path d="M{far[len(far) // 2][0]:.1f} {far[len(far) // 2][1]:.1f} L{near[len(near) // 2][0]:.1f} {near[len(near) // 2][1]:.1f}" stroke="rgba(30,15,50,.35)" stroke-width="1.6"/>'
+    top = (f'<svg viewBox="0 0 1080 1350" width="1080" height="1350"><defs>'
+           f'<marker id="ah{uid}" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.4" markerHeight="4.4" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="{ARROW_YELLOW}"/></marker>'
+           f'<marker id="ao{uid}" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="3.6" markerHeight="3.6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#000"/></marker>'
+           f'</defs>{crease}<g fill="none" stroke-linecap="round" stroke-linejoin="round">{paths}</g></svg>')
+    return (f'<div class="bk3-fade"></div><div class="bk3">{under}{"".join(strips)}{page}</div>'
+            f'<div class="bk3-kid" style="background-image:url(&quot;{files["kid"]}&quot;)"></div>'
+            f'<div class="bk3">{top}</div>')
 
 
 def story_slide_html(v, s, img_src, last, booklet_files=None):
@@ -584,9 +730,10 @@ def story_slide_html(v, s, img_src, last, booklet_files=None):
     if n == last and booklet_files and v.get("booklet"):   # the copy ends above the photo circle, the booklet below it
         mx, mn, max_h = STORY_SIZES["cta_booklet"]
         extra = booklet_html(v["booklet"], booklet_files)
+    disc = (f'<div class="disc-bg"></div>', f'<div class="disc">{esc(lib.SLIDE_DISCLAIMER)}</div>') if n > 1 else ("", "")   # slide 1, the thumbnail, has none
     return (f'<section class="slide {cls}" data-n="{n}"><img class="art" src="{img_src}" alt=""><div class="veil"></div>'
-            f'<div class="copy" data-max="{mx}" data-min="{mn}" data-maxh="{max_h}" style="font-size:{mx}px">'
-            + "".join(inner) + "</div>" + extra + "</section>")
+            f'{disc[0]}<div class="copy" data-max="{mx}" data-min="{mn}" data-maxh="{max_h}" style="font-size:{mx}px">'
+            + "".join(inner) + "</div>" + extra + f'{disc[1]}</section>')
 
 
 def build_story_html(frozen, images, out_dir):
@@ -841,7 +988,7 @@ def contact_sheet(out_dir, count):
 def write_texts(frozen, out_dir):
     v = frozen["option"]
     story = is_story(frozen)
-    (out_dir / "caption.txt").write_text(v["caption"].strip() + "\n", encoding="utf-8")
+    (out_dir / "caption.txt").write_text(lib.with_disclaimer(v["caption"].strip()) + "\n", encoding="utf-8")   # the disclaimer since 31 Oct 2026
     src = [f"# Sources · {v['id']} · {frozen['date']}", ""]
     for s in v["sources"]:
         src += [f"- [{s['title']}]({s['url']}) · {s['publisher']} · read {s['accessed']}", f"  - supports: {s['supports']}", f"  - quote: \"{s['quote']}\""]

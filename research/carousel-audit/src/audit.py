@@ -458,7 +458,7 @@ def hook_results(rows, write=False):
     return recs
 
 
-def links(topic, day, book=None, medium=None, variant=None):
+def links(topic, day, book=None, place=None, variant=None):
     rules, books = load(DATA / "rules.json"), load(DATA / "books.json")
     if not re.fullmatch(r"[a-z0-9-]+", topic or ""):
         raise SystemExit(f"topic must be a slug like pacifier-weaning, got {topic!r}")
@@ -472,10 +472,12 @@ def links(topic, day, book=None, medium=None, variant=None):
     base = f"{books['store_url']}/books/{book}" if book else books["store_url"]
     u = rules["utm"]
     out = []
-    for med in [medium] if medium else u["mediums"]:
-        q = {"utm_source": u["source"], "utm_medium": med, "utm_campaign": u["campaign_prefix"] + topic,
-             "utm_content": day.strftime("%Y%m%d") + (f"-{variant}" if variant else "")}
-        out.append((med, base + "?" + urllib.parse.urlencode(q)))
+    for pl in [place] if place else u["places"]:
+        q = {"utm_source": u["source"], "utm_medium": u["medium"], "utm_campaign": u["campaign_prefix"] + topic,
+             "utm_content": "bio" if pl == "bio" else f"{pl}-{day.strftime('%Y%m%d')}"}
+        if variant:
+            q["utm_term"] = variant.lower()
+        out.append((pl, base + "?" + urllib.parse.urlencode(q)))
     return out, note
 
 
@@ -517,8 +519,8 @@ def main():
     lk.add_argument("--carousel", help="an id from data/carousels.json: takes its topic and post date")
     lk.add_argument("--date", help="post date YYYY-MM-DD (default today)")
     lk.add_argument("--book", type=int, help="store book number, overrides data/books.json")
-    lk.add_argument("--medium", choices=["dm", "bio", "story"])
-    lk.add_argument("--variant", help="added to utm_content, e.g. A or B for a test")
+    lk.add_argument("--place", choices=["dm", "bio", "story"], help="where the link goes out (utm_content)")
+    lk.add_argument("--variant", help="test arm, sent as utm_term, e.g. a or b")
     hr = sub.add_parser("hook-results", help="results of 7+ day old pipeline carousels in the hook-results.json format")
     hr.add_argument("--write", action="store_true", help="merge them into carousel/carousel-pipeline/hook-results.json")
     args = ap.parse_args()
@@ -550,9 +552,9 @@ def main():
         if args.date:
             day = date.fromisoformat(args.date)
         day = day or datetime.now(ZoneInfo("Asia/Jerusalem")).date()
-        out, note = links(topic, day, args.book, args.medium, args.variant)
-        for med, url in out:
-            print(f"{med:5} {url}")
+        out, note = links(topic, day, args.book, args.place, args.variant)
+        for pl, url in out:
+            print(f"{pl:5} {url}")
         if note:
             print("note: " + note)
     elif args.cmd == "hook-results":

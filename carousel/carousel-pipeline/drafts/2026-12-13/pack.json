@@ -1,0 +1,2045 @@
+{
+  "schema_version": 3,
+  "date": "2026-12-13",
+  "generated_at": "2026-10-31T04:08:01+00:00",
+  "format": "two_topics",
+  "copy_style": "story",
+  "topic": {
+    "id": "birthday-countdown",
+    "title_he": "סופר את הימים עד יום ההולדת",
+    "reason": "הנושא והספר נקבעו בתוכנית האצווה השבועית (חריץ 4 מתוך 12), ולכן נבחרו בלי קשר לתאריך. יש עליו חומר מעשי ברור מעמודי הורים שקראתי היום: לוח שנה שסופרים עליו, מדבקות, התראה של חמש דקות ואיתות מוסכם. בקטלוג יש ספר על יום הולדת (נבדק באתר היום), רק לשימוש פנימי בקישור בהודעה. לא נאמרת עובדת לוח שנה."
+  },
+  "topics": [
+    {
+      "id": "birthday-countdown",
+      "title_he": "סופר את הימים עד יום ההולדת",
+      "reason": "הנושא והספר נקבעו בתוכנית האצווה השבועית (חריץ 4 מתוך 12), ולכן נבחרו בלי קשר לתאריך. יש עליו חומר מעשי ברור מעמודי הורים שקראתי היום: לוח שנה שסופרים עליו, מדבקות, התראה של חמש דקות ואיתות מוסכם. בקטלוג יש ספר על יום הולדת (נבדק באתר היום), רק לשימוש פנימי בקישור בהודעה. לא נאמרת עובדת לוח שנה.",
+      "book": {
+        "id": 15,
+        "title_he": "יום הולדת",
+        "checked_at": "2026-10-31"
+      }
+    },
+    {
+      "id": "sharing-toys",
+      "title_he": "לא רוצה לתת לאף אחד את הצעצוע",
+      "reason": "הנושא והספר נקבעו בתוכנית האצווה השבועית (חריץ 4 מתוך 12), ולכן נבחרו בלי קשר לתאריך. יש עליו חומר מעשי ממקורות שקראתי היום: שעון חול, תור ארוך, להחביא את הצעצוע האהוב ולתרגל מילים. בקטלוג יש ספר על נדיבות וטוב לב (נבדק באתר היום), רק לשימוש פנימי בקישור בהודעה. לא נאמרת עובדת לוח שנה.",
+      "book": {
+        "id": 13,
+        "title_he": "הלב של יובל",
+        "checked_at": "2026-10-31"
+      }
+    }
+  ],
+  "voice": {
+    "status": "calibrated",
+    "approved_samples": 40,
+    "note": "קול מכויל: 40 דוגמאות מאושרות מתוך העריכות של ירין. הכתיבה לפי העריכות האחרונות: משפט קצר במירכאות, גוף קצר, והילד מבקש מההורים ישירות."
+  },
+  "voice_style": "to_parents",
+  "cta_style": "book_link",
+  "product_facts": [
+    {
+      "id": "site-preview",
+      "fact": "Creating the book is free until the preview; parents pay only after they see it and love it",
+      "quote": "3. רואים תצוגה מקדימה בחינם.",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-31"
+    },
+    {
+      "id": "site-star",
+      "fact": "The child's name appears in the text and the child stars in every illustration",
+      "quote": "השם שלהם מופיע בטקסט והם מככבים בכל האיורים",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-31"
+    },
+    {
+      "id": "site-photo",
+      "fact": "Parents upload a photo of the child and add the name",
+      "quote": "העלו תמונה של ילדכם והוסיפו את השם",
+      "url": "https://lumebook.com/IL/he",
+      "checked_at": "2026-10-31"
+    },
+    {
+      "id": "site-book-15",
+      "fact": "Catalogue book 15 (ages 3 to 8): the birthday as a magical day, the child is king or queen for a day (internal only, never named on slides)",
+      "quote": "הספר מציג את יום ההולדת כחוויה קסומה שבה הילד הופך למלך/מלכה ליום אחד",
+      "url": "https://lumebook.com/IL/he/books/15",
+      "checked_at": "2026-10-31"
+    },
+    {
+      "id": "site-book-13",
+      "fact": "Catalogue book 13 (ages 4 to 8): real heroism through empathy, generosity and everyday kindness (internal only, never named on slides)",
+      "quote": "הספר מלמד את הילדים שגבורה אמיתית מגיעה מתוך אמפתיה, נדיבות וטוב לב",
+      "url": "https://lumebook.com/IL/he/books/13",
+      "checked_at": "2026-10-31"
+    }
+  ],
+  "hook_slate": {
+    "a": [
+      {
+        "id": "a1",
+        "formula": "sentence-we-all-say",
+        "family": "sentences_we_say",
+        "hook": "״עוד 6 ימים״,\nאתם אומרים לי.\nכמה זה בכלל?\nמה אתם חושבים, ומה יעזור לי",
+        "slide2": "אני רואה איך\nאתם מסתכלים עליי",
+        "slide2_move": "other_side",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What does a 5-year-old understand when his parents say 'in 6 days', and what helps him wait?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 answers the first parent thought with a calendar to count on.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-1",
+        "note": "The cover pill carries the value: the parents' thoughts and what helps."
+      },
+      {
+        "id": "a2",
+        "formula": "child-letter",
+        "family": "child_pov",
+        "hook": "אמא,\nרציתי להגיד לך\nעל הימים עד ההולדת\nמה יעזור לי לחכות, במכתב אחד",
+        "slide2": "אמא שלי,\nאני מתעוררת בבוקר,\nועוד לפני שקמתי אני חושבת:\nכמה ימים נשארו?",
+        "slide2_move": "first_answer",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "solution_aware",
+        "gap": "What does the girl want to tell her mother about the days before her birthday?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 8 are the letter with her requests.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-2",
+        "note": "A letter ending with a signature."
+      },
+      {
+        "id": "a3",
+        "formula": "milestone-week",
+        "family": "milestone",
+        "hook": "השבוע שלפני\nיום ההולדת שלי\nהיה פעם אחר\nמה השתנה אצלי ומה עוזר לי",
+        "slide2": "פעם שאלתי כל דקה\nשבוע לפני יום ההולדת",
+        "slide2_move": "name_trigger",
+        "mechanism": "anticipation",
+        "awareness_stage": "problem_aware",
+        "gap": "What changed for the boy in the week before his birthday, and what helps him now?",
+        "payoff_slide": 4,
+        "answer": "Slide 4 is the change (a wall calendar) and slides 5 to 8 what he does now.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-3",
+        "note": "Before and after."
+      },
+      {
+        "id": "a4",
+        "formula": "child-body-moment",
+        "family": "moment",
+        "hook": "5 ימים להולדת\nואני מרגיש את זה\nבבטן",
+        "slide2": "הבטן שלי קופצת\nבכל פעם שאני חושב על העוגה.",
+        "slide2_move": "zoom_in",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What is the child's body doing in the days before his birthday, and what helps?",
+        "payoff_slide": 3,
+        "answer": "The slide names the jumpy feeling and a way to give it a name.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used: the body angle is covered by kid-2."
+      },
+      {
+        "id": "a5",
+        "formula": "child-hidden-half",
+        "family": "child_pov",
+        "hook": "מה שאתם לא רואים\nבלילה לפני\nיום ההולדת שלי",
+        "slide2": "אני שוכב במיטה\nועושה חשבון: כמה לילות נשארו?",
+        "slide2_move": "other_side",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "unaware",
+        "gap": "What does the child think about in bed the night before his birthday?",
+        "payoff_slide": 3,
+        "answer": "The slide shows the counting in the dark and what helps.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used."
+      },
+      {
+        "id": "a6",
+        "formula": "positive-edition",
+        "family": "milestone",
+        "hook": "״עוד מעט הוא יתפרק\nמרוב התרגשות״\nהגרסה הטובה",
+        "slide2": "הגרסה הטובה: אני מתרגש,\nואני רוצה שתעזרו לי לחכות.",
+        "slide2_move": "contrast",
+        "mechanism": "anticipation",
+        "awareness_stage": "most_aware",
+        "gap": "What is the good version of a birthday-week meltdown?",
+        "payoff_slide": 3,
+        "answer": "The slide turns the warning into a request.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 1,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used."
+      }
+    ],
+    "b": [
+      {
+        "id": "b1",
+        "formula": "two-faces",
+        "family": "reframe",
+        "hook": "בגן אני מחלקת הכול\nבבית אני מחביאה\nאת הדובי שלי\nמה יעזור לי לשתף, שעה אחרי שעה",
+        "slide2": "הדובי נכנס לתיק\nבלי שתראו",
+        "slide2_move": "name_trigger",
+        "mechanism": "honest_curiosity",
+        "awareness_stage": "unaware",
+        "gap": "Why does a girl share everything at gan and hide her teddy bear at home, and what helps her?",
+        "payoff_slide": 3,
+        "answer": "Slide 3 shows how easy it is at gan; slides 4 to 8 give tools by the clock.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-4",
+        "note": "One day by the clock."
+      },
+      {
+        "id": "b2",
+        "formula": "child-dont",
+        "family": "child_pov",
+        "hook": "אמא ואבא,\nאל תגידו ״תן לו״\n4 דברים שיעזרו לי\nכשחבר רוצה את הצעצוע שלי",
+        "slide2": "אני לא רע\nאני רק לומד לשתף",
+        "slide2_move": "first_answer",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "What are the four things that help a 4-year-old when a friend wants his toy, instead of being told to give it?",
+        "payoff_slide": 3,
+        "answer": "Slides 3 to 6 are the four things.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-5",
+        "note": "The cover promises 4 things because the structure is a short list."
+      },
+      {
+        "id": "b3",
+        "formula": "story-unresolved",
+        "family": "story",
+        "hook": "גינה רגילה, ואני\nלא נותנת את הדלי.\nמה שעזר היה קטן\nמה יעזור לי לתת, בדקה אחת",
+        "slide2": "אני בונה טירה בחול\nעם הדלי הכתום שלי",
+        "slide2_move": "scene_restart",
+        "mechanism": "narrative_tension",
+        "awareness_stage": "solution_aware",
+        "gap": "What small thing helped the girl in the minute she would not give up the bucket?",
+        "payoff_slide": 4,
+        "answer": "Slides 4 to 7 are the minute second by second.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 2,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "kid-6",
+        "note": "One minute slowed down."
+      },
+      {
+        "id": "b4",
+        "formula": "child-not-because",
+        "family": "child_pov",
+        "hook": "אני לא מסרבת לתת\nכי אני רעה.\nאני מסרבת כי זה שלי",
+        "slide2": "הצעצוע הזה איתי בכל לילה.\nאין לו מחליף.",
+        "slide2_move": "other_side",
+        "mechanism": "perspective_shift",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does a child refuse to give a toy, and what helps?",
+        "payoff_slide": 3,
+        "answer": "The slide names the attachment and a way to share anyway.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used."
+      },
+      {
+        "id": "b5",
+        "formula": "moment-time",
+        "family": "moment",
+        "hook": "16:20\nהדלי הכתום בידיים שלי\nוחברה מושיטה יד",
+        "slide2": "היא רוצה, ואני לא נותנת.\nהלב שלי דופק.",
+        "slide2_move": "zoom_in",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "What happens in the minute a friend reaches for the toy?",
+        "payoff_slide": 3,
+        "answer": "The slide slows the moment down and gives a tool.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 2
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used."
+      },
+      {
+        "id": "b6",
+        "formula": "child-question",
+        "family": "child_quote",
+        "hook": "״למה אני צריך לתת לה?״\nאני שואל את זה\nבכל פעם",
+        "slide2": "אתם אומרים ״תן לה״,\nואני לא יודע איפה הצעצוע שלי.",
+        "slide2_move": "other_side",
+        "mechanism": "recognition",
+        "awareness_stage": "problem_aware",
+        "gap": "Why does the child ask why he has to give?",
+        "payoff_slide": 3,
+        "answer": "The slide answers with what helps.",
+        "factual_claim": false,
+        "score": {
+          "stopping_power": 2,
+          "specificity": 2,
+          "parent_relevance": 2,
+          "honest_curiosity": 2,
+          "emotional_truth": 2,
+          "swipe_promise": 2,
+          "usefulness": 1,
+          "topic_fit": 2,
+          "lumebook_fit": 2,
+          "freshness": 1
+        },
+        "fail_checks": {
+          "clickbait": false,
+          "unsupported_claim": false,
+          "unfulfilled_promise": false,
+          "blames_parent": false
+        },
+        "used_by": "",
+        "note": "Not used."
+      }
+    ]
+  },
+  "directions": [
+    {
+      "id": "kid",
+      "label_he": "הילד מספר להורים",
+      "versions": [
+        {
+          "id": "kid-1",
+          "structure": "thoughts_answers",
+          "topic_id": "birthday-countdown",
+          "title": "״עוד 6 ימים״ ואני לא יודע כמה זה",
+          "angle": "הילד עונה לחמש מחשבות של ההורים על הספירה לאחור, וכל תשובה היא דבר קטן לעשות: לוח, ריבועים, התראה, איתות.",
+          "target_parent": "הורים לילד בן 4 עד 6 ששואל כל יום כמה ימים נשארו עד יום ההולדת.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "sentences_we_say",
+          "hook": {
+            "formula": "sentence-we-all-say",
+            "gap": "What does a 5-year-old understand when his parents say 'in 6 days', and what helps him wait?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "a1",
+            "mechanism": "recognition",
+            "slide2_move": "other_side"
+          },
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "עידו",
+          "character_anchor": {
+            "child": "A 5-year-old Israeli boy with short wavy dark brown hair, round face, big dark eyes and olive skin; about 105 cm tall.",
+            "parent": "His mother, early thirties, dark curly hair in a ponytail, warm brown eyes, and his father, mid-thirties, short dark hair and a trimmed beard; both warm and a little tired in a real way.",
+            "wardrobe": "Boy: green striped T-shirt and grey shorts. Mother: cream cotton shirt. Father: navy T-shirt."
+          },
+          "image": {
+            "beat": "puzzled and impatient",
+            "action": "The boy faces the viewer and looks straight into the camera with huge wide eyes and raised eyebrows, one hand held up with fingers spread as if counting; his parents are small and soft in the background by the wall calendar.",
+            "setting": "A bright Israeli living room in the afternoon with a plain warm cream wall above a sofa and a small wall calendar of colourful sticker squares far in the background.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm afternoon window light.",
+            "wardrobe_objects": "A few coloured crayons on the sofa cushion beside him.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream living room wall above the sofa"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "״עוד 6 ימים״,\nאתם אומרים לי.\nכמה זה בכלל?",
+              "body": "מה אתם חושבים, ומה יעזור לי"
+            },
+            {
+              "number": 2,
+              "role": "beat",
+              "headline": "אני רואה איך\nאתם מסתכלים עליי",
+              "body": "כל בוקר אני שואל כמה ימים נשארו,\nואתם נושמים עמוק וחושבים משהו.\n\nאני לא יודע לקרוא מחשבות,\nאבל אני **מרגיש** אותן.\nאז הנה מה שאני רוצה לענות לכם.",
+              "scene": {
+                "action": "The boy stands in front of his parents in the living room, looking up at them with a curious face while they glance at each other.",
+                "setting": "A bright Israeli family living room in the afternoon, a big wall calendar with only colourful sticker squares next to a cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 3,
+              "role": "beat",
+              "headline": "״הוא שואל שוב,\nכמה ימים נשארו?״",
+              "body": "אני לא שואל כדי להציק לכם.\n״עוד שבוע״ לא אומר לי כלום.\n## מה יעזור לי:\nלפתוח איתי לוח שנה\nולספור את הימים **ביחד**.",
+              "label": "אתם חושבים:",
+              "scene": {
+                "action": "The boy and his mother sit on the floor in front of a big wall calendar, the boy pointing a finger at one square while his father watches smiling.",
+                "setting": "A bright Israeli family living room in the afternoon, a big wall calendar with only colourful sticker squares next to a cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 4,
+              "role": "beat",
+              "headline": "״אפשר כבר\nלדבר על משהו אחר?״",
+              "body": "אני מדבר על זה כי אני מחכה כל כך.\nהמחשבה על יום ההולדת לא עוזבת אותי.\n## מה יעזור לי:\nריבוע על הלוח לכל יום,\nשאצייר בו **כוכב** בעצמי.",
+              "label": "אתם חושבים:",
+              "scene": {
+                "action": "The boy kneels at a low paper calendar on the floor and draws a big star in one square with a crayon, his tongue between his teeth.",
+                "setting": "A bright Israeli family living room in the afternoon, a big wall calendar with only colourful sticker squares next to a cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 5,
+              "role": "beat",
+              "headline": "״איך מסבירים לו\nמתי זה יגיע?״",
+              "body": "״אחרי שני סופי שבוע״ אני לא מבין.\n## מה יעזור לי:\n> ״אחרי עוד שלוש פעמים שיש חוג.״\nאת זה אני **מכיר**.",
+              "label": "אתם חושבים:",
+              "scene": {
+                "action": "The boy holds up three fingers while his father crouches beside him and nods, a small swimming bag hanging on the hook behind them.",
+                "setting": "A bright Israeli family living room in the afternoon, a big wall calendar with only colourful sticker squares next to a cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 6,
+              "role": "beat",
+              "headline": "״הוא כל כך נסער,\nמה לעשות?״",
+              "body": "כשאני מתרגש, אני לא שומע אתכם.\nלא עושה דווקא. הלב שלי **רץ**.\n## מה יעזור לי:\n> ״עידו, עוד חמש דקות נגמר המשחק.״\nאז אספיק לסיים.",
+              "label": "אתם חושבים:",
+              "scene": {
+                "action": "The boy plays with colourful building blocks on the carpet while his mother kneels next to him and gently shows five fingers with a warm smile.",
+                "setting": "A bright Israeli family living room in the afternoon, a big wall calendar with only colourful sticker squares next to a cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 7,
+              "role": "beat",
+              "headline": "״הוא יתפרק\nבדיוק ביום הגדול?״",
+              "body": "אולי קצת. ואם כן, אני אצטרך אתכם.\n## מה יעזור לי:\nאיתות סודי שרק אנחנו מכירים.\nאצבע על הכתף שלי, וזה אומר:\n> ״עידו, הלב רץ. נעצור רגע.״",
+              "label": "ואחרונה:",
+              "scene": {
+                "action": "The father rests one hand lightly on the boy's shoulder while the boy takes a slow deep breath with closed eyes, the mother smiling beside them.",
+                "setting": "A bright Israeli family living room in the afternoon, a big wall calendar with only colourful sticker squares next to a cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 8,
+              "role": "turn",
+              "headline": "אז הנה מה שאני מבקש",
+              "body": "לוח שנה שאפשר לראות.\nריבוע לכל יום, ומדבקה בכל ערב.\nחמש דקות לפני שנגמר משהו.\nואיתות סודי ביני לביניכם.\n\nככה אחכה ליום ההולדת **יחד** איתכם.",
+              "scene": {
+                "action": "The whole family stands together in front of the wall calendar, the boy between his parents, all three looking at it with happy faces.",
+                "setting": "A bright Israeli family living room in the afternoon, a big wall calendar with only colourful sticker squares next to a cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 9,
+              "role": "story_cta",
+              "headline": "אפשר גם לעזור להם\nעם ההמתנה ליום הולדת\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבו \"הולדת\"\nואשלח לכם קישור להכנת הספר",
+              "scene": {
+                "action": "The boy sleeps peacefully in bed, a small star sticker on his pyjamas, his mother's hand resting gently on the blanket, his father smiling at the door.",
+                "setting": "A cosy Israeli child bedroom in the evening with a plain warm cream wall and a small night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "״עוד 6 ימים״ ואני לא יודע כמה זה",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "The imagined voice of this one child; the facts behind it are claimed on slides 3 to 7."
+            },
+            {
+              "slide": 3,
+              "wording_he": "״עוד שבוע״ לא אומר לי כלום, ולוח שמונים עליו ימים עוזר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-brightly"
+              ],
+              "supports": "Brightly: explanations like 'in a week' feel arbitrary when you're little; a calendar used to count the days until a significant event."
+            },
+            {
+              "slide": 4,
+              "wording_he": "ריבוע לכל יום שמקשטים בעצמם",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs-cal"
+              ],
+              "supports": "PBS KIDS: invite the child to decorate day squares and number the days with stickers; birthdays are an occasion to learn to keep track of days."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לקשור את הזמן למשהו מוכר, כמו חוג",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-brightly"
+              ],
+              "supports": "Brightly: kids internalize calendar concepts when they are put in the context of their own lives."
+            },
+            {
+              "slide": 6,
+              "wording_he": "להגיד חמש דקות לפני שנגמר משחק",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-understood"
+              ],
+              "supports": "Understood: plan on giving a five-minute notice when you see they start to get louder and too excited."
+            },
+            {
+              "slide": 7,
+              "wording_he": "איתות שמוסכם מראש כשהילד מתרגש",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-understood"
+              ],
+              "supports": "Understood: an agreed-upon signal when they seem to be getting too excited; making them aware of how they act and feel can help over time."
+            },
+            {
+              "slide": 8,
+              "wording_he": "סיכום שקופיות 3 עד 7, בלי עובדה חדשה",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "Our recap in the child's imagined voice."
+            },
+            {
+              "slide": 9,
+              "wording_he": "ספר יכול להיות עוד כלי שעוזר להבין את הזמן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-brightly"
+              ],
+              "supports": "Brightly: there are lots of great books that help kids with calendar and time concepts. The page is about calendar books in general; the personalised book is offered as one more tool. No promise of a result."
+            },
+            {
+              "slide": 9,
+              "wording_he": "ספר מותאם אישית שבו הילד מככב",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo",
+                "site-preview"
+              ],
+              "supports": "Live site, 2026-10-31: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free."
+            }
+          ],
+          "conversion_rationale": "משפט שכל הורה אומר, ושאלה אמיתית על מה שילד בן חמש מבין. כל מחשבה של ההורים מקבלת פעולה קטנה שאפשר לעשות כבר מחר.",
+          "code_word": "הולדת",
+          "cta": "אפשר גם לעזור להם עם ההמתנה ליום הולדת בעזרת ספר מותאם אישית.\nתכתבו \"הולדת\" ואשלח לכם קישור להכנת הספר",
+          "cta_style": "book_link",
+          "caption": "אמא ואבא, כשאתם אומרים ״עוד 6 ימים״ אני לא מבין כמה זה.\nתפתחו איתי לוח שנה ותספרו איתי ריבועים.\nתגידו לי חמש דקות לפני שנגמר משחק.\nותמצאו איתי איתות סודי כשהלב שלי רץ.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם ההמתנה ליום הולדת בעזרת ספר מותאם אישית.\nתכתבו \"הולדת\" ואשלח לכם קישור להכנת הספר",
+          "sources": [
+            {
+              "id": "src-brightly",
+              "title": "Tips, Tricks, and Books for Helping Kids Understand Calendars",
+              "publisher": "Brightly (Penguin Random House), written by a kindergarten and preschool teacher",
+              "url": "https://www.readbrightly.com/books-help-kids-understand-calendars",
+              "accessed": "2026-10-31",
+              "quote": "explanations like “on Wednesday,” “in a week,” or “in the fall” feel arbitrary when you’re little. ... Kids are more likely to internalize calendar concepts and patterns when they can put them in the context of their own lives. ... Ask them to point to “yesterday, today, and tomorrow,” find specific day numbers, or count the days or weeks until a significant event. ... Of course, there are lots of great books that help kids commit the days of the week and months of the year to memory, too.",
+              "supports": "A week or a month is an abstract unit for a young child; a calendar used to count the days until an event, and time tied to things from the child's own life, make it concrete. A US early educator's parenting article, applied to Israeli families as general advice."
+            },
+            {
+              "id": "src-pbs-cal",
+              "title": "Create a Kid's Calendar in Two Ways",
+              "publisher": "PBS KIDS for Parents, 23 Jul 2018",
+              "url": "https://www.pbs.org/parents/crafts-and-experiments/create-a-kids-calendar",
+              "accessed": "2026-10-31",
+              "quote": "Waiting for big events like birthdays, holidays, or the start of school are great opportunities to for your child to learn to keep track of days and months. ... Invite your child to decorate day squares on a store-bought or recycled calendar to reflect some of the activities that they do on certain days. ... Encourage your child to number the days of the month and decorate the calendar with pictures, stickers, or other craft supplies.",
+              "supports": "Waiting for a birthday is an occasion to learn to track days; the child decorates and numbers the squares of a calendar with pictures and stickers."
+            },
+            {
+              "id": "src-understood",
+              "title": "How to help your preschooler manage overexcitement",
+              "publisher": "Understood, 5 Aug 2019",
+              "url": "https://www.understood.org/en/articles/how-to-help-your-preschooler-manage-overexcitement",
+              "accessed": "2026-10-31",
+              "quote": "Plan on giving a five-minute notice when you see they start to get louder and too excited. ... It may help your preschooler if you have an agreed-upon signal to give them when they seem to be getting too excited. ... Making your child more aware of how they act and feel when they’re getting overexcited can eventually help your child stay calmer.",
+              "supports": "A five-minute notice, an agreed signal and naming what you see when a preschooler gets overexcited. The page is about overexcitement in general; applied to the days before a birthday. No promise of a result."
+            }
+          ],
+          "post_text": {
+            "caption": "אמא ואבא, כשאתם אומרים ״עוד 6 ימים״ אני לא מבין כמה זה. 🎂\nתפתחו איתי לוח שנה ותספרו איתי ריבועים.\nתגידו לי חמש דקות לפני שנגמר משחק.\nותמצאו איתי איתות סודי כשהלב שלי רץ.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם ההמתנה ליום הולדת בעזרת ספר מותאם אישית.\nתכתבו \"הולדת\" ואשלח לכם קישור להכנת הספר 📖",
+            "fb_text": "אני רואה איך 🎂\nאתם מסתכלים עליי\nכל בוקר אני שואל כמה ימים נשארו,\nואתם נושמים עמוק וחושבים משהו.\nאני לא יודע לקרוא מחשבות,\nאבל אני מרגיש אותן.\nאז הנה מה שאני רוצה לענות לכם.\n\n״הוא שואל שוב,\nכמה ימים נשארו?״\nאני לא שואל כדי להציק לכם.\n״עוד שבוע״ לא אומר לי כלום.\nמה יעזור לי:\nלפתוח איתי לוח שנה\nולספור את הימים ביחד.\n\n״אפשר כבר\nלדבר על משהו אחר?״\nאני מדבר על זה כי אני מחכה כל כך.\nהמחשבה על יום ההולדת לא עוזבת אותי.\nמה יעזור לי:\nריבוע על הלוח לכל יום,\nשאצייר בו כוכב בעצמי.\n\n״איך מסבירים לו\nמתי זה יגיע?״\n״אחרי שני סופי שבוע״ אני לא מבין.\nמה יעזור לי:\n״אחרי עוד שלוש פעמים שיש חוג.״\nאת זה אני מכיר.\n\n״הוא כל כך נסער,\nמה לעשות?״\nכשאני מתרגש, אני לא שומע אתכם.\nלא עושה דווקא. הלב שלי רץ.\nמה יעזור לי:\n״עידו, עוד חמש דקות נגמר המשחק.״\nאז אספיק לסיים.\n\n״הוא יתפרק\nבדיוק ביום הגדול?״\nאולי קצת. ואם כן, אני אצטרך אתכם.\nמה יעזור לי:\nאיתות סודי שרק אנחנו מכירים.\nאצבע על הכתף שלי, וזה אומר:\n״עידו, הלב רץ. נעצור רגע.״\n\nאז הנה מה שאני מבקש\nלוח שנה שאפשר לראות.\nריבוע לכל יום, ומדבקה בכל ערב.\nחמש דקות לפני שנגמר משהו.\nואיתות סודי ביני לביניכם.\nככה אחכה ליום ההולדת יחד איתכם.\n\nאפשר גם לעזור להם\nעם ההמתנה ליום הולדת\nבעזרת ספר מותאם אישית.\nתכתבו \"הולדת\"\nואשלח לכם קישור להכנת הספר 📖"
+          }
+        },
+        {
+          "id": "kid-2",
+          "structure": "letter",
+          "topic_id": "birthday-countdown",
+          "title": "מכתב לאמא על הימים עד ההולדת",
+          "angle": "מכתב מהילדה לאמא: שלוש בקשות קטנות שעוזרות לחכות ליום הולדת, והבטחה שאין צורך בשלמות.",
+          "target_parent": "אמהות לילדה בת 4 עד 6 שמתרגשת ושואלת על ההולדת כל בוקר.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-letter",
+            "gap": "What does the girl want to tell her mother about the days before her birthday?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "a2",
+            "mechanism": "perspective_shift",
+            "slide2_move": "first_answer"
+          },
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "שירה",
+          "character_anchor": {
+            "child": "A 5-year-old Israeli girl with shoulder-length straight black hair held by a small yellow clip, round face, dark eyes and light olive skin; about 105 cm tall.",
+            "parent": "Her mother, early thirties, light brown wavy hair in a loose bun, kind green eyes; warm and a little tired in a real way.",
+            "wardrobe": "Girl: yellow cotton dress with white socks. Mother: soft blue linen shirt."
+          },
+          "image": {
+            "beat": "bursting with excitement",
+            "action": "The girl faces the viewer and looks straight into the camera with an open-mouthed gasp and wide sparkling eyes, both hands pressed to her cheeks; her mother is small and soft in the background by the kitchen doorway.",
+            "setting": "A cosy Israeli kitchen in soft morning light with a plain warm cream wall above the counter and a small paper calendar far in the background.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm morning light.",
+            "wardrobe_objects": "A little paper party hat on the counter next to her.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream kitchen wall above the counter"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא,\nרציתי להגיד לך\nעל הימים עד ההולדת",
+              "body": "מה יעזור לי לחכות, במכתב אחד"
+            },
+            {
+              "number": 2,
+              "role": "beat",
+              "headline": "אמא שלי,",
+              "body": "אני מתעוררת בבוקר,\nועוד לפני שקמתי אני חושבת:\nכמה ימים נשארו?\n\nאז כתבתי לך מכתב.\nיש בו דברים שיעזרו לי **לחכות**.",
+              "scene": {
+                "action": "The girl sits up in bed in the morning with a thoughtful face, hugging her knees, sunlight on the blanket.",
+                "setting": "A cosy Israeli child bedroom and kitchen in soft morning light, a plain cream wall, a paper calendar with only sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 3,
+              "role": "beat",
+              "headline": "",
+              "body": "אמרת לי ״עוד שבוע״.\nאבל אצלי שבוע זה ענן גדול.\n\nאפשר לפתוח לוח שנה ביחד?\nנספור עם האצבע, יום אחרי יום,\nעד הריבוע של **יום ההולדת**.",
+              "scene": {
+                "action": "The girl and her mother sit on the kitchen floor in front of a big paper calendar, the girl tracing a line along the squares with her finger.",
+                "setting": "A cosy Israeli child bedroom and kitchen in soft morning light, a plain cream wall, a paper calendar with only sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 4,
+              "role": "beat",
+              "headline": "",
+              "body": "ואם אפשר, אני רוצה לצייר בעצמי\nעל כל ריבוע.\nכוכב ליום שיש גן.\nלב ליום שסבתא באה.\n\nככה כל יום מקבל **פנים**.",
+              "scene": {
+                "action": "The girl kneels at the calendar and draws a heart in a square with a red crayon while her mother holds the page steady.",
+                "setting": "A cosy Israeli child bedroom and kitchen in soft morning light, a plain cream wall, a paper calendar with only sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 5,
+              "role": "beat",
+              "headline": "",
+              "body": "יש ימים שאני כל כך מתרגשת\nשאני לא שומעת מה את אומרת.\nאני לא מתעלמת ממך.\n\nהלב שלי פשוט **קופץ** חזק,\nוהרגליים קופצות איתו.",
+              "scene": {
+                "action": "The girl bounces up and down in the living room with a wide grin and her arms in the air, her mother watching with an amused smile.",
+                "setting": "A cosy Israeli child bedroom and kitchen in soft morning light, a plain cream wall, a paper calendar with only sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 6,
+              "role": "beat",
+              "headline": "",
+              "body": "כשאני באמצע משחק,\nתגידי לי חמש דקות לפני.\n> ״שירה, עוד חמש דקות יוצאים.״\nככה אספיק לסיים **לאט**.",
+              "scene": {
+                "action": "The girl plays with a doll house on the carpet while her mother crouches beside her and shows five fingers with a gentle smile.",
+                "setting": "A cosy Israeli child bedroom and kitchen in soft morning light, a plain cream wall, a paper calendar with only sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 7,
+              "role": "beat",
+              "headline": "",
+              "body": "ואם את רואה שאני קופצת,\nתגידי לי מה את רואה.\n> ״שירה, אני רואה שהגוף שלך קופץ.״\nככה אני מבינה מה קורה בתוכי,\nואולי אצליח להירגע **קצת**.",
+              "scene": {
+                "action": "The mother kneels in front of the girl and looks at her kindly, the girl taking a slow breath with her hand on her tummy.",
+                "setting": "A cosy Israeli child bedroom and kitchen in soft morning light, a plain cream wall, a paper calendar with only sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 8,
+              "role": "beat",
+              "headline": "",
+              "body": "וביום ההולדת עצמו\nאני לא צריכה שהכול יהיה מושלם.\nאני צריכה שתשבי איתי בבוקר\nותספרי איתי את הריבוע האחרון.\n\n**אוהבת, שירה**",
+              "scene": {
+                "action": "In the morning the girl and her mother sit close together on the floor in front of the calendar with every square decorated, both smiling.",
+                "setting": "A cosy Israeli child bedroom and kitchen in soft morning light, a plain cream wall, a paper calendar with only sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 9,
+              "role": "story_cta",
+              "headline": "אפשר גם לעזור להם\nעם ההמתנה ליום הולדת\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבי \"הולדת\"\nואשלח לך קישור להכנת הספר",
+              "scene": {
+                "action": "The girl sleeps peacefully in bed with a small paper crown on the shelf beside her, her mother sitting on the bed edge smiling softly.",
+                "setting": "A cosy Israeli child bedroom in the evening with a plain warm cream wall and a small night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "מכתב ממני עם מה שיעזור לי לחכות",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "The imagined voice of this one child; the facts behind it are claimed on slides 3 to 7."
+            },
+            {
+              "slide": 3,
+              "wording_he": "שבוע זה ענן גדול, ולוח שנה שסופרים עליו עוזר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-brightly"
+              ],
+              "supports": "Brightly: 'in a week' feels arbitrary when you're little; ask them to count the days or weeks until a significant event."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לצייר בעצמה על כל ריבוע ביום",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs-cal"
+              ],
+              "supports": "PBS KIDS: invite the child to decorate day squares to reflect the activities they do on certain days."
+            },
+            {
+              "slide": 6,
+              "wording_he": "להגיד חמש דקות לפני שנגמר משחק",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-understood"
+              ],
+              "supports": "Understood: plan on giving a five-minute notice when you see they start to get louder and too excited."
+            },
+            {
+              "slide": 7,
+              "wording_he": "לתאר לילדה מה רואים אצלה כשהיא מתרגשת",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-understood"
+              ],
+              "supports": "Understood: making your child more aware of how they act and feel when they're getting overexcited can eventually help them stay calmer."
+            },
+            {
+              "slide": 8,
+              "wording_he": "סיום המכתב, בלי עובדה חדשה",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "Our closing in the child's imagined voice."
+            },
+            {
+              "slide": 9,
+              "wording_he": "ספר יכול להיות עוד כלי שעוזר להבין את הזמן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-brightly"
+              ],
+              "supports": "Brightly: there are lots of great books that help kids with calendar and time concepts. The page is about calendar books in general; the personalised book is offered as one more tool. No promise of a result."
+            },
+            {
+              "slide": 9,
+              "wording_he": "ספר מותאם אישית שבו הילד מככב",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo",
+                "site-preview"
+              ],
+              "supports": "Live site, 2026-10-31: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free."
+            }
+          ],
+          "conversion_rationale": "מכתב אישי ללב של אמא, עם בקשות קטנות שאפשר לעשות כבר הערב. כותרת עם שאלה פתוחה ומכתב שמסתיים בחתימה.",
+          "code_word": "הולדת",
+          "cta": "אפשר גם לעזור להם עם ההמתנה ליום הולדת בעזרת ספר מותאם אישית.\nתכתבי \"הולדת\" ואשלח לך קישור להכנת הספר",
+          "cta_style": "book_link",
+          "caption": "אמא, רציתי להגיד לך על הימים עד ההולדת שלי.\nתפתחי איתי לוח שנה ותספרי איתי, יום אחרי יום.\nתני לי לצייר כוכב או לב על כל ריבוע.\nותגידי לי חמש דקות לפני שנגמר משחק.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nאפשר גם לעזור להם עם ההמתנה ליום הולדת בעזרת ספר מותאם אישית.\nתכתבי \"הולדת\" ואשלח לך קישור להכנת הספר",
+          "sources": [
+            {
+              "id": "src-brightly",
+              "title": "Tips, Tricks, and Books for Helping Kids Understand Calendars",
+              "publisher": "Brightly (Penguin Random House), written by a kindergarten and preschool teacher",
+              "url": "https://www.readbrightly.com/books-help-kids-understand-calendars",
+              "accessed": "2026-10-31",
+              "quote": "explanations like “on Wednesday,” “in a week,” or “in the fall” feel arbitrary when you’re little. ... Kids are more likely to internalize calendar concepts and patterns when they can put them in the context of their own lives. ... Ask them to point to “yesterday, today, and tomorrow,” find specific day numbers, or count the days or weeks until a significant event. ... Of course, there are lots of great books that help kids commit the days of the week and months of the year to memory, too.",
+              "supports": "A week or a month is an abstract unit for a young child; a calendar used to count the days until an event, and time tied to things from the child's own life, make it concrete. A US early educator's parenting article, applied to Israeli families as general advice."
+            },
+            {
+              "id": "src-pbs-cal",
+              "title": "Create a Kid's Calendar in Two Ways",
+              "publisher": "PBS KIDS for Parents, 23 Jul 2018",
+              "url": "https://www.pbs.org/parents/crafts-and-experiments/create-a-kids-calendar",
+              "accessed": "2026-10-31",
+              "quote": "Waiting for big events like birthdays, holidays, or the start of school are great opportunities to for your child to learn to keep track of days and months. ... Invite your child to decorate day squares on a store-bought or recycled calendar to reflect some of the activities that they do on certain days. ... Encourage your child to number the days of the month and decorate the calendar with pictures, stickers, or other craft supplies.",
+              "supports": "Waiting for a birthday is an occasion to learn to track days; the child decorates and numbers the squares of a calendar with pictures and stickers."
+            },
+            {
+              "id": "src-understood",
+              "title": "How to help your preschooler manage overexcitement",
+              "publisher": "Understood, 5 Aug 2019",
+              "url": "https://www.understood.org/en/articles/how-to-help-your-preschooler-manage-overexcitement",
+              "accessed": "2026-10-31",
+              "quote": "Plan on giving a five-minute notice when you see they start to get louder and too excited. ... It may help your preschooler if you have an agreed-upon signal to give them when they seem to be getting too excited. ... Making your child more aware of how they act and feel when they’re getting overexcited can eventually help your child stay calmer.",
+              "supports": "A five-minute notice, an agreed signal and naming what you see when a preschooler gets overexcited. The page is about overexcitement in general; applied to the days before a birthday. No promise of a result."
+            }
+          ],
+          "post_text": {
+            "caption": "אמא, רציתי להגיד לך על הימים עד ההולדת שלי. 🎂\nתפתחי איתי לוח שנה ותספרי איתי, יום אחרי יום.\nתני לי לצייר כוכב או לב על כל ריבוע.\nותגידי לי חמש דקות לפני שנגמר משחק.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nאפשר גם לעזור להם עם ההמתנה ליום הולדת בעזרת ספר מותאם אישית.\nתכתבי \"הולדת\" ואשלח לך קישור להכנת הספר 📖",
+            "fb_text": "אמא שלי, 🎂\nאני מתעוררת בבוקר,\nועוד לפני שקמתי אני חושבת:\nכמה ימים נשארו?\nאז כתבתי לך מכתב.\nיש בו דברים שיעזרו לי לחכות.\n\nאמרת לי ״עוד שבוע״.\nאבל אצלי שבוע זה ענן גדול.\nאפשר לפתוח לוח שנה ביחד?\nנספור עם האצבע, יום אחרי יום,\nעד הריבוע של יום ההולדת.\n\nואם אפשר, אני רוצה לצייר בעצמי\nעל כל ריבוע.\nכוכב ליום שיש גן.\nלב ליום שסבתא באה.\nככה כל יום מקבל פנים.\n\nיש ימים שאני כל כך מתרגשת\nשאני לא שומעת מה את אומרת.\nאני לא מתעלמת ממך.\nהלב שלי פשוט קופץ חזק,\nוהרגליים קופצות איתו.\n\nכשאני באמצע משחק,\nתגידי לי חמש דקות לפני.\n״שירה, עוד חמש דקות יוצאים.״\nככה אספיק לסיים לאט.\n\nואם את רואה שאני קופצת,\nתגידי לי מה את רואה.\n״שירה, אני רואה שהגוף שלך קופץ.״\nככה אני מבינה מה קורה בתוכי,\nואולי אצליח להירגע קצת.\n\nוביום ההולדת עצמו\nאני לא צריכה שהכול יהיה מושלם.\nאני צריכה שתשבי איתי בבוקר\nותספרי איתי את הריבוע האחרון.\nאוהבת, שירה\n\nאפשר גם לעזור להם\nעם ההמתנה ליום הולדת\nבעזרת ספר מותאם אישית.\nתכתבי \"הולדת\"\nואשלח לך קישור להכנת הספר 📖"
+          }
+        },
+        {
+          "id": "kid-3",
+          "structure": "before_after",
+          "topic_id": "birthday-countdown",
+          "title": "השבוע שלפני יום ההולדת היה פעם אחר",
+          "angle": "פעם ושאלות כל דקה ובערב קפיצות, ואז לוח עם מדבקות, ומאז התראה של חמש דקות ואיתות שקט.",
+          "target_parent": "הורים לילד בן 4 עד 6 שמתרגש מאוד לפני יום הולדת ושואל כל היום.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "milestone",
+          "hook": {
+            "formula": "milestone-week",
+            "gap": "What changed for the boy in the week before his birthday, and what helps him now?",
+            "payoff_slide": 4,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "a3",
+            "mechanism": "anticipation",
+            "slide2_move": "name_trigger"
+          },
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "אורי",
+          "character_anchor": {
+            "child": "A 5-year-old Israeli boy with curly light brown hair, a few freckles across his nose, round face and hazel eyes; about 105 cm tall.",
+            "parent": "His mother, early thirties, straight brown hair to the shoulders, brown eyes, and his father, mid-thirties, short light brown hair and glasses; both warm and a little tired in a real way.",
+            "wardrobe": "Boy: blue-grey sweatshirt and beige trousers. Mother: mustard cardigan. Father: grey T-shirt."
+          },
+          "image": {
+            "beat": "wide-eyed anticipation",
+            "action": "The boy faces the viewer and looks straight into the camera with a giant grin and wide shining eyes, both fists raised in front of his chest; his parents are small and soft in the background beside the wall calendar.",
+            "setting": "A bright Israeli living room in soft daylight with a plain warm cream wall above a sofa and a wall calendar of sticker squares far in the background.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm daylight from a window.",
+            "wardrobe_objects": "A sheet of round stickers in his hand.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream living room wall above the sofa"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "השבוע שלפני\nיום ההולדת שלי\nהיה פעם אחר",
+              "body": "מה השתנה אצלי ומה עוזר לי"
+            },
+            {
+              "number": 2,
+              "role": "beat",
+              "headline": "פעם שאלתי כל דקה",
+              "body": "שבוע לפני יום ההולדת\nשאלתי כל דקה: ״זה מחר?״\nאמרתם ״עוד קצת״,\nולא הבנתי **כמה** זה קצת.",
+              "label": "פעם",
+              "scene": {
+                "action": "The boy tugs at his father's sleeve with an eager face while his father, holding a coffee cup, looks down at him with a patient smile.",
+                "setting": "A bright Israeli family living room in soft daylight, a plain cream wall, a large wall calendar with only colourful sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 3,
+              "role": "beat",
+              "headline": "ופעם לא ישנתי טוב",
+              "body": "בערב הייתי כל כך מתרגש,\nשקפצתי על הספה וצעקתי.\nאמרתם ״תירגע כבר״,\nואני לא ידעתי **איך**.",
+              "label": "פעם",
+              "scene": {
+                "action": "The boy bounces on the sofa cushions in his pyjamas with his arms in the air while his mother stands nearby holding a folded blanket.",
+                "setting": "A bright Israeli family living room in soft daylight, a plain cream wall, a large wall calendar with only colourful sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 4,
+              "role": "beat",
+              "headline": "ואז תלינו לוח על הקיר",
+              "body": "לוח גדול, עם כל החודש.\nואני קיבלתי מדבקות\nלהדביק על כל יום שעבר.\nפתאום ראיתי את היום הגדול **מגיע**.",
+              "label": "ואז",
+              "scene": {
+                "action": "The boy stands on tiptoe pressing a round sticker onto a big wall calendar while his parents hold the corners and smile.",
+                "setting": "A bright Israeli family living room in soft daylight, a plain cream wall, a large wall calendar with only colourful sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 5,
+              "role": "beat",
+              "headline": "ומאז אני סופר ריבועים",
+              "body": "בבוקר אני מדביק מדבקה\nואחר כך סופר כמה נשארו.\nשש, חמש, ארבע.\nאני כבר **לא שואל** כל דקה.",
+              "label": "ומאז",
+              "scene": {
+                "action": "In the morning the boy sticks a round sticker on the calendar and counts the empty squares with a pointed finger, a bowl of cereal on the table behind him.",
+                "setting": "A bright Israeli family living room in soft daylight, a plain cream wall, a large wall calendar with only colourful sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 6,
+              "role": "beat",
+              "headline": "ומאז אתם מזהירים אותי",
+              "body": "אתם אומרים לי חמש דקות לפני\nשנגמר משהו.\n> ״אורי, עוד חמש דקות ונסיים.״\nככה אני **מספיק** להתכונן.",
+              "label": "ומאז",
+              "scene": {
+                "action": "The boy builds a tower of wooden blocks while his mother crouches next to him and shows five fingers, both calm.",
+                "setting": "A bright Israeli family living room in soft daylight, a plain cream wall, a large wall calendar with only colourful sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 7,
+              "role": "beat",
+              "headline": "ומאז יש לנו איתות",
+              "body": "אצבע על הכתף שלי,\nואני יודע שהלב רץ.\nאין צעקות, אין ״תירגע״.\nרק עוצרים, נושמים,\nוממשיכים **ביחד**.",
+              "label": "ומאז",
+              "scene": {
+                "action": "The father rests a finger lightly on the boy's shoulder while the boy breathes in deeply with closed eyes, a quiet smile on his face.",
+                "setting": "A bright Israeli family living room in soft daylight, a plain cream wall, a large wall calendar with only colourful sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 8,
+              "role": "beat",
+              "headline": "כשהלוח לא לידי",
+              "body": "כשאנחנו אצל סבתא והלוח נשאר בבית,\nפעם חוזר ואני שואל שוב.\n## מה יעזור לי:\nלשאול אותי ״כמה ריבועים נשארו?״\nואני סופר **בקול**.",
+              "label": "מה מחזיר את פעם",
+              "scene": {
+                "action": "The boy sits next to his grandmother at a kitchen table, counting on his fingers while his parents smile in the doorway.",
+                "setting": "A warm Israeli grandmother's kitchen in the afternoon with a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 9,
+              "role": "turn",
+              "headline": "אז הנה מה שאני רוצה",
+              "body": "לוח שאני רואה בכל בוקר.\nחמש דקות לפני.\nואיתות קטן ביני לביניכם.\n\nוביום ההולדת עצמו,\nשתשבו איתי לספור את **הריבוע האחרון**.",
+              "scene": {
+                "action": "The family sits on the carpet together in front of the full wall calendar, the boy in the middle with a parent's arm around each shoulder.",
+                "setting": "A bright Israeli family living room in soft daylight, a plain cream wall, a large wall calendar with only colourful sticker squares. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 10,
+              "role": "story_cta",
+              "headline": "אפשר גם לעזור להם\nעם ההמתנה ליום הולדת\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבו \"הולדת\"\nואשלח לכם קישור להכנת הספר",
+              "scene": {
+                "action": "The boy sleeps peacefully in bed with a round sticker on his pyjama sleeve, his parents smiling together at the bedroom door.",
+                "setting": "A cosy Israeli child bedroom in the evening with a plain warm cream wall and a small night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "השבוע שלפני יום ההולדת היה פעם אחר",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "The imagined voice of this one child; the facts behind it are claimed on slides 4 to 8."
+            },
+            {
+              "slide": 4,
+              "wording_he": "לוח שנה עם מדבקות לכל יום",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs-cal",
+                "src-brightly"
+              ],
+              "supports": "PBS KIDS: waiting for birthdays is a chance to keep track of days; decorate and number the days with stickers. Brightly: count the days or weeks until a significant event."
+            },
+            {
+              "slide": 6,
+              "wording_he": "להגיד חמש דקות לפני שנגמר משהו",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-understood"
+              ],
+              "supports": "Understood: plan on giving a five-minute notice when you see they start to get louder and too excited."
+            },
+            {
+              "slide": 7,
+              "wording_he": "איתות מוסכם במקום ״תירגע״",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-understood"
+              ],
+              "supports": "Understood: an agreed-upon signal when they seem to be getting too excited."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לשאול כמה ריבועים נשארו ולספור בקול",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-brightly"
+              ],
+              "supports": "Brightly: ask them to count the days or weeks until a significant event."
+            },
+            {
+              "slide": 9,
+              "wording_he": "סיכום, בלי עובדה חדשה",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "Our recap in the child's imagined voice."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר יכול להיות עוד כלי שעוזר להבין את הזמן",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-brightly"
+              ],
+              "supports": "Brightly: there are lots of great books that help kids with calendar and time concepts. The page is about calendar books in general; the personalised book is offered as one more tool. No promise of a result."
+            },
+            {
+              "slide": 10,
+              "wording_he": "ספר מותאם אישית שבו הילד מככב",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo",
+                "site-preview"
+              ],
+              "supports": "Live site, 2026-10-31: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free."
+            }
+          ],
+          "conversion_rationale": "מבנה של פעם ועכשיו שמראה שינוי קטן ואמיתי: לוח, התראה, איתות. הורה מזהה את הקפיצות על הספה ואת השאלה כל דקה.",
+          "code_word": "הולדת",
+          "cta": "אפשר גם לעזור להם עם ההמתנה ליום הולדת בעזרת ספר מותאם אישית.\nתכתבו \"הולדת\" ואשלח לכם קישור להכנת הספר",
+          "cta_style": "book_link",
+          "caption": "אמא ואבא, השבוע שלפני יום ההולדת שלי היה פעם אחר.\nתלו איתי לוח שנה ותנו לי מדבקה על כל יום.\nתגידו לי חמש דקות לפני שנגמר משהו.\nותחליטו איתי על איתות שקט כשהלב שלי רץ.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם ההמתנה ליום הולדת בעזרת ספר מותאם אישית.\nתכתבו \"הולדת\" ואשלח לכם קישור להכנת הספר",
+          "sources": [
+            {
+              "id": "src-brightly",
+              "title": "Tips, Tricks, and Books for Helping Kids Understand Calendars",
+              "publisher": "Brightly (Penguin Random House), written by a kindergarten and preschool teacher",
+              "url": "https://www.readbrightly.com/books-help-kids-understand-calendars",
+              "accessed": "2026-10-31",
+              "quote": "explanations like “on Wednesday,” “in a week,” or “in the fall” feel arbitrary when you’re little. ... Kids are more likely to internalize calendar concepts and patterns when they can put them in the context of their own lives. ... Ask them to point to “yesterday, today, and tomorrow,” find specific day numbers, or count the days or weeks until a significant event. ... Of course, there are lots of great books that help kids commit the days of the week and months of the year to memory, too.",
+              "supports": "A week or a month is an abstract unit for a young child; a calendar used to count the days until an event, and time tied to things from the child's own life, make it concrete. A US early educator's parenting article, applied to Israeli families as general advice."
+            },
+            {
+              "id": "src-pbs-cal",
+              "title": "Create a Kid's Calendar in Two Ways",
+              "publisher": "PBS KIDS for Parents, 23 Jul 2018",
+              "url": "https://www.pbs.org/parents/crafts-and-experiments/create-a-kids-calendar",
+              "accessed": "2026-10-31",
+              "quote": "Waiting for big events like birthdays, holidays, or the start of school are great opportunities to for your child to learn to keep track of days and months. ... Invite your child to decorate day squares on a store-bought or recycled calendar to reflect some of the activities that they do on certain days. ... Encourage your child to number the days of the month and decorate the calendar with pictures, stickers, or other craft supplies.",
+              "supports": "Waiting for a birthday is an occasion to learn to track days; the child decorates and numbers the squares of a calendar with pictures and stickers."
+            },
+            {
+              "id": "src-understood",
+              "title": "How to help your preschooler manage overexcitement",
+              "publisher": "Understood, 5 Aug 2019",
+              "url": "https://www.understood.org/en/articles/how-to-help-your-preschooler-manage-overexcitement",
+              "accessed": "2026-10-31",
+              "quote": "Plan on giving a five-minute notice when you see they start to get louder and too excited. ... It may help your preschooler if you have an agreed-upon signal to give them when they seem to be getting too excited. ... Making your child more aware of how they act and feel when they’re getting overexcited can eventually help your child stay calmer.",
+              "supports": "A five-minute notice, an agreed signal and naming what you see when a preschooler gets overexcited. The page is about overexcitement in general; applied to the days before a birthday. No promise of a result."
+            }
+          ],
+          "post_text": {
+            "caption": "אמא ואבא, השבוע שלפני יום ההולדת שלי היה פעם אחר. 🎂\nתלו איתי לוח שנה ותנו לי מדבקה על כל יום.\nתגידו לי חמש דקות לפני שנגמר משהו.\nותחליטו איתי על איתות שקט כשהלב שלי רץ.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם ההמתנה ליום הולדת בעזרת ספר מותאם אישית.\nתכתבו \"הולדת\" ואשלח לכם קישור להכנת הספר 📖",
+            "fb_text": "פעם שאלתי כל דקה 🎂\nשבוע לפני יום ההולדת\nשאלתי כל דקה: ״זה מחר?״\nאמרתם ״עוד קצת״,\nולא הבנתי כמה זה קצת.\n\nופעם לא ישנתי טוב\nבערב הייתי כל כך מתרגש,\nשקפצתי על הספה וצעקתי.\nאמרתם ״תירגע כבר״,\nואני לא ידעתי איך.\n\nואז תלינו לוח על הקיר\nלוח גדול, עם כל החודש.\nואני קיבלתי מדבקות\nלהדביק על כל יום שעבר.\nפתאום ראיתי את היום הגדול מגיע.\n\nומאז אני סופר ריבועים\nבבוקר אני מדביק מדבקה\nואחר כך סופר כמה נשארו.\nשש, חמש, ארבע.\nאני כבר לא שואל כל דקה.\n\nומאז אתם מזהירים אותי\nאתם אומרים לי חמש דקות לפני\nשנגמר משהו.\n״אורי, עוד חמש דקות ונסיים.״\nככה אני מספיק להתכונן.\n\nומאז יש לנו איתות\nאצבע על הכתף שלי,\nואני יודע שהלב רץ.\nאין צעקות, אין ״תירגע״.\nרק עוצרים, נושמים,\nוממשיכים ביחד.\n\nכשהלוח לא לידי\nכשאנחנו אצל סבתא והלוח נשאר בבית,\nפעם חוזר ואני שואל שוב.\nמה יעזור לי:\nלשאול אותי ״כמה ריבועים נשארו?״\nואני סופר בקול.\n\nאז הנה מה שאני רוצה\nלוח שאני רואה בכל בוקר.\nחמש דקות לפני.\nואיתות קטן ביני לביניכם.\nוביום ההולדת עצמו,\nשתשבו איתי לספור את הריבוע האחרון.\n\nאפשר גם לעזור להם\nעם ההמתנה ליום הולדת\nבעזרת ספר מותאם אישית.\nתכתבו \"הולדת\"\nואשלח לכם קישור להכנת הספר 📖"
+          }
+        },
+        {
+          "id": "kid-4",
+          "structure": "one_day",
+          "topic_id": "sharing-toys",
+          "title": "בגן אני מחלקת הכול, בבית אני מחביאה",
+          "angle": "יום של ילדה בת 4 מהבוקר ועד המיטה, ובכל שעה דבר קטן אחד שעוזר לה לשתף: להחביא את האהוב, תור ארוך, שעון חול ומילה על ההמתנה.",
+          "target_parent": "הורים לילדה בת 3 עד 5 שמסרבת לתת צעצועים לחברים בבית.",
+          "awareness_stage": "unaware",
+          "hook_family": "reframe",
+          "hook": {
+            "formula": "two-faces",
+            "gap": "Why does a girl share everything at gan and hide her teddy bear at home, and what helps her?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "b1",
+            "mechanism": "honest_curiosity",
+            "slide2_move": "name_trigger"
+          },
+          "child_gender": "girl",
+          "addressee": "parents",
+          "child_name": "נטע",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with two short dark braids, round cheeks, big brown eyes and olive skin; about 100 cm tall.",
+            "parent": "Her mother, early thirties, dark wavy hair clipped up, warm brown eyes, and her father, mid-thirties, short dark hair and light stubble; both warm and a little tired in a real way.",
+            "wardrobe": "Girl: pink T-shirt with a small white flower and denim overalls. Mother: olive green shirt. Father: white T-shirt."
+          },
+          "image": {
+            "beat": "guarded and cheeky",
+            "action": "The girl faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks, both arms hugging a small brown teddy bear tightly to her chest; her parents are small and soft in the background by the hallway.",
+            "setting": "A warm Israeli hallway at home with a plain warm cream wall behind her and a small backpack on a hook far in the background.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm morning light from a window.",
+            "wardrobe_objects": "The small brown teddy bear in her arms.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream hallway wall above her"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "בגן אני מחלקת הכול\nבבית אני מחביאה\nאת הדובי שלי",
+              "body": "מה יעזור לי לשתף, שעה אחרי שעה"
+            },
+            {
+              "number": 2,
+              "role": "beat",
+              "headline": "הדובי נכנס לתיק",
+              "body": "אני מחביאה את הדובי\nבתוך התיק, בלי שתראו.\nאני לא רוצה שאף אחד יגע בו.\n\nזה לא כי אני **רעה**.\nהוא פשוט שלי.",
+              "label": "07:30, בבוקר",
+              "scene": {
+                "action": "The girl pushes a small brown teddy bear deep into her backpack in the hallway, glancing sideways, her mother tying her own shoes nearby.",
+                "setting": "A warm Israeli home and a sunny kindergarten, soft natural light, plain cream walls. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 3,
+              "role": "beat",
+              "headline": "בגן קל לי לחלק",
+              "body": "בגן הצבעים הם של כולם.\nאני מחלקת טושים וגם דלי חול.\nאף אחד לא שלי, אז זה **קל**.\nאבל הדובי שלי הוא **שלי**.",
+              "label": "09:15, בגן",
+              "scene": {
+                "action": "In the kindergarten the girl hands a box of colourful markers to two smiling children at a low table, the teacher watching in the background.",
+                "setting": "A sunny Israeli kindergarten classroom with low tables and a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 4,
+              "role": "beat",
+              "headline": "לפני שחברה באה אליי",
+              "body": "ביקשתי להחביא את הדובי בארון.\n## מה יעזור לי:\nשנשים בצד את הצעצוע שהכי שלי,\nואת השאר אחלוק בשמחה.",
+              "label": "16:00, לפני שחברה באה",
+              "scene": {
+                "action": "The girl stands on tiptoe and her father lifts the teddy bear onto a high shelf in her room while her mother arranges other toys on the rug.",
+                "setting": "A warm Israeli home and a sunny kindergarten, soft natural light, plain cream walls. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 5,
+              "role": "beat",
+              "headline": "היא תפסה את הדלי",
+              "body": "אני אחזתי בדלי הכתום\nוצעקתי ״שלי!״ כשהיא רצתה.\n## מה יעזור לי:\n> ״קחי תור ארוך, היא תשחק בכדור.״",
+              "label": "16:20, הדלי",
+              "scene": {
+                "action": "In the garden the girl holds an orange bucket tight against her chest while a friend stands beside her holding a red ball, the mother crouching between them calmly.",
+                "setting": "A sunny Israeli garden with a sandbox and a plain cream wall behind it. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 6,
+              "role": "beat",
+              "headline": "השעון קובע מתי מחליפים",
+              "body": "הפעם הבאתם שעון חול.\nכשהחול נגמר, מחליפים.\nזה לא אתם שאמרתם ״די״,\nזה ה**שעון**.\nאז אני לא כועסת עליכם.",
+              "label": "16:40, השעון",
+              "scene": {
+                "action": "The girl and her friend watch a big sand timer set on a low garden table, the girl holding the orange bucket with a calmer face.",
+                "setting": "A sunny Israeli garden with a low wooden table and a plain cream wall behind it. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 7,
+              "role": "beat",
+              "headline": "עכשיו אני זו שמחכה",
+              "body": "היא משחקת, ואני מחכה בצד.\nהלב שלי רוצה כבר.\n## מה יעזור לי:\n> ״קשה לחכות, נטע. קשה לכולנו.״\nואז לעשות משהו בינתיים.",
+              "label": "17:10, התור שלי",
+              "scene": {
+                "action": "The girl sits on a low garden step hugging her knees, watching her friend play with the bucket, her mother sitting beside her with a hand on her back.",
+                "setting": "A sunny Israeli garden with a low step and a plain cream wall behind it. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 8,
+              "role": "beat",
+              "headline": "מה אני מבקשת לפני השינה",
+              "body": "היום נתתי את הדלי, ואפילו חיכיתי.\nתגידו לי בקול שקט:\n> ״ראיתי שחיכית, נטע.״\nוזה יעזור לי לנסות **שוב** מחר.",
+              "label": "20:00, במיטה",
+              "scene": {
+                "action": "The girl lies in bed with her teddy bear tucked under her chin while both parents sit on the bed edge, smiling at her softly.",
+                "setting": "A cosy Israeli child bedroom in the evening with a plain cream wall and a warm night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 9,
+              "role": "story_cta",
+              "headline": "אפשר גם לעזור להם\nעם שיתוף בצעצועים\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבו \"לשתף\"\nואשלח לכם קישור להכנת הספר",
+              "scene": {
+                "action": "The girl sleeps peacefully with her teddy bear in her arms and a small orange bucket on the floor by the bed, her mother's hand resting gently on the blanket.",
+                "setting": "A cosy Israeli child bedroom in the evening with a plain warm cream wall and a small night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "בגן אני מחלקת הכול ובבית אני מחביאה",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "The imagined voice of this one child; the facts behind it are claimed on slides 4 to 8."
+            },
+            {
+              "slide": 4,
+              "wording_he": "להחביא את הצעצוע האהוב לפני שחבר מגיע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pathways"
+              ],
+              "supports": "Pathways.org: if your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date."
+            },
+            {
+              "slide": 5,
+              "wording_he": "לתת תור ארוך ולהציע לחבר משהו אחר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "ZERO TO THREE: it is okay to let children have a long turn; help the other child wait by offering a different activity."
+            },
+            {
+              "slide": 6,
+              "wording_he": "שעון חול הוא שקובע מתי מחליפים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt",
+                "src-pathways"
+              ],
+              "supports": "ZERO TO THREE: a timer is a helpful rule-keeper, it is the bell and not the adult telling the children when to share. Pathways.org: something visual like a timer shows exactly when it is time to give up a toy."
+            },
+            {
+              "slide": 7,
+              "wording_he": "להגיד לילדה שקשה לחכות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "ZERO TO THREE: it's OK to be upset when you have to wait. Waiting is hard."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לראות את הילדה ואת ההמתנה שלה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs-wait"
+              ],
+              "supports": "PBS KIDS: working through big feelings with your kids helps them feel seen and understood while they wait."
+            },
+            {
+              "slide": 9,
+              "wording_he": "סיפור יכול להדגים תורות והמתנה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs-wait"
+              ],
+              "supports": "PBS KIDS: a children's story (Daniel Tiger's Neighborhood) is used to show characters taking turns and waiting. The page is about a TV story; the personalised book is offered as one more tool. No promise of a result."
+            },
+            {
+              "slide": 9,
+              "wording_he": "ספר מותאם אישית שבו הילד מככב",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo",
+                "site-preview"
+              ],
+              "supports": "Live site, 2026-10-31: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free."
+            }
+          ],
+          "conversion_rationale": "ניגוד אמיתי בין הגן לבית שהורה מזהה, ואחריו יום שלם עם שעות על הכותרת וכלי אחד בכל שעה.",
+          "code_word": "לשתף",
+          "cta": "אפשר גם לעזור להם עם שיתוף בצעצועים בעזרת ספר מותאם אישית.\nתכתבו \"לשתף\" ואשלח לכם קישור להכנת הספר",
+          "cta_style": "book_link",
+          "caption": "אמא ואבא, בגן אני מחלקת הכול ובבית אני מחביאה את הדובי.\nתנו לי לשים בצד את הצעצוע שהכי שלי לפני שחברה באה.\nתביאו שעון חול, שהוא יגיד מתי מחליפים.\nותגידו לי ״קשה לחכות״ כשאני מחכה לתור.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nאפשר גם לעזור להם עם שיתוף בצעצועים בעזרת ספר מותאם אישית.\nתכתבו \"לשתף\" ואשלח לכם קישור להכנת הספר",
+          "sources": [
+            {
+              "id": "src-ztt",
+              "title": "Helping Young Children With Sharing",
+              "publisher": "ZERO TO THREE, 11 Aug 2017",
+              "url": "https://www.zerotothree.org/resource/helping-young-children-with-sharing/",
+              "accessed": "2026-10-31",
+              "quote": "an unwillingness to share is perfectly normal at this age! ... It is okay to let children have a “long turn” ... Help the other child wait by offering a different activity. ... The great thing about the timer is that it’s not the adult telling the children when to share, it’s the “bell.” ... It’s OK to be upset when you have to wait. Waiting is hard!",
+              "supports": "Not sharing is normal for toddlers and preschoolers; a long turn, a different activity for the waiting child, a timer as the rule-keeper and naming that waiting is hard."
+            },
+            {
+              "id": "src-pbs-wait",
+              "title": "Helping Kids Learn to Take Turns and Practice Waiting",
+              "publisher": "PBS KIDS for Parents (Samantha Gratton), 4 Aug 2023",
+              "url": "https://www.pbs.org/parents/thrive/helping-kids-learn-to-take-turns-and-practice-waiting",
+              "accessed": "2026-10-31",
+              "quote": "Practice beforehand, showing your child how to use their words when asking for a turn. ... If your child thinks someone’s turn is taking too long, help them practice asking, “Can you take a shorter turn, please?” ... In “Daniel Tiger’s Neighborhood,” Daniel and his friends have many opportunities to take turns at school and while playing at the pool.",
+              "supports": "Practising in advance how to ask for a turn with words, including asking for a shorter turn; a children's story (Daniel Tiger's Neighborhood) used to model taking turns. A US public media parenting article."
+            },
+            {
+              "id": "src-pathways",
+              "title": "Getting Preschoolers to Share…How Do You Do It?",
+              "publisher": "Pathways.org (pediatric therapists' nonprofit, last updated 18 Jul 2025)",
+              "url": "https://pathways.org/getting-preschoolers-share",
+              "accessed": "2026-10-31",
+              "quote": "If your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date! ... Something visual, like a timer, will let children know exactly when it’s time for them to give up a certain toy.",
+              "supports": "A favorite toy can be put away before a playdate; a visual timer shows when it is time to hand over a toy."
+            }
+          ],
+          "post_text": {
+            "caption": "אמא ואבא, בגן אני מחלקת הכול ובבית אני מחביאה את הדובי. 🧸\nתנו לי לשים בצד את הצעצוע שהכי שלי לפני שחברה באה.\nתביאו שעון חול, שהוא יגיד מתי מחליפים.\nותגידו לי ״קשה לחכות״ כשאני מחכה לתור.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nאפשר גם לעזור להם עם שיתוף בצעצועים בעזרת ספר מותאם אישית.\nתכתבו \"לשתף\" ואשלח לכם קישור להכנת הספר 📖",
+            "fb_text": "הדובי נכנס לתיק 🧸\nאני מחביאה את הדובי\nבתוך התיק, בלי שתראו.\nאני לא רוצה שאף אחד יגע בו.\nזה לא כי אני רעה.\nהוא פשוט שלי.\n\nבגן קל לי לחלק\nבגן הצבעים הם של כולם.\nאני מחלקת טושים וגם דלי חול.\nאף אחד לא שלי, אז זה קל.\nאבל הדובי שלי הוא שלי.\n\nלפני שחברה באה אליי\nביקשתי להחביא את הדובי בארון.\nמה יעזור לי:\nשנשים בצד את הצעצוע שהכי שלי,\nואת השאר אחלוק בשמחה.\n\nהיא תפסה את הדלי\nאני אחזתי בדלי הכתום\nוצעקתי ״שלי!״ כשהיא רצתה.\nמה יעזור לי:\n״קחי תור ארוך, היא תשחק בכדור.״\n\nהשעון קובע מתי מחליפים\nהפעם הבאתם שעון חול.\nכשהחול נגמר, מחליפים.\nזה לא אתם שאמרתם ״די״,\nזה השעון.\nאז אני לא כועסת עליכם.\n\nעכשיו אני זו שמחכה\nהיא משחקת, ואני מחכה בצד.\nהלב שלי רוצה כבר.\nמה יעזור לי:\n״קשה לחכות, נטע. קשה לכולנו.״\nואז לעשות משהו בינתיים.\n\nמה אני מבקשת לפני השינה\nהיום נתתי את הדלי, ואפילו חיכיתי.\nתגידו לי בקול שקט:\n״ראיתי שחיכית, נטע.״\nוזה יעזור לי לנסות שוב מחר.\n\nאפשר גם לעזור להם\nעם שיתוף בצעצועים\nבעזרת ספר מותאם אישית.\nתכתבו \"לשתף\"\nואשלח לכם קישור להכנת הספר 📖"
+          }
+        },
+        {
+          "id": "kid-5",
+          "structure": "short_list",
+          "topic_id": "sharing-toys",
+          "title": "אל תגידו ״תן לו״, 4 דברים שיעזרו לי",
+          "angle": "ארבעה כלים קטנים לרגע שבו חבר רוצה את הצעצוע של הילד: שעון חול, תור ארוך, להחביא את האהוב, ולתרגל מילים.",
+          "target_parent": "הורים לילד בן 3 עד 5 שאומר ״שלי״ ואוחז בצעצוע כשחבר רוצה אותו.",
+          "awareness_stage": "problem_aware",
+          "hook_family": "child_pov",
+          "hook": {
+            "formula": "child-dont",
+            "gap": "What are the four things that help a 4-year-old when a friend wants his toy, instead of being told to give it?",
+            "payoff_slide": 3,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "b2",
+            "mechanism": "perspective_shift",
+            "slide2_move": "first_answer"
+          },
+          "child_gender": "boy",
+          "addressee": "parents",
+          "child_name": "גיא",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli boy with short straight brown hair, round face, dark eyes and light olive skin; about 100 cm tall.",
+            "parent": "His mother, early thirties, long brown hair in a low ponytail, brown eyes, and his father, mid-thirties, short black hair and a trimmed beard; both warm and a little tired in a real way.",
+            "wardrobe": "Boy: red T-shirt and navy shorts. Mother: white linen shirt. Father: dark grey T-shirt."
+          },
+          "image": {
+            "beat": "stubborn and holding on",
+            "action": "The boy faces the viewer and looks straight into the camera with a dramatic pout and puffed cheeks and raised eyebrows, both arms wrapped around a red toy car pressed to his chest; his parents are small and soft in the background and a second child waits a few steps behind.",
+            "setting": "A bright Israeli playroom in the afternoon with a plain warm cream wall behind him and a low toy shelf far in the background.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm afternoon window light.",
+            "wardrobe_objects": "The red toy car held by the boy.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain warm cream playroom wall above him"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "אמא ואבא,\nאל תגידו ״תן לו״\n4 דברים שיעזרו לי",
+              "body": "כשחבר רוצה את הצעצוע שלי"
+            },
+            {
+              "number": 2,
+              "role": "beat",
+              "headline": "אני לא רע, אני לומד",
+              "body": "כשאני אוחז בצעצוע חזק,\nאני חושב ״אני רוצה אותו, עכשיו!״.\n\nאני בן 4, וזה רגיל בגיל שלי.\nאני רק **לומד** לשתף.\nאז הנה ארבעה דברים שיעזרו לי.",
+              "scene": {
+                "action": "The boy holds a red toy car tightly against his tummy and looks up at his parents with a worried frown, a friend watching from a few steps away.",
+                "setting": "A bright Israeli playroom in the afternoon with a plain cream wall, a low shelf of toys. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 3,
+              "role": "beat",
+              "headline": "שעון חול שאפשר לראות",
+              "body": "תנו לי שעון חול ליד הצעצוע.\nכשהחול נגמר, מחליפים.\nאז לא אתם אומרים לי ״די״.\nהשעון **אומר**.",
+              "label": "1: טיימר",
+              "scene": {
+                "action": "The boy and his friend sit on the rug watching a big sand timer on a low stool, the toy car between them.",
+                "setting": "A bright Israeli playroom in the afternoon with a plain cream wall, a low shelf of toys. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 4,
+              "role": "beat",
+              "headline": "תנו לי תור ארוך קודם",
+              "body": "קודם אני משחק עד שאני גמור.\n> ״גיא, קח את הזמן עם המכונית.״\nבינתיים החבר מקבל משהו אחר.\nואז אני נותן **בשמחה**.",
+              "label": "2: תור ארוך",
+              "scene": {
+                "action": "The boy drives the red toy car along the rug with a happy face while his father shows the friend a basket of building blocks on the other side of the room.",
+                "setting": "A bright Israeli playroom in the afternoon with a plain cream wall, a low shelf of toys. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 5,
+              "role": "beat",
+              "headline": "את האהוב שלי נחביא",
+              "body": "לפני שחבר בא,\nאני בוחר צעצוע אחד.\nהוא נשאר בארון, ורק שלי.\n\nאת כל השאר אפשר **לחלוק**.",
+              "label": "3: הצעצוע האהוב",
+              "scene": {
+                "action": "The boy carefully places a toy robot on a high cupboard shelf with both hands while his mother holds the cupboard door open.",
+                "setting": "A bright Israeli playroom in the afternoon with a plain cream wall, a low shelf of toys. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 6,
+              "role": "beat",
+              "headline": "בואו נתרגל לבקש תור",
+              "body": "## מה אתם רואים:\nאני תופס ולא מוכן לשחרר.\n## מה אני יכול להגיד:\n> ״אפשר תור קצר, בבקשה?״\nתתרגלו איתי לפני שהחבר **מגיע**.",
+              "label": "4: מילים לתרגל",
+              "scene": {
+                "action": "The boy and his mother sit facing each other on the rug, her holding a toy truck and him reaching out his open palm politely, both smiling.",
+                "setting": "A bright Israeli playroom in the afternoon with a plain cream wall, a low shelf of toys. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 7,
+              "role": "beat",
+              "headline": "ואם אני בוכה כשמחכים",
+              "body": "אני בוכה כשאני מחכה לתור.\nזה לא דרמה, זה באמת קשה לי.\nתגידו לי: ״קשה לחכות, גם לנו.״\nואז תעזרו לי למצוא משהו\nלעשות **בינתיים**.",
+              "scene": {
+                "action": "The boy sits on the rug with teary eyes while his father kneels beside him and holds out a picture book, a friend playing with the car in the background.",
+                "setting": "A bright Israeli playroom in the afternoon with a plain cream wall, a low shelf of toys. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 8,
+              "role": "turn",
+              "headline": "אז מה תעשו כשאגיד ״שלי״?",
+              "body": "תביאו שעון חול.\nתשאירו לי תור ארוך.\nתחביאו את האהוב.\nותתרגלו איתי מילים.\n\nאני מבטיח לנסות **יחד** איתכם.",
+              "scene": {
+                "action": "The family sits together on the playroom rug, the boy handing a toy car to his smiling friend while both parents watch happily.",
+                "setting": "A bright Israeli playroom in the afternoon with a plain cream wall, a low shelf of toys. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 9,
+              "role": "story_cta",
+              "headline": "אפשר גם לעזור להם\nעם שיתוף בצעצועים\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבו \"לשתף\"\nואשלח לכם קישור להכנת הספר",
+              "scene": {
+                "action": "The boy sleeps peacefully with the red toy car on the shelf beside his bed, his father's hand resting gently on the blanket and his mother smiling at the door.",
+                "setting": "A cosy Israeli child bedroom in the evening with a plain warm cream wall and a small night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "ארבעה דברים שיעזרו לי כשחבר רוצה את הצעצוע שלי",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "A grouping of the four tools claimed on slides 3 to 6, in the child's imagined voice."
+            },
+            {
+              "slide": 2,
+              "wording_he": "חוסר רצון לשתף הוא רגיל בגיל הזה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "ZERO TO THREE: an unwillingness to share is perfectly normal at this age; children focus on their own feelings: I want those trains, and I want them now."
+            },
+            {
+              "slide": 3,
+              "wording_he": "שעון חול הוא שקובע מתי מחליפים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt",
+                "src-pathways"
+              ],
+              "supports": "ZERO TO THREE: a timer is the bell, not the adult telling the children when to share. Pathways.org: a visual timer shows exactly when it is time to give up a toy."
+            },
+            {
+              "slide": 4,
+              "wording_he": "תור ארוך ופעילות אחרת לחבר",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "ZERO TO THREE: it is okay to let children have a long turn; help the other child wait by offering a different activity."
+            },
+            {
+              "slide": 5,
+              "wording_he": "להחביא את הצעצוע האהוב לפני שחבר מגיע",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pathways"
+              ],
+              "supports": "Pathways.org: put the absolute favorite toy away before the play date."
+            },
+            {
+              "slide": 6,
+              "wording_he": "לתרגל מראש איך מבקשים תור במילים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs-wait"
+              ],
+              "supports": "PBS KIDS: practice beforehand, showing your child how to use their words when asking for a turn; practice asking for a shorter turn."
+            },
+            {
+              "slide": 7,
+              "wording_he": "להגיד שקשה לחכות",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "ZERO TO THREE: it's OK to be upset when you have to wait. Waiting is hard."
+            },
+            {
+              "slide": 8,
+              "wording_he": "סיכום ארבעת הכלים, בלי עובדה חדשה",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "Our recap in the child's imagined voice."
+            },
+            {
+              "slide": 9,
+              "wording_he": "סיפור יכול להדגים תורות והמתנה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs-wait"
+              ],
+              "supports": "PBS KIDS: a children's story (Daniel Tiger's Neighborhood) is used to show characters taking turns and waiting. The page is about a TV story; the personalised book is offered as one more tool. No promise of a result."
+            },
+            {
+              "slide": 9,
+              "wording_he": "ספר מותאם אישית שבו הילד מככב",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo",
+                "site-preview"
+              ],
+              "supports": "Live site, 2026-10-31: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free."
+            }
+          ],
+          "conversion_rationale": "בקשה ישירה מההורים בכותרת, ומספר ברור שאפשר לשמור: ארבעה כלים שאפשר להפעיל כבר בפעם הבאה שחבר בא.",
+          "code_word": "לשתף",
+          "cta": "אפשר גם לעזור להם עם שיתוף בצעצועים בעזרת ספר מותאם אישית.\nתכתבו \"לשתף\" ואשלח לכם קישור להכנת הספר",
+          "cta_style": "book_link",
+          "caption": "אמא ואבא, אל תגידו לי ״תן לו״, יש 4 דברים שיעזרו לי.\nתנו לי שעון חול ותור ארוך עם הצעצוע.\nתנו לי להחביא את האהוב לפני שחבר בא.\nותתרגלו איתי לבקש ״אפשר תור קצר?״\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם שיתוף בצעצועים בעזרת ספר מותאם אישית.\nתכתבו \"לשתף\" ואשלח לכם קישור להכנת הספר",
+          "sources": [
+            {
+              "id": "src-ztt",
+              "title": "Helping Young Children With Sharing",
+              "publisher": "ZERO TO THREE, 11 Aug 2017",
+              "url": "https://www.zerotothree.org/resource/helping-young-children-with-sharing/",
+              "accessed": "2026-10-31",
+              "quote": "an unwillingness to share is perfectly normal at this age! ... It is okay to let children have a “long turn” ... Help the other child wait by offering a different activity. ... The great thing about the timer is that it’s not the adult telling the children when to share, it’s the “bell.” ... It’s OK to be upset when you have to wait. Waiting is hard!",
+              "supports": "Not sharing is normal for toddlers and preschoolers; a long turn, a different activity for the waiting child, a timer as the rule-keeper and naming that waiting is hard."
+            },
+            {
+              "id": "src-pbs-wait",
+              "title": "Helping Kids Learn to Take Turns and Practice Waiting",
+              "publisher": "PBS KIDS for Parents (Samantha Gratton), 4 Aug 2023",
+              "url": "https://www.pbs.org/parents/thrive/helping-kids-learn-to-take-turns-and-practice-waiting",
+              "accessed": "2026-10-31",
+              "quote": "Practice beforehand, showing your child how to use their words when asking for a turn. ... If your child thinks someone’s turn is taking too long, help them practice asking, “Can you take a shorter turn, please?” ... In “Daniel Tiger’s Neighborhood,” Daniel and his friends have many opportunities to take turns at school and while playing at the pool.",
+              "supports": "Practising in advance how to ask for a turn with words, including asking for a shorter turn; a children's story (Daniel Tiger's Neighborhood) used to model taking turns. A US public media parenting article."
+            },
+            {
+              "id": "src-pathways",
+              "title": "Getting Preschoolers to Share…How Do You Do It?",
+              "publisher": "Pathways.org (pediatric therapists' nonprofit, last updated 18 Jul 2025)",
+              "url": "https://pathways.org/getting-preschoolers-share",
+              "accessed": "2026-10-31",
+              "quote": "If your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date! ... Something visual, like a timer, will let children know exactly when it’s time for them to give up a certain toy.",
+              "supports": "A favorite toy can be put away before a playdate; a visual timer shows when it is time to hand over a toy."
+            }
+          ],
+          "post_text": {
+            "caption": "אמא ואבא, אל תגידו לי ״תן לו״, יש 4 דברים שיעזרו לי. 🧸\nתנו לי שעון חול ותור ארוך עם הצעצוע.\nתנו לי להחביא את האהוב לפני שחבר בא.\nותתרגלו איתי לבקש ״אפשר תור קצר?״\nובערב אפשר להמשיך עם סיפור שבו אני הגיבור\nאפשר גם לעזור להם עם שיתוף בצעצועים בעזרת ספר מותאם אישית.\nתכתבו \"לשתף\" ואשלח לכם קישור להכנת הספר 📖",
+            "fb_text": "אני לא רע, אני לומד 🧸\nכשאני אוחז בצעצוע חזק,\nאני חושב ״אני רוצה אותו, עכשיו!״.\nאני בן 4, וזה רגיל בגיל שלי.\nאני רק לומד לשתף.\nאז הנה ארבעה דברים שיעזרו לי.\n\nשעון חול שאפשר לראות\nתנו לי שעון חול ליד הצעצוע.\nכשהחול נגמר, מחליפים.\nאז לא אתם אומרים לי ״די״.\nהשעון אומר.\n\nתנו לי תור ארוך קודם\nקודם אני משחק עד שאני גמור.\n״גיא, קח את הזמן עם המכונית.״\nבינתיים החבר מקבל משהו אחר.\nואז אני נותן בשמחה.\n\nאת האהוב שלי נחביא\nלפני שחבר בא,\nאני בוחר צעצוע אחד.\nהוא נשאר בארון, ורק שלי.\nאת כל השאר אפשר לחלוק.\n\nבואו נתרגל לבקש תור\nמה אתם רואים:\nאני תופס ולא מוכן לשחרר.\nמה אני יכול להגיד:\n״אפשר תור קצר, בבקשה?״\nתתרגלו איתי לפני שהחבר מגיע.\n\nואם אני בוכה כשמחכים\nאני בוכה כשאני מחכה לתור.\nזה לא דרמה, זה באמת קשה לי.\nתגידו לי: ״קשה לחכות, גם לנו.״\nואז תעזרו לי למצוא משהו\nלעשות בינתיים.\n\nאז מה תעשו כשאגיד ״שלי״?\nתביאו שעון חול.\nתשאירו לי תור ארוך.\nתחביאו את האהוב.\nותתרגלו איתי מילים.\nאני מבטיח לנסות יחד איתכם.\n\nאפשר גם לעזור להם\nעם שיתוף בצעצועים\nבעזרת ספר מותאם אישית.\nתכתבו \"לשתף\"\nואשלח לכם קישור להכנת הספר 📖"
+          }
+        },
+        {
+          "id": "kid-6",
+          "structure": "one_minute",
+          "topic_id": "sharing-toys",
+          "title": "דקה אחת בגינה עם הדלי הכתום",
+          "angle": "דקה אחת מרוכזת של מריבה על דלי בחול, שניות אחרי שניות, ואיך אמא שמתארת, נותנת תור ארוך ומחליפה את ההמתנה בפעילות עוזרת.",
+          "target_parent": "אמהות לילדה בת 3 עד 5 שלא מוכנה לתת צעצוע בגינה ומתפרצת כשילד אחר תופס אותו.",
+          "awareness_stage": "solution_aware",
+          "hook_family": "story",
+          "hook": {
+            "formula": "story-unresolved",
+            "gap": "What small thing helped the girl in the minute she would not give up the bucket?",
+            "payoff_slide": 4,
+            "score": {
+              "specific": 2,
+              "feeling": 2,
+              "honest_gap": 2,
+              "short_spoken": 2,
+              "filters": 2,
+              "not_an_ad": 2
+            },
+            "slate_id": "b3",
+            "mechanism": "narrative_tension",
+            "slide2_move": "scene_restart"
+          },
+          "child_gender": "girl",
+          "addressee": "mom",
+          "child_name": "אגם",
+          "character_anchor": {
+            "child": "A 4-year-old Israeli girl with curly dark hair in two small puffs, round face, big dark eyes and tan skin; about 100 cm tall.",
+            "parent": "Her mother, early thirties, straight black hair in a half ponytail, brown eyes and a gentle smile; warm and a little tired in a real way.",
+            "wardrobe": "Girl: teal short-sleeved top and white shorts. Mother: coral cotton T-shirt and jeans."
+          },
+          "image": {
+            "beat": "fierce and protective",
+            "action": "The girl faces the viewer and looks straight into the camera with wide eyes and a dramatic pout, both arms hugging an orange sand bucket to her chest; her mother is small and soft in the background kneeling at the edge of the sandpit.",
+            "setting": "A sunny Israeli playground with a sandpit, a plain pale warm sky above and a plain cream building wall far behind.",
+            "camera": "Child eye level, close head-and-shoulders shot, the face large in the lower half of the frame.",
+            "lighting": "Soft warm afternoon sunlight.",
+            "wardrobe_objects": "The orange sand bucket in her arms and a little sand on her hands.",
+            "text_zone": {
+              "edge": "top",
+              "percent": 45,
+              "surface": "plain pale warm sky above the sandpit"
+            }
+          },
+          "slides": [
+            {
+              "number": 1,
+              "role": "hook",
+              "headline": "גינה רגילה, ואני\nלא נותנת את הדלי.\nמה שעזר היה קטן",
+              "body": "מה יעזור לי לתת, בדקה אחת"
+            },
+            {
+              "number": 2,
+              "role": "beat",
+              "headline": "הדלי הכתום שלי",
+              "body": "אני בונה טירה בחול\nעם הדלי הכתום, שרק אני אוהבת.\nילד חדש מגיע וממש מסתכל עליו.\nהלב שלי אומר: **שלי**.",
+              "label": "הדקה מתחילה",
+              "scene": {
+                "action": "The girl builds a sandcastle with an orange bucket, hugging the bucket handle, while a boy stops nearby and looks at the bucket curiously.",
+                "setting": "A sunny Israeli playground sandpit in the afternoon, soft natural light, a plain cream wall of the building far behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 3,
+              "role": "beat",
+              "headline": "הוא מושיט יד",
+              "body": "הוא תופס את הדלי,\nואני תופסת מהצד השני.\nשנינו מושכים, והקולות יוצאים.\nאני צועקת הכי חזק **שיש לי**.",
+              "label": "עשר שניות",
+              "scene": {
+                "action": "The girl and the boy both hold the orange bucket and pull in opposite directions, the girl with her mouth open in a loud shout.",
+                "setting": "A sunny Israeli playground sandpit in the afternoon, soft natural light, a plain cream wall of the building far behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 4,
+              "role": "beat",
+              "headline": "את באה אליי",
+              "body": "את קרובה, והקול שלך שקט.\n> ״שניכם רוצים את הדלי.״\nאת לא צועקת ולא לוקחת.\nאני נושמת קצת **לאט**.",
+              "label": "עשרים שניות",
+              "scene": {
+                "action": "The mother crouches close beside the two children in the sandpit, one hand on each of the buckets' edge without pulling, speaking quietly.",
+                "setting": "A sunny Israeli playground sandpit in the afternoon, soft natural light, a plain cream wall of the building far behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 5,
+              "role": "beat",
+              "headline": "את אומרת מה קרה",
+              "body": "את מתארת מה קרה\nבלי להגיד מי אשם.\n> ״אגם, תפסת אותו קודם. זה קשה.״\nואני מרגישה שמבינים **אותי**.",
+              "label": "שלושים שניות",
+              "scene": {
+                "action": "The mother kneels at the girl's eye level with a kind face and an open hand while the girl looks at her with wet eyes, the boy waiting calmly a step away.",
+                "setting": "A sunny Israeli playground sandpit in the afternoon, soft natural light, a plain cream wall of the building far behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 6,
+              "role": "beat",
+              "headline": "אני מקבלת תור ארוך",
+              "body": "את אומרת לי: ״קחי את הזמן עם הדלי.״\nולילד: ״בינתיים, תבנה פה מגדל.״\nהוא מחכה עם משהו אחר ביד.\nואני נושמת **עמוק**.",
+              "label": "ארבעים שניות",
+              "scene": {
+                "action": "The girl fills the orange bucket with sand with a calmer face while the boy builds a small tower with a yellow shovel next to her, the mother watching.",
+                "setting": "A sunny Israeli playground sandpit in the afternoon, soft natural light, a plain cream wall of the building far behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 7,
+              "role": "beat",
+              "headline": "ואז אני נותנת לו",
+              "body": "אחרי שהחול בשעון נגמר,\nאני מושיטה לו את הדלי.\nזה קשה, והלב שלי עדיין **דופק**.\nאת אומרת: ״קשה לחכות. עשית את זה.״",
+              "label": "חמישים שניות",
+              "scene": {
+                "action": "The girl holds out the orange bucket to the boy with a small brave smile while a sand timer stands on the sandpit edge and the mother smiles proudly.",
+                "setting": "A sunny Israeli playground sandpit in the afternoon, soft natural light, a plain cream wall of the building far behind. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 8,
+              "role": "beat",
+              "headline": "בערב נתרגל יחד",
+              "body": "בערב, כשאני רגועה,\n## מה יעזור לי:\nשתתרגלי איתי לבקש תור.\n> ״אפשר תור קצר, בבקשה?״\nוגם להחביא את הדלי הכתום\nכשיש חברים, ו**אז** אחלוק.",
+              "label": "בערב",
+              "scene": {
+                "action": "At home in the evening the girl and her mother sit on the rug practising with a toy bucket, the girl holding out an open hand politely.",
+                "setting": "A cosy Israeli living room in the evening, warm lamp light and a plain cream wall. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            },
+            {
+              "number": 9,
+              "role": "story_cta",
+              "headline": "אפשר גם לעזור להם\nעם שיתוף בצעצועים\nבעזרת ספר מותאם אישית.",
+              "body": "תכתבי \"לשתף\"\nואשלח לך קישור להכנת הספר",
+              "scene": {
+                "action": "The girl sleeps peacefully at home with the orange bucket on the floor by the bed, her mother sitting on the bed edge smiling softly.",
+                "setting": "A cosy Israeli child bedroom in the evening with a plain warm cream wall and a small night light. The upper third of the frame stays calm: a plain soft background, no faces or hands there."
+              }
+            }
+          ],
+          "claims": [
+            {
+              "slide": 1,
+              "wording_he": "מה שעזר בדקה בגינה היה קטן",
+              "kind": "lumebook_wording",
+              "source_ids": [],
+              "supports": "The imagined voice of this one child; the facts behind it are claimed on slides 4 to 8."
+            },
+            {
+              "slide": 4,
+              "wording_he": "להתקרב, לדבר בשקט ולתאר מה קרה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "ZERO TO THREE: move in close and stop the aggression, speak in a low voice and describe what happened, naming what each child did."
+            },
+            {
+              "slide": 5,
+              "wording_he": "להכיר ברגש של הילדה בלי להאשים",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "ZERO TO THREE: acknowledge how both children feel."
+            },
+            {
+              "slide": 6,
+              "wording_he": "תור ארוך ופעילות אחרת לילד שמחכה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "ZERO TO THREE: it is okay to let children have a long turn; help the other child wait by offering a different activity."
+            },
+            {
+              "slide": 7,
+              "wording_he": "שעון חול ומילה על ההמתנה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-ztt"
+              ],
+              "supports": "ZERO TO THREE: a timer is a helpful rule-keeper; it's OK to be upset when you have to wait. Waiting is hard."
+            },
+            {
+              "slide": 8,
+              "wording_he": "לתרגל מראש לבקש תור במילים, ולהחביא את האהוב",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs-wait",
+                "src-pathways"
+              ],
+              "supports": "PBS KIDS: practice beforehand, showing your child how to use their words when asking for a turn. Pathways.org: put the absolute favorite toy away before the play date."
+            },
+            {
+              "slide": 9,
+              "wording_he": "סיפור יכול להדגים תורות והמתנה",
+              "kind": "sourced_fact",
+              "source_ids": [
+                "src-pbs-wait"
+              ],
+              "supports": "PBS KIDS: a children's story (Daniel Tiger's Neighborhood) is used to show characters taking turns and waiting. The page is about a TV story; the personalised book is offered as one more tool. No promise of a result."
+            },
+            {
+              "slide": 9,
+              "wording_he": "ספר מותאם אישית שבו הילד מככב",
+              "kind": "product_fact",
+              "source_ids": [
+                "site-star",
+                "site-photo",
+                "site-preview"
+              ],
+              "supports": "Live site, 2026-10-31: upload a photo of the child and add the name; the name is in the text and the child stars in every illustration; the preview is free."
+            }
+          ],
+          "conversion_rationale": "דקה אחת שאפשר לראות בעיניים, שניות על הכותרות, ובסופה כלים קטנים שאמא יכולה לקחת מיד לגינה.",
+          "code_word": "לשתף",
+          "cta": "אפשר גם לעזור להם עם שיתוף בצעצועים בעזרת ספר מותאם אישית.\nתכתבי \"לשתף\" ואשלח לך קישור להכנת הספר",
+          "cta_style": "book_link",
+          "caption": "אמא, גינה רגילה ואני לא נותנת את הדלי, ומה שעזר היה קטן.\nתבואי קרוב ותגידי בשקט מה קרה, בלי להגיד מי אשם.\nתני לי תור ארוך ותציעי לו משהו אחר לעשות.\nובערב תתרגלי איתי לבקש תור במילים.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nאפשר גם לעזור להם עם שיתוף בצעצועים בעזרת ספר מותאם אישית.\nתכתבי \"לשתף\" ואשלח לך קישור להכנת הספר",
+          "sources": [
+            {
+              "id": "src-ztt",
+              "title": "Helping Young Children With Sharing",
+              "publisher": "ZERO TO THREE, 11 Aug 2017",
+              "url": "https://www.zerotothree.org/resource/helping-young-children-with-sharing/",
+              "accessed": "2026-10-31",
+              "quote": "an unwillingness to share is perfectly normal at this age! ... It is okay to let children have a “long turn” ... Help the other child wait by offering a different activity. ... The great thing about the timer is that it’s not the adult telling the children when to share, it’s the “bell.” ... It’s OK to be upset when you have to wait. Waiting is hard!",
+              "supports": "Not sharing is normal for toddlers and preschoolers; a long turn, a different activity for the waiting child, a timer as the rule-keeper and naming that waiting is hard."
+            },
+            {
+              "id": "src-pbs-wait",
+              "title": "Helping Kids Learn to Take Turns and Practice Waiting",
+              "publisher": "PBS KIDS for Parents (Samantha Gratton), 4 Aug 2023",
+              "url": "https://www.pbs.org/parents/thrive/helping-kids-learn-to-take-turns-and-practice-waiting",
+              "accessed": "2026-10-31",
+              "quote": "Practice beforehand, showing your child how to use their words when asking for a turn. ... If your child thinks someone’s turn is taking too long, help them practice asking, “Can you take a shorter turn, please?” ... In “Daniel Tiger’s Neighborhood,” Daniel and his friends have many opportunities to take turns at school and while playing at the pool.",
+              "supports": "Practising in advance how to ask for a turn with words, including asking for a shorter turn; a children's story (Daniel Tiger's Neighborhood) used to model taking turns. A US public media parenting article."
+            },
+            {
+              "id": "src-pathways",
+              "title": "Getting Preschoolers to Share…How Do You Do It?",
+              "publisher": "Pathways.org (pediatric therapists' nonprofit, last updated 18 Jul 2025)",
+              "url": "https://pathways.org/getting-preschoolers-share",
+              "accessed": "2026-10-31",
+              "quote": "If your child has a toy that is their absolute favorite that they do not want to share, put it away before the play date! ... Something visual, like a timer, will let children know exactly when it’s time for them to give up a certain toy.",
+              "supports": "A favorite toy can be put away before a playdate; a visual timer shows when it is time to hand over a toy."
+            }
+          ],
+          "post_text": {
+            "caption": "אמא, גינה רגילה ואני לא נותנת את הדלי, ומה שעזר היה קטן. 🧸\nתבואי קרוב ותגידי בשקט מה קרה, בלי להגיד מי אשם.\nתני לי תור ארוך ותציעי לו משהו אחר לעשות.\nובערב תתרגלי איתי לבקש תור במילים.\nובערב אפשר להמשיך עם סיפור שבו אני הגיבורה\nאפשר גם לעזור להם עם שיתוף בצעצועים בעזרת ספר מותאם אישית.\nתכתבי \"לשתף\" ואשלח לך קישור להכנת הספר 📖",
+            "fb_text": "הדלי הכתום שלי 🧸\nאני בונה טירה בחול\nעם הדלי הכתום, שרק אני אוהבת.\nילד חדש מגיע וממש מסתכל עליו.\nהלב שלי אומר: שלי.\n\nהוא מושיט יד\nהוא תופס את הדלי,\nואני תופסת מהצד השני.\nשנינו מושכים, והקולות יוצאים.\nאני צועקת הכי חזק שיש לי.\n\nאת באה אליי\nאת קרובה, והקול שלך שקט.\n״שניכם רוצים את הדלי.״\nאת לא צועקת ולא לוקחת.\nאני נושמת קצת לאט.\n\nאת אומרת מה קרה\nאת מתארת מה קרה\nבלי להגיד מי אשם.\n״אגם, תפסת אותו קודם. זה קשה.״\nואני מרגישה שמבינים אותי.\n\nאני מקבלת תור ארוך\nאת אומרת לי: ״קחי את הזמן עם הדלי.״\nולילד: ״בינתיים, תבנה פה מגדל.״\nהוא מחכה עם משהו אחר ביד.\nואני נושמת עמוק.\n\nואז אני נותנת לו\nאחרי שהחול בשעון נגמר,\nאני מושיטה לו את הדלי.\nזה קשה, והלב שלי עדיין דופק.\nאת אומרת: ״קשה לחכות. עשית את זה.״\n\nבערב נתרגל יחד\nבערב, כשאני רגועה,\nמה יעזור לי:\nשתתרגלי איתי לבקש תור.\n״אפשר תור קצר, בבקשה?״\nוגם להחביא את הדלי הכתום\nכשיש חברים, ואז אחלוק.\n\nאפשר גם לעזור להם\nעם שיתוף בצעצועים\nבעזרת ספר מותאם אישית.\nתכתבי \"לשתף\"\nואשלח לך קישור להכנת הספר 📖"
+          }
+        }
+      ]
+    }
+  ]
+}

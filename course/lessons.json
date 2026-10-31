@@ -1,0 +1,155 @@
+{
+  "_about": "The single source of truth for the course's order, task types, checklists, projects and lesson metadata (course/curriculum.md §5 restates it; course/build.py fails if the two drift). Lesson numbers never change once shipped: saved quiz answers are keyed by them, and by option position, so a translation keeps the option order. A lesson's text is course/lessons/<id>.md; a lesson without a file is planned, not shown. English since 31 Oct 2026 (Yarin: \"i want the course fully in english\"); the Hebrew first version is in _to-delete/course/lessons-he/. Each project's check is what Claude looks for when Yarin hands it in; attach names the saved data sent along with it (links: this week's link log and tag values; numbers: the last saved weeks).",
+  "weeks": {
+    "W1": {"from": "2026-11-01", "to": "2026-11-07", "name": "Every sale countable"},
+    "W2": {"from": "2026-11-08", "to": "2026-11-14", "name": "Choose what sells"},
+    "W3": {"from": "2026-11-15", "to": "2026-11-21", "name": "Read the numbers honestly"},
+    "W4": {"from": "2026-11-22", "to": "2026-11-30", "name": "Run it and defend it"}
+  },
+  "exam": {"from": "2026-11-27", "to": "2026-11-29"},
+  "fade": [
+    {"upto": 3, "mode": "open", "label": "The checklist is open"},
+    {"upto": 6, "mode": "folded", "label": "The checklist is folded: one tap opens it"},
+    {"upto": null, "mode": "own", "label": "Write your own steps first, then compare"}
+  ],
+  "types": [
+    {
+      "id": "carousel", "name": "Carousel", "mac_only": true,
+      "where": "Carousel Machine on the Mac",
+      "checklist": [
+        "Open Carousel Machine on the Mac",
+        "Choose the day's option: a best-selling book's topic, a strong hook on slide 1, a clear comment word",
+        "Grade it 1 to 5 with a one-sentence reason",
+        "Approve the picture, or ask for a fix with a note",
+        "Check the \"How it will look\" preview: at most 10 slides, the comment word on the last slide and in the caption, no brand name or web address before the last slide, a separate Facebook post",
+        "Schedule it in the Postiz block, at 06:00"
+      ]
+    },
+    {
+      "id": "dm", "name": "Messages", "mac_only": false,
+      "where": "Instagram on the phone, and the link maker here",
+      "checklist": [
+        "Open the post's comments and find who wrote the comment word",
+        "Make a tagged link in the link maker, for the post's topic",
+        "Send a DM with the link",
+        "Count in the link log how many DMs went out",
+        "Follow up once, a day later, with anyone who did not reply"
+      ]
+    },
+    {
+      "id": "moment", "name": "Live moment", "mac_only": false,
+      "where": "Instagram, on the phone or the Mac",
+      "checklist": [
+        "Write in one sentence what the moment is and why it matters to parents right now",
+        "Check: is it tied to a buying moment (a gift, a milestone, a holiday)? Is it sad or political?",
+        "Pick a fast format: a story, a trend reel or an extra post",
+        "If there is a link, make it in the link maker",
+        "Add a post; never replace one that is already scheduled",
+        "Set a reminder to compare after a week"
+      ]
+    },
+    {
+      "id": "reel", "name": "Reel", "mac_only": false,
+      "where": "The reel editor through Claude, and Instagram",
+      "checklist": [
+        "Write the first-second hook, the text at the top",
+        "Ask Claude for the edit: hook, captions, and trial versions if needed",
+        "Check on the phone: the text is inside the safe zone, no mention of AI",
+        "If the call to action is the bio link, make sure it is tagged",
+        "On Sunday, write down views, saves and shares"
+      ]
+    },
+    {
+      "id": "creator", "name": "Creators", "mac_only": true,
+      "where": "The creator map on the Mac",
+      "checklist": [
+        "Open the creator map on the Mac",
+        "Check that the creator passes the admission bar",
+        "Send the message: a personal link with a discount for their audience, never a \"discount code\"",
+        "Update the status and write a note",
+        "Set a follow-up reminder"
+      ]
+    },
+    {
+      "id": "numbers", "name": "Numbers", "mac_only": false,
+      "where": "The Numbers tab here, Instagram, and what Yossi sends",
+      "checklist": [
+        "Open this week's Numbers tab",
+        "From Instagram: how many comments with the comment word, and for the best post its saves, shares and reach",
+        "From the link log: how many DMs with a tagged link went out",
+        "Tagged orders: from the source Yossi gives, or \"Not available yet\"",
+        "Write one sentence: what these numbers can't prove"
+      ]
+    },
+    {
+      "id": "yossi", "name": "Yossi", "mac_only": false,
+      "where": "WhatsApp or a meeting",
+      "checklist": [
+        "Write in one sentence what you need",
+        "Why: what it changes for sales or for your pay",
+        "The exact change you are asking for",
+        "How you will know it worked: the number before",
+        "Send it, then mark the task Done. It is done even without an answer"
+      ]
+    },
+    {"id": "other", "name": "Other", "mac_only": false, "where": "", "checklist": []}
+  ],
+  "lessons": [
+    {"id": "L01", "track": 1, "week": "W1", "type": "dm", "part": "Attribution", "cap": [1], "min": 4, "pre": [], "title": "What a link carries (P1)"},
+    {"id": "L02", "track": 1, "week": "W1", "type": "dm", "part": "Attribution", "cap": [1], "min": 5, "pre": ["L01"], "title": "No tag, no pay: choosing your tag values, then making a tagged link"},
+    {"id": "L03", "track": 1, "week": "W1", "type": "dm", "part": "CRM", "cap": [1], "min": 5, "pre": ["L02"], "title": "After the click: from comment word to paid order (P3)"},
+    {"id": "L04", "track": 1, "week": "W1", "type": "numbers", "part": "Meta analytics", "cap": [1, 4], "min": 5, "pre": [], "title": "The weekly numbers: five numbers and where each lives (P2)"},
+    {"id": "L05", "track": 1, "week": "W1", "type": "numbers", "part": "Attribution", "cap": [1, 4], "min": 4, "pre": ["L04", "L01"], "title": "Who can see your tagged orders today, and who cannot"},
+    {"id": "L06", "track": 1, "week": "W1", "type": "yossi", "part": "CRO", "cap": [1, 4], "min": 5, "pre": ["L05", "L02"], "title": "Writing an ask Yossi can act on (the per-link view, A21)"},
+    {"id": "L07", "track": 1, "week": "W1", "type": "carousel", "part": "Running it", "cap": [3], "min": 5, "pre": [], "title": "The map: every step of the pipeline, whose it is, which screen (P4)"},
+    {"id": "L08", "track": 1, "week": "W1", "type": "carousel", "part": "Running it", "cap": [3], "min": 4, "pre": ["L07"], "title": "The check before a carousel goes out"},
+    {"id": "L09", "track": 2, "week": "W2", "type": "carousel", "part": "Carousels", "cap": [2], "min": 5, "pre": ["L08"], "title": "Choosing among the day's options"},
+    {"id": "L10", "track": 2, "week": "W2", "type": "carousel", "part": "Carousels", "cap": [2], "min": 5, "pre": ["L09"], "title": "What a hook does, and why every formula is still a guess"},
+    {"id": "L11", "track": 2, "week": "W2", "type": "carousel", "part": "Carousels", "cap": [2, 3], "min": 4, "pre": ["L09"], "title": "Grading with a reason the next batch can use"},
+    {"id": "L12", "track": 2, "week": "W2", "type": "moment", "part": "RTM", "cap": [2], "min": 5, "pre": ["L02"], "title": "Is this moment worth it: fit, safety, speed"},
+    {"id": "L13", "track": 2, "week": "W2", "type": "moment", "part": "RTM", "cap": [2, 3], "min": 5, "pre": ["L12"], "title": "Making a moment post fast, outside the batch"},
+    {"id": "L14", "track": 2, "week": "W2", "type": "moment", "part": "RTM", "cap": [2], "min": 4, "pre": ["L12"], "title": "Hanukkah: the moment you can plan"},
+    {"id": "L15", "track": 2, "week": "W2", "type": "dm", "part": "CRM", "cap": [1, 2], "min": 4, "pre": ["L03"], "title": "Following up: speed, one reminder, and when to stop"},
+    {"id": "L16", "track": 2, "week": "W2", "type": "reel", "part": "Reels", "cap": [2], "min": 5, "pre": [], "title": "The first seconds of a reel"},
+    {"id": "L17", "track": 2, "week": "W2", "type": "reel", "part": "Reels", "cap": [2, 4], "min": 4, "pre": ["L16"], "title": "Trial reels: what they test and how to read them"},
+    {"id": "L18", "track": 2, "week": "W2", "type": "creator", "part": "Creators", "cap": [2], "min": 4, "pre": [], "title": "Which creator: the admission bar and why it exists"},
+    {"id": "L19", "track": 2, "week": "W2", "type": "creator", "part": "Creators", "cap": [2], "min": 5, "pre": ["L18"], "title": "The offer, the message and the Hanukkah books"},
+    {"id": "L20", "track": 2, "week": "W2", "type": "creator", "part": "Creators", "cap": [1, 4], "min": 4, "pre": ["L19", "L02"], "title": "Creator sales and your pay"},
+    {"id": "L21", "track": 3, "week": "W3", "type": "numbers", "part": "Meta analytics", "cap": [4], "min": 5, "pre": ["L04"], "title": "Insights per post: what counts, what to subtract, what is missing"},
+    {"id": "L22", "track": 3, "week": "W3", "type": "numbers", "part": "Meta analytics", "cap": [4], "min": 5, "pre": ["L21"], "title": "Meta's sales against the store's"},
+    {"id": "L23", "track": 3, "week": "W3", "type": "numbers", "part": "GA4", "cap": [1, 4], "min": 5, "pre": ["L05"], "title": "GA4: what it receives, what it mislabels, what it can still show"},
+    {"id": "L24", "track": 3, "week": "W3", "type": "numbers", "part": "Reading numbers", "cap": [4], "min": 5, "pre": ["L04"], "title": "When the numbers are too small to say anything"},
+    {"id": "L25", "track": 3, "week": "W3", "type": "yossi", "part": "CRO", "cap": [1, 4], "min": 5, "pre": ["L06", "L03"], "title": "The store journey and where people drop"},
+    {"id": "L26", "track": 3, "week": "W3", "type": "yossi", "part": "CRO", "cap": [1, 2], "min": 4, "pre": ["L25"], "title": "Choosing the fix that moves your tagged sales"},
+    {"id": "L27", "track": 4, "week": "W4", "type": "carousel", "part": "Running it", "cap": [3], "min": 5, "pre": ["L08"], "title": "When a step breaks: the signs and what to ask for"},
+    {"id": "L28", "track": 4, "week": "W4", "type": "numbers", "part": "Explaining", "cap": [4], "min": 5, "pre": ["L24"], "title": "The monthly report: decision first, then what cannot be proven"},
+    {"id": "L29", "track": 4, "week": "W4", "type": "other", "part": "Explaining", "cap": [4], "min": 4, "pre": ["L07"], "title": "The pipeline in two minutes, for an interview"},
+    {"id": "L30", "track": 4, "week": "W4", "type": "numbers", "part": "Choosing", "cap": [2], "min": 4, "pre": ["L28"], "title": "December from November's numbers"}
+  ],
+  "projects": [
+    {"id": "P1", "week": "W1", "help": "full", "attach": "links",
+     "text": "Choose your tag values, then make every DM link this week in the link maker and log it",
+     "check": "The utm_medium value Yarin chose is named and is neither creator nor paid-social. The attached link log shows this week's DM links made in the link maker, each with utm_source, utm_medium, utm_campaign and utm_content, and a count of DMs sent with it. A week with no logged links, or links with no DMs counted, is a redo."},
+    {"id": "P2", "week": "W1", "help": "full", "attach": "numbers",
+     "text": "Your first Numbers tab, with \"Not available yet\" where that is true",
+     "check": "A saved week on the Numbers tab. DMs with a tagged link and comment words are filled in (they are always countable); tagged clicks and tagged orders are numbers or honestly marked Not available yet. The can't-prove sentence names something specific these numbers cannot show, not a generic disclaimer."},
+    {"id": "P3", "week": "W1", "help": "partial", "attach": "",
+     "text": "Write to Yossi which tag values are yours, and ask for a way to see tagged orders and for the A21 fix",
+     "check": "The message to Yossi: says in one sentence what is needed; names the utm_medium value that marks Yarin's links; asks for a way to see the orders that carry it; asks for the A21 fix (keep the tag for 30 days instead of losing it when the tab closes, research/cro-crm/audit.md A21); asks to write down the share of orders with a tag before the change. It counts as done when sent, answered or not."},
+    {"id": "P4", "week": "W2", "help": "partial", "attach": "links",
+     "text": "One live-moment post: choose it, make it, tag it, and compare after a week",
+     "check": "Names the moment and why it matters to parents now; says why it passed fit and safety (tied to a buying moment, not sad or political); the fast format used; the tagged link if there was one; and the comparison a week later against a usual post, or the date it is due."},
+    {"id": "P5", "week": "W2", "help": "light", "attach": "",
+     "text": "The Hanukkah creator round, by 10 Nov",
+     "check": "Which creators were messaged and that each passes the admission bar; the offer is a personal link with a discount for their audience, never a discount code; each creator's status and follow-up date."},
+    {"id": "P6", "week": "W3", "help": "light", "attach": "numbers",
+     "text": "A weekly read: Meta against the store, and a paragraph on what can't be proven",
+     "check": "Meta's purchase count and the store's for the same week, the gap between them named with a reason the two counts differ, and a paragraph on what these numbers cannot prove."},
+    {"id": "P7", "week": "W3", "help": "light", "attach": "",
+     "text": "Ask Yossi for one store fix, with the number before",
+     "check": "One store fix asked of Yossi: the exact change, why it should move tagged sales, and the number before the change, so the result can be compared."},
+    {"id": "CAP", "week": "W4", "help": "none", "attach": "numbers",
+     "text": "The November report for Yossi",
+     "check": "Decision for December first. Then what happened in November with the real counts (tagged clicks, DMs with a tagged link, comment words, tagged orders or Not available yet), and what these numbers cannot prove. Short enough to read in two minutes. It must not credit a single post or reel with sales it cannot be shown to have caused."}
+  ]
+}

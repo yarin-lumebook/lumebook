@@ -24,7 +24,7 @@ python3 research/carousel-audit/src/audit.py import ~/Downloads/<export>.csv   #
 python3 research/carousel-audit/src/audit.py status                           # new posts, missing scores, young posts, admin checks
 python3 research/carousel-audit/src/audit.py build                            # rebuild after editing data/
 python3 research/carousel-audit/src/audit.py link pacifier-weaning            # tagged dm, bio and story links (today)
-python3 research/carousel-audit/src/audit.py link --carousel 2026-10-20-pacifier --medium dm
+python3 research/carousel-audit/src/audit.py link --carousel 2026-10-20-pacifier --place dm
 python3 research/carousel-audit/src/audit.py hook-results --write             # copy results into the pipeline's log
 ```
 

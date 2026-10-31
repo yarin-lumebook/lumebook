@@ -52,12 +52,13 @@ def main():
     with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as f:
         f.write(doc)
     shutil.copytree(os.path.join(HERE, "img"), os.path.join(SITE, "img"), dirs_exist_ok=True)
-    # the work board: engine, styles and the seed (resource catalog, first board, templates). seed.js is the
-    # board-seed component's output (python3 sites/dashboard/board/catalog.py, run by ripple), so building here
-    # never changes a tracked file
-    os.makedirs(os.path.join(SITE, "board"), exist_ok=True)
-    for name in ("board.js", "board.css", "seed.js"):
-        shutil.copy2(os.path.join(HERE, "board", name), os.path.join(SITE, "board", name))
+    # tasks and lessons (the default view since 31 Oct 2026): engine, styles and the lesson data. course-data.js is
+    # the course component's output (python3 course/build.py, run by ripple), so building here never changes a
+    # tracked file. Only the lesson content ships; Yarin's tasks, quiz answers and numbers live in the artifact
+    # database (course/*) or that browser's localStorage, and nothing here exports them
+    os.makedirs(os.path.join(SITE, "course"), exist_ok=True)
+    for name in ("course.js", "course.css", "course-data.js"):
+        shutil.copy2(os.path.join(HERE, "course", name), os.path.join(SITE, "course", name))
     # one design system for the whole site
     os.makedirs(os.path.join(SITE, "design"), exist_ok=True)
     shutil.copy2(os.path.join(ROOT, "shared", "design", "lumebook.css"), os.path.join(SITE, "design", "lumebook.css"))

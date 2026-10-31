@@ -86,6 +86,16 @@ After the export, a book link option gets the open booklet on its last slide (st
 2. Look at booklet.png with a 10% grid (Pillow in `/usr/bin/python3`): the crop of the two pages with the spine in the middle, and the child's face. The right page must be blank and the face turned to the viewer; regenerate otherwise. Check the photo looks the child's age.
 3. Write three short page lines (21 characters at most each) about the child in the topic, in the child's name, Hebrew rules as everywhere.
 4. `python3 carousel/carousel-pipeline/scripts/booklet_cta.py RUN_DIR --problem "..." --word ... --page "a|b|c" --crop x,y,w,h --face x,y[,0.5]` (0.5 when the face is small, so the arrow lands on it). It validates, backs up and re-exports only the last slide. Read the new last slide: the page text on three lines, both arrows on a face.
+5. Yarin edits the text inside the book (and the CTA) himself in Carousel Machine, then "ייצוא מחדש אחרי עריכה". A page text change from chat: `booklet_cta.py` again with the new `--page`.
+6. The slide draws the booklet in 3D on its own (since 31 Oct 2026: strips bending into the fold, thin sheet edges, a shadow; `compose_slides.booklet_html`). Nothing to make for it; if fal is out of credits, the existing booklet.png of a similar topic is no substitute: ask Yarin.
+
+## 6c · The Facebook post and its picture (31 Oct 2026)
+
+Every finished carousel gets its own Facebook post text (story-format.md section 8), written by Claude right after the export. Its picture is slide 1 as exported, with its text; nothing to make for it.
+
+1. Write `RUN_DIR/facebook/facebook.txt` with the lumebook-hebrew-voice skill: the hook line + one emoji, two lines on the moment, "כמה דברים שאפשר לנסות:" with 3 to 5 tips from the carousel's sourced lines (no new facts), the bridge ("ואפשר גם לעזור להם עם X / בעזרת ספר מותאם אישית, שבו הם הגיבורים. / עם השם שלהם, ודמות שנראית כמוהם. / התצוגה המקדימה בחינם, ומשלמים רק אם אהבתם."; singular forms when the post is about one child), "להכנת הספר 👇", and the link alone on the last line (`shared/facts.json` postiz.facebook_link). Mom carousels: אהבת.
+2. Check: `python3 -c "import sys; sys.path.insert(0,'carousel/carousel-pipeline/scripts'); import carousel_lib as l; print(*l.fb_post_issues('fb', open('RUN_DIR/facebook/facebook.txt').read()), sep='\n')"` prints nothing. The disclaimer is added at sending, never in the file.
+3. `postiz_export.py RUN_DIR --dry-run` shows both posts as they will go out. Sending or replacing a post in Postiz only with Yarin's OK.
 
 ## 7 · One review message
 
