@@ -1,6 +1,6 @@
 # Carousel creative audit
 
-Built by `research/carousel-audit/src/audit.py` on 31 Oct 2026 from `data/scores.json` and `data/carousels.json`; numbers from the export of 2026-10-24 09:59 (Israel time). Edit the JSON and run `build`; never edit this file.
+Built by `research/carousel-audit/src/audit.py` on 1 Nov 2026 from `data/scores.json` and `data/carousels.json`; numbers from the export of 2026-10-24 09:59 (Israel time). Edit the JSON and run `build`; never edit this file.
 
 Scores are a reviewer's judgement from the posted slides at phone width, on the rubric at the end. They say what to fix, not what performs. Every post is organic. Numbers are after taking Yarin's own like and save off each post; shares stay as reported. A post under 7 days old is marked too new.
 

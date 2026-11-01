@@ -87,27 +87,6 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .legend a:hover{color:var(--text);text-decoration:none}
 .legend b{color:var(--text);font-weight:600;margin-inline-start:var(--sp-1);font-variant-numeric:tabular-nums}
 
-/* ---------- performance on the card: small numbers with a label, each rated against the rest of the map ---------- */
-/* the six boxes run the full width of the message box: one row of six where the message column has room, two rows of three where it does not */
-.omsg{container-type:inline-size}
-.operf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-2);margin:var(--sp-2) 0 0}
-@container (min-width:34rem){.operf{grid-template-columns:repeat(6,minmax(0,1fr))}}
-.operf > div{min-width:0;padding:var(--sp-2) var(--sp-3);background:var(--surface-2);border-radius:var(--r-md)}
-.operf dt{font-family:var(--font-2);font-size:var(--fs-caption,.72rem);color:var(--text-3);line-height:1.25}
-.operf dd{margin:.15rem 0 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:.1rem .35rem;font-weight:700;font-size:var(--fs-callout);color:var(--text)}
-.operf dd .num{font-variant-numeric:tabular-nums}
-.operf i{font-style:normal;font-family:var(--font-2);font-size:var(--fs-caption,.72rem);font-weight:700;white-space:nowrap}
-.operf i.chg.up{color:var(--success)}
-.operf i.chg.down{color:var(--danger)}
-/* the rating against the map: green up, red down, neutral flat */
-.operf > div.up{background:var(--success-soft)}
-.operf > div.down{background:var(--danger-soft)}
-.operf .vd{width:1.05em;height:1.05em;flex:none;align-self:center}
-.operf .up .vd{color:var(--success)}
-.operf .down .vd{color:var(--danger)}
-.operf .mid .vd{color:var(--text-3)}
-.operf .nd{font-weight:500;font-size:var(--fs-footnote);color:var(--text-3)}
-
 /* ---------- reminders: a stack of full creator cards, the most urgent on top; "spread" lays them all out by day ---------- */
 .rs-bar{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);margin-bottom:var(--sp-3)}
 .rs-count{font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-2);font-variant-numeric:tabular-nums}
@@ -154,10 +133,6 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .drw .lb-drawer-head h3{flex:1;min-width:0;font-size:var(--fs-headline);display:flex;align-items:baseline;gap:var(--sp-2);overflow:hidden;white-space:nowrap}
 .drw .lb-drawer-head h3 .he{font-size:var(--fs-callout);font-weight:500;color:var(--text-2);overflow:hidden;text-overflow:ellipsis}
 .drw .lb-drawer-body{flex:1;padding:var(--sp-4);overscroll-behavior:contain}
-.drw .oc{border:0;padding:0;background:none}
-.drw .ocg{grid-template-columns:minmax(0,1fr)}
-.drw .ofld{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-.drw .oact .end{margin-inline-start:0}
 #drwScrim{z-index:52}
 body.drw-open,body.ask-open{overflow:hidden}
 @media (max-width:640px){.drw{width:100%}}
@@ -283,20 +258,106 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .sstats button[aria-pressed="true"] b{color:var(--tint)}
 .sstats button.due b{color:var(--warning)}
 @media (max-width:860px){.sstats{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1 * var(--sp-4));padding-inline:var(--sp-4)}.sstats button{flex:none}}
-.olist{display:grid;gap:var(--sp-3)}
-.oc.done{opacity:.72}
+/* ---------- creator card system (1 Nov 2026, Yarin: clearer hierarchy, each card clearly its own) ----------
+   One card, three zones:
+     top    .otop  : avatar (track hue) + @handle + name and dates | status pill + decline; fact chips
+     body   .ocg   : the message (start side) | the numbers (end side), two columns once the card is 46rem wide
+     footer .odeal + .odet : follow-up work and more details on a tinted ground, edge to edge
+   Type scale: handle 1.25rem/700 > tile value 1.125rem/700 > name 15px/500 > zone label and field label 12px/700-600 (Assistant) > dates 13px.
+   Colour: the status pill carries the status colour (.st-*), the avatar the track hue (lb-track-*),
+   the tiles the green/red rating against the map. Everything else stays neutral, so those three read at a glance. */
+.olist{display:grid;gap:var(--sp-5)}
+/* Each card stands apart: a 2px frame and a deeper shadow than the page's other cards (Yarin, 1 Nov 2026) */
+.oc{--oc-pad:var(--sp-5);--oc-edge:rgba(0,0,0,.17);--oc-edge-hi:rgba(0,0,0,.3);--oc-shadow:0 1px 3px rgba(0,0,0,.12),0 14px 36px -14px rgba(0,0,0,.38);position:relative;padding:0;gap:0;overflow:clip;background:var(--surface);border:2px solid var(--oc-edge);border-radius:var(--r-lg);box-shadow:var(--oc-shadow)}
+:root[data-theme="dark"] .oc{--oc-edge:rgba(255,255,255,.2);--oc-edge-hi:rgba(255,255,255,.34);--oc-shadow:0 1px 3px rgba(0,0,0,.6),0 16px 40px -14px rgba(0,0,0,.9)}
 .oc > *{min-width:0}   /* a wide row (the message tabs) scrolls inside the card and never widens it */
-.ohd{display:flex;gap:var(--sp-3);align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
-.oid{min-width:0;flex:1 1 16rem}
-.oid .hn{font-weight:700;font-size:var(--fs-headline);word-break:break-word;color:var(--tint);text-decoration:none}
-.oid .hn span{font-weight:500;font-size:.85em}
-.oid .hn:hover{text-decoration:underline;text-underline-offset:3px}
-.ocg{display:grid;grid-template-columns:minmax(0,16.5rem) minmax(0,1fr);gap:var(--sp-4) var(--sp-6);align-items:start}
-.oside{display:grid;gap:var(--sp-3);min-width:0;align-content:start}
-.oside .oid{display:grid;gap:.15rem;flex:none}
-.oside .omet{margin-top:0;display:grid;gap:.1rem}
-.ofld{display:grid;gap:var(--sp-2)}
-.ofld label,.ofld .fl{display:grid;gap:.25rem;font-size:var(--fs-caption);font-weight:600;color:var(--text-3);min-width:0}
+.oc.done{opacity:.72}
+.otop{display:grid;gap:var(--sp-4);padding:var(--oc-pad);container-type:inline-size}
+/* zone labels */
+.oeb{margin:0;display:flex;align-items:center;gap:.4rem;font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;line-height:1.2;letter-spacing:.02em;color:var(--text-3)}
+.oeb .i{width:.95rem;height:.95rem}
+/* top: who, status, facts */
+.ohd{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--sp-3) var(--sp-4)}
+.oav{flex:none;display:grid;place-items:center;width:2.75rem;height:2.75rem;border-radius:50%;background:var(--tc-soft,var(--fill-2));color:var(--tc-ink,var(--text-2));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tc,var(--text-3)) 25%,transparent);font-size:1.125rem;font-weight:700;line-height:1}
+.oid{flex:1 1 14rem;min-width:0;min-height:2.75rem;display:grid;gap:.2rem;align-content:center}
+.oid .hn{justify-self:start;display:inline-flex;align-items:center;gap:.4rem;max-width:100%;font-size:1.25rem;font-weight:700;line-height:1.2;letter-spacing:-.01em;color:var(--text);text-decoration:none;overflow-wrap:anywhere}
+.oid .hn .i{width:1rem;height:1rem;color:var(--tint);opacity:.8}
+.oid .hn:hover{color:var(--tint);text-decoration:underline;text-underline-offset:4px}
+.oid .hn:hover .i{opacity:1}
+.osub{display:flex;flex-wrap:wrap;align-items:center;gap:.2rem var(--sp-4);font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-3);font-variant-numeric:tabular-nums}
+.osub > span{display:inline-flex;align-items:center;gap:.3rem}
+.osub .i{width:.85rem;height:.85rem}
+.osub .he{font-family:var(--font);font-size:var(--fs-callout);font-weight:500;color:var(--text-2)}
+.ohd-end{display:flex;align-items:center;gap:var(--sp-2);margin-inline-start:auto}
+.ost{display:inline-flex;align-items:center;gap:.45rem;min-height:2.25rem;padding:0 .9rem;border-radius:var(--r-pill);background:color-mix(in srgb,var(--c) 13%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 35%,transparent);font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:700;color:var(--text);white-space:nowrap}
+.ost .dot{margin:0;width:.5rem;height:.5rem}
+.oc .xdecl{width:2.25rem;height:2.25rem;min-height:2.25rem;padding:0;border-radius:50%;flex:none;background:transparent;color:var(--text-3);border:1px solid var(--line)}
+.oc .xdecl .i{width:1rem;height:1rem}
+.oc .xdecl:hover{background:var(--danger-soft);border-color:transparent;color:var(--danger)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--sp-2);min-width:0}
+.chips .lb-chip{max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:var(--fs-caption);padding:.2rem .65rem}
+.chips .lb-chip.wrap{white-space:normal}
+.chips .lb-chip .i{width:.85rem;height:.85rem;flex:none}
+/* body: message | numbers */
+.ocg{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-5);align-items:start}
+@container (min-width:46rem){.ocg{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--sp-6)}}
+.omsg,.onum{display:grid;gap:var(--sp-2);min-width:0;align-content:start}
+details.omd,details.omd[open]{display:grid;gap:var(--sp-2);min-width:0;margin:0;padding:0;background:none;border:0;border-radius:0}
+.omd > summary{position:relative;display:grid;gap:.3rem;min-height:0;margin:0;padding:var(--sp-3) var(--sp-4);padding-inline-end:2.75rem;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);cursor:pointer;list-style:none;font-size:var(--fs-callout);font-weight:400;transition:border-color var(--mo-fast) ease,background-color var(--mo-fast) ease}
+.omd > summary::-webkit-details-marker{display:none}
+.omd > summary::after{position:absolute;inset-inline-end:var(--sp-4);top:1.05rem;margin:0}
+.omd > summary:hover{border-color:var(--line-strong)}
+details.omd[open] > summary{margin:0;background:transparent;border-color:transparent;padding-block:0;padding-inline-start:0}
+.omdl{font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;line-height:1.3;color:var(--tint)}
+.omdp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:var(--fs-callout);line-height:1.55;color:var(--text-2)}
+.omd[open] .omdp{display:none}
+.otabs{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-3);align-items:center;min-width:0}
+.omsg .msgbox,.omsg .mtabs,.otabs .mtabs{margin-top:0}
+.omsg .mtabs{justify-self:start}
+.omsg .msgbox{min-height:6.5rem;resize:vertical;overflow:auto}
+.oact{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center;margin-top:var(--sp-1)}
+.oact .lb-btn{min-height:2.5rem}
+.oact .end{margin-inline-start:auto;display:inline-flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+/* numbers: one tile each, rated against the rest of the map (green up, red down, flat grey) */
+.operf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-2);margin:0}
+.operf > div{position:relative;min-width:0;display:grid;gap:.35rem;align-content:space-between;padding:var(--sp-2) var(--sp-3) .55rem;background:var(--surface-2);border-radius:var(--r-md);box-shadow:inset 0 0 0 1px var(--line)}
+.operf dt{display:flex;align-items:flex-start;gap:.3rem;padding-inline-end:1.5rem;font-family:var(--font-2);font-size:var(--fs-caption);font-weight:600;line-height:1.25;color:var(--text-3)}
+.operf dt .i{width:.85rem;height:.85rem;flex:none;margin-top:.05rem}
+.operf dd{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:.15rem .4rem;font-size:var(--fs-headline);font-weight:700;line-height:1.2;color:var(--text);font-variant-numeric:tabular-nums}
+.operf .vd{position:absolute;top:.45rem;inset-inline-end:.45rem;width:1.375rem;height:1.375rem;padding:.2rem;box-sizing:border-box;border-radius:50%;flex:none;color:var(--text-3);background:var(--fill-2)}
+.operf > div.up{background:color-mix(in srgb,var(--success) 7%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--success) 28%,transparent)}
+.operf > div.down{background:color-mix(in srgb,var(--danger) 6%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--danger) 26%,transparent)}
+.operf > div.up .vd{color:var(--success);background:var(--success-soft)}
+.operf > div.down .vd{color:var(--danger);background:var(--danger-soft)}
+.operf i{font-style:normal;font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;white-space:nowrap}
+.operf i.chg.up{color:var(--success)}
+.operf i.chg.down{color:var(--danger)}
+.operf .nd{font-size:var(--fs-footnote);font-weight:500;color:var(--text-3)}
+.operf .na{box-shadow:none;background:var(--fill)}
+/* footer: follow-up work, then more details, on one tinted ground from edge to edge */
+.oc .odeal{display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:start;margin:0;padding:var(--sp-4) var(--oc-pad);background:var(--surface-2);border:0;border-top:1px solid var(--line);border-radius:0}
+.oc .odeal > .oeb{flex:1 1 100%}
+.oc .odeal > label,.oc .odeal > .fl{display:grid;gap:.3rem;flex:1 1 0;min-width:9rem;max-width:none;align-content:start;font-family:var(--font-2);font-size:var(--fs-caption);font-weight:600;color:var(--text-2)}
+.oc .odeal > .fl,.oc .odeal > label:has([data-f=stg]){min-width:10.5rem}
+.oc .odeal > label.grow{flex:3 1 0;min-width:15rem}
+.oc .odeal > label.wide{flex:1 1 100%}
+.oc .odeal .stbtn,.oc .odeal .lb-input,.oc .odeal .lb-select,.oc .odeal select,.oc .odeal textarea.na{width:100%;min-width:0;height:2.5rem;min-height:2.5rem;box-sizing:border-box;background-color:var(--surface)}
+.oc .odeal :is(input,select,textarea){font-family:var(--font);font-size:var(--fs-callout);font-weight:500;color:var(--text)}
+.oc .odeal textarea.na{resize:vertical}
+.oc .odeal .stbtn{font-family:var(--font);font-size:var(--fs-callout);border-radius:var(--r-sm)}
+.odet{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:0}
+.odet[open]{padding-bottom:0}
+.odet summary{font-size:var(--fs-callout);font-weight:600;color:var(--text-2);min-height:2.75rem}
+.odet summary:hover{color:var(--text)}
+.oc > .odet{margin:0;padding:0 var(--oc-pad);background:var(--surface-2)}
+.oc > .odet[open]{padding-bottom:var(--sp-5)}
+.oc > .odet > summary{min-height:3rem;margin-bottom:0}
+.oc > .odet[open] > summary{margin-bottom:var(--sp-1)}
+/* inside the drawer and under a reminder strip the card sits in a frame of its own */
+.drw .oc{--oc-pad:0px;overflow:visible;border:0;border-radius:0;background:none;box-shadow:none}
+.drw .oc > .odeal,.drw .oc > .odet{margin-top:var(--sp-4);padding-inline:var(--sp-4);border:1px solid var(--line);border-radius:var(--r-md)}
+.rsi > .oc{box-shadow:none}
+@media (max-width:640px){.oc{--oc-pad:var(--sp-4)}.ost{min-height:2rem;padding:0 .75rem}}
 .stbtn{display:flex;align-items:center;gap:.5rem;width:100%;font:inherit;font-weight:600;font-size:var(--fs-footnote);min-height:2.25rem;padding:.35rem .85rem;border:1px solid var(--line-strong);border-radius:var(--r-pill);background:var(--surface);color:var(--text);cursor:pointer;text-align:start}
 .stbtn .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .stbtn .dot,.stmenu .dot{margin:0}
@@ -312,40 +373,15 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .stmenu button svg{margin-inline-start:auto;width:.9rem;height:.9rem;flex:none;visibility:hidden}
 .stmenu button[aria-selected="true"] svg{visibility:visible}
 @media (pointer:coarse){.stbtn,.stmenu button{min-height:2.75rem}}
-.ofld select.st{width:100%}
-.omsg{display:grid;gap:var(--sp-2);min-width:0;align-content:start;max-width:48rem}
-.omsg .msgbox,.omsg .mtabs{margin-top:0}
-.omsg .mtabs{justify-self:start}
-.otabs{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-3);align-items:center;min-width:0}
-.otabs .mtabs{margin-top:0}
-.omsg .msgbox{min-height:6.5rem;resize:vertical;overflow:auto}
-.omsg .oact{margin-top:var(--sp-1)}
-.lb-btn.xdecl{background:var(--danger-soft);color:var(--danger);border-radius:50%;width:2.25rem;min-height:2.25rem;padding:0}
-.lb-btn.xdecl:hover{background:color-mix(in srgb,var(--danger) 22%,transparent);color:var(--danger)}
-.oact .end{margin-inline-start:auto;display:inline-flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
-.oc > .odeal{margin-top:var(--sp-1)}
-@media (max-width:820px){
-  .ocg{grid-template-columns:minmax(0,1fr)}
-  .ofld{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .oact .end{margin-inline-start:0}
-}
-.oid .he{color:var(--text-2);font-size:var(--fs-callout)}
-.omet{font-size:var(--fs-footnote);color:var(--text-3);display:flex;gap:.2rem .9rem;flex-wrap:wrap;margin-top:.2rem;font-variant-numeric:tabular-nums}
-.chips{display:flex;flex-wrap:wrap;gap:var(--sp-1);min-width:0}
-.chips .lb-chip{max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .oc select.st{appearance:none;-webkit-appearance:none;font:inherit;font-weight:600;font-size:var(--fs-footnote);min-height:2.25rem;max-width:100%;padding:.35rem .85rem .35rem 2rem;border:1px solid var(--line-strong);border-radius:var(--r-pill);background-color:var(--surface);color:var(--text);cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--text-2) 50%),linear-gradient(135deg,var(--text-2) 50%,transparent 50%);background-position:10px 52%,15px 52%;background-size:5px 5px;background-repeat:no-repeat}
 .oc select.st:focus{outline:none;border-color:var(--tint);box-shadow:0 0 0 3px var(--tint-soft)}
 .oc .lb-input,.oc .lb-textarea{width:100%}
 .oc .lb-input::placeholder,.oc .lb-textarea::placeholder,.sset .lb-input::placeholder,.tpls .lb-textarea::placeholder{color:var(--text-3)}
 .ogrid .lb-textarea{min-height:0}
-.oact{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
 .lb-btn.ok{background:var(--success-soft);color:var(--success)}
 .lb-btn.ok:hover{background:color-mix(in srgb,var(--success) 22%,transparent);color:var(--success)}
-.odet{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:0}
-.odet[open]{padding-bottom:0}
-.odet summary{font-size:var(--fs-callout);color:var(--tint);font-weight:500;min-height:2.75rem}
 .drrow{display:flex;gap:var(--sp-2);align-items:center}.drrow .lb-input{flex:1;min-width:0}
-.bkbar{display:flex;gap:var(--sp-3);margin:var(--sp-3) 0;align-items:center}.bkbar .lb-input{flex:1;max-width:28rem}.bktbl td{vertical-align:middle;padding:.25rem}.bktbl .lb-input{min-width:7.5rem;width:100%}.bktbl td.dr{min-width:15rem}.bktbl .drc{display:flex;gap:.35rem;align-items:center}
+.bkbar{display:flex;gap:var(--sp-3);margin:var(--sp-3) 0;align-items:center}.bkbar .lb-input{flex:1;max-width:28rem}.bktbl td{vertical-align:middle;padding:.25rem}.bktbl .lb-input{min-width:7.5rem;width:100%}.bktbl td.dr{min-width:15rem}.bktbl td.who{min-width:11rem}.bktbl td.who small{display:block;padding:0 .25rem .2rem;text-align:start;font-weight:600}.bktbl td.who .lb-input{text-align:right}.bktbl .qty{min-width:5.5rem;max-width:6.5rem;-moz-appearance:number-input}.bktbl .qty::-webkit-inner-spin-button,.bktbl .qty::-webkit-outer-spin-button{-webkit-appearance:inner-spin-button;opacity:1;height:1.6rem;cursor:pointer}.bktbl td.ck{white-space:nowrap}.bkck{display:inline-flex;gap:.4rem;align-items:center;cursor:pointer}.bknote{border:1px solid var(--border,#ccc);border-radius:var(--r-3,12px);padding:var(--sp-4,1rem);width:min(28rem,92vw);background:var(--surface);color:var(--text)}.bknote form{display:grid;gap:var(--sp-3,.75rem)}.bknote textarea{width:100%}.bktbl td.who a.bkh{display:block;text-align:right;padding:0 .25rem;color:var(--accent);font-weight:600;text-decoration:underline;overflow-wrap:anywhere}.bktbl .drc{display:flex;gap:.35rem;align-items:center}
 .ogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:var(--sp-3);margin-top:var(--sp-3)}
 .ogrid label,.sset label{display:grid;gap:.3rem;font-size:var(--fs-footnote);color:var(--text-2);font-weight:500}
 .mtabs{flex-wrap:nowrap;overflow-x:auto;max-width:100%;margin-top:var(--sp-1)}
@@ -356,26 +392,18 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .msgbar{display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap;margin-top:var(--sp-2)}
 .hechk:empty{display:none}
 .hechk{font-size:var(--fs-callout);background:var(--accent-soft);color:var(--text);border-radius:var(--r-md);padding:var(--sp-2) var(--sp-3);margin-top:var(--sp-2);display:flex;flex-wrap:wrap;gap:.35rem .5rem;align-items:center}
-@media (max-width:640px){.oc{padding:var(--sp-4)}}
 /* track, deal row, reply (all on the creator card) */
 .osel{display:grid;gap:var(--sp-1);justify-items:end;max-width:100%}
 .sug{margin:var(--sp-2) 0 0;display:flex;flex-wrap:wrap;gap:.25rem .5rem;align-items:center}
 .sug b{color:var(--text);font-weight:600}
-.odeal{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-3);align-items:end;padding-top:var(--sp-3);border-top:1px solid var(--line)}
-.odeal label{display:grid;gap:.2rem;font-size:var(--fs-footnote);color:var(--text-2);font-weight:500;min-width:0;flex:0 1 12.5rem}
-.odeal label.grow{flex:1 1 15rem}
-.odeal label.wide{flex:1 1 17rem;max-width:26rem}
-.odeal textarea.na{min-height:2.6rem;resize:vertical}
 .nav-stg{margin-block:0 .3rem}
 .nav-stg .lb-nav-item{padding-block:.28rem;font-size:var(--fs-footnote)}
-.odeal label.chk{display:inline-flex;align-items:center;gap:.4rem;flex:none;min-height:2.25rem;cursor:pointer}
-.odeal label.chk input{accent-color:var(--tint);width:1rem;height:1rem;margin:0}
-.odeal .lb-input,.odeal .lb-select,.ogrid .lb-select,.expf .lb-select,.expf .lb-input,.expf .lb-textarea{width:100%;min-width:0}
-.odeal .acts{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.ogrid .lb-select,.expf .lb-select,.expf .lb-input,.expf .lb-textarea{width:100%;min-width:0}
 .osec{margin:var(--sp-5) 0 0;font-size:var(--fs-callout);font-weight:600;color:var(--text);display:flex;flex-wrap:wrap;gap:.2rem .6rem;align-items:baseline}
 .osec small{font-weight:400;font-size:var(--fs-footnote);color:var(--text-3)}
 .osec a{font-size:var(--fs-footnote);font-weight:500}
 .ogrid .full{grid-column:1/-1}
+.ogrid.ocmp{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-2) var(--sp-3);margin-top:var(--sp-2)}.ogrid.ocmp .lb-input{min-height:2.5rem}@media (max-width:760px){.ogrid.ocmp{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* overview: funnel, reasons, tests, data update */
 .cmp{flex-wrap:nowrap;overflow-x:auto;max-width:100%}
 .cmp button{flex:none}
@@ -466,9 +494,9 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
 @keyframes mo-down{from{opacity:0;transform:translateY(-4px)}}
 /* cards, tiles and controls answer the pointer */
 .oc{transition:border-color var(--mo) ease,box-shadow var(--mo) ease}
-.oc:hover{border-color:var(--line-strong)}
+.oc:hover{border-color:var(--oc-edge-hi)}
 .operf > div{transition:transform var(--mo-fast) var(--mo-out),box-shadow var(--mo) ease}
-.operf > div:hover{transform:translateY(-2px);box-shadow:var(--shadow-1)}
+.operf > div:hover{transform:translateY(-1px)}
 .operf dt{display:flex;align-items:flex-start;gap:.25rem}
 .operf dt .i{width:.85rem;height:.85rem;margin-top:.05rem;opacity:.85}
 .operf .vd{transition:transform var(--mo) var(--mo-spring)}
@@ -484,7 +512,7 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
 /* feedback: counts bump when they change, the saving dot breathes, check marks pop */
 .cnt.bump,.lb-count.bump{animation:mo-bump .42s var(--mo-spring)}
 .svst.wait .dot{animation:lb-pulse 1.4s infinite}
-.lb-btn .i.pop,#toast.show .tk{animation:mo-icon .4s var(--mo-spring)}
+.lb-btn .i.ipop,#toast.show .tk{animation:mo-icon .4s var(--mo-spring)}   /* not .pop: that is the filter/sort popover box */
 #toast .tk .i{width:.85rem;height:.85rem;stroke-width:2.4}
 @keyframes mo-bump{40%{transform:scale(1.3)}}
 @keyframes mo-icon{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.15);opacity:1}}
@@ -499,7 +527,7 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
 
 
 <div class="lb-app" dir="rtl">
-<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות להיום</span><b class="cnt lb-count" id="remN"></b></a><a class="nav-i lb-nav-item" href="#remall" data-route="remall" data-ic="cal"><span class="t">כל התזכורות</span><b class="cnt lb-count" id="remAllN"></b></a><a class="nav-i lb-nav-item" href="#followups" data-route="followups" data-ic="send"><span class="t">פולואפים להיום</span><b class="cnt lb-count" data-cnt="due"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div><a class="nav-i lb-nav-item" href="#books" data-route="books" data-ic="gift"><span class="t">ספרים שנוצרו</span><b class="cnt lb-count" id="booksN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
+<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item lb-ws-plan" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות להיום</span><b class="cnt lb-count" id="remN"></b></a><a class="nav-i lb-nav-item lb-ws-plan" href="#remall" data-route="remall" data-ic="cal"><span class="t">כל התזכורות</span><b class="cnt lb-count" id="remAllN"></b></a><a class="nav-i lb-nav-item lb-ws-plan" href="#followups" data-route="followups" data-ic="send"><span class="t">פולואפים להיום</span><b class="cnt lb-count" data-cnt="due"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item lb-ws-creators" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div><a class="nav-i lb-nav-item lb-ws-creators" href="#books" data-route="books" data-ic="gift"><span class="t">ספרים שנוצרו</span><b class="cnt lb-count" id="booksN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item lb-ws-library" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item lb-ws-library" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item lb-ws-system" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item lb-ws-system" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item lb-ws-system" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ ↗</span></a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
 <div class="main lb-main">
 <header class="topbar lb-topbar"><div class="lb-topbar-in"><button type="button" class="lb-btn ghost icon menu" id="menuBtn" aria-label="פתיחת התפריט" aria-controls="side" aria-expanded="false"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg></button><a class="tb-brand" href="#overview" aria-label="מפת היוצרים, ראשי"><span class="brand-logo" aria-hidden="true"></span></a><div class="crumbs"><span id="crumbG">פניות</span><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5l5.5 5.5-5.5 5.5"/></svg><b id="crumbT">ראשי</b></div><span class="lb-spacer"></span><span class="tb-hint"><kbd>/</kbd> לחיפוש</span><button type="button" class="svst" id="svst" title="מצב השמירה"><span class="dot"></span><span class="t">טוען…</span></button><button type="button" class="lb-btn sm addb" id="addBtn" data-ic="userplus" aria-label="הוספת יוצרים"><span class="t">הוספת יוצרים</span></button><a class="lb-btn ghost sm hub" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">LumeBook HQ</a><!--LB:THEME-TOGGLE--></div></header>
 <main id="main" class="lb-page">
@@ -573,9 +601,10 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
   <p class="lb-eyebrow">פניות</p>
   <h2>ספרים שנוצרו</h2>
   <p class="lb-lede" id="bkLede"></p>
-  <div class="bkbar"><input class="lb-input" type="search" id="bkQ" dir="auto" placeholder="חיפוש לפי יוצר, ילד או ספר" aria-label="חיפוש בטבלת הספרים"><button type="button" class="lb-btn" id="bkAdd">+ ספר חדש</button></div>
-  <div class="tbl lb-table-wrap"><table class="lb-table bktbl"><thead><tr><th>יוצר</th><th>שם הילד</th><th>הספר (נושא או שם)</th><th>נוצר בתאריך</th><th>נשלח בתאריך</th><th>תיקיית דרייב</th><th>הערות</th><th></th></tr></thead><tbody id="bkBody"></tbody></table></div>
+  <div class="bkbar"><input class="lb-input" type="search" id="bkQ" list="bkH" dir="auto" placeholder="חיפוש לפי יוצר או הערה" aria-label="חיפוש בטבלת הספרים"><button type="button" class="lb-btn" id="bkAdd">+ ספר חדש</button></div>
+  <div class="tbl lb-table-wrap"><table class="lb-table bktbl"><thead><tr><th>יוצר (מהמפה)</th><th>כמה ספרים</th><th>הגיע ליוצר</th><th>תוכן עלה</th><th>תיקיית דרייב</th><th>הערות</th><th></th></tr></thead><tbody id="bkBody"></tbody></table></div>
   <datalist id="bkH"></datalist>
+  <dialog id="bkNote" class="bknote"><form method="dialog"><label for="bkNoteT" id="bkNoteH"></label><textarea class="lb-textarea" id="bkNoteT" dir="auto" rows="5" placeholder="הערה על הספרים של היוצר הזה"></textarea><div><button class="lb-btn">סגירה</button></div></form></dialog>
 </section>
 <section class="page lb-section" data-page="archetypes" hidden>
   <span class="lb-eyebrow">תוצר 3</span>
@@ -738,7 +767,8 @@ const ICON={
   heart:svg('<path d="M10 16.5S3 12.3 3 7.6A3.6 3.6 0 0 1 10 6a3.6 3.6 0 0 1 7 1.6c0 4.7-7 8.9-7 8.9z"/>'),
   comment:svg('<path d="M3.5 4.5h13v9h-7l-4 3v-3h-2z"/>'),
   cart:svg('<path d="M2.5 3.5h2l1.8 9h9.2l1.6-6.5H5.4"/><circle cx="8" cy="16.2" r="1"/><circle cx="14" cy="16.2" r="1"/>'),
-  coin:svg('<circle cx="10" cy="10" r="7.2"/><path d="M12.6 7.4c-.5-.8-1.5-1.2-2.6-1.2-1.5 0-2.6.8-2.6 1.9 0 2.6 5.3 1.3 5.3 4 0 1.1-1.2 1.9-2.7 1.9-1.2 0-2.2-.5-2.7-1.3M10 4.8v1.4M10 13.9v1.3"/>')
+  coin:svg('<circle cx="10" cy="10" r="7.2"/><path d="M12.6 7.4c-.5-.8-1.5-1.2-2.6-1.2-1.5 0-2.6.8-2.6 1.9 0 2.6 5.3 1.3 5.3 4 0 1.1-1.2 1.9-2.7 1.9-1.2 0-2.2-.5-2.7-1.3M10 4.8v1.4M10 13.9v1.3"/>'),
+  ext:svg('<path d="M8.5 4.5h-3a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-3M11.5 4.5h4v4M15.5 4.5L9.5 10.5"/>')
 };
 // the channel's own icon, wherever a channel is named on a button
 const CHI={"Instagram DM":ICON.insta,WhatsApp:ICON.chat,Email:ICON.mail};
@@ -1118,7 +1148,8 @@ const interested=c=>get(c.h).int===1||agreed(c);
 const gotContent=c=>stgOf(c)==="content";
 // Books and content (Yarin, 30 Oct 2026): how many books we made for a creator and which, and the link to the Google Drive folder that holds their content (`dr`).
 const BK=()=>Array.isArray(SET.books)?SET.books:[];
-const booksOf=c=>BK().filter(b=>b.h===c.h).length;
+const bkQty=b=>{ const n=parseInt(b.qty,10); return n>=0?n:1 };
+const booksOf=c=>BK().filter(b=>b.h===c.h).reduce((a,b)=>a+bkQty(b),0);
 const driveOf=c=>{ const v=String(get(c.h).dr||"").trim(); return /^https:\/\//.test(v)?v:"" };
 const salesOf=c=>{ const v=get(c.h).sales; if(v===undefined||v===null||String(v).trim()==="") return null; const x=parseFloat(v); return isNaN(x)?null:x };
 const chOf=c=>c.phone?"WhatsApp":c.email?"Email":"Instagram DM";
@@ -1321,7 +1352,8 @@ function renderHist(h){ document.querySelectorAll('[data-hist="'+CSS.escape(h)+'
 
 // ---------- reminders: a note and a date and time per creator (Yarin, 20 Oct 2026) ----------
 const isoOf=t=>{ const d=new Date(t); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0") };
-const remAt=o=>{ const d=dms(o.nad); if(d==null) return null; const m=/^(\d{1,2}):(\d{2})$/.exec(o.nat||""); return d+(m?(+m[1]*60+ +m[2])*6e4:8*36e5) };
+const remAt=o=>{ if(o.s==="content"||o.s==="posted"||o.stg==="content"||o.stg==="recv") return null;   // content is made: no more reminders (Yarin, 1 Nov 2026)
+  const d=dms(o.nad); if(d==null) return null; const m=/^(\d{1,2}):(\d{2})$/.exec(o.nat||""); return d+(m?(+m[1]*60+ +m[2])*6e4:8*36e5) };
 const hm=t=>{ const d=new Date(t); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0") };
 const dayWord=t=>{ const n=Math.round((dms(isoOf(t))-dms(today()))/864e5); return n===0?"היום":n===1?"מחר":n===-1?"אתמול":dayLabel(t) };
 const whenL=o=>{ const t=remAt(o); return t==null?"":dayWord(t)+(o.nat?" ב-"+o.nat:"") };
@@ -1591,10 +1623,8 @@ const n1=v=>v>=10?String(Math.round(v)):v.toFixed(1).replace(/\.0$/,"");
 const chg=(now,was)=>{ if(!now||!was||now===was) return ""; const p=Math.round((now-was)/was*100); return p?'<i class="chg '+(p>0?"up":"down")+'" title="השינוי מאז המחקר">'+(p>0?"+":"-")+Math.abs(p)+'%</i>':"" };
 const PIC={"עוקבים":"people","צפיות חציון":"eye","צפיות לעוקב":"reach","לייקים ל-1K צפיות":"heart","תגובות ל-1K צפיות":"comment","שאלות קנייה ל-100 תגובות":"cart","מכירות דרך הקישור":"coin"};
 function bookContentHtml(c,o){
-  const d=driveOf(c);
-  return '<h4 class="osec">ספרים ותוכן</h4><div class="ogrid"><p class="note full" style="margin:0">'+(booksOf(c)?booksOf(c)+(booksOf(c)===1?' ספר נוצר':' ספרים נוצרו')+' ליוצר הזה. ':'עוד לא נרשם ספר ליוצר הזה. ')+'<a href="#books" data-openbooks="'+esc(c.h)+'">לטבלת הספרים</a></p>'
-   +'<label class="full">קישור לתיקיית הדרייב שלהם<span class="drrow"><input class="lb-input" data-f="dr" dir="ltr" value="'+esc(o.dr||"")+'" placeholder="https://drive.google.com/drive/folders/…">'
-   +(d?'<a class="lb-btn secondary" href="'+esc(d)+'" target="_blank" rel="noopener">פתיחת התיקייה ↗</a>':'')+'</span></label></div>';
+  const d=driveOf(c), n=booksOf(c);
+  return '<div class="obk"><span>'+(n?n+(n===1?' ספר':' ספרים'):'אין ספר')+'</span>'+(d?'<a class="lb-btn secondary sm" href="'+esc(d)+'" target="_blank" rel="noopener">תיקיית דרייב ↗</a>':'')+'<a href="#books" data-openbooks="'+esc(c.h)+'">לטבלת הספרים</a></div>';
 }
 function perfHtml(c){ const q=c.kpi||null, R=rk(), v=vpf(c), sl=salesOf(c), when=c.rfd?"ברענון של "+dL(c.rfd):"במחקר, "+c.chk;
   // p: the share of the comparison group below this number; who: that group
@@ -1615,34 +1645,32 @@ function perfHtml(c){ const q=c.kpi||null, R=rk(), v=vpf(c), sl=salesOf(c), when
   if(sl!=null) h+=cell(String(sl),"מכירות דרך הקישור","מה שרשמת בכרטיס",null,"");
   return h }
 // which message the box shows first: the one that is next for this creator. A tab Yarin picked stays until the creator moves on.
-const TABSEL={};
+const TABSEL={}, OPENMSG=new Set();
+document.addEventListener("toggle",e=>{ const d=e.target; if(d&&d.dataset&&d.dataset.omd){ d.open?OPENMSG.add(d.dataset.omd):OPENMSG.delete(d.dataset.omd) } },true);
 const defTab=c=>{ const bk=bkOf(c), q=seq(c); return bk==="due"?fuT(c):(bk==="noreply"&&(q.k==="due"||q.k==="nodate"))?"fu":inProc(stOf(c.h))?"d2":"dm" };
 const tabOf=c=>{ const t=TABSEL[c.h]; return t&&MT.some(m=>m[0]===t)&&(t!=="em"||c.email)&&(t!=="fx"||fxOK(c))?t:defTab(c) };
 function card(c,opt){
   const q1=!!(opt&&opt.q), o=get(c.h), s=stOf(c.h), cur=HOOK.bk(c), prof=url(c), T=trkOf(c), e=expOf(c), t0=tabOf(c);
   const wa=waLink(c,msgOf(c,"dm")), ml=mailLink(c), ch=chOf(c), ob=objOf(c), sg=stgOf(c), na=naState(c), rt=remAt(o);
   const kt=kidsTxt(c);
-  const chips=(sg?'<span class="lb-chip info">'+esc(STGL[sg])+'</span>':'')
-   +(booksOf(c)?'<span class="lb-chip success" title="כמה ספרים נוצרו ליוצר הזה">'+booksOf(c)+(booksOf(c)===1?' ספר':' ספרים')+'</span>':'')
+  // the stage reads in the status pill at the top of the card, so it is not repeated as a chip
+  const chips=(booksOf(c)?'<a class="lb-chip success" href="#books" data-openbooks="'+esc(c.h)+'" title="לטבלת הספרים">'+booksOf(c)+(booksOf(c)===1?' ספר':' ספרים')+'</a>':'')
    +(driveOf(c)?'<a class="lb-chip success" href="'+esc(driveOf(c))+'" target="_blank" rel="noopener" title="תיקיית הדרייב של היוצר">תיקיית דרייב ↗</a>':'')
    +(ob?'<span class="lb-chip wrap '+(s==="declined"?"danger":"warning")+'" title="'+(o.obj?"הסיבה שרשמת":"לא נרשמה סיבה לסירוב")+'">'+(s==="declined"?"סיבה: ":"מה תוקע: ")+esc(OBJL[ob])+'</span>':'')
-   +(rt!=null?'<span class="lb-chip '+(na==="over"?"danger":na==="today"?"warning":"outline")+'" title="'+esc(o.na||"")+'">⏰ '+esc(whenL(o))+'</span>':'')
-   +'<span class="lb-chip tint">'+esc(chL(o.chs&&s!=="new"?o.chs:ch))+'</span>'
+   +(rt!=null?'<span class="lb-chip '+(na==="over"?"danger":na==="today"?"warning":"outline")+'" title="'+esc(o.na||"")+'">'+ICON.bell+esc(whenL(o))+'</span>':'')
+   +((o.chs&&s!=="new"?o.chs:ch)==="Instagram DM"?'<span class="lb-chip tint">'+esc(chL("Instagram DM"))+'</span>':'')
    +'<span class="lb-chip'+(kt?' accent':'')+'" title="'+(kt?'מספר הילדים והמין שלהם, מהפרופיל הציבורי':'עוד לא נבדק. אפשר להוסיף בפרטים למטה')+'">ילדים: '+esc(kt||"לא נבדק")+'</span>'
-   +(e?'<span class="lb-chip outline" title="'+esc("ניסוי ״"+e.name+"״, גרסה "+(o.expv||"")+". תווית לטיוטה: הניסוי לא שולח כלום.")+'">ניסוי · '+esc(o.expv||"")+'</span>':'')
-   +(c.own?'':'<span class="lb-chip" title="שורה כללית לפי קטגוריה: כדאי להחליף אותה במשהו ספציפי מאחד הסרטונים שלהם">שורה כללית</span>');
+   +(e?'<span class="lb-chip outline" title="'+esc("ניסוי ״"+e.name+"״, גרסה "+(o.expv||"")+". תווית לטיוטה: הניסוי לא שולח כלום.")+'">ניסוי · '+esc(o.expv||"")+'</span>':'');
   let acts="";
-  if(wa&&!q1) acts+='<a class="lb-btn secondary" href="'+wa+'" target="_blank" rel="noopener" data-ch="WhatsApp">'+ICON.chat+'וואטסאפ</a>';
-  if(ml&&!q1) acts+='<a class="lb-btn secondary" href="'+ml+'" data-ch="Email">'+ICON.mail+'מייל</a>';
+  // no WhatsApp / mail buttons on the card face (Yarin, 1 Nov 2026); the numbers and addresses stay in the details below
   if(s==="new") acts+='<button type="button" class="lb-btn ok" data-act="sent">'+ICON.check+'שלחתי</button>';
   if(!q1) acts+=fuUI(c);
   // the reminder row (every creator): what to do next and when to check. In process adds the step and the interest tick; a no or a stall adds the reason.
   let deal='<label class="grow">פתק: מה צריך לעשות<textarea class="lb-textarea na" data-f="na" dir="auto" rows="2" placeholder="מה הצעד הבא איתם">'+esc(o.na||"")+'</textarea></label>'
-    +'<label>תזכורת בתאריך<input class="lb-input" type="date" data-f="nad" value="'+esc(o.nad||"")+'"></label>'
-    +'<label>בשעה<input class="lb-input" type="time" step="300" data-f="nat" value="'+esc(o.nat||"")+'"'+(o.nad?'':' disabled')+'></label>';
-  if(inProc(s)) deal='<label>שלב'+sel("stg",STAGES,sg,"השלב של "+c.h)+'</label>'+deal
-    +'<label class="chk" title="רק כשהם אמרו את זה. להיות בתהליך זה לא הוכחה לעניין."><input type="checkbox" data-f="int"'+(o.int===1?" checked":"")+'>אמרו שהם מעוניינים</label>';
-  if(inProc(s)||s==="declined"){
+    +(gotContent(c)?'':'<label>תזכורת בתאריך<input class="lb-input" type="date" data-f="nad" value="'+esc(o.nad||"")+'"></label>'
+    +'<label>בשעה<input class="lb-input" type="time" step="300" data-f="nat" value="'+esc(o.nat||"")+'"'+(o.nad?'':' disabled')+'></label>');
+  if(inProc(s)) deal='<label>שלב'+sel("stg",STAGES,sg,"השלב של "+c.h)+'</label>'+deal;
+  if(s==="declined"){
     deal+='<label class="wide">'+(s==="declined"?"הסיבה לסירוב":"מה תוקע את זה")+sel("obj",[["",s==="declined"?"לא ידוע (לא נרשם)":"לא נרשם כלום"]].concat(OBJ.filter(x=>s!=="declined"||x[0]!=="unknown")),o.obj==="unknown"&&s==="declined"?"":o.obj,"הסיבה של "+c.h)+'</label>';
   }
   const CHEV='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7.5l5 5 5-5"/></svg>';
@@ -1652,87 +1680,96 @@ function card(c,opt){
   // the first message as it went out: recorded at Mark sent, or for older Short sends the saved Short text
   const sentTxt=o.msnap||(s!=="new"&&ssOf(c)===2&&typeof o.x_dm_2==="string"?o.x_dm_2:"");
   const rfc=(c.rf||[]).map(t=>isPost(t)?'<a class="lb-chip success wrap" href="'+esc(t.slice(t.indexOf("https://")))+'" target="_blank" rel="noopener" title="הרענון השבועי, '+esc(c.rfd||"")+'">'+esc(t.slice(0,t.indexOf(": https://")))+' ↗</a>':'<span class="lb-chip warning wrap" title="הרענון השבועי, '+esc(c.rfd||"")+'">'+esc(t)+'</span>').join("");
-  return '<article class="oc lb-card '+(s==="declined"||s==="posted"||cur==="noreply"?"done":"")+'" data-h="'+esc(c.h)+'">'
-   +'<div class="ocg"><div class="oside">'
-   +'<div class="oid"><a class="hn" href="'+prof+'" target="_blank" rel="noopener" title="פתיחת הרילס שלהם בלשונית חדשה">'+hb(c.h)+' <span aria-hidden="true">↗</span></a><span class="he" dir="auto">'+esc(c.name)+'</span></div>'
-   +'<div class="omet"><span>רילס אחרון '+esc(c.last?isoDL(c.last):"לא ידוע")+'</span>'+(o.on?'<span>נשלח ב-'+esc(dL(o.on))+(ssOf(c)===2?' · קצר':'')+'</span>':'')+'</div>'
-   +'<div class="chips">'+chips+(staleProc(c.h)?'<span class="lb-chip danger" title="בתהליך בלי שינוי סטטוס ובלי תזכורת במשך 30 יום, אז עבר לסירוב לבד. בחירה מחדש של ״בתהליך״ מחזירה אותו.">אוטומטי: חודש בתהליך</span>':'')+rfc+'</div>'
-   +'<div class="ofld"><div class="fl"><span>סטטוס</span>'+mbtn("s","st-"+cur,STL[cur],"הסטטוס של "+c.h)+'</div>'
-   +'<div class="fl" title="'+(trkSet(c)?"המסלול שבחרת. הוא קובע את הזווית של ההודעות.":"נבחר לפי קטגוריית המחקר ("+esc(archL(c.arch))+"). אפשר לבחור אחר כאן.")+'"><span>מסלול'+(trkSet(c)?'':' · נבחר אוטומטית')+'</span>'+mbtn("trk","tk lb-track-"+T,TRKL[T],"מסלול שיתוף הפעולה של "+c.h)+'</div></div>'
-   +'</div>'
+  // card system (1 Nov 2026): top (who, status, facts), body (message | numbers), footer (follow-up work, more details).
+  // The pill carries the status colour (no edge stripe, Yarin 1 Nov 2026), the avatar the track hue; see "creator card" in the styles.
+  const tk=trkOf(c), ini=[...String(c.name||"").trim()][0]||(c.h[0]||"").toUpperCase(), facts=chips+(staleProc(c.h)?'<span class="lb-chip danger" title="בתהליך בלי שינוי סטטוס ובלי תזכורת במשך 30 יום, אז עבר לסירוב לבד. בחירה מחדש של ״בתהליך״ מחזירה אותו.">אוטומטי: חודש בתהליך</span>':'')+rfc;
+  const mtab=esc((MT.find(m=>m[0]===t0)||[0,""])[1])+' · '+esc(STY_NAME[sty(c)]);
+  return '<article class="oc lb-card'+(s==="declined"||s==="posted"||cur==="noreply"?" done":"")+'" data-h="'+esc(c.h)+'">'
+   +'<div class="otop"><header class="ohd">'
+   +'<span class="oav lb-track-'+tk+'" title="'+esc("מסלול: "+(TRKL[tk]||""))+'" aria-hidden="true">'+esc(ini)+'</span>'
+   +'<div class="oid"><a class="hn" href="'+prof+'" target="_blank" rel="noopener" title="פתיחת הרילס שלהם בלשונית חדשה">'+hb(c.h)+ICON.ext+'</a>'
+   +'<div class="osub"><span class="he" dir="auto">'+esc(c.name)+'</span><span>'+ICON.insta+'רילס אחרון '+esc(c.last?isoDL(c.last):"לא ידוע")+'</span>'+(o.on?'<span>'+ICON.send+'נשלח ב-'+esc(dL(o.on))+(ssOf(c)===2?' · קצר':'')+'</span>':'')+'</div></div>'
+   +'<div class="ohd-end"><span class="ost st-'+cur+'"><span class="dot"></span>'+esc(STL[cur]+(sg?' · '+STGL[sg]:''))+'</span>'
+   +(s!=="declined"?'<button type="button" class="lb-btn icon xdecl" data-act="decline" title="סימון כסירוב (הפולואפים נעצרים)" aria-label="סימון '+esc(c.h)+' כסירוב">'+ICON.close+'</button>':'')+'</div>'
+   +'</header>'
+   +(facts?'<div class="chips">'+facts+'</div>':'')
+   +'<div class="ocg">'
    // the message box is always on the card, with one row of actions under it
-   +'<div class="omsg"><div class="otabs"><div class="mtabs lb-segmented" role="group" aria-label="סוג ההודעה">'+tabs+'</div><div class="mtabs lb-segmented stysw" role="group" aria-label="סגנון ההודעה">'+[1,2].map(x=>'<button type="button" data-act="style" data-s="'+x+'" aria-pressed="'+(sty(c)===x?"true":"false")+'">'+STY_NAME[x]+'</button>').join("")+'</div></div>'
+   +'<section class="omsg"><h4 class="oeb">'+ICON.chat+'הודעה</h4>'
+   +'<details class="omd" data-omd="'+esc(c.h)+'"'+(OPENMSG.has(c.h)?' open':'')+'><summary><span class="omdl">'+mtab+'</span><span class="omdp">'+esc(msgOf(c,t0).replace(/\s+/g," ").slice(0,180))+'</span></summary><div class="otabs"><div class="mtabs lb-segmented" role="group" aria-label="סוג ההודעה">'+tabs+'</div><div class="mtabs lb-segmented stysw" role="group" aria-label="סגנון ההודעה">'+[1,2].map(x=>'<button type="button" data-act="style" data-s="'+x+'" aria-pressed="'+(sty(c)===x?"true":"false")+'">'+STY_NAME[x]+'</button>').join("")+'</div></div>'
    +'<textarea class="msgbox lb-textarea" data-msgbox data-t="'+t0+'" dir="rtl" rows="5" aria-label="טקסט ההודעה, אפשר לערוך">'+esc(msgOf(c,t0))+'</textarea>'
-   +'<div class="hechk" data-hecheck>'+heBoxHtml(msgOf(c,t0),c,t0)+'</div>'
+   +'<div class="hechk" data-hecheck>'+heBoxHtml(msgOf(c,t0),c,t0)+'</div></details>'
    +'<div class="oact"><button type="button" class="lb-btn" data-act="copybox">'+ICON.copy+'העתקה</button>'+acts
-   +'<span class="end"><span class="lb-chip warning" data-edited'+(edited(c,t0)?'':' hidden')+'>'+chipTxt(c,t0)+'</span><button type="button" class="lb-btn ghost sm" data-act="resetmsg"'+(edited(c,t0)?'':' hidden')+'>'+ICON.undo+'חזרה לתבנית</button>'+(s!=="declined"?'<button type="button" class="lb-btn icon xdecl" data-act="decline" title="סימון כסירוב (הפולואפים נעצרים)" aria-label="סימון '+esc(c.h)+' כסירוב"><svg class="i" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button>':'')+'</span></div>'
-   +'<dl class="operf">'+perfHtml(c)+'</dl>'
+   +'<span class="end"><span class="lb-chip warning" data-edited'+(edited(c,t0)?'':' hidden')+'>'+chipTxt(c,t0)+'</span><button type="button" class="lb-btn ghost sm" data-act="resetmsg"'+(edited(c,t0)?'':' hidden')+'>'+ICON.undo+'חזרה לתבנית</button></span></div>'
+   +'</section>'
+   +'<section class="onum"><h4 class="oeb">'+ICON.reach+'ביצועים</h4><dl class="operf">'+perfHtml(c)+'</dl></section>'
    +'</div></div>'
-   +'<div class="odeal">'+deal+'</div>'
-   +(s!=="new"&&s!=="declined"||booksOf(c)||driveOf(c)?bookContentHtml(c,o):'')
-   +'<details class="odet"><summary>העסקה, התשובה והפתקים</summary>'
-   +'<p class="note" style="margin:0">אלה ההודעות של המסלול '+esc(TRKL[T])+' בסגנון '+STY_NAME[sty(c)]+'. העריכות נשמרות ליוצר הזה ולמסלול הזה, וכשיוצאים מהתיבה הן מלמדות את התבניות את הקול שלך. ההצעה עצמה לא משתנה אף פעם. על המסך <bdi dir="ltr">@lumebookai</bdi> אולי ייראה הפוך; הטקסט שמועתק תקין.</p>'
-   +'<h4 class="osec">ההצעה והעסקה</h4>'
-   +'<div class="ogrid"><label>קישור אישי<input class="lb-input" data-f="code" dir="ltr" value="'+esc(o.code||"")+'" placeholder="https://…"></label>'
-   +(s!=="new"?'<label>נשלח דרך'+sel("chs",[["","לא נרשם"]].concat(CHS.map(x=>[x,chL(x)])),o.chs,"הערוץ של "+c.h)+'</label>':'')
+   +'<div class="odeal"><h4 class="oeb">'+ICON.bell+'מעקב</h4><div class="fl"><span>סטטוס</span>'+mbtn("s","st-"+cur,STL[cur],"הסטטוס של "+c.h)+'</div>'+deal+'</div>'
+   +'<details class="odet"><summary>פרטים נוספים</summary>'
+   +'<div class="ogrid ocmp"><label>תיקיית דרייב<input class="lb-input" data-f="dr" dir="ltr" value="'+esc(o.dr||"")+'" placeholder="https://drive.google.com/…"></label>'
    +'<label>נשלח בתאריך<input class="lb-input" type="date" data-f="on" value="'+esc(o.on||"")+'"></label>'
-   +(gotContent(c)||o.code||salesOf(c)!==null?'<label>מכירות דרך הקישור שלהם (ריק אם לא ידוע)<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="sales" dir="ltr" value="'+esc(o.sales??"")+'" placeholder="אין נתונים"></label>':'')
-   +'</div>'
-   +(answered(c)?'<h4 class="osec">התשובה שלהם</h4><div class="ogrid"><label class="full">במילים שלהם<textarea class="lb-textarea" data-f="objq" dir="auto" rows="2" placeholder="להדביק את מה שהם כתבו, כמו שכתבו">'+esc(o.objq||"")+'</textarea></label>'
-     +'<label class="full">הערה קצרה על הסיבה<input class="lb-input" data-f="objn" dir="auto" value="'+esc(o.objn||"")+'" placeholder="לא חובה"></label></div>':'')
-   +'<h4 class="osec">פנייה, ילדים והערות</h4>'
-   +'<div class="ogrid"><label>השם בפנייה<input class="lb-input" data-f="name" dir="rtl" value="'+esc(o.name||"")+'" placeholder="'+esc(c.n)+'"></label>'
-   +'<label>שורה אישית (במקום ״אהבתי את …״)<textarea class="lb-textarea" data-f="line" dir="rtl" rows="2" placeholder="'+esc(c.l)+'">'+esc(o.line||"")+'</textarea></label>'
+   +(gotContent(c)||o.code||salesOf(c)!==null?'<label>מכירות דרך הקישור<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="sales" dir="ltr" value="'+esc(o.sales??"")+'" placeholder="אין נתונים"></label>':'')
+   +'<label>השם בפנייה<input class="lb-input" data-f="name" dir="rtl" value="'+esc(o.name||"")+'" placeholder="'+esc(c.n)+'"></label>'
+   +'<label>שורה אישית<input class="lb-input" data-f="line" dir="rtl" value="'+esc(o.line||"")+'" placeholder="'+esc(c.l)+'"></label>'
    +'<label>מספר הילדים<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="kn" dir="ltr" value="'+esc(o.kn??"")+'" placeholder="'+esc(c.kids&&c.kids.n!=null?c.kids.n:"")+'"></label>'
-   +'<label>שמות הילדים, מופרדים בפסיקים<input class="lb-input" data-f="kname" dir="rtl" value="'+esc(o.kname||"")+'" placeholder="'+esc((c.kids&&c.kids.names||[]).join(", "))+'"></label>'
    +'<label>בנים<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="kb" dir="ltr" value="'+esc(o.kb??"")+'" placeholder="'+esc(c.kids&&c.kids.b!=null?c.kids.b:"")+'"></label>'
    +'<label>בנות<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="kg" dir="ltr" value="'+esc(o.kg??"")+'" placeholder="'+esc(c.kids&&c.kids.g!=null?c.kids.g:"")+'"></label>'
-   +'<p class="note" style="grid-column:1/-1;margin:-.25rem 0 0">נוסף '+esc(addedLabel(c))+'. '+(kidsOf(c).edited?'הילדים כמו שהזנת.':c.kids&&c.kids.src?'הילדים לפי הביו הציבורי ('+esc(srcL(c.kids.src))+'). אפשר לתקן כאן.':'עוד לא נבדק. אפשר להוסיף מה שהפרופיל מראה בפומבי (מספר, מין, שמות), ולהשאיר ריק אם הם לא משתפים.')+' בהודעות כתוב: <bdi dir="rtl">'+esc(kidsFormLabel(c))+'</bdi>.</p>'
-   +'<label style="grid-column:1/-1">הערות<textarea class="lb-textarea" data-f="note" dir="auto" rows="2" placeholder="תשובה, עסקה, מה סוכם…">'+esc(o.note||"")+'</textarea></label></div>'
+   +'<label>שמות הילדים<input class="lb-input" data-f="kname" dir="rtl" value="'+esc(o.kname||"")+'" placeholder="'+esc((c.kids&&c.kids.names||[]).join(", "))+'"></label>'
+   +'<p class="note" style="grid-column:1/-1;margin:0">נוסף '+esc(addedLabel(c))+'. '+(kidsOf(c).edited?'הילדים כמו שהזנת.':c.kids&&c.kids.src?'הילדים לפי הביו הציבורי ('+esc(srcL(c.kids.src))+'). אפשר לתקן כאן.':'עוד לא נבדק. אפשר להוסיף מה שהפרופיל מראה בפומבי (מספר, מין, שמות), ולהשאיר ריק אם הם לא משתפים.')+' בהודעות כתוב: <bdi dir="rtl">'+esc(kidsFormLabel(c))+'</bdi>.</p>'
+   +'</div>'
    +(sentTxt?'<details class="odet" style="margin-top:var(--sp-3)"><summary>ההודעה הראשונה כפי שנשלחה'+(o.on?' ב-'+esc(dL(o.on)):'')+'</summary><p class="note" dir="rtl" style="white-space:pre-wrap;text-align:right;margin:0 0 var(--sp-3)">'+esc(sentTxt)+'</p></details>':'')
    +'<details class="odet" data-hist="'+esc(c.h)+'" style="margin-top:var(--sp-3)"><summary>היסטוריה</summary><ul class="hist" data-histl>'+histHtml(c.h)+'</ul></details>'
    +'<div style="margin-top:8px">'+contact+'</div></details></article>';
 }
 // ---------- books table (30 Oct 2026): one row per book we made; SET.books in settings/main ----------
-const bkNew=h=>({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),h:h||"",child:"",title:"",on:today(),sent:"",note:"",dr:""});
+const bkNew=h=>({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),h:h||"",qty:1,arrived:false,up:false,child:"",title:"",on:today(),sent:"",note:"",dr:""});
 const bkDr=b=>byH[b.h]?(get(b.h).dr||""):(b.dr||"");
+const bkUp=b=>b.up!==undefined&&b.up!==""?!!b.up:(byH[b.h]?gotContent(byH[b.h]):false);
+const bkMatch=(b,q)=>!q||[b.h,byH[b.h]&&byH[b.h].n,b.child,b.title,b.note].join(" ").toLowerCase().includes(q);
 function bkRow(b){
-  const d=bkDr(b), ok=/^https:\/\//.test(d.trim());
-  return '<tr data-id="'+esc(b.id)+'"><td><input class="lb-input" list="bkH" dir="ltr" data-bk="h" value="'+esc(b.h)+'" placeholder="@handle" aria-label="יוצר"></td>'
-   +'<td><input class="lb-input" dir="auto" data-bk="child" value="'+esc(b.child)+'" aria-label="שם הילד"></td>'
-   +'<td><input class="lb-input" dir="auto" data-bk="title" value="'+esc(b.title)+'" aria-label="הספר"></td>'
-   +'<td><input class="lb-input" type="date" data-bk="on" value="'+esc(b.on)+'" aria-label="נוצר בתאריך"></td>'
-   +'<td><input class="lb-input" type="date" data-bk="sent" value="'+esc(b.sent)+'" aria-label="נשלח בתאריך"></td>'
+  const d=bkDr(b), ok=/^https:\/\//.test(d.trim()), c=byH[b.h];
+  return '<tr data-id="'+esc(b.id)+'"><td class="who">'+(c?'<a class="bkh" href="#c-all" dir="ltr" data-opencre="'+esc(c.h)+'" title="לכרטיס של היוצר">@'+esc(c.h)+'</a>'
+    :'<input class="lb-input" list="bkH" dir="ltr" data-bk="h" value="'+esc(b.h)+'" placeholder="בחירת יוצר מהרשימה" aria-label="יוצר" data-prev="'+esc(b.h)+'">')+'</td>'
+   +'<td><input class="lb-input qty" type="number" min="0" step="1" inputmode="numeric" dir="ltr" data-bk="qty" value="'+bkQty(b)+'" aria-label="כמה ספרים"></td>'
+   +'<td class="ck"><label class="bkck"><input type="checkbox" class="lb-switch" data-bk="arrived"'+(b.arrived?' checked':'')+' aria-label="הספרים הגיעו ליוצר"><span>'+(b.arrived?'הגיע':'בדרך')+'</span></label></td>'
+   +'<td class="ck"><label class="bkck"><input type="checkbox" class="lb-switch" data-bk="up"'+(bkUp(b)?' checked':'')+' aria-label="התוכן עלה"><span>'+(bkUp(b)?'עלה':'עוד לא')+'</span></label></td>'
    +'<td class="dr"><span class="drc"><input class="lb-input" dir="ltr" data-bk="dr" value="'+esc(d)+'" placeholder="https://drive.google.com/…" aria-label="תיקיית דרייב">'+(ok?'<a class="lb-btn secondary sm" href="'+esc(d.trim())+'" target="_blank" rel="noopener">פתיחה ↗</a>':'')+'</span></td>'
-   +'<td><input class="lb-input" dir="auto" data-bk="note" value="'+esc(b.note)+'" aria-label="הערות"></td>'
-   +'<td><button type="button" class="lb-btn icon" data-bkdel title="הסרת השורה" aria-label="הסרת הספר">×</button></td></tr>';
+   +'<td><button type="button" class="lb-btn secondary sm bknb" data-bknote title="'+esc(b.note)+'">'+(b.note?'הערה ●':'+ הערה')+'</button></td>'
+   +'<td><button type="button" class="lb-btn icon" data-bkdel title="הסרת השורה" aria-label="הסרת השורה">×</button></td></tr>';
 }
 function renderBooks(){
   const ae=document.activeElement, body=document.getElementById("bkBody");
   if(ae&&body.contains(ae)&&ae.tagName==="INPUT") return;   // never rebuild a row while it is being typed in
   const q=(document.getElementById("bkQ").value||"").trim().toLowerCase(), all=BK();
-  const rows=all.filter(b=>!q||[b.h,b.child,b.title,b.note].join(" ").toLowerCase().includes(q)).sort((a,b)=>(b.on||"").localeCompare(a.on||""));
-  body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="8" class="note">'+(all.length?"שום ספר לא מתאים לחיפוש.":"עוד לא נרשם אף ספר. ״ספר חדש״ מוסיף שורה.")+'</td></tr>';
+  const rows=all.filter(b=>bkMatch(b,q)).sort((a,b)=>(b.on||"").localeCompare(a.on||""));
+  body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="7" class="note">'+(all.length?"שום ספר לא מתאים לחיפוש.":"עוד לא נרשם אף ספר. ״ספר חדש״ מוסיף שורה.")+'</td></tr>';
   const cre=new Set(all.map(b=>b.h).filter(Boolean)).size;
-  document.getElementById("bkLede").textContent=all.length?all.length+(all.length===1?" ספר נוצר":" ספרים נוצרו")+", ל-"+cre+(cre===1?" יוצר":" יוצרים")+". כל שדה ניתן לעריכה ונשמר מעצמו. תיקיית הדרייב שייכת ליוצר, אז היא זהה בכל הספרים שלו ונראית גם בכרטיס שלו.":"טבלה אחת לכל הספרים שנוצרו ליוצרים: מי, לאיזה ילד, איזה ספר, ומתי.";
-  const n=document.getElementById("booksN"); if(n) setCnt(n,all.length||"");
-  const dl=document.getElementById("bkH"); if(!dl.children.length) dl.innerHTML=C.map(c=>'<option value="'+esc(c.h)+'">'+esc(c.n||"")+'</option>').join("");
+  const tot=all.reduce((a,b)=>a+bkQty(b),0), arr=all.filter(b=>b.arrived).reduce((a,b)=>a+bkQty(b),0), upn=all.filter(bkUp).length;
+  document.getElementById("bkLede").textContent=all.length?tot+(tot===1?" ספר נוצר":" ספרים נוצרו")+", ל-"+cre+(cre===1?" יוצר":" יוצרים")+". "+arr+" הגיעו, תוכן עלה אצל "+upn+". כל שדה ניתן לעריכה ונשמר מעצמו. תיקיית הדרייב שייכת ליוצר, אז היא זהה בכל השורות שלו ונראית גם בכרטיס שלו.":"טבלה אחת לכל הספרים שנוצרו ליוצרים: מי, כמה ספרים, אם הגיעו, אם התוכן עלה, והדרייב.";
+  const n=document.getElementById("booksN"); if(n) setCnt(n,tot||"");
+  const dl=document.getElementById("bkH"); if(!dl.children.length) dl.innerHTML=C.map(c=>'<option value="'+esc(c.h)+'">').join("");
 }
 (function(){
   const body=document.getElementById("bkBody");
   document.getElementById("bkAdd").addEventListener("click",()=>{ const h=window.__bkH||""; window.__bkH=""; document.getElementById("bkQ").value=""; const b=bkNew(h); SET.books=BK().concat([b]); saveSettings(); renderBooks(); const f=body.querySelector('tr[data-id="'+b.id+'"] [data-bk="h"]'); f&&f.focus() });
   document.getElementById("bkQ").addEventListener("input",renderBooksForce);
   body.addEventListener("input",e=>{ const k=e.target.dataset&&e.target.dataset.bk; if(!k) return; const b=BK().find(x=>x.id===e.target.closest("tr").dataset.id); if(!b) return;
-    const v=e.target.value.trim(); if(k==="dr"){ if(byH[b.h]) patchLater(b.h,{dr:v}); else{ b.dr=v; saveLater() } } else{ b[k]=v; saveLater() } });
-  body.addEventListener("change",e=>{ const k=e.target.dataset&&e.target.dataset.bk; if(!k) return; if(k==="h"){ const b=BK().find(x=>x.id===e.target.closest("tr").dataset.id); if(b) b.h=e.target.value.trim().replace(/^@/,"") } saveSettings(); e.target.blur(); render() });
+    if(e.target.type==="checkbox") return;
+    const v=e.target.value.trim(); if(k==="qty"){ b.qty=Math.max(0,parseInt(v,10)||0); saveLater(); return } if(k==="dr"){ if(byH[b.h]) patchLater(b.h,{dr:v}); else{ b.dr=v; saveLater() } } else{ b[k]=v; saveLater() } });
+  body.addEventListener("change",e=>{ const k=e.target.dataset&&e.target.dataset.bk; if(!k) return; if(e.target.type==="checkbox"){ const b=BK().find(x=>x.id===e.target.closest("tr").dataset.id); if(b){ b[k]=e.target.checked; if(k==="arrived") b.sent=e.target.checked?(b.sent||today()):"" } } if(k==="h"){ const b=BK().find(x=>x.id===e.target.closest("tr").dataset.id); if(b){ const v=e.target.value.trim().replace(/^@/,""), lc=v.toLowerCase(), hit=byH[v]?v:(C.find(c=>c.h.toLowerCase()===lc)||{}).h||((m=>m.length===1?m[0].h:"")(C.filter(c=>(c.n||"").trim().toLowerCase()===lc))); b.h=hit||e.target.dataset.prev||"" } } saveSettings(); e.target.blur(); render() });
+  const dlg=document.getElementById("bkNote"), nt=document.getElementById("bkNoteT"); let nb=null;
+  body.addEventListener("click",e=>{ const l=e.target.closest("[data-opencre]"); if(l){ e.preventDefault(); window.openCreator(l.dataset.opencre); return }
+    const nbtn=e.target.closest("[data-bknote]"); if(nbtn){ const b=BK().find(x=>x.id===nbtn.closest("tr").dataset.id); if(!b) return; nb=b; document.getElementById("bkNoteH").textContent="הערה: "+((byH[b.h]&&byH[b.h].n)||b.h||"ספר"); nt.value=b.note||""; dlg.showModal(); nt.focus(); return } });
+  nt.addEventListener("input",()=>{ if(nb){ nb.note=nt.value; saveLater() } });
+  dlg.addEventListener("close",()=>{ nb=null; saveSettings(); render() });
   body.addEventListener("click",e=>{ const x=e.target.closest("[data-bkdel]"); if(!x) return; const id=x.closest("tr").dataset.id; SET.books=BK().filter(b=>b.id!==id); saveSettings(); render() });
   document.querySelector("main").addEventListener("click",e=>{ const a=e.target.closest("[data-openbooks]"); if(!a) return; e.preventDefault(); window.__bkH=a.dataset.openbooks; document.getElementById("bkQ").value=a.dataset.openbooks; navigate("books") });
 })();
-function renderBooksForce(){ const ae=document.activeElement; if(ae&&ae.id==="bkQ"){ const body=document.getElementById("bkBody"); const q=ae.value.trim().toLowerCase(), all=BK(); const rows=all.filter(b=>!q||[b.h,b.child,b.title,b.note].join(" ").toLowerCase().includes(q)).sort((a,b)=>(b.on||"").localeCompare(a.on||"")); body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="8" class="note">שום ספר לא מתאים לחיפוש.</td></tr>' } else renderBooks() }
+function renderBooksForce(){ const ae=document.activeElement; if(ae&&ae.id==="bkQ"){ const body=document.getElementById("bkBody"); const q=ae.value.trim().toLowerCase(), all=BK(); const rows=all.filter(b=>bkMatch(b,q)).sort((a,b)=>(b.on||"").localeCompare(a.on||"")); body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="7" class="note">שום ספר לא מתאים לחיפוש.</td></tr>' } else renderBooks() }
 function render(){
   const ae=document.activeElement, list=document.getElementById("olist");
   navCounts(); migRender(); remCount(); renderDrawer();
-  { const bn=document.getElementById("booksN"); if(bn) setCnt(bn,BK().length||"") }
+  { const bn=document.getElementById("booksN"); if(bn) setCnt(bn,BK().reduce((a,b)=>a+bkQty(b),0)||"") }
   if(ROUTE.page==="reminders") renderRem();
   if(ROUTE.page==="followups") renderFu();
   if(ROUTE.page==="overview") renderOverview();
@@ -1751,7 +1788,7 @@ function render(){
   list.innerHTML=html||(activeCount(st)
     ?'<div class="empty lb-empty"><span class="emp-ic q">'+ICON.search+'</span><b>אין יוצרים שמתאימים.</b><p class="note">שום דבר ב״'+esc(statusName(ROUTE.status,ROUTE.stage))+'״ לא מתאים לחיפוש או לסינון.</p><button type="button" class="lb-btn secondary" data-clearlist>ניקוי החיפוש והסינון</button></div>'
     :'<div class="empty lb-empty"><span class="emp-ic">'+ICON.checkc+'</span><b>אין כאן אף אחד כרגע.</b><p class="note">אף יוצר לא נמצא ב״'+esc(statusName(ROUTE.status,ROUTE.stage))+'״ עכשיו.</p></div>');
-  list.querySelectorAll(".oc").forEach(el=>{ if(openH.has(el.dataset.h)) el.querySelector("details").open=true });
+  list.querySelectorAll(".oc").forEach(el=>{ if(openH.has(el.dataset.h)) el.querySelector(":scope > details").open=true });
   fitAll();
   if(OPEN_H){ const el=cardEl(OPEN_H); OPEN_H=null; if(el){ el.scrollIntoView({block:"start"}); fx(el,"is-flash") } }
   const more=document.getElementById("smore"); more.hidden=rows.length<=shown;
@@ -1826,7 +1863,7 @@ async function copyText(btn,text){
   if(!ok) try{ await navigator.clipboard.writeText(text); ok=true }catch(e){
     try{ const t=document.createElement("textarea"); t.value=text; t.style.cssText="position:fixed;left:-9999px"; document.body.appendChild(t); t.select(); ok=document.execCommand("copy"); t.remove() }catch(e2){}
   }
-  const old=btn.innerHTML; btn.innerHTML=ok?ICON.check+"הועתק":"צריך להעתיק ידנית"; const ic=btn.querySelector(".i"); if(ic) ic.classList.add("pop");
+  const old=btn.innerHTML; btn.innerHTML=ok?ICON.check+"הועתק":"צריך להעתיק ידנית"; const ic=btn.querySelector(".i"); if(ic) ic.classList.add("ipop");
   setTimeout(()=>{ if(btn.isConnected) btn.innerHTML=old },1400);
   fx(btn,ok?"is-ok":"is-err"); toast(ok?"הועתק. אפשר להדביק בצ׳אט.":"לא הצלחתי להעתיק. אפשר לסמן את הטקסט ולהעתיק ידנית.",{bad:!ok});
   if(!ok){ const oc=btn.closest(".oc"), ta=oc&&oc.querySelector("[data-msgbox]"); if(ta){ ta.focus(); ta.select() } }
@@ -2388,5 +2425,5 @@ const goLocal=msg=>{ MODE="local"; lsSave(); svRender(); note(msg); remTick() };
   }catch(e){ goLocal("השמירה המשותפת לא זמינה בתצוגה הזאת, אז השינויים נשמרים בדפדפן הזה בלבד.") }
 })();
 })();
-document.querySelectorAll("[data-ic]").forEach(a=>a.insertAdjacentHTML("afterbegin",ICON[a.dataset.ic]));
+document.querySelectorAll("[data-ic]").forEach(a=>a.insertAdjacentHTML("afterbegin",/\blb-ws-/.test(a.className)?'<span class="lb-tile">'+ICON[a.dataset.ic]+'</span>':ICON[a.dataset.ic]));
 </script>

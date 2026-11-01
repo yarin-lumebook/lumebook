@@ -6,13 +6,13 @@
    are checked against the key, and Claude grades the written third answer against the lesson's model answer (the
    sample capability). Projects are handed in and Claude checks them against what a good one contains. Where Claude
    cannot run (the Vercel copy, the local server, or the viewer said no), Yarin grades the written answer themself.
-   Also: tasks with checklists that fade on a published schedule, the weekly numbers (Sundays), the link maker with its
-   log, and the glossary. Plan: course/curriculum.md. Content: window.LB_COURSE (course/course-data.js, built by
-   course/build.py).
+   Also: tasks with checklists that fade on a published schedule, the Sales tab (Yossi's order export in, the paid
+   orders that carry Yarin's tag out, since 1 Nov 2026), the weekly numbers (Sundays), the link maker with its log, and
+   the glossary. Plan: course/curriculum.md. Content: window.LB_COURSE (course/course-data.js, built by course/build.py).
 
    Where it saves (shown in the view, never implied):
    - claude.ai artifact with the db capability: documents course/tasks, course/progress, course/numbers,
-     course/settings, course/links. Items live in nested maps keyed by id and are written with update(), which merges
+     course/settings, course/links, course/sales. Items live in nested maps keyed by id and are written with update(), which merges
      nested objects, so the Mac and the phone can edit different items without overwriting each other. A removed task
      is {deleted: true}, never a missing key. One write at a time per document. Never touches boards/, snapshot,
      history or tracker. Quiz answers, Claude's grades and project hand-ins are all in course/progress, so Claude Code
@@ -29,8 +29,8 @@
   ROOT.dir = "ltr"; ROOT.lang = "en";
 
   const KEY = "lb-course:v1";
-  const DOCS = ["tasks", "progress", "numbers", "settings", "links"];
-  const EMPTY = { tasks: { items: {} }, progress: { lessons: {}, projects: {} }, numbers: { weeks: {} }, settings: { tags: {} }, links: { items: {} } };
+  const DOCS = ["tasks", "progress", "numbers", "settings", "links", "sales"];
+  const EMPTY = { tasks: { items: {} }, progress: { lessons: {}, projects: {} }, numbers: { weeks: {} }, settings: { tags: {} }, links: { items: {} }, sales: { orders: {}, days: {}, imports: {} } };
   const TYPES = Object.fromEntries(C.types.map((t) => [t.id, t]));
   const LESSONS = Object.fromEntries(C.lessons.map((l) => [l.id, l]));
   const PROJECTS = Object.fromEntries(C.projects.map((p) => [p.id, p]));
@@ -40,7 +40,7 @@
     ["carousel", "Today's carousel"], ["dm", "Answer comment words"], ["numbers", "Sunday numbers"],
     ["yossi", "An ask for Yossi"], ["moment", "Live moment"], ["reel", "Reel"], ["creator", "Creator follow-up"],
   ];
-  const TABS = [["course", "Course"], ["tasks", "Tasks"], ["numbers", "Numbers"], ["links", "Links"], ["terms", "Glossary"]];
+  const TABS = [["course", "Course"], ["tasks", "Tasks"], ["sales", "Sales"], ["numbers", "Numbers"], ["links", "Links"], ["terms", "Glossary"]];
   const HELP = { full: "full help", partial: "partial help", light: "light help", none: "no help" };
   const VERDICTS = { // the curriculum's grading scale (§10); a partial counts half toward the 2 of 3 pass
     correct: { sym: "✓", label: "Correct", score: 1, cls: "success" },
@@ -81,6 +81,7 @@
     tab: "course", lesson: null, project: null, // lesson: {id, from: taskId|null}; project: id
     newType: "", lm: { dest: "", url: "", source: "instagram", place: "dm", date: iso(new Date()), campaign: "", term: "" },
     numWeek: null, drawer: null, // drawer: {kind: "task", id}
+    salesPeriod: "month", imp: null, // imp: the export being pasted, before it is added (see salesTab)
     quiz: {}, // in-memory answers before submitting, by lesson id
     hand: {}, // in-memory project hand-in drafts, by project id
     claude: "pending", claudeOff: "", grading: {}, gradeErr: {}, // Claude's check: pending | on | off
@@ -288,7 +289,7 @@
   }
   function body() {
     if (ST.tab === "course") return ST.lesson && LESSONS[ST.lesson.id]?.ready ? lessonPage(ST.lesson.id, ST.lesson.from) : ST.project && PROJECTS[ST.project] ? projectPage(ST.project) : courseTab();
-    return ({ tasks: tasksTab, numbers: numbersTab, links: linksTab, terms: termsTab }[ST.tab] || courseTab)();
+    return ({ tasks: tasksTab, sales: salesTab, numbers: numbersTab, links: linksTab, terms: termsTab }[ST.tab] || courseTab)();
   }
 
   // ---------- course tab ----------
@@ -607,6 +608,258 @@
     </div></div>`;
   }
 
+  // ---------- sales tab (Yossi's order export) ----------
+  // Only paid orders whose utm_medium is exactly Yarin's tag value count toward their 25% (course/discovery.md, the pay
+  // rule; research/cro-crm/yossi-messages-2026-10-31.md, message 1). The admin can't show that, so Yossi sends an
+  // export and Yarin pastes it here. Its columns aren't fixed yet, so the import guesses which column is which and
+  // Yarin corrects that before adding. Kept in course/sales:
+  // - orders.<key>: only orders tagged with Yarin's value or an October value (dm, bio, story), keyed by order number,
+  //   so an export that overlaps an earlier one updates those orders instead of counting them twice;
+  // - days.<yyyy-mm-dd>: every paid order counted per day (all, and those with any tag), for the share of tagged
+  //   orders. An import replaces each day it covers, days with no orders included;
+  // - imports.<id>: what each paste added. Removing one sets its orders and days to null (keys are never removed).
+  const OCT = ["dm", "bio", "story"]; // October's link values (research/cro-crm/measurement.md §4), not counted by the rule
+  const ROLES = [
+    { k: "order", name: "Order number", need: true }, { k: "date", name: "Payment date", need: true },
+    { k: "amount", name: "Amount" }, { k: "medium", name: "utm_medium, the one that counts", need: true },
+    { k: "medium2", name: "utm_medium, the other touch", hint: "only if the export has first and last touch" },
+    { k: "source", name: "utm_source" }, { k: "campaign", name: "utm_campaign" }, { k: "content", name: "utm_content" },
+    { k: "status", name: "Status", hint: "only if the export also lists unpaid orders" },
+  ];
+  const PERIODS = [["week", "This week"], ["lastweek", "Last week"], ["month", "This month"], ["lastmonth", "Last month"], ["all", "All"]];
+  const UNPAID = /cancel|refund|fail|pend|draft|editor|abandon|unpaid|declin|בוטל|החזר|נכשל|ממתין|טיוטה|לא שולם/i;
+  const ils = (n) => (n == null ? "-" : `₪${Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 })}`);
+  const pl = (n, one, many) => `${fmt(n)} ${n === 1 ? one : many}`;
+  const okey = (n) => "o" + String(n).replace(/[^A-Za-z0-9_-]/g, "_").slice(0, 80);
+  const amt = (s) => { const n = parseFloat(String(s ?? "").replace(/[^\d.\-]/g, "")); return Number.isFinite(n) ? n : null; };
+  const okDate = (y, mo, d) => (y > 2000 && mo >= 1 && mo <= 12 && d >= 1 && d <= 31 ? `${y}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}` : null);
+  function parseDate(s) { // the day in Israel: ISO, a timestamp with a zone, day / month / year, or epoch
+    s = String(s || "").trim(); let m;
+    if (/^\d{10,13}$/.test(s)) return iso(new Date(Number(s) * (s.length === 10 ? 1000 : 1)));
+    if (/T\d{2}:\d{2}.*(Z|[+-]\d{2}:?\d{2})$/.test(s) && !Number.isNaN(Date.parse(s))) return iso(new Date(s));
+    if ((m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) return okDate(+m[1], +m[2], +m[3]);
+    if ((m = s.match(/^(\d{1,2})[/.](\d{1,2})[/.](\d{2,4})/))) return okDate(+m[3] < 100 ? 2000 + +m[3] : +m[3], +m[2], +m[1]);
+    const t = Date.parse(s); return Number.isNaN(t) ? null : iso(new Date(t));
+  }
+  function flatten(o, pre = "", out = {}) {
+    for (const [k, v] of Object.entries(o || {})) {
+      if (isObj(v)) flatten(v, pre + k + ".", out); else if (v != null && !Array.isArray(v)) out[pre + k] = String(v);
+    }
+    return out;
+  }
+  function parseTable(text) { // a spreadsheet copy (tabs), a CSV (comma or semicolon) or JSON rows → {head, rows}
+    text = String(text || "").replace(/^﻿/, "").trim();
+    if (!text) return null;
+    if (/^[[{]/.test(text)) {
+      try {
+        let j = JSON.parse(text);
+        if (isObj(j)) j = Object.values(j).find(Array.isArray) || [j];
+        const flat = j.filter(isObj).map((x) => flatten(x)), head = [...new Set(flat.flatMap(Object.keys))];
+        return flat.length ? { head, rows: flat.map((f) => head.map((h) => f[h] ?? "")) } : null;
+      } catch {} // not JSON after all: read it as a table
+    }
+    const line = text.split(/\r?\n/, 1)[0];
+    const delim = line.includes("\t") ? "\t" : line.split(";").length > line.split(",").length ? ";" : ",";
+    const all = []; let row = [], cell = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; }
+      else if (c === '"' && cell === "") q = true;
+      else if (c === delim) { row.push(cell); cell = ""; }
+      else if (c === "\n" || c === "\r") { if (c === "\r" && text[i + 1] === "\n") i++; row.push(cell); all.push(row); row = []; cell = ""; }
+      else cell += c;
+    }
+    row.push(cell); all.push(row);
+    const clean = all.map((r) => r.map((x) => x.trim())).filter((r) => r.some(Boolean));
+    if (clean.length < 2) return null;
+    const head0 = clean[0].map((h, i) => h || `Column ${i + 1}`);
+    let head = head0, rows = clean.slice(1);
+    head0.forEach((h, i) => { // a cell holding JSON (acquisitionAttribution, say) becomes one column per field
+      if (!rows.some((r) => /^\{/.test(r[i] || ""))) return;
+      const flat = rows.map((r) => { try { return flatten(JSON.parse(r[i])); } catch { return {}; } });
+      const keys = [...new Set(flat.flatMap(Object.keys))];
+      head = head.concat(keys.map((k) => `${h}.${k}`));
+      rows = rows.map((r, n) => r.concat(keys.map((k) => flat[n][k] ?? "")));
+    });
+    return { head, rows };
+  }
+  function guessMap(head) { // the column for each role; utm columns of the same touch as the counted medium go together
+    const H = head.map((h) => h.toLowerCase().replace(/[\s_-]+/g, ""));
+    const find = (re, not) => H.map((h, i) => (re.test(h) && !(not && not.test(h)) ? i : -1)).filter((i) => i >= 0);
+    const mediums = find(/medium/);
+    const last = mediums.find((i) => /last/.test(H[i])), first = mediums.find((i) => /first/.test(H[i]));
+    const medium = last ?? first ?? mediums[0] ?? -1, touch = last != null ? "last" : first != null ? "first" : "";
+    const pick = (list) => list.find((i) => touch && H[i].includes(touch)) ?? list[0] ?? -1;
+    const dates = find(/date|time|paidat|createdat|תאריך/), amounts = find(/amount|total|price|sum|revenue|value|סכום|מחיר/, /date|time|status|utm|תאריך/);
+    return {
+      order: find(/^(id|order|orderid|ordernumber|orderno|מספרהזמנה|הזמנה|מספר)$/)[0] ?? find(/order|הזמנה/, /date|time|status|amount|total|utm|תאריך|סכום/)[0] ?? -1,
+      date: dates.find((i) => /paid|payment|תשלום/.test(H[i])) ?? dates[0] ?? -1,
+      amount: amounts.find((i) => /amount|total|סכום/.test(H[i])) ?? amounts[0] ?? -1,
+      medium, medium2: mediums.find((i) => i !== medium) ?? -1,
+      source: pick(find(/source/)), campaign: pick(find(/campaign/)), content: pick(find(/content/)),
+      status: find(/status|state|סטטוס|מצב/)[0] ?? -1,
+    };
+  }
+  function fillStatus(I) {
+    I.statuses = []; I.paid = {};
+    if (!(I.map.status >= 0)) return;
+    const seen = {};
+    for (const r of I.table.rows) { const v = String(r[I.map.status] ?? "").trim(); seen[v] = (seen[v] || 0) + 1; }
+    I.statuses = Object.entries(seen).sort((a, b) => b[1] - a[1]).slice(0, 30);
+    for (const [v] of I.statuses) I.paid[v] = !UNPAID.test(v);
+  }
+  function loadImport(text, name) {
+    if (ST.imp && ST.imp.text === text && !name) { render(); return; }
+    const table = parseTable(text);
+    const I = { text, name: name || "", table, map: {}, paid: {}, statuses: [], minor: false };
+    if (table) {
+      I.map = guessMap(table.head);
+      fillStatus(I);
+      const a = table.rows.map((r) => amt(r[I.map.amount])).filter((x) => x != null).sort((x, y) => x - y);
+      I.minor = a.length > 0 && a[Math.floor(a.length / 2)] >= 1000; // the store's API counts in agorot (11900 = ₪119)
+    }
+    ST.imp = I; render();
+  }
+  const tagValue = () => slug(tags().medium) || "social";
+  const keepOrder = (o, tag) => [o.medium, o.medium_other].some((m) => m && (m === tag || OCT.includes(m)));
+  function readImport() { // the pasted export with the current column choices → what "Add" would write
+    const I = ST.imp; if (!I || !I.table) return null;
+    const M = I.map, missing = ROLES.filter((r) => r.need && !(M[r.k] >= 0)).map((r) => r.name);
+    if (missing.length) return { missing };
+    const col = (r, k) => (M[k] >= 0 ? String(r[M[k]] ?? "").trim() : "");
+    const tag = tagValue(), byKey = {}, dup = new Set();
+    let skipped = 0, unpaid = 0;
+    const gone = new Set(); // unpaid now, so a refund drops an order an earlier export counted
+    for (const r of I.table.rows) {
+      const n = col(r, "order"), d = parseDate(col(r, "date"));
+      if (!n || !d) { skipped++; continue; }
+      if (M.status >= 0 && !I.paid[col(r, "status")]) { unpaid++; gone.add(okey(n)); continue; }
+      let a = M.amount >= 0 ? amt(col(r, "amount")) : null;
+      if (a != null) a = Math.round((I.minor ? a / 100 : a) * 100) / 100;
+      const k = okey(n);
+      if (byKey[k]) { dup.add(k); if (a != null) byKey[k].amount = Math.round(((byKey[k].amount || 0) + a) * 100) / 100; continue; }
+      byKey[k] = { number: n.slice(0, 80), paid_on: d, amount: a, medium: col(r, "medium").toLowerCase(), medium_other: col(r, "medium2").toLowerCase(),
+        source: col(r, "source").toLowerCase().slice(0, 60), campaign: col(r, "campaign").slice(0, 80), content: col(r, "content").slice(0, 80) };
+    }
+    const orders = Object.entries(byKey), dates = orders.map(([, o]) => o.paid_on).sort();
+    const from = dates[0], to = dates[dates.length - 1];
+    const span = from ? Math.round((parseDay(to) - parseDay(from)) / 864e5) + 1 : 0;
+    const known = Object.keys(D.sales.days || {}).filter((d) => D.sales.days[d] && d >= from && d <= to).length;
+    const dropped = [...gone].filter((k) => !byKey[k] && (D.sales.orders || {})[k]);
+    return { orders, from, to, span, known, skipped, unpaid, dup: dup.size, tag, dropped,
+      mine: orders.filter(([, o]) => o.medium === tag).length, kept: orders.filter(([, o]) => keepOrder(o, tag)).length };
+  }
+  function addImport() {
+    const R = readImport();
+    if (!R || R.missing || !R.orders.length || R.span > 400) return;
+    const id = uid("i"), days = {}, orders = Object.fromEntries(R.dropped.map((k) => [k, null]));
+    for (let d = parseDay(R.from); iso(d) <= R.to; d = addDays(d, 1)) days[iso(d)] = { paid: 0, tagged: 0, amount: 0, imp: id };
+    for (const [k, o] of R.orders) {
+      const x = days[o.paid_on];
+      x.paid++; if (o.medium || o.medium_other) x.tagged++; if (o.amount != null) x.amount = Math.round((x.amount + o.amount) * 100) / 100;
+      if (keepOrder(o, R.tag)) orders[k] = { ...o, imp: id };
+    }
+    const M = ST.imp.map, H = ST.imp.table.head;
+    patch("sales", { orders, days, imports: { [id]: { at: nowIso(), file: ST.imp.name || null, from: R.from, to: R.to, paid: R.orders.length, mine: R.mine, counted_value: R.tag, medium_column: H[M.medium] || null } } });
+    ST.imp = null;
+    toast(`Added: ${R.mine} of ${R.orders.length} paid orders carry your tag`);
+  }
+  function removeImport(id) {
+    const nulls = (o) => Object.fromEntries(Object.entries(o || {}).filter(([, x]) => x && x.imp === id).map(([k]) => [k, null]));
+    patch("sales", { orders: nulls(D.sales.orders), days: nulls(D.sales.days), imports: { [id]: { removed_at: nowIso() } } });
+    toast("Export removed");
+  }
+  function periodRange(p) {
+    const t = day0();
+    if (p === "week") { const a = weekStart(t); return [iso(a), iso(addDays(a, 6))]; }
+    if (p === "lastweek") { const a = addDays(weekStart(t), -7); return [iso(a), iso(addDays(a, 6))]; }
+    if (p === "month") return [iso(new Date(t.getFullYear(), t.getMonth(), 1)), iso(new Date(t.getFullYear(), t.getMonth() + 1, 0))];
+    if (p === "lastmonth") return [iso(new Date(t.getFullYear(), t.getMonth() - 1, 1)), iso(new Date(t.getFullYear(), t.getMonth(), 0))];
+    return ["0000-00-00", "9999-99-99"];
+  }
+  function salesIn(from, to) {
+    const tag = tagValue(), sum = (xs, f) => xs.reduce((s, x) => s + (Number(f(x)) || 0), 0);
+    const days = Object.entries(D.sales.days || {}).filter(([d, x]) => x && d >= from && d <= to).map(([d]) => d).sort();
+    const all = Object.values(D.sales.orders || {}).filter((o) => o && o.paid_on >= from && o.paid_on <= to);
+    const mine = all.filter((o) => o.medium === tag).sort((a, b) => (a.paid_on < b.paid_on ? 1 : -1));
+    return {
+      tag, days, mine, paid: sum(days, (d) => D.sales.days[d].paid), tagged: sum(days, (d) => D.sales.days[d].tagged),
+      amount: mine.some((o) => o.amount != null) ? sum(mine, (o) => o.amount) : null,
+      either: all.filter((o) => o.medium === tag || o.medium_other === tag).length,
+      oct: all.filter((o) => o.medium !== tag && o.medium_other !== tag && (OCT.includes(o.medium) || OCT.includes(o.medium_other))).length,
+    };
+  }
+  function salesTab() {
+    const imps = Object.entries(D.sales.imports || {}).filter(([, x]) => x && !x.removed_at).sort((a, b) => (a[1].at < b[1].at ? 1 : -1));
+    const [from, to] = periodRange(ST.salesPeriod), S = salesIn(from, to), today = iso(day0());
+    const span = ST.salesPeriod === "all" ? null : Math.max(0, Math.round((parseDay(to < today ? to : today) - parseDay(from)) / 864e5) + 1);
+    const cover = !S.days.length ? "No export covers these days yet"
+      : span == null ? `Exports cover ${dmy(parseDay(S.days[0]))} to ${dmy(parseDay(S.days[S.days.length - 1]))}`
+      : `Exports cover ${S.days.length} of the ${span} days so far`;
+    const pct = (a, b) => (b ? `${Math.round((a / b) * 100)}%` : "-");
+    const groups = {};
+    for (const o of S.mine) { const k = [o.source, o.campaign, o.content].join("|"); (groups[k] ||= { o, n: 0, a: 0 }); groups[k].n++; groups[k].a += Number(o.amount) || 0; }
+    const g = Object.values(groups).sort((a, b) => b.n - a.n || b.a - a.a);
+    const cell = (v) => (v ? `<bdi dir="ltr">${esc(v)}</bdi>` : `<span class="lb-note">none</span>`);
+    return `<section class="lb-section">
+      <div class="lb-section-head"><h2>Sales that carry your tag</h2><span class="lb-meta">Paid orders with ${ltr("utm_medium=" + S.tag)}, from Yossi's export</span></div>
+      <div class="lb-segmented cx-periods" role="group" aria-label="Period">${PERIODS.map(([v, l]) => `<button type="button" data-speriod="${v}" aria-pressed="${ST.salesPeriod === v}">${l}</button>`).join("")}</div>
+      <div class="lb-grid cx-stats">
+        <div class="lb-card lb-stat"><span class="lb-stat-label">Your orders</span><span class="lb-stat-value">${S.days.length ? fmt(S.mine.length) : "-"}</span><span class="lb-stat-foot">${esc(cover)}</span></div>
+        <div class="lb-card lb-stat"><span class="lb-stat-label">Their amount</span><span class="lb-stat-value">${ils(S.amount)}</span><span class="lb-stat-foot">${S.days.length && S.amount == null ? "The export had no amount column" : "What these orders paid"}</span></div>
+        <div class="lb-card lb-stat"><span class="lb-stat-label">Your 25%</span><span class="lb-stat-value">${S.amount == null ? "-" : ils(S.amount * 0.25)}</span><span class="lb-stat-foot">If it's 25% of that amount: price only or with shipping is still open with Yossi</span></div>
+        <div class="lb-card lb-stat"><span class="lb-stat-label">Paid orders with any tag</span><span class="lb-stat-value">${S.days.length ? `${fmt(S.tagged)} <small>of ${fmt(S.paid)}</small>` : "-"}</span><span class="lb-stat-foot">${S.paid ? `${pct(S.tagged, S.paid)} of all paid orders. The rest carry no tag at all` : "All orders, yours, ads and the rest"}</span></div>
+      </div>
+      ${S.either > S.mine.length ? `<div class="lb-callout"><b>${fmt(S.either)} orders if either touch counted</b><span>${pl(S.either - S.mine.length, "more order carries", "more orders carry")} your tag on the other touch only. Settle in writing with Yossi which touch counts.</span></div>` : ""}
+      ${S.oct ? `<div class="lb-callout"><b>${pl(S.oct, "more order", "more orders")} with your October link values</b><span>They carry ${ltr("utm_medium=dm")}, ${ltr("bio")} or ${ltr("story")}, which the exact rule doesn't count. Ask Yossi about them.</span></div>` : ""}
+    </section>
+    ${S.mine.length ? `<section class="lb-section"><div class="lb-section-head"><h2>Where they came from</h2><span class="lb-meta">By link</span></div>
+      <div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Network</th><th>Campaign</th><th>Placement</th><th class="num">Orders</th><th class="num">Amount</th></tr></thead><tbody>
+      ${g.map((x) => `<tr><td>${cell(x.o.source)}</td><td>${cell(x.o.campaign)}</td><td>${cell(x.o.content)}</td><td class="num">${fmt(x.n)}</td><td class="num">${S.amount == null ? "-" : ils(x.a)}</td></tr>`).join("")}
+      </tbody></table></div></section>
+    <details class="lb-disclosure"><summary><span class="lb-sum">Your orders<small>${fmt(S.mine.length)}, newest first</small></span></summary><div class="lb-disclosure-body">
+      <div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Paid</th><th>Order</th><th class="num">Amount</th><th>Campaign</th><th>Placement</th></tr></thead><tbody>
+      ${S.mine.slice(0, 200).map((o) => `<tr><td>${dmy(parseDay(o.paid_on))}</td><td>${cell(o.number)}</td><td class="num">${o.amount == null ? "-" : ils(o.amount)}</td><td>${cell(o.campaign)}</td><td>${cell(o.content)}</td></tr>`).join("")}
+      </tbody></table></div></div></details>` : ""}
+    <div class="lb-card is-quiet cx-cannot"><div class="cx-part"><h3>What this can't prove</h3><p>A sale your post caused that arrived without your tag isn't here: the tag is lost when the buyer closes the tab and comes back later, and visitors who decline cookies carry none. These are the orders Yossi's export shows with your tag, nothing more.</p></div></div>
+    ${importSection(imps)}`;
+  }
+  function importSection(imps) {
+    const I = ST.imp, ro = ST.readOnly ? "disabled" : "";
+    return `<section class="lb-section">
+      <div class="lb-section-head"><h2>Add Yossi's export</h2><span class="lb-meta">Paid orders, one row each</span></div>
+      ${imps.length ? "" : `<div class="lb-callout"><b>No export yet</b><span>Ask Yossi for paid orders with order number, payment date, amount, utm_source, utm_medium, utm_campaign and utm_content. A spreadsheet copy, a CSV file or JSON all work. Before the first real one, make a test order through a link with its own campaign (say ${ltr("utm_campaign=test-1")}) and check it shows up here.</span></div>`}
+      <div class="lb-card cx-imp">
+        <label class="lb-field">Paste the rows, header row included<textarea class="lb-textarea cx-paste" dir="ltr" data-imptext placeholder="Select the rows in the spreadsheet, copy, paste here" ${ro}>${esc(I ? I.text : "")}</textarea></label>
+        <div class="lb-row"><button type="button" class="lb-btn secondary sm" data-pickfile ${ro}>Or choose a file</button><input type="file" accept=".csv,.tsv,.txt,.json,text/csv,application/json" data-impfile hidden>${I && I.name ? `<span class="lb-note">${esc(I.name)}</span>` : ""}</div>
+        ${importPreview()}
+      </div>
+    </section>
+    ${imps.length ? `<details class="lb-disclosure is-quiet"><summary><span class="lb-sum">Exports added<small>${imps.length}</small></span></summary><div class="lb-disclosure-body"><div class="lb-group">
+      ${imps.map(([id, x]) => `<div class="cx-log"><div><b>${dmy(parseDay(x.from))} to ${dmy(parseDay(x.to))}</b> <span class="lb-note">added ${dmy(new Date(x.at))}${x.file ? ` · ${esc(x.file)}` : ""}</span><div class="lb-note">${fmt(x.paid)} paid orders, ${fmt(x.mine)} with ${ltr("utm_medium=" + x.counted_value)}${x.medium_column ? `, from the column ${ltr(x.medium_column)}` : ""}</div></div>
+        <button type="button" class="lb-btn ghost sm" data-impdel="${esc(id)}" ${ro}>Remove</button></div>`).join("")}
+    </div></div></details>` : ""}`;
+  }
+  function importPreview() {
+    const I = ST.imp;
+    if (!I || !I.text.trim()) return "";
+    if (!I.table) return `<span class="lb-note">No table found. Paste the rows together with their header row, or choose the CSV file.</span>`;
+    const R = readImport(), H = I.table.head, ex = I.table.rows[0] || [], ro = ST.readOnly ? "disabled" : "";
+    const sel = (r) => `<label class="lb-field">${esc(r.name)}${r.hint ? ` <span class="lb-note">${esc(r.hint)}</span>` : ""}<select class="lb-select" data-improle="${r.k}" ${ro}>
+      <option value="-1">${r.need ? "Choose…" : "Not in this export"}</option>${H.map((h, i) => `<option value="${i}" ${I.map[r.k] === i ? "selected" : ""}>${esc(h)}${ex[i] ? ` · e.g. ${esc(String(ex[i]).slice(0, 28))}` : ""}</option>`).join("")}</select></label>`;
+    let sum;
+    if (R.missing) sum = `<div class="lb-callout"><b>Choose the column for ${esc(R.missing.join(", "))}</b><span>Then the count shows here.</span></div>`;
+    else if (!R.orders.length) sum = `<div class="lb-callout"><b>No paid orders read</b><span>Check the order number and payment date columns${I.map.status >= 0 ? ", and which statuses count as paid" : ""}.</span></div>`;
+    else if (R.span > 400) sum = `<div class="lb-callout"><b>The dates run from ${esc(R.from)} to ${esc(R.to)}</b><span>Over a year. Check the payment date column.</span></div>`;
+    else sum = `<div class="lb-callout info"><b>${fmt(R.mine)} of ${fmt(R.orders.length)} paid orders carry ${ltr("utm_medium=" + R.tag)}</b>
+      <span>Paid ${dmy(parseDay(R.from))} to ${dmy(parseDay(R.to))}.${R.known ? ` ${R.known} of these ${R.span} days came in an earlier export: this one replaces them.` : ""}${R.skipped ? ` ${pl(R.skipped, "row had", "rows had")} no order number or date and ${R.skipped === 1 ? "was" : "were"} left out.` : ""}${R.unpaid ? ` ${pl(R.unpaid, "unpaid row", "unpaid rows")} left out.` : ""}${R.dropped.length ? ` ${pl(R.dropped.length, "order an earlier export counted is", "orders an earlier export counted are")} no longer paid and will leave your count.` : ""}${R.dup ? ` ${pl(R.dup, "order number was", "order numbers were")} on more than one row: each counts once, amounts added.` : ""}${I.map.status >= 0 ? "" : " No status column, so every row counts as paid."}</span>
+      <div class="lb-row"><button type="button" class="lb-btn" data-impadd ${ro}>Add ${pl(R.orders.length, "order", "orders")}</button><button type="button" class="lb-btn ghost sm" data-impclear>Clear</button></div></div>`;
+    return `<div class="lb-grid cx-roles">${ROLES.map(sel).join("")}</div>
+      ${I.map.status >= 0 && I.statuses.length ? `<div class="lb-field">Statuses that mean paid<div class="cx-statuses">${I.statuses.map(([v, n], i) => `<label class="lb-check"><input type="checkbox" data-imppaid="${i}" ${I.paid[v] ? "checked" : ""} ${ro}><span><bdi dir="ltr">${esc(v || "(empty)")}</bdi> <span class="lb-note">${fmt(n)}</span></span></label>`).join("")}</div></div>` : ""}
+      ${I.map.amount >= 0 ? `<label class="lb-check"><input type="checkbox" data-impminor ${I.minor ? "checked" : ""} ${ro}><span>Amounts are in agorot (11900 means ₪119)</span></label>` : ""}
+      ${sum}`;
+  }
+
   // ---------- numbers tab ----------
   const FIELDS = [
     { k: "clicks", name: "Tagged clicks", hint: "How many times links with your tags were clicked", na: true },
@@ -620,11 +873,15 @@
     const a = parseDay(weekKey), b = addDays(a, 7);
     return Object.values(D.links.items || {}).filter((x) => x && !x.deleted && x.created_at && new Date(x.created_at) >= a && new Date(x.created_at) < b).reduce((s, x) => s + (Number(x.sent) || 0), 0);
   }
+  function salesWeek(weekKey) { // tagged orders from the Sales tab; filled in for the week only when exports cover all 7 days
+    const S = salesIn(weekKey, iso(addDays(parseDay(weekKey), 6)));
+    return { covered: S.days.length, mine: S.mine.length, auto: S.days.length === 7 ? S.mine.length : null };
+  }
   function numbersTab() {
     const wk = ST.numWeek || defaultWeek(), w = (D.numbers.weeks || {})[wk] || {};
     const prevKey = iso(addDays(parseDay(wk), -7)), prev = (D.numbers.weeks || {})[prevKey] || null;
     const draft = ST.numDraft && ST.numDraft.week === wk ? ST.numDraft : (ST.numDraft = { week: wk, ...clone(w) });
-    const autoDms = logDms(wk);
+    const autoDms = logDms(wk), sw = salesWeek(wk);
     const ro = ST.readOnly ? "disabled" : "";
     const val = (k) => (draft[k] == null ? "" : draft[k]);
     const weeks = Object.keys(D.numbers.weeks || {}).sort().reverse();
@@ -635,7 +892,8 @@
     const vs = (k) => { if (!prev || prev[k] == null || draft[k] == null || draft[k + "_na"]) return ""; const d = draft[k] - prev[k]; return `<span class="cx-vs">The week before: ${fmt(prev[k])} (${d > 0 ? "+" : ""}${fmt(d)})</span>`; };
     const rate = (a, b) => (a != null && b ? a / b : null);
     const dms = draft.dms != null ? draft.dms : autoDms;
-    const rWords = rate(dms, draft.words), rOrders = draft.orders_na ? null : rate(draft.orders, dms);
+    const orders = draft.orders != null ? draft.orders : sw.auto;
+    const rWords = rate(dms, draft.words), rOrders = draft.orders_na ? null : rate(orders, dms);
     const best = draft.reach ? ((Number(draft.saves) || 0) + (Number(draft.shares) || 0)) / draft.reach : null;
     const pct = (r) => `${(r * 100).toFixed(r < 0.1 ? 1 : 0)}%`;
     const small = (b) => (b != null && b < 30 ? `<span class="lb-note">Small sample: ${fmt(b)}. Hard to conclude anything from it</span>` : "");
@@ -646,9 +904,10 @@
       <div class="lb-group cx-nums">
         ${FIELDS.map((f) => `<div class="cx-num">
           <label for="cx-n-${f.k}">${f.name}<small>${f.hint}</small></label>
-          <input class="lb-input" id="cx-n-${f.k}" inputmode="numeric" data-num="${f.k}" value="${f.k === "dms" && draft.dms == null ? "" : esc(val(f.k))}" placeholder="${f.k === "dms" ? fmt(autoDms) : ""}" ${f.na && draft[f.k + "_na"] ? "disabled" : ""} ${ro}>
+          <input class="lb-input" id="cx-n-${f.k}" inputmode="numeric" data-num="${f.k}" value="${f.k === "dms" && draft.dms == null ? "" : esc(val(f.k))}" placeholder="${f.k === "dms" ? fmt(autoDms) : f.k === "orders" && sw.auto != null ? fmt(sw.auto) : ""}" ${f.na && draft[f.k + "_na"] ? "disabled" : ""} ${ro}>
           ${f.na ? `<label class="cx-na"><input type="checkbox" data-na="${f.k}" ${draft[f.k + "_na"] ? "checked" : ""} ${ro}> Not available yet</label>` : ""}
           ${f.k === "dms" ? `<span class="cx-vs">In the link log for this week: ${fmt(autoDms)}${draft.dms != null ? " (corrected by hand)" : ""}</span>` : ""}
+          ${f.k === "orders" && sw.covered ? `<span class="cx-vs">On the Sales tab for this week: ${fmt(sw.mine)}${sw.covered < 7 ? ` (Yossi's exports cover ${sw.covered} of its 7 days)` : ""}${draft.orders != null ? " (corrected by hand)" : ""}</span>` : ""}
           ${vs(f.k)}
         </div>`).join("")}
         <div class="cx-num"><label for="cx-n-saves">Best post: saves<small>Not counting your own save</small></label><input class="lb-input" id="cx-n-saves" inputmode="numeric" data-num="saves" value="${esc(val("saves"))}" ${ro}></div>
@@ -657,7 +916,7 @@
       </div>
       <div class="cx-rates">
         <div class="cx-rate"><span>Comment words that got a DM with a link</span><b>${rWords == null ? "-" : `${fmt(dms)} of ${fmt(draft.words)} (${pct(rWords)})`}</b>${small(draft.words)}</div>
-        <div class="cx-rate"><span>DMs with a link that became a tagged order</span><b>${draft.orders_na ? "Not available yet" : rOrders == null ? "-" : `${fmt(draft.orders)} of ${fmt(dms)} (${pct(rOrders)})`}</b>${draft.orders_na ? "" : small(dms)}</div>
+        <div class="cx-rate"><span>DMs with a link that became a tagged order</span><b>${draft.orders_na ? "Not available yet" : rOrders == null ? "-" : `${fmt(orders)} of ${fmt(dms)} (${pct(rOrders)})`}</b>${draft.orders_na ? "" : small(dms)}</div>
         <div class="cx-rate"><span>Best post: saves and shares out of reach</span><b>${best == null ? "-" : pct(best)}</b>${draft.reach ? `<span>${fmt((Number(draft.saves) || 0) + (Number(draft.shares) || 0))} of ${fmt(draft.reach)}</span>` : ""}</div>
       </div>
       <label class="lb-field">What these numbers can't prove<textarea class="lb-textarea" data-num-text="cannot" placeholder="At least one sentence. Without it the week isn't saved" ${ro}>${esc(draft.cannot || "")}</textarea></label>
@@ -675,6 +934,7 @@
     for (const k of ["clicks", "words", "orders", "saves", "shares", "reach"]) out[k] = num(d[k]);
     out.dms = d.dms != null ? num(d.dms) : logDms(wk);
     out.clicks_na = !!d.clicks_na; out.orders_na = !!d.orders_na;
+    if (out.orders == null) out.orders = salesWeek(wk).auto;
     if (out.clicks_na) out.clicks = null;
     if (out.orders_na) out.orders = null;
     out.cannot = String(d.cannot || "").trim();
@@ -745,10 +1005,30 @@
         <div class="cx-count"><button type="button" class="lb-btn secondary icon sm" data-sent="${esc(x.id)}" data-d="-1" aria-label="One fewer" ${ro}>−</button><b>${fmt(Number(x.sent) || 0)}</b><button type="button" class="lb-btn secondary icon sm" data-sent="${esc(x.id)}" data-d="1" aria-label="One more DM sent" ${ro}>+</button></div></div>`).join("")}</div>`
         : `<div class="lb-empty">No links this week yet. A link copied here goes into the log, and then you count how many DMs went out with it.</div>`}
     </section>
+    ${utmList(t)}
     <details class="lb-disclosure"><summary><span class="lb-sum">Your tag values<small>${ltr("utm_medium=" + t.medium)}${chosen ? ` · chosen ${dmy(new Date(D.settings.tags.chosen_at))}` : " · default"}</small></span></summary><div class="lb-disclosure-body">
       <p class="lb-note">The values Yossi counts as yours. ${ltr("creator")} is kept for creators and ${ltr("paid-social")} for ads, so don't use them here.</p>
       <label class="lb-field">utm_medium for your posts and DMs<input class="lb-input" dir="ltr" data-tagmedium value="${esc(t.medium)}" ${ro}></label>
       <div><button type="button" class="lb-btn secondary sm" data-savetags ${ro}>Save the values</button></div>
+    </div></details>`;
+  }
+  // The UTM reference list (research/cro-crm/measurement.md §4; docs/utm-list-ig-fb.md). Read-only; the link maker above builds the real links.
+  function utmList(t) {
+    const med = slug(t.medium) || "social", base = (src) => `utm_source=${src}&utm_medium=${med}&utm_campaign=car-<topic>`;
+    const mine = [
+      ["Instagram DM", `${base("instagram")}&utm_content=dm-YYYYMMDD`],
+      ["Instagram story", `${base("instagram")}&utm_content=story-YYYYMMDD`],
+      ["Instagram bio", `${base("instagram")}&utm_content=bio`],
+      ["Facebook post", `${base("facebook")}&utm_content=post-YYYYMMDD`],
+      ["Testing two versions", "add &utm_term=a or &utm_term=b"],
+    ];
+    const notMine = [["creator", "Creator links"], ["paid-social", "Meta ads, tagged by Yossi"], ["community", "Parent groups"], ["crm", "The store's own WhatsApp, SMS and email"]];
+    return `<details class="lb-disclosure"><summary><span class="lb-sum">UTM list<small>Instagram and Facebook, what counts as yours</small></span></summary><div class="lb-disclosure-body">
+      <p class="lb-note">Only ${ltr("utm_medium=" + med)} counts toward your pay. Put <bdi dir="ltr">?</bdi> and then the tags after the page address. Replace <bdi dir="ltr">&lt;topic&gt;</bdi> with the carousel topic and <bdi dir="ltr">YYYYMMDD</bdi> with the day the link goes out. The link maker above does this for you.</p>
+      <div class="lb-group">${mine.map(([n, v]) => `<div class="cx-log"><div><b>${esc(n)}</b><div class="cx-url">${esc(v)}</div></div></div>`).join("")}</div>
+      <p class="lb-note"><b>Never use these on your links.</b> They belong to others, so your sales would mix with theirs:</p>
+      <div class="lb-group">${notMine.map(([v, w]) => `<div class="cx-log"><div><b>${ltr("utm_medium=" + v)}</b> <span class="lb-note">${esc(w)}</span></div></div>`).join("")}</div>
+      <p class="lb-note">Before sending: open the link on your phone. The right page opens and the address still ends with ${ltr("?utm_")} (extra bits like ${ltr("fbclid")} are fine). Instagram adds its own tag to a bio link, so put your full tagged link there. Links made before 1 Nov may carry ${ltr("utm_medium=dm")}, ${ltr("bio")} or ${ltr("story")}: that is the old format, not a mistake.</p>
     </div></details>`;
   }
   async function copyLink() {
@@ -819,6 +1099,11 @@
     if (ds.sent) { const x = D.links.items[ds.sent]; if (x) patch("links", { items: { [ds.sent]: { sent: Math.max(0, (Number(x.sent) || 0) + Number(ds.d)) } } }); return; }
     if (b.hasAttribute("data-savetags")) { const el = document.querySelector("[data-tagmedium]"); const m = slug(el?.value); if (!m) { toast("An empty value isn't saved"); return; } if (m === "creator" || m === "paid-social") { toast(`${m} is kept for creators and ads`); return; } patch("settings", { tags: { medium: m, chosen_at: nowIso() } }); toast("Values saved"); return; }
     if (b.hasAttribute("data-savenums")) { saveNumbers(); return; }
+    if (ds.speriod) { ST.salesPeriod = ds.speriod; render(); return; }
+    if (b.hasAttribute("data-pickfile")) { ROOT.querySelector("[data-impfile]")?.click(); return; }
+    if (b.hasAttribute("data-impadd")) { addImport(); return; }
+    if (b.hasAttribute("data-impclear")) { ST.imp = null; render(); return; }
+    if (ds.impdel) { if (confirm("Remove this export? Its orders and days leave the counts.")) removeImport(ds.impdel); return; }
   }
   function onChange(e) {
     const el = e.target, ds = el.dataset;
@@ -830,6 +1115,10 @@
     if (ds.numweek !== undefined && el.matches("[data-numweek]")) { ST.numWeek = el.value; ST.numDraft = null; el.blur(); render(); return; }
     if (ds.na) { ST.numDraft[ds.na + "_na"] = el.checked; render(); return; }
     if (el.matches("[data-lmdest]")) { ST.lm.dest = el.value; ST.lm.campaign = ""; el.blur(); render(); return; }
+    if (ds.improle && ST.imp) { ST.imp.map[ds.improle] = Number(el.value); if (ds.improle === "status") fillStatus(ST.imp); el.blur(); render(); return; }
+    if (ds.imppaid !== undefined && ST.imp) { const s = ST.imp.statuses[Number(ds.imppaid)]; if (s) ST.imp.paid[s[0]] = el.checked; render(); return; }
+    if (el.matches("[data-impminor]") && ST.imp) { ST.imp.minor = el.checked; render(); return; }
+    if (el.matches("[data-impfile]") && el.files && el.files[0]) { const f = el.files[0]; f.text().then((t) => loadImport(t, f.name), () => toast("That file couldn't be read")); el.value = ""; return; }
   }
   function onInput(e) {
     const el = e.target, ds = el.dataset;
@@ -838,6 +1127,7 @@
     if (ds.num) { ST.numDraft[ds.num] = el.value === "" ? null : num(el.value); return; }
     if (ds.numText) { ST.numDraft[ds.numText] = el.value; const btn = document.querySelector("[data-savenums]"); if (btn) btn.disabled = ST.readOnly || el.value.trim().length < 10; return; }
     if (ds.lmtext) { ST.lm[ds.lmtext] = el.value; return; }
+    if (el.matches("[data-imptext]")) { if (/^insertFrom(Paste|Drop)/.test(e.inputType || "")) { el.blur(); loadImport(el.value); } return; } // a paste shows the count at once
     if (ds.own) { const btn = drawerEl?.querySelector("[data-compare]"); if (btn) btn.disabled = !el.value.trim(); return; }
   }
   function onFocusOut(e) {
@@ -846,6 +1136,7 @@
     if (ds.noteOf !== undefined && el.matches("[data-note-of]")) { const t = D.tasks.items[ds.noteOf]; if (t && el.value !== (t.note || "")) setTask(ds.noteOf, { note: el.value.slice(0, 4000) }); }
     if (ds.own) { const t = D.tasks.items[ds.own]; if (t && el.value !== (t.own_steps || "")) setTask(ds.own, { own_steps: el.value.slice(0, 4000) }); }
     if (ds.lmtext || ds.num) { setTimeout(render, 0); }
+    if (el.matches("[data-imptext]")) { const v = el.value; setTimeout(() => loadImport(v), 0); return; }
     if (ST.dirty) setTimeout(() => { if (ST.dirty) render(); }, 0);
   }
   function onSubmit(e) {

@@ -559,6 +559,8 @@ details.lb-disclosure.is-quiet[open] > summary { border-bottom-color: transparen
 .lb-ws-reels { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
 .lb-ws-competitors { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
 .lb-ws-communities { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
+.lb-ws-learning { --tc: var(--cat-3); --tc-ink: var(--cat-3-ink); --tc-soft: var(--cat-3-soft); }
+.lb-ws-library { --tc: var(--cat-8); --tc-ink: var(--cat-8-ink); --tc-soft: var(--cat-8-soft); }
 .lb-ws-system { --tc: var(--text); --tc-ink: var(--text); --tc-soft: var(--fill); }
 .lb-track-gift { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
 .lb-track-pro { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
@@ -3677,16 +3679,18 @@ details.lb-disclosure.is-quiet[open] > summary { border-bottom-color: transparen
 <p><strong>1. UTM על כל קישור</strong> (מבנה שממשיך את האסטרטגיה):</p>
 <pre><code>https://lumebook.com/IL/he/books/[מספר הספר]
 ?utm_source=instagram
-&amp;utm_medium=bio  (או dm / story)
+&amp;utm_medium=social
 &amp;utm_campaign=car-[נושא]   (למשל car-ach-chadash)
-&amp;utm_content=[תאריך]-[גרסה]   (למשל 20261018-A)
+&amp;utm_content=dm-[תאריך]   (או story-[תאריך], או bio. למשל dm-20261102)
+&amp;utm_term=[גרסה]   (רק בניסוי, למשל a)
 </code></pre>
+<p><strong>עודכן ב-31.10.2026, בתוקף מ-1.11:</strong> <code>utm_medium</code> הוא תמיד <code>social</code>, כי זה הערך שיוסי סופר כהזמנות של ירין, והמקום (DM, סטורי, ביו) עבר ל-<code>utm_content</code> (<code>research/cro-crm/measurement.md</code> <a href="#s4">סעיף 4</a>). את הקישורים מכינים במחולל הקישורים של הדשבורד, או ב-<code>research/carousel-audit/src/audit.py link</code>. קישורים מאוקטובר עם <code>utm_medium=dm</code> הם לא טעות.</p>
 <ul>
 <li><code>utm_source=instagram</code> מספיק כדי ש-GA4 יסווג את הכניסה כ-Organic Social (<a href="https://support.google.com/analytics/answer/9756891" target="_blank" rel="noopener">Google Analytics Help</a>).</li>
 <li><strong>קישור ישר לדף הספר של הנושא</strong>, לא לדף הבית. פחות צעדים, ופחות בחירות (<a href="#s4">סעיף 4</a>, Choice Architecture).</li>
 <li>קישורים מ-Instagram נפתחים בדפדפן הפנימי, ולכן בלי UTM הם נוטים ליפול ל-Direct. זו הסכמה של אנשי מקצוע; לא מצאנו תיעוד של Meta.</li>
 </ul>
-<p><strong>2. מילת קוד ← DM עם קישור ייחודי.</strong> הייחוס הכי מדויק: כל מילה = קרוסלה אחת, וכל DM יוצא עם <code>utm_medium=dm</code> ו-<code>utm_campaign</code> של הקרוסלה (<a href="#s12">סעיף 12.3</a>).</p>
+<p><strong>2. מילת קוד ← DM עם קישור ייחודי.</strong> הייחוס הכי מדויק: כל מילה = קרוסלה אחת, וכל DM יוצא עם <code>utm_medium=social</code>, <code>utm_content=dm-[תאריך]</code> ו-<code>utm_campaign</code> של הקרוסלה (<a href="#s12">סעיף 12.3</a>).</p>
 <p><strong>3. הקישור בביו "מתחלף".</strong> Instagram מאפשר עד 5 קישורים בפרופיל (<a href="https://help.instagram.com/362497417173378" target="_blank" rel="noopener">Instagram Help</a>). ב-72 השעות אחרי כל קרוסלה, <strong>הקישור הראשון</strong> בביו הוא קישור ה-UTM שלה. כשמפרסמים בראשון וברביעי, החלונות לא חופפים.</p>
 <p><strong>ובנוסף:</strong> שאלה "איך שמעתם עלינו?" בקופה (מילה בעל-פה מ-Reel לא נכנסת ל-UTM), וקוד אישי לכל יוצרת. שני הדברים כבר מופיעים ב<span class="file" dir="auto" title="בתיקיית הפרויקט: docs/lumebook-social-strategy.html">אסטרטגיה</span> כבקשות ליוסי.</p>
 <h3>17.3 גיליון מעקב: עמודות</h3>

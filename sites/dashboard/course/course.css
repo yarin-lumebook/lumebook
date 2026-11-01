@@ -1,4 +1,4 @@
-/* LumeBook course platform (course.js): the course, lesson and project pages, tasks, weekly numbers, link maker.
+/* LumeBook course platform (course.js): the course, lesson and project pages, tasks, sales, weekly numbers, link maker.
    English, left to right inside the Hebrew dashboard, so only logical properties. Design system tokens and lb-
    components only (design/lumebook.css); white and black modes come from the tokens; works at 390px. */
 .cx { display: grid; gap: var(--sp-5); }
@@ -112,6 +112,16 @@ p.cx-pre { font-family: inherit; font-size: var(--fs-callout); }
 .cx-rate b { font-size: var(--fs-headline); font-variant-numeric: tabular-nums; }
 .cx-rate span { font-size: var(--fs-footnote); color: var(--text-2); }
 .cx-hist { font-variant-numeric: tabular-nums; }
+
+/* sales */
+.cx-periods { display: flex; flex-wrap: wrap; max-width: 100%; justify-self: start; }
+.cx-stats { --min: 10rem; }
+.cx-stats .lb-stat-value small { margin-inline-start: var(--sp-1); }
+.cx-imp { display: grid; gap: var(--sp-3); grid-template-columns: minmax(0, 1fr); }
+.cx-paste { min-height: 7rem; font-family: var(--font-mono); font-size: var(--fs-caption); white-space: pre; overflow-x: auto; }
+.cx-roles { --min: 14rem; gap: var(--sp-3); }
+.cx-roles .lb-field .lb-note { font-weight: 500; }
+.cx-statuses { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-4); }
 
 /* link maker */
 .cx-lm { display: grid; gap: var(--sp-3); }
