@@ -79,7 +79,7 @@
   const ST = {
     mode: "local", loaded: false, slow: false, readOnly: false, saveErr: null,
     tab: "course", lesson: null, project: null, // lesson: {id, from: taskId|null}; project: id
-    newType: "", lm: { dest: "", url: "", source: "instagram", place: "dm", date: iso(new Date()), campaign: "", term: "" },
+    newType: "", lm: { dest: "", url: "", source: "instagram", place: "dm", date: iso(new Date()), campaign: "", term: "", c_handle: "", c_base: "", c_place: "bio", c_code: "", c_date: iso(new Date()), c_term: "" },
     numWeek: null, drawer: null, // drawer: {kind: "task", id}
     salesPeriod: "month", imp: null, // imp: the export being pasted, before it is added (see salesTab)
     quiz: {}, // in-memory answers before submitting, by lesson id
@@ -1005,6 +1005,7 @@
         <div class="cx-count"><button type="button" class="lb-btn secondary icon sm" data-sent="${esc(x.id)}" data-d="-1" aria-label="One fewer" ${ro}>−</button><b>${fmt(Number(x.sent) || 0)}</b><button type="button" class="lb-btn secondary icon sm" data-sent="${esc(x.id)}" data-d="1" aria-label="One more DM sent" ${ro}>+</button></div></div>`).join("")}</div>`
         : `<div class="lb-empty">No links this week yet. A link copied here goes into the log, and then you count how many DMs went out with it.</div>`}
     </section>
+    ${creatorMaker()}
     ${utmList(t)}
     <details class="lb-disclosure"><summary><span class="lb-sum">Your tag values<small>${ltr("utm_medium=" + t.medium)}${chosen ? ` · chosen ${dmy(new Date(D.settings.tags.chosen_at))}` : " · default"}</small></span></summary><div class="lb-disclosure-body">
       <p class="lb-note">The values Yossi counts as yours. ${ltr("creator")} is kept for creators and ${ltr("paid-social")} for ads, so don't use them here.</p>
@@ -1012,6 +1013,64 @@
       <div><button type="button" class="lb-btn secondary sm" data-savetags ${ro}>Save the values</button></div>
     </div></details>`;
   }
+  // ---------- creator links ----------
+  // Format: research/creator-content-conversion/report.md §11 (Link format) and research/cro-crm/measurement.md §4.
+  // utm_medium is always `creator` and utm_campaign is the creator's Instagram handle, so a creator's orders never mix with Yarin's `social`.
+  // These orders do NOT count toward Yarin's 25% (course/discovery.md, pay rule); the links exist to measure what each creator brings.
+  const handleOf = (s) => String(s || "").toLowerCase().trim().replace(/^@/, "").replace(/[^a-z0-9._]/g, "");
+  function buildCreatorLink() {
+    const raw = ST.lm.c_base.trim() || C.store_url;
+    let u;
+    try { u = new URL(raw); } catch { return { err: "That address isn't valid. Paste the creator's full link, starting with https://" }; }
+    if (!/^https?:$/.test(u.protocol)) return { err: "Only http or https addresses" };
+    // The ambassador sheet's personal links look like https://lumebook.com/a/<slug>. The slug is the store's own ID for the creator
+    // (it is not always their Instagram handle: dots and underscores become hyphens), so it is the campaign when a link is pasted.
+    const slugInLink = ((u.pathname.match(/^\/a\/([^/]+)\/?$/i) || [])[1] || "").toLowerCase();
+    const handle = slugInLink || handleOf(ST.lm.c_handle);
+    if (!handle) return { err: ST.lm.c_base.trim() ? "That link isn't in the /a/<name> format. Type the creator's Instagram handle below" : "Paste the creator's personal link, or type their Instagram handle" };
+    const place = ST.lm.c_place, code = slug(ST.lm.c_code);
+    if (place === "dm" && !code) return { err: "For a DM link, type the post's shortcode (the letters after /p/ or /reel/ in the post's address)" };
+    const content = place === "bio" ? "bio" : place === "story" ? `story-${ST.lm.c_date.replace(/-/g, "")}` : `dm-${code}`;
+    u.searchParams.set("utm_source", "instagram");
+    u.searchParams.set("utm_medium", "creator");
+    u.searchParams.set("utm_campaign", handle);
+    u.searchParams.set("utm_content", content);
+    if (slug(ST.lm.c_term)) u.searchParams.set("utm_term", slug(ST.lm.c_term)); else u.searchParams.delete("utm_term");
+    return { url: u.toString(), handle, content, plain: !ST.lm.c_base.trim(), viaLink: !!slugInLink };
+  }
+  function creatorMaker() {
+    const r = buildCreatorLink(), ro = ST.readOnly ? "disabled" : "";
+    const seg = (name, list, cur) => `<div class="lb-segmented" role="group">${list.map(([v, label]) => `<button type="button" data-lm="${name}" data-v="${v}" aria-pressed="${cur === v}">${label}</button>`).join("")}</div>`;
+    return `<details class="lb-disclosure" data-cm ${ST.cmOpen ? "open" : ""}><summary><span class="lb-sum">Creator link maker<small>${ltr("utm_medium=creator")} · tracked, but not part of your 25%</small></span></summary><div class="lb-disclosure-body">
+      <p class="lb-note">For links creators post. Their sales never count toward your 25% (the pay rule counts only your own tag), but the tag shows what each creator brings. Never put ${ltr("social")} on a creator's link, or their sales mix with yours.</p>
+      <div class="cx-lm">
+        <label class="lb-field">Their personal link from the ambassador sheet (the Link column)<input class="lb-input" dir="ltr" data-lmtext="c_base" value="${esc(ST.lm.c_base)}" placeholder="https://lumebook.com/a/their-name"></label>
+        <label class="lb-field">Instagram handle, only if they have no link yet<input class="lb-input" dir="ltr" data-lmtext="c_handle" value="${esc(ST.lm.c_handle)}" placeholder="topaz_meir_slp"></label>
+        <div class="lb-field">Where the creator puts it${seg("c_place", [["bio", "Bio"], ["story", "Story"], ["dm", "DM reply"]], ST.lm.c_place)}</div>
+        ${ST.lm.c_place === "story" ? `<label class="lb-field">Date<input class="lb-input" type="date" data-lmtext="c_date" value="${esc(ST.lm.c_date)}"></label>` : ""}
+        ${ST.lm.c_place === "dm" ? `<label class="lb-field">The post's shortcode<input class="lb-input" dir="ltr" data-lmtext="c_code" value="${esc(ST.lm.c_code)}" placeholder="the letters after /p/ or /reel/"></label>` : ""}
+        <label class="lb-field">Test (utm_term), only when you compare two versions<input class="lb-input" dir="ltr" data-lmtext="c_term" value="${esc(ST.lm.c_term)}"></label>
+        <div class="cx-out">
+          ${r.err ? `<span class="lb-note">${esc(r.err)}</span>` : `<input class="lb-input" id="cx-clink" readonly value="${esc(r.url)}" aria-label="The creator's tagged link">
+          ${r.plain ? `<span class="lb-note">No personal link pasted, so this is the plain store page. The tags still track visits and orders, but the store won't credit the creator for it. Use their link from the ambassador sheet.</span>` : ""}
+          ${r.viaLink ? `<span class="lb-note">Campaign is ${ltr(r.handle)}, the name in their link.</span>` : ""}
+          <div class="lb-row"><button type="button" class="lb-btn" data-copycreator ${ro}>Copy and log</button><a class="lb-btn secondary sm" href="${esc(r.url)}" target="_blank" rel="noopener">Open and check</a></div>
+          <span class="lb-note">A personal link keeps these tags when it sends the visitor on to the books page (tested on 2 Nov 2026 with Yarin's own link). After it opens, check the address bar still ends with ${ltr("utm_content=" + r.content)}.</span>`}
+        </div>
+      </div>
+    </div></details>`;
+  }
+  async function copyCreatorLink() {
+    const r = buildCreatorLink(); if (r.err) return;
+    let ok = false;
+    try { await navigator.clipboard.writeText(r.url); ok = true; } catch {}
+    if (!ok) { const el = document.getElementById("cx-clink"); if (el) { el.select(); try { ok = document.execCommand("copy"); } catch {} } }
+    const existing = Object.entries(D.links.items || {}).find(([, x]) => x && !x.deleted && x.url === r.url);
+    if (!existing) patch("links", { items: { [uid("l")]: { url: r.url, title: "Creator @" + r.handle, place: ST.lm.c_place, source: "instagram", campaign: r.handle, content: r.content, kind: "creator", created_at: nowIso(), sent: 0 } } });
+    toast(ok ? (existing ? "Copied. The link is already in the log" : "Copied and logged") : "Copying was blocked. Select the link and copy it by hand");
+    if (!ok) document.getElementById("cx-clink")?.select();
+  }
+
   // The UTM reference list (research/cro-crm/measurement.md §4; docs/utm-list-ig-fb.md). Read-only; the link maker above builds the real links.
   function utmList(t) {
     const med = slug(t.medium) || "social", base = (src) => `utm_source=${src}&utm_medium=${med}&utm_campaign=car-<topic>`;
@@ -1022,10 +1081,17 @@
       ["Facebook post", `${base("facebook")}&utm_content=post-YYYYMMDD`],
       ["Testing two versions", "add &utm_term=a or &utm_term=b"],
     ];
-    const notMine = [["creator", "Creator links"], ["paid-social", "Meta ads, tagged by Yossi"], ["community", "Parent groups"], ["crm", "The store's own WhatsApp, SMS and email"]];
+    const creators = [
+      ["Creator's bio", "utm_source=instagram&utm_medium=creator&utm_campaign=<name-in-their-link>&utm_content=bio"],
+      ["Creator's story", "utm_source=instagram&utm_medium=creator&utm_campaign=<name-in-their-link>&utm_content=story-YYYYMMDD"],
+      ["Creator's DM reply", "utm_source=instagram&utm_medium=creator&utm_campaign=<name-in-their-link>&utm_content=dm-<shortcode>"],
+    ];
+    const notMine = [["creator", "Creator links (use the Creator link maker above)"], ["paid-social", "Meta ads, tagged by Yossi"], ["community", "Parent groups"], ["crm", "The store's own WhatsApp, SMS and email"]];
     return `<details class="lb-disclosure"><summary><span class="lb-sum">UTM list<small>Instagram and Facebook, what counts as yours</small></span></summary><div class="lb-disclosure-body">
       <p class="lb-note">Only ${ltr("utm_medium=" + med)} counts toward your pay. Put <bdi dir="ltr">?</bdi> and then the tags after the page address. Replace <bdi dir="ltr">&lt;topic&gt;</bdi> with the carousel topic and <bdi dir="ltr">YYYYMMDD</bdi> with the day the link goes out. The link maker above does this for you.</p>
       <div class="lb-group">${mine.map(([n, v]) => `<div class="cx-log"><div><b>${esc(n)}</b><div class="cx-url">${esc(v)}</div></div></div>`).join("")}</div>
+      <p class="lb-note"><b>Creator links</b> (tracked, but not part of your 25%). Append to the creator's personal link from the ambassador sheet (${ltr("https://lumebook.com/a/their-name")}). The name in the link is the campaign:</p>
+      <div class="lb-group">${creators.map(([n, v]) => `<div class="cx-log"><div><b>${esc(n)}</b><div class="cx-url">${esc(v)}</div></div></div>`).join("")}</div>
       <p class="lb-note"><b>Never use these on your links.</b> They belong to others, so your sales would mix with theirs:</p>
       <div class="lb-group">${notMine.map(([v, w]) => `<div class="cx-log"><div><b>${ltr("utm_medium=" + v)}</b> <span class="lb-note">${esc(w)}</span></div></div>`).join("")}</div>
       <p class="lb-note">Before sending: open the link on your phone. The right page opens and the address still ends with ${ltr("?utm_")} (extra bits like ${ltr("fbclid")} are fine). Instagram adds its own tag to a bio link, so put your full tagged link there. Links made before 1 Nov may carry ${ltr("utm_medium=dm")}, ${ltr("bio")} or ${ltr("story")}: that is the old format, not a mistake.</p>
@@ -1096,6 +1162,7 @@
     if (ds.recheck) { gradeProject(ds.recheck, count(PP(ds.recheck).checks)); return; }
     if (ds.lm) { ST.lm[ds.lm] = ds.v; render(); return; }
     if (b.hasAttribute("data-copy")) { copyLink(); return; }
+    if (b.hasAttribute("data-copycreator")) { copyCreatorLink(); return; }
     if (ds.sent) { const x = D.links.items[ds.sent]; if (x) patch("links", { items: { [ds.sent]: { sent: Math.max(0, (Number(x.sent) || 0) + Number(ds.d)) } } }); return; }
     if (b.hasAttribute("data-savetags")) { const el = document.querySelector("[data-tagmedium]"); const m = slug(el?.value); if (!m) { toast("An empty value isn't saved"); return; } if (m === "creator" || m === "paid-social") { toast(`${m} is kept for creators and ads`); return; } patch("settings", { tags: { medium: m, chosen_at: nowIso() } }); toast("Values saved"); return; }
     if (b.hasAttribute("data-savenums")) { saveNumbers(); return; }
@@ -1151,6 +1218,7 @@
   ROOT.addEventListener("input", onInput);
   ROOT.addEventListener("focusout", onFocusOut);
   ROOT.addEventListener("submit", onSubmit);
+  ROOT.addEventListener("toggle", (e) => { if (e.target.matches?.("[data-cm]")) ST.cmOpen = e.target.open; }, true); // the creator link maker stays open across its own re-renders
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && ST.drawer) closeDrawer(); });
   document.addEventListener("lb:route", (e) => { if (e.detail?.view !== "course" && ST.drawer) closeDrawer(); });
 
