@@ -50,12 +50,12 @@ for c in C:
 import re
 for i,c in enumerate(C):
     m=re.match(r'pass(\d+)',str(c.get('extra',''))); n=int(m.group(1)) if m else 1
-    c['ai']=i; c['batch']=n; c['added']={5:'2026-10-20',4:'2026-10-18',3:'2026-10-11'}.get(n,'2026-10-03'); c['chk']={5:'20 באוקטובר 2026',4:'18 באוקטובר 2026',3:'11 באוקטובר 2026'}.get(n,'3 באוקטובר 2026')
+    c['ai']=i; c['batch']=n; c['added']={5:'2026-10-20',4:'2026-10-18',3:'2026-10-11'}.get(n,'2026-10-03')
 # a creator added by hand on a later day than the rest of the pass keeps its own date in C_all.json ("added_on": "YYYY-MM-DD");
-# the weekly passes (6 and later, research/merge_pass.py) always write it
-HEM=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר']
+# the weekly passes (6 and later, research/merge_pass.py) always write it. The page shows it as dd / mm / yyyy (isoDL, dL),
+# so there is no long Hebrew date field any more (the old "chk", 5 Nov 2026)
 for c in C:
-    if c.get('added_on'): y,m,d=map(int,c['added_on'].split('-')); c['added']=c['added_on']; c['chk']='%d ב%s %d'%(d,HEM[m-1],y)
+    if c.get('added_on'): c['added']=c['added_on']
 for c in C:
     if c['h']=='edenmomlife': c['arch']='Homeschool / alternative ed'
 O={
@@ -114,13 +114,26 @@ MIX=[[2,"Child-dev professionals","@knafaim.ot_by_noy · @eden_spaiev"],[2,"Kind
 Q=["Similar-accounts graph from 76 verified creators (Instagram suggestions)","גננת","הגננת","אמא גננת","קלינאית תקשורת","מרפאה בעיסוק","מדריכת הורים","גמילה מחיתולים","יוצרת תוכן הורות","אמא לתאומים","אבא במשרה מלאה","אבא של","אבא לבנות","אבא ובת","סבתא","סבא","סבא וסבתא","משפחתון","גן פרטי","גן ילדים","חינוך ביתי","מונטסורי בבית","בלי מסכים","פעילויות לילדים","פעילויות לגן","רעיונות לגן","יצירה עם ילדים","ספרי ילדים","ספרי ילדים המלצות","סופרת ילדים","ספרנית","מעודדת קריאה","הקראת סיפורים","שעת סיפור","סיפור לפני השינה","סיפור חברתי","מורה לכיתה א","מחנכת כיתה א","מורה לאנגלית לילדים","חוג מוזיקה לפעוטות","מפעילה ימי הולדת","צלמת ילדים","אמא לשלושה","אמא לארבעה","אמא לחמישה","אמא צעירה","אמא במשרה מלאה","טיולים עם ילדים","site:instagram.com / site:tiktok.com (agents)","Hebrew listicles: mako, ynet, 9instyle, Walla (agents)"]
 h=open(P('template.html')).read()
 J=lambda x: json.dumps(x,ensure_ascii=False)
+# icons come from the LumeBook icon set (shared/design/icons.json, 24 grid): __ICON:name__ in the static HTML becomes
+# design.icon(name), and the script gets the whole set as LBI; every name the page maps to (ICN) must be in the set
+LBI={**design.icons(),**design.ui_icons()}
+icn=json.loads(re.search(r'const ICN=(\{.*?\});',h).group(1))
+gone=sorted(set(icn.values())-set(LBI)); assert not gone, "not in shared/design/icons.json: "+", ".join(gone)
+h=re.sub(r'__ICON:([\w-]+)__',lambda m: design.icon(m.group(1),"i"),h)
+assert h.count("__LB_ICONS__")==1; h=h.replace("__LB_ICONS__",J(LBI))
 # what happened to the creators Yarin added with the map's "הוספת יוצרים" button (weekly.py requests writes it on Saturdays)
 RQ=P('research/weekly/requests.json'); ADDQ=json.load(open(RQ,encoding='utf-8')) if os.path.exists(RQ) else {}
-for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER,"__ADDQ__":ADDQ,"__ADM__":FACTS["creators"]["admission"]}.items(): h=h.replace(k,J(v))
-for k,v in {"<!--LB:HEAD-->":design.head(),"<!--LB:THEME-TOGGLE-->":design.theme_toggle(),"__LB_LOGO__":design.logo_data_uri()}.items():
+for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER,"__ADDQ__":ADDQ,"__ADM__":FACTS["creators"]["admission"],
+          # the books tab's hues (shared/design/categories.json set books-metrics), used as lb-cat-N
+          "__BKCAT__":{k:v["cat"] for k,v in design.categories("books-metrics").items()}}.items(): h=h.replace(k,J(v))
+for k,v in {"<!--LB:HEAD-->":design.head(),"__LB_LOGO__":design.logo_data_uri()}.items():
     assert h.count(k)==1, k; h=h.replace(k,v)
 # NO_EM: the user never wants em dashes
 h=h.replace(' \u2014 ',', ').replace('"\u2014"','"n/a"').replace("'\u2014'","'n/a'").replace('\u2014','-').replace(' \u2013 ',', ').replace('\u2013','-')
+# dates as dd / mm / yyyy everywhere (Yarin, 30 Oct 2026), also the long Hebrew dates inside the data (refresh flags, research notes);
+# kept left to right inside Hebrew with LRI/PDI. A date without a year is 2026, the year all the research ran.
+HEM=['\u05d9\u05e0\u05d5\u05d0\u05e8','\u05e4\u05d1\u05e8\u05d5\u05d0\u05e8','\u05de\u05e8\u05e5','\u05d0\u05e4\u05e8\u05d9\u05dc','\u05de\u05d0\u05d9','\u05d9\u05d5\u05e0\u05d9','\u05d9\u05d5\u05dc\u05d9','\u05d0\u05d5\u05d2\u05d5\u05e1\u05d8','\u05e1\u05e4\u05d8\u05de\u05d1\u05e8','\u05d0\u05d5\u05e7\u05d8\u05d5\u05d1\u05e8','\u05e0\u05d5\u05d1\u05de\u05d1\u05e8','\u05d3\u05e6\u05de\u05d1\u05e8']
+h=re.sub(r'(\d{1,2}) \u05d1('+'|'.join(HEM)+r')(?: (\d{4}))?',lambda m:'\u2066%02d / %02d / %s\u2069'%(int(m.group(1)),HEM.index(m.group(2))+1,m.group(3) or '2026'),h)
 OUT=os.path.dirname(HERE)
 open(OUT+'/lumebook-creator-map.html','w').write(h)
 # CSV is maintained separately (contacts + outreach messages); do not rewrite it here

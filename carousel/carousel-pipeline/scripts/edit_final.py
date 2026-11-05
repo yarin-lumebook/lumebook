@@ -28,7 +28,7 @@ from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import carousel_lib as lib  # noqa: E402
-import prepare_fal_jobs  # noqa: E402
+import prepare_picture_jobs  # noqa: E402
 import review_server  # noqa: E402
 
 SCRIPTS = Path(__file__).resolve().parent
@@ -80,9 +80,9 @@ def main():
         raise SystemExit(1)
 
     pack_path = Path(args.drafts) / date / "pack.json"
-    argv = ["prepare_fal_jobs.py", str(pack_path), option, "--refreeze", "--no-history", "--out-root", str(run_dir.parent)]
+    argv = ["prepare_picture_jobs.py", str(pack_path), option, "--refreeze", "--no-history", "--out-root", str(run_dir.parent)]
     with mock.patch.object(sys, "argv", argv), contextlib.redirect_stdout(io.StringIO()):
-        prepare_fal_jobs.main()
+        prepare_picture_jobs.main()
     # the refreeze set the old export aside in versions/vN; bring back the unchanged slides, then re-render the changed ones
     backups = sorted((run_dir / "versions").glob("v*"), key=lambda d: int(d.name[1:]))
     old_final = backups[-1] / "final" if backups else None

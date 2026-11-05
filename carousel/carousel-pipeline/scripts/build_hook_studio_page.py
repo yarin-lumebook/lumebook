@@ -13,6 +13,7 @@ import base64
 import html
 import json
 import pathlib
+import re
 import subprocess
 import sys
 import tempfile
@@ -46,14 +47,18 @@ def options(node):
             yield from options(v)
 
 
-def jpeg_uri(png, width=1100):
+def sheet_html(png, alt, width=1100):
+    """A contact sheet shrunk to JPEG, as an lb-media-frame at the sheet's own ratio (nothing cropped); "" without one."""
     if not png.exists():
         return ""
     with tempfile.TemporaryDirectory() as td:
         out = pathlib.Path(td) / "x.jpg"
         subprocess.run(["sips", "-s", "format", "jpeg", "-s", "formatOptions", "72", "--resampleWidth", str(width),
                         str(png), "--out", str(out)], check=True, capture_output=True)
-        return "data:image/jpeg;base64," + base64.b64encode(out.read_bytes()).decode()
+        dims = subprocess.run(["sips", "-g", "pixelWidth", "-g", "pixelHeight", str(out)], check=True, capture_output=True, text=True).stdout
+        w, h = (re.search(rf"{k}: (\d+)", dims).group(1) for k in ("pixelWidth", "pixelHeight"))
+        uri = "data:image/jpeg;base64," + base64.b64encode(out.read_bytes()).decode()
+    return f'<div class="lb-media-frame" style="--ratio:{w} / {h}"><img src="{uri}" alt="{esc(alt)}"></div>'
 
 
 def reco_state(day, fmt):
@@ -77,35 +82,31 @@ def card_reco(day, fmt, label, st):
     else:
         status = chip("עבר את הבדיקה", "success")
     rights = chip("זכויות תמונה לא אומתו", "warning") if not st["status"].get("rights_clear") else chip("זכויות תמונה אומתו", "success")
-    img = jpeg_uri(PIPE / "drafts" / day / reco_lib.OUT_DIRS.get(fmt, fmt) / "contact-sheet.png")
+    sheet = sheet_html(PIPE / "drafts" / day / reco_lib.OUT_DIRS.get(fmt, fmt) / "contact-sheet.png", f'גיליון תמונות מוקטנות של {label}, {st["n"]} שקופיות')
     caption = esc(st["car"].get("caption", "")).replace("\n", "<br>")
     errs = "".join(f'<li>{esc(e.message)}</li>' for e in st["errors"])
     err_block = f'<details class="more"><summary>מה נכשל</summary><ul class="lim">{errs}</ul></details>' if errs else ""
-    return f'''<article class="lb-card is-flush prod">
-  <img class="sheet" src="{img}" alt="גיליון תמונות מוקטנות של {esc(label)}, {st["n"]} שקופיות">
-  <div class="body">
-    <div class="lb-row between"><h3>{esc(label)}</h3><span class="lb-meta">{st["n"]} שקופיות</span></div>
-    <div class="lb-row">{status}{rights}</div>
-    <p class="cap">{caption}</p>
-    {err_block}
-  </div>
+    return f'''<article class="lb-card lb-media prod">
+  {sheet}
+  <div class="lb-row between"><h3>{esc(label)}</h3><span class="lb-meta">{st["n"]} שקופיות</span></div>
+  <div class="lb-row">{status}{rights}</div>
+  <p class="cap">{caption}</p>
+  {err_block}
 </article>'''
 
 
 def card_kid(day, run, opt):
     state = json.loads((run / "state.json").read_text(encoding="utf-8")) if (run / "state.json").exists() else {"jobs": {}}
     pending = [(k, n) for k, j in state["jobs"].items() for n in j.get("notes", []) if n.startswith("pass-pending")]
-    img = jpeg_uri(run / "final" / "contact-sheet.png")
+    sheet = sheet_html(run / "final" / "contact-sheet.png", "גיליון תמונות מוקטנות של kid-2, 7 שקופיות")
     notes = "".join(f'<li><b class="lb-ltr">{esc(k)}</b> {esc(n.split(":", 1)[1].strip())}</li>' for k, n in pending)
     block = f'<details class="more"><summary>{len(pending)} בעיות תמונה פתוחות</summary><ul class="lim">{notes}</ul></details>' if notes else ""
-    return f'''<article class="lb-card is-flush prod">
-  <img class="sheet" src="{img}" alt="גיליון תמונות מוקטנות של kid-2, 7 שקופיות">
-  <div class="body">
-    <div class="lb-row between"><h3>kid-2 · {esc(opt["child_name"])}</h3><span class="lb-meta">7 שקופיות</span></div>
-    <div class="lb-row">{chip("הופק", "success")}{chip("kid", "kid")}{chip("כ-0.48$ מתוך 0.50$", "outline")}</div>
-    <p class="cap">{esc(opt["title"])}</p>
-    {block}
-  </div>
+    return f'''<article class="lb-card lb-media prod">
+  {sheet}
+  <div class="lb-row between"><h3>kid-2 · {esc(opt["child_name"])}</h3><span class="lb-meta">7 שקופיות</span></div>
+  <div class="lb-row">{chip("הופק", "success")}{chip("kid", "kid")}{chip("כ-0.48$ מתוך 0.50$", "outline")}</div>
+  <p class="cap">{esc(opt["title"])}</p>
+  {block}
 </article>'''
 
 
@@ -162,12 +163,13 @@ def main():
 
     page = TEMPLATE
     for k, v in {
-        "__HEAD__": design.head(), "__TOGGLE__": design.theme_toggle(), "__LOGO__": design.logo_data_uri(),
+        "__HEAD__": design.head(), "__LOGO__": design.logo_data_uri(),
         "__DAY__": day_he, "__TOPIC__": esc(topic["title_he"]), "__REASON__": esc(topic["reason"]),
         "__CARDS__": "\n".join(cards), "__ROWS__": table_options(opts, pack.get("copy_style") == "story"), "__PACKS__": str(len(history)),
     }.items():
         page = page.replace(k, v)
-    assert "__" not in page.replace("__init__", ""), "unfilled placeholder"
+    # only the template's own placeholders: design.head() carries scripts with names like window.__DASH__ (05 Nov 2026)
+    assert not any(k in page for k in re.findall(r"__[A-Z]+__", TEMPLATE)), "unfilled placeholder"
     OUT.write_text(page, encoding="utf-8")
     print(OUT, f"{OUT.stat().st_size // 1024} KB", "date", day)
 
@@ -177,24 +179,18 @@ TEMPLATE = r'''<meta charset="utf-8">
 <title>Carousel Machine</title>
 __HEAD__
 <style>
-/* Carousel Machine page: page rules on top of the LumeBook design system (shared/design/lumebook.css, inlined above). Tokens only. */
+/* Carousel Machine page: page rules on top of the LumeBook design system (shared/design/lumebook.css, inlined above). Tokens only.
+   Shared since 05 Nov 2026: lb-topbar has-toc + lb-brand, lb-media for the contact sheets, lb-copy + lb-textblock is-code for
+   the commands, lb-table mid/top. */
 :root{--content-w:64rem}
-.lb-topbar .lb-brand{padding-inline:0;min-width:0;flex:none}
-.lb-topbar .lb-brand img{width:1.75rem;height:1.75rem;border-radius:var(--r-xs);flex:none}
-.lb-topbar .lb-brand b{white-space:nowrap}
-.lb-section{scroll-margin-top:4.5rem}
 .intro{gap:var(--sp-4)}
 .stats{--min:9.5rem;gap:var(--sp-3)}
 .lb-section > p,.intro > .lb-callout{max-width:42rem}
 .prods{--min:19rem}
-.prod .sheet{display:block;width:100%;height:auto;background:var(--surface-sunk);border-bottom:1px solid var(--line)}
-.prod .body{padding:var(--sp-4) var(--sp-5) var(--sp-5);display:grid;gap:var(--sp-3);min-width:0}
 .prod .cap{color:var(--text-2);font-size:var(--fs-callout);line-height:1.5}
 .more summary{cursor:pointer;color:var(--tint);font-size:var(--fs-callout);font-weight:600}
 .more summary:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:var(--r-xs)}
 ul.lim{margin:var(--sp-2) 0 0;padding-inline-start:1.2rem;color:var(--text-2);font-size:var(--fs-callout);display:grid;gap:var(--sp-1)}
-.lb-table{min-width:44rem;font-size:var(--fs-callout)}
-.lb-table td{vertical-align:top}
 .lb-table td.heads{color:var(--text-2);line-height:1.6}
 .lb-table td:first-child{white-space:nowrap}
 .flow{--min:20rem}
@@ -202,30 +198,17 @@ ul.lim{margin:var(--sp-2) 0 0;padding-inline-start:1.2rem;color:var(--text-2);fo
 .flow ol b{color:var(--text)}
 .rules{margin:0;padding-inline-start:1.2rem;display:grid;gap:var(--sp-2);color:var(--text-2);max-width:42rem}
 .rules strong{color:var(--text)}
-.cmd{display:grid;gap:var(--sp-1)}
-.cmd .lb-row{flex-wrap:nowrap;align-items:stretch}
-.cmd pre{margin:0;flex:1 1 auto;min-width:0;overflow-x:auto;direction:ltr;text-align:left;background:var(--surface-sunk);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);font:var(--fs-footnote)/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--text)}
-.cmd .lb-btn{flex:none}
-.cmd small{color:var(--text-3)}
 .kv-wrap{overflow-wrap:anywhere}
-@media (max-width:860px){
-  .lb-topbar-in{flex-wrap:wrap;row-gap:var(--sp-1);padding-top:var(--sp-2)}
-  .lb-topbar .lb-brand{flex:1 1 0}
-  .lb-topbar .lb-spacer{display:none}
-  .lb-topbar .lb-toc{order:10;flex-basis:100%;margin-inline:calc(-1 * var(--sp-3));padding-bottom:var(--sp-2)}
-  .lb-section{scroll-margin-top:7rem}
-}
 </style>
 
 <div dir="rtl" lang="he">
-<header class="lb-topbar"><div class="lb-topbar-in">
+<header class="lb-topbar has-toc"><div class="lb-topbar-in">
   <a class="lb-brand" href="#top"><img src="__LOGO__" alt="" width="28" height="28"><b>Carousel Machine</b></a>
   <nav class="lb-toc" aria-label="פרקים">
     <a href="#today">הלילה האחרון</a><a href="#story">פורמט הסיפור</a><a href="#how">איך זה עובד</a><a href="#slides">שבע השקופיות</a><a href="#rules">כללים</a><a href="#commands">פקודות</a>
   </nav>
   <span class="lb-spacer"></span>
   <a class="lb-btn ghost sm" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">לוח לומבוק</a>
-  __TOGGLE__
 </div></header>
 
 <main class="lb-page" id="top">
@@ -249,7 +232,7 @@ __CARDS__
   </div>
   <h3>שש האפשרויות, כותרות בלבד</h3>
   <p>הכותרות לבדן מספרות את הסיפור: הרגע, הרגש, מה עומד מאחוריו, שני דברים לנסות, איך זה נגמר וההצעה.</p>
-  <div class="lb-table-wrap"><table class="lb-table">
+  <div class="lb-table-wrap"><table class="lb-table mid top">
     <thead><tr><th>אפשרות</th><th>ילד או ילדה</th><th>שבע הכותרות לפי הסדר</th></tr></thead>
     <tbody>
 __ROWS__
@@ -260,7 +243,7 @@ __ROWS__
 <section class="lb-section" id="story">
   <h2>פורמט הסיפור</h2>
   <p>מ-29 באוקטובר 2026 כל חבילה חדשה היא בפורמט הסיפור: לכל אפשרות מבנה משלה, 9 עד 12 שקופיות, תמונה לכל שקופית, והילד מדבר אל ההורים. בכל חבילה לפחות 4 מבנים שונים, אף מבנה לא יותר מפעמיים, ושלוש האפשרויות של נושא אחד בשלושה מבנים שונים.</p>
-  <div class="lb-table-wrap"><table class="lb-table" style="min-width:36rem">
+  <div class="lb-table-wrap"><table class="lb-table top" style="min-width:36rem">
     <thead><tr><th>מבנה</th><th>איך הוא נקרא</th><th>תוויות</th></tr></thead>
     <tbody>
 __STRUCTS__
@@ -304,7 +287,7 @@ __STRUCTS__
 <section class="lb-section" id="slides">
   <h2>שבע השקופיות</h2>
   <p>סדר העבודה: קודם הפתיח, אחר כך התוכן, ובסוף העיצוב. כל שקופית אמורה להצדיק את החלקה בפני עצמה.</p>
-  <div class="lb-table-wrap"><table class="lb-table" style="min-width:34rem">
+  <div class="lb-table-wrap"><table class="lb-table top" style="min-width:34rem">
     <thead><tr><th class="num">#</th><th>תפקיד</th><th>המשימה</th></tr></thead>
     <tbody>
       <tr><td class="num">1</td><td>פתיח</td><td>התמונה הממוזערת: מילים שאומרות מה מקבלים, ופנים של הילד מול הצופה בהבעה מוגזמת</td></tr>
@@ -354,7 +337,7 @@ document.addEventListener("click", function (e) {
   if (!b) return;
   var t = b.getAttribute("data-copy"), done = function () { var o = b.textContent; b.textContent = "הועתק"; setTimeout(function () { b.textContent = o; }, 1400); };
   try { navigator.clipboard.writeText(t).then(done, function () { sel(b); }); } catch (err) { sel(b); }
-  function sel(btn) { var pre = btn.parentNode.querySelector("pre"), r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  function sel(btn) { var pre = btn.closest(".lb-copy").querySelector("pre"), r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
 });
 </script>
 '''
@@ -364,7 +347,7 @@ CMDS = [
     ("בודקים ושומרים חבילה", "python3 carousel/carousel-pipeline/scripts/nightly.py finish carousel/carousel-pipeline/drafts/DATE/pack.json"),
     ("בודקים ומרנדרים את קרוסלת המשחקים והספרים", "python3 carousel/carousel-pipeline/scripts/nightly.py finish-reco carousel/carousel-pipeline/drafts/DATE"),
     ("עורכים טקסט בדף הסקירה", "python3 carousel/carousel-pipeline/scripts/review_server.py"),
-    ("מקפיאים אפשרות להפקה, בלי עלות", "python3 carousel/carousel-pipeline/scripts/prepare_fal_jobs.py carousel/carousel-pipeline/drafts/DATE/pack.json kid-2"),
+    ("מקפיאים אפשרות להפקה, בלי עלות", "python3 carousel/carousel-pipeline/scripts/prepare_picture_jobs.py carousel/carousel-pipeline/drafts/DATE/pack.json kid-2"),
     ("מרכיבים את השקופיות וה-ZIP", "python3 carousel/carousel-pipeline/scripts/compose_slides.py carousel/carousel-pipeline/approved/DATE-kid-2"),
     ("תיקון טקסט אחרי יצוא, בלי עלות", 'python3 carousel/carousel-pipeline/scripts/edit_final.py RUN_DIR --slide 2 --body "..."'),
 ]
@@ -373,7 +356,7 @@ CMDS = [
 def cmd_html():
     out = []
     for label, cmd in CMDS:
-        out.append(f'<div class="cmd lb-card"><small>{esc(label)}</small><div class="lb-row"><pre><code>{esc(cmd)}</code></pre>'
+        out.append(f'<div class="lb-card"><small class="lb-note">{esc(label)}</small><div class="lb-copy"><pre class="lb-textblock is-code">{esc(cmd)}</pre>'
                    f'<button class="lb-btn secondary sm" type="button" data-copy="{esc(cmd, quote=True)}">העתקה</button></div></div>')
     return "\n    ".join(out)
 

@@ -29,27 +29,18 @@
     },
     "workstreams": {
       "class": "ws",
-      "used_by": ["sites/dashboard/lumebook-dashboard.html (sidebar tiles, research library, sync view)", "sites/dashboard/refresh.py (adds ws to each artifact and component)"],
+      "used_by": ["sites/dashboard/lumebook-dashboard.html (HQ tools grid default topic colours as WS_CAT, research library, sync view)", "sites/dashboard/refresh.py (adds ws to each artifact and component)"],
       "what": "The project's workstreams; each component of lumebook.json belongs to one",
       "items": {
-        "plan": {"cat": 4, "label": "תוכנית ואסטרטגיה", "en": "Plan and strategy",
-                 "components": ["strategy", "smm-plan", "product-docs", "brand-marketing-system", "sales-readout"]},
-        "creators": {"cat": 2, "label": "יוצרים", "en": "Creators",
-                     "components": ["creator-map", "signup-form", "creator-content-conversion", "creator-brief", "ambassadors"]},
-        "carousels": {"cat": 5, "label": "קרוסלות", "en": "Carousels",
-                      "components": ["carousel-pipeline", "hook-studio-page", "carousel-research", "carousel-playbook", "carousel-audit", "lotem-lerner-carousels", "fal-trial"]},
-        "reels": {"cat": 1, "label": "רילס ווידאו", "en": "Reels and video",
-                  "components": ["israeli-product-reels", "reels-research-page", "kids-lab", "media"]},
-        "competitors": {"cat": 7, "label": "מתחרים", "en": "Competitors",
-                        "components": ["competitor-teardown"]},
-        "communities": {"cat": 6, "label": "קהילות", "en": "Communities",
-                        "components": ["parent-communities"]},
-        "learning": {"cat": 3, "label": "קורס ולמידה", "en": "Course and learning",
-                     "components": ["course"]},
-        "library": {"cat": 8, "label": "ספריית מחקר", "en": "Research library",
-                    "components": []},
-        "system": {"cat": 0, "label": "מערכת", "en": "System",
-                   "components": ["facts", "brand", "design", "dashboard"]}
+        "plan": {"cat": 4, "label": "תוכנית ואסטרטגיה", "en": "Plan and strategy", "components": ["strategy", "smm-plan", "product-docs", "brand-marketing-system", "sales-readout"]},
+        "creators": {"cat": 2, "label": "יוצרים", "en": "Creators", "components": ["creator-map", "signup-form", "creator-content-conversion", "creator-brief", "ambassadors"]},
+        "carousels": {"cat": 5, "label": "קרוסלות", "en": "Carousels", "components": ["carousel-pipeline", "hook-studio-page", "carousel-research", "carousel-playbook", "carousel-audit", "lotem-lerner-carousels", "fal-trial"]},
+        "reels": {"cat": 1, "label": "רילס ווידאו", "en": "Reels and video", "components": ["israeli-product-reels", "reels-hub", "reels-research-page", "reel-calendar", "kids-lab", "media"]},
+        "competitors": {"cat": 7, "label": "מתחרים", "en": "Competitors", "components": ["competitor-teardown"]},
+        "communities": {"cat": 6, "label": "קהילות", "en": "Communities", "components": ["parent-communities"]},
+        "learning": {"cat": 3, "label": "קורס ולמידה", "en": "Course and learning", "components": ["course"]},
+        "library": {"cat": 8, "label": "ספריית מחקר", "en": "Research library", "components": []},
+        "system": {"cat": 0, "label": "מערכת", "en": "System", "components": ["facts", "brand", "design", "dashboard"]}
       }
     },
     "creator-tracks": {
@@ -119,6 +110,30 @@
         "pay": {"cat": 7, "label": "תשלום", "en": "Payment"},
         "after": {"cat": 2, "label": "אחרי הרכישה", "en": "After purchase"},
         "messages": {"cat": 3, "label": "הודעות", "en": "Messages"}
+      }
+    },
+    "reel-series": {
+      "used_by": ["research/israeli-product-reels/src/scripts/series-2026-11/reels.py (november-calendar.html: series chips, day cells and the filter, through lb-cat-N)"],
+      "what": "The series of the November 2026 reel calendar (04 Nov 2026). No class key, like journey-stages, so the inlined CSS of other pages does not change. Status keeps its own chips. Series 8 (from grandma) added 05 Nov 2026",
+      "items": {
+        "1": {"cat": 4, "label": "לפני שמזמינים", "en": "Before you order"},
+        "2": {"cat": 3, "label": "הספר של הילד שלך", "en": "Your child's book"},
+        "3": {"cat": 8, "label": "מתנה לחנוכה", "en": "Hanukkah gift"},
+        "4": {"cat": 1, "label": "ירין בודק", "en": "Yarin tests it"},
+        "5": {"cat": 6, "label": "רגע בבית", "en": "A moment at home"},
+        "6": {"cat": 2, "label": "טרנדים מוכנים", "en": "Ready trends"},
+        "7": {"cat": 5, "label": "ימי מבצע", "en": "Sale days"},
+        "8": {"cat": 7, "label": "מסבתא לנכד", "en": "From grandma"}
+      }
+    },
+    "books-metrics": {
+      "used_by": ["creators/creator-research/src/template.html (books tab: the summary cubes and each post's cubes, through lb-cat-N; build2.py passes the numbers as BKCAT)"],
+      "what": "The numbers of the creator map's books tab (05 Nov 2026): the books made and the linked posts' views, likes and comments, the same hue in the summary and on every row. No class key, so other pages' inlined CSS does not change. Arrived and content up are status and keep the status colours (success, warning)",
+      "items": {
+        "books": {"cat": 5, "label": "ספרים שנוצרו", "en": "Books made"},
+        "views": {"cat": 4, "label": "צפיות", "en": "Views"},
+        "likes": {"cat": 2, "label": "לייקים", "en": "Likes"},
+        "comments": {"cat": 6, "label": "תגובות", "en": "Comments"}
       }
     }
   }

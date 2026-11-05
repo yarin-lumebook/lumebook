@@ -1,14 +1,15 @@
 """LumeBook design system helpers for page builds.
 
-Every internal page build inlines the same stylesheet, fonts link and theme script, so one edit to
+Every internal page build inlines the same stylesheet and fonts link, so one edit to
 shared/design/lumebook.css restyles them all on the next `python3 tools/lumebook.py ripple`.
 
     import sys, pathlib
     sys.path.insert(0, str(<project root> / "shared" / "design"))
     import design
     html = html.replace("<!--LB:HEAD-->", design.head())       # in <head> or at the top of an artifact page
-    html = html.replace("<!--LB:THEME-TOGGLE-->", design.theme_toggle())   # the white/black switch, in the top bar
     design.cat_class("reels-tools", "hook")   # "lb-cat-1": the category colour class for one key
+    design.icon("people")                     # one icon of the set in shared/design/icons.json, as inline <svg>
+    design.head(nav=False)                    # without the project nav (only pages people outside LumeBook see)
 
 Category colours: shared/design/categories.json says which category of which page gets which of the eight hues
 (--cat-1 ... --cat-8 in lumebook.css). Builds read it through categories(), cat_class() and category_css(), never hexes.
@@ -26,24 +27,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 FONTS_URL = "https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap"
 CATEGORIES = os.path.join(HERE, "categories.json")
 
-# White and black modes with a switch (Yarin, 21 Oct 2026). The boot script runs in <head>: it sets data-theme on
-# <html> before first paint from the viewer's saved choice (localStorage "lb-mode", white by default; not "lb-theme", which old built pages still clear), flips it when any
-# [data-lb-theme-toggle] is clicked, keeps aria-checked on every switch in step and follows a change made in another tab.
-# The dashboard and the SMM plan (no build) carry a copy of this same script in their <head>.
-THEME_BOOT = (
-    '<script>(function(){if(window.lbThemeBoot)return;window.lbThemeBoot=1;var d=document.documentElement,K="lb-mode";'
-    'function saved(){try{return localStorage.getItem(K)==="dark"?"dark":"light"}catch(e){return"light"}}'
-    'function set(t){d.setAttribute("data-theme",t);var s=document.querySelectorAll("[data-lb-theme-toggle]");'
-    'for(var i=0;i<s.length;i++)s[i].setAttribute("aria-checked",String(t==="dark"))}'
-    'set(saved());document.addEventListener("DOMContentLoaded",function(){set(d.getAttribute("data-theme"))});'
-    'document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lb-theme-toggle]");if(!b)return;'
-    'var t=d.getAttribute("data-theme")==="dark"?"light":"dark";set(t);try{localStorage.setItem(K,t)}catch(x){}});'
-    'addEventListener("storage",function(e){if(e.key===K)set(saved())})})()</script>'
-)
-
-SUN = ('<svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/>'
-       '<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>')
-MOON = '<svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>'
+# White only (Yarin, 05 Nov 2026: "only white mode from now on"). The black mode, its switch and the boot script that set
+# data-theme from localStorage "lb-mode" (21 Oct 2026) are gone: pages carry no theme script and no switch.
 
 
 def css():
@@ -80,23 +65,29 @@ def local_links_script():
             'var m=' + m + ';document.querySelectorAll("a[href]").forEach(function(a){var h=a.getAttribute("href");if(m[h])a.setAttribute("href",m[h])})})</script>')
 
 
-def head(include_fonts=True, theme=True):
-    """Fonts link + the whole design system inline + the theme boot script. theme=False leaves the boot script out, for a
-    page with its own modes (the public creator brief) that must never pick up data-theme="dark"."""
+def head(include_fonts=True, theme=None, nav=True, page=None):
+    """Fonts link + the whole design system inline (+ the local-links script) + the project nav (nav.js, 5 Nov 2026).
+    White only since 05 Nov 2026: there is no theme script any more; `theme` is accepted and ignored so older builds still run.
+    nav=False leaves the project nav out: only for pages people outside LumeBook see (the creator brief).
+    page is this page's path in the project ("research/x/page.html"), so the nav knows where it is inside a claude.ai
+    artifact too; inside `lumebook.py build` it comes from the component being built (LB_PAGE_FILE)."""
     parts = []
     if include_fonts:
         parts += ['<link rel="preconnect" href="https://fonts.googleapis.com">',
                   '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
                   f'<link rel="stylesheet" href="{FONTS_URL}">']
-    parts += ([THEME_BOOT] if theme else []) + [local_links_script(), "<style>\n" + css() + "\n" + categories_css() + "\n</style>"]
+    parts += [local_links_script(), "<style>\n" + css() + "\n" + categories_css() + "\n</style>"]
+    if nav:
+        page = page or os.environ.get("LB_PAGE_FILE")
+        if page:
+            parts.append("<script>window.LB_PAGE=" + _js({"file": page}) + ";</script>")
+        parts.append("<script>\n" + nav_js() + "</script>")
     return "\n".join(parts)
 
 
-def theme_toggle(dark_label="מצב כהה", light_label=None):
-    """The white/black switch for a page's top bar. light_label is unused (kept so existing builds still run): a switch
-    has one label, for its on state."""
-    return (f'<button class="lb-theme-switch" type="button" role="switch" aria-checked="false" data-lb-theme-toggle '
-            f'aria-label="{dark_label}" title="{dark_label}">{SUN}{MOON}</button>')
+def theme_toggle(*args, **kwargs):
+    """Retired with the black mode (05 Nov 2026): returns "" so a build that still calls it gets no switch. Don't add new calls."""
+    return ""
 
 
 def logo_data_uri(name="logo_square_96.png"):
@@ -157,5 +148,109 @@ def category_css(set_id, selector=".t-{key}"):
     return "\n".join(f"{selector.format(key=key)} {{ {_vars(item['cat'])} }}" for key, item in categories(set_id).items())
 
 
+ICONS = os.path.join(HERE, "icons.json")
+SVG_ATTRS = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"'
+
+
+def icons(group="icons"):
+    """One group of the icon set in icons.json as {name: inner svg markup} (24 grid line icons, 5 Nov 2026):
+    "icons" (pictures for tools and topics) or "ui" (interface glyphs)."""
+    with open(ICONS, encoding="utf-8") as f:
+        return {k: v["svg"] for k, v in json.load(f).get(group, {}).items()}
+
+
+def ui_icons():
+    return icons("ui")
+
+
+def icon(name, cls="", label=None):
+    """One icon as inline <svg>; decorative (aria-hidden) unless a label is given."""
+    a11y = f'role="img" aria-label="{label}"' if label else 'aria-hidden="true"'
+    return f'<svg{f" class=\"{cls}\"" if cls else ""} {SVG_ATTRS} {a11y}>{({**icons(), **ui_icons()})[name]}</svg>'
+
+
+def icons_js():
+    """window.LB_ICONS for pages without a build (the dashboard links the synced copy design/icons.js)."""
+    return ("/* the LumeBook icon set, generated from shared/design/icons.json by design.py: do not edit */\n"
+            "window.LB_ICONS = " + json.dumps(icons(), ensure_ascii=False, indent=0) + ";\n"
+            "window.LB_UI_ICONS = " + json.dumps(ui_icons(), ensure_ascii=False, indent=0) + ";\n")
+
+
+def write_icons_js():
+    """Write shared/design/icons.js (for the linked copies); returns True when the file changed."""
+    path = os.path.join(HERE, "icons.js")
+    text = icons_js()
+    old = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+    if old != text:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(text)
+    return old != text
+
+
+# ---------- the project nav (5 Nov 2026) ----------
+# hq-tools.json is HQ's built-in tool list; nav.src.js draws the top bar (HQ's topics), the location path, the side bar
+# (every tool) and the bottom nav bar on phones. nav_js() puts the data in front of the script; builds inline it through
+# head(), and write_nav_js() writes shared/design/nav.js for the pages without a build (HQ, the SMM plan), which sync copies.
+HQ_TOOLS = os.path.join(HERE, "hq-tools.json")
+NAV_SRC = os.path.join(HERE, "nav.src.js")
+HQ_LOCAL = "sites/dashboard/site/lumebook-dashboard/"   # HQ on the project server (its built copy; "/" redirects there)
+
+
+def _js(obj):
+    """JSON safe inside an inline <script>."""
+    return json.dumps(obj, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+
+
+def _read_json(*parts, default=None):
+    try:
+        with open(os.path.join(ROOT, *parts), encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return default
+
+
+def nav_data():
+    """window.LB_NAV_DATA: the topics and tools (hq-tools.json, each topic's hue from categories.json set workstreams),
+    the icons, the logo, where HQ is (project server, artifact, Vercel), the Vercel copies of research artifacts
+    (facts.json artifacts with a web address), each built page's artifact id (lumebook.json publish) and HQ's saved
+    arrangement (sites/dashboard/hq-layout.json)."""
+    with open(HQ_TOOLS, encoding="utf-8") as f:
+        topics = json.load(f)["topics"]
+    ws = _sets().get("workstreams", {}).get("items", {})
+    topics = [dict(t, cat=(ws.get(t["id"]) or {}).get("cat", 0)) for t in topics]
+    facts = _read_json("shared", "facts.json", default={})
+    comps = (_read_json("lumebook.json", default={}) or {}).get("components", {})
+    dash = next((s.get("url") for s in facts.get("sites", []) if s.get("key") == "dash"), "https://lumebook-dashboard.vercel.app")
+    hq_art = ((comps.get("dashboard") or {}).get("publish") or {}).get("url", "")
+    webs = {a["url"].rstrip("/").split("/")[-1]: a["web"] for a in facts.get("artifacts", []) if a.get("web") and a.get("url")}
+    saved = _read_json("sites", "dashboard", "hq-layout.json")
+    # built page → its artifact id, for a tool whose local address is not the built file (Carousel Machine: hook-studio/)
+    pages = {c["publish"]["file"]: c["publish"]["url"].rstrip("/").split("/")[-1] for c in comps.values()
+             if (c.get("publish") or {}).get("type") == "artifact" and str(c["publish"].get("file", "")).endswith(".html")}
+    return {"topics": topics, "icons": icons(), "ui": ui_icons(), "logo": logo_data_uri(),
+            "hq": {"local": HQ_LOCAL, "artifact": hq_art, "web": dash.rstrip("/") + "/"},
+            "web_copies": webs, "pages": pages, "saved": saved if isinstance(saved, dict) and not saved.get("default") else None}
+
+
+def nav_js():
+    with open(NAV_SRC, encoding="utf-8") as f:
+        src = f.read()
+    return ("/* the LumeBook project nav, generated by shared/design/design.py from hq-tools.json and nav.src.js: do not edit */\n"
+            "window.LB_NAV_DATA = " + _js(nav_data()) + ";\n" + src)
+
+
+def write_nav_js():
+    """Write shared/design/nav.js (for the linked copies); returns True when the file changed."""
+    path = os.path.join(HERE, "nav.js")
+    text = nav_js()
+    old = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+    if old != text:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(text)
+    return old != text
+
+
 if __name__ == "__main__":
     print("categories.css " + ("written" if write_categories_css() else "unchanged"))
+    print("icons.js " + ("written" if write_icons_js() else "unchanged"))
+    print("nav.js " + ("written" if write_nav_js() else "unchanged"))

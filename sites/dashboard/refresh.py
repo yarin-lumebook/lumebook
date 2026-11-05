@@ -37,7 +37,7 @@ def _src_file(component):
     return REGISTRY.get(component or "", {}).get("publish", {}).get("file")
 
 
-ARTIFACTS = [{"key": a["key"], "label": a["label"], "url": a["url"], "file": _src_file(a.get("component")), "date": a["date"],
+ARTIFACTS = [{"key": a["key"], "label": a["label"], "url": a["url"], "web": a.get("web"), "file": _src_file(a.get("component")), "date": a["date"],
               "summary": a.get("summary", ""), "kind": a.get("kind", ""), "component": a.get("component"), "ws": WS_OF.get(a.get("component"))}
              for a in FACTS["artifacts"] if a["key"] != "dashboard"]
 SITES = [{"key": x["key"], "label": x["label"], "url": x["url"],

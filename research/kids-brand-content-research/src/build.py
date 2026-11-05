@@ -1,7 +1,7 @@
 # Builds lumebook-kids-content-lab.html from analysis/*/meta.json + breakdown.json + frames, src/app.html, src/synthesis.json.
 # Run from research/kids-brand-content-research/:  ~/.claude/skills/watch-video/.venv/bin/python src/build.py
 # Look and chrome come from the LumeBook design system (shared/design): design.head() inlines the stylesheet,
-# design.theme_toggle() the theme button, design.logo_data_uri() the logo; src/base.css holds the lab's own page rules.
+# design.logo_data_uri() the logo; src/base.css holds the lab's own page rules.
 import json, glob, os, sys, re, io, base64, datetime
 from PIL import Image
 
@@ -60,7 +60,7 @@ SYN = json.load(open('src/synthesis.json'))
 SYN['lede'] = SYN['lede'].replace('__N__', str(len(V)))
 stamp = '6 Oct 2026'  # the research date; later rebuilds (restyles) must not relabel it
 n_il = sum(v['ctry'] == 'IL' for v in V)
-T = (T.replace('__LBHEAD__', design.head()).replace('__THEME__', design.theme_toggle(dark_label='Dark mode', light_label='Light mode'))
+T = (T.replace('__LBHEAD__', design.head())
       .replace('__BASECSS__', BASECSS).replace('__LOGO__', LOGO)
       .replace('__DATA__', json.dumps(V, ensure_ascii=False)).replace('__SYN__', json.dumps(SYN, ensure_ascii=False))
       .replace('__STAMP__', stamp).replace('__H1__', SYN['h1']).replace('__LEDE__', SYN['lede'])

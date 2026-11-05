@@ -22,9 +22,10 @@ sys.path.insert(0, str(SCRIPTS))
 import carousel_lib as lib  # noqa: E402
 import compose_slides  # noqa: E402
 import drive_export  # noqa: E402
-import fal_generate  # noqa: E402
+import openai_generate  # noqa: E402
+import openai_pictures as op  # noqa: E402
 import postiz_export  # noqa: E402
-import prepare_fal_jobs  # noqa: E402
+import prepare_picture_jobs  # noqa: E402
 import producer  # noqa: E402
 
 ANCHOR = {"child": "A 4-year-old Israeli girl with dark curls.", "parent": "Her mother, early thirties.",
@@ -93,26 +94,29 @@ class StoryLookChoice(unittest.TestCase):
 
 class StoryJobs(unittest.TestCase):
     def test_cover_by_text_to_image_then_an_edit_per_slide(self):
-        cfg = prepare_fal_jobs.endpoint_config()
+        cfg = prepare_picture_jobs.endpoint_config()
         v = story_option(count=12)
-        jobs = prepare_fal_jobs.build_jobs({"copy_style": "story"}, v, cfg)
+        jobs = prepare_picture_jobs.build_jobs({"copy_style": "story"}, v, cfg)
         self.assertEqual(jobs["order"], [f"slide-{n:02d}" for n in range(1, 13)])
-        self.assertEqual((jobs["story"], jobs["reference_job"], jobs["max_usd"]), (True, "slide-01", 1.00))
+        self.assertEqual((jobs["story"], jobs["reference_job"], jobs["backend"]), (True, "slide-01", "openai"))
+        self.assertNotIn("max_usd", jobs)   # no built-in cap: the budget is whatever Yarin approves (03 Nov 2026)
         cover, slide = jobs["jobs"]["slide-01"], jobs["jobs"]["slide-05"]
-        self.assertEqual(cover["endpoint"], "openai/gpt-image-2.5/flare/text-to-image")
+        self.assertEqual((cover["mode"], cover["model"], cover["refs"]), ("generate", cfg["model"], []))
         self.assertIn(COVER["action"], cover["input"]["prompt"])
-        self.assertEqual((slide["endpoint"], slide["refs"]), ("openai/gpt-image-2.5/flare/edit", ["slide-01"]))
+        self.assertEqual((slide["mode"], slide["model"], slide["refs"]), ("edit", cfg["model"], ["slide-01"]))
+        self.assertEqual(cover["input"]["quality"], "low")
         for part in (ANCHOR["child"], "moment 5", lib.STYLE, "upper third", "No words, letters or numbers"):
             self.assertIn(part, slide["input"]["prompt"])
-        self.assertEqual([p for n, j in jobs["jobs"].items() for p in prepare_fal_jobs.job_issues(n, j, cfg)], [])
-        base, cap = prepare_fal_jobs.cost_summary(jobs)
-        self.assertLessEqual(base, 1.00)
-        self.assertEqual(cap, 1.00)
+        self.assertEqual([p for n, j in jobs["jobs"].items() for p in prepare_picture_jobs.job_issues(n, j, cfg)], [])
+        base, maximum = prepare_picture_jobs.cost_summary(jobs)
+        self.assertGreater(base, 0)
+        self.assertAlmostEqual(maximum, base * (1 + prepare_picture_jobs.MAX_REPLACEMENTS), places=3)
+        self.assertEqual(base, round(sum(op.estimate_job(j, cfg)["usd"] for j in jobs["jobs"].values()), 4))
 
     def test_older_options_keep_their_one_picture(self):
         pack = json.loads((HERE / "fixtures" / "two_topic_pack.json").read_text(encoding="utf-8"))
         v = pack["directions"][0]["versions"][0]
-        jobs = prepare_fal_jobs.build_jobs(pack, v, prepare_fal_jobs.endpoint_config())
+        jobs = prepare_picture_jobs.build_jobs(pack, v, prepare_picture_jobs.endpoint_config())
         self.assertEqual(jobs["order"], ["picture"])
         self.assertNotIn("story", jobs)
 
@@ -120,18 +124,18 @@ class StoryJobs(unittest.TestCase):
         v = story_option()
         del v["slides"][3]["scene"]
         with self.assertRaises(SystemExit):
-            prepare_fal_jobs.build_jobs({"copy_style": "story"}, v, prepare_fal_jobs.endpoint_config())
+            prepare_picture_jobs.build_jobs({"copy_style": "story"}, v, prepare_picture_jobs.endpoint_config())
 
 
 class StoryRun(unittest.TestCase):
-    """A run folder with jobs.json and state.json as prepare_fal_jobs writes them, in a temporary folder."""
+    """A run folder with jobs.json and state.json as prepare_picture_jobs writes them, in a temporary folder."""
 
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp(prefix="story-run-"))
         self.run_dir = self.tmp / "2026-11-01-kid-1"
         (self.run_dir / "generated-assets" / "rejected").mkdir(parents=True)
         v = story_option()
-        self.jobs = prepare_fal_jobs.build_jobs({"copy_style": "story"}, v, prepare_fal_jobs.endpoint_config())
+        self.jobs = prepare_picture_jobs.build_jobs({"copy_style": "story"}, v, prepare_picture_jobs.endpoint_config())
         lib.write_json(self.run_dir / "approved.json", frozen_of(v))
         lib.write_json(self.run_dir / "jobs.json", self.jobs)
         self.state({n: "pending" for n in self.jobs["order"]})
@@ -143,25 +147,38 @@ class StoryRun(unittest.TestCase):
         lib.write_json(self.run_dir / "state.json", {"jobs": {n: {"status": s, "attempts": int(s == "done"), "replacements": 0,
                                                                  "qa": (qa or {}).get(n), "notes": []} for n, s in statuses.items()}})
 
-    def test_the_cover_runs_alone_first_and_the_cap_holds(self):
-        run = fal_generate.Run(self.run_dir)
-        self.assertEqual(fal_generate.reference_job(run), "slide-01")
-        with mock.patch.object(fal_generate, "execute") as ex, \
-                mock.patch.object(fal_generate, "Fal", side_effect=AssertionError("no network in tests")):
-            fal_generate.cmd_run(run, mock.Mock(jobs=[], dry_run=False, max_usd=1.0, workers=7))
+    def test_the_cover_runs_alone_first_and_the_budget_holds(self):
+        run = openai_generate.Run(self.run_dir)
+        self.assertEqual(openai_generate.reference_job(run), "slide-01")
+        with mock.patch.object(openai_generate, "execute") as ex, \
+                mock.patch.object(op, "OpenAIImages", side_effect=AssertionError("no network in tests")):
+            openai_generate.cmd_run(run, mock.Mock(jobs=[], dry_run=False, max_usd=1.0, workers=4))
         self.assertEqual([c.args[1] for c in ex.call_args_list], ["slide-01"])   # never the slides before the cover passes
         run.log({"job": "x", "estimated_cost_usd": 0.5})
         with self.assertRaises(SystemExit):
-            fal_generate.check_budget(run, 0.6, 5.0)   # jobs.json max_usd 1.00 wins over a higher --max-usd
+            openai_generate.check_budget(run, 0.6, 1.0)   # 0.5 logged + 0.6 would pass the approved 1.0
+        openai_generate.check_budget(run, 0.4, 1.0)
+        with self.assertRaises(SystemExit):
+            openai_generate.check_budget(run, 0.01, None)   # no budget, no call
 
-    def test_producer_knows_the_cover_and_the_cap(self):
+    def test_producer_knows_the_cover_and_asks_before_spending(self):
         self.assertTrue(producer.is_story(self.run_dir))
-        with mock.patch.object(lib, "picture_backend", return_value="fal"):   # the paid flow, off since 30 Oct 2026
-            self.assertEqual((producer.cover_job(self.run_dir), producer.cap_usd(self.run_dir)), ("slide-01", producer.STORY_MAX_USD))
-            self.assertEqual((producer.cover_job(self.tmp), producer.cap_usd(self.tmp)), ("picture", producer.MAX_USD))
-        self.assertEqual(producer.STORY_MAX_USD, prepare_fal_jobs.STORY_MAX_USD)
-        with mock.patch.object(lib, "picture_backend", return_value="chatgpt"):   # pictures from ChatGPT: nothing may be spent
-            self.assertEqual((producer.cap_usd(self.run_dir), producer.cap_usd(self.tmp)), (0, 0))
+        self.assertEqual((producer.cover_job(self.run_dir), producer.cover_job(self.tmp)), ("slide-01", "picture"))
+        store = self.tmp / "p.json"
+        with mock.patch.object(producer, "PRODUCTIONS", store):
+            with self.assertRaises(producer.NeedsApproval) as ctx:   # no budget, no permission
+                producer._gate("k", self.run_dir, "cover", ["slide-01"])
+            self.assertEqual((ctx.exception.info["stage"], ctx.exception.info["images"]), ("cover", 1))
+            self.assertGreater(ctx.exception.info["usd"], 0)
+            producer._update("k", budget_usd=5.0, grant={"stage": "slides"})
+            with self.assertRaises(producer.NeedsApproval):   # a permission for another stage is not this one
+                producer._gate("k", self.run_dir, "cover", ["slide-01"])
+            producer._update("k", grant={"stage": "cover"}, budget_usd=0.0001)
+            with self.assertRaises(producer.NeedsApproval):   # the estimate does not fit the budget
+                producer._gate("k", self.run_dir, "cover", ["slide-01"])
+            producer._update("k", grant={"stage": "cover"}, budget_usd=5.0)
+            self.assertEqual(producer._gate("k", self.run_dir, "cover", ["slide-01"]), 5.0)
+            self.assertIsNone(producer.get("k").get("grant"))   # used up: the next stage asks again
 
     def test_after_the_cover_the_other_slides_run_together_and_pass_with_it(self):
         order = self.jobs["order"]
@@ -171,7 +188,7 @@ class StoryRun(unittest.TestCase):
         def fake_sh(args, timeout, env_shell=False):
             args = [str(a) for a in args]
             calls.append(args)
-            if "run" in args:   # fal_generate run: every asked slide is made, except slide-04 the first time
+            if "run" in args:   # openai_generate run: every asked slide is made, except slide-04 the first time
                 st = lib.read_json(self.run_dir / "state.json")
                 for n in args[args.index("run") + 1:args.index("--max-usd")]:
                     if n != "slide-04" or len([c for c in calls if "run" in c]) > 1:
@@ -183,15 +200,18 @@ class StoryRun(unittest.TestCase):
                 lib.write_json(self.run_dir / "state.json", st)
             return 0, ""
 
-        with mock.patch.object(producer, "_sh", side_effect=fake_sh), mock.patch.object(producer, "PRODUCTIONS", self.tmp / "p.json"), \
-                mock.patch.object(lib, "picture_backend", return_value="fal"):   # the paid flow, off since 30 Oct 2026
+        with mock.patch.object(producer, "_sh", side_effect=fake_sh), mock.patch.object(producer, "PRODUCTIONS", self.tmp / "p.json"):
+            producer._update("k", budget_usd=5.0, grant={"stage": "slides"})
             with self.assertRaises(RuntimeError) as ctx:
                 producer._generate_slides("k", self.run_dir)
             self.assertIn("slide-04", str(ctx.exception))
             first = next(c for c in calls if "run" in c)
             self.assertEqual(first[first.index("run") + 1:first.index("--max-usd")], order[1:])
-            self.assertEqual(first[-1], "1.0")
-            producer._generate_slides("k", self.run_dir)   # pressing produce again makes only the missing one
+            self.assertEqual(first[-1], "5.0")
+            with self.assertRaises(producer.NeedsApproval):   # pressing produce again asks again: the permission was used up
+                producer._generate_slides("k", self.run_dir)
+            producer._update("k", grant={"stage": "slides"})
+            producer._generate_slides("k", self.run_dir)   # then it makes only the missing one
             again = [c for c in calls if "run" in c][-1]
             self.assertEqual(again[again.index("run") + 1:again.index("--max-usd")], ["slide-04"])
         st = lib.read_json(self.run_dir / "state.json")["jobs"]

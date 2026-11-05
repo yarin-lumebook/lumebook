@@ -1,4 +1,7 @@
-"""Copy finished carousels into Yarin's Google Drive folder "LumeBook תוכן" (Yarin, 18 Oct 2026: "export there from now on").
+"""SWITCHED OFF 03 Nov 2026 (Yarin: never use the My Drive folder "LumeBook תוכן" again): with no drive_content in
+shared/facts.json export() and flush() do nothing. Kept so the call sites and tests still import.
+
+Copy finished carousels into Yarin's Google Drive folder "LumeBook תוכן" (Yarin, 18 Oct 2026: "export there from now on").
 
 The copy goes through Google Drive for desktop: the folder lives in My Drive, so on this Mac it appears under
 ~/Library/CloudStorage/GoogleDrive-<account>/<My Drive>/LumeBook תוכן and Drive uploads whatever lands there.
@@ -105,7 +108,7 @@ def copy_run(run_dir, root):
 
 def export(run_dir, quiet=False):
     """Copy one finished run to Drive, or queue it. Returns the destination folder or None."""
-    if not _is_real(run_dir):
+    if not config() or not _is_real(run_dir):  # no drive_content in facts.json: switched off (Yarin, 03 Nov 2026)
         return None
     rel = Path(run_dir).resolve().name
     root = local_root()
@@ -123,6 +126,8 @@ def export(run_dir, quiet=False):
 
 
 def flush():
+    if not config():
+        return None, [], []
     root = local_root()
     runs = _load_pending()
     if root is None:

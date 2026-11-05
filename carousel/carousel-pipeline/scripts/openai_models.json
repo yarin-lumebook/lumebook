@@ -1,0 +1,23 @@
+{
+  "_about": "The one place Carousel Machine's pictures come from since 03 Nov 2026 (Yarin: \"disconnect carousel machine from any other image generation tool, i want it to use the gpt api from now on\"): the OpenAI Images API with OPENAI_API_KEY (macOS Keychain item openai-api-key, exported by ~/.zshrc). Read by openai_pictures.py. Yarin's rules for the key (memory feedback-openai-api-key-rules): always ask for a budget, never exceed it, tell the estimated tokens and cost before generating, create nothing without his explicit permission. The runner (openai_generate.py) and producer.py enforce them: no call without --max-usd, no call that the estimate says would pass it, the logged spend after every call counts.",
+  "checked_at": "2026-11-03",
+  "model": "gpt-image-2.5-flare",
+  "size": "1024x1536",
+  "quality": "low",
+  "allowed_qualities": ["low"],
+  "quality_note": "Only low is allowed because it is the only quality that was measured (03 Nov 2026: gpt-image-2.5-flare, 1024x1536, low = 121 text tokens in, 158 image tokens out, about $0.0053). Add medium or high here only after one measured run, since their token counts are not known.",
+  "generation_note": "1024x1536 (2:3) is the size that was tested and worked. Every picture is cropped to the centred 4:5 at 1024x1280 after it is made (openai_pictures.normalize); compose_slides.py shows that at 1080x1350. Prompts keep faces and the plain wall inside the middle.",
+  "final_export": {"width": 1080, "height": 1350},
+  "saved_size": {"width": 1024, "height": 1280},
+  "rates_usd_per_million_tokens": {"text_in": 5.0, "image_in": 8.0, "image_out": 30.0},
+  "rates_note": "From third-party pages read on 03 Nov 2026 (kanaries.net, eesel.ai: text input $5, image input $8, image output $30 per million tokens), not from OpenAI's own pricing page. They match the measured run: 121 x 5 + 158 x 30 per million = $0.0053. Re-check against platform.openai.com before raising the quality.",
+  "estimate": {
+    "output_tokens_per_image": {"low": 320},
+    "output_tokens_note": "Measured 158 for a text-to-image at 1024x1536 low; 320 (about double) is used for every estimate, edits included, because an edit's output was not measured.",
+    "prompt_chars_per_token": 2.5,
+    "reference_image_tokens": 1600,
+    "reference_note": "Tokens one reference picture adds to an edit. Measured once on 04 Nov 2026 (reel 1.1 baby picture, one 1024x1536 PNG reference, low): 1536 image tokens in, 149 text in, 158 out, $0.0178. Raised from the assumed 1500 to 1600 to stay on the high side."
+  },
+  "max_reference_images": 16,
+  "prompt_max_chars": 32000
+}

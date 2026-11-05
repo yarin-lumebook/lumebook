@@ -186,7 +186,7 @@ def state(batch_id=None):
             "grades": {k: v for k, v in grades.load()["grades"].items() if k in keys},
             "runs": {k: v for k, v in producer.load()["runs"].items() if k in keys},
             "unsent": bool(grades_unsent()), "next_run_he": when_he(nxt), "qa": list(producer.QA_CHECKS_HE),
-            "backend": lib.picture_backend(),   # "chatgpt" since 30 Oct 2026: pictures from ChatGPT, free, made by Claude
+            "backend": lib.picture_backend(),   # "openai" since 03 Nov 2026: the only picture source; every stage waits for Yarin's budget and yes
             "post_hour": int((lib.read_json(lib.ROOT / "shared" / "facts.json").get("postiz") or {}).get("default_hour", 6))}
 
 
@@ -195,17 +195,15 @@ APP_CSS = """
 html,body{height:100%}
 body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);direction:rtl;text-align:right;-webkit-font-smoothing:antialiased;overflow:hidden}
 button{font-family:inherit}
-.hs-top{position:relative;z-index:30;height:var(--hs-top);display:flex;align-items:center;gap:var(--sp-3);padding-inline:var(--sp-4);background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
-.hs-brand{display:flex;align-items:center;gap:var(--sp-2);font-weight:700;letter-spacing:-.01em;white-space:nowrap;font-size:var(--fs-headline)}
-.hs-brand img{width:1.75rem;height:1.75rem;border-radius:var(--r-xs)}
+/* the top bar is an lb-topbar (bar ground, blur, hairline) laid out full width without lb-topbar-in; the brand is lb-brand */
+.hs-top{position:relative;top:auto;z-index:30;height:var(--hs-top);display:flex;align-items:center;gap:var(--sp-3);padding-inline:var(--sp-4)}
 .hs-week{font:inherit;font-size:var(--fs-footnote);color:var(--text-2);background:var(--fill);border:0;border-radius:var(--r-sm);padding:.3rem .6rem}
 .hs-meter{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-footnote);color:var(--text-2);white-space:nowrap;font-variant-numeric:tabular-nums}
-.hs-meter .bar{width:8rem;height:.375rem;border-radius:var(--r-pill);background:var(--fill-2);overflow:hidden}
-.hs-meter .bar i{display:block;height:100%;background:var(--tint);border-radius:inherit;transition:width .3s}
+.hs-meter .lb-bar{width:8rem}
+.hs-meter .lb-bar i{transition:width .3s}
 .hs-sp{flex:1}
-.hs-top .lb-btn{white-space:nowrap}
 .hs-pickbtn{display:none}
-.hs-app{display:grid;grid-template-columns:minmax(0,1fr) 21rem;height:calc(100vh - var(--hs-top))}
+.hs-app{display:grid;grid-template-columns:minmax(0,1fr) 21rem;height:calc(100vh - var(--hs-top) - var(--lb-gnav-space, 0px))}
 .hs-main{overflow-y:auto;min-width:0;padding:0 var(--sp-6) var(--sp-7);container-type:inline-size}
 .hs-filter{position:sticky;top:0;z-index:3;background:var(--bg);padding:var(--sp-4) 0 var(--sp-3)}
 .hs-filter .lb-segmented{display:flex;max-width:30rem}
@@ -219,7 +217,6 @@ button{font-family:inherit}
 .hs-day{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-5)}
 .hs-lane>h3{font-size:var(--fs-callout);font-weight:600;color:var(--text-2);margin:0 0 var(--sp-2)}
 @container (min-width:60rem){.hs-day{grid-template-columns:repeat(2,minmax(0,1fr))}.hs-day .hs-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.gc{position:relative;display:grid;gap:var(--sp-2);align-content:start;min-width:0}
 .gc-thumb{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;border-radius:var(--r-lg);transition:transform .15s ease;container-type:inline-size}
 .gc-thumb:hover{transform:translateY(-2px)}
 .gc-thumb:focus-visible{outline:none}
@@ -232,9 +229,9 @@ button{font-family:inherit}
 .gc-frame{position:relative}
 .gc-pick{position:absolute;bottom:var(--sp-2);inset-inline-end:var(--sp-2);z-index:1;display:inline-flex;align-items:center;height:1.75rem;padding:0 .65rem;border:0;border-radius:var(--r-pill);background:var(--surface);color:var(--text);font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;box-shadow:var(--shadow-2);cursor:pointer}
 .gc-pick[aria-pressed="true"]{background:var(--tint);color:var(--text-on-tint)}
-.gc-meta{display:flex;align-items:center;gap:var(--sp-2);font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);min-width:0}
+.gc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:2px var(--sp-2);font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);min-width:0}
 .gc-meta .who{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gc-meta .hs-pill{flex:none}
+.gc-meta .lb-chip{flex:none;font-size:var(--fs-caption);padding-inline:.45rem} /* compact chips under a thumbnail */
 .hs-picks{overflow-y:auto;background:var(--surface);border-inline-start:1px solid var(--line);padding:var(--sp-5) var(--sp-4) var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-3)}
 .pk-head{display:flex;align-items:baseline;gap:var(--sp-2)}
 .pk-head h2{margin:0;font-size:var(--fs-headline);font-weight:700}
@@ -250,7 +247,7 @@ button{font-family:inherit}
 .pk-mini{display:block;width:2.6rem;aspect-ratio:4/5;border-radius:var(--r-xs);overflow:hidden;border:1px solid var(--line)}
 .pk-mini.kid{background:#F8F4FF}.pk-mini.expert{background:#FCF7EE}.pk-mini.reco{background:var(--info-soft)}
 .pk-mini img{display:block;width:100%;height:100%;object-fit:cover}
-.pk-open .t{font-size:var(--fs-footnote);font-weight:500;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pk-open .t{font-size:var(--fs-footnote);font-weight:500;line-height:1.35}
 .pk-open .m{display:block;font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pk-x{width:1.75rem;height:1.75rem;border:0;border-radius:50%;background:none;color:var(--text-3);cursor:pointer;font-size:1.15rem;line-height:1}
 .pk-x:hover{background:var(--fill-2);color:var(--text)}
@@ -269,12 +266,7 @@ button{font-family:inherit}
 .hs-kind.kid{background:var(--kid)}.hs-kind.expert{background:var(--accent)}.hs-kind.reco{background:var(--info)}
 .hs-badge{display:inline-flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;border-radius:var(--r-xs);font-weight:700;font-size:var(--fs-caption);background:var(--fill-2);color:var(--text-3);font-variant-numeric:tabular-nums}
 .hs-badge.on{background:var(--surface);color:var(--tint);box-shadow:var(--shadow-1)}
-.hs-pill{display:inline-flex;align-items:center;gap:var(--sp-1);font-size:var(--fs-caption);font-weight:600;padding:.12rem .5rem;border-radius:var(--r-pill);background:var(--fill-2);color:var(--text-2);white-space:nowrap}
-.hs-pill.kid{background:var(--kid-soft);color:var(--kid)}.hs-pill.expert{background:var(--expert-soft);color:var(--expert)}.hs-pill.reco{background:var(--info-soft);color:var(--info)}
-.hs-pill.review{background:var(--accent-soft);color:var(--accent-ink)}.hs-pill.done{background:var(--success-soft);color:var(--success)}
-.hs-pill.failed{background:var(--danger-soft);color:var(--danger)}.hs-pill.busy{background:var(--tint-soft);color:var(--tint)}
-.hs-spin{width:.75rem;height:.75rem;border-radius:50%;border:2px solid currentColor;border-inline-end-color:transparent;animation:hs-spin .8s linear infinite;flex:none}
-@keyframes hs-spin{to{transform:rotate(360deg)}}
+.lb-chip .lb-spinner{width:.75rem;height:.75rem} /* the running status chip */
 .hs-foot{font-size:var(--fs-caption);color:var(--text-3);padding:var(--sp-4);line-height:1.6}
 .hs-empty{color:var(--text-3);font-size:var(--fs-callout);padding:var(--sp-5) var(--sp-4);text-align:center}
 .st-eyebrow{font-size:var(--fs-footnote);font-weight:600;color:var(--text-3)}
@@ -296,12 +288,12 @@ button{font-family:inherit}
 .st-card.cta{background:linear-gradient(160deg,#5B2BD6,#3B1D78);color:#F8F0E1;border-color:#3B1D78}
 .p-expert .st-card.cta{background:#1D1039}
 .st-card.first{box-shadow:0 0 0 2px var(--tint)}
-[contenteditable]{outline:none;border-radius:var(--r-xs);transition:background .12s,box-shadow .12s;cursor:text}
-[contenteditable]:hover{box-shadow:0 0 0 1px var(--line-strong)}
-[contenteditable]:focus{box-shadow:0 0 0 2px var(--tint);background:var(--surface)}
+/* text edited in the page is lb-editable (is-edited while it differs from the saved text); the old slide cards keep their own look */
+.st-card [contenteditable]{outline:none;border-radius:var(--r-xs);transition:background .12s,box-shadow .12s;cursor:text}
+.st-card [contenteditable]:hover{box-shadow:0 0 0 1px var(--line-strong)}
+.st-card [contenteditable]:focus{box-shadow:0 0 0 2px var(--tint);background:#fff}
 .st-card.cta [contenteditable]:focus{background:rgba(255,255,255,.12)}
-.st-card:not(.cta) [contenteditable]:focus{background:#fff} /* slide cards keep their light pillar look in black mode too */
-[contenteditable].dirty{box-shadow:0 0 0 2px var(--accent)}
+.st-card [contenteditable].dirty{box-shadow:0 0 0 2px var(--accent)}
 [contenteditable]:empty::before{content:attr(data-ph);opacity:.45}
 .st-imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:var(--sp-3)}
 .st-img{display:block;padding:0;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--tint-soft);cursor:zoom-in;aspect-ratio:4/5}
@@ -309,8 +301,7 @@ button{font-family:inherit}
 .st-sec{margin-top:var(--sp-6)}
 .st-sec h2{font-size:var(--fs-headline);font-weight:600;margin:0 0 var(--sp-2)}
 .st-sec .hint{font-size:var(--fs-caption);color:var(--text-3);font-weight:400;margin-inline-start:var(--sp-2)}
-.st-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);white-space:pre-line;line-height:1.6;font-size:var(--fs-callout)}
-.st-box+.st-box{margin-top:var(--sp-2)}
+.st-sec .lb-textblock+.lb-textblock{margin-top:var(--sp-2)}
 .st-story{font-size:var(--fs-footnote);color:var(--text-2);line-height:1.7;margin:var(--sp-4) 0 0}
 .st-story b{color:var(--text);margin-inline-end:var(--sp-1)}
 .st-rows{display:grid;gap:var(--sp-2)}
@@ -324,8 +315,7 @@ button{font-family:inherit}
 .st-save[hidden]{display:none}
 .st-save .msg{font-size:var(--fs-footnote);color:var(--text-2);flex:1}
 .st-errs{margin:var(--sp-3) 0 0;padding:0;list-style:none;display:grid;gap:var(--sp-1)}
-.st-errs li{font-size:var(--fs-footnote);color:var(--danger);background:var(--danger-soft);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3)}
-.st-errs li.warn{color:var(--warning);background:var(--warning-soft)}
+.st-errs .lb-callout{font-size:var(--fs-footnote);padding:var(--sp-2) var(--sp-3)} /* compact callouts in a list */
 .in-sec{display:grid;gap:var(--sp-3)}
 .in-sec h2{font-size:var(--fs-footnote);font-weight:600;color:var(--text-3);margin:0;letter-spacing:.01em}
 .in-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-1)}
@@ -340,36 +330,26 @@ button{font-family:inherit}
 .in-state{font-size:var(--fs-caption);color:var(--text-3);min-height:1em}
 .in-state.err{color:var(--danger)}
 .in-pic{display:block;width:100%;border-radius:var(--r-md);border:1px solid var(--line);background:var(--surface-2)}
+.in-approval{display:grid;gap:var(--sp-2);padding:var(--sp-3);border:1px solid var(--line);border-radius:var(--r-md);background:var(--fill-2)}.in-approval h3{margin:0;font-size:var(--fs-subhead)}
 .in-checks{margin:0;padding:0;list-style:none;display:grid;gap:var(--sp-1);font-size:var(--fs-footnote);color:var(--text-2)}
 .in-checks li::before{content:"";display:inline-block;width:.35rem;height:.35rem;border-radius:50%;background:var(--accent);margin-inline-end:var(--sp-2);vertical-align:middle}
-.in-block{display:flex;flex-direction:column;gap:var(--sp-2);background:var(--danger-soft);border-radius:var(--r-sm);padding:var(--sp-3);margin:0}
-.in-block-h{margin:0;font-weight:700;color:var(--danger)}
-.in-block .st-errs{margin:0}
-.in-err{white-space:pre-wrap;font-size:var(--fs-caption);color:var(--danger);background:var(--danger-soft);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);margin:0}
-.in-warn{font-size:var(--fs-caption);color:var(--warning);background:var(--warning-soft);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);margin:0}
+.hs-insp .lb-callout{font-size:var(--fs-footnote)}
+.hs-insp .lb-callout .st-errs{margin:0}
+.in-block-h{font-weight:700;color:var(--danger)}
+pre.lb-callout{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
 .in-btns{display:grid;gap:var(--sp-2)}
 .in-btns .lb-btn{width:100%;justify-content:center}
 .in-keys{font-size:var(--fs-caption);color:var(--text-3);line-height:1.7;margin:0}
-.in-keys kbd{font-family:var(--font);font-size:var(--fs-caption);background:var(--fill-2);border-radius:4px;padding:0 .3rem}
 .hs-box{position:fixed;inset:0;background:var(--overlay);display:none;align-items:center;justify-content:center;z-index:70;padding:var(--sp-4)}
 .hs-box.open{display:flex}
 .in-postiz{margin-top:var(--sp-4);padding-top:var(--sp-3);border-top:1px solid var(--line);display:grid;gap:var(--sp-2)}
 .in-postiz .lb-input{width:100%}
 .pv-wrap{display:flex;flex-wrap:wrap;gap:var(--sp-5);align-items:flex-start}
-.pv-card{width:min(100%,22rem);background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-1);overflow:hidden}
-.pv-head{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3)}
-.pv-av{width:2rem;height:2rem;border-radius:50%;background:var(--surface-2) center/cover}
-.pv-net{margin-inline-start:auto;font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3)}
-.pv-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
-.pv-track img{flex:none;width:100%;aspect-ratio:4/5;object-fit:cover;scroll-snap-align:start}
-.pv-dots{display:flex;justify-content:center;gap:4px;padding:var(--sp-2)}
-.pv-dots span{width:6px;height:6px;border-radius:50%;background:var(--line)}
-.pv-dots span.on{background:var(--accent)}
-.pv-text{white-space:pre-line;margin:0;padding:var(--sp-2) var(--sp-3) var(--sp-3);font-size:var(--fs-callout)}
-.pv-one{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
-.pv-text[contenteditable]{outline:1px dashed transparent;border-radius:var(--r-sm)}
-.pv-text[contenteditable]:focus{outline-color:var(--accent)}
-.pv-save{margin:0 var(--sp-3) var(--sp-3)}
+/* the Instagram and Facebook previews: lb-post, the slides in an lb-scroller one full slide at a time, lb-dots under them */
+.pv-wrap>.lb-post{width:min(100%,22rem)}
+.pv-track{--item:100%;gap:0;border-radius:var(--r-sm)}
+.pv-track img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.lb-post>.lb-btn{justify-self:start}
 .hs-box img{max-width:min(100%,34rem);max-height:100%;border-radius:var(--r-md);box-shadow:var(--shadow-3)}
 .hs-box .lb-btn{position:absolute;top:var(--sp-4);inset-inline-end:var(--sp-4)}
 /* story packs (29 Oct 2026, story-format.md): the slide in its own look (.sty, create_review.STORY_CSS) with its fields beside it */
@@ -406,17 +386,17 @@ button{font-family:inherit}
 .ss-book{background:var(--surface-2);border-radius:var(--r-sm);padding:var(--sp-2);font-size:var(--fs-callout);line-height:1.6;color:var(--text)}
 .ss-key{font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);margin:0 0 var(--sp-3)}
 .ss-key code{font-family:inherit;font-weight:700;color:var(--accent-ink);background:var(--accent-soft);border-radius:4px;padding:0 .3rem;margin-inline-end:.2rem}
-@media (max-width:1200px){.hs-app{grid-template-columns:minmax(0,1fr) 18rem}.op-body{grid-template-columns:minmax(0,1fr) 18rem}.hs-main{padding-inline:var(--sp-5)}.hs-stage{padding-inline:var(--sp-5)}.st-save{margin-inline:calc(-1 * var(--sp-5))}.hs-meter .bar{display:none}}
+@media (max-width:1200px){.hs-app{grid-template-columns:minmax(0,1fr) 18rem}.op-body{grid-template-columns:minmax(0,1fr) 18rem}.hs-main{padding-inline:var(--sp-5)}.hs-stage{padding-inline:var(--sp-5)}.st-save{margin-inline:calc(-1 * var(--sp-5))}.hs-meter .lb-bar{display:none}}
 @media (max-width:900px){
   body{overflow:auto}
-  .hs-top{position:sticky;top:0;padding-inline:var(--sp-3);gap:var(--sp-2)}
+  .hs-top{position:sticky;top:var(--lb-gnav-top, 0px);padding-inline:var(--sp-3);gap:var(--sp-2)}
   .hs-pickbtn{display:inline-flex}
   .hs-week,.hs-meter span,.hs-top .opt{display:none}
   .hs-app{display:block;height:auto}
   .hs-main{overflow:visible;padding:0 var(--sp-4) var(--sp-6)}
-  .hs-filter{top:var(--hs-top)}
+  .hs-filter{top:calc(var(--hs-top) + var(--lb-gnav-top, 0px))}
   .hs-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-4) var(--sp-3)}
-  .hs-picks{position:fixed;top:var(--hs-top);bottom:0;inset-inline-end:0;width:min(88vw,22rem);z-index:40;transform:translateX(-100%);transition:transform .2s ease;box-shadow:var(--shadow-3)}
+  .hs-picks{position:fixed;top:calc(var(--hs-top) + var(--lb-gnav-top, 0px));bottom:0;inset-inline-end:0;width:min(88vw,22rem);z-index:40;transform:translateX(-100%);transition:transform .2s ease;box-shadow:var(--shadow-3)}
   .hs-picks.open{transform:none}
   .hs-open{padding:0}
   .op-sheet{border-radius:0}
@@ -429,7 +409,7 @@ button{font-family:inherit}
   .ss-deck{grid-template-columns:minmax(0,1fr)}
   .ss-row{grid-template-columns:9.5rem minmax(0,1fr)}
 }
-@media (max-width:480px){.ss-row{grid-template-columns:minmax(0,1fr)}.ss-prev{max-width:15rem}}
+@media (max-width:480px){.ss-row,.ss-row.book{grid-template-columns:minmax(0,1fr)}.ss-prev{max-width:15rem}}
 """
 
 APP_JS = r"""
@@ -441,10 +421,9 @@ const STORY_ROLE = {hook: 'שער', beat: 'סיפור', turn: 'פנייה להו
 const isStory = it => it.copy_style === 'story';
 const storyCover = it => { const f = it.slides[0] || {}; return STY.el({headline: f.headline || it.cover, body: f.body || ''}, 1, it.slides.length, it.structure, (it.pictures || {})[1] || ''); };
 const DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
-const BUSY = ['queued', 'fixing', 'preparing', 'generating', 'waiting', 'composing', 'exporting'];
-/* Pictures from ChatGPT (30 Oct 2026, production.json): free, Claude makes them in Yarin's Chrome. fal texts only when the backend is fal. */
-const GPT = () => (S.backend || 'chatgpt') === 'chatgpt';
-const gptRun = r => r && (r.backend === 'chatgpt' || (!r.backend && GPT() && r.status === 'waiting'));
+const BUSY = ['queued', 'fixing', 'preparing', 'generating', 'composing', 'exporting'];
+const ASKING = r => r && (r.status === 'review' || r.status === 'approval');
+const CHIP = {kid: 'kid', expert: 'expert', reco: 'info', review: 'accent', done: 'success', failed: 'danger', busy: 'tint'};   // lb-chip colour of a kind or a run state   // waiting for Yarin: the picture to approve, or the budget and yes
 let cur = null, filter = 'all', whyTimer = null, poller = null, zoomN = 0, saving = false;
 const orig = new Map();
 const lastSave = {};
@@ -466,21 +445,21 @@ async function refresh() {
   Object.assign(S, j);
 }
 function statusPill(r) {
-  const cls = r.status === 'review' ? 'review' : r.status === 'done' ? 'done' : r.status === 'failed' ? 'failed' : 'busy';
-  const p = el('span', 'hs-pill ' + cls); if (BUSY.includes(r.status)) p.append(el('span', 'hs-spin'));
+  const cls = ASKING(r) ? 'review' : r.status === 'done' ? 'done' : r.status === 'failed' ? 'failed' : 'busy';
+  const p = el('span', 'lb-chip ' + CHIP[cls]); if (BUSY.includes(r.status)) p.append(el('span', 'lb-spinner'));
   p.append(document.createTextNode(r.status_he || r.status)); return p;
 }
 
 /* ---------- the grid: slide 1 of every carousel ---------- */
 function visible() {
   return S.items.filter(it => { const s = g(it.key), r = run(it.key);
-    if (filter === 'open') return !s.score; if (filter === 'pick') return !!s.produce || !!r; if (filter === 'review') return r && r.status === 'review'; return true; });
+    if (filter === 'open') return !s.score; if (filter === 'pick') return !!s.produce || !!r; if (filter === 'review') return ASKING(r); return true; });
 }
 const who = it => it.kind === 'reco' ? `${it.id === 'reco' ? 'משחקים וספרים 1' : 'משחקים וספרים 2'} · ${it.skill_he}` : `${it.id}${it.child_name ? ' · ' + it.child_name : ''}`;
 function firstImage(it) { const r = run(it.key); return (r && r.status === 'done' && (r.slides || [])[0]) || (it.images || [])[0] || ''; }
 function card(it) {
   const s = g(it.key), r = run(it.key);
-  const a = el('article', 'gc' + (s.produce && !r ? ' picked' : '')); a.dataset.key = it.key;
+  const a = el('article', 'gc lb-media' + (s.produce && !r ? ' picked' : '')); a.dataset.key = it.key;
   const b = el('button', 'gc-thumb p-' + it.kind); b.type = 'button'; b.setAttribute('aria-label', 'פתיחה: ' + it.cover);
   const src = firstImage(it);
   const coverCard = () => { if (isStory(it)) return storyCover(it); const c = el('div', 'st-card'), f = it.slides[0] || {}; c.append(el('div', 'h', f.headline || it.cover)); if (f.body) c.append(el('div', 'b', f.body)); return c; };
@@ -490,7 +469,7 @@ function card(it) {
   if (!r) { const p = el('button', 'gc-pick', s.produce ? '✓ להפקה' : '+ להפקה'); p.type = 'button'; p.setAttribute('aria-pressed', String(!!s.produce));
     p.onclick = () => grade({produce: !s.produce}, it.key); fr.append(p); }
   const m = el('div', 'gc-meta'); m.append(el('span', 'hs-kind ' + it.kind), el('span', 'who', who(it)));
-  if (it.structure_he) m.append(el('span', 'hs-pill', it.structure_he));
+  if (it.structure_he) m.append(el('span', 'lb-chip', it.structure_he));
   if (r) m.append(statusPill(r));
   if (s.score) { const sc = el('span', 'hs-badge on', String(s.score)); sc.title = 'ציון: ' + SCORE[s.score]; m.append(sc); }
   a.append(m);
@@ -502,7 +481,7 @@ function renderGrid() {
   visible().forEach(it => {
     if (it.slot !== slot) {
       slot = it.slot; lane = null; const sec = el('section', 'hs-group'), h = el('h2');
-      h.append(el('span', 'n', String(it.slot)), el('span', null, it.day_topics ? it.day_topics.join(' · ') : it.topic_he)); if (it.event) h.append(el('span', 'hs-pill review', 'אירוע'));
+      h.append(el('span', 'n', String(it.slot)), el('span', null, it.day_topics ? it.day_topics.join(' · ') : it.topic_he)); if (it.event) h.append(el('span', 'lb-chip accent', 'אירוע'));
       if (it.day_topics) { dayBox = el('div', 'hs-day'); cards = null; sec.append(h, dayBox); }   // two topics a day (24 Oct 2026)
       else { dayBox = null; cards = el('div', 'hs-cards'); sec.append(h, cards); }
       box.append(sec);
@@ -519,14 +498,14 @@ function renderGrid() {
 }
 
 /* ---------- the side panel: what is picked to produce ---------- */
-const RUN_ORDER = s => s === 'review' ? 0 : BUSY.includes(s) ? 1 : s === 'failed' ? 2 : 3;
+const RUN_ORDER = s => s === 'review' || s === 'approval' ? 0 : BUSY.includes(s) ? 1 : s === 'failed' ? 2 : 3;
 function pickRow(it, removable) {
   const row = el('div', 'pk-row');
   const o = el('button', 'pk-open'); o.type = 'button'; o.onclick = () => { closePicks(); openCar(it.key); };
   const mini = el('span', 'pk-mini ' + it.kind), src = firstImage(it);
   if (src) { const img = el('img'); img.src = src; img.alt = ''; img.loading = 'lazy'; img.onerror = () => img.remove(); mini.append(img); }
   else if (isStory(it)) mini.append(storyCover(it));
-  const tx = el('span'); tx.append(el('span', 't', it.cover), el('span', 'm', `${it.slot} · ${it.topic_he} · ${it.id}`));
+  const tx = el('span'); tx.append(el('span', 't lb-clamp-2', it.cover), el('span', 'm', `${it.slot} · ${it.topic_he} · ${it.id}`));
   o.append(mini, tx); row.append(o);
   if (removable) { const x = el('button', 'pk-x', '×'); x.type = 'button'; x.title = 'להוריד מההפקה'; x.setAttribute('aria-label', 'להוריד מההפקה'); x.onclick = () => grade({produce: false}, it.key); row.append(x); }
   else row.append(statusPill(run(it.key)));
@@ -540,11 +519,9 @@ function renderPicks() {
   const lw = $('#pk-wait'); lw.textContent = '';
   if (!wait.length) lw.append(el('p', 'pk-empty', 'עוד לא נבחרה קרוסלה. ״+ להפקה״ על קרוסלה ברשת מוסיף אותה לכאן.'));
   wait.forEach(it => lw.append(pickRow(it, true)));
-  const capOf = i => i.kind === 'reco' ? 0 : isStory(i) ? 1 : 0.5;   // story carousels: a picture per slide, cap $1.00 (29 Oct 2026)
-  const usd = wait.reduce((n, i) => n + capOf(i), 0);
+  const paid = wait.some(i => i.kind !== 'reco');   // pictures come from the OpenAI API: each stage asks for a budget and a yes first (03 Nov 2026)
   const b = $('#hs-send'); b.disabled = !wait.length; b.textContent = wait.length > 1 ? `להפיק את כולן (${wait.length})` : 'להפיק';
-  $('#pk-cost').textContent = !wait.length ? '' : GPT() && usd ? 'התמונות נוצרות ב-ChatGPT, בחינם, וקלוד מייצר אותן. השער מחכה לאישור שלך לפני שהשקופיות נבנות.'
-    : usd ? `עד $${Math.max(...wait.map(capOf)).toFixed(2)} לקרוסלה, עד $${usd.toFixed(2)} בסך הכול. השער מחכה לאישור שלך לפני שהשקופיות נבנות.` : 'ייצוא בלי עלות.';
+  $('#pk-cost').textContent = !wait.length ? '' : paid ? 'ההפקה מקפיאה את הטקסט בלי עלות. לפני שנוצרת תמונה תוצג הערכה של טוקנים ועלות, ויתבקשו ממך תקציב ואישור. בלי זה לא נוצרת שום תמונה.' : 'ייצוא בלי עלות.';
   const lg = $('#pk-going'); lg.textContent = ''; $('#pk-going-h').hidden = !going.length;
   going.forEach(it => lg.append(pickRow(it, false)));
 }
@@ -553,18 +530,18 @@ function meter() {
   const graded = S.items.filter(i => g(i.key).score).length, total = S.items.length;
   $('#hs-meter-n').textContent = `דורגו ${graded} מתוך ${total}`;
   $('#hs-meter-bar').style.width = (total ? Math.round(100 * graded / total) : 0) + '%';
-  const rv = Object.values(S.runs).filter(r => r.status === 'review').length;
+  const rv = Object.values(S.runs).filter(ASKING).length;
   const c = $('#hs-review'); c.hidden = !rv; c.textContent = `מחכות לאישור: ${rv}`;
   $('#hs-push').hidden = !S.unsent;
 }
 
 /* ---------- the carousel ---------- */
-function editable(tag, cls, value, field, slide, ph, keep) {
-  const e = el(tag, cls, value || ''); if (keep) e.dataset.keep = '1';
+function editable(tag, cls, value, field, slide, ph, keep, own) {   // own: an old slide card's field, which keeps the card's look
+  const e = el(tag, cls, value || ''); if (keep) e.dataset.keep = '1'; if (!own) e.classList.add('lb-editable');
   try { e.contentEditable = 'plaintext-only'; } catch (x) {} if (e.contentEditable !== 'plaintext-only') e.contentEditable = 'true';
   e.dataset.f = field; if (slide != null) e.dataset.s = slide; if (ph) e.dataset.ph = ph;
   e.spellcheck = false; e.dir = 'rtl'; orig.set(e, txt(e) || '');
-  e.addEventListener('input', () => { e.classList.toggle('dirty', txt(e) !== orig.get(e)); dirtyBar(); });
+  e.addEventListener('input', () => { e.classList.toggle(own ? 'dirty' : 'is-edited', txt(e) !== orig.get(e)); dirtyBar(); });
   return e;
 }
 function edits() { const out = []; orig.forEach((o, e) => { if (document.contains(e) && txt(e) !== o) out.push({field: e.dataset.f, slide: e.dataset.s ? Number(e.dataset.s) : null, value: txt(e)}); }); return out; }
@@ -643,12 +620,12 @@ function renderStage() {
   st.className = 'hs-stage p-' + it.kind;
   st.append(el('div', 'st-eyebrow', it.day_topics ? `${day(it.date)} · יום ${it.slot} מתוך 7 · נושא ${it.lane === 'b' ? 2 : 1} מתוך 2` : `${day(it.date)} · נושא ${it.slot} מתוך 7`), el('h1', 'st-h1', it.topic_he));
   const chips = el('div', 'st-chips');
-  chips.append(el('span', 'hs-pill ' + it.kind, KIND[it.kind]));
-  chips.append(el('span', 'hs-pill', it.kind === 'reco' ? (it.id === 'reco' ? 'קרוסלה 1' : 'קרוסלה 2') : it.id));
-  if (it.child_name) chips.append(el('span', 'hs-pill', it.child_name));
-  if (isStory(it)) chips.append(el('span', 'hs-pill busy', it.structure_he || 'בלי מבנה'), el('span', 'hs-pill', `${it.slides.length} שקופיות`));
-  if (it.skill_he) chips.append(el('span', 'hs-pill', it.skill_he + (it.ages ? ' · ' + it.ages : '')));
-  if (it.event) chips.append(el('span', 'hs-pill review', 'אירוע · ' + it.event));
+  chips.append(el('span', 'lb-chip ' + CHIP[it.kind], KIND[it.kind]));
+  chips.append(el('span', 'lb-chip', it.kind === 'reco' ? (it.id === 'reco' ? 'קרוסלה 1' : 'קרוסלה 2') : it.id));
+  if (it.child_name) chips.append(el('span', 'lb-chip', it.child_name));
+  if (isStory(it)) chips.append(el('span', 'lb-chip tint', it.structure_he || 'בלי מבנה'), el('span', 'lb-chip', `${it.slides.length} שקופיות`));
+  if (it.skill_he) chips.append(el('span', 'lb-chip', it.skill_he + (it.ages ? ' · ' + it.ages : '')));
+  if (it.event) chips.append(el('span', 'lb-chip accent', 'אירוע · ' + it.event));
   st.append(chips);
   st.append(editable('p', 'st-title', it.title, 'title', null, 'כותרת פנימית'));
   if (it.kind === 'reco') {
@@ -667,7 +644,7 @@ function renderStage() {
       r.append(fs); rows.append(r);
     });
     sec.append(rows); st.append(sec);
-    const cap = el('section', 'st-sec'); cap.append(el('h2', null, 'כיתוב'), editable('div', 'st-box', it.caption, 'caption', null, 'כיתוב')); st.append(cap);
+    const cap = el('section', 'st-sec'); cap.append(el('h2', null, 'כיתוב'), editable('div', 'lb-textblock is-boxed', it.caption, 'caption', null, 'כיתוב')); st.append(cap);
   } else {
     if (isStory(it)) st.append(storyDeck(it));   // story packs (29 Oct 2026): every slide in its look, its fields beside it
     else {
@@ -675,16 +652,16 @@ function renderStage() {
       it.slides.forEach((s, i) => {
         const c = el('div', 'st-card' + (i === 0 ? ' first' : '') + (s.n === last ? ' cta' : ''));
         c.append(el('span', 'n', i === 0 ? '1 · שער' : String(s.n)));
-        c.append(editable('div', 'h', s.headline, 'headline', s.n, 'כותרת'));
-        if (s.n === last) c.append(el('div', 'b', s.body)); else c.append(editable('div', 'b', s.body, 'body', s.n, 'גוף (לא חובה)'));
-        if ('highlight' in s) { const hl = el('div', 'hl'); hl.append(el('span', null, 'הדגשה'), editable('b', null, s.highlight, 'highlight', s.n, '')); c.append(hl); }
+        c.append(editable('div', 'h', s.headline, 'headline', s.n, 'כותרת', false, true));
+        if (s.n === last) c.append(el('div', 'b', s.body)); else c.append(editable('div', 'b', s.body, 'body', s.n, 'גוף (לא חובה)', false, true));
+        if ('highlight' in s) { const hl = el('div', 'hl'); hl.append(el('span', null, 'הדגשה'), editable('b', null, s.highlight, 'highlight', s.n, '', false, true)); c.append(hl); }
         grid.append(c);
       });
       st.append(grid);
     }
     const p = el('p', 'st-story'); p.append(el('b', null, 'הכותרות בלבד'), document.createTextNode(it.headlines.filter(Boolean).join(' ← '))); st.append(p);
     const cap = el('section', 'st-sec'); const h = el('h2', null, 'כיתוב וקריאה לפעולה'); h.append(el('span', 'hint', 'הקריאה לפעולה מעדכנת גם את השקופית האחרונה')); cap.append(h);
-    cap.append(editable('div', 'st-box', it.caption_body, 'caption', null, 'כיתוב'), editable('div', 'st-box', it.cta, 'cta', null, 'קריאה לפעולה'));
+    cap.append(editable('div', 'lb-textblock is-boxed', it.caption_body, 'caption', null, 'כיתוב'), editable('div', 'lb-textblock is-boxed', it.cta, 'cta', null, 'קריאה לפעולה'));
     st.append(cap);
     const r = run(it.key);
     if (r && r.status === 'done') {   // the finished slides as they will look on Instagram and on Facebook (postiz_export.py)
@@ -698,7 +675,7 @@ function renderStage() {
   const save = el('button', 'lb-btn sm', 'שמירה'); save.id = 'st-save-btn'; save.type = 'button'; save.onclick = () => saveEdits();
   bar.append(msg, undo, save);
   const res = lastSave[cur];
-  if (res && res.list && res.list.length) { const ul = el('ul', 'st-errs'); res.list.forEach(x => ul.append(el('li', x.warn ? 'warn' : null, x.text))); bar.append(ul); bar.style.flexDirection = 'row'; ul.style.flexBasis = '100%'; }
+  if (res && res.list && res.list.length) { const ul = el('ul', 'st-errs'); res.list.forEach(x => ul.append(el('li', 'lb-callout ' + (x.warn ? 'warning' : 'danger'), x.text))); bar.append(ul); bar.style.flexDirection = 'row'; ul.style.flexBasis = '100%'; }
   st.append(bar); dirtyBar();
 }
 async function saveEdits() {
@@ -735,7 +712,7 @@ function renderInsp() {
   const stt = el('div', 'in-state'); stt.id = 'in-state'; gs.append(stt);
   box.append(gs);
   const ps = el('section', 'in-sec'); ps.id = 'in-prod'; box.append(ps); renderProd();
-  const keys = el('p', 'in-keys'); keys.innerHTML = '<kbd>←</kbd> <kbd>→</kbd> ניווט · <kbd>1</kbd> עד <kbd>5</kbd> ציון · <kbd>P</kbd> להפקה · <kbd>W</kbd> הסבר · <kbd>⌘S</kbd> שמירת טקסט';
+  const keys = el('p', 'in-keys'); keys.innerHTML = '<kbd class="lb-kbd">←</kbd> <kbd class="lb-kbd">→</kbd> ניווט · <kbd class="lb-kbd">1</kbd> עד <kbd class="lb-kbd">5</kbd> ציון · <kbd class="lb-kbd">P</kbd> להפקה · <kbd class="lb-kbd">W</kbd> הסבר · <kbd class="lb-kbd">⌘S</kbd> שמירת טקסט';
   box.append(keys);
 }
 function state(msg, err) { const s = $('#in-state'); if (!s) return; s.textContent = msg; s.classList.toggle('err', !!err); }
@@ -750,9 +727,9 @@ function flushWhy() { if (!whyTimer) return; clearTimeout(whyTimer); whyTimer = 
 /* Yarin, 22 Oct 2026: errors never block Produce; it fixes them itself (autofix.py). The list only says what it will fix. */
 function blockers(it, box) {
   const errs = it.errors || []; if (!errs.length) return false;
-  const w = el('div', 'in-block');
+  const w = el('div', 'lb-callout danger');
   w.append(el('p', 'in-block-h', `ההפקה תתקן לבד ${errs.length === 1 ? 'דבר אחד' : errs.length + ' דברים'}:`));
-  const ul = el('ul', 'st-errs'); errs.forEach(e => ul.append(el('li', null, (e.slide ? `שקופית ${e.slide}: ` : '') + e.message))); w.append(ul);
+  const ul = el('ul', 'st-errs'); errs.forEach(e => ul.append(el('li', 'lb-callout danger', (e.slide ? `שקופית ${e.slide}: ` : '') + e.message))); w.append(ul);
   box.append(w); return false;
 }
 function renderProd() {
@@ -762,25 +739,22 @@ function renderProd() {
   const blocked = (!r || ['failed', 'done'].includes(r.status)) && blockers(it, box);
   if (!r) {
     if (!blocked) box.append(el('p', 'in-keys', it.kind === 'reco' ? 'השקופיות כבר מוכנות: ייצוא ל-ZIP עם כיתוב, בלי עלות.'
-      : GPT() ? (isStory(it) ? 'תמונה לכל שקופית, ב-ChatGPT ובחינם. קלוד מייצר קודם את השער, ואחרי שמאשרים אותו את שאר התמונות. השקופיות וה-ZIP נבנים לבד.'
-        : 'תמונה אחת לכל הקרוסלה, ב-ChatGPT ובחינם. קלוד מייצר אותה, ואחרי שמאשרים אותה השקופיות וה-ZIP נבנים לבד.')
-      : isStory(it) ? 'תמונה לכל שקופית, עד $1.00. השער קודם, ואחרי שמאשרים אותו שאר התמונות, השקופיות וה-ZIP נבנים לבד.'
-      : 'תמונה אחת לכל הקרוסלה, עד $0.50. אחרי שמאשרים אותה, השקופיות וה-ZIP נבנים לבד.'));
+      : (isStory(it) ? 'תמונה לכל שקופית, דרך ה-API של OpenAI. קודם השער, ואחרי שמאשרים אותו שאר התמונות. השקופיות וה-ZIP נבנים לבד.'
+        : 'תמונה אחת לכל הקרוסלה, דרך ה-API של OpenAI. אחרי שמאשרים אותה השקופיות וה-ZIP נבנים לבד.')
+      + ' לפני כל יצירה תוצג הערכת טוקנים ועלות, ויתבקשו תקציב ואישור שלך.'));
     const b = el('button', 'lb-btn', it.kind === 'reco' ? 'ייצוא עכשיו' : 'להפיק עכשיו'); b.type = 'button'; b.disabled = blocked; b.onclick = () => act('start'); btns.append(b); box.append(btns); return;
   }
   const top = el('div', 'st-chips'); top.style.margin = '0'; top.append(statusPill(r));
-  if (r.kind !== 'reco' && gptRun(r)) top.append(el('span', 'hs-pill', 'ChatGPT · בחינם'));
-  else if (r.kind !== 'reco' && r.spent_usd != null) top.append(el('span', 'hs-pill', `$${Number(r.spent_usd).toFixed(2)} מתוך $${isStory(it) ? '1.00' : '0.50'}`));
-  if (r.kind !== 'reco' && gptRun(r) && r.pictures_total > 1) top.append(el('span', 'hs-pill', `${r.pictures_made || 0} מתוך ${r.pictures_total} תמונות`));
+  if (r.kind !== 'reco' && r.spent_usd != null) top.append(el('span', 'lb-chip', r.budget_usd ? `$${Number(r.spent_usd).toFixed(3)} מתוך תקציב $${Number(r.budget_usd).toFixed(2)}` : `$${Number(r.spent_usd).toFixed(3)}`));
   box.append(top);
   const src = r.status === 'done' ? (r.contact_sheet || (r.slides || [])[0]) : r.picture;
   if (src) { const a = el('a'); a.href = src; a.target = '_blank'; const img = el('img', 'in-pic'); img.src = src; img.alt = ''; a.append(img); box.append(a); }
-  if (r.error) box.append(el(r.declined ? 'p' : 'pre', 'in-err', r.error));
-  if (r.warning) box.append(el('p', 'in-warn', r.warning));
+  if (r.error) box.append(el(r.declined ? 'p' : 'pre', 'lb-callout danger', r.error));
+  if (r.warning) box.append(el('p', 'lb-callout warning', r.warning));
   if (r.fixed && r.fixed.length) { const ul = el('ul', 'in-checks'); r.fixed.forEach(f => ul.append(el('li', null, (f.slide ? `שקופית ${f.slide}: ` : '') + (f.after || '').replace(/\n/g, ' / ')))); box.append(el('p', 'in-keys', 'תוקן לבד לפני ההפקה:'), ul); }
   if (r.status === 'review') {
     const ul = el('ul', 'in-checks'); (S.qa || []).forEach(q => ul.append(el('li', null, q))); box.append(ul);
-    const ok = el('button', 'lb-btn', gptRun(r) && isStory(it) ? 'מאשר, להמשיך לשאר התמונות' : 'מאשר, להרכיב את השקופיות'); ok.type = 'button'; ok.onclick = () => act('approve');
+    const ok = el('button', 'lb-btn', isStory(it) ? 'מאשר את השער, להמשיך לשאר התמונות' : 'מאשר, להרכיב את השקופיות'); ok.type = 'button'; ok.onclick = () => act('approve');
     const left = 2 - (r.replacements || 0);
     const ta = el('textarea', 'lb-textarea'); ta.rows = 2; ta.placeholder = 'מה לשנות בתמונה? למשל: הפנים לא למצלמה, אותיות על החולצה';
     const again = el('button', 'lb-btn secondary', left > 0 ? `תמונה אחרת (עוד ${left})` : 'אין עוד ניסיונות'); again.type = 'button'; again.disabled = left <= 0;
@@ -799,16 +773,36 @@ function renderProd() {
     btns.append(again);
   } else if (r.status === 'failed') {
     const again = el('button', 'lb-btn', 'להמשיך מאותה נקודה'); again.type = 'button'; again.disabled = blocked; again.onclick = () => act('start'); btns.append(again);
-  } else if (r.status === 'waiting') {
-    box.append(el('p', 'in-keys', r.stage === 'slides'
-      ? 'השער אושר. קלוד מייצר עכשיו את שאר התמונות ב-ChatGPT, בחינם. כשכולן מוכנות השקופיות וה-ZIP נבנים לבד.'
-      : 'קלוד מייצר את התמונה ב-ChatGPT, בחינם. כשהיא מוכנה היא מופיעה כאן לאישור שלך.'));
-    box.append(el('p', 'in-keys', 'אם זה מחכה הרבה זמן, לבקש מקלוד: ״תייצר את התמונות שמחכות ב-Carousel Machine״.'));
+  } else if (r.status === 'approval') {
+    approvalBox(it, r, box);
   } else {
     box.append(el('p', 'in-keys', 'רץ ברקע. אפשר להמשיך לדרג ולערוך בינתיים.'));
   }
   box.append(btns);
   if (r.status === 'done' && r.kind !== 'reco') postizBox(it, r, box);
+}
+/* ---------- the budget and the yes, before any picture is made (Yarin's rules for the OpenAI key, 03 Nov 2026) ---------- */
+function approvalBox(it, r, box) {
+  const a = r.approval || {}, est = Number(a.usd || 0), need = Number(a.need_usd || est);
+  const w = el('div', 'in-approval'); w.append(el('h3', null, `לפני שנוצרת תמונה: ${a.stage_he || ''}`));
+  const ul = el('ul', 'in-checks');
+  const nf = n => Number(n || 0).toLocaleString('he-IL');
+  [`${a.images} ${a.images === 1 ? 'תמונה' : 'תמונות'} · מודל ${a.model} · איכות ${a.quality}`,
+   `הערכת טוקנים: כ-${nf(a.tokens)} (טקסט ${nf(a.input_text_tokens)}, תמונת ייחוס ${nf(a.input_image_tokens)}, פלט תמונה ${nf(a.output_tokens)})`,
+   `הערכת עלות: כ-$${est.toFixed(3)}`,
+   Number(a.spent_usd) ? `כבר נוצל בקרוסלה הזו: $${Number(a.spent_usd).toFixed(3)}` : '',
+   'ההערכה גבוהה בכוונה. העלות האמיתית של כל תמונה נרשמת מתוך הטוקנים ש-OpenAI מחזירה, והיא לא תעבור את התקציב.'].filter(Boolean).forEach(t => ul.append(el('li', null, t)));
+  w.append(ul);
+  w.append(el('label', 'in-keys', 'תקציב לקרוסלה הזו בדולרים: המקסימום שמותר לה לעלות, כולל מה שכבר נוצל. בלי תקציב לא נוצרת תמונה.'));
+  const inp = el('input', 'lb-input'); inp.type = 'number'; inp.min = '0'; inp.step = '0.01'; inp.dir = 'ltr';
+  inp.placeholder = `לפחות ${(Math.ceil(need * 100) / 100).toFixed(2)}`; w.append(inp);
+  const row = el('div', 'in-btns');
+  const ok = el('button', 'lb-btn', 'אני מאשר, ליצור'); ok.type = 'button'; ok.disabled = true;
+  const no = el('button', 'lb-btn secondary', 'לא עכשיו'); no.type = 'button';
+  inp.oninput = () => { ok.disabled = !(Number(inp.value) > 0 && Number(inp.value) + 1e-9 >= need); };
+  ok.onclick = () => { ok.disabled = true; act('authorize', {budget_usd: Number(inp.value), confirmed: true}); };
+  no.onclick = () => act('cancel');
+  row.append(ok, no); w.append(row); box.append(w);
 }
 /* ---------- Postiz: pick the date and time, preview Instagram and Facebook, schedule or keep as a draft ---------- */
 const pad2 = n => String(n).padStart(2, '0');
@@ -837,21 +831,23 @@ function postizBox(it, r, box) {
 async function postizCards(key, wrap) {
   let d; try { d = await (await fetch('/api/postiz-preview?key=' + encodeURIComponent(key))).json(); } catch (e) { return; }
   if (d.error || !wrap.isConnected) return;
-  const head = (label) => { const h = el('div', 'pv-head'); const av = el('span', 'pv-av'); av.style.backgroundImage = `url(${d.avatar})`; h.append(av, el('b', null, 'lumebook.il'), el('span', 'pv-net', label)); return h; };
+  const head = (label) => { const h = el('div', 'lb-post-head'); const av = el('img', 'lb-post-avatar'); av.src = d.avatar; av.alt = ''; av.onerror = () => av.removeAttribute('src');
+    const nm = el('span', 'lb-post-name', 'lumebook.il'); nm.append(el('small', null, label)); h.append(av, nm); return h; };
   // Instagram: the slides swipe sideways, the caption under them
-  const ig = el('div', 'pv-card'); ig.append(head('אינסטגרם'));
-  const track = el('div', 'pv-track'); d.slides.forEach(src => { const i = el('img'); i.src = src; i.alt = ''; i.loading = 'lazy'; track.append(i); });
-  const dots = el('div', 'pv-dots'); d.slides.forEach((_, n) => dots.append(el('span', n ? null : 'on')));
-  track.onscroll = () => { const n = Math.round(Math.abs(track.scrollLeft) / track.clientWidth); [...dots.children].forEach((s, i) => s.className = i === n ? 'on' : ''); };
-  const cap = el('p', 'pv-text'); cap.append(el('b', null, 'lumebook.il '), document.createTextNode(d.caption));
+  const ig = el('div', 'lb-post'); ig.append(head('אינסטגרם'));
+  const track = el('div', 'lb-scroller snap pv-track'); d.slides.forEach(src => { const i = el('img'); i.src = src; i.alt = ''; i.loading = 'lazy'; track.append(i); });
+  const dots = el('div', 'lb-dots'); d.slides.forEach((_, n) => dots.append(el('i', n ? null : 'is-on')));
+  track.onscroll = () => { const n = Math.round(Math.abs(track.scrollLeft) / track.clientWidth); [...dots.children].forEach((s, i) => s.className = i === n ? 'is-on' : ''); };
+  const cap = el('p', 'lb-post-text'); cap.append(el('b', null, 'lumebook.il '), document.createTextNode(d.caption));
   ig.append(track, dots, cap);
   // Facebook: slide 1 under its own post (31 Oct 2026); older runs: the written slides over slide 1
-  const fb = el('div', 'pv-card'); fb.append(head('פייסבוק'));
-  const ft = el('p', 'pv-text'); ft.textContent = d.fb_text; const fi = el('img', 'pv-one'); fi.src = d.slides[0]; fi.alt = '';
+  const fb = el('div', 'lb-post'); fb.append(head('פייסבוק'));
+  const ft = el('p', 'lb-post-text'); ft.textContent = d.fb_text;
+  const fi = el('div', 'lb-media-frame is-4x5'), fim = el('img'); fim.src = d.slides[0]; fim.alt = ''; fi.append(fim);
   fb.append(ft);
   if (d.fb_own) {   // facebook/facebook.txt: edited here, checked and saved by the server (the disclaimer is added on its own)
-    ft.contentEditable = 'plaintext-only'; ft.spellcheck = false; ft.title = 'אפשר לערוך את הטקסט לפייסבוק';
-    const sv = el('button', 'lb-btn secondary sm pv-save', 'שמירת הטקסט לפייסבוק'); sv.type = 'button'; sv.hidden = true;
+    ft.contentEditable = 'plaintext-only'; ft.spellcheck = false; ft.title = 'אפשר לערוך את הטקסט לפייסבוק'; ft.classList.add('lb-editable');
+    const sv = el('button', 'lb-btn secondary sm', 'שמירת הטקסט לפייסבוק'); sv.type = 'button'; sv.hidden = true;
     ft.addEventListener('input', () => { sv.hidden = false; });
     sv.onclick = async () => {
       sv.disabled = true;
@@ -866,7 +862,7 @@ async function postizCards(key, wrap) {
 async function act(action, extra) {
   const it = item(cur);
   if (action === 'start' && edits().length) { const ok = await saveEdits(); if (!ok) return; }
-  try { const j = await post('/api/production/' + action, {key: it.key, ...(extra || {})}); if (j.run) S.runs[it.key] = j.run; renderProd(); renderGrid(); renderPicks(); poll(); }
+  try { const j = await post('/api/production/' + action, {key: it.key, ...(extra || {})}); if (j.run) S.runs[it.key] = j.run; else if (action === 'cancel') delete S.runs[it.key]; renderProd(); renderGrid(); renderPicks(); poll(); }
   catch (e) { if (e.data && e.data.errors) { it.errors = e.data.errors; renderProd(); } toast(e.message); }
 }
 function poll() {
@@ -956,16 +952,15 @@ def app_page(batch_id=None):
              + create_review.story_fonts_css("/assets/fonts") + '</style>')
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             f'<title>Carousel Machine</title>{design.head()}{fonts}<style>{create_review.STORY_CSS}{compose_slides.BOOKLET_CSS}{APP_CSS}</style></head>\n<body dir="rtl">'
-            '<header class="hs-top">'
-            f'<span class="hs-brand"><img src="{design.logo_data_uri()}" alt="">Carousel Machine</span>'
+            '<header class="lb-topbar hs-top">'
+            f'<span class="lb-brand"><img src="{design.logo_data_uri()}" alt=""><b>Carousel Machine</b></span>'
             f'<select class="hs-week" id="hs-week" aria-label="שבוע">{weeks}</select>'
-            '<span class="hs-meter"><span id="hs-meter-n"></span><span class="bar"><i id="hs-meter-bar"></i></span></span>'
+            '<span class="hs-meter"><span id="hs-meter-n"></span><span class="lb-bar is-tint"><i id="hs-meter-bar"></i></span></span>'
             '<span class="hs-sp"></span>'
             '<button class="lb-btn secondary sm" type="button" id="hs-review" hidden></button>'
             '<button class="lb-btn ghost sm opt" type="button" id="hs-push" hidden>שליחת הדירוגים לענן</button>'
             f'<button class="lb-btn ghost icon sm opt" type="button" id="hs-sync" title="בדיקת חבילות חדשות מהענן" aria-label="בדיקת חבילות חדשות מהענן">{icon("sync", 16)}</button>'
             '<button class="lb-btn secondary sm hs-pickbtn" type="button" id="hs-pickbtn">להפקה <span id="hs-pickbtn-n"></span></button>'
-            f'{design.theme_toggle()}'
             '</header>'
             '<div class="hs-app">'
             f'<main class="hs-main" aria-label="הקרוסלות של השבוע"><div class="hs-filter"><div class="lb-segmented" role="group" aria-label="סינון">{filt}</div></div>'

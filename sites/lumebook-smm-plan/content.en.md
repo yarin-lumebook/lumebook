@@ -3,6 +3,8 @@
 
 English mirror of `index.html` (the Hebrew site). Same sections, same order. Update this file with every change to the Hebrew text.
 
+White only since 05 / 11 / 2026: the dark mode switch ("מצב כהה", Dark mode) was removed from the top bar.
+
 ## My areas of responsibility
 
 | Area | Includes |

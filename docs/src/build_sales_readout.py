@@ -4,7 +4,7 @@
     python3 docs/src/build_sales_readout.py
 
 Input:  docs/lumebook-sales-data-decisions-2026-10-12.md (the only source; edit it, then rebuild, never edit the HTML)
-Output: docs/lumebook-sales-readout.html, a full HTML document on the LumeBook design system (design.head() inlined, white and black modes)
+Output: docs/lumebook-sales-readout.html, a full HTML document on the LumeBook design system (design.head() inlined, white only)
         that opens straight from disk.
         Local only, not published: it holds internal sales figures.
 
@@ -12,7 +12,7 @@ How the Markdown becomes the page: the # heading and the paragraphs under it are
 section (and a pill in the top bar), ### headings are sub-heads. The "At a glance" table becomes figure tiles,
 numbered lists become numbered points with the bold lead as their first line, "- [ ]" items become
 to-dos whose ticks are saved in the browser (localStorage, keyed by the bold lead), [text](url) becomes a link, the "Numbers not to use" section
-sits in a caution panel, and other tables become lb-table tables with numeric columns aligned to the end.
+sits in a warning callout, and other tables become lb-table tables with numeric columns aligned to the end.
 Hebrew runs are wrapped in <bdi> so book titles and cities keep their order inside English text. Standard library only.
 """
 import html
@@ -101,9 +101,9 @@ def parse(md):
 def point(item):
     m = re.match(r"\*\*(.+?)\*\*\s*(.*)", item)
     if not m:
-        return f"<li><div>{inline(item)}</div></li>"
+        return f'<li class="lb-card"><div>{inline(item)}</div></li>'
     rest = f'<p>{inline(m.group(2))}</p>' if m.group(2) else ""
-    return f'<li><div><h3>{inline(m.group(1))}</h3>{rest}</div></li>'
+    return f'<li class="lb-card"><div><h3>{inline(m.group(1))}</h3>{rest}</div></li>'
 
 
 def table(rows):
@@ -132,9 +132,9 @@ def render(blocks):
         elif kind == "h3":
             out.append(f"<h3 class=\"sub\">{inline(val)}</h3>")
         elif kind == "ol":
-            out.append('<ol class="points">' + "".join(point(i) for i in val) + "</ol>")
+            out.append('<ol class="lb-steps tint">' + "".join(point(i) for i in val) + "</ol>")
         elif kind == "ul":
-            out.append('<ul class="list">' + "".join(f"<li>{inline(i)}</li>" for i in val) + "</ul>")
+            out.append('<ul class="lb-bullets">' + "".join(f"<li>{inline(i)}</li>" for i in val) + "</ul>")
         elif kind == "table":
             out.append(table(val))
         elif kind == "check":
@@ -150,53 +150,32 @@ def glance(blocks):
 
 
 STYLE = """<style>
-/* Layout: a one-column readout on the LumeBook design system. Hero with four figures, the plain-words
-   sections as numbered points, then the numbers as tables. Light only; page rules use design tokens only. */
+/* Layout: a one-column readout on the LumeBook design system (lb-topbar has-toc, lb-brand is-stacked, lb-hero, ol.lb-steps,
+   ul.lb-bullets, lb-callout warning). Page rules below are only what the shared components leave to the page. Tokens only. */
 :root { --read-w: 72ch; }
-.plan-logo { width: 1.75rem; height: 1.75rem; flex: none; display: block; }
-.brand { display: grid; line-height: 1.15; flex: none; }
-.brand b { font-weight: 800; font-size: var(--fs-headline); letter-spacing: -.01em; }
-.brand span { font-size: var(--fs-caption); font-weight: 600; letter-spacing: .02em; color: var(--accent-ink); }
-.lb-topbar .lb-toc { flex: 1 1 0; margin-inline-start: var(--sp-3); }
-@media (max-width: 860px) {
-  .lb-topbar-in { flex-wrap: wrap; row-gap: 0; padding-top: var(--sp-2); }
-  .lb-topbar .lb-toc { order: 9; flex-basis: 100%; margin: var(--sp-2) 0 0; padding-bottom: var(--sp-2); }
-}
-main > section { display: grid; gap: var(--sp-4); min-width: 0; scroll-margin-top: calc(6rem + var(--sp-4)); }
-.hero { display: grid; gap: var(--sp-3); padding-top: var(--sp-3); }
-.hero h1 { max-width: 24ch; }
-.hero p, main > section > p { max-width: var(--read-w); color: var(--text-2); text-wrap: pretty; }
-.hero .lb-chip { justify-self: start; }
+.lb-topbar .lb-toc { flex: 1 1 0; } /* the pills shrink first, so the brand keeps its full name beside them */
+main > section { display: grid; gap: var(--sp-4); min-width: 0; }
+main > section > p { max-width: var(--read-w); color: var(--text-2); text-wrap: pretty; }
+ul.lb-bullets { max-width: var(--read-w); }
+ol.lb-steps, .lb-table-wrap, .checks, .lb-callout { max-width: 60rem; }
 .glance { display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
 .glance .lb-stat-value { color: var(--tint); unicode-bidi: plaintext; }
 h3.sub { margin-top: var(--sp-3); }
-ol.points { list-style: none; counter-reset: pt; margin: 0; padding: 0; display: grid; gap: var(--sp-3); max-width: 60rem; }
-ol.points > li { counter-increment: pt; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--sp-3);
-  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--sp-4); }
-ol.points > li::before { content: counter(pt); display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%;
-  background: var(--tint-soft); color: var(--tint); font-weight: 700; font-variant-numeric: tabular-nums; }
-ol.points > li > div { display: grid; gap: var(--sp-1); min-width: 0; }
-ol.points p { margin: 0; color: var(--text-2); text-wrap: pretty; }
-ul.list { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: var(--sp-2); max-width: var(--read-w); }
-ul.list li::marker { color: var(--accent); }
+ol.lb-steps > li > div { display: grid; gap: var(--sp-1); }
+ol.lb-steps p { color: var(--text-2); text-wrap: pretty; }
 .lb-table td.num, .lb-table th.num { unicode-bidi: plaintext; }
-.lb-table-wrap { max-width: 60rem; }
-.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-2); max-width: 60rem; }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-2); }
 .checks li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
 .checks .lb-check { font-size: var(--fs-body); line-height: 1.5; }
 .checks .lb-check span { color: var(--text-2); text-wrap: pretty; }
 .checks .lb-check b { color: var(--text); }
 .checks .lb-check input:checked + span b { color: var(--text-3); }
 .done { font-size: var(--fs-footnote); color: var(--text-3); font-variant-numeric: tabular-nums; }
-main a { color: var(--tint); }
-.caution { display: grid; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-radius: var(--r-lg);
-  background: var(--warning-soft); border: 1px solid var(--line); max-width: 60rem; }
-.caution ul.list li::marker { color: var(--warning); }
-code { font-size: .9em; background: var(--fill); border-radius: var(--r-xs); padding: .05em .35em; overflow-wrap: anywhere; }
+code { overflow-wrap: anywhere; }
 bdi { unicode-bidi: isolate; }
 main p, main li, .lb-table td { overflow-wrap: anywhere; } /* long URLs and file paths wrap at phone width */
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>"""
 
 
@@ -232,13 +211,13 @@ def build():
         pills.append(f'<a href="#{sid}">{inline(title)}</a>')
         inner = render(blocks)
         if title == CAUTION:
-            inner = f'<div class="caution">{inner}</div>'
+            inner = f'<div class="lb-callout warning">{inner}</div>'
         head = f'<h2>{inline(title)}</h2>'
         if '<ul class="checks">' in inner:
             head = f'<div class="lb-section-head">{head}<span class="done" data-done></span></div>'
         body.append(f'<section id="{sid}">\n{head}\n{inner}\n</section>')
     glance_blocks = next((b for t, b in sections if t == GLANCE), [])
-    hero = (f'<section class="hero" id="top">\n<span class="lb-chip warning">Internal: holds sales figures</span>\n'
+    hero = (f'<section class="lb-hero" id="top">\n<div class="lb-hero-meta"><span class="lb-chip warning">Internal: holds sales figures</span></div>\n'
             f'<h1>{inline(h1)}</h1>\n{render(intro)}\n{glance(glance_blocks) if glance_blocks else ""}\n</section>')
     page = f"""<!doctype html>
 <html lang="en" dir="ltr">
@@ -251,12 +230,10 @@ def build():
 {STYLE}
 </head>
 <body>
-<header class="lb-topbar">
+<header class="lb-topbar has-toc">
   <div class="lb-topbar-in">
-    <img class="plan-logo" src="{design.logo_data_uri()}" alt="" width="28" height="28">
-    <div class="brand"><span>LumeBook</span><b>Sales readout</b></div>
+    <a class="lb-brand is-stacked" href="#top"><img src="{design.logo_data_uri()}" alt="" width="28" height="28"><span><small>LumeBook</small><b>Sales readout</b></span></a>
     <nav class="lb-toc" aria-label="Sections">{"".join(pills)}</nav>
-    {design.theme_toggle(dark_label="Dark mode")}
   </div>
 </header>
 <main class="lb-page" dir="ltr" lang="en">

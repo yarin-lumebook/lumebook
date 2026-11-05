@@ -11,7 +11,7 @@ STORY FORMAT (Yarin, 29 Oct 2026: "i like the new content, change the entire car
 OLD WEEKLY TEXT (still the rules for each slot):
 
 
-You run unattended in a cloud clone of github.com/yarin-lumebook/lumebook, not on Yarin's Mac. Use paths relative to the repo root, never ask a question, never post, message or publish anything, never call fal.ai or any paid service.
+You run unattended in a cloud clone of github.com/yarin-lumebook/lumebook, not on Yarin's Mac. Use paths relative to the repo root, never ask a question, never post, message or publish anything, never call the OpenAI API (or any other image tool) or any paid service.
 
 What you make (since 24 Oct 2026, Yarin: "Keep the child-voice numbered lists, on 2 topics that have a best-selling book (6 versions for each day (3 options for each) so i can choose the strongest one)" and "change the cta to save the post and share to a parent who would agree"): 7 packs, one a day, each a normal drafts/DATE folder whose pack.json holds TWO topics of two different best-selling books and six child-voice options, kid-1 to kid-3 on the first topic and kid-4 to kid-6 on the second. That is 14 topics and 42 options. There is no Israeli event slot any more and no comment word: the CTA asks to save the post and send it to a mom who will relate. The dates are only keys; Yarin sees each day's six options together and posts one carousel a day.
 

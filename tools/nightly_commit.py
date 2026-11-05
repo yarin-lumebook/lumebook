@@ -2,7 +2,8 @@
 """Nightly snapshot of the whole LumeBook repo (dashboard and every component it is fed by), run by launchd at 00:00:
 refresh the dashboard snapshot, commit, push, deploy (changed since Yarin's 20 Oct 2026 request; before that it only committed).
 
-First rebuilds the dashboard snapshot (sites/dashboard/refresh.py, no signup Sheet). Commits to the current branch, pushes it to origin (never forced), then deploys every Vercel component whose files
+First rebuilds the dashboard snapshot (sites/dashboard/refresh.py, no signup Sheet) and writes the edit button's edits back
+into any page rebuilt since (tools/site_editor.py bake_all). Commits to the current branch, pushes it to origin (never forced), then deploys every Vercel component whose files
 changed since its last deploy (lumebook.json deploy.type vercel: the dashboard and the creator brief). A failed push
 skips the deploy, so the live sites never run ahead of what is on GitHub. Follows the repo's own rules instead of bypassing them:
   - .gitignore decides what is in (raw media, .lumebook/, creator state/ stay out)
@@ -95,6 +96,18 @@ def deploy_changed():
         log(f"deployed {cid}" if r.returncode == 0 else f"deploy {cid} FAILED: {tail}")
 
 
+def bake_edits():
+    """Edits made with the edit button go back into pages that were rebuilt outside tools/lumebook.py (shared/site-editor)."""
+    try:
+        sys.path.insert(0, os.path.join(ROOT, "tools"))
+        import site_editor
+        done = site_editor.bake_all()
+        if done:
+            log("edits written back into " + ", ".join(done))
+    except Exception as e:   # never block the nightly commit over it
+        log(f"bake step failed: {e}")
+
+
 def ship(branch):
     """Push, then deploy. A failed push or deploy is logged and makes the job exit 1; the commit stays."""
     if not push(branch):
@@ -122,6 +135,7 @@ def main():
 
     if not dry:
         refresh_dashboard()
+        bake_edits()
     git("add", "-A", check=True)
     notes = []
     staged = git("diff", "--cached", "--name-only").stdout.splitlines()

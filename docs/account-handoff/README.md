@@ -98,7 +98,7 @@ Not `snapshot/latest`: write that one in 3.4 from a fresh build, so it carries t
 
 - [ ] `list_scheduled_tasks` shows `lumebook-creator-map-weekly` (on, Saturdays 21:00) and `lumebook-creator-refresh` (off). If not, create them again from `~/.claude/scheduled-tasks/<id>/SKILL.md` with the same schedule (`0 21 * * 6`; the refresh `0 10 * * 0`, off).
   (26 Oct: the list was empty. `lumebook-creator-map-weekly` is recreated with the same prompt and schedule; the old account's copy of its folder is in `~/.claude/scheduled-tasks-old-account-2026-10-26/`. Creating `lumebook-creator-refresh` was refused by the permission check; its folder is back in place, still to be created and switched off.)
-- [x] The built-in browser is still signed in to Instagram (read only; the Saturday task needs it). If not, Yarin signs in by hand. (26 Oct: not signed in. Yarin chose to switch `lumebook-creator-map-weekly` off for now instead (schedule kept); `lumebook-creator-refresh` is recreated as manual-only. To restart the Saturday runs: sign in to Instagram in the built-in browser, then switch the task back on.)
+- [x] The built-in browser is still signed in to Instagram (read only; the Saturday task needs it). If not, Yarin signs in by hand. (26 Oct: not signed in. Yarin chose to switch `lumebook-creator-map-weekly` off for now instead (schedule kept); `lumebook-creator-refresh` is recreated as manual-only. To restart the Saturday runs: sign in to Instagram in the built-in browser, then switch the task back on. 5 Nov: Instagram is signed in again and Yarin had the task switched back on; next run Saturday 7 Nov 21:00.)
 
 ### 3.8 Finish
 

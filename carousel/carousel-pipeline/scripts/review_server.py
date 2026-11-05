@@ -518,6 +518,11 @@ def _production_api(self):
             if not note:
                 return self.send_json({"error": "כתבו מה לשנות בתמונה"}, 400)
             rec = producer.redo(key, item, note)
+        elif action == "authorize":
+            # Yarin's budget and explicit yes for the picture stage waiting in "approval" (03 Nov 2026 rules): nothing is made without it
+            rec = producer.authorize(key, item, payload.get("budget_usd"), payload.get("confirmed"))
+        elif action == "cancel":
+            rec = producer.cancel(key)
         elif action == "brief":
             text = clean(payload.get("action", ""))
             if len(text) < 20:
@@ -570,25 +575,6 @@ def _production_api(self):
 Handler.production_api = _production_api
 
 
-def watch_chatgpt_pictures(every=4.0):
-    """Pictures from ChatGPT (30 Oct 2026): Claude ingests them from another process (chatgpt_pictures.py ingest), so this
-    thread moves each waiting production on (producer.advance_waiting): a new cover to approval, a finished story run
-    to the slides and the ZIP."""
-    import threading
-    import time
-
-    def loop():
-        while True:
-            try:
-                for key in producer.advance_waiting():
-                    print(f"pictures in from ChatGPT: {key}", flush=True)
-            except Exception as exc:  # noqa: BLE001 - keep watching; the next round tries again
-                print(f"chatgpt pictures watch: {exc}", flush=True)
-            time.sleep(every)
-
-    threading.Thread(target=loop, name="chatgpt-pictures", daemon=True).start()
-
-
 def newest_date():
     dates = sorted(p.name for p in lib.DRAFTS.iterdir() if p.is_dir() and DATE_RE.match(p.name) and (p / "review.html").exists()) if lib.DRAFTS.exists() else []
     return dates[-1] if dates else None
@@ -603,7 +589,6 @@ def main():
     if not args.no_cloud:
         cloud_sync.sync(log=lambda m: print(m, flush=True))
     producer.recover()
-    watch_chatgpt_pictures()
     date = args.date or newest_date()
     if not date:
         raise SystemExit("no packs in carousel/carousel-pipeline/drafts yet")

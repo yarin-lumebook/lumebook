@@ -5,17 +5,9 @@
 section.page{scroll-margin-top:7rem}
 .i{width:1.1rem;height:1.1rem;flex:none}
 
-/* ---------- chrome: brand, crumbs, two-row sticky bar ---------- */
-.lb-topbar .lb-brand{padding-inline:0;min-width:0;flex:0 1 auto}
-.lb-topbar .lb-brand img{width:1.75rem;height:1.75rem;border-radius:var(--r-xs);flex:none}
-.lb-topbar .lb-brand > span{min-width:0}
-.lb-topbar .lb-brand b{font-size:1.0625rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
-.tb-crumbs{display:flex;align-items:center;gap:var(--sp-1);min-width:0;font-size:var(--fs-footnote);color:var(--text-3);padding-inline-start:var(--sp-3);border-inline-start:1px solid var(--line)}
-.tb-crumbs b{color:var(--text-2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tb-crumbs .i{width:.75rem;height:.75rem}
-#crumbSep{display:inline-flex}
+/* ---------- chrome: two-row sticky bar (brand: lb-topbar .lb-brand, trail: lb-crumbs, keys: lb-kbd) ---------- */
+.lb-topbar .lb-crumbs{padding-inline-start:var(--sp-3);border-inline-start:1px solid var(--line)} /* hairline between the brand and the trail */
 .tb-hint{font-size:var(--fs-footnote);color:var(--text-3);white-space:nowrap}
-.tb-hint kbd,.lib-search kbd{font-family:var(--font);font-size:var(--fs-caption);color:var(--text-3);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xs);padding:0 .35rem}
 .tb-hq{flex:none}
 .lb-topbar-in.tb-nav{min-height:0;padding-block:0 var(--sp-2)}
 .lb-toc a{display:inline-flex;align-items:center;gap:var(--sp-2);padding-inline:.6rem}
@@ -26,7 +18,6 @@ section.page{scroll-margin-top:7rem}
 .lib-tabs a.is-active{color:var(--tint);border-bottom-color:var(--tint)}
 .lib-tabs .lb-count{min-width:1.25rem;height:1.25rem}
 @media (max-width:1100px){.tb-hint{display:none}}
-@media (max-width:760px){.tb-crumbs{display:none}}
 @media (max-width:640px){
   .lb-topbar-in{gap:var(--sp-2)}
   .lb-topbar .lb-brand b{font-size:var(--fs-callout)}
@@ -34,8 +25,6 @@ section.page{scroll-margin-top:7rem}
 }
 
 /* ---------- shared bits ---------- */
-.page-head{display:grid;gap:var(--sp-3)}
-.sub{max-width:48rem;color:var(--text-2)}
 .he{direction:rtl;unicode-bidi:isolate;text-align:right}
 .lb-section-head h2{font-size:var(--fs-headline);font-family:var(--font);font-weight:700}
 .lab{font-size:var(--fs-caption);font-weight:600;color:var(--text-3)}
@@ -50,21 +39,16 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-1)}
 a.lb-chip:hover{text-decoration:none;background:var(--fill-2);color:var(--tint-hover)}
 .lb-empty{grid-column:1 / -1;display:grid;gap:var(--sp-2);justify-items:center}
 
-/* numbered lesson cards (overview lessons, what not to copy) */
-ol.lessons{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-3);counter-reset:l}
-ol.lessons > li{counter-increment:l;grid-template-columns:2.1rem minmax(0,1fr);gap:var(--sp-2) var(--sp-4)}
-ol.lessons > li::before{content:counter(l);grid-row:1 / span 3;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums}
-ol.lessons p{font-size:var(--fs-callout);color:var(--text-2)}
+/* numbered lesson cards (overview lessons, what not to copy): ol.lb-steps of lb-card items */
+ol.lb-steps p{font-size:var(--fs-callout);color:var(--text-2)}
 
-/* ---------- video cards ---------- */
+/* ---------- video cards (lb-card + lb-media is-side) ---------- */
 .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));gap:var(--sp-3)}
-.lb-card.vc{position:relative;grid-template-columns:5.25rem minmax(0,1fr);gap:var(--sp-3);padding:var(--sp-3)}
-.vc .cov{width:5.25rem;aspect-ratio:9/16;border-radius:var(--r-sm);object-fit:cover;background:var(--fill-2);max-width:100%}
-.vc .bd{display:grid;gap:var(--sp-2);align-content:start;min-width:0}
-.vc .who{display:flex;gap:var(--sp-2);align-items:center;font-size:var(--fs-footnote);color:var(--text-3);min-width:0;padding-inline-end:2.25rem}
+.lb-card.vc{position:relative;padding:var(--sp-3)}
+.vc .lb-media-body{gap:var(--sp-2)}
+.vc .who{display:flex;gap:var(--sp-2);align-items:center;min-width:0;padding-inline-end:2.25rem}
 .vc .who b{color:var(--text);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .vc .who > span:not(.lb-chip){white-space:nowrap;flex:none}
-.vc .one{font-size:var(--fs-callout);line-height:1.4;color:var(--text);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ctry{font-size:var(--fs-caption);font-weight:700;letter-spacing:.04em;padding:0 .4rem;line-height:1.5;flex:none}
 .lb-btn.starbtn{position:absolute;top:var(--sp-2);inset-inline-end:var(--sp-2);color:var(--text-3)}
 .lb-btn.starbtn:hover{color:var(--text)}
@@ -75,7 +59,7 @@ ol.lessons p{font-size:var(--fs-callout);color:var(--text-2)}
 .tbwrap{position:relative;display:grid;gap:var(--sp-2)}
 .lib-search{flex:1 1 16rem}
 .lib-search .lb-input{padding-inline-end:2.25rem}
-.lib-search kbd{position:absolute;inset-inline-end:.7rem}
+.lib-search .lb-kbd{position:absolute;inset-inline-end:.7rem}
 .lib-search svg{top:50%;margin-top:-.5rem}
 .tb-count{margin-inline-start:auto;white-space:nowrap}
 #fBtn[aria-expanded="true"]{border-color:var(--tint);color:var(--tint);background:var(--tint-soft)}
@@ -102,23 +86,17 @@ ol.lessons p{font-size:var(--fs-callout);color:var(--text-2)}
 .pop-ft{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-2);padding-top:var(--sp-3);border-top:1px solid var(--line)}
 
 /* ---------- video page ---------- */
-.pn{display:flex;gap:var(--sp-2);justify-content:space-between;flex-wrap:wrap}
-.pn .lb-btn .i{width:1rem;height:1rem}
 .vhead{display:grid;gap:var(--sp-3)}
 .vhead .who{display:flex;flex-wrap:wrap;gap:var(--sp-1) var(--sp-3);align-items:center;font-size:var(--fs-callout);color:var(--text-2)}
 .vhead .who b{color:var(--text)}
 #vbody .vhead h2{font-family:var(--font);font-weight:700;font-size:clamp(1.125rem,2.2vw,1.4rem);line-height:1.25;max-width:52rem}
 .vact{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
-.strip{display:flex;gap:var(--sp-2);overflow-x:auto;padding-bottom:var(--sp-2);scrollbar-width:thin}
-.strip figure{margin:0;flex:none;width:8.25rem;display:grid;gap:var(--sp-1)}
-.strip img{width:8.25rem;aspect-ratio:9/16;object-fit:cover;border-radius:var(--r-sm);background:var(--fill-2);max-width:100%}
-.strip figcaption{font-size:var(--fs-caption);color:var(--text-3);font-variant-numeric:tabular-nums}
+.lb-scroller > figure{margin:0} /* frames strip: lb-scroller of lb-media figures */
 .vcols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:var(--sp-3);align-items:start}
 @media (max-width:980px){.vcols{grid-template-columns:minmax(0,1fr)}}
 .blk h3{font-size:var(--fs-body)}
 .blk p,.blk li{font-size:var(--fs-callout)}
 .hookbox{display:grid;gap:var(--sp-3)}
-.hookbox .q{font-size:var(--fs-body);line-height:1.45;color:var(--text);background:var(--accent-soft);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3)}
 .beats{list-style:none;margin:0;padding:0;display:grid}
 .beats li{display:grid;grid-template-columns:4.4rem minmax(0,1fr);gap:var(--sp-1) var(--sp-3);padding:var(--sp-2) 0;border-top:1px solid var(--line)}
 .beats li:first-child{border-top:0;padding-top:0}
@@ -131,13 +109,6 @@ ol.lessons p{font-size:var(--fs-callout);color:var(--text-2)}
 .lbv .lab{color:var(--accent-ink)}
 .lbv .hk{font-size:1.1875rem;font-weight:700;line-height:1.35}
 .lbv p{font-size:var(--fs-callout)}
-details.lb-card{padding-block:var(--sp-1)}
-details.lb-card:not([open]){gap:0}
-details.lb-card[open]{padding-bottom:var(--sp-4)}
-details > summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:var(--sp-2);min-height:2.75rem;font-weight:600}
-details > summary::-webkit-details-marker{display:none}
-details > summary::after{content:"";margin-inline-start:auto;width:.5rem;height:.5rem;border-inline-end:2px solid var(--text-3);border-bottom:2px solid var(--text-3);transform:rotate(45deg);transition:transform .2s;flex:none}
-details[open] > summary::after{transform:rotate(-135deg)}
 
 /* ---------- formats you can make ---------- */
 .lb-card.fmt{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--sp-4) var(--sp-5)}
@@ -145,15 +116,7 @@ details[open] > summary::after{transform:rotate(-135deg)}
 .fmt h3{font-size:var(--fs-headline)}
 .fmt .why{font-size:var(--fs-callout);color:var(--text-2)}
 ol.steps{margin:0;padding-inline-start:1.2rem;display:grid;gap:var(--sp-1);font-size:var(--fs-callout)}
-.exs{display:flex;gap:var(--sp-2);overflow-x:auto;padding-bottom:var(--sp-1)}
-.ex{flex:none;width:6.5rem;display:grid;gap:var(--sp-1);color:inherit;font-size:var(--fs-caption)}
-.ex:hover{text-decoration:none;color:inherit}
-.ex:hover img{outline:2px solid var(--tint);outline-offset:1px}
-.ex img{width:6.5rem;aspect-ratio:9/16;object-fit:cover;border-radius:var(--r-sm);background:var(--fill-2);max-width:100%}
-.ex span{color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ex b{font-variant-numeric:tabular-nums;color:var(--text)}
 .ideas{display:grid;gap:var(--sp-2)}
-.ideas p:not(.lab){background:var(--fill);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-callout)}
 
 /* ---------- method ---------- */
 .method.lb-prose{max-width:50rem}

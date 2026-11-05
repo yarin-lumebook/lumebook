@@ -1,0 +1,51 @@
+{
+  "_about": "HQ's built-in tool list (5 Nov 2026): the topics in order, each with its tools. HQ's tools grid and the project nav on every page (top bar topics, side bar tools) both read it: design.py writes it into nav.js, which sets window.LB_NAV_DATA. Topic colours come from shared/design/categories.json, set workstreams; icon names from shared/design/icons.json. A tool lists the versions it has: view (a view of HQ; tab = a course tab), local (a path on the project server, :8780), art (its claude.ai artifact id), web (a site, webLabel names it), n (the id of a count HQ shows on its cube). Yarin's own arrangement (HQ edit mode) is saved apart, in sites/dashboard/hq-layout.json and the artifact database hq/layout; a tool added here later still shows up there, in its topic. The creator map has no art on purpose: its artifact copy is frozen since 20 Oct 2026 and its data lives on the server.",
+  "topics": [
+    { "id": "learning", "label": "קורס ולמידה", "icon": "course", "desc": "הקורס, קישורי UTM והמכירות שלי", "tools": [
+      { "t": "Course", "en": true, "sub": "שיעורים ומשימות, עם בדיקה של התשובות", "icon": "course", "view": "course" },
+      { "t": "יוצר קישורי UTM", "sub": "קישור מתויג לכל פוסט, כדי לדעת מה מכר", "icon": "link", "view": "course", "tab": "links" },
+      { "t": "המכירות שלי", "sub": "ההזמנות עם התיוג שלי, לחישוב ה-25%", "icon": "wallet", "view": "course", "tab": "sales" }
+    ] },
+    { "id": "plan", "label": "תוכנית ואסטרטגיה", "icon": "target", "desc": "לאן הולכים ואיך זה מתקדם", "tools": [
+      { "t": "סקירה", "sub": "מה דחוף, מה השבוע ואיך המספרים", "icon": "overview", "view": "overview", "n": "n-overview" },
+      { "t": "תוכנית סושיאל", "sub": "התוכנית המלאה, שבוע אחרי שבוע", "icon": "calendar", "local": "sites/lumebook-smm-plan/index.html", "web": "https://lumebook-dashboard.vercel.app/plan/" },
+      { "t": "אסטרטגיית Q4", "sub": "יעדים, ערוצים וקצב עבודה לרבעון", "icon": "target", "local": "docs/lumebook-social-strategy.html", "art": "3GNTuoDk4swPGUarrf4xkp" },
+      { "t": "מכירות (פנימי)", "sub": "נתוני המכירות במילים פשוטות", "icon": "trend", "local": "docs/lumebook-sales-readout.html" },
+      { "t": "המרה ושימור", "sub": "מסלול הקנייה בחנות ומה לשפר בכל שלב", "icon": "funnel", "local": "research/cro-crm/cro-crm-strategy.html" }
+    ] },
+    { "id": "creators", "label": "יוצרים", "icon": "people", "desc": "מציאת יוצרים, פניות והרשמות", "tools": [
+      { "t": "מפת יוצרים", "sub": "פניות, תזכורות ומעקב אחרי כל יוצר", "icon": "people", "local": "creators/creator-research/lumebook-creator-map.html", "n": "n-creators" },
+      { "t": "הרשמות", "sub": "מי נרשם בטופס היוצרים", "icon": "signup", "view": "signups", "n": "n-signups" },
+      { "t": "בריף ליוצרים", "sub": "שלד הצילום לרילס שיוצרים מקבלים", "icon": "brief", "local": "sites/lumebook-creator-brief/index.html", "art": "8aHom1FHtP9jiSgBkbgGc7", "web": "https://lumebook-creator-brief.vercel.app" },
+      { "t": "תוכן וכוונת קנייה", "sub": "איזה תוכן של יוצרים מביא שיחות על קנייה", "icon": "chat", "local": "research/creator-content-conversion/report.html" },
+      { "t": "גיליון ההרשמות", "sub": "התשובות לטופס היוצרים", "icon": "sheet", "web": "https://docs.google.com/spreadsheets/d/1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI/edit", "webLabel": "Google Sheets" }
+    ] },
+    { "id": "carousels", "label": "קרוסלות", "icon": "slides", "desc": "הפקת קרוסלות והמחקר שמאחוריהן", "tools": [
+      { "t": "מכונת הקרוסלות", "sub": "חבילות, ציונים והפקה של קרוסלות", "icon": "slides", "local": "hook-studio/", "art": "DHpzqHn1DcVNZ5y4YVAdau", "n": "n-content" },
+      { "t": "פלייבוק קרוסלות", "sub": "מה גורם לקרוסלה להמיר, ולוח בדיקות", "icon": "book", "local": "research/carousel-playbook-research/lumebook-carousel-playbook.html", "art": "BGqB3Azgek9F6MXu3EY5rx" },
+      { "t": "מחקר קרוסלות", "sub": "752 חשבונות: מה מביא שיחות והמרות", "icon": "layers", "local": "research/carousel-research/lumebook-carousel-research.html", "art": "B2YkxMHGTeM5T5LLC2wnYU" }
+    ] },
+    { "id": "reels", "label": "רילס ווידאו", "icon": "clapper", "desc": "תכנון, צילום ומחקר של רילס", "tools": [
+      { "t": "מערכת הרילס", "sub": "הלוח של נובמבר עם עריכה, פלייבוק, עקרונות, כלים ורילס שנעשו, הכול בדף אחד", "icon": "reelcal", "local": "research/israeli-product-reels/reels-explorer.html", "art": "7LypeDPVPLDcL5n2xEQui7" },
+      { "t": "פלייבוק רילס", "sub": "מה עובד ברילס מוצר ואיך מצלמים", "icon": "clapper", "local": "research/israeli-product-reels/reels-research.html", "art": "3JRcb77z4HcE8PRcVjcpEp" },
+      { "t": "מעבדת תוכן ילדים", "sub": "64 סרטונים קצרים מפורקים לפורמטים", "icon": "flask", "local": "research/kids-brand-content-research/lumebook-kids-content-lab.html", "art": "4Uaprv274bf69dH5KkQyPY" }
+    ] },
+    { "id": "communities", "label": "קהילות", "icon": "pin", "desc": "קבוצות הורים ליום צילום בבית", "tools": [
+      { "t": "קהילות הורים", "sub": "361 קבוצות הורים, מהקרובות לאשקלון", "icon": "pin", "local": "research/parent-community/lumebook-parent-communities.html", "art": "WAcZJ7xXj826wzvLj49dmE" }
+    ] },
+    { "id": "competitors", "label": "מתחרים", "icon": "bars", "desc": "מה MeBook ושאר המתחרים מפרסמים", "tools": [
+      { "t": "מתחרים", "sub": "MeBook מולנו: עוקבים, נושאים ופערים", "icon": "bars", "view": "competitors" },
+      { "t": "ניתוח תוכן מתחרים", "sub": "147 פריטי תוכן של 4 מתחרים, מקודדים", "icon": "scissors", "local": "research/competitor-content-analysis/lumebook-competitor-content.html", "art": "XRuKAwrXNwf6iPfkLG8o7f" }
+    ] },
+    { "id": "library", "label": "ספריית מחקר", "icon": "shelf", "desc": "כל המחקרים במקום אחד", "tools": [
+      { "t": "ספריית מחקר", "sub": "כל המחקרים והמסמכים, לפי תחום", "icon": "shelf", "view": "research", "n": "n-research" }
+    ] },
+    { "id": "system", "label": "מערכת", "icon": "sync", "desc": "סנכרון, עיצוב, קבצים וקישורים", "tools": [
+      { "t": "סנכרון", "sub": "מה השתנה ומה צריך לפרסם מחדש", "icon": "sync", "view": "sync", "n": "n-sync" },
+      { "t": "אתרים וקבצים", "sub": "האתרים, הקישורים והקבצים האחרונים", "icon": "globe", "view": "assets" },
+      { "t": "מערכת העיצוב", "sub": "צבעים, גופנים ורכיבים לכל הדפים", "icon": "palette", "art": "Cw3pWrTsoCKkCaPzZLrr5B" },
+      { "t": "Drive: שיווק", "sub": "תיקיית השיווק המשותפת", "icon": "folder", "web": "https://drive.google.com/drive/folders/1awITcQFWfsQqpbL8Lupikw12b6y4EWvB", "webLabel": "Google Drive" },
+      { "t": "החנות", "sub": "lumebook.com, מה שהלקוחות רואים", "icon": "bag", "web": "https://lumebook.com/IL/he", "webLabel": "lumebook.com" }
+    ] }
+  ]
+}

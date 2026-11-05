@@ -6,11 +6,13 @@ at each face, then "great implement in novembers batch"). story-format.md sectio
     python3 booklet_cta.py RUN_DIR --problem "הגמילה מהמוצץ" --word מוצץ \\
         --page "רוני נפרדה מהמוצץ,|והארנב נשאר איתה|כל הלילה." --crop 134,192,950,516 --face .22,.48
     python3 booklet_cta.py --spec ../booklets-2026-11.json [RUN_ID ...]     # every run in a spec file (or the ones named)
-    python3 booklet_cta.py --prompts "sitting on her bed hugging the bunny"  # the two fal prompts for a run's scene
+    python3 booklet_cta.py --prompts "sitting on her bed hugging the bunny"  # the two GPT API prompts for a run's scene
 
 Needs RUN_DIR/booklet/booklet.png (the open book from above, left page an illustration of the child in the topic's scene,
-right page blank) and RUN_DIR/booklet/kid.png (a realistic close-up of the child's face). Both come from fal
-nano-banana-2/edit with the run's cover picture (generated-assets/slide-01.png) as the reference: PROMPTS below.
+right page blank) and RUN_DIR/booklet/kid.png (a realistic close-up of the child's face). Both are made with the OpenAI
+Images API (an edit of the model in openai_models.json, the run's cover picture generated-assets/slide-01.png as the
+reference; since 03 Nov 2026 the only picture source): PROMPTS below. Making them spends, so Yarin's rules for the key apply
+as everywhere (ask for a budget, tell the estimated tokens and cost first, never exceed it, create nothing without his yes).
 --crop is the spread's two pages inside booklet.png (x, y, w, h in pixels), --face the child's face in the left page
 illustration as a share of that crop (x, y from 0 to 1); the arrow points at it.
 
@@ -46,7 +48,9 @@ PROMPTS = {
             "most of the square frame, looking straight at the camera with a soft natural smile. Soft daylight, softly blurred "
             "plain home background. A real photo, not an illustration. No text."),
 }
-FAL = {"endpoint": "fal-ai/nano-banana-2/edit", "booklet_aspect": "16:9", "kid_aspect": "1:1"}
+# 03 Nov 2026: made with the OpenAI Images API. Wide and square sizes of the same model; only quality low was measured
+# (openai_models.json), and these two sizes were not tested yet, so the first one may need a size correction.
+OPENAI_SIZES = {"booklet": "1536x1024", "kid": "1024x1024"}
 
 
 def find_option(pack, oid):
@@ -78,7 +82,7 @@ def apply(run_dir, problem, word, page, crop, face):
     run_dir = Path(run_dir).resolve()
     for name in ("booklet.png", "kid.png"):
         if not (run_dir / "booklet" / name).exists():
-            raise SystemExit(f"{run_dir / 'booklet' / name} is missing (fal nano-banana-2/edit, see --prompts)")
+            raise SystemExit(f"{run_dir / 'booklet' / name} is missing (made with the GPT API as an edit of the cover picture, see --prompts)")
     frozen = lib.read_json(run_dir / "approved.json")
     date, oid = frozen["date"], frozen["option"]["id"]
     pack_path = lib.DRAFTS / date / "pack.json"
@@ -127,11 +131,16 @@ def main():
     ap.add_argument("--crop", help="x,y,w,h of the two pages inside booklet.png")
     ap.add_argument("--face", help="x,y of the child's face inside the crop, 0 to 1")
     ap.add_argument("--spec", help="a JSON file {RUN_ID: {problem, word, page_text, crop, face}}")
-    ap.add_argument("--prompts", metavar="SCENE", help="print the two fal prompts for this scene and stop")
+    ap.add_argument("--prompts", metavar="SCENE", help="print the two GPT API prompts for this scene and stop")
     args, rest = ap.parse_known_args()
     if args.prompts:
-        print(json.dumps({"endpoint": FAL["endpoint"], "booklet": {"prompt": PROMPTS["booklet"].format(scene=args.prompts), "aspect_ratio": FAL["booklet_aspect"]},
-                          "kid": {"prompt": PROMPTS["kid"], "aspect_ratio": FAL["kid_aspect"]}}, ensure_ascii=False, indent=2))
+        import openai_pictures as op
+        cfg = op.config()
+        print(json.dumps({"model": cfg["model"], "mode": "edit", "quality": cfg["quality"], "reference": "generated-assets/slide-01.png",
+                          "booklet": {"prompt": PROMPTS["booklet"].format(scene=args.prompts), "size": OPENAI_SIZES["booklet"]},
+                          "kid": {"prompt": PROMPTS["kid"], "size": OPENAI_SIZES["kid"]},
+                          "rules": "ask Yarin for a budget, give the estimated tokens and cost first, never exceed it, make nothing without his yes"},
+                         ensure_ascii=False, indent=2))
         return
     jobs = []
     if args.spec:

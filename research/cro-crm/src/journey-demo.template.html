@@ -14,11 +14,6 @@
    Facebook, the store (lumebook.com's dark ink and gold), CardCom in the store's look, WhatsApp. */
 
 /* ---------- top bar ---------- */
-.tb-logo { width: 1.75rem; height: 1.75rem; flex: none; display: block; border-radius: .4rem; }
-.tb-brand { display: grid; line-height: 1.15; }
-.tb-brand span { font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; color: var(--accent-ink); letter-spacing: .02em; }
-.tb-brand b { font-weight: 800; font-size: var(--fs-headline); }
-.lb-topbar { position: sticky; }
 .progress { position: absolute; inset-inline: 0; bottom: -1px; height: 3px; background: var(--fill-2); overflow: hidden; }
 .progress i { display: block; height: 100%; width: var(--p, 0%); background: var(--pc, var(--tint)); border-start-end-radius: 3px; border-end-end-radius: 3px; transition: width .45s cubic-bezier(.2, .8, .2, 1), background .3s; }
 @media (prefers-reduced-motion: reduce) { .progress i { transition: none; } }
@@ -32,7 +27,8 @@
 @media (max-width: 1199px) { .tb-chapters .chapters { display: none; } }
 @media (min-width: 1200px) { main .chapters { display: none; } }
 .tb-link { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-2); text-decoration: none; padding: .35rem .6rem; border-radius: var(--r-sm); white-space: nowrap; }
-.tb-link:hover { background: var(--fill); color: var(--text); text-decoration: none; }@media (max-width: 600px) { .tb-link.hide-sm, .tb-brand span { display: none; } .tb-brand b { font-size: 1rem; } }
+.tb-link:hover { background: var(--fill); color: var(--text); text-decoration: none; }
+@media (max-width: 600px) { .tb-link.hide-sm { display: none; } }
 
 main { width: 100%; max-width: 82rem; margin-inline: auto; padding: var(--sp-5) var(--sp-5) var(--sp-7); }
 @media (max-width: 640px) { main { padding: var(--sp-4) var(--sp-4) var(--sp-7); } }
@@ -44,28 +40,18 @@ abbr[title] { text-decoration: underline dotted var(--text-3); text-underline-of
 [hidden] { display: none !important; }
 @keyframes fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-/* ---------- intro ---------- */
-.intro { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--sp-7); align-items: center; padding-top: var(--sp-4); }
-@media (max-width: 960px) { .intro { grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); } }
-.intro h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); line-height: 1.05; letter-spacing: -.025em; margin-top: var(--sp-3); }
-.intro .lb-lede { margin-top: var(--sp-4); font-size: 1.1875rem; }
+/* ---------- intro (lb-hero has-media: the story beside the phone) ---------- */
 .how { margin: var(--sp-5) 0; padding: 0; list-style: none; display: grid; gap: var(--sp-3); }
 .how li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: var(--sp-3); align-items: start; color: var(--text-2); }
 .how .lb-tile { width: 2.25rem; height: 2.25rem; border-radius: .65rem; }
 .how b { color: var(--text); }
 .hero-stage { position: relative; border-radius: 2rem; padding: var(--sp-6) var(--sp-4); background: radial-gradient(60% 50% at 50% 42%, var(--cat-4-soft), transparent 72%), var(--surface-2); display: grid; justify-items: center; }
 .hero-stage .lb-chip { position: absolute; top: var(--sp-4); inset-inline-start: var(--sp-4); }
-.intro-stats { margin-top: var(--sp-5); display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); }
-.stat-card { display: grid; gap: var(--sp-2); }
-.stat-card .v { font-size: 2rem; font-weight: 800; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.stat-card .bar { height: .5rem; border-radius: var(--r-pill); background: var(--fill-2); overflow: hidden; }
-.stat-card .bar i { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
-.stat-card .drop { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--danger); }
+.intro-stats { margin-top: var(--sp-3); display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); }
+.intro-stats .drop { font-weight: 700; color: var(--danger); }
 .mascot { width: 5.5rem; height: auto; justify-self: end; }
 
-/* ---------- chapters (stage progress) ---------- */
-.chapters { display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
-.chapters::-webkit-scrollbar { display: none; }
+/* ---------- chapters (stage progress): an lb-scroller of max-content items ---------- */
 .chap { flex: 0 0 auto; min-width: max-content; display: grid; gap: .4rem; padding: .5rem .6rem; border-radius: var(--r-md); background: var(--surface-2); border: 1px solid transparent; }
 .chap.is-cur { background: var(--surface); border-color: var(--line); box-shadow: var(--shadow-1); }
 .chap-head { display: flex; align-items: center; gap: .4rem; font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; color: var(--text-3); }
@@ -104,26 +90,12 @@ abbr[title] { text-decoration: underline dotted var(--text-3); text-underline-of
 .notes-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2); }
 .notes-head h3 { font-size: var(--fs-headline); }
 .switch-label { display: inline-flex; align-items: center; gap: var(--sp-2); font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-2); cursor: pointer; }
-.notes { display: grid; gap: var(--sp-2); }
-.note { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); scroll-margin-top: 5rem; transition: border-color .2s, box-shadow .2s; }
-.note.is-active { border-color: var(--accent); box-shadow: 0 12px 32px -24px var(--accent); }
-.note > summary { list-style: none; display: grid; grid-template-columns: 1.75rem minmax(0, 1fr) auto auto; gap: var(--sp-3); align-items: center; padding: var(--sp-3) var(--sp-4); cursor: pointer; border-radius: var(--r-lg); }
-.note > summary::-webkit-details-marker { display: none; }
-.note > summary:hover { background: var(--fill); }
-.note > summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.note[open] > summary { border-end-start-radius: 0; border-end-end-radius: 0; }
-.note .chev { color: var(--text-3); transition: transform .2s; }
-.note[open] .chev { transform: rotate(-90deg); }
-.nnum { width: 1.75rem; height: 1.75rem; border-radius: 50%; display: grid; place-items: center; background: var(--lb-gold); color: var(--lb-ink); font: 800 .8rem/1 var(--font-2); }
-.nnum.off { background: var(--fill-2); color: var(--text-2); }
-.ntitle { font-weight: 700; line-height: 1.3; min-width: 0; }
-.ntitle small { display: block; font-family: var(--font-2); font-weight: 500; font-size: var(--fs-caption); color: var(--text-3); margin-top: .1rem; }
-.nbody { padding: 0 var(--sp-4) var(--sp-4); padding-inline-start: calc(var(--sp-4) + 1.75rem + var(--sp-3)); display: grid; gap: var(--sp-3); font-size: var(--fs-callout); }
-.nrow { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: var(--sp-3); }
-.nrow > b { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); padding-top: .1rem; }
-.nrow .today { color: var(--text-2); }
+/* notes and the list of changes: lb-rowlist rows with an lb-disc (solid on the phone, quiet when not on this screen) and an
+   lb-kv stack inside. The note that matches the number lit on the phone gets a gold ring. */
+#notes .lb-rowitem.is-active { box-shadow: inset 0 0 0 2px var(--accent); }
+.lb-kv { margin: 0; }
+.lb-kv .today { color: var(--text-2); }
 .how { display: block; margin: 0; justify-self: start; text-align: left; font-size: var(--fs-footnote); line-height: 1.5; overflow-wrap: anywhere; background: var(--fill); border-radius: var(--r-sm); padding: var(--sp-2) var(--sp-3); }
-@media (max-width: 560px) { .note > summary { grid-template-columns: 1.75rem minmax(0, 1fr) auto; } .note > summary .lb-chip { grid-column: 2; grid-row: 2; justify-self: start; } .nbody { padding-inline-start: var(--sp-4); } .nrow { grid-template-columns: minmax(0, 1fr); gap: .15rem; } }
 .ev { display: grid; gap: var(--sp-2); margin: 0; padding: 0; list-style: none; }
 .ev li { display: grid; gap: .2rem; }
 .ev .etype { font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .02em; color: var(--accent-ink); }
@@ -131,16 +103,17 @@ abbr[title] { text-decoration: underline dotted var(--text-3); text-underline-of
 .refs { display: flex; flex-wrap: wrap; gap: .35rem; }
 .refs span { font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 600; color: var(--text-2); background: var(--fill); border-radius: var(--r-pill); padding: .15rem .5rem; }
 .console { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
-.notes-box { display: grid; gap: var(--sp-3); align-content: start; padding: var(--sp-3); border-radius: 1.25rem; background: var(--surface-2); border: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: var(--fill-3) transparent; }
+.notes-box { display: grid; grid-auto-rows: max-content; gap: var(--sp-3); align-content: start; padding: var(--sp-3); border-radius: 1.25rem; background: var(--surface-2); border: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: var(--fill-3) transparent; }
 .notes-box .log li { background: var(--surface-2); }
+/* grid-auto-rows max-content above: the lb-rowlist clips its corners (overflow hidden), so in a box of fixed height an auto row would shrink it */
 
 /* one screen, no page scroll: the intro and the steps fit the window (wide and tall enough); the notes and the
    analytics scroll inside their own box. The list of every change scrolls as a normal page. */
-body.fit { height: 100vh; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
+body.fit { height: calc(100vh - var(--lb-gnav-pad, 0px)); height: calc(100dvh - var(--lb-gnav-pad, 0px)); overflow: hidden; display: flex; flex-direction: column; }
 body.fit > .lb-topbar { flex: none; }
 body.fit > main { flex: 1; min-height: 0; overflow: hidden; padding-block: var(--sp-4); }
-body.fit .intro { height: 100%; padding-top: 0; gap: var(--sp-6); }
-body.fit .intro > div:first-child { max-height: 100%; overflow-y: auto; scrollbar-width: none; }
+body.fit .lb-hero { height: 100%; padding-block: 0; }
+body.fit .lb-hero-text { max-height: 100%; overflow-y: auto; scrollbar-width: none; }
 body.fit .step { height: 100%; grid-template-rows: auto minmax(0, 1fr); }
 body.fit .phone-col { position: static; }
 body.fit .step-notes { height: 100%; min-height: 0; display: flex; flex-direction: column; gap: var(--sp-3); }
@@ -484,60 +457,28 @@ body.fit .notes-box { flex: 1; min-height: 0; overflow-y: auto; overscroll-behav
 
 /* ---------- all changes ---------- */
 .changes { display: grid; gap: var(--sp-5); }
-.changes h1 { font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.02em; margin-top: var(--sp-2); }
 .tally { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--sp-3); }
-.tally .lb-card { gap: .35rem; padding: var(--sp-3) var(--sp-4); }
-.tally .v { font-size: 2rem; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
 .first5 { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
 .first5 ol { margin: var(--sp-2) 0 0; padding: 0; list-style: none; display: grid; gap: 2px; }
 .first5 li a { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: var(--sp-3); padding: .45rem var(--sp-2); border-radius: var(--r-sm); color: var(--text); text-decoration: none; font-weight: 600; }
 .first5 li a:hover { background: var(--fill); text-decoration: none; }
 .first5 small { display: block; font-family: var(--font-2); font-weight: 500; font-size: var(--fs-caption); color: var(--text-3); }
-.pnum { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: inline-grid; place-items: center; background: var(--accent-soft); color: var(--accent-ink); font: 800 var(--fs-footnote)/1 var(--font-2); }
 @media (max-width: 560px) { .first5 { grid-template-columns: minmax(0, 1fr); } .first5 .mascot { display: none; } }
+/* filters: two lb-filters groups, each after its label; groups of changes are lb-topic sections with an lb-topic-head */
 .filters { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); align-items: center; }
-.seg { display: inline-flex; flex-wrap: wrap; gap: 2px; padding: 3px; border-radius: var(--r-md); background: var(--fill-2); }
-.seg button { appearance: none; border: 0; background: transparent; color: var(--text-2); border-radius: calc(var(--r-md) - 3px); font: 600 var(--fs-footnote) var(--font-2); padding: .35rem .75rem; cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
-.filters .lbl { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); margin-inline-end: var(--sp-1); }
-.cgroup { display: grid; gap: var(--sp-2); }
-.cgroup-h { display: flex; align-items: center; gap: var(--sp-3); padding-top: var(--sp-3); }
-.cgroup-h .lb-tile { width: 2rem; height: 2rem; border-radius: .55rem; }
-.cgroup-h h3 { font-size: var(--fs-headline); }
-.cgroup-h a { margin-inline-start: auto; font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; }
-.clist { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
-.crow { font-size: var(--fs-callout); }
-.crow + .crow { border-top: 1px solid var(--line); }
-.crow > details > summary { list-style: none; display: grid; grid-template-columns: 1.75rem minmax(0, 1fr) auto auto; gap: var(--sp-3); align-items: start; padding: var(--sp-3) var(--sp-4); cursor: pointer; }
-.crow > details > summary::-webkit-details-marker { display: none; }
-.crow > details > summary:hover { background: var(--fill); }
-.crow > details > summary:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
-.crow .chev { color: var(--text-3); transition: transform .2s; margin-top: .15rem; }
-.crow details[open] .chev { transform: rotate(-90deg); }
-.crow .ctitle { display: block; line-height: 1.4; font-weight: 700; }
-.crow .cbody { display: grid; gap: var(--sp-2); padding: 0 var(--sp-4) var(--sp-3); padding-inline-start: calc(var(--sp-4) + 1.75rem + var(--sp-3)); }
-.crow .cbody a { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; }
-.crow .muted { color: var(--text-2); }
-.crow .k { display: block; font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); font-weight: 700; }
-.crow .meta { display: grid; gap: .3rem; justify-items: end; }
-.crow .meta small { font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
-@media (max-width: 760px) { .crow > details > summary { grid-template-columns: 1.75rem minmax(0, 1fr) auto; } .crow .meta { grid-column: 2; grid-row: 2; justify-items: start; grid-auto-flow: column; justify-content: start; align-items: center; gap: var(--sp-2); } .crow .chev { grid-column: 3; grid-row: 1; } .crow .cbody { padding-inline-start: var(--sp-4); } }
+.filters .lbl { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-topic-head > a { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; white-space: nowrap; }
+.lb-rowitem-body > a { justify-self: start; font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; }
 .gloss > summary { cursor: pointer; font-weight: 700; font-size: var(--fs-headline); }
-.gloss dl { display: grid; grid-template-columns: minmax(9rem, max-content) minmax(0, 1fr); gap: var(--sp-2) var(--sp-4); margin: var(--sp-3) 0 0; font-size: var(--fs-callout); }
-.gloss dt { font-weight: 700; }
-.gloss dd { margin: 0; color: var(--text-2); }
-@media (max-width: 640px) { .gloss dl { grid-template-columns: minmax(0, 1fr); } .gloss dd { margin-bottom: var(--sp-2); } }
-.endnote { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
+.gloss .lb-kv { margin-top: var(--sp-3); }
 </style>
 </head>
 <body>
 <header class="lb-topbar">
   <div class="lb-topbar-in">
-    <img class="tb-logo" src="{{LOGO}}" alt="" width="28" height="28">
-    <div class="tb-brand"><span>לומבוק · דמו פנימי</span><b>מסע הקנייה</b></div>
+    <a class="lb-brand is-stacked" href="#intro"><img src="{{LOGO}}" alt="" width="28" height="28"><span><small>לומבוק · דמו פנימי</small><b>מסע הקנייה</b></span></a>
     <div class="tb-chapters" id="tb-chapters"></div>
     <a class="tb-link hide-sm" href="#intro">התחלה</a>
-    <!--LB:THEME-TOGGLE-->
   </div>
   <div class="progress" id="progress" role="progressbar" aria-label="ההתקדמות במסע" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><i></i></div>
 </header>
@@ -1009,7 +950,7 @@ function chapters(i) {
   const groups = [];
   STEPS.forEach((s, k) => { let g = groups[groups.length - 1]; if (!g || g.stage !== s.stage) { g = { stage: s.stage, steps: [] }; groups.push(g); } g.steps.push(k + 1); });
   const end = i === "end";
-  return `<nav class="chapters" aria-label="שלבי המסע">${groups.map(g => {
+  return `<nav class="lb-scroller chapters" style="--item: max-content" aria-label="שלבי המסע">${groups.map(g => {
     const st = STAGES[g.stage], on = g.steps.includes(i), done = end || g.steps[g.steps.length - 1] < i;
     return `<div class="chap lb-cat-${st.cat} ${on ? "is-cur" : ""} ${done ? "is-done" : ""}" style="--n:${g.steps.length}"><span class="chap-head" title="${esc(st.label)}"><span class="lb-tile">${ic(STAGE_ICON[g.stage])}</span><span class="chap-l">${esc(st.label)}</span></span>
       <span class="chap-dots">${g.steps.map(n => `<a href="#step-${n}" class="${n === i ? "cur" : (end || n < i) ? "done" : ""}" title="${esc(STEPS[n - 1].title)}" aria-label="שלב ${n}: ${esc(STEPS[n - 1].title)}"${n === i ? ' aria-current="step"' : ""}>${n}</a>`).join("")}</span></div>`;
@@ -1019,9 +960,9 @@ function chapters(i) {
 function renderIntro() {
   const bars = [["תצוגות מקדימות שנוצרו", 527, 100, ""], ["הגיעו לעמוד התשלום", 202, 38.3, "62% לא מגיעים לתשלום"], ["שילמו", 85, 16.1, "58% מהם לא משלמים"]];
   $("#tb-chapters").innerHTML = "";
-  app.innerHTML = `<section class="intro">
-    <div>
-      <span class="lb-chip warning">דמו פנימי · שום דבר כאן לא חי</span>
+  app.innerHTML = `<section class="lb-hero has-media">
+    <div class="lb-hero-text">
+      <div class="lb-hero-meta"><span class="lb-chip warning">דמו פנימי · שום דבר כאן לא חי</span></div>
       <h1>מסע הקנייה</h1>
       <p class="lb-lede">עשרה מסכים, מהמודעה בפייסבוק ועד הוואטסאפ אחרי הרכישה. ככה האתר נראה אחרי מה שהמחקר מציע: הטלפון מראה את המסך המתוקן, וההערות אומרות מה משתנה, למה ומי עושה את זה.</p>
       <ul class="how">
@@ -1032,7 +973,7 @@ function renderIntro() {
       </ul>
       <div class="lb-row"><a class="lb-btn" href="#step-1">מתחילים</a></div>
       <div class="intro-stats">
-      ${bars.map(([l, v, p, d]) => `<div class="lb-card stat-card"><span class="lb-stat-label">${l}</span><span class="v">${v}</span><span class="bar"><i style="width:${p}%"></i></span>${d ? `<span class="drop">${d}</span>` : `<span class="lb-dim lb-xs">30 יום עד 12.10.2026</span>`}</div>`).join("")}
+      ${bars.map(([l, v, p, d]) => `<div class="lb-card lb-stat"><span class="lb-stat-label">${l}</span><span class="lb-stat-value">${v}</span><span class="lb-bar"><i style="width:${p}%"></i></span>${d ? `<span class="lb-stat-foot drop">${d}</span>` : `<span class="lb-stat-foot">30 יום עד 12.10.2026</span>`}</div>`).join("")}
       </div>
     </div>
     <div class="hero-stage"><span class="lb-chip outline">שלב 1 · מודעה בפייסבוק</span>${device("hero")}</div>
@@ -1044,15 +985,15 @@ function renderIntro() {
 
 function noteHTML(n, onScreen) {
   const ev = n.why.map(([t, s, u]) => `<li><span class="etype">${esc(t)}</span><span>${gloss(s)}</span>${srcLink(u)}</li>`).join("");
-  return `<details class="note" id="note-${n.n}" data-n="${n.n}" ${activeNote === n.n ? "open" : ""}>
-    <summary><span class="nnum ${onScreen ? "" : "off"}">${n.n}</span><span class="ntitle">${gloss(n.change)}<small>${esc(whoText(n))}${onScreen ? "" : " · לא על המסך"}</small></span>${chip(n.st)}${ic("chev", "chev")}</summary>
-    <div class="nbody">
-      <div class="nrow"><b>היום באתר</b><span class="today">${gloss(n.today)}</span></div>
-      ${n.how ? `<div class="nrow"><b>איך בדיוק</b><code class="how" dir="ltr">${esc(n.how)}</code></div>` : ""}
-      <div class="nrow"><b>למה</b><ul class="ev">${ev}</ul></div>
-      <div class="nrow"><b>איך נדע שעבד</b><span>${gloss(n.measure)}</span></div>
-      <div class="nrow"><b>במחקר</b><span class="refs">${n.refs.map(r => `<span>${gloss(r)}</span>`).join("")}</span></div>
-    </div>
+  return `<details class="lb-rowitem" id="note-${n.n}" data-n="${n.n}" ${activeNote === n.n ? "open" : ""}>
+    <summary><span class="lb-disc ${onScreen ? "solid" : "quiet"}">${n.n}</span><span class="lb-rowitem-title"><span>${gloss(n.change)}</span><small>${esc(whoText(n))}${onScreen ? "" : " · לא על המסך"}</small></span><span class="lb-rowitem-meta">${chip(n.st)}</span></summary>
+    <div class="lb-rowitem-body"><dl class="lb-kv stack">
+      <dt>היום באתר</dt><dd class="today">${gloss(n.today)}</dd>
+      ${n.how ? `<dt>איך בדיוק</dt><dd><code class="how" dir="ltr">${esc(n.how)}</code></dd>` : ""}
+      <dt>למה</dt><dd><ul class="ev">${ev}</ul></dd>
+      <dt>איך נדע שעבד</dt><dd>${gloss(n.measure)}</dd>
+      <dt>במחקר</dt><dd class="refs">${n.refs.map(r => `<span>${gloss(r)}</span>`).join("")}</dd>
+    </dl></div>
   </details>`;
 }
 function srcLink(u) {
@@ -1079,7 +1020,7 @@ function renderStep(i) {
     </div>
     <div class="step-notes">
       <div class="notes-head"><h3>${step.notes.length} הערות על המסך הזה</h3><label class="switch-label"><input type="checkbox" class="lb-switch" id="hots" ${showHots ? "checked" : ""}> מספרים על הטלפון</label></div>
-      <div class="notes-box"><div class="notes" id="notes"></div>
+      <div class="notes-box"><div class="lb-rowlist" id="notes"></div>
       <details class="console" open><summary>${ic("chart")}מה המסך הזה שולח<small>GA4, הפיקסל של Meta ויומן ההודעות · ערכי דמו</small></summary>
         <div class="console-body"><ul class="log" id="log"></ul><p class="never">אף פעם לא נשלח: שם הילד, התמונה, הטלפון, המייל וקישורי התצוגה המקדימה.</p></div></details></div>
     </div>
@@ -1128,7 +1069,7 @@ function paint(keep, enter) {
   wrap.classList.toggle("no-hots", !showHots);
   const markers = paintScreen(wrap, step.id, { keep, enter });
   $("#notes").innerHTML = step.notes.map(n => noteHTML(n, markers.has(n.n))).join("");
-  $$("#notes .note").forEach(d => {
+  $$("#notes .lb-rowitem").forEach(d => {
     const n = +d.dataset.n;
     d.addEventListener("toggle", () => { if (d.open) { activeNote = n; lightUp(n, true); } });
     d.addEventListener("mouseenter", () => lightUp(n, false));
@@ -1142,7 +1083,7 @@ function lightUp(n, scroll) {
   const wrap = $('.phone-col .device-wrap'); if (!wrap) return;
   $$("[data-note]", wrap).forEach(el => el.classList.toggle("is-lit", +el.dataset.note === n));
   $$(".hot", wrap).forEach(h => h.classList.toggle("is-active", +h.textContent === activeNote));
-  $$("#notes .note").forEach(d => d.classList.toggle("is-active", +d.dataset.n === activeNote));
+  $$("#notes .lb-rowitem").forEach(d => d.classList.toggle("is-active", +d.dataset.n === activeNote));
   if (scroll && n) {
     const el = $(`[data-note="${n}"]`, wrap), sv = $(".scroll", wrap);
     if (el && sv && sv.contains(el)) { let y = 0, x = el; while (x && x !== sv) { y += x.offsetTop; x = x.offsetParent; } sv.scrollTop = Math.max(0, y - 140); }
@@ -1175,19 +1116,19 @@ function renderChanges() {
   $("#tb-chapters").innerHTML = chapters("end");
   app.innerHTML = `${chapters("end")}
   <section class="changes" style="margin-top:var(--sp-5)">
-    <div><span class="lb-chip success">סיימתם את המסע</span><h1>כל השינויים במסע</h1>
-      <p class="lb-lede" style="margin-top:var(--sp-3)">${all.length} פריטים ב-${STEPS.length} מסכים: מה לתקן, מה לבדוק, מה מחכה להחלטה ומה כבר עובד. כל קבוצה פותחת את המסך שלה. הרשימה לעבודה, עם סימונים, נמצאת ב<a href="cro-crm-strategy.html">עמוד האסטרטגיה</a>.</p></div>
-    <div class="tally">${["fix", "test", "decide", "legal", "keep"].map(st => `<div class="lb-card"><span class="v">${count(st)}</span>${chip(st)}</div>`).join("")}</div>
-    <div class="lb-card is-accent first5"><div><b>מתחילים מחמשת אלה</b><ol>${DATA.first5.map(([t, w, s], k) => `<li><a href="#step-${s}"><span class="pnum">${k + 1}</span><span>${esc(t)}<small>${esc(w)} · לראות בטלפון</small></span></a></li>`).join("")}</ol>
+    <div class="lb-hero"><div class="lb-hero-meta"><span class="lb-chip success">סיימתם את המסע</span></div><h1>כל השינויים במסע</h1>
+      <p class="lb-lede">${all.length} פריטים ב-${STEPS.length} מסכים: מה לתקן, מה לבדוק, מה מחכה להחלטה ומה כבר עובד. כל קבוצה פותחת את המסך שלה. הרשימה לעבודה, עם סימונים, נמצאת ב<a href="cro-crm-strategy.html">עמוד האסטרטגיה</a>.</p></div>
+    <div class="tally">${["fix", "test", "decide", "legal", "keep"].map(st => `<div class="lb-card lb-stat"><span class="lb-stat-value">${count(st)}</span>${chip(st)}</div>`).join("")}</div>
+    <div class="lb-card is-accent first5"><div><b>מתחילים מחמשת אלה</b><ol>${DATA.first5.map(([t, w, s], k) => `<li><a href="#step-${s}"><span class="lb-disc sm">${k + 1}</span><span>${esc(t)}<small>${esc(w)} · לראות בטלפון</small></span></a></li>`).join("")}</ol>
       <span class="lb-note">ועוד תיקון קטן ליוסי לפני הכל: הכריכה בדף הספר עולה מיד (שלב 2, הערה 1).</span></div><img class="mascot" src="${MASCOT}" alt=""></div>
-    <div class="filters" role="group" aria-label="סינון">
-      <span><span class="lbl">להציג</span><span class="seg">${[["all", "הכל"], ["fix", "לתקן"], ["test", "לבדוק"], ["decide", "החלטה"], ["legal", "עורך דין"], ["keep", "להשאיר"]].map(([k, l]) => `<button type="button" data-f="${k}" aria-pressed="${k === "all"}">${l}</button>`).join("")}</span></span>
-      <span><span class="lbl">מי</span><span class="seg">${[["all", "כולם"], ["me", "אני"], ["yossi", "יוסי"], ["lawyer", "עורך דין"]].map(([k, l]) => `<button type="button" data-o="${k}" aria-pressed="${k === "all"}">${l}</button>`).join("")}</span></span>
+    <div class="filters">
+      <div class="lb-row"><span class="lbl">להציג</span><div class="lb-filters" role="group" aria-label="סינון לפי סוג">${[["all", "הכל"], ["fix", "לתקן"], ["test", "לבדוק"], ["decide", "החלטה"], ["legal", "עורך דין"], ["keep", "להשאיר"]].map(([k, l]) => `<button type="button" data-f="${k}" aria-pressed="${k === "all"}">${l}</button>`).join("")}</div></div>
+      <div class="lb-row"><span class="lbl">מי</span><div class="lb-filters" role="group" aria-label="סינון לפי מי עושה">${[["all", "כולם"], ["me", "אני"], ["yossi", "יוסי"], ["lawyer", "עורך דין"]].map(([k, l]) => `<button type="button" data-o="${k}" aria-pressed="${k === "all"}">${l}</button>`).join("")}</div></div>
     </div>
     <div id="clist" class="lb-stack" style="gap:var(--sp-4)"></div>
-    <details class="gloss lb-card"><summary>מילון מונחים</summary><dl>${DATA.gloss.map(([t, d]) => `<dt>${gloss(t)}</dt><dd>${gloss(d)}</dd>`).join("")}</dl></details>
+    <details class="gloss lb-card"><summary>מילון מונחים</summary><dl class="lb-kv stack">${DATA.gloss.map(([t, d]) => `<dt>${gloss(t)}</dt><dd>${gloss(d)}</dd>`).join("")}</dl></details>
     <div class="lb-row"><a class="lb-btn secondary" href="#step-1">לעבור שוב על המסע</a><a class="lb-btn ghost" href="#intro">חזרה להתחלה</a></div>
-    <p class="endnote">דמו פנימי שנבנה מ-<code dir="ltr">${SRC}/src/journey-demo.template.html</code> ומ-<code dir="ltr">${SRC}/src/journey-demo.json</code>. המקורות לכל הערה: <code dir="ltr">${SRC}/sources.md</code>. הטקסט במסכים הוא הצעה ולא קופי מאושר. הכריכות מ-lumebook.com, ומסגרת האייפון מהמוקאפ ששלחתי.</p>
+    <p class="lb-note">דמו פנימי שנבנה מ-<code dir="ltr">${SRC}/src/journey-demo.template.html</code> ומ-<code dir="ltr">${SRC}/src/journey-demo.json</code>. המקורות לכל הערה: <code dir="ltr">${SRC}/sources.md</code>. הטקסט במסכים הוא הצעה ולא קופי מאושר. הכריכות מ-lumebook.com, ומסגרת האייפון מהמוקאפ ששלחתי.</p>
   </section>`;
   let f = "all", o = "all";
   const paintList = () => {
@@ -1195,15 +1136,14 @@ function renderChanges() {
     const groups = {}; rows.forEach(n => { (groups[n.step] = groups[n.step] || []).push(n); });
     $("#clist").innerHTML = Object.keys(groups).length ? Object.keys(groups).map(k => {
       const s = STEPS[k - 1], st = STAGES[s.stage];
-      return `<div class="cgroup lb-cat-${st.cat}"><div class="cgroup-h"><span class="lb-tile">${ic(STAGE_ICON[s.stage])}</span><h3>${k} · ${esc(s.title)}</h3><a href="#step-${k}">לפתוח את המסך</a></div><ul class="clist">${groups[k].map(n => `
-        <li class="crow"><details><summary><span class="nnum">${n.n}</span>
-          <b class="ctitle">${gloss(n.change)}</b>
-          <span class="meta">${chip(n.st)}<small>${esc(whoText(n))}</small></span>${ic("chev", "chev")}</summary>
-          <div class="cbody"><div><span class="k">היום באתר</span><span class="muted">${gloss(n.today)}</span></div>
-            ${n.how ? `<div><span class="k">איך בדיוק</span><code class="how" dir="ltr">${esc(n.how)}</code></div>` : ""}
-            <div><span class="k">איך נדע שעבד</span><span class="muted">${gloss(n.measure)}</span></div>
-            <a href="#step-${n.step}">לראות בטלפון, הערה ${n.n}</a></div></details>
-        </li>`).join("")}</ul></div>`;
+      return `<section class="lb-topic lb-cat-${st.cat}"><header class="lb-topic-head"><span class="lb-tile lg">${ic(STAGE_ICON[s.stage])}</span><div class="lb-topic-text"><h3 class="lb-topic-title">${k} · ${esc(s.title)}</h3></div><a href="#step-${k}">לפתוח את המסך</a></header><div class="lb-rowlist">${groups[k].map(n => `
+        <details class="lb-rowitem"><summary><span class="lb-disc solid">${n.n}</span>
+          <span class="lb-rowitem-title"><span>${gloss(n.change)}</span><small>${esc(whoText(n))}</small></span>
+          <span class="lb-rowitem-meta">${chip(n.st)}</span></summary>
+          <div class="lb-rowitem-body"><dl class="lb-kv stack"><dt>היום באתר</dt><dd class="today">${gloss(n.today)}</dd>
+            ${n.how ? `<dt>איך בדיוק</dt><dd><code class="how" dir="ltr">${esc(n.how)}</code></dd>` : ""}
+            <dt>איך נדע שעבד</dt><dd class="today">${gloss(n.measure)}</dd></dl>
+            <a href="#step-${n.step}">לראות בטלפון, הערה ${n.n}</a></div></details>`).join("")}</div></section>`;
     }).join("") : `<p class="lb-note">אין פריטים שמתאימים לסינון.</p>`;
   };
   $$("[data-f]").forEach(b => b.addEventListener("click", () => { f = b.dataset.f; $$("[data-f]").forEach(x => x.setAttribute("aria-pressed", x === b)); paintList(); }));

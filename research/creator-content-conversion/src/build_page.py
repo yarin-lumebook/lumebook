@@ -21,7 +21,13 @@ ROOT = os.path.abspath(os.path.join(OUT, "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, "shared", "design"))
 sys.path.insert(0, HERE)
 import design  # noqa: E402
-from build_html import inline, convert  # noqa: E402  (markdown helpers)
+from build_html import inline, convert as _convert  # noqa: E402  (markdown helpers)
+
+
+def convert(md):
+    # build_html's quote boxes (rp-quote) become design-system text blocks on this page
+    h, x = _convert(md)
+    return h.replace('class="rp-quote"', 'class="lb-textblock rp-quote" dir="rtl"'), x
 
 E = html.escape
 
@@ -79,7 +85,7 @@ def stat(label, value, foot="", kind=""):
 
 
 def head(title, eyebrow, lede=""):
-    return (f'<header class="rp-head"><span class="lb-eyebrow">{eyebrow}</span><h2>{title}</h2>'
+    return (f'<header class="lb-hero"><span class="lb-eyebrow">{eyebrow}</span><h2>{title}</h2>'
             + (f'<p class="lb-lede">{lede}</p>' if lede else "") + "</header>")
 
 
@@ -139,7 +145,7 @@ FINDINGS = [
      "icp", "E6, E7"),
 ]
 cards = "".join(
-    f'<a class="lb-card rp-finding" href="#{v}"><span class="rp-n">{i}</span><h3>{E(t)}</h3><p class="lb-muted">{E(b)}</p>'
+    f'<a class="lb-card rp-finding" href="#{v}"><span class="lb-disc tint">{i}</span><h3>{E(t)}</h3><p class="lb-muted">{E(b)}</p>'
     f'<span class="lb-row">{chip("Evidence " + ev, "outline")}<span class="lb-spacer"></span><span class="rp-go">Open →</span></span></a>'
     for i, (t, b, v, ev) in enumerate(FINDINGS, 1))
 V["overview"] = f"""
@@ -183,7 +189,7 @@ QA = [
 ]
 V["questions"] = head("Answers to the decision questions", "Answer", "Seven questions from the brief, each answered in one paragraph with the evidence behind it.") + \
     '<div class="lb-stack">' + "".join(
-        f'<a class="lb-card rp-qa" href="#{v}"><div class="rp-qa-q"><span class="rp-n">{i}</span><h3>{E(q)}</h3></div><p>{E(a)}</p>'
+        f'<a class="lb-card rp-qa" href="#{v}"><div class="rp-qa-q"><span class="lb-disc tint">{i}</span><h3>{E(q)}</h3></div><p>{E(a)}</p>'
         f'<span class="lb-row">{chip("Evidence " + ev, "outline")}<span class="lb-spacer"></span><span class="rp-go">Detail →</span></span></a>'
         for i, (q, a, ev, v) in enumerate(QA, 1)) + "</div>"
 
@@ -324,7 +330,7 @@ QUOTES = [
 ]
 qcols = "".join(
     f'<div class="lb-card"><h3>{E(g)}</h3><div class="lb-stack">' + "".join(
-        f'<figure class="rp-q"><blockquote>{he(h)}</blockquote><figcaption>{E(en)} · <span class="lb-dim">{E(c)}</span> {ig(code, "post")}</figcaption></figure>'
+        f'<figure class="rp-q"><blockquote class="lb-textblock" dir="rtl">{he(h)}</blockquote><figcaption>{E(en)} · <span class="lb-dim">{E(c)}</span> {ig(code, "post")}</figcaption></figure>'
         for h, en, c, code in qs) + "</div></div>" for g, qs in QUOTES)
 V["voice"] = head("Audience voice", "Findings", f"{TOTAL_CMT:,} comments on 184 posts, up to 30 per post in Instagram's ranked order, read and classified in Hebrew.") + f"""
 <div class="lb-grid cols-4">
@@ -462,8 +468,8 @@ def conf_kind(c):
 
 
 ccards = "".join(
-    f'<article class="lb-card rp-concept" data-occ="{E(occ)}"><div class="lb-card-head"><span class="rp-n">{i}</span><span class="lb-row">{chip(occ, "accent")}{chip(conf, conf_kind(conf))}</span></div>'
-    f'<h3>{E(t)}</h3><blockquote class="rp-hook" dir="rtl" lang="he">{"<br>".join(E(l) for l in hook.splitlines())}</blockquote>'
+    f'<article class="lb-card rp-concept" data-occ="{E(occ)}"><div class="lb-card-head"><span class="lb-disc tint">{i}</span><span class="lb-row">{chip(occ, "accent")}{chip(conf, conf_kind(conf))}</span></div>'
+    f'<h3>{E(t)}</h3><blockquote class="lb-textblock rp-hook" dir="rtl" lang="he">{"<br>".join(E(l) for l in hook.splitlines())}</blockquote>'
     f'<dl class="lb-kv">{"".join(f"<dt>{E(k)}</dt><dd>{inline(v)}</dd>" for k, v in kv)}</dl>'
     + (f'<p class="lb-xs lb-dim">Examples: {" · ".join(ig(c) for c in ex)}</p>' if ex else "") + "</article>"
     for i, (t, hook, occ, conf, kv, ex) in enumerate(CONCEPTS, 1))
@@ -503,11 +509,11 @@ TESTS = [
      "Continue the weekly gift-giver post after 4 weeks only if the gift link's starts per 1,000 sessions are at least those of the parent link."),
 ]
 tcards = "".join(
-    f'<article class="lb-card rp-test {"is-accent" if first else ""}"><div class="lb-card-head"><span class="lb-row"><span class="rp-tid">{tid}</span><h3>{E(name)}</h3></span>'
+    f'<article class="lb-card rp-test {"is-accent" if first else ""}"><div class="lb-card-head"><span class="lb-row"><span class="lb-pid is-solid">{tid}</span><h3>{E(name)}</h3></span>'
     + (chip("Run first", "tint") if first else "") + f'</div><p class="rp-hyp">{E(hyp)}</p>'
     f'<dl class="lb-kv"><dt>Who</dt><dd>{E(who)}</dd><dt>Compared with</dt><dd>{E(comp)}</dd><dt>Primary outcome</dt><dd><b>{E(out)}</b></dd>'
     f'<dt>Tracking</dt><dd>{E(trk)}</dd><dt>Window</dt><dd>{E(win)}</dd></dl>'
-    f'<div class="rp-rule"><span class="lb-chip warning">Proposed rule</span><span class="lb-small">{E(rule)}</span></div></article>'
+    f'<div class="lb-callout warning"><span class="lb-chip warning">Proposed rule</span><span class="lb-small">{E(rule)}</span></div></article>'
     for tid, name, first, hyp, who, comp, out, trk, win, rule in TESTS)
 V["tests"] = head("Five tests for the next four weeks", "Actions · 15 Oct to 11 Nov 2026", "All thresholds are proposed test criteria, not verified baselines.") + """
 <div class="lb-card is-quiet"><h4>Before any test</h4><ol class="rp-steps">
@@ -537,7 +543,7 @@ FUNNEL = [("Exposure", "Reach, plays, average watch time", "Creator Insights, da
           ("Purchase", "Paid orders credited to the link (printed, 7 days) and paid orders with matching UTMs", "Ambassador ledger + orders", "Exists, not read"),
           ("Economics", "Revenue, AOV, revenue per session, cost per purchase, contribution", "Orders + print cost", "Print cost unknown")]
 fun = "".join(
-    f'<li class="rp-fstep"><span class="rp-fn">{i}</span><div><b>{E(s)}</b><span class="lb-small lb-muted">{E(m)}</span><span class="lb-xs lb-dim">{E(src)}</span></div>{chip(stx, "success" if stx.startswith("Exists") and "not" not in stx and "unknown" not in stx else ("info" if "Exists" in stx else ("warning" if "Partly" in stx or "public" in stx else "")))}</li>'
+    f'<li class="rp-fstep"><span class="lb-disc sm quiet">{i}</span><div><b>{E(s)}</b><span class="lb-small lb-muted">{E(m)}</span><span class="lb-xs lb-dim">{E(src)}</span></div>{chip(stx, "success" if stx.startswith("Exists") and "not" not in stx and "unknown" not in stx else ("info" if "Exists" in stx else ("warning" if "Partly" in stx or "public" in stx else "")))}</li>'
     for i, (s, m, src, stx) in enumerate(FUNNEL, 1))
 V["measure"] = head("Measurement plan", "Actions", "The store already has creator attribution in its code. The plan is to switch it on for the test creators and read it every Monday.") + \
     '<div class="lb-grid cols-2">' + "".join(
@@ -576,7 +582,7 @@ UNK = ["Whether any creator content sells LumeBook books, and how many per post.
        "Whether undisclosed paid promotion inflated any of the outliers.",
        "How comments outside Instagram's top-ranked 30 differ from the sample."]
 V["unknowns"] = head("What we still do not know", "Reference", "Prefer \"we do not yet know\" over unsupported certainty.") + \
-    '<div class="lb-group">' + "".join(f'<div class="lb-group-row"><span class="rp-q-mark">?</span><span>{E(u)}</span></div>' for u in UNK) + "</div>"
+    '<div class="lb-group">' + "".join(f'<div class="lb-group-row"><span class="lb-disc sm">?</span><span>{E(u)}</span></div>' for u in UNK) + "</div>"
 
 # Evidence (from evidence.md) ----------------------------------------------
 ev_md = open(os.path.join(OUT, "evidence.md"), encoding="utf-8").read()
@@ -588,7 +594,7 @@ for b in blocks:
     eid = title.split(".")[0].lower()
     body_md = "\n".join(b.splitlines()[1:]).replace("\n---", "")
     body_html, _ = convert(body_md)
-    ev_cards.append(f'<details class="lb-card rp-ev" id="evidence-{eid}"><summary><span class="rp-tid">{E(title.split(".")[0])}</span><span>{inline(title.split(". ", 1)[1])}</span></summary><div class="rp-md">{body_html}</div></details>')
+    ev_cards.append(f'<details class="lb-card rp-ev" id="evidence-{eid}"><summary><span class="lb-pid is-solid">{E(title.split(".")[0])}</span><span>{inline(title.split(". ", 1)[1])}</span></summary><div class="rp-md">{body_html}</div></details>')
 intro_html, _ = convert(intro_md.replace("# Evidence behind each conclusion", ""))
 V["evidence"] = head("Evidence", "Reference · E1 to E14", "Every conclusion with the observed numbers, verified examples and links. Open a card for the detail.") + \
     f'<div class="lb-card is-quiet rp-md">{intro_html}</div><div class="lb-stack">' + "".join(ev_cards) + \
@@ -794,11 +800,9 @@ views = "".join(f'<section class="lb-page rp-view" data-view="{k}" hidden>{v}</s
 CSS = """
 html { direction: ltr; }
 body { text-align: start; }
-.rp-head { display: grid; gap: var(--sp-2); }
-.rp-head h2 { font-size: clamp(1.6rem, 3.2vw, 2.25rem); }
+.lb-hero h2 { font-size: clamp(1.6rem, 3.2vw, 2.25rem); } /* each view's title is an h2 in an lb-hero */
 bdi.he, [lang="he"] { font-family: var(--font); }
 .rp-stat.is-zero .lb-stat-value { color: var(--danger); }
-.rp-n { display: inline-grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--tint-soft); color: var(--tint); font-weight: 700; font-size: var(--fs-footnote); flex: none; }
 .rp-finding { gap: var(--sp-2); }
 .rp-finding h3, .rp-cta h3 { font-size: var(--fs-headline); }
 .rp-go { font-size: var(--fs-footnote); font-weight: 600; color: var(--tint); }
@@ -820,35 +824,31 @@ bdi.he, [lang="he"] { font-family: var(--font); }
 .lb-hbar .track { position: relative; }
 .rp-mark { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text-3); border-radius: 1px; z-index: 1; }
 .rp-q { margin: 0; display: grid; gap: 4px; }
-.rp-q blockquote, .rp-hook { margin: 0; padding: .6rem .85rem; background: var(--surface-2); border-inline-end: 3px solid var(--lb-gold-deep); border-radius: var(--r-sm); font-size: 1.05rem; font-weight: 600; direction: rtl; text-align: right; line-height: 1.5; }
+.rp-q .lb-textblock, .rp-hook { font-size: 1.05rem; font-weight: 600; } /* quotes and hooks read as said: bold, a step larger */
 .rp-q figcaption { font-size: var(--fs-footnote); color: var(--text-2); }
 .rp-hook { font-size: 1.2rem; }
 .rp-concept, .rp-test { align-content: start; }
 .rp-concept h3, .rp-test h3 { font-size: var(--fs-headline); }
 .rp-concept .lb-kv, .rp-test .lb-kv, .rp-icp .lb-kv { font-size: var(--fs-footnote); }
-.rp-tid { display: inline-grid; place-items: center; min-width: 2.2rem; height: 1.6rem; padding-inline: .45rem; border-radius: var(--r-sm); background: var(--lb-ink, #1D1039); color: #fff; font-weight: 700; font-size: var(--fs-footnote); flex: none; }
 .rp-hyp { font-size: var(--fs-callout); color: var(--text-2); }
-.rp-rule { display: grid; gap: var(--sp-1); padding: var(--sp-3); border-radius: var(--r-md); background: var(--warning-soft); }
-.rp-rule .lb-chip { justify-self: start; }
+.rp-test .lb-callout .lb-chip { justify-self: start; }
 .rp-steps { margin: 0; padding-inline-start: 1.25rem; display: grid; gap: var(--sp-1); font-size: var(--fs-callout); }
 .rp-funnel { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
 .rp-fstep { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; padding: .6rem 0; border-top: 1px solid var(--line); }
 .rp-fstep:first-child { border-top: 0; }
 .rp-fstep > div { display: grid; }
-.rp-fn { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: grid; place-items: center; background: var(--fill-2); font-size: var(--fs-caption); font-weight: 700; }
 .rp-limits > div { display: grid; gap: 2px; }
 .rp-filter { flex-wrap: wrap; }
 .rp-filter button { white-space: nowrap; }
 .rp-creator .rp-handle { font-weight: 700; }
 .rp-mini { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); font-size: var(--fs-footnote); color: var(--text-2); }
 .rp-mini b { color: var(--text); font-variant-numeric: tabular-nums; }
-.rp-q-mark { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: grid; place-items: center; background: var(--warning-soft); color: var(--warning); font-weight: 700; flex: none; }
 .rp-ev summary { cursor: pointer; list-style: none; display: flex; gap: var(--sp-3); align-items: center; font-weight: 600; }
 .rp-md { display: grid; gap: var(--sp-3); font-size: var(--fs-callout); }
 .rp-md h3 { font-size: var(--fs-callout); margin-top: var(--sp-2); }
 .rp-md ul, .rp-md ol { margin: 0; padding-inline-start: 1.25rem; display: grid; gap: var(--sp-1); }
 .rp-md .lb-table-wrap { margin: 0; }
-.rp-md .rp-quote { display: block; padding: .5rem .8rem; background: var(--surface-2); border-radius: var(--r-sm); direction: rtl; text-align: right; font-weight: 600; }
+.rp-md .rp-quote { display: block; font-weight: 600; } /* lb-textblock; in a list it is a span */
 .lb-topbar .lb-dim { font-size: var(--fs-footnote); }
 .rp-crumb { font-weight: 600; }
 @media (max-width: 640px) { .lb-grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lb-topbar .lb-dim { display: none; } .rp-stat { padding: var(--sp-3); } .rp-qa p, .rp-qa .lb-row { padding-inline-start: 0; } .lb-hbar { grid-template-columns: minmax(6rem, 42%) minmax(0, 1fr) 3rem; } }
@@ -919,7 +919,7 @@ page = f"""<!doctype html>
   <main class="lb-main">
     <div class="lb-topbar"><div class="lb-topbar-in">
       <button class="lb-btn secondary icon lb-menu-btn" id="rp-menu" type="button" aria-label="Open sections"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-      <span class="rp-crumb" id="rp-crumb">Overview</span><span class="lb-spacer"></span><span class="lb-dim">Creator content and purchase intent</span>{design.theme_toggle(dark_label="Dark mode")}
+      <span class="rp-crumb" id="rp-crumb">Overview</span><span class="lb-spacer"></span><span class="lb-dim">Creator content and purchase intent</span>
     </div></div>
     {views}
   </main>

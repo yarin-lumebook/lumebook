@@ -294,7 +294,7 @@ It replaces the dashboard's canvas work board as the default view of the dashboa
 State goes in the artifact database under its own prefix (never `boards/`, `snapshot`, `history` or `tracker`), which syncs Mac and iPhone. The public Vercel copy never exports it. Design rules:
 
 - English, left to right inside the Hebrew dashboard (since 31 Oct 2026, see the note at the top), the design system's `lb-` components
-- white and black modes
+- white only (since 05 Nov 2026)
 - works at 390px wide
 - on the phone, a Mac-only link says so instead of failing
 

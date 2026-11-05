@@ -1,7 +1,7 @@
 # Builds ../lumebook-competitor-content.html from db.json, table_data.json and app_shell.html.
 # Run from this folder:  python3 fill_report.py
 # Look and chrome come from the LumeBook design system (shared/design): design.head() inlines the stylesheet,
-# design.theme_toggle() the theme button, design.logo_data_uri() the logo.
+# design.logo_data_uri() the logo.
 import json, os, sys, statistics as st
 from collections import Counter, defaultdict
 import re as _re
@@ -14,7 +14,6 @@ R = json.load(open('db.json'))
 BY = {r['key']: r for r in R}
 T = open('app_shell.html').read()
 T = (T.replace('__LBHEAD__', design.head())
-      .replace('__THEME__', design.theme_toggle(dark_label='Dark mode', light_label='Light mode'))
       .replace('__LOGO__', design.logo_data_uri()))
 ANSWER='''<div class="lb-prose">
 <p><b>Build</b> a creator-led system with trackable codes (MeBook's real engine), carrying the two things nobody in the category does systematically: <b>likeness proof</b> (the real photo next to the page) and <b>answers</b> to price, delivery, effort and "is it really my kid", in short Hebrew videos. Keep the developmental angle, but win it with an expert voice and specific situations; MeBook already sells potty, pacifier, new-sibling and gan books in 10 of its 25 live ads.</p>
@@ -172,7 +171,7 @@ TESTS = [
 th = []
 for name, when, d in TESTS:
     rows = ''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in d.items())
-    th.append(f'<details class="lb-card"{" open" if name.startswith("T1") else ""}><summary>{name} <span class="lb-chip tint">{when}</span></summary><dl class="lb-kv">{rows}</dl></details>')
+    th.append(f'<details class="lb-disclosure"{" open" if name.startswith("T1") else ""}><summary><span class="lb-sum">{name}</span><span class="lb-chip tint">{when}</span></summary><div class="lb-disclosure-body"><dl class="lb-kv stack">{rows}</dl></div></details>')
 T = T.replace('__TESTS__', '\n'.join(th))
 
 # ---------------- competitor systems ----------------
@@ -230,8 +229,8 @@ for comp, (name, sub, kv) in SYS.items():
     first, *rest = kv.items()
     dl = lambda rows: ''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in rows)
     sh.append(f'<article class="lb-card is-cat sys-card lb-co-{comp}"><h3>{name}</h3><div class="lb-dim lb-xs">{sub}</div><p class="lb-stat-label">Pillars</p>{bars(comp,"pillar")}<p class="lb-stat-label">Funnel</p>{bars(comp,"funnel_stage",4)}<p class="lb-stat-label">Creator</p>{bars(comp,"creator_type",4)}'
-              f'<dl class="lb-kv">{dl([first])}</dl>'
-              f'<details class="lb-disclosure is-quiet"><summary><span class="lb-sum">Full profile<small>{", ".join(k for k, _ in rest)}</small></span></summary><div class="lb-disclosure-body"><dl class="lb-kv">{dl(rest)}</dl></div></details></article>')
+              f'<dl class="lb-kv stack">{dl([first])}</dl>'
+              f'<details class="lb-disclosure is-quiet"><summary><span class="lb-sum">Full profile<small>{", ".join(k for k, _ in rest)}</small></span></summary><div class="lb-disclosure-body"><dl class="lb-kv stack">{dl(rest)}</dl></div></details></article>')
 T = T.replace('__SYSTEMS__', '\n'.join(sh))
 
 # ---------------- outliers table ----------------

@@ -14,12 +14,17 @@ Reads lumebook.json (the component registry) and shared/facts.json.
   python3 tools/lumebook.py map               the component graph
   python3 tools/lumebook.py build ID          run a component's build now (auto or manual)
   python3 tools/lumebook.py deploy ID         deploy a component that has publish.type vercel (asks Vercel CLI)
-  python3 tools/lumebook.py serve [--port N]  one local server for the whole project (default 8780)
+  python3 tools/lumebook.py serve [--port N]  one local server for the whole project (default 8780); every page it shows
+                                              gets the edit button (shared/site-editor/README.md)
+  python3 tools/lumebook.py edits [bake]      pages edited with the edit button; bake writes their edits into their files
 
 Every command writes .lumebook/status.json, which the dashboard reads. Standard library only.
 """
 import argparse, fnmatch, glob, hashlib, json, os, re, shutil, subprocess, sys
 from datetime import datetime, timezone, timedelta
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import site_editor  # noqa: E402  the edit button on every page (tools/site_editor.py)
 
 IL = timezone(timedelta(hours=3))
 
@@ -321,6 +326,12 @@ def check():
             css_path = p("shared/design/categories.css")
             if not os.path.exists(css_path) or open(css_path, encoding="utf-8").read() != _design.categories_css() + "\n":
                 add("warn", "design", "shared/design/categories.css is older than categories.json (run sync)")
+            js_path = p("shared/design/icons.js")
+            if not os.path.exists(js_path) or open(js_path, encoding="utf-8").read() != _design.icons_js():
+                add("warn", "design", "shared/design/icons.js is older than icons.json (run sync)")
+            nav_path = p("shared/design/nav.js")
+            if not os.path.exists(nav_path) or open(nav_path, encoding="utf-8").read() != _design.nav_js():
+                add("warn", "design", "shared/design/nav.js is older than hq-tools.json, nav.src.js or the icons (run sync)")
         except Exception as e:  # a broken design.py must not stop the other checks
             add("error", "design", f"shared/design/design.py: {type(e).__name__}: {e}")
 
@@ -387,8 +398,12 @@ def sync(quiet=False):
         import design as _design
         if _design.write_categories_css():
             done.append("shared/design/categories.css (generated)")
+        if _design.write_icons_js():   # the icon set for pages without a build (5 Nov 2026)
+            done.append("shared/design/icons.js (generated)")
+        if _design.write_nav_js():     # the project nav for pages without a build: HQ, the SMM plan (5 Nov 2026)
+            done.append("shared/design/nav.js (generated)")
     except Exception as e:
-        print(f"sync: could not write shared/design/categories.css: {type(e).__name__}: {e}")
+        print(f"sync: could not write shared/design/categories.css, icons.js or nav.js: {type(e).__name__}: {e}")
     for cp in [c for k in ("brand", "design") for c in COMP.get(k, {}).get("copies", [])]:
         src, dst = p(cp["from"]), p(cp["to"])
         if os.path.exists(src) and (not os.path.exists(dst) or open(src, "rb").read() != open(dst, "rb").read()):
@@ -404,15 +419,25 @@ def sync(quiet=False):
 
 # ---------- status / ripple ----------
 
+def page_file(cid):
+    """The page a component's build makes (its publish.file, else its first .html output), so design.head() can tell the
+    project nav which page it is in, inside a claude.ai artifact too (LB_PAGE_FILE, 5 Nov 2026)."""
+    c = COMP[cid]
+    files = [(c.get("publish") or {}).get("file") or ""] + list((c.get("build") or {}).get("outputs", []))
+    return next((f for f in files if f.lower().endswith((".html", ".htm"))), "")
+
+
 def build(cid):
     b = COMP[cid]["build"]
     cmd = [os.path.expanduser(x) for x in b["cmd"]]
+    env = dict(os.environ, LB_PAGE_FILE=page_file(cid))
     try:
-        r = subprocess.run(cmd, cwd=p(b["cwd"]), capture_output=True, text=True, timeout=900)
+        r = subprocess.run(cmd, cwd=p(b["cwd"]), capture_output=True, text=True, timeout=900, env=env)
         ok, out = r.returncode == 0, (r.stderr or r.stdout).strip()[-300:]
     except (OSError, subprocess.TimeoutExpired) as e:  # missing folder or interpreter, or a hung build
         ok, out = False, f"{type(e).__name__}: {e}"[:300]
-    log({"type": "build", "component": cid, "ok": ok, "tail": out})
+    baked = site_editor.bake_outputs(b.get("outputs", [])) if ok else []   # edits made with the edit button go back in
+    log({"type": "build", "component": cid, "ok": ok, "tail": out, **({"baked": baked} if baked else {})})
     return ok, out
 
 
@@ -435,6 +460,7 @@ def evaluate(st, do_ripple):
     report["affected"] = affected
 
     if do_ripple:
+        report["baked"] = site_editor.bake_all()
         if "brand" in changed or "design" in changed:
             sync(quiet=True)
         targets = topo(list(dict.fromkeys(list(changed) + list(affected))))
@@ -538,14 +564,20 @@ def serve(port):
       GET  /api/creator-map/state   the creator map's saved data (statuses, notes, settings, voice) from creators/creator-research/state/
       PUT  /api/creator-map/doc?path=outreach/<handle>   writes one document of it (same-origin only; paths limited to
                                 outreach, settings, voice, log); this replaced the artifact database on 20 Oct 2026
+      GET  /api/hq/layout       HQ's tools layout as Yarin arranged it (sites/dashboard/hq-layout.json; {} when never saved)
+      PUT  /api/hq/layout       saves it (same-origin only, one JSON object, at most 512 KB); edit mode of HQ, 5 Nov 2026
       GET  /                    redirects to the HQ dashboard
       /hook-studio/             Carousel Machine (the login item on 127.0.0.1:8777) through this server: its own paths
                                 (HS_PREFIX) are forwarded as they are, POSTs same-origin only; nothing of it runs here
+      /__site-editor/           the edit button: every HTML page (and every forwarded Carousel Machine page) is sent with
+                                the button, the edits runtime and the page's saved edits; GET info/source, PUT save/upload
+                                (same-origin, X-Site-Editor header). tools/site_editor.py, shared/site-editor/README.md
     There is no endpoint that runs a command."""
     import http.client, http.server, functools, urllib.parse, urllib.request, threading
     origins = {f"http://localhost:{port}", f"http://127.0.0.1:{port}"}
     state_dir = p("creators/creator-research/state")
     state_lock = threading.Lock()
+    hq_layout = p("sites/dashboard/hq-layout.json")
     doc_path = re.compile(r"^(?:(outreach|settings|voice)/([\w.\-]{1,120})|log/([\w.\-]{1,120})/events/([\w.\-]{1,60}))$")
 
     def state_read(name):
@@ -619,6 +651,12 @@ def serve(port):
             ctype = r.getheader("Content-Type", "")
             if ctype.startswith("text/html"):
                 data = data.replace(b'href="/" ', b'href="/hook-studio/" ')   # the "Carousel Machine" back link on the review pages
+                info = site_editor.resolve(site_editor.proxied_key(u.path)) if status == 200 else None
+                if info:
+                    try:
+                        data = site_editor.inject(data.decode("utf-8"), info).encode("utf-8")
+                    except UnicodeDecodeError:
+                        pass
             self.send_response(status)
             for k, v in headers:
                 if k.lower() in ("content-type", "location", "content-disposition", "last-modified"):
@@ -632,6 +670,8 @@ def serve(port):
 
         def do_GET(self):
             if self.hook_studio("GET"):
+                return
+            if site_editor.handle(self, "GET", port, log):
                 return
             path = urllib.parse.urlparse(self.path).path
             if path == "/":   # the front door is the HQ dashboard, not a folder listing (Yarin, 20 Oct 2026)
@@ -668,10 +708,40 @@ def serve(port):
             if path == "/api/creator-map/state":
                 with state_lock:
                     return self._json(200, {k: state_read(k) for k in ("outreach", "settings", "voice", "log")})
+            if path == "/api/hq/layout":
+                with state_lock:
+                    try:
+                        with open(hq_layout, encoding="utf-8") as fh:
+                            return self._json(200, json.load(fh))
+                    except (FileNotFoundError, ValueError):
+                        return self._json(200, {})
+            page = site_editor.page_for_url(self, path)
+            if page and site_editor.serve_page(self, page):   # the page with the edit button and its saved edits
+                return
             return super().do_GET()
 
         def do_PUT(self):
+            if site_editor.handle(self, "PUT", port, log):
+                return
             u = urllib.parse.urlparse(self.path)
+            if u.path == "/api/hq/layout":
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only"})
+                size = int(self.headers.get("Content-Length") or 0)
+                if size <= 0 or size > 512 * 1024:
+                    return self._json(400, {"error": "bad size"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON"})
+                if not isinstance(doc, dict) or not isinstance(doc.get("topics"), list):
+                    return self._json(400, {"error": "a layout is a JSON object with a topics list"})
+                with state_lock:
+                    tmp = hq_layout + ".tmp"
+                    with open(tmp, "w", encoding="utf-8") as fh:
+                        json.dump(doc, fh, ensure_ascii=False, indent=1)
+                    os.replace(tmp, hq_layout)
+                return self._json(200, {"ok": True})
             if u.path != "/api/creator-map/doc":
                 return self._json(404, {"error": "not found"})
             if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
@@ -739,7 +809,7 @@ def serve(port):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", nargs="?", default="status", choices=["status", "ripple", "check", "sync", "ack", "map", "build", "deploy", "serve"])
+    ap.add_argument("cmd", nargs="?", default="status", choices=["status", "ripple", "check", "sync", "ack", "map", "build", "deploy", "serve", "edits"])
     ap.add_argument("id", nargs="?")
     ap.add_argument("--published", nargs="?", const="now", help="with ack: artifact republished (now or YYYY-MM-DD)")
     ap.add_argument("--deployed", action="store_true", help="with ack: the live site matches the files on disk now")
@@ -750,6 +820,19 @@ def main():
 
     if a.cmd == "serve":
         serve(a.port)
+        return
+    if a.cmd == "edits":
+        if a.id == "bake":
+            done = site_editor.bake_all()
+            print("baked " + (", ".join(done) if done else "nothing (every edited page already carries its edits)"))
+            return
+        pages = site_editor.edited_pages()
+        for key in pages:
+            ops, _ = site_editor.read_ops(key)
+            info = site_editor.resolve(key) or {}
+            where = info.get("file") or "(no file: applied when the page is shown)"
+            print(f"{len(ops):4} edits  {key}  [{info.get('mode', 'off')}]  {where}")
+        print(f"-- {len(pages)} edited pages. python3 tools/lumebook.py edits bake writes the edits into their files.")
         return
     if a.cmd == "build":
         if a.id not in COMP or not COMP[a.id].get("build"):

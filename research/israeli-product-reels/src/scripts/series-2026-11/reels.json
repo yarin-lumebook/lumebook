@@ -1,0 +1,1157 @@
+{
+  "_about": "LumeBook daily reel calendar, 05 to 30 / 11 / 2026 (Yarin, 04 Nov 2026: one reel a day like reel 1.1). The single source for the reel scripts and the calendar: tools in reels.py build reel-series-scripts.md and november-calendar.md from it, lint the copy and open a media project per reel. Edit this file, then run: python3 research/israeli-product-reels/src/scripts/series-2026-11/reels.py build",
+  "defaults": {
+    "post_time": "21:30",
+    "_post_time_note": "Reel 1.1 went up at 21:31 Israel time on 04 / 11 / 2026. One time for the whole month so results can be compared; change it here.",
+    "channel": "Instagram lumebook.il, trial reel (is_trial_reel true, graduation MANUAL), like 1.1 and the 27 to 29 Oct trial reels",
+    "cta_screen": "תכתבו לי \"לומי\"\nואשלח לכם קישור ליצירת הספר",
+    "cta_voice": "תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.",
+    "cta_caption": "תכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+    "caption_disclaimer": "*לא מהווה ייעוץ רפואי/תחליף לייעוץ רפואי ולא מהווה המלצה לפעולה כלשהי. בכל ספק יש לפנות לגורם רפואי מוסמך",
+    "edit_recipe": "Reel 1.1 v9 (media/projects/2026-11-03-reel-1-1-preview-screen/build_v9.py): Yarin's talking hook clip at 1x, then voiceover with pauses cut to 0.1 s and the studio chain, everything after the intro at 1.1x, screen recordings in a centred 720x1440 window over a blurred book clip, top hook only during the intro, word-by-word captions with only ? and \" kept, the purple \"לומי\" CTA for the last 3 s, Instagram music at 30%.",
+    "facts": "משלוח עד הבית ועד 7 ימי עסקים, תצוגה מקדימה בחינם אחרי מספר טלפון, הספר לא נשלח ולא מודפס עד שמאשרים, גילים 1 עד 10 באשף",
+    "carousel_days": {
+      "_about": "Kid carousels at 06:00 on IG + FB (Postiz, listed 04 Nov 2026), shown on the calendar so a reel can match the day's topic",
+      "2026-11-02": "השבוע לפני יום ההולדת",
+      "2026-11-04": "חברה באה לשחק",
+      "2026-11-06": "תינוק חדש בבית",
+      "2026-11-09": "עוד לא מדברת",
+      "2026-11-11": "נפרדים מהטיטול",
+      "2026-11-13": "בוקר של כיתה א",
+      "2026-11-16": "המגדל נפל שוב",
+      "2026-11-18": "״תגידי סליחה!״",
+      "2026-11-20": "״תהיה אח גדול״",
+      "2026-11-23": "הכול יוצא בבית",
+      "2026-11-25": "להפסיד במשחק",
+      "2026-11-27": "״אפשר עוד פעם?״",
+      "2026-11-30": "נפרדים מהמוצץ"
+    },
+    "length": {
+      "min": 10,
+      "max": 30,
+      "words_per_second": 2.8,
+      "lead_seconds": 1.0,
+      "card_seconds": 2.2,
+      "cta_hold_seconds": 3.0,
+      "_about": "Yarin, 04 Nov 2026: only reels of 10 to 30 seconds. Voiceover reels are estimated from the word count (1.1 ran 49 words in 16.5 s with pauses cut and 1.1x after the intro, so 2.8 words a second at 1x is a safe middle), text reels from the cards, trend reels from the clip. reels.py lint fails anything outside the range."
+    },
+    "offer": {
+      "text": "",
+      "source": "Yarin, 05 Nov 2026: never mention the price in a reel (no amount, no discount, no second-book price, no delivery price)."
+    },
+    "audience": {
+      "_about": "Yarin, 05 Nov 2026: double down on the buyers and the best selling books (shared/facts.json buyers and top_books, from his admin and Meta screenshots). Women 55 to 64 are the largest buying group and women 45+ made 58% of Meta attributed purchases by women, so grandmothers get their own series (8) next to mothers. Every reel names the store page its DM link opens ('page': books/<id> or gifts/<name>) and who it talks to ('audience').",
+      "parents": "mothers and both parents of children 1 to 8",
+      "grandma": "grandmothers buying for a grandchild; the site has a grandparent gift page (gifts/grandchild) that says the photo can be asked from the parents on WhatsApp and the preview is free before paying"
+    },
+    "pages": {
+      "books/15": "יום הולדת (3 עד 8)",
+      "books/13": "הלב של יובל (4 עד 8)",
+      "books/29": "חברים צבעוניים (1 עד 2)",
+      "books/41": "ביי ביי מוצץ (2 עד 5)",
+      "books/2": "אח חדש (3 עד 6)",
+      "books/43": "עדן והחיות החופשיות (2 עד 4)",
+      "books/37": "הסוד של חנוכיית סבתא (2 עד 7)",
+      "books/86": "החנוכה שלי (3 עד 10)",
+      "gifts/grandchild": "עמוד מתנה לנכד ולנכדה",
+      "gifts/hanukkah": "עמוד מתנות לחנוכה",
+      "gifts/new-sibling": "עמוד מתנה לאח גדול",
+      "books/category/bestsellers": "הרב מכר באתר"
+    },
+    "no_price": "Yarin, 05 Nov 2026: reels never mention the price. reels.py lint fails any shekel amount, price word or sale word.",
+    "no_language_digital": "Yarin, 05 Nov 2026 (comment box on the calendar page): never talk about the language options, the content is in Hebrew for a Hebrew speaking Israeli audience, and nobody cares about the digital copy. reels.py lint fails both."
+  },
+  "voice_types": {
+    "yarin": "Yarin's voiceover recorded on the phone, plus a 2 s talking hook clip to camera like 1.1"
+  },
+  "shoots": [
+    {
+      "date": "2026-11-05",
+      "for": [
+        "1.7"
+      ],
+      "note": "היום. צילום סלפי אחד שלך למצלמה לריל של הערב, בערך 20 שניות."
+    },
+    {
+      "date": "2026-11-06",
+      "for": [
+        "1.6",
+        "2.6",
+        "1.2",
+        "5.5",
+        "1.4",
+        "7.1",
+        "3.1",
+        "2.7",
+        "8.2"
+      ],
+      "note": "יום שישי. תשעה קטעי פתיחה למצלמה ותשע קריינות, בחדר שקט אחד עם הטלפון בגובה העיניים. 1.6 עולה באותו ערב ו 2.6 למחרת. ל 1.4 ול 3.1 צריך גם את הספר המודפס, מלמעלה על משטח בהיר ולידו חנוכייה."
+    },
+    {
+      "date": "2026-11-13",
+      "for": [
+        "1.3",
+        "4.1",
+        "3.2",
+        "1.5",
+        "3.3",
+        "2.3",
+        "5.1"
+      ],
+      "note": "יום שישי. שבעה קטעי פתיחה וקריינות. ל 4.1 צריך את התמונה שלך מגיל 4 שעוברת באתר בטלפון שלך (שלב הטלפון הוא שלך). ל 5.1 צריך גם מוצץ על שידה בלילה."
+    },
+    {
+      "date": "2026-11-20",
+      "for": [
+        "8.1",
+        "5.4",
+        "2.5",
+        "4.2",
+        "2.8",
+        "7.2",
+        "5.2"
+      ],
+      "note": "יום שישי. שבעה קטעי פתיחה וקריינות. 4.2 עונה על השאלה ששאלו הכי הרבה בתגובות באותו שבוע. ל 2.8 צריך עט ועמוד הקדשה. ל 7.2 צריך את הספר עטוף כמתנה."
+    },
+    {
+      "date": "2026-11-27",
+      "for": [
+        "2.2",
+        "7.3"
+      ],
+      "note": "יום שישי. ל 2.2 צריך ספר של משפחה אמיתית ואת האישור שלה. 7.3 הוא קטע פתיחה על הספה."
+    }
+  ],
+  "reels": [
+    {
+      "id": "1.1",
+      "date": "2026-11-04",
+      "series": 1,
+      "status": "posted",
+      "hook": "מה אם זה לא ייראה\nכמו הילד שלי?",
+      "approach": "F",
+      "voice": "yarin",
+      "footage": [
+        "Yarin hook clip",
+        "Sapir's raw clips (son holding the cover, flipping the book)",
+        "Claude's wizard screen recording",
+        "Sapir's preview screen recordings"
+      ],
+      "vo": [
+        "אז גם אתם רוצים ספר עם הילד שלכם בתור הגיבור, אבל מפחדים שלא יצא דומה?",
+        "אז ככה זה עובד.",
+        "כותבים שם, גיל, ומעלים את התמונה שלו.",
+        "רואים תצוגה מקדימה.",
+        "אם זה לא זה, אפשר ליצור עוד גרסה עד שמרוצים.",
+        "אהבתם? תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר."
+      ],
+      "caption": "מפחדים שהספר לא ייראה כמו הילד שלכם? 👀\nלפני שמזמינים, רואים תצוגה מקדימה עם התמונה שלו.\nזה לא זה? יוצרים עוד גרסה, עד שמרוצים.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "project": "media/projects/2026-11-03-reel-1-1-preview-screen",
+      "notes": "Posted 04 / 11 / 2026 21:31 as a trial reel. The template for the month.",
+      "audience": "parents"
+    },
+    {
+      "id": "1.7",
+      "date": "2026-11-05",
+      "series": 1,
+      "status": "needs-voice",
+      "hook": "3 דברים שכדאי לדעת\nלפני שמזמינים",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "צילום סלפי אחד למצלמה ליד חלון, הטלפון בגובה העיניים, כל הריל זה אתה מדבר. אני מוסיף כרטיס מספר לכל נקודה וכתוביות כמו ב 1.1. אין הקלטת מסך, אז אפשר לצלם ולהעלות באותו יום.",
+      "footage": [
+        "Yarin: one talking take to camera"
+      ],
+      "yarin_films": [
+        "צילום אחד שלך מדבר למצלמה (כל הריל)"
+      ],
+      "vo": [
+        "שלושה דברים שכדאי לדעת לפני שמזמינים ספר לילד.",
+        "אחד, יש ספרים מגיל שנה ועד עשר.",
+        "שתיים, התצוגה המקדימה בחינם, אחרי מספר טלפון.",
+        "שלוש, שום דבר לא נשלח ולא מודפס עד שמאשרים."
+      ],
+      "caption": "3 דברים שכדאי לדעת לפני שמזמינים 👇\nיש ספרים מגיל שנה ועד עשר.\nהתצוגה המקדימה בחינם, אחרי מספר טלפון.\nושום דבר לא נשלח ולא מודפס עד שמאשרים.\nספר ילדים מותאם אישית עם השם והתמונה של הילד\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "New 05 Nov, replaces the Genjutsu trend 6.1. Film it today: one take, about 20 s. Facts from defaults.facts (Yarin, 03 Nov).",
+      "audience": "parents"
+    },
+    {
+      "id": "1.6",
+      "date": "2026-11-06",
+      "series": 1,
+      "status": "needs-voice",
+      "hook": "איזה ספר מתאים\nלילד שלי?",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "קטע הפתיחה שלך למצלמה, ואז הקלטת מסך של גלריית הספרים באתר (אני מקליט, בגודל טלפון כמו ב 1.1), ספר אחד לכל מצב עם הכריכה על כל המסך בזמן שאתה אומר אותו.",
+      "footage": [
+        "Yarin: hook clip and voiceover",
+        "Claude: site gallery screen recording, covers of ביי ביי מוצץ, אח חדש, יום הולדת, עדן והחיות החופשיות"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "caption": "לא יודעים איזה ספר לבחור? 🤔\nתחשבו מה הילד עובר השבוע, משם הסיפור מתחיל.\nמוצץ, אח חדש, יומולדת, טיטולים, ועוד הרבה.\nאיזה ספר ילדים מותאם אישית לבחור\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Check on the site that each named book is live before the recording."
+      ],
+      "notes": "05 Nov: now with Yarin's hook clip and voice (was text only). Same day as the new sibling carousel (06 / 11). 05 Nov evening: first grade swapped for the birthday book (best sellers, Yarin).",
+      "vo": [
+        "לא יודעים איזה ספר לבחור?",
+        "תחשבו מה הילד עובר עכשיו.",
+        "נפרדים מהמוצץ? יש ספר.",
+        "אח חדש בדרך? יש ספר.",
+        "יש יומולדת? יש ספר.",
+        "ובכולם הוא הגיבור."
+      ],
+      "audience": "parents",
+      "page": "books/category/bestsellers"
+    },
+    {
+      "id": "2.6",
+      "date": "2026-11-07",
+      "series": 2,
+      "status": "needs-voice",
+      "hook": "התמונה ליד הכריכה.\nתחליטו בעצמכם",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "מסך מפוצל: התמונה שהועלתה ליד הכריכה, ואז העמודים מהתצוגה המקדימה.",
+      "footage": [
+        "source/sapir/raw_holding-cover-smile.mov (her son beside his cover)",
+        "source/sapir/screen-recording_book-preview-pages.mov"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "זו התמונה שהעלו.",
+        "וזו הכריכה של ספר היומולדת.",
+        "תסתכלו על הפנים, על השיער, על החיוך.",
+        "ובפנים הוא בכל עמוד.",
+        "תחליטו אתם אם זה הוא.",
+        "כדאי תמונה אחת ברורה, עם אור טוב."
+      ],
+      "caption": "התמונה מצד אחד, הכריכה של ספר היומולדת מצד שני 👀\nתחליטו אתם אם זה הוא.\nאת התצוגה המקדימה רואים בחינם, לפני שמשלמים.\nספר ילדים מותאם אישית עם השם והתמונה של הילד\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Sapir's son is on camera: her OK."
+      ],
+      "audience": "parents",
+      "page": "books/15"
+    },
+    {
+      "id": "1.2",
+      "date": "2026-11-08",
+      "series": 1,
+      "status": "needs-voice",
+      "hook": "כמה זמן לוקח להזמין?\nבואו נמדוד",
+      "approach": "D",
+      "voice": "yarin",
+      "shot": "הקלטת מסך אחת של כל ההזמנה עם טיימר בפינה. אני מקליט עד שלב הטלפון, ואתה מקליט את שלב הטלפון ואת התצוגה המקדימה בטלפון שלך. מדווחים את הזמן האמיתי.",
+      "footage": [
+        "Claude: wizard screen recording with a timer, name to photo",
+        "Yarin: phone step and preview, screen recorded on his phone"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות",
+        "הקלטת מסך של שלב הטלפון והתצוגה המקדימה"
+      ],
+      "vo": [
+        "מודדים כמה זמן לוקח להזמין ספר.",
+        "מתחילים.",
+        "שם הילד, גיל, בן או בת.",
+        "בוחרים סיפור, למשל יומולדת.",
+        "מעלים תמונה.",
+        "משאירים מספר טלפון, וקוראים את כל הסיפור בחינם.",
+        "עצרנו את הטיימר. תראו כמה זה לקח.",
+        "הכול בטלפון, גם בתור לגן."
+      ],
+      "caption": "כמה זמן לוקח להזמין ספר אישי? ⏱️\nמדדנו מהשם ועד התצוגה המקדימה, הזמן על המסך.\nהכול בטלפון, ומשלמים רק אחרי שרואים.\nספר ילדים מותאם אישית עם השם והתמונה של הילד\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "Phone step added (04 Nov), as found while recording 1.1.",
+      "audience": "parents",
+      "page": "books/15"
+    },
+    {
+      "id": "5.5",
+      "date": "2026-11-09",
+      "series": 5,
+      "status": "needs-voice",
+      "hook": "גיבור על,\nבלי גלימה",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "קטע הפתיחה שלך למצלמה, ואז העמודים של הלב של יובל מהתצוגה המקדימה (אני מקליט מהאתר) בזמן שאתה מדבר.",
+      "footage": [
+        "Yarin: hook clip and voiceover",
+        "Claude: preview pages of הלב של יובל (book 13, ages 4 to 8)"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "איזה כוח על יש לילד שלכם?",
+        "יש ספר שבו הכוח שלו הוא הלב.",
+        "הוא עושה דברים טובים קטנים, כל יום.",
+        "ומגלה שגם מעשה קטן הופך אותו לגיבור.",
+        "עם השם שלו, והפנים שלו, בכל עמוד."
+      ],
+      "caption": "גיבור על, בלי גלימה 🦸\nספר שבו הכוח של הילד שלכם הוא הלב.\nוהוא מגלה שגם מעשה טוב קטן הופך אותו לגיבור.\nלגילאי 4 עד 8, עם השם שלו והפנים שלו בכל עמוד.\nספר ילדים על טוב לב ונתינה, ספר מותאם אישית\n#ספרילדים #חינוךילדים #ערכים #הורות #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Check in the preview that the kind acts are on the pages before recording."
+      ],
+      "notes": "New 05 Nov evening for the third best seller (הלב של יובל), replaces 2.1 (a third how-it-works reel after 1.1 and 1.2).",
+      "audience": "parents",
+      "page": "books/13"
+    },
+    {
+      "id": "1.4",
+      "date": "2026-11-10",
+      "series": 1,
+      "status": "needs-voice",
+      "hook": "סבתא, מה מקבלים\nבספר?",
+      "approach": "C",
+      "voice": "yarin",
+      "shot": "צילום מלמעלה על משטח בהיר, תווית לכל חלק בשליש העליון: כריכה, השם בטקסט, תמונות בפנים, עמוד הקדשה, משלוח.",
+      "footage": [
+        "Yarin: top-down of the printed book, 6 short shots",
+        "fallback: Sapir's flipping clip"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות",
+        "הספר המודפס מלמעלה"
+      ],
+      "vo": [
+        "סבתא, מה מקבלים בספר?",
+        "ספר מודפס, והנכד על הכריכה.",
+        "הנכד בתוך התמונות, והשם שלו בסיפור.",
+        "עמוד הקדשה, שאפשר לכתוב בו בכתב יד.",
+        "ומשלוח עד הבית.",
+        "ולפני שמשלמים, רואים תצוגה מקדימה."
+      ],
+      "caption": "סבתא, מה בעצם מקבלים בספר? 📖\nספר מודפס, הנכד או הנכדה על הכריכה ובתוך הסיפור.\nעמוד הקדשה שכותבים בו בכתב יד.\nמשלוח עד הבית, ולפני שמשלמים רואים תצוגה מקדימה.\nמתנה לנכד מסבתא וסבא, ספר ילדים מותאם אישית\n#מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Needs a printed LumeBook book in hand."
+      ],
+      "audience": "grandma",
+      "notes": "05 Nov evening: the price reel now talks to grandmothers (largest buying group in Yarin's Meta screenshot of 05 Nov). ",
+      "page": "gifts/grandchild"
+    },
+    {
+      "id": "7.1",
+      "date": "2026-11-11",
+      "series": 7,
+      "status": "needs-voice",
+      "hook": "11.11\nיום של אחד",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "שני האחדים על המסך (11.11) הופכים לכריכת הספר, ואז השם על הכריכה מקרוב, ואז הספר ביד. קטע פתיחה אחד למצלמה.",
+      "footage": [
+        "Yarin: hook clip and the book in hand",
+        "Claude: 11.11 card and the site cover recording"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "11.11, יום של אחד.",
+        "אז הנה משהו שיש רק אחד כמוהו.",
+        "ספר שבו הילד שלכם הוא הגיבור היחיד.",
+        "השם שלו על הכריכה, והפנים שלו בכל עמוד."
+      ],
+      "caption": "11.11, יום של אחד ☝️\nספר שיש רק אחד כמוהו, כי הגיבור שלו הוא הילד שלכם.\nמתנה לילד עם השם שלו, ספר ילדים מותאם אישית\n#מתנהלילדים #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [],
+      "notes": "New 04 Nov (Yarin: add Singles Day). Plays on 'one': one of a kind. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'.",
+      "audience": "parents",
+      "page": "books/15"
+    },
+    {
+      "id": "3.1",
+      "date": "2026-11-12",
+      "series": 3,
+      "status": "needs-voice",
+      "hook": "מתנה לחנוכה\nשלא נגמרת אחרי הנר השמיני",
+      "approach": "B",
+      "voice": "yarin",
+      "shot": "הספר המודפס ביד ליד חנוכייה, באור חלון, ואז דפדוף. הצילום האחרון באור ערב.",
+      "footage": [
+        "Yarin: book and hanukkiah, 3 to 4 shots",
+        "fallback: Sapir's flipping clip",
+        "Claude: preview pages of החנוכה שלי (book 86, ages 3 to 10)"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות",
+        "הספר ליד חנוכייה"
+      ],
+      "vo": [
+        "מתנה לחנוכה, שלא נגמרת אחרי הנר השמיני.",
+        "יש ספר של שמונה ערבים, והילד שלכם בתפקיד הראשי.",
+        "מכינים את החנוכייה, ומדליקים נר ועוד נר.",
+        "השם שלו על הכריכה, והדמות שלו בכל עמוד.",
+        "וגם אחרי החג, לפני השינה.",
+        "ובעמוד ההקדשה כותבים לו משהו משלכם."
+      ],
+      "caption": "מתנה לחנוכה שלא נגמרת אחרי הנר השמיני 🕎\nספר של שמונה ערבים, והילד שלכם בתפקיד הראשי.\nהשם שלו על הכריכה, והדמות שלו בכל עמוד.\nלגילאי 3 עד 10, ועמוד הקדשה שכותבים ביד.\nמתנה לחנוכה לילדים, ספר ילדים מותאם אישית\n#חנוכה #מתנהלחנוכה #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Needs a printed book."
+      ],
+      "audience": "parents",
+      "notes": "05 Nov evening: names the book החנוכה שלי (eight evenings, the child in the lead role; text from its page on lumebook.com). ",
+      "page": "books/86"
+    },
+    {
+      "id": "2.7",
+      "date": "2026-11-13",
+      "series": 2,
+      "status": "needs-voice",
+      "hook": "הרגע שהוא מגלה\nשהוא בתוך הספר",
+      "approach": "A",
+      "voice": "yarin",
+      "shot": "קטע הפתיחה שלך למצלמה, ואז שלושה או ארבעה רגעי תגובה מהסרטונים של היוצרות, 3 שניות כל אחד, הקול של הילד נמוך מתחת לקול שלך.",
+      "footage": [
+        "Drive 9x16 re-cuts: 10-reader-keeps-turning-pages.mp4, 09-koral-first-birthday.mp4, 07-natali-open-conversation.mp4 (media/projects/2026-10-16-creator-reels/build.py has the ids)"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "caption": "הרגע שהוא מגלה שהוא בתוך הספר 🥹\nאת הרגעים האלה צילמו לנו הורים שקיבלו את הספר.\nהשם שלו, הפנים שלו, והסיפור שלו.\nספר ילדים מותאם אישית עם השם והתמונה של הילד\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Children on camera from creator videos: check each creator's OK for reuse on @lumebook.il.",
+        "Keep only cards the clips really show."
+      ],
+      "notes": "05 Nov: now with Yarin's hook clip and voice (was text only). Drive downloads over 10 MB go through Chrome (see reel-build-toolchain memory).",
+      "vo": [
+        "הרגע שהוא פותח את הספר,",
+        "ומגלה שהגיבור זה הוא.",
+        "מחפש את עצמו בכל עמוד,",
+        "ומצביע על השם שלו.",
+        "את הרגעים האלה צילמו לנו הורים שקיבלו את הספר."
+      ],
+      "audience": "parents",
+      "page": "books/15"
+    },
+    {
+      "id": "8.2",
+      "date": "2026-11-14",
+      "series": 8,
+      "status": "needs-voice",
+      "hook": "יומולדת שנה לנכד?\nיש ספר ראשון בשבילו",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "קטע הפתיחה שלך למצלמה, ואז העמודים של חברים צבעוניים מהתצוגה המקדימה (אני מקליט מהאתר עם תמונת ילד מאחת הקרוסלות, כמו ב 1.1).",
+      "footage": [
+        "Yarin: hook clip and voiceover",
+        "Claude: preview pages of חברים צבעוניים (book 29, ages 1 to 2)"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "סבתא, לנכד יש יומולדת שנה?",
+        "יש ספר ראשון, שבו התינוק הוא הגיבור.",
+        "צבעים וחיות, במשפטים קצרים שחוזרים.",
+        "והשם שלו בתוך הסיפור.",
+        "את התמונה מבקשים מההורים בווטסאפ."
+      ],
+      "caption": "יומולדת שנה לנכד או לנכדה? 🎈\nספר ראשון שבו התינוק הוא הגיבור.\nצבעים וחיות, במשפטים קצרים שחוזרים, והשם שלו בתוך הסיפור.\nלגילאי שנה עד שנתיים. את התמונה מבקשים מההורים בווטסאפ.\nמתנה ליום הולדת שנה, ספר ראשון לתינוק עם השם שלו\n#יוםהולדתשנה #מתנהלנכד #ספרראשון #סבתא #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "New 05 Nov evening: the fourth best seller (חברים צבעוניים) to the largest buying group, grandmothers. Replaces 5.3 (bedtime, no book of its own).",
+      "audience": "grandma",
+      "page": "books/29"
+    },
+    {
+      "id": "1.3",
+      "date": "2026-11-15",
+      "series": 1,
+      "status": "needs-voice",
+      "hook": "יש יומולדת ביום חמישי.\nאספיק?",
+      "approach": "D",
+      "voice": "yarin",
+      "shot": "לוח שנה על המסך עם תאריך ההזמנה ותאריך ההגעה, והספר המודפס בסוף.",
+      "footage": [
+        "Sapir's flipping clip"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "יש יומולדת בקרוב? זה מה שחשוב לדעת.",
+        "ספר יומולדת, שבו הילד הוא המלך של היום.",
+        "הספר המודפס מגיע עד 7 ימי עסקים.",
+        "משלוח עד הבית, ויש גם איסוף.",
+        "אז אם יש תאריך, מזמינים קצת מוקדם."
+      ],
+      "caption": "יש יומולדת ביום חמישי. אספיק? 🎂\nספר יומולדת, שבו הילד הוא המלך או המלכה של היום.\nהספר המודפס מגיע עד 7 ימי עסקים.\nמתנה ליום הולדת לילדים, ספר אישי עם השם של הילד\n#מתנהליוםהולדת #יוםהולדת #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "audience": "parents",
+      "notes": "05 Nov evening: names the birthday book (best seller 2). ",
+      "page": "books/15"
+    },
+    {
+      "id": "4.1",
+      "date": "2026-11-16",
+      "series": 4,
+      "status": "needs-voice",
+      "hook": "הכנתי ספר\nמתמונה שלי בגיל 4",
+      "approach": "A",
+      "voice": "yarin",
+      "shot": "קונספט 2 מהפלייבוק. התמונה שלך בגיל 4 ליד כריכת התצוגה המקדימה, הפנים שלך מגיבות, שלב הטלפון בטלפון שלך. חוזר לתמונת התינוק מ 1.1.",
+      "footage": [
+        "Yarin: photo at age 4",
+        "Yarin: his own order up to the preview, screen recorded",
+        "Yarin: reaction to camera"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות",
+        "ההזמנה שלך עד התצוגה המקדימה",
+        "תגובה של 2 שניות"
+      ],
+      "vo": [
+        "הכנתי ספר מתמונה שלי בגיל 4.",
+        "אני ירין, אני מנהל את הסושיאל של לומבוק.",
+        "ורציתי לבדוק בעצמי אם זה יוצא דומה.",
+        "בחרתי סיפור, והעליתי תמונה אחת שלי מגיל 4.",
+        "וזה מה שיצא.",
+        "תגידו אתם, זה אני או לא?"
+      ],
+      "caption": "רציתי לבדוק על עצמי לפני שאני ממליץ לכם 😅\nתמונה אחת שלי מגיל 4, וזה מה שיצא.\nזה אני או לא?\nספר ילדים מותאם אישית עם השם והתמונה של הילד\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "From playbook concept 2 (src/scripts/c2.json).",
+      "audience": "parents"
+    },
+    {
+      "id": "3.2",
+      "date": "2026-11-17",
+      "series": 3,
+      "status": "needs-voice",
+      "hook": "סבא וסבתא,\nמה קונים לנכד לחנוכה?",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "קונספט 5 מהפלייבוק. תקריבים של ספר סבתא: כריכה, עמוד הקדשה, עטיפה עם סרט.",
+      "footage": [
+        "media/projects/2026-10-24-grandma-baking-book-reel/ (the Drive close-ups of ספר סבתא אפייה)",
+        "Claude: preview pages of הסוד של חנוכיית סבתא (book 37, ages 2 to 7)"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "סבא וסבתא, מה קונים לנכד לחנוכה?",
+        "ספר שבו הוא מוצא את החנוכייה של סבתא.",
+        "עם השם שלו, והדמות שלו בתוך הסיפור.",
+        "יש בו עמוד הקדשה, ואפשר לכתוב אותה ביד.",
+        "עוטפים, מוסיפים סרט, ומחכים לנר הראשון."
+      ],
+      "caption": "סבא וסבתא, מה קונים לנכד לחנוכה? 🎁\nספר שבו הוא מוצא את החנוכייה של סבתא.\nעם השם שלו, והדמות שלו בתוך הסיפור.\nועמוד הקדשה שכותבים ביד.\nמתנה לחנוכה לנכד, ספר ילדים מותאם אישית\n#חנוכה #מתנהלנכד #סבתא #ספרילדים #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "From playbook concept 5 (c5.json). The family's OK for the child in that book is still the open check in that project's README. 05 Nov evening: names the book הסוד של חנוכיית סבתא (a menorah of grandma's takes the child to the Maccabees).",
+      "audience": "grandma",
+      "page": "books/37"
+    },
+    {
+      "id": "1.5",
+      "date": "2026-11-18",
+      "series": 1,
+      "status": "needs-voice",
+      "hook": "סבתא, מה אם\nלא אהבתי?",
+      "approach": "D",
+      "voice": "yarin",
+      "shot": "הקלטת מסך של התצוגה המקדימה לפני שלב התשלום, ידיים על הטלפון.",
+      "footage": [
+        "Yarin: preview screen, from the 1.2 or 4.1 recording",
+        "Sapir's preview pages"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "מה אם הזמנת לנכד ולא אהבת את התוצאה?",
+        "לפני שמשלמים, רואים את כל הסיפור בחינם.",
+        "בודקים אם הוא מוכר, ואם הסיפור מתאים.",
+        "הספר לא נשלח ולא מודפס עד שתאשרי.",
+        "תראי קודם, ותחליטי אחר כך."
+      ],
+      "caption": "סבתא, מה אם הזמנת ולא אהבת? 🤔\nלפני שמשלמים, קוראים את כל הסיפור בחינם.\nהספר לא נשלח ולא מודפס עד שמאשרים.\nמתנה לנכד מסבתא וסבא, ספר ילדים מותאם אישית\n#מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "05 Nov evening: now to grandmothers, who often start without the photo and the site (the grandchild page says the photo can come from the parents on WhatsApp). The 'not sent and not printed until you approve' line is the site's own wording (seen 03 Nov).",
+      "audience": "grandma",
+      "page": "gifts/grandchild"
+    },
+    {
+      "id": "3.3",
+      "date": "2026-11-19",
+      "series": 3,
+      "status": "needs-voice",
+      "hook": "עד מתי מזמינים\nלחנוכה?",
+      "approach": "D",
+      "voice": "yarin",
+      "shot": "לוח שנה עם 5 / 12 מסומן בעיגול, ואז הספר.",
+      "footage": [
+        "Yarin: calendar on paper or phone",
+        "Sapir's flipping clip"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "רוצים את הספר לחנוכה?",
+        "מזמינים עד 5 / 12, שבוע לפני סוף החג.",
+        "אחרי זה הספר לא נעלם,",
+        "פשוט החג כבר נגמר.",
+        "אז מזמינים בזמן, ומחכים לנר הראשון."
+      ],
+      "caption": "עד מתי מזמינים לחנוכה? 🕎\nעד 5 / 12, שבוע לפני סוף החג.\nאחרי זה הספר לא נעלם, פשוט החג כבר נגמר.\nמתנה לחנוכה לילדים, ספר ילדים מותאם אישית\n#חנוכה #מתנהלחנוכה #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Delivery is up to 7 business days, so a book ordered on 5 / 12 can land after 12 / 12. The script promises no arrival date; if you want 'arrives during Hanukkah' on screen, the last day is earlier."
+      ],
+      "notes": "Date from Yarin, 04 Nov 2026: a week before the last day of Hanukkah (12 / 12 / 2026), framed as the holiday ending, never as the book going away.",
+      "audience": "parents",
+      "page": "gifts/hanukkah"
+    },
+    {
+      "id": "2.3",
+      "date": "2026-11-20",
+      "series": 2,
+      "status": "needs-voice",
+      "hook": "אח חדש במשפחה?\nיש ספר לזה",
+      "approach": "E",
+      "voice": "yarin",
+      "shot": "ספר האח החדש: הכריכה מהאתר, עמודים מהתצוגה המקדימה, דפדוף. באותו יום כמו הקרוסלה 'תהיה אח גדול'.",
+      "footage": [
+        "Claude: site screen recording of the new sibling book",
+        "Sapir's flipping clip"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "אח חדש בבית זה שינוי גדול.",
+        "ספר שבו הוא הגיבור נותן לכם סיבה לדבר על זה ביחד.",
+        "הוא מקבל תפקיד: האח הגדול.",
+        "השם שלו בכל עמוד.",
+        "קוראים לפני השינה, וחוזרים אליו כשצריך."
+      ],
+      "caption": "אח חדש במשפחה? יש ספר לזה 👶\nסיפור שבו הוא האח הגדול, עם השם שלו בכל עמוד.\nסיבה טובה לדבר על זה ביחד, לפני השינה.\nאח חדש בבית, ספר ילדים מותאם אישית\n#אחחדש #אחגדול #תינוקחדש #ספרילדים #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "disclaimer": true,
+      "audience": "parents",
+      "page": "books/2"
+    },
+    {
+      "id": "5.1",
+      "date": "2026-11-21",
+      "series": 5,
+      "status": "needs-voice",
+      "hook": "הלילה האחרון\nעם המוצץ",
+      "approach": "E",
+      "voice": "yarin",
+      "shot": "קטע הפתיחה שלך למצלמה, ואז מוצץ על שידה ליד מנורת לילה, ואז העמודים של ביי ביי מוצץ מהתצוגה המקדימה, והקול שלך על הכול.",
+      "footage": [
+        "Yarin: hook clip, voiceover, pacifier on a nightstand at night (3 shots)",
+        "Claude: site recording of ביי ביי מוצץ"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות",
+        "מוצץ על שידה בלילה"
+      ],
+      "caption": "הלילה האחרון עם המוצץ 🌙\nבספר ביי ביי מוצץ, הילד שלכם הוא זה שנפרד.\nעם השם שלו, והדמות שלו.\nוככה מתחילים לדבר על זה, כבר מהסיפור.\nגמילה ממוצץ, ספר ילדים מותאם אישית\n#גמילהממוצץ #פרידהממוצץ #ספרילדים #הורות #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "disclaimer": true,
+      "notes": "05 Nov: now with Yarin's hook clip and voice (was objects and text only). From playbook concept 3 (c3.json).",
+      "vo": [
+        "הלילה האחרון עם המוצץ.",
+        "ועוד לא החלטתם איך מדברים איתו על זה?",
+        "יש סיפור שבו הוא בעצמו נפרד מהמוצץ.",
+        "עם השם שלו, והדמות שלו.",
+        "וככה מתחילים לדבר על זה, כבר מהסיפור."
+      ],
+      "audience": "parents",
+      "page": "books/41"
+    },
+    {
+      "id": "8.1",
+      "date": "2026-11-22",
+      "series": 8,
+      "status": "needs-voice",
+      "hook": "סבתא, לנכד יש\nיומולדת בקרוב?",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "קטע הפתיחה שלך למצלמה, הקלטת מסך של יום הולדת מהתצוגה המקדימה (אני מקליט), ודפדוף בספר בסוף.",
+      "footage": [
+        "Yarin: hook clip and voiceover",
+        "Claude: preview pages of יום הולדת (book 15, ages 3 to 8)",
+        "Sapir's flipping clip"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "סבתא, לנכד יש יומולדת בקרוב?",
+        "יש ספר שבו הוא המלך של היום.",
+        "עם השם שלו, והפנים שלו בכל עמוד.",
+        "את התמונה מבקשים מההורים בווטסאפ.",
+        "ובעמוד הראשון, הקדשה ממך."
+      ],
+      "caption": "סבתא, לנכד או לנכדה יש יומולדת בקרוב? 🎂\nספר שבו הם המלך או המלכה של היום.\nעם השם והפנים שלהם בכל עמוד.\nאת התמונה מבקשים מההורים בווטסאפ, ורואים את כל הסיפור בחינם לפני שמשלמים.\nמתנה ליום הולדת לנכד מסבתא, ספר ילדים מותאם אישית\n#מתנהלנכד #מתנהליוםהולדת #סבתא #ספרילדים #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "New 05 Nov evening: the second best seller (יום הולדת) to grandmothers. Replaces 3.4 (uncles and aunts; men and the young are a small share of buyers).",
+      "audience": "grandma",
+      "page": "books/15"
+    },
+    {
+      "id": "5.4",
+      "date": "2026-11-23",
+      "series": 5,
+      "status": "needs-voice",
+      "hook": "נפרדים\nמהטיטול?",
+      "approach": "E",
+      "voice": "yarin",
+      "shot": "קטע הפתיחה שלך למצלמה, ואז העמודים של עדן והחיות החופשיות מהתצוגה המקדימה (אני מקליט), חיה אחת בכל משפט.",
+      "footage": [
+        "Yarin: hook clip and voiceover",
+        "Claude: preview pages of עדן והחיות החופשיות (book 43, ages 2 to 4)"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "נפרדים מהטיטול, ולא יודעים איך לדבר על זה?",
+        "יש סיפור שבו הוא פוגש חיות בגן החיות.",
+        "הקוף, האריה, הדולפין והארנבת.",
+        "כל אחד מהם נפרד מהטיטול, וגילה כוח חדש.",
+        "ובסוף, גם הוא."
+      ],
+      "caption": "נפרדים מהטיטול? 🐒\nסיפור שבו הילד שלכם פוגש בגן החיות קוף, אריה, דולפין וארנבת.\nכל אחד מהם נפרד מהטיטול, וגילה כוח חדש.\nובסוף, גם הוא. לגילאי שנתיים עד 4.\nגמילה מחיתולים, ספר ילדים מותאם אישית\n#גמילהמחיתולים #נפרדיםמהטיטול #ספרילדים #הורות #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "disclaimer": true,
+      "notes": "New 05 Nov evening: the seventh best seller (עדן והחיות החופשיות). Replaces 2.4, which repeated 1.3 (birthday delivery times).",
+      "audience": "parents",
+      "page": "books/43"
+    },
+    {
+      "id": "2.5",
+      "date": "2026-11-24",
+      "series": 2,
+      "status": "needs-voice",
+      "hook": "אחים?\nכל אחד עם הספר שלו",
+      "approach": "G",
+      "voice": "yarin",
+      "shot": "שני ספרים זה ליד זה, כל אחד עם שם אחר על הכריכה.",
+      "footage": [
+        "Yarin: two printed books side by side",
+        "fallback: two covers from the site gallery"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "שני ילדים בבית, וספר אחד?",
+        "לא פייר.",
+        "כל אחד מקבל ספר משלו.",
+        "עם השם שלו, והפנים שלו.",
+        "כל אחד הגיבור של הסיפור שלו.",
+        "ככה אף אחד לא מרגיש בצד."
+      ],
+      "caption": "שני ילדים בבית, וספר אחד? לא פייר 😅\nכל אחד מקבל ספר משלו, עם השם והפנים שלו.\nכל אחד הגיבור של הסיפור שלו.\nספר ילדים לכל אחד מהאחים, מותאם אישית\n#אחיםואחיות #ספרילדים #ספרמותאםאישית #הורות #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [],
+      "audience": "parents",
+      "page": "books/category/bestsellers"
+    },
+    {
+      "id": "4.2",
+      "date": "2026-11-25",
+      "series": 4,
+      "status": "needs-voice",
+      "hook": "שאלתם בתגובות,\nאני עונה",
+      "approach": "D",
+      "voice": "yarin",
+      "shot": "המדבקה של אינסטגרם לתשובה על תגובה עם התגובה האמיתית, ואז התשובה על המסך. מחליפים לשאלה שהכי שאלו באותו שבוע, וזו שאלת הגיבוי.",
+      "footage": [
+        "Claude: wizard language step recording",
+        "Yarin: hook clip"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "שאלתם בתגובות: מאיזה גיל אפשר?",
+        "יש ספרים מגיל שנה ועד עשר.",
+        "בוחרים את הסיפור לפי הגיל ולפי מה שהילד עובר.",
+        "תינוק, פעוט או ילד בכיתה א, יש סיפור שמתאים.",
+        "יש לכם עוד שאלה? תכתבו לי למטה."
+      ],
+      "caption": "שאלתם, אני עונה 💬\nיש ספרים לגילאי שנה עד עשר.\nבוחרים את הסיפור לפי הגיל ולפי מה שהילד עובר.\nספר ילדים מותאם אישית לכל גיל, מגיל שנה עד עשר\n#ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Never answer the photo privacy question on camera until Yossi gives the real answer."
+      ],
+      "notes": "New 04 Nov. Repeats whenever the comments bring a good question.",
+      "audience": "parents"
+    },
+    {
+      "id": "2.8",
+      "date": "2026-11-26",
+      "series": 2,
+      "status": "needs-voice",
+      "hook": "סבתא, מה כותבים\nבהקדשה לנכד?",
+      "approach": "C",
+      "voice": "yarin",
+      "shot": "תקריב של עמוד ההקדשה ועט שכותב, רעיון אחד בכל צילום, כרטיס מספר על כל אחד.",
+      "footage": [
+        "Yarin: dedication page with a pen",
+        "fallback: the grandma book dedication close-up"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות",
+        "כתיבה בעמוד ההקדשה"
+      ],
+      "vo": [
+        "סבתא, לא יודעת מה לכתוב בהקדשה לנכד?",
+        "הנה שלושה רעיונות.",
+        "אחד: משהו שהוא אמר השנה, במילים שלו.",
+        "שתיים: משהו שאתם עושים רק ביחד.",
+        "שלוש: משפט אחד שתרצי שיקרא כשיהיה גדול.",
+        "ובסוף, חתימה ותאריך."
+      ],
+      "caption": "סבתא, מה כותבים בהקדשה לנכד? ✍️\nמשהו שהוא אמר השנה, משהו שאתם עושים רק ביחד, ומשפט לעתיד.\nובסוף, חתימה ותאריך.\nמתנה לנכד מסבתא וסבא, ספר ילדים מותאם אישית\n#מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "New 04 Nov. A save magnet for the gift weeks. 05 Nov evening: now to grandma (the grandparent gift page leads with the dedication).",
+      "audience": "grandma",
+      "page": "gifts/grandchild"
+    },
+    {
+      "id": "7.2",
+      "date": "2026-11-27",
+      "series": 7,
+      "status": "needs-voice",
+      "hook": "סבתא, בלאק פריידיי.\nספר לכל נכד",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "הספר עטוף בסרט על שולחן כהה, ואז הכריכה. באותו יום כמו הקרוסלה 'אפשר עוד פעם?'.",
+      "footage": [
+        "Yarin: wrapped book, hook clip",
+        "Sapir's flipping clip"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות",
+        "הספר עטוף כמתנה"
+      ],
+      "vo": [
+        "סבתא, בלאק פריידיי.",
+        "זה הזמן לסדר מתנה לכל נכד.",
+        "ספר שבו הוא הגיבור.",
+        "עם השם שלו, והפנים שלו בכל עמוד.",
+        "ועמוד הקדשה שכותבים ביד."
+      ],
+      "caption": "סבתא, בלאק פריידיי וספר לכל נכד 🖤\nספר שבו הנכד או הנכדה הם הגיבורים.\nעם השם והפנים שלהם בכל עמוד, ועמוד הקדשה שכותבים ביד.\nמתנה לנכד מסבתא וסבא, ספר ילדים מותאם אישית\n#מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [],
+      "notes": "05 Nov evening: Black Friday aimed at grandmothers with several grandchildren. No price or sale amount on this reel (Yarin, 05 Nov 2026: never mention the price).",
+      "audience": "grandma",
+      "page": "gifts/grandchild"
+    },
+    {
+      "id": "5.2",
+      "date": "2026-11-28",
+      "series": 5,
+      "status": "needs-voice",
+      "hook": "״אפשר עוד פעם?״\nבפעם המאה",
+      "approach": "E",
+      "voice": "yarin",
+      "shot": "אתה קורא שוב את אותו ספר עם פרצוף עייף (או רק ידיים), ואז הספר של הילד עם השם שלו. באותו יום כמו הקרוסלה 'אפשר עוד פעם?'.",
+      "footage": [
+        "Yarin: a tired 'עוד פעם' reaction",
+        "Drive re-cut 10-reader-keeps-turning-pages.mp4"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "״אפשר עוד פעם?״",
+        "אותו ספר, בפעם המאה החודש.",
+        "אם כבר קוראים את אותו ספר כל ערב,",
+        "שלפחות הוא יהיה הגיבור שלו.",
+        "עם השם שלו, והפנים שלו בכל עמוד.",
+        "ואולי גם אתם תחייכו בפעם המאה ואחת."
+      ],
+      "caption": "״אפשר עוד פעם?״ בפעם המאה 😅\nאם כבר אותו ספר כל ערב, שלפחות הוא יהיה הגיבור.\nעם השם שלו והפנים שלו בכל עמוד.\nספר לפני השינה עם השם של הילד\n#סיפורלפניהשינה #ספרילדים #ספרמותאםאישית #הורות #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "New 04 Nov. Light humour, no claim about why children ask again. Moved from 27 Nov (Black Friday), the day after the 'אפשר עוד פעם?' carousel.",
+      "audience": "parents"
+    },
+    {
+      "id": "2.2",
+      "date": "2026-11-29",
+      "series": 2,
+      "status": "needs-footage",
+      "hook": "הספר של [שם]\nהגיע",
+      "approach": "A",
+      "voice": "yarin",
+      "shot": "רק באישור ההורים: כריכה, פתיחה, דפדוף. בלי הפנים של הילד אם הם לא מסכימים.",
+      "footage": [
+        "A family's delivered book (a creator from the barter batch or a customer)"
+      ],
+      "yarin_films": [
+        "קריינות",
+        "פתיחת חבילה אם הספר מגיע אליך"
+      ],
+      "vo": [
+        "הספר של [שם] הגיע.",
+        "הכריכה, והשם שלו בגדול.",
+        "פותחים.",
+        "הוא כבר בתמונה הראשונה.",
+        "והוא בכל עמוד בסיפור.",
+        "זה הרגע שבשבילו אני עושה את זה."
+      ],
+      "caption": "הספר של [שם] הגיע 📦\nהשם שלו על הכריכה, והוא בכל עמוד בסיפור.\nתודה להורים שנתנו לנו לצלם.\nספר ילדים מותאם אישית עם השם והתמונה של הילד\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "A real family's book and their written OK."
+      ],
+      "audience": "parents"
+    },
+    {
+      "id": "7.3",
+      "date": "2026-11-30",
+      "series": 7,
+      "status": "needs-voice",
+      "hook": "סייבר מאנדיי.\nמזמינים מהספה",
+      "approach": "D",
+      "voice": "yarin",
+      "shot": "אתה על הספה עם הטלפון, ואז הקלטת האשף בחלון, ואז התצוגה המקדימה.",
+      "footage": [
+        "Yarin: on the couch with the phone, hook clip",
+        "Claude: wizard recording",
+        "Yarin: email with a digital copy (from 1.3)"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה על הספה",
+        "קריינות"
+      ],
+      "vo": [
+        "סייבר מאנדיי, ומזמינים מהספה.",
+        "כותבים שם, מעלים תמונה.",
+        "וקוראים את כל הסיפור בחינם.",
+        "ומשלמים רק אם התאהבתם."
+      ],
+      "caption": "סייבר מאנדיי, ומזמינים מהספה 🛋️\nשם, תמונה, ואת כל הסיפור קוראים בחינם לפני שמשלמים.\nספר ילדים מותאם אישית עם השם והתמונה של הילד\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [],
+      "notes": "New 04 Nov (Yarin: add Cyber Monday). Replaces the pacifier reel on this day; 5.1 moved to 21 Nov. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'.",
+      "audience": "parents",
+      "page": "books/category/bestsellers"
+    }
+  ],
+  "dropped": [
+    {
+      "id": "6.1",
+      "date": "2026-11-05",
+      "series": 6,
+      "status": "ready",
+      "hook": "״עוד עמוד אחד אמא״\n״רק עוד אחד״",
+      "approach": "trend",
+      "voice": "trend",
+      "footage": [
+        "media/projects/2026-10-25-genjutsu-lite-trends/captioned/02-ben-window-caption-1.mp4 to -5.mp4 (already captioned, 5 trial versions)"
+      ],
+      "yarin_films": [],
+      "caption": "ההסבר: הוא קורא ספר שבו הוא הגיבור 📖\nהשם שלו והפנים שלו בתוך הסיפור\nאז ברור שעוד עמוד אחד, ועוד אחד\nמעלים תמונה של הילד ומוסיפים את השם\nרואים תצוגה מקדימה בחינם\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "Zero work: the five captioned versions are made. Post one, or all five 5 min apart like 27 to 29 Oct. Caption from 02-ben-window-description.txt with the 1.1 CTA.",
+      "clip_seconds": 13.3,
+      "dropped": "05 Nov 2026: Yarin does not want the Genjutsu trend clips; every reel must include him."
+    },
+    {
+      "id": "6.2",
+      "date": null,
+      "series": 6,
+      "status": "spare",
+      "hook": "רגע, זה הבן שלי\nעל הכריכה?",
+      "approach": "trend",
+      "voice": "trend",
+      "footage": [
+        "media/projects/2026-10-25-genjutsu-lite-trends/results/01-book-3d-v1-1080p-sound.mp4 (7 s, sound in)"
+      ],
+      "yarin_films": [],
+      "caption": "רגע, זה הבן שלי על הכריכה? 👀\nהשם שלו על הכריכה, והפנים שלו בתוך הסיפור.\nרואים תצוגה מקדימה בחינם לפני שמשלמים.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "Spare since 04 Nov: the clip is 7 s, under the 10 s minimum. Usable with a 3 s end card.",
+      "clip_seconds": 7.0,
+      "dropped": "05 Nov 2026: Yarin does not want the Genjutsu trend clips; every reel must include him."
+    },
+    {
+      "id": "6.3",
+      "date": "2026-11-14",
+      "series": 6,
+      "status": "needs-edit",
+      "hook": "הסיפור לפני השינה נגמר\nעכשיו הסיפור שלי",
+      "approach": "trend",
+      "voice": "trend",
+      "footage": [
+        "media/projects/2026-10-25-genjutsu-lite-trends/results/06-mom-spa-v1-1080p-sound.mp4 (11 s)"
+      ],
+      "yarin_films": [],
+      "caption": "הסיפור לפני השינה נגמר, עכשיו הסיפור שלי 😌\nובשבילם? סיפור שבו הם הגיבורים, עם השם והפנים שלהם.\nרואים תצוגה מקדימה בחינם.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "Claude burns the hook and the CTA, 3 trial versions. Hook options: captions.json 06-mom-spa.",
+      "clip_seconds": 11.0,
+      "dropped": "05 Nov 2026: Yarin does not want the Genjutsu trend clips; every reel must include him."
+    },
+    {
+      "id": "6.4",
+      "date": null,
+      "series": 6,
+      "status": "spare",
+      "hook": "זה מה שקורה כשאני\nלא נמצאת בבית?",
+      "approach": "trend",
+      "voice": "trend",
+      "footage": [
+        "media/projects/2026-10-19-genjutsu-ben-dance-lume/ben-dance-lume-caption-1.mp4, -2-mirrored, -3-zoom-13s (1080x1920, 15 s)"
+      ],
+      "yarin_films": [],
+      "caption": "כשהספר שלו הגיע הביתה 🕺\nספר שבו הילד שלכם הוא הגיבור, עם השם והפנים שלו.\nרואים תצוגה מקדימה בחינם.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Check it was not posted before 26 Oct (before Postiz)."
+      ],
+      "notes": "Spare since 04 Nov: moved out for the sale days. Ready to post (15 s), so it is the backup when a filmed reel slips. Three captioned versions with Yarin's hooks (captions.json v1 to v3); the caption above fits v1.",
+      "clip_seconds": 15.0,
+      "dropped": "05 Nov 2026: Yarin does not want the Genjutsu trend clips; every reel must include him."
+    },
+    {
+      "id": "6.5",
+      "date": null,
+      "series": 6,
+      "status": "spare",
+      "hook": "POV אמא גאה בי",
+      "approach": "trend",
+      "voice": "trend",
+      "footage": [
+        "media/projects/2026-10-21-genjutsu-ben-truck-jump/captioned/ben-truck-jump-caption-1..5.mp4 (8 s)"
+      ],
+      "yarin_films": [],
+      "caption": "כשהוא בטוח שהוא הגיבור של הסיפור 😎\nבספר שלו, הוא באמת הגיבור.\nרואים תצוגה מקדימה בחינם.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "The toy truck kept a Mercedes star on the grille: blur it or skip this day.",
+        "Check it was not posted before 26 Oct.",
+        "Made from the 480p generation (upscale not done): check it looks sharp enough on a phone."
+      ],
+      "notes": "Spare since 04 Nov: the clip is 8 s, under the 10 s minimum. Usable with a 2 s end card.",
+      "clip_seconds": 8.0,
+      "dropped": "05 Nov 2026: Yarin does not want the Genjutsu trend clips; every reel must include him."
+    },
+    {
+      "id": "2.1",
+      "date": null,
+      "series": 2,
+      "status": "spare",
+      "hook": "ככה נולד\nספר של ילד",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "שלושה כרטיסים על המסך (שם, גיל, תמונה) מעל הקלטת האשף, ואז הבן של ספיר מדפדף בספר המודפס.",
+      "footage": [
+        "media/projects/2026-11-03-reel-1-1-preview-screen/source/wizard-screen-recording.mp4",
+        "media/projects/2026-11-03-reel-1-1-preview-screen/source/sapir/ (flipping, holding cover)"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "שם. גיל. תמונה.",
+        "זה כל מה שצריך.",
+        "ואז הילד שלכם הופך לגיבור של סיפור.",
+        "על הכריכה, ובכל עמוד.",
+        "לא צריך לדעת לצייר, ולא לכתוב.",
+        "הספר מודפס, ומגיע עם עותק דיגיטלי."
+      ],
+      "caption": "שם. גיל. תמונה. זה כל מה שצריך ✨\nהילד שלכם על הכריכה, ובכל עמוד בסיפור.\nספר מודפס, ועותק דיגיטלי במייל.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [
+        "Sapir's son is on camera: confirm her OK covers more than one reel."
+      ],
+      "notes": "Dropped 05 Nov 2026 evening for 5.5 (Yarin: double down on the buyers and best selling books). "
+    },
+    {
+      "id": "5.3",
+      "date": null,
+      "series": 5,
+      "status": "spare",
+      "hook": "כל ערב אותו סיפור\nלפני השינה?",
+      "approach": "E",
+      "voice": "yarin",
+      "shot": "קטע הפתיחה שלך למצלמה בחדר חשוך ליד מנורת לילה, ואז העמודים מהתצוגה המקדימה של ספר (אני מקליט מהאתר) בזמן שאתה מדבר.",
+      "footage": [
+        "Yarin: hook clip by a night lamp",
+        "Claude: preview pages screen recording"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה ליד מנורת לילה",
+        "קריינות"
+      ],
+      "vo": [
+        "כל ערב אותו סיפור לפני השינה?",
+        "תנסו פעם אחת סיפור שבו הוא הגיבור.",
+        "עם השם שלו, והפנים שלו, בכל עמוד.",
+        "ותראו איך הוא מקשיב עד הסוף."
+      ],
+      "caption": "כל ערב אותו סיפור לפני השינה? 🌙\nתנסו פעם אחת סיפור שבו הוא הגיבור, עם השם והפנים שלו.\nרואים תצוגה מקדימה בחינם.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "Dropped 05 Nov 2026 evening for 8.2 (Yarin: double down on the buyers and best selling books). New 05 Nov, replaces the Genjutsu trend 6.3 (keeps its bedtime topic)."
+    },
+    {
+      "id": "3.4",
+      "date": null,
+      "series": 3,
+      "status": "spare",
+      "hook": "דודים, זו המתנה שלכם\nלחנוכה השנה",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "כרטיס בסגנון וואטסאפ 'תשלחי לי תמונה של נועם?' (אני מכין, לא צ'אט אמיתי), הקלטת האשף, ודפדוף בספר.",
+      "footage": [
+        "Claude: chat card and wizard recording",
+        "Sapir's flipping clip"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "דודים, זו המתנה שלכם לחנוכה השנה.",
+        "צריך רק שם, גיל ותמונה של האחיין.",
+        "את התמונה מבקשים מההורים בווטסאפ.",
+        "ויוצא ספר שבו הוא הגיבור.",
+        "כותבים הקדשה מהדודים, ועוטפים."
+      ],
+      "caption": "דודים, זו המתנה שלכם לחנוכה השנה 🎁\nשם, גיל, ותמונה אחת שמבקשים מההורים.\nויוצא ספר שבו האחיין הוא הגיבור.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "Dropped 05 Nov 2026 evening for 8.1 (Yarin: double down on the buyers and best selling books). New 04 Nov: the gift giver angle (one gift giver post a week, 12 Oct decision 2). If 22 / 11 is the real deadline, say it on screen."
+    },
+    {
+      "id": "2.4",
+      "date": null,
+      "series": 2,
+      "status": "spare",
+      "hook": "שכחתם מתנה\nליומולדת?",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "הקלטת מסך מהירה של ההזמנה, ואז המייל עם הקובץ הדיגיטלי.",
+      "footage": [
+        "Claude: wizard recording",
+        "Yarin: email with a digital copy (from 1.3)"
+      ],
+      "yarin_films": [
+        "קטע פתיחה למצלמה",
+        "קריינות"
+      ],
+      "vo": [
+        "שכחתם מתנה ליומולדת?",
+        "בוחרים סיפור, ומעלים תמונה.",
+        "העותק הדיגיטלי מגיע למייל תוך דקות.",
+        "אפשר להראות אותו כבר היום.",
+        "והספר המודפס מגיע אחר כך, עד 7 ימי עסקים.",
+        "מתנה עם השם שלו על הכריכה."
+      ],
+      "caption": "שכחתם מתנה ליומולדת? 🙈\nהעותק הדיגיטלי מגיע למייל תוך דקות, והמודפס אחר כך.\nמתנה עם השם שלו על הכריכה.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "notes": "Dropped 05 Nov 2026 evening for 5.4 (Yarin: double down on the buyers and best selling books). Also the answer for anyone who missed the Hanukkah print date."
+    }
+  ]
+}

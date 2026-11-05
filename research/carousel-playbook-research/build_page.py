@@ -86,8 +86,8 @@ def post_html(h):
         t = m.group(0)
         cols = len(re.findall(r"<th", t.split("</tr>")[0]))
         cls = "wide" if cols >= 5 else ("mid" if cols == 4 else "")
-        t = t.replace("<table>", '<table class="lb-table">', 1)
-        return f'<div class="{" ".join(c for c in ("tbl", "lb-table-wrap", cls) if c)}">{t}</div>'
+        t = t.replace("<table>", f'<table class="{" ".join(c for c in ("lb-table", "top", cls) if c)}">', 1)
+        return f'<div class="tbl lb-table-wrap">{t}</div>'
     h = re.sub(r"<table>.*?</table>", wrap_table, h, flags=re.S)
     # checklists (the whole line is the label, so tapping the text ticks the box)
     h = re.sub(r"<li>\[ \] (.*?)</li>", lambda m: f'<li class="check"><label class="lb-check"><input type="checkbox"><span>{m.group(1)}</span></label></li>', h, flags=re.S)
@@ -197,11 +197,11 @@ def concept_page(c):
     copy_text = "\n".join(copy_lines)
     return f'''
 <header class="sec-head"><p class="eyebrow lb-eyebrow">קונספט {c["n"]} מתוך 12 · {html.escape(c["topic"])}</p><h1>{html.escape(c["name"])}</h1></header>
-<div class="tbl lb-table-wrap meta"><table class="lb-table"><tbody>{meta_rows}</tbody></table></div>
+<div class="tbl lb-table-wrap meta"><table class="lb-table top"><tbody>{meta_rows}</tbody></table></div>
 {f'<div class="pre lb-prose">{md(c["pre"])}</div>' if c["pre"] else ""}
 <div class="strip-head"><h2>השקופיות</h2><button class="lb-btn secondary sm copy" type="button" data-copy="{html.escape(copy_text)}">העתקת הטקסט לכל השקופיות</button></div>
 <p class="hint lb-note">התצוגה היא סקיצה של הטקסט והפריסה, לא עיצוב סופי. החליקו כדי לראות את כל השקופיות. מתחת לכל שקופית: הוראות העיצוב והמקור.</p>
-<div class="strip" tabindex="0" aria-label="שקופיות קונספט {c["n"]}">{"".join(strip)}</div>
+<div class="lb-scroller snap" tabindex="0" aria-label="שקופיות קונספט {c["n"]}">{"".join(strip)}</div>
 <div class="after lb-prose">{md(c["after"])}</div>
 '''
 
@@ -244,15 +244,15 @@ def pager(route):
         return SHORT[r] if isinstance(r, int) else f"קונספט {r[1:]}"
     def rid(r):
         return f"s{r}" if isinstance(r, int) else r
-    prev = f'<a class="pg prev lb-card" href="#{rid(order[i-1])}"><small>הקודם</small>{label(order[i-1])}</a>' if i > 0 else "<span></span>"
-    nxt = f'<a class="pg next lb-card" href="#{rid(order[i+1])}"><small>הבא</small>{label(order[i+1])}</a>' if i < len(order) - 1 else "<span></span>"
-    return f'<nav class="pager" aria-label="ניווט בין סעיפים">{prev}{nxt}</nav>'
+    prev = f'<a class="prev" href="#{rid(order[i-1])}"><small>הקודם</small><b>{label(order[i-1])}</b></a>' if i > 0 else ""
+    nxt = f'<a class="next" href="#{rid(order[i+1])}"><small>הבא</small><b>{label(order[i+1])}</b></a>' if i < len(order) - 1 else ""
+    return f'<nav class="lb-pager" aria-label="ניווט בין סעיפים">{prev}{nxt}</nav>'
 
 # ---------- home extras ----------
 FLOW = ["רגע ספציפי + גיל", "הזדהות", "2 עד 3 כלים עם מקור", "סיפור ככלי", "עמוד אמיתי מהספר", "משלמים רק אם אהבתם", "צרו תצוגה מקדימה בחינם"]
 flow_html = '<ol class="flow" aria-label="הנוסחה">' + "".join(f'<li{" class=cta" if i == len(FLOW)-1 else ""}><span>{i+1}</span>{t}</li>' for i, t in enumerate(FLOW)) + "</ol>"
 home_head = f'''
-<header class="hero">
+<header class="lb-hero">
   <p class="eyebrow lb-eyebrow">פלייבוק · גרסה 1 · 6.10.2026</p>
   <h1>קרוסלות שמובילות מהרגע האמיתי של הילד <em>לתצוגה מקדימה בחינם</em></h1>
   <p class="lede lb-lede">איך לכתוב, לבנות, לעצב ולמדוד קרוסלות Instagram של לומבוק, על בסיס מחקר: תיעוד של Meta, כ-110 מאמרים, ניתוח של כ-108 קרוסלות מהשוק, ו-12 קונספטים מוכנים ל-Canva.</p>
@@ -299,14 +299,13 @@ page = f'''<meta charset="utf-8">
 {design.head()}
 <style>{CSS}</style>
 <div class="pb-root" dir="rtl" lang="he">
-  <header class="lb-topbar"><div class="lb-topbar-in">
+  <header class="lb-topbar has-toc"><div class="lb-topbar-in">
     <button class="menu lb-btn secondary sm lb-menu-btn" type="button" aria-expanded="false" aria-controls="nav">תוכן</button>
-    <a class="lb-brand" href="#s1"><img src="{logo_uri}" alt="" width="28" height="28"><b>פלייבוק קרוסלות</b></a>
+    <a class="lb-brand" href="#s1"><img src="{logo_uri}" alt="" width="28" height="28"><span><b>פלייבוק קרוסלות</b></span></a>
     <nav class="lb-toc" aria-label="חלקי הפלייבוק">{toc_html}</nav>
     <span class="lb-spacer"></span>
     <span class="bar-meta">לומבוק · 6.10.2026</span>
     <a class="lb-btn ghost sm" href="{HUB}" target="_blank" rel="noopener">ללוח</a>
-    {design.theme_toggle()}
   </div></header>
   <div class="app lb-app">
     <aside class="nav lb-sidebar" id="nav" aria-label="תוכן הפלייבוק">

@@ -8,12 +8,8 @@
    Design tokens only. */
 :root{--content-w:64rem}
 
-/* chrome */
-.lb-topbar .lb-brand{padding-inline:0;min-width:0;flex:none}
-.lb-topbar .lb-brand img{width:1.75rem;height:1.75rem;border-radius:var(--r-xs);flex:none}
-.lb-topbar .lb-brand b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lb-topbar .lb-toc{flex:0 1 auto}
-.lb-section{scroll-margin-top:4.5rem}
+/* chrome: lb-topbar has-toc with the bar brand */
+@media (min-width:981px){.lb-topbar .lb-brand{flex:none}} /* one row: the name never cuts, the section pills give way first */
 
 /* reading measure */
 .intro{gap:var(--sp-4)}
@@ -25,14 +21,15 @@
 .finding b{font-size:var(--fs-headline);font-weight:700;line-height:1.3}
 .finding p{color:var(--text-2);font-size:var(--fs-callout)}
 
-/* example cards: slide strip on top, notes below */
-.card .strip{background:var(--surface-sunk);padding:var(--sp-3);overflow-x:auto;border-bottom:1px solid var(--line)}
-.card .strip img{display:block;height:13rem;width:auto;max-width:none;border-radius:var(--r-sm)}
-.card .body{padding:var(--sp-4) var(--sp-5) var(--sp-5);display:grid;gap:var(--sp-3);min-width:0}
+/* example cards (lb-card is-flush lb-media): the slide strip is one wide picture in an lb-scroller on a sunk well,
+   the notes an lb-media-body */
+.card .lb-scroller{--item:max-content;background:var(--surface-sunk);padding:var(--sp-3);border-bottom:1px solid var(--line)}
+.card .lb-scroller img{display:block;height:13rem;width:auto;max-width:none;border-radius:var(--r-sm)}
+.card .lb-media-body{padding:var(--sp-4) var(--sp-5) var(--sp-5);gap:var(--sp-3)}
 .card .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--sp-2) var(--sp-4)}
 .card .pills{gap:var(--sp-1)}
-.card .body p{color:var(--text-2);font-size:var(--fs-callout);max-width:42rem}
-.card .body p strong{color:var(--text)}
+.card .lb-media-body p{color:var(--text-2);font-size:var(--fs-callout);max-width:42rem}
+.card .lb-media-body p strong{color:var(--text)}
 .lb-chip{font-variant-numeric:tabular-nums}
 .sub{margin-top:var(--sp-2)}
 .src{overflow-wrap:anywhere}
@@ -41,9 +38,8 @@
 .tmpl{--min:18rem}
 .tmpl ol{margin:0;padding-inline-start:1.2rem;color:var(--text-2);font-size:var(--fs-callout);display:grid;gap:var(--sp-1)}
 
-/* ranked tables */
-.lb-table{min-width:46rem;font-size:var(--fs-footnote)}
-.lb-table td{vertical-align:top}
+/* ranked tables (lb-table mid top) */
+.lb-table{font-size:var(--fs-footnote)}
 .lb-table td.cap{color:var(--text-2);max-width:26rem}
 .lb-section > h3{margin-top:var(--sp-3)}
 
@@ -51,26 +47,18 @@
 ul.lim{margin:0;padding-inline-start:1.2rem;color:var(--text-2);display:grid;gap:var(--sp-2);max-width:42rem}
 ul.lim strong{color:var(--text)}
 
-@media (max-width:860px){
-  .lb-topbar-in{flex-wrap:wrap;row-gap:var(--sp-1);padding-top:var(--sp-2)}
-  .lb-topbar .lb-brand{flex:1 1 0}
-  .lb-topbar .lb-spacer{display:none}
-  .lb-topbar .lb-toc{order:10;flex-basis:100%;margin-inline:calc(-1 * var(--sp-3));padding-bottom:var(--sp-2)}
-  .lb-section{scroll-margin-top:7rem}
-}
 @media (max-width:520px){
-  .card .strip img{height:11rem}
+  .card .lb-scroller img{height:11rem}
 }
 </style>
 
-<header class="lb-topbar"><div class="lb-topbar-in">
-  <a class="lb-brand" href="#top"><img src="LB_LOGO_URI" alt="" width="28" height="28"><b>Carousel research</b></a>
+<header class="lb-topbar has-toc"><div class="lb-topbar-in">
+  <a class="lb-brand" href="#top"><img src="LB_LOGO_URI" alt="" width="28" height="28"><span><b>Carousel research</b></span></a>
   <nav class="lb-toc" aria-label="Sections">
     <a href="#method">Method</a><a href="#findings">Findings</a><a href="#israel">Israel</a><a href="#global">Global</a><a href="#templates">Templates</a><a href="#tables">Tables</a><a href="#limits">Limits</a>
   </nav>
   <span class="lb-spacer"></span>
   <a class="lb-btn ghost sm" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">LumeBook HQ</a>
-  <!--LB:THEME-TOGGLE-->
 </div></header>
 
 <main class="lb-page" id="top">
@@ -106,9 +94,9 @@ ul.lim strong{color:var(--text)}
   <h2>Israel: the best carousels</h2>
   <span class="sub lb-eyebrow">Sell or capture leads</span>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/Das4fCQDTBf.jpg" alt="Selfie of a mother and daughter repeated on each slide with Hebrew text boxes telling a story"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/Das4fCQDTBf.jpg" alt="Selfie of a mother and daughter repeated on each slide with Hebrew text boxes telling a story"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>1. danit_parenting_coaching: a story that ends in a sale</h3><div class="pills lb-row"><span class="lb-chip">15 slides</span><span class="lb-chip accent">23,367 likes · 92x median</span><span class="lb-chip">814 comments</span><span class="lb-chip">353 reposts</span><span class="lb-chip success">purchase link</span></div></div>
       <p><strong>Structure:</strong> one selfie of mother and daughter on every slide, with the story told in white text boxes. Her almost-10-year-old came home late, broke their agreement, and lost the next outing. The last slide lands the lesson: ages 3 to 10 are the window for boundaries.</p>
       <p><strong>How it sells:</strong> the caption tells readers to comment <span class="he" dir="rtl">"גבולות"</span> for a purchase link to her paid guide at a limited-time price. It is the biggest carousel in the Israeli pool and it asks for money.</p>
@@ -116,9 +104,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DdoeylHDeQQ.jpg" alt="A woman covering her face with Hebrew text slides, ending with a mockup of a digital book"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DdoeylHDeQQ.jpg" alt="A woman covering her face with Hebrew text slides, ending with a mockup of a digital book"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>2. yaffa_michaela_zukerman: a book launch with sales numbers</h3><div class="pills lb-row"><span class="lb-chip">20 slides</span><span class="lb-chip">2,033 likes · 8.5x</span><span class="lb-chip accent">1,149 comments · 35x</span><span class="lb-chip success">530 buyers stated</span></div></div>
       <p><strong>Structure:</strong> her own childhood story about a child-safety moment, then why she wrote a digital parenting book on the topic, then "230 families in the first 48 hours", then a comment word for the purchase link, three reader-message screenshots, and a final device mockup of the book.</p>
       <p><strong>How it sells:</strong> slide 16 says to comment <span class="he" dir="rtl">"מוגנות"</span> for a purchase link by DM. The caption, written after sales closed, thanks 530 families. It is the only post I found in either pool that states a sales count.</p>
@@ -126,9 +114,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DZphMo0CAUb.jpg" alt="Slides with Hebrew children's book covers, one per slide, recommended for starting municipal kindergarten"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DZphMo0CAUb.jpg" alt="Slides with Hebrew children's book covers, one per slide, recommended for starting municipal kindergarten"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>3. tal_strul: five books for the move to municipal gan</h3><div class="pills lb-row"><span class="lb-chip">8 slides</span><span class="lb-chip">613 likes · 13x</span><span class="lb-chip accent">1,389 comments · 231x</span><span class="lb-chip success">coupon code</span></div></div>
       <p><strong>Structure:</strong> cover with her daughter and the promise "5 recommended books", one slide on why books help with the transition, then one book per slide (cover, what it does for the child, a handwritten note), then a closing photo slide.</p>
       <p><strong>How it sells:</strong> the last slide says to write the word <span class="he" dir="rtl">"ספר"</span> for links to every book plus a discount coupon. The caption adds "save it for when you need it, or send it to a friend". This is the closest existing template to a Lumebook post.</p>
@@ -136,9 +124,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DboKFT-DWcc.jpg" alt="AI-style illustrated scenes of a mother talking with her young son, with Hebrew text"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DboKFT-DWcc.jpg" alt="AI-style illustrated scenes of a mother talking with her young son, with Hebrew text"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>4. avital.bashan: "instead of X, say Y" with illustrated characters</h3><div class="pills lb-row"><span class="lb-chip">10 slides</span><span class="lb-chip accent">1,751 likes · 21x</span><span class="lb-chip accent">1,771 comments · 66x</span></div></div>
       <p><strong>Structure:</strong> every slide is an AI-style illustration of the same mother and son. Each one runs "when your child breaks a glass / refuses to kiss a relative / is scared: instead of saying X, you say Y, and you teach them Z".</p>
       <p><strong>How it captures leads:</strong> the last slide offers a free tools document for anyone who comments <span class="he" dir="rtl">"כלים"</span>. High on both reach and leads, with illustrated characters doing the work a photo usually does.</p>
@@ -146,9 +134,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DcIYOqZjZoQ.jpg" alt="Text-only slides in green and pink about loving siblings differently"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DcIYOqZjZoQ.jpg" alt="Text-only slides in green and pink about loving siblings differently"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>5. saraigatt: sibling jealousy, with a story as the gift</h3><div class="pills lb-row"><span class="lb-chip">10 slides</span><span class="lb-chip">315 likes</span><span class="lb-chip accent">1,388 comments · 4.4 per like</span></div></div>
       <p><strong>Structure:</strong> plain text slides that open with "I don't love my children the same" and explain why loving them differently heads off jealousy and comparison.</p>
       <p><strong>How it captures leads:</strong> the last slide says that since her kids were small she has told them a story she calls <span class="he" dir="rtl">"לב הקשת"</span>, and anyone who comments a heart gets it. A story is the lead magnet, on the sibling topic, and it drew more comments than likes.</p>
@@ -156,9 +144,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/Da0n_qzACqS.jpg" alt="Illustrated bookshelves with Hebrew baby and toddler book covers, one shelf per age"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/Da0n_qzACqS.jpg" alt="Illustrated bookshelves with Hebrew baby and toddler book covers, one shelf per age"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>6. hilla_gover_slp: books by age, birth to 3</h3><div class="pills lb-row"><span class="lb-chip">7 slides</span><span class="lb-chip">617 likes</span><span class="lb-chip accent">878 comments · 15x</span></div></div>
       <p><strong>Structure:</strong> one illustrated bookshelf per age (newborn, 4 months, 8 months, 1, 2, 3), each holding real Hebrew book covers. The last slide asks readers to comment for the full list.</p>
       <p><strong>Why it matters:</strong> a speech therapist's book list works as a lead magnet, and it gives a ready age ladder a personalised book could slot into.</p>
@@ -166,9 +154,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DcOFta8DL1W.jpg" alt="Potty training slides: a toddler photo cover and dark green branded text slides"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DcOFta8DL1W.jpg" alt="Potty training slides: a toddler photo cover and dark green branded text slides"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>7. larissaginatmethod: potty training</h3><div class="pills lb-row"><span class="lb-chip">12 slides</span><span class="lb-chip">301 likes</span><span class="lb-chip accent">1,169 comments · 16x</span></div></div>
       <p><strong>Structure:</strong> a toddler photo with the hook "why start potty training before the resistance kicks in", then branded text cards in the style of a tweet, then the offer.</p>
       <p><strong>How it captures leads:</strong> comment <span class="he" dir="rtl">"חיתול"</span> and she sends her five-step training by DM. She used the same comment-word move twice more in the following weeks (1,155 and 1,124 comments).</p>
@@ -176,9 +164,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/Dbp7SEEjnXh.jpg" alt="Minimal typographic Hebrew slides about a baby starting daycare"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/Dbp7SEEjnXh.jpg" alt="Minimal typographic Hebrew slides about a baby starting daycare"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>8. suzi_gattegno: starting gan, from a small account</h3><div class="pills lb-row"><span class="lb-chip">8 slides</span><span class="lb-chip">48 likes</span><span class="lb-chip accent">590 comments · 295x</span></div></div>
       <p><strong>Structure:</strong> calm typographic slides: "September is coming", "a new place, more fatigue", "the caregiver has 40 minutes", then the offer.</p>
       <p><strong>How it captures leads:</strong> comment <span class="he" dir="rtl">"כניסה לגן"</span> for a free PDF on protecting sleep at gan entry. A sleep consultant with a median of 16 likes pulled 590 requests, so the funnel works without reach.</p>
@@ -188,9 +176,9 @@ ul.lim strong{color:var(--text)}
 
   <span class="sub lb-eyebrow">Spread through shares</span>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/Dd1JpBCDLQe.jpg" alt="Black and white photo of a mother with a baby and older child, with a Hebrew letter in text"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/Dd1JpBCDLQe.jpg" alt="Black and white photo of a mother with a baby and older child, with a Hebrew letter in text"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>9. natashagolan_: a letter to a mom about to have her second</h3><div class="pills lb-row"><span class="lb-chip">11 slides</span><span class="lb-chip accent">1,948 likes · 30x</span><span class="lb-chip">217 comments</span><span class="lb-chip">62 reposts</span></div></div>
       <p><strong>Structure:</strong> one black-and-white photo of mother, baby and older child, with a letter that opens "Hey mom, you're about to give birth to your second child". It covers missing the old family of three and the firstborn's hard months.</p>
       <p><strong>Why it matters:</strong> this is the new-sibling milestone Lumebook chose, told as a letter, and the caption asks readers to send it to a mom expecting her second. It has no offer, which leaves room for one.</p>
@@ -198,9 +186,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DdzLT8mnJXg.jpg" alt="Minimal Hebrew text slides telling one life through ages 5 to 46"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DdzLT8mnJXg.jpg" alt="Minimal Hebrew text slides telling one life through ages 5 to 46"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>10. raising_creative_kids: one life told through ages</h3><div class="pills lb-row"><span class="lb-chip">11 slides</span><span class="lb-chip accent">14,074 likes · 122x</span><span class="lb-chip">409 comments</span><span class="lb-chip accent">565 reposts</span></div></div>
       <p><strong>Structure:</strong> plain text slides, each headed with an age (5, 7, 10, 16, 25, 46), following one girl who keeps baking and failing. The last slide: in a home where a broken egg was just a broken egg, failure was never a reason to stop.</p>
       <p><strong>Why it matters:</strong> the most reposted carousel in the Israeli pool, with no ask at all. The "through the ages" device suits a book where the child grows up as the hero.</p>
@@ -212,9 +200,9 @@ ul.lim strong{color:var(--text)}
 <section class="lb-section" id="global">
   <h2>Global: the best carousels</h2>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DReSKEGCZEW.jpg" alt="Car selfie repeated on each slide with an English letter titled Dear partner"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DReSKEGCZEW.jpg" alt="Car selfie repeated on each slide with an English letter titled Dear partner"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>1. therapyformums: "Dear partner"</h3><div class="pills lb-row"><span class="lb-chip">19 slides</span><span class="lb-chip accent">136,101 likes · 549x</span><span class="lb-chip accent">9,335 comments</span><span class="lb-chip">2,370 reposts</span></div></div>
       <p><strong>Structure:</strong> one car selfie on every slide with a letter to a partner about the mental load. It uses the same single-photo letter template as danit in Israel.</p>
       <p><strong>How it captures leads:</strong> comment SCRIPT for an 11-page free guide. Another of her carousels drew 16,571 comments with "comment LOAD".</p>
@@ -222,9 +210,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DQIUIIpgbEv.jpg" alt="Gift guide cover slides: best toys by age, books to gift kids, art supplies"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DQIUIIpgbEv.jpg" alt="Gift guide cover slides: best toys by age, books to gift kids, art supplies"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>2. busytoddler: the gift-guide carousel</h3><div class="pills lb-row"><span class="lb-chip">11 slides</span><span class="lb-chip">5,200 likes</span><span class="lb-chip accent">10,710 comments · 2x likes</span><span class="lb-chip success">shopping lists</span></div></div>
       <p><strong>Structure:</strong> each slide is the cover of one gift guide (toys by age, games, art supplies, "30+ books to gift kids"). There's no detail on the slides; the detail is the lead magnet.</p>
       <p><strong>How it sells:</strong> comment GUIDE for the toy lists, or use the link in her bio. A commerce carousel where comments run at twice the likes.</p>
@@ -232,9 +220,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DbQmeoom8_L.jpg" alt="A dietitian with lunch boxes, slides listing lunch box brands, last slide holding her own cookbook"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DbQmeoom8_L.jpg" alt="A dietitian with lunch boxes, slides listing lunch box brands, last slide holding her own cookbook"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>3. feedinglittles: lunch boxes, with codes</h3><div class="pills lb-row"><span class="lb-chip">14 slides</span><span class="lb-chip">5,868 likes</span><span class="lb-chip accent">12,449 comments</span><span class="lb-chip success">discount codes</span></div></div>
       <p><strong>Structure:</strong> a dietitian's back-to-school guide: what to look for in a lunch box, her picks by age with brand names, then a final slide holding her own lunch cookbook.</p>
       <p><strong>How it sells:</strong> comment LUNCH for links and discount codes. It sells partner products and her own book in one post.</p>
@@ -242,9 +230,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DcV6rUQlive.jpg" alt="Family photo slides titled 8 unpopular parenting choices, last slide asking to comment RESET"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DcV6rUQlive.jpg" alt="Family photo slides titled 8 unpopular parenting choices, last slide asking to comment RESET"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>4. teransands: "8 unpopular parenting choices"</h3><div class="pills lb-row"><span class="lb-chip">10 slides</span><span class="lb-chip accent">13,763 likes · 7.6x</span><span class="lb-chip">3,674 comments</span><span class="lb-chip">204 reposts</span></div></div>
       <p><strong>Structure:</strong> one family photo and headline per choice. Slide 5 is "we pay our kids to read books that shape who they'll become".</p>
       <p><strong>How it sells:</strong> two asks in one post. The caption says comment "link" for that book, and the last slide says comment RESET to join the waitlist for her step-by-step parenting challenge.</p>
@@ -252,9 +240,9 @@ ul.lim strong{color:var(--text)}
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DZDgG2ogewZ.jpg" alt="Slides with bold text boxes over a photo: Stop telling your child I love you, say this instead"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DZDgG2ogewZ.jpg" alt="Slides with bold text boxes over a photo: Stop telling your child I love you, say this instead"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>5. mommyandmishti: a contrarian hook</h3><div class="pills lb-row"><span class="lb-chip">17 slides</span><span class="lb-chip accent">45,575 likes · 495x</span><span class="lb-chip">692 comments</span><span class="lb-chip accent">2,330 reposts</span></div></div>
       <p><strong>Structure:</strong> "Stop telling your child 'I love you'. Say this instead", then the brain-science reason (habituation), then the alternative phrases.</p>
       <p><strong>Why it matters:</strong> pure reach. The asks are "share this with your partner" and "follow". It shows how far a reversal hook travels on a topic every parent cares about.</p>
@@ -302,7 +290,7 @@ ul.lim strong{color:var(--text)}
   var current = null, ticking = false;
   function update(){
     ticking = false;
-    var line = document.querySelector('.lb-topbar').getBoundingClientRect().bottom + 24, cur = null;
+    var line = document.querySelector('.lb-topbar').getBoundingClientRect().bottom + 36, cur = null; /* below the scroll-margin an anchor jump lands on */
     secs.forEach(function(s, i){ if (s && s.getBoundingClientRect().top <= line) cur = i; });
     if (cur === current) return;
     current = cur;

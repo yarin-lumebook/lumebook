@@ -49,7 +49,7 @@ Work in a scratch folder (below: `$S`). Paste each `.js` file's full text into `
 
 - Israeli, writes in Hebrew, public, a reel in the last 90 days (`check` enforces the numbers).
 - The admission bar (Yarin, 24 Oct 2026; `gate.py`, numbers in `shared/facts.json` `creators.admission`), all five:
-  5,000 to 50,000 followers; median views 2,000 or more; 0.4 views per follower or more; 10 likes per 1,000 views or more (1%);
+  5,000 to 50,000 followers; median views 2,000 or more; 0.4 views per follower or more; 9 likes per 1,000 views or more (was 10 until Yarin loosened it on 03 Nov 2026);
   1 comment per 1,000 views or more. Likes and comments are the median per reel over the 12 newest reels, like the card.
   A profile whose likes are hidden cannot show it meets the bar and stays out. `check` and `merge_pass.py` both enforce it.
   It only decides who joins: creators already in the map are never removed or changed because of it. A creator Yarin names by hand

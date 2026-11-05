@@ -659,12 +659,12 @@ def reco_page(folder, fmt, history=None):
     ]
     page = "\n".join(body).replace('<nav class="lb-tabs rv-tabs" aria-label="עמודים"></nav>', tabs_html(folder, fmt), 1)
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<meta name="color-scheme" content="light dark"><title>{esc(TAB_LABELS[fmt])} · {esc(car["date"])}</title>{design.head()}'
+            f'<meta name="color-scheme" content="light"><title>{esc(TAB_LABELS[fmt])} · {esc(car["date"])}</title>{design.head()}'
             f'<style>body{{direction:rtl;text-align:right}}{create_review.PAGE_CSS}{REVIEW_CSS}</style></head>\n'
             f'<body dir="rtl" data-date="{esc(car["date"])}" data-format="{fmt}" data-dir="{esc(sub)}">'
             '<header class="lb-topbar rv-topbar"><div class="lb-topbar-in">'
             f'<img class="rv-logo" src="{design.logo_data_uri()}" alt="LumeBook" width="28" height="28"><b class="rv-name">{esc(car["date"])}</b>'
-            f'<span class="lb-spacer"></span>{design.theme_toggle()}</div></header>'
+            f'<span class="lb-spacer"></span></div></header>'
             f'<main class="lb-page">{page}</main><script>{REVIEW_JS}</script></body></html>')
 
 
@@ -703,7 +703,7 @@ def standalone_page(folder, date):
     import create_review
     design = create_review.design
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<meta name="color-scheme" content="light dark"><title>{esc(date)}</title>{design.head()}<style>body{{direction:rtl;text-align:right}}{create_review.PAGE_CSS}{REVIEW_CSS}</style></head>\n'
+            f'<meta name="color-scheme" content="light"><title>{esc(date)}</title>{design.head()}<style>body{{direction:rtl;text-align:right}}{create_review.PAGE_CSS}{REVIEW_CSS}</style></head>\n'
             f'<body dir="rtl" data-date="{esc(date)}"><main class="lb-page">{tabs_html(folder, "pack")}<p class="edit-note">אין קרוסלות ילד ומומחה הלילה</p></main></body></html>')
 
 

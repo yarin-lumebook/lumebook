@@ -37,6 +37,8 @@ S=.claude/skills/reel-editor/scripts
 | `versions` | how many files (default: one per hook) |
 | `captions` | a words file (step 2), or leave it out for no captions ("captions if needed") |
 | `words_per_card` | words shown at once, default 1 (word by word) |
+| `hook_seconds` | optional: show the hook only for the first N seconds (an opening clip, say), then no top text until the CTA. Default: the whole reel (Yarin, 4 Nov 2026) |
+| `top_cards` | optional: timed top text between the hook and the CTA, `[{"text": "1", "s": 2.1, "e": 6.0}, ...]` in source seconds, such as a number per point or one key word (Yarin, 05 Nov 2026). Same style as the hook, `"size"` (px) optional per card; re-timed with each trial trim |
 | `cta` | optional: replaces the hook for the last `seconds`. `"highlight": true` puts it on LumeBook purple rounded boxes (#5B2BD6, Instagram's highlighted text look; a hex colour also works), Yarin, 29 Oct 2026 |
 | `bottom` | optional fixed line at the lowest safe line, such as `הסבר בתיאור👇🏻`; captions then sit just above it |
 | `flip` | trial only, default true. Set false when the frame shows Hebrew text (a book title, a screen): a flip mirrors it |
@@ -87,7 +89,7 @@ Whether this keeps Instagram from treating the uploads as repeats is not verifie
 - Look at `<name>-qc.jpg` yourself: no text above the top magenta line, below the 65% line or outside the side lines; the hook does not cover a face or the book; Hebrew reads right to left.
 - Spot-check caption sync: grab a frame at a word's time (`ffmpeg -ss T -i out.mp4 -frames:v 1 f.png`) and read it.
 - In flipped versions, look for mirrored text in the footage itself. If a book title or logo shows, rebuild with `"flip": false`.
-- Send Yarin the files (or the qc sheet) in one message with the list of hooks and lengths. Approved finals also go to Drive `LumeBook תוכן` (folder ids in `shared/facts.json` `drive_content`), in a subfolder named like the `media/projects/` folder.
+- Send Yarin the files (or the qc sheet) in one message with the list of hooks and lengths.
 
 ## Layout rules the script follows
 

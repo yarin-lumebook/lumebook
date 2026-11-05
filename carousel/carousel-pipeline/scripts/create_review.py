@@ -4,12 +4,12 @@
     python3 carousel/carousel-pipeline/scripts/create_review.py PATH/pack.json
 
 Right to left: lang="he" dir="rtl", direction rtl, right aligned. The page chrome uses the LumeBook design system
-(shared/design: tokens, lb- components, light by default with a dark toggle), inlined so the file stands alone.
+(shared/design: tokens, lb- components, white only since 05 Nov 2026), inlined so the file stands alone.
 Each option is one card: who it is about, the strategy in one row, the slide previews as editable cards, caption
 and CTA, and two dropdowns (claims and sources, image descriptions). The page never picks a winner.
 
-The slide previews keep the carousel's own look (PILLARS: kid violet and Rubik, expert gold and Heebo Black) in
-both themes; only the chrome around them follows the design system.
+The slide previews keep the carousel's own look (PILLARS: kid violet and Rubik, expert gold and Heebo Black);
+only the chrome around them follows the design system.
 
 Served by review_server.py the copy is editable and saved back to pack.json; opened as a file it is read only.
 """
@@ -43,7 +43,7 @@ def hub_url():
         return "https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6"
 
 
-# The slide previews: the carousel's audience-facing look, fixed in both themes and kept exactly as it was.
+# The slide previews: the carousel's audience-facing look, kept exactly as it was.
 # Everything they read is pinned on .deck (colours, the inherited font, size and line height), so neither the
 # design system's tokens nor the theme reach them. The local Heebo Black file is registered as "Heebo Slide":
 # the design system loads Heebo 400 to 800 from Google Fonts, and the previews must keep rendering every Heebo
@@ -87,7 +87,7 @@ body.editing .card .b[data-edit]:empty::before{content:"שורות גוף (לא 
 # is one), cream Varela Round type, gold tags, labels and emphasis, a cream card for "> " lines, the cover pill in gold,
 # the letter on a cream sheet. Sizes are the 1080 x 1350 slide's pixels in cqw, so a preview of any width looks like the
 # export, and a small fit script shrinks the copy block in steps the way render.py does. Audience look: fixed colours
-# in both themes, like the pillar previews. Carousel Machine (studio.py) draws the same look with STORY_JS.
+# like the pillar previews. Carousel Machine (studio.py) draws the same look with STORY_JS.
 
 STRUCTURES_HE = {"before_after": "פעם ועכשיו", "letter": "מכתב", "thoughts_answers": "אתם חושבים, אני עונה",
                  "one_minute": "דקה אחת", "one_day": "יום אחד", "short_list": "רשימה קצרה"}
@@ -322,90 +322,64 @@ def scene_text(s):
     return (str(sc or ""), "")
 
 
-# The chrome: design system tokens only. The old variable names stay as aliases because reco_render.py injects
-# the games and books section into this page and styles it with them (and with .chip, .opt-head, .strategy,
-# .post, .caption, details.more, .direction-head, .sym, .oid, h4 and plain tables).
+# The chrome: design system tokens and lb- components (shared/design/lumebook.css, "shared page patterns" since 05 Nov
+# 2026: lb-topbar has-toc + lb-toc, lb-brand, lb-disc, lb-pid, lb-textblock, lb-scroller, lb-callout, lb-editable,
+# lb-disclosure); the rules below only add what this page needs on top. The old variable names stay as aliases because
+# reco_render.py's pages (reco.html) inline PAGE_CSS too and use them, with .rv-logo/.rv-name, details.more,
+# .rv-tabs, .rv-days, .rp-list, .edit-note and plain tables.
 PAGE_CSS = """
 :root{--card:var(--surface);--soft:var(--surface-2);--ink:var(--text);--ink2:var(--text-2);--muted:var(--text-3);--violet:var(--tint);--violet-soft:var(--tint-soft);--gold:var(--accent);--gold-soft:var(--accent-soft);--cream:var(--surface-2);--ok:var(--success);--bad:var(--danger);--content-w:79.25rem;--rv-sticky:4.75rem}
-[hidden]{display:none !important}
 body{direction:rtl;text-align:right}
 body.editing{--rv-sticky:7.75rem}
-[id]{scroll-margin-top:var(--rv-sticky)}
-.wrap{width:100%;max-width:var(--content-w);margin-inline:auto;padding:var(--sp-5) var(--sp-5) var(--sp-7);display:grid;gap:var(--sp-6)}
-.lb-page,.wrap{grid-template-columns:minmax(0,1fr)}
-.rv-topbar .lb-topbar-in{gap:var(--sp-3)}
+[id],body:has(.lb-topbar.has-toc) [id]{scroll-margin-top:var(--rv-sticky)}
+.wrap{width:100%;max-width:var(--content-w);margin-inline:auto;padding:var(--sp-5) var(--sp-5) var(--sp-7);display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-6)}
+/* reco_render.py's top bar (its pages are not on lb-brand yet) */
 .rv-logo{width:28px;height:28px;border-radius:var(--r-xs);flex:none;display:block}
 .rv-name{font-weight:800;font-size:1.0625rem;letter-spacing:-.01em;white-space:nowrap;color:var(--text)}
-nav.jump{display:flex;align-items:center;gap:var(--sp-1);overflow-x:auto;scrollbar-width:none;min-width:0;flex:0 1 auto;padding-block:var(--sp-2)}
-nav.jump::-webkit-scrollbar{display:none}
-.drops{display:grid;gap:var(--sp-2)}
-.drops>details.more{margin-top:0}
+/* the option links in the top bar (lb-toc): one pill group per pillar, the child's name dimmed */
+.jump a span{color:var(--text-3);font-weight:400}
+.jump .grp{flex:none;display:flex;align-items:center;gap:2px;padding:2px;border-radius:var(--r-pill);background:var(--pill-soft,var(--fill))}
+.jump .grp a:hover{background:var(--surface)}
+.jump .grp .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--pill,var(--text-3));margin-inline:var(--sp-2) var(--sp-1);flex:none}
 .rp-list{margin:0;padding-inline-start:1.1rem;display:grid;gap:var(--sp-1)}
-.top>.row h1{margin-inline-end:auto}
-.direction-head{padding:var(--sp-2) var(--sp-4)}
+.top>.lb-row h1{margin-inline-end:auto}
 .rv-tabs{margin-bottom:calc(-1 * var(--sp-3));flex-wrap:wrap;row-gap:var(--sp-1)}
 .rv-days{margin-inline-start:auto;display:flex;gap:var(--sp-2);align-items:center;font-size:var(--fs-footnote)}
 .rv-days a{color:var(--text-3);text-decoration:none;padding:2px 8px;border-radius:999px}
 .rv-days a[aria-current]{background:var(--surface-2);color:var(--text);font-weight:700}
 .post .cta-box{align-self:start}
-nav.jump .label{flex:none;font-size:var(--fs-caption);font-weight:600;color:var(--text-3);margin-inline-end:var(--sp-1)}
-nav.jump a{flex:none;padding:.3rem .7rem;border-radius:var(--r-pill);color:var(--text);font-size:var(--fs-footnote);font-weight:600;white-space:nowrap}
-nav.jump a:hover{background:var(--fill-2);color:var(--text);text-decoration:none}
-nav.jump a span{color:var(--text-3);font-weight:400}
-nav.jump .grp{flex:none;display:flex;align-items:center;gap:2px;padding:2px;border-radius:var(--r-pill);background:var(--pill-soft,var(--fill))}
-nav.jump .grp a:hover{background:var(--surface)}
-nav.jump .grp .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--pill,var(--text-3));margin-inline:var(--sp-2) var(--sp-1);flex:none}
 .editbar{max-width:var(--content-w);margin-inline:auto;padding:var(--sp-2) var(--sp-5);display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);border-top:1px solid var(--line)}
 .editbar .msg{flex:1 1 12rem;min-width:0;font-size:var(--fs-footnote);color:var(--text-2)}
-@media (max-width:860px){
-  :root{--rv-sticky:6rem}
-  body.editing{--rv-sticky:11rem}
-  .rv-topbar .lb-topbar-in{flex-wrap:wrap;row-gap:0;padding-top:var(--sp-2)}
-  .rv-topbar nav.jump{order:5;flex-basis:100%;padding-block:0 var(--sp-2)}
-  .editbar{padding-inline:var(--sp-4)}
-}
-@media (max-width:420px){.rv-topbar .lb-theme-label{display:none}}
+@media (max-width:980px){:root{--rv-sticky:6rem}body.editing{--rv-sticky:11rem}}
+@media (max-width:860px){.editbar{padding-inline:var(--sp-4)}}
 .p-kid{--pill:var(--kid);--pill-soft:var(--kid-soft)}
 .p-expert{--pill:var(--expert);--pill-soft:var(--expert-soft)}
+/* the pillar colour on the shared number disc and ID chip */
+.p-kid .lb-disc,.p-expert .lb-disc{background:var(--pill);color:var(--text-on-tint);font-family:var(--font);font-size:1rem}
+.p-kid .lb-pid,.p-expert .lb-pid{background:var(--pill-soft);color:var(--pill)}
 .top{display:grid;gap:var(--sp-3);min-width:0}
 .lead{color:var(--text-2);max-width:80ch;font-size:var(--fs-callout)}
-.row{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
-.chip{display:inline-flex;align-items:center;gap:.375rem;padding:.15rem .6rem;border-radius:var(--r-pill);font-size:var(--fs-footnote);font-weight:500;line-height:1.5;white-space:nowrap;background:var(--fill);color:var(--text-2)}
-.chip.violet{background:var(--tint-soft);color:var(--tint)}
-.chip.gold{background:var(--accent-soft);color:var(--accent-ink)}
-.chip.warn{background:var(--warning-soft);color:var(--warning)}
-.chip.ok{background:var(--success-soft);color:var(--success)}
-.oid{font-family:var(--font-mono);direction:ltr;unicode-bidi:isolate;font-weight:700;background:var(--p,var(--text));color:var(--lb-cream);border-radius:var(--r-xs);padding:.1rem .55rem;font-size:var(--fs-footnote)}
-.rv-id{font-family:var(--font-mono);font-weight:700;direction:ltr;unicode-bidi:isolate}
-.steps{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin:0;padding:0;list-style:none}
-.steps li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:var(--sp-1) var(--sp-3);font-size:var(--fs-footnote);color:var(--text-2)}
 .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:var(--sp-3)}
 .legend a{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);background:var(--pill-soft,var(--surface-2));color:var(--text);font-size:var(--fs-callout);text-decoration:none}
 .legend a:hover{color:var(--text);text-decoration:none;box-shadow:inset 0 0 0 1px var(--pill,var(--line-strong))}
 .legend a b{color:var(--pill,var(--text));font-weight:700;white-space:nowrap}
-.legend a>span:not(.sym){color:var(--text-2)}
-.sym{display:inline-grid;place-items:center;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--p,var(--text));color:var(--lb-cream);font-weight:800;font-size:1rem;line-height:1;flex:none}
-.p-kid .sym,.p-expert .sym{background:var(--pill);color:var(--text-on-tint)}
+.legend a>span:not(.lb-disc){color:var(--text-2)}
 .direction{gap:var(--sp-5)}
-.direction-head{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-lg);background:var(--pill-soft,var(--surface-2));border-inline-start:4px solid var(--pill,var(--text))}
+.direction-head{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-lg);background:var(--pill-soft,var(--surface-2));border:1px solid var(--pill,var(--line))}
 .direction-head>div{flex:1 1 14rem;min-width:0}
-.direction-head .sym{width:2.25rem;height:2.25rem;font-size:1.25rem}
+.direction-head .lb-disc{font-size:1.25rem}
 .direction-head h2{color:var(--text)}
 .direction-head p{color:var(--text-2);font-size:var(--fs-callout)}
-.direction-head .count{flex:none}
 .option{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--pill,var(--line-strong));border-radius:var(--r-lg);padding:var(--sp-4) var(--sp-5);display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-3);min-width:0;box-shadow:var(--shadow-1)}
 .option>*{margin:0}
 .opt-head{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
 .opt-head h3{margin-inline-end:auto;color:var(--text)}
-.strategy{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14.5rem),1fr));gap:var(--sp-3)}
-.strategy>div{background:var(--surface-2);border-radius:var(--r-md);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-callout);color:var(--text-2)}
-.strategy b{display:block;font-size:var(--fs-footnote);font-weight:600;color:var(--text-3);margin-bottom:2px}
 h4{margin:0 0 var(--sp-1);font-size:var(--fs-footnote);font-weight:600;color:var(--text-3)}
 .post{display:grid;grid-template-columns:2fr 1fr;gap:var(--sp-3)}
-.caption{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);white-space:pre-line;font-size:var(--fs-callout)}
 .cap-cta{margin-top:var(--sp-2);color:var(--text-3)}
 .cta-box{background:var(--pill-soft,var(--surface-2));color:var(--text);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);font-weight:600;font-size:var(--fs-callout);display:flex;flex-direction:column;gap:var(--sp-2)}
-.cta-box .code{align-self:flex-start}
+.lb-page .lb-disclosure-body{overflow-wrap:anywhere}
+/* reco_render.py's dropdowns (this page uses lb-disclosure) */
 details.more{margin-top:var(--sp-3);border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);min-width:0}
 details.more>summary{cursor:pointer;min-height:2.75rem;padding:var(--sp-2) var(--sp-4);font-weight:600;font-size:var(--fs-callout);color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3)}
 details.more>summary:hover{color:var(--tint)}
@@ -421,35 +395,22 @@ tbody tr:last-child td{border-bottom:0}
 td.en,.en{direction:ltr;text-align:left}
 .kind{font-size:var(--fs-caption);font-weight:600;white-space:nowrap}
 .kind.sourced_fact{color:var(--success)}.kind.product_fact{color:var(--tint)}.kind.lumebook_wording{color:var(--text-3)}
-blockquote{overflow-wrap:anywhere;margin:var(--sp-1) 0 var(--sp-2);padding:var(--sp-2) var(--sp-3);border-inline-start:3px solid var(--accent);border-radius:var(--r-xs);background:var(--surface-2);color:var(--text-2);direction:ltr;text-align:left;font-size:var(--fs-caption)}
+blockquote{overflow-wrap:anywhere;margin:var(--sp-1) 0 var(--sp-2);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-xs);background:var(--surface-2);color:var(--text-2);direction:ltr;text-align:left;font-size:var(--fs-caption)}
 .src{font-size:var(--fs-footnote);margin:var(--sp-2) 0 0}
-.anchor{direction:ltr;text-align:left;white-space:pre-wrap;font-family:var(--font-mono);font-size:var(--fs-caption);background:var(--surface-sunk);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);margin:0 0 var(--sp-2)}
 .prompt{direction:ltr;text-align:left;white-space:pre-wrap;font-family:var(--font-mono);font-size:.6875rem;line-height:1.45;color:var(--text-2)}
-.result{border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);border:1px solid var(--line);background:var(--surface);font-size:var(--fs-callout)}
-.result.ok{background:var(--success-soft);border-color:transparent}
-.result.bad{background:var(--danger-soft);border-color:transparent}
-.result ul{margin:var(--sp-2) 0 0;padding-inline-start:1.25rem;display:grid;gap:var(--sp-1)}
-.result a{cursor:pointer}
+#save-result ul{margin:0;padding-inline-start:1.25rem;display:grid;gap:var(--sp-1)}
+#save-result a{cursor:pointer}
 .edit-note{font-size:var(--fs-footnote);color:var(--text-3);line-height:1.5;margin:0}
 .edit-note code{direction:ltr;unicode-bidi:isolate}
-body.editing [data-edit]{outline:1.5px dashed var(--focus);outline-offset:3px;border-radius:var(--r-xs);cursor:text;min-height:1.2em}
-body.editing [data-edit]:focus{outline:2px solid var(--tint);background:var(--tint-soft)}
+body.editing [data-edit]{cursor:text;min-height:1.2em}
 .has-error{outline:2.5px solid var(--danger) !important;outline-offset:3px}
-.lb-page>.reco-wrap{margin-top:0}
-.reco .opt-head h3{color:var(--text)}
-body .reco .oid{background:var(--p-deep,var(--lb-ink)) !important}
-body .reco .chip.bad{background:var(--danger-soft);color:var(--danger)}
-body .reco .flags li.w{color:var(--warning)}
-body.editing .reco [data-reco]{outline-color:var(--focus)}
-body.editing .reco [data-reco]:focus{outline-color:var(--tint);background:var(--tint-soft)}
 @media (max-width:760px){.post{grid-template-columns:1fr}table{table-layout:fixed}th{overflow-wrap:anywhere}.kind{white-space:normal}}
 @media (max-width:640px){.option{padding:var(--sp-3) var(--sp-4)}.wrap{padding-inline:var(--sp-4)}}
 """
 
-# review.html of a story pack: the slides scroll sideways, each preview with its fields under it (chrome tokens only)
+# review.html of a story pack: the slides scroll sideways in an lb-scroller, each preview with its fields under it
 STORY_PAGE_CSS = """
-.sdeck{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(13.5rem,15rem);gap:var(--sp-3);overflow-x:auto;padding-bottom:var(--sp-2);scroll-snap-type:x proximity}
-.scard{scroll-snap-align:start;display:flex;flex-direction:column;gap:var(--sp-2);min-width:0}
+.scard{display:flex;flex-direction:column;gap:var(--sp-2);min-width:0}
 .scard>.n{display:flex;justify-content:space-between;font-family:var(--font-2);font-size:var(--fs-caption);font-weight:600;color:var(--text-3)}
 .scard .sty{border-radius:var(--r-md);box-shadow:var(--shadow-1)}
 .sf{display:grid;gap:var(--sp-1);font-size:var(--fs-footnote);line-height:1.5}
@@ -495,9 +456,9 @@ function targetFor(path) {
 }
 function showResult(res) {
   const box = document.getElementById('save-result'); box.hidden = false;
-  if (res.error) { box.className = 'result bad'; box.textContent = 'השמירה נכשלה: ' + res.error; return; }
+  if (res.error) { box.className = 'lb-callout danger'; box.textContent = 'השמירה נכשלה: ' + res.error; return; }
   const errs = res.errors || [];
-  box.className = 'result ' + (errs.length ? 'bad' : 'ok');
+  box.className = 'lb-callout ' + (errs.length ? 'danger' : 'success');
   let html = res.changed ? ('נשמר (' + res.changed + ' שדות). ') : '';
   html += errs.length ? ('יש ' + errs.length + ' דברים לתקן לפני שאפשר להפיק:') : 'הכול תקין ומוכן להפקה.';
   if (res.voice_logged) html += ' <span class="edit-note">השינויים נשמרו ללמידת הקול (' + res.voice_samples + ' מתוך ' + res.voice_required + ' דוגמאות לכיול).</span>';
@@ -535,6 +496,7 @@ async function enableEditing() {
   document.querySelectorAll('[data-edit]').forEach(el => {
     try { el.contentEditable = 'plaintext-only'; } catch (e) { el.contentEditable = 'true'; }
     if (el.contentEditable !== 'plaintext-only') el.contentEditable = 'true';
+    if (!el.closest('.deck')) el.classList.add('lb-editable');
     EDIT.orig.set(el, textOf(el));
   });
   document.getElementById('editbar').hidden = false;
@@ -620,7 +582,7 @@ def html_option(pack, direction, v):
     story = story_applies(pack)
     out = [f'<article class="option p-{esc(direction)}" id="{vid}">']
     out.append('<header class="opt-head">'
-               f'<span class="lb-chip {esc(direction)} rv-id">{vid}</span>'
+               f'<span class="lb-pid">{vid}</span>'
                f'<h3 data-edit="title" data-opt="{vid}" data-path="{p}/title">{esc(v["title"])}</h3>'
                f'<span class="lb-chip">{esc(v.get("child_name", ""))}</span>'
                + (f'<span class="lb-chip tint">{esc(STRUCTURES_HE.get(v.get("structure"), v.get("structure") or "בלי מבנה"))}</span>'
@@ -630,23 +592,23 @@ def html_option(pack, direction, v):
                + '</header>')
     if story:
         pics = slide_pictures(pack.get("date", ""), v["id"], prefix="../../")
-        out.append('<div class="sdeck">' + "".join(story_card(direction, v, s, pics.get(s["number"], "")) for s in v["slides"]) + '</div>')
+        out.append('<div class="lb-scroller snap" style="--item:13.5rem">' + "".join(story_card(direction, v, s, pics.get(s["number"], "")) for s in v["slides"]) + '</div>')
     else:
         out.append('<div class="deck">' + "".join(html_card(direction, v, s) for s in v["slides"]) + '</div>')
     # What someone who reads only the headlines gets (Yarin, 10 Oct 2026): the story must survive without the bodies
     out.append('<p class="hstory" dir="rtl"><b>הכותרות בלבד</b> ' + " ← ".join(esc(" ".join(lib.lines_of(s["headline"]))) for s in v["slides"] if lib.collapse(s.get("headline", ""))) + '</p>')
-    out.append('<div class="drops">')
+    out.append('<div class="lb-disclosures">')
     cap_lines = lib.lines_of(v["caption"])
     cap_body = cap_lines[:-1] if cap_lines and lib.collapse(cap_lines[-1]) == lib.collapse(v["cta"]) else cap_lines
-    out.append('<details class="more"><summary>כיתוב וקריאה לפעולה</summary><div class="inner"><div class="post">'
-               f'<div class="caption" dir="rtl" data-path="{p}/caption">'
+    out.append('<details class="lb-disclosure"><summary>כיתוב וקריאה לפעולה</summary><div class="lb-disclosure-body"><div class="post">'
+               f'<div class="lb-textblock" dir="rtl" data-path="{p}/caption">'
                f'<div data-edit="caption" data-opt="{vid}">{esc(chr(10).join(cap_body))}</div>'
                f'<div class="cap-cta">{esc(v["cta"])}</div></div>'
                f'<div class="cta-box" data-path="{p}/code_word"><div data-edit="cta" data-opt="{vid}" data-path="{p}/cta">{esc(v["cta"])}</div></div>'
                '</div></div></details>')
     awareness = esc(lib.AWARENESS_LABELS_HE.get(v.get("awareness_stage", ""), v.get("awareness_stage", "")))
     pulls = "".join(f'<li>{s["number"]} · {esc((s.get("pull") or {}).get("note", ""))}</li>' for s in v["slides"] if s.get("pull"))
-    out.append('<details class="more"><summary>אסטרטגיה</summary><div class="inner"><dl class="lb-kv">'
+    out.append('<details class="lb-disclosure"><summary>אסטרטגיה</summary><div class="lb-disclosure-body"><dl class="lb-kv">'
                f'<dt>על מי</dt><dd>{person_line(v)}</dd>'
                f'<dt>זווית</dt><dd dir="auto">{esc(v.get("angle", ""))}</dd>'
                f'<dt>למי</dt><dd dir="auto">{esc(v.get("target_parent", ""))} · {awareness}</dd>'
@@ -664,7 +626,7 @@ def html_option(pack, direction, v):
                     f'<td dir="auto">{esc(c["supports"])}{"<br>" + " · ".join(refs) if refs else ""}</td></tr>')
     srcs = "".join(f'<p class="src"><a href="{esc(s["url"])}" target="_blank" rel="noopener">{esc(s["title"])}</a> · {esc(s["publisher"])} · נקרא {esc(s["accessed"])}'
                    f'<blockquote dir="ltr" lang="en">{esc(s["quote"])}</blockquote></p>' for s in v["sources"])
-    out.append(f'<details class="more" data-path="{p}/claims"><summary>טענות ומקורות</summary><div class="inner">'
+    out.append(f'<details class="lb-disclosure" data-path="{p}/claims"><summary>טענות ומקורות</summary><div class="lb-disclosure-body">'
                '<table><thead><tr><th>שקופית</th><th>ניסוח</th><th>סוג</th><th>מה המקור תומך</th></tr></thead><tbody>'
                + "".join(rows) + '</tbody></table>' + srcs + '</div></details>')
     # Image descriptions: dropdown, each slide's copy next to its prompt
@@ -690,8 +652,8 @@ def html_option(pack, direction, v):
         img_rows.append(f'<tr><td>{s["number"]}</td><td style="white-space:pre-line">{esc(s["headline"])}</td>'
                         f'<td class="en" dir="ltr" lang="en"><b>{esc(s["image"]["beat"])}</b><br>{esc(s["image"]["action"])}'
                         f'<details><summary>Full prompt</summary><div class="prompt" dir="ltr">{esc(prompt)}</div></details></td></tr>')
-    out.append('<details class="more"><summary>תמונות</summary><div class="inner">'
-               f'<div class="anchor" dir="ltr" lang="en">Child: {esc(anchor["child"])}\nParent: {esc(anchor["parent"])}\nWardrobe: {esc(anchor["wardrobe"])}</div>'
+    out.append('<details class="lb-disclosure"><summary>תמונות</summary><div class="lb-disclosure-body">'
+               f'<div class="lb-textblock is-code" dir="ltr" lang="en">Child: {esc(anchor["child"])}\nParent: {esc(anchor["parent"])}\nWardrobe: {esc(anchor["wardrobe"])}</div>'
                '<table><thead><tr><th>שקופית</th><th>טקסט</th><th>תמונה</th></tr></thead><tbody>' + "".join(img_rows) + '</tbody></table></div></details>')
     out.append('</div></article>')
     return "\n".join(out)
@@ -709,30 +671,27 @@ def build_html(pack):
         pil = lib.PILLARS.get(d["id"], {})
         links = "".join(f'<a href="#{esc(v["id"])}">{esc(v["id"])} <span>{esc(v.get("child_name", ""))}</span></a>' for v in d["versions"])
         nav.append(f'<span class="grp p-{esc(d["id"])}" title="{esc(pil.get("name_he", ""))}"><span class="dot"></span>{links}</span>')
-        legend.append(f'<a class="p-{esc(d["id"])}" href="#dir-{esc(d["id"])}"><span class="sym">{esc(pil.get("symbol", ""))}</span>'
+        legend.append(f'<a class="p-{esc(d["id"])}" href="#dir-{esc(d["id"])}"><span class="lb-disc">{esc(pil.get("symbol", ""))}</span>'
                       f'<b>{esc(pil.get("name_he", d["label_he"]))}</b><span>{esc(pil.get("tagline_he", ""))}</span></a>')
     count = max((len(v["slides"]) for d in pack["directions"] for v in d["versions"]), default=lib.SLIDE_COUNT)
     styles = (SLIDE_CSS + PAGE_CSS).replace("repeat(7,", "repeat(%d," % count)
     story = story_applies(pack)
     if story:   # drafts/DATE/review.html: the pipeline's assets/fonts first, then shared/brand/fonts (opened as a file)
         styles += story_fonts_css("../../assets/fonts", "../../../../shared/brand/fonts") + STORY_CSS + STORY_PAGE_CSS
-    # reco_render.inject_review adds its jump link to the first </nav> (keep nav.jump the only <nav>) and inserts its
-    # section before the last "</div><script>" (the end of the page body below).
+    # reco_render.inject_review puts its tab bar (a second <nav>) at the start of <div class="lb-page">.
     parts = [
         '<!doctype html>',
         '<html lang="he" dir="rtl">',
-        '<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">',
+        '<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">',
         f'<title>קרוסלות לבוקר {esc(pack["date"])}</title>',
         design.head(),
         f'<style>{styles}</style></head>',
         f'<body dir="rtl" data-date="{esc(pack["date"])}">',
-        '<header class="lb-topbar rv-topbar"><div class="lb-topbar-in">',
-        f'<img class="rv-logo" src="{design.logo_data_uri()}" alt="LumeBook" width="28" height="28">',
-        f'<b class="rv-name">{esc(pack["date"])}</b>',
-        f'<nav class="jump">{"".join(nav)}</nav>',
+        '<header class="lb-topbar has-toc"><div class="lb-topbar-in">',
+        f'<span class="lb-brand"><img src="{design.logo_data_uri()}" alt="LumeBook" width="28" height="28"><b>{esc(pack["date"])}</b></span>',
+        f'<nav class="lb-toc jump" aria-label="האפשרויות">{"".join(nav)}</nav>',
         '<span class="lb-spacer"></span>',
         f'<a class="lb-btn ghost sm" href="{esc(hub_url())}" target="_blank" rel="noopener">ללוח</a>',
-        design.theme_toggle(),
         '</div>',
         '<div class="editbar" id="editbar" hidden><span class="lb-chip tint"><span class="lb-dot"></span><b>מצב עריכה</b></span>'
         '<span class="msg" id="edit-msg">לוחצים על טקסט ומשנים. אנטר מוסיף שורה.</span>'
@@ -740,22 +699,22 @@ def build_html(pack):
         '</header>',
         '<div class="lb-page">',
         '<header class="top">',
-        f'<div class="row"><h1>{esc(" · ".join(t["title_he"] for t in lib.pack_topics(pack)))}</h1>{vchip}</div>',
-        f'<details class="more"><summary>על הנושא</summary><div class="inner"><p class="lead" dir="auto">{esc(chr(10).join(t["reason"] for t in lib.pack_topics(pack)))}</p>'
+        f'<div class="lb-row"><h1>{esc(" · ".join(t["title_he"] for t in lib.pack_topics(pack)))}</h1>{vchip}</div>',
+        f'<details class="lb-disclosure"><summary>על הנושא</summary><div class="lb-disclosure-body"><p class="lead" dir="auto">{esc(chr(10).join(t["reason"] for t in lib.pack_topics(pack)))}</p>'
         f'<div class="legend">{"".join(legend)}</div></div></details>',
         '<p class="edit-note" id="edit-note" hidden>לעריכה: <code>python3 carousel/carousel-pipeline/scripts/review_server.py</code></p>',
         '</header>',
-        '<div class="result" id="save-result" hidden></div>',
+        '<div class="lb-callout" id="save-result" role="status" hidden></div>',
     ]
     for d in pack["directions"]:
         pil = lib.PILLARS.get(d["id"], {})
         parts.append(f'<section class="direction p-{esc(d["id"])} lb-section" id="dir-{esc(d["id"])}"><div class="direction-head">'
-                     f'<span class="sym">{esc(pil.get("symbol", ""))}</span><div><h2>{esc(pil.get("name_he", d["label_he"]))}</h2></div></div>')
+                     f'<span class="lb-disc lg">{esc(pil.get("symbol", ""))}</span><div><h2>{esc(pil.get("name_he", d["label_he"]))}</h2></div></div>')
         for v in d["versions"]:
             parts.append(html_option(pack, d["id"], v))
         parts.append('</section>')
     facts = "".join(f'<tr><td class="en" dir="ltr">{esc(f["id"])}</td><td dir="auto">{esc(f["fact"])}</td><td><a href="{esc(f["url"])}" target="_blank" rel="noopener">{esc(f["quote"])}</a> · {esc(f["checked_at"])}</td></tr>' for f in pack["product_facts"])
-    parts.append(f'<details class="more facts"><summary>עובדות מהאתר</summary><div class="inner">'
+    parts.append(f'<details class="lb-disclosure facts"><summary>עובדות מהאתר</summary><div class="lb-disclosure-body">'
                  f'<table><thead><tr><th>מזהה</th><th>עובדה</th><th>ציטוט מהאתר</th></tr></thead><tbody>{facts}</tbody></table></div></details>')
     story_js = f"{STORY_JS}\nSTY.fitAll();\n" if story else ""
     parts.append(f'</div><script>{story_js}{SCRIPT}</script></body></html>')

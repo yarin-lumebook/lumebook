@@ -162,7 +162,7 @@ body { background: var(--bg); }
 .lb-table-wrap { overflow-x: auto; margin: 10px 0 16px; border-radius: 10px; }
 bdi.he { font-family: 'Heebo', sans-serif; }
 .rp-quote { display: block; margin: 6px 0 8px; padding: 8px 12px; background: var(--surface-2); border-radius: 10px;
-  border-inline-start: 3px solid var(--lb-gold-deep); direction: rtl; text-align: right; font-size: 17px; font-weight: 600; line-height: 1.5; }
+  direction: rtl; text-align: right; font-size: 17px; font-weight: 600; line-height: 1.5; }
 .rp-quote bdi.he { font-weight: 600; }
 code { font-size: 12.5px; direction: ltr; unicode-bidi: isolate; word-break: break-word; }
 .rp-foot { margin-top: 28px; font-size: 12.5px; color: var(--text-3); }

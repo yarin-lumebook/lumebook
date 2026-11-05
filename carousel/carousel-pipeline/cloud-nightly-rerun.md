@@ -48,7 +48,7 @@ One extra carousel every night: ONE combined games-and-books carousel (Yarin, 14
 - Slides: 1 the fixed hook sentence, 2 what children practise (sourced, ages approximate), every product suggestion slide (games, then books): exact title + age + why (why it is good: what the children practise, not how the game works) + how, the LumeBook book as the casual second to last suggestion: headline ספר של LumeBook, body סיפור מותאם אישית עם תמונה של הילדים שלכם / שבו הם... X (X fits the carousel's topic, not the pictured book: take it from a catalogue book that covers the theme, read on lumebook.com, and keep it true; LumeBook exactly once, no sales talk), last slide ONLY the save and comment lines in the headline, no summary and no body (the renderer puts a collage of every suggestion under a purple layer behind them). Same Hebrew hard rules; both parents, never dad.
 
 Hard limits for this run:
-- Never call fal.ai or any paid service: no mcp__fal-ai__ tools, no fal_generate.py, no prepare_fal_jobs.py, no image generation of any kind.
+- Never call the OpenAI API or any paid service: no OPENAI_API_KEY, no openai_generate.py, no prepare_picture_jobs.py, no image generation of any kind.
 - Only write files under carousel/carousel-pipeline/drafts/ (history.json and reco-history.json are updated by the finish scripts; product images go only to drafts/DATE/reco-assets/). Do not edit skills, scripts, the topic bank, the hook bank, the names list, voice files, the edits log or any other project file.
 - If a pack for the target date already exists, `nightly.py start` backs it up to versions/vN; never delete or overwrite a backup.
 - Do not post, message, email or publish anything. Do not start servers.

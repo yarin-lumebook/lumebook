@@ -8,7 +8,7 @@ Input:  research/cro-crm/{report,numbers-2026-10-25,audit,experiments,crm-flows,
         come from media/projects/2026-10-24-cro-crm-actions/ and are left out when missing). Edit them, then rebuild,
         never edit the HTML
 Output: research/cro-crm/cro-crm-strategy.html, one page on the LumeBook design system (design.head() inlined,
-        white and black modes) that opens straight from disk.
+        white only) that opens straight from disk.
         Local only, not published: it holds internal sales figures.
 
 The page opens on the action list ("מה עושים", Yarin, 24 Oct 2026): filter tiles, a strip of the journey stages (hues
@@ -163,8 +163,8 @@ def table(rows, stem):
         if stem == "sources" and r and re.fullmatch(r"[A-Z]{1,3}-[a-z0-9-]+", r[0]) and r[0] not in seen:
             seen.add(r[0]); rid = f' id="src-{r[0]}"'
         trs.append(f"<tr{rid}>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>")
-    wide = " is-wide" if len(head) >= 6 else ""
-    return f'<div class="lb-table-wrap{wide}"><table class="lb-table"><thead><tr>{th}</tr></thead><tbody>{"".join(trs)}</tbody></table></div>'
+    wide = " wide" if len(head) >= 6 else ""
+    return f'<div class="lb-table-wrap"><table class="lb-table top{wide}"><thead><tr>{th}</tr></thead><tbody>{"".join(trs)}</tbody></table></div>'
 
 
 def render(stem, blocks):
@@ -179,13 +179,13 @@ def render(stem, blocks):
         elif kind == "h3":
             out.append(f'<h4 id="{stem}-{slug(val)}">{inline(val)}</h4>')
         elif kind == "ul":
-            out.append('<ul class="list">' + "".join(f"<li>{inline(i)}</li>" for i in val) + "</ul>")
+            out.append('<ul class="lb-bullets">' + "".join(f"<li>{inline(i)}</li>" for i in val) + "</ul>")
         elif kind == "ol":
             out.append('<ol class="list">' + "".join(f"<li>{inline(i)}</li>" for i in val) + "</ol>")
         elif kind == "table":
             out.append(table(val, stem))
         elif kind == "he":
-            out.append(f'<pre class="he" dir="rtl" lang="he">{html.escape(chr(10).join(val))}</pre>')
+            out.append(f'<pre class="lb-textblock" dir="rtl" lang="he">{html.escape(chr(10).join(val))}</pre>')
         elif kind == "pre":
             out.append(f"<pre>{html.escape(chr(10).join(val))}</pre>")
     return "\n".join(out), toc
@@ -260,31 +260,32 @@ def act_item(it):
     prio = it.get("prio")
     badge = ""
     if prio is not None:
-        badge = (f'<span class="acts-prio" title="לפני הכל">★</span>' if prio == 0
-                 else f'<span class="acts-prio" title="עדיפות {prio} מתוך 5">{prio}</span>')
+        badge = (f'<span class="lb-disc sm" title="לפני הכל">★</span>' if prio == 0
+                 else f'<span class="lb-disc sm" title="עדיפות {prio} מתוך 5">{prio}</span>')
     rows = [("היום", it.get("today")), ("מה בדיוק", it.get("detail")), ("איך נדע שעבד", it.get("measure"))]
     dl = "".join(f"<dt>{k}</dt><dd>{he(v)}</dd>" for k, v in rows if v)
     pic = act_img(it["img"]) if it.get("img") else None
-    who_html = f'<span class="acts-who">{" · ".join(who)}</span>' if who else ""
+    who_html = f'<span>{" · ".join(who)}</span>' if who else ""
     thumb = f'<img class="acts-thumb" src="{pic}" alt="{html.escape(it.get("img_alt", ""))}" width="88" height="88" loading="lazy">' if pic else ""
-    return (f'<li class="acts-item" id="act-{it["id"].replace(".", "-")}" data-id="{it["id"]}" data-f="{" ".join(item_filters(it))}">'
-            f'<details><summary>'
+    return (f'<details class="lb-rowitem" id="act-{it["id"].replace(".", "-")}" data-id="{it["id"]}" data-f="{" ".join(item_filters(it))}">'
+            f'<summary>'
             f'<button type="button" class="acts-check" aria-pressed="false" aria-label="סימון: בוצע">{svg("check")}</button>'
-            f'<span class="acts-main"><b>{he(it["title"])}</b><span class="acts-why">{he(it["why"])}</span></span>'
-            f'<span class="acts-meta">{badge}<span class="lb-chip {tone}">{label}</span>'
+            f'<span class="lb-rowitem-title"><span>{he(it["title"])}</span><small>{he(it["why"])}</small></span>'
+            f'<span class="lb-rowitem-meta">{badge}<span class="lb-chip {tone}">{label}</span>'
             f'{who_html}</span>'
-            f'{svg("chevron", "acts-chev")}</summary>'
-            f'<div class="acts-more">{thumb}<dl>{dl}</dl>'
+            f'</summary>'
+            f'<div class="lb-rowitem-body acts-more">{thumb}<dl class="lb-kv stack">{dl}</dl>'
             f'<a class="acts-demo-link" href="{DEMO_PAGE}#step-{step}">{svg("arrow")}בדמו: שלב {step}, הערה {note}, עם המקורות</a></div>'
-            f'</details></li>')
+            f'</details>')
 
 
 def act_visual(kind, stage):
     if kind == "ad":
         pic = act_img("cover-birthday-girl.webp")
-        media = f'<img src="{pic}" alt="הכריכה של ספר יום ההולדת מהאתר" width="240" height="240" loading="lazy">' if pic else ""
-        return (f'<figure class="acts-visual"><div class="acts-ad"><div class="acts-ad-head"><img src="{design.logo_data_uri()}" alt="" width="28" height="28">'
-                f'<span><b dir="ltr">LumeBook</b><small>ממומן</small></span></div><p>ספר יום הולדת שהילד שלכם הוא הגיבור שלו 🎂</p>{media}'
+        media = (f'<div class="lb-media-frame is-1x1"><img src="{pic}" alt="הכריכה של ספר יום ההולדת מהאתר" width="240" height="240" loading="lazy"></div>'
+                 if pic else "")
+        return (f'<figure class="acts-visual"><div class="lb-post acts-ad"><div class="lb-post-head"><img class="lb-post-avatar" src="{design.logo_data_uri()}" alt="" width="28" height="28">'
+                f'<span class="lb-post-name"><b dir="ltr">LumeBook</b><small>ממומן</small></span></div><p class="lb-post-text">ספר יום הולדת שהילד שלכם הוא הגיבור שלו 🎂</p>{media}'
                 f'<div class="acts-ad-link"><small dir="ltr">LUMEBOOK.COM</small><b>יום הולדת · ספר אישי</b><span>₪119 ועוד ₪30 משלוח</span></div></div>'
                 f'<figcaption>הכריכה מהאתר, המודעה להמחשה</figcaption></figure>')
     if kind == "price":
@@ -327,11 +328,12 @@ def actions_section():
             if g.get("keep"):
                 keep_items = "".join("<li>" + he(x) + "</li>" for x in g["keep"])
                 keep = (f'<details class="acts-keep"><summary>{svg("seal")}עובד היום, לא לגעת · {len(g["keep"])}</summary>'
-                        f'<ul>{keep_items}</ul></details>')
-            groups.append(f'<div class="acts-group">{head}<ul class="acts-list">{"".join(act_item(it) for it in g["items"])}</ul>{keep}</div>')
-        stages.append(f'<section class="acts-stage {cat}" id="act-stage-{st["key"]}" data-stage="{st["key"]}">'
-                      f'<header class="acts-stage-head"><span class="lb-tile lg">{svg(st["icon"])}</span>'
-                      f'<div><span class="acts-step">{steps_txt} בדמו · {n} פעולות</span><h3>{meta["label"]}</h3></div>'
+                        f'<ul class="lb-bullets">{keep_items}</ul></details>')
+            groups.append(f'<div class="acts-group">{head}<div class="lb-rowlist">{"".join(act_item(it) for it in g["items"])}</div>{keep}</div>')
+        stages.append(f'<section class="acts-stage lb-topic {cat}" id="act-stage-{st["key"]}" data-stage="{st["key"]}">'
+                      f'<header class="lb-topic-head"><span class="lb-tile lg">{svg(st["icon"])}</span>'
+                      f'<div class="lb-topic-text"><h3 class="lb-topic-title">{meta["label"]}<span class="lb-topic-n">{n} פעולות</span></h3>'
+                      f'<p class="lb-topic-desc">{steps_txt} בדמו</p></div>'
                       f'<a class="lb-btn secondary sm" href="{DEMO_PAGE}#step-{steps[0]}">לראות בדמו</a></header>'
                       f'{ctx}{"".join(groups)}</section>')
 
@@ -339,38 +341,35 @@ def actions_section():
     hero_img = act_img(data["hero_image"]["file"])
     hero_pic = (f'<img class="acts-hero-img" src="{hero_img}" alt="{html.escape(data["hero_image"]["alt"])}" width="280" height="280">' if hero_img else "")
     return f"""<section class="doc acts" id="doc-actions" dir="rtl" lang="he">
-<div class="acts-hero"><div class="acts-hero-text"><div class="lb-row"><span class="lb-eyebrow">מה עושים · 24.10.2026</span><span class="lb-chip warning">פנימי: יש כאן נתוני מכירות</span></div><h2>{he(data["title"])}</h2>
-<p class="acts-lede">{he(data["lede"])}</p>
+<div class="lb-hero has-media"><div class="lb-hero-text"><div class="lb-row"><span class="lb-eyebrow">מה עושים · 24.10.2026</span><span class="lb-chip warning">פנימי: יש כאן נתוני מכירות</span></div><h1>{he(data["title"])}</h1>
+<p class="lb-lede">{he(data["lede"])}</p>
 <div class="lb-row"><a class="lb-btn" href="{DEMO_PAGE}#step-1">לפתוח את הדמו</a><span class="acts-legend">{legend}</span></div></div>{hero_pic}</div>
 <div class="acts-tiles" role="group" aria-label="סינון לפי מי ומה">{tiles}</div>
-<div class="acts-bar-row"><nav class="acts-strip" aria-label="שלבי המסע">{"".join(strip)}</nav>
+<div class="acts-bar-row"><nav class="lb-scroller" style="--item: max-content" aria-label="שלבי המסע">{"".join(strip)}</nav>
 <div class="acts-progress"><span><span id="acts-done-n">0</span> מתוך {len(items)} סומנו</span><label><input type="checkbox" id="acts-hide-done"> להסתיר מה שסימנתי</label></div></div>
 {"".join(stages)}
 <p class="acts-empty" hidden>אין כאן כלום בסינון הזה.</p>
-<p class="endnote">המקור: <code dir="ltr">research/cro-crm/src/journey-actions.json</code>, שורה לכל הערה בדמו שמבקשת משהו. הסימונים נשמרים רק בדפדפן הזה. הכריכות מ-lumebook.com, הספר המודפס מהמוקאפ של ספר היום הולדת של הילה.</p>
+<p class="lb-note">המקור: <code dir="ltr">research/cro-crm/src/journey-actions.json</code>, שורה לכל הערה בדמו שמבקשת משהו. הסימונים נשמרים רק בדפדפן הזה. הכריכות מ-lumebook.com, הספר המודפס מהמוקאפ של ספר היום הולדת של הילה.</p>
 </section>"""
 
 
 ACTS_STYLE = """<style>
-/* The action list (Hebrew, right to left): smart-list tiles that filter, a strip of the seven journey stages, then one
-   grouped list per stage. Stage hues come from categories.json (journey-stages) through lb-cat-N; status keeps its chips.
-   Check circles take the stage hue, like a list colour in Reminders. */
+/* The action list (Hebrew, right to left): smart-list tiles that filter, a strip of the seven journey stages (lb-scroller),
+   then one lb-topic per stage (lb-topic-head, grouped lb-rowlist rows). Stage hues come from categories.json
+   (journey-stages) through lb-cat-N; status keeps its chips. Hero is lb-hero has-media, the ad sketch an lb-post, the
+   priority an lb-disc, the details an lb-kv. Page rules below are only what those leave to the page.
+   Check circles take the stage hue, like a list colour in Reminders (a round button, so it works inside the row's summary). */
 .acts { display: grid; gap: var(--sp-5); }
-.acts [hidden] { display: none !important; }
-.acts-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(9rem, 16rem); gap: var(--sp-6); align-items: center; }
-.acts-hero-text { display: grid; gap: var(--sp-3); align-content: start; }
-.acts-hero h2 { font-size: var(--fs-display); line-height: 1.12; letter-spacing: -.015em; }
-.acts-lede { font-size: 1.0625rem; line-height: 1.6; color: var(--text-2); max-width: 40rem; text-wrap: pretty; }
 .acts-legend { display: inline-flex; flex-wrap: wrap; gap: var(--sp-1); margin-inline-start: var(--sp-2); }
-.acts-hero-img { width: 100%; height: auto; border-radius: var(--r-lg); box-shadow: var(--shadow-3); border: 1px solid var(--line); }
-@media (max-width: 700px) { .acts-hero { grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); } .acts-hero-img { max-width: 13rem; justify-self: center; } }
+.acts-hero-img { width: 100%; max-width: 16rem; height: auto; justify-self: center; border-radius: var(--r-lg); box-shadow: var(--shadow-3); border: 1px solid var(--line); }
+@media (max-width: 760px) { .acts-hero-img { max-width: 13rem; } }
 
 .acts-tiles { display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.75rem), 1fr)); }
 .acts-tile { appearance: none; font: inherit; text-align: start; cursor: pointer; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: var(--sp-2) var(--sp-3);
   padding: var(--sp-3) var(--sp-4); border-radius: var(--r-lg); background: var(--surface-2); border: 1px solid var(--line); color: var(--text); transition: background .15s, transform .15s; }
 .acts-tile:hover { background: var(--fill-2); }
 .acts-tile:active { transform: scale(.98); }
-.acts-tile:focus-visible, .acts-check:focus-visible, .acts-item summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.acts-tile:focus-visible, .acts-check:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .acts-tile-ic { width: 2.1rem; height: 2.1rem; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: var(--bg); }
 .acts-tile-n { justify-self: end; font-size: var(--fs-num); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
 .acts-tile-l { grid-column: 1 / -1; font-family: var(--font-2); font-weight: 700; font-size: var(--fs-callout); color: var(--text-2); }
@@ -380,14 +379,9 @@ ACTS_STYLE = """<style>
 .acts svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .acts-tile-ic svg { width: 1.15rem; height: 1.15rem; stroke-width: 2.2; }
 
-.acts-prio { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: inline-grid; place-items: center; flex: none; background: var(--accent-soft); color: var(--accent-ink);
-  font-family: var(--font-2); font-weight: 800; font-size: var(--fs-footnote); line-height: 1; }
-
-.acts-bar-row { position: sticky; top: 3.5rem; z-index: 5; display: grid; gap: var(--sp-2); padding: var(--sp-2) 0; background: var(--bar); backdrop-filter: saturate(1.6) blur(14px); -webkit-backdrop-filter: saturate(1.6) blur(14px); border-bottom: 1px solid var(--line); }
+.acts-bar-row { position: sticky; top: calc(max(env(safe-area-inset-top, 0px), var(--lb-gnav-top, 0px)) + 3.5rem); z-index: 5; display: grid; gap: var(--sp-2); padding: var(--sp-2) 0; background: var(--bar); backdrop-filter: saturate(1.6) blur(14px); -webkit-backdrop-filter: saturate(1.6) blur(14px); border-bottom: 1px solid var(--line); }
 @media (max-width: 980px) { .acts-bar-row { position: static; } }
-.acts-strip { display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
-.acts-strip::-webkit-scrollbar { display: none; }
-.acts-chip { display: inline-flex; align-items: center; gap: var(--sp-2); flex: none; padding: .3rem .4rem .3rem .7rem; border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--line);
+.acts-chip { display: inline-flex; align-items: center; gap: var(--sp-2); padding: .3rem .4rem .3rem .7rem; border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--line);
   color: var(--text); font-weight: 600; font-size: var(--fs-callout); text-decoration: none; white-space: nowrap; }
 .acts-chip:hover { border-color: var(--tc); text-decoration: none; color: var(--text); }
 .acts-chip .lb-tile { width: 1.5rem; height: 1.5rem; border-radius: 50%; }
@@ -397,11 +391,7 @@ ACTS_STYLE = """<style>
 .acts-progress label { display: inline-flex; align-items: center; gap: var(--sp-2); cursor: pointer; color: var(--text-2); }
 .acts-progress input { accent-color: var(--tint); }
 
-.acts-stage { display: grid; gap: var(--sp-3); scroll-margin-top: 9rem; padding-top: var(--sp-4); }
-.acts-stage-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; }
-.acts-stage-head .lb-tile.lg { border-radius: .8rem; }
-.acts-stage-head h3 { font-size: var(--fs-title); margin: 0; line-height: 1.2; }
-.acts-step { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--tc-ink); }
+.acts-stage { scroll-margin-top: 9rem; padding-top: var(--sp-4); }
 .acts-context { display: grid; gap: var(--sp-4); align-items: start; }
 .acts-context.has-visual { grid-template-columns: minmax(0, 1fr) auto; }
 @media (max-width: 640px) { .acts-context.has-visual { grid-template-columns: minmax(0, 1fr); } }
@@ -409,15 +399,9 @@ ACTS_STYLE = """<style>
 .acts-note svg { color: var(--tc-ink); margin-top: .15rem; }
 .acts-visual { margin: 0; display: grid; gap: var(--sp-1); justify-items: center; }
 .acts-visual figcaption { font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
-.acts-ad { width: 15rem; border-radius: var(--r-lg); overflow: hidden; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-2); font-size: var(--fs-footnote); }
-.acts-ad-head { display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3); }
-.acts-ad-head img { width: 1.75rem; height: 1.75rem; border-radius: 50%; }
-.acts-ad-head span { display: grid; line-height: 1.2; }
-.acts-ad-head small, .acts-ad-link small { color: var(--text-3); font-size: var(--fs-caption); }
-.acts-ad p { margin: 0; padding: 0 var(--sp-3) var(--sp-2); }
-.acts-ad > img { display: block; width: 100%; height: auto; }
-.acts-ad-link { display: grid; gap: 1px; padding: var(--sp-2) var(--sp-3); background: var(--surface-2); }
-.acts-ad-link small { text-align: end; }
+.acts-ad { width: 15rem; box-shadow: var(--shadow-2); }
+.acts-ad-link { display: grid; gap: 1px; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm); background: var(--surface-2); font-size: var(--fs-footnote); }
+.acts-ad-link small { color: var(--text-3); font-size: var(--fs-caption); text-align: end; }
 .acts-price { width: 15rem; display: grid; gap: var(--sp-1); padding: var(--sp-4); border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-2); font-size: var(--fs-footnote); color: var(--text-2); }
 .acts-price > b { font-size: 2rem; line-height: 1; color: var(--tc-ink); font-weight: 800; }
 .acts-eta { color: var(--text); }
@@ -431,44 +415,23 @@ ACTS_STYLE = """<style>
 .acts-group { display: grid; gap: var(--sp-2); }
 .acts-group h4 { display: flex; gap: var(--sp-2); align-items: baseline; font-size: var(--fs-callout); font-family: var(--font-2); font-weight: 700; color: var(--text-3); margin: var(--sp-2) var(--sp-4) 0; }
 .acts-group h4 a { font-weight: 600; font-size: var(--fs-caption); }
-.acts-list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
-.acts-item + .acts-item { border-top: 1px solid var(--line); }
-.acts-item > details > summary { list-style: none; display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; gap: var(--sp-3); align-items: start; padding: var(--sp-3) var(--sp-4); cursor: pointer; }
-.acts-item > details > summary::-webkit-details-marker { display: none; }
-.acts-item > details > summary:hover { background: var(--fill); }
-.acts-item.is-target { background: var(--accent-soft); }
-.acts-check { appearance: none; width: 1.45rem; height: 1.45rem; margin-top: .05rem; border-radius: 50%; border: 2px solid var(--tc); background: transparent; color: var(--text-on-tint); display: grid; place-items: center; padding: 0; cursor: pointer; }
+.acts-check { appearance: none; width: 1.45rem; height: 1.45rem; border-radius: 50%; border: 2px solid var(--tc); background: transparent; color: var(--text-on-tint); display: grid; place-items: center; padding: 0; cursor: pointer; }
 .acts-check svg { width: .85rem; height: .85rem; stroke-width: 3; opacity: 0; }
 .acts-check[aria-pressed="true"] { background: var(--tc); }
 .acts-check[aria-pressed="true"] svg { opacity: 1; }
-.acts-main { display: grid; gap: .15rem; min-width: 0; }
-.acts-main b { font-weight: 600; line-height: 1.4; }
-.acts-why { color: var(--text-2); font-size: var(--fs-callout); line-height: 1.45; }
-.acts-meta { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-2); align-items: center; justify-content: flex-end; }
-.acts-who { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); font-weight: 600; white-space: nowrap; }
-.acts-chev { color: var(--text-3); margin-top: .2rem; transition: transform .2s; }
-details[open] > summary .acts-chev { transform: rotate(-90deg); }
-.acts-item.is-done .acts-main b { text-decoration: line-through; text-decoration-color: var(--text-3); color: var(--text-3); }
-.acts-item.is-done .acts-why { color: var(--text-3); }
-@media (max-width: 640px) {
-  .acts-item > details > summary { grid-template-columns: auto minmax(0, 1fr) auto; }
-  .acts-meta { grid-column: 2; grid-row: 2; justify-content: flex-start; }
-  .acts-chev { grid-column: 3; grid-row: 1; }
-}
-.acts-more { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--sp-3) var(--sp-4); padding: 0 var(--sp-4) var(--sp-4); padding-inline-start: calc(var(--sp-4) + 1.45rem + var(--sp-3)); }
-.acts-more dl { margin: 0; display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: var(--sp-2) var(--sp-3); font-size: var(--fs-callout); }
-.acts-more dt { font-family: var(--font-2); font-weight: 700; font-size: var(--fs-footnote); color: var(--text-3); padding-top: .1rem; }
-.acts-more dd { margin: 0; color: var(--text); }
+.acts .lb-rowitem-meta { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.acts-more { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--sp-4); }
+.acts-more .lb-kv { margin: 0; }
 .acts-thumb { grid-column: 2; grid-row: 1 / span 2; width: 5.5rem; height: 5.5rem; border-radius: var(--r-md); object-fit: cover; box-shadow: var(--shadow-2); }
 .acts-demo-link { grid-column: 1; display: inline-flex; align-items: center; gap: var(--sp-1); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; justify-self: start; }
 .acts-demo-link svg { width: .9rem; height: .9rem; transform: scaleX(-1); }
-@media (max-width: 640px) { .acts-more { grid-template-columns: minmax(0, 1fr); padding-inline-start: var(--sp-4); } .acts-more dl { grid-template-columns: minmax(0, 1fr); gap: 0; } .acts-more dd { margin-bottom: var(--sp-2); } .acts-thumb { grid-column: 1; grid-row: auto; } }
+@media (max-width: 640px) { .acts-more { grid-template-columns: minmax(0, 1fr); } .acts-thumb { grid-column: 1; grid-row: auto; } }
 .acts-keep { margin: 0 var(--sp-4); font-size: var(--fs-footnote); color: var(--text-3); }
 .acts-keep summary { display: inline-flex; align-items: center; gap: var(--sp-1); cursor: pointer; font-family: var(--font-2); font-weight: 700; }
 .acts-keep summary svg { color: var(--success); }
-.acts-keep ul { margin: var(--sp-2) 0 0; padding-inline-start: 1.3rem; display: grid; gap: var(--sp-1); color: var(--text-2); }
+.acts-keep .lb-bullets { margin-top: var(--sp-2); color: var(--text-2); }
 .acts-empty { color: var(--text-3); font-family: var(--font-2); }
-@media (prefers-reduced-motion: reduce) { .acts-tile, .acts-chev { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .acts-tile { transition: none; } }
 </style>"""
 
 ACTS_JS = """<script>
@@ -478,7 +441,7 @@ ACTS_JS = """<script>
   if (!root) return;
   var KEY = "lb-cro-actions-done", done = {}, filter = "all";
   try { JSON.parse(localStorage.getItem(KEY) || "[]").forEach(function (id) { done[id] = 1; }); } catch (e) { /* no storage */ }
-  var items = [].slice.call(root.querySelectorAll(".acts-item"));
+  var items = [].slice.call(root.querySelectorAll(".lb-rowitem"));
   var hide = root.querySelector("#acts-hide-done");
   function save() { try { localStorage.setItem(KEY, JSON.stringify(Object.keys(done))); } catch (e) { /* no storage */ } }
   function apply() {
@@ -490,24 +453,24 @@ ACTS_JS = """<script>
     });
     var any = false;
     [].slice.call(root.querySelectorAll(".acts-group")).forEach(function (g) {
-      var n = g.querySelectorAll(".acts-item:not([hidden])").length;
+      var n = g.querySelectorAll(".lb-rowitem:not([hidden])").length;
       g.hidden = !n;
       var keep = g.querySelector(".acts-keep"); if (keep) keep.hidden = filter !== "all";
     });
     [].slice.call(root.querySelectorAll(".acts-stage")).forEach(function (s) {
-      var n = s.querySelectorAll(".acts-item:not([hidden])").length;
+      var n = s.querySelectorAll(".lb-rowitem:not([hidden])").length;
       s.hidden = !n; any = any || n > 0;
       var chip = root.querySelector('.acts-chip[data-stage="' + s.dataset.stage + '"]');
       if (chip) { chip.querySelector(".lb-count").textContent = n; chip.classList.toggle("is-empty", !n); }
     });
     root.querySelector(".acts-empty").hidden = any;
-    root.querySelector("#acts-done-n").textContent = Object.keys(done).filter(function (id) { return root.querySelector('.acts-item[data-id="' + id + '"]'); }).length;
+    root.querySelector("#acts-done-n").textContent = Object.keys(done).filter(function (id) { return root.querySelector('.lb-rowitem[data-id="' + id + '"]'); }).length;
   }
   root.addEventListener("click", function (e) {
     var c = e.target.closest(".acts-check");
     if (c) {
       e.preventDefault(); e.stopPropagation();
-      var id = c.closest(".acts-item").dataset.id;
+      var id = c.closest(".lb-rowitem").dataset.id;
       if (done[id]) delete done[id]; else done[id] = 1;
       save(); apply(); return;
     }
@@ -532,19 +495,12 @@ ACTS_JS = """<script>
 
 
 STYLE = """<style>
-/* Layout: the action list open at the top, then the seven research files as closed disclosures. Top bar pills per
-   section (scroll-tracked) open the one they name. Page rules use design tokens only. */
+/* Layout: the action list open at the top, then the seven research files as closed disclosures. Top bar (lb-topbar has-toc,
+   lb-brand is-stacked) pills per section (scroll-tracked) open the one they name. Lists are ul.lb-bullets, tables
+   lb-table top (wide for six columns or more), Hebrew drafts lb-textblock. Page rules use design tokens only. */
 :root { --read-w: 74ch; }
-.plan-logo { width: 1.75rem; height: 1.75rem; flex: none; display: block; border-radius: .4rem; }
-.brand { display: grid; line-height: 1.15; flex: none; }
-.brand b { font-weight: 800; font-size: var(--fs-headline); letter-spacing: -.01em; }
-.brand span { font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .02em; color: var(--accent-ink); }
-.lb-topbar .lb-toc { flex: 1 1 0; margin-inline-start: var(--sp-3); }
-@media (max-width: 980px) {
-  .lb-topbar-in { flex-wrap: wrap; row-gap: 0; padding-top: var(--sp-2); }
-  .lb-topbar .lb-toc { order: 9; flex-basis: 100%; margin: var(--sp-2) 0 0; padding-bottom: var(--sp-2); }
-}
-.doc { min-width: 0; scroll-margin-top: calc(6rem + var(--sp-4)); }
+.lb-topbar .lb-toc { flex: 1 1 0; } /* the pills shrink first, so the brand keeps its full name beside them */
+.doc { min-width: 0; }
 .research { display: grid; gap: var(--sp-4); padding-top: var(--sp-6); border-top: 1px solid var(--line); }
 .research-head { display: grid; gap: var(--sp-2); }
 .research-head h2 { font-size: var(--fs-title); }
@@ -557,41 +513,35 @@ STYLE = """<style>
 .doc-toc { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-2); }
 .doc-toc a { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-2); background: var(--fill); border-radius: var(--r-pill); padding: .25rem .65rem; text-decoration: none; }
 .doc-toc a:hover { background: var(--tint-soft); color: var(--tint); text-decoration: none; }
-.doc-body h3 { font-size: var(--fs-title); margin-top: var(--sp-4); scroll-margin-top: calc(6rem + var(--sp-3)); }
-.doc-body h4 { font-size: var(--fs-headline); margin-top: var(--sp-2); scroll-margin-top: calc(6rem + var(--sp-3)); }
-.doc-body > p, .doc-body > ul, .doc-body > ol { max-width: var(--read-w); }
-.doc-body > p { color: var(--text-2); text-wrap: pretty; }
+.doc-body h3 { font-size: var(--fs-title); margin-top: var(--sp-4); }
+.doc-body h4 { font-size: var(--fs-headline); margin-top: var(--sp-2); }
+.doc-body > p, .doc-body > ul, .doc-body > ol { max-width: var(--read-w); color: var(--text-2); }
+.doc-body > p { text-wrap: pretty; }
 .doc-body > p b, .doc-body li b { color: var(--text); }
 @media (max-width: 640px) { .doc > summary { padding: var(--sp-3) var(--sp-4); } .doc-body { padding: var(--sp-4); } }
-ul.list, ol.list { margin: 0; padding-inline-start: 1.3rem; display: grid; gap: var(--sp-2); color: var(--text-2); }
-ul.list li::marker { color: var(--accent); }
+ol.list { margin: 0; padding-inline-start: 1.3rem; display: grid; gap: var(--sp-2); }
 ol.list li::marker { color: var(--accent-ink); font-weight: 700; font-family: var(--font-2); }
-.lb-table td { vertical-align: top; min-width: 7rem; }
+.lb-table td { min-width: 7rem; }
 .lb-table td:first-child { min-width: 4rem; }
-.lb-table-wrap.is-wide td { min-width: 10rem; }
-.lb-table-wrap.is-wide td:first-child { min-width: 3rem; }
 .lb-table th { white-space: normal; }
-.lb-table tr:target td, .lb-table tr.is-target td { background: var(--accent-soft); }
-pre.he { font-family: var(--font); font-size: var(--fs-callout); line-height: 1.6; white-space: pre-wrap; background: var(--surface-2); border: 1px solid var(--line); border-inline-end: 4px solid var(--accent); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); max-width: 28rem; text-align: right; }
-code { font-size: .88em; background: var(--fill); border-radius: var(--r-xs); padding: .05em .35em; overflow-wrap: anywhere; }
-main a { color: var(--tint); }
+.doc-body > .lb-textblock { max-width: 28rem; }
+code { overflow-wrap: anywhere; }
 a.cite, a.src { font-family: var(--font-2); font-size: .85em; font-weight: 700; white-space: nowrap; }
 bdi { unicode-bidi: isolate; }
 main p, main li, .lb-table td { overflow-wrap: anywhere; }
-.endnote { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>"""
 
 SPY_JS = """<script>
 /* In-page links scroll instead of navigating: the desktop app's file preview loads the page as a data: URL, where
-   following a link, even "#doc-audit", is blocked. A link into a closed research file opens it first. */
+   following a link, even "#doc-audit", is blocked. A link into a closed research file or action row opens it first, and
+   the row or source line it lands on flashes (lb-flash). */
 function go(el, smooth) {
   if (el.hidden || (el.closest && el.closest("[hidden]"))) { var all = document.querySelector('.acts-tile[data-filter="all"]'), hd = document.getElementById("acts-hide-done"); if (hd && hd.checked) { hd.checked = false; hd.dispatchEvent(new Event("change")); } if (all) all.click(); }
   for (var p = el; p; p = p.parentElement) if (p.tagName === "DETAILS") p.open = true;
   el.scrollIntoView({ behavior: smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto", block: "start" });
-  if (el.tagName === "TR" || el.classList.contains("acts-item")) { el.classList.add("is-target"); setTimeout(function () { el.classList.remove("is-target"); }, 2500); }
-  if (el.classList.contains("acts-item")) { var d = el.querySelector("details"); if (d) d.open = true; }
+  if (el.tagName === "TR" || el.classList.contains("lb-rowitem")) { el.classList.remove("lb-flash"); void el.offsetWidth; el.classList.add("lb-flash"); setTimeout(function () { el.classList.remove("lb-flash"); }, 1800); }
 }
 document.addEventListener("click", function (e) {
   var a = e.target.closest && e.target.closest('a[href^="#"]');
@@ -659,18 +609,16 @@ def build():
 {ACTS_STYLE}
 </head>
 <body>
-<header class="lb-topbar">
+<header class="lb-topbar has-toc">
   <div class="lb-topbar-in">
-    <img class="plan-logo" src="{design.logo_data_uri()}" alt="" width="28" height="28">
-    <div class="brand"><span>LumeBook · internal</span><b>CRO and CRM strategy</b></div>
+    <a class="lb-brand is-stacked" href="#doc-actions"><img src="{design.logo_data_uri()}" alt="" width="28" height="28"><span><small>LumeBook · internal</small><b>CRO and CRM strategy</b></span></a>
     <nav class="lb-toc" aria-label="Sections">{"".join(pills)}</nav>
-    {design.theme_toggle(dark_label="Dark mode")}
   </div>
 </header>
 <main class="lb-page" dir="ltr" lang="en">
 {actions_section()}
 {research}
-<p class="endnote">Built from <code>research/cro-crm/*.md</code> by <code>research/cro-crm/src/build_strategy_page.py</code>. Edit the Markdown, then rebuild. Not legal advice: the legal points are summaries for a lawyer.</p>
+<p class="lb-note">Built from <code>research/cro-crm/*.md</code> by <code>research/cro-crm/src/build_strategy_page.py</code>. Edit the Markdown, then rebuild. Not legal advice: the legal points are summaries for a lawyer.</p>
 </main>
 {SPY_JS}
 {ACTS_JS}

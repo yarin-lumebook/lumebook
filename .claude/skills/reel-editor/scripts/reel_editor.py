@@ -250,7 +250,7 @@ def build(cfg_path, trial):
     bottom = cfg.get("bottom")
     words = json.load(open(base / cfg["captions"])) if cfg.get("captions") else []
     lint([("hook", h) for h in hooks] + [("cta", cta and cta["text"]), ("bottom", bottom)]
-         + [(f"caption word at {w['s']}s", w["w"]) for w in words])
+         + [(f"caption word at {w['s']}s", w["w"]) for w in words] + [("top card", t["text"]) for t in cfg.get("top_cards", [])])
 
     out_dir = base / cfg.get("out", "trial" if trial else "final"); out_dir.mkdir(parents=True, exist_ok=True)
     work = base / cfg.get("work", "work"); work.mkdir(exist_ok=True)
@@ -272,24 +272,30 @@ def build(cfg_path, trial):
         p = dict(params[i]); hook = hooks[i % len(hooks)]
         s = p.get("trim_start", 0.0); e = dur - p.get("trim_end", 0.0); length = round(e - s, 3)
         cta_start = length - cta.get("seconds", 2.5) if cta else length
+        hook_end = cfg.get("hook_seconds", length)   # hook only for the first N seconds, then no top text until the CTA
         cards = [dict(c, s=c["s"] - s, e=min(c["e"] - s, length))
                  for c in caption_cards(words, cfg.get("words_per_card", 1)) if c["e"] - s > 0 and c["s"] - s < length]
-        cuts = sorted({0.0, length, max(cta_start, 0.0)} | {max(c["s"], 0.0) for c in cards} | {c["e"] for c in cards})
+        # top cards (a number per point, a key word): timed top text between the hook and the CTA (Yarin, 05 Nov 2026)
+        tops = [dict(t, s=max(t["s"] - s, 0.0), e=min(t["e"] - s, length)) for t in cfg.get("top_cards", []) if t["e"] - s > 0 and t["s"] - s < length]
+        cuts = sorted({0.0, length, max(cta_start, 0.0), min(hook_end, length)} | {max(c["s"], 0.0) for c in cards} | {c["e"] for c in cards}
+                      | {t["s"] for t in tops} | {t["e"] for t in tops})
         cuts = [t for t in cuts if 0 <= t <= length]
         tmp = work / f"cards-{name}-{i + 1}"; tmp.mkdir(exist_ok=True)
         segs, cache, layout = [], {}, {}
         for a, b in zip(cuts, cuts[1:]):
             if b - a < 0.01: continue
             mid = (a + b) / 2
-            top_text = cta["text"] if mid >= cta_start else hook
+            top_card = next((t for t in tops if t["s"] <= mid < t["e"]), None)
+            top_text = cta["text"] if mid >= cta_start else (top_card["text"] if top_card else (hook if mid < hook_end else None))
+            top_size = top_card.get("size", hook_size) if (top_card and mid < cta_start) else hook_size
             word = next((c["text"] for c in cards if c["s"] <= mid < c["e"]), None)
             key = (top_text, word)
             if key not in cache:
                 im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-                is_cta = top_text != hook
+                is_cta = top_text is not None and mid >= cta_start
                 hl = cta.get("highlight") if is_cta else None
-                lay = {"cta" if is_cta else "hook": block(im, sh, top_text, hook_size, tmp, top=TOP,
-                                                         highlight=BRAND_PURPLE if hl is True else hl)}
+                lay = {"cta" if is_cta else "hook": block(im, sh, top_text, top_size, tmp, top=TOP,
+                                                         highlight=BRAND_PURPLE if hl is True else hl)} if top_text else {}
                 if bottom: lay["bottom"] = block(im, sh, bottom, 54, tmp, bottom=SAFE_BOTTOM)
                 if word: lay["caption"] = block(im, sh, word, cap_size, tmp, bottom=cap_bottom,
                                                 cx=W * cfg.get("caption_x", 0.5))

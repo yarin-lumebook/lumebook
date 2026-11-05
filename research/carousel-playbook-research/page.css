@@ -13,12 +13,9 @@
 }
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
-/* ---------- top bar ---------- */
+/* ---------- top bar (lb-topbar has-toc with the bar brand) ---------- */
 .pb-root .lb-topbar-in{max-width:none}
-.lb-topbar .lb-brand{padding-inline:0;min-width:0;flex:none}
-.lb-topbar .lb-brand img{width:1.75rem;height:1.75rem;border-radius:var(--r-xs);flex:none}
-.lb-topbar .lb-brand b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lb-topbar .lb-toc{flex:0 1 auto}
+@media (min-width:981px){.lb-topbar .lb-brand{flex:none}} /* one row: the name never cuts, the part pills give way first */
 .bar-meta{font-size:var(--fs-caption);color:var(--text-3);white-space:nowrap}
 
 /* ---------- sidebar (design-system lb-app / lb-sidebar under the bar) ---------- */
@@ -43,7 +40,7 @@
 /* ---------- long-form prose ---------- */
 .page .lb-prose{max-width:none;min-width:0;gap:var(--sp-4);font-size:1.0625rem;line-height:1.75}
 .page .lb-prose > *{max-width:var(--pb-measure);min-width:0}
-.page .lb-prose > .tbl.mid,.page .lb-prose > .tbl.wide,.page .lb-prose > .cgrid{max-width:none}
+.page .lb-prose > .tbl:has(> .lb-table.mid, > .lb-table.wide),.page .lb-prose > .cgrid{max-width:none}
 .page .lb-prose h3{font-weight:700;font-size:var(--fs-title);line-height:1.3;margin-top:var(--sp-6);padding-top:var(--sp-5);border-top:1px solid var(--line)}
 .page .lb-prose h4{font-size:var(--fs-headline);margin-top:var(--sp-4)}
 .page .lb-prose > :first-child{margin-top:0;padding-top:0;border-top:0}
@@ -61,20 +58,14 @@
 .page .lb-prose li.check .lb-check input{margin-top:.35em}
 .tag{vertical-align:.08em;font-weight:600}
 
-/* ---------- tables ---------- */
+/* ---------- tables (lb-table top, mid / wide) ---------- */
 .page .lb-table{line-height:1.55}
-.page .lb-table td{vertical-align:top}
 .page .lb-table td p{margin:0}
-.tbl.mid .lb-table{min-width:640px}
-.tbl.wide .lb-table{min-width:880px}
 .tbl.meta{max-width:46rem}
 .tbl.meta th{width:9.5rem;white-space:normal;vertical-align:top}
 
-/* ---------- home ---------- */
-.hero{display:grid;gap:var(--sp-4);max-width:56rem;padding-bottom:var(--sp-2)}
-.hero h1{font-size:clamp(2rem,4.6vw,3.1rem);line-height:1.15}
-.hero h1 em{font-style:normal;color:var(--tint)}
-.hero .lb-lede{max-width:44rem}
+/* ---------- home (lb-hero) ---------- */
+.lb-hero h1 em{font-style:normal;color:var(--tint)}
 .flow{list-style:none;padding:0;margin:var(--sp-3) 0 0;display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-1);align-items:center}
 .flow li{display:inline-flex;align-items:center;gap:.45rem;padding:.4rem .8rem;border-radius:var(--r-pill);background:var(--surface);border:1px solid var(--line);font-size:var(--fs-callout);font-weight:500}
 .flow li span{font-size:var(--fs-caption);font-weight:700;color:var(--accent-ink);font-variant-numeric:tabular-nums}
@@ -97,8 +88,9 @@
 .strip-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--sp-3);margin-top:var(--sp-4)}
 .strip-head + .hint{margin-top:calc(-1 * var(--sp-3));max-width:46rem}
 .copy-fallback{display:block;min-height:8rem}
-.strip{display:grid;grid-auto-flow:column;grid-auto-columns:min(76vw,250px);gap:var(--sp-4);overflow-x:auto;scroll-snap-type:x mandatory;padding-block:var(--sp-1) var(--sp-4);overscroll-behavior-x:contain;min-width:0}
-.slot{margin:0;scroll-snap-align:start;min-width:0}
+/* slide strip: lb-scroller snap; room above and below for the sketches' shadow */
+.page .lb-scroller{--item:min(76vw,250px);gap:var(--sp-4);padding-block:var(--sp-1) var(--sp-4)}
+.slot{margin:0}
 .slot figcaption{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-footnote);font-weight:600;color:var(--text-2);margin-bottom:var(--sp-2);line-height:1.3}
 .lay{margin-inline-start:auto;font:600 var(--fs-caption)/1 var(--font-mono);color:var(--text-3);direction:ltr}
 .snotes{margin-top:var(--sp-2);font-size:var(--fs-footnote);line-height:1.55;color:var(--text-2);display:grid;gap:var(--sp-1)}
@@ -138,28 +130,21 @@
 .slide.L8 .t-item{background:rgba(248,240,225,.1)}
 .slide.L8 .slide-in{justify-content:center}
 
-/* ---------- pager ---------- */
-.pager{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);margin-top:var(--sp-5);max-width:var(--pb-measure)}
-.pg{gap:2px;padding:var(--sp-3) var(--sp-4);font-weight:600}
-.pg small{font-size:var(--fs-caption);font-weight:600;color:var(--text-3)}
-.pg.next{text-align:end}
+/* ---------- pager (lb-pager) ---------- */
+.page > .lb-pager{margin-top:var(--sp-5);max-width:var(--pb-measure)}
 
 /* ---------- wide but not desktop: keep the bar to one row ---------- */
 @media (min-width:861px) and (max-width:1279px){.bar-meta{display:none}}
 
-/* ---------- narrow screens: sidebar becomes the drawer, part pills move to a second bar row ---------- */
+/* ---------- under 980px the part pills take a second bar row (has-toc), so the sidebar starts lower ---------- */
+@media (max-width:980px){:root{--pb-bar:calc(5.28rem + 1px)}} /* two rows: lb-topbar-in measures 84.4px, plus its border */
+/* ---------- narrow screens: sidebar becomes the drawer ---------- */
 @media (max-width:860px){
-  .lb-topbar-in{flex-wrap:wrap;row-gap:var(--sp-1);padding-top:var(--sp-2)}
-  .lb-topbar .lb-brand{flex:1 1 0}
-  .lb-topbar .lb-spacer{display:none}
-  .lb-topbar .lb-toc{order:10;flex-basis:100%;margin-inline:calc(-1 * var(--sp-3));padding-bottom:var(--sp-2)}
   .app .lb-sidebar{top:0;height:auto;padding-top:calc(var(--sp-4) + env(safe-area-inset-top,0px))}
   .nav-brand{display:flex;padding-bottom:var(--sp-2)}
   .main .lb-page{padding-block:var(--sp-5) var(--sp-7)}
 }
 @media (max-width:520px){
   .bar-meta{display:none}
-  .pager{grid-template-columns:1fr}
-  .pg.next{text-align:start}
   .page .lb-prose{font-size:1rem}
 }

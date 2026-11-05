@@ -5,39 +5,38 @@ carousel engine, editor and producer to be viewed in one place i can easily acce
     python3 carousel/carousel-pipeline/scripts/producer.py status          # every production and where it stands
     python3 carousel/carousel-pipeline/scripts/producer.py export-reco 2026-10-19 reco-2   # games and books ZIP, no cost
 
+Pictures come from the OpenAI Images API only (03 Nov 2026, Yarin: "disconnect carousel machine from any other image
+generation tool, i want it to use the gpt api from now on"; openai_pictures.py, openai_generate.py). fal.ai and ChatGPT in
+Chrome are retired. Yarin's rules for the key (memory feedback-openai-api-key-rules) are enforced here, not left to the page:
+always ask for a budget, never exceed it, tell the estimated tokens and cost before generating, create nothing without
+his explicit permission. So no picture is made until Yarin has approved the stage: every stage that would spend (the cover or
+the one picture, the other slides of a story, another take) first stops in status "approval" with its estimated tokens and
+dollars; Yarin gives the carousel's budget and confirms (authorize(), the page's dialog); only then does that one stage run,
+through openai_generate.py --max-usd BUDGET, which refuses any call that would pass the budget. The permission is used once.
+
 Kid and expert option (one picture behind all ten slides, packs from 14 Oct 2026):
-1. prepare_fal_jobs.py freezes the option into approved/DATE-ID/ (refreezes when the copy was edited since; images
-   whose job did not change carry over)
-2. fal_generate.py run picture --max-usd 0.50, through `zsh -ic` so FAL_KEY comes from ~/.zshrc and is never
-   written anywhere. Picking the carousel for production in Carousel Machine is the approval to spend up to $0.50 on it
-   (the standing rule of 8 Oct 2026); the cap covers every attempt, replacements included
+1. prepare_picture_jobs.py freezes the option into approved/DATE-ID/ (refreezes when the copy was edited since; images
+   whose prompt did not change carry over). Free.
+2. Approval of the picture stage, then openai_generate.py run picture --max-usd BUDGET.
 3. Yarin looks at the picture in Carousel Machine and approves it (qa pass) or asks for another with a note (qa fail +
-   replace, at most 2 replacements, inside the same $0.50)
+   replace, at most 2 replacements; each another take needs its own approval and room in the budget)
 4. compose_slides.py exports the 1080 x 1350 slides, contact sheet, RTL check, caption, sources and the ZIP
 
 Story carousel (story-format.md, 29 Oct 2026: a picture per slide, 9 to 12 slides):
-1. prepare_fal_jobs.py freezes it with jobs slide-01 (the cover, text-to-image) and slide-02..NN (edits of the cover)
-2. fal_generate.py run slide-01 --max-usd 1.00; Carousel Machine shows the cover for approval or another take, as above
-3. after the cover is approved: fal_generate.py run --max-usd 1.00 makes every other slide in parallel; they are marked
-   QA-passed with the cover's approval (Yarin sees them in the final export) and compose_slides.py exports in the story
-   look. Cap STORY_MAX_USD ($1.00) for the whole carousel, every attempt included. A slide that failed is made again by
-   pressing produce again: finished pictures are never bought twice
+1. prepare_picture_jobs.py freezes it with jobs slide-01 (the cover, text-to-image) and slide-02..NN (edits of the cover)
+2. Approval of the cover, then openai_generate.py run slide-01; Carousel Machine shows the cover for approval or another take
+3. after the cover is approved: Approval of the slides (the estimate and the budget left), then openai_generate.py run makes
+   every other slide in parallel; they are marked QA-passed with the cover's approval and compose_slides.py exports in the
+   story look. A slide that failed is made again by pressing produce again (and approving again): finished pictures are
+   never bought twice
 
 Games and books carousel: its slide PNGs are already final, so production is an export: approved/DATE-reco[-2]/final/
 with the slides, caption, alt text, sources, contact sheet and the ZIP. No paid call.
 
-Pictures from ChatGPT (since 30 Oct 2026, production.json "picture_backend": "chatgpt", the default; Yarin: "disconnect my
-fal account from the carousel machine, use my chatgpt in chrome to create the images so everything will be free"): the
-steps above stay, but fal_generate.py is never run and FAL_KEY is never needed. After the freeze the entry is "waiting"
-(waiting for pictures from ChatGPT): Claude makes them in Yarin's Chrome (chatgpt_pictures.py next, chatgpt_helper.js,
-chatgpt_pictures.py ingest). advance_waiting(), which review_server.py runs every few seconds, moves a waiting entry on:
-a new cover goes to "review" exactly like a fal cover; approving a story cover makes it "waiting" again for slides 2..N;
-when they are all in they pass with the cover and compose_slides.py exports. Another take with a note puts the picture
-back in `next`. The caps are 0 and nothing is paid. "fal" in production.json brings the old paid flow back.
-
 State is productions.json (one entry per carousel, keyed "<date>/<id>"), written only here. Work runs in background
 threads inside review_server.py; a restart in the middle marks the entry so the page offers to continue
-(prepare and fal_generate are both resumable, a finished picture is never bought twice).
+(prepare and openai_generate are both resumable, a finished picture is never bought twice). An entry waiting in
+"approval" survives a restart and a pending permission is never carried over to another stage.
 """
 
 import argparse
@@ -55,30 +54,30 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import carousel_lib as lib  # noqa: E402
-import chatgpt_pictures as cg  # noqa: E402
+import openai_pictures as op  # noqa: E402
+import prepare_picture_jobs as pjobs  # noqa: E402
 import reco_lib as rl  # noqa: E402
 
 PRODUCTIONS = lib.PIPELINE / "productions.json"
-MAX_USD = 0.50
-STORY_MAX_USD = 1.00   # a story carousel (a picture per slide, 29 Oct 2026); the same as prepare_fal_jobs.STORY_MAX_USD
+GENERATE = HERE / "openai_generate.py"
 PICTURE = "picture"
 SLIDES_HE = "מייצר את התמונות של השקופיות"
 BUSY = ("queued", "fixing", "preparing", "generating", "composing", "exporting")
+APPROVAL = "approval"   # waiting for Yarin's budget and explicit yes; not BUSY, so a restart keeps it
 STATUS_HE = {"queued": "בתור", "fixing": "מתקן את הטקסט", "preparing": "מקפיא את הטקסט", "generating": "מייצר תמונה", "review": "מחכה לאישור שלך",
-             "waiting": "מחכה לתמונות מ-ChatGPT", "composing": "מרכיב שקופיות", "exporting": "מייצא", "done": "מוכן לפרסום", "failed": "נעצר"}
-WAITING = "waiting"   # ChatGPT runs (30 Oct 2026): waiting for Claude to make the pictures; not BUSY, so a restart keeps it
-WAITING_SLIDES_HE = "מחכה לתמונות השקופיות מ-ChatGPT"
-# fal's image model sometimes declines a harmless family scene (18 Oct 2026: expert-1 of 20 Oct twice; the same
+             APPROVAL: "מחכה לתקציב ולאישור שלך", "composing": "מרכיב שקופיות", "exporting": "מייצא", "done": "מוכן לפרסום", "failed": "נעצר"}
+STAGE_HE = {"cover": "התמונה (או השער)", "slides": "שאר התמונות של השקופיות", "redo": "תמונה אחרת"}
+# The image model sometimes declines a harmless family scene (18 Oct 2026: expert-1 of 20 Oct twice; the same
 # cover wording passed for kid-1, so the trigger is unknown). Rewording the scene and trying again got it through.
-SAFETY_MARKERS = ("content_policy_violation", "safety system declined")
+SAFETY_MARKERS = ("content_policy_violation", "moderation_blocked", "safety system declined", "safety_violations")
 DECLINED_HE = ("מסנן הבטיחות של מודל התמונות דחה את תיאור התמונה. זה קורה לפעמים גם בסצנה תמימה, ולא ידוע מה בדיוק הפעיל אותו. "
                "בקשה שנדחתה לא מייצרת תמונה. אפשר לנסח מחדש את תיאור הסצנה למטה ולנסות שוב.")
 QA_CHECKS_HE = ("הפנים של הילד אל המצלמה, עם הבעה גדולה", "הרעיון של הקרוסלה נקרא מהתמונה", "יש אזור נקי לטקסט",
                 "ידיים ופנים טבעיים, בלי אותיות או לוגו", "תלת ממד מונפש, לא צילום")
 ABOUT = ("Carousel Machine productions (producer.py). One entry per carousel keyed <date>/<id>; status: " + ", ".join(STATUS_HE)
-         + ". Kid and expert: approved/DATE-ID, one picture, spend cap $0.50 per carousel; story format (29 Oct 2026): a picture"
-         " per slide, the cover approved first, cap $1.00 per carousel. Games and books: export only. Since 30 Oct 2026 the"
-         " pictures come from ChatGPT (production.json picture_backend chatgpt, backend on each entry): free, cap 0.")
+         + ". Kid and expert: approved/DATE-ID, one picture; story format (29 Oct 2026): a picture per slide, the cover approved first."
+         " Games and books: export only. Since 03 Nov 2026 every picture comes from the OpenAI Images API and every stage that"
+         " spends waits in approval for Yarin's budget and yes (budget_usd, grant, approval on each entry).")
 
 _lock = threading.RLock()
 _pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="produce")
@@ -135,9 +134,9 @@ def spent(run_dir):
                 rec = json.loads(line)
             except (ValueError, json.JSONDecodeError):
                 continue
-            if rec.get("billed", True):   # the same rule as fal_generate.Run.spent
+            if rec.get("billed", True):   # the same rule as openai_generate.Run.spent
                 total += float(rec.get("estimated_cost_usd") or 0)
-    return round(total, 3)
+    return round(total, 5)
 
 
 def outputs(run_dir):
@@ -167,7 +166,7 @@ def compose_problems(text):
 
 
 def _sh(args, timeout, env_shell=False):
-    """Run a pipeline script. env_shell: through `zsh -ic` so FAL_KEY comes from ~/.zshrc (never echoed)."""
+    """Run a pipeline script. env_shell: through `zsh -ic` so OPENAI_API_KEY comes from the Keychain via ~/.zshrc (never echoed)."""
     if env_shell:
         cmd = ["zsh", "-ic", " ".join(shlex.quote(str(a)) for a in args)]
     else:
@@ -177,7 +176,7 @@ def _sh(args, timeout, env_shell=False):
 
 
 def _tail(text, n=6):
-    lines = [l for l in text.strip().splitlines() if l.strip() and "FAL_KEY" not in l]
+    lines = [l for l in text.strip().splitlines() if l.strip() and "OPENAI_API_KEY" not in l and "sk-" not in l]
     return "\n".join(lines[-n:])
 
 
@@ -197,17 +196,6 @@ def cover_job(run_dir):
     return (jobs.get("reference_job") or "slide-01") if jobs.get("story") else PICTURE
 
 
-def chatgpt():
-    """True while the pictures come from ChatGPT (production.json, the default since 30 Oct 2026): fal is never run."""
-    return lib.picture_backend() == "chatgpt"
-
-
-def cap_usd(run_dir):
-    if chatgpt():   # ChatGPT in Yarin's own account: nothing is paid, so nothing may be spent
-        return 0
-    return STORY_MAX_USD if is_story(run_dir) else MAX_USD
-
-
 def run_dir_of(rec):
     """The run folder behind a productions.json entry ("/approved/DATE-ID", or an absolute path in tests)."""
     raw = str(rec["run_dir"])
@@ -215,11 +203,32 @@ def run_dir_of(rec):
     return p if p.is_absolute() and (p / "jobs.json").exists() else lib.PIPELINE / raw.lstrip("/")
 
 
-def _require_fal():
-    """The paid fal steps run only with picture_backend "fal" (off since 30 Oct 2026)."""
-    if lib.picture_backend() == "fal":
-        return
-    raise RuntimeError("Carousel Machine is disconnected from fal.ai (production.json picture_backend is not \"fal\")")
+class NeedsApproval(Exception):
+    """A stage that would spend has no permission yet (Yarin's rules, 03 Nov 2026): carries what the page shows him."""
+
+    def __init__(self, stage, names, est, spent_now, budget):
+        super().__init__(f"stage {stage} needs Yarin's budget and approval")
+        self.info = {"stage": stage, "stage_he": STAGE_HE.get(stage, stage), "images": est["images"], "jobs": list(names),
+                     "usd": est["usd"], "tokens": est["total_tokens"], "input_text_tokens": est["input_text_tokens"],
+                     "input_image_tokens": est["input_image_tokens"], "output_tokens": est["output_tokens"],
+                     "spent_usd": round(spent_now, 4), "budget_usd": budget or None,
+                     "need_usd": round(spent_now + est["usd"], 4), "model": op.config()["model"], "quality": op.config()["quality"]}
+
+
+def _gate(key, run_dir, stage, names):
+    """Permission to spend for this one stage, or NeedsApproval. Returns the budget to pass to openai_generate.py --max-usd.
+    The permission (rec["grant"], set by authorize()) is for exactly this stage and is used up here, so the next stage, another
+    take or a retry asks again. It also needs the estimate to fit in the budget left."""
+    rec = get(key) or {}
+    est = op.estimate_total(_jobs(run_dir), names)
+    budget = float(rec.get("budget_usd") or 0)
+    spent_now = spent(run_dir)
+    grant = rec.get("grant") or {}
+    if not (grant.get("stage") == stage and budget > 0 and spent_now + est["usd"] <= budget + 1e-9):
+        raise NeedsApproval(stage, names, est, spent_now, budget)
+    _update(key, grant=None)
+    return budget
+
 
 
 def _picture_state(run_dir):
@@ -278,7 +287,7 @@ def export_reco(date, out_dir_name, drafts=None, approved=None):
 
 def _prepare(item):
     pack = lib.DRAFTS / item["date"] / "pack.json"
-    script = HERE / "prepare_fal_jobs.py"
+    script = HERE / "prepare_picture_jobs.py"
     code, out = _sh([sys.executable, script, pack, item["id"]], 120)
     if code and "--refreeze" in out:   # Yarin edited the copy after an earlier freeze: archive it, keep matching images
         code, out = _sh([sys.executable, script, pack, item["id"], "--refreeze"], 120)
@@ -292,17 +301,17 @@ def _prepare(item):
 
 
 def _generate(key, run_dir, replace_note=None):
-    _require_fal()
+    """The cover (or the one picture), or another take of it. Needs Yarin's permission for this stage first (_gate)."""
+    job = cover_job(run_dir)
+    budget = _gate(key, run_dir, "redo" if replace_note is not None else "cover", [job])
     _update(key, status="generating", error=None)
-    fal = HERE / "fal_generate.py"
-    job, cap = cover_job(run_dir), cap_usd(run_dir)
     if replace_note is not None:
-        code, out = _sh([sys.executable, fal, run_dir, "qa", job, "fail", "--note", replace_note], 60)
+        code, out = _sh([sys.executable, GENERATE, run_dir, "qa", job, "fail", "--note", replace_note], 60)
         if code:
             raise RuntimeError(_tail(out))
-        args = [sys.executable, fal, run_dir, "replace", job, "--note", replace_note, "--max-usd", cap]
+        args = [sys.executable, GENERATE, run_dir, "replace", job, "--note", replace_note, "--max-usd", budget]
     else:
-        args = [sys.executable, fal, run_dir, "run", job, "--max-usd", cap]
+        args = [sys.executable, GENERATE, run_dir, "run", job, "--max-usd", budget]
     code, out = _sh(args, 900, env_shell=True)
     st = _picture_state(run_dir)
     if st.get("status") != "done":
@@ -317,24 +326,24 @@ def _generate(key, run_dir, replace_note=None):
 
 
 def _generate_slides(key, run_dir):
-    """Story run, after the cover is approved: every other slide in parallel as an edit of the cover, inside the cap.
-    The cover's approval covers them (Carousel Machine has no per-slide approval): each new picture is marked QA-passed.
-    Raises when a slide is still missing, so pressing produce again makes only the missing ones."""
-    _require_fal()
-    fal = HERE / "fal_generate.py"
+    """Story run, after the cover is approved: every other slide in parallel as an edit of the cover, inside the budget.
+    Needs Yarin's permission for this stage first (_gate). The cover's approval covers the look of the others (Carousel Machine
+    has no per-slide approval): each new picture is marked QA-passed. Raises when a slide is still missing, so pressing produce
+    again (and approving again) makes only the missing ones."""
     jobs = _jobs(run_dir)
     cover = cover_job(run_dir)
     state = lambda: lib.read_json(Path(run_dir) / "state.json").get("jobs", {})  # noqa: E731
     todo = [n for n in jobs.get("order", []) if n != cover and state().get(n, {}).get("status") != "done"]
     out = ""
     if todo:
+        budget = _gate(key, run_dir, "slides", todo)
         _update(key, status="generating", error=None)
         _update(key, status_he=SLIDES_HE, slides_total=len(jobs.get("order", [])))
-        code, out = _sh([sys.executable, fal, run_dir, "run", *todo, "--max-usd", cap_usd(run_dir)], 1800, env_shell=True)
+        code, out = _sh([sys.executable, GENERATE, run_dir, "run", *todo, "--max-usd", budget], 1800, env_shell=True)
     st = state()
     for n in jobs.get("order", []):
         if n != cover and st.get(n, {}).get("status") == "done" and st[n].get("qa") is None:
-            _sh([sys.executable, fal, run_dir, "qa", n, "pass", "--note", "approved with the cover in Carousel Machine"], 60)
+            _sh([sys.executable, GENERATE, run_dir, "qa", n, "pass", "--note", "approved with the cover in Carousel Machine"], 60)
     st = state()
     missing = [n for n in jobs.get("order", []) if st.get(n, {}).get("status") != "done"]
     _update(key, spent_usd=spent(run_dir), slides_made=len(jobs.get("order", [])) - len(missing))
@@ -342,80 +351,7 @@ def _generate_slides(key, run_dir):
         if any(m in out for m in SAFETY_MARKERS):
             _update(key, declined=True)
         raise RuntimeError(f"{len(missing)} תמונות של שקופיות לא נוצרו ({', '.join(missing)}). "
-                           "אפשר ללחוץ שוב על הפקה: רק החסרות ייווצרו, בלי לשלם שוב על מה שכבר קיים.\n" + _tail(out))
-
-
-# ---------------------------------------------------------------- pictures from ChatGPT (30 Oct 2026)
-
-def _slides_ready(run_dir):
-    st = lib.read_json(Path(run_dir) / "state.json").get("jobs", {})
-    return all(st.get(n, {}).get("status") == "done" for n in _jobs(run_dir).get("order", []))
-
-
-def _pass_slides(run_dir):
-    """Every slide picture of a story run passes QA with the approved cover (Carousel Machine has no per-slide approval)."""
-    st = lib.read_json(Path(run_dir) / "state.json").get("jobs", {})
-    cover = cover_job(run_dir)
-    for n in _jobs(run_dir).get("order", []):
-        if n != cover and st.get(n, {}).get("status") == "done" and st[n].get("qa") is None:
-            cg.qa(run_dir, n, "pass", cg.QA_WITH_COVER)
-
-
-def _wait(key, run_dir):
-    """Mark the entry as waiting for Claude to make pictures in ChatGPT (chatgpt_pictures.py next lists them)."""
-    made, total = cg.counts(run_dir)
-    cover_done = _picture_state(run_dir).get("status") == "done"
-    fields = dict(status=WAITING, error=None, declined=None, stage="slides" if cover_done else "cover", pictures_made=made,
-                  pictures_total=total, spent_usd=0, backend="chatgpt")
-    rec = _update(key, **fields)
-    if cover_done:
-        rec = _update(key, status_he=WAITING_SLIDES_HE)
-    return rec
-
-
-def _finish_chatgpt(key, run_dir):
-    try:
-        if is_story(run_dir):
-            _pass_slides(run_dir)
-        _compose(key, run_dir)
-    except Exception as exc:  # noqa: BLE001 - the page shows the reason and offers to continue
-        _update(key, status="failed", error=str(exc)[:1500])
-
-
-def advance_waiting(path=None, background=True):
-    """Move every waiting ChatGPT entry on once Claude ingested its pictures: a new cover to "review" (the same approval as
-    a fal cover), an approved story cover with every slide in to composing and the ZIP. review_server.py calls this every
-    few seconds; it writes productions.json only when something changed. Returns the keys it moved."""
-    with _lock:
-        waiting = [(k, dict(r)) for k, r in load(path)["runs"].items() if r.get("status") == WAITING and r.get("run_dir")]
-    moved = []
-    for key, rec in waiting:
-        run_dir = run_dir_of(rec)
-        if not (run_dir / "state.json").exists():
-            continue
-        st = _picture_state(run_dir)
-        made, total = cg.counts(run_dir)
-        with _lock:
-            now = get(key, path) or {}
-            if now.get("status") != WAITING:
-                continue
-            if st.get("status") == "done" and st.get("qa") is None:
-                pic = run_dir / "generated-assets" / f"{cover_job(run_dir)}.png"
-                _update(key, path, status="review", picture=rel(pic) + f"?v={st.get('attempts', 1)}", attempts=st.get("attempts", 1),
-                        replacements=st.get("replacements", 0), pictures_made=made, pictures_total=total, spent_usd=0)
-                moved.append(key)
-                continue
-            if st.get("status") == "done" and st.get("qa") == "pass" and (not is_story(run_dir) or _slides_ready(run_dir)):
-                _update(key, path, status="composing", pictures_made=made, pictures_total=total)
-                moved.append(key)
-                if background:
-                    _pool.submit(_finish_chatgpt, key, run_dir)
-                else:
-                    _finish_chatgpt(key, run_dir)
-                continue
-            if (now.get("pictures_made"), now.get("pictures_total")) != (made, total):
-                _update(key, path, pictures_made=made, pictures_total=total)
-    return moved
+                           "אפשר ללחוץ שוב על הפקה ולאשר: רק החסרות ייווצרו, בלי לשלם שוב על מה שכבר קיים.\n" + _tail(out))
 
 
 def _compose(key, run_dir):
@@ -438,26 +374,14 @@ def _work(key, item, action, note=None):
             return
         if action == "approve":
             run_dir = run_dir_of(get(key))
-            if chatgpt():
-                cg.qa(run_dir, cover_job(run_dir), "pass")
-                if is_story(run_dir):
-                    if not _slides_ready(run_dir):
-                        return _wait(key, run_dir)   # Claude makes slides 2..N in ChatGPT from the approved cover
-                    _pass_slides(run_dir)
-                return _compose(key, run_dir)
-            code, out = _sh([sys.executable, HERE / "fal_generate.py", run_dir, "qa", cover_job(run_dir), "pass"], 60)
+            code, out = _sh([sys.executable, GENERATE, run_dir, "qa", cover_job(run_dir), "pass"], 60)
             if code:
                 raise RuntimeError(_tail(out))
             if is_story(run_dir):
                 _generate_slides(key, run_dir)
             return _compose(key, run_dir)
         if action == "redo":
-            run_dir = run_dir_of(get(key))
-            if chatgpt():
-                st = cg.replace(run_dir, cover_job(run_dir), note or "another take")
-                _update(key, replacements=st.get("replacements", 0))
-                return _wait(key, run_dir)
-            return _generate(key, run_dir, replace_note=note or "another take")
+            return _generate(key, run_dir_of(get(key)), replace_note=note or "another take")
         if blocking_errors(item):   # Yarin, 22 Oct 2026: Produce fixes the copy itself instead of stopping
             import autofix
             _update(key, status="fixing", error=None)
@@ -469,20 +393,15 @@ def _work(key, item, action, note=None):
         st = _picture_state(run_dir)
         if st.get("status") == "done" and st.get("qa") == "pass":
             if is_story(run_dir):
-                if chatgpt():
-                    if not _slides_ready(run_dir):
-                        return _wait(key, run_dir)
-                    _pass_slides(run_dir)
-                else:
-                    _generate_slides(key, run_dir)     # only the slides still missing; none when all were made
+                _generate_slides(key, run_dir)     # only the slides still missing; none when all were made
             return _compose(key, run_dir)          # a picture approved earlier: only re-export
         if st.get("status") == "done":
             pic = Path(run_dir) / "generated-assets" / f"{cover_job(run_dir)}.png"
             _update(key, status="review", picture=rel(pic) + f"?v={st.get('attempts', 1)}", spent_usd=spent(run_dir))
             return
-        if chatgpt():
-            return _wait(key, run_dir)             # Claude makes the cover in ChatGPT (chatgpt_pictures.py next)
         _generate(key, run_dir)
+    except NeedsApproval as na:   # nothing has been spent: the page asks for the budget and the yes, authorize() continues
+        _update(key, status=APPROVAL, error=None, approval=na.info, pending={"action": action, "note": note})
     except Exception as exc:  # noqa: BLE001 - the page shows the reason and offers to try again
         rec = get(key) or {}
         back = "review" if action == "redo" and rec.get("picture") else "failed"
@@ -533,22 +452,22 @@ def _item_fields(item):
 
 
 def start(item):
-    """Queue one carousel. A carousel already in progress or done is left alone (done: use start again after edits)."""
+    """Queue one carousel. A carousel already in progress, waiting for approval or done is left alone (done: use start again
+    after edits). Starting spends nothing: the free steps run (fix the copy, freeze it), then the first stage that would spend
+    stops in "approval" until Yarin gives a budget and a yes (authorize)."""
     key = item["key"]
     with _lock:
         rec = get(key)
-        if rec and rec.get("status") in BUSY + ("review", WAITING):
+        if rec and rec.get("status") in BUSY + ("review", APPROVAL):
             return rec
-    with _lock:
-        rec = get(key)
-        if rec and rec.get("status") in BUSY + ("review", WAITING):
-            return rec
-        rec = _update(key, status="queued", requested_at=now_iso(), error=None, warning=None, declined=None, fixed=None, **_item_fields(item))
+        rec = _update(key, status="queued", requested_at=now_iso(), error=None, warning=None, declined=None, fixed=None,
+                      approval=None, pending=None, grant=None, **_item_fields(item))
     _pool.submit(_work, key, item, "start")
     return rec
 
 
 def approve(key, item):
+    """Approve the shown picture. A story cover then needs its own approval before the other slides are made."""
     with _lock:
         rec = get(key)
         if not rec or rec.get("status") != "review":
@@ -559,6 +478,7 @@ def approve(key, item):
 
 
 def redo(key, item, note):
+    """Ask for another take. It is a new picture, so it stops in "approval" again before anything is made."""
     with _lock:
         rec = get(key)
         if not rec or rec.get("status") != "review":
@@ -568,6 +488,48 @@ def redo(key, item, note):
         rec = _update(key, status="generating", note=str(note)[:500])
     _pool.submit(_work, key, item, "redo", str(note)[:500])
     return rec
+
+
+def authorize(key, item, budget_usd, confirmed):
+    """Yarin's budget and explicit yes for the stage waiting in "approval" (rules of 03 Nov 2026). The budget is the most the
+    whole carousel may cost, what was already spent included, and it must cover this stage's estimate. The permission is for this
+    one stage and is used up when it runs."""
+    if confirmed is not True:
+        raise ValueError("צריך לאשר במפורש לפני שנוצרת תמונה")
+    try:
+        budget = round(float(budget_usd), 4)
+    except (TypeError, ValueError):
+        raise ValueError("כתבו תקציב במספרים, למשל 0.30") from None
+    if not budget > 0:
+        raise ValueError("כתבו תקציב גדול מאפס")
+    with _lock:
+        rec = get(key)
+        if not rec or rec.get("status") != APPROVAL or not rec.get("approval") or not rec.get("pending"):
+            raise ValueError("אין שלב שמחכה לתקציב")
+        info, pending = rec["approval"], rec["pending"]
+        spent_now = spent(run_dir_of(rec)) if rec.get("run_dir") else 0.0
+        need = round(spent_now + float(info["usd"]), 4)
+        if budget + 1e-9 < need:
+            raise ValueError(f"התקציב נמוך מההערכה: צריך לפחות ${need:.2f} (כבר נוצל ${spent_now:.2f}, ההערכה לשלב הזה ${float(info['usd']):.2f})")
+        rec = _update(key, budget_usd=budget, grant={"stage": info["stage"], "at": now_iso()}, status="queued", approval=None, pending=None)
+    _pool.submit(_work, key, item, pending["action"], pending.get("note"))
+    return rec
+
+
+def cancel(key):
+    """Yarin does not approve the waiting stage: nothing is made. Another take or the slides go back to the picture he is
+    looking at; a first stage leaves the queue."""
+    with _lock:
+        rec = get(key)
+        if not rec or rec.get("status") != APPROVAL:
+            raise ValueError("אין שלב שמחכה לאישור")
+        action = (rec.get("pending") or {}).get("action")
+        if action in ("approve", "redo") and rec.get("picture"):
+            return _update(key, status="review", approval=None, pending=None, grant=None, error=None)
+        data = load()
+        data["runs"].pop(key, None)
+        lib.write_json(PRODUCTIONS, data)
+        return {"key": key, "status": "cancelled"}
 
 
 def recover(path=None):
@@ -584,8 +546,8 @@ def recover(path=None):
                 rec.update(status="review", status_he=STATUS_HE["review"],
                            picture=rel(run_dir / "generated-assets" / f"{cover_job(run_dir)}.png") + f"?v={st.get('attempts', 1)}")
             else:
-                rec.update(status="failed", status_he=STATUS_HE["failed"], error="Carousel Machine נסגר באמצע. אפשר להמשיך מאותה נקודה"
-                           + (", שום תמונה לא הולכת לאיבוד." if chatgpt() else ", בלי לשלם שוב על מה שכבר נוצר."))
+                rec.update(status="failed", status_he=STATUS_HE["failed"], grant=None,
+                           error="Carousel Machine נסגר באמצע. אפשר להמשיך מאותה נקודה, בלי לשלם שוב על מה שכבר נוצר. כל שלב שמוציא כסף יבקש אישור מחדש.")
             changed = True
         if changed:
             lib.write_json(path or PRODUCTIONS, data)

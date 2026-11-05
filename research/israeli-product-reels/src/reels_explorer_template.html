@@ -1,0 +1,492 @@
+<title>מערכת הרילס</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+__DESIGN_HEAD__
+<style>
+/* מערכת הרילס: one Hebrew tool for everything about reels (Yarin, 05 Nov 2026). Sidebar of sections, sticky top bar with one search
+   over everything, one view at a time (hash routes). Page rules use the design system tokens only. The calendar view brings the
+   stand-alone calendar page's own rules, appended below (build: src/hub_calendar.py). */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bar); }
+.lb-page, .lb-topbar-in { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 861px) { .lb-page, .lb-topbar-in { padding-left: max(var(--sp-5), env(safe-area-inset-left, 0px)); padding-right: max(var(--sp-5), env(safe-area-inset-right, 0px)); } }
+.lb-page { gap: var(--sp-5); }
+.lb-sidebar { gap: var(--sp-2); }
+.lb-brand { padding-block: var(--sp-1) var(--sp-3); }
+.he { font-family: var(--font); unicode-bidi: isolate; }
+.he-block { white-space: pre-line; background: var(--surface-2); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); font-size: var(--fs-callout); line-height: 1.65; margin: 0; overflow-wrap: anywhere; }
+.he-list { margin: 0; padding-inline-start: 1.5rem; display: grid; gap: .35rem; font-size: var(--fs-callout); line-height: 1.6; }
+.mixed-list { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: .3rem; font-size: var(--fs-callout); }
+.sub-h { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--text-3); }
+.col { display: grid; gap: var(--sp-2); align-content: start; min-width: 0; }
+.reel-date { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); font-variant-numeric: tabular-nums; white-space: nowrap; width: 4.6rem; flex: none; line-height: 1.25; }
+.reel-date b { display: block; color: var(--text); font-size: var(--fs-callout); }
+@media (max-width: 640px) { .reel-date { width: 3.6rem; } }
+.filters { display: grid; gap: var(--sp-2); }
+.filter-row { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-2); align-items: center; }
+.filter-row > .lbl { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--text-3); width: 4.75rem; flex: none; }
+button.lb-chip { border: 0; cursor: pointer; }
+button.lb-chip:not(.cat)[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+button.lb-chip:focus-visible, .lb-btn:focus-visible, a:focus-visible, summary:focus-visible, .lb-nav-item:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.code { direction: ltr; text-align: left; unicode-bidi: isolate; font-family: var(--font-mono); font-size: var(--fs-footnote); background: var(--surface-sunk); padding: .2rem .45rem; border-radius: var(--r-xs); overflow-wrap: anywhere; color: var(--text); }
+.copy-row { display: flex; gap: var(--sp-2); align-items: flex-start; min-width: 0; }
+.copy-row .code { flex: 1; min-width: 0; }
+.mini-btn { border: 1px solid var(--line-strong); background: var(--surface); color: var(--tint); border-radius: var(--r-pill); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; padding: .15rem .6rem; cursor: pointer; flex: none; }
+.mini-btn:hover { border-color: var(--tint); }
+a.card-link { color: inherit; text-decoration: none; }
+a.card-link:hover { border-color: var(--tint); text-decoration: none; }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: var(--sp-2); list-style: none; margin: 0; padding: 0; }
+.steps a { display: grid; gap: .2rem; padding: var(--sp-3); border-radius: var(--r-md); background: var(--surface-2); color: var(--text); text-decoration: none; height: 100%; font-size: var(--fs-footnote); line-height: 1.4; }
+.steps a:hover { background: var(--tint-soft); text-decoration: none; }
+.steps .n { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--tint); }
+.steps b { font-size: var(--fs-callout); }
+.find-list { margin: 0; padding-inline-start: 1.1rem; display: grid; gap: .3rem; font-size: var(--fs-callout); color: var(--text-2); }
+.card-head { display: flex; align-items: flex-start; gap: var(--sp-3); }
+.card-head > div { min-width: 0; flex: 1; }
+.card-head h3 { font-size: var(--fs-headline); }
+.meta { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
+.letter { display: inline-grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: .6rem; background: var(--tint-soft); color: var(--tint); font-weight: 800; font-size: var(--fs-headline); flex: none; }
+.grp-head { display: flex; align-items: center; gap: var(--sp-3); padding-top: var(--sp-3); }
+.grp-head h3 { font-size: var(--fs-headline); }
+.grp-head .meta { margin-inline-start: auto; }
+.kv-tight { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--sp-2) var(--sp-4); font-size: var(--fs-callout); margin: 0; }
+.kv-tight dt { font-family: var(--font-2); font-weight: 600; color: var(--text-3); }
+.kv-tight dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 520px) { .kv-tight { grid-template-columns: minmax(0, 1fr); gap: 0 0; } .kv-tight dd { margin-bottom: var(--sp-2); } }
+.result { display: flex; gap: var(--sp-3); align-items: flex-start; padding: .7rem var(--sp-4); cursor: pointer; background: none; border: 0; width: 100%; text-align: start; font: inherit; color: inherit; }
+.result:hover { background: var(--fill); }
+.result .lb-sum { flex: 1; min-width: 0; }
+.result small { display: block; color: var(--text-3); font-size: var(--fs-footnote); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.topsearch { width: min(19rem, 38vw); }
+.topsearch .lb-input { height: 2.2rem; }
+@media (max-width: 640px) { #pageTitle { display: none; } .topsearch { width: auto; flex: 1; } }
+.flash { animation: flash 1.8s ease; }
+@keyframes flash { 0% { box-shadow: 0 0 0 4px var(--focus); } 100% { box-shadow: 0 0 0 0 transparent; } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } .lb-disclosure > summary::after { transition: none; } }
+.empty { padding: var(--sp-5); text-align: center; color: var(--text-3); font-size: var(--fs-callout); }
+.weak-table td { vertical-align: top; min-width: 12rem; }
+.lead { font-size: var(--fs-body); color: var(--text-2); max-width: 46rem; line-height: 1.55; margin: 0; }
+.cta-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--sp-3); }
+#save-state { min-width: 6.5rem; justify-content: center; }
+/* the calendar view (from the stand-alone calendar page) */
+__CAL_CSS__
+</style>
+
+<div class="lb-app" dir="rtl" lang="he">
+  <aside class="lb-sidebar" id="sidebar" aria-label="אזורים">
+    <a class="lb-brand" href="#overview"><img src="__LOGO__" alt=""><span><b>מערכת הרילס</b><small>לומבוק, נכון ל 05 / 11 / 2026</small></span></a>
+    <nav class="lb-nav" id="nav"></nav>
+    <div class="lb-sidebar-foot">
+      <span>נבנה מ reels.json, playbook.md ו principles.md על ידי src/build_reels_explorer.py.</span>
+    </div>
+  </aside>
+  <div class="lb-scrim" id="scrim" hidden></div>
+  <main class="lb-main">
+    <header class="lb-topbar"><div class="lb-topbar-in">
+      <button class="lb-btn secondary lb-menu-btn" id="menuBtn" type="button" aria-controls="sidebar" aria-expanded="false">תפריט</button>
+      <h1 id="pageTitle">סקירה</h1>
+      <span class="lb-spacer"></span>
+      <label class="lb-search topsearch"><span class="lb-sr">חיפוש בכל המערכת</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input class="lb-input" id="q" type="search" placeholder="חיפוש רילס, כללים, כלים" autocomplete="off">
+      </label>
+      <span id="save-state" class="lb-chip" role="status" aria-live="polite">טוען...</span>
+      __THEME_TOGGLE__
+    </div></header>
+    <div class="lb-page" id="view"></div>
+  </main>
+</div>
+<div id="calHold">__CAL_CARDS__</div>
+
+<script>
+const D = __DATA__;
+const C = D.calendar, P = D.playbook, PR = D.principles, K = D.catalog, CAL = D.cal;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+const he = (s, cls = "") => `<bdi class="he ${cls}" dir="rtl" lang="he">${esc(s)}</bdi>`;
+const auto = s => `<bdi dir="auto">${esc(s)}</bdi>`;
+const oneLine = s => String(s || "").replace(/\n+/g, " / ");
+const fmtDate = iso => { const [y, m, d] = iso.split("-"); return `${d} / ${m} / ${y}`; };
+const DAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+const dow = iso => DAYS[new Date(iso + "T12:00:00").getDay()];
+const TODAY = (() => { const t = new Date(); return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`; })();
+const STATUS = {"posted": ["פורסם", "success"], "needs-voice": ["מחכה לצילום וקריינות שלך", "warning"], "needs-footage": ["מחכה לחומר", "danger"]};
+const APPROACH = Object.fromEntries(P.approaches.map(a => [a.k, a]));
+const GROUP = Object.fromEntries(PR.groups.map(g => [g.k, g]));
+const CONCEPT_REEL = {1: "1.4", 2: "4.1", 3: "5.1", 4: "1.7"};
+const STRENGTH = ["strong", "moderate", "weak", "contested"];
+const STRENGTH_HE = {strong: "חזקה", moderate: "בינונית", weak: "חלשה", contested: "שנויה במחלוקת"};
+
+const ICON = {
+  home: '<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
+  cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  book: '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/>',
+  list: '<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',
+  stack: '<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',
+  tool: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>',
+  film: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',
+};
+const svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
+
+const SECTIONS = [
+  {id: "overview", t: "סקירה", icon: "home"},
+  {label: "תוכנית"},
+  {id: "calendar", t: "לוח הרילס", icon: "cal", n: C.reels.length},
+  {label: "מחקר"},
+  {id: "playbook", t: "פלייבוק צילום", icon: "book", n: P.approaches.length + P.concepts.length},
+  {id: "principles", t: "עקרונות", icon: "list", n: PR.items.length},
+  {id: "library", t: "ספריית מחקר", icon: "stack", n: K.library.length},
+  {label: "הפקה"},
+  {id: "tools", t: "כלים", icon: "tool", n: K.tools.length},
+  {id: "made", t: "רילס שנעשו", icon: "film", n: K.jobs.length},
+];
+const TITLE = Object.fromEntries(SECTIONS.filter(s => s.id).map(s => [s.id, s.t]));
+
+const F = {
+  pr: {g: "all", s: "all", q: ""},
+  tools: {kind: "all"},
+  made: {kind: "all", status: "all"},
+  pb: {tab: "findings"},
+};
+let query = "";
+
+/* ---------- shared pieces ---------- */
+function chip(group, key, value, label, cat) {
+  const on = F[group][key] === value;
+  const cls = cat !== undefined ? `lb-chip cat lb-cat-${cat}` : "lb-chip outline";
+  return `<button type="button" class="${cls}" data-f="${group}.${key}" data-v="${esc(value)}" aria-pressed="${on}">${label}</button>`;
+}
+function filterRow(label, html) { return `<div class="filter-row"><span class="lbl">${label}</span>${html}</div>`; }
+function copyRow(id, text) { return `<div class="copy-row"><span class="code" id="${id}">${esc(text)}</span><button type="button" class="mini-btn" data-copy="${id}">העתקה</button></div>`; }
+function pid(id, cat, go) {
+  const c = cat ? ` lb-cat-${cat}` : "";
+  return go ? `<a class="lb-pid${c}" href="#${go[0]}" data-go="${go[0]}" data-target="${esc(go[1])}">${esc(id)}</a>` : `<span class="lb-pid${c}">${esc(id)}</span>`;
+}
+function statusChip(s) { const [t, c] = STATUS[s] || [s, ""]; return `<span class="lb-chip ${c}">${esc(t)}</span>`; }
+function seriesChip(n) { const s = C.series[n]; return `<span class="lb-chip cat lb-cat-${s.cat}">${esc(s.he)}</span>`; }
+function sectionHead(title, meta) { return `<div class="lb-section-head"><h2>${title}</h2>${meta ? `<span class="lb-meta">${meta}</span>` : ""}</div>`; }
+const plural = (n, one, many) => n === 1 ? one : many;
+
+/* ---------- overview ---------- */
+function vOverview() {
+  const posted = C.reels.filter(r => r.status === "posted").length;
+  const today = C.reels.find(r => r.date === TODAY);
+  const next = C.reels.find(r => r.date >= TODAY && r.status !== "posted") || C.reels.find(r => r.status !== "posted");
+  const shoot = C.shoots.find(s => s.date >= TODAY);
+  const reelById = Object.fromEntries(C.reels.map(r => [r.id, r]));
+  const stat = (href, label, value, small, foot) => `<a class="lb-card card-link" href="#${href}"><div class="lb-stat"><span class="lb-stat-label">${label}</span><span class="lb-stat-value">${value}${small ? `<small>${small}</small>` : ""}</span><span class="lb-stat-foot">${foot}</span></div></a>`;
+  const focus = today || next;
+  const grandma = C.reels.filter(r => r.audience === "grandma" && r.status !== "posted").length;
+  const steps = [
+    ["library", "מחקר", "173 רילס, 64 סרטונים קצרים, 147 תכנים של מתחרים"],
+    ["principles", "עקרונות", `${PR.items.length} כללים, ולכל אחד עוצמת ראיות`],
+    ["playbook", "פלייבוק", "7 גישות, 5 קונספטים"],
+    ["calendar", "תסריטים", "ריל ביום, מתוך reels.json"],
+    ["calendar", "צילום", "קטעי פתיחה וקריינות בימי שישי"],
+    ["tools", "עריכה", "המתכון של ריל 1.1 ועורך הרילס"],
+    ["tools", "פרסום", "ריל ניסיון ב 21:30, אחרי האישור שלך"],
+    ["playbook", "תיעוד", "שיעור דילוג, שיתופים, תגובות לומי, ספרים שהתחילו"],
+  ];
+  return `
+  <section class="lb-section">
+    <p class="lead">כל מה שיש לפרויקט על רילס במקום אחד: מה עולה החודש, מה המחקר אומר, הכלים שמכינים ריל והרילס שכבר נעשו. החיפוש למעלה עובר על הכול, ובלוח הרילס אפשר גם לערוך את התסריטים ולבקש שינוי.</p>
+    <div class="lb-grid cols-4">
+      ${stat("calendar", "רילס בנובמבר", C.reels.length, `${posted} פורסמו`, `ריל ביום, ${grandma} מהם מדברים לסבתות`)}
+      ${stat("library", "רילס שנחקרו", "173", "108 יוצרים", "רילס מוצר של יוצרים ישראלים, 15 / 10")}
+      ${stat("principles", "עקרונות", PR.items.length, "8 שאלות", "לכל אחד עוצמת ראיות")}
+      ${stat("made", "עבודות רילס", K.jobs.length, `${K.tools.length} כלים`, "בתיקיית media/projects")}
+    </div>
+  </section>
+  <section class="lb-grid cols-2">
+    <div class="lb-card">
+      <div class="card-head"><div><span class="lb-eyebrow">${today ? "הערב ב " + esc(C.defaults.post_time) : "הריל הבא"}</span>
+        <h3>${focus ? he(oneLine(focus.hook)) : "אין ריל מתוכנן"}</h3></div>
+        ${focus ? pid(focus.id, C.series[focus.series].cat, ["calendar", "r-" + focus.id]) : ""}</div>
+      ${focus ? `<div class="lb-row">${seriesChip(focus.series)}${statusChip(focus.status)}<span class="meta">${dow(focus.date)} ${fmtDate(focus.date)}</span></div>` : ""}
+      ${focus && focus.films.length ? `<div class="col"><span class="sub-h">אתה מצלם</span><ul class="he-list">${focus.films.map(f => `<li>${esc(f)}</li>`).join("")}</ul></div>` : ""}
+    </div>
+    <div class="lb-card">
+      <div class="card-head"><div><span class="lb-eyebrow">יום הצילום הבא</span>
+        <h3>${shoot ? `${dow(shoot.date)} ${fmtDate(shoot.date)}` : "אין יום צילום מתוכנן"}</h3>
+        ${shoot ? `<div class="meta">${shoot.for.length} ${plural(shoot.for.length, "ריל", "רילס")}</div>` : ""}</div></div>
+      ${shoot ? `<p class="lb-muted lb-small" style="margin:0">${esc(shoot.note)}</p>
+      <div class="lb-row">${shoot.for.map(id => reelById[id] ? pid(id, C.series[reelById[id].series].cat, ["calendar", "r-" + id]) : pid(id)).join("")}</div>` : ""}
+    </div>
+  </section>
+  <section class="lb-section">
+    ${sectionHead("איך ריל נעשה", "מהמחקר ועד התיעוד")}
+    <ol class="steps">${steps.map((s, i) => `<li><a href="#${s[0]}"><span class="n">שלב ${i + 1}</span><b>${s[1]}</b><span class="lb-muted">${auto(s[2])}</span></a></li>`).join("")}</ol>
+  </section>
+  <section class="lb-section">
+    ${sectionHead("כללים לכל ריל", "נקבעו בהחלטות שלך ובמחקר")}
+    <div class="lb-group">${K.rules.map(r => `<div class="lb-group-row" style="align-items:flex-start"><div class="col" style="gap:.15rem"><b>${auto(r.t)}</b><span class="lb-muted lb-small">${esc(r.d)}</span><span class="meta">${esc(r.src)}</span></div></div>`).join("")}</div>
+  </section>`;
+}
+
+/* ---------- calendar (the month grid, popup, editing and comment box come from the stand-alone calendar page) ---------- */
+function vCalendar() {
+  const reelById = Object.fromEntries(C.reels.map(r => [r.id, r]));
+  const posted = C.reels.filter(r => r.status === "posted").length;
+  return `<div id="calRoot" class="lb-stack" style="gap:var(--sp-5)">
+  <section class="lb-section">
+    <p class="lead">ריל אחד ביום ב ${esc(C.defaults.post_time)} שעון ישראל, כריל ניסיון באינסטגרם lumebook.il. ${posted} פורסמו, ${C.reels.length - posted} מחכים. לוחצים על יום כדי לפתוח את הריל, לערוך את הטקסטים (הכול נשמר לבד) ולבקש שינוי בהערה.</p>
+  </section>
+  ${CAL.brief}
+  <section class="lb-section" aria-labelledby="h-month">
+    <div class="lb-section-head"><h2 id="h-month" class="lb-card-title">החודש</h2>${CAL.legend}</div>
+    ${CAL.filters}
+    <div id="calApNote" class="lb-callout info" hidden><span>מסוננים לפי גישה <b></b>. הימים האחרים מעומעמים.</span><button type="button" class="mini-btn" data-cf="all" style="justify-self:start">ניקוי הסינון</button></div>
+    ${CAL.grid}
+  </section>
+  <section class="lb-section">
+    <div class="cta-box">
+      <div class="lb-card is-quiet"><span class="sub-h">קריאה לפעולה על המסך, בכל ריל</span><p class="he-block" style="background:var(--surface)">${esc(C.defaults.cta_screen)}</p></div>
+      <div class="lb-card is-quiet"><span class="sub-h">קריאה לפעולה בכיתוב</span><p class="he-block" style="background:var(--surface)">${esc(C.defaults.cta_caption)}</p></div>
+    </div>
+  </section>
+  <section class="lb-section">
+    ${sectionHead("ימי צילום", "בכל יום צילום מקליטים את קטעי הפתיחה והקריינות של הרילס ברשימה")}
+    <div class="lb-group">${C.shoots.map(s => `<div class="lb-group-row" style="align-items:flex-start;flex-wrap:wrap">
+      <span class="reel-date"><b>${dow(s.date)} ${s.date.slice(8)}</b>${s.date.slice(5, 7)} / ${s.date.slice(0, 4)}</span>
+      <div class="col" style="flex:1;gap:.35rem"><div class="lb-row">${s.for.map(id => reelById[id] ? pid(id, C.series[reelById[id].series].cat, ["calendar", "r-" + id]) : pid(id)).join("")}</div>
+      <span class="lb-muted lb-small">${esc(s.note)}</span></div>
+      ${s.date < TODAY ? '<span class="lb-chip">עבר</span>' : s.date === TODAY ? '<span class="lb-chip tint">היום</span>' : ""}</div>`).join("")}</div>
+  </section>
+  <section class="lb-section">
+    <div class="lb-card is-quiet">
+      <span class="sub-h">יצאו מהלוח ב 05 / 11 / 2026</span>
+      <p class="lb-small" style="margin:0">${C.dropped.length} רילסים של טרנדים מוכנים (סדרה 6) הוצאו מהלוח, כי כל ריל כולל עכשיו את ירין.</p>
+      <div class="lb-row">${C.dropped.map(d => `<span class="lb-chip outline">${esc(d.id)} ${he(oneLine(d.hook))}</span>`).join("")}</div>
+    </div>
+  </section>
+  </div>`;
+}
+
+/* ---------- playbook ---------- */
+function vPlaybook() {
+  const tabs = [["findings", "מה 173 הרילס מראים", P.findings.length], ["approaches", "שבע גישות", P.approaches.length],
+    ["concepts", "חמישה קונספטים", P.concepts.length], ["weak", "בחירות חלשות", P.weak.length], ["log", "אחרי הפרסום", P.log.length]];
+  const reelCount = k => C.reels.filter(r => r.approach === k).length;
+  let body = "";
+  if (F.pb.tab === "findings") {
+    body = `<p class="lead">ספירות מתוך 173 הרילס שאומתו (צפיות פומביות שנקראו ב 15 / 10 / 2026), ואחרי כל אחת הקריאה של החוקרת.</p>
+    <div class="lb-disclosures">${P.findings.map((f, i) => `<details class="lb-disclosure" data-id="pf-${i}"${i < 2 ? " open" : ""}><summary><span class="lb-sum">${esc(f.title)}</span></summary><div class="lb-disclosure-body"><p class="lb-small" style="margin:0;line-height:1.6">${esc(f.body)}</p></div></details>`).join("")}</div>`;
+  } else if (F.pb.tab === "approaches") {
+    body = `<p class="lead">שבע הדרכים שבהן נבנו הרילס שנחקרו, הדוגמאות החזקות של כל אחת ומי צריך לצלם אותה.</p>
+    <div class="lb-grid" style="--min:19rem">${P.approaches.map(a => `<div class="lb-card" data-id="pa-${a.k}">
+      <div class="card-head"><span class="letter">${a.k}</span><div><h3>${esc(a.name)}</h3><div class="lb-muted lb-small">${esc(a.what)}</div></div></div>
+      <div class="col" style="gap:.2rem"><span class="sub-h">מי מצלם</span><span class="lb-small">${esc(a.who)}</span></div>
+      <div class="lb-row"><span class="sub-h">דוגמאות</span>${a.codes.map((c, i) => `<a class="lb-chip outline" href="https://www.instagram.com/reel/${esc(c)}/" target="_blank" rel="noopener">ריל ${i + 1}</a>`).join("")}</div>
+      ${reelCount(a.k) ? `<button type="button" class="lb-btn ghost" style="justify-self:start" data-filter-approach="${a.k}">${reelCount(a.k)} ${plural(reelCount(a.k), "ריל", "רילס")} בנובמבר משתמשים בה</button>` : `<span class="meta">אף ריל בנובמבר לא משתמש בה</span>`}
+    </div>`).join("")}</div>`;
+  } else if (F.pb.tab === "concepts") {
+    body = `<p class="lead">חמישה רילס שאפשר לצלם בלי ילד, כל אחד עם רשימת צילום ועברית בדוקה ב playbook.md בפרק 4 (התסריטים ב src/scripts/c1.json עד c5.json).</p>
+    <div class="lb-grid" style="--min:20rem">${P.concepts.map(c => `<div class="lb-card" data-id="pc-${c.n}">
+      <div class="card-head"><span class="letter">${c.n}</span><div><h3>${he(c.he)}</h3></div></div>
+      <dl class="kv-tight"><dt>הרעיון</dt><dd>${esc(c.idea)}</dd><dt>התגובה המבוקשת</dt><dd>${auto(c.response)}</dd><dt>אורך</dt><dd>${esc(c.length)}</dd>${c.honesty ? `<dt>כלל הכנות</dt><dd>${auto(c.honesty)}</dd>` : ""}</dl>
+      ${CONCEPT_REEL[c.n] ? `<div class="lb-row"><span class="sub-h">הריל הקרוב ביותר בנובמבר</span>${pid(CONCEPT_REEL[c.n], C.series[(C.reels.find(r => r.id === CONCEPT_REEL[c.n]) || {series: 1}).series].cat, ["calendar", "r-" + CONCEPT_REEL[c.n]])}</div>` : ""}
+    </div>`).join("")}</div>`;
+  } else if (F.pb.tab === "weak") {
+    body = `<p class="lead">מה השתבש ברילס שנחקרו, ומה עושים במקום.</p>
+    <div class="lb-table-wrap"><table class="lb-table weak-table"><thead><tr><th>מה ראינו</th><th>איפה</th><th>מה עושים במקום</th></tr></thead><tbody>
+    ${P.weak.map(w => `<tr><td>${auto(w.saw)}</td><td class="meta">${esc(w.where)}</td><td>${esc(w.fix)}</td></tr>`).join("")}</tbody></table></div>`;
+  } else {
+    body = `<p class="lead">${esc(P.log_intro)}</p><div class="lb-group">${P.log.map(l => `<div class="lb-group-row" style="align-items:flex-start"><span class="lb-small" style="line-height:1.6;overflow-wrap:anywhere;min-width:0">${esc(l)}</span></div>`).join("")}</div>`;
+  }
+  return `<section class="lb-section">
+    <div class="lb-tabs" role="tablist">${tabs.map(t => `<button type="button" role="tab" data-tab="${t[0]}" aria-selected="${F.pb.tab === t[0]}">${t[1]} <span class="lb-count">${t[2]}</span></button>`).join("")}</div>
+    ${body}
+    <p class="meta" style="margin:0">מקור: <span class="code">research/israeli-product-reels/playbook.md</span></p>
+  </section>`;
+}
+
+/* ---------- principles ---------- */
+function prList() {
+  const f = F.pr, q = f.q.trim().toLowerCase();
+  const items = PR.items.filter(p => (f.g === "all" || p.g === f.g) && (f.s === "all" || p.strength === f.s) &&
+    (!q || [p.id, p.title, p.rule, p.lb].join(" ").toLowerCase().includes(q)));
+  if (!items.length) return `<div class="empty">אין עיקרון שמתאים. אפשר לנקות את הסינון או את החיפוש.</div>`;
+  return PR.groups.filter(g => items.some(p => p.g === g.k)).map(g => {
+    const its = items.filter(p => p.g === g.k);
+    return `<div class="grp-head lb-cat-${g.cat}"><span class="lb-tile is-soft">${g.k}</span><h3>${esc(g.name)}</h3><span class="lb-muted lb-small">${esc(g.sub)}</span><span class="meta">${its.length}</span></div>
+    <div class="lb-disclosures">${its.map(p => `<details class="lb-disclosure is-cat lb-cat-${g.cat}" data-id="p-${p.id}">
+      <summary>${pid(p.id, g.cat)}<span class="lb-sum">${esc(p.title)}</span><span class="lb-chip ${p.strength === "strong" ? "success" : p.strength === "contested" ? "danger" : p.strength === "weak" ? "" : "info"}">${esc(STRENGTH_HE[p.strength] || "ללא דירוג")}</span></summary>
+      <div class="lb-disclosure-body"><dl class="kv-tight">
+        <dt>הכלל</dt><dd>${esc(p.rule)}</dd>
+        ${p.lb ? `<dt>בשביל לומבוק</dt><dd>${auto(p.lb)}</dd>` : ""}
+        ${p.overlaps ? `<dt>חופף ל</dt><dd><div class="lb-row">${p.overlaps.split(/,\s*/).map(o => { const id = o.trim().split(" ")[0]; const gg = GROUP[id[0]]; return gg && PR.items.some(x => x.id === id) ? pid(id, gg.cat, ["principles", "p-" + id]) : ""; }).join("")}</div></dd>` : ""}
+        ${p.evidence ? `<dt>הערות מלאות</dt><dd><span class="code">research/israeli-product-reels/${esc(p.evidence)}</span></dd>` : ""}
+      </dl></div></details>`).join("")}</div>`;
+  }).join("");
+}
+function vPrinciples() {
+  const counts = Object.fromEntries(STRENGTH.map(s => [s, PR.items.filter(p => p.strength === s).length]));
+  return `<section class="lb-section">
+    <p class="lead">${PR.items.length} עקרונות מהמחקר של 18 / 10 / 2026, קבוצה לכל שאלה שנשאלה על כל ריל. העוצמה אומרת כמה הראיות נושאות את הכלל. רוב המספרים של הפלטפורמה מגיעים ממודעות בתשלום, ושום דבר לא ייחודי לעברית אלא אם העיקרון אומר זאת.</p>
+    <div class="filters">
+      ${filterRow("שאלה", chip("pr", "g", "all", "הכול") + PR.groups.map(g => chip("pr", "g", g.k, `${g.k} ${esc(g.name)}`, g.cat)).join(""))}
+      ${filterRow("עוצמה", chip("pr", "s", "all", "הכול") + STRENGTH.map(s => chip("pr", "s", s, `${STRENGTH_HE[s]} <span class="lb-count">${counts[s]}</span>`)).join(""))}
+      ${filterRow("חיפוש", `<label class="lb-search" style="flex:1;max-width:22rem"><span class="lb-sr">חיפוש עיקרון</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="lb-input" id="prq" type="search" placeholder="הוק, אזור בטוח, כיתוב..." value="${esc(F.pr.q)}"></label>`)}
+    </div>
+    <div class="lb-stack" id="prList">${prList()}</div>
+    <p class="meta" style="margin:0">מקור: <span class="code">research/israeli-product-reels/smm-research/principles.md</span></p>
+  </section>`;
+}
+
+/* ---------- library ---------- */
+function vLibrary() {
+  return `<section class="lb-section">
+    <p class="lead">כל מחקר בפרויקט שעוסק בסרטונים קצרים. המספרים הם כפי שנקראו בתאריך של כל מחקר, ולפני שמצטטים אותם כדאי לבדוק מחדש.</p>
+    <div class="lb-grid" style="--min:21rem">${K.library.map(l => `<div class="lb-card" data-id="${l.id}">
+      <div class="card-head"><div><span class="lb-eyebrow">${esc(l.when)}</span><h3>${esc(l.t)}</h3></div><span class="lb-chip accent">${esc(l.n)}</span></div>
+      <p class="lb-muted lb-small" style="margin:0">${esc(l.d)}</p>
+      <ul class="find-list">${l.find.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+      ${copyRow("path-" + l.id, l.path)}
+      ${l.url ? `<a class="lb-btn secondary" style="justify-self:start" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.urlLabel)}</a>` : ""}
+    </div>`).join("")}</div>
+  </section>`;
+}
+
+/* ---------- tools ---------- */
+function vTools() {
+  const kinds = [...new Set(K.tools.map(t => t.kind))];
+  const list = K.tools.filter(t => F.tools.kind === "all" || t.kind === F.tools.kind);
+  return `<section class="lb-section">
+    <p class="lead">מה מכין ריל: הסקילים שאפשר לבקש בשם, הסקריפטים בריפו, השירותים החיצוניים והמתכונים שעבדו.</p>
+    <div class="filters">${filterRow("סוג", chip("tools", "kind", "all", "הכול") + kinds.map(k => chip("tools", "kind", k, `${esc(k)} <span class="lb-count">${K.tools.filter(t => t.kind === k).length}</span>`)).join(""))}</div>
+    <div class="lb-grid" style="--min:21rem">${list.map(t => `<div class="lb-card" data-id="${t.id}">
+      <div class="card-head"><div><h3>${esc(t.t)}</h3></div><span class="lb-chip tint">${esc(t.kind)}</span></div>
+      <p class="lb-small" style="margin:0;line-height:1.55">${esc(t.d)}</p>
+      <div class="col" style="gap:.3rem"><span class="sub-h">איך משתמשים</span>${copyRow("how-" + t.id, t.how)}</div>
+      <div class="col" style="gap:.3rem"><span class="sub-h">איפה</span>${copyRow("where-" + t.id, t.path)}</div>
+      ${t.extra ? `<p class="lb-muted lb-small" style="margin:0">${esc(t.extra)}</p>` : ""}
+      ${t.url ? `<a class="lb-btn secondary" style="justify-self:start" href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.urlLabel)}</a>` : ""}
+    </div>`).join("")}</div>
+  </section>`;
+}
+
+/* ---------- made ---------- */
+function vMade() {
+  const kinds = [...new Set(K.jobs.map(j => j.kind))];
+  const stats = D.jobStatus;
+  const list = K.jobs.filter(j => (F.made.kind === "all" || j.kind === F.made.kind) && (F.made.status === "all" || j.status === F.made.status));
+  const sc = s => s === stats.posted ? "success" : s === stats.active ? "warning" : s === stats.done ? "" : "outline";
+  const date = slug => { const d = slug.slice(0, 10); return `${d.slice(8)} / ${d.slice(5, 7)} / ${d.slice(0, 4)}`; };
+  return `<section class="lb-section">
+    <p class="lead">כל עבודת ריל בתיקיית media/projects, מהחדש לישן בתוך כל סוג. קבצי הווידאו לא נמצאים ב git, והסקריפטים, ההנחיות וקבצי ה README כן.</p>
+    <div class="filters">
+      ${filterRow("סוג", chip("made", "kind", "all", "הכול") + kinds.map(k => chip("made", "kind", k, `${esc(k)} <span class="lb-count">${K.jobs.filter(j => j.kind === k).length}</span>`)).join(""))}
+      ${filterRow("מצב", chip("made", "status", "all", "הכול") + [stats.posted, stats.active, stats.done].map(l => chip("made", "status", l, esc(l))).join(""))}
+    </div>
+    ${list.length ? `<div class="lb-grid" style="--min:20rem">${list.map(j => `<div class="lb-card" data-id="j-${j.slug}">
+      <div class="card-head"><div><span class="meta">${date(j.slug)}${j.size ? `, ${esc(j.size)}` : ""}</span><h3>${esc(j.t)}</h3></div>
+        <div class="lb-row" style="justify-content:flex-end;flex:none">${j.status ? `<span class="lb-chip ${sc(j.status)}">${esc(j.status)}</span>` : `<span class="lb-chip outline">ללא מצב</span>`}</div></div>
+      <div class="lb-row"><span class="lb-chip">${esc(j.kind)}</span>${j.tools ? `<span class="meta">${esc(j.tools)}</span>` : ""}</div>
+      ${j.d ? `<p class="lb-small lb-muted" style="margin:0;line-height:1.55">${esc(j.d)}</p>` : ""}
+      ${copyRow("job-" + j.slug, "media/projects/" + j.slug + "/")}
+    </div>`).join("")}</div>` : `<div class="empty">אין עבודת ריל שמתאימה לסינון.</div>`}
+    <p class="meta" style="margin:0">מקור: האינדקס ב media/README.md וכל תיקיית פרויקט, נקראו ב 05 / 11 / 2026. "ללא מצב" אומר שהתיקייה עוד לא באינדקס של המדיה.</p>
+  </section>`;
+}
+
+/* ---------- search ---------- */
+const INDEX = [
+  ...C.reels.map(r => ({sec: "calendar", id: "r-" + r.id, type: "ריל", title: `${r.id} ${oneLine(r.hook)}`, sub: oneLine(r.caption).slice(0, 90), text: [r.hook, r.shot, r.caption, r.notes, r.page, ...r.vo, ...r.films, ...r.footage].join(" ")})),
+  ...PR.items.map(p => ({sec: "principles", id: "p-" + p.id, type: "עיקרון", title: `${p.id} ${p.title}`, sub: p.rule, text: [p.id, p.title, p.rule, p.lb].join(" ")})),
+  ...P.approaches.map(a => ({sec: "playbook", tab: "approaches", id: "pa-" + a.k, type: "גישה", title: `${a.k}. ${a.name}`, sub: a.what, text: [a.name, a.what, a.who].join(" ")})),
+  ...P.concepts.map(c => ({sec: "playbook", tab: "concepts", id: "pc-" + c.n, type: "קונספט", title: `${c.n}. ${c.he}`, sub: c.idea, text: [c.he, c.idea, c.response].join(" ")})),
+  ...P.findings.map((f, i) => ({sec: "playbook", tab: "findings", id: "pf-" + i, type: "ממצא", title: f.title, sub: f.body, text: f.title + " " + f.body})),
+  ...K.library.map(l => ({sec: "library", id: l.id, type: "מחקר", title: l.t, sub: l.d, text: [l.t, l.d, ...l.find, l.path].join(" ")})),
+  ...K.tools.map(t => ({sec: "tools", id: t.id, type: "כלי", title: t.t, sub: t.d, text: [t.t, t.kind, t.d, t.how, t.path, t.extra || ""].join(" ")})),
+  ...K.jobs.map(j => ({sec: "made", id: "j-" + j.slug, type: "עבודת ריל", title: j.t, sub: j.d || j.slug, text: [j.t, j.d, j.slug, j.kind, j.tools].join(" ")})),
+];
+function vSearch() {
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const hits = INDEX.filter(x => { const t = (x.title + " " + x.text).toLowerCase(); return terms.every(w => t.includes(w)); });
+  const types = [...new Set(hits.map(h => h.type))];
+  return `<section class="lb-section">
+    ${sectionHead(`${hits.length} ${plural(hits.length, "תוצאה", "תוצאות")} עבור “${esc(query)}”`, "Escape מנקה את החיפוש")}
+    ${hits.length ? types.map(t => `<div class="lb-stack"><span class="sub-h">${esc(t)}</span><div class="lb-group">${hits.filter(h => h.type === t).slice(0, 40).map(h =>
+      `<button type="button" class="result" data-go="${h.sec}" data-target="${esc(h.id)}"${h.tab ? ` data-tabgo="${h.tab}"` : ""}><span class="lb-sum"><b>${auto(h.title)}</b><small>${auto(h.sub)}</small></span></button>`).join("")}</div></div>`).join("")
+    : `<div class="empty">לא נמצא כלום. אפשר לנסות מילה מהוק, מזהה של עיקרון כמו H4, או שם של כלי.</div>`}
+  </section>`;
+}
+
+/* ---------- router ---------- */
+const VIEWS = {overview: vOverview, calendar: vCalendar, playbook: vPlaybook, principles: vPrinciples, library: vLibrary, tools: vTools, made: vMade};
+function route() { const h = location.hash.slice(1).split("/")[0]; return VIEWS[h] ? h : "overview"; }
+function renderNav() {
+  const cur = query ? "" : route();
+  $("#nav").innerHTML = SECTIONS.map(s => s.label ? `<div class="lb-nav-label">${s.label}</div>` :
+    `<a class="lb-nav-item" href="#${s.id}"${cur === s.id ? ' aria-current="page"' : ""}>${svg(s.icon)}<span class="lb-nav-text">${s.t}</span>${s.n ? `<span class="lb-nav-n">${s.n}</span>` : ""}</a>`).join("");
+}
+function render() {
+  const r = route();
+  $("#view").innerHTML = query ? vSearch() : VIEWS[r]();
+  $("#pageTitle").textContent = query ? "חיפוש" : TITLE[r];
+  renderNav();
+  if (!query && r === "calendar" && window.CalMount) CalMount();
+}
+function focusItem(id) {
+  requestAnimationFrame(() => {
+    if (/^r-\d/.test(id) && window.CalOpen) { CalOpen("r" + id.slice(2).replace(".", "-")); return; }
+    const el = document.querySelector(`[data-id="${CSS.escape(id)}"]`);
+    if (!el) return;
+    if (el.tagName === "DETAILS") el.open = true;
+    el.scrollIntoView({block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+    el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+  });
+}
+function go(sec, id, tab) {
+  if (sec === "principles") F.pr = {g: "all", s: "all", q: ""};
+  if (sec === "tools") F.tools.kind = "all";
+  if (sec === "made") F.made = {kind: "all", status: "all"};
+  if (tab) F.pb.tab = tab;
+  query = ""; $("#q").value = "";
+  if (route() !== sec || location.hash.slice(1) !== sec) { pendingFocus = id; if (location.hash.slice(1) === sec) { render(); focusItem(id); pendingFocus = null; } else location.hash = sec; } else { render(); if (id) focusItem(id); }
+}
+let pendingFocus = null, pendingCalFilter = null;
+addEventListener("hashchange", () => {
+  query = ""; $("#q").value = ""; render(); closeMenu();
+  if (pendingCalFilter && window.CalFilter) { CalFilter(pendingCalFilter); pendingCalFilter = null; scrollTo(0, 0); }
+  else if (pendingFocus) { focusItem(pendingFocus); pendingFocus = null; } else if (!/^#calendar\//.test(location.hash)) scrollTo(0, 0);
+});
+
+function closeMenu() { $("#sidebar").classList.remove("is-open"); $("#scrim").hidden = true; $("#menuBtn").setAttribute("aria-expanded", "false"); }
+$("#menuBtn").addEventListener("click", () => { const o = !$("#sidebar").classList.contains("is-open"); $("#sidebar").classList.toggle("is-open", o); $("#scrim").hidden = !o; $("#menuBtn").setAttribute("aria-expanded", String(o)); });
+$("#scrim").addEventListener("click", closeMenu);
+$("#nav").addEventListener("click", e => { if (e.target.closest("a") && query) { query = ""; $("#q").value = ""; setTimeout(render); } closeMenu(); });
+
+$("#q").addEventListener("input", e => { query = e.target.value.trim().length >= 2 ? e.target.value.trim() : ""; render(); });
+$("#q").addEventListener("keydown", e => { if (e.key === "Escape") { e.target.value = ""; query = ""; render(); } });
+
+document.addEventListener("input", e => {
+  if (e.target.id === "prq") { F.pr.q = e.target.value; $("#prList").innerHTML = prList(); }
+});
+document.addEventListener("click", e => {
+  const f = e.target.closest("[data-f]");
+  if (f) {
+    const [g, k] = f.dataset.f.split(".");
+    F[g][k] = f.dataset.v;
+    if (g === "pr") { const v = $("#prq") ? $("#prq").value : ""; F.pr.q = v; $("#view").innerHTML = vPrinciples(); }
+    else render();
+    const again = document.querySelector(`[data-f="${f.dataset.f}"][data-v="${CSS.escape(f.dataset.v)}"]`);
+    if (again) again.focus({preventScroll: true});
+    return;
+  }
+  const t = e.target.closest("[data-tab]");
+  if (t) { F.pb.tab = t.dataset.tab; render(); const b = document.querySelector(`[data-tab="${t.dataset.tab}"]`); if (b) b.focus({preventScroll: true}); return; }
+  const fa = e.target.closest("[data-filter-approach]");
+  if (fa) { query = ""; $("#q").value = ""; const f2 = "ap:" + fa.dataset.filterApproach; if (route() === "calendar" && !/^#calendar\//.test(location.hash)) { render(); CalFilter(f2); } else { pendingCalFilter = f2; location.hash = "calendar"; } return; }
+  const g = e.target.closest("[data-go]");
+  if (g) { e.preventDefault(); go(g.dataset.go, g.dataset.target, g.dataset.tabgo); return; }
+  const c = e.target.closest("[data-copy]");
+  if (c) {
+    const el = document.getElementById(c.dataset.copy); if (!el) return;
+    const text = el.textContent, label = c.textContent;
+    const done = ok => { c.textContent = ok ? "הועתק" : "מסומן, להעתיק"; setTimeout(() => { c.textContent = label; }, 1600); };
+    const select = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done(false); };
+    try { navigator.clipboard.writeText(text).then(() => done(true), select); } catch (x) { select(); }
+  }
+});
+</script>
+__CAL_JS__
+<script>render();</script>

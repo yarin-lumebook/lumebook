@@ -509,7 +509,6 @@ def build():
         "home": home,
         "method": method,
         "logo": design.logo_data_uri(),
-        "themeSwitch": design.theme_toggle(dark_label="Dark mode"),
     }
     return data
 
@@ -529,7 +528,7 @@ def page(data):
   <aside class="pb-side" id="pb-side" aria-label="Playbook sections"></aside>
   <div class="pb-scrim" id="pb-scrim" hidden></div>
   <main class="pb-main" id="pb-main" tabindex="-1">
-    <header class="pb-bar"><button class="pb-menu" id="pb-menu" type="button" aria-label="Open the menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="pb-bar-title" id="pb-bar-title">Reels Playbook</span>{design.theme_toggle(dark_label="Dark mode")}</header>
+    <header class="pb-bar"><button class="pb-menu" id="pb-menu" type="button" aria-label="Open the menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="pb-bar-title" id="pb-bar-title">Reels Playbook</span></header>
     <div class="pb-view" id="pb-view"><noscript>This page needs JavaScript to show its sections.</noscript></div>
   </main>
 </div>

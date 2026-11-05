@@ -10,7 +10,7 @@ Input:  research/cro-crm/src/journey-demo.template.html (the layout and the ten 
         media/projects/2026-10-24-cro-crm-actions/ (the iPhone frame and the covers from lumebook.com; not in git, so a
         missing picture is left out: no frame gives a bare screen, no cover an empty square)
 Output: research/cro-crm/journey-demo.html, one self-contained page on the LumeBook design system (design.head()
-        inlined, white and black modes, pictures as data: URIs) that opens straight from disk.
+        inlined, white only, pictures as data: URIs) that opens straight from disk.
         Local only, not published: it shows internal sales figures and imitates the store's own screens.
 
 Nothing in the demo is generated or uploaded: photos and customer pages are placeholders, the payment step has no
@@ -52,7 +52,6 @@ def build():
     data = json.loads(DATA.read_text(encoding="utf-8"))
     data.pop("_about", None)
     page = (page.replace("<!--LB:HEAD-->", design.head())
-                .replace("<!--LB:THEME-TOGGLE-->", design.theme_toggle(dark_label="מצב כהה"))
                 .replace("{{LOGO}}", design.logo_data_uri())
                 .replace("{{MASCOT}}", design.logo_data_uri("mascot_3d_transparent_320.png"))
                 .replace("{{DEMO_JSON}}", as_js(data))

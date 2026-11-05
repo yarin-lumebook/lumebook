@@ -297,7 +297,7 @@ Preview with the launch config `creator-map-static` (port 8773, serves this fold
 ## 13 Oct 2026: no Posted, auto-decline after a month, light only
 - **Posted is removed.** Content created is the last status. An old record saved as Posted reads as Content created; the funnel's Published column is gone.
 - **In process for 30 days with no status change reads as Declined.** It is worked out from the dates (`sct`, the time of the last status change, or the reply time for older records) and never written, so choosing In process again restarts the clock. The card shows the chip "auto: a month in process". Book sent and Content created never expire.
-- **No dark mode on the map** (Yarin): the toggle is removed and the page is always light. Other pages keep theirs.
+- **No dark mode on the map** (Yarin): the toggle is removed and the page is always light. Since 05 Nov 2026 every page is white only.
 
 ## 14 Oct 2026: the whole project is light mode only
 - Yarin: "i want the entire project to only be in light mode from now on". The dark theme was removed from the design system itself (`shared/design/lumebook.css` has no dark tokens), `design.py` sets the light theme and has no toggle, and every published page was republished.

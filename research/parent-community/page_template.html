@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Parent Community Map</title>
 <!--LB:HEAD-->
 <style>
@@ -11,7 +12,6 @@
   --pri-r: var(--danger);  --pri-r-soft: var(--danger-soft);
 }
 .he { direction: rtl; unicode-bidi: isolate; text-align: start; }
-.hero { display: grid; gap: var(--sp-3); }
 .stats { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
 .stats .lb-card { padding: var(--sp-4); }
 .pri { display: inline-grid; place-items: center; min-width: 1.75rem; height: 1.5rem; padding-inline: .4rem; border-radius: var(--r-xs);
@@ -78,8 +78,7 @@
 .map .c-name { min-width: 14rem; max-width: 22rem; }
 .map .c-name b, .map .c-name a { display: block; font-weight: 600; line-height: 1.35; }
 .map .c-name span { font-size: var(--fs-caption); color: var(--text-3); }
-.map .c-pol { min-width: 16rem; max-width: 26rem; font-size: var(--fs-footnote); color: var(--text-2);
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.map .c-pol { min-width: 16rem; max-width: 26rem; font-size: var(--fs-footnote); color: var(--text-2); } /* clamped by lb-clamp-3 */
 .map th button { all: unset; cursor: pointer; display: inline-flex; gap: .25rem; align-items: center; }
 .map th button:focus-visible { outline: 3px solid var(--focus); border-radius: var(--r-xs); }
 .map th button[aria-sort="descending"]::after { content: "↓"; }
@@ -104,10 +103,7 @@
 
 /* drafts */
 .drafts { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
-.draft pre { all: unset; display: block; white-space: pre-wrap; font-family: var(--font); font-size: var(--fs-callout); line-height: 1.7;
-  background: var(--surface-2); border-radius: var(--r-md); padding: var(--sp-4); direction: rtl; text-align: start; }
-details > summary { cursor: pointer; font-weight: 600; }
-details[open] > summary { margin-bottom: var(--sp-3); }
+/* each draft: lb-copy with an lb-textblock; other routes: lb-disclosure */
 .gaps { display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
 .gaps .lb-card { gap: var(--sp-2); }
 .gaps p { font-size: var(--fs-callout); color: var(--text-2); }
@@ -117,12 +113,11 @@ details[open] > summary { margin-bottom: var(--sp-3); }
   <div class="lb-topbar-in">
     <h1>Parent Community Map</h1>
     <span class="lb-spacer"></span>
-    <!--LB:THEME-TOGGLE-->
   </div>
 </header>
 
 <main class="lb-page" dir="ltr">
-  <section class="hero">
+  <section class="lb-hero">
     <span class="lb-eyebrow">LumeBook · shooting day for social media, for a free book · re-ranked 14 Oct 2026</span>
     <h2>Families near Ashkelon who will host a short shoot with their child and the book</h2>
     <p class="lb-lede">Parent groups on Facebook, WhatsApp and forums, ranked closest to Ashkelon first because the visits go by public transport. Every Facebook group was opened on its About page on 9 Oct and graded from its own rules and activity box. Nothing was joined, posted or messaged.</p>
@@ -238,9 +233,11 @@ details[open] > summary { margin-bottom: var(--sp-3); }
           <li>Every A row has an activity figure and a quoted rule or About line that allows posting.</li>
         </ul></div>
     </div>
-    <details class="lb-card"><summary id="otherSum">Other routes: pages, sites and organisations</summary>
+    <details class="lb-disclosure"><summary id="otherSum">Other routes: pages, sites and organisations</summary>
+      <div class="lb-disclosure-body">
       <div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Pri</th><th>Type</th><th>Name</th><th>Reach seen</th><th>Why</th></tr></thead><tbody id="otherBody"></tbody></table></div>
       <p class="lb-note">Not counted as communities. Facebook answers crawlers even for missing pages, so a working link there only means the page responded.</p>
+      </div>
     </details>
     <footer class="lb-footer"><span>Source: research/parent-community/data.json, built by build_page.py and build_md.py. Full write-up: research/parent-community-outreach.md.</span></footer>
   </section>
@@ -375,7 +372,7 @@ function render() {
     <td class="num"${r.members_n || /^Unknown/.test(r.members || '') ? '' : ` title="${esc(r.members)}"`}>${r.members_n ? fmt(r.members_n) : memShort(r.members)}</td>
     <td class="num">${isWA(r) ? `<span class="lb-chip wa-flag ${r.wa_status === 'VALID' ? 'success' : r.wa_status === 'EXPIRED' ? 'danger' : 'warning'}">${r.wa_status === 'ERROR' ? 'unchecked' : (r.wa_status || '').toLowerCase()}</span>` : fmt(r.posts_month)}</td>
     <td class="appr"><span class="lb-chip ${apChip(r.approach)}">${esc(r.approach)}</span></td>
-    <td><span class="c-pol">${esc(r.policy)}</span></td></tr>`).join('')
+    <td><span class="c-pol lb-clamp-3">${esc(r.policy)}</span></td></tr>`).join('')
     : `<tr><td colspan="8"><div class="lb-empty">No community matches these filters. Clear the search or pick "All".</div></td></tr>`;
 }
 render();
@@ -414,7 +411,7 @@ $('#dClose').addEventListener('click', closeDrawer); $('#scrim').addEventListene
 
 // drafts
 const DT = [['post_general','Post for a local parents group'],['post_short','Short post for business-day threads and local boards'],['dm_admin','Private message to a group admin'],['consent','Filming consent, signed before each visit (draft for a lawyer to read)']];
-$('#draftCards').innerHTML = DT.map(([k, t]) => `<div class="lb-card draft"><div class="lb-card-head"><h3>${t}</h3><button class="lb-btn secondary sm" type="button" data-copy="${k}">Copy</button></div><pre id="dr-${k}">${esc(DATA.drafts[k])}</pre></div>`).join('');
+$('#draftCards').innerHTML = DT.map(([k, t]) => `<div class="lb-card draft"><h3>${t}</h3><div class="lb-copy"><pre class="lb-textblock" id="dr-${k}" dir="rtl">${esc(DATA.drafts[k])}</pre><button class="lb-btn secondary sm" type="button" data-copy="${k}">Copy</button></div></div>`).join('');
 let toastT;
 function toast(m) { const t = $('#toast'); t.textContent = m; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 1800); }
 document.addEventListener('click', e => {

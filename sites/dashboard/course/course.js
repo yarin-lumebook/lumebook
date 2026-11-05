@@ -351,7 +351,7 @@
     const idx = C.lessons.indexOf(l), prev = C.lessons[idx - 1], next = C.lessons[idx + 1];
     const caps = l.cap.map((c) => C.caps[c]).join(", ");
     const nextOk = next && next.ready && isOpenable(next);
-    return `<div class="cx-crumbs"><button type="button" class="lb-btn ghost sm" data-home>← Course</button>${from && D.tasks.items[from] && !D.tasks.items[from].deleted ? `<button type="button" class="lb-btn ghost sm" data-task="${esc(from)}">Back to the task</button>` : ""}</div>
+    return `<div class="lb-row between"><nav class="lb-crumbs" aria-label="Where you are"><a href="#course" data-home>Course</a><span aria-current="page">${esc(l.id)} · ${esc(l.title)}</span></nav>${from && D.tasks.items[from] && !D.tasks.items[from].deleted ? `<button type="button" class="lb-btn ghost sm" data-task="${esc(from)}">Back to the task</button>` : ""}</div>
     <article class="cx-lesson">
       <header class="cx-lhead"><p class="lb-note">Week ${weekNo(l.week)} · Lesson ${idx + 1} of ${C.lessons.length} · ${esc(TYPES[l.type].name)} · ${l.min} min · ${esc(caps)}</p>
         <h2>${esc(l.id)} · ${esc(l.title)}</h2>${stateChip(lessonState(l))}</header>
@@ -362,9 +362,9 @@
       <div class="lb-card is-quiet cx-cannot"><div class="cx-part"><h3>What the numbers can't prove</h3><div class="lb-prose">${l.cannot_html}</div></div></div>
       ${l.terms.length ? `<div class="cx-part"><h3>Terms</h3><dl class="cx-terms">${l.terms.map((t) => `<dt>${esc(t.term)}</dt><dd>${t.def_html}</dd>`).join("")}</dl></div>` : ""}
       ${quizBlock(l)}
-      <nav class="cx-pager">
-        ${prev ? `<button type="button" class="lb-btn secondary sm" data-lesson="${esc(prev.id)}" ${isOpenable(prev) ? "" : "disabled"}>← ${esc(prev.id)}</button>` : "<span></span>"}
-        ${next ? `<button type="button" class="lb-btn ${LP(id).passed && nextOk ? "" : "secondary"} sm" data-lesson="${esc(next.id)}" ${nextOk ? "" : "disabled"} title="${nextOk ? "" : next.ready ? `Opens after ${lessonState(next).missing?.join(", ") || ""}` : "Coming soon"}">${esc(next.id)} →</button>` : "<span></span>"}
+      <nav class="lb-pager" aria-label="Lessons">
+        ${prev ? `<a class="prev" href="#course" data-lesson="${esc(prev.id)}" ${isOpenable(prev) ? "" : 'aria-disabled="true"'}><small>Previous</small><b>${esc(prev.id)} · ${esc(prev.title)}</b></a>` : ""}
+        ${next ? `<a class="next" href="#course" data-lesson="${esc(next.id)}" ${nextOk ? "" : 'aria-disabled="true"'} title="${nextOk ? "" : next.ready ? `Opens after ${lessonState(next).missing?.join(", ") || ""}` : "Coming soon"}"><small>${nextOk ? "Next" : next.ready ? "Next, locked" : "Coming soon"}</small><b>${esc(next.id)} · ${esc(next.title)}</b></a>` : ""}
       </nav>
     </article>`;
   }
@@ -476,7 +476,7 @@
     const last = lastCheck(pp), err = last && !last.verdict ? ST.gradeErr[key] : null;
     const attached = attachedData(p);
     const ro = ST.readOnly ? "disabled" : "";
-    return `<div class="cx-crumbs"><button type="button" class="lb-btn ghost sm" data-home>← Course</button></div>
+    return `<nav class="lb-crumbs" aria-label="Where you are"><a href="#course" data-home>Course</a><span aria-current="page">Project ${esc(p.id)}</span></nav>
     <article class="cx-lesson">
       <header class="cx-lhead"><p class="lb-note">Project ${esc(p.id)} · week ${weekNo(p.week)} · ${HELP[p.help]}</p><h2>${esc(p.text)}</h2></header>
       <div class="lb-callout"><b>What Claude looks for</b><span>${esc(p.check)}</span></div>
@@ -527,7 +527,7 @@
         <input class="lb-input" id="cx-new" name="title" placeholder="New task" aria-label="New task" maxlength="200" ${ST.readOnly ? "disabled" : ""}>
         <button class="lb-btn" type="submit" ${ST.readOnly ? "disabled" : ""}>Add</button>
       </form>
-      <div class="cx-types" role="group" aria-label="Task type">${C.types.map((t) => `<button type="button" class="cx-type" data-newtype="${t.id}" aria-pressed="${ST.newType === t.id}">${esc(t.name)}</button>`).join("")}</div>
+      <div class="lb-filters" role="group" aria-label="Task type">${C.types.map((t) => `<button type="button" data-newtype="${t.id}" aria-pressed="${ST.newType === t.id}">${esc(t.name)}</button>`).join("")}</div>
       <div class="cx-templates"><span class="lb-note">Templates:</span>${TEMPLATES.map(([type, title]) => `<button type="button" class="lb-btn secondary sm" data-template="${type}" data-title="${esc(title)}" ${ST.readOnly ? "disabled" : ""}>${esc(title)}</button>`).join("")}</div>
     </section>
     ${projects.length ? `<section class="lb-card is-quiet">
@@ -536,10 +536,10 @@
     </section>` : ""}
     <section class="lb-section">
       <div class="lb-section-head"><h2>Open</h2><span class="lb-meta">${open.length}</span></div>
-      ${open.length ? `<div class="lb-group cx-list">${open.map(taskRow).join("")}</div>` : `<div class="lb-empty">${ST.loaded || ST.mode === "local" ? "No open tasks. Add one above, or tap a template." : "Loading tasks…"}</div>`}
+      ${open.length ? `<div class="lb-rowlist">${open.map(taskRow).join("")}</div>` : `<div class="lb-empty">${ST.loaded || ST.mode === "local" ? "No open tasks. Add one above, or tap a template." : "Loading tasks…"}</div>`}
     </section>
     ${done.length ? `<details class="lb-disclosure"><summary><span class="lb-sum">Done<small>${done.length} tasks</small></span></summary>
-      <div class="lb-group cx-list">${done.slice(0, 60).map(taskRow).join("")}</div></details>` : ""}
+      <div class="lb-rowlist">${done.slice(0, 60).map(taskRow).join("")}</div></details>` : ""}
     <details class="lb-disclosure is-quiet"><summary><span class="lb-sum">How the checklists fade<small>by how many tasks of that type are done</small></span></summary><div class="lb-disclosure-body">
       <p class="lb-note">${C.fade.map((f, i) => `${i === 0 ? "1" : C.fade[i - 1].upto + 1}${f.upto ? ` to ${f.upto}` : " and up"}: ${esc(f.label)}`).join(" · ")}</p>
       <div class="lb-table-wrap"><table class="lb-table"><thead><tr><th>Type</th><th>Done</th><th>The checklist now</th></tr></thead><tbody>${typeRows}</tbody></table></div></div></details>`;
@@ -914,10 +914,10 @@
         <div class="cx-num"><label for="cx-n-shares">Best post: shares</label><input class="lb-input" id="cx-n-shares" inputmode="numeric" data-num="shares" value="${esc(val("shares"))}" ${ro}></div>
         <div class="cx-num"><label for="cx-n-reach">Best post: reach<small>How many accounts saw it</small></label><input class="lb-input" id="cx-n-reach" inputmode="numeric" data-num="reach" value="${esc(val("reach"))}" ${ro}></div>
       </div>
-      <div class="cx-rates">
-        <div class="cx-rate"><span>Comment words that got a DM with a link</span><b>${rWords == null ? "-" : `${fmt(dms)} of ${fmt(draft.words)} (${pct(rWords)})`}</b>${small(draft.words)}</div>
-        <div class="cx-rate"><span>DMs with a link that became a tagged order</span><b>${draft.orders_na ? "Not available yet" : rOrders == null ? "-" : `${fmt(orders)} of ${fmt(dms)} (${pct(rOrders)})`}</b>${draft.orders_na ? "" : small(dms)}</div>
-        <div class="cx-rate"><span>Best post: saves and shares out of reach</span><b>${best == null ? "-" : pct(best)}</b>${draft.reach ? `<span>${fmt((Number(draft.saves) || 0) + (Number(draft.shares) || 0))} of ${fmt(draft.reach)}</span>` : ""}</div>
+      <div class="lb-grid cx-stats">
+        <div class="lb-card lb-stat"><span class="lb-stat-label">Comment words that got a DM with a link</span><span class="lb-stat-value">${rWords == null ? "-" : `${fmt(dms)} <small>of ${fmt(draft.words)} (${pct(rWords)})</small>`}</span>${small(draft.words)}</div>
+        <div class="lb-card lb-stat"><span class="lb-stat-label">DMs with a link that became a tagged order</span><span class="lb-stat-value">${draft.orders_na || rOrders == null ? "-" : `${fmt(orders)} <small>of ${fmt(dms)} (${pct(rOrders)})</small>`}</span>${draft.orders_na ? `<span class="lb-stat-foot">Not available yet</span>` : small(dms)}</div>
+        <div class="lb-card lb-stat"><span class="lb-stat-label">Best post: saves and shares out of reach</span><span class="lb-stat-value">${best == null ? "-" : pct(best)}</span>${draft.reach ? `<span class="lb-stat-foot">${fmt((Number(draft.saves) || 0) + (Number(draft.shares) || 0))} of ${fmt(draft.reach)}</span>` : ""}</div>
       </div>
       <label class="lb-field">What these numbers can't prove<textarea class="lb-textarea" data-num-text="cannot" placeholder="At least one sentence. Without it the week isn't saved" ${ro}>${esc(draft.cannot || "")}</textarea></label>
       <div class="cx-actions"><button type="button" class="lb-btn" data-savenums ${canSave ? "" : "disabled"}>Save the week</button>
@@ -992,11 +992,9 @@
           <label class="lb-field">Campaign (utm_campaign)<input class="lb-input" dir="ltr" data-lmtext="campaign" value="${esc(ST.lm.campaign)}" placeholder="${esc((lmDest() || {}).campaign || "general")}"></label>
           <label class="lb-field">Test (utm_term), only when you compare two versions<input class="lb-input" dir="ltr" data-lmtext="term" value="${esc(ST.lm.term)}"></label>
         </div></details>
-        <div class="cx-out">
-          ${r.err ? `<span class="lb-note">${esc(r.err)}</span>` : `<input class="lb-input" id="cx-link" readonly value="${esc(r.url)}" aria-label="The tagged link">
-          <div class="lb-row"><button type="button" class="lb-btn" data-copy ${ro}>Copy and log</button><a class="lb-btn secondary sm" href="${esc(r.url)}" target="_blank" rel="noopener">Open and check</a></div>
+        ${r.err ? `<span class="lb-note">${esc(r.err)}</span>` : `<div class="lb-copy is-below"><p class="lb-textblock is-code" id="cx-link" aria-label="The tagged link">${esc(r.url)}</p>
+          <div class="lb-row"><button type="button" class="lb-btn" data-copy ${ro}>Copy and log</button><a class="lb-btn secondary sm" href="${esc(r.url)}" target="_blank" rel="noopener">Open and check</a></div></div>
           <span class="lb-note">After it opens, check that the address bar still ends with ${ltr("utm_content=" + r.content)}</span>`}
-        </div>
       </div>
     </section>
     <section class="lb-section">
@@ -1050,25 +1048,25 @@
         ${ST.lm.c_place === "story" ? `<label class="lb-field">Date<input class="lb-input" type="date" data-lmtext="c_date" value="${esc(ST.lm.c_date)}"></label>` : ""}
         ${ST.lm.c_place === "dm" ? `<label class="lb-field">The post's shortcode<input class="lb-input" dir="ltr" data-lmtext="c_code" value="${esc(ST.lm.c_code)}" placeholder="the letters after /p/ or /reel/"></label>` : ""}
         <label class="lb-field">Test (utm_term), only when you compare two versions<input class="lb-input" dir="ltr" data-lmtext="c_term" value="${esc(ST.lm.c_term)}"></label>
-        <div class="cx-out">
-          ${r.err ? `<span class="lb-note">${esc(r.err)}</span>` : `<input class="lb-input" id="cx-clink" readonly value="${esc(r.url)}" aria-label="The creator's tagged link">
+        ${r.err ? `<span class="lb-note">${esc(r.err)}</span>` : `<div class="lb-copy is-below"><p class="lb-textblock is-code" id="cx-clink" aria-label="The creator's tagged link">${esc(r.url)}</p>
+          <div class="lb-row"><button type="button" class="lb-btn" data-copycreator ${ro}>Copy and log</button><a class="lb-btn secondary sm" href="${esc(r.url)}" target="_blank" rel="noopener">Open and check</a></div></div>
           ${r.plain ? `<span class="lb-note">No personal link pasted, so this is the plain store page. The tags still track visits and orders, but the store won't credit the creator for it. Use their link from the ambassador sheet.</span>` : ""}
           ${r.viaLink ? `<span class="lb-note">Campaign is ${ltr(r.handle)}, the name in their link.</span>` : ""}
-          <div class="lb-row"><button type="button" class="lb-btn" data-copycreator ${ro}>Copy and log</button><a class="lb-btn secondary sm" href="${esc(r.url)}" target="_blank" rel="noopener">Open and check</a></div>
           <span class="lb-note">A personal link keeps these tags when it sends the visitor on to the books page (tested on 2 Nov 2026 with Yarin's own link). After it opens, check the address bar still ends with ${ltr("utm_content=" + r.content)}.</span>`}
-        </div>
       </div>
     </div></details>`;
   }
+  // the tagged link sits in an lb-textblock: select its text so a blocked clipboard can still copy it by hand
+  function selectText(el) { if (!el) return; const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
   async function copyCreatorLink() {
     const r = buildCreatorLink(); if (r.err) return;
     let ok = false;
     try { await navigator.clipboard.writeText(r.url); ok = true; } catch {}
-    if (!ok) { const el = document.getElementById("cx-clink"); if (el) { el.select(); try { ok = document.execCommand("copy"); } catch {} } }
+    if (!ok) { const el = document.getElementById("cx-clink"); if (el) { selectText(el); try { ok = document.execCommand("copy"); } catch {} } }
     const existing = Object.entries(D.links.items || {}).find(([, x]) => x && !x.deleted && x.url === r.url);
     if (!existing) patch("links", { items: { [uid("l")]: { url: r.url, title: "Creator @" + r.handle, place: ST.lm.c_place, source: "instagram", campaign: r.handle, content: r.content, kind: "creator", created_at: nowIso(), sent: 0 } } });
     toast(ok ? (existing ? "Copied. The link is already in the log" : "Copied and logged") : "Copying was blocked. Select the link and copy it by hand");
-    if (!ok) document.getElementById("cx-clink")?.select();
+    if (!ok) selectText(document.getElementById("cx-clink"));
   }
 
   // The UTM reference list (research/cro-crm/measurement.md §4; docs/utm-list-ig-fb.md). Read-only; the link maker above builds the real links.
@@ -1101,11 +1099,11 @@
     const r = buildLink(); if (r.err) return;
     let ok = false;
     try { await navigator.clipboard.writeText(r.url); ok = true; } catch {}
-    if (!ok) { const el = document.getElementById("cx-link"); if (el) { el.select(); try { ok = document.execCommand("copy"); } catch {} } }
+    if (!ok) { const el = document.getElementById("cx-link"); if (el) { selectText(el); try { ok = document.execCommand("copy"); } catch {} } }
     const existing = Object.entries(D.links.items || {}).find(([, x]) => x && !x.deleted && x.url === r.url);
     if (!existing) patch("links", { items: { [uid("l")]: { url: r.url, title: r.dest.title, place: ST.lm.place, source: ST.lm.source, campaign: r.campaign, content: r.content, created_at: nowIso(), sent: 0 } } });
     toast(ok ? (existing ? "Copied. The link is already in the log" : "Copied and logged") : "Copying was blocked. Select the link and copy it by hand");
-    if (!ok) document.getElementById("cx-link")?.select();
+    if (!ok) selectText(document.getElementById("cx-link"));
   }
 
   // ---------- glossary ----------
@@ -1137,8 +1135,9 @@
   }
 
   function onClick(e) {
-    const b = e.target.closest("button, a[data-goto]");
+    const b = e.target.closest("button, a[data-goto], a[data-home], a[data-lesson]");
     if (!b) return;
+    if (b.tagName === "A") { e.preventDefault(); if (b.getAttribute("aria-disabled") === "true") return; } // crumb and pager links switch the view in place
     const ds = b.dataset;
     if (ds.tab) { if (ds.tab === "course" && ST.tab === "course") { goHome(); return; } ST.tab = ds.tab; try { localStorage.setItem(KEY + ":tab", ds.tab); } catch {} render(); return; }
     if (b.hasAttribute("data-home")) { goHome(); return; }

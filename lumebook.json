@@ -77,7 +77,10 @@
       "watch": [
         "shared/design/lumebook.css",
         "shared/design/design.py",
-        "shared/design/categories.json"
+        "shared/design/categories.json",
+        "shared/design/icons.json",
+        "shared/design/hq-tools.json",
+        "shared/design/nav.src.js"
       ],
       "copies": [
         {
@@ -95,6 +98,18 @@
         {
           "from": "shared/design/categories.css",
           "to": "sites/dashboard/design/categories.css"
+        },
+        {
+          "from": "shared/design/icons.js",
+          "to": "sites/dashboard/design/icons.js"
+        },
+        {
+          "from": "shared/design/nav.js",
+          "to": "sites/dashboard/design/nav.js"
+        },
+        {
+          "from": "shared/design/nav.js",
+          "to": "sites/lumebook-smm-plan/nav.js"
         }
       ],
       "feeds": [
@@ -111,9 +126,12 @@
         "creator-content-conversion",
         "creator-brief",
         "hook-studio-page",
-        "sales-readout"
+        "sales-readout",
+        "strategy",
+        "reel-calendar",
+        "reels-hub"
       ],
-      "notes": "Every internal page inlines lumebook.css at build (design.py: head() also inlines the category classes from categories.json). The SMM plan and the dashboard have no page build, so they link synced copies of lumebook.css and of categories.css (sync writes categories.css from categories.json, then copies it). categories.json says which category of which page gets which of the eight category hues (18 Oct 2026); the dashboard's refresh.py reads its workstreams. Heebo main font, Assistant secondary (18 Oct 2026). Not used by the ambassadors site.",
+      "notes": "Every internal page inlines lumebook.css at build (design.py: head() also inlines the category classes from categories.json). The SMM plan and the dashboard have no page build, so they link synced copies of lumebook.css and of categories.css (sync writes categories.css from categories.json, then copies it). categories.json says which category of which page gets which of the eight category hues (18 Oct 2026); the dashboard's refresh.py reads its workstreams. Heebo main font, Assistant secondary (18 Oct 2026). Not used by the ambassadors site. The project nav (5 Nov 2026): hq-tools.json is HQ's built-in tool list, nav.src.js draws the top bar (HQ's topics), the location path, the collapsible side bar (every tool) and the bottom nav bar on phones; design.head() inlines both as nav.js (head(nav=False) only for the public creator brief), sync writes shared/design/nav.js and copies it to HQ and the SMM plan.",
       "publish": {
         "type": "artifact",
         "url": "https://claude.ai/artifact/Cw3pWrTsoCKkCaPzZLrr5B",
@@ -163,8 +181,20 @@
       "path": "docs",
       "kind": "page",
       "watch": [
-        "docs/lumebook-social-strategy.html"
+        "docs/src/strategy.template.html",
+        "docs/src/build_strategy_page.py"
       ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build_strategy_page.py"
+        ],
+        "cwd": "docs",
+        "outputs": [
+          "docs/lumebook-social-strategy.html"
+        ],
+        "auto": true
+      },
       "publish": {
         "type": "artifact",
         "url": "https://claude.ai/artifact/3GNTuoDk4swPGUarrf4xkp",
@@ -257,7 +287,7 @@
       "feeds": [
         "dashboard"
       ],
-      "notes": "Grows every Saturday at 21:00: scheduled task lumebook-creator-map-weekly (Claude desktop app, built-in browser signed in to Instagram, read only) runs the method in src/research/weekly/README.md and appends through src/research/merge_pass.py. The Sunday 10:00 task lumebook-creator-refresh then re-reads every creator, the new ones included."
+      "notes": "Grows every Saturday at 21:00: scheduled task lumebook-creator-map-weekly (Claude desktop app, built-in browser signed in to Instagram, read only) runs the method in src/research/weekly/README.md and appends through src/research/merge_pass.py. The Sunday 10:00 task lumebook-creator-refresh then re-reads every creator, the new ones included. Every day at 09:00 the task lumebook-creator-posts-daily reads the creator posts linked in the books tab (src/posts/README.md) into state/posts.json, which the page fetches; no rebuild needed."
     },
     "creator-content-conversion": {
       "name": "Creator content and purchase intent (round 1: 41 creators; round 2: 134 creators, 1,456 posts, 22,428 comments)",
@@ -580,7 +610,12 @@
         "sites/dashboard/build_site.py",
         "sites/dashboard/course/course.js",
         "sites/dashboard/course/course.css",
-        "sites/dashboard/course/course-data.js"
+        "sites/dashboard/course/course-data.js",
+        "research/competitor-content-analysis/lumebook-competitor-content.html",
+        "research/kids-brand-content-research/lumebook-kids-content-lab.html",
+        "research/carousel-research/lumebook-carousel-research.html",
+        "research/carousel-playbook-research/lumebook-carousel-playbook.html",
+        "research/parent-community/lumebook-parent-communities.html"
       ],
       "build": {
         "cmd": [
@@ -599,8 +634,11 @@
         "url": "https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6",
         "file": "sites/dashboard/lumebook-dashboard.html",
         "files": [
+          "hq-layout.json",
           "design/lumebook.css",
           "design/categories.css",
+          "design/icons.js",
+          "design/nav.js",
           "img/logo.png",
           "course/course.js",
           "course/course.css",
@@ -614,7 +652,7 @@
         "type": "vercel",
         "url": "https://lumebook-dashboard.vercel.app",
         "dir": "sites/dashboard/site/lumebook-dashboard",
-        "note": "the 08:14 task builds and deploys it; includes the plan at /plan/"
+        "note": "the nightly commit job (tools/nightly_commit.py) builds and deploys it when a watched file changed; includes the plan at /plan/ and, since 05 Nov 2026, read-only copies of five research pages at /research/<slug>/ (the facts.json artifacts with a web address: competitor teardown, kids content lab, carousel research, carousel playbook, parent communities). Pages with internal sales figures or personal data never get a web address."
       },
       "notes": "Default view since 31 Oct 2026: tasks and lessons (sites/dashboard/course/, README there; content from course/, plan in course/curriculum.md). It replaced the canvas work board (19 to 31 Oct 2026, now in _to-delete/sites/dashboard/board/). Course state saves to the artifact database under course/* (never snapshot, history, tracker or the old boards/), and on Vercel or the local server only in that browser."
     },
@@ -729,6 +767,85 @@
       },
       "feeds": [],
       "notes": "Local only, not published: holds internal sales figures. The Markdown is the source; ripple rebuilds the HTML. The seven social decisions also live in the SMM plan (section id decisions) without figures."
+    },
+    "reel-calendar": {
+      "name": "November reel calendar (one reel a day, 05 to 30 Nov 2026: scripts, filming days, captions)",
+      "path": "research/israeli-product-reels/src/scripts/series-2026-11",
+      "kind": "page",
+      "watch": [
+        "research/israeli-product-reels/src/scripts/series-2026-11/reels.json",
+        "research/israeli-product-reels/src/scripts/series-2026-11/reels.py",
+        "research/israeli-product-reels/src/scripts/series-2026-11/build_page.py"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "reels.py",
+          "build"
+        ],
+        "cwd": "research/israeli-product-reels/src/scripts/series-2026-11",
+        "outputs": [
+          "research/israeli-product-reels/src/scripts/series-2026-11/november-calendar.html",
+          "research/israeli-product-reels/src/scripts/series-2026-11/november-calendar.md",
+          "research/israeli-product-reels/src/scripts/series-2026-11/reel-series-scripts.md"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "manual"
+      },
+      "feeds": [],
+      "notes": "04 Nov 2026 (Yarin: a reel content system to the end of November, one a day like reel 1.1). reels.json is the only source; reels.py build writes the page and both md files, reels.py lint runs the Hebrew voice lint, new <id> opens a media project, done <id> marks a reel posted. Series colours: categories.json set reel-series. Superseded 05 Nov 2026 by the reels-hub component: the stand-alone calendar artifact is no longer linked or republished; this component still builds the two md files and the page that the hub reuses."
+    },
+    "reels-hub": {
+      "name": "מערכת הרילס: the one Hebrew tool for everything about reels (November calendar with editing, playbook, 63 principles, research library, tools, reels made)",
+      "path": "research/israeli-product-reels/reels-explorer.html",
+      "kind": "page",
+      "watch": [
+        "research/israeli-product-reels/src/scripts/series-2026-11/reels.json",
+        "research/israeli-product-reels/src/scripts/series-2026-11/build_page.py",
+        "research/israeli-product-reels/src/scripts/series-2026-11/reels.py",
+        "research/israeli-product-reels/playbook.md",
+        "research/israeli-product-reels/smm-research/principles.md",
+        "research/israeli-product-reels/src/build_reels_explorer.py",
+        "research/israeli-product-reels/src/hub_calendar.py",
+        "research/israeli-product-reels/src/reels_explorer_template.html",
+        "research/israeli-product-reels/src/he/*.json",
+        "shared/facts.json"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build_reels_explorer.py"
+        ],
+        "cwd": "research/israeli-product-reels",
+        "outputs": [
+          "research/israeli-product-reels/reels-explorer.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "artifact",
+        "url": "https://claude.ai/artifact/7LypeDPVPLDcL5n2xEQui7",
+        "file": "research/israeli-product-reels/reels-explorer.html"
+      },
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "05 Nov 2026 (Yarin: integrate the reel calendar so there is only one tool, everything in Hebrew). Built by src/build_reels_explorer.py: the calendar view is the stand-alone calendar page cut into parts by src/hub_calendar.py (month grid, editable reel popup, made ticks, comment box), the research text is the Hebrew translation in src/he/*.json of playbook.md and principles.md (rerun the translation when those change; a missing key falls back to English). Edits, ticks and comment requests save to this artifact's own database (collections edits, made, requests); reels.py merge reads an export of edits from here. Replaces the stand-alone calendar artifact DGXzTyAGSYLXmAeYjRPt1E."
+    },
+    "site-editor": {
+      "name": "Edit button on every page (in-page editor + edits layer)",
+      "path": "shared/site-editor",
+      "kind": "assets",
+      "watch": [
+        "shared/site-editor/*.js",
+        "shared/site-editor/pages.json",
+        "shared/site-editor/edits/**/*",
+        "tools/site_editor.py"
+      ],
+      "feeds": [],
+      "notes": "Since 05 Nov 2026 every HTML page the project server shows (localhost:8780, Carousel Machine through /hook-studio/ too) gets a pencil button at the bottom left: Yarin edits text, colors, pictures, size and spacing and drags things around right in the page. Hand-written pages listed in pages.json (the SMM plan) are edited in their own file; every other page keeps its edits in shared/site-editor/edits/<page>.json, applied by overlay.js whenever the page shows and written into the page's file as the lumebook-edits block (build() after each build, ripple and the nightly job for pages rebuilt elsewhere), so edits survive rebuilds and reach the artifact and Vercel copies on the next republish or deploy. python3 tools/lumebook.py edits lists edited pages. After editing tools/site_editor.py or tools/lumebook.py: python3 tools/serve_login.py restart. README.md there."
     }
   }
 }

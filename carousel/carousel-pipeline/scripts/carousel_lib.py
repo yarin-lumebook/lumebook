@@ -35,27 +35,16 @@ VOICE_SKILL = ROOT / ".claude" / "skills" / "lumebook-hebrew-voice"
 APPROVED_EXAMPLES = VOICE_SKILL / "examples" / "approved"
 REJECTED_EXAMPLES = VOICE_SKILL / "examples" / "rejected"
 VOICE_EDITS = VOICE_SKILL / "examples" / "edits.jsonl"
-FAL_ENDPOINTS = PIPELINE / "scripts" / "fal_endpoints.json"
-# Where production pictures come from (Yarin, 30 Oct 2026: "disconnect my fal account from the carousel machine, use my
-# chatgpt in chrome to create the images so everything will be free"): "chatgpt" (the default) or "fal"
-# CAROUSEL_PRODUCTION_CONFIG points at another file (the tests use a temporary one to exercise the old fal flow)
-PRODUCTION_CONFIG = Path(os.environ.get("CAROUSEL_PRODUCTION_CONFIG") or PIPELINE / "production.json")
-PICTURE_BACKENDS = ("chatgpt", "fal")
-
-
-def production_config():
-    try:
-        data = read_json(PRODUCTION_CONFIG)
-    except (OSError, ValueError):
-        return {}
-    return data if isinstance(data, dict) else {}
+# Where production pictures come from: the OpenAI Images API only (Yarin, 03 Nov 2026: "disconnect carousel machine from any other
+# image generation tool, i want it to use the gpt api from now on"). Model, size, quality and rates: scripts/openai_models.json.
+# fal.ai (until 30 Oct 2026) and ChatGPT in Chrome (30 Oct to 03 Nov 2026) are retired, their files are in _to-delete/.
+PICTURE_BACKEND = "openai"
+OPENAI_MODELS = PIPELINE / "scripts" / "openai_models.json"
 
 
 def picture_backend():
-    """"chatgpt" (Claude makes the pictures in ChatGPT in Yarin's Chrome, free) or "fal" (the paid fal.ai flow, off since
-    30 Oct 2026). A missing file or an unknown value means chatgpt, so nothing paid ever runs by accident."""
-    value = production_config().get("picture_backend")
-    return value if value in PICTURE_BACKENDS else "chatgpt"
+    """Always "openai". Kept as a function so producer.py, the page and the tests ask one place."""
+    return PICTURE_BACKEND
 
 
 CHROME_MAC = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"

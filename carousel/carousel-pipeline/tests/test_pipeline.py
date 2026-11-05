@@ -33,7 +33,7 @@ sys.path.insert(0, str(SCRIPTS))
 import carousel_lib as lib  # noqa: E402
 import compose_slides  # noqa: E402
 import create_review  # noqa: E402
-import prepare_fal_jobs  # noqa: E402
+import prepare_picture_jobs  # noqa: E402
 import review_server  # noqa: E402
 import validate_pack  # noqa: E402
 import voice_lint  # noqa: E402
@@ -823,26 +823,14 @@ class Review(unittest.TestCase):
 
 
 class Production(unittest.TestCase):
-    """The paid fal flow, as it ran up to 30 Oct 2026; production.json now says chatgpt (tests/test_chatgpt_pictures.py),
-    so these tests switch the backend to fal for themselves."""
-
-    def setUp(self):
-        self.cfg_dir = Path(tempfile.mkdtemp())
-        self.cfg = self.cfg_dir / "production.json"
-        self.cfg.write_text(json.dumps({"picture_backend": "fal"}), encoding="utf-8")
-        self.backend = mock.patch.object(lib, "PRODUCTION_CONFIG", self.cfg)
-        self.backend.start()
-
-    def tearDown(self):
-        self.backend.stop()
-        shutil.rmtree(self.cfg_dir, ignore_errors=True)
+    """Freezing an option and running its picture jobs through the OpenAI Images API (03 Nov 2026). No test calls the network."""
 
     def prepare(self, option="expert-1", extra=()):
         out = Path(tempfile.mkdtemp())
-        argv = ["prepare_fal_jobs.py", str(FIXTURE), option, "--out-root", str(out), "--no-history", *extra]
+        argv = ["prepare_picture_jobs.py", str(FIXTURE), option, "--out-root", str(out), "--no-history", *extra]
         buf = io.StringIO()
         with NoNetwork(), mock.patch.object(sys, "argv", argv), mock.patch.object(lib, "voice_status", return_value=VOICE0), redirect_stdout(buf):
-            prepare_fal_jobs.main()
+            prepare_picture_jobs.main()
         return out, json.loads(buf.getvalue())
 
     def test_prepare_makes_valid_jobs_without_network(self):
@@ -851,22 +839,26 @@ class Production(unittest.TestCase):
         jobs = json.loads((run / "jobs.json").read_text(encoding="utf-8"))
         self.assertEqual(summary["network_calls"], 0)
         self.assertEqual(len(jobs["jobs"]), lib.SLIDE_COUNT + 1)
-        self.assertEqual(jobs["jobs"]["character-reference"]["endpoint"], "openai/gpt-image-2.5/flare/text-to-image")
-        self.assertTrue(all(jobs["jobs"][f"slide-{n:02d}"]["endpoint"] == "openai/gpt-image-2.5/flare/edit" for n in range(1, lib.SLIDE_COUNT + 1)))
-        self.assertTrue(all(j["input"]["image_size"] == {"width": 1024, "height": 1280} for j in jobs["jobs"].values()))
-        cfg = prepare_fal_jobs.endpoint_config()
-        self.assertEqual([p for n, j in jobs["jobs"].items() for p in prepare_fal_jobs.job_issues(n, j, cfg)], [])
+        cfg = prepare_picture_jobs.endpoint_config()
+        self.assertEqual((jobs["jobs"]["character-reference"]["mode"], jobs["jobs"]["character-reference"]["model"]), ("generate", cfg["model"]))
+        self.assertTrue(all(jobs["jobs"][f"slide-{n:02d}"]["mode"] == "edit" for n in range(1, lib.SLIDE_COUNT + 1)))
+        self.assertTrue(all((j["input"]["size"], j["input"]["quality"]) == (cfg["size"], "low") for j in jobs["jobs"].values()))
+        self.assertEqual([p for n, j in jobs["jobs"].items() for p in prepare_picture_jobs.job_issues(n, j, cfg)], [])
         self.assertTrue((run / "APPROVAL.md").exists())
-        self.assertIn("Estimated maximum", (run / "APPROVAL.md").read_text(encoding="utf-8"))
+        sheet = (run / "APPROVAL.md").read_text(encoding="utf-8")
+        self.assertIn("Estimated maximum", sheet)
+        self.assertIn("Estimated tokens", sheet)
         self.assertGreater(summary["estimated_max_usd"], summary["estimated_usd"])
 
     def test_job_schema_check_catches_bad_input(self):
-        cfg = prepare_fal_jobs.endpoint_config()
-        bad = {"endpoint": "openai/gpt-image-2.5/flare/edit", "refs": ["r"], "input": {"prompt": "x", "image_size": {"width": 1000, "height": 1250}, "quality": "ultra", "output_format": "png", "num_images": 1, "seed": 3}}
-        problems = prepare_fal_jobs.job_issues("slide-01", bad, cfg)
-        self.assertTrue(any("multiples of 16" in p for p in problems))
-        self.assertTrue(any("quality" in p for p in problems))
+        cfg = prepare_picture_jobs.endpoint_config()
+        bad = {"mode": "edit", "model": "some-other-model", "refs": ["r"], "input": {"prompt": "x", "size": "1000x1250", "quality": "high", "n": 1, "seed": 3}}
+        problems = prepare_picture_jobs.job_issues("slide-01", bad, cfg)
+        self.assertTrue(any("model" in p for p in problems))
+        self.assertTrue(any("size" in p for p in problems))
+        self.assertTrue(any("quality" in p for p in problems))   # only the measured quality is allowed
         self.assertTrue(any("seed" in p for p in problems))
+        self.assertTrue(any("needs a reference" in p for p in prepare_picture_jobs.job_issues("s", {**bad, "refs": []}, cfg)))
 
     def test_prepare_is_idempotent_and_refuses_silent_overwrite(self):
         out, summary = self.prepare()
@@ -903,31 +895,31 @@ class Production(unittest.TestCase):
         self.assertEqual(validate_pack.option_errors(pack, "expert-1"), [])
         self.assertNotEqual(validate_pack.option_errors(pack, others[0]["id"]), [])
         out = Path(tempfile.mkdtemp())
-        argv = ["prepare_fal_jobs.py", str(path), "expert-1", "--out-root", str(out), "--no-history"]
+        argv = ["prepare_picture_jobs.py", str(path), "expert-1", "--out-root", str(out), "--no-history"]
         with NoNetwork(), mock.patch.object(sys, "argv", argv), mock.patch.object(lib, "voice_status", return_value=VOICE0), redirect_stdout(io.StringIO()):
-            prepare_fal_jobs.main()
+            prepare_picture_jobs.main()
         argv[2] = others[0]["id"]
         with NoNetwork(), mock.patch.object(sys, "argv", argv), mock.patch.object(lib, "voice_status", return_value=VOICE0), redirect_stdout(io.StringIO()):
             with self.assertRaises(SystemExit):
-                prepare_fal_jobs.main()
+                prepare_picture_jobs.main()
 
     def prepare_again(self, out, expect_exit, extra=()):
-        argv = ["prepare_fal_jobs.py", str(FIXTURE), "expert-1", "--out-root", str(out), "--no-history", *extra]
+        argv = ["prepare_picture_jobs.py", str(FIXTURE), "expert-1", "--out-root", str(out), "--no-history", *extra]
         with NoNetwork(), mock.patch.object(sys, "argv", argv), mock.patch.object(lib, "voice_status", return_value=VOICE0), redirect_stdout(io.StringIO()):
             if expect_exit:
                 with self.assertRaises(SystemExit):
-                    prepare_fal_jobs.main()
+                    prepare_picture_jobs.main()
             else:
-                prepare_fal_jobs.main()
+                prepare_picture_jobs.main()
 
-    def fal(self, run, *args, env=None):
+    def gen(self, run, *args):
         e = dict(os.environ)
-        e.pop("FAL_KEY", None)
-        e["CAROUSEL_PRODUCTION_CONFIG"] = str(self.cfg)   # picture_backend fal, for this test only
-        return subprocess.run([sys.executable, str(SCRIPTS / "fal_generate.py"), str(run), *args], capture_output=True, text=True, env=e)
+        e.pop("OPENAI_API_KEY", None)
+        return subprocess.run([sys.executable, str(SCRIPTS / "openai_generate.py"), str(run), *args], capture_output=True, text=True, env=e)
 
     def test_slides_run_in_parallel_and_budget_is_checked_first(self):
-        import fal_generate
+        import openai_generate
+        import openai_pictures as op
         out, summary = self.prepare()
         run_dir = Path(summary["run_dir"])
         lib.write_placeholder_png(run_dir / "generated-assets" / "character-reference.png", 1024, 1280, seed=1)
@@ -935,65 +927,69 @@ class Production(unittest.TestCase):
         st["jobs"]["character-reference"].update(status="done", attempts=1, qa="pass")
         (run_dir / "state.json").write_text(json.dumps(st), encoding="utf-8")
         img = run_dir / "fake.png"
-        lib.write_placeholder_png(img, 64, 80, seed=3)
+        lib.write_placeholder_png(img, 1024, 1536, seed=3)
         calls = []
+        usage = {"input_tokens": 1000, "input_tokens_details": {"text_tokens": 400, "image_tokens": 600}, "output_tokens": 200}
 
-        class FakeFal:
-            def upload(self, path):
-                return "https://example.invalid/ref.png"
-
-            def generate(self, endpoint, arguments):
-                calls.append(time.time())
+        class FakeImages:
+            def edit(self, job, ref_paths, cfg=None):
+                calls.append((time.time(), job["mode"], [Path(r).name for r in ref_paths]))
                 time.sleep(0.4)
-                return f"req-{len(calls)}", img.as_uri()
+                return f"req-{len(calls)}", img.read_bytes(), usage
 
         args = mock.Mock(jobs=[], dry_run=False, workers=7, max_usd=0.05)
-        with mock.patch.object(fal_generate, "Fal", FakeFal), redirect_stdout(io.StringIO()):
-            with self.assertRaises(SystemExit):   # 7 slides cost more than $0.05: stop before any call
-                fal_generate.cmd_run(fal_generate.Run(run_dir), args)
+        with mock.patch.object(op, "OpenAIImages", FakeImages), redirect_stdout(io.StringIO()):
+            with self.assertRaises(SystemExit):   # the 7 slides are estimated at more than $0.05: stop before any call
+                openai_generate.cmd_run(openai_generate.Run(run_dir), args)
             self.assertEqual(calls, [])
             args.max_usd = 5
             t0 = time.time()
-            fal_generate.cmd_run(fal_generate.Run(run_dir), args)
+            openai_generate.cmd_run(openai_generate.Run(run_dir), args)
         self.assertEqual(len(calls), lib.SLIDE_COUNT)
+        self.assertTrue(all(c[1:] == ("edit", ["character-reference.png"]) for c in calls))
         self.assertLess(time.time() - t0, 0.4 * lib.SLIDE_COUNT / 2)   # far faster than one by one
         st = json.loads((run_dir / "state.json").read_text(encoding="utf-8"))
         self.assertTrue(all(st["jobs"][f"slide-{n:02d}"]["status"] == "done" for n in range(1, lib.SLIDE_COUNT + 1)))
-        log = (run_dir / "generated-assets" / "generation-log.jsonl").read_text(encoding="utf-8").splitlines()
+        self.assertEqual(lib.png_size(run_dir / "generated-assets" / "slide-01.png"), (1024, 1280))   # the centred 4:5 crop
+        log = [json.loads(l) for l in (run_dir / "generated-assets" / "generation-log.jsonl").read_text(encoding="utf-8").splitlines()]
         self.assertEqual(len(log), lib.SLIDE_COUNT)
+        self.assertTrue(all(r["cost_basis"] == "usage" and r["usage"] == usage for r in log))
+        self.assertAlmostEqual(log[0]["estimated_cost_usd"], (400 * 5 + 600 * 8 + 200 * 30) / 1e6, places=5)   # the real cost, from usage
 
     def test_runner_dry_run_status_qa_and_limits(self):
         out, summary = self.prepare()
         run = Path(summary["run_dir"])
-        res = self.fal(run, "run", "character-reference", "--dry-run")
+        res = self.gen(run, "run", "character-reference", "--dry-run")
         self.assertEqual(res.returncode, 0, res.stderr)
-        payload = json.loads(res.stdout)
-        self.assertEqual(payload["endpoint"], "openai/gpt-image-2.5/flare/text-to-image")
+        payload, _ = json.JSONDecoder().raw_decode(res.stdout)
+        self.assertEqual((payload["mode"], payload["estimate"]["usd"] > 0), ("generate", True))
         # slides need a QA-passed reference
-        res = self.fal(run, "run", "slide-01", "--dry-run")
+        res = self.gen(run, "run", "slide-01", "--dry-run")
         self.assertNotEqual(res.returncode, 0)
         self.assertIn("QA-passed", res.stdout + res.stderr)
-        # a real run without approval amount or key stops before any call
-        res = self.fal(run, "run", "character-reference")
+        # a real run without an approved budget stops before any call
+        res = self.gen(run, "run", "character-reference")
         self.assertNotEqual(res.returncode, 0)
+        self.assertIn("--max-usd is required", res.stdout + res.stderr)
         # replacement policy
         state_path = run / "state.json"
         state = json.loads(state_path.read_text(encoding="utf-8"))
         state["jobs"]["slide-03"].update({"status": "done", "qa": "pass"})
         state_path.write_text(json.dumps(state), encoding="utf-8")
-        self.assertIn("only failed images are replaced", self.fal(run, "replace", "slide-03", "--max-usd", "2").stdout + self.fal(run, "replace", "slide-03", "--max-usd", "2").stderr)
+        both = self.gen(run, "replace", "slide-03", "--max-usd", "2")
+        self.assertIn("only failed images are replaced", both.stdout + both.stderr)
         state["jobs"]["slide-03"].update({"qa": "fail", "replacements": 2})
         state_path.write_text(json.dumps(state), encoding="utf-8")
-        res = self.fal(run, "replace", "slide-03", "--max-usd", "2")
+        res = self.gen(run, "replace", "slide-03", "--max-usd", "2")
         self.assertIn("Ask Yarin for direction", res.stdout + res.stderr)
-        # budget stop
+        # budget stop: what is logged plus this call's estimate would pass the approved amount
         log = run / "generated-assets" / "generation-log.jsonl"
         log.write_text(json.dumps({"job": "x", "estimated_cost_usd": 1.58}) + "\n", encoding="utf-8")
         state["jobs"]["character-reference"].update({"status": "pending"})
         state_path.write_text(json.dumps(state), encoding="utf-8")
-        res = self.fal(run, "run", "character-reference", "--max-usd", "1.60")
+        res = self.gen(run, "run", "character-reference", "--max-usd", "1.58")
         self.assertIn("would pass the approved", res.stdout + res.stderr)
-        self.assertNotIn("FAL_KEY=", res.stdout + res.stderr)
+        self.assertNotIn("OPENAI_API_KEY=", res.stdout + res.stderr)
 
 
 class Editor(unittest.TestCase):
@@ -1369,10 +1365,10 @@ class ValueFirst(unittest.TestCase):
 class Renderer(unittest.TestCase):
     def test_compose_with_placeholders(self):
         out = Path(tempfile.mkdtemp())
-        argv = ["prepare_fal_jobs.py", str(FIXTURE), "kid-1", "--out-root", str(out), "--no-history"]
+        argv = ["prepare_picture_jobs.py", str(FIXTURE), "kid-1", "--out-root", str(out), "--no-history"]
         buf = io.StringIO()
         with mock.patch.object(sys, "argv", argv), mock.patch.object(lib, "voice_status", return_value=VOICE0), redirect_stdout(buf):
-            prepare_fal_jobs.main()
+            prepare_picture_jobs.main()
         run = Path(json.loads(buf.getvalue())["run_dir"])
         res = subprocess.run([sys.executable, str(SCRIPTS / "compose_slides.py"), str(run), "--placeholders"], capture_output=True, text=True, timeout=600)
         self.assertEqual(res.returncode, 0, res.stdout + res.stderr)
@@ -1406,10 +1402,10 @@ class Renderer(unittest.TestCase):
         drafts.mkdir(parents=True)
         shutil.copy(FIXTURE, drafts / "pack.json")
         out = tmp / "approved"
-        argv = ["prepare_fal_jobs.py", str(drafts / "pack.json"), "kid-1", "--out-root", str(out), "--no-history"]
+        argv = ["prepare_picture_jobs.py", str(drafts / "pack.json"), "kid-1", "--out-root", str(out), "--no-history"]
         buf = io.StringIO()
         with mock.patch.object(sys, "argv", argv), mock.patch.object(lib, "voice_status", return_value=VOICE0), redirect_stdout(buf):
-            prepare_fal_jobs.main()
+            prepare_picture_jobs.main()
         run = Path(json.loads(buf.getvalue())["run_dir"])
         st = json.loads((run / "state.json").read_text(encoding="utf-8"))
         for name in st["jobs"]:

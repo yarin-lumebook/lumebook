@@ -2,19 +2,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap">
-<!-- white/black theme boot: a copy of THEME_BOOT in shared/design/design.py (this page has no build) -->
-<script>(function(){if(window.lbThemeBoot)return;window.lbThemeBoot=1;var d=document.documentElement,K="lb-mode";function saved(){try{return localStorage.getItem(K)==="dark"?"dark":"light"}catch(e){return"light"}}function set(t){d.setAttribute("data-theme",t);var s=document.querySelectorAll("[data-lb-theme-toggle]");for(var i=0;i<s.length;i++)s[i].setAttribute("aria-checked",String(t==="dark"))}set(saved());document.addEventListener("DOMContentLoaded",function(){set(d.getAttribute("data-theme"))});document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lb-theme-toggle]");if(!b)return;var t=d.getAttribute("data-theme")==="dark"?"light":"dark";set(t);try{localStorage.setItem(K,t)}catch(x){}});addEventListener("storage",function(e){if(e.key===K)set(saved())})})()</script>
 <link rel="stylesheet" href="design/lumebook.css">
 <link rel="stylesheet" href="design/categories.css">
 <link rel="stylesheet" href="course/course.css">
 <style>
-/* Layout: one app shell. Sidebar of views (overview first), sticky top bar with freshness, each view an lb-page.
+/* Layout: one app shell under the project nav (design/nav.js: top bar, location path, side bar), each view an lb-page.
    All color, type and spacing come from the LumeBook design system (design/lumebook.css); only dashboard-specific pieces live here. */
 .view[hidden] { display: none !important; }
-.lb-topbar h1 { font-size: 1.25rem; }
 .top-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; justify-content: flex-end; }
-.lb-brand img { height: 1.9rem; }
-.dash-theme { display: flex; align-items: center; gap: var(--sp-2); cursor: pointer; color: var(--text-2); font-size: var(--fs-footnote); }
 
 /* Q4 timeline */
 .tl { display: grid; gap: var(--sp-3); }
@@ -68,57 +63,27 @@
 tr.test td { opacity: .5; }
 .ctbl { min-width: 60rem; } .stbl { min-width: 34rem; }
 .icon { width: 1.1rem; height: 1.1rem; }
+
+/* HQ's tools grid, edit mode and editor use design-system components: lb-topics, lb-cube, lb-filters, lb-form... (shared/design/lumebook.css) */
 </style>
 
-<div class="lb-app" dir="rtl" lang="he">
-  <aside class="lb-sidebar" id="sidebar" aria-label="ניווט">
-    <a class="lb-brand" href="#course"><img src="img/logo.png" alt="LumeBook" width="640" height="186"></a>
-    <nav class="lb-nav" id="nav">
-      <div class="lb-nav-label">היום</div>
-      <a class="lb-nav-item lb-ws-learning" href="#course" data-view="course"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 5M3.5 12l1.2 1.2L7 11"/><circle cx="5" cy="18" r="1.3"/></svg></span><span lang="en" dir="ltr">Course</span></a>
-      <a class="lb-nav-item lb-ws-learning" href="#course" data-open-tab="links"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/></svg></span>יוצר קישורי UTM</a>
-      <a class="lb-nav-item lb-ws-learning" href="#course" data-open-tab="sales"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>המכירות שלי</a>
-      <a class="lb-nav-item lb-ws-plan" href="#overview" data-view="overview"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></span>סקירה<span class="lb-count" id="n-overview" hidden></span></a>
-      <div class="lb-nav-label">עבודה</div>
-      <a class="lb-nav-item lb-ws-creators" href="http://localhost:8780/creators/creator-research/lumebook-creator-map.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg></span>יוצרים<span class="lb-count" id="n-creators" hidden></span></a>
-      <a class="lb-nav-item lb-ws-creators" href="#signups" data-view="signups"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span>הרשמות<span class="lb-count" id="n-signups" hidden></span></a>
-      <a class="lb-nav-item lb-ws-carousels" href="http://localhost:8780/hook-studio/" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="5" width="13" height="14" rx="2"/><path d="M18 7v10M21.5 9v6"/></svg></span>קרוסלות<span class="lb-count" id="n-content" hidden></span></a>
-      <a class="lb-nav-item lb-ws-plan" href="http://localhost:8780/sites/lumebook-smm-plan/index.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span>תוכנית סושיאל</a>
-      <a class="lb-nav-item lb-ws-creators" href="https://lumebook-creator-brief.vercel.app" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg></span>בריף ליוצרים</a>
-      <a class="lb-nav-item lb-ws-communities" href="http://localhost:8780/research/parent-community/lumebook-parent-communities.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>קהילות הורים</a>
-      <div class="lb-nav-label">מחקר</div>
-      <a class="lb-nav-item lb-ws-competitors" href="#competitors" data-view="competitors"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 20V10M9 20V4M15 20v-7M21 20v-11"/></svg></span>מתחרים</a>
-      <a class="lb-nav-item lb-ws-library" href="#research" data-view="research"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2.5z"/><path d="M8 7h7M8 11h5"/></svg></span>ספריית מחקר<span class="lb-count" id="n-research" hidden></span></a>
-      <a class="lb-nav-item lb-ws-carousels" href="http://localhost:8780/research/carousel-playbook-research/lumebook-carousel-playbook.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2.5z"/></svg></span>פלייבוק קרוסלות</a>
-      <a class="lb-nav-item lb-ws-reels" href="http://localhost:8780/research/israeli-product-reels/reels-research.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4-2.5z"/></svg></span>פלייבוק רילס</a>
-      <a class="lb-nav-item lb-ws-plan" href="http://localhost:8780/docs/lumebook-social-strategy.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></span>אסטרטגיית Q4</a>
-      <a class="lb-nav-item lb-ws-plan" href="http://localhost:8780/docs/lumebook-sales-readout.html" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>מכירות (פנימי)</a>
-      <div class="lb-nav-label">מערכת</div>
-      <a class="lb-nav-item lb-ws-system" href="#sync" data-view="sync"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8"/><path d="M21 4v5h-5M3 20v-5h5"/></svg></span>סנכרון<span class="lb-count" id="n-sync" hidden></span></a>
-      <a class="lb-nav-item lb-ws-system" href="#assets" data-view="assets"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>אתרים וקבצים</a>
-      <a class="lb-nav-item lb-ws-system" href="https://claude.ai/artifact/Cw3pWrTsoCKkCaPzZLrr5B" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.2"/><circle cx="12" cy="7.5" r="1.2"/><circle cx="15.5" cy="10" r="1.2"/></svg></span>מערכת העיצוב</a>
-      <a class="lb-nav-item lb-ws-system" href="https://drive.google.com/drive/folders/1JMbj3xl_A_SGwGnID-BZ_ta0TognMbya" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>Drive: LumeBook תוכן</a>
-      <a class="lb-nav-item lb-ws-system" href="https://docs.google.com/spreadsheets/d/1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI/edit" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></span>גיליון ההרשמות</a>
-      <a class="lb-nav-item lb-ws-system" href="https://lumebook.com/IL/he" target="_blank" rel="noopener"><span class="lb-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></span>החנות lumebook.com</a>
-    </nav>
-    <div class="lb-sidebar-foot">
-      <label class="dash-theme"><button class="lb-theme-switch" type="button" role="switch" aria-checked="false" data-lb-theme-toggle aria-label="מצב כהה" title="מצב כהה"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button><span>מצב כהה</span></label>
-      <span id="foot-note">הנתונים מתרעננים כל בוקר בסביבות 08:15</span>
-    </div>
-  </aside>
-  <div class="lb-scrim" id="scrim" hidden></div>
+<div class="lb-app no-sidebar" dir="rtl" lang="he">
 
   <div class="lb-main">
-    <header class="lb-topbar">
-      <div class="lb-topbar-in">
-        <button class="lb-btn ghost icon lb-menu-btn" type="button" id="menu-btn" aria-label="תפריט" aria-controls="sidebar" aria-expanded="false"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-        <h1 id="view-title">סקירה</h1>
-        <span class="lb-spacer"></span>
-        <div class="top-meta" id="fresh"><span class="lb-chip"><span class="lb-dot"></span>טוען נתונים…</span></div>
-      </div>
-    </header>
+    <!-- the project nav (design/nav.js, 5 Nov 2026) draws the top bar, the location path and the side bar of every tool;
+         the freshness chips move to the end of its path row (data-lb-gpath-slot) -->
+    <div class="top-meta" id="fresh" data-lb-gpath-slot><span class="lb-chip"><span class="lb-dot"></span>טוען נתונים…</span></div>
 
     <main>
+      <!-- TOOLS: every tool as a cube, the default view since 5 Nov 2026 (the list: shared/design/hq-tools.json, through design/nav.js) -->
+      <div class="view lb-page" id="v-tools" data-title="כל הכלים" hidden>
+        <section class="lb-section">
+          <div class="lb-section-head"><div class="lb-filters" id="tools-filter" role="group" aria-label="סינון לפי תחום"></div><div class="lb-row" id="tools-actions"></div></div>
+          <span class="lb-note" id="tools-mode"></span>
+          <div class="lb-topics" id="tools-grid"></div>
+        </section>
+      </div>
+
       <!-- COURSE: the course, tasks and lessons (course/course.js), in English, the default view since 31 Oct 2026 -->
       <div class="view" id="v-course" data-title="Course" hidden><div id="course-root"></div></div>
 
@@ -274,9 +239,14 @@ tr.test td { opacity: .5; }
         </div>
       </div>
     </main>
+    <p class="lb-footer" id="foot-note">הנתונים מתרעננים כל בוקר בסביבות 08:15</p>
   </div>
 </div>
+<div id="hq-editor"></div>
 
+<script src="design/icons.js"></script>
+<script>window.LB_PAGE = { hq: true };</script>
+<script src="design/nav.js"></script>
 <script>
 (() => {
   const SHEET_ID = "1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI";
@@ -284,7 +254,9 @@ tr.test td { opacity: .5; }
   const HQ = "https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6";
   // On the project server (localhost) an artifact opens as its built page on the same server: a tab opened from the sandboxed artifact is blocked by claude.ai.
   const ON_SERVER = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-  const artHref = (a) => (ON_SERVER && a && /\.html?$/i.test(a.file || "") ? "/" + a.file.split("/").map(encodeURIComponent).join("/") : a && a.url);
+  // On the Vercel copy a research page with a copy on that site (artifact.web, shared/facts.json, 05 Nov 2026) opens there:
+  // the artifact needs Yarin's claude.ai sign-in.
+  const artHref = (a) => (ON_SERVER && a && /\.html?$/i.test(a.file || "") ? "/" + a.file.split("/").map(encodeURIComponent).join("/") : a && ((window.__DASH__ && a.web) || a.url));
   const STAGES = ["לא פנינו", "נשלחה פנייה", "ענו", "ספר בהכנה", "ספר נשלח", "פורסם"];
   const STAGE_COLORS = ["var(--seq-1)", "var(--seq-2)", "var(--seq-3)", "var(--seq-4)", "var(--seq-5)", "var(--seq-6)"];
   const COUNTERS = [
@@ -324,8 +296,15 @@ tr.test td { opacity: .5; }
   const igProfile = (s) => s?.social?.[igHandle(s)] || {};
   // a history point's follower count: ig_lumebook since 19 Oct 2026, ig_lumebookai (the old handle) before
   const igCount = (h) => typeof h.ig_lumebook === "number" ? h.ig_lumebook : typeof h.ig_lumebookai === "number" ? h.ig_lumebookai : null;
-  const ext = (href, text) => `<a href="${esc(href)}" target="_blank" rel="noopener">${text}</a>`;
-  const setCount = (id, n, alert) => { const el = $(id); if (!el) return; el.hidden = !n; el.textContent = n || ""; el.classList.toggle("is-alert", !!alert); };
+  // Where HQ is open decides which version of a tool a link opens and whether it leaves this tab (Yarin, 5 Nov 2026):
+  // on the project server the local page, inside the claude.ai artifact the artifact, on the Vercel copy the artifact or site.
+  // Off the artifact every link opens in this tab; claude.ai opens a link from an artifact in a new tab and allows nothing else.
+  const MODE = ON_SERVER ? "local" : window.__DASH__ ? "web" : "artifact";
+  const NEW_TAB = MODE === "artifact" ? ' target="_blank" rel="noopener noreferrer"' : "";
+  const ext = (href, text) => `<a href="${esc(href)}"${NEW_TAB}>${text}</a>`;
+  // a count can show in the sidebar (id) and on a cube (data-n) at once
+  const COUNTS = {};
+  const setCount = (id, n, alert) => { COUNTS[id] = [n, alert]; document.querySelectorAll(`#${id}, [data-n="${id}"]`).forEach((el) => { el.hidden = !n; el.textContent = n || ""; el.classList.toggle("is-alert", !!alert); }); };
   const empty = (t) => `<div class="lb-empty">${t}</div>`;
 
   // ---------- signup sheet parsing (Drive connector returns a markdown table) ----------
@@ -359,25 +338,285 @@ tr.test td { opacity: .5; }
       server_unavailable: "Drive לא זמין כרגע", tool_error: "הגיליון לא נקרא" }[code]) || "אין חיבור חי לגיליון";
   }
 
+  // ---------- tools grid (#tools, the HQ home since 5 Nov 2026) ----------
+  // One cube per tool, grouped and coloured by topic. The built-in list is shared/design/hq-tools.json (since 5 Nov 2026,
+  // when the project nav on every page started showing the same tools); design/nav.js carries it (window.LBNav) with the
+  // rules every page shares: toolId, defaultLayout, mergeLayout and toolLinks (which version a cube opens where HQ is open).
+  // the LumeBook icon set: shared/design/icons.json, synced here as design/icons.js (window.LB_ICONS); names are stable ids
+  const TOOL_ICONS = window.LB_ICONS || {};
+  const NAV = window.LBNav;
+  if (!NAV) document.getElementById("tools-grid").innerHTML = '<div class="lb-callout warning"><b>design/nav.js did not load</b><span>The tool list comes from it. Publish it with the page (lumebook.json, dashboard publish.files).</span></div>';
+  const { toolLinks, toolId, defaultLayout, mergeLayout } = NAV || {};
+  const ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>';
+  const HUES = [[0, "שחור"], [1, "כתום"], [2, "ורוד"], [3, "ירוק"], [4, "כחול"], [5, "סגול"], [6, "טורקיז"], [7, "אפור"], [8, "חרדל"]];
+  const VIEW_NAMES = { course: "Course", overview: "סקירה", signups: "הרשמות", competitors: "מתחרים", research: "ספריית מחקר", sync: "סנכרון", assets: "אתרים וקבצים", creators: "יוצרים (תצוגה)", content: "קרוסלות (תצוגה)" };
+  const SVG = (d, cls) => `<svg${cls ? ` class="${cls}"` : ""} viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+  const GRIP = SVG('<circle cx="9" cy="6" r="1.3"/><circle cx="15" cy="6" r="1.3"/><circle cx="9" cy="12" r="1.3"/><circle cx="15" cy="12" r="1.3"/><circle cx="9" cy="18" r="1.3"/><circle cx="15" cy="18" r="1.3"/>');
+  const PLUS = SVG('<path d="M12 5v14M5 12h14"/>');
+  const PENCIL = SVG('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/>');
+
+  // ---------- HQ layout (Yarin, 5 Nov 2026: "let me edit move change and drag everything") ----------
+  // hq-tools.json builds the default layout (defaultLayout). Once Yarin edits, the saved layout replaces it: inside the
+  // artifact the database document hq/layout, on the project server sites/dashboard/hq-layout.json (GET/PUT /api/hq/layout
+  // in tools/lumebook.py), on the Vercel copy the published hq-layout.json, read only. A tool added to hq-tools.json later
+  // still appears in a saved layout (in its topic) unless Yarin deleted it: `removed` keeps the deleted ids (mergeLayout).
+  // Every change also goes to the project nav, so its side bar shows the tools as arranged here.
+  const clone = (o) => JSON.parse(JSON.stringify(o));
+  const rid = (p) => p + Math.random().toString(36).slice(2, 9);
+  const ED = { L: NAV ? defaultLayout() : { v: 1, removed: [], topics: [] }, editing: false, canEdit: false, db: null, saving: false, next: null, status: "", busy: false, dragAt: 0, confirmReset: false, form: null };
+  async function loadLayout() {
+    if (MODE === "local") {
+      try {
+        const r = await fetch("/api/hq/layout", { cache: "no-store" });
+        if (r.ok) { const j = await r.json(); ED.canEdit = true; if (j && Array.isArray(j.topics)) ED.L = mergeLayout(j); }
+      } catch {}
+      return renderTools();
+    }
+    // the artifact and the Vercel copy: the published copy first, then (artifact) the live database document
+    try { const r = await fetch("hq-layout.json", { cache: "no-store" }); if (r.ok) { const j = await r.json(); if (j && Array.isArray(j.topics)) { ED.L = mergeLayout(j); renderTools(); } } } catch {}
+    if (MODE !== "artifact") return;
+    const db = await window.claude?.use?.("db");
+    if (!db) return;
+    ED.db = db; ED.canEdit = true; renderTools();
+    db.doc("hq/layout").onSnapshot((snap) => {
+      if (snap.hasPendingWrites || ED.busy || ED.form) return;   // our own write, a drag or an open editor
+      if (snap.exists) { ED.L = mergeLayout(snap.data()); renderTools(); }
+    }, () => {});
+  }
+  // one write at a time; edits made while one is on its way go out together afterwards
+  function saveLayout(reset) {
+    ED.next = reset ? { v: 1, default: true, removed: [], topics: [], saved_at: new Date().toISOString() } : { ...clone(ED.L), saved_at: new Date().toISOString() };
+    if (ED.saving) return;
+    ED.saving = true;
+    (async () => {
+      while (ED.next) {
+        const doc = ED.next; ED.next = null; setStatus("saving");
+        try {
+          if (MODE === "local") {
+            const r = await fetch("/api/hq/layout", { method: "PUT", headers: { "Content-Type": "application/json", "X-LumeBook-Board": "1" }, body: JSON.stringify(doc) });
+            if (!r.ok) throw new Error("server " + r.status);
+          } else if (ED.db) await ED.db.doc("hq/layout").set(doc);
+          else throw new Error("no store");
+          if (!ED.next) setStatus("saved");
+        } catch (e) { console.warn("HQ layout not saved", e); ED.next = null; setStatus("error"); }
+      }
+      ED.saving = false;
+    })();
+  }
+  function setStatus(st) { ED.status = st; renderActions(); }
+  function renderActions() {
+    const el = $("tools-actions");
+    if (!ED.canEdit) { el.innerHTML = ""; return; }
+    if (!ED.editing) { el.innerHTML = `<button type="button" class="lb-btn secondary sm" data-hq="edit">${PENCIL}עריכה</button>`; return; }
+    const st = { saving: ["", "שומר…"], saved: ["success", "נשמר"], error: ["danger", MODE === "local" ? "השמירה נכשלה: שרת הפרויקט לא ענה" : "השמירה נכשלה"],
+      nodrag: ["warning", "הגרירה לא נטענה, אפשר להעביר כלי מתוך העריכה שלו"] }[ED.status];
+    el.innerHTML = (st ? `<span class="lb-chip ${st[0]}" role="status">${st[1]}</span>` : "")
+      + `<button type="button" class="lb-btn secondary sm" data-hq="new-topic">${PLUS}נושא חדש</button>`
+      + (ED.confirmReset ? `<span class="lb-small">לחזור לסידור המקורי ולמחוק את כל השינויים?</span><button type="button" class="lb-btn danger sm" data-hq="reset-yes">כן, לאפס</button><button type="button" class="lb-btn ghost sm" data-hq="reset-no">ביטול</button>`
+        : `<button type="button" class="lb-btn ghost sm" data-hq="reset">איפוס</button>`)
+      + `<button type="button" class="lb-btn sm" data-hq="done">סיום עריכה</button>`;
+  }
+  const MODES = { local: "פתוח מקומית: כל כלי נפתח בגרסה המקומית, בלשונית הזו",
+    artifact: "בתוך הארטיפקט: כל כלי נפתח בגרסת הארטיפקט שלו. claude.ai פותח קישורים מארטיפקט בלשונית חדשה",
+    web: "עותק לקריאה: כל כלי נפתח בגרסת הארטיפקט או האתר שלו, בלשונית הזו" };
+  const TOOLS_FILTER = { ws: "" };
+  function cubeHtml(t, tp, E) {
+    const { main, alt } = toolLinks(t), nt = main.kind === "view" ? "" : NEW_TAB, lang = t.en ? ' lang="en" dir="ltr"' : "";
+    const title = E ? `<button type="button" class="lb-cube-title" data-edit-tool="${esc(t.id)}"${lang}>${esc(t.t)}</button>`
+      : `<a class="lb-cube-title" href="${esc(main.href)}"${nt}${t.tab ? ` data-open-tab="${esc(t.tab)}"` : ""}${lang}>${esc(t.t)}</a>`;
+    return `<article class="lb-cube lb-cat-${tp.cat}" data-tool="${esc(t.id)}">
+      <div class="lb-cube-top"><span class="lb-tile xl" aria-hidden="true"><svg viewBox="0 0 24 24">${TOOL_ICONS[t.icon] || TOOL_ICONS.grid || ""}</svg></span>${t.n ? `<span class="lb-count" data-n="${esc(t.n)}" hidden></span>` : ""}</div>
+      ${title}<p class="lb-cube-desc">${esc(t.sub || "")}</p>
+      <div class="lb-cube-foot"><span class="lb-cube-where">${esc(main.where)}${nt ? ARROW : ""}</span>${!E && alt ? `<a class="lb-cube-alt" href="${esc(alt.href)}"${NEW_TAB}>${esc(alt.label)}${NEW_TAB ? ARROW : ""}</a>` : ""}</div>
+    </article>`;
+  }
+  function topicHtml(tp, E) {
+    return `<section class="lb-topic lb-cat-${tp.cat}" data-topic="${esc(tp.id)}" aria-labelledby="topic-${esc(tp.id)}">
+      <header class="lb-topic-head">${E ? `<button type="button" class="lb-drag" aria-label="גרירת הנושא ${esc(tp.label)}" title="גרירה">${GRIP}</button>` : ""}
+        <span class="lb-tile lg" aria-hidden="true"><svg viewBox="0 0 24 24">${TOOL_ICONS[tp.icon] || TOOL_ICONS.grid || ""}</svg></span>
+        <div class="lb-topic-text"><h2 class="lb-topic-title" id="topic-${esc(tp.id)}">${esc(tp.label)}<span class="lb-topic-n">${tp.tools.length}</span></h2>${tp.desc ? `<p class="lb-topic-desc">${esc(tp.desc)}</p>` : ""}</div>
+        ${E ? `<button type="button" class="lb-btn secondary sm" data-edit-topic="${esc(tp.id)}" aria-label="עריכת הנושא ${esc(tp.label)}">${PENCIL}<span class="lb-hide-sm">עריכת הנושא</span></button>` : ""}</header>
+      <div class="lb-topic-grid" data-topic="${esc(tp.id)}">${tp.tools.map((t) => cubeHtml(t, tp, E)).join("")}${E ? `<button type="button" class="lb-cube-add" data-add-tool="${esc(tp.id)}">${PLUS}<span>כלי חדש</span></button>` : ""}</div>
+    </section>`;
+  }
+  function renderTools() {
+    const L = ED.L, E = ED.editing;
+    if (TOOLS_FILTER.ws && !L.topics.some((t) => t.id === TOOLS_FILTER.ws && t.tools.length)) TOOLS_FILTER.ws = "";
+    const f = E ? "" : TOOLS_FILTER.ws, all = L.topics.reduce((n, t) => n + t.tools.length, 0);
+    $("tools-filter").hidden = E;
+    $("tools-filter").innerHTML = `<button type="button" data-ws="" aria-pressed="${!f}">הכול · ${all}</button>` + L.topics.filter((t) => t.tools.length).map((t) =>
+      `<button type="button" class="lb-cat-${t.cat}" data-ws="${esc(t.id)}" aria-pressed="${f === t.id}"><b class="lb-swatch" aria-hidden="true"></b>${esc(t.label)}</button>`).join("");
+    $("tools-mode").textContent = E ? "מצב עריכה: גוררים כלי למקום אחר או לנושא אחר, גוררים נושא מהידית שלו, לוחצים על כלי כדי לשנות אותו" : MODES[MODE];
+    renderActions();
+    $("tools-grid").classList.toggle("is-editing", E);
+    $("tools-grid").innerHTML = L.topics.filter((t) => (!f || t.id === f) && (E || t.tools.length)).map((tp) => topicHtml(tp, E)).join("");
+    for (const [id, [n, a]] of Object.entries(COUNTS)) setCount(id, n, a);
+    bindSortables();
+    if (NAV) NAV.setLayout(ED.L);
+  }
+
+  // ---------- drag (SortableJS from cdnjs, loaded the first time edit mode opens) ----------
+  let sortables = [], sortableLoad = null;
+  function loadSortable() {
+    if (window.Sortable) return Promise.resolve(true);
+    return sortableLoad || (sortableLoad = new Promise((res) => {
+      const s = document.createElement("script");
+      s.src = "https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js";
+      s.onload = () => res(true); s.onerror = () => { sortableLoad = null; res(false); };
+      document.head.append(s);
+    }));
+  }
+  function bindSortables() {
+    sortables.forEach((x) => x.destroy()); sortables = [];
+    if (!ED.editing || !window.Sortable) return;
+    const common = { animation: 160, forceFallback: true, fallbackTolerance: 4, delay: 150, delayOnTouchOnly: true,
+      ghostClass: "lb-sort-ghost", dragClass: "lb-sort-drag", onStart: () => { ED.busy = true; }, onEnd: () => setTimeout(dropped, 0) };
+    document.querySelectorAll("#tools-grid .lb-topic-grid").forEach((el) => sortables.push(Sortable.create(el,
+      { ...common, group: "hq-tools", draggable: ".lb-cube[data-tool]", filter: ".lb-cube-add", preventOnFilter: false })));
+    sortables.push(Sortable.create($("tools-grid"), { ...common, handle: ".lb-drag", draggable: ".lb-topic" }));
+  }
+  // read the new order back from the page, then save and draw again
+  function dropped() {
+    ED.busy = false; ED.dragAt = Date.now();
+    const byTopic = Object.fromEntries(ED.L.topics.map((t) => [t.id, t]));
+    const byTool = Object.fromEntries(ED.L.topics.flatMap((t) => t.tools.map((x) => [x.id, x])));
+    const next = [...$("tools-grid").querySelectorAll(":scope > .lb-topic")].map((sec) => ({ ...byTopic[sec.dataset.topic],
+      tools: [...sec.querySelectorAll(".lb-cube[data-tool]")].map((c) => byTool[c.dataset.tool]).filter(Boolean) }));
+    if (next.length !== ED.L.topics.length || next.reduce((n, t) => n + t.tools.length, 0) !== Object.keys(byTool).length) return renderTools();
+    if (JSON.stringify(next) === JSON.stringify(ED.L.topics)) return renderTools();
+    ED.L.topics = next; saveLayout(); renderTools();
+  }
+
+  // ---------- the editor ----------
+  const findTool = (id) => { for (const tp of ED.L.topics) { const t = tp.tools.find((x) => x.id === id); if (t) return [t, tp]; } return [null, null]; };
+  const iconPicker = (cur) => `<div class="lb-icon-picker" role="group" aria-label="אייקון">${Object.keys(TOOL_ICONS).map((k) =>
+    `<button type="button" data-icon="${k}" aria-pressed="${k === cur}" aria-label="${k}" title="${k}"><svg viewBox="0 0 24 24">${TOOL_ICONS[k]}</svg></button>`).join("")}</div>`;
+  const field = (label, html, note) => `<label class="lb-field">${label}${html}${note ? `<span class="lb-note">${note}</span>` : ""}</label>`;
+  const inp = (id, val, attrs = "") => `<input class="lb-input" id="${id}" value="${esc(val || "")}" ${attrs}>`;
+  function openToolEditor(id, topicId) {
+    const [found, ftp] = id ? findTool(id) : [null, null];
+    const t = found ? clone(found) : { id: rid("u-"), t: "", sub: "", icon: "link" };
+    ED.form = { kind: "tool", isNew: !found, t, topicId: ftp ? ftp.id : topicId, icon: t.icon || "link", armed: false };
+    const views = `<option value="">בלי, הכלי נפתח מקישור</option>` + Object.entries(VIEW_NAMES).map(([k, v]) => `<option value="${k}"${t.view === k ? " selected" : ""}>${esc(v)}</option>`).join("");
+    const topics = ED.L.topics.map((tp) => `<option value="${esc(tp.id)}"${tp.id === ED.form.topicId ? " selected" : ""}>${esc(tp.label)}</option>`).join("");
+    openModal(`<h2 id="hq-form-h">${found ? "עריכת כלי" : "כלי חדש"}</h2>
+      ${field("שם הכלי", inp("hq-t", t.t, 'required autocomplete="off"'))}
+      ${field("שורת תיאור", inp("hq-sub", t.sub, 'autocomplete="off"'))}
+      ${field("נושא", `<select class="lb-select" id="hq-topic">${topics}</select>`)}
+      <fieldset><legend>אייקון</legend>${iconPicker(ED.form.icon)}</fieldset>
+      <fieldset><legend>לאן הוא נפתח</legend>
+        ${field("תצוגה בתוך HQ", `<select class="lb-select" id="hq-view">${views}</select>`, "כשבוחרים תצוגה, הקישורים למטה לא בשימוש")}
+        ${field("דף מקומי", inp("hq-local", t.local, 'dir="ltr" placeholder="research/…/page.html"'), "נתיב בתיקיית הפרויקט, או כתובת http://localhost:8780/…")}
+        ${field("ארטיפקט", inp("hq-art", t.art ? "https://claude.ai/artifact/" + t.art : "", 'dir="ltr" placeholder="https://claude.ai/artifact/…"'))}
+        ${field("אתר", inp("hq-web", t.web, 'dir="ltr" placeholder="https://…"'))}
+        ${field("שם האתר על הכרטיס", inp("hq-webLabel", t.webLabel, 'placeholder="למשל Google Drive"'))}
+        <p class="lb-note">ב-localhost נפתח הדף המקומי, בתוך הארטיפקט נפתח הארטיפקט. כשאחד חסר, נפתח הבא בתור.</p>
+      </fieldset>`, !!found);
+  }
+  function openTopicEditor(id) {
+    const found = id ? ED.L.topics.find((t) => t.id === id) : null;
+    const used = new Set(ED.L.topics.map((t) => t.cat));
+    const tp = found ? clone(found) : { id: rid("t-"), label: "", desc: "", icon: "grid", cat: [1, 2, 3, 4, 5, 6, 7, 8].find((c) => !used.has(c)) ?? 0, tools: [] };
+    ED.form = { kind: "topic", isNew: !found, tp, icon: tp.icon, cat: tp.cat, armed: false };
+    const n = found ? found.tools.length : 0;
+    openModal(`<h2 id="hq-form-h">${found ? "עריכת נושא" : "נושא חדש"}</h2>
+      ${field("שם הנושא", inp("hq-label", tp.label, 'required autocomplete="off"'))}
+      ${field("שורת תיאור", inp("hq-desc", tp.desc, 'autocomplete="off"'))}
+      <fieldset><legend>צבע</legend><div class="lb-color-picker" role="group" aria-label="צבע">${HUES.map(([c, name]) =>
+        `<button type="button" class="lb-cat-${c}" data-cat="${c}" aria-pressed="${c === tp.cat}" aria-label="${name}" title="${name}"></button>`).join("")}</div></fieldset>
+      <fieldset><legend>אייקון</legend>${iconPicker(ED.form.icon)}</fieldset>
+      ${found && n ? `<p class="lb-note">כדי למחוק את הנושא, מעבירים קודם את ${n} הכלים שבו לנושא אחר.</p>` : ""}`, !!found && !n);
+  }
+  function openModal(body, canDelete) {
+    $("hq-editor").innerHTML = `<div class="lb-scrim"></div><div class="lb-modal" data-hq-close>
+      <form class="lb-card lb-form" role="dialog" aria-modal="true" aria-labelledby="hq-form-h" novalidate>${body}
+        <p class="lb-form-error" id="hq-err" role="alert" hidden></p>
+        <div class="lb-form-actions"><button type="submit" class="lb-btn">שמירה</button><button type="button" class="lb-btn ghost" data-hq="cancel">ביטול</button>
+          <span class="lb-spacer"></span>${canDelete ? `<button type="button" class="lb-btn ghost" data-hq="delete" id="hq-del">מחיקה</button>` : ""}</div>
+      </form></div>`;
+    document.body.style.overflow = "hidden";
+    setTimeout(() => $("hq-editor").querySelector("input")?.focus(), 30);
+  }
+  function closeModal() { $("hq-editor").innerHTML = ""; ED.form = null; document.body.style.overflow = ""; }
+  const formErr = (msg) => { const el = $("hq-err"); el.textContent = msg; el.hidden = !msg; };
+  function submitForm() {
+    const F = ED.form, val = (id) => ($(id)?.value || "").trim();
+    if (F.kind === "topic") {
+      const label = val("hq-label");
+      if (!label) return formErr("צריך שם לנושא.");
+      Object.assign(F.tp, { label, desc: val("hq-desc"), icon: F.icon, cat: F.cat });
+      if (F.isNew) ED.L.topics.push(F.tp); else ED.L.topics = ED.L.topics.map((t) => (t.id === F.tp.id ? { ...F.tp, tools: t.tools } : t));
+    } else {
+      const t = F.t, name = val("hq-t");
+      if (!name) return formErr("צריך שם לכלי.");
+      const local = val("hq-local").replace(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//i, "").replace(/^\/+/, "");
+      const artRaw = val("hq-art"), artM = /artifact\/([A-Za-z0-9]+)/.exec(artRaw), art = artM ? artM[1] : /^[A-Za-z0-9]{8,}$/.test(artRaw) ? artRaw : "";
+      if (artRaw && !art) return formErr("קישור הארטיפקט לא נראה כמו https://claude.ai/artifact/…");
+      const webRaw = val("hq-web"), web = webRaw && !/^https?:\/\//i.test(webRaw) ? "https://" + webRaw : webRaw;
+      const view = val("hq-view");
+      if (!view && !local && !art && !web) return formErr("צריך לפחות מקום אחד שהכלי נפתח בו: תצוגה, דף מקומי, ארטיפקט או אתר.");
+      const out = { ...t, t: name, sub: val("hq-sub"), icon: F.icon };
+      for (const [k, v] of Object.entries({ view, local, art, web, webLabel: val("hq-webLabel") })) { if (v) out[k] = v; else delete out[k]; }
+      if (out.view !== t.view) delete out.tab;   // a course tab belongs to the course view only
+      if (t.en && /[֐-׿]/.test(name)) delete out.en;
+      for (const tp of ED.L.topics) tp.tools = tp.tools.filter((x) => x.id !== t.id || tp.id === val("hq-topic"));
+      const dest = ED.L.topics.find((tp) => tp.id === val("hq-topic")) || ED.L.topics[0];
+      const i = dest.tools.findIndex((x) => x.id === t.id);
+      if (i >= 0) dest.tools[i] = out; else dest.tools.push(out);
+    }
+    closeModal(); saveLayout(); renderTools();
+  }
+  function deleteFromForm() {
+    const F = ED.form;
+    if (!F.armed) { F.armed = true; const b = $("hq-del"); b.textContent = F.kind === "tool" ? "בטוח? למחוק את הכלי" : "בטוח? למחוק את הנושא"; b.classList.remove("ghost"); b.classList.add("danger"); return; }
+    if (F.kind === "tool") { for (const tp of ED.L.topics) tp.tools = tp.tools.filter((x) => x.id !== F.t.id); if (!ED.L.removed.includes(F.t.id)) ED.L.removed.push(F.t.id); }
+    else ED.L.topics = ED.L.topics.filter((t) => t.id !== F.tp.id || t.tools.length);
+    closeModal(); saveLayout(); renderTools();
+  }
+  function hqAction(act) {
+    if (act === "edit") { ED.editing = true; ED.status = ""; renderTools(); loadSortable().then((ok) => { if (!ok) setStatus("nodrag"); bindSortables(); }); }
+    else if (act === "done") { ED.editing = false; ED.confirmReset = false; renderTools(); }
+    else if (act === "new-topic") openTopicEditor(null);
+    else if (act === "reset") { ED.confirmReset = true; renderActions(); }
+    else if (act === "reset-no") { ED.confirmReset = false; renderActions(); }
+    else if (act === "reset-yes") { ED.confirmReset = false; ED.L = defaultLayout(); saveLayout(true); renderTools(); }
+    else if (act === "cancel") closeModal();
+    else if (act === "delete") deleteFromForm();
+  }
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    const fb = t.closest("#tools-filter button"); if (fb) { TOOLS_FILTER.ws = fb.dataset.ws; renderTools(); return; }
+    const a = t.closest("[data-hq]"); if (a) { e.preventDefault(); hqAction(a.dataset.hq); return; }
+    if (ED.form) {
+      const ic = t.closest("[data-icon]"); if (ic) { ED.form.icon = ic.dataset.icon; ic.parentElement.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === ic))); return; }
+      const co = t.closest("[data-cat]"); if (co) { ED.form.cat = Number(co.dataset.cat); co.parentElement.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === co))); return; }
+      if (t.matches("[data-hq-close]")) closeModal();
+      return;
+    }
+    if (!ED.editing || Date.now() - ED.dragAt < 350) return;
+    const et = t.closest("[data-edit-tool]"); if (et) return openToolEditor(et.dataset.editTool);
+    const ep = t.closest("[data-edit-topic]"); if (ep) return openTopicEditor(ep.dataset.editTopic);
+    const ad = t.closest("[data-add-tool]"); if (ad) return openToolEditor(null, ad.dataset.addTool);
+  });
+  document.addEventListener("submit", (e) => { if (!e.target.closest("#hq-editor")) return; e.preventDefault(); submitForm(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && ED.form) closeModal(); });
+
   // ---------- routing ----------
-  const VIEWS = ["course", "overview", "creators", "signups", "content", "competitors", "research", "sync", "assets"];
+  const VIEWS = ["tools", "course", "overview", "creators", "signups", "content", "competitors", "research", "sync", "assets"];
   function route() {
     const v = (location.hash || "").slice(1);
-    S.view = VIEWS.includes(v) ? v : "course";
+    S.view = VIEWS.includes(v) ? v : "tools";
     for (const id of VIEWS) $("v-" + id).hidden = id !== S.view;
     document.dispatchEvent(new CustomEvent("lb:route", { detail: { view: S.view } }));
     document.querySelectorAll(".lb-nav-item[data-view]").forEach((a) => { if (a.dataset.view === S.view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
-    $("view-title").textContent = $("v-" + S.view).dataset.title;
-    closeMenu();
+    if (NAV) NAV.setCurrent({ view: S.view, title: $("v-" + S.view).dataset.title });
     window.scrollTo(0, 0);
   }
   document.addEventListener("click", (e) => {
     const a = e.target.closest("[data-open-tab]"); if (!a) return;
     const tab = a.dataset.openTab, go = (n) => { const b = document.querySelector(`#v-course [data-tab="${tab}"]`); if (b) b.click(); else if (n < 20) setTimeout(() => go(n + 1), 100); };
-    closeMenu(); setTimeout(() => go(0), 50);
+    setTimeout(() => go(0), 50);
   });
-  function openMenu() { $("sidebar").classList.add("is-open"); $("scrim").hidden = false; $("menu-btn").setAttribute("aria-expanded", "true"); }
-  function closeMenu() { $("sidebar").classList.remove("is-open"); $("scrim").hidden = true; $("menu-btn").setAttribute("aria-expanded", "false"); }
 
   // ---------- render ----------
   function render() {
@@ -393,7 +632,7 @@ tr.test td { opacity: .5; }
     else {
       const stale = Date.now() - new Date(s.generated_at).getTime() > 36 * 36e5;
       bits.push(`<span class="lb-chip ${stale ? "warning" : "success"}" title="${esc(s.generated_at)}"><span class="lb-dot"></span>רענון ${esc(when(s.generated_at))}</span>`);
-      if (window.__DASH__) bits.push(`<a class="lb-chip outline" href="${HQ}" target="_blank" rel="noopener">קריאה בלבד · ללוח המלא</a>`);
+      if (window.__DASH__) bits.push(`<a class="lb-chip outline" href="${HQ}">קריאה בלבד · ללוח המלא</a>`);
     }
     if (S.liveState === "ok") bits.push(`<span class="lb-chip success"><span class="lb-dot live"></span>הרשמות חי</span>`);
     $("fresh").innerHTML = bits.join("");
@@ -705,7 +944,7 @@ tr.test td { opacity: .5; }
     const card = (a) => {
       const comp = comps[a.component] || {}, behind = comp.behind === true;
       if (behind) behindN++;
-      return `<a class="lb-card lib-card${a.ws ? " is-cat" : ""}" href="${esc(artHref(a))}" target="_blank" rel="noopener">
+      return `<a class="lb-card lib-card${a.ws ? " is-cat" : ""}" href="${esc(artHref(a))}"${NEW_TAB}>
         <div class="lb-row between">${a.kind ? `<span class="lb-chip ${a.ws ? "cat no-swatch" : "accent"}">${esc(a.kind)}</span>` : "<span></span>"}${behind ? `<span class="lb-chip warning">המקור השתנה, לפרסם מחדש</span>` : ""}</div>
         <div class="lb-card-head"><b>${esc(a.label)}</b></div>
         <p>${esc(a.summary || "")}</p>
@@ -750,7 +989,7 @@ tr.test td { opacity: .5; }
       return `<div class="lb-card"><div class="lb-card-head"><b>${esc(x.label)}</b>${x.status != null ? `<span class="lb-chip ${ok ? "success" : "danger"}"><span class="lb-dot"></span>${ok ? "באוויר" : esc(x.status || "שגיאה")}</span>` : ""}</div>
         ${ext(x.url, ltr(x.url.replace(/^https:\/\//, "")))}<span class="lb-note">${x.modified ? "נערך " + esc(ago(x.modified)) : ""}${x.ms ? ` · ${x.ms}ms` : ""}</span></div>`;
     }).join("");
-    const L = s.links, row = (href, t, meta) => href ? `<a class="lb-group-row" href="${esc(href)}" target="_blank" rel="noopener"><span>${t}</span>${meta ? `<span class="lb-meta">${meta}</span>` : ""}</a>` : "";
+    const L = s.links, row = (href, t, meta) => href ? `<a class="lb-group-row" href="${esc(href)}"${NEW_TAB}><span>${t}</span>${meta ? `<span class="lb-meta">${meta}</span>` : ""}</a>` : "";
     $("links").innerHTML = [row(L.form, "טופס יוצרי תוכן (Google Form)"), row(L.form_edit, "עריכת הטופס"), row(L.sheet, "גיליון ההרשמות"),
       row(L.drive, 'תיקיית "שיווק" בדרייב'), row(L.tracker, "Creator Outreach Tracker v2", "ישן, חלק מהמספרים לא מעודכנים"),
       row(L.plan_page, "התוכנית המלאה")].join("");
@@ -795,13 +1034,12 @@ tr.test td { opacity: .5; }
       renderCreators();
     }
     if (b.id === "toggle-tests") { S.showTests = !S.showTests; renderSignups(); }
-    if (b.id === "menu-btn") openMenu();
   });
-  $("scrim").addEventListener("click", closeMenu);
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
   window.addEventListener("hashchange", route);
 
+  renderTools();
   route();
+  loadLayout();
 
   // ---------- boot ----------
   // Static copy (Vercel): data is embedded at build time, read-only, no live connections
@@ -854,12 +1092,12 @@ tr.test td { opacity: .5; }
 <script src="course/course-data.js"></script>
 <script src="course/course.js"></script>
 <script>
-// The course is the default view. If their files were not published with the page (course/course-data.js,
-// course/course.js), say so in their place and open the overview, so the page never opens blank.
+// The tools grid is the default view since 5 Nov 2026. If the course files were not published with the page
+// (course/course-data.js, course/course.js), say so in their place and open the overview from #course.
 window.addEventListener("load", () => {
   if (window.LBCourseLoaded) return;
   const root = document.getElementById("course-root");
   if (root) root.innerHTML = '<div class="lb-page" dir="ltr" lang="en"><div class="lb-callout"><b>The course did not load</b><span>The files course/course-data.js and course/course.js were not published with the page. The other views work as usual.</span></div></div>';
-  if (!location.hash || location.hash === "#course") location.hash = "#overview";
+  if (location.hash === "#course") location.hash = "#overview";
 });
 </script>

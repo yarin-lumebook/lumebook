@@ -69,13 +69,13 @@ def ask(a):
     if any('֐'<=ch<='׿' for ch in a): return f'<span class="he" dir="rtl">{html.escape(a)}</span>'
     return html.escape(a)
 def fun_table(title,rows):
-    h=f'<h3>{title}</h3><div class="lb-table-wrap"><table class="lb-table"><thead><tr><th class="num">#</th><th>Account</th><th>Post</th><th>Topic</th><th>Comment word</th><th class="num">Comments</th><th class="num">Likes</th><th class="num">Likes vs median</th><th class="num">Slides</th><th class="num">Date</th></tr></thead><tbody>'
+    h=f'<h3>{title}</h3><div class="lb-table-wrap"><table class="lb-table mid top"><thead><tr><th class="num">#</th><th>Account</th><th>Post</th><th>Topic</th><th>Comment word</th><th class="num">Comments</th><th class="num">Likes</th><th class="num">Likes vs median</th><th class="num">Slides</th><th class="num">Date</th></tr></thead><tbody>'
     for i,r in enumerate(rows,1):
         u,c,s,l,x,cm,rp,d,t,a=r
         h+=f'<tr><td class="num">{i}</td><td>{u}</td><td>{link(c)}</td><td class="cap">{html.escape(t)}</td><td>{ask(a)}</td><td class="num"><b>{n(cm)}</b></td><td class="num">{n(l)}</td><td class="num">{x}x</td><td class="num">{s}</td><td class="num">{d}</td></tr>'
     return h+'</tbody></table></div>'
 def reach_table(title,rows):
-    h=f'<h3>{title}</h3><div class="lb-table-wrap"><table class="lb-table"><thead><tr><th class="num">#</th><th>Account</th><th>Post</th><th>Topic</th><th class="num">Likes</th><th class="num">Likes vs median</th><th class="num">Reposts</th><th class="num">Comments</th><th class="num">Slides</th><th class="num">Date</th></tr></thead><tbody>'
+    h=f'<h3>{title}</h3><div class="lb-table-wrap"><table class="lb-table mid top"><thead><tr><th class="num">#</th><th>Account</th><th>Post</th><th>Topic</th><th class="num">Likes</th><th class="num">Likes vs median</th><th class="num">Reposts</th><th class="num">Comments</th><th class="num">Slides</th><th class="num">Date</th></tr></thead><tbody>'
     for i,r in enumerate(rows,1):
         u,c,s,l,x,cm,rp,d,t=r
         h+=f'<tr><td class="num">{i}</td><td>{u}</td><td>{link(c)}</td><td class="cap">{html.escape(t)}</td><td class="num">{n(l)}</td><td class="num"><b>{x}x</b></td><td class="num">{n(rp)}</td><td class="num">{n(cm)}</td><td class="num">{s}</td><td class="num">{d}</td></tr>'
@@ -86,9 +86,9 @@ tables=('<p>Comment tables list the most-commented carousels whose caption or la
  +fun_table('Global: most comments on a comment-word carousel',GL_FUN)
  +reach_table('Global: biggest reach against the account median',GL_REACH))
 GL_EXTRA='''
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/Da3tFf5ErDB.jpg" alt="Toddler gift picks: a birthday photo cover, a toy garage, a balance bike, outdoor activities"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/Da3tFf5ErDB.jpg" alt="Toddler gift picks: a birthday photo cover, a toy garage, a balance bike, outdoor activities"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>6. letimomlife_: toddler gift picks</h3><div class="pills lb-row"><span class="lb-chip">20 slides</span><span class="lb-chip">17,037 likes · 6.3x</span><span class="lb-chip accent">24,158 comments</span><span class="lb-chip success">product links</span></div></div>
       <p><strong>Structure:</strong> "Toddler gifts I'd choose all over again", then one product per slide in real use at home, each with a one-line reason.</p>
       <p><strong>How it sells:</strong> follow and comment "play" for the links by DM. She repeats the format every few weeks with the word "shop" (13,924 comments on one run).</p>
@@ -96,9 +96,9 @@ GL_EXTRA='''
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/Ddg5kxcGyjv.jpg" alt="A photo of an older child with a new baby, with English text about missing the older child"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/Ddg5kxcGyjv.jpg" alt="A photo of an older child with a new baby, with English text about missing the older child"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>7. thriveafterbabywithalex: missing your older child</h3><div class="pills lb-row"><span class="lb-chip">10 slides</span><span class="lb-chip accent">14,345 likes · 122x</span><span class="lb-chip">567 comments</span><span class="lb-chip accent">1,204 reposts</span></div></div>
       <p><strong>Structure:</strong> one photo of the older child with the baby, and the text "No one warned me I might miss my older child after having another baby", then the small moments and the guilt, then a question to the reader.</p>
       <p><strong>Why it matters:</strong> the new-sibling milestone again, this time as the top global sibling carousel. Same emotional angle as natashagolan_ in Israel, with twice the share rate.</p>
@@ -106,9 +106,9 @@ GL_EXTRA='''
     </div>
   </article>
 
-  <article class="card lb-card is-flush">
-    <div class="strip"><img src="img2/DZvB-A4lMfK.jpg" alt="Three red slides: Elmo asked, thousands responded, now there is a book"></div>
-    <div class="body">
+  <article class="card lb-card is-flush lb-media">
+    <div class="lb-scroller"><img src="img2/DZvB-A4lMfK.jpg" alt="Three red slides: Elmo asked, thousands responded, now there is a book"></div>
+    <div class="lb-media-body">
       <div class="head"><h3>8. Chronicle Books kids: a three-slide book launch</h3><div class="pills lb-row"><span class="lb-chip">3 slides</span><span class="lb-chip accent">15,400 likes · 167x</span><span class="lb-chip">169 comments</span><span class="lb-chip">329 reposts</span></div></div>
       <p><strong>Structure:</strong> "Elmo asked" (a screenshot of the original post), "Thousands of you responded, and Elmo listened", "Now there is a book. Out October 27th".</p>
       <p><strong>Why it matters:</strong> the best publisher book carousel in the pool, and it is three slides of story about where the book came from. The caption sends readers to pre-order.</p>
@@ -122,7 +122,6 @@ new='<div class="finding lb-card"><b>The selling mechanism is the comment-word D
 assert old in s; s=s.replace(old,new)
 s=s.replace('__GL_EXTRA__',GL_EXTRA).replace('__TABLES__',tables)
 s=(s.replace('<!--LB:HEAD-->',design.head())
-   .replace('<!--LB:THEME-TOGGLE-->',design.theme_toggle(dark_label='Dark mode',light_label='Light mode'))
    .replace('LB_LOGO_URI',design.logo_data_uri()))
 assert '<!--LB:' not in s and 'LB_LOGO_URI' not in s
 assert '__' not in s.replace('__dj',''), [x for x in s.split() if '__' in x][:5]

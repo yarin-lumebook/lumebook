@@ -83,6 +83,7 @@
       "key": "teardown",
       "label": "ניתוח תוכן מתחרים · 147",
       "url": "https://claude.ai/artifact/XRuKAwrXNwf6iPfkLG8o7f",
+      "web": "https://lumebook-dashboard.vercel.app/research/competitor-content/",
       "component": "competitor-teardown",
       "date": "2026-10-03",
       "summary": "147 פריטי תוכן של MeBook, Hooray Heroes, Wonderbly ו-Yoto, מקודדים",
@@ -92,6 +93,7 @@
       "key": "kids_lab",
       "label": "מעבדת תוכן ילדים · 64",
       "url": "https://claude.ai/artifact/4Uaprv274bf69dH5KkQyPY",
+      "web": "https://lumebook-dashboard.vercel.app/research/kids-content-lab/",
       "component": "kids-lab",
       "date": "2026-10-06",
       "summary": "64 סרטונים קצרים של מותגי ילדים ומומחים, מפורקים לפורמטים שאפשר לשחזר",
@@ -101,6 +103,7 @@
       "key": "carousel_research",
       "label": "מחקר קרוסלות · 752",
       "url": "https://claude.ai/artifact/B2YkxMHGTeM5T5LLC2wnYU",
+      "web": "https://lumebook-dashboard.vercel.app/research/carousel-research/",
       "component": "carousel-research",
       "date": "2026-10-06",
       "summary": "752 חשבונות בישראל ובעולם: מה מוביל לשיחות ולהמרה בקרוסלות",
@@ -110,6 +113,7 @@
       "key": "carousel_playbook",
       "label": "פלייבוק קרוסלות",
       "url": "https://claude.ai/artifact/BGqB3Azgek9F6MXu3EY5rx",
+      "web": "https://lumebook-dashboard.vercel.app/research/carousel-playbook/",
       "component": "carousel-playbook",
       "date": "2026-10-07",
       "summary": "פלייבוק קרוסלות ממירות באינסטגרם, כולל לוח בדיקות ל-12 שבועות",
@@ -128,6 +132,7 @@
       "key": "parent_communities",
       "label": "מפת קהילות הורים · 361",
       "url": "https://claude.ai/artifact/WAcZJ7xXj826wzvLj49dmE",
+      "web": "https://lumebook-dashboard.vercel.app/research/parent-communities/",
       "component": "parent-communities",
       "date": "2026-10-14",
       "summary": "361 קבוצות הורים, מהקרובות לאשקלון: יום צילום בבית תמורת ספר, טופ 20 וטיוטות",
@@ -206,40 +211,34 @@
   "local_tools": {
     "_about": "Services that run on Yarin's Mac. The dashboard board checks them (from the project server, or from the page when the browser allows it) and shows how to bring them back; nothing in the browser starts them. refresh.py records whether each answered at refresh time.",
     "tools": [
-    {
-      "key": "hook_studio",
-      "label": "Carousel Machine",
-      "url": "http://localhost:8777/",
-      "ping": "http://127.0.0.1:8777/api/ping",
-      "component": "carousel-pipeline",
-      "runs_as": "login item (launchd com.yarinbruner.hook-studio); never start a second copy",
-      "runs_as_he": "רץ כל הזמן על המק כפריט התחברות (launchd). לא מפעילים עותק שני: אחרי שינוי בסקריפטים שלו מריצים restart.",
-      "status_cmd": "python3 carousel/carousel-pipeline/scripts/hook_studio_login.py status",
-      "start_cmd": "python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart"
-    },
-    {
-      "key": "project_server",
-      "label": "שרת הפרויקט המקומי",
-      "url": "http://localhost:8780/",
-      "ping": "http://127.0.0.1:8780/api/board/env",
-      "runs_as": "the 'lumebook' preview config or a terminal",
-      "runs_as_he": "מופעל לפי הצורך, מהגדרת התצוגה lumebook או ממסוף בתיקיית הפרויקט.",
-      "status_cmd": "curl -s http://127.0.0.1:8780/api/board/env",
-      "start_cmd": "python3 tools/lumebook.py serve"
-    }
+      {
+        "key": "hook_studio",
+        "label": "Carousel Machine",
+        "url": "http://localhost:8777/",
+        "ping": "http://127.0.0.1:8777/api/ping",
+        "component": "carousel-pipeline",
+        "runs_as": "login item (launchd com.yarinbruner.hook-studio); never start a second copy",
+        "runs_as_he": "רץ כל הזמן על המק כפריט התחברות (launchd). לא מפעילים עותק שני: אחרי שינוי בסקריפטים שלו מריצים restart.",
+        "status_cmd": "python3 carousel/carousel-pipeline/scripts/hook_studio_login.py status",
+        "start_cmd": "python3 carousel/carousel-pipeline/scripts/hook_studio_login.py restart"
+      },
+      {
+        "key": "project_server",
+        "label": "שרת הפרויקט המקומי",
+        "url": "http://localhost:8780/",
+        "ping": "http://127.0.0.1:8780/api/board/env",
+        "runs_as": "the 'lumebook' preview config or a terminal",
+        "runs_as_he": "מופעל לפי הצורך, מהגדרת התצוגה lumebook או ממסוף בתיקיית הפרויקט.",
+        "status_cmd": "curl -s http://127.0.0.1:8780/api/board/env",
+        "start_cmd": "python3 tools/lumebook.py serve"
+      }
     ]
   },
-  "drive_content": {
-    "_about": "Yarin's My Drive folder for every finished piece of content (18 Oct 2026). Carousels are copied there by carousel/carousel-pipeline/scripts/drive_export.py through Google Drive for desktop.",
-    "name": "LumeBook תוכן",
-    "account": "yarinbruner02@gmail.com",
-    "id": "1JMbj3xl_A_SGwGnID-BZ_ta0TognMbya",
-    "url": "https://drive.google.com/drive/folders/1JMbj3xl_A_SGwGnID-BZ_ta0TognMbya",
-    "carousels": {
-      "name": "קרוסלות",
-      "id": "1x8M8ifit6EEefg_-0FIbw7JKcXL7LXXx",
-      "url": "https://drive.google.com/drive/folders/1x8M8ifit6EEefg_-0FIbw7JKcXL7LXXx"
-    }
+  "drive_marketing": {
+    "_about": "'Google Drive' means this folder (Yarin, 03 Nov 2026). Owner Support@lumebook.com, shared with yarinbruner02@gmail.com; Hebrew subfolders, creator tracker, approved videos, UGC, strategy docs. The old My Drive folder 'LumeBook תוכן' is retired: never read or write it.",
+    "name": "שיווק",
+    "id": "1awITcQFWfsQqpbL8Lupikw12b6y4EWvB",
+    "url": "https://drive.google.com/drive/folders/1awITcQFWfsQqpbL8Lupikw12b6y4EWvB"
   },
   "postiz": {
     "_about": "Postiz (api.postiz.com) channels, connected 26 Oct 2026 through the postiz CLI (~/.local/bin/postiz, sign-in in ~/.postiz/credentials.json). Carousel Machine sends finished carousels there (carousel/carousel-pipeline/scripts/postiz_export.py), scheduled for the date and time Yarin picks or as a draft: Instagram gets all the slides with the caption, Facebook gets slide 1 with its own post text (RUN_DIR/facebook/facebook.txt, ending with facebook_link, since 31 Oct 2026; older runs: the other slides written out). default_hour is the time the picker starts on (the carousel's own day).",
@@ -272,12 +271,12 @@
       "mor_knoll"
     ],
     "admission": {
-      "_source": "Yarin, 24 Oct 2026: from now on a new creator joins the creator map only if it passes all of these; creators already in the map are never removed or changed by them",
+      "_source": "Yarin, 24 Oct 2026: from now on a new creator joins the creator map only if it passes all of these; creators already in the map are never removed or changed by them. Yarin, 03 Nov 2026: likes_per_1k_views_min loosened from 10 to 9",
       "followers_min": 5000,
       "followers_max": 50000,
       "median_views_min": 2000,
       "views_per_follower_min": 0.4,
-      "likes_per_1k_views_min": 10,
+      "likes_per_1k_views_min": 9,
       "comments_per_1k_views_min": 1,
       "how": "median views over the newest reels; likes and comments per 1,000 views are the median per reel over the 12 newest reels (3 reels with numbers at least), the same math as the card"
     }
@@ -292,13 +291,13 @@
       "label": "ספרי יוצרים לחנוכה"
     },
     {
-      "date": "2026-11-22",
-      "label": "דדליין הזמנות לחנוכה",
-      "unconfirmed": true
-    },
-    {
       "date": "2026-12-04",
       "label": "חנוכה מתחיל"
+    },
+    {
+      "date": "2026-12-05",
+      "label": "יום ההזמנה האחרון לחנוכה",
+      "source": "Yarin, 04 Nov 2026: until a week before the last day of Hanukkah (12 / 12 / 2026); after it the book is still on sale, it just arrives after the holiday"
     },
     {
       "date": "2026-12-12",
@@ -341,5 +340,79 @@
       "Whether the shoot and book can be in Russian or English"
     ],
     "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSfa9pec5XRftOuifIHf0IcUARotCs3OKus5vN-OcKrbc2Pc7w/viewform"
+  },
+  "top_books": {
+    "_about": "Best selling books, all time, from Yarin's admin screenshot of 05 / 11 / 2026 (paid orders per book). Internal figures: keep off public pages. Titles, ages and stories read from the live book pages on lumebook.com the same day. Reels and carousels link to these pages (store url + /books/<id>).",
+    "as_of": "2026-11-05",
+    "books": [
+      {
+        "title": "ספר AI מותאם אישית",
+        "orders": 307,
+        "id": null,
+        "about": "admin name of the free custom story from the wizard, not a catalogue title (unverified which product it is); never say AI in audience copy"
+      },
+      {
+        "title": "יום הולדת",
+        "orders": 283,
+        "id": 15,
+        "ages": "3 to 8",
+        "about": "the child is king or queen for one day: balloons, cake, games with friends"
+      },
+      {
+        "title": "הלב של יובל",
+        "orders": 179,
+        "id": 13,
+        "ages": "4 to 8",
+        "about": "a child finds that small everyday kind acts make him a superhero"
+      },
+      {
+        "title": "חברים צבעוניים",
+        "orders": 131,
+        "id": 29,
+        "ages": "1 to 2",
+        "about": "first book for babies: colours and animal friends in short repeating lines"
+      },
+      {
+        "title": "ביי ביי מוצץ",
+        "orders": 89,
+        "id": 41,
+        "ages": "2 to 5",
+        "about": "a goodbye ceremony for the pacifier with the parents"
+      },
+      {
+        "title": "אח חדש",
+        "orders": 77,
+        "id": 2,
+        "ages": "3 to 6",
+        "about": "getting ready for a new sibling and the big brother role (אחות חדשה is book 7)"
+      },
+      {
+        "title": "עדן והחיות החופשיות - נפרדים מהטיטולים",
+        "orders": 70,
+        "id": 43,
+        "ages": "2 to 4",
+        "about": "zoo animals who each gave up the diaper and found a new power: monkey, lion, dolphin, rabbit"
+      }
+    ],
+    "gift_pages": {
+      "grandchild": "gifts/grandchild",
+      "birthday": "gifts/birthday",
+      "new-baby": "gifts/new-baby",
+      "new-sibling": "gifts/new-sibling",
+      "hanukkah": "gifts/hanukkah"
+    }
+  },
+  "buyers": {
+    "_about": "Meta attributed website purchases by age and gender, whole ad account, from Yarin's screenshot of 05 / 11 / 2026 (delivery data, not verified buyer profiles). Internal figures.",
+    "women": {
+      "18-24": 1,
+      "25-34": 28,
+      "35-44": 20,
+      "45-54": 26,
+      "55-64": 33,
+      "65+": 10
+    },
+    "reading": "Women 45 and over made 69 of the 118 purchases by women (58%), and women 55 to 64 are the largest group: grandmothers are a main buyer, next to mothers 25 to 44.",
+    "child_age_note": "The admin's child age report shows age 5 on 72.9% of paid orders; likely a wizard default rather than real ages (unverified), so do not plan by it."
   }
 }

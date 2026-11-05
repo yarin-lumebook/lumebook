@@ -7,29 +7,20 @@ __LBHEAD__
 /* ---------- teardown page rules (LumeBook design tokens only; shared/design/lumebook.css does the rest) ---------- */
 [hidden]{display:none!important}
 section.page{scroll-margin-top:7rem}
-/* chrome: brand, crumbs, two-row sticky bar */
-.lb-topbar .lb-brand{padding-inline:0;min-width:0;flex:0 1 auto}
-.lb-topbar .lb-brand img{width:1.75rem;height:1.75rem;border-radius:var(--r-xs);flex:none}
-.lb-topbar .lb-brand b{font-size:1.0625rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
-.lb-topbar .lb-brand > span{min-width:0}
-.tb-crumbs{display:flex;align-items:center;gap:var(--sp-1);min-width:0;font-size:var(--fs-footnote);color:var(--text-3);padding-inline-start:var(--sp-3);border-inline-start:1px solid var(--line)}
-.tb-crumbs b{color:var(--text-2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tb-crumbs svg{width:.75rem;height:.75rem;flex:none}
+/* chrome: two-row sticky bar (brand: lb-topbar .lb-brand, trail: lb-crumbs) */
+.lb-topbar .lb-crumbs{padding-inline-start:var(--sp-3);border-inline-start:1px solid var(--line)} /* hairline between the brand and the trail */
 .tb-hint{font-size:var(--fs-footnote);color:var(--text-3);white-space:nowrap}
 .tb-hq{flex:none}
 .lb-topbar-in.tb-nav{min-height:0;padding-block:0 var(--sp-2)}
 .lb-toc a{display:inline-flex;align-items:center;gap:var(--sp-2);padding-inline:.6rem}
 .lb-toc .lb-count{min-width:1.25rem;height:1.25rem}
 @media (max-width:1100px){.tb-hint{display:none}}
-@media (max-width:760px){.tb-crumbs{display:none}}
 @media (max-width:640px){
   .lb-topbar-in{gap:var(--sp-2)}
   .lb-topbar .lb-brand b{font-size:var(--fs-callout)}
   .tb-hq{padding-inline:var(--sp-2)}
 }
-/* content */
-.page-head{display:grid;gap:var(--sp-3)}
-.sub{max-width:48rem;color:var(--text-2)}
+/* content (page heads: lb-hero) */
 .he{direction:rtl;unicode-bidi:isolate}
 .facts{gap:var(--sp-2)}
 .facts .lb-chip b{color:inherit;font-weight:700}
@@ -40,9 +31,6 @@ section.page{scroll-margin-top:7rem}
 .verdict-card b{font-weight:700;font-size:var(--fs-headline);line-height:1.3}
 .verdict-card p{font-size:var(--fs-callout)}
 .lb-card h3{font-size:var(--fs-headline)}
-ol.findings{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-3);counter-reset:f}
-ol.findings > li{counter-increment:f;grid-template-columns:2.25rem minmax(0,1fr);gap:var(--sp-2) var(--sp-4)}
-ol.findings > li::before{content:counter(f);grid-row:1 / span 3;width:2.25rem;height:2.25rem;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums}
 .ev{font-size:var(--fs-callout);color:var(--text-2);line-height:1.5}
 .so{font-size:var(--fs-callout)}
 .so > b{color:var(--accent-ink)}
@@ -56,21 +44,8 @@ ul.tight,ol.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--s
 .sys-card{gap:var(--sp-2)}
 .sys-card .lb-stat-label{margin-top:var(--sp-2)}
 .sys-card .lb-hbar{grid-template-columns:minmax(5rem,42%) minmax(0,1fr) 1.75rem;font-size:var(--fs-footnote)}
-.sys-card .lb-kv{grid-template-columns:7.5rem minmax(0,1fr);margin-top:var(--sp-2)}
-@media (max-width:640px){.sys-card .lb-kv{grid-template-columns:6rem minmax(0,1fr)}}
 .bucket ul{margin:0;padding-inline-start:1.1rem;display:grid;gap:var(--sp-1);font-size:var(--fs-callout)}
-/* disclosure cards (test backlog) */
-details.lb-card{padding-block:var(--sp-1)}
-details.lb-card:not([open]){gap:0}
-details.lb-card[open]{padding-bottom:var(--sp-4)}
-details > summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2);min-height:2.75rem;font-weight:600;font-size:var(--fs-body)}
-details > summary::-webkit-details-marker{display:none}
-details > summary::after{content:"";margin-inline-start:auto;width:.5rem;height:.5rem;border-inline-end:2px solid var(--text-3);border-bottom:2px solid var(--text-3);transform:rotate(45deg);transition:transform .2s;flex:none}
-details[open] > summary::after{transform:rotate(-135deg)}
-/* tables */
-.lb-table.mid{min-width:640px}
-.lb-table.wide{min-width:900px}
-.lb-table.top td{vertical-align:top}
+/* tables (lb-table mid / wide / top) */
 .lb-table td.num .lb-dim{font-size:var(--fs-footnote)}
 .db-wrap{max-height:78vh;overflow:auto}
 #db tr.row{cursor:pointer}
@@ -88,11 +63,10 @@ details[open] > summary::after{transform:rotate(-135deg)}
 <header class="lb-topbar">
 <div class="lb-topbar-in">
 <a class="lb-brand" href="#overview"><img src="__LOGO__" alt="LumeBook" width="28" height="28"><span><b>Competitor Teardown</b></span></a>
-<div class="tb-crumbs"><span id="crumbG">Answer</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5l5.5 5.5-5.5 5.5"/></svg><b id="crumbT">Overview</b></div>
+<nav class="lb-crumbs hide-sm" aria-label="You are here"><span id="crumbG">Answer</span><b id="crumbT" aria-current="page">Overview</b></nav>
 <span class="lb-spacer"></span>
 <span class="tb-hint">MeBook · Hooray Heroes · Wonderbly · Yoto</span>
 <a class="lb-btn ghost sm tb-hq" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">LumeBook HQ</a>
-__THEME__
 </div>
 <div class="lb-topbar-in tb-nav">
 <nav class="lb-toc" aria-label="Sections">
@@ -113,7 +87,7 @@ __THEME__
 <main class="lb-page" id="main">
 
 <section class="page lb-section" id="overview" data-g="Answer" data-t="Overview">
-<div class="page-head">
+<div class="lb-hero">
 <p class="lb-eyebrow">Competitor content research · 3 Oct 2026</p>
 <h1>What competitors post, and what Lumebook should test first</h1>
 <p class="lb-lede">147 videos and ads, each downloaded, transcribed from its audio, watched frame by frame and coded to one taxonomy, plus 1,274 unique comments read as customer research.</p>
@@ -141,19 +115,19 @@ __ANSWER__
 </section>
 
 <section class="page lb-section" id="findings" data-g="Answer" data-t="10 findings" hidden>
-<div class="page-head">
+<div class="lb-hero">
 <h2>The 10 most important findings</h2>
-<p class="sub">Ordered by likely business impact, confidence and ease of acting. <span class="lb-chip success">high</span> seen across several pieces · <span class="lb-chip accent">medium</span> thin or indirect evidence · <span class="lb-chip warning">hypothesis</span> plausible, unproven.</p>
+<p class="lb-lede">Ordered by likely business impact, confidence and ease of acting. <span class="lb-chip success">high</span> seen across several pieces · <span class="lb-chip accent">medium</span> thin or indirect evidence · <span class="lb-chip warning">hypothesis</span> plausible, unproven.</p>
 </div>
-<ol class="findings">
+<ol class="lb-steps">
 __FINDINGS__
 </ol>
 </section>
 
 <section class="page lb-section" id="system" data-g="Plan" data-t="Content system" hidden>
-<div class="page-head">
+<div class="lb-hero">
 <h2>Proposed Lumebook content system</h2>
-<p class="sub">Five pillars, one CTA. Shares are of organic Reels (aim for 4 to 5 a week once creator content flows). Personas: <b>P1</b> parent of a 2 to 6 year old facing a change (new sibling, gan, potty, fears); <b>P2</b> gifter (grandparent, aunt) before Hanukkah; <b>P3</b> gannenet or educator (also the B2B buyer).</p>
+<p class="lb-lede">Five pillars, one CTA. Shares are of organic Reels (aim for 4 to 5 a week once creator content flows). Personas: <b>P1</b> parent of a 2 to 6 year old facing a change (new sibling, gan, potty, fears); <b>P2</b> gifter (grandparent, aunt) before Hanukkah; <b>P3</b> gannenet or educator (also the B2B buyer).</p>
 </div>
 <div class="lb-stack">
 __PILLARS__
@@ -176,9 +150,9 @@ __PILLARS__
 </section>
 
 <section class="page lb-section" id="tests" data-g="Plan" data-t="Test backlog" hidden>
-<div class="page-head">
+<div class="lb-hero">
 <h2>Prioritised experiment backlog</h2>
-<p class="sub">Testing window 6 Oct to 22 Nov 2026 (Hanukkah cutoff per the Q4 playbook). There is no historical baseline, so thresholds are relative to Lumebook's own October average. Log every piece from day one: views, saves, shares, profile visits, link clicks, DM keywords, code uses, preview starts (UTM).</p>
+<p class="lb-lede">Testing window 6 Oct to 22 Nov 2026 (Hanukkah cutoff per the Q4 playbook). There is no historical baseline, so thresholds are relative to Lumebook's own October average. Log every piece from day one: views, saves, shares, profile visits, link clicks, DM keywords, code uses, preview starts (UTM).</p>
 </div>
 <div class="lb-stack">
 __TESTS__
@@ -186,9 +160,9 @@ __TESTS__
 </section>
 
 <section class="page lb-section" id="competitors" data-g="Research" data-t="Competitors" hidden>
-<div class="page-head">
+<div class="lb-hero">
 <h2>Competitor systems</h2>
-<p class="sub"><b>Direct:</b> MeBook (IL, AI photo books), Hooray Heroes and Wonderbly (international, avatar-built, human-illustrated). <b>Adjacent, best-in-class content:</b> Yoto (screen-free kids' audio, same parent customer). The other Israeli AI-book brands found (Lullaby.ink 40 IG followers, Booqli 972) are at Lumebook's own size. This is not a ranking.</p>
+<p class="lb-lede"><b>Direct:</b> MeBook (IL, AI photo books), Hooray Heroes and Wonderbly (international, avatar-built, human-illustrated). <b>Adjacent, best-in-class content:</b> Yoto (screen-free kids' audio, same parent customer). The other Israeli AI-book brands found (Lullaby.ink 40 IG followers, Booqli 972) are at Lumebook's own size. This is not a ranking.</p>
 </div>
 <div class="lb-grid cols-2">
 __SYSTEMS__
@@ -196,12 +170,12 @@ __SYSTEMS__
 </section>
 
 <section class="page lb-section" id="patterns" data-g="Research" data-t="Patterns" hidden>
-<div class="page-head">
+<div class="lb-hero">
 <h2>Cross-competitor patterns</h2>
 </div>
 <div class="lb-prose">
 <h3>Repeatable vs one-off</h3>
-<p class="sub">Outlier index = views ÷ the account's median (IG: the 12-reel grid; TikTok: its last 60 videos). Routine content sits near 1×. The big numbers all come from pieces outside the routine.</p>
+<p class="lb-muted">Outlier index = views ÷ the account's median (IG: the 12-reel grid; TikTok: its last 60 videos). Routine content sits near 1×. The big numbers all come from pieces outside the routine.</p>
 </div>
 <div class="lb-table-wrap"><table class="lb-table mid top">
 <thead><tr><th>Piece</th><th class="num">Views</th><th class="num">× median</th><th>What it is</th><th>Read</th></tr></thead>
@@ -230,17 +204,17 @@ __PATTERNTABLE__
 </section>
 
 <section class="page lb-section" id="voice" data-g="Research" data-t="Customer voice" hidden>
-<div class="page-head">
+<div class="lb-hero">
 <h2>Customer voice</h2>
-<p class="sub">1,274 unique comments: 48 IG posts (top ~60 each, read in your logged-in session) and 44 TikToks. Meta ads have no public comments. I read the Hebrew myself and checked the English by keyword. Files: <code>comments_mebook_hebrew.md</code>, <code>comments_english.md</code>.</p>
+<p class="lb-lede">1,274 unique comments: 48 IG posts (top ~60 each, read in your logged-in session) and 44 TikToks. Meta ads have no public comments. I read the Hebrew myself and checked the English by keyword. Files: <code>comments_mebook_hebrew.md</code>, <code>comments_english.md</code>.</p>
 </div>
 __VOICE__
 </section>
 
 <section class="page lb-section" id="gaps" data-g="Research" data-t="Gaps" hidden>
-<div class="page-head">
+<div class="lb-hero">
 <h2>Gap analysis</h2>
-<p class="sub">Gold outline = where Lumebook should play (buckets 3 and 4).</p>
+<p class="lb-lede">Gold outline = where Lumebook should play (buckets 3 and 4).</p>
 </div>
 <div class="lb-grid">
 __GAPS__
@@ -248,9 +222,9 @@ __GAPS__
 </section>
 
 <section class="page lb-section" id="database" data-g="Research" data-t="Database" hidden>
-<div class="page-head">
+<div class="lb-hero">
 <h2>Database</h2>
-<p class="sub">All 147 pieces. Click a row for the summary, hook, why-it-worked hypothesis and Lumebook test idea. ✓ = checked by me against frames. Also saved as <code>research/competitor-content-analysis/competitor_content_db.csv</code>.</p>
+<p class="lb-lede">All 147 pieces. Click a row for the summary, hook, why-it-worked hypothesis and Lumebook test idea. ✓ = checked by me against frames. Also saved as <code>research/competitor-content-analysis/competitor_content_db.csv</code>.</p>
 </div>
 <div class="lb-toolbar">
 <label class="lb-search db-search" for="fq"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input class="lb-input" id="fq" type="search" placeholder="Search hook, summary, account" autocomplete="off"></label>
@@ -265,7 +239,7 @@ __GAPS__
 </section>
 
 <section class="page lb-section" id="method" data-g="About" data-t="Method and limits" hidden>
-<div class="page-head">
+<div class="lb-hero">
 <h2>Method, schema and limits</h2>
 </div>
 __METHOD__

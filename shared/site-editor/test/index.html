@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edit button test page</title>
+<style>
+  :root { --bg: #fff; --text: #1d1d1f; --accent: #6b2d83; --soft: #f4eef7; }
+  body { margin: 0; padding: 24px 16px 96px; background: var(--bg); color: var(--text); font: 16px/1.5 Heebo, system-ui, sans-serif; }
+  h1 { margin: 0 0 8px; }
+  .lead { color: #555; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 16px 0; }
+  .card { padding: 14px; border: 1px solid #ddd; border-radius: 12px; background: var(--soft); }
+  .card h3 { margin: 0 0 4px; font-size: 17px; }
+  .card p { margin: 0; font-size: 14px; color: #444; }
+  button.redraw { padding: 8px 14px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; font: inherit; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>עמוד בדיקה לכפתור העריכה</h1>
+<p class="lead">העמוד הזה בודק את העורך: טקסט קבוע, כרטיסים שהסקריפט מצייר, וגרירה.</p>
+<h2>כרטיסים קבועים</h2>
+<div class="cards" id="static-cards">
+  <div class="card"><h3>כרטיס א</h3><p>טקסט קבוע בכרטיס הראשון.</p></div>
+  <div class="card"><h3>כרטיס ב</h3><p>טקסט קבוע בכרטיס השני.</p></div>
+  <div class="card"><h3>כרטיס ג</h3><p>טקסט קבוע בכרטיס השלישי.</p></div>
+</div>
+<h2>כרטיסים מהסקריפט</h2>
+<button type="button" class="redraw" id="redraw">לצייר מחדש</button>
+<div class="cards" id="drawn"></div>
+<script>
+  (function () {
+    var items = [["דנה", "יוצרת תוכן מאשקלון"], ["נועם", "אבא לשלושה"], ["מיכל", "קלינאית תקשורת"], ["יעל", "גננת"]];
+    function draw() {
+      var box = document.getElementById("drawn");
+      box.innerHTML = items.map(function (it) { return '<div class="card"><h3>' + it[0] + '</h3><p>' + it[1] + '</p></div>'; }).join("");
+    }
+    document.getElementById("redraw").addEventListener("click", draw);
+    setTimeout(draw, 300);
+  })();
+</script>
+</body>
+</html>
