@@ -513,7 +513,14 @@ SCRIPT = r"""
     }).then(function () { setBusy(false); askCtl = null; });
   }
   function canRun(what) {
-    if (!sampleFn) { msg(what + " עובד רק כשהעמוד פתוח ב claude.ai.", true); return false; }
+    if (!sampleFn) {
+      msg(what + " עובד רק כשהעמוד פתוח ב claude.ai. ", true);
+      if (CFG.artifact && !window.claude) {   /* opened on the project server: link to the claude.ai copy, where the buttons work */
+        var a = document.createElement("a"); a.href = CFG.artifact; a.target = "_blank"; a.rel = "noopener"; a.textContent = "לפתיחה שם";
+        askMsg.appendChild(a);
+      }
+      return false;
+    }
     if (readOnly) { msg("העמוד פתוח לקריאה בלבד.", true); return false; }
     return true;
   }
@@ -624,6 +631,8 @@ def page(d):
         "cta_voice": s["cta_voice"], "cta_caption": s["cta_caption"], "disclaimer": s["caption_disclaimer"],
         "vo_min": max(1, int((L["min"] - L["lead_seconds"]) * L["words_per_second"]) + 1 - cta_words),
         "vo_max": int((L["max"] - L["lead_seconds"]) * L["words_per_second"]) - cta_words,
+        # the claude.ai copy of the hub: the ask buttons need claude.ai's sample capability, so the project server links there
+        "artifact": json.loads((ROOT / "lumebook.json").read_text())["components"]["reels-hub"]["publish"]["url"],
     }, ensure_ascii=False).replace("</", "<\\/")
     return f"""<!doctype html>
 <html lang="he" dir="rtl">
@@ -725,7 +734,7 @@ code {{ font-family: var(--font-mono); font-size: var(--fs-footnote); overflow-w
   <form class="lb-ask" id="ask" autocomplete="off">
     <div class="lb-ask-top"><label class="lb-ask-label" for="ask-t">הערה לשינוי הריל</label><button type="button" class="lb-btn secondary sm" id="ask-new" title="מחליף את כל הריל ברעיון אחר לאותו יום ולאותה סדרה">רעיון חדש</button></div>
     <div class="lb-ask-row">
-      <textarea id="ask-t" rows="2" dir="auto" placeholder="מה לשנות? למשל: כותרת יותר קצרה, להוסיף שהספר מגיע גם בערבית"></textarea>
+      <textarea id="ask-t" rows="2" dir="auto" placeholder="מה לשנות? למשל: כותרת יותר קצרה, פתיחה אחרת"></textarea>
       <button type="submit" class="lb-btn" id="ask-go">שליחה</button>
     </div>
     <p class="lb-ask-msg" id="ask-msg" role="status" aria-live="polite"></p>

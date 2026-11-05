@@ -54,7 +54,7 @@ Read from the code on 19 Oct 2026. File references are to `creators/creator-rese
 
 ### 2.1 What it is
 
-The creator map is one HTML page. `build2.py` fills `template.html` with the research data and writes `lumebook-creator-map.html`, which is published as https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB.
+The creator map is one HTML page. `build2.py` fills `template.html` with the research data and writes `lumebook-creator-map.html`, which is published as https://claude.ai/artifact/DCJ2ZT1Y4K8MrcH5bot2Hj.
 
 Two kinds of data live in two places:
 

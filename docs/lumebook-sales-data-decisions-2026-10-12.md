@@ -49,8 +49,8 @@ Concrete steps for the decisions above. Tick them off on the page; the ticks sta
 - [ ] **Make new sibling October's milestone theme.** אח חדש and אחות חדשה together have 132 orders, the most of any milestone. Plan a reel, a carousel and stories on it for the rest of the month.
 - [ ] **Post one birthday piece.** Birthday is the best-selling book (262 orders).
 - [ ] **Film the printed book and show the full price.** The book in a child's hands, the price (₪119 on 14 Oct, `research/creator-content-conversion/report.md`), home shipping (₪30) and delivery time (up to 7 business days home, `docs/lumebook-product-brief.md`). Check all three on lumebook.com before posting.
-- [ ] **Contact topaz_meir_slp first.** The 14 Oct research's first recommended test: a book-list post by a speech therapist with the pacifier book as the one personalised pick and her own link in the DM (`research/creator-content-conversion/report.md`). She is already "in process" in the [creator map](https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB).
-- [ ] **Shortlist 5 creators who are in a moment now.** From the [creator map](https://claude.ai/artifact/MPuqcaCXXF5CGQiDMaDpbB) and their recent posts: a second baby on the way, a toddler giving up the pacifier, a birthday coming. Write the moment and the city next to each name.
+- [ ] **Contact topaz_meir_slp first.** The 14 Oct research's first recommended test: a book-list post by a speech therapist with the pacifier book as the one personalised pick and her own link in the DM (`research/creator-content-conversion/report.md`). She is already "in process" in the [creator map](https://claude.ai/artifact/DCJ2ZT1Y4K8MrcH5bot2Hj).
+- [ ] **Shortlist 5 creators who are in a moment now.** From the [creator map](https://claude.ai/artifact/DCJ2ZT1Y4K8MrcH5bot2Hj) and their recent posts: a second baby on the way, a toddler giving up the pacifier, a birthday coming. Write the moment and the city next to each name.
 - [ ] **Post the first gift-giver piece.** Made for a grandmother or aunt giving the book. Note its saves, shares, comments and DMs so it can be compared with your other posts after four weeks.
 
 ### Every week
