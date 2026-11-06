@@ -304,3 +304,10 @@ Preview with the launch config `creator-map-static` (port 8773, serves this fold
 
 ## 14 Oct 2026: a decline is not a reply
 - Replied (Overview tile, funnel, tests) now counts only creators who replied and kept talking: In process, Book sent, Content created. Declines are left out (Yarin). The card's "Their reply" box and the reasons chart still cover declines, since a no is still an answer.
+
+## 6 Nov 2026: "אולי בעתיד" (maybe in the future) tab
+- A new status and sidebar page, `future`, between "לנסות שוב" and "סירבו" (route `#c-future`, colour `.st-future`). It is in the status menu on every card, the filters, the sort, the Overview pipeline and legend, and the sidebar with a live count. Built in `src/template.html` the same way as "לנסות שוב"; no data changed, so every creator keeps the status they had and the tab starts empty.
+- Meaning: "not now, maybe later". It counts as an answer (not in the "didn't answer" count, and the reply time is stamped once) but not as a decline and not as a talk in progress, so it has no reason field; the note box holds why.
+- Choosing it suggests the next action "לחזור אליהם בעתיד" in 60 days (`ST_NA`); the date can be changed or cleared in the prompt.
+- A card in Declined has a new "אולי בעתיד" button next to "לנסות שוב".
+- Built and checked on the project server (page, sidebar, menu, pipeline). Republished the same day to the artifact URL (version 3); the artifact's database and `state/posts.json` were not touched.

@@ -62,8 +62,10 @@ COLOR_USAGE = {
     "lb-violet": "Brand violet.",
     "lb-cream": "Brand cream.",
     "bg": "Page ground: white.",
-    "surface": "Cards, grouped rows, tables, inputs.",
-    "surface-2": "Sidebar, inset areas inside a card, table header row.",
+    "surface": "Cards, grouped rows, tables, inputs: white.",
+    "surface-2": "Inset areas inside a card, table header row: pure light grey.",
+    "sidebar": "A page's own sidebar (lb-sidebar), the inner one: pure light grey.",
+    "sidenav": "The project nav's side bar (lb-gside), the outer one: the darkest pure grey, so it reads apart from the page sidebar.",
     "surface-sunk": "Wells, code blocks.",
     "bar": "Translucent sticky top bars (with backdrop blur).",
     "overlay": "Scrim behind drawers, modals and the mobile sidebar.",
@@ -72,7 +74,7 @@ COLOR_USAGE = {
     "text-2": "Secondary text: descriptions, table cells that support a primary value.",
     "text-3": "Tertiary text: labels, captions, metadata.",
     "text-on-tint": "Text on a solid tint button or count.",
-    "fill": "Quiet fill: hover rows, chips, search field, code.",
+    "fill": "Quiet fill: hover rows, chips, search field, code (black at low alpha, pure grayscale).",
     "fill-2": "Tracks of bars, segmented control ground.",
     "fill-3": "Off state of a switch.",
     "line": "Hairline borders and dividers.",
@@ -101,7 +103,7 @@ for i, hue in CAT_HUES.items():
     COLOR_USAGE[f"cat-{i}-soft"] = f"Category {i} ground: chip, ID chip, current sub-item."
 
 ORDER = ["lb-ink", "lb-ink-deep", "lb-gold", "lb-gold-deep", "lb-violet", "lb-cream",
-         "bg", "surface", "surface-2", "surface-sunk", "bar", "overlay", "overlay-2",
+         "bg", "surface", "surface-2", "surface-sunk", "sidebar", "sidenav", "bar", "overlay", "overlay-2",
          "text", "text-2", "text-3", "text-on-tint", "fill", "fill-2", "fill-3", "line", "line-strong",
          "tint", "tint-hover", "tint-soft", "focus", "accent", "accent-soft", "accent-ink",
          "success", "success-soft", "warning", "warning-soft", "danger", "danger-soft", "info", "info-soft",
@@ -184,14 +186,15 @@ It is **not** used by the public ambassadors site (lumebook-ambassadors.vercel.a
 
 ## Visual foundations
 
-- **Surfaces.** White page (`bg`) and cards (`surface`) set apart by hairlines, a light grey sidebar and inset areas (`surface-2`). Hierarchy comes from surface steps and hairlines (`line`), with shadows only on things that float.
+- **Surfaces.** A white page (`bg`) and white cards (`surface`) set apart by hairlines, a light grey page sidebar (`sidebar`, the inner one), a darker grey project nav side bar (`sidenav`, the outer one) and inset areas (`surface-2`). Every surface and fill is pure grayscale (equal R, G, B); only text, lines and shadows carry a slight LumeBook tint (hue 33), never pure black (Yarin, 06 Nov 2026). Hierarchy comes from surface steps and hairlines (`line`), with shadows only on things that float.
 - **Three roles for color.** `text` (neutral ink, near black) for reading; `tint` (violet) for anything you can click, and only for that; `accent` (gold) for brand emphasis and progress. Gold text uses `accent-ink` so it passes contrast.
 - **State is shape plus color.** Status always appears as a chip, dot, count or tinted alert row with a word, never color alone. `success`, `warning`, `danger`, `info` are separate from the accent.
 - **Carousel pillars.** `kid` (violet) for "הילד מספר", `expert` (gold) for "גישה מקצועית", matching the slide designs.
 - **Category colour.** Eight hues (`cat-1` to `cat-8`, each with a base, an ink and a soft) for a page's 3 to 8 stable categories that a reader scans or filters by: the playbook's tools, the dashboard's workstreams, the creator map's tracks and the numbers on its books tab. See "Category colour" below.
 - **Type.** Heebo is the main font, headings included (h1 ExtraBold 800, h2 Bold 700, slightly tight tracking); Assistant is the secondary font for labels, captions, counts, chips, table headers and the sidebar group labels. Both carry Hebrew and Latin. Body text, buttons and inputs stay on Heebo. System mono for commands. Scale: display 38, title 22, headline 18, body 16, callout 15, footnote 13, caption 12. Varela Round was dropped on 18 Oct 2026.
 - **Space and shape.** 4pt spacing, pill buttons and chips, 18px card radius, 12px for tables and grouped lists.
-- **Theme.** White only (Yarin, 05 Nov 2026: "only white mode from now on"). One set of tokens on `:root`; no black mode, no theme switch, no `prefers-color-scheme`. The black mode and its switch (21 Oct 2026) are gone, and so are the cream and purple grounds before it. `design.theme_toggle()` returns nothing. Every text token passes 4.5:1 on every surface.
+- **Colours.** Vibrant (Yarin, 06 Nov 2026: "lets go back to vibrant colors"): violet to click, gold for emphasis and the eight category hues at full colour. Earlier that day the palette was lumebook.com/IL/he's; that was undone.
+- **Theme.** Light only (Yarin, 05 Nov 2026: "only white mode from now on"). One set of tokens on `:root`; no black mode, no theme switch, no `prefers-color-scheme`. The black mode and its switch (21 Oct 2026) are gone, and so are the cream and purple grounds before it. `design.theme_toggle()` returns nothing. Every text token passes 4.5:1 on every surface.
 - **Motion.** Short (0.15s to 0.2s) color and slide transitions only; all motion stops under `prefers-reduced-motion`.
 
 ## Layout
@@ -402,14 +405,12 @@ COMPONENTS = {
              '<div dir="rtl" lang="he" style="padding:16px;max-width:340px"><article class="lb-post"><div class="lb-post-head"><span class="lb-post-avatar"></span><span class="lb-post-name">lumebook.il<small>ממומן</small></span></div><p class="lb-post-text">הוא עוד לא יודע שהוא הגיבור של הספר הזה\nתצוגה מקדימה בחינם, קישור בביו</p><span class="lb-media-frame is-4x5"></span></article></div>'),
     "Pair": ("Layout", 250, "`lb-pair` sets two boxes side by side to compare: mark each `yes` and `no` (do and don\'t) or `was` and `now` (before and after); its `lb-pair-label` takes the colour and `was` sits on the quiet ground. One column on a phone.",
              '<div dir="rtl" lang="he" class="lb-stack" style="padding:16px"><div class="lb-pair"><div class="yes"><span class="lb-pair-label">כן</span><span>ספר שעוזר לדבר על האח החדש</span></div><div class="no"><span class="lb-pair-label">לא</span><span>ספר שפותר קנאת אחים</span></div></div><div class="lb-pair"><div class="was"><span class="lb-pair-label">היה</span><span>טיפ להורים בלי קשר לספר</span></div><div class="now"><span class="lb-pair-label">עכשיו</span><span>רגע של הילד, ואז הספר ככלי לרגע הזה</span></div></div></div>'),
-    "ProjectNav": ("Layout", 400, "The project nav (5 Nov 2026) on every internal page, drawn by `nav.js` (source `shared/design/nav.src.js`, data `shared/design/hq-tools.json`; `design.head()` inlines it, HQ and the SMM plan link a synced copy, `design.head(nav=False)` only for the public creator brief). Two layers. `lb-gnav` is the fixed top bar: the menu button (`lb-gnav-toggle`), the logo home to HQ (`lb-gnav-brand`) and HQ's topics (`lb-gnav-topic` with its `lb-cat-N`; the current page's topic carries `aria-current`); a topic opens its tools in the side bar. `lb-gpath` under it is the location path (an `lb-crumbs`: HQ, topic, page); an element marked `data-lb-gpath-slot` moves to its end. `lb-gside` on the right is every HQ tool by topic (`lb-gside-topic`, `lb-gside-h`, `lb-gside-item` with an `lb-tile`, the current page tinted); the menu button collapses it to a 4rem icon rail and back (`html[data-gside]`, kept in that browser). On phones the side bar is a drawer over the page with `lb-gscrim`, and `lb-gbottom` is the bottom nav bar (HQ, the first three topics, עוד); both bars slide away while scrolling down. `html.lb-has-gnav` makes room; a page's own sticky rule adds `var(--lb-gnav-top, 0px)` to its top, and a page that fills the window takes off `--lb-gnav-pad` or `--lb-gnav-space`. The nav is Hebrew and right to left on English pages too. The preview shows it in place, without its fixed positions.",
-                   '<div dir="rtl" lang="he" style="padding:16px"><div style="display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto 1fr;height:340px;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden">'
-                   f'<header class="lb-gnav" style="position:relative;inset:auto;grid-column:1/-1;height:3.5rem;padding-top:0"><button type="button" class="lb-gnav-toggle" aria-label="כל הכלים">{ico("menu")}</button><a class="lb-gnav-brand" href="#"><b>LumeBook</b></a>'
-                   f'<nav class="lb-gnav-topics" aria-label="נושאים"><button type="button" class="lb-gnav-topic lb-cat-4">{ico("target")}<span>תוכנית ואסטרטגיה</span></button><button type="button" class="lb-gnav-topic lb-cat-2" aria-current="true">{ico("people")}<span>יוצרים</span></button><button type="button" class="lb-gnav-topic lb-cat-5">{ico("slides")}<span>קרוסלות</span></button><button type="button" class="lb-gnav-topic lb-cat-1">{ico("clapper")}<span>רילס ווידאו</span></button></nav></header>'
-                   '<aside class="lb-gside" style="position:relative;inset:auto;width:13rem;z-index:auto" aria-label="כל הכלים"><nav class="lb-gside-scroll">'
-                   '<section class="lb-gside-topic lb-cat-2"><h2 class="lb-gside-h">יוצרים</h2><ul><li><a class="lb-gside-item" href="#" aria-current="page"><span class="lb-tile" aria-hidden="true">{ico("people")}</span><span class="lb-gside-name">מפת יוצרים</span></a></li><li><a class="lb-gside-item" href="#"><span class="lb-tile" aria-hidden="true">{ico("signup")}</span><span class="lb-gside-name">הרשמות</span></a></li><li><a class="lb-gside-item" href="#"><span class="lb-tile" aria-hidden="true">{ico("brief")}</span><span class="lb-gside-name">בריף ליוצרים</span></a></li></ul></section>'
-                   '<section class="lb-gside-topic lb-cat-5"><h2 class="lb-gside-h">קרוסלות</h2><ul><li><a class="lb-gside-item" href="#"><span class="lb-tile" aria-hidden="true">{ico("slides")}</span><span class="lb-gside-name">מכונת הקרוסלות</span></a></li><li><a class="lb-gside-item" href="#"><span class="lb-tile" aria-hidden="true">{ico("book")}</span><span class="lb-gside-name">פלייבוק קרוסלות</span></a></li></ul></section></nav></aside>'
-                   '<div><div class="lb-gpath"><nav class="lb-crumbs" aria-label="מיקום בפרויקט"><a href="#">HQ</a><button type="button">יוצרים</button><b aria-current="page">מפת יוצרים</b></nav></div><p class="lb-small" style="padding:16px;margin:0">הדף עצמו</p></div>'
+    "ProjectNav": ("Layout", 400, "The project nav (5 Nov 2026) on every internal page, drawn by `nav.js` (source `shared/design/nav.src.js`, data `shared/design/hq-tools.json`; `design.head()` inlines it, HQ and the SMM plan link a synced copy, `design.head(nav=False)` only for the public creator brief). Since 6 Nov 2026 it is one `lb-gside` side bar on the right that runs the full height of the window, with no top bar and no location path. Its head (`lb-gside-head`) holds the logo home to HQ (`lb-gside-brand`) and the menu button (`lb-gside-toggle`), which collapses the bar to a 4rem icon rail and back (`html[data-gside]`, kept in that browser); under it every HQ tool by topic (`lb-gside-topic` with its `lb-cat-N`, `lb-gside-h`, `lb-gside-item` with an `lb-tile`, the current page tinted). On phones the side bar is a drawer over the page with `lb-gscrim` and a close button (`lb-gside-close`), and `lb-gbottom` is the bottom nav bar (HQ, the first three topics, עוד), which slides away while scrolling down. `html.lb-has-gnav` makes room. `--lb-gnav-top`, `--lb-gnav-pad` and `--lb-gnav-space` stay defined for pages that use them and are 0px (the bottom bar's room on a phone). The nav is Hebrew and right to left on English pages too. The preview shows it in place, without its fixed positions.",
+                   '<div dir="rtl" lang="he" style="padding:16px"><div style="display:flex;height:340px;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden">'
+                   f'<aside class="lb-gside" style="position:relative;inset:auto;width:13rem;z-index:auto" aria-label="כל הכלים"><div class="lb-gside-head"><a class="lb-gside-brand" href="#"><b>LumeBook</b></a><button type="button" class="lb-gside-toggle" aria-label="כיווץ סרגל הכלים">{ico("menu")}</button></div><nav class="lb-gside-scroll">'
+                   f'<section class="lb-gside-topic lb-cat-2"><h2 class="lb-gside-h">יוצרים</h2><ul><li><a class="lb-gside-item" href="#" aria-current="page"><span class="lb-tile" aria-hidden="true">{ico("people")}</span><span class="lb-gside-name">מפת יוצרים</span></a></li><li><a class="lb-gside-item" href="#"><span class="lb-tile" aria-hidden="true">{ico("signup")}</span><span class="lb-gside-name">הרשמות</span></a></li><li><a class="lb-gside-item" href="#"><span class="lb-tile" aria-hidden="true">{ico("brief")}</span><span class="lb-gside-name">בריף ליוצרים</span></a></li></ul></section>'
+                   f'<section class="lb-gside-topic lb-cat-5"><h2 class="lb-gside-h">קרוסלות</h2><ul><li><a class="lb-gside-item" href="#"><span class="lb-tile" aria-hidden="true">{ico("slides")}</span><span class="lb-gside-name">מכונת הקרוסלות</span></a></li><li><a class="lb-gside-item" href="#"><span class="lb-tile" aria-hidden="true">{ico("book")}</span><span class="lb-gside-name">פלייבוק קרוסלות</span></a></li></ul></section></nav></aside>'
+                   '<div style="flex:1;min-width:0"><p class="lb-small" style="padding:16px;margin:0">הדף עצמו</p></div>'
                    '</div></div>'),
     "Crumbs": ("Layout", 170, "`lb-crumbs` says where a view sits (the current item carries `aria-current` and cuts with an ellipsis; the chevron turns with the page direction; `hide-sm` hides the trail under 760px). `lb-pager` closes a lesson or section with the previous and next links, each a small label and a title.",
                '<div dir="rtl" lang="he" class="lb-stack" style="padding:16px;max-width:560px"><nav class="lb-crumbs" aria-label="מיקום"><a href="#">מפת היוצרים</a><a href="#">מסלולים</a><span aria-current="page">הורים</span></nav><nav class="lb-pager"><a class="prev" href="#"><small>הקודם</small><b>פתיחים שעובדים</b></a><a class="next" href="#"><small>הבא</small><b>מילות קוד ותגובות</b></a></nav></div>'),
@@ -451,7 +452,7 @@ COVER = """<!-- @dsCard height=300 -->
     <rect class="soft" x="752" y="214" width="96" height="64" rx="32"/>
   </svg>
   <p class="name">LumeBook</p>
-  <p class="tag">One design system for every internal page: Hebrew first, white only, violet to click, gold to celebrate.</p>
+  <p class="tag">One design system for every internal page: Hebrew first, light only, violet to click, gold to celebrate.</p>
 </div>
 """
 

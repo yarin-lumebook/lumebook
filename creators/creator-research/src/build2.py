@@ -9,6 +9,9 @@ CT=json.load(open(P('contacts.json')))
 for c in C:
     k=CT.get(c['h'],{}); c['email']=', '.join(k.get('email',[])); c['phone']=', '.join(k.get('phone',[])); c['csrc']='; '.join(k.get('src',[]))
 exec(open(P('enrich.py')).read()); enrich(C)
+# experts badge (06 Nov 2026): c['xp'] = the professional fields of a creator (src/experts.py patterns over the bio line, hand list in experts.json)
+import experts
+experts.tag(C)
 KIDS=json.load(open(P('kids.json')))
 # offer facts come from shared/facts.json, so the map's messages and checks use the same numbers as every other component
 FACTS=json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))),"shared","facts.json"),encoding="utf-8"))
@@ -123,7 +126,7 @@ h=re.sub(r'__ICON:([\w-]+)__',lambda m: design.icon(m.group(1),"i"),h)
 assert h.count("__LB_ICONS__")==1; h=h.replace("__LB_ICONS__",J(LBI))
 # what happened to the creators Yarin added with the map's "הוספת יוצרים" button (weekly.py requests writes it on Saturdays)
 RQ=P('research/weekly/requests.json'); ADDQ=json.load(open(RQ,encoding='utf-8')) if os.path.exists(RQ) else {}
-for k,v in {"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER,"__ADDQ__":ADDQ,"__ADM__":FACTS["creators"]["admission"],
+for k,v in {"__XP__":experts.kinds_for_page(),"__DATA__":C,"__OUT__":O,"__EDGE__":EDGE,"__EXCL__":EXCL,"__TRK__":TRK,"__ARCH__":ARCH,"__MIX__":MIX,"__Q__":Q,"__OFFER__":OFFER,"__ADDQ__":ADDQ,"__ADM__":FACTS["creators"]["admission"],
           # the books tab's hues (shared/design/categories.json set books-metrics), used as lb-cat-N
           "__BKCAT__":{k:v["cat"] for k,v in design.categories("books-metrics").items()}}.items(): h=h.replace(k,J(v))
 for k,v in {"<!--LB:HEAD-->":design.head(),"__LB_LOGO__":design.logo_data_uri()}.items():

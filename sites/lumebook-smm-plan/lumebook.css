@@ -2,14 +2,18 @@
    One stylesheet for every internal LumeBook page (HQ dashboard, plan, creator map, research pages, carousel review).
    Builds inline this file; edit it here, then run `python3 tools/lumebook.py ripple` to rebuild every page that uses it.
    Not used by the public ambassadors site.
-   Concept: Apple-style grouped surfaces on a white ground, neutral ink for text, violet for
-   anything you can click, gold for brand emphasis, eight category hues for things a reader scans or filters by.
+   Concept: Apple-style grouped surfaces on a white ground, neutral ink for text, violet for anything you can click,
+   gold for brand emphasis, eight vibrant category hues for things a reader scans or filters by.
+   Colours (Yarin, 06 Nov 2026): vibrant again ("lets go back to vibrant colors"): violet, gold and the eight category hues at
+   full colour. For a few hours the same day the palette was lumebook.com/IL/he's (deep gold, terracotta, sage); that was undone.
+   Surfaces (page, cards, sidebars, wells, fills) are pure grayscale (equal R, G and B; Yarin, 06 Nov 2026); text, lines and
+   shadows keep a slight warm tint (hue 33 degrees), never pure black.
    Hebrew first (RTL, logical properties), English pages work the same way.
    Fonts (link in <head>): https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap
    Heebo is the main font, headings included; Assistant is the secondary font for labels, captions, counts, chips and
    table headers (Yarin, 18 Oct 2026). Both have Hebrew glyphs.
    Categories: which category gets which hue is in shared/design/categories.json; builds read it (design.py).
-   White only (Yarin, 05 Nov 2026: "only white mode from now on"). One set of tokens on :root: no black mode, no theme
+   Light only (Yarin, 05 Nov 2026: "only white mode from now on"). One set of tokens on :root: no black mode, no theme
    switch, no prefers-color-scheme. The black mode and its switch (21 Oct 2026) are gone and design.theme_toggle() now
    writes nothing, so a build that still calls it gets no switch. Never add a second token block or a dark palette. */
 
@@ -22,26 +26,29 @@
   --lb-violet: #5B2BD6;
   --lb-cream: #F8F0E1;
 
-  /* surfaces */
+  /* surfaces: the page is white (Yarin, 06 Nov 2026: "i want the page bg white") and every grey surface is pure grayscale
+     (Yarin, 06 Nov 2026: "make surfaces pure grayscale"): equal R, G and B, no tint */
   --bg: #FFFFFF;                 /* page ground, white */
   --surface: #FFFFFF;            /* cards, grouped rows, tables (a hairline sets them apart from the ground) */
-  --surface-2: #F5F5F5;          /* inset areas inside a card, sidebar */
-  --surface-sunk: #EDEDED;       /* wells, code, track of bars */
-  --bar: rgba(255, 255, 255, .82); /* translucent sticky bars */
-  --overlay: rgba(0, 0, 0, .4);
+  --surface-2: #EEEEEE;          /* inset areas inside a card */
+  --surface-sunk: #E8E8E8;       /* wells, code, track of bars */
+  --sidebar: #EEEEEE;            /* a page's own sidebar (lb-sidebar), the inner one */
+  --sidenav: #E0E0E0;            /* the project nav's side bar (lb-gside), the outer one: the darkest grey (Yarin, 06 Nov 2026: inner and outer flipped) */
+  --bar: rgba(255, 255, 255, .86); /* translucent sticky bars */
+  --overlay: rgba(51, 38, 27, .4);
 
-  /* text (neutral ink at three strengths; all pass 4.5:1 on every surface) */
-  --text: #111111;
-  --text-2: #4D4D4D;
-  --text-3: #666666;
+  /* text (warm neutral ink at three strengths; all pass 4.5:1 on every surface) */
+  --text: #1E1B18;
+  --text-2: #4A453F;
+  --text-3: #645E57;
   --text-on-tint: #FFFFFF;
 
-  /* fills and lines (black at low alpha) */
+  /* fills (black at low alpha: they paint surfaces, so they are pure grayscale) and lines (warm ink at low alpha) */
   --fill: rgba(0, 0, 0, .045);
   --fill-2: rgba(0, 0, 0, .075);
   --fill-3: rgba(0, 0, 0, .12);
-  --line: rgba(0, 0, 0, .1);
-  --line-strong: rgba(0, 0, 0, .2);
+  --line: rgba(43, 36, 29, .1);
+  --line-strong: rgba(43, 36, 29, .2);
 
   /* interactive: violet */
   --tint: #5B2BD6;
@@ -103,11 +110,11 @@
   --r-xs: .375rem; --r-sm: .5rem; --r-md: .75rem; --r-lg: 1.125rem; --r-pill: 999px;
 
   /* elevation */
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, .07);
-  --shadow-2: 0 8px 28px -12px rgba(0, 0, 0, .2);
-  --shadow-3: 0 24px 60px -20px rgba(0, 0, 0, .32);
-  --shadow-4: 0 24px 64px rgba(0, 0, 0, .28);   /* cards floating in an lb-dialog */
-  --overlay-2: rgba(0, 0, 0, .45);               /* the backdrop behind an lb-dialog */
+  --shadow-1: 0 1px 2px rgba(41, 30, 22, .07);
+  --shadow-2: 0 8px 28px -12px rgba(41, 30, 22, .2);
+  --shadow-3: 0 24px 60px -20px rgba(41, 30, 22, .32);
+  --shadow-4: 0 24px 64px rgba(41, 30, 22, .28);   /* cards floating in an lb-dialog */
+  --overlay-2: rgba(51, 38, 27, .45);               /* the backdrop behind an lb-dialog */
 
   --sidebar-w: 15.5rem;
   --content-w: 76rem;
@@ -177,7 +184,7 @@ img, svg, video { max-width: 100%; }
 
 /* ---------- sidebar navigation ---------- */
 .lb-sidebar {
-  position: sticky; top: var(--lb-gnav-top, 0px); height: calc(100vh - var(--lb-gnav-top, 0px)); overflow-y: auto; background: var(--surface-2);
+  position: sticky; top: var(--lb-gnav-top, 0px); height: calc(100vh - var(--lb-gnav-top, 0px)); overflow-y: auto; background: var(--sidebar);
   border-inline-end: 1px solid var(--line); padding: var(--sp-4) var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-4);
 }
 .lb-brand { display: flex; align-items: center; gap: var(--sp-2); padding-inline: var(--sp-2); color: var(--text); text-decoration: none; }
@@ -198,7 +205,7 @@ img, svg, video { max-width: 100%; }
 .lb-nav-item .lb-count { margin-inline-start: auto; }
 .lb-sidebar-foot { margin-top: auto; display: grid; gap: var(--sp-2); padding-inline: var(--sp-2); font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
 
-/* sticky top bar (also the mobile header); under the project nav's top bar when there is one (--lb-gnav-top) */
+/* sticky top bar of a page (also the mobile header) */
 .lb-topbar {
   position: sticky; top: max(env(safe-area-inset-top, 0px), var(--lb-gnav-top, 0px)); z-index: 20; background: var(--bar);
   -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
@@ -522,7 +529,7 @@ details.lb-disclosure.is-quiet[open] > summary { border-bottom-color: transparen
 .lb-check input:disabled { cursor: default; }
 
 .lb-switch { appearance: none; width: 2.6rem; height: 1.5rem; border-radius: var(--r-pill); background: var(--fill-3); position: relative; cursor: pointer; flex: none; transition: background .15s; }
-.lb-switch::after { content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #fff; box-shadow: var(--shadow-1); transition: inset-inline-start .15s; }
+.lb-switch::after { content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--surface); box-shadow: var(--shadow-1); transition: inset-inline-start .15s; }
 .lb-switch:checked { background: var(--success); }
 .lb-switch:checked::after { inset-inline-start: calc(100% - 1.25rem - 2px); }
 /* toggle with its state in words: a switch and a status chip in one label, for a done or waiting step in a table row
@@ -1000,77 +1007,48 @@ button.lb-chip.check:focus-visible { outline: 2px solid var(--focus); outline-of
 /* ---------- print-free page footer ---------- */
 .lb-footer { border-top: 1px solid var(--line); padding-top: var(--sp-4); font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); display: grid; gap: var(--sp-1); }
 
-/* ---------- project nav (5 Nov 2026) ----------
+/* ---------- project nav (5 Nov 2026; no top bar and no location path since 6 Nov 2026) ----------
    One navigation on every internal page, drawn by nav.js (source shared/design/nav.src.js; design.head() inlines it, HQ and
-   the SMM plan link a synced copy). Two layers:
-   lb-gnav    the top bar, fixed: menu button, the logo home to HQ, HQ's topics (first layer). A topic opens its tools in
-              the side bar. Topics that do not fit scroll sideways.
-   lb-gpath   the location path under it (HQ › topic › page), in the page flow; an element marked data-lb-gpath-slot goes
-              to its end.
-   lb-gside   the side bar on the right (second layer): every HQ tool by topic. A 4rem icon rail (html[data-gside=collapsed],
-              names kept for screen readers, the tool's name as a tooltip) or 16.5rem with names (expanded); the menu
-              button toggles it and this browser remembers. The current page is tinted in its topic colour.
+   the SMM plan link a synced copy).
+   lb-gside   the side bar on the right, the full height of the window (Yarin, 6 Nov 2026: "remove the top navbar"): the logo
+              home to HQ and the menu button at its top, then every HQ tool by topic. A 4rem icon rail
+              (html[data-gside=collapsed], names kept for screen readers, the tool's name as a tooltip) or 16.5rem with
+              names (expanded); the menu button toggles it and this browser remembers. The current page is tinted in its
+              topic colour.
    phones (760px and narrower): no rail; the side bar is a drawer over the page (html.lb-gdrawer-open, with lb-gscrim),
-              lb-gbottom is the bottom nav bar (HQ, the first three topics, "עוד"), and both bars slide away while
-              scrolling down (html.lb-gnav-away).
+              lb-gbottom is the bottom nav bar (HQ, the first three topics, "עוד"), and it slides away while scrolling
+              down (html.lb-gnav-away).
    The nav is Hebrew and right to left on every page, English pages included, so its sides are physical (right).
-   html.lb-has-gnav makes room for it. --lb-gnav-top is how far down the top bar reaches (0px while it is away on a phone):
-   the design system's sticky bars (lb-topbar, lb-sidebar, lb-editbar) sit under it, and a page's own sticky rule adds it
-   to its top the same way. A page that fills the window (an app with its own scrolling panes) takes off --lb-gnav-pad (the
-   room the fixed bars keep: top bar, and the bottom bar on a phone) or --lb-gnav-space (that plus the location path, whose
-   height nav.js measures into --lb-gpath-h). */
+   html.lb-has-gnav makes room for the side bar. There is no top bar any more, so --lb-gnav-top, --lb-gnav-pad and
+   --lb-gnav-space stay defined (pages still use them) but are 0px: the design system's sticky bars (lb-topbar, lb-sidebar,
+   lb-editbar) sit at the top of the window. On a phone --lb-gnav-pad and --lb-gnav-space are the room of the bottom bar,
+   which a page that fills the window (an app with its own scrolling panes) takes off its height. */
 html.lb-has-gnav {
-  --lb-gnav-top: calc(3.5rem + env(safe-area-inset-top, 0px));
-  --lb-gnav-pad: calc(3.5rem + env(safe-area-inset-top, 0px));
-  --lb-gnav-space: calc(var(--lb-gnav-pad) + var(--lb-gpath-h, 2.6rem));
+  --lb-gnav-top: 0px;
+  --lb-gnav-pad: 0px;
+  --lb-gnav-space: 0px;
   --lb-gside-w: 4rem;
-  padding-top: calc(3.5rem + env(safe-area-inset-top, 0px));
   padding-right: var(--lb-gside-w);
-  scroll-padding-top: var(--lb-gnav-top);
 }
 html.lb-has-gnav[data-gside="expanded"] { --lb-gside-w: 16.5rem; }
-.lb-gnav, .lb-gpath, .lb-gside, .lb-gbottom { font-family: var(--font); color: var(--text); text-align: start; box-sizing: border-box; }
-.lb-gnav svg, .lb-gside svg, .lb-gbottom svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-
-/* the top bar */
-.lb-gnav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 32; height: calc(3.5rem + env(safe-area-inset-top, 0px));
-  padding: env(safe-area-inset-top, 0px) .75rem 0 var(--sp-4); display: flex; align-items: center; gap: var(--sp-2);
-  background: var(--bar); -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
-  border-bottom: 1px solid var(--line); transition: transform .2s ease;
-}
-.lb-gnav-toggle { display: inline-grid; place-items: center; flex: none; width: 2.5rem; height: 2.5rem; padding: 0; border: 0; border-radius: var(--r-sm); background: none; color: var(--text); cursor: pointer; }
-.lb-gnav-toggle svg { width: 1.3rem; height: 1.3rem; }
-.lb-gnav-toggle:hover { background: var(--fill); }
-.lb-gnav-brand { display: inline-flex; align-items: center; gap: var(--sp-2); flex: none; padding-inline: var(--sp-1) var(--sp-2); color: var(--text); text-decoration: none; }
-.lb-gnav-brand:hover { color: var(--text); text-decoration: none; }
-.lb-gnav-brand img { width: 1.75rem; height: 1.75rem; border-radius: var(--r-xs); display: block; }
-.lb-gnav-brand b { font-weight: 800; font-size: 1.0625rem; letter-spacing: -.01em; }
-.lb-gnav-topics { display: flex; align-items: center; gap: 2px; min-width: 0; flex: 1; overflow-x: auto; scrollbar-width: none; padding-inline: var(--sp-3) 1.5rem; border-inline-start: 1px solid var(--line);
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 1.5rem); mask-image: linear-gradient(to right, transparent, #000 1.5rem); }
-.lb-gnav-topics::-webkit-scrollbar { display: none; }
-.lb-gnav-topic {
-  display: inline-flex; align-items: center; gap: .4rem; flex: none; height: 2.25rem; padding-inline: .7rem; border: 0; border-radius: var(--r-pill);
-  background: none; color: var(--text-2); font: 500 var(--fs-callout)/1 var(--font); white-space: nowrap; cursor: pointer;
-}
-.lb-gnav-topic svg { width: 1.05rem; height: 1.05rem; color: var(--tc-ink, var(--text-2)); }
-.lb-gnav-topic:hover { background: var(--fill); color: var(--text); }
-.lb-gnav-topic[aria-current="true"] { background: var(--tc-soft, var(--tint-soft)); color: var(--tc-ink, var(--tint)); font-weight: 700; }
-
-/* the location path */
-.lb-gpath { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem var(--sp-3); min-height: 2.5rem; padding: .3rem var(--sp-5); background: var(--surface); border-bottom: 1px solid var(--line); }
-.lb-gpath .lb-crumbs { flex: 1 1 12rem; overflow: hidden; }
-.lb-gpath .lb-crumbs a, .lb-gpath .lb-crumbs button { flex: none; padding: 0; border: 0; background: none; font: inherit; color: var(--text-3); cursor: pointer; text-decoration: none; }
-.lb-gpath .lb-crumbs a:hover, .lb-gpath .lb-crumbs button:hover { color: var(--text); text-decoration: underline; }
-.lb-gpath-slot { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; margin-inline-start: auto; }
-.lb-gpath-slot:empty { display: none; }
+.lb-gside, .lb-gbottom { font-family: var(--font); color: var(--text); text-align: start; box-sizing: border-box; }
+.lb-gside svg, .lb-gbottom svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
 /* the side bar */
 .lb-gside {
-  position: fixed; top: var(--lb-gnav-top); bottom: 0; right: 0; z-index: 31; width: var(--lb-gside-w);
-  display: flex; flex-direction: column; background: var(--surface-2); border-left: 1px solid var(--line); transition: width .2s ease;
+  position: fixed; top: 0; bottom: 0; right: 0; z-index: 31; width: var(--lb-gside-w);
+  display: flex; flex-direction: column; background: var(--sidenav); border-left: 1px solid var(--line); transition: width .2s ease;
 }
-.lb-gside-head { display: none; }
+.lb-gside-head { flex: none; display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-3) var(--sp-3) var(--sp-2); border-bottom: 1px solid var(--line); }
+.lb-gside-brand { display: inline-flex; align-items: center; gap: var(--sp-2); min-width: 0; color: var(--text); text-decoration: none; }
+.lb-gside-brand:hover { color: var(--text); text-decoration: none; }
+.lb-gside-brand img { width: 1.75rem; height: 1.75rem; border-radius: var(--r-xs); display: block; flex: none; }
+.lb-gside-brand b { font-weight: 800; font-size: 1.0625rem; letter-spacing: -.01em; white-space: nowrap; }
+.lb-gside-toggle, .lb-gside-close { display: inline-grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; padding: 0; border: 0; border-radius: var(--r-sm); background: none; color: var(--text-2); cursor: pointer; }
+.lb-gside-toggle { margin-inline-start: auto; }
+.lb-gside-toggle:hover, .lb-gside-close:hover { background: var(--fill); color: var(--text); }
+.lb-gside-toggle svg, .lb-gside-close svg { width: 1.3rem; height: 1.3rem; }
+.lb-gside-close { display: none; }
 .lb-gside-scroll { flex: 1; display: grid; align-content: start; gap: var(--sp-1); overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; padding: var(--sp-2) var(--sp-2) var(--sp-5); scrollbar-width: thin; }
 .lb-gside-topic { display: grid; gap: 2px; padding: var(--sp-1); border-radius: var(--r-md); }
 .lb-gside-topic + .lb-gside-topic { border-top: 1px solid var(--line); border-radius: 0; padding-top: var(--sp-2); }
@@ -1086,34 +1064,31 @@ html.lb-has-gnav[data-gside="expanded"] { --lb-gside-w: 16.5rem; }
 .lb-gside-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lb-gscrim, .lb-gbottom { display: none; }
 @media (min-width: 761px) {
+  html[data-gside="collapsed"] .lb-gside-head { flex-direction: column; padding-inline: .45rem; }
+  html[data-gside="collapsed"] .lb-gside-toggle { margin-inline-start: 0; }
+  html[data-gside="collapsed"] .lb-gside-brand b,
+  html[data-gside="collapsed"] .lb-gside-h,
+  html[data-gside="collapsed"] .lb-gside-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   html[data-gside="collapsed"] .lb-gside-scroll { padding-inline: .45rem; scrollbar-width: none; }
   html[data-gside="collapsed"] .lb-gside-scroll::-webkit-scrollbar { display: none; }
   html[data-gside="collapsed"] .lb-gside-topic { padding-inline: 0; }
   html[data-gside="collapsed"] .lb-gside-item { justify-content: center; padding: .35rem 0; }
-  html[data-gside="collapsed"] .lb-gside-h,
-  html[data-gside="collapsed"] .lb-gside-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
 
-/* phones: the side bar is a drawer, the bottom nav bar takes the topics, both bars slide away while scrolling down */
+/* phones: the side bar is a drawer, the bottom nav bar takes the topics and slides away while scrolling down */
 @media (max-width: 760px) {
   html.lb-has-gnav { padding-right: 0; padding-bottom: calc(3.75rem + env(safe-area-inset-bottom, 0px));
-    --lb-gnav-pad: calc(3.5rem + env(safe-area-inset-top, 0px) + 3.75rem + env(safe-area-inset-bottom, 0px)); }
-  html.lb-has-gnav.lb-gnav-away { --lb-gnav-top: 0px; }
-  html.lb-gnav-away .lb-gnav { transform: translateY(-100%); }
+    --lb-gnav-pad: calc(3.75rem + env(safe-area-inset-bottom, 0px)); --lb-gnav-space: var(--lb-gnav-pad); }
   html.lb-gnav-away .lb-gbottom { transform: translateY(100%); }
   html.lb-gdrawer-open { overflow: hidden; }
-  .lb-gnav { padding-inline: var(--sp-4); }
-  .lb-gnav-toggle, .lb-gnav-topics { display: none; }
-  .lb-gpath { padding-inline: var(--sp-4); }
   .lb-gside {
-    top: 0; width: min(85vw, 20rem); z-index: 46; border-left: 0; box-shadow: var(--shadow-3);
+    width: min(85vw, 20rem); z-index: 46; border-left: 0; box-shadow: var(--shadow-3);
     transform: translateX(100%); visibility: hidden; transition: transform .22s ease, visibility 0s linear .22s;
   }
   html.lb-gdrawer-open .lb-gside { transform: none; visibility: visible; transition: transform .22s ease; }
-  .lb-gside-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); padding: calc(env(safe-area-inset-top, 0px) + var(--sp-3)) var(--sp-4) var(--sp-2); }
-  .lb-gside-head b { font-size: var(--fs-headline); font-weight: 800; }
-  .lb-gside-close { display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; margin-inline-end: -.5rem; padding: 0; border: 0; border-radius: var(--r-sm); background: none; color: var(--text); cursor: pointer; }
-  .lb-gside-close svg { width: 1.3rem; height: 1.3rem; }
+  .lb-gside-head { padding: calc(env(safe-area-inset-top, 0px) + var(--sp-3)) var(--sp-4) var(--sp-2); }
+  .lb-gside-toggle { display: none; }
+  .lb-gside-close { display: inline-grid; margin-inline-start: auto; margin-inline-end: -.5rem; }
   .lb-gside-scroll { padding-bottom: calc(var(--sp-5) + env(safe-area-inset-bottom, 0px)); }
   html.lb-gdrawer-open .lb-gscrim { display: block; position: fixed; inset: 0; z-index: 45; background: var(--overlay); }
   .lb-gbottom {
@@ -1132,8 +1107,8 @@ html.lb-has-gnav[data-gside="expanded"] { --lb-gside-w: 16.5rem; }
   .lb-gbottom-item[aria-current] { color: var(--tc-ink, var(--tint)); }
   .lb-gbottom-item[aria-current] svg { background: var(--tc-soft, var(--tint-soft)); }
 }
-@media (prefers-reduced-motion: reduce) { .lb-gnav, .lb-gside, .lb-gbottom { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { .lb-gside, .lb-gbottom { transition: none !important; } }
 @media print {
-  .lb-gnav, .lb-gpath, .lb-gside, .lb-gscrim, .lb-gbottom { display: none !important; }
+  .lb-gside, .lb-gscrim, .lb-gbottom { display: none !important; }
   html.lb-has-gnav { padding: 0; }
 }

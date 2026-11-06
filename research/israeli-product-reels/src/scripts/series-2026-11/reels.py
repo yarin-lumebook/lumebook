@@ -16,6 +16,8 @@ reels.json is the only source. This tool turns it into the pages and the working
     python3 reels.py log 2.1 lumi=4 dms=3 skip=41 watch=6.2   # the numbers the export lacks, 24 h after posting
     python3 reels.py report         # what works: every posted reel, then by series and by approach
     python3 reels.py merge FILE     # copies the saved edits (the "edits" collection of the reels hub artifact 7LypeDPVPLDcL5n2xEQui7, exported with ArtifactData) into reels.json
+    python3 reels.py merge local    # the same for edits made on the project server (localhost:8780), which the hub
+                                    # page saves in local-edits.json next to this file
 
 Paths are relative to the project root; run from anywhere.
 """
@@ -440,8 +442,14 @@ def merge(path):
     (a list of documents, or {"docs": [...]}, each with key and text). Formatting stays on the page only;
     reels.json gets the plain text. Prints what changed; build afterwards."""
     d = load()
-    raw = json.loads(Path(path).read_text())
-    docs = raw.get("docs", raw.get("documents", [])) if isinstance(raw, dict) else raw
+    if path == "local":   # edits made on the project server: {"edits": {key: doc}, "made": ..., "requests": ...}
+        lf = HERE / "local-edits.json"
+        raw = json.loads(lf.read_text()) if lf.exists() else {}
+        docs = list((raw.get("edits") or {}).values())
+        print(f"{len(docs)} edits in {lf.name}")
+    else:
+        raw = json.loads(Path(path).read_text())
+        docs = raw.get("docs", raw.get("documents", [])) if isinstance(raw, dict) else raw
     by = {"r" + r["id"].replace(".", "-"): r for r in d["reels"]}
     lists = {"vo": "vo", "cards": "cards", "footage": "footage", "blocker": "blockers"}
     shoots = {s["date"]: s for s in d["shoots"]}

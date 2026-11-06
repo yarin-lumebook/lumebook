@@ -7,9 +7,11 @@ Design system: shared/design (design.head(), lb- components, white only). Series
 Editing (Yarin, 04 Nov 2026: "just make the text editable and auto save with full text editor options"): every text on
 the page carries data-ek (a stable key such as r1-2__vo__3) and is contenteditable, with a formatting toolbar. Edits save
 by themselves, on claude.ai to the artifact's db (collection "edits", one document per key: html, text, base, at); on the
-project server or Vercel only in that browser (localStorage). An edit is shown only while its base still equals the
-built text, so a later change to reels.json is never hidden under an old edit. `reels.py merge FILE` copies saved edits
-back into reels.json (FILE = the "edits" collection read with ArtifactData).
+project server to local-edits.json next to this file (through /api/reels-hub/*, since 06 Nov 2026; what the browser had
+kept in localStorage moves there on the first visit); anywhere else (Vercel) only in that browser. An edit is shown only
+while its base still equals the built text, so a later change to reels.json is never hidden under an old edit.
+`reels.py merge FILE` copies saved edits back into reels.json (FILE = the "edits" collection read with ArtifactData;
+`reels.py merge local` reads local-edits.json instead).
 """
 import calendar, html, json, sys
 from datetime import date
@@ -324,27 +326,77 @@ SCRIPT = r"""
     if (a && (ev.metaKey || ev.ctrlKey)) window.open(a.href, "_blank", "noopener");
   });
 
+  /* Where edits live (6 Nov 2026): on claude.ai the artifact's db (collections edits, made, requests); on the project server
+     its own file, research/.../series-2026-11/local-edits.json, through /api/reels-hub/* (reels.py merge local reads it);
+     anywhere else (Vercel, a file) only this browser. The server twin below has the few db calls this page makes. */
+  var onServer = null;   // promise: true when this page is served by the project server
+  function projectServer() {
+    if (!onServer) onServer = fetch("/api/board/env").then(function (r) { return r.ok ? r.json() : null; }, function () { return null; })
+      .then(function (j) { return !!(j && j.server === "lumebook"); });
+    return onServer;
+  }
+  function serverDb() {
+    var HEAD = { "Content-Type": "application/json", "X-LumeBook-Board": "1" };
+    return fetch("/api/reels-hub/state").then(function (r) { if (!r.ok) throw new Error("state"); return r.json(); }).then(function (st) {
+      var docs = { edits: (st && st.edits) || {}, made: (st && st.made) || {}, requests: (st && st.requests) || {} };
+      function put(name, id, doc) {
+        return fetch("/api/reels-hub/doc?path=" + encodeURIComponent(name + "/" + id), { method: "PUT", headers: HEAD, body: JSON.stringify(doc) })
+          .then(function (r) { if (!r.ok) { var e = new Error("put"); e.code = "unavailable"; throw e; } docs[name][id] = doc; });
+      }
+      /* what this browser kept before the server did: send edits and ticks the server lacks (or has older), then forget them here */
+      var moved = [];
+      Object.keys(local).forEach(function (k) {
+        var l = local[k], s = docs.edits[k];
+        if (l && typeof l.html === "string" && (!s || String(l.at) > String(s.at))) {
+          docs.edits[k] = l; moved.push(put("edits", k, l).then(function () { delete local[k]; }));
+        } else delete local[k];
+      });
+      Promise.all(moved).then(function () { try { localStorage.setItem(KEY_L, JSON.stringify(local)); } catch (x) {} }, function () {});
+      var ticks = [];
+      Object.keys(made).forEach(function (k) {
+        if (!docs.made[k]) { var d = { key: k, made: !!made[k], at: new Date().toISOString() }; docs.made[k] = d; ticks.push(put("made", k, d)); }
+      });
+      Promise.all(ticks).then(function () { try { localStorage.removeItem(KEY_M); } catch (x) {} }, function () {});
+      function collection(name) {
+        return {
+          doc: function (id) { return { set: function (doc) { return put(name, id, doc); } }; },
+          add: function (doc) { return put(name, Date.now().toString(36) + Math.random().toString(36).slice(2, 7), doc); },
+          onSnapshot: function (cb) {
+            var ch = Object.keys(docs[name]).map(function (id) { return { type: "added", doc: { id: id, data: function () { return docs[name][id]; } } }; });
+            setTimeout(function () { cb({ docChanges: function () { return ch; } }); }, 0);
+          }
+        };
+      }
+      return { collection: collection };
+    });
+  }
+  function useDb(db) {
+    store = db.collection("edits");
+    madeStore = db.collection("made");
+    reqStore = db.collection("requests");
+    madeStore.onSnapshot(function (snap) {
+      snap.docChanges().forEach(function (c) { if (c.type === "removed") return; var v = c.doc.data(); made[c.doc.id] = !!(v && v.made); paintMade(c.doc.id); });
+    }, function () {});
+    var timer = setTimeout(function () { state("השמירה לא עונה", "warning"); }, 10000);
+    store.onSnapshot(function (snap) {
+      clearTimeout(timer);
+      snap.docChanges().forEach(function (c) { if (c.type !== "removed") applyDoc(c.doc.id, c.doc.data()); });
+      if (!pending) state("נשמר", "success");
+    }, function () { clearTimeout(timer); state("השמירה לא זמינה", "danger"); });
+  }
   if (window.claude && claude.use) {
     claude.use("db").then(function (db) {
       if (!db) { state("נשמר בדפדפן הזה", ""); return; }
-      store = db.collection("edits");
-      madeStore = db.collection("made");
-      reqStore = db.collection("requests");
-      madeStore.onSnapshot(function (snap) {
-        snap.docChanges().forEach(function (c) { if (c.type === "removed") return; var v = c.doc.data(); made[c.doc.id] = !!(v && v.made); paintMade(c.doc.id); });
-      }, function () {});
-      var timer = setTimeout(function () { state("השמירה לא עונה", "warning"); }, 10000);
-      store.onSnapshot(function (snap) {
-        clearTimeout(timer);
-        snap.docChanges().forEach(function (c) { if (c.type !== "removed") applyDoc(c.doc.id, c.doc.data()); });
-        if (!pending) state("נשמר", "success");
-      }, function () { clearTimeout(timer); state("השמירה לא זמינה", "danger"); });
+      useDb(db);
       return claude.use("user").then(function (u) {
         if (!u) return;
         return u.can("data.write").then(function (w) { if (w === false) { readOnly = true; lockAll(); state("קריאה בלבד", ""); } });
       });
     }, function () { state("נשמר בדפדפן הזה", ""); });
-  } else { state("נשמר בדפדפן הזה", ""); }
+  } else {
+    projectServer().then(function (ok) { return ok ? serverDb().then(useDb) : null; })
+      .then(function () { if (!store) state("נשמר בדפדפן הזה", ""); }, function () { state("נשמר בדפדפן הזה", ""); });
+  }
 
   /* popup: a day opens its reel */
   var dlg = $("#dlg"), dbody = $("#dlg-body"), holder = $("#cards"), cur = null;
@@ -507,6 +559,9 @@ SCRIPT = r"""
       if (c === "not_granted" || c === "sampling_disabled" || c === "not_declared" || c === "capability_disabled" || c === "capability_removed") {
         sampleFn = null; msg("אין אישור לשנות טקסט מכאן. אפשר לאשר בתפריט ההרשאות של העמוד.", true); return; }
       if (c === "rate_limited") { msg("יותר מדי בקשות כרגע. נסה שוב עוד קצת.", true); return; }
+      if (c === "not_logged_in") { msg("Claude לא מחובר במחשב הזה. צריך להריץ פעם אחת במסוף: claude auth login", true); return; }
+      if (c === "no_cli") { msg("אין פקודת claude במחשב הזה, אז העמוד המקומי לא יכול לשאול את Claude. אפשר לעבוד בגרסה ב claude.ai.", true); return; }
+      if (c === "timeout") { msg("Claude לקח יותר מדי זמן. אפשר לשלוח שוב.", true); return; }
       if (c === "invalid_json" || c === "empty_completion") { msg(which === "new" ? "לא הבנתי את התשובה. אפשר ללחוץ שוב." : "לא הבנתי את התשובה. אפשר לנסח את ההערה אחרת ולשלוח שוב.", true); return; }
       if (c === "refused") { msg("את ההערה הזאת לא יכולתי לבצע. נסה לנסח אחרת.", true); return; }
       msg("משהו נכשל בדרך. אפשר לשלוח שוב.", true);
@@ -539,7 +594,32 @@ SCRIPT = r"""
   });
   askT.addEventListener("keydown", function (ev) { if (ev.key === "Enter" && (ev.metaKey || ev.ctrlKey)) { ev.preventDefault(); ask.requestSubmit(); } });
   dlg.addEventListener("close", function () { if (askCtl) askCtl.abort(); msg(""); });
+  /* On claude.ai the ask buttons use the artifact's sample capability. On the project server there is no claude.ai, so
+     POST /api/sample (tools/lumebook.py, the claude command of this Mac) answers instead; this wrapper looks like the
+     artifact's sample function: a call, call.json, and errors with a .code the handlers below already know. */
+  function localSample() {
+    function fail(code, text) { var e = new Error(text || code); e.code = code; return e; }
+    function call(input, opts) {
+      var text = typeof input === "string" ? input : (input || []).map(function (m) { return m.content; }).join("\n\n");
+      return fetch("/api/sample", { method: "POST", headers: { "Content-Type": "application/json", "X-LumeBook-Board": "1" },
+        body: JSON.stringify({ prompt: text }), signal: opts && opts.signal }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          if (!r.ok) throw fail(j.code || "failed", j.error);
+          return { text: j.text || "", truncated: false };
+        });
+      }, function (x) { throw x && x.name === "AbortError" ? fail("cancelled") : fail("failed", x && x.message); });
+    }
+    call.json = function (input, opts) {
+      return call(input, opts).then(function (r) {
+        var t = r.text.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, "").trim(), a = t.indexOf("{"), b = t.lastIndexOf("}");
+        if (!t) throw fail("empty_completion");
+        try { return JSON.parse(a >= 0 && b > a ? t.slice(a, b + 1) : t); } catch (x) { throw fail("invalid_json"); }
+      });
+    };
+    return call;
+  }
   if (window.claude && claude.use) claude.use("sample").then(function (fn) { sampleFn = fn || null; }, function () {});
+  else projectServer().then(function (ok) { if (ok) sampleFn = localSample(); });
 
   /* toolbar */
   var tb = $("#tb"), lastRange = null, lastEl = null;

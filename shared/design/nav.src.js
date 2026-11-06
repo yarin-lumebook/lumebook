@@ -1,10 +1,10 @@
 /* The LumeBook project nav (Yarin, 5 Nov 2026): one navigation on every internal page.
-   - top bar (first layer): the logo home to HQ and HQ's topics; a topic opens its tools in the side bar
-   - location path under it: HQ › topic › this page
-   - side bar on the right (second layer): every HQ tool by topic; collapses to an icon rail, the menu button toggles it,
-     the choice is kept in this browser
+   Since 6 Nov 2026 there is no top bar and no location path (Yarin: "remove the top navbar"): the side bar runs the full
+   height of the window and holds everything.
+   - side bar on the right: the logo home to HQ and the menu button at its top, then every HQ tool by topic; collapses to an
+     icon rail, the menu button toggles it, the choice is kept in this browser. The current page is marked in the list.
    - phones (760px and narrower): the side bar is a drawer over the page, a bottom nav bar holds HQ, the first three
-     topics and "עוד"; both bars slide away while scrolling down and come back on the way up
+     topics and "עוד"; it slides away while scrolling down and comes back on the way up
    Source: shared/design/nav.src.js. design.py puts window.LB_NAV_DATA in front of it (hq-tools.json with the topic
    colours, the icons, the logo, the HQ and Vercel addresses, HQ's saved layout) and writes shared/design/nav.js.
    Builds inline it with design.head(); HQ and the SMM plan link a synced copy. Styles: "project nav" in lumebook.css.
@@ -99,29 +99,12 @@
   const el = {};
 
   // ---------- markup ----------
-  function topBar(cur) {
-    const curTopic = cur ? cur[1].id : "";
-    return `<button type="button" class="lb-gnav-toggle" data-gnav="toggle" aria-controls="lb-gside" aria-expanded="false" aria-label="כל הכלים">${ui("menu")}</button>
-      <a class="lb-gnav-brand" href="${esc(HQ_URL || "#tools")}"${hqTarget} aria-label="HQ, כל הכלים"><img src="${esc(D.logo || "")}" alt="" width="28" height="28"><b>LumeBook</b></a>
-      <nav class="lb-gnav-topics" aria-label="נושאים">${S.L.topics.filter((tp) => tp.tools.length).map((tp) =>
-        `<button type="button" class="lb-gnav-topic lb-cat-${tp.cat}" data-gtopic="${esc(tp.id)}" aria-controls="lb-gside"${tp.id === curTopic ? ' aria-current="true"' : ""}>${ico(tp.icon)}<span>${esc(tp.label)}</span></button>`).join("")}</nav>`;
-  }
-  function path(cur) {
-    const items = [];
-    const atHome = PAGE.hq && (!S.view || S.view === "tools");
-    items.push(atHome ? `<b aria-current="page">HQ</b>` : `<a href="${esc(HQ_URL || "#tools")}"${hqTarget}>HQ</a>`);
-    if (cur) items.push(`<button type="button" data-gtopic="${esc(cur[1].id)}" aria-controls="lb-gside">${esc(cur[1].label)}</button>`);
-    if (!atHome) {
-      const name = PAGE.hq ? S.viewTitle || (cur && cur[0].t) : cur ? cur[0].t : pageTitle();
-      if (name) items.push(`<b aria-current="page"${cur && cur[0].en ? ' lang="en" dir="ltr"' : ""}>${esc(name)}</b>`);
-    }
-    return `<nav class="lb-crumbs" aria-label="מיקום בפרויקט">${items.join("")}</nav><div class="lb-gpath-slot"></div>`;
-  }
-  // a page that is not one of HQ's tools shows its own title, without the "LumeBook ·" part many titles start with
-  const pageTitle = () => (document.title || "").replace(/^\s*(LumeBook|לומבוק)\s*[·|:\-]\s*/i, "").trim();
   function side(cur) {
     const curId = cur ? cur[0].id : "";
-    return `<div class="lb-gside-head"><b>כל הכלים</b><button type="button" class="lb-gside-close" data-gnav="close" aria-label="סגירה">${ui("close")}</button></div>
+    return `<div class="lb-gside-head">
+        <a class="lb-gside-brand" href="${esc(HQ_URL || "#tools")}"${hqTarget} aria-label="HQ, כל הכלים"><img src="${esc(D.logo || "")}" alt="" width="28" height="28"><b>LumeBook</b></a>
+        <button type="button" class="lb-gside-toggle" data-gnav="toggle" aria-controls="lb-gside" aria-expanded="false" aria-label="כל הכלים">${ui("menu")}</button>
+        <button type="button" class="lb-gside-close" data-gnav="close" aria-label="סגירה">${ui("close")}</button></div>
       <nav class="lb-gside-scroll" aria-label="כל הכלים">${S.L.topics.filter((tp) => tp.tools.length).map((tp) =>
         `<section class="lb-gside-topic lb-cat-${tp.cat}${tp.id === S.focus ? " is-focus" : ""}" data-gtopic-sec="${esc(tp.id)}" aria-labelledby="lb-gside-${esc(tp.id)}">
           <h2 class="lb-gside-h" id="lb-gside-${esc(tp.id)}">${esc(tp.label)}</h2>
@@ -144,36 +127,23 @@
 
   // ---------- drawing ----------
   function mount() {
-    if (el.bar || !document.body) return;
+    if (el.side || !document.body) return;
     const make = (tag, cls, attrs) => { const n = document.createElement(tag); n.className = cls; n.dir = "rtl"; n.lang = "he"; for (const [k, v] of Object.entries(attrs || {})) n.setAttribute(k, v); return n; };
-    el.bar = make("header", "lb-gnav");
-    el.path = make("div", "lb-gpath");
     el.side = make("aside", "lb-gside", { id: "lb-gside", "aria-label": "כל הכלים" });
     el.scrim = make("div", "lb-gscrim", { "data-gnav": "close" });
     el.bottom = make("nav", "lb-gbottom", { "aria-label": "ניווט ראשי" });
-    document.body.prepend(el.bar, el.path);
     document.body.append(el.side, el.scrim, el.bottom);
     root.classList.add("lb-has-gnav");
     draw();
-    // anything the page marks for the path row (HQ: its data freshness) moves to its end
-    document.querySelectorAll("[data-lb-gpath-slot]").forEach((n) => el.path.querySelector(".lb-gpath-slot").append(n));
-    el.bar.addEventListener("click", onClick); el.path.addEventListener("click", onClick); el.side.addEventListener("click", onClick);
-    el.scrim.addEventListener("click", onClick); el.bottom.addEventListener("click", onClick);
+    el.side.addEventListener("click", onClick); el.scrim.addEventListener("click", onClick); el.bottom.addEventListener("click", onClick);
     document.addEventListener("keydown", onKey);
     PHONE.addEventListener("change", () => { closeDrawer(false); setAway(false); applyState(); });
-    // the path row's height, for pages that fill the window (--lb-gnav-space in lumebook.css)
-    const measure = () => root.style.setProperty("--lb-gpath-h", el.path.offsetHeight + "px");
-    measure(); if (window.ResizeObserver) new ResizeObserver(measure).observe(el.path);
     window.addEventListener("scroll", onScroll, { passive: true });
     if (MODE === "local" && ON_SERVER && !PAGE.hq) loadSaved();
   }
   function draw() {
-    if (!el.bar) return;
+    if (!el.side) return;
     const cur = findCurrent(S.L);
-    el.bar.innerHTML = topBar(cur);
-    const slot = el.path.querySelector(".lb-gpath-slot"), kept = slot ? [...slot.childNodes] : [];
-    el.path.innerHTML = path(cur);
-    el.path.querySelector(".lb-gpath-slot").append(...kept);
     const scroll = el.side.querySelector(".lb-gside-scroll"), top = scroll ? scroll.scrollTop : 0;
     el.side.innerHTML = side(cur);
     el.side.querySelector(".lb-gside-scroll").scrollTop = top;
@@ -183,7 +153,7 @@
   function applyState() {
     const phone = PHONE.matches, open = root.classList.contains("lb-gdrawer-open");
     root.dataset.gside = expanded ? "expanded" : "collapsed";
-    const tog = el.bar && el.bar.querySelector('[data-gnav="toggle"]');
+    const tog = el.side && el.side.querySelector('[data-gnav="toggle"]');
     if (tog) { tog.setAttribute("aria-expanded", String(phone ? open : expanded)); tog.setAttribute("aria-label", phone ? "כל הכלים" : expanded ? "כיווץ סרגל הכלים" : "הרחבת סרגל הכלים"); }
     const more = el.bottom && el.bottom.querySelector('[data-gnav="more"]');
     if (more) more.setAttribute("aria-expanded", String(open));
@@ -205,7 +175,7 @@
     root.classList.remove("lb-gdrawer-open"); applyState();
     if (refocus && S.opener && S.opener.focus) S.opener.focus({ preventScroll: true });
   }
-  // a topic in the top bar, the path or the bottom bar opens its tools in the side bar (the second layer)
+  // a topic in the bottom bar (phones) opens its tools in the side bar drawer
   function showTopic(id) {
     S.focus = id;
     el.side.querySelectorAll("[data-gtopic-sec]").forEach((s) => s.classList.toggle("is-focus", s.dataset.gtopicSec === id));
@@ -234,7 +204,7 @@
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }
 
-  // ---------- phones: the top and bottom bars slide away while scrolling down ----------
+  // ---------- phones: the bottom bar slides away while scrolling down ----------
   function setAway(on) { if (S.away === on) return; S.away = on; root.classList.toggle("lb-gnav-away", on); }
   let ticking = false;
   function onScroll() {

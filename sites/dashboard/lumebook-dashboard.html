@@ -6,10 +6,10 @@
 <link rel="stylesheet" href="design/categories.css">
 <link rel="stylesheet" href="course/course.css">
 <style>
-/* Layout: one app shell under the project nav (design/nav.js: top bar, location path, side bar), each view an lb-page.
+/* Layout: one app shell beside the project nav (design/nav.js: the full-height side bar), each view an lb-page.
    All color, type and spacing come from the LumeBook design system (design/lumebook.css); only dashboard-specific pieces live here. */
 .view[hidden] { display: none !important; }
-.top-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; justify-content: flex-end; }
+.top-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; justify-content: flex-end; padding: var(--sp-3) var(--sp-5) 0; }
 
 /* Q4 timeline */
 .tl { display: grid; gap: var(--sp-3); }
@@ -70,9 +70,9 @@ tr.test td { opacity: .5; }
 <div class="lb-app no-sidebar" dir="rtl" lang="he">
 
   <div class="lb-main">
-    <!-- the project nav (design/nav.js, 5 Nov 2026) draws the top bar, the location path and the side bar of every tool;
-         the freshness chips move to the end of its path row (data-lb-gpath-slot) -->
-    <div class="top-meta" id="fresh" data-lb-gpath-slot><span class="lb-chip"><span class="lb-dot"></span>טוען נתונים…</span></div>
+    <!-- the project nav (design/nav.js, 5 Nov 2026) draws the full-height side bar of every tool (no top bar or path row since
+         6 Nov 2026); the freshness chips sit at the top of the page -->
+    <div class="top-meta" id="fresh"><span class="lb-chip"><span class="lb-dot"></span>טוען נתונים…</span></div>
 
     <main>
       <!-- TOOLS: every tool as a cube, the default view since 5 Nov 2026 (the list: shared/design/hq-tools.json, through design/nav.js) -->

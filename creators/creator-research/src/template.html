@@ -32,7 +32,7 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 ::-webkit-scrollbar{display:none}
 
 /* ---------- app shell: sidebar + top bar + one page at a time ---------- */
-.side-hd{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2)}
+.side-hd{display:none}
 .side-nav{display:grid;gap:var(--sp-1);align-content:start}
 .nav-grp{display:grid;gap:2px}
 .side .lb-nav-item{padding-block:.4rem;min-width:0}
@@ -48,19 +48,19 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 /* tracks are categories, not states: a square swatch in the track's category colour (shared/design/categories.json, set creator-tracks) */
 .dot.tk{border-radius:2px;--c:var(--tc)}
 /* status colours: one design token each, always beside the status word (never colour alone) */
-.st-new{--c:var(--line-strong)}.st-sent{--c:var(--tint)}.st-replied,.st-process{--c:var(--info)}.st-book{--c:var(--accent)}.st-content{--c:color-mix(in srgb,var(--success) 55%,var(--info))}.st-yes,.st-posted{--c:var(--success)}.st-noreply{--c:var(--text-3)}.st-code{--c:var(--accent)}.st-retry{--c:color-mix(in srgb,var(--danger) 50%,var(--warning))}.st-declined{--c:var(--danger)}.st-unfit{--c:var(--text-3)}.st-due{--c:var(--warning)}.st-all{--c:var(--text)}
+.st-new{--c:var(--line-strong)}.st-sent{--c:var(--tint)}.st-replied,.st-process{--c:var(--info)}.st-book{--c:var(--accent)}.st-content{--c:color-mix(in srgb,var(--success) 55%,var(--info))}.st-yes,.st-posted{--c:var(--success)}.st-noreply{--c:var(--text-3)}.st-code{--c:var(--accent)}.st-retry{--c:color-mix(in srgb,var(--danger) 50%,var(--warning))}.st-future{--c:color-mix(in srgb,var(--info) 40%,var(--text-3))}.st-declined{--c:var(--danger)}.st-unfit{--c:var(--text-3)}.st-due{--c:var(--warning)}.st-all{--c:var(--text)}
 .tb-brand{display:none;flex:none;border-radius:var(--r-sm)}
 .tb-brand .brand-logo{width:1.75rem;height:1.75rem}
 .lb-topbar .lb-crumbs{font-size:var(--fs-callout)}   /* lb-crumbs is the page name in this bar, so it keeps the callout size */
-.tb-hint{font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-3);white-space:nowrap}
 .lb-btn.menu,.lb-btn.side-close{display:none}
 .side .lb-btn.side-close{color:var(--text-2)}
 @media (max-width:860px){
   .lb-btn.menu,.lb-btn.side-close{display:inline-flex}
+  .side-hd{display:flex;align-items:center;justify-content:flex-end}
   .side{box-shadow:none;visibility:hidden;transition:transform .2s ease,visibility 0s linear .2s}
   body.nav-open .side{transform:none;visibility:visible;box-shadow:var(--shadow-3);transition:transform .2s ease}
   .tb-brand{display:inline-flex}
-  .tb-hint,#crumbG,#crumbT::before{display:none}
+  #crumbG,#crumbT::before{display:none}
 }
 @media (max-width:640px){
   .lb-topbar-in{gap:var(--sp-2)}
@@ -119,7 +119,7 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 /* save state: lb-savestate from the design system; the button only drops its chrome. On a phone only a problem keeps its word */
 .svst{font:inherit;font-family:var(--font-2);font-size:var(--fs-footnote);border:0;background:none;padding:.3rem .55rem;border-radius:var(--r-pill);cursor:pointer;min-height:2rem;min-width:0}
 .svst:hover{background:var(--fill)}
-@media (max-width:480px){.lb-topbar .hub{display:none}.svst .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.svst.is-wait .t,.svst.is-error .t{position:static;width:auto;height:auto;clip:auto}}
+@media (max-width:480px){.svst .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.svst.is-wait .t,.svst.is-error .t{position:static;width:auto;height:auto;clip:auto}}
 /* drawer: one creator's card */
 .drw{z-index:55}
 .drw .lb-drawer-head{gap:var(--sp-2);padding:var(--sp-3) var(--sp-4)}
@@ -282,6 +282,18 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .oc .xdecl{width:2.25rem;height:2.25rem;min-height:2.25rem;padding:0;border-radius:50%;flex:none;background:transparent;color:var(--text-3);border:1px solid var(--line)}
 .oc .xdecl .i{width:1rem;height:1rem}
 .oc .xdecl:hover{background:var(--danger-soft);border-color:transparent;color:var(--danger)}
+/* experts badge (06 Nov 2026, src/experts.py decides who): the one solid ink pill on a card, with the cap icon and the field,
+   so a professional reads at a glance; the avatar carries a small ink mark of the same icon. Ink and ground are the toast's pair. */
+.xb{display:inline-flex;align-items:center;gap:.35rem;min-width:0;max-width:100%;padding:.15rem .7rem .15rem .6rem;border-radius:var(--r-pill);background:var(--text);color:var(--bg);font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;line-height:1.5;white-space:nowrap}
+.xb .i{width:.95rem;height:.95rem;flex:none}
+.xb > span{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.xb.sm{margin-inline-start:.4rem;padding-block:.05rem;vertical-align:middle}
+.hrow{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem var(--sp-3);min-width:0}
+.oav{position:relative}
+.oav .xm{position:absolute;inset-block-end:-.2rem;inset-inline-end:-.2rem;display:grid;place-items:center;width:1.2rem;height:1.2rem;border-radius:50%;background:var(--text);color:var(--bg);box-shadow:0 0 0 2px var(--surface)}
+.oav .xm .i{width:.75rem;height:.75rem}
+.lb-btn.tbb.xtg[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:transparent}
+.lb-btn.tbb.xtg[aria-pressed="true"] .lb-count{background:var(--bg);color:var(--text)}
 .chips{display:flex;flex-wrap:wrap;gap:var(--sp-2);min-width:0}
 .chips .lb-chip{max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:var(--fs-caption);padding:.2rem .65rem}
 .chips .lb-chip.wrap{white-space:normal}
@@ -501,9 +513,9 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
 
 
 <div class="lb-app" dir="rtl">
-<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><a class="lb-brand" href="#overview" data-route="overview"><span class="brand-logo" aria-hidden="true"></span><span><b>LumeBook</b><small>מפת היוצרים</small></span></a><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט">__ICON:close__</button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item lb-ws-plan" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות להיום</span><b class="cnt lb-count" id="remN"></b></a><a class="nav-i lb-nav-item lb-ws-plan" href="#remall" data-route="remall" data-ic="cal"><span class="t">כל התזכורות</span><b class="cnt lb-count" id="remAllN"></b></a><a class="nav-i lb-nav-item lb-ws-plan" href="#followups" data-route="followups" data-ic="send"><span class="t">פולואפים להיום</span><b class="cnt lb-count" data-cnt="due"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item lb-ws-creators" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div><a class="nav-i lb-nav-item lb-ws-creators" href="#books" data-route="books" data-ic="gift"><span class="t">ספרים שנוצרו</span><b class="cnt lb-count" id="booksN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item lb-ws-library" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item lb-ws-library" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item lb-ws-system" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item lb-ws-system" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item lb-ws-system" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ</span>__ICON:open-out__</a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
+<aside class="side lb-sidebar" id="side" aria-label="תפריט ראשי"><div class="side-hd"><button type="button" class="lb-btn ghost icon side-close" id="sideClose" aria-label="סגירת התפריט">__ICON:close__</button></div><nav class="side-nav" aria-label="עמודים"><div class="nav-grp"><a class="nav-i lb-nav-item lb-ws-plan" href="#reminders" data-route="reminders" data-ic="bell"><span class="t">תזכורות להיום</span><b class="cnt lb-count" id="remN"></b></a><a class="nav-i lb-nav-item lb-ws-plan" href="#remall" data-route="remall" data-ic="cal"><span class="t">כל התזכורות</span><b class="cnt lb-count" id="remAllN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">פניות</p><a class="nav-i lb-nav-item lb-ws-creators" href="#overview" data-route="overview" data-ic="overview"><span class="t">ראשי</span></a><div id="navStatus" style="display:grid;gap:1px"></div><a class="nav-i lb-nav-item lb-ws-creators" href="#books" data-route="books" data-ic="gift"><span class="t">ספרים שנוצרו</span><b class="cnt lb-count" id="booksN"></b></a></div><div class="nav-grp"><p class="lb-nav-label">מחקר</p><a class="nav-i lb-nav-item lb-ws-library" href="#database" data-route="database" data-ic="table"><span class="t">מאגר היוצרים</span><b class="cnt lb-count" data-cnt="all"></b></a><a class="nav-i lb-nav-item lb-ws-library" href="#archetypes" data-route="archetypes" data-ic="map"><span class="t">מפת סוגי היוצרים</span></a></div><div class="nav-grp"><p class="lb-nav-label">הגדרות</p><a class="nav-i lb-nav-item lb-ws-system" href="#messages" data-route="messages" data-ic="mail"><span class="t">הודעות וקול</span></a><a class="nav-i lb-nav-item lb-ws-system" href="#method" data-route="method" data-ic="info"><span class="t">שיטה ומגבלות</span></a><a class="nav-i lb-nav-item lb-ws-system" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener" data-ic="overview"><span class="t">LumeBook HQ</span>__ICON:open-out__</a></div></nav><div class="side-ft"><span class="dot" id="syncDot"></span><span id="syncTxt">טוען…</span></div></aside><div class="scrim lb-scrim" id="scrim" hidden></div>
 <div class="main lb-main">
-<header class="topbar lb-topbar"><div class="lb-topbar-in"><button type="button" class="lb-btn ghost icon menu" id="menuBtn" aria-label="פתיחת התפריט" aria-controls="side" aria-expanded="false">__ICON:menu__</button><a class="tb-brand" href="#overview" aria-label="מפת היוצרים, ראשי"><span class="brand-logo" aria-hidden="true"></span></a><nav class="lb-crumbs" aria-label="מיקום בעמוד"><span id="crumbG">פניות</span><b id="crumbT" aria-current="page">ראשי</b></nav><span class="lb-spacer"></span><span class="tb-hint"><kbd class="lb-kbd">/</kbd> לחיפוש</span><button type="button" class="svst lb-savestate is-wait" id="svst" title="מצב השמירה"><span class="t">טוען…</span></button><button type="button" class="lb-btn sm addb" id="addBtn" data-ic="userplus" aria-label="הוספת יוצרים"><span class="t">הוספת יוצרים</span></button><a class="lb-btn ghost sm hub" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">LumeBook HQ</a></div></header>
+<header class="topbar lb-topbar"><div class="lb-topbar-in"><button type="button" class="lb-btn ghost icon menu" id="menuBtn" aria-label="פתיחת התפריט" aria-controls="side" aria-expanded="false">__ICON:menu__</button><a class="tb-brand" href="#overview" aria-label="מפת היוצרים, ראשי"><span class="brand-logo" aria-hidden="true"></span></a><nav class="lb-crumbs" aria-label="מיקום בעמוד"><span id="crumbG">פניות</span><b id="crumbT" aria-current="page">ראשי</b></nav><span class="lb-spacer"></span><button type="button" class="svst lb-savestate is-wait" id="svst" title="מצב השמירה"><span class="t">טוען…</span></button><button type="button" class="lb-btn sm addb" id="addBtn" data-ic="userplus" aria-label="הוספת יוצרים"><span class="t">הוספת יוצרים</span></button></div></header>
 <main id="main" class="lb-page">
 <div class="warnbox lb-callout" id="dbnote" hidden></div>
 <div class="warnbox lb-callout" id="vnote" hidden role="status" aria-live="polite"></div>
@@ -687,6 +699,13 @@ const addedLabel=c=>{const p=(c.added||"").split("-"); return p.length===3?"\u20
 const ARCH_HE={"Parent":"הורה","Parent guide / coach":"הדרכת הורים / קואצ׳ינג","Child-dev professional":"מקצועות התפתחות הילד","Family travel & outings":"טיולים ובילויים עם המשפחה","Gan / preschool":"גן / גיל הגן","Special ed & neurodiversity":"חינוך מיוחד ונוירודיברסיטי","Homeschool / alternative ed":"חינוך ביתי / חינוך אלטרנטיבי","Parent (twins)":"הורה (תאומים)","Parent (dad)":"הורה (אבא)","Elementary & remedial teacher":"הוראה ביסודי ובהוראה מתקנת","Home daycare / childcare":"משפחתון / טיפול בילדים","Community leader / podcaster":"הובלת קהילה / פודקאסט","Screen-free / free play":"בלי מסכים / משחק חופשי","Books & reading":"ספרים וקריאה","Grandparent":"סבא / סבתא","Parent (single / co-parent / blended)":"הורה (יחידני / הורות משותפת / משפחה מעורבת)","Bilingual & multicultural":"דו-לשוני ורב-תרבותי",
   "Unexpected: party producer":"לא צפוי: הפקת ימי הולדת","Unexpected: kids activities":"לא צפוי: פעילויות לילדים","Unexpected: family photographer":"לא צפוי: צילום משפחות","Unexpected: kids entertainer":"לא צפוי: הפעלת ילדים","Unexpected: creative producer":"לא צפוי: הפקה יצירתית","Unexpected: enrichment-centre owner":"לא צפוי: מרכז העשרה","Unexpected: toddler music teacher":"לא צפוי: מוזיקה לפעוטות","Unexpected: kids nutritionist":"לא צפוי: תזונה לילדים","Unexpected: family games maker":"לא צפוי: משחקי משפחה","Unexpected: kids workshops":"לא צפוי: סדנאות לילדים","Unexpected: illustrator and cartoonist":"לא צפוי: איור וקומיקס","Unexpected: kids dance teacher":"לא צפוי: מחול לילדים","Unexpected: kids musician":"לא צפוי: מוזיקה לילדים"};
 const archL=v=>ARCH_HE[v]||v;
+// ---------- experts (06 Nov 2026): creators who are professionals in the child and parenting field. src/experts.py decides who
+// (c.xp = their fields, [] for everyone else; hand list in src/experts.json); XP = [key, long label, short label for the badge] ----------
+const XP=__XP__, XPL=Object.fromEntries(XP.map(x=>[x[0],x[1]])), XPS=Object.fromEntries(XP.map(x=>[x[0],x[2]]));
+const xpOf=c=>c.xp||[];
+// the badge: a solid ink pill with the cap icon and up to two fields (the full list is in the tooltip); cls "sm" is the table's
+const xpBadge=(c,cls)=>{ const a=xpOf(c); if(!a.length) return ""; const s=a.map(k=>XPS[k]), t=s.length>2?s.slice(0,2).join(" · ")+" +"+(s.length-2):s.join(" · ");
+  return '<span class="xb'+(cls?" "+cls:"")+'" title="'+esc("תחום מקצועי: "+a.map(k=>XPL[k]).join(", "))+'">'+ICON.xp+'<span>'+esc(t)+'</span></span>' };
 const PRAC_HE=[["Gifted + affiliate (est.)","מתנה ושותפות (הערכה)"],["Likely gifted-only (est.)","כנראה רק מתנה (הערכה)"],["Potentially expensive relative to size (est.)","עלול להיות יקר ביחס לגודל (הערכה)"],["Standard paid micro (est.)","מיקרו בתשלום רגיל (הערכה)"],["Low-cost paid micro (est.)","מיקרו בתשלום נמוך (הערכה)"],["offers UGC","מציעים UGC"],["may expect a fee at 28K","ייתכן שיצפו לתשלום ב-28K"],["sells her own games","מוכרת משחקים משלה"],["bio says she makes content for businesses","בביו כתוב שהיא יוצרת תוכן לעסקים"],["median 329K views","חציון של 329K צפיות"],["sells UGC","מוכרת UGC"]];
 const pracL=s=>PRAC_HE.reduce((x,[a,b])=>x.split(a).join(b),String(s||""));
 const CONF_HE={"No apparent conflict":"אין התנגשות נראית לעין","Adjacent (own books/products)":"קרוב (ספרים או מוצרים משלהם)","Adjacent (sells learning games)":"קרוב (מוכרים משחקי למידה)","Adjacent (sells her own booklets)":"קרוב (מוכרת חוברות משלה)","Adjacent (sells a reading method)":"קרוב (מוכרת שיטת קריאה)","Adjacent (sells learning materials)":"קרוב (מוכרת חומרי למידה)","Unclear":"לא ברור","Unclear, check what debbi.app is":"לא ברור, לבדוק מה זה debbi.app"};
@@ -704,13 +723,13 @@ const bdiH=s=>esc(s).replace(/@[\w.]+[\w]/g,m=>'<bdi dir="ltr">'+m+'</bdi>');   
 const LBI=__LB_ICONS__;
 const svg=p=>'<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
 // the page's short names and their names in the set (build2.py checks that each one is in the set)
-const ICN={"overview":"overview","people":"people","table":"sheet","map":"map","gift":"gift","mail":"mail","send":"send","info":"info","cal":"calendar","bell":"bell","filter":"funnel","sort":"sort","group":"group","search":"search","menu":"menu","close":"close","check":"check","userplus":"user-plus","checkc":"check-circle","copy":"copy","chat":"whatsapp","insta":"instagram","clock":"clock","arrL":"arrow-left","arrR":"arrow-right","spread":"spread","stack":"stack","skip":"skip","undo":"undo","eye":"eye","reach":"trend","heart":"heart","comment":"chat","cart":"bag","coin":"wallet","ext":"open-out","plus":"plus","pencil":"pencil"};
+const ICN={"overview":"overview","people":"people","table":"sheet","map":"map","gift":"gift","mail":"mail","send":"send","info":"info","cal":"calendar","bell":"bell","filter":"funnel","sort":"sort","group":"group","search":"search","menu":"menu","close":"close","check":"check","userplus":"user-plus","checkc":"check-circle","copy":"copy","chat":"whatsapp","insta":"instagram","clock":"clock","arrL":"arrow-left","arrR":"arrow-right","spread":"spread","stack":"stack","skip":"skip","undo":"undo","eye":"eye","reach":"trend","heart":"heart","comment":"chat","cart":"bag","coin":"wallet","ext":"open-out","plus":"plus","pencil":"pencil","xp":"course"};
 const ICON=Object.fromEntries(Object.entries(ICN).map(([k,n])=>[k,svg(LBI[n])]));
 // the channel's own icon, wherever a channel is named on a button
 const CHI={"Instagram DM":ICON.insta,WhatsApp:ICON.chat,Email:ICON.mail};
 
 // ---------- views engine: search, faceted filters, multi-level sort, grouping (Creators and Database share it) ----------
-const ST=[["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["noreply","לא ענו"],["process","בתהליך"],["retry","לנסות שוב"],["declined","סירבו"]];   // Book sent and Content created are steps inside In process since 19 Oct 2026
+const ST=[["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["noreply","לא ענו"],["process","בתהליך"],["retry","לנסות שוב"],["future","אולי בעתיד"],["declined","סירבו"]];   // Book sent and Content created are steps inside In process since 19 Oct 2026
 const STD=ST.slice(); STD.splice(2,0,["due","פולואפ לשליחה"]);
 const STL=Object.fromEntries(STD);
 const ST_I=Object.fromEntries(STD.map((s,i)=>[s[0],i]));
@@ -794,6 +813,7 @@ const isPost=t=>/: https:\/\/www\.instagram\.com\/reel\//.test(t)||/^posted/.tes
 const rng=(l,a,b,g)=>({v:l,l,t:c=>{ const x=g(c); return x!=null&&x>=a&&x<b }});
 const FACETS={
   status:{l:"סטטוס הפנייה",vals:STD.map(([v,l])=>({v,l,t:c=>HOOK.bk(c)===v}))},
+  xp:{l:"מומחים",vals:[{v:"any",l:"כל המומחים",t:c=>xpOf(c).length>0}].concat(XP.map(([k,l])=>({v:k,l,t:c=>xpOf(c).includes(k)})))},
   ch:{l:"ערוץ ראשון",vals:["WhatsApp","Email","Instagram DM"].map(v=>({v,l:chL(v),t:c=>chOf(c)===v}))},
   track:{l:"מסלול",vals:TRACKS.map(([v,l])=>({v,l,t:c=>HOOK.trk(c)===v}))},
   stage:{l:"שלב בתהליך",vals:STAGES.map(([v,l])=>({v,l,t:c=>HOOK.stage(c)===v}))},
@@ -836,7 +856,7 @@ const GROUPS={
   arch:{l:"סוג יוצר",v:c=>c.arch,lab:archL,ord:archL},
   f:{l:"טווח עוקבים",v:c=>{const x=FACETS.f.vals.findIndex(b=>b.t(c)); return x<0?9:x},lab:v=>FACETS.f.vals[v]?FACETS.f.vals[v].l:"לא ידוע",ord:v=>v}
 };
-const searchText=c=>[c.h,c.name,c.n,c.role,c.topics,c.arch,archL(c.arch),c.email,kidsTxt(c),HOOK.note(c.h),HOOK.more(c)].join(" ").toLowerCase();
+const searchText=c=>[c.h,c.name,c.n,c.role,c.topics,c.arch,archL(c.arch),xpOf(c).length?"מומחה מומחים "+xpOf(c).map(k=>XPL[k]).join(" "):"",c.email,kidsTxt(c),HOOK.note(c.h),HOOK.more(c)].join(" ").toLowerCase();
 function matches(c,st,skip){
   if(st.q){ const t=searchText(c); if(!st.q.toLowerCase().split(/\s+/).filter(Boolean).every(w=>t.includes(w))) return false }
   for(const k in st.f){
@@ -870,6 +890,8 @@ function toolbar(el,key,o){
   el.innerHTML='<div class="tb">'
    +'<label class="tb-search">'+ICON.search+'<input type="search" data-q placeholder="'+esc(o.ph)+'" aria-label="'+esc(o.ph)+'" autocomplete="off"><kbd class="lb-kbd" aria-hidden="true">/</kbd></label>'
    +'<div class="tb-acts">'
+   // the experts switch (06 Nov 2026): one press shows only the creators with a professional field, another press brings everyone back
+   +(o.facets.includes("xp")?'<button type="button" class="lb-btn secondary tbb xtg" data-xp aria-pressed="false" title="להציג רק יוצרים עם תחום מקצועי: קלינאות, ריפוי בעיסוק, ייעוץ שינה, הדרכת הורים ועוד">'+ICON.xp+'מומחים בלבד<b class="lb-count" data-xn></b></button>':'')
    +'<button type="button" class="lb-btn secondary tbb" data-pop="filter" aria-expanded="false" aria-haspopup="dialog">'+ICON.filter+'סינון<b class="tb-n lb-count is-tint" data-fn hidden></b></button>'
    +'<button type="button" class="lb-btn secondary tbb" data-pop="sort" aria-expanded="false" aria-haspopup="dialog">'+ICON.sort+'<span data-sl></span></button>'
    +(o.group?'<label class="tb-sel" title="קיבוץ הרשימה">'+ICON.group+'<select data-group aria-label="קיבוץ לפי">'+Object.entries(GROUPS).map(([k,g])=>'<option value="'+k+'">'+(k==="none"?"בלי קיבוץ":"קיבוץ: "+g.l)+'</option>').join("")+'</select></label>':'')
@@ -918,6 +940,7 @@ function toolbar(el,key,o){
   el.addEventListener("click",e=>{
     const b=e.target.closest("button"); if(!b||!el.contains(b)) return; const s=st();
     if(b.dataset.pop){ pop(b.dataset.pop); return }
+    if(b.hasAttribute("data-xp")){ const f={...s.f}; if(f.xp&&f.xp.length) delete f.xp; else f.xp=["any"]; s.f=f; change(); return }
     if(b.hasAttribute("data-close")){ pop(null); return }
     if(b.hasAttribute("data-unq")){ s.q=""; qIn.value=""; change(); return }
     if(b.dataset.unf){ const f={...s.f}; delete f[b.dataset.unf]; s.f=f; change(); return }
@@ -936,6 +959,7 @@ function toolbar(el,key,o){
       if(document.activeElement!==qIn) qIn.value=s.q||"";
       const fn=Object.values(s.f||{}).filter(a=>a&&a.length).length, badge=$("[data-fn]"); badge.hidden=!fn; badge.textContent=fn;
       $("[data-sl]").textContent=sortText();
+      const xb=$("[data-xp]"); if(xb){ xb.setAttribute("aria-pressed",s.f.xp&&s.f.xp.length?"true":"false"); $("[data-xn]").textContent=o.base().filter(c=>xpOf(c).length).length }
       const g=$("[data-group]"); if(g) g.value=s.group||"none";
       $("[data-count]").textContent=n+" מתוך "+o.base().length;
       chips(); if(openPop==="filter") filterPop(); },
@@ -947,7 +971,7 @@ function toolbar(el,key,o){
 
 // ---------- database page ----------
 let open=null;
-const TBD=toolbar(document.getElementById("tb-db"),"database",{ph:"חיפוש לפי שם משתמש, שם, תפקיד, נושא…",facets:["status","track","stage","obj","style","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF),base:()=>C,onChange:()=>dbRender()});
+const TBD=toolbar(document.getElementById("tb-db"),"database",{ph:"חיפוש לפי שם משתמש, שם, תפקיד, נושא…",facets:["status","xp","track","stage","obj","style","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF),base:()=>C,onChange:()=>dbRender()});
 function dbRender(){
   const st=UI.vs.database, rows=runView(C,st);
   TBD.sync(rows.length);
@@ -955,7 +979,7 @@ function dbRender(){
     const s=HOOK.bk(c);
     const row=`<tr class="row" data-h="${esc(c.h)}" tabindex="0" aria-expanded="${open===c.h}">
       <td class="r num"><b>${c.score}</b></td>
-      <td><a href="${url(c)}" target="_blank" rel="noopener">${hb(c.h)}</a>${c.plat!=="Instagram"?` <span class="lb-chip">${c.plat}</span>`:""}<div class="he note" dir="auto">${esc(c.name)}</div></td>
+      <td><a href="${url(c)}" target="_blank" rel="noopener">${hb(c.h)}</a>${xpBadge(c,"sm")}${c.plat!=="Instagram"?` <span class="lb-chip">${c.plat}</span>`:""}<div class="he note" dir="auto">${esc(c.name)}</div></td>
       <td><span class="dot st-${s}"></span>${esc(STL[s])}${s==="process"&&HOOK.stage(c)?`<div class="note">${esc(STGL[HOOK.stage(c)])}</div>`:""}${HOOK.obj(c)&&(s==="declined"||s==="process")?`<div class="note">${esc(OBJL[HOOK.obj(c)])}</div>`:""}</td>
       <td>${TRKL[HOOK.trk(c)]?`<span class="lb-chip cat lb-track-${HOOK.trk(c)}">${esc(TRKL[HOOK.trk(c)])}</span>`:""}</td>
       <td>${esc(archL(c.arch))}</td><td>${kidsTxt(c)?esc(kidsTxt(c)):'<span class="note">לא נבדק</span>'}</td><td class="r num">${k(c.f)}</td><td class="r num">${k(c.med)}</td><td class="num">${esc(c.last?isoDL(c.last):"לא ידוע")}</td>
@@ -963,7 +987,7 @@ function dbRender(){
     if(open!==c.h) return row;
     return row+`<tr class="det"><td colspan="12"><div class="detgrid">
       <dl class="kv lb-kv stack">
-        <dt>תפקיד</dt><dd dir="auto">${bdiH(c.role)}</dd><dt>מיקום</dt><dd dir="auto">${bdiH(c.loc||"לא צוין")}</dd>
+        <dt>תפקיד</dt><dd dir="auto">${bdiH(c.role)}</dd>${xpOf(c).length?`<dt>תחום מקצועי</dt><dd>${esc(xpOf(c).map(k=>XPL[k]).join(" · "))}</dd>`:""}<dt>מיקום</dt><dd dir="auto">${bdiH(c.loc||"לא צוין")}</dd>
         <dt>ילדים</dt><dd>${kidsTxt(c)?esc(kidsTxt(c)):"עוד לא נבדק"}</dd><dt>גילי הילדים</dt><dd dir="auto">${bdiH(c.ages)}</dd><dt>נושאים</dt><dd dir="auto">${bdiH(c.topics)}</dd>
         <dt>תפקידי UGC</dt><dd dir="auto">${(c.roles||[]).map(bdiH).join(" · ")}</dd>
         <dt>רעיון</dt><dd dir="auto">${bdiH(c.concept)}</dd><dt>סיכונים</dt><dd dir="auto">${bdiH(c.risk)}</dd>
@@ -1009,7 +1033,7 @@ document.getElementById("queries").innerHTML=__Q__.map(q=>`<span dir="auto">${es
 
 /* outreach-tool */
 (function(){
-const ST=[["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["noreply","לא ענו"],["process","בתהליך"],["retry","לנסות שוב"],["declined","סירבו"]];   // Book sent and Content created are steps inside In process since 19 Oct 2026
+const ST=[["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["noreply","לא ענו"],["process","בתהליך"],["retry","לנסות שוב"],["future","אולי בעתיד"],["declined","סירבו"]];   // Book sent and Content created are steps inside In process since 19 Oct 2026
 let VOICE={rules:[],ex:[],prev:null,n:0}; let OD={}, SET={sender:"",preview:""}, dbh=null, dirty={}, shown=30, pendingRender=false;
 const today=()=>{const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 const daysSince=d=>{ if(!d) return null; const t=new Date(d+"T00:00:00").getTime(); return isNaN(t)?null:Math.floor((Date.now()-t)/864e5) };
@@ -1036,7 +1060,8 @@ const hasReplied=c=>inProc(stOf(c.h));
 // Answered = any answer, a no included: used for the reply box on the card and the reasons chart
 // Try again (Yarin, 4 Nov 2026): a creator Yarin moves by hand out of Declined (or any status) to approach again. It keeps the reason for the no.
 const NOISH=s=>s==="declined"||s==="retry";
-const answered=c=>hasReplied(c)||NOISH(stOf(c.h));
+// Maybe in the future (Yarin, 6 Nov 2026): "not now, maybe later". An answer, but not a no and not a talk in progress, so it has no reason field (the note holds why).
+const answered=c=>hasReplied(c)||NOISH(stOf(c.h))||stOf(c.h)==="future";
 const dms=d=>{ if(!d) return null; const x=new Date(d+"T00:00:00").getTime(); return isNaN(x)?null:x };
 const sentMs=o=>o.sat||dms(o.on);
 const fuMs=(o,n)=>n===2?(o.fu2at||dms(o.fu2)):(o.fuat||dms(o.fu));
@@ -1603,7 +1628,7 @@ function card(c,opt){
   let acts="";
   // no WhatsApp / mail buttons on the card face (Yarin, 1 Nov 2026); the numbers and addresses stay in the details below
   if(s==="new") acts+='<button type="button" class="lb-btn ok" data-act="sent">'+ICON.check+'שלחתי</button>';
-  if(s==="declined") acts+='<button type="button" class="lb-btn" data-act="retry" title="מעבר ללשונית ״לנסות שוב״">'+ICON.undo+'לנסות שוב</button>';
+  if(s==="declined") acts+='<button type="button" class="lb-btn" data-act="retry" title="מעבר ללשונית ״לנסות שוב״">'+ICON.undo+'לנסות שוב</button><button type="button" class="lb-btn" data-act="future" title="מעבר ללשונית ״אולי בעתיד״">'+ICON.clock+'אולי בעתיד</button>';
   if(!q1) acts+=fuUI(c);
   // the reminder row (every creator): what to do next and when to check. In process adds the step and the interest tick; a no or a stall adds the reason.
   let deal='<label class="grow">פתק: מה צריך לעשות<textarea class="lb-textarea na" data-f="na" dir="auto" rows="2" placeholder="מה הצעד הבא איתם">'+esc(o.na||"")+'</textarea></label>'
@@ -1626,8 +1651,8 @@ function card(c,opt){
   const mtab=esc((MT.find(m=>m[0]===t0)||[0,""])[1])+' · '+esc(STY_NAME[sty(c)]);
   return '<article class="oc lb-card'+(s==="declined"||s==="posted"||cur==="noreply"?" done":"")+'" data-h="'+esc(c.h)+'">'
    +'<div class="otop"><header class="ohd">'
-   +'<span class="oav lb-track-'+tk+'" title="'+esc("מסלול: "+(TRKL[tk]||""))+'" aria-hidden="true">'+esc(ini)+'</span>'
-   +'<div class="oid"><a class="hn" href="'+prof+'" target="_blank" rel="noopener" title="פתיחת הרילס שלהם בלשונית חדשה">'+hb(c.h)+ICON.ext+'</a>'
+   +'<span class="oav lb-track-'+tk+'" title="'+esc("מסלול: "+(TRKL[tk]||""))+'" aria-hidden="true">'+esc(ini)+(xpOf(c).length?'<i class="xm">'+ICON.xp+'</i>':'')+'</span>'
+   +'<div class="oid"><div class="hrow"><a class="hn" href="'+prof+'" target="_blank" rel="noopener" title="פתיחת הרילס שלהם בלשונית חדשה">'+hb(c.h)+ICON.ext+'</a>'+xpBadge(c)+'</div>'
    +'<div class="osub"><span class="he" dir="auto">'+esc(c.name)+'</span><span>'+ICON.insta+'רילס אחרון '+esc(c.last?isoDL(c.last):"לא ידוע")+'</span>'+(o.on?'<span>'+ICON.send+'נשלח ב-'+esc(dL(o.on))+(ssOf(c)===2?' · קצר':'')+'</span>':'')+'</div></div>'
    +'<div class="ohd-end"><span class="ost st-'+cur+'"><span class="dot"></span>'+esc(STL[cur]+(sg?' · '+STGL[sg]:''))+'</span>'
    +(s!=="declined"?'<button type="button" class="lb-btn icon xdecl" data-act="decline" title="סימון כסירוב (הפולואפים נעצרים)" aria-label="סימון '+esc(c.h)+' כסירוב">'+ICON.close+'</button>':'')+'</div>'
@@ -1804,13 +1829,13 @@ const fitAll=()=>{ document.querySelectorAll("#olist [data-msgbox],#remList [dat
 let fitT; window.addEventListener("resize",()=>{ clearTimeout(fitT); fitT=setTimeout(()=>{ fitAll(); drwBody.querySelectorAll("[data-msgbox]").forEach(fitBox) },150) });
 const flashCard=h=>{ const e=cardEl(h); if(e) fx(e,"is-flash") };
 // a status change asks first what to do next and when to check (Yarin, 20 Oct 2026); the suggested note and date depend on the new status
-const ST_NA={sent:["לבדוק אם ענו",2],due:["לשלוח פולואפ",0],noreply:["",null],process:["להמשיך את השיחה",1],retry:["לפנות אליהם שוב",14],declined:["",null],new:["",null]};
+const ST_NA={sent:["לבדוק אם ענו",2],due:["לשלוח פולואפ",0],noreply:["",null],process:["להמשיך את השיחה",1],retry:["לפנות אליהם שוב",14],future:["לחזור אליהם בעתיד",60],declined:["",null],new:["",null]};
 function setStatus(h,s){ const c=byH[h], o0=get(h), from=HOOK.bk(c), p={s,sct:Date.now()};
   // a status change never rewrites the original send date or the follow-ups already sent
   if((s==="sent"||s==="due")&&!o0.on&&!o0.sat){ p.on=today(); p.sat=Date.now() }
   if(s==="due"){ p.dat=Date.now(); if(fuMs(o0,1)!=null) p.fu2w=1 }
   if(s!=="new"&&!o0.ssent) p.ssent=sty(c);
-  if((inProc(s)||NOISH(s)||s==="posted")&&!o0.rat) p.rat=Date.now();
+  if((inProc(s)||NOISH(s)||s==="future"||s==="posted")&&!o0.rat) p.rat=Date.now();
   if(s==="process"&&!inProc(stOf(h))) p.stg="info";   // coming into In process starts at Info sent
   const [na,days]=ST_NA[s]||["",2];
   return change(h,{title:"סטטוס: "+stLabel(s),na,days,reasons:s==="declined",k:"status",x:{from,to:s},tab:null,patch:p,
@@ -1876,6 +1901,7 @@ function onCardClick(e){
   const card=b.closest(".oc"); if(!card) return; const c=byH[card.dataset.h], act=b.dataset.act, prev={...get(c.h)};
   if(act==="hefix"){ const ta=card.querySelector("[data-msgbox]"), tt=ta.dataset.t, f=heFix(ta.value,{skipBrand:ownOffer(c,tt),c}); if(f!==ta.value){ ta.value=f; ta.dispatchEvent(new Event("input",{bubbles:true})); fx(ta,"is-flash"); toast("התיקונים הוחלו. אפשר עדיין לערוך את הטקסט.") } }
   else if(act==="retry") setStatus(c.h,"retry");
+  else if(act==="future") setStatus(c.h,"future");
   else if(act==="decline") change(c.h,{title:"סירבו",na:"",days:null,reasons:true,k:"status",x:{from:HOOK.bk(c),to:"declined"},tab:null,
     patch:{s:"declined",sct:Date.now(),...(prev.rat?{}:{rat:Date.now()}),...(prev.ssent?{}:{ssent:sty(c)})},msg:()=>"נרשם סירוב מ-"+ht(c.h)+". הפולואפים נעצרו."+moved(c.h)});
   else if(act==="style"){ const s=+b.dataset.s; if(s!==sty(c)){ patch(c.h,{sty:s}); delete TABSEL[c.h]; render(); toast("ההודעות ל-"+ht(c.h)+" עכשיו בסגנון "+STY_NAME[s]+".") } }
@@ -2169,7 +2195,7 @@ HOOK.naDue=c=>["over","today"].includes(naState(c)); HOOK.offer=offerFlag; HOOK.
 HOOK.more=c=>{ const o=get(c.h), e=expOf(c); return [o.na,o.objn,o.objq,e&&e.name,TRKL[trkOf(c)]].filter(Boolean).join(" ") };
 const PAGES={reminders:["פניות","תזכורות להיום"],remall:["פניות","כל התזכורות"],followups:["פניות","פולואפים להיום"],overview:["פניות","ראשי"],books:["פניות","ספרים שנוצרו"],contacts:["פניות","יוצרים"],database:["מחקר","מאגר היוצרים"],archetypes:["מחקר","מפת סוגי היוצרים"],messages:["הגדרות","הודעות וקול"],method:["הגדרות","שיטה ומגבלות"]};
 const LEGACY={"c-due":"followups","c-posted":"c-process-content","c-book":"c-process-booksent","c-content":"c-process-content","c-replied":"c-process","c-yes":"c-process","c-code":"c-process",send:"c-new",top:"overview",outreach:"overview",portfolio:"overview",shortlist:"database",batch:"overview",strategy:"overview",today:"overview"};
-const STATUS_NAV=[["all","כל היוצרים"],["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["due","פולואפ לשליחה"],["noreply","לא ענו"],["process","בתהליך"],["retry","לנסות שוב"],["declined","סירבו"],["unfit","לא מתאימים"]];
+const STATUS_NAV=[["all","כל היוצרים"],["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["due","פולואפ לשליחה"],["noreply","לא ענו"],["process","בתהליך"],["retry","לנסות שוב"],["future","אולי בעתיד"],["declined","סירבו"],["unfit","לא מתאימים"]];
 const statusName=(s,g)=>(STATUS_NAV.find(x=>x[0]===s)||[0,"יוצרים"])[1]+(s==="process"&&STGL[g]?" · "+STGL[g]:"");
 let ROUTE={page:"overview",status:"new",key:"overview"}, OPEN_H=null;
 const navLink=(key,icon,label,cnt)=>'<a class="nav-i lb-nav-item" href="#'+key+'" data-route="'+key+'">'+icon+'<span class="t">'+esc(label)+'</span>'+(cnt?'<b class="cnt lb-count" data-cnt="'+cnt+'"></b>':'')+'</a>';
@@ -2186,7 +2212,7 @@ function navCounts(){
 function parseRoute(h){
   h=String(h||"").replace(/^#/,""); h=LEGACY[h]||h;
   if(h==="books") return {page:"books",key:h};
-  if(/^c-(all|due|new|sent|noreply|process|retry|declined|unfit)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
+  if(/^c-(all|due|new|sent|noreply|process|retry|future|declined|unfit)$/.test(h)) return {page:"contacts",status:h.slice(2),key:h};
   const m=/^c-process-(\w+)$/.exec(h); if(m&&STGL[m[1]]) return {page:"contacts",status:"process",stage:m[1],key:h};
   if(h==="remall") return {page:"reminders",key:h};
   if(PAGES[h]) return {page:h,key:h};
@@ -2385,7 +2411,7 @@ document.getElementById("migdone").addEventListener("click",e=>{ const b=e.targe
 // mobile status chips
 document.getElementById("sstats").addEventListener("click",e=>{ const b=e.target.closest("button[data-st]"); if(b) navigate("c-"+(b.dataset.st||"all")) });
 document.getElementById("olist").addEventListener("click",e=>{ if(e.target.closest("[data-clearlist]")){ UI.vs.contacts.q=""; UI.vs.contacts.f={}; uiSave(); shown=30; render() } },true);
-const TBC=toolbar(document.getElementById("tb-c"),"contacts",{ph:"חיפוש לפי שם משתמש, שם, פתקים…",facets:["track","stage","obj","style","test","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF).filter(k=>!["prac","conflict"].includes(k)),group:true,base:()=>contactBase(),onChange:()=>{ shown=30; render() }});
+const TBC=toolbar(document.getElementById("tb-c"),"contacts",{ph:"חיפוש לפי שם משתמש, שם, פתקים…",facets:["xp","track","stage","obj","style","test","ch","kids","flag","score","f","med","last","batch","arch"],sorts:Object.keys(SORTF).filter(k=>!["prac","conflict"].includes(k)),group:true,base:()=>contactBase(),onChange:()=>{ shown=30; render() }});
 
 // ---------- start ----------
 // on the project server the HQ links open the local dashboard, not the claude.ai artifact

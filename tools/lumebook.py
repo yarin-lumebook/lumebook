@@ -551,6 +551,74 @@ def print_report(r, verbose=False):
 
 UPLOAD_EXT = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".webm", ".m4v", ".mp3", ".m4a", ".wav", ".ogg", ".opus", ".pdf"}
 UPLOAD_MAX = 300 * 1024 * 1024
+SAMPLE_MAX = 200 * 1024   # largest prompt POST /api/sample takes
+SAMPLE_TIMEOUT = 240      # seconds before the claude process is stopped
+
+
+def claude_bin():
+    """The claude CLI: $LUMEBOOK_CLAUDE, else on PATH, else the native install (a login item has a short PATH)."""
+    for c in (os.environ.get("LUMEBOOK_CLAUDE"), shutil.which("claude"), os.path.expanduser("~/.local/bin/claude")):
+        if c and os.path.isfile(c) and os.access(c, os.X_OK):
+            return c
+    return None
+
+
+def run_sample(prompt, gone):
+    """One question to Claude, the way a claude.ai artifact's `sample` capability works: a prompt in, text out
+    (the local twin of it for pages on this server, 6 Nov 2026: the reels hub's ask box).
+
+    Runs `claude -p` with no tools, no saved session, no skills and none of the settings files (so no hooks or plugins),
+    from an empty folder (so no project CLAUDE.md or memory), the prompt on stdin and only a short system prompt. It uses
+    the Claude login of this Mac (`claude auth login`), never an API key: the environment handed to it is cut down to HOME,
+    PATH and the like, so an ANTHROPIC_API_KEY in the server's environment is not used. gone() says the browser gave up;
+    the process is then stopped so nothing keeps running for an answer nobody reads.
+    Returns (http status, body): 200 {"text"}, or an error {"error", "code"}; the codes match what the page handles."""
+    import signal, tempfile, time
+    cli = claude_bin()
+    if not cli:
+        return 503, {"error": "the claude command was not found; install Claude Code or set LUMEBOOK_CLAUDE", "code": "no_cli"}
+    work = os.path.join(tempfile.gettempdir(), "lumebook-sample")
+    os.makedirs(work, exist_ok=True)
+    env = {k: v for k, v in os.environ.items() if k in ("HOME", "USER", "LOGNAME", "LANG", "LC_ALL", "TMPDIR", "SHELL")}
+    env["PATH"] = os.pathsep.join([os.path.dirname(cli), "/usr/local/bin", "/opt/homebrew/bin", "/usr/bin", "/bin"])
+    cmd = [cli, "-p", "--output-format", "json", "--tools", "", "--no-session-persistence", "--disable-slash-commands",
+           "--setting-sources", "", "--system-prompt", "Answer exactly what the message asks, as plain text. You have no tools and no files."]
+    with tempfile.TemporaryFile() as fin, tempfile.TemporaryFile() as fout:
+        fin.write(prompt.encode("utf-8"))
+        fin.seek(0)
+        proc = subprocess.Popen(cmd, stdin=fin, stdout=fout, stderr=subprocess.DEVNULL, cwd=work, env=env, start_new_session=True)
+        t0 = time.time()
+        while proc.poll() is None:
+            dropped = gone()
+            if dropped or time.time() - t0 > SAMPLE_TIMEOUT:
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    try:
+                        os.killpg(proc.pid, sig)
+                        proc.wait(10)
+                        break
+                    except subprocess.TimeoutExpired:
+                        continue
+                    except ProcessLookupError:
+                        break
+                return (499, {"error": "cancelled", "code": "cancelled"}) if dropped else (504, {"error": "Claude took too long", "code": "timeout"})
+            time.sleep(0.4)
+        fout.seek(0)
+        raw = fout.read().decode("utf-8", "replace")
+    try:
+        res = json.loads(raw)
+    except ValueError:
+        return 502, {"error": "claude gave no readable answer", "code": "failed"}
+    text = res.get("result") if isinstance(res, dict) else None
+    if isinstance(res, dict) and res.get("is_error"):
+        low = str(text or "").lower()
+        if res.get("api_error_status") == 429 or "rate limit" in low or "usage limit" in low:
+            return 429, {"error": "Claude is busy or the usage limit is reached", "code": "rate_limited"}
+        if "authenticate" in low or "log in" in low or "login" in low or "oauth" in low:
+            return 401, {"error": "the claude command is not signed in on this Mac: run claude auth login in a terminal", "code": "not_logged_in"}
+        return 502, {"error": "claude failed", "code": "failed"}
+    if not isinstance(text, str) or not text.strip():
+        return 502, {"error": "empty answer", "code": "empty_completion"}
+    return 200, {"text": text}
 
 
 def serve(port):
@@ -572,12 +640,26 @@ def serve(port):
       /__site-editor/           the edit button: every HTML page (and every forwarded Carousel Machine page) is sent with
                                 the button, the edits runtime and the page's saved edits; GET info/source, PUT save/upload
                                 (same-origin, X-Site-Editor header). tools/site_editor.py, shared/site-editor/README.md
-    There is no endpoint that runs a command."""
-    import http.client, http.server, functools, urllib.parse, urllib.request, threading
+      POST /api/sample          {"prompt": "..."} -> {"text": "..."}: one question to Claude through `claude -p` (no tools, no
+                                settings, empty working folder; run_sample above), for pages that need what a claude.ai
+                                artifact's sample capability gives (the reels hub's ask box, 6 Nov 2026). Same-origin only
+                                (Origin + X-LumeBook-Board), one at a time, 200 KB at most; the prompt is never logged.
+                                Needs `claude auth login` on this Mac once; the answer comes from that login's plan.
+      GET  /api/reels-hub/state the reels hub's own edits ({edits, made, requests}, each a map of documents) from
+                                research/israeli-product-reels/src/scripts/series-2026-11/local-edits.json ({} when none)
+      PUT  /api/reels-hub/doc?path=edits/<key>   writes one document (also made/<key>, requests/<id>); same-origin only,
+                                at most 256 KB each; the hub page on this server saves here instead of the artifact
+                                database, and `reels.py merge local` copies the edits into reels.json (6 Nov 2026)
+    This is the only endpoint that runs a command, and the command is fixed: only the prompt (on stdin) comes from the page."""
+    import http.client, http.server, functools, urllib.parse, urllib.request, threading, select, socket
+    sample_lock = threading.Lock()
     origins = {f"http://localhost:{port}", f"http://127.0.0.1:{port}"}
     state_dir = p("creators/creator-research/state")
     state_lock = threading.Lock()
     hq_layout = p("sites/dashboard/hq-layout.json")
+    # LUMEBOOK_REELS_HUB_FILE: a test server on a spare port writes somewhere else, never into Yarin's real edits
+    reels_hub_file = os.environ.get("LUMEBOOK_REELS_HUB_FILE") or p("research/israeli-product-reels/src/scripts/series-2026-11/local-edits.json")
+    reels_hub_doc = re.compile(r"^(edits|made|requests)/([\w.\-]{1,120})$")
     doc_path = re.compile(r"^(?:(outreach|settings|voice)/([\w.\-]{1,120})|log/([\w.\-]{1,120})/events/([\w.\-]{1,60}))$")
 
     def state_read(name):
@@ -715,6 +797,13 @@ def serve(port):
                             return self._json(200, json.load(fh))
                     except (FileNotFoundError, ValueError):
                         return self._json(200, {})
+            if path == "/api/reels-hub/state":
+                with state_lock:
+                    try:
+                        with open(reels_hub_file, encoding="utf-8") as fh:
+                            return self._json(200, json.load(fh))
+                    except (FileNotFoundError, ValueError):
+                        return self._json(200, {})
             page = site_editor.page_for_url(self, path)
             if page and site_editor.serve_page(self, page):   # the page with the edit button and its saved edits
                 return
@@ -741,6 +830,39 @@ def serve(port):
                     with open(tmp, "w", encoding="utf-8") as fh:
                         json.dump(doc, fh, ensure_ascii=False, indent=1)
                     os.replace(tmp, hq_layout)
+                return self._json(200, {"ok": True})
+            if u.path == "/api/reels-hub/doc":
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only"})
+                m = reels_hub_doc.match((urllib.parse.parse_qs(u.query).get("path") or [""])[0])
+                size = int(self.headers.get("Content-Length") or 0)
+                if not m or size <= 0 or size > 256 * 1024:
+                    return self._json(400, {"error": "bad path or size"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON"})
+                if not isinstance(doc, dict):
+                    return self._json(400, {"error": "a document is a JSON object"})
+                with state_lock:
+                    try:
+                        with open(reels_hub_file, encoding="utf-8") as fh:
+                            allv = json.load(fh)
+                    except (FileNotFoundError, ValueError):
+                        allv = {}
+                    if not isinstance(allv, dict):
+                        allv = {}
+                    for k in ("edits", "made", "requests"):
+                        if not isinstance(allv.get(k), dict):
+                            allv[k] = {}
+                    allv[m.group(1)][m.group(2)] = doc
+                    out = json.dumps(allv, ensure_ascii=False, indent=1)
+                    if len(out.encode("utf-8")) > 8 * 1024 * 1024:
+                        return self._json(413, {"error": "the reels hub file is over 8 MB"})
+                    tmp = reels_hub_file + ".tmp"
+                    with open(tmp, "w", encoding="utf-8") as fh:
+                        fh.write(out)
+                    os.replace(tmp, reels_hub_file)
                 return self._json(200, {"ok": True})
             if u.path != "/api/creator-map/doc":
                 return self._json(404, {"error": "not found"})
@@ -771,6 +893,39 @@ def serve(port):
             if self.hook_studio("POST"):
                 return
             u = urllib.parse.urlparse(self.path)
+            if u.path == "/api/sample":
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only", "code": "not_granted"})
+                size = int(self.headers.get("Content-Length") or 0)
+                if size <= 0 or size > SAMPLE_MAX:
+                    return self._json(400, {"error": "bad size", "code": "failed"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON", "code": "failed"})
+                prompt = doc.get("prompt") if isinstance(doc, dict) else None
+                if not isinstance(prompt, str) or not prompt.strip():
+                    return self._json(400, {"error": "a prompt is a non-empty string", "code": "failed"})
+                if not sample_lock.acquire(blocking=False):
+                    return self._json(429, {"error": "one request at a time", "code": "rate_limited"})
+
+                def gone():   # the browser closed the connection (the page's stop button, or the tab)
+                    try:
+                        ready, _, _ = select.select([self.connection], [], [], 0)
+                        return bool(ready) and self.connection.recv(1, socket.MSG_PEEK) == b""
+                    except OSError:
+                        return True
+                try:
+                    t0 = datetime.now(IL)
+                    status, body = run_sample(prompt, gone)
+                finally:
+                    sample_lock.release()
+                log({"type": "sample", "status": status, "code": body.get("code"), "prompt_chars": len(prompt),
+                     "seconds": round((datetime.now(IL) - t0).total_seconds(), 1)})
+                try:
+                    return self._json(status, body)
+                except OSError:   # nobody is listening any more
+                    return
             if u.path != "/api/media-inbox":
                 return self._json(404, {"error": "not found"})
             if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":

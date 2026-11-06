@@ -61,6 +61,18 @@
         {
           "from": "shared/brand/creator-brief-preview-v2.jpg",
           "to": "sites/lumebook-creator-brief/img/creator-brief-preview-v2.jpg"
+        },
+        {
+          "from": "shared/brand/logo_wide.png",
+          "to": "sites/lumebook-partners/img/logo.png"
+        },
+        {
+          "from": "shared/brand/fonts/VarelaRound-hebrew.woff2",
+          "to": "sites/lumebook-partners/fonts/VarelaRound-hebrew.woff2"
+        },
+        {
+          "from": "shared/brand/fonts/VarelaRound-latin.woff2",
+          "to": "sites/lumebook-partners/fonts/VarelaRound-latin.woff2"
         }
       ],
       "feeds": [
@@ -257,6 +269,7 @@
         "creators/creator-research/src/template.html",
         "creators/creator-research/src/build2.py",
         "creators/creator-research/src/enrich.py",
+        "creators/creator-research/src/experts.py",
         "creators/creator-research/src/*.json",
         "creators/creator-research/creators-200-2026-10-03.csv",
         "creators/creator-research/src/research/merge_pass.py",
@@ -833,6 +846,44 @@
         "dashboard"
       ],
       "notes": "05 Nov 2026 (Yarin: integrate the reel calendar so there is only one tool, everything in Hebrew). Built by src/build_reels_explorer.py: the calendar view is the stand-alone calendar page cut into parts by src/hub_calendar.py (month grid, editable reel popup, made ticks, comment box), the research text is the Hebrew translation in src/he/*.json of playbook.md and principles.md (rerun the translation when those change; a missing key falls back to English). Edits, ticks and comment requests save to this artifact's own database (collections edits, made, requests); reels.py merge reads an export of edits from here. Replaces the stand-alone calendar artifact DGXzTyAGSYLXmAeYjRPt1E."
+    },
+    "partners-page": {
+      "name": "Partners page for children's book authors and early-childhood professionals (route /IL/he/partners on the store, he en ar ru; local review prototype, implementation brief and internal commercial review)",
+      "path": "sites/lumebook-partners",
+      "kind": "site",
+      "watch": [
+        "sites/lumebook-partners/src/build.py",
+        "sites/lumebook-partners/src/content/*.json",
+        "sites/lumebook-partners/partners.css",
+        "sites/lumebook-partners/partners.js",
+        "shared/facts.json",
+        "docs/partners/*.md"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build.py"
+        ],
+        "cwd": "sites/lumebook-partners",
+        "outputs": [
+          "sites/lumebook-partners/index.html",
+          "sites/lumebook-partners/en/index.html",
+          "sites/lumebook-partners/ar/index.html",
+          "sites/lumebook-partners/ru/index.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "manual",
+        "note": "Not published and not deployed, on purpose. lumebook.com (a React app) is not in this repo, so the page goes live only when the store team integrates it from docs/partners/implementation-brief.md. No .vercel link in the folder."
+      },
+      "rules": [
+        "Local review only: never deploy from sites/lumebook-partners.",
+        "Copy lives in sites/lumebook-partners/src/content/<lang>.json; never edit the built index.html files by hand. After any copy change run python3 sites/lumebook-partners/src/build.py then python3 sites/lumebook-partners/lint_copy.py.",
+        "No commercial terms on the page until Yarin approves a standard offer; docs/partners/internal-review-note.md lists what is still open and holds the proposed terms (internal, no names)."
+      ],
+      "feeds": [],
+      "notes": "Created 06 Nov 2026 from Yarin's brief. Visual language copied from the store's ambassador page (lumebook.com/IL/he/ambassadors, read 06 Nov 2026). The inquiry form does not call the ambassador sign-up API (it would create a link and an account): with form[data-endpoint] empty it shows a hand-off to WhatsApp or email and never a success state. 06 Nov 2026 later: Yarin confirmed a standard partner offer exists (terms not given yet), the inquiry address yarin@lumebook.com, monthly sales reporting, a dedicated author page and a printed copy as standard, and wants en, ar and ru versions; shared/facts.json has a partners block. Arabic and Russian were drafted by Claude and need a native reader before going live."
     },
     "site-editor": {
       "name": "Edit button on every page (in-page editor + edits layer)",

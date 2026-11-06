@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>LumeBook Facebook cover light 1640x624</title>
+<style>
+@font-face { font-family: "Heebo"; font-weight: 900; src: url("../../../../shared/brand/fonts/Heebo-Black.ttf"); }
+@font-face { font-family: "Heebo"; font-weight: 700; src: url("../../../../shared/brand/fonts/Heebo-Bold.ttf"); }
+:root {
+  --ink: #2b0f6b;
+  --violet: #3d1d9c;
+  --cyan: #2cc7da;
+  --gold: #ffc83d;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1640px; height: 624px; overflow: hidden; background: #f6f2ff; }
+.cover { position: relative; width: 1640px; height: 624px; overflow: hidden;
+  background:
+    radial-gradient(800px 460px at 20% 6%, rgba(190, 160, 255, .45), transparent 70%),
+    radial-gradient(760px 520px at 80% 75%, rgba(255, 160, 205, .35), transparent 70%),
+    linear-gradient(180deg, #fbf8ff 0%, #efeaff 55%, #dff6fb 100%);
+}
+.cloud { position: absolute; border-radius: 50%; filter: blur(36px); }
+.glow { position: absolute; border-radius: 50%; }
+#sky, #trail { position: absolute; inset: 0; width: 1640px; height: 624px; }
+.mascot { position: absolute; width: 715px; height: 715px; left: 745px; top: -91px; }
+.text { position: absolute; left: 300px; top: 118px; width: 600px; text-align: center; direction: rtl; }
+.word { direction: ltr; font: 900 118px/1 "Heebo", sans-serif; color: var(--violet); letter-spacing: -2px;
+  text-shadow: 5px 6px 0 rgba(44, 199, 218, .55); }
+.line { margin-top: 16px; font: 700 47px/1.15 "Heebo", sans-serif; color: var(--ink); }
+.pill { display: inline-block; margin-top: 26px; padding: 11px 30px 13px; border-radius: 999px; background: var(--gold);
+  font: 900 33px/1.15 "Heebo", sans-serif; color: var(--ink); box-shadow: 0 8px 22px rgba(255, 176, 30, .32), 0 3px 0 rgba(170, 110, 0, .45); }
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="cloud" style="left:-160px; top:470px; width:760px; height:260px; background:#cdb8ff; opacity:.7"></div>
+  <div class="cloud" style="left:420px; top:545px; width:820px; height:230px; background:#ffc2de; opacity:.55"></div>
+  <div class="cloud" style="left:1130px; top:500px; width:700px; height:260px; background:#b8eef5; opacity:.8"></div>
+  <div class="glow" style="left:845px; top:50px; width:520px; height:570px; background:radial-gradient(closest-side, rgba(120,225,240,.65), rgba(120,225,240,.2) 62%, transparent 100%)"></div>
+  <svg id="trail" viewBox="0 0 1640 624"></svg>
+  <svg id="sky" viewBox="0 0 1640 624"></svg>
+  <img class="mascot" src="mascot_cut.png" alt="">
+  <div class="text">
+    <div class="word">LumeBook</div>
+    <div class="line">ספרי ילדים מותאמים אישית</div>
+    <div class="pill">הילד שלכם הוא הגיבור של הסיפור</div>
+  </div>
+</div>
+<script>
+let s = 20261106;
+const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296;
+const NS = "http://www.w3.org/2000/svg";
+const sky = document.getElementById("sky");
+const trail = document.getElementById("trail");
+function sparkle(cx, cy, r, fill, op) {
+  const k = 0.18 * r;
+  const p = document.createElementNS(NS, "path");
+  p.setAttribute("d", `M${cx} ${cy - r} Q${cx + k} ${cy - k} ${cx + r} ${cy} Q${cx + k} ${cy + k} ${cx} ${cy + r} Q${cx - k} ${cy + k} ${cx - r} ${cy} Q${cx - k} ${cy - k} ${cx} ${cy - r}Z`);
+  p.setAttribute("fill", fill); p.setAttribute("opacity", op);
+  p.setAttribute("style", `filter: drop-shadow(0 0 ${r * 0.35}px ${fill})`);
+  sky.appendChild(p);
+}
+function dot(parent, cx, cy, r, fill, op) {
+  const c = document.createElementNS(NS, "circle");
+  c.setAttribute("cx", cx); c.setAttribute("cy", cy); c.setAttribute("r", r);
+  c.setAttribute("fill", fill); c.setAttribute("opacity", op);
+  parent.appendChild(c);
+}
+const keepOut = (x, y) => (x > 300 && x < 900 && y > 100 && y < 430);
+const colors = ["#ffb61e", "#9a6bff", "#2cc7da", "#ff7fb5", "#ffb61e"];
+const STARS = false;   // 6 Nov: Yarin asked for no stars (sparkles and dust); true brings them back
+for (let i = 0; STARS && i < 46; i++) {
+  const x = rnd() * 1640, y = rnd() * 560;
+  const big = rnd() < 0.28;
+  if (big && keepOut(x, y)) continue;
+  const r = big ? 11 + rnd() * 15 : 3.5 + rnd() * 5;
+  sparkle(x, y, r, colors[Math.floor(rnd() * colors.length)], big ? .95 : .75);
+}
+for (let i = 0; STARS && i < 110; i++) dot(sky, rnd() * 1640, rnd() * 624, 0.8 + rnd() * 1.6, "#7a4fe0", .12 + rnd() * .22);
+const glowG = document.createElementNS(NS, "g");
+glowG.setAttribute("style", "filter: blur(5px)");
+const lineG = document.createElementNS(NS, "g");
+const gold = document.createElementNS(NS, "g");
+trail.append(glowG, lineG, gold);
+const cx = 1105, cy = 380;
+const at = (t) => {
+  const ang = Math.PI * (0.92 + 1.18 * t);
+  const rx = 330 + 40 * Math.sin(t * 6), ry = 235;
+  return [cx + rx * Math.cos(ang) * -1, cy + ry * Math.sin(ang)];
+};
+const N = 90;
+for (let i = 0; i < N; i++) {
+  const t = i / N, [x1, y1] = at(t), [x2, y2] = at((i + 1) / N);
+  if (x1 < 960 || x2 < 960) continue;
+  for (const [g, w, o] of [[glowG, 16, .5], [lineG, 4.5, .9]]) {
+    const l = document.createElementNS(NS, "line");
+    l.setAttribute("x1", x1); l.setAttribute("y1", y1); l.setAttribute("x2", x2); l.setAttribute("y2", y2);
+    l.setAttribute("stroke", t < .55 ? "#ffb61e" : "#2cc7da"); l.setAttribute("stroke-linecap", "round");
+    l.setAttribute("stroke-width", Math.max(.6, w * (1 - t) ** 1.3)); l.setAttribute("opacity", o * (1 - t * .7));
+    g.appendChild(l);
+  }
+}
+for (let i = 0; STARS && i < 150; i++) {
+  const t = rnd(), [x, y] = at(t);
+  if (x < 960) continue;
+  dot(gold, x + (rnd() - .5) * 34 * (1 - t * .6), y + (rnd() - .5) * 34 * (1 - t * .6), (1 - t) * 2.6 + .6, rnd() < .6 ? "#ffb61e" : "#2cc7da", .9 - t * .5);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="utf-8">
+<title>LumeBook profile picture 1080x1080</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1080px; overflow: hidden; background: #1c0a4a; }
+.pic { position: relative; width: 1080px; height: 1080px; overflow: hidden; }
+/* square crop of the 3D mascot scene (shared/brand/mascot_full_3d.png): x 60..1060, y 0..1000,
+   so the hat tip, both ears and the whole open book sit inside the circle Instagram and Facebook cut */
+.pic img { position: absolute; width: 1212px; height: auto; left: -65px; top: 0; }
+/* a faint violet edge so the corners (cut away by the circle) never show a hard seam */
+.pic::after { content: ""; position: absolute; inset: 0;
+  background: radial-gradient(closest-side, transparent 78%, rgba(28, 10, 74, .35) 100%); }
+</style>
+</head>
+<body>
+<div class="pic"><img src="../../../../shared/brand/mascot_full_3d.png" alt=""></div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="utf-8">
+<title>LumeBook profile picture light 1080x1080</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1080px; overflow: hidden; background: #f3eeff; }
+.pic { position: relative; width: 1080px; height: 1080px; overflow: hidden;
+  background:
+    radial-gradient(closest-side at 50% 44%, rgba(120, 225, 240, .85) 0%, rgba(120, 225, 240, .35) 55%, transparent 100%),
+    radial-gradient(700px 500px at 12% 8%, rgba(190, 160, 255, .55), transparent 70%),
+    radial-gradient(700px 500px at 92% 92%, rgba(255, 170, 210, .45), transparent 70%),
+    linear-gradient(180deg, #faf7ff 0%, #e9e1ff 100%); }
+/* mascot at 1:1, centred, its flat bottom edge on the bottom of the square (the circle cuts it) */
+.pic img { position: absolute; width: 1254px; height: 1254px; left: -85px; top: -174px; }
+#sky { position: absolute; inset: 0; width: 1080px; height: 1080px; }
+</style>
+</head>
+<body>
+<div class="pic">
+  <svg id="sky" viewBox="0 0 1080 1080"></svg>
+  <img src="mascot_cut.png" alt="">
+</div>
+<script>
+let s = 7112026;
+const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296;
+const NS = "http://www.w3.org/2000/svg";
+const sky = document.getElementById("sky");
+function sparkle(cx, cy, r, fill, op) {
+  const k = 0.18 * r, p = document.createElementNS(NS, "path");
+  p.setAttribute("d", `M${cx} ${cy - r} Q${cx + k} ${cy - k} ${cx + r} ${cy} Q${cx + k} ${cy + k} ${cx} ${cy + r} Q${cx - k} ${cy + k} ${cx - r} ${cy} Q${cx - k} ${cy - k} ${cx} ${cy - r}Z`);
+  p.setAttribute("fill", fill); p.setAttribute("opacity", op);
+  p.setAttribute("style", `filter: drop-shadow(0 0 ${r * 0.3}px ${fill})`);
+  sky.appendChild(p);
+}
+const colors = ["#ffb61e", "#9a6bff", "#2cc7da", "#ff7fb5", "#ffb61e"];
+const inCircle = (x, y, pad) => Math.hypot(x - 540, y - 540) < 540 - pad;
+let placed = 0;
+const STARS = false;   // 6 Nov: Yarin asked for no stars; true brings the sparkles back
+for (let i = 0; STARS && i < 400 && placed < 26; i++) {
+  const x = rnd() * 1080, y = rnd() * 1080;
+  if (!inCircle(x, y, 40)) continue;
+  // keep the sparkles in the margins, off the mascot's middle
+  if (x > 250 && x < 830 && y > 230) continue;
+  const big = rnd() < 0.3;
+  sparkle(x, y, big ? 22 + rnd() * 26 : 7 + rnd() * 10, colors[Math.floor(rnd() * colors.length)], big ? .95 : .8);
+  placed++;
+}
+</script>
+</body>
+</html>
