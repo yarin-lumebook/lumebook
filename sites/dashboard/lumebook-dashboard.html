@@ -64,6 +64,7 @@ tr.test td { opacity: .5; }
 .ctbl { min-width: 60rem; } .stbl { min-width: 34rem; }
 .icon { width: 1.1rem; height: 1.1rem; }
 
+#hq-extra:empty { display: none; }
 /* HQ's tools grid, edit mode and editor use design-system components: lb-topics, lb-cube, lb-filters, lb-form... (shared/design/lumebook.css) */
 </style>
 
@@ -82,6 +83,8 @@ tr.test td { opacity: .5; }
           <span class="lb-note" id="tools-mode"></span>
           <div class="lb-topics" id="tools-grid"></div>
         </section>
+        <!-- SITES + LINKS: moved here from the old "אתרים וקבצים" view on 07 Nov 2026 (Yarin: "move all the links in the front hq page"; the recently edited list was dropped); drawn as topics and cubes by renderSitesLinks() -->
+        <div class="lb-topics" id="hq-extra"></div>
       </div>
 
       <!-- COURSE: the course, tasks and lessons (course/course.js), in English, the default view since 31 Oct 2026 -->
@@ -226,18 +229,6 @@ tr.test td { opacity: .5; }
           <p class="lb-note">כל בוקר: <code class="lb-ltr">python3 tools/lumebook.py ripple</code> בונה מחדש את מה שאפשר ומשאיר כאן את השאר.</p>
         </section>
       </div>
-
-      <!-- ASSETS -->
-      <div class="view lb-page" id="v-assets" data-title="אתרים וקבצים" hidden>
-        <section class="lb-section">
-          <div class="lb-section-head"><h2>אתרים</h2></div>
-          <div class="lb-grid cols-3" id="sites"></div>
-        </section>
-        <div class="lb-grid cols-2">
-          <section class="lb-section"><div class="lb-section-head"><h2>קישורים</h2></div><div class="lb-group" id="links"></div></section>
-          <section class="lb-section"><div class="lb-section-head"><h2>נערך לאחרונה</h2><span class="lb-meta" id="files-meta"></span></div><div class="lb-card"><ul class="lb-list" id="recent"></ul></div></section>
-        </div>
-      </div>
     </main>
     <p class="lb-footer" id="foot-note">הנתונים מתרעננים כל בוקר בסביבות 08:15</p>
   </div>
@@ -349,7 +340,7 @@ tr.test td { opacity: .5; }
   const { toolLinks, toolId, defaultLayout, mergeLayout } = NAV || {};
   const ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>';
   const HUES = [[0, "שחור"], [1, "כתום"], [2, "ורוד"], [3, "ירוק"], [4, "כחול"], [5, "סגול"], [6, "טורקיז"], [7, "אפור"], [8, "חרדל"]];
-  const VIEW_NAMES = { course: "Course", overview: "סקירה", signups: "הרשמות", competitors: "מתחרים", research: "ספריית מחקר", sync: "סנכרון", assets: "אתרים וקבצים", creators: "יוצרים (תצוגה)", content: "קרוסלות (תצוגה)" };
+  const VIEW_NAMES = { course: "Course", overview: "סקירה", signups: "הרשמות", competitors: "מתחרים", research: "ספריית מחקר", sync: "סנכרון", creators: "יוצרים (תצוגה)", content: "קרוסלות (תצוגה)" };
   const SVG = (d, cls) => `<svg${cls ? ` class="${cls}"` : ""} viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
   const GRIP = SVG('<circle cx="9" cy="6" r="1.3"/><circle cx="15" cy="6" r="1.3"/><circle cx="9" cy="12" r="1.3"/><circle cx="15" cy="12" r="1.3"/><circle cx="9" cy="18" r="1.3"/><circle cx="15" cy="18" r="1.3"/>');
   const PLUS = SVG('<path d="M12 5v14M5 12h14"/>');
@@ -452,6 +443,7 @@ tr.test td { opacity: .5; }
     $("tools-grid").innerHTML = L.topics.filter((t) => (!f || t.id === f) && (E || t.tools.length)).map((tp) => topicHtml(tp, E)).join("");
     for (const [id, [n, a]] of Object.entries(COUNTS)) setCount(id, n, a);
     bindSortables();
+    renderSitesLinks();
     if (NAV) NAV.setLayout(ED.L);
   }
 
@@ -602,7 +594,7 @@ tr.test td { opacity: .5; }
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && ED.form) closeModal(); });
 
   // ---------- routing ----------
-  const VIEWS = ["tools", "course", "overview", "creators", "signups", "content", "competitors", "research", "sync", "assets"];
+  const VIEWS = ["tools", "course", "overview", "creators", "signups", "content", "competitors", "research", "sync"];
   function route() {
     const v = (location.hash || "").slice(1);
     S.view = VIEWS.includes(v) ? v : "tools";
@@ -621,7 +613,7 @@ tr.test td { opacity: .5; }
   // ---------- render ----------
   function render() {
     renderFresh(); renderTimeline(); renderKpis(); renderAlerts(); renderThisWeek(); renderOverviewCards();
-    renderPlan(); renderCreators(); renderSignups(); renderContent(); renderCompetitors(); renderResearch(); renderSync(); renderAssets();
+    renderPlan(); renderCreators(); renderSignups(); renderContent(); renderCompetitors(); renderResearch(); renderSync(); renderSitesLinks();
   }
 
   function renderFresh() {
@@ -981,20 +973,32 @@ tr.test td { opacity: .5; }
         <td class="lb-xs lb-muted">${c.changed_at ? esc(ago(c.changed_at)) : "–"}</td></tr>`).join("")}</tbody></table>`;
   }
 
-  function renderAssets() {
-    const s = S.snap;
-    if (!s) { $("sites").innerHTML = empty("רשימת האתרים תופיע אחרי הרענון הראשון."); return; }
-    $("sites").innerHTML = s.sites.map((x) => {
-      const ok = x.status === 200;
-      return `<div class="lb-card"><div class="lb-card-head"><b>${esc(x.label)}</b>${x.status != null ? `<span class="lb-chip ${ok ? "success" : "danger"}"><span class="lb-dot"></span>${ok ? "באוויר" : esc(x.status || "שגיאה")}</span>` : ""}</div>
-        ${ext(x.url, ltr(x.url.replace(/^https:\/\//, "")))}<span class="lb-note">${x.modified ? "נערך " + esc(ago(x.modified)) : ""}${x.ms ? ` · ${x.ms}ms` : ""}</span></div>`;
-    }).join("");
-    const L = s.links, row = (href, t, meta) => href ? `<a class="lb-group-row" href="${esc(href)}"${NEW_TAB}><span>${t}</span>${meta ? `<span class="lb-meta">${meta}</span>` : ""}</a>` : "";
-    $("links").innerHTML = [row(L.form, "טופס יוצרי תוכן (Google Form)"), row(L.form_edit, "עריכת הטופס"), row(L.sheet, "גיליון ההרשמות"),
-      row(L.drive, 'תיקיית "שיווק" בדרייב'), row(L.tracker, "Creator Outreach Tracker v2", "ישן, חלק מהמספרים לא מעודכנים"),
-      row(L.plan_page, "התוכנית המלאה")].join("");
-    $("files-meta").textContent = `${s.files.count.toLocaleString("en-US")} קבצים בתיקייה`;
-    $("recent").innerHTML = s.files.recent.slice(0, 8).map((f) => `<li><span class="lb-small lb-truncate">${ltr(f.path)}</span><span class="lb-meta">${esc(ago(f.modified))} · ${Math.max(1, Math.round(f.size / 1024))}KB</span></li>`).join("");
+  // The sites and the links under the tools grid (Yarin, 7 Nov 2026) are drawn as the same topics and cubes as the tools above (lb-topic, lb-cube),
+  // in the hue of the מערכת topic. Not part of the editable layout: hidden in edit mode and while a topic filter is on.
+  // The snapshot only exists in the artifact (database) and the Vercel copy, so on the project server the front page shows just the tools.
+  function renderSitesLinks() {
+    const s = S.snap, box = $("hq-extra");
+    if (!s || ED.editing || TOOLS_FILTER.ws) { box.innerHTML = ""; return; }
+    const cat = (ED.L.topics.find((t) => t.id === "system") || {}).cat ?? 7;
+    const cube = (c) => `<article class="lb-cube lb-cat-${cat}">
+      <div class="lb-cube-top"><span class="lb-tile xl" aria-hidden="true"><svg viewBox="0 0 24 24">${TOOL_ICONS[c.icon] || TOOL_ICONS.grid || ""}</svg></span>${c.chip || ""}</div>
+      <a class="lb-cube-title" href="${esc(c.href)}"${NEW_TAB}>${esc(c.t)}</a><p class="lb-cube-desc">${c.desc}</p>
+      <div class="lb-cube-foot"><span class="lb-cube-where">${esc(c.where)}${NEW_TAB ? ARROW : ""}</span></div>
+    </article>`;
+    const topic = (id, label, desc, icon, cubes) => cubes.length ? `<section class="lb-topic lb-cat-${cat}" aria-labelledby="topic-${id}">
+      <header class="lb-topic-head"><span class="lb-tile lg" aria-hidden="true"><svg viewBox="0 0 24 24">${TOOL_ICONS[icon] || TOOL_ICONS.grid || ""}</svg></span>
+        <div class="lb-topic-text"><h2 class="lb-topic-title" id="topic-${id}">${esc(label)}<span class="lb-topic-n">${cubes.length}</span></h2><p class="lb-topic-desc">${esc(desc)}</p></div></header>
+      <div class="lb-topic-grid">${cubes.map(cube).join("")}</div>
+    </section>` : "";
+    const sites = (s.sites || []).map((x) => ({ t: x.label, href: x.url, icon: "globe", desc: ltr(x.url.replace(/^https:\/\//, "")),
+      chip: x.status != null ? `<span class="lb-chip ${x.status === 200 ? "success" : "danger"}"><span class="lb-dot"></span>${x.status === 200 ? "באוויר" : esc(x.status || "שגיאה")}</span>` : "",
+      where: [x.modified ? "נערך " + ago(x.modified) : "", x.ms ? x.ms + "ms" : ""].filter(Boolean).join(" · ") || "אתר" }));
+    const L = s.links || {};
+    const links = [[L.form, "טופס יוצרי תוכן", "הטופס שיוצרים ממלאים", "signup", "Google Forms"], [L.form_edit, "עריכת הטופס", "לשנות את שאלות הטופס", "brief", "Google Forms"],
+      [L.sheet, "גיליון ההרשמות", "התשובות לטופס, בגיליון", "sheet", "Google Sheets"], [L.drive, 'תיקיית "שיווק"', "התיקייה המשותפת בדרייב", "folder", "Google Drive"],
+      [L.tracker, "Creator Outreach Tracker v2", "ישן, חלק מהמספרים לא מעודכנים", "sheet", "Google Sheets"], [L.plan_page, "התוכנית המלאה", "תוכנית הסושיאל, שבוע אחרי שבוע", "calendar", "lumebook-dashboard.vercel.app"]]
+      .filter((r) => r[0]).map(([href, t, desc, icon, where]) => ({ href, t, desc: esc(desc), icon, where }));
+    box.innerHTML = topic("x-sites", "אתרים", "מה באוויר עכשיו ואיך הוא מגיב", "globe", sites) + topic("x-links", "קישורים", "טפסים, גיליונות ותיקיות", "link", links);
   }
 
   // ---------- writes (tracker/state, one write at a time) ----------

@@ -345,7 +345,7 @@ def actions_section():
 <p class="lb-lede">{he(data["lede"])}</p>
 <div class="lb-row"><a class="lb-btn" href="{DEMO_PAGE}#step-1">לפתוח את הדמו</a><span class="acts-legend">{legend}</span></div></div>{hero_pic}</div>
 <div class="acts-tiles" role="group" aria-label="סינון לפי מי ומה">{tiles}</div>
-<div class="acts-bar-row"><nav class="lb-scroller" style="--item: max-content" aria-label="שלבי המסע">{"".join(strip)}</nav>
+<div class="acts-bar-row lb-edge"><nav class="lb-scroller" style="--item: max-content" aria-label="שלבי המסע">{"".join(strip)}</nav>
 <div class="acts-progress"><span><span id="acts-done-n">0</span> מתוך {len(items)} סומנו</span><label><input type="checkbox" id="acts-hide-done"> להסתיר מה שסימנתי</label></div></div>
 {"".join(stages)}
 <p class="acts-empty" hidden>אין כאן כלום בסינון הזה.</p>
@@ -379,8 +379,8 @@ ACTS_STYLE = """<style>
 .acts svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .acts-tile-ic svg { width: 1.15rem; height: 1.15rem; stroke-width: 2.2; }
 
-.acts-bar-row { position: sticky; top: calc(max(env(safe-area-inset-top, 0px), var(--lb-gnav-top, 0px)) + 3.5rem); z-index: 5; display: grid; gap: var(--sp-2); padding: var(--sp-2) 0; background: var(--bar); backdrop-filter: saturate(1.6) blur(14px); -webkit-backdrop-filter: saturate(1.6) blur(14px); border-bottom: 1px solid var(--line); }
-@media (max-width: 980px) { .acts-bar-row { position: static; } }
+.acts-bar-row { position: sticky; top: calc(max(env(safe-area-inset-top, 0px), var(--lb-gnav-top, 0px)) + 3.5rem); z-index: 5; display: grid; gap: var(--sp-2); padding: var(--sp-2) 0; }
+@media (max-width: 980px) { .acts-bar-row { position: static; } .acts-bar-row::before, .acts-bar-row::after { display: none; } }
 .acts-chip { display: inline-flex; align-items: center; gap: var(--sp-2); padding: .3rem .4rem .3rem .7rem; border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--line);
   color: var(--text); font-weight: 600; font-size: var(--fs-callout); text-decoration: none; white-space: nowrap; }
 .acts-chip:hover { border-color: var(--tc); text-decoration: none; color: var(--text); }
@@ -400,13 +400,13 @@ ACTS_STYLE = """<style>
 .acts-visual { margin: 0; display: grid; gap: var(--sp-1); justify-items: center; }
 .acts-visual figcaption { font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
 .acts-ad { width: 15rem; box-shadow: var(--shadow-2); }
-.acts-ad-link { display: grid; gap: 1px; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm); background: var(--surface-2); font-size: var(--fs-footnote); }
+.acts-ad-link { display: grid; gap: 1px; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm); background: var(--glass-sheen), color-mix(in srgb, var(--surface-2) 72%, transparent); box-shadow: var(--glass-card-rim-sm); font-size: var(--fs-footnote); }
 .acts-ad-link small { color: var(--text-3); font-size: var(--fs-caption); text-align: end; }
-.acts-price { width: 15rem; display: grid; gap: var(--sp-1); padding: var(--sp-4); border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-2); font-size: var(--fs-footnote); color: var(--text-2); }
+.acts-price { width: 15rem; display: grid; gap: var(--sp-1); padding: var(--sp-4); border-radius: var(--r-lg); background: var(--glass-sheen), var(--glass-card); border: 1px solid transparent; box-shadow: var(--glass-card-rim), var(--shadow-2); font-size: var(--fs-footnote); color: var(--text-2); }
 .acts-price > b { font-size: 2rem; line-height: 1; color: var(--tc-ink); font-weight: 800; }
 .acts-eta { color: var(--text); }
 .acts-eta small { color: var(--text-3); }
-.acts-funnel { width: 15rem; display: grid; gap: var(--sp-2); padding: var(--sp-4); border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); }
+.acts-funnel { width: 15rem; display: grid; gap: var(--sp-2); padding: var(--sp-4); border-radius: var(--r-lg); background: var(--glass-sheen), var(--glass-card); border: 1px solid transparent; box-shadow: var(--glass-card-rim), var(--glass-card-lift); }
 .acts-bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px var(--sp-2); font-size: var(--fs-footnote); }
 .acts-bar b { font-variant-numeric: tabular-nums; }
 .acts-bar i { grid-column: 1 / -1; height: .5rem; border-radius: var(--r-pill); background: linear-gradient(90deg, var(--tc) var(--w), var(--fill-2) var(--w)); }

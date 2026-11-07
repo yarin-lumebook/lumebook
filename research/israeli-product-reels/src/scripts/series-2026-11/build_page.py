@@ -93,7 +93,7 @@ def month_grid(rs, carousels):
 def ed(tag, key, inner, cls="", attrs=""):
     """An editable element."""
     c = f' class="lb-editable {cls}"' if cls else ' class="lb-editable"'
-    return f'<{tag}{c} data-ek="{key}" dir="auto"{attrs}>{inner}</{tag}>'
+    return f'<{tag}{c} data-ek="{key}" dir="rtl"{attrs}>{inner}</{tag}>'
 
 
 def card(r, d):
@@ -106,13 +106,7 @@ def card(r, d):
         shot += '<span class="sub">אתה מצלם</span>' + ed("p", ek(k, "films"), e(", ".join(r["yarin_films"])))
     if shot:
         rows.append(("צילום", f'<details class="shot"><summary>הצגה</summary>{shot}</details>'))
-    if r.get("vo"):
-        lines = r["vo"] + ([s["cta_voice"]] if r["status"] != "posted" else [])
-        n = sum(len(x.split()) for x in lines)
-        lis = "".join(ed("li", ek(k, "vo", i), e(x)) for i, x in enumerate(r["vo"]))
-        if r["status"] != "posted":
-            lis += f'<li class="fixed" title="קבוע לכל הרילס">{e(s["cta_voice"])}</li>'
-        rows.append((f"קריינות, {n} מילים", f'<ol class="vo">{lis}</ol>'))
+    script = script_table(r, d) if r.get("vo") else ""
     if r["voice"] == "trend":
         lis = f'<li><span data-hook-of="{ek(k, "hook")}">{e(r["hook"].replace(chr(10), " "))}</span></li>'
         if r["status"] != "posted":
@@ -122,9 +116,10 @@ def card(r, d):
         rows.append(("כרטיסיות על המסך", '<ol class="vo">' + "".join(ed("li", ek(k, "cards", i), e(x)) for i, x in enumerate(r["cards"])) + "</ol>"))
     cap = reels.caption_of(r, d)
     rows.append(("כיתוב לאינסטגרם",
-                 f'<div class="cap">{ed("div", ek(k, "caption"), e(cap), "capbox", f" id=cap-{k}")}'
+                 f'<div class="cap">{ed("div", ek(k, "caption"), e(cap), "capbox lb-textblock", f" id=cap-{k}")}'
                  f'<button class="lb-btn copy" type="button" data-copy="cap-{k}">העתקה</button></div>'))
-    body = "".join(f'<div class="row"><dt>{t}</dt><dd>{v}</dd></div>' for t, v in rows)
+    body = "".join(f'<div class="row"><dt class="sec-t">{design.icon(ROW_ICON.get(t, "info"), "i")}{t}</dt><dd>{v}</dd></div>' for t, v in rows if t != "כיתוב לאינסטגרם")
+    cap_row = next(v for t, v in rows if t == "כיתוב לאינסטגרם")
     car = s["carousel_days"].get(r["date"]) if r["date"] else None
     car_html = f'<span class="lb-chip outline">באותו יום קרוסלה: {e(car)}</span>' if car else ""
     aud = "סבתות" if r.get("audience") == "grandma" else "הורים"
@@ -151,8 +146,61 @@ def card(r, d):
     </div>
   </header>
   {ed("h3", ek(k, "hook"), e(r['hook'].replace(chr(10), ' ')), "hook-big", f' title="{e(r["hook"].replace(chr(10), " "))}"')}
-  <dl class="rows">{body}</dl>
+  {script}
+  <dl class="rows lb-sheet">{body}</dl>
+  {make_sheet(k)}
+  <section class="capwin lb-window" aria-label="כיתוב לאינסטגרם"><h4 class="sec-t">{design.icon("instagram", "i")}כיתוב לאינסטגרם</h4>{cap_row}</section>
 </article>"""
+
+
+ROW_ICON = {"צילום": "eye", "כרטיסיות על המסך": "layers"}
+
+
+def make_sheet(k):
+    """Making the reel from the card (Yarin, 07 Nov 2026: "a full file dropping and a prompt text box to the reel cards so i could
+    let you create the reel through there"): the finished reel, a drop zone, the dropped files and the prompt for Claude. The script
+    fills it from the project server (/api/reel-files, /api/reel-make/jobs); elsewhere only make-off shows."""
+    return (f'<section class="make lb-sheet" data-make="{k}" aria-label="יצירת הריל">'
+            f'<div class="make-head"><h4 class="sec-t">{design.icon("film", "i")}יצירת הריל</h4><span class="make-sum"></span></div>'
+            f'<div class="make-final" hidden></div>'
+            f'<label class="lb-drop make-drop">{design.icon("upload")}<span class="lb-drop-t">גוררים לכאן סרטונים, הקלטות ותמונות</span>'
+            f'<span class="lb-drop-s">או לוחצים לבחירה. הכול נשמר בתיקיית הריל</span>'
+            f'<input type="file" multiple accept="video/*,audio/*,image/*,.heic,.pdf" aria-label="בחירת קבצים לריל"></label>'
+            f'<ul class="lb-files make-files" aria-label="הקבצים של הריל"></ul>'
+            f'<div class="lb-composer make-comp"><textarea rows="2" dir="rtl" aria-label="מה Claude עושה עם החומרים" '
+            f'placeholder="מה לעשות עם החומרים? למשל: הטייק השני לפתיחה, לחתוך את השתיקות, הקלטת המסך באמצע"></textarea>'
+            f'<div class="lb-composer-bar"><span class="lb-composer-note make-note"></span>'
+            f'<button type="button" class="lb-btn sm make-go">{design.icon("play")}<span>ליצור את הריל</span></button></div></div>'
+            f'<p class="make-msg" role="status" aria-live="polite"></p>'
+            f'<p class="make-off">העלאת קבצים ויצירת הריל עובדות בעמוד המקומי, במחשב שלך (localhost:8780).</p></section>')
+
+
+def mmss(t):
+    t = int(round(t))
+    return f"{t // 60}:{t % 60:02d}"
+
+
+def script_table(r, d):
+    """The voiceover as a table (Yarin, 07 Nov 2026: "what i say, what they see, timestamps"). Times come from the word
+    count, the same estimate as reels.seconds (lead_seconds on the first line, words_per_second after); the page
+    recounts them while a line is edited."""
+    s, L, k = d["defaults"], d["defaults"]["length"], rid(r)
+    sees = r.get("sees", [])
+    lines = [(ed("div", ek(k, "vo", i), e(x)), ed("div", ek(k, "sees", i), e(sees[i] if i < len(sees) else ""), "sees-ed"), len(x.split()), "")
+             for i, x in enumerate(r["vo"])]
+    if r["status"] != "posted":
+        lines.append((f'<div>{e(s["cta_voice"])}</div>', f'<div>{e(s["cta_sees"])}</div>', len(s["cta_voice"].split()), ' class="fixed" title="קבוע לכל הרילס"'))
+    t, trs = 0.0, []
+    for i, (say, see, w, cls) in enumerate(lines):
+        a = t
+        t += (L["lead_seconds"] if i == 0 else 0) + w / L["words_per_second"]
+        trs.append(f'<tr{cls}><td class="tc" data-label="זמן"><span class="t0">{mmss(a)}</span><span class="t1">{mmss(t)}</span></td>'
+                   f'<td class="say" data-label="מה אני אומר">{say}</td><td class="see" data-label="מה רואים">{see}</td></tr>')
+    words = sum(x[2] for x in lines)
+    return (f'<section class="script lb-sheet" aria-label="תסריט">'
+            f'<div class="script-head"><h4 class="sec-t">{design.icon("clapper", "i")}תסריט</h4><span class="script-sum"><b class="script-sec">{t:.0f}</b> שניות, <b class="script-w">{words}</b> מילים</span></div>'
+            f'<table class="lb-table top is-stack script-t" data-lead="{L["lead_seconds"]}" data-wps="{L["words_per_second"]}">'
+            f'<thead><tr><th class="tc">זמן</th><th>מה אני אומר</th><th>מה רואים</th></tr></thead><tbody>{"".join(trs)}</tbody></table></section>')
 
 
 TOOLBAR = """
@@ -401,23 +449,72 @@ SCRIPT = r"""
   /* popup: a day opens its reel */
   var dlg = $("#dlg"), dbody = $("#dlg-body"), holder = $("#cards"), cur = null;
   function flush() { Object.keys(timers).forEach(function (k) { if (timers[k]) { clearTimeout(timers[k]); timers[k] = null; save(k); } }); }
+  /* script table: times follow the word count while a line is edited (same estimate as reels.py seconds) */
+  function mmss(t) { t = Math.round(t); return Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0"); }
+  function retime(tb) {
+    var lead = Number(tb.dataset.lead) || 0, wps = Number(tb.dataset.wps) || 2.8, t = 0, words = 0;
+    $$("tbody tr", tb).forEach(function (tr, i) {
+      var say = $(".say > div", tr), w = say ? say.innerText.trim().split(/\s+/).filter(Boolean).length : 0;
+      var a = t; t += (i === 0 ? lead : 0) + w / wps; words += w;
+      $(".t0", tr).textContent = mmss(a); $(".t1", tr).textContent = mmss(t);
+    });
+    var box = tb.closest(".script"); if (!box) return;
+    $(".script-sec", box).textContent = Math.round(t); $(".script-w", box).textContent = words;
+  }
+  document.addEventListener("input", function (ev) {
+    var tb = ev.target.closest && ev.target.closest(".script-t"); if (tb) retime(tb);
+  });
+  /* a wide screen docks the reel on the left as a drawer and the page narrows to the right, so the month stays in use next
+     to it (Yarin, 07 Nov 2026: "open from the calendar like a drawer (from right to left) and minimize the calendar to the
+     right"); a narrow one opens the popup. Design system: lb-dialog is-docked and html.lb-docked. */
+  var DOCK_MIN = 1100, DOCK_MAX = 860, docked = false, dockTick = 0;
+  function dockRoom() {   /* the width the page and the drawer share: the window left of the project nav (a page sidebar steps aside) */
+    var h = document.documentElement;
+    return h.clientWidth - (parseFloat(getComputedStyle(h).paddingRight) || 0);
+  }
+  function setDock(on) {
+    var h = document.documentElement;
+    if (on) h.style.setProperty("--lb-dock-w", Math.round(Math.min(dockRoom() / 2, DOCK_MAX)) + "px");
+    docked = on; dlg.classList.toggle("is-docked", on); h.classList.toggle("lb-docked", on);
+  }
+  function showReel() {
+    var want = dockRoom() >= DOCK_MIN;
+    if (dlg.open && want === docked) { if (docked) setDock(true); return; }
+    if (dlg.open) dlg.close();   /* popup to drawer or back: the close event finds it open again and leaves the card where it is */
+    setDock(want);
+    if (want) dlg.show(); else dlg.showModal();
+  }
+  function markDay(id) {
+    $$(".lb-day[aria-current]").forEach(function (x) { x.removeAttribute("aria-current"); });
+    var c = id && $('.lb-day[data-k="' + id + '"]'); if (c) c.setAttribute("aria-current", "true");
+  }
+  function redock() { dockTick = 0; if (dlg.open) showReel(); }
+  if (window.ResizeObserver) new ResizeObserver(function () { if (dlg.open && !dockTick) dockTick = requestAnimationFrame(redock); }).observe(document.documentElement);
+  else addEventListener("resize", function () { if (dlg.open && !dockTick) dockTick = requestAnimationFrame(redock); });
+  document.addEventListener("keydown", function (ev) {   /* a docked drawer is not modal, so Escape is ours to handle */
+    if (ev.key === "Escape" && docked && dlg.open && !ev.defaultPrevented) { ev.preventDefault(); dlg.close(); }
+  });
   function openReel(id) {
     var a = document.getElementById(id); if (!a || !a.classList.contains("reel")) return;
     flush(); if (cur) holder.appendChild(cur);
     cur = a; dbody.appendChild(a);
-    if (!dlg.open) dlg.showModal();
-    dlg.scrollTop = 0; $("#dlg-x").focus();
+    $$(".script-t", a).forEach(retime);
+    makeOpen(a);
+    showReel(); markDay(id);
+    dlg.scrollTop = 0; $("#dlg-x").focus({ preventScroll: true });
+    if (typeof paintAsk === "function" && askMsg) { msg(""); setBusy(false); paintAsk(); }   /* askMsg is still unset when a #reel link opens the page */
     try { history.replaceState(null, "", "#" + id); } catch (x) {}
   }
   dlg.addEventListener("close", function () {
     if (dlg.open) return;  /* a late close event after the popup was opened again */
+    setDock(false); markDay(null);
     flush(); if (!cur) return;
     var c = $('.lb-day[data-k="' + cur.id + '"]'); holder.appendChild(cur); cur = null;
     try { history.replaceState(null, "", location.pathname + location.search); } catch (x) {}
     if (c) c.focus();
   });
   $("#dlg-x").addEventListener("click", function () { dlg.close(); });
-  dlg.addEventListener("click", function (ev) { if (ev.target === dlg) dlg.close(); });
+  dlg.addEventListener("click", function (ev) { if (ev.target === dlg && !docked) dlg.close(); });   /* the backdrop; a drawer has none */
   $$("a.lb-day[data-k]").forEach(function (c) { c.addEventListener("click", function (ev) { ev.preventDefault(); openReel(c.dataset.k); }); });
   if (location.hash.length > 1) openReel(decodeURIComponent(location.hash.slice(1)));
 
@@ -450,7 +547,7 @@ SCRIPT = r"""
   function msg(t, err) { askMsg.textContent = t; askMsg.classList.toggle("is-error", !!err); }
   function label(key) {
     var m = key.split("__"), f = m[1], i = m[2] ? Number(m[2]) + 1 : 0;
-    return { hook: "כותרת (על המסך ובראש הכרטיס)", vo: "קריינות, שורה " + i, cards: "כרטיסייה על המסך " + i, caption: "כיתוב לאינסטגרם",
+    return { hook: "כותרת (על המסך ובראש הכרטיס)", vo: "קריינות, שורה " + i, sees: "מה רואים על המסך בזמן קריינות שורה " + i + " (פנימי, לירין)", cards: "כרטיסייה על המסך " + i, caption: "כיתוב לאינסטגרם",
              shot: "הוראות צילום (פנימי, לירין)", films: "מה ירין מצלם (פנימי, רשימה מופרדת בפסיקים)" }[f] || f;
   }
   function tidy(t) {
@@ -472,7 +569,7 @@ SCRIPT = r"""
       "- שורת הסיום של הקריינות קבועה ומתווספת לבד: \"" + CFG.cta_voice + "\". לא לכתוב אותה בשורות.",
       "- הכיתוב מסתיים תמיד בשורה הזאת, מילה במילה: " + CFG.cta_caption,
       "- אם בסוף הכיתוב יש הסתייגות רפואית, להשאיר אותה בדיוק כמו שהיא.",
-      "- הוראות הצילום ורשימת הצילום הן הערות פנימיות לירין, בעברית פשוטה, בגוף שני.",
+      "- הוראות הצילום, רשימת הצילום ו\"מה רואים\" הן הערות פנימיות לירין, בעברית פשוטה, בגוף שני. \"מה רואים\" נשאר מתאים לשורת הקריינות שלו.",
       "",
       "אפשר לשנות רק את המפתחות שכבר קיימים. אי אפשר להוסיף או למחוק שורות. כל ערך חייב להיות לא ריק. לשנות רק מה שההערה מבקשת, ומה שחייב להשתנות בעקבותיה כדי שהריל יישאר עקבי.",
       "",
@@ -521,10 +618,13 @@ SCRIPT = r"""
     ].join("\n");
   }
   var askNew = $("#ask-new");
+  function btnText(b, t) { var s = $("span", b); (s || b).textContent = t; }
   function setBusy(on, which) {
-    askGo.textContent = on && which !== "new" ? "עצירה" : "שליחה"; askGo.dataset.busy = on ? "1" : ""; askT.disabled = on;
-    askNew.textContent = on && which === "new" ? "עצירה" : "רעיון חדש"; askNew.dataset.busy = on ? "1" : "";
-    askGo.disabled = on && which === "new"; askNew.disabled = on && which !== "new";
+    /* which: "new" (רעיון חדש runs), "comment" (שליחה runs) or "make" (the reel is being made: both wait, the make sheet stops it) */
+    var mk = on && which === "make";
+    btnText(askGo, on && which !== "new" && !mk ? "עצירה" : "שליחה"); askGo.dataset.busy = on && !mk && which !== "new" ? "1" : ""; askT.disabled = on;
+    btnText(askNew, on && which === "new" ? "עצירה" : "רעיון חדש"); askNew.dataset.busy = on && which === "new" ? "1" : "";
+    askGo.disabled = mk || (on && which === "new"); askNew.disabled = mk || (on && which !== "new");
   }
   function apply(reel, changes) {
     var before = {}, keys = [];
@@ -542,35 +642,211 @@ SCRIPT = r"""
     Object.keys(before).forEach(function (key) { var f = fields[key]; if (!f) return; f.el.innerHTML = before[key]; syncHook(key); save(key); });
     msg("ביטלתי את השינוי.");
   }
-  function run(reel, text, which, comment) {
-    askCtl = new AbortController(); setBusy(true, which); msg(which === "new" ? "חושב על רעיון חדש..." : "חושב...");
-    sampleFn.json(text, { signal: askCtl.signal, cache: false }).then(function (res) {
-      if (cur !== reel) { msg(""); return; }
-      var r = apply(reel, res && res.changes), sum = res && res.summary ? String(res.summary) : "";
-      if (!r.keys.length) { msg(sum || "לא היה מה לשנות.", !sum); return; }
-      if (which !== "new") askT.value = "";
-      askMsg.classList.remove("is-error"); askMsg.textContent = (sum ? sum.replace(/[.\s]+$/, "") : "שיניתי " + r.keys.length + " טקסטים") + ".";
-      var u = document.createElement("button"); u.type = "button"; u.textContent = "ביטול";
-      u.addEventListener("click", function () { undo(r.before); }); askMsg.appendChild(u);
-      if (reqStore) reqStore.add({ reel: reel.id, comment: comment, kind: which, summary: sum, keys: r.keys, at: new Date().toISOString() }).catch(function () {});
-    }, function (e) {
-      var c = e && e.code;
-      if (c === "cancelled") { msg(which === "new" ? "עצרתי. הריל נשאר כמו שהיה." : "עצרתי. ההערה נשארה בתיבה."); return; }
-      if (c === "not_granted" || c === "sampling_disabled" || c === "not_declared" || c === "capability_disabled" || c === "capability_removed") {
-        sampleFn = null; msg("אין אישור לשנות טקסט מכאן. אפשר לאשר בתפריט ההרשאות של העמוד.", true); return; }
-      if (c === "rate_limited") { msg("יותר מדי בקשות כרגע. נסה שוב עוד קצת.", true); return; }
-      if (c === "not_logged_in") { msg("Claude לא מחובר במחשב הזה. צריך להריץ פעם אחת במסוף: claude auth login", true); return; }
-      if (c === "no_cli") { msg("אין פקודת claude במחשב הזה, אז העמוד המקומי לא יכול לשאול את Claude. אפשר לעבוד בגרסה ב claude.ai.", true); return; }
-      if (c === "timeout") { msg("Claude לקח יותר מדי זמן. אפשר לשלוח שוב.", true); return; }
-      if (c === "invalid_json" || c === "empty_completion") { msg(which === "new" ? "לא הבנתי את התשובה. אפשר ללחוץ שוב." : "לא הבנתי את התשובה. אפשר לנסח את ההערה אחרת ולשלוח שוב.", true); return; }
-      if (c === "refused") { msg("את ההערה הזאת לא יכולתי לבצע. נסה לנסח אחרת.", true); return; }
-      msg("משהו נכשל בדרך. אפשר לשלוח שוב.", true);
-    }).then(function () { setBusy(false); askCtl = null; });
+  /* Background answers (Yarin, 07 Nov 2026: "if i click רעיון חדש and exit the tab i want it to continue in the bg and show
+     me the process and let me do it for a couple of reels simultaneously"). Every ask (רעיון חדש and שליחה) is a job, one per
+     reel, several reels at once. On the project server the job runs on the server (POST /api/sample/jobs, tools/lumebook.py
+     SampleJobs): it goes on when the popup or the tab is closed, and its answer waits there until a page takes it and puts it
+     into the reel, so it is applied the next time the page is open. On claude.ai the artifact's sample capability answers
+     inside the page: several at once and the popup can close, but closing the tab stops them. The tray in the corner shows
+     every job: queued, thinking, writing which field, done (open it, undo), failed. */
+  var JOBS = {}, jobMode = null, jobTimer = null, ctlBy = {}, undoBy = {}, HEADJ = { "Content-Type": "application/json", "X-LumeBook-Board": "1" };
+  function errText(c, which) {
+    if (c === "cancelled") return which === "new" ? "עצרתי. הריל נשאר כמו שהיה." : "עצרתי. ההערה לא בוצעה.";
+    if (c === "not_granted" || c === "sampling_disabled" || c === "not_declared" || c === "capability_disabled" || c === "capability_removed")
+      return "אין אישור לשנות טקסט מכאן. אפשר לאשר בתפריט ההרשאות של העמוד.";
+    if (c === "rate_limited") return "יותר מדי בקשות כרגע. נסה שוב עוד קצת.";
+    if (c === "not_logged_in") return "Claude לא מחובר במחשב הזה. צריך להריץ פעם אחת במסוף: claude auth login";
+    if (c === "no_cli") return "אין פקודת claude במחשב הזה, אז העמוד המקומי לא יכול לשאול את Claude.";
+    if (c === "timeout") return "Claude לקח יותר מדי זמן. אפשר לשלוח שוב.";
+    if (c === "invalid_json" || c === "empty_completion") return "לא הבנתי את התשובה. אפשר לנסות שוב.";
+    if (c === "refused") return "את ההערה הזאת לא יכולתי לבצע. נסה לנסח אחרת.";
+    if (c === "restarted") return "השרת המקומי הופעל מחדש באמצע. אפשר לנסות שוב.";
+    if (c === "busy_reel") return "כבר יש בקשה שרצה לריל הזה.";
+    if (c === "gone") return "הבקשה כבר לא קיימת.";
+    if (c === "timeout" && which === "make") return "הבנייה לקחה יותר מ 30 דקות ונעצרה. מה שנוצר עד עכשיו נשאר בתיקייה.";
+    if (c === "no_folder") return "לא הצלחתי לפתוח תיקייה לריל הזה.";
+    if (c === "no_files") return "צריך לגרור לכאן את הקבצים של הריל קודם.";
+    if (c === "bad_plan") return "התוכנית ש Claude כתב לא עברה בדיקה, אז לא בניתי כלום. אפשר לנסות שוב או לכתוב יותר מה הולך לאן.";
+    if (c === "build_failed") return "הבנייה נעצרה.";
+    return "משהו נכשל בדרך. אפשר לנסות שוב.";
   }
+  function parseAnswer(t) {
+    t = String(t || "").replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, "").trim();
+    var a = t.indexOf("{"), b = t.lastIndexOf("}");
+    if (!t) { var e = new Error("empty"); e.code = "empty_completion"; throw e; }
+    try { return JSON.parse(a >= 0 && b > a ? t.slice(a, b + 1) : t); } catch (x) { var e2 = new Error("json"); e2.code = "invalid_json"; throw e2; }
+  }
+  function running(j) { return j && (j.status === "queued" || j.status === "running"); }
+  function jobFor(reelId) { var id = Object.keys(JOBS).filter(function (k) { return JOBS[k].reel === reelId && running(JOBS[k]); })[0]; return id ? JOBS[id] : null; }
+  function clock(j) {
+    var t0 = Date.parse(j.ran || j.started), t1 = j.ended ? Date.parse(j.ended) : Date.now(), s = Math.max(0, Math.round((t1 - t0) / 1000));
+    return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2);
+  }
+  function stepOf(j) {   // which field the answer is writing now, and how many of the reel's fields it has written
+    var reel = document.getElementById(j.reel), total = reel ? $$("[data-ek]", reel).length : 0;
+    var keys = [], m, re = /"(r[\w-]+__[a-z]+(?:__\d+)?)"\s*:/g, out = j.out || "";
+    while ((m = re.exec(out))) if (keys.indexOf(m[1]) < 0) keys.push(m[1]);
+    return { field: keys.length ? label(keys[keys.length - 1]) : "", done: keys.length, total: total };
+  }
+  function stateText(j) {
+    if (j.status === "queued") return j.kind === "make" ? "מחכה בתור, ריל אחר נוצר עכשיו" : "מחכה בתור";
+    if (running(j) && j.kind === "make") return (j.steps ? "שלב " + j.steps + ": " : "") + (j.step || "מתחיל לעבוד");
+    if (running(j)) { var st = stepOf(j); return j.stage === "writing" ? (st.field ? "כותב: " + st.field : "מתחיל לכתוב") : "חושב"; }
+    if (j.status === "done") return j.applied ? (j.summary || "הוכנס לריל") : "מוכן";
+    if (j.status === "cancelled") return "נעצר";
+    return errText(j.code, j.kind);
+  }
+  function hookOf(reelId) { var r = document.getElementById(reelId), h = r && $(".hook-big", r); return h ? h.innerText.replace(/\s+/g, " ").trim() : reelId; }
+  function pidOf(reelId) { var c = $('.lb-day[data-k="' + reelId + '"] .lb-pid'); return c ? c.textContent : reelId.slice(1).replace("-", "."); }
+
+  /* the tray */
+  var tray = document.createElement("aside");
+  tray.className = "jobs lb-glass is-thick"; tray.id = "jobs"; tray.hidden = true; tray.setAttribute("aria-label", "בקשות ל Claude");
+  tray.innerHTML = '<div class="jobs-head"><span class="jobs-title" role="status" aria-live="polite"></span>' +
+    '<button type="button" class="lb-btn secondary sm" data-jobs-fold aria-expanded="true">הסתרה</button></div><div class="jobs-list"></div><p class="jobs-note"></p>';
+  document.body.appendChild(tray);
+  var trayFolded = false;
+  $("[data-jobs-fold]", tray).addEventListener("click", function () {
+    trayFolded = !trayFolded; tray.classList.toggle("is-folded", trayFolded);
+    this.textContent = trayFolded ? "הצגה" : "הסתרה"; this.setAttribute("aria-expanded", String(!trayFolded));
+  });
+  function render() {
+    var list = Object.keys(JOBS).map(function (k) { return JOBS[k]; }).sort(function (a, b) { return String(a.started).localeCompare(String(b.started)); });
+    tray.hidden = !list.length;
+    var live = list.filter(running).length;
+    $(".jobs-title", tray).textContent = live ? "Claude עובד על " + live + (live === 1 ? " ריל" : " רילס") : "בקשות ל Claude";
+    $(".jobs-note", tray).textContent = live && jobMode === "page" ? "ב claude.ai זה ממשיך כל עוד הלשונית פתוחה." : live ? "אפשר לסגור את הלשונית, זה ממשיך ברקע." : "";
+    $(".jobs-list", tray).innerHTML = list.map(function (j) {
+      var st = stepOf(j), pct = j.status === "done" ? 100 : running(j) && j.kind === "new" && st.total ? Math.min(95, Math.round(100 * st.done / st.total)) : 0;
+      var bad = j.status === "failed", btns = '<button type="button" class="lb-btn secondary sm" data-job-open="' + j.reel + '">פתיחה</button>';
+      if (running(j)) btns += '<button type="button" class="lb-btn secondary sm" data-job-stop="' + j.id + '">עצירה</button>';
+      else {
+        if (undoBy[j.id]) btns += '<button type="button" class="lb-btn secondary sm" data-job-undo="' + j.id + '">ביטול השינוי</button>';
+        btns += '<button type="button" class="lb-btn secondary sm" data-job-x="' + j.id + '" aria-label="הסרה מהרשימה">✕</button>';
+      }
+      return '<div class="job' + (bad ? " is-bad" : "") + '"><div class="job-top"><span class="lb-pid">' + esc(pidOf(j.reel)) + '</span><span class="job-hook">' + esc(j.label || hookOf(j.reel)) + '</span>' +
+        '<span class="job-kind">' + (j.kind === "new" ? "רעיון חדש" : j.kind === "make" ? "יצירת ריל" : "הערה") + '</span></div>' +
+        '<div class="job-st">' + (running(j) ? '<span class="lb-spinner" aria-hidden="true"></span>' : "") + '<span>' + esc(stateText(j)) + '</span><span class="job-t">' + clock(j) + '</span></div>' +
+        (running(j) || j.status === "done" ? '<div class="job-bar' + (running(j) && !pct ? " is-wait" : "") + '"><i style="width:' + pct + '%"></i></div>' : "") +
+        '<div class="job-act">' + btns + '</div></div>';
+    }).join("");
+    paintCells(); paintAsk(); if (cur) paintMake(cur);
+  }
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function paintCells() {
+    $$(".lb-day[data-k]").forEach(function (c) {
+      var j = jobFor(c.dataset.k); c.classList.toggle("is-busy", !!j);
+      var dot = $(".job-dot", c);
+      if (j && !dot) { dot = document.createElement("span"); dot.className = "job-dot lb-spinner"; dot.title = "Claude עובד על הריל הזה"; var top = $(".lb-day-top", c); if (top) top.insertBefore(dot, $(".lb-pid", top)); else c.appendChild(dot); }
+      if (!j && dot) dot.remove();
+    });
+  }
+  window.CalJobsPaint = paintCells;
+  function paintAsk() {
+    if (!cur) return;
+    var j = jobFor(cur.id);
+    if (j && j.kind === "make") { setBusy(true, "make"); msg("Claude יוצר עכשיו את הריל הזה. אפשר לשנות את הטקסט כשהוא יסיים."); }
+    else if (j) { setBusy(true, j.kind); msg((j.kind === "new" ? "רעיון חדש: " : "") + stateText(j) + " (" + clock(j) + "). אפשר לסגור, זה ממשיך ברקע."); }
+    else if (askGo.dataset.busy || askNew.dataset.busy) setBusy(false);
+  }
+  tray.addEventListener("click", function (ev) {
+    var t = ev.target.closest("button"); if (!t) return;
+    if (t.dataset.jobOpen) openReel(t.dataset.jobOpen);
+    else if (t.dataset.jobStop) stopJob(t.dataset.jobStop);
+    else if (t.dataset.jobUndo) { undo(undoBy[t.dataset.jobUndo]); delete undoBy[t.dataset.jobUndo]; JOBS[t.dataset.jobUndo].summary = "השינוי בוטל"; render(); }
+    else if (t.dataset.jobX) dismissJob(t.dataset.jobX);
+  });
+
+  /* finishing: put the answer into its reel (also when the popup is closed or another reel is open) */
+  function finish(j, res) {
+    var reel = document.getElementById(j.reel);
+    if (!reel) { j.summary = "הריל לא נמצא בעמוד"; return; }
+    var r = apply(reel, res && res.changes), sum = res && res.summary ? String(res.summary).replace(/[.\s]+$/, "") : "";
+    j.applied = true;
+    if (!r.keys.length) { j.summary = sum || "לא היה מה לשנות"; return; }
+    j.summary = (sum || "שיניתי " + r.keys.length + " טקסטים") + ".";
+    undoBy[j.id] = r.before;
+    if (cur === reel) {
+      setBusy(false); if (j.kind !== "new" && askT.value.trim() === (j.comment || "").trim()) askT.value = "";
+      askMsg.classList.remove("is-error"); askMsg.textContent = j.summary;
+      var u = document.createElement("button"); u.type = "button"; u.textContent = "ביטול";
+      u.addEventListener("click", function () { undo(r.before); delete undoBy[j.id]; j.summary = "השינוי בוטל"; render(); }); askMsg.appendChild(u);
+    }
+    if (reqStore) reqStore.add({ reel: reel.id, comment: j.comment || "רעיון חדש", kind: j.kind, summary: sum, keys: r.keys, at: new Date().toISOString() }).catch(function () {});
+  }
+  function startJob(reel, text, which, comment) {
+    if (jobFor(reel.id)) { msg(errText("busy_reel"), true); return; }
+    var meta = { reel: reel.id, kind: which, label: hookOf(reel.id), comment: comment };
+    if (jobMode === "server") {
+      setBusy(true, which); msg("שולח...");
+      fetch("/api/sample/jobs", { method: "POST", headers: HEADJ, body: JSON.stringify(Object.assign({ prompt: text }, meta)) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (b) { if (!r.ok) { var x = new Error(b.error); x.code = b.code || "failed"; throw x; } return b.job; }); })
+        .then(function (job) { JOBS[job.id] = job; render(); poll(); }, function (x) { setBusy(false); msg(errText(x.code, which), true); });
+      return;
+    }
+    var id = "p" + Date.now().toString(36), ctl = new AbortController();
+    var j = JOBS[id] = Object.assign({ id: id, status: "running", stage: "thinking", started: new Date().toISOString() }, meta);
+    ctlBy[id] = ctl; render(); tick();
+    sampleFn.json(text, { signal: ctl.signal, cache: false }).then(function (res) {
+      j.status = "done"; j.ended = new Date().toISOString(); finish(j, res);
+    }, function (x) {
+      var c = x && x.code; j.status = c === "cancelled" ? "cancelled" : "failed"; j.code = c; j.ended = new Date().toISOString();
+      if (c === "not_granted" || c === "sampling_disabled" || c === "not_declared" || c === "capability_disabled" || c === "capability_removed") sampleFn = null;
+      if (cur && cur.id === j.reel) { setBusy(false); msg(errText(c, j.kind), c !== "cancelled"); }
+    }).then(function () { delete ctlBy[id]; render(); });
+  }
+  function stopJob(id) {
+    if (ctlBy[id]) { ctlBy[id].abort(); return; }
+    fetch("/api/sample/jobs/" + id + "/cancel", { method: "POST", headers: HEADJ }).then(function () { poll(); }, function () {});
+  }
+  function dismissJob(id) {
+    delete undoBy[id];
+    if (jobMode === "server" && id.charAt(0) !== "p") fetch("/api/sample/jobs/" + id + "/dismiss", { method: "POST", headers: HEADJ }).catch(function () {});
+    delete JOBS[id]; render();
+  }
+  /* server jobs: read the list, take every finished answer nobody took yet */
+  var polling = false;
+  function poll() {
+    if (jobMode !== "server" || polling) return;
+    polling = true; clearTimeout(jobTimer);
+    fetch("/api/sample/jobs", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : { jobs: [] }; }).then(function (b) {
+      var seen = {};
+      (b.jobs || []).forEach(function (sj) {
+        seen[sj.id] = 1;
+        var j = JOBS[sj.id];
+        if (j && j.applied) return;   // ours, already in the reel
+        if (sj.claimed && !j) return; // another tab or an earlier visit put it in; nothing left to show
+        JOBS[sj.id] = j = Object.assign(j || {}, sj);
+        if (j.status === "done" && !j.claimed && !j.taking) {
+          j.taking = true;
+          fetch("/api/sample/jobs/" + j.id + "/claim", { method: "POST", headers: HEADJ }).then(function (r) {
+            if (!r.ok) { delete JOBS[j.id]; return; }
+            if (j.kind === "make") { finishMake(j); return; }
+            try { finish(j, parseAnswer(j.text)); } catch (x) { j.status = "failed"; j.code = x.code || "invalid_json"; if (cur && cur.id === j.reel) setBusy(false); }
+          }).then(render, render);
+        } else if (j.kind === "make" && j.status !== "done" && !running(j) && !j.told) {
+          j.told = true;
+          mkNote[j.reel] = { text: errText(j.code, "make") + (j.error && (j.code === "build_failed" || j.code === "bad_plan") ? " (" + j.error + ")" : ""), err: j.status !== "cancelled" };
+          var mr = document.getElementById(j.reel); if (mr) loadFiles(mr);
+        } else if (j.status !== "done" && !running(j) && cur && cur.id === j.reel && !j.told) { j.told = true; setBusy(false); msg(errText(j.code, j.kind), j.status !== "cancelled"); }
+      });
+      Object.keys(JOBS).forEach(function (k) { if (!seen[k] && k.charAt(0) !== "p" && !JOBS[k].applied) delete JOBS[k]; });
+      render();
+    }, function () {}).then(function () {
+      polling = false;
+      var live = Object.keys(JOBS).some(function (k) { return running(JOBS[k]); });
+      if (live) jobTimer = setTimeout(poll, 1200);
+    });
+  }
+  function tick() {   // the clock of in-page jobs (claude.ai)
+    if (Object.keys(JOBS).some(function (k) { return running(JOBS[k]); })) { render(); setTimeout(tick, 1000); }
+  }
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) poll(); });
+
   function canRun(what) {
-    if (!sampleFn) {
+    if (!sampleFn && jobMode !== "server") {
       msg(what + " עובד רק כשהעמוד פתוח ב claude.ai. ", true);
-      if (CFG.artifact && !window.claude) {   /* opened on the project server: link to the claude.ai copy, where the buttons work */
+      if (CFG.artifact && !window.claude) {   /* opened somewhere without the project server: link to the claude.ai copy */
         var a = document.createElement("a"); a.href = CFG.artifact; a.target = "_blank"; a.rel = "noopener"; a.textContent = "לפתיחה שם";
         askMsg.appendChild(a);
       }
@@ -581,19 +857,20 @@ SCRIPT = r"""
   }
   ask.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    if (askGo.dataset.busy) { if (askCtl) askCtl.abort(); return; }
-    var comment = askT.value.trim(), reel = cur;
+    var reel = cur, j = reel && jobFor(reel.id);
+    if (j) { if (j.kind !== "make") stopJob(j.id); return; }
+    var comment = askT.value.trim();
     if (!comment || !reel || !canRun("השינוי לפי הערה")) return;
-    run(reel, prompt(reel, comment), "comment", comment);
+    startJob(reel, prompt(reel, comment), "comment", comment);
   });
   askNew.addEventListener("click", function () {
-    if (askNew.dataset.busy) { if (askCtl) askCtl.abort(); return; }
-    var reel = cur;
+    var reel = cur, j = reel && jobFor(reel.id);
+    if (j) { if (j.kind !== "make") stopJob(j.id); return; }
     if (!reel || !canRun("רעיון חדש")) return;
-    run(reel, ideaPrompt(reel), "new", "רעיון חדש");
+    startJob(reel, ideaPrompt(reel), "new", "רעיון חדש");
   });
   askT.addEventListener("keydown", function (ev) { if (ev.key === "Enter" && (ev.metaKey || ev.ctrlKey)) { ev.preventDefault(); ask.requestSubmit(); } });
-  dlg.addEventListener("close", function () { if (askCtl) askCtl.abort(); msg(""); });
+  dlg.addEventListener("close", function () { msg(""); setBusy(false); });   // a running job goes on; the tray shows it
   /* On claude.ai the ask buttons use the artifact's sample capability. On the project server there is no claude.ai, so
      POST /api/sample (tools/lumebook.py, the claude command of this Mac) answers instead; this wrapper looks like the
      artifact's sample function: a call, call.json, and errors with a .code the handlers below already know. */
@@ -618,8 +895,224 @@ SCRIPT = r"""
     };
     return call;
   }
-  if (window.claude && claude.use) claude.use("sample").then(function (fn) { sampleFn = fn || null; }, function () {});
-  else projectServer().then(function (ok) { if (ok) sampleFn = localSample(); });
+  if (window.claude && claude.use) claude.use("sample").then(function (fn) { sampleFn = fn || null; if (fn) jobMode = "page"; }, function () {});
+  else projectServer().then(function (ok) { if (ok) { sampleFn = localSample(); jobMode = "server"; poll(); } });
+
+  /* Making the reel (Yarin, 07 Nov 2026: "a full file dropping and a prompt text box to the reel cards so i could let you create
+     the reel through there"). On the project server every reel card has a make sheet. Files dropped anywhere on the open card, on a
+     day of the month, or picked in the drop zone upload into the reel's media folder (POST /api/reel-files; the first one opens the
+     folder with reels.py new) and show as tiles (✕ moves one to _to-delete). The prompt and ליצור את הריל start a reel job (POST
+     /api/reel-make/jobs, tools/lumebook.py): Claude Code with tools, in the project folder, makes the video the reel_make.py way, in
+     the background, one reel at a time. The tray and the sheet show each step; the newest file in final/ plays on the card. On
+     claude.ai and Vercel the sheet only says where it works. */
+  var MK = null, mkFiles = {}, mkUp = {}, mkNote = {}, mkSel = {}, upSeq = 0, upActive = 0, ICO = CFG.icons || {};
+  var OKX = /\.(mp4|mov|m4v|webm|mkv|png|jpe?g|webp|gif|heic|mp3|m4a|wav|ogg|opus|aac|pdf)$/i, KIND_HE = { video: "סרטון", image: "תמונה", audio: "הקלטה", file: "קובץ" };
+  function mkSec(reel) { return reel ? $(".make", reel) : null; }
+  function kindOf(n) {
+    var x = String(n).split(".").pop().toLowerCase();
+    return /^(mp4|mov|m4v|webm|mkv)$/.test(x) ? "video" : /^(png|jpe?g|webp|gif|heic)$/.test(x) ? "image" : /^(mp3|m4a|wav|ogg|opus|aac)$/.test(x) ? "audio" : "file";
+  }
+  function mkSize(b) { return b >= 1e9 ? (b / 1e9).toFixed(1) + " GB" : b >= 1e6 ? Math.round(b / 1e6) + " MB" : Math.max(1, Math.round(b / 1e3)) + " KB"; }
+  function mkWhen(t) { var d = new Date(t * 1000), p = function (n) { return ("0" + n).slice(-2); }; return p(d.getDate()) + " / " + p(d.getMonth() + 1) + ", " + p(d.getHours()) + ":" + p(d.getMinutes()); }
+  function tileHtml(f) {
+    var k = f.kind || kindOf(f.name), src = f.src || f.url || "", th;
+    if (src && k === "image") th = '<a class="lb-file-th" href="' + esc(src) + '" target="_blank" rel="noopener" tabindex="-1"><img src="' + esc(src) + '" alt="" loading="lazy"></a>';
+    else if (src && k === "video") th = '<a class="lb-file-th" href="' + esc(src) + '" target="_blank" rel="noopener" tabindex="-1"><video src="' + esc(src) + '#t=0.3" muted playsinline preload="metadata"></video><span class="lb-file-dur"></span></a>';
+    else th = '<span class="lb-file-th">' + (ICO[k] || ICO.file || "") + '</span>';
+    var sub = f.bad || (f.up ? "מעלה, " + mkSize(f.size) : KIND_HE[k] + ", " + mkSize(f.size));
+    return '<li class="lb-file' + (f.up ? " is-up" : "") + (f.bad ? " is-bad" : "") + '" ' + (f.id ? 'data-up="' + f.id + '"' : 'data-rf="' + esc(f.path) + '"') + ' style="--p:' + (f.p || 0).toFixed(3) + '">' + th +
+      '<button type="button" class="lb-file-x" aria-label="' + (f.up ? "ביטול ההעלאה של " : "הסרה של ") + esc(f.name) + '">' + (ICO.close || "✕") + '</button>' +
+      '<span class="lb-file-meta"><span class="lb-file-n" title="' + esc(f.name) + '">' + esc(f.name) + '</span><span class="lb-file-s">' + esc(sub) + '</span></span>' +
+      '<span class="lb-file-bar"><i></i></span></li>';
+  }
+  function paintFiles(reel) {
+    var s = mkSec(reel); if (!s) return;
+    var b = mkFiles[reel.id] || { files: [], finals: [] }, ups = mkUp[reel.id] || {}, ul = $(".make-files", s);
+    ul.innerHTML = b.files.concat(Object.keys(ups).map(function (k) { return ups[k]; })).map(tileHtml).join("");
+    $$("video", ul).forEach(function (v) {
+      var li = v.closest(".lb-file");
+      v.addEventListener("loadedmetadata", function () { var d = $(".lb-file-dur", li); if (d && isFinite(v.duration)) d.textContent = mmss(v.duration); });
+      li.addEventListener("mouseenter", function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+      li.addEventListener("mouseleave", function () { v.pause(); try { v.currentTime = 0.3; } catch (x) {} });
+    });
+    $$("img", ul).forEach(function (im) { im.addEventListener("error", function () { var a = im.parentNode; a.outerHTML = '<span class="lb-file-th">' + (ICO.image || "") + '</span>'; }); });
+    paintFinal(reel); paintMake(reel);
+  }
+  function paintFinal(reel) {
+    var s = mkSec(reel), box = s && $(".make-final", s), fin = ((mkFiles[reel.id] || {}).finals) || []; if (!box) return;
+    if (!fin.length) { box.hidden = true; box.innerHTML = ""; box.dataset.src = ""; return; }
+    var pick = fin.filter(function (f) { return f.path === mkSel[reel.id]; })[0] || fin[0], key = pick.url + "|" + pick.mtime + "|" + fin.length;
+    box.hidden = false;
+    if (box.dataset.src === key) return;   // the same file: leave the player alone (it may be playing)
+    box.dataset.src = key;
+    var vers = fin.length > 1 ? '<div class="make-vers">' + fin.map(function (f) {
+      return '<button type="button" class="lb-chip" data-ver="' + esc(f.path) + '" aria-pressed="' + (f === pick) + '">' + esc(f.name.replace(/\.mp4$/i, "")) + '</button>'; }).join("") + '</div>' : "";
+    box.innerHTML = '<video controls playsinline preload="metadata" src="' + esc(pick.url) + '"></video><div class="make-final-info"><b>הריל המוכן</b>' +
+      '<span class="n">' + esc(pick.name) + ', ' + mkWhen(pick.mtime) + ', ' + mkSize(pick.size) + '</span><div class="make-final-acts">' +
+      '<a class="lb-btn secondary sm" href="' + esc(pick.url) + '" download="' + esc(pick.name) + '">' + (ICO.download || "") + '<span>הורדה</span></a>' +
+      '<a class="lb-btn secondary sm" href="' + esc(pick.url) + '" target="_blank" rel="noopener">' + (ICO.open || "") + '<span>פתיחה בלשונית</span></a></div>' + vers + '</div>';
+  }
+  function mkMsg(s, html, err) { var m = $(".make-msg", s); if (m.innerHTML !== html) m.innerHTML = html; m.classList.toggle("is-error", !!err); }
+  function paintMake(reel) {
+    var s = mkSec(reel); if (!s || MK !== "server") return;
+    var j = jobFor(reel.id), go = $(".make-go", s), ta = $("textarea", s), b = mkFiles[reel.id] || { files: [], finals: [] }, ups = mkUp[reel.id] || {};
+    var nUp = Object.keys(ups).filter(function (k) { return ups[k].up; }).length, nf = b.files.length, nr = b.finals.length;
+    $(".make-sum", s).textContent = nf || nr ? (nf ? nf + (nf === 1 ? " קובץ" : " קבצים") : "") + (nf && nr ? ", " : "") + (nr ? nr + (nr === 1 ? " ריל מוכן" : " רילס מוכנים") : "") : "";
+    var note = nUp ? esc("מעלה " + (nUp === 1 ? "קובץ אחד" : nUp + " קבצים") + "...") : b.project ? "<bdi>" + esc(b.project.split("/").pop()) + "</bdi>" : "";
+    if ($(".make-note", s).innerHTML !== note) $(".make-note", s).innerHTML = note;   // bdi: the folder name keeps its order inside the Hebrew bar
+    if (j && j.kind === "make") {
+      btnText(go, "עצירה"); go.dataset.busy = "1"; go.disabled = false; ta.disabled = true;
+      mkMsg(s, '<span class="lb-spinner" aria-hidden="true"></span><span>' + esc(stateText(j)) + '</span><span class="t">' + clock(j) + '</span>');
+      return;
+    }
+    btnText(go, nr ? "ליצור שוב" : "ליצור את הריל"); go.dataset.busy = ""; ta.disabled = false; go.disabled = !!j || readOnly;
+    var n = j ? { text: "מחכה שהשינוי בטקסט של הריל יסתיים." } : mkNote[reel.id];
+    mkMsg(s, n ? '<span>' + esc(n.text) + '</span>' : "", n && n.err);
+  }
+  function loadFiles(reel) {
+    if (MK !== "server" || !reel) return;
+    fetch("/api/reel-files?reel=" + encodeURIComponent(reel.id), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (b) { if (b) { mkFiles[reel.id] = b; paintFiles(reel); } }, function () {});
+  }
+  function upload(reel, list) {
+    if (MK !== "server" || !reel || readOnly) return;
+    var all = Array.prototype.slice.call(list || []), ok = all.filter(function (f) { return f.size > 0 && OKX.test(f.name); }), skip = all.length - ok.length;
+    var q = mkUp[reel.id] || (mkUp[reel.id] = {});
+    ok.forEach(function (f) {
+      var id = "u" + (++upSeq), k = kindOf(f.name);
+      q[id] = { id: id, name: f.name, size: f.size, kind: k, src: k === "video" || k === "image" ? URL.createObjectURL(f) : "", p: 0, up: true, file: f, reel: reel.id };
+    });
+    if (skip) mkNote[reel.id] = { text: (skip === 1 ? "קובץ אחד לא נכנס" : skip + " קבצים לא נכנסו") + ": רק סרטונים, הקלטות, תמונות ו PDF.", err: true };
+    else if (ok.length) mkNote[reel.id] = null;
+    paintFiles(reel); pump();
+  }
+  function pump() {   // two uploads at a time, in the order they were dropped
+    while (upActive < 2) {
+      var next = null;
+      Object.keys(mkUp).some(function (r) { return Object.keys(mkUp[r]).some(function (k) { var u = mkUp[r][k]; if (u.up && !u.xhr) { next = u; return true; } return false; }); });
+      if (!next) return;
+      send(next);
+    }
+  }
+  function send(u) {
+    var x = new XMLHttpRequest(); u.xhr = x; upActive++;
+    x.open("POST", "/api/reel-files?reel=" + encodeURIComponent(u.reel) + "&name=" + encodeURIComponent(u.name));
+    x.setRequestHeader("X-LumeBook-Board", "1"); x.setRequestHeader("Content-Type", "application/octet-stream");
+    x.upload.onprogress = function (e) {
+      if (!e.lengthComputable) return; u.p = e.loaded / e.total;
+      var el = $('[data-up="' + u.id + '"]'); if (el) el.style.setProperty("--p", u.p.toFixed(3));
+    };
+    x.onloadend = function () {
+      upActive--;
+      var body = {}; try { body = JSON.parse(x.responseText || "{}"); } catch (e) {}
+      if (x.status >= 200 && x.status < 300 && body.file) {
+        delete mkUp[u.reel][u.id]; if (u.src) URL.revokeObjectURL(u.src);
+        var b = mkFiles[u.reel] || (mkFiles[u.reel] = { files: [], finals: [] });
+        b.files = b.files.filter(function (f) { return f.path !== body.file.path; }).concat([body.file]); if (body.project) b.project = body.project;
+      } else if (u.cancelled) { delete mkUp[u.reel][u.id]; if (u.src) URL.revokeObjectURL(u.src); }
+      else { u.up = false; u.bad = x.status === 413 ? "גדול מדי" : x.status === 415 ? "סוג קובץ שלא נתמך" : x.status === 0 ? "ההעלאה נקטעה" : "ההעלאה נכשלה"; }
+      var r = document.getElementById(u.reel); if (r) paintFiles(r);
+      pump();
+    };
+    x.send(u.file);
+  }
+  function removeFile(reel, path) {
+    fetch("/api/reel-files/remove?reel=" + encodeURIComponent(reel.id) + "&f=" + encodeURIComponent(path), { method: "POST", headers: HEADJ })
+      .then(function (r) { if (!r.ok) throw new Error("remove"); })
+      .then(function () {
+        var b = mkFiles[reel.id]; if (b) b.files = b.files.filter(function (f) { return f.path !== path; });
+        mkNote[reel.id] = { text: "הקובץ עבר ל _to-delete, אפשר להחזיר אותו משם." }; paintFiles(reel);
+      }, function () { mkNote[reel.id] = { text: "לא הצלחתי להסיר את הקובץ.", err: true }; paintMake(reel); });
+  }
+  function makeGo(reel) {
+    if (!reel || MK !== "server") return;
+    var j = jobFor(reel.id), s = mkSec(reel);
+    if (j) { if (j.kind === "make") stopJob(j.id); return; }
+    if (readOnly) { mkNote[reel.id] = { text: "העמוד פתוח לקריאה בלבד.", err: true }; paintMake(reel); return; }
+    var text = $("textarea", s).value.trim(), b = mkFiles[reel.id] || { files: [] }, ups = mkUp[reel.id] || {};
+    if (Object.keys(ups).some(function (k) { return ups[k].up; })) { mkNote[reel.id] = { text: "רגע, הקבצים עוד עולים. אפשר ללחוץ שוב כשהם יסיימו." }; paintMake(reel); return; }
+    if (!b.files.length) { mkNote[reel.id] = { text: "צריך לגרור לכאן את הקבצים של הריל קודם.", err: true }; paintMake(reel); return; }
+    flush();   // the script Claude gets is the one on the screen, edits included
+    var script = {};
+    $$("[data-ek]", reel).forEach(function (el) {
+      var m = el.dataset.ek.split("__"), t = el.innerText.trim();
+      if (m.length > 2) (script[m[1]] = script[m[1]] || [])[Number(m[2])] = t; else script[m[1]] = t;
+    });
+    mkNote[reel.id] = null; $(".make-go", s).disabled = true;
+    fetch("/api/reel-make/jobs", { method: "POST", headers: HEADJ, body: JSON.stringify({ reel: reel.id, prompt: text, script: script, label: hookOf(reel.id) }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (x) { if (!r.ok) { var e = new Error(x.error); e.code = x.code || "failed"; throw e; } return x.job; }); })
+      .then(function (job) { JOBS[job.id] = job; render(); poll(); }, function (x) { mkNote[reel.id] = { text: errText(x.code, "make"), err: true }; paintMake(reel); });
+  }
+  function finishMake(j) {
+    j.applied = true;
+    var t = String(j.text || "").trim().split(/\n\s*\n/).pop().replace(/\s+/g, " ").trim();
+    j.summary = t ? t.slice(0, 400) : "הריל מוכן.";
+    mkNote[j.reel] = { text: j.summary + (j.checks && j.checks.length ? " לבדוק: " + j.checks.join(" | ") : "") };
+    var reel = document.getElementById(j.reel); if (reel) loadFiles(reel);
+    if (reqStore) reqStore.add({ reel: j.reel, comment: j.comment || "", kind: "make", summary: j.summary, keys: [], at: new Date().toISOString() }).catch(function () {});
+  }
+  function makeOpen(reel) {
+    var s = mkSec(reel); if (!s || !MK) return;
+    s.classList.toggle("is-off", MK !== "server");
+    if (MK === "server") { paintMake(reel); loadFiles(reel); }
+  }
+  document.addEventListener("change", function (ev) {
+    var inp = ev.target.closest && ev.target.closest(".make-drop input[type=file]"); if (!inp) return;
+    upload(inp.closest(".reel"), inp.files); inp.value = "";
+  });
+  document.addEventListener("click", function (ev) {
+    var t = ev.target.closest && ev.target.closest(".make .lb-file-x, .make-go, .make-vers [data-ver]"), reel = t && t.closest(".reel"); if (!reel) return;
+    if (t.classList.contains("make-go")) { makeGo(reel); return; }
+    if (t.dataset.ver) { mkSel[reel.id] = t.dataset.ver; paintFinal(reel); return; }
+    var li = t.closest(".lb-file");
+    if (li.dataset.up) {
+      var u = (mkUp[reel.id] || {})[li.dataset.up]; if (!u) return;
+      if (u.xhr && u.up) { u.cancelled = true; u.xhr.abort(); } else { delete mkUp[reel.id][u.id]; if (u.src) URL.revokeObjectURL(u.src); paintFiles(reel); }
+      return;
+    }
+    removeFile(reel, li.dataset.rf);   // data-rf, not data-f: the hub's filter chips own [data-f]
+  });
+  document.addEventListener("keydown", function (ev) {
+    var ta = ev.key === "Enter" && (ev.metaKey || ev.ctrlKey) && ev.target.closest && ev.target.closest(".make-comp textarea");
+    if (ta) { ev.preventDefault(); makeGo(ta.closest(".reel")); }
+  });
+  /* dropping: anywhere on the open card (a veil over its visible part says which reel), or on a day of the month (it opens) */
+  var veil = document.createElement("div"), dragN = 0;
+  veil.className = "lb-drop-veil"; veil.setAttribute("aria-hidden", "true");
+  veil.innerHTML = (ICO.upload || "") + "<span>משחררים, והקבצים נכנסים לריל</span><small></small>";
+  dlg.appendChild(veil);
+  function hasFiles(ev) { var t = ev.dataTransfer && ev.dataTransfer.types; return !!t && Array.prototype.indexOf.call(t, "Files") >= 0; }
+  function veilOn(on) {
+    var s = mkSec(cur), dz = s && $(".make-drop", s); if (dz) dz.classList.toggle("is-over", on);
+    if (!on || !cur) { veil.classList.remove("is-on"); return; }
+    var r = $(".lb-dialog-card", dlg).getBoundingClientRect(), top = Math.max(r.top, 0) + 8, bot = Math.min(r.bottom, innerHeight) - 8;
+    veil.style.left = (r.left + 8) + "px"; veil.style.width = (r.width - 16) + "px"; veil.style.top = top + "px"; veil.style.height = Math.max(96, bot - top) + "px";
+    $("small", veil).textContent = "ריל " + pidOf(cur.id) + ": " + hookOf(cur.id);
+    veil.classList.add("is-on");
+  }
+  dlg.addEventListener("dragenter", function (ev) { if (!hasFiles(ev) || !cur || MK !== "server") return; ev.preventDefault(); if (dragN++ === 0) veilOn(true); });
+  dlg.addEventListener("dragover", function (ev) { if (!hasFiles(ev)) return; ev.preventDefault(); ev.dataTransfer.dropEffect = cur && MK === "server" ? "copy" : "none"; });
+  dlg.addEventListener("dragleave", function (ev) { if (!hasFiles(ev) || !dragN) return; if (--dragN === 0) veilOn(false); });
+  dlg.addEventListener("drop", function (ev) { if (!hasFiles(ev)) return; ev.preventDefault(); dragN = 0; veilOn(false); if (cur && MK === "server") upload(cur, ev.dataTransfer.files); });
+  document.addEventListener("dragover", function (ev) {   /* next to a docked drawer the days take drops too; the drawer keeps its own */
+    if (!hasFiles(ev) || (dlg.open && !docked) || dlg.contains(ev.target)) return;
+    var c = ev.target.closest && ev.target.closest("a.lb-day[data-k]");
+    $$(".lb-day.is-drop").forEach(function (x) { if (x !== c) x.classList.remove("is-drop"); });
+    ev.preventDefault();   // a file let go off a day never opens in the tab instead of the page
+    ev.dataTransfer.dropEffect = c && MK === "server" ? "copy" : "none";
+    if (c && MK === "server") c.classList.add("is-drop");
+  });
+  document.addEventListener("dragleave", function (ev) { var c = ev.target.closest && ev.target.closest(".lb-day.is-drop"); if (c && !c.contains(ev.relatedTarget)) c.classList.remove("is-drop"); });
+  document.addEventListener("drop", function (ev) {
+    if (!hasFiles(ev) || (dlg.open && !docked) || dlg.contains(ev.target)) return;
+    ev.preventDefault();
+    var c = ev.target.closest && ev.target.closest("a.lb-day[data-k]"), files = ev.dataTransfer.files;
+    $$(".lb-day.is-drop").forEach(function (x) { x.classList.remove("is-drop"); });
+    if (!c || MK !== "server") return;
+    openReel(c.dataset.k); upload(document.getElementById(c.dataset.k), files);
+  });
+  if (window.claude && claude.use) { MK = "off"; if (cur) makeOpen(cur); }
+  else projectServer().then(function (ok) { MK = ok ? "server" : "off"; if (cur) makeOpen(cur); });
 
   /* toolbar */
   var tb = $("#tb"), lastRange = null, lastEl = null;
@@ -713,6 +1206,9 @@ def page(d):
         "vo_max": int((L["max"] - L["lead_seconds"]) * L["words_per_second"]) - cta_words,
         # the claude.ai copy of the hub: the ask buttons need claude.ai's sample capability, so the project server links there
         "artifact": json.loads((ROOT / "lumebook.json").read_text())["components"]["reels-hub"]["publish"]["url"],
+        # glyphs the make sheet draws in the page (file tiles, the finished reel, the drop veil)
+        "icons": {k: design.icon(v) for k, v in {"video": "film", "image": "image", "audio": "audio", "file": "file", "upload": "upload",
+                                                  "close": "close", "download": "download", "open": "open-out"}.items()},
     }, ensure_ascii=False).replace("</", "<\\/")
     return f"""<!doctype html>
 <html lang="he" dir="rtl">
@@ -736,11 +1232,11 @@ body::before {{ content: ""; position: fixed; inset: 0 0 auto; height: env(safe-
 .intro p {{ color: var(--text-2); max-width: 62ch; }}
 .filters {{ display: flex; flex-wrap: wrap; gap: var(--sp-2); }}
 .aud {{ font-family: var(--font-2); font-size: .6875rem; font-weight: 700; padding: 0 5px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); }}
-.brief {{ display: grid; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-radius: var(--r-lg); background: var(--surface-2); }}
+.brief {{ display: grid; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-radius: var(--r-lg); background: var(--glass-sheen), var(--glass-grey); box-shadow: var(--glass-card-rim), var(--glass-card-lift); }}
 .brief h3 {{ font-size: var(--fs-headline); }}
 .brief p {{ color: var(--text-2); max-width: 70ch; font-size: var(--fs-callout); }}
 .books {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--sp-2); }}
-.books a {{ display: grid; gap: 2px; padding: .6rem .8rem; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); color: var(--text); text-decoration: none; }}
+.books a {{ display: grid; gap: 2px; padding: .6rem .8rem; border-radius: var(--r-md); background: var(--glass-sheen), var(--glass-card); border: 1px solid transparent; box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(41, 30, 22, .3); color: var(--text); text-decoration: none; }}
 .books a:hover {{ border-color: var(--tint); }}
 .books b {{ font-size: var(--fs-callout); }}
 .books span {{ font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }}
@@ -758,9 +1254,36 @@ body::before {{ content: ""; position: fixed; inset: 0 0 auto; height: env(safe-
 .hook-big {{ font-size: var(--fs-title); font-weight: 800; line-height: 1.25; letter-spacing: -.01em;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
 .hook-big:focus {{ white-space: normal; overflow: visible; }}
-.rows {{ display: grid; gap: var(--sp-3); margin: var(--sp-3) 0 0; }}
-.rows .row {{ display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: var(--sp-3); }}
-.rows dt {{ font-family: var(--font-2); font-weight: 600; font-size: var(--fs-footnote); color: var(--text-3); padding-top: 2px; }}
+/* the reel card as stacked glass (Yarin, 07 Nov 2026: "a similar treatment like the creators map cards"): the card is the base
+   sheet; the script table and the shooting notes are lb-sheets on it; the Instagram caption is the lb-window, the last and lowest
+   part, a little wider than the card. It sits inside the dialog's thick glass, so it does not blur again (never glass on glass). */
+.reel {{ gap: var(--sp-4); }}
+.sec-t {{ margin: 0; display: flex; align-items: center; gap: .4rem; font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700;
+  line-height: 1.2; letter-spacing: .02em; color: var(--text-3); }}
+.sec-t .i {{ width: .95rem; height: .95rem; flex: none; }}
+.script {{ padding: var(--sp-3) var(--sp-4) var(--sp-2); display: grid; gap: var(--sp-2); min-width: 0; }}
+.script-head {{ display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }}
+.script-sum {{ font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }}
+.script-sum b {{ font-weight: 700; color: var(--text-2); font-variant-numeric: tabular-nums; }}
+.script-t {{ table-layout: fixed; }}
+.script-t th {{ position: static; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding: 0 var(--sp-2) 6px; border-bottom: 1px solid var(--line); }}
+.script-t th.tc {{ width: 4.25rem; }}
+.script-t th:nth-child(2) {{ width: 54%; }}
+.script-t td {{ padding: .55rem var(--sp-2); border-bottom: 1px solid var(--line); }}
+.script-t tbody tr:hover td {{ background: none; }}
+.script-t tr:last-child td {{ border-bottom: 0; }}
+.script-t .tc {{ font-family: var(--font-2); font-variant-numeric: tabular-nums; white-space: nowrap; }}
+.script-t td.tc span {{ display: block; line-height: 1.3; }}
+.script-t .t0 {{ font-weight: 700; color: var(--text); font-size: var(--fs-callout); }}
+.script-t .t1 {{ font-size: var(--fs-caption); color: var(--text-3); }}
+.script-t .say > div {{ font-size: var(--fs-callout); font-weight: 500; line-height: 1.45; }}
+.script-t .see > div {{ font-size: var(--fs-footnote); color: var(--text-2); line-height: 1.45; }}
+.script-t tr.fixed td, .script-t tr.fixed .say > div, .script-t tr.fixed .see > div {{ color: var(--text-3); }}
+.rows.lb-sheet {{ margin: 0; padding: var(--sp-3) var(--sp-4); }}
+.rows:empty {{ display: none; }}
+.rows {{ display: grid; gap: var(--sp-3); }}
+.rows .row {{ display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: var(--sp-3); align-items: start; }}
+.rows dt {{ padding-top: 2px; }}
 .rows dd {{ margin: 0; min-width: 0; }}
 .shot summary {{ cursor: pointer; width: fit-content; font-family: var(--font-2); font-weight: 600; font-size: var(--fs-footnote); color: var(--tint); }}
 .shot summary:focus-visible {{ outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }}
@@ -770,16 +1293,84 @@ body::before {{ content: ""; position: fixed; inset: 0 0 auto; height: env(safe-
 .vo {{ margin: 0; padding-inline-start: 1.4rem; display: grid; gap: 3px; }}
 .vo li::marker {{ color: var(--text-3); font-family: var(--font-2); font-size: var(--fs-footnote); }}
 .vo li.fixed {{ color: var(--text-3); }}
+.capwin {{ padding: var(--sp-3) var(--sp-4) var(--sp-4); display: grid; gap: var(--sp-2); }}
+.lb-dialog .capwin {{ -webkit-backdrop-filter: none; backdrop-filter: none; }}
 .cap {{ display: grid; gap: var(--sp-2); justify-items: start; }}
-.capbox {{ white-space: pre-wrap; font-size: var(--fs-callout); background: var(--surface-sunk); border-radius: var(--r-sm); padding: var(--sp-3); width: 100%; line-height: 1.55; }}
+.capbox {{ width: 100%; line-height: 1.55; }}
+/* making the reel (07 Nov 2026): a sheet under the shooting notes with the finished reel, the drop zone (lb-drop), the dropped files
+   (lb-files) and the prompt (lb-composer). The composer sits 6px from the sheet's sides and bottom, so its corners nest in the
+   sheet's 20px; the rest keeps the sheet's 16px. */
+.make {{ padding: var(--sp-3) 6px 6px; display: grid; gap: var(--sp-3); min-width: 0; }}
+.make > :not(.make-comp) {{ margin-inline: 10px; }}
+.make-comp {{ --lb-composer-r: calc(var(--r-lg) - 6px); }}
+.make-head {{ display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }}
+.make-sum {{ font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }}
+.make-note {{ text-align: start; padding-inline: 8px; }}
+.make-msg {{ display: flex; align-items: center; gap: var(--sp-2); margin-block: -4px 4px; font-size: var(--fs-footnote); color: var(--text-2); }}
+.make-msg:empty {{ display: none; }}
+.make-msg.is-error {{ color: var(--danger); }}
+.make-msg > span:not(.lb-spinner):not(.t) {{ min-width: 0; flex: 1; }}
+.make-msg .lb-spinner {{ flex: none; }}
+.make-msg .t {{ flex: none; font-family: var(--font-2); font-variant-numeric: tabular-nums; color: var(--text-3); }}
+.make-msg button {{ flex: none; border: 0; background: none; padding: 0; color: var(--tint); font: 600 var(--fs-footnote) var(--font-2); cursor: pointer; text-decoration: underline; }}
+.make-off {{ display: none; font-size: var(--fs-footnote); color: var(--text-3); }}
+.make.is-off > :is(.make-drop, .make-files, .make-comp, .make-msg, .make-final) {{ display: none; }}
+.make.is-off > .make-off {{ display: block; margin-block-end: 6px; }}
+.make-final {{ display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: var(--sp-3); align-items: start; }}
+.make-final[hidden] {{ display: none; }}
+.make-final video {{ display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: var(--r-md); background: #000; object-fit: contain;
+  box-shadow: 0 10px 22px -14px rgba(41, 30, 22, .55); }}
+.make-final-info {{ display: grid; gap: 6px; align-content: start; min-width: 0; }}
+.make-final-info b {{ font-size: var(--fs-callout); }}
+.make-final-info .n {{ font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); unicode-bidi: plaintext; text-align: start; overflow-wrap: anywhere; }}
+.make-final-info p {{ margin: 0; font-size: var(--fs-footnote); color: var(--text-2); line-height: 1.5; }}
+.make-final-acts {{ display: flex; flex-wrap: wrap; gap: 6px; }}
+.make-final-acts svg {{ width: .95rem; height: .95rem; }}
+.make-vers {{ display: flex; flex-wrap: wrap; gap: 4px; }}
+.make-vers button[aria-pressed="true"] {{ color: var(--tint); }}
+.lb-composer-bar > .lb-btn[data-busy="1"] svg {{ display: none; }}
 code {{ font-family: var(--font-mono); font-size: var(--fs-footnote); overflow-wrap: anywhere; }}
 @media (max-width: 640px) {{
   .hook-big {{ font-size: var(--fs-headline); }}
   .car {{ display: none; }}
   .rows .row {{ grid-template-columns: minmax(0, 1fr); gap: 2px; }}
   .reel {{ padding: var(--sp-3) var(--sp-4); }}
+  .lb-dialog-body > .reel {{ --lb-rec-pad-x: var(--sp-4); --lb-rec-pad-b: var(--sp-3); }}
+  .script {{ padding: var(--sp-2) var(--sp-3); }}
+  .make-final {{ grid-template-columns: 7rem minmax(0, 1fr); }}
+  .script-t td.tc span {{ display: inline; }}
+  .script-t td.tc .t1::before {{ content: " עד "; }}
+  .script-t td.tc::before {{ display: none !important; }}
   .lb-topbar-in .sub {{ display: none; }}
 }}
+/* the tray of background asks (07 Nov 2026): floating glass at the bottom left corner (Yarin, 07 Nov 2026: "move it to the left side"), above the edit button, clear of the project nav on the right; physical left so the page direction never flips it */
+.jobs {{ position: fixed; z-index: 55; left: max(var(--sp-4), env(safe-area-inset-left, 0px)); right: auto; inset-block-end: calc(4.75rem + var(--lb-gnav-pad, 0px) + env(safe-area-inset-bottom, 0px));
+  width: min(23rem, calc(100vw - 2 * var(--sp-4))); max-height: min(60vh, 32rem); overflow: auto; border-radius: var(--r-xl); padding: var(--sp-3) var(--sp-4); display: grid; gap: var(--sp-2); }}
+.jobs[hidden] {{ display: none; }}
+html.lb-docked .jobs {{ left: calc(var(--lb-dock-w) + var(--sp-4)); }}   /* beside the reel drawer, not over it */
+.jobs-head {{ display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }}
+.jobs-title {{ font-weight: 700; font-size: var(--fs-callout); }}
+.jobs.is-folded .jobs-list, .jobs.is-folded .jobs-note {{ display: none; }}
+.jobs-list {{ display: grid; gap: var(--sp-2); }}
+.jobs-note {{ margin: 0; font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }}
+.jobs-note:empty {{ display: none; }}
+.job {{ background: var(--surface); border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); display: grid; gap: 6px; box-shadow: var(--shadow-1); }}
+.job.is-bad {{ background: var(--danger-soft, var(--surface)); }}
+.job-top {{ display: flex; align-items: baseline; gap: var(--sp-2); min-width: 0; }}
+.job-hook {{ flex: 1; min-width: 0; font-weight: 600; font-size: var(--fs-callout); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+.job-kind {{ font-family: var(--font-2); font-size: var(--fs-caption, var(--fs-footnote)); color: var(--text-3); white-space: nowrap; }}
+.job-st {{ display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-footnote); color: var(--text-2); }}
+.job-st span:nth-last-child(2) {{ flex: 1; min-width: 0; }}
+.job-t {{ font-family: var(--font-2); font-variant-numeric: tabular-nums; color: var(--text-3); }}
+.job-bar {{ height: 4px; border-radius: var(--r-pill); background: var(--fill-3); overflow: hidden; }}
+.job-bar i {{ display: block; height: 100%; background: var(--tint); border-radius: inherit; transition: width .4s var(--ease, ease); }}
+.job-bar.is-wait i {{ width: 30% !important; animation: lb-jobs-wait 1.4s ease-in-out infinite; }}
+@keyframes lb-jobs-wait {{ from {{ transform: translateX(110%); }} to {{ transform: translateX(-340%); }} }}
+.job-act {{ display: flex; flex-wrap: wrap; gap: 6px; }}
+.lb-day.is-busy {{ position: relative; }}
+.lb-day .job-dot {{ width: .75rem; height: .75rem; margin-inline: auto; }}
+.lb-day.is-drop {{ outline: 2px solid var(--tint); outline-offset: 2px; transform: scale(1.03); }}
+@media (prefers-reduced-motion: reduce) {{ .job-bar.is-wait i {{ animation: none; }} }}
 @media (prefers-reduced-motion: reduce) {{ * {{ transition: none !important; }} }}
 </style>
 </head>
@@ -812,10 +1403,14 @@ code {{ font-family: var(--font-mono); font-size: var(--fs-footnote); overflow-w
     <div class="lb-dialog-body" id="dlg-body"></div>
   </div>
   <form class="lb-ask" id="ask" autocomplete="off">
-    <div class="lb-ask-top"><label class="lb-ask-label" for="ask-t">הערה לשינוי הריל</label><button type="button" class="lb-btn secondary sm" id="ask-new" title="מחליף את כל הריל ברעיון אחר לאותו יום ולאותה סדרה">רעיון חדש</button></div>
-    <div class="lb-ask-row">
-      <textarea id="ask-t" rows="2" dir="auto" placeholder="מה לשנות? למשל: כותרת יותר קצרה, פתיחה אחרת"></textarea>
-      <button type="submit" class="lb-btn" id="ask-go">שליחה</button>
+    <div class="lb-composer">
+      <label class="lb-composer-label lb-ask-label" for="ask-t">הערה לשינוי הריל</label>
+      <textarea id="ask-t" rows="2" dir="rtl" placeholder="מה לשנות? למשל: כותרת יותר קצרה, פתיחה אחרת"></textarea>
+      <div class="lb-composer-bar">
+        <button type="button" class="lb-btn secondary sm" id="ask-new" title="מחליף את כל הריל ברעיון אחר לאותו יום ולאותה סדרה">{design.icon("sparkle")}<span>רעיון חדש</span></button>
+        <span class="lb-composer-note" id="ask-note">⌘ Enter לשליחה</span>
+        <button type="submit" class="lb-btn sm" id="ask-go">{design.icon("arrow-up")}<span>שליחה</span></button>
+      </div>
     </div>
     <p class="lb-ask-msg" id="ask-msg" role="status" aria-live="polite"></p>
   </form>

@@ -1,4 +1,5 @@
 <title>מערכת הרילס</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
 __DESIGN_HEAD__
 <style>
@@ -29,12 +30,12 @@ button.lb-chip:focus-visible, .lb-btn:focus-visible, a:focus-visible, summary:fo
 .code { direction: ltr; text-align: left; unicode-bidi: isolate; font-family: var(--font-mono); font-size: var(--fs-footnote); background: var(--surface-sunk); padding: .2rem .45rem; border-radius: var(--r-xs); overflow-wrap: anywhere; color: var(--text); }
 .copy-row { display: flex; gap: var(--sp-2); align-items: flex-start; min-width: 0; }
 .copy-row .code { flex: 1; min-width: 0; }
-.mini-btn { border: 1px solid var(--line-strong); background: var(--surface); color: var(--tint); border-radius: var(--r-pill); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; padding: .15rem .6rem; cursor: pointer; flex: none; }
+.mini-btn { border: 0; box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(41, 30, 22, .18); background: var(--glass-sheen), var(--glass-thick); color: var(--tint); border-radius: var(--r-pill); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; padding: .15rem .6rem; cursor: pointer; flex: none; }
 .mini-btn:hover { border-color: var(--tint); }
 a.card-link { color: inherit; text-decoration: none; }
 a.card-link:hover { border-color: var(--tint); text-decoration: none; }
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: var(--sp-2); list-style: none; margin: 0; padding: 0; }
-.steps a { display: grid; gap: .2rem; padding: var(--sp-3); border-radius: var(--r-md); background: var(--surface-2); color: var(--text); text-decoration: none; height: 100%; font-size: var(--fs-footnote); line-height: 1.4; }
+.steps a { display: grid; gap: .2rem; padding: var(--sp-3); border-radius: var(--r-md); background: var(--glass-sheen), var(--glass-card); box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(41, 30, 22, .3); color: var(--text); text-decoration: none; height: 100%; font-size: var(--fs-footnote); line-height: 1.4; }
 .steps a:hover { background: var(--tint-soft); text-decoration: none; }
 .steps .n { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--tint); }
 .steps b { font-size: var(--fs-callout); }
@@ -64,6 +65,10 @@ a.card-link:hover { border-color: var(--tint); text-decoration: none; }
 .empty { padding: var(--sp-5); text-align: center; color: var(--text-3); font-size: var(--fs-callout); }
 .weak-table td { vertical-align: top; min-width: 12rem; }
 .lead { font-size: var(--fs-body); color: var(--text-2); max-width: 46rem; line-height: 1.55; margin: 0; }
+/* the month is a glass card and its days are sheets on it (07 Nov 2026, the creator map's stacked glass) */
+.cal-month { gap: var(--sp-3); padding: var(--sp-4); }
+.cal-month .lb-day { overflow: hidden; }
+.cal-month .lb-day:not(.is-out) { box-shadow: var(--glass-card-rim-sm), 0 12px 22px -16px rgba(41, 30, 22, .34); }
 .cta-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--sp-3); }
 #save-state { min-width: 6.5rem; justify-content: center; }
 /* the calendar view (from the stand-alone calendar page) */
@@ -230,7 +235,7 @@ function vCalendar() {
     <p class="lead">ריל אחד ביום ב ${esc(C.defaults.post_time)} שעון ישראל, כריל ניסיון באינסטגרם lumebook.il. ${posted} פורסמו, ${C.reels.length - posted} מחכים. לוחצים על יום כדי לפתוח את הריל, לערוך את הטקסטים (הכול נשמר לבד) ולבקש שינוי בהערה.</p>
   </section>
   ${CAL.brief}
-  <section class="lb-section" aria-labelledby="h-month">
+  <section class="lb-section lb-card cal-month" aria-labelledby="h-month">
     <div class="lb-section-head"><h2 id="h-month" class="lb-card-title">החודש</h2>${CAL.legend}</div>
     ${CAL.filters}
     <div id="calApNote" class="lb-callout info" hidden><span>מסוננים לפי גישה <b></b>. הימים האחרים מעומעמים.</span><button type="button" class="mini-btn" data-cf="all" style="justify-self:start">ניקוי הסינון</button></div>
@@ -238,8 +243,8 @@ function vCalendar() {
   </section>
   <section class="lb-section">
     <div class="cta-box">
-      <div class="lb-card is-quiet"><span class="sub-h">קריאה לפעולה על המסך, בכל ריל</span><p class="he-block" style="background:var(--surface)">${esc(C.defaults.cta_screen)}</p></div>
-      <div class="lb-card is-quiet"><span class="sub-h">קריאה לפעולה בכיתוב</span><p class="he-block" style="background:var(--surface)">${esc(C.defaults.cta_caption)}</p></div>
+      <div class="lb-card is-quiet"><span class="sub-h">קריאה לפעולה על המסך, בכל ריל</span><p class="lb-textblock">${esc(C.defaults.cta_screen)}</p></div>
+      <div class="lb-card is-quiet"><span class="sub-h">קריאה לפעולה בכיתוב</span><p class="lb-textblock">${esc(C.defaults.cta_caption)}</p></div>
     </div>
   </section>
   <section class="lb-section">
@@ -423,6 +428,7 @@ function render() {
   $("#view").innerHTML = query ? vSearch() : VIEWS[r]();
   $("#pageTitle").textContent = query ? "חיפוש" : TITLE[r];
   renderNav();
+  const dl = document.getElementById("dlg"); if (dl && dl.open && (query || r !== "calendar")) dl.close();   /* the reel drawer belongs to the month view */
   if (!query && r === "calendar" && window.CalMount) CalMount();
 }
 function focusItem(id) {

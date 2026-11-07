@@ -92,7 +92,8 @@
         "shared/design/categories.json",
         "shared/design/icons.json",
         "shared/design/hq-tools.json",
-        "shared/design/nav.src.js"
+        "shared/design/nav.src.js",
+        "shared/design/controls.src.js"
       ],
       "copies": [
         {
@@ -845,7 +846,7 @@
       "feeds": [
         "dashboard"
       ],
-      "notes": "05 Nov 2026 (Yarin: integrate the reel calendar so there is only one tool, everything in Hebrew). Built by src/build_reels_explorer.py: the calendar view is the stand-alone calendar page cut into parts by src/hub_calendar.py (month grid, editable reel popup, made ticks, comment box), the research text is the Hebrew translation in src/he/*.json of playbook.md and principles.md (rerun the translation when those change; a missing key falls back to English). Edits, ticks and comment requests save to this artifact's own database (collections edits, made, requests); reels.py merge reads an export of edits from here. Replaces the stand-alone calendar artifact DGXzTyAGSYLXmAeYjRPt1E."
+      "notes": "05 Nov 2026 (Yarin: integrate the reel calendar so there is only one tool, everything in Hebrew). Built by src/build_reels_explorer.py: the calendar view is the stand-alone calendar page cut into parts by src/hub_calendar.py (month grid, editable reel popup, made ticks, comment box), the research text is the Hebrew translation in src/he/*.json of playbook.md and principles.md (rerun the translation when those change; a missing key falls back to English). Edits, ticks and comment requests save to this artifact's own database (collections edits, made, requests); reels.py merge reads an export of edits from here. Replaces the stand-alone calendar artifact DGXzTyAGSYLXmAeYjRPt1E. 07 Nov 2026 (Yarin: \"a full file dropping and a prompt text box to the reel cards so i could let you create the reel through there\"): each reel card has a make sheet (drop zone, file tiles, the finished reel with its versions, a prompt in an lb-composer) that works on the project server only (/api/reel-files, /api/reel-make/jobs in tools/lumebook.py: Claude plans edit.json without tools, the server checks it and runs reels.py make); the comment box became an lb-composer and the record window nests in the dialog corners (lb-composer, lb-drop, lb-files in shared/design). 07 Nov 2026 (late): on a wide screen the reel opens as a drawer docked on the left and the month narrows to the right; narrow windows keep the popup."
     },
     "partners-page": {
       "name": "Partners page for children's book authors and early-childhood professionals (route /IL/he/partners on the store, he en ar ru; local review prototype, implementation brief and internal commercial review)",
@@ -857,7 +858,9 @@
         "sites/lumebook-partners/partners.css",
         "sites/lumebook-partners/partners.js",
         "shared/facts.json",
-        "docs/partners/*.md"
+        "docs/partners/*.md",
+        "sites/lumebook-partners/motion.js",
+        "sites/lumebook-partners/src/make_media.py"
       ],
       "build": {
         "cmd": [
@@ -875,15 +878,20 @@
       },
       "publish": {
         "type": "manual",
-        "note": "Not published and not deployed, on purpose. lumebook.com (a React app) is not in this repo, so the page goes live only when the store team integrates it from docs/partners/implementation-brief.md. No .vercel link in the folder."
+        "note": "Review copy on Vercel since 07 Nov 2026 (Yarin asked for it). The real page still goes live only when the store team ports it to lumebook.com from docs/partners/implementation-brief.md; until then the Vercel copy keeps robots noindex and its canonical points at the store route."
+      },
+      "deploy": {
+        "type": "vercel",
+        "dir": "sites/lumebook-partners",
+        "url": "https://lumebook-partners.vercel.app"
       },
       "rules": [
-        "Local review only: never deploy from sites/lumebook-partners.",
+        "Deploy with python3 tools/lumebook.py deploy partners-page (the nightly job also redeploys it when its files change). .vercelignore keeps README.md, src/ and lint_copy.py off Vercel; never deploy docs/partners (internal).",
         "Copy lives in sites/lumebook-partners/src/content/<lang>.json; never edit the built index.html files by hand. After any copy change run python3 sites/lumebook-partners/src/build.py then python3 sites/lumebook-partners/lint_copy.py.",
         "No commercial terms on the page until Yarin approves a standard offer; docs/partners/internal-review-note.md lists what is still open and holds the proposed terms (internal, no names)."
       ],
       "feeds": [],
-      "notes": "Created 06 Nov 2026 from Yarin's brief. Visual language copied from the store's ambassador page (lumebook.com/IL/he/ambassadors, read 06 Nov 2026). The inquiry form does not call the ambassador sign-up API (it would create a link and an account): with form[data-endpoint] empty it shows a hand-off to WhatsApp or email and never a success state. 06 Nov 2026 later: Yarin confirmed a standard partner offer exists (terms not given yet), the inquiry address yarin@lumebook.com, monthly sales reporting, a dedicated author page and a printed copy as standard, and wants en, ar and ru versions; shared/facts.json has a partners block. Arabic and Russian were drafted by Claude and need a native reader before going live."
+      "notes": "Created 06 Nov 2026 from Yarin's brief. Visual language copied from the store's ambassador page (lumebook.com/IL/he/ambassadors, read 06 Nov 2026). The inquiry form does not call the ambassador sign-up API (it would create a link and an account): with form[data-endpoint] empty it shows a hand-off to WhatsApp or email and never a success state. 06 Nov 2026 later: Yarin confirmed a standard partner offer exists (terms not given yet), the inquiry address yarin@lumebook.com, monthly sales reporting, a dedicated author page and a printed copy as standard, and wants en, ar and ru versions; shared/facts.json has a partners block. Arabic and Russian were drafted by Claude and need a native reader before going live. 07 Nov 2026: Yarin asked for a Vercel copy (lumebook-partners.vercel.app, noindex, deployed with tools/lumebook.py deploy partners-page), as many visuals as possible and a professional, luxurious look close to the store's: numbered sections, arched frames, gold hairlines, the 3D topic scenes, Ben's made-up birthday book, the store's covers, Lume, two muted loops (src/make_media.py makes every web copy from files already in the project, no new generation), sharing pictures per language. Same evening Yarin asked \"make the website less luxury more editorial\": now a magazine layout (kicker and big headline across the top, a strong rule and a number per section, flat captioned pictures, numerals, a static cover grid), the sharing pictures to match; a full-hero gold background was tried and taken back (\"i meant behind the hero text\"), its image is in _to-delete. Later that evening: Hebrew brand לומיבוק on this page only (Yarin: \"its לומיבוק\", lint swapped), no religious pictures (B2 kippah and the Hanukkah cover out), everything centred, heavy motion scoped to html.anim (?motion=full forces it, Yarin's Mac has Reduce Motion on), store covers referenced at their store address for the hero books and two moving cover rows, the gold open book light behind the hero words."
     },
     "site-editor": {
       "name": "Edit button on every page (in-page editor + edits layer)",

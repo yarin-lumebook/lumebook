@@ -165,7 +165,7 @@ ol.lb-steps > li > div { display: grid; gap: var(--sp-1); }
 ol.lb-steps p { color: var(--text-2); text-wrap: pretty; }
 .lb-table td.num, .lb-table th.num { unicode-bidi: plaintext; }
 .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-2); }
-.checks li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
+.checks li { background: var(--glass-sheen), var(--glass-card); border: 1px solid transparent; box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(41, 30, 22, .3); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
 .checks .lb-check { font-size: var(--fs-body); line-height: 1.5; }
 .checks .lb-check span { color: var(--text-2); text-wrap: pretty; }
 .checks .lb-check b { color: var(--text); }

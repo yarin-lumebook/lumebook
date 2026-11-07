@@ -19,11 +19,16 @@
 :host { all: initial; }
 button {
   position: fixed; left: 16px; bottom: max(16px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; gap: 0;
-  height: 44px; min-width: 44px; padding: 0 12px; border: 1px solid rgb(0 0 0 / 10%); border-radius: 999px; background: #fff; color: #1d1d1f;
-  box-shadow: 0 6px 18px rgb(0 0 0 / 14%), 0 1px 3px rgb(0 0 0 / 10%); cursor: pointer; direction: ltr;
-  font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; opacity: .9; transition: opacity .15s, box-shadow .15s;
+  height: 44px; min-width: 44px; padding: 0 12px; border: 0; border-radius: 999px; color: #1d1d1f; cursor: pointer; direction: ltr;
+  /* Liquid Glass (7 Nov 2026): translucent white over a blurred copy of the page, a bright top edge, a soft lift */
+  background: radial-gradient(130% 160% at 14% -30%, rgb(255 255 255 / 80%), rgb(255 255 255 / 0%) 58%), rgb(255 255 255 / 70%);
+  -webkit-backdrop-filter: saturate(190%) blur(24px); backdrop-filter: saturate(190%) blur(24px);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 95%), inset 0 -1px 0 rgb(0 0 0 / 5%), inset 0 0 0 1px rgb(43 36 29 / 9%), 0 12px 30px -10px rgb(0 0 0 / 26%), 0 1px 3px rgb(0 0 0 / 10%);
+  font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; opacity: .94; transition: opacity .14s, transform .24s cubic-bezier(.34, 1.45, .64, 1);
 }
-button:hover, button:focus-visible { opacity: 1; box-shadow: 0 8px 22px rgb(0 0 0 / 18%), 0 1px 3px rgb(0 0 0 / 12%); }
+button:hover, button:focus-visible { opacity: 1; }
+button:active { transform: scale(.96); }
+@media (prefers-reduced-motion: reduce) { button:active { transform: none; } }
 button:focus-visible { outline: 2px solid #0a64c8; outline-offset: 2px; }
 svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 span { max-width: 0; overflow: hidden; white-space: nowrap; transition: max-width .2s, margin .2s; }
@@ -39,7 +44,7 @@ button[hidden] { display: none; }
     let over = 0;
     for (const el of document.querySelectorAll(".lb-gbottom, [data-bottom-bar]")) {
       const r = el.getBoundingClientRect();
-      if (r.height && r.left < 72 && r.bottom > innerHeight - 4) over = Math.max(over, innerHeight - r.top);
+      if (r.height && r.left < 72 && r.bottom > innerHeight - 40) over = Math.max(over, innerHeight - r.top);   // 40: the phone bar floats since 7 Nov 2026
     }
     btn.style.bottom = over ? `${Math.round(over + 12)}px` : "";
   };

@@ -602,7 +602,10 @@
 .wrap {
   --se-ink: #1d1d1f; --se-muted: #6e6e73; --se-line: rgb(0 0 0 / 10%); --se-hover: rgb(0 0 0 / 6%);
   --se-accent: #0a64c8; --se-accent-soft: rgb(10 100 200 / 12%); --se-accent-ink: #084a93; --se-danger: #b3261e;
-  --se-shadow: 0 12px 32px rgb(0 0 0 / 16%), 0 1px 3px rgb(0 0 0 / 10%);
+  --se-shadow: 0 14px 38px -10px rgb(0 0 0 / 24%), 0 1px 3px rgb(0 0 0 / 10%);
+  /* Liquid Glass (7 Nov 2026), the same material as the design system's: translucent white, a bright top edge, a soft lift */
+  --se-rim: inset 0 1px 0 rgb(255 255 255 / 95%), inset 0 -1px 0 rgb(0 0 0 / 5%), inset 0 0 0 1px rgb(43 36 29 / 8%);
+  --se-sheen: radial-gradient(130% 160% at 14% -30%, rgb(255 255 255 / 80%), rgb(255 255 255 / 0%) 58%);
   --se-font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
   font: 13px/1.3 var(--se-font); color: var(--se-ink); -webkit-font-smoothing: antialiased; text-align: left; letter-spacing: normal;
   direction: ltr; unicode-bidi: isolate;   /* "all: initial" leaves direction alone, so right-to-left pages would mirror the editor */
@@ -626,23 +629,25 @@ button { font: inherit; color: inherit; }
 .dropline { position: fixed; pointer-events: none; border-radius: 2px; background: var(--se-accent); box-shadow: 0 0 0 2px rgb(255 255 255 / 85%); }
 .box.dragging { outline-style: dashed; }
 
-.bar, .dock, .panel { background: rgb(255 255 255 / 94%); box-shadow: var(--se-shadow); }
+.bar, .dock, .panel, .pop { background: #fff; box-shadow: var(--se-rim), var(--se-shadow); }
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .bar, .dock, .panel { background: rgb(255 255 255 / 84%); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); }
+  .bar, .dock { background: var(--se-sheen), rgb(255 255 255 / 66%); -webkit-backdrop-filter: saturate(190%) blur(24px); backdrop-filter: saturate(190%) blur(24px); }
+  .panel, .pop { background: var(--se-sheen), rgb(255 255 255 / 84%); -webkit-backdrop-filter: saturate(190%) blur(24px); backdrop-filter: saturate(190%) blur(24px); }
 }
 .bar { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2px;
-  width: max-content; max-width: min(1100px, calc(100vw - 24px)); padding: 4px; border-radius: 14px; }
+  width: max-content; max-width: min(1100px, calc(100vw - 24px)); padding: 5px; border-radius: 24px; }
 .bar.low { top: auto; bottom: 76px; left: 16px; transform: none; justify-content: flex-start; max-width: calc(100vw - 32px - 316px); }
-.dock { position: fixed; left: 16px; bottom: max(16px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 16px; max-width: calc(100vw - 32px); }
-.btn { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 36px; height: 36px; padding: 0 8px; border: 0; border-radius: 9px;
-  background: none; font: 500 13px/1 var(--se-font); white-space: nowrap; cursor: pointer; }
+.dock { position: fixed; left: 16px; bottom: max(16px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; max-width: calc(100vw - 32px); }
+.btn { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 36px; height: 36px; padding: 0 8px; border: 0; border-radius: 12px;
+  background: none; font: 500 13px/1 var(--se-font); white-space: nowrap; cursor: pointer; transition: background .14s, transform .24s cubic-bezier(.34, 1.45, .64, 1); }
+.btn:active { transform: scale(.96); }
 .btn:hover { background: var(--se-hover); }
-.btn[aria-pressed="true"], .btn[aria-expanded="true"] { background: var(--se-accent-soft); color: var(--se-accent-ink); }
+.btn[aria-pressed="true"], .btn[aria-expanded="true"] { background: var(--se-accent-soft); color: var(--se-accent-ink); box-shadow: inset 0 1px 0 rgb(255 255 255 / 70%); }
 .btn:disabled { opacity: 0.35; cursor: default; background: none; }
 .btn:focus-visible, .item:focus-visible, .sw:focus-visible, .seg button:focus-visible { outline: 2px solid var(--se-accent); outline-offset: 1px; }
 .btn .i-chev { width: 12px; height: 12px; }
 .btn .txt { min-width: 1.6em; max-width: 7em; overflow: hidden; text-overflow: ellipsis; text-align: left; }
-.dock .btn { height: 44px; min-width: 44px; padding: 0 12px; }
+.dock .btn { height: 44px; min-width: 44px; padding: 0 14px; border-radius: 999px; }
 .dock .btn .lbl { font-weight: 600; }
 .dock .btn.done { background: var(--se-ink); color: #fff; }
 .dock .btn.done:hover { background: #000; }
@@ -664,14 +669,14 @@ button { font: inherit; color: inherit; }
 .status[data-state="unsaved"]::before { background: #d8a800; }
 
 .panel.aside { right: auto; left: 16px; bottom: calc(max(16px, env(safe-area-inset-bottom)) + 64px); }
-.panel { position: fixed; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); width: 300px; max-height: min(70vh, 560px); overflow: auto; padding: 8px; border-radius: 16px; }
+.panel { position: fixed; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); width: 300px; max-height: min(70vh, 560px); overflow: auto; padding: 8px; border-radius: 26px; }
 .p-head { display: flex; align-items: center; gap: 4px; padding: 2px 2px 6px 8px; }
 .p-name { flex: 1; min-width: 0; }
 .p-name b { display: block; font-size: 14px; }
 .p-name code { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--se-muted); font: 12px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
 .p-note { margin: 4px 8px 8px; color: var(--se-muted); line-height: 1.4; }
 .p-note.warn { color: var(--se-danger); }
-.row { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 40px; padding: 4px 8px; border: 0; border-radius: 10px; background: none; cursor: pointer; text-align: left; }
+.row { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 40px; padding: 4px 8px; border: 0; border-radius: 14px; background: none; cursor: pointer; text-align: left; }
 .row:hover { background: var(--se-hover); }
 .row .lbl { flex: 1; }
 .row .val { color: var(--se-muted); font: 12px/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
@@ -683,11 +688,11 @@ button { font: inherit; color: inherit; }
 .hr { height: 1px; margin: 6px 4px; background: var(--se-line); }
 
 .pop { position: fixed; z-index: 2; width: max-content; min-width: 200px; max-width: min(340px, calc(100vw - 16px)); max-height: min(74vh, 640px); overflow: auto;
-  padding: 6px; border-radius: 14px; background: #fff; box-shadow: var(--se-shadow); }
+  padding: 6px; border-radius: 20px; }
 .pop.wide { width: min(360px, calc(100vw - 16px)); max-width: none; }
 .pop-title { margin: 8px 10px 6px; font-size: 12px; font-weight: 600; color: var(--se-muted); }
 .pop-sep { height: 1px; margin: 6px 4px; background: var(--se-line); }
-.item { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 36px; padding: 6px 10px; border: 0; border-radius: 8px; background: none; text-align: left; cursor: pointer; }
+.item { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 36px; padding: 6px 10px; border: 0; border-radius: 14px; background: none; text-align: left; cursor: pointer; }
 .item:hover { background: var(--se-hover); }
 .item .check { margin-left: auto; visibility: hidden; color: var(--se-accent); }
 .item[aria-checked="true"] .check { visibility: visible; }
@@ -696,9 +701,9 @@ button { font: inherit; color: inherit; }
 .sw { width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--se-muted); cursor: pointer;
   box-shadow: inset 0 0 0 1px rgb(0 0 0 / 16%); }
 .sw[aria-pressed="true"] { outline: 2px solid var(--se-accent); outline-offset: 2px; }
-.seg { display: flex; gap: 2px; margin: 4px 10px 8px; padding: 2px; border-radius: 9px; background: var(--se-hover); }
-.seg button { flex: 1; min-height: 30px; padding: 4px 8px; border: 0; border-radius: 7px; background: none; font: 500 12px/1.2 var(--se-font); cursor: pointer; }
-.seg button[aria-checked="true"] { background: #fff; box-shadow: 0 1px 3px rgb(0 0 0 / 14%); font-weight: 600; }
+.seg { display: flex; gap: 2px; margin: 4px 10px 8px; padding: 3px; border-radius: 999px; background: var(--se-hover); }
+.seg button { flex: 1; min-height: 30px; padding: 4px 8px; border: 0; border-radius: 999px; background: none; font: 500 12px/1.2 var(--se-font); cursor: pointer; }
+.seg button[aria-checked="true"] { background: var(--se-sheen), #fff; box-shadow: var(--se-rim), 0 2px 6px -2px rgb(0 0 0 / 25%); font-weight: 600; }
 .seg-hint { margin: -4px 10px 6px; color: var(--se-muted); font: 11px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace; overflow-wrap: anywhere; }
 .custom { display: flex; align-items: center; gap: 6px; padding: 4px 10px 8px; }
 .custom input[type="color"] { flex: none; width: 36px; height: 32px; padding: 0; border: 1px solid var(--se-line); border-radius: 8px; background: none; cursor: pointer; }
@@ -713,9 +718,9 @@ button { font: inherit; color: inherit; }
 kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; background: var(--se-hover); }
 
 .toast { position: fixed; z-index: 3; left: 50%; bottom: 84px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 12px; max-width: calc(100vw - 32px);
-  min-height: 40px; padding: 8px 6px 8px 16px; border-radius: 999px; background: #1d1d1f; color: #fff; font: 600 13px/1.3 var(--se-font); box-shadow: 0 6px 20px rgb(0 0 0 / 20%); }
+  min-height: 40px; padding: 8px 6px 8px 16px; border-radius: 999px; background: var(--se-sheen), rgb(255 255 255 / 88%); -webkit-backdrop-filter: saturate(190%) blur(24px); backdrop-filter: saturate(190%) blur(24px); color: var(--se-ink); font: 600 13px/1.3 var(--se-font); box-shadow: var(--se-rim), var(--se-shadow); }
 .toast:not(:has(button)) { padding-right: 16px; }
-.toast button { flex: none; min-height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: rgb(255 255 255 / 16%); color: #fff; cursor: pointer; }
+.toast button { flex: none; min-height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--se-hover); color: var(--se-accent-ink); cursor: pointer; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 .addpic { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 40px; margin: 2px 0; padding: 0 12px; border: 0; border-radius: 10px;

@@ -105,7 +105,7 @@ def parts(d):
       var done = function () { b.textContent = "הועתק"; setTimeout(function () { b.textContent = "העתקה"; }, 1600); };''', "copy buttons")
     js = _sub1(js, 'try { history.replaceState(null, "", "#" + id); } catch (x) {}', 'try { history.replaceState(null, "", "#calendar/" + id); } catch (x) {}', "open hash")
     js = _sub1(js, 'try { history.replaceState(null, "", location.pathname + location.search); } catch (x) {}',
-               'try { history.replaceState(null, "", "#calendar"); } catch (x) {}', "close hash")
+               'try { if (/^#calendar\\//.test(location.hash)) history.replaceState(null, "", "#calendar"); } catch (x) {}', "close hash")  # leaving the month closes the drawer: keep the new hash
     js = _sub1(js, '''  $$("a.lb-day[data-k]").forEach(function (c) { c.addEventListener("click", function (ev) { ev.preventDefault(); openReel(c.dataset.k); }); });
   if (location.hash.length > 1) openReel(decodeURIComponent(location.hash.slice(1)));
 ''', '''  document.addEventListener("click", function (ev) {
@@ -120,6 +120,7 @@ def parts(d):
     applyFilter(f);
     Object.keys(fields).forEach(syncHook);
     $$("[data-made]").forEach(function (b) { paintMade(b.dataset.made); });
+    if (window.CalJobsPaint) CalJobsPaint();
     var m = /^#calendar\\/(r[\\w-]+)$/.exec(decodeURIComponent(location.hash)); if (m) openReel(m[1]);
   };
   window.CalOpen = openReel;

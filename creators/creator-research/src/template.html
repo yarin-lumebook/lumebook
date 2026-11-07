@@ -96,18 +96,18 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .rs-top.is-out{animation:rs-out .2s ease-in forwards;pointer-events:none}
 @keyframes rs-in{from{transform:translateY(16px) scale(.97);opacity:.5}}
 @keyframes rs-out{to{transform:translateX(-45%) rotate(-3deg);opacity:0}}
-.rs-peek{position:absolute;z-index:calc(3 - var(--i));inset-inline:calc(var(--i) * var(--sp-4));bottom:calc((var(--rs-n) - var(--i)) * 12px);height:4rem;padding:0;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow-1);cursor:pointer}
+.rs-peek{position:absolute;z-index:calc(3 - var(--i));inset-inline:calc(var(--i) * var(--sp-4));bottom:calc((var(--rs-n) - var(--i)) * 12px);height:4rem;padding:0;border:1px solid transparent;border-radius:var(--r-lg);background:var(--glass-sheen),var(--glass-card);box-shadow:var(--glass-card-rim),var(--glass-card-lift);cursor:pointer}
 .rs-peek+.rs-peek{background:var(--surface-2)}
 .rs-peek:hover{border-color:var(--tint)}
 .rs-peek:focus-visible{outline:2px solid var(--tint);outline-offset:2px}
 .rs-fan{display:grid;gap:var(--sp-5)}
 .rs-g{display:grid;gap:var(--sp-3)}
 .rs-g > h4{font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:700;color:var(--text-3);margin:0}
-.rsi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);min-width:0}
+.rsi{background:var(--glass-sheen),var(--glass-card);border:1px solid transparent;border-radius:var(--r-lg);min-width:0;box-shadow:var(--glass-card-rim),var(--glass-card-lift)}
 .rsi.over{border-color:var(--danger)}
 .rsi.now{border-color:var(--warning)}
-.rsi > .oc{border:0;background:none;border-radius:0 0 var(--r-lg) var(--r-lg)}
-.rsh{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);padding:var(--sp-3) var(--sp-5);background:var(--surface-2);border-bottom:1px solid var(--line);border-radius:var(--r-lg) var(--r-lg) 0 0}
+.rsi > .oc{border:0;background:none;box-shadow:none;border-radius:0 0 var(--r-lg) var(--r-lg)}
+.rsh{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);padding:var(--sp-3) var(--sp-5);background:var(--glass-sheen),color-mix(in srgb,var(--surface-2) 72%,transparent);border-bottom:1px solid var(--line);border-radius:var(--r-lg) var(--r-lg) 0 0}
 .rsi.over .rsh{background:var(--danger-soft)}
 .rsi.now .rsh{background:var(--warning-soft)}
 .rsh time{font-family:var(--font-2);font-variant-numeric:tabular-nums;font-size:var(--fs-footnote);font-weight:700;color:var(--text-2);white-space:nowrap}
@@ -167,7 +167,7 @@ body.drw-open,body.ask-open{overflow:hidden}
 .tb-acts{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
 .lb-btn.tbb .i{width:1rem;height:1rem}
 .lb-btn.tbb[aria-expanded="true"]{background:var(--tint-soft);color:var(--tint);border-color:transparent}
-.tb-sel{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r-pill);padding-inline:.85rem .3rem;min-height:2.25rem;color:var(--text)}
+.tb-sel{display:inline-flex;align-items:center;gap:.35rem;background:var(--glass-sheen),var(--glass-thick);border:0;box-shadow:var(--glass-rim),0 2px 8px -3px rgba(41,30,22,.18);border-radius:var(--r-pill);padding-inline:.85rem .3rem;min-height:2.25rem;color:var(--text)}
 .tb-sel .i{width:1rem;height:1rem}
 .tb-sel:hover{border-color:var(--tint);color:var(--tint)}
 .tb-sel select{appearance:none;-webkit-appearance:none;border:0;background-color:transparent;font:inherit;font-size:var(--fs-callout);font-weight:600;color:inherit;padding:.35rem 0 .35rem 1.5rem;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:6px 52%,11px 52%;background-size:5px 5px;background-repeat:no-repeat}
@@ -180,7 +180,7 @@ body.drw-open,body.ask-open{overflow:hidden}
 .fchip b{font-weight:600}
 .fchip button{border:0;background:transparent;color:inherit;width:1.5rem;height:1.5rem;border-radius:50%;cursor:pointer;font-size:1rem;line-height:1;flex:none}
 .fchip button:hover{background:color-mix(in srgb,var(--tint) 18%,transparent)}
-.pop{position:absolute;z-index:30;top:2.85rem;inset-inline:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-3);padding:var(--sp-4);max-height:min(72vh,38rem);overflow:auto;overscroll-behavior:contain}
+.pop{position:absolute;z-index:30;top:2.85rem;inset-inline:0;background:var(--glass-sheen),var(--glass-thick);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter);border:0;border-radius:var(--r-lg);box-shadow:var(--glass-rim),var(--shadow-3);padding:var(--sp-4);max-height:min(72vh,38rem);overflow:auto;overscroll-behavior:contain}
 .pop-sm{inset-inline-end:auto;width:min(30rem,100%)}
 .pop h4{margin:0 0 var(--sp-3);font-size:var(--fs-body)}
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,13.5rem),1fr));gap:var(--sp-4) var(--sp-5)}
@@ -227,7 +227,7 @@ body.drw-open,body.ask-open{overflow:hidden}
 .p-weak{background:transparent;box-shadow:inset 0 0 0 1px var(--line-strong);color:var(--text-3)}
 
 /* ---------- disclosure groups ---------- */
-details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--sp-1) var(--sp-5)}
+details{background:var(--glass-sheen),var(--glass-card);border:1px solid transparent;box-shadow:var(--glass-card-rim),var(--glass-card-lift);border-radius:var(--r-lg);padding:var(--sp-1) var(--sp-5)}
 details summary{cursor:pointer;font-weight:600;font-size:var(--fs-body);min-height:2.95rem;display:flex;align-items:center;gap:var(--sp-2);list-style:none}
 details summary::-webkit-details-marker{display:none}
 details summary::after{content:"";margin-inline-start:auto;width:.5rem;height:.5rem;border-right:2px solid var(--text-3);border-bottom:2px solid var(--text-3);transform:rotate(135deg);transition:transform .2s;flex:none}
@@ -251,13 +251,15 @@ details[open] summary{margin-bottom:var(--sp-2)}
    One card, three zones:
      top    .otop  : avatar (track hue) + @handle + name and dates | status pill + decline; fact chips
      body   .ocg   : the message (start side) | the numbers (end side), two columns once the card is 46rem wide
-     footer .odeal + .odet : follow-up work and more details on a tinted ground, edge to edge
+     sheet  .odet  : more details (פרטים נוספים), a glass sheet (lb-sheet) on the card like .omsg and .onum, right under them
+     window .odeal : the follow-up work (מעקב), a separate glass window (lb-window) that is the last and lowest part of the card, a bit wider
+                     than it and hanging past its bottom edge (Yarin, 7 Nov 2026). No hover state on the card itself.
    Type scale: handle 1.25rem/700 > tile value 1.125rem/700 > name 15px/500 > zone label and field label 12px/700-600 (Assistant) > dates 13px.
    Colour: the status pill carries the status colour (.st-*), the avatar the track hue (lb-track-*),
    the tiles the green/red rating against the map. Everything else stays neutral, so those three read at a glance. */
 .olist{display:grid;gap:var(--sp-5)}
 /* Each card stands apart: a 2px frame and a deeper shadow than the page's other cards (Yarin, 1 Nov 2026) */
-.oc{--oc-pad:var(--sp-5);--oc-edge:color-mix(in srgb,var(--text) 17%,transparent);--oc-edge-hi:color-mix(in srgb,var(--text) 30%,transparent);--oc-shadow:0 1px 3px color-mix(in srgb,var(--text) 12%,transparent),0 14px 36px -14px color-mix(in srgb,var(--text) 38%,transparent);position:relative;padding:0;gap:0;overflow:clip;background:var(--surface);border:2px solid var(--oc-edge);border-radius:var(--r-lg);box-shadow:var(--oc-shadow)}
+.oc{--oc-pad:var(--sp-5);--oc-edge:color-mix(in srgb,var(--text) 16%,transparent);--oc-edge-hi:color-mix(in srgb,var(--text) 34%,transparent);--oc-shadow:0 1px 2px rgba(41,30,22,.07),0 4px 10px -2px rgba(41,30,22,.09),0 26px 46px -22px rgba(41,30,22,.42);position:relative;padding:0;gap:0;overflow:visible;margin-bottom:2rem;background:var(--glass-sheen),var(--glass-card);border:2px solid rgba(255,255,255,.92);border-radius:var(--r-lg);box-shadow:0 0 0 1px var(--oc-edge),inset 0 0 0 1px rgba(43,36,29,.1),inset 0 0 28px rgba(255,255,255,.6),var(--oc-shadow);}
 .oc > *{min-width:0}   /* a wide row (the message tabs) scrolls inside the card and never widens it */
 .oc.done{opacity:.72}
 .otop{display:grid;gap:var(--sp-4);padding:var(--oc-pad);container-type:inline-size}
@@ -302,12 +304,14 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .ocg{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-5);align-items:start}
 @container (min-width:46rem){.ocg{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--sp-6)}}
 .omsg,.onum{display:grid;gap:var(--sp-2);min-width:0;align-content:start}
-details.omd,details.omd[open]{display:grid;gap:var(--sp-2);min-width:0;margin:0;padding:0;background:none;border:0;border-radius:0}
-.omd > summary{position:relative;display:grid;gap:.3rem;min-height:0;margin:0;padding:var(--sp-3) var(--sp-4);padding-inline-end:2.75rem;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);cursor:pointer;list-style:none;font-size:var(--fs-callout);font-weight:400;transition:border-color var(--mo-fast) ease,background-color var(--mo-fast) ease}
+.omsg.lb-sheet,.onum.lb-sheet{padding:var(--sp-3) var(--sp-4) var(--sp-4)}
+details.omd,details.omd[open]{display:grid;gap:var(--sp-2);min-width:0;margin:0;padding:0;background:none;border:0;border-radius:0;box-shadow:none}
+.omd > summary{position:relative;display:grid;gap:.3rem;min-height:0;margin:0;padding:var(--sp-3) var(--sp-4);padding-inline-end:2.75rem;background:var(--glass-sheen),color-mix(in srgb,var(--surface-2) 78%,transparent);border:1px solid transparent;box-shadow:var(--glass-card-rim-sm);border-radius:var(--r-md);cursor:pointer;list-style:none;font-size:var(--fs-callout);font-weight:400;transition:border-color var(--mo-fast) ease,background-color var(--mo-fast) ease}
 .omd > summary::-webkit-details-marker{display:none}
 .omd > summary::after{position:absolute;inset-inline-end:var(--sp-4);top:1.05rem;margin:0}
 .omd > summary:hover{border-color:var(--line-strong)}
-details.omd[open] > summary{margin:0;background:transparent;border-color:transparent;padding-block:0;padding-inline-start:0}
+details.omd[open] > summary{margin:0;background:transparent;border-color:transparent;box-shadow:none;padding-block:0;padding-inline-start:0}
+details.omd[open] > summary::after{top:.3rem}   /* open, the label row is one line high: the chevron sits on it, not on the tabs */
 .omdl{font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;line-height:1.3;color:var(--tint)}
 .omdp{font-size:var(--fs-callout);line-height:1.55;color:var(--text-2)}
 .omd[open] .omdp{display:none}
@@ -321,7 +325,8 @@ details.omd[open] > summary{margin:0;background:transparent;border-color:transpa
 /* numbers: one tile each, rated against the rest of the map (green up, red down, flat grey) */
 /* the six numbers are the design system's lb-metrics sm tiles since 5 Nov 2026 (rating: is-ok, is-bad, lb-metric-mark) */
 /* footer: follow-up work, then more details, on one tinted ground from edge to edge */
-.oc .odeal{display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:start;margin:0;padding:var(--sp-4) var(--oc-pad);background:var(--surface-2);border:0;border-top:1px solid var(--line);border-radius:0}
+.oc .odeal{--overhang:1.4rem;display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:start;margin:var(--sp-4) calc(var(--overhang) * -1) -1.6rem;padding:var(--sp-4) calc(var(--oc-pad) + .4rem) var(--sp-5);-webkit-backdrop-filter:none;backdrop-filter:none}   /* a window per card in a long list: translucent body, no blur */
+@media (max-width:640px){.oc .odeal{--overhang:.55rem}}
 .oc .odeal > .oeb{flex:1 1 100%}
 .oc .odeal > label,.oc .odeal > .fl{display:grid;gap:.3rem;flex:1 1 0;min-width:9rem;max-width:none;align-content:start;font-family:var(--font-2);font-size:var(--fs-caption);font-weight:600;color:var(--text-2)}
 .oc .odeal > .fl,.oc .odeal > label:has([data-f=stg]){min-width:10.5rem}
@@ -331,20 +336,22 @@ details.omd[open] > summary{margin:0;background:transparent;border-color:transpa
 .oc .odeal :is(input,select,textarea){font-family:var(--font);font-size:var(--fs-callout);font-weight:500;color:var(--text)}
 .oc .odeal textarea.na{resize:vertical}
 .oc .odeal .stbtn{font-family:var(--font);font-size:var(--fs-callout);border-radius:var(--r-sm)}
-.odet{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:0}
+.odet{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:0;box-shadow:none}
 .odet[open]{padding-bottom:0}
 .odet summary{font-size:var(--fs-callout);font-weight:600;color:var(--text-2);min-height:2.75rem}
 .odet summary:hover{color:var(--text)}
-.oc > .odet{margin:0;padding:0 var(--oc-pad);background:var(--surface-2)}
-.oc > .odet[open]{padding-bottom:var(--sp-5)}
+.oc > .odet{margin:0 var(--oc-pad);padding:0 var(--sp-4);background:var(--glass-sheen),color-mix(in srgb,#fff 58%,transparent);border:1px solid transparent;border-radius:var(--r-lg);box-shadow:var(--glass-card-rim-sm),0 14px 24px -18px rgba(41,30,22,.36)}
+.oc > .odet[open]{padding-bottom:var(--sp-4)}
 .oc > .odet > summary{min-height:3rem;margin-bottom:0}
 .oc > .odet[open] > summary{margin-bottom:var(--sp-1)}
 /* inside the drawer and under a reminder strip the card sits in a frame of its own */
 .drw .oc{--oc-pad:0px;overflow:visible;border:0;border-radius:0;background:none;box-shadow:none}
 .drw .oc > .odeal,.drw .oc > .odet{margin-top:var(--sp-4);padding-inline:var(--sp-4);border:1px solid var(--line);border-radius:var(--r-md)}
+.drw .oc > .odeal{--overhang:0rem;margin-inline:0;margin-bottom:0}
+.drw .oc > .odet{margin-inline:0}
 .rsi > .oc{box-shadow:none}
 @media (max-width:640px){.oc{--oc-pad:var(--sp-4)}.ost{min-height:2rem;padding:0 .75rem}}
-.stbtn{display:flex;align-items:center;gap:.5rem;width:100%;font:inherit;font-weight:600;font-size:var(--fs-footnote);min-height:2.25rem;padding:.35rem .85rem;border:1px solid var(--line-strong);border-radius:var(--r-pill);background:var(--surface);color:var(--text);cursor:pointer;text-align:start}
+.stbtn{display:flex;align-items:center;gap:.5rem;width:100%;font:inherit;font-weight:600;font-size:var(--fs-footnote);min-height:2.25rem;padding:.35rem .85rem;border:0;border-radius:var(--r-pill);background:var(--glass-sheen),var(--glass-thick);box-shadow:var(--glass-rim),0 2px 8px -3px rgba(41,30,22,.18);color:var(--text);cursor:pointer;text-align:start}
 .stbtn .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .stbtn .dot,.stmenu .dot{margin:0}
 .stbtn svg{flex:none;width:.9rem;height:.9rem;color:var(--text-2);transition:transform .15s}
@@ -366,8 +373,6 @@ details.omd[open] > summary{margin:0;background:transparent;border-color:transpa
 .oc .lb-input,.oc .lb-textarea{width:100%}
 .oc .lb-input::placeholder,.oc .lb-textarea::placeholder,.sset .lb-input::placeholder,.tpls .lb-textarea::placeholder{color:var(--text-3)}
 .ogrid .lb-textarea{min-height:0}
-.lb-btn.ok{background:var(--success-soft);color:var(--success)}
-.lb-btn.ok:hover{background:color-mix(in srgb,var(--success) 22%,transparent);color:var(--success)}
 .drrow{display:flex;gap:var(--sp-2);align-items:center}.drrow .lb-input{flex:1;min-width:0}
 .bkbar{display:flex;gap:var(--sp-3);margin:var(--sp-3) 0;align-items:center}.bkbar .lb-input{flex:1;max-width:28rem}.bktbl td{vertical-align:middle;padding:.25rem}.bktbl .lb-input{min-width:7.5rem;width:100%}.bktbl td.dr{min-width:15rem}.bktbl td.who{min-width:11rem}.bktbl td.who small{display:block;padding:0 .25rem .2rem;text-align:start;font-weight:600}.bktbl td.who .lb-input{text-align:start}.bktbl .qty{min-width:5.5rem;max-width:6.5rem;-moz-appearance:number-input}.bktbl .qty::-webkit-inner-spin-button,.bktbl .qty::-webkit-outer-spin-button{-webkit-appearance:inner-spin-button;opacity:1;height:1.6rem;cursor:pointer}.bktbl td.ck{white-space:nowrap}.bkck{display:inline-flex;gap:.4rem;align-items:center;cursor:pointer}.bknote{border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-3);padding:var(--sp-4);width:min(28rem,92vw);background:var(--surface);color:var(--text)}.bknote form{display:grid;gap:var(--sp-3)}.bknote textarea{width:100%}.bktbl td.who a.bkh{display:block;text-align:start;padding:0 .25rem;color:var(--tint);font-weight:600;text-decoration:underline;overflow-wrap:anywhere}.bktbl .drc{display:flex;gap:.35rem;align-items:center}
 /* books tab (5 Nov 2026): built from design-system pieces (lb-metrics, lb-toggle, lb-linkfield, lb-table is-roomy, lb-btn
@@ -388,7 +393,7 @@ details.omd[open] > summary{margin:0;background:transparent;border-color:transpa
 .msgbox{margin-top:var(--sp-2);font-size:var(--fs-body);line-height:1.55;direction:rtl;text-align:right;padding:.85rem 1rem;border-radius:var(--r-md)}
 .msgbar{display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap;margin-top:var(--sp-2)}
 .hechk:empty{display:none}
-.hechk{font-size:var(--fs-callout);background:var(--accent-soft);color:var(--text);border-radius:var(--r-md);padding:var(--sp-2) var(--sp-3);margin-top:var(--sp-2);display:flex;flex-wrap:wrap;gap:.35rem .5rem;align-items:center}
+.hechk{font-size:var(--fs-callout);background:var(--glass-sheen),linear-gradient(color-mix(in srgb,var(--accent-soft) 84%,transparent),color-mix(in srgb,var(--accent-soft) 84%,transparent)),var(--glass-card);box-shadow:var(--glass-card-rim-sm);color:var(--text);border-radius:var(--r-md);padding:var(--sp-2) var(--sp-3);margin-top:var(--sp-2);display:flex;flex-wrap:wrap;gap:.35rem .5rem;align-items:center}
 /* track, deal row, reply (all on the creator card) */
 .osel{display:grid;gap:var(--sp-1);justify-items:end;max-width:100%}
 .sug{margin:var(--sp-2) 0 0;display:flex;flex-wrap:wrap;gap:.25rem .5rem;align-items:center}
@@ -421,7 +426,7 @@ details.omd[open] > summary{margin:0;background:transparent;border-color:transpa
 .expnew summary{font-size:var(--fs-callout);color:var(--tint);font-weight:500;min-height:2.75rem}
 .mig{display:grid;gap:var(--sp-3)}
 .mig h3{margin:0;font-size:var(--fs-body)}
-.migi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3);display:grid;gap:var(--sp-2);min-width:0}
+.migi{background:var(--glass-sheen),var(--glass-card);border:1px solid transparent;box-shadow:var(--glass-card-rim-sm);border-radius:var(--r-md);padding:var(--sp-3);display:grid;gap:var(--sp-2);min-width:0}
 .migi label{display:flex;gap:var(--sp-2);align-items:center;font-weight:600;font-size:var(--fs-callout);cursor:pointer}
 .migi label input{accent-color:var(--tint);width:1rem;height:1rem;margin:0;flex:none}
 .migd p{margin:0;direction:rtl;text-align:start;font-size:var(--fs-footnote);line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
@@ -486,7 +491,6 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
 @keyframes mo-down{from{opacity:0;transform:translateY(-4px)}}
 /* cards, tiles and controls answer the pointer */
 .oc{transition:border-color var(--mo) ease,box-shadow var(--mo) ease}
-.oc:hover{border-color:var(--oc-edge-hi)}
 .onum .lb-metric{transition:transform var(--mo-fast) var(--mo-out),box-shadow var(--mo) ease}
 .onum .lb-metric:hover{transform:translateY(-1px)}
 .onum .lb-metric-mark{transition:transform var(--mo) var(--mo-spring)}
@@ -1660,17 +1664,16 @@ function card(c,opt){
    +(facts?'<div class="chips">'+facts+'</div>':'')
    +'<div class="ocg">'
    // the message box is always on the card, with one row of actions under it
-   +'<section class="omsg"><h4 class="oeb">'+ICON.chat+'הודעה</h4>'
+   +'<section class="omsg lb-sheet"><h4 class="oeb">'+ICON.chat+'הודעה</h4>'
    +'<details class="omd" data-omd="'+esc(c.h)+'"'+(OPENMSG.has(c.h)?' open':'')+'><summary><span class="omdl">'+mtab+'</span><span class="omdp lb-clamp-2">'+esc(msgOf(c,t0).replace(/\s+/g," ").slice(0,180))+'</span></summary><div class="otabs"><div class="mtabs lb-segmented" role="group" aria-label="סוג ההודעה">'+tabs+'</div><div class="mtabs lb-segmented stysw" role="group" aria-label="סגנון ההודעה">'+[1,2].map(x=>'<button type="button" data-act="style" data-s="'+x+'" aria-pressed="'+(sty(c)===x?"true":"false")+'">'+STY_NAME[x]+'</button>').join("")+'</div></div>'
    +'<textarea class="msgbox lb-textarea" data-msgbox data-t="'+t0+'" dir="rtl" rows="5" aria-label="טקסט ההודעה, אפשר לערוך">'+esc(msgOf(c,t0))+'</textarea>'
    +'<div class="hechk" data-hecheck>'+heBoxHtml(msgOf(c,t0),c,t0)+'</div></details>'
    +'<div class="oact"><button type="button" class="lb-btn" data-act="copybox">'+ICON.copy+'העתקה</button>'+acts
    +'<span class="end"><span class="lb-chip warning" data-edited'+(edited(c,t0)?'':' hidden')+'>'+chipTxt(c,t0)+'</span><button type="button" class="lb-btn ghost sm" data-act="resetmsg"'+(edited(c,t0)?'':' hidden')+'>'+ICON.undo+'חזרה לתבנית</button></span></div>'
    +'</section>'
-   +'<section class="onum"><h4 class="oeb">'+ICON.reach+'ביצועים</h4><dl class="lb-metrics sm">'+perfHtml(c)+'</dl></section>'
+   +'<section class="onum lb-sheet"><h4 class="oeb">'+ICON.reach+'ביצועים</h4><dl class="lb-metrics sm">'+perfHtml(c)+'</dl></section>'
    +'</div></div>'
-   +'<div class="odeal"><h4 class="oeb">'+ICON.bell+'מעקב</h4><div class="fl"><span>סטטוס</span>'+mbtn("s","st-"+cur,STL[cur],"הסטטוס של "+c.h)+'</div>'+deal+'</div>'
-   +'<details class="odet"><summary>פרטים נוספים</summary>'
+   +'<details class="odet lb-sheet"><summary>פרטים נוספים</summary>'
    +'<div class="ogrid ocmp"><label>תיקיית דרייב<input class="lb-input" data-f="dr" dir="ltr" value="'+esc(o.dr||"")+'" placeholder="https://drive.google.com/…"></label>'
    +'<label>נשלח בתאריך<input class="lb-input" type="date" data-f="on" value="'+esc(o.on||"")+'"></label>'
    +(gotContent(c)||o.code||salesOf(c)!==null?'<label>מכירות דרך הקישור<input class="lb-input" type="number" min="0" inputmode="numeric" data-f="sales" dir="ltr" value="'+esc(o.sales??"")+'" placeholder="אין נתונים"></label>':'')
@@ -1684,7 +1687,9 @@ function card(c,opt){
    +'</div>'
    +(sentTxt?'<details class="odet" style="margin-top:var(--sp-3)"><summary>ההודעה הראשונה כפי שנשלחה'+(o.on?' ב-'+esc(dL(o.on)):'')+'</summary><p class="note" dir="rtl" style="white-space:pre-wrap;text-align:right;margin:0 0 var(--sp-3)">'+esc(sentTxt)+'</p></details>':'')
    +'<details class="odet" data-hist="'+esc(c.h)+'" style="margin-top:var(--sp-3)"><summary>היסטוריה</summary><ul class="hist" data-histl>'+histHtml(c.h)+'</ul></details>'
-   +'<div style="margin-top:var(--sp-2)">'+contact+'</div></details></article>';
+   +'<div style="margin-top:var(--sp-2)">'+contact+'</div></details>'
+   +'<div class="odeal lb-window"><h4 class="oeb">'+ICON.bell+'מעקב</h4><div class="fl"><span>סטטוס</span>'+mbtn("s","st-"+cur,STL[cur],"הסטטוס של "+c.h)+'</div>'+deal+'</div>'
+   +'</article>';
 }
 // ---------- books table (30 Oct 2026): one row per book we made; SET.books in settings/main ----------
 const bkNew=h=>({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),h:h||"",qty:1,arrived:false,up:false,child:"",title:"",on:today(),sent:"",note:"",dr:""});

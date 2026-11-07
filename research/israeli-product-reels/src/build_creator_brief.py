@@ -506,7 +506,7 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* nothing in
 .extlink .ico { width: 1rem; height: 1rem; }
 
 /* white cards: a hairline sets them apart from the white ground (as .lb-card) */
-.card, .step-card, .beat, .tickbox, .screens, .topic-row, .emailcard, .iconpara, .igpost { background: var(--surface); border: 1px solid var(--line); }
+.card, .step-card, .beat, .tickbox, .screens, .topic-row, .emailcard, .iconpara, .igpost { background: var(--glass-sheen), var(--glass-card); border: 1px solid transparent; box-shadow: var(--glass-card-rim), var(--glass-card-lift); }
 .iconpara { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--sp-3); align-items: center; border-radius: var(--r-lg); padding: var(--sp-3) var(--sp-4); }
 .iconpara p { color: var(--text); line-height: 1.55; }
 
@@ -519,8 +519,8 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* nothing in
 /* time strip and timeline */
 .strip { display: grid; gap: var(--sp-1); }
 .segs { display: flex; gap: 3px; }
-.seg { min-width: 0; display: grid; gap: 2px; padding: .5rem .4rem; border-radius: var(--r-sm); background: var(--tint-soft); color: var(--tint); text-align: center; font-family: var(--font-2); }
-.seg:nth-child(even) { background: var(--accent-soft); color: var(--accent-ink); }
+.seg { min-width: 0; display: grid; gap: 2px; padding: .5rem .4rem; border-radius: var(--r-sm); background: var(--glass-sheen), linear-gradient(var(--tint-soft), var(--tint-soft)), var(--glass-card); box-shadow: var(--glass-card-rim-sm); color: var(--tint); text-align: center; font-family: var(--font-2); }
+.seg:nth-child(even) { background: var(--glass-sheen), linear-gradient(color-mix(in srgb, var(--accent-soft) 84%, transparent), color-mix(in srgb, var(--accent-soft) 84%, transparent)), var(--glass-card); color: var(--accent-ink); }
 .seg b { font-size: var(--fs-callout); font-variant-numeric: tabular-nums; }
 .seg small { font-size: var(--fs-caption); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ticks-row { display: flex; justify-content: space-between; font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); font-variant-numeric: tabular-nums; }
@@ -538,7 +538,7 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* nothing in
 .time { display: inline-flex; align-items: center; gap: .3rem; margin-inline-start: auto; font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-3); font-variant-numeric: tabular-nums; }
 .time .ico { width: .9rem; height: .9rem; }
 .step-body { color: var(--text); line-height: 1.6; }
-.example { display: grid; gap: var(--sp-1); background: var(--accent-soft); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
+.example { display: grid; gap: var(--sp-1); background: var(--glass-sheen), linear-gradient(color-mix(in srgb, var(--accent-soft) 84%, transparent), color-mix(in srgb, var(--accent-soft) 84%, transparent)), var(--glass-card); box-shadow: var(--glass-card-rim-sm); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
 .example p { font-weight: 600; color: var(--accent-ink); }
 .note { font-size: var(--fs-callout); color: var(--text-2); }
 
@@ -648,7 +648,7 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* nothing in
 
 /* CTA and caption previews: the CTA sits on the gold brand ground in ink, its copy button is the system's violet button */
 .ctabox { display: grid; gap: var(--sp-4); justify-items: start; border-radius: var(--r-lg); padding: var(--sp-6) var(--sp-5);
-  background: var(--accent-soft); color: var(--text); }
+  background: var(--glass-sheen), linear-gradient(color-mix(in srgb, var(--accent-soft) 84%, transparent), color-mix(in srgb, var(--accent-soft) 84%, transparent)), var(--glass-card); box-shadow: var(--glass-card-rim), var(--glass-card-lift); color: var(--text); }
 .cta-text { font-size: clamp(1.3rem, 3.8vw, 1.65rem); font-weight: 700; line-height: 1.35; letter-spacing: -.015em; color: var(--text); }
 .lb-btn { gap: .4rem; }
 .lb-btn .ico { width: 1rem; height: 1rem; }

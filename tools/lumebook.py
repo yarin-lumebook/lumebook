@@ -608,6 +608,11 @@ def run_sample(prompt, gone):
         res = json.loads(raw)
     except ValueError:
         return 502, {"error": "claude gave no readable answer", "code": "failed"}
+    return sample_outcome(res)
+
+
+def sample_outcome(res):
+    """The final `result` object of `claude -p` (json, or the last event of stream-json) as (http status, body)."""
     text = res.get("result") if isinstance(res, dict) else None
     if isinstance(res, dict) and res.get("is_error"):
         low = str(text or "").lower()
@@ -619,6 +624,566 @@ def run_sample(prompt, gone):
     if not isinstance(text, str) or not text.strip():
         return 502, {"error": "empty answer", "code": "empty_completion"}
     return 200, {"text": text}
+
+
+SAMPLE_PARALLEL = 3        # background answers running at the same time (more wait in line)
+SAMPLE_JOBS_KEEP = 40      # finished jobs kept for the page to pick up
+
+
+class SampleJobs:
+    """Background questions to Claude for pages on this server (Yarin, 07 Nov 2026: "if i click רעיון חדש and exit the tab
+    i want it to continue in the bg and show me the process and let me do it for a couple of reels simultaneously").
+
+    The page posts a prompt and gets a job id back at once; a worker thread runs the same locked down `claude -p` as
+    run_sample, with stream-json so the page can show how far the answer got (`out`, the text so far). The answer waits
+    here until a page claims it (and applies it to the reel), so closing the tab loses nothing. At most SAMPLE_PARALLEL
+    run together, one per reel. Jobs are kept in a small JSON file (never the prompt), so a restart keeps finished
+    answers; a job that was running when the server stopped is marked failed."""
+
+    def __init__(self, path):
+        import threading
+        self.path, self.lock = path, threading.Lock()
+        self.slots = threading.Semaphore(SAMPLE_PARALLEL)
+        self.make_slots = threading.Semaphore(REEL_MAKE_PARALLEL)   # reel jobs (kind "make") run one at a time
+        self.jobs, self.cancel = {}, {}
+        try:
+            with open(path, encoding="utf-8") as fh:
+                for j in json.load(fh).get("jobs", []):
+                    if j.get("status") in ("queued", "running"):
+                        j.update(status="failed", code="restarted", ended=now())
+                        if j.get("pid"):
+                            stop_orphan(j["pid"])   # a reel job's Claude outlives the server otherwise
+                    j.pop("out", None)
+                    self.jobs[j["id"]] = j
+        except (FileNotFoundError, ValueError, KeyError, AttributeError):
+            pass
+
+    def _save(self):   # with self.lock held
+        keep = sorted(self.jobs.values(), key=lambda j: j.get("started", ""))
+        done = [j for j in keep if j["status"] not in ("queued", "running")]
+        for j in done[:max(0, len(done) - SAMPLE_JOBS_KEEP)]:
+            self.jobs.pop(j["id"], None)
+        os.makedirs(os.path.dirname(self.path), exist_ok=True)
+        tmp = self.path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump({"jobs": [{k: v for k, v in j.items() if k != "out"} for j in self.jobs.values()]}, fh, ensure_ascii=False, indent=1)
+        os.replace(tmp, self.path)
+
+    def list(self):
+        with self.lock:
+            return sorted((dict(j) for j in self.jobs.values()), key=lambda j: j.get("started", ""))
+
+    def start(self, prompt, meta, make=None):
+        """make: the reel job's settings (_run_make: Claude plans, the fixed recipe builds), else a plain question.
+        One job per reel of either kind: a reel being made never gets its text rewritten under it."""
+        import threading, secrets
+        reel = meta.get("reel") or ""
+        with self.lock:
+            if reel and any(j.get("reel") == reel and j["status"] in ("queued", "running") for j in self.jobs.values()):
+                return 409, {"error": "this reel already has a question running", "code": "busy_reel"}
+            jid = datetime.now(IL).strftime("%H%M%S") + secrets.token_hex(3)
+            job = {"id": jid, "reel": reel, "kind": meta.get("kind") or "new", "label": meta.get("label") or "",
+                   "comment": meta.get("comment") or "", "status": "queued", "started": now(), "out": "", "chars": 0}
+            if make:
+                job.update(kind="make", step="", steps=0)
+            self.jobs[jid] = job
+            self.cancel[jid] = threading.Event()
+            self._save()
+        if make:
+            threading.Thread(target=self._run_make, args=(jid, prompt, make), daemon=True).start()
+        else:
+            threading.Thread(target=self._run, args=(jid, prompt), daemon=True).start()
+        return 202, {"job": dict(job)}
+
+    def _run_make(self, jid, prompt, make):
+        """A reel job in two parts. 1) Claude plans: the same locked down `claude -p` as every ask (no tools, no files), asked for the
+        reel's edit.json as JSON. 2) The server builds: the plan is checked (clean_edit: only the reel's own dropped files, known keys,
+        numbers in range), written to edit.json, and the fixed recipe runs (`reels.py make <id>`: reel_make.py and the reel editor).
+        Claude never runs a command; its answer is data. make: {"folder", "rid", "merge", "test"} from the endpoint."""
+        import time
+        t0 = time.time()
+        with self.make_slots:
+            stop = self.cancel[jid]
+            if stop.is_set():
+                self._set(jid, status="cancelled", code="cancelled", ended=now())
+                self.cancel.pop(jid, None)
+                return
+            self._set(jid, status="running", stage="thinking", ran=now(), step="Claude מתכנן את העריכה", steps=1)
+
+            def step(text):
+                with self.lock:
+                    j = self.jobs.get(jid)
+                    if j:
+                        j["step"] = text[:160]
+                        j["steps"] = j.get("steps", 0) + 1
+
+            def heard(kind, text):
+                with self.lock:
+                    j = self.jobs.get(jid)
+                    if j and kind == "text" and j.get("stage") != "writing":
+                        j.update(stage="writing", step="Claude כותב את תוכנית העריכה", steps=j.get("steps", 0) + 1)
+            status, body = run_sample_stream(prompt, stop.is_set, heard)
+            result = build_reel(make, body.get("text", ""), stop.is_set, step, lambda pid: self._set(jid, pid=pid)) if status == 200 else (status, body)
+        status, body = result
+        fin = os.path.join(make["folder"], "final")
+        made = sorted(f for f in os.listdir(fin) if f.lower().endswith(".mp4") and os.path.getmtime(os.path.join(fin, f)) >= t0) if os.path.isdir(fin) else []
+        if status == 200:
+            self._set(jid, status="done", text=body["text"], checks=body.get("checks", []), made=made, ended=now(), pid=None)
+        else:
+            self._set(jid, status="cancelled" if body.get("code") == "cancelled" else "failed", code=body.get("code"),
+                      error=body.get("error"), made=made, ended=now(), pid=None)
+        with self.lock:
+            steps = (self.jobs.get(jid) or {}).get("steps", 0)
+        log({"type": "reel-make", "status": status, "code": body.get("code"), "steps": steps, "made": len(made),
+             "prompt_chars": len(prompt), "seconds": round(time.time() - t0, 1)})
+        self.cancel.pop(jid, None)
+
+    def _set(self, jid, **kw):
+        with self.lock:
+            j = self.jobs.get(jid)
+            if j:
+                j.update(kw)
+                if "status" in kw:
+                    self._save()
+
+    def _run(self, jid, prompt):
+        import time
+        t0 = time.time()
+        with self.slots:
+            stop = self.cancel[jid]
+            if stop.is_set():
+                self._set(jid, status="cancelled", code="cancelled", ended=now())
+                return
+            self._set(jid, status="running", stage="thinking", ran=now())
+
+            def delta(kind, text):
+                with self.lock:
+                    j = self.jobs.get(jid)
+                    if j:
+                        if kind == "text":
+                            j["out"] = (j.get("out") or "") + text
+                            j["chars"] = len(j["out"])
+                        j["stage"] = "writing" if kind == "text" else "thinking"
+            status, body = run_sample_stream(prompt, stop.is_set, delta)
+        if status == 200:
+            self._set(jid, status="done", text=body["text"], ended=now(), out="")
+        else:
+            self._set(jid, status="cancelled" if body.get("code") == "cancelled" else "failed", code=body.get("code"),
+                      error=body.get("error"), ended=now(), out="")
+        log({"type": "sample-job", "status": status, "code": body.get("code"), "prompt_chars": len(prompt),
+             "seconds": round(time.time() - t0, 1)})
+        self.cancel.pop(jid, None)
+
+    def act(self, jid, what):
+        """cancel a running job, claim a finished answer (only once: two open tabs never both apply it), dismiss a row"""
+        with self.lock:
+            j = self.jobs.get(jid)
+            if not j:
+                return 404, {"error": "no such job", "code": "gone"}
+            if what == "cancel":
+                ev = self.cancel.get(jid)
+                if ev:
+                    ev.set()
+                return 200, {"job": dict(j)}
+            if what == "claim":
+                if j["status"] != "done" or j.get("claimed"):
+                    return 409, {"error": "not ready or already taken", "code": "taken"}
+                j["claimed"] = now()
+                self._save()
+                return 200, {"job": dict(j)}
+            if what == "dismiss":
+                if j["status"] in ("queued", "running"):
+                    return 409, {"error": "still running", "code": "running"}
+                self.jobs.pop(jid)
+                self._save()
+                return 200, {"ok": True}
+        return 400, {"error": "unknown action", "code": "failed"}
+
+
+def run_sample_stream(prompt, stopped, on_delta):
+    """run_sample for a background job: the same command and limits, with stream-json so on_delta(kind, text) hears the
+    answer as it is written ("thinking" or "text"). stopped() asks for a stop. Returns (http status, body) like run_sample."""
+    import signal, tempfile, threading, time
+    cli = claude_bin()
+    if not cli:
+        return 503, {"error": "the claude command was not found; install Claude Code or set LUMEBOOK_CLAUDE", "code": "no_cli"}
+    work = os.path.join(tempfile.gettempdir(), "lumebook-sample")
+    os.makedirs(work, exist_ok=True)
+    env = {k: v for k, v in os.environ.items() if k in ("HOME", "USER", "LOGNAME", "LANG", "LC_ALL", "TMPDIR", "SHELL")}
+    env["PATH"] = os.pathsep.join([os.path.dirname(cli), "/usr/local/bin", "/opt/homebrew/bin", "/usr/bin", "/bin"])
+    cmd = [cli, "-p", "--output-format", "stream-json", "--verbose", "--include-partial-messages", "--tools", "",
+           "--no-session-persistence", "--disable-slash-commands", "--setting-sources", "",
+           "--system-prompt", "Answer exactly what the message asks, as plain text. You have no tools and no files."]
+    final = {}
+    with tempfile.TemporaryFile() as fin:
+        fin.write(prompt.encode("utf-8"))
+        fin.seek(0)
+        proc = subprocess.Popen(cmd, stdin=fin, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, cwd=work, env=env,
+                                start_new_session=True)
+
+        def read():
+            for line in proc.stdout:
+                try:
+                    ev = json.loads(line)
+                except ValueError:
+                    continue
+                if not isinstance(ev, dict):
+                    continue
+                if ev.get("type") == "result":
+                    final["res"] = ev
+                elif ev.get("type") == "stream_event":
+                    d = (ev.get("event") or {}).get("delta") or {}
+                    if d.get("type") == "text_delta":
+                        on_delta("text", d.get("text") or "")
+                    elif d.get("type") == "thinking_delta":
+                        on_delta("thinking", "")
+        reader = threading.Thread(target=read, daemon=True)
+        reader.start()
+        t0 = time.time()
+        while proc.poll() is None:
+            dropped = stopped()
+            if dropped or time.time() - t0 > SAMPLE_TIMEOUT:
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    try:
+                        os.killpg(proc.pid, sig)
+                        proc.wait(10)
+                        break
+                    except subprocess.TimeoutExpired:
+                        continue
+                    except ProcessLookupError:
+                        break
+                return (499, {"error": "cancelled", "code": "cancelled"}) if dropped else (504, {"error": "Claude took too long", "code": "timeout"})
+            time.sleep(0.3)
+        reader.join(5)
+    if "res" not in final:
+        return 502, {"error": "claude gave no readable answer", "code": "failed"}
+    return sample_outcome(final["res"])
+
+
+# ---- making a reel from its card in the reels hub (Yarin, 07 Nov 2026: "a full file dropping and a prompt text box to the reel
+# cards so i could let you create the reel through there"). Dropped files go into the reel's media folder. A reel job asks Claude
+# (no tools, like every ask) for the reel's edit.json, checks it, and runs the fixed recipe (reels.py make: reel_make.py + the reel
+# editor). A Claude with a shell, started by the page on its own, was refused by the safety check on 07 Nov 2026 and is not built.
+REELS_SRC = "research/israeli-product-reels/src/scripts/series-2026-11"
+REEL_UPLOAD_EXT = UPLOAD_EXT | {".heic", ".aac", ".mkv"}
+REEL_UPLOAD_MAX = 4 * 1024 ** 3        # one dropped file (iPhone 4K takes are large)
+REEL_BUILD_TIMEOUT = 30 * 60           # seconds the recipe may run (whisper and the encodes are slow)
+REEL_MAKE_PARALLEL = 1                 # reel jobs at the same time (video work is heavy); the rest wait in line
+
+
+def reel_kind(name):
+    ext = os.path.splitext(name)[1].lower()
+    if ext in (".mp4", ".mov", ".m4v", ".webm", ".mkv"):
+        return "video"
+    if ext in (".png", ".jpg", ".jpeg", ".webp", ".gif", ".heic"):
+        return "image"
+    if ext in (".mp3", ".m4a", ".wav", ".ogg", ".opus", ".aac"):
+        return "audio"
+    return "file"
+
+
+def reel_env():
+    """The environment of the recipe: the server's, with a PATH that finds ffmpeg, ffprobe and avconvert from a login item."""
+    extra = [os.path.expanduser("~/.local/bin"), "/usr/local/bin", "/opt/homebrew/bin", "/usr/bin", "/bin", "/usr/sbin", "/sbin"]
+    return dict(os.environ, PATH=os.pathsep.join([x for x in os.environ.get("PATH", "").split(os.pathsep) if x] + extra))
+
+
+def stop_orphan(pid):
+    """Stop the process group of a reel job whose server went away, only if it is still the recipe or a claude command (a pid can
+    be reused after the Mac restarts)."""
+    import signal
+    try:
+        cmdline = subprocess.run(["ps", "-o", "command=", "-p", str(int(pid))], capture_output=True, text=True, timeout=5).stdout
+        if any(w in cmdline for w in ("reels.py", "reel_make.py", "reel_editor.py", "claude")):
+            os.killpg(int(pid), signal.SIGTERM)
+    except (OSError, ValueError, subprocess.SubprocessError):
+        pass
+
+
+def media_info(path):
+    """Length, size and sound of one dropped file (ffprobe), for Claude's plan; {} when ffprobe cannot read it."""
+    probe = shutil.which("ffprobe", path=reel_env()["PATH"])
+    if not probe or reel_kind(path) not in ("video", "audio", "image"):
+        return {}
+    try:
+        out = subprocess.run([probe, "-v", "error", "-show_entries", "format=duration:stream=codec_type,width,height", "-of", "json", path],
+                             capture_output=True, text=True, timeout=20).stdout
+        j = json.loads(out or "{}")
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return {}
+    st = j.get("streams") or []
+    v = next((s for s in st if s.get("codec_type") == "video"), {})
+    info = {"audio": any(s.get("codec_type") == "audio" for s in st)}
+    try:
+        info["seconds"] = round(float((j.get("format") or {}).get("duration")), 2)
+    except (TypeError, ValueError):
+        pass
+    if v.get("width"):
+        info["size"] = f"{v['width']}x{v['height']}"
+    return info
+
+
+def reel_plan_prompt(r, folder, files, script, ask):
+    """What Claude is asked for a reel job: the reel's edit.json as JSON. Written here, not in the page: the page sends only the reel,
+    Yarin's words and the script as it shows it."""
+    try:
+        with open(p(REELS_SRC + "/reels.json"), encoding="utf-8") as fh:
+            d = json.load(fh).get("defaults", {})
+        with open(p(REELS_SRC + "/reel_make.py"), encoding="utf-8") as fh:
+            doc = fh.read().split('"""')[1].strip()
+    except (OSError, ValueError, IndexError):
+        d, doc = {}, ""
+    try:
+        with open(os.path.join(folder, "edit.json"), encoding="utf-8") as fh:
+            edit_now = fh.read()[:6000]
+    except OSError:
+        edit_now = ""
+
+    def one(v, n=1500):
+        return " ".join(str(v or "").split())[:n]
+
+    def many(v):
+        return [one(x, 400) for x in (v if isinstance(v, list) else []) if one(x)][:40]
+    vo = many(script.get("vo")) or many(r.get("vo"))
+    rows = []
+    for f in files:
+        i = media_info(os.path.join(folder, f["path"]))
+        bits = [f["kind"]] + ([f"{i['seconds']:g} s"] if "seconds" in i else []) + ([i["size"]] if "size" in i else []) + \
+               (["with sound" if i.get("audio") else "no sound"] if f["kind"] == "video" else [])
+        rows.append(f"- {f['path']}: {', '.join(bits)}")
+    L = [f"You plan the edit of LumeBook's Instagram reel {r['id']} (personalised children's books, Israel). Yarin dropped his files on the "
+         "reel's card and wrote what he wants. Your answer becomes the reel's edit.json, and the fixed recipe reel_make.py then builds the "
+         "video from it: it cuts the pauses, takes the caption spelling from the script, and burns the hook, the word by word captions and "
+         "the closing card. You see no pictures: decide from the file names, their lengths, the shooting notes and Yarin's words.",
+         "", "How edit.json works (from reel_make.py):", doc, "",
+         "The reel",
+         f"- voice: {r.get('voice')} (yarin = his own voiceover), talks to {'grandmothers' if r.get('audience') == 'grandma' else 'parents'}",
+         f"- hook (top text of the first seconds): {one(script.get('hook')) or one(r.get('hook'))}",
+         "- voiceover lines, numbered from 0 as \"at\" counts them (the recipe adds the closing line \"" + one(d.get("cta_voice")) + "\", cued as \"cta\"):"]
+    L += [f"  {i}. {x}" for i, x in enumerate(vo)] or ["  (none)"]
+    sees = many(script.get("sees")) or many(r.get("sees"))
+    if sees:
+        L += ["- what is seen while each line plays (Yarin's notes, same numbers):"] + [f"  {i}. {x}" for i, x in enumerate(sees)]
+    for key, lab, base in (("shot", "shooting notes", r.get("shot")), ("films", "what Yarin films", ", ".join(r.get("yarin_films") or []))):
+        v = one(script.get(key)) or one(base)
+        if v:
+            L.append(f"- {lab}: {v}")
+    L += ["", "The files Yarin dropped (use these paths exactly, nothing else):"] + (rows or ["- none"])
+    if edit_now:
+        L += ["", "The edit.json there now (a template from when the folder was made, \"_footage\" says what each segment was meant to show):", edit_now]
+    L += ["", "What Yarin asked for (his words):", one(ask, 6000) or "(nothing written: plan it from the files and the script)", "",
+          "Rules: use only the paths listed above and never invent one; the first segment starts at 0 and the segments follow the script "
+          "in order; a cue word must be a word of the script; leave out keys you do not need (no TODO paths, no _about or _footage keys). "
+          "If these files cannot make the reel (for example no voice take and no talking take), return \"edit\": null and say what is missing.",
+          "",
+          "Return only JSON, no other text:",
+          "{\"edit\": {the edit.json object} or null, \"summary\": \"one or two short Hebrew sentences for Yarin, without dashes: which file "
+          "goes where\", \"missing\": \"Hebrew: what he still needs to film or drop, empty when nothing is missing\"}"]
+    return "\n".join(L)
+
+
+def clean_edit(e, paths, images):
+    """Claude's plan cut down to what reel_make.py reads, with every file one of the reel's own dropped files and every number in
+    range. Returns (edit, "") or (None, why)."""
+    if not isinstance(e, dict):
+        return None, "the plan has no edit"
+
+    def num(v, lo, hi):
+        return isinstance(v, (int, float)) and not isinstance(v, bool) and lo <= v <= hi
+
+    def cue(v):
+        return (isinstance(v, int) and not isinstance(v, bool) and 0 <= v <= 200) or (isinstance(v, str) and 0 < len(v) <= 40 and "\n" not in v)
+    out = {}
+    for k in ("take", "hook_clip", "voice"):
+        if e.get(k) is not None:
+            if e[k] not in paths:
+                return None, f"{k} {e[k]!r} is not one of the dropped files"
+            out[k] = e[k]
+    for k, lo, hi in (("voice_start", 0, 600), ("speed_after_hook", 0.8, 1.6)):
+        if e.get(k) is not None:
+            if not num(e[k], lo, hi):
+                return None, f"{k} {e[k]!r} is out of range"
+            out[k] = e[k]
+    if "hook_end" in e:
+        if e["hook_end"] is not None and not num(e["hook_end"], 0, 60):
+            return None, f"hook_end {e['hook_end']!r} is out of range"
+        out["hook_end"] = e["hook_end"]
+    bg = e.get("background")
+    if bg is not None:
+        if not isinstance(bg, dict) or bg.get("src") not in paths or not num(bg.get("ss", 0), 0, 7200):
+            return None, "background is not one of the dropped files"
+        out["background"] = {"src": bg["src"], "ss": bg.get("ss", 0)}
+    ov = e.get("hook_overlay")
+    if ov is not None:
+        if not isinstance(ov, dict) or ov.get("img") not in images or not num(ov.get("y", 1230), 0, 1920):
+            return None, "hook_overlay is not one of the dropped pictures"
+        out["hook_overlay"] = {"img": ov["img"], "y": ov.get("y", 1230)}
+    segs = e.get("segments")
+    if segs is not None:
+        if not isinstance(segs, list) or len(segs) > 40:
+            return None, "segments is not a list"
+        out["segments"] = []
+        for s in segs:
+            if not isinstance(s, dict) or not cue(s.get("at")) or s.get("src") not in paths:
+                return None, f"segment {s!r} has a wrong cue or a file that was not dropped"
+            c = {"at": s["at"], "src": s["src"], "ss": s.get("ss", 0)}
+            if not num(c["ss"], 0, 7200):
+                return None, f"segment start {c['ss']!r} is out of range"
+            if s.get("window") is not None:
+                c["window"] = bool(s["window"])
+            if s.get("speed") is not None:
+                if not num(s["speed"], 0.25, 4):
+                    return None, f"segment speed {s['speed']!r} is out of range"
+                c["speed"] = s["speed"]
+            if s.get("crop") is not None:
+                if not isinstance(s["crop"], str) or not re.fullmatch(r"\d{1,5}:\d{1,5}:\d{1,5}:\d{1,5}", s["crop"]):
+                    return None, f"segment crop {s['crop']!r} is not w:h:x:y"
+                c["crop"] = s["crop"]
+            out["segments"].append(c)
+    cards = e.get("top_cards")
+    if cards is not None:
+        if not isinstance(cards, list) or len(cards) > 20:
+            return None, "top_cards is not a list"
+        out["top_cards"] = []
+        for c in cards:
+            if not isinstance(c, dict) or not cue(c.get("at")) or not isinstance(c.get("text"), str) or not 0 < len(c["text"]) <= 24:
+                return None, f"top card {c!r} is not a cue and a short text"
+            t = {"at": c["at"], "text": c["text"]}
+            if c.get("size") is not None:
+                if not num(c["size"], 20, 300):
+                    return None, f"top card size {c['size']!r} is out of range"
+                t["size"] = c["size"]
+            out["top_cards"].append(t)
+    if not out.get("take") and not (out.get("hook_clip") and out.get("voice")):
+        return None, "the plan needs one talking take, or a hook clip and a voice take"
+    return out, ""
+
+
+def build_reel(make, answer, stopped, step, on_pid):
+    """Part 2 of a reel job: Claude's plan (answer, JSON text) in, the video out. Checks the plan, writes edit.json (an earlier one
+    moves to work/edit-<time>.json), copies this reel's page edits into reels.json when the page showed other text (reels.py merge
+    local <id>), keeps an earlier final/reel-<id>-1.mp4 under a dated name, and runs the fixed recipe with its output as steps.
+    LUMEBOOK_REEL_MAKE_CMD replaces the recipe on a test server. Returns (http status, body) like run_sample."""
+    import shlex, signal, threading, time
+    t = str(answer or "").strip()
+    t = re.sub(r"^\s*```(?:json)?\s*|\s*```\s*$", "", t)
+    a, b = t.find("{"), t.rfind("}")
+    try:
+        plan = json.loads(t[a:b + 1] if a >= 0 and b > a else t)
+    except ValueError:
+        return 502, {"error": "the plan was not JSON", "code": "invalid_json"}
+    if not isinstance(plan, dict):
+        return 502, {"error": "the plan was not a JSON object", "code": "invalid_json"}
+
+    def said(v):
+        return re.sub(r"\s*[\u2014\u2013]\s*", ", ", " ".join(str(v or "").split()))[:600]
+    summary, missing = said(plan.get("summary")), said(plan.get("missing"))
+    if plan.get("edit") is None:
+        return 200, {"text": " ".join(x for x in (summary, missing) if x) or "חסרים חומרים כדי ליצור את הריל.", "checks": []}
+    edit, why = clean_edit(plan["edit"], make["paths"], make["images"])
+    if not edit:
+        return 422, {"error": why, "code": "bad_plan"}
+    folder, rid = make["folder"], make["rid"]
+    work, fin = os.path.join(folder, "work"), os.path.join(folder, "final")
+    os.makedirs(work, exist_ok=True)
+    logf = open(os.path.join(work, "reel-job.log"), "a", encoding="utf-8")
+
+    def note(line):
+        logf.write(f"{datetime.now(IL).strftime('%Y-%m-%d %H:%M:%S')} {line}\n")
+        logf.flush()
+    try:
+        step("שומר את תוכנית העריכה")
+        note("plan: " + json.dumps(edit, ensure_ascii=False))
+        ej = os.path.join(folder, "edit.json")
+        if os.path.exists(ej):
+            shutil.move(ej, os.path.join(work, "edit-" + datetime.now(IL).strftime("%Y%m%d-%H%M%S") + ".json"))
+        with open(ej, "w", encoding="utf-8") as fh:
+            json.dump({"_about": f"Written {now()} by a reel job of the reels hub from Claude's plan (tools/lumebook.py build_reel); "
+                                 "reels.py make reads it.", **edit}, fh, ensure_ascii=False, indent=1)
+            fh.write("\n")
+        env = reel_env()
+        if make.get("merge"):
+            step("מעתיק לתסריט את העריכות מהעמוד")
+            m = subprocess.run([sys.executable, p(REELS_SRC + "/reels.py"), "merge", "local", rid], cwd=ROOT, env=env,
+                               capture_output=True, text=True, timeout=120)
+            note("merge local: " + " ".join((m.stdout + m.stderr).split())[-400:])
+        name = "reel-" + rid.replace(".", "-")
+        stamp = datetime.now(IL).strftime("%Y%m%d-%H%M%S")
+        kept = []   # (where it was, where it is now): an earlier finished reel keeps a dated name, never overwritten
+
+        def put_back():   # the build failed or was stopped and wrote nothing new: the earlier reel takes its name again
+            if not os.path.exists(os.path.join(fin, name + "-1.mp4")):
+                for was, now_at in kept:
+                    if os.path.exists(now_at) and not os.path.exists(was):
+                        shutil.move(now_at, was)
+        for suffix in ("-1.mp4", "-qc.jpg"):
+            old = os.path.join(fin, name + suffix)
+            if os.path.exists(old):
+                base, ext = os.path.splitext(old)
+                dest, n = f"{base}-{stamp}{ext}", 2
+                while os.path.exists(dest):
+                    dest, n = f"{base}-{stamp}-{n}{ext}", n + 1
+                shutil.move(old, dest)
+                kept.append((old, dest))
+        cmd = (shlex.split(os.environ["LUMEBOOK_REEL_MAKE_CMD"]) if os.environ.get("LUMEBOOK_REEL_MAKE_CMD")
+               else [sys.executable, p(REELS_SRC + "/reels.py"), "make"]) + [rid] + (["--folder", folder] if make.get("test") else [])
+        step("בונה את הריל: מכין את הקול")
+        proc = subprocess.Popen(cmd, cwd=ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1,
+                                start_new_session=True)
+        on_pid(proc.pid)
+        lines, checks = [], []
+
+        def read():
+            for raw in proc.stdout:
+                line = raw.rstrip()
+                if not line:
+                    continue
+                lines.append(line)
+                note("make: " + line)
+                s = line.strip()
+                if s.startswith("check:"):
+                    c = s[6:].strip()   # reel_make.py align(): what whisper heard against the script, said in Hebrew for the card
+                    for pat, he in ((r"heard (.+), script says (.+) \(script kept\)", r"נשמע \1, בתסריט \2 (נשאר התסריט)"),
+                                    (r"heard (.+), script says (.+) \(times spread\)", r"נשמע \1, בתסריט \2 (הזמנים נפרסו)"),
+                                    (r"not heard: (.+?) \(.*\)$", r"לא נשמע: \1"),
+                                    (r"heard but not in the script: (.+?) \(.*\)$", r"נשמע ולא בתסריט: \1")):
+                        c = re.sub(pat, he, c)
+                    checks.append(c[:200])
+                    step("בדיקה: " + c[:120])
+                elif s.startswith("sound:"):
+                    step("הקול מוכן, מתמלל ומתאים לתסריט")
+                elif re.match(r"s\d+\s|take\s", s):
+                    step("מרכיב את הקטעים")
+                elif s.startswith("length"):
+                    step("שורף כותרת, כתוביות וכרטיס סיום")
+        reader = threading.Thread(target=read, daemon=True)
+        reader.start()
+        t0 = time.time()
+        while proc.poll() is None:
+            dropped = stopped()
+            if dropped or time.time() - t0 > REEL_BUILD_TIMEOUT:
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    try:
+                        os.killpg(proc.pid, sig)
+                        proc.wait(10)
+                        break
+                    except subprocess.TimeoutExpired:
+                        continue
+                    except ProcessLookupError:
+                        break
+                note("stopped" if dropped else "timed out")
+                put_back()
+                return (499, {"error": "cancelled", "code": "cancelled"}) if dropped else (504, {"error": "the recipe took too long", "code": "timeout"})
+            time.sleep(0.5)
+        reader.join(5)
+        note(f"recipe exit {proc.returncode}")
+        if proc.returncode != 0 or not os.path.exists(os.path.join(fin, name + "-1.mp4")):
+            put_back()
+            last = next((x.strip() for x in reversed(lines) if x.strip()), "no output")
+            return 500, {"error": last[:300], "code": "build_failed"}
+        return 200, {"text": summary or "הריל מוכן.", "checks": checks[:10]}
+    finally:
+        logf.close()
 
 
 def serve(port):
@@ -647,10 +1212,23 @@ def serve(port):
                                 Needs `claude auth login` on this Mac once; the answer comes from that login's plan.
       GET  /api/reels-hub/state the reels hub's own edits ({edits, made, requests}, each a map of documents) from
                                 research/israeli-product-reels/src/scripts/series-2026-11/local-edits.json ({} when none)
+      POST /api/sample/jobs     {"prompt", "reel", "kind", "label", "comment"} -> 202 {"job"}: the same question as a background
+                                job (SampleJobs above): it keeps running when the tab closes, up to 3 at once, one per reel
+      GET  /api/sample/jobs     {"jobs": [...]}: every job with its status, the text written so far while it runs
+                                ("out", "chars") and the answer when done ("text"); never the prompt
+      POST /api/sample/jobs/<id>/cancel|claim|dismiss   stop it, take the answer (once), or drop the row; same-origin only
       PUT  /api/reels-hub/doc?path=edits/<key>   writes one document (also made/<key>, requests/<id>); same-origin only,
                                 at most 256 KB each; the hub page on this server saves here instead of the artifact
                                 database, and `reels.py merge local` copies the edits into reels.json (6 Nov 2026)
-    This is the only endpoint that runs a command, and the command is fixed: only the prompt (on stdin) comes from the page."""
+      GET  /api/reel-files?reel=r5-5   the reel's media folder: {project, files (source/), finals (final/*.mp4, newest first)}
+      GET  /api/reel-files/raw?reel=r5-5&f=source/x.mov   one of those files (Range requests, so the page's players can seek)
+      POST /api/reel-files?reel=r5-5&name=x.mov   one dropped file (the body) into the reel's source/, never overwriting; the first
+                                one opens the folder with `reels.py new <id>`; same-origin only, media types, 4 GB at most (7 Nov 2026)
+      POST /api/reel-files/remove?reel=r5-5&f=source/x.mov   moves a dropped file to _to-delete/ with a README line; same-origin only
+      POST /api/reel-make/jobs  {"reel", "prompt", "script", "label"} -> 202 {"job"}: a reel job (kind "make") in the same list as the
+                                asks: Claude plans the edit (no tools), the plan is checked and written to edit.json, and the fixed
+                                recipe `reels.py make <id>` builds the video; one at a time, cancel/dismiss as above (build_reel)
+    The commands are fixed: only the prompt (on stdin) and checked data (a reel id, edit.json values) come from the page."""
     import http.client, http.server, functools, urllib.parse, urllib.request, threading, select, socket
     sample_lock = threading.Lock()
     origins = {f"http://localhost:{port}", f"http://127.0.0.1:{port}"}
@@ -659,7 +1237,77 @@ def serve(port):
     hq_layout = p("sites/dashboard/hq-layout.json")
     # LUMEBOOK_REELS_HUB_FILE: a test server on a spare port writes somewhere else, never into Yarin's real edits
     reels_hub_file = os.environ.get("LUMEBOOK_REELS_HUB_FILE") or p("research/israeli-product-reels/src/scripts/series-2026-11/local-edits.json")
+    sample_jobs = SampleJobs(os.environ.get("LUMEBOOK_SAMPLE_JOBS_FILE") or p(".lumebook/sample-jobs.json"))
+    sample_job_act = re.compile(r"^/api/sample/jobs/([0-9a-f]{6,20})/(cancel|claim|dismiss)$")
     reels_hub_doc = re.compile(r"^(edits|made|requests)/([\w.\-]{1,120})$")
+    # LUMEBOOK_REEL_MEDIA: a test server keeps each reel's files in <that folder>/<key> and never runs reels.py new or merge
+    reel_media_test = os.environ.get("LUMEBOOK_REEL_MEDIA")
+    reel_lock = threading.Lock()
+    reel_key = re.compile(r"^r(\d{1,2})-(\d{1,2})$")
+
+    def reel_dir(key, create=False):
+        """(the reel in reels.json, its media folder or None) for a hub key such as r5-5; (None, None) when there is no such reel.
+        create opens the folder the way `reels.py new` does (which also writes the reel's "project" into reels.json)."""
+        m = reel_key.match(key or "")
+        if not m:
+            return None, None
+        rid = f"{m.group(1)}.{m.group(2)}"
+
+        def find():
+            try:
+                with open(p(REELS_SRC + "/reels.json"), encoding="utf-8") as fh:
+                    return next((x for x in json.load(fh)["reels"] if x.get("id") == rid), None)
+            except (OSError, ValueError, KeyError):
+                return None
+        r = find()
+        if not r:
+            return None, None
+        if reel_media_test:
+            folder = os.path.join(reel_media_test, key)
+            if create:
+                os.makedirs(os.path.join(folder, "source"), exist_ok=True)
+            return r, (folder if os.path.isdir(folder) else None)
+        if create and not r.get("project") and r.get("date"):
+            with reel_lock:
+                r = find() or r
+                if not r.get("project"):
+                    out = subprocess.run([sys.executable, p(REELS_SRC + "/reels.py"), "new", rid], cwd=ROOT, capture_output=True, text=True, timeout=120)
+                    log({"type": "reel-folder", "reel": rid, "ok": out.returncode == 0, "tail": (out.stdout + out.stderr).strip()[-200:]})
+                    r = find() or r
+        folder = p(r["project"]) if r.get("project") else None
+        if folder and create:
+            os.makedirs(os.path.join(folder, "source"), exist_ok=True)
+        return r, (folder if folder and os.path.isdir(folder) else None)
+
+    def reel_path(folder, rel):
+        """The file rel (source/... or final/...) inside a reel's folder, or None when it points anywhere else."""
+        if not folder or not isinstance(rel, str) or not rel.startswith(("source/", "final/")) or "\x00" in rel:
+            return None
+        full, base = os.path.realpath(os.path.join(folder, rel)), os.path.realpath(folder)
+        return full if full.startswith(base + os.sep) else None
+
+    def reel_entry(key, folder, rel):
+        st = os.stat(os.path.join(folder, rel))
+        return {"name": rel.split("/", 1)[1], "path": rel, "size": st.st_size, "mtime": int(st.st_mtime), "kind": reel_kind(rel),
+                "url": "/api/reel-files/raw?reel=" + key + "&f=" + urllib.parse.quote(rel)}
+
+    def reel_listing(key, folder):
+        out = {"reel": key, "project": None, "files": [], "finals": []}
+        if not folder:
+            return out
+        out["project"] = os.path.basename(folder) if reel_media_test else os.path.relpath(folder, ROOT)
+        src = os.path.join(folder, "source")
+        for dp, dns, fns in os.walk(src):
+            dns[:] = sorted(x for x in dns if not x.startswith("."))
+            for f in fns:
+                if not f.startswith(".") and os.path.splitext(f)[1].lower() in REEL_UPLOAD_EXT:
+                    out["files"].append(reel_entry(key, folder, os.path.relpath(os.path.join(dp, f), folder)))
+        out["files"].sort(key=lambda e: (e["mtime"], e["path"]))
+        fin = os.path.join(folder, "final")
+        if os.path.isdir(fin):
+            out["finals"] = sorted((reel_entry(key, folder, "final/" + f) for f in os.listdir(fin)
+                                    if f.lower().endswith(".mp4") and not f.startswith(".")), key=lambda e: -e["mtime"])
+        return out
     doc_path = re.compile(r"^(?:(outreach|settings|voice)/([\w.\-]{1,120})|log/([\w.\-]{1,120})/events/([\w.\-]{1,60}))$")
 
     def state_read(name):
@@ -703,6 +1351,139 @@ def serve(port):
             self.send_header("Content-Length", str(len(body)))
             self.end_headers()
             self.wfile.write(body)
+
+        def reel_post(self, u):
+            """The reels hub's make sheet: a dropped file in, a dropped file out (to _to-delete), or a reel job (see serve's list)."""
+            q = urllib.parse.parse_qs(u.query)
+            size = int(self.headers.get("Content-Length") or 0)
+            if u.path == "/api/reel-files":
+                key, name = (q.get("reel") or [""])[0], (q.get("name") or [""])[0]
+                base, ext = os.path.splitext(os.path.basename(name))
+                if ext.lower() not in REEL_UPLOAD_EXT:
+                    return self._json(415, {"error": "allowed: video, audio, images, pdf", "code": "bad_type"})
+                if size <= 0 or size > REEL_UPLOAD_MAX:
+                    return self._json(413, {"error": f"a file is 1 byte to {REEL_UPLOAD_MAX // 1024 ** 3} GB", "code": "too_big"})
+                r, folder = reel_dir(key, create=True)
+                if not r:
+                    return self._json(404, {"error": "no such reel", "code": "gone"})
+                if not folder:
+                    return self._json(500, {"error": "the reel has no media folder", "code": "no_folder"})
+                safe = re.sub(r"[^\w.\-]+", "-", base).strip("-.")[:80] or "file"
+                src = os.path.join(folder, "source")
+                os.makedirs(src, exist_ok=True)
+                n = 1
+                while True:   # never overwrite: name, name-2, name-3 ... (x mode also covers two drops of one name at once)
+                    dest = os.path.join(src, f"{safe}{'' if n == 1 else '-' + str(n)}{ext.lower()}")
+                    try:
+                        fh = open(dest, "xb")
+                        break
+                    except FileExistsError:
+                        n += 1
+                left = size
+                with fh:
+                    while left:
+                        chunk = self.rfile.read(min(left, 1 << 20))
+                        if not chunk:
+                            break
+                        fh.write(chunk)
+                        left -= len(chunk)
+                if left:
+                    os.remove(dest)   # our own half-written copy, not a project file
+                    return self._json(400, {"error": "upload interrupted", "code": "failed"})
+                rel = os.path.relpath(dest, folder)
+                log({"type": "reel-file", "reel": key, "path": rel, "bytes": size})
+                return self._json(201, {"file": reel_entry(key, folder, rel),
+                                        "project": os.path.basename(folder) if reel_media_test else os.path.relpath(folder, ROOT)})
+            if u.path == "/api/reel-files/remove":
+                key, rel = (q.get("reel") or [""])[0], (q.get("f") or [""])[0]
+                r, folder = reel_dir(key)
+                full = reel_path(folder, rel) if r else None
+                if not full or not rel.startswith("source/") or not os.path.isfile(full):
+                    return self._json(404, {"error": "not found", "code": "gone"})
+                top = reel_media_test or ROOT
+                where = os.path.relpath(full, top)
+                dest = os.path.join(top, "_to-delete", where)
+                stem, ext = os.path.splitext(dest)
+                n = 2
+                while os.path.exists(dest):
+                    dest, n = f"{stem}-{n}{ext}", n + 1
+                with reel_lock:
+                    os.makedirs(os.path.dirname(dest), exist_ok=True)
+                    shutil.move(full, dest)
+                    readme = os.path.join(top, "_to-delete", "README.md")
+                    if os.path.exists(readme) or reel_media_test:
+                        with open(readme, "a", encoding="utf-8") as fh:
+                            fh.write(f"- `{where}`: {datetime.now(IL).strftime('%d %b %Y')}, removed with the ✕ on its tile in reel "
+                                     f"{r['id']}'s make sheet in the reels hub (dropped by mistake or replaced). Not in git.\n")
+                log({"type": "reel-file-removed", "reel": key, "path": where})
+                return self._json(200, {"ok": True, "moved": os.path.relpath(dest, top)})
+            # a reel job
+            if size <= 0 or size > SAMPLE_MAX:
+                return self._json(400, {"error": "bad size", "code": "failed"})
+            try:
+                doc = json.loads(self.rfile.read(size).decode("utf-8"))
+            except ValueError:
+                return self._json(400, {"error": "not JSON", "code": "failed"})
+            if not isinstance(doc, dict):
+                return self._json(400, {"error": "a reel job is a JSON object", "code": "failed"})
+            key, ask = str(doc.get("reel") or ""), str(doc.get("prompt") or "")[:8000]
+            script = doc.get("script") if isinstance(doc.get("script"), dict) else {}
+            r, folder = reel_dir(key)
+            if not r:
+                return self._json(404, {"error": "no such reel", "code": "gone"})
+            files = reel_listing(key, folder)["files"]
+            if not files:
+                return self._json(400, {"error": "drop the reel's files first", "code": "no_files"})
+
+            def same(a, b):
+                return " ".join(str(a or "").split()) == " ".join(str(b or "").split())
+            page_vo = [x for x in (script.get("vo") or []) if isinstance(x, str)]
+            differs = (script.get("hook") is not None and not same(script.get("hook"), r.get("hook"))) or \
+                      (bool(page_vo) and [" ".join(x.split()) for x in page_vo] != [" ".join(str(x).split()) for x in r.get("vo", [])])
+            make = {"folder": folder, "rid": r["id"], "merge": bool(differs and not reel_media_test), "test": bool(reel_media_test),
+                    "paths": {f["path"] for f in files}, "images": {f["path"] for f in files if f["kind"] == "image"}}
+            prompt = reel_plan_prompt(r, folder, files, script, ask)
+            meta = {"reel": key, "kind": "make", "label": str(doc.get("label") or "")[:400], "comment": ask[:400]}
+            return self._json(*sample_jobs.start(prompt, meta, make=make))
+
+        def send_range(self, full):
+            """One file with Range support (a video element asks for pieces to seek); .mov goes out as video/mp4 so Chrome plays it."""
+            size = os.path.getsize(full)
+            ctype = "video/mp4" if full.lower().endswith((".mov", ".m4v")) else (self.guess_type(full) or "application/octet-stream")
+            start, end, code = 0, size - 1, 200
+            m = re.fullmatch(r"bytes=(\d*)-(\d*)", (self.headers.get("Range") or "").strip())
+            if m and size and (m.group(1) or m.group(2)):
+                if m.group(1):
+                    start, end = int(m.group(1)), int(m.group(2)) if m.group(2) else size - 1
+                else:
+                    start = max(0, size - int(m.group(2)))
+                end = min(end, size - 1)
+                if start > end:
+                    self.send_response(416)
+                    self.send_header("Content-Range", f"bytes */{size}")
+                    self.send_header("Content-Length", "0")
+                    self.end_headers()
+                    return
+                code = 206
+            self.send_response(code)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Accept-Ranges", "bytes")
+            self.send_header("Content-Length", str(max(0, end - start + 1)))
+            if code == 206:
+                self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+            self.end_headers()
+            with open(full, "rb") as fh:
+                fh.seek(start)
+                left = end - start + 1
+                while left > 0:
+                    chunk = fh.read(min(left, 1 << 20))
+                    if not chunk:
+                        break
+                    try:
+                        self.wfile.write(chunk)
+                    except (BrokenPipeError, ConnectionResetError):
+                        return
+                    left -= len(chunk)
 
         def hook_studio(self, method):
             """Forward a Carousel Machine request to its own server (the login item); True when this was one."""
@@ -797,6 +1578,20 @@ def serve(port):
                             return self._json(200, json.load(fh))
                     except (FileNotFoundError, ValueError):
                         return self._json(200, {})
+            if path == "/api/sample/jobs":
+                return self._json(200, {"jobs": sample_jobs.list()})
+            if path in ("/api/reel-files", "/api/reel-files/raw"):
+                q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+                key = (q.get("reel") or [""])[0]
+                r, folder = reel_dir(key)
+                if not r:
+                    return self._json(404, {"error": "no such reel", "code": "gone"})
+                if path == "/api/reel-files":
+                    return self._json(200, reel_listing(key, folder))
+                full = reel_path(folder, (q.get("f") or [""])[0])
+                if not full or not os.path.isfile(full):
+                    return self._json(404, {"error": "not found"})
+                return self.send_range(full)
             if path == "/api/reels-hub/state":
                 with state_lock:
                     try:
@@ -893,6 +1688,30 @@ def serve(port):
             if self.hook_studio("POST"):
                 return
             u = urllib.parse.urlparse(self.path)
+            if u.path == "/api/sample/jobs" or sample_job_act.match(u.path):
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only", "code": "not_granted"})
+                m = sample_job_act.match(u.path)
+                if m:
+                    return self._json(*sample_jobs.act(m.group(1), m.group(2)))
+                size = int(self.headers.get("Content-Length") or 0)
+                if size <= 0 or size > SAMPLE_MAX:
+                    return self._json(400, {"error": "bad size", "code": "failed"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON", "code": "failed"})
+                prompt = doc.get("prompt") if isinstance(doc, dict) else None
+                if not isinstance(prompt, str) or not prompt.strip():
+                    return self._json(400, {"error": "a prompt is a non-empty string", "code": "failed"})
+                meta = {k: str(doc.get(k) or "")[:400] for k in ("reel", "kind", "label", "comment")}
+                if meta["reel"] and not re.match(r"^[\w.\-]{1,40}$", meta["reel"]):
+                    return self._json(400, {"error": "bad reel id", "code": "failed"})
+                return self._json(*sample_jobs.start(prompt, meta))
+            if u.path in ("/api/reel-files", "/api/reel-files/remove", "/api/reel-make/jobs"):
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only", "code": "not_granted"})
+                return self.reel_post(u)
             if u.path == "/api/sample":
                 if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
                     return self._json(403, {"error": "same-origin requests only", "code": "not_granted"})

@@ -39,6 +39,7 @@ SERIES = {
     6: "טרנדים מוכנים",
     7: "ימי מבצע",
     8: "מסבתא לנכד",
+    9: "שומרי מסורת",
 }
 STORE = json.loads((ROOT / "shared/facts.json").read_text())
 STORE = next(x["url"] for x in STORE["sites"] if x["key"] == "store")
@@ -46,7 +47,8 @@ POSTS = ROOT / "research/carousel-audit/data/posts.json"
 EDITOR_PY = Path.home() / ".claude/skills/watch-video/.venv/bin/python"
 # utm_campaign per series: lower case, hyphens, never changed once links went out (research/cro-crm/measurement.md section 4)
 CAMPAIGN = {1: "reel-before-order", 2: "reel-your-childs-book", 3: "reel-hanukkah-gift", 4: "reel-yarin-checks",
-            5: "reel-home-moment", 6: "reel-trends", 7: "reel-sale-days", 8: "reel-grandma-gift"}
+            5: "reel-home-moment", 6: "reel-trends", 7: "reel-sale-days", 8: "reel-grandma-gift",
+            9: "reel-traditions"}
 # numbers Yarin reads in Insights 24 h after posting (playbook section 7); the Meta export does not have them
 LOG_KEYS = {"lumi": "\"לומי\" comments", "dms": "DMs answered", "clicks": "link clicks", "books": "books started",
             "skip": "skip rate %", "watch": "average watch s", "nonfollow": "views from non-followers %"}
@@ -124,7 +126,8 @@ def script_md(r, d):
     if r.get("vo"):
         words = sum(len(l.split()) for l in r["vo"]) + len(d["defaults"]["cta_voice"].split())
         out.append(f"- קריינות (בערך {words} מילים):")
-        out += [f"  - {l}" for l in r["vo"]]
+        sees = r.get("sees", [])
+        out += [f"  - {l}" + (f" (רואים: {sees[i]})" if i < len(sees) and sees[i] else "") for i, l in enumerate(r["vo"])]
         out.append(f"  - {d['defaults']['cta_voice']}")
     if r.get("cards"):
         out.append("- כרטיסיות טקסט על המסך:")
@@ -210,6 +213,11 @@ def lint():
         hit = NO_TALK.search(copy)
         if hit:
             bad.append(f"- ERROR {r['id']}: talks about {hit.group(0)!r}; reels never mention the language options or the digital copy (Yarin, 05 Nov 2026)")
+        # Yarin, 07 Nov 2026: none of the kids are his; he speaks as LumeBook's marketing guy, never as a parent
+        if r["voice"] == "yarin":
+            hit = NOT_A_PARENT.search(" ".join([copy, r.get("shot", "")]))
+            if hit:
+                bad.append(f"- ERROR {r['id']}: Yarin speaks as a parent ({hit.group(0)!r}); he has no children, he is LumeBook's marketing guy (Yarin, 07 Nov 2026)")
         if r["voice"] != "trend" or "\n" in r["hook"]:
             fields[f"{r['id']}_hook"] = r["hook"]
         for i, l in enumerate(r.get("vo", [])):
@@ -233,6 +241,10 @@ def lint():
 
 PRICE = re.compile(r"שקל|₪|ש\"ח|מחיר|מבצע|הנחה|במקום \d|\b(?:79|99|119|149)\b|עולה|עלות|זול|בחצי")
 NO_TALK = re.compile(r"דיגיטל|אנגלית|ערבית|רוסית|שפות|בשפה|שפה")   # Yarin, 05 Nov 2026: the content is in Hebrew for an Israeli audience; nobody cares about the digital copy
+NOT_A_PARENT = re.compile(r"(?:ה|ל|ש|מ|ב)?(?:ילד|ילדה|ילדים|בן|בת|נכד|נכדה|נכדים) שלי|אצלנו בבית|אני (?:אמא|אבא)|כאבא|הבית שלי|פרצוף עייף")
+HOOK_CHARS = 34   # 2 s of reading at 17 characters a second (principle T5)
+SETUP = re.compile(r"(?:היי|שלום|היום אני|הרבה הורים|בואו נדבר|רציתי לספר)")
+PRODUCT = re.compile(r"ספר|כריכ|קופס|עמוד|רגע תגובה|תמונה שלך")
 EXTRA_ASKS = ("עקבו", "תעקבו", "שתפו", "תשתפו", "תייגו", "בביו", "לינק בביו", "קישור בביו")
 
 
@@ -248,9 +260,26 @@ def principle_checks(d):
         hook = one_line(r["hook"])
         said = " ".join(r.get("vo", []) + r.get("cards", []))
         text = said + " " + r["caption"]
-        # T5: Hebrew on screen at most 17 characters a second; the hook sits over a 2 s talking clip
-        if len(hook) / 17 > 2.5:
-            out.append(f"- T5 {rid}: hook is {len(hook)} characters, {len(hook) / 17:.1f} s to read; the hook clip is about 2 s")
+        # Hook rules (Yarin, 07 Nov 2026: "implement them in all the reels"), from principles H1 to H7 and T3, T5:
+        # T5: Hebrew on screen at most 17 characters a second; the hook sits over a 2 s talking clip, so 34 characters
+        if len(hook) > HOOK_CHARS:
+            out.append(f"- T5 {rid}: hook is {len(hook)} characters, {len(hook) / 17:.1f} s to read; keep it to {HOOK_CHARS} (2 s)")
+        if len(hook.split()) > 8:
+            out.append(f"- H1 {rid}: hook is {len(hook.split())} words, keep it to 8")
+        vo = r.get("vo") or []
+        if vo:
+            # H6: the hook is said and shown, so the first spoken line carries the hook's words
+            words = lambda t: set(re.findall(r"[֐-׿0-9.]+", t))
+            hw = words(hook)
+            if hw and len(hw & words(vo[0])) / len(hw) < 0.6:
+                out.append(f"- H6 {rid}: the first spoken line does not say the hook ({vo[0]})")
+            # H1: no greeting or setup before the hook
+            if SETUP.match(vo[0]):
+                out.append(f"- H1 {rid}: the reel opens with a setup line, not the hook ({vo[0]})")
+        # H3 and H7: the product is in the first frame (the book in hand, the cover or the box)
+        first = (r.get("sees") or [""])[0]
+        if first and not PRODUCT.search(first):
+            out.append(f"- H3 {rid}: no book in the first frame ({first})")
         for i, c in enumerate(r.get("cards", [])):
             if len(one_line(c)) / 17 > L["card_seconds"]:
                 out.append(f"- T5 {rid}: card {i + 1} is {len(one_line(c))} characters, needs {len(one_line(c)) / 17:.1f} s, cards get {L['card_seconds']} s")
@@ -260,6 +289,9 @@ def principle_checks(d):
             first = line.strip()[:1]
             if first and (first.isascii() and first.isalpha() or first in "?!.,:"):
                 out.append(f"- T6 {rid}: on-screen line starts with {first!r}: {line.strip()}")
+        # Shabbat: the traditions series talks to families who keep it, so it never goes up on a Friday or Saturday
+        if r["series"] == 9 and r["date"] and date.fromisoformat(r["date"]).weekday() in (4, 5):
+            out.append(f"- S9 {rid}: traditions reel on {weekday(r['date'])}; move it to Sunday to Thursday")
         # C1: one CTA per reel, the "לומי" comment
         asks = [a for a in EXTRA_ASKS if a in text]
         if asks:
@@ -314,7 +346,7 @@ def new(rid):
     (p / "caption.txt").write_text(caption_of(r, d) + "\n")
     (p / "reel.json").write_text(json.dumps({
         "source": "work/video.mp4", "name": f"reel-{rid.replace('.', '-')}",
-        "hooks": [r["hook"]], "hook_seconds": 1.6, "captions": "words.json",
+        "hooks": [r["hook"]], "hook_seconds": max(1.6, round(len(one_line(r["hook"])) / 17, 1)), "captions": "words.json",
         "cta": {"text": d["defaults"]["cta_screen"], "seconds": 3.0, "highlight": True},
         "versions": 1, "flip": False, "audio": "work/sound.wav"}, ensure_ascii=False, indent=1) + "\n")
     if r.get("vo"):
@@ -437,10 +469,12 @@ def report():
     print("\n".join(lines))
 
 
-def merge(path):
+def merge(path, only=None):
     """Copy the page's saved edits into reels.json. path = JSON of the artifact db collection "edits"
     (a list of documents, or {"docs": [...]}, each with key and text). Formatting stays on the page only;
-    reels.json gets the plain text. Prints what changed; build afterwards."""
+    reels.json gets the plain text. Prints what changed; build afterwards.
+    only = one reel id (merge local 5.5): copy that reel's edits and nothing else (the hub's reel job does this
+    before it builds the video, 07 Nov 2026)."""
     d = load()
     if path == "local":   # edits made on the project server: {"edits": {key: doc}, "made": ..., "requests": ...}
         lf = HERE / "local-edits.json"
@@ -451,15 +485,21 @@ def merge(path):
         raw = json.loads(Path(path).read_text())
         docs = raw.get("docs", raw.get("documents", [])) if isinstance(raw, dict) else raw
     by = {"r" + r["id"].replace(".", "-"): r for r in d["reels"]}
-    lists = {"vo": "vo", "cards": "cards", "footage": "footage", "blocker": "blockers"}
+    lists = {"vo": "vo", "sees": "sees", "cards": "cards", "footage": "footage", "blocker": "blockers"}
     shoots = {s["date"]: s for s in d["shoots"]}
     n = 0
     for doc in docs:
         doc = doc.get("data", doc)
         key, text = doc.get("key") or doc.get("id"), (doc.get("text") or "").strip()
+        html = doc.get("html") or ""
+        if html and (not text or "<br" in html):   # some saves keep the text only in html (no text, or line breaks lost)
+            text = re.sub(r"<[^>]+>", "", re.sub(r"<br\s*/?>|</div>|</p>", "\n", html)).replace("&nbsp;", " ")
+            text = "\n".join(l.strip() for l in text.split("\n")).strip()
         if not key or text == "":
             continue
         parts = key.split("__")
+        if only and parts[0] != "r" + only.replace(".", "-"):
+            continue
         if parts[0] == "shoot":
             sh = shoots.get(parts[1])
             if sh and sh["note"] != text:
@@ -481,6 +521,8 @@ def merge(path):
         elif field in lists:
             arr = r.setdefault(lists[field], [])
             i = int(parts[2])
+            if field == "sees" and i < len(r.get("vo", [])):
+                arr.extend([""] * (i + 1 - len(arr)))  # "what they see" follows the voiceover lines
             if i < len(arr) and arr[i] != text:
                 arr[i] = text; n += 1; print(key)
             continue

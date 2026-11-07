@@ -46,9 +46,19 @@ SERIES = {
     6: ("טרנדים מוכנים", "Ready trends (dropped)", 7),
     7: ("ימי מבצע", "Sale days", 1),
     8: ("מסבתא לנכד", "From grandma", 3),
+    9: ("שומרי מסורת", "Traditional homes", 7),
 }
 
 EN_HOOK = {
+    "8.3": "Grandma, is your granddaughter turning a year older soon? (יום הולדת)",
+    "9.5": "Grandma, a new granddaughter on the way? (אחות חדשה, traditional)",
+    "9.6": "The Shabbat spice you cannot buy (קדושת שבת)",
+    "9.7": "Grandma, this year he lights candles in a book (החנוכה שלי)",
+    "9.8": "Grandma, a grandson who helps everyone? (הלב של אריאל)",
+    "9.1": "Why does the shamash stand alone? (החנוכה שלי)",
+    "9.2": "The hero of good deeds (הלב של אריאל, traditional edition)",
+    "9.3": "A new brother on the way, and a traditional home?",
+    "9.4": "Grandma, is your grandson turning three? (halake)",
     "1.1": "What if it won't look like my kid?",
     "1.7": "3 things to know before you order",
     "1.6": "Which book suits my child?",

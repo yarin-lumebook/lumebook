@@ -7,7 +7,7 @@ Exit code 1 if anything fails. Standard library only. Run src/build.py first (it
 What it enforces (house rules from CLAUDE.md and the memory notes, plus the brief for this page):
 - every language: no em or en dash, no AI wording, no percentage or currency amount, no commercial term that is not approved
   (rate, exclusivity, notice period, trial length), no guarantee or therapeutic claim, brand written LumeBook
-- Hebrew only: לומבוק never לומיבוק, banned offer wording from shared/facts.json, no hyphen, maqaf or semicolon (audience punctuation rule,
+- Hebrew only: לומיבוק on this page (Yarin, 07 / 11 / 2026: "its לומיבוק", the store's spelling, like the creator brief), never לומבוק; banned offer wording from shared/facts.json, no hyphen, maqaf or semicolon (audience punctuation rule,
   24 Oct 2026), no space before punctuation
 - the four content files have the same shape (a missing translation fails)
 - the built pages: lang and dir, one h1, canonical, hreflang for all languages, the not-a-treatment disclaimer, the inquiry address, no call to
@@ -64,7 +64,9 @@ PER_LANG = {
         ("brand spelling", re.compile(r"Lumebook|Lume Book|لومبوك")),
     ],
 }
-BANNED_WORDS_HE = list(FACTS["brand"]["banned_spellings"]) + list(FACTS["offer"]["banned_wording_he"])
+# this page spells the brand לומיבוק (Yarin, 07 / 11 / 2026), so the project-wide ban on that spelling is swapped for its opposite here
+PAGE_BRAND_HE = "לומיבוק"
+BANNED_WORDS_HE = ["לומבוק"] + list(FACTS["offer"]["banned_wording_he"])
 DISCLAIMER_KEY = "disclaimer"
 
 
@@ -133,7 +135,7 @@ def main():
                 for w in BANNED_WORDS_HE:
                     if w in text:
                         fails.append(f"he banned word '{w}' in {path}: {text[:80]}")
-        if lg == "he" and not any("לומבוק" in t for _, t in walk(content["he"])):
+        if lg == "he" and not any(PAGE_BRAND_HE in t for _, t in walk(content["he"])):
             fails.append("he: the Hebrew brand spelling never appears")
         if lg == "he" and "LumeBook" in content["he"]["title"] and False:
             pass
