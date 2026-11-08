@@ -70,6 +70,7 @@ Test run without touching the map: `comments.py ... --cache $S/comments.json` an
 | `export.js`, `clear.js` | clipboard export and localStorage clean-up |
 | `comments.py` | which reels to read, rule labels, the batches to check and their labels; cache in `cache/comments.json` (not in git; a reel's comment text is dropped once it is checked) |
 | `VERIFY_BRIEF.md` | the brief for the comment check |
+| `pics.js`, `pics.py` | profile pictures for the cards (8 Nov 2026): `pics.js` in the signed-in built-in browser collects the picture links (`__pic_todo` handles, run until `done:true`, export with `export.js` and `window.__XK="__pic_out"`), `/usr/bin/python3 pics.py FILE.json [--missing]` saves 120px JPEGs to `creators/creator-research/avatars/<handle>.jpg` (Instagram's links expire). Not part of the weekly run yet; new creators show their initial until their picture is added. 11 handles never loaded (the page reloads on them), they keep the initial |
 | `refresh.py` | writes `latest.json` (read by `../build2.py`) and `history/<date>.json` |
 
 ## Cost (estimates, 24 Oct 2026)

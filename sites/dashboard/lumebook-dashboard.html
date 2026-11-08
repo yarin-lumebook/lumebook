@@ -11,35 +11,30 @@
 .view[hidden] { display: none !important; }
 .top-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; justify-content: flex-end; padding: var(--sp-3) var(--sp-5) 0; }
 
-/* Q4 timeline */
-.tl { display: grid; gap: var(--sp-3); }
-.tl-track { position: relative; height: 3.6rem; margin-inline: 2px; }
-.tl-phase { position: absolute; top: 1.3rem; height: .85rem; border-radius: var(--r-xs); background: var(--seq-2); }
-.tl-phase.grow { background: var(--seq-3); } .tl-phase.peak { background: var(--accent); }
-.tl-phase span { position: absolute; top: 1.1rem; inset-inline-start: 0; font-size: var(--fs-caption); color: var(--text-2); white-space: nowrap; }
-.tl-mark { position: absolute; top: .9rem; width: 2px; height: 1.6rem; background: var(--text-2); transform: translateX(50%); }
-.tl-mark.unconf { background: repeating-linear-gradient(var(--text-2) 0 3px, transparent 3px 6px); }
-.tl-today { position: absolute; top: 0; bottom: .3rem; width: 2px; background: var(--tint); transform: translateX(50%); }
-.tl-today b { position: absolute; top: -.2rem; inset-inline-start: .4rem; font-size: var(--fs-caption); font-weight: 600; color: var(--tint); white-space: nowrap; }
-.tl-months { display: flex; justify-content: space-between; font-size: var(--fs-caption); color: var(--text-3); }
-.dates { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: var(--sp-2); }
-@media (max-width: 640px) { .tl-phase span { display: none; } .tl-track { height: 2.6rem; } }
-.date { display: grid; gap: 2px; padding: .5rem .75rem; border-radius: var(--r-sm); background: var(--fill); min-width: 0; }
-.date .r { display: flex; justify-content: space-between; gap: var(--sp-2); }
-.date .d { font-variant-numeric: tabular-nums; color: var(--accent-ink); font-weight: 600; }
-.date .c { font-size: var(--fs-caption); color: var(--text-3); }
-.date .l { font-size: var(--fs-footnote); }
-.date.past { opacity: .5; }
-
-/* plan weeks and counters */
-.week h3 { display: flex; justify-content: space-between; gap: var(--sp-2); color: var(--accent-ink); }
-.week h3 span { font-size: var(--fs-footnote); color: var(--text-3); font-weight: 500; }
-.week.now { border-color: var(--accent); box-shadow: 0 14px 40px -26px var(--accent); }
-.counter-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-2); }
-.step { display: flex; gap: var(--sp-1); }
-.target { display: grid; gap: 2px; padding: var(--sp-3); border-radius: var(--r-md); background: var(--fill); }
-.target b { font-size: 1.25rem; font-variant-numeric: tabular-nums; }
-.phase-card .d { font-size: var(--fs-footnote); color: var(--accent-ink); font-weight: 600; }
+/* HOME (8 Nov 2026): the live numbers. Cards are lb-card (glass), numbers lb-metrics, quick access lb-cube, the list lb-alerts;
+   only the layout lives here. A block's hue is its workstream (lb-cat-N on the block); status keeps green and amber. */
+.home-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--sp-3); padding-top: var(--sp-2); }
+.home-head h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.08; letter-spacing: -.02em; }
+.home-quick .lb-cube { min-height: 8.5rem; }
+.home-social { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); align-items: stretch; }
+.home-social .lb-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.home-grid { display: grid; gap: var(--sp-4); }
+.home-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-4); align-items: start; }
+@media (max-width: 1100px) { .home-social, .home-split { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .home-social .lb-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.home-block { gap: var(--sp-4); }
+.home-block-head { display: flex; align-items: center; gap: var(--sp-3); min-width: 0; }
+.home-block-head > div { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.home-block-head h2 { font-size: var(--fs-headline); line-height: 1.2; }
+.home-block-head .lb-meta { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
+.home-block-head .home-big { font-size: var(--fs-num); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--tc-ink); line-height: 1; }
+.home-block svg.lb-spark .line { stroke: var(--tc); } .home-block svg.lb-spark .area { fill: var(--tc-soft); }
+.home-reels { display: grid; gap: var(--sp-2); }
+.home-reel { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; padding: .6rem var(--sp-3); border-radius: var(--r-md); background: var(--fill); min-width: 0; }
+.home-reel b { font-variant-numeric: tabular-nums; color: var(--tc-ink); }
+.home-reel span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.home-reel.is-today { background: var(--tc-soft); }
+.home-sub { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--text-3); margin-top: var(--sp-1); }
 
 /* option cards (nightly carousel) */
 .opt { gap: var(--sp-2); }
@@ -64,82 +59,57 @@ tr.test td { opacity: .5; }
 .ctbl { min-width: 60rem; } .stbl { min-width: 34rem; }
 .icon { width: 1.1rem; height: 1.1rem; }
 
-#hq-extra:empty { display: none; }
 /* HQ's tools grid, edit mode and editor use design-system components: lb-topics, lb-cube, lb-filters, lb-form... (shared/design/lumebook.css) */
 </style>
 
 <div class="lb-app no-sidebar" dir="rtl" lang="he">
 
   <div class="lb-main">
-    <!-- the project nav (design/nav.js, 5 Nov 2026) draws the full-height side bar of every tool (no top bar or path row since
-         6 Nov 2026); the freshness chips sit at the top of the page -->
+    <!-- the project nav (design/nav.js, 5 Nov 2026) draws the full-height side bar of every tool, the only list of tools since
+         8 Nov 2026; the freshness chips sit at the top of the page (the home shows its own) -->
     <div class="top-meta" id="fresh"><span class="lb-chip"><span class="lb-dot"></span>טוען נתונים…</span></div>
 
     <main>
-      <!-- TOOLS: every tool as a cube, the default view since 5 Nov 2026 (the list: shared/design/hq-tools.json, through design/nav.js) -->
-      <div class="view lb-page" id="v-tools" data-title="כל הכלים" hidden>
+      <!-- HOME: the live numbers, the default view since 8 Nov 2026 (Yarin: "the main home page should be live stats from the
+           carousel machine, creator map, reel calendar, performance of lumebook ig and fb pages, require attention and quick access
+           to most used tools", "i need it updated daily"). The numbers come from sites/dashboard/home_stats.py: live through
+           /api/home on the project server, from the daily snapshot in the artifact and on Vercel. The tools are only in the side bar. -->
+      <div class="view lb-page" id="v-home" data-title="בית" hidden>
+        <header class="home-head">
+          <div><p class="lb-eyebrow" id="home-date"></p><h1>בית</h1></div>
+          <div class="lb-row" id="home-fresh"></div>
+        </header>
+        <section class="lb-section" aria-labelledby="att-h">
+          <div class="lb-section-head"><h2 id="att-h">דורש תשומת לב</h2><span class="lb-meta" id="alerts-count"></span></div>
+          <div class="lb-alerts" id="alerts"><div class="lb-skeleton" style="height:3rem"></div></div>
+        </section>
+        <section class="lb-section" aria-labelledby="quick-h">
+          <div class="lb-section-head"><h2 id="quick-h">גישה מהירה</h2><span class="lb-meta" id="quick-meta"></span></div>
+          <div class="lb-topic-grid home-quick" id="home-quick"></div>
+        </section>
+        <section class="lb-section" aria-labelledby="soc-h">
+          <div class="lb-section-head"><h2 id="soc-h">אינסטגרם ופייסבוק</h2><span class="lb-meta" id="soc-meta"></span></div>
+          <div class="home-social" id="home-social"></div>
+        </section>
+        <div class="home-grid">
+          <section class="lb-card home-block lb-cat-5" id="home-carousels" aria-label="מכונת הקרוסלות"></section>
+          <section class="lb-card home-block lb-cat-2" id="home-creators" aria-label="מפת היוצרים"></section>
+          <section class="lb-card home-block lb-cat-1" id="home-reels" aria-label="לוח הרילס"></section>
+        </div>
+      </div>
+
+      <!-- ARRANGE: every tool as a cube with edit mode. Since 8 Nov 2026 only the place to arrange the side bar ("סידור התפריט"
+           in the מערכת topic); the list is shared/design/hq-tools.json, through design/nav.js -->
+      <div class="view lb-page" id="v-tools" data-title="סידור התפריט" hidden>
         <section class="lb-section">
           <div class="lb-section-head"><div class="lb-filters" id="tools-filter" role="group" aria-label="סינון לפי תחום"></div><div class="lb-row" id="tools-actions"></div></div>
           <span class="lb-note" id="tools-mode"></span>
           <div class="lb-topics" id="tools-grid"></div>
         </section>
-        <!-- SITES + LINKS: moved here from the old "אתרים וקבצים" view on 07 Nov 2026 (Yarin: "move all the links in the front hq page"; the recently edited list was dropped); drawn as topics and cubes by renderSitesLinks() -->
-        <div class="lb-topics" id="hq-extra"></div>
       </div>
 
-      <!-- COURSE: the course, tasks and lessons (course/course.js), in English, the default view since 31 Oct 2026 -->
+      <!-- COURSE: the course, tasks and lessons (course/course.js), in English -->
       <div class="view" id="v-course" data-title="Course" hidden><div id="course-root"></div></div>
-
-      <!-- OVERVIEW -->
-      <div class="view lb-page" id="v-overview" data-title="סקירה" hidden>
-        <section class="lb-card tl" id="timeline"></section>
-        <section class="lb-grid cols-4" id="kpis"></section>
-        <div class="lb-grid cols-2">
-          <section class="lb-section">
-            <div class="lb-section-head"><h2>דורש תשומת לב</h2><span class="lb-meta" id="alerts-count"></span></div>
-            <div class="lb-alerts" id="alerts"><div class="lb-empty">הרשימה תתמלא כשהנתונים ייטענו.</div></div>
-          </section>
-          <section class="lb-section">
-            <div class="lb-section-head"><h2>השבוע</h2></div>
-            <div id="this-week"></div>
-          </section>
-        </div>
-        <div class="lb-grid cols-3">
-          <section class="lb-card" id="ov-content"></section>
-          <section class="lb-card" id="ov-creators"></section>
-          <section class="lb-card" id="ov-sync"></section>
-        </div>
-      </div>
-
-      <!-- PLAN -->
-      <div class="view lb-page" id="v-plan" data-title="תוכנית" hidden>
-        <section class="lb-section">
-          <div class="lb-section-head"><h2>אוקטובר שבוע אחרי שבוע</h2><span class="lb-meta" id="plan-meta"></span></div>
-          <div class="lb-grid cols-4" id="weeks"></div>
-        </section>
-        <section class="lb-section">
-          <div class="lb-section-head"><h2>מונים לחודש</h2><span class="lb-meta">מתעדכן בלחיצה, נשמר בלוח</span></div>
-          <div class="lb-grid cols-4" id="counters"></div>
-        </section>
-        <section class="lb-section">
-          <div class="lb-section-head"><h2>יעדים</h2></div>
-          <div class="lb-grid" style="--min:10rem" id="targets"></div>
-        </section>
-        <section class="lb-section">
-          <div class="lb-section-head"><h2>מדדים</h2><span class="lb-meta">מתוך תוכנית הסושיאל</span></div>
-          <div class="lb-table-wrap" id="kpi-table"></div>
-        </section>
-        <div class="lb-grid cols-2">
-          <section class="lb-section">
-            <div class="lb-section-head"><h2>מפת דרכים עד דצמבר</h2></div>
-            <div class="lb-stack" id="roadmap"></div>
-          </section>
-          <section class="lb-section">
-            <div class="lb-section-head"><h2>לוודא עם יוסי</h2></div>
-            <div class="lb-card"><ul class="lb-list" id="yossi"></ul></div>
-          </section>
-        </div>
-      </div>
 
       <!-- CREATORS -->
       <div class="view lb-page" id="v-creators" data-title="יוצרים" hidden>
@@ -162,11 +132,13 @@ tr.test td { opacity: .5; }
         </section>
       </div>
 
-      <!-- SIGNUPS -->
-      <div class="view lb-page" id="v-signups" data-title="הרשמות" hidden>
+      <!-- AMBASSADORS (view id signups): the store's ambassador Sheet since 8 Nov 2026 (Yarin: "connect it to this"; the creator
+           signup Form and its responses sheet were retired the same day). Inside the artifact it is read live through the Drive
+           connector; elsewhere from the daily export (home_stats.py ambassadors). Never phones or emails. -->
+      <div class="view lb-page" id="v-signups" data-title="שגרירים" hidden>
         <section class="lb-section">
-          <div class="lb-section-head"><h2>הרשמות לתוכנית השגרירים</h2><div class="lb-row" id="su-meta"></div></div>
-          <div class="lb-grid cols-3" id="su-stats"></div>
+          <div class="lb-section-head"><h2>תוכנית השגרירים</h2><div class="lb-row" id="su-meta"></div></div>
+          <dl class="lb-metrics cols-6" id="su-stats"></dl>
           <div id="su-table"></div>
         </section>
       </div>
@@ -230,7 +202,7 @@ tr.test td { opacity: .5; }
         </section>
       </div>
     </main>
-    <p class="lb-footer" id="foot-note">הנתונים מתרעננים כל בוקר בסביבות 08:15</p>
+    <p class="lb-footer" id="foot-note">המספרים חיים כשהלוח פתוח מקומית, ובשאר המקומות מתרעננים כל לילה וכל בוקר</p>
   </div>
 </div>
 <div id="hq-editor"></div>
@@ -240,7 +212,9 @@ tr.test td { opacity: .5; }
 <script src="design/nav.js"></script>
 <script>
 (() => {
-  const SHEET_ID = "1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI";
+  // the store's ambassador Sheet (shared/facts.json links.sheet_id, 8 Nov 2026); the creator signup Form's sheet was retired
+  const SHEET_ID = "1NHdLpsgL5X9xnhxGfHOPCfEShO_nYVMJGd30k8dI4Oc";
+  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
   const DRIVE = "Google Drive";
   const HQ = "https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6";
   // On the project server (localhost) an artifact opens as its built page on the same server: a tab opened from the sandboxed artifact is blocked by claude.ai.
@@ -250,19 +224,13 @@ tr.test td { opacity: .5; }
   const artHref = (a) => (ON_SERVER && a && /\.html?$/i.test(a.file || "") ? "/" + a.file.split("/").map(encodeURIComponent).join("/") : a && ((window.__DASH__ && a.web) || a.url));
   const STAGES = ["לא פנינו", "נשלחה פנייה", "ענו", "ספר בהכנה", "ספר נשלח", "פורסם"];
   const STAGE_COLORS = ["var(--seq-1)", "var(--seq-2)", "var(--seq-3)", "var(--seq-4)", "var(--seq-5)", "var(--seq-6)"];
-  const COUNTERS = [
-    { key: "reels", label: "רילס", target: 18 },
-    { key: "outreach", label: "פניות ליוצרים", target: null },
-    { key: "books", label: "ספרים ליוצרים", target: 10 },
-    { key: "customer_videos", label: "סרטוני לקוחות בהסכמה", target: 10 },
-  ];
   const FAMILY = { child_pov: "בגוף הילד", gentle_outcome: "תוצאה רכה", moment: "רגע", sentences_we_say: "משפטים שאנחנו אומרים",
     surprising_statement: "משפט מפתיע", myth: "מיתוס", question: "שאלה", list: "רשימה" };
-  const TEST_NAME = /בדיקה|test|Yarin Bruner/i; // the owner's own test submissions
+  const TEST_NAME = /בדיקה|test|Yarin Bruner|ירין ברונר|^yarinbruner$/i; // the owner's own test rows (shared/facts.json test_name_pattern)
 
   const S = { snap: null, history: [], tracker: { tasks: {}, creators: {}, counts: {} }, trackerExists: false,
               dbReady: false, dbMissing: false, canWrite: true, live: null, liveState: "idle", liveErr: null, liveAt: null,
-              showTests: false, crQ: "", crG: "", view: "overview" };
+              showTests: false, crQ: "", crG: "", view: "home", home: null, homeAt: null, homeErr: null };
 
   // ---------- helpers ----------
   const $ = (id) => document.getElementById(id);
@@ -298,31 +266,51 @@ tr.test td { opacity: .5; }
   const setCount = (id, n, alert) => { COUNTS[id] = [n, alert]; document.querySelectorAll(`#${id}, [data-n="${id}"]`).forEach((el) => { el.hidden = !n; el.textContent = n || ""; el.classList.toggle("is-alert", !!alert); }); };
   const empty = (t) => `<div class="lb-empty">${t}</div>`;
 
-  // ---------- signup sheet parsing (Drive connector returns a markdown table) ----------
+  // ---------- the ambassador Sheet (the store writes it every 10 minutes; the Drive connector returns markdown tables) ----------
+  // The same reading as home_stats.py ambassadors(): the שגרירים, מכירות and לתשלום tabs, never phones or emails.
+  function mdTables(text) {
+    const out = {};
+    for (const part of String(text).split("### Sheet Name:").slice(1)) {
+      const nl = part.indexOf("\n"), name = part.slice(0, nl).trim(), block = part.slice(nl + 1).split("### Table Columns")[0];
+      out[name] = block.split("\n").filter((l) => l.trim().startsWith("|"))
+        .map((l) => l.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim().replace(/\\_/g, "_")))
+        .filter((r) => !r.every((c) => /^:?-*:?$/.test(c)));
+    }
+    return out;
+  }
+  const num = (v) => Number(String(v ?? "").replace(/[,₪\s]/g, "")) || 0;
   function parseSheet(payload) {
     let text = typeof payload === "string" ? payload : payload?.fileContent ?? "";
     if (typeof payload === "string") { try { text = JSON.parse(payload).fileContent ?? payload; } catch {} }
-    const block = text.split("### Sheet Name: Form Responses 1").pop().split("### Table Columns")[0];
-    let rows = block.split("\n").filter((l) => l.trim().startsWith("|"))
-      .map((l) => l.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim().replace(/\\_/g, "_")));
-    rows = rows.filter((r) => !r.every((c) => /^:?-*:?$/.test(c)));
-    const hi = rows.findIndex((r) => r.includes("Timestamp"));
-    if (hi < 0) return { total: 0, tests: 0, rows: [], band_1k_plus: 0, band_under_1k: 0 };
-    const H = rows[hi], col = (n) => H.findIndex((h) => h.includes(n));
-    const ix = { ts: col("Timestamp"), name: col("שם"), handle: col("אינסטגרם"), band: col("עוקבים"), ms: col("מתקרב") };
-    const out = rows.slice(hi + 1).map((r) => {
-      const g = (i) => (i >= 0 && i < r.length ? r[i] : "");
-      return { ts: g(ix.ts), name: g(ix.name), handle: g(ix.handle), band: g(ix.band), milestone: g(ix.ms), test: TEST_NAME.test(g(ix.name) + " " + g(ix.handle)) };
-    });
-    const real = out.filter((x) => !x.test);
-    return { total: real.length, tests: out.length - real.length, rows: out.slice(-25),
-             band_1k_plus: real.filter((x) => x.band.includes("ומעלה")).length,
-             band_under_1k: real.filter((x) => x.band.includes("פחות")).length,
-             header_has_old_columns: H.some((h) => h === "טיקטוק" || h === "גילאי הילדים") };
+    const T = mdTables(text), rows = T["שגרירים"] || [], people = [];
+    const hi = rows.findIndex((r) => r.includes("הצטרפות"));
+    if (hi >= 0) {
+      const H = rows[hi], col = (n) => H.findIndex((h) => h.includes(n));
+      const ix = { joined: col("הצטרפות"), name: col("שם"), handle: col("אינסטגרם"), band: col("עוקבים"), status: col("סטטוס"), link: col("לינק"),
+        discount: col("הנחה"), reward: col("תגמול לספר"), books: col("ספרים שנקנו"), pending: col("ממתינים"), final: col("סופיים"), balance: col("יתרה"), program: col("תוכנית") };
+      for (const r of rows.slice(hi + 1)) {
+        const g = (k) => (ix[k] >= 0 && ix[k] < r.length ? r[ix[k]] : "");
+        if (!g("joined") && !g("name")) continue;
+        people.push({ joined: g("joined"), name: g("name"), handle: g("handle").replace(/^@/, ""), band: g("band"), status: g("status"),
+          slug: g("link") ? g("link").replace(/\/$/, "").split("/").pop() : "", discount: num(g("discount")), reward: num(g("reward")), books: num(g("books")),
+          pending: num(g("pending")), final: num(g("final")), balance: num(g("balance")), program: g("program"),
+          test: TEST_NAME.test(g("name")) || TEST_NAME.test(g("handle")) });
+      }
+    }
+    const real = people.filter((x) => !x.test), sum = (k) => real.reduce((n, x) => n + x[k], 0);
+    const pr = T["לתשלום"] || [], PH = pr[0] || [], pc = (n) => PH.findIndex((h) => h.includes(n)), at = (r, n) => r[pc(n)] || "";
+    const payouts = pr.slice(1).filter((r) => r.some(Boolean)).map((r) => ({ requested: at(r, "תאריך הבקשה"), due: at(r, "לטפל עד"), who: at(r, "שגריר"),
+      kind: at(r, "מימוש"), state: at(r, "מצב"), amount: num(at(r, "ירד מהיתרה")) })).filter((x) => !/שולם|בוצע|נדחה|בוטל/.test(x.state));
+    const upd = (T["הסבר"] || []).find((r) => (r[0] || "").startsWith("עודכן"));
+    const weekAgo = new Date(Date.now() - 7 * DAY).toISOString().slice(0, 10);
+    return { total: real.length, tests: people.length - real.length, active: real.filter((x) => x.status === "פעיל").length,
+      new_week: real.filter((x) => x.joined.slice(0, 10) >= weekAgo).length, books: sum("books"), rewards_pending: sum("pending"),
+      rewards_final: sum("final"), balance: sum("balance"), sales: (T["מכירות"] || []).slice(1).filter((r) => r.some(Boolean)).length,
+      payouts_open: payouts, rows: people, sheet_updated: upd ? upd[1] : null };
   }
   const tsDate = (ts) => { const m = /^(\d+)\/(\d+)\/(\d{4})\s+(\d+):(\d+)/.exec(ts || ""); return m ? new Date(+m[3], +m[1] - 1, +m[2], +m[4], +m[5]) : null; };
   const fmtTs = (ts) => { const d = tsDate(ts); return d ? `${dm(d)} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}` : ts; };
-  function signupsData() { return S.live || S.snap?.signups || null; }
+  function signupsData() { return S.live || S.home?.ambassadors || S.snap?.signups || null; }
   function liveErrText(code) {
     return ({ needs_reauth: "צריך לחבר מחדש את Google Drive בהגדרות claude.ai", server_not_connected: "צריך להוסיף את Google Drive בהגדרות claude.ai",
       selection_required: "צריך לבחור חשבון Google Drive", not_in_manifest: "החיבור ל-Drive לא אושר לדף הזה", blocked_by_policy: "Drive חסום בארגון",
@@ -340,7 +328,7 @@ tr.test td { opacity: .5; }
   const { toolLinks, toolId, defaultLayout, mergeLayout } = NAV || {};
   const ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>';
   const HUES = [[0, "שחור"], [1, "כתום"], [2, "ורוד"], [3, "ירוק"], [4, "כחול"], [5, "סגול"], [6, "טורקיז"], [7, "אפור"], [8, "חרדל"]];
-  const VIEW_NAMES = { course: "Course", overview: "סקירה", signups: "הרשמות", competitors: "מתחרים", research: "ספריית מחקר", sync: "סנכרון", creators: "יוצרים (תצוגה)", content: "קרוסלות (תצוגה)" };
+  const VIEW_NAMES = { home: "בית", tools: "סידור התפריט", course: "Course", signups: "שגרירים", competitors: "מתחרים", research: "ספריית מחקר", sync: "סנכרון", creators: "יוצרים (תצוגה)", content: "קרוסלות (תצוגה)" };
   const SVG = (d, cls) => `<svg${cls ? ` class="${cls}"` : ""} viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
   const GRIP = SVG('<circle cx="9" cy="6" r="1.3"/><circle cx="15" cy="6" r="1.3"/><circle cx="9" cy="12" r="1.3"/><circle cx="15" cy="12" r="1.3"/><circle cx="9" cy="18" r="1.3"/><circle cx="15" cy="18" r="1.3"/>');
   const PLUS = SVG('<path d="M12 5v14M5 12h14"/>');
@@ -443,8 +431,8 @@ tr.test td { opacity: .5; }
     $("tools-grid").innerHTML = L.topics.filter((t) => (!f || t.id === f) && (E || t.tools.length)).map((tp) => topicHtml(tp, E)).join("");
     for (const [id, [n, a]] of Object.entries(COUNTS)) setCount(id, n, a);
     bindSortables();
-    renderSitesLinks();
     if (NAV) NAV.setLayout(ED.L);
+    if (S.view === "home") renderHome();
   }
 
   // ---------- drag (SortableJS from cdnjs, loaded the first time edit mode opens) ----------
@@ -594,14 +582,15 @@ tr.test td { opacity: .5; }
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && ED.form) closeModal(); });
 
   // ---------- routing ----------
-  const VIEWS = ["tools", "course", "overview", "creators", "signups", "content", "competitors", "research", "sync"];
+  const VIEWS = ["home", "tools", "course", "creators", "signups", "content", "competitors", "research", "sync"];
   function route() {
     const v = (location.hash || "").slice(1);
-    S.view = VIEWS.includes(v) ? v : "tools";
+    S.view = VIEWS.includes(v) ? v : "home";
     for (const id of VIEWS) $("v-" + id).hidden = id !== S.view;
     document.dispatchEvent(new CustomEvent("lb:route", { detail: { view: S.view } }));
     document.querySelectorAll(".lb-nav-item[data-view]").forEach((a) => { if (a.dataset.view === S.view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     if (NAV) NAV.setCurrent({ view: S.view, title: $("v-" + S.view).dataset.title });
+    $("fresh").hidden = S.view === "home";   // the home shows its own freshness chip
     window.scrollTo(0, 0);
   }
   document.addEventListener("click", (e) => {
@@ -612,8 +601,7 @@ tr.test td { opacity: .5; }
 
   // ---------- render ----------
   function render() {
-    renderFresh(); renderTimeline(); renderKpis(); renderAlerts(); renderThisWeek(); renderOverviewCards();
-    renderPlan(); renderCreators(); renderSignups(); renderContent(); renderCompetitors(); renderResearch(); renderSync(); renderSitesLinks();
+    renderFresh(); renderHome(); renderCreators(); renderSignups(); renderContent(); renderCompetitors(); renderResearch(); renderSync();
   }
 
   function renderFresh() {
@@ -630,196 +618,177 @@ tr.test td { opacity: .5; }
     $("fresh").innerHTML = bits.join("");
   }
 
-  function renderTimeline() {
-    const start = new Date(2026, 9, 1), end = new Date(2026, 11, 31), span = (end - start) / DAY;
-    const pos = (d) => Math.min(100, Math.max(0, ((d - start) / DAY) / span * 100));
-    const phases = [
-      { a: new Date(2026, 9, 1), b: new Date(2026, 9, 31), name: "מדידה", cls: "" },
-      { a: new Date(2026, 10, 1), b: new Date(2026, 10, 24), name: "להגדיל את מה שעובד", cls: "grow" },
-      { a: new Date(2026, 10, 25), b: new Date(2026, 11, 12), name: "חנוכה", cls: "peak" },
-      { a: new Date(2026, 11, 13), b: new Date(2026, 11, 31), name: "איסוף וסיכום", cls: "" },
-    ];
-    const t = today();
-    const dates = S.snap?.key_dates || [];
-    const next = dates.find((d) => parseISODate(d.date) >= t);
-    const nextDays = next ? Math.round((parseISODate(next.date) - t) / DAY) : null;
-    const inRange = t >= start && t <= end;
-    $("timeline").innerHTML = `
-      <div class="lb-row between"><h2>רבעון 4 · ${esc(dm(t))}</h2>
-        <span class="lb-muted lb-small">${next ? `הבא: ${esc(next.label)} ${nextDays === 0 ? "היום" : `בעוד <b class="lb-num">${nextDays}</b> ימים`}` : dates.length ? "הרבעון הסתיים" : ""}</span></div>
-      <div class="tl-track" role="img" aria-label="ציר זמן אוקטובר עד דצמבר">
-        ${phases.map((p) => `<div class="tl-phase ${p.cls}" style="inset-inline-start:${pos(p.a)}%;width:calc(${pos(p.b) - pos(p.a)}% - 2px)"><span>${esc(p.name)}</span></div>`).join("")}
-        ${dates.map((d) => `<div class="tl-mark ${d.unconfirmed ? "unconf" : ""}" style="inset-inline-start:${pos(parseISODate(d.date))}%" title="${esc(dm(parseISODate(d.date)) + " " + d.label)}"></div>`).join("")}
-        ${inRange ? `<div class="tl-today" style="inset-inline-start:${pos(t)}%"><b>היום</b></div>` : ""}
-      </div>
-      <div class="tl-months"><span>אוקטובר</span><span>נובמבר</span><span>דצמבר</span></div>
-      <div class="dates">${dates.map((d) => {
-        const dd = parseISODate(d.date), n = Math.round((dd - t) / DAY);
-        return `<div class="date ${n < 0 ? "past" : ""}"><div class="r"><span class="d">${esc(dm(dd))}</span><span class="c">${n < 0 ? "עבר" : n === 0 ? "היום" : `${n} ימים`}</span></div><span class="l">${esc(d.label)}${d.unconfirmed ? ' <span class="lb-dim">(לא מאושר)</span>' : ""}</span></div>`;
-      }).join("")}</div>`;
+  // ---------- home (8 Nov 2026): the live numbers ----------
+  // home_stats.py collect(): live from /api/home on the project server (every minute), else the snapshot's home.
+  const homeData = () => S.home || S.snap?.home || null;
+  // the hue of each Instagram and Facebook metric: categories.json set social-metrics, which design.py writes into nav.js
+  const CATS = (window.LB_NAV_DATA || {}).cats || {};
+  const socialCat = (k) => "lb-cat-" + ((CATS["social-metrics"] || {})[k] ?? 0);
+  const UI_ICONS = window.LB_UI_ICONS || {};   // interface glyphs (check-circle...) beside the tool icons
+  const icoSvg = (name) => `<svg viewBox="0 0 24 24" aria-hidden="true">${TOOL_ICONS[name] || UI_ICONS[name] || TOOL_ICONS.grid || ""}</svg>`;
+  const dmy = (d) => `${String(d.getDate()).padStart(2, "0")} / ${String(d.getMonth() + 1).padStart(2, "0")} / ${d.getFullYear()}`;
+  const ddmm = (iso) => { const d = parseISODate(iso); return `${String(d.getDate()).padStart(2, "0")} / ${String(d.getMonth() + 1).padStart(2, "0")}`; };
+  const DAYS_HE = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+  const MONTHS_HE = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
+  const nfmt = (n) => n == null ? "–" : Math.abs(n) >= 10000 ? fmt(n) : Number(n).toLocaleString("en-US");
+  const pct = (a, b) => (a != null && b ? Math.round((a - b) / b * 100) : null);
+  function metric({ cat = "", icon, label, value, foot = "", delta = null, bar = null, cls = "" }) {
+    const d = delta == null || !isFinite(delta) ? "" : `<i class="lb-delta ${delta >= 0 ? "up" : "down"}">${delta >= 0 ? "+" : ""}${delta}%</i>`;
+    return `<div class="lb-metric ${cat} ${cls}"><dt class="lb-metric-label"><span class="lb-tile is-soft" aria-hidden="true">${icoSvg(icon)}</span>${esc(label)}</dt>`
+      + `<dd class="lb-metric-value">${value}${d}</dd>${foot ? `<dd class="lb-metric-foot">${foot}</dd>` : ""}`
+      + `${bar != null ? `<div class="lb-bar" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, bar))}%"></i></div>` : ""}</div>`;
   }
-
-  function spark(points, key) {
-    const pts = points.filter((p) => typeof p[key] === "number");
-    if (pts.length < 2) return `<div class="lb-note">${pts.length ? "נקודה ראשונה נשמרה. הגרף יתמלא עם הרענונים היומיים" : ""}</div>`;
-    const W = 240, H = 44, P = 4, vals = pts.map((p) => p[key]);
+  const normLocal = (x) => String(x || "").replace(/^\/+/, "").replace(/(^|\/)index\.html?$/i, "$1");
+  function toolFor(local) {
+    const k = normLocal(local);
+    for (const tp of ED.L.topics) for (const t of tp.tools) if (t.local && normLocal(t.local) === k) return [t, tp];
+    return [null, null];
+  }
+  const viewTool = (v) => { for (const tp of ED.L.topics) for (const t of tp.tools) if (t.view === v && !t.tab) return [t, tp]; return [null, null]; };
+  // where an attention item or a block link goes: an HQ view, a tool's page in the version that fits here, or an address
+  function hrefFor(a) {
+    if (a.view) return "#" + a.view;
+    if (a.local) { const [t] = toolFor(a.local); return NAV ? toolLinks(t || { local: a.local }).main.href : "/" + a.local; }
+    return a.href || "";
+  }
+  const openLink = (href, text = "פתיחה") => !href ? "" : href.startsWith("#") ? `<a href="${esc(href)}">${text}</a>` : ext(href, text);
+  function blockHead(icon, title, meta, href) {
+    return `<div class="home-block-head"><span class="lb-tile lg" aria-hidden="true">${icoSvg(icon)}</span><div><h2>${title}</h2>${meta ? `<span class="lb-meta">${meta}</span>` : ""}</div>${openLink(href)}</div>`;
+  }
+  // a daily series as a line; time runs right to left on these Hebrew pages
+  function sparkLine(series) {
+    const pts = (series || []).filter((x) => typeof x[1] === "number");
+    if (pts.length < 2) return "";
+    const W = 240, H = 44, P = 4, vals = pts.map((x) => x[1]);
     let lo = Math.min(...vals), hi = Math.max(...vals); if (hi === lo) { hi += 1; lo -= 1; }
-    // time runs right to left, like the quarter timeline
     const x = (i) => W - P - i * (W - 2 * P) / (pts.length - 1), y = (v) => H - P - (v - lo) / (hi - lo) * (H - 2 * P);
-    const d = pts.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(p[key]).toFixed(1)}`).join("");
-    const last = pts.length - 1;
-    return `<svg class="lb-spark kpi-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" dir="ltr" aria-label="מגמה">
-      <line class="grid" x1="${P}" x2="${W - P}" y1="${H - P}" y2="${H - P}"/>
-      <path class="area" d="${d}L${x(last)},${H - P}L${x(0)},${H - P}Z"/><path class="line" d="${d}"/>
-      <circle class="dot" cx="${x(last)}" cy="${y(pts[last][key])}" r="3.5"/></svg>
-      <div class="lb-note">מ-${esc(dm(parseISODate(pts[0].date)))} עד ${esc(dm(parseISODate(pts[last].date)))} · ${pts.length} מדידות</div>`;
+    const d = pts.map((q, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(q[1]).toFixed(1)}`).join(""), last = pts.length - 1;
+    return `<svg class="lb-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" dir="ltr" aria-hidden="true"><line class="grid" x1="${P}" x2="${W - P}" y1="${H - P}" y2="${H - P}"/>`
+      + `<path class="area" d="${d}L${x(last)},${H - P}L${x(0)},${H - P}Z"/><path class="line" d="${d}"/><circle class="dot" cx="${x(last)}" cy="${y(pts[last][1])}" r="3.5"/></svg>`;
   }
 
-  function renderKpis() {
-    const s = S.snap;
-    if (!s) { $("kpis").innerHTML = ["עוקבים באינסטגרם", "MeBook", "הרשמות לשגרירים", "מאגר יוצרים"].map((l) => `<div class="lb-card lb-stat"><span class="lb-stat-label">${l}</span><span class="lb-stat-value lb-dim">–</span></div>`).join(""); return; }
-    const igp = igProfile(s), ig = igp.followers, mb = s.social?.["mebook.ai"]?.followers;
-    const igHist = S.history.map((h) => ({ date: h.date, ig: igCount(h) })).filter((h) => h.ig != null);
-    const first = igHist[0], lastKnown = igHist[igHist.length - 1];
-    const shown = ig ?? lastKnown?.ig ?? null;
-    const delta = ig != null && first ? ig - first.ig : null;
-    const su = signupsData(), c = s.creators;
-    const barter = c.tracked.filter((x) => x.group === "barter").length;
-    $("kpis").innerHTML = `
-      <div class="lb-card lb-stat"><span class="lb-stat-label">עוקבים ${ltr("@" + igHandle(s))}</span>
-        <span class="lb-stat-value">${fmt(shown)}${delta ? `<small class="lb-delta ${delta > 0 ? "up" : "down"}">${ltr((delta > 0 ? "+" : "") + delta)}</small>` : ""}</span>
-        ${ig == null && igp.error ? `<span class="lb-chip warning wrap"><span class="lb-dot"></span>הפרופיל לא נטען היום${lastKnown ? `, מוצג נתון מ-${esc(dm(parseISODate(lastKnown.date)))}` : ""}</span>` : ""}
-        <div class="lb-bar" title="יעד דצמבר 3-4K"><i style="width:${shown ? Math.min(100, shown / 3000 * 100) : 0}%"></i></div>
-        <span class="lb-stat-foot">יעד דצמבר 3-4K${igp.posts ? ` · ${igp.posts} פוסטים` : ""}</span>
-        ${spark(igHist, "ig")}</div>
-      <div class="lb-card lb-stat"><span class="lb-stat-label">MeBook <bdi class="lb-ltr">@mebook.ai</bdi></span>
-        <span class="lb-stat-value">${ltr((s.social?.["mebook.ai"]?.followers_exact ? "" : "~") + fmt(mb))}${shown && mb ? `<small>פי ${Math.round(mb / shown)} מאיתנו</small>` : ""}</span>
-        <span class="lb-stat-foot">רילס: חציון ~${fmt(s.baselines.mebook_reels_median.value)} צפיות מולנו ${s.baselines.lumebook_reels_median.value}</span>
-        ${spark(S.history, "ig_mebook")}</div>
-      <div class="lb-card lb-stat"><span class="lb-stat-label">הרשמות לשגרירים</span>
-        <span class="lb-stat-value">${su ? su.total : "–"}${su && su.tests ? `<small>ועוד ${su.tests} בדיקות</small>` : ""}</span>
-        <span class="lb-stat-foot">${su ? `1,000+ עוקבים: ${su.band_1k_plus} · פחות: ${su.band_under_1k}` : "מחכה לגיליון"}</span>
-        ${spark(S.history, "signups")}</div>
-      <div class="lb-card lb-stat"><span class="lb-stat-label">מאגר יוצרים</span>
-        <span class="lb-stat-value">${c.total}<small>${c.shortlist} בשורטליסט</small></span>
-        <span class="lb-stat-foot">${barter} בסבב ברטר ראשון · ${c.with_direct_contact_hint} עם פרטי קשר מעבר ל-DM</span></div>`;
-  }
-
-  function currentWeekIndex() {
-    const t = today();
-    if (t.getMonth() !== 9 || t.getFullYear() !== 2026) return t < new Date(2026, 9, 1) ? 0 : -1;
-    return Math.min(3, Math.floor((t.getDate() - 1) / 7));
-  }
-
+  // what needs attention: home_stats.py attention (Carousel Machine, Postiz, creators, ambassadors, reels) and what only the
+  // daily snapshot knows (the sites, the Instagram profile, the sync to-dos, creators' profiles, how old the numbers are)
   function alerts() {
-    const s = S.snap, out = [];
-    if (!s) return out;
-    if (Date.now() - new Date(s.generated_at).getTime() > 36 * 36e5)
-      out.push({ sev: "warn", tag: "רענון", text: `הנתונים לא התרעננו מאז ${when(s.generated_at)}. צריך לפתוח את אפליקציית Claude כדי שהמשימה המתוזמנת תרוץ` });
-    for (const site of s.sites) if (site.status && site.status !== 200 || site.error)
-      out.push({ sev: "crit", tag: "אתר", text: `${site.label} מחזיר ${site.status || "שגיאה"}`, href: site.url });
-    if (igProfile(s).error) {
-      const h = igHandle(s);  // the alert text is escaped, so the handle and the path are isolated as LTR runs
-      out.push({ sev: "warn", tag: "אינסטגרם", text: `אינסטגרם מחזיר דף שגיאה ל-\u2066@${h}\u2069 כשלא מחוברים, כמו לשם משתמש שלא קיים. לבדוק באפליקציה שהחשבון פעיל ושהשם לא השתנה. אם השתנה, לעדכן את השם בקובץ \u2066shared/facts.json\u2069`, href: `https://www.instagram.com/${encodeURIComponent(h)}/` });
+    const out = (homeData()?.attention || []).map((a) => ({ ...a, href: hrefFor(a) }));
+    const s = S.snap;
+    if (s) {
+      if (!S.home && Date.now() - new Date(s.generated_at).getTime() > 36 * 36e5)
+        out.push({ sev: "warn", tag: "רענון", text: `המספרים לא התרעננו מאז ${when(s.generated_at)}` });
+      for (const site of s.sites || []) if (site.status && site.status !== 200 || site.error)
+        out.push({ sev: "crit", tag: "אתר", text: `${site.label} מחזיר ${site.status || "שגיאה"}`, href: site.url });
+      if (igProfile(s).error) {
+        const h = igHandle(s);  // the alert text is escaped, so the handle is isolated as an LTR run
+        out.push({ sev: "warn", tag: "אינסטגרם", text: `אינסטגרם מחזיר דף שגיאה ל-⁦@${h}⁩ כשלא מחוברים. לבדוק באפליקציה שהחשבון פעיל ושהשם לא השתנה`, href: `https://www.instagram.com/${encodeURIComponent(h)}/` });
+      }
+      const y = s.sync;
+      if (y && !y.error && (y.counts?.pending || y.counts?.warnings)) out.push({ sev: "info", tag: "סנכרון", text: `${y.counts.pending} משימות סנכרון פתוחות${y.counts.warnings ? `, ${y.counts.warnings} אי-התאמות` : ""}`, href: "#sync" });
+      const missing = (s.creators?.tracked || []).filter((c) => c.live_error);
+      if (missing.length) out.push({ sev: "info", tag: "יוצרים", text: `לא נמצא פרופיל: ${missing.map((c) => "@" + c.handle).join(", ")}`, href: "#creators" });
+      if (s.creators?.competitor_conflicts?.length) out.push({ sev: "info", tag: "יוצרים", text: `מופיעים אצל MeBook: ${s.creators.competitor_conflicts.join(", ")}` });
     }
-    const wi = currentWeekIndex();
-    for (let i = 0; i < wi; i++) {
-      const w = s.plan.weeks[i], open = w.tasks.filter((t) => !S.tracker.tasks[hash(w.name + "|" + t)]);
-      if (open.length) out.push({ sev: "warn", tag: w.name, text: `נשארו ${open.length} משימות משבוע שעבר`, href: "#course" });
-    }
-    const y = s.sync;
-    if (y && !y.error && y.counts?.pending) out.push({ sev: "info", tag: "סנכרון", text: `${y.counts.pending} משימות סנכרון פתוחות${y.counts.warnings ? `, ${y.counts.warnings} אי-התאמות` : ""}`, href: "#sync" });
-    if (s.ambassadors.placeholders.length)
-      out.push({ sev: "warn", tag: "יוסי", text: `${s.ambassadors.placeholders.length} פרטים במרכז היוצרים מסומנים "יעודכן בקרוב"`, href: "https://lumebook-ambassadors.vercel.app/creators/" });
-    if (s.ambassadors.demo_mode) out.push({ sev: "info", tag: "שגרירים", text: "דף השגרירים עדיין במצב דמו (DEMO=true)" });
-    s.plan.yossi.forEach((t) => out.push({ sev: "info", tag: "לוודא עם יוסי", text: t }));
-    const cut = s.key_dates.find((d) => d.unconfirmed);
-    if (cut) out.push({ sev: "info", tag: "לוודא עם יוסי", text: `${cut.label} ${dm(parseISODate(cut.date))} עוד לא מאושר מול התפעול` });
-    const su = signupsData();
-    if (su?.tests) out.push({ sev: "info", tag: "גיליון", text: `${su.tests} שורות בדיקה בגיליון ההרשמות למחוק`, href: s.links.sheet });
-    if (su?.header_has_old_columns) out.push({ sev: "info", tag: "גיליון", text: "עמודות ישנות ריקות בגיליון (טיקטוק, גילאי הילדים)", href: s.links.sheet });
-    if (s.plan.uncommitted) out.push({ sev: "info", tag: "תוכנית", text: "יש שינויים בתוכנית הסושיאל שלא נשמרו ב-git" });
-    const drift = s.creators.tracked.filter((c) => c.followers_exact && c.followers_now && c.followers_at_research && Math.abs(c.followers_now / c.followers_at_research - 1) > .15);
-    if (drift.length) out.push({ sev: "info", tag: "יוצרים", text: `שינוי חד בעוקבים: ${drift.map((c) => "@" + c.handle).join(", ")}`, href: "#creators" });
-    const missing = s.creators.tracked.filter((c) => c.live_error);
-    if (missing.length) out.push({ sev: "warn", tag: "יוצרים", text: `לא נמצא פרופיל: ${missing.map((c) => "@" + c.handle).join(", ")}`, href: "#creators" });
-    if (s.creators.competitor_conflicts.length) out.push({ sev: "info", tag: "יוצרים", text: `מופיעים אצל MeBook: ${s.creators.competitor_conflicts.join(", ")}` });
-    return out;
+    const order = { crit: 0, warn: 1, info: 2 };
+    return out.sort((a, b) => order[a.sev] - order[b.sev]);
   }
 
   function renderAlerts() {
-    const list = alerts(), order = { crit: 0, warn: 1, info: 2 };
-    list.sort((a, b) => order[a.sev] - order[b.sev]);
-    const chip = { crit: "danger", warn: "warning", info: "info" };
+    const list = alerts(), chip = { crit: "danger", warn: "warning", info: "info" };
     $("alerts-count").textContent = list.length ? `${list.length} פריטים` : "";
-    setCount("n-overview", list.filter((a) => a.sev !== "info").length, true);
-    const link = (a) => a.href ? (a.href.startsWith("#") ? `<a href="${a.href}">פתיחה</a>` : ext(a.href, "פתיחה")) : "<span></span>";
-    $("alerts").innerHTML = !S.snap ? empty("הרשימה תתמלא אחרי הרענון הראשון.")
-      : list.length ? list.map((a) => `<div class="lb-alert ${a.sev}"><span class="lb-chip ${chip[a.sev]}">${esc(a.tag)}</span><span class="lb-alert-text">${esc(a.text)}</span>${link(a)}</div>`).join("")
+    $("alerts").innerHTML = !homeData() && !S.snap ? `<div class="lb-skeleton" style="height:3rem"></div>`
+      : list.length ? list.map((a) => `<div class="lb-alert ${a.sev}"><span class="lb-chip ${chip[a.sev]}">${esc(a.tag)}</span><span class="lb-alert-text">${esc(a.text)}</span>${openLink(a.href) || "<span></span>"}</div>`).join("")
       : `<div class="lb-alert"><span class="lb-chip success">תקין</span><span class="lb-alert-text">אין כרגע פריטים פתוחים</span><span></span></div>`;
   }
 
-  function taskList(w, dis) {
-    return w.tasks.map((t) => { const k = hash(w.name + "|" + t); return `<label class="lb-check"><input type="checkbox" id="t-${k}" data-task="${k}" ${S.tracker.tasks[k] ? "checked" : ""} ${dis}><span>${esc(t)}</span></label>`; }).join("");
+  // quick access: the pages opened most in the last 30 days (the project server counts them), then the daily tools
+  const QUICK_FILL = [["l", "creators/creator-research/lumebook-creator-map.html"], ["l", "hook-studio/"], ["l", "research/israeli-product-reels/reels-explorer.html"], ["v", "signups"], ["v", "course"], ["v", "sync"]];
+  function renderQuick(H) {
+    const used = H?.most_used || [], seen = new Set(), picks = [];
+    const take = ([t, tp]) => { if (t && tp && !seen.has(t.id) && picks.length < 8) { seen.add(t.id); picks.push([t, tp]); } };
+    used.forEach((u) => take(toolFor(u.local)));
+    QUICK_FILL.forEach(([k, v]) => take(k === "l" ? toolFor(v) : viewTool(v)));
+    $("quick-meta").textContent = used.length ? "מה שפתחת הכי הרבה ב-30 הימים האחרונים" : "יסתדר לפי מה שתפתח הכי הרבה";
+    $("home-quick").innerHTML = picks.map(([t, tp]) => cubeHtml(t, tp, false)).join("");
+    for (const [id, [n, a]] of Object.entries(COUNTS)) setCount(id, n, a);
   }
 
-  function renderThisWeek() {
-    const s = S.snap;
-    if (!s) { $("this-week").innerHTML = empty("המשימות נמשכות מתוכנית הסושיאל בכל רענון."); return; }
-    const wi = currentWeekIndex(), w = s.plan.weeks[wi], dis = S.canWrite ? "" : "disabled";
-    if (!w) { $("this-week").innerHTML = empty("אין שבוע פעיל בתוכנית אוקטובר."); return; }
-    const done = w.tasks.filter((t) => S.tracker.tasks[hash(w.name + "|" + t)]).length;
-    $("this-week").innerHTML = `<div class="lb-card week now"><h3>${esc(w.name)}<span class="lb-num">${done}/${w.tasks.length}</span></h3>
-      <div class="lb-bar is-tint"><i style="width:${w.tasks.length ? done / w.tasks.length * 100 : 0}%"></i></div>${taskList(w, dis).replace(/id="t-/g, 'id="tw-')}</div>`;
+  const IG_M = [["reach", "Reach", "חשיפה", "eye"], ["views", "Views", "צפיות", "eye"], ["likes", "Likes", "לייקים", "heart"],
+                ["saves", "Saves", "שמירות", "bookmark"], ["shares", "Shares", "שיתופים", "share"], ["comments", "Comments", "תגובות", "chat"]];
+  const FB_M = [["reach", "Page Impressions", "חשיפות", "eye"], ["views", "Media views", "צפיות במדיה", "eye"], ["engagement", "Posts Engagement", "מעורבות", "heart"]];
+  const chMetrics = (ch, list) => list.map(([k, src, label, icon]) => { const m = ch?.[src]; return m ? metric({ cat: socialCat(k), icon, label, value: nfmt(m.week),
+    delta: pct(m.week, m.prev), foot: m.prev != null ? `שבוע קודם ${nfmt(m.prev)}` : "" }) : ""; }).join("");
+  function renderSocial(so) {
+    if (!so) { $("soc-meta").textContent = ""; $("home-social").innerHTML = empty("נתוני אינסטגרם ופייסבוק יופיעו אחרי הרענון הבא."); return; }
+    $("soc-meta").textContent = `7 הימים האחרונים מול 7 הקודמים${so.at ? ` · נמשך ${ago(so.at)}` : ""}`;
+    const ig = so.ig || {}, fb = so.fb || {}, igNew = ig["Follower Count"], fbNew = fb["Page followers"];
+    const handle = so.ig_handle ? ` ${ltr("@" + so.ig_handle)}` : "";
+    $("home-social").innerHTML = `
+      <section class="lb-card home-block lb-cat-0" aria-label="אינסטגרם">
+        ${blockHead("instagram", "אינסטגרם" + handle, "", "https://www.instagram.com/" + encodeURIComponent(so.ig_handle || "lumebook.il") + "/")}
+        <dl class="lb-metrics">${metric({ cat: socialCat("followers"), icon: "people", label: "עוקבים", value: nfmt(so.ig_followers), foot: so.ig_posts ? `${nfmt(so.ig_posts)} פוסטים` : "" })}${metric({ cat: socialCat("followers"), icon: "signup", label: "עוקבים חדשים", value: nfmt(igNew?.week), delta: pct(igNew?.week, igNew?.prev), foot: igNew?.prev != null ? `שבוע קודם ${nfmt(igNew.prev)}` : "" })}${chMetrics(ig, IG_M)}</dl>
+        ${ig.Reach?.series?.length > 1 ? `<div class="${socialCat("reach")}"><p class="home-sub">חשיפה יומית, 14 ימים</p>${sparkLine(ig.Reach.series)}</div>` : ""}
+      </section>
+      <section class="lb-card home-block lb-cat-0" aria-label="פייסבוק">
+        ${blockHead("facebook", "פייסבוק", "הדף lumebook.il", "https://www.facebook.com/lumebook.il")}
+        <dl class="lb-metrics">${metric({ cat: socialCat("followers"), icon: "signup", label: "עוקבים חדשים", value: nfmt(fbNew?.week), delta: pct(fbNew?.week, fbNew?.prev), foot: fbNew?.prev != null ? `שבוע קודם ${nfmt(fbNew.prev)}` : "" })}${chMetrics(fb, FB_M)}</dl>
+        ${fb["Page Impressions"]?.series?.length > 1 ? `<div class="${socialCat("reach")}"><p class="home-sub">חשיפות יומיות, 14 ימים</p>${sparkLine(fb["Page Impressions"].series)}</div>` : ""}
+      </section>`;
   }
 
-  function renderOverviewCards() {
-    const s = S.snap;
-    if (!s) { ["ov-content", "ov-creators", "ov-sync"].forEach((id) => $(id).innerHTML = `<div class="lb-skeleton" style="height:6rem"></div>`); return; }
-    const c = s.carousel;
-    $("ov-content").innerHTML = `<div class="lb-card-head"><span class="lb-card-title">קרוסלות לילה</span><a class="lb-xs" href="#content">הכול</a></div>` +
-      (c && c.last_date ? `<b>${esc(c.last_topic || "")}</b><span class="lb-muted lb-small">חבילה ל-${esc(dm(parseISODate(c.last_date)))} · ${c.last_options.length} אופציות · ${c.approved.length} בהפקה</span>
-        <div class="lb-row">${c.last_options.map((o) => `<span class="lb-chip ${o.id?.startsWith("kid") ? "kid" : "expert"}">${esc(o.id)}</span>`).join("")}</div>` : empty("אין עדיין חבילה."));
-    const tr = s.creators.tracked, counts = STAGES.map((_, i) => tr.filter((x) => (S.tracker.creators[x.handle] ?? 0) === i).length);
-    $("ov-creators").innerHTML = `<div class="lb-card-head"><span class="lb-card-title">פניות ליוצרים</span><a class="lb-xs" href="#creators">הכול</a></div>
-      <b class="lb-num" style="font-size:1.5rem">${counts.slice(1).reduce((a, b) => a + b, 0)} / ${tr.length}</b><span class="lb-muted lb-small">יוצרים במעקב שכבר פנינו אליהם</span>
-      <div class="lb-stages">${counts.map((n, i) => n ? `<i style="flex:${n};background:${STAGE_COLORS[i]}" title="${STAGES[i]}: ${n}"></i>` : "").join("")}</div>`;
-    const y = s.sync, behind = (y?.components || []).filter((x) => x.behind).length;
-    $("ov-sync").innerHTML = `<div class="lb-card-head"><span class="lb-card-title">סנכרון בין הרכיבים</span><a class="lb-xs" href="#sync">פירוט</a></div>` +
-      (y && !y.error ? `<div class="lb-grid cols-3" style="gap:var(--sp-2)">
-        <div class="lb-stat"><span class="lb-stat-value" style="font-size:1.5rem">${y.counts.pending}</span><span class="lb-stat-label">משימות</span></div>
-        <div class="lb-stat"><span class="lb-stat-value" style="font-size:1.5rem">${y.counts.warnings}</span><span class="lb-stat-label">אי-התאמות</span></div>
-        <div class="lb-stat"><span class="lb-stat-value" style="font-size:1.5rem">${behind}</span><span class="lb-stat-label">לפרסם מחדש</span></div></div>
-        <span class="lb-note">נבדק ${esc(ago(y.generated_at))}</span>` : empty("יופיע אחרי הרענון הבא."));
+  function renderCarouselsBlock(c, so) {
+    const href = hrefFor({ local: "hook-studio/" });
+    if (!c) { $("home-carousels").innerHTML = blockHead("slides", "מכונת הקרוסלות", "", href) + empty("יופיע אחרי הרענון הבא."); return; }
+    const nowIso = new Date().toISOString();
+    const queue = (so?.posts || []).filter((x) => (x.status || "").toUpperCase() === "QUEUE" && x.channel === "instagram" && (x.when || "") >= nowIso);
+    const waiting = (c.waiting || []).length;
+    $("home-carousels").innerHTML = blockHead("slides", "מכונת הקרוסלות", c.range_he ? `החבילה של ${esc(c.range_he)}` : (c.live ? "" : "המכונה לא ענתה"), href) + `<dl class="lb-metrics cols-6">
+      ${metric({ icon: "slides", label: "בחבילה", value: nfmt(c.total), foot: c.days ? `${c.days} ימי פרסום` : "" })}
+      ${metric({ icon: "bars", label: "דורגו", value: c.total ? `${c.graded}<small> / ${c.total}</small>` : "–", bar: c.total ? c.graded / c.total * 100 : null, cls: c.total && c.graded === c.total ? "is-ok" : "" })}
+      ${metric({ icon: "target", label: "נבחרו להפקה", value: nfmt(c.picked) })}
+      ${metric({ icon: "clock", label: "מחכות לאישור", value: nfmt(waiting), cls: waiting ? "is-warn" : "" })}
+      ${metric({ icon: "calendar", label: "מתוזמנות", value: nfmt(queue.length), foot: queue[0] ? `הבאה ב-${ddmm(queue[0].when.slice(0, 10))}` : "אין בתור", cls: queue.length ? "is-ok" : "is-warn" })}
+      ${metric({ icon: "check-circle", label: "הופקו", value: nfmt(c.produced_total), foot: c.running ? `${c.running} בהפקה עכשיו` : "" })}
+    </dl>`;
   }
 
-  function renderPlan() {
-    const s = S.snap;
-    if (!s) { $("weeks").innerHTML = empty("המשימות נמשכות מתוכנית הסושיאל בכל רענון."); return; }
-    const wi = currentWeekIndex(), dis = S.canWrite ? "" : "disabled";
-    const planUrl = s.links.plan_page;
-    $("plan-meta").innerHTML = `עודכן ${esc(ago(s.plan.last_commit?.at || s.plan.modified))}${planUrl ? ` · ${ext(planUrl, "התוכנית המלאה")}` : ""}`;
-    let open = 0;
-    $("weeks").innerHTML = s.plan.weeks.map((w, i) => {
-      const done = w.tasks.filter((t) => S.tracker.tasks[hash(w.name + "|" + t)]).length;
-      if (i <= wi) open += w.tasks.length - done;
-      return `<div class="lb-card week ${i === wi ? "now" : ""}"><h3>${esc(w.name)}${i === wi ? " · עכשיו" : ""}<span class="lb-num">${done}/${w.tasks.length}</span></h3>${taskList(w, dis)}</div>`;
-    }).join("");
-    setCount("n-plan", open);
-    $("counters").innerHTML = COUNTERS.map((c) => {
-      const v = S.tracker.counts[c.key] || 0;
-      return `<div class="lb-card"><div class="counter-row"><span class="lb-card-title">${esc(c.label)}</span>
-          <div class="step"><button class="lb-btn secondary sm icon" type="button" data-count="${c.key}" data-d="-1" aria-label="פחות ${esc(c.label)}" ${dis || (v ? "" : "disabled")}>−</button><button class="lb-btn secondary sm icon" type="button" data-count="${c.key}" data-d="1" aria-label="עוד ${esc(c.label)}" ${dis}>+</button></div></div>
-        <span class="lb-stat-value">${v}${c.target ? `<small>/ ${c.target}</small>` : ""}</span>
-        ${c.target ? `<div class="lb-bar"><i style="width:${Math.min(100, v / c.target * 100)}%"></i></div>` : `<span class="lb-note">כמה שיותר</span>`}</div>`;
-    }).join("");
-    $("targets").innerHTML = s.plan.targets.length ? s.plan.targets.map((t) => `<div class="target"><b>${esc(t.n)}</b><span class="lb-muted lb-small">${esc(t.label)}</span></div>`).join("") : empty("אין יעדים בתוכנית.");
-    const live = { "עוקבים באינסטגרם": igProfile(s).followers != null ? fmt(igProfile(s).followers) : null, "סרטוני לקוחות": S.tracker.counts.customer_videos ?? 0 };
-    $("kpi-table").innerHTML = `<table class="lb-table stbl"><thead><tr><th>מדד</th><th>מקור</th><th class="num">אוקטובר</th><th class="num">עכשיו</th><th class="num">יעד דצמבר</th></tr></thead><tbody>
-      ${s.plan.kpis.map((k) => `<tr><td>${esc(k.name)}</td><td class="lb-muted">${esc(k.source)}</td><td class="num">${esc(k.oct)}</td><td class="num">${live[k.name] != null ? `<b style="color:var(--accent-ink)">${esc(live[k.name])}</b>` : '<span class="lb-dim">–</span>'}</td><td class="num">${esc(k.dec)}</td></tr>`).join("")}
-      </tbody></table>`;
-    $("roadmap").innerHTML = (s.plan.roadmap || []).map((r) => `<div class="lb-card phase-card"><span class="d">${esc(r.dates)}</span><h3>${esc(r.name)}</h3><ul class="lb-list">${r.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></div>`).join("") || empty("אין מפת דרכים בתוכנית.");
-    $("yossi").innerHTML = s.plan.yossi.map((y) => `<li>${esc(y)}</li>`).join("") || "<li class='lb-dim'>אין פריטים פתוחים</li>";
+  function renderCreatorsBlock(cr, am) {
+    const href = hrefFor({ local: "creators/creator-research/lumebook-creator-map.html" });
+    if (!cr) { $("home-creators").innerHTML = blockHead("people", "מפת היוצרים", "", href) + empty("יופיע אחרי הרענון הבא."); return; }
+    $("home-creators").innerHTML = blockHead("people", "מפת היוצרים", cr.total ? `${nfmt(cr.total)} יוצרים במפה` : "", href) + `<dl class="lb-metrics cols-6">
+      ${metric({ icon: "send", label: "פנינו", value: nfmt(cr.contacted), foot: cr.new != null ? `${nfmt(cr.new)} עוד לא` : "", bar: cr.total ? cr.contacted / cr.total * 100 : null })}
+      ${metric({ icon: "chat", label: "בתהליך", value: nfmt(cr.process), foot: cr.reply_rate != null ? `${cr.reply_rate}% מהפניות` : "" })}
+      ${metric({ icon: "book", label: "ספרים יצאו", value: nfmt(cr.books_out), foot: `${nfmt(cr.content)} עם תוכן` })}
+      ${metric({ icon: "mail", label: "פולואפים", value: nfmt(cr.followups_due), cls: cr.followups_due ? "is-warn" : "is-ok" })}
+      ${metric({ icon: "bell", label: "תזכורות", value: nfmt(cr.reminders_due), cls: cr.reminders_due ? "is-warn" : "is-ok" })}
+      ${metric({ icon: "eye", label: "צפיות בפוסטים", value: nfmt(cr.post_views), foot: `${nfmt(cr.posts)} פוסטים` })}
+    </dl>${am ? `<p class="home-sub">שגרירים בחנות</p><dl class="lb-metrics cols-6">
+      ${metric({ icon: "gift", label: "שגרירים", value: nfmt(am.total), foot: am.new_week ? `${am.new_week} חדשים השבוע` : "" })}
+      ${metric({ icon: "bag", label: "ספרים דרכם", value: nfmt(am.books), foot: `${nfmt(am.sales)} מכירות` })}
+      ${metric({ icon: "wallet", label: "בקשות תשלום", value: nfmt(am.payouts_open_count ?? (am.payouts_open || []).length), cls: (am.payouts_open_count ?? (am.payouts_open || []).length) ? "is-warn" : "is-ok" })}
+    </dl>` : ""}`;
+  }
+
+  const REEL_CHIP = { posted: "success", ready: "info", "needs-edit": "warning", "needs-voice": "warning", "needs-footage": "warning", blocked: "danger" };
+  function renderReelsBlock(rl) {
+    const href = hrefFor({ local: "research/israeli-product-reels/reels-explorer.html" });
+    if (!rl) { $("home-reels").innerHTML = blockHead("reelcal", "לוח הרילס", "", href) + empty("יופיע אחרי הרענון הבא."); return; }
+    const month = MONTHS_HE[Number(rl.month.slice(5, 7)) - 1] || "";
+    const row = (r, today) => `<div class="home-reel${today ? " is-today" : ""}"><b>${today ? "היום" : esc(ddmm(r.date))}</b><span title="${esc(r.hook)}">${esc(r.id)} · ${esc(r.hook)}</span><span class="lb-chip ${REEL_CHIP[r.status] || ""}">${esc(r.made && r.status !== "posted" ? "הסרטון מוכן" : r.status_he)}</span></div>`;
+    $("home-reels").innerHTML = blockHead("reelcal", "לוח הרילס", `${nfmt(rl.total)} רילס ב${month}`, href) + `<div class="home-split"><dl class="lb-metrics">
+      ${metric({ icon: "check-circle", label: "פורסמו", value: nfmt(rl.posted), bar: rl.total ? rl.posted / rl.total * 100 : null, cls: "is-ok" })}
+      ${metric({ icon: "clapper", label: "סרטונים מוכנים", value: nfmt(rl.made) })}
+      ${metric({ icon: "clock", label: "מחכים לך", value: nfmt(rl.waiting_on_yarin), cls: rl.waiting_on_yarin ? "is-warn" : "is-ok" })}
+    </dl><div class="home-reels">${(rl.today || []).map((r) => row(r, true)).join("")}${(rl.next || []).map((r) => row(r, false)).join("")}</div></div>`;
+  }
+
+  function renderHome() {
+    if (!$("v-home")) return;
+    const H = homeData(), t = new Date();
+    $("home-date").textContent = `יום ${DAYS_HE[t.getDay()]} · ${dmy(t)}`;
+    $("home-fresh").innerHTML = S.home ? `<span class="lb-chip success"><span class="lb-dot live"></span>חי · עודכן ${esc(ago(S.homeAt))}</span>`
+      : H ? `<span class="lb-chip"><span class="lb-dot"></span>רענון ${esc(when(H.generated_at))}</span>`
+      : `<span class="lb-chip"><span class="lb-dot"></span>${S.homeErr ? esc(S.homeErr) : "טוען…"}</span>`;
+    renderAlerts(); renderQuick(H); renderSocial(H?.social);
+    renderCarouselsBlock(H?.carousels, H?.social); renderCreatorsBlock(H?.creators, H?.ambassadors); renderReelsBlock(H?.reels);
   }
 
   function renderCreators() {
@@ -860,24 +829,32 @@ tr.test td { opacity: .5; }
   }
 
   function renderSignups() {
-    const su = signupsData(), s = S.snap;
+    const su = signupsData();
     const src = S.live ? `<span class="lb-chip success"><span class="lb-dot live"></span>חי מהגיליון · ${esc(S.liveAt ? ago(S.liveAt) : "עכשיו")}</span>`
       : S.liveState === "loading" ? `<span class="lb-chip"><span class="lb-dot"></span>קורא מהגיליון…</span>`
       : S.liveErr ? `<span class="lb-chip warning" title="${esc(S.liveErr)}"><span class="lb-dot"></span>${esc(liveErrText(S.liveErr))}</span>` : "";
-    const fromSnap = !S.live && s?.signups ? `<span class="lb-chip">מהרענון האחרון</span>` : "";
-    $("su-meta").innerHTML = src + fromSnap + (s ? ` ${ext(s.links.sheet, "לגיליון")}` : "");
-    setCount("n-signups", su ? su.total : 0);
-    if (!su) { $("su-stats").innerHTML = ""; $("su-table").innerHTML = empty("ההרשמות נקראות מגיליון התגובות של הטופס דרך Google Drive. אחרי שתאשרו את החיבור הן יופיעו כאן."); return; }
-    const lastReal = [...su.rows].reverse().find((r) => !r.test);
-    $("su-stats").innerHTML = `
-      <div class="lb-card lb-stat"><span class="lb-stat-value">${su.total}</span><span class="lb-stat-label">הרשמות אמיתיות</span></div>
-      <div class="lb-card lb-stat"><span class="lb-stat-value">${su.band_1k_plus}<small>/ ${su.band_under_1k}</small></span><span class="lb-stat-label">1,000+ עוקבים / פחות</span></div>
-      <div class="lb-card lb-stat"><span class="lb-stat-value" style="font-size:1.15rem">${lastReal ? esc(lastReal.name) : "עוד אין"}</span><span class="lb-stat-label">${lastReal ? "הרשמה אחרונה · " + esc(fmtTs(lastReal.ts)) : "הרשמה ראשונה תופיע כאן"}</span></div>`;
-    const rows = su.rows.filter((r) => S.showTests || !r.test).slice().reverse();
+    const fromSnap = !S.live && su ? `<span class="lb-chip">${su.sheet_updated ? `הגיליון של ${esc(su.sheet_updated)}` : "מהרענון האחרון"}</span>` : "";
+    $("su-meta").innerHTML = src + fromSnap + ` ${ext(SHEET_URL, "לגיליון")}`;
+    setCount("n-signups", su ? su.new_week : 0);
+    if (!su) { $("su-stats").innerHTML = ""; $("su-table").innerHTML = empty("השגרירים נקראים מהגיליון של החנות כל בוקר. אחרי הקריאה הראשונה הם יופיעו כאן."); return; }
+    // the static (Vercel) copy carries counts only (build_site.py public_snapshot): payouts_open_count, no rows
+    const pays = su.payouts_open || [], payN = su.payouts_open_count ?? pays.length, ils = (n) => `₪${nfmt(Math.round(n))}`;
+    $("su-stats").innerHTML = [
+      metric({ cat: "lb-cat-2", icon: "gift", label: "שגרירים", value: nfmt(su.total), foot: su.new_week ? `${su.new_week} חדשים השבוע` : "" }),
+      metric({ cat: "lb-cat-2", icon: "check-circle", label: "פעילים", value: nfmt(su.active) }),
+      metric({ cat: "lb-cat-5", icon: "book", label: "ספרים שנקנו", value: nfmt(su.books), foot: `${nfmt(su.sales)} מכירות` }),
+      metric({ icon: "clock", label: "תגמולים ממתינים", value: ils(su.rewards_pending || 0) }),
+      metric({ icon: "wallet", label: "תגמולים סופיים", value: ils(su.rewards_final || 0), foot: su.balance ? `${ils(su.balance)} למימוש` : "" }),
+      metric({ icon: "bell", label: "בקשות תשלום", value: nfmt(payN), foot: pays[0]?.due ? `לטפל עד ${esc(pays[0].due)}` : "", cls: payN ? "is-warn" : "is-ok" }),
+    ].join("");
+    const rows = (su.rows || []).filter((r) => S.showTests || !r.test).slice().sort((a, b) => (b.joined || "").localeCompare(a.joined || ""));
+    const igLink = (h) => /^[A-Za-z0-9._]+$/.test(h) ? ext(`https://www.instagram.com/${h}/`, ltr("@" + h)) : esc(h || "–");
+    const day = (j) => /^\d{4}-\d{2}-\d{2}/.test(j || "") ? dmy(parseISODate(j)) : esc(j || "");
     $("su-table").innerHTML = `<div class="lb-row" style="justify-content:flex-end">${su.tests ? `<button class="lb-btn secondary sm" id="toggle-tests" type="button" aria-pressed="${S.showTests}">${S.showTests ? "להסתיר" : "להציג"} ${su.tests} שורות בדיקה</button>` : ""}</div>
-      ${rows.length ? `<div class="lb-table-wrap"><table class="lb-table stbl"><thead><tr><th>מתי</th><th>שם</th><th>אינסטגרם / טיקטוק</th><th>עוקבים</th><th>מה מתקרב</th></tr></thead><tbody>
-      ${rows.map((r) => `<tr class="${r.test ? "test" : ""}"><td class="num">${esc(fmtTs(r.ts))}</td><td>${esc(r.name)}${r.test ? ' <span class="lb-chip">בדיקה</span>' : ""}</td><td>${ltr(r.handle)}</td><td>${esc(r.band || "–")}</td><td class="lb-muted">${esc(r.milestone || "")}</td></tr>`).join("")}
-      </tbody></table></div>` : empty(`עוד אין הרשמות אמיתיות. קישור לטופס: ${ext("https://lumebook-ambassadors.vercel.app", "lumebook-ambassadors.vercel.app")}`)}`;
+      ${rows.length ? `<div class="lb-table-wrap"><table class="lb-table stbl"><thead><tr><th>הצטרפות</th><th>שם</th><th>אינסטגרם / טיקטוק</th><th>עוקבים</th><th class="num">הנחה / תגמול</th><th class="num">ספרים</th><th>סטטוס</th></tr></thead><tbody>
+      ${rows.map((r) => `<tr class="${r.test ? "test" : ""}"><td class="num">${day(r.joined)}</td><td translate="no">${esc(r.name)}${r.test ? ' <span class="lb-chip">בדיקה</span>' : ""}</td><td translate="no">${igLink(r.handle)}</td><td>${esc(r.band || "–")}</td>
+        <td class="num">${ltr(`₪${r.discount} / ₪${r.reward}`)}</td><td class="num">${nfmt(r.books)}</td><td><span class="lb-chip ${r.status === "פעיל" ? "success" : ""}">${esc(r.status || "–")}</span></td></tr>`).join("")}
+      </tbody></table></div>` : empty(su.redacted ? "הרשימה עצמה מוצגת רק בלוח המקומי ובלוח ב-Claude." : "עוד אין שגרירים בגיליון.")}`;
   }
 
   function renderContent() {
@@ -973,34 +950,6 @@ tr.test td { opacity: .5; }
         <td class="lb-xs lb-muted">${c.changed_at ? esc(ago(c.changed_at)) : "–"}</td></tr>`).join("")}</tbody></table>`;
   }
 
-  // The sites and the links under the tools grid (Yarin, 7 Nov 2026) are drawn as the same topics and cubes as the tools above (lb-topic, lb-cube),
-  // in the hue of the מערכת topic. Not part of the editable layout: hidden in edit mode and while a topic filter is on.
-  // The snapshot only exists in the artifact (database) and the Vercel copy, so on the project server the front page shows just the tools.
-  function renderSitesLinks() {
-    const s = S.snap, box = $("hq-extra");
-    if (!s || ED.editing || TOOLS_FILTER.ws) { box.innerHTML = ""; return; }
-    const cat = (ED.L.topics.find((t) => t.id === "system") || {}).cat ?? 7;
-    const cube = (c) => `<article class="lb-cube lb-cat-${cat}">
-      <div class="lb-cube-top"><span class="lb-tile xl" aria-hidden="true"><svg viewBox="0 0 24 24">${TOOL_ICONS[c.icon] || TOOL_ICONS.grid || ""}</svg></span>${c.chip || ""}</div>
-      <a class="lb-cube-title" href="${esc(c.href)}"${NEW_TAB}>${esc(c.t)}</a><p class="lb-cube-desc">${c.desc}</p>
-      <div class="lb-cube-foot"><span class="lb-cube-where">${esc(c.where)}${NEW_TAB ? ARROW : ""}</span></div>
-    </article>`;
-    const topic = (id, label, desc, icon, cubes) => cubes.length ? `<section class="lb-topic lb-cat-${cat}" aria-labelledby="topic-${id}">
-      <header class="lb-topic-head"><span class="lb-tile lg" aria-hidden="true"><svg viewBox="0 0 24 24">${TOOL_ICONS[icon] || TOOL_ICONS.grid || ""}</svg></span>
-        <div class="lb-topic-text"><h2 class="lb-topic-title" id="topic-${id}">${esc(label)}<span class="lb-topic-n">${cubes.length}</span></h2><p class="lb-topic-desc">${esc(desc)}</p></div></header>
-      <div class="lb-topic-grid">${cubes.map(cube).join("")}</div>
-    </section>` : "";
-    const sites = (s.sites || []).map((x) => ({ t: x.label, href: x.url, icon: "globe", desc: ltr(x.url.replace(/^https:\/\//, "")),
-      chip: x.status != null ? `<span class="lb-chip ${x.status === 200 ? "success" : "danger"}"><span class="lb-dot"></span>${x.status === 200 ? "באוויר" : esc(x.status || "שגיאה")}</span>` : "",
-      where: [x.modified ? "נערך " + ago(x.modified) : "", x.ms ? x.ms + "ms" : ""].filter(Boolean).join(" · ") || "אתר" }));
-    const L = s.links || {};
-    const links = [[L.form, "טופס יוצרי תוכן", "הטופס שיוצרים ממלאים", "signup", "Google Forms"], [L.form_edit, "עריכת הטופס", "לשנות את שאלות הטופס", "brief", "Google Forms"],
-      [L.sheet, "גיליון ההרשמות", "התשובות לטופס, בגיליון", "sheet", "Google Sheets"], [L.drive, 'תיקיית "שיווק"', "התיקייה המשותפת בדרייב", "folder", "Google Drive"],
-      [L.tracker, "Creator Outreach Tracker v2", "ישן, חלק מהמספרים לא מעודכנים", "sheet", "Google Sheets"], [L.plan_page, "התוכנית המלאה", "תוכנית הסושיאל, שבוע אחרי שבוע", "calendar", "lumebook-dashboard.vercel.app"]]
-      .filter((r) => r[0]).map(([href, t, desc, icon, where]) => ({ href, t, desc: esc(desc), icon, where }));
-    box.innerHTML = topic("x-sites", "אתרים", "מה באוויר עכשיו ואיך הוא מגיב", "globe", sites) + topic("x-links", "קישורים", "טפסים, גיליונות ותיקיות", "link", links);
-  }
-
   // ---------- writes (tracker/state, one write at a time) ----------
   let db = null, chain = Promise.resolve();
   function writeTracker(patch) {
@@ -1021,17 +970,12 @@ tr.test td { opacity: .5; }
 
   document.addEventListener("change", (e) => {
     const t = e.target;
-    if (t.dataset.task) writeTracker({ tasks: { [t.dataset.task]: t.checked } });
     if (t.dataset.creator) writeTracker({ creators: { [t.dataset.creator]: Number(t.value) } });
   });
   document.addEventListener("input", (e) => { if (e.target.id === "cr-q") { S.crQ = e.target.value; renderCreators(); } });
   document.addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (!b) return;
-    if (b.dataset.count) {
-      const k = b.dataset.count, v = Math.max(0, (S.tracker.counts[k] || 0) + Number(b.dataset.d));
-      writeTracker({ counts: { [k]: v } });
-    }
     if (b.dataset.g !== undefined && b.closest("#cr-group")) {
       S.crG = b.dataset.g;
       b.parentElement.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
@@ -1046,12 +990,24 @@ tr.test td { opacity: .5; }
   loadLayout();
 
   // ---------- boot ----------
+  // On the project server the home's numbers are live: /api/home (home_stats.py), again every minute while the tab is shown.
+  // That is also true of the built copy the server opens at / (sites/dashboard/site/lumebook-dashboard/).
+  async function loadHome() {
+    try {
+      const r = await fetch("/api/home", { cache: "no-store" });
+      if (!r.ok) throw new Error("server " + r.status);
+      S.home = await r.json(); S.homeAt = new Date().toISOString(); S.homeErr = null;
+    } catch { S.homeErr = "המספרים החיים לא נטענו"; }
+    renderHome(); renderSignups();
+  }
+  if (ON_SERVER) { loadHome(); setInterval(() => { if (!document.hidden) loadHome(); }, 60000); }
+
   // Static copy (Vercel): data is embedded at build time, read-only, no live connections
   const STATIC = window.__DASH__ || null;
   if (STATIC) {
     Object.assign(S, { snap: STATIC.snap, history: STATIC.history || [], dbReady: true, canWrite: false, trackerExists: true });
     if (STATIC.tracker) S.tracker = { tasks: { ...(STATIC.tracker.tasks || {}) }, creators: { ...(STATIC.tracker.creators || {}) }, counts: { ...(STATIC.tracker.counts || {}) } };
-    $("foot-note").innerHTML = `עותק לקריאה בלבד, נבנה כל בוקר. לסימון משימות והרשמות חיות: ${ext(HQ, "הלוח ב-Claude")}`;
+    $("foot-note").innerHTML = ON_SERVER ? "פתוח מקומית: המספרים בבית חיים ומתעדכנים כל דקה" : `עותק לקריאה בלבד, נבנה כל לילה. לשגרירים חיים: ${ext(HQ, "הלוח ב-Claude")}`;
     render();
     return;
   }
@@ -1096,12 +1052,15 @@ tr.test td { opacity: .5; }
 <script src="course/course-data.js"></script>
 <script src="course/course.js"></script>
 <script>
-// The tools grid is the default view since 5 Nov 2026. If the course files were not published with the page
-// (course/course-data.js, course/course.js), say so in their place and open the overview from #course.
+// The home is the default view since 8 Nov 2026. If the course files were not published with the page
+// (course/course-data.js, course/course.js), say so in their place and open the home from #course.
 window.addEventListener("load", () => {
   if (window.LBCourseLoaded) return;
   const root = document.getElementById("course-root");
   if (root) root.innerHTML = '<div class="lb-page" dir="ltr" lang="en"><div class="lb-callout"><b>The course did not load</b><span>The files course/course-data.js and course/course.js were not published with the page. The other views work as usual.</span></div></div>';
-  if (location.hash === "#course") location.hash = "#overview";
+  if (location.hash === "#course") location.hash = "#home";
 });
 </script>
+<!-- lumebook-i18n:start · the language switch's words for this page (shared/i18n, tools/i18n.py); written again after every build, never edit it by hand -->
+<script type="application/json" id="lumebook-i18n">{"page":"sites/dashboard/lumebook-dashboard.html","rev":"1794135660067562945.1794172548740229203","common":{"en":{"Course: שיעורים ומשימות, עם בדיקה של התשובות":"Course: lessons and tasks, with answer checking","Creator Outreach Tracker: הגיליון הישן של הפניות, חלק מהמספרים לא מעודכנים":"Creator Outreach Tracker: the old outreach sheet, some numbers are outdated","Drive: שיווק":"Drive: Marketing","Drive: שיווק: תיקיית השיווק המשותפת":"Drive: Marketing: the shared marketing folder","HQ, הבית":"HQ, home","אסטרטגיית Q{0}":"Q{0} strategy","אסטרטגיית Q{0}: יעדים, ערוצים וקצב עבודה לרבעון":"Q{0} strategy: goals, channels and pace of work for the quarter","בית":"Home","בית: המספרים של היום ומה דורש טיפול":"Home: today's numbers and what needs attention","בריף ליוצרים":"Brief for creators","בריף ליוצרים: שלד הצילום לרילס שיוצרים מקבלים":"Brief for creators: the shooting outline for a reel that creators get","דף השגרירים בחנות":"Ambassador page in the shop","דף השגרירים בחנות: תוכנית השגרירים כפי שיוצרים רואים אותה ב-lumebook.com":"Ambassador page in the shop: the ambassador program as creators see it on lumebook.com","דף לסופרים ואנשי מקצוע":"Page for writers and professionals","דף לסופרים ואנשי מקצוע: דף פנייה לסופרי ילדים ולאנשי מקצוע, גרסת בדיקה שלא פורסמה":"Page for writers and professionals: an outreach page for children's authors and professionals, an unpublished test version","החנות":"The store","החנות: lumebook.com, מה שהלקוחות רואים":"The shop: lumebook.com, what customers see","המכירות שלי":"My sales","המכירות שלי: ההזמנות עם התיוג שלי, לחישוב ה-{0}%":"My sales: orders tagged by me, to calculate the {0}%","המרה ושימור":"Conversion and retention","המרה ושימור: מסלול הקנייה בחנות ומה לשפר בכל שלב":"Conversion and retention: the shop's buying journey and what to improve at each step","הרחבת סרגל הכלים":"Expand the side bar","יוצר קישורי UTM":"UTM link builder","יוצר קישורי UTM: קישור מתויג לכל פוסט, כדי לדעת מה מכר":"UTM link builder: a tagged link for every post, to know what sold","יוצרים":"Creators","כיווץ סרגל הכלים":"Collapse toolbar","כל הכלים":"All tools","מחקר":"Research","מחקר קרוסלות":"Carousel research","מחקר קרוסלות: {0} חשבונות: מה מביא שיחות והמרות":"Carousel research: {0} accounts: what brings conversations and conversions","מכונת הקרוסלות":"The carousel machine","מכונת הקרוסלות: חבילות, ציונים והפקה של קרוסלות":"The carousel machine: packages, scores and production of carousels","מכירות (פנימי)":"Sales (internal)","מכירות (פנימי): נתוני המכירות במילים פשוטות":"Sales (internal): sales data in plain words","מעבדת תוכן ילדים":"Kids content lab","מעבדת תוכן ילדים: {0} סרטונים קצרים מפורקים לפורמטים":"Children's content lab: {0} short videos broken down into formats","מערכת":"System","מערכת העיצוב":"Design system","מערכת העיצוב: צבעים, גופנים ורכיבים לכל הדפים":"Design system: colors, fonts and components for all pages","מערכת הרילס":"The reels system","מערכת הרילס: הלוח של נובמבר עם עריכה, פלייבוק, עקרונות, כלים ורילס שנעשו, הכול בדף אחד":"The reels system: November's board with editing, playbook, principles, tools and reels made, all on one page","מפת יוצרים":"Creator map","מפת יוצרים: פניות, תזכורות ומעקב אחרי כל יוצר":"Creator map: outreach, reminders and tracking for every creator","מתחרים":"Competitors","מתחרים: MeBook מולנו: עוקבים, נושאים ופערים":"Competitors: MeBook vs us: followers, topics and gaps","ניווט ראשי":"Main navigation","ניתוח תוכן מתחרים":"Competitor content analysis","ניתוח תוכן מתחרים: {0} פריטי תוכן של {1} מתחרים, מקודדים":"Competitor content analysis: {0} content items from {1} competitors, coded","נתוני השגרירים":"Ambassador data","נתוני השגרירים: הגיליון שהחנות מעדכנת: שגרירים, מכירות ובקשות תשלום":"Ambassador data: the sheet the shop updates: ambassadors, sales and payment requests","סגירה":"Close","סידור התפריט":"Menu order","סידור התפריט: לגרור, להוסיף ולערוך את הכלים שבתפריט הצד":"Menu arrangement: drag, add and edit the tools in the side menu","סנכרון":"Sync","סנכרון: מה השתנה ומה צריך לפרסם מחדש":"Sync: what changed and what needs to be republished","ספריית המחקר":"Research library","ספריית המחקר: כל המחקרים לפי נושא, עם חיפוש בכל הממצאים":"Research library: all research by topic, with search across all findings","עוד":"More","פלייבוק קרוסלות":"Carousel playbook","פלייבוק קרוסלות: מה גורם לקרוסלה להמיר, ולוח בדיקות":"Carousel playbook: what makes a carousel convert, and a testing table","פלייבוק רילס":"Reels playbook","פלייבוק רילס: מה עובד ברילס מוצר ואיך מצלמים":"Reels playbook: what works in product reels and how to film them","קהילות":"Communities","קהילות הורים":"Parent communities","קהילות הורים: {0} קבוצות הורים, מהקרובות לאשקלון":"Parent communities: {0} parent groups, from near Ashkelon","קורס ולמידה":"Course and learning","קרוסלות":"Carousels","רילס ווידאו":"Reels and video","שגרירים":"Ambassadors","שגרירים: מי הצטרף לתוכנית השגרירים ומה נקנה דרכם":"Ambassadors: who joined the ambassador program and what was bought through them","תוכן וכוונת קנייה":"Content and purchase intent","תוכן וכוונת קנייה: איזה תוכן של יוצרים מביא שיחות על קנייה":"Content and purchase intent: which creator content brings conversations about buying","תוכנית ואסטרטגיה":"Plan and strategy"},"he":{"Course":"קורס","Creator Outreach Tracker":"מעקב פניות ליוצרים"}},"dict":{"en":{"@almaanddad\u001fאלמה ואבא":["@almaanddad","Alma and Dad"],"@bar.levi.adiel\u001fבר לוי עדיאל":["@bar.levi.adiel","Bar Levi Adiel"],"@books_are_friends_slp\u001fאסתי ואושרת":["@books_are_friends_slp","Esti and Oshrat"],"@daria_mansour{0}\u001fדריה מנסור":["@daria_mansour{0}","Daria Mansour"],"@eden_spaiev\u001fעדן ספייב":["@eden_spaiev","Eden Spaiev"],"@etti_haft\u001fאתי האפט":["@etti_haft","Etti Haft"],"@ganotmor\u001fמור גנות":["@ganotmor","Mor Ganot"],"@hadas.shvat\u001fהדס שבט":["@hadas.shvat","Hadas Shvat"],"@hilla_gover_slp\u001fהלה גובר אשוח":["@hilla_gover_slp","Hila Gover Eshoach"],"@ima.shir\u001fאמא שיר":["@ima.shir","Ima Shir"],"@knafaim.ot_by_noy\u001fנוי מילברג":["@knafaim.ot_by_noy","Noy Milberg"],"@lital_magnezi\u001fליטל הגננת":["@lital_magnezi","Lital the Teacher"],"@nataliegaash\u001fנטלי געש":["@nataliegaash","Natalie Gaash"],"@saba.chiche\u001fסבא צ׳יצ׳ה":["@saba.chiche","Saba Chiche"],"@yeladim_ktanim\u001fדנה אנקרי":["@yeladim_ktanim","Dana Ankri"],"Carousel Machine · מכונת הקרוסלות":"Carousel Machine","Hooray Heroes · Instagram · פי {0}\u001f{1}K צפיות · {2}-{3}-{4} · A dog mom with her Golden Retriever discovers a personalized Hooray Heroes book featuring her dog. The video o…":["Hooray Heroes · Instagram · {0}x","{1}K views · {2}-{3}-{4} · A dog mom with her Golden Retriever discovers a personalized Hooray Heroes book featuring her dog. The video o…"],"Hooray Heroes · TikTok · פי {0}\u001f{1}K צפיות · {2}-{3}-{4} · A product announcement/teaser montage showcasing different dog breeds (real photos and illustrated versions) a…":["Hooray Heroes · TikTok · {0}x","{1}K views · {2}-{3}-{4} · A product announcement/teaser montage showcasing different dog breeds (real photos and illustrated versions) a…"],"Hooray Heroes · TikTok · פי {0}\u001f{1}K צפיות · {2}-{3}-{4} · A {5}-second organic TikTok ({6}M views) by Hooray Heroes brand showing behind-the-scenes creation of personali…":["Hooray Heroes · TikTok · {0}x","{1}K views · {2}-{3}-{4} · A {5}-second organic TikTok ({6}M views) by Hooray Heroes brand showing behind-the-scenes creation of personali…"],"MeBook {0} · Yoto {1} · Wonderbly {2} · Hooray Heroes {3} · {4} מודעות":"MeBook {0} · Yoto {1} · Wonderbly {2} · Hooray Heroes {3} · {4} ads","MeBook מולנו":"MeBook vs. us","MeBook מולנו: עוקבים, נושאים ופערים":"MeBook versus us: followers, topics and gaps","Postiz\u001fפוסט באינסטגרם לא עלה ({0}-{1}-{2}): מה הילה צריכה ממך אחרי שלא שיתפו אותה בגן? 💛":["Postiz","Instagram post didn't go up ({0}-{1}-{2}): what does Hilla need from you after not being shared at kindergarten? 💛"],"Research hub (ספריית המחקר: every research LumeBook has made, by topic, on one Hebrew page)":"Research hub (the research library: every research LumeBook has made, by topic, on one Hebrew page)","Wonderbly · TikTok · פי {0}\u001f{1}K צפיות · {2}-{3}-{4} · Creator walks through three-step process to customize a Wonderbly book. {5}–{6}: voiceover introduces 'Thr…":["Wonderbly · TikTok · {0}x","{1}K views · {2}-{3}-{4} · Creator walks through three-step process to customize a Wonderbly book. {5}-{6}: voiceover introduces 'Thr…"],"Wonderbly · TikTok · פי {0}\u001f{1}K צפיות · {2}-{3}-{4} · Woman in navy blue top holds and showcases different Wonderbly book titles to camera. {5}–{6}: 'I've got o…":["Wonderbly · TikTok · {0}x","{1}K views · {2}-{3}-{4} · Woman in navy blue top holds and showcases different Wonderbly book titles to camera. {5}-{6}: 'I've got o…"],"kid-{0} · הילד מספר\u001fאורי":["kid-{0} · The child tells","Uri"],"kid-{0} · הילד מספר\u001fגיא":["kid-{0} · The child tells","Guy"],"kid-{0} · הילד מספר\u001fמאיה":["kid-{0} · The child tells","Maya"],"kid-{0} · הילד מספר\u001fנטע":["kid-{0} · The child tells","Neta"],"kid-{0} · הילד מספר\u001fרון":["kid-{0} · The child tells","Ron"],"kid-{0} · הילד מספר\u001fתמר":["kid-{0} · The child tells","Tamar"],"lumebook.com, מה שהלקוחות רואים":"lumebook.com, what customers see","milestone\u001fמילת קוד: מילה":["milestone","Code word: word"],"{0}\u001f/ {1}\u001fעם המלצת איש מקצוע":["{0}","/ {1}","With a professional's recommendation"],"{0}\u001f/ {1}\u001fתגובה אמיתית של ילד":["{0}","/ {1}","A child's real reaction"],"{0}\u001f/ {1}\u001fתמונה ליד האיור":["{0}","/ {1}","Photo next to the illustration"],"{0}\u001fבמאגר":["{0}","in the database"],"{0}\u001fבמעקב":["{0}","being tracked"],"{0}\u001fבתשלום, מחכים ליוסי":["{0}","paid, waiting on Yossi"],"{0}\u001fחציון צפיות ברילס שלנו ({1})":["{0}","Median views on our Reels ({1})"],"{0}\u001fסבב ברטר ראשון":["{0}","first barter round"],"{0}\u001fעוקבים לומבוק\u001f@lumebook.il":["{0}","LumeBook followers","@lumebook.il"],"{0}\u001fפוסטים MeBook":["{0}","MeBook posts"],"{0}\u001fפוסטים לומבוק":["{0}","LumeBook posts"],"{0} / {1}\u001f{2} · {3}, יום של אחד. והגיבור? רק הוא\u001fמחכה לקריינות ולצילום שלך":["{0} / {1}","{2} · {3}, a day for one. And the hero? Just them","Waiting for your voiceover and footage"],"{0} / {1}\u001f{2} · גיבור על בלי גלימה גר אצלכם בבית?\u001fמחכה לקריינות ולצילום שלך":["{0} / {1}","{2} · Does a superhero without a cape live at your place?","Waiting for your voiceover and footage"],"{0} / {1}\u001f{2} · סבתא, זה מה שהנכד יפתח בקופסה\u001fמחכה לקריינות ולצילום שלך":["{0} / {1}","{2} · Grandma, this is what the grandkid opens in the box","Waiting for your voiceover and footage"],"{0} את עם התינוק ואני לידך":"{0} you're with the baby and I'm next to you","{0} הימים האחרונים מול {1} הקודמים · נמשך לפני {2} דק׳":"Last {0} days vs previous {1}, last updated {2} min ago","{0} הימים האחרונים מול {1} הקודמים · נמשך לפני {2} שע׳":"Last {0} days vs the previous {1} · pulled {2} hr ago","{0} חדשים השבוע":"{0} new this week","{0} חשבונות בישראל ובעולם: מה מוביל לשיחות ולהמרה בקרוסלות":"{0} accounts in Israel and worldwide: what drives comments and conversion in carousels","{0} חשבונות: מה מביא שיחות והמרות":"{0} accounts: what brings conversations and conversions","{0} יוצרים":"{0} creators","{0} יוצרים במפה":"{0} creators on the map","{0} יוצרים ישראלים: מצב פניות, הודעות לפי מסלול, מעקב":"{0} Israeli creators: outreach status, messages by track, follow up","{0} ימי פרסום":"{0} posting days","{0} מכירות":"{0} sales","{0} מתוך {1}":"{0} of {1}","{0} סרטונים קצרים מפורקים לפורמטים":"{0} short videos broken down by format","{0} סרטונים קצרים של מותגי ילדים ומומחים, מפורקים לפורמטים שאפשר לשחזר":"{0} short videos from kids' brands and experts, broken down into formats you can repeat","{0} סרטונים שעבדו (ליוסי)":"{0} videos that worked (for Yossi)","{0} סרטונים שעבדו, נאספו כדוגמאות ליוסי":"{0} videos that worked, collected as examples for Yossi","{0} עד {1}":"{0} to {1}","{0} עוד לא":"{0} not yet","{0} עם תוכן":"{0} with content","{0} פוסטים":"{0} posts","{0} פריטי תוכן ·\u001fהניתוח המלא":["{0} content items ·","The full analysis"],"{0} פריטי תוכן של MeBook, Hooray Heroes, Wonderbly ו-Yoto, מקודדים":"{0} content pieces from MeBook, Hooray Heroes, Wonderbly and Yoto, coded","{0} פריטי תוכן של {1} מתחרים, מקודדים":"{0} content items from {1} competitors, coded","{0} פריטים":"{0} items","{0} קבוצות הורים, מהקרובות לאשקלון":"{0} parent groups, closest to Ashkelon","{0} קבוצות הורים, מהקרובות לאשקלון: יום צילום בבית תמורת ספר, טופ {1} וטיוטות":"{0} parent groups, closest to Ashkelon: a shoot day at home in exchange for a book, top {1} and drafts","{0} רילס בנובמבר":"{0} reels in November","{0} רילס של יוצרים ישראלים: מה עובד, {1} גישות צילום, {2} רעיונות לרילס עם תסריט, תוכנית צילום ראשונה ו-{3} ניתוחים":"{0} reels by Israeli creators: what works, {1} filming approaches, {2} reel ideas with script, a first shot plan and {3} breakdowns","{0}% מהפניות":"{0}% of referrals","{0}, יום של אחד. והגיבור? רק הוא":"{0}, one day for one kid. And the hero? Only him","{0}K\u001fעוקבים MeBook":["{0}K","MeBook followers"],"{0}K\u001fשיא collab של MeBook (פי {1} מהרגיל)":["{0}K","MeBook's top collab ({1}x the usual)"],"אופציות":"Options","אי-התאמות\u001f{0}":["Mismatches","{0}"],"אי-התאמות בין הקבצים":"Mismatches between files","איזה תוכן של יוצרים מביא שיחות על קנייה":"Which creator content brings purchase conversations","אין משימות פתוחות.":"No open tasks.","אינסטגרם":"Instagram","אינסטגרם\u001f@lumebook.il":["Instagram","@lumebook.il"],"אינסטגרם / טיקטוק":"Instagram / TikTok","אינסטגרם ופייסבוק":"Instagram and Facebook","אמא, {0} דברים שיעזרו לי להגיד את המילה הבאה":"Mom, {0} things that will help me say my next word","אמא, יש לי משהו להגיד לך על המילים שלי":"Mom, I have something to tell you about my words","אסטרטגיה":"Strategy","אסטרטגיית הסושיאל לרבעון {0}: יעדים, ערוצים וקצב עבודה":"Social strategy for Q{0}: goals, channels and work pace","ארטיפקט":"Artifact","ב-HQ":"At HQ","באינסטגרם":"On Instagram","בגוף הילד\u001fמילת קוד: מילה":["In the child's voice","Code word: word"],"בהפקה":"In production","בחבילה":"In the package","בידור\u001f{0}":["Entertainment","{0}"],"במעקב":"Being tracked","בקשות תשלום":"Payment requests","ברטר":"Barter","בריף הרילס ליוצרים":"Reels brief for creators","בריף ליוצרי ברטר: שלד צילום לרילס, דאגה אחת עם עובדות, קריאה לפעולה, גילוי נאות וצ׳קליסט":"Brief for barter creators: reel shot list, one concern with facts, call to action, disclosure and checklist","בתהליך":"In progress","בתשלום":"Paid","בתשלום · יוסי":"Paid · Yossi","גיבור על בלי גלימה גר אצלכם בבית?":"Does a superhero without a cape live in your house?","גישה מהירה":"Quick access","דוגמאות":"Examples","דורגו":"Rated","דורש תשומת לב":"Needs attention","דף פנייה לסופרי ילדים ולאנשי מקצוע, גרסת בדיקה שלא פורסמה":"Outreach page for children's authors and professionals, unpublished test version","הבאה ב-{0} / {1}":"Next on {0} / {1}","הגיליון הישן של הפניות, חלק מהמספרים לא מעודכנים":"The old outreach sheet, some numbers aren't updated","הגיליון שהחנות מעדכנת: שגרירים, מכירות ובקשות תשלום":"The sheet the store updates: ambassadors, sales and payment requests","הגיליון של {0}-{1}-{2} {3}\u001fלגיליון":["The {0}-{1}-{2} {3} sheet","To the sheet"],"הדגמת מוצר\u001f{0}":["Product demo","{0}"],"הדף lumebook.il":"The lumebook.il page","ההזמנות עם התיוג שלי, לחישוב ה-{0}%":"Orders with my tag, for calculating the {0}%","הוכחה חברתית\u001f{0}":["Social proof","{0}"],"הופקו":"Produced","החבילה הלילית, ההפקה, הכללים והפקודות של מכונת הקרוסלות":"The nightly package, the build, the rules and the commands of the Carousel Machine","החבילה של {0} עד {1}":"The package from {0} to {1}","היום\u001f{0} · כמה זמן לוקח להכין ספר ליום הולדת?\u001fמחכה לקריינות ולצילום שלך":["Today","{0} · How long does it take to make a birthday book?","Waiting for your voiceover and footage"],"הכול":"All","הכול · {0}":"All · {0}","הכול תואם.":"Everything matches.","הכי חריגים (פי כמה מהחציון של החשבון)":"The biggest outliers (times the account's median)","הלוח של נובמבר עם עריכה, פלייבוק, עקרונות, כלים ורילס שנעשו, הכול בדף אחד":"November's board with editing, playbook, principles, tools and reels made, all on one page","הלילות הראשונים בלי מוצץ":"The first nights without a pacifier","המילה הראשונה שלי יצאה ליד המקרר":"My first word came out next to the fridge","הנחה / תגמול":"Discount / reward","הפקת קרוסלות והמחקר שמאחוריהן":"Carousel production and the research behind it","הצטרפות":"Join","הקורס, קישורי UTM והמכירות שלי":"My course, UTM links and sales","הרכיבים ומה כל אחד מזין":"The components and what each one feeds","חבילות אחרונות":"Latest batches","חבילות, ציונים והפקה של קרוסלות":"Packages, ratings and production of carousels","חבילת הלילה":"The Night Package","חי · עודכן לפני {0} דק׳":"Live, updated {0} min ago","חיפוש יוצר":"Search creator","חציון צפיות":"Median views","חשיפה":"Reach","חשיפה ותגובה\u001f{0}":["Exposure and reaction","{0}"],"חשיפה יומית, {0} ימים":"Daily reach, {0} days","חשיפות":"Reach","חשיפות יומיות, {0} ימים":"Daily reach, {0} days","ידני":"Manual","יום ראשון · {0} / {1} / {2}":"Sunday, {0}/{1}/{2}","יוצר/ת":"Creator","יוצרים\u001f{0}":["Creators","{0}"],"יוצרים\u001f{0} יוצרים מחכים לפולואפ\u001fפתיחה":["Creators","{0} creators are waiting for a follow up","Open"],"יוצרים\u001f{0} תזכורות ליוצרים הגיעו לזמנן\u001fפתיחה":["Creators","{0} creator reminders are due","Open"],"יוצרים\u001fלא נמצא פרופיל: @ganotmor\u001fפתיחה":["Creators","Profile not found: @ganotmor","Open"],"יוצרים\u001fמופיעים אצל MeBook: @mor_knoll":["Creators","Appearing at MeBook: @mor_knoll"],"יעדים, מכירות ומסלול הקנייה":"Goals, sales and the buying journey","יעדים, ערוצים וקצב עבודה לרבעון":"Goals, channels and pace of work for the quarter","כל בוקר:\u001fבונה מחדש את מה שאפשר ומשאיר כאן את השאר.":["Every morning:","it rebuilds what it can and leaves the rest here."],"כל המחקרים והמסמכים":"All research and documents","כל המחקרים לפי נושא, עם חיפוש בכל הממצאים":"All research by topic, with search across all findings","כלי":"Tool","כמה זמן לוקח להכין ספר ליום הולדת?":"How long does it take to make a book for a birthday?","כשהתינוק בוכה ואתם רצים אליו":"When the baby cries and you run to it","ל-{0} · מקנא בתינוק החדש":"For {0} · jealous of the new baby","לא נמצא":"Not found","לא פנינו":"Not contacted","לא פנינו\u001f{0}\u001fנשלחה פנייה\u001f{1}\u001fענו\u001f{2}\u001fספר בהכנה\u001f{3}\u001fספר נשלח\u001f{4}\u001fפורסם\u001f{5}":["Not contacted","{0}","Outreach sent","{1}","Replied","{2}","Book in progress","{3}","Book sent","{4}","Published","{5}"],"לא פנינו: {0}":"We haven't contacted: {0}","לגרור, להוסיף ולערוך את הכלים שבתפריט הצד":"Drag, add and edit the tools in the side menu","להציג {0} שורות בדיקה":"Show {0} test rows","לוח הרילס":"Reels Board","לוח לומבוק":"LumeBook board","לייקים":"Likes","לעבור על החבילה ולערוך\u001fהחבילות נבנות פעם בשבוע, ביום חמישי בערב. Carousel Machine רץ כל הזמן על המק כפריט התחברות, בכתובת\u001fhttp://localhost:{0}\u001f. לא מפעילים עותק שני; אחרי שינוי בסקריפטים שלו:\u001f. להפקה: לכתוב ל-Claude \"produce kid-{1}\" (או אופציה אחרת).":["Go over the batch and edit","Batches are built once a week, on Thursday evening. The Carousel Machine runs all the time on the Mac as a login item, at","http://localhost:{0}",". Don't run a second copy; after changing its scripts:",". To produce: write to Claude \"produce kid-{1}\" (or another option)."],"לפי גודל קהל":"By audience size","לפני {0} דק׳":"{0} min ago","לפני {0} ימים":"{0} days ago","לפני {0} שע׳":"{0} hr ago","לפרסם מחדש\u001f{0}":["Repost","{0}"],"מאגר היוצרים":"Creator database","מאחורי הקלעים\u001f{0}":["Behind the scenes","{0}"],"מגלה כמה כיף לעזור לאחרים":"Discovering how fun it is to help others","מה גורם לקרוסלה להמיר, ולוח בדיקות":"What makes a carousel convert, and a test board","מה השתנה ומה צריך לפרסם מחדש":"What changed and what needs to be republished","מה עובד ברילס מוצר ואיך מצלמים":"What works in product reels and how to film them","מה שפתחת הכי הרבה ב-{0} הימים האחרונים":"What you opened most in the last {0} days","מודעות {0} · שקילה {1} · המרה {2} · שימור {3}":"Ads {0} · Consideration {1} · Conversion {2} · Retention {3}","מזין את":"Feeds","מחכה לטיפול":"Waiting for action","מחכות לאישור":"Waiting for approval","מחכים לך":"Waiting for you","מחקר\u001f{0}":["Research","{0}"],"מחקר קרוסלות · {0}":"Carousel research · {0}","מחקר רילס מוצר":"Product reel research","מחקר תוכן":"Content research","מי הצטרף לתוכנית השגרירים ומה נקנה דרכם":"Who joined the ambassador program and what was bought through them","מכינים את הגדול לתינוק שבדרך":"Getting the older child ready for the baby on the way","מסלול הקנייה בחנות ומה לשפר בכל שלב":"The purchase journey in the store and what to improve at each step","מעבדת תוכן ילדים · {0}":"Kids content lab · {0}","מעורבות":"Engagement","מערכת\u001f{0}":["System","{0}"],"מערכת הרילס: the one Hebrew tool for everything about reels (November calendar with editing, playbook, {0} principles, research library, tools, reels made)":"Reels system: the one Hebrew tool for everything about reels (November calendar with editing, playbook, {0} principles, research library, tools, reels made)","מפת היוצרים":"Creator Map","מפת יוצרים · {0}":"Creator map · {0}","מפת קהילות הורים · {0}":"Parent communities map · {0}","מצב":"Status","מצב הפניות\u001f{0} ספרים יצאו · {1} פורסמו":["Outreach status","{0} books sent out · {1} published"],"מצב עבור almaanddad":"Status for almaanddad","מצב עבור bar.levi.adiel":"Status for bar.levi.adiel","מצב עבור books_are_friends_slp":"Status for books_are_friends_slp","מצב עבור daria_mansour{0}":"Status for daria_mansour{0}","מצב עבור eden_spaiev":"Status for eden_spaiev","מצב עבור etti_haft":"Status for etti_haft","מצב עבור ganotmor":"Status for ganotmor","מצב עבור hadas.shvat":"Status for hadas.shvat","מצב עבור hilla_gover_slp":"Status for hilla_gover_slp","מצב עבור ima.shir":"Status for ima.shir","מצב עבור knafaim.ot_by_noy":"Status for knafaim.ot_by_noy","מצב עבור lital_magnezi":"Status for lital_magnezi","מצב עבור nataliegaash":"Status for nataliegaash","מצב עבור rotem__unger":"Status for rotem__unger","מצב עבור saba.chiche":"Status for saba.chiche","מצב עבור yeladim_ktanim":"Status for yeladim_ktanim","מציאת יוצרים, פניות ושגרירים":"Finding creators, outreach and ambassadors","מקומי":"Local","מקומי\u001fגרסת ארטיפקט":["Local","Artifact version"],"מקנא בתינוק החדש":"Jealous of the new baby","משימות פתוחות\u001f{0}":["Open tasks","{0}"],"משפטים שאנחנו אומרים\u001fמילת קוד: אח":["Sentences we say","Code word: brother"],"מתוזמנות":"Scheduled","מתחילים להיפרד מהטיטול":"Starting to say goodbye to diapers","מתחרים וכל המחקרים במקום אחד":"Competitors and all the research in one place","מתחת ל-{0}":"Under {0}","מתכוננים לכיתה א׳":"Getting ready for first grade","מתנה ואירוע\u001f{0}":["Gift and event","{0}"],"נבדק {0} ·\u001fלמפת היוצרים":["Checked {0} ·","to the creator map"],"נבחרו להפקה":"Selected for production","נושא":"Topic","ניתוח תוכן מתחרים · {0}":"Competitor content analysis · {0}","נפתחים ב-claude.ai, פרטיים":"Opens in claude.ai, private","נשלחה פנייה":"Outreach sent","נתוני המכירות במילים פשוטות":"Sales data in plain words","סבתא, זה מה שהנכד יפתח בקופסה":"Grandma, this is what your grandchild will open in the box","סוג":"Type","סוגים מובילים":"Top types","סופר את הימים עד יום ההולדת":"Counting the days until the birthday","סטטוס":"Status","סינון לפי קבוצה":"Filter by group","סינון לפי תחום":"Filter by field","סיפור לקוח\u001f{0}":["Customer story","{0}"],"סנכרון, עיצוב, דרייב והחנות":"Sync, design, drive and the store","ספר בהכנה":"Book in progress","ספר נשלח":"Book sent","ספרים":"Books","ספרים דרכם":"Books through them","ספרים יצאו":"Books shipped","ספרים שנקנו":"Books bought","סרטונים מוכנים":"Videos ready","עוקבים":"Followers","עוקבים \"עכשיו\" מתוך תצוגת הקישור של אינסטגרם, מתעדכן כל בוקר. מעל {0}K אינסטגרם מעגל, אז השינוי שם גס.":"Follower count pulled \"live\" from Instagram's link view, updates every morning. Over {0}K Instagram circle, so the change there is rough.","עוקבים חדשים":"New followers","עוקבים עכשיו":"Followers now","עיצוב":"Design","על מה המתחרים מעלים":"What competitors post about","ענו":"Replied","עריכה":"Edit","פולואפים":"Follow-ups","פורסם":"Published","פורסם {0}":"Posted {0}","פורסם {0} · מקור נערך לפני {1} שע׳":"Published {0} · Source edited {1} hours ago","פורסם {0} · מקור נערך לפני {1} שע׳\u001fפורסם {2} · מקור נערך לפני {3} שע׳":["Posted {0} · source edited {1} hr ago","posted {2} · source edited {3} hr ago"],"פורסם {0} · מקור נערך לפני {1} שע׳\u001fפורסם {2} · מקור נערך לפני {3} שע׳\u001fפורסם {4} · מקור נערך לפני {5} שע׳":["Posted {0} · source edited {1} hr ago","posted {2} · source edited {3} hr ago","posted {4} · source edited {5} hr ago"],"פורסמו":"Published","פייסבוק":"Facebook","פלייבוק":"Playbook","פלייבוק סושיאל Q{0}":"Social playbook Q{0}","פלייבוק קרוסלות ממירות באינסטגרם, כולל לוח בדיקות ל-{0} שבועות":"Playbook for converting Instagram carousels, with a {0} week test schedule","פניות, תזכורות ומעקב אחרי כל יוצר":"Inquiries, reminders and tracking for every creator","פנינו":"We reached out","פעיל":"Active","פעילים":"Active","פערים שאף אחד לא סוגר":"Gaps no one is closing","פרסום":"Published","פתוח מקומית: המספרים בבית חיים ומתעדכנים כל דקה":"Open locally: the numbers live at home and update every minute","פתוח מקומית: כל כלי נפתח בגרסה המקומית, בלשונית הזו":"Opens locally: every tool opens in the local version, in this tab","פתיחה":"Open","צבעים, גופנים ורכיבים לכל הדפים":"Colors, fonts and components for every page","צבעים, טיפוגרפיה ורכיבים לכל הדפים הפנימיים":"Colors, typography and components for all internal pages","צפיות":"Views","צפיות במדיה":"Media views","צפיות בפוסטים":"Post views","קבוצה":"Group","קבוצות הורים ליום צילום בבית":"Parent groups for a home photo shoot day","קהילות\u001f{0}":["Communities","{0}"],"קורס ולמידה\u001f{0}":["Course and learning","{0}"],"קטלוג\u001f{0}":["Catalog","{0}"],"קישור מתויג לכל פוסט, כדי לדעת מה מכר":"A tagged link for every post, to know what sold","קרוסלות\u001f{0}":["Carousels","{0}"],"קרוסלות\u001f{0} מתוך {1} הקרוסלות של {2} עד {3} עוד לא דורגו\u001fפתיחה":["Carousels","{0} of {1} carousels from {2} to {3} haven't been rated yet","Open"],"קשה לו להגיד סליחה":"Finds it hard to say sorry","קשר":"Contact","רגע\u001fמילת קוד: אח":["A moment","Code word: brother"],"רילס\u001fהריל של היום ({0}) מחכה לקריינות ולצילום שלך\u001fפתיחה":["Reels","Today's reel ({0}) is waiting for narration and filming from you","Open"],"רילס אחרון":"Latest reel","רילס ווידאו\u001f{0}":["Reels and video","{0}"],"רכיב":"Component","רענון {0} {1}":"Refresh {0} {1}","רענון {0} {1}\u001fקריאה בלבד · ללוח המלא":["Refresh {0} {1}","Read only, full board"],"שבוע קודם {0}":"Last week {0}","שבוע קודם {0}K":"Last week {0}K","שגיאות\u001f{0}":["Errors","{0}"],"שגרירים\u001f{0} שגרירים חדשים השבוע\u001fפתיחה":["Ambassadors","{0} new ambassadors this week","Open"],"שגרירים בחנות":"Ambassadors in store","שונה":"Changed","שורטליסט":"Shortlist","שינוי ברכיב מסמן את מה שהוא מזין":"A change in a component marks what it feeds","שיעורים ומשימות, עם בדיקה של התשובות":"Lessons and assignments, with answer checking","שיתופים":"Shares","שלד הצילום לרילס שיוצרים מקבלים":"The filming outline for reels creators get","שם":"Name","שמירות":"Saves","תאריך":"Date","תגובות":"Comments","תגמולים ממתינים":"Pending rewards","תגמולים סופיים":"Final rewards","תוכנית השגרירים":"Ambassador Program","תוכנית השגרירים כפי שיוצרים רואים אותה ב-lumebook.com":"The ambassador program as creators see it on lumebook.com","תוכנית ואסטרטגיה\u001f{0}":["Plan and strategy","{0}"],"תזכורות":"Reminders","תחום":"Area","תינוק שלא יושב רגע עם ספר ביד":"A baby who won't sit still with a book for a second","תיקייה":"Folder","תיקיית השיווק המשותפת":"The shared marketing folder","תכנון, צילום ומחקר של רילס":"Planning, filming and research for reels","״אורי, תהיה גדול״ מה אתם חושבים ומה יעזור לי":"\"Uri, you'll be a big brother\" what do you think and what would help me"},"he":{"\"The store doesn't record where a buyer came from at all.\" That's what the marketing tab of the store admin itself says (\u001f, section {0}). But the store's code does send the tags with every book created. What's missing is a screen that shows them, not the recording. So every tag sent today will count when that screen arrives, and every order without a tag will never count.":["\"החנות לא רושמת בכלל מאיפה קונה הגיע.\" ככה כתוב בלשונית השיווק של ניהול החנות עצמה (",", סעיף {0}). אבל הקוד של החנות כן שולח את התיוגים עם כל ספר שנוצר. מה שחסר זה מסך שמציג אותם, לא הרישום עצמו. אז כל תיוג שנשלח היום ייספר כשהמסך הזה יגיע, וכל הזמנה בלי תיוג לעולם לא תיספר."],"@lotem_lerner carousel teardown (all {0} carousels, {1} slides)":"ניתוח קרוסלות @lotem_lerner (כל {0} הקרוסלות, {1} סליידים)","A link without the part after the question mark brings the parent to the same page, but their order arrives with no mark at all. It looks like any other order.":"לינק בלי החלק אחרי סימן השאלה מביא את ההורה לאותו עמוד, אבל ההזמנה שלו מגיעה בלי שום סימון. זה נראה כמו כל הזמנה אחרת.","A parent who clicks either one sees the same \"Bye Bye Pacifier\" page. Only the second one leaves a mark on the order: came from Instagram, from a LumeBook post, from the pacifier carousel, from a DM sent on {0} Nov {1}.":"הורה שלוחץ על כל אחד מהם רואה את אותו עמוד של \"ביי ביי מוצץ\". רק השני משאיר סימון על ההזמנה: הגיע מ-Instagram, מפוסט של לומבוק, מהקרוסלה של המוצץ, מהודעה פרטית שנשלחה ב-{0} בנובמבר {1}.","A sale your post caused that arrived without your tag isn't here: the tag is lost when the buyer closes the tab and comes back later, and visitors who decline cookies carry none. These are the orders Yossi's export shows with your tag, nothing more.":"מכירה שהפוסט שלך גרם לה אבל הגיעה בלי התיוג שלך לא מופיעה כאן: התיוג נעלם כשהקונה סוגר את הטאב וחוזר אחר כך, ומבקרים שדוחים עוגיות לא נושאים תיוג בכלל. אלה ההזמנות שהייצוא של יוסי מראה עם התיוג שלך, לא יותר.","A tag proves which link the parent came in through, not why they bought. And an order without a tag doesn't prove it didn't come from your work.":"תיוג מוכיח דרך איזה לינק ההורה נכנס, לא למה הוא קנה. והזמנה בלי תיוג לא מוכיחה שהיא לא הגיעה מהעבודה שלך.","A weekly read: Meta against the store, and a paragraph on what can't be proven\u001fProject · light help":["קריאה שבועית: Meta נגד החנות, ופסקה על מה שאי אפשר להוכיח","פרויקט · עזרה קלה"],"Add Yossi's export":"להוסיף את הייצוא של יוסי","After the click: from the comment word to a paid order":"אחרי הקליק: ממילת התגובה ועד להזמנה בתשלום","All":"הכל","Ambassadors landing page + creators hub (retired)":"דף נחיתה לשגרירים + מרכז יוצרים (לא בשימוש)","Ask Yossi for one store fix, with the number before\u001fProject · light help":["לבקש מיוסי תיקון אחד בחנות, עם המספר לפני","פרויקט · עזרה קלה"],"At least one sentence. Without it the week isn't saved":"חובה לפחות משפט אחד. בלעדיו השבוע לא נשמר","Best post: reach\u001fHow many accounts saw it":["הפוסט הכי טוב: ריץ'","כמה חשבונות ראו אותו"],"Best post: saves\u001fNot counting your own save":["הפוסט הכי טוב: שמירות","לא כולל שמירה שלך"],"Best post: saves and shares out of reach\u001f-":["הפוסט הכי טוב: שמירות ושיתופים מתוך הריץ'",""],"Best post: shares":"הפוסט הכי טוב: שיתופים","Books & reading":"ספרים וקריאה","Brand and marketing system (internal working draft)":"מערכת מותג ושיווק (טיוטת עבודה פנימית)","Brand assets (logos, mascot, fonts, backgrounds)":"נכסי מותג (לוגואים, קמע, פונטים, רקעים)","CAP\u001fTo do":["CAP","לעשות"],"Carousel Machine (nightly carousel pipeline)":"מכונת הקרוסלות (pipeline קרוסלות לילי)","Carousel Machine page (its front page)":"דף מכונת הקרוסלות (העמוד הראשי שלו)","Carousel audit (every published carousel: inventory, Instagram numbers, creative scores, tagged links)":"אודיט קרוסלות (כל קרוסלה שפורסמה: מלאי, נתוני Instagram, ציוני קריאייטיב, קישורים מתויגים)","Carousel playbook page":"דף פלייבוק קרוסלות","Carousel research v{0} ({1} accounts)":"מחקר קרוסלות v{0} ({1} חשבונות)","Carousel · {0} min":"קרוסלה · {0} דק'","Changes are saved only in this browser. On the page in Claude they sync between devices":"השינויים נשמרים רק בדפדפן הזה. בעמוד ב-Claude הם מסתנכרנים בין מכשירים","Child-dev professional":"איש/אשת מקצוע בהתפתחות הילד","Child-dev professional\u001f{0}":["איש/אשת מקצוע בהתפתחות הילד","{0}"],"Choose well\u001f{0} of {1}":["לבחור נכון","{0} מתוך {1}"],"Choose your tag values, then make every DM link this week in the link maker and log it\u001fProject · full help":["לבחור ערכי תיוג, ואז ליצור בלינק-מייקר כל לינק של DM השבוע ולתעד אותו","פרויקט · עזרה מלאה"],"Choosing among the day's options":"לבחור מתוך האפשרויות של היום","Choosing the fix that moves your tagged sales":"לבחור את התיקון שמזיז את המכירות המתויגות שלך","Claude's check runs in the course page in Claude. Here you grade your written answers yourself.":"הבדיקה של Claude רצה בעמוד הקורס ב-Claude. כאן מדרגים את התשובות הכתובות בעצמך.","Comment words received\u001fComments with the comment word, not counting yours":["מילות תגובה שהתקבלו","תגובות עם מילת התגובה, לא כולל שלך"],"Comment words that got a DM with a link\u001f-":["מילות תגובה שהביאו הודעה פרטית עם לינק",""],"Common mistake":"טעות נפוצה","Competitor content teardown ({0} pieces)":"ניתוח תוכן מתחרים ({0} פריטים)","Course\u001fL{0} · What does a link carry?":["קורס","L{0} · מה לינק נושא איתו?"],"Creative media (one folder per job: reels, podcasts, character packs, stories, trend recreations)":"מדיה קריאייטיבית (תיקייה לכל ג'וב: רילס, פודקאסטים, חבילות דמויות, סטוריז, שחזורי טרנדים)","Creator Reel brief page (Hebrew, for barter creators)":"דף בריף ריל ליוצרים (בעברית, ליוצרי בארטר)","Creator content and purchase intent (round {0}: {1} creators; round {2}: {3} creators, {4} posts, {5} comments)":"תוכן יוצרים וכוונת רכישה (סבב {0}: {1} יוצרים; סבב {2}: {3} יוצרים, {4} פוסטים, {5} תגובות)","Creator map (outreach CRM, up to {0} new creators every Saturday)":"מפת יוצרים (CRM לפניות, עד {0} יוצרים חדשים כל שבת)","Creator sales and your pay":"מכירות יוצרים והתשלום שלך","Creator signup Google Form (retired)":"טופס Google להרשמת יוצרים (לא בשימוש)","Creators · {0} min":"יוצרים · {0} דק'","DMs with a link that became a tagged order\u001f-\u001fSmall sample: {0}. Hard to conclude anything from it":["הודעות פרטיות עם לינק שהפכו להזמנה מתויגת","","מדגם קטן: {0}. קשה להסיק ממנו משהו"],"DMs with a tagged link\u001fFrom the link log; you can correct it":["הודעות פרטיות עם לינק מתויג","מתוך יומן הלינקים; אפשר לתקן"],"December from November's numbers":"דצמבר מהמספרים של נובמבר","Do this now\u001fBefore you paste a link into a DM to a parent, read it to the end and make sure it has a tag.":["לעשות עכשיו","לפני שאתה מדביק לינק בהודעה פרטית להורה, תקרא אותו עד הסוף ותוודא שיש לו תיוג."],"Each lesson takes about {0} minutes to read. It ends with {1} questions you answer from memory.":"כל שיעור לוקח בערך {0} דקות לקרוא. הוא נגמר ב-{1} שאלות שעונים עליהן מהזיכרון.","Edit button on every page (in-page editor + edits layer)":"כפתור עריכה בכל עמוד (עורך בתוך הדף + שכבת עריכות)","Everything after the question mark":"כל מה שאחרי סימן השאלה","Exactly the same page":"בדיוק אותו עמוד","Example":"דוגמה","Explain and defend\u001f{0} of {1}":["להסביר ולהגן","{0} מתוך {1}"],"Family travel & outings\u001f{0}":["טיולי משפחות ויציאות","{0}"],"Fill in every Sunday, for the week that just ended":"למלא בכל יום ראשון, עבור השבוע שהסתיים","Following up: speed, one reminder, and when to stop":"מעקב: מהירות, תזכורת אחת, ומתי להפסיק","GA{0}: what it receives, what it mislabels, what it can still show":"GA{0}: מה הוא מקבל, מה הוא מתייג לא נכון, מה הוא עדיין יכול להראות","Gan / preschool":"גן / גננת","Gan / preschool\u001f{0}":["גן / גננת","{0}"],"Glossary":"מילון מונחים","Google Drive":"Google Drive","Google Sheets":"Google Sheets","Grading with a reason the next batch can use":"לדרג עם נימוק שהבאצ' הבא יכול להשתמש בו","Grandparent":"סבא / סבתא","Hanukkah: the moment you can plan":"חנוכה: הרגע שאפשר לתכנן","Homeschool / alternative ed":"הומסקול / חינוך אלטרנטיבי","How the course works\u001flessons, quizzes, Claude's check, projects, the exam":["איך הקורס עובד","שיעורים, קוויזים, בדיקה של Claude, פרויקטים, המבחן"],"IG DM":"IG DM","IG DM · FB group (bio link)":"IG DM · קבוצת FB (לינק בביו)","IG DM · TikTok @almaanddad":"IG DM · TikTok @almaanddad","IG DM · hillagover.co.il":"IG DM · hillagover.co.il","IG DM · hopp.bio/hadasshvat":"IG DM · hopp.bio/hadasshvat","IG DM · knafaimbynoy.co.il":"IG DM · knafaimbynoy.co.il","IG DM · linktr.ee/bar.adiel":"IG DM · linktr.ee/bar.adiel","IG DM · linktr.ee/ettihaft":"IG DM · linktr.ee/ettihaft","IG DM · linktr.ee/ima.shir":"IG DM · linktr.ee/ima.shir","IG DM · linktr.ee/jtbpgzn{0}bj":"IG DM · linktr.ee/jtbpgzn{0}bj","IG DM · litalhaganenet.com":"IG DM · litalhaganenet.com","IG DM · meshulam purchase link":"IG DM · לינק רכישה במשולם","In progress":"בתהליך","In the link log for this week: {0}":"ביומן הלינקים לשבוע הזה: {0}","In your own words":"במילים שלך","Insights per post: what counts, what to subtract, what is missing":"אינסייטס לכל פוסט: מה נספר, מה להחסיר, מה חסר","Instagram adds its own tag too.\u001fThe link in the @lumebook.il bio opens with\u001f, and Instagram adds it by itself (\u001f, step {0}). In a DM nobody adds anything: what you paste is what gets sent.":["Instagram מוסיף תיוג משלו גם.","הלינק בביו של @lumebook.il נפתח עם",", ו-Instagram מוסיף אותו בעצמו (",", שלב {0}). בהודעה פרטית אף אחד לא מוסיף כלום: מה שאתה מדביק זה מה שנשלח."],"Is this moment worth it: fit, safety, speed":"האם הרגע הזה שווה את זה: התאמה, בטיחות, מהירות","Israeli creator product Reels: filming research and playbook ({0} watched, {1} verified, {2} creators, {3} deep dives, {4}-question table, {5} research principles)":"רילס מוצר של יוצרים ישראלים: מחקר צילום ופלייבוק ({0} נצפו, {1} אומתו, {2} יוצרים, {3} דיפ-דייב, טבלה בת {4} שאלות, {5} עקרונות מחקר)","It looks like one line, but it has two parts, and they do completely different things.":"זה נראה כמו שורה אחת, אבל יש בו שני חלקים, והם עושים דברים שונים לגמרי.","Kids content lab ({0} shorts)":"מעבדת תוכן ילדים ({0} שורטס)","Last month":"חודש שעבר","Last week":"שבוע שעבר","Lessons":"שיעורים","Links":"לינקים","Live moment · {0} min":"רגע חי · {0} דק'","LumeBook design system (tokens + lb- components)":"מערכת עיצוב לומבוק (tokens + רכיבי lb-)","LumeBook pipeline course (lessons, task types, checklists, projects)":"קורס ה-pipeline של לומבוק (שיעורים, סוגי משימות, צ'קליסטים, פרויקטים)","L{0}\u001fAfter L{1}":["L{0}","אחרי L{1}"],"L{0}\u001fAfter L{1}, L{2}":["L{0}","אחרי L{1}, L{2}"],"L{0}\u001fComing soon":["L{0}","בקרוב"],"L{0}\u001fStart":["L{0}","להתחיל"],"L{0} · What does a link carry?":"L{0} · מה לינק נושא איתו?","Make every sale countable\u001f{0} of {1}":["להפוך כל מכירה למדידה","{0} מתוך {1}"],"Making a moment post fast, outside the batch":"ליצור פוסט של רגע מהר, מחוץ לבאצ'","Messages · {0} min":"הודעות · {0} דק'","Meta's sales against the store's":"המכירות של Meta מול אלה של החנות","Next, locked\u001fL{0} · No tag, no pay: choose the values, then make a tagged link":["הבא, נעול","L{0} · בלי תיוג אין תשלום: לבחור ערכים, ואז ליצור לינק מתויג"],"No export yet\u001fAsk Yossi for paid orders with order number, payment date, amount, utm_source, utm_medium, utm_campaign and utm_content. A spreadsheet copy, a CSV file or JSON all work. Before the first real one, make a test order through a link with its own campaign (say\u001futm_campaign=test-{0}\u001f) and check it shows up here.":["אין עדיין ייצוא","לבקש מיוסי הזמנות ששולמו עם מספר הזמנה, תאריך תשלום, סכום, utm_source, utm_medium, utm_campaign ו-utm_content. העתק של גיליון, קובץ CSV או JSON, כולם מתאימים. לפני הראשונה האמיתית, לעשות הזמנת בדיקה דרך לינק עם קמפיין משלו (למשל","utm_campaign=test-{0}",") ולבדוק שהיא מופיעה כאן."],"No tag, no pay: choose the values, then make a tagged link":"בלי תיוג, בלי תשלום: לבחור את הערכים, ואז ליצור לינק מתויג","Not available yet":"עוד לא זמין","Not saved yet":"עוד לא נשמר","November reel calendar (one reel a day, {0} to {1} Nov {2}: scripts, filming days, captions)":"לוח ריל נובמבר (ריל אחד ביום, {0} עד {1} בנובמבר {2}: תסריטים, ימי צילום, כיתובים)","Numbers":"מספרים","Numbers · {0} min":"מספרים · {0} דק'","One live-moment post: choose it, make it, tag it, and compare after a week\u001fProject · partial help":["פוסט רגע חי אחד: לבחור אותו, ליצור אותו, לתייג אותו, ולהשוות אחרי שבוע","פרויקט · עזרה חלקית"],"Opens after L{0}":"נפתח אחרי L{0}","Or choose a file":"או לבחור קובץ","Other · {0} min":"אחר · {0} דק׳","Paid orders with\u001futm_medium=social\u001f, from Yossi's export":["הזמנות ששולמו עם","utm_medium=social",", מהייצוא של יוסי"],"Paid orders with any tag\u001f-\u001fAll orders, yours, ads and the rest":["הזמנות ששולמו עם כל תיוג",":","כל ההזמנות, שלך, של פרסומות והשאר"],"Paid orders, one row each":"הזמנות ששולמו, שורה לכל אחת","Parent":"הורה","Parent\u001f{0}":["הורה","{0}"],"Parent (dad)":"הורה (אבא)","Parent (twins)":"הורה (לתאומים)","Parent community map ({0} FB/WA communities, closest to Ashkelon first)":"מפת קהילות הורים ({0} קהילות FB/WA, קרוב לאשקלון קודם)","Parent guide / coach":"מדריך/ת הורים · מאמן/ת","Parent guide / coach\u001f{0}":["מדריך/ת הורים · מאמן/ת","{0}"],"Partners page for children's book authors and early-childhood professionals (route /IL/he/partners on the store, he en ar ru; local review prototype, implementation brief and internal commercial review)":"דף שותפים לסופרי ספרי ילדים ואנשי מקצוע בגיל הרך (נתיב /IL/he/partners בחנות, he en ar ru; פרוטוטייפ ביקורת מקומית, בריף יישום וסקירה מסחרית פנימית)","Paste the rows, header row included":"להדביק את השורות, כולל שורת הכותרת","Peek at the answers":"הצצה לתשובות","Period":"תקופה","Product Reels Playbook page (the full Israeli product Reels research, for Yarin)":"דף פלייבוק רילס מוצר (כל מחקר רילס המוצר הישראלי, עבור ירין)","Product brief, Q{0} strategy, carousel playbook (Hebrew), UGC research":"בריף מוצר, אסטרטגיית Q{0}, פלייבוק קרוסלות (בעברית), מחקר UGC","Project dashboard":"דשבורד פרויקט","Projects are real LumeBook work. Hand each one in and Claude checks it against what a good one contains.":"הפרויקטים הם עבודה אמיתית של לומבוק. מגישים כל אחד ו-Claude בודק אותו מול מה שפרויקט טוב מכיל.","P{0}\u001fTo do":["P{0}","לעשות"],"Questions {0} and {1} are checked against the answer key. Claude checks your written answer to question {2} against the lesson's model answer: ✓ correct, ~ partial, ✗ wrong, ↑ above the standard.":"שאלות {0} ו-{1} נבדקות מול מחוון תשובות. Claude בודק את התשובה הכתובה שלך לשאלה {2} מול התשובה לדוגמה של השיעור: ✓ נכון, ~ חלקי, ✗ לא נכון, ↑ מעל הרמה.","Quiz":"שאלון","Quiz\u001fFrom memory, without scrolling up. The answers open after you submit":["שאלון","מהזיכרון, בלי לגלול למעלה. התשובות נפתחות אחרי שליחה"],"Q{0} social strategy page":"דף אסטרטגיית סושיאל Q{0}","Reel · {0} min":"ריל · {0} דק'","Run the system\u001f{0} of {1}":["להריץ את המערכת","{0} מתוך {1}"],"SMM plan site (retired)":"אתר תוכנית SMM (לא בשימוש)","Sales":"מכירות","Sales readout ({0} Oct admin data in plain words, social decisions, the numbers)":"סיכום מכירות (נתוני אדמין {0} באוקטובר במילים פשוטות, החלטות סושיאל, המספרים)","Sales that carry your tag":"מכירות עם התיוג שלך","Same book, two links:":"אותו ספר, שני לינקים:","Save the week":"לשמור את השבוע","Saved on this device only":"נשמר במכשיר הזה בלבד","Screen-free / free play":"בלי מסכים / משחק חופשי","Select the rows in the spreadsheet, copy, paste here":"לסמן את השורות בגיליון, להעתיק, להדביק כאן","Shared facts (links, offer, dates, creator lists)":"עובדות משותפות (קישורים, הצעה, תאריכים, רשימות יוצרים)","Start here · week {0} · {1} min\u001fL{2} · What does a link carry?":["להתחיל כאן · שבוע {0} · {1} דק'","L{2} · מה לינק נושא?"],"Start the lesson":"להתחיל את השיעור","Submit":"שליחה","Tag (UTM)":"תיוג (UTM)","Tagged clicks\u001fHow many times links with your tags were clicked":["קליקים מתויגים","כמה פעמים נלחצו לינקים עם התגיות שלך"],"Tagged orders\u001fOnly orders with your tag, from the source Yossi gives":["הזמנות מתויגות","רק הזמנות עם התיוג שלך, מהמקור שיוסי נותן"],"Tasks":"משימות","Terms":"מונחים","The Hanukkah creator round, by {0} Nov\u001fProject · light help":["סבב יוצרי החנוכה, עד {0} בנוב","פרויקט · עזרה קלה"],"The LumeBook marketing pipeline":"פייפליין השיווק של לומבוק","The November report for Yossi\u001fProject · no help":["הדוח של נובמבר ליוסי","פרויקט · בלי עזרה"],"The check before a carousel goes out":"הבדיקה לפני שקרוסלה יוצאת","The check, five seconds:\u001flook at the end of the link. Is there a\u001ffollowed by\u001f? You can send it. No? Don't send it until there is.":["הבדיקה, חמש שניות:","תסתכל על סוף הלינק. יש שם","ואחריו","? אפשר לשלוח. אין? אל תשלח עד שיש."],"The final exam is {0} Nov to {1} Nov. Every answer you give is saved, so Claude Code can also go through them with you.":"המבחן הסופי הוא מ-{0} בנוב עד {1} בנוב. כל תשובה שנותנים נשמרת, כך ש-Claude Code יכול גם לעבור עליהן איתך.","The first seconds of a reel":"השניות הראשונות של ריל","The four capabilities\u001fevery lesson serves at least one":["ארבע היכולות","כל שיעור משרת לפחות אחת"],"The lesson":"השיעור","The link without tags doesn't open":"הלינק בלי תיוגים לא נפתח","The map: every step on the way, whose it is, and on which screen\u001fCarousel · {0} min":["המפה: כל שלב בדרך, של מי הוא, ועל איזה מסך","קרוסלה · {0} דק'"],"The monthly report: decision first, then what cannot be proven":"הדוח החודשי: החלטה קודם, ואז מה שאי אפשר להוכיח","The offer, the message and the Hanukkah books":"ההצעה, ההודעה וספרי החנוכה","The part after the question mark\u001fdoesn't change the page at all. The parent sees exactly the same page with it or without it. It is information the link carries for the store:":["החלק אחרי סימן השאלה","לא משנה את העמוד בכלל. ההורה רואה בדיוק את אותו עמוד עם זה או בלעדיו. זה מידע שהלינק נושא בשביל החנות:"],"The part before the question mark\u001fsays which page to open:":["החלק לפני סימן השאלה","אומר איזה עמוד להיפתח:"],"The pipeline in two minutes, for an interview":"הפייפליין בשתי דקות, לראיון","The store journey and where people drop":"מסע החנות ואיפה אנשים נושרים","The tagged link shows a discount":"הלינק המתויג מציג הנחה","Their amount\u001f-\u001fWhat these orders paid":["הסכום שלהם",":","כמה ההזמנות האלה שילמו"],"These pairs are the tags. They answer one question: where did this visitor come from?":"הזוגות האלה הם התיוגים. הם עונים על שאלה אחת: מאיפה המבקר הזה הגיע?","This is the link that goes with every LumeBook Facebook post (\u001f, the field\u001f):":["זה הלינק שמגיע עם כל פוסט של לומבוק ב-Facebook (",", השדה","):"],"This month":"החודש","This week":"השבוע","This week's numbers":"המספרים של השבוע","This week's numbers: five numbers, and where each one lives\u001fNumbers · {0} min":["המספרים של השבוע: חמישה מספרים, ואיפה כל אחד נמצא","מספרים · {0} דק'"],"Trial reels: what they test and how to read them":"רילס ניסיון: מה הם בודקים ואיך קוראים אותם","URL (web address)":"URL (כתובת אתר)","Week":"שבוע","Week {0} of {1} · Choose what sells\u001f{2} days to the exam ({3} Nov to {4} Nov)":["שבוע {0} מתוך {1} · לבחור מה נמכר","{2} ימים למבחן ({3} בנוב' עד {4} בנוב')"],"Week {0} · Choose what sells":"שבוע {0} · לבחור מה נמכר","Week {0} · Every sale countable":"שבוע {0} · כל מכירה נספרת","Week {0} · Lesson {1} of {2} · Messages · {3} min · Make every sale countable":"שבוע {0} · שיעור {1} מתוך {2} · הודעות · {3} דקות · תעשה כל מכירה בת ספירה","Week {0} · Read the numbers honestly":"שבוע {0} · לקרוא את המספרים בכנות","Week {0} · Run it and defend it":"שבוע {0} · להריץ ולהגן","What a hook does, and why every formula is still a guess":"מה הוק עושה, ולמה כל נוסחה עדיין ניחוש","What does a link carry?\u001fMessages · {0} min":["מה לינק נושא?","הודעות · {0} דק'"],"What the numbers can't prove":"מה שהמספרים לא יכולים להוכיח","What the store does with them.\u001fWhen a visitor comes in through a tagged link, the store's code saves the tags. At the end of the book builder, when the book is created, the code sends them along with the order (\u001f, line {0}). That's how an order knows where the person who started it came from.":["מה החנות עושה איתם.","כשמבקר נכנס דרך לינק מתויג, הקוד של החנות שומר את התיוגים. בסוף בונה הספרים, כשהספר נוצר, הקוד שולח אותם יחד עם ההזמנה (",", שורה {0}). ככה הזמנה יודעת מאיפה הגיע מי שהתחיל אותה."],"What these numbers can't prove":"מה המספרים האלה לא מוכיחים","What this can't prove":"מה זה לא מוכיח","When a step breaks: the signs and what to ask for":"כשצעד נשבר: הסימנים ומה לבקש","When the numbers are too small to say anything":"כשהמספרים קטנים מדי בשביל להגיד משהו","Where you are":"איפה אתה נמצא","Which creator: the admission bar and why it exists":"איזה יוצר או יוצרת: רף הקבלה ולמה הוא קיים","Who can see the tagged orders today, and who can't":"מי יכול לראות את ההזמנות המתויגות היום, ומי לא","Write Yossi a request he can act on: a per-link view, and A{0}":"לכתוב ליוסי בקשה שהוא יכול לפעול לפיה: תצוגה לפי לינק, ו-A{0}","Write to Yossi which tag values are yours, and ask for a way to see tagged orders and for the A{0} fix\u001fProject · partial help":["לכתוב ליוסי אילו ערכי תיוג שייכים לך, ולבקש דרך לראות הזמנות מתויגות ואת התיקון של A{0}","פרויקט · עזרה חלקית"],"Yossi · {0} min":"יוסי · {0} דק'","You pass at {0} of {1} (a partial counts half). Under that the lesson says redo, and the lessons that build on it stay locked until you pass it.":"עוברים ב-{0} מתוך {1} (חלקי נחשב חצי). מתחת לזה השיעור אומר לעשות שוב, והשיעורים שבנויים עליו נשארים נעולים עד שעוברים אותו.","Your course · {0} Nov to {1} Nov":"הקורס שלך · {0} בנוב עד {1} בנוב","Your first Numbers tab, with \"Not available yet\" where that is true\u001fProject · full help":["טאב המספרים הראשון שלך, עם \"עדיין לא זמין\" במקום שבו זה נכון","פרויקט · עזרה מלאה"],"Your orders\u001f-\u001fNo export covers these days yet":["ההזמנות שלך",":","אין עדיין ייצוא שמכסה את הימים האלה"],"Your {0}%\u001f-\u001fIf it's {1}% of that amount: price only or with shipping is still open with Yossi":["ה-{0}% שלך",":","אם זה {1}% מהסכום הזה: מחיר בלבד או עם משלוח עדיין פתוח מול יוסי"],"a pair of a name and a value after the question mark, for example\u001f. It doesn't change the page, it only tells the store where the visitor came from.":["זוג של שם וערך אחרי סימן השאלה, לדוגמה",". זה לא משנה את העמוד, זה רק אומר לחנות מאיפה המבקר הגיע."],"archive":"archive","assets":"assets","carousel-pipeline\u001fdashboard\u001fcreator-brief":["carousel-pipeline","dashboard","creator-brief"],"carousel-pipeline\u001fresearch-hub":["carousel-pipeline","research-hub"],"carousel-playbook\u001fcarousel-pipeline\u001fresearch-hub":["carousel-playbook","carousel-pipeline","research-hub"],"course":"course","creator-map\u001fcompetitor-teardown\u001fkids-lab\u001fcarousel-research\u001fcarousel-playbook\u001fcarousel-pipeline\u001fdashboard\u001fparent-communities\u001freels-research-page\u001fcreator-content-conversion\u001fcreator-brief\u001fhook-studio-page\u001fsales-readout\u001fstrategy\u001freel-calendar\u001freels-hub":["creator-map","competitor-teardown","kids-lab","carousel-research","carousel-playbook","carousel-pipeline","dashboard","parent-communities","reels-research-page","creator-content-conversion","creator-brief","hook-studio-page","sales-readout","strategy","reel-calendar","reels-hub"],"creators":"creators","dashboard":"dashboard","dashboard\u001fcreator-map":["dashboard","creator-map"],"dashboard\u001fresearch-hub":["dashboard","research-hub"],"data":"data","docs":"docs","expert-{0}\u001f{1}\u001f{2}-{3}-{4}-expert-{5}":["expert-{0}","{1}","{2}-{3}-{4}-expert-{5}"],"fal.ai carousel trial (frozen reference)":"ניסוי קרוסלות ב-fal.ai (רפרנס קפוא)","form":"form","is a pair of a name and a value: the name is\u001f, the value is\u001f.":["זה זוג של שם וערך: השם הוא",", הערך הוא","."],"is the Hebrew home page.\u001fis the page of the book \"Bye Bye Pacifier\",\u001f(\u001f).":["זה עמוד הבית בעברית.","זה עמוד הספר \"ביי ביי מוצץ\",","(",")."],"is the site.":"זה האתר.","joins one pair to the next.":"מחבר בין זוג אחד לזוג הבא.","kid-{0}\u001f{1}\u001f{2}-{3}-{4}-kid-{5}":["kid-{0}","{1}","{2}-{3}-{4}-kid-{5}"],"local":"local","media":"media","page":"page","pipeline":"pipeline","research-hub":"research-hub","says: information starts here, not an address.":"אומר: מכאן מתחיל מידע, לא כתובת.","shared":"shared","site":"site","the line that leads to a page. The part before the question mark decides which page opens.":"השורה שמובילה לעמוד. החלק לפני סימן השאלה קובע איזה עמוד נפתח.","{0}\u001fof {1} lessons passed":["{0}","מתוך {1} שיעורים עברו"],"{0} Nov to {1} Nov":"{0} בנוב' עד {1} בנוב'","{0} Nov to {1} Nov · {2} of {3} passed":"{0} בנוב עד {1} בנוב · {2} מתוך {3} עברו","{0} Oct to {1} Oct":"{0} באוק' עד {1} באוק'","{0}% of lessons passed":"{0}% מהשיעורים עברו","{0}-all\u001fNaN.NaN\u001f{1}-{2}-all":["{0}-all","NaN.NaN","{1}-{2}-all"],"{0}-reco\u001f{1}\u001f{2}-{3}-{4}-reco":["{0}-reco","{1}","{2}-{3}-{4}-reco"],"{0}-weeks\u001fNaN.NaN\u001f{1}-{2}-weeks":["{0}-weeks","NaN.NaN","{1}-{2}-weeks"],"{0}. In the link\u001f, which part tells the store where the visitor came from?":["{0}. בלינק",", איזה חלק אומר לחנות מאיפה המבקר הגיע?"],"{0}. One parent clicks a link to book {1} with tags, another parent clicks the same link without tags. What does each of them see?":"{0}. הורה אחד לוחץ על לינק לספר {1} עם תיוגים, הורה אחר לוחץ על אותו לינק בלי תיוגים. מה כל אחד מהם רואה?","{0}. Why tag every link right now, when no screen shows the tags yet?":"{0}. למה לתייג כל לינק עכשיו, כשאין עדיין מסך שמציג את התיוגים?"}}}</script>
+<!-- lumebook-i18n:end -->

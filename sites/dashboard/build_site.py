@@ -7,8 +7,8 @@ ArtifactData list with out_dir) into sites/dashboard/lumebook-dashboard.html, wh
 runs read-only with no live connections.
 
 Output: sites/dashboard/site/lumebook-dashboard/index.html (deploy that folder with
-`npx vercel deploy --prod --yes`). Also copies the SMM plan to /plan/ and the research pages that
-have a `web` address on this site in shared/facts.json to /research/<slug>/ (since 05 Nov 2026).
+`npx vercel deploy --prod --yes`). Also copies the research pages that have a `web` address on this site in
+shared/facts.json to /research/<slug>/ (since 05 Nov 2026). The SMM plan at /plan/ was retired on 8 Nov 2026.
 """
 import glob, json, os, re, shutil
 
@@ -26,6 +26,38 @@ def load(p, default=None):
             return json.load(f)
     except (OSError, ValueError):
         return default
+
+
+# The store's ambassador Sheet, person by person (names, Instagram handles, personal-link slugs, open payout requests),
+# never goes into this static copy: the Vercel site has no sign-in (audit of 08 Nov 2026). The counts and totals stay.
+# HQ on the project server reads the rows live from /api/home and the claude.ai artifact from its own database.
+AMBASSADOR_PRIVATE = ("rows", "payouts_open")
+
+
+def redact_ambassadors(section):
+    if not isinstance(section, dict):
+        return section
+    out = {k: v for k, v in section.items() if k not in AMBASSADOR_PRIVATE}
+    out["payouts_open_count"] = len(section.get("payouts_open") or [])
+    out["redacted"] = True
+    return out
+
+
+def public_snapshot(snap):
+    """The snapshot as the static copy may show it: no per-person ambassador data, in any of the places it appears."""
+    snap = dict(snap)
+    if snap.get("signups"):
+        snap["signups"] = redact_ambassadors(snap["signups"])
+    home = snap.get("home")
+    if isinstance(home, dict):
+        home = dict(home)
+        if home.get("ambassadors"):
+            home["ambassadors"] = redact_ambassadors(home["ambassadors"])
+        # home_stats.attention() names the ambassador of an open payout request; keep the item, drop the name
+        home["attention"] = [dict(a, text="בקשת מימוש פתוחה של שגריר") if a.get("tag") == "שגרירים" and str(a.get("text", "")).startswith("בקשת")
+                             else a for a in (home.get("attention") or [])]
+        snap["home"] = home
+    return snap
 
 
 def main():
@@ -46,7 +78,7 @@ def main():
 
     page = open(os.path.join(HERE, "lumebook-dashboard.html"), encoding="utf-8").read()
     head, body = page.split('<div class="lb-app', 1)   # the app shell (lb-app, with no-sidebar since 5 Nov 2026)
-    data = json.dumps({"snap": snap, "history": history, "tracker": tracker}, ensure_ascii=False).replace("</", "<\\/")
+    data = json.dumps({"snap": public_snapshot(snap), "history": history, "tracker": tracker}, ensure_ascii=False).replace("</", "<\\/")
     doc = (
         '<!doctype html><html lang="he"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
@@ -74,17 +106,8 @@ def main():
     shutil.copy2(os.path.join(ROOT, "shared", "design", "categories.css"), os.path.join(SITE, "design", "categories.css"))
     shutil.copy2(os.path.join(ROOT, "shared", "design", "icons.js"), os.path.join(SITE, "design", "icons.js"))   # the icon set (5 Nov 2026)
     shutil.copy2(os.path.join(ROOT, "shared", "design", "nav.js"), os.path.join(SITE, "design", "nav.js"))   # the project nav (5 Nov 2026)
-    # the full SMM plan lives inside this site at /plan/ (its own Vercel project was retired on 8 Oct 2026)
-    plan_src, plan_dst = os.path.join(ROOT, "sites", "lumebook-smm-plan"), os.path.join(SITE, "plan")
-    shutil.rmtree(plan_dst, ignore_errors=True)
-    shutil.copytree(plan_src, plan_dst, ignore=shutil.ignore_patterns(".*", "*.md", "__pycache__"))
-    plan_html = os.path.join(plan_dst, "index.html")
-    with open(plan_html, encoding="utf-8") as f:
-        ph = f.read()
-    if 'name="robots"' not in ph:
-        ph = ph.replace("<head>", '<head>\n<meta name="robots" content="noindex, nofollow">', 1)
-    with open(plan_html, "w", encoding="utf-8") as f:
-        f.write(ph)
+    # the SMM plan at /plan/ was retired on 8 Nov 2026 (Yarin: "kill this one as well"); an old copy is removed from the site
+    shutil.rmtree(os.path.join(SITE, "plan"), ignore_errors=True)
     research = copy_research()
     with open(os.path.join(SITE, "vercel.json"), "w", encoding="utf-8") as f:
         json.dump({"headers": [{"source": "/(.*)", "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]}]}, f, indent=2)

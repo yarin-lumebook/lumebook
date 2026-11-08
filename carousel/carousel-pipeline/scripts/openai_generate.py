@@ -144,13 +144,32 @@ def execute(run, name, max_usd, dry_run, replacement=False, client=None, cfg=Non
             run.log({**record, "status": "error", "error": str(exc)[:300], "http": exc.status, "code": exc.code, "billed": exc.billed,
                      "estimated_cost_usd": est["usd"] if exc.billed else 0, "seconds": round(time.time() - start, 1)})
             raise RuntimeError(f"{name} failed: {exc}. Other jobs are untouched; rerun the same command to resume.")
+        except Exception as exc:
+            # anything else once the request was on its way (an answer cut off or unreadable after a 200, a bad picture
+            # payload): the outcome is unknown, so it counts as spent at the estimate, like a dropped connection
+            # (audit of 08 Nov 2026: these left the job "running" with nothing in the spend log)
+            st["status"] = "failed"
+            run.save()
+            run.log({**record, "status": "error", "error": f"{type(exc).__name__}: {exc}"[:300], "billed": True,
+                     "estimated_cost_usd": est["usd"], "cost_basis": "estimate", "seconds": round(time.time() - start, 1)})
+            raise RuntimeError(f"{name} failed ({type(exc).__name__}); counted as spent because the outcome is unknown. "
+                               "Other jobs are untouched; rerun the same command to resume.")
         cost = op.usage_cost(usage, cfg)
         originals = run.gen / "openai-originals"
         originals.mkdir(parents=True, exist_ok=True)
         raw = originals / f"{name}-attempt{st['attempts']}.png"
         raw.write_bytes(png)
         out = run.gen / f"{name}.png"
-        op.normalize(raw, out)
+        try:
+            op.normalize(raw, out)
+        except Exception as exc:   # the picture is made and paid: log it before anything else
+            st["status"] = "failed"
+            run.save()
+            run.log({**record, "status": "error", "error": f"crop: {type(exc).__name__}: {exc}"[:300], "request_id": request_id,
+                     "usage": usage, "estimated_cost_usd": cost, "billed": True, "cost_basis": "usage",
+                     "seconds": round(time.time() - start, 1), "file": raw.name})
+            raise RuntimeError(f"{name}: the picture was made and paid (${cost:.4f}) but could not be cropped ({exc}); "
+                               f"the original is {raw}. A rerun makes and pays for a new one.")
         st.update({"status": "done", "qa": None, "request_id": request_id})
         run.save()
         run.log({**record, "status": "ok", "request_id": request_id, "usage": usage, "estimated_cost_usd": cost, "billed": True,

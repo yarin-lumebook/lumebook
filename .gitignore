@@ -64,6 +64,11 @@ media/**/*.m4a
 media/**/*.wav
 media/**/*.opus
 media/**/*.srt
+# (08 Nov 2026 audit) iPhone and web formats the list above missed
+media/**/*.heic
+media/**/*.webm
+media/**/*.m4v
+media/**/*.avif
 media/inbox/*
 !media/inbox/README.md
 
@@ -101,6 +106,8 @@ shared/design/_ds_artifact/
 
 # creator map saved data on the project server (statuses, notes, settings, voice; moved from the artifact database 20 Oct 2026)
 creators/creator-research/state/
+# creators' Instagram profile pictures for the cards (refresh/pics.py, 8 Nov 2026): re-downloadable media, kept on disk only
+creators/creator-research/avatars/
 # weekly refresh: comment text read from Instagram until it is checked (refresh/comments.py), private
 creators/creator-research/src/refresh/cache/
 # account handoff (26 Oct 2026): the dashboard artifact database as exported from the old Claude account, private

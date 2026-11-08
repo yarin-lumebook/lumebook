@@ -19,6 +19,11 @@ waits for approval and the cloud buttons. Everything loads from /api/state; old 
 /productions, /packs) open this page.
 Design system tokens and lb- components; Heebo for the interface, the pillar fonts only on the slide cards.
 
+Yarin, 8 Nov 2026: "i want the carousel machine to have the same design treatment as the creator map and the reel
+calendar". The shell is theirs now: lb-app with a page sidebar (the views with counts, the posting days, the batch menu and
+the cloud buttons), a sticky glass top bar (title, grading meter, search, what waits for approval), each day a glass card
+and the picks a glass panel on the left; one page scroll and no scrollbars (lumebook.css).
+
 Story packs (copy_style "story", story-format.md, 29 Oct 2026): each option shows its structure, the slides (9 to 12)
 are drawn in the story look (create_review.STORY_CSS and STORY_JS: ink or the slide's picture, cream Varela Round,
 gold labels and emphasis, the cream card, the letter sheet), and each slide's label, headline, body (markup kept) and
@@ -191,26 +196,37 @@ def state(batch_id=None):
 
 
 APP_CSS = """
-:root{--font-display:var(--font);--hs-top:3.5rem}
-html,body{height:100%}
-body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);direction:rtl;text-align:right;-webkit-font-smoothing:antialiased;overflow:hidden}
+:root{--font-display:var(--font)}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);direction:rtl;text-align:right;-webkit-font-smoothing:antialiased}
 button{font-family:inherit}
-/* the top bar is an lb-topbar (bar ground, blur, hairline) laid out full width without lb-topbar-in; the brand is lb-brand */
-.hs-top{position:relative;top:auto;z-index:30;height:var(--hs-top);display:flex;align-items:center;gap:var(--sp-3);padding-inline:var(--sp-4)}
-.hs-week{font:inherit;font-size:var(--fs-footnote);color:var(--text-2);background:var(--fill);border:0;border-radius:var(--r-sm);padding:.3rem .6rem}
-.hs-meter{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-footnote);color:var(--text-2);white-space:nowrap;font-variant-numeric:tabular-nums}
-.hs-meter .lb-bar{width:8rem}
+/* The shell (8 Nov 2026, Yarin: "i want the carousel machine to have the same design treatment as the creator map and the reel
+   calendar"): lb-app with the page's own sidebar (lb-sidebar: the views with their counts, the days of the batch, the batch
+   menu and the cloud buttons), a sticky glass top bar (lb-topbar lb-edge) with the view's title, the grading meter, one
+   search and the actions, each day as a glass card (lb-glass-card), and the picks as a glass panel on the left. The page
+   scrolls as one; no scrollbar is drawn anywhere (lumebook.css). */
+.hs-shell{grid-template-columns:var(--sidebar-w) minmax(0,1fr) 20rem}
+.hs-side .lb-brand span{display:grid;gap:1px;min-width:0}
+.hs-side .lb-nav-item{min-width:0}
+.hs-side .lb-nav-item .dd{display:grid;gap:1px;min-width:0;line-height:1.25}
+.hs-side .lb-nav-item .dd small{font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hs-side .hs-week{width:100%}
+.hs-side .lb-sidebar-foot .lb-row{gap:var(--sp-1)}
+.hs-side .lb-sidebar-foot .lb-btn{flex:1;justify-content:center}
+.hs-top .lb-topbar-in{max-width:none;gap:var(--sp-3);padding-inline:var(--sp-5)}
+.hs-top h1{font-size:var(--fs-title);font-weight:700;letter-spacing:-.014em;white-space:nowrap}
+.hs-meter{display:flex;align-items:center;gap:var(--sp-2);font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:600;color:var(--text-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.hs-meter .lb-bar{width:7rem}
 .hs-meter .lb-bar i{transition:width .3s}
-.hs-sp{flex:1}
+.hs-search{flex:0 1 17rem;min-width:9rem}
 .hs-pickbtn{display:none}
-.hs-app{display:grid;grid-template-columns:minmax(0,1fr) 21rem;height:calc(100vh - var(--hs-top) - var(--lb-gnav-space, 0px))}
-.hs-main{overflow-y:auto;min-width:0;padding:0 var(--sp-6) var(--sp-7);container-type:inline-size}
-.hs-filter{position:sticky;top:0;z-index:3;background:var(--bg);padding:var(--sp-4) 0 var(--sp-3)}
-.hs-filter .lb-segmented{display:flex;max-width:30rem}
-.hs-filter .lb-segmented button{flex:1;padding-inline:.3rem}
-.hs-group{margin-top:var(--sp-4)}
-.hs-group>h2{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-headline);font-weight:600;letter-spacing:-.01em;margin:0 0 var(--sp-3)}
-.hs-group>h2 .n{font-family:var(--font-2);color:var(--text-3);font-variant-numeric:tabular-nums}
+.hs-page{max-width:none;padding:var(--sp-4) var(--sp-5) var(--sp-7);gap:var(--sp-4)}
+#hs-groups{display:grid;gap:var(--sp-4);container-type:inline-size;min-width:0}
+.hs-group{border-radius:var(--r-lg);padding:var(--sp-4) var(--sp-5) var(--sp-5);scroll-margin-top:5.5rem;min-width:0}
+.hs-group>h2{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-headline);font-weight:700;letter-spacing:-.01em;margin:0 0 var(--sp-3)}
+.hs-group>h2 .n{display:inline-grid;place-items:center;min-width:1.7rem;height:1.7rem;padding-inline:.35rem;border-radius:var(--r-pill);background:var(--fill-2);font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;color:var(--text-2);font-variant-numeric:tabular-nums}
+.hs-group>h2 .d{font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:600;color:var(--text-3);margin-inline-start:auto}
+.hs-sp{flex:1}
+.hs-group.is-flash{box-shadow:var(--glass-card-rim),0 0 0 3px var(--tint-soft),var(--glass-card-lift)}
 .hs-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-5) var(--sp-4)} /* a topic's 3 kid and 3 expert options: one row each, or all six on one row */
 @container (min-width:60rem){.hs-cards{grid-template-columns:repeat(6,minmax(0,1fr))}}
 /* A day since 24 Oct 2026: two topics side by side, each with its three child-voice options */
@@ -232,7 +248,7 @@ button{font-family:inherit}
 .gc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:2px var(--sp-2);font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);min-width:0}
 .gc-meta .who{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gc-meta .lb-chip{flex:none;font-size:var(--fs-caption);padding-inline:.45rem} /* compact chips under a thumbnail */
-.hs-picks{overflow-y:auto;background:var(--surface);border-inline-start:1px solid var(--line);padding:var(--sp-5) var(--sp-4) var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-3)}
+.hs-picks{position:sticky;top:calc(var(--lb-gnav-top, 0px) + .625rem);height:calc(100vh - var(--lb-gnav-top, 0px) - 1.25rem);margin:.625rem;margin-inline-start:0;overflow-y:auto;border-radius:var(--r-xl);background:var(--glass-sheen),var(--glass-card);box-shadow:var(--glass-card-rim),var(--glass-card-lift);padding:var(--sp-5) var(--sp-4) var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3);min-width:0}
 .pk-head{display:flex;align-items:baseline;gap:var(--sp-2)}
 .pk-head h2{margin:0;font-size:var(--fs-headline);font-weight:700}
 .pk-head .c{font-family:var(--font-2);color:var(--text-3);font-variant-numeric:tabular-nums}
@@ -255,13 +271,13 @@ button{font-family:inherit}
 .hs-picks .hs-foot{margin-top:auto;padding:var(--sp-4) 0 0}
 .hs-open{position:fixed;inset:0;z-index:50;background:var(--overlay);display:flex;justify-content:center;padding:var(--sp-5)}
 .hs-open[hidden]{display:none}
-.op-sheet{width:min(100%,88rem);display:flex;flex-direction:column;background:var(--bg);border-radius:var(--r-lg);box-shadow:var(--shadow-3);overflow:hidden;animation:op-in .18s ease}
+.op-sheet{width:min(100%,88rem);display:flex;flex-direction:column;background:var(--glass-sheen),var(--glass-thick);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter);border-radius:var(--r-xl);box-shadow:var(--glass-card-rim),var(--shadow-3);overflow:hidden;animation:op-in .18s var(--ease-spring,ease)}
 @keyframes op-in{from{opacity:0;transform:scale(.985)}}
-.op-bar{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--line);background:var(--surface)}
+.op-bar{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3) var(--sp-4);background:var(--glass-sheen),var(--glass-thick);box-shadow:var(--glass-edge)}
 .op-bar .pos{font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-3);font-variant-numeric:tabular-nums;min-width:5.5rem;text-align:center}
 .op-body{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 20rem}
 .hs-stage{overflow-y:auto;padding:var(--sp-5) var(--sp-6) var(--sp-7);min-width:0;position:relative}
-.hs-insp{overflow-y:auto;background:var(--surface);border-inline-start:1px solid var(--line);padding:var(--sp-4) var(--sp-4) var(--sp-7);display:grid;gap:var(--sp-5);align-content:start}
+.hs-insp{overflow-y:auto;background:var(--glass-sheen),var(--glass-card);box-shadow:var(--glass-card-rim);margin:var(--sp-3);margin-inline-end:0;border-radius:var(--r-lg);padding:var(--sp-4) var(--sp-4) var(--sp-7);display:grid;gap:var(--sp-5);align-content:start}
 .hs-kind{width:.5rem;height:.5rem;border-radius:50%;flex:none}
 .hs-kind.kid{background:var(--kid)}.hs-kind.expert{background:var(--accent)}.hs-kind.reco{background:var(--info)}
 .hs-badge{display:inline-flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;border-radius:var(--r-xs);font-weight:700;font-size:var(--fs-caption);background:var(--fill-2);color:var(--text-3);font-variant-numeric:tabular-nums}
@@ -386,29 +402,36 @@ pre.lb-callout{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
 .ss-book{background:var(--surface-2);border-radius:var(--r-sm);padding:var(--sp-2);font-size:var(--fs-callout);line-height:1.6;color:var(--text)}
 .ss-key{font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);margin:0 0 var(--sp-3)}
 .ss-key code{font-family:inherit;font-weight:700;color:var(--accent-ink);background:var(--accent-soft);border-radius:4px;padding:0 .3rem;margin-inline-end:.2rem}
-@media (max-width:1200px){.hs-app{grid-template-columns:minmax(0,1fr) 18rem}.op-body{grid-template-columns:minmax(0,1fr) 18rem}.hs-main{padding-inline:var(--sp-5)}.hs-stage{padding-inline:var(--sp-5)}.st-save{margin-inline:calc(-1 * var(--sp-5))}.hs-meter .lb-bar{display:none}}
-@media (max-width:900px){
-  body{overflow:auto}
-  .hs-top{position:sticky;top:var(--lb-gnav-top, 0px);padding-inline:var(--sp-3);gap:var(--sp-2)}
+@media (max-width:1280px){.hs-shell{grid-template-columns:var(--sidebar-w) minmax(0,1fr) 17.5rem}.op-body{grid-template-columns:minmax(0,1fr) 18rem}.hs-stage{padding-inline:var(--sp-5)}.st-save{margin-inline:calc(-1 * var(--sp-5))}.hs-meter .lb-bar{display:none}}
+@media (max-width:1100px){
+  .hs-shell{grid-template-columns:var(--sidebar-w) minmax(0,1fr)}
   .hs-pickbtn{display:inline-flex}
-  .hs-week,.hs-meter span,.hs-top .opt{display:none}
-  .hs-app{display:block;height:auto}
-  .hs-main{overflow:visible;padding:0 var(--sp-4) var(--sp-6)}
-  .hs-filter{top:calc(var(--hs-top) + var(--lb-gnav-top, 0px))}
+  .hs-picks{position:fixed;top:.5rem;bottom:.5rem;height:auto;inset-inline-end:.5rem;margin:0;width:min(88vw,22rem);z-index:40;transform:translateX(-110%);visibility:hidden;transition:transform .22s var(--ease,ease),visibility 0s linear .22s;box-shadow:var(--glass-card-rim),var(--shadow-3)}
+  .hs-picks.open{transform:none;visibility:visible;transition:transform .22s var(--ease,ease)}
+}
+@media (max-width:860px){
+  .hs-shell{grid-template-columns:minmax(0,1fr)}
+  .hs-top .lb-topbar-in{padding-inline:var(--sp-3);gap:var(--sp-2);flex-wrap:wrap;padding-block:var(--sp-2)}
+  .hs-top h1{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .hs-meter{display:none}
+  .hs-top .lb-spacer{display:none}
+  .hs-search{order:9;flex:1 1 100%;min-width:0}
+  .hs-day,.hs-lane,.hs-cards,.gc,.gc-meta{min-width:0}
+  .hs-page{padding:var(--sp-3) var(--sp-3) var(--sp-6)}
+  .hs-group{padding:var(--sp-3) var(--sp-3) var(--sp-4)}
   .hs-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-4) var(--sp-3)}
-  .hs-picks{position:fixed;top:calc(var(--hs-top) + var(--lb-gnav-top, 0px));bottom:0;inset-inline-end:0;width:min(88vw,22rem);z-index:40;transform:translateX(-100%);transition:transform .2s ease;box-shadow:var(--shadow-3)}
-  .hs-picks.open{transform:none}
   .hs-open{padding:0}
   .op-sheet{border-radius:0}
   .op-body{display:block;overflow-y:auto}
   .hs-stage{overflow:visible;padding:var(--sp-4)}
-  .hs-insp{overflow:visible;border:0;border-top:1px solid var(--line);padding:var(--sp-4)}
+  .hs-insp{overflow:visible;margin:var(--sp-3);padding:var(--sp-4)}
   .st-slides{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:11rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--sp-2)}
   .st-slides>*{scroll-snap-align:start}
   .st-save{margin:var(--sp-4) calc(-1 * var(--sp-4)) 0;padding-inline:var(--sp-4)}
   .ss-deck{grid-template-columns:minmax(0,1fr)}
   .ss-row{grid-template-columns:9.5rem minmax(0,1fr)}
 }
+@media (max-width:560px){.hs-top h1{font-size:var(--fs-headline)}.hs-top .opt{display:none}}
 @media (max-width:480px){.ss-row,.ss-row.book{grid-template-columns:minmax(0,1fr)}.ss-prev{max-width:15rem}}
 """
 
@@ -424,7 +447,8 @@ const DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 
 const BUSY = ['queued', 'fixing', 'preparing', 'generating', 'composing', 'exporting'];
 const ASKING = r => r && (r.status === 'review' || r.status === 'approval');
 const CHIP = {kid: 'kid', expert: 'expert', reco: 'info', review: 'accent', done: 'success', failed: 'danger', busy: 'tint'};   // lb-chip colour of a kind or a run state   // waiting for Yarin: the picture to approve, or the budget and yes
-let cur = null, filter = 'all', whyTimer = null, poller = null, zoomN = 0, saving = false;
+let cur = null, filter = 'all', query = '', whyTimer = null, poller = null, zoomN = 0, saving = false;
+const VIEW_TITLE = {all: 'כל הקרוסלות', open: 'לדירוג', pick: 'הפקה', review: 'מחכות לאישור'};
 const orig = new Map();
 const lastSave = {};
 const $ = s => document.querySelector(s);
@@ -451,9 +475,13 @@ function statusPill(r) {
 }
 
 /* ---------- the grid: slide 1 of every carousel ---------- */
+const inView = (it, f) => { const s = g(it.key), r = run(it.key);
+  if (f === 'open') return !s.score; if (f === 'pick') return !!s.produce || !!r; if (f === 'review') return ASKING(r); return true; };
+// the search in the top bar (8 Nov 2026): the cover, the topic, the child, the option id, the structure
+const hay = it => [it.cover, it.title, it.topic_he, (it.day_topics || []).join(' '), it.child_name, it.id, it.structure_he].filter(Boolean).join(' ').toLowerCase();
 function visible() {
-  return S.items.filter(it => { const s = g(it.key), r = run(it.key);
-    if (filter === 'open') return !s.score; if (filter === 'pick') return !!s.produce || !!r; if (filter === 'review') return ASKING(r); return true; });
+  const q = query.trim().toLowerCase();
+  return S.items.filter(it => inView(it, filter) && (!q || hay(it).includes(q)));
 }
 const who = it => it.kind === 'reco' ? `${it.id === 'reco' ? 'משחקים וספרים 1' : 'משחקים וספרים 2'} · ${it.skill_he}` : `${it.id}${it.child_name ? ' · ' + it.child_name : ''}`;
 function firstImage(it) { const r = run(it.key); return (r && r.status === 'done' && (r.slides || [])[0]) || (it.images || [])[0] || ''; }
@@ -480,8 +508,9 @@ function renderGrid() {
   let slot = null, cards = null, dayBox = null, lane = null;
   visible().forEach(it => {
     if (it.slot !== slot) {
-      slot = it.slot; lane = null; const sec = el('section', 'hs-group'), h = el('h2');
+      slot = it.slot; lane = null; const sec = el('section', 'hs-group lb-glass-card'), h = el('h2'); sec.id = 'slot-' + it.slot;
       h.append(el('span', 'n', String(it.slot)), el('span', null, it.day_topics ? it.day_topics.join(' · ') : it.topic_he)); if (it.event) h.append(el('span', 'lb-chip accent', 'אירוע'));
+      if (it.date) h.append(el('span', 'd', day(it.date)));
       if (it.day_topics) { dayBox = el('div', 'hs-day'); cards = null; sec.append(h, dayBox); }   // two topics a day (24 Oct 2026)
       else { dayBox = null; cards = el('div', 'hs-cards'); sec.append(h, cards); }
       box.append(sec);
@@ -492,10 +521,37 @@ function renderGrid() {
     }
     cards.append(card(it));
   });
-  if (!box.children.length) box.append(el('p', 'hs-empty', 'אין כאן קרוסלות בסינון הזה'));
-  document.querySelectorAll('.hs-filter button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.f === filter)));
+  if (!box.children.length) box.append(el('p', 'hs-empty', query ? 'אין קרוסלה שמתאימה לחיפוש' : 'אין כאן קרוסלות בסינון הזה'));
+  renderSide();
   meter();
 }
+
+/* ---------- the page sidebar: the views with their counts and the days of the batch (8 Nov 2026) ---------- */
+function renderSide() {
+  document.querySelectorAll('.hs-side [data-f]').forEach(b => {
+    const on = b.dataset.f === filter; if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    const n = S.items.filter(it => inView(it, b.dataset.f)).length, c = $('#hs-n-' + b.dataset.f); if (c) c.textContent = n ? String(n) : '';
+  });
+  $('#hs-title').textContent = query ? `חיפוש: ${query}` : VIEW_TITLE[filter];
+  const days = $('#hs-days'); days.textContent = '';
+  const seen = new Set(), shown = new Set(visible().map(it => it.slot));
+  S.items.forEach(it => {
+    if (seen.has(it.slot)) return; seen.add(it.slot);
+    const b = el('button', 'lb-nav-item'); b.type = 'button'; b.dataset.day = it.slot; if (!shown.has(it.slot)) b.style.opacity = '.45';
+    const dd = el('span', 'dd'); dd.append(el('span', null, it.date ? day(it.date) : 'יום ' + it.slot), el('small', null, it.day_topics ? it.day_topics.join(' · ') : it.topic_he));
+    b.append(dd, el('span', 'lb-nav-n', String(S.items.filter(x => x.slot === it.slot && inView(x, filter)).length || '')));
+    b.onclick = () => goDay(it.slot); days.append(b);
+  });
+}
+function goDay(slot) {
+  closeSide();
+  if (!document.getElementById('slot-' + slot)) { filter = 'all'; query = ''; $('#hs-q').value = ''; renderGrid(); }
+  const sec = document.getElementById('slot-' + slot); if (!sec) return;
+  sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
+  sec.classList.add('is-flash'); setTimeout(() => sec.classList.remove('is-flash'), 1400);
+}
+function openSide() { $('#hs-side').classList.add('is-open'); $('#hs-scrim').hidden = false; $('#hs-menu').setAttribute('aria-expanded', 'true'); }
+function closeSide() { $('#hs-side').classList.remove('is-open'); $('#hs-scrim').hidden = true; $('#hs-menu').setAttribute('aria-expanded', 'false'); }
 
 /* ---------- the side panel: what is picked to produce ---------- */
 const RUN_ORDER = s => s === 'review' || s === 'approval' ? 0 : BUSY.includes(s) ? 1 : s === 'failed' ? 2 : 3;
@@ -889,7 +945,10 @@ async function closeCar() {
 function step(d) { const list = visible(); const i = list.findIndex(x => x.key === cur); const n = list[i + d] || (i < 0 ? list[0] : null); if (n) openCar(n.key); }
 function zoom(n) { const it = item(cur); if (!it.images || !it.images.length) return; zoomN = (n + it.images.length) % it.images.length; $('#hs-box img').src = it.images[zoomN]; $('#hs-box').classList.add('open'); }
 
-document.querySelectorAll('.hs-filter button').forEach(b => b.onclick = () => { filter = b.dataset.f; renderGrid(); if (isOpen()) renderInsp(); });
+document.querySelectorAll('.hs-side [data-f]').forEach(b => b.onclick = () => { filter = b.dataset.f; closeSide(); renderGrid(); window.scrollTo({top: 0}); if (isOpen()) renderInsp(); });
+$('#hs-q').oninput = e => { query = e.target.value; renderGrid(); };
+$('#hs-menu').onclick = () => $('#hs-side').classList.contains('is-open') ? closeSide() : openSide();
+$('#hs-scrim').onclick = () => closeSide();
 $('#hs-review').onclick = () => { filter = 'review'; renderGrid(); const f = visible()[0]; if (f) openCar(f.key); };
 $('#hs-pickbtn').onclick = () => $('#hs-picks').classList.toggle('open');
 $('#op-close').onclick = () => closeCar();
@@ -919,7 +978,7 @@ document.addEventListener('keydown', e => {
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') { e.preventDefault(); saveEdits(); return; }
   if ($('#hs-box').classList.contains('open')) { if (e.key === 'Escape') $('#hs-box').classList.remove('open'); else if (e.key === 'ArrowLeft') zoom(zoomN + 1); else if (e.key === 'ArrowRight') zoom(zoomN - 1); return; }
   if (e.target.closest('[contenteditable], textarea, input, select') || e.metaKey || e.ctrlKey || e.altKey) { if (e.key === 'Escape') e.target.blur(); return; }
-  if (e.key === 'Escape') { if ($('#hs-picks').classList.contains('open')) closePicks(); else if (isOpen()) closeCar(); return; }
+  if (e.key === 'Escape') { if ($('#hs-side').classList.contains('is-open')) closeSide(); else if ($('#hs-picks').classList.contains('open')) closePicks(); else if (isOpen()) closeCar(); return; }
   if (!isOpen()) return;
   if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); step(1); }
   else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); step(-1); }
@@ -943,34 +1002,47 @@ def app_page(batch_id=None):
     design = create_review.design
     st = state(batch_id)
     blob = json.dumps(st, ensure_ascii=False).replace("</", "<\\/")
-    weeks = "".join(f'<option value="{esc(b)}"{" selected" if b == st["batch"] else ""}>שבוע {esc(b)}</option>' for b in st["batches"])
-    filt = "".join(f'<button type="button" data-f="{k}" aria-pressed="false">{v}</button>'
-                   for k, v in (("all", "הכול"), ("open", "לדירוג"), ("pick", "הפקה"), ("review", "לאישור")))
+    weeks = "".join(f'<option value="{esc(b)}"{" selected" if b == st["batch"] else ""}>חבילה {esc(b)}</option>' for b in st["batches"])
+    # the views, with their counts (8 Nov 2026: the sidebar of the creator map and the reel calendar)
+    views = "".join(f'<button type="button" class="lb-nav-item" data-f="{k}">{design.icon(ic)}<span class="lb-nav-text">{v}</span><span class="lb-nav-n" id="hs-n-{k}"></span></button>'
+                    for k, v, ic in (("all", "כל הקרוסלות", "slides"), ("open", "לדירוג", "bars"), ("pick", "הפקה", "target"), ("review", "מחכות לאישור", "clock")))
     fonts = ('<style>@font-face{font-family:"Rubik Slide";src:url("/assets/fonts/Rubik-VariableFont_wght.ttf") format("truetype");font-weight:300 900}'
              '@font-face{font-family:"Heebo Slide";src:url("/assets/fonts/Heebo-Black.ttf") format("truetype");font-weight:900}'
              # the story look's Varela Round (review_server.py serves /assets/fonts/ from shared/brand/fonts when the pipeline has no copy)
              + create_review.story_fonts_css("/assets/fonts") + '</style>')
+    search = ('<label class="lb-search hs-search"><span class="lb-sr">חיפוש קרוסלה</span>' + design.icon("search")
+              + '<input class="lb-input" id="hs-q" type="search" placeholder="חיפוש: נושא, ילד, פתיח" autocomplete="off"></label>')
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<title>Carousel Machine</title>{design.head()}{fonts}<style>{create_review.STORY_CSS}{compose_slides.BOOKLET_CSS}{APP_CSS}</style></head>\n<body dir="rtl">'
-            '<header class="lb-topbar hs-top">'
-            f'<span class="lb-brand"><img src="{design.logo_data_uri()}" alt=""><b>Carousel Machine</b></span>'
-            f'<select class="hs-week" id="hs-week" aria-label="שבוע">{weeks}</select>'
+            f'<title>מכונת הקרוסלות</title>{design.head()}{fonts}<style>{create_review.STORY_CSS}{compose_slides.BOOKLET_CSS}{APP_CSS}</style></head>\n<body dir="rtl">'
+            '<div class="lb-app hs-shell" dir="rtl" lang="he">'
+            '<aside class="lb-sidebar hs-side" id="hs-side" aria-label="מכונת הקרוסלות">'
+            f'<a class="lb-brand" href="/" ><img src="{design.logo_data_uri()}" alt=""><span><b>מכונת הקרוסלות</b><small id="hs-range">{esc(st.get("week_he", ""))}</small></span></a>'
+            f'<nav class="lb-nav" aria-label="תצוגה"><div class="lb-nav-label">תצוגה</div>{views}</nav>'
+            '<nav class="lb-nav" aria-label="ימי החבילה"><div class="lb-nav-label">ימי הפרסום</div><div id="hs-days"></div></nav>'
+            '<div class="lb-sidebar-foot">'
+            f'<label class="lb-field">החבילה<select class="lb-select hs-week" id="hs-week" aria-label="חבילה">{weeks}</select></label>'
+            '<div class="lb-row"><button class="lb-btn secondary sm" type="button" id="hs-push" hidden>שליחת הדירוגים לענן</button>'
+            f'<button class="lb-btn secondary sm" type="button" id="hs-sync" title="בדיקת חבילות חדשות מהענן">{icon("sync", 16)}בדיקה בענן</button></div>'
+            f'<span>הבאץ\' הבא בענן: {esc(st.get("next_run_he", ""))}</span>'
+            '</div></aside>'
+            '<div class="lb-scrim" id="hs-scrim" hidden></div>'
+            '<main class="lb-main hs-main" aria-label="הקרוסלות של החבילה">'
+            '<header class="lb-topbar lb-edge hs-top"><div class="lb-topbar-in">'
+            f'<button class="lb-btn secondary sm lb-menu-btn" type="button" id="hs-menu" aria-controls="hs-side" aria-expanded="false">{icon("menu", 16)}תפריט</button>'
+            '<h1 id="hs-title">כל הקרוסלות</h1>'
             '<span class="hs-meter"><span id="hs-meter-n"></span><span class="lb-bar is-tint"><i id="hs-meter-bar"></i></span></span>'
-            '<span class="hs-sp"></span>'
-            '<button class="lb-btn secondary sm" type="button" id="hs-review" hidden></button>'
-            '<button class="lb-btn ghost sm opt" type="button" id="hs-push" hidden>שליחת הדירוגים לענן</button>'
-            f'<button class="lb-btn ghost icon sm opt" type="button" id="hs-sync" title="בדיקת חבילות חדשות מהענן" aria-label="בדיקת חבילות חדשות מהענן">{icon("sync", 16)}</button>'
-            '<button class="lb-btn secondary sm hs-pickbtn" type="button" id="hs-pickbtn">להפקה <span id="hs-pickbtn-n"></span></button>'
-            '</header>'
-            '<div class="hs-app">'
-            f'<main class="hs-main" aria-label="הקרוסלות של השבוע"><div class="hs-filter"><div class="lb-segmented" role="group" aria-label="סינון">{filt}</div></div>'
-            '<div id="hs-groups"></div></main>'
+            '<span class="lb-spacer"></span>' + search +
+            '<button class="lb-btn secondary sm opt" type="button" id="hs-review" hidden></button>'
+            '<button class="lb-btn secondary sm hs-pickbtn" type="button" id="hs-pickbtn" aria-controls="hs-picks">להפקה <span id="hs-pickbtn-n"></span></button>'
+            '</div></header>'
+            '<div class="lb-page hs-page"><div id="hs-groups"></div></div>'
+            '</main>'
             '<aside class="hs-picks" id="hs-picks" aria-label="נבחרו להפקה">'
             '<div class="pk-head"><h2>נבחרו להפקה</h2><span class="c" id="pk-count"></span></div>'
             '<div class="pk-send"><button class="lb-btn" type="button" id="hs-send" disabled>להפיק</button><p class="in-keys" id="pk-cost"></p></div>'
             '<div class="pk-list" id="pk-wait"></div>'
             '<h3 class="pk-sub" id="pk-going-h" hidden>בהפקה ומוכנות</h3><div class="pk-list" id="pk-going"></div>'
-            f'<p class="hs-foot">השבוע: {esc(st.get("week_he", ""))}<br>הבאץ\' הבא בענן: {esc(st.get("next_run_he", ""))}</p></aside>'
+            '</aside>'
             '</div>'
             '<div class="hs-open" id="hs-open" role="dialog" aria-modal="true" aria-label="הקרוסלה" hidden><div class="op-sheet">'
             '<div class="op-bar"><button class="lb-btn secondary sm" type="button" id="op-prev">הקודם</button><span class="pos" id="op-pos"></span>'

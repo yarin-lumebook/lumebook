@@ -42,6 +42,9 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+/* no scrollbars anywhere in the project (Yarin, 08 / 11 / 2026); every box still scrolls */
+*, *::before, *::after { scrollbar-width: none !important; }
+::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar) + 1rem); -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: reduce) {
   html:not(.anim) { scroll-behavior: auto; }

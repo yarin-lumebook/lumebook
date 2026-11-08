@@ -217,6 +217,30 @@
     (pop.querySelector('[aria-selected="true"]') || pop.querySelector(".lb-timepick-opt"))?.focus({ preventScroll: true });
   }
 
+  // ---------- dates always read dd / mm / yyyy (Yarin, 08 Nov 2026) ----------
+  // The browser draws a date field in the Mac's own order (mm/dd/yyyy) and the page cannot change that. So the native text is made
+  // transparent (data-dmy) and the day-first text is painted as the field's background (--lb-datetxt, see lumebook.css).
+  const paintDate = (inp) => {
+    if (inp.type !== "date" || !usable(inp) || !inp.classList.contains("lb-input")) return;
+    const cs = getComputedStyle(inp), d = parseISO(inp.value), fs = parseFloat(cs.fontSize) || 16;
+    const txt = d ? `${pad(d.getDate())} / ${pad(d.getMonth() + 1)} / ${d.getFullYear()}` : "dd / mm / yyyy";
+    const fam = (cs.fontFamily || "sans-serif").replace(/["'<>&]/g, "");
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${Math.ceil(fs * 9)}' height='${Math.ceil(fs * 2)}'><text x='0' y='50%' dominant-baseline='central' font-family='${fam}' font-size='${fs}' fill='${cs.color}' fill-opacity='${d ? 1 : 0.45}'>${txt}</text></svg>`;
+    inp.setAttribute("data-dmy", "");
+    inp.style.setProperty("--lb-datetxt", `url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
+  };
+  const paintAll = (root) => { if (root.matches && root.matches("input[type=date]")) paintDate(root); root.querySelectorAll && root.querySelectorAll("input[type=date]").forEach(paintDate); };
+  const valueDesc = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
+  if (valueDesc && valueDesc.set) Object.defineProperty(HTMLInputElement.prototype, "value", { ...valueDesc, set(v) { valueDesc.set.call(this, v); if (this.type === "date") paintDate(this); } });   // pages that set .value in code
+  document.addEventListener("input", (e) => { if (e.target instanceof HTMLInputElement && e.target.type === "date") paintDate(e.target); }, true);
+  document.addEventListener("change", (e) => { if (e.target instanceof HTMLInputElement && e.target.type === "date") paintDate(e.target); }, true);
+  const startPaint = () => {
+    paintAll(document);
+    new MutationObserver((ms) => { for (const m of ms) { if (m.type === "attributes") paintDate(m.target); else m.addedNodes.forEach((n) => n.nodeType === 1 && paintAll(n)); } })
+      .observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["value", "class", "disabled"] });
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", startPaint); else startPaint();
+
   // ---------- wiring: listeners on the document, so selects and fields drawn later work too ----------
   const kind = (t) => {
     if (!(t instanceof Element) || !FINE.matches) return null;

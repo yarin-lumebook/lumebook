@@ -1,5 +1,5 @@
 {
-  "_about": "Component registry for the LumeBook project. tools/lumebook.py reads it to find what changed, what that change affects (feeds), what it can rebuild by itself (build.auto) and what needs a person or Claude (publish). Paths are relative to this folder. Add a component here whenever a new workstream starts.",
+  "_about": "Component registry for the LumeBook project. tools/lumebook.py reads it to find what changed, what that change affects (feeds), what it can rebuild by itself (build.auto) and what needs a person or Claude (publish; publish.local_only, since 08 Nov 2026, marks a claude.ai copy that is kept as it is on purpose: no republish to-do). Paths are relative to this folder. Add a component here whenever a new workstream starts.",
   "version": 1,
   "facts": "shared/facts.json",
   "state": ".lumebook/state.json",
@@ -93,20 +93,13 @@
         "shared/design/icons.json",
         "shared/design/hq-tools.json",
         "shared/design/nav.src.js",
-        "shared/design/controls.src.js"
+        "shared/design/controls.src.js",
+        "shared/design/i18n.src.js"
       ],
       "copies": [
         {
           "from": "shared/design/lumebook.css",
-          "to": "sites/lumebook-smm-plan/lumebook.css"
-        },
-        {
-          "from": "shared/design/lumebook.css",
           "to": "sites/dashboard/design/lumebook.css"
-        },
-        {
-          "from": "shared/design/categories.css",
-          "to": "sites/lumebook-smm-plan/categories.css"
         },
         {
           "from": "shared/design/categories.css",
@@ -119,14 +112,9 @@
         {
           "from": "shared/design/nav.js",
           "to": "sites/dashboard/design/nav.js"
-        },
-        {
-          "from": "shared/design/nav.js",
-          "to": "sites/lumebook-smm-plan/nav.js"
         }
       ],
       "feeds": [
-        "smm-plan",
         "creator-map",
         "competitor-teardown",
         "kids-lab",
@@ -174,7 +162,8 @@
       ],
       "feeds": [
         "carousel-playbook",
-        "carousel-pipeline"
+        "carousel-pipeline",
+        "research-hub"
       ],
       "notes": "The nightly carousel skill reads the brief and playbook sections 4.2, 5, 7, 8 every night."
     },
@@ -186,7 +175,9 @@
         "docs/lumebook-brand-marketing-system.md",
         ".claude/brand-voice-guidelines.md"
       ],
-      "feeds": [],
+      "feeds": [
+        "research-hub"
+      ],
       "notes": "Draft ICP, personas, emotional territory, positioning, proof, messaging, conversion and research plan. Hypotheses are not approved public claims. Hebrew voice rules remain in .claude/skills/lumebook-hebrew-voice. No automatic publishing or pipeline propagation."
     },
     "strategy": {
@@ -213,45 +204,27 @@
         "url": "https://claude.ai/artifact/3GNTuoDk4swPGUarrf4xkp",
         "file": "docs/lumebook-social-strategy.html"
       },
-      "feeds": []
+      "feeds": [
+        "research-hub"
+      ]
     },
     "smm-plan": {
-      "name": "SMM plan site",
-      "path": "sites/lumebook-smm-plan",
+      "name": "SMM plan site (retired)",
+      "path": "_to-delete/sites/lumebook-smm-plan",
       "kind": "site",
-      "watch": [
-        "sites/lumebook-smm-plan/index.html",
-        "sites/lumebook-smm-plan/content.en.md"
-      ],
-      "publish": {
-        "type": "via",
-        "url": "https://lumebook-dashboard.vercel.app/plan/",
-        "note": "ships inside the dashboard site at /plan/ (its own Vercel project was retired 8 Oct 2026)"
-      },
-      "rules": [
-        "Every Hebrew change in index.html is mirrored in content.en.md in the same commit (root .githooks/pre-commit).",
-        "Links lumebook.css, a synced copy of shared/design/lumebook.css (no build step; edited in the site editor)."
-      ],
-      "feeds": [
-        "dashboard"
-      ]
+      "retired": "2026-11-08",
+      "watch": [],
+      "feeds": [],
+      "notes": "Retired on 8 Nov 2026 (Yarin: \"kill this one as well\"). The folder moved to _to-delete/sites/lumebook-smm-plan; the dashboard site no longer serves /plan/ and HQ's overview view (which read its weeks) went the same day."
     },
     "signup-form": {
-      "name": "Creator signup Google Form (Apps Script source)",
+      "name": "Creator signup Google Form (retired)",
       "path": "creators",
       "kind": "form",
-      "watch": [
-        "creators/lumebook-ugc-form.gs"
-      ],
-      "publish": {
-        "type": "manual",
-        "url": "https://docs.google.com/forms/d/1Iupo4um1A65aWE_-paWCpbeOeD3ZkIKYhPxN-T_NtS8/edit",
-        "note": "re-run the script in Apps Script or edit the Form"
-      },
-      "rules": [],
-      "feeds": [
-        "dashboard"
-      ]
+      "retired": "2026-11-08",
+      "watch": [],
+      "feeds": [],
+      "notes": "Retired on 8 Nov 2026 (Yarin: \"kill it i dont use it anymore\" about the Form's responses sheet). HQ's שגרירים view reads the store's ambassador Sheet instead (shared/facts.json links.sheet_id). The Form and the sheet themselves were left untouched in Google; the Apps Script source moved to _to-delete/creators/lumebook-ugc-form.gs."
     },
     "ambassadors": {
       "name": "Ambassadors landing page + creators hub (retired)",
@@ -293,6 +266,7 @@
         "type": "artifact",
         "url": "https://claude.ai/artifact/DCJ2ZT1Y4K8MrcH5bot2Hj",
         "file": "creators/creator-research/lumebook-creator-map.html",
+        "local_only": "08 Nov 2026 (Yarin): the claude.ai copy is frozen since 20 Oct 2026 (the map's data lives on the project server); never republish it, the local page is the current one",
         "repo": true
       },
       "rules": [
@@ -316,7 +290,9 @@
         "research/creator-content-conversion/src/*",
         "research/creator-content-conversion/round2/*"
       ],
-      "feeds": [],
+      "feeds": [
+        "research-hub"
+      ],
       "notes": "report.html is built from report.md content, evidence.md, methodology.md and the CSVs by src/build_page.py (local only, not published: it holds sales figures). Informs creator choice (creator-map) and the four-week tests in the SMM plan. Internal: holds sales figures from docs/lumebook-sales-data-decisions-2026-10-12.md, keep it off public pages. Raw media and raw comments (with usernames) stay out of the repo; src/ has the collection and analysis scripts.",
       "build": {
         "cmd": [
@@ -345,7 +321,9 @@
         "research/israeli-product-reels/smm-research/notes/*",
         "research/israeli-product-reels/src/table/*"
       ],
-      "feeds": [],
+      "feeds": [
+        "research-hub"
+      ],
       "notes": "15 Oct 2026. How to film LumeBook product Reels with a phone, from 173 verified Israeli creator Reels (41 in the morning round, 132 added the evening of 15 Oct): seven approaches, five concepts with linted Hebrew scripts (fallback voice, comment word לומי) and a 60-90 minute first shoot. source-index.md and sources.csv are built by src/build_index.py from src/review.json, src/coded/ and the 15 Oct Instagram counts. Product facts in the scripts were read on lumebook.com on 15 Oct (src/product-facts-2026-10-15.md); re-check price and delivery before posting. Cites internal figures from docs/lumebook-sales-data-decisions-2026-10-12.md, so keep it off public pages. Media (other creators' videos, frames, transcripts) in media/projects/2026-10-15-israeli-product-reels/, not in git and not for re-hosting. 18 Oct 2026: SMM research (four passes, 63 principles with sources and strength, smm-research/notes/ and principles.md built by src/build_principles.py), the 8-question table (src/table/CODE.json per Reel, coded from src/TABLE_BRIEF.md, each why citing principle IDs) and the sample check (src/evidence_check.py: plays per follower and interaction rate with and without each feature, smm-research/sample-check.md). Followers for all 108 creators in src/followers.json (og18 = 18 Oct)."
     },
     "lotem-lerner-carousels": {
@@ -357,7 +335,9 @@
         "research/lotem-lerner-carousels/src/*",
         "research/lotem-lerner-carousels/src/coded/*"
       ],
-      "feeds": [],
+      "feeds": [
+        "research-hub"
+      ],
       "notes": "29 Oct 2026. How a sleep consultant (18.4K) builds carousels: visual, topics, hooks, the three-part point slide, mid-post comment keywords, and what performs. Coded by Sonnet agents from src/AGENT_BRIEF.md, spot-checked by hand. Slides in media/projects/2026-10-29-lotem-lerner-carousels/ (not in git, never re-post)."
     },
     "creator-brief": {
@@ -429,7 +409,8 @@
       "publish": {
         "type": "artifact",
         "url": "https://claude.ai/artifact/3JRcb77z4HcE8PRcVjcpEp",
-        "file": "research/israeli-product-reels/reels-research.html"
+        "file": "research/israeli-product-reels/reels-research.html",
+        "local_only": "08 Nov 2026 (Yarin): the claude.ai copy stays as it is; the page (about 5.9 MB) is too big to read in full before publishing; the local page and the Vercel /research/ copy are the current ones"
       },
       "feeds": [
         "dashboard"
@@ -463,7 +444,8 @@
         "file": "research/competitor-content-analysis/lumebook-competitor-content.html"
       },
       "feeds": [
-        "dashboard"
+        "dashboard",
+        "research-hub"
       ]
     },
     "kids-lab": {
@@ -489,10 +471,13 @@
       "publish": {
         "type": "artifact",
         "url": "https://claude.ai/artifact/4Uaprv274bf69dH5KkQyPY",
-        "file": "research/kids-brand-content-research/lumebook-kids-content-lab.html"
+        "file": "research/kids-brand-content-research/lumebook-kids-content-lab.html",
+        "local_only": "08 Nov 2026 (Yarin): the claude.ai copy stays as it is; the page (about 5.9 MB, 467 pictures) is too big to read in full before publishing; the local page and the Vercel /research/ copy are the current ones"
       },
       "notes": "videos/ (706 MB) and analysis frames are raw research media; re-downloadable with the dl_*.sh scripts.",
-      "feeds": []
+      "feeds": [
+        "research-hub"
+      ]
     },
     "carousel-research": {
       "name": "Carousel research v2 (752 accounts)",
@@ -521,7 +506,8 @@
         "file": "research/carousel-research/lumebook-carousel-research.html"
       },
       "feeds": [
-        "carousel-pipeline"
+        "carousel-pipeline",
+        "research-hub"
       ],
       "notes": "The pipeline's list of code words taken by competitors (carousel_lib.py) comes from this page; update it by hand."
     },
@@ -554,7 +540,8 @@
         "file": "research/carousel-playbook-research/lumebook-carousel-playbook.html"
       },
       "feeds": [
-        "carousel-pipeline"
+        "carousel-pipeline",
+        "research-hub"
       ],
       "notes": "Hook families in carousel/carousel-pipeline/hook-bank.md follow playbook section 7; update the bank by hand."
     },
@@ -585,7 +572,9 @@
         ],
         "auto": true
       },
-      "feeds": [],
+      "feeds": [
+        "research-hub"
+      ],
       "notes": "Local only, not published: holds Instagram numbers and sales figures. New Meta export: python3 research/carousel-audit/src/audit.py import <file.csv>; it lists carousels that need an inventory entry and a score. Tagged links before posting: audit.py link <topic_id>. audit.py hook-results --write copies 7+ day old results into carousel/carousel-pipeline/hook-results.json, which can move hook formulas in the hook bank, so it runs only when asked. Reads slide PNGs from carousel/carousel-pipeline/approved/*-all/ and hook fields from each run's approved.json. Started 24 Oct 2026 (README.md there)."
     },
     "fal-trial": {
@@ -621,6 +610,7 @@
       "watch": [
         "sites/dashboard/lumebook-dashboard.html",
         "sites/dashboard/refresh.py",
+        "sites/dashboard/home_stats.py",
         "sites/dashboard/build_site.py",
         "sites/dashboard/course/course.js",
         "sites/dashboard/course/course.css",
@@ -641,7 +631,7 @@
           "sites/dashboard/site/lumebook-dashboard/index.html"
         ],
         "auto": false,
-        "note": "The 08:14 scheduled task runs refresh.py (Instagram + signup Sheet), pushes the artifact database, builds and deploys."
+        "note": "Every night tools/nightly_commit.py runs refresh.py (Instagram, Postiz, the home numbers), builds and deploys; every morning the scheduled task lumebook-hq-daily exports the ambassadors Sheet, refreshes and pushes the snapshot into the artifact database (8 Nov 2026)."
       },
       "publish": {
         "type": "artifact",
@@ -666,7 +656,7 @@
         "type": "vercel",
         "url": "https://lumebook-dashboard.vercel.app",
         "dir": "sites/dashboard/site/lumebook-dashboard",
-        "note": "the nightly commit job (tools/nightly_commit.py) builds and deploys it when a watched file changed; includes the plan at /plan/ and, since 05 Nov 2026, read-only copies of five research pages at /research/<slug>/ (the facts.json artifacts with a web address: competitor teardown, kids content lab, carousel research, carousel playbook, parent communities). Pages with internal sales figures or personal data never get a web address."
+        "note": "the nightly commit job (tools/nightly_commit.py) builds and deploys it when a watched file changed; includes, since 05 Nov 2026, read-only copies of five research pages at /research/<slug>/ (the facts.json artifacts with a web address: competitor teardown, kids content lab, carousel research, carousel playbook, parent communities). Pages with internal sales figures or personal data never get a web address."
       },
       "notes": "Default view since 31 Oct 2026: tasks and lessons (sites/dashboard/course/, README there; content from course/, plan in course/curriculum.md). It replaced the canvas work board (19 to 31 Oct 2026, now in _to-delete/sites/dashboard/board/). Course state saves to the artifact database under course/* (never snapshot, history, tracker or the old boards/), and on Vercel or the local server only in that browser."
     },
@@ -726,7 +716,8 @@
         "file": "research/parent-community/lumebook-parent-communities.html"
       },
       "feeds": [
-        "dashboard"
+        "dashboard",
+        "research-hub"
       ],
       "notes": "Shooting day for social media, for a free book (shared/facts.json parent_shoot_offer), re-ranked 2026-10-14 by distance from Ashkelon. build_page.py also writes research/parent-community-outreach.md. 21 WhatsApp invites unverified (WhatsApp 429)."
     },
@@ -779,7 +770,9 @@
         ],
         "auto": true
       },
-      "feeds": [],
+      "feeds": [
+        "research-hub"
+      ],
       "notes": "Local only, not published: holds internal sales figures. The Markdown is the source; ripple rebuilds the HTML. The seven social decisions also live in the SMM plan (section id decisions) without figures."
     },
     "reel-calendar": {
@@ -841,7 +834,8 @@
       "publish": {
         "type": "artifact",
         "url": "https://claude.ai/artifact/7LypeDPVPLDcL5n2xEQui7",
-        "file": "research/israeli-product-reels/reels-explorer.html"
+        "file": "research/israeli-product-reels/reels-explorer.html",
+        "local_only": "08 Nov 2026 (Yarin): the claude.ai copy stays as it is (it keeps its own edits in its database, merged with reels.py merge FILE); the page (about 480,000 characters of its own) is too big to read in full before publishing; the local page is the current one"
       },
       "feeds": [
         "dashboard"
@@ -905,6 +899,53 @@
       ],
       "feeds": [],
       "notes": "Since 05 Nov 2026 every HTML page the project server shows (localhost:8780, Carousel Machine through /hook-studio/ too) gets a pencil button at the bottom left: Yarin edits text, colors, pictures, size and spacing and drags things around right in the page. Hand-written pages listed in pages.json (the SMM plan) are edited in their own file; every other page keeps its edits in shared/site-editor/edits/<page>.json, applied by overlay.js whenever the page shows and written into the page's file as the lumebook-edits block (build() after each build, ripple and the nightly job for pages rebuilt elsewhere), so edits survive rebuilds and reach the artifact and Vercel copies on the next republish or deploy. python3 tools/lumebook.py edits lists edited pages. After editing tools/site_editor.py or tools/lumebook.py: python3 tools/serve_login.py restart. README.md there."
+    },
+    "i18n": {
+      "name": "Language switch: Hebrew and English on every page (dictionaries + background translation)",
+      "path": "shared/i18n",
+      "kind": "assets",
+      "watch": [
+        "shared/i18n/**/*.json",
+        "shared/i18n/README.md",
+        "shared/design/i18n.src.js",
+        "tools/i18n.py"
+      ],
+      "feeds": [],
+      "notes": "Since 08 Nov 2026 (Yarin: \"i want the entire project in hebrew and english with a toggle that appears everywhere to switch between them\") every internal page has עב | EN at the bottom of the project nav. The runtime (shared/design/i18n.src.js, bundled into nav.js) swaps the page's words in place from shared/i18n/common.json and shared/i18n/pages/<page>.json and flips the direction; fields, editable text, code and Hebrew copy for parents are never touched. On the project server, words the dictionaries lack are translated in the background through claude -p (Sonnet, no tools, the Mac's login) and picked up by the page. Every page file carries its words (the lumebook-i18n block, baked after builds, in ripple and nightly) so artifact and Vercel copies switch too. python3 tools/i18n.py status|translate|check|bake. After editing tools/i18n.py: python3 tools/serve_login.py restart. README.md there."
+    },
+    "research-hub": {
+      "name": "Research hub (ספריית המחקר: every research LumeBook has made, by topic, on one Hebrew page)",
+      "path": "research/research-hub",
+      "kind": "page",
+      "watch": [
+        "research/research-hub/research.json",
+        "research/research-hub/build.py",
+        "research/research-hub/README.md"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "build.py"
+        ],
+        "cwd": "research/research-hub",
+        "outputs": [
+          "research/research-hub/research-hub.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "local",
+        "url": "http://localhost:8780/research/research-hub/research-hub.html",
+        "note": "Local only, never an artifact or a Vercel site: it holds internal sales figures, order and outreach counts. No web address in shared/facts.json."
+      },
+      "rules": [
+        "research.json is the source; never edit research-hub.html by hand. The build fails on an unknown topic, a link to a missing file, an em or en dash or the brand spelt לומיבוק.",
+        "A new research gets an entry in research.json (read its sources, every number from them), and its component gets research-hub in feeds.",
+        "Topic hues come from shared/design/categories.json set research-topics."
+      ],
+      "feeds": [],
+      "on_upstream_change": "a research it lists changed: check its entry in research/research-hub/research.json (summary, findings, dates, links) against the source, then build research-hub",
+      "notes": "Made 08 Nov 2026 (Yarin: \"combine every research we ever made to one super organized page\"). One card per research: plain-word summary, findings as terse bullets, date, evidence strength, what it changed, links (Markdown sources open in the page's own reader). Search box, topic cubes that filter, evidence filter, order by topic or date, short view, a sticky sidebar of topics (lb-app + lb-sidebar). research/cro-crm and research/creator-crm have no component, so changes there leave no to-do. README.md there."
     }
   }
 }

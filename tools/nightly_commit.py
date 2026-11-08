@@ -2,13 +2,13 @@
 """Nightly snapshot of the whole LumeBook repo (dashboard and every component it is fed by), run by launchd at 00:00:
 refresh the dashboard snapshot, commit, push, deploy (changed since Yarin's 20 Oct 2026 request; before that it only committed).
 
-First rebuilds the dashboard snapshot (sites/dashboard/refresh.py, no signup Sheet) and writes the edit button's edits back
+First rebuilds the dashboard snapshot (sites/dashboard/refresh.py: the home numbers, Postiz, the last ambassadors Sheet export) and writes the edit button's edits back
 into any page rebuilt since (tools/site_editor.py bake_all). Commits to the current branch, pushes it to origin (never forced), then deploys every Vercel component whose files
 changed since its last deploy (lumebook.json deploy.type vercel: the dashboard and the creator brief). A failed push
 skips the deploy, so the live sites never run ahead of what is on GitHub. Follows the repo's own rules instead of bypassing them:
   - .gitignore decides what is in (raw media, .lumebook/, creator state/ stay out)
-  - the pre-commit rules are applied up front: a sheet.md export is never staged, and sites/lumebook-smm-plan/index.html
-    waits for the night its English mirror (content.en.md) changes too
+  - the pre-commit rule is applied up front: a Sheet export (*sheet.md) is never staged (the SMM plan's English-mirror rule
+    went with the plan page, retired 8 Nov 2026)
   - the hook itself still runs; if it fails anyway the staging is undone and the reason is logged
 Skips the commit when there is nothing to commit, when git is busy (merge, rebase, index.lock) or when a commit is half done.
 
@@ -20,7 +20,6 @@ from datetime import datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOG = os.path.join(ROOT, ".lumebook", "nightly-commit.log")
-PLAN = "sites/lumebook-smm-plan"
 # launchd starts with a bare PATH; npx (Vercel CLI) and node live in /usr/local/bin
 os.environ["PATH"] = "/usr/local/bin:/opt/homebrew/bin:" + os.environ.get("PATH", "/usr/bin:/bin")
 os.environ["GIT_TERMINAL_PROMPT"] = "0"
@@ -106,6 +105,13 @@ def bake_edits():
             log("edits written back into " + ", ".join(done))
     except Exception as e:   # never block the nightly commit over it
         log(f"bake step failed: {e}")
+    try:   # the language switch's words go into every page too (tools/i18n.py, 8 Nov 2026)
+        import i18n
+        done = i18n.bake_all()
+        if done:
+            log(f"language words written into {len(done)} pages")
+    except Exception as e:
+        log(f"language bake step failed: {e}")
 
 
 def ship(branch):
@@ -141,11 +147,7 @@ def main():
     staged = git("diff", "--cached", "--name-only").stdout.splitlines()
     for path in [x for x in staged if x.endswith("sheet.md")]:
         git("reset", "-q", "--", path)
-        notes.append(f"left out {path} (signup export)")
-    staged = git("diff", "--cached", "--name-only").stdout.splitlines()
-    if f"{PLAN}/index.html" in staged and f"{PLAN}/content.en.md" not in staged:
-        git("reset", "-q", "--", f"{PLAN}/index.html")
-        notes.append(f"left out {PLAN}/index.html until content.en.md mirrors it")
+        notes.append(f"left out {path} (Sheet export)")
     staged = git("diff", "--cached", "--name-only").stdout.splitlines()
 
     if not staged:

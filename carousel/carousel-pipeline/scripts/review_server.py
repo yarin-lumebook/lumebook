@@ -281,6 +281,22 @@ class Handler(SimpleHTTPRequestHandler):
     def log_message(self, fmt, *args):  # keep the terminal quiet except for saves
         pass
 
+    # Only this Mac's own pages may use the server (audit of 08 Nov 2026). Without this check any web site open in a
+    # browser here could POST to 127.0.0.1:8777 (a text/plain POST needs no CORS preflight) and save, approve, authorize
+    # spending or send to Postiz, and a DNS-rebinding site could read the drafts. A browser always sends Origin on a
+    # cross-site POST; the project server's /hook-studio/ forward, scripts and tests send none, so no Origin passes.
+    LOCAL_HOSTS = ("localhost", "127.0.0.1", "[::1]")
+    PROJECT_SERVER_PORT = 8780   # tools/lumebook.py serve, whose pages call this server through /hook-studio/
+
+    def local_request(self, post=False):
+        port = self.server.server_address[1]
+        if (self.headers.get("Host") or "").strip().lower() not in {f"{h}:{port}" for h in self.LOCAL_HOSTS}:
+            return False
+        origin = self.headers.get("Origin")
+        if not post or origin is None:
+            return True
+        return origin.strip().lower() in {f"http://{h}:{p}" for h in self.LOCAL_HOSTS for p in (port, self.PROJECT_SERVER_PORT)}
+
     def send_json(self, data, status=200):
         body = json.dumps(data, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
@@ -291,6 +307,8 @@ class Handler(SimpleHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
+        if not self.local_request():
+            return self.send_json({"error": "local requests only"}, 403)
         if self.path.startswith("/api/ping"):
             return self.send_json({"ok": True})
         brand = self.brand_font()
@@ -394,6 +412,8 @@ class Handler(SimpleHTTPRequestHandler):
             return None
 
     def do_POST(self):
+        if not self.local_request(post=True):
+            return self.send_json({"error": "same-origin requests only"}, 403)
         if self.path == "/api/save-reco":
             return self.save_reco()
         if self.path in ("/api/grade", "/api/produce-send"):

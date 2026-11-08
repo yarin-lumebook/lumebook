@@ -25,8 +25,13 @@ from datetime import datetime, timezone, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import site_editor  # noqa: E402  the edit button on every page (tools/site_editor.py)
+import i18n  # noqa: E402  the language switch's words (tools/i18n.py, 8 Nov 2026)
 
-IL = timezone(timedelta(hours=3))
+try:  # Israel time with its summer and winter offsets (audit of 08 Nov 2026: a fixed UTC+3 was an hour off half the year)
+    from zoneinfo import ZoneInfo
+    IL = ZoneInfo("Asia/Jerusalem")
+except Exception:  # no time zone data on this Python
+    IL = timezone(timedelta(hours=3))
 
 
 def find_root():
@@ -175,11 +180,37 @@ def add_pending(st, comp, action, reason, clears_with=None):
                           "clears_with": clears_with})
 
 
+BUILD_FIX = "fix build: "
+
+
+def clear_build_fix(st, cid):
+    """A build of cid just succeeded: its 'fix build' to-do is done (audit of 08 Nov 2026; it used to wait for an ack)."""
+    st["pending"] = [it for it in st["pending"] if not (it["component"] == cid and it["action"].startswith(BUILD_FIX))]
+
+
+def ack_pending(st, cid, keep_build_fixes):
+    """Clear cid's to-dos. ack --published or --deployed records a publication and keeps a failed build's to-do, which only
+    a good build clears, so a republish can no longer hide a broken build (audit of 08 Nov 2026). Returns (cleared, kept)."""
+    keep = lambda it: it["component"] != cid or (keep_build_fixes and it["action"].startswith(BUILD_FIX))
+    before = len(st["pending"])
+    st["pending"] = [it for it in st["pending"] if keep(it)]
+    kept = [it for it in st["pending"] if it["component"] == cid]
+    return before - len(st["pending"]), kept
+
+
+def later(a, b):
+    """a is after b, for ISO times with any UTC offset (summer +03:00 and winter +02:00 strings do not compare as text)."""
+    try:
+        return datetime.fromisoformat(a) > datetime.fromisoformat(b)
+    except (TypeError, ValueError):
+        return (a or "") > (b or "")
+
+
 def auto_clear(st):
     keep = []
     for it in st["pending"]:
         out = it.get("clears_with")
-        if out and mtime_iso(out) and mtime_iso(out) > it["since"]:
+        if out and mtime_iso(out) and later(mtime_iso(out), it["since"]):
             log({"type": "cleared", "component": it["component"], "action": it["action"], "by": out})
             continue
         keep.append(it)
@@ -206,6 +237,10 @@ def publish_state(cid, st):
             res["behind"] = res["source_modified"][:len(res["published_at"])] > res["published_at"]
         else:
             res["behind"] = None  # unknown until the first ack --published
+        if pub.get("local_only"):
+            # kept as it is on purpose (08 Nov 2026): no republish to-do, the local page is the current one
+            res["local_only"] = pub["local_only"]
+            res["behind"] = None
         if pub.get("repo"):
             res["git"] = git_state(COMP[cid]["path"])
     elif pub["type"] == "vercel":
@@ -223,8 +258,7 @@ def publish_state(cid, st):
 # ---------- check ----------
 
 AUDIENCE_FILES = ["sites/lumebook-ambassadors/index.html", "sites/lumebook-ambassadors/creators/index.html",
-                  "sites/lumebook-smm-plan/index.html", "creators/lumebook-ugc-form.gs",
-                  "sites/lumebook-ambassadors/apps-script-form.gs"]
+                  "sites/lumebook-ambassadors/apps-script-form.gs"]   # the SMM plan and the signup Form source retired 8 Nov 2026
 OLD_NAMES = ["lumebook-smm-plan", "lumebook-ambassadors", "creator-research", "competitor-content-analysis",
              "kids-brand-content-research", "carousel-research", "carousel-playbook-research", "carousel-pipeline",
              "fal-carousel-trial"]
@@ -236,7 +270,13 @@ OLD_MEDIA = re.compile(r"(?<![\w\-.])(output/(?:lume|reel-character|boys-intervi
                        r"|video/(?:fan-transition|text-pull-ben)|carousel/(?:fal-carousel-trial|references))(?![\w\-])")
 SCAN_SKIP = {".git", "node_modules", "videos", "analysis", "slides", "img", "img2", ".vercel", ".site-editor", "__pycache__",
              "out", "site", "generated-assets", "discovery", ".lumebook", "versions", "voice-eval-workspace", "drafts", "approved",
-             "_to-delete"}
+             "_to-delete",
+             # 8 Nov 2026: other sessions' git worktrees (.claude/worktrees: copies of this repo on their own branches) and the
+             # account handoff's frozen copies of the old account's artifacts and database (docs/account-handoff) are records,
+             # not project files to fix
+             "worktrees", "artifact-copies", "db-export"}
+# Claude Code's own permission lists keep the exact commands once allowed (old paths included); they are not project text
+SCAN_SKIP_FILES = {"settings.local.json", "settings.json"}
 SCAN_EXT = {".py", ".sh", ".md", ".json", ".html", ".js", ".gs", ".css"}
 
 
@@ -244,7 +284,7 @@ def scan_text_files():
     for dp, dns, fns in os.walk(ROOT):
         dns[:] = [d for d in dns if d not in SCAN_SKIP]
         for fn in fns:
-            if os.path.splitext(fn)[1] in SCAN_EXT:
+            if os.path.splitext(fn)[1] in SCAN_EXT and not (fn in SCAN_SKIP_FILES and os.path.basename(dp) == ".claude"):
                 f = os.path.join(dp, fn)
                 if os.path.getsize(f) < 3_000_000:
                     yield f
@@ -382,10 +422,6 @@ def check():
                     n = text.count("\n", 0, m.start()) + 1
                     add("info", "paths", f"{rel}:{n} '{m.group(0)}' is now in docs/")
 
-    # SMM plan: Hebrew page edited after its English mirror
-    he, en = mtime_iso("sites/lumebook-smm-plan/index.html"), mtime_iso("sites/lumebook-smm-plan/content.en.md")
-    if he and en and he > en:
-        add("info", "smm-plan", "index.html is newer than content.en.md; mirror the Hebrew change before committing")
     return issues
 
 
@@ -437,6 +473,8 @@ def build(cid):
     except (OSError, subprocess.TimeoutExpired) as e:  # missing folder or interpreter, or a hung build
         ok, out = False, f"{type(e).__name__}: {e}"[:300]
     baked = site_editor.bake_outputs(b.get("outputs", [])) if ok else []   # edits made with the edit button go back in
+    if ok:
+        i18n.bake_outputs(b.get("outputs", []))   # and the language switch's words (8 Nov 2026)
     log({"type": "build", "component": cid, "ok": ok, "tail": out, **({"baked": baked} if baked else {})})
     return ok, out
 
@@ -461,6 +499,7 @@ def evaluate(st, do_ripple):
 
     if do_ripple:
         report["baked"] = site_editor.bake_all()
+        report["i18n_baked"] = len(i18n.bake_all())
         if "brand" in changed or "design" in changed:
             sync(quiet=True)
         targets = topo(list(dict.fromkeys(list(changed) + list(affected))))
@@ -471,16 +510,18 @@ def evaluate(st, do_ripple):
             ups = affected.get(cid, [])
             why = ("own sources changed: " + ", ".join(changed[cid][:3])) if own else ("upstream changed: " + ", ".join(ups))
             if cid == "dashboard":
-                # the 08:14 scheduled task rebuilds it from everything upstream; one to-do that clears itself
-                add_pending(st, cid, "refresh the dashboard snapshot (the 08:14 task does this)", why, clears_with="sites/dashboard/out/snapshot.json")
+                # the nightly commit (00:00) and the morning task lumebook-hq-daily refresh it; one to-do that clears itself
+                add_pending(st, cid, "refresh the dashboard snapshot (the nightly commit and the morning task lumebook-hq-daily do this)", why, clears_with="sites/dashboard/out/snapshot.json")
                 continue
             # a design-system or brand change restyles every page built on it: rebuild those too
             styled = any(u in ("design", "brand") for u in ups)
             if b and b.get("auto") and (own or styled):
                 ok, err = build(cid)
                 (report["built"] if ok else report["build_failed"]).append(cid)
-                if not ok:
-                    add_pending(st, cid, "fix build: " + " ".join(b["cmd"]), err or why)
+                if ok:
+                    clear_build_fix(st, cid)
+                else:
+                    add_pending(st, cid, BUILD_FIX + " ".join(b["cmd"]), err or why)
             elif b and (own or styled):
                 add_pending(st, cid, "rebuild (manual): cd " + b["cwd"] + " && " + " ".join(b["cmd"]) + (" | " + b["note"] if b.get("note") else ""),
                             why, clears_with=b["outputs"][0])
@@ -1197,6 +1238,10 @@ def serve(port):
       GET  /api/creator-map/state   the creator map's saved data (statuses, notes, settings, voice) from creators/creator-research/state/
       PUT  /api/creator-map/doc?path=outreach/<handle>   writes one document of it (same-origin only; paths limited to
                                 outreach, settings, voice, log); this replaced the artifact database on 20 Oct 2026
+      GET  /api/home            HQ's home numbers, live (sites/dashboard/home_stats.py collect(): Carousel Machine, creator map,
+                                reel calendar, ambassadors, Instagram and Facebook, most used pages, what needs attention);
+                                cached 20 seconds; 8 Nov 2026. Every page open (a document request for a project page or
+                                /hook-studio/) adds one to today's count in .lumebook/page-views.json for "most used"
       GET  /api/hq/layout       HQ's tools layout as Yarin arranged it (sites/dashboard/hq-layout.json; {} when never saved)
       PUT  /api/hq/layout       saves it (same-origin only, one JSON object, at most 512 KB); edit mode of HQ, 5 Nov 2026
       GET  /                    redirects to the HQ dashboard
@@ -1210,6 +1255,11 @@ def serve(port):
                                 artifact's sample capability gives (the reels hub's ask box, 6 Nov 2026). Same-origin only
                                 (Origin + X-LumeBook-Board), one at a time, 200 KB at most; the prompt is never logged.
                                 Needs `claude auth login` on this Mac once; the answer comes from that login's plan.
+      POST /api/i18n/missing    {"page", "to": "en"|"he", "items": [{"k", "scope"}]}: blocks a page's language dictionaries lack
+                                (the language switch, 8 Nov 2026); a background worker (tools/i18n.py Worker) translates them
+                                through the same locked down `claude -p` (Sonnet, thinking off) into shared/i18n. Same-origin only.
+      GET  /api/i18n/dict       ?page=&lang=&rev=: the page's words in one language when they changed since rev, and how many
+                                blocks are still waiting. Every page this server shows carries its words (site_editor.inject).
       GET  /api/reels-hub/state the reels hub's own edits ({edits, made, requests}, each a map of documents) from
                                 research/israeli-product-reels/src/scripts/series-2026-11/local-edits.json ({} when none)
       POST /api/sample/jobs     {"prompt", "reel", "kind", "label", "comment"} -> 202 {"job"}: the same question as a background
@@ -1232,12 +1282,54 @@ def serve(port):
     import http.client, http.server, functools, urllib.parse, urllib.request, threading, select, socket
     sample_lock = threading.Lock()
     origins = {f"http://localhost:{port}", f"http://127.0.0.1:{port}"}
+    local_hosts = {f"localhost:{port}", f"127.0.0.1:{port}", f"[::1]:{port}"}   # Host headers of this server's own pages
     state_dir = p("creators/creator-research/state")
     state_lock = threading.Lock()
     hq_layout = p("sites/dashboard/hq-layout.json")
+    views_file = p(".lumebook/page-views.json")
+    views_lock = threading.Lock()
+    home_cache = {"at": 0.0, "data": None, "mtime": None, "mod": None}
+
+    def count_view(page):
+        """One more open of a project page today (HQ home's "most used", 8 Nov 2026); 45 days kept."""
+        with views_lock:
+            try:
+                with open(views_file, encoding="utf-8") as fh:
+                    v = json.load(fh)
+            except (OSError, ValueError):
+                v = {}
+            days = v.setdefault("days", {})
+            day = datetime.now().date().isoformat()
+            days.setdefault(day, {})[page] = days.get(day, {}).get(page, 0) + 1
+            for old_day in sorted(days)[:-45]:
+                del days[old_day]
+            os.makedirs(os.path.dirname(views_file), exist_ok=True)
+            tmp = views_file + ".tmp"
+            with open(tmp, "w", encoding="utf-8") as fh:
+                json.dump(v, fh, ensure_ascii=False, indent=0)
+            os.replace(tmp, views_file)
+
+    def home_stats():
+        """sites/dashboard/home_stats.py, reloaded when the file changes, so an edit there needs no server restart."""
+        import importlib.util, time
+        path = p("sites/dashboard/home_stats.py")
+        mt = os.path.getmtime(path)
+        if home_cache["mod"] is None or home_cache["mtime"] != mt:
+            spec = importlib.util.spec_from_file_location("lumebook_home_stats", path)
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            home_cache.update(mod=mod, mtime=mt, at=0.0)
+        if time.time() - home_cache["at"] > 20 or home_cache["data"] is None:
+            home_cache["data"] = home_cache["mod"].collect()
+            home_cache["at"] = time.time()
+        return home_cache["data"]
     # LUMEBOOK_REELS_HUB_FILE: a test server on a spare port writes somewhere else, never into Yarin's real edits
     reels_hub_file = os.environ.get("LUMEBOOK_REELS_HUB_FILE") or p("research/israeli-product-reels/src/scripts/series-2026-11/local-edits.json")
     sample_jobs = SampleJobs(os.environ.get("LUMEBOOK_SAMPLE_JOBS_FILE") or p(".lumebook/sample-jobs.json"))
+    # the language switch (8 Nov 2026): pages report words their dictionaries lack, this translates them in the background
+    i18n_worker = i18n.Worker(log=lambda m: print(m, file=sys.stderr, flush=True))
+    if i18n.pending():
+        i18n_worker.wake()   # words left waiting when the server last stopped
     sample_job_act = re.compile(r"^/api/sample/jobs/([0-9a-f]{6,20})/(cancel|claim|dismiss)$")
     reels_hub_doc = re.compile(r"^(edits|made|requests)/([\w.\-]{1,120})$")
     # LUMEBOOK_REEL_MEDIA: a test server keeps each reel's files in <that folder>/<key> and never runs reels.py new or merge
@@ -1351,6 +1443,20 @@ def serve(port):
             self.send_header("Content-Length", str(len(body)))
             self.end_headers()
             self.wfile.write(body)
+
+        def _foreign_host(self):
+            """DNS rebinding (audit of 08 Nov 2026): a web site whose name points at 127.0.0.1 could read this whole folder
+            (.git, creators/correspondence, /api/home) through a page of its own. Its requests carry its own Host header,
+            so anything but this server's own name is refused, for every method."""
+            if (self.headers.get("Host") or "").strip().lower() in local_hosts:
+                return False
+            self._json(403, {"error": "local requests only"})
+            return True
+
+        def do_HEAD(self):
+            if self._foreign_host():
+                return
+            super().do_HEAD()
 
         def reel_post(self, u):
             """The reels hub's make sheet: a dropped file in, a dropped file out (to _to-delete), or a reel job (see serve's list)."""
@@ -1490,6 +1596,11 @@ def serve(port):
             u = urllib.parse.urlparse(self.path)
             if u.path in ("/hook-studio", "/hook-studio/"):
                 target = "/" + ("?" + u.query if u.query else "")
+                if method == "GET" and self.headers.get("Sec-Fetch-Dest") == "document":
+                    try:
+                        count_view("hook-studio/")
+                    except Exception:
+                        pass
             elif u.path.startswith(hs_prefix):
                 target = self.path
             else:
@@ -1532,6 +1643,8 @@ def serve(port):
             return True
 
         def do_GET(self):
+            if self._foreign_host():
+                return
             if self.hook_studio("GET"):
                 return
             if site_editor.handle(self, "GET", port, log):
@@ -1571,6 +1684,11 @@ def serve(port):
             if path == "/api/creator-map/state":
                 with state_lock:
                     return self._json(200, {k: state_read(k) for k in ("outreach", "settings", "voice", "log")})
+            if path == "/api/home":
+                try:
+                    return self._json(200, home_stats())
+                except Exception as e:
+                    return self._json(500, {"error": f"{type(e).__name__}: {e}"[:300]})
             if path == "/api/hq/layout":
                 with state_lock:
                     try:
@@ -1580,6 +1698,16 @@ def serve(port):
                         return self._json(200, {})
             if path == "/api/sample/jobs":
                 return self._json(200, {"jobs": sample_jobs.list()})
+            if path == "/api/i18n/dict":
+                q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+                page, lang = i18n.canon((q.get("page") or [""])[0]), (q.get("lang") or [""])[0]
+                if lang not in i18n.LANGS or not page or not site_editor.resolve(page):
+                    return self._json(400, {"error": "page and lang (en or he) please"})
+                r = i18n.page_rev(page)
+                out = {"rev": r, "pending": i18n.pending([i18n.COMMON, page], lang), "worker": i18n_worker.state.get("status")}
+                if (q.get("rev") or [""])[0] != r:
+                    out["common"], out["page"] = i18n.load(i18n.COMMON)[lang], i18n.load(page)[lang]
+                return self._json(200, out)
             if path in ("/api/reel-files", "/api/reel-files/raw"):
                 q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
                 key = (q.get("reel") or [""])[0]
@@ -1600,11 +1728,18 @@ def serve(port):
                     except (FileNotFoundError, ValueError):
                         return self._json(200, {})
             page = site_editor.page_for_url(self, path)
+            if page and self.headers.get("Sec-Fetch-Dest") == "document":
+                try:
+                    count_view(page)
+                except Exception:
+                    pass
             if page and site_editor.serve_page(self, page):   # the page with the edit button and its saved edits
                 return
             return super().do_GET()
 
         def do_PUT(self):
+            if self._foreign_host():
+                return
             if site_editor.handle(self, "PUT", port, log):
                 return
             u = urllib.parse.urlparse(self.path)
@@ -1685,9 +1820,28 @@ def serve(port):
             return self._json(200, {"ok": True})
 
         def do_POST(self):
+            if self._foreign_host():
+                return
             if self.hook_studio("POST"):
                 return
             u = urllib.parse.urlparse(self.path)
+            if u.path == "/api/i18n/missing":   # words a page's dictionaries lack (the language switch, 8 Nov 2026)
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only"})
+                size = int(self.headers.get("Content-Length") or 0)
+                if size <= 0 or size > 2 * 1024 * 1024:
+                    return self._json(400, {"error": "bad size"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON"})
+                page = i18n.canon(str(doc.get("page") or "")) if isinstance(doc, dict) else ""
+                to, items = (doc.get("to"), doc.get("items")) if isinstance(doc, dict) else (None, None)
+                if to not in i18n.LANGS or not page or not site_editor.resolve(page) or not isinstance(items, list) or len(items) > 1000:
+                    return self._json(400, {"error": "page, to (en or he) and a list of items please"})
+                items = [i for i in items if isinstance(i, dict) and isinstance(i.get("k"), str)]
+                new = i18n_worker.report(page, to, items)
+                return self._json(200, {"new": new, "pending": i18n.pending([i18n.COMMON, page], to)})
             if u.path == "/api/sample/jobs" or sample_job_act.match(u.path):
                 if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
                     return self._json(403, {"error": "same-origin requests only", "code": "not_granted"})
@@ -1852,8 +2006,7 @@ def main():
     if a.cmd == "ack":
         if a.id not in COMP:
             sys.exit(f"unknown component {a.id}; see: python3 tools/lumebook.py map")
-        before = len(st["pending"])
-        st["pending"] = [it for it in st["pending"] if it["component"] != a.id]
+        cleared, kept = ack_pending(st, a.id, keep_build_fixes=bool(a.published or a.deployed))
         if a.published:
             cs = st["components"].setdefault(a.id, {})
             cs["published_at"] = now() if a.published == "now" else a.published
@@ -1865,9 +2018,11 @@ def main():
         if a.deployed:
             cs = st["components"].setdefault(a.id, {})
             cs["deployed_hash"], cs["deployed_at"] = digest(a.id)[0], now()
-        log({"type": "ack", "component": a.id, "cleared": before - len(st["pending"]), "published": a.published})
+        log({"type": "ack", "component": a.id, "cleared": cleared, "published": a.published})
         save_state(st)
-        print(f"{a.id}: cleared {before - len(st['pending'])} to-dos" + (f", published_at={st['components'][a.id]['published_at']}" if a.published else ""))
+        print(f"{a.id}: cleared {cleared} to-dos" + (f", published_at={st['components'][a.id]['published_at']}" if a.published else ""))
+        for it in kept:
+            print(f"  still open: {it['action']} (a good build clears it; or: python3 tools/lumebook.py ack {a.id})")
         evaluate(load_state(), False)
         return
     r = evaluate(st, a.cmd == "ripple")

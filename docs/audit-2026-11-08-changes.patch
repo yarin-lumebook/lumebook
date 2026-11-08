@@ -1,0 +1,861 @@
+--- a/.githooks/pre-commit
++++ b/.githooks/pre-commit
+@@ -2,6 +2,7 @@
+ # LumeBook monorepo pre-commit checks.
+ # Never commit a Sheet export (phones, emails): the old signup sheet.md or the ambassadors Sheet export.
+ # (The SMM plan's English-mirror rule went with the plan page, retired 8 Nov 2026.)
++staged=$(git diff --cached --name-only)
+ if echo "$staged" | grep -q "sheet\.md$"; then
+   echo "pre-commit: a Sheet export (*sheet.md) is staged; it holds phone numbers and emails. Unstage it."
+   exit 1
+--- a/.gitignore
++++ b/.gitignore
+@@ -64,6 +64,11 @@
+ media/**/*.wav
+ media/**/*.opus
+ media/**/*.srt
++# (08 Nov 2026 audit) iPhone and web formats the list above missed
++media/**/*.heic
++media/**/*.webm
++media/**/*.m4v
++media/**/*.avif
+ media/inbox/*
+ !media/inbox/README.md
+ 
+@@ -101,6 +106,8 @@
+ 
+ # creator map saved data on the project server (statuses, notes, settings, voice; moved from the artifact database 20 Oct 2026)
+ creators/creator-research/state/
++# creators' Instagram profile pictures for the cards (refresh/pics.py, 8 Nov 2026): re-downloadable media, kept on disk only
++creators/creator-research/avatars/
+ # weekly refresh: comment text read from Instagram until it is checked (refresh/comments.py), private
+ creators/creator-research/src/refresh/cache/
+ # account handoff (26 Oct 2026): the dashboard artifact database as exported from the old Claude account, private
+--- a/sites/dashboard/build_site.py
++++ b/sites/dashboard/build_site.py
+@@ -28,6 +28,38 @@
+         return default
+ 
+ 
++# The store's ambassador Sheet, person by person (names, Instagram handles, personal-link slugs, open payout requests),
++# never goes into this static copy: the Vercel site has no sign-in (audit of 08 Nov 2026). The counts and totals stay.
++# HQ on the project server reads the rows live from /api/home and the claude.ai artifact from its own database.
++AMBASSADOR_PRIVATE = ("rows", "payouts_open")
++
++
++def redact_ambassadors(section):
++    if not isinstance(section, dict):
++        return section
++    out = {k: v for k, v in section.items() if k not in AMBASSADOR_PRIVATE}
++    out["payouts_open_count"] = len(section.get("payouts_open") or [])
++    out["redacted"] = True
++    return out
++
++
++def public_snapshot(snap):
++    """The snapshot as the static copy may show it: no per-person ambassador data, in any of the places it appears."""
++    snap = dict(snap)
++    if snap.get("signups"):
++        snap["signups"] = redact_ambassadors(snap["signups"])
++    home = snap.get("home")
++    if isinstance(home, dict):
++        home = dict(home)
++        if home.get("ambassadors"):
++            home["ambassadors"] = redact_ambassadors(home["ambassadors"])
++        # home_stats.attention() names the ambassador of an open payout request; keep the item, drop the name
++        home["attention"] = [dict(a, text="בקשת מימוש פתוחה של שגריר") if a.get("tag") == "שגרירים" and str(a.get("text", "")).startswith("בקשת")
++                             else a for a in (home.get("attention") or [])]
++        snap["home"] = home
++    return snap
++
++
+ def main():
+     snap = load(os.path.join(OUT, "snapshot.json"))
+     if not snap:
+@@ -46,7 +78,7 @@
+ 
+     page = open(os.path.join(HERE, "lumebook-dashboard.html"), encoding="utf-8").read()
+     head, body = page.split('<div class="lb-app', 1)   # the app shell (lb-app, with no-sidebar since 5 Nov 2026)
+-    data = json.dumps({"snap": snap, "history": history, "tracker": tracker}, ensure_ascii=False).replace("</", "<\\/")
++    data = json.dumps({"snap": public_snapshot(snap), "history": history, "tracker": tracker}, ensure_ascii=False).replace("</", "<\\/")
+     doc = (
+         '<!doctype html><html lang="he"><head><meta charset="utf-8">'
+         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
+--- a/carousel/carousel-pipeline/scripts/review_server.py
++++ b/carousel/carousel-pipeline/scripts/review_server.py
+@@ -280,6 +280,22 @@
+ 
+     def log_message(self, fmt, *args):  # keep the terminal quiet except for saves
+         pass
++
++    # Only this Mac's own pages may use the server (audit of 08 Nov 2026). Without this check any web site open in a
++    # browser here could POST to 127.0.0.1:8777 (a text/plain POST needs no CORS preflight) and save, approve, authorize
++    # spending or send to Postiz, and a DNS-rebinding site could read the drafts. A browser always sends Origin on a
++    # cross-site POST; the project server's /hook-studio/ forward, scripts and tests send none, so no Origin passes.
++    LOCAL_HOSTS = ("localhost", "127.0.0.1", "[::1]")
++    PROJECT_SERVER_PORT = 8780   # tools/lumebook.py serve, whose pages call this server through /hook-studio/
++
++    def local_request(self, post=False):
++        port = self.server.server_address[1]
++        if (self.headers.get("Host") or "").strip().lower() not in {f"{h}:{port}" for h in self.LOCAL_HOSTS}:
++            return False
++        origin = self.headers.get("Origin")
++        if not post or origin is None:
++            return True
++        return origin.strip().lower() in {f"http://{h}:{p}" for h in self.LOCAL_HOSTS for p in (port, self.PROJECT_SERVER_PORT)}
+ 
+     def send_json(self, data, status=200):
+         body = json.dumps(data, ensure_ascii=False).encode("utf-8")
+@@ -291,6 +307,8 @@
+         self.wfile.write(body)
+ 
+     def do_GET(self):
++        if not self.local_request():
++            return self.send_json({"error": "local requests only"}, 403)
+         if self.path.startswith("/api/ping"):
+             return self.send_json({"ok": True})
+         brand = self.brand_font()
+@@ -394,6 +412,8 @@
+             return None
+ 
+     def do_POST(self):
++        if not self.local_request(post=True):
++            return self.send_json({"error": "same-origin requests only"}, 403)
+         if self.path == "/api/save-reco":
+             return self.save_reco()
+         if self.path in ("/api/grade", "/api/produce-send"):
+--- a/carousel/carousel-pipeline/scripts/openai_generate.py
++++ b/carousel/carousel-pipeline/scripts/openai_generate.py
+@@ -144,13 +144,32 @@
+             run.log({**record, "status": "error", "error": str(exc)[:300], "http": exc.status, "code": exc.code, "billed": exc.billed,
+                      "estimated_cost_usd": est["usd"] if exc.billed else 0, "seconds": round(time.time() - start, 1)})
+             raise RuntimeError(f"{name} failed: {exc}. Other jobs are untouched; rerun the same command to resume.")
++        except Exception as exc:
++            # anything else once the request was on its way (an answer cut off or unreadable after a 200, a bad picture
++            # payload): the outcome is unknown, so it counts as spent at the estimate, like a dropped connection
++            # (audit of 08 Nov 2026: these left the job "running" with nothing in the spend log)
++            st["status"] = "failed"
++            run.save()
++            run.log({**record, "status": "error", "error": f"{type(exc).__name__}: {exc}"[:300], "billed": True,
++                     "estimated_cost_usd": est["usd"], "cost_basis": "estimate", "seconds": round(time.time() - start, 1)})
++            raise RuntimeError(f"{name} failed ({type(exc).__name__}); counted as spent because the outcome is unknown. "
++                               "Other jobs are untouched; rerun the same command to resume.")
+         cost = op.usage_cost(usage, cfg)
+         originals = run.gen / "openai-originals"
+         originals.mkdir(parents=True, exist_ok=True)
+         raw = originals / f"{name}-attempt{st['attempts']}.png"
+         raw.write_bytes(png)
+         out = run.gen / f"{name}.png"
+-        op.normalize(raw, out)
++        try:
++            op.normalize(raw, out)
++        except Exception as exc:   # the picture is made and paid: log it before anything else
++            st["status"] = "failed"
++            run.save()
++            run.log({**record, "status": "error", "error": f"crop: {type(exc).__name__}: {exc}"[:300], "request_id": request_id,
++                     "usage": usage, "estimated_cost_usd": cost, "billed": True, "cost_basis": "usage",
++                     "seconds": round(time.time() - start, 1), "file": raw.name})
++            raise RuntimeError(f"{name}: the picture was made and paid (${cost:.4f}) but could not be cropped ({exc}); "
++                               f"the original is {raw}. A rerun makes and pays for a new one.")
+         st.update({"status": "done", "qa": None, "request_id": request_id})
+         run.save()
+         run.log({**record, "status": "ok", "request_id": request_id, "usage": usage, "estimated_cost_usd": cost, "billed": True,
+--- a/carousel/carousel-pipeline/scripts/postiz_export.py
++++ b/carousel/carousel-pipeline/scripts/postiz_export.py
+@@ -213,6 +213,10 @@
+         os.unlink(f.name)
+     record = {"sent_at": lib.now_local().isoformat(timespec="seconds"), "date": body["date"], "status": body["type"],
+               "slides": len(paths), "media": paths, "media_stamp": slides_stamp, "result": created}
++    if old.get("result"):
++        # a second send makes a second post in Postiz: keep the earlier sends, so their post ids are not lost and the
++        # extra post can still be found and deleted (audit of 08 Nov 2026: the old record used to be overwritten)
++        record["previous"] = (old.get("previous") or []) + [{k: old.get(k) for k in ("sent_at", "date", "status", "result", "replaced") if old.get(k)}]
+     lib.write_json(run_dir / "postiz.json", record)
+     return record
+ 
+--- a/tools/lumebook.py
++++ b/tools/lumebook.py
+@@ -27,7 +27,11 @@
+ import site_editor  # noqa: E402  the edit button on every page (tools/site_editor.py)
+ import i18n  # noqa: E402  the language switch's words (tools/i18n.py, 8 Nov 2026)
+ 
+-IL = timezone(timedelta(hours=3))
++try:  # Israel time with its summer and winter offsets (audit of 08 Nov 2026: a fixed UTC+3 was an hour off half the year)
++    from zoneinfo import ZoneInfo
++    IL = ZoneInfo("Asia/Jerusalem")
++except Exception:  # no time zone data on this Python
++    IL = timezone(timedelta(hours=3))
+ 
+ 
+ def find_root():
+@@ -174,13 +178,39 @@
+             return
+     st["pending"].append({"component": comp, "action": action, "reasons": [reason], "since": now(),
+                           "clears_with": clears_with})
++
++
++BUILD_FIX = "fix build: "
++
++
++def clear_build_fix(st, cid):
++    """A build of cid just succeeded: its 'fix build' to-do is done (audit of 08 Nov 2026; it used to wait for an ack)."""
++    st["pending"] = [it for it in st["pending"] if not (it["component"] == cid and it["action"].startswith(BUILD_FIX))]
++
++
++def ack_pending(st, cid, keep_build_fixes):
++    """Clear cid's to-dos. ack --published or --deployed records a publication and keeps a failed build's to-do, which only
++    a good build clears, so a republish can no longer hide a broken build (audit of 08 Nov 2026). Returns (cleared, kept)."""
++    keep = lambda it: it["component"] != cid or (keep_build_fixes and it["action"].startswith(BUILD_FIX))
++    before = len(st["pending"])
++    st["pending"] = [it for it in st["pending"] if keep(it)]
++    kept = [it for it in st["pending"] if it["component"] == cid]
++    return before - len(st["pending"]), kept
+ 
+ 
++def later(a, b):
++    """a is after b, for ISO times with any UTC offset (summer +03:00 and winter +02:00 strings do not compare as text)."""
++    try:
++        return datetime.fromisoformat(a) > datetime.fromisoformat(b)
++    except (TypeError, ValueError):
++        return (a or "") > (b or "")
++
++
+ def auto_clear(st):
+     keep = []
+     for it in st["pending"]:
+         out = it.get("clears_with")
+-        if out and mtime_iso(out) and mtime_iso(out) > it["since"]:
++        if out and mtime_iso(out) and later(mtime_iso(out), it["since"]):
+             log({"type": "cleared", "component": it["component"], "action": it["action"], "by": out})
+             continue
+         keep.append(it)
+@@ -488,8 +518,10 @@
+             if b and b.get("auto") and (own or styled):
+                 ok, err = build(cid)
+                 (report["built"] if ok else report["build_failed"]).append(cid)
+-                if not ok:
+-                    add_pending(st, cid, "fix build: " + " ".join(b["cmd"]), err or why)
++                if ok:
++                    clear_build_fix(st, cid)
++                else:
++                    add_pending(st, cid, BUILD_FIX + " ".join(b["cmd"]), err or why)
+             elif b and (own or styled):
+                 add_pending(st, cid, "rebuild (manual): cd " + b["cwd"] + " && " + " ".join(b["cmd"]) + (" | " + b["note"] if b.get("note") else ""),
+                             why, clears_with=b["outputs"][0])
+@@ -1250,6 +1282,7 @@
+     import http.client, http.server, functools, urllib.parse, urllib.request, threading, select, socket
+     sample_lock = threading.Lock()
+     origins = {f"http://localhost:{port}", f"http://127.0.0.1:{port}"}
++    local_hosts = {f"localhost:{port}", f"127.0.0.1:{port}", f"[::1]:{port}"}   # Host headers of this server's own pages
+     state_dir = p("creators/creator-research/state")
+     state_lock = threading.Lock()
+     hq_layout = p("sites/dashboard/hq-layout.json")
+@@ -1410,7 +1443,21 @@
+             self.send_header("Content-Length", str(len(body)))
+             self.end_headers()
+             self.wfile.write(body)
++
++        def _foreign_host(self):
++            """DNS rebinding (audit of 08 Nov 2026): a web site whose name points at 127.0.0.1 could read this whole folder
++            (.git, creators/correspondence, /api/home) through a page of its own. Its requests carry its own Host header,
++            so anything but this server's own name is refused, for every method."""
++            if (self.headers.get("Host") or "").strip().lower() in local_hosts:
++                return False
++            self._json(403, {"error": "local requests only"})
++            return True
+ 
++        def do_HEAD(self):
++            if self._foreign_host():
++                return
++            super().do_HEAD()
++
+         def reel_post(self, u):
+             """The reels hub's make sheet: a dropped file in, a dropped file out (to _to-delete), or a reel job (see serve's list)."""
+             q = urllib.parse.parse_qs(u.query)
+@@ -1596,6 +1643,8 @@
+             return True
+ 
+         def do_GET(self):
++            if self._foreign_host():
++                return
+             if self.hook_studio("GET"):
+                 return
+             if site_editor.handle(self, "GET", port, log):
+@@ -1689,6 +1738,8 @@
+             return super().do_GET()
+ 
+         def do_PUT(self):
++            if self._foreign_host():
++                return
+             if site_editor.handle(self, "PUT", port, log):
+                 return
+             u = urllib.parse.urlparse(self.path)
+@@ -1769,6 +1820,8 @@
+             return self._json(200, {"ok": True})
+ 
+         def do_POST(self):
++            if self._foreign_host():
++                return
+             if self.hook_studio("POST"):
+                 return
+             u = urllib.parse.urlparse(self.path)
+@@ -1953,8 +2006,7 @@
+     if a.cmd == "ack":
+         if a.id not in COMP:
+             sys.exit(f"unknown component {a.id}; see: python3 tools/lumebook.py map")
+-        before = len(st["pending"])
+-        st["pending"] = [it for it in st["pending"] if it["component"] != a.id]
++        cleared, kept = ack_pending(st, a.id, keep_build_fixes=bool(a.published or a.deployed))
+         if a.published:
+             cs = st["components"].setdefault(a.id, {})
+             cs["published_at"] = now() if a.published == "now" else a.published
+@@ -1966,9 +2018,11 @@
+         if a.deployed:
+             cs = st["components"].setdefault(a.id, {})
+             cs["deployed_hash"], cs["deployed_at"] = digest(a.id)[0], now()
+-        log({"type": "ack", "component": a.id, "cleared": before - len(st["pending"]), "published": a.published})
++        log({"type": "ack", "component": a.id, "cleared": cleared, "published": a.published})
+         save_state(st)
+-        print(f"{a.id}: cleared {before - len(st['pending'])} to-dos" + (f", published_at={st['components'][a.id]['published_at']}" if a.published else ""))
++        print(f"{a.id}: cleared {cleared} to-dos" + (f", published_at={st['components'][a.id]['published_at']}" if a.published else ""))
++        for it in kept:
++            print(f"  still open: {it['action']} (a good build clears it; or: python3 tools/lumebook.py ack {a.id})")
+         evaluate(load_state(), False)
+         return
+     r = evaluate(st, a.cmd == "ripple")
+--- a/tools/site_editor.py
++++ b/tools/site_editor.py
+@@ -31,7 +31,11 @@
+ MAX_PICTURE = 25 * 1024 * 1024
+ PICTURES = {"image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp", "image/avif": "avif", "image/svg+xml": "svg"}
+ BLOCK = re.compile(r"<!-- lumebook-edits:start.*?<!-- lumebook-edits:end -->\n?", re.S)
+-IL = timezone(timedelta(hours=2))
++try:  # Israel time with its summer and winter offsets (audit of 08 Nov 2026: a fixed UTC+2 was an hour off half the year)
++    from zoneinfo import ZoneInfo
++    IL = ZoneInfo("Asia/Jerusalem")
++except Exception:  # no time zone data on this Python
++    IL = timezone(timedelta(hours=2))
+ LOCK = threading.Lock()
+ _cache = {}
+ 
+--- a/tools/account_handoff.py
++++ b/tools/account_handoff.py
+@@ -15,7 +15,11 @@
+ import argparse, hashlib, json, os, re, subprocess, sys
+ from datetime import datetime, timezone, timedelta
+ 
+-IL = timezone(timedelta(hours=3))
++try:  # Israel time with its summer and winter offsets (audit of 08 Nov 2026: a fixed UTC+3 was an hour off half the year)
++    from zoneinfo import ZoneInfo
++    IL = ZoneInfo("Asia/Jerusalem")
++except Exception:  # no time zone data on this Python
++    IL = timezone(timedelta(hours=3))
+ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ MANIFEST = os.path.join(ROOT, "docs", "account-handoff", "artifacts.json")
+ MEMORY = os.path.expanduser("~/.claude/projects/" + ROOT.replace("/", "-") + "/memory")
+--- a/sites/dashboard/refresh.py
++++ b/sites/dashboard/refresh.py
+@@ -27,7 +27,11 @@
+ while not os.path.exists(os.path.join(ROOT, "lumebook.json")) and ROOT != os.path.dirname(ROOT):
+     ROOT = os.path.dirname(ROOT)
+ OUT = os.path.join(HERE, "out")
+-IL = timezone(timedelta(hours=3))  # Israel summer time; good enough for date stamps
++try:  # Israel time with its summer and winter offsets (audit of 08 Nov 2026: a fixed UTC+3 was an hour off half the year)
++    from zoneinfo import ZoneInfo
++    IL = ZoneInfo("Asia/Jerusalem")
++except Exception:  # no time zone data on this Python
++    IL = timezone(timedelta(hours=3))
+ 
+ # Shared facts (links, artifact URLs, dates, creator lists) live in shared/facts.json; component paths in lumebook.json.
+ REGISTRY = json.load(open(os.path.join(ROOT, "lumebook.json"), encoding="utf-8"))["components"]
+--- a/shared/facts.json
++++ b/shared/facts.json
+@@ -224,10 +224,10 @@
+         "label": "שרת הפרויקט המקומי",
+         "url": "http://localhost:8780/",
+         "ping": "http://127.0.0.1:8780/api/board/env",
+-        "runs_as": "the 'lumebook' preview config or a terminal",
+-        "runs_as_he": "מופעל לפי הצורך, מהגדרת התצוגה lumebook או ממסוף בתיקיית הפרויקט.",
+-        "status_cmd": "curl -s http://127.0.0.1:8780/api/board/env",
+-        "start_cmd": "python3 tools/lumebook.py serve"
++        "runs_as": "login item (launchd com.yarinbruner.lumebook-serve, since 21 Oct 2026); never start a second copy, the 'lumebook' preview config only attaches to it",
++        "runs_as_he": "רץ כל הזמן על המק כפריט התחברות (launchd). לא מפעילים עותק שני: אחרי שינוי ב-tools/lumebook.py מריצים restart.",
++        "status_cmd": "python3 tools/serve_login.py status",
++        "start_cmd": "python3 tools/serve_login.py restart"
+       }
+     ]
+   },
+--- a/research/israeli-product-reels/src/scripts/series-2026-11/reels.py
++++ b/research/israeli-product-reels/src/scripts/series-2026-11/reels.py
+@@ -207,9 +207,9 @@
+             bad.append(f"- ERROR {r['id']}: about {sec:g} s, outside {L['min']} to {L['max']} s")
+         # Yarin, 05 Nov 2026: never mention the price (an amount, a discount, a sale, the delivery cost)
+         copy = " ".join([r["hook"], r["caption"]] + r.get("vo", []) + r.get("cards", []))
+-        hit = PRICE.search(copy)
++        hit = price_hit(copy)
+         if hit:
+-            bad.append(f"- ERROR {r['id']}: mentions the price ({hit.group(0)!r}); reels never do (Yarin, 05 Nov 2026)")
++            bad.append(f"- ERROR {r['id']}: mentions the price ({hit!r}); reels never do (Yarin, 05 Nov 2026)")
+         hit = NO_TALK.search(copy)
+         if hit:
+             bad.append(f"- ERROR {r['id']}: talks about {hit.group(0)!r}; reels never mention the language options or the digital copy (Yarin, 05 Nov 2026)")
+@@ -239,7 +239,22 @@
+     return res.returncode or (1 if bad else 0)
+ 
+ 
+-PRICE = re.compile(r"שקל|₪|ש\"ח|מחיר|מבצע|הנחה|במקום \d|\b(?:79|99|119|149)\b|עולה|עלות|זול|בחצי")
++PRICE = re.compile(r"שקל|₪|ש\"ח|ש״ח|מחיר|מבצע|הנחה|במקום \d|\b(?:79|99|119|149)\b|עולה|עלות|זול|בחצי|משלוח חינם|דמי משלוח")
++# whole words that hold a PRICE stem without being about money (audit of 08 Nov 2026: מעולה, לפעולה in the caption
++# disclaimer and להעלות failed the lint); a word not listed here still fails
++PRICE_NOT = {"מעולה", "מעולים", "מעולות", "פעולה", "לפעולה", "בפעולה", "הפעולה", "פעולות", "להעלות", "תעלות", "מעלות"}
++
++
++def price_hit(text):
++    """The first price word in text (the whole word around a PRICE match), or None."""
++    for m in PRICE.finditer(text):
++        word = re.search(r"\w*$", text[:m.start()]).group(0) + m.group(0) + re.match(r"\w*", text[m.end():]).group(0)
++        if word not in PRICE_NOT:
++            return word
++    return None
++
++
++
+ NO_TALK = re.compile(r"דיגיטל|אנגלית|ערבית|רוסית|שפות|בשפה|שפה")   # Yarin, 05 Nov 2026: the content is in Hebrew for an Israeli audience; nobody cares about the digital copy
+ NOT_A_PARENT = re.compile(r"(?:ה|ל|ש|מ|ב)?(?:ילד|ילדה|ילדים|בן|בת|נכד|נכדה|נכדים) שלי|אצלנו בבית|אני (?:אמא|אבא)|כאבא|הבית שלי|פרצוף עייף")
+ HOOK_CHARS = 34   # 2 s of reading at 17 characters a second (principle T5)
+--- a/research/israeli-product-reels/src/scripts/series-2026-11/reel_make.py
++++ b/research/israeli-product-reels/src/scripts/series-2026-11/reel_make.py
+@@ -63,6 +63,24 @@
+     return subprocess.run([str(x) for x in a], check=True, **kw)
+ 
+ 
++def sound_hash(wav_path):
++    import hashlib
++    return hashlib.sha1(Path(wav_path).read_bytes()).hexdigest()
++
++
++def transcript_is_stale(raw_path, wav_path):
++    """True when words-raw.json is missing or was made from another voice-studio.wav (audit of 08 Nov 2026: a new take,
++    or a changed voice_start or hook_end, kept the old words and so the old caption and cut times). The sound's hash
++    is kept next to the transcript (words-raw.json.wav-sha1)."""
++    mark = Path(str(raw_path) + ".wav-sha1")
++    was = mark.read_text().strip() if mark.exists() else ""
++    return not Path(raw_path).exists() or was != sound_hash(wav_path)
++
++
++def mark_transcript(raw_path, wav_path):
++    Path(str(raw_path) + ".wav-sha1").write_text(sound_hash(wav_path) + "\n")
++
++
+ def dur(p):
+     return float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(p)]))
+ 
+@@ -197,10 +215,11 @@
+ 
+     # 3. transcript, matched to the script (hook + voiceover in one pass: whisper's times drift around the join)
+     raw_path = work / "words-raw.json"
+-    if retranscribe or not raw_path.exists():
++    if retranscribe or transcript_is_stale(raw_path, work / "voice-studio.wav"):
+         import os
+         run("/usr/bin/python3", EDITOR.parent / "transcribe.py", work / "voice-studio.wav", raw_path,
+             env=dict(os.environ, KMP_DUPLICATE_LIB_OK="TRUE"))
++        mark_transcript(raw_path, work / "voice-studio.wav")
+     raw = json.loads(raw_path.read_text())
+     both, problems = align(raw, hook_words + script)
+     raw_hook, words = both[:len(hook_words)], both[len(hook_words):]
+--- /dev/null
++++ b/sites/dashboard/tests/test_build_site.py
+@@ -0,0 +1,61 @@
++"""The static (Vercel) copy of HQ must never carry the store's ambassadors person by person (audit of 08 Nov 2026).
++
++Run: python3 -m unittest discover -s sites/dashboard/tests
++"""
++import json
++import os
++import sys
++import unittest
++
++sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
++import build_site  # noqa: E402
++
++
++def section():
++    return {"total": 2, "tests": 1, "active": 1, "books": 3, "new_week": 1, "rewards_final": 40.0,
++            "rows": [{"name": "Dana Example", "handle": "dana.example", "slug": "dana-x1", "joined": "2026-11-01"}],
++            "payouts_open": [{"who": "Dana Example", "amount": 40.0, "due": "10/11/2026", "state": "חדש"}]}
++
++
++class PublicSnapshot(unittest.TestCase):
++    def snap(self):
++        return {"date": "2026-11-08", "signups": section(),
++                "home": {"ambassadors": section(), "attention": [
++                    {"sev": "crit", "tag": "שגרירים", "text": "בקשת מימוש פתוחה של Dana Example, לטפל עד 10/11/2026", "view": "signups"},
++                    {"sev": "info", "tag": "שגרירים", "text": "1 שגרירים חדשים השבוע", "view": "signups"},
++                    {"sev": "warn", "tag": "יוצרים", "text": "19 תזכורות ליוצרים הגיעו לזמנן"}]}}
++
++    def test_no_person_reaches_the_static_copy(self):
++        out = json.dumps(build_site.public_snapshot(self.snap()), ensure_ascii=False)
++        for private in ("Dana Example", "dana.example", "dana-x1"):
++            self.assertNotIn(private, out)
++
++    def test_counts_and_totals_stay(self):
++        pub = build_site.public_snapshot(self.snap())
++        for sec in (pub["signups"], pub["home"]["ambassadors"]):
++            self.assertEqual((sec["total"], sec["books"], sec["rewards_final"]), (2, 3, 40.0))
++            self.assertEqual(sec["payouts_open_count"], 1)
++            self.assertTrue(sec["redacted"])
++            self.assertNotIn("rows", sec)
++            self.assertNotIn("payouts_open", sec)
++
++    def test_attention_keeps_the_item_without_the_name(self):
++        att = build_site.public_snapshot(self.snap())["home"]["attention"]
++        self.assertEqual(len(att), 3)
++        self.assertEqual(att[0]["text"], "בקשת מימוש פתוחה של שגריר")
++        self.assertEqual(att[1]["text"], "1 שגרירים חדשים השבוע")
++        self.assertEqual(att[2]["text"], "19 תזכורות ליוצרים הגיעו לזמנן")
++
++    def test_the_local_snapshot_is_not_changed(self):
++        snap = self.snap()
++        build_site.public_snapshot(snap)
++        self.assertEqual(len(snap["signups"]["rows"]), 1)
++        self.assertEqual(len(snap["home"]["ambassadors"]["payouts_open"]), 1)
++
++    def test_missing_sections_are_fine(self):
++        self.assertEqual(build_site.public_snapshot({"date": "x"}), {"date": "x"})
++        self.assertIsNone(build_site.public_snapshot({"signups": None})["signups"])
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- /dev/null
++++ b/tools/tests/test_pending.py
+@@ -0,0 +1,55 @@
++"""To-dos in .lumebook/state.json: a republish must not hide a broken build (audit of 08 Nov 2026).
++
++Run: python3 -m unittest discover -s tools/tests
++Pure functions on an in-memory state: nothing is read from or written to .lumebook/.
++"""
++import os
++import sys
++import unittest
++
++sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
++import lumebook as lb  # noqa: E402
++
++
++def state():
++    return {"components": {}, "pending": [
++        {"component": "strategy", "action": lb.BUILD_FIX + "python3 src/build_strategy_page.py", "reasons": ["boom"], "since": "x"},
++        {"component": "strategy", "action": "review: hooks", "reasons": ["upstream"], "since": "x"},
++        {"component": "dashboard", "action": lb.BUILD_FIX + "python3 build_site.py", "reasons": ["boom"], "since": "x"}]}
++
++
++class Pending(unittest.TestCase):
++    def test_ack_published_keeps_a_failed_build(self):
++        st = state()
++        cleared, kept = lb.ack_pending(st, "strategy", keep_build_fixes=True)
++        self.assertEqual(cleared, 1)
++        self.assertEqual([it["action"] for it in kept], [lb.BUILD_FIX + "python3 src/build_strategy_page.py"])
++        self.assertEqual(len(st["pending"]), 2)
++
++    def test_plain_ack_still_clears_everything_of_that_component(self):
++        st = state()
++        cleared, kept = lb.ack_pending(st, "strategy", keep_build_fixes=False)
++        self.assertEqual((cleared, kept), (2, []))
++        self.assertEqual([it["component"] for it in st["pending"]], ["dashboard"])
++
++    def test_a_good_build_clears_only_its_own_build_fix(self):
++        st = state()
++        lb.clear_build_fix(st, "strategy")
++        self.assertEqual([(it["component"], it["action"][:10]) for it in st["pending"]],
++                         [("strategy", "review: ho"), ("dashboard", lb.BUILD_FIX[:10])])
++
++
++class Times(unittest.TestCase):
++    def test_summer_and_winter_offsets_compare_as_times(self):
++        # 23:30 winter time is 21:30 UTC, after 23:45 summer time (20:45 UTC); as text it looked earlier
++        self.assertTrue(lb.later("2026-11-08T23:30:00+02:00", "2026-11-08T23:45:00+03:00"))
++        self.assertFalse(lb.later("2026-11-08T22:30:00+02:00", "2026-11-08T23:45:00+03:00"))
++
++    def test_israel_offset_follows_the_season(self):
++        from datetime import datetime
++        self.assertEqual(datetime(2026, 7, 1, 12, tzinfo=lb.IL).utcoffset().total_seconds(), 3 * 3600)
++        self.assertEqual(datetime(2026, 11, 8, 12, tzinfo=lb.IL).utcoffset().total_seconds(), 2 * 3600)
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- /dev/null
++++ b/carousel/carousel-pipeline/tests/test_local_only.py
+@@ -0,0 +1,73 @@
++"""Carousel Machine answers only this Mac's own pages (audit of 08 Nov 2026).
++
++A web site open in the browser could otherwise POST to 127.0.0.1:8777 (a text/plain POST needs no CORS preflight) and
++save, approve, authorize spending or send to Postiz; a DNS-rebinding site could read the drafts with a foreign Host.
++"""
++import http.client
++import sys
++import threading
++import unittest
++from pathlib import Path
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
++import review_server as rs  # noqa: E402
++
++
++class LocalOnly(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.server = rs.ThreadingHTTPServer(("127.0.0.1", 0), rs.Handler)
++        cls.port = cls.server.server_address[1]
++        threading.Thread(target=cls.server.serve_forever, daemon=True).start()
++
++    @classmethod
++    def tearDownClass(cls):
++        cls.server.shutdown()
++        cls.server.server_close()
++
++    def call(self, method, path, headers=None, body=None):
++        conn = http.client.HTTPConnection("127.0.0.1", self.port, timeout=10)
++        try:
++            conn.putrequest(method, path, skip_host=True)
++            hdrs = {"Host": f"127.0.0.1:{self.port}", **(headers or {})}
++            if body is not None:
++                hdrs["Content-Length"] = str(len(body))
++            for k, v in hdrs.items():
++                if v is not None:
++                    conn.putheader(k, v)
++            conn.endheaders(body)
++            return conn.getresponse().status
++        finally:
++            conn.close()
++
++    # /api/nope is no route: a request that passes the check gets 404, one that is refused gets 403, and nothing is changed
++    def post(self, origin=None, host=None):
++        return self.call("POST", "/api/nope", {"Origin": origin, "Content-Type": "text/plain",
++                                               **({"Host": host} if host else {})}, b"{}")
++
++    def test_get_from_this_mac(self):
++        self.assertEqual(self.call("GET", "/api/ping"), 200)
++        self.assertEqual(self.call("GET", "/api/ping", {"Host": f"localhost:{self.port}"}), 200)
++
++    def test_get_with_a_foreign_host_is_refused(self):
++        self.assertEqual(self.call("GET", "/api/ping", {"Host": f"rebind.example:{self.port}"}), 403)
++
++    def test_post_without_origin_passes(self):   # the project server's forward, scripts, tests
++        self.assertEqual(self.post(), 404)
++
++    def test_post_from_its_own_pages_passes(self):
++        self.assertEqual(self.post(f"http://localhost:{self.port}"), 404)
++        self.assertEqual(self.post(f"http://127.0.0.1:{self.port}"), 404)
++        self.assertEqual(self.post("http://localhost:8780"), 404)
++
++    def test_post_from_another_site_is_refused(self):
++        self.assertEqual(self.post("https://evil.example"), 403)
++        self.assertEqual(self.post("null"), 403)
++        self.assertEqual(self.post("http://localhost:9999"), 403)
++
++    def test_post_with_a_foreign_host_is_refused(self):
++        self.assertEqual(self.post(None, f"rebind.example:{self.port}"), 403)
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- /dev/null
++++ b/carousel/carousel-pipeline/tests/test_spend_log.py
+@@ -0,0 +1,71 @@
++"""Every OpenAI call that may have been paid lands in the spend log (audit of 08 Nov 2026).
++
++An answer cut off or unreadable after a 200, or a crop that fails after a paid picture, used to leave the job "running"
++with nothing logged, so the budget check undercounted. Temporary folders and fake clients only: no network, no key.
++"""
++import json
++import shutil
++import sys
++import tempfile
++import unittest
++from pathlib import Path
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
++import carousel_lib as lib  # noqa: E402
++import openai_generate as og  # noqa: E402
++import openai_pictures as op  # noqa: E402
++import prepare_picture_jobs as pjobs  # noqa: E402
++
++CFG = op.config()
++USAGE = {"input_tokens": 121, "input_tokens_details": {"text_tokens": 121, "image_tokens": 0}, "output_tokens": 158}
++
++
++class Broken:
++    """A client whose answer cannot be read (as json.load or base64 would fail on a cut-off body)."""
++
++    def generate(self, job, cfg=None):
++        raise ValueError("Expecting value: line 1 column 1 (char 0)")
++
++
++class Paid:
++    def generate(self, job, cfg=None):
++        return "req_1", b"\x89PNG not really", USAGE
++
++
++class SpendLog(unittest.TestCase):
++    def setUp(self):
++        self.tmp = Path(tempfile.mkdtemp(prefix="spend-log-"))
++        run_dir = self.tmp / "2026-11-09-kid-1"
++        (run_dir / "generated-assets").mkdir(parents=True)
++        job = pjobs.make_job(CFG, "generate", "a prompt " * 50, [], op.base_input(CFG))
++        lib.write_json(run_dir / "jobs.json", {"order": ["picture"], "backend": "openai", "max_replacements_per_job": 2,
++                                               "jobs": {"picture": job}})
++        lib.write_json(run_dir / "state.json", {"jobs": {"picture": {"status": "pending", "attempts": 0, "replacements": 0,
++                                                                      "qa": None, "notes": []}}})
++        self.run = og.Run(run_dir)
++        self.estimate = op.estimate_job(job, CFG)["usd"]
++
++    def tearDown(self):
++        shutil.rmtree(self.tmp, ignore_errors=True)
++
++    def test_an_unreadable_answer_counts_as_spent_at_the_estimate(self):
++        with self.assertRaises(RuntimeError):
++            og.execute(self.run, "picture", 1.0, False, client=Broken(), cfg=CFG)
++        self.assertEqual(json.loads((self.run.dir / "state.json").read_text())["jobs"]["picture"]["status"], "failed")
++        self.assertAlmostEqual(self.run.spent(), self.estimate)
++        self.assertEqual(og.Run.reserved, 0.0)
++
++    def test_a_failed_crop_after_a_paid_picture_is_logged_at_its_cost(self):
++        real = op.normalize
++        op.normalize = lambda raw, out: (_ for _ in ()).throw(RuntimeError("cannot convert the picture"))
++        try:
++            with self.assertRaises(RuntimeError):
++                og.execute(self.run, "picture", 1.0, False, client=Paid(), cfg=CFG)
++        finally:
++            op.normalize = real
++        self.assertAlmostEqual(self.run.spent(), op.usage_cost(USAGE, CFG))
++        self.assertTrue((self.run.gen / "openai-originals" / "picture-attempt1.png").exists())   # the paid original is kept
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- /dev/null
++++ b/carousel/carousel-pipeline/tests/test_postiz_history.py
+@@ -0,0 +1,47 @@
++"""A second send to Postiz keeps the first post's record (audit of 08 Nov 2026). Fakes only: no upload, no Postiz call."""
++import json
++import shutil
++import sys
++import tempfile
++import unittest
++from pathlib import Path
++from unittest import mock
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
++import postiz_export as pe  # noqa: E402
++
++
++class PostizHistory(unittest.TestCase):
++    def setUp(self):
++        self.tmp = Path(tempfile.mkdtemp(prefix="postiz-history-"))
++        self.run_dir = self.tmp / "2026-11-12-kid-1"
++        (self.run_dir / "final").mkdir(parents=True)
++        (self.run_dir / "final" / "caption.txt").write_text("כיתוב", encoding="utf-8")
++        self.ids = iter(["post-1", "post-2", "post-3"])
++
++    def tearDown(self):
++        shutil.rmtree(self.tmp, ignore_errors=True)
++
++    def send(self):
++        fake_cli = lambda *a, **k: [{"postId": next(self.ids), "integration": "x"}]
++        with mock.patch.object(pe, "slides_of", return_value=[self.run_dir / "01.png"]), \
++                mock.patch.object(pe, "stamp", return_value="s1"), \
++                mock.patch.object(pe, "_upload", return_value={"id": "m1", "path": "https://example.invalid/m1.png"}), \
++                mock.patch.object(pe, "payload", return_value={"type": "draft", "date": "2026-11-12T06:00:00+02:00", "posts": []}), \
++                mock.patch.object(pe, "_cli", side_effect=fake_cli):
++            return pe.send(self.run_dir, draft=True)
++
++    def test_the_first_send_has_no_history(self):
++        self.assertNotIn("previous", self.send())
++
++    def test_every_earlier_post_id_is_kept(self):
++        self.send()
++        self.send()
++        rec = self.send()
++        self.assertEqual(rec["result"][0]["postId"], "post-3")
++        self.assertEqual([p["result"][0]["postId"] for p in rec["previous"]], ["post-1", "post-2"])
++        self.assertEqual(json.loads((self.run_dir / "postiz.json").read_text())["previous"][1]["result"][0]["postId"], "post-2")
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- /dev/null
++++ b/research/israeli-product-reels/src/scripts/series-2026-11/tests/test_lint_rules.py
+@@ -0,0 +1,27 @@
++"""Reel copy rules (Yarin, 05 Nov 2026): never the price, and no false alarms on ordinary words (audit of 08 Nov 2026).
++
++Run: python3 -m unittest discover -s research/israeli-product-reels/src/scripts/series-2026-11/tests
++Checks the patterns only; nothing is read from or written to reels.json or lint.json.
++"""
++import sys
++import unittest
++from pathlib import Path
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
++import reels  # noqa: E402
++
++
++class PriceRule(unittest.TestCase):
++    def test_price_talk_fails(self):
++        for text in ["הספר עולה 99", "רק 149 ₪", "במקום 199", "₪20 משלוח", "120 ש\"ח", "120 ש״ח", "יש מבצע היום",
++                     "הנחה לחנוכה", "משלוח חינם עד הבית", "בלי דמי משלוח", "העלות של הספר", "בזול", "בחצי מחיר", "כמה זה עולה"]:
++            self.assertIsNotNone(reels.price_hit(text), text)
++
++    def test_ordinary_words_pass(self):
++        for text in ["הספר יצא מעולה", "אין קריאה לפעולה רפואית", "רק צריך להעלות תמונה", "הילדים היו מעולים",
++                     "תוצאות מעולות", "משלוח עד הבית"]:
++            self.assertIsNone(reels.price_hit(text), text)
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- /dev/null
++++ b/research/israeli-product-reels/src/scripts/series-2026-11/tests/test_transcript_cache.py
+@@ -0,0 +1,41 @@
++"""The reel's transcript is redone when its sound changes (audit of 08 Nov 2026). Temp files only."""
++import sys
++import tempfile
++import unittest
++from pathlib import Path
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
++import reel_make as rm  # noqa: E402
++
++
++class TranscriptCache(unittest.TestCase):
++    def setUp(self):
++        self.dir = tempfile.TemporaryDirectory()
++        d = Path(self.dir.name)
++        self.wav, self.raw = d / "voice-studio.wav", d / "words-raw.json"
++        self.wav.write_bytes(b"take one")
++
++    def tearDown(self):
++        self.dir.cleanup()
++
++    def test_no_transcript_yet(self):
++        self.assertTrue(rm.transcript_is_stale(self.raw, self.wav))
++
++    def test_same_sound_keeps_the_transcript(self):
++        self.raw.write_text("[]")
++        rm.mark_transcript(self.raw, self.wav)
++        self.assertFalse(rm.transcript_is_stale(self.raw, self.wav))
++
++    def test_new_sound_redoes_it(self):
++        self.raw.write_text("[]")
++        rm.mark_transcript(self.raw, self.wav)
++        self.wav.write_bytes(b"take two")
++        self.assertTrue(rm.transcript_is_stale(self.raw, self.wav))
++
++    def test_an_old_transcript_without_a_mark_is_redone_once(self):
++        self.raw.write_text("[]")
++        self.assertTrue(rm.transcript_is_stale(self.raw, self.wav))
++
++
++if __name__ == "__main__":
++    unittest.main()

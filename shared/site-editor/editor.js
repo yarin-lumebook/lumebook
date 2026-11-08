@@ -598,6 +598,9 @@
   const shadow = ui.attachShadow({ mode: "open" });
   shadow.innerHTML = `<style>
 :host { all: initial; }
+/* no scrollbars, ever (Yarin, 08 Nov 2026) */
+*, *::before, *::after { scrollbar-width: none !important; }
+::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
 * { box-sizing: border-box; }
 .wrap {
   --se-ink: #1d1d1f; --se-muted: #6e6e73; --se-line: rgb(0 0 0 / 10%); --se-hover: rgb(0 0 0 / 6%);

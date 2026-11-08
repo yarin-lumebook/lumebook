@@ -211,12 +211,15 @@
     // the editor hands over the whole list after each save; it applies them itself while it is open
     set(list, { apply = true } = {}) { ops = Array.isArray(list) ? list : []; if (apply) applyAll(); },
     pause() { paused = true; observer.disconnect(); },
+    // the language switch (shared/design/i18n.src.js) changed words on the page: what is there now counts as applied
+    resync() { for (const op of ops) if (op.t === "html") { const el = live(done, op); if (el) seen.set(op, el.innerHTML); } observer.takeRecords(); },
     resume() { paused = false; applyAll(); },
     apply: applyAll,
     locate, find, sigOf, sigText, touch,
     // an edit the editor just made on this element (so it isn't applied a second time)
     mark(op, el, ref) { if (el) { done.set(op, el); if (op.t === "html") seen.set(op, el.innerHTML); } if (ref) doneRef.set(op, ref); },
   };
+  window.LBEdits = window.__lbEdits;   // the same, for scripts inlined by builds that refuse "__" (the language switch)
   if (ops.length) applyAll();
   // pages that draw their content after loading (data fetched, tabs built) get the edits as soon as it appears
   document.addEventListener("DOMContentLoaded", () => { if (ops.length) applyAll(); });

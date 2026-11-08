@@ -430,6 +430,7 @@ function render() {
   renderNav();
   const dl = document.getElementById("dlg"); if (dl && dl.open && (query || r !== "calendar")) dl.close();   /* the reel drawer belongs to the month view */
   if (!query && r === "calendar" && window.CalMount) CalMount();
+  if (window.__lbEdits) __lbEdits.apply();   /* edits made with the edit button: the view was just drawn again and the runtime does not notice it here */
 }
 function focusItem(id) {
   requestAnimationFrame(() => {

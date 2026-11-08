@@ -15,6 +15,7 @@ Two modes per page (shared/site-editor/pages.json):
 Standard library only.
 """
 import fnmatch, hashlib, html, json, os, re, tempfile, threading, urllib.parse
+import i18n   # the language switch's words for each page (tools/i18n.py, 8 Nov 2026)
 from datetime import datetime, timezone, timedelta
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,7 +31,11 @@ MAX_SAVE = 30 * 1024 * 1024
 MAX_PICTURE = 25 * 1024 * 1024
 PICTURES = {"image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp", "image/avif": "avif", "image/svg+xml": "svg"}
 BLOCK = re.compile(r"<!-- lumebook-edits:start.*?<!-- lumebook-edits:end -->\n?", re.S)
-IL = timezone(timedelta(hours=2))
+try:  # Israel time with its summer and winter offsets (audit of 08 Nov 2026: a fixed UTC+2 was an hour off half the year)
+    from zoneinfo import ZoneInfo
+    IL = ZoneInfo("Asia/Jerusalem")
+except Exception:  # no time zone data on this Python
+    IL = timezone(timedelta(hours=2))
 LOCK = threading.Lock()
 _cache = {}
 
@@ -238,15 +243,24 @@ def bake_outputs(outputs):
 
 # ---------- serving ----------
 
+NO_SCROLLBARS = ('<style id="lumebook-no-scrollbars">*,*::before,*::after{scrollbar-width:none!important}'
+                 '::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}</style>\n')
+
 def inject(text, info):
     """The page as the project server shows it: its file without the baked block, plus the current edits, the runtime and the button."""
     key = info["key"]
     ops, _ = read_ops(key)
     a = lambda v: html.escape(v or "", quote=True)
-    tags = (f'<script type="application/json" id="lumebook-edits">{_data(key, ops)}</script>\n'
+    # No scrollbars on any page the server shows (Yarin, 08 Nov 2026: "dont show the scrollbar ever again in anything at all"):
+    # pages built with the design system already hide them through lumebook.css; this covers every other page.
+    text = i18n.strip(strip(text))
+    # the language switch's words, as they are now (8 Nov 2026); only pages with the project nav carry the switch
+    words = i18n.tag(key, live=True) if i18n.has_switch(text) else ""
+    tags = (NO_SCROLLBARS + words +
+            f'<script type="application/json" id="lumebook-edits">{_data(key, ops)}</script>\n'
             f'<script src="{API}overlay.js"></script>\n'
             f'<script src="{API}loader.js" data-page="{a(key)}" data-mode="{a(info["mode"])}" data-file="{a(info["file"] or key)}" data-note="{a(info["note"])}"></script>\n')
-    return _at_body_end(strip(text), tags)
+    return _at_body_end(text, tags)
 
 
 def page_for_url(handler, url_path):

@@ -36,11 +36,10 @@
         "creators": {"cat": 2, "label": "יוצרים", "en": "Creators", "components": ["creator-map", "signup-form", "creator-content-conversion", "creator-brief", "ambassadors", "partners-page"]},
         "carousels": {"cat": 5, "label": "קרוסלות", "en": "Carousels", "components": ["carousel-pipeline", "hook-studio-page", "carousel-research", "carousel-playbook", "carousel-audit", "lotem-lerner-carousels", "fal-trial"]},
         "reels": {"cat": 1, "label": "רילס ווידאו", "en": "Reels and video", "components": ["israeli-product-reels", "reels-hub", "reels-research-page", "reel-calendar", "kids-lab", "media"]},
-        "competitors": {"cat": 7, "label": "מתחרים", "en": "Competitors", "components": ["competitor-teardown"]},
         "communities": {"cat": 6, "label": "קהילות", "en": "Communities", "components": ["parent-communities"]},
         "learning": {"cat": 3, "label": "קורס ולמידה", "en": "Course and learning", "components": ["course"]},
-        "library": {"cat": 8, "label": "ספריית מחקר", "en": "Research library", "components": []},
-        "system": {"cat": 0, "label": "מערכת", "en": "System", "components": ["facts", "brand", "design", "dashboard"]}
+        "research": {"cat": 7, "label": "מחקר", "en": "Research", "components": ["competitor-teardown", "research-hub"]},
+        "system": {"cat": 0, "label": "מערכת", "en": "System", "components": ["facts", "brand", "design", "dashboard", "site-editor", "i18n"]}
       }
     },
     "creator-tracks": {
@@ -134,6 +133,34 @@
         "views": {"cat": 4, "label": "צפיות", "en": "Views"},
         "likes": {"cat": 2, "label": "לייקים", "en": "Likes"},
         "comments": {"cat": 6, "label": "תגובות", "en": "Comments"}
+      }
+    },
+    "social-metrics": {
+      "used_by": ["sites/dashboard/lumebook-dashboard.html (HQ home: the Instagram and Facebook number cubes, through lb-cat-N)"],
+      "what": "The Instagram and Facebook numbers on HQ's home (08 Nov 2026), one hue per metric on both channels. Views, likes and comments keep the hues of books-metrics, so a metric looks the same on every page. No class key. Status (waiting, done) keeps the status colours",
+      "items": {
+        "reach": {"cat": 1, "label": "חשיפה", "en": "Reach"},
+        "views": {"cat": 4, "label": "צפיות", "en": "Views"},
+        "likes": {"cat": 2, "label": "לייקים", "en": "Likes"},
+        "comments": {"cat": 6, "label": "תגובות", "en": "Comments"},
+        "saves": {"cat": 8, "label": "שמירות", "en": "Saves"},
+        "shares": {"cat": 7, "label": "שיתופים", "en": "Shares"},
+        "followers": {"cat": 3, "label": "עוקבים", "en": "Followers"},
+        "engagement": {"cat": 5, "label": "מעורבות", "en": "Engagement"}
+      }
+    },
+    "research-topics": {
+      "used_by": ["research/research-hub/build.py (ספריית המחקר: topic cubes, sidebar tiles, section and card tiles, topic chips, through lb-cat-N)"],
+      "what": "The topics of the research hub (08 Nov 2026). No class key, like journey-stages, so other pages' inlined CSS does not change. Hues follow the workstreams set where the topic is the same (creators 2, carousels 5, reels 1, competitors 7, communities 6, plan 4 for audience); store and sales take the free 3 and 8. The ninth topic (tools, כלים ושיטות עבודה) has no hue on purpose: research.json marks it neutral and the page draws it in ink (lb-cat-0)",
+      "items": {
+        "audience": {"cat": 4, "label": "קהל, מוצר ושוק", "en": "Audience, product and market"},
+        "competitors": {"cat": 7, "label": "מתחרים", "en": "Competitors"},
+        "creators": {"cat": 2, "label": "יוצרים ו-UGC", "en": "Creators and UGC"},
+        "carousels": {"cat": 5, "label": "קרוסלות", "en": "Carousels"},
+        "reels": {"cat": 1, "label": "רילס ווידאו", "en": "Reels and video"},
+        "communities": {"cat": 6, "label": "קהילות הורים", "en": "Parent communities"},
+        "store": {"cat": 3, "label": "חנות, המרה ו-CRM", "en": "Store conversion and CRM"},
+        "sales": {"cat": 8, "label": "מכירות ומספרים", "en": "Sales and numbers"}
       }
     }
   }

@@ -207,9 +207,9 @@ def lint():
             bad.append(f"- ERROR {r['id']}: about {sec:g} s, outside {L['min']} to {L['max']} s")
         # Yarin, 05 Nov 2026: never mention the price (an amount, a discount, a sale, the delivery cost)
         copy = " ".join([r["hook"], r["caption"]] + r.get("vo", []) + r.get("cards", []))
-        hit = PRICE.search(copy)
+        hit = price_hit(copy)
         if hit:
-            bad.append(f"- ERROR {r['id']}: mentions the price ({hit.group(0)!r}); reels never do (Yarin, 05 Nov 2026)")
+            bad.append(f"- ERROR {r['id']}: mentions the price ({hit!r}); reels never do (Yarin, 05 Nov 2026)")
         hit = NO_TALK.search(copy)
         if hit:
             bad.append(f"- ERROR {r['id']}: talks about {hit.group(0)!r}; reels never mention the language options or the digital copy (Yarin, 05 Nov 2026)")
@@ -239,7 +239,22 @@ def lint():
     return res.returncode or (1 if bad else 0)
 
 
-PRICE = re.compile(r"שקל|₪|ש\"ח|מחיר|מבצע|הנחה|במקום \d|\b(?:79|99|119|149)\b|עולה|עלות|זול|בחצי")
+PRICE = re.compile(r"שקל|₪|ש\"ח|ש״ח|מחיר|מבצע|הנחה|במקום \d|\b(?:79|99|119|149)\b|עולה|עלות|זול|בחצי|משלוח חינם|דמי משלוח")
+# whole words that hold a PRICE stem without being about money (audit of 08 Nov 2026: מעולה, לפעולה in the caption
+# disclaimer and להעלות failed the lint); a word not listed here still fails
+PRICE_NOT = {"מעולה", "מעולים", "מעולות", "פעולה", "לפעולה", "בפעולה", "הפעולה", "פעולות", "להעלות", "תעלות", "מעלות"}
+
+
+def price_hit(text):
+    """The first price word in text (the whole word around a PRICE match), or None."""
+    for m in PRICE.finditer(text):
+        word = re.search(r"\w*$", text[:m.start()]).group(0) + m.group(0) + re.match(r"\w*", text[m.end():]).group(0)
+        if word not in PRICE_NOT:
+            return word
+    return None
+
+
+
 NO_TALK = re.compile(r"דיגיטל|אנגלית|ערבית|רוסית|שפות|בשפה|שפה")   # Yarin, 05 Nov 2026: the content is in Hebrew for an Israeli audience; nobody cares about the digital copy
 NOT_A_PARENT = re.compile(r"(?:ה|ל|ש|מ|ב)?(?:ילד|ילדה|ילדים|בן|בת|נכד|נכדה|נכדים) שלי|אצלנו בבית|אני (?:אמא|אבא)|כאבא|הבית שלי|פרצוף עייף")
 HOOK_CHARS = 34   # 2 s of reading at 17 characters a second (principle T5)

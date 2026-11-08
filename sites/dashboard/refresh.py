@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
 """Build the Lumebook dashboard snapshot.
 
-Reads everything local to the project folder (SMM plan site, creator CSV,
-competitor DB, ambassadors pages, file inventory), checks the live sites and
-public Instagram follower counts, and optionally parses the signup Sheet
-(the Google Drive connector's text export, saved to a file by the caller).
+Reads everything local to the project folder (creator CSV, competitor DB, file inventory), checks the live
+sites and public Instagram follower counts, reads the store's ambassador Sheet from its Drive export
+(sites/dashboard/out/ambassadors-sheet.md, written by the daily task lumebook-hq-daily, or --sheet-md PATH) and,
+since 8 Nov 2026, adds HQ's home numbers (home_stats.py: Carousel Machine, creator map, reel calendar, Instagram
+and Facebook from Postiz, most used pages, what needs attention). The SMM plan page was retired on 8 Nov 2026.
 
 Usage:
   python3 sites/dashboard/refresh.py [--sheet-md PATH] [--skip-network]
 
-Writes sites/dashboard/out/snapshot.json and sites/dashboard/out/history.json.
+Writes sites/dashboard/out/snapshot.json, out/history.json, out/follower-history.json and (with the network)
+out/social.json.
 Only standard library; safe to run any time.
 """
 import argparse, ast, csv, html, json, os, re, subprocess, sys, time, urllib.request
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import home_stats  # noqa: E402  HQ's home numbers (8 Nov 2026)
 from collections import Counter
 from datetime import datetime, timezone, timedelta
 
@@ -22,7 +27,11 @@ ROOT = HERE
 while not os.path.exists(os.path.join(ROOT, "lumebook.json")) and ROOT != os.path.dirname(ROOT):
     ROOT = os.path.dirname(ROOT)
 OUT = os.path.join(HERE, "out")
-IL = timezone(timedelta(hours=3))  # Israel summer time; good enough for date stamps
+try:  # Israel time with its summer and winter offsets (audit of 08 Nov 2026: a fixed UTC+3 was an hour off half the year)
+    from zoneinfo import ZoneInfo
+    IL = ZoneInfo("Asia/Jerusalem")
+except Exception:  # no time zone data on this Python
+    IL = timezone(timedelta(hours=3))
 
 # Shared facts (links, artifact URLs, dates, creator lists) live in shared/facts.json; component paths in lumebook.json.
 REGISTRY = json.load(open(os.path.join(ROOT, "lumebook.json"), encoding="utf-8"))["components"]
@@ -43,7 +52,7 @@ ARTIFACTS = [{"key": a["key"], "label": a["label"], "url": a["url"], "web": a.ge
 SITES = [{"key": x["key"], "label": x["label"], "url": x["url"],
           "dir": os.path.dirname(os.path.join(REGISTRY[x["component"]]["path"], x["page"])) if x.get("page") else None}
          for x in FACTS["sites"] if x["key"] != "dash"]
-LINKS = {k: v for k, v in FACTS["links"].items() if k != "sheet_id"}
+LINKS = {k: v for k, v in FACTS["links"].items() if k != "sheet_id" and not k.startswith("_")}
 BARTER_BATCH = FACTS["creators"]["barter_batch"]
 PAID_HOLD = FACTS["creators"]["paid_hold"]
 KEY_DATES = FACTS["key_dates"]
@@ -104,45 +113,6 @@ def ig_profile(handle):
 
 
 # ---------- sections ----------
-
-def plan_section():
-    src = open(rel("sites/lumebook-smm-plan/index.html"), encoding="utf-8").read()
-    weeks = []
-    for wm in re.finditer(r'<div class="when"><b>([^<]+)</b>.*?<ul class="tasks">(.*?)</ul>', src, re.S):
-        tasks = [text_of(t) for t in re.findall(r"<span>(.*?)</span>", wm.group(2), re.S)]
-        weeks.append({"name": wm.group(1).strip(), "tasks": [t for t in tasks if t]})
-    targets = [{"n": text_of(n), "label": text_of(l)} for n, l in
-               re.findall(r'<span class="n">(.*?)</span><span class="l">(.*?)</span>', src, re.S)]
-    kpi_block = re.search(r'<section id="kpis">(.*?)</section>', src, re.S)
-    kpis = []
-    if kpi_block:
-        for row in re.findall(r"<tr>(.*?)</tr>", kpi_block.group(1), re.S):
-            cells = [text_of(c) for c in re.findall(r"<td[^>]*>(.*?)</td>", row, re.S)]
-            if len(cells) == 4:
-                kpis.append({"name": cells[0], "source": cells[1], "oct": cells[2], "dec": cells[3]})
-    yossi = []
-    ym = re.search(r"לוודא עם יוסי</h2>(.*?)</ul>", src, re.S)
-    if ym:
-        yossi = [text_of(li) for li in re.findall(r"<li>(.*?)</li>", ym.group(1), re.S)]
-    roadmap = [{"dates": text_of(d), "name": text_of(h), "items": [text_of(i) for i in re.findall(r"<li>(.*?)</li>", ul, re.S)]}
-               for d, h, ul in re.findall(r'<span class="d">(.*?)</span><h3>(.*?)</h3><ul>(.*?)</ul>', src, re.S)]
-    last_commit = None
-    try:
-        last_commit = subprocess.run(["git", "-C", ROOT, "log", "-1", "--format=%cI|%s", "--", "sites/lumebook-smm-plan"],
-                                     capture_output=True, text=True, timeout=10).stdout.strip()
-    except Exception:
-        pass
-    dirty = None
-    try:
-        dirty = bool(subprocess.run(["git", "-C", ROOT, "status", "--porcelain", "--", "sites/lumebook-smm-plan"],
-                                    capture_output=True, text=True, timeout=10).stdout.strip())
-    except Exception:
-        pass
-    lc = last_commit.split("|", 1) if last_commit else [None, None]
-    return {"weeks": weeks, "targets": targets, "kpis": kpis, "yossi": yossi, "roadmap": roadmap,
-            "last_commit": {"at": lc[0], "msg": lc[1] if len(lc) > 1 else None}, "uncommitted": dirty,
-            "modified": mtime("sites/lumebook-smm-plan/index.html")}
-
 
 def ambassadors_section():
     # The ambassadors site was retired on 11 Oct 2026 (lumebook.json marks it). A retired or missing site raises no alerts.
@@ -246,37 +216,6 @@ def competitor_section():
     }
 
 
-def sheet_section(path):
-    """Parse the Drive connector's markdown table for the signup Sheet. No phones or emails kept."""
-    if not path or not os.path.exists(path):
-        return None
-    raw = open(path, encoding="utf-8").read()
-    try:
-        raw = json.loads(raw).get("fileContent", raw)
-    except Exception:
-        pass
-    block = raw.split("### Sheet Name: Form Responses 1", 1)[-1].split("### Table Columns", 1)[0]
-    lines = [l for l in block.splitlines() if l.startswith("|")]
-    rows = [[c.strip().replace("\\_", "_") for c in l.strip().strip("|").split("|")] for l in lines]
-    rows = [r for r in rows if not all(re.fullmatch(r":?-*:?", c) for c in r)]
-    header = next((r for r in rows if "Timestamp" in r), None)
-    if not header:
-        return {"total": 0, "rows": []}
-    data = rows[rows.index(header) + 1:]
-    col = lambda name: next((i for i, h in enumerate(header) if name in h), None)
-    i_ts, i_name, i_handle, i_band, i_ms = col("Timestamp"), col("שם"), col("אינסטגרם"), col("עוקבים"), col("מתקרב")
-    out = []
-    for r in data:
-        g = lambda i: r[i] if i is not None and i < len(r) else ""
-        out.append({"ts": g(i_ts), "name": g(i_name), "handle": g(i_handle), "band": g(i_band),
-                    "milestone": g(i_ms), "test": bool(TEST_NAME.search(g(i_name) + " " + g(i_handle)))})
-    real = [x for x in out if not x["test"]]
-    return {"total": len(real), "tests": len(out) - len(real),
-            "band_1k_plus": sum("ומעלה" in x["band"] for x in real),
-            "band_under_1k": sum("פחות" in x["band"] for x in real),
-            "rows": out[-25:], "header_has_old_columns": any(h in ("טיקטוק", "גילאי הילדים") for h in header)}
-
-
 def sites_section(network):
     out = []
     for s in SITES:
@@ -327,6 +266,7 @@ def sync_section():
             "warnings": [x["msg"] for x in st["checks"] if x["level"] in ("error", "warn")][:20],
             "components": [{"id": c["id"], "name": c["name"], "kind": c["kind"], "path": c["path"], "changed_at": c["changed_at"],
                             "behind": (c["publish"] or {}).get("behind"), "publish": (c["publish"] or {}).get("type"),
+                            "local_only": bool((c["publish"] or {}).get("local_only")),
                             "url": (c["publish"] or {}).get("url"), "schedule": c.get("schedule"),
                             "feeds": REGISTRY.get(c["id"], {}).get("feeds", []), "ws": WS_OF.get(c["id"])} for c in st["components"]]}
 
@@ -380,8 +320,8 @@ def main():
         "generated_at": now.isoformat(timespec="seconds"),
         "date": now.date().isoformat(),
         "social": social, "ig_handle": IG_HANDLE, "baselines": BASELINES,
-        "plan": plan_section(), "ambassadors": ambassadors_section(),
-        "signups": sheet_section(a.sheet_md),
+        "ambassadors": ambassadors_section(),
+        "signups": home_stats.ambassadors(a.sheet_md or home_stats.SHEET_EXPORT),
         "creators": creators_section(net), "competitors": competitor_section(),
         "sites": sites_section(net), "files": files_section(),
         "carousel": carousel_section(), "sync": sync_section(),
@@ -391,6 +331,16 @@ def main():
         "local_tools": local_tools_section(net),
     }
     os.makedirs(OUT, exist_ok=True)
+    with open(os.path.join(OUT, "snapshot.json"), "w", encoding="utf-8") as f:
+        json.dump(snap, f, ensure_ascii=False, indent=1)
+    # HQ's home (8 Nov 2026): the follower point of today, Instagram and Facebook from Postiz, then every home number
+    home_stats.note_followers(snap)
+    if net:
+        try:
+            home_stats.refresh_social()
+        except Exception as e:
+            print(f"postiz: {e}", file=sys.stderr)
+    snap["home"] = home_stats.collect(a.sheet_md or home_stats.SHEET_EXPORT)
     with open(os.path.join(OUT, "snapshot.json"), "w", encoding="utf-8") as f:
         json.dump(snap, f, ensure_ascii=False, indent=1)
     point = {"date": snap["date"], "at": snap["generated_at"],

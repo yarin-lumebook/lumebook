@@ -17,6 +17,9 @@
   const shadow = host.attachShadow({ mode: "open" });
   shadow.innerHTML = `<style>
 :host { all: initial; }
+/* no scrollbars, ever (Yarin, 08 Nov 2026) */
+*, *::before, *::after { scrollbar-width: none !important; }
+::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
 button {
   position: fixed; left: 16px; bottom: max(16px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; gap: 0;
   height: 44px; min-width: 44px; padding: 0 12px; border: 0; border-radius: 999px; color: #1d1d1f; cursor: pointer; direction: ltr;
@@ -47,7 +50,27 @@ button[hidden] { display: none; }
       if (r.height && r.left < 72 && r.bottom > innerHeight - 40) over = Math.max(over, innerHeight - r.top);   // 40: the phone bar floats since 7 Nov 2026
     }
     btn.style.bottom = over ? `${Math.round(over + 12)}px` : "";
+    place();
   };
+  // The language switch floats right of this button (nav.js, .lb-langfab): tell it where the button ends, also while the
+  // button widens on hover. Two CSS variables on <html>, only in the live page (the editor saves from its own copy of the file).
+  const R = document.documentElement.style;
+  let was = "";
+  const place = () => {
+    const r = btn.hidden ? null : btn.getBoundingClientRect();
+    const now = r && r.width ? `${Math.round(r.right)}|${Math.round(innerHeight - r.bottom)}` : "";
+    if (now === was) return;
+    was = now;
+    if (!now) {
+      R.removeProperty("--lb-editbtn-x"); R.removeProperty("--lb-editbtn-b");
+      if (!R.length) document.documentElement.removeAttribute("style");
+      return;
+    }
+    const [x, b] = now.split("|");
+    R.setProperty("--lb-editbtn-x", `${x}px`);
+    R.setProperty("--lb-editbtn-b", `${b}px`);
+  };
+  if (window.ResizeObserver) new ResizeObserver(place).observe(btn);
   addEventListener("resize", lift, { passive: true });
   addEventListener("scroll", lift, { passive: true });
   setTimeout(lift, 300);
@@ -55,6 +78,8 @@ button[hidden] { display: none; }
 
   let loading = false;
   btn.addEventListener("click", () => {
+    // the language switch puts the page's own words back first, so an edit never saves a translation (8 Nov 2026)
+    if (window.LBI18N) window.LBI18N.suspend();
     if (window.__siteEditorOpen) { window.__siteEditorOpen(); return; }
     if (loading) return;
     loading = true;
@@ -66,11 +91,11 @@ button[hidden] { display: none; }
     s.dataset.mode = cfg.mode;
     s.dataset.note = cfg.note;
     s.dataset.file = cfg.file;
-    s.onerror = () => { loading = false; btn.removeAttribute("aria-busy"); label.textContent = "Couldn't open the editor"; };
+    s.onerror = () => { loading = false; btn.removeAttribute("aria-busy"); label.textContent = "Couldn't open the editor"; if (window.LBI18N) window.LBI18N.resume(); };
     document.documentElement.append(s);
   });
   window.__lbEditButton = {
-    show() { btn.hidden = false; loading = false; btn.removeAttribute("aria-busy"); label.textContent = "Edit"; },
-    hide() { btn.hidden = true; },
+    show() { btn.hidden = false; loading = false; btn.removeAttribute("aria-busy"); label.textContent = "Edit"; if (window.LBI18N) window.LBI18N.resume(); place(); },
+    hide() { btn.hidden = true; place(); },
   };
 })();

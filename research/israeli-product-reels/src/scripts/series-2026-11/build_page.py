@@ -108,9 +108,10 @@ def card(r, d):
         rows.append(("צילום", f'<details class="shot"><summary>הצגה</summary>{shot}</details>'))
     script = script_table(r, d) if r.get("vo") else ""
     if r["voice"] == "trend":
-        lis = f'<li><span data-hook-of="{ek(k, "hook")}">{e(r["hook"].replace(chr(10), " "))}</span></li>'
+        # on-screen text is copy for parents: it stays Hebrew when the language switch shows English (8 Nov 2026)
+        lis = f'<li><span data-hook-of="{ek(k, "hook")}" translate="no">{e(r["hook"].replace(chr(10), " "))}</span></li>'
         if r["status"] != "posted":
-            lis += f'<li class="fixed" title="קבוע לכל הרילס">{e(s["cta_screen"].replace(chr(10), " "))}</li>'
+            lis += f'<li class="fixed" title="קבוע לכל הרילס" translate="no">{e(s["cta_screen"].replace(chr(10), " "))}</li>'
         rows.append((f"טקסט על המסך, טרנד {r['clip_seconds']:g} שניות", f'<ol class="vo">{lis}</ol>'))
     if r.get("cards"):
         rows.append(("כרטיסיות על המסך", '<ol class="vo">' + "".join(ed("li", ek(k, "cards", i), e(x)) for i, x in enumerate(r["cards"])) + "</ol>"))
@@ -494,8 +495,29 @@ SCRIPT = r"""
   document.addEventListener("keydown", function (ev) {   /* a docked drawer is not modal, so Escape is ours to handle */
     if (ev.key === "Escape" && docked && dlg.open && !ev.defaultPrevented) { ev.preventDefault(); dlg.close(); }
   });
+  /* arrow keys jump between the days (Yarin, 08 Nov 2026): the month reads right to left, so Left is the next day and Right the
+     one before; Up and Down move a week. With a reel open the next reel opens; otherwise the focus moves from day to day. */
+  document.addEventListener("keydown", function (ev) {
+    var k = ev.key, step = k === "ArrowLeft" ? 1 : k === "ArrowRight" ? -1 : k === "ArrowDown" ? 7 : k === "ArrowUp" ? -7 : 0;
+    if (!step || ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.altKey || ev.shiftKey) return;
+    var t = ev.target, tag = t && t.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
+    var days = $$("#calRoot .lb-day"); if (!days.length) days = $$(".lb-day");
+    var here = cur && dlg.open ? $('.lb-day[data-k="' + cur.id + '"]') : (t && t.closest && t.closest("a.lb-day[data-k]"));
+    var i = days.indexOf(here); if (i < 0) return;
+    ev.preventDefault();
+    for (var j = i + step; j >= 0 && j < days.length; j += step) {
+      var d = days[j];
+      if (d.dataset.k && d.getClientRects().length) {
+        if (cur && dlg.open) openReel(d.dataset.k); else d.focus();
+        d.scrollIntoView({ block: "nearest", inline: "nearest" });
+        return;
+      }
+    }
+  });
   function openReel(id) {
     var a = document.getElementById(id); if (!a || !a.classList.contains("reel")) return;
+    if (cur === a && dlg.open) { dlg.close(); return; }   /* its day clicked again while it is open: close the drawer (Yarin, 08 Nov 2026) */
     flush(); if (cur) holder.appendChild(cur);
     cur = a; dbody.appendChild(a);
     $$(".script-t", a).forEach(retime);

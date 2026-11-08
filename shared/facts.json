@@ -168,13 +168,6 @@
   ],
   "sites": [
     {
-      "key": "smm",
-      "label": "תוכנית סושיאל (מלאה)",
-      "url": "https://lumebook-dashboard.vercel.app/plan/",
-      "component": "smm-plan",
-      "page": "index.html"
-    },
-    {
       "key": "dash",
       "label": "הלוח (עותק לקריאה)",
       "url": "https://lumebook-dashboard.vercel.app",
@@ -204,14 +197,11 @@
     }
   ],
   "links": {
-    "form": "https://docs.google.com/forms/d/e/1FAIpQLSculYe4LpG8WUFNDXCVDiP-BPaSbuqx0h7_dGcyU0owmxIxAg/viewform",
-    "form_edit": "https://docs.google.com/forms/d/1Iupo4um1A65aWE_-paWCpbeOeD3ZkIKYhPxN-T_NtS8/edit",
-    "sheet": "https://docs.google.com/spreadsheets/d/1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI/edit",
-    "sheet_id": "1ARYFCX1tfIR69GhGn-p92qOodGeENasGu9fI_TskHkI",
+    "_ambassadors_about": "The store's ambassador program data, written by the store every 10 minutes (tabs שגרירים, מכירות, לתשלום, תשלומים שבוצעו; owner Yossi). HQ's שגרירים view reads it since 08 Nov 2026 (Yarin: \"connect it to this\"); it replaced the creator signup Google Form and its responses sheet, which Yarin retired the same day (\"kill it i dont use it anymore\"). Holds phones and emails: an export is never committed and nothing keeps them.",
+    "sheet": "https://docs.google.com/spreadsheets/d/1NHdLpsgL5X9xnhxGfHOPCfEShO_nYVMJGd30k8dI4Oc/edit",
+    "sheet_id": "1NHdLpsgL5X9xnhxGfHOPCfEShO_nYVMJGd30k8dI4Oc",
     "drive": "https://drive.google.com/drive/folders/1awITcQFWfsQqpbL8Lupikw12b6y4EWvB",
     "tracker": "https://docs.google.com/spreadsheets/d/1JU9y80sIQvzQ_Xt8lgKiJSb6MbKrbglKLMgap-3JNMk",
-    "repo": "https://github.com/yarin-lumebook/lumebook-smm-plan",
-    "plan_page": "https://lumebook-dashboard.vercel.app/plan/",
     "hq_artifact": "https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6",
     "monorepo": "https://github.com/yarin-lumebook/lumebook"
   },
@@ -234,10 +224,10 @@
         "label": "שרת הפרויקט המקומי",
         "url": "http://localhost:8780/",
         "ping": "http://127.0.0.1:8780/api/board/env",
-        "runs_as": "the 'lumebook' preview config or a terminal",
-        "runs_as_he": "מופעל לפי הצורך, מהגדרת התצוגה lumebook או ממסוף בתיקיית הפרויקט.",
-        "status_cmd": "curl -s http://127.0.0.1:8780/api/board/env",
-        "start_cmd": "python3 tools/lumebook.py serve"
+        "runs_as": "login item (launchd com.yarinbruner.lumebook-serve, since 21 Oct 2026); never start a second copy, the 'lumebook' preview config only attaches to it",
+        "runs_as_he": "רץ כל הזמן על המק כפריט התחברות (launchd). לא מפעילים עותק שני: אחרי שינוי ב-tools/lumebook.py מריצים restart.",
+        "status_cmd": "python3 tools/serve_login.py status",
+        "start_cmd": "python3 tools/serve_login.py restart"
       }
     ]
   },
@@ -329,7 +319,7 @@
       "date": "2026-10-02"
     }
   },
-  "test_name_pattern": "בדיקה|test|Yarin Bruner",
+  "test_name_pattern": "בדיקה|test|Yarin Bruner|ירין ברונר|^yarinbruner$",
   "parent_shoot_offer": {
     "_source": "Yarin, 2026-10-14. Separate from the creator offer (offer): families, not creators.",
     "name_en": "Home shooting day for social media, for a free book",

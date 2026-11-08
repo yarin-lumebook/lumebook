@@ -1,7 +1,6 @@
 {
   "_about": "Which pages get the edit button and how they save (shared/site-editor/README.md). Every HTML page the project server shows gets the button, in layer mode (edits kept in edits/<page>.json and applied over the page), except: 'off' pages get no button; 'source' pages are hand-written, so what their file holds is edited in the file itself; 'alias' sends a copy's edits to its original; 'notes' show in the editor's help. Paths are relative to the project folder; a path ending in / covers the folder.",
   "source": [
-    "sites/lumebook-smm-plan/index.html",
     "shared/site-editor/test/source.html"
   ],
   "alias": {
@@ -20,8 +19,7 @@
   ],
   "notes": {
     "sites/lumebook-partners/index.html": "The partners page in four languages (index.html is Hebrew, en/ ar/ ru/ are the others), built from sites/lumebook-partners/src/content/*.json. Local review copy, not published. Your edits are kept in the edits layer; to change wording for good ask Claude to change the content file and run the lint.",
-    "sites/lumebook-smm-plan/index.html": "Hebrew changes here need the English mirror in content.en.md before they can be committed: ask Claude to mirror them.",
-    "sites/dashboard/lumebook-dashboard.html": "HQ: the tools grid has its own edit mode (the עריכה button) for moving, renaming and adding tools. Use this editor for the rest of the page.",
+    "sites/dashboard/lumebook-dashboard.html": "HQ: the home numbers come from the project's data, and the side bar's tools are arranged in סידור התפריט (its עריכה button). Use this editor for the rest of the page.",
     "creators/creator-research/lumebook-creator-map.html": "The creator cards come from the map's data: statuses, notes and messages are changed in the map itself. Edits here change how the page looks.",
     "hook-studio/app": "Carousel Machine: packs, grades and productions come from its own data. Edits here change how the page looks.",
     "shared/site-editor/test/": "Test pages for the edit button (shared/site-editor/README.md). Safe to edit."

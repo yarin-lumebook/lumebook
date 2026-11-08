@@ -213,6 +213,10 @@ def send(run_dir, when=None, draft=False, dry_run=False):
         os.unlink(f.name)
     record = {"sent_at": lib.now_local().isoformat(timespec="seconds"), "date": body["date"], "status": body["type"],
               "slides": len(paths), "media": paths, "media_stamp": slides_stamp, "result": created}
+    if old.get("result"):
+        # a second send makes a second post in Postiz: keep the earlier sends, so their post ids are not lost and the
+        # extra post can still be found and deleted (audit of 08 Nov 2026: the old record used to be overwritten)
+        record["previous"] = (old.get("previous") or []) + [{k: old.get(k) for k in ("sent_at", "date", "status", "result", "replaced") if old.get(k)}]
     lib.write_json(run_dir / "postiz.json", record)
     return record
 

@@ -15,7 +15,11 @@ never rewritten: rebuild with `lumebook.py ripple` / `build ID` after a swap. St
 import argparse, hashlib, json, os, re, subprocess, sys
 from datetime import datetime, timezone, timedelta
 
-IL = timezone(timedelta(hours=3))
+try:  # Israel time with its summer and winter offsets (audit of 08 Nov 2026: a fixed UTC+3 was an hour off half the year)
+    from zoneinfo import ZoneInfo
+    IL = ZoneInfo("Asia/Jerusalem")
+except Exception:  # no time zone data on this Python
+    IL = timezone(timedelta(hours=3))
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MANIFEST = os.path.join(ROOT, "docs", "account-handoff", "artifacts.json")
 MEMORY = os.path.expanduser("~/.claude/projects/" + ROOT.replace("/", "-") + "/memory")

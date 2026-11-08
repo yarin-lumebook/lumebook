@@ -44,11 +44,24 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .lb-nav-item[aria-current="page"] .lb-count:not(.warn){background:var(--tint-soft);color:var(--tint)}
 .side-ft{margin-top:auto;padding:var(--sp-3) var(--sp-3) 0;font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);display:flex;align-items:center;gap:var(--sp-2)}
 .side-ft .dot{margin:0}
-.dot{display:inline-block;width:.55rem;height:.55rem;border-radius:50%;flex:none;background:var(--c,var(--text-3));margin:0 .275rem}
+.dot{display:inline-block;box-sizing:border-box;width:10px;height:10px;min-width:10px;min-height:10px;aspect-ratio:1;border-radius:50%;flex:none;background:transparent;border:2px solid var(--c,var(--text-3));margin:0 .275rem}
 /* tracks are categories, not states: a square swatch in the track's category colour (shared/design/categories.json, set creator-tracks) */
-.dot.tk{border-radius:2px;--c:var(--tc)}
+.dot.tk{border-radius:2px;--c:var(--tc);background:var(--tc)}
 /* status colours: one design token each, always beside the status word (never colour alone) */
-.st-new{--c:var(--line-strong)}.st-sent{--c:var(--tint)}.st-replied,.st-process{--c:var(--info)}.st-book{--c:var(--accent)}.st-content{--c:color-mix(in srgb,var(--success) 55%,var(--info))}.st-yes,.st-posted{--c:var(--success)}.st-noreply{--c:var(--text-3)}.st-code{--c:var(--accent)}.st-retry{--c:color-mix(in srgb,var(--danger) 50%,var(--warning))}.st-future{--c:color-mix(in srgb,var(--info) 40%,var(--text-3))}.st-declined{--c:var(--danger)}.st-unfit{--c:var(--text-3)}.st-due{--c:var(--warning)}.st-all{--c:var(--text)}
+.st-new{--c:color-mix(in srgb,var(--text-3) 38%,white)}                       /* not started: pale gray */
+.st-sent{--c:var(--tint)}                                                        /* waiting on them: violet */
+.st-due{--c:var(--warning)}                                                      /* your move now: amber */
+.st-noreply{--c:color-mix(in srgb,var(--warning) 40%,var(--text-3))}             /* went quiet: dull amber-brown */
+.st-replied,.st-process{--c:var(--info)}                                         /* talking: blue */
+.st-book{--c:var(--accent)}                                                      /* book picked: gold */
+.st-content{--c:color-mix(in srgb,var(--success) 55%,var(--info))}               /* making content: teal */
+.st-yes,.st-posted{--c:var(--success)}                                           /* done well: green */
+.st-code{--c:var(--accent)}
+.st-retry{--c:color-mix(in srgb,var(--accent) 65%,var(--danger))}                /* second try: copper */
+.st-future{--c:color-mix(in srgb,var(--tint) 42%,white)}                         /* maybe later: pale violet */
+.st-declined{--c:var(--danger)}                                                  /* said no: red */
+.st-unfit{--c:var(--text-2)}                                                     /* not a fit: dark gray */
+.st-all{--c:var(--text)}
 .tb-brand{display:none;flex:none;border-radius:var(--r-sm)}
 .tb-brand .brand-logo{width:1.75rem;height:1.75rem}
 .lb-topbar .lb-crumbs{font-size:var(--fs-callout)}   /* lb-crumbs is the page name in this bar, so it keeps the callout size */
@@ -90,32 +103,36 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .rs-count{font-family:var(--font-2);font-size:var(--fs-footnote);color:var(--text-2);font-variant-numeric:tabular-nums}
 .rs-count b{color:var(--text);font-weight:700}
 .rs-bar .end{margin-inline-start:auto;display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+/* (8 Nov 2026, Yarin: the card here gets the same Liquid Glass as in the list) the card's frame, glow and deep shadow are the .oc frame
+   (creator card system below); the reminder strip is a glass sheet on it, tinted by how urgent it is, so the urgency is never a coloured
+   frame; the מעקב window hangs past the card's bottom edge as in the list, and the cards under the top one peek out right below it. */
 .rs{position:relative;padding-bottom:calc(var(--rs-n,0) * 12px)}
-.rs-top{position:relative;z-index:3;box-shadow:var(--shadow-2)}
+.rs-top{position:relative;z-index:3}
+.rs > .rsi{margin-bottom:1.6rem}
 .rs-top.is-in{animation:rs-in .28s cubic-bezier(.2,.8,.2,1)}
 .rs-top.is-out{animation:rs-out .2s ease-in forwards;pointer-events:none}
 @keyframes rs-in{from{transform:translateY(16px) scale(.97);opacity:.5}}
 @keyframes rs-out{to{transform:translateX(-45%) rotate(-3deg);opacity:0}}
-.rs-peek{position:absolute;z-index:calc(3 - var(--i));inset-inline:calc(var(--i) * var(--sp-4));bottom:calc((var(--rs-n) - var(--i)) * 12px);height:4rem;padding:0;border:1px solid transparent;border-radius:var(--r-lg);background:var(--glass-sheen),var(--glass-card);box-shadow:var(--glass-card-rim),var(--glass-card-lift);cursor:pointer}
-.rs-peek+.rs-peek{background:var(--surface-2)}
-.rs-peek:hover{border-color:var(--tint)}
+.rs-peek{position:absolute;z-index:calc(3 - var(--i));inset-inline:calc(var(--i) * var(--sp-4));bottom:calc((var(--rs-n) - var(--i)) * 12px);height:4rem;padding:0;cursor:pointer}
+.rs-peek+.rs-peek{background:var(--glass-sheen),var(--glass-grey)}
+.rs-peek:hover{border-color:color-mix(in srgb,var(--tint) 45%,transparent)}
 .rs-peek:focus-visible{outline:2px solid var(--tint);outline-offset:2px}
 .rs-fan{display:grid;gap:var(--sp-5)}
 .rs-g{display:grid;gap:var(--sp-3)}
 .rs-g > h4{font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:700;color:var(--text-3);margin:0}
-.rsi{background:var(--glass-sheen),var(--glass-card);border:1px solid transparent;border-radius:var(--r-lg);min-width:0;box-shadow:var(--glass-card-rim),var(--glass-card-lift)}
-.rsi.over{border-color:var(--danger)}
-.rsi.now{border-color:var(--warning)}
-.rsi > .oc{border:0;background:none;box-shadow:none;border-radius:0 0 var(--r-lg) var(--r-lg)}
-.rsh{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);padding:var(--sp-3) var(--sp-5);background:var(--glass-sheen),color-mix(in srgb,var(--surface-2) 72%,transparent);border-bottom:1px solid var(--line);border-radius:var(--r-lg) var(--r-lg) 0 0}
-.rsi.over .rsh{background:var(--danger-soft)}
-.rsi.now .rsh{background:var(--warning-soft)}
+.rsi{min-width:0;margin-bottom:calc(2rem + var(--sp-3))}   /* spread out: room for the hanging window, the same air as between cards in the list */
+.rsi > .oc{border:0;background:none;box-shadow:none;border-radius:0 0 var(--r-lg) var(--r-lg);margin-bottom:0}
+/* the strip: an lb-sheet 8px in from the frame (concentric corners), its body tinted amber when due today and red when late */
+.rsh{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);margin:.5rem .5rem 0;padding:var(--sp-3) var(--sp-4);border-radius:var(--r-sm)}
+.rsi.now .rsh{background-image:var(--glass-sheen),linear-gradient(var(--warning-soft),var(--warning-soft));border-color:color-mix(in srgb,var(--warning) 22%,transparent)}
+.rsi.over .rsh{background-image:var(--glass-sheen),linear-gradient(var(--danger-soft),var(--danger-soft));border-color:color-mix(in srgb,var(--danger) 22%,transparent)}
 .rsh time{font-family:var(--font-2);font-variant-numeric:tabular-nums;font-size:var(--fs-footnote);font-weight:700;color:var(--text-2);white-space:nowrap}
+.rsi.now .rsh time{color:var(--warning)}
 .rsi.over .rsh time{color:var(--danger)}
 .rsh-note{flex:1 1 12rem;min-width:0;font-size:var(--fs-callout);font-weight:600;white-space:pre-wrap;overflow-wrap:anywhere}
 .rsh-act{display:flex;gap:var(--sp-2)}
 .rsh .fuch{flex:0 0 auto}
-@media (max-width:640px){.rsh{padding:var(--sp-3) var(--sp-4)}.rsh .fuch{order:3}}
+@media (max-width:640px){.rsh{padding:var(--sp-3)}.rsh .fuch{order:3}}
 /* save state: lb-savestate from the design system; the button only drops its chrome. On a phone only a problem keeps its word */
 .svst{font:inherit;font-family:var(--font-2);font-size:var(--fs-footnote);border:0;background:none;padding:.3rem .55rem;border-radius:var(--r-pill);cursor:pointer;min-height:2rem;min-width:0}
 .svst:hover{background:var(--fill)}
@@ -158,7 +175,7 @@ body.drw-open,body.ask-open{overflow:hidden}
 
 /* ---------- toolbar: search, filter, sort, group, save view ---------- */
 .tbwrap{position:relative;display:grid;gap:var(--sp-2)}
-.tb{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.tb{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center;position:relative;z-index:3;margin-bottom:1.75rem}   /* room above the first card so its halo never covers the buttons */
 .tb-search{flex:1 1 16rem;min-width:0;display:flex;align-items:center;gap:var(--sp-2);background:var(--fill);border:1px solid transparent;border-radius:var(--r-pill);padding:0 .8rem;min-height:2.25rem}
 .tb-search .i{width:1rem;height:1rem;color:var(--text-3)}
 .tb-search input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:var(--fs-callout);color:var(--text);padding:.4rem 0;outline:none}
@@ -258,8 +275,10 @@ details[open] summary{margin-bottom:var(--sp-2)}
    Colour: the status pill carries the status colour (.st-*), the avatar the track hue (lb-track-*),
    the tiles the green/red rating against the map. Everything else stays neutral, so those three read at a glance. */
 .olist{display:grid;gap:var(--sp-5)}
-/* Each card stands apart: a 2px frame and a deeper shadow than the page's other cards (Yarin, 1 Nov 2026) */
-.oc{--oc-pad:var(--sp-5);--oc-edge:color-mix(in srgb,var(--text) 16%,transparent);--oc-edge-hi:color-mix(in srgb,var(--text) 34%,transparent);--oc-shadow:0 1px 2px rgba(41,30,22,.07),0 4px 10px -2px rgba(41,30,22,.09),0 26px 46px -22px rgba(41,30,22,.42);position:relative;padding:0;gap:0;overflow:visible;margin-bottom:2rem;background:var(--glass-sheen),var(--glass-card);border:2px solid rgba(255,255,255,.92);border-radius:var(--r-lg);box-shadow:0 0 0 1px var(--oc-edge),inset 0 0 0 1px rgba(43,36,29,.1),inset 0 0 28px rgba(255,255,255,.6),var(--oc-shadow);}
+/* Each card stands apart: a 2px frame and a deeper shadow than the page's other cards (Yarin, 1 Nov 2026). The frame is shared with
+   the reminder and follow-up stacks (.rsi, the card with its strip, and .rs-peek, the cards under it), so a card there is the same glass. */
+.oc,.rsi,.rs-peek{--oc-pad:var(--sp-5);--oc-edge:color-mix(in srgb,var(--text) 16%,transparent);--oc-edge-hi:color-mix(in srgb,var(--text) 34%,transparent);--oc-shadow:0 1px 2px rgba(41,30,22,.07),0 4px 10px -2px rgba(41,30,22,.09),0 26px 46px -22px rgba(41,30,22,.42);background:var(--glass-sheen),var(--glass-card);border:2px solid rgba(255,255,255,.92);border-radius:var(--r-lg);box-shadow:0 0 0 1px var(--oc-edge),inset 0 0 0 1px rgba(43,36,29,.1),inset 0 0 28px rgba(255,255,255,.6),var(--oc-shadow)}
+.oc{position:relative;padding:0;gap:0;overflow:visible;margin-bottom:2rem}
 .oc > *{min-width:0}   /* a wide row (the message tabs) scrolls inside the card and never widens it */
 .oc.done{opacity:.72}
 .otop{display:grid;gap:var(--sp-4);padding:var(--oc-pad);container-type:inline-size}
@@ -280,10 +299,19 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .osub .he{font-family:var(--font);font-size:var(--fs-callout);font-weight:500;color:var(--text-2)}
 .ohd-end{display:flex;align-items:center;gap:var(--sp-2);margin-inline-start:auto}
 .ost{display:inline-flex;align-items:center;gap:.45rem;min-height:2.25rem;padding:0 .9rem;border-radius:var(--r-pill);background:color-mix(in srgb,var(--c) 13%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 35%,transparent);font-family:var(--font-2);font-size:var(--fs-footnote);font-weight:700;color:var(--text);white-space:nowrap}
-.ost .dot{margin:0;width:.5rem;height:.5rem}
+.ost .dot{margin:0;width:10px;height:10px;min-width:10px;min-height:10px}
 .oc .xdecl{width:2.25rem;height:2.25rem;min-height:2.25rem;padding:0;border-radius:50%;flex:none;background:transparent;color:var(--text-3);border:1px solid var(--line)}
 .oc .xdecl .i{width:1rem;height:1rem}
 .oc .xdecl:hover{background:var(--danger-soft);border-color:transparent;color:var(--danger)}
+/* the two close buttons sit in one glass capsule (lb-btn-group look, no blur: repeats in a list); each is its own circle with a translucent fill and rim: gray minus = not suitable, red x = declined */
+.oc .xpair{display:inline-flex;align-items:center;gap:6px;padding:4px;border-radius:var(--r-pill);background:var(--glass-sheen),var(--glass-thick);box-shadow:var(--glass-rim),0 2px 8px -3px rgba(41,30,22,.18)}
+.oc .xpair .lb-btn{width:2.25rem;height:2.25rem;min-height:2.25rem;padding:0;border-radius:50%;border:0;flex:none;transition:transform .25s cubic-bezier(.34,1.4,.64,1),background .2s}
+.oc .xpair .lb-btn:active{transform:scale(var(--press,.94))}
+.oc .xpair .xunfit{background:var(--glass-sheen),var(--fill-2);color:var(--text-2);box-shadow:var(--glass-rim),0 2px 6px -2px rgba(41,30,22,.25)}
+.oc .xpair .xunfit:hover{background:var(--glass-sheen),var(--fill-3,var(--fill-2));color:var(--text)}
+.oc .xpair .xdecl{background:var(--glass-sheen),var(--danger-soft);color:var(--danger);box-shadow:var(--glass-rim),0 2px 6px -2px color-mix(in srgb,var(--danger) 55%,transparent)}
+.oc .xpair .xdecl:hover{background:var(--glass-sheen),var(--danger-soft);color:var(--danger);filter:saturate(1.3) brightness(.97)}
+
 /* experts badge (06 Nov 2026, src/experts.py decides who): the one solid ink pill on a card, with the cap icon and the field,
    so a professional reads at a glance; the avatar carries a small ink mark of the same icon. Ink and ground are the toast's pair. */
 .xb{display:inline-flex;align-items:center;gap:.35rem;min-width:0;max-width:100%;padding:.15rem .7rem .15rem .6rem;border-radius:var(--r-pill);background:var(--text);color:var(--bg);font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;line-height:1.5;white-space:nowrap}
@@ -292,6 +320,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .xb.sm{margin-inline-start:.4rem;padding-block:.05rem;vertical-align:middle}
 .hrow{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem var(--sp-3);min-width:0}
 .oav{position:relative}
+.oav .pic{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px color-mix(in srgb,var(--tc,var(--text-3)) 35%,transparent)}
 .oav .xm{position:absolute;inset-block-end:-.2rem;inset-inline-end:-.2rem;display:grid;place-items:center;width:1.2rem;height:1.2rem;border-radius:50%;background:var(--text);color:var(--bg);box-shadow:0 0 0 2px var(--surface)}
 .oav .xm .i{width:.75rem;height:.75rem}
 .lb-btn.tbb.xtg[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:transparent}
@@ -349,7 +378,6 @@ details.omd[open] > summary::after{top:.3rem}   /* open, the label row is one li
 .drw .oc > .odeal,.drw .oc > .odet{margin-top:var(--sp-4);padding-inline:var(--sp-4);border:1px solid var(--line);border-radius:var(--r-md)}
 .drw .oc > .odeal{--overhang:0rem;margin-inline:0;margin-bottom:0}
 .drw .oc > .odet{margin-inline:0}
-.rsi > .oc{box-shadow:none}
 @media (max-width:640px){.oc{--oc-pad:var(--sp-4)}.ost{min-height:2rem;padding:0 .75rem}}
 .stbtn{display:flex;align-items:center;gap:.5rem;width:100%;font:inherit;font-weight:600;font-size:var(--fs-footnote);min-height:2.25rem;padding:.35rem .85rem;border:0;border-radius:var(--r-pill);background:var(--glass-sheen),var(--glass-thick);box-shadow:var(--glass-rim),0 2px 8px -3px rgba(41,30,22,.18);color:var(--text);cursor:pointer;text-align:start}
 .stbtn .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -445,6 +473,7 @@ details.omd[open] > summary::after{top:.3rem}   /* open, the label row is one li
 .lb-btn.is-err{animation:fx-err .45s ease}
 .lb-btn.is-busy{cursor:progress;opacity:.92}
 .lb-btn.is-busy::before{content:"";display:inline-block;width:.75rem;height:.75rem;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:fx-spin .7s linear infinite}
+.oc.is-cur{box-shadow:var(--glass-card-rim),var(--glass-card-lift),0 0 32px 4px color-mix(in srgb,var(--tint) 23%,transparent);transition:box-shadow .25s ease}
 .oc.is-flash{animation:fx-card 1.2s ease}
 .oc textarea.is-flash{animation:fx-field 1s ease}
 @media (pointer:coarse){.lb-btn:not(.sm):not(.icon),.sstats button,.oc select.st{min-height:2.75rem}}
@@ -563,7 +592,7 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
   <div class="sstats" id="sstats" role="group" aria-label="סטטוס"></div>
   <div class="tbwrap" id="tb-c"></div>
   <div class="olist" id="olist"></div>
-  <div><button class="lb-btn secondary" id="smore" type="button" hidden>עוד 30</button></div>
+  <div style="position:relative;z-index:3;margin-top:1.75rem"><button class="lb-btn secondary" id="smore" type="button" hidden>עוד 30</button></div>
 </section>
 <section class="page lb-section" data-page="database" hidden>
   <span class="lb-eyebrow">תוצר 1</span>
@@ -735,8 +764,12 @@ const CHI={"Instagram DM":ICON.insta,WhatsApp:ICON.chat,Email:ICON.mail};
 // ---------- views engine: search, faceted filters, multi-level sort, grouping (Creators and Database share it) ----------
 const ST=[["new","עוד לא פנינו"],["sent","נשלחה הודעה"],["noreply","לא ענו"],["process","בתהליך"],["retry","לנסות שוב"],["future","אולי בעתיד"],["declined","סירבו"]];   // Book sent and Content created are steps inside In process since 19 Oct 2026
 const STD=ST.slice(); STD.splice(2,0,["due","פולואפ לשליחה"]);
-const STL=Object.fromEntries(STD);
-const ST_I=Object.fromEntries(STD.map((s,i)=>[s[0],i]));
+// every status a card can show: the ones you pick (STD) plus "unfit" (30 Oct 2026), a declined creator who fails the admission bar.
+// Nobody picks unfit, so the status menu keeps STD; labels, order, the filter, grouping and the overview bar use STV (8 Nov 2026: the
+// card, its status button and the database showed "undefined" for these creators, and the overview bar left them out).
+const STV=STD.concat([["unfit","לא מתאימים"]]);
+const STL=Object.fromEntries(STV);
+const ST_I=Object.fromEntries(STV.map((s,i)=>[s[0],i]));
 // collaboration tracks, reasons behind a no or a stall, and steps inside In process (labels match shared/facts.json offer.collaboration_tracks)
 const TRACKS=[["gift","כללי"],["pro","אנשי מקצוע"],["par","הורים"]];
 const TRKL=Object.fromEntries(TRACKS), TRKC={gift:"accent",pro:"info",par:"tint"};
@@ -816,7 +849,7 @@ const dayDiff=d=>{ if(!d) return null; const t=new Date(d+"T00:00:00").getTime()
 const isPost=t=>/: https:\/\/www\.instagram\.com\/reel\//.test(t)||/^posted/.test(t);
 const rng=(l,a,b,g)=>({v:l,l,t:c=>{ const x=g(c); return x!=null&&x>=a&&x<b }});
 const FACETS={
-  status:{l:"סטטוס הפנייה",vals:STD.map(([v,l])=>({v,l,t:c=>HOOK.bk(c)===v}))},
+  status:{l:"סטטוס הפנייה",vals:STV.map(([v,l])=>({v,l,t:c=>HOOK.bk(c)===v}))},
   xp:{l:"מומחים",vals:[{v:"any",l:"כל המומחים",t:c=>xpOf(c).length>0}].concat(XP.map(([k,l])=>({v:k,l,t:c=>xpOf(c).includes(k)})))},
   ch:{l:"ערוץ ראשון",vals:["WhatsApp","Email","Instagram DM"].map(v=>({v,l:chL(v),t:c=>chOf(c)===v}))},
   track:{l:"מסלול",vals:TRACKS.map(([v,l])=>({v,l,t:c=>HOOK.trk(c)===v}))},
@@ -1083,7 +1116,7 @@ function seq(c){ const o=get(c.h), raw=rawSt(c.h), now=Date.now();
   const d=s+FU1_MS; return now>=d?{k:"due",n:1,since:d}:{k:"wait",n:1,at:d} }
 // Unfit (Yarin, 30 Oct 2026): a declined creator who fails the admission bar (shared/facts.json creators.admission) lives in its own tab. A number we do not have is never counted as a failure.
 const ADM=__ADM__;
-const unfitOf=c=>{ const v=c.f&&c.med!=null?c.med/c.f:null, k=c.kpi||{};
+const unfitOf=c=>{ if((OD[c.h]||{}).uf) return true; const v=c.f&&c.med!=null?c.med/c.f:null, k=c.kpi||{};
   return (c.f!=null&&(c.f<ADM.followers_min||c.f>ADM.followers_max))||(c.med!=null&&c.med<ADM.median_views_min)||(v!=null&&v<ADM.views_per_follower_min)||(k.lpk!=null&&k.lpk<ADM.likes_per_1k_views_min)||(k.cpk!=null&&k.cpk<ADM.comments_per_1k_views_min) };
 const bkOf=c=>{ const raw=rawSt(c.h); if(raw!=="sent"&&raw!=="due") return stOf(c.h)==="declined"&&unfitOf(c)?"unfit":stOf(c.h); const q=seq(c); return q.k==="due"?"due":(q.k==="done"&&Date.now()>=q.lapse)?"noreply":"sent" };
 const dueOf=c=>bkOf(c)==="due"?Math.max(0,Math.floor((Date.now()-seq(c).since)/864e5)):null;
@@ -1351,7 +1384,7 @@ document.getElementById("askF").addEventListener("submit",e=>{ e.preventDefault(
 document.getElementById("askX").addEventListener("click",()=>{ if(askDone) askDone(null) });
 askScrim.addEventListener("click",()=>{ if(askDone) askDone(null) });
 askEl.addEventListener("click",e=>{ if(e.target===askEl&&askDone) askDone(null) });
-askEl.addEventListener("keydown",e=>{ if(e.key==="Escape"){ e.preventDefault(); e.stopPropagation(); if(askDone) askDone(null) } else if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){ e.preventDefault(); document.getElementById("askF").requestSubmit() } });
+askEl.addEventListener("keydown",e=>{ if(e.key==="Escape"){ e.preventDefault(); e.stopPropagation(); if(askDone) askDone(null) } else if(e.key==="Enter"&&!e.isComposing&&(e.metaKey||e.ctrlKey||(!e.shiftKey&&!e.altKey&&!/^(BUTTON|A|SELECT)$/.test(e.target.tagName)&&!document.querySelector(".lb-cal,.lb-selmenu,.lb-timepick")))){ e.preventDefault(); document.getElementById("askF").requestSubmit() } });   // Enter saves, Shift+Enter is a new line (8 Nov 2026)
 document.getElementById("askQ").addEventListener("click",e=>{ const b=e.target.closest("[data-q]"); if(!b) return;
   askD.value=b.dataset.q===""?"":plusDays(+b.dataset.q);
   if(b.dataset.q==="0"){ const t=new Date(Date.now()+36e5); askH.value=t.getDate()===new Date().getDate()?String(t.getHours()).padStart(2,"0")+":00":"23:30" }   // later today: in about an hour
@@ -1359,7 +1392,6 @@ document.getElementById("askQ").addEventListener("click",e=>{ const b=e.target.c
 document.getElementById("askR").addEventListener("click",e=>{ const b=e.target.closest("[data-r]"); if(!b) return; askObj=askObj===b.dataset.r?"":b.dataset.r; document.querySelectorAll("#askR [data-r]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.r===askObj))) });
 askD.addEventListener("input",askQuick);
 // tapping the date or the time opens the calendar or the clock
-[askD,askH].forEach(i=>i.addEventListener("click",()=>{ try{ i.showPicker() }catch(e){} }));
 // One change to one creator: ask first, then save it with the note and the reminder, add a history line, and offer Undo.
 // o: title, sub, na (suggested note), days (suggested date, null = no reminder), reasons, k (history kind), x (history detail),
 //    patch (object, or a function of the record before), msg (text or function), tab (null = show the card's next message)
@@ -1413,7 +1445,7 @@ const RS_RM=matchMedia("(prefers-reduced-motion: reduce)");
 const remDay=(t,d0)=>Math.round((dms(isoOf(t))-d0)/864e5);
 const dayName=(day,t)=>day<0?"באיחור":day===0?"היום":day===1?"מחר":WD[new Date(t).getDay()]+", "+dayLabel(t);
 function remItem(x,d0,now,cls){ const day=remDay(x.t,d0);
-  return '<div class="rsi'+(cls||"")+(x.t<d0?" over":x.t<=now?" now":"")+'" data-h="'+esc(x.c.h)+'"><div class="rsh"><time>'+esc(dayName(day,x.t)+(day<0?" · "+dayLabel(x.t):"")+(x.o.nat?" · "+x.o.nat:""))+'</time>'
+  return '<div class="rsi'+(cls||"")+(x.t<d0?" over":x.t<=now?" now":"")+'" data-h="'+esc(x.c.h)+'"><div class="rsh lb-sheet"><time>'+esc(dayName(day,x.t)+(day<0?" · "+dayLabel(x.t):"")+(x.o.nat?" · "+x.o.nat:""))+'</time>'
    +'<div class="rsh-note" dir="auto">'+(x.o.na?esc(x.o.na):'<span class="note">בלי פתק</span>')+'</div>'
    +'<div class="rsh-act"><button type="button" class="lb-btn secondary sm" data-tdrem>'+ICON.clock+'דחייה</button><button type="button" class="lb-btn ok sm" data-tdremdone>'+ICON.check+'בוצע</button></div></div>'+card(x.c)+'</div>' }
 function renderRem(){ const el=document.getElementById("remList"), ae=document.activeElement;
@@ -1472,7 +1504,7 @@ const FU_G=[[0,"הגיע היום"],[1,"באיחור של 1 עד 3 ימים"],[4
 const fuGrp=d=>FU_G.filter(g=>d>=g[0]).pop();
 let FS_TOP=null, FS_IN=false;
 function fuItem(x,cls){ const c=x.c, o=get(c.h), ch=fuCh(c), chs=CHS_OF(c), d=x.d;
-  return '<div class="rsi'+(cls||"")+(d>=3?" over":" now")+'" data-h="'+esc(c.h)+'"><div class="rsh">'
+  return '<div class="rsi'+(cls||"")+(d>=3?" over":" now")+'" data-h="'+esc(c.h)+'"><div class="rsh lb-sheet">'
    +'<time>'+esc((x.n===2?"פולואפ אחרון":"פולואפ")+(d?" · באיחור של "+(d===1?"יום":d+" ימים"):" · היום"))+'</time>'
    +'<div class="rsh-note">'+esc("ההודעה הראשונה נשלחה "+CHIN[firstCh(c)]+(o.on?" ב-"+dL(o.on):""))+'</div>'
    +(chs.length>1?'<div class="mtabs lb-segmented fuch" role="group" aria-label="הערוץ לפולואפ">'+chs.map(v=>'<button type="button" data-fuch="'+esc(v)+'" aria-pressed="'+(v===ch)+'">'+CHI[v]+esc(chL(v))+'</button>').join("")+'</div>':'')
@@ -1655,11 +1687,11 @@ function card(c,opt){
   const mtab=esc((MT.find(m=>m[0]===t0)||[0,""])[1])+' · '+esc(STY_NAME[sty(c)]);
   return '<article class="oc lb-card'+(s==="declined"||s==="posted"||cur==="noreply"?" done":"")+'" data-h="'+esc(c.h)+'">'
    +'<div class="otop"><header class="ohd">'
-   +'<span class="oav lb-track-'+tk+'" title="'+esc("מסלול: "+(TRKL[tk]||""))+'" aria-hidden="true">'+esc(ini)+(xpOf(c).length?'<i class="xm">'+ICON.xp+'</i>':'')+'</span>'
+   +'<span class="oav lb-track-'+tk+'" title="'+esc("מסלול: "+(TRKL[tk]||""))+'" aria-hidden="true">'+esc(ini)+'<img class="pic" src="avatars/'+esc(c.h)+'.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">'+(xpOf(c).length?'<i class="xm">'+ICON.xp+'</i>':'')+'</span>'
    +'<div class="oid"><div class="hrow"><a class="hn" href="'+prof+'" target="_blank" rel="noopener" title="פתיחת הרילס שלהם בלשונית חדשה">'+hb(c.h)+ICON.ext+'</a>'+xpBadge(c)+'</div>'
    +'<div class="osub"><span class="he" dir="auto">'+esc(c.name)+'</span><span>'+ICON.insta+'רילס אחרון '+esc(c.last?isoDL(c.last):"לא ידוע")+'</span>'+(o.on?'<span>'+ICON.send+'נשלח ב-'+esc(dL(o.on))+(ssOf(c)===2?' · קצר':'')+'</span>':'')+'</div></div>'
    +'<div class="ohd-end"><span class="ost st-'+cur+'"><span class="dot"></span>'+esc(STL[cur]+(sg?' · '+STGL[sg]:''))+'</span>'
-   +(s!=="declined"?'<button type="button" class="lb-btn icon xdecl" data-act="decline" title="סימון כסירוב (הפולואפים נעצרים)" aria-label="סימון '+esc(c.h)+' כסירוב">'+ICON.close+'</button>':'')+'</div>'
+   +((s!=="declined"||cur!=="unfit")?'<span class="xpair">'+(cur!=="unfit"?'<button type="button" class="lb-btn icon xunfit" data-act="unfit" title="סימון כלא מתאים (הפולואפים נעצרים)" aria-label="סימון '+esc(c.h)+' כלא מתאים">'+svg('<path d="M5 12h14"/>')+'</button>':'')+(s!=="declined"?'<button type="button" class="lb-btn icon xdecl" data-act="decline" title="סימון כסירוב (הפולואפים נעצרים)" aria-label="סימון '+esc(c.h)+' כסירוב">'+ICON.close+'</button>':'')+'</span>':'')+'</div>'
    +'</header>'
    +(facts?'<div class="chips">'+facts+'</div>':'')
    +'<div class="ocg">'
@@ -1851,7 +1883,7 @@ const MENU=document.createElement("div"); MENU.className="stmenu lb-popover"; ME
 let stMenuBtn=null;
 const TICK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+LBI.check+'</svg>';
 function menuClose(focus){ if(!stMenuBtn) return; stMenuBtn.setAttribute("aria-expanded","false"); MENU.hidden=true; if(focus&&stMenuBtn.isConnected) stMenuBtn.focus(); stMenuBtn=null }
-function menuOpen(b){ menuClose(); const h=b.closest(".oc").dataset.h, c=byH[h], f=b.dataset.menu, cur=f==="s"?HOOK.bk(c):trkOf(c);
+function menuOpen(b){ menuClose(); const h=b.closest(".oc").dataset.h, c=byH[h], f=b.dataset.menu, cur=f==="s"?HOOK.bk(c).replace(/^unfit$/,"declined"):trkOf(c);   // unfit is declined underneath
   const items=f==="s"?STD.map(([v,l])=>[v,l,"st-"+v]):TRACKS.map(([v,l])=>[v,l,"tk lb-track-"+v]);
   stMenuBtn=b; b.setAttribute("aria-expanded","true"); MENU.dataset.h=h; MENU.dataset.f=f; MENU.setAttribute("aria-label",(f==="s"?"הסטטוס":"המסלול")+" של "+h);
   MENU.innerHTML=items.map(([v,l,k])=>'<button type="button" role="option" data-mv="'+v+'" aria-selected="'+(v===cur)+'"><span class="dot '+k+'"></span>'+esc(l)+TICK+'</button>').join("");
@@ -1907,8 +1939,10 @@ function onCardClick(e){
   if(act==="hefix"){ const ta=card.querySelector("[data-msgbox]"), tt=ta.dataset.t, f=heFix(ta.value,{skipBrand:ownOffer(c,tt),c}); if(f!==ta.value){ ta.value=f; ta.dispatchEvent(new Event("input",{bubbles:true})); fx(ta,"is-flash"); toast("התיקונים הוחלו. אפשר עדיין לערוך את הטקסט.") } }
   else if(act==="retry") setStatus(c.h,"retry");
   else if(act==="future") setStatus(c.h,"future");
+  else if(act==="unfit") change(c.h,{title:"לא מתאימים",na:"",days:null,reasons:false,k:"status",x:{from:HOOK.bk(c),to:"declined"},tab:null,
+    patch:{s:"declined",uf:1,sct:Date.now(),...(prev.rat?{}:{rat:Date.now()}),...(prev.ssent?{}:{ssent:sty(c)})},msg:()=>"סומן כלא מתאים: "+ht(c.h)+". הפולואפים נעצרו."+moved(c.h)});
   else if(act==="decline") change(c.h,{title:"סירבו",na:"",days:null,reasons:true,k:"status",x:{from:HOOK.bk(c),to:"declined"},tab:null,
-    patch:{s:"declined",sct:Date.now(),...(prev.rat?{}:{rat:Date.now()}),...(prev.ssent?{}:{ssent:sty(c)})},msg:()=>"נרשם סירוב מ-"+ht(c.h)+". הפולואפים נעצרו."+moved(c.h)});
+    patch:{s:"declined",uf:0,sct:Date.now(),...(prev.rat?{}:{rat:Date.now()}),...(prev.ssent?{}:{ssent:sty(c)})},msg:()=>"נרשם סירוב מ-"+ht(c.h)+". הפולואפים נעצרו."+moved(c.h)});
   else if(act==="style"){ const s=+b.dataset.s; if(s!==sty(c)){ patch(c.h,{sty:s}); delete TABSEL[c.h]; render(); toast("ההודעות ל-"+ht(c.h)+" עכשיו בסגנון "+STY_NAME[s]+".") } }
   else if(act==="fu2on"){ patch(c.h,{fu2w:1,s:rawSt(c.h)==="noreply"?"sent":rawSt(c.h)}); logEv(c.h,"fu2"); render(); flashCard(c.h); toast("תוכנן פולואפ אחרון ל-"+ht(c.h)+", 7 ימים אחרי שהפולואפ הראשון נשלח."+moved(c.h),{undo:restore(c.h,prev,"fu2")}) }
   else if(act==="fu2off"){ patch(c.h,{fu2w:0}); logEv(c.h,"fu2off"); render(); flashCard(c.h); toast("הפולואפ האחרון בוטל ל-"+ht(c.h)+"."+moved(c.h),{undo:restore(c.h,prev,"fu2off")}) }
@@ -2249,6 +2283,32 @@ const side=document.getElementById("side"), scrim=document.getElementById("scrim
 function openDrawer(){ document.body.classList.add("nav-open"); scrim.hidden=false; menuBtn.setAttribute("aria-expanded","true"); const a=side.querySelector('[aria-current="page"]')||side.querySelector("a"); a&&a.focus() }
 function closeDrawer(){ if(!document.body.classList.contains("nav-open")) return; document.body.classList.remove("nav-open"); scrim.hidden=true; menuBtn.setAttribute("aria-expanded","false") }
 menuBtn.addEventListener("click",openDrawer); scrim.addEventListener("click",closeDrawer); document.getElementById("sideClose").addEventListener("click",()=>{ closeDrawer(); menuBtn.focus() });
+// keyboard flow (8 Nov 2026): the card in view is highlighted (.is-cur) and keys act on it: Cmd/Ctrl+C copies its message, Space opens the profile in a new tab, Enter = שלחתי, Esc = לא מתאימים
+let curCard=null, curRaf=0;
+function pickCard(){ curRaf=0;
+  const L=[...document.querySelectorAll(".oc")].filter(e=>e.offsetParent!==null); if(!L.length){ curCard=null; return }
+  const y=innerHeight*.38; let best=null, bd=1e9;
+  for(const e of L){ const r=e.getBoundingClientRect(); const d=r.top<=y&&r.bottom>=y?0:Math.min(Math.abs(r.top-y),Math.abs(r.bottom-y)); if(d<bd){ bd=d; best=e } }
+  if(best!==curCard){ if(curCard) curCard.classList.remove("is-cur"); curCard=best }
+  if(curCard&&!curCard.classList.contains("is-cur")) curCard.classList.add("is-cur") }
+const pickSoon=()=>{ if(!curRaf) curRaf=setTimeout(pickCard,50) };
+addEventListener("scroll",pickSoon,{passive:true,capture:true}); addEventListener("resize",pickSoon);
+new MutationObserver(pickSoon).observe(document.body,{childList:true,subtree:true});
+document.addEventListener("pointerdown",e=>{ const c=e.target.closest&&e.target.closest(".oc"); if(c&&c!==curCard){ if(curCard) curCard.classList.remove("is-cur"); curCard=c; c.classList.add("is-cur") } },true);
+pickSoon();
+document.addEventListener("keydown",e=>{
+  if(e.defaultPrevented||e.altKey||e.isComposing) return;
+  const t=e.target, tag=t&&t.tagName;
+  if(/^(INPUT|TEXTAREA|SELECT|BUTTON|A|SUMMARY)$/.test(tag)||(t&&t.isContentEditable)||(t&&t.closest&&t.closest("[role=menu],[role=listbox],[role=dialog]"))) return;
+  if(DRW||askDone||stMenuBtn||document.body.classList.contains("nav-open")||document.querySelector("dialog[open],.lb-cal,.lb-selmenu,.lb-timepick")) return;
+  if(!curCard||!curCard.isConnected) return;
+  const k=e.key, mod=e.metaKey||e.ctrlKey, hit=sel=>curCard.querySelector(sel);
+  if(mod&&!e.shiftKey&&k.toLowerCase()==="c"){ if(String(getSelection()||"")) return; const b=hit('[data-act="copybox"]'); if(b){ e.preventDefault(); b.click() } }
+  else if(mod||e.shiftKey) return;
+  else if(k===" "){ const a=hit("a.hn"); if(a){ e.preventDefault(); window.open(a.href,"_blank","noopener") } }
+  else if(k==="Enter"){ const b=hit('[data-act="sent"]'); if(b){ e.preventDefault(); b.click() } }
+  else if(k==="Escape"){ const b=hit('[data-act="unfit"]'); if(b){ e.preventDefault(); b.click() } }
+});
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"&&document.body.classList.contains("nav-open")){ closeDrawer(); menuBtn.focus(); return }
   if(e.key==="/"&&!e.metaKey&&!e.ctrlKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)&&!document.activeElement.isContentEditable&&!DRW&&!askDone){
@@ -2295,8 +2355,8 @@ function renderOverview(){
     +tile("c-due","פולואפים לשליחה",cnt.due,"הראשון 4 ימים אחרי השליחה",cnt.due?"warn":"")
     +tile("c-all","ספרים ותוכן",C.reduce((a,c)=>a+booksOf(c),0)+" ספרים",C.filter(c=>booksOf(c)>0).length+" יוצרים עם ספר · "+C.filter(c=>!!driveOf(c)).length+" עם תיקיית דרייב")
     +tile("c-process-content","נוצר תוכן",content,C.filter(c=>stgOf(c)==="booksent").length+" עם ספר בדרך");
-  document.getElementById("pipe").innerHTML=STD.filter(([s])=>n(s)).map(([s,l])=>'<a class="st-'+s+'" href="#c-'+s+'" style="flex:'+n(s)+'" title="'+esc(l)+': '+n(s)+'" aria-label="'+esc(l)+': '+n(s)+'"></a>').join("");
-  document.getElementById("legend").innerHTML=STD.map(([s,l])=>'<a href="#c-'+s+'"><span class="dot st-'+s+'"></span>'+esc(l)+'<b>'+n(s)+'</b></a>').join("");
+  document.getElementById("pipe").innerHTML=STV.filter(([s])=>n(s)).map(([s,l])=>'<a class="st-'+s+'" href="#c-'+s+'" style="flex:'+n(s)+'" title="'+esc(l)+': '+n(s)+'" aria-label="'+esc(l)+': '+n(s)+'"></a>').join("");
+  document.getElementById("legend").innerHTML=STV.map(([s,l])=>'<a href="#c-'+s+'"><span class="dot st-'+s+'"></span>'+esc(l)+'<b>'+n(s)+'</b></a>').join("");
   renderFunnel(); renderObj(); renderExps();
 }
 document.getElementById("cmpSw").addEventListener("click",e=>{ const b=e.target.closest("[data-cmp]"); if(b){ UI.cmp=b.dataset.cmp; uiSave(); renderFunnel() } });

@@ -1,13 +1,16 @@
 /* The LumeBook project nav (Yarin, 5 Nov 2026): one navigation on every internal page.
    Since 6 Nov 2026 there is no top bar and no location path (Yarin: "remove the top navbar"): the side bar runs the full
-   height of the window and holds everything.
+   height of the window and holds everything. Since 8 Nov 2026 it is the only list of tools (Yarin: "move everything to the
+   side bar"): HQ's front page is the live numbers (#home), first in the side bar as "בית".
    - side bar on the right: the logo home to HQ and the menu button at its top, then every HQ tool by topic; collapses to an
      icon rail, the menu button toggles it, the choice is kept in this browser. The current page is marked in the list.
    - phones (760px and narrower): the side bar is a drawer over the page, a bottom nav bar holds HQ, the first three
      topics and "עוד"; it slides away while scrolling down and comes back on the way up
    Source: shared/design/nav.src.js. design.py puts window.LB_NAV_DATA in front of it (hq-tools.json with the topic
    colours, the icons, the logo, the HQ and Vercel addresses, HQ's saved layout) and writes shared/design/nav.js.
-   Builds inline it with design.head(); HQ and the SMM plan link a synced copy. Styles: "project nav" in lumebook.css.
+   Builds inline it with design.head(); HQ links a synced copy. Styles: "project nav" in lumebook.css.
+   Since 8 Nov 2026 its foot holds the language switch (עב | EN): window.LBI18N (i18n.src.js, in front of this
+   script in nav.js) swaps the words of the page, this side bar's included; the switch itself is never translated.
    A page tells it where it is with window.LB_PAGE = { file: "<path in the project>" } (design.head() does this inside
    a lumebook.py build) or { hq: true } (HQ, which then calls LBNav.setCurrent on every view). Without it the address
    decides: the path on the project server, the address on Vercel. */
@@ -67,7 +70,7 @@
                 web: t.web && { href: t.web, where: t.webLabel || "אתר", kind: "web" },
                 copy: copy && { href: copy, where: "Vercel", kind: "web" } };
     const main = (MODE === "local" ? [v.local, v.art, v.web] : [v.copy, v.art, v.web, v.local]).find(Boolean);
-    if (!main) return { main: { href: HQ_URL + "#tools", where: "אין קישור עדיין", kind: "view" }, alt: null };
+    if (!main) return { main: { href: HQ_URL + "#home", where: "אין קישור עדיין", kind: "view" }, alt: null };
     if (MODE !== "local" && main.kind === "local") main.where = "מקומי בלבד";
     const alt = MODE === "local" ? (main.kind !== "art" ? v.art : null) : (main.kind !== "local" ? v.local : null);
     return { main, alt: alt ? { ...alt, label: alt.kind === "art" ? "גרסת ארטיפקט" : "גרסה מקומית" } : null };
@@ -99,13 +102,21 @@
   const el = {};
 
   // ---------- markup ----------
+  // the language switch (8 Nov 2026): both languages always readable, the current one pressed. It floats at the bottom left,
+  // right of the edit button (Yarin, 8 Nov 2026: "make the language button float next to the edit site button to the right")
+  function langSwitch() {
+    const cur = window.LBI18N ? window.LBI18N.lang() : "he";
+    return [["he", "עב", "עברית"], ["en", "EN", "English"]].map(([v, t, full]) =>
+        `<button type="button" data-glang="${v}" lang="${v}" aria-pressed="${cur === v}" title="${full}">${t}</button>`).join("")
+      + `<span class="lb-langfab-note" hidden></span>`;
+  }
   function side(cur) {
     const curId = cur ? cur[0].id : "";
     return `<div class="lb-gside-head">
-        <a class="lb-gside-brand" href="${esc(HQ_URL || "#tools")}"${hqTarget} aria-label="HQ, כל הכלים"><img src="${esc(D.logo || "")}" alt="" width="28" height="28"><b>LumeBook</b></a>
+        <a class="lb-gside-brand" href="${esc(HQ_URL + "#home")}"${hqTarget} aria-label="HQ, הבית"><img src="${esc(D.logo || "")}" alt="" width="28" height="28"><b translate="no">LumeBook</b></a>
         <button type="button" class="lb-gside-toggle" data-gnav="toggle" aria-controls="lb-gside" aria-expanded="false" aria-label="כל הכלים">${ui("menu")}</button>
         <button type="button" class="lb-gside-close" data-gnav="close" aria-label="סגירה">${ui("close")}</button></div>
-      <nav class="lb-gside-scroll" aria-label="כל הכלים">${S.L.topics.filter((tp) => tp.tools.length).map((tp) =>
+      <nav class="lb-gside-scroll" aria-label="כל הכלים"><ul class="lb-gside-home lb-cat-0"><li><a class="lb-gside-item" href="${esc(HQ_URL + "#home")}"${hqTarget} title="בית: המספרים של היום ומה דורש טיפול"${PAGE.hq && S.view === "home" ? ' aria-current="page"' : ""}><span class="lb-tile" aria-hidden="true">${ico("home")}</span><span class="lb-gside-name">בית</span></a></li></ul>${S.L.topics.filter((tp) => tp.tools.length).map((tp) =>
         `<section class="lb-gside-topic lb-cat-${tp.cat}${tp.id === S.focus ? " is-focus" : ""}" data-gtopic-sec="${esc(tp.id)}" aria-labelledby="lb-gside-${esc(tp.id)}">
           <h2 class="lb-gside-h" id="lb-gside-${esc(tp.id)}">${esc(tp.label)}</h2>
           <ul>${tp.tools.map((t) => {
@@ -118,9 +129,9 @@
   }
   function bottom(cur) {
     const first = S.L.topics.filter((tp) => tp.tools.length).slice(0, 3);
-    const curTopic = cur ? cur[1].id : "", home = PAGE.hq && (!S.view || S.view === "tools");
+    const curTopic = cur ? cur[1].id : "", home = PAGE.hq && (!S.view || S.view === "home");
     const inMore = curTopic && !first.some((tp) => tp.id === curTopic);
-    return `<a class="lb-gbottom-item" href="${esc(HQ_URL || "#tools")}"${hqTarget}${home ? ' aria-current="page"' : ""}>${ico("grid")}<span>HQ</span></a>`
+    return `<a class="lb-gbottom-item" href="${esc(HQ_URL + "#home")}"${hqTarget}${home ? ' aria-current="page"' : ""}>${ico("home")}<span>בית</span></a>`
       + first.map((tp) => `<button type="button" class="lb-gbottom-item lb-cat-${tp.cat}" data-gtopic="${esc(tp.id)}" aria-controls="lb-gside"${tp.id === curTopic ? ' aria-current="true"' : ""}>${ico(tp.icon)}<span>${esc(tp.label)}</span></button>`).join("")
       + `<button type="button" class="lb-gbottom-item" data-gnav="more" aria-controls="lb-gside" aria-expanded="false"${inMore ? ' aria-current="true"' : ""}>${ui("menu")}<span>עוד</span></button>`;
   }
@@ -132,10 +143,13 @@
     el.side = make("aside", "lb-gside", { id: "lb-gside", "aria-label": "כל הכלים" });
     el.scrim = make("div", "lb-gscrim", { "data-gnav": "close" });
     el.bottom = make("nav", "lb-gbottom", { "aria-label": "ניווט ראשי" });
-    document.body.append(el.side, el.scrim, el.bottom);
+    el.lang = make("div", "lb-langfab lb-glass is-capsule is-thick", { role: "group", "aria-label": "שפה · Language", translate: "no" });
+    el.lang.dir = "ltr";
+    el.lang.innerHTML = langSwitch();
+    document.body.append(el.side, el.scrim, el.bottom, el.lang);
     root.classList.add("lb-has-gnav");
     draw();
-    el.side.addEventListener("click", onClick); el.scrim.addEventListener("click", onClick); el.bottom.addEventListener("click", onClick);
+    el.side.addEventListener("click", onClick); el.scrim.addEventListener("click", onClick); el.bottom.addEventListener("click", onClick); el.lang.addEventListener("click", onClick);
     document.addEventListener("keydown", onKey);
     PHONE.addEventListener("change", () => { closeDrawer(false); setAway(false); applyState(); });
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -184,8 +198,9 @@
     if (sec && scroll) scroll.scrollTo({ top: sec.offsetTop - scroll.offsetTop - 8, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   }
   function onClick(e) {
-    const t = e.target.closest("[data-gtopic], [data-gnav], a");
+    const t = e.target.closest("[data-gtopic], [data-gnav], [data-glang], a");
     if (!t) return;
+    if (t.dataset.glang) { if (window.LBI18N) window.LBI18N.set(t.dataset.glang); return; }
     if (t.dataset.gtopic) return showTopic(t.dataset.gtopic);
     const act = t.dataset.gnav;
     if (act === "toggle") return PHONE.matches ? openDrawer() : setExpanded(!expanded);
@@ -233,7 +248,7 @@
     MODE, toolId, toolLinks, defaultLayout, mergeLayout,
     // HQ's own layout as it loads and as Yarin edits it
     setLayout(L) { S.L = clone(L); draw(); },
-    // HQ's view: { view: "overview", title: "סקירה" }
+    // HQ's view: { view: "home", title: "בית" }
     setCurrent({ view, title } = {}) { S.view = view || null; S.viewTitle = title || ""; draw(); },
   };
 

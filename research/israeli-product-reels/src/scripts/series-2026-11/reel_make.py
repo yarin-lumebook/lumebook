@@ -63,6 +63,24 @@ def run(*a, **kw):
     return subprocess.run([str(x) for x in a], check=True, **kw)
 
 
+def sound_hash(wav_path):
+    import hashlib
+    return hashlib.sha1(Path(wav_path).read_bytes()).hexdigest()
+
+
+def transcript_is_stale(raw_path, wav_path):
+    """True when words-raw.json is missing or was made from another voice-studio.wav (audit of 08 Nov 2026: a new take,
+    or a changed voice_start or hook_end, kept the old words and so the old caption and cut times). The sound's hash
+    is kept next to the transcript (words-raw.json.wav-sha1)."""
+    mark = Path(str(raw_path) + ".wav-sha1")
+    was = mark.read_text().strip() if mark.exists() else ""
+    return not Path(raw_path).exists() or was != sound_hash(wav_path)
+
+
+def mark_transcript(raw_path, wav_path):
+    Path(str(raw_path) + ".wav-sha1").write_text(sound_hash(wav_path) + "\n")
+
+
 def dur(p):
     return float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(p)]))
 
@@ -197,10 +215,11 @@ def make(rid, folder, hook, vo, cta_line, cta_screen, retranscribe=False, build=
 
     # 3. transcript, matched to the script (hook + voiceover in one pass: whisper's times drift around the join)
     raw_path = work / "words-raw.json"
-    if retranscribe or not raw_path.exists():
+    if retranscribe or transcript_is_stale(raw_path, work / "voice-studio.wav"):
         import os
         run("/usr/bin/python3", EDITOR.parent / "transcribe.py", work / "voice-studio.wav", raw_path,
             env=dict(os.environ, KMP_DUPLICATE_LIB_OK="TRUE"))
+        mark_transcript(raw_path, work / "voice-studio.wav")
     raw = json.loads(raw_path.read_text())
     both, problems = align(raw, hook_words + script)
     raw_hook, words = both[:len(hook_words)], both[len(hook_words):]

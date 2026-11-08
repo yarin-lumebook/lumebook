@@ -1,17 +1,10 @@
 #!/bin/sh
 # LumeBook monorepo pre-commit checks.
-# 1. SMM plan: the Hebrew page and its English mirror change together.
+# Never commit a Sheet export (phones, emails): the old signup sheet.md or the ambassadors Sheet export.
+# (The SMM plan's English-mirror rule went with the plan page, retired 8 Nov 2026.)
 staged=$(git diff --cached --name-only)
-plan=sites/lumebook-smm-plan
-if echo "$staged" | grep -qx "$plan/index.html" && ! echo "$staged" | grep -qx "$plan/content.en.md"; then
-  echo "pre-commit: $plan/index.html changed but $plan/content.en.md did not."
-  echo "Update the English mirror to match the Hebrew text, then commit again."
-  echo "(Style-only change? Commit with --no-verify.)"
-  exit 1
-fi
-# 2. Never commit the signup Sheet export (phones, emails).
-if echo "$staged" | grep -q "sheet.md$"; then
-  echo "pre-commit: a sheet.md export is staged; it holds phone numbers and emails. Unstage it."
+if echo "$staged" | grep -q "sheet\.md$"; then
+  echo "pre-commit: a Sheet export (*sheet.md) is staged; it holds phone numbers and emails. Unstage it."
   exit 1
 fi
 exit 0
