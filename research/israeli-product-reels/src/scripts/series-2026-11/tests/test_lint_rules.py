@@ -23,5 +23,33 @@ class PriceRule(unittest.TestCase):
             self.assertIsNone(reels.price_hit(text), text)
 
 
+def _reel(**kw):
+    r = {"id": "9.9", "status": "needs-voice", "series": 1, "date": None, "voice": "yarin", "hook": "שאלה קצרה",
+         "caption": "#a", "vo": ["שאלה קצרה פה", "שורה שתיים", "שורה שלוש"],
+         "sees": ["אתה למצלמה, ומהפריים הראשון כריכת יום הולדת עם השם לידך", "עמוד מהתצוגה המקדימה", "עמוד הסיום עם הפנים שלו"],
+         "shot": "", "payoff": "עמוד הסיום עם הפנים שלו"}
+    r.update(kw)
+    return {"defaults": {"length": {"card_seconds": 2.2}}, "reels": [r]}
+
+
+class StudyRules(unittest.TestCase):
+    """The @matan.nistor study's warnings (09 Nov 2026): M1 first frame, M2 face mid-reel, M3 ending, M4 payoff."""
+
+    def codes(self, **kw):
+        return {w.split()[1] for w in reels.principle_checks(_reel(**kw))}
+
+    def test_a_good_reel_has_none(self):
+        self.assertFalse({"M1", "M2", "M3", "M4"} & self.codes())
+
+    def test_each_rule_fires(self):
+        self.assertIn("M4", self.codes(payoff=""))
+        self.assertIn("M1", self.codes(shot="קטע פתיחה עם ספר מודפס ביד (כל ספר שיש לך)", sees=["אתה למצלמה עם ספר מודפס ביד", "עמוד", "עמוד הסיום"]))
+        self.assertIn("M2", self.codes(sees=["כריכת יום הולדת", "אתה למצלמה", "עמוד הסיום"]))
+        self.assertIn("M3", self.codes(sees=["כריכת יום הולדת", "עמוד", "אתה למצלמה, מחייך"]))
+
+    def test_yarin_with_the_book_is_not_a_talking_head(self):
+        self.assertNotIn("M3", self.codes(sees=["כריכת יום הולדת", "עמוד", "אתה מחזיק את הספר המודפס"]))
+
+
 if __name__ == "__main__":
     unittest.main()

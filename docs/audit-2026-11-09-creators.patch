@@ -1,0 +1,353 @@
+diff --git a/sites/dashboard/build_site.py b/sites/dashboard/build_site.py
+index 1680878..f7a4c32 100644
+--- a/sites/dashboard/build_site.py
++++ b/sites/dashboard/build_site.py
+@@ -43,23 +43,98 @@ def redact_ambassadors(section):
+     return out
+ 
+ 
++# The creator outreach work stays off it too (Yarin, 09 Nov 2026: "Yes, strip them"): the creators being tracked (handles,
++# names, contact channels, stages), the MeBook conflicts, the follow-up and reminder lists and every outreach count. What
++# stays is the map's research side: how many creators, by audience size, by type, by research pass.
++CREATOR_MAP_PUBLIC = ("total", "shortlist", "by_pass", "archetypes", "bands", "checked_on", "modified")
++CREATOR_HOME_PUBLIC = ("total",)
++
++
++def redact_creators(section, keep):
++    if not isinstance(section, dict):
++        return section
++    out = {k: v for k, v in section.items() if k in keep}
++    out["redacted"] = True
++    return out
++
++
+ def public_snapshot(snap):
+-    """The snapshot as the static copy may show it: no per-person ambassador data, in any of the places it appears."""
++    """The snapshot as the static copy may show it: no per-person ambassador or creator data and no creator outreach
++    counts, in any of the places they appear."""
+     snap = dict(snap)
+     if snap.get("signups"):
+         snap["signups"] = redact_ambassadors(snap["signups"])
++    if snap.get("creators"):
++        snap["creators"] = dict(redact_creators(snap["creators"], CREATOR_MAP_PUBLIC), tracked=[], competitor_conflicts=[])
+     home = snap.get("home")
+     if isinstance(home, dict):
+         home = dict(home)
+         if home.get("ambassadors"):
+             home["ambassadors"] = redact_ambassadors(home["ambassadors"])
+-        # home_stats.attention() names the ambassador of an open payout request; keep the item, drop the name
++        if home.get("creators"):
++            home["creators"] = redact_creators(home["creators"], CREATOR_HOME_PUBLIC)
++        # home_stats.attention() names the ambassador of an open payout request; keep the item, drop the name.
++        # Its creator items (follow-ups and reminders due) are outreach counts: dropped
+         home["attention"] = [dict(a, text="בקשת מימוש פתוחה של שגריר") if a.get("tag") == "שגרירים" and str(a.get("text", "")).startswith("בקשת")
+-                             else a for a in (home.get("attention") or [])]
++                             else a for a in (home.get("attention") or []) if a.get("tag") != "יוצרים"]
+         snap["home"] = home
+     return snap
+ 
+ 
++I18N_TAG = re.compile(r'(<script type="application/json" id="lumebook-i18n">)(.*?)(</script>)', re.S)
++
++
++def private_strings(snap):
++    """Who the static copy must never name, taken from the full snapshot: the tracked creators (handle, name, the
++    @handles and links in their contact channel), the MeBook conflicts, the follow-up and reminder lists, and the
++    ambassador Sheet's people (name, Instagram handle, link slug). Lower case, with digits also as {0} (dictionary keys)."""
++    out = set()
++    c = snap.get("creators") or {}
++    for x in c.get("tracked") or []:
++        out |= {x.get("handle"), x.get("name")}
++        out |= {p.strip() for p in re.split(r"[·,]", x.get("contact") or "") if "@" in p or "/" in p}
++    out |= {str(x).lstrip("@") for x in c.get("competitor_conflicts") or []}
++    hc = (snap.get("home") or {}).get("creators") or {}
++    out |= {str(x).lstrip("@") for x in (hc.get("followups_who") or []) + (hc.get("reminders_who") or [])}
++    for sec in (snap.get("signups"), (snap.get("home") or {}).get("ambassadors")):
++        if not isinstance(sec, dict):
++            continue
++        for r in sec.get("rows") or []:
++            out |= {r.get("name"), r.get("handle"), r.get("slug")}
++        out |= {p.get("who") for p in sec.get("payouts_open") or []}
++    out = {str(s).strip().lower() for s in out if s and len(str(s).strip()) >= 3}
++    return out | {re.sub(r"\d+", "{0}", s) for s in out if re.search(r"\d", s)}
++
++
++def public_words(page, private):
++    """The page's baked words (lumebook-i18n) without any entry that names someone in `private`. The dictionary fills
++    itself from what the local HQ shows and is baked into this page every night, so one stale tab could bring a name
++    back; the static copy never carries it."""
++    if not private:
++        return page
++    pat = re.compile("|".join(sorted(map(re.escape, private), key=len, reverse=True)), re.I)
++
++    def clean(m):
++        try:
++            data = json.loads(m.group(2))
++        except ValueError:
++            return m.group(0)
++        for part in ("common", "dict"):
++            for lang, words in (data.get(part) or {}).items():
++                if isinstance(words, dict):
++                    data[part][lang] = {k: v for k, v in words.items() if not (pat.search(k) or pat.search(str(v)))}
++        return m.group(1) + json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c") + m.group(3)
++    return I18N_TAG.sub(clean, page)
++
++
++def public_tracker(tracker):
++    """The artifact's tracker/state without its per-creator stages (keyed by handle) or its outreach count."""
++    if not isinstance(tracker, dict):
++        return tracker
++    counts = {k: v for k, v in (tracker.get("counts") or {}).items() if k != "outreach"}
++    return dict(tracker, creators={}, counts=counts)
++
++
+ def main():
+     snap = load(os.path.join(OUT, "snapshot.json"))
+     if not snap:
+@@ -76,9 +151,9 @@ def main():
+     for a in snap.get("artifacts", []):
+         a["web"] = webs.get(a.get("key"))
+ 
+-    page = open(os.path.join(HERE, "lumebook-dashboard.html"), encoding="utf-8").read()
++    page = public_words(open(os.path.join(HERE, "lumebook-dashboard.html"), encoding="utf-8").read(), private_strings(snap))
+     head, body = page.split('<div class="lb-app', 1)   # the app shell (lb-app, with no-sidebar since 5 Nov 2026)
+-    data = json.dumps({"snap": public_snapshot(snap), "history": history, "tracker": tracker}, ensure_ascii=False).replace("</", "<\\/")
++    data = json.dumps({"snap": public_snapshot(snap), "history": history, "tracker": public_tracker(tracker)}, ensure_ascii=False).replace("</", "<\\/")
+     doc = (
+         '<!doctype html><html lang="he"><head><meta charset="utf-8">'
+         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
+diff --git a/sites/dashboard/tests/test_build_site.py b/sites/dashboard/tests/test_build_site.py
+index 40e705c..2115203 100644
+--- a/sites/dashboard/tests/test_build_site.py
++++ b/sites/dashboard/tests/test_build_site.py
+@@ -1,4 +1,5 @@
+-"""The static (Vercel) copy of HQ must never carry the store's ambassadors person by person (audit of 08 Nov 2026).
++"""The static (Vercel) copy of HQ must never carry the store's ambassadors person by person (audit of 08 Nov 2026),
++nor the creator outreach work: who is tracked, follow-up and reminder lists, stages, outreach counts (09 Nov 2026).
+ 
+ Run: python3 -m unittest discover -s sites/dashboard/tests
+ """
+@@ -17,19 +18,50 @@ def section():
+             "payouts_open": [{"who": "Dana Example", "amount": 40.0, "due": "10/11/2026", "state": "חדש"}]}
+ 
+ 
++def creators():
++    return {"total": 437, "shortlist": 15, "by_pass": {"1": 61}, "archetypes": [["אמא לתאומים", 40]], "bands": [["5-10K", 50]],
++            "checked_on": "2026-11-08", "modified": "2026-11-08T21:00", "with_direct_contact_hint": 2,
++            "competitor_conflicts": ["@noa.conflict"],
++            "tracked": [{"handle": "noa.creator", "name": "Noa Creator", "url": "https://www.instagram.com/noa.creator/",
++                         "contact": "IG DM · linktr.ee/noa.creator", "group": "barter", "live_error": False}]}
++
++
++def home_creators():
++    return {"total": 437, "contacted": 437, "sent": 180, "declined": 148, "process": 11, "reply_rate": 3, "books_out": 8,
++            "followups_due": 140, "reminders_due": 2, "post_views": 7337, "posts": 3,
++            "followups_who": ["Noa Creator"], "reminders_who": ["Tal Reminder"]}
++
++
+ class PublicSnapshot(unittest.TestCase):
+     def snap(self):
+-        return {"date": "2026-11-08", "signups": section(),
+-                "home": {"ambassadors": section(), "attention": [
++        return {"date": "2026-11-08", "signups": section(), "creators": creators(),
++                "home": {"ambassadors": section(), "creators": home_creators(), "attention": [
+                     {"sev": "crit", "tag": "שגרירים", "text": "בקשת מימוש פתוחה של Dana Example, לטפל עד 10/11/2026", "view": "signups"},
+                     {"sev": "info", "tag": "שגרירים", "text": "1 שגרירים חדשים השבוע", "view": "signups"},
+                     {"sev": "warn", "tag": "יוצרים", "text": "19 תזכורות ליוצרים הגיעו לזמנן"}]}}
+ 
+     def test_no_person_reaches_the_static_copy(self):
+         out = json.dumps(build_site.public_snapshot(self.snap()), ensure_ascii=False)
+-        for private in ("Dana Example", "dana.example", "dana-x1"):
++        for private in ("Dana Example", "dana.example", "dana-x1", "noa.creator", "Noa Creator", "noa.conflict", "Tal Reminder", "linktr.ee"):
+             self.assertNotIn(private, out)
+ 
++    def test_no_creator_outreach_count_reaches_the_static_copy(self):
++        pub = build_site.public_snapshot(self.snap())
++        self.assertEqual(pub["home"]["creators"], {"total": 437, "redacted": True})
++        self.assertEqual((pub["creators"]["tracked"], pub["creators"]["competitor_conflicts"]), ([], []))
++        self.assertNotIn("with_direct_contact_hint", pub["creators"])
++        self.assertFalse(any(a["tag"] == "יוצרים" for a in pub["home"]["attention"]))
++
++    def test_the_creator_map_research_totals_stay(self):
++        c = build_site.public_snapshot(self.snap())["creators"]
++        self.assertEqual((c["total"], c["shortlist"], c["bands"], c["archetypes"]), (437, 15, [["5-10K", 50]], [["אמא לתאומים", 40]]))
++        self.assertTrue(c["redacted"])
++
++    def test_the_tracker_loses_its_creator_stages_and_outreach_count(self):
++        pub = build_site.public_tracker({"tasks": {"t1": True}, "creators": {"noa.creator": 3}, "counts": {"outreach": 5, "other": 1}})
++        self.assertEqual(pub, {"tasks": {"t1": True}, "creators": {}, "counts": {"other": 1}})
++        self.assertEqual(build_site.public_tracker({}), {"creators": {}, "counts": {}})
++
+     def test_counts_and_totals_stay(self):
+         pub = build_site.public_snapshot(self.snap())
+         for sec in (pub["signups"], pub["home"]["ambassadors"]):
+@@ -39,22 +71,55 @@ class PublicSnapshot(unittest.TestCase):
+             self.assertNotIn("rows", sec)
+             self.assertNotIn("payouts_open", sec)
+ 
+-    def test_attention_keeps_the_item_without_the_name(self):
++    def test_attention_keeps_the_ambassador_item_without_the_name(self):
+         att = build_site.public_snapshot(self.snap())["home"]["attention"]
+-        self.assertEqual(len(att), 3)
+-        self.assertEqual(att[0]["text"], "בקשת מימוש פתוחה של שגריר")
+-        self.assertEqual(att[1]["text"], "1 שגרירים חדשים השבוע")
+-        self.assertEqual(att[2]["text"], "19 תזכורות ליוצרים הגיעו לזמנן")
++        self.assertEqual([a["text"] for a in att], ["בקשת מימוש פתוחה של שגריר", "1 שגרירים חדשים השבוע"])
+ 
+     def test_the_local_snapshot_is_not_changed(self):
+         snap = self.snap()
+         build_site.public_snapshot(snap)
+         self.assertEqual(len(snap["signups"]["rows"]), 1)
+         self.assertEqual(len(snap["home"]["ambassadors"]["payouts_open"]), 1)
++        self.assertEqual(len(snap["creators"]["tracked"]), 1)
++        self.assertEqual(snap["home"]["creators"]["followups_due"], 140)
++        self.assertEqual(len(snap["home"]["attention"]), 3)
+ 
+     def test_missing_sections_are_fine(self):
+         self.assertEqual(build_site.public_snapshot({"date": "x"}), {"date": "x"})
+         self.assertIsNone(build_site.public_snapshot({"signups": None})["signups"])
++        self.assertIsNone(build_site.public_snapshot({"creators": None, "home": {"creators": None}})["creators"])
++
++
++class PublicWords(unittest.TestCase):
++    """The words block baked into the page never names anyone in the static copy, whatever the dictionary holds."""
++
++    def page(self, en):
++        payload = {"page": "sites/dashboard/lumebook-dashboard.html", "rev": "1", "common": {"en": {"שמירה": "Save"}, "he": {}},
++                   "dict": {"en": en, "he": {"IG DM · linktr.ee/noa.creator": "IG DM · linktr.ee/noa.creator"}}}
++        return ('<html><body><div class="lb-app">x</div><script type="application/json" id="lumebook-i18n">'
++                + json.dumps(payload, ensure_ascii=False).replace("<", "\\u003c") + "</script></body></html>")
++
++    def snap(self):
++        return {"creators": creators(), "signups": section(), "home": {"creators": home_creators(), "ambassadors": section()}}
++
++    def test_who_is_private(self):
++        private = build_site.private_strings(self.snap())
++        for s in ("noa.creator", "noa creator", "noa.conflict", "tal reminder", "dana example", "dana.example", "dana-x{0}", "linktr.ee/noa.creator"):
++            self.assertIn(s, private)
++
++    def test_entries_naming_someone_are_dropped_and_the_rest_stay(self):
++        en = {"@noa.creator\u001fNoa Creator": "@noa.creator\u001fNoa Creator", "בקשת מימוש פתוחה של Dana Example": "Open payout request from Dana Example",
++              "מפת היוצרים": "Creator map", "קישור dana-x{0}": "Link dana-x{0}"}
++        out = build_site.public_words(self.page(en), build_site.private_strings(self.snap()))
++        data = json.loads(out.split('id="lumebook-i18n">', 1)[1].split("</script>", 1)[0])
++        self.assertEqual(data["dict"]["en"], {"מפת היוצרים": "Creator map"})
++        self.assertEqual(data["dict"]["he"], {})
++        self.assertEqual(data["common"]["en"], {"שמירה": "Save"})
++        self.assertTrue(out.startswith('<html><body><div class="lb-app">x</div>'))
++
++    def test_a_page_without_words_is_unchanged(self):
++        self.assertEqual(build_site.public_words("<html></html>", {"noa"}), "<html></html>")
++        self.assertEqual(build_site.public_words(self.page({}), set()), self.page({}))
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/sites/dashboard/lumebook-dashboard.html b/sites/dashboard/lumebook-dashboard.html
+index 18ad40b..4c60def 100644
+--- a/sites/dashboard/lumebook-dashboard.html
++++ b/sites/dashboard/lumebook-dashboard.html
+@@ -684,8 +684,9 @@ tr.test td { opacity: .5; }
+       const y = s.sync;
+       if (y && !y.error && (y.counts?.pending || y.counts?.warnings)) out.push({ sev: "info", tag: "סנכרון", text: `${y.counts.pending} משימות סנכרון פתוחות${y.counts.warnings ? `, ${y.counts.warnings} אי-התאמות` : ""}`, href: "#sync" });
+       const missing = (s.creators?.tracked || []).filter((c) => c.live_error);
+-      if (missing.length) out.push({ sev: "info", tag: "יוצרים", text: `לא נמצא פרופיל: ${missing.map((c) => "@" + c.handle).join(", ")}`, href: "#creators" });
+-      if (s.creators?.competitor_conflicts?.length) out.push({ sev: "info", tag: "יוצרים", text: `מופיעים אצל MeBook: ${s.creators.competitor_conflicts.join(", ")}` });
++      // `who` is drawn outside the language switch, so creators' handles never reach the page's dictionary (09 Nov 2026)
++      if (missing.length) out.push({ sev: "info", tag: "יוצרים", text: "לא נמצא פרופיל:", who: missing.map((c) => "@" + c.handle).join(", "), href: "#creators" });
++      if (s.creators?.competitor_conflicts?.length) out.push({ sev: "info", tag: "יוצרים", text: "מופיעים אצל MeBook:", who: s.creators.competitor_conflicts.join(", ") });
+     }
+     const order = { crit: 0, warn: 1, info: 2 };
+     return out.sort((a, b) => order[a.sev] - order[b.sev]);
+@@ -695,7 +696,7 @@ tr.test td { opacity: .5; }
+     const list = alerts(), chip = { crit: "danger", warn: "warning", info: "info" };
+     $("alerts-count").textContent = list.length ? `${list.length} פריטים` : "";
+     $("alerts").innerHTML = !homeData() && !S.snap ? `<div class="lb-skeleton" style="height:3rem"></div>`
+-      : list.length ? list.map((a) => `<div class="lb-alert ${a.sev}"><span class="lb-chip ${chip[a.sev]}">${esc(a.tag)}</span><span class="lb-alert-text">${esc(a.text)}</span>${openLink(a.href) || "<span></span>"}</div>`).join("")
++      : list.length ? list.map((a) => `<div class="lb-alert ${a.sev}"><span class="lb-chip ${chip[a.sev]}">${esc(a.tag)}</span><span class="lb-alert-text">${esc(a.text)}${a.who ? ` <span translate="no">${ltr(a.who)}</span>` : ""}</span>${openLink(a.href) || "<span></span>"}</div>`).join("")
+       : `<div class="lb-alert"><span class="lb-chip success">תקין</span><span class="lb-alert-text">אין כרגע פריטים פתוחים</span><span></span></div>`;
+   }
+ 
+@@ -753,14 +754,16 @@ tr.test td { opacity: .5; }
+   function renderCreatorsBlock(cr, am) {
+     const href = hrefFor({ local: "creators/creator-research/lumebook-creator-map.html" });
+     if (!cr) { $("home-creators").innerHTML = blockHead("people", "מפת היוצרים", "", href) + empty("יופיע אחרי הרענון הבא."); return; }
+-    $("home-creators").innerHTML = blockHead("people", "מפת היוצרים", cr.total ? `${nfmt(cr.total)} יוצרים במפה` : "", href) + `<dl class="lb-metrics cols-6">
++    // the static (Vercel) copy has the map's size only: build_site.py strips the outreach numbers (cr.redacted, 09 Nov 2026)
++    $("home-creators").innerHTML = blockHead("people", "מפת היוצרים", cr.total ? `${nfmt(cr.total)} יוצרים במפה` : "", href) + (cr.redacted
++      ? empty("מספרי הפניות ליוצרים מוצגים רק בלוח המקומי ובלוח ב-Claude.") : `<dl class="lb-metrics cols-6">
+       ${metric({ icon: "send", label: "פנינו", value: nfmt(cr.contacted), foot: cr.new != null ? `${nfmt(cr.new)} עוד לא` : "", bar: cr.total ? cr.contacted / cr.total * 100 : null })}
+       ${metric({ icon: "chat", label: "בתהליך", value: nfmt(cr.process), foot: cr.reply_rate != null ? `${cr.reply_rate}% מהפניות` : "" })}
+       ${metric({ icon: "book", label: "ספרים יצאו", value: nfmt(cr.books_out), foot: `${nfmt(cr.content)} עם תוכן` })}
+       ${metric({ icon: "mail", label: "פולואפים", value: nfmt(cr.followups_due), cls: cr.followups_due ? "is-warn" : "is-ok" })}
+       ${metric({ icon: "bell", label: "תזכורות", value: nfmt(cr.reminders_due), cls: cr.reminders_due ? "is-warn" : "is-ok" })}
+       ${metric({ icon: "eye", label: "צפיות בפוסטים", value: nfmt(cr.post_views), foot: `${nfmt(cr.posts)} פוסטים` })}
+-    </dl>${am ? `<p class="home-sub">שגרירים בחנות</p><dl class="lb-metrics cols-6">
++    </dl>`) + `${am ? `<p class="home-sub">שגרירים בחנות</p><dl class="lb-metrics cols-6">
+       ${metric({ icon: "gift", label: "שגרירים", value: nfmt(am.total), foot: am.new_week ? `${am.new_week} חדשים השבוע` : "" })}
+       ${metric({ icon: "bag", label: "ספרים דרכם", value: nfmt(am.books), foot: `${nfmt(am.sales)} מכירות` })}
+       ${metric({ icon: "wallet", label: "בקשות תשלום", value: nfmt(am.payouts_open_count ?? (am.payouts_open || []).length), cls: (am.payouts_open_count ?? (am.payouts_open || []).length) ? "is-warn" : "is-ok" })}
+@@ -798,9 +801,19 @@ tr.test td { opacity: .5; }
+     const mapUrl = artHref(s.artifacts.find((a) => a.key === "creators"));
+     $("cr-meta").innerHTML = `נבדק ${esc(c.checked_on.split("-").reverse().slice(0, 2).map(Number).join("."))}${mapUrl ? ` · ${ext(mapUrl, "למפת היוצרים")}` : ""}`;
+     const maxBand = Math.max(...c.bands.map((b) => b[1]));
+-    $("cr-stats").innerHTML = `
++    const researchCards = `
+       <div class="lb-card"><span class="lb-card-title">לפי גודל קהל</span><div class="lb-hbars">${c.bands.map(([b, n]) => `<div class="lb-hbar" title="${n} יוצרים"><span>${ltr(b)}</span><span class="track"><i style="width:${n / maxBand * 100}%"></i></span><span class="v">${n}</span></div>`).join("")}</div></div>
+-      <div class="lb-card"><span class="lb-card-title">סוגים מובילים</span><div class="lb-hbars">${c.archetypes.slice(0, 5).map(([a, n]) => `<div class="lb-hbar" title="${n} יוצרים"><span class="lb-truncate">${esc(a)}</span><span class="track"><i style="width:${n / c.archetypes[0][1] * 100}%"></i></span><span class="v">${n}</span></div>`).join("")}</div></div>
++      <div class="lb-card"><span class="lb-card-title">סוגים מובילים</span><div class="lb-hbars">${c.archetypes.slice(0, 5).map(([a, n]) => `<div class="lb-hbar" title="${n} יוצרים"><span class="lb-truncate">${esc(a)}</span><span class="track"><i style="width:${n / c.archetypes[0][1] * 100}%"></i></span><span class="v">${n}</span></div>`).join("")}</div></div>`;
++    // the static (Vercel) copy: the map's research totals only, no one being tracked (build_site.py, 09 Nov 2026)
++    $("cr-q").closest(".lb-toolbar").hidden = !!c.redacted;
++    if (c.redacted) {
++      $("cr-stats").innerHTML = researchCards + `<div class="lb-card"><div class="lb-stat"><span class="lb-stat-value">${c.total}</span><span class="lb-stat-label">במאגר</span></div></div>`;
++      $("stage-panel").innerHTML = `<div class="lb-card-head"><span class="lb-card-title">מצב הפניות</span></div><p class="lb-note">מצב הפניות והיוצרים במעקב מוצגים רק בלוח המקומי ובלוח ב-Claude.</p>`;
++      $("cr-table").innerHTML = empty("רשימת היוצרים במעקב מוצגת רק בלוח המקומי ובלוח ב-Claude.");
++      setCount("n-creators", 0);
++      return;
++    }
++    $("cr-stats").innerHTML = researchCards + `
+       <div class="lb-card lb-grid cols-2" style="gap:var(--sp-3)">
+         <div class="lb-stat"><span class="lb-stat-value">${c.total}</span><span class="lb-stat-label">במאגר</span></div>
+         <div class="lb-stat"><span class="lb-stat-value">${c.tracked.length}</span><span class="lb-stat-label">במעקב</span></div>
+@@ -819,12 +832,14 @@ tr.test td { opacity: .5; }
+         const now = x.followers_now, d = now && x.followers_at_research ? now - x.followers_at_research : 0;
+         const showD = x.followers_exact && Math.abs(d) >= 10;
+         const st = S.tracker.creators[x.handle] ?? 0;
+-        return `<tr><td><div class="who">${ext(x.url, ltr("@" + x.handle))}<span class="lb-xs lb-dim">${esc(x.name)}</span></div></td>
++        // handle, name and contact channel stay out of the language switch (and its dictionary); the stage picker is
++        // labelled by the creator's cell, so no handle sits in a translated attribute
++        return `<tr><td translate="no" id="who-${esc(x.handle)}"><div class="who">${ext(x.url, ltr("@" + x.handle))}<span class="lb-xs lb-dim">${esc(x.name)}</span></div></td>
+           <td>${grp[x.group]}</td><td class="lb-muted">${esc(x.archetype)}</td>
+           <td class="num">${x.live_error ? '<span class="lb-dim">לא נמצא</span>' : fmt(now ?? x.followers_at_research)}${showD ? ` <span class="lb-delta ${d > 0 ? "up" : "down"}">${ltr((d > 0 ? "+" : "") + d)}</span>` : ""}</td>
+           <td class="num">${fmt(x.median_views)}</td><td class="num">${esc((x.last_reel || "").split("-").reverse().slice(0, 2).map(Number).join("."))}</td>
+-          <td class="lb-xs lb-muted">${esc(x.contact)}</td>
+-          <td><select class="lb-select" id="st-${esc(x.handle)}" data-creator="${esc(x.handle)}" aria-label="מצב עבור ${esc(x.handle)}" ${S.canWrite ? "" : "disabled"}>${STAGES.map((n, i) => `<option value="${i}" ${i === st ? "selected" : ""}>${n}</option>`).join("")}</select></td></tr>`;
++          <td class="lb-xs lb-muted" translate="no">${esc(x.contact)}</td>
++          <td><select class="lb-select" id="st-${esc(x.handle)}" data-creator="${esc(x.handle)}" aria-labelledby="who-${esc(x.handle)}" ${S.canWrite ? "" : "disabled"}>${STAGES.map((n, i) => `<option value="${i}" ${i === st ? "selected" : ""}>${n}</option>`).join("")}</select></td></tr>`;
+       }).join("")}</tbody></table>` : empty("אין יוצרים שתואמים לחיפוש.");
+   }
+ 
+@@ -1001,6 +1016,16 @@ tr.test td { opacity: .5; }
+     renderHome(); renderSignups();
+   }
+   if (ON_SERVER) { loadHome(); setInterval(() => { if (!document.hidden) loadHome(); }, 60000); }
++  // The built copy embeds the public snapshot (no creator outreach, no ambassadors person by person: build_site.py,
++  // 09 Nov 2026). Opened on the project server it is also the local HQ, so there the full snapshot and tracker come
++  // from the server's own files; elsewhere (Vercel) the fetch fails and the public one stays.
++  async function loadFullSnap() {
++    const get = (u) => fetch(u, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
++    const [snap, tracker] = await Promise.all([get("/sites/dashboard/out/snapshot.json"), get("/sites/dashboard/out/db/tracker/state.json")]);
++    if (snap?.creators) S.snap = { ...snap, artifacts: S.snap?.artifacts || snap.artifacts };
++    if (tracker) S.tracker = { tasks: { ...(tracker.tasks || {}) }, creators: { ...(tracker.creators || {}) }, counts: { ...(tracker.counts || {}) } };
++    if (snap?.creators || tracker) render();
++  }
+ 
+   // Static copy (Vercel): data is embedded at build time, read-only, no live connections
+   const STATIC = window.__DASH__ || null;
+@@ -1009,6 +1034,7 @@ tr.test td { opacity: .5; }
+     if (STATIC.tracker) S.tracker = { tasks: { ...(STATIC.tracker.tasks || {}) }, creators: { ...(STATIC.tracker.creators || {}) }, counts: { ...(STATIC.tracker.counts || {}) } };
+     $("foot-note").innerHTML = ON_SERVER ? "פתוח מקומית: המספרים בבית חיים ומתעדכנים כל דקה" : `עותק לקריאה בלבד, נבנה כל לילה. לשגרירים חיים: ${ext(HQ, "הלוח ב-Claude")}`;
+     render();
++    if (ON_SERVER) loadFullSnap();
+     return;
+   }
+   render();

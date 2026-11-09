@@ -74,6 +74,10 @@ A calm, plain-language take on one idea that a real source supports.
 - Give one thing to try tomorrow morning
 - Separate what the source says from LumeBook's wording. The source supports the fact; the line about the book is ours
 
+### Reel scripts (Yarin speaking)
+
+Before writing or rewriting any reel script (voiceover, hook, cards), read `references/reel-scripts.md` (since 09 / 11 / 2026): a person and a moment are the subject, never the book; call out one person, answer a real question, a doubt and then the turn, point at what is on screen, count when explaining, one ask. Evidence: `research/israeli-product-reels/ugc-seller-scripts.md`. Its second part (same date, from `research/matan-nistor-reels/`) sets the structure: something happens on screen, this reel's cover or number in the first frame, a new owned picture for every line, the payoff named in `payoff` and kept on screen until the לומי card.
+
 ### Facts belong to sources, in every narrator
 
 Voice is not a licence to add facts. A hedge like "הרבה פעמים" or "יש ילדים ש... ויש כאלה ש..." is still a claim about children. If the brief or a source you were given does not support it, either cut the line or turn it into a possibility about this one child ("יכול להיות שאצלו זה פחות קשור לצמא"), never an invented personal story, and in a nightly pack list every general statement in `claims` with its source. When rewriting someone else's draft, do not add facts it did not contain and do not promise content that is not there ("אספנו פה 3 דברים").

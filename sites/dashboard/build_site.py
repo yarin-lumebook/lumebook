@@ -43,21 +43,96 @@ def redact_ambassadors(section):
     return out
 
 
+# The creator outreach work stays off it too (Yarin, 09 Nov 2026: "Yes, strip them"): the creators being tracked (handles,
+# names, contact channels, stages), the MeBook conflicts, the follow-up and reminder lists and every outreach count. What
+# stays is the map's research side: how many creators, by audience size, by type, by research pass.
+CREATOR_MAP_PUBLIC = ("total", "shortlist", "by_pass", "archetypes", "bands", "checked_on", "modified")
+CREATOR_HOME_PUBLIC = ("total",)
+
+
+def redact_creators(section, keep):
+    if not isinstance(section, dict):
+        return section
+    out = {k: v for k, v in section.items() if k in keep}
+    out["redacted"] = True
+    return out
+
+
 def public_snapshot(snap):
-    """The snapshot as the static copy may show it: no per-person ambassador data, in any of the places it appears."""
+    """The snapshot as the static copy may show it: no per-person ambassador or creator data and no creator outreach
+    counts, in any of the places they appear."""
     snap = dict(snap)
     if snap.get("signups"):
         snap["signups"] = redact_ambassadors(snap["signups"])
+    if snap.get("creators"):
+        snap["creators"] = dict(redact_creators(snap["creators"], CREATOR_MAP_PUBLIC), tracked=[], competitor_conflicts=[])
     home = snap.get("home")
     if isinstance(home, dict):
         home = dict(home)
         if home.get("ambassadors"):
             home["ambassadors"] = redact_ambassadors(home["ambassadors"])
-        # home_stats.attention() names the ambassador of an open payout request; keep the item, drop the name
+        if home.get("creators"):
+            home["creators"] = redact_creators(home["creators"], CREATOR_HOME_PUBLIC)
+        # home_stats.attention() names the ambassador of an open payout request; keep the item, drop the name.
+        # Its creator items (follow-ups and reminders due) are outreach counts: dropped
         home["attention"] = [dict(a, text="בקשת מימוש פתוחה של שגריר") if a.get("tag") == "שגרירים" and str(a.get("text", "")).startswith("בקשת")
-                             else a for a in (home.get("attention") or [])]
+                             else a for a in (home.get("attention") or []) if a.get("tag") != "יוצרים"]
         snap["home"] = home
     return snap
+
+
+I18N_TAG = re.compile(r'(<script type="application/json" id="lumebook-i18n">)(.*?)(</script>)', re.S)
+
+
+def private_strings(snap):
+    """Who the static copy must never name, taken from the full snapshot: the tracked creators (handle, name, the
+    @handles and links in their contact channel), the MeBook conflicts, the follow-up and reminder lists, and the
+    ambassador Sheet's people (name, Instagram handle, link slug). Lower case, with digits also as {0} (dictionary keys)."""
+    out = set()
+    c = snap.get("creators") or {}
+    for x in c.get("tracked") or []:
+        out |= {x.get("handle"), x.get("name")}
+        out |= {p.strip() for p in re.split(r"[·,]", x.get("contact") or "") if "@" in p or "/" in p}
+    out |= {str(x).lstrip("@") for x in c.get("competitor_conflicts") or []}
+    hc = (snap.get("home") or {}).get("creators") or {}
+    out |= {str(x).lstrip("@") for x in (hc.get("followups_who") or []) + (hc.get("reminders_who") or [])}
+    for sec in (snap.get("signups"), (snap.get("home") or {}).get("ambassadors")):
+        if not isinstance(sec, dict):
+            continue
+        for r in sec.get("rows") or []:
+            out |= {r.get("name"), r.get("handle"), r.get("slug")}
+        out |= {p.get("who") for p in sec.get("payouts_open") or []}
+    out = {str(s).strip().lower() for s in out if s and len(str(s).strip()) >= 3}
+    return out | {re.sub(r"\d+", "{0}", s) for s in out if re.search(r"\d", s)}
+
+
+def public_words(page, private):
+    """The page's baked words (lumebook-i18n) without any entry that names someone in `private`. The dictionary fills
+    itself from what the local HQ shows and is baked into this page every night, so one stale tab could bring a name
+    back; the static copy never carries it."""
+    if not private:
+        return page
+    pat = re.compile("|".join(sorted(map(re.escape, private), key=len, reverse=True)), re.I)
+
+    def clean(m):
+        try:
+            data = json.loads(m.group(2))
+        except ValueError:
+            return m.group(0)
+        for part in ("common", "dict"):
+            for lang, words in (data.get(part) or {}).items():
+                if isinstance(words, dict):
+                    data[part][lang] = {k: v for k, v in words.items() if not (pat.search(k) or pat.search(str(v)))}
+        return m.group(1) + json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c") + m.group(3)
+    return I18N_TAG.sub(clean, page)
+
+
+def public_tracker(tracker):
+    """The artifact's tracker/state without its per-creator stages (keyed by handle) or its outreach count."""
+    if not isinstance(tracker, dict):
+        return tracker
+    counts = {k: v for k, v in (tracker.get("counts") or {}).items() if k != "outreach"}
+    return dict(tracker, creators={}, counts=counts)
 
 
 def main():
@@ -76,9 +151,9 @@ def main():
     for a in snap.get("artifacts", []):
         a["web"] = webs.get(a.get("key"))
 
-    page = open(os.path.join(HERE, "lumebook-dashboard.html"), encoding="utf-8").read()
+    page = public_words(open(os.path.join(HERE, "lumebook-dashboard.html"), encoding="utf-8").read(), private_strings(snap))
     head, body = page.split('<div class="lb-app', 1)   # the app shell (lb-app, with no-sidebar since 5 Nov 2026)
-    data = json.dumps({"snap": public_snapshot(snap), "history": history, "tracker": tracker}, ensure_ascii=False).replace("</", "<\\/")
+    data = json.dumps({"snap": public_snapshot(snap), "history": history, "tracker": public_tracker(tracker)}, ensure_ascii=False).replace("</", "<\\/")
     doc = (
         '<!doctype html><html lang="he"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'

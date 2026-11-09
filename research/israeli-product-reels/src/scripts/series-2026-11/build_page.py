@@ -104,6 +104,11 @@ def card(r, d):
     shot = ed("p", ek(k, "shot"), e(r["shot"])) if r.get("shot") else ""
     if r.get("yarin_films"):
         shot += '<span class="sub">אתה מצלם</span>' + ed("p", ek(k, "films"), e(", ".join(r["yarin_films"])))
+    # the payoff and the structure (Yarin, 09 Nov 2026: the @matan.nistor study "implemented to all reels"): what the viewer
+    # sees when the reel pays off, kept on screen until the לומי card (research/matan-nistor-reels/report.md)
+    if r.get("payoff") or r.get("structure"):
+        st = f'<span class="lb-chip outline" title="המבנה של הריל">{e(r["structure"])}</span>' if r.get("structure") else ""
+        rows.append(("השיא על המסך", st + ed("p", ek(k, "payoff"), e(r.get("payoff", "")))))
     if shot:
         rows.append(("צילום", f'<details class="shot"><summary>הצגה</summary>{shot}</details>'))
     script = script_table(r, d) if r.get("vo") else ""
@@ -154,7 +159,7 @@ def card(r, d):
 </article>"""
 
 
-ROW_ICON = {"צילום": "eye", "כרטיסיות על המסך": "layers"}
+ROW_ICON = {"צילום": "eye", "כרטיסיות על המסך": "layers", "השיא על המסך": "sparkle"}
 
 
 def make_sheet(k):
@@ -570,7 +575,8 @@ SCRIPT = r"""
   function label(key) {
     var m = key.split("__"), f = m[1], i = m[2] ? Number(m[2]) + 1 : 0;
     return { hook: "כותרת (על המסך ובראש הכרטיס)", vo: "קריינות, שורה " + i, sees: "מה רואים על המסך בזמן קריינות שורה " + i + " (פנימי, לירין)", cards: "כרטיסייה על המסך " + i, caption: "כיתוב לאינסטגרם",
-             shot: "הוראות צילום (פנימי, לירין)", films: "מה ירין מצלם (פנימי, רשימה מופרדת בפסיקים)" }[f] || f;
+             shot: "הוראות צילום (פנימי, לירין)", films: "מה ירין מצלם (פנימי, רשימה מופרדת בפסיקים)",
+             payoff: "השיא על המסך: מה רואים כשהריל נותן את מה שהבטיח (פנימי, לירין)" }[f] || f;
   }
   function tidy(t) {
     return String(t).replace(/\s*[\u2014\u2013]\s*/g, ", ").replace(/\u05BE/g, " ").replace(/(\S)\s+-\s+(\S)/g, "$1, $2")

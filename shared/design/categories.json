@@ -39,7 +39,7 @@
         "communities": {"cat": 6, "label": "קהילות", "en": "Communities", "components": ["parent-communities"]},
         "learning": {"cat": 3, "label": "קורס ולמידה", "en": "Course and learning", "components": ["course"]},
         "research": {"cat": 7, "label": "מחקר", "en": "Research", "components": ["competitor-teardown", "research-hub"]},
-        "system": {"cat": 0, "label": "מערכת", "en": "System", "components": ["facts", "brand", "design", "dashboard", "site-editor", "i18n"]}
+        "system": {"cat": 0, "label": "מערכת", "en": "System", "components": ["facts", "brand", "design", "dashboard", "site-editor", "i18n", "store-mock"]}
       }
     },
     "creator-tracks": {
@@ -161,6 +161,20 @@
         "communities": {"cat": 6, "label": "קהילות הורים", "en": "Parent communities"},
         "store": {"cat": 3, "label": "חנות, המרה ו-CRM", "en": "Store conversion and CRM"},
         "sales": {"cat": 8, "label": "מכירות ומספרים", "en": "Sales and numbers"}
+      }
+    },
+    "store-shelves": {
+      "used_by": ["sites/lumebook-store-mock/src/build.py (the store mock: category chips, shelf tiles and the book cards' category, through lb-cat-N)"],
+      "what": "The eight book categories of lumebook.com/IL/he as the store mock shows them (09 Nov 2026). No class key, like research-topics, so other pages' inlined CSS does not change. Best sellers take ochre (the gold family), the others one hue each.",
+      "items": {
+        "bestsellers": {"cat": 8, "label": "רבי מכר", "en": "Best sellers"},
+        "holidays": {"cat": 2, "label": "ימי הולדת וחגים", "en": "Birthdays and holidays"},
+        "habits": {"cat": 6, "label": "גמילה ממוצץ ומחיתולים", "en": "Pacifier and diapers"},
+        "courage": {"cat": 1, "label": "אומץ ועצמאות", "en": "Courage and independence"},
+        "learning": {"cat": 4, "label": "למידה ראשונה", "en": "First learning"},
+        "social": {"cat": 3, "label": "חברות ועבודת צוות", "en": "Friendship and teamwork"},
+        "imagination": {"cat": 5, "label": "הרפתקאות ודמיון", "en": "Adventure and imagination"},
+        "traditions": {"cat": 7, "label": "שומרי מסורת", "en": "Traditional families"}
       }
     }
   }

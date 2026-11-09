@@ -277,7 +277,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .olist{display:grid;gap:var(--sp-5)}
 /* Each card stands apart: a 2px frame and a deeper shadow than the page's other cards (Yarin, 1 Nov 2026). The frame is shared with
    the reminder and follow-up stacks (.rsi, the card with its strip, and .rs-peek, the cards under it), so a card there is the same glass. */
-.oc,.rsi,.rs-peek{--oc-pad:var(--sp-5);--oc-edge:color-mix(in srgb,var(--text) 16%,transparent);--oc-edge-hi:color-mix(in srgb,var(--text) 34%,transparent);--oc-shadow:0 1px 2px rgba(41,30,22,.07),0 4px 10px -2px rgba(41,30,22,.09),0 26px 46px -22px rgba(41,30,22,.42);background:var(--glass-sheen),var(--glass-card);border:2px solid rgba(255,255,255,.92);border-radius:var(--r-lg);box-shadow:0 0 0 1px var(--oc-edge),inset 0 0 0 1px rgba(43,36,29,.1),inset 0 0 28px rgba(255,255,255,.6),var(--oc-shadow)}
+.oc,.rsi,.rs-peek{--oc-pad:var(--sp-5);--oc-edge:color-mix(in srgb,var(--text) 16%,transparent);--oc-edge-hi:color-mix(in srgb,var(--text) 34%,transparent);--oc-shadow:0 1px 2px rgba(41,30,22,.07),0 4px 10px -2px rgba(41,30,22,.09),0 26px 46px -22px rgba(41,30,22,.42);background:var(--glass-sheen),var(--glass-card);border:2px solid rgba(255,255,255,.92);border-radius:var(--r-lg);--oc-frame:0 0 0 1px var(--oc-edge),inset 0 0 0 1px rgba(43,36,29,.1),inset 0 0 28px rgba(255,255,255,.6),var(--oc-shadow);box-shadow:var(--oc-frame)}
 .oc{position:relative;padding:0;gap:0;overflow:visible;margin-bottom:2rem}
 .oc > *{min-width:0}   /* a wide row (the message tabs) scrolls inside the card and never widens it */
 .oc.done{opacity:.72}
@@ -473,8 +473,13 @@ details.omd[open] > summary::after{top:.3rem}   /* open, the label row is one li
 .lb-btn.is-err{animation:fx-err .45s ease}
 .lb-btn.is-busy{cursor:progress;opacity:.92}
 .lb-btn.is-busy::before{content:"";display:inline-block;width:.75rem;height:.75rem;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:fx-spin .7s linear infinite}
-.oc.is-cur{box-shadow:var(--glass-card-rim),var(--glass-card-lift),0 0 32px 4px color-mix(in srgb,var(--tint) 23%,transparent);transition:box-shadow .25s ease}
-.oc.is-flash{animation:fx-card 1.2s ease}
+/* (9 Nov 2026, Yarin: "fix the halo") the card in view gets a violet halo on top of its own frame, never a different rim. On a reminder
+   the frame is the .rsi around the strip and the card, so the halo and the success flash go there; a card without a frame (inside a
+   reminder, in the drawer) never draws the halo itself, or it glows square-cornered under the strip. */
+.oc.is-cur,.rsi:has(> .oc.is-cur){box-shadow:var(--oc-frame),0 0 32px 4px color-mix(in srgb,var(--tint) 23%,transparent);transition:box-shadow .25s ease}
+.rsi > .oc.is-cur,.drw .oc.is-cur{box-shadow:none}
+.oc.is-flash,.rsi:has(> .oc.is-flash){animation:fx-card 1.2s ease}
+.rsi > .oc.is-flash{animation:none}
 .oc textarea.is-flash{animation:fx-field 1s ease}
 @media (pointer:coarse){.lb-btn:not(.sm):not(.icon),.sstats button,.oc select.st{min-height:2.75rem}}
 @keyframes fx-field{0%{box-shadow:0 0 0 3px var(--success)}100%{box-shadow:0 0 0 0 transparent}}
@@ -541,7 +546,7 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
 .lb-empty .emp-ic .i{width:1.5rem;height:1.5rem}
 .lb-empty{text-align:center}
 @media (prefers-reduced-motion:reduce){.onum .lb-metric:hover,.rs-peek:hover,.nav-i:hover .i,.onum .lb-metric-mark{transform:none!important}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}.lb-btn:active,.sstats button:active{transform:none}.lb-btn.is-ok,.lb-btn.is-err,.oc.is-flash,.oc textarea.is-flash{animation:none}.lb-btn.is-ok{box-shadow:0 0 0 3px var(--success)}.lb-btn.is-err{box-shadow:0 0 0 3px var(--danger)}.lb-btn.is-busy::before{animation-duration:2s}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.lb-btn:active,.sstats button:active{transform:none}.lb-btn.is-ok,.lb-btn.is-err,.oc.is-flash,.rsi:has(> .oc.is-flash),.oc textarea.is-flash{animation:none}.lb-btn.is-ok{box-shadow:0 0 0 3px var(--success)}.lb-btn.is-err{box-shadow:0 0 0 3px var(--danger)}.lb-btn.is-busy::before{animation-duration:2s}}
 </style>
 
 

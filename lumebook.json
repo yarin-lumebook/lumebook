@@ -130,7 +130,8 @@
         "sales-readout",
         "strategy",
         "reel-calendar",
-        "reels-hub"
+        "reels-hub",
+        "store-mock"
       ],
       "notes": "Every internal page inlines lumebook.css at build (design.py: head() also inlines the category classes from categories.json). The SMM plan and the dashboard have no page build, so they link synced copies of lumebook.css and of categories.css (sync writes categories.css from categories.json, then copies it). categories.json says which category of which page gets which of the eight category hues (18 Oct 2026); the dashboard's refresh.py reads its workstreams. Heebo main font, Assistant secondary (18 Oct 2026). Not used by the ambassadors site. The project nav (5 Nov 2026): hq-tools.json is HQ's built-in tool list, nav.src.js draws the top bar (HQ's topics), the location path, the collapsible side bar (every tool) and the bottom nav bar on phones; design.head() inlines both as nav.js (head(nav=False) only for the public creator brief), sync writes shared/design/nav.js and copies it to HQ and the SMM plan.",
       "publish": {
@@ -946,6 +947,63 @@
       "feeds": [],
       "on_upstream_change": "a research it lists changed: check its entry in research/research-hub/research.json (summary, findings, dates, links) against the source, then build research-hub",
       "notes": "Made 08 Nov 2026 (Yarin: \"combine every research we ever made to one super organized page\"). One card per research: plain-word summary, findings as terse bullets, date, evidence strength, what it changed, links (Markdown sources open in the page's own reader). Search box, topic cubes that filter, evidence filter, order by topic or date, short view, a sticky sidebar of topics (lb-app + lb-sidebar). research/cro-crm and research/creator-crm have no component, so changes there leave no to-do. README.md there."
+    },
+    "matan-nistor-reels": {
+      "name": "@matan.nistor Reels teardown (top 100 of 1,553 Reels + 20 matched comparisons)",
+      "path": "research/matan-nistor-reels",
+      "kind": "docs",
+      "watch": [
+        "research/matan-nistor-reels/*.md",
+        "research/matan-nistor-reels/data/reels.csv",
+        "research/matan-nistor-reels/src/*.py",
+        "research/matan-nistor-reels/src/*.md",
+        "research/matan-nistor-reels/src/coded/*"
+      ],
+      "feeds": [
+        "research-hub"
+      ],
+      "notes": "09 Nov 2026. What makes an Israeli business creator's Reels work (205K followers): every Reel in his tab inventoried, the top 100 by grid views and 20 same-month low performers coded from frames, captions, covers and sampled comments with a piloted rubric (src/CODING_BRIEF.md); account-wide checks over 753 Reels since 2024. Deliverables: report.md, breakdowns.md, playbook.md, experiments.md, lumebook-briefs.md, data/reels.csv, coverage.md. His videos, transcripts and comments stay local in media/projects/2026-11-09-matan-nistor-reels/ and src/comments*, src/dossiers/ (gitignored); never re-post."
+    },
+    "store-mock": {
+      "name": "Store mock (lumebook.com/IL/he rebuilt as a conversion landing page in the LumeBook design system)",
+      "path": "sites/lumebook-store-mock",
+      "kind": "page",
+      "watch": [
+        "sites/lumebook-store-mock/src/content.json",
+        "sites/lumebook-store-mock/src/build.py",
+        "sites/lumebook-store-mock/README.md"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build.py"
+        ],
+        "cwd": "sites/lumebook-store-mock",
+        "outputs": [
+          "sites/lumebook-store-mock/index.html",
+          "sites/lumebook-store-mock/web/index.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "local",
+        "url": "http://localhost:8780/sites/lumebook-store-mock/index.html",
+        "note": "A design proposal for the store, not a live page. The local page has the project nav; web/index.html is the review copy for the store team on Vercel (since 09 Nov 2026, Yarin: \"Yes, deploy it\"): no project nav, no local-links map, no design comments, robots noindex nofollow, canonical lumebook.com/IL/he. Covers, customer photos and the logo load from lumebook.com."
+      },
+      "deploy": {
+        "type": "vercel",
+        "dir": "sites/lumebook-store-mock/web",
+        "url": "https://lumebook-store-mock.vercel.app"
+      },
+      "rules": [
+        "content.json is the source; never edit index.html by hand. The build fails on an em or en dash, the brand spelt with a yod, a category missing from shared/design/categories.json set store-shelves, or a book id without an entry.",
+        "Prices, delivery, books and answers come from the live store (read 09 / 11 / 2026). When the store changes them, read the store again and update content.json; never invent a policy the store does not state (CRO audit A4 and A5 in research/cro-crm/audit.md).",
+        "Parent-facing Hebrew follows the lumebook-hebrew-voice hard rules; the whole store area is translate=\"no\" (audience copy stays Hebrew in both languages).",
+        "The one page with a dark mode and a dark/light switch (Yarin, 09 Nov 2026): page tokens in the store's night purple and gold on html.st-night, light = the design system's white tokens, no project nav. Keep both modes working when changing the CSS (colours go through the --st-* slots or design tokens, never a hard-coded dark or light value). Never copy the switch or the dark tokens to another page.",
+        "The working demo never sends anything: the photo is shrunk in the browser, the order is pretend, books stay in this browser's localStorage, and it never asks for payment details."
+      ],
+      "feeds": [],
+      "notes": "Made 09 Nov 2026. Yarin's requests in order: a mock of lumebook.com/IL/he in the dashboard's design system; restructure it as the best landing page for starting a book and selling; deploy it; no side bar; the violet promo capsule looked bad; dark and magical in the store's purple; heavily animate; as many icons and images as possible; deals instead of delivery with the usual price 149; a fully working demo where everything does something and he can create a fake book; a dark and light switch. Order: promo, sticky bar (switch, my books, start), hero with a name and boy or girl start card, trust numbers, covers marquee, filterable shelf (best sellers first, shared/facts.json top_books), four steps, customer books and a review, why with the banner, price and deals, questions, final call, other products, footer. README has the details."
     }
   }
 }

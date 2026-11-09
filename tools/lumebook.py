@@ -1017,6 +1017,13 @@ def reel_plan_prompt(r, folder, files, script, ask):
           "in order; a cue word must be a word of the script; leave out keys you do not need (no TODO paths, no _about or _footage keys). "
           "If these files cannot make the reel (for example no voice take and no talking take), return \"edit\": null and say what is missing.",
           "",
+          "Editing rules for every reel (09 Nov 2026, from the @matan.nistor study in research/matan-nistor-reels): 1) the first frame shows "
+          "what the reel is about: when a picture of this reel's cover was dropped, set it as hook_overlay with \"from\": 0; 2) after the hook "
+          "clip every voiceover line gets its own segment from a file that shows what that line says, and never cuts back to the talking "
+          "clip in the middle; 3) the last segment before the \"cta\" cue shows the payoff (below, if the card names one) and it stays until "
+          "the end; 4) no file that is stock footage or a film clip; 5) cut only where a script line or cue word starts, never to add pace.",
+          f"- the payoff of this reel: {one(script.get('payoff')) or one(r.get('payoff')) or '(not named)'}",
+          "",
           "Return only JSON, no other text:",
           "{\"edit\": {the edit.json object} or null, \"summary\": \"one or two short Hebrew sentences for Yarin, without dashes: which file "
           "goes where\", \"missing\": \"Hebrew: what he still needs to film or drop, empty when nothing is missing\"}"]
@@ -1059,6 +1066,10 @@ def clean_edit(e, paths, images):
         if not isinstance(ov, dict) or ov.get("img") not in images or not num(ov.get("y", 1230), 0, 1920):
             return None, "hook_overlay is not one of the dropped pictures"
         out["hook_overlay"] = {"img": ov["img"], "y": ov.get("y", 1230)}
+        if ov.get("from") is not None:
+            if not num(ov["from"], 0, 10):
+                return None, "hook_overlay from is out of range"
+            out["hook_overlay"]["from"] = ov["from"]
     segs = e.get("segments")
     if segs is not None:
         if not isinstance(segs, list) or len(segs) > 40:

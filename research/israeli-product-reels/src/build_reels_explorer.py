@@ -205,7 +205,7 @@ def principles():
 
 # ---------------------------------------------------------------- catalog (written by hand)
 CATALOG = {
-    "asof": "05 / 11 / 2026",
+    "asof": "09 / 11 / 2026",
     "rules": [
         {"t": "Every reel includes Yarin", "d": "No stand-alone trend clips. Yarin talks to camera for a 2 second hook and records the voiceover.",
          "src": "reels.json, dropped note of 05 / 11 / 2026"},
@@ -227,6 +227,18 @@ CATALOG = {
          "src": "playbook S5; memory: feedback-reel-voice-and-captions"},
         {"t": "Nothing goes up without Yarin's OK", "d": "The draft goes to Yarin first; Postiz schedules only after the OK.",
          "src": "november-calendar.md, step 5"},
+        {"t": "Something happens on screen", "d": "Every reel is built around an act or a reveal the viewer sees: a gift opened, a timer stopped, the name found on a page. Yarin explains it; he does not replace it. In @matan.nistor's account a story with a payoff ran through 54 of his 100 most viewed reels and 1 of 20 weak ones.",
+         "src": "@matan.nistor study, 09 / 11 / 2026, finding 1"},
+        {"t": "This reel's book in the first frame", "d": "In the first second the viewer sees what the reel is about: this reel's cover with a readable name (in Yarin's hand, or beside him from the first frame in the edit), or the number it is about. The first sentence makes sense with no context.",
+         "src": "@matan.nistor study, findings 3 and 4 (a self-contained first line: 72 of 100 against 8 of 20)"},
+        {"t": "A new picture for every line", "d": "After the hook clip every voiceover line plays over its own shot showing what is said: a page, the cover, the screen, an object. LumeBook's own footage only, no stock or film clips, and no cut back to Yarin's face in the middle.",
+         "src": "@matan.nistor study, finding 2 (narrated montage: 6 reels at a median 13.5 times their month)"},
+        {"t": "The payoff stays on screen until לומי", "d": "Every reel has a payoff the viewer sees (the face on the cover, the dedication page, the stopped timer), and what the hook promises is answered. It is the last picture before the לומי card; practical lines (photo from the parents on WhatsApp, approval, delivery) come before it, and nothing new after it except the date line in Hanukkah reels.",
+         "src": "@matan.nistor study, finding 1 (payoff delivered: 47 of 100 against 4 of 20)"},
+        {"t": "Edits that carry information", "d": "On screen only what answers a question or proves something: a number, a date, a timer, a label. No confetti, stickers or decorative graphics, and no fast cutting for pace alone; cut where a new line starts.",
+         "src": "@matan.nistor study, finding 7 (the weak ones cut faster and used more effects)"},
+        {"t": "לומי comes after the payoff", "d": "The ask comes once, after the reel has delivered. לומי reels are judged by DMs and books started from the link, not by views: across 753 of his reels a comment word brought 3.4 times the comments per view, but 1.6% of them reached his top tenth against 12% of the rest.",
+         "src": "@matan.nistor study, finding 6"},
     ],
     "library": [
         {"id": "lib-israeli", "t": "Israeli product Reels", "when": "15 and 18 Oct 2026", "n": "173 Reels, 108 creators",

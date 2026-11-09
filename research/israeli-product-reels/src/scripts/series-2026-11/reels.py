@@ -117,6 +117,10 @@ def script_md(r, d):
     out.append(f"- אורך משוער: {seconds(r, d):g} שניות")
     out.append(f"- סטטוס: {STATUS[r['status']]}")
     out.append(f"- קהל: {'סבתות' if r.get('audience') == 'grandma' else 'הורים'}" + (f", עמוד בחנות: {r['page']}" if r.get("page") else ""))
+    if r.get("structure"):
+        out.append(f"- מבנה: {r['structure']}")
+    if r.get("payoff"):
+        out.append(f"- השיא על המסך: {r['payoff']}")
     if r.get("shot"):
         out.append(f"- צילום: {r['shot']}")
     if r.get("footage"):
@@ -261,6 +265,10 @@ HOOK_CHARS = 34   # 2 s of reading at 17 characters a second (principle T5)
 SETUP = re.compile(r"(?:היי|שלום|היום אני|הרבה הורים|בואו נדבר|רציתי לספר)")
 PRODUCT = re.compile(r"ספר|כריכ|קופס|עמוד|רגע תגובה|תמונה שלך")
 EXTRA_ASKS = ("עקבו", "תעקבו", "שתפו", "תשתפו", "תייגו", "בביו", "לינק בביו", "קישור בביו")
+# @matan.nistor study rules (Yarin, 09 Nov 2026: "implement to all reels in the reel calendar and the editing rules";
+# research/matan-nistor-reels/report.md, rules in the Hebrew voice skill's references/reel-scripts.md)
+ANY_BOOK = "כל ספר שיש לך"                  # the shooting note for a hook clip with whatever printed book Yarin has
+TALKING = re.compile(r"^\s*(?:אתה|ירין)\b")   # a shot of Yarin himself
 
 
 def principle_checks(d):
@@ -304,6 +312,18 @@ def principle_checks(d):
             first = line.strip()[:1]
             if first and (first.isascii() and first.isalpha() or first in "?!.,:"):
                 out.append(f"- T6 {rid}: on-screen line starts with {first!r}: {line.strip()}")
+        # M1 to M4: the @matan.nistor study (09 Nov 2026). Warnings like the rest; Yarin decides.
+        sees_l = r.get("sees") or []
+        if r["voice"] == "yarin" and r.get("vo") and not r.get("payoff"):
+            out.append(f"- M4 {rid}: no payoff: name what the viewer sees when the reel pays off (reels.json \"payoff\")")
+        if sees_l and ANY_BOOK in r.get("shot", "") and "כריכ" not in sees_l[0]:
+            out.append(f"- M1 {rid}: the first frame is any printed book; show this reel's cover with a name from the first frame")
+        n_vo = len(r.get("vo") or [])
+        for i, sh in enumerate(sees_l[1:max(n_vo - 1, 1)], 1):
+            if TALKING.match(sh) and not PRODUCT.search(sh):
+                out.append(f"- M2 {rid}: line {i + 1} cuts back to Yarin's face ({sh}); give it its own picture of what is said")
+        if n_vo > 1 and len(sees_l) >= n_vo and TALKING.match(sees_l[n_vo - 1]) and not PRODUCT.search(sees_l[n_vo - 1]):
+            out.append(f"- M3 {rid}: the last line ends on Yarin ({sees_l[n_vo - 1]}); end on the payoff picture")
         # Shabbat: the traditions series talks to families who keep it, so it never goes up on a Friday or Saturday
         if r["series"] == 9 and r["date"] and date.fromisoformat(r["date"]).weekday() in (4, 5):
             out.append(f"- S9 {rid}: traditions reel on {weekday(r['date'])}; move it to Sunday to Thursday")

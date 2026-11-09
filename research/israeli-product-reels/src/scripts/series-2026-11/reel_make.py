@@ -28,7 +28,9 @@ edit.json (in the reel's media folder, written by `reels.py new`, paths relative
       "voice_start": 0.0,                         skip a false start at the top of the take
       "speed_after_hook": 1.1,
       "background": {"src": "source/book.mov", "ss": 3.0},   blurred clip behind screen windows
-      "hook_overlay": {"img": "source/photo.png", "y": 1230}, optional picture under the face, from the 2nd hook word
+      "hook_overlay": {"img": "source/cover.png", "y": 1230, "from": 0},  optional picture under the face, from the 2nd
+                                                  hook word, or from "from" seconds: 0 puts this reel's cover on the first
+                                                  frame (rule since 09 Nov 2026, research/matan-nistor-reels)
       "segments": [
         {"at": 0, "src": "source/cover.mov", "ss": 0.2},                    from voiceover line 0
         {"at": "כותבים", "src": "source/screen.mov", "ss": 3.0, "window": true},
@@ -321,7 +323,7 @@ def build_segments(base, work, cfg, hook_clip, intro, end, after, cue, raw_hook)
         print(f"  {name:5} {t0:6.2f} to {t1:6.2f}  {slot:5.2f} s  {rate:g}x  {'window ' if window else ''}{Path(src).name}")
     ov = cfg.get("hook_overlay")
     if ov:
-        first_end = raw_hook[0]["e"] if raw_hook else 0
+        first_end = float(ov["from"]) if isinstance(ov.get("from"), (int, float)) else (raw_hook[0]["e"] if raw_hook else 0)
         run(FF, "-y", "-v", "error", "-i", work / "hook.mp4", "-loop", 1, "-i", base / ov["img"], "-filter_complex",
             f"[0:v][1:v]overlay=x=(W-w)/2:y={ov.get('y', 1230)}:enable='gte(t,{first_end})':shortest=1,{OUT}[o]",
             "-map", "[o]", "-c:v", "libx264", "-crf", 16, work / "hook-ov.mp4")
