@@ -11,12 +11,12 @@ From 10 / 11 / 2026 every day has two options, א and ב, in the same lane (Yari
 | Date | Day | Opt | Reel | Hook | Sec | For | Store page | Status | Waits on |
 |---|---|---|---|---|---|---|---|---|---|
 | 04 / 11 / 2026 | רביעי |  | 1.1 | מה אם זה לא ייראה כמו הילד שלי? | 18.5 | parents | home | פורסם |  |
-| 05 / 11 / 2026 | חמישי |  | 1.7 | אי אפשר לפשל בהזמנה הזאת | 18.9 | parents | home | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה עם הספר ביד, קריינות, הקלטת מסך של בניית הספר ושל התצוגה המקדימה, הספר המודפס ביד |
-| 06 / 11 / 2026 | שישי |  | 1.6 | מוצץ? אח חדש? יש על זה ספר | 17.4 | parents | books/category/bestsellers | מחכה לקריינות ולצילום של ירין | Check on the site that each named book is live before the recording. |
+| 05 / 11 / 2026 | חמישי |  | 1.7 | ספר שלא מוצא חן? יוצרים עוד גרסה | 18.5 | parents | home | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה עם הספר ביד, קריינות, הקלטת מסך של בניית הספר ושל התצוגה המקדימה, הספר המודפס ביד |
+| 06 / 11 / 2026 | שישי |  | 1.6 | מוצץ, אח חדש, יומולדת 3 כריכות | 17.1 | parents | books/category/bestsellers | מחכה לקריינות ולצילום של ירין | Check on the site that each named book is live before the recording. |
 | 07 / 11 / 2026 | שבת |  | 2.6 | למה הוא מבקש את אותו ספר כל לילה? | 17.1 | parents | books/15 | מחכה לקריינות ולצילום של ירין | Sapir's son is on camera: her OK. |
 | 08 / 11 / 2026 | ראשון |  | 1.2 | כמה זמן לוקח להכין ספר ליום הולדת? | 21.7 | parents | books/15 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, הקלטת מסך של שלב הטלפון והתצוגה המקדימה |
 | 09 / 11 / 2026 | שני |  | 5.5 | מחפשים מתנת יום הולדת? תעצרו רגע | 18.1 | parents | books/13 | מחכה לקריינות ולצילום של ירין | Check in the preview that the kind acts are on the pages before recording. |
-| 10 / 11 / 2026 | שלישי | א | 1.4 | סבתא, זה מה שהנכד מקבל אצלנו | 21 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Needs a printed LumeBook book in hand. |
+| 10 / 11 / 2026 | שלישי | א | 1.4 | סבתא, שלושה דברים שהנכד מקבל אצלנו | 21 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Needs a printed LumeBook book in hand. |
 | 10 / 11 / 2026 | שלישי | ב | 4.1 | הכנתי ספר מתמונה שלי בגיל 4 | 16 | parents | home | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, ההזמנה שלך עד התצוגה המקדימה, תגובה של 2 שניות |
 | 11 / 11 / 2026 | רביעי | א | 7.1 | יום הרווקים? הרווק הכי שווה בן 4 | 17.1 | parents | books/15 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
 | 11 / 11 / 2026 | רביעי | ב | 2.8 | סבתא, מה כותבים בהקדשה לנכד? | 15.3 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, כתיבה בעמוד ההקדשה |
@@ -40,7 +40,7 @@ From 10 / 11 / 2026 every day has two options, א and ב, in the same lane (Yari
 | 20 / 11 / 2026 | שישי | ב | 8.4 | סבתא, גם את יכולה להיות בספר | 17.1 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | A grandmother who agrees to have her photo used (from your family or a creator's) and a child photo with the parents' OK. Make the page on the site first (tutorial 'להוסיף בני משפחה לספר') and check how it comes out before recording. |
 | 21 / 11 / 2026 | שבת | א | 5.1 | הלילה האחרון עם המוצץ | 15.6 | parents | books/41 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, מוצץ על שידה בלילה |
 | 21 / 11 / 2026 | שבת | ב | 2.10 | עזר לחבר בגן, ואף אחד לא ראה? | 18.5 | parents | books/13 | מחכה לקריינות ולצילום של ירין | Check in the preview which pages show the small kind acts and the hero moment before recording. |
-| 22 / 11 / 2026 | ראשון | א | 8.1 | סבתא, הנכד חוגג יומולדת החודש? | 22.1 | grandma | books/15 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
+| 22 / 11 / 2026 | ראשון | א | 8.1 | סבתא, שלושה דברים ליומולדת של הנכד | 22.4 | grandma | books/15 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
 | 22 / 11 / 2026 | ראשון | ב | 4.2 | מאיזה גיל אפשר להזמין ספר? | 16.4 | parents | home | מחכה לקריינות ולצילום של ירין | Never answer the photo privacy question on camera until Yossi gives the real answer. |
 | 23 / 11 / 2026 | שני | א | 5.4 | מה הקוף והאריה יודעים על טיטולים? | 16.7 | parents | books/43 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
 | 23 / 11 / 2026 | שני | ב | 1.8 | איזו תמונה לשלוח לספר? | 17.8 | parents | home | מחכה לקריינות ולצילום של ירין | Make the before and after on the site first: the same page from a blurry and from a clear photo of the same child. / The tutorials page says a new drawing of the same page is free, and another tutorial sells packs once the gift drawings run out; the reel says neither, check what the site does today before recording. |
@@ -55,7 +55,7 @@ From 10 / 11 / 2026 every day has two options, א and ב, in the same lane (Yari
 | 28 / 11 / 2026 | שבת | א | 8.3 | סבתא, ביומולדת הזה הנכדה היא המלכה | 16 | grandma | books/15 | מחכה לקריינות ולצילום של ירין | Check in the preview that the birthday book reads as a queen for a girl before recording. |
 | 28 / 11 / 2026 | שבת | ב | 2.5 | שני ילדים בבית וספר אחד? | 17.1 | parents | books/category/bestsellers | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
 | 29 / 11 / 2026 | ראשון | א | 9.3 | אח חדש בדרך, ובבית שומרים שבת? | 13.5 | parents | books/9002 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
-| 29 / 11 / 2026 | ראשון | ב | 9.16 | סבתא, מה עובר ממך לנכד? | 18.1 | grandma | books/113 | מחכה לקריינות ולצילום של ירין | Check in the preview (book 113) the road between the fairs, the return to learning and the page where it passes on before recording. |
+| 29 / 11 / 2026 | ראשון | ב | 9.16 | סבתא, פסוק אחד מלווה את הנכד בדרך | 16 | grandma | books/113 | מחכה לקריינות ולצילום של ירין | Check in the preview (book 113) the road between the fairs, the return to learning and the page where it passes on before recording. |
 | 30 / 11 / 2026 | שני | א | 7.3 | קוראים את כל הספר לפני שמשלמים | 15.6 | parents | books/category/bestsellers | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה על הספה, קריינות |
 | 30 / 11 / 2026 | שני | ב | 7.4 | סבתא, מתנה לנכד בלי לצאת מהבית | 15.6 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Needs a printed book and a delivery box (same as 1.4). |
 

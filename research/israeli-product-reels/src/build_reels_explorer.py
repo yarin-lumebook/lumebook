@@ -252,6 +252,8 @@ CATALOG = {
          "src": "@matan.nistor study, finding 1 (payoff delivered: 47 of 100 against 4 of 20)"},
         {"t": "Edits that carry information", "d": "On screen only what answers a question or proves something: a number, a date, a timer, a label. No confetti, stickers or decorative graphics, and no fast cutting for pace alone; cut where a new line starts.",
          "src": "@matan.nistor study, finding 7 (the weak ones cut faster and used more effects)"},
+        {"t": "A hook that stands alone and holds something concrete", "d": "The top text and the first spoken line make sense with no context and carry one concrete thing: a number, a name, a date or an object (\"שלושה דברים\", \"3 כריכות\", \"עד 5 / 12\"). A call-out alone (\"סבתא,\" or \"תעצרו רגע\") or an abstract question is not a hook. Say a claim or a question the reel answers on screen, never a provocation.",
+         "src": "@matan.nistor study, findings 3, 4 and 5"},
         {"t": "לומי comes after the payoff", "d": "The ask comes once, after the reel has delivered. לומי reels are judged by DMs and books started from the link, not by views: across 753 of his reels a comment word brought 3.4 times the comments per view, but 1.6% of them reached his top tenth against 12% of the rest.",
          "src": "@matan.nistor study, finding 6"},
     ],

@@ -248,7 +248,7 @@ def script_table(r, d):
                    f'<td class="say" data-label="מה אני אומר">{say}</td><td class="see" data-label="מה רואים">{see}</td></tr>')
     words = sum(x[2] for x in lines)
     return (f'<section class="script lb-sheet" aria-label="תסריט">'
-            f'<div class="script-head"><h4 class="sec-t">{design.icon("clapper", "i")}תסריט</h4><span class="script-sum"><b class="script-sec">{t:.0f}</b> שניות, <b class="script-w">{words}</b> מילים</span></div>'
+            f'<div class="script-head"><h4 class="sec-t">{design.icon("clapper", "i")}תסריט</h4><span class="script-sum"><b class="script-sec">{t:.0f}</b> שניות, <b class="script-w">{words}</b> מילים</span><button type="button" class="lb-btn secondary sm copy-script" title="מעתיק רק את מה שאומרים, שורה לכל מחשבה">העתקת התסריט</button></div>'
             f'<table class="lb-table top is-stack script-t" data-lead="{L["lead_seconds"]}" data-wps="{L["words_per_second"]}">'
             f'<thead><tr><th class="tc">זמן</th><th>מה אני אומר</th><th>מה רואים</th></tr></thead><tbody>{"".join(trs)}</tbody></table></section>')
 
@@ -657,6 +657,20 @@ SCRIPT = r"""
     else if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"].indexOf(ev.key) >= 0) asStop();
   });
   dlg.addEventListener("close", asStop);
+  /* copy the script (10 Nov 2026, Yarin): only what is said, one line per thought, the fixed closing line included */
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest && ev.target.closest(".copy-script"); if (!b) return;
+    var card = b.closest(".reel"), lines = [];
+    $$(".script-t tbody tr .say > div", card).forEach(function (d) { var t = d.innerText.trim(); if (t) lines.push(t); });
+    var text = lines.join("\n"), lbl = b.textContent;
+    function ok() { b.textContent = "הועתק ✓"; setTimeout(function () { b.textContent = lbl; }, 1600); }
+    function old() {
+      var ta = document.createElement("textarea"); ta.value = text; ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); ok(); } catch (x) { b.textContent = "לא הצליח להעתיק"; setTimeout(function () { b.textContent = lbl; }, 1600); }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, old); else old();
+  });
   asPaint();
   dlg.addEventListener("click", function (ev) { if (ev.target === dlg && !docked) dlg.close(); });   /* the backdrop; a drawer has none */
   $$("a.lb-day[data-k]").forEach(function (c) { c.addEventListener("click", function (ev) { ev.preventDefault(); openReel(c.dataset.k); }); });
