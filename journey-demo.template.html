@@ -1,0 +1,1186 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מסע הקנייה</title>
+<meta name="robots" content="noindex, nofollow">
+<!--LB:HEAD-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Varela+Round&display=swap">
+<style>
+/* The fixed buying journey as a product demo: a story panel (stage, scenario, numbered notes, analytics) beside an
+   iPhone (the supplied mockup as a frame over a 393 x 856 pt screen). Page chrome uses design tokens only. Inside the
+   phone the apps keep their own look in both modes, so the screens use the fixed colours set on .screen below:
+   Facebook, the store (lumebook.com's dark ink and gold), CardCom in the store's look, WhatsApp. */
+
+/* ---------- top bar ---------- */
+.progress { position: absolute; inset-inline: 0; bottom: -1px; height: 3px; background: var(--fill-2); overflow: hidden; }
+.progress i { display: block; height: 100%; width: var(--p, 0%); background: var(--pc, var(--tint)); border-start-end-radius: 3px; border-end-end-radius: 3px; transition: width .45s cubic-bezier(.2, .8, .2, 1), background .3s; }
+@media (prefers-reduced-motion: reduce) { .progress i { transition: none; } }
+.tb-chapters { flex: 1; min-width: 0; display: flex; justify-content: center; }
+.tb-chapters .chapters { overflow: visible; padding: 0; gap: 2px; }
+.tb-chapters .chap { display: flex; align-items: center; gap: .3rem; padding: .25rem .4rem; background: transparent; border: 0; box-shadow: none; border-radius: var(--r-pill); }
+.tb-chapters .chap.is-cur { background: var(--tc-soft); }
+.tb-chapters .chap .chap-l { display: none; }
+.tb-chapters .chap-dots a { width: 1.45rem; height: 1.45rem; }
+.tb-chapters .chap-end { display: none; }
+@media (max-width: 1199px) { .tb-chapters .chapters { display: none; } }
+@media (min-width: 1200px) { main .chapters { display: none; } }
+.tb-link { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-2); text-decoration: none; padding: .35rem .6rem; border-radius: var(--r-sm); white-space: nowrap; }
+.tb-link:hover { background: var(--fill); color: var(--text); text-decoration: none; }
+@media (max-width: 600px) { .tb-link.hide-sm { display: none; } }
+
+main { width: 100%; max-width: 82rem; margin-inline: auto; padding: var(--sp-5) var(--sp-5) var(--sp-7); }
+@media (max-width: 640px) { main { padding: var(--sp-4) var(--sp-4) var(--sp-7); } }
+code { font-family: var(--font-mono); font-size: .88em; background: var(--fill); padding: .05em .3em; border-radius: var(--r-xs); }
+abbr[title] { text-decoration: underline dotted var(--text-3); text-underline-offset: .18em; cursor: help; }
+.i { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.i.f { fill: currentColor; stroke: none; }
+.i.xs { width: .8rem; height: .8rem; }
+[hidden] { display: none !important; }
+@keyframes fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ---------- intro (lb-hero has-media: the story beside the phone) ---------- */
+.how { margin: var(--sp-5) 0; padding: 0; list-style: none; display: grid; gap: var(--sp-3); }
+.how li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: var(--sp-3); align-items: start; color: var(--text-2); }
+.how .lb-tile { width: 2.25rem; height: 2.25rem; border-radius: .65rem; }
+.how b { color: var(--text); }
+.hero-stage { position: relative; border-radius: 2rem; padding: var(--sp-6) var(--sp-4); background: radial-gradient(60% 50% at 50% 42%, var(--cat-4-soft), transparent 72%), var(--surface-2); display: grid; justify-items: center; }
+.hero-stage .lb-chip { position: absolute; top: var(--sp-4); inset-inline-start: var(--sp-4); }
+.intro-stats { margin-top: var(--sp-3); display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); }
+.intro-stats .drop { font-weight: 700; color: var(--danger); }
+.mascot { width: 5.5rem; height: auto; justify-self: end; }
+
+/* ---------- chapters (stage progress): an lb-scroller of max-content items ---------- */
+.chap { flex: 0 0 auto; min-width: max-content; display: grid; gap: .4rem; padding: .5rem .6rem; border-radius: var(--r-md); background: var(--surface-2); border: 1px solid transparent; }
+.chap.is-cur { background: var(--surface); border-color: var(--line); box-shadow: var(--shadow-1); }
+.chap-head { display: flex; align-items: center; gap: .4rem; font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; color: var(--text-3); }
+.chap.is-cur .chap-head { color: var(--tc-ink); }
+.chap:not(.is-cur) .chap-l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.chap { position: relative; }
+.chap .lb-tile { width: 1.25rem; height: 1.25rem; border-radius: .35rem; }
+.chap .lb-tile .i { width: .75rem; height: .75rem; stroke-width: 2.4; }
+.chap:not(.is-cur):not(.is-done) .lb-tile { background: var(--fill-3); color: var(--text-3); }
+.chap-dots { display: flex; gap: .3rem; }
+.chap-dots a { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-2); font-weight: 700; font-size: var(--fs-caption); color: var(--text-3); background: var(--fill-2); text-decoration: none; transition: transform .15s; }
+.chap-dots a:hover { transform: scale(1.08); text-decoration: none; color: var(--text); }
+.chap-dots a.done { background: var(--tc-soft); color: var(--tc-ink); }
+.chap-dots a.cur { background: var(--tc); color: var(--bg); box-shadow: 0 0 0 3px var(--tc-soft); }
+.chap-end { flex: none; display: grid; place-items: center; padding: 0 .9rem; border-radius: var(--r-md); background: var(--surface-2); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--text-2); text-decoration: none; }
+.chap-end:hover, .chap-end.cur { background: var(--tint-soft); color: var(--tint); text-decoration: none; }
+
+/* ---------- step view ---------- */
+.step { display: grid; grid-template-columns: minmax(0, 1fr) minmax(22rem, 31rem); grid-template-areas: "top phone" "notes phone"; grid-template-rows: auto 1fr; gap: var(--sp-5) var(--sp-7); align-items: start; }
+.step-top { grid-area: top; display: grid; gap: var(--sp-4); min-width: 0; animation: fade-up .35s ease both; }
+.step-notes { grid-area: notes; display: grid; gap: var(--sp-4); min-width: 0; }
+.phone-col { grid-area: phone; width: 100%; position: sticky; top: calc(3.5rem + var(--sp-4)); display: grid; gap: var(--sp-3); justify-items: center; }
+@media (max-width: 1040px) {
+  .step { grid-template-columns: minmax(0, 1fr); grid-template-areas: "top" "phone" "notes"; }
+  .phone-col { position: static; }
+}
+.stage-line { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--text-3); }
+.stage-chip { display: inline-flex; align-items: center; gap: .45rem; padding: .25rem .7rem .25rem .3rem; border-radius: var(--r-pill); background: var(--tc-soft); color: var(--tc-ink); }
+.stage-chip .lb-tile { width: 1.5rem; height: 1.5rem; border-radius: 50%; }
+.stage-chip .lb-tile .i { width: .85rem; height: .85rem; }
+.step-top h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); line-height: 1.08; letter-spacing: -.02em; }
+.scenario { color: var(--text-2); font-size: 1.125rem; line-height: 1.6; max-width: 42rem; text-wrap: pretty; }
+.consent-card { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); max-width: 42rem; }
+.consent-card b { display: block; }
+.consent-card small { font-family: var(--font-2); color: var(--text-2); }
+.notes-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.notes-head h3 { font-size: var(--fs-headline); }
+.switch-label { display: inline-flex; align-items: center; gap: var(--sp-2); font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-2); cursor: pointer; }
+/* notes and the list of changes: lb-rowlist rows with an lb-disc (solid on the phone, quiet when not on this screen) and an
+   lb-kv stack inside. The note that matches the number lit on the phone gets a gold ring. */
+#notes .lb-rowitem.is-active { box-shadow: inset 0 0 0 2px var(--accent); }
+.lb-kv { margin: 0; }
+.lb-kv .today { color: var(--text-2); }
+.how { display: block; margin: 0; justify-self: start; text-align: left; font-size: var(--fs-footnote); line-height: 1.5; overflow-wrap: anywhere; background: var(--fill); border-radius: var(--r-sm); padding: var(--sp-2) var(--sp-3); }
+.ev { display: grid; gap: var(--sp-2); margin: 0; padding: 0; list-style: none; }
+.ev li { display: grid; gap: .2rem; }
+.ev .etype { font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .02em; color: var(--accent-ink); }
+.ev a { font-family: var(--font-2); font-size: var(--fs-caption); word-break: break-all; }
+.refs { display: flex; flex-wrap: wrap; gap: .35rem; }
+.refs span { font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 600; color: var(--text-2); background: var(--fill); border-radius: var(--r-pill); padding: .15rem .5rem; }
+.console { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
+.notes-box { display: grid; grid-auto-rows: max-content; gap: var(--sp-3); align-content: start; padding: var(--sp-3); border-radius: 1.25rem; background: var(--surface-2); border: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: var(--fill-3) transparent; }
+.notes-box .log li { background: var(--surface-2); }
+/* grid-auto-rows max-content above: the lb-rowlist clips its corners (overflow hidden), so in a box of fixed height an auto row would shrink it */
+
+/* one screen, no page scroll: the intro and the steps fit the window (wide and tall enough); the notes and the
+   analytics scroll inside their own box. The list of every change scrolls as a normal page. */
+body.fit { height: calc(100vh - var(--lb-gnav-pad, 0px)); height: calc(100dvh - var(--lb-gnav-pad, 0px)); overflow: hidden; display: flex; flex-direction: column; }
+body.fit > .lb-topbar { flex: none; }
+body.fit > main { flex: 1; min-height: 0; overflow: hidden; padding-block: var(--sp-4); }
+body.fit .lb-hero { height: 100%; padding-block: 0; }
+body.fit .lb-hero-text { max-height: 100%; overflow-y: auto; scrollbar-width: none; }
+body.fit .step { height: 100%; grid-template-rows: auto minmax(0, 1fr); }
+body.fit .phone-col { position: static; }
+body.fit .step-notes { height: 100%; min-height: 0; display: flex; flex-direction: column; gap: var(--sp-3); }
+body.fit .notes-box { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.console > summary { list-style: none; display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-3) var(--sp-4); cursor: pointer; font-weight: 700; font-size: var(--fs-callout); }
+.console > summary::-webkit-details-marker { display: none; }
+.console > summary small { font-family: var(--font-2); font-weight: 500; color: var(--text-3); margin-inline-start: auto; }
+.console-body { padding: 0 var(--sp-4) var(--sp-4); display: grid; gap: var(--sp-2); }
+.log { margin: 0; padding: 0; list-style: none; display: grid; gap: .35rem; font-family: var(--font-mono); font-size: .75rem; direction: ltr; }
+.log li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); padding: .4rem .55rem; overflow-wrap: anywhere; display: flex; gap: .5rem; align-items: baseline; }
+.log li .src { font-family: var(--font-2); font-size: .68rem; font-weight: 800; padding: .05rem .4rem; border-radius: var(--r-pill); flex: none; }
+.log li.ga4 .src { background: var(--tint-soft); color: var(--tint); }
+.log li.meta .src { background: var(--info-soft); color: var(--info); }
+.log li.msg .src { background: var(--success-soft); color: var(--success); }
+.log .empty { color: var(--text-3); font-family: var(--font-2); border-style: dashed; direction: rtl; }
+.never { font-family: var(--font-2); font-size: var(--fs-caption); color: var(--text-3); }
+
+/* ---------- phone column ---------- */
+.phone-stage { position: relative; width: 100%; border-radius: 2rem; padding: var(--sp-5) var(--sp-5) var(--sp-4); background: radial-gradient(65% 50% at 50% 42%, var(--tc-soft), transparent 75%), var(--surface-2); display: grid; justify-items: center; }
+.phone-nav { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); width: 100%; }
+.phone-nav span { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); font-variant-numeric: tabular-nums; }
+.phone-nav .lb-btn { min-width: 6.5rem; }
+.tip { position: absolute; left: 50%; bottom: var(--sp-3); transform: translateX(-50%); z-index: 30; width: max-content; max-width: 88%; margin: 0; padding: .45rem .9rem; border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-2); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-2); text-align: center; animation: fade-up .3s ease both; }
+.tip.warn { color: var(--warning); }
+
+/* ---------- the device: mockup frame over a 393 x 856 screen ---------- */
+.device-wrap { position: relative; direction: ltr; flex: none; }
+.device { position: absolute; top: 0; left: 0; width: 450.4px; height: 901.5px; transform-origin: 0 0; }
+.device .frame { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; user-select: none; z-index: 20; }
+.screen { position: absolute; left: 27.4px; top: 21.6px; width: 395px; height: 857.7px; border-radius: 56px; overflow: hidden; background: #000; direction: rtl; isolation: isolate;
+  --ios: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Arial, sans-serif;
+  --site: "Varela Round", var(--ios); --serif: "Fraunces", Georgia, serif;
+  --ink: #0B0518; --ink-2: #160c2e; --cream: #F8F0E1; --gold: #E6B762; --gold-2: #C9954A; --violet: #5B2BD6;
+  --fb-blue: #1877F2; --fb-bg: #F0F2F5; --fb-line: #CED0D4; --fb-text: #050505; --fb-text-2: #65676B; --fb-btn: #E4E6EB;
+  --wa-bg: #EFEAE2; --wa-in: #FFFFFF; --wa-out: #D9FDD3; --wa-text: #111B21; --wa-text-2: #667781; --wa-link: #027EB5; --wa-green: #25D366; --wa-tick: #53BDEB;
+  font-family: var(--ios); -webkit-font-smoothing: antialiased; }
+.device-wrap.bare .device { width: 393px; height: 856px; }
+.device-wrap.bare .frame { display: none; }
+@media (max-width: 640px) { .phone-stage, .hero-stage { padding: var(--sp-3); border-radius: 1.5rem; } }
+.device-wrap.bare .screen { left: 0; top: 0; width: 393px; height: 856px; border-radius: 46px; box-shadow: 0 0 0 1px var(--line-strong), 0 30px 60px -30px rgba(0,0,0,.45); }
+.device-wrap.bare .screen::after { content: ""; position: absolute; top: 11px; left: 50%; width: 125px; height: 37px; margin-left: -62.5px; border-radius: 20px; background: #000; z-index: 30; }
+.view { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
+.view.enter { animation: view-in .38s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes view-in { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }
+.scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; position: relative; overscroll-behavior: contain; scroll-behavior: smooth; }
+.scroll::-webkit-scrollbar { display: none; }
+.sp { flex: 1; }
+
+/* iOS status bar and home indicator */
+.sb { position: absolute; top: 0; left: 0; right: 0; height: 54px; z-index: 25; direction: ltr; display: flex; justify-content: space-between; align-items: center; pointer-events: none; color: #000; font: 600 17px/1 var(--ios); letter-spacing: -.3px; }
+.sb.on-dark { color: #fff; }
+.sb-time { width: 134px; text-align: center; padding-top: 3px; }
+.sb-icons { width: 134px; display: flex; justify-content: center; align-items: center; gap: 6px; padding-top: 3px; }
+.sb-icons svg { display: block; }
+.hi { position: absolute; bottom: 8px; left: 50%; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #000; z-index: 25; pointer-events: none; }
+.hi.on-dark { background: #fff; }
+
+/* hotspots */
+[data-note] { position: relative; }
+.hot { position: absolute; top: -9px; inset-inline-end: 4px; width: 26px; height: 26px; padding: 0; border-radius: 50%; border: 2px solid #fff; background: var(--gold); color: var(--ink); font: 800 12px/1 var(--ios); display: grid; place-items: center; cursor: pointer; z-index: 15; box-shadow: 0 4px 12px rgba(0,0,0,.28); animation: hot-in .35s ease both; }
+.hot::before { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 2px solid var(--gold); opacity: 0; animation: ping 2.4s ease-out infinite; }
+.hot:hover, .hot.is-active { transform: scale(1.12); }
+.hot.is-active::before { animation-duration: 1.2s; }
+.hot:focus-visible { outline: 3px solid var(--violet); outline-offset: 2px; }
+[data-note].is-lit { outline: 2.5px solid var(--gold); outline-offset: 3px; border-radius: 10px; }
+.no-hots .hot { display: none; }
+@keyframes hot-in { from { transform: scale(.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes ping { 0% { transform: scale(.7); opacity: .9; } 80%, 100% { transform: scale(1.5); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .hot, .hot::before, .view.enter, .step-top { animation: none !important; } .scroll { scroll-behavior: auto; } }
+
+/* ---------- Facebook (light) ---------- */
+.fb { flex: 1; display: flex; flex-direction: column; min-height: 0; background: var(--fb-bg); color: var(--fb-text); }
+.fb-head { display: flex; align-items: center; gap: 8px; padding: 58px 14px 6px; background: #fff; }
+.fb-logo { font: 800 30px/1 var(--ios); letter-spacing: -1.2px; color: var(--fb-blue); }
+.fb-round { width: 36px; height: 36px; border-radius: 50%; background: var(--fb-btn); display: grid; place-items: center; color: var(--fb-text); }
+.fb-round .i { width: 20px; height: 20px; stroke-width: 2.2; }
+.fb-tabs { display: flex; justify-content: space-around; background: #fff; border-bottom: 1px solid var(--fb-line); }
+.fb-tabs span { flex: 1; display: grid; place-items: center; padding: 9px 0 8px; color: var(--fb-text-2); border-bottom: 3px solid transparent; }
+.fb-tabs span.on { color: var(--fb-blue); border-color: var(--fb-blue); }
+.fb-tabs .i { width: 24px; height: 24px; }
+.fb-feed { display: flex; flex-direction: column; gap: 8px; padding-bottom: 30px; }
+.fb-card { background: #fff; }
+.fb-composer { display: flex; align-items: center; gap: 8px; padding: 10px 14px; }
+.fb-av { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(140deg, #f3c7b5, #c98f7a); flex: none; }
+.fb-pill { flex: 1; border: 1px solid var(--fb-line); border-radius: 20px; padding: 9px 14px; font-size: 15px; color: var(--fb-text-2); }
+.fb-photo { color: #45BD62; }
+.fb-photo .i { width: 24px; height: 24px; }
+.fb-ph { display: flex; align-items: center; gap: 8px; padding: 12px 14px 8px; }
+.fb-pav { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--fb-line); }
+.fb-pn { display: grid; line-height: 1.25; }
+.fb-pn b { font-size: 15px; }
+.fb-pn small { font-size: 13px; color: var(--fb-text-2); display: inline-flex; align-items: center; gap: 3px; justify-self: start; }
+.fb-dots { color: var(--fb-text-2); padding: 4px; }
+.fb-dots .i { width: 20px; height: 20px; }
+.fb-txt { padding: 0 14px 10px; font-size: 15px; line-height: 1.38; white-space: pre-line; }
+.fb-media { appearance: none; border: 0; padding: 0; margin: 0; display: block; width: 100%; cursor: pointer; background: none; }
+.fb-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--fb-bg); }
+.fb-lt { flex: 1; display: grid; gap: 1px; min-width: 0; }
+.fb-lt small { font-size: 12px; color: var(--fb-text-2); letter-spacing: .3px; justify-self: start; }
+.fb-lt b { font-size: 16px; font-weight: 700; }
+.fb-lt span { font-size: 13px; color: var(--fb-text-2); justify-self: start; }
+.fb-cta { appearance: none; border: 0; border-radius: 6px; background: var(--fb-btn); color: var(--fb-text); font: 600 15px var(--ios); padding: 9px 14px; cursor: pointer; flex: none; }
+.fb-cta:hover { filter: brightness(.96); }
+.fb-acts { display: flex; justify-content: space-around; padding: 4px 8px; margin: 0 14px; border-top: 1px solid var(--fb-line); border-bottom: 1px solid var(--fb-line); color: var(--fb-text-2); font-size: 14px; font-weight: 600; }
+.fb-acts span { display: inline-flex; align-items: center; gap: 6px; padding: 8px 6px; }
+.fb-acts .i { width: 19px; height: 19px; }
+.fb-cm { display: flex; gap: 8px; padding: 10px 14px 14px; }
+.fb-cm img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--fb-line); flex: none; }
+.fb-cmb { background: var(--fb-bg); border-radius: 18px; padding: 8px 12px; font-size: 14px; line-height: 1.35; display: grid; }
+.fb-cmb b { font-size: 13px; }
+.fb-cm small { display: block; font-size: 12px; color: var(--fb-text-2); font-weight: 600; padding: 4px 12px 0; }
+.fb-skel { padding: 14px; display: grid; gap: 10px; }
+.fb-skel span { height: 10px; border-radius: 5px; background: var(--fb-bg); }
+.fb-skel span:first-child { width: 40%; height: 40px; border-radius: 20px; }
+.fb-skel span:last-child { width: 70%; }
+
+/* covers (real art from lumebook.com with the title laid over, like the site's samples) */
+.cov { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: var(--ink-2); border-radius: inherit; }
+.cov img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cov-t { position: absolute; inset-inline: 8%; bottom: 13%; text-align: center; color: #fff; font: 400 23px/1.2 var(--site); text-shadow: 0 2px 10px rgba(0,0,0,.65), 0 0 2px rgba(0,0,0,.6); }
+
+/* ---------- Facebook in-app browser ---------- */
+.iab { flex: 1; display: flex; flex-direction: column; min-height: 0; background: var(--ink); }
+.iab-bar { display: flex; align-items: center; gap: 8px; padding: 54px 12px 8px; background: #fff; color: #000; border-bottom: 1px solid #ddd; }
+.iab-btn { width: 32px; height: 32px; display: grid; place-items: center; color: #000; }
+.iab-btn .i { width: 20px; height: 20px; stroke-width: 2.2; }
+.iab-t { flex: 1; display: grid; justify-items: center; line-height: 1.2; min-width: 0; }
+.iab-t b { font-size: 15px; font-weight: 600; }
+.iab-t small { font-size: 12px; color: #65676B; display: inline-flex; align-items: center; gap: 3px; direction: ltr; }
+
+/* ---------- the store (lumebook.com look) ---------- */
+.site { background: radial-gradient(120% 50% at 50% 0%, #1d1240 0%, var(--ink) 60%); color: var(--cream); font-family: var(--site); }
+.st-head { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid rgba(248,240,225,.1); background: rgba(11,5,24,.85); position: sticky; top: 0; z-index: 16; backdrop-filter: blur(10px); }
+.st-logo { width: 36px; height: 36px; border-radius: 8px; }
+.st-ic { position: relative; color: var(--cream); display: grid; place-items: center; }
+.st-ic .i { width: 22px; height: 22px; stroke-width: 1.8; }
+.st-dot { position: absolute; top: 1px; left: -4px; width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; }
+.st-crumbs { padding: 12px 16px; font-size: 14px; color: rgba(248,240,225,.65); border-bottom: 1px solid rgba(248,240,225,.08); background: rgba(91,43,214,.08); }
+.st-body { padding: 16px; display: grid; gap: 14px; }
+.st-h1 { font: 700 25px/1.2 var(--serif); color: var(--cream); }
+.st-cover { border-radius: 14px; box-shadow: 0 22px 40px -22px rgba(0,0,0,.9), 0 0 0 1px rgba(248,240,225,.08); }
+.st-seg { justify-self: center; display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; border: 1px solid rgba(248,240,225,.18); background: rgba(248,240,225,.04); }
+.st-seg button:not(.hot) { appearance: none; border: 0; border-radius: 999px; padding: 9px 18px; background: transparent; color: rgba(248,240,225,.7); font: 400 15px var(--site); cursor: pointer; }
+.st-seg button:not(.hot)[aria-pressed="true"] { background: var(--gold); color: var(--ink); }
+.st-meta { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14px; color: rgba(248,240,225,.75); }
+.st-meta li { display: flex; align-items: center; gap: 8px; }
+.st-meta .i { width: 17px; height: 17px; stroke-width: 1.8; }
+.st-card { background: rgba(248,240,225,.05); border: 1px solid rgba(248,240,225,.12); border-radius: 16px; padding: 14px 16px; display: grid; gap: 6px; font-size: 14px; }
+.st-price { background: linear-gradient(160deg, rgba(91,43,214,.22), rgba(230,183,98,.08)); border: 1px solid rgba(230,183,98,.35); border-radius: 18px; padding: 16px; display: grid; gap: 4px; }
+.st-price small { font-size: 13px; color: var(--gold); }
+.st-price .st-pr { display: flex; align-items: baseline; gap: 8px; }
+.st-price .st-pr b { font: 800 40px/1 var(--serif); color: var(--gold); }
+.st-price span { font-size: 14px; }
+.st-dim { color: rgba(248,240,225,.65); font-size: 13px !important; }
+.st-line { display: flex; align-items: center; gap: 10px; font-size: 14.5px; padding: 12px 14px; border-radius: 14px; background: rgba(248,240,225,.05); }
+.st-line .i { width: 20px; height: 20px; color: var(--gold); stroke-width: 1.8; }
+.st-line b { color: var(--gold); }
+.st-line .thumb { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; flex: none; }
+.st-promise { display: grid; gap: 8px; padding: 14px; border-radius: 16px; background: rgba(230,183,98,.1); border: 1px solid rgba(230,183,98,.3); font-size: 14px; }
+.st-promise div { display: flex; align-items: center; gap: 10px; }
+.st-promise .i { width: 18px; height: 18px; color: var(--gold); }
+.st-h3 { font: 700 17px/1.2 var(--site); }
+.st-check { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.st-check li::before { content: "✓"; color: var(--gold); margin-inline-end: 8px; font-weight: 800; }
+.st-trust { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: center; padding: 10px 0 4px; border-top: 1px solid rgba(248,240,225,.08); }
+.st-trust div { display: grid; gap: 2px; }
+.st-num { font: 800 26px/1 var(--serif); color: var(--gold); }
+.st-trust small { font-size: 12.5px; color: rgba(248,240,225,.65); }
+.st-reviews { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ph { border: 1.5px dashed rgba(248,240,225,.28); border-radius: 12px; display: grid; place-items: center; text-align: center; font-size: 12px; color: rgba(248,240,225,.6); padding: 10px; min-height: 76px; white-space: pre-line; line-height: 1.35; }
+.ph.tall { aspect-ratio: 3 / 4; min-height: 0; }
+.ph.wide { min-height: 110px; }
+.st-cta-bar { position: sticky; bottom: 0; z-index: 16; padding: 22px 16px 30px; background: linear-gradient(to top, var(--ink) 62%, rgba(11,5,24,0)); display: grid; gap: 6px; justify-items: center; }
+.st-cta { appearance: none; border: 0; width: 100%; min-height: 54px; border-radius: 16px; background: var(--gold); color: var(--ink); font: 800 17px var(--site); cursor: pointer; box-shadow: 0 20px 60px -20px rgba(230,183,98,.55), 0 8px 24px -8px rgba(230,183,98,.3); }
+.st-cta:hover { filter: brightness(1.05); }
+.st-cta:active { transform: scale(.985); }
+.st-cta-bar small { font-size: 12px; color: rgba(248,240,225,.6); }
+.st-link { appearance: none; border: 0; background: none; color: var(--gold); font: 400 14px var(--site); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 0; }
+.st-btn2 { appearance: none; border: 1.5px solid var(--gold); background: transparent; color: var(--gold); border-radius: 12px; padding: 10px 14px; font: 400 15px var(--site); cursor: pointer; width: 100%; }
+.st-toast { font-size: 13px; color: var(--gold); }
+
+/* wizard */
+.wz-top { display: flex; align-items: center; gap: 12px; padding: 12px 14px 6px; }
+.wz-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(248,240,225,.08); display: grid; place-items: center; color: var(--cream); flex: none; }
+.wz-btn .i { width: 18px; height: 18px; }
+.wz-prog { flex: 1; display: flex; gap: 6px; }
+.wz-prog i { flex: 1; height: 4px; border-radius: 2px; background: rgba(248,240,225,.18); }
+.wz-prog i.on { background: var(--gold); }
+.wz-step { display: block; padding: 0 16px; font-size: 13px; color: rgba(248,240,225,.6); }
+.wz-h { font: 700 24px/1.25 var(--site); padding: 6px 16px 0; }
+.wz-sub { padding: 4px 16px 0; font-size: 14.5px; color: rgba(248,240,225,.72); line-height: 1.45; }
+.wz-body { padding: 12px 16px; display: grid; gap: 14px; }
+.wz-book { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; background: rgba(248,240,225,.06); border: 1px solid rgba(248,240,225,.12); }
+.wz-book img { width: 46px; height: 46px; border-radius: 9px; object-fit: cover; }
+.wz-book div { flex: 1; display: grid; line-height: 1.25; }
+.wz-book small { font-size: 12px; color: rgba(248,240,225,.6); }
+.wz-lbl { display: block; font-size: 14px; margin-bottom: 6px; }
+.wz-lbl small { color: rgba(248,240,225,.55); }
+.wz-in, .wz-sel { width: 100%; height: 50px; border-radius: 14px; border: 1px solid rgba(248,240,225,.2); background: rgba(248,240,225,.06); color: var(--cream); font: 400 17px var(--site); padding: 0 14px; }
+.wz-in::placeholder { color: rgba(248,240,225,.4); }
+.wz-in:focus, .wz-sel:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+.wz-sel option { color: #000; }
+.wz-seg { display: flex; gap: 8px; flex-wrap: wrap; }
+.wz-seg button:not(.hot) { appearance: none; flex: 1; min-width: 70px; height: 46px; border-radius: 14px; border: 1px solid rgba(248,240,225,.2); background: transparent; color: var(--cream); font: 400 15px var(--site); cursor: pointer; }
+.wz-seg button:not(.hot)[aria-pressed="true"] { border-color: var(--gold); background: rgba(230,183,98,.16); color: var(--gold); }
+.wz-err { color: #FFB4A8; font-size: 13px; margin-top: 6px; display: flex; gap: 6px; align-items: center; }
+.wz-err .i { width: 15px; height: 15px; }
+.wz-free { gap: 8px; }
+.wz-free b { color: var(--gold); font-weight: 400; }
+.wz-free .dim { color: rgba(248,240,225,.6); }
+.wz-up { appearance: none; justify-self: center; width: 200px; height: 200px; border-radius: 50%; border: 1.5px solid rgba(230,183,98,.55); background: radial-gradient(circle at 50% 40%, #241a52, #120a2b 70%); box-shadow: 0 0 40px -6px rgba(230,183,98,.45); color: var(--cream); display: grid; place-items: center; align-content: center; gap: 10px; cursor: pointer; font: 400 17px var(--site); }
+.wz-up .wz-ic { width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(160deg, var(--gold), var(--gold-2)); color: var(--ink); font: 800 26px var(--site); }
+.wz-up .wz-ic .i { width: 28px; height: 28px; }
+.wz-up.done { border-color: var(--gold); }
+.wz-tips { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 13.5px; }
+.wz-tips li { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 12px; background: rgba(248,240,225,.05); }
+.wz-tips li.ok b { color: #4ADE80; }
+.wz-tips li.no b { color: #FF8A7A; }
+.wz-note { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; color: rgba(248,240,225,.8); line-height: 1.45; }
+.wz-note .i { width: 17px; height: 17px; color: var(--gold); margin-top: 1px; }
+.wz-fine { font-size: 12.5px; color: rgba(248,240,225,.6); line-height: 1.5; }
+.wz-chk { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; font-size: 14px; line-height: 1.4; cursor: pointer; }
+.wz-chk input { width: 20px; height: 20px; accent-color: var(--gold); margin: 1px 0 0; }
+.wz-chk small { display: block; color: rgba(248,240,225,.55); font-size: 12.5px; }
+.wz-chk.opt { border: 1px dashed rgba(230,183,98,.55); border-radius: 14px; padding: 10px; }
+.otp { display: flex; gap: 8px; justify-content: center; direction: ltr; }
+.otp span { width: 46px; height: 56px; border-radius: 12px; border: 1px solid rgba(248,240,225,.25); background: rgba(248,240,225,.06); display: grid; place-items: center; font: 800 24px var(--site); }
+.otp span.on { border-color: var(--gold); }
+/* iOS notification banner */
+.banner { position: absolute; top: 56px; left: 10px; right: 10px; z-index: 24; display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 22px; background: rgba(245,245,247,.86); backdrop-filter: blur(20px) saturate(1.8); -webkit-backdrop-filter: blur(20px) saturate(1.8); color: #000; font-family: var(--ios); box-shadow: 0 10px 30px rgba(0,0,0,.25); animation: banner-in .5s cubic-bezier(.2,.9,.25,1.15) both; cursor: pointer; }
+.banner .app-ic { width: 38px; height: 38px; border-radius: 9px; background: var(--wa-green); display: grid; place-items: center; color: #fff; }
+.banner .app-ic .i { width: 24px; height: 24px; }
+.banner b { font-size: 15px; display: block; }
+.banner span { font-size: 15px; line-height: 1.3; }
+.banner small { font-size: 13px; color: #6b6b70; align-self: start; }
+@keyframes banner-in { from { transform: translateY(-120%); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* preview */
+.pv-like { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 15px; }
+.pv-like button:not(.hot) { appearance: none; border: 1px solid rgba(248,240,225,.3); background: transparent; color: var(--cream); border-radius: 999px; padding: 7px 14px; font: 400 14px var(--site); cursor: pointer; }
+.pv-like button:not(.hot)[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); background: rgba(230,183,98,.12); }
+.pv-split { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pv-split > div { border-radius: 14px; padding: 12px; display: grid; gap: 4px; font-size: 13.5px; align-content: start; }
+.pv-split .ready { background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.3); }
+.pv-split .later { border: 1px dashed rgba(248,240,225,.28); }
+.pv-split b { font-size: 14px; }
+.pv-samples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.pv-radio { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 12px; border-radius: 14px; border: 1px solid rgba(248,240,225,.16); font-size: 14px; cursor: pointer; }
+.pv-radio input { accent-color: var(--gold); width: 18px; height: 18px; margin: 0; }
+.pv-radio small { display: block; font-size: 12px; color: rgba(248,240,225,.6); }
+.pv-radio b { color: var(--gold); font-weight: 400; }
+.pv-radio:has(input:checked) { border-color: var(--gold); background: rgba(230,183,98,.08); }
+.pv-sum { gap: 4px; }
+.pv-sum .row { display: flex; justify-content: space-between; gap: 10px; }
+.pv-sum .tot { font: 800 20px var(--serif); color: var(--gold); border-top: 1px solid rgba(248,240,225,.12); padding-top: 8px; margin-top: 4px; }
+
+/* CardCom in the store's look */
+.pay-brand { display: flex; align-items: center; gap: 10px; padding: 16px; border-bottom: 1px solid rgba(248,240,225,.1); }
+.pay-brand img { width: 40px; height: 40px; border-radius: 9px; }
+.pay-brand div { display: grid; line-height: 1.3; }
+.pay-brand small { font-size: 12.5px; color: rgba(248,240,225,.65); display: inline-flex; align-items: center; gap: 4px; }
+.pay-brand .i { width: 13px; height: 13px; }
+.pay-w { display: grid; gap: 8px; }
+.pay-w button:not(.hot) { appearance: none; height: 50px; border-radius: 12px; border: 0; font: 600 18px var(--ios); cursor: pointer; direction: ltr; display: flex; align-items: center; justify-content: center; gap: 4px; letter-spacing: -.3px; }
+.pay-w .apple:not(.hot) { background: #fff; color: #000; }
+.pay-w .google:not(.hot) { background: #000; color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+.pay-w .bit:not(.hot) { background: rgba(248,240,225,.1); color: var(--cream); font-weight: 800; }
+.pay-or { text-align: center; font-size: 13px; color: rgba(248,240,225,.55); display: flex; align-items: center; gap: 10px; }
+.pay-or::before, .pay-or::after { content: ""; flex: 1; height: 1px; background: rgba(248,240,225,.15); }
+
+/* thanks */
+.ty-check { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(160deg, var(--gold), var(--gold-2)); display: grid; place-items: center; color: var(--ink); justify-self: center; animation: pop .5s cubic-bezier(.2,.9,.3,1.4) both; }
+.ty-check .i { width: 34px; height: 34px; stroke-width: 3; }
+@keyframes pop { from { transform: scale(.3); opacity: 0; } to { transform: none; opacity: 1; } }
+.ty-h { text-align: center; display: grid; gap: 2px; }
+.ty-h b { font: 800 28px var(--serif); }
+.ty-h span { font-size: 16px; }
+.ty-h small { font-size: 12.5px; color: rgba(248,240,225,.6); }
+.ty-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.ty-steps li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; padding-bottom: 14px; position: relative; opacity: .55; }
+.ty-steps li::after { content: ""; position: absolute; top: 30px; bottom: 2px; inset-inline-start: 14px; width: 2px; background: rgba(248,240,225,.15); }
+.ty-steps li:last-child::after { display: none; }
+.ty-steps li.now { opacity: 1; }
+.ty-steps .n { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid rgba(248,240,225,.4); font: 800 13px var(--site); }
+.ty-steps li.now .n { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.ty-steps div { display: grid; gap: 4px; font-size: 13.5px; }
+.ty-steps b { font-size: 15px; }
+.ty-extra { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: start; }
+.ty-extra img { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; }
+.ty-extra div { display: grid; gap: 6px; }
+.ty-row { display: flex; gap: 6px; }
+.ty-row > * { flex: 1; min-width: 0; height: 44px; font-size: 15px; }
+.ty-who { display: grid; gap: 8px; }
+.ty-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ty-chips button { appearance: none; border: 1.5px solid var(--gold); background: transparent; color: var(--gold); border-radius: 999px; padding: 8px 12px; min-height: 40px; font: 400 14px var(--site); cursor: pointer; }
+.ty-chips button[aria-pressed="true"] { background: var(--gold); color: var(--ink); }
+
+/* ---------- WhatsApp (light) ---------- */
+.wa { flex: 1; display: flex; flex-direction: column; min-height: 0; background: var(--wa-bg); color: var(--wa-text); }
+.wa-head { display: flex; align-items: center; gap: 8px; padding: 54px 10px 8px; background: #F6F5F3; border-bottom: 1px solid rgba(0,0,0,.08); }
+.wa-head .back { color: #007AFF; display: flex; align-items: center; }
+.wa-head .back .i { width: 26px; height: 26px; stroke-width: 2.4; }
+.wa-head img { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(0,0,0,.08); }
+.wa-head div { flex: 1; display: grid; line-height: 1.2; min-width: 0; }
+.wa-head b { font-size: 16.5px; display: inline-flex; align-items: center; gap: 4px; }
+.wa-head b .i { width: 15px; height: 15px; color: var(--wa-green); }
+.wa-head small { font-size: 12.5px; color: var(--wa-text-2); }
+.wa-head .act { color: #007AFF; }
+.wa-head .act .i { width: 24px; height: 24px; }
+.wa-body { background-color: var(--wa-bg); background-image: radial-gradient(rgba(0,0,0,.045) 1.2px, transparent 1.2px), radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px); background-size: 22px 22px, 13px 13px; background-position: 0 0, 7px 9px; padding: 10px 10px 20px; display: flex; flex-direction: column; gap: 6px; }
+.wa-day { align-self: center; background: #fff; color: var(--wa-text-2); font-size: 12.5px; font-weight: 600; border-radius: 8px; padding: 5px 11px; box-shadow: 0 1px .5px rgba(11,20,26,.13); margin: 8px 0 2px; }
+.wa-sys { align-self: center; max-width: 88%; text-align: center; background: #FFEECD; color: #54656F; font-size: 12.5px; line-height: 1.4; border-radius: 8px; padding: 6px 10px; box-shadow: 0 1px .5px rgba(11,20,26,.13); }
+.wa-sys b { color: #3b4a54; }
+.wa-msg { max-width: 82%; display: grid; }
+.wa-msg.in { align-self: flex-start; }
+.wa-msg.out { align-self: flex-end; }
+.wa-b { position: relative; padding: 7px 9px 8px; border-radius: 8px; font-size: 15.5px; line-height: 1.35; white-space: pre-line; box-shadow: 0 1px .5px rgba(11,20,26,.13); }
+.wa-msg.in .wa-b { background: var(--wa-in); border-start-start-radius: 0; }
+.wa-msg.out .wa-b { background: var(--wa-out); border-start-end-radius: 0; }
+.wa-b .adv { display: block; font-weight: 700; font-size: 14px; }
+.wa-b .lnk { color: var(--wa-link); direction: ltr; unicode-bidi: isolate; }
+.wa-b .stop { display: block; color: var(--wa-text-2); font-size: 13px; margin-top: 4px; }
+.wa-t { float: left; margin: 6px 8px -4px 0; font-size: 11px; color: var(--wa-text-2); direction: ltr; display: inline-flex; align-items: center; gap: 2px; }
+.wa-t .i { width: 16px; height: 16px; color: var(--wa-tick); stroke-width: 2.2; }
+.wa-btns { display: grid; gap: 1px; margin-top: 1px; }
+.wa-btns span { background: #fff; color: var(--wa-link); text-align: center; font-size: 15px; padding: 9px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 1px .5px rgba(11,20,26,.13); }
+.wa-btns span:last-child { border-radius: 0 0 8px 8px; }
+.wa-btns .i { width: 16px; height: 16px; }
+.wa-msg.in .wa-b:has(+ .wa-btns) { border-radius: 0 8px 0 0; }
+.wa-blocked { opacity: .42; filter: grayscale(1); }
+.wa-blocked .wa-b { box-shadow: none; outline: 1.5px dashed rgba(0,0,0,.35); }
+.demo-tag { align-self: flex-start; font-family: var(--ios); font-size: 11px; font-weight: 700; color: #6b5ea8; background: rgba(255,255,255,.72); border: 1px dashed rgba(91,43,214,.45); border-radius: 999px; padding: 2px 9px; margin: -1px 0 4px; }
+.demo-tag.mkt { color: #8A5A14; border-color: rgba(201,149,74,.7); }
+.wa-ghost { align-self: flex-start; max-width: 70%; padding: 8px 11px; border-radius: 8px; border: 1.5px dashed rgba(0,0,0,.28); color: rgba(0,0,0,.4); font-size: 15px; text-decoration: line-through; }
+.wa-people { align-self: center; display: flex; gap: 3px; direction: ltr; font-size: 18px; }
+.wa-people span.out { opacity: .22; }
+.wa-reveal { align-self: flex-end; appearance: none; border: 1.5px dashed rgba(0,0,0,.3); background: rgba(255,255,255,.6); color: #3b4a54; border-radius: 999px; padding: 6px 12px; font: 600 13px var(--ios); cursor: pointer; }
+.wa-input { display: flex; align-items: center; gap: 10px; padding: 8px 10px 34px; background: #F6F5F3; border-top: 1px solid rgba(0,0,0,.06); color: #007AFF; }
+.wa-input .i { width: 24px; height: 24px; }
+.wa-input div { flex: 1; height: 36px; border-radius: 18px; background: #fff; border: 1px solid rgba(0,0,0,.08); }
+
+/* ---------- all changes ---------- */
+.changes { display: grid; gap: var(--sp-5); }
+.tally { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--sp-3); }
+.first5 { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+.first5 ol { margin: var(--sp-2) 0 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.first5 li a { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: var(--sp-3); padding: .45rem var(--sp-2); border-radius: var(--r-sm); color: var(--text); text-decoration: none; font-weight: 600; }
+.first5 li a:hover { background: var(--fill); text-decoration: none; }
+.first5 small { display: block; font-family: var(--font-2); font-weight: 500; font-size: var(--fs-caption); color: var(--text-3); }
+@media (max-width: 560px) { .first5 { grid-template-columns: minmax(0, 1fr); } .first5 .mascot { display: none; } }
+/* filters: two lb-filters groups, each after its label; groups of changes are lb-topic sections with an lb-topic-head */
+.filters { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); align-items: center; }
+.filters .lbl { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
+.lb-topic-head > a { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; white-space: nowrap; }
+.lb-rowitem-body > a { justify-self: start; font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; }
+.gloss > summary { cursor: pointer; font-weight: 700; font-size: var(--fs-headline); }
+.gloss .lb-kv { margin-top: var(--sp-3); }
+</style>
+</head>
+<body>
+<header class="lb-topbar">
+  <div class="lb-topbar-in">
+    <a class="lb-brand is-stacked" href="#intro"><img src="{{LOGO}}" alt="" width="28" height="28"><span><small>לומבוק · דמו פנימי</small><b>מסע הקנייה</b></span></a>
+    <div class="tb-chapters" id="tb-chapters"></div>
+    <a class="tb-link hide-sm" href="#intro">התחלה</a>
+  </div>
+  <div class="progress" id="progress" role="progressbar" aria-label="ההתקדמות במסע" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><i></i></div>
+</header>
+<main id="app" aria-live="polite"></main>
+
+<script>
+(function () {
+"use strict";
+const LOGO = "{{LOGO}}";
+const MASCOT = "{{MASCOT}}";
+/* Opened as the template itself (the build has not filled in the design system and pictures)? Go to the built page. */
+if (LOGO.indexOf("{{") === 0) { location.replace("../journey-demo.html" + location.hash); return; }
+const DATA = {{DEMO_JSON}};
+const STAGES = {{STAGES_JSON}};
+const IMG = { frame: "{{IMG:iphone-frame-crop.webp}}", girl: "{{IMG:cover-birthday-girl-640.webp}}", boy: "{{IMG:cover-birthday-boy-640.webp}}", hanukkah: "{{IMG:cover-hanukkah-girl.webp}}" };
+const SRC = "research/cro-crm";
+const STEPS = DATA.steps;
+const STAGE_ICON = { ad: "megaphone", book: "book", wizard: "wand", preview: "eye", pay: "card", after: "gift", messages: "message" };
+const DEVICE = { w: 450.4, h: 901.5 }, SCREEN = { w: 393, h: 856 };
+
+/* ---------- helpers ---------- */
+const $ = (s, el) => (el || document).querySelector(s);
+const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const HDAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+const HMONTHS = ["בינואר", "בפברואר", "במרץ", "באפריל", "במאי", "ביוני", "ביולי", "באוגוסט", "בספטמבר", "באוקטובר", "בנובמבר", "בדצמבר"];
+function addBiz(n) { const x = new Date(); let k = 0; while (k < n) { x.setDate(x.getDate() + 1); const w = x.getDay(); if (w !== 5 && w !== 6) k++; } return x; }
+function hdate(x) { return "יום " + HDAYS[x.getDay()] + ", " + x.getDate() + " " + HMONTHS[x.getMonth()]; }
+const hhmm = d => String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+function later(min) { return hhmm(new Date(Date.now() + min * 60000)); }
+
+/* 24px line icons (the design system's stroke style); .f = filled */
+const IC = {
+  megaphone: '<path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5.5a9 9 0 0 1 0 13"/>',
+  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+  wand: '<path d="M4 20 15 9"/><path d="m13 7 4 4"/><path d="M17 3v3M15.5 4.5h3M20 8v2M19 9h2M9 4v2M8 5h2"/>',
+  eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  card: '<rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/>',
+  gift: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
+  message: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/>',
+  tap: '<path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10"/><path d="M12 9.5a1.5 1.5 0 0 1 3 0V11"/><path d="M15 10.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.6 15a1.5 1.5 0 0 1 2.4-1.8L9 16"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  list: '<path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',
+  bulb: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
+  chev: '<path d="m15 18-6-6 6-6"/>', chevR: '<path d="m9 18 6-6-6-6"/>', back: '<path d="m15 18-6-6 6-6"/>',
+  close: '<path d="M18 6 6 18M6 6l12 12"/>', dots: '<circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>', search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  messenger: '<path d="M12 3C7 3 3 6.7 3 11.3c0 2.6 1.3 4.9 3.3 6.4V21l3-1.7c.9.3 1.8.4 2.7.4 5 0 9-3.7 9-8.4S17 3 12 3z"/><path d="m7.5 13.5 3-3 2.5 2 3.5-3.5"/>',
+  home: '<path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+  video: '<rect x="2" y="5" width="15" height="14" rx="3"/><path d="m17 10 5-3v10l-5-3z"/>',
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/>',
+  store: '<path d="M4 9 5.5 4h13L20 9"/><path d="M4 9v11h16V9"/><path d="M4 9a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0"/>',
+  bell: '<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>', menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
+  image: '<rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/>',
+  imagePlus: '<path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7"/><circle cx="9" cy="10" r="2"/><path d="m21 17-4.5-4.5L8 21M18 2v6M15 5h6"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  like: '<path d="M7 11v9H4a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1zM7 11l4-8a2.5 2.5 0 0 1 2.5 2.5V9h5.6a2 2 0 0 1 2 2.3l-1.3 7.5a2 2 0 0 1-2 1.7H7"/>',
+  comment: '<path d="M21 12a8.5 8.5 0 0 1-12.7 7.4L3 21l1.6-5.3A8.5 8.5 0 1 1 21 12z"/>',
+  share: '<path d="M14 5l7 7-7 7v-4c-6 0-9 2-11 5 .5-6 4-10 11-11z"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>', lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  truck: '<path d="M2 6h11v10H2zM13 9h4l4 4v3h-8z"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/>',
+  calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  refresh: '<path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/>',
+  shield: '<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  tag: '<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.4"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>', ticks: '<path d="m2 13 4 4 9-10"/><path d="m11 16 1 1 9-10"/>',
+  link: '<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/>',
+  reply: '<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 5 5v6"/>',
+  phone: '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
+  camera: '<path d="M4 7h3l2-3h6l2 3h3a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="4"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+  seal: '<path d="M12 2.5 14.6 5l3.6-.4.4 3.6L21.5 12l-2.9 3.8-.4 3.6-3.6-.4L12 21.5 9.4 19l-3.6.4-.4-3.6L2.5 12l2.9-3.8.4-3.6 3.6.4z"/>',
+  wa: '<path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 1a5 5 0 0 1-3-3l1-1-1-2z"/>',
+  alert: '<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5M12 16h.01"/>', arrow: '<path d="M17 7 7 17M16 17H7V8"/>'
+};
+const ic = (n, cls) => `<svg class="i ${cls || ""}" viewBox="0 0 24 24" aria-hidden="true">${IC[n] || ""}</svg>`;
+
+/* ---------- simulation state (lives only in this tab) ---------- */
+const S = { version: "girl", name: "", age: "", gender: "", lang: "he", photo: false, phone: "", terms: false, mkt: false,
+  otp: false, verified: false, like: null, ship: "home", paid: false, reply: false, extra: false, reminder: false, who: "",
+  tried: { details: false, photo: false, phone: false }, fired: new Set(), log: [] };
+const SHIP = { home: { label: "משלוח עד הבית", price: 30, days: 7, sub: "עד 7 ימי עסקים מהאישור" },
+  rishon: { label: "נקודת איסוף בראשון לציון", price: 20, days: 14, sub: "עד 14 ימי עסקים מהאישור" },
+  jlm: { label: "איסוף עצמי בירושלים", price: 0, days: 7, sub: "עד 7 ימי עסקים, בתיאום מראש" } };
+const BOOK = 119, EXTRA = 79;
+const FOR_WHOM = [["child", "לילד שלי"], ["grandchild", "לנכד או לנכדה"], ["niece", "לאחיין או לאחיינית"], ["gift", "מתנה לחברים"]];
+const nm = () => (S.name.trim() || "נועה");
+const ship = () => SHIP[S.ship];
+const total = () => BOOK + ship().price;
+const eta = () => hdate(addBiz(ship().days));
+const shekel = n => "₪" + n;
+const kidVersion = () => S.gender || S.version;
+
+function fire(step, name, params, kind) {
+  const key = step + ":" + name;
+  if (S.fired.has(key)) return;
+  S.fired.add(key);
+  S.log.push({ step, name: name.trim(), params, kind: kind || "ga4" });
+  renderConsole();
+}
+
+function coverHTML(version, name) {
+  const src = version === "boy" ? IMG.boy : IMG.girl;
+  return `<span class="cov">${src ? `<img src="${src}" alt="הכריכה של ספר יום ההולדת (מהאתר)" draggable="false">` : ""}<span class="cov-t">יום ההולדת של ${esc(name)}</span></span>`;
+}
+
+/* ---------- glossary ---------- */
+const GMAP = {}; DATA.gloss.forEach(([t, d]) => { GMAP[t.toLowerCase()] = d; });
+const TERMS = { "UTM": "utm", "GA4": "ga4", "LCP": "lcp", "A/B": "טסט a/b", "opt-in": "opt-in", "Consent Mode": "consent mode",
+  "קבוצת ביקורת": "קבוצת ביקורת", "קבוצת הביקורת": "קבוצת ביקורת", "ייחוס": "ייחוס", "הודעת שירות": "הודעת שירות", "הודעות שירות": "הודעת שירות",
+  "הודעת שיווק": "הודעת שיווק", "הודעות שיווק": "הודעת שיווק", "סעיף 30א": "סעיף 30א", "תיקון 13": "תיקון 13", "קוד חד-פעמי": "קוד חד-פעמי",
+  "מספר עסקה": "מספר עסקה", "ההפניות הלא רצויות": "הפניה לא רצויה", "הדפדפן הפנימי": "דפדפן פנימי", "רווח להזמנה": "רווח להזמנה", "הפיקסל": "פיקסל" };
+const TERM_RE = new RegExp("(" + Object.keys(TERMS).sort((a, b) => b.length - a.length).map(t => t.replace(/[/]/g, "\\/")).join("|") + ")", "g");
+/* Latin runs inside Hebrew notes are isolated so event names, links and code keep their order */
+const LAT_RUN = /[A-Za-z][A-Za-z0-9_.:=\/&?#%+@\-]*(?: (?=[A-Za-z0-9])[A-Za-z0-9_.:=\/&?#%+@\-]+)*/g;
+function gloss(text) {
+  const seen = new Set();
+  return esc(text).replace(LAT_RUN, m => `<bdi dir="ltr">${m}</bdi>`).replace(TERM_RE, m => {
+    const key = TERMS[m];
+    if (!key || seen.has(key) || !GMAP[key]) return m;
+    seen.add(key);
+    return `<abbr title="${esc(GMAP[key])}">${m}</abbr>`;
+  });
+}
+
+/* ---------- status and owners ---------- */
+const STATUS = { fix: ["לתקן", "success"], test: ["לבדוק", "info"], decide: ["החלטה", "warning"], legal: ["עורך דין", "danger"], keep: ["עובד, להשאיר", "outline"], context: ["רקע", "outline"] };
+const WHO = { me: "אני", yossi: "יוסי", lawyer: "עורך דין" };
+const chip = st => `<span class="lb-chip ${STATUS[st][1]}">${STATUS[st][0]}</span>`;
+const whoText = n => n.who.length ? n.who.map(w => WHO[w]).join(" · ") : "רקע";
+
+/* ---------- iPhone parts ---------- */
+function statusBar() {
+  return `<span class="sb-time">${hhmm(new Date())}</span><span class="sb-icons">
+    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+    <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><path d="M8.5 2.6c2.3 0 4.4.9 6 2.4l1.2-1.2A10 10 0 0 0 8.5.9 10 10 0 0 0 1.3 3.8l1.2 1.2a8.4 8.4 0 0 1 6-2.4zm0 3.4c1.4 0 2.6.5 3.6 1.4l1.2-1.2a6.7 6.7 0 0 0-9.6 0l1.2 1.2c1-.9 2.2-1.4 3.6-1.4zm0 3.3c.5 0 1 .2 1.3.5L8.5 11.1 7.2 9.8c.3-.3.8-.5 1.3-.5z"/></svg>
+    <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.8" fill="none" stroke="currentColor" opacity=".38"/><rect x="2" y="2" width="20" height="9" rx="2.5" fill="currentColor"/><path d="M25 4.5v4a2 2 0 0 0 0-4z" fill="currentColor" opacity=".45"/></svg></span>`;
+}
+function device(id) {
+  return `<div class="device-wrap" data-device="${id}" data-native><div class="device"><div class="screen"><div class="sb"></div><div class="view"></div><div class="hi"></div></div>${IMG.frame ? `<img class="frame" src="${IMG.frame}" alt="" draggable="false">` : ""}</div></div>`;
+}
+/* scale every device to its column: the mockup on wide screens, the bare screen on phones */
+const FIT = matchMedia("(min-width: 1041px) and (min-height: 600px)");
+function setFit() { document.body.classList.toggle("fit", view !== "changes" && FIT.matches); }
+function fitDevices() {
+  const fit = document.body.classList.contains("fit"), main = $("main"), ms = getComputedStyle(main);
+  const mainH = main.clientHeight - parseFloat(ms.paddingTop) - parseFloat(ms.paddingBottom);
+  $$(".device-wrap").forEach(w => {
+    const col = w.parentElement, cs = getComputedStyle(col);
+    const avail = col.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const padV = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    const nav = w.dataset.device === "hero" ? 0 : (($(".phone-nav") || {}).offsetHeight || 36) + 12;
+    const bare = !IMG.frame || innerWidth < 640;
+    const base = bare ? SCREEN : DEVICE;
+    const maxH = fit ? mainH - padV - nav : w.dataset.device === "hero" ? Math.min(innerHeight - 180, 820) : innerWidth <= 1040 ? Math.min(innerHeight * .86, 900) : innerHeight - 170;
+    const k = Math.max(.42, Math.min(1, avail / base.w, bare ? 1 : maxH / base.h));
+    w.classList.toggle("bare", bare);
+    w.style.width = base.w * k + "px"; w.style.height = base.h * k + "px";
+    $(".device", w).style.transform = `scale(${k})`;
+  });
+}
+addEventListener("resize", () => { setFit(); fitDevices(); });
+/* the in-app browser Facebook opens links in */
+function iab(domain, title, inner) {
+  return `<div class="iab"><header class="iab-bar"><span class="iab-btn">${ic("close")}</span><div class="iab-t"><b>${title}</b><small>${ic("lock", "xs")}${domain}</small></div><span class="iab-btn">${ic("dots")}</span></header>${inner}</div>`;
+}
+const siteHead = () => `<header class="st-head"><img class="st-logo" src="${LOGO}" alt=""><span class="sp"></span><span class="st-ic">${ic("user")}<i class="st-dot"></i></span><span class="st-ic">${ic("globe")}</span></header>`;
+const wzTop = n => `<div class="wz-top"><span class="wz-btn">${ic("chevR")}</span><div class="wz-prog">${[1, 2, 3, 4].map(k => `<i class="${k <= n ? "on" : ""}"></i>`).join("")}</div><span class="wz-btn">${ic("close")}</span></div>`;
+function waChat(body) {
+  return `<div class="wa"><header class="wa-head"><span class="back">${ic("chevR")}</span><img src="${LOGO}" alt=""><div><b>לומבוק ${ic("seal", "f")}</b><small>חשבון עסקי</small></div><span class="act">${ic("video")}</span><span class="act">${ic("phone")}</span></header>
+    <div class="scroll wa-body">${body}</div><div class="wa-input">${ic("plus")}<div></div>${ic("camera")}${ic("mic")}</div></div>`;
+}
+/* a business message: text, time, optional template buttons */
+function waIn(text, time, opts) {
+  opts = opts || {};
+  const btns = opts.buttons ? `<div class="wa-btns">${opts.buttons.map(([icn, l]) => `<span>${ic(icn)}${l}</span>`).join("")}</div>` : "";
+  const note = opts.note ? ` data-note="${opts.note}"` : "";
+  return `<div class="wa-msg in"${note}><div class="wa-b">${opts.adv ? `<span class="adv">פרסומת</span>` : ""}${text}${opts.stop ? `<span class="stop">להסרה מהודעות שיווקיות השיבו STOP</span>` : ""}<span class="wa-t">${time}</span></div>${btns}</div>`;
+}
+const waOut = (text, time) => `<div class="wa-msg out"><div class="wa-b">${text}<span class="wa-t">${time}${ic("ticks")}</span></div></div>`;
+
+/* ---------- the ten screens: id -> look, render, bind, next ---------- */
+const SCREENS = {
+ad: { sb: "", hi: "",
+  render() {
+    return `<div class="fb">
+      <header class="fb-head"><b class="fb-logo" dir="ltr">facebook</b><span class="sp"></span><span class="fb-round">${ic("plus")}</span><span class="fb-round">${ic("search")}</span><span class="fb-round">${ic("messenger")}</span></header>
+      <nav class="fb-tabs">${["home", "video", "users", "store", "bell", "menu"].map((n, k) => `<span class="${k ? "" : "on"}">${ic(n)}</span>`).join("")}</nav>
+      <div class="scroll fb-feed">
+        <div class="fb-card fb-composer"><span class="fb-av"></span><span class="fb-pill">על מה את חושבת?</span><span class="fb-photo">${ic("image")}</span></div>
+        <article class="fb-card">
+          <div class="fb-ph"><img class="fb-pav" src="${LOGO}" alt=""><div class="fb-pn"><b>LumeBook</b><small data-note="1">ממומן · ${ic("globe", "xs")}</small></div><span class="sp"></span><span class="fb-dots">${ic("dots")}</span><span class="fb-dots">${ic("close")}</span></div>
+          <p class="fb-txt">ספר יום הולדת שהילד שלכם הוא הגיבור שלו 🎂\nמעלים תמונה ורואים בחינם את הכריכה ואת כל הסיפור.\nמזמינים רק אם אוהבים.</p>
+          <button type="button" class="fb-media" data-go="2" data-note="6" aria-label="פתיחת המודעה">${coverHTML("girl", "נועה")}</button>
+          <div class="fb-link" data-note="2"><div class="fb-lt"><small data-note="3" dir="ltr">LUMEBOOK.COM</small><b>יום הולדת · ספר אישי</b><span data-note="4">₪119 ועוד ₪30 משלוח · איסוף חינם בירושלים</span></div><button type="button" class="fb-cta" data-go="2" data-note="5">לפרטים</button></div>
+          <div class="fb-acts"><span>${ic("like")}אהבתי</span><span>${ic("comment")}תגובה</span><span>${ic("share")}שיתוף</span></div>
+          <div class="fb-cm" data-note="7"><img src="${LOGO}" alt=""><div><div class="fb-cmb"><b>LumeBook</b><span>רוצים קישור לספר? הגיבו ״לומי״ ונשלח לכם בהודעה</span></div><small>תגובה מוצמדת · אהבתי · השב</small></div></div>
+        </article>
+        <div class="fb-card fb-skel"><span></span><span></span><span></span></div>
+      </div></div>`;
+  } },
+book: { sb: "", hi: "on-dark",
+  render() {
+    const v = S.version;
+    return iab("lumebook.com", "LumeBook", `<div class="scroll site">${siteHead()}
+      <div class="st-crumbs">דף הבית ‹ ספרים ‹ יום הולדת</div>
+      <div class="st-body">
+        <h1 class="st-h1">יום הולדת</h1>
+        <div class="st-cover" data-note="1">${coverHTML(v, v === "boy" ? "אריאל" : "נועה")}</div>
+        <div class="st-seg"><button type="button" data-ver="boy" aria-pressed="${v === "boy"}">גרסת בנים</button><button type="button" data-ver="girl" aria-pressed="${v === "girl"}">גרסת בנות</button></div>
+        <ul class="st-meta"><li>${ic("users")}גילאי 3 עד 8</li><li>${ic("book")}זמין בשפות: עברית, אנגלית, ערבית, רוסית</li><li>${ic("tag")}מתאים לבנים ובנות</li></ul>
+        <div class="st-price" data-note="2"><small>ספר מודפס</small><div class="st-pr"><b data-note="3">₪119</b></div><span>ועוד ₪30 משלוח עד הבית · איסוף עצמי בירושלים בחינם</span><span class="st-dim">ספר מודפס באיכות פרמיום, ועותק דיגיטלי במייל</span></div>
+        <div class="st-line" data-note="4">${ic("truck")}<span>מאשרים היום? הספר מגיע עד <b>${hdate(addBiz(7))}</b></span></div>
+        <div class="st-line" data-note="5">${IMG.hanukkah ? `<img class="thumb" src="${IMG.hanukkah}" alt="">` : ic("calendar")}<span>לחנוכה מזמינים ומאשרים עד <b>22 בנובמבר</b></span></div>
+        <div class="st-promise" data-note="6"><div>${ic("refresh")}<span><b>לא דומה?</b> מציירים שוב בחינם, עוד לפני התשלום</span></div><div>${ic("shield")}<span><b>פגם בהדפסה?</b> מחליפים בלי עלות</span></div></div>
+        <div class="st-card"><b class="st-h3">מה כלול</b><ul class="st-check"><li>24 עמודים צבעוניים · 22×22 ס״מ</li><li>איורים מותאמים אישית של הילד/ה</li><li>עמוד הקדשה במתנה</li></ul></div>
+        <div class="st-trust" data-note="7"><div><b class="st-num"><bdi dir="ltr">★4.9</bdi></b><small>דירוג לקוחות</small></div><div><b class="st-num"><bdi dir="ltr">30,000+</bdi></b><small>ילדים</small></div></div>
+        <div class="st-reviews"><div class="ph">ביקורת אמיתית מגוגל\nשם פרטי ותאריך</div><div class="ph">תמונה של ספר\nשהגיע ללקוחה</div></div>
+      </div>
+      <div class="st-cta-bar"><button type="button" class="st-cta" data-go="3">התאימו את הספר לילד שלכם</button></div></div>`);
+  },
+  bind(root) {
+    $$("[data-ver]", root).forEach(b => b.addEventListener("click", () => { S.version = b.dataset.ver; paint(true); }));
+    fire("book", "page_view", { page_location: "/IL/he/books/15", utm_source: "facebook", utm_medium: "paid-social", utm_campaign: "bday-2026-10", utm_content: "ad-cover-girl" });
+    fire("book", "view_item", { currency: "ILS", value: 119, items: [{ item_id: "15", item_name: "Birthday", price: 119 }] });
+    fire("book", "ViewContent", { currency: "ILS", value: 119, content_ids: ["15"] }, "meta");
+  } },
+details: { sb: "", hi: "on-dark",
+  render() {
+    const t = S.tried.details, err = m => `<div class="wz-err">${ic("alert")}${m}</div>`;
+    const ages = Array.from({ length: 10 }, (_, i) => `<option value="${i + 1}" ${S.age == i + 1 ? "selected" : ""}>${i + 1}</option>`).join("");
+    return iab("lumebook.com", "LumeBook", `<div class="scroll site">${wzTop(1)}
+      <small class="wz-step" data-note="2">שלב 1 מתוך 4 · פרטי הילד</small>
+      <div class="wz-body">
+        <div class="wz-book" data-note="1"><img src="${kidVersion() === "boy" ? IMG.boy : IMG.girl}" alt=""><div><small>הספר שבחרתם</small><b>יום הולדת</b></div><button type="button" class="st-link" data-go="2">החלפה</button></div>
+        <h2 class="wz-h" style="padding:0">מי מככב בספר?</h2>
+        <div><label class="wz-lbl" for="f-name">השם <small>כמו שיופיע בספר, שם פרטי</small></label><input class="wz-in" id="f-name" autocomplete="off" placeholder="למשל נועה" value="${esc(S.name)}">
+          ${t && !S.name.trim() ? `<div data-note="3">${err("צריך שם כדי שנמשיך")}</div>` : ""}</div>
+        <div data-note="4"><label class="wz-lbl" for="f-age">גיל</label><select class="wz-sel" id="f-age"><option value="">בחרו גיל</option>${ages}</select>${t && !S.age ? err("בחרו גיל כדי שנמשיך") : ""}</div>
+        <div><span class="wz-lbl">בן או בת</span><div class="wz-seg"><button type="button" data-g="boy" aria-pressed="${S.gender === "boy"}">בן</button><button type="button" data-g="girl" aria-pressed="${S.gender === "girl"}">בת</button></div>${t && !S.gender ? err("בחרו בן או בת כדי שנמשיך") : ""}</div>
+        <div><span class="wz-lbl">שפת הספר</span><div class="wz-seg">${[["he", "עברית"], ["en", "אנגלית"], ["ar", "ערבית"], ["ru", "רוסית"]].map(([k, l]) => `<button type="button" data-lang="${k}" aria-pressed="${S.lang === k}">${l}</button>`).join("")}</div></div>
+      </div>
+      <div class="st-cta-bar"><button type="button" class="st-cta" id="go-photo" data-note="5">ממשיכים לתמונה</button></div></div>`);
+  },
+  bind(root) {
+    const nameEl = $("#f-name", root);
+    nameEl.addEventListener("input", () => { S.name = nameEl.value; });
+    $("#f-age", root).addEventListener("change", e => { S.age = e.target.value; });
+    $$("[data-g]", root).forEach(b => b.addEventListener("click", () => { S.gender = b.dataset.g; S.version = b.dataset.g; paint(true); }));
+    $$("[data-lang]", root).forEach(b => b.addEventListener("click", () => { S.lang = b.dataset.lang; paint(true); }));
+    $("#go-photo", root).addEventListener("click", () => {
+      S.tried.details = true;
+      if (!S.name.trim()) fire("details", "wizard_error", { step_name: "details", error_code: "name_missing" });
+      if (S.name.trim() && S.age && S.gender) go(4); else { paint(true); if (!S.name.trim()) activate(3); }
+    });
+    fire("details", "wizard_step_viewed", { step_number: 1, step_name: "details", step_total: 4, book_id: "15" });
+  },
+  next: () => (S.name.trim() && S.age && S.gender) ? null : "קודם ממלאים בטלפון שם, גיל ובן או בת (או לוחצים על הכפתור שלו כדי לראות את השגיאות)." },
+photo: { sb: "", hi: "on-dark",
+  render() {
+    const err = S.tried.photo && !S.photo;
+    return iab("lumebook.com", "LumeBook", `<div class="scroll site">${wzTop(2)}
+      <small class="wz-step">שלב 2 מתוך 4 · תמונה</small>
+      <h2 class="wz-h">תמונה אחת של ${esc(nm())}</h2>
+      <p class="wz-sub">ממנה נבנה ספר שלם, עם איור אחר בכל עמוד.</p>
+      <div class="wz-body">
+        <div class="st-card wz-free" data-note="1"><b>מה רואים בחינם</b><span>✓ הכריכה עם השם והתמונה של ${esc(nm())}</span><span>✓ כל הטקסט של הסיפור</span><span class="dim">🔒 את האיורים בפנים מציירים אחרי הרכישה</span></div>
+        <button type="button" class="wz-up ${S.photo ? "done" : ""}" id="pick" data-note="5"><span class="wz-ic">${S.photo ? esc(nm().charAt(0)) : ic("imagePlus")}</span><span>${S.photo ? "✓ התמונה נראית טובה" : "העלו תמונה"}</span></button>
+        ${err ? `<div class="wz-err" style="justify-content:center">${ic("alert")}צריך תמונה כדי שנמשיך</div>` : ""}
+        <ul class="wz-tips" data-note="2"><li class="ok"><b>✓</b>פנים ברורות מול המצלמה</li><li class="ok"><b>✓</b>אור יום</li><li class="no"><b>✕</b>בלי משקפי שמש או כובע</li><li class="no"><b>✕</b>בלי אנשים נוספים</li></ul>
+        <p class="wz-note" data-note="3">${ic("lock")}<span>התמונה משמשת רק ליצירת הספר, ונמחקת עד 60 יום אחרי המסירה</span></p>
+        <p class="wz-fine" data-note="4">אני רשאי/ת להעלות את התמונה ומאשר/ת שימוש בה להפקת הספר · <u>מה עושים עם המידע</u></p>
+      </div>
+      <div class="st-cta-bar"><button type="button" class="st-cta" id="go-phone">ממשיכים</button></div></div>`);
+  },
+  bind(root) {
+    $("#pick", root).addEventListener("click", () => { S.photo = true; fire("photo", "photo_upload_completed", { file_type: "jpeg" }); paint(true); });
+    $("#go-phone", root).addEventListener("click", () => { S.tried.photo = true; if (S.photo) go(5); else paint(true); });
+    fire("photo", "wizard_step_viewed", { step_number: 2, step_name: "photo", step_total: 4 });
+  },
+  next: () => S.photo ? null : "לוחצים על העיגול בטלפון כדי לבחור תמונה (מדומה)." },
+phone: { sb: "", hi: "on-dark",
+  render() {
+    if (S.otp) {
+      const code = "482913";
+      return iab("lumebook.com", "LumeBook", `<div class="scroll site">${wzTop(3)}
+        <small class="wz-step">שלב 3 מתוך 4 · שמירת הספר</small>
+        <h2 class="wz-h">הקוד בדרך</h2><p class="wz-sub" data-note="2">שלחנו קוד בן 6 ספרות בוואטסאפ למספר שהשארתם</p>
+        <div class="wz-body"><div class="otp">${code.split("").map(c => `<span class="${S.verified ? "on" : ""}">${S.verified ? c : ""}</span>`).join("")}</div>
+          <button type="button" class="st-link" id="back-form" style="justify-self:center">תיקון המספר</button>
+          <p class="wz-fine" data-note="4" style="text-align:center">אין סיסמה. הקוד פותח גם את ״הספרים שלי״.</p></div>
+        <div class="st-cta-bar"><button type="button" class="st-cta" id="fill">${S.verified ? "ממשיכים לכריכה" : "מילוי הקוד מההודעה"}</button></div></div>`)
+        + (S.verified ? "" : `<div class="banner" id="banner"><span class="app-ic">${ic("wa")}</span><div><b>לומבוק</b><span>הקוד שלכם ללומבוק: ${code}</span></div><small>עכשיו</small></div>`);
+    }
+    const err = S.tried.phone && (!S.phone.trim() || !S.terms);
+    return iab("lumebook.com", "LumeBook", `<div class="scroll site">${wzTop(3)}
+      <small class="wz-step">שלב 3 מתוך 4 · שמירת הספר</small>
+      <h2 class="wz-h">שומרים לכם את הספר</h2>
+      <p class="wz-sub" data-note="2">השאירו מספר טלפון כדי שנשמור את הספר. הקוד יגיע בוואטסאפ.</p>
+      <div class="wz-body">
+        <div><label class="wz-lbl" for="f-phone">טלפון</label><input class="wz-in" id="f-phone" dir="ltr" inputmode="tel" placeholder="050 000 0000" value="${esc(S.phone)}"></div>
+        <div data-note="3"><label class="wz-lbl" for="f-mail">מייל <small>לא חובה עכשיו, אפשר להוסיף בתשלום</small></label><input class="wz-in" id="f-mail" dir="ltr" type="email" placeholder="name@example.com"></div>
+        <label class="wz-chk"><input type="checkbox" id="f-terms" ${S.terms ? "checked" : ""}><span>אישור לתנאי השימוש ולמדיניות הפרטיות<small>כולל הודעות על הספר שלי</small></span></label>
+        <label class="wz-chk opt" data-note="1"><input type="checkbox" id="f-mkt" ${S.mkt ? "checked" : ""}><span>אשמח לקבל מלומבוק הצעות ועדכונים בוואטסאפ ובמייל<small>לא חובה, אפשר להפסיק בכל רגע</small></span></label>
+        ${err ? `<div class="wz-err">${ic("alert")}${!S.phone.trim() ? "צריך מספר טלפון כדי שנמשיך" : "צריך לאשר את התנאים כדי שנמשיך"}</div>` : ""}
+        <p class="wz-fine" data-note="4">אין סיסמה. הקוד פותח גם את ״הספרים שלי״.</p>
+      </div>
+      <div class="st-cta-bar"><button type="button" class="st-cta" id="send" data-note="5">שלחו לי קוד בוואטסאפ</button></div></div>`);
+  },
+  bind(root) {
+    if (S.otp) {
+      const fill = () => {
+        if (!S.verified) { S.verified = true; fire("phone", "phone_verification_completed", { method: "whatsapp" }); fire("phone", "generate_lead", { lead_source: "wizard", marketing_opt_in: S.mkt }); fire("phone", "Lead", { currency: "ILS", value: 119, external_id: "hash of the verified phone" }, "meta"); paint(true); }
+        else go(6);
+      };
+      $("#fill", root).addEventListener("click", fill);
+      const bn = $("#banner", root); if (bn) bn.addEventListener("click", fill);
+      $("#back-form", root).addEventListener("click", () => { S.otp = false; S.verified = false; paint(true); });
+      return;
+    }
+    $("#f-phone", root).addEventListener("input", e => { S.phone = e.target.value; });
+    $("#f-terms", root).addEventListener("change", e => { S.terms = e.target.checked; });
+    $("#f-mkt", root).addEventListener("change", e => { S.mkt = e.target.checked; });
+    $("#send", root).addEventListener("click", () => { S.tried.phone = true; if (S.phone.trim() && S.terms) S.otp = true; paint(true); });
+    fire("phone", "wizard_step_viewed", { step_number: 3, step_name: "phone", step_total: 4 });
+  },
+  next: () => S.verified ? null : "מקלידים מספר כלשהו, מאשרים את התנאים ולוחצים על ההתראה מוואטסאפ (הכל מדומה)." },
+preview: { sb: "", hi: "on-dark",
+  render() {
+    const s = ship();
+    const radios = Object.keys(SHIP).map(k => `<label class="pv-radio"><input type="radio" name="ship" value="${k}" ${S.ship === k ? "checked" : ""}><span>${SHIP[k].label}<small>${SHIP[k].sub}</small></span><b>${SHIP[k].price ? shekel(SHIP[k].price) : "חינם"}</b></label>`).join("");
+    const likeMsg = S.like === "no" ? `<span class="st-toast">מציירים שוב בסגנון אחר, הניסיון החינמי נשמר</span>` : S.like === "yes" ? `<span class="st-toast">מעולה 💛</span>` : "";
+    return iab("lumebook.com", "LumeBook", `<div class="scroll site">${siteHead()}
+      <div class="st-body">
+        <h2 class="st-h1" data-note="1">הכריכה של ${esc(nm())} מוכנה ✨</h2>
+        <div class="st-cover">${coverHTML(kidVersion(), nm())}</div>
+        <div class="pv-like" data-note="5">דומה ל${esc(nm())}? <button type="button" data-like="yes" aria-pressed="${S.like === "yes"}">כן</button><button type="button" data-like="no" aria-pressed="${S.like === "no"}">לא ממש</button>${likeMsg}</div>
+        <div class="pv-split" data-note="2"><div class="ready"><b>✓ כבר מוכן</b><span>הכריכה</span><span>כל הטקסט של הסיפור</span></div><div class="later"><b>🔒 אחרי הרכישה</b><span>10 איורים בפנים</span><span>תיקון של כל איור</span><span>הקדשה אישית</span></div></div>
+        <div data-note="3"><b class="st-h3" style="display:block;margin-bottom:8px">ככה זה נראה בספרים של לקוחות</b><div class="pv-samples"><div class="ph tall">עמוד מספר\nשל לקוחה\nבאישור</div><div class="ph tall">עמוד מספר\nשל לקוחה\nבאישור</div><div class="ph tall">עמוד מספר\nשל לקוחה\nבאישור</div></div></div>
+        <div data-note="6" style="display:grid;gap:8px"><b class="st-h3">איך הספר מגיע אליכם</b>${radios}</div>
+        <div class="st-card pv-sum"><div class="row"><span>ספר מודפס ועותק דיגיטלי</span><span>${shekel(BOOK)}</span></div><div class="row"><span>${s.label}</span><span>${s.price ? shekel(s.price) : "חינם"}</span></div><div class="row tot"><span>סה״כ</span><span>${shekel(total())}</span></div><span class="st-dim">מגיע עד ${eta()}</span></div>
+        <p class="wz-fine" style="text-align:center">לא דומה? מציירים שוב בחינם עוד לפני התשלום · פגם בהדפסה? מחליפים בלי עלות</p>
+      </div>
+      <div class="st-cta-bar"><button type="button" class="st-cta" id="to-pay">לתשלום · ${shekel(total())}</button></div></div>`);
+  },
+  bind(root) {
+    $$("[data-like]", root).forEach(b => b.addEventListener("click", () => { S.like = b.dataset.like; paint(true); }));
+    $$("input[name=ship]", root).forEach(r => r.addEventListener("change", () => { S.ship = r.value; paint(true); }));
+    $("#to-pay", root).addEventListener("click", () => {
+      fire("preview", "purchase_cta_clicked", { value: total(), currency: "ILS" });
+      fire("preview", "begin_checkout", { currency: "ILS", value: BOOK, shipping: ship().price, shipping_tier: S.ship, items: [{ item_id: "15", price: BOOK }] });
+      fire("preview", "InitiateCheckout", { currency: "ILS", value: total(), num_items: 1 }, "meta");
+      go(7);
+    });
+    fire("preview", "preview_ready", { preview_scope: "cover_only", wait_seconds: 112 });
+  } },
+pay: { sb: "", hi: "on-dark",
+  render() {
+    const s = ship();
+    return iab("secure.cardcom.solutions", "תשלום מאובטח", `<div class="scroll site">
+      <div class="pay-brand"><img src="${LOGO}" alt=""><div><b>לומבוק</b><small>${ic("lock")}תשלום מאובטח דרך קארדקום</small></div></div>
+      <div class="st-body">
+        <div class="st-card pv-sum" data-note="1"><div class="row"><span>ספר אישי · יום ההולדת של ${esc(nm())}</span><span>${shekel(BOOK)}</span></div><div class="row"><span>${s.label}</span><span>${s.price ? shekel(s.price) : "חינם"}</span></div><div class="row tot"><span>סה״כ לתשלום</span><span>${shekel(total())}</span></div><span class="st-dim">מגיע עד ${eta()}</span></div>
+        <div class="pay-w" data-note="2"><button type="button" class="apple" data-pay>Apple Pay</button><button type="button" class="google" data-pay>Google Pay</button><button type="button" class="bit" data-pay>bit</button></div>
+        <div class="pay-or">או בכרטיס אשראי</div>
+        <div class="ph wide" data-note="3">כאן מופיע טופס הכרטיס של קארדקום\nבדמו אין שדות כרטיס</div>
+      </div>
+      <div class="st-cta-bar"><button type="button" class="st-cta" data-pay data-note="4">תשלום ${shekel(total())} (הדגמה)</button><small>הסכום כולל מע״מ ומשלוח</small></div></div>`);
+  },
+  bind(root) {
+    $$("[data-pay]", root).forEach(b => b.addEventListener("click", () => {
+      S.paid = true;
+      fire("pay", "purchase", { transaction_id: "1024", currency: "ILS", value: BOOK, shipping: ship().price, tax: "incl.", items: [{ item_id: "15", item_name: "Birthday", price: BOOK, quantity: 1 }], sent_from: "server, once, after CardCom confirms" });
+      fire("pay", "Purchase", { currency: "ILS", value: total(), event_id: "purchase_1024", sent_from: "browser and server, same event_id" }, "meta");
+      go(8);
+    }));
+  },
+  next: () => S.paid ? null : "לוחצים על אחד מכפתורי התשלום בטלפון כדי להשלים תשלום מדומה." },
+thanks: { sb: "", hi: "on-dark",
+  render() {
+    const other = kidVersion() === "boy" ? IMG.girl : IMG.boy;
+    return iab("lumebook.com", "LumeBook", `<div class="scroll site">${siteHead()}
+      <div class="st-body">
+        <span class="ty-check">${ic("check")}</span>
+        <div class="ty-h" data-note="4"><b>תודה 💛</b><span>הספר של ${esc(nm())} שולם</span><small>מספר הזמנה 1024 · הקבלה במייל</small></div>
+        <ol class="ty-steps" data-note="1">
+          <li class="now"><span class="n">1</span><div><b>עורכים ומאשרים את הספר</b><span>כדי שיגיע עד ${eta()}, מאשרים עוד היום</span><button type="button" class="st-cta" style="min-height:44px;font-size:15px">לעריכה ואישור</button></div></li>
+          <li><span class="n">2</span><div><b>הדפסה</b><span>מתחילה מיד אחרי האישור</span></div></li>
+          <li><span class="n">3</span><div><b>משלוח</b><span>עוקבים בעמוד ההזמנות</span></div></li>
+        </ol>
+        <div class="st-card ty-extra" data-note="2"><img src="${other}" alt=""><div><b>עוד ילד או ילדה בבית? או סבתא שתשמח לעותק?</b><span class="st-dim">כל ספר נוסף ${shekel(EXTRA)} עד מחר בשעה ${hhmm(new Date())}, מצטרף לאותו משלוח</span>
+          ${S.extra ? `<span class="st-toast">✓ נוסף ספר (הדגמה)</span>` : `<button type="button" class="st-btn2" id="extra">מוסיפים ספר</button>`}</div></div>
+        <div class="st-card" data-note="3"><b>שנזכיר לפני יום ההולדת הבא?</b><span class="st-dim">נזכיר שלושה שבועות לפני, מספיק זמן לספר מודפס</span>
+          ${S.reminder ? `<span class="st-toast">✓ התזכורת נשמרה (הדגמה)</span>` : `<div class="ty-row"><input class="wz-in" value="${esc(nm())}" aria-label="שם"><select class="wz-sel" aria-label="יום">${Array.from({ length: 31 }, (_, i) => `<option>${i + 1}</option>`).join("")}</select></div><button type="button" class="st-btn2" id="remind">שמירת תזכורת</button>`}</div>
+        <div class="st-card ty-who" data-note="5"><b>שאלה אחת קטנה: למי הספר?</b>
+          <div class="ty-chips">${FOR_WHOM.map(([k, t]) => `<button type="button" data-who="${k}" aria-pressed="${S.who === k}">${t}</button>`).join("")}</div>
+          ${S.who ? `<span class="st-toast">✓ תודה! (הדגמה)</span>` : ""}</div>
+        <p class="wz-note">${ic("message")}<span>העותק הדיגיטלי של ${esc(nm())} בדרך למייל</span></p>
+      </div></div>`);
+  },
+  bind(root) {
+    $$("[data-who]", root).forEach(b => b.addEventListener("click", () => { S.who = b.dataset.who; fire("thanks", "who_for_answered", { who_for: S.who }); paint(true); }));
+    const ex = $("#extra", root); if (ex) ex.addEventListener("click", () => { S.extra = true; paint(true); });
+    const rm = $("#remind", root); if (rm) rm.addEventListener("click", () => { S.reminder = true; fire("thanks", "reminder_saved", { reminders_count: 1, days_until_next: "not sent: a date" }); paint(true); });
+  } },
+after: { sb: "", hi: "",
+  render() {
+    const referral = waIn(`שמחים שהספר אהוב אצלכם 💛\nאם תרצו לספר עליו לחברים, בתוכנית הממליצים הם מקבלים הנחה ואתם צוברים קרדיט לספרים`, "18:30", { adv: true, stop: true, buttons: [["link", "לתוכנית הממליצים"]] });
+    return waChat(`<div class="wa-sys">ההודעות והשיחות מוצפנות מקצה לקצה</div>
+      <div class="wa-day">מחר</div>
+      ${waIn(`היי, הספר של ${esc(nm())} שולם ומחכה רק לאישור שלכם 📖\nאחרי האישור הוא יוצא להדפסה ומגיע עד ${eta()}`, "09:12", { buttons: [["link", "לעריכה ואישור"]] })}
+      <span class="demo-tag" data-note="1">שירות · תבנית utility · בלי הצעה</span>
+      <div class="wa-day">אחרי האישור</div>
+      ${waIn(`הספר של ${esc(nm())} יצא להדפסה 🖨️\nמגיע עד ${eta()}`, "14:40", { buttons: [["link", "מעקב אחרי ההזמנה"]] })}
+      <span class="demo-tag" data-note="2">שירות · בערך 0.01 דולר להודעה בישראל, עם Twilio</span>
+      <div class="wa-day" data-note="3">יומיים אחרי המסירה</div>
+      ${waIn(`היי, הספר של ${esc(nm())} הגיע?\nאם משהו לא תקין בהדפסה או במשלוח, כתבו לנו כאן ונסדר`, "10:05")}
+      ${S.reply ? waOut(`הגיע! לא מפסיקים לדפדף בו 😍`, "10:21") : `<button type="button" class="wa-reveal" id="reply">להציג את התשובה של ההורה</button>`}
+      ${S.reply ? `<div class="wa-day" data-note="4">שבוע אחרי המסירה</div>
+      ${waIn(`יש לכם דקה לכתוב לנו ביקורת בגוגל?\nזה עוזר להורים אחרים להחליט`, "11:00", { buttons: [["link", "לכתיבת ביקורת"]] })}
+      <span class="demo-tag">שירות · קשור להזמנה הזאת · בלי פרס</span>
+      <div class="wa-day" data-note="5">אחרי תשובה שמחה</div>
+      ${S.mkt ? referral + `<span class="demo-tag mkt">שיווק · בערך 0.04 דולר · נשלח כי היא סימנה את תיבת ההצעות</span>`
+        : `<div class="wa-blocked">${referral}</div><div class="wa-sys"><b>לא נשלח.</b> היא לא סימנה את תיבת ההצעות בשלב 5, אז אין הודעת שיווק. אפשר להחליף בפאנל.</div>`}
+      <div class="wa-sys" data-note="6"><b>תקרות:</b> לכל היותר הודעת שיווק אחת ביום ושתיים בשבוע, לא בלילה ולא בשבת</div>` : ""}`);
+  },
+  bind(root) {
+    const r = $("#reply", root); if (r) r.addEventListener("click", () => { S.reply = true; paint(true); setTimeout(() => { const s = $(".scroll", root); if (s) s.scrollTop = s.scrollHeight; }, 80); });
+    fire("after", "F6", { flow: "F6 approval nudge", category: "utility", holdout: false, sent: true }, "msg");
+    fire("after", "F7", { flow: "F7 shipped", category: "utility", holdout: false, sent: true }, "msg");
+    fire("after", "F8", { flow: "F8 delivered, help first", category: "utility", holdout: false, sent: true }, "msg");
+  } },
+recover: { sb: "", hi: "",
+  render() {
+    const on = S.mkt, wrap = h => on ? h : `<div class="wa-blocked">${h}</div>`;
+    return waChat(`<div class="wa-sys">ההודעות והשיחות מוצפנות מקצה לקצה</div>
+      <div class="wa-day" data-note="1">שעה אחרי שעזבה</div>
+      <div class="wa-ghost">הספר מחכה לך! 🎁</div>
+      <div class="wa-sys"><b>לא נשלח.</b> בשעה הראשונה לא יוצא כלום</div>
+      <div class="wa-day">למחרת</div>
+      ${wrap(waIn(`היי, כאן לומבוק 👋\nהכריכה של ${esc(nm())} מוכנה ושמורה אצלכם, אפשר לחזור אליה מתי שנוח`, "10:30", { adv: true, stop: true, note: 2, buttons: [["link", "לכריכה שלי"]] }))}
+      <div class="wa-day">יום 3</div>
+      ${wrap(waIn(`רצינו להראות לכם איך ספר נראה כשהוא מגיע הביתה 📦\nהכריכה של ${esc(nm())} עדיין שמורה`, "19:15", { adv: true, stop: true, note: 4, buttons: [["video", "לסרטון של לקוחה"], ["link", "לכריכה שלי"]] }))}
+      <div class="wa-day">יום 6 · גרסה לבדיקה</div>
+      ${wrap(waIn(`ציירנו לכם את העמוד הראשון של ${esc(nm())} 🎨\nבחינם וללא התחייבות`, "18:00", { adv: true, stop: true, buttons: [["link", "לעמוד הראשון"]] }))}
+      <span class="demo-tag mkt">בדיקה X3 · עמוד מאויר אחד או קופון אחד, לא שניהם</span>
+      ${on ? "" : `<div class="wa-sys" data-note="3"><b>לא נשלח.</b> אין הסכמה לשיווק, אז אף אחת מהתזכורות לא יוצאת</div>`}
+      <div class="wa-sys" data-note="5"><b>קבוצת ביקורת:</b> 2 מכל 10 הורים זכאים לא מקבלים כלום, בהגרלה</div>
+      <div class="wa-people" aria-label="8 מתוך 10 מקבלים הודעות, 2 לא">${[1, 1, 0, 1, 1, 1, 1, 0, 1, 1].map(x => `<span class="${x ? "" : "out"}">🙂</span>`).join("")}</div>
+      <div class="wa-sys" data-note="6"><b>נחסם עם 131049?</b> נספר בנפרד: היא לא ראתה את ההודעה</div>
+      <div class="wa-sys" data-note="7"><b>לא נשלח.</b> הודעה אחת לכל הרשימה, כמו ״חוזרים ללימודים״</div>`);
+  },
+  bind() {
+    fire("recover", "F3", { flow: "F3 preview left", category: "marketing", holdout_group: "20% at random", first_send: "about 24 h after leaving", requires: "marketing consent" }, "msg");
+  } }
+};
+
+/* ---------- views ---------- */
+const app = $("#app");
+let cur = 0, activeNote = null, showHots = true, view = "intro";
+/* the list of every change opens only after the last step (remembered for this tab) */
+let journeyDone = false;
+try { journeyDone = sessionStorage.getItem("lb-journey-done") === "1"; } catch (e) { /* no storage */ }
+function finish() { journeyDone = true; try { sessionStorage.setItem("lb-journey-done", "1"); } catch (e) { /* no storage */ } }
+
+function stageOf(i) { return STAGES[STEPS[i - 1].stage]; }
+function chapters(i) {
+  const groups = [];
+  STEPS.forEach((s, k) => { let g = groups[groups.length - 1]; if (!g || g.stage !== s.stage) { g = { stage: s.stage, steps: [] }; groups.push(g); } g.steps.push(k + 1); });
+  const end = i === "end";
+  return `<nav class="lb-scroller chapters" style="--item: max-content" aria-label="שלבי המסע">${groups.map(g => {
+    const st = STAGES[g.stage], on = g.steps.includes(i), done = end || g.steps[g.steps.length - 1] < i;
+    return `<div class="chap lb-cat-${st.cat} ${on ? "is-cur" : ""} ${done ? "is-done" : ""}" style="--n:${g.steps.length}"><span class="chap-head" title="${esc(st.label)}"><span class="lb-tile">${ic(STAGE_ICON[g.stage])}</span><span class="chap-l">${esc(st.label)}</span></span>
+      <span class="chap-dots">${g.steps.map(n => `<a href="#step-${n}" class="${n === i ? "cur" : (end || n < i) ? "done" : ""}" title="${esc(STEPS[n - 1].title)}" aria-label="שלב ${n}: ${esc(STEPS[n - 1].title)}"${n === i ? ' aria-current="step"' : ""}>${n}</a>`).join("")}</span></div>`;
+  }).join("")}${end || journeyDone ? `<a class="chap-end ${end ? "cur" : ""}" href="#changes">כל השינויים</a>` : ""}</nav>`;
+}
+
+function renderIntro() {
+  const bars = [["תצוגות מקדימות שנוצרו", 527, 100, ""], ["הגיעו לעמוד התשלום", 202, 38.3, "62% לא מגיעים לתשלום"], ["שילמו", 85, 16.1, "58% מהם לא משלמים"]];
+  $("#tb-chapters").innerHTML = "";
+  app.innerHTML = `<section class="lb-hero has-media">
+    <div class="lb-hero-text">
+      <div class="lb-hero-meta"><span class="lb-chip warning">דמו פנימי · שום דבר כאן לא חי</span></div>
+      <h1>מסע הקנייה</h1>
+      <p class="lb-lede">עשרה מסכים, מהמודעה בפייסבוק ועד הוואטסאפ אחרי הרכישה. ככה האתר נראה אחרי מה שהמחקר מציע: הטלפון מראה את המסך המתוקן, וההערות אומרות מה משתנה, למה ומי עושה את זה.</p>
+      <ul class="how">
+        <li><span class="lb-tile lb-cat-4">${ic("tap")}</span><span><b>לוחצים בטלפון כמו אמא.</b> מקלידים שם, בוחרים משלוח, והבחירות ממשיכות איתה למסכים הבאים.</span></li>
+        <li><span class="lb-tile lb-cat-8">${ic("target")}</span><span><b>המספרים הזהובים פותחים הערה:</b> מה יש היום באתר, מה משנים, למה ואיך נדע שעבד.</span></li>
+        <li><span class="lb-tile lb-cat-5">${ic("chart")}</span><span><b>בכל מסך רואים מה נשלח</b> ל-GA4 ול-Meta, ומה אף פעם לא נשלח.</span></li>
+        <li><span class="lb-tile lb-cat-3">${ic("list")}</span><span><b>בסוף:</b> כל השינויים, מי עושה מה, ומאיפה מתחילים.</span></li>
+      </ul>
+      <div class="lb-row"><a class="lb-btn" href="#step-1">מתחילים</a></div>
+      <div class="intro-stats">
+      ${bars.map(([l, v, p, d]) => `<div class="lb-card lb-stat"><span class="lb-stat-label">${l}</span><span class="lb-stat-value">${v}</span><span class="lb-bar"><i style="width:${p}%"></i></span>${d ? `<span class="lb-stat-foot drop">${d}</span>` : `<span class="lb-stat-foot">30 יום עד 12.10.2026</span>`}</div>`).join("")}
+      </div>
+    </div>
+    <div class="hero-stage"><span class="lb-chip outline">שלב 1 · מודעה בפייסבוק</span>${device("hero")}</div>
+  </section>`;
+  fitDevices();
+  const w = $('[data-device="hero"]');
+  paintScreen(w, "ad", { static: true });
+}
+
+function noteHTML(n, onScreen) {
+  const ev = n.why.map(([t, s, u]) => `<li><span class="etype">${esc(t)}</span><span>${gloss(s)}</span>${srcLink(u)}</li>`).join("");
+  return `<details class="lb-rowitem" id="note-${n.n}" data-n="${n.n}" ${activeNote === n.n ? "open" : ""}>
+    <summary><span class="lb-disc ${onScreen ? "solid" : "quiet"}">${n.n}</span><span class="lb-rowitem-title"><span>${gloss(n.change)}</span><small>${esc(whoText(n))}${onScreen ? "" : " · לא על המסך"}</small></span><span class="lb-rowitem-meta">${chip(n.st)}</span></summary>
+    <div class="lb-rowitem-body"><dl class="lb-kv stack">
+      <dt>היום באתר</dt><dd class="today">${gloss(n.today)}</dd>
+      ${n.how ? `<dt>איך בדיוק</dt><dd><code class="how" dir="ltr">${esc(n.how)}</code></dd>` : ""}
+      <dt>למה</dt><dd><ul class="ev">${ev}</ul></dd>
+      <dt>איך נדע שעבד</dt><dd>${gloss(n.measure)}</dd>
+      <dt>במחקר</dt><dd class="refs">${n.refs.map(r => `<span>${gloss(r)}</span>`).join("")}</dd>
+    </dl></div>
+  </details>`;
+}
+function srcLink(u) {
+  if (!u) return "";
+  return u.startsWith("http") ? `<a href="${esc(u)}" target="_blank" rel="noopener" dir="ltr">${esc(u)}</a>` : `<code dir="ltr">${esc(u)}</code>`;
+}
+
+function renderStep(i) {
+  cur = i;
+  const step = STEPS[i - 1], st = stageOf(i), last = i === STEPS.length;
+  const consent = step.id === "after" || step.id === "recover";
+  $("#tb-chapters").innerHTML = chapters(i);
+  app.innerHTML = `<section class="step lb-cat-${st.cat}">
+    <div class="step-top">
+      ${chapters(i)}
+      <div class="stage-line"><span class="stage-chip"><span class="lb-tile">${ic(STAGE_ICON[step.stage])}</span>${esc(st.label)}</span><span>שלב ${i} מתוך ${STEPS.length}</span></div>
+      <h2>${esc(step.title)}</h2>
+      <p class="scenario">${gloss(step.scenario)}</p>
+      ${consent ? `<label class="consent-card"><span><b>תיבת ההצעות בשלב 5</b><small id="mkt-state">${S.mkt ? "מסומנת: הודעות שיווק יוצאות" : "לא מסומנת: הודעות שיווק לא יוצאות"}</small></span><input type="checkbox" class="lb-switch" id="mkt-switch" ${S.mkt ? "checked" : ""}></label>` : ""}
+    </div>
+    <div class="phone-col">
+      <div class="phone-stage">${device("main")}<p class="tip warn" id="tip" hidden></p></div>
+      <div class="phone-nav"><a class="lb-btn secondary" href="${i === 1 ? "#intro" : "#step-" + (i - 1)}">הקודם</a><span>${i} / ${STEPS.length}</span><a class="lb-btn" id="next" href="${last ? "#changes" : "#step-" + (i + 1)}">${last ? "לכל השינויים" : "השלב הבא"}</a></div>
+    </div>
+    <div class="step-notes">
+      <div class="notes-head"><h3>${step.notes.length} הערות על המסך הזה</h3><label class="switch-label"><input type="checkbox" class="lb-switch" id="hots" ${showHots ? "checked" : ""}> מספרים על הטלפון</label></div>
+      <div class="notes-box"><div class="lb-rowlist" id="notes"></div>
+      <details class="console" open><summary>${ic("chart")}מה המסך הזה שולח<small>GA4, הפיקסל של Meta ויומן ההודעות · ערכי דמו</small></summary>
+        <div class="console-body"><ul class="log" id="log"></ul><p class="never">אף פעם לא נשלח: שם הילד, התמונה, הטלפון, המייל וקישורי התצוגה המקדימה.</p></div></details></div>
+    </div>
+  </section>`;
+  fitDevices();
+  paint(false, true);
+  $("#hots").addEventListener("change", e => { showHots = e.target.checked; $$(".phone-col .device-wrap").forEach(w => w.classList.toggle("no-hots", !showHots)); });
+  const ms = $("#mkt-switch"); if (ms) ms.addEventListener("change", () => { S.mkt = ms.checked; $("#mkt-state").textContent = S.mkt ? "מסומנת: הודעות שיווק יוצאות" : "לא מסומנת: הודעות שיווק לא יוצאות"; paint(true); });
+  $("#next").addEventListener("click", e => {
+    const sc = SCREENS[step.id], msg = sc.next && sc.next();
+    if (msg) { e.preventDefault(); e.stopPropagation(); const t = $("#tip"); t.textContent = msg; t.hidden = false; return; }
+    if (last) finish();
+  });
+}
+
+/* draw one screen into a device; keep = keep the scroll position */
+function paintScreen(wrap, id, opts) {
+  opts = opts || {};
+  const sc = SCREENS[id], screen = $(".screen", wrap), v = $(".view", screen);
+  const old = $(".scroll", v), top = opts.keep && old ? old.scrollTop : 0;
+  $(".sb", screen).className = "sb " + (sc.sb || ""); $(".sb", screen).innerHTML = statusBar();
+  $(".hi", screen).className = "hi " + (sc.hi || "");
+  v.innerHTML = sc.render();
+  if (opts.enter) { v.classList.remove("enter"); void v.offsetWidth; v.classList.add("enter"); }
+  const markers = new Set();
+  if (!opts.static) {
+    $$("[data-note]", v).forEach(el => {
+      const n = +el.dataset.note; markers.add(n);
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "hot"; b.textContent = n; b.setAttribute("aria-label", "פתיחת הערה " + n);
+      b.addEventListener("click", ev => { ev.preventDefault(); ev.stopPropagation(); activate(n, true); });
+      el.appendChild(b);
+    });
+    $$("[data-go]", v).forEach(b => b.addEventListener("click", () => go(+b.dataset.go)));
+    sc.bind && sc.bind(v);
+  } else {
+    $$("button, input, select", v).forEach(el => { el.tabIndex = -1; });
+    wrap.style.pointerEvents = "none";
+  }
+  const sv = $(".scroll", v); if (sv) sv.scrollTop = top;
+  return markers;
+}
+
+function paint(keep, enter) {
+  const step = STEPS[cur - 1], wrap = $('.phone-col .device-wrap');
+  wrap.classList.toggle("no-hots", !showHots);
+  const markers = paintScreen(wrap, step.id, { keep, enter });
+  $("#notes").innerHTML = step.notes.map(n => noteHTML(n, markers.has(n.n))).join("");
+  $$("#notes .lb-rowitem").forEach(d => {
+    const n = +d.dataset.n;
+    d.addEventListener("toggle", () => { if (d.open) { activeNote = n; lightUp(n, true); } });
+    d.addEventListener("mouseenter", () => lightUp(n, false));
+    d.addEventListener("mouseleave", () => lightUp(null, false));
+  });
+  if (activeNote) lightUp(activeNote, false);
+  renderConsole();
+}
+
+function lightUp(n, scroll) {
+  const wrap = $('.phone-col .device-wrap'); if (!wrap) return;
+  $$("[data-note]", wrap).forEach(el => el.classList.toggle("is-lit", +el.dataset.note === n));
+  $$(".hot", wrap).forEach(h => h.classList.toggle("is-active", +h.textContent === activeNote));
+  $$("#notes .lb-rowitem").forEach(d => d.classList.toggle("is-active", +d.dataset.n === activeNote));
+  if (scroll && n) {
+    const el = $(`[data-note="${n}"]`, wrap), sv = $(".scroll", wrap);
+    if (el && sv && sv.contains(el)) { let y = 0, x = el; while (x && x !== sv) { y += x.offsetTop; x = x.offsetParent; } sv.scrollTop = Math.max(0, y - 140); }
+  }
+}
+
+function activate(n, fromPhone) {
+  activeNote = n;
+  const d = $("#note-" + n); if (!d) return;
+  d.open = true;
+  lightUp(n, !fromPhone);
+  if (fromPhone) d.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
+}
+
+function renderConsole() {
+  const log = $("#log"); if (!log || !cur) return;
+  const step = STEPS[cur - 1];
+  const rows = S.log.filter(e => e.step === step.id);
+  const SRCL = { ga4: "GA4", meta: "Meta", msg: "WhatsApp" };
+  log.innerHTML = rows.length ? rows.map(e => `<li class="${e.kind}"><span class="src">${SRCL[e.kind]}</span><span><b>${esc(e.name)}</b> ${esc(JSON.stringify(e.params))}</span></li>`).join("")
+    : `<li class="empty">עוד אין כאן כלום. נסו את הטלפון.</li>`;
+}
+
+function go(i) { show("step-" + i); }
+
+function renderChanges() {
+  const all = [];
+  STEPS.forEach((s, k) => s.notes.forEach(n => { if (n.st !== "context") all.push({ ...n, step: k + 1, sid: s.id, stage: s.stage, stitle: s.title }); }));
+  const count = st => all.filter(n => n.st === st).length;
+  $("#tb-chapters").innerHTML = chapters("end");
+  app.innerHTML = `${chapters("end")}
+  <section class="changes" style="margin-top:var(--sp-5)">
+    <div class="lb-hero"><div class="lb-hero-meta"><span class="lb-chip success">סיימתם את המסע</span></div><h1>כל השינויים במסע</h1>
+      <p class="lb-lede">${all.length} פריטים ב-${STEPS.length} מסכים: מה לתקן, מה לבדוק, מה מחכה להחלטה ומה כבר עובד. כל קבוצה פותחת את המסך שלה. הרשימה לעבודה, עם סימונים, נמצאת ב<a href="cro-crm-strategy.html">עמוד האסטרטגיה</a>.</p></div>
+    <div class="tally">${["fix", "test", "decide", "legal", "keep"].map(st => `<div class="lb-card lb-stat"><span class="lb-stat-value">${count(st)}</span>${chip(st)}</div>`).join("")}</div>
+    <div class="lb-card is-accent first5"><div><b>מתחילים מחמשת אלה</b><ol>${DATA.first5.map(([t, w, s], k) => `<li><a href="#step-${s}"><span class="lb-disc sm">${k + 1}</span><span>${esc(t)}<small>${esc(w)} · לראות בטלפון</small></span></a></li>`).join("")}</ol>
+      <span class="lb-note">ועוד תיקון קטן ליוסי לפני הכל: הכריכה בדף הספר עולה מיד (שלב 2, הערה 1).</span></div><img class="mascot" src="${MASCOT}" alt=""></div>
+    <div class="filters">
+      <div class="lb-row"><span class="lbl">להציג</span><div class="lb-filters" role="group" aria-label="סינון לפי סוג">${[["all", "הכל"], ["fix", "לתקן"], ["test", "לבדוק"], ["decide", "החלטה"], ["legal", "עורך דין"], ["keep", "להשאיר"]].map(([k, l]) => `<button type="button" data-f="${k}" aria-pressed="${k === "all"}">${l}</button>`).join("")}</div></div>
+      <div class="lb-row"><span class="lbl">מי</span><div class="lb-filters" role="group" aria-label="סינון לפי מי עושה">${[["all", "כולם"], ["me", "אני"], ["yossi", "יוסי"], ["lawyer", "עורך דין"]].map(([k, l]) => `<button type="button" data-o="${k}" aria-pressed="${k === "all"}">${l}</button>`).join("")}</div></div>
+    </div>
+    <div id="clist" class="lb-stack" style="gap:var(--sp-4)"></div>
+    <details class="gloss lb-card"><summary>מילון מונחים</summary><dl class="lb-kv stack">${DATA.gloss.map(([t, d]) => `<dt>${gloss(t)}</dt><dd>${gloss(d)}</dd>`).join("")}</dl></details>
+    <div class="lb-row"><a class="lb-btn secondary" href="#step-1">לעבור שוב על המסע</a><a class="lb-btn ghost" href="#intro">חזרה להתחלה</a></div>
+    <p class="lb-note">דמו פנימי שנבנה מ-<code dir="ltr">${SRC}/src/journey-demo.template.html</code> ומ-<code dir="ltr">${SRC}/src/journey-demo.json</code>. המקורות לכל הערה: <code dir="ltr">${SRC}/sources.md</code>. הטקסט במסכים הוא הצעה ולא קופי מאושר. הכריכות מ-lumebook.com, ומסגרת האייפון מהמוקאפ ששלחתי.</p>
+  </section>`;
+  let f = "all", o = "all";
+  const paintList = () => {
+    const rows = all.filter(n => (f === "all" || n.st === f) && (o === "all" || n.who.includes(o)));
+    const groups = {}; rows.forEach(n => { (groups[n.step] = groups[n.step] || []).push(n); });
+    $("#clist").innerHTML = Object.keys(groups).length ? Object.keys(groups).map(k => {
+      const s = STEPS[k - 1], st = STAGES[s.stage];
+      return `<section class="lb-topic lb-cat-${st.cat}"><header class="lb-topic-head"><span class="lb-tile lg">${ic(STAGE_ICON[s.stage])}</span><div class="lb-topic-text"><h3 class="lb-topic-title">${k} · ${esc(s.title)}</h3></div><a href="#step-${k}">לפתוח את המסך</a></header><div class="lb-rowlist">${groups[k].map(n => `
+        <details class="lb-rowitem"><summary><span class="lb-disc solid">${n.n}</span>
+          <span class="lb-rowitem-title"><span>${gloss(n.change)}</span><small>${esc(whoText(n))}</small></span>
+          <span class="lb-rowitem-meta">${chip(n.st)}</span></summary>
+          <div class="lb-rowitem-body"><dl class="lb-kv stack"><dt>היום באתר</dt><dd class="today">${gloss(n.today)}</dd>
+            ${n.how ? `<dt>איך בדיוק</dt><dd><code class="how" dir="ltr">${esc(n.how)}</code></dd>` : ""}
+            <dt>איך נדע שעבד</dt><dd class="today">${gloss(n.measure)}</dd></dl>
+            <a href="#step-${n.step}">לראות בטלפון, הערה ${n.n}</a></div></details>`).join("")}</div></section>`;
+    }).join("") : `<p class="lb-note">אין פריטים שמתאימים לסינון.</p>`;
+  };
+  $$("[data-f]").forEach(b => b.addEventListener("click", () => { f = b.dataset.f; $$("[data-f]").forEach(x => x.setAttribute("aria-pressed", x === b)); paintList(); }));
+  $$("[data-o]").forEach(b => b.addEventListener("click", () => { o = b.dataset.o; $$("[data-o]").forEach(x => x.setAttribute("aria-pressed", x === b)); paintList(); }));
+  paintList();
+}
+
+/* Views switch inside the page, never by navigating: the desktop app's file preview loads this page as a data: URL,
+   where following any link (even "#step-1") is blocked. The address bar is only updated when the page is served over http. */
+function show(v) {
+  activeNote = null;
+  const m = /^step-(\d+)$/.exec(v);
+  if (m && +m[1] >= 1 && +m[1] <= STEPS.length) { view = v; setFit(); renderStep(+m[1]); }
+  else if (v === "changes" && journeyDone) { view = v; cur = 0; setFit(); renderChanges(); }
+  else { view = "intro"; cur = 0; setFit(); renderIntro(); }
+  if (/^https?:$/.test(location.protocol)) { try { history.replaceState(null, "", "#" + view); } catch (e) { /* not available */ } }
+  progress();
+  window.scrollTo(0, 0);
+}
+/* the bar under the top bar: 0 on the intro, one tenth per step, full on the list of changes, in the stage's colour */
+function progress() {
+  const n = view === "changes" ? STEPS.length : cur, bar = $("#progress");
+  bar.style.setProperty("--p", (n / STEPS.length * 100) + "%");
+  bar.style.setProperty("--pc", cur ? `var(--cat-${stageOf(cur).cat})` : view === "changes" ? "var(--success)" : "var(--tint)");
+  bar.setAttribute("aria-valuenow", n);
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a) return;
+  e.preventDefault();
+  show(a.getAttribute("href").slice(1));
+});
+addEventListener("hashchange", () => { const h = location.hash.replace("#", ""); if (h && h !== view) show(h); });
+let start = "";
+try { start = location.hash.replace("#", ""); } catch (e) { /* no hash */ }
+show(start);
+})();
+</script>
+</body>
+</html>

@@ -149,6 +149,15 @@ def card(r, d, web=False):
         rows.append((f"טקסט על המסך, טרנד {r['clip_seconds']:g} שניות", f'<ol class="vo">{lis}</ol>'))
     if r.get("cards"):
         rows.append(("כרטיסיות על המסך", '<ol class="vo">' + "".join(ed("li", ek(k, "cards", i), e(x)) for i, x in enumerate(r["cards"])) + "</ol>"))
+    if r.get("vo") and r["status"] != "posted":
+        # the five trial versions (Yarin, 10 Nov 2026: "after i press create reel it gives me 5 different versions with different
+        # hook"): version 1 has the reel's hook, 2 to 5 these; empty slots are written by Claude when the reel is made
+        th = (r.get("trial_hooks") or []) + [""] * 4
+        lis = f'<li class="fixed" title="גרסה 1, ההוק הראשי"><span data-hook-of="{ek(k, "hook")}">{e(r["hook"].replace(chr(10), " "))}</span></li>'
+        lis += "".join(ed("li", ek(k, "trialhooks", i), e(h).replace("\n", "<br>"), "", ' data-ph="Claude יכתוב כשתלחץ ליצור את הריל"')
+                       for i, h in enumerate(th[:4]))
+        rows.append(("הוקים לגרסאות הניסיון", f'<ol class="thooks" translate="no">{lis}</ol>'
+                     '<p class="thooks-note">ליצור את הריל נותן גם 5 גרסאות לניסיון: הוק אחר בכל אחת, זום קטן ואורך קצת שונה</p>'))
     cap = reels.caption_of(r, d)
     rows.append(("כיתוב לאינסטגרם",
                  f'<div class="cap">{ed("div", ek(k, "caption"), e(cap), "capbox lb-textblock", f" id=cap-{k}")}'
@@ -189,7 +198,7 @@ def card(r, d, web=False):
 </article>"""
 
 
-ROW_ICON = {"צילום": "eye", "כרטיסיות על המסך": "layers", "השיא על המסך": "sparkle"}
+ROW_ICON = {"צילום": "eye", "כרטיסיות על המסך": "layers", "השיא על המסך": "sparkle", "הוקים לגרסאות הניסיון": "stack"}
 
 
 def opt_bar(r, d):
@@ -238,7 +247,7 @@ def script_table(r, d):
     sees = r.get("sees", [])
     lines = [(ed("div", ek(k, "vo", i), e(x)), ed("div", ek(k, "sees", i), e(sees[i] if i < len(sees) else ""), "sees-ed"), len(x.split()), "")
              for i, x in enumerate(r["vo"])]
-    if r["status"] != "posted":
+    if r["status"] != "posted" and not reels.own_cta(r):   # Yarin's own closing words in a talking take replace the fixed line
         lines.append((f'<div>{e(s["cta_voice"])}</div>', f'<div>{e(s["cta_sees"])}</div>', len(s["cta_voice"].split()), ' class="fixed" title="קבוע לכל הרילס"'))
     t, trs = 0.0, []
     for i, (say, see, w, cls) in enumerate(lines):
@@ -1139,25 +1148,33 @@ SCRIPT = r"""
     paintFinal(reel); paintMake(reel);
   }
   function paintFinal(reel) {
-    var s = mkSec(reel), box = s && $(".make-final", s), fin = ((mkFiles[reel.id] || {}).finals) || []; if (!box) return;
-    if (!fin.length) { box.hidden = true; box.innerHTML = ""; box.dataset.src = ""; return; }
-    var pick = fin.filter(function (f) { return f.path === mkSel[reel.id]; })[0] || fin[0], key = pick.url + "|" + pick.mtime + "|" + fin.length;
+    /* the plain reel (final/) and, since 10 Nov 2026, the five trial versions of the last make (trial/: each with its own hook,
+       zoom and length, for trial reels): one player, a chip per file, the trial chips in their own row with the hook as title */
+    var s = mkSec(reel), box = s && $(".make-final", s), b = mkFiles[reel.id] || {}, fin = b.finals || [], tri = b.trials || []; if (!box) return;
+    var all = fin.concat(tri);
+    if (!all.length) { box.hidden = true; box.innerHTML = ""; box.dataset.src = ""; return; }
+    var pick = all.filter(function (f) { return f.path === mkSel[reel.id]; })[0] || fin[0] || tri[0];
+    var key = pick.url + "|" + pick.mtime + "|" + fin.length + "|" + tri.map(function (f) { return f.mtime; }).join(",");
     box.hidden = false;
     if (box.dataset.src === key) return;   // the same file: leave the player alone (it may be playing)
     box.dataset.src = key;
-    var vers = fin.length > 1 ? '<div class="make-vers">' + fin.map(function (f) {
-      return '<button type="button" class="lb-chip" data-ver="' + esc(f.path) + '" aria-pressed="' + (f === pick) + '">' + esc(f.name.replace(/\.mp4$/i, "")) + '</button>'; }).join("") + '</div>' : "";
-    box.innerHTML = '<video controls playsinline preload="metadata" src="' + esc(pick.url) + '"></video><div class="make-final-info"><b>הריל המוכן</b>' +
+    var chip = function (f, label, title) {
+      return '<button type="button" class="lb-chip" data-ver="' + esc(f.path) + '" aria-pressed="' + (f === pick) + '"' + (title ? ' title="' + esc(title) + '"' : "") + '>' + esc(label) + '</button>'; };
+    var vers = fin.length > 1 || tri.length ? '<div class="make-vers">' + fin.map(function (f) { return chip(f, f.name.replace(/\.mp4$/i, "")); }).join("") + '</div>' : "";
+    var trs = tri.length ? '<div class="make-trials"><span class="make-trials-t">' + (tri.length === 1 ? "גרסת ניסיון אחת" : tri.length + " גרסאות לניסיון") + '</span><div class="make-vers">' + tri.map(function (f) {
+      return chip(f, "גרסה " + f.n + (f.seconds ? ", " + Number(f.seconds).toFixed(1) + " ש׳" : ""), String(f.hook || "").replace(/\s*\n\s*/g, " ")); }).join("") + '</div></div>' : "";
+    var hook = pick.n ? '<span class="make-hook" dir="rtl" translate="no">' + esc(String(pick.hook || "").replace(/\s*\n\s*/g, " ")) + '</span>' : "";
+    box.innerHTML = '<video controls playsinline preload="metadata" src="' + esc(pick.url) + '"></video><div class="make-final-info"><b>' + (pick.n ? "גרסת ניסיון " + pick.n : "הריל המוכן") + '</b>' + hook +
       '<span class="n">' + esc(pick.name) + ', ' + mkWhen(pick.mtime) + ', ' + mkSize(pick.size) + '</span><div class="make-final-acts">' +
       '<a class="lb-btn secondary sm" href="' + esc(pick.url) + '" download="' + esc(pick.name) + '">' + (ICO.download || "") + '<span>הורדה</span></a>' +
-      '<a class="lb-btn secondary sm" href="' + esc(pick.url) + '" target="_blank" rel="noopener">' + (ICO.open || "") + '<span>פתיחה בלשונית</span></a></div>' + vers + '</div>';
+      '<a class="lb-btn secondary sm" href="' + esc(pick.url) + '" target="_blank" rel="noopener">' + (ICO.open || "") + '<span>פתיחה בלשונית</span></a></div>' + vers + trs + '</div>';
   }
   function mkMsg(s, html, err) { var m = $(".make-msg", s); if (m.innerHTML !== html) m.innerHTML = html; m.classList.toggle("is-error", !!err); }
   function paintMake(reel) {
     var s = mkSec(reel); if (!s || MK !== "server") return;
     var j = jobFor(reel.id), go = $(".make-go", s), ta = $("textarea", s), b = mkFiles[reel.id] || { files: [], finals: [] }, ups = mkUp[reel.id] || {};
-    var nUp = Object.keys(ups).filter(function (k) { return ups[k].up; }).length, nf = b.files.length, nr = b.finals.length;
-    $(".make-sum", s).textContent = nf || nr ? (nf ? nf + (nf === 1 ? " קובץ" : " קבצים") : "") + (nf && nr ? ", " : "") + (nr ? nr + (nr === 1 ? " ריל מוכן" : " רילס מוכנים") : "") : "";
+    var nUp = Object.keys(ups).filter(function (k) { return ups[k].up; }).length, nf = b.files.length, nr = b.finals.length, nt = (b.trials || []).length;
+    $(".make-sum", s).textContent = nf || nr ? (nf ? nf + (nf === 1 ? " קובץ" : " קבצים") : "") + (nf && nr ? ", " : "") + (nr ? nr + (nr === 1 ? " ריל מוכן" : " רילס מוכנים") : "") + (nt ? ", " + (nt === 1 ? "גרסת ניסיון אחת" : nt + " גרסאות לניסיון") : "") : "";
     var note = nUp ? esc("מעלה " + (nUp === 1 ? "קובץ אחד" : nUp + " קבצים") + "...") : b.project ? "<bdi>" + esc(b.project.split("/").pop()) + "</bdi>" : "";
     if ($(".make-note", s).innerHTML !== note) $(".make-note", s).innerHTML = note;   // bdi: the folder name keeps its order inside the Hebrew bar
     if (j && j.kind === "make") {
@@ -1218,10 +1235,11 @@ SCRIPT = r"""
   }
   function removeFile(reel, path) {
     fetch("/api/reel-files/remove?reel=" + encodeURIComponent(reel.id) + "&f=" + encodeURIComponent(path), { method: "POST", headers: HEADJ })
-      .then(function (r) { if (!r.ok) throw new Error("remove"); })
-      .then(function () {
+      .then(function (r) { if (!r.ok) throw new Error("remove"); return r.json().catch(function () { return {}; }); })
+      .then(function (x) {
         var b = mkFiles[reel.id]; if (b) b.files = b.files.filter(function (f) { return f.path !== path; });
-        mkNote[reel.id] = { text: "הקובץ עבר ל _to-delete, אפשר להחזיר אותו משם." }; paintFiles(reel);
+        /* a shared file (cover, B-roll) is only linked into the reel: the link goes, the file stays (10 Nov 2026) */
+        mkNote[reel.id] = { text: x && x.moved === null ? "הקובץ הוסר מהריל. זה קובץ משותף, אז הוא עצמו נשאר במקומו." : "הקובץ עבר ל _to-delete, אפשר להחזיר אותו משם." }; paintFiles(reel);
       }, function () { mkNote[reel.id] = { text: "לא הצלחתי להסיר את הקובץ.", err: true }; paintMake(reel); });
   }
   function makeGo(reel) {
@@ -1499,6 +1517,12 @@ body::before {{ content: ""; position: fixed; inset: 0 0 auto; height: env(safe-
 .vo {{ margin: 0; padding-inline-start: 1.4rem; display: grid; gap: 3px; }}
 .vo li::marker {{ color: var(--text-3); font-family: var(--font-2); font-size: var(--fs-footnote); }}
 .vo li.fixed {{ color: var(--text-3); }}
+/* the trial versions' hooks (10 Nov 2026): version 1 is the reel's hook, then four editable slots */
+.thooks {{ margin: 0; padding-inline-start: 1.4rem; display: grid; gap: 3px; }}
+.thooks li::marker {{ color: var(--text-3); font-family: var(--font-2); font-size: var(--fs-footnote); }}
+.thooks li.fixed {{ color: var(--text-3); }}
+.thooks li.lb-editable:empty::before {{ content: attr(data-ph); color: var(--text-3); }}
+.thooks-note {{ margin: var(--sp-1) 0 0; color: var(--text-3); font-family: var(--font-2); font-size: var(--fs-footnote); }}
 .capwin {{ padding: var(--sp-3) var(--sp-4) var(--sp-4); display: grid; gap: var(--sp-2); }}
 .lb-dialog .capwin {{ -webkit-backdrop-filter: none; backdrop-filter: none; }}
 .cap {{ display: grid; gap: var(--sp-2); justify-items: start; }}
@@ -1529,6 +1553,9 @@ body::before {{ content: ""; position: fixed; inset: 0 0 auto; height: env(safe-
 .make-final-info {{ display: grid; gap: 6px; align-content: start; min-width: 0; }}
 .make-final-info b {{ font-size: var(--fs-callout); }}
 .make-final-info .n {{ font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); unicode-bidi: plaintext; text-align: start; overflow-wrap: anywhere; }}
+.make-hook {{ font-size: var(--fs-callout); font-weight: 600; color: var(--text); line-height: 1.35; }}
+.make-trials {{ display: grid; gap: 4px; }}
+.make-trials-t {{ font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }}
 .make-final-info p {{ margin: 0; font-size: var(--fs-footnote); color: var(--text-2); line-height: 1.5; }}
 .make-final-acts {{ display: flex; flex-wrap: wrap; gap: 6px; }}
 .make-final-acts svg {{ width: .95rem; height: .95rem; }}

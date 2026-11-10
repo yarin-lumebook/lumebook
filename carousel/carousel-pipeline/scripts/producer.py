@@ -367,6 +367,12 @@ def _compose(key, run_dir):
 
 def _work(key, item, action, note=None):
     try:
+        if item["kind"] == "test":   # the test batch (test_batch.py, 10 Nov 2026): pressing produce is the permission for its budget
+            import test_batch
+            _update(key, status="preparing", error=None, warning=None)
+            run_dir = test_batch.produce(item["id"], update=lambda **f: _update(key, **f), sh=_sh)
+            _update(key, status="done", done_at=now_iso(), run_dir=rel(run_dir), spent_usd=spent(run_dir), **outputs(run_dir))
+            return
         if item["kind"] == "reco":
             _update(key, status="exporting", error=None)
             run_dir = export_reco(item["date"], item["id"])
@@ -425,8 +431,9 @@ _checked = {}  # pack path -> (mtime_ns, pack, issues): one validation per pack 
 
 def blocking_errors(item):
     """The ERRORs that stop producing one kid or expert option (validate_pack.option_errors), as {slide, path, message}.
-    Games and books carousels are an export of finished slides and are never blocked."""
-    if item.get("kind") == "reco":
+    Games and books carousels are an export of finished slides and are never blocked; test batch carousels show their
+    own checks in the page (test_batch.lint)."""
+    if item.get("kind") in ("reco", "test"):
         return []
     import validate_pack
     path = lib.DRAFTS / item["date"] / "pack.json"
@@ -448,7 +455,7 @@ def blocking_errors(item):
 
 
 def _item_fields(item):
-    return {k: item[k] for k in ("date", "kind", "id", "format", "topic_he", "cover", "batch", "child_name", "skill_he") if item.get(k)}
+    return {k: item[k] for k in ("date", "kind", "id", "format", "topic_he", "cover", "batch", "child_name", "skill_he", "post_time") if item.get(k)}
 
 
 def start(item):

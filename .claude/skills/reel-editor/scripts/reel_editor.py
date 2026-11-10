@@ -213,23 +213,32 @@ def caption_cards(words, per_card):
 
 # ---------- trial variation ----------
 
+MAX_HOLD = 0.6   # seconds a longer version holds its last frame (the closing card stays a little longer)
+
+
 def trial_params(n, seed, flip_ok, length):
-    """Seeded and spread out: about half flipped (never all the same way), zooms and cuts evenly spread then
-    shuffled, so no two versions share a zoom or a length."""
+    """Seeded and spread out: about half flipped (never all the same way), zooms and lengths evenly spread then
+    shuffled, so no two versions share a zoom or a length. Length (Yarin, 10 Nov 2026: "make them a tiny bit shorter
+    or longer randomly"): about half the versions lose 0.15 s up to 0.8 s (at most 6% of the clip), the others gain
+    0.15 s up to 0.6 s by holding the last frame, never all the same way. Before 10 Nov every version was shorter."""
     rng = random.Random(seed)
     flips = [i % 2 == 0 for i in range(n)] if flip_ok else [False] * n
     if n == 1 and flip_ok: flips = [rng.random() < 0.5]
     rng.shuffle(flips)
     zooms = [1.02 + 0.06 * (i + 0.5) / n + rng.uniform(-0.02, 0.02) / n for i in range(n)]
-    max_cut = min(0.8, length * 0.06)
-    cuts = [0.15 + (max_cut - 0.15) * (i + 0.5) / n + rng.uniform(-0.1, 0.1) * (max_cut - 0.15) / n for i in range(n)]
-    rng.shuffle(zooms); rng.shuffle(cuts)
+    max_cut = max(0.2, min(0.8, length * 0.06))
+    n_short = n // 2 + (1 if n % 2 and rng.random() < 0.5 else 0) if n > 1 else int(rng.random() < 0.5)
+    n_long = n - n_short
+    spread = lambda lo, hi, k: [lo + (hi - lo) * (i + 0.5) / k + rng.uniform(-0.1, 0.1) * (hi - lo) / k for i in range(k)]
+    deltas = [-c for c in spread(0.15, max_cut, n_short)] + spread(0.15, MAX_HOLD, n_long)   # < 0 shorter, > 0 longer
+    rng.shuffle(zooms); rng.shuffle(deltas)
     out = []
     for i in range(n):
-        start = round(min(0.12, cuts[i] * rng.uniform(0.0, 0.4)), 2)   # keep the opening frame nearly intact
+        cut, hold = max(0.0, -deltas[i]), max(0.0, deltas[i])
+        start = round(min(0.12, cut * rng.uniform(0.0, 0.4)), 2)   # keep the opening frame nearly intact
         out.append(dict(flip=flips[i], zoom=round(zooms[i], 3),
                         anchor_x=round(rng.uniform(0.25, 0.75), 2), anchor_y=round(rng.uniform(0.3, 0.7), 2),
-                        trim_start=start, trim_end=round(cuts[i] - start, 2)))
+                        trim_start=start, trim_end=round(cut - start, 2), hold_end=round(hold, 2)))
     return out
 
 # ---------- commands ----------
@@ -271,15 +280,16 @@ def build(cfg_path, trial):
     for i in range(n):
         p = dict(params[i]); hook = hooks[i % len(hooks)]
         s = p.get("trim_start", 0.0); e = dur - p.get("trim_end", 0.0); length = round(e - s, 3)
-        cta_start = length - cta.get("seconds", 2.5) if cta else length
-        hook_end = cfg.get("hook_seconds", length)   # hook only for the first N seconds, then no top text until the CTA
+        hold = p.get("hold_end", 0.0); total = round(length + hold, 3)   # a longer trial version holds its last frame
+        cta_start = length - cta.get("seconds", 2.5) if cta else total
+        hook_end = cfg.get("hook_seconds", total)   # hook only for the first N seconds, then no top text until the CTA
         cards = [dict(c, s=c["s"] - s, e=min(c["e"] - s, length))
                  for c in caption_cards(words, cfg.get("words_per_card", 1)) if c["e"] - s > 0 and c["s"] - s < length]
         # top cards (a number per point, a key word): timed top text between the hook and the CTA (Yarin, 05 Nov 2026)
         tops = [dict(t, s=max(t["s"] - s, 0.0), e=min(t["e"] - s, length)) for t in cfg.get("top_cards", []) if t["e"] - s > 0 and t["s"] - s < length]
-        cuts = sorted({0.0, length, max(cta_start, 0.0), min(hook_end, length)} | {max(c["s"], 0.0) for c in cards} | {c["e"] for c in cards}
+        cuts = sorted({0.0, total, max(cta_start, 0.0), min(hook_end, total)} | {max(c["s"], 0.0) for c in cards} | {c["e"] for c in cards}
                       | {t["s"] for t in tops} | {t["e"] for t in tops})
-        cuts = [t for t in cuts if 0 <= t <= length]
+        cuts = [t for t in cuts if 0 <= t <= total]
         tmp = work / f"cards-{name}-{i + 1}"; tmp.mkdir(exist_ok=True)
         segs, cache, layout = [], {}, {}
         for a, b in zip(cuts, cuts[1:]):
@@ -310,29 +320,31 @@ def build(cfg_path, trial):
 
         v = (f"[0:v]trim=start={s}:end={e},setpts=PTS-STARTPTS,"
              f"scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},")
+        if hold: v += f"tpad=stop_mode=clone:stop_duration={hold:.3f},"
         if p.get("flip"): v += "hflip,"
         if p.get("zoom"):
             cw, ch = int(W / p["zoom"]) // 2 * 2, int(H / p["zoom"]) // 2 * 2
             v += f"crop={cw}:{ch}:{int((W - cw) * p['anchor_x'])}:{int((H - ch) * p['anchor_y'])},scale={W}:{H}:flags=lanczos,"
         v += f"setsar=1,fps={fps}[p];[1:v]fps={fps},format=rgba[t];[p][t]overlay=0:0:format=auto:eof_action=repeat,format=yuv420p[v]"
         maps, extra_in = ["-map", "[v]"], []
-        fade = f"afade=t=out:st={max(length - 0.25, 0):.2f}:d=0.25"
-        if sound:   # reference or given sound, levelled to -14 LUFS like audio/mux.sh of 25 Oct
+        fade = f"afade=t=out:st={max(total - 0.25, 0):.2f}:d=0.25"
+        if sound:   # reference or given sound, levelled to -14 LUFS like audio/mux.sh of 25 Oct (a held end keeps it playing, or silence)
             extra_in = ["-ss", f"{sound_off:.3f}", "-i", str(sound)]
-            v += (f";[2:a]aresample=48000,apad,atrim=start={s}:end={e},asetpts=PTS-STARTPTS,"
+            v += (f";[2:a]aresample=48000,apad,atrim=start={s}:end={e + hold:.3f},asetpts=PTS-STARTPTS,"
                   f"loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000,afade=t=in:st=0:d=0.05,{fade}[a]")
         elif sound_note == "source":
-            v += f";[0:a]atrim=start={s}:end={e},asetpts=PTS-STARTPTS,{fade}[a]"
+            v += f";[0:a]atrim=start={s}:end={e},asetpts=PTS-STARTPTS,apad=whole_dur={total:.3f},{fade}[a]"
         if sound or sound_note == "source":
             maps += ["-map", "[a]", "-c:a", "aac", "-b:a", "192k"]
         out = out_dir / (f"{name}-trial-{i + 1}.mp4" if trial else f"{name}-{i + 1}.mp4")
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), "-f", "concat", "-safe", "0", "-i", str(lst),
-                        *extra_in, "-filter_complex", v, *maps, "-t", f"{length:.3f}", "-c:v", "libx264", "-crf", "17",
+                        *extra_in, "-filter_complex", v, *maps, "-t", f"{total:.3f}", "-c:v", "libx264", "-crf", "17",
                         "-preset", "medium", "-r", str(fps), "-map_metadata", "-1", "-movflags", "+faststart", str(out)],
                        check=True)
         real = probe(out)["duration"]
         record[str(i + 1)] = dict(file=out.name, hook=hook, length_s=round(real, 2), captions=len(cards), layout=layout, **p)
-        print(out.name, f"{real:.2f}s", "flip" if p.get("flip") else "", p.get("zoom", ""), f"{len(cards)} caption cards")
+        change = (f"+{hold:.2f}s" if hold else f"-{p.get('trim_start', 0) + p.get('trim_end', 0):.2f}s") if trial else ""
+        print(out.name, f"{real:.2f}s", change, "flip" if p.get("flip") else "", p.get("zoom", ""), f"{len(cards)} caption cards")
 
     json.dump(dict(source=str(src), trial=trial, sound=sound_note, sound_offset=sound_off, versions=record), open(out_dir / f"{name}-versions.json", "w"),
               ensure_ascii=False, indent=1)

@@ -766,8 +766,10 @@ class SampleJobs:
             status, body = run_sample_stream(prompt, stop.is_set, heard)
             result = build_reel(make, body.get("text", ""), stop.is_set, step, lambda pid: self._set(jid, pid=pid)) if status == 200 else (status, body)
         status, body = result
-        fin = os.path.join(make["folder"], "final")
-        made = sorted(f for f in os.listdir(fin) if f.lower().endswith(".mp4") and os.path.getmtime(os.path.join(fin, f)) >= t0) if os.path.isdir(fin) else []
+        made = []
+        for sub in ("final", "trial"):   # the plain reel and its five trial versions (10 Nov 2026)
+            fin = os.path.join(make["folder"], sub)
+            made += sorted(f"{sub}/{f}" for f in os.listdir(fin) if f.lower().endswith(".mp4") and os.path.getmtime(os.path.join(fin, f)) >= t0) if os.path.isdir(fin) else []
         if status == 200:
             self._set(jid, status="done", text=body["text"], checks=body.get("checks", []), made=made, ended=now(), pid=None)
         else:
@@ -986,6 +988,7 @@ def reel_plan_prompt(r, folder, files, script, ask):
     def many(v):
         return [one(x, 400) for x in (v if isinstance(v, list) else []) if one(x)][:40]
     vo = many(script.get("vo")) or many(r.get("vo"))
+    trial = many(script.get("trialhooks")) or many(r.get("trial_hooks"))
     rows = []
     for f in files:
         i = media_info(os.path.join(folder, f["path"]))
@@ -1000,7 +1003,9 @@ def reel_plan_prompt(r, folder, files, script, ask):
          "The reel",
          f"- voice: {r.get('voice')} (yarin = his own voiceover), talks to {'grandmothers' if r.get('audience') == 'grandma' else 'parents'}",
          f"- hook (top text of the first seconds): {one(script.get('hook')) or one(r.get('hook'))}",
-         "- voiceover lines, numbered from 0 as \"at\" counts them (the recipe adds the closing line \"" + one(d.get("cta_voice")) + "\", cued as \"cta\"):"]
+         ("- voiceover lines, numbered from 0 as \"at\" counts them (the last line, Yarin's own לומי line, is cued as \"cta\"):"
+          if any("לומי" in str(x) for x in (script.get("vo") or r.get("vo") or [])[-2:]) else
+          "- voiceover lines, numbered from 0 as \"at\" counts them (the recipe adds the closing line \"" + one(d.get("cta_voice")) + "\", cued as \"cta\"):")]
     L += [f"  {i}. {x}" for i, x in enumerate(vo)] or ["  (none)"]
     sees = many(script.get("sees")) or many(r.get("sees"))
     if sees:
@@ -1023,6 +1028,14 @@ def reel_plan_prompt(r, folder, files, script, ask):
           "clip in the middle; 3) the last segment before the \"cta\" cue shows the payoff (below, if the card names one) and it stays until "
           "the end; 4) no file that is stock footage or a film clip; 5) cut only where a script line or cue word starts, never to add pace.",
           f"- the payoff of this reel: {one(script.get('payoff')) or one(r.get('payoff')) or '(not named)'}",
+          "",
+          "Trial versions (Yarin, 10 Nov 2026: after the plain reel the recipe makes 5 trial reel versions, each with a different top "
+          "hook, its own small zoom and a little shorter or longer, so Instagram does not see the same file five times): version 1 "
+          "has the reel's hook. " + (("The reel already has the other four (Yarin's, keep them): " + " | ".join(one(h, 80) for h in trial)
+          + ". Leave \"trial_hooks\" out.") if trial else
+          "Write the other four in \"trial_hooks\" inside edit: Hebrew for parents (or grandmothers when the reel talks to them), "
+          "each a different angle on what the take says in its first seconds, at most 34 characters, one line break (\\n) "
+          "between two short lines, no dash, hyphen, maqaf or semicolon, no price, no AI, no English."),
           "",
           "Return only JSON, no other text:",
           "{\"edit\": {the edit.json object} or null, \"summary\": \"one or two short Hebrew sentences for Yarin, without dashes: which file "
@@ -1065,7 +1078,11 @@ def clean_edit(e, paths, images):
     if ov is not None:
         if not isinstance(ov, dict) or ov.get("img") not in images or not num(ov.get("y", 1230), 0, 1920):
             return None, "hook_overlay is not one of the dropped pictures"
-        out["hook_overlay"] = {"img": ov["img"], "y": ov.get("y", 1230)}
+        out["hook_overlay"] = {"img": ov["img"], "y": ov.get("y", 1270)}
+        if ov.get("w") is not None:
+            if not num(ov["w"], 120, 1080):
+                return None, "hook_overlay w is out of range"
+            out["hook_overlay"]["w"] = ov["w"]
         if ov.get("from") is not None:
             if not num(ov["from"], 0, 10):
                 return None, "hook_overlay from is out of range"
@@ -1101,11 +1118,47 @@ def clean_edit(e, paths, images):
             if not isinstance(c, dict) or not cue(c.get("at")) or not isinstance(c.get("text"), str) or not 0 < len(c["text"]) <= 24:
                 return None, f"top card {c!r} is not a cue and a short text"
             t = {"at": c["at"], "text": c["text"]}
+            if c.get("until") is not None:
+                if not cue(c["until"]):
+                    return None, f"top card until {c['until']!r} is not a cue"
+                t["until"] = c["until"]
             if c.get("size") is not None:
                 if not num(c["size"], 20, 300):
                     return None, f"top card size {c['size']!r} is out of range"
                 t["size"] = c["size"]
             out["top_cards"].append(t)
+    ins = e.get("inserts")
+    if ins is not None:   # pictures over a one-take reel (reel_make.py take_inserts, 10 Nov 2026)
+        if not isinstance(ins, list) or len(ins) > 30:
+            return None, "inserts is not a list"
+        out["inserts"] = []
+        for s in ins:
+            if not isinstance(s, dict) or not cue(s.get("at")) or s.get("src") not in paths:
+                return None, f"insert {s!r} has a wrong cue or a file that was not dropped"
+            c = {"at": s["at"], "src": s["src"], "ss": s.get("ss", 0)}
+            if not num(c["ss"], 0, 7200):
+                return None, f"insert start {c['ss']!r} is out of range"
+            u = s.get("until")
+            if u is not None:
+                if not (cue(u) or (isinstance(u, float) and 0.2 <= u <= 30)):
+                    return None, f"insert until {u!r} is not a cue or seconds"
+                c["until"] = u
+            if s.get("window") is not None:
+                c["window"] = bool(s["window"])
+            if s.get("speed") is not None:
+                if not num(s["speed"], 0.25, 4):
+                    return None, f"insert speed {s['speed']!r} is out of range"
+                c["speed"] = s["speed"]
+            if s.get("crop") is not None:
+                if not isinstance(s["crop"], str) or not re.fullmatch(r"\d{1,5}:\d{1,5}:\d{1,5}:\d{1,5}", s["crop"]):
+                    return None, f"insert crop {s['crop']!r} is not w:h:x:y"
+                c["crop"] = s["crop"]
+            out["inserts"].append(c)
+    th = e.get("trial_hooks")
+    if th is not None:   # the top hooks of trial versions 2 to 5; a hook the reel editor would refuse is dropped here
+        bad = re.compile(r"[\-\u2010-\u2015\u05be;]|לומיבוק|\bAI\b|בינה מלאכותית")
+        out["trial_hooks"] = [h.strip() for h in (th if isinstance(th, list) else [])
+                              if isinstance(h, str) and 0 < len(h.strip()) <= 60 and h.count("\n") <= 1 and not bad.search(h)][:4]
     if not out.get("take") and not (out.get("hook_clip") and out.get("voice")):
         return None, "the plan needs one talking take, or a hook clip and a voice take"
     return out, ""
@@ -1208,6 +1261,11 @@ def build_reel(make, answer, stopped, step, on_pid):
                     step("מרכיב את הקטעים")
                 elif s.startswith("length"):
                     step("שורף כותרת, כתוביות וכרטיס סיום")
+                elif s.startswith("trial:") and "versions" in s:
+                    step("מכין 5 גרסאות לניסיון: הוק אחר, זום קטן ואורך קצת שונה בכל אחת")
+                elif re.match(r"reel-[\d-]+-trial-\d+\.mp4", s):
+                    n = re.match(r"reel-[\d-]+-trial-(\d+)", s).group(1)
+                    step(f"גרסת ניסיון {n} מתוך 5 מוכנה")
         reader = threading.Thread(target=read, daemon=True)
         reader.start()
         t0 = time.time()
@@ -1384,10 +1442,17 @@ def serve(port):
 
     def reel_path(folder, rel):
         """The file rel (source/... or final/...) inside a reel's folder, or None when it points anywhere else."""
-        if not folder or not isinstance(rel, str) or not rel.startswith(("source/", "final/")) or "\x00" in rel:
+        if not folder or not isinstance(rel, str) or not rel.startswith(("source/", "final/", "trial/")) or "\x00" in rel:
             return None
         full, base = os.path.realpath(os.path.join(folder, rel)), os.path.realpath(folder)
-        return full if full.startswith(base + os.sep) else None
+        if full.startswith(base + os.sep):
+            return full
+        # a link in the reel's folder to a file kept once elsewhere in media/ (one copy per file, 10 Nov 2026: shared B-roll, covers)
+        here = os.path.normpath(os.path.join(os.path.abspath(folder), rel))
+        media = os.path.realpath(p("media"))
+        if here.startswith(os.path.abspath(folder) + os.sep) and os.path.islink(here) and full.startswith(media + os.sep):
+            return full
+        return None
 
     def reel_entry(key, folder, rel):
         st = os.stat(os.path.join(folder, rel))
@@ -1395,7 +1460,7 @@ def serve(port):
                 "url": "/api/reel-files/raw?reel=" + key + "&f=" + urllib.parse.quote(rel)}
 
     def reel_listing(key, folder):
-        out = {"reel": key, "project": None, "files": [], "finals": []}
+        out = {"reel": key, "project": None, "files": [], "finals": [], "trials": []}
         if not folder:
             return out
         out["project"] = os.path.basename(folder) if reel_media_test else os.path.relpath(folder, ROOT)
@@ -1410,6 +1475,24 @@ def serve(port):
         if os.path.isdir(fin):
             out["finals"] = sorted((reel_entry(key, folder, "final/" + f) for f in os.listdir(fin)
                                     if f.lower().endswith(".mp4") and not f.startswith(".")), key=lambda e: -e["mtime"])
+        tri = os.path.join(folder, "trial")   # the five trial versions of the last make (10 Nov 2026), with each one's hook
+        if os.path.isdir(tri):
+            info = {}
+            for vf in os.listdir(tri):
+                if vf.endswith("-versions.json"):
+                    try:
+                        with open(os.path.join(tri, vf), encoding="utf-8") as fh:
+                            info.update({v.get("file"): v for v in (json.load(fh).get("versions") or {}).values()})
+                    except (OSError, ValueError, AttributeError):
+                        pass
+            for f in os.listdir(tri):
+                m = re.search(r"-trial-(\d+)\.mp4$", f)
+                if m and not f.startswith("."):
+                    e = reel_entry(key, folder, "trial/" + f)
+                    v = info.get(f) or {}
+                    e.update(n=int(m.group(1)), hook=v.get("hook", ""), seconds=v.get("length_s"))
+                    out["trials"].append(e)
+            out["trials"].sort(key=lambda e: e["n"])
         return out
     doc_path = re.compile(r"^(?:(outreach|settings|voice)/([\w.\-]{1,120})|log/([\w.\-]{1,120})/events/([\w.\-]{1,60}))$")
 
@@ -1431,7 +1514,7 @@ def serve(port):
     hs_port = 8777
     hs_prefix = ("/api/ping", "/api/state", "/api/productions", "/api/production/", "/api/save", "/api/grade",
                  "/api/produce-send", "/api/push-grades", "/api/sync", "/drafts/", "/approved/", "/assets/fonts/",
-                 "/pool/", "/grade/", "/productions", "/packs")
+                 "/pool/", "/grade/", "/productions", "/packs", "/test-batch/", "/api/postiz-preview")   # test batch: 10 Nov 2026
 
     class H(http.server.SimpleHTTPRequestHandler):
         def end_headers(self):
@@ -1517,6 +1600,12 @@ def serve(port):
                 full = reel_path(folder, rel) if r else None
                 if not full or not rel.startswith("source/") or not os.path.isfile(full):
                     return self._json(404, {"error": "not found", "code": "gone"})
+                link = os.path.normpath(os.path.join(os.path.abspath(folder), rel))
+                if os.path.islink(link):   # a link to a shared file: only the link goes, the file it points to stays where it is
+                    with reel_lock:
+                        os.unlink(link)
+                    log({"type": "reel-file-removed", "reel": key, "path": rel, "link": True})
+                    return self._json(200, {"ok": True, "moved": None})
                 top = reel_media_test or ROOT
                 where = os.path.relpath(full, top)
                 dest = os.path.join(top, "_to-delete", where)
@@ -1555,8 +1644,10 @@ def serve(port):
             def same(a, b):
                 return " ".join(str(a or "").split()) == " ".join(str(b or "").split())
             page_vo = [x for x in (script.get("vo") or []) if isinstance(x, str)]
+            page_th = [" ".join(x.split()) for x in (script.get("trialhooks") or []) if isinstance(x, str) and x.strip()]
             differs = (script.get("hook") is not None and not same(script.get("hook"), r.get("hook"))) or \
-                      (bool(page_vo) and [" ".join(x.split()) for x in page_vo] != [" ".join(str(x).split()) for x in r.get("vo", [])])
+                      (bool(page_vo) and [" ".join(x.split()) for x in page_vo] != [" ".join(str(x).split()) for x in r.get("vo", [])]) or \
+                      (bool(page_th) and page_th != [" ".join(str(x).split()) for x in r.get("trial_hooks", [])])
             make = {"folder": folder, "rid": r["id"], "merge": bool(differs and not reel_media_test), "test": bool(reel_media_test),
                     "paths": {f["path"] for f in files}, "images": {f["path"] for f in files if f["kind"] == "image"}}
             prompt = reel_plan_prompt(r, folder, files, script, ask)

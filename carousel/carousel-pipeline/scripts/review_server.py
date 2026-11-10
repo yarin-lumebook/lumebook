@@ -51,6 +51,7 @@ import create_review  # noqa: E402
 import grades  # noqa: E402
 import producer  # noqa: E402
 import studio  # noqa: E402
+import test_batch  # noqa: E402
 import validate_pack  # noqa: E402
 
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -323,11 +324,11 @@ class Handler(SimpleHTTPRequestHandler):
                 return
             query = dict(part.split("=", 1) for part in self.path.partition("?")[2].split("&") if "=" in part)
             wanted = query.get("batch", "")
-            return self.send_html(studio.app_page(wanted if DATE_RE.match(wanted) and batch.load(wanted) else None))
+            return self.send_html(studio.app_page(wanted if wanted_batch(wanted) else None))
         if route == "/api/state":
             query = dict(part.split("=", 1) for part in self.path.partition("?")[2].split("&") if "=" in part)
             wanted = query.get("batch", "")
-            return self.send_json(studio.state(wanted if DATE_RE.match(wanted) and batch.load(wanted) else None))
+            return self.send_json(studio.state(wanted if wanted_batch(wanted) else None))
         if route == "/api/postiz-preview":
             import postiz_export
             from urllib.parse import parse_qs
@@ -346,6 +347,9 @@ class Handler(SimpleHTTPRequestHandler):
             return
         # production outputs: the picture to approve, the exported slides, contact sheet and ZIP (read only)
         if route.startswith("/approved/") and ".." not in route and route.rsplit(".", 1)[-1].lower() in ("png", "jpg", "zip", "txt", "md", "json", "html"):
+            return super().do_GET()
+        # the test batch (test_batch.py, 10 Nov 2026): its draft slides and productions, read only
+        if route.startswith("/test-batch/") and ".." not in route and route.rsplit(".", 1)[-1].lower() in ("png", "jpg", "zip", "txt", "md", "json"):
             return super().do_GET()
         # drafts for the review pages, assets/fonts for the pillar typefaces; nothing else in the pipeline folder is served
         if not self.path.startswith(("/drafts/", "/assets/fonts/", "/assets/brand/")) or ".." in self.path:
@@ -416,6 +420,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self.send_json({"error": "same-origin requests only"}, 403)
         if self.path == "/api/save-reco":
             return self.save_reco()
+        if self.path == "/api/save-test":
+            return self.save_test()
         if self.path in ("/api/grade", "/api/produce-send"):
             return self.grade_api()
         if self.path.startswith("/api/production/"):
@@ -457,14 +463,37 @@ def _save_reco(self):
 Handler.save_reco = _save_reco
 
 
+def wanted_batch(wanted):
+    """A batch id the page may open: a monthly or weekly plan, or the test batch (test_batch.ID)."""
+    return wanted == test_batch.ID or bool(DATE_RE.match(wanted) and batch.load(wanted))
+
+
+def _save_test(self):
+    """Edits to a test batch carousel (test_batch.save): back up, apply, log the voice edits, lint, re-render the slides."""
+    payload = self.read_payload()
+    if not isinstance(payload, dict):
+        return self.send_json({"error": "bad request"}, 400)
+    key = str(payload.get("key", "")).split("/", 1)[-1]
+    if not test_batch.KEY_RE.match(key) or not test_batch.car_path(key).exists():
+        return self.send_json({"error": "unknown test carousel"}, 400)
+    result = test_batch.save(key, payload.get("edits", []))
+    print(f"saved test {key}: {result.get('changed', 0)} fields" if "error" not in result else f"save refused: {result['error']}", flush=True)
+    self.send_json(result, 200 if "error" not in result else 400)
+
+
+Handler.save_test = _save_test
+
+
 def _grade_api(self):
     """The grading page (grade_page.py): save one carousel's grade, or send the picked ones to produce-queue.json."""
     payload = self.read_payload()
-    plan = batch.load(payload.get("batch", "")) if isinstance(payload, dict) and DATE_RE.match(str(payload.get("batch", ""))) else None
+    test = isinstance(payload, dict) and payload.get("batch") == test_batch.ID
+    plan = {"id": test_batch.ID} if test else (batch.load(payload.get("batch", "")) if isinstance(payload, dict) and DATE_RE.match(str(payload.get("batch", ""))) else None)
     if not plan:
         return self.send_json({"error": "unknown batch"}, 400)
+    all_items = test_batch.items() if test else grades.items(plan)
     if self.path == "/api/produce-send":
-        its = {i["key"]: i for i in grades.items(plan)}
+        its = {i["key"]: i for i in all_items}
         started, blocked = [], []
         for k in grades.pick_unsent(plan["id"]):
             if k not in its or producer.get(k):   # one with a production already (re-export is its own button)
@@ -480,7 +509,7 @@ def _grade_api(self):
             print(f"production blocked: {b['key']} ({len(b['errors'])} errors)", flush=True)
         stored = {k: v for k, v in grades.load()["grades"].items() if k in its}
         return self.send_json({"started": started, "blocked": blocked, "grades": stored})
-    item = next((i for i in grades.items(plan) if i["key"] == payload.get("key")), None)
+    item = next((i for i in all_items if i["key"] == payload.get("key")), None)
     if not item:
         return self.send_json({"error": "unknown carousel"}, 400)
     score = payload.get("score")
@@ -512,7 +541,10 @@ def set_image_action(item, text):
 
 
 def _item_for_key(key):
-    """The batch item (grades.items) behind a production key such as 2026-10-19/kid-2."""
+    """The batch item (grades.items) behind a production key such as 2026-10-19/kid-2, or a test batch key
+    (test-2026-11/2026-11-12-a, test_batch.py)."""
+    if str(key).startswith(test_batch.ID + "/"):
+        return test_batch.item(key)
     date = str(key).split("/")[0]
     plan = batch.plan_for_date(date)[0] if DATE_RE.match(date) else None
     return next((i for i in grades.items(plan) if i["key"] == key), None) if plan else None

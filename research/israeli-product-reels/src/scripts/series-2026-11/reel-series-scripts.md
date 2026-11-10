@@ -16,14 +16,13 @@
 - סטטוס: פורסם
 - קהל: הורים
 - חומר: Yarin hook clip / Sapir's raw clips (son holding the cover, flipping the book) / Claude's wizard screen recording / Sapir's preview screen recordings
-- קריינות (בערך 58 מילים):
+- קריינות (בערך 49 מילים):
   - אז גם אתם רוצים ספר עם הילד שלכם בתור הגיבור, אבל מפחדים שלא יצא דומה? (רואים: אתה למצלמה, הכותרת למעלה)
   - אז ככה זה עובד. (רואים: הבן של ספיר מחזיק את הכריכה)
   - כותבים שם, גיל, ומעלים את התמונה שלו. (רואים: הקלטת האשף: שם, גיל, העלאת תמונה)
   - רואים תצוגה מקדימה. (רואים: התצוגה המקדימה בטלפון)
   - אם זה לא זה, אפשר ליצור עוד גרסה עד שמרוצים. (רואים: כפתור גרסה נוספת, וגרסה חדשה עולה)
   - אהבתם? תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר. (רואים: כרטיס "לומי" סגול)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
 - כיתוב לאינסטגרם:
   > מפחדים שהספר לא ייראה כמו הילד שלכם? 👀
   > לפני שמזמינים, רואים תצוגה מקדימה עם התמונה שלו.
@@ -34,25 +33,30 @@
 ## 1.2 כמה זמן לוקח להכין ספר ליום הולדת?
 
 - סדרה 1: לפני שמזמינים
-- תאריך: ראשון 08 / 11 / 2026, 21:30
-- אורך משוער: 21.7 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- תאריך: שבת 21 / 11 / 2026, 21:30
+- אפשרות ב, נבחרה (באותו יום: 5.1)
+- אורך משוער: 26.6 שניות
+- סטטוס: חסום
 - קהל: הורים, עמוד בחנות: books/15
 - מבנה: טיימר רץ, ואז המספר
 - השיא על המסך: הטיימר עוצר, והזמן האמיתי בגדול על המסך, ונשאר שם עד לומי
 - צילום: הקלטת מסך אחת של כל ההזמנה עם טיימר בפינה. אני מקליט עד שלב הטלפון, ואתה מקליט את שלב הטלפון ואת התצוגה המקדימה בטלפון שלך. מדווחים את הזמן האמיתי.
-- חומר: Claude: wizard screen recording with a timer, name to photo / Yarin: phone step and preview, screen recorded on his phone
-- ירין מצלם: קטע פתיחה למצלמה, קריינות, הקלטת מסך של שלב הטלפון והתצוגה המקדימה
-- קריינות (בערך 58 מילים):
-  - אז כמה זמן לוקח להכין ספר ליום הולדת? (רואים: אתה למצלמה, הספר המודפס ביד אחת והטלפון עם הטיימר על אפס בשנייה, הכותרת למעלה)
-  - שאלו אותי את זה בתגובות, אז הפעלתי טיימר. (רואים: האשף נפתח, טיימר בפינה מתחיל לרוץ)
-  - תראו, שם, גיל, בן או בת. (רואים: מקלידים שם, גיל, בוחרים בן או בת)
-  - סיפור יומולדת, תמונה אחת, ו... (רואים: גלריית הסיפורים, לוחצים על יום הולדת, ומעלים תמונה)
-  - תראו איזה דומה יצא (רואים: שלב הטלפון אצלך, ואז דפדוף בתצוגה המקדימה)
-  - ושום דבר לא מודפס עד שמאשרים. (רואים: אתה עם הספר המודפס, בחוץ)
-  - עצרתי. תראו את הזמן. (רואים: הטיימר עוצר, זום על הזמן)
-  - בתכלס, הכי הרבה זמן לקח לי לבחור סיפור. (רואים: הזמן שעצר נשאר על המסך, והספר המודפס לידו)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- חומר: Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-38CD4F42.mov) / Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)
+- קריינות (בערך 76 מילים):
+  - אז כמה זמן לוקח להכין ספר ליום הולדת? (רואים: אתה למצלמה, כריכת יום ההולדת מתחתיך, הכותרת למעלה)
+  - שאלו אותי את זה בתגובות, אז הפעלתי טיימר. (רואים: אתה למצלמה)
+  - תראו, שם, גיל, בן או בת, סיפור יום הולדת, תמונה אחת ו... (רואים: הקלטת המסך של האשף בחלון: שם, גיל, סיפור, תמונה)
+  - תראו איזה דומה יצא, (רואים: התצוגה המקדימה בחלון, דפדוף באיורים)
+  - ושום דבר לא מודפס עד שמאשרים. (רואים: אתה למצלמה)
+  - אוקיי, עצרתי. תראו כמה זמן לקח. (רואים: אתה למצלמה (אין עדיין טיימר על המסך))
+  - בתכלס, הכי הרבה זמן לקח לי לבחור את הסיפור עצמו מרוב האפשרויות. (רואים: אתה למצלמה)
+  - גם אתם רוצים ספר מותאם אישית בשביל הילד שלכם, במיוחד ליום הולדת? (רואים: אתה למצלמה)
+  - כתבו לומי בתגובות ואשלח לכם קישור ליצירת הספר. (רואים: אתה למצלמה, הכרטיס של לומי)
+- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):
+  - הפעלתי טיימר על ספר ליום הולדת
+  - כמה זמן לוקח להכין ספר כזה?
+  - ספר ליום הולדת כמה זמן זה לקח לי?
+  - שם, גיל, תמונה וזהו?
 - כיתוב לאינסטגרם:
   > כמה זמן לוקח להכין ספר ליום הולדת? ⏱️
   > שאלו אותי בתגובות, אז הפעלתי טיימר ובדקתי.
@@ -60,13 +64,14 @@
   > ושום דבר לא נדפס עד שמאשרים.
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
   > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
-- הערה: Phone step added (04 Nov), as found while recording 1.1. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). Say only if true: שאלו אותי את זה בתגובות (only if someone asked; otherwise open with הפעלתי טיימר, בואו נבדוק); בתכלס, הכי הרבה זמן לקח לי לבחור סיפור (only if it did); Say the real time from the timer if you want it said, not only shown. 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): the approval line moved before the timer stops, so the stopped time is the payoff and stays on screen to the end.
+- לבדוק: No timer on screen yet: the take says תראו כמה זמן לקח, but there is no recording of the timer. Screen-record one order with a timer (or tell Claude the real time to show) before posting.
+- הערה: Phone step added (04 Nov), as found while recording 1.1. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). Say only if true: שאלו אותי את זה בתגובות (only if someone asked; otherwise open with הפעלתי טיימר, בואו נבדוק); בתכלס, הכי הרבה זמן לקח לי לבחור סיפור (only if it did); Say the real time from the timer if you want it said, not only shown. 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): the approval line moved before the timer stops, so the stopped time is the payoff and stays on screen to the end. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 38CD4F42); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 
 ## 1.3 יומולדת בעוד שבוע. הספר יגיע בזמן?
 
 - סדרה 1: לפני שמזמינים
 - תאריך: שבת 14 / 11 / 2026, 21:30
-- אפשרות ב (באותו יום: 8.2)
+- אפשרות ב, לא נבחרה (באותו יום: 8.2)
 - אורך משוער: 17.8 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/15
@@ -95,40 +100,43 @@
 
 - סדרה 1: לפני שמזמינים
 - תאריך: שלישי 10 / 11 / 2026, 21:30
-- אפשרות א (באותו יום: 4.1)
+- אפשרות א, נבחרה (באותו יום: 4.1)
 - אורך משוער: 21 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- סטטוס: מוכן לפרסום
 - קהל: סבתות, עמוד בחנות: gifts/grandchild
 - מבנה: שלושה דברים, נאמרים למצלמה (גרסה א בניסוי 1)
 - השיא על המסך: עמוד ההקדשה, ובשורה האחרונה חוזרים אליו עד לומי
 - צילום: צילום מלמעלה על משטח בהיר, תווית לכל חלק בשליש העליון: כריכה, השם בטקסט, תמונות בפנים, עמוד הקדשה, משלוח.
-- חומר: Yarin: top-down of the printed book, 6 short shots / fallback: Sapir's flipping clip
-- ירין מצלם: קטע פתיחה למצלמה, קריינות, הספר המודפס מלמעלה
+- חומר: Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-2996C10E.mov) / Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)
 - קריינות (בערך 56 מילים):
-  - סבתא, שלושה דברים שהנכד שלך מקבל אצלנו. בואי תראי. (רואים: מלמעלה: הקופסה נפתחת והספר יוצא, הכותרת למעלה)
-  - דבר ראשון, הכריכה. תסתכלי מי עליה. (רואים: הכריכה מקרוב, תווית "1 כריכה")
-  - דבר שני, בפנים. השם שלו בתוך הסיפור. (רואים: עמוד פנימי, תווית "2 השם בסיפור")
-  - דבר שלישי, עמוד הקדשה שאת כותבת לו ביד. (רואים: עמוד ההקדשה, תווית "3 הקדשה")
-  - והכל מגיע עד הבית. (רואים: הספר חוזר לקופסת המשלוח, תווית "משלוח")
-  - ולפני הכל, רואים את כל הספר בתצוגה מקדימה. (רואים: התצוגה המקדימה בטלפון)
-  - ורק אז מחליטים אם לשלוח. (רואים: חזרה לספר הפתוח על עמוד ההקדשה)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+  - סבתא, הנה שלושה דברים שהנכד שלך מקבל אצלנו. (רואים: אתה למצלמה, כריכת חברים צבעוניים מתחתיך, הכותרת למעלה)
+  - דבר ראשון, הכריכה. תסתכלי מי עליה. (רואים: כריכה (חברים צבעוניים), 1 גדול)
+  - דבר שני, בפנים, השם שלו בתוך הסיפור. (רואים: התצוגה המקדימה בחלון: עמוד טקסט עם השם של הילד בתוך הסיפור, 2 גדול)
+  - ודבר שלישי, עמוד הקדשה שאת כותבת לו בעצמך. (רואים: התצוגה המקדימה בחלון: עמוד ההקדשה, 3 גדול)
+  - והכל מגיע עד הבית, (רואים: אתה למצלמה)
+  - ולפני הכל רואים את כל הספר בתצוגה מקדימה, (רואים: התצוגה המקדימה בחלון, דפדוף באיורים)
+  - ורק אז מחליטים אם לשלוח. (רואים: אתה למצלמה)
+  - אהבת? תכתבי לי לומי בתגובות ואשלח לך קישור ליצירת הספר. (רואים: אתה למצלמה, הכרטיס של לומי)
+- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):
+  - סבתא, מה הנכד מקבל בספר הזה?
+  - כריכה, השם שלו והקדשה ממך
+  - סבתא, הנכד על הכריכה ואת בהקדשה
+  - שלושה דברים שהנכד שלך יקבל
 - כיתוב לאינסטגרם:
   > סבתא, שלושה דברים שהנכד מקבל אצלנו 📖
   > הכריכה? הנכד או הנכדה עליה.
-  > בפנים? השם שלהם בתוך הסיפור, ועמוד הקדשה שאת כותבת ביד.
+  > בפנים? השם שלהם בתוך הסיפור, ועמוד הקדשה שאת כותבת בעצמך.
   > הכל מגיע עד הבית, ולפני הכל רואים את כל הספר בתצוגה מקדימה.
   > מתנה לנכד מסבתא וסבא, ספר ילדים מותאם אישית
   > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק
-  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- לבדוק: Needs a printed LumeBook book in hand.
-- הערה: 05 Nov evening: the price reel now talks to grandmothers (largest buying group in Yarin's Meta screenshot of 05 Nov).  09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): kept as version A of test 1 (Yarin naming the facts; version B is brief 1, a grandmother opening the book), so only the last picture changed: back to the dedication page. Your line 6 was split in two at the period (the voice lint allows 12 words a line); same words. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: סבתא, זה מה שהנכד / מקבל אצלנו. Your first spoken line already said "שלושה דברים"; the hook now says it too (it also clears the H6 warning).
+  > תכתבי לי "לומי" בתגובות ואשלח לך קישור ליצירת הספר 📚
+- הערה: 05 Nov evening: the price reel now talks to grandmothers (largest buying group in Yarin's Meta screenshot of 05 Nov).  09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): kept as version A of test 1 (Yarin naming the facts; version B is brief 1, a grandmother opening the book), so only the last picture changed: back to the dedication page. Your line 6 was split in two at the period (the voice lint allows 12 words a line); same words. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: סבתא, זה מה שהנכד / מקבל אצלנו. Your first spoken line already said "שלושה דברים"; the hook now says it too (it also clears the H6 warning). 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 2996C10E); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 
 ## 1.5 סבתא, ומה אם לא תאהבי את הספר?
 
 - סדרה 1: לפני שמזמינים
 - תאריך: שישי 13 / 11 / 2026, 21:30
-- אפשרות ב (באותו יום: 2.7)
+- אפשרות ב, לא נבחרה (באותו יום: 2.7)
 - אורך משוער: 19.2 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: gifts/grandchild
@@ -154,66 +162,75 @@
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - הערה: 05 Nov evening: now to grandmothers, who often start without the photo and the site (the grandchild page says the photo can come from the parents on WhatsApp). The 'not sent and not printed until you approve' line is the site's own wording (seen 03 Nov). 07 Nov 2026: made a spare, its day (2026-11-18) went to 9.7 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the preview instead of hands putting the phone down. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 13 / 11, next to 2.7.
 
-## 1.6 מוצץ, אח חדש, יומולדת 3 כריכות
+## 1.6 מוצץ, חיתולים, יומולדת 3 כריכות
 
 - סדרה 1: לפני שמזמינים
-- תאריך: שישי 06 / 11 / 2026, 21:30
-- אורך משוער: 17.1 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- תאריך: שישי 20 / 11 / 2026, 21:30
+- אפשרות ב, נבחרה (באותו יום: 2.3)
+- אורך משוער: 13.9 שניות
+- סטטוס: מוכן לפרסום
 - קהל: הורים, עמוד בחנות: books/category/bestsellers
 - מבנה: ספירה, והוכחה בכל מספר
-- השיא על המסך: שלוש הכריכות, כל אחת עם שם, ובשורה האחרונה שלושתן יחד על המסך עד לומי
+- השיא על המסך: שלוש הכריכות בזו אחר זו בזמן שאתה אומר את המצבים, ואז הילד בכל עמוד בתצוגה המקדימה
 - צילום: קטע הפתיחה שלך למצלמה עם ספר מודפס ביד (כל ספר שיש לך), ואז הקלטת מסך של גלריית הספרים באתר (אני מקליט, בגודל טלפון כמו ב 1.1), ספר אחד לכל מצב עם הכריכה על כל המסך בזמן שאתה אומר אותו. בפריים הראשון שלוש הכריכות קטנות לידך, אני מוסיף אותן בעריכה.
-- חומר: Yarin: hook clip and voiceover / Claude: site gallery screen recording, covers of ביי ביי מוצץ, אח חדש, יום הולדת, עדן והחיות החופשיות
-- ירין מצלם: קטע פתיחה למצלמה, קריינות
-- קריינות (בערך 45 מילים):
-  - מוצץ, אח חדש, יומולדת. שלוש כריכות, תראו. (רואים: אתה למצלמה עם ספר מודפס ביד, ומהפריים הראשון שלוש הכריכות קטנות לידך, הכותרת למעלה)
-  - אחת, נפרדים מהמוצץ? ביי ביי מוצץ. (רואים: כריכת ביי ביי מוצץ על כל המסך, 1 גדול)
-  - שתיים, מחכים לאח? אח חדש. (רואים: כריכת אח חדש על כל המסך, 2 גדול)
-  - שלוש, יומולדת בקרוב? יש גם. (רואים: כריכת יום הולדת על כל המסך, 3 גדול)
-  - ובכל אחד מהם, הגיבור הוא הילד שלכם. (רואים: כריכת עדן והחיות החופשיות, ואז הגלריה)
-  - אז מה הילד שלכם עובר עכשיו? (רואים: שלוש הכריכות יחד על המסך, כל אחת עם שם)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- חומר: Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-D3A1EAFF.mov) / Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)
+- קריינות (בערך 39 מילים):
+  - הורים, הילד נפרד מהמוצץ, מפסיקים עם החיתולים, יש יום הולדת בקרוב. (רואים: אתה למצלמה, כריכת ביי ביי מוצץ מתחתיך, ועל כל מצב הכריכה שלו: ביי ביי מוצץ, עדן והחיות החופשיות (טיטולים), יום הולדת)
+  - אצלנו יש סיפור מותאם אישית לכולם, (רואים: גלריית הספרים באשף, בחלון)
+  - ובכל אחד מהם הגיבור הוא הילד שלכם. (רואים: התצוגה המקדימה בחלון, הילד בכל עמוד)
+  - אז מה הילד שלכם עובר עכשיו? (רואים: אתה למצלמה)
+  - תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר. (רואים: אתה למצלמה, הכרטיס של לומי)
+- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):
+  - נפרדים מהמוצץ? יש לזה ספר
+  - מוצץ, חיתולים, יומולדת והוא הגיבור
+  - מה הילד שלכם עובר עכשיו?
+  - נפרדים מהחיתולים? יש לזה סיפור
 - כיתוב לאינסטגרם:
-  > מוצץ, אח חדש, יומולדת. שלוש כריכות 🤔
-  > אחת, ביי ביי מוצץ. שתיים, אח חדש. שלוש, יומולדת.
-  > ועוד טיטולים ועוד הרבה, ובכולם הגיבור הוא הילד שלכם.
+  > מוצץ, חיתולים, יומולדת. שלוש כריכות 🤔
+  > נפרדים מהמוצץ, מפסיקים עם החיתולים, יום הולדת בקרוב?
+  > לכל אחד יש סיפור משלו, ובכולם הגיבור הוא הילד שלכם.
   > אז מה הילד שלכם עובר עכשיו?
   > איזה ספר ילדים מותאם אישית לבחור
   > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: Check on the site that each named book is live before the recording.
-- הערה: 05 Nov: now with Yarin's hook clip and voice (was text only). Same day as the new sibling carousel (06 / 11). 05 Nov evening: first grade swapped for the birthday book (best sellers, Yarin). 07 Nov: hook 'לילד שלי' changed to 'לילד שלכם': Yarin has no children, he speaks as LumeBook's marketing guy. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): the three covers from the first frame, ends on them instead of a talking shot. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: מוצץ? אח חדש? / יש על זה ספר. The book was the subject of the old hook; now a number and three real moments.
+- הערה: 05 Nov: now with Yarin's hook clip and voice (was text only). Same day as the new sibling carousel (06 / 11). 05 Nov evening: first grade swapped for the birthday book (best sellers, Yarin). 07 Nov: hook 'לילד שלי' changed to 'לילד שלכם': Yarin has no children, he speaks as LumeBook's marketing guy. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): the three covers from the first frame, ends on them instead of a talking shot. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: מוצץ? אח חדש? / יש על זה ספר. The book was the subject of the old hook; now a number and three real moments. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', D3A1EAFF); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 
-## 1.7 ספר שלא מוצא חן? יוצרים עוד גרסה
+## 1.7 הורים, אי אפשר לפשל בהזמנה הזאת
 
 - סדרה 1: לפני שמזמינים
-- תאריך: חמישי 05 / 11 / 2026, 21:30
-- אורך משוער: 18.5 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- תאריך: חמישי 19 / 11 / 2026, 21:30
+- אפשרות ב, נבחרה (באותו יום: 3.3)
+- אורך משוער: 17 שניות
+- סטטוס: מוכן לפרסום
 - קהל: הורים
 - מבנה: טענה, ואז ההוכחה על המסך
-- השיא על המסך: הגרסה החדשה עולה בתצוגה המקדימה, ובסוף הספר המודפס עם השם בגדול, עד הכרטיס של לומי
+- השיא על המסך: התצוגה המקדימה בחלון, ואחריה הספר המודפס מדפדף עד ההקדשה
 - צילום: אתה פותח מול המצלמה עם הספר המודפס ביד, ומדבר ישר לעדשה בטון מרגיע, כאילו אתה מרגיע הורה שמתלבט. אחרי המשפט הראשון עוברים להקלטת מסך של בניית הספר ושל התצוגה המקדימה. בסוף אתה מחזיק את הספר המודפס. מצלמים בטלפון באור יום.
-- חומר: Yarin: one talking take to camera
-- ירין מצלם: קטע פתיחה למצלמה עם הספר ביד, קריינות, הקלטת מסך של בניית הספר ושל התצוגה המקדימה, הספר המודפס ביד
-- קריינות (בערך 49 מילים):
-  - ספר שלא מוצא חן? יוצרים עוד גרסה. תראו. (רואים: אתה למצלמה עם ספר מודפס ביד, הכריכה עם השם לכיוון המצלמה, הכותרת למעלה)
-  - תראו, בניתי ספר, והעמוד הזה לא בדיוק הוא. (רואים: הקלטת מסך: התצוגה המקדימה, עצירה על עמוד אחד)
-  - לוחצים, ומופיעה גרסה חדשה. עד שזה בדיוק הוא. (רואים: הקלטת מסך: יצירת גרסה חדשה)
-  - והתצוגה המקדימה? בחינם. (רואים: דפדוף בתצוגה המקדימה)
-  - כלום לא נדפס ולא נשלח עד שמאשרים. (רואים: אתה מחזיק את הספר המודפס)
-  - אז באמת, אין פה איפה לפשל. (רואים: הספר המודפס פתוח על הכריכה, השם בגדול)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- חומר: Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-9BC736D7.mov) / Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)
+- קריינות (בערך 56 מילים):
+  - הורים, אי אפשר לפשל בהזמנה הזאת. (רואים: אתה למצלמה, כריכת יום ההולדת מתחתיך, הכותרת למעלה)
+  - תראו, הכנתי ספר ומשהו לא מצא חן בעיניי. (רואים: הקלטת מסך של התצוגה המקדימה בחלון, מעל הצילום שלך מטושטש)
+  - אז הוצאתי עוד גרסה, עד שזה נהיה מושלם. (רואים: התצוגה המקדימה ממשיכה, עמוד אחרי עמוד)
+  - ויש אפילו תצוגה מקדימה בחינם. (רואים: אתה למצלמה)
+  - וכלום לא מודפס או נשלח עד שאתם מאשרים. (רואים: אתה למצלמה)
+  - אז באמת שאי אפשר לפשל פה. (רואים: אתה למצלמה)
+  - תכתבו לי לומי בתגובות, (רואים: אתה למצלמה)
+  - ואני אשלח לכם קישור ליצירת הספר שבו הילד שלכם הוא הגיבור. (רואים: אתה למצלמה, הכרטיס של לומי)
+- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):
+  - ספר שלא מוצא חן? יוצרים עוד גרסה
+  - לא אהבתם עמוד? מוציאים עוד גרסה
+  - כלום לא נשלח עד שאתם מאשרים
+  - הורים, פה אין איפה לפשל
 - כיתוב לאינסטגרם:
-  > ספר שלא מוצא חן? יוצרים עוד גרסה 👇
-  > בונים את הספר ורואים תצוגה מקדימה בחינם.
-  > צריך רק להשאיר מספר טלפון.
+  > הורים, אי אפשר לפשל בהזמנה הזאת 👇
+  > משהו לא מוצא חן? מוציאים עוד גרסה, עד שזה מושלם.
+  > רואים תצוגה מקדימה בחינם, צריך רק להשאיר מספר טלפון.
   > כלום לא נדפס ולא נשלח עד שמאשרים.
   > ספר ילדים מותאם אישית עם השם והתמונה של הילד
   > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: New 05 Nov, replaces the Genjutsu trend 6.1. Film it today: one take, about 20 s. Facts from defaults.facts (Yarin, 03 Nov). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): cover and name to the lens in the first frame, ends on the printed cover instead of a smile. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: אי אפשר לפשל / בהזמנה הזאת. The old hook said nothing concrete ("this order"); the new one names the act the reel shows.
+- הערה: New 05 Nov, replaces the Genjutsu trend 6.1. Film it today: one take, about 20 s. Facts from defaults.facts (Yarin, 03 Nov). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): cover and name to the lens in the first frame, ends on the printed cover instead of a smile. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: אי אפשר לפשל / בהזמנה הזאת. The old hook said nothing concrete ("this order"); the new one names the act the reel shows. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 9BC736D7); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 
 ## 1.8 איזו תמונה לשלוח לספר?
 
@@ -284,7 +301,7 @@
 
 - סדרה 2: הספר של הילד שלך
 - תאריך: שישי 20 / 11 / 2026, 21:30
-- אפשרות א (באותו יום: 8.4)
+- אפשרות א, לא נבחרה (באותו יום: 1.6)
 - אורך משוער: 17.1 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/2
@@ -376,22 +393,27 @@
 
 - סדרה 2: הספר של הילד שלך
 - תאריך: שישי 13 / 11 / 2026, 21:30
-- אפשרות א (באותו יום: 1.5)
-- אורך משוער: 17.8 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- אפשרות א, נבחרה (באותו יום: 1.5)
+- אורך משוער: 17.9 שניות
+- סטטוס: מוכן לפרסום
 - קהל: הורים, עמוד בחנות: books/15
 - מבנה: רגע אמיתי ותגובה
-- השיא על המסך: הילד מצביע על עצמו בציור והפנים נדלקות (מהסרטונים של היוצרות, רק באישור ההורים), עד לומי
+- השיא על המסך: הכריכה עם הילדה כגיבורה, ואז הפנים שלך כשאתה מספר על הרגע
 - צילום: אתה מחזיק ספר מודפס סגור ומדבר למצלמה. אחרי שתי מילים אתה פותח אותו ומקריא שורה אחת בקול. שומר קרוב על העמוד שרואים בו את השם. תאורה רכה, רקע נקי, מצלמת טלפון ביד יציבה.
-- חומר: Drive 9x16 re-cuts: 10-reader-keeps-turning-pages.mp4, 09-koral-first-birthday.mp4, 07-natali-open-conversation.mp4 (media/projects/2026-10-16-creator-reels/build.py has the ids)
-- ירין מצלם: ספר מודפס סגור ואז פתוח, קלוז אפ על העמוד הראשון עם השם, אתה מדבר ומקריא למצלמה, רקע נקי
-- קריינות (בערך 47 מילים):
-  - יש רגע אחד שהורים מספרים לי עליו שוב ושוב. (רואים: אתה למצלמה עם ספר מודפס סגור ביד, הכריכה עם השם לכיוון המצלמה, הכותרת למעלה)
-  - פותחים את הספר עם הילד לפני השינה. (רואים: צילום של ספר נפתח ליד המיטה)
-  - פתאום הילד רואה את השם שלו על העמוד. (רואים: קלוז אפ על השם בעמוד הראשון)
-  - ואז מבין שהגיבור של הסיפור זה הוא. (רואים: הילד מצביע על עצמו בתוך הציור)
-  - והפנים נדלקות, אי אפשר לפספס את זה. (רואים: קלוז אפ על החיוך של הילד)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- חומר: Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-A988F1E1.mov) / Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)
+- קריינות (בערך 62 מילים):
+  - יש רגע אחד שההורים מספרים לי עליו שוב ושוב. (רואים: אתה למצלמה, כריכת יום ההולדת (בת) מתחתיך, הכותרת למעלה)
+  - הם פותחים את הספר עם הילד לפני השינה, (רואים: התצוגה המקדימה בחלון: הכריכה של ספר לילה, באנו חושך לגרש)
+  - ופתאום הילד רואה את השם שלו על העמוד, (רואים: התצוגה המקדימה בחלון: עמוד טקסט עם השם של הילד)
+  - ומבין שהגיבור של הסיפור הזה זה הוא, (רואים: כריכת יום ההולדת (בת), היא הגיבורה)
+  - והפנים שלו פשוט נדלקות, אי אפשר לפספס את זה. (רואים: אתה למצלמה)
+  - אז אם אתם רוצים גם ספר כזה עם הילד שלכם בתור הגיבור, (רואים: אתה למצלמה)
+  - תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר. (רואים: אתה למצלמה, הכרטיס של לומי)
+- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):
+  - הרגע שהוא רואה את השם שלו בספר
+  - יש רגע שהורים מספרים לי שוב ושוב
+  - הפנים שלו נדלקות אי אפשר לפספס
+  - פותחים את הספר והוא מבין שזה הוא
 - כיתוב לאינסטגרם:
   > יש רגע אחד שהורים מספרים לי עליו שוב ושוב 🥹
   > פותחים את הספר עם הילד לפני השינה,
@@ -400,15 +422,13 @@
   > ספר ילדים מותאם אישית עם השם והתמונה של הילד
   > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- לבדוק: Children on camera from creator videos: check each creator's OK for reuse on @lumebook.il.
-- לבדוק: Keep only cards the clips really show.
-- הערה: 05 Nov: now with Yarin's hook clip and voice (was text only). Drive downloads over 10 MB go through Chrome (see reel-build-toolchain memory). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): first frame now has the closed book from your shooting note, cover to the lens. Caption line 2 split in two at the comma (12 words a line); same words.
+- הערה: 05 Nov: now with Yarin's hook clip and voice (was text only). Drive downloads over 10 MB go through Chrome (see reel-build-toolchain memory). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): first frame now has the closed book from your shooting note, cover to the lens. Caption line 2 split in two at the comma (12 words a line); same words. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', A988F1E1); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 
 ## 2.8 סבתא, מה כותבים בהקדשה לנכד?
 
 - סדרה 2: הספר של הילד שלך
 - תאריך: רביעי 11 / 11 / 2026, 21:30
-- אפשרות ב (באותו יום: 7.1)
+- אפשרות ב, לא נבחרה (באותו יום: 7.1)
 - אורך משוער: 15.3 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: gifts/grandchild
@@ -437,10 +457,9 @@
 ## 2.9 גם הכלב שלכם נכנס להרפתקה
 
 - סדרה 2: הספר של הילד שלך
-- תאריך: חמישי 19 / 11 / 2026, 21:30
-- אפשרות ב (באותו יום: 3.3)
+- תאריך: ספייר, בלי תאריך
 - אורך משוער: 14.2 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- סטטוס: ספייר, בלי תאריך
 - קהל: הורים, עמוד בחנות: books/category/bestsellers
 - מבנה: תמונה אחת, ואז החשיפה בעמוד
 - השיא על המסך: העמוד המאויר שבו הכלב האמיתי נמצא ליד הילד, ונשאר עד לומי
@@ -464,15 +483,14 @@
   > #ספרילדים #ספרמותאםאישית #כלבים #מתנהלילד #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: A real dog (yours, family's or a friend's) and a child photo with the parents' OK. Make the page on the site first (tutorial 'להוסיף חיית מחמד לספר') and check the dog looks like itself before recording.
-- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): the family dog or cat joins the adventure from one photo.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): the family dog or cat joins the adventure from one photo. 10 Nov 2026: moved off 2026-11-19 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it.
 
 ## 2.10 עזר לחבר בגן, ואף אחד לא ראה?
 
 - סדרה 2: הספר של הילד שלך
-- תאריך: שבת 21 / 11 / 2026, 21:30
-- אפשרות ב (באותו יום: 5.1)
+- תאריך: ספייר, בלי תאריך
 - אורך משוער: 18.5 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- סטטוס: ספייר, בלי תאריך
 - קהל: הורים, עמוד בחנות: books/13
 - מבנה: בעיה קטנה, ואז החשיפה על המסך
 - השיא על המסך: העמוד שבו המעשים הקטנים הופכים אותו לגיבור, ונשאר עד לומי
@@ -495,31 +513,35 @@
   > #ספרילדים #ספרמותאםאישית #גיבורעל #הורות #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: Check in the preview which pages show the small kind acts and the hero moment before recording.
-- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). The third best seller (shared/facts.json top_books: small everyday kind acts make him a superhero, ages 4 to 8).
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). The third best seller (shared/facts.json top_books: small everyday kind acts make him a superhero, ages 4 to 8). 10 Nov 2026: moved off 2026-11-21 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it.
 
 # סדרה 3: מתנה לחנוכה
 
-## 3.1 השנה הילד שלכם הוא גיבור החנוכה
+## 3.1 השנה הילד שלכם הוא הגיבור של חנוכה
 
 - סדרה 3: מתנה לחנוכה
 - תאריך: חמישי 12 / 11 / 2026, 21:30
-- אפשרות א (באותו יום: 3.2)
-- אורך משוער: 20.6 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- אפשרות א, נבחרה (באותו יום: 3.2)
+- אורך משוער: 19.1 שניות
+- סטטוס: מוכן לפרסום
 - קהל: הורים, עמוד בחנות: books/86
 - מבנה: טענה, ואז ההוכחה על המסך
 - השיא על המסך: עמוד הדלקת הנרות עם הפנים שלו ועמוד ההקדשה, ובסוף הספר פתוח על ההקדשה ליד החנוכייה
 - צילום: הספר המודפס ביד ליד חנוכייה, באור חלון, ואז דפדוף. הצילום האחרון באור ערב.
-- חומר: Yarin: book and hanukkiah, 3 to 4 shots / fallback: Sapir's flipping clip / Claude: preview pages of החנוכה שלי (book 86, ages 3 to 10)
-- ירין מצלם: קטע פתיחה למצלמה, קריינות, הספר ליד חנוכייה
-- קריינות (בערך 55 מילים):
-  - השנה הילד שלכם הוא גיבור החנוכה. לא, באמת. (רואים: הספר המודפס ביד ליד החנוכייה באור חלון, הכריכה עם השם לכיוון המצלמה, הכותרת למעלה)
-  - תראו את הכריכה. חנוכה שלי, והוא עליה. (רואים: כריכת החנוכה שלי, זום לשם)
-  - שמונה ערבים, והוא בתפקיד הראשי. (רואים: דפדוף בעמודי הערבים)
-  - פה הוא מכין חנוכייה. פה מדליק נר, ועוד נר. (רואים: עמוד הדלקת הנרות מהתצוגה המקדימה)
-  - ובעמוד הראשון, אתם כותבים לו משהו משלכם. (רואים: עמוד ההקדשה מקרוב)
-  - בקיצור, מתנה שלא נגמרת עם החג וממשיכה איתו שנים קדימה (רואים: הספר פתוח על עמוד ההקדשה ליד החנוכייה, באור ערב)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- חומר: Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-70E13D59.mov) / Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)
+- קריינות (בערך 58 מילים):
+  - השנה הילד שלכם הוא הגיבור של חנוכה. לא, באמת. (רואים: אתה למצלמה, כריכת החנוכה שלי מתחתיך, הכותרת למעלה)
+  - תראו את הכריכה. חנוכה שלי, והוא עליה. (רואים: כריכת החנוכה שלי (בן) על כל המסך)
+  - שמונה ערבים, והוא בתפקיד הראשי. (רואים: הכריכה נשארת)
+  - פה מכין חנוכייה, פה מדליק נר, עוד נר, (רואים: כריכת החנוכה שלי (בת), החנוכייה דולקת)
+  - ובעמוד הראשון אתם כותבים לו משהו, משהו משלכם. (רואים: התצוגה המקדימה בחלון: עמוד ההקדשה)
+  - וזאת מתנה שלא נגמרת עם החג, והיא ממשיכה איתו שנים קדימה. (רואים: אתה למצלמה)
+  - אז תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר. (רואים: אתה למצלמה, הכרטיס של לומי)
+- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):
+  - חנוכה שלי והילד שלכם עליה
+  - שמונה ערבים והוא בתפקיד הראשי
+  - השנה הוא מדליק נרות בתוך ספר
+  - מתנה לחנוכה שממשיכה שנים
 - כיתוב לאינסטגרם:
   > השנה הילד שלכם הוא גיבור החנוכה 🕎
   > שמונה ערבים, והוא בתפקיד הראשי.
@@ -528,14 +550,13 @@
   > מתנה לחנוכה לילדים, ספר ילדים מותאם אישית
   > #חנוכה #מתנהלחנוכה #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- לבדוק: Needs a printed book.
-- הערה: 05 Nov evening: names the book החנוכה שלי (eight evenings, the child in the lead role; text from its page on lumebook.com).  09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): cover and name to the lens in the first frame, ends on the dedication page.
+- הערה: 05 Nov evening: names the book החנוכה שלי (eight evenings, the child in the lead role; text from its page on lumebook.com).  09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): cover and name to the lens in the first frame, ends on the dedication page. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 70E13D59); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 
 ## 3.2 הנכד מוצא את החנוכייה של סבתא
 
 - סדרה 3: מתנה לחנוכה
 - תאריך: חמישי 12 / 11 / 2026, 21:30
-- אפשרות ב (באותו יום: 3.1)
+- אפשרות ב, לא נבחרה (באותו יום: 3.1)
 - אורך משוער: 16.4 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/37
@@ -564,7 +585,7 @@
 
 - סדרה 3: מתנה לחנוכה
 - תאריך: חמישי 19 / 11 / 2026, 21:30
-- אפשרות א (באותו יום: 2.9)
+- אפשרות א, לא נבחרה (באותו יום: 1.7)
 - אורך משוער: 15.6 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: gifts/hanukkah
@@ -596,7 +617,7 @@
 
 - סדרה 4: ירין בודק
 - תאריך: שלישי 10 / 11 / 2026, 21:30
-- אפשרות ב (באותו יום: 1.4)
+- אפשרות ב, לא נבחרה (באותו יום: 1.4)
 - אורך משוער: 16 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים
@@ -624,10 +645,9 @@
 ## 4.2 מאיזה גיל אפשר להזמין ספר?
 
 - סדרה 4: ירין בודק
-- תאריך: ראשון 22 / 11 / 2026, 21:30
-- אפשרות ב (באותו יום: 8.1)
+- תאריך: ספייר, בלי תאריך
 - אורך משוער: 16.4 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- סטטוס: ספייר, בלי תאריך
 - קהל: הורים
 - מבנה: תשובה לשאלה אמיתית
 - השיא על המסך: שלוש הכריכות לפי גיל, ואז גלריית הספרים
@@ -649,7 +669,7 @@
   > #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: Never answer the photo privacy question on camera until Yossi gives the real answer.
-- הערה: New 04 Nov. Repeats whenever the comments bring a good question. 07 Nov 2026: made a spare, its day (2026-11-25) went to 9.1 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): line 2 gets the wizard's age step instead of your face. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 22 / 11, next to 8.1.
+- הערה: New 04 Nov. Repeats whenever the comments bring a good question. 07 Nov 2026: made a spare, its day (2026-11-25) went to 9.1 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): line 2 gets the wizard's age step instead of your face. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 22 / 11, next to 8.1. 10 Nov 2026: moved off 2026-11-22 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it.
 
 # סדרה 5: רגע בבית (באותו יום כמו הקרוסלה)
 
@@ -657,7 +677,7 @@
 
 - סדרה 5: רגע בבית (באותו יום כמו הקרוסלה)
 - תאריך: שבת 21 / 11 / 2026, 21:30
-- אפשרות א (באותו יום: 2.10)
+- אפשרות א, לא נבחרה (באותו יום: 1.2)
 - אורך משוער: 15.6 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/41
@@ -750,22 +770,28 @@
 ## 5.5 מחפשים מתנת יום הולדת? תעצרו רגע
 
 - סדרה 5: רגע בבית (באותו יום כמו הקרוסלה)
-- תאריך: שני 09 / 11 / 2026, 21:30
-- אורך משוער: 18.1 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- תאריך: ראשון 22 / 11 / 2026, 21:30
+- אפשרות ב, נבחרה (באותו יום: 8.1)
+- אורך משוער: 16.2 שניות
+- סטטוס: מוכן לפרסום
 - קהל: הורים, עמוד בחנות: books/13
 - מבנה: שאלה, ואז החשיפה על המסך
 - השיא על המסך: עמוד הסיום: הוא הגיבור, אחרי שהפנים שלו עוברות בכל עמוד, עד לומי
 - צילום: קטע הפתיחה שלך למצלמה עם ספר מודפס ביד (כל ספר שיש לך), ואז העמודים של הלב של יובל מהתצוגה המקדימה (אני מקליט מהאתר) בזמן שאתה מדבר. בפריים הראשון כריכת הלב של יובל עם שם קריא עומדת לידך, אני מוסיף אותה בעריכה.
-- חומר: Yarin: hook clip and voiceover / Claude: preview pages of הלב של יובל (book 13, ages 4 to 8)
-- ירין מצלם: קטע פתיחה למצלמה, קריינות
-- קריינות (בערך 48 מילים):
-  - מחפשים מתנת יום הולדת לילד? תעצרו רגע. (רואים: אתה למצלמה עם ספר מודפס ביד, ומהפריים הראשון כריכת הלב של יובל עם השם לידך, הכותרת למעלה)
-  - כי בספר הזה, הכוח של הגיבור הוא הלב שלו. (רואים: כריכת הלב של יובל)
-  - תראו, בכל עמוד הוא עושה משהו טוב קטן. (רואים: עמוד עם מעשה טוב קטן, ואז עוד אחד)
-  - ובסוף מגלה שזה מה שהופך אותו לגיבור. (רואים: עמוד הסיום, הוא הגיבור)
-  - ומי הגיבור בעצם? הילד שלכם. אמרתי שכדאי לעצור (רואים: דפדוף מהיר, הפנים שלו בכל עמוד, ונעצרים על עמוד הגיבור)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- חומר: Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-088FA24A.mov) / Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)
+- קריינות (בערך 51 מילים):
+  - מחפשים מתנת יום הולדת לילד? תעצרו רגע, (רואים: אתה למצלמה, כריכת הלב של יובל מתחתיך, הכותרת למעלה)
+  - כי בספר הזה הכוח של הגיבור הוא הלב שלו. (רואים: כריכת הלב של יובל (בן), הלב זוהר)
+  - תראו, בכל עמוד הוא עושה משהו טוב קטן, (רואים: כריכת הלב של יובל (בת))
+  - ובסוף מגלה שזה מה שהופך אותו לגיבור. (רואים: אתה למצלמה)
+  - ומי הגיבור בעצם? הילד שלכם. (רואים: אתה למצלמה)
+  - אמרתי לכם שכדאי לכם לעצור? (רואים: אתה למצלמה)
+  - אז תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר. (רואים: אתה למצלמה, הכרטיס של לומי)
+- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):
+  - מתנת יום הולדת? רגע לפני שקונים
+  - ספר שבו הכוח של הגיבור הוא הלב
+  - מחפשים מתנה לילד? תעצרו כאן
+  - הגיבור של הספר הזה הוא הילד שלכם
 - כיתוב לאינסטגרם:
   > מחפשים מתנת יום הולדת? תעצרו רגע 🦸
   > ספר שבו הכוח של הגיבור הוא הלב.
@@ -775,31 +801,35 @@
   > מתנת יום הולדת מושלמת, ספר מותאם אישית
   > #ספרילדים #יוםהולדת #מתנה #הורות #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- לבדוק: Check in the preview that the kind acts are on the pages before recording.
-- הערה: New 05 Nov evening for the third best seller (הלב של יובל), replaces 2.1 (a third how-it-works reel after 1.1 and 1.2). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): this reel's cover from the first frame, the last line stays on the hero page instead of cutting to Yarin.
+- לבדוק: Check in the preview that the kind acts are on the pages before posting (the take says בכל עמוד הוא עושה משהו טוב קטן).
+- הערה: New 05 Nov evening for the third best seller (הלב של יובל), replaces 2.1 (a third how-it-works reel after 1.1 and 1.2). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): this reel's cover from the first frame, the last line stays on the hero page instead of cutting to Yarin. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 088FA24A); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 
 # סדרה 7: ימי מבצע
 
-## 7.1 יום הרווקים? הרווק הכי שווה בן 4
+## 7.1 יום הרווקים? הרווק הכי חשוב בן 4
 
 - סדרה 7: ימי מבצע
 - תאריך: רביעי 11 / 11 / 2026, 21:30
-- אפשרות א (באותו יום: 2.8)
-- אורך משוער: 17.1 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- אפשרות א, נבחרה (באותו יום: 2.8)
+- אורך משוער: 16 שניות
+- סטטוס: מוכן לפרסום
 - קהל: הורים, עמוד בחנות: books/15
 - מבנה: מספר על המסך, ואז הכריכה
 - השיא על המסך: השם על הכריכה, והוא הגיבור היחיד בכל עמוד. בסוף הכריכה עם השם על כל המסך
 - צילום: שני האחדים על המסך (11.11) הופכים לכריכת הספר, ואז השם על הכריכה מקרוב, ואז הספר ביד. קטע פתיחה אחד למצלמה.
-- חומר: Yarin: hook clip and the book in hand / Claude: 11.11 card and the site cover recording
-- ירין מצלם: קטע פתיחה למצלמה, קריינות
-- קריינות (בערך 45 מילים):
-  - יום הרווקים? הרווק הכי חשוב אצלנו בן 4. (רואים: אתה למצלמה עם ספר מודפס ביד, כרטיס 11.11 גדול)
-  - ותאמינו לי, יש לו ספר שלם רק עליו. (רואים: שני האחדים הופכים לכריכת הספר)
-  - תראו, השם שלו על הכריכה. (רואים: השם על הכריכה מקרוב)
-  - והוא הגיבור היחיד של הסיפור. לפחות עד שיעלה לכיתה א (רואים: דפדוף, הוא בכל עמוד)
-  - אז היום חוגגים לאחד והיחיד. (רואים: הכריכה עם השם על כל המסך)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- חומר: Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-A13EECE4.mov) / Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)
+- קריינות (בערך 48 מילים):
+  - היום הוא יום הרווקים, והרווק הכי חשוב אצלכם בבית בכלל בן 4, (רואים: אתה למצלמה, כריכת יום ההולדת עם הכתר מתחתיך, הכותרת למעלה)
+  - ויכול להיות לו ספר שלם רק עליו. (רואים: התצוגה המקדימה בחלון, דפדוף באיורים: הוא בכל עמוד)
+  - תראו, השם שלו על הכריכה, (רואים: הכריכה עם הכתר על כל המסך)
+  - והוא הגיבור היחיד של הסיפור, לפחות עד שיעלה לכיתה א. (רואים: הכריכה נשארת, הוא הגיבור היחיד)
+  - אז היום חוגגים לאחד והיחיד. (רואים: אתה למצלמה)
+  - תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר. (רואים: אתה למצלמה, הכרטיס של לומי)
+- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):
+  - יום הרווקים? הרווק הכי שווה בן 4
+  - 11.11 והרווק הכי חשוב בבית
+  - הרווק הכי חשוב קיבל ספר משלו
+  - יום הרווקים? יש לו ספר רק עליו
 - כיתוב לאינסטגרם:
   > 11.11, יום הרווקים. והרווק הכי שווה? בן 4 ☝️
   > יש לו ספר שלם רק עליו, עם השם שלו על הכריכה.
@@ -807,7 +837,7 @@
   > מתנה לילד עם השם שלו, ספר ילדים מותאם אישית
   > #מתנהלילדים #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: New 04 Nov (Yarin: add Singles Day). Plays on 'one': one of a kind. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the cover with the name instead of a smile.
+- הערה: New 04 Nov (Yarin: add Singles Day). Plays on 'one': one of a kind. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the cover with the name instead of a smile. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', A13EECE4); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 
 ## 7.2 מה קונים לכל נכד בבלאק פריידיי?
 
@@ -906,7 +936,7 @@
 
 - סדרה 8: מסבתא לנכד
 - תאריך: ראשון 22 / 11 / 2026, 21:30
-- אפשרות א (באותו יום: 4.2)
+- אפשרות א, לא נבחרה (באותו יום: 5.5)
 - אורך משוער: 22.4 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/15
@@ -933,35 +963,40 @@
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - הערה: New 05 Nov evening: the second best seller (יום הולדת) to grandmothers. Replaces 3.4 (uncles and aunts; men and the young are a small share of buyers). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): this reel's cover from the first frame, ends on the dedication beside the cover. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: סבתא, הנכד חוגג / יומולדת החודש?. The three things are the three lines that follow (no photo needed, the whole book before ordering, the dedication).
 
-## 8.2 סבתא, עוד צעצוע שיישבר אצל הנכד?
+## 8.2 סבתא, כמה צעצועים נשברו אצל הנכד?
 
 - סדרה 8: מסבתא לנכד
 - תאריך: שבת 14 / 11 / 2026, 21:30
-- אפשרות א (באותו יום: 1.3)
-- אורך משוער: 14.6 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- אפשרות א, נבחרה (באותו יום: 1.3)
+- אורך משוער: 16.5 שניות
+- סטטוס: מוכן לפרסום
 - קהל: סבתות, עמוד בחנות: books/29
 - מבנה: מעשה קטן, ואז החשיפה
 - השיא על המסך: השם שלו על הכריכה ובתוך העמוד, בזום, עד לומי
 - צילום: תעמיד את המצלמה בגובה העיניים באור טבעי. תתחיל עם צעצוע קטן ביד, ואז תניח אותו ותרים את הספר המודפס. תדבר רגוע, כמו להורה אחר. בסוף תקליט מסך של בחירת גיל והעלאת תמונה.
-- חומר: Yarin: hook clip and voiceover / Claude: preview pages of חברים צבעוניים (book 29, ages 1 to 2)
-- ירין מצלם: אתה מדבר למצלמה עם צעצוע וספר, ספר מודפס פתוח על עמוד עם השם, זום על הכריכה, הקלטת מסך של בחירת גיל והעלאת תמונה
-- קריינות (בערך 38 מילים):
-  - סבתא, כמה צעצועים כבר נשברו אצל הנכד? (רואים: אתה למצלמה, ביד צעצוע קטן, הכותרת למעלה)
-  - אני יודע שאת רוצה משהו שיישאר. (רואים: אתה מניח את הצעצוע ומרים ספר מודפס)
-  - בוחרים גיל, מעלים תמונה, וזהו. (רואים: הקלטת מסך, בוחרים גיל ומעלים תמונה, ואז הכריכה)
-  - אצלנו הנכד הוא גיבור הסיפור. (רואים: עמוד פתוח עם הנכד כגיבור הסיפור)
-  - השם שלו על הכריכה ובכל עמוד. (רואים: זום על הכריכה ועל השם בתוך העמוד)
-  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- חומר: Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-E3498895.mov) / Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)
+- קריינות (בערך 53 מילים):
+  - סבתא, כמה צעצועים כבר נשברו אצל הנכד? (רואים: אתה למצלמה, כריכת חברים צבעוניים מתחתיך, הכותרת למעלה)
+  - אני יודע שאת רוצה משהו שיישאר. (רואים: אתה למצלמה)
+  - אצלנו, הנכד הוא הגיבור של הסיפור. (רואים: כריכת חברים צבעוניים (בן) על כל המסך)
+  - כל מה שצריך לעשות זה לבחור גיל, להעלות תמונה, וזהו. (רואים: הקלטת המסך של האשף בחלון: גיל, תמונה)
+  - השם שלו על הכריכה ובכל עמוד. (רואים: כריכת חברים צבעוניים (בת))
+  - אז אם את רוצה גם ספר כזה לנכד שלך, (רואים: אתה למצלמה)
+  - תכתבי לי לומי בתגובות ואשלח לך קישור ליצירת הספר. (רואים: אתה למצלמה, הכרטיס של לומי)
+- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):
+  - סבתא, עוד צעצוע שיישבר אצל הנכד?
+  - סבתא, משהו לנכד שיישאר איתו
+  - צעצועים נשברים ספר נשאר
+  - סבתא, הנכד הגיבור של הסיפור
 - כיתוב לאינסטגרם:
-  > סבתא, עוד צעצוע שיישבר אצל הנכד? 🧸
+  > סבתא, כמה צעצועים כבר נשברו אצל הנכד? 🧸
   > אני מבין, בא לך משהו שיישאר.
   > פה הנכד הוא גיבור הסיפור, עם השם שלו על הכריכה ובכל עמוד.
   > בוחרים גיל, מעלים תמונה, וזהו.
   > מתנה שנשארת, ספר עם השם של הנכד
   > #מתנהלנכד #סבתא #ספרמותאם #יוםהולדת #לומבוק
-  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: New 05 Nov evening: the fourth best seller (חברים צבעוניים) to the largest buying group, grandmothers. Replaces 5.3 (bedtime, no book of its own). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): how it is made (age, photo) moved before the payoff, so the reel ends on the name on the cover. The toy in the first frame stays: it is the stake.
+  > תכתבי לי "לומי" בתגובות ואשלח לך קישור ליצירת הספר 📚
+- הערה: New 05 Nov evening: the fourth best seller (חברים צבעוניים) to the largest buying group, grandmothers. Replaces 5.3 (bedtime, no book of its own). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): how it is made (age, photo) moved before the payoff, so the reel ends on the name on the cover. The toy in the first frame stays: it is the stake. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', E3498895); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 
 ## 8.3 סבתא, ביומולדת הזה הנכדה היא המלכה
 
@@ -998,10 +1033,9 @@
 ## 8.4 סבתא, גם את יכולה להיות בספר
 
 - סדרה 8: מסבתא לנכד
-- תאריך: שישי 20 / 11 / 2026, 21:30
-- אפשרות ב (באותו יום: 2.3)
+- תאריך: ספייר, בלי תאריך
 - אורך משוער: 17.1 שניות
-- סטטוס: מחכה לקריינות ולצילום של ירין
+- סטטוס: ספייר, בלי תאריך
 - קהל: סבתות, עמוד בחנות: gifts/grandchild
 - מבנה: תמונה אחת, ואז החשיפה בעמוד
 - השיא על המסך: העמוד המאויר שבו סבתא והנכד יחד, ונשאר עד לומי
@@ -1026,7 +1060,7 @@
   > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: A grandmother who agrees to have her photo used (from your family or a creator's) and a child photo with the parents' OK. Make the page on the site first (tutorial 'להוסיף בני משפחה לספר') and check how it comes out before recording.
-- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): a photo of grandma, dad or a sibling joins the illustration next to the child, and the photo is used only to make the illustration, it is not printed in the book.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): a photo of grandma, dad or a sibling joins the illustration next to the child, and the photo is used only to make the illustration, it is not printed in the book. 10 Nov 2026: moved off 2026-11-20 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it.
 
 # סדרה 9: שומרי מסורת
 

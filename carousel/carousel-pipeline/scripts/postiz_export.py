@@ -178,7 +178,8 @@ def preview(run_dir):
     """What Carousel Machine's preview shows: the slides as page addresses, the Instagram caption and the Facebook text."""
     run_dir = Path(run_dir).resolve()
     avatar = next((c for c in (lib.PIPELINE / "assets").rglob("*") if c.suffix.lower() in (".png", ".jpg") and "logo" in c.name.lower()), None)
-    return {"slides": [f"/approved/{run_dir.name}/final/{p.name}?v={int(p.stat().st_mtime)}" for p in slides_of(run_dir)],
+    base = "/" + run_dir.relative_to(lib.PIPELINE.resolve()).as_posix() if lib.PIPELINE.resolve() in run_dir.parents else f"/approved/{run_dir.name}"
+    return {"slides": [f"{base}/final/{p.name}?v={int(p.stat().st_mtime)}" for p in slides_of(run_dir)],   # approved/ or test-batch/ runs
             "fb_own": lib.fb_post_path(run_dir).exists(), **texts(run_dir), "avatar": "/" + str(avatar.relative_to(lib.PIPELINE)) if avatar else ""}
 
 

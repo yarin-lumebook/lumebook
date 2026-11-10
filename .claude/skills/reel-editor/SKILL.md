@@ -79,7 +79,7 @@ About 50 s of encoding per 20 s version. Each run writes `<name>-versions.json` 
 What a trial build changes per version (Yarin, 25 and 26 Oct 2026), all seeded and spread out so no two match:
 - **Flip:** about half are mirrored, never all the same way. The picture is flipped first and the text burned on top, so the text is never mirrored.
 - **Zoom:** one steady zoom between about 1.02x and 1.08x, a different amount per version, cropped at a random spot near the middle.
-- **Length:** 0.15 s up to 0.8 s (at most 6% of the clip) cut off, at most 0.12 s of it from the start so the opening frame stays, the rest from the end with a 0.25 s sound fade. Captions are re-timed to the trim.
+- **Length** (Yarin, 10 Nov 2026: "a tiny bit shorter or longer randomly"): about half the versions are shorter, 0.15 s up to 0.8 s (at most 6% of the clip) cut off, at most 0.12 s of it from the start so the opening frame stays, the rest from the end with a 0.25 s sound fade; the others are 0.15 s up to 0.6 s longer, the last frame held (the closing card stays a little longer, the sound runs on or goes quiet). Never all the same way. Captions are re-timed to the trim. Versions built before 10 Nov were all shorter.
 - File metadata is stripped.
 
 Whether this keeps Instagram from treating the uploads as repeats is not verified; it is Yarin's request, not a tested rule.

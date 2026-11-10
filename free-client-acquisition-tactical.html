@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find &amp; Qualify — Tactical Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf8f5; --paper-2:#f3efe9; --card:#ffffff;
+  --ink:#16181d; --ink-2:#3a3f4a; --muted:#6b7280;
+  --rule:#e2dcd2; --rule-2:#cfc7b9;
+  --accent:#b3441d; --accent-soft:#fbe9e0;
+  --alarm:#9e1b13; --alarm-soft:#fbe4e2;
+  --good:#1a6b4a; --good-soft:#e2f2ea;
+  --warn:#8a6410; --warn-soft:#faf0d8;
+  --navy:#1b2a4a;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:74px}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:15.5px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:60;transition:width .1s}
+nav{position:sticky;top:0;z-index:50;background:rgba(250,248,245,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+nav .wrap{display:flex;align-items:center;gap:22px;height:56px;overflow-x:auto;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav .brand{font-family:'Fraunces',serif;font-weight:700;font-size:15px;white-space:nowrap;letter-spacing:-.01em}
+nav a{color:var(--muted);text-decoration:none;font-size:12.5px;font-weight:500;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent;transition:.15s}
+nav a:hover{color:var(--accent)}
+nav a.on{color:var(--ink);border-bottom-color:var(--accent)}
+
+header.hero{padding:64px 0 46px;border-bottom:2px solid var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5.2vw,56px);line-height:1.04;letter-spacing:-.025em;margin:16px 0 18px;font-weight:600;max-width:19ch}
+.dek{font-size:18px;line-height:1.55;color:var(--ink-2);max-width:64ch}
+
+/* decision loop */
+.loop{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:34px 0 4px}
+.loop .step{flex:1;min-width:150px;background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:13px 15px;position:relative}
+.loop .step .n{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--accent);font-weight:600}
+.loop .step .t{font-size:13px;font-weight:600;margin-top:4px;line-height:1.35}
+.loop .step .s{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.4}
+.loop .arw{display:flex;align-items:center;color:var(--rule-2);font-size:18px;font-weight:700}
+@media(max-width:760px){.loop .arw{display:none}}
+
+section{padding:56px 0;border-bottom:1px solid var(--rule)}
+.sec-num{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.14em;font-weight:600}
+h2{font-family:'Fraunces',serif;font-size:clamp(26px,3.2vw,36px);line-height:1.12;letter-spacing:-.02em;margin:10px 0 14px;font-weight:600}
+h3{font-family:'Fraunces',serif;font-size:21px;letter-spacing:-.01em;margin:36px 0 12px;font-weight:600}
+h4{font-size:14px;font-weight:700;margin:22px 0 8px;letter-spacing:-.005em}
+p{margin:0 0 15px;max-width:74ch}
+.lead{font-size:16.5px;color:var(--ink-2);max-width:68ch}
+ul,ol{max-width:74ch;padding-left:20px;margin:0 0 16px}
+li{margin-bottom:7px}
+strong{font-weight:650;color:var(--ink)}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.87em;background:var(--paper-2);padding:1.5px 5px;border-radius:3px;border:1px solid var(--rule)}
+
+.callout{border-left:3px solid var(--accent);background:var(--card);padding:18px 22px;margin:24px 0;border-radius:0 6px 6px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.callout.alarm{border-left-color:var(--alarm);background:var(--alarm-soft)}
+.callout.good{border-left-color:var(--good);background:var(--good-soft)}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.callout .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--accent);display:block;margin-bottom:7px}
+.callout.alarm .lbl{color:var(--alarm)} .callout.good .lbl{color:var(--good)} .callout.warn .lbl{color:var(--warn)}
+.callout p:last-child{margin-bottom:0}
+
+.tbl-wrap{overflow-x:auto;margin:22px 0;border:1px solid var(--rule);border-radius:7px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{background:var(--paper-2);text-align:left;padding:11px 13px;font-weight:650;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);border-bottom:1.5px solid var(--rule-2);white-space:nowrap;position:sticky;top:0}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover{color:var(--accent)}
+th.sortable::after{content:' ⇅';opacity:.35;font-size:10px}
+th.asc::after{content:' ↑';opacity:1;color:var(--accent)}
+th.desc::after{content:' ↓';opacity:1;color:var(--accent)}
+td{padding:10px 13px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.45}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--paper-2)}
+td.num,th.num{text-align:center;font-family:var(--mono);font-weight:600}
+
+.pill{display:inline-block;padding:2px 8px;border-radius:11px;font-size:11px;font-weight:650;font-family:var(--mono);white-space:nowrap}
+.p-hi{background:var(--good-soft);color:var(--good)}
+.p-mid{background:var(--warn-soft);color:var(--warn)}
+.p-lo{background:var(--alarm-soft);color:var(--alarm)}
+.p-neu{background:var(--paper-2);color:var(--ink-2)}
+.tag{display:inline-block;padding:1.5px 7px;border-radius:4px;font-size:10.5px;font-weight:600;font-family:var(--mono);background:var(--paper-2);border:1px solid var(--rule);color:var(--ink-2);margin:1px 2px 1px 0}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0 4px}
+.filters input[type=text]{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--rule-2);border-radius:6px;font-family:inherit;font-size:13px;background:var(--card)}
+.filters input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.chip{padding:5px 12px;border:1px solid var(--rule-2);border-radius:16px;background:var(--card);font-size:12px;font-weight:550;cursor:pointer;transition:.13s;font-family:inherit;color:var(--ink-2)}
+.chip:hover{border-color:var(--accent)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.count{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-left:auto}
+
+.grid{display:grid;gap:16px;margin:24px 0}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:18px 20px}
+.card h4{margin-top:0}
+.card p:last-child{margin-bottom:0}
+.gate{background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--navy);border-radius:7px;padding:16px 18px}
+.gate .g-n{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--navy);font-weight:600}
+.gate h4{margin:6px 0 6px}
+.gate p{font-size:12.5px;color:var(--ink-2);margin:0}
+
+.calc{background:var(--ink);color:#e8e6e1;border-radius:10px;padding:26px;margin:26px 0}
+.calc h3{color:#fff;margin-top:0;font-size:20px}
+.calc .sub{color:#a8adb8;font-size:13.5px;margin-bottom:20px;max-width:70ch}
+.calc-grid{display:grid;grid-template-columns:1fr 300px;gap:30px;align-items:start}
+@media(max-width:860px){.calc-grid{grid-template-columns:1fr}}
+.factor{margin-bottom:15px}
+.factor .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px}
+.factor .nm{font-size:13px;font-weight:600;color:#f0eeea}
+.factor .wt{font-family:var(--mono);font-size:10.5px;color:#8b919e}
+.factor .hint{font-size:11px;color:#8b919e;line-height:1.4;margin-bottom:6px}
+.factor input[type=range]{width:100%;accent-color:#e0763f;height:4px;cursor:pointer}
+.factor .val{font-family:var(--mono);font-size:12px;font-weight:600;color:#e0763f;min-width:24px;text-align:right}
+.readout{background:#22252c;border-radius:9px;padding:24px;position:sticky;top:74px}
+.readout .big{font-family:'Fraunces',serif;font-size:62px;font-weight:600;line-height:1;color:#fff;letter-spacing:-.03em}
+.readout .big small{font-size:20px;color:#8b919e;font-weight:400}
+.readout .tier{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin:12px 0 8px;padding:5px 10px;border-radius:5px;display:inline-block}
+.readout .verdict{font-size:12.5px;color:#b8bdc7;line-height:1.5}
+.bar{height:7px;background:#33373f;border-radius:4px;overflow:hidden;margin:16px 0 4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#9e1b13,#c98a12,#1a6b4a);border-radius:4px;transition:width .2s}
+
+.footnote{font-size:12px;color:var(--muted);max-width:76ch;margin-top:10px}
+footer{padding:44px 0 64px;font-size:12.5px;color:var(--muted)}
+@media print{nav,#progress{display:none}body{background:#fff}section{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav><div class="wrap">
+  <span class="brand">Find &amp; Qualify</span>
+  <a href="#find">Where to look</a>
+  <a href="#icp">Who's worth it</a>
+  <a href="#gates">4 gates</a>
+  <a href="#math">The math</a>
+  <a href="#signals">Signals</a>
+  <a href="#score">Score it</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Tactical Field Guide · Companion to the full strategy report</div>
+  <h1>Find the right companies. Qualify them in minutes.</h1>
+  <p class="dek">The full report stripped to two jobs: where to find companies worth pitching, and how to decide fast whether one deserves your time. Offers, messaging, channel economics, and the 30-day plan live in the main document — none of that is here. Open this when you're staring at a company and asking "do I pursue this?" Work top to bottom and stop the second it fails a gate.</p>
+
+  <div class="loop">
+    <div class="step"><div class="n">01</div><div class="t">Find them</div><div class="s">Ad libraries + 8 saved queries</div></div>
+    <div class="arw">→</div>
+    <div class="step"><div class="n">02</div><div class="t">4 hard gates</div><div class="s">Fail one = drop, no exceptions</div></div>
+    <div class="arw">→</div>
+    <div class="step"><div class="n">03</div><div class="t">Check the math</div><div class="s">Can it exit learning at their budget?</div></div>
+    <div class="arw">→</div>
+    <div class="step"><div class="n">04</div><div class="t">Count signals</div><div class="s">Need 3+, one from Group A</div></div>
+    <div class="arw">→</div>
+    <div class="step"><div class="n">05</div><div class="t">Score &amp; act</div><div class="s">50+ gets your time; below, don't</div></div>
+  </div>
+</div></header>
+
+<!-- ============ FIND ============ -->
+<section id="find"><div class="wrap">
+  <div class="sec-num">01 — SOURCING</div>
+  <h2>Where to find them</h2>
+  <p class="lead">One move beats every funding database: prospect from companies <em>already running ads</em>. The budget is approved and flowing, and your opener is a critique of ads they're paying for right now — the most concrete cold message that exists. You're not selling the channel. You're showing them their own ads and what's wrong.</p>
+
+  <div class="callout good">
+    <span class="lbl">Start here every time</span>
+    <p><strong>Meta Ad Library</strong> (facebook.com/ads/library) and <strong>Google Ads Transparency Center</strong> (adstransparency.google.com). Both free, both public, no login. They show exactly who is spending, on what creative, right now. Every other source tells you a company <em>might</em> need marketing; these two tell you it's already buying the category.</p>
+  </div>
+
+  <h3>Top sources, ranked by leverage</h3>
+  <p>Sort by <strong>Competition</strong> ascending to surface what almost nobody else is farming.</p>
+  <div class="tbl-wrap"><table id="tbl-src">
+    <thead><tr>
+      <th style="min-width:190px">Source</th>
+      <th style="min-width:250px">Why it's already warm</th>
+      <th style="min-width:120px">Best for</th>
+      <th class="sortable num" style="width:95px">Competition</th>
+      <th style="min-width:190px">First move</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><strong>Meta Ad Library</strong><br><span class="tag">no login</span></td><td>Budget exists and is flowing. Shows creative count, start dates, and (since Jan 2026) impression buckets.</td><td>Any advertiser</td><td class="num" data-v="1">Very low</td><td>DM a 3-point teardown of their live creative</td></tr>
+      <tr><td><strong>Google Ads Transparency Center</strong><br><span class="tag">no login</span></td><td>A full year of Search/YouTube/Display ads per domain. Reveals who's paying for intent traffic — the highest-value segment.</td><td>Any advertiser</td><td class="num" data-v="1">Very low</td><td>Email a keyword/landing-page mismatch</td></tr>
+      <tr><td><strong>Ad-library "recently stopped" scan</strong></td><td>Ads that ran and ended 15–60 days ago = failed agency or burned budget. Disillusioned but still believes the channel works.</td><td>Seed–Series A</td><td class="num" data-v="1">Almost none</td><td>Email: "you stopped running ads in May — what happened?"</td></tr>
+      <tr><td><strong>BuiltWith / Wappalyzer pixel check</strong></td><td>Pixel installed but no ads live — set up tracking, never followed through. The warmest cold lead there is.</td><td>Seed</td><td class="num" data-v="1">Almost none</td><td>Email noting the unused pixel and what it implies</td></tr>
+      <tr><td><strong>LinkedIn company page → Ads tab</strong></td><td>Free, public, shows whether a B2B company runs LinkedIn ads. Almost nobody checks this first.</td><td>Seed–Series B</td><td class="num" data-v="1">Very low</td><td>DM referencing the specific ad</td></tr>
+      <tr><td><strong>Startup Nation Finder</strong><br><span class="tag">finder.startupnationcentral.org</span></td><td>Free, 7,200+ Israeli startups with stage, funding, headcount and hiring. The single best Israeli database, and it costs nothing.</td><td>Israel · all stages</td><td class="num" data-v="4">Low-Med</td><td>Filter → cross-check marketing headcount → DM</td></tr>
+      <tr><td><strong>Product Hunt</strong></td><td>Post-launch traffic decays at day 7–30 — the best-timed outreach window there is. "That spike is gone, now what?"</td><td>Pre-seed–Seed</td><td class="num" data-v="7">High</td><td>Comment day 1, DM at day 14 (empty inbox)</td></tr>
+      <tr><td><strong>There's An AI For That / Futurepedia</strong></td><td>AI tools with self-serve signup and low CPA — the best-fit vertical in the whole report.</td><td>AI · pre-seed–seed</td><td class="num" data-v="5">Medium</td><td>Filter to recently added w/ free tier → ad-library check → email</td></tr>
+      <tr><td><strong>Wellfound</strong></td><td>27,000+ startups hiring. Shows how long a role has been open — an unfilled marketing role at 45+ days is a strong signal.</td><td>Seed–Series B</td><td class="num" data-v="5">Medium</td><td>Message the hiring manager with an alternative proposal</td></tr>
+      <tr><td><strong>CTech funding rounds list</strong><br><span class="tag">calcalistech.com</span></td><td>Running list of Israeli rounds, free, updated continuously. Target the 90–180-day-post-raise window, not day 1.</td><td>Israel · seed+</td><td class="num" data-v="6">Medium</td><td>Email within the underrated 90–180 day window</td></tr>
+      <tr><td><strong>Antler / Entrepreneur First</strong></td><td>Highest-volume source of brand-new companies. Pre-team founders with zero commercial function by construction.</td><td>Pre-seed</td><td class="num" data-v="4">Low-Med</td><td>DM founders whose current role names the program</td></tr>
+      <tr><td><strong>r/SaaS · Indie Hackers · r/PPC</strong></td><td>Founders post "my ads aren't working" almost daily. Free, searchable, set keyword alerts.</td><td>Bootstrap–Seed</td><td class="num" data-v="4">Low-Med</td><td>Detailed public answer → DM offer</td></tr>
+      <tr><td><strong>F5Bot public-pain alerts</strong></td><td>Emails you when someone mentions your keywords on Reddit/HN. Catches "founder asking for help" — the highest-conversion signal, expires in ~48h.</td><td>All</td><td class="num" data-v="3">Low</td><td>Reply with substance within hours, never a pitch</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Your first 100 prospects — copy-paste queries</h3>
+  <p>Don't chase named companies; those facts go stale in a week and a stale name in outreach proves you didn't check. These regenerate a live list in ~90 minutes, any time.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th style="width:34px" class="num">#</th><th style="min-width:200px">Query</th><th>Exact steps</th><th class="num" style="width:70px">Yield</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td><strong>Israeli seed SaaS, no marketing team</strong></td><td>Startup Nation Finder → Stage: Seed, Sector: Enterprise SW / AI, Employees 11–50 → export → LinkedIn company People filtered to "marketing" → keep those with zero results</td><td class="num">~40</td></tr>
+      <tr><td class="num">2</td><td><strong>Product Hunt launches now advertising</strong></td><td>PH → last 30 days by upvotes → positions 10–50 (skip the inundated top 10) → search each in Meta Ad Library → keep any with live ads</td><td class="num">~12</td></tr>
+      <tr><td class="num">3</td><td><strong>Recently lapsed advertisers</strong></td><td>Meta Ad Library → your vertical keywords → filter to inactive → keep companies whose last ad ended 15–60 days ago</td><td class="num">~15</td></tr>
+      <tr><td class="num">4</td><td><strong>Unfillable marketing roles</strong></td><td>Wellfound → Jobs → "Performance / Growth Marketing" → company size &lt;50 → sort by posting age → keep anything open 45+ days</td><td class="num">~20</td></tr>
+      <tr><td class="num">5</td><td><strong>Antler &amp; EF founders</strong></td><td>LinkedIn people search → current company contains "Antler" or "Entrepreneur First" → title contains Founder → filter to your geographies</td><td class="num">~30</td></tr>
+      <tr><td class="num">6</td><td><strong>Israeli 90–180 days post-raise</strong></td><td>CTech 2026 funding list → Seed &amp; Pre-Seed → rounds announced ~4–6 months ago → ad-library check each</td><td class="num">~25</td></tr>
+      <tr><td class="num">7</td><td><strong>AI tools with self-serve signup</strong></td><td>There's An AI For That / Futurepedia → recently added → keep those with a free tier + visible signup → ad-library check</td><td class="num">~25</td></tr>
+      <tr><td class="num">8</td><td><strong>Public pain (always-on)</strong></td><td>F5Bot alerts on "Meta ads", "CAC too high", "ads not working", "wasted on ads" across Reddit + HN → respond within hours</td><td class="num">~5/wk</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <span class="lbl">The whole detection stack, free</span>
+    <p>Meta Ad Library · Google Ads Transparency Center · Wappalyzer · Wayback Machine · Startup Nation Finder · F5Bot · a Google Sheet. <strong>Total cost: zero.</strong> If you're shopping for tools instead of sending messages, the tools are procrastination — software is never the constraint here.</p>
+  </div>
+</div></section>
+
+<!-- ============ ICP ============ -->
+<section id="icp"><div class="wrap">
+  <div class="sec-num">02 — RECOGNITION</div>
+  <h2>Who's actually worth it</h2>
+  <p class="lead">Ranked by probability of producing a <em>portfolio-grade result</em>, not by probability of saying yes. Those two rankings are nearly inverse — that inversion is the whole game.</p>
+
+  <div class="tbl-wrap"><table id="tbl-icp">
+    <thead><tr>
+      <th style="width:52px">Tier</th><th style="min-width:200px">Profile</th><th>How to spot it</th>
+      <th class="num sortable" style="width:82px">Says yes</th><th class="num sortable" style="width:92px">Portfolio value</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><span class="pill p-hi">S</span></td><td><strong>Already-advertising PLG SaaS / AI tool</strong></td><td>$2–15k/mo live on Meta or Google. Self-serve signup or free trial. 5–40 staff. Stale creative or single-variant testing visible in the ad library. No paid hire.</td><td class="num" data-v="6">6/10</td><td class="num" data-v="10">10/10</td></tr>
+      <tr><td><span class="pill p-hi">A</span></td><td><strong>Recently funded PLG, no ads yet</strong></td><td>Raised seed in the last 90 days. Self-serve product live. Hiring a growth/demand-gen role. Budget + urgency, no paid motion running.</td><td class="num" data-v="7">7/10</td><td class="num" data-v="8">8/10</td></tr>
+      <tr><td><span class="pill p-mid">B</span></td><td><strong>Post–Product Hunt AI tool</strong></td><td>Launched 30–60 days ago, spike has decayed, founder wants a repeatable channel. Low CPA, fast feedback, technically literate.</td><td class="num" data-v="8">8/10</td><td class="num" data-v="7">7/10</td></tr>
+      <tr><td><span class="pill p-mid">B</span></td><td><strong>Israeli seed B2B with a free tier</strong></td><td>Local, reachable, referral-rich, directly relevant to your target job market. The free tier is the qualifying condition — without it, demote a tier.</td><td class="num" data-v="7">7/10</td><td class="num" data-v="8">8/10</td></tr>
+      <tr><td><span class="pill p-mid">C</span></td><td><strong>SMB-ACV B2B SaaS ($100–500/mo)</strong></td><td>Demo-led but short cycle — deals close in 2–6 weeks, so attribution lands inside your window. Viable if budget ≥$5k/mo.</td><td class="num" data-v="6">6/10</td><td class="num" data-v="6">6/10</td></tr>
+      <tr><td><span class="pill p-lo">D</span></td><td><strong>Pre-seed enterprise cyber / fintech</strong></td><td>High-status logo, interesting work — but CPA and a 6-month sales cycle make a demonstrable result nearly impossible in 45 days. Your instinctive target; the wrong one.</td><td class="num" data-v="8">8/10</td><td class="num" data-v="2">2/10</td></tr>
+      <tr><td><span class="pill p-lo">F</span></td><td><strong>Pre-product / waitlist stage</strong></td><td>No conversion event that means anything. Founder is usually the most eager. Decline politely and say why — it builds a reputation for judgement.</td><td class="num" data-v="10">10/10</td><td class="num" data-v="1">1/10</td></tr>
+    </tbody>
+  </table></div>
+  <p class="footnote">Click a header to sort. Watch the inversion: "says yes" descends almost perfectly as "portfolio value" ascends. The easiest yes (Tier F) is the worst outcome available to you.</p>
+
+  <div class="callout warn">
+    <span class="lbl">Israel, honestly</span>
+    <p>Israel is your priority market — proximity, referral density, direct relevance to where you want to be hired — so aim for ~half your pipeline there. But Israeli seed skews cyber/enterprise/defence, exactly where the CPA math fails. Expect the local market to produce your <em>relationships</em> and the US/remote PLG market to produce your <em>results</em>. A US PLG case study presented to an Israeli hiring manager transfers fully; a stalled Israeli enterprise account doesn't.</p>
+  </div>
+</div></section>
+
+<!-- ============ GATES ============ -->
+<section id="gates"><div class="wrap">
+  <div class="sec-num">03 — DISQUALIFY FAST</div>
+  <h2>The four hard gates</h2>
+  <p class="lead">Binary checks. A company that fails any one is disqualified regardless of how attractive it looks. Run these before you spend a minute on personalisation — it's the cheapest filter you have.</p>
+
+  <div class="grid g4">
+    <div class="gate"><div class="g-n">GATE 1</div><h4>Live conversion event</h4><p>Something a stranger can complete today with no sales call: signup, trial, install, or booked demo. No exceptions.</p></div>
+    <div class="gate"><div class="g-n">GATE 2</div><h4>≥ $2,000/mo spend capacity</h4><p>Below this, no channel produces interpretable data. One client at $8k beats four at $1k.</p></div>
+    <div class="gate"><div class="g-n">GATE 3</div><h4>Founder / CMO reachable directly</h4><p>If the decision-maker sits behind a gatekeeper, the deal cycle exceeds your pilot window.</p></div>
+    <div class="gate"><div class="g-n">GATE 4</div><h4>No in-house paid specialist</h4><p>If they already have a performance marketer, you're a threat, not a gift. Check LinkedIn People first.</p></div>
+  </div>
+
+  <div class="callout alarm">
+    <span class="lbl">Why free attracts the wrong companies</span>
+    <p>Adverse selection: the founders who say yes fastest to free work from an unproven operator are systematically the ones who <em>can't</em> produce a result — no money, no product-market fit, no tracking, or already turned down by people who charge. <strong>Ease of yes is inversely correlated with portfolio value.</strong> The gates and the score exist to fight this pull. Having criteria and declining bad fits is also what raises your status from "asking for a chance" to "a professional doing selective work."</p>
+  </div>
+</div></section>
+
+<!-- ============ MATH ============ -->
+<section id="math"><div class="wrap">
+  <div class="sec-num">04 — THE ARITHMETIC TEST</div>
+  <h2>Will the math even work?</h2>
+  <p class="lead">The single most decisive "worth my time" check. Meta needs roughly <strong>50 optimisation events per ad set per week</strong> to exit the learning phase; below that, delivery is unstable and results are statistically uninterpretable — no case study, only noise. So the conversion event's friction, not the company's prestige, decides everything.</p>
+
+  <div class="callout">
+    <p style="font-family:var(--mono);font-size:14px;margin:0"><strong>Minimum daily budget per ad set = (Target CPA × 50) ÷ 7</strong></p>
+  </div>
+
+  <p>Substitute 2026 B2B benchmarks and the picture is brutal for high-friction events at startup budgets:</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Conversion event</th><th class="num">Realistic CPA</th><th class="num">Min. monthly spend<br>to exit learning</th><th class="num">Events/mo at $3k</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Enterprise demo (cyber, fintech)</td><td class="num">$200–400</td><td class="num">$43k–86k</td><td class="num">8–15</td><td><span class="pill p-lo">Impossible</span> Never exits learning; deal closes after you leave.</td></tr>
+      <tr><td>B2B SaaS demo / meeting booked</td><td class="num">$103–160</td><td class="num">$22k–34k</td><td class="num">19–29</td><td><span class="pill p-lo">Very poor</span> Statistically uninterpretable.</td></tr>
+      <tr><td>Gated content / webinar reg</td><td class="num">$50–90</td><td class="num">$11k–19k</td><td class="num">33–60</td><td><span class="pill p-mid">Marginal</span> Works, but MQLs are a weak case study.</td></tr>
+      <tr><td>Free trial start (PLG SaaS)</td><td class="num">$20–50</td><td class="num">$4.3k–11k</td><td class="num">60–150</td><td><span class="pill p-hi">Workable</span> Clears the threshold at a realistic budget.</td></tr>
+      <tr><td>Self-serve signup / free tier (AI)</td><td class="num">$8–35</td><td class="num">$1.7k–7.5k</td><td class="num">85–375</td><td><span class="pill p-hi">Ideal</span> Fast feedback, real optimisation, clean before/after.</td></tr>
+      <tr><td>Waitlist / email capture</td><td class="num">$3–12</td><td class="num">$640–2.6k</td><td class="num">250–1000</td><td><span class="pill p-mid">Low value</span> Good for learning, weak proof of revenue impact.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="footnote">CPA ranges are 2026 published benchmarks (weighted toward LinkedIn, adjusted down for Meta/Google intent). Min monthly = CPA × 50 × 4.3 weeks per ad set. Order-of-magnitude, not precision.</p>
+
+  <div class="callout alarm">
+    <span class="lbl">Read the verdict column, then decide</span>
+    <p>This isn't an argument against cyber or fintech as sectors — it's about <strong>conversion-event friction</strong>. A fintech with a self-serve free tier is an excellent target; a fintech selling a $60k contract through a demo form is not, no matter how recently it raised. If the event they'd have you optimise sits in the top two rows and their budget is startup-sized, walk away regardless of everything else.</p>
+  </div>
+</div></section>
+
+<!-- ============ SIGNALS ============ -->
+<section id="signals"><div class="wrap">
+  <div class="sec-num">05 — BUYING SIGNALS</div>
+  <h2>What to look for</h2>
+  <p class="lead">The strongest signals that a company needs paid acquisition now, grouped by predictive strength and each with a free detection method. A Group A signal is worth several from the lower groups. Most people prospect on funding announcements — Group B: obvious, crowded, and late.</p>
+
+  <div class="filters">
+    <input type="text" id="sig-q" placeholder="Search signals…">
+    <button class="chip on" data-f="all">All</button>
+    <button class="chip" data-f="a">A · Spend evidence</button>
+    <button class="chip" data-f="b">B · Capital</button>
+    <button class="chip" data-f="c">C · Hiring</button>
+    <button class="chip" data-f="d">D · Product / GTM</button>
+    <button class="chip" data-f="e">E · Content</button>
+    <button class="chip" data-f="f">F · Distress</button>
+    <span class="count" id="sig-count"></span>
+  </div>
+
+  <div class="tbl-wrap"><table id="tbl-sig">
+    <thead><tr>
+      <th class="sortable" style="min-width:230px">Signal</th>
+      <th style="min-width:250px">What it tells you</th>
+      <th style="min-width:210px">Free detection</th>
+      <th class="sortable num" style="width:80px">Strength</th>
+      <th class="sortable" style="width:100px">Window</th>
+    </tr></thead>
+    <tbody>
+      <tr data-cat="a"><td><strong>Active ads in Meta Ad Library</strong></td><td>Budget exists, approved, flowing. You sell yourself, not the channel.</td><td>facebook.com/ads/library — no login</td><td class="num" data-v="10">10</td><td>Anytime</td></tr>
+      <tr data-cat="a"><td><strong>Active ads in Google Transparency Center</strong></td><td>Spending on intent traffic — the highest-value, hardest-to-run channel.</td><td>adstransparency.google.com</td><td class="num" data-v="10">10</td><td>Anytime</td></tr>
+      <tr data-cat="a"><td><strong>Same creative running 60+ days unchanged</strong></td><td>Nobody's managing the account. Creative fatigue is quietly wrecking their CPA.</td><td>Ad library shows start date per creative</td><td class="num" data-v="10">10</td><td>Anytime</td></tr>
+      <tr data-cat="a"><td><strong>Only one or two creatives live</strong></td><td>No testing discipline. The easiest measurable improvement you can offer.</td><td>Ad library creative count</td><td class="num" data-v="9">9</td><td>Anytime</td></tr>
+      <tr data-cat="a"><td><strong>Ads pointing to homepage, not a landing page</strong></td><td>Guaranteed conversion leak. Fixable in a week with an obvious before/after.</td><td>Click the ad destination in the library</td><td class="num" data-v="9">9</td><td>Anytime</td></tr>
+      <tr data-cat="a"><td><strong>Recently stopped advertising (15–60 days ago)</strong></td><td>Burned budget or fired an agency. Disillusioned but still a believer.</td><td>Ad library, filter to inactive</td><td class="num" data-v="9">9</td><td>15–60 days</td></tr>
+      <tr data-cat="a"><td><strong>Pixel installed but no ads running</strong></td><td>Set up tracking, then stalled. Intent without execution — the warmest cold lead there is.</td><td>BuiltWith or Wappalyzer extension</td><td class="num" data-v="9">9</td><td>Anytime</td></tr>
+      <tr data-cat="a"><td><strong>Competitor advertising heavily, they aren't</strong></td><td>Loss aversion is the strongest motivator you have. Show them the gap.</td><td>Ad library search on their named competitors</td><td class="num" data-v="9">9</td><td>Anytime</td></tr>
+      <tr data-cat="d"><td><strong>Free tier or free trial just added</strong></td><td>Conversion friction just collapsed — the exact condition that makes paid viable at their budget.</td><td>Wayback Machine diff on /pricing</td><td class="num" data-v="10">10</td><td>0–60 days</td></tr>
+      <tr data-cat="d"><td><strong>Waitlist replaced with self-serve signup</strong></td><td>They're open for business. Demand generation becomes urgent overnight.</td><td>Wayback Machine on homepage</td><td class="num" data-v="10">10</td><td>0–45 days</td></tr>
+      <tr data-cat="d"><td><strong>Product Hunt launch in last 30 days</strong></td><td>The spike is decaying and they know it. "What's the repeatable channel?" is top of mind.</td><td>PH daily/weekly leaderboards</td><td class="num" data-v="9">9</td><td>Day 10–30</td></tr>
+      <tr data-cat="d"><td><strong>New pricing page published</strong></td><td>Monetisation is now the priority. Traffic to that page has direct revenue value.</td><td>Wayback Machine diff</td><td class="num" data-v="9">9</td><td>0–45 days</td></tr>
+      <tr data-cat="c"><td><strong>Open role: Performance Marketer / PPC</strong></td><td>They've already decided they need this and budgeted for it. You're the interim.</td><td>LinkedIn Jobs, Wellfound, careers page</td><td class="num" data-v="10">10</td><td>While open</td></tr>
+      <tr data-cat="c"><td><strong>That role still open after 45 days</strong></td><td>They can't fill it. Openness to alternatives peaks here.</td><td>Wellfound shows posting age publicly</td><td class="num" data-v="10">10</td><td>45+ days</td></tr>
+      <tr data-cat="c"><td><strong>Marketing lead just departed</strong></td><td>Function is orphaned. The highest-urgency vacancy signal available.</td><td>LinkedIn: filter people to "past" at company</td><td class="num" data-v="9">9</td><td>0–45 days</td></tr>
+      <tr data-cat="c"><td><strong>Marketing role posted then removed, no hire</strong></td><td>Budget was pulled. Free just got dramatically more attractive than last month.</td><td>Wayback Machine on careers page</td><td class="num" data-v="9">9</td><td>0–60 days</td></tr>
+      <tr data-cat="b"><td><strong>Funding announced 90–180 days ago</strong></td><td>The underrated window: honeymoon over, first plan failed, board pressure on, every other marketer stopped calling on day 30.</td><td>CTech list / Owler, filtered by date</td><td class="num" data-v="9">9</td><td>90–180 days</td></tr>
+      <tr data-cat="b"><td><strong>Accelerator demo day within 60 days</strong></td><td>Traction numbers must move before they stand on that stage. Maximum urgency.</td><td>Program calendars and batch pages</td><td class="num" data-v="9">9</td><td>30–60 days out</td></tr>
+      <tr data-cat="b"><td><strong>Funding announced ≤30 days ago</strong></td><td>Money banked, growth promised to a board, nobody hired yet.</td><td>CTech list, Owler alerts</td><td class="num" data-v="8">8</td><td>7–30 days</td></tr>
+      <tr data-cat="e"><td><strong>"Alternative to X" / comparison pages published</strong></td><td>Bottom-funnel intent. They want conversions, not awareness — and those keywords are biddable today.</td><td><code>site:</code> search on their domain</td><td class="num" data-v="9">9</td><td>Anytime</td></tr>
+      <tr data-cat="e"><td><strong>Founder posting on LinkedIn 3×+ per week</strong></td><td>They believe in distribution and are personally invested. Also: they'll actually see your DM.</td><td>LinkedIn activity tab</td><td class="num" data-v="8">8</td><td>Anytime</td></tr>
+      <tr data-cat="f"><td><strong>Founder publicly asking for marketing help</strong></td><td>Explicit stated need — the highest-conversion signal there is. Expires in ~48 hours.</td><td>Reddit/LinkedIn/X/Slack keyword alerts (F5Bot)</td><td class="num" data-v="10">10</td><td>0–48 hours</td></tr>
+      <tr data-cat="f"><td><strong>Founder complaining publicly about CAC or ads</strong></td><td>Pain is conscious and articulated. Respond with substance, never a pitch.</td><td>Alerts: "CAC", "wasting", "Meta ads"</td><td class="num" data-v="10">10</td><td>0–72 hours</td></tr>
+      <tr data-cat="f"><td><strong>Agency relationship visibly ended</strong></td><td>Coverage gap plus residual belief. They know what good looks like, which raises your odds.</td><td>Agency case study removed; ads stopped abruptly</td><td class="num" data-v="9">9</td><td>0–60 days</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout good">
+    <span class="lbl">The stacking rule — the one to actually memorise</span>
+    <p>Individual signals are weak predictors. <strong>Stacked signals are strong ones.</strong> A company that (a) added a free tier 30 days ago, (b) runs two stale Meta creatives, and (c) has had a Growth Marketer role open 50 days isn't three weak leads — it's one near-certain conversation. Require <strong>a minimum of three signals, at least one from Group A</strong>, before a company enters your list. This single rule does more for your reply rate than any copywriting.</p>
+  </div>
+</div></section>
+
+<!-- ============ SCORE ============ -->
+<section id="score"><div class="wrap">
+  <div class="sec-num">06 — FINAL SCORE</div>
+  <h2>Score it, then act</h2>
+  <p class="lead">Ten weighted factors, deliberately biased toward <em>capacity to produce a result</em> over <em>likelihood of saying yes</em>. Drag each slider; the verdict updates live. Anything under 50 gets no personalised time — batch it or drop it. Your hours are the binding constraint, not the size of the list.</p>
+
+  <div class="calc">
+    <h3>Score a company</h3>
+    <p class="sub">Two hard gates override the total: if conversion-event friction or budget scores 2 or below, the company drops no matter how high everything else is.</p>
+    <div class="calc-grid">
+      <div id="factors"></div>
+      <div class="readout">
+        <div class="big" id="scoreV">0<small>/100</small></div>
+        <div class="bar"><i id="scoreBar" style="width:0%"></i></div>
+        <div class="tier" id="scoreTier">—</div>
+        <div class="verdict" id="scoreVerdict">Set the sliders to score a prospect.</div>
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid #3a3e46">
+          <div style="font-size:11px;color:#8b919e;line-height:1.6" id="scoreWeak"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Action tiers</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th style="width:100px">Score</th><th style="width:150px">Tier</th><th>What to do</th></tr></thead>
+    <tbody>
+      <tr><td class="num">80–100</td><td><span class="pill p-hi">S — Priority</span></td><td>Contact within 48h. Full custom teardown + a 3-min Loom on their live ads. Multi-channel, four follow-ups over three weeks. Treat as a named project.</td></tr>
+      <tr><td class="num">65–79</td><td><span class="pill p-hi">A — Strong</span></td><td>Contact within a week. Personalised email with two or three specific account observations, one LinkedIn touch, three follow-ups. The volume core of your pipeline.</td></tr>
+      <tr><td class="num">50–64</td><td><span class="pill p-mid">B — Batch</span></td><td>Weekly batch. Semi-templated with one genuinely specific line each. Two follow-ups. Cap prep at 15 minutes.</td></tr>
+      <tr><td class="num">35–49</td><td><span class="pill p-neu">C — Nurture</span></td><td>No direct outreach. Follow the founder, engage with posts, revisit monthly. Wait for a signal to change.</td></tr>
+      <tr><td class="num">Below 35</td><td><span class="pill p-lo">D — Drop</span></td><td>Delete from the list. The discipline of dropping is what makes room for the Tier S work.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn">
+    <span class="lbl">The override rule</span>
+    <p>Two gates beat the total score every time. <strong>If conversion-event friction scores 0–2, drop the company</strong> — no conversion event means no case study, and no weighting changes that. <strong>If budget scores 0–2, drop it too.</strong> A 78-point company with a $500/mo budget eats the same 40 hours as a 78-point company with $10k and produces nothing you can show anyone. Weighted averages hide binary failures; these two gates catch them.</p>
+  </div>
+
+  <div class="callout good">
+    <span class="lbl">What you're actually collecting</span>
+    <p>You're not building an agency. You're accumulating three artefacts: <strong>a live ad account you can screenshot, a founder who'll vouch for you on a call, and a written explanation of a decision you made with someone else's money.</strong> Everything here is machinery for producing those three. If a company can't produce them, the score already told you — move on without guilt.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p>Tactical companion to the full strategy report. Benchmarks are 2026 published industry figures; scores, budget bands and probabilities are planning estimates — replace them with your own data after month one. Company-level facts (who raised, who's hiring, who's advertising) change weekly, so verify before every outreach. The ad libraries don't go stale; this page does.</p>
+</div></footer>
+
+<script>
+// progress bar + nav highlight
+const prog=document.getElementById('progress');
+const secs=[...document.querySelectorAll('section[id]')];
+const navlinks=[...document.querySelectorAll('nav a')];
+function onScroll(){
+  const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  let cur=null;
+  for(const s of secs){ if(s.getBoundingClientRect().top<=120) cur=s.id; }
+  navlinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+}
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+// generic sortable tables
+document.addEventListener('click',e=>{
+  const th=e.target.closest('th.sortable'); if(!th) return;
+  const tbl=th.closest('table'), idx=[...th.parentNode.children].indexOf(th);
+  const asc=!th.classList.contains('asc');
+  [...tbl.querySelectorAll('th')].forEach(x=>x.classList.remove('asc','desc'));
+  th.classList.add(asc?'asc':'desc');
+  const rows=[...tbl.tBodies[0].rows];
+  rows.sort((a,b)=>{
+    const av=a.cells[idx]?.dataset.v ?? a.cells[idx]?.innerText.trim() ?? '';
+    const bv=b.cells[idx]?.dataset.v ?? b.cells[idx]?.innerText.trim() ?? '';
+    const an=parseFloat(av), bn=parseFloat(bv);
+    const cmp=(!isNaN(an)&&!isNaN(bn))?an-bn:av.localeCompare(bv);
+    return asc?cmp:-cmp;
+  });
+  rows.forEach(r=>tbl.tBodies[0].appendChild(r));
+});
+
+// filterable signals table
+function wireFilter(inputSel,chipsSel,tblId,countSel){
+  const inp=document.querySelector(inputSel), tbl=document.getElementById(tblId);
+  if(!tbl) return;
+  const chips=chipsSel?[...document.querySelectorAll(chipsSel)]:[];
+  const cnt=countSel?document.querySelector(countSel):null;
+  let active='all';
+  function apply(){
+    const q=(inp?.value||'').toLowerCase(); let n=0;
+    [...tbl.tBodies[0].rows].forEach(r=>{
+      const okText=!q||r.innerText.toLowerCase().includes(q);
+      const okCat=active==='all'||(r.dataset.cat||'').split(' ').includes(active);
+      const show=okText&&okCat; r.style.display=show?'':'none'; if(show)n++;
+    });
+    if(cnt)cnt.textContent=n+' shown';
+  }
+  inp?.addEventListener('input',apply);
+  chips.forEach(c=>c.addEventListener('click',()=>{
+    chips.forEach(x=>x.classList.remove('on')); c.classList.add('on');
+    active=c.dataset.f; apply();
+  }));
+  apply();
+}
+wireFilter('#sig-q','#signals .chip','tbl-sig','#sig-count');
+
+// ---------- scoring calculator ----------
+const FACTORS=[
+ {n:'Ad-spend evidence',w:15,h:'10 = spending $5k+/mo with visible flaws · 5 = stopped recently · 0 = no trace of paid ever',v:5,gate:false},
+ {n:'Conversion-event friction',w:14,h:'10 = free self-serve signup · 8 = free trial · 3 = SMB demo · 0 = enterprise demo or nothing live',v:5,gate:true},
+ {n:'Budget capacity',w:12,h:'10 = $10k+/mo · 7 = $5–10k · 5 = $2–5k · 2 = under $2k',v:5,gate:true},
+ {n:'Funding recency & runway',w:10,h:'10 = raised 30–180 days ago · 6 = profitable bootstrap · 0 = visible runway distress',v:5,gate:false},
+ {n:'Founder reachability',w:10,h:'10 = posts weekly on LinkedIn or X · 4 = dormant profile only · 0 = no direct path',v:5,gate:false},
+ {n:'Marketing-function vacuum',w:9,h:'10 = zero marketing staff · 4 = team but no paid specialist · 0 = performance marketer in seat',v:5,gate:false},
+ {n:'Urgency signal density',w:8,h:'10 = 5+ stacked signals incl. a Group A · 7 = 3–4 signals · 0 = one weak signal',v:5,gate:false},
+ {n:'Portfolio & case-study value',w:8,h:'10 = recognisable, clean metrics, will testify · 3 = obscure and messy',v:5,gate:false},
+ {n:'Industry fit for target job market',w:8,h:'10 = Israeli B2B SaaS or AI · 8 = global PLG · 4 = cyber · 2 = unrelated',v:5,gate:false},
+ {n:'Competitive noise (inverted)',w:6,h:'10 = nobody is pitching them · 3 = YC batch or day-one funding news · 0 = famous and inundated',v:5,gate:false}
+];
+const fWrap=document.getElementById('factors');
+if(fWrap){
+  FACTORS.forEach((f,i)=>{
+    const d=document.createElement('div'); d.className='factor';
+    d.innerHTML=`<div class="top"><span class="nm">${i+1}. ${f.n}</span><span class="wt">weight ${f.w}</span></div>
+      <div class="hint">${f.h}</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <input type="range" min="0" max="10" step="1" value="${f.v}" data-i="${i}">
+        <span class="val" id="v${i}">${f.v}</span>
+      </div>`;
+    fWrap.appendChild(d);
+  });
+  fWrap.addEventListener('input',e=>{
+    const i=+e.target.dataset.i; FACTORS[i].v=+e.target.value;
+    document.getElementById('v'+i).textContent=FACTORS[i].v; recalc();
+  });
+  function recalc(){
+    let total=0; FACTORS.forEach(f=>total+=f.v/10*f.w);
+    total=Math.round(total);
+    const gated=FACTORS.filter(f=>f.gate&&f.v<=2);
+    document.getElementById('scoreV').innerHTML=total+'<small>/100</small>';
+    document.getElementById('scoreBar').style.width=total+'%';
+    const tierEl=document.getElementById('scoreTier'), vEl=document.getElementById('scoreVerdict');
+    let t,bg,txt;
+    if(gated.length){
+      t='OVERRIDE — DROP'; bg='#4a1512';
+      txt='Fails a hard gate: <strong>'+gated.map(g=>g.n).join(' and ')+'</strong> scored 2 or below. Score is irrelevant. No conversion event or no budget means no case study, regardless of everything else.';
+    } else if(total>=80){ t='TIER S — PRIORITY'; bg='#123d2a';
+      txt='Contact within 48 hours. Full custom teardown plus a 3-minute Loom on their live ads. Multi-channel, four follow-ups over three weeks. Treat as a named project.';
+    } else if(total>=65){ t='TIER A — STRONG'; bg='#1d3a4d';
+      txt='Contact this week. Personalised email with two or three specific account observations, one LinkedIn touch, three follow-ups. This is the volume core of the pipeline.';
+    } else if(total>=50){ t='TIER B — BATCH'; bg='#463818';
+      txt='Weekly batch. Semi-templated sequence with one genuinely specific line each. Two follow-ups. Cap prep at 15 minutes.';
+    } else if(total>=35){ t='TIER C — NURTURE'; bg='#32353c';
+      txt='No direct outreach. Follow the founder, engage with their posts, revisit monthly. Wait for a signal to change.';
+    } else { t='TIER D — DROP'; bg='#4a1512';
+      txt='Remove from the list. The discipline of dropping is what makes room for the Tier S work.';
+    }
+    tierEl.textContent=t; tierEl.style.background=bg; tierEl.style.color='#fff';
+    vEl.innerHTML=txt;
+    const weak=FACTORS.filter(f=>f.v<=4).sort((a,b)=>b.w-a.w).slice(0,3);
+    document.getElementById('scoreWeak').innerHTML = weak.length
+      ? '<strong style="color:#c9ced8">Biggest score drags:</strong><br>'+weak.map(f=>'· '+f.n+' ('+f.v+'/10, weight '+f.w+')').join('<br>')
+      : '<strong style="color:#c9ced8">No weak factors.</strong> Every dimension scores 5 or above — a genuinely strong prospect.';
+  }
+  recalc();
+}
+</script>
+</body>
+</html>

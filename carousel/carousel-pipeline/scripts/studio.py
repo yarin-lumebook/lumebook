@@ -172,11 +172,42 @@ def add_story_fields(its):
     return its
 
 
+def test_info():
+    """The test batch link in the sidebar (test_batch.py, 10 Nov 2026): its id, title and how many carousels it has."""
+    import test_batch as tb
+    try:
+        return {"id": tb.ID, "title_he": tb.plan().get("title_he", "סבב ניסוי"), "n": len(tb.keys())}
+    except (OSError, ValueError):
+        return None
+
+
+def test_state():
+    """The test batch as the page shows it: a second kind of carousel every day, two options a day (test_batch.items)."""
+    import create_review
+    import test_batch as tb
+    cats = create_review.design.categories("test-carousels")
+    its = tb.items()
+    for it in its:
+        it["cat"] = cats.get(it["type"], {}).get("cat", 0)
+        it["errors"] = []
+    keys = {i["key"] for i in its}
+    return {"batch": tb.ID, "test": True, "test_batch": test_info(), "batches": batches(), "items": its,
+            "week_he": tb.plan().get("title_he", ""),
+            "grades": {k: v for k, v in grades.load()["grades"].items() if k in keys},
+            "runs": {k: v for k, v in producer.load()["runs"].items() if k in keys},
+            "unsent": bool(grades_unsent()), "next_run_he": when_he(next_cloud_run()), "qa": list(producer.QA_CHECKS_HE),
+            "backend": lib.picture_backend(), "post_hour": 20,
+            "types": {k: {"he": v["he"], "cat": cats.get(k, {}).get("cat", 0), "about_he": v["about_he"]} for k, v in tb.TYPES.items()}}
+
+
 def state(batch_id=None):
     """Everything the page shows, as JSON: the carousels, the grades, the productions, the cloud status."""
+    import test_batch as tb
+    if batch_id == tb.ID:
+        return test_state()
     plan = batch.load(batch_id) if batch_id else current_plan()
     if not plan:
-        return {"batch": None, "batches": batches(), "items": [], "grades": {}, "runs": {}}
+        return {"batch": None, "batches": batches(), "items": [], "grades": {}, "runs": {}, "test_batch": test_info()}
     its = add_story_fields(grades.items(plan))
     for it in its:
         it["errors"] = producer.blocking_errors(it)
@@ -192,7 +223,8 @@ def state(batch_id=None):
             "runs": {k: v for k, v in producer.load()["runs"].items() if k in keys},
             "unsent": bool(grades_unsent()), "next_run_he": when_he(nxt), "qa": list(producer.QA_CHECKS_HE),
             "backend": lib.picture_backend(),   # "openai" since 03 Nov 2026: the only picture source; every stage waits for Yarin's budget and yes
-            "post_hour": int((lib.read_json(lib.ROOT / "shared" / "facts.json").get("postiz") or {}).get("default_hour", 6))}
+            "post_hour": int((lib.read_json(lib.ROOT / "shared" / "facts.json").get("postiz") or {}).get("default_hour", 6)),
+            "test_batch": test_info()}
 
 
 APP_CSS = """
@@ -279,7 +311,10 @@ button{font-family:inherit}
 .hs-stage{overflow-y:auto;padding:var(--sp-5) var(--sp-6) var(--sp-7);min-width:0;position:relative}
 .hs-insp{overflow-y:auto;background:var(--glass-sheen),var(--glass-card);box-shadow:var(--glass-card-rim);margin:var(--sp-3);margin-inline-end:0;border-radius:var(--r-lg);padding:var(--sp-4) var(--sp-4) var(--sp-7);display:grid;gap:var(--sp-5);align-content:start}
 .hs-kind{width:.5rem;height:.5rem;border-radius:50%;flex:none}
-.hs-kind.kid{background:var(--kid)}.hs-kind.expert{background:var(--accent)}.hs-kind.reco{background:var(--info)}
+.hs-kind.kid{background:var(--kid)}.hs-kind.expert{background:var(--accent)}.hs-kind.reco{background:var(--info)}.hs-kind.test{background:var(--tc,var(--tint))}
+.pk-mini.test{background:var(--tint-soft)}
+.hs-group.is-test h2 .lb-chip{font-weight:600}
+.hs-stage .st-r .lay{font-size:var(--fs-caption);font-weight:700;color:var(--tc-ink,var(--text-3))}
 .hs-badge{display:inline-flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;border-radius:var(--r-xs);font-weight:700;font-size:var(--fs-caption);background:var(--fill-2);color:var(--text-3);font-variant-numeric:tabular-nums}
 .hs-badge.on{background:var(--surface);color:var(--tint);box-shadow:var(--shadow-1)}
 .lb-chip .lb-spinner{width:.75rem;height:.75rem} /* the running status chip */
@@ -437,7 +472,11 @@ pre.lb-callout{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
 
 APP_JS = r"""
 const S = JSON.parse(document.getElementById('hs-state').textContent);
-const KIND = {kid: 'הילד מספר', expert: 'גישה מקצועית', reco: 'משחקים וספרים'};
+const KIND = {kid: 'הילד מספר', expert: 'גישה מקצועית', reco: 'משחקים וספרים', test: 'סבב ניסוי'};
+const isTest = it => it.kind === 'test';   // the test batch (test_batch.py, 10 Nov 2026)
+const TFIELD = {tag: 'תגית', big: 'ענק', label: 'תווית', headline: 'כותרת', body: 'גוף', no: 'במקום', yes: 'תנסו', why: 'למה', quote: 'ציטוט', by: 'מי אמר'};
+const TLAYOUT = {cover: 'שער', swap: 'במקום ותנסו', point: 'נקודה', photo: 'תמונה', covers: 'כריכות', quote: 'ציטוט', cta: 'קריאה לפעולה'};
+const usd = n => '$' + Number(n || 0).toFixed(2);
 const SCORE = {1: 'לא', 2: 'חלש', 3: 'בסדר', 4: 'טוב', 5: 'מעולה'};
 const ROLE = {hook: 'פתיח', frame: 'מה מתרגלים', recommendation: 'המלצה', lumebook: 'לומבוק', close: 'סיכום'};
 const STORY_ROLE = {hook: 'שער', beat: 'סיפור', turn: 'פנייה להורים', story_cta: 'שמירה'};
@@ -446,7 +485,7 @@ const storyCover = it => { const f = it.slides[0] || {}; return STY.el({headline
 const DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 const BUSY = ['queued', 'fixing', 'preparing', 'generating', 'composing', 'exporting'];
 const ASKING = r => r && (r.status === 'review' || r.status === 'approval');
-const CHIP = {kid: 'kid', expert: 'expert', reco: 'info', review: 'accent', done: 'success', failed: 'danger', busy: 'tint'};   // lb-chip colour of a kind or a run state   // waiting for Yarin: the picture to approve, or the budget and yes
+const CHIP = {kid: 'kid', expert: 'expert', reco: 'info', test: 'tint', review: 'accent', done: 'success', failed: 'danger', busy: 'tint'};   // lb-chip colour of a kind or a run state   // waiting for Yarin: the picture to approve, or the budget and yes
 let cur = null, filter = 'all', query = '', whyTimer = null, poller = null, zoomN = 0, saving = false;
 const VIEW_TITLE = {all: 'כל הקרוסלות', open: 'לדירוג', pick: 'הפקה', review: 'מחכות לאישור'};
 const orig = new Map();
@@ -478,12 +517,12 @@ function statusPill(r) {
 const inView = (it, f) => { const s = g(it.key), r = run(it.key);
   if (f === 'open') return !s.score; if (f === 'pick') return !!s.produce || !!r; if (f === 'review') return ASKING(r); return true; };
 // the search in the top bar (8 Nov 2026): the cover, the topic, the child, the option id, the structure
-const hay = it => [it.cover, it.title, it.topic_he, (it.day_topics || []).join(' '), it.child_name, it.id, it.structure_he].filter(Boolean).join(' ').toLowerCase();
+const hay = it => [it.cover, it.title, it.topic_he, (it.day_topics || []).join(' '), it.child_name, it.id, it.structure_he, it.angle_he, it.when_he].filter(Boolean).join(' ').toLowerCase();
 function visible() {
   const q = query.trim().toLowerCase();
   return S.items.filter(it => inView(it, filter) && (!q || hay(it).includes(q)));
 }
-const who = it => it.kind === 'reco' ? `${it.id === 'reco' ? 'משחקים וספרים 1' : 'משחקים וספרים 2'} · ${it.skill_he}` : `${it.id}${it.child_name ? ' · ' + it.child_name : ''}`;
+const who = it => isTest(it) ? `${it.option_he} · ${it.angle_he || it.title}` : it.kind === 'reco' ? `${it.id === 'reco' ? 'משחקים וספרים 1' : 'משחקים וספרים 2'} · ${it.skill_he}` : `${it.id}${it.child_name ? ' · ' + it.child_name : ''}`;
 function firstImage(it) { const r = run(it.key); return (r && r.status === 'done' && (r.slides || [])[0]) || (it.images || [])[0] || ''; }
 function card(it) {
   const s = g(it.key), r = run(it.key);
@@ -496,7 +535,8 @@ function card(it) {
   b.onclick = () => openCar(it.key); const fr = el('div', 'gc-frame'); fr.append(b); a.append(fr);
   if (!r) { const p = el('button', 'gc-pick', s.produce ? '✓ להפקה' : '+ להפקה'); p.type = 'button'; p.setAttribute('aria-pressed', String(!!s.produce));
     p.onclick = () => grade({produce: !s.produce}, it.key); fr.append(p); }
-  const m = el('div', 'gc-meta'); m.append(el('span', 'hs-kind ' + it.kind), el('span', 'who', who(it)));
+  const m = el('div', 'gc-meta'); m.append(el('span', 'hs-kind ' + it.kind + (isTest(it) ? ' lb-cat-' + it.cat : '')), el('span', 'who', who(it)));
+  if (isTest(it) && it.budget && it.budget.images) m.append(el('span', 'lb-chip', 'עד ' + usd(it.budget.budget_usd)));
   if (it.structure_he) m.append(el('span', 'lb-chip', it.structure_he));
   if (r) m.append(statusPill(r));
   if (s.score) { const sc = el('span', 'hs-badge on', String(s.score)); sc.title = 'ציון: ' + SCORE[s.score]; m.append(sc); }
@@ -510,6 +550,7 @@ function renderGrid() {
     if (it.slot !== slot) {
       slot = it.slot; lane = null; const sec = el('section', 'hs-group lb-glass-card'), h = el('h2'); sec.id = 'slot-' + it.slot;
       h.append(el('span', 'n', String(it.slot)), el('span', null, it.day_topics ? it.day_topics.join(' · ') : it.topic_he)); if (it.event) h.append(el('span', 'lb-chip accent', 'אירוע'));
+      if (isTest(it)) { sec.classList.add('lb-cat-' + it.cat, 'is-test'); h.append(el('span', 'lb-chip cat', it.when_he)); }
       if (it.date) h.append(el('span', 'd', day(it.date)));
       if (it.day_topics) { dayBox = el('div', 'hs-day'); cards = null; sec.append(h, dayBox); }   // two topics a day (24 Oct 2026)
       else { dayBox = null; cards = el('div', 'hs-cards'); sec.append(h, cards); }
@@ -532,13 +573,13 @@ function renderSide() {
     const on = b.dataset.f === filter; if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
     const n = S.items.filter(it => inView(it, b.dataset.f)).length, c = $('#hs-n-' + b.dataset.f); if (c) c.textContent = n ? String(n) : '';
   });
-  $('#hs-title').textContent = query ? `חיפוש: ${query}` : VIEW_TITLE[filter];
+  $('#hs-title').textContent = query ? `חיפוש: ${query}` : (S.test && filter === 'all' ? 'סבב ניסוי: קרוסלות מסוג אחר' : VIEW_TITLE[filter]);
   const days = $('#hs-days'); days.textContent = '';
   const seen = new Set(), shown = new Set(visible().map(it => it.slot));
   S.items.forEach(it => {
     if (seen.has(it.slot)) return; seen.add(it.slot);
     const b = el('button', 'lb-nav-item'); b.type = 'button'; b.dataset.day = it.slot; if (!shown.has(it.slot)) b.style.opacity = '.45';
-    const dd = el('span', 'dd'); dd.append(el('span', null, it.date ? day(it.date) : 'יום ' + it.slot), el('small', null, it.day_topics ? it.day_topics.join(' · ') : it.topic_he));
+    const dd = el('span', 'dd'); dd.append(el('span', null, it.date ? day(it.date) : 'יום ' + it.slot), el('small', null, (it.day_topics ? it.day_topics.join(' · ') : it.topic_he) + (isTest(it) ? ' · ' + it.post_time : '')));
     b.append(dd, el('span', 'lb-nav-n', String(S.items.filter(x => x.slot === it.slot && inView(x, filter)).length || '')));
     b.onclick = () => goDay(it.slot); days.append(b);
   });
@@ -561,7 +602,7 @@ function pickRow(it, removable) {
   const mini = el('span', 'pk-mini ' + it.kind), src = firstImage(it);
   if (src) { const img = el('img'); img.src = src; img.alt = ''; img.loading = 'lazy'; img.onerror = () => img.remove(); mini.append(img); }
   else if (isStory(it)) mini.append(storyCover(it));
-  const tx = el('span'); tx.append(el('span', 't lb-clamp-2', it.cover), el('span', 'm', `${it.slot} · ${it.topic_he} · ${it.id}`));
+  const tx = el('span'); tx.append(el('span', 't lb-clamp-2', it.cover), el('span', 'm', isTest(it) ? `${day(it.date)} · ${it.topic_he} · ${it.option_he}` : `${it.slot} · ${it.topic_he} · ${it.id}`));
   o.append(mini, tx); row.append(o);
   if (removable) { const x = el('button', 'pk-x', '×'); x.type = 'button'; x.title = 'להוריד מההפקה'; x.setAttribute('aria-label', 'להוריד מההפקה'); x.onclick = () => grade({produce: false}, it.key); row.append(x); }
   else row.append(statusPill(run(it.key)));
@@ -575,9 +616,11 @@ function renderPicks() {
   const lw = $('#pk-wait'); lw.textContent = '';
   if (!wait.length) lw.append(el('p', 'pk-empty', 'עוד לא נבחרה קרוסלה. ״+ להפקה״ על קרוסלה ברשת מוסיף אותה לכאן.'));
   wait.forEach(it => lw.append(pickRow(it, true)));
-  const paid = wait.some(i => i.kind !== 'reco');   // pictures come from the OpenAI API: each stage asks for a budget and a yes first (03 Nov 2026)
+  const paid = wait.some(i => i.kind !== 'reco' && i.kind !== 'test');   // pictures come from the OpenAI API: each stage asks for a budget and a yes first (03 Nov 2026)
+  const tpaid = wait.filter(i => isTest(i) && i.budget && i.budget.images), tsum = tpaid.reduce((a, i) => a + Number(i.budget.budget_usd || 0), 0);
   const b = $('#hs-send'); b.disabled = !wait.length; b.textContent = wait.length > 1 ? `להפיק את כולן (${wait.length})` : 'להפיק';
-  $('#pk-cost').textContent = !wait.length ? '' : paid ? 'ההפקה מקפיאה את הטקסט בלי עלות. לפני שנוצרת תמונה תוצג הערכה של טוקנים ועלות, ויתבקשו ממך תקציב ואישור. בלי זה לא נוצרת שום תמונה.' : 'ייצוא בלי עלות.';
+  $('#pk-cost').textContent = !wait.length ? '' : paid ? 'ההפקה מקפיאה את הטקסט בלי עלות. לפני שנוצרת תמונה תוצג הערכה של טוקנים ועלות, ויתבקשו ממך תקציב ואישור. בלי זה לא נוצרת שום תמונה.'
+    : tpaid.length ? `${tpaid.length === 1 ? 'לקרוסלה אחת יש תמונה' : tpaid.length + ' קרוסלות עם תמונות'} לייצר, עד ${usd(tsum)} בסך הכול. הלחיצה היא האישור שלך לתקציב של כל אחת מהן. השאר בלי עלות.` : 'ייצוא בלי עלות.';
   const lg = $('#pk-going'); lg.textContent = ''; $('#pk-going-h').hidden = !going.length;
   going.forEach(it => lg.append(pickRow(it, false)));
 }
@@ -674,6 +717,7 @@ function bookletPreview(it, s, pic) {
 function renderStage() {
   const it = item(cur), st = $('#hs-stage'); st.textContent = ''; orig.clear();
   st.className = 'hs-stage p-' + it.kind;
+  if (isTest(it)) return testStage(it, st);
   st.append(el('div', 'st-eyebrow', it.day_topics ? `${day(it.date)} · יום ${it.slot} מתוך 7 · נושא ${it.lane === 'b' ? 2 : 1} מתוך 2` : `${day(it.date)} · נושא ${it.slot} מתוך 7`), el('h1', 'st-h1', it.topic_he));
   const chips = el('div', 'st-chips');
   chips.append(el('span', 'lb-chip ' + CHIP[it.kind], KIND[it.kind]));
@@ -734,15 +778,72 @@ function renderStage() {
   if (res && res.list && res.list.length) { const ul = el('ul', 'st-errs'); res.list.forEach(x => ul.append(el('li', 'lb-callout ' + (x.warn ? 'warning' : 'danger'), x.text))); bar.append(ul); bar.style.flexDirection = 'row'; ul.style.flexBasis = '100%'; }
   st.append(bar); dirtyBar();
 }
+/* A test batch carousel (test_batch.py): the rendered slides, every text field of every slide, the caption, the CTA,
+   the Facebook text and the comment word, editable (saved through /api/save-test, which re-renders the slides); what the
+   type is for, the pictures to make with their budget, the sources and the rights notes. */
+function testStage(it, st) {
+  st.classList.add('lb-cat-' + it.cat);
+  st.append(el('div', 'st-eyebrow', `${day(it.date)} · ${it.when_he} · ${it.option_he}`), el('h1', 'st-h1', it.type_he));
+  const chips = el('div', 'st-chips');
+  chips.append(el('span', 'lb-chip cat', it.type_he), el('span', 'lb-chip', it.option_he));
+  if (it.angle_he) chips.append(el('span', 'lb-chip', it.angle_he));
+  chips.append(el('span', 'lb-chip', `${it.slides.length} שקופיות`), el('span', 'lb-chip', 'מילת תגובה: ' + it.comment_word));
+  chips.append(el('span', 'lb-chip ' + (it.budget.images ? 'warning' : 'success'), it.budget.images ? `${it.budget.images} ${it.budget.images === 1 ? 'תמונה' : 'תמונות'} לייצר · עד ${usd(it.budget.budget_usd)}` : 'בלי עלות'));
+  st.append(chips);
+  const ab = el('p', 'st-story'); ab.style.marginTop = 'var(--sp-3)'; ab.append(el('b', null, 'מה זה'), document.createTextNode(it.about_he + ' ' + it.why_he)); st.append(ab);
+  st.append(editable('p', 'st-title', it.title, 'title', null, 'כותרת פנימית'));
+  const probs = (it.lint || []).filter(x => x.level === 'ERROR').map(x => (x.slide ? `שקופית ${x.slide}: ` : '') + x.message).concat(it.render_problems || []);
+  if (probs.length) { const ul = el('ul', 'st-errs'); probs.slice(0, 8).forEach(t => ul.append(el('li', 'lb-callout warning', t))); st.append(ul); }
+  const grid = el('div', 'st-imgs');
+  (it.images || []).forEach((src, n) => { const b = el('button', 'st-img'); b.type = 'button'; const img = el('img'); img.src = src; img.alt = 'שקופית ' + (n + 1); img.loading = n < 6 ? 'eager' : 'lazy'; b.append(img); b.onclick = () => zoom(n); grid.append(b); });
+  if (!(it.images || []).length) grid.append(el('p', 'in-keys', 'השקופיות עוד לא צוירו'));
+  st.append(grid);
+  const sec = el('section', 'st-sec'); const h = el('h2', null, 'טקסט השקופיות'); h.append(el('span', 'hint', 'לוחצים ומקלידים. **מילה** בצבע. בשמירה השקופיות נבנות מחדש')); sec.append(h);
+  const rows = el('div', 'st-rows');
+  it.slides.forEach(s => {
+    const r = el('div', 'st-r'); r.append(el('span', 'num', String(s.n)));
+    const fs = el('div', 'fs'); fs.append(el('div', 'lay', TLAYOUT[s.layout] || s.layout));
+    Object.keys(TFIELD).filter(f => f in s).forEach(f => { const row = el('div', 'f'); row.append(el('span', null, TFIELD[f]), editable('div', null, s[f] || '', f, s.n, '')); fs.append(row); });
+    if (s.picture) fs.append(el('p', 'in-keys', 'תמונה שתיווצר בהפקה: ' + (it.pictures[s.picture] || s.picture)));
+    r.append(fs); rows.append(r);
+  });
+  sec.append(rows); st.append(sec);
+  const cap = el('section', 'st-sec'); const ch = el('h2', null, 'כיתוב וקריאה לפעולה'); ch.append(el('span', 'hint', 'הכיתוב נגמר בקריאה לפעולה, מילה במילה')); cap.append(ch);
+  cap.append(editable('div', 'lb-textblock is-boxed', it.caption, 'caption', null, 'כיתוב'), editable('div', 'lb-textblock is-boxed', it.cta, 'cta', null, 'קריאה לפעולה'));
+  const wrow = el('div', 'f'); wrow.append(el('span', 'in-keys', 'מילת התגובה'), editable('div', 'lb-textblock is-boxed', it.comment_word, 'comment_word', null, 'מילה אחת')); cap.append(wrow);
+  st.append(cap);
+  const fb = el('section', 'st-sec'); const fh = el('h2', null, 'הטקסט לפייסבוק'); fh.append(el('span', 'hint', 'בלי מילת תגובה. הקישור לאתר נוסף לבד בסוף')); fb.append(fh, editable('div', 'lb-textblock is-boxed', it.fb_text, 'fb_text', null, 'טקסט לפייסבוק')); st.append(fb);
+  if ((it.sources || []).length || (it.rights || []).length) {
+    const so = el('section', 'st-sec'); so.append(el('h2', null, 'מקורות וזכויות'));
+    const ul = el('ul', 'in-checks');
+    (it.sources || []).forEach(x => { const li = el('li'); const a = el('a', null, `${x.publisher}: ${x.title}`); a.href = x.url; a.target = '_blank'; a.rel = 'noopener'; li.append(a); if (x.supports) li.append(document.createTextNode(' · ' + x.supports)); ul.append(li); });
+    (it.rights || []).forEach(t => ul.append(el('li', null, t)));
+    so.append(ul); st.append(so);
+  }
+  const r = run(it.key);
+  if (r && r.status === 'done') {
+    const pv = el('section', 'st-sec'); pv.id = 'st-postiz'; const ph = el('h2', null, 'איך זה ייראה באינסטגרם ובפייסבוק'); ph.append(el('span', 'hint', 'כך זה נשלח ל-Postiz'));
+    const wrap = el('div', 'pv-wrap'); pv.append(ph, wrap); st.append(pv); postizCards(it.key, wrap);
+  }
+  const bar = el('div', 'st-save'); bar.id = 'st-save'; bar.hidden = true;
+  const msg = el('span', 'msg'); msg.id = 'st-save-msg';
+  const undo = el('button', 'lb-btn ghost sm', 'ביטול'); undo.id = 'st-undo'; undo.type = 'button'; undo.onclick = () => { delete lastSave[cur]; renderStage(); };
+  const save = el('button', 'lb-btn sm', 'שמירה'); save.id = 'st-save-btn'; save.type = 'button'; save.onclick = () => saveEdits();
+  bar.append(msg, undo, save);
+  const res = lastSave[cur];
+  if (res && res.list && res.list.length) { const ul = el('ul', 'st-errs'); res.list.forEach(x => ul.append(el('li', 'lb-callout ' + (x.warn ? 'warning' : 'danger'), x.text))); bar.append(ul); bar.style.flexDirection = 'row'; ul.style.flexBasis = '100%'; }
+  st.append(bar); dirtyBar();
+}
 async function saveEdits() {
   const it = item(cur), ch = edits();
   if (!ch.length || saving) return true;
-  saving = true; $('#st-save-msg').textContent = it.kind === 'reco' ? 'שומר ובונה את השקופיות מחדש...' : 'שומר...'; $('#st-save-btn').disabled = true;
+  saving = true; $('#st-save-msg').textContent = it.kind === 'reco' || isTest(it) ? 'שומר ובונה את השקופיות מחדש...' : 'שומר...'; $('#st-save-btn').disabled = true;
   try {
-    const j = it.kind === 'reco' ? await post('/api/save-reco', {date: it.date, format: it.format, edits: ch})
+    const j = isTest(it) ? await post('/api/save-test', {key: it.key, edits: ch})
+            : it.kind === 'reco' ? await post('/api/save-reco', {date: it.date, format: it.format, edits: ch})
                                  : await post('/api/save', {date: it.date, edits: ch.map(e => ({option: it.id, ...e}))});
-    const mine = (j.errors || []).filter(e => it.kind === 'reco' || (e.path || '').includes(it.id));
-    const warns = (j.warnings || []).filter(e => it.kind === 'reco' || (e.path || '').includes(it.id)).filter(e => !/rights_unverified/.test(e.message || ''));
+    const mine = (j.errors || []).filter(e => it.kind === 'reco' || isTest(it) || (e.path || '').includes(it.id)).concat((j.render_problems || []).map(t => ({message: t})));
+    const warns = (j.warnings || []).filter(e => it.kind === 'reco' || isTest(it) || (e.path || '').includes(it.id)).filter(e => !/rights_unverified/.test(e.message || ''));
     lastSave[it.key] = {msg: mine.length ? `נשמר עם גיבוי · ${mine.length} לתיקון` : 'נשמר עם גיבוי', list: mine.map(e => ({text: e.message})).concat(warns.slice(0, 4).map(e => ({text: e.message, warn: true})))};
     await refresh(); renderGrid(); renderPicks(); renderStage(); renderProd(); toast(mine.length ? 'נשמר. יש מה לתקן, מתחת לשקופיות' : (run(it.key) || {}).status === 'done' ? 'נשמר. ״ייצוא מחדש אחרי עריכה״ בצד מעדכן את השקופיות' : 'נשמר');
     return true;
@@ -793,6 +894,14 @@ function renderProd() {
   const h = el('h2', null, 'הפקה'); box.append(h);
   const btns = el('div', 'in-btns');
   const blocked = (!r || ['failed', 'done'].includes(r.status)) && blockers(it, box);
+  if (!r && isTest(it)) {   // test batch: pressing produce is the permission for this carousel's budget (Yarin, 10 Nov 2026)
+    const b = it.budget || {};
+    box.append(el('p', 'in-keys', b.images ? `${b.images} ${b.images === 1 ? 'תמונה תיווצר' : 'תמונות ייווצרו'} דרך ה-API של OpenAI (${b.model}, איכות ${b.quality}), הערכה ${'$' + Number(b.usd).toFixed(4)}, תקציב עד ${usd(b.budget_usd)}. הלחיצה על להפיק היא האישור שלך לתקציב הזה, לקרוסלה הזו בלבד. אחר כך השקופיות, הכיתוב וה-ZIP נבנים לבד.`
+      : 'אין תמונות לייצר: השקופיות, הכיתוב, הטקסט לפייסבוק וה-ZIP נבנים מיד, בלי עלות.'));
+    const go = el('button', 'lb-btn', b.images ? `להפיק עכשיו · עד ${usd(b.budget_usd)}` : 'להפיק עכשיו'); go.type = 'button';
+    go.onclick = () => { if (b.images && !confirm(`ליצור ${b.images === 1 ? 'תמונה אחת' : b.images + ' תמונות'} לקרוסלה הזו, בתקציב של עד ${usd(b.budget_usd)}?`)) return; act('start'); };
+    btns.append(go); box.append(btns); return;
+  }
   if (!r) {
     if (!blocked) box.append(el('p', 'in-keys', it.kind === 'reco' ? 'השקופיות כבר מוכנות: ייצוא ל-ZIP עם כיתוב, בלי עלות.'
       : (isStory(it) ? 'תמונה לכל שקופית, דרך ה-API של OpenAI. קודם השער, ואחרי שמאשרים אותו שאר התמונות. השקופיות וה-ZIP נבנים לבד.'
@@ -868,7 +977,7 @@ function postizBox(it, r, box) {
   const w = el('div', 'in-postiz'); w.append(el('h2', null, 'פרסום דרך Postiz'));
   if (r.postiz) w.append(el('p', 'in-keys', (r.postiz.status === 'schedule' ? 'מתוזמן ל' : 'טיוטה ל') + whenHe(r.postiz.date)));
   const t = el('input', 'lb-input'); t.type = 'datetime-local'; t.dir = 'ltr'; t.min = localIso(new Date());
-  t.value = r.postiz && r.postiz.date ? localIso(new Date(r.postiz.date)) : `${r.date}T${pad2(S.post_hour ?? 6)}:00`;
+  t.value = r.postiz && r.postiz.date ? localIso(new Date(r.postiz.date)) : it.post_time ? `${r.date}T${it.post_time}` : `${r.date}T${pad2(S.post_hour ?? 6)}:00`;
   const row = el('div', 'in-btns');
   const pv = el('button', 'lb-btn ghost', 'איך זה ייראה'); pv.type = 'button'; pv.onclick = () => { const sec = $('#st-postiz'); if (sec) sec.scrollIntoView({behavior: 'smooth', block: 'start'}); };
   const go = el('button', 'lb-btn', r.postiz ? 'לתזמן שוב' : 'לתזמן'); go.type = 'button';
@@ -955,9 +1064,12 @@ $('#op-close').onclick = () => closeCar();
 $('#op-prev').onclick = () => step(-1);
 $('#op-next').onclick = () => step(1);
 $('#hs-open').onclick = e => { if (e.target.id === 'hs-open') closeCar(); };
-$('#hs-week').onchange = e => { location.href = '/?batch=' + encodeURIComponent(e.target.value); };
+$('#hs-week').onchange = e => { location.href = '?batch=' + encodeURIComponent(e.target.value); };   // relative: works on :8777 and under :8780/hook-studio/
 $('#hs-send').onclick = async () => {
-  flushWhy(); $('#hs-send').disabled = true;
+  flushWhy();
+  const tp = S.items.filter(i => isTest(i) && g(i.key).produce && !run(i.key) && i.budget && i.budget.images);
+  if (tp.length && !confirm(`${tp.length === 1 ? 'לקרוסלה אחת' : tp.length + ' קרוסלות'} יש תמונות לייצר, עד ${usd(tp.reduce((a, i) => a + Number(i.budget.budget_usd), 0))} בסך הכול. להפיק?`)) return;
+  $('#hs-send').disabled = true;
   try { const j = await post('/api/produce-send', {batch: S.batch}); Object.assign(S.grades, j.grades); j.started.forEach(r => S.runs[r.key] = r);
     (j.blocked || []).forEach(b => { const x = S.items.find(i => i.key === b.key); if (x) x.errors = b.errors; });
     const nb = (j.blocked || []).length;
@@ -992,7 +1104,8 @@ if (S.items.length) {
   const want = decodeURIComponent(location.hash.slice(1));
   if (S.items.some(i => i.key === want)) openCar(want);
   poll();
-} else { $('#hs-groups').textContent = ''; $('#hs-groups').append(el('p', 'hs-empty', 'אין עדיין באץ\' שבועי עם חבילות.')); }
+} else { $('#hs-groups').textContent = ''; $('#hs-groups').append(el('p', 'hs-empty', S.test ? 'אין עדיין קרוסלות בסבב הניסוי.' : 'אין עדיין באץ\' שבועי עם חבילות.')); }
+if (S.test) document.querySelectorAll('.hs-side [data-f]').forEach(b => { const t = b.querySelector('.lb-nav-text'); if (t && b.dataset.f === 'all') t.textContent = 'כל סבב הניסוי'; });
 """
 
 
@@ -1003,6 +1116,15 @@ def app_page(batch_id=None):
     st = state(batch_id)
     blob = json.dumps(st, ensure_ascii=False).replace("</", "<\\/")
     weeks = "".join(f'<option value="{esc(b)}"{" selected" if b == st["batch"] else ""}>חבילה {esc(b)}</option>' for b in st["batches"])
+    tbi = st.get("test_batch") or {}
+    if tbi:   # the test batch (10 Nov 2026): in the batch menu, and its own place in the sidebar
+        weeks = f'<option value="{esc(tbi["id"])}"{" selected" if st.get("test") else ""}>{esc(tbi["title_he"])}</option>' + weeks
+        test_nav = ('<nav class="lb-nav" aria-label="סבב ניסוי"><div class="lb-nav-label">סבב ניסוי</div>'
+                    + ('<a class="lb-nav-item" href="?">' + design.icon("slides") + '<span class="lb-nav-text">החבילה החודשית</span></a>' if st.get("test")
+                       else f'<a class="lb-nav-item" href="?batch={esc(tbi["id"])}">{design.icon("target")}<span class="lb-nav-text">קרוסלות מסוג אחר</span><span class="lb-nav-n">{tbi["n"] or ""}</span></a>')
+                    + '</nav>')
+    else:
+        test_nav = ""
     # the views, with their counts (8 Nov 2026: the sidebar of the creator map and the reel calendar)
     views = "".join(f'<button type="button" class="lb-nav-item" data-f="{k}">{design.icon(ic)}<span class="lb-nav-text">{v}</span><span class="lb-nav-n" id="hs-n-{k}"></span></button>'
                     for k, v, ic in (("all", "כל הקרוסלות", "slides"), ("open", "לדירוג", "bars"), ("pick", "הפקה", "target"), ("review", "מחכות לאישור", "clock")))
@@ -1013,11 +1135,11 @@ def app_page(batch_id=None):
     search = ('<label class="lb-search hs-search"><span class="lb-sr">חיפוש קרוסלה</span>' + design.icon("search")
               + '<input class="lb-input" id="hs-q" type="search" placeholder="חיפוש: נושא, ילד, פתיח" autocomplete="off"></label>')
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<title>מכונת הקרוסלות</title>{design.head()}{fonts}<style>{create_review.STORY_CSS}{compose_slides.BOOKLET_CSS}{APP_CSS}</style></head>\n<body dir="rtl">'
+            f'<title>מכונת הקרוסלות{" · סבב ניסוי" if st.get("test") else ""}</title>{design.head()}{fonts}<style>{create_review.STORY_CSS}{compose_slides.BOOKLET_CSS}{APP_CSS}</style></head>\n<body dir="rtl">'
             '<div class="lb-app hs-shell" dir="rtl" lang="he">'
             '<aside class="lb-sidebar hs-side" id="hs-side" aria-label="מכונת הקרוסלות">'
             f'<a class="lb-brand" href="/" ><img src="{design.logo_data_uri()}" alt=""><span><b>מכונת הקרוסלות</b><small id="hs-range">{esc(st.get("week_he", ""))}</small></span></a>'
-            f'<nav class="lb-nav" aria-label="תצוגה"><div class="lb-nav-label">תצוגה</div>{views}</nav>'
+            f'<nav class="lb-nav" aria-label="תצוגה"><div class="lb-nav-label">תצוגה</div>{views}</nav>{test_nav}'
             '<nav class="lb-nav" aria-label="ימי החבילה"><div class="lb-nav-label">ימי הפרסום</div><div id="hs-days"></div></nav>'
             '<div class="lb-sidebar-foot">'
             f'<label class="lb-field">החבילה<select class="lb-select hs-week" id="hs-week" aria-label="חבילה">{weeks}</select></label>'

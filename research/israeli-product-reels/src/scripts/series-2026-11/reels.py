@@ -89,14 +89,32 @@ def one_line(t):
     return t.replace("\n", " ")
 
 
+def own_cta(r):
+    """True when the voiceover already ends with Yarin's own לומי line (a talking take, 10 Nov 2026: his words run over the last
+    one or two lines), so the fixed closing line is not added again."""
+    return any("לומי" in l for l in (r.get("vo") or [])[-2:])
+
+
+def made_seconds(r):
+    """The real length of a reel reel_make.py has built (its work/make/report.json), else None."""
+    rep = ROOT / r["project"] / "work/make/report.json" if r.get("project") else None
+    try:
+        return round(float(json.loads(rep.read_text())["length"]), 1) if rep else None
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
 def seconds(r, d):
-    """Estimated length of the finished reel in seconds (Yarin, 04 Nov 2026: only 10 to 30 s)."""
+    """Estimated length of the finished reel in seconds (Yarin, 04 Nov 2026: only 10 to 30 s). A reel that was made says
+    its real length (10 Nov 2026)."""
     L = d["defaults"]["length"]
     if r.get("clip_seconds"):
         return float(r["clip_seconds"])
+    if made_seconds(r):
+        return made_seconds(r)
     if r.get("vo"):
         words = sum(len(l.split()) for l in r["vo"])
-        if r["status"] != "posted":
+        if r["status"] != "posted" and not own_cta(r):
             words += len(d["defaults"]["cta_voice"].split())
         return round(L["lead_seconds"] + words / L["words_per_second"], 1)
     if r.get("cards"):
@@ -167,11 +185,15 @@ def script_md(r, d):
     if r.get("yarin_films"):
         out.append("- ירין מצלם: " + ", ".join(r["yarin_films"]))
     if r.get("vo"):
-        words = sum(len(l.split()) for l in r["vo"]) + len(d["defaults"]["cta_voice"].split())
+        words = sum(len(l.split()) for l in r["vo"]) + (0 if own_cta(r) else len(d["defaults"]["cta_voice"].split()))
         out.append(f"- קריינות (בערך {words} מילים):")
         sees = r.get("sees", [])
         out += [f"  - {l}" + (f" (רואים: {sees[i]})" if i < len(sees) and sees[i] else "") for i, l in enumerate(r["vo"])]
-        out.append(f"  - {d['defaults']['cta_voice']}")
+        if not own_cta(r):
+            out.append(f"  - {d['defaults']['cta_voice']}")
+    if r.get("trial_hooks"):
+        out.append("- הוקים לגרסאות הניסיון (גרסה 1 עם ההוק הראשי):")
+        out += [f"  - {one_line(h)}" for h in r["trial_hooks"]]
     if r.get("cards"):
         out.append("- כרטיסיות טקסט על המסך:")
         out += [f"  - {l}" for l in r["cards"]]
@@ -271,6 +293,11 @@ def lint():
                 bad.append(f"- ERROR {r['id']}: Yarin speaks as a parent ({hit.group(0)!r}); he has no children, he is LumeBook's marketing guy (Yarin, 07 Nov 2026)")
         if r["voice"] != "trend" or "\n" in r["hook"]:
             fields[f"{r['id']}_hook"] = r["hook"]
+        for i, h in enumerate(r.get("trial_hooks", [])):   # the top hooks of the five trial versions (10 Nov 2026)
+            if h.strip():
+                fields[f"{r['id']}_trialhook{i}"] = h
+        if r.get("cta_screen"):
+            fields[f"{r['id']}_cta"] = r["cta_screen"]
         for i, l in enumerate(r.get("vo", [])):
             fields[f"{r['id']}_vo{i}"] = l
         for i, l in enumerate(r.get("cards", [])):
@@ -359,6 +386,9 @@ def principle_checks(d):
             out.append(f"- T5 {rid}: hook is {len(hook)} characters, {len(hook) / 17:.1f} s to read; keep it to {HOOK_CHARS} (2 s)")
         if len(hook.split()) > 8:
             out.append(f"- H1 {rid}: hook is {len(hook.split())} words, keep it to 8")
+        for h in map(one_line, r.get("trial_hooks", [])):
+            if len(h) > HOOK_CHARS:
+                out.append(f"- T5 {rid}: trial hook is {len(h)} characters, keep it to {HOOK_CHARS}: {h}")
         vo = r.get("vo") or []
         if vo:
             # H6: the hook is said and shown, so the first spoken line carries the hook's words
@@ -653,7 +683,7 @@ def merge(path, only=None):
         raw = json.loads(Path(path).read_text())
         docs = raw.get("docs", raw.get("documents", [])) if isinstance(raw, dict) else raw
     by = {"r" + r["id"].replace(".", "-"): r for r in d["reels"]}
-    lists = {"vo": "vo", "sees": "sees", "cards": "cards", "footage": "footage", "blocker": "blockers"}
+    lists = {"vo": "vo", "sees": "sees", "cards": "cards", "footage": "footage", "blocker": "blockers", "trialhooks": "trial_hooks"}
     shoots = {s["date"]: s for s in d["shoots"]}
     n = 0
     picks = d.setdefault("picks", {})
@@ -703,6 +733,8 @@ def merge(path, only=None):
             i = int(parts[2])
             if field == "sees" and i < len(r.get("vo", [])):
                 arr.extend([""] * (i + 1 - len(arr)))  # "what they see" follows the voiceover lines
+            if field == "trialhooks" and i < 4:          # four slots on the card, filled in any order (10 Nov 2026)
+                arr.extend([""] * (i + 1 - len(arr)))
             if i < len(arr) and arr[i] != text:
                 arr[i] = text; n += 1; print(key)
             continue

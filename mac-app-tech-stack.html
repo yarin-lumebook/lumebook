@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mac App — Complete Technical Stack</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0A0A0C;
+    --surface: #111114;
+    --surface2: #18181D;
+    --border: #222228;
+    --text: #E2E2EE;
+    --muted: #6E6E88;
+    --dim: #3A3A50;
+    --green: #3ECFA0;
+    --blue: #5B9EFF;
+    --purple: #A67FFF;
+    --orange: #FF8C42;
+    --yellow: #F5C842;
+    --red: #FF4D6A;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    padding: 52px 52px 36px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-header .eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 14px;
+  }
+  .page-header h1 {
+    font-size: clamp(28px,4vw,48px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .page-header h1 em { font-style: normal; color: var(--green); }
+  .page-header p {
+    color: var(--muted);
+    max-width: 580px;
+    font-size: 14px;
+  }
+
+  /* ── PIPELINE BANNER ── */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 52px;
+    margin: 32px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .pipeline::-webkit-scrollbar { display: none; }
+  .pipe-step {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .pipe-label {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text);
+    white-space: nowrap;
+    position: relative;
+  }
+  .pipe-label.active { border-color: var(--green); color: var(--green); }
+  .pipe-arrow {
+    font-family: var(--mono);
+    color: var(--dim);
+    padding: 0 6px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    padding: 0 52px 60px;
+  }
+
+  /* ── LAYER ── */
+  .layer {
+    margin-top: 48px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .layer-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .layer-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .layer-title {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .layer-sub {
+    color: var(--muted);
+    font-size: 12px;
+    margin-left: auto;
+    font-family: var(--mono);
+  }
+
+  /* ── TOOL GRID ── */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+  }
+  .tool {
+    background: var(--surface);
+    padding: 22px 24px;
+    position: relative;
+  }
+  .tool:hover { background: var(--surface2); }
+  .tool-top {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .tool-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .tool-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+  .tag-free { background: rgba(62,207,160,0.12); color: var(--green); }
+  .tag-paid { background: rgba(255,77,106,0.1); color: var(--red); }
+  .tag-optional { background: rgba(110,110,136,0.15); color: var(--muted); }
+  .tag-required { background: rgba(91,158,255,0.12); color: var(--blue); }
+  .tag-builtin { background: rgba(166,127,255,0.12); color: var(--purple); }
+
+  .tool-role {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-family: var(--mono);
+  }
+  .tool-desc {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .tool-desc strong { color: var(--text); font-weight: 600; }
+  .tool-cost {
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--orange);
+  }
+  .tool-gotcha {
+    margin-top: 8px;
+    padding: 8px 10px;
+    background: rgba(245,200,66,0.06);
+    border-left: 2px solid var(--yellow);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .tool-gotcha strong { color: var(--yellow); }
+
+  /* ── HOW IT CONNECTS ── */
+  .connect-box {
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    padding: 20px 24px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .connect-box strong { color: var(--text); }
+  .connect-box .mono { font-family: var(--mono); font-size: 11px; color: var(--green); background: rgba(62,207,160,0.08); padding: 1px 5px; border-radius: 2px; }
+
+  /* ── DECISION TABLE ── */
+  .decision-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 48px;
+  }
+  .decision-table th {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .decision-table td {
+    padding: 14px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .decision-table tr:last-child td { border-bottom: none; }
+  .decision-table tr:hover td { background: var(--surface); }
+  .decision-table td:first-child { font-family: var(--mono); font-size: 12px; color: var(--text); font-weight: 600; }
+  .decision-table td { color: var(--muted); }
+
+  /* ── COST SUMMARY ── */
+  .cost-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    margin-top: 48px;
+    border: 1px solid var(--border);
+  }
+  .cost-cell {
+    background: var(--surface);
+    padding: 20px;
+  }
+  .cost-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .cost-num {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: var(--mono);
+    color: var(--text);
+  }
+  .cost-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 56px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 700px) {
+    .page-header, .pipeline, .main { padding-left: 20px; padding-right: 20px; }
+    .tool-grid { grid-template-columns: 1fr; }
+    .cost-grid { grid-template-columns: 1fr 1fr; }
+    .layer-sub { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="eyebrow">technical deep-dive · from zero to shipping</div>
+  <h1>Every tool, how it<br>works, and how it<br><em>connects</em></h1>
+  <p>The complete technical stack for Mac app development — what each tool does, what it costs, what it connects to, and what they don't tell you.</p>
+</div>
+
+<!-- PIPELINE -->
+<div class="pipeline">
+  <div class="pipe-step"><div class="pipe-label active">Code (Swift)</div></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><div class="pipe-label">Xcode builds</div></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><div class="pipe-label">SPM pulls libs</div></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><div class="pipe-label">Backend calls</div></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><div class="pipe-label">Git saves history</div></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><div class="pipe-label">TestFlight → testers</div></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><div class="pipe-label">Sign + Notarize</div></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><div class="pipe-label">App Store / Web</div></div>
+</div>
+
+<div class="main">
+
+  <!-- ─── LAYER 1: Language + IDE ─── -->
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">01</div>
+      <div class="layer-title" style="color:var(--green)">Language + IDE — Where you write code</div>
+      <div class="layer-sub">Required · Free</div>
+    </div>
+    <div class="tool-grid">
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Swift</div>
+          <span class="tool-tag tag-required">Required</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">The programming language</div>
+        <div class="tool-desc">Apple's official language for building Mac and iOS apps. Think of it as the instructions you write that the computer executes. <strong>Every Mac app is written in Swift</strong> (or the older Objective-C). Swift is readable and modern — a `for` loop looks like: <code>for item in items { doSomething(item) }</code>. You're not learning a niche language — Swift is in the top 15 most-used languages globally.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> Swift updates every year alongside Xcode. Code written in Swift 5 may need minor changes to compile in Swift 6. This is the "language treadmill" — not a crisis, but real overhead.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Xcode</div>
+          <span class="tool-tag tag-required">Required</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">IDE — Integrated Development Environment</div>
+        <div class="tool-desc">The single tool where you write code, design UI, run your app, debug errors, profile performance, and submit to the App Store. <strong>Think of it as Photoshop for apps</strong> — one program that does everything. It's 10–15GB, slow to open, and crashes more than it should. All of that is normal. Every Mac developer uses it.</div>
+        <div class="tool-cost">Cost: Free (requires macOS + Apple account to download)</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> Xcode only runs on Mac. No exceptions. Also: updating Xcode mid-project can break your build. Treat Xcode updates like OS updates — wait 2 weeks for others to report issues first.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">SwiftUI</div>
+          <span class="tool-tag tag-builtin">Built into Xcode</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">UI Framework — builds what users see</div>
+        <div class="tool-desc">SwiftUI is Apple's modern way to build your app's visual interface. <strong>You describe what you want — SwiftUI figures out how to render it.</strong> Example: <code>Text("Hello").font(.title).foregroundColor(.blue)</code> shows blue title text. No drag-and-drop required, though Xcode has a visual Preview panel. SwiftUI is the right choice for new apps in 2025.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> SwiftUI still has holes — some advanced Mac features require dropping down to AppKit (the older framework). You'll hit this around month 3 when you need something SwiftUI can't do yet. Plan for it.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">AppKit</div>
+          <span class="tool-tag tag-builtin">Built into Xcode</span>
+          <span class="tool-tag tag-optional">Advanced</span>
+        </div>
+        <div class="tool-role">Older UI Framework — for Mac-specific power features</div>
+        <div class="tool-desc">AppKit is the original Mac UI framework, predating SwiftUI by 20+ years. <strong>You'll need it when SwiftUI can't do what you need</strong> — custom window behaviors, menu bar apps, system tray icons, complex drag-and-drop. Most apps use SwiftUI as the base and call AppKit for specific things. It's not a separate tool — it lives alongside SwiftUI in the same Xcode project.</div>
+      </div>
+    </div>
+    <div class="connect-box">
+      <strong>How it connects:</strong> You write Swift code inside Xcode. Xcode compiles (translates) that code into a binary the Mac can run. SwiftUI code describes your UI; Xcode renders a live preview of it as you type. You don't install Swift separately — it comes with Xcode.
+    </div>
+  </div>
+
+  <!-- ─── LAYER 2: Dependency Management ─── -->
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">02</div>
+      <div class="layer-title" style="color:var(--blue)">Dependency Management — Plugging in existing code</div>
+      <div class="layer-sub">Required · Free</div>
+    </div>
+    <div class="tool-grid">
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Swift Package Manager (SPM)</div>
+          <span class="tool-tag tag-required">Use This</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">Modern dependency manager — built into Xcode</div>
+        <div class="tool-desc">Apps don't get built from scratch. You "import" libraries — packages of code other developers wrote — so you don't reinvent wheels. <strong>SPM is how you do that in 2025.</strong> Need to make network requests? Import Alamofire. Need to render charts? Import Swift Charts. SPM is built directly into Xcode: File → Add Package Dependencies → paste a GitHub URL → done. It downloads the code, links it, and you can start using it.</div>
+        <div class="tool-cost">Cost: Free. Built into Xcode.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> Dependency conflicts — when two packages need different versions of the same thing — can cause build errors with cryptic messages. Resolution: delete the Package.resolved file and let SPM rebuild it.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">CocoaPods</div>
+          <span class="tool-tag tag-optional">Legacy</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">Older dependency manager — still widely used</div>
+        <div class="tool-desc">CocoaPods predates SPM and many older libraries still use it. You create a <span class="mono">Podfile</span>, list your dependencies, run <span class="mono">pod install</span>, and it creates a <span class="mono">.xcworkspace</span> file you must open instead of the normal project. <strong>For new projects, prefer SPM.</strong> You'll encounter CocoaPods when tutorials or libraries require it.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> CocoaPods is installed via Ruby (already on your Mac). But after installing, if you open the wrong file (.xcodeproj instead of .xcworkspace), nothing works and you'll think it's broken. Always open the workspace file.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Swift Package Index</div>
+          <span class="tool-tag tag-free">Free</span>
+          <span class="tool-tag tag-optional">Reference</span>
+        </div>
+        <div class="tool-role">Directory of available packages</div>
+        <div class="tool-desc"><strong>swiftpackageindex.com</strong> — the Google for Swift packages. Before building something from scratch, search here. Need push notifications? Crash reporting? In-app purchases? Keyboard shortcuts? There's almost certainly a package that solves it. The site shows compatibility, version history, and documentation quality — saving you from adopting a dead package.</div>
+      </div>
+    </div>
+    <div class="connect-box">
+      <strong>How it connects:</strong> SPM lives inside Xcode. When you add a package, Xcode fetches the code from GitHub, builds it alongside your code, and makes it available via <span class="mono">import PackageName</span> at the top of any Swift file. The package versions are locked in <span class="mono">Package.resolved</span> — this is committed to Git so your collaborators get the exact same versions.
+    </div>
+  </div>
+
+  <!-- ─── LAYER 3: Data Storage ─── -->
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">03</div>
+      <div class="layer-title" style="color:var(--purple)">Data Storage — Where your app's data lives</div>
+      <div class="layer-sub">Depends on your app · Free to $$$</div>
+    </div>
+    <div class="tool-grid">
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">SwiftData / Core Data</div>
+          <span class="tool-tag tag-builtin">Built in</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">On-device database — data stored only on the user's Mac</div>
+        <div class="tool-desc"><strong>If your app's data never needs to sync across devices or be shared between users, you don't need a server at all.</strong> SwiftData (2023+, modern) and Core Data (older) store data directly on the user's Mac — like a local database file. A note-taking app, a task manager for one person, a tool that processes local files — none of these need cloud backends. <strong>Most indie apps start here.</strong></div>
+        <div class="tool-cost">Cost: Free. Built into Apple frameworks.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> SwiftData is powerful but still maturing. For multi-user sync or data that needs to be on multiple devices, you need CloudKit or an external backend on top of it.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">CloudKit</div>
+          <span class="tool-tag tag-free">Free tier</span>
+          <span class="tool-tag tag-builtin">Apple-native</span>
+        </div>
+        <div class="tool-role">Apple's cloud sync — free if targeting only Apple devices</div>
+        <div class="tool-desc">CloudKit is Apple's backend storage that syncs data through iCloud. <strong>If your app is Mac/iPhone/iPad only and needs cross-device sync, CloudKit is the natural first choice</strong> — it's free for reasonable usage, deeply integrated with SwiftData/Core Data, and requires no server you manage. The free tier includes 100MB database, 10GB assets, and 2GB transfer/month per app. Data lives in the user's iCloud account.</div>
+        <div class="tool-cost">Cost: Free up to generous limits. Apple handles all infrastructure.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> CloudKit only works on Apple devices. If you ever want a web version or Android app, you'll need to migrate to a different backend — which is painful after you've built on it.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Supabase</div>
+          <span class="tool-tag tag-free">Free tier</span>
+          <span class="tool-tag tag-optional">Cross-platform</span>
+        </div>
+        <div class="tool-role">Open-source "backend as a service" — database + auth + storage</div>
+        <div class="tool-desc">Supabase gives you a full backend without building one: a PostgreSQL database (SQL — like a spreadsheet on steroids), user authentication (sign up/log in), and file storage, all in one dashboard. <strong>Best choice if you need cross-platform or want SQL.</strong> The free tier is genuinely usable for indie apps. You call it from Swift via the Supabase Swift SDK.</div>
+        <div class="tool-cost">Cost: Free up to 500MB database, 1GB storage. $25/mo after.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Firebase</div>
+          <span class="tool-tag tag-free">Free tier</span>
+          <span class="tool-tag tag-optional">Google</span>
+        </div>
+        <div class="tool-role">Google's backend — real-time data, auth, analytics</div>
+        <div class="tool-desc">Firebase (by Google) is the most-used mobile backend globally. It uses Firestore — a NoSQL database that stores data as documents (think JSON) rather than tables. <strong>Best for real-time features</strong> (chat, live collaboration, live scores) or if you want battle-tested infrastructure. Heavily documented. Has a generous free tier. Downside: vendor lock-in to Google.</div>
+        <div class="tool-cost">Cost: Free (Spark plan). Blaze plan scales on usage.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> Firebase is opinionated about data structure. Relational data (users → orders → items) is harder to query in Firestore than in SQL. If your data is naturally relational, choose Supabase.</div>
+      </div>
+    </div>
+    <div class="connect-box">
+      <strong>How it connects:</strong> Your Swift code calls the backend SDK (e.g., <span class="mono">supabase.from("tasks").select()</span>). The SDK makes HTTPS network requests to the backend's servers, which respond with JSON data. You parse that JSON back into Swift objects. For CloudKit, Apple's framework handles all of this automatically with minimal code.
+      <br><br>
+      <strong>Decision rule:</strong> App stores user data only on one Mac → <strong>SwiftData</strong>. Syncs across Apple devices → <strong>CloudKit</strong>. Needs web/Android or SQL → <strong>Supabase</strong>. Needs real-time sync or massive scale → <strong>Firebase</strong>.
+    </div>
+  </div>
+
+  <!-- ─── LAYER 4: Version Control ─── -->
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">04</div>
+      <div class="layer-title" style="color:var(--orange)">Version Control — Saving your history</div>
+      <div class="layer-sub">Required · Free</div>
+    </div>
+    <div class="tool-grid">
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Git</div>
+          <span class="tool-tag tag-required">Required</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">Version control system — tracks every change to your code</div>
+        <div class="tool-desc">Git is the undo button for your entire project — but infinitely more powerful. <strong>Every time you "commit," Git takes a snapshot of all your code.</strong> You can revert to any past snapshot, try risky experiments in "branches" without touching your working code, and see exactly what changed between versions. Without Git, one wrong change can destroy weeks of work. It's already installed on your Mac (via Xcode Command Line Tools).</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> Git has its own vocabulary (commit, push, pull, branch, merge, rebase). The first week is confusing. Use the 5 core commands only: <span class="mono">git add .</span> → <span class="mono">git commit -m "message"</span> → <span class="mono">git push</span>. Don't try to learn everything at once.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">GitHub</div>
+          <span class="tool-tag tag-free">Free</span>
+          <span class="tool-tag tag-required">Use This</span>
+        </div>
+        <div class="tool-role">Cloud home for your code — backup + collaboration + automation</div>
+        <div class="tool-desc">GitHub stores your Git history in the cloud (so your code isn't only on your laptop) and adds a web interface to browse it. <strong>Think of it as Dropbox for code, but smarter.</strong> It also provides GitHub Actions — free automation that can run your tests, build your app, and send it to TestFlight on every code push. For solo developers, the free tier covers everything you need.</div>
+        <div class="tool-cost">Cost: Free for public repos, free for private repos (up to 3 collaborators).</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">SourceTree / GitKraken</div>
+          <span class="tool-tag tag-free">Free</span>
+          <span class="tool-tag tag-optional">Optional</span>
+        </div>
+        <div class="tool-role">Visual Git clients — Git without memorizing commands</div>
+        <div class="tool-desc">If Terminal commands feel intimidating, SourceTree (free) and GitKraken (freemium) give you a visual interface to Git. You click buttons instead of typing commands. <strong>Xcode also has basic Git built in</strong> (Source Control menu) which handles the 90% case without any extra tool.</div>
+      </div>
+    </div>
+    <div class="connect-box">
+      <strong>How it connects:</strong> You write code in Xcode → you commit that change via Git (either in Terminal or Xcode's Source Control menu) → you push to GitHub, which stores a copy in the cloud. Later, GitHub Actions can watch for those pushes and automatically trigger builds, tests, and deployments — no manual intervention.
+    </div>
+  </div>
+
+  <!-- ─── LAYER 5: Testing ─── -->
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">05</div>
+      <div class="layer-title" style="color:var(--yellow)">Testing — Making sure it works</div>
+      <div class="layer-sub">Required · Mostly Free</div>
+    </div>
+    <div class="tool-grid">
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">XCTest</div>
+          <span class="tool-tag tag-builtin">Built into Xcode</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">Unit testing — testing individual functions in isolation</div>
+        <div class="tool-desc">XCTest is Apple's testing framework, built into Xcode. You write "unit tests" — small pieces of code that check whether a specific function works correctly. Example: you have a function that converts Fahrenheit to Celsius — you write a test that asserts <span class="mono">convert(32) == 0</span>. <strong>Xcode runs all your tests with one button press</strong> (⌘U) and shows you which pass and which fail.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Simulator</div>
+          <span class="tool-tag tag-builtin">Built into Xcode</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">Virtual Mac/iPhone on your Mac — test without real devices</div>
+        <div class="tool-desc">Xcode includes simulators — virtual devices that run inside your Mac. <strong>You can run your app on a simulated iPhone 15, iPad, or different Mac screen sizes without owning those devices.</strong> For Mac apps, you run them directly on your Mac. Simulator is your primary testing environment during development.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> Some things only work on real devices, not simulators — push notifications, certain sensors, in-app purchases in production mode, and some camera features.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">TestFlight</div>
+          <span class="tool-tag tag-required">Required for beta</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">Apple's beta testing platform — distribute to real users before launch</div>
+        <div class="tool-desc">Before publishing to the App Store, you distribute your app to testers via TestFlight. <strong>You upload your app to Apple's servers, invite testers by email, and they install it on their real devices.</strong> TestFlight handles versioning, tester management, and crash collection. Up to 10,000 external beta testers per app. This is how you get real-world feedback before launch.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> TestFlight builds require the same code signing setup as real App Store submissions. Setting up code signing correctly is one of the most frustrating parts of the whole pipeline — budget a full day for it.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Instruments</div>
+          <span class="tool-tag tag-builtin">Built into Xcode</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">Profiling — find memory leaks and performance bottlenecks</div>
+        <div class="tool-desc">Instruments is Xcode's performance analysis tool. <strong>It records exactly what your app is doing: CPU usage, memory, network, battery.</strong> When your app runs slowly or crashes mysteriously after 30 minutes of use, Instruments is how you find out why. It's like a medical scanner for your app. You won't need it immediately but you'll need it before you ship.</div>
+      </div>
+    </div>
+    <div class="connect-box">
+      <strong>How it connects:</strong> Write code in Xcode → press ⌘U to run all XCTest tests → fix failures → run your app in the Simulator to test UI manually → upload to TestFlight for real users to test on real devices → fix issues found → submit to App Store. Instruments runs at any point during this process when something feels slow.
+    </div>
+  </div>
+
+  <!-- ─── LAYER 6: Build & Release Automation ─── -->
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">06</div>
+      <div class="layer-title" style="color:var(--red)">Build Automation — Repeatable, hands-free releases</div>
+      <div class="layer-sub">Optional early · Essential at scale</div>
+    </div>
+    <div class="tool-grid">
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Fastlane</div>
+          <span class="tool-tag tag-free">Free</span>
+          <span class="tool-tag tag-optional">Intermediate</span>
+        </div>
+        <div class="tool-role">Automates build, sign, test, and deploy in one command</div>
+        <div class="tool-desc">Fastlane is a command-line tool that automates everything you do manually before a release: increment the build number, run tests, sign the app, package it, upload to TestFlight, submit to the App Store, take screenshots. <strong>What takes 30 minutes of manual steps becomes one command: <span class="mono">fastlane beta</span>.</strong> It's installed via Ruby (bundler) and configured with a <span class="mono">Fastfile</span> in your project.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> Fastlane setup involves touching certificates, provisioning profiles, and Apple IDs — the most confusing part of the whole stack. Use "Fastlane Match" (part of Fastlane) to manage certificates in a private GitHub repo. First setup: 2–4 hours. After that: magic.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">GitHub Actions</div>
+          <span class="tool-tag tag-free">Free</span>
+          <span class="tool-tag tag-optional">Intermediate</span>
+        </div>
+        <div class="tool-role">Runs automation in the cloud on every code push</div>
+        <div class="tool-desc">GitHub Actions is free CI/CD automation that runs on GitHub's servers. You write a <span class="mono">.yml</span> file describing steps — "when I push to main, build the app and upload to TestFlight." <strong>Every push triggers the pipeline automatically.</strong> macOS runner time is free for 2,000 minutes/month on GitHub Free. This is how professional teams ship without manual builds.</div>
+        <div class="tool-cost">Cost: Free (2,000 macOS minutes/month). macOS runners cost 10× the base rate against your quota.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">App Store Connect</div>
+          <span class="tool-tag tag-required">Required to ship</span>
+          <span class="tool-tag tag-free">Free</span>
+        </div>
+        <div class="tool-role">Apple's web dashboard — manage submissions, pricing, metadata</div>
+        <div class="tool-desc">appstoreconnect.apple.com is Apple's portal where you: create your app listing, upload builds for review, set pricing, write App Store descriptions, manage TestFlight testers, view sales reports and analytics, respond to reviews, and manage agreements. <strong>Every Mac App Store app has a page here.</strong> It's free to access but requires an Apple Developer account ($99/year).</div>
+      </div>
+    </div>
+    <div class="connect-box">
+      <strong>How the full pipeline connects:</strong> You push code to GitHub → GitHub Actions starts a macOS runner → the runner runs <span class="mono">fastlane beta</span> → Fastlane builds the app (via xcodebuild), signs it (via Match certificates), and uploads to TestFlight (via App Store Connect API) → TestFlight notifies your testers → they install and test → you merge to release branch → GitHub Actions runs <span class="mono">fastlane release</span> → app submitted to App Store Connect → Apple reviews (1–3 days) → your app is live.
+    </div>
+  </div>
+
+  <!-- ─── LAYER 7: Post-Launch Infrastructure ─── -->
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">07</div>
+      <div class="layer-title" style="color:var(--muted)">Post-Launch Infrastructure — Running blind vs. knowing</div>
+      <div class="layer-sub">Strongly recommended · Free tiers available</div>
+    </div>
+    <div class="tool-grid">
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Sentry</div>
+          <span class="tool-tag tag-free">Free tier</span>
+          <span class="tool-tag tag-optional">Recommended</span>
+        </div>
+        <div class="tool-role">Crash reporting — know when and why your app crashes</div>
+        <div class="tool-desc">Without crash reporting, you only know your app crashes when a user emails you — which happens rarely, after they've already left a 1-star review. <strong>Sentry automatically captures every crash, sends you a report with the exact line of code that failed, the device model, OS version, and what the user was doing.</strong> You integrate it by adding the Sentry SDK via SPM and one initialization line.</div>
+        <div class="tool-cost">Cost: Free up to 5K errors/month. $26/mo after.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">PostHog / Mixpanel</div>
+          <span class="tool-tag tag-free">Free tier</span>
+          <span class="tool-tag tag-optional">Recommended</span>
+        </div>
+        <div class="tool-role">Product analytics — understand how users actually use your app</div>
+        <div class="tool-desc">Analytics answer: which features do people actually use? Where do people drop off? What's the most common path through the app? <strong>Without this you're guessing.</strong> PostHog is open-source (can self-host, strong privacy story) and has a generous free tier. Mixpanel is more mature. Both integrate via Swift SDK. Each "event" you track is a line of code: <span class="mono">posthog.capture("feature_used")</span>.</div>
+        <div class="tool-gotcha"><strong>Gotcha:</strong> Every analytics SDK must be declared in your Privacy Manifest. Collecting data without user consent violates GDPR (EU), CCPA (California), and Apple's guidelines. Use anonymized IDs, not user emails, and offer opt-out.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">RevenueCat</div>
+          <span class="tool-tag tag-free">Free tier</span>
+          <span class="tool-tag tag-optional">If monetizing</span>
+        </div>
+        <div class="tool-role">In-app purchase + subscription management</div>
+        <div class="tool-desc">Apple's StoreKit API (for in-app purchases) is notoriously complex and has changed twice in recent years (StoreKit 2). RevenueCat is a layer on top that makes subscriptions and purchases manageable: it handles receipts, validates purchases server-side, tracks churn, shows revenue dashboards, and lets you A/B test paywalls. <strong>For a solo developer charging for an app, RevenueCat saves weeks of backend work.</strong></div>
+        <div class="tool-cost">Cost: Free up to $2.5K MRR. 1% of revenue after.</div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-top">
+          <div class="tool-name">Sparkle</div>
+          <span class="tool-tag tag-free">Free</span>
+          <span class="tool-tag tag-optional">Required outside App Store</span>
+        </div>
+        <div class="tool-role">Auto-update framework — required if you distribute outside App Store</div>
+        <div class="tool-desc">The App Store handles updates automatically. If you distribute your app directly (via your website), you need to build update delivery yourself. <strong>Sparkle is the open-source standard</strong> — it checks an "appcast XML" file you host, detects newer versions, and prompts users to update. Without it, users stay on old versions forever. Integration via SPM + 30 minutes of configuration.</div>
+      </div>
+    </div>
+    <div class="connect-box">
+      <strong>How it connects:</strong> Sentry SDK → auto-reports crashes to your Sentry dashboard. Analytics SDK → you log events throughout your code, they appear in your analytics dashboard. RevenueCat → wraps StoreKit, syncs purchase status to their servers, available via Swift SDK. Sparkle → reads your hosted appcast XML file, prompts users when a new version exists.
+    </div>
+  </div>
+
+  <!-- DECISION TABLE -->
+  <div class="section-label">Quick decision guide — what do I use for what?</div>
+  <table class="decision-table">
+    <thead>
+      <tr>
+        <th>If you need...</th>
+        <th>Use this</th>
+        <th>Alternative</th>
+        <th>When to decide</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>To write the app</td>
+        <td style="color:var(--green)">Swift + Xcode + SwiftUI</td>
+        <td>Electron (JS) or Tauri (Rust/Web)</td>
+        <td>Day 1 — irreversible</td>
+      </tr>
+      <tr>
+        <td>External libraries</td>
+        <td style="color:var(--green)">Swift Package Manager (SPM)</td>
+        <td>CocoaPods (older projects)</td>
+        <td>When you need a library</td>
+      </tr>
+      <tr>
+        <td>Store data, no server</td>
+        <td style="color:var(--green)">SwiftData + CloudKit</td>
+        <td>Core Data (older)</td>
+        <td>Before building data model</td>
+      </tr>
+      <tr>
+        <td>Backend with cross-platform</td>
+        <td style="color:var(--green)">Supabase</td>
+        <td>Firebase (real-time), AWS (enterprise)</td>
+        <td>Before building data model</td>
+      </tr>
+      <tr>
+        <td>Save code history</td>
+        <td style="color:var(--green)">Git + GitHub</td>
+        <td>GitLab, Bitbucket</td>
+        <td>Day 1 — before any code</td>
+      </tr>
+      <tr>
+        <td>Test with real users pre-launch</td>
+        <td style="color:var(--green)">TestFlight</td>
+        <td>Firebase App Distribution</td>
+        <td>First working build</td>
+      </tr>
+      <tr>
+        <td>Know about crashes</td>
+        <td style="color:var(--green)">Sentry</td>
+        <td>Firebase Crashlytics</td>
+        <td>Before public launch</td>
+      </tr>
+      <tr>
+        <td>Subscriptions / purchases</td>
+        <td style="color:var(--green)">RevenueCat</td>
+        <td>StoreKit 2 directly (harder)</td>
+        <td>When monetizing</td>
+      </tr>
+      <tr>
+        <td>Auto-update (outside App Store)</td>
+        <td style="color:var(--green)">Sparkle</td>
+        <td>None (App Store handles it)</td>
+        <td>Only if distributing directly</td>
+      </tr>
+      <tr>
+        <td>Release automation</td>
+        <td style="color:var(--green)">Fastlane + GitHub Actions</td>
+        <td>Manual Xcode archive (fine at start)</td>
+        <td>After first 5 releases</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- COST SUMMARY -->
+  <div class="section-label">Realistic cost to start building — year 1</div>
+  <div class="cost-grid">
+    <div class="cost-cell">
+      <div class="cost-label">Hardware</div>
+      <div class="cost-num">$999+</div>
+      <div class="cost-note">Mac required. M-series chip (M2+) strongly recommended for build speed.</div>
+    </div>
+    <div class="cost-cell">
+      <div class="cost-label">Apple Developer Account</div>
+      <div class="cost-num">$99/yr</div>
+      <div class="cost-note">Required to use TestFlight and submit to App Store.</div>
+    </div>
+    <div class="cost-cell">
+      <div class="cost-label">Xcode + Swift + SwiftUI</div>
+      <div class="cost-num">$0</div>
+      <div class="cost-note">Free. Download from Mac App Store.</div>
+    </div>
+    <div class="cost-cell">
+      <div class="cost-label">SPM + Git + GitHub</div>
+      <div class="cost-num">$0</div>
+      <div class="cost-note">All free. GitHub free tier is sufficient solo.</div>
+    </div>
+    <div class="cost-cell">
+      <div class="cost-label">Backend (Supabase / CloudKit)</div>
+      <div class="cost-num">$0</div>
+      <div class="cost-note">Free tiers cover 95% of indie apps at early scale.</div>
+    </div>
+    <div class="cost-cell">
+      <div class="cost-label">Crash + Analytics</div>
+      <div class="cost-num">$0</div>
+      <div class="cost-note">Sentry + PostHog free tiers are real and usable.</div>
+    </div>
+    <div class="cost-cell">
+      <div class="cost-label">RevenueCat</div>
+      <div class="cost-num">$0</div>
+      <div class="cost-note">Free until $2.5K MRR. Then 1% of revenue.</div>
+    </div>
+    <div class="cost-cell">
+      <div class="cost-label">Total Year 1</div>
+      <div class="cost-num">~$1,100</div>
+      <div class="cost-note">Hardware + Apple account. Everything else is free until you scale.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

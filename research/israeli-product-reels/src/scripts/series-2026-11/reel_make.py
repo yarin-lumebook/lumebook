@@ -18,6 +18,14 @@ that recipe made general (media/projects/2026-11-03-reel-1-1-preview-screen/buil
     enough to read it at 17 characters a second (principle T5, research/israeli-product-reels/
     smm-research/principles.md), then no top text until the CTA.
  7. The reel editor burns the text and writes final/reel-<id>-1.mp4 and its QC sheet.
+ 8. Five trial reel versions (Yarin, 10 Nov 2026: "after i press create reel it gives me 5 different versions with
+    different hook, zoom slightly in a random way and make them a tiny bit shorter or longer randomly so we could
+    schedule them as trial reels and ig wont flag them as repetitive"): the reel editor's --trial build writes
+    trial/reel-<id>-trial-1.mp4 to -5.mp4. Version 1 has the reel's hook, 2 to 5 the reel's "trial_hooks" in reels.json
+    (Yarin's, edited on the card), else the "trial_hooks" Claude wrote into edit.json. Each version gets its own small
+    zoom (1.02x to 1.08x at a random spot near the middle) and is 0.15 s to 0.8 s shorter or 0.15 s to 0.6 s longer
+    (the last frame held), from a fresh seed each run; never mirrored (books and screens carry Hebrew). An earlier set
+    moves to trial/earlier-<time>/. Whether this keeps Instagram from treating the uploads as repeats is not verified.
 
 edit.json (in the reel's media folder, written by `reels.py new`, paths relative to that folder):
 
@@ -39,9 +47,26 @@ edit.json (in the reel's media folder, written by `reels.py new`, paths relative
       ]
     }
 
+A reel that is one talking take (Yarin's whole script to camera, 10 Nov 2026) uses "take" instead of hook_clip, voice and
+segments, and can lay pictures over the take while its sound runs on:
+
+    {
+      "take": "source/yarin/take.mov",
+      "voice_start": 0.0, "speed_after_hook": 1.1,
+      "hook_overlay": {"img": "source/cover.png", "from": 0, "y": 1230, "w": 420},   this reel's cover under the face while the hook is said
+      "inserts": [
+        {"at": "הכריכה", "src": "source/book.mov", "ss": 1.0},              from that word to the next script line
+        {"at": 2, "until": "ודבר", "src": "source/preview.mov", "window": true, "speed": 1.5},   a screen recording in the window
+        {"at": "תראו", "until": 2.0, "src": "source/cover.png"}             a still, 2 s, slow push-in
+      ],
+      "trial_hooks": ["...", "...", "...", "..."]      four more top hooks for the trial versions (step 8)
+    }
+
 The hook clip always opens the reel; the first segment should start at line 0. Run it through reels.py:
 
     python3 research/israeli-product-reels/src/scripts/series-2026-11/reels.py make 1.7
+    ... make 1.7 --no-trial       the plain reel only
+    ... make 1.7 --trial-only     only a fresh set of the five trial versions, from the reel.json the last make wrote
 """
 import json, re, subprocess, sys
 from difflib import SequenceMatcher
@@ -59,6 +84,7 @@ STUDIO = ("highpass=f=75,afftdn=nr=12:nf=-45,equalizer=f=280:t=q:w=1.2:g=-2.5,eq
           "equalizer=f=3500:t=q:w=1.4:g=3,equalizer=f=11000:t=q:w=1:g=2,deesser=i=0.35,"
           "acompressor=threshold=-21dB:ratio=3:attack=5:release=90:makeup=4")
 READ_CPS = 17                              # principle T5: Hebrew on screen at most 17 characters a second
+TRIAL_VERSIONS = 5                         # trial reel versions after the plain reel (Yarin, 10 Nov 2026)
 
 
 def run(*a, **kw):
@@ -262,6 +288,10 @@ def make(rid, folder, hook, vo, cta_line, cta_screen, retranscribe=False, build=
             f"[p1][p2]concat=n=2:v=1:a=0,tpad=stop_mode=clone:stop_duration=5,trim=0:{end},{OUT}[o]",
             "-map", "[o]", "-an", "-c:v", "libx264", "-crf", 17, work / "video.mp4")
         print(f"  take  0.00 to {intro:5.2f} at 1x, then {after:g}x to {end:.2f}")
+        line_t = [cue(i) for i in range(len(lines))]
+        cta_t = cue("cta")
+        if cfg.get("inserts") or cfg.get("hook_overlay"):
+            starts = take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end)
     else:
         starts = build_segments(base, work, cfg, hook_clip, intro, end, after, cue, raw_hook)
 
@@ -280,16 +310,18 @@ def make(rid, folder, hook, vo, cta_line, cta_screen, retranscribe=False, build=
             caps.append({"w": t, "s": round(tm(w["s"]), 3), "e": round(tm(w["e"]), 3)})
     (base / "words.json").write_text(json.dumps(caps, ensure_ascii=False, indent=1) + "\n")
     hook_read = round(len(hook.replace("\n", " ")) / READ_CPS, 2)
-    cta_i = max((i for i, w in enumerate(words) if norm(w["w"]) == "תכתבו"), default=line_start[-1])
+    cta_i = max((i for i, w in enumerate(words) if norm(w["w"]) in ("תכתבו", "תכתבי", "כתבו")), default=line_start[-1])
     cta_from = tm(words[cta_i]["s"])
     job = {"source": "work/make/video.mp4", "name": f"reel-{rid.replace('.', '-')}",
            "hooks": [hook], "hook_seconds": max(intro, hook_read), "captions": "words.json",
            "cta": {"text": cta_screen, "seconds": round(end - cta_from + 0.05, 2), "highlight": True},
            "versions": 1, "flip": False, "audio": "work/make/sound.wav"}
     tops = [{"text": c["text"], "s": max(cue(c["at"]) + LEAD, job["hook_seconds"]),
-             "size": c.get("size", 150 if len(c["text"]) <= 2 else 64)} for c in cfg.get("top_cards", [])]   # a lone number reads big
-    for i, c in enumerate(tops):             # each card stays until the next one, or the CTA
-        c["e"] = round(max(tops[i + 1]["s"] if i + 1 < len(tops) else cta_from, c["s"] + 1.0), 3)
+             "size": c.get("size", 150 if len(c["text"]) <= 2 else 64), "until": c.get("until")} for c in cfg.get("top_cards", [])]   # a lone number reads big
+    for i, c in enumerate(tops):             # each card stays until the next one, or the CTA, or its own "until" cue
+        nxt = tops[i + 1]["s"] if i + 1 < len(tops) else cta_from
+        u = c.pop("until")
+        c["e"] = round(max(min(nxt, cue(u) + LEAD) if u is not None else nxt, c["s"] + 1.0), 3)
     if tops:
         job["top_cards"] = tops
     (base / "reel.json").write_text(json.dumps(job, ensure_ascii=False, indent=1) + "\n")
@@ -302,6 +334,148 @@ def make(rid, folder, hook, vo, cta_line, cta_screen, retranscribe=False, build=
     if build:
         run(EDITOR_PY, EDITOR, "build", base / "reel.json")
     return report
+
+
+def trial_hooks_for(rid, hook, base, mine):
+    """The five hooks of the trial versions: the reel's hook first, then reels.json "trial_hooks" (mine), else the ones Claude wrote
+    into edit.json for a reel job. Returns (hooks, note): fewer than five hooks repeat in order, and note says so."""
+    extra = [h for h in (mine or []) if isinstance(h, str) and h.strip()]
+    if not extra:
+        try:
+            extra = [h for h in json.loads((base / "edit.json").read_text()).get("trial_hooks") or [] if isinstance(h, str) and h.strip()]
+        except (OSError, ValueError):
+            extra = []
+    seen, hooks = set(), []
+    for h in [hook] + extra:
+        k = " ".join(h.split())
+        if k not in seen:
+            seen.add(k); hooks.append(h.strip())
+    hooks = hooks[:TRIAL_VERSIONS]
+    note = "" if len(hooks) >= TRIAL_VERSIONS else (
+        f"only {len(hooks)} different hook{'s' if len(hooks) > 1 else ''} for {TRIAL_VERSIONS} trial versions: write trial_hooks for {rid} in reels.json")
+    return hooks, note
+
+
+def trial(rid, base, hooks):
+    """Five trial versions from the reel.json the plain build used (step 8 of the docstring)."""
+    import shutil
+    from datetime import datetime
+    job = json.loads((base / "reel.json").read_text())
+    name = job["name"]
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    tdir = base / "trial"
+    old = list(tdir.glob(f"{name}-trial-*.mp4")) + [f for f in (tdir / f"{name}-versions.json", tdir / f"{name}-qc.jpg") if f.exists()]
+    if old:
+        keep = tdir / f"earlier-{stamp}"
+        keep.mkdir(parents=True, exist_ok=True)
+        for f in old:
+            shutil.move(str(f), keep / f.name)
+        print(f"trial: the earlier set moved to trial/{keep.name}/")
+    read = max(len(h.replace("\n", " ")) / READ_CPS for h in hooks)
+    tj = dict(job, hooks=hooks, versions=TRIAL_VERSIONS, flip=False, seed=f"{name}-{stamp}",
+              hook_seconds=round(max(job.get("hook_seconds", 0), read), 2))
+    (base / "reel-trial.json").write_text(json.dumps(tj, ensure_ascii=False, indent=1) + "\n")
+    print(f"trial: {TRIAL_VERSIONS} versions, {len(hooks)} hooks, each its own zoom and a little shorter or longer")
+    run(EDITOR_PY, EDITOR, "build", base / "reel-trial.json", "--trial")
+
+
+IMAGE_EXT = (".png", ".jpg", ".jpeg", ".webp")
+
+
+def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end):
+    """Pictures over a one-take reel (10 Nov 2026: Yarin's nine talking takes, "edit them"): the take's sound runs on, and from
+    each insert's cue the picture shows what is said (the book, a cover, a screen recording) until its "until" (a line
+    number or a word, or seconds written as a decimal such as 2.0), else until the next script line starts. A screen recording ("window": true) sits in the rounded 720x1440
+    window over the blurred take, as in 1.1; a still gets a slow push-in over a blurred copy of itself. hook_overlay puts a
+    picture (this reel's cover) on the take from "from" seconds to the end of the spoken hook (rule M1, 09 Nov 2026).
+    Inserts never run into the לומי card. Writes work/video.mp4 again; returns the cut times."""
+    ins = []
+    for n, s in enumerate(cfg.get("inserts") or []):
+        t0 = max(cue(s["at"]), 0.0)
+        u = s.get("until")   # a line number (int) or word of the script, or seconds written as a decimal (2.0)
+        if isinstance(u, float):
+            t1 = t0 + u
+        elif u is not None:
+            t1 = cue(u)
+        else:
+            t1 = next((t for t in line_t if t > t0 + 0.3), cta_t)
+        t1 = round(min(t1, cta_t, end), 3)
+        if t1 - t0 < 0.3:
+            print(f"  insert {n} skipped: {t1 - t0:.2f} s between its cues")
+            continue
+        ins.append((n, s, round(t0, 3), t1))
+    for (_, _, a0, a1), (_, _, b0, _) in zip(ins, ins[1:]):
+        if b0 < a1 - 0.01:
+            sys.exit(f"inserts overlap: {a0:.2f} to {a1:.2f} and {b0:.2f}")
+    (work / "take-only.mp4").write_bytes((work / "video.mp4").read_bytes())
+    clips = []
+    for n, s, t0, t1 in ins:
+        slot = round(t1 - t0, 3)
+        src = base / s["src"]
+        out = work / f"ins{n}.mp4"
+        crop = f"crop={s['crop']}," if s.get("crop") else ""
+        frames = int(round(slot * 30)) + 2
+        if src.suffix.lower() in IMAGE_EXT:
+            fc = (f"[0:v]{crop}split[a][b];[a]{FILL},gblur=sigma=40,eq=brightness=-0.08[bg];"
+                  f"[b]scale=1000:1700:force_original_aspect_ratio=decrease[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,"
+                  f"zoompan=z='1+0.05*on/{frames}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30,{OUT}[o]")
+            # read the still at 30 fps: zoompan makes one frame per input frame, so the default 25 fps came out 17% short
+            run(FF, "-y", "-v", "error", "-framerate", 30, "-loop", 1, "-t", f"{slot + 0.2:.3f}", "-i", src, "-filter_complex", fc, "-map", "[o]",
+                "-t", f"{slot:.3f}", "-c:v", "libx264", "-crf", 16, out)
+        else:
+            rate = float(s.get("speed", 1))
+            clip = sdr(base, s["src"], work)
+            if s.get("window"):
+                fc = (f"[0:v]{FILL},gblur=sigma=30,eq=brightness=-0.10:saturation=1.15,{OUT}[bg];"
+                      f"[1:v]{crop}{WIN},setpts=PTS/{rate},tpad=stop_mode=clone:stop_duration=30,{OUT},format=yuva420p[fw];"
+                      f"[2:v]format=gray[mk];[fw][mk]alphamerge[fg];"
+                      f"[bg][3:v]overlay={WIN_X - 60}:{WIN_Y - 60}[b2];[b2][fg]overlay={WIN_X}:{WIN_Y},{OUT}[o]")
+                window_art(work)
+                run(FF, "-y", "-v", "error", "-ss", t0, "-t", slot, "-i", work / "take-only.mp4",
+                    "-ss", s.get("ss", 0), "-t", f"{slot * rate + 0.5:.3f}", "-i", clip,
+                    "-loop", 1, "-i", work / "mask.png", "-loop", 1, "-i", work / "shadow.png",
+                    "-filter_complex", fc, "-map", "[o]", "-an", "-t", f"{slot:.3f}", "-c:v", "libx264", "-crf", 16, out)
+            else:
+                vf = f"{crop}{FILL},setpts=PTS/{rate},tpad=stop_mode=clone:stop_duration=30,{OUT}"
+                run(FF, "-y", "-v", "error", "-ss", s.get("ss", 0), "-t", f"{slot * rate + 0.5:.3f}", "-i", clip, "-an", "-vf", vf,
+                    "-t", f"{slot:.3f}", "-c:v", "libx264", "-crf", 16, out)
+        clips.append((out, t0, t1))
+        print(f"  insert {t0:6.2f} to {t1:6.2f}  {slot:5.2f} s  {'window ' if s.get('window') else ''}{src.name}")
+    ov = cfg.get("hook_overlay")
+    inputs, fc, last = ["-i", work / "take-only.mp4"], "", "[0:v]"
+    for k, (out, t0, t1) in enumerate(clips, 1):
+        inputs += ["-i", out]
+        fc += f"[{k}:v]setpts=PTS-STARTPTS+{t0}/TB[i{k}];{last}[i{k}]overlay=0:0:enable='between(t,{t0},{t1 - 0.001})':eof_action=pass[v{k}];"
+        last = f"[v{k}]"
+    if ov:
+        k = len(clips) + 1
+        inputs += ["-loop", 1, "-i", base / ov["img"]]
+        fr = float(ov.get("from", 0))
+        w = int(ov.get("w", 380))   # just under the captions (they end at 65% of the height), clear of the face
+        upto = min([intro] + [t0 for _, t0, _ in clips if t0 > fr])   # the cover gives way to the first full-screen insert
+        fc += (f"[{k}:v]scale={w}:-2,format=rgba[ov];{last}[ov]overlay=x=(W-w)/2:y={ov.get('y', 1270)}:"
+               f"enable='between(t,{fr},{upto})':shortest=1[vo];")
+        last = "[vo]"
+        print(f"  cover {fr:6.2f} to {upto:6.2f}  {Path(ov['img']).name}")
+    fc += f"{last}{OUT}[o]"
+    run(FF, "-y", "-v", "error", *inputs, "-filter_complex", fc, "-map", "[o]", "-an", "-t", end,
+        "-c:v", "libx264", "-crf", 17, work / "video.mp4")
+    return sorted({0.0, intro, end} | {t for _, a, b in clips for t in (a, b)})
+
+
+def window_art(work):
+    """The rounded mask and the soft shadow of the screen window (reel 1.1 v9)."""
+    if (work / "mask.png").exists() and (work / "shadow.png").exists():
+        return
+    from PIL import Image, ImageDraw, ImageFilter
+    mk = Image.new("L", (WIN_W, WIN_H), 0)
+    ImageDraw.Draw(mk).rounded_rectangle((0, 0, WIN_W - 1, WIN_H - 1), RAD, fill=255)
+    mk.save(work / "mask.png")
+    sh = Image.new("RGBA", (WIN_W + 120, WIN_H + 120), (0, 0, 0, 0))
+    al = Image.new("L", sh.size, 0)
+    ImageDraw.Draw(al).rounded_rectangle((60, 72, 60 + WIN_W, 72 + WIN_H), RAD, fill=150)
+    sh.putalpha(al.filter(ImageFilter.GaussianBlur(24)))
+    sh.save(work / "shadow.png")
 
 
 def build_segments(base, work, cfg, hook_clip, intro, end, after, cue, raw_hook):
@@ -371,7 +545,8 @@ def build_segments(base, work, cfg, hook_clip, intro, end, after, cue, raw_hook)
 
 
 def main():
-    """reel_make.py <id> [--folder DIR] [--retranscribe] [--no-build]: runs under the reel editor's Python (Pillow)."""
+    """reel_make.py <id> [--folder DIR] [--retranscribe] [--no-build] [--no-trial] [--trial-only]: runs under the reel editor's
+    Python (Pillow)."""
     args = sys.argv[1:]
     rid = args[0]
     d = json.loads((Path(__file__).resolve().parent / "reels.json").read_text())
@@ -387,9 +562,21 @@ def main():
     if not r.get("vo"):
         sys.exit(f"{rid} has no voiceover lines: this assembler is for talking hook + voiceover reels")
     # the CTA line is said at the end unless the script already ends with it (1.1 did)
-    cta_line = None if "לומי" in r["vo"][-1] else d["defaults"]["cta_voice"]
-    make(rid, folder, r["hook"], r["vo"], cta_line, d["defaults"]["cta_screen"],
-         retranscribe="--retranscribe" in args, build="--no-build" not in args)
+    # (Yarin's own closing words may run over two lines, 10 Nov 2026)
+    cta_line = None if any("לומי" in l for l in r["vo"][-2:]) else d["defaults"]["cta_voice"]
+    base = Path(folder)
+    if "--trial-only" not in args:
+        # a reel's own closing card (a grandmother reel says תכתבי ... ואשלח לך, 10 Nov 2026), else the default
+        make(rid, folder, r["hook"], r["vo"], cta_line, r.get("cta_screen") or d["defaults"]["cta_screen"],
+             retranscribe="--retranscribe" in args, build="--no-build" not in args)
+    if "--no-trial" in args or "--no-build" in args:
+        return
+    if not (base / "reel.json").exists():
+        sys.exit(f"{rid}: no reel.json yet, run make without --trial-only first")
+    hooks, note = trial_hooks_for(rid, r["hook"], base, r.get("trial_hooks"))
+    if note:
+        print("  check:", note)
+    trial(rid, base, hooks)
 
 
 if __name__ == "__main__":
