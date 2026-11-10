@@ -1278,7 +1278,7 @@ def serve(port):
       GET  /api/sample/jobs     {"jobs": [...]}: every job with its status, the text written so far while it runs
                                 ("out", "chars") and the answer when done ("text"); never the prompt
       POST /api/sample/jobs/<id>/cancel|claim|dismiss   stop it, take the answer (once), or drop the row; same-origin only
-      PUT  /api/reels-hub/doc?path=edits/<key>   writes one document (also made/<key>, requests/<id>); same-origin only,
+      PUT  /api/reels-hub/doc?path=edits/<key>   writes one document (also made/<key>, requests/<id>, picks/<day>); same-origin only,
                                 at most 256 KB each; the hub page on this server saves here instead of the artifact
                                 database, and `reels.py merge local` copies the edits into reels.json (6 Nov 2026)
       GET  /api/reel-files?reel=r5-5   the reel's media folder: {project, files (source/), finals (final/*.mp4, newest first)}
@@ -1342,7 +1342,7 @@ def serve(port):
     if i18n.pending():
         i18n_worker.wake()   # words left waiting when the server last stopped
     sample_job_act = re.compile(r"^/api/sample/jobs/([0-9a-f]{6,20})/(cancel|claim|dismiss)$")
-    reels_hub_doc = re.compile(r"^(edits|made|requests)/([\w.\-]{1,120})$")
+    reels_hub_doc = re.compile(r"^(edits|made|requests|picks)/([\w.\-]{1,120})$")   # picks: two options a day (10 Nov 2026)
     # LUMEBOOK_REEL_MEDIA: a test server keeps each reel's files in <that folder>/<key> and never runs reels.py new or merge
     reel_media_test = os.environ.get("LUMEBOOK_REEL_MEDIA")
     reel_lock = threading.Lock()
@@ -1793,7 +1793,7 @@ def serve(port):
                         allv = {}
                     if not isinstance(allv, dict):
                         allv = {}
-                    for k in ("edits", "made", "requests"):
+                    for k in ("edits", "made", "requests", "picks"):
                         if not isinstance(allv.get(k), dict):
                             allv[k] = {}
                     allv[m.group(1)][m.group(2)] = doc

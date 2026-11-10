@@ -173,12 +173,17 @@ const plural = (n, one, many) => n === 1 ? one : many;
 /* ---------- overview ---------- */
 function vOverview() {
   const posted = C.reels.filter(r => r.status === "posted").length;
-  const today = C.reels.find(r => r.date === TODAY);
-  const next = C.reels.find(r => r.date >= TODAY && r.status !== "posted") || C.reels.find(r => r.status !== "posted");
+  /* two options a day (10 Nov 2026): a day shows its picked option, else option 1, and says when nothing is picked yet */
+  const ofDay = d => C.reels.filter(r => r.date === d).sort((a, b) => b.picked - a.picked || a.option - b.option);
+  const today = ofDay(TODAY)[0];
+  const nextDay = (C.reels.filter(r => r.date && r.date >= TODAY && r.status !== "posted").map(r => r.date).sort()[0]);
+  const next = (nextDay && ofDay(nextDay)[0]) || C.reels.find(r => r.status !== "posted");
   const shoot = C.shoots.find(s => s.date >= TODAY);
   const reelById = Object.fromEntries(C.reels.map(r => [r.id, r]));
   const stat = (href, label, value, small, foot) => `<a class="lb-card card-link" href="#${href}"><div class="lb-stat"><span class="lb-stat-label">${label}</span><span class="lb-stat-value">${value}${small ? `<small>${small}</small>` : ""}</span><span class="lb-stat-foot">${foot}</span></div></a>`;
   const focus = today || next;
+  const unpicked = focus && focus.option && !focus.picked;
+  const days = new Set(C.reels.filter(r => r.date).map(r => r.date)).size;
   const grandma = C.reels.filter(r => r.audience === "grandma" && r.status !== "posted").length;
   const steps = [
     ["library", "מחקר", "173 רילס, 64 סרטונים קצרים, 147 תכנים של מתחרים"],
@@ -194,7 +199,7 @@ function vOverview() {
   <section class="lb-section">
     <p class="lead">כל מה שיש לפרויקט על רילס במקום אחד: מה עולה החודש, מה המחקר אומר, הכלים שמכינים ריל והרילס שכבר נעשו. החיפוש למעלה עובר על הכול, ובלוח הרילס אפשר גם לערוך את התסריטים ולבקש שינוי.</p>
     <div class="lb-grid cols-4">
-      ${stat("calendar", "רילס בנובמבר", C.reels.length, `${posted} פורסמו`, `ריל ביום, ${grandma} מהם מדברים לסבתות`)}
+      ${stat("calendar", "ימי רילס בנובמבר", days, `${posted} פורסמו`, `ריל ביום מתוך שתי אפשרויות, ${grandma} מהרילס מדברים לסבתות`)}
       ${stat("library", "רילס שנחקרו", "173", "108 יוצרים", "רילס מוצר של יוצרים ישראלים, 15 / 10")}
       ${stat("principles", "עקרונות", PR.items.length, "8 שאלות", "לכל אחד עוצמת ראיות")}
       ${stat("made", "עבודות רילס", K.jobs.length, `${K.tools.length} כלים`, "בתיקיית media/projects")}
@@ -205,7 +210,7 @@ function vOverview() {
       <div class="card-head"><div><span class="lb-eyebrow">${today ? "הערב ב " + esc(C.defaults.post_time) : "הריל הבא"}</span>
         <h3>${focus ? he(oneLine(focus.hook)) : "אין ריל מתוכנן"}</h3></div>
         ${focus ? pid(focus.id, C.series[focus.series].cat, ["calendar", "r-" + focus.id]) : ""}</div>
-      ${focus ? `<div class="lb-row">${seriesChip(focus.series)}${statusChip(focus.status)}<span class="meta">${dow(focus.date)} ${fmtDate(focus.date)}</span></div>` : ""}
+      ${focus ? `<div class="lb-row">${seriesChip(focus.series)}${statusChip(focus.status)}<span class="meta">${dow(focus.date)} ${fmtDate(focus.date)}</span>${unpicked ? `<span class="lb-chip warning">שתי אפשרויות, עוד לא בחרת</span>` : ""}</div>` : ""}
       ${focus && focus.films.length ? `<div class="col"><span class="sub-h">אתה מצלם</span><ul class="he-list">${focus.films.map(f => `<li>${esc(f)}</li>`).join("")}</ul></div>` : ""}
     </div>
     <div class="lb-card">

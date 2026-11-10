@@ -17,11 +17,16 @@ reels.json is the only source. This tool turns it into the pages and the working
     python3 reels.py report         # what works: every posted reel, then by series and by approach
     python3 reels.py merge FILE     # copies the saved edits (the "edits" collection of the reels hub artifact 7LypeDPVPLDcL5n2xEQui7, exported with ArtifactData) into reels.json
     python3 reels.py merge local    # the same for edits made on the project server (localhost:8780), which the hub
-                                    # page saves in local-edits.json next to this file
+                                    # page saves in local-edits.json next to this file (and the picks below)
+    python3 reels.py pick 2026-11-12 3.2   # which of a day's two options goes up (pick 2026-11-12 none clears it)
+
+Two options a day (Yarin, 10 Nov 2026: "reel calendar: i want 2 options for each day"): from 10 / 11 every day has two
+reels, "option" 1 (א) and 2 (ב), in the same lane (the usual audience, or series 9 Sunday to Thursday). reels.json
+"picks" holds the chosen one per day; the calendar's בוחר בזו button sets it. A day without a pick shows both.
 
 Paths are relative to the project root; run from anywhere.
 """
-import json, re, subprocess, sys, tempfile
+import json, re, shutil, subprocess, sys, tempfile
 from datetime import date
 from pathlib import Path
 
@@ -103,6 +108,37 @@ def when(r):
     return r["date"] or "9999"
 
 
+OPT = {1: "א", 2: "ב"}
+
+
+def options(d):
+    """{date: [reels of that day, option 1 first]} for every dated reel."""
+    out = {}
+    for r in sorted((r for r in d["reels"] if r["date"]), key=lambda r: (r["date"], (r.get("option") or 1))):
+        out.setdefault(r["date"], []).append(r)
+    return out
+
+
+def pick_of(d, day):
+    """The id of the reel picked for a day, or None (reels.json "picks")."""
+    v = (d.get("picks") or {}).get(day)
+    return v if isinstance(v, str) and v else None
+
+
+def day_reel(d, rs):
+    """The one reel that stands for a day: the posted one, else the picked one, else option 1."""
+    return (next((r for r in rs if r["status"] == "posted"), None)
+            or next((r for r in rs if r["id"] == pick_of(d, rs[0]["date"])), None) or rs[0])
+
+
+def opt_label(d, r):
+    """'אפשרות א' / 'אפשרות ב, נבחרה' for a reel on a day with two options; '' otherwise."""
+    if not r.get("option") or not r["date"]:
+        return ""
+    p = pick_of(d, r["date"])
+    return f"אפשרות {OPT[r['option']]}" + (", נבחרה" if p == r["id"] else ", לא נבחרה" if p else "")
+
+
 def caption_of(r, d):
     c = r["caption"]
     if r.get("disclaimer"):
@@ -114,6 +150,9 @@ def script_md(r, d):
     out = [f"## {r['id']} {one_line(r['hook'])}", ""]
     out.append(f"- סדרה {r['series']}: {SERIES[r['series']]}")
     out.append(f"- תאריך: {weekday(r['date'])} {ddmm(r['date'])}, {d['defaults']['post_time']}" if r["date"] else "- תאריך: ספייר, בלי תאריך")
+    if opt_label(d, r):
+        other = [x["id"] for x in options(d).get(r["date"], []) if x is not r]
+        out.append(f"- {opt_label(d, r)}" + (f" (באותו יום: {', '.join(other)})" if other else ""))
     out.append(f"- אורך משוער: {seconds(r, d):g} שניות")
     out.append(f"- סטטוס: {STATUS[r['status']]}")
     out.append(f"- קהל: {'סבתות' if r.get('audience') == 'grandma' else 'הורים'}" + (f", עמוד בחנות: {r['page']}" if r.get("page") else ""))
@@ -166,19 +205,27 @@ def build():
          "Built from reels.json by `reels.py build`. Edit reels.json, not this file.", "",
          f"One reel a day at {d['defaults']['post_time']} Israel time, {d['defaults']['channel']}.", "",
          f"Every reel is {d['defaults']['length']['min']} to {d['defaults']['length']['max']} seconds (estimate in the Sec column).", "",
-         "| Date | Day | Reel | Hook | Sec | For | Store page | Status | Waits on |", "|---|---|---|---|---|---|---|---|---|"]
-    for r in sorted(reels, key=when):
+         f"From {ddmm(d['defaults']['options']['from'])} every day has two options, א and ב, in the same lane (Yarin, 10 Nov 2026); "
+         "the Opt column says which, and ✓ marks the picked one. Film only the picked option.", "",
+         "| Date | Day | Opt | Reel | Hook | Sec | For | Store page | Status | Waits on |", "|---|---|---|---|---|---|---|---|---|---|"]
+    for r in sorted(reels, key=lambda r: (when(r), (r.get("option") or 1))):
         if not r["date"]:
             continue
         waits = " / ".join(r.get("blockers", [])) or ("Yarin: " + ", ".join(r["yarin_films"]) if r.get("yarin_films") else "")
-        c.append(f"| {ddmm(r['date'])} | {weekday(r['date'])} | {r['id']} | {one_line(r['hook'])} | {seconds(r, d):g} | {r.get('audience', 'parents')} | {r.get('page', 'home')} | {STATUS[r['status']]} | {waits} |")
+        opt = (OPT[r["option"]] + (" ✓" if pick_of(d, r["date"]) == r["id"] else "")) if r.get("option") else ""
+        c.append(f"| {ddmm(r['date'])} | {weekday(r['date'])} | {opt} | {r['id']} | {one_line(r['hook'])} | {seconds(r, d):g} | {r.get('audience', 'parents')} | {r.get('page', 'home')} | {STATUS[r['status']]} | {waits} |")
     spares = [r for r in reels if not r["date"]]
     if spares:
         c += ["", "## Spares (no date)", ""] + [f"- {r['id']} {one_line(r['hook'])}: {r.get('notes', '')}" for r in spares]
     c += ["", "## Filming days", "",
           "Each shoot records the 2 s hook clips to camera and the voiceovers for the reels listed, so the edit can run while the week posts.", ""]
+    opts, ids = options(d), {r["id"]: r for r in reels}
     for sh in d["shoots"]:
-        c.append(f"- **{weekday(sh['date'])} {ddmm(sh['date'])}**: reels {', '.join(sh['for'])}. {sh['note']}")
+        # a day with two options lists both, the picked one marked (the shoot's "for" keeps option 1 only)
+        days = [opts.get(ids[i]["date"], [ids[i]]) if i in ids else [] for i in sh["for"]]
+        names = [" or ".join(x["id"] + (" ✓" if pick_of(d, x["date"] or "") == x["id"] else "") for x in day) or i
+                 for i, day in zip(sh["for"], days)]
+        c.append(f"- **{weekday(sh['date'])} {ddmm(sh['date'])}**: reels {', '.join(names)}. {sh['note']}")
     c += ["", "## One reel, start to finish", "",
           "1. Yarin sends the hook clip and the voiceover and any extra shots.",
           "2. `python3 research/israeli-product-reels/src/scripts/series-2026-11/reels.py new <id>` opens the media project with the script, the caption, edit.json and link.txt (the UTM link for the לומי DM replies).",
@@ -237,7 +284,8 @@ def lint():
     (HERE / "lint.json").write_text(json.dumps(fields, ensure_ascii=False, indent=1) + "\n")
     res = subprocess.run([sys.executable, str(LINT), f.name], capture_output=True, text=True)
     print(res.stdout + res.stderr)
-    print("\n".join(bad) or f"length: every dated reel is {L['min']} to {L['max']} s")
+    bad += option_errors(d)
+    print("\n".join(bad) or f"length: every dated reel is {L['min']} to {L['max']} s; options and picks are in order")
     warn = principle_checks(d)
     print("\n".join(warn) if warn else "principles: no warnings")
     return res.returncode or (1 if bad else 0)
@@ -269,6 +317,28 @@ EXTRA_ASKS = ("עקבו", "תעקבו", "שתפו", "תשתפו", "תייגו", 
 # research/matan-nistor-reels/report.md, rules in the Hebrew voice skill's references/reel-scripts.md)
 ANY_BOOK = "כל ספר שיש לך"                  # the shooting note for a hook clip with whatever printed book Yarin has
 TALKING = re.compile(r"^\s*(?:אתה|ירין)\b")   # a shot of Yarin himself
+
+
+def option_errors(d):
+    """Two options a day (10 Nov 2026): at most two reels on a date, numbered 1 and 2, both in the same lane (series 9 or
+    not, so the half and half split of 07 Nov holds whichever is picked), and every pick names a reel of its day."""
+    out = []
+    for day, rs in options(d).items():
+        if len(rs) == 1:
+            if rs[0].get("option"):
+                out.append(f"- ERROR {day}: {rs[0]['id']} has an option number but is the only reel that day")
+            continue
+        if len(rs) > 2 or sorted(r.get("option") or 0 for r in rs) != [1, 2]:
+            out.append(f"- ERROR {day}: {len(rs)} reels ({', '.join(r['id'] for r in rs)}); a day has one reel, or options 1 and 2")
+        if len({r["series"] == 9 for r in rs}) > 1:
+            out.append(f"- ERROR {day}: options {', '.join(r['id'] for r in rs)} are in different lanes (traditions and the usual "
+                       "audience); keep both in one so the half and half split holds")
+    for day, rid in (d.get("picks") or {}).items():
+        if day.startswith("_") or not rid:
+            continue
+        if not any(r["id"] == rid for r in options(d).get(day, [])):
+            out.append(f"- ERROR picks: {day} names {rid}, which is not on that day")
+    return out
 
 
 def principle_checks(d):
@@ -347,13 +417,14 @@ def principle_checks(d):
 def status():
     d = load()
     today = date.today().isoformat()
-    for r in sorted(d["reels"], key=when):
+    for r in sorted(d["reels"], key=lambda r: (when(r), (r.get("option") or 1))):
         mark = ">" if r["date"] == today else " "
         proj = r.get("project", "")
         has = ""
         if proj and (ROOT / proj / "final").exists():
             has = f" final: {len(list((ROOT / proj / 'final').glob('*.mp4')))} mp4"
-        print(f"{mark} {r['date'] or 'spare':<10} {r['id']:>4} {r['status']:<13} {one_line(r['hook'])[:40]}{has}")
+        opt = (OPT[r["option"]] + ("✓" if pick_of(d, r["date"]) == r["id"] else " ")) if r.get("option") else "  "
+        print(f"{mark} {r['date'] or 'spare':<10} {opt} {r['id']:>4} {r['status']:<13} {one_line(r['hook'])[:40]}{has}")
         for b in r.get("blockers", []):
             print(f"{'':22}! {b}")
 
@@ -504,18 +575,80 @@ def report():
     print("\n".join(lines))
 
 
+def phone():
+    """What the phone page sent (שליחה למחשב, 10 Nov 2026): the newest reels-from-phone-*.zip (edits.json + videos/) or reels-edits-*.json
+    in ~/Downloads. The edits go through merge; each video goes into its reel's media folder source/ (the reel gets its project folder
+    first if it has none), named phone-<name>, never overwriting. Nothing is deleted from Downloads. Then: reels.py lint, build."""
+    import zipfile
+    dl = Path.home() / "Downloads"
+    found = sorted(list(dl.glob("reels-from-phone-*.zip")) + list(dl.glob("reels-edits-*.json")), key=lambda f: f.stat().st_mtime)
+    if not found:
+        sys.exit("no reels-from-phone-*.zip or reels-edits-*.json in ~/Downloads: AirDrop the file from the phone first")
+    f = found[-1]
+    print(f"from the phone: {f}")
+    if f.suffix == ".json":
+        return merge(str(f))
+    tmp = Path(tempfile.mkdtemp(prefix="reels-phone-"))
+    vids = []
+    with zipfile.ZipFile(f) as z:
+        for info in z.infolist():
+            base = Path(info.filename).name   # only the file name is used: nothing from the zip decides a path
+            if info.is_dir() or not base:
+                continue
+            if info.filename == "edits.json":
+                (tmp / "edits.json").write_bytes(z.read(info))
+            elif info.filename.startswith("videos/") and re.search(r"\.(mp4|mov|webm|m4v)$", base, re.I):
+                with z.open(info) as src, open(tmp / base, "wb") as out:
+                    while True:
+                        chunk = src.read(1 << 20)
+                        if not chunk:
+                            break
+                        out.write(chunk)
+                vids.append(tmp / base)
+    if (tmp / "edits.json").exists():
+        merge(str(tmp / "edits.json"))
+    else:
+        print("no script edits in the zip")
+    for v in vids:
+        m = re.match(r"^r(\d+-\d+)__", v.name)
+        if not m:
+            print(f"skipped {v.name} (no reel id in the name)")
+            continue
+        rid = m.group(1).replace("-", ".")
+        d = load()
+        r = next((x for x in d["reels"] if x["id"] == rid), None)
+        if not r:
+            print(f"skipped {v.name} (no reel {rid})")
+            continue
+        if not r.get("project"):
+            new(rid)
+            d = load()
+            r = next(x for x in d["reels"] if x["id"] == rid)
+        dest = ROOT / r["project"] / "source" / ("phone-" + v.name)
+        n = 1
+        while dest.exists():
+            n += 1
+            dest = dest.with_name(f"phone-{v.stem}-{n}{v.suffix}")
+        shutil.move(str(v), dest)
+        print(f"video {dest.relative_to(ROOT)}")
+    shutil.rmtree(tmp, ignore_errors=True)
+    print("Next: reels.py lint, then reels.py build")
+
+
 def merge(path, only=None):
-    """Copy the page's saved edits into reels.json. path = JSON of the artifact db collection "edits"
+    """Copy the page's saved edits into reels.json. path = JSON of the artifact db collection "edits" (or "phone": what the phone page sent, see phone())
     (a list of documents, or {"docs": [...]}, each with key and text). Formatting stays on the page only;
     reels.json gets the plain text. Prints what changed; build afterwards.
     only = one reel id (merge local 5.5): copy that reel's edits and nothing else (the hub's reel job does this
     before it builds the video, 07 Nov 2026)."""
     d = load()
-    if path == "local":   # edits made on the project server: {"edits": {key: doc}, "made": ..., "requests": ...}
+    if path == "phone":
+        return phone()
+    if path == "local":   # edits made on the project server: {"edits": {key: doc}, "made": ..., "requests": ..., "picks": ...}
         lf = HERE / "local-edits.json"
         raw = json.loads(lf.read_text()) if lf.exists() else {}
-        docs = list((raw.get("edits") or {}).values())
-        print(f"{len(docs)} edits in {lf.name}")
+        docs = list((raw.get("edits") or {}).values()) + list((raw.get("picks") or {}).values())
+        print(f"{len(docs)} edits and picks in {lf.name}")
     else:
         raw = json.loads(Path(path).read_text())
         docs = raw.get("docs", raw.get("documents", [])) if isinstance(raw, dict) else raw
@@ -523,8 +656,20 @@ def merge(path, only=None):
     lists = {"vo": "vo", "sees": "sees", "cards": "cards", "footage": "footage", "blocker": "blockers"}
     shoots = {s["date"]: s for s in d["shoots"]}
     n = 0
+    picks = d.setdefault("picks", {})
     for doc in docs:
         doc = doc.get("data", doc)
+        if "day" in doc and "reel" in doc:   # a pick (collection "picks": {day, reel "r3-2" or "" for none, at})
+            day, rid_ = doc["day"], (doc.get("reel") or "")[1:].replace("-", ".")
+            if only and rid_ != only:
+                continue
+            if picks.get(day, "") != rid_:
+                if rid_:
+                    picks[day] = rid_
+                else:
+                    picks.pop(day, None)
+                n += 1; print(f"pick {day} = {rid_ or 'none'}")
+            continue
         key, text = doc.get("key") or doc.get("id"), (doc.get("text") or "").strip()
         html = doc.get("html") or ""
         if html and (not text or "<br" in html):   # some saves keep the text only in html (no text, or line breaks lost)
@@ -571,12 +716,31 @@ def merge(path, only=None):
     print(f"{n} fields changed. Next: reels.py lint, then reels.py build")
 
 
+def pick(day, rid):
+    """Set which option goes up on a day (rid "none" clears it), then build. The calendar's בוחר בזו button does the
+    same on the page; reels.py merge local copies those clicks here."""
+    d = load()
+    rs = options(d).get(day, [])
+    if len(rs) < 2:
+        sys.exit(f"{day} has {len(rs)} reel(s); picks are for days with two options")
+    if rid == "none":
+        d.setdefault("picks", {}).pop(day, None)
+    elif any(r["id"] == rid for r in rs):
+        d.setdefault("picks", {})[day] = rid
+    else:
+        sys.exit(f"{rid} is not on {day}: {', '.join(r['id'] for r in rs)}")
+    save(d)
+    build()
+
+
 def done(rid):
     d = load()
     r = next((x for x in d["reels"] if x["id"] == rid), None)
     if not r:
         sys.exit(f"no reel {rid}")
     r["status"] = "posted"
+    if r.get("option") and r["date"]:   # the option that went up is the day's pick
+        d.setdefault("picks", {})[r["date"]] = rid
     save(d)
     build()
 
@@ -584,4 +748,4 @@ def done(rid):
 if __name__ == "__main__":
     cmd, *args = sys.argv[1:] or ["status"]
     {"build": build, "lint": lint, "status": status, "new": new, "done": done, "merge": merge, "make": make,
-     "link": link, "results": results, "log": log, "report": report}[cmd](*args)
+     "link": link, "results": results, "log": log, "report": report, "pick": pick}[cmd](*args)

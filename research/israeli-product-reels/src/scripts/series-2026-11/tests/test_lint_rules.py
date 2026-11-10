@@ -51,5 +51,35 @@ class StudyRules(unittest.TestCase):
         self.assertNotIn("M3", self.codes(sees=["כריכת יום הולדת", "עמוד", "אתה מחזיק את הספר המודפס"]))
 
 
+class TwoOptions(unittest.TestCase):
+    """Two options a day (Yarin, 10 Nov 2026): one reel or options 1 and 2, one lane per day, picks name a reel of the day."""
+    DAY = "2026-11-12"
+
+    def d(self, *rs, picks=None):
+        return {"reels": [dict(id=i, date=self.DAY, series=s, status="needs-voice", option=o) for i, s, o in rs], "picks": picks or {}}
+
+    def test_a_pair_in_one_lane_passes(self):
+        self.assertEqual(reels.option_errors(self.d(("3.1", 3, 1), ("3.2", 3, 2), picks={self.DAY: "3.2", "_about": "x"})), [])
+
+    def test_mixed_lanes_fail(self):
+        self.assertTrue(any("lanes" in e for e in reels.option_errors(self.d(("3.1", 3, 1), ("9.9", 9, 2)))))
+
+    def test_three_or_unnumbered_fail(self):
+        self.assertTrue(reels.option_errors(self.d(("3.1", 3, 1), ("3.2", 3, 2), ("3.3", 3, 2))))
+        self.assertTrue(reels.option_errors(self.d(("3.1", 3, 1), ("3.2", 3, None))))
+
+    def test_pick_of_another_day_fails(self):
+        self.assertTrue(any("picks" in e for e in reels.option_errors(self.d(("3.1", 3, 1), ("3.2", 3, 2), picks={self.DAY: "7.1"}))))
+
+    def test_the_day_reel(self):
+        d = self.d(("3.1", 3, 1), ("3.2", 3, 2))
+        rs = reels.options(d)[self.DAY]
+        self.assertEqual(reels.day_reel(d, rs)["id"], "3.1")
+        d["picks"][self.DAY] = "3.2"
+        self.assertEqual(reels.day_reel(d, rs)["id"], "3.2")
+        rs[0]["status"] = "posted"
+        self.assertEqual(reels.day_reel(d, rs)["id"], "3.1")
+
+
 if __name__ == "__main__":
     unittest.main()

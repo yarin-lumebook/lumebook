@@ -195,7 +195,7 @@ def research_copies():
     """The facts.json artifacts whose `web` address is on this site (Yarin, 05 Nov 2026: research pages on Vercel).
 
     Only pages without internal sales figures or personal data get a `web` entry. The reels research, the reels
-    system, the creator-content report, CRO/CRM, the sales readout, the carousel audit and the creator map have none."""
+    system (its calendar alone has a stripped read-only copy since 10 Nov 2026, copy_research below), the creator-content report, CRO/CRM, the sales readout, the carousel audit and the creator map have none."""
     facts = load(os.path.join(ROOT, "shared", "facts.json"), {})
     base = next(s["url"] for s in facts.get("sites", []) if s.get("key") == "dash").rstrip("/") + "/"
     return [dict(a, rel=a["web"][len(base):].strip("/")) for a in facts.get("artifacts", [])
@@ -234,6 +234,14 @@ def copy_research():
         with open(os.path.join(dst, "index.html"), "w", encoding="utf-8") as f:
             f.write(html)
         out.append((rel, len(html.encode()) // 1024, n))
+    # the reel calendar, read-only (10 Nov 2026, Yarin: "i need the scripts" on the phone): not a facts.json artifact (no research library
+    # card); built by reels.py build as november-calendar-web.html, which refuses to be written if internal text got into it
+    cal = os.path.join(ROOT, "research", "israeli-product-reels", "src", "scripts", "series-2026-11", "november-calendar-web.html")
+    if os.path.exists(cal):
+        dst = os.path.join(SITE, "research", "reels-calendar")
+        os.makedirs(dst, exist_ok=True)
+        shutil.copy2(cal, os.path.join(dst, "index.html"))
+        out.append(("research/reels-calendar", os.path.getsize(cal) // 1024, 0))
     return out
 
 

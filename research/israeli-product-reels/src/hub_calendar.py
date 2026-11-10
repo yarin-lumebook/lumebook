@@ -120,6 +120,7 @@ def parts(d):
     applyFilter(f);
     Object.keys(fields).forEach(syncHook);
     $$("[data-made]").forEach(function (b) { paintMade(b.dataset.made); });
+    if (window.CalPicksPaint) CalPicksPaint();   /* two options a day (10 Nov 2026): fade the option not picked */
     if (window.CalJobsPaint) CalJobsPaint();
     var m = /^#calendar\\/(r[\\w-]+)$/.exec(decodeURIComponent(location.hash)); if (m) openReel(m[1]);
   };

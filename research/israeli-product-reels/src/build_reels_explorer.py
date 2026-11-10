@@ -90,6 +90,20 @@ EN_HOOK = {
     "5.2": "\"Again?\" for the hundredth time",
     "2.2": "[Name]'s book has arrived",
     "7.3": "Cyber Monday. Order from the couch",
+    # option 2 of a day, new 10 Nov 2026 (Yarin: "i want 2 options for each day")
+    "2.9": "Your dog joins the adventure too",
+    "8.4": "Grandma, you can be in the book too",
+    "2.10": "Helped a friend at kindergarten, and nobody saw? (הלב של יובל)",
+    "1.8": "Which photo do you send for the book?",
+    "7.4": "Grandma, a gift for your grandchild without leaving home",
+    "9.9": "Came home with a story about a friend? (מגדל הלחישות, guarding one's tongue)",
+    "9.10": "Grandma, does your grandchild know how to say thank you? (מפרש הרוח)",
+    "9.11": "Grandma, how do you explain honouring parents? (הסוס שידע רק חצי דרך)",
+    "9.12": "What does he pray for before bed? (הסידור שבין ההרים)",
+    "9.13": "Stops for every cat in the street? (החמור שלא שמע את הפעמון)",
+    "9.14": "Grandma, does your grandchild know how to give quietly? (הפנס שמאיר את החסר)",
+    "9.15": "His friend was picked and he wasn't? (האריה והרימון)",
+    "9.16": "Grandma, what passes from you to your grandchild? (הפסוק שהמשיך בדרך)",
 }
 
 STATUS = {
@@ -109,6 +123,7 @@ def load_reels():
             "shot": x.get("shot") or "", "vo": x.get("vo") or [], "caption": x.get("caption") or "",
             "footage": x.get("footage") or [], "films": x.get("yarin_films") or [], "notes": x.get("notes") or "",
             "audience": x.get("audience", "parents"), "page": x.get("page") or "",
+            "option": x.get("option") or 0, "picked": bool(x["date"] and (r.get("picks") or {}).get(x["date"]) == x["id"]),
         })
     dropped = [{"id": x["id"], "date": x["date"], "hook": x["hook"], "why": x.get("dropped") or (x.get("notes") or "").split(". ")[0]} for x in r["dropped"]]
     d = r["defaults"]

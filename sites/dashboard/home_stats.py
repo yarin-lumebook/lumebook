@@ -316,8 +316,18 @@ def reels():
     if not d:
         return None
     today = iso_day()
-    dated = [r for r in d.get("reels", []) if r.get("date")]
     month = today[:7]
+    # two options a day since 10 Nov 2026 (reels.json "option" 1 and 2, "picks" {date: id}): the numbers count days, each
+    # day standing for its posted reel, else its picked one, else option 1; a day with no pick yet shows both options
+    picks = d.get("picks") or {}
+    days = {}
+    for r in sorted((r for r in d.get("reels", []) if r.get("date")), key=lambda r: r.get("option") or 1):
+        days.setdefault(r["date"], []).append(r)
+
+    def stands(rs):
+        return (next((r for r in rs if r.get("status") == "posted"), None)
+                or next((r for r in rs if r["id"] == picks.get(rs[0]["date"])), None) or rs[0])
+    dated = [stands(rs) for _, rs in sorted(days.items())]
     mine = [r for r in dated if r["date"][:7] == month] or dated
 
     def made(r):
@@ -326,9 +336,15 @@ def reels():
     by = {}
     for r in mine:
         by[r.get("status") or "?"] = by.get(r.get("status") or "?", 0) + 1
-    upcoming = sorted([r for r in dated if r["date"] >= today], key=lambda r: (r["date"], r["id"]))
-    brief = lambda r: {"id": r["id"], "date": r["date"], "status": r.get("status"), "status_he": REEL_STATUS.get(r.get("status"), r.get("status")),
-                       "hook": (r.get("hook") or "").replace("\n", " "), "made": made(r)}
+    upcoming = [r for r in dated if r["date"] >= today]
+
+    def brief(r):
+        rs = days[r["date"]]
+        if len(rs) > 1 and r.get("status") != "posted" and not picks.get(r["date"]):   # nothing picked: both options, one row
+            return {"id": " / ".join(x["id"] for x in rs), "date": r["date"], "status": "choose", "status_he": "לבחור אפשרות",
+                    "hook": " / ".join((x.get("hook") or "").replace("\n", " ") for x in rs), "made": any(made(x) for x in rs)}
+        return {"id": r["id"], "date": r["date"], "status": r.get("status"), "status_he": REEL_STATUS.get(r.get("status"), r.get("status")),
+                "hook": (r.get("hook") or "").replace("\n", " "), "made": made(r)}
     shoots = [s for s in d.get("shoots", []) if s.get("date") == today]
     return {"month": month, "total": len(mine), "by_status": by, "posted": by.get("posted", 0),
             "made": sum(1 for r in mine if made(r)), "waiting_on_yarin": by.get("needs-voice", 0) + by.get("needs-footage", 0),
@@ -484,7 +500,9 @@ def attention(c, cr, am, rl, so):
             add("info", "שגרירים", f"נתוני השגרירים נקראו לפני {age} ימים", view="signups")
     if rl:
         for r in rl.get("today", []):
-            if r["status"] not in ("posted", "ready"):
+            if r["status"] == "choose":   # two options, none picked yet (10 Nov 2026)
+                add("warn", "רילס", f"לבחור את הריל של היום: {r['id'].replace(' / ', ' או ')}", "research/israeli-product-reels/reels-explorer.html")
+            elif r["status"] not in ("posted", "ready"):
                 add("warn", "רילס", f"הריל של היום ({r['id']}) {r['status_he']}", "research/israeli-product-reels/reels-explorer.html")
         for note in rl.get("shoot_today", []):
             add("info", "רילס", f"צילום היום: {note}", "research/israeli-product-reels/reels-explorer.html")

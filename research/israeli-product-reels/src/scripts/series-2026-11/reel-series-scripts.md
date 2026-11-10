@@ -65,9 +65,10 @@
 ## 1.3 יומולדת בעוד שבוע. הספר יגיע בזמן?
 
 - סדרה 1: לפני שמזמינים
-- תאריך: ספייר, בלי תאריך
+- תאריך: שבת 14 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 8.2)
 - אורך משוער: 17.8 שניות
-- סטטוס: ספייר, בלי תאריך
+- סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/15
 - מבנה: שאלה, ואז התשובה במספר
 - השיא על המסך: לוח השנה עם 7 ימי העסקים מסומנים, ובסוף כריכת יום הולדת
@@ -88,12 +89,13 @@
   > מתנה ליום הולדת לילדים, ספר אישי עם השם של הילד
   > #מתנהליוםהולדת #יוםהולדת #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: 05 Nov evening: names the birthday book (best seller 2).  07 Nov 2026: made a spare, its day (2026-11-15) went to 9.5 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): structure and payoff named; the reel already follows the rules.
+- הערה: 05 Nov evening: names the birthday book (best seller 2).  07 Nov 2026: made a spare, its day (2026-11-15) went to 9.5 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): structure and payoff named; the reel already follows the rules. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 14 / 11, next to 8.2.
 
 ## 1.4 סבתא, זה מה שהנכד מקבל אצלנו
 
 - סדרה 1: לפני שמזמינים
 - תאריך: שלישי 10 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 4.1)
 - אורך משוער: 21 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: gifts/grandchild
@@ -125,9 +127,10 @@
 ## 1.5 סבתא, ומה אם לא תאהבי את הספר?
 
 - סדרה 1: לפני שמזמינים
-- תאריך: ספייר, בלי תאריך
+- תאריך: שישי 13 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 2.7)
 - אורך משוער: 19.2 שניות
-- סטטוס: ספייר, בלי תאריך
+- סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: gifts/grandchild
 - מבנה: טענה, ואז ההוכחה על המסך
 - השיא על המסך: הגרסה החדשה בתצוגה המקדימה, ושלב האישור
@@ -149,7 +152,7 @@
   > מתנה לנכד מסבתא וסבא, ספר ילדים מותאם אישית
   > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: 05 Nov evening: now to grandmothers, who often start without the photo and the site (the grandchild page says the photo can come from the parents on WhatsApp). The 'not sent and not printed until you approve' line is the site's own wording (seen 03 Nov). 07 Nov 2026: made a spare, its day (2026-11-18) went to 9.7 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the preview instead of hands putting the phone down.
+- הערה: 05 Nov evening: now to grandmothers, who often start without the photo and the site (the grandchild page says the photo can come from the parents on WhatsApp). The 'not sent and not printed until you approve' line is the site's own wording (seen 03 Nov). 07 Nov 2026: made a spare, its day (2026-11-18) went to 9.7 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the preview instead of hands putting the phone down. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 13 / 11, next to 2.7.
 
 ## 1.6 מוצץ? אח חדש? יש על זה ספר
 
@@ -212,6 +215,40 @@
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - הערה: New 05 Nov, replaces the Genjutsu trend 6.1. Film it today: one take, about 20 s. Facts from defaults.facts (Yarin, 03 Nov). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): cover and name to the lens in the first frame, ends on the printed cover instead of a smile.
 
+## 1.8 איזו תמונה לשלוח לספר?
+
+- סדרה 1: לפני שמזמינים
+- תאריך: שני 23 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 5.4)
+- אורך משוער: 17.8 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: הורים
+- מבנה: שלושה דברים, ולפני ואחרי על המסך
+- השיא על המסך: לפני ואחרי של אותו עמוד, מהתמונה המטושטשת לברורה, ונשאר עד לומי
+- צילום: פתיחה למצלמה עם הכריכה ביד ותמונה מודפסת של ילד ביד השנייה. אחר כך תמונה לכל שורה: מטושטשת מול ברורה, חיתוך והגדלה באתר, איור שלא יצא דומה, בקשת ציור חדש, ובסוף לפני ואחרי של אותו עמוד. מספר 1, 2, 3 על המסך.
+- חומר: Yarin: hook clip and voiceover / A child photo with the parents' OK, once blurry and once clear / Yarin or Claude: site recording of cropping, changing the photo and asking for a new drawing of the same page
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 47 מילים):
+  - איזו תמונה לשלוח לספר? שלושה דברים. (רואים: אתה למצלמה עם הכריכה ביד ותמונה מודפסת של ילד ביד השנייה, הכותרת למעלה)
+  - דבר ראשון, תמונה ברורה, לא מטושטשת. (רואים: שתי תמונות זו לצד זו, מטושטשת וברורה, מספר 1 על המסך)
+  - דבר שני, הפנים במרכז. חותכים ומגדילים. (רואים: הקלטת מסך: חיתוך והגדלה של התמונה באתר, מספר 2)
+  - ודבר שלישי, יצא לא דומה? מחליפים תמונה. (רואים: איור שלא יצא דומה, ואז החלפת התמונה, מספר 3)
+  - ומבקשים ציור חדש של אותו עמוד. (רואים: הקלטת מסך: בקשת ציור חדש לאותו עמוד)
+  - תראו את ההבדל. אותו עמוד, תמונה אחרת. (רואים: לפני ואחרי: אותו עמוד מהתמונה הישנה ומהחדשה)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > איזו תמונה לשלוח לספר? 📸
+  > דבר ראשון, תמונה ברורה.
+  > דבר שני, הפנים במרכז, חותכים ומגדילים.
+  > ודבר שלישי, יצא לא דומה? מחליפים תמונה.
+  > ומבקשים ציור חדש של אותו עמוד.
+  > ספר ילדים מותאם אישית עם התמונה של הילד, איך בוחרים תמונה טובה
+  > #ספרילדים #ספרמותאםאישית #טיפיםלהורים #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Make the before and after on the site first: the same page from a blurry and from a clear photo of the same child.
+- לבדוק: The tutorials page says a new drawing of the same page is free, and another tutorial sells packs once the gift drawings run out; the reel says neither, check what the site does today before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). Facts from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): most likeness problems come from the photo; use a clear photo, put the face in the centre, crop and enlarge, and ask for a new drawing of the same illustration.
+
 # סדרה 2: הספר של הילד שלך
 
 ## 2.2 הספר של [שם] הגיע
@@ -247,6 +284,7 @@
 
 - סדרה 2: הספר של הילד שלך
 - תאריך: שישי 20 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 8.4)
 - אורך משוער: 17.1 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/2
@@ -277,9 +315,10 @@
 ## 2.5 שני ילדים בבית וספר אחד?
 
 - סדרה 2: הספר של הילד שלך
-- תאריך: ספייר, בלי תאריך
+- תאריך: שבת 28 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 8.3)
 - אורך משוער: 17.1 שניות
-- סטטוס: ספייר, בלי תאריך
+- סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/category/bestsellers
 - מבנה: טענה, ואז ההוכחה על המסך
 - השיא על המסך: שתי הכריכות עם שני שמות, זו ליד זו, עד לומי
@@ -300,7 +339,7 @@
   > ספר ילדים לכל אחד מהאחים, מותאם אישית
   > #אחיםואחיות #ספרילדים #ספרמותאםאישית #הורות #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: 07 Nov 2026: made a spare, its day (2026-11-24) went to 9.4 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the two covers instead of a smile.
+- הערה: 07 Nov 2026: made a spare, its day (2026-11-24) went to 9.4 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the two covers instead of a smile. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 28 / 11, next to 8.3.
 
 ## 2.6 למה הוא מבקש את אותו ספר כל לילה?
 
@@ -337,6 +376,7 @@
 
 - סדרה 2: הספר של הילד שלך
 - תאריך: שישי 13 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 1.5)
 - אורך משוער: 17.8 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/15
@@ -367,9 +407,10 @@
 ## 2.8 סבתא, מה כותבים בהקדשה לנכד?
 
 - סדרה 2: הספר של הילד שלך
-- תאריך: ספייר, בלי תאריך
+- תאריך: רביעי 11 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 7.1)
 - אורך משוער: 15.3 שניות
-- סטטוס: ספייר, בלי תאריך
+- סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: gifts/grandchild
 - מבנה: ספירה, והוכחה בכל מספר
 - השיא על המסך: עמוד ההקדשה המלא, עם חתימה ותאריך
@@ -391,7 +432,70 @@
   > מתנה לנכד מסבתא וסבא, ספר ילדים מותאם אישית
   > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: New 04 Nov. A save magnet for the gift weeks. 05 Nov evening: now to grandma (the grandparent gift page leads with the dedication). 07 Nov 2026: made a spare, its day (2026-11-26) went to 9.8 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): structure and payoff named; the reel already follows the rules.
+- הערה: New 04 Nov. A save magnet for the gift weeks. 05 Nov evening: now to grandma (the grandparent gift page leads with the dedication). 07 Nov 2026: made a spare, its day (2026-11-26) went to 9.8 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): structure and payoff named; the reel already follows the rules. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 11 / 11, next to 7.1.
+
+## 2.9 גם הכלב שלכם נכנס להרפתקה
+
+- סדרה 2: הספר של הילד שלך
+- תאריך: חמישי 19 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 3.3)
+- אורך משוער: 14.2 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: הורים, עמוד בחנות: books/category/bestsellers
+- מבנה: תמונה אחת, ואז החשיפה בעמוד
+- השיא על המסך: העמוד המאויר שבו הכלב האמיתי נמצא ליד הילד, ונשאר עד לומי
+- צילום: פתיחה למצלמה עם כריכה עם שם קריא ביד, והכלב לידך (או תמונה שלו). אחר כך הכלב בבית מקרוב, הטלפון מצלם אותו, הקלטת מסך של העלאת התמונה באתר והעמוד שיוצא. העמוד המאויר עם הילד והכלב נשאר על המסך עד לומי.
+- חומר: Yarin: hook clip and voiceover / Yarin: the dog at home, and the phone taking its photo / Yarin or Claude: site recording of adding the pet to a page, and the page that comes out
+- ירין מצלם: קטע פתיחה למצלמה, קריינות, הכלב בבית, הטלפון מצלם את הכלב
+- קריינות (בערך 37 מילים):
+  - גם הכלב שלכם נכנס להרפתקה. תראו. (רואים: אתה למצלמה עם הכריכה ביד, והכלב לידך, הכותרת למעלה)
+  - הילד והכלב, בלתי נפרדים? (רואים: הכלב בבית, מקרוב)
+  - מצלמים את הכלב. תמונה אחת. (רואים: הטלפון מצלם את הכלב)
+  - מעלים אותה לספר. (רואים: הקלטת מסך: העלאת התמונה באתר)
+  - והנה הוא, לידו בתוך האיור. (רואים: העמוד המאויר עם הילד והכלב, זום איטי)
+  - וזה עובד גם עם חתול. (רואים: תמונה של חתול לשנייה, ואז שוב העמוד עם הכלב)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > גם הכלב שלכם יכול להיכנס להרפתקה 🐶
+  > הילד והכלב בלתי נפרדים? אז גם בספר.
+  > מצלמים את הכלב או החתול, ומעלים תמונה אחת.
+  > והם נכנסים לסיפור, לצד הילד.
+  > ספר ילדים מותאם אישית עם הילד וחיית המחמד
+  > #ספרילדים #ספרמותאםאישית #כלבים #מתנהלילד #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: A real dog (yours, family's or a friend's) and a child photo with the parents' OK. Make the page on the site first (tutorial 'להוסיף חיית מחמד לספר') and check the dog looks like itself before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): the family dog or cat joins the adventure from one photo.
+
+## 2.10 עזר לחבר בגן, ואף אחד לא ראה?
+
+- סדרה 2: הספר של הילד שלך
+- תאריך: שבת 21 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 5.1)
+- אורך משוער: 18.5 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: הורים, עמוד בחנות: books/13
+- מבנה: בעיה קטנה, ואז החשיפה על המסך
+- השיא על המסך: העמוד שבו המעשים הקטנים הופכים אותו לגיבור, ונשאר עד לומי
+- צילום: קטע הפתיחה שלך למצלמה, ומהפריים הראשון כריכת הלב של יובל עם שם קריא עומדת לידך (אני מוסיף אותה בעריכה). אחר כך עמודים מהתצוגה המקדימה (אני מקליט מהאתר), עמוד חדש לכל שורה.
+- חומר: Yarin: hook clip and voiceover / Claude: preview pages of הלב של יובל (book 13)
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 49 מילים):
+  - עזר לחבר בגן, ואף אחד לא ראה? (רואים: אתה למצלמה, ומהפריים הראשון כריכת הלב של יובל עם שם קריא לידך, הכותרת למעלה)
+  - הדברים הקטנים האלה, שלא מקבלים עליהם מדבקה. (רואים: עמוד מהתצוגה המקדימה: הילד עוזר לחבר)
+  - בסיפור הזה, בדיוק הם הכוח שלו. (רואים: עמוד הגיבור מהתצוגה המקדימה)
+  - תראו, הוא על הכריכה, עם השם שלו. (רואים: הכריכה, זום לשם)
+  - ובפנים, כל מעשה קטן הופך אותו לגיבור על. (רואים: שני עמודים מהתצוגה המקדימה, אחד אחרי השני)
+  - ככה הוא שומע שמישהו ראה. (רואים: העמוד של הגיבור, נשאר עד לומי)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > עזר לחבר בגן, ואף אחד לא ראה? 💛
+  > הדברים הקטנים האלה, שלא מקבלים עליהם מדבקה.
+  > בסיפור הזה בדיוק הם הכוח שלו, והוא הגיבור.
+  > ספר ילדים מותאם אישית על מעשים טובים, לגילאי 4 עד 8
+  > #ספרילדים #ספרמותאםאישית #גיבורעל #הורות #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Check in the preview which pages show the small kind acts and the hero moment before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). The third best seller (shared/facts.json top_books: small everyday kind acts make him a superhero, ages 4 to 8).
 
 # סדרה 3: מתנה לחנוכה
 
@@ -399,6 +503,7 @@
 
 - סדרה 3: מתנה לחנוכה
 - תאריך: חמישי 12 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 3.2)
 - אורך משוער: 20.6 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/86
@@ -429,9 +534,10 @@
 ## 3.2 הנכד מוצא את החנוכייה של סבתא
 
 - סדרה 3: מתנה לחנוכה
-- תאריך: ספייר, בלי תאריך
+- תאריך: חמישי 12 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 3.1)
 - אורך משוער: 16.4 שניות
-- סטטוס: ספייר, בלי תאריך
+- סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/37
 - מבנה: טענה, ואז ההוכחה על המסך
 - השיא על המסך: עמוד ההקדשה והעט, ובסוף הספר עטוף בסרט
@@ -452,12 +558,13 @@
   > מתנה לחנוכה לנכד, ספר ילדים מותאם אישית
   > #חנוכה #מתנהלנכד #סבתא #ספרילדים #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: From playbook concept 5 (c5.json). The family's OK for the child in that book is still the open check in that project's README. 05 Nov evening: names the book הסוד של חנוכיית סבתא (a menorah of grandma's takes the child to the Maccabees). 07 Nov 2026: made a spare, its day (2026-11-17) went to 9.6 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): structure and payoff named; the reel already follows the rules.
+- הערה: From playbook concept 5 (c5.json). The family's OK for the child in that book is still the open check in that project's README. 05 Nov evening: names the book הסוד של חנוכיית סבתא (a menorah of grandma's takes the child to the Maccabees). 07 Nov 2026: made a spare, its day (2026-11-17) went to 9.6 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): structure and payoff named; the reel already follows the rules. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 12 / 11, next to 3.1.
 
 ## 3.3 עד מתי מזמינים ספר לחנוכה?
 
 - סדרה 3: מתנה לחנוכה
 - תאריך: חמישי 19 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 2.9)
 - אורך משוער: 15.6 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: gifts/hanukkah
@@ -488,9 +595,10 @@
 ## 4.1 הכנתי ספר מתמונה שלי בגיל 4
 
 - סדרה 4: ירין בודק
-- תאריך: ספייר, בלי תאריך
+- תאריך: שלישי 10 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 1.4)
 - אורך משוער: 16 שניות
-- סטטוס: ספייר, בלי תאריך
+- סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים
 - מבנה: קריינות על תמונות, תמונה לכל שורה
 - השיא על המסך: התמונה שלך מגיל 4 ליד העמוד המאויר, באותו פריים, הכי הרבה זמן על המסך
@@ -511,14 +619,15 @@
   > ספר ילדים מותאם אישית עם השם והתמונה של הילד
   > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: From playbook concept 2 (src/scripts/c2.json). 07 Nov 2026: made a spare, its day (2026-11-16) went to 9.2 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). Say only if true: ובתכלס הייתי סקפטי (only if you were). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): brief 2 of the study: a narrated montage, one owned picture for every line (test 4).
+- הערה: From playbook concept 2 (src/scripts/c2.json). 07 Nov 2026: made a spare, its day (2026-11-16) went to 9.2 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). Say only if true: ובתכלס הייתי סקפטי (only if you were). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): brief 2 of the study: a narrated montage, one owned picture for every line (test 4). 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 10 / 11, next to 1.4.
 
 ## 4.2 מאיזה גיל אפשר להזמין ספר?
 
 - סדרה 4: ירין בודק
-- תאריך: ספייר, בלי תאריך
+- תאריך: ראשון 22 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 8.1)
 - אורך משוער: 16.4 שניות
-- סטטוס: ספייר, בלי תאריך
+- סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים
 - מבנה: תשובה לשאלה אמיתית
 - השיא על המסך: שלוש הכריכות לפי גיל, ואז גלריית הספרים
@@ -540,7 +649,7 @@
   > #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: Never answer the photo privacy question on camera until Yossi gives the real answer.
-- הערה: New 04 Nov. Repeats whenever the comments bring a good question. 07 Nov 2026: made a spare, its day (2026-11-25) went to 9.1 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): line 2 gets the wizard's age step instead of your face.
+- הערה: New 04 Nov. Repeats whenever the comments bring a good question. 07 Nov 2026: made a spare, its day (2026-11-25) went to 9.1 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): line 2 gets the wizard's age step instead of your face. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 22 / 11, next to 8.1.
 
 # סדרה 5: רגע בבית (באותו יום כמו הקרוסלה)
 
@@ -548,6 +657,7 @@
 
 - סדרה 5: רגע בבית (באותו יום כמו הקרוסלה)
 - תאריך: שבת 21 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 2.10)
 - אורך משוער: 15.6 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/41
@@ -577,9 +687,10 @@
 ## 5.2 ״אפשר עוד פעם?״ בפעם המאה
 
 - סדרה 5: רגע בבית (באותו יום כמו הקרוסלה)
-- תאריך: ספייר, בלי תאריך
+- תאריך: שישי 27 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 7.2)
 - אורך משוער: 16.4 שניות
-- סטטוס: ספייר, בלי תאריך
+- סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים
 - מבנה: טענה, ואז ההוכחה על המסך
 - השיא על המסך: הספר עם השם על הכריכה, זום לשם, עד לומי
@@ -601,12 +712,13 @@
   > ספר לפני השינה עם השם של הילד
   > #סיפורלפניהשינה #ספרילדים #ספרמותאםאישית #הורות #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-- הערה: New 04 Nov. Light humour, no claim about why children ask again. Moved from 27 Nov (Black Friday), the day after the 'אפשר עוד פעם?' carousel. 07 Nov 2026: made a spare, its day (2026-11-28) went to 8.3 (Yarin: more grandma birthday reels in the usual half). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the cover with the name instead of a smile.
+- הערה: New 04 Nov. Light humour, no claim about why children ask again. Moved from 27 Nov (Black Friday), the day after the 'אפשר עוד פעם?' carousel. 07 Nov 2026: made a spare, its day (2026-11-28) went to 8.3 (Yarin: more grandma birthday reels in the usual half). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the cover with the name instead of a smile. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 27 / 11, next to 7.2.
 
 ## 5.4 מה הקוף והאריה יודעים על טיטולים?
 
 - סדרה 5: רגע בבית (באותו יום כמו הקרוסלה)
 - תאריך: שני 23 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 1.8)
 - אורך משוער: 16.7 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/43
@@ -672,6 +784,7 @@
 
 - סדרה 7: ימי מבצע
 - תאריך: רביעי 11 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 2.8)
 - אורך משוער: 17.1 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/15
@@ -700,6 +813,7 @@
 
 - סדרה 7: ימי מבצע
 - תאריך: שישי 27 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 5.2)
 - אורך משוער: 16 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: gifts/grandchild
@@ -730,6 +844,7 @@
 
 - סדרה 7: ימי מבצע
 - תאריך: שני 30 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 7.4)
 - אורך משוער: 15.6 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/category/bestsellers
@@ -754,12 +869,44 @@
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - הערה: New 04 Nov (Yarin: add Cyber Monday). Replaces the pacifier reel on this day; 5.1 moved to 21 Nov. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the preview page instead of a smile to the phone.
 
+## 7.4 סבתא, מתנה לנכד בלי לצאת מהבית
+
+- סדרה 7: ימי מבצע
+- תאריך: שני 30 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 7.3)
+- אורך משוער: 15.6 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: סבתות, עמוד בחנות: gifts/grandchild
+- מבנה: שלושה דברים, ואז הקופסה נפתחת
+- השיא על המסך: הקופסה ליד הדלת נפתחת והכריכה עם השם יוצאת, ונשארת עד לומי
+- צילום: פתיחה למצלמה עם כריכה עם שם קריא ביד. אחר כך צילום מסך של בקשת תמונה בווטסאפ, התצוגה המקדימה בטלפון, קופסת המשלוח ליד הדלת. בסוף הקופסה נפתחת והכריכה יוצאת, ונשארת עד לומי. מספר 1, 2, 3 על המסך.
+- חומר: Yarin: hook clip and voiceover / Yarin: a delivery box by the door, opened, the printed book out / Claude: a WhatsApp request screenshot and the preview on a phone
+- ירין מצלם: קטע פתיחה למצלמה, קריינות, קופסת המשלוח ליד הדלת נפתחת
+- קריינות (בערך 41 מילים):
+  - סבתא, מתנה לנכד בלי לצאת מהבית. ככה. (רואים: אתה למצלמה עם הכריכה ביד, הכותרת למעלה)
+  - דבר ראשון, מבקשים מההורים תמונה בווטסאפ. (רואים: צילום מסך של בקשת תמונה בווטסאפ, מספר 1)
+  - דבר שני, רואים את כל הספר בטלפון, לפני שמזמינים. (רואים: התצוגה המקדימה בטלפון, מדפדפים, מספר 2)
+  - דבר שלישי, הספר מגיע עד הבית. (רואים: קופסת המשלוח ליד הדלת, מספר 3)
+  - ואת? לא קמת מהכורסה. (רואים: הקופסה נפתחת והכריכה עם השם יוצאת, נשארת עד לומי)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > סבתא, מתנה לנכד בלי לצאת מהבית 🏠
+  > מבקשים מההורים תמונה בווטסאפ.
+  > רואים את כל הספר בטלפון, לפני שמזמינים.
+  > והספר מגיע עד הבית.
+  > מתנה לנכד מסבתא, ספר ילדים מותאם אישית עם משלוח עד הבית
+  > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Needs a printed book and a delivery box (same as 1.4).
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). Facts from reels.json defaults (delivery home, free preview) and the grandchild gift page (the photo can be asked from the parents on WhatsApp). Never says sale or price on the sale days.
+
 # סדרה 8: מסבתא לנכד
 
 ## 8.1 סבתא, הנכד חוגג יומולדת החודש?
 
 - סדרה 8: מסבתא לנכד
 - תאריך: ראשון 22 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 4.2)
 - אורך משוער: 22.1 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/15
@@ -790,6 +937,7 @@
 
 - סדרה 8: מסבתא לנכד
 - תאריך: שבת 14 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 1.3)
 - אורך משוער: 14.6 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/29
@@ -819,6 +967,7 @@
 
 - סדרה 8: מסבתא לנכד
 - תאריך: שבת 28 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 2.5)
 - אורך משוער: 16 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/15
@@ -846,12 +995,46 @@
 - לבדוק: Check in the preview that the birthday book reads as a queen for a girl before recording.
 - הערה: New 07 Nov 2026 (Yarin: 'Yes, swap 5.2'): the usual half had only two grandma reels from 15 Nov and no birthday reel after 22 Nov. The second best seller (יום הולדת, 283 orders, shared/facts.json top_books) to the largest buying group, told for a granddaughter so it does not repeat 8.1 (grandson, 22 Nov). Saturday 21:30 is fine for the usual audience. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): brief 3 of the study: the cover with a readable name from the first frame; the WhatsApp line moved up; ends on the dedication. For test 2, also export a version A whose first two seconds are the old opening (no cover).
 
+## 8.4 סבתא, גם את יכולה להיות בספר
+
+- סדרה 8: מסבתא לנכד
+- תאריך: שישי 20 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 2.3)
+- אורך משוער: 17.1 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: סבתות, עמוד בחנות: gifts/grandchild
+- מבנה: תמונה אחת, ואז החשיפה בעמוד
+- השיא על המסך: העמוד המאויר שבו סבתא והנכד יחד, ונשאר עד לומי
+- צילום: פתיחה למצלמה עם כריכה עם שם קריא ביד. אחר כך הקלטת מסך של העלאת תמונה של סבתא באתר, והעמוד המאויר שבו היא לצד הנכד. העמוד הזה נשאר על המסך עד לומי.
+- חומר: Yarin: hook clip and voiceover / Yarin or Claude: site recording of adding a grandmother's photo to a page, and the page that comes out
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 45 מילים):
+  - סבתא, גם את יכולה להיות בספר של הנכד. (רואים: אתה למצלמה עם הכריכה ביד, הכותרת למעלה)
+  - הנכד הוא הגיבור, ואת לידו. (רואים: הכריכה מקרוב, הילד עליה)
+  - מעלים תמונה שלך, אחת. (רואים: הקלטת מסך: העלאת התמונה של סבתא באתר)
+  - ואת מופיעה איתו בתוך האיור. (רואים: העמוד המאויר נטען, הילד ולידו סבתא)
+  - התמונה עצמה לא נכנסת לספר, רק הציור. (רואים: כיתוב קטן על המסך: התמונה רק בשביל הציור)
+  - תסתכלי, זאת את, עם הנכד, בעמוד אחד. (רואים: העמוד עם סבתא והנכד על כל המסך)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > סבתא, גם את יכולה להיות בספר של הנכד 👵
+  > הנכד הוא הגיבור, ואת לידו בתוך האיור.
+  > מעלים תמונה אחת שלך, והיא משמשת רק לציור, לא מודפסת בספר.
+  > את התמונה שלו מבקשים מההורים בווטסאפ.
+  > ורואים את כל הספר בחינם לפני שמזמינים.
+  > מתנה לנכד מסבתא, ספר ילדים מותאם אישית עם סבתא בתוך הסיפור
+  > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: A grandmother who agrees to have her photo used (from your family or a creator's) and a child photo with the parents' OK. Make the page on the site first (tutorial 'להוסיף בני משפחה לספר') and check how it comes out before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): a photo of grandma, dad or a sibling joins the illustration next to the child, and the photo is used only to make the illustration, it is not printed in the book.
+
 # סדרה 9: שומרי מסורת
 
 ## 9.1 למה השמש עומד לבד?
 
 - סדרה 9: שומרי מסורת
 - תאריך: רביעי 25 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 9.14)
 - אורך משוער: 22.4 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/86
@@ -885,6 +1068,7 @@
 
 - סדרה 9: שומרי מסורת
 - תאריך: שני 16 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 9.10)
 - אורך משוער: 16.7 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/9013
@@ -916,6 +1100,7 @@
 
 - סדרה 9: שומרי מסורת
 - תאריך: ראשון 29 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 9.16)
 - אורך משוער: 13.5 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/9002
@@ -946,6 +1131,7 @@
 
 - סדרה 9: שומרי מסורת
 - תאריך: שלישי 24 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 9.13)
 - אורך משוער: 16.7 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/9003
@@ -977,6 +1163,7 @@
 
 - סדרה 9: שומרי מסורת
 - תאריך: ראשון 15 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 9.9)
 - אורך משוער: 17.4 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/9007
@@ -1011,6 +1198,7 @@
 
 - סדרה 9: שומרי מסורת
 - תאריך: שלישי 17 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 9.11)
 - אורך משוער: 18.5 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: הורים, עמוד בחנות: books/97
@@ -1043,6 +1231,7 @@
 
 - סדרה 9: שומרי מסורת
 - תאריך: רביעי 18 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 9.12)
 - אורך משוער: 18.5 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/86
@@ -1074,6 +1263,7 @@
 
 - סדרה 9: שומרי מסורת
 - תאריך: חמישי 26 / 11 / 2026, 21:30
+- אפשרות א (באותו יום: 9.15)
 - אורך משוער: 16.4 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/9013
@@ -1100,3 +1290,262 @@
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: Same checks as 9.2.
 - הערה: New 07 Nov 2026 (Yarin: half of the reels for the usual audience, half for the religious and traditional audience; 15 to 30 Nov, the days not filmed yet, are 8 and 8, traditions only Sunday to Thursday). The traditional twin of the third best seller to grandmothers (9.2 talks to parents). Replaces 2.8 (grandma dedication), now a spare. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): this reel's cover from the first frame; the WhatsApp line moved before the pages, so the reel ends on the hero page.
+
+## 9.9 חזר מהגן עם סיפור על חבר?
+
+- סדרה 9: שומרי מסורת
+- תאריך: ראשון 15 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 9.5)
+- אורך משוער: 16.7 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: הורים, עמוד בחנות: books/102
+- מבנה: שאלה, ואז החשיפה על המסך
+- השיא על המסך: העמוד שבו הוא בוחר, ואחריו הכריכה עם השם עד לומי
+- צילום: קטע הפתיחה שלך למצלמה, ומהפריים הראשון כריכת מגדל הלחישות עם שם קריא עומדת לידך (אני מוסיף אותה בעריכה). אחר כך עמודים מהתצוגה המקדימה של הספר (אני מקליט מהאתר), עמוד חדש לכל שורה, ובסוף הכריכה עד לומי.
+- חומר: Yarin: hook clip and voiceover / Claude: preview pages of מגדל הלחישות (book 102)
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 44 מילים):
+  - חזר מהגן עם סיפור על חבר? (רואים: אתה למצלמה, ומהפריים הראשון כריכת מגדל הלחישות עם שם קריא לידך, הכותרת למעלה)
+  - מתי זה לבקש עזרה, ומתי זה סתם שמועה? (רואים: עמוד מהתצוגה המקדימה: הילד והחבר)
+  - בסיפור הזה, הוא בוחר בעצמו. (רואים: עמוד הבחירה מהתצוגה המקדימה)
+  - תראו, מגדל שזוכר כל קול. (רואים: עמוד המגדל)
+  - ובסוף, ההחלטה בידיים שלו. (רואים: עמוד ההחלטה)
+  - והוא הגיבור, עם השם שלו על הכריכה. (רואים: הכריכה עם השם על כל המסך)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > חזר מהגן עם סיפור על חבר? 🤫
+  > מתי זה לבקש עזרה, ומתי זה סתם שמועה?
+  > בסיפור הזה הוא בוחר בעצמו, ומגדל שזוכר כל קול עוזר לו להחליט.
+  > ספר ילדים מותאם אישית על שמירת הלשון, לשומרי מסורת
+  > #שמירתהלשון #ספרילדים #שומרימסורת #ספרמותאםאישית #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Check in the preview (book 102) which page shows the choice between a rumor and a call for help, and how the tower looks, before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 102 (מגדל הלחישות) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.
+
+## 9.10 סבתא, הנכד יודע להגיד תודה?
+
+- סדרה 9: שומרי מסורת
+- תאריך: שני 16 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 9.2)
+- אורך משוער: 17.1 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: סבתות, עמוד בחנות: books/106
+- מבנה: שאלה, ואז החשיפה על המסך
+- השיא על המסך: הכריכה עם השם, אחרי עמוד המפרש הצבעוני, ונשארת עד לומי
+- צילום: קטע הפתיחה שלך למצלמה, ומהפריים הראשון כריכת מפרש הרוח עם שם קריא עומדת לידך (אני מוסיף אותה בעריכה). אחר כך עמודים מהתצוגה המקדימה של הספר (אני מקליט מהאתר), עמוד חדש לכל שורה, ובסוף הכריכה עד לומי.
+- חומר: Yarin: hook clip and voiceover / Claude: preview pages of מפרש הרוח (book 106)
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 45 מילים):
+  - סבתא, הנכד יודע להגיד תודה? (רואים: אתה למצלמה, ומהפריים הראשון כריכת מפרש הרוח עם שם קריא לידך, הכותרת למעלה)
+  - תודה אמיתית, למי שהכין לו את הדרך. (רואים: עמוד מהתצוגה המקדימה: האנשים שהכינו את הדרך)
+  - בסיפור הזה, הוא מפליג בסירה על החול. (רואים: עמוד הסירה על החול)
+  - תראי, המפרש מצייר צבעים. (רואים: עמוד המפרש הצבעוני, זום איטי)
+  - ובדרך הוא מגלה כמה ידיים עבדו בשבילו. (רואים: עמוד הגילוי מהתצוגה המקדימה)
+  - ועל הכריכה? הוא, עם השם שלו. (רואים: הכריכה עם השם על כל המסך)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > סבתא, הנכד יודע להגיד תודה? 🙏
+  > תודה אמיתית, למי שהכין לו את הדרך.
+  > בסיפור הוא מפליג בסירה על החול, והמפרש מצייר צבעים.
+  > את התמונה שלו מבקשים מההורים בווטסאפ.
+  > ורואים את כל הספר בחינם לפני שמזמינים.
+  > מתנה לנכד מסבתא, ספר ילדים על הכרת הטוב לשומרי מסורת
+  > #הכרתהטוב #מתנהלנכד #שומרימסורת #ספרילדים #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Check in the preview (book 106) the sand boat, the sail and the page about the people who prepared the way before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 106 (מפרש הרוח) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.
+
+## 9.11 סבתא, איך מסבירים כיבוד הורים?
+
+- סדרה 9: שומרי מסורת
+- תאריך: שלישי 17 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 9.6)
+- אורך משוער: 15.3 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: סבתות, עמוד בחנות: books/99
+- מבנה: שאלה, ואז החשיפה על המסך
+- השיא על המסך: הנכד על סוס העץ, ואחריו הכריכה עם הפנים שלו עד לומי
+- צילום: קטע הפתיחה שלך למצלמה, ומהפריים הראשון כריכת הסוס שידע רק חצי דרך עם שם קריא עומדת לידך (אני מוסיף אותה בעריכה). אחר כך עמודים מהתצוגה המקדימה של הספר (אני מקליט מהאתר), עמוד חדש לכל שורה, ובסוף הכריכה עד לומי.
+- חומר: Yarin: hook clip and voiceover / Claude: preview pages of הסוס שידע רק חצי דרך (book 99)
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 40 מילים):
+  - סבתא, איך מסבירים לנכד כיבוד הורים? (רואים: אתה למצלמה, ומהפריים הראשון כריכת הסוס שידע רק חצי דרך עם שם קריא לידך, הכותרת למעלה)
+  - לא בהרצאה. בסיפור. (רואים: עמוד פתיחה מהתצוגה המקדימה)
+  - סוס עץ שיודע רק חצי דרך. (רואים: עמוד סוס העץ)
+  - ואבא שצריך עזרה, גם כשזה על חשבון הזמן שלו. (רואים: עמוד עם אבא וארגז ההדסים)
+  - תראי, זה הנכד שלך, רוכב על הסוס. (רואים: הנכד על סוס העץ, ואז הכריכה עד לומי)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > סבתא, איך מסבירים לנכד כיבוד הורים? 🐴
+  > לא בהרצאה, בסיפור.
+  > סוס עץ שיודע רק חצי דרך.
+  > ואבא שצריך עזרה, גם כשזה על חשבון הזמן שלו.
+  > את התמונה שלו מבקשים מההורים בווטסאפ.
+  > ורואים את כל הספר בחינם לפני שמזמינים.
+  > מתנה לנכד מסבתא, ספר ילדים על כיבוד אב ואם לשומרי מסורת
+  > #כיבודאבואם #מתנהלנכד #שומרימסורת #ספרילדים #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Check in the preview (book 99) how the wooden horse, the myrtle box and the father appear, and that the child rides the horse, before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 99 (הסוס שידע רק חצי דרך) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.
+
+## 9.12 על מה הוא מתפלל לפני השינה?
+
+- סדרה 9: שומרי מסורת
+- תאריך: רביעי 18 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 9.7)
+- אורך משוער: 16 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: הורים, עמוד בחנות: books/107
+- מבנה: שאלה, ואז החשיפה על המסך
+- השיא על המסך: הילד בין ההרים, ואחריו הכריכה עם השם עד לומי
+- צילום: קטע הפתיחה שלך למצלמה, ומהפריים הראשון כריכת הסידור שבין ההרים עם שם קריא עומדת לידך (אני מוסיף אותה בעריכה). אחר כך עמודים מהתצוגה המקדימה של הספר (אני מקליט מהאתר), עמוד חדש לכל שורה, ובסוף הכריכה עד לומי.
+- חומר: Yarin: hook clip and voiceover / Claude: preview pages of הסידור שבין ההרים (book 107)
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 42 מילים):
+  - על מה הוא מתפלל לפני השינה? (רואים: אתה למצלמה, ומהפריים הראשון כריכת הסידור שבין ההרים עם שם קריא לידך, הכותרת למעלה)
+  - בדרך כלל, על עצמו. וזה בסדר. (רואים: עמוד פתיחה מהתצוגה המקדימה)
+  - בסיפור הזה, סימנייה פורשת לו דרך בין ההרים. (רואים: עמוד הסימנייה והדרך בין ההרים)
+  - ובדרך, הבקשה שלו נהיית בקשה גם בשביל אחרים. (רואים: עמוד השליחות מהתצוגה המקדימה)
+  - תראו, זה הוא, בין ההרים. (רואים: העמוד שלו בין ההרים, ואז הכריכה עד לומי)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > על מה הוא מתפלל לפני השינה? 🌙
+  > בדרך כלל על עצמו, וזה בסדר.
+  > בסיפור הזה סימנייה פורשת לו דרך בין ההרים.
+  > ובדרך, הבקשה שלו נהיית בקשה גם בשביל אחרים.
+  > ספר ילדים מותאם אישית על תפילה, לשומרי מסורת
+  > #תפילה #ספרילדים #שומרימסורת #ספרמותאםאישית #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Check in the preview (book 107) the bookmark path and the mission page, and that nothing in the pages contradicts the voiceover, before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 107 (הסידור שבין ההרים) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.
+
+## 9.13 עוצר לכל חתול ברחוב?
+
+- סדרה 9: שומרי מסורת
+- תאריך: שלישי 24 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 9.4)
+- אורך משוער: 17.1 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: הורים, עמוד בחנות: books/111
+- מבנה: שאלה, ואז החשיפה על המסך
+- השיא על המסך: העמוד שבו הוא מבין מה החמור צריך, ואחריו הכריכה עם השם עד לומי
+- צילום: קטע הפתיחה שלך למצלמה, ומהפריים הראשון כריכת החמור שלא שמע את הפעמון עם שם קריא עומדת לידך (אני מוסיף אותה בעריכה). אחר כך עמודים מהתצוגה המקדימה של הספר (אני מקליט מהאתר), עמוד חדש לכל שורה, ובסוף הכריכה עד לומי.
+- חומר: Yarin: hook clip and voiceover / Claude: preview pages of החמור שלא שמע את הפעמון (book 111)
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 45 מילים):
+  - הוא עוצר לכל חתול ברחוב? (רואים: אתה למצלמה, ומהפריים הראשון כריכת החמור שלא שמע את הפעמון עם שם קריא לידך, הכותרת למעלה)
+  - אז הוא כבר יודע לשים לב. (רואים: עמוד פתיחה מהתצוגה המקדימה)
+  - בסיפור הזה, חמור נעצר באמצע הדרך ליריד. (רואים: עמוד החמור שנעצר בדרך)
+  - שני ניסיונות, ולא עובד. (רואים: שני עמודים של הניסיונות, אחד אחרי השני, מספר 1 ו 2 על המסך)
+  - עד שהוא מסתכל טוב, ומבין מה החמור צריך באמת. (רואים: עמוד הפתרון מהתצוגה המקדימה)
+  - תראו, זה הוא, ליד החמור. (רואים: הילד ליד החמור, ואז הכריכה עד לומי)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > הוא עוצר לכל חתול ברחוב? 🐈
+  > אז הוא כבר יודע לשים לב.
+  > בסיפור הזה חמור נעצר באמצע הדרך ליריד.
+  > שני ניסיונות לא עובדים.
+  > עד שהוא מסתכל טוב, ומבין מה החמור צריך באמת.
+  > ספר ילדים מותאם אישית על צער בעלי חיים, לשומרי מסורת
+  > #צערבעליחיים #ספרילדים #שומרימסורת #ספרמותאםאישית #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Check in the preview (book 111) the two attempts and the page where the child understands what the donkey needs before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 111 (החמור שלא שמע את הפעמון) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.
+
+## 9.14 סבתא, הנכד יודע לתת בשקט?
+
+- סדרה 9: שומרי מסורת
+- תאריך: רביעי 25 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 9.1)
+- אורך משוער: 16.4 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: סבתות, עמוד בחנות: books/101
+- מבנה: שאלה, ואז החשיפה על המסך
+- השיא על המסך: עמוד המגפיים, ואחריו הכריכה עם הפנים שלו עד לומי
+- צילום: קטע הפתיחה שלך למצלמה, ומהפריים הראשון כריכת הפנס שמאיר את החסר עם שם קריא עומדת לידך (אני מוסיף אותה בעריכה). אחר כך עמודים מהתצוגה המקדימה של הספר (אני מקליט מהאתר), עמוד חדש לכל שורה, ובסוף הכריכה עד לומי.
+- חומר: Yarin: hook clip and voiceover / Claude: preview pages of הפנס שמאיר את החסר (book 101)
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 43 מילים):
+  - סבתא, הנכד יודע לתת בשקט? (רואים: אתה למצלמה, ומהפריים הראשון כריכת הפנס שמאיר את החסר עם שם קריא לידך, הכותרת למעלה)
+  - בלי שאף אחד ידע מי נתן, ומי קיבל. (רואים: עמוד פתיחה מהתצוגה המקדימה)
+  - בסיפור הזה, פנס פלא מאיר לו מה חסר. (רואים: עמוד הפנס)
+  - תראי, זוג מגפיים, ואף אחד לא יודע מאיפה. (רואים: עמוד המגפיים)
+  - וזה הנכד שלך, על הכריכה. (רואים: הכריכה עם הפנים שלו על כל המסך, עד לומי)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > סבתא, הנכד יודע לתת בשקט? 🏮
+  > בלי שאף אחד ידע מי נתן ומי קיבל.
+  > בסיפור הזה פנס פלא מאיר לו מה חסר.
+  > וזוג מגפיים מגיע, בלי שאף אחד יודע מאיפה.
+  > את התמונה שלו מבקשים מההורים בווטסאפ.
+  > ורואים את כל הספר בחינם לפני שמזמינים.
+  > מתנה לנכד מסבתא, ספר ילדים על צדקה ומתן בסתר לשומרי מסורת
+  > #צדקה #מתנהלנכד #שומרימסורת #ספרילדים #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Check in the preview (book 101) the lantern and the boots pages before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 101 (הפנס שמאיר את החסר) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.
+
+## 9.15 החבר נבחר, והוא לא?
+
+- סדרה 9: שומרי מסורת
+- תאריך: חמישי 26 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 9.8)
+- אורך משוער: 16 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: הורים, עמוד בחנות: books/105
+- מבנה: שאלה, ואז החשיפה על המסך
+- השיא על המסך: העמוד שבו הוא עוזר לחבר להצליח, ואחריו הכריכה עם השם עד לומי
+- צילום: קטע הפתיחה שלך למצלמה, ומהפריים הראשון כריכת האריה והרימון עם שם קריא עומדת לידך (אני מוסיף אותה בעריכה). אחר כך עמודים מהתצוגה המקדימה של הספר (אני מקליט מהאתר), עמוד חדש לכל שורה, ובסוף הכריכה עד לומי.
+- חומר: Yarin: hook clip and voiceover / Claude: preview pages of האריה והרימון (book 105)
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 42 מילים):
+  - החבר נבחר, והוא לא? (רואים: אתה למצלמה, ומהפריים הראשון כריכת האריה והרימון עם שם קריא לידך, הכותרת למעלה)
+  - זה צובט. גם כשהם חברים טובים. (רואים: עמוד פתיחה מהתצוגה המקדימה: שני החברים)
+  - בסיפור הזה, מקום אחד בבית הסופר, ושניים שרוצים אותו. (רואים: עמוד בית הסופר)
+  - והוא עוזר לחבר להצליח, גם כשהוא רוצה להיבחר. (רואים: עמוד העזרה לחבר)
+  - תראו, זה הוא, עם האריה והרימון. (רואים: העמוד שלו עם האריה והרימון, ואז הכריכה עד לומי)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > החבר נבחר, והוא לא? 🦁
+  > זה צובט, גם כשהם חברים טובים.
+  > בסיפור הזה יש מקום אחד בבית הסופר, ושניים שרוצים אותו.
+  > והוא עוזר לחבר להצליח, גם כשהוא רוצה להיבחר.
+  > ספר ילדים מותאם אישית על ואהבת לרעך כמוך, לשומרי מסורת
+  > #ואהבתלרעךכמוך #ספרילדים #שומרימסורת #ספרמותאםאישית #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Check in the preview (book 105) the scribe's house, the two stamps and the page where he helps the friend before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 105 (האריה והרימון) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.
+
+## 9.16 סבתא, מה עובר ממך לנכד?
+
+- סדרה 9: שומרי מסורת
+- תאריך: ראשון 29 / 11 / 2026, 21:30
+- אפשרות ב (באותו יום: 9.3)
+- אורך משוער: 18.1 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: סבתות, עמוד בחנות: books/113
+- מבנה: שאלה, ואז החשיפה על המסך
+- השיא על המסך: עמוד המפגש שבו הוא מעביר את זה הלאה, ואחריו הכריכה עם השם עד לומי
+- צילום: קטע הפתיחה שלך למצלמה, ומהפריים הראשון כריכת הפסוק שהמשיך בדרך עם שם קריא עומדת לידך (אני מוסיף אותה בעריכה). אחר כך עמודים מהתצוגה המקדימה של הספר (אני מקליט מהאתר), עמוד חדש לכל שורה, ובסוף הכריכה עד לומי.
+- חומר: Yarin: hook clip and voiceover / Claude: preview pages of הפסוק שהמשיך בדרך (book 113)
+- ירין מצלם: קטע פתיחה למצלמה, קריינות
+- קריינות (בערך 48 מילים):
+  - סבתא, מה עובר ממך לנכד? (רואים: אתה למצלמה, ומהפריים הראשון כריכת הפסוק שהמשיך בדרך עם שם קריא לידך, הכותרת למעלה)
+  - לא רק הסיפורים. גם מה שלמדת. (רואים: עמוד פתיחה מהתצוגה המקדימה)
+  - בסיפור הזה, פסוק מלווה אותו בדרך בין שני ירידים. (רואים: עמוד הדרך בין הירידים)
+  - הוא נעצר, וחוזר ללמוד. (רואים: עמוד החזרה ללימוד)
+  - ובסוף, הוא מעביר את זה הלאה. (רואים: עמוד המפגש החדש)
+  - תראי, זה הנכד שלך, עם השם שלו על הכריכה. (רואים: הכריכה עם השם על כל המסך, עד לומי)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > סבתא, מה עובר ממך לנכד? 📜
+  > לא רק הסיפורים, גם מה שלמדת.
+  > בסיפור הזה פסוק מלווה אותו בדרך בין שני ירידים.
+  > הוא נעצר, חוזר ללמוד, ובסוף מעביר את זה הלאה.
+  > את התמונה שלו מבקשים מההורים בווטסאפ.
+  > ורואים את כל הספר בחינם לפני שמזמינים.
+  > מתנה לנכד מסבתא, ספר ילדים על לימוד תורה לשומרי מסורת
+  > #לימודתורה #מתנהלנכד #שומרימסורת #ספרילדים #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Check in the preview (book 113) the road between the fairs, the return to learning and the page where it passes on before recording.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 113 (הפסוק שהמשיך בדרך) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.

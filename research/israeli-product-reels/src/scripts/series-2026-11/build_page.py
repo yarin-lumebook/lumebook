@@ -13,7 +13,7 @@ while its base still equals the built text, so a later change to reels.json is n
 `reels.py merge FILE` copies saved edits back into reels.json (FILE = the "edits" collection read with ArtifactData;
 `reels.py merge local` reads local-edits.json instead).
 """
-import calendar, html, json, sys
+import calendar, html, json, re, sys
 from datetime import date
 import json
 from pathlib import Path
@@ -26,6 +26,7 @@ import design  # noqa: E402
 import reels  # noqa: E402
 
 OUT = HERE / "november-calendar.html"
+OUT_WEB = HERE / "november-calendar-web.html"
 WEEK = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"]   # Israeli week, Sunday first
 STATUS = {  # label, chip class
     "posted": ("פורסם", "success"),
@@ -63,8 +64,27 @@ def ek(*parts):
     return "__".join(str(p) for p in parts).replace(".", "-").replace("/", "-")
 
 
-def month_grid(rs, carousels):
-    by_date = {r["date"]: r for r in rs if r["date"]}
+def opt_link(r, day, pick):
+    """One of a day's two options (10 Nov 2026): a small tinted card with the option letter, the id and the hook; the
+    picked one gets a green border and נבחרה, the other fades (the page script repaints both from the saved picks)."""
+    lab, cls = STATUS[r["status"]]
+    letter = reels.OPT[r["option"]]
+    state = " is-pick" if pick == r["id"] else " is-unpicked" if pick else ""
+    aud_html = '<span class="aud" title="מדבר לסבתות">סבתא</span>' if r.get("audience") == "grandma" else ""
+    return (f'<a class="lb-day lb-tinted is-opt {series_cls(r["series"])}{state}" href="#{rid(r)}" data-k="{rid(r)}" data-series="{r["series"]}" '
+            f'data-aud="{r.get("audience", "parents")}" data-day="{r["date"]}" data-opt="{r["option"]}" '
+            f'aria-label="{day.day} בנובמבר, אפשרות {letter}, ריל {e(r["id"])}, {e(lab)}">'
+            f'<span class="lb-day-top"><span class="opt-l" title="אפשרות {letter}">{letter}</span><span class="lb-pid">{e(r["id"])}</span></span>'
+            f'<span class="lb-day-text" data-hook-of="{ek(rid(r), "hook")}">{e(r["hook"].replace(chr(10), " "))}</span>'
+            f'<span class="lb-day-foot"><span class="st {cls}" title="{e(lab)}"></span>{aud_html}<span class="pick-mark">נבחרה</span>'
+            f'<span class="lb-day-tick" title="עשית">✓</span></span></a>')
+
+
+def month_grid(rs, carousels, picks=None):
+    picks = picks or {}
+    by_date = {}
+    for r in sorted((r for r in rs if r["date"]), key=lambda r: (r.get("option") or 1)):
+        by_date.setdefault(r["date"], []).append(r)
     cal = calendar.Calendar(firstweekday=6)  # Sunday
     cells = [f'<div class="lb-month-dow" aria-hidden="true">{d}</div>' for d in WEEK]
     for day in cal.itermonthdates(2026, 11):
@@ -72,12 +92,21 @@ def month_grid(rs, carousels):
         if day.month != 11:
             cells.append('<div class="lb-day is-out" aria-hidden="true"></div>')
             continue
-        r = by_date.get(iso)
+        day_rs = by_date.get(iso) or []
         car = carousels.get(iso)
         car_html = f'<span class="car" title="קרוסלה 06:00: {e(car)}">קרוסלה</span>' if car else ""
-        if not r:
+        if not day_rs:
             cells.append(f'<div class="lb-day is-empty"><span class="lb-day-num">{day.day}</span>{car_html}</div>')
             continue
+        if len(day_rs) > 1:   # two options (Yarin, 10 Nov 2026: "i want 2 options for each day")
+            p = picks.get(iso) if isinstance(picks.get(iso), str) else ""
+            p_k = "r" + p.replace(".", "-") if p else ""
+            cells.append(f'<div class="lb-day-pair{" is-picked" if p else ""}" data-day="{iso}" data-pick-def="{p_k}" role="group" '
+                         f'aria-label="{day.day} בנובמבר, שתי אפשרויות">'
+                         f'<span class="pair-top"><span class="lb-day-num">{day.day}</span>{car_html}</span>'
+                         + "".join(opt_link(r, day, p) for r in day_rs) + '</div>')
+            continue
+        r = day_rs[0]
         lab, cls = STATUS[r["status"]]
         aud_html = '<span class="aud" title="מדבר לסבתות">סבתא</span>' if r.get("audience") == "grandma" else ""
         cells.append(
@@ -96,7 +125,7 @@ def ed(tag, key, inner, cls="", attrs=""):
     return f'<{tag}{c} data-ek="{key}" dir="rtl"{attrs}>{inner}</{tag}>'
 
 
-def card(r, d):
+def card(r, d, web=False):
     lab, cls = STATUS[r["status"]]
     s = d["defaults"]
     k = rid(r)
@@ -151,15 +180,30 @@ def card(r, d):
       {car_html}
     </div>
   </header>
+  {opt_bar(r, d)}
   {ed("h3", ek(k, "hook"), e(r['hook'].replace(chr(10), ' ')), "hook-big", f' title="{e(r["hook"].replace(chr(10), " "))}"')}
   {script}
   <dl class="rows lb-sheet">{body}</dl>
-  {make_sheet(k)}
+  {"" if web else make_sheet(k)}
   <section class="capwin lb-window" aria-label="כיתוב לאינסטגרם"><h4 class="sec-t">{design.icon("instagram", "i")}כיתוב לאינסטגרם</h4>{cap_row}</section>
 </article>"""
 
 
 ROW_ICON = {"צילום": "eye", "כרטיסיות על המסך": "layers", "השיא על המסך": "sparkle"}
+
+
+def opt_bar(r, d):
+    """The two options of the reel's day (10 Nov 2026): a segmented control that opens either one, and בוחר בזו, which saves
+    this one as the day's pick (collection "picks"; a second click clears it). Nothing for a day with one reel."""
+    rs = reels.options(d).get(r["date"], []) if r["date"] else []
+    if len(rs) < 2:
+        return ""
+    seg = "".join(f'<button type="button" data-open="{rid(x)}" aria-pressed="{"true" if x is r else "false"}">'
+                  f'אפשרות {reels.OPT[x["option"]]}<span class="optbar-id">{e(x["id"])}</span></button>' for x in rs)
+    on = reels.pick_of(d, r["date"]) == r["id"]
+    return (f'<div class="optbar" data-day="{r["date"]}"><div class="lb-segmented" role="group" aria-label="שתי האפשרויות ליום הזה">{seg}</div>'
+            f'<button type="button" class="lb-chip check pick" data-pick="{rid(r)}" data-day="{r["date"]}" aria-pressed="{"true" if on else "false"}">'
+            f'<span>{"נבחרה" if on else "בוחר בזו"}</span></button></div>')
 
 
 def make_sheet(k):
@@ -208,6 +252,19 @@ def script_table(r, d):
             f'<table class="lb-table top is-stack script-t" data-lead="{L["lead_seconds"]}" data-wps="{L["words_per_second"]}">'
             f'<thead><tr><th class="tc">זמן</th><th>מה אני אומר</th><th>מה רואים</th></tr></thead><tbody>{"".join(trs)}</tbody></table></section>')
 
+
+AUTOSCROLL = """<div class="autoscroll" role="group" aria-label="גלילה אוטומטית של התסריט">
+    <button type="button" class="lb-chip check" id="as-go" aria-pressed="false" title="גלילה איטית של התסריט, כמו טלפרומפטר"><span id="as-lbl">▶ גלילה</span></button>
+    <button type="button" class="lb-chip" id="as-slow" aria-label="לאט יותר">−</button>
+    <span class="as-speed" id="as-speed" aria-live="polite">3</span>
+    <button type="button" class="lb-chip" id="as-fast" aria-label="מהר יותר">+</button>
+  </div>
+  <style>
+  .autoscroll { display: flex; align-items: center; gap: 4px; margin-inline-start: auto; padding-inline: 6px; flex: none; }
+  .autoscroll .lb-chip { min-width: 2.25rem; justify-content: center; cursor: pointer; }
+  .autoscroll .as-speed { min-width: 1.5rem; text-align: center; font-family: var(--font-2); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .lb-dialog-head > .lb-editbar:not([hidden]) ~ .autoscroll { margin-inline-start: 0; }
+  </style>"""
 
 TOOLBAR = """
 <div class="lb-editbar" id="tb" role="toolbar" aria-label="עיצוב טקסט">
@@ -392,7 +449,7 @@ SCRIPT = r"""
   function serverDb() {
     var HEAD = { "Content-Type": "application/json", "X-LumeBook-Board": "1" };
     return fetch("/api/reels-hub/state").then(function (r) { if (!r.ok) throw new Error("state"); return r.json(); }).then(function (st) {
-      var docs = { edits: (st && st.edits) || {}, made: (st && st.made) || {}, requests: (st && st.requests) || {} };
+      var docs = { edits: (st && st.edits) || {}, made: (st && st.made) || {}, requests: (st && st.requests) || {}, picks: (st && st.picks) || {} };
       function put(name, id, doc) {
         return fetch("/api/reels-hub/doc?path=" + encodeURIComponent(name + "/" + id), { method: "PUT", headers: HEAD, body: JSON.stringify(doc) })
           .then(function (r) { if (!r.ok) { var e = new Error("put"); e.code = "unavailable"; throw e; } docs[name][id] = doc; });
@@ -411,6 +468,11 @@ SCRIPT = r"""
         if (!docs.made[k]) { var d = { key: k, made: !!made[k], at: new Date().toISOString() }; docs.made[k] = d; ticks.push(put("made", k, d)); }
       });
       Promise.all(ticks).then(function () { try { localStorage.removeItem(KEY_M); } catch (x) {} }, function () {});
+      var pk = [];
+      Object.keys(picks).forEach(function (day) {
+        if (!docs.picks[day]) { var d = { day: day, reel: picks[day] || "", at: new Date().toISOString() }; docs.picks[day] = d; pk.push(put("picks", day, d)); }
+      });
+      Promise.all(pk).then(function () { try { localStorage.removeItem(KEY_P); } catch (x) {} }, function () {});
       function collection(name) {
         return {
           doc: function (id) { return { set: function (doc) { return put(name, id, doc); } }; },
@@ -428,8 +490,12 @@ SCRIPT = r"""
     store = db.collection("edits");
     madeStore = db.collection("made");
     reqStore = db.collection("requests");
+    pickStore = db.collection("picks");
     madeStore.onSnapshot(function (snap) {
       snap.docChanges().forEach(function (c) { if (c.type === "removed") return; var v = c.doc.data(); made[c.doc.id] = !!(v && v.made); paintMade(c.doc.id); });
+    }, function () {});
+    pickStore.onSnapshot(function (snap) {
+      snap.docChanges().forEach(function (c) { if (c.type === "removed") return; var v = c.doc.data(); picks[c.doc.id] = (v && v.reel) || ""; paintPick(c.doc.id); });
     }, function () {});
     var timer = setTimeout(function () { state("השמירה לא עונה", "warning"); }, 10000);
     store.onSnapshot(function (snap) {
@@ -501,19 +567,23 @@ SCRIPT = r"""
     if (ev.key === "Escape" && docked && dlg.open && !ev.defaultPrevented) { ev.preventDefault(); dlg.close(); }
   });
   /* arrow keys jump between the days (Yarin, 08 Nov 2026): the month reads right to left, so Left is the next day and Right the
-     one before; Up and Down move a week. With a reel open the next reel opens; otherwise the focus moves from day to day. */
+     one before; Up and Down move a week. With a reel open the next reel opens; otherwise the focus moves from day to day.
+     A day with two options (10 Nov 2026) is one grid cell: the move keeps the option (א or ב) where the next day has it. */
   document.addEventListener("keydown", function (ev) {
     var k = ev.key, step = k === "ArrowLeft" ? 1 : k === "ArrowRight" ? -1 : k === "ArrowDown" ? 7 : k === "ArrowUp" ? -7 : 0;
     if (!step || ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.altKey || ev.shiftKey) return;
     var t = ev.target, tag = t && t.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
-    var days = $$("#calRoot .lb-day"); if (!days.length) days = $$(".lb-day");
+    var cells = $$("#calRoot .lb-month > :not(.lb-month-dow)"); if (!cells.length) cells = $$(".lb-month > :not(.lb-month-dow)");
     var here = cur && dlg.open ? $('.lb-day[data-k="' + cur.id + '"]') : (t && t.closest && t.closest("a.lb-day[data-k]"));
-    var i = days.indexOf(here); if (i < 0) return;
+    if (!here) return;
+    var i = cells.indexOf(here.closest(".lb-day-pair") || here); if (i < 0) return;
+    var slot = here.dataset.opt || "1";
     ev.preventDefault();
-    for (var j = i + step; j >= 0 && j < days.length; j += step) {
-      var d = days[j];
-      if (d.dataset.k && d.getClientRects().length) {
+    for (var j = i + step; j >= 0 && j < cells.length; j += step) {
+      var c = cells[j], links = (c.matches("a.lb-day[data-k]") ? [c] : $$("a.lb-day[data-k]", c)).filter(function (x) { return x.getClientRects().length; });
+      if (links.length) {
+        var d = links.filter(function (x) { return (x.dataset.opt || "1") === slot; })[0] || links[0];
         if (cur && dlg.open) openReel(d.dataset.k); else d.focus();
         d.scrollIntoView({ block: "nearest", inline: "nearest" });
         return;
@@ -528,6 +598,7 @@ SCRIPT = r"""
     $$(".script-t", a).forEach(retime);
     makeOpen(a);
     showReel(); markDay(id);
+    if (typeof asStop === "function") asStop();
     dlg.scrollTop = 0; $("#dlg-x").focus({ preventScroll: true });
     if (typeof paintAsk === "function" && askMsg) { msg(""); setBusy(false); paintAsk(); }   /* askMsg is still unset when a #reel link opens the page */
     try { history.replaceState(null, "", "#" + id); } catch (x) {}
@@ -541,6 +612,52 @@ SCRIPT = r"""
     if (c) c.focus();
   });
   $("#dlg-x").addEventListener("click", function () { dlg.close(); });
+  /* Slow auto-scroll of the open reel (10 Nov 2026, Yarin: "add an option to slowly scroll when the script is open ... and control the speed"):
+     like a teleprompter. Nine speeds in pixels a second; the position is kept as a fraction so the slowest speed still moves; any touch,
+     wheel, key or scrollbar drag stops it, and so does the end of the card, closing and opening another reel. */
+  var AS = [8, 14, 20, 28, 38, 50, 66, 88, 120], asI = 2, asOn = false, asPos = 0, asLast = 0, asRaf = 0, asSet = 0;
+  try { var sv = parseInt(localStorage.getItem("lb-reel-scroll-speed"), 10); if (sv >= 0 && sv < AS.length) asI = sv; } catch (x) {}
+  var asGo = $("#as-go"), asLbl = $("#as-lbl"), asSpd = $("#as-speed");
+  function asPaint() {
+    asSpd.textContent = String(asI + 1);
+    asLbl.textContent = asOn ? "⏸ עצירה" : "▶ גלילה";
+    asGo.setAttribute("aria-pressed", asOn ? "true" : "false");
+    $("#as-slow").disabled = asI === 0; $("#as-fast").disabled = asI === AS.length - 1;
+  }
+  function asStep(now) {
+    if (!asOn) return;
+    if (Math.abs(dlg.scrollTop - asSet) > 3) { asStop(); return; }   /* the reader moved it */
+    asPos += AS[asI] * Math.min(now - asLast, 250) / 1000; asLast = now;
+    var max = dlg.scrollHeight - dlg.clientHeight;
+    if (asPos >= max) { dlg.scrollTop = max; asStop(); return; }
+    dlg.scrollTop = asPos; asSet = dlg.scrollTop;
+    asRaf = requestAnimationFrame(asStep);
+  }
+  function asStart() {
+    if (!dlg.open) return;
+    if (dlg.scrollHeight - dlg.clientHeight - dlg.scrollTop < 4) dlg.scrollTop = 0;   /* at the end: start again from the top */
+    asOn = true; asPos = dlg.scrollTop; asSet = dlg.scrollTop; asLast = performance.now();
+    asPaint(); asRaf = requestAnimationFrame(asStep);
+  }
+  function asStop() { asOn = false; cancelAnimationFrame(asRaf); asPaint(); }
+  function asSpeed(d) {
+    asI = Math.max(0, Math.min(AS.length - 1, asI + d));
+    try { localStorage.setItem("lb-reel-scroll-speed", String(asI)); } catch (x) {}
+    asPaint();
+  }
+  asGo.addEventListener("click", function () { if (asOn) asStop(); else asStart(); });
+  $("#as-slow").addEventListener("click", function () { asSpeed(-1); });
+  $("#as-fast").addEventListener("click", function () { asSpeed(1); });
+  ["wheel", "touchstart", "pointerdown"].forEach(function (t) {
+    dlg.addEventListener(t, function (ev) { if (asOn && !ev.target.closest(".autoscroll")) asStop(); }, { passive: true });
+  });
+  document.addEventListener("keydown", function (ev) {
+    if (!asOn) return;
+    if (ev.key === " " && !ev.target.closest("input, textarea, [contenteditable=true]")) { ev.preventDefault(); asStop(); }
+    else if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"].indexOf(ev.key) >= 0) asStop();
+  });
+  dlg.addEventListener("close", asStop);
+  asPaint();
   dlg.addEventListener("click", function (ev) { if (ev.target === dlg && !docked) dlg.close(); });   /* the backdrop; a drawer has none */
   $$("a.lb-day[data-k]").forEach(function (c) { c.addEventListener("click", function (ev) { ev.preventDefault(); openReel(c.dataset.k); }); });
   if (location.hash.length > 1) openReel(decodeURIComponent(location.hash.slice(1)));
@@ -566,6 +683,47 @@ SCRIPT = r"""
           function () { pending--; state("לא נשמר", "danger"); });
       } else { try { localStorage.setItem(KEY_M, JSON.stringify(made)); state("נשמר בדפדפן הזה", "success"); } catch (x) {} }
     });
+  });
+
+  /* two options a day (Yarin, 10 Nov 2026: "i want 2 options for each day"): בוחר בזו saves which option goes up (collection
+     "picks", one document per day: {day, reel, at}; reel "" clears it) and the month fades the other one. The built page starts
+     from reels.json "picks" (data-pick-def); reels.py merge local copies the clicks back. The segmented control opens the other. */
+  var KEY_P = "lb-reels-nov-picks", picks = {}, pickStore = null;
+  try { picks = JSON.parse(localStorage.getItem(KEY_P) || "{}"); } catch (x) { picks = {}; }
+  function pickOf(day) {
+    if (day in picks) return picks[day] || "";
+    var c = $('.lb-day-pair[data-day="' + day + '"]'); return (c && c.dataset.pickDef) || "";
+  }
+  function paintPick(day) {
+    var p = pickOf(day);
+    $$('.lb-day-pair[data-day="' + day + '"]').forEach(function (c) {
+      c.classList.toggle("is-picked", !!p);
+      $$("a.lb-day[data-k]", c).forEach(function (a) { a.classList.toggle("is-pick", a.dataset.k === p); a.classList.toggle("is-unpicked", !!p && a.dataset.k !== p); });
+    });
+    $$('.pick[data-pick][data-day="' + day + '"]').forEach(function (b) {
+      var on = b.dataset.pick === p; b.setAttribute("aria-pressed", String(on));
+      var s = $("span", b); if (s) s.textContent = on ? "נבחרה" : p ? "לבחור בזו במקום" : "בוחר בזו";
+    });
+  }
+  function paintPicks() {
+    var days = {}; $$(".lb-day-pair[data-day], .pick[data-day]").forEach(function (el) { days[el.dataset.day] = 1; });
+    Object.keys(days).forEach(paintPick);
+  }
+  paintPicks();
+  window.CalPicksPaint = paintPicks;
+  document.addEventListener("click", function (ev) {
+    var o = ev.target.closest && ev.target.closest(".optbar [data-open]");
+    if (o) { if (!cur || cur.id !== o.dataset.open) openReel(o.dataset.open); return; }
+    var b = ev.target.closest && ev.target.closest(".pick[data-pick][data-day]");
+    if (!b || readOnly) return;
+    var day = b.dataset.day, k = pickOf(day) === b.dataset.pick ? "" : b.dataset.pick;
+    picks[day] = k; paintPick(day);
+    if (pickStore) {
+      pending++; state("שומר...", "info");
+      pickStore.doc(day).set({ day: day, reel: k, at: new Date().toISOString() }).then(
+        function () { pending--; if (!pending) state("נשמר", "success"); },
+        function () { pending--; state("לא נשמר", "danger"); });
+    } else { try { localStorage.setItem(KEY_P, JSON.stringify(picks)); state("נשמר בדפדפן הזה", "success"); } catch (x) {} }
   });
 
   /* comment box: Claude rewrites the open reel from a comment */
@@ -1207,14 +1365,17 @@ def brief(dated, d):
         page = f"books/{b['id']}"
         n = sum(1 for r in dated if r.get("page") == page)
         cards.append(f'<a href="https://lumebook.com/IL/he/{page}" target="_blank" rel="noopener"><b>{e(b["title"].split(" - ")[0])}</b>'
-                     f'<span>{b["orders"]} הזמנות בכל התקופה, {n} רילס בחודש</span></a>')
+                     f'<span>{b["orders"]} הזמנות בכל התקופה, {n} רילס בלוח</span></a>')
     return (f'<section class="brief" aria-label="למי ועל מה"><h3>למי ועל מה החודש</h3>'
             f'<p>נשים בנות 55 עד 64 הן קבוצת הקונות הגדולה ביותר בנתוני מטא של 05 / 11 / 2026, ונשים מגיל 45 ומעלה הן 58% מהרכישות של נשים. '
-            f'לכן {g} מתוך {len(dated)} הרילס מדברים לסבתות, והשאר להורים. כל ריל מכוון לספר מהרב מכר או לעמוד המתנות באתר, והקישור ב DM פותח אותו.</p>'
+            f'לכן {g} מתוך {len(dated)} הרילס בלוח מדברים לסבתות, והשאר להורים. מ {reels.ddmm(d["defaults"]["options"]["from"])} יש לכל יום שתי אפשרויות, ואת זו שתבחר מצלמים. '
+            f'כל ריל מכוון לספר או לעמוד המתנות באתר, והקישור ב DM פותח אותו.</p>'
             f'<div class="books">{"".join(cards)}</div></section>')
 
 
-def page(d):
+def page(d, web=False):
+    """web=True is the read-only copy for the public Vercel site (10 Nov 2026, Yarin: "i need the scripts" on the phone): no project nav,
+    no summary (it carries book order counts and Meta audience figures), no make sheets, no editing, no link to the claude.ai copy."""
     rs = sorted(d["reels"], key=reels.when)
     s = d["defaults"]
     L = s["length"]
@@ -1224,8 +1385,8 @@ def page(d):
         f'<button class="lb-chip cat {design.cat_class("reel-series", k)}" type="button" aria-pressed="false" data-f="{k}">{e(v["label"])}</button>'
         for k, v in cats.items() if any(str(r["series"]) == k for r in rs))
     filt += '<button class="lb-chip cat lb-cat-3" type="button" aria-pressed="false" data-f="grandma">מדברים לסבתות</button>'
-    cards = "".join(card(r, d) for r in dated)
-    summary = brief(dated, d)
+    cards = "".join(card(r, d, web) for r in dated)
+    summary = "" if web else brief(dated, d)
     cta_words = len(s["cta_voice"].split())
     ask_cfg = json.dumps({
         "facts": s["facts"], "offer": s.get("offer", {}).get("text", ""),
@@ -1238,6 +1399,8 @@ def page(d):
         "icons": {k: design.icon(v) for k, v in {"video": "film", "image": "image", "audio": "audio", "file": "file", "upload": "upload",
                                                   "close": "close", "download": "download", "open": "open-out"}.items()},
     }, ensure_ascii=False).replace("</", "<\\/")
+    if web:
+        ask_cfg = "{}"
     return f"""<!doctype html>
 <html lang="he" dir="rtl">
 <head>
@@ -1245,7 +1408,8 @@ def page(d):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>רילס נובמבר</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-{design.head()}
+{design.head(nav=not web)}
+{WEB_CSS if web else ""}
 <style>
 /* Layout: a sticky bar with the save state, a formatting toolbar under it while text is being edited, a summary,
    the month as a 7-day grid (Sunday first), then one card per reel in date order, then the spares. */
@@ -1358,6 +1522,31 @@ body::before {{ content: ""; position: fixed; inset: 0 0 auto; height: env(safe-
 .make-vers button[aria-pressed="true"] {{ color: var(--tint); }}
 .lb-composer-bar > .lb-btn[data-busy="1"] svg {{ display: none; }}
 code {{ font-family: var(--font-mono); font-size: var(--fs-footnote); overflow-wrap: anywhere; }}
+/* two options a day (Yarin, 10 Nov 2026: "i want 2 options for each day"): the grid cell holds the day number and the two options as
+   small tinted day cards, א on top; once one is picked it gets a green border and נבחרה, the other fades until hovered */
+.lb-day-pair {{ display: grid; grid-template-rows: auto 1fr 1fr; gap: 4px; min-width: 0; min-height: 7.2rem; }}
+.lb-day-pair .pair-top {{ display: flex; align-items: center; justify-content: space-between; gap: 4px; padding-inline: 4px; min-height: 1.1rem; }}
+.lb-day.is-opt {{ min-height: 0; padding: 4px 6px; gap: 2px; }}
+.lb-day.is-opt .lb-day-text {{ font-size: var(--fs-caption, .75rem); line-height: 1.3; -webkit-line-clamp: 2; align-self: start; max-height: 2.6em; }}
+.lb-day.is-opt .lb-day-foot {{ min-height: 0; }}
+.opt-l {{ font-family: var(--font-2); font-weight: 800; font-size: var(--fs-caption, .75rem); color: var(--text-2); }}
+.legend .opt-l {{ letter-spacing: .1em; }}
+.pick-mark {{ display: none; font-family: var(--font-2); font-size: .6875rem; font-weight: 700; color: var(--success); }}
+.lb-day.is-pick {{ border-color: var(--success); }}
+.lb-day.is-pick .pick-mark {{ display: inline; }}
+.lb-day.is-unpicked {{ opacity: .45; }}
+.lb-day.is-unpicked.is-dim {{ opacity: .2; }}
+.lb-day.is-unpicked:is(:hover, :focus-visible, [aria-current="true"]) {{ opacity: 1; }}
+.optbar {{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3); }}
+.optbar .lb-segmented button {{ display: inline-flex; align-items: baseline; gap: .4rem; }}
+.optbar-id {{ font-family: var(--font-2); font-size: var(--fs-caption, .75rem); color: var(--text-3); font-variant-numeric: tabular-nums; }}
+@media (max-width: 640px) {{
+  .lb-day-pair {{ min-height: 3.6rem; gap: 2px; }}
+  .lb-day-pair .pair-top {{ padding-inline: 2px; }}
+  .lb-day.is-opt {{ padding: 2px 4px; }}
+  .lb-day.is-opt .lb-day-top {{ flex-direction: row; align-items: center; gap: 2px; }}
+  .lb-day.is-opt .lb-day-foot {{ display: none; }}
+}}
 @media (max-width: 640px) {{
   .hook-big {{ font-size: var(--fs-headline); }}
   .car {{ display: none; }}
@@ -1404,7 +1593,7 @@ html.lb-docked .jobs {{ left: calc(var(--lb-dock-w) + var(--sp-4)); }}   /* besi
 </head>
 <body>
 <header class="lb-topbar"><div class="lb-topbar-in">
-  <h1>רילס נובמבר</h1><span class="sub">ריל ביום, {e(s['post_time'])}, {L['min']} עד {L['max']} שניות</span><span class="sp"></span>
+  <h1>רילס נובמבר</h1><span class="sub">ריל ביום מתוך שתי אפשרויות, {e(s['post_time'])}, {L['min']} עד {L['max']} שניות</span><span class="sp"></span>
   <span id="save-state" class="lb-chip" role="status" aria-live="polite">טוען...</span>
 </div></header>
 <main class="lb-page">
@@ -1417,17 +1606,17 @@ html.lb-docked .jobs {{ left: calc(var(--lb-dock-w) + var(--sp-4)); }}   /* besi
 
   <section class="lb-section" aria-labelledby="h-month">
     <div class="lb-section-head"><h2 id="h-month" class="lb-card-title">החודש</h2>
-      <div class="legend"><span><i class="st success"></i>מוכן או פורסם</span><span><i class="st info"></i>מחכה לעריכה שלי</span><span><i class="st warning"></i>מחכה לך</span><span><i class="st danger"></i>חסום</span></div>
+      <div class="legend"><span><b class="opt-l">א ב</b>שתי אפשרויות ליום</span><span><i class="st success"></i>מוכן או פורסם</span><span><i class="st info"></i>מחכה לעריכה שלי</span><span><i class="st warning"></i>מחכה לך</span><span><i class="st danger"></i>חסום</span></div>
     </div>
     <div class="filters" role="group" aria-label="סינון לפי סדרה">{filt}</div>
-    {month_grid(dated, s['carousel_days'])}
+    {month_grid(dated, s['carousel_days'], d.get('picks'))}
   </section>
 
 </main>
 <div id="cards" hidden>{cards}</div>
 <dialog id="dlg" class="lb-dialog" aria-label="ריל">
   <div class="lb-dialog-card">
-    <div class="lb-dialog-head">{TOOLBAR}<button type="button" class="lb-dialog-x" id="dlg-x" aria-label="סגירה">✕</button></div>
+    <div class="lb-dialog-head">{TOOLBAR}{AUTOSCROLL}<button type="button" class="lb-dialog-x" id="dlg-x" aria-label="סגירה">✕</button></div>
     <div class="lb-dialog-body" id="dlg-body"></div>
   </div>
   <form class="lb-ask" id="ask" autocomplete="off">
@@ -1445,14 +1634,368 @@ html.lb-docked .jobs {{ left: calc(var(--lb-dock-w) + var(--sp-4)); }}   /* besi
 </dialog>
 <script type="application/json" id="ask-cfg">{ask_cfg}</script>
 {SCRIPT}
+{WEB_JS if web else ""}
 </body>
 </html>
 """
 
 
+WEB_CSS = """<meta name="robots" content="noindex, nofollow">
+<style>
+/* public copy: text can be edited (10 Nov 2026, Yarin: "let me edit the text"), saved in that browser only; nothing uploads or asks Claude */
+.make, #ask, .optbar .pick, [data-made], .lb-ask { display: none !important; }
+/* only the script itself: no "what they see" column, no times and no "what I say" label on a phone-width screen of the Vercel copy (10 Nov 2026, Yarin) */
+@media (max-width: 700px) { .script-t td.see, .script-t th:nth-child(3), .script-t td.tc, .script-t td.say::before { display: none !important; } }
+/* teleprompter with the camera (10 Nov 2026, Yarin: "make it a teleprompter with camera abilities"): the web copy only */
+dialog#tp { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #000; color: #fff; overflow: hidden; }
+dialog#tp::backdrop { background: #000; }
+#tp video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
+#tp video.mirror { transform: scaleX(-1); }
+#tp > video.fit { object-fit: contain; }
+#tp .tp-shade { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.35) 45%, rgba(0,0,0,.55)); pointer-events: none; }
+#tp .tp-text { position: absolute; inset: 0 0 9.5rem; overflow-y: auto; padding: 38dvh 22px 55dvh; text-align: center; direction: rtl; font-family: var(--font); font-weight: 700; line-height: 1.45; text-shadow: 0 1px 6px rgba(0,0,0,.9); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+#tp .tp-text::-webkit-scrollbar { display: none; }
+#tp .tp-text p { margin: 0 0 1.1em; }
+#tp .tp-text p.fixed { opacity: .75; }
+#tp .tp-line { position: absolute; inset-inline: 0; top: 38dvh; height: 0; border-top: 2px solid rgba(255,214,102,.8); pointer-events: none; }
+#tp .tp-bar { position: absolute; inset-inline: 0; bottom: 0; display: grid; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px)); background: rgba(0,0,0,.6); }
+#tp .tp-r { display: flex; align-items: center; justify-content: center; gap: 8px; }
+#tp button { font: inherit; color: #fff; background: rgba(255,255,255,.18); border: 0; border-radius: 999px; min-width: 44px; height: 44px; padding: 0 14px; cursor: pointer; }
+#tp button:disabled { opacity: .35; }
+#tp .tp-rec { width: 64px; height: 64px; background: #fff; border: 4px solid rgba(255,255,255,.5); position: relative; padding: 0; }
+#tp .tp-rec::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: #e5252a; transition: inset .15s, border-radius .15s; }
+#tp .tp-rec.on::after { inset: 18px; border-radius: 6px; }
+#tp .tp-top { position: absolute; inset-inline: 0; top: 0; display: flex; justify-content: space-between; align-items: center; padding: calc(10px + env(safe-area-inset-top, 0px)) 12px 10px; z-index: 2; }
+#tp .tp-time { font-family: var(--font-2); font-variant-numeric: tabular-nums; font-weight: 700; background: rgba(0,0,0,.5); border-radius: 999px; padding: 6px 12px; }
+#tp .tp-time.rec::before { content: "● "; color: #ff4d4f; }
+#tp .tp-count { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; font-size: 30vmin; font-weight: 800; text-shadow: 0 2px 16px rgba(0,0,0,.8); pointer-events: none; z-index: 3; }
+#tp .tp-msg { position: absolute; inset-inline: 16px; top: 30%; text-align: center; background: rgba(0,0,0,.7); border-radius: 16px; padding: 16px; z-index: 3; direction: rtl; }
+#tp .tp-done { position: absolute; inset: 0; z-index: 4; background: #000; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 16px; }
+#tp .tp-done video { position: static; width: min(100%, 420px); height: auto; max-height: 68dvh; border-radius: 16px; object-fit: contain; }
+#tp .tp-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+#tp .tp-save { background: #5B2BD6; }
+#tp .tp-set { position: absolute; inset-inline: 12px; top: calc(62px + env(safe-area-inset-top, 0px)); z-index: 5; background: rgba(20,20,24,.94); border-radius: 18px; padding: 14px; display: none; gap: 12px; direction: rtl; max-height: 62dvh; overflow-y: auto; }
+#tp .tp-set.on { display: grid; }
+#tp .tp-set h4 { margin: 0 0 6px; font-size: .8rem; font-weight: 700; color: #fff; opacity: .85; }
+#tp .tp-seg { display: flex; gap: 6px; flex-wrap: wrap; }
+#tp .tp-seg button { height: 40px; }
+#tp .tp-seg button[aria-pressed="true"] { background: #5B2BD6; }
+#tp .tp-info { font-size: .75rem; opacity: .8; text-align: center; }
+#tp .tp-note { font-size: .8rem; opacity: .8; text-align: center; max-width: 36ch; }
+.autoscroll #tp-open { font-weight: 700; }
+</style>"""
+WEB_JS = r"""<script>
+/* Sending to the Mac (10 Nov 2026, Yarin: "pack both the change in the script and the videos altogether"): the takes recorded in the
+   teleprompter are kept in this browser (IndexedDB) until sent; שליחה למחשב packs them with the script edits into one zip (stored, not
+   compressed: videos are already compressed) and opens the share sheet (AirDrop). On the Mac: reels.py merge phone. */
+(function () {
+  var DBN = "lb-reel-takes", ST = "takes", db = null;
+  function open() {
+    if (db) return Promise.resolve(db);
+    return new Promise(function (ok, no) {
+      if (!window.indexedDB) { no(new Error("no idb")); return; }
+      var q = indexedDB.open(DBN, 1);
+      q.onupgradeneeded = function () { q.result.createObjectStore(ST, { keyPath: "id", autoIncrement: true }); };
+      q.onsuccess = function () { db = q.result; ok(db); }; q.onerror = function () { no(q.error); };
+    });
+  }
+  function tx(mode, fn) {
+    return open().then(function (d) { return new Promise(function (ok, no) {
+      var t = d.transaction(ST, mode), r = fn(t.objectStore(ST)); t.oncomplete = function () { ok(r && r.result); }; t.onerror = t.onabort = function () { no(t.error); };
+    }); });
+  }
+  var takes = {
+    all: function () { return tx("readonly", function (s) { return s.getAll(); }).then(function (a) { return a || []; }, function () { return []; }); },
+    add: function (t) { return tx("readwrite", function (s) { return s.add(t); }); },
+    put: function (t) { return tx("readwrite", function (s) { return s.put(t); }); },
+    del: function (id) { return tx("readwrite", function (s) { return s.delete(id); }); }
+  };
+  window.lbTakes = takes;
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (x) {}
+
+  var T = null;
+  function crcTable() { T = new Uint32Array(256); for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; T[n] = c >>> 0; } }
+  async function crcOf(blob) {
+    if (!T) crcTable();
+    var c = 0xFFFFFFFF;
+    for (var o = 0; o < blob.size; o += 4194304) {
+      var u = new Uint8Array(await blob.slice(o, o + 4194304).arrayBuffer());
+      for (var i = 0; i < u.length; i++) c = T[(c ^ u[i]) & 255] ^ (c >>> 8);
+    }
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+  function le(n, v) { var a = new Uint8Array(n); for (var i = 0; i < n; i++) a[i] = (v >>> (8 * i)) & 255; return a; }
+  async function zip(entries, progress) {   /* entries: [{name, blob}] -> Blob (store only, no zip64) */
+    var enc = new TextEncoder(), parts = [], cd = [], off = 0, now = new Date();
+    var dt = ((now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1)) & 0xFFFF;
+    var dd = (((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate()) & 0xFFFF;
+    for (var e = 0; e < entries.length; e++) {
+      var en = entries[e], nm = enc.encode(en.name), crc = await crcOf(en.blob), sz = en.blob.size;
+      if (progress) progress(e + 1, entries.length);
+      var lh = [le(4, 0x04034b50), le(2, 20), le(2, 0x0800), le(2, 0), le(2, dt), le(2, dd), le(4, crc), le(4, sz), le(4, sz), le(2, nm.length), le(2, 0), nm];
+      lh.forEach(function (p) { parts.push(p); }); parts.push(en.blob);
+      var hl = 30 + nm.length;
+      cd.push([le(4, 0x02014b50), le(2, 20), le(2, 20), le(2, 0x0800), le(2, 0), le(2, dt), le(2, dd), le(4, crc), le(4, sz), le(4, sz), le(2, nm.length), le(2, 0), le(2, 0), le(2, 0), le(2, 0), le(4, 0), le(4, off), nm]);
+      off += hl + sz;
+    }
+    var cdSize = 0; cd.forEach(function (a) { a.forEach(function (p) { parts.push(p); cdSize += p.length; }); });
+    [le(4, 0x06054b50), le(2, 0), le(2, 0), le(2, entries.length), le(2, entries.length), le(4, cdSize), le(4, off), le(2, 0)].forEach(function (p) { parts.push(p); });
+    return new Blob(parts, { type: "application/zip" });
+  }
+
+  var bar = document.querySelector(".lb-topbar-in"), st = document.getElementById("save-state"); if (!bar) return;
+  var b = document.createElement("button"); b.type = "button"; b.className = "lb-btn sm"; b.id = "exp"; b.textContent = "שליחה למחשב";
+  b.title = "השינויים בתסריטים והסרטונים שצילמת, חבילה אחת לשליחה למחשב (AirDrop)";
+  var clr = document.createElement("button"); clr.type = "button"; clr.className = "lb-btn secondary sm"; clr.id = "exp-clear"; clr.hidden = true; clr.textContent = "מחיקת הסרטונים ששלחתי";
+  var note = document.createElement("span"); note.className = "sub"; note.id = "exp-note";
+  bar.insertBefore(b, st); bar.insertBefore(clr, st); bar.insertBefore(note, st);
+  var timer = 0;
+  function say(t, keep) { note.textContent = t; clearTimeout(timer); if (!keep) timer = setTimeout(count, 9000); }
+  function edits() {
+    var local = {}; try { local = JSON.parse(localStorage.getItem("lb-reels-nov-edits") || "{}"); } catch (x) {}
+    return Object.keys(local).map(function (k) { return local[k]; }).filter(function (d) { return d && d.key && (d.text || d.html); });
+  }
+  function count() {
+    return takes.all().then(function (all) {
+      var un = all.filter(function (t) { return !t.sent; }), sent = all.length - un.length, ed = edits().length, bits = [];
+      if (un.length) bits.push(un.length === 1 ? "סרטון אחד" : un.length + " סרטונים");
+      if (ed) bits.push(ed === 1 ? "שינוי אחד" : ed + " שינויים");
+      note.textContent = bits.length ? "מחכים לשליחה: " + bits.join(" ו") : "";
+      clr.hidden = !sent; return { un: un, ed: ed };
+    });
+  }
+  window.addEventListener("lb-takes", count); count();
+  clr.addEventListener("click", function () {
+    takes.all().then(function (all) {
+      var sent = all.filter(function (t) { return t.sent; });
+      if (!sent.length || !confirm("למחוק מהטלפון " + sent.length + " סרטונים ששלחת? לוודא קודם שהם הגיעו למחשב.")) return;
+      return Promise.all(sent.map(function (t) { return takes.del(t.id); })).then(count);
+    });
+  });
+  b.addEventListener("click", async function () {
+    var docs = edits(), un = (await takes.all()).filter(function (t) { return !t.sent; });
+    if (!docs.length && !un.length) { say("אין מה לשלוח"); return; }
+    var d = new Date(), pad = function (n) { return String(n).padStart(2, "0"); }, stamp = d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + "-" + pad(d.getHours()) + pad(d.getMinutes());
+    var json = new Blob([JSON.stringify({ docs: docs, exported: d.toISOString(), from: "phone" }, null, 1)], { type: "application/json" });
+    var file, label = (docs.length ? (docs.length === 1 ? "שינוי אחד" : docs.length + " שינויים") : "") + (docs.length && un.length ? " ו" : "") + (un.length ? (un.length === 1 ? "סרטון אחד" : un.length + " סרטונים") : "");
+    if (!un.length) { file = new File([json], "reels-edits-" + stamp + ".json", { type: "application/json" }); }
+    else {
+      var total = un.reduce(function (a, t) { return a + t.blob.size; }, 0);
+      if (total > 3.8e9) { say("הסרטונים גדולים מדי לחבילה אחת (מעל 3.8 GB). שולחים בנפרד מ שמירה לגלריה", true); return; }
+      b.disabled = true;
+      try {
+        var ent = un.map(function (t) { return { name: "videos/" + t.name, blob: t.blob }; });
+        if (docs.length) ent.unshift({ name: "edits.json", blob: json });
+        var zb = await zip(ent, function (i, n) { say("אורז " + i + " מתוך " + n + "...", true); });
+        file = new File([zb], "reels-from-phone-" + stamp + ".zip", { type: "application/zip" });
+      } catch (x) { say("האריזה נכשלה: " + (x && x.message || x), true); b.disabled = false; return; }
+      b.disabled = false;
+    }
+    function sentOk() {
+      say(label + " נשלחו. במחשב: reels.py merge phone", true);
+      return Promise.all(un.map(function (t) { t.sent = true; return takes.put(t); })).then(function () { return count().then(function () { note.textContent = label + " נשלחו. במחשב: reels.py merge phone"; }); });
+    }
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: file.name }).then(sentOk, function () { count(); }); return; }
+    var a = document.createElement("a"); a.href = URL.createObjectURL(file); a.download = file.name; document.body.appendChild(a); a.click(); a.remove();
+    sentOk();
+  });
+})();
+</script>
+<script>
+/* Teleprompter with the camera (10 Nov 2026, Yarin): the open reel's script on the phone camera, scrolling slowly; record, then save or share.
+   The text is not part of the recording (only camera and microphone are recorded). Nothing leaves the phone. */
+(function () {
+  var dlg = document.getElementById("dlg"), grp = dlg && dlg.querySelector(".autoscroll");
+  if (!grp || !window.HTMLDialogElement) return;
+  var SPEEDS = [8, 14, 20, 28, 38, 50, 66, 88, 120], spI = 2, fs = 30, facing = "user";
+  var cfg = { q: 1080, fps: 30, orient: "portrait", mv: 1, mf: 0 };
+  try { var sc = JSON.parse(localStorage.getItem("lb-tp-cfg") || "{}"); Object.keys(cfg).forEach(function (k) { if (sc[k] !== undefined) cfg[k] = sc[k]; }); } catch (x) {}
+  try { var sv = parseInt(localStorage.getItem("lb-reel-scroll-speed"), 10); if (sv >= 0 && sv < SPEEDS.length) spI = sv;
+        var fz = parseInt(localStorage.getItem("lb-tp-size"), 10); if (fz >= 20 && fz <= 56) fs = fz; } catch (x) {}
+  var open = document.createElement("button"); open.type = "button"; open.className = "lb-chip"; open.id = "tp-open";
+  open.textContent = "🎬 טלפרומפטר"; open.title = "התסריט על מצלמת הטלפון, גולל לאט, עם הקלטה";
+  grp.insertBefore(open, grp.firstChild);
+
+  var tp = document.createElement("dialog"); tp.id = "tp"; tp.setAttribute("aria-label", "טלפרומפטר");
+  tp.innerHTML = '<video id="tp-v" class="mirror" playsinline muted autoplay></video><div class="tp-shade"></div>' +
+    '<div class="tp-text" id="tp-t" dir="rtl"></div><div class="tp-line"></div>' +
+    '<div class="tp-top"><span class="tp-time" id="tp-time">0:00</span><span class="tp-info" id="tp-info"></span><span><button type="button" id="tp-cfg" aria-label="הגדרות">⚙</button> <button type="button" id="tp-x" aria-label="סגירה">✕</button></span></div>' +
+    '<div class="tp-set" id="tp-set"><div><h4>איכות</h4><div class="tp-seg" data-k="q"><button type="button" data-v="720">HD 720</button><button type="button" data-v="1080">Full HD 1080</button><button type="button" data-v="2160">4K</button></div></div>' +
+    '<div><h4>קצב תמונות</h4><div class="tp-seg" data-k="fps"><button type="button" data-v="30">30</button><button type="button" data-v="60">60</button></div></div>' +
+    '<div><h4>כיוון הסרטון</h4><div class="tp-seg" data-k="orient"><button type="button" data-v="portrait">לאורך</button><button type="button" data-v="landscape">לרוחב</button></div></div>' +
+    '<div><h4>מראה בתצוגה (כמו מראה)</h4><div class="tp-seg" data-k="mv"><button type="button" data-v="1">כן</button><button type="button" data-v="0">לא</button></div></div>' +
+    '<div><h4>מראה גם בסרטון השמור</h4><div class="tp-seg" data-k="mf"><button type="button" data-v="0">לא</button><button type="button" data-v="1">כן</button></div></div>' +
+    '<div class="tp-note" id="tp-setnote">הטלפון נותן את האיכות הכי קרובה למה שבחרת, מה שקיבלת מוצג למעלה. 4K ו 60 מקבלים קבצים גדולים. לסרטון לרוחב מסובבים את הטלפון. מראה בסרטון השמור מכבידה על הטלפון.</div></div>' +
+    '<div class="tp-count" id="tp-c"></div><div class="tp-msg" id="tp-m" hidden></div>' +
+    '<div class="tp-bar"><div class="tp-r"><span style="font-size:.8em;opacity:.8">מהירות</span><button type="button" id="tp-sl" aria-label="לאט יותר">−</button><span id="tp-sp" style="min-width:1.4em;text-align:center;font-weight:700"></span><button type="button" id="tp-sf" aria-label="מהר יותר">+</button>' +
+    '<span style="width:10px"></span><span style="font-size:.8em;opacity:.8">טקסט</span><button type="button" id="tp-fm" aria-label="טקסט קטן יותר">A−</button><button type="button" id="tp-fp" aria-label="טקסט גדול יותר">A+</button></div>' +
+    '<div class="tp-r"><button type="button" id="tp-go" aria-label="גלילה">⏸</button>' +
+    '<button type="button" class="tp-rec" id="tp-rec" aria-label="הקלטה"></button>' +
+    '<button type="button" id="tp-fl" aria-label="החלפת מצלמה">⟲</button></div></div>' +
+    '<div class="tp-done" id="tp-d"><video id="tp-dv" controls playsinline></video><div class="tp-row"><button type="button" class="tp-save" id="tp-save">שמירה לגלריה</button><button type="button" id="tp-dl">שמירה לקבצים</button></div><div class="tp-row"><button type="button" id="tp-again">צילום מחדש</button><button type="button" id="tp-dx">סגירה</button></div><div class="tp-note" id="tp-sinfo"></div></div>';
+  document.body.appendChild(tp);
+  var $ = function (i) { return document.getElementById(i); };
+  var v = $("tp-v"), t = $("tp-t"), stream = null, rec = null, chunks = [], recT0 = 0, recTick = 0, cv = null, cvRaf = 0, saved = false, going = false, raf = 0, pos = 0, last = 0, setTop = 0, lock = null, blob = null, fname = "reel";
+
+  function lines() {
+    var out = [], card = dlg.querySelector(".reel"); if (!card) return out;
+    card.querySelectorAll(".script-t tbody tr").forEach(function (tr) {
+      var d = tr.querySelector(".say > div"), s = d ? d.innerText.trim() : ""; if (s) out.push({ s: s, fixed: tr.classList.contains("fixed") });
+    });
+    if (!out.length) {   /* a reel without a voiceover: the text on the screen */
+      var h = card.querySelector(".hook-big"); if (h) out.push({ s: h.innerText.trim(), fixed: false });
+      card.querySelectorAll("ol.vo li").forEach(function (li) { var s = li.innerText.trim(); if (s) out.push({ s: s, fixed: li.classList.contains("fixed") }); });
+    }
+    return out;
+  }
+  function paintText() {
+    t.innerHTML = ""; lines().forEach(function (l) { var p = document.createElement("p"); p.textContent = l.s; if (l.fixed) p.className = "fixed"; t.appendChild(p); });
+    t.style.fontSize = fs + "px"; $("tp-sp").textContent = String(spI + 1);
+    $("tp-sl").disabled = spI === 0; $("tp-sf").disabled = spI === SPEEDS.length - 1;
+  }
+  function msg(s) { var m = $("tp-m"); m.hidden = !s; m.textContent = s || ""; }
+  function step(now) {
+    if (!going) return;
+    if (Math.abs(t.scrollTop - setTop) > 3) { stopScroll(); return; }
+    pos += SPEEDS[spI] * Math.min(now - last, 250) / 1000; last = now;
+    var max = t.scrollHeight - t.clientHeight;
+    if (pos >= max) { t.scrollTop = max; stopScroll(); return; }
+    t.scrollTop = pos; setTop = t.scrollTop; raf = requestAnimationFrame(step);
+  }
+  function startScroll() { going = true; pos = t.scrollTop; setTop = pos; last = performance.now(); $("tp-go").textContent = "⏸"; raf = requestAnimationFrame(step); }
+  function stopScroll() { going = false; cancelAnimationFrame(raf); $("tp-go").textContent = "▶"; }
+  ["wheel", "touchstart"].forEach(function (e) { t.addEventListener(e, function () { if (going) stopScroll(); }, { passive: true }); });
+
+  function camera() {
+    if (stream) stream.getTracks().forEach(function (k) { k.stop(); });
+    msg(""); 
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg("הדפדפן הזה לא נותן גישה למצלמה. אפשר להשתמש בטלפרומפטר בלי הקלטה, או לפתוח את העמוד ב Safari או Chrome."); return Promise.resolve(); }
+    var long = Math.round(cfg.q * 16 / 9), land = cfg.orient === "landscape";
+    var vc = { facingMode: facing, width: { ideal: land ? long : cfg.q }, height: { ideal: land ? cfg.q : long }, frameRate: { ideal: cfg.fps } };
+    return navigator.mediaDevices.getUserMedia({ video: vc, audio: { echoCancellation: true, noiseSuppression: true } })
+      .catch(function () { return navigator.mediaDevices.getUserMedia({ video: { facingMode: facing }, audio: false }); })
+      .then(function (s) { stream = s; v.srcObject = s; v.classList.toggle("mirror", !!cfg.mv); v.classList.toggle("fit", land); v.play().catch(function () {}); readout(); },
+            function () { msg("אין גישה למצלמה. צריך לאשר אותה בהגדרות הדפדפן. הטלפרומפטר עובד גם בלעדיה."); });
+  }
+  function readout() {
+    var tr = stream && stream.getVideoTracks()[0], st = tr && tr.getSettings ? tr.getSettings() : null;
+    $("tp-info").textContent = st && st.width ? st.width + "×" + st.height + " · " + Math.round(st.frameRate || 0) + " fps" : "";
+  }
+  function paintCfg() {
+    tp.querySelectorAll(".tp-seg").forEach(function (g) {
+      g.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", String(cfg[g.dataset.k]) === b.dataset.v ? "true" : "false"); });
+    });
+    v.classList.toggle("mirror", !!cfg.mv); v.classList.toggle("fit", cfg.orient === "landscape");
+  }
+  function fmt(ms) { var s = Math.floor(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+  function mime() {
+    var c = ["video/mp4;codecs=avc1,mp4a.40.2", "video/mp4", "video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm"];
+    for (var i = 0; i < c.length; i++) if (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(c[i])) return c[i];
+    return "";
+  }
+  function startRec() {
+    if (!stream || !window.MediaRecorder) { msg("ההקלטה לא נתמכת בדפדפן הזה. הטלפרומפטר ממשיך לעבוד."); return; }
+    var n = 3, c = $("tp-c"); c.style.display = "flex"; c.textContent = n; $("tp-rec").disabled = true;
+    var iv = setInterval(function () {
+      n--; if (n > 0) { c.textContent = n; return; }
+      clearInterval(iv); c.style.display = "none"; $("tp-rec").disabled = false;
+      chunks = []; var m = mime(), src = stream, st = stream.getVideoTracks()[0].getSettings(), fps = Math.round(st.frameRate || cfg.fps) || 30;
+      if (cfg.mf) {   /* a mirrored file: the picture goes through a canvas flipped left to right, the sound is added to it */
+        cv = document.createElement("canvas"); cv.width = st.width || v.videoWidth; cv.height = st.height || v.videoHeight;
+        var cx = cv.getContext("2d"); cx.translate(cv.width, 0); cx.scale(-1, 1);
+        (function draw() { if (!cv) return; cx.drawImage(v, 0, 0, cv.width, cv.height); cvRaf = requestAnimationFrame(draw); })();
+        src = cv.captureStream(fps); stream.getAudioTracks().forEach(function (a) { src.addTrack(a); });
+      }
+      var px = (st.width || 1080) * (st.height || 1920), bps = Math.round(Math.min(60e6, Math.max(6e6, px * fps * 0.08)));
+      try { rec = new MediaRecorder(src, Object.assign({ videoBitsPerSecond: bps }, m ? { mimeType: m } : {})); } catch (x) { msg("ההקלטה לא התחילה."); return; }
+      $("tp-set").classList.remove("on");
+      rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+      rec.onstop = done; rec.start(1000); recT0 = Date.now(); $("tp-rec").classList.add("on"); $("tp-time").classList.add("rec");
+      recTick = setInterval(function () { $("tp-time").textContent = fmt(Date.now() - recT0); }, 250);
+      t.scrollTop = 0; startScroll();
+    }, 1000);
+  }
+  function stopRec() { cancelAnimationFrame(cvRaf); if (rec && rec.state !== "inactive") rec.stop(); clearInterval(recTick); $("tp-rec").classList.remove("on"); $("tp-time").classList.remove("rec"); stopScroll(); }
+  function done() {
+    var type = (rec && rec.mimeType) || (chunks[0] && chunks[0].type) || "video/mp4";
+    blob = new Blob(chunks, { type: type }); var ext = /mp4/.test(type) ? "mp4" : "webm"; fname = "reel-" + (location.hash.slice(1) || "take") + "." + ext;
+    var dv = $("tp-dv"); dv.src = URL.createObjectURL(blob); $("tp-d").style.display = "flex"; saved = false; cv = null;
+    var card = dlg.querySelector(".reel"), key = card ? card.id : (location.hash.slice(1) || "take"), nm;
+    if (window.lbTakes) lbTakes.all().then(function (all) {
+      var n = all.filter(function (t) { return t.reel === key; }).length + 1, d = new Date(), pad = function (x) { return String(x).padStart(2, "0"); };
+      nm = key + "__take" + n + "__" + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + "-" + pad(d.getHours()) + pad(d.getMinutes()) + "." + ext;
+      return lbTakes.add({ reel: key, name: nm, type: blob.type, blob: blob, size: blob.size, at: d.toISOString(), sent: false });
+    }).then(function () { saved = true; window.dispatchEvent(new Event("lb-takes")); $("tp-sinfo").textContent = "נשמר בטלפון, בתוך הדף (" + Math.round(blob.size / 1048576) + " MB). לשליחה למחשב, יחד עם השינויים בתסריטים: הכפתור שליחה למחשב בראש הדף."; }, function () {});
+    var st = stream && stream.getVideoTracks()[0] && stream.getVideoTracks()[0].getSettings();
+    $("tp-sinfo").textContent = "שומר בטלפון... אם זה נכשל, הסרטון רק בזיכרון של הדף ויימחק בסגירה. " + Math.round(blob.size / 1048576) + " MB" + (st && st.width ? ", " + st.width + "×" + st.height : "") + ".";
+  }
+  function save() {
+    if (!blob) return;
+    var f = new File([blob], fname, { type: blob.type });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) { navigator.share({ files: [f], title: fname }).then(function () { saved = true; $("tp-sinfo").textContent = "נשלח לתפריט השיתוף. בוחרים שם שמירת וידאו כדי שיגיע לגלריה."; }, function () {}); return; }
+    download();
+  }
+  function download() {
+    if (!blob) return;
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = fname; document.body.appendChild(a); a.click(); a.remove();
+    saved = true; $("tp-sinfo").textContent = "ירד כקובץ " + fname + ". בטלפון הוא נמצא בקבצים, בתיקיית ההורדות.";
+  }
+  function closeAll() {
+    if (blob && !saved && !confirm("הסרטון עוד לא נשמר. לסגור ולמחוק אותו?")) return;
+    stopRec(); stopScroll(); if (stream) { stream.getTracks().forEach(function (k) { k.stop(); }); stream = null; } v.srcObject = null;
+    if (lock) { try { lock.release(); } catch (x) {} lock = null; }
+    var dv = $("tp-dv"); if (dv.src) { try { URL.revokeObjectURL(dv.src); } catch (x) {} dv.removeAttribute("src"); } blob = null; $("tp-d").style.display = "none";
+    if (tp.open) tp.close();
+  }
+  open.addEventListener("click", function () {
+    paintText(); paintCfg(); $("tp-time").textContent = "0:00"; $("tp-d").style.display = "none"; tp.showModal(); t.scrollTop = 0; stopScroll(); $("tp-go").textContent = "▶";
+    if (navigator.wakeLock) navigator.wakeLock.request("screen").then(function (l) { lock = l; }, function () {});
+    camera();
+  });
+  tp.addEventListener("cancel", function (ev) { ev.preventDefault(); closeAll(); });
+  $("tp-x").addEventListener("click", closeAll); $("tp-dx").addEventListener("click", closeAll);
+  $("tp-rec").addEventListener("click", function () { if (rec && rec.state === "recording") stopRec(); else startRec(); });
+  $("tp-go").addEventListener("click", function () { if (going) stopScroll(); else startScroll(); });
+  $("tp-sl").addEventListener("click", function () { spI = Math.max(0, spI - 1); try { localStorage.setItem("lb-reel-scroll-speed", String(spI)); } catch (x) {} paintText(); });
+  $("tp-sf").addEventListener("click", function () { spI = Math.min(SPEEDS.length - 1, spI + 1); try { localStorage.setItem("lb-reel-scroll-speed", String(spI)); } catch (x) {} paintText(); });
+  function size(d) { fs = Math.max(20, Math.min(56, fs + d)); try { localStorage.setItem("lb-tp-size", String(fs)); } catch (x) {} t.style.fontSize = fs + "px"; }
+  $("tp-fm").addEventListener("click", function () { size(-3); }); $("tp-fp").addEventListener("click", function () { size(3); });
+  $("tp-fl").addEventListener("click", function () { if (rec && rec.state === "recording") return; facing = facing === "user" ? "environment" : "user"; cfg.mv = facing === "user" ? 1 : 0; paintCfg(); camera(); });
+  $("tp-save").addEventListener("click", save); $("tp-dl").addEventListener("click", download);
+  $("tp-cfg").addEventListener("click", function () { $("tp-set").classList.toggle("on"); });
+  tp.querySelectorAll(".tp-seg").forEach(function (g) {
+    g.addEventListener("click", function (ev) {
+      var b = ev.target.closest("button"); if (!b || (rec && rec.state === "recording")) return;
+      var k = g.dataset.k, val = b.dataset.v; cfg[k] = (k === "q" || k === "fps" || k === "mv" || k === "mf") ? parseInt(val, 10) : val;
+      try { localStorage.setItem("lb-tp-cfg", JSON.stringify(cfg)); } catch (x) {}
+      paintCfg(); if (k === "q" || k === "fps" || k === "orient") camera();
+    });
+  });
+  $("tp-again").addEventListener("click", function () { $("tp-d").style.display = "none"; blob = null; $("tp-time").textContent = "0:00"; t.scrollTop = 0; stopScroll(); });
+})();
+</script>
+"""
+
+# words that must never reach the public copy: internal figures, the pay line, private links (checked after every web build)
+WEB_BANNED = ["הזמנות בכל התקופה", "58% מהרכישות", "המכירות שלי", "לחישוב ה-25%", "claude.ai/artifact", "localhost:8780", "lumebook.json"]
+
+
+def build_web(d=None):
+    d = d or json.loads((HERE / "reels.json").read_text())
+    html = page(d, web=True)
+    # design.head() adds a script that points claude.ai links at the local pages; it only runs on localhost:8780 and holds the private links
+    html = re.sub(r'<script>document\.addEventListener\("DOMContentLoaded",function\(\)\{if\(!/\^\(localhost.*?</script>', "", html, count=1, flags=re.S)
+    bad = [w for w in WEB_BANNED if w in html]
+    if bad:
+        raise SystemExit(f"web calendar not written, internal text found: {bad}")
+    OUT_WEB.write_text(html)
+    return OUT_WEB
+
+
 def build(d=None):
     d = d or json.loads((HERE / "reels.json").read_text())
     OUT.write_text(page(d))
+    build_web(d)
     return OUT
 
 
