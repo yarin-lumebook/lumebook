@@ -1,0 +1,410 @@
+{
+ "_about": "The content calendar's posting hours (tools/content_calendar.py; README in this folder). targets: what every day should hold (Yarin, 11 Nov 2026: \"every day should have 2 reels and 2 carousels\"). current: the times in use today (kid carousels 06:00 in Postiz; test carousels take their day's time from test-batch/2026-11/plan.json; reels.json defaults.post_time 21:30 for option 1, no time yet for option 2). suggested: written by `python3 tools/content_calendar.py hours [export.csv ...]` from the carousel audit's posts; shown as hints until Yarin approves (approved true), then new or moved pieces default to them. The test batch compares morning and evening on purpose: its times stay until Yarin says otherwise.",
+ "targets": {
+  "carousel": 2,
+  "reel": 2
+ },
+ "approved": true,
+ "suggested": {
+  "carousel": [
+   {
+    "time": "10:26",
+    "block": "09-12",
+    "n": 9,
+    "why": "חציון תפוצה 86 ב-09:00 עד 12:00, 9 פוסטים"
+   }
+  ],
+  "reel": [
+   {
+    "time": "13:20",
+    "block": "12-15",
+    "n": 6,
+    "why": "חציון תפוצה 181 ב-12:00 עד 15:00, 6 פוסטים"
+   },
+   {
+    "time": "10:47",
+    "block": "09-12",
+    "n": 4,
+    "why": "חציון תפוצה 112.5 ב-09:00 עד 12:00, 4 פוסטים"
+   },
+   {
+    "time": "17:20",
+    "block": "15-18",
+    "n": 5,
+    "why": "חציון תפוצה 111 ב-15:00 עד 18:00, 5 פוסטים"
+   }
+  ]
+ },
+ "stats": {
+  "as_of": "2026-11-11T16:35+02:00",
+  "posts": 32,
+  "from": "2026-10-07",
+  "to": "2026-10-23",
+  "source": "research/carousel-audit/data/posts.json",
+  "by_kind": {
+   "carousel": {
+    "n": 15,
+    "blocks": [
+     {
+      "block": "09-12",
+      "n": 9,
+      "reach": 86,
+      "views": 213,
+      "saves": 1,
+      "shares": 0,
+      "comments": 0,
+      "follows": 0,
+      "typical_time": "10:26",
+      "few": false
+     },
+     {
+      "block": "12-15",
+      "n": 2,
+      "reach": 64.5,
+      "views": 142.5,
+      "saves": 1.0,
+      "shares": 0.0,
+      "comments": 0.0,
+      "follows": 0.0,
+      "typical_time": "13:29",
+      "few": true
+     },
+     {
+      "block": "15-18",
+      "n": 3,
+      "reach": 65,
+      "views": 140,
+      "saves": 1,
+      "shares": 0,
+      "comments": 0,
+      "follows": 0,
+      "typical_time": "15:00",
+      "few": true
+     },
+     {
+      "block": "18-20",
+      "n": 1,
+      "reach": 69,
+      "views": 154,
+      "saves": 1,
+      "shares": 0,
+      "comments": 0,
+      "follows": 0,
+      "typical_time": "18:00",
+      "few": true
+     }
+    ],
+    "best": [
+     {
+      "block": "09-12",
+      "n": 9,
+      "reach": 86,
+      "views": 213,
+      "saves": 1,
+      "shares": 0,
+      "comments": 0,
+      "follows": 0,
+      "typical_time": "10:26",
+      "few": false
+     }
+    ],
+    "weekdays": {
+     "רביעי": {
+      "n": 3,
+      "reach": 135
+     },
+     "חמישי": {
+      "n": 2,
+      "reach": 85.5
+     },
+     "שישי": {
+      "n": 4,
+      "reach": 59.0
+     },
+     "ראשון": {
+      "n": 4,
+      "reach": 66.5
+     },
+     "שני": {
+      "n": 1,
+      "reach": 98
+     },
+     "שלישי": {
+      "n": 1,
+      "reach": 196
+     }
+    }
+   },
+   "reel": {
+    "n": 17,
+    "blocks": [
+     {
+      "block": "09-12",
+      "n": 4,
+      "reach": 112.5,
+      "views": 140.0,
+      "saves": 0.5,
+      "shares": 0.0,
+      "comments": 0.0,
+      "follows": 0.0,
+      "typical_time": "10:47",
+      "few": false
+     },
+     {
+      "block": "12-15",
+      "n": 6,
+      "reach": 181.0,
+      "views": 234.5,
+      "saves": 0.0,
+      "shares": 1.5,
+      "comments": 0.0,
+      "follows": 0.0,
+      "typical_time": "13:20",
+      "few": false
+     },
+     {
+      "block": "15-18",
+      "n": 5,
+      "reach": 111,
+      "views": 152,
+      "saves": 0,
+      "shares": 0,
+      "comments": 0,
+      "follows": 0,
+      "typical_time": "17:20",
+      "few": false
+     },
+     {
+      "block": "18-20",
+      "n": 2,
+      "reach": 680.0,
+      "views": 837.0,
+      "saves": 1.5,
+      "shares": 7.0,
+      "comments": 1.0,
+      "follows": 0.5,
+      "typical_time": "19:30",
+      "few": true
+     }
+    ],
+    "best": [
+     {
+      "block": "12-15",
+      "n": 6,
+      "reach": 181.0,
+      "views": 234.5,
+      "saves": 0.0,
+      "shares": 1.5,
+      "comments": 0.0,
+      "follows": 0.0,
+      "typical_time": "13:20",
+      "few": false
+     },
+     {
+      "block": "09-12",
+      "n": 4,
+      "reach": 112.5,
+      "views": 140.0,
+      "saves": 0.5,
+      "shares": 0.0,
+      "comments": 0.0,
+      "follows": 0.0,
+      "typical_time": "10:47",
+      "few": false
+     },
+     {
+      "block": "15-18",
+      "n": 5,
+      "reach": 111,
+      "views": 152,
+      "saves": 0,
+      "shares": 0,
+      "comments": 0,
+      "follows": 0,
+      "typical_time": "17:20",
+      "few": false
+     }
+    ],
+    "weekdays": {
+     "שבת": {
+      "n": 1,
+      "reach": 209
+     },
+     "ראשון": {
+      "n": 1,
+      "reach": 1295
+     },
+     "שני": {
+      "n": 5,
+      "reach": 114
+     },
+     "רביעי": {
+      "n": 9,
+      "reach": 119
+     },
+     "חמישי": {
+      "n": 1,
+      "reach": 1151
+     }
+    }
+   }
+  },
+  "hours_seen": [
+   "09",
+   "10",
+   "11",
+   "12",
+   "13",
+   "15",
+   "17",
+   "18",
+   "19"
+  ],
+  "note": "Only hour blocks with 4 or more posts are suggested. Hours with no post in the data cannot be judged: 06, 20, 21 (the current slots) have none."
+ },
+ "follower_active": {
+  "source": "Yarin's Instagram dashboard screenshots, Audience > Follower active times, 11 Nov 2026 17:28, GMT+2 (@lumebook.il)",
+  "how_read": "Bar heights measured from the screenshots and rounded to 5. Each day's chart is scaled to its own tallest bar (=100), so values compare hours within a day, not one day with another, and are not follower counts. Each bar is a 3 hour block starting at its label.",
+  "blocks": [
+   "00:00",
+   "03:00",
+   "06:00",
+   "09:00",
+   "12:00",
+   "15:00",
+   "18:00",
+   "21:00"
+  ],
+  "days": {
+   "0": [
+    45,
+    15,
+    65,
+    80,
+    90,
+    95,
+    100,
+    95
+   ],
+   "1": [
+    35,
+    15,
+    65,
+    85,
+    90,
+    95,
+    100,
+    95
+   ],
+   "2": [
+    35,
+    15,
+    60,
+    85,
+    90,
+    90,
+    100,
+    95
+   ],
+   "3": [
+    35,
+    15,
+    70,
+    90,
+    95,
+    95,
+    100,
+    95
+   ],
+   "4": [
+    35,
+    15,
+    70,
+    90,
+    95,
+    95,
+    100,
+    95
+   ],
+   "5": [
+    45,
+    20,
+    65,
+    95,
+    95,
+    100,
+    75,
+    70
+   ],
+   "6": [
+    25,
+    10,
+    30,
+    60,
+    65,
+    70,
+    100,
+    95
+   ]
+  },
+  "instagram_says": {
+   "Tuesdays": "18 - 21",
+   "Saturdays": "18 - 0"
+  }
+ },
+ "previous": {
+  "kid": "06:00",
+  "reel": [
+   "21:30",
+   null
+  ]
+ },
+ "plan": {
+  "0": {
+   "test": "09:30",
+   "reel_a": "13:30",
+   "kid": "18:30",
+   "reel_b": "21:30"
+  },
+  "1": {
+   "test": "09:30",
+   "reel_a": "13:30",
+   "kid": "18:30",
+   "reel_b": "21:30"
+  },
+  "2": {
+   "test": "09:30",
+   "reel_a": "13:30",
+   "kid": "18:30",
+   "reel_b": "21:30"
+  },
+  "3": {
+   "test": "09:30",
+   "reel_a": "13:30",
+   "kid": "18:30",
+   "reel_b": "21:30"
+  },
+  "4": {
+   "test": "09:30",
+   "reel_a": "13:30",
+   "kid": "18:30",
+   "reel_b": "21:30"
+  },
+  "5": {
+   "test": "09:00",
+   "reel_a": "12:00",
+   "kid": "15:00",
+   "reel_b": "18:30"
+  },
+  "6": {
+   "test": "12:30",
+   "reel_a": "15:30",
+   "kid": "18:30",
+   "reel_b": "21:30"
+  }
+ },
+ "plan_about": "The four daily slots (Yarin, 11 Nov 2026: 'retime everything based on the findings, i need 4 posting hours a day ... enough gap ... not to feel spammy'). Keys are weekdays, 0 = Sunday. Roles: kid = the child-voice carousel, test = the test batch carousel, reel_a = the first reel (option א), reel_b = the second (option ב). Built from follower_active: 06:00 to 09:00 is only 60 to 70% of a day's peak (30% on Saturday), so nothing is planned before 09:00; carousels and reels alternate through the day, at least 3 hours apart (min_gap_minutes); the strongest blocks get the child-voice carousel and a reel. Sun to Thu: 09:30 test, 13:30 reel, 18:30 kid, 21:30 reel. Friday (peak 15:00 to 18:00, evening drops): 09:00, 12:00, 15:00, 18:30. Saturday (weak morning, strong 18:00 to 24:00): 12:30 reel, 15:30 test, 18:30 reel, 21:30 kid. Not measured: the best hour inside a 3 hour block, and Facebook. Posts already queued in Postiz keep their time until Yarin says to replace them.",
+ "min_gap_minutes": 180,
+ "trial_start": "11:30",
+ "approved_by": "Yarin, 11 Nov 2026 (retime everything, 4 posting hours a day)"
+}

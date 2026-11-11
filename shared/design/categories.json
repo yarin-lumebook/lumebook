@@ -34,7 +34,7 @@
       "items": {
         "plan": {"cat": 4, "label": "תוכנית ואסטרטגיה", "en": "Plan and strategy", "components": ["strategy", "smm-plan", "product-docs", "brand-marketing-system", "sales-readout"]},
         "creators": {"cat": 2, "label": "יוצרים", "en": "Creators", "components": ["creator-map", "signup-form", "creator-content-conversion", "creator-brief", "ambassadors", "partners-page"]},
-        "carousels": {"cat": 5, "label": "קרוסלות", "en": "Carousels", "components": ["carousel-pipeline", "hook-studio-page", "carousel-research", "carousel-playbook", "carousel-audit", "lotem-lerner-carousels", "fal-trial"]},
+        "carousels": {"cat": 5, "label": "קרוסלות", "en": "Carousels", "components": ["carousel-pipeline", "hook-studio-page", "carousel-research", "carousel-playbook", "carousel-audit", "lotem-lerner-carousels", "fal-trial", "content-calendar"]},
         "reels": {"cat": 1, "label": "רילס ווידאו", "en": "Reels and video", "components": ["israeli-product-reels", "reels-hub", "reels-research-page", "reel-calendar", "kids-lab", "media"]},
         "communities": {"cat": 6, "label": "קהילות", "en": "Communities", "components": ["parent-communities"]},
         "learning": {"cat": 3, "label": "קורס ולמידה", "en": "Course and learning", "components": ["course"]},
@@ -186,6 +186,17 @@
         "age": {"cat": 6, "label": "מה קורה בגיל", "en": "Age stage"},
         "gift": {"cat": 8, "label": "מתנה לחנוכה", "en": "Hanukkah gift"},
         "reveal": {"cat": 2, "label": "הרגע שהם רואים את הספר", "en": "The reveal"}
+      }
+    },
+    "content-types": {
+      "used_by": ["sites/content-calendar (the content calendar's type marks, filters and day items, through lb-cat-N)"],
+      "what": "The kinds of content on the content calendar (11 Nov 2026). Purple for the child-voice carousels (the carousels workstream's hue), pink for the test batch carousels, teal for reels; orange, green and ochre stay out so nothing reads as a status colour. Postiz-only posts are slate, ideas neutral. The five test types show as an icon and a word, not more hues. No class key, like test-carousels, so other pages' inlined CSS does not change.",
+      "items": {
+        "kid": {"cat": 5, "label": "קרוסלת ילד", "en": "Kid carousel"},
+        "test": {"cat": 2, "label": "קרוסלת ניסוי", "en": "Test carousel"},
+        "reel": {"cat": 6, "label": "ריל", "en": "Reel"},
+        "post": {"cat": 7, "label": "פוסט מפוסטיז", "en": "Post from Postiz"},
+        "idea": {"cat": 0, "label": "רעיון", "en": "Idea"}
       }
     }
   }

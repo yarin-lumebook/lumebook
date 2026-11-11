@@ -988,7 +988,6 @@ def reel_plan_prompt(r, folder, files, script, ask):
     def many(v):
         return [one(x, 400) for x in (v if isinstance(v, list) else []) if one(x)][:40]
     vo = many(script.get("vo")) or many(r.get("vo"))
-    trial = many(script.get("trialhooks")) or many(r.get("trial_hooks"))
     rows = []
     for f in files:
         i = media_info(os.path.join(folder, f["path"]))
@@ -1014,11 +1013,24 @@ def reel_plan_prompt(r, folder, files, script, ask):
         v = one(script.get(key)) or one(base)
         if v:
             L.append(f"- {lab}: {v}")
-    L += ["", "The files Yarin dropped (use these paths exactly, nothing else):"] + (rows or ["- none"])
+    L += ["", "The files Yarin dropped (use these paths exactly):"] + (rows or ["- none"])
+    lib = reel_library()
+    if lib:
+        L += ["", "The reels' media library: files made or collected before, kept once and reused at no cost. Use one by writing its "
+                  "name exactly as below (pool:... or project:...) as a src or hook_overlay img; the server links it into the reel:"]
+        L += [f"- {k} ({v[2].get('kind')}): {one(v[2].get('about'), 160)}"
+              + (f"; fits: {', '.join(v[2].get('words') or [])}" if v[2].get("words") else "")
+              + (f"; NOTE: {one(v[2].get('note'), 120)}" if v[2].get("note") else "") for k, v in list(lib.items())[:90]]
+    try:
+        with open(p(REELS_SRC + "/broll.py"), encoding="utf-8") as fh:
+            broll_doc = fh.read().split('"""')[1].strip()
+    except (OSError, IndexError):
+        broll_doc = ""
     if edit_now:
         L += ["", "The edit.json there now (a template from when the folder was made, \"_footage\" says what each segment was meant to show):", edit_now]
     L += ["", "What Yarin asked for (his words):", one(ask, 6000) or "(nothing written: plan it from the files and the script)", "",
-          "Rules: use only the paths listed above and never invent one; the first segment starts at 0 and the segments follow the script "
+          "Rules: use only the dropped paths, the library names and your own source/mk-... mockup paths, and never invent another; "
+          "the first segment starts at 0 and the segments follow the script "
           "in order; a cue word must be a word of the script; leave out keys you do not need (no TODO paths, no _about or _footage keys). "
           "If these files cannot make the reel (for example no voice take and no talking take), return \"edit\": null and say what is missing.",
           "",
@@ -1029,13 +1041,20 @@ def reel_plan_prompt(r, folder, files, script, ask):
           "the end; 4) no file that is stock footage or a film clip; 5) cut only where a script line or cue word starts, never to add pace.",
           f"- the payoff of this reel: {one(script.get('payoff')) or one(r.get('payoff')) or '(not named)'}",
           "",
-          "Trial versions (Yarin, 10 Nov 2026: after the plain reel the recipe makes 5 trial reel versions, each with a different top "
-          "hook, its own small zoom and a little shorter or longer, so Instagram does not see the same file five times): version 1 "
-          "has the reel's hook. " + (("The reel already has the other four (Yarin's, keep them): " + " | ".join(one(h, 80) for h in trial)
-          + ". Leave \"trial_hooks\" out.") if trial else
-          "Write the other four in \"trial_hooks\" inside edit: Hebrew for parents (or grandmothers when the reel talks to them), "
-          "each a different angle on what the take says in its first seconds, at most 34 characters, one line break (\\n) "
-          "between two short lines, no dash, hyphen, maqaf or semicolon, no price, no AI, no English."),
+          "Pictures over Yarin's words (Yarin, 11 Nov 2026): 1) every picture or clip is connected to what he says: it starts on the "
+          "word that names what it shows (\"at\": that word of the script, not just the line number) and shows exactly that thing; "
+          "when a line names two things, cut on the second word too; 2) the recipe puts every still and every screen window over a "
+          "darkened video of a child and closes any gap shorter than a second between two pictures, so never add a background for "
+          "them and never leave a short gap on purpose; 3) books always look like LumeBook books: never a flat cover file and never a "
+          "generated book. Draw them under \"mockups\" ({\"source/mk-<english-words>.png\": {spec}}, then use that path as the src), "
+          "from the store cover art (the cover entries of the library, written as their media/projects/2026-11-10-store-covers/... "
+          "path): an open 3D book by default (kind open, title or dedication), the closed book (kind cover) only when the words "
+          "talk about the cover; 4) a GPT picture only when it fits the words and is already in the library (new ones need Yarin's "
+          "budget and are made elsewhere).",
+          "How the books are drawn (from broll.py):", broll_doc,
+          "",
+          "One version only (Yarin, 11 Nov 2026: \"ditch the 5 trials, lets have only one\"): the recipe makes the plain reel and "
+          "no trial versions, so leave \"trial_hooks\" out.",
           "",
           "Return only JSON, no other text:",
           "{\"edit\": {the edit.json object} or null, \"summary\": \"one or two short Hebrew sentences for Yarin, without dashes: which file "
@@ -1043,11 +1062,125 @@ def reel_plan_prompt(r, folder, files, script, ask):
     return "\n".join(L)
 
 
+def reel_library():
+    """The reels' media library (library.py in REELS_SRC, 11 Nov 2026) as {name: (link path in a reel, file, entry)}: the files a
+    reel job may use besides the dropped ones. Names are pool:<file> or project:<path>; child-bg clips are listed too (they are
+    clean clips of children with their books), templates are not."""
+    try:
+        if p(REELS_SRC) not in sys.path:
+            sys.path.insert(0, p(REELS_SRC))
+        import library
+        items = library.load()
+    except Exception:
+        return {}
+    out = {}
+    for e in items:
+        if e.get("kind") not in ("clip", "gpt", "drawn", "screen", "cover", "child-bg"):
+            continue
+        f = library.path_of(e)
+        if not f.exists():
+            continue
+        name = ("pool:" + e["file"]) if e.get("file") else ("project:" + e["path"])
+        rel = "source/" + (f.name if e.get("path") else "pool-" + f.name)
+        out[name] = (rel, str(f), e)
+    return out
+
+
+MOCKUP_KINDS = ("open", "title", "dedication", "cover", "overlay", "row")
+STORE_COVER = re.compile(r"media/projects/2026-11-10-store-covers/B\d{1,3}_(boy|girl)\.webp")
+AUDIENCE_BAD = re.compile(r"[\-‐-―־;]|לומיבוק|\bAI\b|בינה מלאכותית")
+
+
+def clean_mockups(mks):
+    """The books a plan asks broll.py to draw, checked: known kinds, store cover art only, short Hebrew without dashes. Returns
+    (mockups, "") or (None, why)."""
+    if not isinstance(mks, dict) or len(mks) > 12:
+        return None, "mockups is not a short object"
+
+    def txt(v, n):
+        return isinstance(v, str) and 0 < len(v.strip()) <= n and "\n" not in v and not AUDIENCE_BAD.search(v)
+
+    def texts(v, n, most):
+        return isinstance(v, list) and 0 < len(v) <= most and all(txt(x, n) for x in v)
+    out = {}
+    for k, sp in mks.items():
+        if not isinstance(k, str) or not re.fullmatch(r"source/mk-[a-z0-9-]{1,40}\.png", k) or not isinstance(sp, dict):
+            return None, f"mockup {k!r} is not source/mk-<words>.png with a spec"
+        kind = sp.get("kind")
+        if kind not in MOCKUP_KINDS:
+            return None, f"mockup {k} has an unknown kind {kind!r}"
+        c = {"kind": kind}
+        if kind == "row":
+            books = sp.get("books")
+            if not isinstance(books, list) or not 2 <= len(books) <= 3:
+                return None, f"mockup {k}: a row has 2 or 3 books"
+            c["books"] = []
+            for b in books:
+                if not isinstance(b, dict) or not STORE_COVER.fullmatch(str(b.get("cover"))) or not txt(b.get("title"), 40) or \
+                        (b.get("sub") is not None and not txt(b["sub"], 30)):
+                    return None, f"mockup {k}: a row book needs a store cover and a short title"
+                c["books"].append({x: b[x] for x in ("cover", "title", "sub") if b.get(x) is not None})
+        else:
+            if not STORE_COVER.fullmatch(str(sp.get("cover"))):
+                return None, f"mockup {k}: cover must be a store cover file"
+            c["cover"] = sp["cover"]
+        if kind in ("open", "title", "dedication"):
+            if not txt(sp.get("name"), 20):
+                return None, f"mockup {k}: the child's name is missing"
+            c["name"] = sp["name"]
+        if kind in ("cover", "overlay"):
+            if not txt(sp.get("title"), 40):
+                return None, f"mockup {k}: the cover title is missing"
+            c["title"] = sp["title"]
+            if sp.get("sub") is not None:
+                if not txt(sp["sub"], 30):
+                    return None, f"mockup {k}: sub is not a short text"
+                c["sub"] = sp["sub"]
+        for key, n, most, kinds in (("lines", 60, 4, ("open", "dedication")), ("hand", 40, 4, ("dedication",))):
+            if sp.get(key) is not None and kind in kinds:
+                if not texts(sp[key], n, most):
+                    return None, f"mockup {k}: {key} must be up to {most} short Hebrew lines without dashes"
+                c[key] = sp[key]
+        if sp.get("printed") is not None and kind == "dedication":
+            if not txt(sp["printed"], 60):
+                return None, f"mockup {k}: printed is not a short text"
+            c["printed"] = sp["printed"]
+        for key, lo, hi in (("zoom", 0.5, 2), ("cy", 300, 1500), ("dx", -400, 200)):
+            v = sp.get(key)
+            if v is not None:
+                if not (isinstance(v, (int, float)) and not isinstance(v, bool) and lo <= v <= hi):
+                    return None, f"mockup {k}: {key} is out of range"
+                c[key] = v
+        out[k] = c
+    return out, ""
+
+
 def clean_edit(e, paths, images):
-    """Claude's plan cut down to what reel_make.py reads, with every file one of the reel's own dropped files and every number in
-    range. Returns (edit, "") or (None, why)."""
+    """Claude's plan cut down to what reel_make.py reads, with every file one of the reel's own dropped files, a library file
+    (pool:... or project:..., linked into the reel by build_reel through "_links") or a book it asks broll.py to draw ("mockups"),
+    and every number in range. Returns (edit, "") or (None, why)."""
     if not isinstance(e, dict):
         return None, "the plan has no edit"
+    lib, links, drawn = reel_library(), {}, {}
+    if e.get("mockups") is not None:
+        drawn, why = clean_mockups(e["mockups"])
+        if drawn is None:
+            return None, why
+    paths, images = set(paths) | set(drawn), set(images) | set(drawn)
+
+    def use(v, pics=False):
+        """A src the plan may use, as the path the reel reads it from; None when it is not allowed."""
+        if not isinstance(v, str):
+            return None
+        if v in (images if pics else paths):
+            return v
+        if v in lib:
+            rel, target, ent = lib[v]
+            if pics and not rel.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
+                return None
+            links[rel] = target
+            return rel
+        return None
 
     def num(v, lo, hi):
         return isinstance(v, (int, float)) and not isinstance(v, bool) and lo <= v <= hi
@@ -1071,14 +1204,14 @@ def clean_edit(e, paths, images):
         out["hook_end"] = e["hook_end"]
     bg = e.get("background")
     if bg is not None:
-        if not isinstance(bg, dict) or bg.get("src") not in paths or not num(bg.get("ss", 0), 0, 7200):
+        if not isinstance(bg, dict) or not use(bg.get("src")) or not num(bg.get("ss", 0), 0, 7200):
             return None, "background is not one of the dropped files"
-        out["background"] = {"src": bg["src"], "ss": bg.get("ss", 0)}
+        out["background"] = {"src": use(bg["src"]), "ss": bg.get("ss", 0)}
     ov = e.get("hook_overlay")
     if ov is not None:
-        if not isinstance(ov, dict) or ov.get("img") not in images or not num(ov.get("y", 1230), 0, 1920):
+        if not isinstance(ov, dict) or not use(ov.get("img"), pics=True) or not num(ov.get("y", 1230), 0, 1920):
             return None, "hook_overlay is not one of the dropped pictures"
-        out["hook_overlay"] = {"img": ov["img"], "y": ov.get("y", 1270)}
+        out["hook_overlay"] = {"img": use(ov["img"], pics=True), "y": ov.get("y", 1270)}
         if ov.get("w") is not None:
             if not num(ov["w"], 120, 1080):
                 return None, "hook_overlay w is out of range"
@@ -1093,9 +1226,9 @@ def clean_edit(e, paths, images):
             return None, "segments is not a list"
         out["segments"] = []
         for s in segs:
-            if not isinstance(s, dict) or not cue(s.get("at")) or s.get("src") not in paths:
+            if not isinstance(s, dict) or not cue(s.get("at")) or not use(s.get("src")):
                 return None, f"segment {s!r} has a wrong cue or a file that was not dropped"
-            c = {"at": s["at"], "src": s["src"], "ss": s.get("ss", 0)}
+            c = {"at": s["at"], "src": use(s["src"]), "ss": s.get("ss", 0)}
             if not num(c["ss"], 0, 7200):
                 return None, f"segment start {c['ss']!r} is out of range"
             if s.get("window") is not None:
@@ -1133,9 +1266,9 @@ def clean_edit(e, paths, images):
             return None, "inserts is not a list"
         out["inserts"] = []
         for s in ins:
-            if not isinstance(s, dict) or not cue(s.get("at")) or s.get("src") not in paths:
+            if not isinstance(s, dict) or not cue(s.get("at")) or not use(s.get("src")):
                 return None, f"insert {s!r} has a wrong cue or a file that was not dropped"
-            c = {"at": s["at"], "src": s["src"], "ss": s.get("ss", 0)}
+            c = {"at": s["at"], "src": use(s["src"]), "ss": s.get("ss", 0)}
             if not num(c["ss"], 0, 7200):
                 return None, f"insert start {c['ss']!r} is out of range"
             u = s.get("until")
@@ -1161,6 +1294,10 @@ def clean_edit(e, paths, images):
                               if isinstance(h, str) and 0 < len(h.strip()) <= 60 and h.count("\n") <= 1 and not bad.search(h)][:4]
     if not out.get("take") and not (out.get("hook_clip") and out.get("voice")):
         return None, "the plan needs one talking take, or a hook clip and a voice take"
+    if drawn:
+        out["mockups"] = drawn
+    if links:
+        out["_links"] = links   # build_reel links these library files into the reel, then drops the key
     return out, ""
 
 
@@ -1198,7 +1335,15 @@ def build_reel(make, answer, stopped, step, on_pid):
         logf.flush()
     try:
         step("שומר את תוכנית העריכה")
+        links = edit.pop("_links", {})
         note("plan: " + json.dumps(edit, ensure_ascii=False))
+        for rel, target in links.items():   # library files the plan uses: one copy in the library, a link in the reel
+            dst = os.path.join(folder, rel)
+            if os.path.islink(dst):
+                os.unlink(dst)
+            if not os.path.exists(dst):
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                os.symlink(os.path.relpath(target, os.path.dirname(dst)), dst)
         ej = os.path.join(folder, "edit.json")
         if os.path.exists(ej):
             shutil.move(ej, os.path.join(work, "edit-" + datetime.now(IL).strftime("%Y%m%d-%H%M%S") + ".json"))
@@ -1207,6 +1352,13 @@ def build_reel(make, answer, stopped, step, on_pid):
                                  "reels.py make reads it.", **edit}, fh, ensure_ascii=False, indent=1)
             fh.write("\n")
         env = reel_env()
+        if edit.get("mockups"):   # the LumeBook books the plan asks for, drawn into the library by broll.py and linked here
+            step("מצייר את הספרים")
+            m = subprocess.run(["/usr/bin/python3", p(REELS_SRC + "/broll.py"), "render-folder", folder, rid], cwd=ROOT, env=env,
+                               capture_output=True, text=True, timeout=300)
+            note("broll: " + " ".join((m.stdout + m.stderr).split())[-600:])
+            if m.returncode != 0:
+                return 500, {"error": "drawing the books failed: " + (m.stderr or m.stdout).strip()[-200:], "code": "build_failed"}
         if make.get("merge"):
             step("מעתיק לתסריט את העריכות מהעמוד")
             m = subprocess.run([sys.executable, p(REELS_SRC + "/reels.py"), "merge", "local", rid], cwd=ROOT, env=env,
@@ -1395,6 +1547,12 @@ def serve(port):
     # LUMEBOOK_REELS_HUB_FILE: a test server on a spare port writes somewhere else, never into Yarin's real edits
     reels_hub_file = os.environ.get("LUMEBOOK_REELS_HUB_FILE") or p("research/israeli-product-reels/src/scripts/series-2026-11/local-edits.json")
     sample_jobs = SampleJobs(os.environ.get("LUMEBOOK_SAMPLE_JOBS_FILE") or p(".lumebook/sample-jobs.json"))
+    # the content calendar (11 Nov 2026, sites/content-calendar, tools/content_calendar.py): one month of every carousel and reel.
+    # Its background asks (5 hooks, the prompt box, new ideas) have their own job list, so the reels hub's tray never takes an
+    # answer meant for a carousel. Restart this server after editing content_calendar.py.
+    import content_calendar as calendar
+    cal_jobs = SampleJobs(os.environ.get("LUMEBOOK_CALENDAR_JOBS_FILE") or p(".lumebook/calendar-jobs.json"))
+    cal_job_act = re.compile(r"^/api/calendar/jobs/([0-9a-f]{6,20})/(cancel|claim|dismiss)$")
     # the language switch (8 Nov 2026): pages report words their dictionaries lack, this translates them in the background
     i18n_worker = i18n.Worker(log=lambda m: print(m, file=sys.stderr, flush=True))
     if i18n.pending():
@@ -1511,7 +1669,7 @@ def serve(port):
             json.dump(obj, fh, ensure_ascii=False, indent=1)
         os.replace(tmp, dest)
 
-    hs_port = 8777
+    hs_port = int(os.environ.get("LUMEBOOK_HS_PORT") or 8777)   # a test server can talk to a scratch Carousel Machine (content calendar tests, 11 Nov 2026)
     hs_prefix = ("/api/ping", "/api/state", "/api/productions", "/api/production/", "/api/save", "/api/grade",
                  "/api/produce-send", "/api/push-grades", "/api/sync", "/drafts/", "/approved/", "/assets/fonts/",
                  "/pool/", "/grade/", "/productions", "/packs", "/test-batch/", "/api/postiz-preview")   # test batch: 10 Nov 2026
@@ -1786,6 +1944,15 @@ def serve(port):
             if path == "/api/creator-map/state":
                 with state_lock:
                     return self._json(200, {k: state_read(k) for k in ("outreach", "settings", "voice", "log")})
+            if path == "/api/calendar":   # the content calendar's month (tools/content_calendar.py collect)
+                q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+                body = calendar.collect((q.get("month") or [""])[0], jobs=sample_jobs.list(), drafts=(q.get("drafts") or [""])[0] == "1")
+                if (q.get("rev") or [""])[0] == body["rev"]:
+                    return self._json(200, {"rev": body["rev"], "same": True})
+                return self._json(200, body)
+            if path == "/api/calendar/jobs":
+                return self._json(200, {"jobs": cal_jobs.list(), "tasks": calendar.task_list(),
+                                        "reel_jobs": [j for j in sample_jobs.list() if j.get("kind") == "make"]})
             if path == "/api/home":
                 try:
                     return self._json(200, home_stats())
@@ -1863,6 +2030,18 @@ def serve(port):
                         json.dump(doc, fh, ensure_ascii=False, indent=1)
                     os.replace(tmp, hq_layout)
                 return self._json(200, {"ok": True})
+            if u.path == "/api/calendar/doc":   # the calendar's own state: hooks, approvals, reminders, ideas (calendar-state.json)
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only"})
+                m = re.match(r"^(\w+)/([\w.\-]{1,80})$", (urllib.parse.parse_qs(u.query).get("path") or [""])[0])
+                size = int(self.headers.get("Content-Length") or 0)
+                if not m or size <= 0 or size > 256 * 1024:
+                    return self._json(400, {"error": "bad path or size"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON"})
+                return self._json(*calendar.put_doc(m.group(1), m.group(2), None if doc == {"_delete": True} else doc))
             if u.path == "/api/reels-hub/doc":
                 if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
                     return self._json(403, {"error": "same-origin requests only"})
@@ -1944,6 +2123,42 @@ def serve(port):
                 items = [i for i in items if isinstance(i, dict) and isinstance(i.get("k"), str)]
                 new = i18n_worker.report(page, to, items)
                 return self._json(200, {"new": new, "pending": i18n.pending([i18n.COMMON, page], to)})
+            if u.path.startswith("/api/calendar/"):   # the content calendar's writes (tools/content_calendar.py); same-origin only
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only", "code": "not_granted"})
+                m = cal_job_act.match(u.path)
+                if m:
+                    return self._json(*cal_jobs.act(m.group(1), m.group(2)))
+                size = int(self.headers.get("Content-Length") or 0)
+                if size <= 0 or size > SAMPLE_MAX:
+                    return self._json(400, {"error": "bad size", "code": "failed"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON", "code": "failed"})
+                if not isinstance(doc, dict):
+                    return self._json(400, {"error": "a JSON object", "code": "failed"})
+                if u.path == "/api/calendar/jobs":   # 5 hooks, the prompt box, a new idea: Claude answers with text, the page applies it
+                    prompt = doc.get("prompt")
+                    if not isinstance(prompt, str) or not prompt.strip():
+                        return self._json(400, {"error": "a prompt is a non-empty string", "code": "failed"})
+                    meta = {"reel": str(doc.get("piece") or "")[:80], "kind": str(doc.get("kind") or "ask")[:20],
+                            "label": str(doc.get("label") or "")[:400], "comment": str(doc.get("comment") or "")[:400]}
+                    if meta["reel"] and not re.match(r"^[\w.\-]{1,80}$", meta["reel"]):
+                        return self._json(400, {"error": "bad piece id", "code": "failed"})
+                    return self._json(*cal_jobs.start(prompt[:SAMPLE_MAX], meta))
+                if u.path == "/api/calendar/move":
+                    return self._json(*calendar.move(str(doc.get("id") or ""), str(doc.get("date") or ""), doc.get("time", "keep") or None))
+                if u.path == "/api/calendar/reel-merge":
+                    return self._json(*calendar.reel_merge(str(doc.get("reel") or "")))
+                if u.path == "/api/calendar/gpt":
+                    return self._json(*calendar.start_gpt(str(doc.get("reel") or ""), doc.get("budget_usd"), doc.get("confirmed")))
+                if u.path == "/api/calendar/reel-postiz":
+                    return self._json(*calendar.send_reel(str(doc.get("reel") or ""), str(doc.get("kind") or ""), str(doc.get("date") or ""), str(doc.get("time") or ""),
+                                                          doc.get("ig_text"), doc.get("fb_text"), bool(doc.get("draft")), doc.get("trial_index"), doc.get("confirmed")))
+                if u.path == "/api/calendar/trials":
+                    return self._json(*calendar.start_trials(str(doc.get("reel") or "")))
+                return self._json(404, {"error": "unknown calendar action"})
             if u.path == "/api/sample/jobs" or sample_job_act.match(u.path):
                 if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
                     return self._json(403, {"error": "same-origin requests only", "code": "not_granted"})

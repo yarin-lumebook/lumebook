@@ -149,15 +149,20 @@ def card(r, d, web=False):
         rows.append((f"טקסט על המסך, טרנד {r['clip_seconds']:g} שניות", f'<ol class="vo">{lis}</ol>'))
     if r.get("cards"):
         rows.append(("כרטיסיות על המסך", '<ol class="vo">' + "".join(ed("li", ek(k, "cards", i), e(x)) for i, x in enumerate(r["cards"])) + "</ol>"))
-    if r.get("vo") and r["status"] != "posted":
-        # the five trial versions (Yarin, 10 Nov 2026: "after i press create reel it gives me 5 different versions with different
-        # hook"): version 1 has the reel's hook, 2 to 5 these; empty slots are written by Claude when the reel is made
-        th = (r.get("trial_hooks") or []) + [""] * 4
-        lis = f'<li class="fixed" title="גרסה 1, ההוק הראשי"><span data-hook-of="{ek(k, "hook")}">{e(r["hook"].replace(chr(10), " "))}</span></li>'
-        lis += "".join(ed("li", ek(k, "trialhooks", i), e(h).replace("\n", "<br>"), "", ' data-ph="Claude יכתוב כשתלחץ ליצור את הריל"')
-                       for i, h in enumerate(th[:4]))
-        rows.append(("הוקים לגרסאות הניסיון", f'<ol class="thooks" translate="no">{lis}</ol>'
-                     '<p class="thooks-note">ליצור את הריל נותן גם 5 גרסאות לניסיון: הוק אחר בכל אחת, זום קטן ואורך קצת שונה</p>'))
+    # the five trial versions and their hooks were dropped (Yarin, 11 Nov 2026: "ditch the 5 trials, lets have only one")
+    if r.get("gpt") and r["status"] != "posted" and not web:
+        # funny pictures made with the OpenAI Images API (Yarin, 11 Nov 2026), only under a budget he approves (reel_gpt.py)
+        base = reels.ROOT / r["project"] / "source" if r.get("project") else None
+        lis = ""
+        for i in r["gpt"]["images"]:
+            made = bool(base and (base / f"gpt-{i['n']}.png").exists())
+            at = f"שורה {i['line']}" if i["line"] is not None else "שורה לפי העריכה"
+            lis += (f'<li><span class="lb-chip {"ok" if made else "outline"}">{"נוצרה" if made else "מתוכננת"}</span> '
+                    f'<span class="lb-chip outline">{at}</span> <span dir="ltr" lang="en" translate="no">{e(i["scene"])}</span></li>')
+        n = len(r["gpt"]["images"])
+        rows.append(("תמונות מצחיקות", f'<ol class="vo gptl">{lis}</ol>'
+                     f'<p class="thooks-note">תקציב מוצע ${r["gpt"]["budget_usd"]:.2f}: {n} תמונות בהערכה גבוהה ועוד ניסיון חוזר אחד. '
+                     'לא נוצר כלום בלי האישור שלך (reel_gpt.py)</p>'))
     cap = reels.caption_of(r, d)
     rows.append(("כיתוב לאינסטגרם",
                  f'<div class="cap">{ed("div", ek(k, "caption"), e(cap), "capbox lb-textblock", f" id=cap-{k}")}'
@@ -198,7 +203,7 @@ def card(r, d, web=False):
 </article>"""
 
 
-ROW_ICON = {"צילום": "eye", "כרטיסיות על המסך": "layers", "השיא על המסך": "sparkle", "הוקים לגרסאות הניסיון": "stack"}
+ROW_ICON = {"תמונות מצחיקות": "sparkle", "צילום": "eye", "כרטיסיות על המסך": "layers", "השיא על המסך": "sparkle", "הוקים לגרסאות הניסיון": "stack"}
 
 
 def opt_bar(r, d):
@@ -1518,10 +1523,6 @@ body::before {{ content: ""; position: fixed; inset: 0 0 auto; height: env(safe-
 .vo li::marker {{ color: var(--text-3); font-family: var(--font-2); font-size: var(--fs-footnote); }}
 .vo li.fixed {{ color: var(--text-3); }}
 /* the trial versions' hooks (10 Nov 2026): version 1 is the reel's hook, then four editable slots */
-.thooks {{ margin: 0; padding-inline-start: 1.4rem; display: grid; gap: 3px; }}
-.thooks li::marker {{ color: var(--text-3); font-family: var(--font-2); font-size: var(--fs-footnote); }}
-.thooks li.fixed {{ color: var(--text-3); }}
-.thooks li.lb-editable:empty::before {{ content: attr(data-ph); color: var(--text-3); }}
 .thooks-note {{ margin: var(--sp-1) 0 0; color: var(--text-3); font-family: var(--font-2); font-size: var(--fs-footnote); }}
 .capwin {{ padding: var(--sp-3) var(--sp-4) var(--sp-4); display: grid; gap: var(--sp-2); }}
 .lb-dialog .capwin {{ -webkit-backdrop-filter: none; backdrop-filter: none; }}

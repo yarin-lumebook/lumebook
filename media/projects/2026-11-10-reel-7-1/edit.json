@@ -1,24 +1,79 @@
 {
- "_about": "Written 10 Nov 2026 by Claude: Yarin's one talking take, with covers and B-roll laid over it (reel_make.py take mode with inserts). reels.py make reads it.",
- "take": "source/yarin/take-A13EECE4.mov",
- "voice_start": 0.0,
- "speed_after_hook": 1.1,
- "hook_overlay": {
-  "img": "source/B15_boy.webp",
-  "from": 0
- },
- "inserts": [
-  {
-   "at": 1,
-   "until": 2,
-   "src": "source/sapir_ivan_mugatz_screen-recording_book-preview-pages.mov",
-   "ss": 4.5,
-   "window": true
+  "_about": "Written 10 Nov 2026 by Claude: Yarin's one talking take, with covers and B-roll laid over it (reel_make.py take mode with inserts). reels.py make reads it.",
+  "take": "source/yarin/take-A13EECE4.mov",
+  "voice_start": 0.0,
+  "speed_after_hook": 1.1,
+  "hook_overlay": {
+    "img": "source/mk-cover.png",
+    "from": 0,
+    "w": 420
   },
-  {
-   "at": 2,
-   "until": 4,
-   "src": "source/B15_boy.webp"
-  }
- ]
+  "inserts": [
+    {
+      "at": 1,
+      "until": 2,
+      "src": "source/mk-book.png"
+    },
+    {
+      "at": 2,
+      "until": 3,
+      "src": "source/mk-title.png"
+    },
+    {
+      "at": 3,
+      "until": 4,
+      "src": "source/mk-page.png"
+    },
+    {
+      "at": 4,
+      "until": 5,
+      "src": "source/gpt-1.png",
+      "gpt": true,
+      "fill": true
+    }
+  ],
+  "mockups": {
+    "source/mk-cover.png": {
+      "kind": "overlay",
+      "cover": "media/projects/2026-11-10-store-covers/B13_boy.webp",
+      "title": "הלב של רון"
+    },
+    "source/mk-book.png": {
+      "kind": "title",
+      "cover": "media/projects/2026-11-10-store-covers/B13_boy.webp",
+      "name": "רון"
+    },
+    "source/mk-title.png": {
+      "kind": "cover",
+      "cover": "media/projects/2026-11-10-store-covers/B13_boy.webp",
+      "title": "הלב של רון",
+      "zoom": 1.6
+    },
+    "source/mk-page.png": {
+      "kind": "open",
+      "cover": "media/projects/2026-11-10-store-covers/B13_boy.webp",
+      "name": "רון",
+      "lines": [
+        "בכל עמוד רון יוצא להרפתקה,",
+        "ובכל הרפתקה הוא הגיבור.",
+        "״אני יכול!״ אמר רון."
+      ]
+    }
+  },
+  "replaced_by_gpt": [
+    {
+      "at": 4,
+      "until": 5,
+      "src": "source/mk-book.png"
+    }
+  ],
+  "unused_gpt": [
+    {
+      "at": 4,
+      "until": 5,
+      "src": "source/gpt-2.png",
+      "gpt": true,
+      "fill": true
+    }
+  ]
 }

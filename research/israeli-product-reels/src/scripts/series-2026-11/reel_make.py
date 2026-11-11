@@ -18,7 +18,9 @@ that recipe made general (media/projects/2026-11-03-reel-1-1-preview-screen/buil
     enough to read it at 17 characters a second (principle T5, research/israeli-product-reels/
     smm-research/principles.md), then no top text until the CTA.
  7. The reel editor burns the text and writes final/reel-<id>-1.mp4 and its QC sheet.
- 8. Five trial reel versions (Yarin, 10 Nov 2026: "after i press create reel it gives me 5 different versions with
+ 8. Off by default since 11 Nov 2026 (Yarin: "ditch the 5 trials, lets have only one"): make writes the one reel above;
+    `--trial` or `--trial-only` still builds the old trial set described here.
+    Five trial reel versions (Yarin, 10 Nov 2026: "after i press create reel it gives me 5 different versions with
     different hook, zoom slightly in a random way and make them a tiny bit shorter or longer randomly so we could
     schedule them as trial reels and ig wont flag them as repetitive"): the reel editor's --trial build writes
     trial/reel-<id>-trial-1.mp4 to -5.mp4. Version 1 has the reel's hook, 2 to 5 the reel's "trial_hooks" in reels.json
@@ -57,15 +59,23 @@ segments, and can lay pictures over the take while its sound runs on:
       "inserts": [
         {"at": "הכריכה", "src": "source/book.mov", "ss": 1.0},              from that word to the next script line
         {"at": 2, "until": "ודבר", "src": "source/preview.mov", "window": true, "speed": 1.5},   a screen recording in the window
-        {"at": "תראו", "until": 2.0, "src": "source/cover.png"}             a still, 2 s, slow push-in
+        {"at": "תראו", "until": 2.0, "src": "source/mk-open.png"}           a still, 2 s, slow push-in
       ],
+      "child_bg": ["source/pool-child-....mp4"],     optional: the child clips behind the pictures (default: the library's)
+
+Since 11 Nov 2026 (Yarin): every still and every screen window sits over a darkened, slowed video of a child from the library
+(library.py child-bg), a different child for each picture ("bg" on one insert picks its own). A drawn book (broll.py, transparent)
+lies on it as it is; any other still (a GPT picture, a photo) is a rounded card. Stills glide in a push-in drawn frame by frame
+(no shaking), cuts sit on the 30 fps frame grid, and a gap under a second between two pictures is closed so no frame of the take
+slips in between. "fill" on a still is ignored now. An insert starts on the word that names what it shows.
       "trial_hooks": ["...", "...", "...", "..."]      four more top hooks for the trial versions (step 8)
     }
 
 The hook clip always opens the reel; the first segment should start at line 0. Run it through reels.py:
 
     python3 research/israeli-product-reels/src/scripts/series-2026-11/reels.py make 1.7
-    ... make 1.7 --no-trial       the plain reel only
+    ... make 1.7                  the one reel (no trial versions since 11 Nov 2026)
+    ... make 1.7 --trial          also the old set of five trial versions (only if Yarin asks again)
     ... make 1.7 --trial-only     only a fresh set of the five trial versions, from the reel.json the last make wrote
 """
 import json, re, subprocess, sys
@@ -83,7 +93,16 @@ OUT = "fps=30,format=yuv420p,setsar=1"
 STUDIO = ("highpass=f=75,afftdn=nr=12:nf=-45,equalizer=f=280:t=q:w=1.2:g=-2.5,equalizer=f=110:t=q:w=1:g=2,"
           "equalizer=f=3500:t=q:w=1.4:g=3,equalizer=f=11000:t=q:w=1:g=2,deesser=i=0.35,"
           "acompressor=threshold=-21dB:ratio=3:attack=5:release=90:makeup=4")
-READ_CPS = 17                              # principle T5: Hebrew on screen at most 17 characters a second
+FPS = 30
+TAIL = 3                                   # frames each insert is rendered past its cut (the overlay window cuts it on the frame)
+FACE_GAP = 1.0                             # seconds: when the take would show for less than this between two pictures, the earlier
+                                           # picture runs on to the next (Yarin, 11 Nov 2026: single frames of him slipped in between
+                                           # B-rolls; the overlay windows also left 1 ms holes that let one frame through)
+PUSH = 0.05                                # a still grows this much over its slot, drawn per frame with sub-pixel steps by Pillow
+                                           # (ffmpeg's zoompan rounds to whole pixels, so pictures shook; Yarin, 11 Nov 2026)
+CHILD_SLOW = 0.75                          # the child clip behind a picture plays at this speed, forward then backward
+DARK = "gblur=sigma=3,lutyuv=y=val*0.52:u=128+(val-128)*0.7:v=128+(val-128)*0.7"   # the child behind a picture, darkened
+READ_CPS = 17                             # principle T5: Hebrew on screen at most 17 characters a second
 TRIAL_VERSIONS = 5                         # trial reel versions after the plain reel (Yarin, 10 Nov 2026)
 
 
@@ -205,7 +224,10 @@ def make(rid, folder, hook, vo, cta_line, cta_screen, retranscribe=False, build=
     # 1 and 2. sources and sound at 1x
     if take:
         src = sdr(base, take, work)
-        run(FF, "-y", "-v", "error", "-ss", cfg.get("voice_start", 0), "-i", src, "-vn", "-ac", 1, "-ar", 48000, work / "take-raw.wav")
+        # aresample first_pts=0: an iPhone take's audio can start after its picture (E3498895: 0.78 s); without the
+        # padding the wav starts at the first sound and every cut pairs the picture with sound from later (lips late)
+        run(FF, "-y", "-v", "error", "-ss", cfg.get("voice_start", 0), "-i", src, "-vn", "-ac", 1, "-ar", 48000,
+            "-af", "aresample=async=1:first_pts=0", work / "take-raw.wav")
         keep, total = speech(work / "take-raw.wav")
         fc = "".join(f"[0:v]trim={a:.3f}:{b:.3f},setpts=PTS-STARTPTS,{FILL},{OUT}[v{i}];"
                      f"[1:a]atrim={a:.3f}:{b:.3f},asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st={b - a - 0.02:.3f}:d=0.02[a{i}];"
@@ -291,7 +313,7 @@ def make(rid, folder, hook, vo, cta_line, cta_screen, retranscribe=False, build=
         line_t = [cue(i) for i in range(len(lines))]
         cta_t = cue("cta")
         if cfg.get("inserts") or cfg.get("hook_overlay"):
-            starts = take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end)
+            starts = take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid)
     else:
         starts = build_segments(base, work, cfg, hook_clip, intro, end, after, cue, raw_hook)
 
@@ -382,13 +404,119 @@ def trial(rid, base, hooks):
 IMAGE_EXT = (".png", ".jpg", ".jpeg", ".webp")
 
 
-def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end):
+def child_order(base, cfg, rid):
+    """The child clips that go behind this reel's pictures, in turn (Yarin, 11 Nov 2026: "always have a darken video of a child in
+    the bg"): edit.json "child_bg" (paths in the reel folder) when set, else every child-bg clip of the library, starting at a
+    different one for each reel."""
+    if cfg.get("child_bg"):
+        paths = [base / p for p in cfg["child_bg"]]
+    else:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import library
+        paths = library.child_bgs()
+    if not paths:
+        sys.exit("no child clip for the background: library.py list child-bg")
+    import hashlib
+    rot = int(hashlib.sha1(rid.encode()).hexdigest(), 16) % len(paths)
+    return paths[rot:] + paths[:rot]
+
+
+def dark_bg(src, work):
+    """One child clip as a background that loops without a jump: full frame, slowed, forward then backward, blurred a little and
+    darkened. Kept in work/make/bg/."""
+    out = work / "bg" / (Path(src).stem + ".mp4")
+    if out.exists() and out.stat().st_mtime >= Path(src).stat().st_mtime:
+        return out
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fc = (f"[0:v]{FILL},setpts=PTS/{CHILD_SLOW},fps={FPS},{DARK},split[f][r0];[r0]reverse[r];"
+          f"[f][r]concat=n=2:v=1:a=0,{OUT}[o]")
+    run(FF, "-y", "-v", "error", "-i", sdr(Path("/"), src, work), "-filter_complex", fc, "-map", "[o]", "-an",
+        "-c:v", "libx264", "-crf", 18, out)
+    return out
+
+
+def still_layer(src, crop):
+    """A still as a 1080x1920 RGBA layer over the child: a drawn object on a transparent ground (broll.py) as it is, any other
+    picture (a GPT gag, a cover, a photo) as a rounded card with a light rim and a soft shadow."""
+    from PIL import Image, ImageDraw, ImageFilter
+    with Image.open(src) as im0:
+        im = im0.convert("RGBA")
+    if crop:
+        w, h, x, y = (int(v) for v in crop.split(":"))
+        im = im.crop((x, y, x + w, y + h))
+    W, H = im.size
+    if im.getchannel("A").getextrema()[0] < 250:
+        if abs(W / H - 9 / 16) < 0.01:
+            return im.resize((1080, 1920), Image.LANCZOS)
+        im.thumbnail((1000, 1400), Image.LANCZOS)
+        lay = Image.new("RGBA", (1080, 1920), (0, 0, 0, 0))
+        lay.alpha_composite(im, ((1080 - im.width) // 2, max(120, 860 - im.height // 2)))
+        return lay
+    s = min(840 / W, 1240 / H)           # leaves the child around the card in view
+    cw, ch = round(W * s), round(H * s)
+    card = im.resize((cw, ch), Image.LANCZOS)
+    m = Image.new("L", (cw, ch), 0)
+    ImageDraw.Draw(m).rounded_rectangle((0, 0, cw - 1, ch - 1), 44, fill=255)
+    card.putalpha(m)
+    x, y = (1080 - cw) // 2, max(120, 860 - ch // 2)
+    lay = Image.new("RGBA", (1080, 1920), (0, 0, 0, 0))
+    sh = Image.new("L", (1080, 1920), 0)
+    ImageDraw.Draw(sh).rounded_rectangle((x + 6, y + 30, x + cw - 6, y + ch + 30), 44, fill=200)
+    lay.putalpha(sh.filter(ImageFilter.GaussianBlur(34)))
+    lay.alpha_composite(card, (x, y))
+    ImageDraw.Draw(lay).rounded_rectangle((x, y, x + cw - 1, y + ch - 1), 44, outline=(255, 255, 255, 70), width=2)
+    return lay
+
+
+def render_still(layer, frames, bg, out):
+    """The layer over the darkened child for `frames` frames, growing by PUSH with an ease-out about its own middle. Each frame is
+    drawn by Pillow with bicubic sub-pixel steps and piped to ffmpeg, so the picture glides instead of shaking."""
+    from PIL import Image
+    box = layer.getbbox() or (0, 0, 1080, 1920)
+    cx, cy = (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
+    pre = layer.convert("RGBa")              # premultiplied: no dark fringe on the object's edges when it is resampled
+    grow = 1 + PUSH                          # only the area the object can reach is drawn each frame
+    rx0, ry0 = max(0, int(cx - (cx - box[0]) * grow) - 2), max(0, int(cy - (cy - box[1]) * grow) - 2)
+    rx1, ry1 = min(1080, int(cx + (box[2] - cx) * grow) + 3), min(1920, int(cy + (box[3] - cy) * grow) + 3)
+    blank = Image.new("RGBA", (1080, 1920), (0, 0, 0, 0))
+    p = subprocess.Popen([FF, "-y", "-v", "error", "-stream_loop", "-1", "-i", str(bg),
+                          "-f", "rawvideo", "-pix_fmt", "rgba", "-s", "1080x1920", "-framerate", str(FPS), "-i", "-",
+                          "-filter_complex", f"[0:v]{OUT}[b];[b][1:v]overlay=0:0:format=auto,{OUT}[o]", "-map", "[o]",
+                          "-frames:v", str(frames), "-an", "-c:v", "libx264", "-crf", "16", str(out)], stdin=subprocess.PIPE)
+    def draw(k):
+        x = k / max(1, frames - 1)
+        a = 1 / (1 + PUSH * (1 - (1 - x) ** 2))
+        # output pixel (rx0 + u, ry0 + v) reads input ((rx0 + u - cx) * a + cx, ...): sub-pixel steps, so no shake
+        part = pre.transform((rx1 - rx0, ry1 - ry0), Image.AFFINE,
+                             (a, 0, cx + (rx0 - cx) * a, 0, a, cy + (ry0 - cy) * a), resample=Image.BILINEAR)
+        f = blank.copy()
+        f.paste(part.convert("RGBA"), (rx0, ry0))
+        return f.tobytes()
+    from concurrent.futures import ThreadPoolExecutor
+    try:
+        with ThreadPoolExecutor(4) as pool:
+            for b0 in range(0, frames, 8):
+                for raw in pool.map(draw, range(b0, min(frames, b0 + 8))):
+                    p.stdin.write(raw)
+    finally:
+        p.stdin.close()
+    if p.wait():
+        raise subprocess.CalledProcessError(p.returncode, "ffmpeg (still over the child)")
+
+
+def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid):
     """Pictures over a one-take reel (10 Nov 2026: Yarin's nine talking takes, "edit them"): the take's sound runs on, and from
-    each insert's cue the picture shows what is said (the book, a cover, a screen recording) until its "until" (a line
-    number or a word, or seconds written as a decimal such as 2.0), else until the next script line starts. A screen recording ("window": true) sits in the rounded 720x1440
-    window over the blurred take, as in 1.1; a still gets a slow push-in over a blurred copy of itself. hook_overlay puts a
-    picture (this reel's cover) on the take from "from" seconds to the end of the spoken hook (rule M1, 09 Nov 2026).
+    each insert's cue the picture shows what is said (the book, a cover, a screen recording) until its "until" (a line number or
+    a word, or seconds written as a decimal such as 2.0), else until the next script line starts.
+
+    Since 11 Nov 2026 (Yarin): every still and every screen window sits over a darkened video of a child (child_order, dark_bg);
+    a still glides in a slow push-in drawn per frame (render_still: no more shaking); a screen recording sits in the rounded
+    720x1440 window; a video clip fills the frame. Every cut is on a frame of the 30 fps grid and the overlay windows meet
+    exactly, and when the take would show for less than FACE_GAP between two pictures the earlier one runs on, so no single
+    frame of Yarin slips in between B-rolls. hook_overlay puts a picture (this reel's cover) on the take from "from" seconds to
+    the end of the spoken hook (rule M1, 09 Nov 2026), or on to the first picture when that starts within FACE_GAP.
     Inserts never run into the לומי card. Writes work/video.mp4 again; returns the cut times."""
+    last_f = int(round(end * FPS))
     ins = []
     for n, s in enumerate(cfg.get("inserts") or []):
         t0 = max(cue(s["at"]), 0.0)
@@ -399,68 +527,81 @@ def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end):
             t1 = cue(u)
         else:
             t1 = next((t for t in line_t if t > t0 + 0.3), cta_t)
-        t1 = round(min(t1, cta_t, end), 3)
+        t1 = min(t1, cta_t, end)
         if t1 - t0 < 0.3:
             print(f"  insert {n} skipped: {t1 - t0:.2f} s between its cues")
             continue
-        ins.append((n, s, round(t0, 3), t1))
-    for (_, _, a0, a1), (_, _, b0, _) in zip(ins, ins[1:]):
-        if b0 < a1 - 0.01:
-            sys.exit(f"inserts overlap: {a0:.2f} to {a1:.2f} and {b0:.2f}")
+        ins.append([n, s, int(round(t0 * FPS)), min(int(round(t1 * FPS)), last_f)])
+    ins.sort(key=lambda x: x[2])
+    for a, b in zip(ins, ins[1:]):
+        gap = b[2] - a[3]
+        if gap < -3:
+            sys.exit(f"inserts overlap: {a[2] / FPS:.2f} to {a[3] / FPS:.2f} and {b[2] / FPS:.2f}")
+        if gap < FACE_GAP * FPS:
+            if gap > 0:
+                print(f"  insert {a[0]} runs on {gap} frame(s) to meet the next: the take would have flashed between them")
+            a[3] = b[2]
     (work / "take-only.mp4").write_bytes((work / "video.mp4").read_bytes())
+    kids = child_order(base, cfg, rid)
     clips = []
-    for n, s, t0, t1 in ins:
-        slot = round(t1 - t0, 3)
+    for k, (n, s, f0, f1) in enumerate(ins):
+        frames = f1 - f0 + TAIL
+        slot = frames / FPS
         src = base / s["src"]
         out = work / f"ins{n}.mp4"
         crop = f"crop={s['crop']}," if s.get("crop") else ""
-        frames = int(round(slot * 30)) + 2
+        bg = None
+        if src.suffix.lower() in IMAGE_EXT or s.get("window"):
+            bg = dark_bg(base / s["bg"] if s.get("bg") else kids[k % len(kids)], work)
         if src.suffix.lower() in IMAGE_EXT:
-            fc = (f"[0:v]{crop}split[a][b];[a]{FILL},gblur=sigma=40,eq=brightness=-0.08[bg];"
-                  f"[b]scale=1000:1700:force_original_aspect_ratio=decrease[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,"
-                  f"zoompan=z='1+0.05*on/{frames}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30,{OUT}[o]")
-            # read the still at 30 fps: zoompan makes one frame per input frame, so the default 25 fps came out 17% short
-            run(FF, "-y", "-v", "error", "-framerate", 30, "-loop", 1, "-t", f"{slot + 0.2:.3f}", "-i", src, "-filter_complex", fc, "-map", "[o]",
-                "-t", f"{slot:.3f}", "-c:v", "libx264", "-crf", 16, out)
+            render_still(still_layer(src, s.get("crop")), frames, bg, out)
         else:
             rate = float(s.get("speed", 1))
             clip = sdr(base, s["src"], work)
             if s.get("window"):
-                fc = (f"[0:v]{FILL},gblur=sigma=30,eq=brightness=-0.10:saturation=1.15,{OUT}[bg];"
+                fc = (f"[0:v]{OUT}[bg];"
                       f"[1:v]{crop}{WIN},setpts=PTS/{rate},tpad=stop_mode=clone:stop_duration=30,{OUT},format=yuva420p[fw];"
                       f"[2:v]format=gray[mk];[fw][mk]alphamerge[fg];"
                       f"[bg][3:v]overlay={WIN_X - 60}:{WIN_Y - 60}[b2];[b2][fg]overlay={WIN_X}:{WIN_Y},{OUT}[o]")
                 window_art(work)
-                run(FF, "-y", "-v", "error", "-ss", t0, "-t", slot, "-i", work / "take-only.mp4",
+                run(FF, "-y", "-v", "error", "-stream_loop", -1, "-i", bg,
                     "-ss", s.get("ss", 0), "-t", f"{slot * rate + 0.5:.3f}", "-i", clip,
                     "-loop", 1, "-i", work / "mask.png", "-loop", 1, "-i", work / "shadow.png",
-                    "-filter_complex", fc, "-map", "[o]", "-an", "-t", f"{slot:.3f}", "-c:v", "libx264", "-crf", 16, out)
+                    "-filter_complex", fc, "-map", "[o]", "-an", "-frames:v", frames, "-c:v", "libx264", "-crf", 16, out)
             else:
                 vf = f"{crop}{FILL},setpts=PTS/{rate},tpad=stop_mode=clone:stop_duration=30,{OUT}"
                 run(FF, "-y", "-v", "error", "-ss", s.get("ss", 0), "-t", f"{slot * rate + 0.5:.3f}", "-i", clip, "-an", "-vf", vf,
-                    "-t", f"{slot:.3f}", "-c:v", "libx264", "-crf", 16, out)
-        clips.append((out, t0, t1))
-        print(f"  insert {t0:6.2f} to {t1:6.2f}  {slot:5.2f} s  {'window ' if s.get('window') else ''}{src.name}")
+                    "-frames:v", frames, "-c:v", "libx264", "-crf", 16, out)
+        clips.append((out, f0, f1))
+        print(f"  insert {f0 / FPS:6.2f} to {f1 / FPS:6.2f}  {(f1 - f0) / FPS:5.2f} s  {'window ' if s.get('window') else ''}{src.name}"
+              + (f"  over {Path(bg).stem}" if bg else ""))
+    # each window is half a frame wider than its frames, so a frame time never falls between two windows
+    win = lambda a, b: f"between(t,{(a - 0.5) / FPS:.4f},{(b - 0.5) / FPS:.4f})"
     ov = cfg.get("hook_overlay")
     inputs, fc, last = ["-i", work / "take-only.mp4"], "", "[0:v]"
-    for k, (out, t0, t1) in enumerate(clips, 1):
+    for k, (out, f0, f1) in enumerate(clips, 1):
         inputs += ["-i", out]
-        fc += f"[{k}:v]setpts=PTS-STARTPTS+{t0}/TB[i{k}];{last}[i{k}]overlay=0:0:enable='between(t,{t0},{t1 - 0.001})':eof_action=pass[v{k}];"
+        fc += f"[{k}:v]setpts=PTS-STARTPTS+{f0}/{FPS}/TB[i{k}];{last}[i{k}]overlay=0:0:enable='{win(f0, f1)}':eof_action=pass[v{k}];"
         last = f"[v{k}]"
     if ov:
         k = len(clips) + 1
         inputs += ["-loop", 1, "-i", base / ov["img"]]
-        fr = float(ov.get("from", 0))
+        fr = int(round(float(ov.get("from", 0)) * FPS))
         w = int(ov.get("w", 380))   # just under the captions (they end at 65% of the height), clear of the face
-        upto = min([intro] + [t0 for _, t0, _ in clips if t0 > fr])   # the cover gives way to the first full-screen insert
+        upto = int(round(intro * FPS))
+        first = min((f0 for _, f0, _ in clips if f0 > fr), default=None)
+        if first is not None and first - upto < FACE_GAP * FPS:   # the cover gives way to the first picture, or runs on to it
+            upto = first
         fc += (f"[{k}:v]scale={w}:-2,format=rgba[ov];{last}[ov]overlay=x=(W-w)/2:y={ov.get('y', 1270)}:"
-               f"enable='between(t,{fr},{upto})':shortest=1[vo];")
+               f"enable='{win(fr, upto)}':shortest=1[vo];")
         last = "[vo]"
-        print(f"  cover {fr:6.2f} to {upto:6.2f}  {Path(ov['img']).name}")
+        print(f"  cover {fr / FPS:6.2f} to {upto / FPS:6.2f}  {Path(ov['img']).name}")
     fc += f"{last}{OUT}[o]"
     run(FF, "-y", "-v", "error", *inputs, "-filter_complex", fc, "-map", "[o]", "-an", "-t", end,
         "-c:v", "libx264", "-crf", 17, work / "video.mp4")
-    return sorted({0.0, intro, end} | {t for _, a, b in clips for t in (a, b)})
+    (work / "inserts.json").write_text(json.dumps([{"insert": n, "src": s["src"], "from_frame": f0, "to_frame": f1}
+                                                    for n, s, f0, f1 in ins], ensure_ascii=False, indent=1) + "\n")
+    return sorted({0.0, intro, end} | {round(f / FPS, 3) for _, a, b in clips for f in (a, b)})
 
 
 def window_art(work):
@@ -569,7 +710,9 @@ def main():
         # a reel's own closing card (a grandmother reel says תכתבי ... ואשלח לך, 10 Nov 2026), else the default
         make(rid, folder, r["hook"], r["vo"], cta_line, r.get("cta_screen") or d["defaults"]["cta_screen"],
              retranscribe="--retranscribe" in args, build="--no-build" not in args)
-    if "--no-trial" in args or "--no-build" in args:
+    # one version per reel (Yarin, 11 Nov 2026: "ditch the 5 trials, lets have only one"): the trial set is made only
+    # when asked for with --trial or --trial-only
+    if not ({"--trial", "--trial-only"} & set(args)) or "--no-trial" in args or "--no-build" in args:
         return
     if not (base / "reel.json").exists():
         sys.exit(f"{rid}: no reel.json yet, run make without --trial-only first")

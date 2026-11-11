@@ -24,7 +24,7 @@ Yarin, 11 Nov 2026: "dont use only sapirs kid in the carousels, utilize all of t
 | `age` מה קורה בגיל | 14, 19, 23, 29 | age-stage cheat sheet, every point on a source (age-sources.md); no brand |
 | `reveal` הרגע שהם רואים את הספר | 15, 20, 24, 30 | real children with their books (creator footage); LumeBook named |
 
-Times: Mon, Wed and Fri go out at 20:30 (06:00 is the child-voice carousel); Sun and Thu at 06:00; Tue and Sat at 20:30. 20:30 is an assumption, not a measured best hour. Each type lands on both morning and evening days, so the comparison is type against type and morning against evening.
+Times (retimed 11 Nov 2026, Yarin: 4 posting hours a day from the follower activity charts; the single source is `sites/content-calendar/posting-hours.json` `plan`, `plan.json` follows it): Sun to Thu 09:30, Friday 09:00, Saturday 15:30. The child-voice carousel goes out the same day in the evening peak (18:30; Friday 15:00, Saturday 21:30), so the day holds two carousels and two reels at least 3 hours apart. The earlier plan (06:00 and 20:30, morning against evening) rested on assumptions; the charts show 06:00 to 09:00 at 60 to 70% of a day's peak, so the comparison is dropped.
 
 ## A carousel file (carousels/DATE-OPT.json)
 
@@ -69,7 +69,7 @@ Times: Mon, Wed and Fri go out at 20:30 (06:00 is the child-voice carousel); Sun
 - Facebook: its own text, ends with a line like `להכנת הספר 👇`; the export adds the site link with the UTM.
 - Every written caption gets the short disclaimer at export (31 Oct 2026 rule).
 
-## Design rules of 11 Nov 2026 (Yarin, all test carousels; in the renderer since the evening of 11 Nov, only 2026-11-14-a is re-rendered so far)
+## Design rules of 11 Nov 2026 (Yarin, all test carousels; in the renderer since the evening of 11 Nov; recreated under them so far, one per type: 2026-11-11-a say, 2026-11-12-a how, 2026-11-13-a gift, 2026-11-14-a age, 2026-11-15-a reveal, all real pictures, $0 except the 14-a pictures already approved; the other 35 still use the old look)
 
 1. No separate tag chip (like "מה קורה בגיל") on the cover: its words go into the headline.
 2. The hook is the big text: on `age` that is "5 דברים ..." (the number and the claim), larger than the rest of the headline, not just the giant age.
@@ -103,3 +103,7 @@ In the renderer: a cover with `big` draws `headline` as the small context line a
 9. Today and one day (Yarin, 11 Nov 2026, from `research/adar-motherhood/report.md:116`): a new test carousel may pair a small child's line "היום" with the same child grown, "יום אחד" (the grown child's voice is allowed on test carousels; the child-narrator age limit of the child-voice carousels does not apply here). Send-to-dad is NOT approved: Yarin has only asked for an example (11 Nov 2026); `lint` still fails אבא alone.
 10. The recurring child in made pictures is described in words, not from a photo (Yarin, 11 Nov 2026): `character` in the carousel file is put in front of every made picture's prompt (round face, curly auburn-brown hair, big dark eyes, striped knit sweater for 2026-11-14-a). No photo of a child is sent to the image API.
 11. Rewrite from the Adar report (`research/adar-motherhood/report.md`, one account, hypotheses to test): open with a line a person says in a real moment, quote it, pay it off across the slides, caption in short lines with a rhetorical question and its answer, one ask matched to the job.
+12. No child names at all (Yarin, 11 Nov 2026): say the friend, her, the grandchildren; `lint` fails a list of common names.
+13. The same kid or kids on every slide of a carousel: one real family from the footage, or made pictures with `character` (budget first); a made picture can also be `spread_photo`. Made so far: 2026-11-11-a (8, $0.0548) and 2026-11-13-a (4, $0.0270).
+14. No brand word in the slide corner, no pills or cards: the swap slide is plain red text (instead) and plain green text (try), labels are plain text.
+15. Swap slide: white text, red X and green V icons. 16. Creator credit in the caption and Facebook text only. 17. Toys and games in general, no specific game. 18. Hooks are her own thought, slides explain without "you need to". 19. The line that names her (סבתא, אמא) is the big cover line. 20. Never פרצוף, say פנים.

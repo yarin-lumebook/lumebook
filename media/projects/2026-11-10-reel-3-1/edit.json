@@ -1,30 +1,76 @@
 {
- "_about": "Written 10 Nov 2026 by Claude: Yarin's one talking take, with covers and B-roll laid over it (reel_make.py take mode with inserts). reels.py make reads it.",
- "take": "source/yarin/take-70E13D59.mov",
- "voice_start": 0.0,
- "speed_after_hook": 1.1,
- "hook_overlay": {
-  "img": "source/B86_boy.webp",
-  "from": 0
- },
- "inserts": [
-  {
-   "at": 1,
-   "until": 3,
-   "src": "source/B86_boy.webp"
+  "_about": "Written 10 Nov 2026 by Claude: Yarin's one talking take, with covers and B-roll laid over it (reel_make.py take mode with inserts). reels.py make reads it.",
+  "take": "source/yarin/take-70E13D59.mov",
+  "voice_start": 0.0,
+  "speed_after_hook": 1.1,
+  "hook_overlay": {
+    "img": "source/mk-cover.png",
+    "from": 0,
+    "w": 420
   },
-  {
-   "at": 3,
-   "until": 4,
-   "src": "source/B86_girl.webp"
-  },
-  {
-   "at": 4,
-   "until": 5,
-   "src": "source/sapir_ivan_mugatz_screen-recording_book-preview-pages.mov",
-   "ss": 0.6,
-   "window": true,
-   "speed": 0.35
+  "inserts": [
+    {
+      "at": 1,
+      "until": 2,
+      "src": "source/mk-book.png"
+    },
+    {
+      "at": 2,
+      "until": 3,
+      "src": "source/mk-page.png"
+    },
+    {
+      "at": 3,
+      "until": 4,
+      "src": "source/B86_boy.webp"
+    },
+    {
+      "at": 4,
+      "until": 5,
+      "src": "source/mk-dedication.png"
+    },
+    {
+      "at": 5,
+      "until": 6,
+      "src": "source/gpt-1.png",
+      "gpt": true,
+      "fill": true
+    }
+  ],
+  "mockups": {
+    "source/mk-cover.png": {
+      "kind": "overlay",
+      "cover": "media/projects/2026-11-10-store-covers/B86_boy.webp",
+      "title": "החנוכה שלי",
+      "sub": "אלון"
+    },
+    "source/mk-book.png": {
+      "kind": "cover",
+      "cover": "media/projects/2026-11-10-store-covers/B86_boy.webp",
+      "title": "החנוכה שלי",
+      "sub": "אלון"
+    },
+    "source/mk-page.png": {
+      "kind": "open",
+      "cover": "media/projects/2026-11-10-store-covers/B86_boy.webp",
+      "name": "אלון",
+      "lines": [
+        "בערב הראשון של חנוכה",
+        "אלון עמד ליד החלון,",
+        "ואור קטן התחיל לרקוד.",
+        "״עוד נר!״ ביקש אלון."
+      ]
+    },
+    "source/mk-dedication.png": {
+      "kind": "dedication",
+      "cover": "media/projects/2026-11-10-store-covers/B86_boy.webp",
+      "name": "אלון",
+      "hand": [
+        "לאלון שלנו,",
+        "שתמיד תדע",
+        "כמה אתה מאיר לנו.",
+        "אוהבים, אמא ואבא"
+      ]
+    }
   }
- ]
 }

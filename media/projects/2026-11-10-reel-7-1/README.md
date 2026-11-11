@@ -44,3 +44,11 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
 - [ ] blockers above cleared
 - [ ] Yarin's OK on the final
 - [ ] Postiz trial reels scheduled with Yarin's OK
+
+## Posted 11 / 11 / 2026
+
+Trial version 1 with background music (Zara Larsson, Lush Life, from 0:30 of `media/projects/2026-11-11-reel-music-library/01-upbeat-feelgood/`, ducked under the voice) saved as `final/reel-7-1-trial-1-music.mp4`. Scheduled through Postiz to Instagram lumebook.il for 11 / 11 / 2026 11:12 as a regular reel (not a trial), caption from `caption.txt`. Postiz post id cmwbwdgr001der007lhv8v8t6. Yarin's call to check the sound can be used on the business account.
+
+## Re-cut 11 / 11 / 2026 (after posting)
+
+Yarin's notes of 11 Nov ("dont use only sapirs media", "the object shown should match with what i said"): a new cut with no Sapir clip. Line 1 the printed book flipping (Drive), line 2 the title with the name full screen, line 3 the inside page with רון marked, line 4 the whole book (`broll.py` mockups, listed in edit.json). It is in `final/reel-7-1-1.mp4` and `trial/`. The post that went up at 11:12 is the earlier cut (`final/reel-7-1-trial-1-music.mp4`, untouched); use the new one for a repost or a trial.

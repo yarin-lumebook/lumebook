@@ -26,13 +26,15 @@ reels, "option" 1 (א) and 2 (ב), in the same lane (the usual audience, or seri
 
 Paths are relative to the project root; run from anywhere.
 """
-import json, re, shutil, subprocess, sys, tempfile
+import json, os, re, shutil, subprocess, sys, tempfile
 from datetime import date
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[4]
-DATA = HERE / "reels.json"
+# a test server (the content calendar on a spare port) points these at scratch copies, never at the real files
+DATA = Path(os.environ.get("LUMEBOOK_REELS_DATA") or HERE / "reels.json")
+LOCAL_EDITS = Path(os.environ.get("LUMEBOOK_REELS_HUB_FILE") or HERE / "local-edits.json")
 LINT = ROOT / "carousel/carousel-pipeline/scripts/voice_lint.py"
 DAYS = ["שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת", "ראשון"]
 SERIES = {
@@ -675,7 +677,7 @@ def merge(path, only=None):
     if path == "phone":
         return phone()
     if path == "local":   # edits made on the project server: {"edits": {key: doc}, "made": ..., "requests": ..., "picks": ...}
-        lf = HERE / "local-edits.json"
+        lf = LOCAL_EDITS
         raw = json.loads(lf.read_text()) if lf.exists() else {}
         docs = list((raw.get("edits") or {}).values()) + list((raw.get("picks") or {}).values())
         print(f"{len(docs)} edits and picks in {lf.name}")

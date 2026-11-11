@@ -116,6 +116,9 @@ BANNED_EXTRA = [   # rules of this project that the carousel validator does not 
     (r"\bבשפות\b|\bאנגלית\b|\bערבית\b|\bרוסית\b|עותק דיגיטלי|\bדיגיטלי", "no language options and no digital copy (Hebrew audience)"),
     (r"הילד שלי|הילדה שלי|הבן שלי|הבת שלי", "Yarin is not a parent: never הילד שלי in LumeBook's own voice"),
     (r"(?<!אמא ו)(?<![\u05D0-\u05EA])אבא(?![\u05D0-\u05EA])(?!\s+ואמא)", "talk to mom or both parents, never dad alone"),
+    (r"(?<![\u05D0-\u05EA])(?:ו|ש|ב|מ|ל|כ|ה)?(?:יואב|נועם|איתי|אורי|עומר|אריאל|דניאל|נועה|מאיה|יובל|רוני|עידו|רועי|ליאם|איתן|ירדן|שירה|הילה|רותם|יהלי|ארי)(?![\u05D0-\u05EA])",
+     "no child's name at all (Yarin, 11 Nov 2026): say the boy, the girl, החבר, הנכד"),
+    (r"פרצוף|פרצופ", "say פנים, never פרצוף (Yarin, 11 Nov 2026)"),
     # the voice skill's never-list (.claude/skills/lumebook-hebrew-voice/SKILL.md)
     (r"חשוב לזכור|בואו נדבר על|(?<![\u05D0-\u05EA])המסע(?![\u05D0-\u05EA])|(?<![\u05D0-\u05EA])קסם(?![\u05D0-\u05EA])|להעצים|(?<![\u05D0-\u05EA])חוסן|(?<![\u05D0-\u05EA])להכיל(?![\u05D0-\u05EA])|(?<![\u05D0-\u05EA])לתקף|מרחב בטוח|בסופו של יום|הנה הדבר|מה שאף אחד לא מספר לכם",
      "a phrase the Hebrew voice skill never uses"),
@@ -159,7 +162,7 @@ def weekday_he(date):
 
 
 def when_he(day):
-    return f'{"בבוקר" if day["slot"] == "morning" else "בערב"} {day["time"]}'
+    return f'{ {"morning": "בבוקר", "afternoon": "אחר הצהריים"}.get(day["slot"], "בערב") } {day["time"]}'
 
 
 # ---------------------------------------------------------------- pictures and budget
@@ -449,6 +452,9 @@ def _open_book(car, art_key, photo_key, base, key):
     photo with a teal ring, the dedication line, the LumeBook logo) and the first illustration page on the left, tilted on
     a cover board with a stack of page edges under it and a shadow."""
     photo = assets().get(photo_key) if photo_key else None
+    if photo_key and photo_key in (car.get("pictures") or {}):   # the same made child as on the slides
+        made_ph = made_picture(key, photo_key)
+        photo = {"file": os.path.relpath(made_ph, lib.ROOT), "position": "50% 25%"} if made_ph else None
     if art_key in (car.get("pictures") or {}):   # a picture made for this carousel fills the illustration page
         made = made_picture(key, art_key)
         art_src, art_pos = (_src(made, base), "50% 50%") if made else (None, "")
@@ -485,6 +491,8 @@ def _bg(car, s, base, key):
     return f'<img class="bg" src="{_src(lib.ROOT / a["file"], base)}" alt="" style="object-position:{s.get("pos") or a.get("position", "50% 40%")}">'
 
 
+X_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+V_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
 ARROW = ('<div class="arrow"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.6" '
          'stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg></div>')
 SAVE_ICON = ('<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">'
@@ -500,8 +508,6 @@ def slide_html(car, s, n, total, base, key):
     lay = s.get("layout", "point")
     at = s.get("text_at", "bottom") if s.get("text_at") in TEXT_AT else "bottom"
     parts = [f'<section class="slide l-{lay} at-{at}" data-n="{n}">', _bg(car, s, base, key), '<div class="scrim"></div>']
-    if TYPES[t]["brand"] and n == 1:
-        parts.append('<div class="brand">לומבוק</div>')
     z = []
     if s.get(NUM_FIELD):
         z.append(f'<div class="num">{int(s[NUM_FIELD])}</div>')
@@ -511,7 +517,8 @@ def slide_html(car, s, n, total, base, key):
     if cover_hook and s.get("headline"):   # the context line sits above the hook (Yarin, 11 Nov 2026: the hook is the big text)
         z.append(f'<h1 class="h">{rich(s["headline"])}</h1>')
     if cover_hook:
-        z.append(f'<div class="big">{rich(s["big"])}</div>')
+        long_big = len(plain(s["big"]).replace("\n", "")) > 16   # a whole sentence (the line that names her) is bold, but smaller
+        z.append(f'<div class="big{" long" if long_big else ""}">{rich(s["big"])}</div>')
     if lay == "quote":
         z.append(f'<blockquote class="q">{rich(s.get("quote", ""))}</blockquote>')
         if s.get("by"):
@@ -520,8 +527,8 @@ def slide_html(car, s, n, total, base, key):
         tag = "h1" if lay == "cover" else "h2"
         z.append(f'<{tag} class="h">{rich(s["headline"])}</{tag}>')
     if (lay == "swap" or lay == "cover") and (s.get("no") or s.get("yes")):
-        z.append('<div class="pair">' + (f'<div class="card no"><span class="k">במקום</span><p>{rich(s["no"])}</p></div>' if s.get("no") else "")
-                 + (f'<div class="card yes"><span class="k">לנסות</span><p>{rich(s["yes"])}</p></div>' if s.get("yes") else "") + '</div>')
+        z.append('<div class="pair">' + (f'<div class="card no"><i class="ic">{X_ICON}</i><p>{rich(s["no"].replace(chr(10), " "))}</p></div>' if s.get("no") else "")
+                 + (f'<div class="card yes"><i class="ic">{V_ICON}</i><p>{rich(s["yes"].replace(chr(10), " "))}</p></div>' if s.get("yes") else "") + '</div>')
     if s.get("body"):
         body = rich(s["body"])
         word = car.get("comment_word", "")
@@ -574,16 +581,16 @@ body.one .slide{{display:none}} body.one .slide.on{{display:block}}
 .at-bottom .zone{{bottom:126px;max-height:60%;justify-content:flex-end}}
 .at-top .zone{{top:80px;max-height:60%;justify-content:flex-start}}
 .at-full .zone{{top:96px;bottom:126px;justify-content:center}}
-.brand{{position:absolute;top:40px;left:52px;font:900 36px "Heebo LB";color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.45);z-index:2}}
-.at-top .brand{{top:auto;bottom:46px;left:auto;right:56px}}
 .tag{{background:var(--accent);color:#fff;font:700 calc(var(--k)*38px) "Heebo LB";padding:12px 34px;border-radius:999px;text-shadow:none;box-shadow:0 8px 20px rgba(0,0,0,.25)}}
-.label{{background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.4);color:#fff;font:700 calc(var(--k)*38px) "Heebo LB";padding:8px 30px;border-radius:999px;text-shadow:none}}
+.label{{color:rgba(255,255,255,.92);font:700 calc(var(--k)*40px) "Heebo LB"}}
 .num{{width:calc(var(--k)*112px);height:calc(var(--k)*112px);flex:none;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font:900 calc(var(--k)*64px) "Heebo LB";text-shadow:none;box-shadow:0 10px 24px rgba(0,0,0,.3)}}
 .big{{font:900 calc(var(--k)*230px)/.92 "Heebo LB";color:var(--hi)}}
 .h{{margin:0;font:900 calc(var(--k)*96px)/1.07 "Heebo LB";letter-spacing:-.005em;text-wrap:balance}}
 .l-cover .h{{font-size:calc(var(--k)*124px);line-height:1.02}}
 .l-cover .h:has(+ .big){{font-size:calc(var(--k)*72px);line-height:1.1;font-weight:700}}
 .l-cover .big{{font-size:calc(var(--k)*158px);line-height:1.0;text-wrap:balance;letter-spacing:-.01em}}
+.l-cover .big.long{{font-size:calc(var(--k)*112px);line-height:1.08;color:#fff}}
+.l-cover .big.long em{{color:var(--hi)}}
 .zone > .h:last-child{{padding-bottom:.16em}}
 .l-cta .h{{font-size:calc(var(--k)*104px);line-height:1.04}}
 .l-cta .zone{{max-height:80%;gap:calc(var(--k)*20px)}}
@@ -593,16 +600,17 @@ body.one .slide{{display:none}} body.one .slide.on{{display:block}}
 .b{{margin:0;font:600 calc(var(--k)*48px)/1.3 "Assistant LB";color:rgba(255,255,255,.94);text-wrap:pretty}}
 .l-cover .b{{font-size:calc(var(--k)*58px)}}
 em{{font-style:normal;color:var(--hi)}}
-.pair{{display:flex;flex-direction:column;gap:calc(var(--k)*18px);width:100%}}
-.card{{border-radius:30px;padding:calc(var(--k)*20px) 38px calc(var(--k)*24px);text-align:right;text-shadow:none}}
-.card .k{{display:inline-block;font:900 calc(var(--k)*30px) "Heebo LB";margin-bottom:calc(var(--k)*6px);padding:2px 16px;border-radius:999px}}
-.card p{{margin:0;font:800 calc(var(--k)*54px)/1.14 "Heebo LB"}}
-.card.no p{{font-size:calc(var(--k)*40px)}}
-.card.no{{background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.34);color:#fff;backdrop-filter:blur(6px)}}
-.card.no .k{{background:rgba(255,120,130,.9);color:#fff}}
-.card.no p{{opacity:.9;text-decoration:line-through;text-decoration-thickness:5px;text-decoration-color:rgba(255,120,130,.85)}}
-.card.yes{{background:#fff;color:#14592f;box-shadow:0 16px 36px rgba(0,0,0,.3)}}
-.card.yes .k{{background:#1f8a4c;color:#fff}}
+.pair{{display:flex;flex-direction:row;align-items:flex-start;gap:calc(var(--k)*36px);width:100%}}
+.pair .card{{flex:1;min-width:0;flex-direction:column;align-items:center;text-align:center;gap:calc(var(--k)*14px)}}
+.pair .card p{{text-align:center;flex:none;width:100%}}
+.card{{display:flex;align-items:flex-start;gap:calc(var(--k)*20px);text-align:right;background:none;border:0;padding:0}}
+.card p{{margin:0;flex:1;font:800 calc(var(--k)*50px)/1.14 "Heebo LB";color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.55)}}
+.card.no p{{font-size:calc(var(--k)*44px);font-weight:700}}
+.card p{{text-wrap:balance}}
+.card .ic{{flex:none;width:calc(var(--k)*64px);height:calc(var(--k)*64px);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}}
+.card .ic svg{{width:62%;height:62%}}
+.card.no .ic{{background:#E5484D}}
+.card.yes .ic{{background:#1FA65A}}
 .l-cover .card p{{font-size:calc(var(--k)*56px)}}
 .why{{font-size:calc(var(--k)*40px)}}
 .l-swap .zone{{max-height:52%}}

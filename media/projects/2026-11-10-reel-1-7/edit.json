@@ -1,20 +1,71 @@
 {
- "_about": "Written 10 Nov 2026 by Claude: Yarin's one talking take, with covers and B-roll laid over it (reel_make.py take mode with inserts). reels.py make reads it.",
- "take": "source/yarin/take-9BC736D7.mov",
- "voice_start": 0.0,
- "speed_after_hook": 1.1,
- "hook_overlay": {
-  "img": "source/B15_boy.webp",
-  "from": 0
- },
- "inserts": [
-  {
-   "at": 1,
-   "until": 3,
-   "src": "source/sapir_ivan_mugatz_screen-recording_book-preview-pages.mov",
-   "ss": 0,
-   "window": true,
-   "speed": 1.2
-  }
- ]
+  "_about": "Written 10 Nov 2026 by Claude: Yarin's one talking take, with covers and B-roll laid over it (reel_make.py take mode with inserts). reels.py make reads it.",
+  "take": "source/yarin/take-9BC736D7.mov",
+  "voice_start": 0.0,
+  "speed_after_hook": 1.1,
+  "hook_overlay": {
+    "img": "source/mk-cover.png",
+    "from": 0,
+    "w": 420
+  },
+  "inserts": [
+    {
+      "at": 1,
+      "until": 2,
+      "src": "source/mk-book.png"
+    },
+    {
+      "at": 2,
+      "until": 3,
+      "src": "source/wizard-screen-recording.mp4",
+      "ss": 13,
+      "window": true,
+      "speed": 2
+    },
+    {
+      "at": 3,
+      "until": 4,
+      "src": "source/wizard-screen-recording.mp4",
+      "ss": 20,
+      "window": true
+    },
+    {
+      "at": 4,
+      "until": 5,
+      "src": "source/gpt-1.png",
+      "gpt": true,
+      "fill": true
+    },
+    {
+      "at": 5,
+      "until": 6,
+      "src": "source/gpt-2.png",
+      "gpt": true,
+      "fill": true
+    }
+  ],
+  "mockups": {
+    "source/mk-cover.png": {
+      "kind": "overlay",
+      "cover": "media/projects/2026-11-10-store-covers/B13_girl.webp",
+      "title": "הלב של מיקה"
+    },
+    "source/mk-book.png": {
+      "kind": "open",
+      "cover": "media/projects/2026-11-10-store-covers/B13_girl.webp",
+      "name": "מיקה",
+      "lines": [
+        "מיקה ראתה חברה עצובה בגן,",
+        "והושיטה לה יד.",
+        "הלב של מיקה נדלק."
+      ]
+    }
+  },
+  "replaced_by_gpt": [
+    {
+      "at": 5,
+      "until": 6,
+      "src": "source/mk-book.png"
+    }
+  ]
 }

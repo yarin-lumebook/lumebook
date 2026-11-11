@@ -1,30 +1,86 @@
 {
- "_about": "Written 10 Nov 2026 by Claude: Yarin's one talking take, with covers and B-roll laid over it (reel_make.py take mode with inserts). reels.py make reads it.",
- "take": "source/yarin/take-E3498895.mov",
- "voice_start": 0.0,
- "speed_after_hook": 1.1,
- "hook_overlay": {
-  "img": "source/B29_boy.webp",
-  "from": 0
- },
- "inserts": [
-  {
-   "at": 2,
-   "until": 3,
-   "src": "source/B29_boy.webp"
+  "_about": "Written 10 Nov 2026 by Claude: Yarin's one talking take, with covers and B-roll laid over it (reel_make.py take mode with inserts). reels.py make reads it.",
+  "take": "source/yarin/take-E3498895.mov",
+  "voice_start": 0.0,
+  "speed_after_hook": 1.1,
+  "hook_overlay": {
+    "img": "source/mk-cover.png",
+    "from": 0,
+    "w": 420
   },
-  {
-   "at": 3,
-   "until": 4,
-   "src": "source/wizard-screen-recording.mp4",
-   "ss": 3,
-   "window": true,
-   "speed": 1.6
+  "inserts": [
+    {
+      "at": 1,
+      "until": 2,
+      "src": "source/gpt-1.png",
+      "gpt": true,
+      "fill": true
+    },
+    {
+      "at": 2,
+      "until": 3,
+      "src": "source/mk-book.png"
+    },
+    {
+      "at": 3,
+      "until": 4,
+      "src": "source/wizard-screen-recording.mp4",
+      "ss": 4,
+      "window": true,
+      "speed": 2.5
+    },
+    {
+      "at": 4,
+      "until": "ובכל",
+      "src": "source/mk-cover-big.png"
+    },
+    {
+      "at": "ובכל",
+      "until": 5,
+      "src": "source/mk-page.png"
+    },
+    {
+      "at": 5,
+      "until": 6,
+      "src": "source/gpt-2.png",
+      "gpt": true,
+      "fill": true
+    }
+  ],
+  "mockups": {
+    "source/mk-cover.png": {
+      "kind": "overlay",
+      "cover": "media/projects/2026-11-10-store-covers/B29_boy.webp",
+      "title": "איתן והחברים הצבעוניים"
+    },
+    "source/mk-book.png": {
+      "kind": "title",
+      "cover": "media/projects/2026-11-10-store-covers/B29_boy.webp",
+      "name": "איתן"
+    },
+    "source/mk-page.png": {
+      "kind": "open",
+      "cover": "media/projects/2026-11-10-store-covers/B29_boy.webp",
+      "name": "איתן",
+      "lines": [
+        "איתן רץ בין הפרחים",
+        "עם החברים הצבעוניים שלו.",
+        "״כאן אני הגיבור!״ קרא איתן,",
+        "וכולם צחקו איתו."
+      ]
+    },
+    "source/mk-cover-big.png": {
+      "kind": "cover",
+      "cover": "media/projects/2026-11-10-store-covers/B29_boy.webp",
+      "title": "איתן והחברים הצבעוניים"
+    }
   },
-  {
-   "at": 4,
-   "until": 5,
-   "src": "source/B29_girl.webp"
-  }
- ]
+  "replaced_by_gpt": [
+    {
+      "at": 5,
+      "until": 6,
+      "src": "source/pool-creator-natali-boy-smiles-with-book.mp4",
+      "speed": 0.6
+    }
+  ]
 }

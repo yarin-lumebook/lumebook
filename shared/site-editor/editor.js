@@ -95,6 +95,12 @@
     save: '<path d="M8 2.5v8M4.5 7 8 10.5 11.5 7"/><path d="M3 13.5h10"/>',
     help: '<circle cx="8" cy="8" r="5.5"/><path d="M6.4 6.3a1.7 1.7 0 0 1 3.2.6c0 1.1-1.6 1.3-1.6 2.4"/>' + dot(8, 11.3, 0.8),
     open: '<path d="M9 3h4v4M13 3 7.5 8.5"/><path d="M11.5 9.5v3a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3"/>',
+    // auto layout (11 Nov 2026)
+    autolayout: '<rect x="2" y="2" width="12" height="12" rx="2.5"/><path d="M5 5.5h6M5 8h6M5 10.5h6"/>',
+    dirV: '<rect x="4" y="2" width="8" height="3.2" rx="1"/><rect x="4" y="6.4" width="8" height="3.2" rx="1"/><rect x="4" y="10.8" width="8" height="3.2" rx="1"/>',
+    dirH: '<rect x="2" y="4" width="3.2" height="8" rx="1"/><rect x="6.4" y="4" width="3.2" height="8" rx="1"/><rect x="10.8" y="4" width="3.2" height="8" rx="1"/>',
+    dirWrap: '<path d="M2.5 4h9a2.5 2.5 0 0 1 0 5H6"/><path d="M8 7 6 9l2 2"/><path d="M2.5 12.5h3.5"/>',
+    dirGrid: '<rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/>',
   };
   const svg = (name, cls = "i") => `<svg class="${cls}" viewBox="0 0 16 16" aria-hidden="true" focusable="false">${ICONS[name]}</svg>`;
 
@@ -631,6 +637,20 @@ button { font: inherit; color: inherit; }
 .grip svg { width: 12px; height: 12px; fill: currentColor; stroke: none; }
 .dropline { position: fixed; pointer-events: none; border-radius: 2px; background: var(--se-accent); box-shadow: 0 0 0 2px rgb(255 255 255 / 85%); }
 .box.dragging { outline-style: dashed; }
+.rh { position: absolute; pointer-events: auto; width: 10px; height: 10px; box-sizing: border-box; border-radius: 3px; background: #fff; border: 1.5px solid var(--se-accent); box-shadow: 0 1px 3px rgb(0 0 0 / 25%); touch-action: none; }
+.rh-e { right: -7px; width: 8px; height: 22px; top: calc(50% - 11px); cursor: ew-resize; }
+.rh-w { left: -7px; width: 8px; height: 22px; top: calc(50% - 11px); cursor: ew-resize; }
+.rh-s { bottom: -7px; left: calc(50% - 11px); width: 22px; height: 8px; cursor: ns-resize; }
+.rh-n { top: -7px; left: calc(50% - 11px); width: 22px; height: 8px; cursor: ns-resize; }
+.rh-ne { right: -7px; top: -7px; cursor: nesw-resize; }
+.rh-nw { left: -7px; top: -7px; cursor: nwse-resize; }
+.rh-se { right: -7px; bottom: -7px; cursor: nwse-resize; }
+.rh-sw { left: -7px; bottom: -7px; cursor: nesw-resize; }
+.box.no-resize .rh { display: none; }
+.box.resizing { outline-style: dashed; }
+.snapline { position: fixed; pointer-events: none; background: #e5397a; z-index: 1; }
+.snapline.is-x { top: 0; bottom: 0; width: 1px; }
+.snapline.is-y { left: 0; right: 0; height: 1px; }
 
 .bar, .dock, .panel, .pop { background: #fff; box-shadow: var(--se-rim), var(--se-shadow); }
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -664,6 +684,34 @@ button { font: inherit; color: inherit; }
 .num em { flex: none; width: 1.3em; color: var(--se-muted); font: 11px/1 var(--se-font); font-style: normal; }
 .num input::-webkit-inner-spin-button { margin-left: 2px; }
 .p-sub { margin: 8px 8px 2px; color: var(--se-muted); font-size: 11px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; }
+/* auto layout (11 Nov 2026): direction, alignment grid, gaps and padding, resizing; pink shading shows padding and gaps */
+.al { display: grid; gap: 6px; padding: 2px 4px 4px; }
+.al .seg { margin: 0; }
+.al-seg button { display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-width: 0; padding: 4px 6px; }
+.al-seg button svg { width: 14px; height: 14px; flex: none; }
+.al-seg button:disabled { opacity: .35; cursor: default; }
+.al-main { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; align-items: start; }
+.al-fields { display: grid; gap: 4px; min-width: 0; }
+.al-fields .num input, .al .sizes .num input { width: 42px; }
+.al .sizes { padding: 0; }
+.al-grid { display: grid; grid-template-columns: repeat(3, 24px); grid-template-rows: repeat(3, 24px); gap: 2px; padding: 4px; border-radius: 12px; background: var(--se-hover); }
+.al-grid button { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 7px; background: none; color: var(--se-muted); cursor: pointer; }
+.al-grid button::before { content: ""; width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: .6; }
+.al-grid button:hover { background: rgb(255 255 255 / 75%); }
+.al-grid button[aria-checked="true"] { background: var(--se-sheen), #fff; box-shadow: var(--se-rim), 0 2px 6px -2px rgb(0 0 0 / 25%); color: var(--se-accent-ink); }
+.al-grid button[aria-checked="true"]::before { width: 12px; height: 4px; border-radius: 2px; opacity: 1; }
+.al-grid.is-h button[aria-checked="true"]::before { width: 4px; height: 12px; }
+.al-grid button:focus-visible { outline: 2px solid var(--se-accent); outline-offset: 1px; }
+.al-tog { display: flex; flex-wrap: wrap; gap: 4px; }
+.al-tog .btn { height: 30px; min-width: 0; padding: 0 10px; border-radius: 999px; background: var(--se-hover); font-size: 12px; font-weight: 500; }
+.al-tog .btn svg { width: 14px; height: 14px; }
+.al-tog .btn.danger { color: var(--se-danger); }
+.al-row { display: grid; grid-template-columns: 1.7em minmax(0, 1fr); gap: 6px; align-items: center; }
+.al-lbl { color: var(--se-muted); font-size: 12px; font-weight: 600; text-align: center; }
+.al-add .val { font: 11px/1 var(--se-font); }
+.alviz { position: fixed; inset: 0; pointer-events: none; }
+.alviz i { position: fixed; background: rgb(229 57 122 / 13%); }
+.alviz i.g { background: repeating-linear-gradient(-45deg, rgb(229 57 122 / 32%) 0 1px, rgb(229 57 122 / 8%) 1px 5px); }
 .sep { flex: none; width: 1px; height: 20px; margin: 0 4px; background: var(--se-line); }
 .status { display: inline-flex; align-items: center; gap: 7px; margin: 0 8px 0 6px; max-width: 22em; font-weight: 600; line-height: 1.3; }
 .status::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: #3a9a5b; }
@@ -769,6 +817,9 @@ kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; bac
   const deepActive = () => { let a = document.activeElement; while (a && a.shadowRoot && a.shadowRoot.activeElement) a = a.shadowRoot.activeElement; return a; };
 
   // Outlines: hover, selected element, active text area.
+  // the padding and gaps of a selected auto layout box, shaded pink under the outlines
+  const alViz = h("div", { class: "alviz", hidden: "", "aria-hidden": "true" });
+  wrap.append(alViz);
   const mkBox = (cls) => { const b = h("div", { class: "box " + cls, hidden: "" }); wrap.append(b); return b; };
   const hoverBox = mkBox("hover"), hostBox = mkBox("host"), selBox = mkBox("sel");
   const selTag = h("span", { class: "tag" });
@@ -778,6 +829,16 @@ kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; bac
   const selText = h("span", { class: "tt" });
   selTag.append(grip, selText);
   selBox.append(selTag);
+  // Resize handles on the selected box: the side handles change its width, the bottom one its height, the corners both
+  // (Yarin, 11 Nov 2026: "add width and height editing capabilities to the site editor").
+  // The top handles change the height too (Yarin, 11 Nov 2026: "adjust height from both sides").
+  const RESIZE_TIPS = { e: "Drag to change the width", w: "Drag to change the width", n: "Drag to change the height", s: "Drag to change the height",
+    ne: "Drag to change the width and height", nw: "Drag to change the width and height", se: "Drag to change the width and height", sw: "Drag to change the width and height" };
+  const resizeHandles = Object.keys(RESIZE_TIPS).map((d) => {
+    const b = h("span", { class: "rh rh-" + d, "data-dir": d, title: RESIZE_TIPS[d], "aria-hidden": "true" });
+    selBox.append(b);
+    return b;
+  });
   const dropLine = h("div", { class: "dropline", hidden: "" });
   wrap.append(dropLine);
 
@@ -1445,6 +1506,10 @@ kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; bac
       panel.append(row);
     });
 
+    const al = autoLayoutControls(n);
+    if (al) panel.append(h("p", { class: "p-sub" }, "Auto layout"), al);
+    const rs = resizingControls(n);
+    if (rs) panel.append(h("p", { class: "p-sub" }, "Resizing"), rs);
     const sizes = sizeControls(n);
     if (sizes.childElementCount) panel.append(h("p", { class: "p-sub" }, "Size and spacing"), sizes);
 
@@ -1512,11 +1577,11 @@ kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; bac
   const SIZE_FIELDS = [
     ["font-size", "Text size", "px", (n) => hasText(n)],
     ["width", "Width", "px", (n, cs) => cs.display !== "inline"],
-    ["height", "Height", "px", (n, cs) => cs.display !== "inline" && !hasText(n)],
-    ["padding", "Padding", "px", (n, cs) => cs.display !== "inline"],
+    ["height", "Height", "px", (n, cs) => cs.display !== "inline"],
+    ["padding", "Padding", "px", (n, cs) => cs.display !== "inline" && !/flex|grid/.test(cs.display)],   // an auto layout box has its own padding fields
     ["margin-top", "Space above", "px", (n, cs) => cs.display !== "inline"],
     ["margin-bottom", "Space below", "px", (n, cs) => cs.display !== "inline"],
-    ["gap", "Gap", "px", (n, cs) => /flex|grid/.test(cs.display)],
+    ["gap", "Gap", "px", () => false],   // in the auto layout section since 11 Nov 2026 (still reset by Sizes)
     ["border-radius", "Corners", "px", () => true],
     ["border-width", "Border", "px", (n, cs) => cs.display !== "inline"],
     ["opacity", "Opacity", "%", () => true],
@@ -1567,6 +1632,339 @@ kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; bac
     });
     return box;
   };
+  // ---------- Auto layout (Yarin, 11 Nov 2026: "add full auto layout capabilities in the edit site option") ----------
+  // Like a design tool's auto layout. On the selected box: direction (column, row, wrap, grid), the gap between items or
+  // auto spacing, padding, alignment on a 3 x 3 grid, baseline, clip content, grid columns; add it with ⇧A (the direction and
+  // the gap are read from where the items are now), remove it with ⌥⇧A. On a box inside one: width and height as Fixed, Hug
+  // or Fill, min and max, grid span, "ignore auto layout". Everything is inline "!important" styles, saved like sizes.
+  const AL_PROPS = ["display", "flex-direction", "flex-wrap", "gap", "row-gap", "column-gap", "justify-content", "align-items", "justify-items", "align-content", "grid-template-columns", "overflow"];
+  const RS_PROPS = ["flex", "flex-grow", "flex-shrink", "flex-basis", "align-self", "justify-self", "min-width", "max-width", "min-height", "max-height", "grid-column", "grid-row", "position", "left", "top", "right", "bottom", "margin"];
+  const NO_AL = /^(img|video|iframe|canvas|audio|picture|hr|embed|object|input|textarea|select|br|svg|button|option)$/;
+  const alOf = (n) => {
+    const cs = getComputedStyle(n);
+    if (/grid/.test(cs.display)) return { kind: "grid", cs };
+    if (/flex/.test(cs.display)) return { kind: /^column/.test(cs.flexDirection) ? "v" : cs.flexWrap !== "nowrap" ? "wrap" : "h", cs };
+    return { kind: null, cs };
+  };
+  const px0 = (v) => `${Math.max(0, Math.round(parseFloat(v) || 0))}px`;
+  const flowKids = (n) => [...n.children].filter((c) => c !== ui && !c.hasAttribute("data-lb-hidden") && shownEl(c) && !/^(absolute|fixed)$/.test(getComputedStyle(c).position));
+  // Which way the items run now, and the space between them: one row, one column, or rows that wrap.
+  const inferFlow = (kids) => {
+    const rs = kids.map((c) => c.getBoundingClientRect()).filter((r) => r.width || r.height);
+    if (rs.length < 2) return { dir: "v", gap: 0, gapX: 0, gapY: 0, cols: 1 };
+    const same = (a, b) => Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > Math.min(a.height, b.height) / 2;
+    const rows = [];
+    rs.forEach((r) => { const row = rows.find((x) => same(x[0], r)); if (row) row.push(r); else rows.push([r]); });
+    rows.sort((a, b) => a[0].top - b[0].top);
+    const med = (xs) => { if (!xs.length) return 0; const s = [...xs].sort((a, b) => a - b); return Math.max(0, Math.round(s[Math.floor(s.length / 2)])); };
+    const gapX = med(rows.flatMap((row) => { const s = [...row].sort((a, b) => a.left - b.left); return s.slice(1).map((r, i) => r.left - s[i].right); }));
+    const gapY = med(rows.slice(1).map((row, i) => Math.min(...row.map((r) => r.top)) - Math.max(...rows[i].map((r) => r.bottom))));
+    const cols = Math.max(...rows.map((r) => r.length));
+    if (rows.length === 1) return { dir: "h", gap: gapX, gapX, gapY: 0, cols };
+    if (cols === 1) return { dir: "v", gap: gapY, gapX: 0, gapY, cols };
+    return { dir: "wrap", gap: gapX, gapX, gapY, cols };
+  };
+  // A set of inline styles in one step: "" takes the inline value away (back to the page's own styles).
+  const styleSet = (n, map, label) => {
+    const cmds = Object.entries(map).filter(([p, v]) => (v === "" ? n.style.getPropertyValue(p) !== "" : !(n.style.getPropertyValue(p) === v && n.style.getPropertyPriority(p) === "important")))
+      .map(([p, v]) => styleCmd(n, p, v, true, label));
+    return cmds.length ? group(label, cmds) : null;
+  };
+  const runAll = (label, cmds) => { const c = cmds.filter(Boolean); if (c.length) run(c.length > 1 ? group(label, c) : c[0]); };
+  const pageValue = (n, prop) => {   // what the page's own styles give, under an inline value set here
+    const had = [n.style.getPropertyValue(prop), n.style.getPropertyPriority(prop)];
+    n.style.removeProperty(prop);
+    const v = getComputedStyle(n).getPropertyValue(prop);
+    if (had[0]) n.style.setProperty(prop, had[0], had[1]);
+    return v;
+  };
+  const addAutoLayout = (n) => {
+    if (!n || n === body || n === root || !ED(n) || NO_AL.test(n.localName)) return;
+    const { kind, cs } = alOf(n);
+    if (kind) { announce("It already has auto layout."); return; }
+    const kids = flowKids(n).filter(ED);
+    const f = inferFlow(kids), inl = /^inline/.test(cs.display);
+    const map = { display: inl ? "inline-flex" : "flex", "flex-direction": f.dir === "v" ? "column" : "row", "flex-wrap": f.dir === "wrap" ? "wrap" : "nowrap" };
+    if (f.dir === "wrap") Object.assign(map, { "column-gap": `${f.gapX}px`, "row-gap": `${f.gapY}px` }); else map.gap = `${f.gap}px`;
+    const cmds = [styleSet(n, map, "Add auto layout")];
+    // the space between the items becomes the gap, so their margins along the flow go (as in a design tool's auto layout)
+    const sides = f.dir === "v" ? ["margin-top", "margin-bottom"] : f.dir === "h" ? ["margin-left", "margin-right"] : ["margin-top", "margin-bottom", "margin-left", "margin-right"];
+    if (kids.length <= 80) kids.forEach((c) => {
+      const k = getComputedStyle(c), m = {};
+      sides.forEach((s) => { if (parseFloat(k.getPropertyValue(s))) m[s] = "0px"; });
+      cmds.push(styleSet(c, m, "Add auto layout"));
+    });
+    runAll("Add auto layout", cmds);
+    announce(`Auto layout added: ${{ v: "a column", h: "a row", wrap: "rows that wrap" }[f.dir]}.`);
+  };
+  const removeAutoLayout = (n) => {
+    if (!n || !alOf(n).kind) return;
+    const map = {};
+    AL_PROPS.forEach((p) => { if (n.style.getPropertyValue(p)) map[p] = ""; });
+    if (/flex|grid/.test(pageValue(n, "display"))) map.display = "block";   // the page's own styles make it a flex or grid box
+    runAll("Remove auto layout", [styleSet(n, map, "Remove auto layout")]);
+    announce("Auto layout removed.");
+  };
+  const setDirection = (n, dir) => {
+    const { kind, cs } = alOf(n), inl = /^inline/.test(cs.display);
+    const gapX = px0(cs.columnGap), gapY = px0(cs.rowGap), main = kind === "v" ? gapY : gapX;
+    let map;
+    if (dir === "grid") {
+      const cols = Math.max(1, Math.min(12, kind === "h" ? flowKids(n).length : kind === "wrap" ? inferFlow(flowKids(n)).cols : 2));
+      map = { display: inl ? "inline-grid" : "grid", "grid-template-columns": `repeat(${cols}, minmax(0, 1fr))`, "flex-direction": "", "flex-wrap": "", gap: "",
+        "column-gap": kind === "v" ? main : gapX, "row-gap": kind === "h" ? main : gapY };
+      if (/space-/.test(cs.justifyContent)) map["justify-content"] = "";
+    } else {
+      map = { display: inl ? "inline-flex" : "flex", "flex-direction": dir === "v" ? "column" : "row", "flex-wrap": dir === "wrap" ? "wrap" : "nowrap", "grid-template-columns": "" };
+      if (dir === "wrap") Object.assign(map, { gap: "", "column-gap": kind === "v" ? main : gapX, "row-gap": kind === "v" || kind === "h" ? main : gapY });
+      else Object.assign(map, { gap: kind === "grid" || kind === "wrap" ? (dir === "v" ? gapY : gapX) : main, "column-gap": "", "row-gap": "" });
+    }
+    runAll("Change direction", [styleSet(n, map, "Change direction")]);
+  };
+  const SPREAD = /space-(between|around|evenly)/;
+  const setItemsAlign = (n, xi, yi) => {   // xi, yi: the cell of the 3 x 3 grid as seen (left to right, top to bottom)
+    const { kind, cs } = alOf(n), lx = cs.direction === "rtl" ? 2 - xi : xi, ly = yi;
+    const fv = (l) => ["flex-start", "center", "flex-end"][l], gv = (l) => ["start", "center", "end"][l];
+    const spread = kind !== "grid" && SPREAD.test(cs.justifyContent);
+    let map;
+    if (kind === "grid") map = { "justify-items": gv(lx), "align-items": gv(ly) };
+    else if (kind === "v") map = { "align-items": fv(lx), ...(spread ? {} : { "justify-content": fv(ly) }) };
+    else map = { "align-items": fv(ly), ...(spread ? {} : { "justify-content": fv(lx) }), ...(kind === "wrap" ? { "align-content": fv(ly) } : {}) };
+    runAll("Align items", [styleSet(n, map, "Align items")]);
+  };
+  const alignGrid = (n, kind, cs) => {
+    const rtl = cs.direction === "rtl";
+    const L = (v) => (/center/.test(v) ? 1 : /end/.test(v) ? 2 : 0);
+    const spread = kind !== "grid" && SPREAD.test(cs.justifyContent);
+    let lx, ly;
+    if (kind === "grid") { lx = L(cs.justifyItems); ly = L(cs.alignItems); }
+    else if (kind === "v") { ly = L(cs.justifyContent); lx = L(cs.alignItems); }
+    else { lx = L(cs.justifyContent); ly = L(cs.alignItems); }
+    const cx = rtl ? 2 - lx : lx, cy = ly;
+    const g = h("div", { class: "al-grid " + (kind === "v" ? "is-v" : "is-h"), role: "radiogroup", "aria-label": "Align items" });
+    const YN = ["Top", "Middle", "Bottom"], XN = ["left", "center", "right"];
+    for (let yi = 0; yi < 3; yi++) for (let xi = 0; xi < 3; xi++) {
+      const on = spread ? (kind === "v" ? xi === cx : yi === cy) : xi === cx && yi === cy;
+      const b = h("button", { type: "button", role: "radio", "aria-checked": String(on), title: `${YN[yi]} ${XN[xi]}`, "aria-label": `${YN[yi]} ${XN[xi]}` });
+      b.addEventListener("click", () => setItemsAlign(n, xi, yi));
+      g.append(b);
+    }
+    return g;
+  };
+  const alSeg = (label, opts, cur, onPick) => {
+    const g = h("div", { class: "seg al-seg", role: "radiogroup", "aria-label": label });
+    opts.forEach(([key, text, icon, tip]) => {
+      const b = h("button", { type: "button", role: "radio", "aria-checked": String(key === cur), title: tip || text });
+      b.innerHTML = (icon ? svg(icon) : "") + (text ? "<span></span>" : "");
+      if (text) b.querySelector("span").textContent = text;
+      b.addEventListener("click", () => { if (key !== cur) onPick(key); });
+      g.append(b);
+    });
+    return g;
+  };
+  const alTog = (icon, label, on, onClick, { danger = false, title } = {}) => {
+    const b = h("button", { type: "button", class: "btn" + (danger ? " danger" : ""), "aria-pressed": on === null ? null : String(on), title: title || label });
+    b.innerHTML = (icon ? svg(icon) : "") + "<span></span>";
+    b.querySelector("span").textContent = label;
+    b.addEventListener("click", onClick);
+    return b;
+  };
+  // A number field for one or more properties: shows the change while typing, saves one step when it is left.
+  const alNum = (n, label, value, { props, key, toCss, unit = "px", title, placeholder, disabled = false }) => {
+    const set = props.some((p) => editorColor(n, p));
+    const lab = h("label", { class: "num" + (set ? " set" : ""), title: title || (set ? `${label}: set here` : `${label}: from the page's styles`) });
+    const name = h("span");
+    name.textContent = label;
+    // a disabled field shows its word (Auto) as text: a number field has no room for it next to its arrows
+    const input = h("input", { type: disabled ? "text" : "number", step: "1", min: "0", "data-prop": key, "aria-label": `${label}${unit ? ` (${unit})` : ""}`, placeholder: placeholder || null, disabled });
+    input.value = disabled ? placeholder || "" : value === "" || value === null || !Number.isFinite(+value) ? "" : String(Math.round(+value * 10) / 10);
+    const em = h("em");
+    em.textContent = unit;
+    lab.append(name, input, em);
+    const before = props.map((p) => [p, n.style.getPropertyValue(p), n.style.getPropertyPriority(p)]);
+    const css = (x) => (x === "" || !Number.isFinite(+x) ? "" : toCss ? toCss(+x) : `${Math.max(0, +x)}px`);
+    input.addEventListener("input", () => { if (input.value !== "") props.forEach((p) => setProp(n, p, css(input.value), "important")); });
+    input.addEventListener("change", () => {
+      before.forEach(([p, v, pr]) => setProp(n, p, v, pr));
+      const v = css(input.value);
+      focusProp = key;
+      runAll(`Change ${label.toLowerCase()}`, [styleSet(n, Object.fromEntries(props.map((p) => [p, v])), `Change ${label.toLowerCase()}`)]);
+    });
+    return lab;
+  };
+  let alSides = false;   // padding as four sides instead of across and down
+  const autoLayoutControls = (n) => {
+    if (n === body || n === root || !ED(n) || NO_AL.test(n.localName)) return null;
+    const { kind, cs } = alOf(n);
+    const box = h("div", { class: "al", role: "group", "aria-label": "Auto layout" });
+    if (!kind) {
+      if (!n.children.length) return null;
+      const add = h("button", { type: "button", class: "row al-add", title: "Lay out what is inside as a column, a row, rows that wrap or a grid (⇧A)" });
+      add.innerHTML = svg("autolayout") + '<span class="lbl">Add auto layout</span><span class="val">⇧A</span>';
+      add.addEventListener("click", () => addAutoLayout(n));
+      box.append(add);
+      return box;
+    }
+    box.append(alSeg("Direction", [["v", "Column", "dirV", "Vertical: one under the other"], ["h", "Row", "dirH", "Horizontal: side by side"],
+      ["wrap", "Wrap", "dirWrap", "Side by side, going on to the next row when full"], ["grid", "Grid", "dirGrid", "A grid of equal columns"]], kind, (d) => setDirection(n, d)));
+    const main = h("div", { class: "al-main" });
+    const fields = h("div", { class: "al-fields" });
+    const spread = kind !== "grid" && SPREAD.test(cs.justifyContent);
+    if (kind === "v" || kind === "h") {
+      fields.append(spread
+        ? alNum(n, "Gap", "", { props: ["gap"], key: "al-gap", placeholder: "Auto", disabled: true, title: "Auto spacing: the items spread over the whole box" })
+        : alNum(n, "Gap", parseFloat(kind === "v" ? cs.rowGap : cs.columnGap) || 0, { props: ["gap"], key: "al-gap", title: "Space between the items" }));
+    } else {
+      fields.append(
+        spread && kind === "wrap" ? alNum(n, "Gap ↔", "", { props: ["column-gap"], key: "al-cgap", placeholder: "Auto", disabled: true })
+          : alNum(n, "Gap ↔", parseFloat(cs.columnGap) || 0, { props: ["column-gap"], key: "al-cgap", title: "Space between items side by side" }),
+        alNum(n, "Gap ↕", parseFloat(cs.rowGap) || 0, { props: ["row-gap"], key: "al-rgap", title: "Space between the rows" }));
+    }
+    if (kind === "grid") {
+      const cols = cs.gridTemplateColumns === "none" ? 1 : cs.gridTemplateColumns.split(/\s+(?![^(]*\))/).filter(Boolean).length;
+      fields.append(alNum(n, "Columns", cols, { props: ["grid-template-columns"], key: "al-cols", unit: "", toCss: (x) => `repeat(${clamp(Math.round(x), 1, 24)}, minmax(0, 1fr))`, title: "How many equal columns" }));
+    }
+    if (alSides) {
+      [["padding-top", "Pad top"], ["padding-right", "Pad right"], ["padding-bottom", "Pad bottom"], ["padding-left", "Pad left"]].forEach(([p, l]) => fields.append(alNum(n, l, parseFloat(cs.getPropertyValue(p)) || 0, { props: [p], key: "al-" + p })));
+    } else {
+      fields.append(
+        alNum(n, "Pad ↔", parseFloat(cs.paddingLeft) || 0, { props: ["padding-left", "padding-right"], key: "al-padx", title: "Padding left and right" + (cs.paddingLeft !== cs.paddingRight ? " (not the same now)" : "") }),
+        alNum(n, "Pad ↕", parseFloat(cs.paddingTop) || 0, { props: ["padding-top", "padding-bottom"], key: "al-pady", title: "Padding top and bottom" + (cs.paddingTop !== cs.paddingBottom ? " (not the same now)" : "") }));
+    }
+    main.append(alignGrid(n, kind, cs), fields);
+    box.append(main);
+    const tog = h("div", { class: "al-tog" });
+    if (kind !== "grid") tog.append(alTog(null, "Auto spacing", spread, () => runAll("Spacing", [styleSet(n, { "justify-content": spread ? "flex-start" : "space-between" }, spread ? "Fixed spacing" : "Auto spacing")]),
+      { title: "Spread the items over the whole box (the gap becomes Auto)" }));
+    if (kind === "h" || kind === "wrap") {
+      const base = /baseline/.test(cs.alignItems);
+      tog.append(alTog(null, "Baseline", base, () => runAll("Baseline", [styleSet(n, { "align-items": base ? "flex-start" : "baseline" }, "Text baseline")]), { title: "Line the items up by the first line of their text" }));
+    }
+    const clip = /hidden|clip/.test(cs.overflowX) || /hidden|clip/.test(cs.overflowY);
+    tog.append(alTog(null, "Clip content", clip, () => runAll("Clip content", [styleSet(n, { overflow: clip ? (/hidden|clip/.test(pageValue(n, "overflow")) ? "visible" : "") : "hidden" }, "Clip content")]),
+      { title: "Hide what sticks out of the box" }));
+    tog.append(alTog(null, alSides ? "Sides: on" : "Sides", alSides, () => { alSides = !alSides; renderPanel(); }, { title: "Padding for each side apart" }));
+    tog.append(alTog("close", "Remove", null, () => removeAutoLayout(n), { danger: true, title: "Remove auto layout (⌥⇧A)" }));
+    box.append(tog);
+    return box;
+  };
+
+  // Resizing of a box: Fixed (its size now), Hug (as big as what is inside), Fill (the room left in the box around it).
+  const sizingOf = (n, axis, pk, cs) => {
+    const prop = axis === "w" ? "width" : "height", inl = n.style.getPropertyValue(prop);
+    if (/fit-content|max-content|min-content/.test(inl)) return "hug";
+    if (/px$/.test(inl)) return "fixed";
+    if (pk.kind === "v" || pk.kind === "h" || pk.kind === "wrap") {
+      const main = (axis === "w") === (pk.kind !== "v");
+      if (main) return parseFloat(cs.flexGrow) > 0 ? "fill" : "hug";
+      const as = /auto|normal/.test(cs.alignSelf) ? pk.cs.alignItems : cs.alignSelf;
+      return /stretch|normal/.test(as) ? "fill" : "hug";
+    }
+    if (pk.kind === "grid") {
+      const s = axis === "w" ? (/auto|normal/.test(cs.justifySelf) ? pk.cs.justifyItems : cs.justifySelf) : (/auto|normal/.test(cs.alignSelf) ? pk.cs.alignItems : cs.alignSelf);
+      return /stretch|normal|legacy/.test(s) ? "fill" : "hug";
+    }
+    if (/%$/.test(inl) || inl === "auto") return axis === "w" && inl === "auto" ? "fill" : inl === "auto" ? "hug" : "fill";
+    if (axis === "h") return "hug";
+    const p = n.parentElement, pcs = getComputedStyle(p), r = n.getBoundingClientRect();
+    const room = p.getBoundingClientRect().width - parseFloat(pcs.paddingLeft) - parseFloat(pcs.paddingRight) - parseFloat(pcs.borderLeftWidth) - parseFloat(pcs.borderRightWidth);
+    if (Math.abs(r.width + parseFloat(cs.marginLeft) + parseFloat(cs.marginRight) - room) < 1.5) return "fill";
+    return /^inline/.test(cs.display) ? "hug" : "fixed";
+  };
+  const setSizing = (n, axis, mode) => {
+    const pk = alOf(n.parentElement), cs = getComputedStyle(n), r = n.getBoundingClientRect();
+    const prop = axis === "w" ? "width" : "height", minp = axis === "w" ? "min-width" : "min-height", maxp = axis === "w" ? "max-width" : "max-height";
+    const size = `${Math.round(axis === "w" ? r.width : r.height)}px`;
+    let map;
+    if (pk.kind === "v" || pk.kind === "h" || pk.kind === "wrap") {
+      const main = (axis === "w") === (pk.kind !== "v");
+      if (main) map = mode === "fill" ? { flex: "1 1 0%", [prop]: "auto", [minp]: "0px" } : mode === "hug" ? { flex: "0 0 auto", [prop]: "auto" } : { flex: "0 0 auto", [prop]: size, [maxp]: "none" };
+      else map = mode === "fill" ? { "align-self": "stretch", [prop]: "auto" } : mode === "hug" ? { "align-self": "", [prop]: "fit-content" } : { "align-self": "", [prop]: size, [maxp]: "none" };
+    } else if (pk.kind === "grid") {
+      const self = axis === "w" ? "justify-self" : "align-self";
+      map = mode === "fill" ? { [self]: "stretch", [prop]: "auto" } : mode === "hug" ? { [self]: "", [prop]: "fit-content" } : { [prop]: size, [maxp]: "none" };
+    } else {
+      const block = !/^inline/.test(cs.display);
+      map = mode === "fill" ? { [prop]: axis === "w" && block ? "auto" : "100%" } : mode === "hug" ? { [prop]: axis === "w" ? "fit-content" : "auto" } : { [prop]: size, [maxp]: "none" };
+    }
+    runAll(`${axis === "w" ? "Width" : "Height"}: ${mode}`, [styleSet(n, map, `${axis === "w" ? "Width" : "Height"}: ${mode}`)]);
+  };
+  const setIgnore = (n, on) => {
+    const p = n.parentElement;
+    if (on) {
+      const pr = p.getBoundingClientRect(), r = n.getBoundingClientRect(), pcs = getComputedStyle(p);
+      const left = Math.round(r.left - pr.left - parseFloat(pcs.borderLeftWidth) + p.scrollLeft), top = Math.round(r.top - pr.top - parseFloat(pcs.borderTopWidth) + p.scrollTop);
+      runAll("Ignore auto layout", [
+        pcs.position === "static" ? styleSet(p, { position: "relative" }, "Ignore auto layout") : null,
+        styleSet(n, { position: "absolute", left: `${left}px`, top: `${top}px`, right: "", bottom: "", margin: "0px", width: n.style.getPropertyValue("width") || `${Math.round(r.width)}px` }, "Ignore auto layout"),
+      ]);
+      announce("It now sits on top, outside the auto layout. Hold ⌥ (Alt) and drag to place it.");
+    } else runAll("Back in auto layout", [styleSet(n, { position: "", left: "", top: "", right: "", bottom: "", margin: "", translate: "" }, "Back in auto layout")]);
+  };
+  const resizingControls = (n) => {
+    if (n === body || n === root || !n.parentElement || n.parentElement === root || !ED(n)) return null;
+    const cs = getComputedStyle(n);
+    if (/^(inline|contents|none)$/.test(cs.display) || /^(br|option)$/.test(n.localName)) return null;
+    const pk = alOf(n.parentElement), abs = /^(absolute|fixed)$/.test(cs.position);
+    const box = h("div", { class: "al", role: "group", "aria-label": "Resizing" });
+    const TIPS = { fixed: "Keep its size as it is now", hug: "As big as what is inside it", fill: "Take the room in the box around it" };
+    [["w", "W"], ["h", "H"]].forEach(([axis, label]) => {
+      const row = h("div", { class: "al-row" }), l = h("span", { class: "al-lbl" });
+      l.textContent = label;
+      l.title = axis === "w" ? "Width" : "Height";
+      row.append(l, alSeg(axis === "w" ? "Width" : "Height", [["fixed", "Fixed", null, TIPS.fixed], ["hug", "Hug", null, TIPS.hug], ["fill", "Fill", null, TIPS.fill]],
+        abs ? "fixed" : sizingOf(n, axis, pk, cs), (m) => setSizing(n, axis, m)));
+      box.append(row);
+    });
+    const mm = h("div", { class: "sizes" });
+    [["min-width", "Min W"], ["max-width", "Max W"], ["min-height", "Min H"], ["max-height", "Max H"]].forEach(([p, l]) => {
+      const v = parseFloat(cs.getPropertyValue(p));
+      mm.append(alNum(n, l, Number.isFinite(v) && v > 0 ? v : "", { props: [p], key: "al-" + p, placeholder: /^max/.test(p) ? "∞" : "0", title: `${l}: empty for none` }));
+    });
+    if (pk.kind === "grid") {
+      const span = (v) => { const m = /span\s+(\d+)/.exec(v || ""); return m ? +m[1] : 1; };
+      mm.append(alNum(n, "Span cols", span(cs.gridColumnEnd), { props: ["grid-column"], key: "al-gcol", unit: "", toCss: (x) => (x > 1 ? `span ${Math.round(x)}` : ""), title: "How many columns it takes" }),
+        alNum(n, "Span rows", span(cs.gridRowEnd), { props: ["grid-row"], key: "al-grow", unit: "", toCss: (x) => (x > 1 ? `span ${Math.round(x)}` : ""), title: "How many rows it takes" }));
+    }
+    box.append(mm);
+    const tog = h("div", { class: "al-tog" });
+    if (pk.kind) tog.append(alTog(null, "Ignore auto layout", abs, () => setIgnore(n, !abs), { title: "Take it out of the flow and place it freely on top" }));
+    const setHere = RS_PROPS.filter((p) => editorColor(n, p));
+    if (setHere.length) tog.append(alTog("reset", "Reset", null, () => runAll("Reset resizing", [styleSet(n, Object.fromEntries(setHere.map((p) => [p, ""])), "Reset resizing")]), { title: "Take back the resizing set on this element" }));
+    if (tog.childElementCount) box.append(tog);
+    return box;
+  };
+  // pink shading for the padding and the gaps of the selected auto layout box (redrawn with the outlines)
+  let vizFrame = 0;
+  const paintViz = () => {
+    const n = selected;
+    if (!n || !editing || drag || rsz || panel.hidden || !n.isConnected || n === body || n === root) { alViz.hidden = true; return; }
+    if (++vizFrame % 2) return;
+    const { kind, cs } = alOf(n);
+    if (!kind) { alViz.hidden = true; return; }
+    const r = n.getBoundingClientRect(), f = (p) => parseFloat(cs.getPropertyValue(p)) || 0;
+    const bl = f("border-left-width"), br = f("border-right-width"), bt = f("border-top-width"), bb = f("border-bottom-width");
+    const pl = f("padding-left"), pr = f("padding-right"), pt = f("padding-top"), pb = f("padding-bottom");
+    const x0 = r.left + bl, y0 = r.top + bt, w = r.width - bl - br, hh = r.height - bt - bb;
+    const rects = [[x0, y0, w, pt], [x0, y0 + hh - pb, w, pb], [x0, y0 + pt, pl, hh - pt - pb], [x0 + w - pr, y0 + pt, pr, hh - pt - pb]].map((q) => [...q, ""]);
+    if (kind === "v" || kind === "h") {
+      const ks = flowKids(n).slice(0, 60).map((c) => c.getBoundingClientRect());
+      const cx0 = x0 + pl, cy0 = y0 + pt, cw = w - pl - pr, ch = hh - pt - pb;
+      if (kind === "v") ks.sort((a, b) => a.top - b.top).forEach((a, i, s) => { const b = s[i + 1]; if (b && b.top - a.bottom > .5) rects.push([cx0, a.bottom, cw, b.top - a.bottom, "g"]); });
+      else ks.sort((a, b) => a.left - b.left).forEach((a, i, s) => { const b = s[i + 1]; if (b && b.left - a.right > .5) rects.push([a.right, cy0, b.left - a.right, ch, "g"]); });
+    }
+    const live = rects.filter((q) => q[2] > .5 && q[3] > .5);
+    while (alViz.childElementCount < live.length) alViz.append(h("i"));
+    [...alViz.children].forEach((el, i) => {
+      const q = live[i];
+      if (!q) { el.hidden = true; return; }
+      el.hidden = false;
+      el.className = q[4];
+      el.style.cssText = `left:${q[0]}px;top:${q[1]}px;width:${q[2]}px;height:${q[3]}px`;
+    });
+    alViz.hidden = false;
+  };
+
   const duplicate = (n) => {
     if (activeHost && (n === activeHost || n.contains(activeHost))) deactivateHost();
     const cmd = duplicateCmd(n);
@@ -2243,9 +2641,117 @@ kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; bac
     if (activeHost && (selected === activeHost || selected.contains(activeHost) || activeHost.contains(selected))) deactivateHost();
     startDrag(e, selected);
   });
-  window.addEventListener("pointermove", (e) => { if (drag) moveDrag(e); }, true);
-  window.addEventListener("pointerup", () => { if (drag) endDrag(); }, true);
-  window.addEventListener("pointercancel", () => cancelDrag(), true);
+  // Resizing: the live page follows the pointer; letting go saves one "Resize" step (Undo takes it back).
+  let rsz = null, sizeHint = "";
+  const resizable = (n) => Boolean(n) && n !== body && n !== root && getComputedStyle(n).display !== "inline";
+  const boxExtra = (cs, axis) => (cs.boxSizing === "border-box" ? 0 : axis === "x"
+    ? parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth)
+    : parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth));
+  const RSZ_PROPS = ["width", "height", "max-width", "max-height", "min-height"];
+  // Snapping while resizing (Yarin, 11 Nov 2026: "make it snap to other objects when adjusting"): the moving edge catches on the
+  // edges of the parent (its outer and inner edges), the siblings and the cousins, and the size catches on a sibling's size;
+  // a guide line shows the catch. Hold ⌥ (Alt) to resize freely.
+  const SNAP = 6;
+  const snapX = h("div", { class: "snapline is-x", hidden: "" }), snapY = h("div", { class: "snapline is-y", hidden: "" });
+  wrap.append(snapX, snapY);
+  const snapTargets = (n) => {
+    const set = new Set(), p = n.parentElement;
+    if (p && p !== root) {
+      set.add(p);
+      [...p.children].forEach((c) => set.add(c));
+      const gp = p.parentElement;
+      if (gp && gp !== root) [...gp.children].forEach((c) => { set.add(c); [...c.children].forEach((cc) => set.add(cc)); });
+    }
+    set.delete(n);
+    const xs = [], ys = [], ws = [], hs = [];
+    [...set].forEach((x) => {
+      if (n.contains(x) || x.contains(ui)) return;
+      const r = x.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      xs.push(r.left, r.right);
+      ys.push(r.top, r.bottom);
+      if (x.parentElement === p) { ws.push(r.width); hs.push(r.height); }
+      if (x === p) {
+        const cs = getComputedStyle(x);
+        xs.push(r.left + parseFloat(cs.paddingLeft) + parseFloat(cs.borderLeftWidth), r.right - parseFloat(cs.paddingRight) - parseFloat(cs.borderRightWidth));
+        ys.push(r.top + parseFloat(cs.paddingTop) + parseFloat(cs.borderTopWidth), r.bottom - parseFloat(cs.paddingBottom) - parseFloat(cs.borderBottomWidth));
+      }
+    });
+    return { xs, ys, ws, hs };
+  };
+  const nearest = (v, list) => {
+    let best = null, bd = SNAP + 0.5;
+    list.forEach((x) => { const dd = Math.abs(x - v); if (dd < bd) { bd = dd; best = x; } });
+    return best;
+  };
+  const showSnap = (line, at) => {
+    if (at == null) { line.hidden = true; return; }
+    line.hidden = false;
+    if (line === snapX) line.style.left = `${Math.round(at)}px`; else line.style.top = `${Math.round(at)}px`;
+  };
+  resizeHandles.forEach((hd) => hd.addEventListener("pointerdown", (e) => {
+    const n = selected;
+    if (!n || !resizable(n) || e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (activeHost && (n === activeHost || n.contains(activeHost) || activeHost.contains(n))) deactivateHost();
+    const r = n.getBoundingClientRect(), cs = getComputedStyle(n), dir = hd.dataset.dir;
+    rsz = { n, dir, x: e.clientX, y: e.clientY, w: r.width - boxExtra(cs, "x"), h: r.height - boxExtra(cs, "y"), changed: {}, rect: r, snap: snapTargets(n),
+      before: Object.fromEntries(RSZ_PROPS.map((p) => [p, [n.style.getPropertyValue(p), n.style.getPropertyPriority(p)]])) };
+    selBox.classList.add("resizing");
+    try { hd.setPointerCapture(e.pointerId); } catch (err) { /* the window listeners still follow */ }
+  }));
+  const moveResize = (e) => {
+    const s = rsz, d = s.dir, r0 = s.rect;
+    let dx = e.clientX - s.x, dy = e.clientY - s.y, gx = null, gy = null;
+    if (!e.altKey) {
+      if (d.includes("e") || d.includes("w")) {
+        const east = d.includes("e"), edge = (east ? r0.right : r0.left) + dx, hit = nearest(edge, s.snap.xs);
+        if (hit != null) { dx = hit - (east ? r0.right : r0.left); gx = hit; }
+        else {
+          const wHit = nearest(r0.width + (east ? dx : -dx), s.snap.ws);
+          if (wHit != null) { dx = east ? wHit - r0.width : r0.width - wHit; gx = east ? r0.right + dx : r0.left + dx; }
+        }
+      }
+      if (d.includes("s") || d.includes("n")) {
+        const south = d.includes("s"), edge = (south ? r0.bottom : r0.top) + dy, hit = nearest(edge, s.snap.ys);
+        if (hit != null) { dy = hit - (south ? r0.bottom : r0.top); gy = hit; }
+        else {
+          const hHit = nearest(r0.height + (south ? dy : -dy), s.snap.hs);
+          if (hHit != null) { dy = south ? hHit - r0.height : r0.height - hHit; gy = (south ? r0.bottom : r0.top) + dy; }
+        }
+      }
+    }
+    showSnap(snapX, gx);
+    showSnap(snapY, gy);
+    const out = {};
+    if (d.includes("e") || d.includes("w")) out.width = Math.max(4, Math.round(s.w + (d.includes("e") ? dx : -dx)));
+    if (d.includes("s") || d.includes("n")) out.height = Math.max(4, Math.round(s.h + (d.includes("s") ? dy : -dy)));
+    if (out.width != null) { setProp(s.n, "width", out.width + "px", "important"); setProp(s.n, "max-width", "none", "important"); }
+    if (out.height != null) { setProp(s.n, "height", out.height + "px", "important"); setProp(s.n, "max-height", "none", "important"); setProp(s.n, "min-height", "0px", "important"); }
+    Object.assign(s.changed, out);
+    const r = s.n.getBoundingClientRect();
+    sizeHint = `${Math.round(r.width)} × ${Math.round(r.height)}`;
+  };
+  const endResize = (cancel) => {
+    const s = rsz;
+    rsz = null;
+    sizeHint = "";
+    selBox.classList.remove("resizing");
+    showSnap(snapX, null);
+    showSnap(snapY, null);
+    Object.entries(s.before).forEach(([p, [val, prio]]) => setProp(s.n, p, val, prio));
+    if (cancel || (s.changed.width == null && s.changed.height == null)) return;
+    const cmds = [];
+    if (s.changed.width != null) cmds.push(styleCmd(s.n, "width", s.changed.width + "px", true, "Width"), styleCmd(s.n, "max-width", "none", true, "Width"));
+    if (s.changed.height != null) cmds.push(styleCmd(s.n, "height", s.changed.height + "px", true, "Height"), styleCmd(s.n, "max-height", "none", true, "Height"), styleCmd(s.n, "min-height", "0px", true, "Height"));
+    run(group("Resize", cmds));
+    select(s.n);
+    announce("Resized.");
+  };
+  window.addEventListener("pointermove", (e) => { if (rsz) moveResize(e); else if (drag) moveDrag(e); }, true);
+  window.addEventListener("pointerup", () => { if (rsz) endResize(false); else if (drag) endDrag(); }, true);
+  window.addEventListener("pointercancel", () => { if (rsz) endResize(true); cancelDrag(); }, true);
   window.addEventListener("wheel", (e) => {
     if (!editing || !e.ctrlKey || fromUI(e)) return;
     const img = framedImg(selected);
@@ -2324,6 +2830,8 @@ kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; bac
     if (mod && k === "y") { e.preventDefault(); redo(); return; }
     if (inUI || !selected) return;
     if (e.altKey && e.key === "ArrowUp") { e.preventDefault(); if (selected !== body && selected.parentElement) select(selected.parentElement); return; }
+    // ⇧A adds auto layout to the selected box, ⌥⇧A removes it (e.code: ⌥ changes e.key on a Mac)
+    if (e.shiftKey && !mod && e.code === "KeyA" && ED(selected) && selected !== body) { e.preventDefault(); if (e.altKey) removeAutoLayout(selected); else addAutoLayout(selected); return; }
     if ((e.key === "Delete" || e.key === "Backspace") && ED(selected) && selected !== body) { e.preventDefault(); remove(selected); return; }
     if (e.key === "Enter") {
       const host = hostFor(selected);
@@ -2350,13 +2858,15 @@ kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; bac
       const canMove = movable(n);
       if (grip.hidden === canMove) grip.hidden = !canMove;
       box.classList.toggle("flip", r.top < 28);
+      box.classList.toggle("no-resize", !rsz && !resizable(n));
     }
   };
   const tick = () => {
     if (editing) {
       place(hoverBox, hovered && hovered !== selected && hovered !== activeHost ? hovered : null);
       place(hostBox, activeHost && activeHost !== selected ? activeHost : null);
-      place(selBox, selected, selected ? describe(selected).code + (selected.localName === "img" && framedImg(selected) ? "  ·  drag to move" : "") : "");
+      place(selBox, selected, selected ? (sizeHint || describe(selected).code + (selected.localName === "img" && framedImg(selected) ? "  ·  drag to move" : "")) : "");
+      paintViz();
       if (selected && !panel.hidden && innerWidth > 640) {
         const r = selected.getBoundingClientRect();
         const covers = (x) => r.right > x && r.bottom > innerHeight - panel.offsetHeight - 24 && r.top < innerHeight;
@@ -2376,7 +2886,7 @@ kbd { font: 600 11px/1 var(--se-font); padding: 2px 5px; border-radius: 4px; bac
   const setEditing = (on) => {
     editing = on;
     if (!on) { cancelDrag(); deactivateHost(); closePop(false); hovered = null; selected = null; toastEl.hidden = true; }
-    [hoverBox, hostBox, selBox].forEach((b) => { if (!on) b.hidden = true; });
+    [hoverBox, hostBox, selBox, alViz].forEach((b) => { if (!on) b.hidden = true; });
     dock.hidden = !on && SERVED;
     colorsBtn.disabled = !on;
     // the runtime stays out of the way while the editor changes the page, and takes over again after Done

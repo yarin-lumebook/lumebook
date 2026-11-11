@@ -965,6 +965,21 @@
       ],
       "notes": "09 Nov 2026. What makes an Israeli business creator's Reels work (205K followers): every Reel in his tab inventoried, the top 100 by grid views and 20 same-month low performers coded from frames, captions, covers and sampled comments with a piloted rubric (src/CODING_BRIEF.md); account-wide checks over 753 Reels since 2024. Deliverables: report.md, breakdowns.md, playbook.md, experiments.md, lumebook-briefs.md, data/reels.csv, coverage.md. His videos, transcripts and comments stay local in media/projects/2026-11-09-matan-nistor-reels/ and src/comments*, src/dossiers/ (gitignored); never re-post."
     },
+    "adar-motherhood": {
+      "name": "@adar.motherhood voice, hooks and CTAs (22 top Reels + 12 controls of 591, 9 carousels)",
+      "path": "research/adar-motherhood",
+      "kind": "docs",
+      "watch": [
+        "research/adar-motherhood/*.md",
+        "research/adar-motherhood/data/coded.json",
+        "research/adar-motherhood/data/selected.json",
+        "research/adar-motherhood/src/*.py"
+      ],
+      "feeds": [
+        "research-hub"
+      ],
+      "notes": "11 Nov 2026 (Yarin: \"learn adar.motherhood voice, focus on the hooks and CTAs and create an analysis explaining how to create content like her\"). A homeschooling mom of two with 7K followers: every Reel in her tab inventoried (591), the 22 top Reels since 2024 and 12 same-period controls coded from the first 6 seconds, captions and sampled comments; her biggest carousel plus the 8 newest read. Deliverables: report.md (voice, hook families, CTAs, how to make content like hers, what LumeBook takes and leaves, example Hebrew lines that pass voice_lint, 3 tests). Her videos, frames, transcripts stay local in media/projects/2026-11-11-adar-motherhood-reels/; sampled comments are gitignored. One account, small samples: hypotheses, not rules."
+    },
     "store-mock": {
       "name": "Store mock (lumebook.com/IL/he rebuilt as a conversion landing page in the LumeBook design system)",
       "path": "sites/lumebook-store-mock",
@@ -1005,6 +1020,40 @@
       ],
       "feeds": [],
       "notes": "Made 09 Nov 2026. Yarin's requests in order: a mock of lumebook.com/IL/he in the dashboard's design system; restructure it as the best landing page for starting a book and selling; deploy it; no side bar; the violet promo capsule looked bad; dark and magical in the store's purple; heavily animate; as many icons and images as possible; deals instead of delivery with the usual price 149; a fully working demo where everything does something and he can create a fake book; a dark and light switch. Order: promo, sticky bar (switch, my books, start), hero with a name and boy or girl start card, trust numbers, covers marquee, filterable shelf (best sellers first, shared/facts.json top_books), four steps, customer books and a review, why with the banner, price and deals, questions, final call, other products, footer. README has the details."
+    },
+    "content-calendar": {
+      "name": "לוח תוכן: the content calendar, every kid carousel, test carousel and reel of the month in one Hebrew tool (month, week, list, day drawer, piece panel)",
+      "path": "sites/content-calendar",
+      "kind": "page",
+      "watch": [
+        "sites/content-calendar/build.py",
+        "sites/content-calendar/page.css",
+        "sites/content-calendar/page.js",
+        "shared/design/lumebook.css",
+        "shared/design/categories.json",
+        "shared/design/icons.json",
+        "shared/facts.json"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "build.py"
+        ],
+        "cwd": "sites/content-calendar",
+        "outputs": [
+          "sites/content-calendar/index.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "local",
+        "url": "http://localhost:8780/sites/content-calendar/",
+        "note": "Local only: the data comes live from the project server (GET /api/calendar, tools/content_calendar.py), which reads Carousel Machine, the test batch, reels.json and Postiz. No claude.ai or Vercel copy."
+      },
+      "feeds": [
+        "dashboard"
+      ],
+      "notes": "11 Nov 2026 (Yarin: merge Carousel Machine, the test carousels and the reel calendar in one place). A front end over the existing engines; writes go through their own endpoints. README in the folder (status mapping, endpoints, rules, posting hours, testing)."
     }
   }
 }

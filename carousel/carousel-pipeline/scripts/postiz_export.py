@@ -83,11 +83,22 @@ def fb_text(run_dir):
     return lib.fb_source(_plain(lib.read_json(Path(run_dir) / "approved.json")))
 
 
+def plan_time(day, role="kid"):
+    """The planned posting time of a role on a date (the content calendar's weekly plan, sites/content-calendar/posting-hours.json,
+    11 Nov 2026: four posts a day), as a dt.time, or None when there is no plan. day: a date; role: kid, test, reel_a, reel_b."""
+    plan = (lib.read_json(lib.ROOT / "sites" / "content-calendar" / "posting-hours.json") or {}).get("plan") or {}
+    t = (plan.get(str((day.weekday() + 1) % 7)) or {}).get(role)   # weekday 0 = Sunday in the plan
+    try:
+        return dt.time(int(t[:2]), int(t[3:5]))
+    except (TypeError, ValueError):
+        return None
+
+
 def default_date(run_dir, now=None):
-    """The carousel's day at default_hour, Israel time; a day already past moves to an hour from now."""
+    """The carousel's day at its planned time (kid carousel: plan_time), else default_hour, Israel time; a day already past moves to an hour from now."""
     now = now or lib.now_local()
     day = dt.date.fromisoformat(lib.read_json(Path(run_dir) / "approved.json")["date"])
-    when = dt.datetime.combine(day, dt.time(int(config().get("default_hour", 6))), tzinfo=now.tzinfo)
+    when = dt.datetime.combine(day, plan_time(day, "kid") or dt.time(int(config().get("default_hour", 6))), tzinfo=now.tzinfo)
     if when < now + dt.timedelta(minutes=30):
         when = (now + dt.timedelta(hours=1)).replace(minute=0, second=0, microsecond=0)
     return when
@@ -222,13 +233,16 @@ def send(run_dir, when=None, draft=False, dry_run=False):
     return record
 
 
-def replace(run_dir):
-    """Send the carousel again with the date and status of the post already in Postiz, then delete the old post
-    (Postiz cannot edit a post's text or pictures). The old record is kept in postiz.json under "replaced"."""
+def replace(run_dir, at=None):
+    """Send the carousel again with the date and status of the post already in Postiz (at: "HH:MM" keeps the day and gives it a new
+    time, 11 Nov 2026: the weekly plan of the content calendar), then delete the old post (Postiz cannot edit a post's text or
+    pictures). The old record is kept in postiz.json under "replaced"."""
     run_dir = Path(run_dir).resolve()
     old = lib.read_json(run_dir / "postiz.json")
     old_ids = sorted({r["postId"] for r in (old.get("result") or []) if isinstance(r, dict) and r.get("postId")})
     when = dt.datetime.fromisoformat(old["date"])
+    if at:
+        when = when.replace(hour=int(at[:2]), minute=int(at[3:5]), second=0, microsecond=0)
     record = send(run_dir, when=when.isoformat(), draft=old.get("status") == "draft")
     deleted = []
     for pid in old_ids:
@@ -247,7 +261,7 @@ def main():
     ap.add_argument("--at", help="date and time to publish, e.g. 2026-10-27T20:30 (default: the carousel's day at default_hour)")
     ap.add_argument("--draft", action="store_true", help="save as a draft in Postiz instead of scheduling")
     ap.add_argument("--dry-run", action="store_true", help="print what would be sent without uploading anything")
-    ap.add_argument("--replace", action="store_true", help="send again at the date and status in postiz.json, then delete the old post (Yarin's OK first)")
+    ap.add_argument("--replace", action="store_true", help="send again at the date and status in postiz.json (with --at HH:MM: at that time of the same day), then delete the old post (Yarin's OK first)")
     args = ap.parse_args()
     if args.slots:
         print("\n".join(w.strftime("%a %Y-%m-%d %H:%M") for w in slots(args.slots)))
@@ -258,7 +272,7 @@ def main():
     if not run_dir.is_absolute() and not run_dir.exists():
         run_dir = lib.PIPELINE / run_dir
     if args.replace:
-        print(json.dumps(replace(run_dir), ensure_ascii=False, indent=2))
+        print(json.dumps(replace(run_dir, at=args.at if args.at and len(args.at) == 5 else None), ensure_ascii=False, indent=2))
         return
     print(json.dumps(send(run_dir, when=args.at, draft=args.draft, dry_run=args.dry_run), ensure_ascii=False, indent=2))
 

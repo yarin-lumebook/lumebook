@@ -224,6 +224,8 @@ def state(batch_id=None):
             "unsent": bool(grades_unsent()), "next_run_he": when_he(nxt), "qa": list(producer.QA_CHECKS_HE),
             "backend": lib.picture_backend(),   # "openai" since 03 Nov 2026: the only picture source; every stage waits for Yarin's budget and yes
             "post_hour": int((lib.read_json(lib.ROOT / "shared" / "facts.json").get("postiz") or {}).get("default_hour", 6)),
+            # the content calendar's weekly plan (11 Nov 2026): the time the Postiz box starts on, per weekday of the carousel's day (0 = Sunday)
+            "kid_times": {k: v.get("kid") for k, v in ((lib.read_json(lib.ROOT / "sites" / "content-calendar" / "posting-hours.json") or {}).get("plan") or {}).items()},
             "test_batch": test_info()}
 
 
@@ -522,7 +524,7 @@ function visible() {
   const q = query.trim().toLowerCase();
   return S.items.filter(it => inView(it, filter) && (!q || hay(it).includes(q)));
 }
-const who = it => isTest(it) ? `${it.option_he} · ${it.angle_he || it.title}` : it.kind === 'reco' ? `${it.id === 'reco' ? 'משחקים וספרים 1' : 'משחקים וספרים 2'} · ${it.skill_he}` : `${it.id}${it.child_name ? ' · ' + it.child_name : ''}`;
+const who = it => isTest(it) ? `${it.option_he}${it.addressee_he ? ' · ל' + it.addressee_he : ''} · ${it.angle_he || it.title}` : it.kind === 'reco' ? `${it.id === 'reco' ? 'משחקים וספרים 1' : 'משחקים וספרים 2'} · ${it.skill_he}` : `${it.id}${it.child_name ? ' · ' + it.child_name : ''}`;
 function firstImage(it) { const r = run(it.key); return (r && r.status === 'done' && (r.slides || [])[0]) || (it.images || [])[0] || ''; }
 function card(it) {
   const s = g(it.key), r = run(it.key);
@@ -786,6 +788,7 @@ function testStage(it, st) {
   st.append(el('div', 'st-eyebrow', `${day(it.date)} · ${it.when_he} · ${it.option_he}`), el('h1', 'st-h1', it.type_he));
   const chips = el('div', 'st-chips');
   chips.append(el('span', 'lb-chip cat', it.type_he), el('span', 'lb-chip', it.option_he));
+  if (it.addressee_he) chips.append(el('span', 'lb-chip tint', 'מדברת אל: ' + it.addressee_he));
   if (it.angle_he) chips.append(el('span', 'lb-chip', it.angle_he));
   chips.append(el('span', 'lb-chip', `${it.slides.length} שקופיות`), el('span', 'lb-chip', 'מילת תגובה: ' + it.comment_word));
   chips.append(el('span', 'lb-chip ' + (it.budget.images ? 'warning' : 'success'), it.budget.images ? `${it.budget.images} ${it.budget.images === 1 ? 'תמונה' : 'תמונות'} לייצר · עד ${usd(it.budget.budget_usd)}` : 'בלי עלות'));
@@ -804,7 +807,7 @@ function testStage(it, st) {
     const r = el('div', 'st-r'); r.append(el('span', 'num', String(s.n)));
     const fs = el('div', 'fs'); fs.append(el('div', 'lay', TLAYOUT[s.layout] || s.layout));
     Object.keys(TFIELD).filter(f => f in s).forEach(f => { const row = el('div', 'f'); row.append(el('span', null, TFIELD[f]), editable('div', null, s[f] || '', f, s.n, '')); fs.append(row); });
-    if (s.picture) fs.append(el('p', 'in-keys', 'תמונה שתיווצר בהפקה: ' + (it.pictures[s.picture] || s.picture)));
+    if (s.bg) fs.append(el('p', 'in-keys', 'ברקע: ' + (s.bg_he || s.bg)));
     r.append(fs); rows.append(r);
   });
   sec.append(rows); st.append(sec);
@@ -977,7 +980,7 @@ function postizBox(it, r, box) {
   const w = el('div', 'in-postiz'); w.append(el('h2', null, 'פרסום דרך Postiz'));
   if (r.postiz) w.append(el('p', 'in-keys', (r.postiz.status === 'schedule' ? 'מתוזמן ל' : 'טיוטה ל') + whenHe(r.postiz.date)));
   const t = el('input', 'lb-input'); t.type = 'datetime-local'; t.dir = 'ltr'; t.min = localIso(new Date());
-  t.value = r.postiz && r.postiz.date ? localIso(new Date(r.postiz.date)) : it.post_time ? `${r.date}T${it.post_time}` : `${r.date}T${pad2(S.post_hour ?? 6)}:00`;
+  t.value = r.postiz && r.postiz.date ? localIso(new Date(r.postiz.date)) : it.post_time ? `${r.date}T${it.post_time}` : (S.kid_times || {})[new Date(r.date + 'T12:00').getDay()] ? `${r.date}T${S.kid_times[new Date(r.date + 'T12:00').getDay()]}` : `${r.date}T${pad2(S.post_hour ?? 6)}:00`;
   const row = el('div', 'in-btns');
   const pv = el('button', 'lb-btn ghost', 'איך זה ייראה'); pv.type = 'button'; pv.onclick = () => { const sec = $('#st-postiz'); if (sec) sec.scrollIntoView({behavior: 'smooth', block: 'start'}); };
   const go = el('button', 'lb-btn', r.postiz ? 'לתזמן שוב' : 'לתזמן'); go.type = 'button';
@@ -1146,6 +1149,8 @@ def app_page(batch_id=None):
             '<div class="lb-row"><button class="lb-btn secondary sm" type="button" id="hs-push" hidden>שליחת הדירוגים לענן</button>'
             f'<button class="lb-btn secondary sm" type="button" id="hs-sync" title="בדיקת חבילות חדשות מהענן">{icon("sync", 16)}בדיקה בענן</button></div>'
             f'<span>הבאץ\' הבא בענן: {esc(st.get("next_run_he", ""))}</span>'
+            # the content calendar (11 Nov 2026): every carousel and reel of the month in one place, on the project server
+            f'<a class="lb-btn secondary sm" href="http://localhost:8780/sites/content-calendar/">{design.icon("calendar")}לוח תוכן</a>'
             '</div></aside>'
             '<div class="lb-scrim" id="hs-scrim" hidden></div>'
             '<main class="lb-main hs-main" aria-label="הקרוסלות של החבילה">'

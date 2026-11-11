@@ -1,8 +1,9 @@
 {
   "_about": "LumeBook daily reel calendar, 05 to 30 / 11 / 2026 (Yarin, 04 Nov 2026: one reel a day like reel 1.1). The single source for the reel scripts and the calendar: tools in reels.py build reel-series-scripts.md and november-calendar.md from it, lint the copy and open a media project per reel. Edit this file, then run: python3 research/israeli-product-reels/src/scripts/series-2026-11/reels.py build",
   "defaults": {
-    "post_time": "21:30",
-    "_post_time_note": "Reel 1.1 went up at 21:31 Israel time on 04 / 11 / 2026. One time for the whole month so results can be compared; change it here.",
+    "post_time": "בשעות של לוח תוכן",
+    "post_time_posted": "21:30",
+    "_post_time_note": "Reel 1.1 went up at 21:31 Israel time on 04 / 11 / 2026. Since 11 Nov 2026 (Yarin: four posting hours a day) every reel's time is its slot in sites/content-calendar/posting-hours.json: option א is the first reel of the day, option ב the second (Sun to Thu 13:30 and 21:30, Fri 12:00 and 18:30, Sat 12:30 and 18:30). post_time_posted is the time reel 1.1 went up.",
     "channel": "Instagram lumebook.il, trial reel (is_trial_reel true, graduation MANUAL), like 1.1 and the 27 to 29 Oct trial reels",
     "cta_screen": "תכתבו לי \"לומי\"\nואשלח לכם קישור ליצירת הספר",
     "cta_voice": "תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.",
@@ -78,6 +79,13 @@
     "options": {
       "_about": "Yarin, 10 Nov 2026: \"reel calendar: i want 2 options for each day\". From 10 / 11 / 2026 every day has option 1 (א, the reel that was on the day) and option 2 (ב). Both are in the same lane, the usual audience or the traditions series (9, Sunday to Thursday), so the half and half split of 07 Nov holds whichever is picked; within a lane they differ in audience (parents or grandmothers), book or structure, so the picks also show what Yarin prefers. Option 2 came from 8 spares (2.2 stays a spare: it needs a real family's book) and 13 new scripts written in the seller and @matan.nistor rules. Yarin films only the option he picks.",
       "from": "2026-11-10"
+    },
+    "gpt": {
+      "_about": "Yarin, 11 Nov 2026: 'incorporate funny generated images using gpt api in the editing, suggest minimal budget for each reel'. Each reel has up to two funny pictures (a gag that matches its script, made as a 3D cartoon, never a real person, no text) that cut into the edit for one script line as a full-screen still. Nothing is generated without Yarin's yes: `reel_gpt.py plan` shows the estimate, `reel_gpt.py run <id> --max-usd N` makes them only under a budget he approved (memory feedback-openai-api-key-rules). The suggested budget is the estimate of the planned pictures plus one retry.",
+      "style": "Funny, exaggerated 3D animated cartoon illustration in a warm Pixar-like style, bright colours, soft light, expressive faces, vertical 2:3 composition with the subject in the middle, no text, no letters, no logos, no books or pages (the book is drawn separately as a real LumeBook book), no real people, nothing religious. Scene: ",
+      "model": "gpt-image-2.5-flare",
+      "size": "1024x1536",
+      "quality": "low"
     }
   },
   "voice_types": {
@@ -179,7 +187,7 @@
     },
     {
       "id": "1.7",
-      "date": "2026-11-19",
+      "date": "2026-11-12",
       "series": 1,
       "status": "ready",
       "hook": "הורים, אי אפשר לפשל\nבהזמנה הזאת",
@@ -188,7 +196,7 @@
       "shot": "אתה פותח מול המצלמה עם הספר המודפס ביד, ומדבר ישר לעדשה בטון מרגיע, כאילו אתה מרגיע הורה שמתלבט. אחרי המשפט הראשון עוברים להקלטת מסך של בניית הספר ושל התצוגה המקדימה. בסוף אתה מחזיק את הספר המודפס. מצלמים בטלפון באור יום.",
       "footage": [
         "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-9BC736D7.mov)",
-        "Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)"
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 2 funny GPT pictures (made 11 / 11 / 2026); one version, no trial set"
       ],
       "yarin_films": [],
       "vo": [
@@ -223,11 +231,30 @@
         "כלום לא נשלח\nעד שאתם מאשרים",
         "הורים, פה אין\nאיפה לפשל"
       ],
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": 4,
+            "scene": "A polite cartoon printing machine holds up a stop-hand gesture and waits, while tiny cartoon parents give thumbs up",
+            "estimate_usd": 0.0103,
+            "name": "printing-machine-holds-up-a-stop-hand-parents-thumbs-up"
+          },
+          {
+            "n": 2,
+            "line": 5,
+            "scene": "A relieved cartoon dad wipes his sweaty forehead while hugging a small glowing storybook on a velvet pillow, tears of joy",
+            "estimate_usd": 0.0104,
+            "name": "relieved-dad-wipes-forehead-hugging-a-book-on-a-pillow"
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "1.6",
-      "date": "2026-11-20",
+      "date": "2026-11-13",
       "series": 1,
       "status": "ready",
       "hook": "מוצץ, חיתולים, יומולדת\n3 כריכות",
@@ -236,7 +263,7 @@
       "shot": "קטע הפתיחה שלך למצלמה עם ספר מודפס ביד (כל ספר שיש לך), ואז הקלטת מסך של גלריית הספרים באתר (אני מקליט, בגודל טלפון כמו ב 1.1), ספר אחד לכל מצב עם הכריכה על כל המסך בזמן שאתה אומר אותו. בפריים הראשון שלוש הכריכות קטנות לידך, אני מוסיף אותן בעריכה.",
       "footage": [
         "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-D3A1EAFF.mov)",
-        "Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)"
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 1 funny GPT picture (made 11 / 11 / 2026); one version, no trial set"
       ],
       "yarin_films": [],
       "caption": "מוצץ, חיתולים, יומולדת. שלוש כריכות 🤔\nנפרדים מהמוצץ, מפסיקים עם החיתולים, יום הולדת בקרוב?\nלכל אחד יש סיפור משלו, ובכולם הגיבור הוא הילד שלכם.\nאז מה הילד שלכם עובר עכשיו?\nאיזה ספר ילדים מותאם אישית לבחור\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
@@ -269,7 +296,19 @@
         "מה הילד שלכם\nעובר עכשיו?",
         "נפרדים מהחיתולים?\nיש לזה סיפור"
       ],
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": 3,
+            "scene": "A cartoon toddler in a diaper wearing a superhero cape and a pacifier on a ribbon like a medal, striking a heroic pose on a sofa",
+            "estimate_usd": 0.0104,
+            "name": "toddler-in-diaper-superhero-cape-pacifier-medal"
+          }
+        ],
+        "budget_usd": 0.03
+      }
     },
     {
       "id": "2.6",
@@ -281,8 +320,8 @@
       "voice": "yarin",
       "shot": "אתה פותח בלילה מול המצלמה, מחזיק את הספר ומדבר למצלמה. אחר כך מצלמים את הדפדוף ואת השם בעמודים. מסיימים בצילום מלמעלה של הספר הפתוח. אור חמים, קול שקט של לפני שינה.",
       "footage": [
-        "source/sapir/raw_holding-cover-smile.mov (her son beside his cover)",
-        "source/sapir/screen-recording_book-preview-pages.mov"
+        "media/projects/2026-11-11-reel-broll-pool/creator-moran-title-page-name.mp4 (a creator's title page with the child's name)",
+        "Claude: the inside page drawn with the child's name marked (broll.py page), page after page"
       ],
       "yarin_films": [
         "אתה מדבר למצלמה עם הספר ביד",
@@ -308,17 +347,34 @@
       ],
       "caption": "למה הוא מבקש את אותו ספר כל לילה? 📚\nפותחים עמוד, והשם שלו שם. עוד עמוד, ושוב השם שלו.\nהוא הגיבור של כל הסיפור, אז ברור שהוא רוצה אותו שוב ושוב.\nאת התצוגה המקדימה רואים בחינם, אחרי שמשאירים מספר טלפון.\nספר ילדים מותאם אישית עם השם והתמונה של הילד\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
       "blockers": [
-        "Sapir's son is on camera: her OK."
+        "Creator clips from the pool are on camera: confirm each creator's OK (media/projects/2026-11-11-reel-broll-pool/README.md)."
       ],
       "audience": "parents",
       "page": "books/15",
       "notes": "09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): cover and name to the lens in the first frame, ends on the open book instead of a smile.",
       "structure": "שאלה, ואז החשיפה על המסך",
-      "payoff": "השם שלו בעמוד אחרי עמוד, ובסוף הספר הפתוח עם השם בפוקוס, עד לומי"
+      "payoff": "השם שלו בעמוד אחרי עמוד, ובסוף הספר הפתוח עם השם בפוקוס, עד לומי",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A sleepy cartoon toddler hugging the same storybook with a tall tower of identical books beside the bed, parent rolling their eyes",
+            "estimate_usd": 0.0104
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A glowing heart floats up from an open storybook above a delighted sleepy child, sparkles in the dark room",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "1.2",
-      "date": "2026-11-21",
+      "date": "2026-11-28",
       "series": 1,
       "status": "blocked",
       "hook": "כמה זמן לוקח להכין\nספר ליום הולדת?",
@@ -327,7 +383,7 @@
       "shot": "הקלטת מסך אחת של כל ההזמנה עם טיימר בפינה. אני מקליט עד שלב הטלפון, ואתה מקליט את שלב הטלפון ואת התצוגה המקדימה בטלפון שלך. מדווחים את הזמן האמיתי.",
       "footage": [
         "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-38CD4F42.mov)",
-        "Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)"
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 2 funny GPT pictures (made 11 / 11 / 2026); one version, no trial set"
       ],
       "yarin_films": [],
       "vo": [
@@ -368,11 +424,30 @@
       "blockers": [
         "No timer on screen yet: the take says תראו כמה זמן לקח, but there is no recording of the timer. Screen-record one order with a timer (or tell Claude the real time to show) before posting."
       ],
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": 1,
+            "scene": "A panicked cartoon dad in a chef apron holds a giant stopwatch beside a half-decorated birthday cake and a kid-sized storybook, flour on his face",
+            "estimate_usd": 0.0104,
+            "name": "dad-in-apron-panics-with-stopwatch-by-birthday-cake"
+          },
+          {
+            "n": 2,
+            "line": 5,
+            "scene": "A cartoon runner bursts through a finish-line ribbon holding a small birthday storybook above his head, confetti, exhausted joyful face",
+            "estimate_usd": 0.0104,
+            "name": "runner-breaks-finish-line-ribbon-holding-a-book"
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "5.5",
-      "date": "2026-11-22",
+      "date": "2026-11-14",
       "series": 5,
       "status": "ready",
       "hook": "מחפשים מתנת יום הולדת?\nתעצרו רגע",
@@ -381,7 +456,7 @@
       "shot": "קטע הפתיחה שלך למצלמה עם ספר מודפס ביד (כל ספר שיש לך), ואז העמודים של הלב של יובל מהתצוגה המקדימה (אני מקליט מהאתר) בזמן שאתה מדבר. בפריים הראשון כריכת הלב של יובל עם שם קריא עומדת לידך, אני מוסיף אותה בעריכה.",
       "footage": [
         "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-088FA24A.mov)",
-        "Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)"
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 2 funny GPT pictures (made 11 / 11 / 2026); one version, no trial set"
       ],
       "yarin_films": [],
       "vo": [
@@ -418,11 +493,30 @@
         "מחפשים מתנה לילד?\nתעצרו כאן",
         "הגיבור של הספר הזה\nהוא הילד שלכם"
       ],
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": 3,
+            "scene": "A proud cartoon child in a cardboard crown and gold cape standing on a sofa, a small heart glowing on the chest",
+            "estimate_usd": 0.0103,
+            "name": "proud-child-in-crown-and-cape-on-sofa-glowing-heart"
+          },
+          {
+            "n": 2,
+            "line": 5,
+            "scene": "A giant cartoon hand making a stop gesture in front of a shopping cart overflowing with toys, a startled parent frozen mid-step",
+            "estimate_usd": 0.0104,
+            "name": "giant-stop-hand-before-a-cart-full-of-toys"
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "1.4",
-      "date": "2026-11-10",
+      "date": "2026-11-15",
       "series": 1,
       "status": "ready",
       "hook": "סבתא, שלושה דברים\nשהנכד מקבל אצלנו",
@@ -431,7 +525,7 @@
       "shot": "צילום מלמעלה על משטח בהיר, תווית לכל חלק בשליש העליון: כריכה, השם בטקסט, תמונות בפנים, עמוד הקדשה, משלוח.",
       "footage": [
         "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-2996C10E.mov)",
-        "Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)"
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 2 funny GPT pictures (made 11 / 11 / 2026); one version, no trial set"
       ],
       "yarin_films": [],
       "vo": [
@@ -469,53 +563,26 @@
         "סבתא, הנכד על הכריכה\nואת בהקדשה",
         "שלושה דברים\nשהנכד שלך יקבל"
       ],
-      "cta_screen": "תכתבי לי \"לומי\"\nואשלח לך קישור ליצירת הספר"
-    },
-    {
-      "id": "7.1",
-      "date": "2026-11-11",
-      "series": 7,
-      "status": "ready",
-      "hook": "יום הרווקים?\nהרווק הכי חשוב בן 4",
-      "approach": "F",
-      "voice": "yarin",
-      "shot": "שני האחדים על המסך (11.11) הופכים לכריכת הספר, ואז השם על הכריכה מקרוב, ואז הספר ביד. קטע פתיחה אחד למצלמה.",
-      "footage": [
-        "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-A13EECE4.mov)",
-        "Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)"
-      ],
-      "yarin_films": [],
-      "vo": [
-        "היום הוא יום הרווקים, והרווק הכי חשוב אצלכם בבית בכלל בן 4,",
-        "ויכול להיות לו ספר שלם רק עליו.",
-        "תראו, השם שלו על הכריכה,",
-        "והוא הגיבור היחיד של הסיפור, לפחות עד שיעלה לכיתה א.",
-        "אז היום חוגגים לאחד והיחיד.",
-        "תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר."
-      ],
-      "sees": [
-        "אתה למצלמה, כריכת יום ההולדת עם הכתר מתחתיך, הכותרת למעלה",
-        "התצוגה המקדימה בחלון, דפדוף באיורים: הוא בכל עמוד",
-        "הכריכה עם הכתר על כל המסך",
-        "הכריכה נשארת, הוא הגיבור היחיד",
-        "אתה למצלמה",
-        "אתה למצלמה, הכרטיס של לומי"
-      ],
-      "caption": "11.11, יום הרווקים. והרווק הכי שווה? בן 4 ☝️\nיש לו ספר שלם רק עליו, עם השם שלו על הכריכה.\nוהוא הגיבור היחיד של הסיפור. בלי שותפים.\nמתנה לילד עם השם שלו, ספר ילדים מותאם אישית\n#מתנהלילדים #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
-      "blockers": [],
-      "notes": "New 04 Nov (Yarin: add Singles Day). Plays on 'one': one of a kind. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the cover with the name instead of a smile. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', A13EECE4); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.",
-      "audience": "parents",
-      "page": "books/15",
-      "structure": "מספר על המסך, ואז הכריכה",
-      "payoff": "השם על הכריכה, והוא הגיבור היחיד בכל עמוד. בסוף הכריכה עם השם על כל המסך",
-      "option": 1,
-      "project": "media/projects/2026-11-10-reel-7-1",
-      "trial_hooks": [
-        "יום הרווקים?\nהרווק הכי שווה בן 4",
-        "11.11 והרווק\nהכי חשוב בבית",
-        "הרווק הכי חשוב\nקיבל ספר משלו",
-        "יום הרווקים?\nיש לו ספר רק עליו"
-      ]
+      "cta_screen": "תכתבי לי \"לומי\"\nואשלח לך קישור ליצירת הספר",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": 4,
+            "scene": "A cartoon delivery box with tiny legs and arms rings a doorbell while a cartoon grandmother opens the door with a huge delighted gasp",
+            "estimate_usd": 0.0104,
+            "name": "delivery-box-with-legs-rings-grandmas-doorbell"
+          },
+          {
+            "n": 2,
+            "line": 6,
+            "scene": "A cartoon grandmother with oversized glasses leans in with a magnifying glass to inspect a storybook, one eyebrow raised, very serious",
+            "estimate_usd": 0.0104,
+            "name": "grandma-inspects-an-open-book-with-a-magnifying-glass"
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "3.1",
@@ -528,7 +595,7 @@
       "shot": "הספר המודפס ביד ליד חנוכייה, באור חלון, ואז דפדוף. הצילום האחרון באור ערב.",
       "footage": [
         "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-70E13D59.mov)",
-        "Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)"
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 1 funny GPT picture (made 11 / 11 / 2026); one version, no trial set"
       ],
       "yarin_films": [],
       "vo": [
@@ -563,7 +630,19 @@
         "שמונה ערבים\nוהוא בתפקיד הראשי",
         "השנה הוא מדליק\nנרות בתוך ספר",
         "מתנה לחנוכה\nשממשיכה שנים"
-      ]
+      ],
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": 5,
+            "scene": "A cartoon sufganiyah donut wearing sunglasses and reading a storybook, powdered sugar like snow, cosy lamp light",
+            "estimate_usd": 0.0103,
+            "name": "sufganiyah-donut-in-sunglasses-reads-a-book"
+          }
+        ],
+        "budget_usd": 0.03
+      }
     },
     {
       "id": "2.7",
@@ -576,7 +655,7 @@
       "shot": "אתה מחזיק ספר מודפס סגור ומדבר למצלמה. אחרי שתי מילים אתה פותח אותו ומקריא שורה אחת בקול. שומר קרוב על העמוד שרואים בו את השם. תאורה רכה, רקע נקי, מצלמת טלפון ביד יציבה.",
       "footage": [
         "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-A988F1E1.mov)",
-        "Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)"
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 2 funny GPT pictures (made 11 / 11 / 2026); one version, no trial set"
       ],
       "yarin_films": [],
       "caption": "יש רגע אחד שהורים מספרים לי עליו שוב ושוב 🥹\nפותחים את הספר עם הילד לפני השינה,\nוהוא רואה את השם שלו על העמוד.\nואז מבין שהגיבור של כל הסיפור זה הוא.\nספר ילדים מותאם אישית עם השם והתמונה של הילד\n#ספרילדים #ספרמותאםאישית #לומבוק #הורות\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
@@ -611,7 +690,27 @@
         "יש רגע שהורים\nמספרים לי שוב ושוב",
         "הפנים שלו נדלקות\nאי אפשר לפספס",
         "פותחים את הספר\nוהוא מבין שזה הוא"
-      ]
+      ],
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon parent and child inside a cosy blanket fort with a flashlight, a storybook glowing in the child's lap, stars on the blanket",
+            "estimate_usd": 0.0104,
+            "name": "parent-and-child-read-in-a-blanket-fort-with-flashlight",
+            "unused": "11 Nov 2026: line 1 shows a real mom reading his LumeBook with her boy; kept in the library"
+          },
+          {
+            "n": 2,
+            "line": 4,
+            "scene": "A cartoon child's face lighting up like a glowing light bulb, sparkling eyes, rosy cheeks, amazed open mouth",
+            "estimate_usd": 0.0103,
+            "name": "child-face-lights-up-like-a-light-bulb"
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "8.2",
@@ -624,7 +723,7 @@
       "shot": "תעמיד את המצלמה בגובה העיניים באור טבעי. תתחיל עם צעצוע קטן ביד, ואז תניח אותו ותרים את הספר המודפס. תדבר רגוע, כמו להורה אחר. בסוף תקליט מסך של בחירת גיל והעלאת תמונה.",
       "footage": [
         "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-E3498895.mov)",
-        "Claude: covers from the store and existing B-roll laid over the take (edit.json inserts)"
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 2 funny GPT pictures (made 11 / 11 / 2026); one version, no trial set"
       ],
       "yarin_films": [],
       "vo": [
@@ -659,11 +758,30 @@
         "צעצועים נשברים\nספר נשאר",
         "סבתא, הנכד\nהגיבור של הסיפור"
       ],
-      "cta_screen": "תכתבי לי \"לומי\"\nואשלח לך קישור ליצירת הספר"
+      "cta_screen": "תכתבי לי \"לומי\"\nואשלח לך קישור ליצירת הספר",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": 1,
+            "scene": "A cartoon pile of broken toys, a one-wheeled truck, a headless robot, a crying teddy bear, and a cartoon grandmother holding her cheek",
+            "estimate_usd": 0.0104,
+            "name": "pile-of-broken-toys-and-a-sad-grandma"
+          },
+          {
+            "n": 2,
+            "line": 5,
+            "scene": "A triumphant cartoon grandmother holds a glowing storybook above her head like a trophy while toys cheer behind her",
+            "estimate_usd": 0.0103,
+            "name": "grandma-holds-a-book-up-like-a-trophy"
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "1.3",
-      "date": "2026-11-14",
+      "date": "2026-11-29",
       "series": 1,
       "status": "needs-voice",
       "hook": "יומולדת בעוד שבוע.\nהספר יגיע בזמן?",
@@ -671,7 +789,7 @@
       "voice": "yarin",
       "shot": "לוח שנה על המסך עם תאריך ההזמנה ותאריך ההגעה, והספר המודפס בסוף.",
       "footage": [
-        "Sapir's flipping clip"
+        "Claude: the birthday cover drawn as a printed book with the child's name (broll.py book)"
       ],
       "yarin_films": [
         "קטע פתיחה למצלמה",
@@ -697,7 +815,24 @@
       "page": "books/15",
       "structure": "שאלה, ואז התשובה במספר",
       "payoff": "לוח השנה עם 7 ימי העסקים מסומנים, ובסוף כריכת יום הולדת",
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon storybook in a tiny courier cap races a burning birthday candle, sweat drops flying",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon wall calendar with a birthday balloon drawn on one date and a tiny sweating stopwatch hanging from it",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "4.1",
@@ -738,11 +873,28 @@
       "audience": "parents",
       "structure": "קריינות על תמונות, תמונה לכל שורה",
       "payoff": "התמונה שלך מגיל 4 ליד העמוד המאויר, באותו פריים, הכי הרבה זמן על המסך",
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A astonished cartoon grown man holds a faded photo of himself as a four-year-old while a storybook unfolds out of the photo",
+            "estimate_usd": 0.0104
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A skeptical cartoon man with crossed arms and one raised eyebrow peeks at a softly glowing storybook",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "3.2",
-      "date": "2026-11-12",
+      "date": "2026-11-26",
       "series": 3,
       "status": "needs-voice",
       "hook": "הנכד מוצא את\nהחנוכייה של סבתא",
@@ -777,11 +929,28 @@
       "page": "books/37",
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "עמוד ההקדשה והעט, ובסוף הספר עטוף בסרט",
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon grandmother's old wooden chest glowing with a magic swirl that pulls a small cartoon grandson in, grandmother laughing",
+            "estimate_usd": 0.0104
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandson in a cardboard helmet with a cookie tray as a shield, grandmother laughing in the background",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "1.5",
-      "date": "2026-11-13",
+      "date": "2026-11-27",
       "series": 1,
       "status": "needs-voice",
       "hook": "סבתא, ומה אם\nלא תאהבי את הספר?",
@@ -790,7 +959,7 @@
       "shot": "הקלטת מסך של התצוגה המקדימה לפני שלב התשלום, ידיים על הטלפון.",
       "footage": [
         "Yarin: preview screen, from the 1.2 or 4.1 recording",
-        "Sapir's preview pages"
+        "Claude: wizard recording, the step where the book is ready to preview"
       ],
       "yarin_films": [
         "קטע פתיחה למצלמה",
@@ -818,7 +987,24 @@
       "page": "gifts/grandchild",
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "הגרסה החדשה בתצוגה המקדימה, ושלב האישור",
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon grandmother reading a storybook with a suspicious squint, a tiny balance scale with hearts on one side",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother pressing a giant round button and a new storybook pops out of a toaster",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "3.3",
@@ -831,7 +1017,7 @@
       "shot": "לוח שנה מנייר (או בטלפון) על דצמבר, 5 / 12 מסומן בעיגול, והספר המודפס לידו. העט מקיף את ה 5 בזמן המשפט הראשון. בעריכה: מספר קטן בפינה עם הימים שנשארו עד 5 / 12 ביום הפרסום. בסוף הספר ליד החנוכייה.",
       "footage": [
         "Yarin: calendar on paper or phone",
-        "Sapir's flipping clip"
+        "Claude: the Hanukkah cover drawn as a printed book with the name, then its dedication page (broll.py book, dedication)"
       ],
       "yarin_films": [
         "קטע פתיחה למצלמה",
@@ -860,7 +1046,24 @@
       "page": "gifts/hanukkah",
       "structure": "תאריך יעד שמרוויח את לומי",
       "payoff": "5 / 12 בעיגול וספירת הימים שנשארו, ובסוף הספר ליד הנר הראשון",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon wall calendar with a cartoon donut hopping from date to date, a stopwatch ticking, comic urgency",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon parent holding a gift above their head racing a giant donut-shaped clock",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "2.3",
@@ -873,7 +1076,7 @@
       "shot": "ספר האח החדש: הכריכה מהאתר, עמודים מהתצוגה המקדימה, דפדוף. באותו יום כמו הקרוסלה 'תהיה אח גדול'.",
       "footage": [
         "Claude: site screen recording of the new sibling book",
-        "Sapir's flipping clip"
+        "creator clip: the boy with his book (media/projects/2026-11-11-reel-broll-pool/creator-natali-boy-smiles-with-book.mp4)"
       ],
       "yarin_films": [
         "קטע פתיחה למצלמה",
@@ -902,7 +1105,24 @@
       "notes": "09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the big brother page instead of a closed book.",
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "עמוד \"האח הגדול\" עם השם שלו, ובסוף שוב עליו עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon toddler holding a baby's tiny sock like a trophy, shocked, a stork flying overhead with a bundle",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon big brother in a cape reads to a tiny baby in a basket, the baby wearing a miniature cape too",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "5.1",
@@ -943,7 +1163,24 @@
       "page": "books/41",
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "עמוד הפרידה מהמוצץ עם הדמות שלו, נשאר עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon pacifier with a tiny suitcase waves goodbye at a front door while a toddler waves back with one tear",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon toddler places a pacifier into a small cardboard box with a heart on it while the parent cries happy tears",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "8.1",
@@ -957,7 +1194,7 @@
       "footage": [
         "Yarin: hook clip and voiceover",
         "Claude: preview pages of יום הולדת (book 15, ages 3 to 8)",
-        "Sapir's flipping clip"
+        "creator clip: a mum holding the cover (media/projects/2026-11-11-reel-broll-pool/creator-moran-mom-holds-cover.mp4)"
       ],
       "yarin_films": [
         "קטע פתיחה למצלמה",
@@ -985,7 +1222,24 @@
       "page": "books/15",
       "structure": "ספירה, והוכחה בכל מספר",
       "payoff": "עמוד ההקדשה ליד הכריכה עם הפנים שלו, עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon grandmother typing on a smartphone with huge thumbs, speech bubbles floating around, mischievous grin",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother in a party hat blowing a party horn next to a big cake with one candle and balloons",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "5.4",
@@ -1027,11 +1281,28 @@
       "page": "books/43",
       "structure": "ספירה, והוכחה בכל מספר",
       "payoff": "עמוד הסיום: גם הוא, הגיבור, עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon monkey and a lion sitting on tiny potties reading a book together, a cartoon dolphin splashing in the background",
+            "estimate_usd": 0.0104
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon bunny proudly holds a clean diaper like a trophy while zoo animals clap",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "2.5",
-      "date": "2026-11-28",
+      "date": "2026-11-21",
       "series": 2,
       "status": "needs-voice",
       "hook": "שני ילדים בבית\nוספר אחד?",
@@ -1067,7 +1338,24 @@
       "notes": "07 Nov 2026: made a spare, its day (2026-11-24) went to 9.4 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the two covers instead of a smile. 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): option 2 for 28 / 11, next to 8.3.",
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "שתי הכריכות עם שני שמות, זו ליד זו, עד לומי",
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "Two cartoon siblings tug one storybook in opposite directions in a comic dust cloud, a parent facepalming",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "Two cartoon siblings each proudly hugging their own storybook, tiny halos of peace above their heads",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "4.2",
@@ -1107,7 +1395,24 @@
       "notes": "New 04 Nov. Repeats whenever the comments bring a good question. 07 Nov 2026: made a spare, its day (2026-11-25) went to 9.1 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): line 2 gets the wizard's age step instead of your face. 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): option 2 for 22 / 11, next to 8.1. 10 Nov 2026: moved off 2026-11-22 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it.",
       "audience": "parents",
       "structure": "תשובה לשאלה אמיתית",
-      "payoff": "שלוש הכריכות לפי גיל, ואז גלריית הספרים"
+      "payoff": "שלוש הכריכות לפי גיל, ואז גלריית הספרים",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon baby, a toddler and a first-grader lined up by height, each holding a storybook sized for them",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon growth chart on a wall where each height mark has a taller stack of storybooks, a kid measuring himself",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "2.8",
@@ -1147,7 +1452,23 @@
       "page": "gifts/grandchild",
       "structure": "ספירה, והוכחה בכל מספר",
       "payoff": "עמוד ההקדשה המלא, עם חתימה ותאריך",
-      "option": 2
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon grandmother chewing the cap of a pen, thought bubbles with a heart and a cookie, deep in thought",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother writing a dedication with a giant pen and her tongue out, tiny hearts flying",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "7.2",
@@ -1160,7 +1481,7 @@
       "shot": "הספר עטוף בסרט על שולחן כהה, ואז הכריכה. באותו יום כמו הקרוסלה 'אפשר עוד פעם?'.",
       "footage": [
         "Yarin: wrapped book, hook clip",
-        "Sapir's flipping clip"
+        "creator clip: a girl laughing (media/projects/2026-11-11-reel-broll-pool/creator-nofit-girl-laughs.mp4)"
       ],
       "yarin_films": [
         "קטע פתיחה למצלמה",
@@ -1190,11 +1511,28 @@
       "page": "gifts/grandchild",
       "structure": "פותחים מתנה, ואז החשיפה",
       "payoff": "כמה ספרים זה ליד זה, שם אחר על כל כריכה, עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon grandmother wrapped in gift ribbon holding five wrapped presents, sweating in a crowded shop",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother as a cheerful checkout cashier, a conveyor belt of storybooks and waving grandchildren",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "5.2",
-      "date": "2026-11-27",
+      "date": "2026-11-20",
       "series": 5,
       "status": "needs-voice",
       "hook": "״אפשר עוד פעם?״\nבפעם המאה",
@@ -1230,7 +1568,24 @@
       "audience": "parents",
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "הספר עם השם על הכריכה, זום לשם, עד לומי",
-      "option": 2
+      "option": 2,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon parent reading the same storybook at midnight with eyelids propped open by toothpicks, a wide awake toddler holding up one finger",
+            "estimate_usd": 0.0104
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A giant cartoon speech bubble packed with a hundred tiny identical storybooks, a toddler holding up one finger",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "2.2",
@@ -1269,7 +1624,24 @@
       "audience": "parents",
       "notes": "07 Nov 2026: made a spare, its day (2026-11-29) went to 9.3 (traditions test). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the open book instead of a closed one.",
       "structure": "פותחים מתנה, ואז החשיפה",
-      "payoff": "הכריכה עם השם, ואז הוא בתמונה הראשונה של הספר"
+      "payoff": "הכריכה עם השם, ואז הוא בתמונה הראשונה של הספר",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon delivery box opened with confetti exploding out and a kid peeking in with huge eyes",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon kid hugging a storybook so big it hides him, only his legs visible",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "7.3",
@@ -1310,7 +1682,24 @@
       "page": "books/category/bestsellers",
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "התצוגה המקדימה עם הפנים שלו בכל עמוד, נשארת עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon parent in pyjamas on a sofa holding a phone, eyes wide, an enormous open storybook floating out of the screen",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon person reading a very long scroll of pages that unrolls across the whole living room floor",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.2",
@@ -1355,7 +1744,24 @@
       "page": "books/9013",
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "הפנים שלו בכל עמוד, ועמוד הסיום נשאר על המסך עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy in a cardboard cape surrounded by floating kindness hearts holds a friend's hand and flies",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon boy helping an elderly neighbour carry grocery bags that overflow comically",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.4",
@@ -1399,7 +1805,24 @@
       "page": "books/9003",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "הפנים שלו בעמוד התספורת, נשאר עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon toddler with a wild fluffy hairdo staring at himself in a mirror, mum and grandma laughing",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother holding a keepsake in a heart-shaped box, tears of joy",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.1",
@@ -1444,7 +1867,24 @@
       "page": "books/86",
       "structure": "שאלה, התשובה, ואז התאריך לפני לומי",
       "payoff": "התשובה על השמש, ועמוד הסיום עם כל הנרות, ואז 5 / 12 לפני לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy interviewing a lone tall cartoon candle with a shy face on a shelf, microphone made of a spoon",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon boy driving a toy car with a super-sized donut as the steering wheel",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.3",
@@ -1483,11 +1923,28 @@
       "disclaimer": true,
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "עמוד \"האח הגדול\" עם הפנים שלו, עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy wearing a big-brother cape holds a tiny baby bottle like a trophy",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon big brother tucks a baby into a basket with a tiny blanket, very serious face",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.5",
-      "date": "2026-11-15",
+      "date": "2026-12-01",
       "series": 9,
       "status": "needs-voice",
       "hook": "נכדה חדשה בדרך?\nומה עם האח הגדול?",
@@ -1528,7 +1985,24 @@
       "disclaimer": true,
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "הכריכה עם הפנים שלו, אחרי הבקשה מההורים בווטסאפ, ונשארת עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon grandmother knitting a tiny sweater, a stork flying with a bundle, hearts in the air",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon big brother standing on a stool trying to see over the edge of a crib, comic effort",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.6",
@@ -1572,7 +2046,24 @@
       "page": "books/97",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "התשובה לכותרת: התבלין לא נכנס לשום צנצנת, נאמרת על עמוד הסיום ונשארת עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy in a detective hat sniffs a giant steaming pot with a magnifying glass, steam shaped like hearts",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon palace guard in a tall hat gives a boy a rolled scroll and a very serious salute",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.7",
@@ -1616,7 +2107,24 @@
       "page": "books/86",
       "structure": "הוכחה, ואז התאריך לפני לומי",
       "payoff": "הוא בכל עמוד של החג, ואז 5 / 12 בעיגול לפני לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon grandson in a tiny apron proudly serves a plate of donuts to his astonished grandmother",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother with a magnifying glass looks at a storybook while her grandson waves from the page",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.8",
@@ -1658,7 +2166,24 @@
       "page": "books/9013",
       "structure": "טענה, ואז ההוכחה על המסך",
       "payoff": "עמוד הסיום: הוא הגיבור, עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy with six arms carrying groceries, a toy, a bike and a puppy, smiling hugely",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother ties a tiny cape with a heart on it around a smiling boy",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "8.3",
@@ -1672,7 +2197,7 @@
       "footage": [
         "Yarin: hook clip and voiceover",
         "Claude: preview pages of יום הולדת (book 15, ages 3 to 8) made with a girl",
-        "Sapir's flipping clip"
+        "Claude: the dedication page drawn in grandma's handwriting (broll.py dedication)"
       ],
       "yarin_films": [
         "קטע פתיחה למצלמה",
@@ -1703,7 +2228,24 @@
       "page": "books/15",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "עמוד ההקדשה ליד הכריכה, אחרי שהיא בכל עמוד, עד לומי",
-      "option": 1
+      "option": 1,
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon granddaughter queen in a paper crown eating cake on a throne while her grandmother bows comically",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother blowing up balloons so hard her cheeks are enormous",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "2.9",
@@ -1749,7 +2291,24 @@
       "page": "books/category/bestsellers",
       "structure": "תמונה אחת, ואז החשיפה בעמוד",
       "payoff": "העמוד המאויר שבו הכלב האמיתי נמצא ליד הילד, ונשאר עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): the family dog or cat joins the adventure from one photo. 10 Nov 2026: moved off 2026-11-19 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): the family dog or cat joins the adventure from one photo. 10 Nov 2026: moved off 2026-11-19 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon dog in sunglasses and a tiny explorer hat on a treasure-map adventure beside a boy",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon dog posing for a phone camera like a fashion model",
+            "estimate_usd": 0.0102
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "8.4",
@@ -1792,7 +2351,24 @@
       "page": "gifts/grandchild",
       "structure": "תמונה אחת, ואז החשיפה בעמוד",
       "payoff": "העמוד המאויר שבו סבתא והנכד יחד, ונשאר עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): a photo of grandma, dad or a sibling joins the illustration next to the child, and the photo is used only to make the illustration, it is not printed in the book. 10 Nov 2026: moved off 2026-11-20 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). Fact from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): a photo of grandma, dad or a sibling joins the illustration next to the child, and the photo is used only to make the illustration, it is not printed in the book. 10 Nov 2026: moved off 2026-11-20 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon grandmother dressed as a jungle adventurer in a safari hat beside her grandson",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother taking a selfie with a smartphone, tongue out, grandson laughing",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "2.10",
@@ -1835,7 +2411,24 @@
       "page": "books/13",
       "structure": "בעיה קטנה, ואז החשיפה על המסך",
       "payoff": "העמוד שבו המעשים הקטנים הופכים אותו לגיבור, ונשאר עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). The third best seller (shared/facts.json top_books: small everyday kind acts make him a superhero, ages 4 to 8). 10 Nov 2026: moved off 2026-11-21 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). The third best seller (shared/facts.json top_books: small everyday kind acts make him a superhero, ages 4 to 8). 10 Nov 2026: moved off 2026-11-21 to the spares (Yarin's choice), its place went to a reel he had already filmed. Script kept; give it a date to use it.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy secretly passes a crayon to a sad friend while sneaking like a ninja",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon sticker chart with no stickers on it while the boy beside it glows with a giant golden heart",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "1.8",
@@ -1880,7 +2473,24 @@
       "audience": "parents",
       "structure": "שלושה דברים, ולפני ואחרי על המסך",
       "payoff": "לפני ואחרי של אותו עמוד, מהתמונה המטושטשת לברורה, ונשאר עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). Facts from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): most likeness problems come from the photo; use a clear photo, put the face in the centre, crop and enlarge, and ask for a new drawing of the same illustration."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). Facts from the store's tutorials page (lumebook.com/IL/he/tutorials, read 10 / 11 / 2026): most likeness problems come from the photo; use a clear photo, put the face in the centre, crop and enlarge, and ask for a new drawing of the same illustration.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon smartphone showing a blurry photo of a squirrel while a sad parent holds it up",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon zoom tool turning a blurry toddler face into a perfectly sharp smile, sparkles",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "7.4",
@@ -1924,11 +2534,28 @@
       "page": "gifts/grandchild",
       "structure": "שלושה דברים, ואז הקופסה נפתחת",
       "payoff": "הקופסה ליד הדלת נפתחת והכריכה עם השם יוצאת, ונשארת עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). Facts from reels.json defaults (delivery home, free preview) and the grandchild gift page (the photo can be asked from the parents on WhatsApp). Never says sale or price on the sale days."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"). Facts from reels.json defaults (delivery home, free preview) and the grandchild gift page (the photo can be asked from the parents on WhatsApp). Never says sale or price on the sale days.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon grandmother in slippers sends a giant paper-plane gift out of the window to a delighted grandson",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother on a sofa holding a tablet while a gift box pops out of the screen",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.9",
-      "date": "2026-11-15",
+      "date": "2026-12-01",
       "series": 9,
       "status": "needs-voice",
       "option": 2,
@@ -1968,7 +2595,24 @@
       "page": "books/102",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "העמוד שבו הוא בוחר, ואחריו הכריכה עם השם עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 102 (מגדל הלחישות) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 102 (מגדל הלחישות) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A tall cartoon tower with huge ears listens to a small boy whispering, a cat gossiping in the background",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon boy thinking hard in front of two plain doors with a lightbulb above his head",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.10",
@@ -2012,7 +2656,24 @@
       "page": "books/106",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "הכריכה עם השם, אחרי עמוד המפרש הצבעוני, ונשארת עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 106 (מפרש הרוח) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 106 (מפרש הרוח) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy sails a boat across a sandy desert with a rainbow sail, camels watching",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother hands a delighted boy a huge thank-you cupcake",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.11",
@@ -2054,7 +2715,24 @@
       "page": "books/99",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "הנכד על סוס העץ, ואחריו הכריכה עם הפנים שלו עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 99 (הסוס שידע רק חצי דרך) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 99 (הסוס שידע רק חצי דרך) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon wooden toy horse stuck halfway through a doorway while a boy pushes from behind",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon boy carrying his tired dad piggyback with a toy sword in hand",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.12",
@@ -2096,7 +2774,24 @@
       "page": "books/107",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "הילד בין ההרים, ואחריו הכריכה עם השם עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 107 (הסידור שבין ההרים) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 107 (הסידור שבין ההרים) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy in pyjamas looks up at a starry sky while a long wish list unrolls past his feet",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon bookmark as a magical bridge between two mountains with a small boy walking across",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.13",
@@ -2140,7 +2835,24 @@
       "page": "books/111",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "העמוד שבו הוא מבין מה החמור צריך, ואחריו הכריכה עם השם עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 111 (החמור שלא שמע את הפעמון) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 111 (החמור שלא שמע את הפעמון) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon donkey stops to stare at a cat on a wall while a boy tugs its rope in vain",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon donkey in glasses studies a tiny bell closely, a lightbulb above its head",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.14",
@@ -2182,11 +2894,28 @@
       "page": "books/101",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "עמוד המגפיים, ואחריו הכריכה עם הפנים שלו עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 101 (הפנס שמאיר את החסר) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 101 (הפנס שמאיר את החסר) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon lantern glows above a pair of boots left at a door while a boy peeks from behind a plant",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon boy hands over a wrapped gift while wearing a fake moustache disguise",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.15",
-      "date": "2026-11-26",
+      "date": "2026-11-19",
       "series": 9,
       "status": "needs-voice",
       "option": 2,
@@ -2224,11 +2953,28 @@
       "page": "books/105",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "העמוד שבו הוא עוזר לחבר להצליח, ואחריו הכריכה עם השם עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 105 (האריה והרימון) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 105 (האריה והרימון) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy sits alone on a bench while two friends high-five, a tiny rain cloud over his head",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon boy holds a ladder steady for a friend hanging a star, both beaming",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     },
     {
       "id": "9.16",
-      "date": "2026-11-29",
+      "date": "2026-11-22",
       "series": 9,
       "status": "needs-voice",
       "option": 2,
@@ -2266,7 +3012,24 @@
       "page": "books/113",
       "structure": "שאלה, ואז החשיפה על המסך",
       "payoff": "עמוד המפגש שבו הוא מעביר את זה הלאה, ואחריו הכריכה עם השם עד לומי",
-      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 113 (הפסוק שהמשיך בדרך) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: סבתא, מה עובר / ממך לנכד?. The old hook was abstract, and its line \"לא רק הסיפורים, גם מה שלמדת\" claimed something the store page does not say; the reel now says only what the page's description says."
+      "notes": "Option 2, new 10 Nov 2026 (Yarin: \"reel calendar: i want 2 options for each day\"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 113 (הפסוק שהמשיך בדרך) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: סבתא, מה עובר / ממך לנכד?. The old hook was abstract, and its line \"לא רק הסיפורים, גם מה שלמדת\" claimed something the store page does not say; the reel now says only what the page's description says.",
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": null,
+            "scene": "A cartoon boy walks between two market stalls using a giant open book as a map",
+            "estimate_usd": 0.0103
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A cartoon grandmother hands a boy a rolled scroll like a baton in a relay race",
+            "estimate_usd": 0.0103
+          }
+        ],
+        "budget_usd": 0.04
+      }
     }
   ],
   "dropped": [
@@ -2474,12 +3237,78 @@
       ],
       "caption": "שכחתם מתנה ליומולדת? 🙈\nהעותק הדיגיטלי מגיע למייל תוך דקות, והמודפס אחר כך.\nמתנה עם השם שלו על הכריכה.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
       "notes": "Dropped 05 Nov 2026 evening for 5.4 (Yarin: double down on the buyers and best selling books). Also the answer for anyone who missed the Hanukkah print date."
+    },
+    {
+      "id": "7.1",
+      "date": "2026-11-15",
+      "series": 7,
+      "status": "ready",
+      "hook": "יום הרווקים?\nהרווק הכי חשוב בן 4",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "שני האחדים על המסך (11.11) הופכים לכריכת הספר, ואז השם על הכריכה מקרוב, ואז הספר ביד. קטע פתיחה אחד למצלמה.",
+      "footage": [
+        "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-A13EECE4.mov)",
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 2 funny GPT pictures (made 11 / 11 / 2026); one version, no trial set"
+      ],
+      "yarin_films": [],
+      "vo": [
+        "היום הוא יום הרווקים, והרווק הכי חשוב אצלכם בבית בכלל בן 4,",
+        "ויכול להיות לו ספר שלם רק עליו.",
+        "תראו, השם שלו על הכריכה,",
+        "והוא הגיבור היחיד של הסיפור, לפחות עד שיעלה לכיתה א.",
+        "אז היום חוגגים לאחד והיחיד.",
+        "תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר."
+      ],
+      "sees": [
+        "אתה למצלמה, כריכת יום ההולדת עם הכתר מתחתיך, הכותרת למעלה",
+        "התצוגה המקדימה בחלון, דפדוף באיורים: הוא בכל עמוד",
+        "הכריכה עם הכתר על כל המסך",
+        "הכריכה נשארת, הוא הגיבור היחיד",
+        "אתה למצלמה",
+        "אתה למצלמה, הכרטיס של לומי"
+      ],
+      "caption": "11.11, יום הרווקים. והרווק הכי שווה? בן 4 ☝️\nיש לו ספר שלם רק עליו, עם השם שלו על הכריכה.\nוהוא הגיבור היחיד של הסיפור. בלי שותפים.\nמתנה לילד עם השם שלו, ספר ילדים מותאם אישית\n#מתנהלילדים #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [],
+      "notes": "New 04 Nov (Yarin: add Singles Day). Plays on 'one': one of a kind. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the cover with the name instead of a smile. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', A13EECE4); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.",
+      "audience": "parents",
+      "page": "books/15",
+      "structure": "מספר על המסך, ואז הכריכה",
+      "payoff": "השם על הכריכה, והוא הגיבור היחיד בכל עמוד. בסוף הכריכה עם השם על כל המסך",
+      "option": 2,
+      "project": "media/projects/2026-11-10-reel-7-1",
+      "trial_hooks": [
+        "יום הרווקים?\nהרווק הכי שווה בן 4",
+        "11.11 והרווק\nהכי חשוב בבית",
+        "הרווק הכי חשוב\nקיבל ספר משלו",
+        "יום הרווקים?\nיש לו ספר רק עליו"
+      ],
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": 4,
+            "scene": "A cartoon four-year-old boy on a throne made of sofa cushions with a toy crown, holding a big storybook, confetti falling, very pleased",
+            "estimate_usd": 0.0104,
+            "name": "boy-on-cushion-throne-with-crown-and-book-confetti"
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A lone cartoon sock wearing sunglasses and a tiny crown reads a storybook in a spotlight while other socks clap in the background",
+            "estimate_usd": 0.0104,
+            "name": "lone-sock-in-sunglasses-reads-a-book-in-spotlight",
+            "unused": "11 Nov 2026: line 4 took the throne picture; kept in the library"
+          }
+        ],
+        "budget_usd": 0.04
+      },
+      "dropped": "11 Nov 2026: Yarin cancelled this reel from the content calendar (15 / 11, option ב). The made files stay in media/projects/2026-11-10-reel-7-1/ and the pictures in the reels media library."
     }
   ],
   "picks": {
     "_about": "Which option goes up on a day (date: reel id). Set with the בוחר בזו button in the reel calendar (saved to local-edits.json \"picks\" on the project server, merged here by reels.py merge local) or reels.py pick DATE ID. A day without a pick shows both options.",
     "2026-11-10": "1.4",
-    "2026-11-11": "7.1",
     "2026-11-12": "3.1",
     "2026-11-13": "2.7",
     "2026-11-14": "8.2",
