@@ -4,6 +4,16 @@ Yarin, 10 Nov 2026: "lets do them all, everyday in addition to what we have, bui
 
 A second kind of carousel every day, next to the child-voice carousels (Mon, Wed, Fri 06:00, already in Postiz until 30 / 11). Five types, four days each, two options a day (`a`, `b`). Carousel Machine shows them under **סבב ניסוי** in its sidebar (or `/?batch=test-2026-11`). Code: `scripts/test_batch.py` (format, checks, slides, budget, production).
 
+## Rewritten on 11 Nov 2026
+
+Yarin, 11 Nov 2026: "dont use only sapirs kid in the carousels, utilize all of the media we have", "i need the media to fill most of the bg", "some of them dont sound natural, maybe use the voice of previously analyzed creators", "talk to moms and grandmothers".
+
+- **Every slide has a real picture filling the background** (`bg`, a key from `assets.json`), with the words in white on a dark fade at the bottom, the top, or over the whole slide (`text_at`: `bottom`, `top`, `full`). Pick the side that keeps the faces clear.
+- **95 pictures from 11 sources** in `assets.json`: the five creators' clips on the Mac (Koral, Mor Keisar, Moran Arges, Natali Fridman, Nofit Hazut, stills cut clear of their burned-in captions), Sapir's Ariel, Omer's birthday book, the grandma baking book close-ups, 31 photos from Drive's חומרי גלם folder (children reading, the BookPod bag, piles and rows of printed books, the back cover, the dedication page), store screens and covers. Use many of them: never the same picture twice in one carousel, at most 3 slides of one family per carousel.
+- **One mom or one grandmother** (`addressee`: `mom` or `grandma`): feminine singular all through (את, תכתבי, לך), never the plural. Option a talks to mom and option b to grandma, except the gift days (a grandma, b mom).
+- **The voice of the creators we analyzed** (`research/israeli-product-reels/ugc-seller-scripts.md`, `.claude/skills/lumebook-hebrew-voice/references/reel-scripts.md`, and the creators' own recorded words in `media/projects/2026-10-24-grandma-baking-book-reel/moms/*-words.json`): one person in one moment, a problem or a doubt first and then the turn, one rough edge (בתכלס, בקיצור, תקשיבי), count when explaining, plain spoken words, the person and the moment as the subject (never the brand or the book). Short: up to 18 words on a cover, 36 on a slide.
+- **Real quotes only**: a `quote` slide takes `quote_from` (`nofit_hazut`, `natali_fridman`, `moran_arges`) and the lint checks the words are in her recording, in order.
+
 ## The days (plan.json)
 
 | type | days | what it is |
@@ -32,16 +42,16 @@ Times: Mon, Wed and Fri go out at 20:30 (06:00 is the child-voice carousel); Sun
 }
 ```
 
-6 to 10 slides (Postiz sends at most 10). Slide 1 is `cover`, the last is `cta`.
+6 to 10 slides (Postiz sends at most 10). Slide 1 is `cover`, the last is `cta`. Every slide: `bg` (picture key), optional `text_at` and `pos` (CSS object-position, to move the picture).
 
 | layout | fields | notes |
 |---|---|---|
-| `cover` | `tag`, `big`, `headline`, `body`, and one of `photo` / `picture` / `covers` / `no`+`yes` | up to 22 words; `big` is a giant word or number (the age); `no`+`yes` draws a preview swap |
+| `cover` | `tag`, `big`, `headline`, `body`, optional `no`+`yes` | up to 18 words; `big` is a giant word or number (the age); `no`+`yes` draws a preview swap |
 | `swap` | `num`, `label`, `no`, `yes`, `why` | the say type; `num` 1 to 9 draws the number disc |
-| `point` | `num`, `label`, `headline`, `body`, optional `photo` / `picture` | |
-| `photo` | `photo` or `picture`, `label`, `headline`, `body` | the picture on top |
+| `point` | `num`, `label`, `headline`, `body` | |
+| `photo` | `label`, `headline`, `body` | the same as point, for a slide that is mostly picture |
 | `covers` | `covers` (asset keys, 1 to 4), `label`, `headline`, `body` | book covers, tilted |
-| `quote` | `quote`, `by`, `body`, optional `photo` | only real words someone said; never invented testimonials |
+| `quote` | `quote`, `quote_from`, `by`, `body` | only a creator's recorded words (checked) |
 | `cta` | `headline`, `body`, `cover` (a book cover key) or `photo` | the body ends with the CTA's last line |
 
 `**word**` paints a word in the type's accent colour. A new line in a field is a line break on the slide. Up to 48 words on a slide, 12 words on a line.
@@ -53,11 +63,19 @@ Times: Mon, Wed and Fri go out at 20:30 (06:00 is the child-voice carousel); Sun
 - Hebrew voice: `.claude/skills/lumebook-hebrew-voice/SKILL.md` and `creators/creator-research/src/hebrew-rules.md`. Punctuation yes, but no dash of any kind, no semicolon, no maqaf. No em dash anywhere.
 - To mom or both parents (plural), never dad alone. Yarin is not a parent: never הילד שלי in LumeBook's voice.
 - Never mention AI. Never a price, discount, sale or delivery cost. Never language options or the digital copy. Never קוד הנחה or קוד אישי.
-- `say` and `age` name no brand on the slides; their CTA is the book link (`אפשר גם לעזור להם עם X בעזרת ספר מותאם אישית.` then `תכתבו "WORD" ואשלח לכם קישור להכנת הספר`) over the real cover of a best-selling book that covers X. The medical disclaimer is drawn at the foot of slides 2 onward.
+- `say` and `age` name no brand on the slides; their CTA is the book link (`אפשר גם לעזור להם עם X בעזרת ספר מותאם אישית.` then `תכתבו "WORD" ואשלח לכם קישור להכנת הספר`) over the real cover of a best-selling book that covers X. No disclaimer on the slides (see "Design rules of 11 Nov" below).
 - `how`, `gift` and `reveal` may say לומבוק. Product facts only from `shared/facts.json`, the live site, or `docs/lumebook-product-brief.md` (read 01 / 10 / 2026, re-check before quoting). No invented reviews or quotes.
 - Comment word: one short Hebrew word, never ספר (MeBook uses it).
 - Facebook: its own text, ends with a line like `להכנת הספר 👇`; the export adds the site link with the UTM.
 - Every written caption gets the short disclaimer at export (31 Oct 2026 rule).
+
+## Design rules of 11 Nov 2026 (Yarin, all test carousels; in the renderer since the evening of 11 Nov, only 2026-11-14-a is re-rendered so far)
+
+1. No separate tag chip (like "מה קורה בגיל") on the cover: its words go into the headline.
+2. The hook is the big text: on `age` that is "5 דברים ..." (the number and the claim), larger than the rest of the headline, not just the giant age.
+3. No disclaimer drawn on any slide. It lives in the post caption only (IG and FB).
+4. The arrow icon sits in the middle of the slide foot, not at the left corner.
+5. Last slide (CTA): much bigger text, and the book is an OPEN LumeBook book, not a closed flat cover: the real dedication page on the right (the one-book-in-the-world line, the child's round photo, the logo), an illustration page on the left (`spread_art`, `spread_photo`; the page can be a picture made for this carousel so it fits the topic), tilted on a cover board with page edges and a shadow (11 Nov 2026).
 
 ## Commands
 
@@ -74,4 +92,14 @@ In Carousel Machine, "להפיק עכשיו" on a test carousel: with no picture
 
 ## Pictures from Drive
 
-`assets.json` lists every real picture. From the Drive שיווק folder: frames of sapir_ivan_mugatz's footage (Ariel and his book באנו חושך לגרש, and her screen recording of the store's preview) and of ellinore.speech's birthday book (עומר בת שנתיים). Files in `media/projects/2026-11-10-test-carousel-batch/`; the store covers in `media/projects/2026-11-10-store-covers/`. Check with each creator that a carousel may use her footage before posting. The Drive folder `חומרי גלם/UGC Images` holds made-up "customers" and is not used.
+`assets.json` lists every real picture. From the Drive שיווק folder: frames of sapir_ivan_mugatz's footage (Ariel and his book באנו חושך לגרש, and her screen recording of the store's preview) and of ellinore.speech's birthday book (עומר בת שנתיים). Files in `media/projects/2026-11-10-test-carousel-batch/`; the store covers in `media/projects/2026-11-10-store-covers/`. Approved for use: Yarin, 11 Nov 2026, "we have their approval, use it freely" (every creator and the Drive families). The Drive folder `חומרי גלם/UGC Images` holds made-up "customers" and is not used.
+
+In the renderer: a cover with `big` draws `headline` as the small context line and `big` as the hook; `tag` is no longer drawn (lint WARN, still in the other carousels until each is recreated); the CTA's `cover` is a 3D book (`_book3d`).
+
+6. A background says what the slide says (Yarin, 11 Nov 2026): pick the picture by the slide's words, never by what is left. When no real picture fits, list a made one under `pictures` and ask Yarin for a budget (`budget()`; picture proposals wait in `picture-proposals/DATE-OPT.json` until he says yes).
+7. Media names say what you see (11 Nov 2026): asset keys and files are `who-what-where` in English, no person's name (`sapir-boy5-holds-own-book-laughing`); the raw Drive downloads in `media/projects/2026-11-10-test-carousel-batch/drive/` were renamed too, old names in its `NAMES.md`. `assets.json` keeps `old_key`. Store covers keep their store file names (B43_boy.webp) but their keys are `cover-b43-eden-and-free-animals-boy`.
+
+8. Real pictures keep the child's face clear (Yarin, 11 Nov 2026): pick `text_at` so the headline, number disc and fade sit on the other half; if the face fills the frame, choose another picture. The cover is always a real picture (a made one only on later slides). A CTA over a photo with faces in it uses a no-face real picture instead (covers on marble, a stack of books).
+9. Today and one day (Yarin, 11 Nov 2026, from `research/adar-motherhood/report.md:116`): a new test carousel may pair a small child's line "היום" with the same child grown, "יום אחד" (the grown child's voice is allowed on test carousels; the child-narrator age limit of the child-voice carousels does not apply here). Send-to-dad is NOT approved: Yarin has only asked for an example (11 Nov 2026); `lint` still fails אבא alone.
+10. The recurring child in made pictures is described in words, not from a photo (Yarin, 11 Nov 2026): `character` in the carousel file is put in front of every made picture's prompt (round face, curly auburn-brown hair, big dark eyes, striped knit sweater for 2026-11-14-a). No photo of a child is sent to the image API.
+11. Rewrite from the Adar report (`research/adar-motherhood/report.md`, one account, hypotheses to test): open with a line a person says in a real moment, quote it, pay it off across the slides, caption in short lines with a rhetorical question and its answer, one ask matched to the job.
