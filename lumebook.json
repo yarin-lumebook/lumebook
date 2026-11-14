@@ -1054,6 +1054,46 @@
         "dashboard"
       ],
       "notes": "11 Nov 2026 (Yarin: merge Carousel Machine, the test carousels and the reel calendar in one place). A front end over the existing engines; writes go through their own endpoints. README in the folder (status mapping, endpoints, rules, posting hours, testing)."
+    },
+    "mebook-customer-research": {
+      "name": "MeBook customer study (מה לקוחות מיבוק אומרים: about 129 customer statements, 6 content hypotheses)",
+      "path": "research/mebook-customer-research",
+      "kind": "page",
+      "watch": [
+        "research/mebook-customer-research/data.json",
+        "research/mebook-customer-research/build.py",
+        "research/mebook-customer-research/report.md",
+        "research/mebook-customer-research/README.md",
+        "research/mebook-customer-research/purchase-intents.md",
+        "research/mebook-customer-research/sources/*",
+        "research/mebook-customer-research/experiments-metrics.js",
+        "research/mebook-customer-research/experiments.src.js"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "build.py"
+        ],
+        "cwd": "research/mebook-customer-research",
+        "outputs": [
+          "research/mebook-customer-research/mebook-customer-research.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "local",
+        "url": "http://localhost:8780/research/mebook-customer-research/mebook-customer-research.html",
+        "note": "Local only for now: no Vercel address, not an artifact."
+      },
+      "rules": [
+        "data.json is the source of the Hebrew page; report.md is the full English write-up. Keep the two in step by hand.",
+        "Theme hues come from shared/design/categories.json set mebook-themes.",
+        "The experiment log (14 Nov 2026) keeps its records in experiments.json through the project server (tools/experiments.py, GET /api/experiments, PUT /api/experiments/doc); the built page never holds them. Restart the server after editing tools/experiments.py; tests in tools/tests/test_experiments.py."
+      ],
+      "feeds": [
+        "research-hub"
+      ],
+      "notes": "14 Nov 2026 (Yarin pasted a customer-research brief: MeBook buyers' motivations, objections, occasions and language, turned into content hypotheses for LumeBook; then \"super organized html\", \"in hebrew\"). Sources: MeBook's Google listing (67 reviews, read in Hebrew), 41 verified reviews on mebook.ai book pages, 252 Instagram and TikTok comments from the competitor teardown, one public Facebook group question. Facebook ad comments and 3 of 4 Facebook page reviews are behind a login. Evidence about MeBook customers, not proof about LumeBook's."
     }
   }
 }

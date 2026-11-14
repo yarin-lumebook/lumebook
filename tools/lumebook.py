@@ -1481,6 +1481,10 @@ def serve(port):
                                 through the same locked down `claude -p` (Sonnet, thinking off) into shared/i18n. Same-origin only.
       GET  /api/i18n/dict       ?page=&lang=&rev=: the page's words in one language when they changed since rev, and how many
                                 blocks are still waiting. Every page this server shows carries its words (site_editor.inject).
+      GET  /api/experiments     the content experiment log of the MeBook customer study (tools/experiments.py, 14 Nov 2026):
+                                {"experiments": {id: doc}} from research/mebook-customer-research/experiments.json
+      PUT  /api/experiments/doc?id=<id>   one experiment, checked by experiments.clean (title and hypothesis required, a
+                                completed one needs a conclusion and an explanation, numbers or null); same-origin only, 64 KB
       GET  /api/reels-hub/state the reels hub's own edits ({edits, made, requests}, each a map of documents) from
                                 research/israeli-product-reels/src/scripts/series-2026-11/local-edits.json ({} when none)
       POST /api/sample/jobs     {"prompt", "reel", "kind", "label", "comment"} -> 202 {"job"}: the same question as a background
@@ -1551,7 +1555,8 @@ def serve(port):
     # Its background asks (5 hooks, the prompt box, new ideas) have their own job list, so the reels hub's tray never takes an
     # answer meant for a carousel. Restart this server after editing content_calendar.py.
     import content_calendar as calendar
-    cal_jobs = SampleJobs(os.environ.get("LUMEBOOK_CALENDAR_JOBS_FILE") or p(".lumebook/calendar-jobs.json"))
+    import experiments   # the MeBook study's experiment log (14 Nov 2026); restart this server after editing experiments.py
+    cal_jobs =SampleJobs(os.environ.get("LUMEBOOK_CALENDAR_JOBS_FILE") or p(".lumebook/calendar-jobs.json"))
     cal_job_act = re.compile(r"^/api/calendar/jobs/([0-9a-f]{6,20})/(cancel|claim|dismiss)$")
     # the language switch (8 Nov 2026): pages report words their dictionaries lack, this translates them in the background
     i18n_worker = i18n.Worker(log=lambda m: print(m, file=sys.stderr, flush=True))
@@ -1989,6 +1994,8 @@ def serve(port):
                 if not full or not os.path.isfile(full):
                     return self._json(404, {"error": "not found"})
                 return self.send_range(full)
+            if path == "/api/experiments":
+                return self._json(200, experiments.load())
             if path == "/api/reels-hub/state":
                 with state_lock:
                     try:
@@ -2030,6 +2037,18 @@ def serve(port):
                         json.dump(doc, fh, ensure_ascii=False, indent=1)
                     os.replace(tmp, hq_layout)
                 return self._json(200, {"ok": True})
+            if u.path == "/api/experiments/doc":   # one experiment of the MeBook study's log (tools/experiments.py)
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only"})
+                exp_id = (urllib.parse.parse_qs(u.query).get("id") or [""])[0]
+                size = int(self.headers.get("Content-Length") or 0)
+                if size <= 0 or size > 64 * 1024:
+                    return self._json(400, {"error": "bad size"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON"})
+                return self._json(*experiments.put(exp_id, doc))
             if u.path == "/api/calendar/doc":   # the calendar's own state: hooks, approvals, reminders, ideas (calendar-state.json)
                 if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
                     return self._json(403, {"error": "same-origin requests only"})

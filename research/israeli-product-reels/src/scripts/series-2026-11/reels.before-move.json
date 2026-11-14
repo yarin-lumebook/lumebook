@@ -82,7 +82,7 @@
     },
     "gpt": {
       "_about": "Yarin, 11 Nov 2026: 'incorporate funny generated images using gpt api in the editing, suggest minimal budget for each reel'. Each reel has up to two funny pictures (a gag that matches its script, made as a 3D cartoon, never a real person, no text) that cut into the edit for one script line as a full-screen still. Nothing is generated without Yarin's yes: `reel_gpt.py plan` shows the estimate, `reel_gpt.py run <id> --max-usd N` makes them only under a budget he approved (memory feedback-openai-api-key-rules). The suggested budget is the estimate of the planned pictures plus one retry.",
-      "style": "Funny, exaggerated 3D animated cartoon illustration in a warm Pixar-like style, bright colours, soft light, expressive faces, vertical 2:3 composition with the subject in the middle, no text, no letters, no logos, no real people, nothing religious. Scene: ",
+      "style": "Funny, exaggerated 3D animated cartoon illustration in a warm Pixar-like style, bright colours, soft light, expressive faces, vertical 2:3 composition with the subject in the middle, no text, no letters, no logos, no books or pages (the book is drawn separately as a real LumeBook book), no real people, nothing religious. Scene: ",
       "model": "gpt-image-2.5-flare",
       "size": "1024x1536",
       "quality": "low"
@@ -187,7 +187,7 @@
     },
     {
       "id": "1.7",
-      "date": "2026-11-26",
+      "date": "2026-11-12",
       "series": 1,
       "status": "ready",
       "hook": "הורים, אי אפשר לפשל\nבהזמנה הזאת",
@@ -238,13 +238,15 @@
             "n": 1,
             "line": 4,
             "scene": "A polite cartoon printing machine holds up a stop-hand gesture and waits, while tiny cartoon parents give thumbs up",
-            "estimate_usd": 0.0103
+            "estimate_usd": 0.0103,
+            "name": "printing-machine-holds-up-a-stop-hand-parents-thumbs-up"
           },
           {
             "n": 2,
             "line": 5,
             "scene": "A relieved cartoon dad wipes his sweaty forehead while hugging a small glowing storybook on a velvet pillow, tears of joy",
-            "estimate_usd": 0.0104
+            "estimate_usd": 0.0104,
+            "name": "relieved-dad-wipes-forehead-hugging-a-book-on-a-pillow"
           }
         ],
         "budget_usd": 0.04
@@ -252,7 +254,7 @@
     },
     {
       "id": "1.6",
-      "date": "2026-11-27",
+      "date": "2026-11-15",
       "series": 1,
       "status": "ready",
       "hook": "מוצץ, חיתולים, יומולדת\n3 כריכות",
@@ -301,7 +303,8 @@
             "n": 1,
             "line": 3,
             "scene": "A cartoon toddler in a diaper wearing a superhero cape and a pacifier on a ribbon like a medal, striking a heroic pose on a sofa",
-            "estimate_usd": 0.0104
+            "estimate_usd": 0.0104,
+            "name": "toddler-in-diaper-superhero-cape-pacifier-medal"
           }
         ],
         "budget_usd": 0.03
@@ -428,13 +431,15 @@
             "n": 1,
             "line": 1,
             "scene": "A panicked cartoon dad in a chef apron holds a giant stopwatch beside a half-decorated birthday cake and a kid-sized storybook, flour on his face",
-            "estimate_usd": 0.0104
+            "estimate_usd": 0.0104,
+            "name": "dad-in-apron-panics-with-stopwatch-by-birthday-cake"
           },
           {
             "n": 2,
             "line": 5,
             "scene": "A cartoon runner bursts through a finish-line ribbon holding a small birthday storybook above his head, confetti, exhausted joyful face",
-            "estimate_usd": 0.0104
+            "estimate_usd": 0.0104,
+            "name": "runner-breaks-finish-line-ribbon-holding-a-book"
           }
         ],
         "budget_usd": 0.04
@@ -442,7 +447,7 @@
     },
     {
       "id": "5.5",
-      "date": "2026-11-29",
+      "date": "2026-11-14",
       "series": 5,
       "status": "ready",
       "hook": "מחפשים מתנת יום הולדת?\nתעצרו רגע",
@@ -495,13 +500,15 @@
             "n": 1,
             "line": 3,
             "scene": "A proud cartoon child in a cardboard crown and gold cape standing on a sofa, a small heart glowing on the chest",
-            "estimate_usd": 0.0103
+            "estimate_usd": 0.0103,
+            "name": "proud-child-in-crown-and-cape-on-sofa-glowing-heart"
           },
           {
             "n": 2,
             "line": 5,
             "scene": "A giant cartoon hand making a stop gesture in front of a shopping cart overflowing with toys, a startled parent frozen mid-step",
-            "estimate_usd": 0.0104
+            "estimate_usd": 0.0104,
+            "name": "giant-stop-hand-before-a-cart-full-of-toys"
           }
         ],
         "budget_usd": 0.04
@@ -563,76 +570,15 @@
             "n": 1,
             "line": 4,
             "scene": "A cartoon delivery box with tiny legs and arms rings a doorbell while a cartoon grandmother opens the door with a huge delighted gasp",
-            "estimate_usd": 0.0104
+            "estimate_usd": 0.0104,
+            "name": "delivery-box-with-legs-rings-grandmas-doorbell"
           },
           {
             "n": 2,
             "line": 6,
             "scene": "A cartoon grandmother with oversized glasses leans in with a magnifying glass to inspect a storybook, one eyebrow raised, very serious",
-            "estimate_usd": 0.0104
-          }
-        ],
-        "budget_usd": 0.04
-      }
-    },
-    {
-      "id": "7.1",
-      "date": "2026-11-11",
-      "series": 7,
-      "status": "ready",
-      "hook": "יום הרווקים?\nהרווק הכי חשוב בן 4",
-      "approach": "F",
-      "voice": "yarin",
-      "shot": "שני האחדים על המסך (11.11) הופכים לכריכת הספר, ואז השם על הכריכה מקרוב, ואז הספר ביד. קטע פתיחה אחד למצלמה.",
-      "footage": [
-        "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-A13EECE4.mov)",
-        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 2 funny GPT pictures (made 11 / 11 / 2026); one version, no trial set"
-      ],
-      "yarin_films": [],
-      "vo": [
-        "היום הוא יום הרווקים, והרווק הכי חשוב אצלכם בבית בכלל בן 4,",
-        "ויכול להיות לו ספר שלם רק עליו.",
-        "תראו, השם שלו על הכריכה,",
-        "והוא הגיבור היחיד של הסיפור, לפחות עד שיעלה לכיתה א.",
-        "אז היום חוגגים לאחד והיחיד.",
-        "תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר."
-      ],
-      "sees": [
-        "אתה למצלמה, כריכת יום ההולדת עם הכתר מתחתיך, הכותרת למעלה",
-        "התצוגה המקדימה בחלון, דפדוף באיורים: הוא בכל עמוד",
-        "הכריכה עם הכתר על כל המסך",
-        "הכריכה נשארת, הוא הגיבור היחיד",
-        "אתה למצלמה",
-        "אתה למצלמה, הכרטיס של לומי"
-      ],
-      "caption": "11.11, יום הרווקים. והרווק הכי שווה? בן 4 ☝️\nיש לו ספר שלם רק עליו, עם השם שלו על הכריכה.\nוהוא הגיבור היחיד של הסיפור. בלי שותפים.\nמתנה לילד עם השם שלו, ספר ילדים מותאם אישית\n#מתנהלילדים #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
-      "blockers": [],
-      "notes": "New 04 Nov (Yarin: add Singles Day). Plays on 'one': one of a kind. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the cover with the name instead of a smile. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', A13EECE4); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.",
-      "audience": "parents",
-      "page": "books/15",
-      "structure": "מספר על המסך, ואז הכריכה",
-      "payoff": "השם על הכריכה, והוא הגיבור היחיד בכל עמוד. בסוף הכריכה עם השם על כל המסך",
-      "option": 1,
-      "project": "media/projects/2026-11-10-reel-7-1",
-      "trial_hooks": [
-        "יום הרווקים?\nהרווק הכי שווה בן 4",
-        "11.11 והרווק\nהכי חשוב בבית",
-        "הרווק הכי חשוב\nקיבל ספר משלו",
-        "יום הרווקים?\nיש לו ספר רק עליו"
-      ],
-      "gpt": {
-        "images": [
-          {
-            "n": 1,
-            "line": 1,
-            "scene": "A cartoon four-year-old boy on a throne made of sofa cushions with a toy crown, holding a big storybook, confetti falling, very pleased",
-            "estimate_usd": 0.0104
-          },
-          {
-            "n": 2,
-            "line": 4,
-            "scene": "A lone cartoon sock wearing sunglasses and a tiny crown reads a storybook in a spotlight while other socks clap in the background",
-            "estimate_usd": 0.0104
+            "estimate_usd": 0.0104,
+            "name": "grandma-inspects-an-open-book-with-a-magnifying-glass"
           }
         ],
         "budget_usd": 0.04
@@ -640,7 +586,7 @@
     },
     {
       "id": "3.1",
-      "date": "2026-11-19",
+      "date": "2026-11-12",
       "series": 3,
       "status": "ready",
       "hook": "השנה הילד שלכם\nהוא הגיבור של חנוכה",
@@ -691,7 +637,8 @@
             "n": 1,
             "line": 5,
             "scene": "A cartoon sufganiyah donut wearing sunglasses and reading a storybook, powdered sugar like snow, cosy lamp light",
-            "estimate_usd": 0.0103
+            "estimate_usd": 0.0103,
+            "name": "sufganiyah-donut-in-sunglasses-reads-a-book"
           }
         ],
         "budget_usd": 0.03
@@ -699,7 +646,7 @@
     },
     {
       "id": "2.7",
-      "date": "2026-11-20",
+      "date": "2026-11-13",
       "series": 2,
       "status": "ready",
       "hook": "הרגע שהילד מבין שהגיבור זה הוא",
@@ -748,15 +695,18 @@
         "images": [
           {
             "n": 1,
-            "line": 1,
+            "line": null,
             "scene": "A cartoon parent and child inside a cosy blanket fort with a flashlight, a storybook glowing in the child's lap, stars on the blanket",
-            "estimate_usd": 0.0104
+            "estimate_usd": 0.0104,
+            "name": "parent-and-child-read-in-a-blanket-fort-with-flashlight",
+            "unused": "11 Nov 2026: line 1 shows a real mom reading his LumeBook with her boy; kept in the library"
           },
           {
             "n": 2,
             "line": 4,
             "scene": "A cartoon child's face lighting up like a glowing light bulb, sparkling eyes, rosy cheeks, amazed open mouth",
-            "estimate_usd": 0.0103
+            "estimate_usd": 0.0103,
+            "name": "child-face-lights-up-like-a-light-bulb"
           }
         ],
         "budget_usd": 0.04
@@ -764,7 +714,7 @@
     },
     {
       "id": "8.2",
-      "date": "2026-11-21",
+      "date": "2026-11-14",
       "series": 8,
       "status": "ready",
       "hook": "סבתא, כמה צעצועים\nנשברו אצל הנכד?",
@@ -815,13 +765,15 @@
             "n": 1,
             "line": 1,
             "scene": "A cartoon pile of broken toys, a one-wheeled truck, a headless robot, a crying teddy bear, and a cartoon grandmother holding her cheek",
-            "estimate_usd": 0.0104
+            "estimate_usd": 0.0104,
+            "name": "pile-of-broken-toys-and-a-sad-grandma"
           },
           {
             "n": 2,
             "line": 5,
             "scene": "A triumphant cartoon grandmother holds a glowing storybook above her head like a trophy while toys cheer behind her",
-            "estimate_usd": 0.0103
+            "estimate_usd": 0.0103,
+            "name": "grandma-holds-a-book-up-like-a-trophy"
           }
         ],
         "budget_usd": 0.04
@@ -829,7 +781,7 @@
     },
     {
       "id": "1.3",
-      "date": "2026-11-14",
+      "date": "2026-11-29",
       "series": 1,
       "status": "needs-voice",
       "hook": "יומולדת בעוד שבוע.\nהספר יגיע בזמן?",
@@ -884,7 +836,7 @@
     },
     {
       "id": "4.1",
-      "date": "2026-11-03",
+      "date": "2026-11-10",
       "series": 4,
       "status": "needs-voice",
       "hook": "הכנתי ספר\nמתמונה שלי בגיל 4",
@@ -942,7 +894,7 @@
     },
     {
       "id": "3.2",
-      "date": "2026-11-12",
+      "date": "2026-11-26",
       "series": 3,
       "status": "needs-voice",
       "hook": "הנכד מוצא את\nהחנוכייה של סבתא",
@@ -998,7 +950,7 @@
     },
     {
       "id": "1.5",
-      "date": "2026-11-13",
+      "date": "2026-11-27",
       "series": 1,
       "status": "needs-voice",
       "hook": "סבתא, ומה אם\nלא תאהבי את הספר?",
@@ -1056,7 +1008,7 @@
     },
     {
       "id": "3.3",
-      "date": "2026-11-12",
+      "date": "2026-11-19",
       "series": 3,
       "status": "needs-voice",
       "hook": "עד מתי מזמינים\nספר לחנוכה?",
@@ -1115,7 +1067,7 @@
     },
     {
       "id": "2.3",
-      "date": "2026-11-13",
+      "date": "2026-11-20",
       "series": 2,
       "status": "needs-voice",
       "hook": "איך מספרים לו\nשיהיה לו אח?",
@@ -1174,7 +1126,7 @@
     },
     {
       "id": "5.1",
-      "date": "2026-11-14",
+      "date": "2026-11-21",
       "series": 5,
       "status": "needs-voice",
       "hook": "הלילה האחרון\nעם המוצץ",
@@ -1500,7 +1452,6 @@
       "page": "gifts/grandchild",
       "structure": "ספירה, והוכחה בכל מספר",
       "payoff": "עמוד ההקדשה המלא, עם חתימה ותאריך",
-      "option": 2,
       "gpt": {
         "images": [
           {
@@ -2604,7 +2555,7 @@
     },
     {
       "id": "9.9",
-      "date": "2026-11-15",
+      "date": "2026-12-01",
       "series": 9,
       "status": "needs-voice",
       "option": 2,
@@ -3286,12 +3237,78 @@
       ],
       "caption": "שכחתם מתנה ליומולדת? 🙈\nהעותק הדיגיטלי מגיע למייל תוך דקות, והמודפס אחר כך.\nמתנה עם השם שלו על הכריכה.\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
       "notes": "Dropped 05 Nov 2026 evening for 5.4 (Yarin: double down on the buyers and best selling books). Also the answer for anyone who missed the Hanukkah print date."
+    },
+    {
+      "id": "7.1",
+      "date": "2026-11-15",
+      "series": 7,
+      "status": "ready",
+      "hook": "יום הרווקים?\nהרווק הכי חשוב בן 4",
+      "approach": "F",
+      "voice": "yarin",
+      "shot": "שני האחדים על המסך (11.11) הופכים לכריכת הספר, ואז השם על הכריכה מקרוב, ואז הספר ביד. קטע פתיחה אחד למצלמה.",
+      "footage": [
+        "Yarin: one talking take to camera, filmed 10 / 11 / 2026 (source/yarin/take-A13EECE4.mov)",
+        "Claude: a picture for every line, matched to what is said: the cover as a printed book with the child's name, the inside page with the name marked, the dedication page (broll.py mockups), the wizard recording for the steps, creator clips, and 2 funny GPT pictures (made 11 / 11 / 2026); one version, no trial set"
+      ],
+      "yarin_films": [],
+      "vo": [
+        "היום הוא יום הרווקים, והרווק הכי חשוב אצלכם בבית בכלל בן 4,",
+        "ויכול להיות לו ספר שלם רק עליו.",
+        "תראו, השם שלו על הכריכה,",
+        "והוא הגיבור היחיד של הסיפור, לפחות עד שיעלה לכיתה א.",
+        "אז היום חוגגים לאחד והיחיד.",
+        "תכתבו לי לומי בתגובות ואשלח לכם קישור ליצירת הספר."
+      ],
+      "sees": [
+        "אתה למצלמה, כריכת יום ההולדת עם הכתר מתחתיך, הכותרת למעלה",
+        "התצוגה המקדימה בחלון, דפדוף באיורים: הוא בכל עמוד",
+        "הכריכה עם הכתר על כל המסך",
+        "הכריכה נשארת, הוא הגיבור היחיד",
+        "אתה למצלמה",
+        "אתה למצלמה, הכרטיס של לומי"
+      ],
+      "caption": "11.11, יום הרווקים. והרווק הכי שווה? בן 4 ☝️\nיש לו ספר שלם רק עליו, עם השם שלו על הכריכה.\nוהוא הגיבור היחיד של הסיפור. בלי שותפים.\nמתנה לילד עם השם שלו, ספר ילדים מותאם אישית\n#מתנהלילדים #ספרילדים #ספרמותאםאישית #לומבוק\nתכתבו לי \"לומי\" בתגובות ואשלח לכם קישור ליצירת הספר 📚",
+      "blockers": [],
+      "notes": "New 04 Nov (Yarin: add Singles Day). Plays on 'one': one of a kind. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the cover with the name instead of a smile. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', A13EECE4); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.",
+      "audience": "parents",
+      "page": "books/15",
+      "structure": "מספר על המסך, ואז הכריכה",
+      "payoff": "השם על הכריכה, והוא הגיבור היחיד בכל עמוד. בסוף הכריכה עם השם על כל המסך",
+      "option": 2,
+      "project": "media/projects/2026-11-10-reel-7-1",
+      "trial_hooks": [
+        "יום הרווקים?\nהרווק הכי שווה בן 4",
+        "11.11 והרווק\nהכי חשוב בבית",
+        "הרווק הכי חשוב\nקיבל ספר משלו",
+        "יום הרווקים?\nיש לו ספר רק עליו"
+      ],
+      "gpt": {
+        "images": [
+          {
+            "n": 1,
+            "line": 4,
+            "scene": "A cartoon four-year-old boy on a throne made of sofa cushions with a toy crown, holding a big storybook, confetti falling, very pleased",
+            "estimate_usd": 0.0104,
+            "name": "boy-on-cushion-throne-with-crown-and-book-confetti"
+          },
+          {
+            "n": 2,
+            "line": null,
+            "scene": "A lone cartoon sock wearing sunglasses and a tiny crown reads a storybook in a spotlight while other socks clap in the background",
+            "estimate_usd": 0.0104,
+            "name": "lone-sock-in-sunglasses-reads-a-book-in-spotlight",
+            "unused": "11 Nov 2026: line 4 took the throne picture; kept in the library"
+          }
+        ],
+        "budget_usd": 0.04
+      },
+      "dropped": "11 Nov 2026: Yarin cancelled this reel from the content calendar (15 / 11, option ב). The made files stay in media/projects/2026-11-10-reel-7-1/ and the pictures in the reels media library."
     }
   ],
   "picks": {
     "_about": "Which option goes up on a day (date: reel id). Set with the בוחר בזו button in the reel calendar (saved to local-edits.json \"picks\" on the project server, merged here by reels.py merge local) or reels.py pick DATE ID. A day without a pick shows both options.",
     "2026-11-10": "1.4",
-    "2026-11-11": "7.1",
     "2026-11-12": "3.1",
     "2026-11-13": "2.7",
     "2026-11-14": "8.2",
