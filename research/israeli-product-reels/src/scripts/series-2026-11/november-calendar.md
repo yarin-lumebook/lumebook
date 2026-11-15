@@ -15,13 +15,13 @@ From 10 / 11 / 2026 every day has two options, א and ב, in the same lane (Yari
 | 10 / 11 / 2026 | שלישי | ב | 4.1 | הכנתי ספר מתמונה שלי בגיל 4 | 16 | parents | home | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, ההזמנה שלך עד התצוגה המקדימה, תגובה של 2 שניות |
 | 11 / 11 / 2026 | רביעי |  | 2.8 | סבתא, מה כותבים בהקדשה לנכד? | 15.3 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, כתיבה בעמוד ההקדשה |
 | 12 / 11 / 2026 | חמישי | א ✓ | 3.1 | השנה הילד שלכם הוא הגיבור של חנוכה | 19.1 | parents | books/86 | מוכן לפרסום |  |
-| 12 / 11 / 2026 | חמישי | ב | 1.7 | הורים, אי אפשר לפשל בהזמנה הזאת | 17 | parents | home | מוכן לפרסום |  |
-| 13 / 11 / 2026 | שישי | א ✓ | 2.7 | הרגע שהילד מבין שהגיבור זה הוא | 17.9 | parents | books/15 | מוכן לפרסום |  |
-| 13 / 11 / 2026 | שישי | ב | 1.6 | מוצץ, חיתולים, יומולדת 3 כריכות | 13.9 | parents | books/category/bestsellers | מוכן לפרסום | Check on the site that each named book is live before the recording. |
+| 12 / 11 / 2026 | חמישי | ב | 1.7 | הורים, אי אפשר לפשל בהזמנה הזאת | 16.9 | parents | home | מוכן לפרסום |  |
+| 13 / 11 / 2026 | שישי | א ✓ | 2.7 | הרגע שהילד מבין שהגיבור זה הוא | 17.8 | parents | books/15 | מוכן לפרסום |  |
 | 14 / 11 / 2026 | שבת | א ✓ | 8.2 | סבתא, כמה צעצועים נשברו אצל הנכד? | 16.5 | grandma | books/29 | מוכן לפרסום |  |
-| 14 / 11 / 2026 | שבת | ב | 5.5 | מחפשים מתנת יום הולדת? תעצרו רגע | 16.2 | parents | books/13 | מוכן לפרסום | Check in the preview that the kind acts are on the pages before posting (the take says בכל עמוד הוא עושה משהו טוב קטן). |
-| 15 / 11 / 2026 | ראשון | א | 1.4 | סבתא, שלושה דברים שהנכד מקבל אצלנו | 21 | grandma | gifts/grandchild | מוכן לפרסום |  |
+| 15 / 11 / 2026 | ראשון | א | 1.4 | סבתא, שלושה דברים שהנכד מקבל אצלנו | 20.8 | grandma | gifts/grandchild | מוכן לפרסום |  |
+| 15 / 11 / 2026 | ראשון | ב | 1.6 | מוצץ, חיתולים, יומולדת 3 כריכות | 13.9 | parents | books/category/bestsellers | מוכן לפרסום | Check on the site that each named book is live before the recording. |
 | 16 / 11 / 2026 | שני | א | 9.2 | מה הופך ילד לגיבור אמיתי? | 16.7 | parents | books/9013 | מחכה לקריינות ולצילום של ירין | Check in the preview that the rabbi, the friend and mom are on the pages before recording. / Confirm with Yossi that the traditional edition is the same product and price as הלב של יובל (not said in the reel). |
+| 16 / 11 / 2026 | שני | ב | 5.5 | מחפשים מתנת יום הולדת? תעצרו רגע | 16.2 | parents | books/13 | מוכן לפרסום | Check in the preview that the kind acts are on the pages before posting (the take says בכל עמוד הוא עושה משהו טוב קטן). |
 | 16 / 11 / 2026 | שני | ב | 9.10 | סבתא, הנכד יודע להגיד תודה? | 17.1 | grandma | books/106 | מחכה לקריינות ולצילום של ירין | Check in the preview (book 106) the sand boat, the sail and the page about the people who prepared the way before recording. |
 | 17 / 11 / 2026 | שלישי | א | 9.6 | התבלין של שבת שאי אפשר לקנות | 18.5 | parents | books/97 | מחכה לקריינות ולצילום של ירין | Check in the preview what the 'spice' turns out to be before recording, so the hook pays off. |
 | 17 / 11 / 2026 | שלישי | ב | 9.11 | סבתא, איך מסבירים כיבוד הורים? | 15.3 | grandma | books/99 | מחכה לקריינות ולצילום של ירין | Check in the preview (book 99) how the wooden horse, the myrtle box and the father appear, and that the child rides the horse, before recording. |
@@ -67,8 +67,8 @@ From 10 / 11 / 2026 every day has two options, א and ב, in the same lane (Yari
 Each shoot records the 2 s hook clips to camera and the voiceovers for the reels listed, so the edit can run while the week posts.
 
 - **חמישי 05 / 11 / 2026**: reels 3.1 ✓ or 1.7. היום. צילום סלפי אחד שלך למצלמה לריל של הערב, בערך 20 שניות.
-- **שישי 06 / 11 / 2026**: reels 2.7 ✓ or 1.6, 2.6, 8.3 or 1.2, 8.2 ✓ or 5.5, 1.4, 7.1, 3.1 ✓ or 1.7, 2.7 ✓ or 1.6, 8.2 ✓ or 5.5. יום שישי. תשעה קטעי פתיחה למצלמה ותשע קריינות, בחדר שקט אחד עם הטלפון בגובה העיניים. 1.6 עולה באותו ערב ו 2.6 למחרת. ל 1.4 ול 3.1 צריך גם את הספר המודפס, מלמעלה על משטח בהיר ולידו חנוכייה.
-- **שישי 13 / 11 / 2026**: reels 9.5 or 9.9, 9.2 or 9.10, 9.6 or 9.11, 9.7 or 9.12, 3.3 or 9.15, 2.3 or 5.2, 5.1 or 2.5. יום שישי. שבעה קטעי פתיחה וקריינות. ל 5.1 צריך גם מוצץ על שידה בלילה. לכל יום שתי אפשרויות: מצלמים רק את זו שבחרת בלוח.
+- **שישי 06 / 11 / 2026**: reels 1.4 or 1.6, 2.6, 8.3 or 1.2, 9.2 or 5.5 or 9.10, 1.4 or 1.6, 7.1, 3.1 ✓ or 1.7, 2.7 ✓, 8.2 ✓. יום שישי. תשעה קטעי פתיחה למצלמה ותשע קריינות, בחדר שקט אחד עם הטלפון בגובה העיניים. 1.6 עולה באותו ערב ו 2.6 למחרת. ל 1.4 ול 3.1 צריך גם את הספר המודפס, מלמעלה על משטח בהיר ולידו חנוכייה.
+- **שישי 13 / 11 / 2026**: reels 9.5 or 9.9, 9.2 or 5.5 or 9.10, 9.6 or 9.11, 9.7 or 9.12, 3.3 or 9.15, 2.3 or 5.2, 5.1 or 2.5. יום שישי. שבעה קטעי פתיחה וקריינות. ל 5.1 צריך גם מוצץ על שידה בלילה. לכל יום שתי אפשרויות: מצלמים רק את זו שבחרת בלוח.
 - **שישי 20 / 11 / 2026**: reels 8.1 or 9.16, 5.4 or 1.8, 9.4 or 9.13, 9.1 or 9.14, 9.8 or 3.2, 7.2 or 1.5, 8.3 or 1.2. יום שישי. שבעה קטעי פתיחה וקריינות. ל 7.2 צריך את הספר עטוף כמתנה. לכל יום שתי אפשרויות: מצלמים רק את זו שבחרת בלוח.
 - **שישי 27 / 11 / 2026**: reels 9.3 or 1.3, 7.3 or 7.4. יום שישי. שני קטעי פתיחה וקריינות. 7.3 הוא קטע פתיחה על הספה. לכל יום שתי אפשרויות: מצלמים רק את זו שבחרת בלוח.
 

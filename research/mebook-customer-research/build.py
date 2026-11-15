@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.join(ROOT, "shared", "design"))
 import design  # noqa: E402
 
 SRC = os.path.join(HERE, "data.json")
+HOOKS = os.path.join(ROOT, "research", "mebook-hooks", "hooks.json")   # built by research/mebook-hooks/assemble.py
 OUT = os.path.join(HERE, "mebook-customer-research.html")
 PAGE = "research/mebook-customer-research/mebook-customer-research.html"
 CAT_SET = "mebook-themes"
@@ -94,6 +95,27 @@ def validate(d):
             errs.append(f"pattern theme {p['theme']}")
         if p["strength"] not in STRENGTH:
             errs.append(f"pattern strength {p['strength']}")
+    # every review of the two source files is a card (15 Nov 2026, Yarin: "i dont want any missing pieces")
+    covered = {c for e in d["evidence"] for c in e.get("codes", [])}
+    for fn, pre in (("google-reviews.json", "G"), ("site-reviews.json", "S")):
+        with open(os.path.join(HERE, "sources", fn), encoding="utf-8") as f:
+            for x in json.load(f)["items"]:
+                if x["id"] not in covered:
+                    errs.append(f"{x['id']} ({pre}) is not a card in the evidence table: add it to data.json evidence, with its code in codes")
+    # the cubes and the five themed patterns count the table, so they cannot drift from it
+    def cnt(theme, **kw):
+        return sum(e.get("count", 1) for e in d["evidence"] if theme in e["themes"] and all(e[k] == v for k, v in kw.items()))
+    pro = sum(e.get("count", 1) for e in d["evidence"] if "likeness" in e["themes"] and e["kind"] == "motivation" and e["buyer"] != "prospect")
+    con = sum(e.get("count", 1) for e in d["evidence"] if "likeness" in e["themes"] and e["kind"] != "motivation")
+    want = {"recognition": str(cnt("recognition")), "gifters": str(cnt("gifters")), "repeat": str(cnt("repeat")),
+            "likeness": f"{pro} מול {con}", "questions": str(cnt("questions"))}
+    for m in d["metrics"]:
+        if want.get(m["theme"]) != m["n"]:
+            errs.append(f"cube {m['theme']} says {m['n']} but the evidence table counts {want.get(m['theme'])}")
+    pn = {"p-recognition": cnt("recognition"), "p-gifters": cnt("gifters"), "p-repeat": cnt("repeat"), "p-likeness": pro, "p-questions": cnt("questions")}
+    for p in d["patterns"]:
+        if p["id"] in pn and p["n"] != pn[p["id"]]:
+            errs.append(f"pattern {p['id']} says {p['n']} but the evidence table counts {pn[p['id']]}")
     for s in strings(d):
         if DASHES.search(s):
             errs.append(f"em or en dash in: {s[:70]}")
@@ -110,7 +132,8 @@ def link(url, label):
 
 def theme_chip(d, key):
     it = design.categories(CAT_SET)[key]
-    return f'<span class="lb-chip cat lb-cat-{it["cat"]}">{esc(d["themes"][key]["short"])}</span>'
+    return (f'<button type="button" class="lb-chip cat lb-cat-{it["cat"]} mb-chip-btn" data-chip="{key}" aria-pressed="false" '
+            f'title="הצגת כל האמירות בנושא הזה">{esc(d["themes"][key]["short"])}</button>')
 
 
 def cat(key):
@@ -119,6 +142,45 @@ def cat(key):
 
 # ---- the 100 purchase intents (purchase-intents.md is their only source; the page parses it) ----
 INTENTS = os.path.join(HERE, "purchase-intents.md")
+MB_REEL_INTENTS = os.path.join(HERE, "mebook-reel-intents.json")   # MeBook reel or ad id -> intent numbers, a topical match (15 Nov 2026)
+
+
+def load_intent_reels(intent_ns):
+    """{intent n: [hooks.json item, ...]}: MeBook's own reels and video ads (research/mebook-hooks/hooks.json) per purchase intent.
+    Fails on an id that is not in hooks.json, an unknown intent, or a reel or ad with no link."""
+    with open(MB_REEL_INTENTS, encoding="utf-8") as f:
+        m = json.load(f)["reels"]
+    with open(HOOKS, encoding="utf-8") as f:
+        items = {i["key"]: i for i in json.load(f)["items"]}
+    out, errs = {n: [] for n in intent_ns}, []
+    for key, ns in m.items():
+        if key not in items:
+            errs.append(f"mebook-reel-intents.json: {key} is not in research/mebook-hooks/hooks.json")
+            continue
+        for n in ns:
+            if n not in out:
+                errs.append(f"mebook-reel-intents.json: {key} names unknown intent {n}")
+            else:
+                out[n].append(items[key])
+    if errs:
+        print("\n".join(errs))
+        sys.exit(1)
+    for v in out.values():   # reels by views, then the ads by their library rank
+        v.sort(key=lambda i: (i["kind"] == "ad", -(i.get("views") or 0), i.get("ad_rank") or 0))
+    return out
+
+
+def reel_chip(i):
+    ad = i["kind"] == "ad"
+    text = DASHES.sub("-", " ".join((i.get("on_screen") or i.get("spoken") or i.get("caption") or "").split()))
+    short = text[:40] + ("..." if len(text) > 40 else "")
+    who = f'מודעה {i["ad_rank"]}' if ad else i["account"]
+    views = "" if ad else f' · <span class="lb-ltr">{i["views"]:,}</span>'
+    title = esc(f'{text} ({ddmmyyyy(i["date"])}' + ("" if ad else f', {i["views"]:,} צפיות') + ")")
+    return (f'<a class="lb-chip mb-reel {"outline" if ad else "info"}" href="{esc(i["url"])}" target="_blank" rel="noopener" title="{title}">'
+            f'<span class="lb-ltr">{esc(who)}</span> · <span dir="rtl" translate="no">{esc(short)}</span>{views}</a>')
+
+
 ILABELS = {"ישירה": ("direct", "success", "ראיה ישירה"), "הסקה": ("inference", "info", "הסקה"), "השערה": ("hypothesis", "warning", "השערה")}
 CODE = re.compile(r"(?<![\w/.#-])([GSQL])(\d{1,2})(?![\w])")
 
@@ -222,6 +284,10 @@ CSS = """
 .mb-section-head h2 { margin: 0; }
 .mb-section-head p { margin: .15rem 0 0; color: var(--text-2); }
 .lb-section { scroll-margin-top: 5rem; }
+/* one section at a time (15 Nov 2026, Yarin: each sidebar tab opens on its own, not as a long list) */
+.lb-section[hidden] { display: none; }
+.mb-lang .lb-card:last-child { grid-column: 1 / -1; }
+.mb-hero { margin-bottom: var(--sp-4); }
 
 /* number cubes: also the theme filters of the quote table */
 .mb-cubes.lb-metrics { grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr)); }
@@ -275,6 +341,9 @@ button.lb-metric[aria-pressed="true"] { border-color: var(--tc); }
 .mb-when { font-family: var(--font-2); }
 .mb-sep { color: var(--text-3); }
 .mb-q-note { margin: 0; font-size: var(--fs-footnote); color: var(--text-3); }
+.mb-chip-btn { font: inherit; border: 0; cursor: pointer; transition: transform var(--dur-2) var(--ease-spring), box-shadow var(--dur-2) var(--ease); }
+.mb-chip-btn:active { transform: scale(var(--press)); }
+.mb-chip-btn[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--tc, var(--accent)); }
 .mb-chips { display: flex; flex-wrap: wrap; gap: .3rem; }
 .mb-links a { text-decoration: none; }
 .mb-filterrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3); margin-block: var(--sp-3); }
@@ -336,6 +405,12 @@ abbr.mb-code { text-decoration: underline dotted; cursor: help; }
 .mb-top10 .lb-sheet { margin-top: .5rem; }
 .mb-top10 .lb-sheet p { color: var(--text); line-height: 1.6; }
 .mb-icounts { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.mb-reels { display: grid; gap: .35rem; margin-top: .25rem; }
+.mb-reels > summary { cursor: pointer; list-style: none; }
+.mb-reels > summary::-webkit-details-marker { display: none; }
+.mb-reels[open] > summary { margin-bottom: .2rem; }
+.mb-reel { text-decoration: none; white-space: normal; height: auto; max-width: 100%; text-align: start; line-height: 1.35; padding-block: .25rem; }
+a.mb-reel:hover { filter: brightness(.96); text-decoration: underline; }
 /* experiment log */
 .mbx-list { display: grid; gap: var(--sp-2); }
 .mbx-row { display: grid; gap: .35rem; text-align: start; font: inherit; color: inherit; cursor: pointer; width: 100%; }
@@ -369,12 +444,44 @@ dialog.mbx-dlg { width: min(52rem, calc(100vw - 32px)); }
 .mbx-prompts li.is-on { background: var(--tint-soft); color: var(--text); }
 .mbx-prompt-nums { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }
 .mbx-chain p { margin: 0; }
-@media print { .lb-sidebar, .lb-topbar, .mb-filterrow, .mb-cubes { display: none; } .lb-app { display: block; } }
+/* 50 hooks (15 Nov 2026) */
+.mbh-cubes.lb-metrics { grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); }
+.mbh-cubes .lb-metric-value small { font-size: var(--fs-footnote); font-weight: 600; color: var(--text-3); }
+.mbh-list { list-style: none; margin: 0; padding: 0; }
+.mbh-list[hidden], .mbh-row[hidden] { display: none; }
+.mbh-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: var(--sp-2) var(--sp-3); padding: var(--sp-3) var(--sp-4); }
+.mbh-main { display: grid; gap: .35rem; min-width: 0; }
+.mbh-text { margin: 0; font-size: var(--fs-callout); line-height: 1.55; font-weight: 600; overflow-wrap: anywhere; }
+.mbh-tags { display: flex; flex-wrap: wrap; gap: .3rem; }
+.mbh-meta { display: grid; justify-items: end; gap: .15rem; font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); white-space: nowrap; }
+.mbh-who .lb-ltr, .mbh-views { white-space: nowrap; }
+.mbh-views b { font-size: var(--fs-callout); color: var(--text); font-variant-numeric: tabular-nums; }
+.mbh-open { display: inline-flex; align-items: center; gap: .3rem; color: var(--tint); font-weight: 600; text-decoration: none; }
+.mbh-open svg { width: .95rem; height: .95rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.mbh-open:hover { text-decoration: underline; }
+@media (max-width: 44rem) {
+  .mbh-row { grid-template-columns: auto minmax(0, 1fr); }
+  .mbh-meta { grid-column: 2; display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .7rem; white-space: normal; }
+}
+@media print { .lb-sidebar, .lb-topbar, .mb-filterrow, .mb-cubes { display: none; } .lb-app { display: block; } .lb-section[hidden] { display: grid; } }
 """
 
 JS = r"""<script>
 (function () {
   var $ = function (s, r) { return (r || document).querySelector(s); }, $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  // tabs: the sidebar shows one section at a time
+  var sections = $$('.lb-section'), items = $$('.lb-sidebar .lb-nav-item'), side = $('.lb-sidebar'), scrim = $('.lb-scrim'), curTab = '';
+  function closeNav() { side.classList.remove('is-open'); scrim.hidden = true; }
+  function showTab(id, keepScroll) {
+    if (!sections.some(function (s) { return s.id === id; })) id = sections[0].id;
+    curTab = id;
+    sections.forEach(function (s) { s.hidden = s.id !== id; });
+    items.forEach(function (a) { if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    var c = document.getElementById('mb-count'); if (c) c.hidden = id !== 'evidence';
+    if (!keepScroll) window.scrollTo(0, 0);
+  }
+  // the tab that holds an element (a quote, an intent), opened before the page scrolls to it
+  function openFor(el) { var s = el && el.closest && el.closest('.lb-section'); if (s && s.hidden) showTab(s.id, true); }
   var rows = $$('#mb-evidence .mb-q'), input = $('#mb-q'), count = $('#mb-count'), cubes = $('.mb-cubes'), clear = $('#mb-clear'), empty = $('#mb-empty');
   var state = { q: '', themes: [], kind: '', buyer: '' };
   function norm(s) {
@@ -395,8 +502,12 @@ JS = r"""<script>
     empty.hidden = shown > 0;
     var f = !!(state.q || state.themes.length || state.kind || state.buyer);
     clear.hidden = !f; cubes.classList.toggle('is-filtering', state.themes.length > 0);
+    $$('[data-chip]').forEach(function (c) { c.setAttribute('aria-pressed', state.themes.indexOf(c.dataset.chip) >= 0 ? 'true' : 'false'); });
   }
-  input.addEventListener('input', function () { state.q = input.value; apply(); });
+  input.addEventListener('input', function () {
+    state.q = input.value; apply();
+    if (state.q && ['evidence', 'intents', 'hooks'].indexOf(curTab) < 0) showTab('evidence');
+  });
   document.addEventListener('keydown', function (ev) {
     if (ev.key === '/' && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) { ev.preventDefault(); input.focus(); }
   });
@@ -405,18 +516,27 @@ JS = r"""<script>
       var t = b.dataset.theme, i = state.themes.indexOf(t);
       if (i >= 0) state.themes.splice(i, 1); else state.themes.push(t);
       b.setAttribute('aria-pressed', i >= 0 ? 'false' : 'true'); apply();
-      if (state.themes.length) $('#evidence').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      if (state.themes.length) showTab('evidence');
     });
   });
-  $$('[data-kind]').forEach(function (b) { b.addEventListener('click', function () {
-    state.kind = b.dataset.kind; $$('[data-kind]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); apply(); }); });
-  $$('[data-buyer]').forEach(function (b) { b.addEventListener('click', function () {
-    state.buyer = b.dataset.buyer; $$('[data-buyer]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); apply(); }); });
+  // a theme chip on a card or in the patterns table: show every quote of that theme (press again: show all)
+  $$('[data-chip]').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var t = c.dataset.chip;
+      state.themes = (state.themes.length === 1 && state.themes[0] === t) ? [] : [t];
+      $$('.mb-cubes [data-theme]').forEach(function (b) { b.setAttribute('aria-pressed', state.themes.indexOf(b.dataset.theme) >= 0 ? 'true' : 'false'); });
+      apply(); showTab('evidence');
+    });
+  });
+  $$('.lb-filters [data-kind]').forEach(function (b) { b.addEventListener('click', function () {
+    state.kind = b.dataset.kind; $$('.lb-filters [data-kind]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); apply(); }); });
+  $$('.lb-filters [data-buyer]').forEach(function (b) { b.addEventListener('click', function () {
+    state.buyer = b.dataset.buyer; $$('.lb-filters [data-buyer]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); apply(); }); });
   clear.addEventListener('click', function () {
     state = { q: '', themes: [], kind: '', buyer: '' }; input.value = '';
     $$('.mb-cubes [data-theme]').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-    $$('[data-kind]').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.kind === '' ? 'true' : 'false'); });
-    $$('[data-buyer]').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.buyer === '' ? 'true' : 'false'); });
+    $$('.lb-filters [data-kind]').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.kind === '' ? 'true' : 'false'); });
+    $$('.lb-filters [data-buyer]').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.buyer === '' ? 'true' : 'false'); });
     apply();
   });
 
@@ -425,47 +545,44 @@ JS = r"""<script>
     a.addEventListener('click', function (ev) {
       ev.preventDefault();
       var r = $('#e-' + a.dataset.ref); if (!r) return;
+      openFor(r);
       if (r.hidden) clear.click();
       r.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
       r.classList.remove('is-flash'); void r.offsetWidth; r.classList.add('is-flash');
     });
   });
 
-  // sidebar: drawer on phones, mark the section in view
-  var side = $('.lb-sidebar'), scrim = $('.lb-scrim');
-  function closeNav() { side.classList.remove('is-open'); scrim.hidden = true; }
+  // sidebar: drawer on phones, a tab per section
   $('#mb-menu').addEventListener('click', function () { side.classList.add('is-open'); scrim.hidden = false; });
   scrim.addEventListener('click', closeNav);
   document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') closeNav(); });
-  var items = $$('.lb-sidebar .lb-nav-item');
   items.forEach(function (a) { a.addEventListener('click', function (ev) {
-    var t = $(a.getAttribute('href')); if (!t) return; ev.preventDefault(); closeNav();
-    t.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    ev.preventDefault(); closeNav();
+    showTab(a.getAttribute('href').slice(1));
     history.replaceState(null, '', location.pathname + location.search + a.getAttribute('href'));
   }); });
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (list) {
-      list.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        items.forEach(function (a) { if (a.getAttribute('href') === '#' + en.target.id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-      });
-    }, { rootMargin: '-20% 0px -70% 0px' });
-    $$('.lb-section').forEach(function (s) { io.observe(s); });
+  function fromHash() {
+    var h = decodeURIComponent(location.hash.slice(1)), el = h && document.getElementById(h);
+    var sec = el && (el.classList.contains('lb-section') ? el : el.closest('.lb-section'));
+    showTab(sec ? sec.id : '', !!sec && sec !== el);
+    if (sec && sec !== el) el.scrollIntoView({ block: 'center' });
   }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
 
   // purchase intents: filter by label and category, the top search applies here too
-  var icards = $$('#mb-intents .mb-int'), istate = { label: '', cat: '' }, icount = $('#mb-icount'), iempty = $('#mb-iempty'), iclear = $('#mb-iclear');
+  var icards = $$('#mb-intents .mb-int'), istate = { label: '', cat: '', reel: '' }, icount = $('#mb-icount'), iempty = $('#mb-iempty'), iclear = $('#mb-iclear');
   icards.forEach(function (c) { c._t = norm(c.textContent); });
   function iapply() {
     var terms = norm(state.q).split(/\s+/).filter(Boolean), n = 0;
     icards.forEach(function (c) {
-      var ok = (!istate.label || c.dataset.label === istate.label) && (!istate.cat || c.dataset.cat === istate.cat) &&
+      var ok = (!istate.label || c.dataset.label === istate.label) && (!istate.cat || c.dataset.cat === istate.cat) && (!istate.reel || c.dataset.reels === istate.reel) &&
         terms.every(function (t) { return c._t.indexOf(t) >= 0; });
       c.hidden = !ok; if (ok) n++;
     });
     if (icount) icount.textContent = n === icards.length ? icards.length + ' כוונות' : n + ' מתוך ' + icards.length;
     if (iempty) iempty.hidden = n > 0;
-    if (iclear) iclear.hidden = !(istate.label || istate.cat);
+    if (iclear) iclear.hidden = !(istate.label || istate.cat || istate.reel);
   }
   function group(attr, key) {
     $$('[' + attr + ']').forEach(function (b) { b.addEventListener('click', function () {
@@ -474,9 +591,10 @@ JS = r"""<script>
       iapply();
     }); });
   }
-  group('data-ilabel', 'label'); group('data-icat', 'cat');
+  group('data-ilabel', 'label'); group('data-icat', 'cat'); group('data-ireel', 'reel');
   function iclearAll() {
-    istate = { label: '', cat: '' };
+    istate = { label: '', cat: '', reel: '' };
+    $$('[data-ireel]').forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-ireel') === '' ? 'true' : 'false'); });
     $$('[data-ilabel]').forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-ilabel') === '' ? 'true' : 'false'); });
     $$('[data-icat]').forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-icat') === '' ? 'true' : 'false'); });
     iapply();
@@ -488,6 +606,7 @@ JS = r"""<script>
     a.addEventListener('click', function (ev) {
       ev.preventDefault();
       var c = $('#i-' + a.dataset.int); if (!c) return;
+      openFor(c);
       if (c.hidden) { input.value = ''; state.q = ''; apply(); iclearAll(); }
       c.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
       c.classList.remove('is-flash'); void c.offsetWidth; c.classList.add('is-flash');
@@ -533,10 +652,6 @@ def log_html():
     status = "".join(f'<button type="button" data-xstatus="{k}" aria-pressed="false">{v}</button>' for k, v in
                       (("idea", "רעיון"), ("ready", "מוכן"), ("running", "רץ"), ("completed", "הושלם"), ("archived", "בארכיון")))
     return (
-        '<div class="lb-callout info"><b>איך עובדים עם היומן</b><span>מתחילים ניסוי מכוונת קנייה, מממצא, מדפוס או מהשערה בדף (הכפתור '
-        '״+ ניסוי מכאן״ בכל אחד מהם), או מ״ניסוי חדש״. בהתחלה צריך רק כותרת והשערה. כשהתוכן עולה מוסיפים תוצאות ידנית, '
-        'וכשמסיימים בוחרים מסקנה וכותבים הסבר. מהמסקנה אפשר לפתוח ניסוי המשך. הנתונים נשמרים בקובץ '
-        '<code class="lb-ltr">experiments.json</code> דרך שרת הפרויקט.</span></div>'
         '<p class="lb-callout warning" id="mbx-note" hidden></p>'
         '<div class="mb-filterrow"><button class="lb-btn" id="mbx-new" type="button">+ ניסוי חדש</button><span class="mb-count" id="mbx-count"></span></div>'
         f'<div class="mb-filterrow"><span class="lb-dim">סטטוס</span><div class="lb-filters" role="group" aria-label="סטטוס">'
@@ -653,6 +768,125 @@ def exp_dialog():
 </dialog>"""
 
 
+HOOK_LISTS = (("on_screen", "על המסך"), ("spoken", "מה נאמר"), ("caption", "כיתוב"))
+MONTHS = {m: i for i, m in enumerate(("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"), 1)}
+
+
+def ddmmyyyy(s):
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})$", s or "")
+    if m:
+        return f"{m.group(3)} / {m.group(2)} / {m.group(1)}"
+    m = re.match(r"([A-Z][a-z]{2}) (\d{1,2}), (\d{4})$", s or "")
+    if m:
+        return f"{int(m.group(2)):02d} / {MONTHS[m.group(1)]:02d} / {m.group(3)}"
+    return s or ""
+
+
+def hooks_html():
+    """The 50 best performing on-screen, spoken and caption hooks of MeBook's Reels (15 Nov 2026), from
+    research/mebook-hooks/hooks.json. Hooks are quotes: copied as written, translate="no", never corrected here."""
+    if not os.path.exists(HOOKS):
+        return '<p class="lb-empty">אין עדיין נתונים: <code class="lb-ltr">research/mebook-hooks/hooks.json</code> חסר.</p>'
+    with open(HOOKS, encoding="utf-8") as f:
+        h = json.load(f)
+    for i in h["items"]:
+        for f in ("on_screen", "spoken", "caption"):
+            if i.get(f):
+                i[f] = DASHES.sub("-", i[f])
+    items = {i["key"]: i for i in h["items"]}
+    reels = [i for i in h["items"] if i["kind"] == "reel"]
+    ads = [i for i in h["items"] if i["kind"] == "ad"]
+    views = sorted(i["views"] for i in reels)
+    mid = len(views) // 2
+    median = views[mid] if len(views) % 2 else (views[mid - 1] + views[mid]) / 2
+    by_creator = sum(1 for i in reels if i["account"] != "@mebook.ai")
+    top = max(reels, key=lambda i: i["views"])
+
+    def metric(label, value, small=""):
+        extra = f'<small class="lb-ltr">{esc(small)}</small>' if small else ""
+        return (f'<div class="lb-metric"><p class="lb-metric-label">{esc(label)}</p>'
+                f'<p class="lb-metric-value"><span class="lb-ltr">{value}</span>{extra}</p></div>')
+
+    cubes = (metric("רילס שנבדקו", len(reels)) + metric("חציון צפיות", f"{median:,.0f}") +
+             metric("עלו אצל יוצרים", f"{by_creator} / {len(reels)}") + metric("הריל המוביל", f'{top["views"]:,}', top["account"]))
+
+    def row(n, it, f):
+        tags = ""
+        if f == "on_screen" and it.get("on_screen_kind") == "subtitles":
+            tags += '<span class="lb-chip outline" title="הטקסט על המסך הוא המשפט שנאמר">כתוביות</span>'
+        if f == "spoken" and it.get("spoken_basis") in ("auto", "auto+edit"):
+            tags += '<span class="lb-chip warning" title="מתמלול מקומי, לא אומת מול כתוביות">תמלול</span>'
+        tagbox = f'<div class="mbh-tags">{tags}</div>' if tags else ""
+        return (f'<li class="mbh-row"><span class="lb-disc sm quiet">{n}</span>'
+                f'<div class="mbh-main"><p class="mbh-text" dir="rtl" translate="no">{esc(it[f])}</p>{tagbox}</div>'
+                f'<div class="mbh-meta"><span class="mbh-views"><b class="lb-ltr">{it["views"]:,}</b> צפיות</span>'
+                f'<span class="mbh-who"><span class="lb-ltr">{esc(it["account"])}</span> · <span class="lb-ltr">{ddmmyyyy(it["date"])}</span></span>'
+                f'<a class="mbh-open" href="{esc(it["url"])}" target="_blank" rel="noopener" aria-label="פתיחת הריל באינסטגרם">{design.icon("open-out")}<span>פתיחה</span></a></div></li>')
+
+    lists, seg = [], []
+    for k, (f, label) in enumerate(HOOK_LISTS):
+        keys = h["top"][f]
+        hid = "" if k == 0 else " hidden"
+        lists.append(f'<ol class="lb-rowlist mbh-list" data-hlist="{f}"{hid}>' +
+                     "".join(row(n, items[key], f) for n, key in enumerate(keys, 1)) + "</ol>")
+        pressed = "true" if k == 0 else "false"
+        seg.append(f'<button type="button" data-hl="{f}" aria-pressed="{pressed}">{label} · {len(keys)}</button>')
+
+    def cell(t):
+        return f'<span dir="rtl" translate="no">{esc(t)}</span>' if t else '<span class="lb-dim">אין</span>'
+    ad_rows = "".join(
+        f'<tr><td class="lb-ltr">{a["ad_rank"]}</td><td>{cell(a["on_screen"])}</td><td>{cell(a["spoken"])}</td><td>{cell(a["caption"])}</td>'
+        f'<td><span class="lb-ltr">{ddmmyyyy(a["date"])}</span></td><td><a href="{esc(a["url"])}" target="_blank" rel="noopener">מודעה</a></td></tr>' for a in ads)
+    subs = sum(1 for k in h["top"]["on_screen"] if items[k].get("on_screen_kind") == "subtitles")
+    checked = sum(1 for k in h["top"]["spoken"] if items[k].get("spoken_basis") == "subtitles")
+    return (
+        f'<div class="lb-metrics mbh-cubes">{cubes}</div>'
+        f'<div class="lb-callout info" style="margin-top:var(--sp-4)"><b>איך לקרוא</b><span>'
+        f'הדירוג לפי הצפיות שאינסטגרם מציג בלשונית הרילס של <span class="lb-ltr">@mebook.ai</span> ב <span class="lb-ltr">15 / 11 / 2026</span>. '
+        f'{by_creator} מתוך {len(reels)} הרילס עלו אצל יוצרות ויוצרים, אז מספר גבוה מעיד גם על הקהל שלהם ולא רק על ההוק. '
+        f'<b>על המסך</b>: הטקסט ב 3 השניות הראשונות; {subs} מתוך 50 הם כתוביות של המשפט שנאמר. '
+        f'<b>מה נאמר</b>: המשפט הראשון, מתמלול מקומי שתוקן מול הכתוביות של הריל ב {checked} מתוך 50; השאר מסומנים ״תמלול״. '
+        f'<b>כיתוב</b>: השורה הראשונה של הכיתוב. הכול כפי שנכתב ונאמר, בלי תיקון; [?] היא מילה שלא ברורה.</span></div>'
+        f'<div class="mb-filterrow"><span class="lb-dim">רשימה</span><div class="lb-segmented" role="group" aria-label="סוג ההוק">{"".join(seg)}</div>'
+        f'<span class="mb-count" id="mbh-count"></span></div>'
+        f'{"".join(lists)}<p class="lb-empty" id="mbh-empty" hidden>אין הוק שמתאים לחיפוש.</p>'
+        f'<details class="lb-disclosure" style="margin-top:var(--sp-4)"><summary><span class="lb-sum">{len(ads)} מודעות הווידאו של מיבוק'
+        f'<small>מספריית המודעות של Meta, בלי מספרים ציבוריים</small></span></summary><div class="lb-disclosure-body">'
+        f'<div class="lb-table-wrap"><table class="lb-table mb-table"><thead><tr><th>#</th><th>על המסך</th><th>מה נאמר</th><th>טקסט המודעה</th><th>עלתה</th><th></th></tr></thead>'
+        f'<tbody>{ad_rows}</tbody></table></div><p class="lb-note">אותו סרטון רץ לפעמים עם כמה טקסטים. הסדר הוא המיון של ספריית המודעות לפי חשיפות, בלי מספרים.</p></div></details>'
+        )
+
+
+HOOKS_JS = r"""<script>
+(function () {
+  function $$(s) { return Array.prototype.slice.call(document.querySelectorAll(s)); }
+  var lists = $$('[data-hlist]'), btns = $$('[data-hl]'), count = document.getElementById('mbh-count'),
+      empty = document.getElementById('mbh-empty'), q = document.getElementById('mb-q'), cur = btns.length ? btns[0].dataset.hl : '';
+  if (!lists.length) return;
+  function norm(t) { return (t || '').toLowerCase().replace(/[֑-ׇ]/g, ''); }
+  $$('.mbh-row').forEach(function (r) { r._t = norm(r.textContent); });
+  function apply() {
+    var terms = norm(q ? q.value : '').split(/\s+/).filter(Boolean), n = 0, total = 0;
+    lists.forEach(function (l) {
+      var on = l.dataset.hlist === cur; l.hidden = !on;
+      if (!on) return;
+      Array.prototype.forEach.call(l.children, function (r) {
+        var ok = terms.every(function (t) { return r._t.indexOf(t) >= 0; });
+        r.hidden = !ok; total++; if (ok) n++;
+      });
+    });
+    if (count) count.textContent = n === total ? total + ' הוקים' : n + ' מתוך ' + total;
+    if (empty) empty.hidden = n > 0;
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () {
+    cur = b.dataset.hl; btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); apply();
+  }); });
+  if (q) q.addEventListener('input', apply);
+  apply();
+})();
+</script>"""
+
+
 def build():
     with open(SRC, encoding="utf-8") as f:
         d = json.load(f)
@@ -664,17 +898,15 @@ def build():
 
     ev = {e["n"]: e for e in d["evidence"]}
     sections = [  # id, nav label, icon, heading, sub
-        ("identity", "איזה עסק זה", "check", "איזה עסק זה", "מיבוק (MeBook), ספרי הילדים המותאמים אישית בישראל. נבדק מול האתר והרשתות הרשמיים."),
         ("sources", "מקורות ומגבלות", "search", "מקורות ומגבלות", "מה נקרא, ומה לא הצלחתי לקרוא."),
         ("summary", "סיכום המחקר", "sparkle", "סיכום המחקר", "הממצאים החזקים ביותר, ומה עדיין לא ידוע."),
-        ("evidence", "טבלת הראיות", "file", "טבלת הראיות", "47 אמירות במילים של הלקוחות. אפשר לסנן לפי נושא, סוג ומי הקונה, ולחפש."),
+        ("evidence", "טבלת הראיות", "file", "טבלת הראיות", f"{len(d['evidence'])} אמירות במילים של הלקוחות, כל מה שבמדגם. אפשר לסנן לפי נושא, סוג ומי הקונה, ולחפש."),
         ("patterns", "דפוסים", "chart", "דפוסים עיקריים", "כמה אמירות תומכות בכל ממצא, כמה חזק, ומה מגביל אותו."),
-        ("language", "בנק שפה", "chat", "בנק שפת הלקוחות", "ביטויים אמיתיים מהלקוחות. ההצעות שלנו בנפרד."),
+        ("language", "בנק שפה", "chat", "בנק שפת הלקוחות", "ביטויים אמיתיים מהלקוחות."),
         ("hypotheses", "שש השערות", "sparkle", "שש השערות תוכן ללומבוק", "כל השערה עם הראיות, הוק, הצילום הנדרש, דרך לבדוק, והנחה שעוד צריך לאמת."),
         ("intents", "100 כוונות קנייה", "chart", "100 כוונות קנייה", "למה מישהו מחליט לקנות ספר אישי במצב מסוים. לכל כוונה: תווית ראיה, מקור, ההיסוס, ומה לומבוק צריכה להראות. ו 10 לבדוק קודם."),
-        ("experiments", "ניסויים ושאלות", "check", "שלושת הניסויים הראשונים וחמש שאלות ללקוחות", "מה להריץ קודם, ומה לשאול את הקונים שלנו."),
+        ("hooks", "50 ההוקים", "chat", "50 ההוקים הכי חזקים של מיבוק", "מה כתוב על המסך, מה נאמר ראשון ומה השורה הראשונה בכיתוב, ברילס של מיבוק לפי מספר הצפיות."),
         ("log", "יומן ניסויים", "chart", "יומן ניסויים", "ניסוי תוכן לכל רעיון מהמחקר: השערה, מה הראינו, תוצאות שמזינים ידנית, ומה למדנו. נשמר בשרת הפרויקט."),
-        ("method", "שיטה", "info", "שיטה", "איך נספר ומה לא נכלל."),
     ]
     # icons: fall back to a known icon if a name is missing
     known = set(design.icons("icons")) | set(design.icons("ui"))
@@ -682,8 +914,7 @@ def build():
     def ic(name, fallback="file"):
         return design.icon(name if name in known else fallback)
 
-    nav = [f'<a class="lb-nav-item" href="#top"><span class="lb-tile lb-cat-0">{ic("sparkle")}</span><span class="lb-nav-text">למעלה</span></a>',
-           '<div class="lb-nav-label">חלקים</div>']
+    nav = ['<div class="lb-nav-label">חלקים</div>']
     for sid, label, icon, *_ in sections:
         nav.append(f'<a class="lb-nav-item" href="#{sid}"><span class="lb-tile lb-cat-0">{ic(icon)}</span><span class="lb-nav-text">{esc(label)}</span></a>')
 
@@ -699,11 +930,6 @@ def build():
     def head(sid):
         s = next(x for x in sections if x[0] == sid)
         return f'<div class="mb-section-head"><div><h2>{esc(s[3])}</h2><p>{esc(s[4])}</p></div></div>'
-
-    # identity
-    ident = "".join(
-        f'<div class="lb-card"><span class="lb-eyebrow">{esc(r["k"])}</span><p>{inline(r["v"])}</p>{link(r.get("url"), "פתיחה") if r.get("url") else ""}</div>'
-        for r in d["identity"])
 
     # sources
     def src_cell(x):
@@ -744,7 +970,6 @@ def build():
              '<button type="button" data-kind="both" aria-pressed="false">גם וגם</button></div>')
     buyers = ('<div class="lb-filters" role="group" aria-label="מי הקונה"><button type="button" data-buyer="" aria-pressed="true">כל הקונים</button>' +
               "".join(f'<button type="button" data-buyer="{k}" aria-pressed="false">{esc(v)}</button>' for k, v in d["buyer_labels"].items() if k not in ("unknown",)) + "</div>")
-    claims = "".join(f'<li>{inline(c["text"])} {link(c["url"], "המקור")}</li>' for c in d["brand_claims"])
 
     # patterns
     prow = []
@@ -763,8 +988,6 @@ def build():
             (f'<a class="ref" href="#e-{i["ref"]}" data-ref="{i["ref"]}">#{i["ref"]}</a>' if i["ref"] is not None else '<span></span>') + "</li>"
             for i in g["items"])
         lang.append(f'<article class="lb-card"><h3>{esc(g["title"])}</h3><ul>{li}</ul></article>')
-    sugg = "".join(f'<span class="lb-chip outline">{esc(s["t"])}</span>' for s in d["suggested"])
-    sugg_notes = "".join(f"<li>{esc(s['t'])}: {esc(s['note'])}</li>" for s in d["suggested"] if s["note"])
 
     # hypotheses
     hyps = []
@@ -788,19 +1011,23 @@ def build():
                     (f' {link(r["url"], "המקור")}' if r.get("url") else (f' <a href="#e-{r["ref"]}" data-ref="{r["ref"]}">#{r["ref"]}</a>' if r.get("ref") else "")) + "</span></div>"
                     for r in d["risks"])
 
-    # experiments + questions + method
-    hid = {h["id"]: h for h in d["hypotheses"]}
-    exps = "".join(
-        f'<article class="lb-card"><span class="lb-disc lb-cat-0">{i}</span><div><b class="t">{esc(x["hyp"])}: {esc(hid[x["hyp"]]["title"])}</b><p>{inline(x["why"])}</p></div></article>'
-        for i, x in enumerate(d["experiments"], 1))
-    qs = "".join(f"<li>{esc(q)}</li>" for q in d["questions"])
-    method = "".join(f"<li>{inline(m)}</li>" for m in d["method"])
+    # (identity, brand claims, our suggested phrases, the three first experiments, the five questions and the method stay in
+    # data.json and report.md; Yarin took them off the page with the edit button on 15 Nov 2026)
 
     # purchase intents
     qnums = set(ev)
     tips = source_tips()
     top_ns = {t["n"]: i for i, t in enumerate(it["top"], 1)}
     lab_count = {k: sum(1 for x in it["intents"] if x["label"] == k) for k in ILABELS}
+    ireels = load_intent_reels([x["n"] for x in it["intents"]])
+    n_with = sum(1 for v in ireels.values() if v)
+
+    def reel_row(n):
+        rs = ireels[n]
+        if not rs:
+            return '<div class="mb-reels"><span class="lb-eyebrow">רילס של מיבוק</span><span class="lb-dim">אין רילס במחקר שמתאימים</span></div>'
+        return (f'<details class="mb-reels"><summary><span class="lb-eyebrow">רילס של מיבוק · {len(rs)}</span></summary>'
+                f'<div class="mb-chips">{"".join(reel_chip(r) for r in rs)}</div></details>')
     icards = []
     for x in it["intents"]:
         key, cls, word = ILABELS[x["label"]]
@@ -810,20 +1037,25 @@ def build():
         if x["flag"]:
             chips += '<span class="lb-chip warning" title="תלוי ביכולת של לומבוק שלא אומתה באתר החי">⚑ לאמת בלומבוק</span>'
         icards.append(
-            f'<article class="lb-card mb-int" id="i-{x["n"]}" data-label="{key}" data-cat="{x["cat"]}">'
+            f'<article class="lb-card mb-int" id="i-{x["n"]}" data-label="{key}" data-cat="{x["cat"]}" data-reels="{1 if ireels[x["n"]] else 0}">'
             f'<div class="mb-q-head"><span class="mb-qn">#{x["n"]}</span>{chips}</div>'
             f'<p class="mb-int-text" dir="rtl">{inline(x["intent"])}</p>'
             f'<dl class="lb-kv"><dt>מי ומתי</dt><dd>{inline(x["buyer"])}</dd><dt>מה מעכב</dt><dd>{codes(x["hes"], qnums, tips)}</dd>'
-            f'<dt>מקור</dt><dd>{codes(x["src"], qnums, tips)}</dd><dt>מה להראות</dt><dd>{codes(x["show"], qnums, tips)}</dd></dl>{xbox("intent:" + str(x["n"]))}</article>')
+            f'<dt>מקור</dt><dd>{codes(x["src"], qnums, tips)}</dd><dt>מה להראות</dt><dd>{codes(x["show"], qnums, tips)}</dd></dl>'
+            f'{reel_row(x["n"])}{xbox("intent:" + str(x["n"]))}</article>')
     ilabel_btns = (f'<div class="lb-filters" role="group" aria-label="תווית ראיה"><button type="button" data-ilabel="" aria-pressed="true">הכול · {len(it["intents"])}</button>' +
                    "".join(f'<button type="button" data-ilabel="{ILABELS[k][0]}" aria-pressed="false">{ILABELS[k][2]} · {lab_count[k]}</button>' for k in ILABELS) + "</div>")
     icat_btns = ('<div class="lb-filters" role="group" aria-label="קטגוריה"><button type="button" data-icat="" aria-pressed="true">כל הקטגוריות</button>' +
                  "".join(f'<button type="button" data-icat="{i}" aria-pressed="false">{esc(cat_label(c))}</button>' for i, c in enumerate(it["cats"], 1)) + "</div>")
+    ireel_btns = ('<div class="lb-filters" role="group" aria-label="רילס של מיבוק"><button type="button" data-ireel="" aria-pressed="true">הכול</button>'
+                  f'<button type="button" data-ireel="1" aria-pressed="false">יש רילס של מיבוק · {n_with}</button>'
+                  f'<button type="button" data-ireel="0" aria-pressed="false">אין רילס שמתאימים · {len(ireels) - n_with}</button></div>')
     intent_by_n = {x["n"]: x for x in it["intents"]}
     top_cards = "".join(
         f'<article class="lb-card"><span class="lb-disc lb-cat-0">{i}</span><div>'
         f'<b class="t"><a href="#i-{t["n"]}" data-int="{t["n"]}">#{t["n"]}</a> {inline(intent_by_n[t["n"]]["intent"])}</b>'
-        f'<p>{inline(t["why"])}</p><div class="lb-sheet"><span class="lb-eyebrow">השערת מכירה</span><p>{codes(it["hyps"][t["n"]], qnums, tips)}</p></div></div></article>'
+        f'<p>{inline(t["why"])}</p><div class="lb-sheet"><span class="lb-eyebrow">השערת מכירה</span><p>{codes(it["hyps"][t["n"]], qnums, tips)}</p></div>'
+        f'{reel_row(t["n"])}</div></article>'
         for i, t in enumerate(it["top"], 1))
     limits = "".join(f"<li>{inline(x)}</li>" for x in it["limits"])
     intents_html = (
@@ -839,6 +1071,7 @@ def build():
         f'<div class="mb-filterrow"><span class="lb-dim">תווית</span>{ilabel_btns}<span class="mb-count" id="mb-icount"></span>'
         f'<button class="lb-btn ghost sm" id="mb-iclear" type="button" hidden>{design.icon("close")}<span>ניקוי הסינון</span></button></div>'
         f'<div class="mb-filterrow"><span class="lb-dim">קטגוריה</span>{icat_btns}</div>'
+        f'<div class="mb-filterrow"><span class="lb-dim">רילס של מיבוק</span>{ireel_btns}</div>'
         f'<div class="mb-ints" id="mb-intents">{"".join(icards)}</div>'
         f'<p class="lb-empty" id="mb-iempty" hidden>אין כוונה שמתאימה. אפשר לנסות מילה אחרת או לנקות את הסינון.</p>'
         f'<p class="lb-note" style="margin-top:var(--sp-3)">המקור: <code class="lb-ltr">purchase-intents.md</code>, והמקורות הממוספרים ב <code class="lb-ltr">sources/</code>.</p>')
@@ -847,33 +1080,25 @@ def build():
         return f'<section class="lb-section" id="{sid}">{head(sid)}{body}</section>'
 
     body = "".join([
-        sec("identity", f'<div class="mb-id">{ident}</div><p class="lb-dim lb-xs" style="margin-top:var(--sp-3)">{inline(d["identity_note"])}</p>'),
         sec("sources", f'<div class="lb-table-wrap"><table class="lb-table mb-table"><thead><tr><th>מקור</th><th>מה זה</th><th>כמה נקרא</th><th>הטיה שצריך לזכור</th><th></th></tr></thead><tbody>{src_rows}</tbody></table></div>'
             f'<div class="lb-callout warning" style="margin-top:var(--sp-3)"><b>לא נקרא</b><span><ul>{not_read}</ul></span></div>'
             f'<p class="lb-note" style="margin-top:var(--sp-3)">{inline(d["sample_note"])}</p>'),
         sec("summary", f'<div class="mb-sum">{summ}</div><div class="lb-callout info" style="margin-top:var(--sp-4)"><b>מה עדיין לא ידוע</b><span><ul>{unknowns}</ul></span></div>'),
-        sec("evidence", f'<div class="mb-filterrow"><span class="lb-dim">סוג</span>{kinds}<span class="lb-dim">קונה</span>{buyers}'
+        sec("evidence", f'<div class="lb-metrics mb-cubes" aria-label="סינון לפי נושא">{"".join(cubes)}</div><div class="mb-filterrow"><span class="lb-dim">סוג</span>{kinds}<span class="lb-dim">קונה</span>{buyers}'
             f'<button class="lb-btn ghost sm" id="mb-clear" type="button" hidden>{design.icon("close")}<span>ניקוי הסינון</span></button></div>'
             f'<div class="mb-quotes" id="mb-evidence">{"".join(rows)}</div>'
             f'<p class="lb-empty" id="mb-empty" hidden>אין אמירה שמתאימה. אפשר לנסות מילה אחרת או לנקות את הסינון.</p>'
-            f'<div class="lb-callout" style="margin-top:var(--sp-4)"><b>טענות של המותג, לא ראיות מלקוחות</b><span><ul class="mb-claims">{claims}</ul></span></div>'
-            f'<p class="lb-note" style="margin-top:var(--sp-3)">הציטוטים בעברית המקורית. התרגום לאנגלית של כל שורה נמצא ב <code class="lb-ltr">report.md</code>, בסעיף B.</p>'),
+            ),
         sec("patterns", f'<div class="lb-table-wrap"><table class="lb-table mb-table"><thead><tr><th>ממצא</th><th>אמירות</th><th>עוצמה</th><th>מגבלות או סתירות</th></tr></thead><tbody>{"".join(prow)}</tbody></table></div>'
-            '<p class="lb-note" style="margin-top:var(--sp-3)">חזק: 8 אמירות ומעלה משני סוגי מקורות לפחות. בינוני: 4 עד 7, או סוג מקור אחד. חלש: 1 עד 3. הספירות הן אמירות במדגם, אף פעם לא אחוז מהלקוחות.</p>'),
-        sec("language", f'<div class="mb-lang">{"".join(lang)}</div>'
-            f'<div class="lb-card" style="margin-top:var(--sp-4)"><span class="lb-eyebrow">הצעות שלנו, לא ציטוטים של לקוחות</span><div class="mb-sugg" style="margin-top:.5rem">{sugg}</div>'
-            f'<p class="lb-dim lb-xs">{esc(d["suggested_note"])}</p>' + (f'<ul class="lb-dim lb-xs">{sugg_notes}</ul>' if sugg_notes else "") + '</div>'),
-        sec("hypotheses", f'<div class="lb-callout info"><b>לפני שקוראים</b><span>{inline(d["product_note"])}</span></div>'
-            f'<div class="mb-hyps" style="margin-top:var(--sp-4)">{"".join(hyps)}</div>'
+            ),
+        sec("language", f'<div class="mb-lang">{"".join(lang)}</div>'),
+        sec("hypotheses", f'<div class="mb-hyps">{"".join(hyps)}</div>'
             f'<h3 style="margin-top:var(--sp-5)">שני סיכונים שהמחקר מעלה ללומבוק</h3><div class="lb-stack" style="display:grid;gap:var(--sp-3)">{risks}</div>'),
         sec("intents", intents_html),
-        sec("experiments", f'<div class="mb-exp">{exps}</div><p class="lb-note" style="margin-top:var(--sp-3)">{inline(d["experiments_note"])}</p>'
-            f'<h3 style="margin-top:var(--sp-5)">חמש שאלות ללקוחות לומבוק</h3><ol class="mb-qs">{qs}</ol><p class="lb-note" style="margin-top:var(--sp-3)">{inline(d["questions_note"])}</p>'),
+        sec("hooks", hooks_html()),
         sec("log", log_html()),
-        sec("method", f'<ul class="mb-claims">{method}</ul>'),
     ])
 
-    meta = "".join(f"<span>{esc(m)}</span>" for m in d["hero_meta"])
     page = f"""<!doctype html>
 <html lang="he" dir="rtl">
 <head>
@@ -887,9 +1112,8 @@ def build():
 <body>
 <div class="lb-app">
   <aside class="lb-sidebar" aria-label="חלקי המחקר">
-    <a class="lb-brand" href="#top"><img src="{design.logo_data_uri()}" alt=""><span><b>לקוחות מיבוק</b><small>לומבוק · <span class="lb-ltr">14 / 11 / 2026</span></small></span></a>
+    <a class="lb-brand" href="#top"><span><b>Mebook: מחקר</b></span></a>
     <nav class="lb-nav">{"".join(nav)}</nav>
-    <div class="lb-sidebar-foot"><span class="lb-chip outline">מחקר על לקוחות מיבוק, לא על לומבוק</span><span>המקור: <code class="lb-ltr">research/mebook-customer-research/data.json</code></span></div>
   </aside>
   <div class="lb-scrim" hidden></div>
   <main class="lb-main" id="top">
@@ -900,16 +1124,9 @@ def build():
     </div></div>
     <div class="lb-page">
       <header class="lb-hero mb-hero">
-        <span class="lb-eyebrow">לומבוק · מחקר לקוחות</span>
-        <h1>{esc(d['title'])}</h1>
-        <p class="lb-lede">{inline(d['lede'])}</p>
-        <div class="lb-hero-meta">{meta}</div>
+        <h1>Mebook: מחקר</h1>
       </header>
-      <div class="lb-callout warning"><b>שימו לב</b><span>{inline(d['warning'])}</span></div>
-      <div class="lb-metrics mb-cubes" aria-label="סינון לפי נושא" style="margin-top:var(--sp-4)">{"".join(cubes)}</div>
-      <p class="lb-note" style="margin-top:var(--sp-2)">המספרים בקוביות סופרים את כל המדגם (כ 136 אמירות). לחיצה על קובייה מסננת את 47 הציטוטים שבטבלת הראיות.</p>
       {body}
-      <footer class="lb-footer lb-xs lb-dim">נבנה מ-<code class="lb-ltr">research/mebook-customer-research/data.json</code> ב-<code class="lb-ltr">python3 tools/lumebook.py build mebook-customer-research</code>. הדוח באנגלית: <code class="lb-ltr">report.md</code>.</footer>
     </div>
   </main>
 </div>
@@ -917,6 +1134,7 @@ def build():
 {JS}
 <script>window.MB_SRC = {json.dumps(mb_src(d, it), ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")};</script>
 <script>{exp_scripts()}</script>
+{HOOKS_JS}
 </body>
 </html>
 """

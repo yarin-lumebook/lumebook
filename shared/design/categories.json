@@ -33,10 +33,10 @@
       "what": "The project's workstreams; each component of lumebook.json belongs to one",
       "items": {
         "plan": {"cat": 4, "label": "תוכנית ואסטרטגיה", "en": "Plan and strategy", "components": ["strategy", "smm-plan", "product-docs", "brand-marketing-system", "sales-readout"]},
-        "creators": {"cat": 2, "label": "יוצרים", "en": "Creators", "components": ["creator-map", "signup-form", "creator-content-conversion", "creator-brief", "ambassadors", "partners-page"]},
+        "creators": {"cat": 2, "label": "יוצרים", "en": "Creators", "components": ["creator-map", "signup-form", "creator-content-conversion", "creator-brief", "ambassadors", "ambassadors-v2", "partners-page"]},
         "carousels": {"cat": 5, "label": "קרוסלות", "en": "Carousels", "components": ["carousel-pipeline", "hook-studio-page", "carousel-research", "carousel-playbook", "carousel-audit", "lotem-lerner-carousels", "fal-trial", "content-calendar"]},
         "reels": {"cat": 1, "label": "רילס ווידאו", "en": "Reels and video", "components": ["israeli-product-reels", "reels-hub", "reels-research-page", "reel-calendar", "kids-lab", "media"]},
-        "communities": {"cat": 6, "label": "קהילות", "en": "Communities", "components": ["parent-communities"]},
+        "communities": {"cat": 6, "label": "קהילות", "en": "Communities", "components": ["parent-communities", "community-tracker"]},
         "learning": {"cat": 3, "label": "קורס ולמידה", "en": "Course and learning", "components": ["course"]},
         "research": {"cat": 7, "label": "מחקר", "en": "Research", "components": ["competitor-teardown", "research-hub"]},
         "system": {"cat": 0, "label": "מערכת", "en": "System", "components": ["facts", "brand", "design", "dashboard", "site-editor", "i18n", "store-mock"]}
@@ -50,6 +50,16 @@
         "gift": {"cat": 2, "label": "General"},
         "pro": {"cat": 6, "label": "Professionals"},
         "par": {"cat": 5, "label": "Parents"}
+      }
+    },
+    "map-views": {
+      "class": "mview",
+      "used_by": ["creators/creator-research/src/template.html (the view switch, the side bar's view header, the view tags in the crumbs and on the shared reminders stack)"],
+      "what": "The three views of the creator map (15 Nov 2026): creators, professionals (experts badge) and the Facebook communities",
+      "items": {
+        "cr": {"cat": 2, "label": "יוצרים", "en": "Creators"},
+        "pro": {"cat": 4, "label": "אנשי מקצוע", "en": "Professionals"},
+        "fb": {"cat": 6, "label": "קהילות פייסבוק", "en": "Facebook communities"}
       }
     },
     "competitors": {
@@ -230,6 +240,44 @@
           "label": "שאלות לפני קנייה",
           "en": "Questions before buying"
         }
+      }
+    },
+    "community-metrics": {
+      "used_by": ["creators/community-tracker/page.js (קהילות פייסבוק: the summary cubes on the home, posts and leads views, through lb-cat-N; build.py passes the classes as CT_CAT)"],
+      "what": "The numbers of the Facebook community tracker (15 Nov 2026): groups in work, posts, reactions, comments and leads, one hue each on every view. Reactions and comments keep the hues of likes and comments in books-metrics and social-metrics. No class key, so other pages' inlined CSS does not change. Leads that reached the end and reminders are status and keep the status colours (success, warning)",
+      "items": {
+        "groups": {"cat": 7, "label": "קבוצות בעבודה", "en": "Groups in work"},
+        "posts": {"cat": 1, "label": "פוסטים", "en": "Posts"},
+        "reactions": {"cat": 2, "label": "תגובות רגש", "en": "Reactions"},
+        "comments": {"cat": 6, "label": "תגובות", "en": "Comments"},
+        "leads": {"cat": 5, "label": "לידים", "en": "Leads"}
+      }
+    },
+    "proof-themes": {
+      "used_by": ["media/projects/2026-11-15-social-proof/build.py (the social proof page: theme cubes, chips and filters for good reviews and comments, through lb-cat-N)"],
+      "what": "What the good reviews and comments praise (15 Nov 2026): service blue, book quality green, the child's reaction purple, a gift orange, easy to make teal, fast ochre, recommend or order again pink, a star rating with no text slate. No class key, so other pages' inlined CSS does not change.",
+      "items": {
+        "service": { "cat": 4, "label": "שירות ויחס", "en": "Service and care" },
+        "quality": { "cat": 3, "label": "איכות הספר", "en": "Book quality" },
+        "kids": { "cat": 5, "label": "הילד מתרגש מהספר", "en": "The child loves the book" },
+        "gift": { "cat": 1, "label": "מתנה", "en": "A gift" },
+        "easy": { "cat": 6, "label": "קל ליצור", "en": "Easy to make" },
+        "speed": { "cat": 8, "label": "מהיר", "en": "Fast" },
+        "recommend": { "cat": 2, "label": "ממליצים או רוצים להזמין", "en": "Recommend or want to order" },
+        "praise": { "cat": 0, "label": "מחמאה והתלהבות כללית", "en": "General praise and excitement" },
+        "rating": { "cat": 7, "label": "דירוג בלי טקסט", "en": "Rating with no text" }
+      }
+    },
+    "kid-moments": {
+      "used_by": ["media/projects/2026-11-15-social-proof/build.py (the kids tab: what the child is doing in each photo or video)"],
+      "what": "What happens in a kid-with-the-book photo or video (15 Nov 2026), read from the file names: unboxing orange, hugging the book pink, reading together green, showing it to the camera blue, browsing the pages teal, a creator's edited reel slate. No class key.",
+      "items": {
+        "unbox": { "cat": 1, "label": "פותחים את החבילה", "en": "Unboxing" },
+        "hug": { "cat": 2, "label": "מחבקים את הספר", "en": "Hugging the book" },
+        "together": { "cat": 3, "label": "קוראים עם הורה או אח", "en": "Reading with a parent or sibling" },
+        "show": { "cat": 4, "label": "מראים את הספר למצלמה", "en": "Showing the book to the camera" },
+        "browse": { "cat": 6, "label": "מדפדפים ומסתכלים בספר", "en": "Browsing the pages" },
+        "reel": { "cat": 7, "label": "רילס ערוך של יוצרת", "en": "A creator's edited reel" }
       }
     }
   }

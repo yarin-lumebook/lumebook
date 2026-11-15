@@ -25,7 +25,8 @@ const decl = (name, need) => stmt(new RegExp("^(const|let|function) " + name + "
 
 // who() leaves {name} in place while checking: the greeting is the account name, not a mention of the kids
 const src = [
-  decl("C"), decl("KNOTE_HE"), decl("MONTH_EN", false), decl("srcL"),
+  // since 15 Nov 2026 C is the current view's list (let C=ALL) and ALL every creator
+  decl("ALL", false), decl("C"), decl("KNOTE_HE"), decl("MONTH_EN", false), decl("srcL"),
   "const HOOK={ko:()=>null}; const SET={}; const get=()=>({}); const who=c=>(globalThis.SHOW?c.n||c.h:'{name}'); const lineOf=c=>c.l||''; const signer=()=>'ירין';",
   decl("knum"), decl("kidsOf"), decl("kidsForm"), decl("KB"), decl("KW"), decl("namesJoin"), decl("kidsG"), decl("kidsOnce", false), decl("kidsGeneric"),
   decl("HEROOT"), decl("addH"), decl("dropH"), decl("HEN"), decl("hebArt"),

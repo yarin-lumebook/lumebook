@@ -2,7 +2,8 @@
 
 Since 5 Nov 2026 the creator map's "ספרים שנוצרו" tab has a post link field (column "פוסט ודרייב"): Yarin pastes the link to the creator's post
 about the book (saved on the row as `post` in `state/settings.json` `main.books`; pasting a link also ticks "תוכן עלה").
-Every day the scheduled task `lumebook-creator-posts-daily` (09:00) reads each linked post on Instagram, read only, and
+Every night at 00:00 part A of the scheduled task `lumebook-creator-cards-daily` (since 15 Nov 2026; until then its own
+09:00 task `lumebook-creator-posts-daily`, now off) reads each linked post on Instagram, read only, and
 the table shows its views, likes and comments as three small cubes under the creator's name, with the change since the
 previous reading. The cubes at the top of the tab add them up.
 

@@ -2,8 +2,13 @@
 """Nightly snapshot of the whole LumeBook repo (dashboard and every component it is fed by), run by launchd at 00:00:
 refresh the dashboard snapshot, commit, push, deploy (changed since Yarin's 20 Oct 2026 request; before that it only committed).
 
-First rebuilds the dashboard snapshot (sites/dashboard/refresh.py: the home numbers, Postiz, the last ambassadors Sheet export) and writes the edit button's edits back
-into any page rebuilt since (tools/site_editor.py bake_all). Commits to the current branch, pushes it to origin (never forced), then deploys every Vercel component whose files
+Before the commit (since 15 Nov 2026, Yarin: "analyze what should we update automatically and apply a schedule task for it all"):
+  1. reads every published post's numbers from Postiz (research/carousel-audit/src/postiz_results.py)
+  2. runs tools/lumebook.py ripple (rebuilds changed local pages, syncs copies, queues to-dos, writes .lumebook/status.json)
+  3. rebuilds the dashboard snapshot (sites/dashboard/refresh.py: the home numbers, Postiz, the last ambassadors Sheet export)
+  4. writes the edit button's edits and the language words back into any page rebuilt since (bake_all)
+Every step is logged and a failed step never blocks the commit. The whole schedule (this job, the Claude tasks, the cloud
+routine) is listed in CLAUDE.md, section "Schedules". Commits to the current branch, pushes it to origin (never forced), then deploys every Vercel component whose files
 changed since its last deploy (lumebook.json deploy.type vercel: the dashboard and the creator brief). A failed push
 skips the deploy, so the live sites never run ahead of what is on GitHub. Follows the repo's own rules instead of bypassing them:
   - .gitignore decides what is in (raw media, .lumebook/, creator state/ stay out)
@@ -46,6 +51,32 @@ def busy():
         if os.path.exists(os.path.join(gd, name)):
             return name
     return None
+
+
+def step(name, cmd, timeout, keep=lambda line: False):
+    """Run one upkeep script before the commit; log its first line (and the lines keep() picks). Never blocks the rest."""
+    try:
+        r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        log(f"{name} timed out after {timeout} s")
+        return
+    lines = [x for x in (r.stdout + r.stderr).splitlines() if x.strip() and not x.startswith("PROGRESS ")]
+    picked = [lines[0]] + [x.strip() for x in lines[1:] if keep(x)] if lines else ["no output"]
+    log((f"{name}: " if r.returncode == 0 else f"{name} FAILED: ") + " | ".join(picked)[:500])
+
+
+def post_results():
+    """Numbers per published post from Postiz (research/carousel-audit/src/postiz_results.py, since 15 Nov 2026)."""
+    step("post results", [sys.executable, os.path.join(ROOT, "research", "carousel-audit", "src", "postiz_results.py")], 1200)
+
+
+def ripple():
+    """tools/lumebook.py ripple (back on a schedule since 15 Nov 2026; nothing ran it after 20 Oct): rebuild the local pages whose
+    sources changed (builds marked auto), sync brand and design copies, queue the rest as to-dos and write .lumebook/status.json,
+    which refresh.py puts in the dashboard snapshot. It never republishes an artifact or deploys; the deploy step below does
+    Vercel for whatever it rebuilt."""
+    step("ripple", [sys.executable, os.path.join(ROOT, "tools", "lumebook.py"), "ripple"], 2400,
+         keep=lambda x: x.startswith(("  rebuilt", "  FAILED")))
 
 
 def refresh_dashboard():
@@ -140,6 +171,8 @@ def main():
         return 0
 
     if not dry:
+        post_results()
+        ripple()
         refresh_dashboard()
         bake_edits()
     git("add", "-A", check=True)
@@ -151,6 +184,9 @@ def main():
     staged = git("diff", "--cached", "--name-only").stdout.splitlines()
 
     if not staged:
+        if dry:
+            print("nothing to commit", notes)
+            return 0
         log("nothing to commit" + (f" ({'; '.join(notes)})" if notes else ""))
         return ship(branch)
     if dry:

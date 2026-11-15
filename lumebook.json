@@ -236,10 +236,47 @@
       "feeds": [],
       "notes": "Retired on 11 Oct 2026: Yarin no longer uses the Vercel ambassadors site. The folder is kept as an archive and is not deployed, synced or maintained. The old pages may still be online at https://lumebook-ambassadors.vercel.app until the Vercel project is removed."
     },
+    "ambassadors-v2": {
+      "name": "Ambassador page redesign (review prototype for lumebook.com/IL/he/ambassadors, Hebrew, store look, mock form wired to the store's signup contract)",
+      "path": "sites/lumebook-ambassadors-v2",
+      "kind": "site",
+      "watch": [
+        "sites/lumebook-ambassadors-v2/src/build.py",
+        "sites/lumebook-ambassadors-v2/src/content/he.json",
+        "sites/lumebook-ambassadors-v2/ambassadors.css",
+        "sites/lumebook-ambassadors-v2/ambassadors.js",
+        "shared/facts.json",
+        "docs/ambassadors/*.md"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build.py"
+        ],
+        "cwd": "sites/lumebook-ambassadors-v2",
+        "outputs": [
+          "sites/lumebook-ambassadors-v2/index.html",
+          "sites/lumebook-ambassadors-v2/copy-he.md"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "local",
+        "url": "http://localhost:8780/sites/lumebook-ambassadors-v2/",
+        "note": "15 Nov 2026. Not deployed and not on lumebook.com: the store team ports it (README). The form always runs in mock mode outside lumebook.com."
+      },
+      "feeds": [],
+      "rules": [
+        "Copy lives in src/content/he.json; facts in shared/facts.json ambassador_program (from the store's terms, docs/ambassadors/fact-table.md). After any change run src/build.py, then lint_copy.py.",
+        "Never submit the live signup form or call /api/ambassadors/signup for a test: it creates an ambassador and sends a WhatsApp code.",
+        "No Reel deadline, brief timing or book check on the page until Yarin confirms them (ambassador_program.open_questions)."
+      ]
+    },
     "creator-map": {
-      "name": "Creator map (outreach CRM, up to 100 new creators every Saturday)",
+      "name": "Creator map (outreach CRM in three views: creators, professionals, Facebook communities; up to 100 new creators every Saturday)",
       "path": "creators/creator-research",
       "kind": "page",
+      "schedule": "scheduled task lumebook-creator-cards-daily, 00:00 every night: creator post numbers, then every card re-read (since 15 Nov 2026); lumebook-creator-map-weekly, Saturday 21:00: up to 100 new creators",
       "watch": [
         "creators/creator-research/src/template.html",
         "creators/creator-research/src/build2.py",
@@ -250,7 +287,12 @@
         "creators/creator-research/src/research/merge_pass.py",
         "creators/creator-research/src/research/weekly/*",
         "research/creator-content-conversion/round2/creators_kpi.csv",
-        "creators/creator-research/src/refresh/latest.json"
+        "creators/creator-research/src/refresh/latest.json",
+        "creators/community-tracker/build.py",
+        "creators/community-tracker/page.css",
+        "creators/community-tracker/page.js",
+        "creators/community-tracker/research-he.json",
+        "research/parent-community/data.json"
       ],
       "build": {
         "cmd": [
@@ -276,7 +318,7 @@
       "feeds": [
         "dashboard"
       ],
-      "notes": "Grows every Saturday at 21:00: scheduled task lumebook-creator-map-weekly (Claude desktop app, built-in browser signed in to Instagram, read only) runs the method in src/research/weekly/README.md and appends through src/research/merge_pass.py. The Sunday 10:00 task lumebook-creator-refresh then re-reads every creator, the new ones included. Every day at 09:00 the task lumebook-creator-posts-daily reads the creator posts linked in the books tab (src/posts/README.md) into state/posts.json, which the page fetches; no rebuild needed."
+      "notes": "Grows every Saturday at 21:00: scheduled task lumebook-creator-map-weekly (Claude desktop app, built-in browser signed in to Instagram, read only) runs the method in src/research/weekly/README.md and appends through src/research/merge_pass.py. The Sunday 10:00 task lumebook-creator-refresh then re-reads every creator, the new ones included. Every day at 09:00 the task lumebook-creator-posts-daily reads the creator posts linked in the books tab (src/posts/README.md) into state/posts.json, which the page fetches; no rebuild needed. Three views since 15 Nov 2026 (Yarin: \"a separate view for creators, professionals and facebook communities ... merge the other session working on the facebook communities map\"): an icon switch in the middle of the top bar picks creators, professionals (the experts badge, c.xp) or the Facebook communities (the community tracker, drawn inside the map from creators/community-tracker, addresses #fb-<view>); the reminders are one stack for all three. README: src/README.md."
     },
     "creator-content-conversion": {
       "name": "Creator content and purchase intent (round 1: 41 creators; round 2: 134 creators, 1,456 posts, 22,428 comments)",
@@ -550,6 +592,7 @@
       "name": "Carousel audit (every published carousel: inventory, Instagram numbers, creative scores, tagged links)",
       "path": "research/carousel-audit",
       "kind": "docs",
+      "schedule": "midnight job (tools/nightly_commit.py), 00:00: numbers per published post from Postiz into data/postiz-results.json (since 15 Nov 2026); Meta exports stay by hand (audit.py import)",
       "watch": [
         "research/carousel-audit/src/*",
         "research/carousel-audit/data/carousels.json",
@@ -597,7 +640,7 @@
         "carousel/carousel-pipeline/names.md",
         "carousel/carousel-pipeline/scripts/*.py"
       ],
-      "schedule": "cloud routine 'Hook Studio weekly batch (cloud)' (its name from before the rename): Thursday 19:00 UTC (22:00 Israel summer time, 21:00 winter), 7 packs + 14 games and books carousels to batch/ID; review_server.py pulls them (since 16 Oct 2026; the nightly runs before that)",
+      "schedule": "cloud routine 'Carousel Machine monthly batch (cloud)' (trig_013C3V1RxF3M38utouVepaVC): 04:00 UTC on the 28th to 31st, goes on only on the last day of the month in Israel (cloud-monthly-prompt.md step 00); one pack per posting day to batch/ID, review_server.py pulls them (weekly on Thursdays from 16 Oct to 29 Oct 2026)",
       "feeds": [
         "dashboard"
       ],
@@ -651,7 +694,7 @@
         ],
         "capabilities": "db, user, mcp (Google Drive read_file_content), assets, downloads and sample (the course's Claude check) on contract 0.2.96, as stored on version 5 (31 Oct 2026); omit capabilities and contract on later publishes (sites/dashboard/course/README.md, Publishing). The course view writes course/tasks, course/progress, course/numbers, course/settings and course/links"
       },
-      "schedule": "lumebook-dashboard-refresh, 08:14 daily",
+      "schedule": "midnight job (tools/nightly_commit.py), 00:00: ripple, snapshot, commit, Vercel deploy; scheduled task lumebook-hq-daily, 07:30: ambassador Sheet, snapshot into the artifact database, Vercel deploy",
       "feeds": [],
       "deploy": {
         "type": "vercel",
@@ -718,9 +761,43 @@
       },
       "feeds": [
         "dashboard",
-        "research-hub"
+        "research-hub",
+        "community-tracker"
       ],
       "notes": "Shooting day for social media, for a free book (shared/facts.json parent_shoot_offer), re-ranked 2026-10-14 by distance from Ashkelon. build_page.py also writes research/parent-community-outreach.md. 21 WhatsApp invites unverified (WhatsApp 429)."
+    },
+    "community-tracker": {
+      "name": "קהילות פייסבוק: the Facebook community tracker, the creator map's third view since 15 Nov 2026 (parent groups and UGC creator groups with stage, posts and leads per group)",
+      "path": "creators/community-tracker",
+      "kind": "data",
+      "watch": [
+        "creators/community-tracker/build.py",
+        "creators/community-tracker/page.css",
+        "creators/community-tracker/page.js",
+        "creators/community-tracker/research-he.json",
+        "research/parent-community/data.json"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "build.py"
+        ],
+        "cwd": "creators/community-tracker",
+        "outputs": [
+          "creators/community-tracker/community-tracker.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "local",
+        "url": "http://localhost:8780/creators/creator-research/lumebook-creator-map.html#fb-home",
+        "note": "Inside the creator map (local only). creators/community-tracker/community-tracker.html is only a forward to the map's communities view (#fb-...), kept so HQ's tool link and saved links still land there. Yarin's work (stages, posts, leads with parents' names and phone numbers) is saved by the project server in creators/community-tracker/state/tracker.json (tools/communities.py, private, not in git). No claude.ai or Vercel copy."
+      },
+      "feeds": [
+        "creator-map",
+        "dashboard"
+      ],
+      "notes": "15 Nov 2026 (Yarin: \"a combined tool like the ugc creator map to track the parent facebook communities and ugc creators facebook communities posts and leads (take the groups from the researches we made)\"). The 295 Facebook groups of research/parent-community/data.json (278 parent, 17 UGC creator groups), rules in Hebrew from research-he.json. README in the folder. Merged into the creator map the same day: build.py embed_parts() hands page.js, page.css, the groups and the markup to creators/creator-research/src/build2.py; page.js runs in an embed mode (window.CT_EMBED: the map owns the address bar and the side bar, the script handles only .ct-scope, window.CT gives the map its reminders and cards). Rebuild the map after changing anything here."
     },
     "hook-studio-page": {
       "name": "Carousel Machine page (its front page)",
@@ -1067,7 +1144,8 @@
         "research/mebook-customer-research/purchase-intents.md",
         "research/mebook-customer-research/sources/*",
         "research/mebook-customer-research/experiments-metrics.js",
-        "research/mebook-customer-research/experiments.src.js"
+        "research/mebook-customer-research/experiments.src.js",
+        "research/mebook-hooks/hooks.json"
       ],
       "build": {
         "cmd": [
@@ -1094,6 +1172,41 @@
         "research-hub"
       ],
       "notes": "14 Nov 2026 (Yarin pasted a customer-research brief: MeBook buyers' motivations, objections, occasions and language, turned into content hypotheses for LumeBook; then \"super organized html\", \"in hebrew\"). Sources: MeBook's Google listing (67 reviews, read in Hebrew), 41 verified reviews on mebook.ai book pages, 252 Instagram and TikTok comments from the competitor teardown, one public Facebook group question. Facebook ad comments and 3 of 4 Facebook page reviews are behind a login. Evidence about MeBook customers, not proof about LumeBook's."
+    },
+    "social-proof": {
+      "name": "Social proof (הוכחה חברתית: every good review and comment on LumeBook as a screenshot, tagged by theme, and every real photo or video of a child with their book)",
+      "path": "media/projects/2026-11-15-social-proof",
+      "kind": "page",
+      "schedule": "scheduled task lumebook-social-proof-daily, 06:30 every day: new reviews, comments and kid photos, then rebuild",
+      "watch": [
+        "media/projects/2026-11-15-social-proof/data.json",
+        "media/projects/2026-11-15-social-proof/build.py",
+        "shared/design/categories.json"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "build.py"
+        ],
+        "cwd": "media/projects/2026-11-15-social-proof",
+        "outputs": [
+          "media/projects/2026-11-15-social-proof/social-proof.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "local",
+        "url": "http://localhost:8780/media/projects/2026-11-15-social-proof/social-proof.html",
+        "note": "Local only: the screenshots and thumbnails sit in the media folder (not in git). The files themselves are copied to the two Drive folders in shared/facts.json drive_marketing.social_proof."
+      },
+      "rules": [
+        "data.json is the source: reviews[] (screenshot, platform, themes, Drive copy id) and kids[] (Drive original and copy ids, thumbnail). Theme hues from shared/design/categories.json set proof-themes.",
+        "Copies only: the Drive folders hold copies; never move the originals (Yarin, 15 Nov 2026: \"dont move media from one place to another, duplicate it\").",
+        "Good = 4 or 5 stars, or a comment that praises; bare keyword comments (לומי) and complaints are left out. Yarin's own review is left out.",
+        "removed.json lists the cards Yarin removed on the page (15 Nov 2026: \"delete irrelevant cards so you wont use them in the future\"; keys review:<id> and kid:<file name>). When picking media from this page, its folders or data.json, skip every listed key. Nothing is deleted from disk; tools/social_proof.py, GET and PUT /api/social-proof/removed."
+      ],
+      "feeds": [],
+      "notes": "15 Nov 2026 (Yarin: \"i need 2 folders: every real picture or video of a kid seeing themselves in their book; screenshots of every good comment or review we got on all platforms\", then \"also organic and paid content\", \"categorize them and create an html\")."
     }
   }
 }

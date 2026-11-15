@@ -1,9 +1,11 @@
 # Weekly refresh
 
 Re-reads every creator in the map from Instagram, read only, and updates the six numbers on each card plus the flags.
-Since 24 Oct 2026 it runs every Saturday night as the second part of the scheduled task `lumebook-creator-map-weekly`
-(21:00), right after that week's new creators are added, so they are measured too. (It used to be its own Sunday 10:00
-task, `lumebook-creator-refresh`, now switched off.) It never opens DMs or email and never sends, likes or follows anything.
+Since 15 Nov 2026 it runs every night at 00:00 as part B of the scheduled task `lumebook-creator-cards-daily` (part A
+reads the creator post numbers, `../posts/README.md`), and it is the only full re-read: the Saturday 21:00 task
+`lumebook-creator-map-weekly` only adds new creators, and the midnight run measures them the same night. (From 24 Oct to
+15 Nov it was the second part of the Saturday task; before that its own Sunday 10:00 task, `lumebook-creator-refresh`, now
+manual only.) It never opens DMs or email and never sends, likes or follows anything.
 
 ## What it updates
 

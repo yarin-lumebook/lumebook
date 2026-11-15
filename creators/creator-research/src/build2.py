@@ -68,7 +68,7 @@ O={
 "etti_haft":(1,"Gift-only barter + B2B intro to her gan","Letter hunt on the child's own name","Consideration; B2B gan lead","Saves; whether her gan orders a class set"),
 "ima.shir":(1,"Gift + affiliate code (potty-training story)","Her toddler's real potty-training week with the book","Conversion (urgent milestone)","Preview starts + orders on her code"),
 "nataliegaash":(1,"Gift + affiliate code (big-sibling story)","Week-one prep for a new sibling, with her 3 tips","Conversion (milestone)","Preview starts + orders on her code"),
-"hadas.shvat":(1,"Gift + organic mention in a 'screen-free things we do' piece","Book as a door to pretend play","Awareness (screen-free positioning)","Shares; profile visits to @lumebookai"),
+"hadas.shvat":(1,"Gift + organic mention in a 'screen-free things we do' piece","Book as a door to pretend play","Awareness (screen-free positioning)","Shares; profile visits to @lumebook.il"),
 "rotem__unger":(1,"Gift-only barter","Full-time-dad bedtime in nature","Awareness (dad audience)","Reach vs his 2.5K median; comments from dads"),
 "daria_mansour1":(1,"Gift-only barter (2 books, twins)","Which twin recognises themselves first","Awareness + ad creative","Views vs 4.3K median; raw reveal clip for ads"),
 "saba.chiche":(1,"Gift; small fee only if he asks (Yossi's approval)","Grandpa reveal to grandkids — Hanukkah gifting","Awareness → gifting conversion","Views; 'gift for grandkids' comments; Hanukkah code orders"),
@@ -130,6 +130,15 @@ for k,v in {"__XP__":experts.kinds_for_page(),"__DATA__":C,"__OUT__":O,"__EDGE__
           # the books tab's hues (shared/design/categories.json set books-metrics), used as lb-cat-N
           "__BKCAT__":{k:v["cat"] for k,v in design.categories("books-metrics").items()}}.items(): h=h.replace(k,J(v))
 for k,v in {"<!--LB:HEAD-->":design.head(),"__LB_LOGO__":design.logo_data_uri()}.items():
+    assert h.count(k)==1, k; h=h.replace(k,v)
+# the communities view (15 Nov 2026, Yarin: "a separate view for creators, professionals and facebook communities ... merge"):
+# creators/community-tracker/build.py hands over its code, its groups and its markup; the page shows them under #fb-<view>
+import importlib.util
+_spec=importlib.util.spec_from_file_location("ct_build",os.path.join(os.path.dirname(os.path.dirname(HERE)),"community-tracker","build.py"))
+ct_build=importlib.util.module_from_spec(_spec); _spec.loader.exec_module(ct_build)
+CTP=ct_build.embed_parts()
+for k,v in {"<!--CT:NAV-->":CTP["nav"],"<!--CT:TOP-->":CTP["top"],"<!--CT:OVERLAYS-->":CTP["overlays"],"<!--CT:DATA-->":"<script>"+CTP["data"]+"</script>",
+            "<!--CT:SCRIPT-->":"<style>\n"+CTP["css"]+"\n</style>\n<script>\n"+CTP["js"]+"\n</script>"}.items():
     assert h.count(k)==1, k; h=h.replace(k,v)
 # NO_EM: the user never wants em dashes
 h=h.replace(' \u2014 ',', ').replace('"\u2014"','"n/a"').replace("'\u2014'","'n/a'").replace('\u2014','-').replace(' \u2013 ',', ').replace('\u2013','-')

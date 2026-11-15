@@ -16,6 +16,7 @@ What every published LumeBook Instagram carousel was, how it did, and how each o
 | `performance-ranking.csv` | Ranking and rates (per 1,000 reach and as %), flags | No, built |
 | `creative-audit.md` | Scores, flags, carousel by carousel notes, rubric | No, built |
 | `out/hook-results.preview.json` | 7+ day old pipeline carousels in the format of `carousel/carousel-pipeline/hook-results.json` | No, built |
+| `data/postiz-results.json` | Every post published through Postiz in the last 45 days (Instagram and Facebook): its numbers as Postiz reports them (`latest`) and one row per night (`daily`), keyed by Postiz post id with `group` tying the IG and FB copies together. Written every night at 00:00 by `src/postiz_results.py` (the midnight job, since 15 Nov 2026) | No, built |
 
 ## Commands
 
@@ -26,7 +27,10 @@ python3 research/carousel-audit/src/audit.py build                            # 
 python3 research/carousel-audit/src/audit.py link pacifier-weaning            # tagged dm, bio and story links (today)
 python3 research/carousel-audit/src/audit.py link --carousel 2026-10-20-pacifier --place dm
 python3 research/carousel-audit/src/audit.py hook-results --write             # copy results into the pipeline's log
+python3 research/carousel-audit/src/postiz_results.py [--days 45] [--dry-run]  # numbers per post from Postiz (runs nightly)
 ```
+
+Postiz numbers (since 15 Nov 2026): Postiz reads each published post's numbers (`postiz analytics:post`, read only): Instagram views, reach, saves, likes, comments, shares; Facebook impressions or plays, reactions, clicks. It gives only today's total, so the nightly run keeps a dated row per post and the growth curve builds up from 15 Nov 2026 on. It does not replace the Meta export: no follows, no profile visits, and only posts that went out through Postiz. Nothing reads this file yet (not the ranking, not `reels.py results`, not the content calendar); it is collected so the history exists when a page or the hook results need it. A post Postiz cannot read keeps its old numbers with an `error` note, never a 0.
 
 `hook-results --write` changes the Carousel Machine's own results file, which can move hook formulas in its hook bank, so it only runs when asked.
 

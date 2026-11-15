@@ -40,6 +40,41 @@
       "Payout method and timing",
       "How the personal link and its automatic discount are tracked and attributed at checkout",
       "Whether the creator can change their split later"
+    ],
+    "_answered_by": "The store's binding terms answer all four open questions; see ambassador_program and docs/ambassadors/fact-table.md (15 Nov 2026)."
+  },
+  "ambassador_program": {
+    "_source": "lumebook.com read on 15 Nov 2026: terms at /IL/he/ambassadors/terms (version ambassadors-2026-11-01b, in force from 1 Oct 2026, updated 1 Nov 2026), GET /api/ambassadors/program and the page's own code. The store is the source of truth; the redesigned page (sites/lumebook-ambassadors-v2) reads the live settings at runtime and uses these numbers only as its static fallback. Section numbers and the open questions: docs/ambassadors/fact-table.md",
+    "terms_version": "ambassadors-2026-11-01b",
+    "share_pct": 25,
+    "_share_note": "Yarin, 15 Nov 2026: \"זה 25% לא 30 שקלים\". Every page presents the reward as 25% of the printed book's price, split between the buyer's discount and the ambassador's reward, never as ₪30. The live store page does the same: it computes floor(budgetMinor / regular price) = 25% and shows each ₪5 step as its part of that (₪15 = 12.5%). The store's terms 4.1 and GET /api/ambassadors/program still state a ₪30 budget per book (25.2% of ₪119); budget_ils and step_ils below are those settings, used only to compute.",
+    "budget_ils": 30,
+    "step_ils": 5,
+    "example_discount_ils": 15,
+    "regular_price_ils": 119,
+    "list_price_ils": 149,
+    "book_value_ils": 149,
+    "link_window_days": 7,
+    "hold_days": 14,
+    "cash_minimum_ils": 300,
+    "payout_business_days": 7,
+    "expiry_days": 180,
+    "license_months": 8,
+    "license_start_fallback_days": 30,
+    "notice_days": 14,
+    "whatsapp": "972559800791",
+    "instagram": "lumebook.il",
+    "routes": {
+      "page": "/IL/he/ambassadors",
+      "terms": "/IL/he/ambassadors/terms",
+      "dashboard": "/IL/he/ambassadors/dashboard",
+      "books": "/IL/he/books",
+      "privacy": "/IL/he/privacy-policy"
+    },
+    "open_questions": [
+      "Deadline for publishing the Reel (not stated anywhere)",
+      "When and how the brief reaches a new ambassador",
+      "Whether anyone checks the profile or the book before it is printed"
     ]
   },
   "artifacts": [
@@ -242,7 +277,14 @@
     "_about": "'Google Drive' means this folder (Yarin, 03 Nov 2026). Owner Support@lumebook.com, shared with yarinbruner02@gmail.com; Hebrew subfolders, creator tracker, approved videos, UGC, strategy docs. The old My Drive folder 'LumeBook תוכן' is retired: never read or write it.",
     "name": "שיווק",
     "id": "1awITcQFWfsQqpbL8Lupikw12b6y4EWvB",
-    "url": "https://drive.google.com/drive/folders/1awITcQFWfsQqpbL8Lupikw12b6y4EWvB"
+    "url": "https://drive.google.com/drive/folders/1awITcQFWfsQqpbL8Lupikw12b6y4EWvB",
+    "social_proof": {
+      "_about": "Two folders made on 15 Nov 2026 (Yarin): copies only, the originals stay where they were. Page: media/projects/2026-11-15-social-proof/social-proof.html.",
+      "kids_folder": "1jIAlqAgbLmJtaO_qdy9kq2MW7y3aB1rx",
+      "kids_name": "ילדים עם הספר שלהם - תמונות וסרטונים אמיתיים",
+      "reviews_folder": "1ZaPO4e2S5NIfJqJxtFFB63D6VCGZcD9h",
+      "reviews_name": "תגובות וביקורות טובות - צילומי מסך"
+    }
   },
   "postiz": {
     "_about": "Postiz (api.postiz.com) channels, connected 26 Oct 2026 through the postiz CLI (~/.local/bin/postiz, sign-in in ~/.postiz/credentials.json). Carousel Machine sends finished carousels there (carousel/carousel-pipeline/scripts/postiz_export.py), scheduled for the date and time Yarin picks or as a draft: Instagram gets all the slides with the caption, Facebook gets slide 1 with its own post text (RUN_DIR/facebook/facebook.txt, ending with facebook_link, since 31 Oct 2026; older runs: the other slides written out). default_hour is the time the picker starts on (the carousel's own day).",

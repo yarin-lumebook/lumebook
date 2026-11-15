@@ -1102,9 +1102,15 @@ button.lb-chip.check:focus-visible { outline: 2px solid var(--focus); outline-of
    the SMM plan link a synced copy).
    lb-gside   the side bar on the right, the full height of the window (Yarin, 6 Nov 2026: "remove the top navbar"): the logo
               home to HQ and the menu button at its top, then every HQ tool by topic. A 4.75rem icon rail
-              (html[data-gside=collapsed], names kept for screen readers, the tool's name as a tooltip) or 17rem with
-              names (expanded), both a floating Liquid Glass panel inset .625rem from the window edge (see "Liquid Glass"); the menu button toggles it and this browser remembers. The current page is tinted in its
-              topic colour.
+              (html[data-gside=collapsed], names kept for screen readers, the tool's name as a tooltip) that opens to 17rem
+              with names (html[data-gside=expanded]) over the page while hovered (Yarin, 15 Nov 2026: "always closed expect
+              when hovering"; hover intent and close delay in nav.src.js), so the page keeps the rail's room
+              (--lb-gside-w stays 4.75rem); a floating Liquid Glass panel inset .625rem from the window edge (see "Liquid
+              Glass"). With a mouse or trackpad the menu button is hidden; touch screens keep it. The current page is tinted
+              in its topic colour.
+   lb-gside-topic  a topic (Yarin, 15 Nov 2026: "main topics ... to expand when clicking"): its row is a button
+              (lb-gside-tbtn: the topic's tile, name, lb-gside-chev) that folds its pages (lb-gside-tools, inert while
+              closed) open and closed; is-open, has-current (the current page is in it: the row is raised while closed).
    phones (760px and narrower): no rail; the side bar is a drawer over the page (html.lb-gdrawer-open, with lb-gscrim),
               lb-gbottom is the bottom nav bar (HQ, the first three topics, "עוד"), and it slides away while scrolling
               down (html.lb-gnav-away).
@@ -1120,14 +1126,13 @@ html.lb-has-gnav {
   --lb-gside-w: 4.75rem;   /* the floating glass panel (3.5rem wide) plus .625rem of air on each side */
   padding-right: var(--lb-gside-w);
 }
-html.lb-has-gnav[data-gside="expanded"] { --lb-gside-w: 17rem; }
 .lb-gside, .lb-gbottom { font-family: var(--font); color: var(--text); text-align: start; box-sizing: border-box; }
 .lb-gside svg, .lb-gbottom svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
 /* the side bar */
 .lb-gside {
   position: fixed; top: 0; bottom: 0; right: 0; z-index: 31; width: var(--lb-gside-w);
-  display: flex; flex-direction: column; background: var(--sidenav); border-left: 1px solid var(--line); transition: width .2s ease;
+  display: flex; flex-direction: column; background: var(--sidenav); border-left: 1px solid var(--line); transition: width .26s var(--ease);
 }
 .lb-gside-head { flex: none; display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-3) var(--sp-3) var(--sp-2); border-bottom: 1px solid var(--line); }
 .lb-gside-brand { display: inline-flex; align-items: center; gap: var(--sp-2); min-width: 0; color: var(--text); text-decoration: none; }
@@ -1163,14 +1168,27 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
 .lb-langfab-note[hidden], html.lb-i18n-paused .lb-langfab { display: none; }
 @media print { .lb-langfab { display: none; } }
 .lb-gside-scroll { flex: 1; display: grid; align-content: start; gap: var(--sp-1); overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; padding: var(--sp-2) var(--sp-2) var(--sp-5); scrollbar-width: none; }
-.lb-gside-topic { display: grid; gap: 2px; padding: var(--sp-1); border-radius: var(--r-md); }
-.lb-gside-topic + .lb-gside-topic { border-top: 1px solid var(--line); border-radius: 0; padding-top: var(--sp-2); }
+.lb-gside-topic { display: grid; padding: 0; border-radius: var(--r-md); }
 /* the home item above the topics (HQ's live numbers, 8 Nov 2026): a plain row in the system hue */
-.lb-gside ul.lb-gside-home { padding: var(--sp-1); }
-.lb-gside-home + .lb-gside-topic { border-top: 1px solid var(--line); border-radius: 0; padding-top: var(--sp-2); }
-.lb-gside-topic.is-focus, .lb-gside-topic.is-focus + .lb-gside-topic { border-top-color: transparent; }
+.lb-gside ul.lb-gside-home { padding: 0 0 var(--sp-1); margin-bottom: var(--sp-1); border-bottom: 1px solid var(--line); }
 .lb-gside-topic.is-focus { background: var(--tc-soft); border-radius: var(--r-md); }
-.lb-gside-h { margin: 0; padding: var(--sp-1) .4rem; font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; line-height: 1.3; letter-spacing: .02em; color: var(--tc-ink, var(--text-3)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lb-gside-h { margin: 0; padding: 0; font: inherit; }
+/* a topic's row folds its pages open and closed; the pages slide down from under it (grid rows 0fr to 1fr) */
+.lb-gside-tbtn { display: flex; align-items: center; gap: var(--sp-2); width: 100%; min-width: 0; padding: .35rem; border: 0; border-radius: var(--r-sm); background: none; color: var(--text); font: 700 var(--fs-callout)/1.3 var(--font); text-align: start; cursor: pointer; }
+.lb-gside-tbtn:hover { background: var(--fill-2); }
+.lb-gside-tbtn:focus-visible, .lb-gside-item:focus-visible { outline: 2px solid var(--tint); outline-offset: -2px; }
+.lb-gside-tbtn .lb-tile { width: 2rem; height: 2rem; border-radius: .55rem; }
+.lb-gside-tbtn .lb-tile svg { width: 1.1rem; height: 1.1rem; }
+.lb-gside-chev { display: inline-grid; place-items: center; flex: none; margin-inline-start: auto; width: 1.25rem; height: 1.25rem; color: var(--text-3); transition: transform var(--dur-2) var(--ease); }
+.lb-gside-chev svg { width: 1rem; height: 1rem; }
+.lb-gside-topic:not(.is-open) .lb-gside-chev:dir(rtl) { transform: rotate(90deg); }
+.lb-gside-topic:not(.is-open) .lb-gside-chev:dir(ltr) { transform: rotate(-90deg); }
+.lb-gside-tools { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows var(--dur-2) var(--ease), opacity var(--dur-1) var(--ease); }
+.lb-gside-topic.is-open > .lb-gside-tools { grid-template-rows: 1fr; opacity: 1; }
+.lb-gside-clip { min-height: 0; overflow: hidden; margin-inline: -.5rem; padding-inline: .5rem; }
+.lb-gside-tools ul { padding: 2px 0 var(--sp-2) 0; padding-inline-start: .7rem; }
+/* a topic's pages: soft tiles under the topic's solid one, so topic and page read apart on the rail too */
+.lb-gside-tools .lb-tile { background: var(--tc-soft, var(--tint-soft)); color: var(--tc-ink, var(--tint)); }
 .lb-gside ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
 .lb-gside-item { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; padding: .35rem; border-radius: var(--r-sm); color: var(--text); font-size: var(--fs-callout); font-weight: 500; line-height: 1.3; text-decoration: none; }
 .lb-gside-item:hover { background: var(--fill-2); color: var(--text); text-decoration: none; }
@@ -1183,12 +1201,22 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
   html[data-gside="collapsed"] .lb-gside-head { flex-direction: column; padding-inline: .45rem; }
   html[data-gside="collapsed"] .lb-gside-toggle { margin-inline-start: 0; }
   html[data-gside="collapsed"] .lb-gside-brand b,
-  html[data-gside="collapsed"] .lb-gside-h,
   html[data-gside="collapsed"] .lb-gside-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  html[data-gside="collapsed"] .lb-gside-chev { display: none; }
   html[data-gside="collapsed"] .lb-gside-scroll { padding-inline: .45rem; scrollbar-width: none; }
   html[data-gside="collapsed"] .lb-gside-scroll::-webkit-scrollbar { display: none; }
   html[data-gside="collapsed"] .lb-gside-topic { padding-inline: 0; }
-  html[data-gside="collapsed"] .lb-gside-item { justify-content: center; padding: .35rem 0; }
+  html[data-gside="collapsed"] .lb-gside-item, html[data-gside="collapsed"] .lb-gside-tbtn { justify-content: center; padding: .35rem 0; }
+  html[data-gside="collapsed"] .lb-gside-tools ul { padding-inline-start: 0; }
+  /* open: wider, over the page (the page keeps the rail's room), above the page's own sidebar and sticky bars; the tiles keep
+     their place (the same .75rem from the panel's edge as on the rail) */
+  html.lb-has-gnav[data-gside="expanded"] .lb-gside { width: 17rem; z-index: 44; }
+  html[data-gside="expanded"] .lb-gside-scroll { padding-inline: .45rem; }
+  html[data-gside="expanded"] .lb-gside-item, html[data-gside="expanded"] .lb-gside-tbtn { padding-inline: .3rem; }
+}
+/* a mouse or trackpad opens it by hovering, so the menu button goes (touch screens keep it) */
+@media (min-width: 761px) and (hover: hover) and (pointer: fine) {
+  .lb-gside-toggle { display: none; }
 }
 
 /* phones: the side bar is a drawer, the bottom nav bar takes the topics and slides away while scrolling down */
@@ -1223,7 +1251,7 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
   .lb-gbottom-item[aria-current] { color: var(--tc-ink, var(--tint)); }
   .lb-gbottom-item[aria-current] svg { background: var(--tc-soft, var(--tint-soft)); }
 }
-@media (prefers-reduced-motion: reduce) { .lb-gside, .lb-gbottom { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { .lb-gside, .lb-gbottom, .lb-gside-tools, .lb-gside-chev { transition: none !important; } }
 @media print {
   .lb-gside, .lb-gscrim, .lb-gbottom { display: none !important; }
   html.lb-has-gnav { padding: 0; }
@@ -1309,7 +1337,12 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
 .lb-gside-item { border-radius: var(--r-md); transition: background var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease); }
 .lb-gside-item:hover { background: rgba(255, 255, 255, .55); }
 .lb-gside-item[aria-current="page"] { background: rgba(255, 255, 255, .94); box-shadow: var(--glass-rim), 0 3px 10px -4px rgba(41, 30, 22, .28); }
+.lb-gside-tbtn { border-radius: var(--r-md); transition: background var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease); }
+.lb-gside-tbtn:hover { background: rgba(255, 255, 255, .55); }
+.lb-gside-tbtn:active { background: rgba(255, 255, 255, .7); }
+.lb-gside-topic.has-current:not(.is-open) .lb-gside-tbtn { background: rgba(255, 255, 255, .94); box-shadow: var(--glass-rim), 0 3px 10px -4px rgba(41, 30, 22, .28); }
 .lb-gside-topic.is-focus { border-radius: var(--r-lg); }
+html[data-gside="expanded"] .lb-gside::before { box-shadow: var(--glass-rim), var(--glass-lift), var(--shadow-3); }
 .lb-gside-toggle, .lb-gside-close { border-radius: var(--r-pill); transition: background var(--dur-1) var(--ease), transform var(--dur-2) var(--ease-spring); }
 .lb-gside-toggle:hover, .lb-gside-close:hover { background: rgba(255, 255, 255, .6); }
 .lb-gside-toggle:active, .lb-gside-close:active { transform: scale(var(--press)); }
@@ -1730,6 +1763,75 @@ dialog.lb-dialog.is-docked { position: fixed; inset: 0 auto 0 0; z-index: 30; wi
 @media (prefers-reduced-motion: no-preference) { html { transition: padding-left var(--dur-2) var(--ease); } }
 @media (prefers-reduced-motion: reduce) { dialog.lb-dialog.is-docked { animation: none; } }
 
+/* ---- notification center (Yarin, 15 Nov 2026: "a notification center popping from a little bell icon in the top") ----
+   lb-bell: a fixed glass bell at the top left of the window (the project nav is on the right), a count badge in the colour of the
+   worst item (is-crit danger, is-warn warning, is-info violet), and lb-notif the thick-glass panel that opens under it. Rows are
+   flat (tint only, no glass on glass): lb-notif-item crit / warn / info, a chip then the text, a link when it goes somewhere. */
+.lb-bell { position: fixed; z-index: 44; top: max(12px, env(safe-area-inset-top, 0px)); left: 16px; }
+.lb-bell-btn { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; color: var(--text-2); cursor: pointer; }
+.lb-bell-btn:hover, .lb-bell-btn[aria-expanded="true"] { color: var(--tint); }
+.lb-bell-btn:focus-visible { outline: 2px solid var(--tint); outline-offset: 2px; }
+.lb-bell-btn svg { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.lb-bell-count { position: absolute; top: -3px; right: -3px; min-width: 1.2rem; height: 1.2rem; padding: 0 .3rem; box-sizing: border-box; border-radius: var(--r-pill); color: #fff; font: 700 11px/1.2rem var(--font-2); text-align: center; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 2px #fff; }
+.lb-bell-count[hidden] { display: none; }
+.lb-bell-count.is-crit { background: var(--danger); }
+.lb-bell-count.is-warn { background: var(--warning); }
+.lb-bell-count.is-info { background: var(--tint); }
+.lb-notif { position: fixed; top: calc(max(12px, env(safe-area-inset-top, 0px)) + 52px); left: 16px; width: min(26rem, calc(100vw - 32px)); max-height: calc(100dvh - 5.5rem);
+  box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-xl); transform-origin: top left; animation: lb-pop var(--dur-2) var(--ease-spring); }
+.lb-notif[hidden] { display: none; }
+.lb-notif-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4) var(--sp-2); }
+.lb-notif-head h2 { font-size: var(--fs-headline); line-height: 1.2; }
+.lb-notif-head .lb-meta { font: 500 var(--fs-footnote) var(--font-2); color: var(--text-3); }
+.lb-notif-list { display: grid; gap: 2px; padding: 6px; overflow-y: auto; overscroll-behavior: contain; }
+.lb-notif-item { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--sp-3); align-items: start; padding: .6rem .7rem; border-radius: calc(var(--r-xl) - 6px); color: var(--text); font-size: var(--fs-callout); line-height: 1.4; text-decoration: none; transition: background var(--dur-1) var(--ease); }
+.lb-notif-item.crit { background: var(--danger-soft); }
+.lb-notif-item.warn { background: var(--warning-soft); }
+a.lb-notif-item { cursor: pointer; }
+a.lb-notif-item:hover { background: var(--fill-2); color: var(--text); text-decoration: none; }
+a.lb-notif-item.crit:hover, a.lb-notif-item.warn:hover { filter: brightness(.96); }
+.lb-notif-text { min-width: 0; }
+@media print { .lb-bell { display: none; } }
+
+/* ---- lb-chart and lb-metrics.is-aligned (Yarin, 15 Nov 2026: "make the graph look professional and everything more symmetrical") ----
+   lb-chart: one daily series as a filled line chart. A title and a one-figure summary on top, a y axis (0, half, top) and three
+   hairlines, a soft gradient under the line in the category colour (--tc), the last point marked, the x axis with the first, middle
+   and last date, and on hover a point with a small ink label. Time runs right to left on Hebrew pages (oldest at the right, the
+   y axis at the right too). The plot is a stretched SVG (non-scaling strokes); the points and the label are HTML so they stay round.
+   In a flex column the figure grows (flex: 1), so two cards side by side end at the same height. lb-metrics.is-aligned: the label row is
+   two lines tall and the change sits on its own row, so numbers, changes and feet line up across the tiles. */
+.lb-chart { --ch-h: 9.5rem; display: grid; grid-template-rows: auto minmax(0, 1fr); gap: var(--sp-3); margin: 0; min-width: 0; }
+.lb-chart-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
+.lb-chart-title { font: 700 var(--fs-footnote) var(--font-2); color: var(--text-3); }
+.lb-chart-sum { font: 600 var(--fs-footnote) var(--font-2); color: var(--text-2); }
+.lb-chart-sum b { font-size: var(--fs-callout); color: var(--tc-ink, var(--text)); font-variant-numeric: tabular-nums; }
+.lb-chart-body { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: minmax(var(--ch-h), 1fr) auto; column-gap: .6rem; row-gap: .45rem; }
+.lb-chart-y { position: relative; grid-row: 1; min-width: 2rem; font: 600 var(--fs-caption) var(--font-2); font-variant-numeric: tabular-nums; color: var(--text-3); text-align: end; direction: ltr; }
+.lb-chart-y > span { position: absolute; inset-inline: 0; transform: translateY(-50%); line-height: 1; }
+.lb-chart-y > span:nth-child(1) { top: 0; }
+.lb-chart-y > span:nth-child(2) { top: 50%; }
+.lb-chart-y > span:nth-child(3) { top: 100%; }
+.lb-chart-plot { position: relative; grid-row: 1; touch-action: pan-y; cursor: crosshair; }
+.lb-chart-plot > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+.lb-chart-plot .grid { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
+.lb-chart-plot .base { stroke: var(--line-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.lb-chart-plot .area { stroke: none; }
+.lb-chart-plot .line { fill: none; stroke: var(--tc, var(--accent)); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.lb-chart-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--tc, var(--accent)); box-shadow: 0 0 0 3px #fff, 0 1px 4px rgba(41, 30, 22, .3); pointer-events: none; }
+.lb-chart-dot.is-hover { width: 12px; height: 12px; margin: -6px 0 0 -6px; transition: left var(--dur-1) var(--ease), top var(--dur-1) var(--ease); }
+.lb-chart-tip { position: absolute; z-index: 2; transform: translate(-50%, calc(-100% - 14px)); padding: .25rem .55rem; border-radius: var(--r-sm); background: var(--text); color: var(--bg); font: 600 var(--fs-caption)/1.3 var(--font-2); font-variant-numeric: tabular-nums; white-space: nowrap; direction: ltr; pointer-events: none; box-shadow: var(--shadow-2); }
+.lb-chart-tip.is-below { transform: translate(-50%, 14px); }
+.lb-chart-tip.is-start { transform: translate(0, calc(-100% - 14px)); }
+.lb-chart-tip.is-end { transform: translate(-100%, calc(-100% - 14px)); }
+.lb-chart-tip.is-below.is-start { transform: translate(0, 14px); }
+.lb-chart-tip.is-below.is-end { transform: translate(-100%, 14px); }
+.lb-chart-dot[hidden], .lb-chart-tip[hidden] { display: none; }
+.lb-chart-x > span { direction: ltr; unicode-bidi: isolate; } /* 13 / 11 keeps its order on a Hebrew page */
+.lb-chart-x { grid-column: 2; grid-row: 2; display: flex; justify-content: space-between; font: 600 var(--fs-caption) var(--font-2); font-variant-numeric: tabular-nums; color: var(--text-3); }
+.lb-metrics.is-aligned .lb-metric-label { min-height: 2.6rem; align-items: center; }
+.lb-metrics.is-aligned .lb-metric-value { display: grid; justify-items: start; gap: .1rem; min-height: calc(var(--fs-num) * 1.1 + 1.45rem); align-content: start; }
+.lb-metrics.is-aligned .lb-metric { grid-template-rows: auto auto 1fr; }
+
 /* category classes, generated from shared/design/categories.json by design.py: do not edit */
 .lb-tool-hook { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
 .lb-tool-watch { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
@@ -1750,6 +1852,9 @@ dialog.lb-dialog.is-docked { position: fixed; inset: 0 auto 0 0; z-index: 30; wi
 .lb-track-gift { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
 .lb-track-pro { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
 .lb-track-par { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-mview-cr { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-mview-pro { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-mview-fb { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
 .lb-co-mebook { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
 .lb-co-hoorayheroes { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
 .lb-co-wonderbly { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }

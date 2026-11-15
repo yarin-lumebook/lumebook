@@ -47,7 +47,7 @@ The messages are everyday Israeli Hebrew: warm and short, but grammatically corr
 ## Spelling and punctuation
 - Full spelling (כתיב מלא).
 - No space before , . ! ? : ; and one space after. No space between a number and %: 25%.
-- A prefix letter before a Latin word or a number takes a hyphen: ב-LumeBook, ו-25%, מ-@lumebookai. No prefix hyphen before a Hebrew word.
+- A prefix letter before a Latin word or a number takes a hyphen: ב-LumeBook, ו-25%, מ-@lumebook.il. No prefix hyphen before a Hebrew word.
 - No long dashes (em dash or en dash): use a comma, colon or period.
 - Geresh for letters and short forms: כיתה א׳. Gershayim for acronyms and quotes: בע״מ, ״ספר תמורת פוסט״.
 - The brand is written LumeBook in Latin letters.

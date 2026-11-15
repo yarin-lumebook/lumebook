@@ -1485,6 +1485,10 @@ def serve(port):
                                 {"experiments": {id: doc}} from research/mebook-customer-research/experiments.json
       PUT  /api/experiments/doc?id=<id>   one experiment, checked by experiments.clean (title and hypothesis required, a
                                 completed one needs a conclusion and an explanation, numbers or null); same-origin only, 64 KB
+      GET  /api/communities/state   the Facebook community tracker's saved work (tools/communities.py, 15 Nov 2026): groups,
+                                posts, leads and settings from creators/community-tracker/state/tracker.json (private, not in git)
+      PUT  /api/communities/doc?path=<kind>/<id>   one document (groups, posts, leads, settings/main), checked by
+                                communities.clean_*; the body null removes it; same-origin only, 256 KB
       GET  /api/reels-hub/state the reels hub's own edits ({edits, made, requests}, each a map of documents) from
                                 research/israeli-product-reels/src/scripts/series-2026-11/local-edits.json ({} when none)
       POST /api/sample/jobs     {"prompt", "reel", "kind", "label", "comment"} -> 202 {"job"}: the same question as a background
@@ -1556,6 +1560,8 @@ def serve(port):
     # answer meant for a carousel. Restart this server after editing content_calendar.py.
     import content_calendar as calendar
     import experiments   # the MeBook study's experiment log (14 Nov 2026); restart this server after editing experiments.py
+    import communities   # the Facebook community tracker (15 Nov 2026); restart this server after editing communities.py
+    import social_proof  # cards removed on the social proof page (15 Nov 2026); restart this server after editing social_proof.py
     cal_jobs =SampleJobs(os.environ.get("LUMEBOOK_CALENDAR_JOBS_FILE") or p(".lumebook/calendar-jobs.json"))
     cal_job_act = re.compile(r"^/api/calendar/jobs/([0-9a-f]{6,20})/(cancel|claim|dismiss)$")
     # the language switch (8 Nov 2026): pages report words their dictionaries lack, this translates them in the background
@@ -1996,6 +2002,10 @@ def serve(port):
                 return self.send_range(full)
             if path == "/api/experiments":
                 return self._json(200, experiments.load())
+            if path == "/api/social-proof/removed":
+                return self._json(200, social_proof.load())
+            if path == "/api/communities/state":
+                return self._json(200, communities.load())
             if path == "/api/reels-hub/state":
                 with state_lock:
                     try:
@@ -2037,6 +2047,17 @@ def serve(port):
                         json.dump(doc, fh, ensure_ascii=False, indent=1)
                     os.replace(tmp, hq_layout)
                 return self._json(200, {"ok": True})
+            if u.path == "/api/social-proof/removed":   # a card removed or brought back (tools/social_proof.py)
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only"})
+                size = int(self.headers.get("Content-Length") or 0)
+                if size <= 0 or size > 4 * 1024:
+                    return self._json(400, {"error": "bad size"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON"})
+                return self._json(*social_proof.put(doc))
             if u.path == "/api/experiments/doc":   # one experiment of the MeBook study's log (tools/experiments.py)
                 if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
                     return self._json(403, {"error": "same-origin requests only"})
@@ -2049,6 +2070,18 @@ def serve(port):
                 except ValueError:
                     return self._json(400, {"error": "not JSON"})
                 return self._json(*experiments.put(exp_id, doc))
+            if u.path == "/api/communities/doc":   # one document of the Facebook community tracker (tools/communities.py)
+                if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
+                    return self._json(403, {"error": "same-origin requests only"})
+                ct_path = (urllib.parse.parse_qs(u.query).get("path") or [""])[0]   # not doc_path: that name is the creator map's pattern above
+                size = int(self.headers.get("Content-Length") or 0)
+                if size <= 0 or size > 256 * 1024:
+                    return self._json(400, {"error": "bad size"})
+                try:
+                    doc = json.loads(self.rfile.read(size).decode("utf-8"))
+                except ValueError:
+                    return self._json(400, {"error": "not JSON"})
+                return self._json(*communities.put(ct_path, doc))
             if u.path == "/api/calendar/doc":   # the calendar's own state: hooks, approvals, reminders, ideas (calendar-state.json)
                 if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":
                     return self._json(403, {"error": "same-origin requests only"})
