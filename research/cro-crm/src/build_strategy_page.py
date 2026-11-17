@@ -219,8 +219,9 @@ ICONS = {
 KINDS = {"fix": ("לתקן", "success"), "test": ("לבדוק", "info"), "decide": ("החלטה", "warning"), "legal": ("עורך דין", "danger")}
 WHO = {"me": "אני", "yossi": "יוסי", "lawyer": "עורך דין"}
 # the smart-list tiles at the top: (filter, label, icon, colour token)
-TILES = [("all", "הכל", "list", "var(--text)"), ("me", "אצלי", "person", "var(--tint)"), ("yossi", "אצל יוסי", "wrench", "var(--accent-ink)"),
-         ("decide", "מחכה להחלטה", "question", "var(--warning)"), ("legal", "לעורך דין", "scale", "var(--danger)")]
+# fills under white text (dark mode, 16 Nov 2026): the -solid tokens equal the text colours in light and stay dark enough in dark
+TILES = [("all", "הכל", "list", "var(--neutral-solid)"), ("me", "אצלי", "person", "var(--tint-solid)"), ("yossi", "אצל יוסי", "wrench", "var(--accent-solid)"),
+         ("decide", "מחכה להחלטה", "question", "var(--warning-solid)"), ("legal", "לעורך דין", "scale", "var(--danger-solid)")]
 
 
 def svg(name, cls=""):
@@ -370,12 +371,12 @@ ACTS_STYLE = """<style>
 .acts-tile:hover { background: var(--fill-2); }
 .acts-tile:active { transform: scale(.98); }
 .acts-tile:focus-visible, .acts-check:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.acts-tile-ic { width: 2.1rem; height: 2.1rem; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: var(--bg); }
+.acts-tile-ic { width: 2.1rem; height: 2.1rem; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: var(--text-on-tint); }
 .acts-tile-n { justify-self: end; font-size: var(--fs-num); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
 .acts-tile-l { grid-column: 1 / -1; font-family: var(--font-2); font-weight: 700; font-size: var(--fs-callout); color: var(--text-2); }
-.acts-tile[aria-pressed="true"] { background: var(--c); border-color: transparent; color: var(--bg); }
-.acts-tile[aria-pressed="true"] .acts-tile-l { color: var(--bg); }
-.acts-tile[aria-pressed="true"] .acts-tile-ic { background: var(--bg); color: var(--c); }
+.acts-tile[aria-pressed="true"] { background: var(--c); border-color: transparent; color: var(--text-on-tint); }
+.acts-tile[aria-pressed="true"] .acts-tile-l { color: var(--text-on-tint); }
+.acts-tile[aria-pressed="true"] .acts-tile-ic { background: var(--text-on-tint); color: var(--c); }
 .acts svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .acts-tile-ic svg { width: 1.15rem; height: 1.15rem; stroke-width: 2.2; }
 

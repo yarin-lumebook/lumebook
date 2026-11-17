@@ -1,7 +1,10 @@
 /* Product Reels Playbook. Layout: an Apple-style source list on the left, one focused page on the right.
    Each of the 8 tools owns one category colour (shared/design/categories.json, set reels-tools), used on its tile,
    its principle IDs and its pages; the build writes the .t-hook ... .t-text rules from that file. Fonts (Heebo,
-   Assistant as --font-2), colours and everything else come from shared/design/lumebook.css (inlined above). Light only. */
+   Assistant as --font-2), colours and everything else come from shared/design/lumebook.css (inlined above). Light and dark follow
+   the system appearance (dark mode, 16 Nov 2026): page rules use tokens only (shadows rgba(var(--shade), a), the chosen segment
+   --raised, the current sidebar item --raised-a, fills under white text the -solid tokens); the few rules no token carries are in the
+   dark block at the end. */
 :root {
   /* type scale, after Apple's text styles */
   --t-large: 2.125rem; --t-title1: 1.75rem; --t-title2: 1.375rem; --t-title3: 1.1875rem; --t-headline: 1.0625rem;
@@ -58,7 +61,7 @@ button { font: inherit; }
   padding: .32rem .55rem; border-radius: .55rem; color: var(--text); text-decoration: none; font-size: var(--t-callout); font-weight: 500; line-height: 1.3;
 }
 .sb-item:hover { background: var(--fill); color: var(--text); text-decoration: none; }
-.sb-item[aria-current="page"] { background: var(--surface); box-shadow: var(--shadow-1), inset 0 0 0 1px var(--line); font-weight: 700; }
+.sb-item[aria-current="page"] { background: var(--raised-a); box-shadow: var(--shadow-1), inset 0 0 0 1px var(--line); font-weight: 700; }
 .sb-item > span:nth-child(2) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sb-count { font-family: var(--font-2); font-size: var(--t-cap); font-weight: 600; color: var(--text-3); font-variant-numeric: tabular-nums; }
 .tile { display: inline-grid; place-items: center; width: 1.65rem; height: 1.65rem; border-radius: .45rem; background: var(--tc); color: #fff; flex: none; }
@@ -257,7 +260,7 @@ details.q[open] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tc) 35%, 
 .kv dt { font-family: var(--font-2); font-size: var(--t-foot); font-weight: 700; color: var(--text-3); padding-top: .1rem; }
 .kv dd { margin: 0; min-width: 0; }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: .75rem; }
-.stat { display: grid; gap: .1rem; padding: .85rem 1rem; background: var(--glass-sheen), var(--glass-card); border: 1px solid transparent; border-radius: var(--r-lg); box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(41, 30, 22, .3); }
+.stat { display: grid; gap: .1rem; padding: .85rem 1rem; background: var(--glass-sheen), var(--glass-card); border: 1px solid transparent; border-radius: var(--r-lg); box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(var(--shade), .3); }
 .stat b { font-size: var(--t-title2); font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
 .stat span { font-family: var(--font-2); font-size: var(--t-foot); color: var(--text-3); }
 
@@ -270,9 +273,9 @@ details.q[open] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tc) 35%, 
 .toolbar select { font: inherit; font-family: var(--font-2); font-size: var(--t-sub); font-weight: 600; color: var(--text); background: var(--surface); border: 1px solid var(--line-strong); border-radius: .65rem; padding: .45rem .7rem; min-height: 2.4rem; max-width: 100%; }
 .seg { display: inline-flex; flex-wrap: wrap; padding: 3px; border-radius: .7rem; background: var(--fill-2); gap: 2px; }
 .seg button { border: 0; background: transparent; font-family: var(--font-2); font-size: var(--t-sub); font-weight: 700; color: var(--text-2); padding: .35rem .8rem; border-radius: .55rem; cursor: pointer; white-space: nowrap; }
-.seg button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
-.btn { display: inline-flex; align-items: center; gap: .4rem; min-height: 2.3rem; padding: 0 1rem; border-radius: 999px; border: 1px solid transparent; background: var(--tint); color: #fff; font-weight: 700; font-size: var(--t-callout); text-decoration: none; cursor: pointer; }
-.btn:hover { background: var(--tint-hover); color: #fff; text-decoration: none; }
+.seg button[aria-pressed="true"] { background: var(--raised); color: var(--text); box-shadow: var(--shadow-1); }
+.btn { display: inline-flex; align-items: center; gap: .4rem; min-height: 2.3rem; padding: 0 1rem; border-radius: 999px; border: 1px solid transparent; background: var(--tint-solid); color: #fff; font-weight: 700; font-size: var(--t-callout); text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--tint-solid-hover); color: #fff; text-decoration: none; }
 .btn.plain { background: var(--surface); color: var(--text); border-color: var(--line-strong); }
 .btn.plain:hover { border-color: var(--tint); color: var(--tint); }
 .btn svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 2; }
@@ -346,7 +349,7 @@ details.q[open] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tc) 35%, 
   .pb-side { position: fixed; inset-block: 0; left: 0; width: min(86vw, 20rem); z-index: 40; transform: translateX(-100%); visibility: hidden; transition: transform .22s ease, visibility 0s linear .22s; padding-top: max(1rem, env(safe-area-inset-top, 0px)); padding-left: max(.75rem, env(safe-area-inset-left, 0px)); }
   .pb-side.is-open { transform: none; visibility: visible; box-shadow: var(--shadow-3); transition: transform .22s ease; }
   .pb-bar { display: flex; align-items: center; gap: .6rem; position: sticky; top: max(env(safe-area-inset-top, 0px), var(--lb-gnav-top, 0px)); z-index: 20; padding-block: .45rem; padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  .pb-menu { display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: var(--r-pill); border: 0; background: var(--glass-sheen), var(--glass-thick); box-shadow: var(--glass-rim), 0 2px 8px -3px rgba(41, 30, 22, .18); cursor: pointer; }
+  .pb-menu { display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: var(--r-pill); border: 0; background: var(--glass-sheen), var(--glass-thick); box-shadow: var(--glass-rim), 0 2px 8px -3px rgba(var(--shade), .18); cursor: pointer; }
   .pb-menu svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: var(--text); stroke-width: 2; stroke-linecap: round; }
   .pb-bar-title { font-weight: 700; font-size: var(--t-callout); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .pb-view { padding-block: 1.25rem 4rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
@@ -373,4 +376,14 @@ a.stretch:focus-visible { outline: none; }
 .card a:not(.stretch), .card details { position: relative; z-index: 1; }
 .seg a { border: 0; background: transparent; font-family: var(--font-2); font-size: var(--t-sub); font-weight: 700; color: var(--text-2); padding: .35rem .8rem; border-radius: .55rem; text-decoration: none; white-space: nowrap; }
 .seg a:hover { color: var(--text); text-decoration: none; }
-.seg a[aria-current="page"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
+.seg a[aria-current="page"] { background: var(--raised); color: var(--text); box-shadow: var(--shadow-1); }
+
+/* ---------------------------------------------------------------- dark mode (16 Nov 2026)
+   The rules a token cannot carry, as in lumebook.css: "none of the tools" takes the neutral tile colour of lb-cat-0 (the brand ink
+   would vanish on the dark ground), a hovered ID chip fills with its category base (its ink is a light text colour in dark mode,
+   too light under white text), and the ink-and-gold number tile gets a hairline rim so its edge shows on a dark card. */
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-appearance])) .t-none { --tc: var(--neutral-solid); }
+  :root:where(:not([data-appearance])) a.pid:hover { background: var(--tc, var(--tint)); color: var(--bg); }
+  :root:where(:not([data-appearance])) .num-tile { box-shadow: inset 0 0 0 1px var(--line-strong); }
+}

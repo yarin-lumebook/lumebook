@@ -1,6 +1,7 @@
 /* לוח תוכן (content calendar, 11 Nov 2026). Page rules only: tokens and lb- components first (lumebook.css). Layers, back to front:
    project nav, the page sidebar (lb-sidebar), the sticky glass top bar (lb-topbar lb-edge), the month (opaque grayscale cells,
-   no blur on anything repeated), the day drawer (lb-dialog, docked on wide screens), the piece panel inside it (lb-sheet sections). */
+   no blur on anything repeated), the day drawer (lb-dialog, docked on wide screens), the piece panel inside it (lb-sheet sections).
+   Light and dark (16 Nov 2026): tokens only; a fill under white text is a -solid token (--tint-solid, --success-solid). */
 body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
 button { font-family: inherit; }
 .cc-app { min-height: 100vh; }
@@ -28,7 +29,7 @@ button { font-family: inherit; }
 .cc-mini span { color: var(--text-3); font-weight: 700; cursor: default; }
 .cc-mini button:hover { background: var(--fill); }
 .cc-mini button.is-today { box-shadow: inset 0 0 0 2px var(--tint); color: var(--text); font-weight: 700; }
-.cc-mini button.is-sel { background: var(--tint); color: #fff; }
+.cc-mini button.is-sel { background: var(--tint-solid); color: #fff; }
 .cc-mini button.has-need::after { content: ""; position: absolute; bottom: 2px; width: 4px; height: 4px; border-radius: 50%; background: var(--warning); }
 .cc-mini-head { display: flex; align-items: center; gap: var(--sp-1); padding-inline: var(--sp-2); font-weight: 600; font-size: .875rem; }
 
@@ -40,7 +41,7 @@ button { font-family: inherit; }
 .cc-ft button[aria-pressed="false"] .cc-ico { color: var(--text-3); }
 .cc-ft button .n { margin-inline-start: auto; font-family: var(--font-2); color: var(--text-3); font-variant-numeric: tabular-nums; }
 .cc-ft button .ck { width: 1.1rem; height: 1.1rem; border-radius: 5px; box-shadow: inset 0 0 0 1.5px var(--line-strong); display: grid; place-items: center; flex: none; }
-.cc-ft button[aria-pressed="true"] .ck { background: var(--tc, var(--tint)); box-shadow: none; }
+.cc-ft button[aria-pressed="true"] .ck { background: var(--tc, var(--tint-solid)); box-shadow: none; }
 .cc-ft button[aria-pressed="true"] .ck::after { content: ""; width: .45rem; height: .25rem; border: 2px solid #fff; border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px, -1px); }
 .cc-ft .sub { padding-inline-start: var(--sp-5); }
 .cc-ft .sub button { min-height: 2.25rem; }
@@ -78,7 +79,7 @@ button { font-family: inherit; }
 .cc-st.s-film, .cc-st.s-approve { background: var(--warning-soft); color: var(--warning); }
 .cc-st.s-produce { background: var(--accent-soft); color: var(--accent-ink); }
 .cc-st.s-ready, .cc-st.s-scheduled { background: var(--success-soft); color: var(--success); }
-.cc-st.s-posted { background: var(--success); color: #fff; }
+.cc-st.s-posted { background: var(--success-solid); color: #fff; }
 .cc-s.s-grade, .cc-s.s-pick, .cc-s.s-hook { color: var(--info); }
 .cc-s.s-film, .cc-s.s-approve { color: var(--warning); }
 .cc-s.s-produce { color: var(--accent-ink); }
@@ -465,7 +466,7 @@ dialog.cc-dlg.is-fill { position: fixed; inset: auto; margin: 0; padding: 0; max
 /* dragging a piece: where it will land (Yarin, 11 Nov 2026) */
 .cc-wb.is-drag, .cc-db.is-drag { opacity: .4; }
 .cc-dropline { position: absolute; inset-inline: 0; height: 0; border-top: 2px solid var(--tint); z-index: 4; pointer-events: none; }
-.cc-dropline b { position: absolute; inset-inline-start: 4px; top: -.95rem; padding: 0 6px; border-radius: var(--r-pill); background: var(--tint); color: #fff; font-family: var(--font-2); font-size: .8125rem; font-variant-numeric: tabular-nums; }
+.cc-dropline b { position: absolute; inset-inline-start: 4px; top: -.95rem; padding: 0 6px; border-radius: var(--r-pill); background: var(--tint-solid); color: #fff; font-family: var(--font-2); font-size: .8125rem; font-variant-numeric: tabular-nums; }
 #ccPrev.is-drop, #ccNext.is-drop { box-shadow: inset 0 0 0 2px var(--tint); background: var(--tint-soft); }
 .cc-mini .is-drop, .cc-wh.is-drop { box-shadow: inset 0 0 0 2px var(--tint); background: var(--tint-soft); }
 /* the previous and next buttons stand in a gutter on each side of the calendar; the gutter is also where a held piece moves the view on */

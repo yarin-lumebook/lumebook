@@ -53,7 +53,7 @@ abbr[title] { text-decoration: underline dotted var(--text-3); text-underline-of
 
 /* ---------- chapters (stage progress): an lb-scroller of max-content items ---------- */
 .chap { flex: 0 0 auto; min-width: max-content; display: grid; gap: .4rem; padding: .5rem .6rem; border-radius: var(--r-md); background: var(--surface-2); border: 1px solid transparent; }
-.chap.is-cur { background: var(--surface); border-color: var(--line); box-shadow: var(--shadow-1); }
+.chap.is-cur { background: var(--raised); border-color: var(--line); box-shadow: var(--shadow-1); }
 .chap-head { display: flex; align-items: center; gap: .4rem; font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; color: var(--text-3); }
 .chap.is-cur .chap-head { color: var(--tc-ink); }
 .chap:not(.is-cur) .chap-l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -65,7 +65,7 @@ abbr[title] { text-decoration: underline dotted var(--text-3); text-underline-of
 .chap-dots a { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-2); font-weight: 700; font-size: var(--fs-caption); color: var(--text-3); background: var(--fill-2); text-decoration: none; transition: transform .15s; }
 .chap-dots a:hover { transform: scale(1.08); text-decoration: none; color: var(--text); }
 .chap-dots a.done { background: var(--tc-soft); color: var(--tc-ink); }
-.chap-dots a.cur { background: var(--tc); color: var(--bg); box-shadow: 0 0 0 3px var(--tc-soft); }
+.chap-dots a.cur { background: var(--tc); color: var(--text-on-tint); box-shadow: 0 0 0 3px var(--tc-soft); }
 .chap-end { flex: none; display: grid; place-items: center; padding: 0 .9rem; border-radius: var(--r-md); background: var(--surface-2); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--text-2); text-decoration: none; }
 .chap-end:hover, .chap-end.cur { background: var(--tint-soft); color: var(--tint); text-decoration: none; }
 
@@ -136,7 +136,7 @@ body.fit .notes-box { flex: 1; min-height: 0; overflow-y: auto; overscroll-behav
 .phone-nav { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); width: 100%; }
 .phone-nav span { font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); font-variant-numeric: tabular-nums; }
 .phone-nav .lb-btn { min-width: 6.5rem; }
-.tip { position: absolute; left: 50%; bottom: var(--sp-3); transform: translateX(-50%); z-index: 30; width: max-content; max-width: 88%; margin: 0; padding: .45rem .9rem; border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-2); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-2); text-align: center; animation: fade-up .3s ease both; }
+.tip { position: absolute; left: 50%; bottom: var(--sp-3); transform: translateX(-50%); z-index: 30; width: max-content; max-width: 88%; margin: 0; padding: .45rem .9rem; border-radius: var(--r-pill); background: var(--raised); border: 1px solid var(--line); box-shadow: var(--shadow-2); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 600; color: var(--text-2); text-align: center; animation: fade-up .3s ease both; }
 .tip.warn { color: var(--warning); }
 
 /* ---------- the device: mockup frame over a 393 x 856 screen ---------- */
@@ -149,7 +149,8 @@ body.fit .notes-box { flex: 1; min-height: 0; overflow-y: auto; overscroll-behav
   --ink: #0B0518; --ink-2: #160c2e; --cream: #F8F0E1; --gold: #E6B762; --gold-2: #C9954A; --violet: #5B2BD6;
   --fb-blue: #1877F2; --fb-bg: #F0F2F5; --fb-line: #CED0D4; --fb-text: #050505; --fb-text-2: #65676B; --fb-btn: #E4E6EB;
   --wa-bg: #EFEAE2; --wa-in: #FFFFFF; --wa-out: #D9FDD3; --wa-text: #111B21; --wa-text-2: #667781; --wa-link: #027EB5; --wa-green: #25D366; --wa-tick: #53BDEB;
-  font-family: var(--ios); -webkit-font-smoothing: antialiased; }
+  font-family: var(--ios); -webkit-font-smoothing: antialiased;
+  color-scheme: light; /* dark mode (16 Nov 2026): the apps keep their own look, native checkboxes and radios included */ }
 .device-wrap.bare .device { width: 393px; height: 856px; }
 .device-wrap.bare .frame { display: none; }
 @media (max-width: 640px) { .phone-stage, .hero-stage { padding: var(--sp-3); border-radius: 1.5rem; } }

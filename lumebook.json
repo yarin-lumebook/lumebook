@@ -592,7 +592,7 @@
       "name": "Carousel audit (every published carousel: inventory, Instagram numbers, creative scores, tagged links)",
       "path": "research/carousel-audit",
       "kind": "docs",
-      "schedule": "midnight job (tools/nightly_commit.py), 00:00: numbers per published post from Postiz into data/postiz-results.json (since 15 Nov 2026); Meta exports stay by hand (audit.py import)",
+      "schedule": "midnight job (tools/nightly_commit.py), 00:00: numbers per published post from Postiz into data/postiz-results.json (since 15 Nov 2026); reel views from Instagram's own profile grid into data/instagram-views.json (scheduled task lumebook-creator-cards-daily, part C, 00:00); Meta exports stay by hand (audit.py import)",
       "watch": [
         "research/carousel-audit/src/*",
         "research/carousel-audit/data/carousels.json",

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>מה לקוחות מיבוק אומרים · לומבוק</title>
+<meta name="color-scheme" content="light dark"><meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap">
@@ -25,9 +26,15 @@
    Heebo is the main font, headings included; Assistant is the secondary font for labels, captions, counts, chips and
    table headers (Yarin, 18 Oct 2026). Both have Hebrew glyphs.
    Categories: which category gets which hue is in shared/design/categories.json; builds read it (design.py).
-   Light only (Yarin, 05 Nov 2026: "only white mode from now on"). One set of tokens on :root: no black mode, no theme
-   switch, no prefers-color-scheme. The black mode and its switch (21 Oct 2026) are gone and design.theme_toggle() now
-   writes nothing, so a build that still calls it gets no switch. Never add a second token block or a dark palette.
+   Light and dark (Yarin, 16 Nov 2026: "add dark mode everywhere, use apple's dark mode ui principles"; this replaces the white-only
+   rule of 05 Nov 2026). The page follows the system appearance (macOS, iOS, Auto) with no switch of its own: Apple's HIG says to
+   avoid an app-specific appearance setting. The light tokens are the :root block below; the dark ones are the "dark mode" block
+   right after it, the same names with dark values, inside @media (prefers-color-scheme: dark). Apple's rules kept there: a dim
+   base ground with brighter elevated layers (a card, a sheet, a floating panel each a step lighter), brighter variants of every
+   colour, 4.5:1 or more for all text (7:1 for body text), surfaces still pure grayscale, text and lines still warm. Text colours
+   and fills under white text are separate tokens (--tint and --tint-solid, --danger and --danger-solid ...) because a colour
+   light enough to read on a dark ground is too light under white text. A page that draws its own appearance (the store mock)
+   sets data-appearance on html and the dark block leaves it alone. design.theme_toggle() still writes nothing: no switch.
    Apple design and Liquid Glass (Yarin, 07 Nov 2026): two layers, both glass. The control layer (project nav, top and edit
    bars, menus, sheets, drawers, toasts, buttons, switches, segmented controls) is Liquid Glass with blur: the tokens are --glass-* in
    :root and the rules are the "Liquid Glass" section near the end of this file. Every card is Liquid Glass too (Yarin, 07 Nov 2026:
@@ -63,6 +70,14 @@
   --text-2: #4A453F;
   --text-3: #645E57;
   --text-on-tint: #FFFFFF;
+  /* fills under white text (16 Nov 2026): equal to the text colours in light; dark mode lifts the text colours for contrast on a dark
+     ground, so a filled button, count, check or badge reads these instead and keeps white text at 4.5:1 or more */
+  --tint-solid: #5B2BD6; --tint-solid-hover: #4A1FBF;
+  --success-solid: #18703F; --warning-solid: #A3520A; --danger-solid: #C2303A; --info-solid: #3653B0;
+  --accent-solid: #8A5A14;      /* gold fill under white text (the accent-ink of light) */
+  --kid-solid: #6D3FC9; --expert-solid: #8A5A14;   /* the carousel pillars as fills under white text; the same in dark (white on them 6.4:1 and 5.9:1) */
+  --neutral-solid: #1E1B18;     /* the neutral category's tile and swatch (lb-cat-0): ink in light, a mid grey in dark */
+  --ink-fill: #1E1B18; --on-ink-fill: #FFFFFF;   /* an ink pill, badge, toast or tooltip (dark on a light page); in dark a raised grey with light text, not an inverted white pill */
 
   /* fills (black at low alpha: they paint surfaces, so they are pure grayscale) and lines (warm ink at low alpha) */
   --fill: rgba(0, 0, 0, .045);
@@ -163,7 +178,7 @@
   --glass-rim: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 -1px 0 rgba(0, 0, 0, .05), inset 0 0 0 1px rgba(43, 36, 29, .075);
   --glass-lift: 0 12px 36px -14px rgba(41, 30, 22, .24), 0 1px 3px rgba(41, 30, 22, .07);
   --glass-edge: 0 1px 0 rgba(43, 36, 29, .08), 0 14px 28px -22px rgba(41, 30, 22, .4);   /* a full-width bar: hairline below, then a soft fall-off */
-  --glass-tint: color-mix(in srgb, var(--tint) 86%, white);                                /* the lit side of tinted glass */
+  --glass-tint: color-mix(in srgb, var(--tint-solid) 86%, white);                          /* the lit side of tinted glass */
   /* glass cards (Yarin, 07 Nov 2026: "construct every card in the design system to look like apple made it using liquid glass"): the body is a
      translucent grayscale gradient, bright at the lit top corner and milky toward the far one, the rim is a specular edge (white on the
      top and the lit side, a dark hairline underneath, a soft glow inside), and the lift is a close contact shadow plus a wide ambient one.
@@ -175,10 +190,137 @@
   --glass-card-rim-sm: inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, .05), inset 0 0 0 1px rgba(43, 36, 29, .07);
   --glass-card-lift: 0 1px 1px rgba(41, 30, 22, .04), 0 3px 8px -2px rgba(41, 30, 22, .05), 0 20px 38px -24px rgba(41, 30, 22, .28);
 
+  /* the lit pieces of the glass (16 Nov 2026, so dark mode can dim them in one place): the chosen segment or tab, the current item
+     on a glass panel, hover and press on it, the specular edge, side and glow of a glass card, a sheet, a window's frame, the
+     composer and drop wells, the drop veil. --shade (shadows) and --ink-line (hairlines) are r, g, b for rgba(var(--shade), .2). */
+  --raised: #FFFFFF;
+  --raised-a: rgba(255, 255, 255, .94);
+  --hover-a: rgba(255, 255, 255, .55);
+  --press-a: rgba(255, 255, 255, .7);
+  --hi: rgba(255, 255, 255, .95);
+  --hi-2: rgba(255, 255, 255, .6);
+  --hi-glow: rgba(255, 255, 255, .5);
+  --sheet: rgba(255, 255, 255, .58);
+  --window-frame: rgba(255, 255, 255, .85);
+  --well: rgba(255, 255, 255, .74);
+  --well-2: rgba(255, 255, 255, .45);
+  --veil: rgba(255, 255, 255, .93);
+  --shade: 41, 30, 22;
+  --ink-line: 43, 36, 29;
+
   --sidebar-w: 15.5rem;
   --content-w: 76rem;
   color-scheme: light;
 }
+
+/* ---------- dark mode (16 Nov 2026) ----------
+   Yarin: "add dark mode everywhere, use apple's dark mode ui principles". The same tokens with dark values; every rule below reads
+   them, so this block is the whole palette. It follows the system appearance (Apple HIG, Dark Mode: "Avoid offering an
+   app-specific appearance setting"), so there is no switch. Principles from Apple's HIG (Dark Mode, Color, Materials):
+   - base and elevated: the ground is the dimmest (#000), a card is lighter (#1C1C1C, Apple's gray 6 made pure grayscale), an inset
+     or a sheet on it lighter again, a floating panel, menu or dialog the lightest. Depth comes from lighter layers, not shadows.
+   - not an inversion: colours get brighter, less heavy variants (Apple's dark system colours are brighter than the light ones);
+     the violet for text and links is #A88BFF, the gold #EBC27E, the eight category inks are lifted to 6:1 or more.
+   - contrast: every text colour is 4.5:1 or more on every surface here (text and text-2 over 8:1, the 7:1 Apple asks for in small
+     text); fills under white text have their own -solid tokens at 4.5:1 or more with white.
+   - glass: the same material, a translucent grey over a blurred copy of the page, with a faint top edge instead of the bright one.
+   Kept from the light rules: surfaces pure grayscale (equal R, G and B), text and lines warm (hue 33), no side stripes.
+   data-appearance on html (any value) keeps a page out of this block: the store mock, which draws its own night look. */
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-appearance])) {
+    --bg: #000000;                 /* base: the page ground */
+    --surface: #1C1C1C;            /* elevated: cards, grouped rows, tables */
+    --surface-2: #2A2A2A;          /* inset areas inside a card: a step lighter, as Apple's tertiary grouped background */
+    --surface-sunk: #141414;       /* wells, code, track of bars: pressed in, darker than the card */
+    --sidebar: #1A1A1A;            /* a page's own sidebar (lb-sidebar), the inner one */
+    --sidenav: #262626;            /* the project nav (lb-gside), the outer one: on a dark ground the lighter of the two */
+    --bar: rgba(22, 22, 22, .86);
+    --overlay: rgba(0, 0, 0, .5);
+
+    --text: #F5F2EE;               /* 15.3:1 on --surface */
+    --text-2: #CFC9C1;             /* 10.4:1 */
+    --text-3: #A8A199;             /* 6.7:1, 5.5:1 on --surface-2 */
+    --text-on-tint: #FFFFFF;
+    --tint-solid: #7350F2; --tint-solid-hover: #6440E8;     /* white on them 5.1:1 and 5.9:1 */
+    --success-solid: #23874D; --warning-solid: #B5600F; --danger-solid: #D0383E; --info-solid: #2F6FE0;
+    --accent-solid: #96661F;       /* white on it 5:1 */
+    --neutral-solid: #636363;      /* Apple's gray 2 (dark), pure grayscale: white icons on it, like the grey tiles in Settings */
+    --ink-fill: #3D3D3D; --on-ink-fill: #F5F2EE;  /* 11:1 */
+
+    --fill: rgba(255, 255, 255, .07);
+    --fill-2: rgba(255, 255, 255, .11);
+    --fill-3: rgba(255, 255, 255, .17);
+    --line: rgba(255, 247, 238, .12);
+    --line-strong: rgba(255, 247, 238, .22);
+
+    --tint: #A88BFF;               /* 6.3:1 on --surface */
+    --tint-hover: #C2AEFF;
+    --tint-soft: rgba(140, 105, 255, .2);
+    --focus: rgba(168, 139, 255, .6);
+
+    --accent: #D9A659;
+    --accent-soft: rgba(217, 166, 89, .18);
+    --accent-ink: #EBC27E;
+
+    --success: #4CD787; --success-soft: rgba(76, 215, 135, .15);
+    --warning: #FFA552; --warning-soft: rgba(255, 165, 82, .16);
+    --danger: #FF6B6E;  --danger-soft: rgba(255, 107, 110, .15);
+    --info: #6CB1FF;    --info-soft: rgba(108, 177, 255, .15);
+
+    --kid: #B497FF;  --kid-soft: rgba(150, 110, 240, .2);
+    --expert: #E8B567; --expert-soft: rgba(201, 149, 74, .2);
+
+    --seq-1: #2A2A2A; --seq-2: #3D3D3D; --seq-3: #6E5A40; --seq-4: #C9954A; --seq-5: #DDB06A; --seq-6: #F0CE8E;
+
+    --cat-1: #F5862A; --cat-1-ink: #FFAD66; --cat-1-soft: rgba(245, 134, 42, .2);
+    --cat-2: #F0548A; --cat-2-ink: #FF85AE; --cat-2-soft: rgba(240, 84, 138, .2);
+    --cat-3: #34B565; --cat-3-ink: #5FD68B; --cat-3-soft: rgba(52, 181, 101, .2);
+    --cat-4: #3D85F0; --cat-4-ink: #7DB3FF; --cat-4-soft: rgba(61, 133, 240, .2);
+    --cat-5: #A962E6; --cat-5-ink: #D1A3F7; --cat-5-soft: rgba(169, 98, 230, .22);
+    --cat-6: #1BB3B0; --cat-6-ink: #4FD8D4; --cat-6-soft: rgba(27, 179, 176, .2);
+    --cat-7: #77819A; --cat-7-ink: #B7BFCD; --cat-7-soft: rgba(119, 129, 154, .24);
+    --cat-8: #D49A30; --cat-8-ink: #F0C46C; --cat-8-soft: rgba(212, 154, 48, .2);
+
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, .5), 0 1px 1px rgba(0, 0, 0, .3);
+    --shadow-2: 0 12px 32px -14px rgba(0, 0, 0, .75), 0 2px 6px -2px rgba(0, 0, 0, .4);
+    --shadow-3: 0 28px 64px -22px rgba(0, 0, 0, .85), 0 4px 14px -4px rgba(0, 0, 0, .5);
+    --overlay-2: rgba(0, 0, 0, .58);
+
+    --glass-bar: rgba(18, 18, 18, .55);
+    --glass: rgba(44, 44, 44, .6);
+    --glass-thick: rgba(38, 38, 38, .88);
+    --glass-clear: rgba(30, 30, 30, .32);
+    --glass-grey: rgba(26, 26, 26, .8);
+    --glass-grey-deep: rgba(40, 40, 40, .82);
+    --glass-sheen: radial-gradient(130% 160% at 14% -30%, rgba(255, 255, 255, .09), rgba(255, 255, 255, 0) 58%);
+    --glass-rim: inset 0 1px 0 rgba(255, 255, 255, .13), inset 0 -1px 0 rgba(0, 0, 0, .4), inset 0 0 0 1px rgba(255, 255, 255, .08);
+    --glass-lift: 0 12px 36px -14px rgba(0, 0, 0, .7), 0 1px 3px rgba(0, 0, 0, .45);
+    --glass-edge: 0 1px 0 rgba(255, 255, 255, .07), 0 14px 28px -22px rgba(0, 0, 0, .85);
+    --glass-card: linear-gradient(160deg, rgba(50, 50, 50, .9) 0%, rgba(36, 36, 36, .86) 46%, rgba(28, 28, 28, .84) 100%);
+    --glass-card-thick: linear-gradient(160deg, rgba(58, 58, 58, .96) 0%, rgba(44, 44, 44, .94) 50%, rgba(36, 36, 36, .94) 100%);
+    --glass-card-rim: inset 0 1px 0 rgba(255, 255, 255, .14), inset 1px 0 0 rgba(255, 255, 255, .05), inset -1px 0 0 rgba(255, 255, 255, .03), inset 0 -1px 0 rgba(0, 0, 0, .35),
+                      inset 0 0 0 1px rgba(255, 255, 255, .07), inset 0 0 26px rgba(255, 255, 255, .025);
+    --glass-card-rim-sm: inset 0 1px 0 rgba(255, 255, 255, .12), inset 0 -1px 0 rgba(0, 0, 0, .3), inset 0 0 0 1px rgba(255, 255, 255, .07);
+    --glass-card-lift: 0 1px 1px rgba(0, 0, 0, .5), 0 3px 8px -2px rgba(0, 0, 0, .4), 0 20px 38px -24px rgba(0, 0, 0, .85);
+
+    --raised: #424242;
+    --raised-a: rgba(255, 255, 255, .13);
+    --hover-a: rgba(255, 255, 255, .07);
+    --press-a: rgba(255, 255, 255, .11);
+    --hi: rgba(255, 255, 255, .15);
+    --hi-2: rgba(255, 255, 255, .06);
+    --hi-glow: rgba(255, 255, 255, .03);
+    --sheet: rgba(255, 255, 255, .06);
+    --window-frame: rgba(255, 255, 255, .12);
+    --well: rgba(0, 0, 0, .28);
+    --well-2: rgba(0, 0, 0, .18);
+    --veil: rgba(36, 36, 36, .93);
+    --shade: 0, 0, 0;
+    --ink-line: 255, 247, 238;
+    color-scheme: dark;
+  }
+}
+
 
 /* ---------- base ---------- */
 [hidden] { display: none !important; } /* hidden always wins over component display rules */
@@ -432,8 +574,8 @@ svg.lb-spark .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2
 .lb-dot.live { animation: lb-pulse 2.4s infinite; }
 @keyframes lb-pulse { 0% { box-shadow: 0 0 0 0 var(--success-soft); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 .lb-count { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; padding-inline: .4rem; border-radius: var(--r-pill); background: var(--fill-2); color: var(--text-2); font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; font-variant-numeric: tabular-nums; }
-.lb-count.is-alert { background: var(--danger); color: var(--text-on-tint); }
-.lb-count.is-tint { background: var(--tint); color: var(--text-on-tint); }
+.lb-count.is-alert { background: var(--danger-solid); color: var(--text-on-tint); }
+.lb-count.is-tint { background: var(--tint-solid); color: var(--text-on-tint); }
 
 /* alert row: severity as a tinted pill + tinted ground */
 .lb-alerts { display: grid; gap: var(--sp-2); }
@@ -449,7 +591,7 @@ svg.lb-spark .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2
    --tc (base), --tc-ink (text) and --tc-soft (ground); the pieces below read them, so one class on a row,
    card or nav item colours its tile, chip, ID, bar and edge the same way. Status stays on the status chips.
    Named per page too: design.head() adds .lb-<set>-<key> classes (.lb-ws-creators) generated from categories.json. */
-.lb-cat-0 { --tc: var(--text); --tc-ink: var(--text); --tc-soft: var(--fill); }
+.lb-cat-0 { --tc: var(--neutral-solid); --tc-ink: var(--text); --tc-soft: var(--fill); }
 .lb-cat-1 { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
 .lb-cat-2 { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
 .lb-cat-3 { --tc: var(--cat-3); --tc-ink: var(--cat-3-ink); --tc-soft: var(--cat-3-soft); }
@@ -543,14 +685,14 @@ details.lb-disclosure.is-quiet[open] > summary { border-bottom-color: transparen
   display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
   min-height: 2.25rem; padding: 0 var(--sp-4); border-radius: var(--r-pill); border: 1px solid transparent;
   font: inherit; font-family: var(--font); font-size: var(--fs-callout); font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap;
-  background: var(--tint); color: var(--text-on-tint); transition: background .15s, border-color .15s;
+  background: var(--tint-solid); color: var(--text-on-tint); transition: background .15s, border-color .15s;
 }
-.lb-btn:hover { background: var(--tint-hover); color: var(--text-on-tint); text-decoration: none; }
+.lb-btn:hover { background: var(--tint-solid-hover); color: var(--text-on-tint); text-decoration: none; }
 .lb-btn.secondary { background: var(--surface); color: var(--text); border-color: var(--line-strong); }
 .lb-btn.secondary:hover { border-color: var(--tint); color: var(--tint); background: var(--surface); }
 .lb-btn.ghost { background: transparent; color: var(--tint); }
 .lb-btn.ghost:hover { background: var(--tint-soft); }
-.lb-btn.danger { background: var(--danger); }
+.lb-btn.danger { background: var(--danger-solid); }
 .lb-btn.sm { min-height: 1.875rem; padding: 0 var(--sp-3); font-size: var(--fs-footnote); }
 .lb-btn.icon { width: 2.25rem; padding: 0; }
 .lb-btn.quiet { background: transparent; color: var(--text-3); } /* a low-key action repeated on every row (remove), so it never shouts */
@@ -583,7 +725,7 @@ details.lb-disclosure.is-quiet[open] > summary { border-bottom-color: transparen
 .lb-check { display: flex; gap: .6rem; align-items: flex-start; font-size: var(--fs-callout); cursor: pointer; padding: 2px 0; }
 .lb-check input { appearance: none; flex: none; width: 1.125rem; height: 1.125rem; margin: .15rem 0 0; border: 1.5px solid var(--line-strong); border-radius: .35rem; display: grid; place-content: center; cursor: pointer; background: var(--surface); }
 .lb-check input::after { content: ""; width: .55rem; height: .3rem; border-style: solid; border-color: var(--text-on-tint); border-width: 0 0 2px 2px; /* physical sides: the tick must not mirror in RTL */ transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
-.lb-check input:checked { background: var(--tint); border-color: var(--tint); }
+.lb-check input:checked { background: var(--tint-solid); border-color: var(--tint-solid); }
 .lb-check input:checked::after { opacity: 1; }
 .lb-check input:checked + span { color: var(--text-3); text-decoration: line-through; }
 .lb-check input:disabled { cursor: default; }
@@ -621,7 +763,7 @@ details.lb-disclosure.is-quiet[open] > summary { border-bottom-color: transparen
 
 /* ---------- shared page patterns (05 Nov 2026) ----------
    Pieces that two or more pages had each built on their own (Yarin: "add everything to the design system"). One component
-   each now; pages use these instead of their own copies. Tokens only, logical properties, white only. */
+   each now; pages use these instead of their own copies. Tokens only, logical properties, light and dark from the same tokens. */
 
 /* top bar brand: the logo and name at the start of an lb-topbar (the sidebar lb-brand, sized for a bar). is-stacked puts the
    small line (a gold eyebrow) above the name: <a class="lb-brand is-stacked"><img><span><small>LumeBook</small><b>Page</b></span></a> */
@@ -832,8 +974,8 @@ a.lb-media:hover .lb-media-frame { box-shadow: var(--shadow-2); }
 ul.lb-bullets { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: var(--sp-1); }
 ul.lb-bullets > li::marker, .lb-prose li::marker { color: var(--accent); } /* gold bullets */
 .lb-kbd { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; padding: 0 .35rem; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: var(--r-xs); background: var(--surface); color: var(--text-2); font-family: var(--font-2); font-size: var(--fs-caption); font-weight: 700; line-height: 1; direction: ltr; }
-.lb-pid.is-solid { background: var(--text); color: var(--bg); }
-a.lb-pid.is-solid:hover { background: var(--tint); color: var(--text-on-tint); }
+.lb-pid.is-solid { background: var(--ink-fill); color: var(--on-ink-fill); }
+a.lb-pid.is-solid:hover { background: var(--tint-solid); color: var(--text-on-tint); }
 .lb-spinner { display: inline-block; flex: none; width: 1rem; height: 1rem; border-radius: 50%; border: 2px solid var(--fill-3); border-top-color: var(--tint); animation: lb-spin .8s linear infinite; vertical-align: -.15em; }
 @keyframes lb-spin { to { transform: rotate(360deg); } }
 /* save state: a dot and a word for whether the page's edits are saved (is-wait while saving, is-error, is-local for saved in
@@ -897,12 +1039,12 @@ a.lb-day:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .lb-day-num { font-family: var(--font-2); font-weight: 700; font-size: var(--fs-footnote); font-variant-numeric: tabular-nums; }
 .lb-day-text { font-size: var(--fs-footnote); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .lb-day-foot { display: flex; align-items: center; gap: 6px; min-height: 1rem; }
-.lb-day-tick { display: none; margin-inline-start: auto; width: 1.15rem; height: 1.15rem; border-radius: 50%; background: var(--success); color: var(--text-on-tint); font-size: .7rem; font-weight: 800; align-items: center; justify-content: center; }
+.lb-day-tick { display: none; margin-inline-start: auto; width: 1.15rem; height: 1.15rem; border-radius: 50%; background: var(--success-solid); color: var(--text-on-tint); font-size: .7rem; font-weight: 800; align-items: center; justify-content: center; }
 .lb-day.is-done .lb-day-tick { display: inline-flex; }
 
 /* check chip: a chip button that marks a record done, with aria-pressed. Off on the surface; on in success with a tick. */
 button.lb-chip.check { background: var(--surface); cursor: pointer; }
-button.lb-chip.check[aria-pressed="true"] { background: var(--success); border-color: var(--success); color: var(--text-on-tint); }
+button.lb-chip.check[aria-pressed="true"] { background: var(--success-solid); border-color: var(--success-solid); color: var(--text-on-tint); }
 button.lb-chip.check[aria-pressed="true"]::before { content: "✓ "; }
 button.lb-chip.check:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
@@ -1050,7 +1192,7 @@ button.lb-chip.check:focus-visible { outline: 2px solid var(--focus); outline-of
 .lb-icon-picker button { all: unset; box-sizing: border-box; display: grid; place-items: center; height: 2.5rem; border-radius: var(--r-sm); border: 1px solid var(--line); color: var(--text-2); cursor: pointer; }
 .lb-icon-picker button svg { width: 1.2rem; height: 1.2rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .lb-icon-picker button:hover, .lb-icon-picker button:focus-visible { border-color: var(--tint); color: var(--tint); }
-.lb-icon-picker button[aria-pressed="true"] { background: var(--tint); border-color: var(--tint); color: var(--text-on-tint); }
+.lb-icon-picker button[aria-pressed="true"] { background: var(--tint-solid); border-color: var(--tint-solid); color: var(--text-on-tint); }
 .lb-color-picker { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .lb-color-picker button { all: unset; box-sizing: border-box; width: 2rem; height: 2rem; border-radius: 50%; background: var(--tc); cursor: pointer; border: 2px solid transparent; box-shadow: inset 0 0 0 2px var(--surface); }
 .lb-color-picker button[aria-pressed="true"] { border-color: var(--text); }
@@ -1143,7 +1285,7 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
 .lb-langfab button:hover { color: var(--text); }
 .lb-langfab button:active { transform: scale(var(--press)); }
 .lb-langfab button[aria-pressed="true"] { color: var(--tint); }
-.lb-langfab button[aria-pressed="true"]::before { background: var(--glass-sheen), var(--surface); box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(41, 30, 22, .25); }
+.lb-langfab button[aria-pressed="true"]::before { background: var(--glass-sheen), var(--raised); box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(var(--shade), .25); }
 .lb-langfab button:focus-visible { outline: 2px solid var(--tint); outline-offset: -2px; }
 .lb-langfab-note { padding: 0 .55rem 0 .3rem; white-space: nowrap; font: 500 var(--fs-caption)/1 var(--font-2); color: var(--text-3); }
 .lb-langfab-note[hidden], html.lb-i18n-paused .lb-langfab { display: none; }
@@ -1242,8 +1384,8 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
    Yarin: "apply apple design principles and latest liquid glass to the entire project". The tokens are --glass-* in :root. This
    section is the control layer: everything that floats above the content takes the material, content never does. It comes last
    on purpose so it can restyle the pieces above without touching their layout, and every glass surface reads the tokens, so
-   the two fallbacks below (reduced transparency, no backdrop-filter) flatten all of it at once. Still true here: white page,
-   pure grayscale surfaces, warm-tinted text, no side stripes, slide looks untouched.
+   the two fallbacks below (reduced transparency, no backdrop-filter) flatten all of it at once. Still true here: white page (a
+   near-black one in dark mode), pure grayscale surfaces, warm-tinted text, no side stripes, slide looks untouched.
    Material:  <div class="lb-glass">          regular glass (bars, small floating controls)
               lb-glass is-thick               under text: menus, sheets, drawers
               lb-glass is-clear               over a photo or video: a mark that lets the picture through
@@ -1262,8 +1404,8 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
 .lb-glass.is-capsule { border-radius: var(--r-pill); }
 .lb-glass.is-thick, .lb-popover, .lb-drawer, .lb-toast { --g-bg: var(--glass-thick); }
 .lb-glass.is-clear { --g-bg: var(--glass-clear); -webkit-backdrop-filter: var(--glass-filter-clear); backdrop-filter: var(--glass-filter-clear); }
-.lb-glass.is-tint { --g-bg: color-mix(in srgb, var(--tint) 74%, transparent); color: var(--text-on-tint);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .14), 0 12px 28px -12px color-mix(in srgb, var(--tint) 80%, transparent); }
+.lb-glass.is-tint { --g-bg: color-mix(in srgb, var(--tint-solid) 74%, transparent); color: var(--text-on-tint);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .14), 0 12px 28px -12px color-mix(in srgb, var(--tint-solid) 80%, transparent); }
 .lb-glass.is-interactive { cursor: pointer; transition: transform var(--dur-2) var(--ease-spring), filter var(--dur-1) var(--ease); }
 .lb-glass.is-interactive:hover { filter: brightness(1.035); }
 .lb-glass.is-interactive:active { transform: scale(var(--press)); }
@@ -1271,21 +1413,21 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
 /* the fallbacks: opaque tokens, no blur, the same shapes and rims: a browser without backdrop-filter, more contrast (which also adds a
    real edge), and Reduce Transparency where a page opts in (below). */
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  :root { --glass-filter: none; --glass-filter-clear: none; --glass-bar: #FFFFFF; --glass-filter-bar: none; --glass-card: #FFFFFF; --glass-card-thick: #FFFFFF; --glass: #FFFFFF; --glass-thick: #FFFFFF; --glass-clear: rgba(255, 255, 255, .5);
-    --glass-grey: #EEEEEE; --glass-grey-deep: #E0E0E0; --glass-sheen: linear-gradient(transparent, transparent); }
+  :root { --glass-filter: none; --glass-filter-clear: none; --glass-bar: var(--surface); --glass-filter-bar: none; --glass-card: var(--surface); --glass-card-thick: var(--surface); --glass: var(--surface); --glass-thick: var(--surface); --glass-clear: color-mix(in srgb, var(--surface) 50%, transparent);
+    --glass-grey: var(--sidebar); --glass-grey-deep: var(--sidenav); --glass-sheen: linear-gradient(transparent, transparent); }
 }
 /* Reduce Transparency (macOS, iOS): honoured only where a page opts in with data-honor-transparency on html. The internal tools do not:
    Yarin's Mac has it switched on, which flattened every glass surface to white and grey, and he asked for the glass (7 Nov 2026). The
    public creator brief opts in (design.head(nav=False) sets it), because outside readers' settings must win there. To honour it
    everywhere again, drop the attribute from this selector. */
 @media (prefers-reduced-transparency: reduce) {
-  :root[data-honor-transparency] { --glass-filter: none; --glass-filter-clear: none; --glass-bar: #FFFFFF; --glass-filter-bar: none; --glass-card: #FFFFFF; --glass-card-thick: #FFFFFF; --glass: #FFFFFF; --glass-thick: #FFFFFF; --glass-clear: rgba(255, 255, 255, .5);
-    --glass-grey: #EEEEEE; --glass-grey-deep: #E0E0E0; --glass-sheen: linear-gradient(transparent, transparent); }
+  :root[data-honor-transparency] { --glass-filter: none; --glass-filter-clear: none; --glass-bar: var(--surface); --glass-filter-bar: none; --glass-card: var(--surface); --glass-card-thick: var(--surface); --glass: var(--surface); --glass-thick: var(--surface); --glass-clear: color-mix(in srgb, var(--surface) 50%, transparent);
+    --glass-grey: var(--sidebar); --glass-grey-deep: var(--sidenav); --glass-sheen: linear-gradient(transparent, transparent); }
 }
 @media (prefers-contrast: more) {
-  :root { --glass-filter: none; --glass-filter-clear: none; --glass-bar: #FFFFFF; --glass-filter-bar: none; --glass-card: #FFFFFF; --glass-card-thick: #FFFFFF; --glass: #FFFFFF; --glass-thick: #FFFFFF; --glass-clear: rgba(255, 255, 255, .7);
-    --glass-grey: #EEEEEE; --glass-grey-deep: #E0E0E0; --glass-sheen: linear-gradient(transparent, transparent);
-    --glass-rim: inset 0 0 0 1.5px rgba(43, 36, 29, .55); --glass-card-rim: inset 0 0 0 1.5px rgba(43, 36, 29, .5); --glass-card-rim-sm: inset 0 0 0 1.5px rgba(43, 36, 29, .5); --glass-edge: 0 1px 0 rgba(43, 36, 29, .55); --line: rgba(43, 36, 29, .3); --line-strong: rgba(43, 36, 29, .55); }
+  :root { --glass-filter: none; --glass-filter-clear: none; --glass-bar: var(--surface); --glass-filter-bar: none; --glass-card: var(--surface); --glass-card-thick: var(--surface); --glass: var(--surface); --glass-thick: var(--surface); --glass-clear: color-mix(in srgb, var(--surface) 70%, transparent);
+    --glass-grey: var(--sidebar); --glass-grey-deep: var(--sidenav); --glass-sheen: linear-gradient(transparent, transparent);
+    --glass-rim: inset 0 0 0 1.5px rgba(var(--ink-line), .55); --glass-card-rim: inset 0 0 0 1.5px rgba(var(--ink-line), .5); --glass-card-rim-sm: inset 0 0 0 1.5px rgba(var(--ink-line), .5); --glass-edge: 0 1px 0 rgba(var(--ink-line), .55); --line: rgba(var(--ink-line), .3); --line-strong: rgba(var(--ink-line), .55); }
 }
 
 /* bars: full-width glass that content scrolls under. The hairline and its fall-off are one shadow (Apple's scroll edge). */
@@ -1296,12 +1438,12 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
 .lb-topbar::after, .lb-editbar::after, .lb-edge::after { content: ""; position: absolute; inset-inline: 0; bottom: -1px; height: 1px; pointer-events: none;
   background: linear-gradient(90deg, transparent, var(--line-strong) 14%, var(--line-strong) 86%, transparent); }
 .lb-topbar::before, .lb-editbar::before, .lb-edge::before { content: ""; position: absolute; inset-inline: 0; top: 100%; height: 16px; pointer-events: none;
-  background: linear-gradient(180deg, rgba(41, 30, 22, .07), rgba(41, 30, 22, 0));
+  background: linear-gradient(180deg, rgba(var(--shade), .07), rgba(var(--shade), 0));
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
 .lb-dialog-head > .lb-editbar::before, .lb-dialog-head > .lb-editbar::after { display: none; }
 .lb-dialog-head { box-shadow: none; }
 .lb-dialog-x { background: var(--glass-sheen), var(--glass-thick); box-shadow: var(--glass-rim), var(--shadow-1); transition: transform var(--dur-2) var(--ease-spring); }
-.lb-dialog-x:hover { background: var(--glass-sheen), #fff; }
+.lb-dialog-x:hover { background: var(--glass-sheen), var(--raised); }
 .lb-dialog-x:active { transform: scale(var(--press)); }
 
 /* the project nav (nav.js): a floating panel of glass inset from the window edge, the darker grey of the two (the page's own
@@ -1310,22 +1452,22 @@ html.lb-gnav-away .lb-langfab { --fab-b: 16px; }
 .lb-gside::before { content: ""; position: absolute; inset: .625rem; z-index: 0; pointer-events: none; border-radius: var(--r-xl);
   --g-bg: var(--glass-grey-deep); box-shadow: var(--glass-rim), var(--glass-lift); }
 .lb-gside > * { position: relative; z-index: 1; }
-.lb-gside-head { border-bottom-color: rgba(43, 36, 29, .07); }
+.lb-gside-head { border-bottom-color: rgba(var(--ink-line), .07); }
 /* the list fades into the glass at both ends (scroll edge) and clips to the panel's rounded bottom, so a tile is never cut by a hard edge */
 .lb-gside-scroll { padding-block-end: calc(2.5rem + env(safe-area-inset-bottom, 0px)); border-radius: 0 0 var(--r-xl) var(--r-xl);
   -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12px, #000 calc(100% - 40px), transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0, #000 12px, #000 calc(100% - 40px), transparent 100%); }
 .lb-gside-item { border-radius: var(--r-md); transition: background var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease); }
-.lb-gside-item:hover { background: rgba(255, 255, 255, .55); }
-.lb-gside-item[aria-current="page"] { background: rgba(255, 255, 255, .94); box-shadow: var(--glass-rim), 0 3px 10px -4px rgba(41, 30, 22, .28); }
+.lb-gside-item:hover { background: var(--hover-a); }
+.lb-gside-item[aria-current="page"] { background: var(--raised-a); box-shadow: var(--glass-rim), 0 3px 10px -4px rgba(var(--shade), .28); }
 .lb-gside-tbtn { border-radius: var(--r-md); transition: background var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease); }
-.lb-gside-tbtn:hover { background: rgba(255, 255, 255, .55); }
-.lb-gside-tbtn:active { background: rgba(255, 255, 255, .7); }
-.lb-gside-topic.has-current:not(.is-open) .lb-gside-tbtn { background: rgba(255, 255, 255, .94); box-shadow: var(--glass-rim), 0 3px 10px -4px rgba(41, 30, 22, .28); }
+.lb-gside-tbtn:hover { background: var(--hover-a); }
+.lb-gside-tbtn:active { background: var(--press-a); }
+.lb-gside-topic.has-current:not(.is-open) .lb-gside-tbtn { background: var(--raised-a); box-shadow: var(--glass-rim), 0 3px 10px -4px rgba(var(--shade), .28); }
 .lb-gside-topic.is-focus { border-radius: var(--r-lg); }
 html[data-gside="expanded"] .lb-gside::before { box-shadow: var(--glass-rim), var(--glass-lift), var(--shadow-3); }
 .lb-gside-toggle, .lb-gside-close { border-radius: var(--r-pill); transition: background var(--dur-1) var(--ease), transform var(--dur-2) var(--ease-spring); }
-.lb-gside-toggle:hover, .lb-gside-close:hover { background: rgba(255, 255, 255, .6); }
+.lb-gside-toggle:hover, .lb-gside-close:hover { background: var(--hover-a); }
 .lb-gside-toggle:active, .lb-gside-close:active { transform: scale(var(--press)); }
 
 /* a page's own sidebar: the same floating panel, the lighter grey */
@@ -1333,9 +1475,9 @@ html[data-gside="expanded"] .lb-gside::before { box-shadow: var(--glass-rim), va
   /* the gap to the project nav's rail (Yarin, 08 Nov 2026): the same .625rem as the gap to the window edge, not double; the rail already has .625rem of air on its side */
   top: calc(var(--lb-gnav-top, 0px) + .625rem); height: calc(100vh - var(--lb-gnav-top, 0px) - 1.25rem); box-shadow: var(--glass-rim), var(--shadow-1); }
 .lb-nav-item { border-radius: var(--r-md); transition: background var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease); }
-.lb-nav-item:hover { background: rgba(255, 255, 255, .6); }
+.lb-nav-item:hover { background: var(--hover-a); }
 .lb-nav-item[aria-current="page"], .lb-nav-item.is-active,
-.lb-nav-item:has(> .lb-tile)[aria-current="page"] { background: rgba(255, 255, 255, .94); box-shadow: var(--glass-rim), 0 3px 10px -4px rgba(41, 30, 22, .26); }
+.lb-nav-item:has(> .lb-tile)[aria-current="page"] { background: var(--raised-a); box-shadow: var(--glass-rim), 0 3px 10px -4px rgba(var(--shade), .26); }
 .lb-sidebar.is-open { box-shadow: var(--glass-rim), var(--shadow-3); }
 
 .lb-sidebar:dir(rtl) { margin-right: 0; }
@@ -1356,7 +1498,7 @@ html[data-gside="expanded"] .lb-gside::before { box-shadow: var(--glass-rim), va
   .lb-gbottom-item { border-radius: var(--r-pill); transition: background var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-spring); }
   .lb-gbottom-item:active { transform: scale(var(--press)); }
   .lb-gbottom-item svg { width: 1.6rem; height: 1.6rem; padding: 0; }
-  .lb-gbottom-item[aria-current] { background: var(--tc-soft, var(--tint-soft)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .85), inset 0 0 0 1px rgba(255, 255, 255, .5); }
+  .lb-gbottom-item[aria-current] { background: var(--tc-soft, var(--tint-soft)); box-shadow: inset 0 1px 0 var(--hi), inset 0 0 0 1px var(--hi-glow); }
   .lb-gbottom-item[aria-current] svg { background: none; }
 }
 
@@ -1365,7 +1507,7 @@ html[data-gside="expanded"] .lb-gside::before { box-shadow: var(--glass-rim), va
 .lb-popover > button, .lb-popover > a { border-radius: calc(var(--r-lg) - 6px); transition: background var(--dur-1) var(--ease); }
 .lb-popover > button:hover, .lb-popover > a:hover, .lb-popover > [aria-current="true"] { background: var(--fill-2); }
 .lb-drawer { inset-block: .625rem; inset-inline-end: .625rem; width: min(calc(100% - 1.25rem), 34rem); border-radius: var(--r-xl); box-shadow: var(--glass-rim), var(--shadow-3); }
-.lb-drawer-head { border-bottom-color: rgba(43, 36, 29, .08); }
+.lb-drawer-head { border-bottom-color: rgba(var(--ink-line), .08); }
 .lb-toast { color: var(--text); box-shadow: var(--glass-rim), var(--shadow-3); }
 .lb-scrim { -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .lb-modal > .lb-card { border-radius: var(--r-xl); box-shadow: var(--glass-rim), var(--shadow-3); }
@@ -1380,39 +1522,39 @@ dialog.lb-dialog::backdrop { -webkit-backdrop-filter: blur(10px) saturate(120%);
 
 /* buttons: the main action is tinted glass (violet lit from the top, a bright rim, a coloured lift); secondary is regular glass
    (translucent white and the rim, no blur); ghost stays clear until you point at it. Press scales, as on iOS. */
-.lb-btn { background: linear-gradient(180deg, var(--glass-tint), var(--tint));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), inset 0 -1px 0 rgba(0, 0, 0, .14), 0 6px 16px -8px color-mix(in srgb, var(--tint) 85%, transparent);
+.lb-btn { background: linear-gradient(180deg, var(--glass-tint), var(--tint-solid));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), inset 0 -1px 0 rgba(0, 0, 0, .14), 0 6px 16px -8px color-mix(in srgb, var(--tint-solid) 85%, transparent);
   transition: transform var(--dur-2) var(--ease-spring), background var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease), color var(--dur-1) var(--ease); }
-.lb-btn:hover { background: linear-gradient(180deg, color-mix(in srgb, var(--tint-hover) 84%, white), var(--tint-hover)); }
+.lb-btn:hover { background: linear-gradient(180deg, color-mix(in srgb, var(--tint-solid-hover) 84%, white), var(--tint-solid-hover)); }
 .lb-btn:active { transform: scale(var(--press)); }
-.lb-btn.danger { background: linear-gradient(180deg, color-mix(in srgb, var(--danger) 86%, white), var(--danger));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .42), inset 0 -1px 0 rgba(0, 0, 0, .14), 0 6px 16px -8px color-mix(in srgb, var(--danger) 85%, transparent); }
+.lb-btn.danger { background: linear-gradient(180deg, color-mix(in srgb, var(--danger-solid) 86%, white), var(--danger-solid));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .42), inset 0 -1px 0 rgba(0, 0, 0, .14), 0 6px 16px -8px color-mix(in srgb, var(--danger-solid) 85%, transparent); }
 .lb-btn.secondary { background: var(--glass-sheen), var(--glass-thick); color: var(--text); border-color: transparent;
-  box-shadow: var(--glass-rim), 0 2px 8px -3px rgba(41, 30, 22, .18); }
-.lb-btn.secondary:hover { background: var(--glass-sheen), #FFFFFF; color: var(--tint); border-color: transparent; box-shadow: var(--glass-rim), 0 4px 12px -4px rgba(41, 30, 22, .24); }
+  box-shadow: var(--glass-rim), 0 2px 8px -3px rgba(var(--shade), .18); }
+.lb-btn.secondary:hover { background: var(--glass-sheen), var(--raised); color: var(--tint); border-color: transparent; box-shadow: var(--glass-rim), 0 4px 12px -4px rgba(var(--shade), .24); }
 .lb-btn.ghost, .lb-btn.quiet { box-shadow: none; }
-.lb-btn.ok { border: 0; padding-inline: calc(var(--sp-4) + 1px); background: var(--glass-sheen), var(--success-soft); color: var(--success); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--success) 22%, transparent), inset 0 1px 0 rgba(255, 255, 255, .45), 0 6px 16px -8px color-mix(in srgb, var(--success) 70%, transparent); }
-.lb-btn.ok:hover { background: var(--glass-sheen), color-mix(in srgb, var(--success) 22%, transparent); color: var(--success); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--success) 32%, transparent), inset 0 1px 0 rgba(255, 255, 255, .45), 0 8px 18px -8px color-mix(in srgb, var(--success) 75%, transparent); }
+.lb-btn.ok { border: 0; padding-inline: calc(var(--sp-4) + 1px); background: var(--glass-sheen), var(--success-soft); color: var(--success); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--success) 22%, transparent), inset 0 1px 0 var(--hi-glow), 0 6px 16px -8px color-mix(in srgb, var(--success) 70%, transparent); }
+.lb-btn.ok:hover { background: var(--glass-sheen), color-mix(in srgb, var(--success) 22%, transparent); color: var(--success); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--success) 32%, transparent), inset 0 1px 0 var(--hi-glow), 0 8px 18px -8px color-mix(in srgb, var(--success) 75%, transparent); }
 .lb-btn.ghost:hover { background: var(--tint-soft); }
 .lb-btn.quiet:hover { background: var(--danger-soft); }
 .lb-btn:disabled, .lb-btn[aria-disabled="true"] { box-shadow: none; }
-.lb-btn-group { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border-radius: var(--r-pill); background: var(--glass-sheen), var(--glass-thick); box-shadow: var(--glass-rim), 0 2px 8px -3px rgba(41, 30, 22, .18); }
+.lb-btn-group { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border-radius: var(--r-pill); background: var(--glass-sheen), var(--glass-thick); box-shadow: var(--glass-rim), 0 2px 8px -3px rgba(var(--shade), .18); }
 .lb-btn-group > .lb-btn { background: transparent; color: var(--text); box-shadow: none; }
 .lb-btn-group > .lb-btn:hover { background: var(--fill-2); color: var(--text); }
-.lb-btn-group > .lb-btn[aria-pressed="true"] { background: var(--glass-sheen), #FFFFFF; box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(41, 30, 22, .25); color: var(--tint); }
+.lb-btn-group > .lb-btn[aria-pressed="true"] { background: var(--glass-sheen), var(--raised); box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(var(--shade), .25); color: var(--tint); }
 
 /* segmented control and tabs: a quiet capsule track with a glass lens on the chosen one */
 .lb-segmented { padding: 3px; border-radius: var(--r-pill); box-shadow: inset 0 1px 2px rgba(0, 0, 0, .06); }
 .lb-segmented button { border-radius: var(--r-pill); padding: .32rem .95rem; transition: background var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease), color var(--dur-1) var(--ease); }
-.lb-segmented button[aria-pressed="true"] { background: var(--glass-sheen), #FFFFFF; font-weight: 600; box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(41, 30, 22, .25); }
+.lb-segmented button[aria-pressed="true"] { background: var(--glass-sheen), var(--raised); font-weight: 600; box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(var(--shade), .25); }
 .lb-tabs { gap: 2px; padding: 3px; border-bottom: 0; border-radius: var(--r-pill); background: var(--fill-2); width: fit-content; max-width: 100%; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .05); }
 .lb-tabs button, .lb-tabs a { padding: .42rem 1rem; border-bottom: 0; margin-bottom: 0; border-radius: var(--r-pill); transition: background var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease), color var(--dur-1) var(--ease); }
-.lb-tabs [aria-selected="true"], .lb-tabs [aria-current="page"], .lb-tabs .is-active { background: var(--glass-sheen), #FFFFFF; color: var(--text); font-weight: 600; box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(41, 30, 22, .25); }
-.lb-filters button { border: 0; background: var(--glass-sheen), var(--glass-thick); box-shadow: var(--glass-rim), 0 1px 4px -1px rgba(41, 30, 22, .14);
+.lb-tabs [aria-selected="true"], .lb-tabs [aria-current="page"], .lb-tabs .is-active { background: var(--glass-sheen), var(--raised); color: var(--text); font-weight: 600; box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(var(--shade), .25); }
+.lb-filters button { border: 0; background: var(--glass-sheen), var(--glass-thick); box-shadow: var(--glass-rim), 0 1px 4px -1px rgba(var(--shade), .14);
   transition: transform var(--dur-2) var(--ease-spring), background var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease); }
-.lb-filters button:hover { background: var(--glass-sheen), #FFFFFF; }
+.lb-filters button:hover { background: var(--glass-sheen), var(--raised); }
 .lb-filters button:active { transform: scale(var(--press)); }
-.lb-filters button[aria-pressed="true"] { background: var(--tc-soft, var(--fill-2)); box-shadow: inset 0 0 0 1.5px var(--tc, var(--text)), inset 0 1px 0 rgba(255, 255, 255, .7); }
+.lb-filters button[aria-pressed="true"] { background: var(--tc-soft, var(--fill-2)); box-shadow: inset 0 0 0 1.5px var(--tc, var(--text)), inset 0 1px 0 var(--hi-2); }
 
 /* switch (iOS 26): a wide glass knob that stretches under the finger, the green track */
 .lb-switch { width: 3.4rem; height: 2rem; box-shadow: inset 0 0 0 1px var(--line), inset 0 1px 3px rgba(0, 0, 0, .08); transition: background var(--dur-2) var(--ease); }
@@ -1423,8 +1565,8 @@ dialog.lb-dialog::backdrop { -webkit-backdrop-filter: blur(10px) saturate(120%);
 .lb-switch:checked:active::after { inset-inline-start: calc(100% - 2.45rem - .2rem); }
 
 /* fields: soft inset, a 4px tinted focus halo */
-.lb-input, .lb-select, .lb-textarea { border-radius: var(--r-sm); box-shadow: inset 0 1px 2px rgba(41, 30, 22, .05); transition: border-color var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease), background var(--dur-1) var(--ease); }
-.lb-input:focus, .lb-select:focus, .lb-textarea:focus { box-shadow: 0 0 0 4px var(--tint-soft), inset 0 1px 2px rgba(41, 30, 22, .04); }
+.lb-input, .lb-select, .lb-textarea { border-radius: var(--r-sm); box-shadow: inset 0 1px 2px rgba(var(--shade), .05); transition: border-color var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease), background var(--dur-1) var(--ease); }
+.lb-input:focus, .lb-select:focus, .lb-textarea:focus { box-shadow: 0 0 0 4px var(--tint-soft), inset 0 1px 2px rgba(var(--shade), .04); }
 .lb-search .lb-input:focus { background: var(--surface); border-color: var(--tint); }
 .lb-check input { transition: background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease); }
 
@@ -1439,11 +1581,11 @@ a.lb-card:active { transform: scale(var(--press)); }
 .lb-tile { background-image: linear-gradient(180deg, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) 58%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), inset 0 -1px 0 rgba(0, 0, 0, .1); }
 .lb-tile.is-soft { background-image: none; box-shadow: none; }
 .lb-tile.xl { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1), 0 10px 24px -12px var(--tc, var(--tint)); }
-.lb-cube { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .75); transition: transform var(--dur-2) var(--ease-spring), box-shadow var(--dur-2) var(--ease), border-color var(--dur-1) var(--ease); }
-.lb-cube:hover { transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .75), 0 18px 36px -22px var(--tc, var(--text-3)); }
+.lb-cube { box-shadow: inset 0 1px 0 var(--hi); transition: transform var(--dur-2) var(--ease-spring), box-shadow var(--dur-2) var(--ease), border-color var(--dur-1) var(--ease); }
+.lb-cube:hover { transform: translateY(-3px); box-shadow: inset 0 1px 0 var(--hi), 0 18px 36px -22px var(--tc, var(--text-3)); }
 .lb-cube:active { transform: scale(var(--press)); }
 .lb-topics.is-editing .lb-cube:active { transform: none; }
-.lb-cube-alt { background: var(--glass-sheen), var(--glass-thick); box-shadow: var(--glass-rim), 0 1px 4px -1px rgba(41, 30, 22, .16); }
+.lb-cube-alt { background: var(--glass-sheen), var(--glass-thick); box-shadow: var(--glass-rim), 0 1px 4px -1px rgba(var(--shade), .16); }
 button.lb-chip, button.lb-chip.check { transition: transform var(--dur-2) var(--ease-spring), background var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease); }
 button.lb-chip:active { transform: scale(var(--press)); }
 
@@ -1478,8 +1620,8 @@ button.lb-chip:active { transform: scale(var(--press)); }
 *, *::before, *::after { scrollbar-width: none !important; }
 ::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
 input[type="file"]::file-selector-button { margin-inline-end: var(--sp-3); min-height: 2rem; padding: 0 var(--sp-4); border: 0; border-radius: var(--r-pill); cursor: pointer;
-  background: var(--glass-sheen), var(--glass-thick); color: var(--text); font: 600 var(--fs-footnote) var(--font); box-shadow: var(--glass-rim), 0 2px 8px -3px rgba(41, 30, 22, .18); }
-input[type="file"]::file-selector-button:hover { background: var(--glass-sheen), #FFFFFF; color: var(--tint); }
+  background: var(--glass-sheen), var(--glass-thick); color: var(--text); font: 600 var(--fs-footnote) var(--font); box-shadow: var(--glass-rim), 0 2px 8px -3px rgba(var(--shade), .18); }
+input[type="file"]::file-selector-button:hover { background: var(--glass-sheen), var(--raised); color: var(--tint); }
 
 /* select: our own chevron instead of the system arrows (the popup itself is lb-selmenu) */
 select.lb-select { appearance: none; -webkit-appearance: none; padding-inline-end: 2.1rem; cursor: pointer;
@@ -1530,7 +1672,7 @@ input[type="date"].lb-input:disabled, input[type="time"].lb-input:disabled { cur
 .lb-cal-day:active { transform: scale(var(--press)); }
 .lb-cal-day.is-out { color: var(--text-3); opacity: .55; }
 .lb-cal-day.is-today { color: var(--tint); font-weight: 800; box-shadow: inset 0 0 0 1.5px var(--tint-soft); }
-.lb-cal-day[aria-selected="true"] { background: linear-gradient(180deg, var(--glass-tint), var(--tint)); color: var(--text-on-tint); font-weight: 800; box-shadow: 0 6px 14px -6px color-mix(in srgb, var(--tint) 80%, transparent); }
+.lb-cal-day[aria-selected="true"] { background: linear-gradient(180deg, var(--glass-tint), var(--tint-solid)); color: var(--text-on-tint); font-weight: 800; box-shadow: 0 6px 14px -6px color-mix(in srgb, var(--tint) 80%, transparent); }
 .lb-cal-day:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 .lb-cal-day:disabled { opacity: .25; cursor: default; background: none; }
 .lb-cal-foot { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-2); padding-top: var(--sp-1); border-top: 1px solid var(--line); }
@@ -1542,7 +1684,7 @@ input[type="date"].lb-input:disabled, input[type="time"].lb-input:disabled { cur
 .lb-timepick-col > b { position: sticky; top: 0; z-index: 1; padding: .25rem; text-align: center; font: 700 var(--fs-caption)/1.2 var(--font-2); color: var(--text-3); background: var(--glass-grey); border-radius: var(--r-sm); }
 .lb-timepick-opt { padding: .35rem 0; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--text); font: 600 var(--fs-callout)/1.2 var(--font-2); font-variant-numeric: tabular-nums; text-align: center; cursor: pointer; transition: background var(--dur-1) var(--ease); }
 .lb-timepick-opt:hover { background: var(--fill-2); }
-.lb-timepick-opt[aria-selected="true"] { background: linear-gradient(180deg, var(--glass-tint), var(--tint)); color: var(--text-on-tint); box-shadow: 0 4px 10px -5px color-mix(in srgb, var(--tint) 80%, transparent); }
+.lb-timepick-opt[aria-selected="true"] { background: linear-gradient(180deg, var(--glass-tint), var(--tint-solid)); color: var(--text-on-tint); box-shadow: 0 4px 10px -5px color-mix(in srgb, var(--tint) 80%, transparent); }
 .lb-timepick-opt:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 .lb-timepick .lb-cal-foot { direction: inherit; }
 
@@ -1553,17 +1695,17 @@ input[type="date"].lb-input:disabled, input[type="time"].lb-input:disabled { cur
    is-boxed, and the three floating ones (lb-dialog-card, lb-ask, a card in lb-modal), which also blur what is behind them. The look:
    a translucent grayscale body (--glass-card), a specular rim and glow (--glass-card-rim), a two-layer lift (--glass-card-lift).
    A tinted card lays its category or status tint over the same body, so the tint reads as coloured glass, not as paint.
-   Over the white page the body shows as white: the rim, the lit corner and the lift carry the glass. Over a coloured ground it
+   Over the white page the body shows as white (in dark mode a lighter grey than the ground: elevated): the rim, the lit corner and the lift carry the glass. Over a coloured ground it
    shows through, so lb-ground (below) is there for a section that wants the glass to show.
    Pages with their own card classes take the same look with lb-glass-card. lb-card is-glass adds the blur to a single feature card. */
 .lb-card, .lb-glass-card, .lb-tinted, .lb-post, .lb-pair > *, .lb-alert, .lb-callout, .lb-group, .lb-rowlist, .lb-table-wrap, details.lb-disclosure,
 .lb-pager a, .lb-day, .lb-empty, .lb-textblock.is-boxed { background: var(--glass-sheen), var(--glass-card); border-color: transparent; }
 .lb-card, .lb-glass-card, .lb-tinted, .lb-post, .lb-pair > *, .lb-group, .lb-rowlist, .lb-table-wrap, details.lb-disclosure { box-shadow: var(--glass-card-rim), var(--glass-card-lift); }
-.lb-alert, .lb-callout, .lb-pager a, .lb-day, .lb-empty, .lb-textblock.is-boxed { box-shadow: var(--glass-card-rim-sm), 0 8px 18px -14px rgba(41, 30, 22, .25); }
+.lb-alert, .lb-callout, .lb-pager a, .lb-day, .lb-empty, .lb-textblock.is-boxed { box-shadow: var(--glass-card-rim-sm), 0 8px 18px -14px rgba(var(--shade), .25); }
 .lb-glass-card { border: 1px solid transparent; border-radius: var(--r-lg); }
 .lb-tinted { border-color: color-mix(in srgb, var(--tc) 28%, transparent); }
 .lb-card.is-glass { -webkit-backdrop-filter: var(--glass-filter); backdrop-filter: var(--glass-filter); }
-.lb-card.is-quiet { background: var(--glass-sheen), var(--glass-grey); box-shadow: var(--glass-card-rim-sm), 0 6px 14px -12px rgba(41, 30, 22, .25); }
+.lb-card.is-quiet { background: var(--glass-sheen), var(--glass-grey); box-shadow: var(--glass-card-rim-sm), 0 6px 14px -12px rgba(var(--shade), .25); }
 .lb-card.is-raised { box-shadow: var(--glass-card-rim), var(--shadow-2); }
 .lb-card.is-accent { box-shadow: var(--glass-card-rim), 0 14px 40px -26px var(--accent); }
 .lb-card.is-cat { background: var(--glass-sheen), linear-gradient(var(--tc-soft), var(--tc-soft)), var(--glass-card); }
@@ -1571,9 +1713,9 @@ input[type="date"].lb-input:disabled, input[type="time"].lb-input:disabled { cur
 .lb-day.is-empty { background: var(--glass-sheen), var(--glass-grey); }
 .lb-day.is-out { background: transparent; box-shadow: none; }
 a.lb-card, a.lb-tinted, a.lb-day { transition: transform var(--dur-2) var(--ease-spring), border-color var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease); }
-a.lb-card:hover, a.lb-tinted:hover, a.lb-glass-card:hover { box-shadow: var(--glass-card-rim), 0 4px 10px -2px rgba(41, 30, 22, .08), 0 26px 44px -24px rgba(41, 30, 22, .36); border-color: color-mix(in srgb, var(--tint) 32%, transparent); }
+a.lb-card:hover, a.lb-tinted:hover, a.lb-glass-card:hover { box-shadow: var(--glass-card-rim), 0 4px 10px -2px rgba(var(--shade), .08), 0 26px 44px -24px rgba(var(--shade), .36); border-color: color-mix(in srgb, var(--tint) 32%, transparent); }
 a.lb-card.is-cat:hover, a.lb-tinted:hover { border-color: var(--tc); }
-.lb-pager a:hover { border-color: color-mix(in srgb, var(--tint) 32%, transparent); box-shadow: var(--glass-card-rim-sm), 0 12px 22px -14px rgba(41, 30, 22, .3); }
+.lb-pager a:hover { border-color: color-mix(in srgb, var(--tint) 32%, transparent); box-shadow: var(--glass-card-rim-sm), 0 12px 22px -14px rgba(var(--shade), .3); }
 .lb-pair > .was { background: var(--glass-sheen), var(--glass-grey); }
 .lb-empty { border: 1px dashed var(--line-strong); }
 
@@ -1586,16 +1728,16 @@ a.lb-card.is-cat:hover, a.lb-tinted:hover { border-color: var(--tc); }
 .lb-callout.warning { background: var(--glass-sheen), linear-gradient(var(--warning-soft), var(--warning-soft)), var(--glass-card); }
 .lb-callout.danger { background: var(--glass-sheen), linear-gradient(var(--danger-soft), var(--danger-soft)), var(--glass-card); }
 .lb-metric { background: var(--glass-sheen), linear-gradient(color-mix(in srgb, var(--tc) 10%, transparent), color-mix(in srgb, var(--tc) 5%, transparent)), var(--glass-card);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tc) 28%, transparent), inset 0 1.5px 0 rgba(255, 255, 255, .95), inset 0 -1px 0 rgba(0, 0, 0, .05), inset 0 0 18px rgba(255, 255, 255, .5),
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tc) 28%, transparent), inset 0 1.5px 0 var(--hi), inset 0 -1px 0 rgba(0, 0, 0, .05), inset 0 0 18px var(--hi-glow),
               0 10px 18px -16px color-mix(in srgb, var(--tc) 55%, transparent); }
 .lb-metric.is-empty { background: var(--glass-sheen), var(--glass-grey); box-shadow: var(--glass-card-rim-sm); }
 .lb-cube { background: var(--glass-sheen), linear-gradient(var(--tc-soft, var(--fill)), var(--tc-soft, var(--fill))), var(--glass-card);
-  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .95), inset 1px 0 0 rgba(255, 255, 255, .6), inset 0 -1px 0 rgba(0, 0, 0, .05), inset 0 0 0 1px color-mix(in srgb, var(--tc, #000) 14%, transparent), inset 0 0 22px rgba(255, 255, 255, .45),
-              0 14px 24px -22px var(--tc, rgba(41, 30, 22, .5)); }
-.lb-cube:hover { box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .95), inset 1px 0 0 rgba(255, 255, 255, .6), inset 0 -1px 0 rgba(0, 0, 0, .05), inset 0 0 0 1px color-mix(in srgb, var(--tc, #000) 30%, transparent), inset 0 0 22px rgba(255, 255, 255, .45),
-              0 20px 34px -22px var(--tc, rgba(41, 30, 22, .5)); }
+  box-shadow: inset 0 1.5px 0 var(--hi), inset 1px 0 0 var(--hi-2), inset 0 -1px 0 rgba(0, 0, 0, .05), inset 0 0 0 1px color-mix(in srgb, var(--tc, #000) 14%, transparent), inset 0 0 22px var(--hi-glow),
+              0 14px 24px -22px var(--tc, rgba(var(--shade), .5)); }
+.lb-cube:hover { box-shadow: inset 0 1.5px 0 var(--hi), inset 1px 0 0 var(--hi-2), inset 0 -1px 0 rgba(0, 0, 0, .05), inset 0 0 0 1px color-mix(in srgb, var(--tc, #000) 30%, transparent), inset 0 0 22px var(--hi-glow),
+              0 20px 34px -22px var(--tc, rgba(var(--shade), .5)); }
 .lb-topics.is-editing .lb-topic { background: var(--glass-sheen), var(--glass-card); box-shadow: var(--glass-card-rim), var(--glass-card-lift); }
-.lb-media-frame { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), 0 14px 26px -18px rgba(41, 30, 22, .55); }
+.lb-media-frame { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), 0 14px 26px -18px rgba(var(--shade), .55); }
 .lb-card-title { letter-spacing: -.005em; }
 
 /* floating cards: thick glass that blurs the page behind it (a dialog's record and comment cards, a card in a modal) */
@@ -1623,16 +1765,16 @@ a.lb-card.is-cat:hover, a.lb-tinted:hover { border-color: var(--tc); }
               and leave room under it with margin-bottom on the host. It blurs what is behind it; for a window repeated in a long list
               set backdrop-filter: none on it (the body stays translucent).
    Glass inside a card is lifted off it automatically (below). */
-.lb-sheet { background: var(--glass-sheen), color-mix(in srgb, #FFFFFF 58%, transparent); border: 1px solid transparent; border-radius: var(--r-lg);
-  box-shadow: var(--glass-card-rim-sm), 0 14px 24px -18px rgba(41, 30, 22, .36); }
-.lb-window { --overhang: 1rem; position: relative; z-index: 3; margin-inline: calc(var(--overhang) * -1); border: 1px solid rgba(255, 255, 255, .85); border-radius: var(--r-xl);
+.lb-sheet { background: var(--glass-sheen), var(--sheet); border: 1px solid transparent; border-radius: var(--r-lg);
+  box-shadow: var(--glass-card-rim-sm), 0 14px 24px -18px rgba(var(--shade), .36); }
+.lb-window { --overhang: 1rem; position: relative; z-index: 3; margin-inline: calc(var(--overhang) * -1); border: 1px solid var(--window-frame); border-radius: var(--r-xl);
   background: var(--glass-sheen), var(--glass-card-thick); -webkit-backdrop-filter: var(--glass-filter); backdrop-filter: var(--glass-filter);
-  box-shadow: var(--glass-card-rim), 0 2px 6px rgba(41, 30, 22, .1), 0 34px 60px -26px rgba(41, 30, 22, .55); }
+  box-shadow: var(--glass-card-rim), 0 2px 6px rgba(var(--shade), .1), 0 34px 60px -26px rgba(var(--shade), .55); }
 @media (max-width: 640px) { .lb-window { --overhang: .55rem; } }
-.lb-card :is(.lb-callout, .lb-alert, .lb-post, .lb-group, .lb-rowlist, details.lb-disclosure, .lb-textblock.is-boxed, .lb-pair > *) { box-shadow: var(--glass-card-rim-sm), 0 12px 22px -16px rgba(41, 30, 22, .34); }
-.lb-card .lb-card { box-shadow: var(--glass-card-rim), 0 16px 28px -18px rgba(41, 30, 22, .4); }
+.lb-card :is(.lb-callout, .lb-alert, .lb-post, .lb-group, .lb-rowlist, details.lb-disclosure, .lb-textblock.is-boxed, .lb-pair > *) { box-shadow: var(--glass-card-rim-sm), 0 12px 22px -16px rgba(var(--shade), .34); }
+.lb-card .lb-card { box-shadow: var(--glass-card-rim), 0 16px 28px -18px rgba(var(--shade), .4); }
 /* text blocks are a sheet pressed into the one they sit on: a translucent grey well with an inner shadow and the rim */
-.lb-textblock { background: var(--glass-sheen), color-mix(in srgb, var(--surface-2) 72%, transparent); box-shadow: inset 0 1px 3px rgba(41, 30, 22, .08), var(--glass-card-rim-sm); }
+.lb-textblock { background: var(--glass-sheen), color-mix(in srgb, var(--surface-2) 72%, transparent); box-shadow: inset 0 1px 3px rgba(var(--shade), .08), var(--glass-card-rim-sm); }
 .lb-textblock.is-code { background: color-mix(in srgb, var(--surface-sunk) 78%, transparent); }
 
 /* ---------- composer, drop zone and file tiles (7 Nov 2026) ----------
@@ -1653,9 +1795,9 @@ a.lb-card.is-cat:hover, a.lb-tinted:hover { border-color: var(--tc); }
                 in the top end corner (on hover; always on touch screens), and lb-file-bar while it uploads (is-up, --p from 0 to 1).
                 is-bad when it failed. Tiles are 14px glass cards without blur (they repeat). */
 .lb-composer { --lb-composer-r: var(--r-lg); display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; gap: 2px; padding: 6px; border-radius: var(--lb-composer-r);
-  background: color-mix(in srgb, #FFFFFF 74%, transparent); box-shadow: inset 0 1px 2px rgba(41, 30, 22, .07), inset 0 0 0 1px var(--line);
+  background: var(--well); box-shadow: inset 0 1px 2px rgba(var(--shade), .07), inset 0 0 0 1px var(--line);
   transition: box-shadow var(--dur-1) var(--ease); }
-.lb-composer:has(textarea:focus-visible) { box-shadow: inset 0 1px 2px rgba(41, 30, 22, .05), inset 0 0 0 1px var(--tint), 0 0 0 3px var(--tint-soft); }
+.lb-composer:has(textarea:focus-visible) { box-shadow: inset 0 1px 2px rgba(var(--shade), .05), inset 0 0 0 1px var(--tint), 0 0 0 3px var(--tint-soft); }
 .lb-composer-label { padding: 4px 8px 0; font-family: var(--font-2); font-weight: 600; font-size: var(--fs-footnote); color: var(--text-3); }
 .lb-composer textarea { display: block; width: 100%; min-height: 3.25rem; max-height: 12rem; resize: none; field-sizing: content; margin: 0; padding: 4px 8px;
   border: 0; border-radius: calc(var(--lb-composer-r) - 6px); background: transparent; color: var(--text); font: 400 var(--fs-callout)/1.5 var(--font); }
@@ -1671,7 +1813,7 @@ a.lb-card.is-cat:hover, a.lb-tinted:hover { border-color: var(--tc); }
 .lb-composer-note:empty { visibility: hidden; }
 
 .lb-drop { position: relative; display: grid; justify-items: center; gap: 2px; padding: var(--sp-4) var(--sp-3); border: 1.5px dashed var(--line-strong);
-  border-radius: var(--r-md); background: color-mix(in srgb, #FFFFFF 45%, transparent); color: var(--text-3); text-align: center; cursor: pointer;
+  border-radius: var(--r-md); background: var(--well-2); color: var(--text-3); text-align: center; cursor: pointer;
   transition: border-color var(--dur-1) var(--ease), background var(--dur-1) var(--ease), color var(--dur-1) var(--ease), transform var(--dur-2) var(--ease-spring); }
 .lb-drop > svg { width: 1.625rem; height: 1.625rem; margin-bottom: 4px; }
 .lb-drop-t { font-weight: 600; font-size: var(--fs-callout); color: var(--text); }
@@ -1681,7 +1823,7 @@ a.lb-card.is-cat:hover, a.lb-tinted:hover { border-color: var(--tc); }
 .lb-drop:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
 .lb-drop.is-over { border-color: var(--tint); border-style: solid; background: var(--tint-soft); color: var(--tint); transform: scale(1.01); }
 .lb-drop-veil { position: fixed; z-index: 40; display: grid; place-content: center; justify-items: center; gap: 6px; padding: var(--sp-4); border: 2px dashed var(--tint);
-  border-radius: calc(var(--r-xl) - 8px); background: var(--glass-sheen), color-mix(in srgb, var(--tint) 7%, rgba(255, 255, 255, .93)); color: var(--tint); text-align: center;
+  border-radius: calc(var(--r-xl) - 8px); background: var(--glass-sheen), color-mix(in srgb, var(--tint) 7%, var(--veil)); color: var(--tint); text-align: center;
   -webkit-backdrop-filter: var(--glass-filter); backdrop-filter: var(--glass-filter);
   font-weight: 700; font-size: var(--fs-headline); pointer-events: none; opacity: 0; transition: opacity var(--dur-1) var(--ease); }
 .lb-drop-veil > svg { width: 2.25rem; height: 2.25rem; }
@@ -1691,7 +1833,7 @@ a.lb-card.is-cat:hover, a.lb-tinted:hover { border-color: var(--tc); }
 .lb-files { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.25rem, 1fr)); gap: var(--sp-2); margin: 0; padding: 0; list-style: none; }
 .lb-files:empty { display: none; }
 .lb-file { position: relative; display: grid; align-content: start; min-width: 0; border-radius: var(--r-md); overflow: hidden;
-  background: var(--glass-sheen), var(--glass-card); box-shadow: var(--glass-card-rim-sm), 0 8px 16px -12px rgba(41, 30, 22, .32); }
+  background: var(--glass-sheen), var(--glass-card); box-shadow: var(--glass-card-rim-sm), 0 8px 16px -12px rgba(var(--shade), .32); }
 .lb-file-th { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 5; background: var(--surface-sunk); color: var(--text-3); overflow: hidden; }
 .lb-file-th > img, .lb-file-th > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .lb-file-th > svg { width: 1.75rem; height: 1.75rem; }
@@ -1712,7 +1854,7 @@ a.lb-file-th { cursor: zoom-in; }
 .lb-file-bar > i { display: block; height: 100%; width: calc(var(--p, 0) * 100%); background: var(--tint); border-radius: inherit; transition: width .2s var(--ease); }
 .lb-file:not(.is-up) .lb-file-bar { display: none; }
 .lb-file.is-up .lb-file-th > :is(img, video) { opacity: .55; }
-.lb-file.is-bad { box-shadow: inset 0 0 0 1px var(--danger), 0 8px 16px -12px rgba(41, 30, 22, .32); }
+.lb-file.is-bad { box-shadow: inset 0 0 0 1px var(--danger), 0 8px 16px -12px rgba(var(--shade), .32); }
 .lb-file.is-bad .lb-file-s { color: var(--danger); white-space: normal; }
 @media (hover: none) { .lb-file-x { opacity: 1; width: 1.75rem; height: 1.75rem; } }
 @media (prefers-reduced-motion: reduce) { .lb-drop, .lb-drop.is-over { transform: none; transition: none; } .lb-file-bar > i { transition: none; } }
@@ -1753,11 +1895,11 @@ dialog.lb-dialog.is-docked { position: fixed; inset: 0 auto 0 0; z-index: 30; wi
 .lb-bell-btn:hover, .lb-bell-btn[aria-expanded="true"] { color: var(--tint); }
 .lb-bell-btn:focus-visible { outline: 2px solid var(--tint); outline-offset: 2px; }
 .lb-bell-btn svg { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.lb-bell-count { position: absolute; top: -3px; right: -3px; min-width: 1.2rem; height: 1.2rem; padding: 0 .3rem; box-sizing: border-box; border-radius: var(--r-pill); color: #fff; font: 700 11px/1.2rem var(--font-2); text-align: center; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 2px #fff; }
+.lb-bell-count { position: absolute; top: -3px; right: -3px; min-width: 1.2rem; height: 1.2rem; padding: 0 .3rem; box-sizing: border-box; border-radius: var(--r-pill); color: var(--text-on-tint); font: 700 11px/1.2rem var(--font-2); text-align: center; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 2px var(--bg); }
 .lb-bell-count[hidden] { display: none; }
-.lb-bell-count.is-crit { background: var(--danger); }
-.lb-bell-count.is-warn { background: var(--warning); }
-.lb-bell-count.is-info { background: var(--tint); }
+.lb-bell-count.is-crit { background: var(--danger-solid); }
+.lb-bell-count.is-warn { background: var(--warning-solid); }
+.lb-bell-count.is-info { background: var(--tint-solid); }
 .lb-notif { position: fixed; top: calc(max(12px, env(safe-area-inset-top, 0px)) + 52px); left: 16px; width: min(26rem, calc(100vw - 32px)); max-height: calc(100dvh - 5.5rem);
   box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-xl); transform-origin: top left; animation: lb-pop var(--dur-2) var(--ease-spring); }
 .lb-notif[hidden] { display: none; }
@@ -1798,9 +1940,9 @@ a.lb-notif-item.crit:hover, a.lb-notif-item.warn:hover { filter: brightness(.96)
 .lb-chart-plot .base { stroke: var(--line-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .lb-chart-plot .area { stroke: none; }
 .lb-chart-plot .line { fill: none; stroke: var(--tc, var(--accent)); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.lb-chart-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--tc, var(--accent)); box-shadow: 0 0 0 3px #fff, 0 1px 4px rgba(41, 30, 22, .3); pointer-events: none; }
+.lb-chart-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--tc, var(--accent)); box-shadow: 0 0 0 3px var(--surface), 0 1px 4px rgba(var(--shade), .3); pointer-events: none; }
 .lb-chart-dot.is-hover { width: 12px; height: 12px; margin: -6px 0 0 -6px; transition: left var(--dur-1) var(--ease), top var(--dur-1) var(--ease); }
-.lb-chart-tip { position: absolute; z-index: 2; transform: translate(-50%, calc(-100% - 14px)); padding: .25rem .55rem; border-radius: var(--r-sm); background: var(--text); color: var(--bg); font: 600 var(--fs-caption)/1.3 var(--font-2); font-variant-numeric: tabular-nums; white-space: nowrap; direction: ltr; pointer-events: none; box-shadow: var(--shadow-2); }
+.lb-chart-tip { position: absolute; z-index: 2; transform: translate(-50%, calc(-100% - 14px)); padding: .25rem .55rem; border-radius: var(--r-sm); background: var(--ink-fill); color: var(--on-ink-fill); font: 600 var(--fs-caption)/1.3 var(--font-2); font-variant-numeric: tabular-nums; white-space: nowrap; direction: ltr; pointer-events: none; box-shadow: var(--shadow-2); }
 .lb-chart-tip.is-below { transform: translate(-50%, 14px); }
 .lb-chart-tip.is-start { transform: translate(0, calc(-100% - 14px)); }
 .lb-chart-tip.is-end { transform: translate(-100%, calc(-100% - 14px)); }
@@ -1812,6 +1954,20 @@ a.lb-notif-item.crit:hover, a.lb-notif-item.warn:hover { filter: brightness(.96)
 .lb-metrics.is-aligned .lb-metric-label { min-height: 2.6rem; align-items: center; }
 .lb-metrics.is-aligned .lb-metric-value { display: grid; justify-items: start; gap: .1rem; min-height: calc(var(--fs-num) * 1.1 + 1.45rem); align-content: start; }
 .lb-metrics.is-aligned .lb-metric { grid-template-rows: auto auto 1fr; }
+
+/* ---------- dark mode: the few rules a token cannot carry (16 Nov 2026) ----------
+   The icons drawn inside select, date and time fields are data URLs, so their grey is redrawn here in --text-3's dark value; a
+   hovered ID chip fills with the bright category base under black text (its ink is too light under white text in dark mode, and white on the base is under 3:1). lb-soften: Apple's "soften
+   the colour of white backgrounds": put it on a picture with a white ground (a screenshot, a white logo card) so it does not glow
+   in dark mode; never on carousel slides or anything whose colours are being judged. */
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-appearance])) select.lb-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A8A199' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
+  :root:where(:not([data-appearance])) input[type="date"].lb-input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A8A199' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='3.5'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E"); }
+  :root:where(:not([data-appearance])) input[type="time"].lb-input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A8A199' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M12 7.5V12l3 2'/%3E%3C/svg%3E"); }
+  :root:where(:not([data-appearance])) input[type="date"].lb-input[data-dmy] { background-image: var(--lb-datetxt, none), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A8A199' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='3.5'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E"); }
+  :root:where(:not([data-appearance])) a.lb-pid:hover { background: var(--tc, var(--tint)); color: var(--bg); }
+  :root:where(:not([data-appearance])) .lb-soften { filter: brightness(.86); }
+}
 
 /* category classes, generated from shared/design/categories.json by design.py: do not edit */
 .lb-tool-hook { --tc: var(--cat-1); --tc-ink: var(--cat-1-ink); --tc-soft: var(--cat-1-soft); }
@@ -1829,10 +1985,13 @@ a.lb-notif-item.crit:hover, a.lb-notif-item.warn:hover { filter: brightness(.96)
 .lb-ws-communities { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
 .lb-ws-learning { --tc: var(--cat-3); --tc-ink: var(--cat-3-ink); --tc-soft: var(--cat-3-soft); }
 .lb-ws-research { --tc: var(--cat-7); --tc-ink: var(--cat-7-ink); --tc-soft: var(--cat-7-soft); }
-.lb-ws-system { --tc: var(--text); --tc-ink: var(--text); --tc-soft: var(--fill); }
+.lb-ws-system { --tc: var(--neutral-solid); --tc-ink: var(--text); --tc-soft: var(--fill); }
 .lb-track-gift { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
 .lb-track-pro { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
 .lb-track-par { --tc: var(--cat-5); --tc-ink: var(--cat-5-ink); --tc-soft: var(--cat-5-soft); }
+.lb-mview-cr { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
+.lb-mview-pro { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
+.lb-mview-fb { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
 .lb-co-mebook { --tc: var(--cat-2); --tc-ink: var(--cat-2-ink); --tc-soft: var(--cat-2-soft); }
 .lb-co-hoorayheroes { --tc: var(--cat-6); --tc-ink: var(--cat-6-ink); --tc-soft: var(--cat-6-soft); }
 .lb-co-wonderbly { --tc: var(--cat-4); --tc-ink: var(--cat-4-ink); --tc-soft: var(--cat-4-soft); }
@@ -2237,7 +2396,7 @@ a.lb-notif-item.crit:hover, a.lb-notif-item.warn:hover { filter: brightness(.96)
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
 
-window.LB_NAV_DATA = {"topics":[{"id":"learning","label":"קורס ולמידה","icon":"course","desc":"הקורס, קישורי UTM והמכירות שלי","tools":[{"t":"Course","en":true,"sub":"שיעורים ומשימות, עם בדיקה של התשובות","icon":"course","view":"course"},{"t":"יוצר קישורי UTM","sub":"קישור מתויג לכל פוסט, כדי לדעת מה מכר","icon":"link","view":"course","tab":"links"},{"t":"המכירות שלי","sub":"ההזמנות עם התיוג שלי, לחישוב ה-25%","icon":"wallet","view":"course","tab":"sales"}],"cat":3},{"id":"plan","label":"תוכנית ואסטרטגיה","icon":"target","desc":"יעדים, מכירות ומסלול הקנייה","tools":[{"t":"אסטרטגיית Q4","sub":"יעדים, ערוצים וקצב עבודה לרבעון","icon":"target","local":"docs/lumebook-social-strategy.html","art":"3GNTuoDk4swPGUarrf4xkp"},{"t":"מכירות (פנימי)","sub":"נתוני המכירות במילים פשוטות","icon":"trend","local":"docs/lumebook-sales-readout.html"},{"t":"המרה ושימור","sub":"מסלול הקנייה בחנות ומה לשפר בכל שלב","icon":"funnel","local":"research/cro-crm/cro-crm-strategy.html"}],"cat":4},{"id":"creators","label":"יוצרים","icon":"people","desc":"מציאת יוצרים, פניות ושגרירים","tools":[{"t":"מפת יוצרים","sub":"פניות, תזכורות ומעקב אחרי כל יוצר","icon":"people","local":"creators/creator-research/lumebook-creator-map.html","n":"n-creators"},{"t":"שגרירים","sub":"מי הצטרף לתוכנית השגרירים ומה נקנה דרכם","icon":"signup","view":"signups","n":"n-signups"},{"t":"נתוני השגרירים","sub":"הגיליון שהחנות מעדכנת: שגרירים, מכירות ובקשות תשלום","icon":"sheet","web":"https://docs.google.com/spreadsheets/d/1NHdLpsgL5X9xnhxGfHOPCfEShO_nYVMJGd30k8dI4Oc/edit","webLabel":"Google Sheets"},{"t":"בריף ליוצרים","sub":"שלד הצילום לרילס שיוצרים מקבלים","icon":"brief","local":"sites/lumebook-creator-brief/index.html","art":"8aHom1FHtP9jiSgBkbgGc7","web":"https://lumebook-creator-brief.vercel.app"},{"t":"דף לסופרים ואנשי מקצוע","sub":"דף פנייה לסופרי ילדים ולאנשי מקצוע, גרסת בדיקה שלא פורסמה","icon":"book","local":"sites/lumebook-partners/index.html"},{"t":"דף השגרירים בחנות","sub":"תוכנית השגרירים כפי שיוצרים רואים אותה ב-lumebook.com","icon":"gift","web":"https://lumebook.com/IL/he/ambassadors","webLabel":"lumebook.com"},{"t":"תוכן וכוונת קנייה","sub":"איזה תוכן של יוצרים מביא שיחות על קנייה","icon":"chat","local":"research/creator-content-conversion/report.html"},{"t":"הוכחה חברתית","sub":"ביקורות ותגובות טובות, וילדים עם הספר שלהם","icon":"heart","local":"media/projects/2026-11-15-social-proof/social-proof.html"},{"t":"Creator Outreach Tracker","en":true,"sub":"הגיליון הישן של הפניות, חלק מהמספרים לא מעודכנים","icon":"sheet","web":"https://docs.google.com/spreadsheets/d/1JU9y80sIQvzQ_Xt8lgKiJSb6MbKrbglKLMgap-3JNMk","webLabel":"Google Sheets"}],"cat":2},{"id":"carousels","label":"קרוסלות","icon":"slides","desc":"הפקת קרוסלות והמחקר שמאחוריהן","tools":[{"t":"לוח תוכן","sub":"כל הקרוסלות והרילס של החודש, יום אחרי יום","icon":"calendar","local":"sites/content-calendar/"},{"t":"מכונת הקרוסלות","sub":"חבילות, ציונים והפקה של קרוסלות","icon":"slides","local":"hook-studio/","art":"DHpzqHn1DcVNZ5y4YVAdau","n":"n-content"},{"t":"פלייבוק קרוסלות","sub":"מה גורם לקרוסלה להמיר, ולוח בדיקות","icon":"book","local":"research/carousel-playbook-research/lumebook-carousel-playbook.html","art":"BGqB3Azgek9F6MXu3EY5rx"},{"t":"מחקר קרוסלות","sub":"752 חשבונות: מה מביא שיחות והמרות","icon":"layers","local":"research/carousel-research/lumebook-carousel-research.html","art":"B2YkxMHGTeM5T5LLC2wnYU"}],"cat":5},{"id":"reels","label":"רילס ווידאו","icon":"clapper","desc":"תכנון, צילום ומחקר של רילס","tools":[{"t":"מערכת הרילס","sub":"הלוח של נובמבר עם עריכה, פלייבוק, עקרונות, כלים ורילס שנעשו, הכול בדף אחד","icon":"reelcal","local":"research/israeli-product-reels/reels-explorer.html","art":"7LypeDPVPLDcL5n2xEQui7"},{"t":"פלייבוק רילס","sub":"מה עובד ברילס מוצר ואיך מצלמים","icon":"clapper","local":"research/israeli-product-reels/reels-research.html","art":"3JRcb77z4HcE8PRcVjcpEp"},{"t":"מעבדת תוכן ילדים","sub":"64 סרטונים קצרים מפורקים לפורמטים","icon":"flask","local":"research/kids-brand-content-research/lumebook-kids-content-lab.html","art":"4Uaprv274bf69dH5KkQyPY"}],"cat":1},{"id":"communities","label":"קהילות","icon":"pin","desc":"קבוצות הורים ליום צילום בבית","tools":[{"t":"קהילות הורים","sub":"361 קבוצות הורים, מהקרובות לאשקלון","icon":"pin","local":"research/parent-community/lumebook-parent-communities.html","art":"WAcZJ7xXj826wzvLj49dmE"}],"cat":6},{"id":"research","label":"מחקר","icon":"shelf","desc":"מתחרים וכל המחקרים במקום אחד","tools":[{"t":"מתחרים","sub":"MeBook מולנו: עוקבים, נושאים ופערים","icon":"bars","view":"competitors"},{"t":"ניתוח תוכן מתחרים","sub":"147 פריטי תוכן של 4 מתחרים, מקודדים","icon":"scissors","local":"research/competitor-content-analysis/lumebook-competitor-content.html","art":"XRuKAwrXNwf6iPfkLG8o7f"},{"t":"ספריית המחקר","sub":"כל המחקרים לפי נושא, עם חיפוש בכל הממצאים","icon":"shelf","local":"research/research-hub/research-hub.html"}],"cat":7},{"id":"system","label":"מערכת","icon":"sync","desc":"סנכרון, עיצוב, דרייב והחנות","tools":[{"t":"סנכרון","sub":"מה השתנה ומה צריך לפרסם מחדש","icon":"sync","view":"sync","n":"n-sync"},{"t":"סידור התפריט","sub":"לגרור, להוסיף ולערוך את הכלים שבתפריט הצד","icon":"grid","view":"tools"},{"t":"מערכת העיצוב","sub":"צבעים, גופנים ורכיבים לכל הדפים","icon":"palette","art":"Cw3pWrTsoCKkCaPzZLrr5B"},{"t":"Drive: שיווק","sub":"תיקיית השיווק המשותפת","icon":"folder","web":"https://drive.google.com/drive/folders/1awITcQFWfsQqpbL8Lupikw12b6y4EWvB","webLabel":"Google Drive"},{"t":"החנות","sub":"lumebook.com, מה שהלקוחות רואים","icon":"bag","web":"https://lumebook.com/IL/he","webLabel":"lumebook.com"},{"t":"החנות בעיצוב שלנו","sub":"דמה עובד של דף הבית: יוצרים בו ספר לדוגמה","icon":"layers","local":"sites/lumebook-store-mock/index.html","web":"https://lumebook-store-mock.vercel.app","webLabel":"Vercel"}],"cat":0}],"icons":{"grid":"<rect x=\"3\" y=\"3\" width=\"7.5\" height=\"7.5\" rx=\"1.5\"/><rect x=\"13.5\" y=\"3\" width=\"7.5\" height=\"7.5\" rx=\"1.5\"/><rect x=\"3\" y=\"13.5\" width=\"7.5\" height=\"7.5\" rx=\"1.5\"/><rect x=\"13.5\" y=\"13.5\" width=\"7.5\" height=\"7.5\" rx=\"1.5\"/>","course":"<path d=\"M2 9l10-5 10 5-10 5z\"/><path d=\"M6 11.2V16c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.8\"/><path d=\"M22 9v5.5\"/>","link":"<path d=\"M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1\"/><path d=\"M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1\"/>","wallet":"<path d=\"M17 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h14a2 2 0 0 1 2 2v9a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><circle cx=\"16.5\" cy=\"14\" r=\"1.3\"/>","overview":"<rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" rx=\"1.5\"/><rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" rx=\"1.5\"/><rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" rx=\"1.5\"/>","calendar":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"17\" rx=\"2\"/><path d=\"M3 9h18M8 2v4M16 2v4\"/><path d=\"M7.5 13h3M13.5 13h3M7.5 17h3\"/>","target":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1.2\"/>","trend":"<path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/>","funnel":"<path d=\"M3 4h18l-7 8.5V19l-4 2v-8.5z\"/>","people":"<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6\"/>","signup":"<rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2\"/><path d=\"M9 4V2.5h6V4\"/><path d=\"M9 13l2 2 4-4\"/>","brief":"<path d=\"M6 3h9l4 4v14H6z\"/><path d=\"M14.5 3v4.5H19\"/><path d=\"M9 12h7M9 16h5\"/>","chat":"<path d=\"M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z\"/><path d=\"M9 11h6M9 14h4\"/>","sheet":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M3 9h18M3 15h18M9 3v18\"/>","slides":"<rect x=\"2\" y=\"5\" width=\"13\" height=\"14\" rx=\"2\"/><path d=\"M18 7v10M21.5 9v6\"/>","book":"<path d=\"M2 5h6a4 4 0 0 1 4 4v11a3 3 0 0 0-3-3H2z\"/><path d=\"M22 5h-6a4 4 0 0 0-4 4v11a3 3 0 0 1 3-3h7z\"/>","layers":"<path d=\"M12 3l9 5-9 5-9-5z\"/><path d=\"M3 12.5l9 5 9-5\"/><path d=\"M3 17l9 5 9-5\"/>","reelcal":"<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/><path d=\"M10.5 13v5l4-2.5z\"/>","compass":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M15.5 8.5l-2 5-5 2 2-5z\"/>","clapper":"<rect x=\"3\" y=\"9\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M3 9l1.5-5h15L21 9\"/><path d=\"M9 4L7.5 9M15 4l-1.5 5\"/>","flask":"<path d=\"M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3\"/><path d=\"M7.3 15h9.4\"/>","pin":"<path d=\"M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/>","bars":"<path d=\"M3 20V10M9 20V4M15 20v-7M21 20v-11\"/>","scissors":"<circle cx=\"6\" cy=\"7\" r=\"3\"/><circle cx=\"6\" cy=\"17\" r=\"3\"/><path d=\"M8.5 8.5L20 19M8.5 15.5L20 5\"/>","shelf":"<path d=\"M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2.5z\"/><path d=\"M8 7h7M8 11h5\"/>","sync":"<path d=\"M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8\"/><path d=\"M21 4v5h-5M3 20v-5h5\"/>","globe":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\"/>","palette":"<path d=\"M12 3a9 9 0 0 0 0 18c1.4 0 2-1 2-2s-.8-1.6-.8-2.5S14 15 15 15h2a4 4 0 0 0 4-4c0-4.4-4-8-9-8z\"/><circle cx=\"7.5\" cy=\"11\" r=\"1.2\"/><circle cx=\"10.5\" cy=\"7.5\" r=\"1.2\"/><circle cx=\"15\" cy=\"8\" r=\"1.2\"/>","folder":"<path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/>","bag":"<path d=\"M5 8h14l-1 12H6z\"/><path d=\"M9 8a3 3 0 0 1 6 0\"/>","map":"<path d=\"M3 6l6-2.4 6 2.4 6-2.4v14.4l-6 2.4-6-2.4-6 2.4z\"/><path d=\"M9 3.6v14.4M15 6v14.4\"/>","gift":"<rect x=\"3.6\" y=\"9.6\" width=\"16.8\" height=\"10.8\" rx=\"1.8\"/><path d=\"M3 6.6h18V9.6h-18zM12 6.6V20.4M12 6.6C10.8 3.6 7.2 3 7.2 5.16S10.8 6.6 12 6.6zM12 6.6c1.2-3 4.8-3.6 4.8-1.44S13.2 6.6 12 6.6z\"/>","mail":"<rect x=\"3\" y=\"5.4\" width=\"18\" height=\"13.2\" rx=\"2.4\"/><path d=\"M3.6 6.6l8.4 6.6 8.4-6.6\"/>","send":"<path d=\"M21 3L10.32 13.68M21 3l-6.72 18-3.96-7.32-7.32-3.96z\"/>","info":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 10.8v6M12 7.44v0.12\"/>","bell":"<path d=\"M6 10.2a6 6 0 0 1 12 0c0 4.8 1.92 6.6 1.92 6.6H4.08S6 15 6 10.2z\"/><path d=\"M9.96 19.8a2.28 2.28 0 0 0 4.08 0\"/>","whatsapp":"<path d=\"M12 3.6a8.4 8.4 0 0 0-7.32 12.6L3.6 20.4l4.32-1.08A8.4 8.4 0 1 0 12 3.6z\"/><path d=\"M8.88 9.84c0.36 2.28 2.16 4.2 4.68 5.04\"/>","instagram":"<rect x=\"3.6\" y=\"3.6\" width=\"16.8\" height=\"16.8\" rx=\"4.8\"/><circle cx=\"12\" cy=\"12\" r=\"3.84\"/><path d=\"M16.8 7.2v0.12\"/>","clock":"<circle cx=\"12\" cy=\"12\" r=\"8.64\"/><path d=\"M12 7.56V12l3.12 2.16\"/>","eye":"<path d=\"M2.16 12S6 5.4 12 5.4 21.84 12 21.84 12 18 18.6 12 18.6 2.16 12 2.16 12z\"/><circle cx=\"12\" cy=\"12\" r=\"2.88\"/>","heart":"<path d=\"M12 19.8S3.6 14.76 3.6 9.12A4.32 4.32 0 0 1 12 7.2a4.32 4.32 0 0 1 8.4 1.92c0 5.64-8.4 10.68-8.4 10.68z\"/>","home":"<path d=\"M3.5 10.5 12 3.5l8.5 7\"/><path d=\"M5.5 9v10.5a1 1 0 0 0 1 1h4v-6h3v6h4a1 1 0 0 0 1-1V9\"/>","facebook":"<rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\" rx=\"4.5\"/><path d=\"M15 8h-1.6A2.4 2.4 0 0 0 11 10.4V20.5\"/><path d=\"M8.8 13h5.4\"/>","bookmark":"<path d=\"M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-4.6-6.5 4.6v-16a1 1 0 0 1 1-1z\"/>","share":"<path d=\"M21 3.5 10.5 14\"/><path d=\"M21 3.5l-6.5 17-4-6.5-6.5-4z\"/>"},"ui":{"grip":"<circle cx=\"9\" cy=\"6\" r=\"1.3\"/><circle cx=\"15\" cy=\"6\" r=\"1.3\"/><circle cx=\"9\" cy=\"12\" r=\"1.3\"/><circle cx=\"15\" cy=\"12\" r=\"1.3\"/><circle cx=\"9\" cy=\"18\" r=\"1.3\"/><circle cx=\"15\" cy=\"18\" r=\"1.3\"/>","plus":"<path d=\"M12 5v14M5 12h14\"/>","pencil":"<path d=\"M4 20h4L19 9l-4-4L4 16z\"/><path d=\"M14 6l4 4\"/>","open-out":"<path d=\"M7 17L17 7M9 7h8v8\"/>","back":"<path d=\"M9 6l6 6-6 6\"/>","search":"<circle cx=\"10.2\" cy=\"10.2\" r=\"6.36\"/><path d=\"M15.12 15.12l5.28 5.28\"/>","sort":"<path d=\"M7.2 4.8v14.4M3.6 15.6l3.6 3.6 3.6-3.6M16.8 19.2V4.8M13.2 8.4l3.6-3.6 3.6 3.6\"/>","group":"<rect x=\"3.6\" y=\"3.6\" width=\"16.8\" height=\"6\" rx=\"1.56\"/><rect x=\"3.6\" y=\"14.4\" width=\"16.8\" height=\"6\" rx=\"1.56\"/>","menu":"<path d=\"M3.6 6.6h16.8M3.6 12h16.8M3.6 17.4h16.8\"/>","close":"<path d=\"M6 6l12 12M18 6L6 18\"/>","chevron-down":"<path d=\"M6 9l6 6 6-6\"/>","check":"<path d=\"M5.4 12.6l4.2 4.2 9-9.6\"/>","check-circle":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8.16 12.36l2.64 2.64 5.28-5.76\"/>","copy":"<rect x=\"8.4\" y=\"8.4\" width=\"11.4\" height=\"11.4\" rx=\"2.16\"/><path d=\"M15.6 8.4V5.76c0-0.84-0.72-1.56-1.56-1.56H5.76c-0.84 0-1.56 0.72-1.56 1.56v8.28c0 0.84 0.72 1.56 1.56 1.56H8.4\"/>","undo":"<path d=\"M8.4 5.4L4.2 9.6 8.4 13.8M4.2 9.6h10.2a5.4 5.4 0 0 1 0 10.8H10.8\"/>","arrow-left":"<path d=\"M19.2 12H4.8M10.2 6.6L4.8 12l5.4 5.4\"/>","arrow-right":"<path d=\"M4.8 12h14.4M13.8 6.6L19.2 12l-5.4 5.4\"/>","spread":"<path d=\"M12 3v18M7.8 7.2L12 3 16.2 7.2M7.8 16.8l4.2 4.2 4.2-4.2\"/>","stack":"<path d=\"M3.6 9l8.4-4.8 8.4 4.8-8.4 4.8z\"/><path d=\"M3.6 14.4l8.4 4.8 8.4-4.8\"/>","skip":"<path d=\"M17.4 6l-7.2 6 7.2 6zM6.6 6v12\"/>","user-plus":"<circle cx=\"9.6\" cy=\"8.4\" r=\"3.36\"/><path d=\"M3.6 19.2c0.72-3.36 3.12-5.16 6-5.16s5.28 1.8 6 5.16M18.6 7.2v6M15.6 10.2h6\"/>","upload":"<path d=\"M12 15V4M7 9l5-5 5 5\"/><path d=\"M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3\"/>","download":"<path d=\"M12 4v11M7 10l5 5 5-5\"/><path d=\"M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3\"/>","film":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M7.5 4v16M16.5 4v16M3 9h4.5M3 15h4.5M16.5 9H21M16.5 15H21\"/>","image":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><circle cx=\"8.5\" cy=\"9.5\" r=\"1.5\"/><path d=\"M21 15.5l-4.5-4.5L7 20\"/>","audio":"<path d=\"M9 18V6l11-2v12\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"17\" cy=\"16\" r=\"3\"/>","file":"<path d=\"M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z\"/><path d=\"M14 3v5h5\"/>","sparkle":"<path d=\"M11 3l1.8 4.9L17.7 9.7l-4.9 1.8L11 16.4l-1.8-4.9L4.3 9.7l4.9-1.8z\"/><path d=\"M18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z\"/>","arrow-up":"<path d=\"M12 19V5M6 11l6-6 6 6\"/>","play":"<path d=\"M8 5.2v13.6a.8.8 0 0 0 1.2.7l10.8-6.8a.8.8 0 0 0 0-1.4L9.2 4.5A.8.8 0 0 0 8 5.2z\"/>","rate-up":"<path d=\"M12 18.6v-13.2M6.6 10.8L12 5.4 17.4 10.8\"/>","rate-down":"<path d=\"M12 5.4v13.2M6.6 13.2l5.4 5.4 5.4-5.4\"/>","rate-flat":"<path d=\"M6 12h12\"/>","sun":"<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4\"/>","moon":"<path d=\"M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z\"/>"},"logo":"data:image/png;base64,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","cats":{"board-areas":{"daily":6,"content":5,"creators":2,"research":7,"campaigns":4,"brand":8,"system":0},"journey-stages":{"ad":4,"book":8,"wizard":5,"preview":6,"pay":7,"after":2,"messages":3},"reel-series":{"1":4,"2":3,"3":8,"4":1,"5":6,"7":5,"8":7,"9":2},"books-metrics":{"books":5,"views":4,"likes":2,"comments":6},"social-metrics":{"reach":1,"views":4,"likes":2,"comments":6,"saves":8,"shares":7,"followers":3,"engagement":5},"research-topics":{"audience":4,"competitors":7,"creators":2,"carousels":5,"reels":1,"communities":6,"store":3,"sales":8},"store-shelves":{"bestsellers":8,"holidays":2,"habits":6,"courage":1,"learning":4,"social":3,"imagination":5,"traditions":7},"test-carousels":{"say":1,"how":4,"age":6,"gift":8,"reveal":2},"content-types":{"kid":5,"test":2,"reel":6,"post":7,"idea":0},"mebook-themes":{"recognition":5,"gifters":1,"repeat":3,"likeness":6,"questions":4},"community-metrics":{"groups":7,"posts":1,"reactions":2,"comments":6,"leads":5},"proof-themes":{"service":4,"quality":3,"kids":5,"gift":1,"easy":6,"speed":8,"recommend":2,"praise":0,"rating":7},"kid-moments":{"unbox":1,"hug":2,"together":3,"show":4,"browse":6,"reel":7}},"hq":{"local":"sites/dashboard/site/lumebook-dashboard/","artifact":"https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6","web":"https://lumebook-dashboard.vercel.app/"},"web_copies":{"XRuKAwrXNwf6iPfkLG8o7f":"https://lumebook-dashboard.vercel.app/research/competitor-content/","4Uaprv274bf69dH5KkQyPY":"https://lumebook-dashboard.vercel.app/research/kids-content-lab/","B2YkxMHGTeM5T5LLC2wnYU":"https://lumebook-dashboard.vercel.app/research/carousel-research/","BGqB3Azgek9F6MXu3EY5rx":"https://lumebook-dashboard.vercel.app/research/carousel-playbook/","WAcZJ7xXj826wzvLj49dmE":"https://lumebook-dashboard.vercel.app/research/parent-communities/"},"pages":{"docs/lumebook-social-strategy.html":"3GNTuoDk4swPGUarrf4xkp","creators/creator-research/lumebook-creator-map.html":"DCJ2ZT1Y4K8MrcH5bot2Hj","research/israeli-product-reels/creator-brief.html":"8aHom1FHtP9jiSgBkbgGc7","research/israeli-product-reels/reels-research.html":"3JRcb77z4HcE8PRcVjcpEp","research/competitor-content-analysis/lumebook-competitor-content.html":"XRuKAwrXNwf6iPfkLG8o7f","research/kids-brand-content-research/lumebook-kids-content-lab.html":"4Uaprv274bf69dH5KkQyPY","research/carousel-research/lumebook-carousel-research.html":"B2YkxMHGTeM5T5LLC2wnYU","research/carousel-playbook-research/lumebook-carousel-playbook.html":"BGqB3Azgek9F6MXu3EY5rx","sites/dashboard/lumebook-dashboard.html":"R5tEXfKkNKzVYg8CWFh4s6","research/parent-community/lumebook-parent-communities.html":"WAcZJ7xXj826wzvLj49dmE","carousel/carousel-pipeline/hook-studio.html":"DHpzqHn1DcVNZ5y4YVAdau","research/israeli-product-reels/reels-explorer.html":"7LypeDPVPLDcL5n2xEQui7"},"saved":null};
+window.LB_NAV_DATA = {"topics":[{"id":"learning","label":"קורס ולמידה","icon":"course","desc":"הקורס, קישורי UTM והמכירות שלי","tools":[{"t":"Course","en":true,"sub":"שיעורים ומשימות, עם בדיקה של התשובות","icon":"course","view":"course"},{"t":"יוצר קישורי UTM","sub":"קישור מתויג לכל פוסט, כדי לדעת מה מכר","icon":"link","view":"course","tab":"links"},{"t":"המכירות שלי","sub":"ההזמנות עם התיוג שלי, לחישוב ה-25%","icon":"wallet","view":"course","tab":"sales"}],"cat":3},{"id":"plan","label":"תוכנית ואסטרטגיה","icon":"target","desc":"יעדים, מכירות ומסלול הקנייה","tools":[{"t":"אסטרטגיית Q4","sub":"יעדים, ערוצים וקצב עבודה לרבעון","icon":"target","local":"docs/lumebook-social-strategy.html","art":"3GNTuoDk4swPGUarrf4xkp"},{"t":"מכירות (פנימי)","sub":"נתוני המכירות במילים פשוטות","icon":"trend","local":"docs/lumebook-sales-readout.html"},{"t":"המרה ושימור","sub":"מסלול הקנייה בחנות ומה לשפר בכל שלב","icon":"funnel","local":"research/cro-crm/cro-crm-strategy.html"}],"cat":4},{"id":"creators","label":"יוצרים","icon":"people","desc":"מציאת יוצרים, פניות ושגרירים","tools":[{"t":"מפת יוצרים","sub":"יוצרים, אנשי מקצוע וקהילות פייסבוק: פניות ותזכורות","icon":"people","local":"creators/creator-research/lumebook-creator-map.html","n":"n-creators"},{"t":"שגרירים","sub":"מי הצטרף לתוכנית השגרירים ומה נקנה דרכם","icon":"signup","view":"signups","n":"n-signups"},{"t":"נתוני השגרירים","sub":"הגיליון שהחנות מעדכנת: שגרירים, מכירות ובקשות תשלום","icon":"sheet","web":"https://docs.google.com/spreadsheets/d/1NHdLpsgL5X9xnhxGfHOPCfEShO_nYVMJGd30k8dI4Oc/edit","webLabel":"Google Sheets"},{"t":"בריף ליוצרים","sub":"שלד הצילום לרילס שיוצרים מקבלים","icon":"brief","local":"sites/lumebook-creator-brief/index.html","art":"8aHom1FHtP9jiSgBkbgGc7","web":"https://lumebook-creator-brief.vercel.app"},{"t":"דף לסופרים ואנשי מקצוע","sub":"דף פנייה לסופרי ילדים ולאנשי מקצוע, גרסת בדיקה שלא פורסמה","icon":"book","local":"sites/lumebook-partners/index.html"},{"t":"דף השגרירים בחנות","sub":"תוכנית השגרירים כפי שיוצרים רואים אותה ב-lumebook.com","icon":"gift","web":"https://lumebook.com/IL/he/ambassadors","webLabel":"lumebook.com"},{"t":"תוכן וכוונת קנייה","sub":"איזה תוכן של יוצרים מביא שיחות על קנייה","icon":"chat","local":"research/creator-content-conversion/report.html"},{"t":"הוכחה חברתית","sub":"ביקורות ותגובות טובות, וילדים עם הספר שלהם","icon":"heart","local":"media/projects/2026-11-15-social-proof/social-proof.html"},{"t":"Creator Outreach Tracker","en":true,"sub":"הגיליון הישן של הפניות, חלק מהמספרים לא מעודכנים","icon":"sheet","web":"https://docs.google.com/spreadsheets/d/1JU9y80sIQvzQ_Xt8lgKiJSb6MbKrbglKLMgap-3JNMk","webLabel":"Google Sheets"}],"cat":2},{"id":"carousels","label":"קרוסלות","icon":"slides","desc":"הפקת קרוסלות והמחקר שמאחוריהן","tools":[{"t":"לוח תוכן","sub":"כל הקרוסלות והרילס של החודש, יום אחרי יום","icon":"calendar","local":"sites/content-calendar/"},{"t":"מכונת הקרוסלות","sub":"חבילות, ציונים והפקה של קרוסלות","icon":"slides","local":"hook-studio/","art":"DHpzqHn1DcVNZ5y4YVAdau","n":"n-content"},{"t":"פלייבוק קרוסלות","sub":"מה גורם לקרוסלה להמיר, ולוח בדיקות","icon":"book","local":"research/carousel-playbook-research/lumebook-carousel-playbook.html","art":"BGqB3Azgek9F6MXu3EY5rx"},{"t":"מחקר קרוסלות","sub":"752 חשבונות: מה מביא שיחות והמרות","icon":"layers","local":"research/carousel-research/lumebook-carousel-research.html","art":"B2YkxMHGTeM5T5LLC2wnYU"}],"cat":5},{"id":"reels","label":"רילס ווידאו","icon":"clapper","desc":"תכנון, צילום ומחקר של רילס","tools":[{"t":"מערכת הרילס","sub":"הלוח של נובמבר עם עריכה, פלייבוק, עקרונות, כלים ורילס שנעשו, הכול בדף אחד","icon":"reelcal","local":"research/israeli-product-reels/reels-explorer.html","art":"7LypeDPVPLDcL5n2xEQui7"},{"t":"פלייבוק רילס","sub":"מה עובד ברילס מוצר ואיך מצלמים","icon":"clapper","local":"research/israeli-product-reels/reels-research.html","art":"3JRcb77z4HcE8PRcVjcpEp"},{"t":"מעבדת תוכן ילדים","sub":"64 סרטונים קצרים מפורקים לפורמטים","icon":"flask","local":"research/kids-brand-content-research/lumebook-kids-content-lab.html","art":"4Uaprv274bf69dH5KkQyPY"}],"cat":1},{"id":"communities","label":"קהילות","icon":"pin","desc":"קבוצות הורים ויוצרים: פוסטים ולידים","tools":[{"t":"קהילות פייסבוק","sub":"התצוגה השלישית של מפת היוצרים: שלב, פוסטים ולידים בכל קבוצה","icon":"facebook","local":"creators/community-tracker/community-tracker.html"},{"t":"קהילות הורים","sub":"361 קבוצות הורים, מהקרובות לאשקלון","icon":"pin","local":"research/parent-community/lumebook-parent-communities.html","art":"WAcZJ7xXj826wzvLj49dmE"}],"cat":6},{"id":"research","label":"מחקר","icon":"shelf","desc":"מתחרים וכל המחקרים במקום אחד","tools":[{"t":"מתחרים","sub":"MeBook מולנו: עוקבים, נושאים ופערים","icon":"bars","view":"competitors"},{"t":"ניתוח תוכן מתחרים","sub":"147 פריטי תוכן של 4 מתחרים, מקודדים","icon":"scissors","local":"research/competitor-content-analysis/lumebook-competitor-content.html","art":"XRuKAwrXNwf6iPfkLG8o7f"},{"t":"ספריית המחקר","sub":"כל המחקרים לפי נושא, עם חיפוש בכל הממצאים","icon":"shelf","local":"research/research-hub/research-hub.html"}],"cat":7},{"id":"system","label":"מערכת","icon":"sync","desc":"סנכרון, עיצוב, דרייב והחנות","tools":[{"t":"סנכרון","sub":"מה השתנה ומה צריך לפרסם מחדש","icon":"sync","view":"sync","n":"n-sync"},{"t":"סידור התפריט","sub":"לגרור, להוסיף ולערוך את הכלים שבתפריט הצד","icon":"grid","view":"tools"},{"t":"מערכת העיצוב","sub":"צבעים, גופנים ורכיבים לכל הדפים","icon":"palette","art":"Cw3pWrTsoCKkCaPzZLrr5B"},{"t":"Drive: שיווק","sub":"תיקיית השיווק המשותפת","icon":"folder","web":"https://drive.google.com/drive/folders/1awITcQFWfsQqpbL8Lupikw12b6y4EWvB","webLabel":"Google Drive"},{"t":"החנות","sub":"lumebook.com, מה שהלקוחות רואים","icon":"bag","web":"https://lumebook.com/IL/he","webLabel":"lumebook.com"},{"t":"החנות בעיצוב שלנו","sub":"דמה עובד של דף הבית: יוצרים בו ספר לדוגמה","icon":"layers","local":"sites/lumebook-store-mock/index.html","web":"https://lumebook-store-mock.vercel.app","webLabel":"Vercel"}],"cat":0}],"icons":{"grid":"<rect x=\"3\" y=\"3\" width=\"7.5\" height=\"7.5\" rx=\"1.5\"/><rect x=\"13.5\" y=\"3\" width=\"7.5\" height=\"7.5\" rx=\"1.5\"/><rect x=\"3\" y=\"13.5\" width=\"7.5\" height=\"7.5\" rx=\"1.5\"/><rect x=\"13.5\" y=\"13.5\" width=\"7.5\" height=\"7.5\" rx=\"1.5\"/>","course":"<path d=\"M2 9l10-5 10 5-10 5z\"/><path d=\"M6 11.2V16c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.8\"/><path d=\"M22 9v5.5\"/>","link":"<path d=\"M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1\"/><path d=\"M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1\"/>","wallet":"<path d=\"M17 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h14a2 2 0 0 1 2 2v9a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><circle cx=\"16.5\" cy=\"14\" r=\"1.3\"/>","overview":"<rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" rx=\"1.5\"/><rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" rx=\"1.5\"/><rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" rx=\"1.5\"/>","calendar":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"17\" rx=\"2\"/><path d=\"M3 9h18M8 2v4M16 2v4\"/><path d=\"M7.5 13h3M13.5 13h3M7.5 17h3\"/>","target":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1.2\"/>","trend":"<path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/>","funnel":"<path d=\"M3 4h18l-7 8.5V19l-4 2v-8.5z\"/>","people":"<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6\"/>","signup":"<rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2\"/><path d=\"M9 4V2.5h6V4\"/><path d=\"M9 13l2 2 4-4\"/>","brief":"<path d=\"M6 3h9l4 4v14H6z\"/><path d=\"M14.5 3v4.5H19\"/><path d=\"M9 12h7M9 16h5\"/>","chat":"<path d=\"M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z\"/><path d=\"M9 11h6M9 14h4\"/>","sheet":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M3 9h18M3 15h18M9 3v18\"/>","slides":"<rect x=\"2\" y=\"5\" width=\"13\" height=\"14\" rx=\"2\"/><path d=\"M18 7v10M21.5 9v6\"/>","book":"<path d=\"M2 5h6a4 4 0 0 1 4 4v11a3 3 0 0 0-3-3H2z\"/><path d=\"M22 5h-6a4 4 0 0 0-4 4v11a3 3 0 0 1 3-3h7z\"/>","layers":"<path d=\"M12 3l9 5-9 5-9-5z\"/><path d=\"M3 12.5l9 5 9-5\"/><path d=\"M3 17l9 5 9-5\"/>","reelcal":"<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/><path d=\"M10.5 13v5l4-2.5z\"/>","compass":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M15.5 8.5l-2 5-5 2 2-5z\"/>","clapper":"<rect x=\"3\" y=\"9\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M3 9l1.5-5h15L21 9\"/><path d=\"M9 4L7.5 9M15 4l-1.5 5\"/>","flask":"<path d=\"M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3\"/><path d=\"M7.3 15h9.4\"/>","pin":"<path d=\"M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/>","bars":"<path d=\"M3 20V10M9 20V4M15 20v-7M21 20v-11\"/>","scissors":"<circle cx=\"6\" cy=\"7\" r=\"3\"/><circle cx=\"6\" cy=\"17\" r=\"3\"/><path d=\"M8.5 8.5L20 19M8.5 15.5L20 5\"/>","shelf":"<path d=\"M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2.5z\"/><path d=\"M8 7h7M8 11h5\"/>","sync":"<path d=\"M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8\"/><path d=\"M21 4v5h-5M3 20v-5h5\"/>","globe":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\"/>","palette":"<path d=\"M12 3a9 9 0 0 0 0 18c1.4 0 2-1 2-2s-.8-1.6-.8-2.5S14 15 15 15h2a4 4 0 0 0 4-4c0-4.4-4-8-9-8z\"/><circle cx=\"7.5\" cy=\"11\" r=\"1.2\"/><circle cx=\"10.5\" cy=\"7.5\" r=\"1.2\"/><circle cx=\"15\" cy=\"8\" r=\"1.2\"/>","folder":"<path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/>","bag":"<path d=\"M5 8h14l-1 12H6z\"/><path d=\"M9 8a3 3 0 0 1 6 0\"/>","map":"<path d=\"M3 6l6-2.4 6 2.4 6-2.4v14.4l-6 2.4-6-2.4-6 2.4z\"/><path d=\"M9 3.6v14.4M15 6v14.4\"/>","gift":"<rect x=\"3.6\" y=\"9.6\" width=\"16.8\" height=\"10.8\" rx=\"1.8\"/><path d=\"M3 6.6h18V9.6h-18zM12 6.6V20.4M12 6.6C10.8 3.6 7.2 3 7.2 5.16S10.8 6.6 12 6.6zM12 6.6c1.2-3 4.8-3.6 4.8-1.44S13.2 6.6 12 6.6z\"/>","mail":"<rect x=\"3\" y=\"5.4\" width=\"18\" height=\"13.2\" rx=\"2.4\"/><path d=\"M3.6 6.6l8.4 6.6 8.4-6.6\"/>","send":"<path d=\"M21 3L10.32 13.68M21 3l-6.72 18-3.96-7.32-7.32-3.96z\"/>","info":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 10.8v6M12 7.44v0.12\"/>","bell":"<path d=\"M6 10.2a6 6 0 0 1 12 0c0 4.8 1.92 6.6 1.92 6.6H4.08S6 15 6 10.2z\"/><path d=\"M9.96 19.8a2.28 2.28 0 0 0 4.08 0\"/>","whatsapp":"<path d=\"M12 3.6a8.4 8.4 0 0 0-7.32 12.6L3.6 20.4l4.32-1.08A8.4 8.4 0 1 0 12 3.6z\"/><path d=\"M8.88 9.84c0.36 2.28 2.16 4.2 4.68 5.04\"/>","instagram":"<rect x=\"3.6\" y=\"3.6\" width=\"16.8\" height=\"16.8\" rx=\"4.8\"/><circle cx=\"12\" cy=\"12\" r=\"3.84\"/><path d=\"M16.8 7.2v0.12\"/>","clock":"<circle cx=\"12\" cy=\"12\" r=\"8.64\"/><path d=\"M12 7.56V12l3.12 2.16\"/>","eye":"<path d=\"M2.16 12S6 5.4 12 5.4 21.84 12 21.84 12 18 18.6 12 18.6 2.16 12 2.16 12z\"/><circle cx=\"12\" cy=\"12\" r=\"2.88\"/>","heart":"<path d=\"M12 19.8S3.6 14.76 3.6 9.12A4.32 4.32 0 0 1 12 7.2a4.32 4.32 0 0 1 8.4 1.92c0 5.64-8.4 10.68-8.4 10.68z\"/>","home":"<path d=\"M3.5 10.5 12 3.5l8.5 7\"/><path d=\"M5.5 9v10.5a1 1 0 0 0 1 1h4v-6h3v6h4a1 1 0 0 0 1-1V9\"/>","facebook":"<rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\" rx=\"4.5\"/><path d=\"M15 8h-1.6A2.4 2.4 0 0 0 11 10.4V20.5\"/><path d=\"M8.8 13h5.4\"/>","bookmark":"<path d=\"M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-4.6-6.5 4.6v-16a1 1 0 0 1 1-1z\"/>","share":"<path d=\"M21 3.5 10.5 14\"/><path d=\"M21 3.5l-6.5 17-4-6.5-6.5-4z\"/>"},"ui":{"grip":"<circle cx=\"9\" cy=\"6\" r=\"1.3\"/><circle cx=\"15\" cy=\"6\" r=\"1.3\"/><circle cx=\"9\" cy=\"12\" r=\"1.3\"/><circle cx=\"15\" cy=\"12\" r=\"1.3\"/><circle cx=\"9\" cy=\"18\" r=\"1.3\"/><circle cx=\"15\" cy=\"18\" r=\"1.3\"/>","plus":"<path d=\"M12 5v14M5 12h14\"/>","pencil":"<path d=\"M4 20h4L19 9l-4-4L4 16z\"/><path d=\"M14 6l4 4\"/>","open-out":"<path d=\"M7 17L17 7M9 7h8v8\"/>","back":"<path d=\"M9 6l6 6-6 6\"/>","search":"<circle cx=\"10.2\" cy=\"10.2\" r=\"6.36\"/><path d=\"M15.12 15.12l5.28 5.28\"/>","sort":"<path d=\"M7.2 4.8v14.4M3.6 15.6l3.6 3.6 3.6-3.6M16.8 19.2V4.8M13.2 8.4l3.6-3.6 3.6 3.6\"/>","group":"<rect x=\"3.6\" y=\"3.6\" width=\"16.8\" height=\"6\" rx=\"1.56\"/><rect x=\"3.6\" y=\"14.4\" width=\"16.8\" height=\"6\" rx=\"1.56\"/>","menu":"<path d=\"M3.6 6.6h16.8M3.6 12h16.8M3.6 17.4h16.8\"/>","close":"<path d=\"M6 6l12 12M18 6L6 18\"/>","chevron-down":"<path d=\"M6 9l6 6 6-6\"/>","check":"<path d=\"M5.4 12.6l4.2 4.2 9-9.6\"/>","check-circle":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8.16 12.36l2.64 2.64 5.28-5.76\"/>","copy":"<rect x=\"8.4\" y=\"8.4\" width=\"11.4\" height=\"11.4\" rx=\"2.16\"/><path d=\"M15.6 8.4V5.76c0-0.84-0.72-1.56-1.56-1.56H5.76c-0.84 0-1.56 0.72-1.56 1.56v8.28c0 0.84 0.72 1.56 1.56 1.56H8.4\"/>","undo":"<path d=\"M8.4 5.4L4.2 9.6 8.4 13.8M4.2 9.6h10.2a5.4 5.4 0 0 1 0 10.8H10.8\"/>","arrow-left":"<path d=\"M19.2 12H4.8M10.2 6.6L4.8 12l5.4 5.4\"/>","arrow-right":"<path d=\"M4.8 12h14.4M13.8 6.6L19.2 12l-5.4 5.4\"/>","spread":"<path d=\"M12 3v18M7.8 7.2L12 3 16.2 7.2M7.8 16.8l4.2 4.2 4.2-4.2\"/>","stack":"<path d=\"M3.6 9l8.4-4.8 8.4 4.8-8.4 4.8z\"/><path d=\"M3.6 14.4l8.4 4.8 8.4-4.8\"/>","skip":"<path d=\"M17.4 6l-7.2 6 7.2 6zM6.6 6v12\"/>","user-plus":"<circle cx=\"9.6\" cy=\"8.4\" r=\"3.36\"/><path d=\"M3.6 19.2c0.72-3.36 3.12-5.16 6-5.16s5.28 1.8 6 5.16M18.6 7.2v6M15.6 10.2h6\"/>","upload":"<path d=\"M12 15V4M7 9l5-5 5 5\"/><path d=\"M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3\"/>","download":"<path d=\"M12 4v11M7 10l5 5 5-5\"/><path d=\"M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3\"/>","film":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M7.5 4v16M16.5 4v16M3 9h4.5M3 15h4.5M16.5 9H21M16.5 15H21\"/>","image":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><circle cx=\"8.5\" cy=\"9.5\" r=\"1.5\"/><path d=\"M21 15.5l-4.5-4.5L7 20\"/>","audio":"<path d=\"M9 18V6l11-2v12\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"17\" cy=\"16\" r=\"3\"/>","file":"<path d=\"M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z\"/><path d=\"M14 3v5h5\"/>","sparkle":"<path d=\"M11 3l1.8 4.9L17.7 9.7l-4.9 1.8L11 16.4l-1.8-4.9L4.3 9.7l4.9-1.8z\"/><path d=\"M18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z\"/>","arrow-up":"<path d=\"M12 19V5M6 11l6-6 6 6\"/>","play":"<path d=\"M8 5.2v13.6a.8.8 0 0 0 1.2.7l10.8-6.8a.8.8 0 0 0 0-1.4L9.2 4.5A.8.8 0 0 0 8 5.2z\"/>","rate-up":"<path d=\"M12 18.6v-13.2M6.6 10.8L12 5.4 17.4 10.8\"/>","rate-down":"<path d=\"M12 5.4v13.2M6.6 13.2l5.4 5.4 5.4-5.4\"/>","rate-flat":"<path d=\"M6 12h12\"/>","sun":"<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4\"/>","moon":"<path d=\"M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z\"/>"},"logo":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAAQ5lWElmTU0AKgAAAAgABgEaAAUAAAABAAAAVgEbAAUAAAABAAAAXgEoAAMAAAABAAIAAAExAAIAAABwAAAAZgE7AAIAAAANAAAA1odpAAQAAAABAAAA5AAAAAAAAAAwAAAAAQAAADAAAAABQ2FudmEgKFJlbmRlcmVyKSBkb2M9REFHaThxbGxscjggdXNlcj1VQUdTVU9jbDFBbyBicmFuZD1CQUdTVUlVSkhIbyB0ZW1wbGF0ZT1CbGFjayBDYW1lcmEgSWNvbiBQaG90b2dyYXBoeSBMb2dvAFlvc3NpIEtvcmVzaAAAAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAGCgAwAEAAAAAQAAAGAAAAAALB6eiwAAAAlwSFlzAAAHYgAAB2IBOHqZ2wAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8ZGM6Y3JlYXRvcj4KICAgICAgICAgICAgPHJkZjpTZXE+CiAgICAgICAgICAgICAgIDxyZGY6bGk+WW9zc2kgS29yZXNoPC9yZGY6bGk+CiAgICAgICAgICAgIDwvcmRmOlNlcT4KICAgICAgICAgPC9kYzpjcmVhdG9yPgogICAgICAgICA8ZGM6dGl0bGU+CiAgICAgICAgICAgIDxyZGY6QWx0PgogICAgICAgICAgICAgICA8cmRmOmxpIHhtbDpsYW5nPSJ4LWRlZmF1bHQiPkx1bWVCb29rX2xvZ29fc3F1cmUgLSAxPC9yZGY6bGk+CiAgICAgICAgICAgIDwvcmRmOkFsdD4KICAgICAgICAgPC9kYzp0aXRsZT4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5DYW52YSAoUmVuZGVyZXIpIGRvYz1EQUdpOHFsbGxyOCB1c2VyPVVBR1NVT2NsMUFvIGJyYW5kPUJBR1NVSVVKSEhvIHRlbXBsYXRlPUJsYWNrIENhbWVyYSBJY29uIFBob3RvZ3JhcGh5IExvZ288L3htcDpDcmVhdG9yVG9vbD4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CjnDHMkAACdDSURBVHgB7X0HgFTVuf/v3pm502d7ZZelLHUBAbGAEUREY8QYjSUxPqOJ8aUaTXz/GGyrMS/RJJrEZ/TF5D3zbAkYNWqwYkVsSFt2acu6LNvrzE6fueX9vllQQFZXpPn+e/DuzNxy7jm/75yvnyMwXIYRGEZgGIFhBIYRGEZgGIH/HxFQ/g90Wnm2q/eC5a1Bb2m2R83XHK9fVJJX93+gX0d+F6qW1Grv9gb/+IeWkHXc/a/ox93+pHXd6oaux7u7jzvyWz/QQvWz0tB9tfOWOXnXN6rubz3e0AGX02FLNLXjntsez//TsnWXvBCJFO3rmSPt3GeWALe9XTvdqTl/9FhTD1TdQDSRxvyzj8PsYl+qzLQdHQcWHGlg76s99n2d/AycUyaOKLzx7YTiSeop2C0T6VQavYoTi75z+n1fGI8ryxUfaXDkl8/kDLh1U/NJEZvjzI3dIdiIcSwSh55IobGlB+09kZnlypf0Ix/6gRZ+9ghQXa0uzPf95MRsr81uGNANE1DYDQvo7OhDn27N/Lf7bz1+mAAHCYGrT/vyXLdmP+WBpm4YikLcqUk77FBtKlTFgktR1PxRJecepNcf8Go/YzPgPFtFdmDx0p6k7Y1gHFEO/oDHgWMLvYgbBF+zozLgRL/ddnrRtKu9Bxytg1DhISeAZa10J613J+1PXy5efv2p2YHAKet7IyjUbDjF78CPtzbhqvZunFs1AjZVwd1rmtCQQuXYU6d9JmyBQ0qAVatWOdIJ5QKbHrvVsl7I+0REqK62nzi64JodpqpEyHY0vxuXOBRM+PF9yP3TcnxtVB7smgNIpvC58jwle3TxFz9R/Yfp5kOqhh59tNupp2JV5N3HBOPeSva5Z6j9vvSCyxdk5QdOXLPxPRzd0oX8FX2oy/Nixi0XosUy8Piyd5BImDCy/JjksqGrsvjkZajSgNrUwDssJZTCrKiC3PoU1s/1Km1DfffBvO+QEkBRqiJW1z9uXucYq39pTdW6D3fMokSlJN27UNKevKL2yrmvtiqff7YWvtYQzP4kkk4NxlVfhvL7f2BhfRuOy/NhXXkBXu1uhWf21PHFP7lpXPut59a2WlZFYbD5N2ZX8CyvAnuBO9DRnkpdV6xpf9r7VYf69yF3xi2xlthyGo72LRw7NrSrs5ui0dJyl/ZdzUgs0BPJOkNzLfU94X0e5yuG3LPlV788o6Il9Xh0fdC+tqIEm4rz0JGfhYTbDSFZdEcntO0dqOjowbhtrcgLx4CFlag5ddy1oyeNfvwYRJZ69Pjk3q4uOJ0qXF4/9BFTenrHzpw2UlFad7XjcHwecgLs3ck+y8rWEuHnPEbPMWjbRKsqiXB/GrrmfVAvrLi6cHRVe8fi/1jRNq3qhD8X5aGrIA9+twafXeVcsZDSTWxv7kZHTxixaByu3n6MIZs6e0UNjptTpLecWBIf60j6X3+zAc1r2hGJpjB57kic+ZWT4Zi24BTFnb187zYdyt+DEuBnNVvHWpaebbPYyyEU8nXFbiK8ePqkLUO4/f1bwlb6ZF/b+uXdNSvRsKkTrduD8Pg0TJlUhraeSE2nb/wD+fPm/nJZ0lLUSAyprhA6WnsRoiYUjqVgiv4f8MCV54eZ5UO/aaInHEeyM4TT6zbg/Px2NIRTaH2+AUUU0v0kgDI2C5dd+wW0jjr2lj+F8Nhg+qrBvpuGadjsjqTqMPvtqhr5yYQJ1AH2wSbf79En+zKoDDBN/Q6HUztDTyaHVKPd4aA/Jvk6b547pAd23qTGIgEkOvHSP+uw+qENKPK5EDF0bJ7RgmNOHDc1Mb741kdXv4fXXqxBPb2eXRzpZpKehnQaoCVMU3igJhpj7vxs5E8qR+HkkfAVBLBi3onwdtXB98xjmF2eBxdnTmtnP+0EFWGyqbUJXEtXxuKdNXyo2bTpLNUGy1Is3UjT1IAV+lnNpm6s29jEa+sU1XxLsWHV4kmThqxM7P2SQQlATU/loOY8H3SS7FEX75Xfn1itVY10j4Dpog4/sSiAyaPz4eWo3mxz4BVtPO7/y7uo3bADiCfhNlPIs+KwYnG4FR0BzUKhzwE31dFEmtOvoxmh7Ruw42knrFHlKJ03E80zqvDF8etRaeNskRkQSaDDadGI09CtOIifrogxPVgRCFhoaqs0spUcRVVHqaptlqIq5+hst6mbLbfUbnnO0s0Hrj9q4ouD1TPY+UEJwEnGCUjuMzQOJDfLO4bErnZvTMxf0Ohqs4fySgNZCa8Dowr8sFOVfLRoMqr/ey2M3j7Myk3j6FEKqkqdiOkaHA4vTErf6WNy4KVBZtAflEoZiNElnSIhWnuiaGpvwdbnduD1FSOgLjgBlVYLnHUbsVVJoqyyCH05JejkRFKlyYO0eo/T7F/mN2edAc6+nUW12UbYHI5LdTN56S01m58HzOrrpk5auev6x30OSoCPe/BAXa+uR+fNtkDz5BkVWRtfew/xRBLprDzc+tfVGG8GceWXc1GW48C48mx4yULSBFtz2EgAcp+Ujnh8QM2XQWyz2/D6pkY8WbsezV1JzKgoQ/WUFB569UXcNqUKZ3otFBUVIDB2DFYEyqDr+iefsnt13CRBzDg93+QAdk1baBj6iT9bW/fv67ds+Pel558/GHd7v5ZBJ9/N6zY+aXdqi4YsAzSCk0quuPGoqhPfr32IX2q315xfuWP13Ztrd+Q21TTDqTvxcI8N3z6jBD9/YDXe3LAF55w0EtXfOBUB8vpUnFOfFJAj2BcFBSU5BLtCEHqoCTltCmdBEH97dQPsNhuuWjQHr3Vr8NgNxMvK0Vk5GYbXB5VxhANdyKLgcDqRSiT/y7QZ36muqtppCO77TYd9BkizqiqmLtn20K9bjaR+a2553rRw2nD97ivj7N+9/SV0hzrwxJ3nYtLoYjgJvp0M255wIElDLEWW46BAFee/yCA5iqkJ2QhCSW42jh5XgedWb8KO3l6cf9LJeCp/EnbIDKKmdDDAl75YrDvFGaF5PN9IxmJhnrpSzg9WPrHQHKyiT3t+7IVXr5hxRfXcuu19M6Yu+sKa5lCS7uYonr7nYhx7zAT4CazmdkIRtdOjwZXrgeai74egU13gJ1sgBzl1XWMzXlpdi7auPiycPhGjiwsQbWvB/GwP3MLLhyjXPk2f0iQCNcMf/mztxnM+qp4jhgA7G2mc/tu7/CUjC6b1hXvx8ytOgdul4T/ufQIX//hO3P3AM4gz9EgNBIrTBjtd0YKlqDEy+qm0Y8k79VgeDGCLdxzuXLEVr9ZsoexwId7fi6zeVozxekD9/qMwOSDXhMjSLhPmTbev3OEerNIjggXt3rhcm/55GAnnrEml6E0auPiae6Bmj8EZF16BpqZm/O6vK3HlhXPIjhxQXWRIMoSIp52jf01nHNPPvhwL5s7MVBkKR3HX7bchu6kVlcX5dFnUo2pmBbbSY+qgbPjIQgCtjJyhkBV7Yz+IpqcZr9a0KWE1dhLf9fS+3nfEEUA1jTkcrnBw1D689DlMOeFMLP7J1e+3fe36Oqzb9jyOn1RIK5hjjPxeoeEWJ6ieccfi5J3gywNZfi+++6Or8Zdf3IgxRRaSwS6MhG7mKnikOx7vHXT6i/JvwUfUCzmIR3GOVdopWIeqkLzfWH6x2e0wUrEv8OuRT4Bey8pSk5EZViwEPZZAWsvFVVdesXt/MH3aZNQluuh6fg921ZGZASQBYoaK0ZMnYvlrdVi/qQXzjhuDmdPGItvvR9UJ89Hb8DZyeZ870qN+r6LyacXtvm+Pigf5Ub2q1aNqoWNMPX0V9f2zDLHAP0GR2WMpyrTBHhl0EAz2wME8b+mYrerREoszoJeuggnTjoWbLmfhMU8tX4OzvnkHLvnh3eiOOWkMUQAL7xF2Tvbj9HjxyNNrccb538cNP78NN9z1HJ57bUOmuRXjxiNh8iZqKNEd25BWrEvfs/qyMxc/5k/1rNLYDdMmvXJt1YSzzXT6zzITPkkRrYjSqaC6tlY68qFyxBCgzbIKbFb650q0i7F1ZjvodDOUlGQa/DIF61eu+AVeeOwOGmRO/Py3j9L1QCEn1hgPUYISlBd333s/ku0voUjZhBMnGvjl31dQaJNUDo33SFcVJMM9cCjGXEfSu+Su2veKT7rkyuwf/P73gQ8hs9cJCnm2Slusp1KdKtneUIuMD77XFgqF9il0hl7TUN/4Ce+b+5VLy6tOOq2ybuPmxV4zPtPsaYBFRF1UMTVatlIeWFmLaNPLSPTtwL133ojad/+BFHm+jC7RNkTfcNv4GdqauX8b1dBrfvQDbOloQA85RqS7g0YY4Aq4EAioiFMbivT1Lkw11F318guPeNt7bUOyyKqPquzklKtTydeHWjL2CZ3sWbNn79OreXgIcNJJ9pMv/vaIOedcWPHqU0uTaSb32IKhaQ2b69Dd20UHl4EAsU90tZLVAP1udtiIZbjNdmpCxdkW8nKpWkaSmXstCuMcnx3zpozaA5cR0ycgRTdm77p3MIp1FCgmQt292LxqOZSeVpxeOeZfnrv/wa90b3x1bGDMmHETP7dg/HlXXZW7RyV7/7Bo94ntMcQiSgIHSFO1wpfvowydlPt4eH9OVS9ZojXWN43p627NdbodwbMvuMh//ZVX3J7jUU+ON69AqLMD2TELDqadVCSbECweibnHTsGzM+agfyV9XWQlP7zkDKhJhcaVCk+Mjrl125Es9+L/fX0hWuImXltLt/ZJ83HeguNgvvQojmprhJ+Ws7gu7AEN3jI3FJ+CrImnl2TlTPzZLdfd0HHjnb97snNDozOlKN5qywruC7DbV650h2GNyailQ+y8sCsGjlYNdvuhJQA9651/+IPGMZFTOGJ0fsPGOtvZp8w/zm23FprBVUj21KO4neA39cPsS6CE89PofgDnTZ8C/PQyrHnEj9OOGYPz/+UcrPv1y7DebUcgGsP21fXoOrYY5/39Ijw1JQv1jYtgy81Ccc9y+OqboHSwvgh5EQmQF7PD4WHQJr8BweZ3gOwZzk01tWX169fnNL75ZuP6lc/hH7ffvk+8It7srzk0bTTlwD6v731S2E86kaA0s57a+9qu34eWABRk5t13exyaM9Ta1Nyy8u3XzV9f+f0rspz9CHdtQpHfQk46AYs+ewm0iIxV+iPIf68W3z9+FHDDlwD6eKBFYKtU8PQvX2MoIYUggzjnXLaAnIGx4GwbsrR+ZCVj8DJ2YPI641pUyNllUYRUE36njqwiF8wiupZLS1MVlWPzvjG+r0WZ9eYuXPb4FA1G1ZWLFZvtDkNn/GCIRTQmEuB586jJ+0hAGKjk0BKA77znO9/pPOXyy5nUnMpZ+PnP9+VWVPjdiR3IHZkDZ5g8v5WCtYPNUom+qBBehqTybGhgpsMLz7yOS799KhwFRZhy9ngERn8Tby15BxNPn4Spcyt4P9XM5lb85s7H8a/fmoXxxbSlyjnfTFrMEeImEi+H9Y0hfT1J2JxZTCMyel8Pdta/q504u3pNjfj1hM2pik1x20yl1FLVqTDM+arDPjOj01PwD6UI7yexOJKsm/bFznbVccgJIC9+4Y9/lIyI0LPhcGFSUVL+3BFsbA709DaoE3nFyWb1CP8hBQiYWWEhN6DDuSaGW6qX4PLvnYrSEXkoKwMKzymHPYcu6s4I1rxVi9tuexpnnjUGE2c6YMYYvp1MEVhEIggBOAuUHNbv5yzTsphTWo66cLx0U6j/bvIJDnB7hubiw2HUCyrjDqLjmowbfBIDTFgPXRBIJxM33nBU1Vt846DlsBBgV2vyfL6+nmDk9gKb8XmfZXdYBk2WwiSUAD9jhIFRL8tlwOZOIpsq6UXfHIevX/giFi26E9dWf4/5h6PIjkZg2+pmvPjicjyx9FlUlPhw7jllsFJkR8RcCXDE+vkpvhwCYyU4KHvJlvKmYmvcgTdCQYR1g6Kd13Y2TBRbQ09njl1tHeonI2QQNTUdT9x2w1GTfvVxzx1WAsxSlPQPeqzVp0d6++Yoowu9TQ8D+fRw5mRBoadTkn4yDJcmkEl/j40Zb4sXT8cFX30O//bDOzAqPx9FloqsSAoBhiKLdTuu/MF0+KhImjTMMg9LAgO9pFaaWlB3BGZjN0d/GfpGz8Uz/ZxojKppmZcQql0U+DjUBrku4JPIISOVvPaG6ZPvGuS2PU4fVgKcZ1m2G4M983WkPZa9HHr5pVC7VkGJ95INRejtNDJuZzBATwYB5iZg8rFefPuK6XjnV1twXSof5XS4aQHyeA7srQv8KD/LA1O0lFQSVjTBcCHBT9B1kfLTpiinTCiFxXizS8vGIjWFlzkzmuhHEvGgitTfz5IBH2jUE/pXq4+evG9pvo+6d9H+Q5cOWkiSqujt0eiUOcnk+KOM7vPtXv959BcqaY5QOvhhMWJF5kkW1Akl1Qol2UgwG+l24G+NsQCnA7rqR9dSL3JrCByzHZiphcQ4FzzzughiJ4yoi3K0FPCNhZU9nmysCKZ9IJjDQCaFsk5iUt6S5UVpc6yhX3Qzv/f7KCuEVe1PIXsj72fSkVLLx+83uvR7q+dXRT6uqkM+A/7S0DKu7J/1D2ue3KodKoFW2uHOcsCXpcHpj5IGFGC5Xij5VFXcU8kVZOTHYIaaYHSupU7/LtRIPYrmZiF9ykSGDmRxRgwa2hikL6KQpZE2egIsX55IVRJP1FqmsvTTu9rNg/w/3BSCxfxSpa0fKvOEpgcjKM124cnFDEVIlG1/iMBnSDyNHtMZdEHPUAuVi25eV3slhfBrH0WEQ06AkYlQq2vZmrbHJlZWUcxBI593cNA5yQSyGN8N8MhjtKuIRCks9iK7yAvXCMZ5C8pgjh4FY9RpsHobEFvzBKLbnqWmQvUlMAq+Ey6DVjqNHosoU1liULa1QWnmd4KtN/bCoDGW7OyDHgpDofGmUMjSKhExQ+1LR+i4sWSEDPKI5vUpimhLctAGmEm2tuymtbVX3Di96r8Hq/KQE2B+VVWk6YSb/56XjJ+ynXlAuowctk5YQxu/WGI30mhVqai6GvuQTYSKqFNX0JczOt+LrBFehO0J5B1/OdTi2dj41EOYddY1tJhtqP/HcpT1u6E39CLV2oNkH8GPc/YI2OK4E4FMtZIZZ5kQGr9lBK+lq9hxLNkVg/4K2dPuRdq2PzNCgjeUCz6qo/fetKY2deOMqgd3r3fX90NOAHlxeUfz8znBkvB73gK/jRqO6Dp7CCP5wZYlSZw2kqaFxFmVTMO5IwFlbQMWNNUDLVnwHT8VqWPPxqrNNVBe3ILYshBSEWY9cGZleDmBFrAzHknWmcno5O/MG1m3vEZc2vEsN9qnjkir6Z3PSSOlUF7xYTvZioCZqdOggB+qnBDDjSS22Rz2e6prajZXT536IZ/QYSEA6v/YWDx+4mqtpGCeTgAyua6ZoTbQ78xfQUcGLD9Eh5dPnQgGXfzm8mDGu31Ys/JBOLkuzKIDbmw0H1tSJgOOKbqxGSmTx/m8uB7ED6kwuO8oy4VZ384fcpWF5zVaAFHdeLs/4PsWtSBpzMA1Zr+ZKhVU0/RYeioHXPbESOWpTAg4lTxeG6phJkRwuFw+M2H8+vJVqxb+cdYszu8PymEhALto1ESjz/rjqXmtdDlo4nYgxGTFsFMG2MW3vxsvFiCFGvJhp5FD0QlbIzWfrUyAEpOfNyTyWauYUzLCBceBR+A/txnhR0pJRGo4tLCT1LLS5P0q7QSj2I38uA3paPyR6uOnrpdHPqbceUvNxjmWYfwnZ8WUoRKB/iBq0o555XbfAtb/zO7vkIF1WMroptZ/+vv6kgtmWChI1TACFsPMijDyzO2IMO1cIDTJt5kdTqcckzv4XQ6ZCv0ySil8VSbZqowQ2vlpyEjf2Rtye/J+Al6UQME3WpF92XbYfd3Yunwjtp3kQu6N09A2vwgNx9DN8f0pVs1E7d2hgiB5n1YieS6DQT3i7xlqUenm4Mi4aO/7h17D3k9+yt/B31zScsHXS3vnlQUxd/4k3PKvJfjmXKDEakB7wwYko33kEEIESUEk+BzV4tWUhIUYZ4kUGeXiQJBPcu8Mq5LzMgOcn+tG2S11cFdEKayj2MA6IufkwqhwwOFPY8FP5+Coc+cjMMWvLPzdZYuXLVs25GDv9ccctZn2ylPi7xlqEdcGmzX7V+vW7bEc4bARoOC0sT8uLrdKlMKxmDszH77IDtRubMOM6SW4/SIfjPZV6ORaACkC/sAM4Ce/x8iGMuw6w5oGiCC6i06QMwKS9+gJqriFCcS3+tC2LIAa8uIZC4tx2vGV8DDDzuxkrlCRDUp2CbJ8zgXzTp53auZlQ/xD8bxe2N1QC9mWNLQ0atF5tVs5LARYaVluxhPPSbvykONIUIVsQSScxIjSXIwpzEJLWwhzJzgRYOpJjEF1ST83CK7OThh0R4hj0xCVhsfAP4LPTqWEAPzHD6QbvGhdUoi6L03D5i0BTD+5EDt29KGxoZOzK8U6KSuCnfAxA9uRU0A7BGfshsvHf8286+Nv23WHjBU220WfYv6uc/J5WAgwItTksjTN50hzhIe7CJmNSbYOJMIJZjtHUMLVLceOz4XL6EEoRAcaCaBTRdQlSEMiRPkExxP/DohmAV0nexKNKkMAEsZIquh7cCSTeFV08saSUh9zRPPg8TiZU5RGsDtMohKScDfQ3UBBHBzF6oZcyPCmZ9SsoT7BWTkQH6aWvFs50AQQTD62jHzlAU3pafIosSCHBbUYghsku0kSGEkzjzLYvmFrG7Oamc0m6wXoCZUZIGxIMiEYQ4DJQ/6xXxm2Y5AAIrBFeSKZ6A2lgOW0sLhwLd6ZwHstvZnFfAZnlNgGab4zEmJev7S48z1ENr0twfgh8ZSb19bOsNlsXxxqaDIDiLSZg8em2vjSD8oBU0N3Gife6tW1k2U+f1T5a09TyanvbXE4afJKskB/bxQJLrSQXMwElyIluPWMojiY7eYY2AuI+qmNWdGZXE0BjxN3wDLIqPKZV4ngFW1JCCCYim0hxKHog42rsy26xTwlGldS0pgjzHbaD9H+OP1+aYYNexGJxJr5mDz6keWmmrqFVILvYZZ2FhO1PvLe3S8KZdmeuGEmOeU+KAeMAKITc0TOoNd4TYYhf/COPb5JD9/LHoWm+hYHtm2DJ4dhQykCIAkgQSjh9X97R2dOD1fHEPgkM6KdkiEns0AIwN6QhWeKAC+w8dGdv0Vj2nmRZyR8ns/1YGsf3gH9LAMTpxdBpTWrSsCFhlsPV1OG06rRO+PoldXr6o4fqGXgr2roimm3M4/LyuHMnEIWsoBknUdjjEvbhg6+1CZqqGGlmwyfr2X3dxwwAuyslIqBsgeP2/1l8l2gMcnv3yqcjPx12xDoaWfuPxdcU6fujxnY2JzE87UGmiJZKCXfzhhWnAG6RJokPEikxZXwAeBCAOH8UjeJIxcywnkgwpUk0QJc2lQWcWPtg83YuqILxZV+ZOcyZEjixypHITJtuhotKvmFajJ4vHshaDaySJUGnErpKZqMAM9Y7+53Dek73REU/Por1aNHM3LxQdnzhR+c3+9vQ/GTWMxU6MxmuvgXv4pAy3a8e//r2LipHzHLzsMJr8/LmK9nYNTvBFe2JNO4ylG0fslLEMBl8NN3lxn+QoLMwu3MBWm+ZFDxIEGE6MVeF+P7NvTsSKJtWze2M7XdcTMXay+aTadTmgtSJXJPEgp/krLzvdIfg+1lftf+F9ZJwpF6yv/sXckBJ8DeLxj0NwVrjIZMbPwkOC/MQd7LZEf0z+tURyV6Li6JASwHABQBnGL4UEZimiNQeLtcFxY0cN+AQN7lXZWTBgWCyYPBSMRUCt0AZUwpg/VnEvjPTYM2qojLX3cbkMLe+qMZIqgM/NANN2jzP8kFjVsqcLnSIzdO//DqycNHAPZANBrZXqZgfD4KJuQjydiu1hlEzmtvYPXmKLcfc5OHMy+ffhwBVOXaYIsCWjySCQ6ozOiUacBDFVtBnHEpjnr6knQ3ZQEXAjhHOtBF9bU5Km4LxhzcdG0fXYT28QxPUsPKFBn5lDUCfvtfX2YoVEPxeXOhkG1kptknQXuvezPZEYl4E6OqPyFlZazsUQ4rAXa1hIudM18l3Dh7SjFOcOWgKLUdW5sTCFMTyi7OQkfEibZ+LrROORGlKrmVjko7+TM9lWQ1CprdXsRykyguscFTaocznyvnuaGTi4H8YF0UgTaSkjl5o4s8mJjvwj9JFOEqIleSPWR/29uRbuS6A9kGM8AVRTI4PmWR1ZKUF20caOdfP7Vq+76qOyIIIA2ToaERjHEeF1RO2ZlHlSHg5SYcfTEcfRR9b2qcQjqCXprB3WGDewTlYpO/CtFOLlPl8tOx4xWcPiUNP6NaDroqZKWk7KAlfN3HTLjRxRr8XFU/flQWsmmM5XB0d4jmxnvDtY3ofuZdLqojHJxsGq1xle6K/R39YnDRBc0VNam1zCn6xg3Tq9bsC3w5d8QQINNAUiEhKiRHdj5BCDOh1seNO7LzcgieDX5u1pFPO2EstaJYIoQpWUFE0ir8LgslWUzUdfmo3zsywttOfdbBI8Kc0Fx/EloOQaFccUpQn6xnIE+IbId2QZjamIhekSZia/jL8jMsKZMgkGnY0P5I0EZYDteG9TMp6+5oX+rWX544re+jnj5iCCAApDntkzIVyDAdZBeFJdloqO9AT1eM8eEiOF30/1MbStJocxHErCydnGLAQyqddzKgLvfIDooZucAZ0NkRpuzYCQFng2wqYrq5qwpHv0Uhm81s7J7ebsoNQkHw05RJMdb5cctnRFuSkS7vlUNUU9M0ttP3/yhjn//JfSM2fxTwu659FAFcmttDHsnOHKIiKqXl9DAbglvPhLoRoH0QID8O9sTQ2hyiasp9JDiq7XYX3F7hr9TsqJuLBWAnmAJKRg2mRSyWc3t7DN2dsYzrQbynMiNEi9IC9Dqwjqy2ZkyqX4uEK0n3Bxd8U2PKOn4SRp55QqauvVmQjA05Jy4Fshb6/sxu8vd6btqxitskvGikna9XzxhN/8rQy6AEICdYko7HalND3K5m6K8c/E7x6fckPZNs/pxT0+2NGRCyc7zop8ugcWuQWyEYGSLYuCBDipIhBkOSBFyUIeEjwvvFFmtri6JxG1NPdp4XIaPRoLJpTn66+rQ3346UbVxT3tcXRgGN8STdIvVxe9o3tfwBBvH7JVNioFANVtQ4SctUCrXfsowQVxl0KDZ7ExXjNm5FwCyy/S+7Juf+13CAn0xZ1kyEmt/U17/oMBOxjBxo2EYXcoIqKFH2UpAWFnvIfjSulJddZHZ2gdfSTE/s5+ZM7a1RBHsHVEy5KvdwcqCAO7EUVZQjmTs++bff3mtpDrtLo0ywk6D13HR3W0/6R0tfvPe+A9ylj6xu0BnwkU8dxIvbuc3hSKfvIXduwdcjLY0UigOOZ3G0ycI9EcxhbmOgEjQnR7TICgE3Y3AxzpvkIaNedlURQ8zFHCOZHZmlv+TtNrK3DatqnLLIT2ZcSgxC2g+RWPyOpS8+dN9B7No+qz7iCDBOUZKc579IxtOLuEVYnmxBI2xFXMjiJU0SrBwuM5KMhhgDK+LlHChiMZMS/K+PBt329ihGMqnLvZMAIsrEj9RJ59ubr66mpkLXJAUxl6c1pA3r9o7m9L27ajqUn0ccAaTzAUXZXPvA767Lcph3y0Z8wiKIa0YhaOuOoqE1jFFMQ8+hiirACpsXcGNkUy3dcWzviMIn2xjwn7AteVY+43EdK55+4532jiB3Y7MzTmM9HYua//PnN5Z+Kj7O6ve7SNuO1KK+8otr7vI6tG8Lm4gzWNNH1tPRk8A2EkBc1lkkgI8Gk4MEknXCvRz5/dx1UfT9YuZ6VnCFTEEOE3XZS9nqpqs/sfyZtxrPfivoTNbWLhVP9WEvB8bbdHC6YWnBnJcKCj1zyIRGS6pKf5Qsg3Kgnxs2Mb/H6IqkL+sKxh7tDie39EZTb/XrqfsUw6jhRhyf83AjORdBl20tE/QPdfbGOlrW7Vj0q9ef7OrqqhPBckSUI3kGCN9QHr9p8aSOpu5HaB9NMshmknTC9VLT6Y/G/nrPa499dW8Uv5ZbGQhMmVGT43eN9ND5RjnCg9HK0rw7HN/73j9b4nrSYdNCAdWMJU17PzxMSPrLqFR19b7X8e5d/4H+fUQSYJllOee11Fxii/VcFOvrLkhFE9lb3qkr2lTfi2YaVzHOAH32rP/Kuei8N41Y3EP+bmPMmD59y3T4fVPDd/5pkWtbfUFePh1vlXmonDTSdJeV96ped3aLp9j2hpVFX4Esn+Q+4FxfT/EQoVHVQUNuK3Wq7XS+1jlUddM1VWObDjTge9d3WAlw66ZNfj1pVlATmaAb6liuixuXMq3ySpe95AuJhmme/mYEFT9G0nDt2N5Cp5oT69e2YMP6VjQdOwehWcfRguIaAyIoh6hAss1B+bInMB1BzD5pPFLUSXO5sausW+ra0QJ/bgFWOUfiKT1AuSD+IhpndCXIIRJdVFhdkqhMM0jN6x3aEE/RSnt48cxxXXuDdyB+H1ItKLPeNq1VUUielNbTcyMRfRpzfkYw2dVJVQeh/jB6+/qZv9+BZeueQ5nPzbRDB2ylOXj27U2YM6WSg5YZEnkebGPqee+767hXENm5ECCjCzFaRl3foAE3wa9wh91ubGxsQ0l+gNvWuPHGhu0oyPVhre5HffnMjM/I7XIjpyCXbg8SJBNxE5tBocWsZTvdnoX0Biw0mOxOsB85EIDvXcchmQGy5w4XV/+UOxieR31xPCNEXB+hMwOC//Md6uLiUJOcn/5gCFHucpXgAopEVzsXWtOwioTh5x7eHYyUZfl9MLktTZReT5XAycZ7mYH/fq+EDJJ+TpdElM9x0Xd/OAwf9xaVHbKizLRwMdyp+7Phz8uj4447KXILMx/3KXVJffQfiZ9HT/L/cqAqGzmfnjct9eHq6eNI6YxT4/03Hagvh2QGeB2qEofCeW21seEehucKZdRL7FdczxkWQos3Nz8vEyXLEITIiqopAJNFYQSHimziwRtE6ed5OQbYjqiZovO/76EkG5IsBNl3WAy5jNeS3yXMmRndbISsumRaifj/gqynizk+W1nPRksx1zKAvs6YMm7rjQqn20Euh2QG7N6H32/dGgglrBEcaSMVy1ai2rkaHcpIjj2m7HGFsIIAAfETNS/xdXPgcZAo4nEjkya1MjZZJmiQYT08R4qQGpIoMZAwkYnFs2NcaYwoSdbPzwiBphPN7KYF3UIqtHIlTgd3smqDlm6neRysnj9/t+Dw7i0+uN8POQGG0B2FssKBsOZibMNpUZm3EjHNorRkWofkpqh0w0mWgWI4CDmni1P16EkjxqT/lO5Q/elILKnnunISW9PNqb0XRAzh/cO3DCMwjMAwAsMIDCMwjMAwAsMIDCMwjMAwAsMIDCMwjMAwAsMIDCNwUBD4XzwDrkaZgh+UAAAAAElFTkSuQmCC","cats":{"board-areas":{"daily":6,"content":5,"creators":2,"research":7,"campaigns":4,"brand":8,"system":0},"journey-stages":{"ad":4,"book":8,"wizard":5,"preview":6,"pay":7,"after":2,"messages":3},"reel-series":{"1":4,"2":3,"3":8,"4":1,"5":6,"7":5,"8":7,"9":2},"books-metrics":{"books":5,"views":4,"likes":2,"comments":6},"social-metrics":{"reach":1,"views":4,"likes":2,"comments":6,"saves":8,"shares":7,"followers":3,"engagement":5},"research-topics":{"audience":4,"competitors":7,"creators":2,"carousels":5,"reels":1,"communities":6,"store":3,"sales":8},"store-shelves":{"bestsellers":8,"holidays":2,"habits":6,"courage":1,"learning":4,"social":3,"imagination":5,"traditions":7},"test-carousels":{"say":1,"how":4,"age":6,"gift":8,"reveal":2},"content-types":{"kid":5,"test":2,"reel":6,"post":7,"idea":0},"mebook-themes":{"recognition":5,"gifters":1,"repeat":3,"likeness":6,"questions":4},"community-metrics":{"groups":7,"posts":1,"reactions":2,"comments":6,"leads":5},"proof-themes":{"service":4,"quality":3,"kids":5,"gift":1,"easy":6,"speed":8,"recommend":2,"praise":0,"rating":7},"kid-moments":{"unbox":1,"hug":2,"together":3,"show":4,"browse":6,"reel":7}},"hq":{"local":"sites/dashboard/site/lumebook-dashboard/","artifact":"https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6","web":"https://lumebook-dashboard.vercel.app/"},"web_copies":{"XRuKAwrXNwf6iPfkLG8o7f":"https://lumebook-dashboard.vercel.app/research/competitor-content/","4Uaprv274bf69dH5KkQyPY":"https://lumebook-dashboard.vercel.app/research/kids-content-lab/","B2YkxMHGTeM5T5LLC2wnYU":"https://lumebook-dashboard.vercel.app/research/carousel-research/","BGqB3Azgek9F6MXu3EY5rx":"https://lumebook-dashboard.vercel.app/research/carousel-playbook/","WAcZJ7xXj826wzvLj49dmE":"https://lumebook-dashboard.vercel.app/research/parent-communities/"},"pages":{"docs/lumebook-social-strategy.html":"3GNTuoDk4swPGUarrf4xkp","creators/creator-research/lumebook-creator-map.html":"DCJ2ZT1Y4K8MrcH5bot2Hj","research/israeli-product-reels/creator-brief.html":"8aHom1FHtP9jiSgBkbgGc7","research/israeli-product-reels/reels-research.html":"3JRcb77z4HcE8PRcVjcpEp","research/competitor-content-analysis/lumebook-competitor-content.html":"XRuKAwrXNwf6iPfkLG8o7f","research/kids-brand-content-research/lumebook-kids-content-lab.html":"4Uaprv274bf69dH5KkQyPY","research/carousel-research/lumebook-carousel-research.html":"B2YkxMHGTeM5T5LLC2wnYU","research/carousel-playbook-research/lumebook-carousel-playbook.html":"BGqB3Azgek9F6MXu3EY5rx","sites/dashboard/lumebook-dashboard.html":"R5tEXfKkNKzVYg8CWFh4s6","research/parent-community/lumebook-parent-communities.html":"WAcZJ7xXj826wzvLj49dmE","carousel/carousel-pipeline/hook-studio.html":"DHpzqHn1DcVNZ5y4YVAdau","research/israeli-product-reels/reels-explorer.html":"7LypeDPVPLDcL5n2xEQui7"},"saved":null};
 /* The LumeBook project nav (Yarin, 5 Nov 2026): one navigation on every internal page.
    Since 6 Nov 2026 there is no top bar and no location path (Yarin: "remove the top navbar"): the side bar runs the full
    height of the window and holds everything. Since 8 Nov 2026 it is the only list of tools (Yarin: "move everything to the

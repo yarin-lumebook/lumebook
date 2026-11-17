@@ -9,11 +9,13 @@ Input:  research/israeli-product-reels/creator-brief.md, only its Hebrew parts (
 Output: research/israeli-product-reels/creator-brief.html, an artifact page (a fragment, as artifacts want), and
         sites/lumebook-creator-brief/index.html, the same page as a full document for Vercel (noindex).
 
-Look (Yarin, 05 Nov 2026: every page white only, on the latest design system): the LumeBook design system as it is,
+Look (Yarin, 05 Nov 2026: on the latest design system): the LumeBook design system as it is,
 inlined with design.head(nav=False) (fonts included; no project nav: creators see this page): white ground, neutral ink text, violet for what you can press, gold for
 brand emphasis, the system's lines, fills, radii and shadows. Heebo is the main font, Assistant (--font-2) the one for
 labels, captions, counts and chips. PAGE_CSS only lays the page out and uses the system's tokens; it defines no palette
-of its own, no dark mode and no switch (the 15 Oct ink/cream palette, its light/dark toggle and boot script are gone).
+of its own and no switch (the 15 Oct ink/cream palette, its light/dark toggle and boot script are gone). Since 16 Nov 2026
+(Yarin: "add dark mode everywhere, use apple's dark mode ui principles") the page follows the visitor's system appearance through
+the design system's dark tokens, with no switch; the few rules no token carries sit in PAGE_CSS's dark block.
 Laid out on Apple's design principles. A top bar holds the brand, a two-option switch (בריף / דף מסרים) and a
 hamburger menu with the sections.
 
@@ -48,7 +50,7 @@ PREVIEW = ROOT / "shared" / "brand" / "creator-brief-preview-v2.jpg"
 PREVIEW_PATH = "img/creator-brief-preview-v2.jpg"
 PAGES = ("brief", "messages")
 # Runs before the first paint: right-to-left Hebrew on <html> (the artifact copy is a fragment without its own <html>).
-# White only since 05 Nov 2026, so there is no mode to set any more.
+# Light and dark come from the visitor's system appearance (dark mode, 16 Nov 2026), so there is no mode to set here.
 RTL_BOOT = '<script>document.documentElement.setAttribute("dir","rtl");document.documentElement.setAttribute("lang","he")</script>'
 # The example Reel, played on the page (<!--visual:reel-->). Web copies made with ffmpeg from the 15 Oct download
 # (540p H.264, faststart); raw media stays out of git. The build copies them next to the Vercel page, and the
@@ -439,11 +441,13 @@ def render_items(items, sec_id, ctx):
 
 
 PAGE_CSS = """
-/* Creator brief, white (Yarin, 05 Nov 2026: every page white only, on the latest design system). The page runs on
+/* Creator brief (Yarin, 05 Nov 2026: on the latest design system). The page runs on
    the design system's own tokens, which design.head() inlines above: white ground, neutral ink text (--text, --text-2,
    --text-3), violet (--tint) for what you can press, gold (--accent, --accent-ink, --accent-soft) for brand emphasis,
-   the system's lines, fills, radii and shadows. Nothing here redefines a system token or adds a palette, a dark mode
-   or a switch (the 15 Oct ink/cream palette and its light/dark toggle are gone). Apple's principles still lead the
+   the system's lines, fills, radii and shadows. Nothing here redefines a system token or adds a palette or a switch
+   (the 15 Oct ink/cream palette and its light/dark toggle are gone). Dark mode (16 Nov 2026) comes from the same tokens and
+   the visitor's system appearance: a chosen segment is --raised, violet fills under white text are --tint-solid, and the
+   dark block at the end holds the two rules no token carries. Apple's principles still lead the
    layout: clarity (one big headline, a strict type scale, softer ink for secondary text), deference (white cards
    with a hairline, the content leads) and depth (a translucent top bar, a raised menu; no glows, the cover is plain
    white). Heebo for reading, Assistant (--font-2) for labels, captions, counts and chips. Brand fixed tokens
@@ -461,7 +465,7 @@ PAGE_CSS = """
 .segctl { display: inline-flex; padding: 2px; gap: 2px; border-radius: .6rem; background: var(--fill-2); }
 .segctl button { appearance: none; border: 0; background: transparent; color: var(--text-2); font: inherit; font-size: var(--fs-footnote);
   font-weight: 600; min-height: 2rem; padding: 0 .95rem; border-radius: .5rem; cursor: pointer; }
-.segctl button[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1), 0 0 0 .5px var(--line); }
+.segctl button[aria-selected="true"] { background: var(--raised); color: var(--text); box-shadow: var(--shadow-1), 0 0 0 .5px var(--line); }
 .iconbtn { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 0; border-radius: 50%; background: transparent; color: var(--text); cursor: pointer; }
 .iconbtn:hover { background: var(--fill-2); }
 .iconbtn .ico { width: 1.4rem; height: 1.4rem; }
@@ -501,8 +505,8 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* nothing in
 .lead { font-size: clamp(1.3rem, 4.4vw, 2rem); font-weight: 700; line-height: 1.3; letter-spacing: -.02em; color: var(--text); text-wrap: balance; }
 .handle { font-weight: 700; unicode-bidi: isolate; color: var(--text); }
 .extlink { display: inline-flex; align-items: center; gap: .4rem; margin-top: var(--sp-3); min-height: 2.5rem; padding-inline: 1.1rem; border-radius: var(--r-pill);
-  background: var(--tint); color: var(--text-on-tint); font-weight: 600; font-size: var(--fs-callout); }
-.extlink:hover { background: var(--tint-hover); color: var(--text-on-tint); text-decoration: none; }
+  background: var(--tint-solid); color: var(--text-on-tint); font-weight: 600; font-size: var(--fs-callout); }
+.extlink:hover { background: var(--tint-solid-hover); color: var(--text-on-tint); text-decoration: none; }
 .extlink .ico { width: 1rem; height: 1rem; }
 
 /* white cards: a hairline sets them apart from the white ground (as .lb-card) */
@@ -576,7 +580,7 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* nothing in
 .mini-book i { width: 42%; aspect-ratio: 1; border-radius: 50%; background: var(--lb-cream); }
 .mini-book.small { width: 32%; position: absolute; inset-inline-end: 12%; bottom: 47%; }
 .z-subs { top: 55%; height: 8%; }
-.z-subs span { background: var(--text); color: var(--bg); font-size: .55rem; font-size: 6cqw; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+.z-subs span { background: var(--ink-fill); color: var(--on-ink-fill); font-size: .55rem; font-size: 6cqw; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
 .z-ui { inset-inline: 0; border-radius: 0; background: repeating-linear-gradient(135deg, var(--danger-soft) 0 6px, transparent 6px 12px); z-index: 1; }
 .ui-bottom { bottom: 0; height: 35%; box-shadow: inset 0 1px 0 var(--danger-soft); }
 .ui-top { top: 0; height: 14%; box-shadow: inset 0 -1px 0 var(--danger-soft); }
@@ -593,13 +597,13 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* nothing in
 .spread { display: flex; width: 76%; aspect-ratio: 2 / 1.25; box-shadow: 0 6px 14px -8px var(--overlay); }
 .spread i { flex: 1; background: var(--surface); }
 .spread i:first-child { background: linear-gradient(160deg, var(--lb-gold), var(--lb-gold-deep)); }
-.z-cta { top: 42%; height: 21%; background: var(--tint); color: var(--text-on-tint); font-size: .5rem; font-size: 5.6cqw; font-weight: 600; line-height: 1.25; padding: 4px 6px; }
+.z-cta { top: 42%; height: 21%; background: var(--tint-solid); color: var(--text-on-tint); font-size: .5rem; font-size: 5.6cqw; font-weight: 600; line-height: 1.25; padding: 4px 6px; }
 .legend { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-2); }
 .key { display: inline-flex; align-items: center; gap: .4rem; }
 .key i { width: .85rem; height: .85rem; border-radius: 3px; }
 .k-hook i { background: var(--tint-soft); box-shadow: inset 0 0 0 1px var(--tint); }
 .k-book i { background: var(--lb-gold); }
-.k-subs i { background: var(--text); }
+.k-subs i { background: var(--ink-fill); }
 .k-ui i { background: repeating-linear-gradient(135deg, var(--danger-soft) 0 3px, transparent 3px 6px); box-shadow: inset 0 0 0 1px var(--danger); }
 
 /* one topic */
@@ -716,6 +720,13 @@ main { position: relative; isolation: isolate; overflow-x: clip; } /* nothing in
 @media (max-width: 360px) {
   .lb-brand > span { display: none; }
   .segctl button { padding: 0 .7rem; }
+}
+
+/* dark mode (16 Nov 2026): the rules a token cannot carry. The gold number discs keep dark numbers (the light text colour fails on
+   gold), and the menu floats one step lighter than a card, as Apple's elevated panels do on a dark ground. */
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-appearance])) .node, :root:where(:not([data-appearance])) .beat-n { color: var(--bg); }
+  :root:where(:not([data-appearance])) .menu { background: var(--surface-2); }
 }
 """
 
@@ -901,7 +912,6 @@ def build():
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{TITLE}</title>
 {design.head(nav=False)}
-<meta name="theme-color" content="#FFFFFF">
 {RTL_BOOT}
 <style>{PAGE_CSS}</style>
 

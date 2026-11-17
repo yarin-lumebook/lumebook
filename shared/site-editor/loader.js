@@ -37,6 +37,12 @@ svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; s
 span { max-width: 0; overflow: hidden; white-space: nowrap; transition: max-width .2s, margin .2s; }
 button:hover span, button:focus-visible span, button[aria-busy="true"] span { max-width: 9em; margin-left: 8px; }
 button[hidden] { display: none; }
+/* dark mode (16 Nov 2026): the same glass, dark, following the system appearance like the pages */
+@media (prefers-color-scheme: dark) {
+  button { color: #f5f5f7; background: radial-gradient(130% 160% at 14% -30%, rgb(255 255 255 / 10%), rgb(255 255 255 / 0%) 58%), rgb(44 44 44 / 72%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 14%), inset 0 -1px 0 rgb(0 0 0 / 40%), inset 0 0 0 1px rgb(255 255 255 / 9%), 0 12px 30px -10px rgb(0 0 0 / 70%), 0 1px 3px rgb(0 0 0 / 45%); }
+  button:focus-visible { outline-color: #0a84ff; }
+}
 @media print { :host { display: none !important; } }
 </style><button type="button" title="Edit this page" aria-label="Edit this page"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3z"/><path d="M9 4l3 3"/></svg><span>Edit</span></button>`;
   const btn = shadow.querySelector("button");

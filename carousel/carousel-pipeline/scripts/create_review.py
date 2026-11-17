@@ -4,7 +4,8 @@
     python3 carousel/carousel-pipeline/scripts/create_review.py PATH/pack.json
 
 Right to left: lang="he" dir="rtl", direction rtl, right aligned. The page chrome uses the LumeBook design system
-(shared/design: tokens, lb- components, white only since 05 Nov 2026), inlined so the file stands alone.
+(shared/design: tokens, lb- components, light and dark from the system appearance since 16 Nov 2026), inlined so the file
+stands alone.
 Each option is one card: who it is about, the strategy in one row, the slide previews as editable cards, caption
 and CTA, and two dropdowns (claims and sources, image descriptions). The page never picks a winner.
 
@@ -54,7 +55,7 @@ SLIDE_CSS = """
 .p-kid{--p:#5B2BD6;--p-soft:#F1EBFF;--p-card:#F8F4FF;--p-deep:#3B1D78;--p-font:"Rubik";--p-cta:#3B1D78;--p-cta2:#5B2BD6}
 .p-expert{--p:#A8741F;--p-soft:#F8EEDC;--p-card:#FCF7EE;--p-deep:#1D1039;--p-font:"Heebo Slide";--p-cta:#1D1039;--p-cta2:#1D1039}
 .deck{--ink:#1D1039;--ink2:#4B4062;--muted:#7D7491;--line:#E7DFD2;--violet:#5B2BD6;--violet-soft:#F0EAFF;--cream:#FBF6EE;color-scheme:light;color:#1D1039;font-family:"Heebo Slide","Assistant",-apple-system,"SF Hebrew","Arial Hebrew",sans-serif;font-size:16px;line-height:1.55;font-weight:400;-webkit-font-smoothing:auto}
-.hstory{font-size:13px;line-height:1.7;color:#4B4062;margin:8px 2px 0}.hstory b{color:#1D1039;margin-inline-end:6px}
+.hstory{font-size:13px;line-height:1.7;color:var(--text-2);margin:8px 2px 0}.hstory b{color:var(--text);margin-inline-end:6px} /* page text under the deck, not a slide: tokens since 16 Nov 2026 (dark mode) */
 .deck{display:grid;grid-template-columns:repeat(7,minmax(150px,1fr));gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x proximity}
 .deck .card{scroll-snap-align:start}
 .card{background:var(--p-card,var(--cream));border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;display:flex;flex-direction:column;gap:6px;min-height:200px;direction:rtl;text-align:right}
@@ -339,7 +340,7 @@ body.editing{--rv-sticky:7.75rem}
 /* the option links in the top bar (lb-toc): one pill group per pillar, the child's name dimmed */
 .jump a span{color:var(--text-3);font-weight:400}
 .jump .grp{flex:none;display:flex;align-items:center;gap:2px;padding:2px;border-radius:var(--r-pill);background:var(--pill-soft,var(--fill))}
-.jump .grp a:hover{background:var(--surface)}
+.jump .grp a:hover{background:var(--raised)}
 .jump .grp .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--pill,var(--text-3));margin-inline:var(--sp-2) var(--sp-1);flex:none}
 .rp-list{margin:0;padding-inline-start:1.1rem;display:grid;gap:var(--sp-1)}
 .top>.lb-row h1{margin-inline-end:auto}
@@ -352,10 +353,12 @@ body.editing{--rv-sticky:7.75rem}
 .editbar .msg{flex:1 1 12rem;min-width:0;font-size:var(--fs-footnote);color:var(--text-2)}
 @media (max-width:980px){:root{--rv-sticky:6rem}body.editing{--rv-sticky:11rem}}
 @media (max-width:860px){.editbar{padding-inline:var(--sp-4)}}
-.p-kid{--pill:var(--kid);--pill-soft:var(--kid-soft)}
-.p-expert{--pill:var(--expert);--pill-soft:var(--expert-soft)}
+.p-kid{--pill:var(--kid);--pill-soft:var(--kid-soft);--pill-solid:var(--kid-solid)}
+.p-expert{--pill:var(--expert);--pill-soft:var(--expert-soft);--pill-solid:var(--expert-solid)}
+/* dark mode (16 Nov 2026): --kid and --expert become light text colours there, too light under white text, so the number disc fills
+   with the design system's --kid-solid and --expert-solid (the light pillar inks in both appearances) */
 /* the pillar colour on the shared number disc and ID chip */
-.p-kid .lb-disc,.p-expert .lb-disc{background:var(--pill);color:var(--text-on-tint);font-family:var(--font);font-size:1rem}
+.p-kid .lb-disc,.p-expert .lb-disc{background:var(--pill-solid);color:var(--text-on-tint);font-family:var(--font);font-size:1rem}
 .p-kid .lb-pid,.p-expert .lb-pid{background:var(--pill-soft);color:var(--pill)}
 .top{display:grid;gap:var(--sp-3);min-width:0}
 .lead{color:var(--text-2);max-width:80ch;font-size:var(--fs-callout)}
@@ -682,7 +685,7 @@ def build_html(pack):
     parts = [
         '<!doctype html>',
         '<html lang="he" dir="rtl">',
-        '<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">',
+        '<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">',   # color-scheme light dark comes with design.head() (16 Nov 2026)
         f'<title>קרוסלות לבוקר {esc(pack["date"])}</title>',
         design.head(),
         f'<style>{styles}</style></head>',

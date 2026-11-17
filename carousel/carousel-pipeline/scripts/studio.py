@@ -278,7 +278,7 @@ button{font-family:inherit}
 .gc.picked .gc-thumb>*{box-shadow:0 0 0 3px var(--tint)}
 .gc-frame{position:relative}
 .gc-pick{position:absolute;bottom:var(--sp-2);inset-inline-end:var(--sp-2);z-index:1;display:inline-flex;align-items:center;height:1.75rem;padding:0 .65rem;border:0;border-radius:var(--r-pill);background:var(--surface);color:var(--text);font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;box-shadow:var(--shadow-2);cursor:pointer}
-.gc-pick[aria-pressed="true"]{background:var(--tint);color:var(--text-on-tint)}
+.gc-pick[aria-pressed="true"]{background:var(--tint-solid);color:var(--text-on-tint)} /* dark mode (16 Nov 2026): the -solid fill under white text */
 .gc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:2px var(--sp-2);font-family:var(--font-2);font-size:var(--fs-caption);color:var(--text-3);min-width:0}
 .gc-meta .who{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gc-meta .lb-chip{flex:none;font-size:var(--fs-caption);padding-inline:.45rem} /* compact chips under a thumbnail */
@@ -318,7 +318,7 @@ button{font-family:inherit}
 .hs-group.is-test h2 .lb-chip{font-weight:600}
 .hs-stage .st-r .lay{font-size:var(--fs-caption);font-weight:700;color:var(--tc-ink,var(--text-3))}
 .hs-badge{display:inline-flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;border-radius:var(--r-xs);font-weight:700;font-size:var(--fs-caption);background:var(--fill-2);color:var(--text-3);font-variant-numeric:tabular-nums}
-.hs-badge.on{background:var(--surface);color:var(--tint);box-shadow:var(--shadow-1)}
+.hs-badge.on{background:var(--raised);color:var(--tint);box-shadow:var(--shadow-1)} /* dark mode (16 Nov 2026): a chosen badge is the lit piece (--raised), white in light */
 .lb-chip .lb-spinner{width:.75rem;height:.75rem} /* the running status chip */
 .hs-foot{font-size:var(--fs-caption);color:var(--text-3);padding:var(--sp-4);line-height:1.6}
 .hs-empty{color:var(--text-3);font-size:var(--fs-callout);padding:var(--sp-5) var(--sp-4);text-align:center}
@@ -347,6 +347,12 @@ button{font-family:inherit}
 .st-card [contenteditable]:focus{box-shadow:0 0 0 2px var(--tint);background:#fff}
 .st-card.cta [contenteditable]:focus{background:rgba(255,255,255,.12)}
 .st-card [contenteditable].dirty{box-shadow:0 0 0 2px var(--accent)}
+/* dark mode (16 Nov 2026): the old slide cards keep their light look, so their hover ring keeps the light ink line and the focus
+   ring the deep violet (--line-strong and --tint turn light in dark mode and would vanish on the light card); the CTA card is dark */
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-appearance])) .st-card:not(.cta) [contenteditable]:not(.dirty):hover{box-shadow:0 0 0 1px rgba(43,36,29,.2)}
+  :root:where(:not([data-appearance])) .st-card:not(.cta) [contenteditable]:not(.dirty):focus{box-shadow:0 0 0 2px var(--tint-solid)}
+}
 [contenteditable]:empty::before{content:attr(data-ph);opacity:.45}
 .st-imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:var(--sp-3)}
 .st-img{display:block;padding:0;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--tint-soft);cursor:zoom-in;aspect-ratio:4/5}
@@ -375,7 +381,7 @@ button{font-family:inherit}
 .in-scores button{border:1px solid var(--line-strong);background:var(--surface);border-radius:var(--r-md);padding:var(--sp-2) 0;cursor:pointer;display:grid;gap:2px;color:var(--text)}
 .in-scores button b{font-size:1.2rem;line-height:1}
 .in-scores button span{font-size:var(--fs-caption);color:var(--text-3)}
-.in-scores button[aria-pressed="true"]{background:var(--tint);border-color:var(--tint);color:var(--text-on-tint)}
+.in-scores button[aria-pressed="true"]{background:var(--tint-solid);border-color:var(--tint-solid);color:var(--text-on-tint)}
 .in-scores button[aria-pressed="true"] span{color:var(--text-on-tint)}
 .in-switch{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);padding:var(--sp-3);border-radius:var(--r-md);background:var(--surface-2)}
 .in-switch label{font-weight:600;cursor:pointer}

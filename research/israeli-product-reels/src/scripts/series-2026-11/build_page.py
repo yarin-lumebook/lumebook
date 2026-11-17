@@ -1,7 +1,8 @@
 """november-calendar.html: the November reel calendar as a page (Yarin, 04 Nov 2026: "html").
 
 Built from reels.json by `reels.py build` (which calls page()). Never edit the HTML; edit reels.json and build.
-Design system: shared/design (design.head(), lb- components, white only). Series colours come from the
+Design system: shared/design (design.head(), lb- components; light and dark from the system appearance since 16 Nov 2026,
+so page rules use tokens only, shadows rgba(var(--shade), a)). Series colours come from the
 "reel-series" set in shared/design/categories.json; status has its own chips, never a category hue.
 
 Editing (Yarin, 04 Nov 2026: "just make the text editable and auto save with full text editor options"): every text on
@@ -1465,7 +1466,7 @@ body::before {{ content: ""; position: fixed; inset: 0 0 auto; height: env(safe-
 .brief h3 {{ font-size: var(--fs-headline); }}
 .brief p {{ color: var(--text-2); max-width: 70ch; font-size: var(--fs-callout); }}
 .books {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--sp-2); }}
-.books a {{ display: grid; gap: 2px; padding: .6rem .8rem; border-radius: var(--r-md); background: var(--glass-sheen), var(--glass-card); border: 1px solid transparent; box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(41, 30, 22, .3); color: var(--text); text-decoration: none; }}
+.books a {{ display: grid; gap: 2px; padding: .6rem .8rem; border-radius: var(--r-md); background: var(--glass-sheen), var(--glass-card); border: 1px solid transparent; box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(var(--shade), .3); color: var(--text); text-decoration: none; }}
 .books a:hover {{ border-color: var(--tint); }}
 .books b {{ font-size: var(--fs-callout); }}
 .books span {{ font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }}
@@ -1550,7 +1551,7 @@ body::before {{ content: ""; position: fixed; inset: 0 0 auto; height: env(safe-
 .make-final {{ display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: var(--sp-3); align-items: start; }}
 .make-final[hidden] {{ display: none; }}
 .make-final video {{ display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: var(--r-md); background: #000; object-fit: contain;
-  box-shadow: 0 10px 22px -14px rgba(41, 30, 22, .55); }}
+  box-shadow: 0 10px 22px -14px rgba(var(--shade), .55); }}
 .make-final-info {{ display: grid; gap: 6px; align-content: start; min-width: 0; }}
 .make-final-info b {{ font-size: var(--fs-callout); }}
 .make-final-info .n {{ font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); unicode-bidi: plaintext; text-align: start; overflow-wrap: anywhere; }}
@@ -1613,7 +1614,8 @@ html.lb-docked .jobs {{ left: calc(var(--lb-dock-w) + var(--sp-4)); }}   /* besi
 .jobs-list {{ display: grid; gap: var(--sp-2); }}
 .jobs-note {{ margin: 0; font-family: var(--font-2); font-size: var(--fs-footnote); color: var(--text-3); }}
 .jobs-note:empty {{ display: none; }}
-.job {{ background: var(--surface); border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); display: grid; gap: 6px; box-shadow: var(--shadow-1); }}
+/* dark mode (16 Nov 2026): a job is an item on the tray's glass, so it takes the lit-item token (white in light, a lighter grey in dark) */
+.job {{ background: var(--raised-a); border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); display: grid; gap: 6px; box-shadow: var(--shadow-1); }}
 .job.is-bad {{ background: var(--danger-soft, var(--surface)); }}
 .job-top {{ display: flex; align-items: baseline; gap: var(--sp-2); min-width: 0; }}
 .job-hook {{ flex: 1; min-width: 0; font-weight: 600; font-size: var(--fs-callout); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
@@ -1688,7 +1690,8 @@ WEB_CSS = """<meta name="robots" content="noindex, nofollow">
 .make, #ask, .optbar .pick, [data-made], .lb-ask { display: none !important; }
 /* only the script itself: no "what they see" column, no times and no "what I say" label on a phone-width screen of the Vercel copy (10 Nov 2026, Yarin) */
 @media (max-width: 700px) { .script-t td.see, .script-t th:nth-child(3), .script-t td.tc, .script-t td.say::before { display: none !important; } }
-/* teleprompter with the camera (10 Nov 2026, Yarin: "make it a teleprompter with camera abilities"): the web copy only */
+/* teleprompter with the camera (10 Nov 2026, Yarin: "make it a teleprompter with camera abilities"): the web copy only.
+   Its fixed colours stay in dark mode too (16 Nov 2026): it is a black camera screen with white text over the video, like the Camera app */
 dialog#tp { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #000; color: #fff; overflow: hidden; }
 dialog#tp::backdrop { background: #000; }
 #tp video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }

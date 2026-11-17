@@ -780,8 +780,10 @@ class Review(unittest.TestCase):
         self.assertIn('class="legend"', html)
         self.assertIn("Rubik-VariableFont_wght.ttf", html)
         self.assertEqual(html.count('<div class="card'), 6 * lib.SLIDE_COUNT)
-        self.assertIn('color-scheme:light', html)
-        self.assertNotIn('prefers-color-scheme:dark', html)
+        # dark mode (16 Nov 2026): the page follows the system appearance; the slide deck keeps its own light look (audience content)
+        self.assertIn('@media (prefers-color-scheme: dark)', html)
+        self.assertIn('<meta name="color-scheme" content="light dark">', html)
+        self.assertRegex(html, r'\.deck\{[^}]*color-scheme:light')
         self.assertNotIn('score-row', html)  # no scorecard
         self.assertEqual(html.count('<summary>טענות ומקורות'), 6)  # claims live in a dropdown
         self.assertIn('dir="ltr"', html)  # English prompts isolated

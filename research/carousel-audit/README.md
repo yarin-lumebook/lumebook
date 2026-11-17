@@ -17,6 +17,7 @@ What every published LumeBook Instagram carousel was, how it did, and how each o
 | `creative-audit.md` | Scores, flags, carousel by carousel notes, rubric | No, built |
 | `out/hook-results.preview.json` | 7+ day old pipeline carousels in the format of `carousel/carousel-pipeline/hook-results.json` | No, built |
 | `data/postiz-results.json` | Every post published through Postiz in the last 45 days (Instagram and Facebook): its numbers as Postiz reports them (`latest`) and one row per night (`daily`), keyed by Postiz post id with `group` tying the IG and FB copies together. Written every night at 00:00 by `src/postiz_results.py` (the midnight job, since 15 Nov 2026) | No, built |
+| `data/instagram-views.json` | Views of every reel on the @lumebook.il profile grid as Instagram itself prints them (36 reels on the first read, back to the oldest), one row per night, keyed by reel shortcode. Written every night at 00:00 by `src/ig_views.py ingest` from `src/ig_views.js` (scheduled task `lumebook-creator-cards-daily`, part C, since 15 Nov 2026) | No, built |
 
 ## Commands
 
@@ -28,9 +29,12 @@ python3 research/carousel-audit/src/audit.py link pacifier-weaning            # 
 python3 research/carousel-audit/src/audit.py link --carousel 2026-10-20-pacifier --place dm
 python3 research/carousel-audit/src/audit.py hook-results --write             # copy results into the pipeline's log
 python3 research/carousel-audit/src/postiz_results.py [--days 45] [--dry-run]  # numbers per post from Postiz (runs nightly)
+python3 research/carousel-audit/src/ig_views.py show                          # Instagram's reel views next to Postiz's, with the gap
 ```
 
 Postiz numbers (since 15 Nov 2026): Postiz reads each published post's numbers (`postiz analytics:post`, read only): Instagram views, reach, saves, likes, comments, shares; Facebook impressions or plays, reactions, clicks. It gives only today's total, so the nightly run keeps a dated row per post and the growth curve builds up from 15 Nov 2026 on. It does not replace the Meta export: no follows, no profile visits, and only posts that went out through Postiz. Nothing reads this file yet (not the ranking, not `reels.py results`, not the content calendar); it is collected so the history exists when a page or the hook results need it. A post Postiz cannot read keeps its old numbers with an `error` note, never a 0.
+
+Instagram's own reel views (since 15 Nov 2026): a spot check that day (10 reels) found Postiz matching Instagram on five recent reels, 93 and 111 views short on two older ones (11 Nov and 4 Nov), and blind to reels that did not go through Postiz (two of the ten, the best one at 1,078 views). So views have a second source: the profile grid at instagram.com/lumebook.il/reels/, read only in the built-in browser by part C of the scheduled task `lumebook-creator-cards-daily` (`ig_views.js` returns the printed counts, `ig_views.py ingest` keeps one row per reel per night; counts like 12.3K are rounded by Instagram and saved with `approx`). Reels only: the grid prints no number on a carousel tile, and it has no reach, saves or shares; those still come from Postiz or the Meta export. Treat Instagram's count as the truth for views and Postiz's as a day-one signal. Facebook was not checked.
 
 `hook-results --write` changes the Carousel Machine's own results file, which can move hook formulas in its hook bank, so it only runs when asked.
 

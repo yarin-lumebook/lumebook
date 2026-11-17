@@ -27,8 +27,14 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 FONTS_URL = "https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap"
 CATEGORIES = os.path.join(HERE, "categories.json")
 
-# White only (Yarin, 05 Nov 2026: "only white mode from now on"). The black mode, its switch and the boot script that set
-# data-theme from localStorage "lb-mode" (21 Oct 2026) are gone: pages carry no theme script and no switch.
+# Light and dark (Yarin, 16 Nov 2026: "add dark mode everywhere, use apple's dark mode ui principles"; replaces white only of
+# 05 Nov 2026). Pages follow the system appearance through @media (prefers-color-scheme: dark) in lumebook.css: no theme
+# script, no switch (Apple's HIG: no app-specific appearance setting). head() adds the color-scheme and theme-color metas so
+# the browser's own parts (form controls, the canvas before the CSS loads, Safari's bar) match. A page that draws its own
+# appearance (the store mock) puts data-appearance on <html> to stay out of the dark tokens.
+APPEARANCE_META = ('<meta name="color-scheme" content="light dark">'
+                   '<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">'
+                   '<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">')
 
 
 def css():
@@ -67,11 +73,12 @@ def local_links_script():
 
 def head(include_fonts=True, theme=None, nav=True, page=None):
     """Fonts link + the whole design system inline (+ the local-links script) + the project nav (nav.js, 5 Nov 2026).
-    White only since 05 Nov 2026: there is no theme script any more; `theme` is accepted and ignored so older builds still run.
+    Light and dark from the system appearance since 16 Nov 2026 (no theme script, no switch); `theme` is accepted and ignored
+    so older builds still run.
     nav=False leaves the project nav out: only for pages people outside LumeBook see (the creator brief).
     page is this page's path in the project ("research/x/page.html"), so the nav knows where it is inside a claude.ai
     artifact too; inside `lumebook.py build` it comes from the component being built (LB_PAGE_FILE)."""
-    parts = []
+    parts = [APPEARANCE_META]
     if include_fonts:
         parts += ['<link rel="preconnect" href="https://fonts.googleapis.com">',
                   '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
@@ -121,7 +128,7 @@ def _sets():
 
 def _vars(n):
     if not n:  # 0: neutral ink, the same values as .lb-cat-0
-        return "--tc: var(--text); --tc-ink: var(--text); --tc-soft: var(--fill);"
+        return "--tc: var(--neutral-solid); --tc-ink: var(--text); --tc-soft: var(--fill);"
     return f"--tc: var(--cat-{n}); --tc-ink: var(--cat-{n}-ink); --tc-soft: var(--cat-{n}-soft);"
 
 

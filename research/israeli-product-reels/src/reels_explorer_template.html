@@ -5,7 +5,8 @@ __DESIGN_HEAD__
 <style>
 /* מערכת הרילס: one Hebrew tool for everything about reels (Yarin, 05 Nov 2026). Sidebar of sections, sticky top bar with one search
    over everything, one view at a time (hash routes). Page rules use the design system tokens only. The calendar view brings the
-   stand-alone calendar page's own rules, appended below (build: src/hub_calendar.py). */
+   stand-alone calendar page's own rules, appended below (build: src/hub_calendar.py). Light and dark follow the system
+   appearance (dark mode, 16 Nov 2026): no fixed colours here, shadows are rgba(var(--shade), a). */
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bar); }
 .lb-page, .lb-topbar-in { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 @media (min-width: 861px) { .lb-page, .lb-topbar-in { padding-left: max(var(--sp-5), env(safe-area-inset-left, 0px)); padding-right: max(var(--sp-5), env(safe-area-inset-right, 0px)); } }
@@ -25,17 +26,17 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .filter-row { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-2); align-items: center; }
 .filter-row > .lbl { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--text-3); width: 4.75rem; flex: none; }
 button.lb-chip { border: 0; cursor: pointer; }
-button.lb-chip:not(.cat)[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+button.lb-chip:not(.cat)[aria-pressed="true"] { background: var(--ink-fill); color: var(--on-ink-fill); }   /* an ink pill: a raised grey in dark mode (16 Nov 2026) */
 button.lb-chip:focus-visible, .lb-btn:focus-visible, a:focus-visible, summary:focus-visible, .lb-nav-item:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .code { direction: ltr; text-align: left; unicode-bidi: isolate; font-family: var(--font-mono); font-size: var(--fs-footnote); background: var(--surface-sunk); padding: .2rem .45rem; border-radius: var(--r-xs); overflow-wrap: anywhere; color: var(--text); }
 .copy-row { display: flex; gap: var(--sp-2); align-items: flex-start; min-width: 0; }
 .copy-row .code { flex: 1; min-width: 0; }
-.mini-btn { border: 0; box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(41, 30, 22, .18); background: var(--glass-sheen), var(--glass-thick); color: var(--tint); border-radius: var(--r-pill); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; padding: .15rem .6rem; cursor: pointer; flex: none; }
+.mini-btn { border: 0; box-shadow: var(--glass-rim), 0 2px 6px -2px rgba(var(--shade), .18); background: var(--glass-sheen), var(--glass-thick); color: var(--tint); border-radius: var(--r-pill); font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; padding: .15rem .6rem; cursor: pointer; flex: none; }
 .mini-btn:hover { border-color: var(--tint); }
 a.card-link { color: inherit; text-decoration: none; }
 a.card-link:hover { border-color: var(--tint); text-decoration: none; }
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: var(--sp-2); list-style: none; margin: 0; padding: 0; }
-.steps a { display: grid; gap: .2rem; padding: var(--sp-3); border-radius: var(--r-md); background: var(--glass-sheen), var(--glass-card); box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(41, 30, 22, .3); color: var(--text); text-decoration: none; height: 100%; font-size: var(--fs-footnote); line-height: 1.4; }
+.steps a { display: grid; gap: .2rem; padding: var(--sp-3); border-radius: var(--r-md); background: var(--glass-sheen), var(--glass-card); box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(var(--shade), .3); color: var(--text); text-decoration: none; height: 100%; font-size: var(--fs-footnote); line-height: 1.4; }
 .steps a:hover { background: var(--tint-soft); text-decoration: none; }
 .steps .n { font-family: var(--font-2); font-size: var(--fs-footnote); font-weight: 700; color: var(--tint); }
 .steps b { font-size: var(--fs-callout); }
@@ -68,7 +69,7 @@ a.card-link:hover { border-color: var(--tint); text-decoration: none; }
 /* the month is a glass card and its days are sheets on it (07 Nov 2026, the creator map's stacked glass) */
 .cal-month { gap: var(--sp-3); padding: var(--sp-4); }
 .cal-month .lb-day { overflow: hidden; }
-.cal-month .lb-day:not(.is-out) { box-shadow: var(--glass-card-rim-sm), 0 12px 22px -16px rgba(41, 30, 22, .34); }
+.cal-month .lb-day:not(.is-out) { box-shadow: var(--glass-card-rim-sm), 0 12px 22px -16px rgba(var(--shade), .34); }
 .cta-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--sp-3); }
 #save-state { min-width: 6.5rem; justify-content: center; }
 /* the calendar view (from the stand-alone calendar page) */

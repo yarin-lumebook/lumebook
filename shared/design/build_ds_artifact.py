@@ -60,6 +60,9 @@ def block(selector_regex):
 light = block(r"^:root")
 if not light:
     light = dict(re.findall(r"--([a-z0-9-]+):\s*([^;]+);", CSS.split("@media")[0]))
+# dark mode (16 Nov 2026): the same names inside @media (prefers-color-scheme: dark); a token it leaves out keeps its light value
+_dm = re.search(r":root:where\(:not\(\[data-appearance\]\)\)\s*\{(.*?)\n  \}", CSS, re.S)
+dark = {**light, **dict(re.findall(r"--([a-z0-9-]+):\s*([^;]+);", _dm.group(1)))} if _dm else {}
 
 COLOR_USAGE = {
     "lb-ink": "Brand ink.",
@@ -68,11 +71,11 @@ COLOR_USAGE = {
     "lb-gold-deep": "Brand gold, deeper.",
     "lb-violet": "Brand violet.",
     "lb-cream": "Brand cream.",
-    "bg": "Page ground: white.",
-    "surface": "Cards, grouped rows, tables, inputs: white.",
-    "surface-2": "Inset areas inside a card, table header row: pure light grey.",
+    "bg": "Page ground: white; the dimmest layer in dark (#000, the base).",
+    "surface": "Cards, grouped rows, tables, inputs: white; in dark the elevated layer (#1C1C1C), lighter than the ground.",
+    "surface-2": "Inset areas inside a card, table header row: pure light grey; in dark a step lighter than the card.",
     "sidebar": "A page's own sidebar (lb-sidebar), the inner one: pure light grey.",
-    "sidenav": "The project nav's side bar (lb-gside), the outer one: the darkest pure grey, so it reads apart from the page sidebar.",
+    "sidenav": "The project nav's side bar (lb-gside), the outer one: the darkest pure grey in light, the lighter of the two in dark, so it reads apart from the page sidebar.",
     "surface-sunk": "Wells, code blocks.",
     "bar": "Translucent sticky top bars (with backdrop blur).",
     "overlay": "Scrim behind drawers, modals and the mobile sidebar.",
@@ -85,13 +88,24 @@ COLOR_USAGE = {
     "text": "Primary text and headings. 4.5:1 or more on every surface.",
     "text-2": "Secondary text: descriptions, table cells that support a primary value.",
     "text-3": "Tertiary text: labels, captions, metadata.",
-    "text-on-tint": "Text on a solid tint button or count.",
+    "text-on-tint": "Text on a solid fill (tint-solid, danger-solid ...): white in both appearances.",
+    "tint-solid": "Fill under white text: the primary button, a tint count, a checked box, a picked day. Equal to tint in light, a deeper violet than tint in dark.",
+    "tint-solid-hover": "Hover state of tint-solid.",
+    "success-solid": "Green fill under white text (done tick, pressed check chip).", "warning-solid": "Amber fill under white text (a badge).",
+    "danger-solid": "Red fill under white text (danger button, alert count).", "info-solid": "Blue fill under white text.",
+    "accent-solid": "Gold fill under white text (a filter tile).",
+    "kid-solid": "Kid pillar as a fill under white text (a number disc).", "expert-solid": "Expert pillar as a fill under white text.",
+    "ink-fill": "An ink pill, badge, toast or tooltip: dark ink in light, a raised grey in dark (never an inverted white pill).", "on-ink-fill": "Text on ink-fill.",
+    "neutral-solid": "The neutral category's tile and swatch (lb-cat-0): ink in light, a mid grey in dark.",
+    "raised": "The lit piece of a control: the chosen segment or tab, a hovered glass button (white in light, a light grey in dark).",
+    "raised-a": "The current item on a glass panel (the nav, a page sidebar).",
+    "hover-a": "Hover on a glass panel.",
     "fill": "Quiet fill: hover rows, chips, search field, code (black at low alpha, pure grayscale).",
     "fill-2": "Tracks of bars, segmented control ground.",
     "fill-3": "Off state of a switch.",
     "line": "Hairline borders and dividers.",
     "line-strong": "Control borders, dashed empty states.",
-    "tint": "Anything you can click: links, primary buttons, active nav, checked boxes.",
+    "tint": "Anything you can click, as text: links, the current nav item, a selected option. Fills under white text use tint-solid.",
     "tint-hover": "Hover state of tint.",
     "tint-soft": "Soft tint ground: selected pill, tint chip, focus halo.",
     "focus": "Focus ring.",
@@ -118,7 +132,8 @@ ORDER = ["lb-ink", "lb-ink-deep", "lb-gold", "lb-gold-deep", "lb-violet", "lb-cr
          "bg", "surface", "surface-2", "surface-sunk", "sidebar", "sidenav", "bar", "overlay", "overlay-2",
          "glass", "glass-thick", "glass-clear", "glass-grey", "glass-grey-deep",
          "text", "text-2", "text-3", "text-on-tint", "fill", "fill-2", "fill-3", "line", "line-strong",
-         "tint", "tint-hover", "tint-soft", "focus", "accent", "accent-soft", "accent-ink",
+         "tint", "tint-hover", "tint-soft", "focus", "tint-solid", "tint-solid-hover", "success-solid", "warning-solid", "danger-solid", "info-solid",
+         "accent-solid", "kid-solid", "expert-solid", "neutral-solid", "ink-fill", "on-ink-fill", "raised", "raised-a", "hover-a", "accent", "accent-soft", "accent-ink",
          "success", "success-soft", "warning", "warning-soft", "danger", "danger-soft", "info", "info-soft",
          "kid", "kid-soft", "expert", "expert-soft"] + [f"seq-{i}" for i in range(1, 7)] + \
         [f"cat-{i}{s}" for i in range(1, 9) for s in ("", "-ink", "-soft")]
@@ -135,13 +150,15 @@ def tokens():
         if name not in light:
             continue
         val = {"light": color_value(light[name])}
+        if dark:
+            val["dark"] = color_value(dark.get(name, light[name]))
         colors.append({"name": name, "value": val, "usage": COLOR_USAGE.get(name, "")})
     fam = {"sans": light["font"], "secondary": light["font-2"], "mono": light["font-mono"]}
     fam = {k: v.strip() for k, v in fam.items()}
     t = {
         "name": "LumeBook", "version": 1,
         "meta": {"source": "shared/design/lumebook.css (LumeBook project repo)"},
-        "color": {"themes": [{"id": "light", "name": "White"}], "tokens": colors},
+        "color": {"themes": [{"id": "light", "name": "Light"}] + ([{"id": "dark", "name": "Dark"}] if dark else []), "tokens": colors},
         "type": {"fonts": [], "families": fam, "groups": [
             {"name": "Display", "family": "sans", "styles": [
                 {"name": "display", "fontSize": "38px", "lineHeight": 1.15, "fontWeight": 800, "sample": "לוח לומבוק", "usage": "Page titles (h1). Heebo ExtraBold, tracking -0.022em; once per page."},
@@ -169,7 +186,7 @@ def tokens():
         "radius": {"tokens": [{"name": n, "value": light[n].strip(), "usage": u} for n, u in
                               [("r-xs", "Code, bars, small marks."), ("r-sm", "Inputs, small controls."),
                                ("r-md", "Nav items, alerts, empty states, inner corners of a card."), ("r-lg", "Cards, tables, grouped lists, menus."), ("r-xl", "Floating glass: the nav panel, a page sidebar, sheets, drawers, dialogs."), ("r-pill", "Buttons, chips, search, switches, segmented controls, the phone tab bar.")]]},
-        "shadow": {"tokens": [{"name": n, "value": {"light": light[n].strip()}, "usage": u} for n, u in
+        "shadow": {"tokens": [{"name": n, "value": {"light": light[n].strip(), **({"dark": dark[n].strip()} if dark else {})}, "usage": u} for n, u in
                               [("shadow-1", "Cards, active nav item, segmented thumb: a close contact shadow."), ("shadow-2", "Raised card, hovered link card."), ("shadow-3", "Drawers, modals, menus, toasts, mobile sidebar.")]]},
     }
     return t
@@ -177,7 +194,7 @@ def tokens():
 
 README = """# LumeBook
 
-The design system for every internal LumeBook page: the project dashboard (לוח לומבוק), the SMM plan, the creator map, the research reports and the nightly carousel review. It is Hebrew first and right to left, white only, and built for scanning operational data.
+The design system for every internal LumeBook page: the project dashboard (לוח לומבוק), the SMM plan, the creator map, the research reports and the nightly carousel review. It is Hebrew first and right to left, light and dark (following the system appearance), and built for scanning operational data.
 
 It is **not** used by the public ambassadors site (lumebook-ambassadors.vercel.app), which keeps its own look for creators, or by the carousel slides themselves, whose two pillar looks are audience content.
 
@@ -207,7 +224,7 @@ It is **not** used by the public ambassadors site (lumebook-ambassadors.vercel.a
 - **Type.** Heebo is the main font, headings included (h1 ExtraBold 800, h2 Bold 700, slightly tight tracking); Assistant is the secondary font for labels, captions, counts, chips, table headers and the sidebar group labels. Both carry Hebrew and Latin. Body text, buttons and inputs stay on Heebo. System mono for commands. Scale: display 38, title 22, headline 18, body 16, callout 15, footnote 13, caption 12. Varela Round was dropped on 18 Oct 2026.
 - **Space and shape.** 4pt spacing, pill buttons and chips, 20px card radius, 28px for floating glass. Corners are concentric (an inner corner is its container's radius minus the padding between them), as in iOS 26. Touch screens get 44px targets and 16px fields.
 - **Colours.** Vibrant (Yarin, 06 Nov 2026: "lets go back to vibrant colors"): violet to click, gold for emphasis and the eight category hues at full colour. Earlier that day the palette was lumebook.com/IL/he's; that was undone.
-- **Theme.** Light only (Yarin, 05 Nov 2026: "only white mode from now on"). One set of tokens on `:root`; no black mode, no theme switch, no `prefers-color-scheme`. The black mode and its switch (21 Oct 2026) are gone, and so are the cream and purple grounds before it. `design.theme_toggle()` returns nothing. Every text token passes 4.5:1 on every surface.
+- **Theme.** Light and dark (Yarin, 16 Nov 2026: "add dark mode everywhere, use apple's dark mode ui principles"; it replaces the white-only rule of 05 Nov 2026). Every page follows the system appearance (macOS, iOS, Auto) with no switch of its own, as Apple's HIG asks ("Avoid offering an app-specific appearance setting"). The dark tokens are the same names inside `@media (prefers-color-scheme: dark)`: a near-black base ground (`bg` #000) with brighter elevated layers (a card `surface` #1C1C1C, an inset or sheet lighter again, floating glass the lightest), so depth comes from lighter layers rather than shadows; brighter variants of every colour (violet text #A88BFF, gold ink #EBC27E, the eight category inks lifted); surfaces still pure grayscale and text still warm. Text colours and fills under white text are separate tokens (`tint` and `tint-solid`, `danger` and `danger-solid` ...), since a colour light enough to read on a dark ground is too light under white text. Every text token passes 4.5:1 on every surface in both appearances (see Contrast). A page that draws its own appearance (the store mock) sets `data-appearance` on `html` and stays out. `design.theme_toggle()` returns nothing.
 - **Motion.** Short and springy (0.14s to 0.42s, `--ease` and `--ease-spring`), never decorative: press states scale to 97%, the switch knob stretches, cubes and link cards lift. All of it stops under `prefers-reduced-motion`.
 - **Liquid Glass** (Yarin, 07 Nov 2026: "apply apple design principles and latest liquid glass to the entire project"). Two layers, both glass. Every card is Liquid Glass (Yarin, 07 Nov 2026: "construct every card in the design system to look like apple made it using liquid glass"): a translucent grayscale body that is bright at the lit corner, a specular rim and glow, a two-layer lift (`--glass-card`, `--glass-card-rim`, `--glass-card-lift`), no blur when repeated; tables, text, tiles and charts stay opaque. The control layer above the content (project nav, top and edit bars, menus, sheets, drawers, toasts, buttons, switches, segmented controls) is Liquid Glass: a translucent grayscale tint over a blurred, saturated copy of what is behind it, a bright specular rim on the top edge, a darker one below, and a soft lift shadow (`--glass`, `--glass-thick`, `--glass-clear`, `--glass-rim`, `--glass-lift`; the `lb-glass` class and its `is-thick`, `is-clear`, `is-tint`, `is-capsule` and `is-interactive` variants). Rules of the material: never glass on glass, always legible (thick glass under text), tinted only through `lb-glass is-tint` (violet), and nothing repeated in a list carries a backdrop blur. It falls back to flat white and grey surfaces for more contrast and browsers without `backdrop-filter` (and for Reduce Transparency on a page that sets `data-honor-transparency`, as the public creator brief does; the internal tools ignore that setting so the glass shows). Full-width sticky bars use the most transparent glass (`--glass-bar`) and the faded edge of `lb-edge`. On a mouse, the select list, date calendar and time clock are glass popups too (`lb-selmenu`, `lb-cal`, `lb-timepick`, drawn by `controls.src.js`); touch screens keep the system pickers. The project nav and a page's own sidebar are floating panels inset from the window edge (the nav the darker grey, the sidebar the lighter), the phone tab bar is a floating capsule. Carousel slides and the retired ambassadors site keep their own looks.
 
@@ -497,7 +514,7 @@ COVER = """<!-- @dsCard height=300 -->
     <rect class="soft" x="752" y="214" width="96" height="64" rx="32"/>
   </svg>
   <p class="name">LumeBook</p>
-  <p class="tag">One design system for every internal page: Hebrew first, light only, violet to click, gold to celebrate.</p>
+  <p class="tag">One design system for every internal page: Hebrew first, light and dark, violet to click, gold to celebrate.</p>
 </div>
 """
 
@@ -532,7 +549,7 @@ def palette_md():
 
 def contrast_md():
     out, worst_all = [], 99
-    for mode, t in (("White", light),):
+    for mode, t in (("Light", light),) + ((("Dark", dark),) if dark else ()):
         surf, bg, s2 = (t[k].strip() for k in ("surface", "bg", "surface-2"))
         grounds = lambda soft: (_rgb(surf)[0], _rgb(bg)[0], _rgb(s2)[0], _over(soft, surf), _over(soft, bg))
         rows = [f"**{mode}**", "", "| Token | ink on surface | ink on bg | ink on surface-2 | ink on soft (on surface) | ink on soft (on bg) | base under icons |", "|---|---|---|---|---|---|---|"]
@@ -543,7 +560,7 @@ def contrast_md():
         worst = min(_ratio(_rgb(t[f"cat-{i}-ink"])[0], g) for i in CAT_HUES for g in grounds(t[f"cat-{i}-soft"]))
         # text and the coloured text tokens on every surface, and text on a tint button
         pairs = [(k, g) for k in ("text", "text-2", "text-3", "tint", "accent-ink", "success", "warning", "danger", "info", "kid", "expert")
-                 for g in (surf, bg, s2)] + [("text-on-tint", t["tint"].strip())]
+                 for g in (surf, bg, s2)] + [("text-on-tint", t["tint-solid"].strip()), ("text-on-tint", t["danger-solid"].strip()), ("text-on-tint", t["success-solid"].strip())]
         low = min((_ratio(_rgb(t[k])[0], _rgb(g if g.startswith("#") else t[g])[0]), k) for k, g in pairs)
         assert worst >= 4.5, f"{mode}: a category ink falls below 4.5:1 ({worst:.2f})"
         assert low[0] >= 4.5, f"{mode}: {low[1]} falls below 4.5:1 ({low[0]:.2f})"

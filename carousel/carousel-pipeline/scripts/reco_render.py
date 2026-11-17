@@ -444,7 +444,7 @@ body.editing .rp-off{display:none}
 .rp-copy .lbl{font-size:var(--fs-caption);color:var(--text-3)}
 .rp-copy .val{white-space:pre-line;font-size:var(--fs-callout);line-height:1.45}
 .rp-hl{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-caption);color:var(--text-3);margin-top:var(--sp-1)}
-.rp-hl .hl{background:var(--tint);color:var(--text-on-tint);border-radius:var(--r-xs);padding:1px 8px;font-weight:700;min-width:2em}
+.rp-hl .hl{background:var(--tint-solid);color:var(--text-on-tint);border-radius:var(--r-xs);padding:1px 8px;font-weight:700;min-width:2em}
 .rp-copy .val.t{font-weight:700}
 .rp-caption{white-space:pre-line;font-size:var(--fs-callout);background:var(--surface-2);border-radius:var(--r-md);padding:var(--sp-3);margin-top:var(--sp-3)}
 details.prod{border-top:1px solid var(--line)}
@@ -659,7 +659,7 @@ def reco_page(folder, fmt, history=None):
     ]
     page = "\n".join(body).replace('<nav class="lb-tabs rv-tabs" aria-label="עמודים"></nav>', tabs_html(folder, fmt), 1)
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<meta name="color-scheme" content="light"><title>{esc(TAB_LABELS[fmt])} · {esc(car["date"])}</title>{design.head()}'
+            f'<title>{esc(TAB_LABELS[fmt])} · {esc(car["date"])}</title>{design.head()}'
             f'<style>body{{direction:rtl;text-align:right}}{create_review.PAGE_CSS}{REVIEW_CSS}</style></head>\n'
             f'<body dir="rtl" data-date="{esc(car["date"])}" data-format="{fmt}" data-dir="{esc(sub)}">'
             '<header class="lb-topbar rv-topbar"><div class="lb-topbar-in">'
@@ -703,7 +703,7 @@ def standalone_page(folder, date):
     import create_review
     design = create_review.design
     return ('<!doctype html>\n<html lang="he" dir="rtl">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<meta name="color-scheme" content="light"><title>{esc(date)}</title>{design.head()}<style>body{{direction:rtl;text-align:right}}{create_review.PAGE_CSS}{REVIEW_CSS}</style></head>\n'
+            f'<title>{esc(date)}</title>{design.head()}<style>body{{direction:rtl;text-align:right}}{create_review.PAGE_CSS}{REVIEW_CSS}</style></head>\n'
             f'<body dir="rtl" data-date="{esc(date)}"><main class="lb-page">{tabs_html(folder, "pack")}<p class="edit-note">אין קרוסלות ילד ומומחה הלילה</p></main></body></html>')
 
 

@@ -82,7 +82,8 @@ def head_for(public):
     """design.head without the project nav (Yarin: "i dont need the side bar"). The dark glass needs its own tokens, so the
     Reduce Transparency switch (data-honor-transparency, which would turn every card white) is left out on both copies.
     The public copy also drops what only we should read: the local-links map and the design system's comments."""
-    h = design.head(nav=False).replace(HONOR, "")
+    # its own night and day look and its own switch: out of the design system's dark mode (data-appearance on <html>, 16 Nov 2026)
+    h = design.head(nav=False).replace(HONOR, "").replace(getattr(design, "APPEARANCE_META", "\0"), "")
     if public:
         h = h.replace(design.local_links_script(), "")
         s, e = h.index("<style>"), h.index("</style>")
@@ -285,7 +286,7 @@ def build():
         else:
             meta = '<meta name="robots" content="noindex">\n<title>החנות בעיצוב שלנו · לומבוק</title>'
         return f"""<!doctype html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-appearance="own">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

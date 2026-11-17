@@ -27,7 +27,7 @@
 
 /* Top 20 */
 .top { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); counter-reset: top; }
-.top li { counter-increment: top; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--sp-3); background: var(--glass-sheen), var(--glass-card); box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(41, 30, 22, .3);
+.top li { counter-increment: top; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--sp-3); background: var(--glass-sheen), var(--glass-card); box-shadow: var(--glass-card-rim-sm), 0 10px 20px -16px rgba(var(--shade), .3);
   border: 1px solid transparent; border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); }
 .top li::before { content: counter(top); font-weight: 800; font-size: 1.375rem; color: var(--accent-ink); line-height: 1.2; font-variant-numeric: tabular-nums; }
 .top .t-name { font-weight: 700; font-size: var(--fs-callout); line-height: 1.35; }

@@ -242,7 +242,7 @@ CSS = r"""
   .pr-views { display: grid; gap: 2px; }
   .pr-fnav[hidden] { display: none; }
   .pr-fnav .lb-nav-item { padding-block: .4rem; font-size: var(--fs-footnote); }
-  .pr-fnav .lb-nav-item[aria-pressed="true"] { background: var(--surface); color: var(--tint); box-shadow: var(--shadow-1); }
+  .pr-fnav .lb-nav-item[aria-pressed="true"] { background: var(--raised); color: var(--tint); box-shadow: var(--shadow-1); }
   .pr-nav-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .pr-sw { flex: none; width: .55rem; height: .55rem; border-radius: 2px; background: var(--tc, var(--text-3)); }
   .pr-sw.is-none { background: var(--fill-2); }
@@ -310,7 +310,7 @@ CSS = r"""
   .pr-stars-off { color: var(--line-strong); }
   /* the screenshot sits in a pressed-in well, scaled to fit, never cropped */
   .pr-shot { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; border-radius: var(--r-md); background: var(--surface-sunk);
-    box-shadow: inset 0 1px 3px rgba(41, 30, 22, .08); cursor: zoom-in; overflow: hidden; }
+    box-shadow: inset 0 1px 3px rgba(var(--shade), .08); cursor: zoom-in; overflow: hidden; }
   .pr-shot img { position: absolute; inset: var(--sp-2); width: calc(100% - 2 * var(--sp-2)); height: calc(100% - 2 * var(--sp-2)); object-fit: contain; object-position: center; }
   .pr-shot:hover img { transform: scale(1.02); }
   .pr-shot img { transition: transform var(--dur-1, .15s) var(--ease, ease); }

@@ -6,7 +6,9 @@
 <script>document.documentElement.setAttribute("lang","he");document.documentElement.setAttribute("dir","rtl")</script>
 <style>
 /* Creator map: page rules on top of the LumeBook design system (shared/design/lumebook.css, inlined above by build2.py).
-   Hebrew, right to left, since 20 Oct 2026 (Yarin). Design tokens only, white only (05 Nov 2026). App shell = lb-app, lb-sidebar, lb-nav-item, lb-topbar, lb-page. */
+   Hebrew, right to left, since 20 Oct 2026 (Yarin). Design tokens only, so the page follows the system's light and dark mode (16 Nov 2026):
+   shadows rgba(var(--shade),a), hairlines rgba(var(--ink-line),a), white glass the lit-piece tokens (--hi, --hi-2, --sheet), fills under white
+   text the -solid tokens. App shell = lb-app, lb-sidebar, lb-nav-item, lb-topbar, lb-page. */
 :root{
   --lb-logo:url("__LB_LOGO__");
   /* older variable names, mapped onto design tokens (--bg, --fill*, --tint*, --accent*, --success*, --warning*, --danger*, --font, --font-display and --r-pill are design tokens already) */
@@ -48,7 +50,7 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 /* tracks are categories, not states: a square swatch in the track's category colour (shared/design/categories.json, set creator-tracks) */
 .dot.tk{border-radius:2px;--c:var(--tc);background:var(--tc)}
 /* status colours: one design token each, always beside the status word (never colour alone) */
-.st-new{--c:color-mix(in srgb,var(--text-3) 38%,white)}                       /* not started: pale gray */
+.st-new{--c:color-mix(in srgb,var(--text-3) 38%,var(--surface))}              /* not started: pale gray (mixed with the card ground, white in light, so it stays pale in dark) */
 .st-sent{--c:var(--tint)}                                                        /* waiting on them: violet */
 .st-due{--c:var(--warning)}                                                      /* your move now: amber */
 .st-noreply{--c:color-mix(in srgb,var(--warning) 40%,var(--text-3))}             /* went quiet: dull amber-brown */
@@ -58,7 +60,7 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .st-yes,.st-posted{--c:var(--success)}                                           /* done well: green */
 .st-code{--c:var(--accent)}
 .st-retry{--c:color-mix(in srgb,var(--accent) 65%,var(--danger))}                /* second try: copper */
-.st-future{--c:color-mix(in srgb,var(--tint) 42%,white)}                         /* maybe later: pale violet */
+.st-future{--c:color-mix(in srgb,var(--tint) 42%,var(--surface))}                /* maybe later: pale violet */
 .st-declined{--c:var(--danger)}                                                  /* said no: red */
 .st-unfit{--c:var(--text-2)}                                                     /* not a fit: dark gray */
 .st-all{--c:var(--text)}
@@ -229,7 +231,7 @@ body.drw-open,body.ask-open{overflow:hidden}
 .tb-acts{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
 .lb-btn.tbb .i{width:1rem;height:1rem}
 .lb-btn.tbb[aria-expanded="true"]{background:var(--tint-soft);color:var(--tint);border-color:transparent}
-.tb-sel{display:inline-flex;align-items:center;gap:.35rem;background:var(--glass-sheen),var(--glass-thick);border:0;box-shadow:var(--glass-rim),0 2px 8px -3px rgba(41,30,22,.18);border-radius:var(--r-pill);padding-inline:.85rem .3rem;min-height:2.25rem;color:var(--text)}
+.tb-sel{display:inline-flex;align-items:center;gap:.35rem;background:var(--glass-sheen),var(--glass-thick);border:0;box-shadow:var(--glass-rim),0 2px 8px -3px rgba(var(--shade),.18);border-radius:var(--r-pill);padding-inline:.85rem .3rem;min-height:2.25rem;color:var(--text)}
 .tb-sel .i{width:1rem;height:1rem}
 .tb-sel:hover{border-color:var(--tint);color:var(--tint)}
 .tb-sel select{appearance:none;-webkit-appearance:none;border:0;background-color:transparent;font:inherit;font-size:var(--fs-callout);font-weight:600;color:inherit;padding:.35rem 0 .35rem 1.5rem;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:6px 52%,11px 52%;background-size:5px 5px;background-repeat:no-repeat}
@@ -322,7 +324,7 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .olist{display:grid;gap:var(--sp-5)}
 /* Each card stands apart: a 2px frame and a deeper shadow than the page's other cards (Yarin, 1 Nov 2026). The frame is shared with
    the reminder and follow-up stacks (.rsi, the card with its strip, and .rs-peek, the cards under it), so a card there is the same glass. */
-.oc,.rsi,.rs-peek{--oc-pad:var(--sp-5);--oc-edge:color-mix(in srgb,var(--text) 16%,transparent);--oc-edge-hi:color-mix(in srgb,var(--text) 34%,transparent);--oc-shadow:0 1px 2px rgba(41,30,22,.07),0 4px 10px -2px rgba(41,30,22,.09),0 26px 46px -22px rgba(41,30,22,.42);background:var(--glass-sheen),var(--glass-card);border:2px solid rgba(255,255,255,.92);border-radius:var(--r-lg);--oc-frame:0 0 0 1px var(--oc-edge),inset 0 0 0 1px rgba(43,36,29,.1),inset 0 0 28px rgba(255,255,255,.6),var(--oc-shadow);box-shadow:var(--oc-frame)}
+.oc,.rsi,.rs-peek{--oc-pad:var(--sp-5);--oc-edge:color-mix(in srgb,var(--text) 16%,transparent);--oc-edge-hi:color-mix(in srgb,var(--text) 34%,transparent);--oc-shadow:0 1px 2px rgba(var(--shade),.07),0 4px 10px -2px rgba(var(--shade),.09),0 26px 46px -22px rgba(var(--shade),.42);background:var(--glass-sheen),var(--glass-card);border:2px solid var(--hi);border-radius:var(--r-lg);--oc-frame:0 0 0 1px var(--oc-edge),inset 0 0 0 1px rgba(var(--ink-line),.1),inset 0 0 28px var(--hi-2),var(--oc-shadow);box-shadow:var(--oc-frame)}
 .oc{position:relative;padding:0;gap:0;overflow:visible;margin-bottom:2rem}
 .oc > *{min-width:0}   /* a wide row (the message tabs) scrolls inside the card and never widens it */
 .oc.done{opacity:.72}
@@ -349,26 +351,26 @@ details[open] summary{margin-bottom:var(--sp-2)}
 .oc .xdecl .i{width:1rem;height:1rem}
 .oc .xdecl:hover{background:var(--danger-soft);border-color:transparent;color:var(--danger)}
 /* the two close buttons sit in one glass capsule (lb-btn-group look, no blur: repeats in a list); each is its own circle with a translucent fill and rim: gray minus = not suitable, red x = declined */
-.oc .xpair{display:inline-flex;align-items:center;gap:6px;padding:4px;border-radius:var(--r-pill);background:var(--glass-sheen),var(--glass-thick);box-shadow:var(--glass-rim),0 2px 8px -3px rgba(41,30,22,.18)}
+.oc .xpair{display:inline-flex;align-items:center;gap:6px;padding:4px;border-radius:var(--r-pill);background:var(--glass-sheen),var(--glass-thick);box-shadow:var(--glass-rim),0 2px 8px -3px rgba(var(--shade),.18)}
 .oc .xpair .lb-btn{width:2.25rem;height:2.25rem;min-height:2.25rem;padding:0;border-radius:50%;border:0;flex:none;transition:transform .25s cubic-bezier(.34,1.4,.64,1),background .2s}
 .oc .xpair .lb-btn:active{transform:scale(var(--press,.94))}
-.oc .xpair .xunfit{background:var(--glass-sheen),var(--fill-2);color:var(--text-2);box-shadow:var(--glass-rim),0 2px 6px -2px rgba(41,30,22,.25)}
+.oc .xpair .xunfit{background:var(--glass-sheen),var(--fill-2);color:var(--text-2);box-shadow:var(--glass-rim),0 2px 6px -2px rgba(var(--shade),.25)}
 .oc .xpair .xunfit:hover{background:var(--glass-sheen),var(--fill-3,var(--fill-2));color:var(--text)}
 .oc .xpair .xdecl{background:var(--glass-sheen),var(--danger-soft);color:var(--danger);box-shadow:var(--glass-rim),0 2px 6px -2px color-mix(in srgb,var(--danger) 55%,transparent)}
 .oc .xpair .xdecl:hover{background:var(--glass-sheen),var(--danger-soft);color:var(--danger);filter:saturate(1.3) brightness(.97)}
 
 /* experts badge (06 Nov 2026, src/experts.py decides who): the one solid ink pill on a card, with the cap icon and the field,
    so a professional reads at a glance; the avatar carries a small ink mark of the same icon. Ink and ground are the toast's pair. */
-.xb{display:inline-flex;align-items:center;gap:.35rem;min-width:0;max-width:100%;padding:.15rem .7rem .15rem .6rem;border-radius:var(--r-pill);background:var(--text);color:var(--bg);font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;line-height:1.5;white-space:nowrap}
+.xb{display:inline-flex;align-items:center;gap:.35rem;min-width:0;max-width:100%;padding:.15rem .7rem .15rem .6rem;border-radius:var(--r-pill);background:var(--ink-fill);color:var(--on-ink-fill);font-family:var(--font-2);font-size:var(--fs-caption);font-weight:700;line-height:1.5;white-space:nowrap}
 .xb .i{width:.95rem;height:.95rem;flex:none}
 .xb > span{min-width:0;overflow:hidden;text-overflow:ellipsis}
 .xb.sm{margin-inline-start:.4rem;padding-block:.05rem;vertical-align:middle}
 .hrow{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem var(--sp-3);min-width:0}
 .oav{position:relative}
 .oav .pic{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px color-mix(in srgb,var(--tc,var(--text-3)) 35%,transparent)}
-.oav .xm{position:absolute;inset-block-end:-.2rem;inset-inline-end:-.2rem;display:grid;place-items:center;width:1.2rem;height:1.2rem;border-radius:50%;background:var(--text);color:var(--bg);box-shadow:0 0 0 2px var(--surface)}
+.oav .xm{position:absolute;inset-block-end:-.2rem;inset-inline-end:-.2rem;display:grid;place-items:center;width:1.2rem;height:1.2rem;border-radius:50%;background:var(--ink-fill);color:var(--on-ink-fill);box-shadow:0 0 0 2px var(--surface)}
 .oav .xm .i{width:.75rem;height:.75rem}
-.lb-btn.tbb.xtg[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:transparent}
+.lb-btn.tbb.xtg[aria-pressed="true"]{background:var(--ink-fill);color:var(--on-ink-fill);border-color:transparent}
 .lb-btn.tbb.xtg[aria-pressed="true"] .lb-count{background:var(--bg);color:var(--text)}
 .chips{display:flex;flex-wrap:wrap;gap:var(--sp-2);min-width:0}
 .chips .lb-chip{max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:var(--fs-caption);padding:.2rem .65rem}
@@ -414,7 +416,7 @@ details.omd[open] > summary::after{top:.3rem}   /* open, the label row is one li
 .odet[open]{padding-bottom:0}
 .odet summary{font-size:var(--fs-callout);font-weight:600;color:var(--text-2);min-height:2.75rem}
 .odet summary:hover{color:var(--text)}
-.oc > .odet{margin:0 var(--oc-pad);padding:0 var(--sp-4);background:var(--glass-sheen),color-mix(in srgb,#fff 58%,transparent);border:1px solid transparent;border-radius:var(--r-lg);box-shadow:var(--glass-card-rim-sm),0 14px 24px -18px rgba(41,30,22,.36)}
+.oc > .odet{margin:0 var(--oc-pad);padding:0 var(--sp-4);background:var(--glass-sheen),var(--sheet);border:1px solid transparent;border-radius:var(--r-lg);box-shadow:var(--glass-card-rim-sm),0 14px 24px -18px rgba(var(--shade),.36)}
 .oc > .odet[open]{padding-bottom:var(--sp-4)}
 .oc > .odet > summary{min-height:3rem;margin-bottom:0}
 .oc > .odet[open] > summary{margin-bottom:var(--sp-1)}
@@ -424,7 +426,7 @@ details.omd[open] > summary::after{top:.3rem}   /* open, the label row is one li
 .drw .oc > .odeal{--overhang:0rem;margin-inline:0;margin-bottom:0}
 .drw .oc > .odet{margin-inline:0}
 @media (max-width:640px){.oc{--oc-pad:var(--sp-4)}.ost{min-height:2rem;padding:0 .75rem}}
-.stbtn{display:flex;align-items:center;gap:.5rem;width:100%;font:inherit;font-weight:600;font-size:var(--fs-footnote);min-height:2.25rem;padding:.35rem .85rem;border:0;border-radius:var(--r-pill);background:var(--glass-sheen),var(--glass-thick);box-shadow:var(--glass-rim),0 2px 8px -3px rgba(41,30,22,.18);color:var(--text);cursor:pointer;text-align:start}
+.stbtn{display:flex;align-items:center;gap:.5rem;width:100%;font:inherit;font-weight:600;font-size:var(--fs-footnote);min-height:2.25rem;padding:.35rem .85rem;border:0;border-radius:var(--r-pill);background:var(--glass-sheen),var(--glass-thick);box-shadow:var(--glass-rim),0 2px 8px -3px rgba(var(--shade),.18);color:var(--text);cursor:pointer;text-align:start}
 .stbtn .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .stbtn .dot,.stmenu .dot{margin:0}
 .stbtn svg{flex:none;width:.9rem;height:.9rem;color:var(--text-2);transition:transform .15s}
@@ -533,11 +535,11 @@ details.omd[open] > summary::after{top:.3rem}   /* open, the label row is one li
 @keyframes fx-spin{to{transform:rotate(360deg)}}
 @keyframes fx-card{0%{box-shadow:0 0 0 3px var(--success),inset 0 0 0 100vmax var(--success-soft)}100%{box-shadow:0 0 0 0 transparent,inset 0 0 0 100vmax transparent}}
 /* toast: floating banner with Undo */
-#toast{position:fixed;left:50%;bottom:calc(var(--sp-5) + env(safe-area-inset-bottom,0px));z-index:80;width:max-content;max-width:min(560px,calc(100vw - 2rem));transform:translate(-50%,1rem) scale(.98);opacity:0;pointer-events:none;background:var(--text);color:var(--bg);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);font-size:var(--fs-callout);line-height:1.4;box-shadow:var(--shadow-3),0 0 0 1px var(--line);transition:opacity .2s ease,transform .3s cubic-bezier(.2,1.2,.4,1);display:flex;gap:var(--sp-3);align-items:center}
+#toast{position:fixed;left:50%;bottom:calc(var(--sp-5) + env(safe-area-inset-bottom,0px));z-index:80;width:max-content;max-width:min(560px,calc(100vw - 2rem));transform:translate(-50%,1rem) scale(.98);opacity:0;pointer-events:none;background:var(--ink-fill);color:var(--on-ink-fill);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);font-size:var(--fs-callout);line-height:1.4;box-shadow:var(--shadow-3),0 0 0 1px var(--line);transition:opacity .2s ease,transform .3s cubic-bezier(.2,1.2,.4,1);display:flex;gap:var(--sp-3);align-items:center}
 #toast.show{opacity:1;transform:translate(-50%,0) scale(1);pointer-events:auto}
-#toast.bad{background:var(--danger);color:var(--text-on-tint)}
-#toast .tk{display:inline-grid;place-items:center;width:1.375rem;height:1.375rem;border-radius:50%;background:var(--success);color:var(--text-on-tint);font-size:var(--fs-caption);font-weight:700;flex:none}
-#toast.bad .tk{background:var(--text-on-tint);color:var(--danger)}
+#toast.bad{background:var(--danger-solid);color:var(--text-on-tint)}
+#toast .tk{display:inline-grid;place-items:center;width:1.375rem;height:1.375rem;border-radius:50%;background:var(--success-solid);color:var(--text-on-tint);font-size:var(--fs-caption);font-weight:700;flex:none}
+#toast.bad .tk{background:var(--text-on-tint);color:var(--danger-solid)}
 #toast button{font:inherit;font-size:var(--fs-callout);font-weight:600;background:color-mix(in srgb,currentColor 16%,transparent);color:inherit;border:0;border-radius:var(--r-pill);padding:.35rem .9rem;cursor:pointer;flex:none}
 #toast button:hover{background:color-mix(in srgb,currentColor 26%,transparent)}
 /* ---------- adding creators: the top bar button and its form ---------- */
