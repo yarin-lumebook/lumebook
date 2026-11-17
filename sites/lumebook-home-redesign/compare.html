@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Compare directions</title>
+<style>
+:root{color-scheme:light dark}
+body{margin:0;font:14px/1.4 ui-sans-serif,system-ui,sans-serif;background:#111;color:#eee}
+header{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:10px 14px;background:#000;border-bottom:1px solid #333}
+header b{margin-right:8px} select,button{font:inherit;padding:6px 10px;border-radius:8px;border:1px solid #444;background:#1c1c1c;color:#eee}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:14px}
+.cell{background:#000;border:1px solid #333;border-radius:10px;overflow:hidden}
+.cell h2{margin:0;padding:8px 12px;font-size:13px;font-weight:600;border-bottom:1px solid #333}
+.vp{position:relative;overflow:hidden}
+iframe{border:0;transform-origin:0 0;display:block;background:#fff}
+</style></head>
+<body>
+<header><b>LumeBook home redesign: versions in light and dark (dev only)</b>
+<label>Page <select id="pg"><option value="index.html">Home</option><option value="kids.html">Kids</option><option value="gift-books.html">Gift books</option><option value="albums.html">Albums</option></select></label>
+<label>Width <select id="w"><option value="1280">Desktop 1280</option><option value="390">Phone 390</option><option value="768">Tablet 768</option></select></label>
+<label>Height <select id="h"><option value="900">900</option><option value="1600">1600</option><option value="3000">3000</option></select></label>
+<a href="index.html" style="color:#9cf">open the page</a></header>
+<div class="grid" id="g"></div>
+<script>
+var combos=[['purple','light','Purple tint · light'],['purple','dark','Purple tint · dark'],['yellow','light','Yellow tint · light'],['yellow','dark','Yellow tint · dark'],['both','light','Purple + yellow · light'],['both','dark','Purple + yellow · dark']];
+function draw(){var pg=document.getElementById('pg').value,w=+document.getElementById('w').value,h=+document.getElementById('h').value,g=document.getElementById('g');g.innerHTML='';
+combos.forEach(function(c){var cell=document.createElement('div');cell.className='cell';cell.innerHTML='<h2>'+c[2]+'</h2><div class="vp"></div>';g.appendChild(cell);
+var vp=cell.querySelector('.vp'),f=document.createElement('iframe');f.src=pg+'?dir='+c[0]+'&theme='+c[1];f.width=w;f.height=h;f.title=c[2];f.loading='lazy';vp.appendChild(f);
+var s=Math.min(1,vp.clientWidth/w);f.style.transform='scale('+s+')';vp.style.height=(h*s)+'px';});}
+['pg','w','h'].forEach(function(id){document.getElementById(id).addEventListener('change',draw)});window.addEventListener('resize',draw);draw();
+</script>
+</body></html>

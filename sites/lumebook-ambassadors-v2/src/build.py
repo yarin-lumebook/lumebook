@@ -60,6 +60,8 @@ def pct(v):
 
 EX_DISC = P["example_discount_ils"]
 EX_DISC_PCT, EX_REWARD_PCT = split_pct(EX_DISC)
+# he.json example.intro says "חצי לכל צד": keep the example an even split, or change that line too.
+assert EX_DISC_PCT == EX_REWARD_PCT, "example split is no longer half and half: update example.intro in he.json"
 VALUES = {  # token: (value, kind) ; kind "m" = money, "p" = percent, "n" = number
     "share": (SHARE, "p"),
     "regular": (P["regular_price_ils"], "m"),
@@ -121,7 +123,7 @@ ICON = {
     "wa": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9 8.3c.3-.6.9-.6 1.1 0l.6 1.5c.1.3 0 .6-.2.8l-.5.5c.6 1.2 1.6 2.2 2.8 2.8l.5-.5c.2-.2.5-.3.8-.2l1.5.6c.6.2.6.8 0 1.1-.6.4-1.4.6-2.1.4-2.4-.7-4.4-2.7-5.1-5.1-.2-.7 0-1.5.4-2z" fill="currentColor"/></svg>',
 }
 
-ACTOR_CLASS = {"אתם": "you", "LumeBook": "lb", "הקונים": "buyer"}
+ACTOR_CLASS = {"אתם": "you", "LumeBook": "lb", "לומבוק": "lb", "הקונים": "buyer"}
 
 
 def build():
@@ -171,7 +173,9 @@ def build():
     w('  <div class="wrap hero-grid">')
     w('    <div class="hero-text">')
     w(f'      <p class="eyebrow">{t(hero["eyebrow"])}</p>')
-    w(f'      <h1 id="hero-title">{t(hero["h1"])}</h1>')
+    # Each sentence of the headline starts its own line, so a phone never breaks between "לילדים." and "אתם".
+    h1 = " ".join(f'<span class="h1-line">{t(part)}</span>' for part in re.split(r"(?<=\.) ", hero["h1"]))
+    w(f'      <h1 id="hero-title">{h1}</h1>')
     w(f'      <p class="lead">{t(hero["lead"])}</p>')
     w(f'      <p class="fit">{ICON["check"]}<span>{t(hero["fit"])}</span></p>')
     w('      <div class="deal-sum">')
@@ -262,6 +266,11 @@ def build():
     w("      </ol>")
     w(f'      <p class="ex-range">{t(ex["range"])}</p>')
     w(f'      <p class="fine">{t(ex["note"])}</p>')
+    w("    </div>")
+    # Payout conditions next to the split explanation, not only in the FAQ (Yarin's revised copy, 17 Nov 2026).
+    w('    <div class="ex-payout">')
+    w(f'      <h3 class="ex-payout-h">{t(ex["payout_title"])}</h3>')
+    w(f'      <p>{t(ex["payout"])}</p>')
     w("    </div>")
     w("  </div>")
     w("</section>")
@@ -387,6 +396,13 @@ def build():
     w("</section>")
     w("</main>")
 
+    # ---------------------------------------------------------------- sticky join button (Yarin, 17 Nov 2026)
+    # Phones and tablets only: on a 390px phone the hero button sits almost two screens down. The script shows the bar
+    # only while neither the hero button nor the form is on screen, so there is never a second button next to the first.
+    w('<div class="sticky-cta" data-sticky-cta>')
+    w(f'  <a class="btn btn-gold btn-lg" href="#join" data-track="Ambassador_Sticky_CTA_Clicked">{t(hero["cta"])}</a>')
+    w("</div>")
+
     # ---------------------------------------------------------------- footer
     f = c["footer"]
     w('<footer class="foot">')
@@ -509,7 +525,8 @@ def write_copy_doc():
     table([
         ("Cost box: question", hero["cost_title"]), ("Cost box: amount", hero["cost_value"]), ("Cost box: text", hero["cost_text"]),
         ("Cost box: condition", hero["cost_condition"]), ("Cost box: link", hero["cost_link"]),
-        ("Main button", hero["cta"]), ("Text link", hero["how_link"]), ("Under the button", hero["cta_note"]),
+        ("Main button", hero["cta"]), ("Sticky button on phones (same text)", hero["cta"]),
+        ("Text link", hero["how_link"]), ("Under the button", hero["cta_note"]),
         ("Book covers, alt text", hero["covers_alt"]),
     ])
 
@@ -538,6 +555,8 @@ def write_copy_doc():
         w(f"{n}. {x(line)}")
     w("")
     table([("Under the steps", ex["range"]), ("Small print", ex["note"])])
+    w(f"**{x(ex['payout_title'])}** {x(ex['payout'])}")
+    w("")
 
     w("## 5. Costs")
     w(f"**{x(costs['h2'])}**")
@@ -618,6 +637,7 @@ def write_copy_doc():
         ("Link label", s["link_label"]), ("Buttons", s["copy"] + " / " + s["copied"] + " / " + s["share"]),
         ("Split line", s["split_line"]),
         ("Share text", s["share_text"]), ("Share text, no discount", s["share_text_none"]),
+        ("Share text, all discount", s["share_text_all"]),
         ("Next steps title", s["next_title"]),
     ] + [(f"Step {n} + button", f"{it['t']} [{it['b']}]") for n, it in enumerate(s["next"], 1)] + [
         ("WhatsApp message (prefilled)", s["wa_message"]),

@@ -33,18 +33,20 @@ python3 sites/lumebook-ambassadors-v2/lint_copy.py      # house rules, clarity r
 
 ## What changed against the live page, and why
 
+Copy revised 17 / 11 / 2026 from Yarin's `copy-he.md` handoff (book shown as the child's illustrated likeness, per `docs/lumebook-product-brief.md`; payout rules next to the example; a new "can I stop" question; a share text for the all discount split). Lines it carried that the terms don't support were kept as before or reworded: no "ממתין לאישור" for the 14 day hold, no maqaf in "כ־₪104", the form's price is today's price, not "בדוגמה הזאת".
+
 | Live page | New page |
 |---|---|
-| Title "תוכנית השגרירים של LumeBook"; the deal only in the subtitle | The headline is the deal: a printed book about your kids, for one Instagram Reel |
+| Title "תוכנית השגרירים של LumeBook"; the deal only in the subtitle | The headline is the deal: "אנחנו שולחים ספר אישי לילדים. אתם משתפים ריל באינסטגרם.", each sentence on its own line |
 | "עד 25% מכל ספר" in the subtitle, the split explained only by the slider | "25% מכל ספר" in the lead and the summary, with one worked example (12.5% discount: the buyer pays ₪104 instead of ₪119; about ₪15 to you). Percentages computed exactly as the live store does (Yarin, 15 / 11 / 2026: 25%, never ₪30) |
 | Who can join only in the consent popup | First screen: parents 18+, living in Israel, public Instagram, no follower minimum |
 | What you must do spread over a step, a perk card and the terms | "מה עושים" next to "מה מקבלים" in the first screen, and again in full, side by side |
 | The ₪149 payback for ending the use permission early only in terms section 12.5 | In the first screen next to "₪0", and in the cost table |
 | Cash payout rules (₪300 minimum, עוסק file, receipt) only in terms and dashboard | Step 5, the cost table and a question |
 | "ספר במתנה" | "תמורת ריל": the terms call the book payment for content (7.4) that may count as income (8.1) |
-| UGC, Collaborator, יתרת התגמול, no explanation | Plain words; "Collab" and "בריף" explained once |
+| UGC, Collaborator, יתרת התגמול, no explanation | Plain words: "הנחיות הצילום" instead of brief, "Collab" explained once |
 | 100 / 200 / 300 books → ₪1,500 to ₪4,500 box | One book example only; no income projection |
-| Share text without a reward disclosure | Share text ends with "(יש לי תגמול על קנייה דרך הקישור)", as terms 9.2 require |
+| Share text without a reward disclosure | Three share texts, each saying it is a commercial collaboration (terms 9.2): with a reward, without a discount, and with the whole share as discount (no reward) |
 
 ## Moving it into the store (for whoever maintains lumebook.com)
 
@@ -52,10 +54,11 @@ python3 sites/lumebook-ambassadors-v2/lint_copy.py      # house rules, clarity r
 2. Copy: move `src/content/he.json` strings into the store's `ambassadors.*` keys (the Hebrew locale). The `{tokens}` map to the program API: `share` = the store's own `floor(budgetMinor / regularPrice)` (25%), the `_pct` tokens = its split helper, `regular` = `regularPriceMinor`, `list` = `listPriceMinor`, `window` = `linkWindowDays`, `hold` = `holdDays`; `book` (14900), `cashmin` (30000), `paydays` (7), `expiry` (180) are constants the store bundle already has; `months` (8), `notice` (14) come from terms 12.4 and 16.2.
 3. Form: keep the store's own component wiring. The prototype sends exactly the same body as the live form (`fullName, email, discountMinor, termsAccepted, termsVersion "ambassadors-2026-11-01b", phone, program "creators", socialHandle, followersBand`) and handles the same answers (401 verify, 404 PROGRAM_CLOSED, 400 fields, disabled, active with `existing`). The code step must stay the store's `PhoneVerificationDialog` (verificationOnly, IL locked, hideEmail, hideMarketingConsent); the prototype's dialog is only a stand-in. If the static page is ever served on lumebook.com as is, `data-api="live"` plus a `window.LumeBookVerifyPhone(phone) -> Promise<boolean>` bridge switch it to the real API.
 4. `socialHandle`: the field shows a fixed "@" and the script sends `@` + the name. The live form sends whatever was typed. Check what the server stores before porting.
-5. Analytics: the live page sends no ambassador events of its own (read 15 / 11 / 2026). The prototype only dispatches a DOM event `lumebook:track` (`Ambassador_Hero_CTA_Clicked`, `Ambassador_Form_Started`, `Ambassador_Signup_Submitted`, `Ambassador_Signup_Result`), with no personal data. Wire it to `gt.track` only if wanted, and only after cookie consent like every other event.
+5. Analytics: the live page sends no ambassador events of its own (read 15 / 11 / 2026). The prototype only dispatches a DOM event `lumebook:track` (`Ambassador_Hero_CTA_Clicked`, `Ambassador_Sticky_CTA_Clicked`, `Ambassador_Form_Started`, `Ambassador_Signup_Submitted`, `Ambassador_Signup_Result`), with no personal data. Wire it to `gt.track` only if wanted, and only after cookie consent like every other event.
 6. The consent summary in the form is a plain rewrite of the live `ambassadors.consent.item1..7` (hyphens removed, the ₪149 payback named). It is legal text: have whoever owns the terms approve it, or keep the store's wording.
 7. Pictures: covers are the store's own (`/book_covers/girl/B41_girl.avif`, `/book_covers/boy/B13_boy.avif`, `/book_covers/girl/B10_girl.avif`; the live page's B2 boy cover with a kippah is not used). The open book is `sites/lumebook-partners/img/book-open.webp` (Ben, the made up toddler of the character pack); upload it to the store.
-8. Check on the store: 360, 390, tablet and desktop; RTL with the link and @handle; keyboard through the split choice, the radios and the code dialog; every result state.
+8. Sticky join button (`.sticky-cta`, added 17 / 11 / 2026): phones and tablets only (off from 900px), shown while neither the hero button nor the join section is on screen, same text as the hero button, its own event `Ambassador_Sticky_CTA_Clicked`. It is fixed to the bottom with the safe area: check it does not cover anything the store already fixes there (cookie notice, chat or accessibility widget; not checked, the store's own chrome was not part of this prototype).
+9. Check on the store: 360, 390, tablet and desktop; RTL with the link and @handle; keyboard through the split choice, the radios and the code dialog; every result state.
 
 ## Open business questions (not on the page until answered)
 

@@ -1098,6 +1098,60 @@
       "feeds": [],
       "notes": "Made 09 Nov 2026. Yarin's requests in order: a mock of lumebook.com/IL/he in the dashboard's design system; restructure it as the best landing page for starting a book and selling; deploy it; no side bar; the violet promo capsule looked bad; dark and magical in the store's purple; heavily animate; as many icons and images as possible; deals instead of delivery with the usual price 149; a fully working demo where everything does something and he can create a fake book; a dark and light switch. Order: promo, sticky bar (switch, my books, start), hero with a name and boy or girl start card, trust numbers, covers marquee, filterable shelf (best sellers first, shared/facts.json top_books), four steps, customer books and a review, why with the banner, price and deals, questions, final call, other products, footer. README has the details."
     },
+    "home-redesign": {
+      "name": "Home redesign demo: lumebook.com's three experiences (kids books, gift books for adults, photo albums) as one site, in two visual directions with light and dark",
+      "path": "sites/lumebook-home-redesign",
+      "kind": "page",
+      "watch": [
+        "sites/lumebook-home-redesign/src/build.py",
+        "sites/lumebook-home-redesign/assets/site.css",
+        "sites/lumebook-home-redesign/assets/site.js",
+        "sites/lumebook-home-redesign/README.md",
+        "sites/lumebook-home-redesign/assets/studio.js",
+        "sites/lumebook-home-redesign/src/store-books.json",
+        "shared/brand/identity-v1/logos/wordmark-en-primary.svg",
+        "shared/brand/identity-v1/web/design-tokens.json",
+        "sites/lumebook-home-redesign/src/web.py"
+      ],
+      "build": {
+        "cmd": [
+          "python3",
+          "src/build.py"
+        ],
+        "cwd": "sites/lumebook-home-redesign",
+        "outputs": [
+          "sites/lumebook-home-redesign/index.html",
+          "sites/lumebook-home-redesign/kids.html",
+          "sites/lumebook-home-redesign/gift-books.html",
+          "sites/lumebook-home-redesign/albums.html",
+          "sites/lumebook-home-redesign/compare.html"
+        ],
+        "auto": true
+      },
+      "publish": {
+        "type": "local",
+        "url": "http://localhost:8780/sites/lumebook-home-redesign/index.html",
+        "note": "A demo (Yarin, 17 Nov 2026: \"its just a demo\"), not deployed or published. compare.html shows the four combinations side by side (dev only). Every start button leads to the live store flow."
+      },
+      "rules": [
+        "src/build.py holds all copy and facts; never edit the built HTML. The build fails on an em or en dash, the yod spelling, AI wording, a hyphen or maqaf between Hebrew words, a semicolon in Hebrew text or an empty link.",
+        "Prices, formats, delivery and flows were read from lumebook.com on 17 / 11 / 2026 (/IL/he and its FAQPage data, /IL/he/gift-books, /IL/he/albums, /IL/he/books/15). Re-read the store before changing them; never state a policy the store does not.",
+        "Customer content: only the photos the store already shows on its home page (with its captions) and Google reviews word for word from media/projects/2026-11-15-social-proof/data.json. Album pictures are the store's illustrative ones and are labelled as such.",
+        "No project nav and no language switch: this is an audience page (translate=no), like the store mock.",
+        "The creation studio (assets/studio.js) and the pretend account never send anything: accounts, photos and books stay in this browser's localStorage, passwords only as a salted SHA-256 hash, photos shrunk in the page, and an order is a confirmation screen with no payment step. Every screen says it is a demo and links to the real store flow.",
+        "Squircle corners everywhere (Yarin, 17 Nov 2026): corner-shape: squircle on every element under @supports, with larger radius tokens; browsers without it keep plain rounded corners.",
+        "Identity v1 (Yarin's brand kit of 17 Nov 2026, shared/brand/identity-v1): 3D hat + Heebo 900 wordmark in the text colour, kit colours in the token blocks (A = the identity's own light and dark themes, B = identity yellow with ink text), kit icons, Heebo 700/400, radii 16/24/32. Never use the kit's concept product scenes as product pictures.",
+        "Three versions since 17 Nov 2026 (Yarin): purple tint and yellow tint (monochrome greys with a slight cast, ink buttons, dusty accent), plus the merged purple + yellow; html[data-dir], dev switch only. Each version sets only colour slots. The Apple layer at the end of site.css (Liquid Glass on controls only, skeuomorphic books, paper, receipt and prints, spring motion off under Reduce Motion) is shared."
+      ],
+      "feeds": [],
+      "notes": "Made 17 Nov 2026 from Yarin's brief: one homepage over the three store categories, Lullaby.ink as the quality reference, two directions (A purple #5B2BD6 + monochrome, B gold #E6B762 + warm neutrals), each light and dark, system appearance first with a remembered toggle, a dev-only direction switch. README has the asset list, the facts and the open questions.",
+      "deploy": {
+        "type": "vercel",
+        "dir": "sites/lumebook-home-redesign/web",
+        "url": "https://lumebook-home-redesign.vercel.app",
+        "note": "Review copy for phones (Yarin, 17 Nov 2026). Refresh: build home-redesign, python3 sites/lumebook-home-redesign/src/web.py, deploy home-redesign. robots noindex."
+      }
+    },
     "content-calendar": {
       "name": "לוח תוכן: the content calendar, every kid carousel, test carousel and reel of the month in one Hebrew tool (month, week, list, day drawer, piece panel)",
       "path": "sites/content-calendar",

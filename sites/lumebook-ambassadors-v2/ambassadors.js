@@ -390,9 +390,12 @@
     var sp = splitPct(program, d);
     var first = body.fullName.split(/\s+/)[0];
     var title = res.existing ? S.title_existing : first ? fill(S.title, { name: first }) : S.title_noname;
-    var sub = res.existing ? S.sub_existing : d > 0 ? fill(S.sub, { window: program.linkWindowDays }) : fill(S.sub_none, { window: program.linkWindowDays });
+    var share = pct(sharePct(program));
+    var sub = res.existing ? S.sub_existing : fill(d > 0 ? S.sub : S.sub_none, { window: program.linkWindowDays, share: share });
     var price = money(program.regularPriceMinor - d);
-    var shareText = d > 0 ? fill(S.share_text, { price: price, regular: money(program.regularPriceMinor) }) : S.share_text_none;
+    // Three share texts: part discount, no discount, and the whole share as discount (no reward, still a commercial collaboration).
+    var shareKey = d === 0 ? "share_text_none" : sp.reward <= 0 ? "share_text_all" : "share_text";
+    var shareText = fill(S[shareKey], { price: price, regular: money(program.regularPriceMinor), share: share });
     var wa = D.whatsapp + "?text=" + encodeURIComponent(fill(S.wa_message, { link: res.link }));
     var hrefs = [D.routes.books, wa, D.routes.dashboard];
     var canShare = typeof navigator.share === "function";
@@ -433,6 +436,21 @@
   }
 
   /* ------------------------------------------------------------ start */
+  /* ------------------------------------------------------------ sticky join button (phones and tablets) */
+  // Shown only while neither the hero button nor the join section is on screen. CSS keeps it off from 900px up.
+  var sticky = document.querySelector("[data-sticky-cta]");
+  var heroBtn = document.querySelector(".hero .btn-lg");
+  var joinSec = document.getElementById("join");
+  if (sticky && heroBtn && joinSec && "IntersectionObserver" in window) {
+    var inView = { hero: false, join: false };
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { inView[e.target === heroBtn ? "hero" : "join"] = e.isIntersecting; });
+      sticky.classList.toggle("is-on", !inView.hero && !inView.join);
+    });
+    io.observe(heroBtn);
+    io.observe(joinSec);
+  }
+
   document.querySelectorAll("[data-track]").forEach(function (el) {
     el.addEventListener("click", function () { track(el.getAttribute("data-track")); });
   });
