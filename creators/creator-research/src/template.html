@@ -86,9 +86,10 @@ ul.tight{margin:0;padding-inline-start:1.15rem;display:grid;gap:var(--sp-2)}
 .page > .lb-eyebrow + h2{margin-top:calc(-1 * var(--sp-3))}
 .warnbox{display:block}
 
-/* ---------- three views (15 Nov 2026, Yarin: "a separate view for creators, professionals and facebook communities ... use the switch
-   ... with icons instead of words ... super obvious to know on which view im right now"). Creators (no experts badge), professionals
-   (c.xp, the experts badge) and the Facebook communities (creators/community-tracker, drawn inside this page). Each view has its hue,
+/* ---------- views (15 Nov 2026, Yarin: "a separate view for creators, professionals and facebook communities ... use the switch
+   ... with icons instead of words ... super obvious to know on which view im right now"; 18 Nov 2026: "merge regular creators and
+   professionals back"). Two views now: creators (professionals included, with their experts badge) and the Facebook communities
+   (creators/community-tracker, drawn inside this page). Each view has its hue,
    shared/design/categories.json set map-views (class lb-mview-*): the pressed segment of the switch in the middle of the top bar, the
    view header at the top of the side bar, the tag before the page name and the tag on every reminder of the shared stack. ---------- */
 /* the top bar is three parts: the page name, the switch and the tools; the two sides share the room equally, so the switch sits in the
@@ -673,7 +674,7 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
   <h2>ספרים שנוצרו</h2>
   <dl class="lb-metrics cols-6" id="bkStats" aria-label="סיכום הספרים והפוסטים"></dl>
   <div class="bkbar"><input class="lb-input" type="search" id="bkQ" list="bkH" dir="auto" placeholder="חיפוש לפי יוצר או הערה" aria-label="חיפוש בטבלת הספרים"><button type="button" class="lb-btn" id="bkAdd">+ ספר חדש</button></div>
-  <div class="tbl lb-table-wrap"><table class="lb-table is-roomy bktbl"><thead><tr><th>יוצר (מהמפה)</th><th>כמה ספרים</th><th>הגיע ליוצר</th><th>תוכן עלה</th><th>פוסט ודרייב</th><th>הערות</th><th></th></tr></thead><tbody id="bkBody"></tbody></table></div>
+  <div class="tbl lb-table-wrap"><table class="lb-table is-roomy bktbl"><thead><tr><th>יוצר (מהמפה)</th><th>כמה ספרים</th><th>הגיע ליוצר</th><th>תוכן עלה</th><th>בפרסום ממומן</th><th>פוסט ודרייב</th><th>הערות</th><th></th></tr></thead><tbody id="bkBody"></tbody></table></div>
   <datalist id="bkH"></datalist>
   <dialog id="bkNote" class="bknote"><form method="dialog"><label for="bkNoteT" id="bkNoteH"></label><textarea class="lb-textarea" id="bkNoteT" dir="auto" rows="5" placeholder="הערה על הספרים של היוצר הזה"></textarea><div><button class="lb-btn">סגירה</button></div></form></dialog>
 </section>
@@ -771,17 +772,17 @@ details[open] > :not(summary){animation:mo-down var(--mo) var(--mo-out)}
 <!--CT:DATA-->
 
 <script>
-// ALL = every creator; C = the creators of the current view (creators or professionals, set by applyView), so every list, count and
-// summary follows the switch. The reminders (remList, remCount, remTick) read ALL: one stack for all three views (Yarin, 15 Nov 2026).
+// ALL = every creator; C = the creators shown (set by applyView). Since 18 Nov 2026 (Yarin: "merge regular creators and professionals
+// back") creators and professionals are one view again, so C is ALL; the experts badge and the experts filter stay. The reminders read
+// ALL plus the communities': one stack for both views.
 const ALL=__DATA__, EDGE=__EDGE__, EXCL=__EXCL__, TRK=__TRK__;
 let C=ALL;
-// the views: key, name, icon (ICN), what it holds. Professionals = the creators with an experts badge (src/experts.py, c.xp).
-const VIEWS=[["cr","יוצרים","insta","יוצרי תוכן להורים"],["pro","אנשי מקצוע","xp","יוצרים עם תחום מקצועי בגיל הרך"],["fb","קהילות פייסבוק","fb","קבוצות הורים ויוצרי UGC"]];
+// the views: key, name, icon (ICN), what it holds. The professionals view (15 to 18 Nov 2026) is merged back into the creators.
+const VIEWS=[["cr","יוצרים","insta","יוצרי תוכן ואנשי מקצוע להורים"],["fb","קהילות פייסבוק","fb","קבוצות הורים ויוצרי UGC"]];
 const VIEWL=Object.fromEntries(VIEWS.map(v=>[v[0],v]));
 let VIEW="cr";
 const SHARED=new Set(["reminders","books"]);   // pages of every view: every reminder, every book (Yarin, 15 Nov 2026)
-const isPro=c=>!!(c&&c.xp&&c.xp.length);
-const viewOf=c=>isPro(c)?"pro":"cr";
+const viewOf=c=>"cr";
 const vTag=(v,extra)=>'<span class="vtag lb-mview-'+v+'"><span class="lb-tile">'+ICON[VIEWL[v][2]]+'</span>'+esc(VIEWL[v][1])+(extra?" · "+esc(extra):"")+'</span>';
 const SN=["התאמת קהל","התאמה בין היוצר למותג","אמון הורים","איכות תוכן (הערכה)","אותנטיות","פוטנציאל UGC","אמינות","מול מצלמה (הערכה)","שימושיות מסחרית","עלות"];
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -981,7 +982,7 @@ const activeCount=st=>(st.q?1:0)+Object.values(st.f||{}).filter(a=>a&&a.length).
 const UI_KEY="lume_ui_v1";
 const VS_DEF={contacts:{q:"",f:{},sort:[["score",-1]],group:"none"},database:{q:"",f:{},sort:[["score",-1]],group:"none"}};
 let UI={vs:clone(VS_DEF),route:""};
-try{ const j=JSON.parse(localStorage.getItem(UI_KEY)||"null"); if(j&&j.vs){ for(const k in VS_DEF) if(j.vs[k]) UI.vs[k]={...VS_DEF[k],...j.vs[k]}; UI.route=j.route||""; UI.remFan=!!j.remFan; UI.fuFan=!!j.fuFan; UI.crView=j.crView==="pro"?"pro":"cr"; UI.crRoute=j.crRoute||""; UI.fbRoute=j.fbRoute||"" } }catch(e){}
+try{ const j=JSON.parse(localStorage.getItem(UI_KEY)||"null"); if(j&&j.vs){ for(const k in VS_DEF) if(j.vs[k]) UI.vs[k]={...VS_DEF[k],...j.vs[k]}; UI.route=j.route||""; UI.remFan=!!j.remFan; UI.fuFan=!!j.fuFan; UI.crView="cr"; UI.crRoute=j.crRoute||""; UI.fbRoute=j.fbRoute||"" } }catch(e){}
 function cleanVS(s,key){ const d=VS_DEF[key]; s.f=s.f||{}; for(const k in s.f) if(!FACETS[k]) delete s.f[k]; s.sort=(s.sort||[]).filter(l=>SORTF[l[0]]); if(!s.sort.length) s.sort=clone(d.sort); if(!GROUPS[s.group]) s.group="none"; return s }
 for(const k in UI.vs) cleanVS(UI.vs[k],k);
 let uiT; function uiSave(){ clearTimeout(uiT); uiT=setTimeout(()=>{ try{ localStorage.setItem(UI_KEY,JSON.stringify(UI)) }catch(e){} },250) }
@@ -993,7 +994,9 @@ function toolbar(el,key,o){
   el.innerHTML='<div class="tb">'
    +'<label class="tb-search">'+ICON.search+'<input type="search" data-q placeholder="'+esc(o.ph)+'" aria-label="'+esc(o.ph)+'" autocomplete="off"><kbd class="lb-kbd" aria-hidden="true">/</kbd></label>'
    +'<div class="tb-acts">'
-   // the experts switch of 06 Nov 2026 is gone: since 15 Nov 2026 the professionals have their own view (the switch in the top bar)
+   // the experts switch (06 Nov 2026; gone with the professionals view of 15 Nov, back on 18 Nov 2026, Yarin: "add it back"): one press
+   // shows only the creators with a professional field (the "מומחים" filter, value any), another press brings everyone back
+   +(o.facets.includes("xp")?'<button type="button" class="lb-btn secondary tbb xtg" data-xp aria-pressed="false" title="להציג רק יוצרים עם תחום מקצועי: קלינאות, ריפוי בעיסוק, ייעוץ שינה, הדרכת הורים ועוד">'+ICON.xp+'מומחים בלבד<b class="lb-count" data-xn></b></button>':'')
    +'<button type="button" class="lb-btn secondary tbb" data-pop="filter" aria-expanded="false" aria-haspopup="dialog">'+ICON.filter+'סינון<b class="tb-n lb-count is-tint" data-fn hidden></b></button>'
    +'<button type="button" class="lb-btn secondary tbb" data-pop="sort" aria-expanded="false" aria-haspopup="dialog">'+ICON.sort+'<span data-sl></span></button>'
    +(o.group?'<label class="tb-sel" title="קיבוץ הרשימה">'+ICON.group+'<select data-group aria-label="קיבוץ לפי">'+Object.entries(GROUPS).map(([k,g])=>'<option value="'+k+'">'+(k==="none"?"בלי קיבוץ":"קיבוץ: "+g.l)+'</option>').join("")+'</select></label>':'')
@@ -1014,7 +1017,7 @@ function toolbar(el,key,o){
   }
   function filterPop(){
     const s=st(), base=o.base(), keep=document.activeElement&&document.activeElement.dataset?document.activeElement.dataset.fv+"|"+document.activeElement.dataset.fk:null;
-    $('[data-body="filter"]').innerHTML='<h4>סינון</h4><div class="fgrid">'+o.facets.filter(k=>k!=="xp"||VIEW==="pro").map(k=>{ const fc=FACETS[k], sub=base.filter(c=>matches(c,s,k)), sel=s.f[k]||[];
+    $('[data-body="filter"]').innerHTML='<h4>סינון</h4><div class="fgrid">'+o.facets.map(k=>{ const fc=FACETS[k], sub=base.filter(c=>matches(c,s,k)), sel=s.f[k]||[];
       return '<fieldset><legend>'+esc(fc.l)+(fc.all?' <small>(כולם צריכים להתאים)</small>':'')+'</legend>'+fc.vals.map(x=>{ const n=sub.filter(x.t).length, on=sel.includes(x.v);
         return '<label class="opt'+(n||on?'':' zero')+'"><input type="checkbox" data-fk="'+k+'" data-fv="'+esc(x.v)+'"'+(on?' checked':'')+'><span>'+esc(x.l)+'</span><b class="n">'+n+'</b></label>' }).join("")+'</fieldset>' }).join("")+'</div>'
       +'<div class="pop-ft"><button type="button" class="lb-btn ghost sm" data-clearf>ניקוי הסינון</button><button type="button" class="lb-btn" data-close>'+(lastN===1?"הצגת תוצאה אחת":"הצגת "+lastN+" תוצאות")+'</button></div>';
@@ -1532,7 +1535,7 @@ function renderRem(){ const el=document.getElementById("remList"), ae=document.a
   if(!L.length){ RS_TOP=null; el.innerHTML='<div class="lb-empty"><span class="emp-ic">'+ICON.checkc+'</span><b>'+(remAllMode()?'אין תזכורות.':'אין תזכורות להיום.')+'</b></div>'; return }
   const open=new Set([...el.querySelectorAll(".rsi")].flatMap(r=>[...r.querySelectorAll("details")].map((d,i)=>d.open?r.dataset.h+"|"+i:"")));
   let i=L.findIndex(x=>x.id===RS_TOP); if(i<0) i=0; RS_TOP=L[i].id;
-  const late=L.filter(x=>x.t<=now).length, vn={cr:0,pro:0,fb:0}; L.forEach(x=>{ vn[x.fb?"fb":viewOf(x.c)]++ });
+  const late=L.filter(x=>x.t<=now).length, vn={cr:0,fb:0}; L.forEach(x=>{ vn[x.fb?"fb":viewOf(x.c)]++ });
   let html='<div class="vall"><span>מכל התצוגות:</span>'+VIEWS.filter(([k])=>vn[k]).map(([k])=>vTag(k,vn[k])).join("")+'</div><div class="rs-bar"><span class="rs-count">'+(fan?'<b>'+L.length+'</b> תזכורות':'<b>'+(i+1)+'</b> מתוך <b>'+L.length+'</b>')+(late?' · '+(late===1?'אחת שהגיע זמנה':late+' שהגיע זמנן'):'')+'</span><span class="end">'
    +(fan?'':'<button type="button" class="lb-btn secondary sm" data-rsgo="-1"'+(i?'':' disabled')+'>'+ICON.arrR+'הקודמת</button><button type="button" class="lb-btn secondary sm" data-rsgo="1"'+(i<L.length-1?'':' disabled')+'>הבאה'+ICON.arrL+'</button>')
    +'<button type="button" class="lb-btn ghost sm" data-rsfan aria-pressed="'+fan+'">'+(fan?ICON.stack+'איסוף לערימה':ICON.spread+'פריסת הכול')+'</button></span></div>';
@@ -1804,7 +1807,7 @@ function card(c,opt){
    +'</article>';
 }
 // ---------- books table (30 Oct 2026): one row per book we made; SET.books in settings/main ----------
-const bkNew=h=>({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),h:h||"",qty:1,arrived:false,up:false,child:"",title:"",on:today(),sent:"",note:"",dr:""});
+const bkNew=h=>({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),h:h||"",qty:1,arrived:false,up:false,paid:false,child:"",title:"",on:today(),sent:"",note:"",dr:""});
 const bkDr=b=>byH[b.h]?(get(b.h).dr||""):(b.dr||"");
 const bkUp=b=>b.up!==undefined&&b.up!==""?!!b.up:(byH[b.h]?gotContent(byH[b.h]):false);
 const bkMatch=(b,q)=>!q||[b.h,byH[b.h]&&byH[b.h].n,b.child,b.title,b.note].join(" ").toLowerCase().includes(q);
@@ -1855,6 +1858,7 @@ function bkRow(b){
    // status: green when done; amber when it is waiting (a book on the way, or content still missing after the book arrived)
    +'<td class="ck"><label class="lb-toggle"><input type="checkbox" class="lb-switch" data-bk="arrived"'+(b.arrived?' checked':'')+' aria-label="הספרים הגיעו ליוצר">'+st(b.arrived,"הגיע","בדרך",true)+'</label></td>'
    +'<td class="ck"><label class="lb-toggle"><input type="checkbox" class="lb-switch" data-bk="up"'+(up?' checked':'')+' aria-label="התוכן עלה">'+st(up,"עלה",b.arrived?"מחכה לתוכן":"עוד לא",b.arrived)+'</label></td>'
+   +'<td class="ck"><label class="lb-toggle"><input type="checkbox" class="lb-switch" data-bk="paid"'+(b.paid?' checked':'')+' aria-label="הפוסט נוסף לפרסום ממומן">'+st(!!b.paid,"נוסף","עוד לא",false)+'</label></td>'
    +'<td class="lnk"><div class="lb-linkfields"><div class="lb-linkfield"><span>פוסט</span><input class="lb-input" type="url" data-bk="post" value="'+esc(pu)+'" placeholder="https://www.instagram.com/reel/…" aria-label="קישור לפוסט של היוצר">'+(pok?'<a class="lb-btn secondary sm icon" href="'+esc(pu)+'" target="_blank" rel="noopener" title="פתיחת הפוסט" aria-label="פתיחת הפוסט">'+ICON.ext+'</a>':'<span></span>')+'</div>'
    +'<div class="lb-linkfield"><span>דרייב</span><input class="lb-input" data-bk="dr" value="'+esc(d)+'" placeholder="https://drive.google.com/…" aria-label="תיקיית דרייב">'+(ok?'<a class="lb-btn secondary sm icon" href="'+esc(d.trim())+'" target="_blank" rel="noopener" title="פתיחת התיקייה" aria-label="פתיחת התיקייה">'+ICON.ext+'</a>':'<span></span>')+'</div></div></td>'
    +'<td><button type="button" class="lb-btn secondary sm bknb" data-bknote title="'+esc(b.note)+'">'+(b.note?ICON.pencil+'הערה':ICON.plus+'הערה')+'</button></td>'
@@ -1866,7 +1870,7 @@ function renderBooks(){
   const q=(document.getElementById("bkQ").value||"").trim().toLowerCase(), all=BK();
   const rows=all.filter(b=>bkMatch(b,q)).sort((a,b)=>(b.on||"").localeCompare(a.on||""));
   if(Date.now()-POSTS_T>5*60000) postsLoad();   // the daily numbers, fetched again at most every 5 minutes while the tab is in use
-  body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="7" class="note">'+(all.length?"שום ספר לא מתאים לחיפוש.":"עוד לא נרשם אף ספר. ״ספר חדש״ מוסיף שורה.")+'</td></tr>';
+  body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="8" class="note">'+(all.length?"שום ספר לא מתאים לחיפוש.":"עוד לא נרשם אף ספר. ״ספר חדש״ מוסיף שורה.")+'</td></tr>';
   // the summary as coloured cubes (Yarin, 5 Nov 2026): books, arrived and content up (status: green, amber for what waits), the posts' totals
   const H=f=>new Set(all.filter(f).map(b=>b.h).filter(Boolean));
   const cre=H(()=>1).size, tot=all.reduce((a,b)=>a+bkQty(b),0), arr=all.filter(b=>b.arrived).reduce((a,b)=>a+bkQty(b),0);
@@ -1905,7 +1909,7 @@ function renderBooks(){
   body.addEventListener("click",e=>{ const x=e.target.closest("[data-bkdel]"); if(!x) return; const id=x.closest("tr").dataset.id; SET.books=BK().filter(b=>b.id!==id); saveSettings(); render() });
   document.querySelector("main").addEventListener("click",e=>{ const a=e.target.closest("[data-openbooks]"); if(!a) return; e.preventDefault(); window.__bkH=a.dataset.openbooks; document.getElementById("bkQ").value=a.dataset.openbooks; navigate("books") });
 })();
-function renderBooksForce(){ const ae=document.activeElement; if(ae&&ae.id==="bkQ"){ const body=document.getElementById("bkBody"); const q=ae.value.trim().toLowerCase(), all=BK(); const rows=all.filter(b=>bkMatch(b,q)).sort((a,b)=>(b.on||"").localeCompare(a.on||"")); body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="7" class="note">שום ספר לא מתאים לחיפוש.</td></tr>' } else renderBooks() }
+function renderBooksForce(){ const ae=document.activeElement; if(ae&&ae.id==="bkQ"){ const body=document.getElementById("bkBody"); const q=ae.value.trim().toLowerCase(), all=BK(); const rows=all.filter(b=>bkMatch(b,q)).sort((a,b)=>(b.on||"").localeCompare(a.on||"")); body.innerHTML=rows.map(bkRow).join("")||'<tr><td colspan="8" class="note">שום ספר לא מתאים לחיפוש.</td></tr>' } else renderBooks() }
 function render(){
   const ae=document.activeElement, list=document.getElementById("olist");
   navCounts(); migRender(); remCount(); renderDrawer();
@@ -2341,7 +2345,7 @@ function parseRoute(h){
 function navigate(key){ if(location.hash!=="#"+key){ try{ location.hash=key }catch(e){} } route(key) }
 function route(key){
   const r=parseRoute(key||location.hash)||parseRoute(UI.route)||{page:"overview",key:"overview"};
-  // the page decides the view: a communities page is the communities view, a creators page one of the two creator views; the
+  // the page decides the view: a communities page is the communities view, a creators page the creators view; the
   // reminders are every view's, so they keep the view the side bar shows
   if(r.page==="fb"){ if(VIEW!=="fb") applyView("fb") } else if(!SHARED.has(r.page)&&VIEW==="fb") applyView(UI.crView);
   if(r.page==="fb") UI.fbRoute=r.key; else if(!SHARED.has(r.page)) UI.crRoute=r.key;
@@ -2361,19 +2365,17 @@ function route(key){
   render();
 }
 window.addEventListener("hashchange",()=>route());
-// ---------- the three views (15 Nov 2026): the switch in the top bar, the view header in the side bar, the tag in the crumbs ----------
+// ---------- the views (15 Nov 2026; two since 18 Nov: creators with professionals, and communities): the switch in the top bar, the view header in the side bar, the tag in the crumbs ----------
 function applyView(v){ if(!VIEWL[v]) v="cr"; const was=VIEW; VIEW=v; document.documentElement.dataset.view=v;
-  if(v!=="fb"){ C=v==="pro"?ALL.filter(isPro):ALL.filter(c=>!isPro(c)); UI.crView=v;
-    if(v!=="pro") for(const k in UI.vs){ const f=UI.vs[k].f; if(f&&f.xp) delete f.xp } }   // the experts filter only means something among professionals
+  if(v!=="fb"){ C=ALL; UI.crView=v }
   if(was!==v) shown=30;
   UI.view=v; uiSave(); drawView() }
 function drawView(){ const v=VIEWL[VIEW], n=VIEW==="fb"?(window.CT_GROUPS||[]).length:C.length;
   document.querySelectorAll("#vsw [data-view]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.view===VIEW)));
   drawTag();
   const hd=document.getElementById("vHead"); hd.className="vhead lb-mview-"+VIEW;
-  hd.innerHTML='<span class="lb-tile">'+ICON[v[2]]+'</span><span><b>'+esc(v[1])+'</b><small>'+(VIEW==="fb"?n+" קבוצות":VIEW==="pro"?n+" אנשי מקצוע":n+" יוצרים")+' · '+esc(v[3])+'</small></span>';
-  // the words that name the people follow the view
-  STATUS_NAV[0][1]=VIEW==="pro"?"כל אנשי המקצוע":"כל היוצרים"; PAGES.database[1]=VIEW==="pro"?"מאגר אנשי המקצוע":"מאגר היוצרים";
+  hd.innerHTML='<span class="lb-tile">'+ICON[v[2]]+'</span><span><b>'+esc(v[1])+'</b><small>'+(VIEW==="fb"?n+" קבוצות":n+" יוצרים")+' · '+esc(v[3])+'</small></span>';
+  STATUS_NAV[0][1]="כל היוצרים"; PAGES.database[1]="מאגר היוצרים";
   const ta=document.querySelector('#side [data-route="c-all"] .t'); if(ta) ta.textContent=STATUS_NAV[0][1];
   const td=document.querySelector('#side [data-route="database"] .t'); if(td) td.textContent=PAGES.database[1];
   const ce=document.getElementById("cEyebrow"); if(ce) ce.textContent=v[1] }
@@ -2396,7 +2398,7 @@ window.CT_HOST={
 document.getElementById("side").addEventListener("click",e=>{ const a=e.target.closest("a[data-route]"); if(!a) return; e.preventDefault(); navigate(a.dataset.route) });
 document.querySelector("main").addEventListener("click",e=>{ const a=e.target.closest('a[href^="#"]'); if(!a) return; const key=a.getAttribute("href").slice(1); if(parseRoute(key)){ e.preventDefault(); navigate(key) } });
 // search covers every view (Yarin, 15 Nov 2026): a search with no results in the view you are in opens in the view that has them
-// (creators, professionals, communities), with the query kept
+// (creators or communities), with the query kept
 function searchHop(q){
   q=String(q||"").trim(); if(!q) return;
   const inView=v=>v==="fb"?(window.CT?CT.count(q):0):ALL.some(c=>viewOf(c)===v&&matches(c,{q,f:{}}));
@@ -2465,7 +2467,7 @@ function renderFunnel(){ const mode=CMPH[UI.cmp]?UI.cmp:"all", rows=C.filter(c=>
   document.getElementById("funH").textContent=CMPH[mode];
   const tr=(l,g,bold)=>{ const r=funnel(g); return '<tr><td>'+(bold?'<b>'+esc(l)+'</b>':esc(l))+'</td><td class="r num">'+r.n+'</td><td class="r num">'+r.rep+'</td><td class="r num">'+r.int+(r.intU?' <span class="note">('+r.intU+' לא סומנו)</span>':'')+'</td><td class="r num">'+r.ag+'</td><td class="r num">'+r.con+'</td><td class="r num'+(r.sN?'':' unk')+'">'+(r.sN?r.sum+' <span class="note">(מתוך '+r.sN+')</span>':'אין נתונים')+'</td></tr>' };
   const keys=[...G.keys()].sort((a,b)=>G.get(b).length-G.get(a).length||coll.compare(a,b));
-  document.getElementById("funBody").innerHTML=rows.length?((mode==="all"?"":keys.map(g=>tr(g,G.get(g))).join(""))+tr(mode==="all"?"כל מי שפנינו אליהם":"סך הכול",rows,true)):'<tr><td colspan="7" class="note">עוד לא פנינו לאף אחד.</td></tr>';
+  document.getElementById("funBody").innerHTML=rows.length?((mode==="all"?"":keys.map(g=>tr(g,G.get(g))).join(""))+tr(mode==="all"?"כל מי שפנינו אליהם":"סך הכול",rows,true)):'<tr><td colspan="8" class="note">עוד לא פנינו לאף אחד.</td></tr>';
   document.getElementById("funNote").textContent="כל מספר הוא מספר יוצרים, לפי מה שנרשם. ״ענו״ סופר יוצרים שענו והמשיכו לדבר (בתהליך); סירוב לא נספר כתשובה. ״הביעו עניין״ סופר רק יוצרים שסימנת כמעוניינים או שהגיעו ל״חתמו״; להיות בתהליך זה לא עניין. ״נוצר תוכן״ סופר יוצרים בשלב הזה. במכירות כתוב ״אין נתונים״ עד שמזינים מספר אצל יוצר; שדה ריק אף פעם לא נקרא כאפס."+CMPNOTE[mode]+(mode==="all"?"":" הקבוצות קטנות ולא חולקו באקראי, אז פער ביניהן הוא רמז לכל היותר.");
 }
 function renderObj(){ const cnt={}, dec={}; let tot=0;
@@ -2618,7 +2620,7 @@ lsLoad();
 if(MODE==="db") Object.keys(WQ).forEach(p=>{ const d=WQ[p].d; if(p.startsWith("outreach/")) OD[p.slice(9)]=d; else if(p==="settings/main") SET={...SET,...d}; else if(p==="voice/main") VOICE={...VOICE,...d} });
 { const qv=new URLSearchParams(location.search).get("view");
   if(qv==="fb"&&!/^#fb-/.test(location.hash)) history.replaceState(null,"","#"+(/^fb-/.test(UI.fbRoute)?UI.fbRoute:"fb-home"));
-  else if(qv==="cr"||qv==="pro"){ UI.crView=qv; if(!location.hash||/^#fb-/.test(location.hash)) history.replaceState(null,"","#"+(UI.crRoute&&!/^fb-/.test(UI.crRoute)?UI.crRoute:"overview")) } }
+  else if(qv==="cr"||qv==="pro"){ UI.crView="cr"; if(!location.hash||/^#fb-/.test(location.hash)) history.replaceState(null,"","#"+(UI.crRoute&&!/^fb-/.test(UI.crRoute)?UI.crRoute:"overview")) } }
 applyView(UI.crView||"cr");
 fillSettings(); fillVoice(); route(); svRender();
 let SIG=ALL.map(HOOK.bk).join(""); setInterval(()=>{ const sig=ALL.map(HOOK.bk).join(""); if(sig!==SIG){ SIG=sig; render() } },60000);
