@@ -8,6 +8,7 @@ A front end over three engines that stay the single sources:
     productions.json and each run's postiz.json (the real post date: November's posts were made from the 30.11 to 6.12 packs).
   - the test batch (carousel/carousel-pipeline/test-batch/2026-11): one day, two options (a, b).
   - the reels (research/israeli-product-reels/src/scripts/series-2026-11/reels.json + the hub's local-edits.json).
+  - the stories (19 Nov 2026, tools/stories.py: media/projects/2026-11-19-story-series/series.json): one set = one day of one series.
 This module reads them into one list of pieces (collect), keeps the calendar's own state (sites/content-calendar/
 calendar-state.json: hooks, approvals, moves of carousels, trial reels, reminders, ideas) and does the few writes the old tools
 have no path for (move, state docs). The project server (tools/lumebook.py) answers /api/calendar* with it. Every other write
@@ -31,6 +32,9 @@ import urllib.parse
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import stories  # noqa: E402  (the story sets, 19 Nov 2026)
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "sites" / "content-calendar"
@@ -67,7 +71,7 @@ STATUSES = [
 ]
 STATUS_HE = dict(STATUSES)
 NEEDS_ME = {"grade": "לדרג", "pick": "לבחור", "hook": "לבחור הוק", "film": "לצלם", "approve": "לאשר", "produce": "להפיק"}
-KIND_HE = {"kid": "קרוסלת ילד", "test": "קרוסלת ניסוי", "reel": "ריל", "idea": "רעיון"}
+KIND_HE = {"kid": "קרוסלת ילד", "test": "קרוסלת ניסוי", "reel": "ריל", "idea": "רעיון", "story": "סטוריז"}
 TEST_TYPES = {"say": ("תגידו את זה", "chat"), "how": ("ככה זה עובד", "compass"), "gift": ("מתנה לחנוכה", "gift"),
               "age": ("מה קורה בגיל", "trend"), "reveal": ("הרגע שרואים", "eye")}
 RUN_MAKING = {"queued", "fixing", "preparing", "generating", "composing", "exporting", "started", "running"}
@@ -846,6 +850,10 @@ def _collect(month, jobs=(), drafts=False):
     except Exception as exc:  # noqa: BLE001
         notices.append(f"שגיאה בקריאת הרילס: {exc}")
     pieces += idea_pieces(month, st)
+    try:
+        pieces += stories.pieces(month, st)   # before postiz_only, so a set's Postiz posts are its own and not strays
+    except Exception as exc:  # noqa: BLE001
+        notices.append(f"שגיאה בקריאת הסטוריז: {exc}")
     pieces += postiz_only(month, pieces)
     if _LIVE["data"] is None and POSTIZ_CMD != "off":
         notices.append("בודק מול פוסטיז, מתעדכן בעוד רגע.")
@@ -868,7 +876,7 @@ def _collect(month, jobs=(), drafts=False):
     body = {"month": month, "today": today(), "pieces": pieces, "notices": notices,
             "statuses": [{"code": c, "he": h} for c, h in STATUSES], "hours": hr,
             "targets": hr.get("targets") or {"carousel": 2, "reel": 2}, "hidden_drafts": len(hidden), "drafts": bool(drafts),
-            "reels_defaults": reels_cfg((read_json(REELS_JSON, {}) or {}).get("defaults") or {})}
+            "reels_defaults": reels_cfg((read_json(REELS_JSON, {}) or {}).get("defaults") or {}), "story_lib": stories.library()}
     blob = json.dumps(body, ensure_ascii=False, sort_keys=True)
     body["rev"] = hashlib.sha1(blob.encode("utf-8")).hexdigest()[:12]
     return body
@@ -883,6 +891,8 @@ def move(piece_id, to_date, to_time="keep"):
     old place for the undo."""
     if not re.match(r"^\d{4}-\d{2}-\d{2}$", to_date or "") or (to_time not in (None, "keep") and not re.match(r"^\d{2}:\d{2}$", str(to_time))):
         return 400, {"error": "bad date or time"}
+    if piece_id.startswith("st-"):   # a story set: its date and time live in series.json (tools/stories.py)
+        return stories.move(piece_id, to_date, to_time)
     month = to_date[:7]
     with _lock:
         st = state()

@@ -1961,6 +1961,8 @@ def serve(port):
                 if (q.get("rev") or [""])[0] == body["rev"]:
                     return self._json(200, {"rev": body["rev"], "same": True})
                 return self._json(200, body)
+            if path == "/api/calendar/story-reviews":   # the social proof page's reviews, for a story frame (read only)
+                return self._json(200, {"reviews": calendar.stories.reviews()})
             if path == "/api/calendar/jobs":
                 return self._json(200, {"jobs": cal_jobs.list(), "tasks": calendar.task_list(),
                                         "reel_jobs": [j for j in sample_jobs.list() if j.get("kind") == "make"]})
@@ -2181,6 +2183,11 @@ def serve(port):
                 m = cal_job_act.match(u.path)
                 if m:
                     return self._json(*cal_jobs.act(m.group(1), m.group(2)))
+                if u.path == "/api/calendar/story-upload":   # a picture dropped in the story editor (the body), into the series' uploads/
+                    size = int(self.headers.get("Content-Length") or 0)
+                    if size <= 0 or size > calendar.stories.UPLOAD_MAX:
+                        return self._json(413, {"error": "a picture is 1 byte to 15 MB", "code": "too_big"})
+                    return self._json(*calendar.stories.upload((urllib.parse.parse_qs(u.query).get("name") or [""])[0], self.rfile.read(size)))
                 size = int(self.headers.get("Content-Length") or 0)
                 if size <= 0 or size > SAMPLE_MAX:
                     return self._json(400, {"error": "bad size", "code": "failed"})
@@ -2210,6 +2217,8 @@ def serve(port):
                                                           doc.get("ig_text"), doc.get("fb_text"), bool(doc.get("draft")), doc.get("trial_index"), doc.get("confirmed")))
                 if u.path == "/api/calendar/trials":
                     return self._json(*calendar.start_trials(str(doc.get("reel") or "")))
+                if u.path == "/api/calendar/story":   # the story sets (tools/stories.py): save, new, dup, delete, approve, render, send
+                    return self._json(*calendar.stories.handle(doc))
                 return self._json(404, {"error": "unknown calendar action"})
             if u.path == "/api/sample/jobs" or sample_job_act.match(u.path):
                 if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":

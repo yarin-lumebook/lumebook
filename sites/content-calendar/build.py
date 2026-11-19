@@ -18,7 +18,7 @@ PAGE = "sites/content-calendar/index.html"
 ICONS = ["slides", "flask", "clapper", "sparkle", "send", "bell", "film", "pencil", "bars", "check-circle", "target", "play", "sync", "wallet",
          "clock", "check", "info", "instagram", "facebook", "chat", "compass", "gift", "trend", "eye", "calendar", "arrow-left", "arrow-right",
          "plus", "search", "menu", "upload", "download", "folder", "layers", "open-out", "image", "close",
-         "book", "copy", "audio", "file"]
+         "book", "copy", "audio", "file", "stack", "link", "undo", "arrow-up"]
 
 
 def esc(t):
@@ -31,7 +31,7 @@ def data_js():
     reels = json.loads((ROOT / "research/israeli-product-reels/src/scripts/series-2026-11/reels.json").read_text(encoding="utf-8"))
     disclaimer = (reels.get("defaults") or {}).get("caption_disclaimer", "")
     icons = {n: design.icon(n) for n in ICONS}
-    cats = {k: design.cat_class("content-types", k) for k in ("kid", "test", "reel", "post", "idea")}
+    cats = {k: design.cat_class("content-types", k) for k in ("kid", "test", "reel", "post", "idea", "story")}
     blob = {"CC_ICONS": icons, "CC_CAT": cats, "CC_DATES": dates, "CC_DISCLAIMER": disclaimer}
     return "".join(f"window.{k}={json.dumps(v, ensure_ascii=False)};" for k, v in blob.items()).replace("</", "<\\/")
 
@@ -54,7 +54,7 @@ def page():
 <body dir="rtl">
 <div class="lb-app cc-app" dir="rtl" lang="he">
 <aside class="lb-sidebar cc-side" id="ccSide" aria-label="לוח תוכן">
-  <a class="lb-brand" href="#"><img src="{design.logo_data_uri()}" alt=""><span><b>לוח תוכן</b><small>קרוסלות ורילס, חודש אחד</small></span></a>
+  <a class="lb-brand" href="#"><img src="{design.logo_data_uri()}" alt=""><span><b>לוח תוכן</b><small>קרוסלות, רילס וסטוריז, חודש אחד</small></span></a>
   <section class="cc-sec" aria-labelledby="ccQh"><h2 id="ccQh">{i("bell")}צריך אותי השבוע<span class="lb-count" id="ccQn"></span></h2><div class="cc-q" id="ccQ"></div></section>
   <section class="cc-sec"><div class="cc-mini-head" id="ccMiniT"></div><div class="cc-mini" id="ccMini"></div></section>
   <section class="cc-sec" aria-labelledby="ccTh"><h2 id="ccTh">סוג</h2><div class="cc-ft" id="ccTypes"></div></section>
@@ -99,6 +99,12 @@ def page():
 <div class="cc-peek" id="ccPeek" hidden></div>
 <div class="lb-toast" id="ccToast" role="status" hidden></div>
 <script>{data_js()}</script>
+<script>
+{(HERE / "story-frame.js").read_text(encoding="utf-8")}
+</script>
+<script>
+{(HERE / "story.js").read_text(encoding="utf-8")}
+</script>
 <script>
 {(HERE / "page.js").read_text(encoding="utf-8")}
 </script>

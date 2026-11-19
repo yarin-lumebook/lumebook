@@ -11,7 +11,7 @@
   var DAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"], DOW = ["א׳", "ב׳", "ג׳", "ד׳", "ה׳", "ו׳", "ש׳"];
   var MONTHS = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
   var KIND = { kid: { he: "קרוסלת ילד", icon: "slides" }, test: { he: "קרוסלת ניסוי", icon: "flask" }, reel: { he: "ריל", icon: "clapper" },
-    idea: { he: "רעיון", icon: "sparkle" }, post: { he: "פוסט מפוסטיז", icon: "send" }, remind: { he: "תזכורת", icon: "bell" }, shoot: { he: "צילום", icon: "film" } };
+    idea: { he: "רעיון", icon: "sparkle" }, post: { he: "פוסט מפוסטיז", icon: "send" }, story: { he: "סטוריז", icon: "stack" }, remind: { he: "תזכורת", icon: "bell" }, shoot: { he: "צילום", icon: "film" } };
   var ST_ICON = { idea: "sparkle", draft: "pencil", grade: "bars", pick: "check-circle", hook: "target", film: "film", produce: "play",
     making: "sync", approve: "wallet", ready: "check-circle", scheduled: "clock", posted: "check" };
   var NEED_HE = { grade: "לדרג", pick: "לבחור", hook: "לבחור הוק", film: "לצלם", approve: "לאשר", produce: "להפיק", remind: "לשתף לראשי ולפייסבוק" };
@@ -24,7 +24,7 @@
   var MON_SHORT = ["ינו׳", "פבר׳", "מרץ", "אפר׳", "מאי", "יוני", "יולי", "אוג׳", "ספט׳", "אוק׳", "נוב׳", "דצמ׳"];
 
   var S = { data: null, byId: {}, byDate: {}, month: null, view: "month", sel: null, q: "",
-    kinds: { kid: true, test: true, reel: true, idea: true, post: true }, tests: { say: true, how: true, gift: true, age: true, reveal: true },
+    kinds: { kid: true, test: true, reel: true, idea: true, post: true, story: true }, tests: { say: true, how: true, gift: true, age: true, reveal: true },
     drafts: false, sts: {}, open: null, cache: {}, all: [], sideOff: false, jobs: [], tasks: [], reelJobs: [], answers: {}, sort: "date", sortDir: 1, failed: false };
 
   /* ---------- small helpers ---------- */
@@ -122,7 +122,8 @@
     if (any && side) return false;
     if (S.q) {
       var d = p.detail || {}, tx = d.texts || {};
-      var hay = [p.title, p.subtype_he, p.id, d.reel, d.note, (d.for || []).join(" "), tx.caption, tx.hook, (tx.vo || []).join(" ")].concat((d.items || []).map(function (i) { return [i.title, i.caption, i.cta].join(" "); })).join(" ").toLowerCase();
+      var hay = [p.title, p.subtype_he, p.id, d.reel, d.note, (d.for || []).join(" "), tx.caption, tx.hook, (tx.vo || []).join(" "),
+        d.set ? d.set.frames.map(function (f) { return f.layers.map(function (l) { return l.text || l.label || ""; }).join(" "); }).join(" ") : ""].concat((d.items || []).map(function (i) { return [i.title, i.caption, i.cta].join(" "); })).join(" ").toLowerCase();
       if (hay.indexOf(S.q.toLowerCase()) < 0) return false;
     }
     return true;
@@ -151,7 +152,7 @@
   function keyDate(d) { return ((window.CC_DATES || {})[d]) || ""; }
 
   /* ---------- render ---------- */
-  function render() { renderTop(); renderSide(); renderView(); if (S.open && calm()) renderDrawer(); }
+  function render() { renderTop(); renderSide(); renderView(); if (S.open && calm() && !(window.CCStory && CCStory.busy())) renderDrawer(); }
 
   function renderTop() {
     $("#ccMonth").textContent = viewTitle();
@@ -199,7 +200,7 @@
       if (p.kind === "test") tc[p.subtype] = (tc[p.subtype] || 0) + 1;
       if (p.status) sc[p.status] = (sc[p.status] || 0) + 1;
     });
-    $("#ccTypes").innerHTML = ["kid", "test", "reel", "idea", "post"].filter(function (k) { return cnt[k] || k !== "post" && k !== "idea"; }).map(function (k) {
+    $("#ccTypes").innerHTML = ["kid", "test", "reel", "story", "idea", "post"].filter(function (k) { return cnt[k] || k !== "post" && k !== "idea" && k !== "story"; }).map(function (k) {
       var row = '<button type="button" class="' + (CAT[k] || "") + '" data-kind="' + k + '" aria-pressed="' + (S.kinds[k] !== false) + '"><span class="ck"></span><span class="cc-ico">' + ic(KIND[k].icon) + "</span>" + esc(KIND[k].he) + '<span class="n">' + (cnt[k] || 0) + "</span></button>";
       if (k === "test" && cnt.test) row += '<div class="sub">' + ["say", "how", "gift", "age", "reveal"].map(function (s) {
         var lbl = { say: "תגידו את זה", how: "ככה זה עובד", gift: "מתנה לחנוכה", age: "מה קורה בגיל", reveal: "הרגע שרואים" }[s];
@@ -218,7 +219,7 @@
   function itemHtml(p, cell) {
     var title = p.kind === "shoot" ? "צילום" : p.title || "";
     var ab = (p.options || []).length > 1 && !p.picked ? '<span class="ab">' + (p.kind === "test" ? "א·ב" : (p.options || []).map(function (o) { return o.label; }).join("·")) + "</span>" : "";
-    var drag = ["kid", "test", "reel", "idea"].indexOf(p.kind) >= 0 && p.status !== "posted";
+    var drag = ["kid", "test", "reel", "idea", "story"].indexOf(p.kind) >= 0 && p.status !== "posted" && !(p.kind === "story" && p.postiz);
     return '<button type="button" class="cc-it ' + catOf(p) + (p._clash ? " is-clash" : "") + '" data-open="' + esc(p.id) + '"' + (drag ? ' draggable="true"' : "") +
       ' aria-label="' + esc(kindLabel(p) + ", " + (p.time || "בלי שעה") + ", " + title + ", " + (p.status_he || "")) + '">' + kindIcon(p) +
       (p.time ? '<span class="t">' + p.time + "</span>" : "") + '<span class="x" translate="no">' + esc(title) + "</span>" + ab +
@@ -314,7 +315,7 @@
 
   function legend() {
     var tg = (S.data && S.data.targets) || {};
-    return ["kid", "test", "reel"].map(function (k) { return '<span class="' + CAT[k] + '">' + '<span class="cc-ico">' + ic(KIND[k].icon) + "</span>" + KIND[k].he + "</span>"; }).join("") +
+    return ["kid", "test", "reel", "story"].map(function (k) { return '<span class="' + CAT[k] + '">' + '<span class="cc-ico">' + ic(KIND[k].icon) + "</span>" + KIND[k].he + "</span>"; }).join("") +
       '<span>' + ic("check", "cc-s s-posted") + "עלה</span><span>" + ic("clock", "cc-s s-scheduled") + "מתוזמן</span><span>" + ic("target", "cc-s s-hook") + "מחכה להחלטה שלך</span>" +
       '<span class="cc-lg-miss"><span class="cc-gap-lg" aria-hidden="true"></span> עוד לא מולא לפי היעד: ' + (tg.carousel || 2) + " קרוסלות ו־" + (tg.reel || 2) + " רילס ביום</span>";
   }
@@ -481,6 +482,7 @@
     var keep = body.scrollTop;
     body.classList.add("is-piece");
     body.classList.toggle("is-reel", p.kind === "reel");
+    body.classList.toggle("is-story", p.kind === "story");
     body.innerHTML = pieceHtml(p);
     afterPiece(p);
     body.scrollTop = keep;
@@ -511,6 +513,7 @@
      piece one under the other and each thing once. A reel's hook and a carousel's internal name are edited in the title, a reel's
      script and caption in place (no read-only copy), the finished reel stays beside the list, and nothing jumps between parts. */
   function partsOf(p) {
+    if (p.kind === "story") return [["edit", "עריכה", "pencil"], ["publish", "פרסום", "send"]];   /* story.js draws them */
     if (p.kind === "post") return [["publish", "פרסום", "send"]];
     if (p.kind === "remind") return [["view", "תצוגה", "eye"]];
     if (p.kind === "idea") return [["view", "הרעיון", "sparkle"], ["hooks", "הוקים", "target"]];
@@ -518,6 +521,7 @@
     return [["view", "תצוגה", "eye"], ["hooks", "הוקים", "target"], ["text", "טקסט", "pencil"], ["caption", "כיתוב", "instagram"], ["make", "הפקה", "play"], ["publish", "פרסום", "send"]];
   }
   function pieceHtml(p) {
+    if (p.kind === "story") return window.CCStory ? CCStory.html(p) : "";   /* the story editor (story.js, 19 Nov 2026) */
     var parts = partsOf(p), reel = p.kind === "reel", tx = (p.detail || {}).texts || {};
     var oi = optIndex(p);
     var opts = (p.options || []).length > 1 ? '<div class="opts"><span class="lb-segmented" role="group" aria-label="אפשרויות">' + p.options.map(function (o, i) {
@@ -919,6 +923,7 @@
 
   function afterPiece(p) {
     var d = p.detail || {};
+    if (p.kind === "story") { if (window.CCStory) CCStory.after(p); return; }
     if (p.kind === "reel") { wireTiles(); loadFiles(d.rkey); }
     $$("#ccDlgB textarea[data-f]").forEach(function (t) { t.dataset.v = t.value; });
     var j = S.jobs.find(function (x) { return x.reel === p.id && x.kind === "ask" && x.status === "done" && !x.claimed; });
@@ -981,7 +986,7 @@
       toast("הועבר ל-" + where, "ביטול", function () {
         var u = b.undo || {};
         var back = p.kind === "reel" ? post("/api/calendar/move", { id: p.id, date: u.date, time: u.time || null })
-          : u.date ? post("/api/calendar/move", { id: p.id, date: u.date, time: u.time || null }) : put("/api/calendar/doc?path=moves/" + p.id, { _delete: true });
+          : u.date ? post("/api/calendar/move", { id: u.id || p.id, date: u.date, time: u.time || null }) : put("/api/calendar/doc?path=moves/" + p.id, { _delete: true });
         back.then(function () { load(true); toast("בוטל"); });
       });
     }).catch(function (e) { toast(e.message); });
@@ -1492,6 +1497,11 @@
     if (docked) placeFill();
   }
   function closeSideIfPhone() { var s = $("#ccSide"); if (s.classList.contains("is-open")) { s.classList.remove("is-open"); $("#ccScrim").hidden = true; } }
+
+  /* the story editor (story.js) works with the page's own helpers */
+  window.CCPage = { S: S, esc: esc, ic: ic, toast: toast, api: api, post: post, put: put, load: load, full: full, ddmm: ddmm, iso: iso, dayName: dayName,
+    stChip: stChip, chans: chans, kindIcon: kindIcon, kindLabel: kindLabel, saveState: saveState, setSave: setSave, today: today,
+    closeDlg: function () { closeDlg(); }, openPiece: function (id) { openPiece(id); } };
 
   function init() {
     dlg = $("#ccDlg");

@@ -34,7 +34,7 @@ From 10 / 11 / 2026 every day has two options, א and ב, in the same lane (Yari
 | 21 / 11 / 2026 | שבת | א | 5.1 | הלילה האחרון עם המוצץ | 15.6 | parents | books/41 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, מוצץ על שידה בלילה |
 | 21 / 11 / 2026 | שבת | ב | 2.5 | שני ילדים בבית וספר אחד? | 17.1 | parents | books/category/bestsellers | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
 | 22 / 11 / 2026 | ראשון | א | 8.1 | סבתא, שלושה דברים ליומולדת של הנכד | 22.4 | grandma | books/15 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
-| 22 / 11 / 2026 | ראשון | ב | 9.16 | סבתא, פסוק אחד מלווה את הנכד בדרך | 16 | grandma | books/113 | מחכה לקריינות ולצילום של ירין | Check in the preview (book 113) the road between the fairs, the return to learning and the page where it passes on before recording. |
+| 22 / 11 / 2026 | ראשון | ב | 7.5 | תמונה אחת שלו, ואז הוא הגיבור | 12.8 | parents | books/86 | מחכה לקריינות ולצילום של ירין | Pick one of the 5 hooks in the content calendar before the make (11 Nov 2026 rule). |
 | 23 / 11 / 2026 | שני | א | 5.4 | מה הקוף והאריה יודעים על טיטולים? | 16.7 | parents | books/43 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
 | 23 / 11 / 2026 | שני | ב | 1.8 | איזו תמונה לשלוח לספר? | 17.8 | parents | home | מחכה לקריינות ולצילום של ירין | Make the before and after on the site first: the same page from a blurry and from a clear photo of the same child. / The tutorials page says a new drawing of the same page is free, and another tutorial sells packs once the gift drawings run out; the reel says neither, check what the site does today before recording. |
 | 24 / 11 / 2026 | שלישי | א | 9.4 | סבתא, החלאקה של הנכד מתקרבת? | 16.7 | grandma | books/9003 | מחכה לקריינות ולצילום של ירין | Check in the preview that the halake book is written for a boy only, and how the photo of a child with long hair comes out. |
@@ -44,15 +44,16 @@ From 10 / 11 / 2026 every day has two options, א and ב, in the same lane (Yari
 | 26 / 11 / 2026 | חמישי | א | 9.8 | סבתא, יש לך נכד שעוזר לכולם? | 16.4 | grandma | books/9013 | מחכה לקריינות ולצילום של ירין | Same checks as 9.2. |
 | 26 / 11 / 2026 | חמישי | ב | 3.2 | הנכד מוצא את החנוכייה של סבתא | 16.4 | grandma | books/37 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
 | 27 / 11 / 2026 | שישי | א | 7.2 | מה קונים לכל נכד בבלאק פריידיי? | 16 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, הספר עטוף כמתנה |
-| 27 / 11 / 2026 | שישי | ב | 1.5 | סבתא, ומה אם לא תאהבי את הספר? | 19.2 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
+| 27 / 11 / 2026 | שישי | ב | 1.5 | סבתא, ומה אם לא תאהבי את הספר? | 19.2 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Before recording: check what the free preview shows today. The CRO audit of 24 Oct 2026 (research/cro-crm/audit.md, A4) found the inner pages locked until after payment; if so, change 'כל הספר' or 'כל הסיפור' to 'התצוגה המקדימה' in the hook, voiceover and caption (research/hanukkah-black-friday-2026/black-friday.md, section 11). |
 | 28 / 11 / 2026 | שבת | א | 8.3 | סבתא, ביומולדת הזה הנכדה היא המלכה | 16 | grandma | books/15 | מחכה לקריינות ולצילום של ירין | Check in the preview that the birthday book reads as a queen for a girl before recording. |
 | 28 / 11 / 2026 | שבת | ב | 1.2 | כמה זמן לוקח להכין ספר ליום הולדת? | 26.6 | parents | books/15 | חסום | No timer on screen yet: the take says תראו כמה זמן לקח, but there is no recording of the timer. Screen-record one order with a timer (or tell Claude the real time to show) before posting. |
 | 29 / 11 / 2026 | ראשון | א | 9.3 | אח חדש בדרך, ובבית שומרים שבת? | 13.5 | parents | books/9002 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
 | 29 / 11 / 2026 | ראשון | ב | 1.3 | יומולדת בעוד שבוע. הספר יגיע בזמן? | 17.8 | parents | books/15 | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות |
-| 30 / 11 / 2026 | שני | א | 7.3 | קוראים את כל הספר לפני שמשלמים | 15.6 | parents | books/category/bestsellers | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה על הספה, קריינות |
-| 30 / 11 / 2026 | שני | ב | 7.4 | סבתא, מתנה לנכד בלי לצאת מהבית | 15.6 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Needs a printed book and a delivery box (same as 1.4). |
+| 30 / 11 / 2026 | שני | א | 7.3 | קוראים את כל הספר לפני שמשלמים | 15.6 | parents | books/category/bestsellers | מחכה לקריינות ולצילום של ירין | Before recording: check what the free preview shows today. The CRO audit of 24 Oct 2026 (research/cro-crm/audit.md, A4) found the inner pages locked until after payment; if so, change 'כל הספר' or 'כל הסיפור' to 'התצוגה המקדימה' in the hook, voiceover and caption (research/hanukkah-black-friday-2026/black-friday.md, section 11). |
+| 30 / 11 / 2026 | שני | ב | 7.4 | סבתא, מתנה לנכד בלי לצאת מהבית | 15.6 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Needs a printed book and a delivery box (same as 1.4). / Before recording: check what the free preview shows today. The CRO audit of 24 Oct 2026 (research/cro-crm/audit.md, A4) found the inner pages locked until after payment; if so, change 'כל הספר' or 'כל הסיפור' to 'התצוגה המקדימה' in the hook, voiceover and caption (research/hanukkah-black-friday-2026/black-friday.md, section 11). |
 | 01 / 12 / 2026 | שלישי | א | 9.5 | נכדה חדשה בדרך? ומה עם האח הגדול? | 17.4 | grandma | books/9007 | מחכה לקריינות ולצילום של ירין | The book page's description talks about a new brother; check in the preview that the story is about a sister and works for an older girl too. |
 | 01 / 12 / 2026 | שלישי | ב | 9.9 | חזר מהגן עם סיפור על חבר? | 16.7 | parents | books/102 | מחכה לקריינות ולצילום של ירין | Check in the preview (book 102) which page shows the choice between a rumor and a call for help, and how the tower looks, before recording. |
+| 02 / 12 / 2026 | רביעי |  | 9.16 | סבתא, פסוק אחד מלווה את הנכד בדרך | 16 | grandma | books/113 | מחכה לקריינות ולצילום של ירין | Check in the preview (book 113) the road between the fairs, the return to learning and the page where it passes on before recording. |
 
 ## Spares (no date)
 
@@ -69,8 +70,8 @@ Each shoot records the 2 s hook clips to camera and the voiceovers for the reels
 - **חמישי 05 / 11 / 2026**: reels 3.1 ✓ or 1.7. היום. צילום סלפי אחד שלך למצלמה לריל של הערב, בערך 20 שניות.
 - **שישי 06 / 11 / 2026**: reels 1.4 or 1.6, 2.6, 8.3 or 1.2, 9.2 or 5.5 or 9.10, 1.4 or 1.6, 7.1, 3.1 ✓ or 1.7, 2.7 ✓, 8.2 ✓. יום שישי. תשעה קטעי פתיחה למצלמה ותשע קריינות, בחדר שקט אחד עם הטלפון בגובה העיניים. 1.6 עולה באותו ערב ו 2.6 למחרת. ל 1.4 ול 3.1 צריך גם את הספר המודפס, מלמעלה על משטח בהיר ולידו חנוכייה.
 - **שישי 13 / 11 / 2026**: reels 9.5 or 9.9, 9.2 or 5.5 or 9.10, 9.6 or 9.11, 9.7 or 9.12, 3.3 or 9.15, 2.3 or 5.2, 5.1 or 2.5. יום שישי. שבעה קטעי פתיחה וקריינות. ל 5.1 צריך גם מוצץ על שידה בלילה. לכל יום שתי אפשרויות: מצלמים רק את זו שבחרת בלוח.
-- **שישי 20 / 11 / 2026**: reels 8.1 or 9.16, 5.4 or 1.8, 9.4 or 9.13, 9.1 or 9.14, 9.8 or 3.2, 7.2 or 1.5, 8.3 or 1.2. יום שישי. שבעה קטעי פתיחה וקריינות. ל 7.2 צריך את הספר עטוף כמתנה. לכל יום שתי אפשרויות: מצלמים רק את זו שבחרת בלוח.
-- **שישי 27 / 11 / 2026**: reels 9.3 or 1.3, 7.3 or 7.4. יום שישי. שני קטעי פתיחה וקריינות. 7.3 הוא קטע פתיחה על הספה. לכל יום שתי אפשרויות: מצלמים רק את זו שבחרת בלוח.
+- **שישי 20 / 11 / 2026**: reels 8.1 or 7.5, 5.4 or 1.8, 9.4 or 9.13, 9.1 or 9.14, 9.8 or 3.2, 7.2 or 1.5, 8.3 or 1.2, 8.1 or 7.5, 7.2 or 1.5. יום שישי. שבעה קטעי פתיחה וקריינות. ל 7.2 צריך את הספר עטוף כמתנה. לכל יום שתי אפשרויות: מצלמים רק את זו שבחרת בלוח. נוספו ב 19 / 11 לבלאק פריידיי: 7.5 (קטע פתיחה קצר עם ספר מודפס ביד, וקריינות של חמש שורות) ו 1.5 (קטע פתיחה וקריינות; קודם בודקים מה התצוגה המקדימה מראה). אם אין זמן לכולם: 7.5, 7.2 ו 1.5 קודם.
+- **שישי 27 / 11 / 2026**: reels 9.3 or 1.3, 7.3 or 7.4, 7.3 or 7.4. יום שישי. שני קטעי פתיחה וקריינות. 7.3 הוא קטע פתיחה על הספה. לכל יום שתי אפשרויות: מצלמים רק את זו שבחרת בלוח. נוסף ב 19 / 11: 7.4 (קטע פתיחה וקריינות) לסייבר מאנדיי.
 
 ## One reel, start to finish
 
@@ -90,6 +91,6 @@ Each shoot records the 2 s hook clips to camera and the voiceovers for the reels
 - **4. ירין בודק**: 4.1, 4.2
 - **5. רגע בבית (באותו יום כמו הקרוסלה)**: 5.1, 5.2, 5.4, 5.5
 - **6. טרנדים מוכנים**: 
-- **7. ימי מבצע**: 7.2, 7.3, 7.4
+- **7. ימי מבצע**: 7.2, 7.3, 7.4, 7.5
 - **8. מסבתא לנכד**: 8.1, 8.2, 8.3, 8.4
 - **9. שומרי מסורת**: 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 9.9, 9.10, 9.11, 9.12, 9.13, 9.14, 9.15, 9.16

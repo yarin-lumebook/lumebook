@@ -30,7 +30,7 @@ SRC = OUT = PAGE = PAGE_TITLE = BRAND = None
 DASHES = re.compile("[–—]")
 
 # the number of a "## N." heading -> section id, sidebar label, icon
-SECTIONS = {
+SECTIONS_BASE = {
     "1": ("offers", "מה מציעים, ומתי", "gift"),
     "2": ("planned", "מה כבר מתוכנן", "calendar"),
     "3": ("search", "מה מחפשים בגוגל", "search"),
@@ -39,10 +39,30 @@ SECTIONS = {
     "6": ("hooks", "הוקים", "sparkle"),
     "7": ("open", "מה פתוח", "bell"),
 }
+# Black Friday became a campaign on 19 Nov 2026 (Yarin: "119 for the first book 99 for the second"; the campaign prompt asked
+# for phases, five briefs, distribution, measurement and tasks inside the existing page, not a new one)
+SECTIONS_BF = {
+    "1": ("offers", "מה מציעים, ומתי", "gift"),
+    "2": ("planned", "לוח הקמפיין", "calendar"),
+    "3": ("search", "מה מחפשים בגוגל", "search"),
+    "4": ("intents", "כוונות קנייה", "target"),
+    "5": ("questions", "שאלות קשורות", "chat"),
+    "6": ("hooks", "הוקים", "sparkle"),
+    "7": ("briefs", "חמישה בריפים", "image"),
+    "8": ("funnel", "הפצה והמרה", "share"),
+    "9": ("measure", "מדידה ורווחיות", "chart"),
+    "10": ("tasks", "משימות", "check"),
+    "11": ("open", "מה פתוח", "bell"),
+}
+SECTIONS_BY_PAGE = {"hanukkah": SECTIONS_BASE, "black-friday": SECTIONS_BF}
+SECTIONS = SECTIONS_BASE
+COPY_SECTIONS = {"hooks", "briefs"}   # sections whose card headlines are audience copy (Hebrew in both languages)
+# table columns that hold audience copy: kept Hebrew when the page is switched to English
+COPY_COLS = {"הטקסט על המסך", "בדיבור", "על השקופית", "על הפריים", "ההוק", "הכיתוב", "טקסט לפייסבוק", "ההודעה"}
 # "### " headings in the hooks section that the overview cubes point at
 SUB_IDS = {"רילס": "reels", "קרוסלות ניסוי": "test", "קרוסלות ילד": "kid", "פוסטים בפייסבוק": "facebook", "סטוריז": "stories"}
 HEADLINE = {"הכוונה", "ההוק על המסך", "כותרת (המילה המודגשת בכוכביות)", "שער"}
-BR_COLS = {"כותרת (המילה המודגשת בכוכביות)", "גוף השער", "שער", "הנעה לשמירה"}   # " / " marks a line break on the slide
+BR_COLS = {"כותרת (המילה המודגשת בכוכביות)", "גוף השער", "שער", "הנעה לשמירה", "ההוק על המסך"}   # " / " marks a line break on the slide
 LABELS = {"ישירה": ("success", "ראיה ישירה"), "הסקה": ("info", "הסקה"), "השערה": ("warning", "השערה")}
 KV_NAMES = {"כותרת (המילה המודגשת בכוכביות)": "כותרת"}
 
@@ -208,13 +228,16 @@ def cards(rows, sid, sub, copy):
 def table(rows):
     head = rows[0]
     th = "".join(f"<th>{esc(h)}</th>" for h in head)
-    body = "".join("<tr>" + "".join(f'<td data-label="{esc(head[k])}">{inline(v)}</td>' for k, v in enumerate(r)) + "</tr>" for r in rows[1:])
+    tn = [' translate="no" dir="rtl"' if h in COPY_COLS else "" for h in head]
+    # in a copy column " // " is a line break (" / " cannot be: dates are written 27 / 11)
+    body = "".join("<tr>" + "".join(f'<td data-label="{esc(head[k])}"{tn[k]}>{inline(v).replace(" // ", "<br>")}</td>'
+                                    for k, v in enumerate(r)) + "</tr>" for r in rows[1:])
     return f'<div class="lb-table-wrap"><table class="lb-table hb-table"><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div>'
 
 
 def blocks_html(blocks, sid):
     out, sub, k = [], None, 0
-    copy = sid == "hooks"   # audience copy stays Hebrew in both languages
+    copy = sid in COPY_SECTIONS   # audience copy stays Hebrew in both languages
     tn = ' translate="no"' if copy else ""
     for kind, data in blocks:
         if kind == "h3":
@@ -333,8 +356,9 @@ JS = r"""<script>
 
 
 def build(name):
-    global SRC, OUT, PAGE, PAGE_TITLE, BRAND
+    global SRC, OUT, PAGE, PAGE_TITLE, BRAND, SECTIONS
     SRC, fn, PAGE_TITLE, BRAND = PAGES[name]
+    SECTIONS = SECTIONS_BY_PAGE[name]
     OUT = os.path.join(HERE, fn)
     PAGE = f"research/hanukkah-black-friday-2026/{fn}"
     doc = parse()
@@ -355,6 +379,12 @@ def build(name):
         ("פייסבוק וסטוריז", count_after(hooks, "פוסטים בפייסבוק", "ol") + count_after(hooks, "סטוריז", "ol"), "שורות פתיחה ורעיונות", "#hooks-facebook", f'lb-cat-{ct["post"]["cat"]}'),
         ("מה פתוח", n_open, "החלטות שמחכות לירין", "#open", "is-warn"),
     ]
+    ids = {SECTIONS[s["num"]][0] for s in doc["sections"]}
+    if "briefs" in ids:   # the campaign sections of the Black Friday page (19 Nov 2026)
+        n_briefs = sum(1 for b in section(doc, "briefs")["blocks"] if b[0] == "h3")
+        n_must = count_after(section(doc, "tasks")["blocks"], "לפני ההשקה", "table")
+        cubes[1:1] = [("בריפים", n_briefs, "ריל, יוצרת, קרוסלה, הדגמה, סטוריז", "#briefs", "lb-cat-0"),
+                      ("לפני ההשקה", n_must, "משימות עם בעלים ותאריך", "#tasks", "is-warn")]
     cubes = [c for c in cubes if c[1]]   # a cube for something this page does not have is left out
     cube_html = "".join(f'<a class="lb-metric {cls}" href="{href}"><span class="lb-metric-label">{esc(lab)}</span>'
                         f'<span class="lb-metric-value"><b>{n}</b></span><span class="lb-metric-foot">{esc(foot)}</span></a>'

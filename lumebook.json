@@ -1058,7 +1058,7 @@
       "notes": "11 Nov 2026 (Yarin: \"learn adar.motherhood voice, focus on the hooks and CTAs and create an analysis explaining how to create content like her\"). A homeschooling mom of two with 7K followers: every Reel in her tab inventoried (591), the 22 top Reels since 2024 and 12 same-period controls coded from the first 6 seconds, captions and sampled comments; her biggest carousel plus the 8 newest read. Deliverables: report.md (voice, hook families, CTAs, how to make content like hers, what LumeBook takes and leaves, example Hebrew lines that pass voice_lint, 3 tests). Her videos, frames, transcripts stay local in media/projects/2026-11-11-adar-motherhood-reels/; sampled comments are gitignored. One account, small samples: hypotheses, not rules."
     },
     "hanukkah-black-friday-2026": {
-      "name": "Hanukkah and Black Friday 2026 content, two pages (14 + 5 purchase intents, related questions, hooks)",
+      "name": "Hanukkah and Black Friday 2026: two pages (14 + 6 purchase intents, related questions, hooks); Black Friday is also the campaign plan (phases, five briefs, distribution, measurement, tasks)",
       "path": "research/hanukkah-black-friday-2026",
       "kind": "page",
       "watch": [
@@ -1066,12 +1066,19 @@
         "research/hanukkah-black-friday-2026/black-friday.md",
         "research/hanukkah-black-friday-2026/build.py",
         "research/hanukkah-black-friday-2026/README.md",
-        "research/hanukkah-black-friday-2026/sources/*"
+        "research/hanukkah-black-friday-2026/sources/*",
+        "research/hanukkah-black-friday-2026/drafts/*"
       ],
       "build": {
-        "cmd": ["python3", "build.py"],
+        "cmd": [
+          "python3",
+          "build.py"
+        ],
         "cwd": "research/hanukkah-black-friday-2026",
-        "outputs": ["research/hanukkah-black-friday-2026/hanukkah.html", "research/hanukkah-black-friday-2026/black-friday.html"],
+        "outputs": [
+          "research/hanukkah-black-friday-2026/hanukkah.html",
+          "research/hanukkah-black-friday-2026/black-friday.html"
+        ],
         "auto": true
       },
       "publish": {
@@ -1080,12 +1087,13 @@
         "note": "Local only: repeats an internal figure (buyers) from shared/facts.json."
       },
       "rules": [
-        "hanukkah.md and black-friday.md are the sources; never edit hanukkah.html or black-friday.html by hand. The build fails on an em or en dash, the brand spelt לומיבוק, intent numbers not 1..N or a hook naming an unknown intent."
+        "hanukkah.md and black-friday.md are the sources; never edit hanukkah.html or black-friday.html by hand. The build fails on an em or en dash, the brand spelt לומיבוק, intent numbers not 1..N or a hook naming an unknown intent.",
+        "The Black Friday campaign lives in black-friday.md (sections 2 and 7 to 11) and in the systems it points at (reels.json 7.5, the seasonal carousels, the story series, the experiment log); never a second calendar or tracker. Offer facts in shared/facts.json black_friday_2026; dates stay null until Yarin or Yossi gives them."
       ],
       "feeds": [
         "research-hub"
       ],
-      "notes": "18 Nov 2026 (Yarin: \"i need black friday and hanukkah content - purchase intent, related questions, hooks\"; then \"holiday-cards is for hanukkah, black friday is just awareness for the regular deal\"). hanukkah.md and black-friday.md in Hebrew (split 18 Nov 2026, Yarin: \"separete hanukkah and black friday\"): the free holiday-cards gift (card or colouring booklet) as the Hanukkah call to action, the regular deal for Black Friday, Google autocomplete findings, 19 purchase intents, related questions, hooks for reels, test carousels, child-voice carousels, Facebook and stories (all pass voice_lint). Open items: price outside reels, the 99 code next to the 119 deal, a real gift to film, kindergarten orders, delivery to another address."
+      "notes": "18 Nov 2026 (Yarin: \"i need black friday and hanukkah content - purchase intent, related questions, hooks\"; then \"holiday-cards is for hanukkah, black friday is just awareness for the regular deal\"). hanukkah.md and black-friday.md in Hebrew (split 18 Nov 2026, Yarin: \"separete hanukkah and black friday\"): the free holiday-cards gift (card or colouring booklet) as the Hanukkah call to action, the regular deal for Black Friday, Google autocomplete findings, 19 purchase intents, related questions, hooks for reels, test carousels, child-voice carousels, Facebook and stories (all pass voice_lint). Open items: price outside reels, the 99 code next to the 119 deal, a real gift to film, kindergarten orders, delivery to another address. 19 Nov 2026: Yarin set the Black Friday offer (\"119 for the first book 99 for the second thats the discount were going for\", shared/facts.json black_friday_2026) and asked, through a campaign prompt, to fold a conversion campaign into the existing plan. black-friday.md now has the campaign calendar (section 2, phases 19 to 30 Nov on top of the content calendar), a sixth intent (several grandchildren), five briefs (7: reel 7.5, creator UGC, the offer carousel for the seasonal series, the walkthrough from reel 1.2, the story sequence), distribution (8), measurement and contribution margin (9), tasks (10) and open decisions (11); build.py renders the extra sections for that page only (SECTIONS_BY_PAGE) and keeps copy columns Hebrew. Wired in: reel 7.5 in reels.json (22 / 11, 9.16 moved to 02 / 12), 7.5 and 1.5 on the 20 / 11 shoot, 7.4 on the 27 / 11 shoot, preview blockers on 1.5, 7.3, 7.4, 7.5's five hooks in calendar-state.json, three experiments (bf2026*) in research/mebook-customer-research/experiments.json, key dates 27 and 30 / 11 in facts. drafts/ holds the 25 / 11 offer carousel in the seasonal series format, with and without the price (the test batch lint blocks a price until Yarin says yes)."
     },
     "store-mock": {
       "name": "Store mock (lumebook.com/IL/he rebuilt as a conversion landing page in the LumeBook design system)",
@@ -1183,13 +1191,15 @@
       }
     },
     "content-calendar": {
-      "name": "לוח תוכן: the content calendar, every kid carousel, test carousel and reel of the month in one Hebrew tool (month, week, list, day drawer, piece panel)",
+      "name": "לוח תוכן: the content calendar, every kid carousel, test carousel, reel and story set of the month in one Hebrew tool (month, week, day, piece panel, story editor)",
       "path": "sites/content-calendar",
       "kind": "page",
       "watch": [
         "sites/content-calendar/build.py",
         "sites/content-calendar/page.css",
         "sites/content-calendar/page.js",
+        "sites/content-calendar/story-frame.js",
+        "sites/content-calendar/story.js",
         "shared/design/lumebook.css",
         "shared/design/categories.json",
         "shared/design/icons.json",
@@ -1214,7 +1224,22 @@
       "feeds": [
         "dashboard"
       ],
-      "notes": "11 Nov 2026 (Yarin: merge Carousel Machine, the test carousels and the reel calendar in one place). A front end over the existing engines; writes go through their own endpoints. README in the folder (status mapping, endpoints, rules, posting hours, testing)."
+      "notes": "11 Nov 2026 (Yarin: merge Carousel Machine, the test carousels and the reel calendar in one place). A front end over the existing engines; writes go through their own endpoints. README in the folder (status mapping, endpoints, rules, posting hours, testing). 19 Nov 2026: stories (kind story, tools/stories.py; data in media/projects/2026-11-19-story-series), with a full editor (story.js) and one renderer for preview and PNG (story-frame.js)."
+    },
+    "story-series": {
+      "name": "Story series (סטוריז: Black Friday, Hanukkah and real reviews, one set a day per series, edited in the content calendar, sent to Postiz as Instagram and Facebook stories)",
+      "path": "media/projects/2026-11-19-story-series",
+      "kind": "data",
+      "watch": [
+        "media/projects/2026-11-19-story-series/series.json",
+        "media/projects/2026-11-19-story-series/make_sets.py",
+        "tools/stories.py",
+        "sites/content-calendar/story-frame.js"
+      ],
+      "feeds": [
+        "content-calendar"
+      ],
+      "notes": "19 Nov 2026 (Yarin: \"use my chatgpt through chrome to create a daily story series we can schedule in postiz\"). series.json is the source (frames are data, not flat pictures); make_sets.py seeds days; tools/stories.py renders the PNGs (python3 tools/stories.py render KEY) and sends to Postiz only after approval and Yarin's click. Backgrounds made in ChatGPT through Claude in Chrome (art/). Review frames are the real screenshots of the social-proof page with names and photos blurred. README in the folder."
     },
     "mebook-customer-research": {
       "name": "MeBook customer study (מה לקוחות מיבוק אומרים: about 129 customer statements, 6 content hypotheses)",

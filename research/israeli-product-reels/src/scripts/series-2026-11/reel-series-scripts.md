@@ -160,6 +160,7 @@
   > מתנה לנכד מסבתא וסבא, ספר ילדים מותאם אישית
   > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Before recording: check what the free preview shows today. The CRO audit of 24 Oct 2026 (research/cro-crm/audit.md, A4) found the inner pages locked until after payment; if so, change 'כל הספר' or 'כל הסיפור' to 'התצוגה המקדימה' in the hook, voiceover and caption (research/hanukkah-black-friday-2026/black-friday.md, section 11).
 - הערה: 05 Nov evening: now to grandmothers, who often start without the photo and the site (the grandchild page says the photo can come from the parents on WhatsApp). The 'not sent and not printed until you approve' line is the site's own wording (seen 03 Nov). 07 Nov 2026: made a spare, its day (2026-11-18) went to 9.7 (half the reels to traditional homes). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the preview instead of hands putting the phone down. 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): option 2 for 13 / 11, next to 2.7.
 
 ## 1.6 מוצץ, חיתולים, יומולדת 3 כריכות
@@ -863,6 +864,7 @@
   > ספר ילדים מותאם אישית עם השם והתמונה של הילד
   > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Before recording: check what the free preview shows today. The CRO audit of 24 Oct 2026 (research/cro-crm/audit.md, A4) found the inner pages locked until after payment; if so, change 'כל הספר' or 'כל הסיפור' to 'התצוגה המקדימה' in the hook, voiceover and caption (research/hanukkah-black-friday-2026/black-friday.md, section 11).
 - הערה: New 04 Nov (Yarin: add Cyber Monday). Replaces the pacifier reel on this day; 5.1 moved to 21 Nov. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the preview page instead of a smile to the phone.
 
 ## 7.4 סבתא, מתנה לנכד בלי לצאת מהבית
@@ -894,7 +896,39 @@
   > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: Needs a printed book and a delivery box (same as 1.4).
+- לבדוק: Before recording: check what the free preview shows today. The CRO audit of 24 Oct 2026 (research/cro-crm/audit.md, A4) found the inner pages locked until after payment; if so, change 'כל הספר' or 'כל הסיפור' to 'התצוגה המקדימה' in the hook, voiceover and caption (research/hanukkah-black-friday-2026/black-friday.md, section 11).
 - הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"). Facts from reels.json defaults (delivery home, free preview) and the grandchild gift page (the photo can be asked from the parents on WhatsApp). Never says sale or price on the sale days.
+
+## 7.5 תמונה אחת שלו, ואז הוא הגיבור
+
+- סדרה 7: ימי מבצע
+- תאריך: ראשון 22 / 11 / 2026, בשעות של לוח תוכן
+- אפשרות ב, לא נבחרה (באותו יום: 8.1)
+- אורך משוער: 12.8 שניות
+- סטטוס: מחכה לקריינות ולצילום של ירין
+- קהל: הורים, עמוד בחנות: books/86
+- מבנה: תמונה, ואז הגיבור בספר
+- השיא על המסך: ילד אמיתי מחייך עם הספר שלו, ואז הכריכה עם השם עד לומי
+- צילום: קטע פתיחה קצר שלך למצלמה עם ספר מודפס ביד, וקריינות של חמש שורות. כל השאר מחומרים שכבר יש: הקלטת האשף מ 1.2, ספרים מצוירים של החנוכה שלי מהספרייה, וילד אמיתי עם הספר שלו.
+- חומר: Yarin: hook clip to camera with a printed book, voiceover / Claude: the wizard recording (name and photo steps, then the preview) from reel 1.2 (media/projects/2026-11-10-reel-1-2) / library: drawn/open-book-story-page-with-the-name-B86_boy-fa4c.png, drawn/closed-book-cover-with-the-name-in-the-title-B86_boy-1405.png (media/projects/2026-11-11-reel-broll-pool) / library: child-bg/child-boy-smiles-holding-his-rainbow-book.mp4 (a real child with his printed book)
+- ירין מצלם: קטע פתיחה למצלמה עם ספר מודפס ביד, קריינות
+- קריינות (בערך 33 מילים):
+  - תמונה אחת שלו, ואז הוא הגיבור. (רואים: אתה למצלמה עם ספר מודפס ביד, ההוק למעלה)
+  - שם ותמונה אחת, (רואים: הקלטת האשף בחלון: השם נכתב, התמונה עולה)
+  - והוא בתוך הסיפור. (רואים: התצוגה המקדימה בחלון, הכריכה עם הילד)
+  - השם שלו על הכריכה, והפנים שלו בציורים. (רואים: ספר פתוח: עמוד הסיפור עם השם, ואחריו הכריכה עם השם)
+  - והספר המודפס מגיע עד הבית. (רואים: ילד אמיתי מחייך עם הספר המודפס שלו)
+  - תכתבו לי לומי בתגובות, ואשלח לכם קישור ליצירת הספר.
+- כיתוב לאינסטגרם:
+  > תמונה אחת שלו, ואז הוא הגיבור ✨
+  > שם ותמונה ברורה אחת, והוא בתוך הסיפור.
+  > השם שלו על הכריכה, והפנים שלו בציורים של הספר.
+  > ואז הספר המודפס מגיע עד הבית.
+  > ספר ילדים מותאם אישית עם השם והתמונה של הילד
+  > #ספרילדים #ספרמותאםאישית #מתנהלחנוכה #ספרחנוכה #לומבוק
+  > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
+- לבדוק: Pick one of the 5 hooks in the content calendar before the make (11 Nov 2026 rule).
+- הערה: New 19 Nov 2026 for the Black Friday campaign (research/hanukkah-black-friday-2026/black-friday.md, brief 1; Yarin set the offer the same day: first book 119, second 99). The product transformation reel, about 15 s plus the closing line, and the prospecting ad Yossi can run from 22 / 11. Took 22 / 11 option 2 from 9.16 (moved to 02 / 12, it had no shoot day). No price or sale (05 Nov rule): the offer goes in carousels, stories, Facebook text, DMs and ads. Says only what the store states: name and one photo, the child on the cover and in the story pictures (shared/facts.json store_facts.book: 10 pictures inside), home delivery. Does not say the whole book is seen before paying (CRO audit A4, 24 Oct 2026, found the inner pages locked).
 
 # סדרה 8: מסבתא לנכד
 
@@ -902,7 +936,7 @@
 
 - סדרה 8: מסבתא לנכד
 - תאריך: ראשון 22 / 11 / 2026, בשעות של לוח תוכן
-- אפשרות א, לא נבחרה (באותו יום: 9.16)
+- אפשרות א, לא נבחרה (באותו יום: 7.5)
 - אורך משוער: 22.4 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/15
@@ -1519,8 +1553,7 @@
 ## 9.16 סבתא, פסוק אחד מלווה את הנכד בדרך
 
 - סדרה 9: שומרי מסורת
-- תאריך: ראשון 22 / 11 / 2026, בשעות של לוח תוכן
-- אפשרות ב, לא נבחרה (באותו יום: 8.1)
+- תאריך: רביעי 02 / 12 / 2026, בשעות של לוח תוכן
 - אורך משוער: 16 שניות
 - סטטוס: מחכה לקריינות ולצילום של ירין
 - קהל: סבתות, עמוד בחנות: books/113
@@ -1546,4 +1579,4 @@
   > #לימודתורה #מתנהלנכד #שומרימסורת #ספרילדים #לומבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: Check in the preview (book 113) the road between the fairs, the return to learning and the page where it passes on before recording.
-- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 113 (הפסוק שהמשיך בדרך) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: סבתא, מה עובר / ממך לנכד?. The old hook was abstract, and its line "לא רק הסיפורים, גם מה שלמדת" claimed something the store page does not say; the reel now says only what the page's description says.
+- הערה: Option 2, new 10 Nov 2026 (Yarin: "reel calendar: i want 2 options for each day"): same lane as option 1 (traditions, Sunday to Thursday), so the half and half split holds whichever option is picked. Book 113 (הפסוק שהמשיך בדרך) from the store's traditions category, its page description read 10 / 11 / 2026; every story detail in the voiceover comes from that description, so check the pages in the preview first. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: סבתא, מה עובר / ממך לנכד?. The old hook was abstract, and its line "לא רק הסיפורים, גם מה שלמדת" claimed something the store page does not say; the reel now says only what the page's description says. 19 Nov 2026: moved from 22 / 11 to 02 / 12 to make room for 7.5, the Black Friday product reel (it had no shoot day); move it back in the content calendar if needed.
