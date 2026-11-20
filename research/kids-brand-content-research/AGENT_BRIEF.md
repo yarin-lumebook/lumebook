@@ -1,7 +1,7 @@
 # Brief: break down short-form videos for LumeBook
 
 ## Who this is for
-LumeBook (Hebrew: לומבוק) is an Israeli brand selling AI-personalised children's books: a parent uploads a photo of their child, AI illustrates the child as the hero, the family sees a free preview and orders a printed book. Its social media manager is 24, has no kids, works alone, and makes short-form video (Reels, TikTok) and carousels by shooting, editing or AI-generating them. They want to learn from kids' brands that do well on social with: child development and milestones (ages 1-10), novelty ideas, experts, and everyday parent-child moments told creatively. Their content pillars: developmental, novelty, craft (how it's made), likeness, FAQ, gifters, milestones, first look. They care most about retention and expert content, on Instagram and TikTok.
+LumeBook (Hebrew: לומיבוק) is an Israeli brand selling AI-personalised children's books: a parent uploads a photo of their child, AI illustrates the child as the hero, the family sees a free preview and orders a printed book. Its social media manager is 24, has no kids, works alone, and makes short-form video (Reels, TikTok) and carousels by shooting, editing or AI-generating them. They want to learn from kids' brands that do well on social with: child development and milestones (ages 1-10), novelty ideas, experts, and everyday parent-child moments told creatively. Their content pillars: developmental, novelty, craft (how it's made), likeness, FAQ, gifters, milestones, first look. They care most about retention and expert content, on Instagram and TikTok.
 
 ## Your inputs per video (folder `analysis/<id>/`)
 - `meta.json`: platform, url, account, views, likes, comments, account median views, outlier_x (views / account median), like_rate_pct, caption, duration.
@@ -37,7 +37,7 @@ LumeBook (Hebrew: לומבוק) is an Israeli brand selling AI-personalised chil
    "needs": "what they would still need: permission to repost, a barter expert, a relative's child with parental consent, nothing",
    "effort": "low | medium | high"
  },
- "lumebook_version": {"pillar": "developmental | novelty | craft | likeness | faq | gifters | milestones | first_look", "hook_he": "a short Hebrew hook line for LumeBook's version (write לומבוק, never לומיבוק)", "concept": "1-2 sentences in English"},
+ "lumebook_version": {"pillar": "developmental | novelty | craft | likeness | faq | gifters | milestones | first_look", "hook_he": "a short Hebrew hook line for LumeBook's version (write לומיבוק, never לומבוק)", "concept": "1-2 sentences in English"},
  "evidence_notes": "what was observed vs spoken vs inferred, transcript quality, anything you could not verify",
  "frames_cited": ["frames/f_000_000.00s.jpg", "..."]
 }

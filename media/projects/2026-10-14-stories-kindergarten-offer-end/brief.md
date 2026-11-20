@@ -25,7 +25,7 @@ Headline:
 
 Thanks:
 תודה ענקית לכל הגנים וההורים
-שהזמינו ובחרו בלומבוק
+שהזמינו ובחרו בלומיבוק
 
 Sentiment:
 מתרגשים להיות חלק
@@ -41,4 +41,4 @@ Offer card body:
 Closing:
 נתראה במבצע הבא!
 
-Keep all type large enough for mobile viewing. Hebrew text must remain exact, including the spelling לומבוק. Use a real 9:16 image, not a mockup or a phone frame.
+Keep all type large enough for mobile viewing. Hebrew text must remain exact, including the spelling לומיבוק. Use a real 9:16 image, not a mockup or a phone frame.

@@ -93,7 +93,7 @@
 #### שקופית 7 · המוצר
 
 **ומה אם הילד בסיפור הוא אני?**  
-בספר ״הגן הקסום של הגדולים״ של לומבוק  
+בספר ״הגן הקסום של הגדולים״ של לומיבוק  
 אני עולה לרכבת עם החברים  
 עם השם שלי והפנים שלי  
 
@@ -139,7 +139,7 @@
 - שקופית 4 · בדרך כלל עוד לפני שהגעת לאוטו אני כבר בפינת הקוביות · sourced_fact · KidsHealth: by the time you get to your car the child is likely playing; AAP: children stop crying within minutes. Stated as 'usually', not always.
 - שקופית 5 · חיבוק אחד, אני באה אחרי הצהריים, לא לחזור להציץ · sourced_fact · AAP: short goodbye with full affection, return time in the child's terms, do not return to visit.
 - שקופית 6 · סיפור על יום שלם בגן · sourced_fact · Reading books about child care and talking about the characters' feelings. 'Easier for me to tell about my day' is our wording.
-- שקופית 7 · ״הגן הקסום של הגדולים״ של לומבוק · product_fact · Live catalogue title and description: a child's first days in gan with friends and games.
+- שקופית 7 · ״הגן הקסום של הגדולים״ של לומיבוק · product_fact · Live catalogue title and description: a child's first days in gan with friends and games.
 - שקופית 7 · אני עולה לרכבת עם החברים · product_fact · Story text: the child joins the train game.
 - שקופית 7 · עם השם שלי והפנים שלי · product_fact · Live site: name in the text, child in every illustration, made from an uploaded photo.
 - שקופית 8 · משלמים רק אם אהבתם · product_fact · Live site FAQ: creation and preview are free, pay only if you love it.
@@ -229,7 +229,7 @@
 #### שקופית 7 · המוצר
 
 **ושהילדה בסיפור תהיה אני**  
-בספר ״לב האומץ״ של לומבוק  
+בספר ״לב האומץ״ של לומיבוק  
 מציירים לי לב ורוד על כף היד  
 עם השם שלי והפנים שלי בכל איור  
 
@@ -275,7 +275,7 @@
 - שקופית 3 · כשאני עייפה הכל קשה לי יותר וגם להגיד ביי · sourced_fact · Separations are more difficult when children are tired.
 - שקופית 4 · יכול להיות שאני פשוט עוד עייפה מהחגים · lumebook_wording · A possibility about this child, framed with יכול להיות; rests on the AAP and KidsHealth tiredness point.
 - שקופית 5 · לישון קצת מוקדם כמו לפני החגים ואותו ביי קבוע · sourced_fact · Get back to regular bedtimes before returning to care (lockdown context, applied to the holiday break); same ritual each day.
-- שקופית 7 · ״לב האומץ״ של לומבוק · product_fact · Live catalogue: gan separation story built around a heart drawing; cover title לב האומץ של + name.
+- שקופית 7 · ״לב האומץ״ של לומיבוק · product_fact · Live catalogue: gan separation story built around a heart drawing; cover title לב האומץ של + name.
 - שקופית 7 · מציירים לי לב ורוד על כף היד · product_fact · Story text, girl version: the mother draws with a glowing pink marker on her palm.
 - שקופית 7 · עם השם שלי והפנים שלי בכל איור · product_fact · Live site: name in the text, child in every illustration.
 - שקופית 8 · התצוגה המקדימה בחינם · product_fact · Live site FAQ: creation and preview are free.
@@ -365,7 +365,7 @@
 #### שקופית 7 · המוצר
 
 **בספר הזה גם אמא מספרת**  
-ב״לב האומץ״ של לומבוק  
+ב״לב האומץ״ של לומיבוק  
 אמא אומרת לי ״גם לי היה קשה להיפרד״  
 ואני הגיבור עם השם והפנים שלי  
 
@@ -412,7 +412,7 @@
 - שקופית 3 · כשאומרים לי הכל בסדר זה לא עובר יותר מהר · sourced_fact · Sources advise listening instead of quickly reassuring or dismissing worries. The child's line is our wording.
 - שקופית 4 · אני צריך שתשמעי ושתגידי שגם את זוכרת · sourced_fact · Listen and show you understand; share your own experience of starting something new.
 - שקופית 5 · ספרי לי על הגן שלך ואז ביי קצר · sourced_fact · Share a time you started something new and how you felt; keep the goodbye short.
-- שקופית 7 · ״לב האומץ״ של לומבוק · product_fact · Live catalogue title and description.
+- שקופית 7 · ״לב האומץ״ של לומיבוק · product_fact · Live catalogue title and description.
 - שקופית 7 · אמא אומרת לי ״גם לי היה קשה להיפרד״ · product_fact · Story text: 'גם לי היה קשה להיפרד כשהייתי קטנה'. Shortened on the slide.
 - שקופית 7 · אני הגיבור עם השם והפנים שלי · product_fact · Live site: name in the text, child in every illustration, from an uploaded photo.
 - שקופית 8 · משלמים רק אם אהבתם · product_fact · Live site FAQ.
@@ -509,7 +509,7 @@
 
 **בסיפור הזה**  
 **הבת שלכם היא הגיבורה**  
-ב״לב האומץ״ של לומבוק  
+ב״לב האומץ״ של לומיבוק  
 אמא מציירת לה לב על כף היד  
 עם השם שלה והפנים שלה בכל איור  
 
@@ -556,7 +556,7 @@
 - שקופית 4 · לחזור לעוד ביקור מאריך את הקושי ולעמוד במילה בונה אמון · sourced_fact · AAP: returning to visit extended the separation anxiety; sticking to the promise of return builds trust.
 - שקופית 5 · חיבוק מלא בלי טלפון, אחרי ארוחת צהריים, יוצאים בלי להציץ · sourced_fact · Full attention at goodbye; return time in child terms such as after lunch; do not come back. 'Without a phone in hand' is our concrete wording of 'full attention'.
 - שקופית 6 · סיפור על ילדה שנפרדת בבוקר · sourced_fact · Reading books about child care and talking about the characters' feelings.
-- שקופית 7 · ״לב האומץ״ של לומבוק, לב על כף היד · product_fact · Live catalogue and story text: the mother draws a heart on the child's palm.
+- שקופית 7 · ״לב האומץ״ של לומיבוק, לב על כף היד · product_fact · Live catalogue and story text: the mother draws a heart on the child's palm.
 - שקופית 7 · השם שלה והפנים שלה בכל איור · product_fact · Live site: name in the text, child in every illustration.
 - שקופית 8 · התצוגה המקדימה בחינם · product_fact · Live site FAQ.
 
@@ -646,7 +646,7 @@
 #### שקופית 7 · המוצר
 
 **ואם הילד בסיפור הוא הבן שלכם?**  
-ב״לב האומץ״ של לומבוק  
+ב״לב האומץ״ של לומיבוק  
 לב על כף היד שמזכיר לו אתכם  
 השם שלו בטקסט והפנים שלו בכל איור  
 
@@ -694,7 +694,7 @@
 - שקופית 4 · כשקשה להיפרד זו התנהגות רגילה וסימן לקשר משמעותי · sourced_fact · AAP: an entirely normal behavior and a beautiful sign of a meaningful attachment.
 - שקופית 5 · לבוא כשאמרתם, במילים שלו, אחרי ארוחת הצהריים · sourced_fact · Return when you say you will; explain the return using concepts kids understand such as after lunch.
 - שקופית 6 · סיפור על ילד שמתגעגע בגן · sourced_fact · Reading books about child care and talking about characters' feelings.
-- שקופית 7 · ״לב האומץ״ של לומבוק, לב על כף היד שמזכיר לו אתכם · product_fact · Catalogue: a heart drawing that connects the child to the parents' love when they are not near; story: drawn on the palm.
+- שקופית 7 · ״לב האומץ״ של לומיבוק, לב על כף היד שמזכיר לו אתכם · product_fact · Catalogue: a heart drawing that connects the child to the parents' love when they are not near; story: drawn on the palm.
 - שקופית 7 · השם שלו בטקסט והפנים שלו בכל איור · product_fact · Live site FAQ.
 - שקופית 8 · משלמים רק אם אהבתם · product_fact · Live site FAQ.
 
@@ -787,7 +787,7 @@
 #### שקופית 7 · המוצר
 
 **ושהגיבורה של הסיפור תהיה היא**  
-ב״הגן הקסום של הגדולים״ של לומבוק  
+ב״הגן הקסום של הגדולים״ של לומיבוק  
 היא עולה לרכבת ובונה מגדל עם חברים  
 עם השם שלה והפנים שלה בכל איור  
 
@@ -833,7 +833,7 @@
 - שקופית 4 · ארגון אמריקאי לגיל הרך ממליץ לשחק את סדר היום בגן ולהתחלף בתפקידים · sourced_fact · Zero To Three: use pretend play, take turns being the parent, child and teacher.
 - שקופית 5 · חיבוק אחד, אני באה אחרי האוכל, ביי ויוצאים · sourced_fact · Exit ritual with a firm goodbye; return time in child terms such as after lunch; practise the goodbye ritual.
 - שקופית 6 · סיפור על יום בגן ולשאול מה הילדה בסיפור הרגישה · sourced_fact · Read books about child care and talk about how the characters are feeling.
-- שקופית 7 · ״הגן הקסום של הגדולים״ של לומבוק · product_fact · Live catalogue title and description.
+- שקופית 7 · ״הגן הקסום של הגדולים״ של לומיבוק · product_fact · Live catalogue title and description.
 - שקופית 7 · עולה לרכבת ובונה מגדל עם חברים · product_fact · Story text: the train game and the block tower with a friend (girl version).
 - שקופית 7 · השם שלה והפנים שלה בכל איור · product_fact · Live site FAQ.
 - שקופית 8 · התצוגה המקדימה בחינם · product_fact · Live site FAQ.

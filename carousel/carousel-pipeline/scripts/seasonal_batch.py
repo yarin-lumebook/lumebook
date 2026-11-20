@@ -24,7 +24,7 @@ or ad: one `cta` slide with `headline`, `no` (the usual buy, crossed out), `yes`
 `body` (the reason to act and the CTA's last line).
 
     carousel/carousel-pipeline/seasonal/2026-bf-hanukkah/
-        carousels/KEY.json     bf-YYYY-MM-DD / hn-YYYY-MM-DD (the day it goes out), bf-ad-N / hn-ad-N (single pictures)
+        carousels/KEY.json     bf-YYYY-MM-DD-a|b / hn-YYYY-MM-DD-a|b: the day it goes out and the option; a carousel or a single picture
         slides/KEY/            NN.png, contact-sheet.png, render-report.json, slides.html
         ideas.md               14 written ideas for each holiday
         README.md              the plan, the dates, what waits for Yarin
@@ -57,11 +57,11 @@ tb.CARS = HOME / "carousels"
 tb.SLIDES = HOME / "slides"
 tb.RUNS = HOME / "runs"
 tb.VERSIONS = HOME / "versions"
-tb.KEY_RE = re.compile(r"^(bf|hn)-(\d{4}-\d{2}-\d{2}|ad-\d+)$")
+tb.KEY_RE = re.compile(r"^(bf|hn)-\d{4}-\d{2}-\d{2}-[ab]$")   # the day it goes out, option a or b (Yarin, 20 Nov 2026: 2 options a day)
 
 tb.TYPES["bf"] = {
     "he": "בלאק פריידיי", "short_he": "בלאק פריידיי", "brand": True, "disclaimer": False,
-    "about_he": "לסבתא או לאמא עם עגלה מלאה. הצעת בלאק פריידיי: 119 לספר הראשון ו 99 לשני (ירין, 19 / 11 / 2026, shared/facts.json black_friday_2026); המחיר על השקופיות רק אחרי אישור של ירין, עד אז בלי מספר.",
+    "about_he": "פוסט של תמונה אחת כל יום עד 27 / 11: קהל יעד אחד, סיפור מומצא על הילד (דמיינו אותו...), ספר אחד מהקטלוג, ספר ראשון 119 ₪ וספר שני 99 ₪ (ירין, 20 / 11 / 2026).",
     "why_he": "בלאק פריידיי הוא מודעות למחיר הרגיל (ירין, 18 / 11 / 2026). האחרון בסדרה עולה ביום עצמו, 27 / 11.",
 }
 tb.TYPES["hanukkah"] = {
@@ -69,6 +69,8 @@ tb.TYPES["hanukkah"] = {
     "about_he": "המתנה האישית בחינם של חנוכה: כרטיס ברכה או חוברת צביעה עם הילד בפנים. כל קרוסלה מובילה לעמוד holiday-cards.",
     "why_he": "חנוכה הוא המתנה החינמית (ירין, 18 / 11 / 2026). האחרונה בסדרה עולה ביום האחרון של החג, 12 / 12.",
 }
+tb.TEXT_FIELDS = tuple(tb.TEXT_FIELDS) + tuple(f for f in ("p1", "p2") if f not in tb.TEXT_FIELDS)   # the offer's two price tags (20 Nov 2026)
+tb.TEXT_FIELDS = tuple(tb.TEXT_FIELDS) + (("badge",) if "badge" not in tb.TEXT_FIELDS else ())   # the sticker on the ✓ picture (20 Nov 2026)
 tb.THEMES["bf"] = {"accent": "#0B0B0B", "hi": "#FFFFFF"}
 tb.THEMES["hanukkah"] = {"accent": "#C98A2B", "hi": "#FFD36E"}
 
@@ -155,10 +157,54 @@ em{{font-style:normal}}
 .ic svg{{width:54px;height:54px}}
 .nobox .ic{{background:var(--no-ic-bg);color:var(--no-ic-fg)}}
 .opt.yes .ic{{position:absolute;top:-30px;right:-24px;z-index:3;background:var(--yes-ic-bg);color:var(--yes-ic-fg);box-shadow:0 8px 20px rgba(0,0,0,.35)}}
+.opt.yes .badge{{position:absolute;top:-44px;left:-46px;z-index:4;width:178px;height:178px;border-radius:50%;display:grid;place-items:center;text-align:center;
+  transform:rotate(-12deg);background:var(--pill-bg);color:var(--pill-fg);font:900 38px/1.02 "Heebo LB";white-space:pre-line;
+  box-shadow:0 14px 32px rgba(0,0,0,.5),inset 0 0 0 6px rgba(255,255,255,.28)}}
+.opt.yes .badge::before{{content:"";position:absolute;inset:12px;border-radius:50%;border:3px dashed currentColor;opacity:.45}}
+.opt.yes .badge span{{position:relative;padding:0 14px}}
 .foot{{flex:none;position:relative;z-index:2;margin-top:calc(var(--k)*30px)}}
 .foot .b{{margin:0}}
 #report{{display:none}}
+/* the offer post (Yarin, 20 Nov 2026): a made up story about the child, one book, the two prices */
+.l-offer .h{{font-size:calc(var(--k)*92px);line-height:1.12}}
+.l-offer .label{{font:800 calc(var(--k)*40px)/1.25 "Assistant LB";opacity:.92;margin-bottom:calc(var(--k)*14px);max-width:900px}}
+.offer{{flex:1 1 0;min-height:0;width:100%;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:46px;margin-top:calc(var(--k)*34px)}}
+.offer .book{{height:100%;flex:none;display:flex;align-items:center}}
+.offer .book .frame{{height:100%;max-height:560px;width:auto;--rot:-3deg}}
+.offer .realbook{{margin:0;height:100%;max-height:640px;display:flex;align-items:center}}
+.offer .realbook img{{height:100%;width:auto;max-width:560px;object-fit:contain;filter:drop-shadow(0 18px 40px rgba(0,0,0,.6))}}
+.offer .side{{display:flex;flex-direction:column;align-items:stretch;gap:calc(var(--k)*22px);width:380px;flex:none}}
+.offer .tagline{{margin:0;font:900 calc(var(--k)*44px)/1.15 "Heebo LB"}}
+.price{{display:flex;flex-direction:column;gap:calc(var(--k)*16px)}}
+.price .p{{display:flex;flex-direction:column;align-items:center;padding:calc(var(--k)*16px) 20px calc(var(--k)*18px);border-radius:22px;
+  background:#FFFFFF;color:#0B0B0B;box-shadow:0 18px 40px rgba(0,0,0,.45);transform:rotate(2deg)}}
+.price .p + .p{{transform:rotate(-2deg);background:#0B0B0B;color:#FFFFFF;border:5px solid #FFFFFF}}
+.price small{{font:800 calc(var(--k)*34px)/1.1 "Assistant LB"}}
+.price b{{font:900 calc(var(--k)*96px)/1 "Heebo LB";letter-spacing:-.01em;direction:rtl;unicode-bidi:isolate}}
 
+/* seven looks for the offer post, close to each other (Yarin, 20 Nov 2026: "design each one differently, but not drastically") */
+.l-offer.s2 .offer,.l-offer.s7 .offer{{flex-direction:row-reverse}}
+.t-bf .l-offer.s2 .pat{{background:linear-gradient(rgba(255,255,255,.07) 2px,transparent 2px) 0 0/54px 54px,linear-gradient(90deg,rgba(255,255,255,.07) 2px,transparent 2px) 0 0/54px 54px}}
+.l-offer.s2 .tape,.l-offer.s6 .tape{{transform:rotate(2.5deg)}}
+.l-offer.s3 .price .p,.l-offer.s7 .price .p{{background:#0B0B0B;color:#FFFFFF;box-shadow:0 18px 40px rgba(0,0,0,.25)}}
+.l-offer.s3 .price .p + .p,.l-offer.s7 .price .p + .p{{background:#FFFFFF;color:#0B0B0B;border-color:#0B0B0B}}
+.l-offer.s3 .tape,.l-offer.s7 .tape{{background:#0B0B0B;color:#FFFFFF;border-color:#FFFFFF;box-shadow:0 12px 30px rgba(0,0,0,.25)}}
+.l-offer.s3 .realbook img,.l-offer.s7 .realbook img{{filter:drop-shadow(0 22px 34px rgba(0,0,0,.28))}}
+.l-offer.s4 .tape,.l-offer.s7 .tape{{top:auto;bottom:34px;transform:rotate(2deg)}}
+.slide.ad.l-offer.s4,.slide.ad.l-offer.s7{{padding-top:84px;padding-bottom:150px}}
+.t-bf .l-offer.s4 .pat{{background:repeating-linear-gradient(45deg,rgba(255,255,255,.055) 0 26px,transparent 26px 52px)}}
+.t-bf .l-offer.s5 .pat{{background:repeating-radial-gradient(circle at 70% 58%,rgba(255,255,255,.06) 0 2px,transparent 2px 46px)}}
+.l-offer.s5 .price{{flex-direction:row;justify-content:center;gap:14px}}
+.l-offer.s5 .price .p{{width:196px;height:196px;border-radius:50%;justify-content:center;padding:0}}
+.l-offer.s5 .price b{{font-size:calc(var(--k)*56px);white-space:nowrap}}
+.l-offer.s5 .price small{{font-size:calc(var(--k)*28px)}}
+.l-offer.s6 em{{background:transparent;color:var(--fg);border:6px solid var(--fg);padding:.02em .16em .1em}}
+.t-bf .l-offer.s6 .pat{{background:radial-gradient(rgba(255,255,255,.2) 2.2px,transparent 2.6px) 0 0/40px 40px}}
+.t-bf .l-offer.s6 .glow{{background:radial-gradient(60% 40% at 30% 60%,rgba(255,255,255,.12),rgba(255,255,255,0) 70%)}}
+.t-bf .l-offer.s3 .pat{{background:radial-gradient(rgba(0,0,0,.12) 1.7px,transparent 2px) 0 0/30px 30px}}
+.t-bf .l-offer.s7 .pat{{background:repeating-linear-gradient(-45deg,rgba(0,0,0,.045) 0 3px,transparent 3px 30px)}}
+.offer .realbook.m-real-flat img,.offer .realbook.m-real-stack img{{max-width:600px}}
+.offer .realbook.m-real-open img,.offer .realbook.m-real-standing img,.offer .realbook.m-real-standing-2 img{{max-width:620px}}
 /* black friday: black and white */
 .t-bf .slide{{--fg:#FFFFFF;--em-bg:#FFFFFF;--em-fg:#0B0B0B;--em-c:#FFFFFF;--pill-bg:#FFFFFF;--pill-fg:#0B0B0B;--chip-bg:#FFFFFF;--chip-fg:#0B0B0B;
   --disc-bg:#FFFFFF;--disc-fg:#0B0B0B;--frame-bg:#FFFFFF;--bw:14px;--fr:10px;--frame-shadow:0 34px 70px rgba(0,0,0,.65);--arrow-bg:#FFFFFF;--arrow-fg:#0B0B0B;
@@ -206,7 +252,7 @@ em{{font-style:normal}}
 
 FIT_JS = """
 (function(){
-  const q = new URLSearchParams(location.search), one = q.get('s');
+  const q = new URLSearchParams(location.search), one = q.get('s') || (window.LB_S ? String(window.LB_S) : null);
   const slides = [...document.querySelectorAll('.slide')];
   if (one) { document.body.classList.add('one'); slides.forEach(s => s.classList.toggle('on', s.dataset.n === one)); }
   const room = s => { const p = s.querySelector('.pics, .vs'); return p ? p.getBoundingClientRect().height : 9999; };
@@ -242,16 +288,43 @@ def frame(car, key, s, k, base, cls=""):
     if k in made_list:
         made = tb.made_picture(key, k)
         if not made:
-            return (f'<figure class="frame todo {cls}"><span>תמונה שתיווצר בהפקה</span>'
+            return (f'<figure class="frame todo {cls}" data-k="{html.escape(str(k))}"><span>תמונה שתיווצר בהפקה</span>'
                     f'<small>{html.escape(made_list[k].get("purpose", ""))}</small></figure>')
         src, p = tb._src(made, base), pos or "50% 40%"
     else:
         a = tb.assets().get(k)
         if not a:
-            return f'<figure class="frame todo {cls}"><span>חסרה תמונה</span><small>{html.escape(str(k))}</small></figure>'
+            return f'<figure class="frame todo {cls}" data-k="{html.escape(str(k))}"><span>חסרה תמונה</span><small>{html.escape(str(k))}</small></figure>'
         src, p = tb._src(lib.ROOT / a["file"], base), pos or a.get("position", "50% 40%")
     shape = " sq" if str(k).startswith("cover-") else ""
-    return f'<figure class="frame{shape} {cls}"><img src="{src}" alt="" style="object-position:{p}"></figure>'
+    return f'<figure class="frame{shape} {cls}" data-k="{html.escape(str(k))}"><img src="{src}" alt="" style="object-position:{p}"></figure>'
+
+
+STYLES = ("s1", "s2", "s3", "s4", "s5", "s6", "s7")   # the offer post's seven looks (20 Nov 2026), set per post in "style"
+REAL_BOOK = lib.ROOT / "research/israeli-product-reels/src/scripts/series-2026-11/real_book.py"
+REAL_BOOKS = lib.ROOT / "media/projects/2026-11-11-reel-broll-pool/drawn"
+
+
+def real_book(car, key, s, k, base):
+    """Yarin, 20 Nov 2026: "make the books look real". The store cover pasted on the realistic book render (real_book.py, the
+    reels' books), drawn once per cover into the reels' media library and reused; a picture that is not a store cover keeps its box."""
+    a = tb.assets().get(k)
+    if not a or not str(k).startswith("cover-"):
+        return frame(car, key, s, k, base)
+    src = lib.ROOT / a["file"]
+    model = s.get("model") or "real-cover"
+    is_open = "open" in model or "standing" in model
+    lines = [x.strip() for x in (s.get("page") or "").split("\n") if x.strip()] if is_open else []
+    import hashlib
+    tag = "-" + hashlib.sha1("\n".join(lines).encode()).hexdigest()[:8] if is_open else ""
+    out = REAL_BOOKS / (f"real-cover-{k}.png" if model == "real-cover" else f"{model}-{k}{tag}.png")
+    if not out.exists() or out.stat().st_mtime < src.stat().st_mtime or out.stat().st_mtime < REAL_BOOK.stat().st_mtime:
+        import subprocess
+        out.parent.mkdir(parents=True, exist_ok=True)
+        r = subprocess.run(["/usr/bin/python3", str(REAL_BOOK), "book", model, str(src), str(out)] + lines, cwd=lib.ROOT, capture_output=True, text=True)
+        if r.returncode or not out.exists():
+            return frame(car, key, s, k, base)
+    return f'<figure class="realbook m-{model}" data-k="{html.escape(str(k))}"><img src="{tb._src(out, base)}" alt=""></figure>'
 
 
 def body_html(car, s):
@@ -273,27 +346,40 @@ def slide_html(car, s, n, total, base, key):
         parts.append(TAPE)
     txt = []
     if s.get(tb.NUM_FIELD):
-        txt.append(f'<div class="num">{int(s[tb.NUM_FIELD])}</div>')
+        txt.append(f'<div class="num" data-f="num">{int(s[tb.NUM_FIELD])}</div>')
     if s.get("label"):
-        txt.append(f'<div class="label">{tb.rich(s["label"])}</div>')
+        txt.append(f'<div class="label" data-f="label">{tb.rich(s["label"])}</div>')
     if lay == "quote":
         txt.append('<div class="qmark">״</div>')
-        txt.append(f'<blockquote class="q">{tb.rich(s.get("quote", ""))}</blockquote>')
+        txt.append(f'<blockquote class="q" data-f="quote">{tb.rich(s.get("quote", ""))}</blockquote>')
         if s.get("by"):
-            txt.append(f'<div class="by">{tb.rich(s["by"])}</div>')
+            txt.append(f'<div class="by" data-f="by">{tb.rich(s["by"])}</div>')
     elif s.get("headline"):
         tag = "h1" if lay == "cover" or single else "h2"
-        txt.append(f'<{tag} class="h">{tb.rich(s["headline"])}</{tag}>')
+        txt.append(f'<{tag} class="h" data-f="headline">{tb.rich(s["headline"])}</{tag}>')
     if s.get("body") and not single:
-        txt.append(f'<p class="b">{body_html(car, s)}</p>')
+        txt.append(f'<p class="b" data-f="body">{body_html(car, s)}</p>')
     text = '<div class="txt">' + "".join(txt) + '</div>'
-    if single:
+    if single and lay == "offer":
+        book = (real_book(car, key, s, s["cover"], base) if s.get("cover") else '<figure class="frame todo"><span>בחירת ספר</span></figure>')
+        def tag(f):
+            lines = [x for x in (s.get(f) or "").split("\n") if x.strip()]
+            small = f'<small>{tb.rich(lines[0])}</small>' if len(lines) > 1 else ""
+            return f'<div class="p" data-f="{f}">{small}<b>{tb.rich(lines[-1]) if lines else ""}</b></div>'
+        side = (f'<div class="side"><p class="tagline" data-f="yes">{tb.rich(s.get("yes", ""))}</p>'
+                f'<div class="price">{tag("p1")}{tag("p2")}</div></div>')
+        parts += [text, f'<div class="vs offer"><div class="book">{book}</div>{side}</div>', f'<div class="foot"><p class="b" data-f="body">{body_html(car, s)}</p></div>']
+        st = car.get("style") if car.get("style") in STYLES else "s1"
+        parts[0] = parts[0].replace('data-n=', 'data-min="420" data-n=').replace(' l-offer', f' l-offer {st}' + (" inv" if st in ("s3", "s7") else ""))
+    elif single:
         yes_pic = frame(car, key, s, s["bg"], base) if s.get("bg") else ""
+        # Yarin, 20 Nov 2026: "add a מתנה חינמית badge": a round sticker on the corner of the ✓ picture, the slide's "badge" text
+        badge = f'<div class="badge" data-f="badge"><span>{tb.rich(s["badge"])}</span></div>' if s.get("badge") else ""
         vs = ('<div class="vs">'
-              f'<div class="opt no"><div class="nobox"><i class="ic">{X_ICON}</i><p>{tb.rich(s.get("no", ""))}</p></div></div>'
-              f'<div class="opt yes"><i class="ic">{V_ICON}</i>{yes_pic}<p class="cap">{tb.rich(s.get("yes", ""))}</p></div>'
+              f'<div class="opt no"><div class="nobox"><i class="ic">{X_ICON}</i><p data-f="no">{tb.rich(s.get("no", ""))}</p></div></div>'
+              f'<div class="opt yes"><i class="ic">{V_ICON}</i>{badge}{yes_pic}<p class="cap" data-f="yes">{tb.rich(s.get("yes", ""))}</p></div>'
               '</div>')
-        parts += [text, vs, f'<div class="foot"><p class="b">{body_html(car, s)}</p></div>']
+        parts += [text, vs, f'<div class="foot"><p class="b" data-f="body">{body_html(car, s)}</p></div>']
         parts[0] = parts[0].replace('data-n=', 'data-min="440" data-n=')
     else:
         ps = pics_of(s)
@@ -311,6 +397,15 @@ def slides_html(car, key, out_dir):
     return ('<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">'
             f'<title>{html.escape(key)}</title><style>{css(out_dir)}</style></head>'
             f'<body dir="rtl" class="t-{car["type"]}">{body}<pre id="report"></pre><script>{FIT_JS}</script></body></html>')
+
+
+def preview_html(car, key, n=None):
+    """The slides as one page for the content calendar's editor (20 Nov 2026): pictures and fonts as /paths on the project
+    server, one slide shown when n is given (window.LB_S), the same renderer as the PNGs, so the preview is the export."""
+    page = slides_html(car, key, lib.ROOT)
+    page = re.sub(r'(src="|url\(")(?!data:|https?:|/)', r'\1/', page)   # root paths: no request goes out before <base> is read
+    head = '<base href="/">' + (f'<script>window.LB_S={int(n)}</script>' if n else '')
+    return page.replace('<meta charset="utf-8">', '<meta charset="utf-8">' + head, 1)
 
 
 def render(key):
@@ -340,10 +435,31 @@ def render(key):
 
 # ---------------------------------------------------------------- checks
 
+BF_PRICE_BAN = r"\bמחיר|\bהנח[הת]|\bמבצע|\bדמי משלוח"   # the test batch ban without ₪ and שקל
+
 def lint(key):
+    return lint_car(tb.load(key), key)
+
+
+def lint_car(car, key):
     """test_batch.lint, with the one-picture post's own shape: one slide, more words, both cover and CTA rules met by it."""
-    car = tb.load(key)
-    issues = tb.lint(car, key)
+    banned = tb.BANNED_EXTRA
+    if car.get("type") == "bf":
+        # Yarin, 20 Nov 2026 ("Yes, show the price"): Black Friday pieces may show the offer in shekels
+        # (shared/facts.json black_friday_2026). Sale words, discount words and delivery cost stay banned.
+        tb.BANNED_EXTRA = [(BF_PRICE_BAN, why) if p == banned[0][0] else (p, why) for p, why in banned]
+    try:
+        issues = tb.lint(car, key)
+    finally:
+        tb.BANNED_EXTRA = banned
+    if car.get("addressee") == "parents":
+        # Yarin, 20 Nov 2026: the Black Friday offer posts talk to both parents ("בכיכוב הילד שלכם"): plural is right there
+        word = car.get("comment_word", "")
+        issues = [i for i in issues if not (i.message.startswith("say who it talks to") or i.message.startswith("talk to one mom")
+                                            or i.message.startswith("the CTA asks her to comment"))]
+        cta = car.get("cta", "")
+        if cta and (f'"{word}"' not in cta or "תכתבו" not in cta or "קישור" not in cta):
+            issues.append(tb._issue("ERROR", f"{key}/cta", f'the CTA asks them to comment "{word}" for the link: תכתבו "{word}" ... קישור'))
     known = tb.assets()
     for i, s in enumerate(car.get("slides") or [], start=1):
         for k in s.get("pics") or []:
@@ -363,7 +479,12 @@ def lint(key):
             continue
         out.append(i)
     s = (car.get("slides") or [{}])[0]
-    if len(car.get("slides") or []) != 1 or s.get("layout") != "cta" or not (s.get("no") and s.get("yes") and s.get("bg")):
+    if s.get("layout") == "offer":
+        out = [i for i in out if not (("layout 'offer'" in i.message) or ("every slide has a picture filling the background" in i.message)
+                                      or i.message == "the last slide is the CTA")]
+        if len(car.get("slides") or []) != 1 or not all(s.get(f) for f in ("headline", "cover", "yes", "p1", "p2", "body")):
+            out.append(tb._issue("ERROR", key, "an offer post is one slide with headline, cover (one book), yes (the line about the book), p1, p2 and body"))
+    elif len(car.get("slides") or []) != 1 or s.get("layout") != "cta" or not (s.get("no") and s.get("yes") and s.get("bg")):
         out.append(tb._issue("ERROR", key, "a one-picture post is one cta slide with no, yes, bg, headline and body"))
     return out
 

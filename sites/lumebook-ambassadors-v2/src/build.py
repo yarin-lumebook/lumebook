@@ -123,7 +123,7 @@ ICON = {
     "wa": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9 8.3c.3-.6.9-.6 1.1 0l.6 1.5c.1.3 0 .6-.2.8l-.5.5c.6 1.2 1.6 2.2 2.8 2.8l.5-.5c.2-.2.5-.3.8-.2l1.5.6c.6.2.6.8 0 1.1-.6.4-1.4.6-2.1.4-2.4-.7-4.4-2.7-5.1-5.1-.2-.7 0-1.5.4-2z" fill="currentColor"/></svg>',
 }
 
-ACTOR_CLASS = {"אתם": "you", "LumeBook": "lb", "לומבוק": "lb", "הקונים": "buyer"}
+ACTOR_CLASS = {"אתם": "you", "LumeBook": "lb", "לומיבוק": "lb", "הקונים": "buyer"}
 
 
 def build():

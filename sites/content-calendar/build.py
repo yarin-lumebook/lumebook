@@ -31,7 +31,7 @@ def data_js():
     reels = json.loads((ROOT / "research/israeli-product-reels/src/scripts/series-2026-11/reels.json").read_text(encoding="utf-8"))
     disclaimer = (reels.get("defaults") or {}).get("caption_disclaimer", "")
     icons = {n: design.icon(n) for n in ICONS}
-    cats = {k: design.cat_class("content-types", k) for k in ("kid", "test", "reel", "post", "idea", "story")}
+    cats = {k: design.cat_class("content-types", k) for k in ("kid", "test", "reel", "post", "idea", "story", "season")}
     blob = {"CC_ICONS": icons, "CC_CAT": cats, "CC_DATES": dates, "CC_DISCLAIMER": disclaimer}
     return "".join(f"window.{k}={json.dumps(v, ensure_ascii=False)};" for k, v in blob.items()).replace("</", "<\\/")
 
@@ -89,7 +89,7 @@ def page():
 <dialog class="lb-dialog cc-new" id="ccNew" aria-labelledby="ccNewH"><div class="lb-dialog-card">
   <div class="lb-dialog-head"><h2 id="ccNewH" style="flex:1;margin:0;padding-inline:var(--sp-4);font-size:var(--fs-headline)">רעיון חדש</h2><button class="lb-dialog-x" type="button" id="ccNewX" aria-label="סגירה">✕</button></div>
   <form class="lb-dialog-body" id="ccNewForm" novalidate>
-    <span class="lb-segmented" id="ccNewFor" role="group" aria-label="סוג"><button type="button" data-for="carousel" aria-pressed="true">קרוסלה</button><button type="button" data-for="reel" aria-pressed="false">ריל</button></span>
+    <span class="lb-segmented" id="ccNewFor" role="group" aria-label="סוג"><button type="button" data-for="carousel" aria-pressed="true">קרוסלה</button></span>
     <div class="lb-row"><label class="lb-field">תאריך<input class="lb-input" type="date" id="ccNewDate" required></label><label class="lb-field">שעה (לא חובה)<input class="lb-input" type="time" id="ccNewTime"></label></div>
     <label class="lb-field">על מה הפוסט<textarea class="lb-textarea lb-editable" dir="rtl" id="ccNewBrief" rows="3" placeholder="למשל: סבתא שמחפשת מתנה לחנוכה לנכד שכבר יש לו הכול"></textarea></label>
     <p class="lb-form-error" id="ccNewErr" hidden></p>
@@ -104,6 +104,9 @@ def page():
 </script>
 <script>
 {(HERE / "story.js").read_text(encoding="utf-8")}
+</script>
+<script>
+{(HERE / "season.js").read_text(encoding="utf-8")}
 </script>
 <script>
 {(HERE / "page.js").read_text(encoding="utf-8")}

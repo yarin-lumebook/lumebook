@@ -1,6 +1,6 @@
 # LumeBook carousel playbook: psychology evidence base
 
-Prepared 6 Oct 2026 for the psychology section of the LumeBook (לומבוק) Instagram carousel playbook.
+Prepared 6 Oct 2026 for the psychology section of the LumeBook (לומיבוק) Instagram carousel playbook.
 Goal of the carousels: move a parent from "I recognise this moment" to "I made a free preview". Constraints: no guilt, fear or false urgency; no therapeutic or developmental promises.
 
 ## How this was verified

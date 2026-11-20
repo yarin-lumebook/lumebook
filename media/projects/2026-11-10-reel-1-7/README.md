@@ -36,7 +36,7 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
   > רואים תצוגה מקדימה בחינם, צריך רק להשאיר מספר טלפון.
   > כלום לא נדפס ולא נשלח עד שמאשרים.
   > ספר ילדים מותאם אישית עם השם והתמונה של הילד
-  > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
+  > #ספרילדים #ספרמותאםאישית #לומיבוק #הורות
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - הערה: New 05 Nov, replaces the Genjutsu trend 6.1. Film it today: one take, about 20 s. Facts from defaults.facts (Yarin, 03 Nov). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): cover and name to the lens in the first frame, ends on the printed cover instead of a smile. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: אי אפשר לפשל / בהזמנה הזאת. The old hook said nothing concrete ("this order"); the new one names the act the reel shows. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 9BC736D7); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 

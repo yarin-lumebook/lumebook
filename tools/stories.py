@@ -205,6 +205,12 @@ def clean_set(doc, old=None):
     new = {"series": ser, "date": dt, "time": tm, "title": _text(doc.get("title", old.get("title", "")), 80), "frames": fr,
            "channels": [c for c in ("ig", "fb") if c in (doc.get("channels") or old.get("channels") or ["ig", "fb"])] or ["ig", "fb"],
            "notes": _text(doc.get("notes", old.get("notes", "")), 600)}
+    # the set's song (Yarin, 20 Nov 2026: "add different music for each"): chosen from the reel music library and added in Instagram
+    # with its music sticker, since the library's songs are commercial and a file there is not a licence (its README)
+    mu = doc.get("music") if isinstance(doc.get("music"), dict) else old.get("music")
+    if isinstance(mu, dict) and mu.get("title"):
+        new["music"] = {"id": _text(mu.get("id", ""), 20), "title": _text(mu.get("title", ""), 120),
+                        "start": _text(mu.get("start", ""), 8), "why": _text(mu.get("why", ""), 200)}
     for k in ("approved", "rendered", "postiz"):
         if old.get(k):
             new[k] = old[k]
@@ -236,8 +242,14 @@ def lint(s, series_key):
             at = {"frame": i, "layer": l["id"]}
             if re.search(r"[—–]", t):
                 out.append({**at, "level": "error", "he": "מקף ארוך בטקסט"})
-            if "לומיבוק" in t:
-                out.append({**at, "level": "error", "he": "איות לא נכון: לומבוק"})
+            if "לומבוק" in t:
+                out.append({**at, "level": "error", "he": "כותבים לומיבוק, לא לומבוק"})
+            if "תצוגה מקדימה" in t or "תצוגה המקדימה" in t:   # Yarin, 20 Nov 2026: "its unnatural and people dont care about it"
+                out.append({**at, "level": "error", "he": "בלי \"תצוגה מקדימה\": לדבר על כמה זה פשוט (בוחרים סיפור, מוסיפים תמונה, ובום, יש ספר)"})
+            if "אמיתי" in t:     # Yarin, 20 Nov 2026: "dont write "ביקורת אמיתית" on the stories, it sounds sketchy"
+                out.append({**at, "level": "error", "he": "בלי \"אמיתי\" על הסטורי: נשמע חשוד"})
+            if re.search(r"(?<![א-ת])[בלהשמו]{0,2}ביו(?![א-ת])", t):   # Yarin, 20 Nov 2026: "instead of ביו write בפרופיל שלנו"
+                out.append({**at, "level": "error", "he": "כותבים \"בפרופיל שלנו\", לא \"ביו\""})
             if re.search(r"\bAI\b|בינה מלאכותית", t, re.I):
                 out.append({**at, "level": "error", "he": "בלי אזכור של בינה מלאכותית בטקסט לקהל"})
             if re.search(r"[־;]|\s-\s", t):
@@ -454,7 +466,7 @@ def reviews():
 
 PROOF = ROOT / "media" / "projects" / "2026-11-15-social-proof"
 FIND_NAMES = DIR / "find_names.swift"
-PLATFORM_HE = {"google": "ביקורת אמיתית בגוגל", "instagram": "תגובה אמיתית באינסטגרם", "facebook": "תגובה אמיתית בפייסבוק"}
+PLATFORM_HE = {"google": "ביקורת בגוגל", "instagram": "תגובה באינסטגרם", "facebook": "תגובה בפייסבוק"}   # never "אמיתית" (Yarin, 20 Nov 2026: "it sounds sketchy")
 GOLD = "#F5C26B"
 
 
@@ -484,7 +496,8 @@ def blur_boxes(rv, found=None):
             except (OSError, subprocess.SubprocessError, ValueError):
                 found = {}
         ls = sorted((found.get(path.name) or {}).get("lines") or [], key=lambda l: l["y"])
-        u = next((l for l in ls if re.match(r"^[A-Za-z0-9._]{3,}", l["t"])), None)
+        # the username starts at the left, right after the photo (20 Nov 2026: a "1w" further right was taken for it once)
+        u = next((l for l in ls if re.match(r"^[A-Za-z0-9._]{3,}", l["t"]) and l["x"] < w * 0.3 and not re.match(r"^\d+[wdh]$", l["t"].strip())), None)
         if u:   # the username line, and the round profile picture left of it (about twice the line's height)
             return [pct(u["x"] - 10, u["y"] - 8, u["x"] + u["w"] + 12, u["y"] + u["h"] + 8),
                     pct(u["x"] - 3.1 * u["h"], u["y"] - 0.5 * u["h"], u["x"] - 0.1 * u["h"], u["y"] + 2.0 * u["h"])], "instagram: the username line and the photo"

@@ -60,7 +60,7 @@ The following tone adaptations are proposals. Confidence: Low until reviewed aga
 
 ## Terminology and boundaries
 
-Use LumeBook in English and לומבוק in Hebrew. No em dashes. Audience copy must not mention AI. Creator offer language must describe a personal link with an audience discount and follow current shared facts. These are project instructions, not new strategic proposals. [AGENTS.md](/Users/yarinbruner/Claude/Projects/Lumebook/AGENTS.md), [shared facts](/Users/yarinbruner/Claude/Projects/Lumebook/shared/facts.json)
+Use LumeBook in English and לומיבוק in Hebrew. No em dashes. Audience copy must not mention AI. Creator offer language must describe a personal link with an audience discount and follow current shared facts. These are project instructions, not new strategic proposals. [AGENTS.md](/Users/yarinbruner/Claude/Projects/Lumebook/AGENTS.md), [shared facts](/Users/yarinbruner/Claude/Projects/Lumebook/shared/facts.json)
 
 Hebrew: follow the existing skill's line breaks, word limits, punctuation rules and calibration procedure. Never describe uncalibrated copy as Yarin's voice. [Hebrew voice skill](/Users/yarinbruner/Claude/Projects/Lumebook/.claude/skills/lumebook-hebrew-voice/SKILL.md)
 

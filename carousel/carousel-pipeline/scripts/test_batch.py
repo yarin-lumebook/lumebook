@@ -78,7 +78,7 @@ TYPES = {
              "about_he": "לסבתא, ולאמא שקונה מתנה: למה זו מתנה ששומרים, מה כותבים בהקדשה, עד מתי מזמינים.",
              "why_he": "לפי מטא, 43 מתוך 102 רכישות היו של נשים בנות 45 ומעלה. יום ההזמנה האחרון לחנוכה: 05 / 12."},
     "reveal": {"he": "הרגע שהם רואים את הספר", "short_he": "הרגע שהם רואים", "brand": True, "disclaimer": False,
-               "about_he": "ילדים אמיתיים עם הספר שלהם: היוצרות של לומבוק, משפחות מתיקיית חומרי הגלם, ודברים שהאמהות אמרו באמת.",
+               "about_he": "ילדים אמיתיים עם הספר שלהם: היוצרות של לומיבוק, משפחות מתיקיית חומרי הגלם, ודברים שהאמהות אמרו באמת.",
                "why_he": "הוכחה אמיתית. בתוכנית של הרבעון זה הלב: רגעי פתיחה של ספר."},
 }
 
@@ -335,7 +335,7 @@ def lint(car, key=None):
     if not TYPES[t]["brand"]:
         for i, s in enumerate(slides[:-1], start=1):
             for f in TEXT_FIELDS:
-                if re.search(r"לומבוק|LumeBook", s.get(f, "") or ""):
+                if re.search(r"לומי?בוק|LumeBook", s.get(f, "") or ""):
                     out.append(_issue("ERROR", f"{key}/slide-{i}/{f}", "this type names no brand on the slides"))
     if t == "age" and not car.get("sources"):
         out.append(_issue("ERROR", f"{key}/sources", "every age point needs a source you read"))

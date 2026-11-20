@@ -1,0 +1,163 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>hn-2026-12-04-b</title><style>
+@font-face{font-family:"Heebo LB";src:url("../../../../assets/fonts/Heebo-Black.ttf") format("truetype");font-weight:900}
+@font-face{font-family:"Heebo LB";src:url("../../../../assets/fonts/Heebo-Bold.ttf") format("truetype");font-weight:700}
+@font-face{font-family:"Assistant LB";src:url("../../../../assets/fonts/Assistant-VariableFont_wght.ttf") format("truetype");font-weight:200 800}
+*{box-sizing:border-box}
+html,body{margin:0;background:#111}
+body{width:1080px;direction:rtl;-webkit-font-smoothing:antialiased}
+body.one .slide{display:none} body.one .slide.on{display:flex}
+.slide{--k:1;width:1080px;height:1350px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;
+  padding:72px 74px 150px;text-align:center;color:var(--fg);font-family:"Assistant LB",sans-serif}
+.pat,.glow{position:absolute;inset:0;pointer-events:none;z-index:0}
+.txt{flex:none;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;max-width:100%}
+.num{width:calc(var(--k)*94px);height:calc(var(--k)*94px);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font:900 calc(var(--k)*56px)/1 "Heebo LB";background:var(--disc-bg);color:var(--disc-fg);margin-bottom:calc(var(--k)*16px)}
+.label{font:800 calc(var(--k)*36px)/1.2 "Assistant LB";letter-spacing:.01em;opacity:.88;margin-bottom:calc(var(--k)*10px)}
+.h{margin:0;font:900 calc(var(--k)*86px)/1.1 "Heebo LB"}
+.l-cover .h{font-size:calc(var(--k)*106px);line-height:1.06}
+.b{margin:calc(var(--k)*22px) 0 0;font:600 calc(var(--k)*40px)/1.34 "Assistant LB"}
+.l-cover .b{display:inline-block;padding:.2em .8em .24em;border-radius:999px;background:var(--pill-bg);color:var(--pill-fg);font-weight:800}
+.q{margin:0;font:900 calc(var(--k)*62px)/1.2 "Heebo LB"}
+.qmark{font:900 calc(var(--k)*120px)/.6 "Heebo LB";color:var(--em-c);margin:calc(var(--k)*34px) 0 calc(var(--k)*6px)}
+.by{margin-top:calc(var(--k)*20px);font:700 calc(var(--k)*34px) "Assistant LB";opacity:.9}
+.word{display:inline-block;padding:0 .4em .06em;border-radius:.3em;background:var(--chip-bg);color:var(--chip-fg);font-weight:900;margin:0 .1em}
+.nw{white-space:nowrap}
+em{font-style:normal}
+.pics{flex:1 1 0;min-height:0;width:100%;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:34px;margin-top:calc(var(--k)*40px)}
+.l-quote .pics{margin:0 0 calc(var(--k)*10px)}
+.frame{position:relative;margin:0;flex:none;height:100%;aspect-ratio:4/5;max-width:880px;padding:var(--bw);background:var(--frame-bg);
+  border-radius:var(--fr);box-shadow:var(--frame-shadow);transform:rotate(var(--rot,0deg))}
+.frame.sq{aspect-ratio:1/1}
+.frame img{display:block;width:100%;height:100%;object-fit:cover;border-radius:calc(var(--fr) - var(--bw) + 2px)}
+.pics.n2 .frame,.pics.n3 .frame{height:auto}
+.pics.n2 .frame{width:430px} .pics.n3 .frame{width:290px}
+.pics.n2 .frame:nth-child(1){--rot:3deg} .pics.n2 .frame:nth-child(2){--rot:-3deg}
+.pics.n3 .frame:nth-child(1){--rot:4deg} .pics.n3 .frame:nth-child(2){--rot:-2deg;margin-top:-60px} .pics.n3 .frame:nth-child(3){--rot:3deg}
+.frame.todo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:5px dashed currentColor;background:transparent;
+  font:800 40px "Heebo LB";opacity:.8}
+.frame.todo small{font:500 26px "Assistant LB";max-width:80%}
+.arrow{position:absolute;left:50%;margin-left:-36px;bottom:40px;width:72px;height:72px;border-radius:50%;z-index:4;display:flex;align-items:center;
+  justify-content:center;background:var(--arrow-bg);color:var(--arrow-fg);box-shadow:0 8px 18px rgba(0,0,0,.35)}
+/* the one-picture post: the usual buy crossed out, the better option over its photo */
+.vs{flex:1 1 0;min-height:0;width:100%;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:34px;margin-top:calc(var(--k)*34px)}
+.opt{position:relative;display:flex;flex-direction:column;align-items:center}
+.opt.no{width:320px}
+.nobox{width:100%;height:400px;border-radius:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:28px;
+  border:4px dashed var(--no-line);background:var(--no-bg);color:var(--no-fg);transform:rotate(3deg)}
+.nobox p{margin:0;font:800 calc(var(--k)*46px)/1.15 "Heebo LB";text-decoration:line-through;text-decoration-thickness:5px;text-decoration-color:var(--no-strike)}
+.opt.yes{width:560px;height:100%}
+.opt.yes .frame{width:100%;height:auto;flex:1 1 0;min-height:0;aspect-ratio:auto;--rot:-2deg}
+.opt.yes .cap{position:relative;z-index:2;margin:calc(var(--k)*22px) 0 0;font:900 calc(var(--k)*46px)/1.15 "Heebo LB"}
+.ic{width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+.ic svg{width:54px;height:54px}
+.nobox .ic{background:var(--no-ic-bg);color:var(--no-ic-fg)}
+.opt.yes .ic{position:absolute;top:-30px;right:-24px;z-index:3;background:var(--yes-ic-bg);color:var(--yes-ic-fg);box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.opt.yes .badge{position:absolute;top:-44px;left:-46px;z-index:4;width:178px;height:178px;border-radius:50%;display:grid;place-items:center;text-align:center;
+  transform:rotate(-12deg);background:var(--pill-bg);color:var(--pill-fg);font:900 38px/1.02 "Heebo LB";white-space:pre-line;
+  box-shadow:0 14px 32px rgba(0,0,0,.5),inset 0 0 0 6px rgba(255,255,255,.28)}
+.opt.yes .badge::before{content:"";position:absolute;inset:12px;border-radius:50%;border:3px dashed currentColor;opacity:.45}
+.opt.yes .badge span{position:relative;padding:0 14px}
+.foot{flex:none;position:relative;z-index:2;margin-top:calc(var(--k)*30px)}
+.foot .b{margin:0}
+#report{display:none}
+/* the offer post (Yarin, 20 Nov 2026): a made up story about the child, one book, the two prices */
+.l-offer .h{font-size:calc(var(--k)*92px);line-height:1.12}
+.l-offer .label{font:800 calc(var(--k)*40px)/1.25 "Assistant LB";opacity:.92;margin-bottom:calc(var(--k)*14px);max-width:900px}
+.offer{flex:1 1 0;min-height:0;width:100%;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:46px;margin-top:calc(var(--k)*34px)}
+.offer .book{height:100%;flex:none;display:flex;align-items:center}
+.offer .book .frame{height:100%;max-height:560px;width:auto;--rot:-3deg}
+.offer .realbook{margin:0;height:100%;max-height:640px;display:flex;align-items:center}
+.offer .realbook img{height:100%;width:auto;max-width:560px;object-fit:contain;filter:drop-shadow(0 18px 40px rgba(0,0,0,.6))}
+.offer .side{display:flex;flex-direction:column;align-items:stretch;gap:calc(var(--k)*22px);width:380px;flex:none}
+.offer .tagline{margin:0;font:900 calc(var(--k)*44px)/1.15 "Heebo LB"}
+.price{display:flex;flex-direction:column;gap:calc(var(--k)*16px)}
+.price .p{display:flex;flex-direction:column;align-items:center;padding:calc(var(--k)*16px) 20px calc(var(--k)*18px);border-radius:22px;
+  background:#FFFFFF;color:#0B0B0B;box-shadow:0 18px 40px rgba(0,0,0,.45);transform:rotate(2deg)}
+.price .p + .p{transform:rotate(-2deg);background:#0B0B0B;color:#FFFFFF;border:5px solid #FFFFFF}
+.price small{font:800 calc(var(--k)*34px)/1.1 "Assistant LB"}
+.price b{font:900 calc(var(--k)*96px)/1 "Heebo LB";letter-spacing:-.01em;direction:rtl;unicode-bidi:isolate}
+
+/* seven looks for the offer post, close to each other (Yarin, 20 Nov 2026: "design each one differently, but not drastically") */
+.l-offer.s2 .offer,.l-offer.s7 .offer{flex-direction:row-reverse}
+.t-bf .l-offer.s2 .pat{background:linear-gradient(rgba(255,255,255,.07) 2px,transparent 2px) 0 0/54px 54px,linear-gradient(90deg,rgba(255,255,255,.07) 2px,transparent 2px) 0 0/54px 54px}
+.l-offer.s2 .tape,.l-offer.s6 .tape{transform:rotate(2.5deg)}
+.l-offer.s3 .price .p,.l-offer.s7 .price .p{background:#0B0B0B;color:#FFFFFF;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.l-offer.s3 .price .p + .p,.l-offer.s7 .price .p + .p{background:#FFFFFF;color:#0B0B0B;border-color:#0B0B0B}
+.l-offer.s3 .tape,.l-offer.s7 .tape{background:#0B0B0B;color:#FFFFFF;border-color:#FFFFFF;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.l-offer.s3 .realbook img,.l-offer.s7 .realbook img{filter:drop-shadow(0 22px 34px rgba(0,0,0,.28))}
+.l-offer.s4 .tape,.l-offer.s7 .tape{top:auto;bottom:34px;transform:rotate(2deg)}
+.slide.ad.l-offer.s4,.slide.ad.l-offer.s7{padding-top:84px;padding-bottom:150px}
+.t-bf .l-offer.s4 .pat{background:repeating-linear-gradient(45deg,rgba(255,255,255,.055) 0 26px,transparent 26px 52px)}
+.t-bf .l-offer.s5 .pat{background:repeating-radial-gradient(circle at 70% 58%,rgba(255,255,255,.06) 0 2px,transparent 2px 46px)}
+.l-offer.s5 .price{flex-direction:row;justify-content:center;gap:14px}
+.l-offer.s5 .price .p{width:196px;height:196px;border-radius:50%;justify-content:center;padding:0}
+.l-offer.s5 .price b{font-size:calc(var(--k)*56px);white-space:nowrap}
+.l-offer.s5 .price small{font-size:calc(var(--k)*28px)}
+.l-offer.s6 em{background:transparent;color:var(--fg);border:6px solid var(--fg);padding:.02em .16em .1em}
+.t-bf .l-offer.s6 .pat{background:radial-gradient(rgba(255,255,255,.2) 2.2px,transparent 2.6px) 0 0/40px 40px}
+.t-bf .l-offer.s6 .glow{background:radial-gradient(60% 40% at 30% 60%,rgba(255,255,255,.12),rgba(255,255,255,0) 70%)}
+.t-bf .l-offer.s3 .pat{background:radial-gradient(rgba(0,0,0,.12) 1.7px,transparent 2px) 0 0/30px 30px}
+.t-bf .l-offer.s7 .pat{background:repeating-linear-gradient(-45deg,rgba(0,0,0,.045) 0 3px,transparent 3px 30px)}
+.offer .realbook.m-real-flat img,.offer .realbook.m-real-stack img{max-width:600px}
+.offer .realbook.m-real-open img,.offer .realbook.m-real-standing img,.offer .realbook.m-real-standing-2 img{max-width:620px}
+/* black friday: black and white */
+.t-bf .slide{--fg:#FFFFFF;--em-bg:#FFFFFF;--em-fg:#0B0B0B;--em-c:#FFFFFF;--pill-bg:#FFFFFF;--pill-fg:#0B0B0B;--chip-bg:#FFFFFF;--chip-fg:#0B0B0B;
+  --disc-bg:#FFFFFF;--disc-fg:#0B0B0B;--frame-bg:#FFFFFF;--bw:14px;--fr:10px;--frame-shadow:0 34px 70px rgba(0,0,0,.65);--arrow-bg:#FFFFFF;--arrow-fg:#0B0B0B;
+  --no-bg:#1C1C1C;--no-fg:#9A9A9A;--no-line:#5A5A5A;--no-strike:#FFFFFF;--no-ic-bg:#3A3A3A;--no-ic-fg:#FFFFFF;--yes-ic-bg:#FFFFFF;--yes-ic-fg:#0B0B0B;background:#0B0B0B}
+.t-bf .slide.inv{--fg:#0B0B0B;--em-bg:#0B0B0B;--em-fg:#FFFFFF;--em-c:#0B0B0B;--pill-bg:#0B0B0B;--pill-fg:#FFFFFF;--chip-bg:#0B0B0B;--chip-fg:#FFFFFF;
+  --disc-bg:#0B0B0B;--disc-fg:#FFFFFF;--frame-bg:#0B0B0B;--frame-shadow:0 30px 60px rgba(0,0,0,.35);--arrow-bg:#0B0B0B;--arrow-fg:#FFFFFF;background:#F2F2F0}
+.t-bf .pat{background:radial-gradient(rgba(255,255,255,.16) 1.7px,transparent 2px) 0 0/26px 26px,
+  repeating-linear-gradient(135deg,rgba(255,255,255,.06) 0 3px,transparent 3px 34px)}
+.t-bf .inv .pat{background:radial-gradient(rgba(0,0,0,.14) 1.7px,transparent 2px) 0 0/26px 26px,
+  repeating-linear-gradient(135deg,rgba(0,0,0,.05) 0 3px,transparent 3px 34px)}
+.t-bf .glow{background:radial-gradient(70% 45% at 50% 64%,rgba(255,255,255,.10),rgba(255,255,255,0) 70%)}
+.t-bf .inv .glow{background:none}
+.t-bf .h{line-height:1.2}
+.t-bf em{display:inline-block;line-height:1;background:var(--em-bg);color:var(--em-fg);padding:.04em .16em .12em;border-radius:.06em}
+.t-bf .frame:not(.todo){--rot:-1.6deg} .t-bf .inv .frame:not(.todo){--rot:1.6deg}
+.tape{position:absolute;left:-90px;right:-90px;bottom:132px;height:78px;z-index:3;display:flex;align-items:center;overflow:hidden;
+  background:#FFFFFF;color:#0B0B0B;border-top:5px solid #0B0B0B;border-bottom:5px solid #0B0B0B;transform:rotate(-3.5deg);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.tape .run{display:flex;align-items:center;gap:28px;white-space:nowrap;direction:ltr;font:900 40px/1 "Heebo LB";letter-spacing:.06em;padding-left:24px}
+.tape i{font-style:normal;font-size:30px}
+.ad .tape{top:30px;bottom:auto;transform:rotate(-2.5deg)}
+.slide.ad{padding-top:150px}
+
+/* hanukkah: warm and magical */
+.t-hanukkah .slide{--fg:#FFF3D6;--em-c:#FFD36E;--pill-bg:linear-gradient(135deg,#FFE7A6,#E0A23E);--pill-fg:#3A1206;--chip-bg:linear-gradient(135deg,#FFE7A6,#E0A23E);
+  --chip-fg:#3A1206;--disc-bg:radial-gradient(circle at 35% 30%,#FFF0B8,#E2A33B 60%,#A8661A);--disc-fg:#3A1206;
+  --frame-bg:linear-gradient(145deg,#FFE6A3,#C98A2B 38%,#FFE29A 62%,#B9771F);--bw:11px;--fr:34px;
+  --frame-shadow:0 0 0 2px rgba(255,230,160,.45),0 0 80px rgba(255,176,64,.55),0 34px 64px rgba(0,0,0,.55);
+  --arrow-bg:linear-gradient(135deg,#FFE7A6,#E0A23E);--arrow-fg:#3A1206;
+  --no-bg:rgba(30,10,30,.55);--no-fg:rgba(255,243,214,.6);--no-line:rgba(255,213,138,.45);--no-strike:#FFD36E;--no-ic-bg:rgba(255,243,214,.18);--no-ic-fg:#FFF3D6;
+  --yes-ic-bg:linear-gradient(135deg,#FFE7A6,#E0A23E);--yes-ic-fg:#3A1206;
+  background:radial-gradient(130% 80% at 50% 72%,#8A3A14 0%,#46171A 46%,#1B0A20 100%)}
+.t-hanukkah .pat{background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27240%27%20height%3D%27240%27%20viewBox%3D%270%200%20240%20240%27%3E%3Cg%20fill%3D%27%23FFD58A%27%3E%3Cpath%20opacity%3D%27.55%27%20transform%3D%27translate%2840%2046%29%20scale%281.1%29%27%20d%3D%27M0-12%202.4-2.4%2012%200%202.4%202.4%200%2012-2.4%202.4-12%200-2.4-2.4Z%27/%3E%3Cpath%20opacity%3D%27.32%27%20transform%3D%27translate%28172%2030%29%20scale%28.7%29%27%20d%3D%27M0-12%202.4-2.4%2012%200%202.4%202.4%200%2012-2.4%202.4-12%200-2.4-2.4Z%27/%3E%3Cpath%20opacity%3D%27.45%27%20transform%3D%27translate%28198%20152%29%20scale%28.9%29%27%20d%3D%27M0-12%202.4-2.4%2012%200%202.4%202.4%200%2012-2.4%202.4-12%200-2.4-2.4Z%27/%3E%3Cpath%20opacity%3D%27.28%27%20transform%3D%27translate%2890%20192%29%20scale%28.6%29%27%20d%3D%27M0-12%202.4-2.4%2012%200%202.4%202.4%200%2012-2.4%202.4-12%200-2.4-2.4Z%27/%3E%3Cpath%20opacity%3D%27.38%27%20transform%3D%27translate%28120%20150%29%20scale%28.9%29%27%20d%3D%27M0-14C5-7%207-2%207%203a7%207%200%200%201-14%200C-7-2-5-7%200-14Z%27/%3E%3Cpath%20opacity%3D%27.26%27%20transform%3D%27translate%2862%20110%29%20scale%28.6%29%27%20d%3D%27M0-14C5-7%207-2%207%203a7%207%200%200%201-14%200C-7-2-5-7%200-14Z%27/%3E%3Cpath%20opacity%3D%27.22%27%20transform%3D%27translate%28214%20222%29%20scale%28.55%29%27%20d%3D%27M0-14C5-7%207-2%207%203a7%207%200%200%201-14%200C-7-2-5-7%200-14Z%27/%3E%3Ccircle%20cx%3D%27120%27%20cy%3D%2796%27%20r%3D%272.2%27%20opacity%3D%27.6%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%27132%27%20r%3D%271.6%27%20opacity%3D%27.5%27/%3E%3Ccircle%20cx%3D%27224%27%20cy%3D%2792%27%20r%3D%271.4%27%20opacity%3D%27.45%27/%3E%3Ccircle%20cx%3D%27150%27%20cy%3D%27216%27%20r%3D%271.8%27%20opacity%3D%27.5%27/%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2714%27%20r%3D%271.3%27%20opacity%3D%27.4%27/%3E%3C/g%3E%3C/svg%3E") 0 0/240px 240px;opacity:.9}
+.t-hanukkah .glow{background:
+  radial-gradient(60% 40% at 50% 66%,rgba(255,196,96,.42),rgba(255,160,60,0) 70%),
+  radial-gradient(circle 110px at 12% 18%,rgba(255,205,130,.22),rgba(255,205,130,0)),
+  radial-gradient(circle 80px at 88% 12%,rgba(255,215,150,.20),rgba(255,215,150,0)),
+  radial-gradient(circle 140px at 92% 78%,rgba(255,180,90,.18),rgba(255,180,90,0)),
+  radial-gradient(circle 90px at 8% 86%,rgba(255,200,120,.20),rgba(255,200,120,0))}
+.t-hanukkah .h,.t-hanukkah .q{text-shadow:0 4px 22px rgba(0,0,0,.45)}
+.t-hanukkah em{color:var(--em-c);text-shadow:0 0 .35em rgba(255,186,73,.8),0 4px 22px rgba(0,0,0,.4)}
+.t-hanukkah .l-cover .frame,.t-hanukkah .l-cover .frame img{border-radius:999px 999px 34px 34px}
+.t-hanukkah .frame:not(.todo){--rot:0deg}
+</style></head><body dir="rtl" class="t-hanukkah"><section class="slide l-cta ad" data-min="440" data-n="1"><div class="pat"></div><div class="glow"></div><div class="txt"><h1 class="h" data-f="headline">אמא, ברכה לנר ראשון<br><em>בקבוצה המשפחתית?</em></h1></div><div class="vs"><div class="opt no"><div class="nobox"><i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></i><p data-f="no">עוד סטיקר<br>של סביבון</p></div></div><div class="opt yes"><i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><div class="badge" data-f="badge"><span>מתנה<br>חינמית</span></div><figure class="frame sq " data-k="cover-b86-my-hanukkah-girl"><img src="../../../../../../media/projects/2026-11-10-store-covers/B86_girl.webp" alt="" style="object-position:50% 50%"></figure><p class="cap" data-f="yes">ברכה<br>עם הפנים שלה</p></div></div><div class="foot"><p class="b" data-f="body">במתנה מלומיבוק לחנוכה.<br>נר ראשון ביום שישי, <span dir="ltr" class="nw">04 / 12</span>.<br>תכתבי <span class="nw"><b class="word">״מתנה״</b></span> ואשלח לך את הקישור</p></div></section><pre id="report"></pre><script>
+(function(){
+  const q = new URLSearchParams(location.search), one = q.get('s') || (window.LB_S ? String(window.LB_S) : null);
+  const slides = [...document.querySelectorAll('.slide')];
+  if (one) { document.body.classList.add('one'); slides.forEach(s => s.classList.toggle('on', s.dataset.n === one)); }
+  const room = s => { const p = s.querySelector('.pics, .vs'); return p ? p.getBoundingClientRect().height : 9999; };
+  const over = s => { const t = s.querySelector('.foot') || s.querySelector('.txt'); if (!t) return false;
+    const sr = s.getBoundingClientRect(), r = t.getBoundingClientRect();
+    return room(s) < Number(s.dataset.min || 380) || r.bottom > sr.bottom - 118 || r.top - sr.top < 30; };
+  const report = [];
+  const fit = () => slides.forEach(s => { if (one && s.dataset.n !== one) return; let k = 1; s.style.setProperty('--k', k);
+    while (over(s) && k > 0.56) { k = Math.round((k - 0.03) * 100) / 100; s.style.setProperty('--k', k); }
+    report.push({n: Number(s.dataset.n), k, fits: !over(s), dir: getComputedStyle(s).direction, pics: Math.round(room(s))}); });
+  const done = () => { fit(); if (q.get('check')) document.getElementById('report').textContent = JSON.stringify(report); };
+  let ran = false; const once = () => { if (!ran) { ran = true; done(); } };
+  const imgs = [...document.images].map(i => i.complete ? Promise.resolve() : new Promise(r => { i.onload = i.onerror = r; }));
+  Promise.all([document.fonts ? document.fonts.ready : Promise.resolve(), ...imgs]).then(once); setTimeout(once, 3000);
+})();
+</script></body></html>

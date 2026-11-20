@@ -35,7 +35,7 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
   > מכין חנוכייה, מדליק נר ועוד נר, עם השם שלו על הכריכה.
   > לגילאי 3 עד 10, ועמוד הקדשה שאתם כותבים לו.
   > מתנה לחנוכה לילדים, ספר ילדים מותאם אישית
-  > #חנוכה #מתנהלחנוכה #ספרילדים #ספרמותאםאישית #לומבוק
+  > #חנוכה #מתנהלחנוכה #ספרילדים #ספרמותאםאישית #לומיבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - הערה: 05 Nov evening: names the book החנוכה שלי (eight evenings, the child in the lead role; text from its page on lumebook.com).  09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): cover and name to the lens in the first frame, ends on the dedication page. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 70E13D59); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 

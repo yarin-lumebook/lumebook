@@ -284,7 +284,7 @@ Data: the 11 newest via the embed, 24 older via the logged-in grid. Dates: 16 Fe
 - **Comments:** almost every post shows exactly 1 comment. I opened one (DcLS4BXm_Nk): it is LumeBook's own source line (HealthyChildren.org). So **organic comments are essentially 0.**
 - **What the carousels look like** (DcLS4BXm_Nk, Ddlav41GB6W, DdZbXZYHW0I, DcdUcxJFsUC seen in full): a clean, consistent template. Teal cover with a big Hebrew title and "swipe" with a left-pointing chevron, numbered cream slides with icons, a "say this" quote box, page counter "2/7", and a purple closing slide with a reframe plus a save/send cue. Topics: a 30-second goodbye ritual at gan, what to say after a potty accident ("don't say / say"), when a child won't say sorry, five skills before grade 1.
 - **The gap:** none of the six carousels shows the book, an illustrated child, the free preview, or a way to act (no keyword, no link, no "comment X"). The closing slides ask readers to save, send to someone who is potty training, or comment a number from 1 to 5. Compared with 2.6, 2.7 and 2.14, the playbook move is to add the **product slide plus a keyword-for-free-preview CTA** to this already good educational template.
-- **Brand spelling:** caption of Dc8bslnl6Va (6 Sep 2026) spells the brand לומיבוק, which the brand rule forbids (correct: לומבוק).
+- **Brand spelling:** caption of Dc8bslnl6Va (6 Sep 2026) spells the brand לומיבוק, which the brand rule then forbade (it was לומבוק until 20 Nov 2026; since then לומיבוק is correct).
 - **Cannot know if any LumeBook carousel sold.** With 0 to 3 likes, the problem is reach before format.
 
 ---

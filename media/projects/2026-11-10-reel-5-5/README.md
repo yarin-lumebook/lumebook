@@ -36,7 +36,7 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
   > ובסוף מגלה שזה מה שהופך אותו לגיבור.
   > והגיבור? הילד שלכם, עם השם והפנים שלו. לגילאי 4 עד 8.
   > מתנת יום הולדת מושלמת, ספר מותאם אישית
-  > #ספרילדים #יוםהולדת #מתנה #הורות #לומבוק
+  > #ספרילדים #יוםהולדת #מתנה #הורות #לומיבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: Check in the preview that the kind acts are on the pages before posting (the take says בכל עמוד הוא עושה משהו טוב קטן).
 - הערה: New 05 Nov evening for the third best seller (הלב של יובל), replaces 2.1 (a third how-it-works reel after 1.1 and 1.2). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): this reel's cover from the first frame, the last line stays on the hero page instead of cutting to Yarin. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 088FA24A); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.

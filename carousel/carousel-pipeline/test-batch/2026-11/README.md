@@ -64,7 +64,7 @@ Times (retimed 11 Nov 2026, Yarin: 4 posting hours a day from the follower activ
 - To mom or both parents (plural), never dad alone. Yarin is not a parent: never הילד שלי in LumeBook's voice.
 - Never mention AI. Never a price, discount, sale or delivery cost. Never language options or the digital copy. Never קוד הנחה or קוד אישי.
 - `say` and `age` name no brand on the slides; their CTA is the book link (`אפשר גם לעזור להם עם X בעזרת ספר מותאם אישית.` then `תכתבו "WORD" ואשלח לכם קישור להכנת הספר`) over the real cover of a best-selling book that covers X. No disclaimer on the slides (see "Design rules of 11 Nov" below).
-- `how`, `gift` and `reveal` may say לומבוק. Product facts only from `shared/facts.json`, the live site, or `docs/lumebook-product-brief.md` (read 01 / 10 / 2026, re-check before quoting). No invented reviews or quotes.
+- `how`, `gift` and `reveal` may say לומיבוק. Product facts only from `shared/facts.json`, the live site, or `docs/lumebook-product-brief.md` (read 01 / 10 / 2026, re-check before quoting). No invented reviews or quotes.
 - Comment word: one short Hebrew word, never ספר (MeBook uses it).
 - Facebook: its own text, ends with a line like `להכנת הספר 👇`; the export adds the site link with the UTM.
 - Every written caption gets the short disclaimer at export (31 Oct 2026 rule).

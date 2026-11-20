@@ -29,9 +29,7 @@ PLACEHOLDER = "הכתובת"
 
 DIV_RE = re.compile(r'<div dir="rtl" lang="he"((?:\s+data-[\w-]+="[^"]*")*)>(.*?)</div>', re.S)
 ATTR_RE = re.compile(r'data-([\w-]+)="([^"]*)"')
-# Yarin, 15 Oct 2026: this brief (and only this brief) spells the brand לומיבוק, as the store does.
-# The lint's brand-spelling rule still guards every other file; here the name is swapped before linting.
-BRAND_HERE, BRAND_RULE = "לומיבוק", "לומבוק"
+# Since 20 Nov 2026 the whole project spells the brand לומיבוק, as this brief always did, so no swap is needed.
 
 
 def clean(block, for_lint=True):
@@ -88,7 +86,6 @@ def main():
     f = fields()
     from build_creator_brief import UI  # the Hebrew the page adds around the brief
     f.update({f"ui_{k}": v.format(n=7, t=36) for k, v in UI.items()})  # templates linted with sample numbers
-    f = {k: v.replace(BRAND_HERE, BRAND_RULE) for k, v in f.items()}    # page-only brand spelling, see above
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(f, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     if "--text" in sys.argv:

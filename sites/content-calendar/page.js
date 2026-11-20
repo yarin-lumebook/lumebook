@@ -11,7 +11,7 @@
   var DAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"], DOW = ["א׳", "ב׳", "ג׳", "ד׳", "ה׳", "ו׳", "ש׳"];
   var MONTHS = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
   var KIND = { kid: { he: "קרוסלת ילד", icon: "slides" }, test: { he: "קרוסלת ניסוי", icon: "flask" }, reel: { he: "ריל", icon: "clapper" },
-    idea: { he: "רעיון", icon: "sparkle" }, post: { he: "פוסט מפוסטיז", icon: "send" }, story: { he: "סטוריז", icon: "stack" }, remind: { he: "תזכורת", icon: "bell" }, shoot: { he: "צילום", icon: "film" } };
+    idea: { he: "רעיון", icon: "sparkle" }, post: { he: "פוסט מפוסטיז", icon: "send" }, story: { he: "סטוריז", icon: "stack" }, season: { he: "קרוסלת חג", icon: "gift" }, remind: { he: "תזכורת", icon: "bell" }, shoot: { he: "צילום", icon: "film" } };
   var ST_ICON = { idea: "sparkle", draft: "pencil", grade: "bars", pick: "check-circle", hook: "target", film: "film", produce: "play",
     making: "sync", approve: "wallet", ready: "check-circle", scheduled: "clock", posted: "check" };
   var NEED_HE = { grade: "לדרג", pick: "לבחור", hook: "לבחור הוק", film: "לצלם", approve: "לאשר", produce: "להפיק", remind: "לשתף לראשי ולפייסבוק" };
@@ -24,7 +24,7 @@
   var MON_SHORT = ["ינו׳", "פבר׳", "מרץ", "אפר׳", "מאי", "יוני", "יולי", "אוג׳", "ספט׳", "אוק׳", "נוב׳", "דצמ׳"];
 
   var S = { data: null, byId: {}, byDate: {}, month: null, view: "month", sel: null, q: "",
-    kinds: { kid: true, test: true, reel: true, idea: true, post: true, story: true }, tests: { say: true, how: true, gift: true, age: true, reveal: true },
+    kinds: { kid: true, test: true, reel: true, idea: true, post: true, story: true, season: true }, tests: { say: true, how: true, gift: true, age: true, reveal: true },
     drafts: false, sts: {}, open: null, cache: {}, all: [], sideOff: false, jobs: [], tasks: [], reelJobs: [], answers: {}, sort: "date", sortDir: 1, failed: false };
 
   /* ---------- small helpers ---------- */
@@ -39,7 +39,7 @@
   function monthHe(m) { var p = m.split("-"); return MONTHS[+p[1] - 1] + " " + p[0]; }
   function today() { return (S.data && S.data.today) || iso(new Date()); }
   function catOf(p) { return CAT[p.kind] || "lb-cat-0"; }
-  function family(p) { return p.kind === "reel" || (p.kind === "idea" && p.subtype === "reel") ? "reel" : (p.kind === "kid" || p.kind === "test" || p.kind === "idea") ? "carousel" : null; }
+  function family(p) { return p.kind === "reel" || (p.kind === "idea" && p.subtype === "reel") ? "reel" : (p.kind === "kid" || p.kind === "test" || p.kind === "season" || p.kind === "idea") ? "carousel" : null; }
   /* a block that waits for Yarin carries a bell, with what it waits for as its tooltip (Yarin, 11 Nov 2026, replacing the banner on top) */
   function bellHtml(p) {
     var n = (p.needs || []).map(function (k) { return NEED_HE[k] || k; });
@@ -152,7 +152,7 @@
   function keyDate(d) { return ((window.CC_DATES || {})[d]) || ""; }
 
   /* ---------- render ---------- */
-  function render() { renderTop(); renderSide(); renderView(); if (S.open && calm() && !(window.CCStory && CCStory.busy())) renderDrawer(); }
+  function render() { renderTop(); renderSide(); renderView(); if (S.open && calm() && !(window.CCStory && CCStory.busy()) && !(window.CCSeason && CCSeason.busy())) renderDrawer(); }
 
   function renderTop() {
     $("#ccMonth").textContent = viewTitle();
@@ -200,7 +200,7 @@
       if (p.kind === "test") tc[p.subtype] = (tc[p.subtype] || 0) + 1;
       if (p.status) sc[p.status] = (sc[p.status] || 0) + 1;
     });
-    $("#ccTypes").innerHTML = ["kid", "test", "reel", "story", "idea", "post"].filter(function (k) { return cnt[k] || k !== "post" && k !== "idea" && k !== "story"; }).map(function (k) {
+    $("#ccTypes").innerHTML = ["kid", "test", "season", "reel", "story", "idea", "post"].filter(function (k) { return cnt[k] || k !== "post" && k !== "idea" && k !== "story" && k !== "season" && k !== "test"; }).map(function (k) {
       var row = '<button type="button" class="' + (CAT[k] || "") + '" data-kind="' + k + '" aria-pressed="' + (S.kinds[k] !== false) + '"><span class="ck"></span><span class="cc-ico">' + ic(KIND[k].icon) + "</span>" + esc(KIND[k].he) + '<span class="n">' + (cnt[k] || 0) + "</span></button>";
       if (k === "test" && cnt.test) row += '<div class="sub">' + ["say", "how", "gift", "age", "reveal"].map(function (s) {
         var lbl = { say: "תגידו את זה", how: "ככה זה עובד", gift: "מתנה לחנוכה", age: "מה קורה בגיל", reveal: "הרגע שרואים" }[s];
@@ -219,7 +219,7 @@
   function itemHtml(p, cell) {
     var title = p.kind === "shoot" ? "צילום" : p.title || "";
     var ab = (p.options || []).length > 1 && !p.picked ? '<span class="ab">' + (p.kind === "test" ? "א·ב" : (p.options || []).map(function (o) { return o.label; }).join("·")) + "</span>" : "";
-    var drag = ["kid", "test", "reel", "idea", "story"].indexOf(p.kind) >= 0 && p.status !== "posted" && !(p.kind === "story" && p.postiz);
+    var drag = ["kid", "test", "reel", "idea", "story", "season"].indexOf(p.kind) >= 0 && p.status !== "posted" && !(p.kind === "story" && p.postiz);
     return '<button type="button" class="cc-it ' + catOf(p) + (p._clash ? " is-clash" : "") + '" data-open="' + esc(p.id) + '"' + (drag ? ' draggable="true"' : "") +
       ' aria-label="' + esc(kindLabel(p) + ", " + (p.time || "בלי שעה") + ", " + title + ", " + (p.status_he || "")) + '">' + kindIcon(p) +
       (p.time ? '<span class="t">' + p.time + "</span>" : "") + '<span class="x" translate="no">' + esc(title) + "</span>" + ab +
@@ -271,26 +271,22 @@
   }
   function settle() {
     $$(".cc-wcol").forEach(function (col) {
-      var lanes = {};
-      $$(".cc-wb,.cc-db,.cc-wgap", col).forEach(function (b) {
-        if (!b.dataset.top) b.dataset.top = b.style.top; b.style.top = b.dataset.top;   /* back to the place in time before it is settled again */
-        var k = b.style.insetInlineStart || "0"; (lanes[k] = lanes[k] || []).push(b);
-      });
-      Object.keys(lanes).forEach(function (k) {
-        var end = -1;
-        lanes[k].sort(function (a, b) { return a.offsetTop - b.offsetTop; }).forEach(function (b) {
-          var top = b.offsetTop;
-          if (top < end + 3) { top = end + 3; b.style.top = top + "px"; }
-          end = top + b.offsetHeight;
-        });
-        /* a block that would run past the bottom of the column is lifted so its text stays on screen */
-        var limit = col.clientHeight - 3;
-        lanes[k].slice().reverse().forEach(function (b) {
-          var bottom = b.offsetTop + b.offsetHeight;
-          if (bottom > limit) { var t2 = Math.max(0, limit - b.offsetHeight); b.style.top = t2 + "px"; bottom = t2 + b.offsetHeight; }
-          limit = b.offsetTop - 3;
-        });
-      });
+      var bs = $$(".cc-wb,.cc-db,.cc-wgap", col);
+      bs.forEach(function (b) { if (!b.dataset.top) b.dataset.top = b.style.top; b.style.top = b.dataset.top; });   /* back to the place in time before it is settled again */
+      /* blocks make room for every block they share space with side to side, a full-width block and a half-width one included
+         (20 Nov 2026: a full-width 21:30 reel was lifted over the 19:30 story beside it) */
+      var box = bs.map(function (b) { return { b: b, l: b.offsetLeft, r: b.offsetLeft + b.offsetWidth, t0: b.offsetTop, top: b.offsetTop, h: b.offsetHeight }; });
+      function side(a, c) { return a.l < c.r - 1 && c.l < a.r - 1; }
+      box.sort(function (a, c) { return a.top - c.top; });
+      box.forEach(function (x, i) { for (var j = 0; j < i; j++) { var y = box[j]; if (side(x, y) && x.top < y.top + y.h + 3) x.top = y.top + y.h + 3; } });
+      /* a block that would run past the bottom of the column is lifted so its text stays on screen, and the blocks above it make way */
+      box.sort(function (a, c) { return a.top - c.top; });
+      for (var i = box.length - 1; i >= 0; i--) {
+        var x = box[i], lim = col.clientHeight - 3;
+        for (var j = i + 1; j < box.length; j++) if (side(x, box[j])) lim = Math.min(lim, box[j].top - 3);
+        if (x.top + x.h > lim) x.top = Math.max(0, lim - x.h);
+      }
+      box.forEach(function (x) { if (x.top !== x.t0) x.b.style.top = x.top + "px"; });
     });
   }
   function fitMonth() {
@@ -315,7 +311,7 @@
 
   function legend() {
     var tg = (S.data && S.data.targets) || {};
-    return ["kid", "test", "reel", "story"].map(function (k) { return '<span class="' + CAT[k] + '">' + '<span class="cc-ico">' + ic(KIND[k].icon) + "</span>" + KIND[k].he + "</span>"; }).join("") +
+    return ["kid", "test", "season", "reel", "story"].filter(function (k) { return k !== "test" || ((S.data || {}).pieces || []).some(function (p) { return p.kind === "test"; }); }).map(function (k) { return '<span class="' + CAT[k] + '">' + '<span class="cc-ico">' + ic(KIND[k].icon) + "</span>" + KIND[k].he + "</span>"; }).join("") +
       '<span>' + ic("check", "cc-s s-posted") + "עלה</span><span>" + ic("clock", "cc-s s-scheduled") + "מתוזמן</span><span>" + ic("target", "cc-s s-hook") + "מחכה להחלטה שלך</span>" +
       '<span class="cc-lg-miss"><span class="cc-gap-lg" aria-hidden="true"></span> עוד לא מולא לפי היעד: ' + (tg.carousel || 2) + " קרוסלות ו־" + (tg.reel || 2) + " רילס ביום</span>";
   }
@@ -379,7 +375,7 @@
     settle();
   }
   function renderDay(v) {
-    var ds = S.sel || today(), t = today(), ps = dayPieces(ds), DUR = 110;
+    var ds = S.sel || today(), t = today(), ps = dayPieces(ds), DUR = 60;   /* one hour: a block never reaches into the next hour's group, so a busy evening splits into its own rows instead of one wall of narrow columns */
     var timed = ps.filter(function (p) { return p.time; }), untimed = ps.filter(function (p) { return !p.time; });
     var slots = slotsOf(ds);
     var r = hourRange([ds], slots.filter(function (s) { return s.time; }).map(function (s) { return s.time; }));
@@ -389,17 +385,17 @@
     var blocks = its.map(function (it) {
       if (it.slot) {
         var s = it.slot;
-        return '<div class="cc-db is-slot" data-family="' + s.family + '" data-time="' + s.time + '" style="' + placeStyle(it, r, DUR) + '"><span class="r1">' + ic(s.family === "reel" ? "clapper" : "slides") + "<span>" + s.he + ' · <b class="lb-num">' + s.time + "</b></span></span>" +
-          '<button type="button" class="lb-btn secondary sm" data-act="new" data-for="' + s.family + '" data-day="' + ds + '" data-time="' + s.time + '">' + ic("plus") + "רעיון</button></div>";
+        return '<div class="cc-db is-slot" data-n="' + it.n + '" data-family="' + s.family + '" data-time="' + s.time + '" style="' + placeStyle(it, r, DUR) + '"><span class="r1">' + ic(s.family === "reel" ? "clapper" : "slides") + "<span>" + s.he + ' · <b class="lb-num">' + s.time + "</b></span></span>" +
+          '' + (s.family === "reel" ? "" : '<button type="button" class="lb-btn secondary sm" data-act="new" data-for="' + s.family + '" data-day="' + ds + '" data-time="' + s.time + '">' + ic("plus") + "רעיון</button>") + "</div>";
       }
       var p = it.p, fl = (p.flags || [])[0];
-      return '<button type="button" class="cc-db ' + catOf(p) + (p.kind === "reel" ? " is-reel" : "") + (p._clash ? " is-clash" : "") + '" data-open="' + esc(p.id) + '"' + (["kid", "test", "reel", "idea"].indexOf(p.kind) >= 0 && p.status !== "posted" ? ' draggable="true"' : "") + ' style="' + placeStyle(it, r, DUR) + '">' +
+      return '<button type="button" class="cc-db ' + catOf(p) + (p.kind === "reel" ? " is-reel" : "") + (p._clash ? " is-clash" : "") + '" data-n="' + it.n + '" data-open="' + esc(p.id) + '"' + (["kid", "test", "reel", "idea"].indexOf(p.kind) >= 0 && p.status !== "posted" ? ' draggable="true"' : "") + ' style="' + placeStyle(it, r, DUR) + '">' +
         '<span class="cc-thumb" aria-hidden="true">' + thumbHtml(p) + "</span>" +
         '<span class="b"><span class="r1">' + kindIcon(p) + '<span class="k">' + esc(kindLabel(p)) + '</span><b class="lb-num">' + p.time + "</b>" + stChip(p) + chans(p) + "</span>" +
         '<span class="tl" translate="no">' + esc(p.title || "") + "</span>" + (fl ? '<span class="cc-flag">' + ic("info") + esc(fl.he) + "</span>" : "") + "</span>" + bellHtml(p) + "</button>";
     }).join("");
     var nt = slots.filter(function (s) { return !s.time; }).map(function (s) {
-      return '<span class="cc-slot">' + ic(s.family === "reel" ? "clapper" : "slides") + s.he + '<button type="button" class="lb-btn secondary sm" data-act="new" data-for="' + s.family + '" data-day="' + ds + '" data-time="">' + ic("plus") + "רעיון</button></span>";
+      return '<span class="cc-slot">' + ic(s.family === "reel" ? "clapper" : "slides") + s.he + (s.family === "reel" ? "" : '<button type="button" class="lb-btn secondary sm" data-act="new" data-for="' + s.family + '" data-day="' + ds + '" data-time="">' + ic("plus") + "רעיון</button>") + "</span>";
     }).join("");
     var top = (untimed.length || nt ? '<div class="cc-dlane"><span class="l">בלי שעה</span>' + untimed.map(function (p) { return itemHtml(p); }).join("") + nt + "</div>" : "");
     v.innerHTML = '<div class="cc-dayv' + (ds < t ? " is-past" : "") + '" style="--rows:' + N + '">' + top +
@@ -482,7 +478,7 @@
     var keep = body.scrollTop;
     body.classList.add("is-piece");
     body.classList.toggle("is-reel", p.kind === "reel");
-    body.classList.toggle("is-story", p.kind === "story");
+    body.classList.toggle("is-story", p.kind === "story" || p.kind === "season");
     body.innerHTML = pieceHtml(p);
     afterPiece(p);
     body.scrollTop = keep;
@@ -497,7 +493,7 @@
   function missingTimes(ds, family) {   /* the planned times of the day's slots nobody fills yet, earliest first */
     var plan = (((S.data || {}).hours || {}).plan || {})[String(parse(ds).getDay())] || {}, roles = family === "reel" ? ["reel_a", "reel_b"] : ["kid", "test"], have = {};
     (S.byDate[ds] || []).forEach(function (p) {
-      if (p.kind === "kid") have.kid = 1; else if (p.kind === "test") have.test = 1;
+      if (p.kind === "kid") have.kid = 1; else if (p.kind === "test" || p.kind === "season") have.test = 1;   /* a holiday carousel takes the test carousel's slot */
       else if (p.kind === "reel") have[(p.detail && p.detail.option === 2) ? "reel_b" : "reel_a"] = 1;
     });
     return roles.filter(function (r) { return !have[r] && plan[r]; }).map(function (r) { return plan[r]; }).sort();
@@ -514,6 +510,7 @@
      script and caption in place (no read-only copy), the finished reel stays beside the list, and nothing jumps between parts. */
   function partsOf(p) {
     if (p.kind === "story") return [["edit", "עריכה", "pencil"], ["publish", "פרסום", "send"]];   /* story.js draws them */
+    if (p.kind === "season") return [["edit", "עריכה", "pencil"], ["text", "כיתוב", "instagram"], ["publish", "תמונות ואישור", "check-circle"]];   /* season.js draws them */
     if (p.kind === "post") return [["publish", "פרסום", "send"]];
     if (p.kind === "remind") return [["view", "תצוגה", "eye"]];
     if (p.kind === "idea") return [["view", "הרעיון", "sparkle"], ["hooks", "הוקים", "target"]];
@@ -522,6 +519,7 @@
   }
   function pieceHtml(p) {
     if (p.kind === "story") return window.CCStory ? CCStory.html(p) : "";   /* the story editor (story.js, 19 Nov 2026) */
+    if (p.kind === "season") return window.CCSeason ? CCSeason.html(p) : "";   /* Black Friday and Hanukkah (season.js, 20 Nov 2026) */
     var parts = partsOf(p), reel = p.kind === "reel", tx = (p.detail || {}).texts || {};
     var oi = optIndex(p);
     var opts = (p.options || []).length > 1 ? '<div class="opts"><span class="lb-segmented" role="group" aria-label="אפשרויות">' + p.options.map(function (o, i) {
@@ -916,7 +914,7 @@
     var reel = p.kind === "reel";
     return '<div class="cc-ask"><div class="lb-composer"><label class="lb-composer-label" for="ccAskT">' + (reel ? "הערה לשינוי הריל" : "מה לשנות? במילים שלך") + "</label>" +
       '<textarea class="lb-editable" dir="rtl" id="ccAskT" rows="1" placeholder="' + (reel ? "מה לשנות? למשל: כותרת יותר קצרה, פתיחה אחרת, שורה 3 בלי המילה מתנה" : "למשל: שהפתיח ידבר לסבתא, או משפט אחד קצר יותר בשקופית 3") + '"' + (j ? " disabled" : "") + "></textarea>" +
-      '<div class="lb-composer-bar">' + (reel ? '<button type="button" class="lb-btn secondary sm" data-act="idea" title="רעיון אחר לגמרי לאותו יום, באותה סדרה"' + (j ? " disabled" : "") + ">" + ic("sparkle") + "רעיון חדש</button>" : "") +
+      '<div class="lb-composer-bar">' + (false ? '<button type="button" class="lb-btn secondary sm" data-act="idea" title="רעיון אחר לגמרי לאותו יום, באותה סדרה"' + (j ? " disabled" : "") + ">" + ic("sparkle") + "רעיון חדש</button>" : "") +
       '<span class="lb-composer-note">' + (j ? '<span class="lb-spinner" aria-hidden="true"></span> ' + (j.comment === "רעיון חדש" ? "כותב רעיון חדש…" : "עובד על ההערה…") : "") + "</span>" +
       '<button type="button" class="lb-btn sm" data-act="ask" title="⌘ Enter"' + (j ? " disabled" : "") + ">שליחה</button></div></div></div>";
   }
@@ -924,6 +922,7 @@
   function afterPiece(p) {
     var d = p.detail || {};
     if (p.kind === "story") { if (window.CCStory) CCStory.after(p); return; }
+    if (p.kind === "season") { if (window.CCSeason) CCSeason.after(p); return; }
     if (p.kind === "reel") { wireTiles(); loadFiles(d.rkey); }
     $$("#ccDlgB textarea[data-f]").forEach(function (t) { t.dataset.v = t.value; });
     var j = S.jobs.find(function (x) { return x.reel === p.id && x.kind === "ask" && x.status === "done" && !x.claimed; });
@@ -994,7 +993,7 @@
 
   /* ---------- background asks: 5 hooks, the prompt box, new ideas ---------- */
   var RULES = "Rules for the Hebrew: everyday Israeli Hebrew, warm and plain, like a mom talking, not like an ad. No dash of any kind (no em dash, no en dash, no hyphen, no maqaf), no semicolon. " +
-    "Write the brand only as לומבוק, exactly that spelling. Never mention AI. Never a price, a discount, a sale or delivery cost. Never language options or a digital copy. Yarin (LumeBook's marketing guy) is not a parent: never \"הילד שלי\" in LumeBook's voice. Never \"קוד הנחה\" or \"קוד אישי\".";
+    "Write the brand only as לומיבוק, exactly that spelling. Never write \"תצוגה מקדימה\" (preview): say how simple it is instead, \"בוחרים סיפור, מוסיפים תמונה של הילד, ובום, יש ספר\". Never mention AI. Never a price, a discount, a sale or delivery cost. Never language options or a digital copy. Yarin (LumeBook's marketing guy) is not a parent: never \"הילד שלי\" in LumeBook's voice. Never \"קוד הנחה\" or \"קוד אישי\".";
   function pieceContext(p, it) {
     var d = p.detail || {};
     if (p.kind === "reel") return { kind: "reel (Instagram, 10 to 30 seconds, Yarin's voiceover)", series: d.series_he, structure: d.texts.structure, hook: d.texts.hook, lines: d.texts.vo, sees: d.texts.sees, payoff: d.texts.payoff, shot: d.texts.shot, caption: d.texts.caption };
@@ -1071,7 +1070,7 @@
           var f = String(c.field || "").split("__");
           return typeof c.value === "string" && c.value.trim() && (["hook", "payoff", "shot", "caption"].indexOf(c.field) >= 0 || ((f[0] === "vo" || f[0] === "sees") && /^\d+$/.test(f[1] || "") && +f[1] < n));
         }).map(function (c) {
-          c.value = c.value.replace(/\s*[\u2014\u2013]\s*/g, ", ").replace(/\u05BE/g, " ").replace(/(\S)\s+-\s+(\S)/g, "$1, $2").replace(/;/g, ",").replace(/לומיבוק/g, "לומבוק").replace(/,\s*,/g, ",").trim();
+          c.value = c.value.replace(/\s*[\u2014\u2013]\s*/g, ", ").replace(/\u05BE/g, " ").replace(/(\S)\s+-\s+(\S)/g, "$1, $2").replace(/;/g, ",").replace(/לומבוק/g, "לומיבוק").replace(/,\s*,/g, ",").trim();
           return c;
         });
       }
@@ -1225,7 +1224,7 @@
     var d = $("#ccNew");
     $("#ccNewDate").value = ds || S.sel || today();
     $("#ccNewTime").value = tm || "";
-    $$("#ccNewFor button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.for === (forKind || "carousel"))); });
+    $$("#ccNewFor button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.for === "carousel")); });
     $("#ccNewBrief").value = ""; $("#ccNewErr").hidden = true;
     d.showModal(); $("#ccNewBrief").focus();
   }

@@ -22,7 +22,7 @@ MAX_W = W - 2 * int(W * 0.06)
 SF = "/System/Library/Fonts/SFHebrew.ttf"      # stand-in for Instagram's default font, as on the 19 to 26 Oct reels
 SF_LATIN = "/System/Library/Fonts/SFNS.ttf"    # SF Hebrew has no Latin letters; SF Pro supplies them
 BANNED = [(re.compile("[‐-―−־;-]"), "dash, hyphen, maqaf or semicolon"),
-          (re.compile("לומיבוק"), "write לומבוק"),
+          (re.compile("לומבוק"), "write לומיבוק"),
           (re.compile(r"\bAI\b|בינה מלאכותית", re.I), "no AI in audience copy")]
 
 # ---------- text drawing (RTL by hand: this Pillow has no raqm) ----------

@@ -486,7 +486,7 @@ const TFIELD = {tag: 'תגית', big: 'ענק', label: 'תווית', headline: '
 const TLAYOUT = {cover: 'שער', swap: 'במקום ותנסו', point: 'נקודה', photo: 'תמונה', covers: 'כריכות', quote: 'ציטוט', cta: 'קריאה לפעולה'};
 const usd = n => '$' + Number(n || 0).toFixed(2);
 const SCORE = {1: 'לא', 2: 'חלש', 3: 'בסדר', 4: 'טוב', 5: 'מעולה'};
-const ROLE = {hook: 'פתיח', frame: 'מה מתרגלים', recommendation: 'המלצה', lumebook: 'לומבוק', close: 'סיכום'};
+const ROLE = {hook: 'פתיח', frame: 'מה מתרגלים', recommendation: 'המלצה', lumebook: 'לומיבוק', close: 'סיכום'};
 const STORY_ROLE = {hook: 'שער', beat: 'סיפור', turn: 'פנייה להורים', story_cta: 'שמירה'};
 const isStory = it => it.copy_style === 'story';
 const storyCover = it => { const f = it.slides[0] || {}; return STY.el({headline: f.headline || it.cover, body: f.body || ''}, 1, it.slides.length, it.structure, (it.pictures || {})[1] || ''); };

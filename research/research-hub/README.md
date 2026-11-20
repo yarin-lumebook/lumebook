@@ -43,7 +43,7 @@ Build: `python3 tools/lumebook.py build research-hub` (or `python3 build.py` her
 - `links`: the first link is the best page to read (a built page, else the main Markdown). Markdown links open in the page's own reader (it fetches the file from the project server); other files open in a new tab. The build checks that every path exists (a `#view` after the path is allowed, e.g. an HQ view).
 - `evidence`: strong = our own measured data or a large verified sample; medium = a careful sample or verified outside sources; early = small sample, inference or hypotheses.
 - `internal`: true when the research holds internal sales figures, order counts, outreach counts or personal data.
-- Text rules: no em or en dash, brand לומבוק / LumeBook (never לומיבוק), dates in the page read 30 / 10 / 2026 (data stays ISO). `code` in backticks stays left to right.
+- Text rules: no em or en dash, brand לומיבוק / LumeBook (never לומבוק), dates in the page read 30 / 10 / 2026 (data stays ISO). `code` in backticks stays left to right.
 
 ## Adding a research
 

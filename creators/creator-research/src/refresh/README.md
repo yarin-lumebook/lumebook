@@ -27,7 +27,7 @@ Flags shown as chips on the card, and under Must have › "Flagged by the weekly
 - followers up or down by 25% or more since the research
 - the account went private
 - the profile didn't load (a renamed or deleted handle does this): check the handle
-- **posted a reel about LumeBook**: a reel since the first message whose caption, tags or collab names LumeBook or לומבוק, linked on the chip (Must have › "Posted about LumeBook"). It stays English ("posted ... : https://") because the map finds it by that.
+- **posted a reel about LumeBook**: a reel since the first message whose caption, tags or collab names LumeBook or לומיבוק, linked on the chip (Must have › "Posted about LumeBook"). It stays English ("posted ... : https://") because the map finds it by that.
 - The outreach status is never changed by the refresh: move a creator to Content created yourself when the chip shows a post.
 
 ## Steps

@@ -103,6 +103,9 @@ PUSH = 0.05                                # a still grows this much over its sl
 CHILD_SLOW = 0.75                          # the child clip behind a picture plays at this speed, forward then backward
 DARK = "gblur=sigma=3,lutyuv=y=val*0.52:u=128+(val-128)*0.7:v=128+(val-128)*0.7"   # the child behind a picture, darkened
 READ_CPS = 17                             # principle T5: Hebrew on screen at most 17 characters a second
+# Yarin, 20 Nov 2026: "never hide the kids faces in the b rolls". Where the burned text sits (shares of the height): the hook
+# (reel editor TOP 15%, two lines) and the captions (they end at 65%). A picture's "box" keeps the drawn book between them.
+HOOK_BAND, CAPTION_BAND, BOOK_BOX = (0.14, 0.24), (0.595, 0.655), (0.245, 0.585)
 TRIAL_VERSIONS = 5                         # trial reel versions after the plain reel (Yarin, 10 Nov 2026)
 
 
@@ -313,7 +316,7 @@ def make(rid, folder, hook, vo, cta_line, cta_screen, retranscribe=False, build=
         line_t = [cue(i) for i in range(len(lines))]
         cta_t = cue("cta")
         if cfg.get("inserts") or cfg.get("hook_overlay"):
-            starts = take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid)
+            starts = take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid, problems)
     else:
         starts = build_segments(base, work, cfg, hook_clip, intro, end, after, cue, raw_hook)
 
@@ -346,11 +349,15 @@ def make(rid, folder, hook, vo, cta_line, cta_screen, retranscribe=False, build=
         c["e"] = round(max(min(nxt, cue(u) + LEAD) if u is not None else nxt, c["s"] + 1.0), 3)
     if tops:
         job["top_cards"] = tops
+    if cfg.get("caption_x") is not None:     # the captions' centre, as a share of the width (reel editor), e.g. off a held book
+        job["caption_x"] = cfg["caption_x"]
+    if cfg.get("hook_whole_reel"):           # the hook stays on top until the CTA (the reel editor's default)
+        job.pop("hook_seconds", None)
     (base / "reel.json").write_text(json.dumps(job, ensure_ascii=False, indent=1) + "\n")
-    report = {"length": end, "hook_spoken": intro, "hook_on_screen": job["hook_seconds"], "cuts": starts,
+    report = {"length": end, "hook_spoken": intro, "hook_on_screen": job.get("hook_seconds", "whole reel"), "cuts": starts,
               "top_cards": tops, "problems": problems}
     (work / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n")
-    print(f"length {end} s, hook on screen {job['hook_seconds']} s (spoken {intro} s, reading time {hook_read} s)")
+    print(f"length {end} s, hook on screen {job.get('hook_seconds', 'whole reel')} s (spoken {intro} s, reading time {hook_read} s)")
     for p_ in problems:
         print("  check:", p_)
     if build:
@@ -421,23 +428,36 @@ def child_order(base, cfg, rid):
     return paths[rot:] + paths[:rot]
 
 
-def dark_bg(src, work):
+def pan_vf(pan):
+    """A zoom and pan after FILL: pan = [zoom, x, y], x and y from 0 (left / top edge) to 1 (right / bottom edge) of the overflow.
+    A face moves to zoom * share - (zoom - 1) * y (and the same across), so [1.3, 0.5, 0] pushes a face at 51% down to 66%."""
+    if not pan:
+        return ""
+    z, ox, oy = (float(v) for v in pan)
+    w, h = int(round(1080 * z / 2) * 2), int(round(1920 * z / 2) * 2)
+    return f",scale={w}:{h},crop=1080:1920:{int((w - 1080) * ox)}:{int((h - 1920) * oy)}"
+
+
+def dark_bg(src, work, pan=None):
     """One child clip as a background that loops without a jump: full frame, slowed, forward then backward, blurred a little and
-    darkened. Kept in work/make/bg/."""
-    out = work / "bg" / (Path(src).stem + ".mp4")
+    darkened. Kept in work/make/bg/. pan (see pan_vf) moves the child's face clear of the picture and the text."""
+    tag = "-pan" + "-".join(f"{float(v):g}" for v in pan) if pan else ""
+    out = work / "bg" / (Path(src).stem + tag + ".mp4")
     if out.exists() and out.stat().st_mtime >= Path(src).stat().st_mtime:
         return out
     out.parent.mkdir(parents=True, exist_ok=True)
-    fc = (f"[0:v]{FILL},setpts=PTS/{CHILD_SLOW},fps={FPS},{DARK},split[f][r0];[r0]reverse[r];"
+    fc = (f"[0:v]{FILL}{pan_vf(pan)},setpts=PTS/{CHILD_SLOW},fps={FPS},{DARK},split[f][r0];[r0]reverse[r];"
           f"[f][r]concat=n=2:v=1:a=0,{OUT}[o]")
     run(FF, "-y", "-v", "error", "-i", sdr(Path("/"), src, work), "-filter_complex", fc, "-map", "[o]", "-an",
         "-c:v", "libx264", "-crf", 18, out)
     return out
 
 
-def still_layer(src, crop):
+def still_layer(src, crop, box=None):
     """A still as a 1080x1920 RGBA layer over the child: a drawn object on a transparent ground (broll.py) as it is, any other
-    picture (a GPT gag, a cover, a photo) as a rounded card with a light rim and a soft shadow."""
+    picture (a GPT gag, a cover, a photo) as a rounded card with a light rim and a soft shadow. box = [top, bottom] (shares of
+    the height): a drawn object is cut to what it shows and fitted between them, centred, so the child's face can stay in view
+    above or below it (20 Nov 2026)."""
     from PIL import Image, ImageDraw, ImageFilter
     with Image.open(src) as im0:
         im = im0.convert("RGBA")
@@ -445,6 +465,14 @@ def still_layer(src, crop):
         w, h, x, y = (int(v) for v in crop.split(":"))
         im = im.crop((x, y, x + w, y + h))
     W, H = im.size
+    if box and im.getchannel("A").getextrema()[0] < 250:
+        obj = im.crop(im.getbbox() or (0, 0, W, H))
+        top, bottom = (int(float(v) * 1920) for v in box)
+        s = min((bottom - top) / obj.height, 1000 / obj.width)
+        obj = obj.resize((max(1, round(obj.width * s)), max(1, round(obj.height * s))), Image.LANCZOS)
+        lay = Image.new("RGBA", (1080, 1920), (0, 0, 0, 0))
+        lay.alpha_composite(obj, ((1080 - obj.width) // 2, top + (bottom - top - obj.height) // 2))
+        return lay
     if im.getchannel("A").getextrema()[0] < 250:
         if abs(W / H - 9 / 16) < 0.01:
             return im.resize((1080, 1920), Image.LANCZOS)
@@ -504,7 +532,8 @@ def render_still(layer, frames, bg, out):
         raise subprocess.CalledProcessError(p.returncode, "ffmpeg (still over the child)")
 
 
-def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid):
+def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid, problems=None):
+    problems = [] if problems is None else problems
     """Pictures over a one-take reel (10 Nov 2026: Yarin's nine talking takes, "edit them"): the take's sound runs on, and from
     each insert's cue the picture shows what is said (the book, a cover, a screen recording) until its "until" (a line number or
     a word, or seconds written as a decimal such as 2.0), else until the next script line starts.
@@ -542,7 +571,7 @@ def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid):
                 print(f"  insert {a[0]} runs on {gap} frame(s) to meet the next: the take would have flashed between them")
             a[3] = b[2]
     (work / "take-only.mp4").write_bytes((work / "video.mp4").read_bytes())
-    kids = child_order(base, cfg, rid)
+    bgs = unique_media(base, cfg, ins, child_order(base, cfg, rid))
     clips = []
     for k, (n, s, f0, f1) in enumerate(ins):
         frames = f1 - f0 + TAIL
@@ -552,12 +581,16 @@ def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid):
         crop = f"crop={s['crop']}," if s.get("crop") else ""
         bg = None
         if src.suffix.lower() in IMAGE_EXT or s.get("window"):
-            bg = dark_bg(base / s["bg"] if s.get("bg") else kids[k % len(kids)], work)
+            bg = dark_bg(bgs[n], work, s.get("bg_pan"))
         if src.suffix.lower() in IMAGE_EXT:
-            render_still(still_layer(src, s.get("crop")), frames, bg, out)
+            layer = still_layer(src, s.get("crop"), s.get("box"))
+            render_still(layer, frames, bg, out)
+            face_check(work, n, bgs[n], 0, s.get("bg_pan"), f0, layer.getbbox(), cfg, problems)
         else:
             rate = float(s.get("speed", 1))
             clip = sdr(base, s["src"], work)
+            if not s.get("window"):
+                face_check(work, n, clip, float(s.get("ss", 0)), s.get("pan"), f0, None, cfg, problems, slot * rate)
             if s.get("window"):
                 fc = (f"[0:v]{OUT}[bg];"
                       f"[1:v]{crop}{WIN},setpts=PTS/{rate},tpad=stop_mode=clone:stop_duration=30,{OUT},format=yuva420p[fw];"
@@ -569,7 +602,7 @@ def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid):
                     "-loop", 1, "-i", work / "mask.png", "-loop", 1, "-i", work / "shadow.png",
                     "-filter_complex", fc, "-map", "[o]", "-an", "-frames:v", frames, "-c:v", "libx264", "-crf", 16, out)
             else:
-                vf = f"{crop}{FILL},setpts=PTS/{rate},tpad=stop_mode=clone:stop_duration=30,{OUT}"
+                vf = f"{crop}{FILL}{pan_vf(s.get('pan'))},setpts=PTS/{rate},tpad=stop_mode=clone:stop_duration=30,{OUT}"
                 run(FF, "-y", "-v", "error", "-ss", s.get("ss", 0), "-t", f"{slot * rate + 0.5:.3f}", "-i", clip, "-an", "-vf", vf,
                     "-frames:v", frames, "-c:v", "libx264", "-crf", 16, out)
         clips.append((out, f0, f1))
@@ -602,6 +635,84 @@ def take_inserts(base, work, cfg, cue, line_t, cta_t, intro, end, rid):
     (work / "inserts.json").write_text(json.dumps([{"insert": n, "src": s["src"], "from_frame": f0, "to_frame": f1}
                                                     for n, s, f0, f1 in ins], ensure_ascii=False, indent=1) + "\n")
     return sorted({0.0, intro, end} | {round(f / FPS, 3) for _, a, b in clips for f in (a, b)})
+
+
+def unique_media(base, cfg, ins, kids):
+    """Yarin, 20 Nov 2026: "never use the same media twice in the same reel". Checks that no insert file, no child clip behind a
+    picture and no store cover art inside a drawn book shows up twice (the take itself is the base and not counted), and gives
+    each picture a child clip of its own: its "bg", else the next library clip nothing else in the reel uses. Returns
+    {insert number: child clip path}."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import library
+    real = lambda p: str(Path(p).resolve())
+    drawn = {real(library.path_of(e)): e.get("spec") or {} for e in library.load() if e.get("kind") == "drawn"}
+    seen, arts, out = {}, {}, {}
+    def take(path, what):
+        r = real(path)
+        if r in seen:
+            sys.exit(f"same media twice: {Path(path).name} ({seen[r]} and {what})")
+        seen[r] = what
+    for n, s, *_ in ins:
+        take(base / s["src"], f"insert {n}")
+        spec = drawn.get(real(base / s["src"]))
+        for c in ([spec.get("art") or spec.get("cover")] + [b.get("cover") for b in spec.get("books", [])]) if spec else []:
+            if c and c in arts:
+                sys.exit(f"same cover art twice: {Path(c).name} (insert {arts[c]} and insert {n})")
+            if c:
+                arts[c] = n
+    for n, s, *_ in ins:
+        if s.get("bg"):
+            out[n] = base / s["bg"]
+            take(out[n], f"behind insert {n}")
+    for n, s, *_ in ins:
+        if (Path(s["src"]).suffix.lower() in IMAGE_EXT or s.get("window")) and n not in out:
+            free = next((p for p in kids if real(p) not in seen), None)
+            if free is None:
+                sys.exit(f"no unused child clip left for insert {n}: add one to the library or give it a \"bg\"")
+            out[n] = Path(free)
+            take(free, f"behind insert {n}")
+    return out
+
+
+FACES_BIN = Path.home() / "Library/Caches/lumebook-faces"
+
+
+def face_boxes(frames):
+    """Face boxes per frame with macOS Vision (faces.swift, compiled once into ~/Library/Caches)."""
+    if not FACES_BIN.exists():
+        run("swiftc", "-O", "-o", FACES_BIN, Path(__file__).resolve().parent / "faces.swift")
+    out = subprocess.run([str(FACES_BIN), *map(str, frames)], capture_output=True, text=True).stdout
+    return [json.loads(l)["faces"] for l in out.splitlines() if l.strip()]
+
+
+def face_check(work, n, clip, ss, pan, f0, still_box, cfg, problems, length=None):
+    """Yarin, 20 Nov 2026: "never hide the kids faces in the b rolls". Samples the child clip as it is shown (filled, panned,
+    3 frames a second, not darkened) and reports every face that the picture on top (still_box) or the burned text would
+    cover: the hook when it stays on screen ("hook_whole_reel") or the insert starts in the first 4 s. The captions are left
+    out (Yarin, 20 Nov 2026: "the caption can be in the center even if they hide the childs face"), so they stay centred."""
+    d = work / "faces" / f"ins{n}"
+    if d.exists():
+        for f in d.glob("*.jpg"):
+            f.unlink()
+    d.mkdir(parents=True, exist_ok=True)
+    run(FF, "-y", "-v", "error", "-ss", ss, *(["-t", f"{length:.3f}"] if length else []), "-i", clip,
+        "-vf", f"{FILL}{pan_vf(pan)},fps=3", d / "f%03d.jpg")
+    bands = [HOOK_BAND] if cfg.get("hook_whole_reel") or f0 / FPS < 4.0 else []
+    rects = [(0.0, a, 1.0, b) for a, b in bands]
+    if still_box:
+        x0, y0, x1, y1 = still_box
+        rects.append((x0 / 1080, y0 / 1920, x1 / 1080, y1 / 1920))
+    names = ["the hook" for b in bands] + (["the picture"] if still_box else [])
+    hits = set()
+    for boxes in face_boxes(sorted(d.glob("*.jpg"))):
+        for fx0, fy0, fx1, fy1 in boxes:
+            for name, (rx0, ry0, rx1, ry1) in zip(names, rects):
+                if min(fx1, rx1) - max(fx0, rx0) > 0.01 and min(fy1, ry1) - max(fy0, ry0) > 0.005:
+                    hits.add(name)
+    if hits:
+        msg = f"insert {n} ({Path(clip).name}): a face is under {' and '.join(sorted(hits))}; set its pan / bg_pan / box"
+        problems.append(msg)
+        print("  check:", msg)
 
 
 def window_art(work):

@@ -132,7 +132,7 @@ w("")
 w("- Ask the admin first whenever the rules mention approval, a business day or a thread, and post only where and when the rules allow.")
 w("- Never collect children's details in comments. Every draft points to a private form. The ambassadors form is built for creators with a follower band, so families need a short sign-up form: parent name and phone, city or neighbourhood, the child's first name and age for the book, days that suit a visit, guardian confirmation, and consent that the child's face and the parent will appear on LumeBook's socials. That form does not exist yet.")
 w("- Before each visit, get written consent from the parent that names where the videos will appear. Book visits by city so one trip covers several families (a suggestion, not tested).")
-w("- The Hebrew drafts use the fallback voice (2 of 15 approved samples), pass the project's Hebrew lint except the slide-only word limit, write לומבוק, mention no AI and use no em dashes.")
+w("- The Hebrew drafts use the fallback voice (2 of 15 approved samples), pass the project's Hebrew lint except the slide-only word limit, write לומיבוק, mention no AI and use no em dashes.")
 w("")
 for title, k in [("1. Post for a local parents group", "post_general"), ("2. Short post for business-day threads and local boards", "post_short"), ("3. Private message asking an administrator for permission", "dm_admin"), ("4. Filming consent, signed before each visit (draft for a lawyer to read)", "consent")]:
     w(f"### {title}")

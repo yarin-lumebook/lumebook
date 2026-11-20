@@ -25,7 +25,7 @@ How it works
 CLI
   python3 tools/i18n.py status                 dictionaries per page and what is waiting
   python3 tools/i18n.py translate [--page KEY] translate what is waiting, here (PROGRESS lines for the progress bar)
-  python3 tools/i18n.py check                  lint the dictionaries (placeholders, dashes, לומיבוק)
+  python3 tools/i18n.py check                  lint the dictionaries (placeholders, dashes, לומבוק)
   python3 tools/i18n.py bake [KEY ...]         write the dictionary block into page files
 
 Test on a spare port: LUMEBOOK_I18N_DIR points at scratch dictionaries, LUMEBOOK_I18N_QUEUE at a scratch queue file,
@@ -242,13 +242,13 @@ RULES = {
 - Plain, short, everyday English. Keep the length close to the original; labels and buttons stay short.
 - Hebrew used as a quoted example of copy for Israeli parents (a carousel slide line, a hook, a caption, a message) is
   translated too, as a faithful English rendering.
-- לומבוק is LumeBook.""",
+- לומיבוק is LumeBook.""",
     "he": """Translate each item from English to Hebrew.
 - Everyday Israeli Hebrew, terse and clear, the way a young Israeli marketer writes his own work notes. Not formal, not translated-sounding.
 - Instructions and buttons in the infinitive or as nouns (לשמור, לפתוח, שמירה), never addressed to a man or a woman.
 - Keep the loanwords Israelis use in English letters: UTM, UGC, CTA, KPI, SEO, HQ, Q4, AI, API, CSV, URL. Reel is ריל (רילס), carousel is קרוסלה, story is סטורי, post is פוסט, feed is פיד, hook is הוק, creator is יוצר or יוצרת.
 - A prefix letter before a Latin word or a number takes a hyphen: ב-Instagram, ל-25%, מ-HQ. The definite article joins ל ב כ: לספר, not להספר.
-- LumeBook stays LumeBook in English letters; in Hebrew words it is לומבוק, never לומיבוק.""",
+- LumeBook stays LumeBook in English letters; in Hebrew words it is לומיבוק, never לומבוק.""",
 }
 
 PROMPT = """You translate the words of LumeBook's internal web pages. LumeBook sells personalised children's books in
@@ -340,7 +340,7 @@ def fix(text, to, src=""):
     t = DASHES.sub(", ", t)   # no other em or en dashes, ever
     for a, unit, b in RANGE.findall(src):   # a range the dash rule already turned into "5k, 50k"
         t = re.sub("\\{%s\\}([kK%%]?), \\{%s\\}" % (a, b), lambda m: "{%s}%s-{%s}" % (a, m.group(1), b), t)
-    t = t.replace("לומיבוק", "לומבוק")
+    t = t.replace("לומבוק", "לומיבוק")
     if "\u00b7" in src and "\u00b7" not in t:   # the model sometimes turns the middle dot into a full stop
         t = t.replace(" . ", " \u00b7 ")
     return t.strip()
@@ -617,8 +617,8 @@ def cmd_check():
                     why.append("numbers")
                 if DASHES.search(joined):
                     why.append("dash")
-                if "לומיבוק" in joined:
-                    why.append("לומיבוק")
+                if "לומבוק" in joined:
+                    why.append("לומבוק")
                 if why:
                     bad += 1
                     print(f"{s} [{to}] {', '.join(why)}: {k[:80]!r}")

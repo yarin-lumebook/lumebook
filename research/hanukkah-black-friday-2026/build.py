@@ -8,7 +8,7 @@ Yarin: "can i have an html for it?"
 Source: content.md, the only source. The page parses it, so edit the md and rebuild, never the html.
 Output: hanukkah-black-friday.html, one section at a time from the page sidebar (overview, then the seven ## sections).
 Tables whose first column is "#" become cards (the purchase intents and the hooks); a hook's "כוונה" links to its intent card.
-Fails on an em or en dash, the brand spelt לומיבוק, intent numbers that are not 1..N, or a hook that names an unknown intent.
+Fails on an em or en dash, the brand spelt לומבוק, intent numbers that are not 1..N, or a hook that names an unknown intent.
 Local only: it repeats an internal figure from shared/facts.json (buyers). Standard library only.
 """
 import html
@@ -169,8 +169,8 @@ def validate(doc):
     for s in all_text(doc):
         if DASHES.search(s):
             errs.append(f"em or en dash in: {s[:70]}")
-        if "לומיבוק" in s:
-            errs.append(f"brand spelt לומיבוק in: {s[:70]}")
+        if "לומבוק" in s:
+            errs.append(f"brand spelt לומבוק in: {s[:70]}")
     nums = [int(r[0]) for t in card_tables(section(doc, "intents")) for r in t[1:]]
     if nums != list(range(1, len(nums) + 1)):
         errs.append(f"intent numbers are not 1..{len(nums)} in order: {nums}")
@@ -422,7 +422,7 @@ def build(name):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>{PAGE_TITLE} · לומבוק</title>
+<title>{PAGE_TITLE} · לומיבוק</title>
 {design.head(page=PAGE)}
 <style>{CSS}</style>
 </head>

@@ -36,7 +36,7 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
   > בפנים? השם שלהם בתוך הסיפור, ועמוד הקדשה שאת כותבת בעצמך.
   > הכל מגיע עד הבית, ולפני הכל רואים את כל הספר בתצוגה מקדימה.
   > מתנה לנכד מסבתא וסבא, ספר ילדים מותאם אישית
-  > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומבוק
+  > #מתנהלנכד #סבתא #ספרילדים #ספרמותאםאישית #לומיבוק
   > תכתבי לי "לומי" בתגובות ואשלח לך קישור ליצירת הספר 📚
 - הערה: 05 Nov evening: the price reel now talks to grandmothers (largest buying group in Yarin's Meta screenshot of 05 Nov).  09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): kept as version A of test 1 (Yarin naming the facts; version B is brief 1, a grandmother opening the book), so only the last picture changed: back to the dedication page. Your line 6 was split in two at the period (the voice lint allows 12 words a line); same words. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: סבתא, זה מה שהנכד / מקבל אצלנו. Your first spoken line already said "שלושה דברים"; the hook now says it too (it also clears the H6 warning). 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 2996C10E); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 

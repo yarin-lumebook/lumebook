@@ -15,7 +15,7 @@ A verified list of 243 Hebrew-speaking Israeli creators (5K to 50K followers for
 | Rule | Source |
 |---|---|
 | No em dashes or en dashes in anything written for Yarin or the audience | CLAUDE.md, user |
-| Brand is LumeBook in messages (Hebrew לומבוק elsewhere), never לומיבוק | CLAUDE.md, user |
+| Brand is LumeBook in messages (Hebrew לומיבוק elsewhere, since 20 Nov 2026), never לומבוק | CLAUDE.md, user |
 | Offer: one 25% allocation per sale through the creator's personal link. The creator decides how much is their earnings and how much is an audience discount (for example 15% and 10%); the discount is applied automatically through the link. Never 25% plus an extra discount. Never "קוד הנחה" or "קוד אישי" | `shared/facts.json` offer, Yarin 11 Oct |
 | Commission only, nothing paid (Yarin, 12 Oct). Three tracks, all the same offer, different message angle: General, Professionals, Parents. The Paid UGC and Paid partnership tracks were removed | `shared/facts.json` offer, Yarin 12 Oct |
 | Hebrew only: Arabic and Russian creators were removed | user, 3 Oct |

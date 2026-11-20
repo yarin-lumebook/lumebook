@@ -196,7 +196,7 @@ How to read this file:
   - Meta x Toluna study (link in E1), industry study: brand and core message in the first 5 s made strong purchase intent 1.7x more likely; dynamic, repeated branding beat a single end-frame logo (1.8x); for conversion-focused ads, branding under about 25% of duration performed better.
   - Instagram creator FAQ (link in E1), platform-official. Content that promotes a contest or giveaway is listed among content not recommended to non-followers.
 - **Strength:** contested. Sharing studies penalise early, heavy branding; purchase-intent studies reward an early brand and message. Showing the product early as part of the story, with little brand talk, satisfies both.
-- **Transfer to LumeBook:** the personalised book is the visible product from the first seconds, but "לומבוק" and the offer appear briefly (caption, last beat, Collab tag); giveaway Reels will mostly reach existing followers only.
+- **Transfer to LumeBook:** the personalised book is the visible product from the first seconds, but "לומיבוק" and the offer appear briefly (caption, last beat, Collab tag); giveaway Reels will mostly reach existing followers only.
 - **How to spot it in a Reel:** `product_first_s` (first time the book is on screen), `product_in_use` (opened, read, given: yes/no), `brand_mentions` (count of spoken or written brand name and logo), `brand_share_duration` (seconds with logo or brand text divided by duration), `giveaway` (yes/no), `cta_type`.
 
 #### K6. Speak to a real parenting concern or make parents feel "not alone"

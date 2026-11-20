@@ -104,7 +104,7 @@ def draw_slots(folder, formats=NIGHTLY_FORMATS, rng=None):
 # next to a 3D book from lumebook.com with the real child photo in a small circle (the site's hero renders).
 LUMEBOOK_BODY_RE = re.compile(r"מותאם\s+אישית")
 LUMEBOOK_PHOTO_RE = re.compile(r"תמונה|תמונת|תמונות")
-ROLE_LABELS_HE = {"hook": "פתיח", "frame": "מה מתרגלים בגיל הזה", "recommendation": "המלצה", "lumebook": "לומבוק", "close": "סיכום"}
+ROLE_LABELS_HE = {"hook": "פתיח", "frame": "מה מתרגלים בגיל הזה", "recommendation": "המלצה", "lumebook": "לומיבוק", "close": "סיכום"}
 
 PRODUCT_COOLDOWN_DAYS = 30      # the brief: no product twice within 30 days unless a seasonal reason is documented
 SKILL_COOLDOWN_RUNS = 4         # same format: a skill may not return within its last 4 carousels
@@ -281,7 +281,7 @@ FLAG_HE = {
     "claim": "טענה בלי תמיכה",
     "voice": "הפרה של כללי הקול והעברית",
     "structure": "מבנה הקרוסלה",
-    "lumebook": "האזכור של לומבוק",
+    "lumebook": "האזכור של לומיבוק",
     "process": "תשלום, יצירת תמונות או פרסום",
 }
 
@@ -843,7 +843,7 @@ def carousel_issues(car, folder, history=None, today=None):
 
     # LumeBook: once, on its slide, with an approved asset
     if brand_hits.get(LUMEBOOK_SLIDE, 0) != 1:
-        issues.append(issue("ERROR", f"{P}/slide-{LUMEBOOK_SLIDE}", f"slide {LUMEBOOK_SLIDE} names LumeBook (לומבוק) exactly once", "lumebook"))
+        issues.append(issue("ERROR", f"{P}/slide-{LUMEBOOK_SLIDE}", f"slide {LUMEBOOK_SLIDE} names LumeBook (לומיבוק) exactly once", "lumebook"))
     for n in brand_hits:
         if n != LUMEBOOK_SLIDE:
             issues.append(issue("ERROR", f"{P}/slide-{n}", f"LumeBook appears only on slide {LUMEBOOK_SLIDE}", "lumebook"))

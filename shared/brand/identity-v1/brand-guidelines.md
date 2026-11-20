@@ -3,7 +3,7 @@
 Prepared 17 / 11 / 2026. Proposed identity, subject to application and supplier checks.
 
 ## Logo
-Purple dimensional wizard hat with one centered yellow star, paired with a Heebo 900 wordmark. English: LumeBook. Hebrew: לומבוק. Preserve the hat and star proportions. Use black lettering on light backgrounds and white on dark backgrounds. Use the flat vector mark for tiny icons, foil, stamps and one-color printing. Recommended clear space is one capital-L height. Suggested starting minimums are 180 px for a horizontal lockup and 32 px for a flat icon, subject to actual-size review. Never stretch, tilt or add shadows to the wordmark.
+Purple dimensional wizard hat with one centered yellow star, paired with a Heebo 900 wordmark. English: LumeBook. Hebrew: לומיבוק. Preserve the hat and star proportions. Use black lettering on light backgrounds and white on dark backgrounds. Use the flat vector mark for tiny icons, foil, stamps and one-color printing. Recommended clear space is one capital-L height. Suggested starting minimums are 180 px for a horizontal lockup and 32 px for a flat icon, subject to actual-size review. Never stretch, tilt or add shadows to the wordmark.
 
 ## Color
 Purple #7435D9. Deep purple #5424A6. Yellow #FFD34E. Lavender #F0E9FC. Cream #FBF8F2. Ink #19151F. White #FFFFFF. These are proposed tokens for this redesign. The generated bento is illustrative; CSS and JSON hold exact colors.
@@ -15,7 +15,7 @@ Actual Heebo font included. Weight 900 wordmark, 700 headings/buttons, 400 body.
 Use the dimensional mark at generous sizes and flat mark where detail disappears. Dark theme background #17131D, surface #241C2F, text #F9F5FF, action #B995FF with dark text. Included contrast checks cover representative text/action pairs, not a complete accessibility audit. Keep explicit field labels, visible focus and Hebrew RTL; isolate Latin strings, URLs, prices and numbers. CTA arrows should follow reading direction. Provide real image descriptions in implementation.
 
 ## Audience copy
-Use natural Israeli Hebrew with correct RTL. Spell the brand לומבוק. Current proposal: הסיפור שלהם מתחיל כאן. CTA: ליצירת ספר אישי. Do not add unsupported developmental claims, invented testimonials, unverified offers or AI references to audience copy.
+Use natural Israeli Hebrew with correct RTL. Spell the brand לומיבוק. Current proposal: הסיפור שלהם מתחיל כאן. CTA: ליצירת ספר אישי. Do not add unsupported developmental claims, invented testimonials, unverified offers or AI references to audience copy.
 
 ## Social
 Post 1080 x 1350. Story 1080 x 1920. Square 1080 x 1080. Keep about 250 px clear at the story top and bottom and check current UI overlays before publishing.

@@ -94,7 +94,7 @@
 #### שקופית 7 · המוצר
 
 **ואם הילד בסיפור הוא אני?**  
-בספר ״לב האומץ״ של לומבוק  
+בספר ״לב האומץ״ של לומיבוק  
 אמא מציירת לב על כף היד שלי  
 עם השם שלי והפנים שלי בכל ציור  
 
@@ -145,7 +145,7 @@
 - שקופית 6 · תקריאי לי סיפור על ילד כמוני · sourced_fact · Reading books or making up stories about separation fears is recommended. 'Easier than talking about myself' is our wording.
 - שקופית 5 · בלי להתגנב (כיתוב) · sourced_fact · Say goodbye rather than sneaking away (caption line 5).
 - שקופית 7 · השם בסיפור והפנים בכל איור · product_fact · Live site FAQ: the name is in the text and the child stars in every illustration.
-- שקופית 7 · ״לב האומץ״ של לומבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
+- שקופית 7 · ״לב האומץ״ של לומיבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
 - שקופית 8 · תצוגה מקדימה בחינם ומשלמים רק אם אהבתם · product_fact · Live site FAQ: creating the book and the preview are free, pay only if you love it.
 - שקופית 7 · לב על כף היד · product_fact · The story text: the mother draws the heart on the child's palm.
 
@@ -234,7 +234,7 @@
 #### שקופית 7 · המוצר
 
 **ושהילדה בסיפור תהיה אני**  
-בספר ״לב האומץ״ של לומבוק  
+בספר ״לב האומץ״ של לומיבוק  
 אני מקבלת לב על כף היד  
 עם השם שלי והפנים שלי  
 
@@ -284,7 +284,7 @@
 - שקופית 6 · תקריא לי על ילדה כמוני · sourced_fact · Reading books about separation fears is recommended.
 - שקופית 2 · פעם נשארים הרבה ופעם הולכים מהר · lumebook_wording · Imagined child voice describing an inconsistent goodbye; no factual claim.
 - שקופית 7 · השם בסיפור והפנים בכל איור · product_fact · Live site FAQ: the name is in the text and the child stars in every illustration.
-- שקופית 7 · ״לב האומץ״ של לומבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
+- שקופית 7 · ״לב האומץ״ של לומיבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
 - שקופית 8 · תצוגה מקדימה בחינם ומשלמים רק אם אהבתם · product_fact · Live site FAQ: creating the book and the preview are free, pay only if you love it.
 - שקופית 7 · לב על כף היד · product_fact · The story text: the mother draws the heart on the child's palm.
 
@@ -374,7 +374,7 @@
 #### שקופית 7 · המוצר
 
 **ושהילד שמחכה בסיפור יהיה אני**  
-בספר ״לב האומץ״ של לומבוק  
+בספר ״לב האומץ״ של לומיבוק  
 השם שלי בתוך הסיפור  
 והפנים שלי בכל איור  
 
@@ -424,7 +424,7 @@
 - שקופית 2 · השאלה הזאת חזרה אחרי החגים · sourced_fact · After time away a settled child may find going back stressful again (illness absence, applied to the holiday break).
 - שקופית 6 · סיפור על ילד שמחכה בגן יכול לפתוח שיחה · sourced_fact · Reading books about separation fears is a recommended way to talk about them.
 - שקופית 7 · השם בסיפור והפנים בכל איור · product_fact · Live site FAQ: the name is in the text and the child stars in every illustration.
-- שקופית 7 · ״לב האומץ״ של לומבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
+- שקופית 7 · ״לב האומץ״ של לומיבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
 - שקופית 8 · תצוגה מקדימה בחינם ומשלמים רק אם אהבתם · product_fact · Live site FAQ: creating the book and the preview are free, pay only if you love it.
 
 **ציון (1 עד 5):** קול _ · פתיח _ · תועלת _ · התאמה למוצר _ · ביטחון עובדתי _ · קלות הפקה _
@@ -516,7 +516,7 @@
 
 **ומה אם הילדה בסיפור**  
 **היא הבת שלכם?**  
-ב״לב האומץ״ של לומבוק  
+ב״לב האומץ״ של לומיבוק  
 אמא מציירת לה לב על כף היד  
 השם שלה בטקסט והפנים שלה בכל איור  
 
@@ -567,7 +567,7 @@
 - שקופית 5 · להגיד ביי ולא להתגנב ולהגיד מתי חוזרים · sourced_fact · Don't sneak away; tell the return time in terms the child understands.
 - שקופית 6 · סיפור על ילדה שנפרדת בגן · sourced_fact · Reading books or making up stories about separation fears is recommended. 'Gives you words' is our wording.
 - שקופית 7 · השם בסיפור והפנים בכל איור · product_fact · Live site FAQ: the name is in the text and the child stars in every illustration.
-- שקופית 7 · ״לב האומץ״ של לומבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
+- שקופית 7 · ״לב האומץ״ של לומיבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
 - שקופית 8 · תצוגה מקדימה בחינם ומשלמים רק אם אהבתם · product_fact · Live site FAQ: creating the book and the preview are free, pay only if you love it.
 - שקופית 7 · לב על כף היד · product_fact · The story text: the mother draws the heart on the child's palm.
 
@@ -659,7 +659,7 @@
 
 **ואם הילד שהולך לגן בסיפור**  
 **הוא הבן שלכם?**  
-ב״לב האומץ״ של לומבוק  
+ב״לב האומץ״ של לומיבוק  
 השם שלו בתוך הסיפור  
 והפנים שלו בכל איור  
 
@@ -708,7 +708,7 @@
 - שקופית 3 · אחרי החגים הוא שוב שואל · sourced_fact · After time away a settled child may find going back stressful again (illness absence, applied to the holiday break).
 - שקופית 6 · סיפור שעובר איתו על יום בגן · sourced_fact · Reading books about separation is recommended. 'Shows him what comes after what' is our wording.
 - שקופית 7 · השם בסיפור והפנים בכל איור · product_fact · Live site FAQ: the name is in the text and the child stars in every illustration.
-- שקופית 7 · ״לב האומץ״ של לומבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
+- שקופית 7 · ״לב האומץ״ של לומיבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
 - שקופית 8 · תצוגה מקדימה בחינם ומשלמים רק אם אהבתם · product_fact · Live site FAQ: creating the book and the preview are free, pay only if you love it.
 
 **ציון (1 עד 5):** קול _ · פתיח _ · תועלת _ · התאמה למוצר _ · ביטחון עובדתי _ · קלות הפקה _
@@ -798,7 +798,7 @@
 #### שקופית 7 · המוצר
 
 **בספר הזה הגיבורה היא הבת שלכם**  
-״לב האומץ״ של לומבוק  
+״לב האומץ״ של לומיבוק  
 עם השם שלה בטקסט  
 והפנים שלה בכל איור  
 
@@ -848,7 +848,7 @@
 - שקופית 3 · וזה מוכר אחרי הפסקה ארוכה מהגן · sourced_fact · Going back after time away is not uncommonly stressful (illness absence, applied to the holiday break).
 - שקופית 4 · ואחר כך ביי · sourced_fact · Keep the goodbye short and sweet.
 - שקופית 7 · השם בסיפור והפנים בכל איור · product_fact · Live site FAQ: the name is in the text and the child stars in every illustration.
-- שקופית 7 · ״לב האומץ״ של לומבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
+- שקופית 7 · ״לב האומץ״ של לומיבוק · product_fact · Live catalogue: לב האומץ של אלי is a gan separation story built around a heart drawing.
 - שקופית 8 · תצוגה מקדימה בחינם ומשלמים רק אם אהבתם · product_fact · Live site FAQ: creating the book and the preview are free, pay only if you love it.
 - שקופית 7 · לב על כף היד · product_fact · The story text: the mother draws the heart on the child's palm.
 

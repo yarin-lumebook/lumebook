@@ -1304,7 +1304,7 @@ window.LB_NAV_DATA = {"topics":[{"id":"learning","label":"קורס ולמידה"
     return `<nav class="lb-crumbs" aria-label="מיקום בפרויקט">${items.join("")}</nav><div class="lb-gpath-slot"></div>`;
   }
   // a page that is not one of HQ's tools shows its own title, without the "LumeBook ·" part many titles start with
-  const pageTitle = () => (document.title || "").replace(/^\s*(LumeBook|לומבוק)\s*[·|:\-]\s*/i, "").trim();
+  const pageTitle = () => (document.title || "").replace(/^\s*(LumeBook|לומיבוק)\s*[·|:\-]\s*/i, "").trim();
   function side(cur) {
     const curId = cur ? cur[0].id : "";
     return `<div class="lb-gside-head"><b>כל הכלים</b><button type="button" class="lb-gside-close" data-gnav="close" aria-label="סגירה">${ui("close")}</button></div>

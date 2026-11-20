@@ -208,7 +208,7 @@ ul.lim{margin:var(--sp-2) 0 0;padding-inline-start:1.2rem;color:var(--text-2);fo
     <a href="#today">הלילה האחרון</a><a href="#story">פורמט הסיפור</a><a href="#how">איך זה עובד</a><a href="#slides">שבע השקופיות</a><a href="#rules">כללים</a><a href="#commands">פקודות</a>
   </nav>
   <span class="lb-spacer"></span>
-  <a class="lb-btn ghost sm" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">לוח לומבוק</a>
+  <a class="lb-btn ghost sm" href="https://claude.ai/artifact/R5tEXfKkNKzVYg8CWFh4s6" target="_blank" rel="noopener">לוח לומיבוק</a>
 </div></header>
 
 <main class="lb-page" id="top">
@@ -306,7 +306,7 @@ __STRUCTS__
     <li><strong>שלושה קווים קבועים:</strong> הקרוסלה עונה על מה שהפתיח פותח, אין בה דבר לא נכון על ילדים, וההורה לא מושפל ולא מפוחד.</li>
     <li><strong>הילד:</strong> שם ישראלי אחד לכל אפשרות. הפנייה לאמא, או לשני ההורים. אף פעם לא לאבא לבד.</li>
     <li><strong>מילת הקריאה לפעולה</strong> היא תמיד "לומי", בתוך מרכאות, והיא חוזרת בדיוק כך בשקופית 7 ובשורה האחרונה של הכיתוב.</li>
-    <li><strong>בלי מותג:</strong> לא כותבים לומבוק ולא שם ספר בשום מקום שהורה קורא. הקישור בתגובה הוא שמוכר.</li>
+    <li><strong>בלי מותג:</strong> לא כותבים לומיבוק ולא שם ספר בשום מקום שהורה קורא. הקישור בתגובה הוא שמוכר.</li>
     <li><strong>בלי אזכור של בינה מלאכותית</strong> בשקופיות, בכיתוב, בטקסט החלופי ובתגובות.</li>
     <li><strong>דוגמאות:</strong> כשרשימה מופיעה על שקופית, היא בת 3 עד 7 פריטים.</li>
     <li><strong>טענות עובדתיות</strong> נרשמות עם המקור והציטוט. כל פתיח הוא השערה של LumeBook עד שיש תוצאות משלה.</li>

@@ -42,7 +42,7 @@ Good samples are WhatsApp messages, captions, voice note transcripts and emails 
 - בלי מילים גבוהות כשיש מילה פשוטה
 - בלי לכתוב שכל הילדים מרגישים אותו דבר
 - המוצר נכנס רק כשהוא באמת ממשיך את הרעיון
-- לומבוק בלי יו״ד
+- לומיבוק בלי יו״ד
 
 </div>
 

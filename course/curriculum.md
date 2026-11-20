@@ -232,7 +232,7 @@ The fade only goes down. It is never reordered.
 ## 8. Memorise against understand
 
 **Memorise** (needed mid-conversation, with Yossi or an interviewer):
-the five UTM tags and LumeBook's values for them · the pay rule · the five stages from comment word to paid order · the five weekly numbers and where each comes from · the house rules (לומבוק, no AI in audience copy, a personal link never a code, no em dashes) · the Hanukkah dates in `shared/facts.json`.
+the five UTM tags and LumeBook's values for them · the pay rule · the five stages from comment word to paid order · the five weekly numbers and where each comes from · the house rules (לומיבוק, no AI in audience copy, a personal link never a code, no em dashes) · the Hanukkah dates in `shared/facts.json`.
 
 **Understand** (tested on new situations, never by recall): everything else. If a fact is one tap away in the platform or the app, it is not worth memorising.
 

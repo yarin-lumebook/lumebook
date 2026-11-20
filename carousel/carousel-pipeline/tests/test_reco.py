@@ -212,7 +212,7 @@ class LumeBook(Base):
 
     def test_brand_once_on_its_slide_only(self):
         car = self.car()
-        self.slide(car, 3)["why"] += "\nכמו בלומבוק"
+        self.slide(car, 3)["why"] += "\nכמו בלומיבוק"
         self.assertIn(f"LumeBook appears only on slide {self.lay(car)['lumebook_slide']}", messages(self.check(car)))
 
     def test_lumebook_slide_must_name_it(self):
@@ -224,12 +224,12 @@ class LumeBook(Base):
 
     def test_lumebook_twice_is_too_much(self):
         car = self.car()
-        self.slide(car, self.lay(car)["lumebook_slide"])["body"] += "\nשוב לומבוק"
+        self.slide(car, self.lay(car)["lumebook_slide"])["body"] += "\nשוב לומיבוק"
         self.assertIn("exactly once", messages(self.check(car)))
 
     def test_not_in_caption(self):
         car = self.car()
-        car["caption"] += "\nלומבוק"
+        car["caption"] += "\nלומיבוק"
         self.assertIn("not in the caption", messages(self.check(car)))
 
     def test_no_sales_talk_on_the_lumebook_slide(self):

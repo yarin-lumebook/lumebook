@@ -6,7 +6,7 @@ Exit code 1 if anything fails. Standard library only.
 
 Checks every visitor string in src/content/he.json and the built index.html:
 - house rules: no em or en dash; audience Hebrew has no hyphen, maqaf or semicolon (24 Oct 2026 rule); no space before punctuation;
-  brand LumeBook / לומבוק, never לומיבוק; no AI wording; never "קוד הנחה" or "קוד אישי" (shared/facts.json offer)
+  brand LumeBook / לומיבוק, never לומבוק; no AI wording; never "קוד הנחה" or "קוד אישי" (shared/facts.json offer)
 - this page's clarity rules: no unexplained jargon (UGC, אפיליאייט, המרות, Collaborator), no "חינם" and no "מתנה" (the book is payment for
   content and may count as income, terms 7.4 and 8.1), no income projections, no guarantee words, no shekel amount or percentage typed
   into the copy except ₪0 (numbers come from shared/facts.json and the live program API)
@@ -33,7 +33,7 @@ RULES = [
     ("maqaf", re.compile("־")),
     ("semicolon", re.compile("[;;]")),
     ("space before punctuation", re.compile(r"\s[,.!?:](?!\S*\})")),
-    ("brand spelled with yod", re.compile("לומיבוק")),
+    ("brand spelled without yod", re.compile("לומיבוק")),
     ("brand in wrong Latin form", re.compile(r"Lumebook|Lume Book|LUMEBOOK")),
     ("AI wording", re.compile(r"(?<![A-Za-z])AI(?![A-Za-z])|בינה מלאכותית")),
     ("banned offer wording", re.compile("|".join(map(re.escape, FACTS["offer"]["banned_wording_he"])))),

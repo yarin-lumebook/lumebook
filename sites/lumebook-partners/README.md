@@ -47,7 +47,7 @@ Yarin, 07 / 11 / 2026: "heavily animate the site". The page head adds `.anim` to
 ## Rules for this page
 
 - A standard offer exists but its terms were not given: no percentage, amount, notice period, exclusivity or content cadence on the page until Yarin confirms them (`docs/partners/internal-review-note.md`, `shared/facts.json` `partners`).
-- Brand: this page spells it לומיבוק (Yarin, 07 / 11 / 2026: "its לומיבוק", the store's own spelling, like the creator brief), never לומבוק; LumeBook in Latin letters in en, ar, ru. The lint enforces it for this page only; the project rule elsewhere is still לומבוק.
+- Brand: this page spells it לומיבוק (Yarin, 07 / 11 / 2026: "its לומיבוק", the store's own spelling, like the creator brief), never לומבוק; LumeBook in Latin letters in en, ar, ru. Since 20 Nov 2026 it is the project rule everywhere.
 - House rules: no em dashes in any language, no hyphens or semicolons in Hebrew copy, no AI wording, no medical or guarantee claims. The lint enforces them.
 - Arabic and Russian were drafted by Claude: have a native reader check them before they are shared with Arabic or Russian speakers.
 - White and cream only, no side stripes, no dark bands. Fonts and tokens follow the store's ambassador page, not the internal design system. Look (Yarin, 07 / 11 / 2026, in order): "less luxury more editorial", "aligned to the center", "heavily animate the site": editorial rules and numbers, everything on a centre axis (form fields and question text stay start aligned for reading), no glass or arches, a lot of motion.

@@ -71,7 +71,7 @@ Four parts Yarin asked for by name, plus CRM (see §0). Each is scoped to what Y
 
 ## 3. Carried forward, not re-asked
 
-- From `Google /SMM/SMM-Discovery.md` and its 14 / 10 re-discovery: the internal-figures rule, Instagram first, LumeBook's house rules (לומבוק, no AI in audience copy, a personal link never a code, no em dashes).
+- From `Google /SMM/SMM-Discovery.md` and its 14 / 10 re-discovery: the internal-figures rule, Instagram first, LumeBook's house rules (לומיבוק, no AI in audience copy, a personal link never a code, no em dashes).
 - The SMM book's LumeBook edition (`Google /SMM/book/parts/`) is mined for lesson material instead of being written again.
 
 ## 4. Scale, honestly

@@ -284,7 +284,7 @@ class VoiceStaysTheSame(unittest.TestCase):
     def test_dash_semicolon_and_brand_still_fail(self):
         pack = story_pack()
         s = slide(pack, "kid-5", 7)
-        s["body"] = s["body"].replace("ואת לא כועסת. את מחבקת.", "ואת לא כועסת; את מחבקת - כמו לומבוק.")
+        s["body"] = s["body"].replace("ואת לא כועסת. את מחבקת.", "ואת לא כועסת; את מחבקת - כמו לומיבוק.")
         msgs = messages(pack)
         self.assertIn("semicolon", msgs)
         self.assertIn("hyphen", msgs)

@@ -183,7 +183,7 @@ def tile_html(s):
             asset = f'<div class="asset">{html.escape(am.group(1))}</div>'
             break
     num_badge = f'<div class="t-num">{s["n"]}</div>' if lay == "P3" else ""
-    tile = f'<div class="slide L{lay[1:]}"><div class="slide-in">{num_badge}{"".join(on)}{asset}<div class="brandmark">לומבוק</div></div></div>'
+    tile = f'<div class="slide L{lay[1:]}"><div class="slide-in">{num_badge}{"".join(on)}{asset}<div class="brandmark">לומיבוק</div></div></div>'
     note_html = "".join(f'<p><b>{html.escape(k)}:</b> {inline(v)}</p>' for k, v in notes)
     return tile, note_html, copy
 
@@ -255,7 +255,7 @@ home_head = f'''
 <header class="lb-hero">
   <p class="eyebrow lb-eyebrow">פלייבוק · גרסה 1 · 6.10.2026</p>
   <h1>קרוסלות שמובילות מהרגע האמיתי של הילד <em>לתצוגה מקדימה בחינם</em></h1>
-  <p class="lede lb-lede">איך לכתוב, לבנות, לעצב ולמדוד קרוסלות Instagram של לומבוק, על בסיס מחקר: תיעוד של Meta, כ-110 מאמרים, ניתוח של כ-108 קרוסלות מהשוק, ו-12 קונספטים מוכנים ל-Canva.</p>
+  <p class="lede lb-lede">איך לכתוב, לבנות, לעצב ולמדוד קרוסלות Instagram של לומיבוק, על בסיס מחקר: תיעוד של Meta, כ-110 מאמרים, ניתוח של כ-108 קרוסלות מהשוק, ו-12 קונספטים מוכנים ל-Canva.</p>
   {flow_html}
   <p class="flow-note lb-note">ברירת המחדל, עד שהניסויים יגידו אחרת: 8 עד 9 שקופיות · 1080x1440 · רעיון אחד בשקופית · המוצר אחרי הערך לקהל קר</p>
   <div class="quick lb-row">
@@ -278,7 +278,7 @@ for n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
         body = md(concept_intro) + f'<div class="cgrid lb-grid">{concept_cards}</div>'
     elif n == 1:
         # the formula is drawn in the hero, so drop its text version here
-        body = md(re.sub(r"\*\*הנוסחה ללומבוק.*?\n\n(?=\*\*מה לעשות)", "", sections[1], flags=re.S))
+        body = md(re.sub(r"\*\*הנוסחה ללומיבוק.*?\n\n(?=\*\*מה לעשות)", "", sections[1], flags=re.S))
     else:
         body = md(sections[n])
     head = home_head if n == 1 else f'<header class="sec-head"><p class="eyebrow lb-eyebrow">סעיף {n}</p><h1>{html.escape(titles[n])}</h1></header>'
@@ -294,8 +294,8 @@ JS = open(os.path.join(HERE, "page.js"), encoding="utf-8").read()
 
 page = f'''<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>פלייבוק קרוסלות לומבוק</title>
-<meta name="description" content="פלייבוק קרוסלות Instagram ללומבוק: מחקר, תבניות, עיצוב, מדידה ו-12 קונספטים.">
+<title>פלייבוק קרוסלות לומיבוק</title>
+<meta name="description" content="פלייבוק קרוסלות Instagram ללומיבוק: מחקר, תבניות, עיצוב, מדידה ו-12 קונספטים.">
 {design.head()}
 <style>{CSS}</style>
 <div class="pb-root" dir="rtl" lang="he">
@@ -304,12 +304,12 @@ page = f'''<meta charset="utf-8">
     <a class="lb-brand" href="#s1"><img src="{logo_uri}" alt="" width="28" height="28"><span><b>פלייבוק קרוסלות</b></span></a>
     <nav class="lb-toc" aria-label="חלקי הפלייבוק">{toc_html}</nav>
     <span class="lb-spacer"></span>
-    <span class="bar-meta">לומבוק · 6.10.2026</span>
+    <span class="bar-meta">לומיבוק · 6.10.2026</span>
     <a class="lb-btn ghost sm" href="{HUB}" target="_blank" rel="noopener">ללוח</a>
   </div></header>
   <div class="app lb-app">
     <aside class="nav lb-sidebar" id="nav" aria-label="תוכן הפלייבוק">
-      <a class="nav-brand lb-brand" href="#s1"><span><b>פלייבוק קרוסלות</b><small>לומבוק · Instagram</small></span></a>
+      <a class="nav-brand lb-brand" href="#s1"><span><b>פלייבוק קרוסלות</b><small>לומיבוק · Instagram</small></span></a>
       {nav_html}
     </aside>
     <div class="scrim lb-scrim" hidden></div>

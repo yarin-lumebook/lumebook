@@ -119,8 +119,8 @@ def validate(d):
     for s in strings(d):
         if DASHES.search(s):
             errs.append(f"em or en dash in: {s[:70]}")
-        if "לומיבוק" in s:
-            errs.append(f"brand spelt לומיבוק in: {s[:70]}")
+        if "לומבוק" in s:
+            errs.append(f"brand spelt לומבוק in: {s[:70]}")
     return errs
 
 
@@ -242,8 +242,8 @@ def validate_intents(it):
     for s in strings(it):
         if DASHES.search(s):
             errs.append(f"purchase-intents.md: em or en dash in: {s[:70]}")
-        if "לומיבוק" in s:
-            errs.append(f"purchase-intents.md: brand spelt לומיבוק in: {s[:70]}")
+        if "לומבוק" in s:
+            errs.append(f"purchase-intents.md: brand spelt לומבוק in: {s[:70]}")
     return errs
 
 
@@ -903,8 +903,8 @@ def build():
         ("evidence", "טבלת הראיות", "file", "טבלת הראיות", f"{len(d['evidence'])} אמירות במילים של הלקוחות, כל מה שבמדגם. אפשר לסנן לפי נושא, סוג ומי הקונה, ולחפש."),
         ("patterns", "דפוסים", "chart", "דפוסים עיקריים", "כמה אמירות תומכות בכל ממצא, כמה חזק, ומה מגביל אותו."),
         ("language", "בנק שפה", "chat", "בנק שפת הלקוחות", "ביטויים אמיתיים מהלקוחות."),
-        ("hypotheses", "שש השערות", "sparkle", "שש השערות תוכן ללומבוק", "כל השערה עם הראיות, הוק, הצילום הנדרש, דרך לבדוק, והנחה שעוד צריך לאמת."),
-        ("intents", "100 כוונות קנייה", "chart", "100 כוונות קנייה", "למה מישהו מחליט לקנות ספר אישי במצב מסוים. לכל כוונה: תווית ראיה, מקור, ההיסוס, ומה לומבוק צריכה להראות. ו 10 לבדוק קודם."),
+        ("hypotheses", "שש השערות", "sparkle", "שש השערות תוכן ללומיבוק", "כל השערה עם הראיות, הוק, הצילום הנדרש, דרך לבדוק, והנחה שעוד צריך לאמת."),
+        ("intents", "100 כוונות קנייה", "chart", "100 כוונות קנייה", "למה מישהו מחליט לקנות ספר אישי במצב מסוים. לכל כוונה: תווית ראיה, מקור, ההיסוס, ומה לומיבוק צריכה להראות. ו 10 לבדוק קודם."),
         ("hooks", "50 ההוקים", "chat", "50 ההוקים הכי חזקים של מיבוק", "מה כתוב על המסך, מה נאמר ראשון ומה השורה הראשונה בכיתוב, ברילס של מיבוק לפי מספר הצפיות."),
         ("log", "יומן ניסויים", "chart", "יומן ניסויים", "ניסוי תוכן לכל רעיון מהמחקר: השערה, מה הראינו, תוצאות שמזינים ידנית, ומה למדנו. נשמר בשרת הפרויקט."),
     ]
@@ -1003,7 +1003,7 @@ def build():
     <div class="lb-sheet"><h4 class="lb-eyebrow">הוק מוצע</h4><p class="mb-hook">״{esc(h['hook'])}״</p>{hook_alt}</div>
     <div class="lb-sheet"><h4 class="lb-eyebrow">הצילום וההוכחה שצריך לאסוף</h4><p>{inline(h['footage'])}</p></div>
     <div class="lb-sheet"><h4 class="lb-eyebrow">איך בודקים</h4><p>{inline(h['test'])}</p></div>
-    <div class="lb-sheet"><h4 class="lb-eyebrow">ההנחה שעוד צריך לאמת מול לקוחות לומבוק</h4><p>{inline(h['assumption'])}</p></div>
+    <div class="lb-sheet"><h4 class="lb-eyebrow">ההנחה שעוד צריך לאמת מול לקוחות לומיבוק</h4><p>{inline(h['assumption'])}</p></div>
   </div>
   {xbox("hyp:" + h["id"])}
 </article>""")
@@ -1035,7 +1035,7 @@ def build():
         if x["n"] in top_ns:
             chips += f'<span class="lb-chip success">לבדוק קודם, מספר {top_ns[x["n"]]}</span>'
         if x["flag"]:
-            chips += '<span class="lb-chip warning" title="תלוי ביכולת של לומבוק שלא אומתה באתר החי">⚑ לאמת בלומבוק</span>'
+            chips += '<span class="lb-chip warning" title="תלוי ביכולת של לומיבוק שלא אומתה באתר החי">⚑ לאמת בלומיבוק</span>'
         icards.append(
             f'<article class="lb-card mb-int" id="i-{x["n"]}" data-label="{key}" data-cat="{x["cat"]}" data-reels="{1 if ireels[x["n"]] else 0}">'
             f'<div class="mb-q-head"><span class="mb-qn">#{x["n"]}</span>{chips}</div>'
@@ -1062,7 +1062,7 @@ def build():
         f'<div class="lb-callout info"><b>איך לקרוא</b><span>כוונת קנייה היא הסיבה הספציפית שבגללה מישהו מחליט לקנות ספר אישי במצב מסוים. '
         f'<b>ראיה ישירה</b>: לקוח או מתעניין אמר את זה במפורש. <b>הסקה</b>: נגזרת מאמירות ספציפיות. <b>השערה</b>: סבירה אבל לא מבוססת במחקר. '
         f'כיתוב ממומן של יוצרת או טענה של מיבוק לא נחשבים ראיה ישירה. עמודת "מה מעכב" היא ההערכה שלנו, אלא אם יש בה מקור. '
-        f'⚑ מסמן תלות ביכולת של לומבוק שלא אומתה באתר החי. קוד מקור (G, S, L) מראה את הטקסט המקורי במעבר עכבר, ו Q קופץ לציטוט.</span></div>'
+        f'⚑ מסמן תלות ביכולת של לומיבוק שלא אומתה באתר החי. קוד מקור (G, S, L) מראה את הטקסט המקורי במעבר עכבר, ו Q קופץ לציטוט.</span></div>'
         f'<details class="lb-disclosure" style="margin-top:var(--sp-3)"><summary><span class="lb-sum">המגבלות של הכיסוי<small>{len(it["limits"])} נקודות</small></span></summary>'
         f'<div class="lb-disclosure-body"><ul>{limits}</ul></div></details>'
         f'<h3 style="margin-top:var(--sp-5)">10 הכוונות לבדוק קודם, עם השערת מכירה</h3>'
@@ -1093,7 +1093,7 @@ def build():
             ),
         sec("language", f'<div class="mb-lang">{"".join(lang)}</div>'),
         sec("hypotheses", f'<div class="mb-hyps">{"".join(hyps)}</div>'
-            f'<h3 style="margin-top:var(--sp-5)">שני סיכונים שהמחקר מעלה ללומבוק</h3><div class="lb-stack" style="display:grid;gap:var(--sp-3)">{risks}</div>'),
+            f'<h3 style="margin-top:var(--sp-5)">שני סיכונים שהמחקר מעלה ללומיבוק</h3><div class="lb-stack" style="display:grid;gap:var(--sp-3)">{risks}</div>'),
         sec("intents", intents_html),
         sec("hooks", hooks_html()),
         sec("log", log_html()),
@@ -1105,7 +1105,7 @@ def build():
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>מה לקוחות מיבוק אומרים · לומבוק</title>
+<title>מה לקוחות מיבוק אומרים · לומיבוק</title>
 {design.head(page=PAGE)}
 <style>{CSS}</style>
 </head>

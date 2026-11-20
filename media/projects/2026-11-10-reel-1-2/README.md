@@ -34,10 +34,10 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
 - כיתוב לאינסטגרם:
   > כמה זמן לוקח להכין ספר ליום הולדת? ⏱️
   > שאלו אותי בתגובות, אז הפעלתי טיימר ובדקתי.
-  > שם, גיל, סיפור ותמונה אחת, ואז התצוגה המקדימה.
+  > שם, גיל, סיפור ותמונה אחת של הילד, ובום, יש ספר.
   > ושום דבר לא נדפס עד שמאשרים.
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
-  > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
+  > #ספרילדים #ספרמותאםאישית #לומיבוק #הורות
 - לבדוק: No timer on screen yet: the take says תראו כמה זמן לקח, but there is no recording of the timer. Screen-record one order with a timer (or tell Claude the real time to show) before posting.
 - הערה: Phone step added (04 Nov), as found while recording 1.1. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). Say only if true: שאלו אותי את זה בתגובות (only if someone asked; otherwise open with הפעלתי טיימר, בואו נבדוק); בתכלס, הכי הרבה זמן לקח לי לבחור סיפור (only if it did); Say the real time from the timer if you want it said, not only shown. 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): the approval line moved before the timer stops, so the stopped time is the payoff and stays on screen to the end. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', 38CD4F42); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 

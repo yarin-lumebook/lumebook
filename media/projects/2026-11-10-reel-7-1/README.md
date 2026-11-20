@@ -33,7 +33,7 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
   > יש לו ספר שלם רק עליו, עם השם שלו על הכריכה.
   > והוא הגיבור היחיד של הסיפור. בלי שותפים.
   > מתנה לילד עם השם שלו, ספר ילדים מותאם אישית
-  > #מתנהלילדים #ספרילדים #ספרמותאםאישית #לומבוק
+  > #מתנהלילדים #ספרילדים #ספרמותאםאישית #לומיבוק
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - הערה: New 04 Nov (Yarin: add Singles Day). Plays on 'one': one of a kind. Offer filled 04 Nov from Yarin: the standing price, so no 'only today'. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): ends on the cover with the name instead of a smile. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', A13EECE4); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 

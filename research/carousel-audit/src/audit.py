@@ -73,7 +73,7 @@ DIM_LONG = {"hook": "First-slide hook", "visual": "Visual stopping power", "audi
             "emotion": "Emotional resonance", "progression": "Curiosity and progression", "readability": "Mobile readability",
             "density": "Information density", "value": "Value to parents", "product": "Product relevance", "cta": "CTA clarity"}
 CAPTION_CHECKS = [(re.compile(r"(?<![A-Za-z])AI(?![A-Za-z])|בינה מלאכותית"), "mentions AI"),
-                  (re.compile("לומיבוק"), "brand spelling לומיבוק"),
+                  (re.compile("לומבוק"), "brand spelling לומבוק"),
                   (re.compile("קוד הנחה|קוד אישי"), "offer wording (קוד)"),
                   (re.compile("—"), "em dash")]
 

@@ -35,7 +35,7 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
   > פה הנכד הוא גיבור הסיפור, עם השם שלו על הכריכה ובכל עמוד.
   > בוחרים גיל, מעלים תמונה, וזהו.
   > מתנה שנשארת, ספר עם השם של הנכד
-  > #מתנהלנכד #סבתא #ספרמותאם #יוםהולדת #לומבוק
+  > #מתנהלנכד #סבתא #ספרמותאם #יוםהולדת #לומיבוק
   > תכתבי לי "לומי" בתגובות ואשלח לך קישור ליצירת הספר 📚
 - הערה: New 05 Nov evening: the fourth best seller (חברים צבעוניים) to the largest buying group, grandmothers. Replaces 5.3 (bedtime, no book of its own). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): how it is made (age, photo) moved before the payoff, so the reel ends on the name on the cover. The toy in the first frame stays: it is the stake. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', E3498895); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 

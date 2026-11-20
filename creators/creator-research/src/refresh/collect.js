@@ -20,7 +20,7 @@
   const pend = localStorage.__rf_pend; if (pend && !(pend in R)) { R[pend] = { err: "reload" }; localStorage.__rf_out = JSON.stringify(R) }
   const A = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
   const day = c => { let id = 0n; for (const ch of c.slice(0, 11)) id = id * 64n + BigInt(A.indexOf(ch)); return new Date(Number((id >> 23n) + 1314220021721n)).toISOString().slice(0, 10) };
-  const LB = /lumebook|לומבוק/i;
+  const LB = /lumebook|לומי?בוק/i;
   const t0 = Date.now();
   for (const h of TODO) {
     if (h in R) continue;

@@ -19,6 +19,10 @@ the name and the LumeBook logo; the dedication page has a round photo, a printed
   overlay     the closed cover, cropped, for hook_overlay (the cover under Yarin's face while he says the hook).
   row         three closed books with one name (one child, every story: the covers are the subject). Spec: books [{cover, title}].
   ("book" is the old name of cover, "page" of open.)
+  real-cover, real-open, real-standing, real-turn, real-stack, real-pair (two closed books, spec books [{cover, title}] x 2)
+              THE REALISTIC BOOKS (Yarin, 20 Nov 2026: the blank renders are "the most accurate"; pictures always on the cover
+              and the left page, Hebrew text on the right page): drawn by real_book.py on the blank renders in book-templates/.
+              Spec as above (cover, title for the closed ones; cover, name, lines, optional art for the open ones).
 
 Every kind but overlay is a 1080 x 1920 picture on a transparent ground: the reel builder puts it over the darkened child video
 (reel_make.py). Text stays clear of the captions (y 1158 to 1248).
@@ -413,11 +417,20 @@ def describe(spec):
     k = {"book": "cover", "page": "open"}.get(spec["kind"], spec["kind"])
     covers = [spec.get("cover")] + [b.get("cover") for b in spec.get("books", [])]
     code = next((Path(c).stem for c in covers if c), "art")
-    what = {"open": "open-book-story-page-with-the-name", "title": "open-book-title-page-with-the-name",
+    what = {"real-cover": "real-closed-book-standing-cover-with-the-title", "real-open": "real-open-book-from-above-picture-and-text",
+            "real-standing": "real-open-book-standing-picture-and-text", "real-turn": "real-open-book-page-turning",
+            "real-stack": "real-three-books-stacked-cover-with-the-title", "real-pair": "real-two-closed-books-side-by-side-with-titles",
+            "open": "open-book-story-page-with-the-name", "title": "open-book-title-page-with-the-name",
             "dedication": "open-book-dedication-page", "cover": "closed-book-cover-with-the-name-in-the-title",
             "overlay": "closed-book-cover-small-for-the-hook", "row": "three-closed-books-with-one-name"}[k]
     name = spec.get("name") or spec.get("title") or ""
-    about = {"open": "Open 3D LumeBook book: art page and the story page with the child's name marked",
+    about = {"real-cover": "Realistic closed book standing, the cover art with the title (blank render, 20 Nov 2026)",
+             "real-open": "Realistic open book from above: the picture on the left page, the Hebrew story page on the right",
+             "real-standing": "Realistic open book standing towards the camera: picture left, Hebrew story right",
+             "real-turn": "Realistic open book with a page halfway through a turn: picture left, Hebrew story right",
+             "real-stack": "Realistic stack of three closed books, the cover art with the title on top",
+             "real-pair": "Two realistic closed books side by side, each its own cover and title (one per child)",
+             "open": "Open 3D LumeBook book: art page and the story page with the child's name marked",
              "title": "Open 3D LumeBook book at the title page: round photo, the child's name, the logo",
              "dedication": "Open 3D LumeBook book at the dedication page", "cover": "Closed 3D LumeBook book, the cover with the title",
              "overlay": "Closed LumeBook cover, small, transparent, for under the face during the hook",
@@ -426,7 +439,9 @@ def describe(spec):
                       or [b.get("title", "") for b in spec.get("books", [])])
     words = [w for w in ([name] if name else []) + {"open": ["השם", "בסיפור", "בתוך הספר"], "title": ["השם", "העמוד הראשון"],
              "dedication": ["הקדשה", "מוקדש"], "cover": ["הכריכה", "על הכריכה"], "overlay": ["הכריכה"],
-             "row": ["כל סיפור", "ספרים"]}[k]]
+             "row": ["כל סיפור", "ספרים"], "real-cover": ["הכריכה", "על הכריכה"], "real-stack": ["הכריכה", "ספרים"],
+             "real-open": ["השם", "בסיפור", "בתוך הספר"], "real-standing": ["השם", "בסיפור", "בתוך הספר"],
+             "real-turn": ["כשפותחים", "בתוך הספר"], "real-pair": ["השם של כל אחד", "הכריכה", "שני ילדים"]}[k]]
     return f"{what}-{code}", f"{about} ({code}; {name}{': ' + text if text else ''})", words
 
 
@@ -436,7 +451,11 @@ def draw_into_library(spec, rid=None):
     e = library.find("drawn", key)
     if e:
         return library.path_of(e), False
-    img = KINDS[spec["kind"]](spec)
+    if spec["kind"].startswith("real-"):     # the realistic books on the blank renders (Yarin, 20 Nov 2026)
+        import real_book
+        img = real_book.KINDS[spec["kind"]](spec)
+    else:
+        img = KINDS[spec["kind"]](spec)
     base, about, words = describe(spec)
     old = next((x for x in library.load() if x.get("kind") == "drawn" and x.get("spec") == spec and library.path_of(x).exists()), None)
     # the same drawing made by an earlier version of this file is redrawn under its name (it costs nothing and nothing else

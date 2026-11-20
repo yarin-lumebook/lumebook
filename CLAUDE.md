@@ -96,7 +96,7 @@ Left manual on purpose: artifact republishes (8 pages of 0.2 to 0.9 MB that must
 
 ## Rules that apply everywhere
 
-- No em dashes in anything written for the user or audience. Brand: LumeBook / לומבוק, never לומיבוק.
+- No em dashes in anything written for the user or audience. Brand: LumeBook / לומיבוק, never לומבוק (Yarin, 20 Nov 2026: "כותבים לומיבוק לא לומבוק"; it was the other way round until then, so older copy and memories may still say לומבוק).
 - Creator offer: personal link with an audience discount, never "קוד הנחה" or "קוד אישי" (see `shared/facts.json` offer).
 - Don't mention AI in audience copy.
 - Hebrew grammar: `creators/creator-research/src/hebrew-rules.md`.

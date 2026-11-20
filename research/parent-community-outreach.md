@@ -4,7 +4,7 @@ LumeBook recruitment of Israeli families for a social-media shooting day at home
 
 ## The offer
 
-**יום צילום לרשתות החברתיות של לומבוק, אצלכם בבית, תמורת ספר מותאם אישית במתנה**
+**יום צילום לרשתות החברתיות של לומיבוק, אצלכם בבית, תמורת ספר מותאם אישית במתנה**
 
 - LumeBook comes to the family's home for a short shooting day for LumeBook's social media
 - The child (face visible) and a parent are filmed with the book
@@ -453,25 +453,25 @@ Not communities you can post in, so not counted above. Facebook answers crawlers
 - Ask the admin first whenever the rules mention approval, a business day or a thread, and post only where and when the rules allow.
 - Never collect children's details in comments. Every draft points to a private form. The ambassadors form is built for creators with a follower band, so families need a short sign-up form: parent name and phone, city or neighbourhood, the child's first name and age for the book, days that suit a visit, guardian confirmation, and consent that the child's face and the parent will appear on LumeBook's socials. That form does not exist yet.
 - Before each visit, get written consent from the parent that names where the videos will appear. Book visits by city so one trip covers several families (a suggestion, not tested).
-- The Hebrew drafts use the fallback voice (2 of 15 approved samples), pass the project's Hebrew lint except the slide-only word limit, write לומבוק, mention no AI and use no em dashes.
+- The Hebrew drafts use the fallback voice (2 of 15 approved samples), pass the project's Hebrew lint except the slide-only word limit, write לומיבוק, mention no AI and use no em dashes.
 
 ### 1. Post for a local parents group
 
 <div dir="rtl">
 
 היי לכולם 👋  
-אני ירין מלומבוק  
+אני ירין מלומיבוק  
 אנחנו מכינים ספרי ילדים מותאמים אישית  
 שבהם הילד או הילדה הם הגיבורים של הסיפור  
 
 אנחנו מחפשים כמה משפחות עם ילדים בגילאי 1 עד 10  
-ליום צילום קצר אצלכם בבית לרשתות החברתיות של לומבוק  
+ליום צילום קצר אצלכם בבית לרשתות החברתיות של לומיבוק  
 מגיעים עם ספר שנכתב במיוחד בשביל הילד שלכם  
 ומצלמים את הרגע שהוא פוגש אותו  
 פתיחת הספר  
 התגובה הראשונה  
 וקריאה ביחד איתכם  
-הסרטונים יעלו לעמודים של לומבוק ברשתות  
+הסרטונים יעלו לעמודים של לומיבוק ברשתות  
 
 מה חשוב לדעת מראש  
 הספר נשאר אצלכם במתנה וזו כל התמורה  
@@ -495,12 +495,12 @@ https://forms.gle/eBLpHjAbRSnM8FQo7
 
 <div dir="rtl">
 
-לומבוק מחפשים משפחות באשקלון והסביבה! 📚  
+לומיבוק מחפשים משפחות באשקלון והסביבה! 📚  
 יום צילום קצר אצלכם בבית לרשתות החברתיות שלנו  
 עם ספר ילדים מותאם אישית שבו הילד שלכם הוא הגיבור  
 
 אנחנו מצלמים אתכם עם הילד והספר  
-הסרטונים עולים לעמודים של לומבוק  
+הסרטונים עולים לעמודים של לומיבוק  
 ואתם כמובן מקבלים את הספר מתנה!  
 
 ילדים בגילאי 1 עד 10  
@@ -518,14 +518,14 @@ https://forms.gle/eBLpHjAbRSnM8FQo7
 <div dir="rtl">
 
 היי [שם] 👋  
-אני ירין מנהל הסושיאל של לומבוק  
+אני ירין מנהל הסושיאל של לומיבוק  
 אנחנו מכינים ספרי ילדים מותאמים אישית  
 
 רציתי לשאול לפני שאני מפרסם משהו בקבוצה  
 אנחנו מחפשים כמה משפחות מ[העיר] והסביבה  
-ליום צילום קצר אצלן בבית לרשתות החברתיות של לומבוק  
+ליום צילום קצר אצלן בבית לרשתות החברתיות של לומיבוק  
 המשפחה מקבלת ספר מותאם אישית במתנה  
-ואנחנו מצלמים את הילד וההורה עם הספר לעמודים של לומבוק  
+ואנחנו מצלמים את הילד וההורה עם הספר לעמודים של לומיבוק  
 
 חשוב לי להגיד מראש  
 הספר הוא כל התמורה  
@@ -545,7 +545,7 @@ https://forms.gle/eBLpHjAbRSnM8FQo7
 
 <div dir="rtl">
 
-הסכמה לצילום: יום צילום עם לומבוק  
+הסכמה לצילום: יום צילום עם לומיבוק  
 
 פרטי ההורה או האפוטרופוס  
 שם מלא: ____________________  
@@ -558,17 +558,17 @@ https://forms.gle/eBLpHjAbRSnM8FQo7
 3. ____________________  
 
 מה קורה ביום הצילום  
-1. לומבוק מגיעים אליכם הביתה לצילום קצר של כ-30 דקות.  
+1. לומיבוק מגיעים אליכם הביתה לצילום קצר של כ-30 דקות.  
 2. מצלמים את הילד או הילדה ואת ההורה עם הספר: פתיחת הספר, התגובה הראשונה והקריאה ביחד.  
 3. ההורה נמצא עם הילד לאורך כל הצילום.  
 4. אפשר לעצור את הצילום בכל רגע, בלי להסביר.  
 
 איפה משתמשים בסרטונים  
-5. הסרטונים והתמונות יעלו לעמודים של לומבוק ברשתות החברתיות (אינסטגרם, טיקטוק ופייסבוק) ובאתר של לומבוק.  
-6. פרסום ממומן: ☐ מסכים/ה ☐ לא מסכים/ה שלומבוק ישתמשו בחומרים גם במודעות ממומנות.  
+5. הסרטונים והתמונות יעלו לעמודים של לומיבוק ברשתות החברתיות (אינסטגרם, טיקטוק ופייסבוק) ובאתר של לומיבוק.  
+6. פרסום ממומן: ☐ מסכים/ה ☐ לא מסכים/ה שלומיבוק ישתמשו בחומרים גם במודעות ממומנות.  
 7. רואים בסרטונים את הפנים של הילד ושל ההורה. נציג רק שם פרטי, בלי שם משפחה, כתובת או שם של גן או בית ספר.  
 8. לא מסמנים אתכם בפרסומים, ואין צורך שתעלו משהו בעצמכם או שיהיו לכם עוקבים.  
-9. לומבוק לא מוכרים את החומרים לגורם אחר.  
+9. לומיבוק לא מוכרים את החומרים לגורם אחר.  
 10. אפשר להשתמש בחומרים עד שתבקשו להפסיק.  
 
 מה מקבלים  
@@ -580,7 +580,7 @@ https://forms.gle/eBLpHjAbRSnM8FQo7
 14. אפשר לבקש בכל רגע למחוק את הפרטים, בהודעה לירין.  
 
 ביטול ההסכמה  
-15. אפשר לבקש בכל רגע, בהודעה כתובה בוואטסאפ, שלומבוק יפסיקו להשתמש בחומרים. נסיר אותם מהעמודים שלנו תוך 7 ימים.  
+15. אפשר לבקש בכל רגע, בהודעה כתובה בוואטסאפ, שלומיבוק יפסיקו להשתמש בחומרים. נסיר אותם מהעמודים שלנו תוך 7 ימים.  
 16. אי אפשר למחוק עותקים ששותפו או נשמרו אצל אחרים, או שעלו מחדש בלי ידיעתנו.  
 
 אישור  

@@ -15,10 +15,10 @@ From 10 / 11 / 2026 every day has two options, א and ב, in the same lane (Yari
 | 10 / 11 / 2026 | שלישי | ב | 4.1 | הכנתי ספר מתמונה שלי בגיל 4 | 16 | parents | home | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, ההזמנה שלך עד התצוגה המקדימה, תגובה של 2 שניות |
 | 11 / 11 / 2026 | רביעי |  | 2.8 | סבתא, מה כותבים בהקדשה לנכד? | 15.3 | grandma | gifts/grandchild | מחכה לקריינות ולצילום של ירין | Yarin: קטע פתיחה למצלמה, קריינות, כתיבה בעמוד ההקדשה |
 | 12 / 11 / 2026 | חמישי | א ✓ | 3.1 | השנה הילד שלכם הוא הגיבור של חנוכה | 19.1 | parents | books/86 | מוכן לפרסום |  |
-| 12 / 11 / 2026 | חמישי | ב | 1.7 | הורים, אי אפשר לפשל בהזמנה הזאת | 16.9 | parents | home | מוכן לפרסום |  |
+| 12 / 11 / 2026 | חמישי | ב | 1.7 | הורים, אי אפשר לפשל בהזמנה הזאת | 16.9 | parents | home | פורסם |  |
 | 13 / 11 / 2026 | שישי | א ✓ | 2.7 | הרגע שהילד מבין שהגיבור זה הוא | 17.8 | parents | books/15 | מוכן לפרסום |  |
 | 14 / 11 / 2026 | שבת | א ✓ | 8.2 | סבתא, כמה צעצועים נשברו אצל הנכד? | 16.5 | grandma | books/29 | מוכן לפרסום |  |
-| 15 / 11 / 2026 | ראשון | א | 1.4 | סבתא, שלושה דברים שהנכד מקבל אצלנו | 20.8 | grandma | gifts/grandchild | מוכן לפרסום |  |
+| 15 / 11 / 2026 | ראשון | א | 1.4 | סבתא, שלושה דברים שהנכד מקבל אצלנו | 20.8 | grandma | gifts/grandchild | פורסם |  |
 | 15 / 11 / 2026 | ראשון | ב | 1.6 | מוצץ, חיתולים, יומולדת 3 כריכות | 13.9 | parents | books/category/bestsellers | מוכן לפרסום | Check on the site that each named book is live before the recording. |
 | 16 / 11 / 2026 | שני | א | 9.2 | מה הופך ילד לגיבור אמיתי? | 16.7 | parents | books/9013 | מחכה לקריינות ולצילום של ירין | Check in the preview that the rabbi, the friend and mom are on the pages before recording. / Confirm with Yossi that the traditional edition is the same product and price as הלב של יובל (not said in the reel). |
 | 16 / 11 / 2026 | שני | ב | 5.5 | מחפשים מתנת יום הולדת? תעצרו רגע | 16.2 | parents | books/13 | מוכן לפרסום | Check in the preview that the kind acts are on the pages before posting (the take says בכל עמוד הוא עושה משהו טוב קטן). |

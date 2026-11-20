@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Writes the story series and their sets into series.json (19 Nov 2026).
 
-    python3 media/projects/2026-11-19-story-series/make_sets.py day1          # the first day of all three series (23 / 11 / 2026)
+    python3 media/projects/2026-11-19-story-series/make_sets.py day1          # the first day of all three series (20 / 11 / 2026, Yarin: "i want them to start from today")
     python3 media/projects/2026-11-19-story-series/make_sets.py day1 --force  # overwrite a set that already exists
 
 A set is data (see tools/stories.py): the editor in the content calendar changes it afterwards, so this file only seeds. It never
@@ -32,12 +32,12 @@ def utm(path, campaign, day):
 
 
 SERIES = {
-    "bf": {"name": "בלאק פריידיי", "name_en": "Black Friday", "start": "2026-11-23", "end": "2026-11-30", "time": "19:30", "path": "/books",
+    "bf": {"name": "בלאק פריידיי", "name_en": "Black Friday", "start": "2026-11-20", "end": "2026-11-27", "time": "10:30", "path": "/books",
            "about": "לפי רצף הסטוריז בבריף 5 של black-friday.md: ציפייה, הוכחה, ומ־25 / 11 המבצע (ספר ראשון 119, שני 99) רק באישור שלך למחיר מחוץ לרילס. עד סייבר מאנדיי."},
-    "hanukkah": {"name": "חנוכה", "name_en": "Hanukkah", "start": "2026-11-23", "end": "2026-12-12", "time": "14:30", "path": "/holiday-cards",
+    "hanukkah": {"name": "חנוכה", "name_en": "Hanukkah", "start": "2026-11-20", "end": "2026-12-12", "time": "19:30", "path": "/holiday-cards",
                  "about": "כל סטורי מוביל למתנה החינמית בעמוד holiday-cards (כרטיס ברכה או חוברת צביעה), עד סוף חנוכה."},
-    "reviews": {"name": "ביקורות", "name_en": "Reviews", "start": "2026-11-23", "end": "2026-12-12", "time": "10:30", "path": "",
-                "about": "3 עד 5 ביקורות אמיתיות בכל יום, מעמוד ההוכחה החברתית, עד סוף חנוכה."},
+    "reviews": {"name": "ביקורות", "name_en": "Reviews", "start": "2026-11-20", "end": "2026-11-30", "time": "14:30", "path": "",
+                "about": "3 עד 5 ביקורות בכל יום, מעמוד ההוכחה החברתית, עד סוף חנוכה."},
 }
 
 
@@ -59,7 +59,7 @@ def black_friday(day):
     link = utm(SERIES["bf"]["path"], "bf-2026", day)   # the campaign's tag (shared/facts.json black_friday_2026.utm_campaign)
     return [
         frame("f1", "story-bf-cart-toys.png", [
-            text("l1", "עוד 4 ימים לבלאק פריידיי", 262, size=58, weight=700, color=GOLD),
+            text("l1", "עוד שבוע לבלאק פריידיי", 262, size=58, weight=700, color=GOLD),
             text("l2", "העגלה כבר מלאה\n**בצעצועים**", 340, size=94),
             text("l3", "מה מכל זה הוא עוד יזכור בעוד שנה?", 1440, size=54, weight=700, w=860, x=110)],
             note="פתיח. מבוסס על כוונה 3 ב־black-friday.md: העגלה מלאה צעצועים ומתנה אחת שלא נזרקת."),
@@ -76,7 +76,7 @@ def black_friday(day):
             text("l5", "לא. בוחרים סיפור, והילד בפנים.", 1090, size=58, weight=700),
             sticker("l6", "question", "תיבת שאלה: מה עוד תרצו לדעת?", 1250, h=200),
             sticker("l7", "link", "מדבקת קישור: הספרים באתר", 1470, h=100, url=link)],
-            note="שאלות ותשובות, לפי בריף 5 ב־black-friday.md (שלב ההוכחה, 22 עד 24 / 11). מחיר רק מ־25 / 11 ורק באישור שלך. תשובות: store_facts.delivery ו־Q31."),
+            note="שאלות ותשובות, לפי בריף 5 ב־black-friday.md (בריף 5 שם אותה בשלב ההוכחה, 22 עד 24 / 11; כאן כבר מהיום הראשון). מחיר רק מ־25 / 11 ורק באישור שלך. תשובות: store_facts.delivery ו־Q31."),
     ]
 
 
@@ -87,7 +87,7 @@ def hanukkah(day):
     link = utm(SERIES["hanukkah"]["path"], "story-hanukkah", day)
     return [
         frame("f1", "story-hanukkah-windowsill.png", [
-            text("l1", "עוד 11 ימים לנר הראשון", 285, size=64, weight=700, color=GOLD),
+            text("l1", "עוד שבועיים לנר הראשון", 285, size=64, weight=700, color=GOLD),
             text("l2", "ברכה לחנוכה\nשהילדים **בתוכה**", 380, size=112),
             text("l3", "מתנה מאיתנו, בלי תשלום", 1340, size=58, weight=900),
             sticker("l4", "countdown", "ספירה לאחור: נר ראשון, 04 / 12", 1450, h=120)],
@@ -117,8 +117,8 @@ BLUR_LOG = HERE / "blur-boxes.json"
 def review_frame(i, rv, parts, found, cta=False, link=""):
     layers, note = stories.review_layers(rv, parts, cta, found)
     if cta:
-        layers += [text("l6", "רואים תצוגה מקדימה\nעם הילד שלכם, בחינם", 1300, size=56, weight=700, w=860, x=110),
-                   sticker("l7", "link", "מדבקת קישור: לתצוגה מקדימה", 1460, h=120, url=link)]
+        layers += [text("l6", "בוחרים סיפור,\nמוסיפים תמונה של הילד\nו**בום**, יש ספר", 1250, size=54, weight=700, w=860, x=110),
+                   sticker("l7", "link", "מדבקת קישור: הספרים", 1470, h=100, url=link)]
     return frame(i, "story-reviews-backdrop.png", layers, note=note)
 
 
@@ -145,7 +145,7 @@ def reviews(day):
 
 
 DAYS = {
-    "day1": {"2026-11-23": {"bf": black_friday, "hanukkah": hanukkah, "reviews": reviews}},
+    "day1": {"2026-11-20": {"bf": black_friday, "hanukkah": hanukkah, "reviews": reviews}},
 }
 
 

@@ -553,7 +553,7 @@ Before writing the six options, the writer builds a private slate in `pack.json`
 | הבטחה להחלקה | `swipe_promise` | clear why to swipe, and slide 2 delivers | vague | none |
 | שימושי | `usefulness` | the cover itself says what the viewer gets: a number of things, a sentence to say, a result or an answer for tomorrow (**a cover candidate must score 2 here, Yarin 11 Oct 2026**) | the carousel is useful but the cover does not say so | none |
 | מתאים לנושא | `topic_fit` | exactly tonight's topic and season | related | off topic |
-| מתאים ללומבוק | `lumebook_fit` | a moment where a story with the child as the hero is a natural tool later | loosely | none (for example broad parent humour) |
+| מתאים ללומיבוק | `lumebook_fit` | a moment where a story with the child as the hero is a natural tool later | loosely | none (for example broad parent humour) |
 | טרי | `freshness` | new wording and formula against the last 3 packs | a formula used recently with new wording | repeats a recent hook |
 
 Fail checks (any true fails the candidate): `clickbait` (a banned opener, or a gap the carousel does not close; since 10 Oct 2026 a big gap that the carousel does close is wanted, see "Slide 1 is the thumbnail"), `unsupported_claim` (a fact about children with no source we can cite), `unfulfilled_promise` (the carousel does not deliver what slide 1 or 2 promises), `blames_parent` (the parent is the cause, or "you are doing it wrong").

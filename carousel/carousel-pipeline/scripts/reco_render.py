@@ -651,7 +651,7 @@ def reco_page(folder, fmt, history=None):
         f'<details class="more"><summary>המוצרים</summary><div class="inner">{products}</div></details>',
         f'<details class="more"><summary>מקורות</summary><div class="inner"><ul class="rp-list">{dev}</ul>'
         f'<table style="margin-top:var(--sp-3)"><thead><tr><th>שקופית</th><th>טענה</th><th>מקור</th></tr></thead><tbody>{claims}</tbody></table></div></details>',
-        f'<details class="more"><summary>לומבוק</summary><div class="inner"><dl class="lb-kv"><dt>תמונה</dt><dd>{_link(lb["image"]["page_url"], lb.get("catalogue_book") or "lumebook.com")}</dd>'
+        f'<details class="more"><summary>לומיבוק</summary><div class="inner"><dl class="lb-kv"><dt>תמונה</dt><dd>{_link(lb["image"]["page_url"], lb.get("catalogue_book") or "lumebook.com")}</dd>'
         f'<dt>עובדות מהאתר</dt><dd><ul class="rp-list">{facts}</ul></dd><dt>החיבור</dt><dd dir="auto">{esc(lb["connection"])}</dd></dl></div></details>',
         f'<details class="more" id="checks"{" open" if n_checks else ""}><summary>בדיקות{" · " + str(n_checks) + " לתיקון" if n_checks else ""}{" · " + str(len(warns)) + " הערות" if warns else ""}</summary>'
         f'<div class="inner"><ul class="rp-list rp-flags">{flag_items or "<li>הכול תקין</li>"}</ul></div></details>',

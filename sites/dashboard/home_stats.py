@@ -498,14 +498,7 @@ def attention(c, cr, am, rl, so):
             age = 0
         if age >= 3:
             add("info", "שגרירים", f"נתוני השגרירים נקראו לפני {age} ימים", view="signups")
-    if rl:
-        for r in rl.get("today", []):
-            if r["status"] == "choose":   # two options, none picked yet (10 Nov 2026)
-                add("warn", "רילס", f"לבחור את הריל של היום: {r['id'].replace(' / ', ' או ')}", "research/israeli-product-reels/reels-explorer.html")
-            elif r["status"] not in ("posted", "ready"):
-                add("warn", "רילס", f"הריל של היום ({r['id']}) {r['status_he']}", "research/israeli-product-reels/reels-explorer.html")
-        for note in rl.get("shoot_today", []):
-            add("info", "רילס", f"צילום היום: {note}", "research/israeli-product-reels/reels-explorer.html")
+    # reel suggestions (to pick, to film) are not shown any more (Yarin, 20 Nov 2026)
     if so:
         try:
             age = (now() - dt.datetime.fromisoformat(so["at"])).days if so.get("at") else None

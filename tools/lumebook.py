@@ -1088,7 +1088,7 @@ def reel_library():
 
 MOCKUP_KINDS = ("open", "title", "dedication", "cover", "overlay", "row")
 STORE_COVER = re.compile(r"media/projects/2026-11-10-store-covers/B\d{1,3}_(boy|girl)\.webp")
-AUDIENCE_BAD = re.compile(r"[\-‐-―־;]|לומיבוק|\bAI\b|בינה מלאכותית")
+AUDIENCE_BAD = re.compile(r"[\-‐-―־;]|לומבוק|\bAI\b|בינה מלאכותית")
 
 
 def clean_mockups(mks):
@@ -1289,7 +1289,7 @@ def clean_edit(e, paths, images):
             out["inserts"].append(c)
     th = e.get("trial_hooks")
     if th is not None:   # the top hooks of trial versions 2 to 5; a hook the reel editor would refuse is dropped here
-        bad = re.compile(r"[\-\u2010-\u2015\u05be;]|לומיבוק|\bAI\b|בינה מלאכותית")
+        bad = re.compile(r"[\-\u2010-\u2015\u05be;]|לומבוק|\bAI\b|בינה מלאכותית")
         out["trial_hooks"] = [h.strip() for h in (th if isinstance(th, list) else [])
                               if isinstance(h, str) and 0 < len(h.strip()) <= 60 and h.count("\n") <= 1 and not bad.search(h)][:4]
     if not out.get("take") and not (out.get("hook_clip") and out.get("voice")):
@@ -2219,6 +2219,8 @@ def serve(port):
                     return self._json(*calendar.start_trials(str(doc.get("reel") or "")))
                 if u.path == "/api/calendar/story":   # the story sets (tools/stories.py): save, new, dup, delete, approve, render, send
                     return self._json(*calendar.stories.handle(doc))
+                if u.path == "/api/calendar/season":   # the Black Friday and Hanukkah carousels (tools/seasonal.py): save, preview, render, pick, approve
+                    return self._json(*calendar.seasonal.handle(doc))
                 return self._json(404, {"error": "unknown calendar action"})
             if u.path == "/api/sample/jobs" or sample_job_act.match(u.path):
                 if self.headers.get("Origin") not in origins or self.headers.get("X-LumeBook-Board") != "1":

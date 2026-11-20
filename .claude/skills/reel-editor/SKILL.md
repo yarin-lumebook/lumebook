@@ -65,7 +65,7 @@ Hook and CTA text is audience copy: write it with the `lumebook-hebrew-voice` sk
 $PY $S/reel_editor.py transcribe source/clip.mp4 words.json
 ```
 
-ivrit-ai whisper on the CPU, about a minute for 20 s of speech. Then **read words.json and fix it by hand**: misheard words, לומבוק spelling, numbers, and remove words that must not show (AI, prices). Each entry is `{"w", "s", "e"}` in source seconds; edit the text, keep the times. A pause of 0.6 s or more clears the caption until the next word.
+ivrit-ai whisper on the CPU, about a minute for 20 s of speech. Then **read words.json and fix it by hand**: misheard words, לומיבוק spelling, numbers, and remove words that must not show (AI, prices). Each entry is `{"w", "s", "e"}` in source seconds; edit the text, keep the times. A pause of 0.6 s or more clears the caption until the next word.
 
 ## 3 · Build
 

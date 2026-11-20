@@ -228,7 +228,7 @@ LEXICON_ERRORS = [
     # universality
     (r"\bכל הילדים\b(?!\s+שונים)|\bכל ילד\b(?!\s+(?:שונה|אחר))|\bכל ילדה\b(?!\s+(?:שונה|אחרת))|\bכל הפעוטות\b|\bכל הקטנים\b", "claim that every child feels the same"),
     # brand spelling
-    (r"לומיבוק", "brand misspelled (write לומבוק)"),
+    (r"לומבוק", "brand misspelled (write לומיבוק)"),
 ]
 LEXICON_WARNINGS = [
     (r"\bאשמ", "guilt word, check the line does not blame parents"),

@@ -33,7 +33,7 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
   > לכל אחד יש סיפור משלו, ובכולם הגיבור הוא הילד שלכם.
   > אז מה הילד שלכם עובר עכשיו?
   > איזה ספר ילדים מותאם אישית לבחור
-  > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
+  > #ספרילדים #ספרמותאםאישית #לומיבוק #הורות
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - לבדוק: Check on the site that each named book is live before the recording.
 - הערה: 05 Nov: now with Yarin's hook clip and voice (was text only). Same day as the new sibling carousel (06 / 11). 05 Nov evening: first grade swapped for the birthday book (best sellers, Yarin). 07 Nov: hook 'לילד שלי' changed to 'לילד שלכם': Yarin has no children, he speaks as LumeBook's marketing guy. 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): the three covers from the first frame, ends on them instead of a talking shot. 10 Nov 2026: hook sharpened from the @matan.nistor study (a self-contained first line with something concrete in it: a number, a name, a date or an object; research/matan-nistor-reels findings 3 and 4). Was: מוצץ? אח חדש? / יש על זה ספר. The book was the subject of the old hook; now a number and three real moments. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', D3A1EAFF); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.

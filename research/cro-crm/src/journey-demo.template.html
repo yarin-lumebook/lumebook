@@ -477,7 +477,7 @@ body.fit .notes-box { flex: 1; min-height: 0; overflow-y: auto; overscroll-behav
 <body>
 <header class="lb-topbar">
   <div class="lb-topbar-in">
-    <a class="lb-brand is-stacked" href="#intro"><img src="{{LOGO}}" alt="" width="28" height="28"><span><small>לומבוק · דמו פנימי</small><b>מסע הקנייה</b></span></a>
+    <a class="lb-brand is-stacked" href="#intro"><img src="{{LOGO}}" alt="" width="28" height="28"><span><small>לומיבוק · דמו פנימי</small><b>מסע הקנייה</b></span></a>
     <div class="tb-chapters" id="tb-chapters"></div>
     <a class="tb-link hide-sm" href="#intro">התחלה</a>
   </div>
@@ -650,7 +650,7 @@ function iab(domain, title, inner) {
 const siteHead = () => `<header class="st-head"><img class="st-logo" src="${LOGO}" alt=""><span class="sp"></span><span class="st-ic">${ic("user")}<i class="st-dot"></i></span><span class="st-ic">${ic("globe")}</span></header>`;
 const wzTop = n => `<div class="wz-top"><span class="wz-btn">${ic("chevR")}</span><div class="wz-prog">${[1, 2, 3, 4].map(k => `<i class="${k <= n ? "on" : ""}"></i>`).join("")}</div><span class="wz-btn">${ic("close")}</span></div>`;
 function waChat(body) {
-  return `<div class="wa"><header class="wa-head"><span class="back">${ic("chevR")}</span><img src="${LOGO}" alt=""><div><b>לומבוק ${ic("seal", "f")}</b><small>חשבון עסקי</small></div><span class="act">${ic("video")}</span><span class="act">${ic("phone")}</span></header>
+  return `<div class="wa"><header class="wa-head"><span class="back">${ic("chevR")}</span><img src="${LOGO}" alt=""><div><b>לומיבוק ${ic("seal", "f")}</b><small>חשבון עסקי</small></div><span class="act">${ic("video")}</span><span class="act">${ic("phone")}</span></header>
     <div class="scroll wa-body">${body}</div><div class="wa-input">${ic("plus")}<div></div>${ic("camera")}${ic("mic")}</div></div>`;
 }
 /* a business message: text, time, optional template buttons */
@@ -773,7 +773,7 @@ phone: { sb: "", hi: "on-dark",
           <button type="button" class="st-link" id="back-form" style="justify-self:center">תיקון המספר</button>
           <p class="wz-fine" data-note="4" style="text-align:center">אין סיסמה. הקוד פותח גם את ״הספרים שלי״.</p></div>
         <div class="st-cta-bar"><button type="button" class="st-cta" id="fill">${S.verified ? "ממשיכים לכריכה" : "מילוי הקוד מההודעה"}</button></div></div>`)
-        + (S.verified ? "" : `<div class="banner" id="banner"><span class="app-ic">${ic("wa")}</span><div><b>לומבוק</b><span>הקוד שלכם ללומבוק: ${code}</span></div><small>עכשיו</small></div>`);
+        + (S.verified ? "" : `<div class="banner" id="banner"><span class="app-ic">${ic("wa")}</span><div><b>לומיבוק</b><span>הקוד שלכם ללומיבוק: ${code}</span></div><small>עכשיו</small></div>`);
     }
     const err = S.tried.phone && (!S.phone.trim() || !S.terms);
     return iab("lumebook.com", "LumeBook", `<div class="scroll site">${wzTop(3)}
@@ -784,7 +784,7 @@ phone: { sb: "", hi: "on-dark",
         <div><label class="wz-lbl" for="f-phone">טלפון</label><input class="wz-in" id="f-phone" dir="ltr" inputmode="tel" placeholder="050 000 0000" value="${esc(S.phone)}"></div>
         <div data-note="3"><label class="wz-lbl" for="f-mail">מייל <small>לא חובה עכשיו, אפשר להוסיף בתשלום</small></label><input class="wz-in" id="f-mail" dir="ltr" type="email" placeholder="name@example.com"></div>
         <label class="wz-chk"><input type="checkbox" id="f-terms" ${S.terms ? "checked" : ""}><span>אישור לתנאי השימוש ולמדיניות הפרטיות<small>כולל הודעות על הספר שלי</small></span></label>
-        <label class="wz-chk opt" data-note="1"><input type="checkbox" id="f-mkt" ${S.mkt ? "checked" : ""}><span>אשמח לקבל מלומבוק הצעות ועדכונים בוואטסאפ ובמייל<small>לא חובה, אפשר להפסיק בכל רגע</small></span></label>
+        <label class="wz-chk opt" data-note="1"><input type="checkbox" id="f-mkt" ${S.mkt ? "checked" : ""}><span>אשמח לקבל מלומיבוק הצעות ועדכונים בוואטסאפ ובמייל<small>לא חובה, אפשר להפסיק בכל רגע</small></span></label>
         ${err ? `<div class="wz-err">${ic("alert")}${!S.phone.trim() ? "צריך מספר טלפון כדי שנמשיך" : "צריך לאשר את התנאים כדי שנמשיך"}</div>` : ""}
         <p class="wz-fine" data-note="4">אין סיסמה. הקוד פותח גם את ״הספרים שלי״.</p>
       </div>
@@ -841,7 +841,7 @@ pay: { sb: "", hi: "on-dark",
   render() {
     const s = ship();
     return iab("secure.cardcom.solutions", "תשלום מאובטח", `<div class="scroll site">
-      <div class="pay-brand"><img src="${LOGO}" alt=""><div><b>לומבוק</b><small>${ic("lock")}תשלום מאובטח דרך קארדקום</small></div></div>
+      <div class="pay-brand"><img src="${LOGO}" alt=""><div><b>לומיבוק</b><small>${ic("lock")}תשלום מאובטח דרך קארדקום</small></div></div>
       <div class="st-body">
         <div class="st-card pv-sum" data-note="1"><div class="row"><span>ספר אישי · יום ההולדת של ${esc(nm())}</span><span>${shekel(BOOK)}</span></div><div class="row"><span>${s.label}</span><span>${s.price ? shekel(s.price) : "חינם"}</span></div><div class="row tot"><span>סה״כ לתשלום</span><span>${shekel(total())}</span></div><span class="st-dim">מגיע עד ${eta()}</span></div>
         <div class="pay-w" data-note="2"><button type="button" class="apple" data-pay>Apple Pay</button><button type="button" class="google" data-pay>Google Pay</button><button type="button" class="bit" data-pay>bit</button></div>
@@ -921,7 +921,7 @@ recover: { sb: "", hi: "",
       <div class="wa-ghost">הספר מחכה לך! 🎁</div>
       <div class="wa-sys"><b>לא נשלח.</b> בשעה הראשונה לא יוצא כלום</div>
       <div class="wa-day">למחרת</div>
-      ${wrap(waIn(`היי, כאן לומבוק 👋\nהכריכה של ${esc(nm())} מוכנה ושמורה אצלכם, אפשר לחזור אליה מתי שנוח`, "10:30", { adv: true, stop: true, note: 2, buttons: [["link", "לכריכה שלי"]] }))}
+      ${wrap(waIn(`היי, כאן לומיבוק 👋\nהכריכה של ${esc(nm())} מוכנה ושמורה אצלכם, אפשר לחזור אליה מתי שנוח`, "10:30", { adv: true, stop: true, note: 2, buttons: [["link", "לכריכה שלי"]] }))}
       <div class="wa-day">יום 3</div>
       ${wrap(waIn(`רצינו להראות לכם איך ספר נראה כשהוא מגיע הביתה 📦\nהכריכה של ${esc(nm())} עדיין שמורה`, "19:15", { adv: true, stop: true, note: 4, buttons: [["video", "לסרטון של לקוחה"], ["link", "לכריכה שלי"]] }))}
       <div class="wa-day">יום 6 · גרסה לבדיקה</div>

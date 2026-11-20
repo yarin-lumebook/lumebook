@@ -219,7 +219,7 @@ On everything a parent reads (slide text, caption, CTA, code word):
 - packs from 10 Oct 2026 23:00: wherever a slide lists examples, the list (`examples` on the slide) has exactly the number drawn for the option, from 3 to 7 (`examples_per_option` in the start JSON, saved in `drafts/DATE/example-slots.json`, copied into `examples_target`); the slide count stays 7
 - packs from 10 Oct 2026 18:30 (the bold look): cover headline up to 3 lines of 18 characters, other headlines 2 lines of 22, body 3 lines of 34, up to 20 words on slides 2 to 6, and a `highlight` of 1 to 3 whole headline words on slides 1 to 6. Older packs: 25 words per slide, 30 characters per headline line, 42 per body line
 - hook openers: shame, guilt, fear and threats aimed at the parent are rejected, and so are openers with no gap (״חובה לראות״, ״האם ידעתם״). Loud openers that the carousel pays off are allowed since 10 Oct 2026 (״תפסיקי״ about one action, ״מה שלא מספרים לך״, ״הסיבה האמיתית״, ״לא תאמיני״)
-- no brand name (לומבוק, LumeBook) and no catalogue book title: only the last slide suggests a personalised story where the child is the hero
+- no brand name (לומיבוק, LumeBook) and no catalogue book title: only the last slide suggests a personalised story where the child is the hero
 - no diagnosis or jargon words, no guarantees, no "every child", no second CTA
 - the CTA keeps the brief's idea (כתבו "X" בתגובות וקבלו קישור ליצירת ספר שבו הילד שלכם הוא הגיבור) and appears word for word on slide 8 and as the caption's last line
 

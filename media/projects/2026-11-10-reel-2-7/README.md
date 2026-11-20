@@ -35,7 +35,7 @@ Made on 10 / 11 / 2026 from Yarin's one talking take (source/yarin/), with store
   > והוא רואה את השם שלו על העמוד.
   > ואז מבין שהגיבור של כל הסיפור זה הוא.
   > ספר ילדים מותאם אישית עם השם והתמונה של הילד
-  > #ספרילדים #ספרמותאםאישית #לומבוק #הורות
+  > #ספרילדים #ספרמותאםאישית #לומיבוק #הורות
   > תכתבו לי "לומי" בתגובות ואשלח לכם קישור ליצירת הספר 📚
 - הערה: 05 Nov: now with Yarin's hook clip and voice (was text only). Drive downloads over 10 MB go through Chrome (see reel-build-toolchain memory). 09 Nov 2026: rewritten in the seller style (research/israeli-product-reels/ugc-seller-scripts.md). 09 Nov 2026 evening: the @matan.nistor study's rules applied (research/matan-nistor-reels, rules in the reels hub and references/reel-scripts.md): first frame now has the closed book from your shooting note, cover to the lens. Caption line 2 split in two at the comma (12 words a line); same words. 10 Nov 2026: Yarin filmed the whole script as one talking take to camera (iCloud 'My reels', A988F1E1); the script now follows his own words, the picture lines say what the edit lays over the take, and 'trial_hooks' are the top hooks of the five trial versions.
 

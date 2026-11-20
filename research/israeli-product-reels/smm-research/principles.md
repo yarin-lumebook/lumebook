@@ -208,7 +208,7 @@ How to read a principle: the **rule** is what a Reel can be checked against; **s
 - **Rule:** The brand name or logo is on screen for no more than about a quarter of the Reel, the product appears at least twice, and at least one concrete benefit or feature is said or shown.
 - **Strength:** Weak to moderate. One platform source on ads, no sample size, and a likelihood-of-top-tier measure.
 - **Sources:** Meta for Business (see above); Chae 2021 (C1): reward-based calls were less effective than invitations [FB (see above)
-- **For LumeBook:** Show the child's name on the cover twice (opening and reveal) and name one benefit ("הוא מוצא את עצמו בכל עמוד"). Say לומבוק once, near the end.
+- **For LumeBook:** Show the child's name on the cover twice (opening and reveal) and name one benefit ("הוא מוצא את עצמו בכל עמוד"). Say לומיבוק once, near the end.
 - **Overlaps with:** H3, S1, K5
 - **Full evidence:** `smm-research/notes/cta-text.md`
 
@@ -266,7 +266,7 @@ How to read a principle: the **rule** is what a Reel can be checked against; **s
 
 ### S7. Disclose the partnership in words, at the start
 
-- **Rule:** A creator Reel says it is a partnership in words in the first caption line or on screen in the first seconds (for example "בשיתוף לומבוק"), plus Instagram's paid-partnership label when money or goods changed hands.
+- **Rule:** A creator Reel says it is a partnership in words in the first caption line or on screen in the first seconds (for example "בשיתוף לומיבוק"), plus Instagram's paid-partnership label when money or goods changed hands.
 - **Strength:** strong as an Israeli legal requirement; contested on the trust cost (experiments find a modest cost, field data finds sponsored posts still engage).
 - **Sources:** [חוק פרסום סמוי חל גם על אינסטגרם? מנדלבליט המליץ בחיוב](https://finance.walla.co.il/item/3413075) (news report); Consumer Protection Law (S3 link) (see above); [פרסום סמוי באינסטגרם: תביעה ב-30 מיליון ש'](https://www.bizportal.co.il/advertismentandmarketing/news/article/742517) (news report); [A Meta-Analysis of the Effects of Disclosing Sponsored Content](https://doi.org/10.1080/00913367.2020.1765909) (peer-reviewed); ["This Post is Sponsored"](https://doi.org/10.1016/j.intmar.2016.12.002) (peer-reviewed); [Credible Influencers](https://doi.org/10.1027/1864-1105/a000310) (peer-reviewed); [Influencer Marketing on Instagram: Empirical Research on Social Media Engagement with Sponsored Posts](https://doi.org/10.1080/15252019.2022.2123724) (peer-reviewed)
 - **For LumeBook:** the sample showed loose disclosure (70 of 173 with words, 4 with the label). Put the disclosure words in the creator brief as the first caption line.
@@ -395,7 +395,7 @@ How to read a principle: the **rule** is what a Reel can be checked against; **s
 - **Rule:** The book is shown in use as part of the action (being opened, read, given), and explicit brand messaging (logo, name, offer) takes no more than about a quarter of the running time.
 - **Strength:** contested. Sharing studies penalise early, heavy branding; purchase-intent studies reward an early brand and message. Showing the product early as part of the story, with little brand talk, satisfies both.
 - **Sources:** Valuable Virality (see above); [Why, When, and How Much to Entertain Consumers in Advertisements? A Web-Based Facial Tracking Field Study](https://doi.org/10.1287/mksc.2014.0854) (peer-reviewed); Tellis et al. 2019 (see above); Meta x Toluna study (see above); Instagram creator FAQ (see above)
-- **For LumeBook:** the personalised book is the visible product from the first seconds, but "לומבוק" and the offer appear briefly (caption, last beat, Collab tag); giveaway Reels will mostly reach existing followers only.
+- **For LumeBook:** the personalised book is the visible product from the first seconds, but "לומיבוק" and the offer appear briefly (caption, last beat, Collab tag); giveaway Reels will mostly reach existing followers only.
 - **Overlaps with:** H3, S1, C7
 - **Full evidence:** `smm-research/notes/edit-topic.md`
 
@@ -547,7 +547,7 @@ How to read a principle: the **rule** is what a Reel can be checked against; **s
 - **Rule:** Every Hebrew text line begins with a Hebrew letter (not "LumeBook", an emoji or a digit), and its final punctuation, numbers and Latin words display in the right places on the exported frame.
 - **Strength:** Moderate. The standard is authoritative, but editing apps can override it, and no study links RTL errors to engagement.
 - **Sources:** [UAX #9: Unicode Bidirectional Algorithm](https://www.unicode.org/reports/tr9/); Netflix Hebrew Timed Text Style Guide (T5) [subtitling (see above)
-- **For LumeBook:** "לומבוק" rather than "LumeBook" at the start of a line. Check the "?" and "!" on the exported frame, not in the editor.
+- **For LumeBook:** "לומיבוק" rather than "LumeBook" at the start of a line. Check the "?" and "!" on the exported frame, not in the editor.
 - **Full evidence:** `smm-research/notes/cta-text.md`
 
 ### T7. The caption is a searchable Hebrew description: plain keywords, up to 5 specific hashtags, and the hook or CTA in the first line
@@ -563,6 +563,6 @@ How to read a principle: the **rule** is what a Reel can be checked against; **s
 - **Rule:** Any creator Reel made in exchange for money, a free book, a discount or a commission states the commercial relationship in Hebrew, visible without tapping "more" (an early on-screen text and/or the first caption line), and uses Instagram's paid-partnership label. The free book is not conditional on a positive opinion.
 - **Strength:** Strong that there is a duty to disclose in Israel (regulator draft, AG position, enforcement), even though the directive's final status and an exact required word were not confirmed. Contested on the persuasion cost: lab meta-analysis negative, Instagram field data positive for the platform label.
 - **Sources:** [Draft Commissioner's directive on online opinions, ratings and reviews (טיוטת הנחיית ממונה)](https://www.gov.il/BlobFolder/news/cpfta_internetopinion2021/he/docs_draft_supervisor_guide.pdf) (regulator); [The hidden influence: consumer protection law and hidden advertising](https://www.calcalist.co.il/local_news/article/r1i11ewsin) (regulator); [Similac / influencer agency fine](https://www.calcalist.co.il/shopping/article/bkn0eecaj) (regulator); [IDI opinion on the Covert Advertising bill P/2159](https://www.idi.org.il/ministerial-committees/1590); [How Instagram creators can share branded content with the right community](https://creators.instagram.com/blog/instagram-creators-branded-content-share-right-audience-restrictions) (platform); [A meta-analysis of the effects of disclosing sponsored content](https://research.wur.nl/en/publications/a-meta-analysis-of-the-effects-of-disclosing-sponsored-content/) (peer-reviewed); [Effects of explicit sponsorship disclosure on user engagement in social media influencer marketing](https://aisel.aisnet.org/misq/vol48/iss1/15) (peer-reviewed); [Effects of disclosing sponsored content in blogs](https://repub.eur.nl/pub/96705) (peer-reviewed)
-- **For LumeBook:** Every barter creator states it, for example "שיתוף פעולה עם לומבוק, קיבלתי את הספר במתנה", on an early text card or the first caption line, plus the paid-partnership label. The barter terms state that the book does not depend on a positive review. This is not legal advice: check the final directive and wording with a lawyer.
+- **For LumeBook:** Every barter creator states it, for example "שיתוף פעולה עם לומיבוק, קיבלתי את הספר במתנה", on an early text card or the first caption line, plus the paid-partnership label. The barter terms state that the book does not depend on a positive review. This is not legal advice: check the final directive and wording with a lawyer.
 - **Overlaps with:** S7
 - **Full evidence:** `smm-research/notes/cta-text.md`

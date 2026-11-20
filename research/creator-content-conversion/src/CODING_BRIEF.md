@@ -1,7 +1,7 @@
 # Brief: code Instagram posts by Israeli parenting creators for LumeBook
 
 ## Context
-LumeBook (Hebrew: לומבוק) sells personalised children's books in Israel: a parent uploads the child's photo and name, the child becomes the illustrated hero, there is a free preview, the printed book costs ₪119 (list ₪149). Best-selling occasions: birthday, new sibling (אח חדש / אחות חדשה), pacifier weaning, potty/diaper weaning, starting gan, first grade. We are studying what content by creators on our creator map interests potential buyers and what prompts buying consideration. You code posts. You do NOT judge whether a post "converts"; there is no sales data per post.
+LumeBook (Hebrew: לומיבוק) sells personalised children's books in Israel: a parent uploads the child's photo and name, the child becomes the illustrated hero, there is a free preview, the printed book costs ₪119 (list ₪149). Best-selling occasions: birthday, new sibling (אח חדש / אחות חדשה), pacifier weaning, potty/diaper weaning, starting gan, first grade. We are studying what content by creators on our creator map interests potential buyers and what prompts buying consideration. You code posts. You do NOT judge whether a post "converts"; there is no sales data per post.
 
 ## Inputs
 You get one dossier file per creator: `dossiers/<handle>.json` with the creator profile and a list of posts. Each post has: `code`, `url`, `set` (sample = the creator's recent baseline; breakout = older outlier, coded the same way), `format`, `date`, `age_days`, public metrics, `caption` (full text), `alt` (Instagram's automatic image description, can be wrong), tags, `paid_label` (Instagram's paid-partnership flag), `coauthors`, `sheets` (paths to contact sheets), `duration_s`.

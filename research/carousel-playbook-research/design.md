@@ -1,4 +1,4 @@
-# LumeBook (לומבוק) Hebrew Instagram carousels: visual design evidence review
+# LumeBook (לומיבוק) Hebrew Instagram carousels: visual design evidence review
 
 Prepared 2026-10-06 for one SMM working in Canva. Audience: Israeli parents reading on phones, Hebrew RTL. Goal: stop on slide 1, understand fast, swipe to the end, create a free preview.
 
@@ -234,7 +234,7 @@ Practical meaning: on light slides, gold is decoration only (lines, shapes, high
   1. Start every text box with a Hebrew word, never with "LumeBook", a number, a price, or an emoji.
   2. After export, inspect every line end and every number, price, %, date, and Latin word.
   3. If punctuation lands on the wrong side, reword so the line ends in a Hebrew word, or paste a Right-to-Left Mark (U+200F) right after the punctuation.
-  4. Write "LumeBook" in Latin only where it is the logo; in running Hebrew text use לומבוק (brand rule in project memory).
+  4. Write "LumeBook" in Latin only where it is the logo; in running Hebrew text use לומיבוק (brand rule in project memory).
 
 ### 3.7 Direction and visual preference
 
@@ -467,7 +467,7 @@ Tag key: L1 research/standard, L2 practitioner, L3 convention, L4 hypothesis. "d
 - Hebrew body right-aligned, ragged left; never justified; centred only for 1 to 2 line headlines. [L1 WCAG 1.4.8; L2 BDA, Apple]
 - Every text box starts with a Hebrew word (not "LumeBook", a number, a price or an emoji). [L1 bidi mechanism; L4 Canva behaviour]
 - Check end punctuation, prices (₪), percentages, dates, ranges and Latin words for flipped order; fix by rewording or an RLM (U+200F). [L1 Unicode bidi; L4 Canva]
-- In Hebrew text write לומבוק; Latin "LumeBook" only as the logo. [project brand rule]
+- In Hebrew text write לומיבוק; Latin "LumeBook" only as the logo. [project brand rule]
 - Do not mirror photos, illustrations or the logo. [L2 Apple]
 - Before/after inside one slide: before on the right, after on the left. [L1 transfer; L4]
 - Subjects face or move leftward when they should feel "forward". [L1 transfer; L4]

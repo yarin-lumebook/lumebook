@@ -116,7 +116,7 @@ Transfer tags: **[organic IG]** directly about organic Instagram; **[IG/FB ads]*
 
 #### S7. Disclose the partnership in words, at the start
 
-- **Rule:** A creator Reel says it is a partnership in words in the first caption line or on screen in the first seconds (for example "בשיתוף לומבוק"), plus Instagram's paid-partnership label when money or goods changed hands.
+- **Rule:** A creator Reel says it is a partnership in words in the first caption line or on screen in the first seconds (for example "בשיתוף לומיבוק"), plus Instagram's paid-partnership label when money or goods changed hands.
 - **Evidence:**
   - [חוק פרסום סמוי חל גם על אינסטגרם? מנדלבליט המליץ בחיוב](https://finance.walla.co.il/item/3413075), Walla, 21 Jan 2021. Practitioner (news) on the Attorney General's position in two class actions: the covert-advertising ban applies to Instagram; tags, hashtags or naming the brand are not enough; the post must say clearly at its start, without extra clicks, that it is paid.
   - Consumer Protection Law (S3 link), section 7. Law. An ad presented as editorial content without clearly saying it is an ad is treated as misleading.

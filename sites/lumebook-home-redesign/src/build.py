@@ -255,7 +255,7 @@ def logo_symbol():
     return f'<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lb-logo" viewBox="40 34 876 149">{inner}</symbol></svg>'
 
 
-def logo(href="index.html", label="לומבוק, לדף הבית"):
+def logo(href="index.html", label="לומיבוק, לדף הבית"):
     return (f'<a class="logo" href="{href}" aria-label="{label}"><img class="hat" src="img/hat-3d-96.webp" width="110" height="96" alt="">'
             '<svg viewBox="0 0 876 149" aria-hidden="true"><use href="#lb-logo"/></svg></a>')
 
@@ -368,7 +368,7 @@ def footer():
     return f"""<footer class="site-footer">
   <div class="wrap">
     <div class="ft">
-      <div>{logo()}<p class="ft-about">לומבוק מדפיסה ספרי מתנה, ספרי ילדים אישיים ואלבומי תמונות, ושולחת אותם עד הבית.</p></div>
+      <div>{logo()}<p class="ft-about">לומיבוק מדפיסה ספרי מתנה, ספרי ילדים אישיים ואלבומי תמונות, ושולחת אותם עד הבית.</p></div>
       <div><h4>ספרים</h4><ul>
         <li><a href="{PAGE['gift']}">ספרי מתנה</a></li>
         <li><a href="{PAGE['kids']}">ספרי ילדים</a></li>
@@ -388,7 +388,7 @@ def footer():
       </ul></div>
     </div>
     <div class="ft-bottom">
-      <span>© 2026 LumeBook · עיצוב לבדיקה. הכפתורים מובילים לאתר של לומבוק.</span>
+      <span>© 2026 LumeBook · עיצוב לבדיקה. הכפתורים מובילים לאתר של לומיבוק.</span>
     </div>
   </div>
 </footer>
@@ -481,7 +481,7 @@ def panel_kids(pid, default="k3", pairs=("k2", "k3", "k4")):
   <div class="demo-out">
     <h4>מהתמונה לכריכה</h4>
     <div class="pair-main">{img(default)}</div>
-    <p class="out-note">הכריכה של <b data-pair-caption>{A[default][3].split(': ')[-1]}</b>, מתוך הדוגמאות באתר של לומבוק.</p>
+    <p class="out-note">הכריכה של <b data-pair-caption>{A[default][3].split(': ')[-1]}</b>, מתוך הדוגמאות באתר של לומיבוק.</p>
     <figure style="margin:16px 0 0">
       <div class="out-media" style="background:transparent">{img('k-story')}</div>
       <figcaption class="small" style="margin-top:8px">המחשה של עמוד: השם של הילד בתוך הסיפור.</figcaption>
@@ -499,7 +499,7 @@ def panel_gift():
       <li><b>כמה מילים עליה</b>״תמר גרה בחיפה ועובדת כספרנית. היא אוהבת הליכות ליד הים, קפה שחור וצילום של דלתות ישנות.״</li>
       <li><b>הקדשה</b>״לתמר, לעוד הרבה עצירות בדרך. באהבה, מיכל.״</li>
     </ul>
-    <p class="out-note">מתוך ספר הדוגמה של לומבוק. הדמויות והפרטים בדויים. {store_link(LINK['gift_input'], 'מה בדיוק הוזן')}</p>
+    <p class="out-note">מתוך ספר הדוגמה של לומיבוק. הדמויות והפרטים בדויים. {store_link(LINK['gift_input'], 'מה בדיוק הוזן')}</p>
   </div>
   <div class="demo-arrow" aria-hidden="true">{icon('arrow')}</div>
   <div class="demo-out">
@@ -521,7 +521,7 @@ def panel_albums():
   <div class="demo-out">
     <h4>העמוד באלבום</h4>
     <div class="out-media">{img('a-hands-800')}</div>
-    <p class="out-note">תמונות להמחשה מהאתר של לומבוק. האנשים בהן אינם לקוחות.</p>
+    <p class="out-note">תמונות להמחשה מהאתר של לומיבוק. האנשים בהן אינם לקוחות.</p>
   </div>
 </div>"""
 
@@ -542,7 +542,7 @@ def personal_section(only=None):
     return f"""<section class="section alt" id="personal" aria-labelledby="personal-h">
   <div class="wrap">
     <div class="head reveal"><div><span class="eyebrow">מה הופך אותם לאישיים</span><h2 class="h2" id="personal-h">מה שאתם נותנים, ומה שיוצא</h2>
-      <p class="lead">דוגמה אחת מכל סוג ספר, מתוך האתר של לומבוק.</p></div>
+      <p class="lead">דוגמה אחת מכל סוג ספר, מתוך האתר של לומיבוק.</p></div>
       <div class="tabs" role="tablist" aria-label="סוג הספר">{tabs}</div></div>
     {bodies}
   </div>
@@ -646,7 +646,7 @@ def customers_section(title="ספרים שכבר הגיעו הביתה"):
     return f"""<section class="section alt" id="customers" aria-labelledby="customers-h">
   <div class="wrap">
     <div class="head reveal"><div><span class="eyebrow">אצל הלקוחות</span><h2 class="h2" id="customers-h">{title}</h2>
-      <p class="lead">תמונות של ספרי ילדים ששיתפו משפחות, מתוך האתר של לומבוק.</p></div></div>
+      <p class="lead">תמונות של ספרי ילדים ששיתפו משפחות, מתוך האתר של לומיבוק.</p></div></div>
     <div class="ugc reveal">{tiles}</div>
   </div>
 </section>"""
@@ -863,7 +863,7 @@ def home():
     kids_row, gift_row, albums_row = category_rows()
     first = CAT["gift"]
     stage = ""  # the product collage was removed (Yarin, 17 / 11 / 2026: "i hate it"); the picker is the hero object
-    body = f"""{head('לומבוק: ספרי מתנה, ספרי ילדים ואלבומי תמונות בהתאמה אישית', 'ספר מתנה שנכתב על מי שאתם אוהבים, ספר ילדים שבו הילד הוא הגיבור, או אלבום מהתמונות שבטלפון. רואים תצוגה מקדימה לפני שמשלמים.', 'home')}
+    body = f"""{head('לומיבוק: ספרי מתנה, ספרי ילדים ואלבומי תמונות בהתאמה אישית', 'ספר מתנה שנכתב על מי שאתם אוהבים, ספר ילדים שבו הילד הוא הגיבור, או אלבום מהתמונות שבטלפון. רואים תצוגה מקדימה לפני שמשלמים.', 'home')}
 {header('home')}
 <main id="main">
 <section class="hero hero-solo" aria-labelledby="hero-h">
@@ -937,7 +937,7 @@ def kids_page():
                              ("c41", "ביי ביי מוצץ", 41, "לגילאי 2 עד 5"), ("c43", "עדן והחיות החופשיות: נפרדים מהטיטולים", 43, "לגילאי 2 עד 4"), ("c23", "הטורניר הגדול של נוי", 23, ""),
                              ("c22", "המסע של עמית באורווה", 22, ""), ("c5", "הגן הקסום של הגדולים", 5, "")]
     )
-    return f"""{head('ספרי ילדים בהתאמה אישית | לומבוק', 'ספר מותאם אישית שבו הילד הוא הגיבור: בוחרים סיפור, מעלים תמונה ורואים תצוגה מקדימה בחינם.', 'kids')}
+    return f"""{head('ספרי ילדים בהתאמה אישית | לומיבוק', 'ספר מותאם אישית שבו הילד הוא הגיבור: בוחרים סיפור, מעלים תמונה ורואים תצוגה מקדימה בחינם.', 'kids')}
 {header('kids')}
 <main id="main">
 {page_hero('kids', 'ספרי ילדים · לגילאי 1 עד 10', 'הילד שלכם, <em class="mark">גיבור הסיפור</em>',
@@ -979,7 +979,7 @@ def gift_page():
   <ul class="addons">{''.join(f'<li><div><b>{n}</b><br><span>{t}</span></div><b>{price(p)}+</b></li>' for n, p, t in addons)}</ul>
   <div class="hero-cta">{flow('gift', 'להתחיל ספר מתנה', place='gift-hero')}<span class="small">תצוגה מקדימה בחינם, לפני התשלום</span></div>
 </div>"""
-    return f"""{head('ספרי מתנה אישיים | לומבוק', 'ספר מתנה שנכתב על מי שאתם אוהבים: מספרים עליהם בכמה מילים, ורואים כריכה ופרק ראשון לפני שמזמינים.', 'gift')}
+    return f"""{head('ספרי מתנה אישיים | לומיבוק', 'ספר מתנה שנכתב על מי שאתם אוהבים: מספרים עליהם בכמה מילים, ורואים כריכה ופרק ראשון לפני שמזמינים.', 'gift')}
 {header('gift')}
 <main id="main">
 {page_hero('gift', 'ספרי מתנה למבוגרים', 'ספר שנכתב על <em class="mark">מי שאתם אוהבים</em>',
@@ -1035,7 +1035,7 @@ def albums_page():
             ("רק מה שבחרתם", "משתמשים רק בתמונות שהעליתם או שבקישור, בלי גישה לשאר הגלריה."),
             ("שום תמונה לא הולכת לאיבוד", "תמונות דומות או כאלה שהסרתם נשמרות בצד, ואפשר להחזיר כל אחת לאלבום."),
             ("נשמר בפרטיות", "האלבום נשמר באופן פרטי, ואפשר למחוק אותו מתי שרוצים, כל עוד לא הזמנתם.")]
-    return f"""{head('אלבום תמונות מודפס מהטלפון | לומבוק', 'מעלים תמונות או קישור לאלבום, ואנחנו בוחרים, מסדרים ומעצבים. רואים ומאשרים, ומשלמים רק אחרי האישור.', 'albums')}
+    return f"""{head('אלבום תמונות מודפס מהטלפון | לומיבוק', 'מעלים תמונות או קישור לאלבום, ואנחנו בוחרים, מסדרים ומעצבים. רואים ומאשרים, ומשלמים רק אחרי האישור.', 'albums')}
 {header('albums')}
 <main id="main">
 {page_hero('albums', 'אלבום תמונות מודפס · 22×22 ס״מ', 'אלבום מודפס <em class="mark">מהתמונות שבטלפון</em>',
@@ -1105,7 +1105,7 @@ var s=Math.min(1,vp.clientWidth/w);f.style.transform='scale('+s+')';vp.style.hei
 
 
 # ---------------------------------------------------------------- checks
-BANNED = [("—", "em dash"), ("–", "en dash"), ("לומיבוק", "brand spelling"), ("בינה מלאכותית", "AI wording"), ("קוד הנחה", "offer wording")]
+BANNED = [("—", "em dash"), ("–", "en dash"), ("לומבוק", "brand spelling"), ("בינה מלאכותית", "AI wording"), ("קוד הנחה", "offer wording")]
 
 
 def visible_text(doc):

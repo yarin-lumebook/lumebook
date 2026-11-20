@@ -157,7 +157,7 @@ def pair_start_context(ctx):
                      "The caption ends with both lines. Slide 10 is only the CTA: headline «אפשר גם לעזור להם / עם <problem> / בעזרת "
                      "ספר מותאם אישית.», body «תכתבו \"<word>\" / ואשלח לכם קישור להכנת הספר» (book_link_slide). One Hebrew word per "
                      "topic (the topic's own word: מוצץ, אח, עוגה), in `code_word`, the same on all three options of a topic, never ספר "
-                     "or לומי. Never לומבוק, a catalogue title or a web address. Nothing of it before slide 10. post_text: the CTA line "
+                     "or לומי. Never לומיבוק, a catalogue title or a web address. Nothing of it before slide 10. post_text: the CTA line "
                      "ends with 📖. The open booklet under the CTA (`booklet`, the photo circle and the arrows) is made at production "
                      "with fal (scripts/booklet_cta.py), not in the pack"),
         },

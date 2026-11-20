@@ -10,7 +10,7 @@ Project folder: `/Users/yarinbruner/Claude/Projects/Lumebook`. Use absolute path
 - No fal.ai calls, no paid tools, no publishing, no messages. This mode only reads, researches and writes files under `carousel/carousel-pipeline/drafts/` and `carousel/carousel-pipeline/history.json`
 - Never overwrite a pack by hand. `nightly.py start` moves an existing pack for the same date to `versions/vN/` first
 - Do not select a winner. Do not edit `voice-profile.md` or the example folders
-- Never name LumeBook (לומבוק, LumeBook) or a catalogue book title in anything a parent reads. The last slide only hints that a book where the child is the hero can help; the comment link leads to the product
+- Never name LumeBook (לומיבוק, LumeBook) or a catalogue book title in anything a parent reads. The last slide only hints that a book where the child is the hero can help; the comment link leads to the product
 
 ## 1 · Start
 
@@ -26,7 +26,7 @@ Keep the printed JSON: `date`, `generated_at`, `write_pack_to`, `voice`, `voice_
 - Yarin's recent edits: `recent_voice_edits_learn_from_these` in the start JSON (before and after of each line Yarin changed on the review page). Read every pair and write tonight's copy the way the "after" lines sound
 - `carousel/carousel-pipeline/topic-bank.md`
 - `docs/lumebook-product-brief.md`
-- Playbook `docs/lumebook-instagram-carousel-playbook-he.md`: sections 4.2 (what we may claim about the book), 5 (anatomy), 7 (hook families), 8 (copy rules), 10 (bridge to product), 12 (CTA). Section 19 has worked concepts per topic. Where the playbook says to write לומבוק or the exact book title on the product slide (8.2, 10.4, section 19 concepts), Yarin's later rule wins: no brand, no title, only the hint that a story where the child is the hero is one option
+- Playbook `docs/lumebook-instagram-carousel-playbook-he.md`: sections 4.2 (what we may claim about the book), 5 (anatomy), 7 (hook families), 8 (copy rules), 10 (bridge to product), 12 (CTA). Section 19 has worked concepts per topic. Where the playbook says to write לומיבוק or the exact book title on the product slide (8.2, 10.4, section 19 concepts), Yarin's later rule wins: no brand, no title, only the hint that a story where the child is the hero is one option
 - Carousel research v2, "Niche Carousel Teardown" (`research/carousel-research/lumebook-carousel-research.html`, published as https://claude.ai/artifact/B2YkxMHGTeM5T5LLC2wnYU): use it for format ideas when making the three options in a direction genuinely different. What it found in Israeli parenting accounts (6 Oct 2026, engagement signals, not sales data): comment-word carousels pull far more comments than the account's norm; letters told over one repeated photo and "life through the ages" stories get reach and shares; "instead of X, say Y" with illustrated characters and short how-to lists get leads; a story offered as the reward (saraigatt's "לב הקשת") drew more comments than likes. Never use ספר as a code word (MeBook creators use it); the validator blocks it
 - The last three `carousel/carousel-pipeline/drafts/*/pack.json` files, if any, to avoid similar angles
 

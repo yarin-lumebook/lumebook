@@ -1,7 +1,7 @@
 # Brief: classify Hebrew Instagram comments for LumeBook research
 
 ## Context
-LumeBook (לומבוק) sells personalised children's books in Israel. We study which creator posts make parents show interest in buying something. You classify audience comments on Instagram posts by Israeli parenting creators. Each comment file covers one creator's selected posts: `comments/<handle>.json` with, per post, the caption, the post role (strong = the creator's best recent post vs their own median; ordinary = a typical post; relevant_kw = a post whose caption mentions a buying occasion, books, gifts or an offer), the comment-keyword CTA if any, and up to 30 top-level comments as Instagram's web client returned them (with any preview replies).
+LumeBook (לומיבוק) sells personalised children's books in Israel. We study which creator posts make parents show interest in buying something. You classify audience comments on Instagram posts by Israeli parenting creators. Each comment file covers one creator's selected posts: `comments/<handle>.json` with, per post, the caption, the post role (strong = the creator's best recent post vs their own median; ordinary = a typical post; relevant_kw = a post whose caption mentions a buying occasion, books, gifts or an offer), the comment-keyword CTA if any, and up to 30 top-level comments as Instagram's web client returned them (with any preview replies).
 
 ## Categories (choose ONE primary per comment)
 - `identification`: says the problem/situation is theirs ("זה בדיוק הבן שלי", "גם אצלנו", "מרגישה ככה").

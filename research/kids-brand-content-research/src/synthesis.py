@@ -83,7 +83,7 @@ formats = [
             "Put each sentence on screen for about 5 seconds, ending with '...' so it carries over the cut.",
             "Same frame works for LumeBook's own origin story with real photos."],
   "ids": ["igen_DU_nloKiI7M", "igen_Cpiu3eCtTko", "ai_yt_-mrTvGn6gfI"],
-  "ideas": ["הילד חזר מהגן מלא בוץ. עד שאמא ראתה למה...", "ככה התחיל לומבוק: תמונה אחת, ילד אחד, וספר שלא היה קיים"]},
+  "ideas": ["הילד חזר מהגן מלא בוץ. עד שאמא ראתה למה...", "ככה התחיל לומיבוק: תמונה אחת, ילד אחד, וספר שלא היה קיים"]},
  {"key": "repost", "name": "Repost a real moment, with permission", "route": "solo_edit_or_repost", "effort": "low",
   "why": "A raw parent clip plus one sentence does the work. Big Life Journal credits the filming parent in the caption. For LumeBook, customer reveal videos are the obvious source.",
   "steps": ["Ask the parent in writing for permission to repost, and credit them in the caption.",

@@ -36,7 +36,7 @@ INTENTS = {
 CREATORS = {
     "shoham": "Shoham Novik (שהם)", "hadarv": "hadarv", "sapir": "sapir_ivan_mugatz", "sharon": "sharonsolomon11",
     "coralhauon": "coralhauon", "shani": "shani_tubiz_traveling", "ellinore": "ellinore.speech", "natasha": "natasha_fridman_",
-    "meriorehov": "meriorehov", "nofit": "Nofit", "natali": "Natali Fridman", "morkeisar": "Mor Keisar", "koral": "Koral", "moran": "Moran Arges",
+    "meriorehov": "meriorehov", "nofit": "Nofit", "natali": "Natali Fridman", "morkeisar": "Mor Keisar", "koral": "Koral", "moran": "Moran Arges", "lorinm7": "lorinm7",
 }
 MOMENT_SET = "kid-moments"
 
@@ -559,7 +559,7 @@ def build():
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>הוכחה חברתית · לומבוק</title>
+<title>הוכחה חברתית · לומיבוק</title>
 {design.head(page=PAGE_FILE)}
 <style>{CSS}</style>
 </head>

@@ -17,7 +17,7 @@ Each brief adapts one mechanism from his Reels to LumeBook, without his wording,
 - Yarin never speaks as a parent.
 - No AI wording.
 - No child on camera.
-- LumeBook / לומבוק.
+- LumeBook / לומיבוק.
 - The default לומי CTA, unless a test says otherwise.
 - Hebrew without dashes, semicolons or hyphens.
 
@@ -95,7 +95,7 @@ Re-check them on lumebook.com before posting.
 | Time | Shot (owned footage only) | Voiceover (4.1, unchanged) | On screen |
 |---|---|---|---|
 | 0:00-0:03 | The childhood photo in his hand | "הכנתי ספר מתמונה שלי בגיל 4." | Hook |
-| 0:03-0:08 | Quick cuts: his face for one second, then the phone with the site open | "אני ירין, מנהל הסושיאל של לומבוק, ובתכלס הייתי סקפטי." | Phrase captions |
+| 0:03-0:08 | Quick cuts: his face for one second, then the phone with the site open | "אני ירין, מנהל הסושיאל של לומיבוק, ובתכלס הייתי סקפטי." | Phrase captions |
 | 0:08-0:13 | Screen recording: choosing a story, then the photo upload | "אז בחרתי סיפור, והעליתי תמונה אחת שלי מגיל 4." | Phrase captions |
 | 0:13-0:18 | The printed book opened to his illustrated page, then the photo beside it in one frame | "וזה מה שיצא." | "וזה מה שיצא." large |
 | 0:18-0:21 | Slow push toward the page | "תגידו אתם, זה אני או לא?" | Captions |

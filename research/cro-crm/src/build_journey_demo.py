@@ -59,8 +59,8 @@ def build():
     page = re.sub(r"\{\{IMG:([\w.-]+)\}\}", img, page)
     if "—" in page:
         raise SystemExit("em dash in the demo; fix the template or journey-demo.json")
-    if "לומיבוק" in page:
-        raise SystemExit("banned brand spelling in the demo; use לומבוק")
+    if "לומבוק" in page:
+        raise SystemExit("banned brand spelling in the demo; use לומיבוק")
     left = re.findall(r"<!--LB:[A-Z-]+-->|\{\{(?:LOGO|MASCOT|DEMO_JSON|STAGES_JSON|IMG:[^}]*)\}\}", page)
     if left:
         raise SystemExit(f"unreplaced placeholders: {left}")

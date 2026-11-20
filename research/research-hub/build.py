@@ -115,8 +115,8 @@ def validate(data):
     for s in all_strings(data):
         if DASHES.search(s):
             errs.append(f"em or en dash in: {s[:70]}")
-        if "לומיבוק" in s:
-            errs.append(f"brand spelt לומיבוק in: {s[:70]}")
+        if "לומבוק" in s:
+            errs.append(f"brand spelt לומבוק in: {s[:70]}")
     return errs
 
 
@@ -598,14 +598,14 @@ def build():
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>ספריית המחקר · לומבוק</title>
+<title>ספריית המחקר · לומיבוק</title>
 {design.head(page=PAGE)}
 <style>{CSS}</style>
 </head>
 <body>
 <div class="lb-app">
   <aside class="lb-sidebar" aria-label="נושאי המחקר">
-    <a class="lb-brand" href="#top"><img src="{design.logo_data_uri()}" alt=""><span><b>ספריית המחקר</b><small>לומבוק · {len(entries)} מחקרים</small></span></a>
+    <a class="lb-brand" href="#top"><img src="{design.logo_data_uri()}" alt=""><span><b>ספריית המחקר</b><small>לומיבוק · {len(entries)} מחקרים</small></span></a>
     <nav class="lb-nav">{''.join(nav)}</nav>
     <div class="lb-sidebar-foot"><span class="lb-chip outline">פנימי: מספרי מכירות, מקומי בלבד</span><span>עודכן {fmt(data.get('updated') or date.today().isoformat())}</span><span>המקור: <code class="lb-ltr">research/research-hub/research.json</code></span></div>
   </aside>
@@ -618,7 +618,7 @@ def build():
     </div></div>
     <div class="lb-page">
       <header class="lb-hero rh-hero">
-        <span class="lb-eyebrow">לומבוק · מחקר</span>
+        <span class="lb-eyebrow">לומיבוק · מחקר</span>
         <h1>כל המחקרים במקום אחד</h1>
         <p class="lb-lede">{inline(data.get('lede', ''))}</p>
         <div class="lb-hero-meta"><span>{len(entries)} מחקרים</span><span>{n_find} ממצאים</span><span>{fmt(first)} עד {fmt(last)}</span></div>

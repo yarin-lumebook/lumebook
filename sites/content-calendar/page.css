@@ -430,6 +430,15 @@ dialog.cc-dlg.is-fill { position: fixed; inset: auto; margin: 0; padding: 0; max
 .cc-db.is-slot .r1 { color: var(--text-3); }
 .cc-db.is-slot .lb-btn { margin-inline-start: auto; }
 .cc-dayv.is-past .cc-db { opacity: .7; }
+/* crowded hours: the more blocks share a row the plainer each one gets (picture, then flag, then second title line drop out) */
+.cc-db { min-height: 0; }
+.cc-db[data-n="2"] .cc-flag, .cc-db:not([data-n="1"]) .cc-flag { display: none; }
+.cc-db[data-n="1"] .tl, .cc-db[data-n="2"] .tl { -webkit-line-clamp: 2; }
+.cc-db[data-n="3"] .cc-thumb, .cc-db[data-n="4"] .cc-thumb, .cc-db[data-n="5"] .cc-thumb, .cc-db[data-n="6"] .cc-thumb, .cc-db[data-n="7"] .cc-thumb { display: none; }
+.cc-db:not([data-n="1"]):not([data-n="2"]) { grid-template-columns: minmax(0, 1fr); }
+.cc-db:not([data-n="1"]):not([data-n="2"]) .tl { -webkit-line-clamp: 1; font-size: .875rem; }
+.cc-db:not([data-n="1"]):not([data-n="2"]) .r1 .k { display: none; }
+.cc-db.is-slot[data-n]:not([data-n="1"]) .lb-btn { padding-inline: 6px; }
 .cc-dcol .cc-empty-day { position: absolute; inset: 0; display: grid; place-items: center; }
 .cc-db svg:not(.cc-ico svg):not(.cc-st svg):not(.cc-s svg):not(.cc-bellbox svg), .cc-dlane svg:not(.cc-ico svg), .cc-body .lb-btn svg { width: 1rem; height: 1rem; flex: none; }
 @media (max-width: 860px) {
@@ -669,3 +678,47 @@ dialog.cc-dlg.is-fill { position: fixed; inset: auto; margin: 0; padding: 0; max
 .st-hd.is-blur { width: calc(18px / var(--k)); height: calc(18px / var(--k)); border-radius: 4px; cursor: nwse-resize; }
 .st-blurs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .st-blurs .lb-chip .lb-btn { padding: 0 2px; min-height: 0; }
+
+/* ---------- the Black Friday and Hanukkah editor (season.js, 20 Nov 2026) ----------
+   The slide is the PNG renderer's own page (1080 x 1350) in a frame scaled to the stage, so the preview is the export.
+   The slide keeps its own colours (audience content); everything around it uses tokens. */
+.se-ed { --se-w: min(26rem, 34vw); grid-template-columns: 8.5rem var(--se-w) minmax(17rem, 1fr); }
+.se-strip { justify-items: stretch; max-height: calc(var(--se-w) * 1.25 + 6rem); }
+.se-th { position: relative; display: grid; gap: 4px; padding: 6px; text-align: start; border-radius: .75rem; border: 1px solid transparent; background: none; color: var(--text); font: inherit; cursor: pointer; }
+.se-th:hover { background: var(--hover-a); }
+.se-th.is-on { border-color: var(--tint); background: var(--tint-soft); }
+.se-th.is-over { box-shadow: 0 -3px 0 var(--tint); }
+.se-th img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: .5rem; display: block; }
+.se-tl { display: grid; font-size: .75rem; line-height: 1.35; }
+.se-tl .t { font-family: var(--font-2); color: var(--text-3); }
+.se-tl .x { color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.se-bad { position: absolute; top: 4px; inset-inline-end: 4px; min-width: 1.25rem; text-align: center; font-size: .6875rem; line-height: 1.25rem; border-radius: 999px; background: var(--danger-solid); color: #fff; }
+.se-wrap { position: relative; width: var(--se-w); aspect-ratio: 4 / 5; border-radius: 1rem; overflow: hidden; box-shadow: 0 12px 34px rgba(var(--shade), .22), 0 0 0 1px rgba(var(--ink-line), .14); background: var(--fill); }
+.se-wrap iframe { position: absolute; left: 0; top: 0; width: 1080px; height: 1350px; border: 0; transform-origin: 0 0; }
+.se-hint { margin: 0; font-size: .75rem; color: var(--text-3); text-align: center; max-width: var(--se-w); }
+.se-opts { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; margin-block: var(--sp-2) var(--sp-3); }
+.se-pics { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; }
+.se-pic { display: grid; gap: 4px; justify-items: center; }
+.se-pic img, .se-miss { width: 4.5rem; aspect-ratio: 4 / 5; object-fit: cover; border-radius: .5rem; box-shadow: inset 0 0 0 1px rgba(var(--ink-line), .2); display: block; }
+.se-miss { display: grid; place-items: center; font-size: .625rem; color: var(--danger); background: var(--danger-soft); padding: 4px; overflow: hidden; }
+.se-picker { display: grid; gap: var(--sp-2); padding: var(--sp-2); border-radius: var(--r-md, .875rem); background: var(--well); }
+.se-lib { grid-template-columns: repeat(auto-fill, minmax(4.2rem, 1fr)); max-height: 18rem; overflow: auto; }
+.se-lib img { aspect-ratio: 4 / 5; }
+.se-issues { margin-top: var(--sp-3); }
+.se-list { list-style: none; margin: var(--sp-2) 0 0; padding: 0; display: grid; gap: 6px; }
+.se-list .lb-btn { margin-inline-end: 6px; }
+.se-meta { display: grid; gap: var(--sp-3); }
+.se-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--sp-3); }
+.se-pngs { display: flex; gap: var(--sp-2); overflow-x: auto; padding-block: var(--sp-2); }
+.se-pngs img { width: 7.5rem; aspect-ratio: 4 / 5; object-fit: cover; border-radius: .625rem; display: block; box-shadow: 0 0 0 1px rgba(var(--ink-line), .14); }
+.se-pngs.is-stale img { opacity: .45; }
+@media (max-width: 1180px) and (min-width: 901px) {
+  /* the strip runs above (story editor rule), so the slide and the fields share the row: the slide was in the 8.5rem column
+     and spilled over the fields */
+  .se-ed { grid-template-columns: var(--se-w) minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .se-ed { --se-w: min(100%, 24rem); grid-template-columns: 1fr; }
+  .se-strip { grid-auto-flow: column; grid-auto-columns: 7rem; max-height: none; overflow-x: auto; }
+  .se-strip .st-strip-act { grid-auto-flow: row; }
+}

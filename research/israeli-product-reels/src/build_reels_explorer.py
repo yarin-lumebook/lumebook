@@ -394,7 +394,7 @@ CATALOG = {
 
 HE_DIR = HERE / "he"          # Hebrew translations of the English research text, one JSON per source (written 05 Nov 2026)
 JOB_STATUS = {"posted": "פורסם", "active": "פעיל", "done": "הושלם"}
-S3_NOTE = "בוטל ב 05 / 11 / 2026: ירין החליט שרילס לעולם לא מזכירים מחיר, ולכן לומבוק לא מציגה מחיר בכלל. "
+S3_NOTE = "בוטל ב 05 / 11 / 2026: ירין החליט שרילס לעולם לא מזכירים מחיר, ולכן לומיבוק לא מציגה מחיר בכלל. "
 
 
 def hebrew(data):

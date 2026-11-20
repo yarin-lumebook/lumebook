@@ -288,6 +288,9 @@ def lint():
         hit = NO_TALK.search(copy)
         if hit:
             bad.append(f"- ERROR {r['id']}: talks about {hit.group(0)!r}; reels never mention the language options or the digital copy (Yarin, 05 Nov 2026)")
+        hit = NO_PREVIEW.search(copy)
+        if hit:
+            bad.append(f"- ERROR {r['id']}: says {hit.group(0)!r}; talk about how simple it is instead (בוחרים סיפור, מוסיפים תמונה של הילד, ובום, יש ספר) (Yarin, 20 Nov 2026)")
         # Yarin, 07 Nov 2026: none of the kids are his; he speaks as LumeBook's marketing guy, never as a parent
         if r["voice"] == "yarin":
             hit = NOT_A_PARENT.search(" ".join([copy, r.get("shot", "")]))
@@ -337,6 +340,7 @@ def price_hit(text):
 
 
 NO_TALK = re.compile(r"דיגיטל|אנגלית|ערבית|רוסית|שפות|בשפה|שפה")   # Yarin, 05 Nov 2026: the content is in Hebrew for an Israeli audience; nobody cares about the digital copy
+NO_PREVIEW = re.compile(r"תצוגה מקדימה|התצוגה המקדימה|בתצוגה מקדימה")   # Yarin, 20 Nov 2026: unnatural, people don't care; say how simple it is
 NOT_A_PARENT = re.compile(r"(?:ה|ל|ש|מ|ב)?(?:ילד|ילדה|ילדים|בן|בת|נכד|נכדה|נכדים) שלי|אצלנו בבית|אני (?:אמא|אבא)|כאבא|הבית שלי|פרצוף עייף")
 HOOK_CHARS = 34   # 2 s of reading at 17 characters a second (principle T5)
 SETUP = re.compile(r"(?:היי|שלום|היום אני|הרבה הורים|בואו נדבר|רציתי לספר)")

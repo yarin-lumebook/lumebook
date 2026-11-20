@@ -78,7 +78,7 @@ __CAL_CSS__
 
 <div class="lb-app" dir="rtl" lang="he">
   <aside class="lb-sidebar" id="sidebar" aria-label="אזורים">
-    <a class="lb-brand" href="#overview"><img src="__LOGO__" alt=""><span><b>מערכת הרילס</b><small>לומבוק, נכון ל 05 / 11 / 2026</small></span></a>
+    <a class="lb-brand" href="#overview"><img src="__LOGO__" alt=""><span><b>מערכת הרילס</b><small>לומיבוק, נכון ל 05 / 11 / 2026</small></span></a>
     <nav class="lb-nav" id="nav"></nav>
     <div class="lb-sidebar-foot">
       <a class="lb-btn secondary sm" href="/sites/content-calendar/">לוח תוכן: הקרוסלות והרילס של החודש</a>
@@ -323,7 +323,7 @@ function prList() {
       <summary>${pid(p.id, g.cat)}<span class="lb-sum">${esc(p.title)}</span><span class="lb-chip ${p.strength === "strong" ? "success" : p.strength === "contested" ? "danger" : p.strength === "weak" ? "" : "info"}">${esc(STRENGTH_HE[p.strength] || "ללא דירוג")}</span></summary>
       <div class="lb-disclosure-body"><dl class="kv-tight">
         <dt>הכלל</dt><dd>${esc(p.rule)}</dd>
-        ${p.lb ? `<dt>בשביל לומבוק</dt><dd>${auto(p.lb)}</dd>` : ""}
+        ${p.lb ? `<dt>בשביל לומיבוק</dt><dd>${auto(p.lb)}</dd>` : ""}
         ${p.overlaps ? `<dt>חופף ל</dt><dd><div class="lb-row">${p.overlaps.split(/,\s*/).map(o => { const id = o.trim().split(" ")[0]; const gg = GROUP[id[0]]; return gg && PR.items.some(x => x.id === id) ? pid(id, gg.cat, ["principles", "p-" + id]) : ""; }).join("")}</div></dd>` : ""}
         ${p.evidence ? `<dt>הערות מלאות</dt><dd><span class="code">research/israeli-product-reels/${esc(p.evidence)}</span></dd>` : ""}
       </dl></div></details>`).join("")}</div>`;

@@ -54,8 +54,8 @@ def check(c):
         if isinstance(o, str):
             if re.search("[–—]", o):
                 bad.append(f"{path}: em or en dash")
-            if "לומיבוק" in o:
-                bad.append(f"{path}: the brand is לומבוק in our pages (or LumeBook)")
+            if "לומבוק" in o:
+                bad.append(f"{path}: the brand is לומיבוק in our pages (or LumeBook)")
         elif isinstance(o, dict):
             for k, v in o.items():
                 walk(v, f"{path}.{k}")
@@ -284,7 +284,7 @@ def build():
                     '<meta name="robots" content="noindex, nofollow">\n'
                     f'<link rel="canonical" href="{store}/IL/he">\n<title>הצעה לדף הבית · LumeBook</title>')
         else:
-            meta = '<meta name="robots" content="noindex">\n<title>החנות בעיצוב שלנו · לומבוק</title>'
+            meta = '<meta name="robots" content="noindex">\n<title>החנות בעיצוב שלנו · לומיבוק</title>'
         return f"""<!doctype html>
 <html lang="he" dir="rtl" data-appearance="own">
 <head>

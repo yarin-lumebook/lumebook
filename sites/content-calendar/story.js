@@ -302,6 +302,13 @@
         return png[i] ? '<a href="' + esc(png[i]) + '" download="' + esc(ST.key + "-" + (i + 1)) + '.png" title="הורדת פריים ' + (i + 1) + '"><img src="' + esc(png[i]) + '" alt="פריים ' + (i + 1) + '" loading="lazy"><span class="lb-num">' + (i + 1) + "</span></a>" : '<span class="st-nopng lb-num">' + (i + 1) + "</span>";
       }).join("") + '</div><div class="lb-row"><button type="button" class="lb-btn secondary sm" data-s="render">' + ic("sync") + "ליצור את התמונות</button>" +
       (png.filter(Boolean).length ? '<button type="button" class="lb-btn ghost sm" data-s="dl-all">' + ic("download") + "להוריד את כולן</button>" : "") + "</div></div>";
+    /* the set's song (Yarin, 20 Nov 2026: "add different music for each"): added in Instagram with its music sticker, never burned into
+       the PNG: the library's songs are commercial and its files are not a licence */
+    var mu = s.music || {};
+    h += '<div class="cc-box"><h4>' + ic("audio") + "המוזיקה של הסט</h4><p>מוסיפים באינסטגרם עם מדבקת המוזיקה, יחד עם מדבקת הקישור. השיר לא נכנס לתמונה.</p>" +
+      '<dl class="cc-kv"><dt>שיר</dt><dd><input class="lb-input" dir="ltr" translate="no" data-sc="music" data-p="title" value="' + esc(mu.title || "") + '"></dd>' +
+      '<dt>מאיפה</dt><dd><input class="lb-input st-time" dir="ltr" data-sc="music" data-p="start" value="' + esc(mu.start || "") + '" placeholder="1:05"></dd>' +
+      (mu.why ? "<dt>למה</dt><dd>" + esc(mu.why) + "</dd>" : "") + "</dl></div>";
     var st = [];
     s.frames.forEach(function (f, i) { f.layers.forEach(function (l) { if (l.type === "sticker") st.push({ i: i, l: l, manual: f.manual }); }); });
     if (st.length) h += '<div class="cc-box"><h4>' + ic("link") + "מדבקות של אינסטגרם</h4><p>פוסטיז לא שולח מדבקות (קישור, סקר, שאלה, ספירה לאחור), ואי אפשר להוסיף מדבקה לסטורי שכבר עלה. פריים עם מדבקה: או לסמן אותו \"עולה ידנית\" ולהעלות מהטלפון עם המדבקה, או לשלוח דרך פוסטיז בלי המדבקה.</p><ul class=\"st-stk\">" +
@@ -333,6 +340,7 @@
   /* ---------- edits ---------- */
   function setProp(sc, p, v, opt) {
     if (sc === "set") { ST.set[p] = v; dirty(); return; }
+    if (sc === "music") { ST.set.music = Object.assign({}, ST.set.music || {}, (function (o) { o[p] = v; return o; })({})); dirty(); return; }
     change(function () {
       var f = fr();
       if (sc === "l") { var l = layer(); if (l) l[p] = v; }

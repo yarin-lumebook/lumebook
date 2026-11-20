@@ -35,6 +35,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import stories  # noqa: E402  (the story sets, 19 Nov 2026)
+import seasonal  # noqa: E402  (the Black Friday and Hanukkah carousels, 20 Nov 2026)
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "sites" / "content-calendar"
@@ -57,6 +58,12 @@ GRADES = PIPE / "grades.json"
 APPROVED = PIPE / "approved"
 CM_URL = os.environ.get("LUMEBOOK_CM_URL") or "http://127.0.0.1:8777"
 TEST_BATCH = "test-2026-11"
+# Yarin, 20 Nov 2026: "remove the trial carousels from the content board". The test batch (קרוסלות ניסוי) is no longer drawn on the
+# calendar; its files and Carousel Machine's סבב ניסוי stay as they are. LUMEBOOK_CALENDAR_TEST=1 brings the pieces back.
+SHOW_TEST = os.environ.get("LUMEBOOK_CALENDAR_TEST") == "1"
+# Reel suggestions (20 Nov 2026, Yarin: "remove all reel suggestions everywhere"): reels without a final video and not posted or sent,
+# reel ideas and shoot days are not drawn. LUMEBOOK_CALENDAR_REEL_IDEAS=1 brings them back.
+SHOW_REEL_SUGGESTIONS = os.environ.get("LUMEBOOK_CALENDAR_REEL_IDEAS") == "1"
 try:
     from zoneinfo import ZoneInfo
     IL = ZoneInfo("Asia/Jerusalem")
@@ -71,7 +78,7 @@ STATUSES = [
 ]
 STATUS_HE = dict(STATUSES)
 NEEDS_ME = {"grade": "לדרג", "pick": "לבחור", "hook": "לבחור הוק", "film": "לצלם", "approve": "לאשר", "produce": "להפיק"}
-KIND_HE = {"kid": "קרוסלת ילד", "test": "קרוסלת ניסוי", "reel": "ריל", "idea": "רעיון", "story": "סטוריז"}
+KIND_HE = {"kid": "קרוסלת ילד", "test": "קרוסלת ניסוי", "reel": "ריל", "idea": "רעיון", "story": "סטוריז", "season": "קרוסלת חג"}
 TEST_TYPES = {"say": ("תגידו את זה", "chat"), "how": ("ככה זה עובד", "compass"), "gift": ("מתנה לחנוכה", "gift"),
               "age": ("מה קורה בגיל", "trend"), "reveal": ("הרגע שרואים", "eye")}
 RUN_MAKING = {"queued", "fixing", "preparing", "generating", "composing", "exporting", "started", "running"}
@@ -311,6 +318,8 @@ def reel_pieces(month, st, jobs):
         else:
             status = "produce"
             needs.append("produce")
+        if not SHOW_REEL_SUGGESTIONS and status in ("hook", "film", "produce"):
+            continue
         if r.get("blockers"):
             flags.append({"code": "blocked", "he": "חסר: " + "; ".join(str(b) for b in r["blockers"])[:200]})
         gpt = r.get("gpt") or {}
@@ -358,7 +367,7 @@ def reel_pieces(month, st, jobs):
                        "shoot": shoots.get(dt, {}).get("note") if r["id"] in (shoots.get(dt, {}).get("for") or []) else None},
         })
     # shoot days: a separate, non-posting row
-    for dt, s in shoots.items():
+    for dt, s in (shoots.items() if SHOW_REEL_SUGGESTIONS else []):
         if dt.startswith(month):
             out.append({"id": "s-" + dt, "kind": "shoot", "date": dt, "time": None, "title": "צילום", "status": None,
                         "detail": {"note": s.get("note", ""), "for": s.get("for") or []}, "flags": [], "needs": [], "channels": []})
@@ -733,7 +742,7 @@ def test_pieces(month, st, notices):
 def idea_pieces(month, st):
     out = []
     for k, v in st["ideas"].items():
-        if not str(v.get("date", "")).startswith(month):
+        if not str(v.get("date", "")).startswith(month) or (v.get("for") == "reel" and not SHOW_REEL_SUGGESTIONS):
             continue
         hk = st["hooks"].get("i-" + k) or {}
         status = "hook" if hk.get("options") and hk.get("picked") is None else "idea"
@@ -838,7 +847,7 @@ def _collect(month, jobs=(), drafts=False):
     pieces = []
     hidden = []
     _LIVE["data"] = postiz_live(month)
-    for fn in (lambda: kid_pieces(month, st, notices, drafts, hidden), lambda: test_pieces(month, st, notices)):
+    for fn in (lambda: kid_pieces(month, st, notices, drafts, hidden), lambda: test_pieces(month, st, notices) if SHOW_TEST else []):
         try:
             pieces += fn()
         except Exception as exc:  # noqa: BLE001 - one source failing never blanks the page
@@ -854,6 +863,10 @@ def _collect(month, jobs=(), drafts=False):
         pieces += stories.pieces(month, st)   # before postiz_only, so a set's Postiz posts are its own and not strays
     except Exception as exc:  # noqa: BLE001
         notices.append(f"שגיאה בקריאת הסטוריז: {exc}")
+    try:
+        pieces += seasonal.pieces(month, st)   # Black Friday and Hanukkah, two options a day (tools/seasonal.py)
+    except Exception as exc:  # noqa: BLE001
+        notices.append(f"שגיאה בקריאת קרוסלות החג: {exc}")
     pieces += postiz_only(month, pieces)
     if _LIVE["data"] is None and POSTIZ_CMD != "off":
         notices.append("בודק מול פוסטיז, מתעדכן בעוד רגע.")
@@ -863,7 +876,7 @@ def _collect(month, jobs=(), drafts=False):
     gap = int(hours().get("min_gap_minutes") or 180)
     by_day = {}
     for p in pieces:
-        if p["kind"] in ("kid", "test", "reel", "post") and p.get("time"):
+        if p["kind"] in ("kid", "test", "reel", "post", "season") and p.get("time"):
             by_day.setdefault(p["date"], []).append(p)
     for day_pieces in by_day.values():
         day_pieces.sort(key=lambda p: p["time"])
@@ -876,7 +889,7 @@ def _collect(month, jobs=(), drafts=False):
     body = {"month": month, "today": today(), "pieces": pieces, "notices": notices,
             "statuses": [{"code": c, "he": h} for c, h in STATUSES], "hours": hr,
             "targets": hr.get("targets") or {"carousel": 2, "reel": 2}, "hidden_drafts": len(hidden), "drafts": bool(drafts),
-            "reels_defaults": reels_cfg((read_json(REELS_JSON, {}) or {}).get("defaults") or {}), "story_lib": stories.library()}
+            "reels_defaults": reels_cfg((read_json(REELS_JSON, {}) or {}).get("defaults") or {}), "story_lib": stories.library(), "season_lib": seasonal.library()}
     blob = json.dumps(body, ensure_ascii=False, sort_keys=True)
     body["rev"] = hashlib.sha1(blob.encode("utf-8")).hexdigest()[:12]
     return body
@@ -893,6 +906,8 @@ def move(piece_id, to_date, to_time="keep"):
         return 400, {"error": "bad date or time"}
     if piece_id.startswith("st-"):   # a story set: its date and time live in series.json (tools/stories.py)
         return stories.move(piece_id, to_date, to_time)
+    if piece_id.startswith("se-"):  # a Black Friday or Hanukkah day: its move lives in the seasonal folder's state.json
+        return seasonal.move(piece_id, to_date, to_time)
     month = to_date[:7]
     with _lock:
         st = state()
@@ -1163,8 +1178,8 @@ def send_reel(reel_id, kind, date_s, time_s, ig_text=None, fb_text=None, draft=F
     ig_text = (ig_text or texts["ig"]).strip()
     fb_text = (fb_text or texts["fb"]).strip()
     for t in (ig_text, fb_text):
-        if re.search(r"—|–|לומיבוק", t):
-            return 400, {"error": "text rules", "he": "בטקסט יש מקף ארוך או איות לא נכון של לומבוק"}
+        if re.search(r"—|–|לומבוק", t):
+            return 400, {"error": "text rules", "he": "בטקסט יש מקף ארוך או איות לא נכון של לומיבוק"}
     try:
         base = _when(date_s, time_s, draft)
         post_type = "draft" if draft else "schedule"

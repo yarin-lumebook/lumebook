@@ -226,13 +226,13 @@ class ValidatorHardRules(unittest.TestCase):
         self.assertTrue(any("קישור" in m for m in msgs))
 
     def test_diagnosis_guarantee_and_universal_words(self):
-        for line in ("זו חרדת פרידה", "בלי דמעות תוך שבוע", "כל הילדים מרגישים ככה", "בספר של לומיבוק"):
+        for line in ("זו חרדת פרידה", "בלי דמעות תוך שבוע", "כל הילדים מרגישים ככה", "בספר של לומבוק"):
             pack = load()
             version(pack, "expert-1")["slides"][3]["body"] = line
             self.assertTrue(errors(pack), line)
 
     def test_carousel_never_names_the_brand(self):
-        for text in ("בספר של לומבוק", "LumeBook", "lumebook", "ספר של לומיבוק"):
+        for text in ("בספר של לומיבוק", "LumeBook", "lumebook", "ספר של לומבוק"):
             pack = load()
             version(pack, "kid-1")["slides"][6]["body"] = text
             self.assertTrue(any("never name the brand" in e.message for e in errors(pack)), text)

@@ -64,7 +64,7 @@ PER_LANG = {
         ("brand spelling", re.compile(r"Lumebook|Lume Book|لومبوك")),
     ],
 }
-# this page spells the brand לומיבוק (Yarin, 07 / 11 / 2026), so the project-wide ban on that spelling is swapped for its opposite here
+# this page spells the brand לומיבוק (Yarin, 07 / 11 / 2026), as the whole project does since 20 / 11 / 2026
 PAGE_BRAND_HE = "לומיבוק"
 BANNED_WORDS_HE = ["לומבוק"] + list(FACTS["offer"]["banned_wording_he"])
 DISCLAIMER_KEY = "disclaimer"
